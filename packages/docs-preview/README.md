@@ -4,6 +4,23 @@
 npx @hashicorp/docs-preview@docs-preview
 ```
 
+TO DO:
+
+- [x] `.env` varies by product
+  - for now, have a messy bash script that handles this
+  - must be a better solution longer term... maybe even just committing eg `.env.waypoint` and then doing a rename in the bash script might be preferable.
+- [x] Providing args for nav-data and content dirs feels unnecessary
+  - Maybe we can assume defaults for these
+  - I think they are already consistent across docs product repos.
+- [x] `additionalComponents` may vary across products
+  - A simple, but perhaps not-ideally-performant fix would be to include all possible `additionalComponents`
+  - taking this "everything" approach for now
+- [ ] Use `next-remote-watch`
+
+---
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
