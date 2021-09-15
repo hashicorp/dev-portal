@@ -12,8 +12,6 @@ components
 pages
 public
 site-specific
-.env.consul
-.env.waypoint
 tsconfig.json
 next-env.d.ts
 next.config.js
@@ -23,6 +21,7 @@ prettier.config.js
 .eslintrc.js
 .stylelintrc.js
 vercel.json
+redirects.js
 
 #
 # REMAINDER OF THIS FILE IS THE FULL SOURCE OF
