@@ -13,9 +13,8 @@ echo "CURRENTDIR:"
 echo "$currentDir"
 echo "PRODUCT:"
 echo "$previewProduct"
-echo "cp -R \"$projectDir/site/.\" \"$currentDir/\""
 # rm -rf "$projectDir/node_modules"
-cp -r "$projectDir/site" "$currentDir"
+cp -R "$projectDir/site/." "$currentDir/"
 # Write out product-specific local env vars
 # necessary for preview to work correctly
 cp ".env.$previewProduct" .env.local
