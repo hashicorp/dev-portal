@@ -70,3 +70,11 @@ npx @hashicorp/docs-preview@docs-preview
   - A simple, but perhaps not-ideally-performant fix would be to include all possible `additionalComponents`
   - taking this "everything" approach for now
 - [x] Use `next-remote-watch`
+- [ ] Is it possible to source `.gitignore` from this package, and omit from VCS in product repos?
+- [ ] Redirects should likely be in this package as well
+- [ ] Write up RFC
+  - This "copy and paste" approach is basic, that's part of what's attractive about it
+  - Pivoting is something we're prepared to do
+    - eg, slim site vs full site
+    - adding authoring capabilities - could be part of full site
+    - one issue might be sensitive `.env` things
