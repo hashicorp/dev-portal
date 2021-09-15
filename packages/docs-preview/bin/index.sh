@@ -23,7 +23,7 @@ cp ".env.$previewProduct" .env.local
 npm ci
 # Copy public assets from source repo into the
 # working Next.js directory
-cp -r "../public" "./public"
+cp -r "../public/" "./public"
 # Run next dev
 NEXT_PUBLIC_CWD="$currentDir" npm run dev
 # NEXT_PUBLIC_ALGOLIA_APP_ID=YY0FFNI7MF NEXT_PUBLIC_ALGOLIA_INDEX=product_WAYPOINT NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY=5e4adfd8094367056501547d6fedb6c5 NEXT_PUBLIC_CWD="/Users/zachshilton/code/waypoint/website" npm run dev
