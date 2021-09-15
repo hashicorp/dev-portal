@@ -18,8 +18,11 @@ cd "$currentDir/temp-docs-preview"
 # Write out product-specific local env vars
 # necessary for preview to work correctly
 cp ".env.$previewProduct" .env.local
-# Clean install and npm run dev
-ls
+# Clean install
 npm ci
-NEXT_PUBLIC_DOCS_PREVIEW_PRODUCT="$previewProduct" NEXT_PUBLIC_CWD="$currentDir" npm run dev
-# NEXT_PUBLIC_ALGOLIA_APP_ID=YY0FFNI7MF NEXT_PUBLIC_ALGOLIA_INDEX=product_WAYPOINT NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY=5e4adfd8094367056501547d6fedb6c5 NEXT_PUBLIC_DOCS_PREVIEW_PRODUCT=waypoint NEXT_PUBLIC_CWD="/Users/zachshilton/code/waypoint/website" npm run dev
+# Copy public assets from source repo into the
+# working Next.js directory
+cp -r "../public" "./public"
+# Run next dev
+NEXT_PUBLIC_CWD="$currentDir" npm run dev
+# NEXT_PUBLIC_ALGOLIA_APP_ID=YY0FFNI7MF NEXT_PUBLIC_ALGOLIA_INDEX=product_WAYPOINT NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY=5e4adfd8094367056501547d6fedb6c5 NEXT_PUBLIC_CWD="/Users/zachshilton/code/waypoint/website" npm run dev

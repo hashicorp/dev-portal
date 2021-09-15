@@ -16,9 +16,18 @@ function Home({
 }) {
   return (
     <div>
-      <Link href="/docs">
-        <a>/docs</a>
-      </Link>
+      <ul>
+        <li>
+          <Link href="/docs">
+            <a>/docs</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/downloads">
+            <a>/downloads</a>
+          </Link>
+        </li>
+      </ul>
       <pre>
         <code>
           {JSON.stringify(

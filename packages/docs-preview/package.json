@@ -1,6 +1,6 @@
 {
   "name": "@hashicorp/docs-preview",
-  "version": "0.0.1-docs-preview.987dcb39d0882b24ab33a162bb2ed593a720517f.0",
+  "version": "0.0.1-docs-preview.cd4539027966b3eb42acefda840f6090374b88dc.0",
   "bin": "bin/index.sh",
   "scripts": {
     "dev": "next dev",
@@ -14,6 +14,7 @@
     "@hashicorp/platform-util": "^0.1.0",
     "@hashicorp/react-docs-page": "^14.0.3",
     "@hashicorp/react-min-100-layout": "^2.0.1",
+    "@hashicorp/react-product-downloads-page": "^2.5.2",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
