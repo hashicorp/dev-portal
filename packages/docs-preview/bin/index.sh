@@ -14,12 +14,10 @@ echo "$currentDir"
 echo "PRODUCT:"
 echo "$previewProduct"
 # rm -rf "$projectDir/node_modules"
-cp -r "$projectDir/site" "$currentDir/temp-docs-preview"
-cd "$currentDir/temp-docs-preview"
+cp -r "$projectDir/site" "$currentDir"
 # Write out product-specific local env vars
 # necessary for preview to work correctly
 cp ".env.$previewProduct" .env.local
-ls
 # Clean install
 # npm ci
 # Copy public assets from source repo into the
