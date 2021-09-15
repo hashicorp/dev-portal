@@ -14,6 +14,9 @@ echo "$currentDir"
 echo "PRODUCT:"
 echo "$previewProduct"
 cp -R "$projectDir/site/." "$currentDir/"
+# Rename .gitignore for consumer
+# so that it becomes effective
+mv gitignore-consumer .gitignore-consumer
 # Write out product-specific local env vars
 # necessary for preview to work correctly
 cp ".env.$previewProduct" .env.local

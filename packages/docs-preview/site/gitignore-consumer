@@ -1,0 +1,24 @@
+# note: this .gitignore is for consumer contexts only.
+# it is renamed to .gitignore-consumer so that it becomes
+# effective when consumers run npx @hashicorp/docs-preview.
+
+# ignore self, so consuming repos
+# don't have to worry about which
+# docs-preview files to ignore
+.gitignore
+
+# ignore all preview-related files
+components
+pages
+public
+.env.consul
+.env.waypoint
+tsconfig.json
+next-env.d.ts
+next.config.js
+npm-shrinkwrap.json
+package.json
+prettier.config.js
+.eslintrc.js
+.stylelintrc.js
+vercel.json
