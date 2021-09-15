@@ -12,6 +12,7 @@
         "@hashicorp/platform-code-highlighting": "^0.1.1",
         "@hashicorp/platform-util": "^0.1.0",
         "@hashicorp/react-docs-page": "^14.0.3",
+        "@hashicorp/react-min-100-layout": "^2.0.1",
         "next": "11.1.2",
         "react": "17.0.2",
         "react-dom": "17.0.2"
@@ -3457,6 +3458,19 @@
         "@hashicorp/mktg-global-styles": ">=3.x",
         "react": ">=16.x"
       }
+    },
+    "node_modules/@hashicorp/react-min-100-layout": {
+      "version": "2.0.1",
+      "resolved": "https://registry.npmjs.org/@hashicorp/react-min-100-layout/-/react-min-100-layout-2.0.1.tgz",
+      "integrity": "sha512-WCVfRwTREBuArBD0obyq2wbGh0cl/oLi+AOLpNs23vadCcGWaop552kSutNHnfEHZCv5MwOHyitUVJua1f+SXQ==",
+      "dependencies": {
+        "classnames": "^2.3.1"
+      }
+    },
+    "node_modules/@hashicorp/react-min-100-layout/node_modules/classnames": {
+      "version": "2.3.1",
+      "resolved": "https://registry.npmjs.org/classnames/-/classnames-2.3.1.tgz",
+      "integrity": "sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA=="
     },
     "node_modules/@hashicorp/react-placeholder": {
       "version": "0.1.0",
@@ -28953,6 +28967,21 @@
       "resolved": "https://registry.npmjs.org/@hashicorp/react-link-wrap/-/react-link-wrap-3.0.3.tgz",
       "integrity": "sha512-G0JM3IowWCUWkc/mW5Llb/9NK50PH81/fySGZmQI6/oakK1gLvA6/fEfWRX7cqa7NoFHLiNnDrXJkc3ShtKNVw==",
       "requires": {}
+    },
+    "@hashicorp/react-min-100-layout": {
+      "version": "2.0.1",
+      "resolved": "https://registry.npmjs.org/@hashicorp/react-min-100-layout/-/react-min-100-layout-2.0.1.tgz",
+      "integrity": "sha512-WCVfRwTREBuArBD0obyq2wbGh0cl/oLi+AOLpNs23vadCcGWaop552kSutNHnfEHZCv5MwOHyitUVJua1f+SXQ==",
+      "requires": {
+        "classnames": "^2.3.1"
+      },
+      "dependencies": {
+        "classnames": {
+          "version": "2.3.1",
+          "resolved": "https://registry.npmjs.org/classnames/-/classnames-2.3.1.tgz",
+          "integrity": "sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA=="
+        }
+      }
     },
     "@hashicorp/react-placeholder": {
       "version": "0.1.0",

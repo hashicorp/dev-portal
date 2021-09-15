@@ -1,0 +1,12 @@
+.root {
+  padding: 1rem;
+  border: 1px solid red;
+  background: mistyrose;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  color: red;
+}

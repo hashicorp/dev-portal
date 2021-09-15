@@ -13,6 +13,7 @@
     "@hashicorp/platform-code-highlighting": "^0.1.1",
     "@hashicorp/platform-util": "^0.1.0",
     "@hashicorp/react-docs-page": "^14.0.3",
+    "@hashicorp/react-min-100-layout": "^2.0.1",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
