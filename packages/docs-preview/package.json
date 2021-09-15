@@ -2,32 +2,6 @@
   "name": "@hashicorp/docs-preview",
   "version": "0.0.1-docs-preview.b42b6ab6b678a80b755ce6248838e2c47b246360.0",
   "bin": "bin/index.sh",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "temp-canary": "npm version prerelease --git-tag-version=false --preid=\"$(git branch --show-current).$(git log -n1 --format=format:\"%H\")\"&& npm publish --tag=\"$(git branch --show-current)\""
-  },
-  "dependencies": {
-    "@hashicorp/platform-code-highlighting": "^0.1.1",
-    "@hashicorp/platform-util": "^0.1.0",
-    "@hashicorp/react-docs-page": "^14.0.3",
-    "@hashicorp/react-min-100-layout": "^2.0.1",
-    "@hashicorp/react-product-downloads-page": "^2.5.2",
-    "next": "11.1.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "devDependencies": {
-    "@hashicorp/platform-cli": "^1.1.2",
-    "@hashicorp/platform-nextjs-plugin": "^0.3.0",
-    "@hashicorp/platform-types": "^0.1.1",
-    "@types/react": "17.0.20",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2",
-    "typescript": "4.4.2"
-  },
   "publishConfig": {
     "access": "public"
   },

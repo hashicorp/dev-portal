@@ -9,7 +9,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@hashicorp/react-docs-page/server'
-import getProductMetadata from 'lib/get-product-metadata'
+import productMetadata from 'data/metadata.json'
 
 const NEXT_PUBLIC_CWD = process.env.NEXT_PUBLIC_CWD
 
@@ -43,7 +43,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { product, mainBranch } = getProductMetadata(NEXT_PUBLIC_CWD)
+  const { product, mainBranch } = productMetadata
   const navDataFile = getRelativePathFromCwd(NAV_DATA_FILE)
   const localContentDir = getRelativePathFromCwd(CONTENT_DIR)
   const staticProps = await generateStaticProps({
