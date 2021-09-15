@@ -14,6 +14,7 @@
     "static": "npm run build && npm run export"
   },
   "dependencies": {
+    "@hashicorp/mktg-logos": "^1.2.0",
     "@hashicorp/platform-code-highlighting": "^0.1.1",
     "@hashicorp/platform-util": "^0.1.0",
     "@hashicorp/react-docs-page": "^14.0.3",

@@ -9,6 +9,7 @@
       "version": "0.0.1-docs-preview.b42b6ab6b678a80b755ce6248838e2c47b246360.0",
       "license": "MPL-2.0",
       "dependencies": {
+        "@hashicorp/mktg-logos": "^1.2.0",
         "@hashicorp/platform-code-highlighting": "^0.1.1",
         "@hashicorp/platform-util": "^0.1.0",
         "@hashicorp/react-docs-page": "^14.0.3",
@@ -2135,6 +2136,11 @@
       "resolved": "https://registry.npmjs.org/@hashicorp/mktg-global-styles/-/mktg-global-styles-4.0.0.tgz",
       "integrity": "sha512-5B0/AUCtqTeGoDR9a5FmkRAC5ubBSN2DQEtDHFy7eOSxXqETRfvMRjHa4Gfv1shfb0PNMufDWKfaDalhuHJ+jA==",
       "peer": true
+    },
+    "node_modules/@hashicorp/mktg-logos": {
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/@hashicorp/mktg-logos/-/mktg-logos-1.2.0.tgz",
+      "integrity": "sha512-bGPaj1FhidA4NFF0C/KpIPwQL4QXJzvOB4uTdBX9g8zTg9V2Kf2MZBC2lt+TL8Xem4k8qmBaa36w8x6+fmbdRw=="
     },
     "node_modules/@hashicorp/netlify-to-nextjs-redirect-exporter": {
       "version": "0.0.6",
@@ -28288,6 +28294,11 @@
       "resolved": "https://registry.npmjs.org/@hashicorp/mktg-global-styles/-/mktg-global-styles-4.0.0.tgz",
       "integrity": "sha512-5B0/AUCtqTeGoDR9a5FmkRAC5ubBSN2DQEtDHFy7eOSxXqETRfvMRjHa4Gfv1shfb0PNMufDWKfaDalhuHJ+jA==",
       "peer": true
+    },
+    "@hashicorp/mktg-logos": {
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/@hashicorp/mktg-logos/-/mktg-logos-1.2.0.tgz",
+      "integrity": "sha512-bGPaj1FhidA4NFF0C/KpIPwQL4QXJzvOB4uTdBX9g8zTg9V2Kf2MZBC2lt+TL8Xem4k8qmBaa36w8x6+fmbdRw=="
     },
     "@hashicorp/netlify-to-nextjs-redirect-exporter": {
       "version": "0.0.6",
