@@ -1,34 +1,31 @@
 import latestVersion from 'data/version'
-import productMetadata from 'data/metadata.json'
+import { productName, productSlug } from 'data/metadata'
 import downloadPageProps from 'data/download-page-props'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
 
-function DownloadsPage({ releases, product }) {
+function DownloadsPage({ releases }) {
   return (
     <ProductDownloadsPage
       releases={releases}
       latestVersion={latestVersion}
-      productName={product.name}
-      productId={product.slug}
-      product={product.slug}
+      productName={productName}
+      productId={productSlug}
+      product={productSlug}
       {...downloadPageProps}
     />
   )
 }
 
 export async function getStaticProps() {
-  const { product } = productMetadata
   const staticProps = await generateStaticProps({
-    product: product.slug,
+    product: productSlug,
     latestVersion,
   })
   const releases = staticProps.props.releases
   return {
     props: {
       releases,
-      product,
-      latestVersion,
     },
   }
 }

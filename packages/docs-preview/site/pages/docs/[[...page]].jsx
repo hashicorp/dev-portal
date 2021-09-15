@@ -1,4 +1,4 @@
-import productMetadata from 'data/metadata.json'
+import { productName, productSlug, mainBranch } from 'data/metadata'
 import DocsPage from '@hashicorp/react-docs-page'
 // additional components
 import Placement from 'components/waypoint/placement-table'
@@ -38,7 +38,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { product, mainBranch } = productMetadata
+  const product = {
+    name: productName,
+    slug: productSlug,
+  }
   const staticProps = await generateStaticProps({
     navDataFile: NAV_DATA_FILE,
     localContentDir: CONTENT_DIR,
