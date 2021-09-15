@@ -15,7 +15,7 @@ TO DO:
 - [x] `additionalComponents` may vary across products
   - A simple, but perhaps not-ideally-performant fix would be to include all possible `additionalComponents`
   - taking this "everything" approach for now
-- [ ] Use `next-remote-watch`
+- [x] Use `next-remote-watch`
 
 ---
 
