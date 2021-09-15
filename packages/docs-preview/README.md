@@ -71,6 +71,9 @@ npx @hashicorp/docs-preview@docs-preview
   - taking this "everything" approach for now
 - [x] Use `next-remote-watch`
 - [ ] Is it possible to source `.gitignore` from this package, and omit from VCS in product repos?
+  - If so, do it
+  - Before copying files in, copy in separate `.gitignore` (for consumers, different than our typical gitignore)
+  - Ignore the .gitignore file itself, at the project root (ie ignore `website/.gitignore`)
 - [ ] Redirects should likely be in this package as well
 - [ ] Write up RFC
   - This "copy and paste" approach is basic, that's part of what's attractive about it
