@@ -13,6 +13,7 @@ echo "CURRENTDIR:"
 echo "$currentDir"
 echo "PRODUCT:"
 echo "$previewProduct"
+rm -rf "$projectDir/node_modules"
 cp -r "$projectDir" "$currentDir/temp-docs-preview"
 cd "$currentDir/temp-docs-preview"
 # Write out product-specific local env vars

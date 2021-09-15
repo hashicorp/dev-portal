@@ -1,12 +1,12 @@
 {
   "name": "@hashicorp/docs-preview",
-  "version": "0.0.1-docs-preview.cd4539027966b3eb42acefda840f6090374b88dc.0",
+  "version": "0.0.1-docs-preview.aad460475128911db45dbb675e05799c488e9d96.0",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
       "name": "@hashicorp/docs-preview",
-      "version": "0.0.1-docs-preview.cd4539027966b3eb42acefda840f6090374b88dc.0",
+      "version": "0.0.1-docs-preview.aad460475128911db45dbb675e05799c488e9d96.0",
       "license": "MPL-2.0",
       "dependencies": {
         "@hashicorp/platform-code-highlighting": "^0.1.1",

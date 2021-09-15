@@ -1,6 +1,6 @@
 {
   "name": "@hashicorp/docs-preview",
-  "version": "0.0.1-docs-preview.cd4539027966b3eb42acefda840f6090374b88dc.0",
+  "version": "0.0.1-docs-preview.aad460475128911db45dbb675e05799c488e9d96.0",
   "bin": "bin/index.sh",
   "scripts": {
     "dev": "next dev",
