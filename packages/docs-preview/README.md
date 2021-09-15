@@ -4,7 +4,61 @@
 npx @hashicorp/docs-preview@docs-preview
 ```
 
-TO DO:
+## Set up in {product}/website
+
+1. Move `public/*` into a new `website/assets` folder
+   - Before running the preview, this `assets` folder is copied into a NextJS `public` folder
+   - So, move `public/img` to `assets/img`, for example
+   - Some files in `public` may not need to be moved, eg favicon. But not a big deal to worry about these, for now.
+2. Delete everything Next.js-related, except `redirects` (for now)
+
+   - Generally you'll be left with:
+
+     - `assets`
+     - `content`
+     - `data`
+     - `LICENSE`
+     - `redirects`
+
+   - Create a new `.gitignore` with the following contents:
+
+     ```
+     node_modules
+     .DS_Store
+
+     # preview output
+     .next
+     out
+
+     # preview
+     components
+     pages
+     public
+     # As per Next.js conventions (https://nextjs.org/docs/basic-features/environment-variables#default-environment-variables)
+     .env*.local
+     .env.consul
+     .env.waypoint
+     tsconfig.json
+     next-env.d.ts
+     next.config.js
+     npm-shrinkwrap.json
+     package.json
+     prettier.config.js
+     .eslintrc.js
+     .stylelintrc.js
+     vercel.json
+     ```
+
+   - Commit these changes
+
+3. Run `npx @hashicorp/docs-preview@docs-preview` to start local preview
+4. You can clean up the mess the above command makes with `git clean -Xdf`
+5. Create convenience scripts
+   - Create a new `clean` script file, with contents `git clean -Xdf`, and `chmod u+x ./clean`
+   - Create a new `start` script file, with contents `npx @hashicorp/docs-preview@docs-preview`, and `chmod u+x ./start`
+   - Now you can run `./start` to start local preview, and `./clean` to clean up after it
+
+## Random notes
 
 - [x] `.env` varies by product
   - for now, have a messy bash script that handles this
@@ -16,42 +70,3 @@ TO DO:
   - A simple, but perhaps not-ideally-performant fix would be to include all possible `additionalComponents`
   - taking this "everything" approach for now
 - [x] Use `next-remote-watch`
-
----
-
----
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
