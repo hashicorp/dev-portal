@@ -3,10 +3,15 @@
   "version": "0.0.1-docs-preview.b42b6ab6b678a80b755ce6248838e2c47b246360.0",
   "bin": "bin/index.sh",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "npm run start",
+    "build": "node --max-old-space-size=2048 ./node_modules/.bin/next build",
+    "export": "node --max-old-space-size=2048 ./node_modules/.bin/next export",
+    "format": "next-hashicorp format",
+    "generate:component": "next-hashicorp generate component",
+    "generate:readme": "next-hashicorp markdown-blocks README.md",
+    "lint": "next-hashicorp lint",
+    "start": "next-remote-watch ./content/**/*.mdx",
+    "static": "npm run build && npm run export"
   },
   "dependencies": {
     "@hashicorp/platform-code-highlighting": "^0.1.1",
@@ -25,6 +30,7 @@
     "@types/react": "17.0.20",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
+    "next-remote-watch": "^1.0.0",
     "typescript": "4.4.2"
   },
   "publishConfig": {
