@@ -5,21 +5,19 @@ currentDir="$(pwd)"
 parentDir="$(dirname "$currentDir")"
 previewProduct="$(basename "$parentDir")"
 NEXT_PUBLIC_CWD="$currentDir"
-echo "DIRNAME:"
-echo "$__dirname"
-echo "PROJECTDIR:"
-echo "$projectDir"
-echo "CURRENTDIR:"
-echo "$currentDir"
-echo "PRODUCT:"
-echo "$previewProduct"
+echo "__dirname: $__dirname"
+echo "projectDir: $projectDir"
+echo "currentDir: $currentDir"
+echo "previewProduct: $previewProduct"
+# Copy site source into working directory
 cp -R "$projectDir/site/." "$currentDir/"
 # Rename .gitignore for consumer
 # so that it becomes effective
 mv gitignore-consumer .gitignore
-# Write out product-specific local env vars
+# Write out product-specific files
 # necessary for preview to work correctly
-cp ".env.$previewProduct" .env.local
+cp "./site-specific/.env.$previewProduct" .env.local
+cp "./site-specific/redirects.$previewProduct.js" redirects.js
 # Clean install
 npm ci
 # Copy public assets from source repo into the
