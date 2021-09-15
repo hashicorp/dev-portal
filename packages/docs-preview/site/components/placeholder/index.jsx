@@ -1,9 +1,9 @@
 import s from './style.module.css'
 
-function Placeholder({ name }) {
+function Placeholder({ children }) {
   return (
     <div className={s.root}>
-      <p className={s.text}>{name}</p>
+      {children}
     </div>
   )
 }

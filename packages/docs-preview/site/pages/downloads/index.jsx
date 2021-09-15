@@ -1,9 +1,7 @@
-import getProductMetadata from 'lib/get-product-metadata'
+import productMetadata from 'data/metadata.json'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
 import styles from './style.module.css'
-
-const NEXT_PUBLIC_CWD = process.env.NEXT_PUBLIC_CWD
 
 function DownloadsPage({ releases, product, latestVersion, packageManagers }) {
   return (
@@ -17,13 +15,11 @@ function DownloadsPage({ releases, product, latestVersion, packageManagers }) {
       getStartedLinks={[
         {
           label: 'Deploy to Docker',
-          href:
-            'https://learn.hashicorp.com/collections/waypoint/get-started-docker',
+          href: 'https://learn.hashicorp.com/collections/waypoint/get-started-docker',
         },
         {
           label: 'Deploy to Kubernetes',
-          href:
-            'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
+          href: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
         },
         {
           label: 'Deploy to AWS',
@@ -51,8 +47,7 @@ function DownloadsPage({ releases, product, latestVersion, packageManagers }) {
 }
 
 export async function getStaticProps() {
-  const metadata = getProductMetadata(NEXT_PUBLIC_CWD)
-  const { product, latestVersion, packageManagers } = metadata
+  const { product, latestVersion, packageManagers } = productMetadata
   const staticProps = await generateStaticProps({
     product: product.slug,
     latestVersion,
