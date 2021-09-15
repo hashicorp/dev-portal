@@ -11,6 +11,7 @@
 components
 pages
 public
+site-specific
 .env.consul
 .env.waypoint
 tsconfig.json
