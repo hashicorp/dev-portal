@@ -1,12 +1,14 @@
 import './style.css'
 import Min100Layout from '@hashicorp/react-min-100-layout'
 import Placeholder from 'components/placeholder'
+import Subnav from 'components/subnav'
 import Link from 'next/link'
 import { productName } from 'data/metadata'
 
 export default function App({ Component, pageProps }) {
   return (
     <Min100Layout footer={<Placeholder>Footer</Placeholder>}>
+      <Subnav />
       <Placeholder>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <span style={{ padding: '0 0.5rem' }}>{productName}</span>
