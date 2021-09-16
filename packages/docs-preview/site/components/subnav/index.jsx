@@ -1,15 +1,23 @@
 import Subnav from '@hashicorp/react-subnav'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import subnavItems from 'data/navigation'
-import { productSlug } from 'data/metadata'
+import { productSlug, productName } from 'data/metadata'
+import navigationWaypoint from '../../site-specific/navigation.waypoint'
+import navigationConsul from '../../site-specific/navigation.consul'
+
+const navigationDict = {
+  waypoint: navigationWaypoint,
+  consul: navigationConsul,
+}
+
+const navigationJs = navigationDict[productSlug]
 
 export default function ProductSubnav() {
   const router = useRouter()
   return (
     <Subnav
       titleLink={{
-        text: 'Waypoint',
+        text: productName,
         url: '/',
       }}
       ctaLinks={[
@@ -24,7 +32,7 @@ export default function ProductSubnav() {
       ]}
       currentPath={router.asPath}
       menuItemsAlign="right"
-      menuItems={subnavItems}
+      menuItems={navigationJs}
       constrainWidth
       Link={Link}
     />
