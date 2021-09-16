@@ -20,21 +20,13 @@ export default function ProductSubnav() {
         text: productName,
         url: '/',
       }}
-      ctaLinks={[
-        {
-          text: 'GitHub',
-          url: `https://www.github.com/hashicorp/${productSlug}`,
-        },
-        {
-          text: 'Download',
-          url: '/downloads',
-        },
-      ]}
+      ctaLinks={navigationJs.ctaLinks}
       currentPath={router.asPath}
       menuItemsAlign="right"
-      menuItems={navigationJs}
+      menuItems={navigationJs.menuItems}
       constrainWidth
       Link={Link}
+      matchOnBasePath={navigationJs.matchOnBasePath}
     />
   )
 }
