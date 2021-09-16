@@ -1,19 +1,17 @@
 export default {
   matchOnBasePath: true,
   ctaLinks: [
-    [
-      {
-        text: 'GitHub',
-        url: 'https://www.github.com/hashicorp/consul',
-      },
+    {
+      text: 'GitHub',
+      url: 'https://www.github.com/hashicorp/consul',
+    },
 
-      { text: 'Download', url: '/downloads' },
-      {
-        text: 'Try Cloud',
-        url:
-          'https://cloud.hashicorp.com/?utm_source=consul_io&utm_content=top_nav_consul',
-      },
-    ],
+    { text: 'Download', url: '/downloads' },
+    {
+      text: 'Try Cloud',
+      url:
+        'https://cloud.hashicorp.com/?utm_source=consul_io&utm_content=top_nav_consul',
+    },
   ],
   menuItems: [
     { text: 'Overview', url: '/' },
