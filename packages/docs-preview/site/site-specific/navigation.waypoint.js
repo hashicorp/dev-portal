@@ -1,15 +1,13 @@
 export default {
   ctaLinks: [
-    [
-      {
-        text: 'GitHub',
-        url: `https://www.github.com/hashicorp/waypoint`,
-      },
-      {
-        text: 'Download',
-        url: '/downloads',
-      },
-    ],
+    {
+      text: 'GitHub',
+      url: `https://www.github.com/hashicorp/waypoint`,
+    },
+    {
+      text: 'Download',
+      url: '/downloads',
+    },
   ],
   menuItems: [
     {
