@@ -19,11 +19,11 @@ syncDirs('../../public', '../public')
 function syncDirs(sourceRelative, destRelative) {
   const sourceDir = path.resolve(__dirname, sourceRelative)
   const destDir = path.resolve(__dirname, destRelative)
-  console.log({
-    sourceDir,
-    destDir,
-  })
-  chokidar.watch(sourceDir).on('all', generateSyncHandler(sourceDir, destDir))
+  chokidar
+    .watch(sourceDir, {
+      ignored: /(^|[\/\\])\../, // ignore dotfiles
+    })
+    .on('all', generateSyncHandler(sourceDir, destDir))
 }
 
 /**
@@ -47,11 +47,14 @@ function generateSyncHandler(sourceDir, destinationDir) {
     // otherwise, handle the change, add, or unlink
     const relativePath = path.relative(sourceDir, sourcePath)
     const destinationPath = path.join(destinationDir, relativePath)
+    const authorPath = `${path.basename(sourceDir)}/${relativePath}`
     if (needsCopy) {
       // for changes or additions, copy the updated source file
+      console.log(`syncing changes to ${authorPath}...`)
       fs.copyFileSync(sourcePath, destinationPath)
     } else if (needsDelete) {
       // for deletions, delete the destination file
+      console.log(`syncing deletion of ${authorPath}...`)
       fs.unlinkSync(destinationPath)
     }
   }
