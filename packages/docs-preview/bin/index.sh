@@ -4,14 +4,21 @@ projectDir="$(cd "${__dirname}" && cd ../@hashicorp/docs-preview && pwd)"
 currentDir="$(pwd)"
 parentDir="$(dirname "$currentDir")"
 previewProduct="$(basename "$parentDir")"
+previewDir="$currentDir/docs-preview"
 NEXT_PUBLIC_CWD="$currentDir"
 # echo "__dirname: $__dirname"
 # echo "projectDir: $projectDir"
 # echo "currentDir: $currentDir"
 # echo "previewProduct: $previewProduct"
 # Copy site source into working directory
-cp -R "$projectDir/site/." "$currentDir/docs-preview"
-cd "$currentDir/docs-preview"
+cp -R "$projectDir/site/." "$previewDir"
+# Copy content files into site source directory
+cp -R "$projectDir/content" "$previewDir/content"
+cp -R "$projectDir/data" "$previewDir/data"
+cp -R "$currentDir/public/." "$previewDir/public"
+# cd into the site source directory,
+# and prep to start the preview
+cd "$previewDir"
 # Rename .gitignore for consumer
 # so that it becomes effective
 # mv gitignore-consumer .gitignore
