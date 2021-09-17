@@ -12,7 +12,7 @@
     "generate:component": "next-hashicorp generate component",
     "generate:readme": "next-hashicorp markdown-blocks README.md",
     "lint": "next-hashicorp lint",
-    "start": "concurrently -n next,content \"npm run dev-next-app\" \"npm run dev-watch-product-files\"",
+    "start": "concurrently -n site,content \"npm run dev-next-app\" \"npm run dev-watch-product-files\"",
     "static": "npm run build && npm run export"
   },
   "dependencies": {
