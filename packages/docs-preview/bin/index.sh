@@ -13,8 +13,8 @@ NEXT_PUBLIC_CWD="$currentDir"
 # Copy site source into working directory
 cp -R "$projectDir/site/." "$previewDir"
 # Copy content files into site source directory
-cp -R "$projectDir/content" "$previewDir/content"
-cp -R "$projectDir/data" "$previewDir/data"
+cp -R "$currentDir/content" "$previewDir/content"
+cp -R "$currentDir/data" "$previewDir/data"
 cp -R "$currentDir/public/." "$previewDir/public"
 # cd into the site source directory,
 # and prep to start the preview
