@@ -10,10 +10,11 @@ NEXT_PUBLIC_CWD="$currentDir"
 # echo "currentDir: $currentDir"
 # echo "previewProduct: $previewProduct"
 # Copy site source into working directory
-cp -R "$projectDir/site/." "$currentDir/"
+cp -R "$projectDir/site/." "$currentDir/docs-preview"
+cd "$currentDir/docs-preview"
 # Rename .gitignore for consumer
 # so that it becomes effective
-mv gitignore-consumer .gitignore
+# mv gitignore-consumer .gitignore
 # Write out product-specific files
 # necessary for preview to work correctly
 cp "./site-specific/.env.$previewProduct" .env.local
