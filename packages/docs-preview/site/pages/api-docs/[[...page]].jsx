@@ -5,6 +5,8 @@ import Placement from 'components/waypoint/placement-table'
 import NestedNode from 'components/waypoint/nested-node'
 import ConfigEntryReference from 'components/consul/config-entry-reference'
 // imports below are used on server only
+import fs from 'fs'
+import path from 'path'
 import {
   generateStaticPaths,
   generateStaticProps,
@@ -19,6 +21,7 @@ const navDataFile = `./data/${basePath}-nav-data.json`
 const localContentDir = `./content/${basePath}`
 
 export default function DocsLayout({ product, staticProps }) {
+  if (!staticProps) return <div>Hello world!</div>
   return (
     <DocsPage
       product={product}
@@ -30,6 +33,12 @@ export default function DocsLayout({ product, staticProps }) {
 }
 
 export async function getStaticPaths() {
+  // It's possible a product does not have an api-docs page,
+  // if this is the case, then ignore this route
+  if (!fs.existsSync(path.join(process.cwd(), navDataFile))) {
+    return { fallback: false, paths: [] }
+  }
+  // Otherwise, render the page as usual
   return {
     fallback: false,
     paths: await generateStaticPaths({
@@ -40,6 +49,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  // It's possible a product does not have an api-docs page,
+  // if this is the case, then ignore this route
+  if (!fs.existsSync(path.join(process.cwd(), navDataFile))) {
+    return { props: {} }
+  }
+  // Otherwise, render the page as usual
   const product = {
     name: productName,
     slug: productSlug,
