@@ -1,6 +1,6 @@
 {
   "name": "@hashicorp/docs-preview",
-  "version": "0.0.1-docs-preview.09ff8745568ad8f31143966e96b1e292bcb5c243.0",
+  "version": "0.0.1-docs-preview.c45abff135858fc170afc8b03ac71b5fbb78c88c.0",
   "bin": "bin/setup.sh",
   "scripts": {
     "temp-canary": "npm version prerelease --git-tag-version=false --preid=\"$(git branch --show-current).$(git log -n1 --format=format:\"%H\")\"&& npm publish --tag=\"$(git branch --show-current)\""
