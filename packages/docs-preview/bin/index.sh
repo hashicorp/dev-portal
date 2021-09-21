@@ -19,9 +19,6 @@ cp -R "$currentDir/public/." "$previewDir/public"
 # cd into the site source directory,
 # and prep to start the preview
 cd "$previewDir"
-# Rename .gitignore for consumer
-# so that it becomes effective
-# mv gitignore-consumer .gitignore
 # Write out product-specific files
 # necessary for preview to work correctly
 cp "./site-specific/.env.$previewProduct" .env.local
