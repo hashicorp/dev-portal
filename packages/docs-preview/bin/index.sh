@@ -11,6 +11,9 @@ NEXT_PUBLIC_CWD="$currentDir"
 # echo "currentDir: $currentDir"
 # echo "previewProduct: $previewProduct"
 # Copy site source into working directory
+args=("$@")
+echo $# arguments passed
+echo ${args[0]} ${args[1]} ${args[2]}
 cp -R "$projectDir/site/." "$previewDir"
 # Copy content files into site source directory
 cp -R "$currentDir/content" "$previewDir/content"
