@@ -5,7 +5,15 @@ import Subnav from 'components/subnav'
 
 export default function App({ Component, pageProps }) {
   return (
-    <Min100Layout footer={<Placeholder>Footer</Placeholder>}>
+    <Min100Layout
+      footer={
+        <Placeholder>
+          Footer
+          <br />
+          (Placeholder for local preview)
+        </Placeholder>
+      }
+    >
       <Subnav />
       <Component {...pageProps} />
     </Min100Layout>
