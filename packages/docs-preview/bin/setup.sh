@@ -30,7 +30,15 @@ cp "./site-specific/redirects.$previewProduct.js" redirects.js
 npm ci
 # Copy public assets from source repo into the
 # working Next.js directory
-cp -r "./public/." "./public/"
-cp -r "./data/." "./data/"
-cp -r "./content/." "./content/"
+cp -r "../public/." "./public/"
+cp -r "../data/." "./data/"
+cp -r "../content/." "./content/"
+# run build, or dev
+if [ "${args[0]}" = "build" ]; then
+    echo "running build for vercel"
+    npm run static
+else
+    echo "running start script"
+    npm run dev
+fi
 # NEXT_PUBLIC_ALGOLIA_APP_ID=YY0FFNI7MF NEXT_PUBLIC_ALGOLIA_INDEX=product_WAYPOINT NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY=5e4adfd8094367056501547d6fedb6c5 NEXT_PUBLIC_CWD="/Users/zachshilton/code/waypoint/website" npm run dev
