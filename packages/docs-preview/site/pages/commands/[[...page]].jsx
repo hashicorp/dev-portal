@@ -11,7 +11,7 @@ import {
 } from '@hashicorp/react-docs-page/server'
 
 // configures for this specific basepath
-const basePath = 'docs'
+const basePath = 'commands'
 
 // note: adds components for all possible product environments
 const additionalComponents = { ConfigEntryReference, Placement, NestedNode }
