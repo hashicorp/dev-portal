@@ -1,5 +1,10 @@
 #! /usr/bin/env bash
 echo "fetching local preview website source..."
+if [ "$1" = "build" ]; then
+    echo "(will build for vercel once setup is complete)"
+else
+    echo "(will run local preview once setup is complete)"
+fi
 __dirname="$(CDPATH= cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 projectDir="$(cd "${__dirname}" && cd ../@hashicorp/docs-preview && pwd)"
 currentDir="$(pwd)"
@@ -31,8 +36,7 @@ cp -R "$currentDir/public/." "$previewDir/public"
 # Run local dev preview by default,
 # but also allow and arg to be passed to
 # run a static export (trying this for PR deploy previews)
-isbuild="${args[0]}" = "build"
-if [ isbuild ]; then
+if [ "$1" = "build" ]; then
     echo "starting build for vercel deployment..."
     npm run static
 else
