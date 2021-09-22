@@ -10,6 +10,11 @@ __dirname="$(CDPATH= cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 projectDir="$(cd "${__dirname}" && cd ../@hashicorp/docs-preview && pwd)"
 currentDir="$(pwd)"
 parentDir="$(dirname "$currentDir")"
+# for local preview, we can derive the product name
+# from the parent directory name.
+# for vercel-build, we can't do this (since we've
+# set website as the working directory), so we need
+# to explicitly provide the product slug as an argument
 previewProduct="NOT_SET_YET"
 if [ "${args[0]}" = "build" ]; then
     previewProduct="${args[1]}"
