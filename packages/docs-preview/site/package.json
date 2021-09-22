@@ -1,7 +1,6 @@
 {
   "name": "@hashicorp/docs-preview",
   "version": "0.0.1-docs-preview.b42b6ab6b678a80b755ce6248838e2c47b246360.0",
-  "bin": "bin/index.sh",
   "scripts": {
     "dev": "npm run start",
     "dev-next-app": "next-remote-watch ./content/**/*.mdx",
