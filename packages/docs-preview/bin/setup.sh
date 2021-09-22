@@ -23,7 +23,6 @@ else
 fi
 echo "Product: $previewProduct"
 previewDir="$currentDir/docs-preview"
-NEXT_PUBLIC_CWD="$currentDir"
 # Copy site source into working directory
 cp -R "$projectDir/site/." "$previewDir"
 # cd into the site source directory,
