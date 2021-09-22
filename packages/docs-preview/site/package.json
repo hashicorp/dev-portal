@@ -19,7 +19,7 @@
     "@hashicorp/mktg-logos": "^1.2.0",
     "@hashicorp/platform-code-highlighting": "^0.1.1",
     "@hashicorp/platform-util": "^0.1.0",
-    "@hashicorp/react-docs-page": "^14.0.3",
+    "@hashicorp/react-docs-page": "^14.2.3-canary-2021822153136",
     "@hashicorp/react-min-100-layout": "^2.0.1",
     "@hashicorp/react-product-downloads-page": "^2.5.2",
     "@hashicorp/react-section-header": "^5.0.4",
