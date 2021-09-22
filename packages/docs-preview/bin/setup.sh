@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 echo "fetching local preview website source..."
-if [ "$1" = "build" ]; then
+echo "argument provided:"
+echo "${args[0]}"
+if [ "${args[0]}" = "build" ]; then
     echo "(will build for vercel once setup is complete)"
 else
     echo "(will run local preview once setup is complete)"
@@ -36,7 +38,7 @@ cp -R "$currentDir/public/." "$previewDir/public"
 # Run local dev preview by default,
 # but also allow and arg to be passed to
 # run a static export (trying this for PR deploy previews)
-if [ "$1" = "build" ]; then
+if [ "${args[0]}" = "build" ]; then
     echo "starting build for vercel deployment..."
     npm run static
 else
