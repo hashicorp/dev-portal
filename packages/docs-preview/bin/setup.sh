@@ -4,7 +4,6 @@ args=("$@")
 echo "arguments provided:"
 echo "${args[0]}"
 echo "${args[1]}"
-echo "${args[2]}"
 if [ "${args[0]}" = "build" ]; then
     echo "(will build for vercel once setup is complete)"
 else
@@ -14,7 +13,13 @@ __dirname="$(CDPATH= cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 projectDir="$(cd "${__dirname}" && cd ../@hashicorp/docs-preview && pwd)"
 currentDir="$(pwd)"
 parentDir="$(dirname "$currentDir")"
-previewProduct="$(basename "$parentDir")"
+previewProduct="NOT_SET_YET"
+if [ "${args[0]}" = "build" ]; then
+    previewProduct="${args[1]}"
+else
+    previewProduct="$(basename "$parentDir")"
+fi
+echo "$previewProduct"
 previewDir="$currentDir/docs-preview"
 NEXT_PUBLIC_CWD="$currentDir"
 # Copy site source into working directory
