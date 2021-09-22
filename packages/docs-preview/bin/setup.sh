@@ -1,7 +1,10 @@
 #! /usr/bin/env bash
 echo "fetching local preview website source..."
-echo "argument provided:"
+args=("$@")
+echo "arguments provided:"
 echo "${args[0]}"
+echo "${args[1]}"
+echo "${args[2]}"
 if [ "${args[0]}" = "build" ]; then
     echo "(will build for vercel once setup is complete)"
 else
