@@ -1,3 +1,13 @@
+/*
+NOTE:
+apart from a different `const basepath` declaration,
+this file is duplicated between:
+- pages/api-docs/[[...page.jsx]]
+- pages/commands/[[...page.jsx]]
+- pages/docs/[[...page.jsx]]
+- pages/plugins/[[...page.jsx]]
+*/
+
 import { productName, productSlug, mainBranch } from 'data/metadata'
 import DocsPage from '@hashicorp/react-docs-page'
 // additional components
