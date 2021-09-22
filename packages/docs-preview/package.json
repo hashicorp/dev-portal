@@ -2,7 +2,7 @@
   "name": "@hashicorp/docs-preview",
   "version": "0.0.1-docs-preview.2795f957ac3754a22aa40e00604db892a3edfecc.0",
   "bin": {
-    "dev": "bin/setup.sh dev",
+    "local": "bin/setup.sh local",
     "build": "bin/setup.sh build"
   },
   "scripts": {
