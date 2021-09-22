@@ -1,9 +1,6 @@
 #! /usr/bin/env bash
 echo "fetching local preview website source..."
 args=("$@")
-echo "arguments provided:"
-echo "${args[0]}"
-echo "${args[1]}"
 if [ "${args[0]}" = "build" ]; then
     echo "(will build for vercel once setup is complete)"
 else
@@ -19,7 +16,7 @@ if [ "${args[0]}" = "build" ]; then
 else
     previewProduct="$(basename "$parentDir")"
 fi
-echo "$previewProduct"
+echo "Product: $previewProduct"
 previewDir="$currentDir/docs-preview"
 NEXT_PUBLIC_CWD="$currentDir"
 # Copy site source into working directory
