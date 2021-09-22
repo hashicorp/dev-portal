@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
+echo "fetching local preview website source..."
 __dirname="$(CDPATH= cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 projectDir="$(cd "${__dirname}" && cd ../@hashicorp/docs-preview && pwd)"
 currentDir="$(pwd)"
