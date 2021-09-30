@@ -1,3 +1,4 @@
+import { name, slug } from 'config/waypoint.json'
 import DocsPage from '@hashicorp/react-docs-page'
 import {
   generateStaticPaths,
@@ -11,8 +12,6 @@ import NestedNode from 'components/author-primitives/nested-node'
 // just use this string to make it clear by using this k/v
 const temporary_noop = 'im just for show'
 
-const productName = 'Waypoint'
-const productSlug = 'waypoint'
 const basePath = 'docs'
 const additionalComponents = { Placement, NestedNode }
 
@@ -20,8 +19,8 @@ const additionalComponents = { Placement, NestedNode }
 export default function DocsLayout(props) {
   return (
     <DocsPage
-      product={{ name: productName, slug: productSlug }}
-      baseRoute={`${productSlug}/${basePath}`}
+      product={{ name: name, slug: slug }}
+      baseRoute={`${name}/${basePath}`}
       staticProps={props}
       showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
       additionalComponents={additionalComponents}
@@ -34,7 +33,7 @@ export async function getStaticPaths() {
     navDataFile: temporary_noop,
     localContentDir: temporary_noop,
     // new ----
-    product: { name: productName, slug: productSlug },
+    product: { name: name, slug: slug },
     basePath,
   })
   return {
@@ -47,7 +46,7 @@ export async function getStaticProps({ params }) {
   const props = await generateStaticProps({
     navDataFile: temporary_noop,
     localContentDir: temporary_noop,
-    product: { name: productName, slug: productSlug },
+    product: { name: name, slug: slug },
     params,
     basePath,
   })

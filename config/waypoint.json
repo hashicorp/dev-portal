@@ -1,0 +1,17 @@
+{
+  "name": "Waypoint",
+  "slug": "waypoint",
+  "helpfulLinks": [
+    { "label": "Download CLI", "url": "/downloads", "type": "download" },
+    {
+      "label": "hashicorp/waypoint",
+      "url": "https://github.com/hashicorp/waypoint",
+      "type": "github"
+    },
+    {
+      "label": "Try HCP Waypoint",
+      "url": "https://portal.cloud.hashicorp.com/?product=waypoint",
+      "type": "hcp"
+    }
+  ]
+}
