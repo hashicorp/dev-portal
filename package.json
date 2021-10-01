@@ -2,7 +2,8 @@
   "name": "dev-portal",
   "private": "true",
   "scripts": {
-    "start": "next"
+    "start": "next",
+    "test": "jest"
   },
   "engines": {
     "npm": ">=7.0.0",
@@ -12,9 +13,17 @@
     "@hashicorp/platform-cli": "^1.2.0",
     "@hashicorp/platform-nextjs-plugin": "^1.0.1-canary-202181718385",
     "@hashicorp/platform-types": "^0.1.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.1",
+    "@types/jest": "^27.0.2",
     "@types/node": "^16.9.2",
     "@types/react": "^17.0.21",
+    "babel-jest": "^27.2.4",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.2.4",
     "postcss": "^8.2.15",
+    "react-test-renderer": "^17.0.2",
+    "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   },
   "dependencies": {
