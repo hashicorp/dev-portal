@@ -1,0 +1,19 @@
+name: 'CI'
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: 'Run Tests 🧪'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci
+      - uses: mattallty/jest-github-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          coverage-comment: false
