@@ -3,7 +3,8 @@
   "private": "true",
   "scripts": {
     "start": "next",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "engines": {
     "npm": ">=7.0.0",
