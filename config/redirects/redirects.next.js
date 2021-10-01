@@ -11,12 +11,12 @@ const DOMAIN_MAP = {
 }
 
 // loop over DOMAIN_MAP to create an entry that blocks
-// the /:product/_secret-homepage path from loading on dev-portal in
+// the /:product/_secret-io-homepage path from loading on dev-portal in
 // production. this page should only be accessed via proxy for the
 // individual project domains
 const blockSecretHomepageRedirect = Object.entries(DOMAIN_MAP).map(
   ([product, domain]) => ({
-    source: `/${product}/_secret-homepage`,
+    source: `/${product}/_secret-io-homepage`,
     destination: domain,
     has: [
       {
