@@ -1,6 +1,5 @@
 {
   "name": "dev-portal",
-<<<<<<< HEAD
   "private": "true",
   "scripts": {
     "start": "next",
@@ -10,17 +9,6 @@
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
-=======
-  "dependencies": {
-    "@hashicorp/mktg-global-styles": "^4.0.0",
-    "@hashicorp/platform-code-highlighting": "^0.1.2",
-    "@hashicorp/react-docs-page": "^14.2.6-canary-2021830165742",
-    "@hashicorp/react-subnav": "^9.0.1",
-    "next": "^11.1.2",
-    "next-mdx-remote": "^3.0.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
->>>>>>> 3889269 (stub in a secret waypoint homepage)
   },
   "devDependencies": {
     "@hashicorp/platform-cli": "^1.2.0",
@@ -39,7 +27,6 @@
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   },
-<<<<<<< HEAD
   "dependencies": {
     "@hashicorp/mktg-global-styles": "^4.0.0",
     "@hashicorp/platform-code-highlighting": "^0.1.2",
@@ -50,14 +37,5 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "swingset": "^0.10.2"
-=======
-  "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=14.0.0"
-  },
-  "private": "true",
-  "scripts": {
-    "start": "next"
->>>>>>> 3889269 (stub in a secret waypoint homepage)
   }
 }
