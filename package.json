@@ -30,7 +30,11 @@
   "dependencies": {
     "@hashicorp/mktg-global-styles": "^4.0.0",
     "@hashicorp/platform-code-highlighting": "^0.1.2",
+    "@hashicorp/platform-runtime-error-monitoring": "^0.1.0",
+    "@hashicorp/react-alert-banner": "^7.0.1",
+    "@hashicorp/react-consent-manager": "^7.0.1",
     "@hashicorp/react-docs-page": "^14.2.6-canary-2021830165742",
+    "@hashicorp/react-hashi-stack-menu": "^2.0.7",
     "@hashicorp/react-subnav": "^9.0.1",
     "next": "^11.1.2",
     "next-mdx-remote": "^3.0.5",
