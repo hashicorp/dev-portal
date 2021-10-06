@@ -46,11 +46,13 @@ src/
   components/
   views/
   layouts/
+  hooks/
 ```
 
 - **`components`** - Shareable, smaller components for use across any number of other components
 - **`views`** - Componentry which represents a full site "view." This is a way to abstract out page components and easily co-locate related code. Not necessarily intended for re-use, unless one needs to render the same view on multiple pages. This also allows us to co-locate sub-components and test files with page components, which is otherwise difficult with file-based routing
 - **`layouts`** - Layout components which are generic and possibly used across different pages (see [Next.js docs](https://nextjs.org/docs/basic-features/layouts#per-page-layouts))
+- **`hooks`** - Shared hooks which are applicable for use across a variety of other components
 
 An example implementation of components laid out this way:
 
