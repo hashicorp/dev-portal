@@ -1,5 +1,5 @@
 name: DB Rutherford
-on: pull_request
+on: [pull_request, workflow_dispatch]
 
 jobs:
   deliver:
@@ -10,10 +10,25 @@ jobs:
     - name: debug
       run: echo "${{ toJSON(github) }}"
 
-    - uses: mshick/add-pr-comment@v1
+    - name: set the target value
+      id: step_one
+      run: echo "target=$((1 + $RANDOM % 4))" >> $GITHUB_ENV
+  
+    - name: print the target value
+      id: step_two
+      run: echo "${{ env.target }}"
+
+    # if it's a hit, then add a comment
+    - if: env.target == 1
+      name: comment
+      uses: mshick/add-pr-comment@v1
       with:
         message: |
-          **Test Comment with Markdown** 
+          **DB Rutherford has something to say:** <test> 
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
-        allow-repeats: false # This is the default
+        repo-token-user-login: 'github-actions[bot]'
+        allow-repeats: false
+
+    - if: env.target != '1'
+      name: noop
+      run: echo "db rutherford says, it's a noop"
