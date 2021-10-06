@@ -2,6 +2,8 @@
   "name": "dev-portal",
   "private": "true",
   "scripts": {
+    "build": "next build",
+    "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics dev-portal",
     "start": "next",
     "test": "jest",
     "test:watch": "jest --watch"
