@@ -12,7 +12,8 @@ jobs:
 
     - name: set the env.target value
       id: step_one
-      run: echo "target=$((1 + $RANDOM % 4))" >> $GITHUB_ENV
+      run: echo "target=1" >> $GITHUB_ENV
+      # run: echo "target=$((1 + $RANDOM % 4))" >> $GITHUB_ENV
   
     - name: print the env.target value
       id: step_two
