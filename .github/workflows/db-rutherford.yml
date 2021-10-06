@@ -1,0 +1,19 @@
+name: DB Rutherford
+on: pull_request
+
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - uses: actions/checkout@v2
+    - name: debug
+      run: echo "${{ toJSON(github) }}"
+
+    - uses: mshick/add-pr-comment@v1
+      with:
+        message: |
+          **Test Comment with Markdown** 
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+        allow-repeats: false # This is the default
