@@ -22,13 +22,10 @@ jobs:
     # if it's a hit, then add a comment
     - if: env.target == 1
       name: db rutherford leaves a comment
-      uses: mshick/add-pr-comment@v1
+      uses: marocchino/sticky-pull-request-comment@v2
       with:
         message: |
-          **DB Rutherford has something to say:** <test> 
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        repo-token-user-login: 'github-actions[bot]'
-        allow-repeats: false
+          **DB Rutherford has something to say:** `<test>`
 
     - if: env.target != '1'
       name: db rutherford sadly runs a noop
