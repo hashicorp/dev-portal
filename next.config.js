@@ -22,15 +22,6 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
     async headers() {
       return [temporary_hideDocsPaths]
     },
-    async redirects() {
-      return [
-        {
-          source: '/',
-          destination: '/foobar',
-          permanent: false,
-        },
-      ]
-    },
     async rewrites() {
       return [
         { source: '/', destination: '/waypoint' }, // does not match localhost:3000
