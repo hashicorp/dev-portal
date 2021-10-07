@@ -21,7 +21,7 @@
 
     & a.normal {
       padding-left: 20px;
-      background: url(/img/status-normal.svg) no-repeat left center;
+      background: url(/img/waypoint/status-normal.svg) no-repeat left center;
     }
 
     & a.degraded {
@@ -29,7 +29,7 @@
       margin: -4px 0;
       padding: 4px 10px 4px 32px;
       border-radius: 2px;
-      background: url(/img/status-degraded.svg) no-repeat 10px center;
+      background: url(/img/waypoint/status-degraded.svg) no-repeat 10px center;
       background-color: var(--warning-l2);
 
       &:hover {
@@ -61,7 +61,7 @@
 
   & span {
     padding-left: 24px;
-    background: url(/img/status-degraded.svg) no-repeat left center;
+    background: url(/img/waypoint/status-degraded.svg) no-repeat left center;
   }
 
   &:hover {
