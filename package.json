@@ -2,6 +2,8 @@
   "name": "dev-portal",
   "private": "true",
   "scripts": {
+    "build": "next build",
+    "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics.ts dev-portal",
     "start": "next",
     "test": "jest",
     "test:watch": "jest --watch"
@@ -11,6 +13,7 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
+    "@datadog/datadog-api-client": "^1.0.0-beta.5",
     "@hashicorp/platform-cli": "^1.2.0",
     "@hashicorp/platform-nextjs-plugin": "^1.0.1-canary-202181718385",
     "@hashicorp/platform-types": "^0.1.1",
