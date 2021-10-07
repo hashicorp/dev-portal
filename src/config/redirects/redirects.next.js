@@ -21,7 +21,7 @@ const blockSecretHomepageRedirect = Object.entries(DOMAIN_MAP).map(
     has: [
       {
         type: 'host',
-        value: '(dev.hashicorp.com|developer.hashicorp.com|wp.snarlepuss.com)',
+        value: '(dev.hashicorp.com|developer.hashicorp.com)',
       },
     ],
     permanent: false,

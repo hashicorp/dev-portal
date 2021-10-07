@@ -22,7 +22,7 @@ export default function DocsLayout(props) {
   return (
     <DocsPage
       product={{ name: productName, slug: productSlug }}
-      baseRoute={`${productSlug}/${basePath}`}
+      baseRoute={basePath}
       staticProps={props}
       showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
       additionalComponents={additionalComponents}
