@@ -51,21 +51,21 @@ async function main() {
 
   const [, , appName] = process.argv
 
-  const timestamp = Math.round(Date.now() / 1e3)
-  const trace = await readNextTrace(process.cwd())
-
-  const filteredEvents = trace.filter((event) => EVENTS.includes(event.name))
-
-  const structuredMetrics = filteredEvents.map((event) =>
-    captureMetric({
-      name: `build.${event.name}`,
-      duration: Math.round(event.duration / 1e3),
-      timestamp,
-      tags: [`app:${appName}`, `environment:${process.env.HASHI_ENV}`],
-    })
-  )
-
   try {
+    const timestamp = Math.round(Date.now() / 1e3)
+    const trace = await readNextTrace(process.cwd())
+
+    const filteredEvents = trace.filter((event) => EVENTS.includes(event.name))
+
+    const structuredMetrics = filteredEvents.map((event) =>
+      captureMetric({
+        name: `build.${event.name}`,
+        duration: Math.round(event.duration / 1e3),
+        timestamp,
+        tags: [`app:${appName}`, `environment:${process.env.HASHI_ENV}`],
+      })
+    )
+
     await client.submitMetrics({
       body: {
         series: structuredMetrics,
