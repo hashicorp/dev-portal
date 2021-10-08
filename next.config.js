@@ -27,13 +27,7 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
         { source: '/', destination: '/waypoint' }, // does not match localhost:3000
         {
           source: '/:path*{/}?', // does not match localhost:3000, but matches other routes
-          destination: '/waypoint/:path*',
-          has: [
-            {
-              type: 'host',
-              value: 'wp.snarglepuss.com',
-            },
-          ],
+          destination: '/waypoint/:path*'
         },
       ]
     },
