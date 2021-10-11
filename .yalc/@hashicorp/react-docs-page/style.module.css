@@ -1,0 +1,148 @@
+@custom-media --mobile-viewports (max-width: 939px);
+@custom-media --desktop-viewports (min-width: 940px);
+
+/*
+Note: class has been created as a CSS-modules-friendly
+stopgap to align with the _temporary_jump-to-section approach
+for rendering the jump links menu. Once we have a less
+temporary approach, this should likely be split into its own file.
+*/
+.tempJumpToSectionParent {
+  /*
+  adjusts the h1 bottom margin when the jump
+  menu is present. co-ordinated with JS classname addition
+  */
+  & :global(.has-jts) {
+    margin-bottom: 10px;
+  }
+
+  & :global(.jump-to-section) {
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 20px;
+    position: relative;
+    user-select: none;
+    z-index: 3;
+
+    @media (--mobile-viewports) {
+      margin-left: 1rem;
+    }
+
+    & :global(.trigger) {
+      align-items: center;
+      display: flex;
+    }
+
+    & svg {
+      margin-left: 5px;
+    }
+
+    & :global(.dropdown) {
+      background: white;
+      border-radius: 3px;
+      box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
+      display: none;
+      margin: 10px 0 0 0;
+      padding: 4px 16px;
+      position: absolute;
+      z-index: 2;
+      width: 500px;
+      list-style: none;
+
+      @media (--mobile-viewports) {
+        width: 345px;
+      }
+
+      & li {
+        margin: 12px 0;
+      }
+
+      &:global(.active) {
+        display: block;
+      }
+    }
+  }
+}
+
+/* Styles the mobile search bar,
+which is rendered into docs-sidenav */
+.mobileSearch {
+  padding: 12px 0;
+  margin-right: 12px;
+}
+
+.contentWrap {
+  composes: g-grid-container from global;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex: 1 0 auto;
+  position: relative;
+  width: 100%;
+
+  @media (--mobile-viewports) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media (--desktop-viewports) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-bottom: 24px;
+    margin-top: 72px;
+  }
+}
+
+.inner {
+  margin: 32px 0;
+  width: 100%;
+  position: relative;
+  padding: 0 1rem;
+
+  @media (--desktop-viewports) {
+    flex: 1;
+    margin: 0;
+    padding-left: 2rem;
+    padding-right: 0;
+    width: 0; /* required as we're now flexin'! */
+
+    &.versionedDocsOffset {
+      margin-top: 22px;
+    }
+  }
+
+  & :global(.g-section-header) {
+    margin-bottom: 100px;
+  }
+}
+
+.versionSelect {
+  margin-bottom: 1rem;
+  max-width: 90%;
+}
+
+.editThisPage {
+  composes: g-grid-container from global;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 48px;
+
+  & a {
+    align-items: center;
+    color: var(--gray-1);
+    display: flex;
+    opacity: 0.5;
+    padding-right: 32px;
+    transition: opacity 0.4s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    & > img {
+      height: 22px;
+      margin-right: 9px;
+      width: 23px;
+    }
+  }
+}
