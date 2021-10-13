@@ -1,9 +1,5 @@
 import DocsPage from '@hashicorp/react-docs-page'
-import {
-  getStaticGenerationFunctions,
-  generateStaticPaths,
-  generateStaticProps,
-} from '@hashicorp/react-docs-page/server'
+import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
 
@@ -30,6 +26,7 @@ export default function DocsLayout(props) {
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   strategy: 'remote',
   product: productSlug,
+  basePath: 'docs',
   fallback: 'blocking',
   revalidate: 10,
 })
