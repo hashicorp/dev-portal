@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "@hashicorp/react-docs-page": {
-      "signature": "d59c9d54630f2af97b01d031cf3dae67",
-      "replaced": "^14.2.6-canary-2021830165742"
-    }
-  }
-}

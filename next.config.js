@@ -18,6 +18,9 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
     nextOptimizedImages: true,
     transpileModules: ['swingset'],
   })({
+    env: {
+      ENABLE_VERSIONED_DOCS: true,
+    },
     async headers() {
       return [temporary_hideDocsPaths]
     },

@@ -33,7 +33,7 @@
   "dependencies": {
     "@hashicorp/mktg-global-styles": "^4.0.0",
     "@hashicorp/platform-code-highlighting": "^0.1.2",
-    "@hashicorp/react-docs-page": "file:.yalc/@hashicorp/react-docs-page",
+    "@hashicorp/react-docs-page": "^14.5.0-canary-202191314343",
     "@hashicorp/react-subnav": "^9.0.1",
     "next": "^11.1.2",
     "next-mdx-remote": "^3.0.5",
