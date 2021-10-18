@@ -19,6 +19,15 @@ async function main() {
       console.log(value.trim())
     }
   })
+
+  buildProc.stderr.on('data', (data) => {
+    console.error(data.toString().trim())
+  })
+
+  buildProc.on('exit', (code, signal) => {
+    if (signal === 'SIGINT') process.exit(0)
+    process.exit(code)
+  })
 }
 
 main()
