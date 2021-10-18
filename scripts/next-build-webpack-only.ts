@@ -10,6 +10,8 @@ async function main() {
 
   buildProc.stdout.on('data', (data) => {
     const value = data.toString()
+    // This is the log output immediately following the webpack build and before static generation starts,
+    // so it should be safe to abort
     if (value.includes('Collecting page data')) {
       console.log('Webpack build finished, exiting.')
       buildProc.kill('SIGINT')
