@@ -5,6 +5,7 @@ import {
 } from '@hashicorp/react-docs-page/server'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
+import Header from 'components/Header'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -19,13 +20,16 @@ const additionalComponents = { Placement, NestedNode }
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function DocsLayout(props) {
   return (
-    <DocsPage
-      product={{ name: productName, slug: productSlug }}
-      baseRoute={`${productSlug}/${basePath}`}
-      staticProps={props}
-      showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
-      additionalComponents={additionalComponents}
-    />
+    <>
+      <Header />
+      <DocsPage
+        product={{ name: productName, slug: productSlug }}
+        baseRoute={`${productSlug}/${basePath}`}
+        staticProps={props}
+        showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
+        additionalComponents={additionalComponents}
+      />
+    </>
   )
 }
 
