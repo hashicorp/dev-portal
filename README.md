@@ -10,6 +10,20 @@ To track the progress of this project, refer to the [Dev Portal Asana Portfolio]
 
 Welcome to the HashiCorp Developer Portal! This is the home for HashiCorp product reference documentation, along with all other kinds of content for our practitioners.
 
+There are a few things you need to set up before you can begin developing in this repository.
+
+1. [Install the Vercel CLI](https://vercel.com/cli)
+
+   The CLI is needed for the next 2 steps.
+
+2. Run `vercel link`
+
+   This command will prompt you to connect your local copy of repo to [the Vercel `dev-portal` project](https://vercel.com/hashicorp/dev-portal). The command creates a `.vercel` directory with a JSON file that contains the information that links to the Vercel project.
+
+3. Run `vercel env pull .env.local`
+
+   This command will pull the development environment variables from the linked Vercel project and write them to a new file called `.env.local`.
+
 ## Local Development
 
 If you're developing in this repository, get started by running:
