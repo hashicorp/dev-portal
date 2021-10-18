@@ -1,4 +1,4 @@
-name: "Next.js Bundle Analysis"
+name: 'Next.js Bundle Analysis'
 
 on:
   pull_request:
@@ -21,7 +21,7 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v1
         with:
-          node-version: "14.x"
+          node-version: '14.x'
 
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
@@ -38,7 +38,7 @@ jobs:
 
       - name: Build next.js app
         # change this if your site requires a custom build command
-        run: ./node_modules/.bin/next build
+        run: npm run build:webpack-only
 
       # Here's the first place where next-bundle-analysis' own script is used
       # This step pulls the raw bundle stats for the current bundle
@@ -92,7 +92,7 @@ jobs:
         id: fc
         with:
           issue-number: ${{ github.event.number }}
-          body-includes: "<!-- __NEXTJS_BUNDLE -->"
+          body-includes: '<!-- __NEXTJS_BUNDLE -->'
 
       - name: Create Comment
         uses: peter-evans/create-or-update-comment@v1.4.4
