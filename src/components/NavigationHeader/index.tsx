@@ -1,3 +1,4 @@
+import Icon from 'components/Icon'
 import s from './style.module.css'
 
 const NavigationHeader: React.FC = () => (
@@ -8,6 +9,7 @@ const NavigationHeader: React.FC = () => (
         <div className={s.SiteChooser}>
           <img src="https://placekitten.com/g/16/16" />
           <p>Vault</p>
+          <Icon name="caret" />
         </div>
       </div>
       <div className={s.HeaderRight}>
@@ -26,8 +28,9 @@ const NavigationHeader: React.FC = () => (
           </li>
         </ul>
         <div className={s.SearchInput}>
-          <img src="https://placekitten.com/g/16/16" />
+          <Icon name="search" />
           <p>Search</p>
+          <Icon name="slash-square" />
         </div>
       </div>
     </nav>
