@@ -12,7 +12,7 @@ const cx = classNames.bind(s)
 
 const Icon: React.FC<IconProps> = ({ className, name, size = 16 }) => {
   const classes = cx('Icon', {
-    className,
+    [className]: !!className,
   })
 
   return (
