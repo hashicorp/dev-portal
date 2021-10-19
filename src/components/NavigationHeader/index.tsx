@@ -1,4 +1,4 @@
-import Icon from 'components/Icon'
+import HeaderSearchInput from 'components/HeaderSearchInput'
 import ProductChooser from 'components/ProductChooser'
 import s from './style.module.css'
 
@@ -24,11 +24,7 @@ const NavigationHeader: React.FC = () => (
             <a>Downloads</a>
           </li>
         </ul>
-        <div className={s.SearchInput}>
-          <Icon name="search" />
-          <p>Search</p>
-          <Icon name="slash-square" />
-        </div>
+        <HeaderSearchInput />
       </div>
     </nav>
   </header>
