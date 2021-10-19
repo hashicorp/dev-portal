@@ -3,6 +3,7 @@
   "private": "true",
   "scripts": {
     "build": "next build",
+    "build:webpack-only": "ts-node --transpile-only ./scripts/next-build-webpack-only.ts",
     "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics.ts dev-portal",
     "start": "next",
     "test": "jest",
@@ -40,5 +41,10 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "swingset": "^0.10.2"
+  },
+  "nextBundleAnalysis": {
+    "budget": null,
+    "budgetPercentIncreaseRed": 20,
+    "showDetails": true
   }
 }
