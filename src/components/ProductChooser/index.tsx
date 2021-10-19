@@ -5,7 +5,7 @@ const ProductChooser: React.FC = () => (
   <div className={s.ProductChooser}>
     <div>
       <img src="https://placekitten.com/g/16/16" />
-      <span>Vault</span>
+      <div>Vault</div>
     </div>
     <Icon name="caret" />
   </div>
