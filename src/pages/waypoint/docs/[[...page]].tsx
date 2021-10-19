@@ -5,7 +5,7 @@ import {
 } from '@hashicorp/react-docs-page/server'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
-import Header from 'components/Header'
+import NavigationHeader from 'components/NavigationHeader'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -21,7 +21,7 @@ const additionalComponents = { Placement, NestedNode }
 export default function DocsLayout(props) {
   return (
     <>
-      <Header />
+      <NavigationHeader />
       <DocsPage
         product={{ name: productName, slug: productSlug }}
         baseRoute={`${productSlug}/${basePath}`}

@@ -1,7 +1,7 @@
 import s from './style.module.css'
 
-const Header = () => (
-  <header className={s.Header}>
+const NavigationHeader: React.FC = () => (
+  <header className={s.NavigationHeader}>
     <nav>
       <div className={s.HeaderLeft}>
         <img src="https://placekitten.com/g/40/40" />
@@ -34,4 +34,4 @@ const Header = () => (
   </header>
 )
 
-export default Header
+export default NavigationHeader
