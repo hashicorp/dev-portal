@@ -20,36 +20,10 @@
   display: flex;
 }
 
-.HeaderLeft {
-  & img {
-    height: 40px;
-    margin-right: 12px;
-    width: 40px;
-  }
-}
-
-.SiteChooser {
-  align-items: center;
-  border-radius: 4px;
-  border: 1px solid #656a76;
-  display: flex;
+.SiteLogo {
   height: 40px;
-  padding: 8.5px 16px;
-  width: 220px;
-
-  & img {
-    height: 16px;
-    margin-right: 4px;
-    width: 16px;
-  }
-
-  & p {
-    color: white;
-    font-size: 16px;
-    letter-spacing: -0.5px;
-    line-height: 20px;
-    margin: 0;
-  }
+  margin-right: 12px;
+  width: 40px;
 }
 
 .NavLinks {
