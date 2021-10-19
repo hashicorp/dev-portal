@@ -2,13 +2,15 @@
 
 > 🚧 This project is in pre-alpha phase.
 
+Welcome to the HashiCorp Developer Portal! This is the home for HashiCorp product reference documentation, along with all other kinds of content for our practitioners.
+
 For background information on this project, refer to [[MKTG-034]](https://docs.google.com/document/d/1ASyBOCWWP8VUahbL5c5y0qrDMgqhYdXJ2h15xzh3JtA/edit#heading=h.spiwwyows3cr).
 
 To track the progress of this project, refer to the [Dev Portal Asana Portfolio](https://app.asana.com/0/portfolio/1200682159451359/list) and join [#proj-dev-portal](https://hashicorp.slack.com/archives/C01KCU4HDPY) on slack.
 
-## Getting Started
+## Local Development
 
-Welcome to the HashiCorp Developer Portal! This is the home for HashiCorp product reference documentation, along with all other kinds of content for our practitioners.
+### Setting Up Environment Variables
 
 There are a few things you need to set up before you can begin developing in this repository.
 
@@ -24,7 +26,7 @@ There are a few things you need to set up before you can begin developing in thi
 
    This command will pull the development environment variables from the linked Vercel project and write them to a new file called `.env.local`.
 
-## Local Development
+### Running The Project
 
 If you're developing in this repository, get started by running:
 
