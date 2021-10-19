@@ -10,6 +10,18 @@ To track the progress of this project, refer to the [Dev Portal Asana Portfolio]
 
 ## Local Development
 
+### Installing Recommended VS Code Extensions
+
+In the `.vscode` directory, you'll find [an `extensions.json` file](./.vscode/extensions.json) that lists recommended VS Code extensions to use for this project.
+
+To add the recommended extensions:
+
+1. Open VS Code
+2. Open [the command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette)
+3. Type `Show Recommended Extensions`
+4. Hit the `Enter` key
+5. Click the "Install Workspace Recommended Extensions" icon (it looks like a cloud with an arrow pointing down) under the Workspace Recommendations section of the sidebar
+
 ### Setting Up Environment Variables
 
 There are a few things you need to set up before you can begin developing in this repository.
