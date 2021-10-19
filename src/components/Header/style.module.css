@@ -6,12 +6,12 @@
   padding-left: 24px;
   padding-right: 24px;
   padding-top: 20px;
-}
 
-.Header > nav {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
+  & nav {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .HeaderLeft,
@@ -20,10 +20,12 @@
   display: flex;
 }
 
-.HeaderLeft > img {
-  height: 40px;
-  margin-right: 12px;
-  width: 40px;
+.HeaderLeft {
+  & img {
+    height: 40px;
+    margin-right: 12px;
+    width: 40px;
+  }
 }
 
 .SiteChooser {
@@ -34,20 +36,20 @@
   height: 40px;
   padding: 8.5px 16px;
   width: 220px;
-}
 
-.SiteChooser > img {
-  height: 16px;
-  margin-right: 4px;
-  width: 16px;
-}
+  & img {
+    height: 16px;
+    margin-right: 4px;
+    width: 16px;
+  }
 
-.SiteChooser > p {
-  color: white;
-  font-size: 16px;
-  letter-spacing: -0.5px;
-  line-height: 20px;
-  margin: 0;
+  & p {
+    color: white;
+    font-size: 16px;
+    letter-spacing: -0.5px;
+    line-height: 20px;
+    margin: 0;
+  }
 }
 
 .NavLinks {
@@ -58,20 +60,20 @@
   margin-left: 0;
   margin-right: 56px;
   margin-top: 0;
-}
 
-.NavLinks > li {
-  padding: 8px 12px;
-}
+  & li {
+    padding: 8px 12px;
 
-.NavLinks > li > a {
-  color: #a7aab4;
-  font-size: 14px;
-  line-height: 16px;
+    & a {
+      color: #a7aab4;
+      font-size: 14px;
+      line-height: 16px;
 
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
   }
 }
 
@@ -83,17 +85,17 @@
   height: 34px;
   padding: 8px 9px;
   width: 212px;
-}
 
-.SearchInput > img {
-  height: 16px;
-  margin-right: 8px;
-  width: 16px;
-}
+  & img {
+    height: 16px;
+    margin-right: 8px;
+    width: 16px;
+  }
 
-.SearchInput > p {
-  font-size: 14px;
-  letter-spacing: -0.005em;
-  line-height: 18px;
-  margin: 0;
+  & p {
+    font-size: 14px;
+    letter-spacing: -0.005em;
+    line-height: 18px;
+    margin: 0;
+  }
 }
