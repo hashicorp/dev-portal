@@ -1,8 +1,9 @@
 module.exports = {
   waypoint: {
     // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
-    domain: 'https://wp.snarglepuss.com',
-    host: 'wp.snarglepuss.com',
+    // EDIT: using https://dev-portal-git-layout-hashicorp.vercel.app as a really temporary test
+    domain: 'https://dev-portal-git-layout-hashicorp.vercel.app',
+    host: 'dev-portal-git-layout-hashicorp.vercel.app',
     routesToProxy: [
       {
         proxiedRoute: '/',
