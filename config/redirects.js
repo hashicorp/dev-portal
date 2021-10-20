@@ -1,17 +1,5 @@
 const proxySettings = require('./proxy-settings')
 
-// const DOMAIN_MAP = {
-//   boundary: 'https://boundaryproject.io',
-//   consul: 'https://consul.io',
-//   hcp: 'https://cloud.hashicorp.com',
-//   nomad: 'https://nomadproject.io',
-//   packer: 'https://packer.io',
-//   terraform: 'https://terraform.io',
-//   vagrant: 'https://vagrantup.com',
-//   vault: 'https://vaultproject.io',
-//   waypoint: 'https://waypointproject.io',
-// }
-
 // Redirect all proxied Waypoint pages
 // to the Waypoint project domain
 // (we do this regardless of which domain we're serving from)
