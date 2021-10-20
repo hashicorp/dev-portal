@@ -1,4 +1,4 @@
-// const proxiedPages = require('./proxied-pages.json')
+const proxySettings = require('./proxy-settings')
 
 /**
  * # Some notes on rewrites
@@ -24,43 +24,36 @@
  * The reason for this is that regex approaches seemed
  * to consistently cause problems. Specifically:
  *
- * - Using "/:path*" would not match the home page.
- *   Using it alongside an explicit home page rewrite
- *   did not result in the expected behaviour.
+ * - Using "/:path*" without "beforeFiles"
+ *   (ie default "afterFiles") means we don't
+ *   resolve the conflicts mentioned above,
+ *   in the "beforeFiles" section, as expected.
  *
- * - Using "/:path+" alongside the an explicit home page
- *   rewrite should work in theory. But, this method seems
- *   to end up rewriting all `/_next/` assets, which
- *   completely breaks the page. And, as with "/:path*",
- *   in practice the home page rewrite didn't work anyways
- *   (resulted in a 404, with no styles or JS loading).
+ * - Using "/:path*" or "/:path+" with "beforeFiles"
+ *   end up rewriting all `/_next/` assets.
+ *   This breaks the page.
  *
  */
 
+const waypointHost = proxySettings.waypoint.host
+const waypointProxyRewrites = proxySettings.waypoint.routesToProxy.map(
+  ({ proxiedRoute, projectPage }) => {
+    return {
+      source: proxiedRoute,
+      destination: projectPage,
+      has: [
+        {
+          type: 'host',
+          value: waypointHost,
+        },
+      ],
+    }
+  }
+)
+
 async function rewritesConfig() {
   return {
-    beforeFiles: [
-      // {
-      //   source: '/',
-      //   destination: '/waypoint/_secret-io-homepage',
-      //   has: [
-      //     {
-      //       type: 'host',
-      //       value: 'wp.snarglepuss.com',
-      //     },
-      //   ],
-      // },
-      {
-        source: '/:path*',
-        destination: '/waypoint/:path*',
-        // has: [
-        //   {
-        //     type: 'host',
-        //     value: 'wp.snarglepuss.com',
-        //   },
-        // ],
-      },
-    ],
+    beforeFiles: [...waypointProxyRewrites],
   }
 }
 

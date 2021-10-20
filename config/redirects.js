@@ -1,48 +1,42 @@
-const proxiedPages = require('./proxied-pages.json')
+const proxySettings = require('./proxy-settings')
 
-const DOMAIN_MAP = {
-  boundary: 'https://boundaryproject.io',
-  consul: 'https://consul.io',
-  hcp: 'https://cloud.hashicorp.com',
-  nomad: 'https://nomadproject.io',
-  packer: 'https://packer.io',
-  terraform: 'https://terraform.io',
-  vagrant: 'https://vagrantup.com',
-  vault: 'https://vaultproject.io',
-  waypoint: 'https://waypointproject.io',
-}
+// const DOMAIN_MAP = {
+//   boundary: 'https://boundaryproject.io',
+//   consul: 'https://consul.io',
+//   hcp: 'https://cloud.hashicorp.com',
+//   nomad: 'https://nomadproject.io',
+//   packer: 'https://packer.io',
+//   terraform: 'https://terraform.io',
+//   vagrant: 'https://vagrantup.com',
+//   vault: 'https://vaultproject.io',
+//   waypoint: 'https://waypointproject.io',
+// }
 
-// loop over DOMAIN_MAP to create an entry that blocks
-// the /:product/_secret-io-homepage path from loading on dev-portal in
-// production. this page should only be accessed via proxy for the
-// individual project domains
-// TODO: we want to apply this on the live site, but may not want to apply it in local dev
-// one way to achieve this would be with a "has" entry. However, for local dev
-// we'll likely be doing other env-based stuff, so it may be easier to just remove
-// these redirects in dev rather than list specific production hosts.
-const blockSecretHomepageRedirects = Object.entries(DOMAIN_MAP).map(
-  ([product, domain]) => ({
-    source: `/${product}/_secret-io-homepage`,
-    destination: domain,
-    permanent: false,
-  })
-)
-
+// Redirect all proxied Waypoint pages
+// to the Waypoint project domain
+// (we do this regardless of which domain we're serving from)
 // TODO: should work for all routes on all products
 // for now, just testing for manually specific waypoint routes...
 // 2. expand to all routes for all products
 // 3. find way to abstract the above so it's not repetitive, if it makes sense
 //    ... maybe read in from pages folder or something, if that makes sense?
-const internalRedirectTests = proxiedPages.waypoint.map((pagePath) => {
-  return {
-    source: `/waypoint/${pagePath}`,
-    destination: `/${pagePath}`,
-    permanent: false,
+// TODO: we want to apply these redirects on the live site, but not in local dev
+// one way to achieve this would be with a "has" entry. However, for local dev
+// we'll likely be doing other env-based stuff, so it may be easier to just remove
+// these redirects in dev rather than list specific production hosts.
+const waypointDomain = proxySettings.waypoint.domain
+const waypointProxyRedirects = proxySettings.waypoint.routesToProxy.map(
+  ({ proxiedRoute, projectPage }) => {
+    return {
+      source: projectPage,
+      destination: waypointDomain + proxiedRoute,
+      permanent: false,
+    }
   }
-})
+)
 
 async function redirectsConfig() {
-  return [...blockSecretHomepageRedirects, ...internalRedirectTests]
+  return [...waypointProxyRedirects]
 }
 
 module.exports = redirectsConfig
