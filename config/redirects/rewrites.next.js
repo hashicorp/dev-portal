@@ -12,9 +12,11 @@ const waypointPathRewrites = {
   permanent: false,
 }
 
-module.exports = (async () => {
+async function rewritesConfig() {
   return [...waypointPathRewrites]
-})()
+}
+
+module.exports = rewritesConfig
 
      // return [
       //   { source: '/', destination: '/waypoint' }, // does not match localhost:3000

@@ -36,9 +36,11 @@ const internalRedirectTests = [
   }
 ]
 
-module.exports = (async () => {
+async function redirectsConfig() {
   return [
     ...blockSecretHomepageRedirects,
     ...internalRedirectTests
   ]
-})()
+}
+
+module.exports = redirectsConfig
