@@ -1,3 +1,5 @@
+const proxiedPages = require('./proxied-pages.json')
+
 const DOMAIN_MAP = {
   boundary: 'https://boundaryproject.io',
   consul: 'https://consul.io',
@@ -31,16 +33,7 @@ const blockSecretHomepageRedirects = Object.entries(DOMAIN_MAP).map(
 // 2. expand to all routes for all products
 // 3. find way to abstract the above so it's not repetitive, if it makes sense
 //    ... maybe read in from pages folder or something, if that makes sense?
-const waypointProxiedPages = [
-  'commands',
-  'community',
-  'docs',
-  'downloads',
-  'plugins',
-  'security',
-  'terms',
-]
-const internalRedirectTests = waypointProxiedPages.map((pagePath) => {
+const internalRedirectTests = proxiedPages.waypoint.map((pagePath) => {
   return {
     source: `/waypoint/${pagePath}`,
     destination: `/${pagePath}`,
