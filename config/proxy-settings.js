@@ -9,24 +9,24 @@ module.exports = {
         projectPage: '/waypoint/_secret-io-homepage',
       },
       {
-        proxiedRoute: '/commands',
-        projectPage: '/waypoint/commands',
+        proxiedRoute: '/commands/:path*',
+        projectPage: '/waypoint/commands/:path*',
       },
       {
         proxiedRoute: '/community',
         projectPage: '/waypoint/community',
       },
       {
-        proxiedRoute: '/docs',
-        projectPage: '/waypoint/docs',
+        proxiedRoute: '/docs/:path*',
+        projectPage: '/waypoint/docs/:path*',
       },
       {
         proxiedRoute: '/downloads',
         projectPage: '/waypoint/downloads',
       },
       {
-        proxiedRoute: '/plugins',
-        projectPage: '/waypoint/plugins',
+        proxiedRoute: '/plugins/:path*',
+        projectPage: '/waypoint/plugins/:path*',
       },
       {
         proxiedRoute: '/security',
