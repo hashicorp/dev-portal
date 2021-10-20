@@ -4,7 +4,7 @@ import cheerio from 'cheerio'
 import { camelCase, startCase } from 'lodash'
 import prettier from 'prettier'
 
-const ICONS_PATH = path.join(process.cwd(), '.tmp', 'icons')
+const ICONS_PATH = path.join(process.cwd(), 'src', 'components', 'icons')
 
 const ICONS_TYPES_FILE = `import { SVGAttributes } from 'react'
 
