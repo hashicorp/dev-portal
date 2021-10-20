@@ -1,6 +1,7 @@
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
-const redirectsConfig = require('./config/redirects/redirects.next.js')
+const redirectsConfig = require('./config/redirects')
+const rewritesConfig = require('./config/rewrites')
 
 // temporary: set all paths as noindex, until we're serving from this project
 const temporary_hideDocsPaths = {
@@ -22,7 +23,10 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       return [temporary_hideDocsPaths]
     },
     async redirects() {
-      return redirectsConfig
+      return await redirectsConfig()
+    },
+    async rewrites() {
+      return await rewritesConfig()
     },
     env: {
       HASHI_ENV: process.env.HASHI_ENV || 'development',
