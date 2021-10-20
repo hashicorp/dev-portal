@@ -14,7 +14,7 @@ const DOMAIN_MAP = {
 // the /:product/_secret-io-homepage path from loading on dev-portal in
 // production. this page should only be accessed via proxy for the
 // individual project domains
-const blockSecretHomepageRedirect = Object.entries(DOMAIN_MAP).map(
+const blockSecretHomepageRedirects = Object.entries(DOMAIN_MAP).map(
   ([product, domain]) => ({
     source: `/${product}/_secret-io-homepage`,
     destination: domain,
@@ -28,6 +28,17 @@ const blockSecretHomepageRedirect = Object.entries(DOMAIN_MAP).map(
   })
 )
 
+const internalRedirectTests = [
+  {
+    source: '/waypoint/docs',
+    destination: '/docs',
+    permanent: false
+  }
+]
+
 module.exports = (async () => {
-  return [...blockSecretHomepageRedirect]
+  return [
+    ...blockSecretHomepageRedirects,
+    ...internalRedirectTests
+  ]
 })()
