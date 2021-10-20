@@ -14,20 +14,23 @@ const DOMAIN_MAP = {
 // the /:product/_secret-io-homepage path from loading on dev-portal in
 // production. this page should only be accessed via proxy for the
 // individual project domains
+// TODO: we want to apply this on the live site, but may not want to apply it in local dev
+// one way to achieve this would be with a "has" entry. However, for local dev
+// we'll likely be doing other env-based stuff, so it may be easier to just remove
+// these redirects in dev rather than list specific production hosts.
 const blockSecretHomepageRedirects = Object.entries(DOMAIN_MAP).map(
   ([product, domain]) => ({
     source: `/${product}/_secret-io-homepage`,
     destination: domain,
-    // has: [
-    //   {
-    //     type: 'host',
-    //     value: '(dev.hashicorp.com|developer.hashicorp.com|wp.snarglepuss.com)',
-    //   },
-    // ],
     permanent: false,
   })
 )
 
+// TODO: should work for all routes on all products
+// for now, just testing a specific waypoint route...
+// 1. expand to all waypoint routes
+// 2. expand to all routes for all products
+// 3. find way to abstract the above so it's not repetitive, if it makes sense
 const internalRedirectTests = [
   {
     source: '/waypoint/docs',
