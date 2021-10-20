@@ -1,3 +1,5 @@
+// const proxiedPages = require('./proxied-pages.json')
+
 async function rewritesConfig() {
   return {
     // We run our rewrites BEFORE letting NextJS check if there
@@ -18,16 +20,16 @@ async function rewritesConfig() {
         //   },
         // ],
       },
-      // {
-      //   source: '/:path+',
-      //   destination: '/waypoint/:path+',
-      //   has: [
-      //     {
-      //       type: 'host',
-      //       value: 'wp.snarglepuss.com',
-      //     },
-      //   ],
-      // },
+      {
+        source: '/:path+',
+        destination: '/waypoint/:path+',
+        // has: [
+        //   {
+        //     type: 'host',
+        //     value: 'wp.snarglepuss.com',
+        //   },
+        // ],
+      },
     ],
   }
 }
