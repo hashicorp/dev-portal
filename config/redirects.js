@@ -27,17 +27,26 @@ const blockSecretHomepageRedirects = Object.entries(DOMAIN_MAP).map(
 )
 
 // TODO: should work for all routes on all products
-// for now, just testing a specific waypoint route...
-// 1. expand to all waypoint routes
+// for now, just testing for manually specific waypoint routes...
 // 2. expand to all routes for all products
 // 3. find way to abstract the above so it's not repetitive, if it makes sense
-const internalRedirectTests = [
-  {
-    source: '/waypoint/docs',
-    destination: '/docs',
-    permanent: false,
-  },
+//    ... maybe read in from pages folder or something, if that makes sense?
+const waypointProxiedPages = [
+  'commands',
+  'community',
+  'docs',
+  'downloads',
+  'plugins',
+  'security',
+  'terms',
 ]
+const internalRedirectTests = waypointProxiedPages.map((pagePath) => {
+  return {
+    source: `/waypoint/${pagePath}`,
+    destination: `/${pagePath}`,
+    permanent: false,
+  }
+})
 
 async function redirectsConfig() {
   return [...blockSecretHomepageRedirects, ...internalRedirectTests]
