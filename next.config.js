@@ -1,7 +1,7 @@
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
-const redirectsConfig = require('./config/redirects/redirects.next.js')
-const rewritesConfig = require('./config/redirects/rewrites.next.js')
+const redirectsConfig = require('./config/redirects')
+const rewritesConfig = require('./config/rewrites')
 
 // temporary: set all paths as noindex, until we're serving from this project
 const temporary_hideDocsPaths = {

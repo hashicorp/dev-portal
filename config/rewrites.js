@@ -1,6 +1,6 @@
 // wp.snarglepuss.com needs to proxy to ?
 
-const waypointPathRewrites = {
+const waypointPathRewrites = [{
   source: '/:path*',
   destination: '/waypoint/:path*',
   has: [
@@ -10,7 +10,7 @@ const waypointPathRewrites = {
     },
   ],
   permanent: false,
-}
+}]
 
 async function rewritesConfig() {
   return [...waypointPathRewrites]
