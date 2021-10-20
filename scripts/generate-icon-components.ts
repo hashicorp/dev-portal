@@ -92,12 +92,7 @@ async function main() {
   for (const icon of icons) {
     // Read the raw SVG source and modify it to be valid JSX
     const svgSource = await fs.promises.readFile(
-      path.join(
-        process.cwd(),
-        'node_modules',
-        '@hashicorp/flight-icons/svg',
-        `${icon}.svg`
-      ),
+      path.join(flightSvgDirectory, `${icon}.svg`),
       { encoding: 'utf-8' }
     )
     const jsx = getJSXFromSvgSource(svgSource)
