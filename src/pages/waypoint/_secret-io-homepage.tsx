@@ -7,7 +7,7 @@ export default function WaypointSecretMarketingHomepage() {
       <h1>Welcome to the secret Waypoint Marketing Homepage</h1>
       <ul>
         <li>
-          <Link href="/waypoint/docs">View Waypoint Docs</Link>
+          <Link href="/docs">View Waypoint Docs</Link>
         </li>
       </ul>
     </div>

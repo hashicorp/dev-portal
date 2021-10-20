@@ -11,8 +11,6 @@ async function rewritesConfig() {
           },
         ],
       },
-    ],
-    afterFiles: [
       {
         source: '/:path*',
         destination: '/waypoint/:path*',
