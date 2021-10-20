@@ -14,7 +14,7 @@ const temporary_noop = 'im just for show'
 
 const productName = waypointConfig.name
 const productSlug = waypointConfig.slug
-const basePath = 'docs'
+const basePath = 'plugins'
 const additionalComponents = { Placement, NestedNode }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
