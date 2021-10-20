@@ -8,8 +8,7 @@ const waypointPathRewrites = [{
       type: 'host',
       value: 'wp.snarglepuss.com',
     },
-  ],
-  permanent: false,
+  ]
 }]
 
 async function rewritesConfig() {
