@@ -28,7 +28,10 @@ const waypointProxyRedirects = proxySettings.waypoint.routesToProxy
   // to show on the proxied domain, then we should
   // redirect to the live dev portal domain
   // TODO: this is a simple single route, we'd probably want to redirect all dev-portal routes
-  // (also this may be totally unnecessary if .io homepages are isolated on a separate branch)
+  // (also this may be totally unnecessary if .io homepages are isolated on a separate branch,
+  // which will be our default assumption - silo-ing things seem safer. We could figure
+  // out a better strategy for these redirects if EVERYTHING, ie new dev-portally stuff and
+  // existing pages to be proxy-served through .io domains, is to live on one branch)
   .concat([
     {
       source: '/some-dev-portal-route',
