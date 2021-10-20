@@ -32,15 +32,12 @@ const internalRedirectTests = [
   {
     source: '/waypoint/docs',
     destination: '/docs',
-    permanent: false
-  }
+    permanent: false,
+  },
 ]
 
 async function redirectsConfig() {
-  return [
-    ...blockSecretHomepageRedirects,
-    ...internalRedirectTests
-  ]
+  return [...blockSecretHomepageRedirects, ...internalRedirectTests]
 }
 
 module.exports = redirectsConfig
