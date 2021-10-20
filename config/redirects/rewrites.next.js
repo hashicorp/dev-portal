@@ -15,3 +15,11 @@ const waypointPathRewrites = {
 module.exports = (async () => {
   return [...waypointPathRewrites]
 })()
+
+     // return [
+      //   { source: '/', destination: '/waypoint' }, // does not match localhost:3000
+      //   {
+      //     source: '/:path*{/}?', // does not match localhost:3000, but matches other routes
+      //     destination: '/waypoint/:path*'
+      //   },
+      // ]
