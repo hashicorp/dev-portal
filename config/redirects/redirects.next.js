@@ -18,12 +18,12 @@ const blockSecretHomepageRedirect = Object.entries(DOMAIN_MAP).map(
   ([product, domain]) => ({
     source: `/${product}/_secret-io-homepage`,
     destination: domain,
-    has: [
-      {
-        type: 'host',
-        value: 'wp.snarglepuss.com',
-      },
-    ],
+    // has: [
+    //   {
+    //     type: 'host',
+    //     value: '(dev.hashicorp.com|developer.hashicorp.com|wp.snarglepuss.com)',
+    //   },
+    // ],
     permanent: false,
   })
 )
