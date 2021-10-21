@@ -12,22 +12,22 @@
     cursor: pointer;
   }
 
-  & > div {
+  & .iconAndNameContainer {
     display: flex;
     align-items: center;
-  }
 
-  & img {
-    height: 16px;
-    margin-right: 4px;
-    width: 16px;
-  }
+    & svg {
+      height: 16px;
+      width: 16px;
+    }
 
-  & p {
-    color: white;
-    font-size: 16px;
-    letter-spacing: -0.5px;
-    line-height: 20px;
-    margin: 0;
+    & p {
+      color: white;
+      font-size: 16px;
+      letter-spacing: -0.5px;
+      line-height: 20px;
+      margin: 0;
+      margin-left: 4px;
+    }
   }
 }

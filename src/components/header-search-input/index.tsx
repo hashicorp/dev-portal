@@ -1,4 +1,4 @@
-import Icon from 'components/icon'
+import Icon from 'components/icons'
 import s from './style.module.css'
 
 const HeaderSearchInput: React.FC = () => (
