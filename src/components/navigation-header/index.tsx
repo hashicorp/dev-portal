@@ -1,16 +1,16 @@
-import HeaderSearchInput from 'components/HeaderSearchInput'
-import ProductChooser from 'components/ProductChooser'
+import HeaderSearchInput from 'components/header-search-input'
+import ProductChooser from 'components/product-chooser'
 import s from './style.module.css'
 
 const NavigationHeader: React.FC = () => (
-  <header className={s.NavigationHeader}>
+  <header className={s.navigationHeader}>
     <nav>
-      <div className={s.HeaderLeft}>
-        <img className={s.SiteLogo} src="https://placekitten.com/g/40/40" />
+      <div className={s.headerLeft}>
+        <img className={s.siteLogo} src="https://placekitten.com/g/40/40" />
         <ProductChooser />
       </div>
-      <div className={s.HeaderRight}>
-        <ul className={s.NavLinks}>
+      <div className={s.headerRight}>
+        <ul className={s.navLinks}>
           <li>
             <a>Reference Docs</a>
           </li>

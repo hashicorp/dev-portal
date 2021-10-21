@@ -1,4 +1,4 @@
-.NavigationHeader {
+.navigationHeader {
   background-color: #232529;
   color: white;
   height: 80px;
@@ -14,19 +14,19 @@
   }
 }
 
-.HeaderLeft,
-.HeaderRight {
+.headerLeft,
+.headerRight {
   align-items: center;
   display: flex;
 }
 
-.SiteLogo {
+.siteLogo {
   height: 40px;
   margin-right: 12px;
   width: 40px;
 }
 
-.NavLinks {
+.navLinks {
   align-items: center;
   display: flex;
   list-style: none;

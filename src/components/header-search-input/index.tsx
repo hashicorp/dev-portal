@@ -1,10 +1,10 @@
-import Icon from 'components/Icon'
+import Icon from 'components/icon'
 import s from './style.module.css'
 
 const HeaderSearchInput: React.FC = () => (
-  <div className={s.HeaderSearchInput}>
+  <div className={s.headerSearchInput}>
     <div>
-      <Icon className={s.SearchIcon} name="search" />
+      <Icon className={s.searchIcon} name="search" />
       <div>Search</div>
     </div>
     <Icon name="slash-square" />
