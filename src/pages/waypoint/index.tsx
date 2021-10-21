@@ -7,7 +7,7 @@ export default function Homepage() {
       <h1>Welcome to Waypoint</h1>
       <ul>
         <li>
-          <Link href="/waypoint/docs">View Docs</Link>
+          <Link href="/docs">View Docs</Link>
         </li>
       </ul>
     </div>
