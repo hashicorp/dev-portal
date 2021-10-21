@@ -9,6 +9,7 @@ import HashiStackMenu from '@hashicorp/react-hashi-stack-menu'
 import ProductSubnav from 'components/navigation/waypoint/subnav'
 import Footer from 'components/footer/waypoint'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
+import 'styles/color.css'
 
 const ALERT_BANNER_ACTIVE = true
 const alertBannerData = {

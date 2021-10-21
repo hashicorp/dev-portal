@@ -1,5 +1,5 @@
 .navigationHeader {
-  background-color: #232529;
+  background-color: var(--navigation-header-background);
   color: white;
   height: 80px;
   padding-bottom: 20px;
@@ -43,7 +43,7 @@
     padding: 8px 12px;
 
     & a {
-      color: #a7aab4;
+      color: var(--navigation-header-link-color);
       font-size: 14px;
       line-height: 16px;
 
