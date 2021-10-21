@@ -1,4 +1,6 @@
+import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
 import HeaderSearchInput from 'components/header-search-input'
+import InlineSvg from '@hashicorp/react-inline-svg'
 import ProductChooser from 'components/product-chooser'
 import s from './style.module.css'
 
@@ -6,7 +8,7 @@ const NavigationHeader: React.FC = () => (
   <header className={s.navigationHeader}>
     <nav>
       <div className={s.headerLeft}>
-        <img className={s.siteLogo} src="https://placekitten.com/g/40/40" />
+        <InlineSvg className={s.siteLogo} src={HashiCorpLogo} />
         <ProductChooser />
       </div>
       <div className={s.headerRight}>
