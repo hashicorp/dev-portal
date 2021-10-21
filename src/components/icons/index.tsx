@@ -11,7 +11,7 @@ interface IconProps {
 const cx = classNames.bind(s)
 
 const Icon: React.FC<IconProps> = ({ className, name, size = 16 }) => {
-  const classes = cx('Icon', {
+  const classes = cx('icon', {
     [className]: !!className,
   })
 
