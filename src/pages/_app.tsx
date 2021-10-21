@@ -36,28 +36,38 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 export default function App({ Component, pageProps }) {
   useAnchorLinkAnalytics()
 
+  const getLayout =
+    Component.getLayout ||
+    ((page) => (
+      <>
+        <HashiHead
+          title={title}
+          siteName={title}
+          description={description}
+          image="https://www.waypointproject.io/img/og-image.png"
+          icon={[{ href: '/_favicon.ico' }]}
+        >
+          <meta name="og:title" property="og:title" content={title} />
+          <meta
+            name="og:description"
+            property="og:title"
+            content={description}
+          />
+        </HashiHead>
+        {ALERT_BANNER_ACTIVE && (
+          <AlertBanner {...alertBannerData} product="waypoint" hideOnMobile />
+        )}
+        <HashiStackMenu />
+        <ProductSubnav />
+        <div className="content">{page}</div>
+        <Footer openConsentManager={openConsentManager} />
+        <ConsentManager />
+      </>
+    ))
+
   return (
     <ErrorBoundary FallbackComponent={Error}>
-      <HashiHead
-        title={title}
-        siteName={title}
-        description={description}
-        image="https://www.waypointproject.io/img/og-image.png"
-        icon={[{ href: '/_favicon.ico' }]}
-      >
-        <meta name="og:title" property="og:title" content={title} />
-        <meta name="og:description" property="og:title" content={description} />
-      </HashiHead>
-      {ALERT_BANNER_ACTIVE && (
-        <AlertBanner {...alertBannerData} product="waypoint" hideOnMobile />
-      )}
-      <HashiStackMenu />
-      <ProductSubnav />
-      <div className="content">
-        <Component {...pageProps} />
-      </div>
-      <Footer openConsentManager={openConsentManager} />
-      <ConsentManager />
+      {getLayout(<Component {...pageProps} />)}
     </ErrorBoundary>
   )
 }
