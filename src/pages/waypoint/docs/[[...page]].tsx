@@ -7,6 +7,7 @@ import waypointConfig from '../../../../config/waypoint.json'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
 import NavigationHeader from 'components/navigation-header'
+import EmptyLayout from 'layouts/empty'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -33,6 +34,8 @@ export default function DocsLayout(props) {
     </>
   )
 }
+
+DocsLayout.layout = EmptyLayout
 
 export async function getStaticPaths() {
   const paths = await generateStaticPaths({
