@@ -1,6 +1,7 @@
 import LongformPage from 'components/longform-page'
+import { getWaypointLayout } from 'layouts/proxied-io-sites/waypoint'
 
-export default function TermsOfUsePage() {
+function TermsOfUsePage() {
   return (
     <LongformPage
       className="terms-of-service"
@@ -169,3 +170,6 @@ export default function TermsOfUsePage() {
     </LongformPage>
   )
 }
+
+TermsOfUsePage.getLayout = getWaypointLayout
+export default TermsOfUsePage

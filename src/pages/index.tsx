@@ -4,6 +4,7 @@ export default function Homepage() {
   return (
     <div className="g-grid-container">
       <h1>Welcome to Dev Portal</h1>
+      <h2>Dev Portal links</h2>
       <ul>
         <li>
           <Link href="/consul">Consul</Link>
@@ -16,6 +17,12 @@ export default function Homepage() {
         </li>
         <li>
           <Link href="/waypoint">Waypoint</Link>
+        </li>
+      </ul>
+      <h2>Proxied sites</h2>
+      <ul>
+        <li>
+          <Link href="/waypoint/_secret-io-homepage">Proxied Waypoint</Link>
         </li>
       </ul>
     </div>

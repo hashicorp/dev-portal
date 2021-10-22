@@ -1,9 +1,11 @@
-import waypointConfig  from '../../../../config/waypoint.json'
+import waypointConfig from '../../../../config/waypoint.json'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
-import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
+import { getWaypointLayout } from 'layouts/proxied-io-sites/waypoint'
 import styles from './style.module.css'
+// Imports below are server-side only
+import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
 
-export default function DownloadsPage({ releases }) {
+function DownloadsPage({ releases }) {
   return (
     <ProductDownloadsPage
       releases={releases}
@@ -53,3 +55,6 @@ export const getStaticProps = () =>
     product: waypointConfig.slug,
     latestVersion: waypointConfig.version, // temporary. switch to remote fetch
   })
+
+DownloadsPage.getLayout = getWaypointLayout
+export default DownloadsPage
