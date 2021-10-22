@@ -1,6 +1,6 @@
 import s from './style.module.css'
 import Link from 'next/link'
-import useWaypointServiceStatus from 'lib/useWaypointServiceStatus'
+import useWaypointServiceStatus from 'lib/hooks/useWaypointServiceStatus'
 
 export default function Footer({ openConsentManager }) {
   const waypointServiceOK = useWaypointServiceStatus()
