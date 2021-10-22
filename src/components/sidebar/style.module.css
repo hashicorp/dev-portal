@@ -1,0 +1,125 @@
+.backToLink {
+  align-items: center;
+  color: #3b3d45;
+  display: flex;
+  margin-bottom: var(--sidebar-padding);
+  width: fit-content;
+
+  & .icon {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+/* TODO: use variables & math for height/positioning */
+.filterInput {
+  position: relative;
+  height: 38px;
+
+  & .filterIcon,
+  & .clearButton,
+  & .clearIcon {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  & .filterIcon,
+  & .clearButton {
+    color: #656a76;
+    position: absolute;
+    top: calc((38px - 16px) / 2);
+  }
+
+  & .filterIcon {
+    left: 8px;
+  }
+
+  & .clearButton {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    height: 16px;
+    padding: 0;
+    right: 8px;
+    width: 16px;
+  }
+
+  /* TODO: use variables & math for padding */
+  /* TODO: height should be 38 but is 40 */
+  & input {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: #0c0c0e;
+    font-size: 14px;
+    line-height: 18px;
+    padding-bottom: 9px;
+    padding-left: 32px;
+    padding-right: 8px;
+    padding-top: 9px;
+    position: relative;
+    width: 100%;
+
+    &::placeholder {
+      color: #656a76;
+    }
+
+    &:hover {
+      border: 1px solid #8c909c;
+      cursor: pointer;
+    }
+
+    &:focus {
+      border: 1px solid #1f69ff;
+      box-shadow: 0 0 0 3px #a5c2f3;
+      outline: none;
+    }
+  }
+}
+
+.sidebar {
+  background-color: white;
+  box-shadow: 0 8px 12px rgba(37, 38, 45, 0.08);
+  height: 100%;
+  min-height: 500px; /* TODO: this is temporary */
+  padding: var(--sidebar-padding);
+  width: 320px;
+
+  & .icon {
+    display: flex;
+  }
+
+  /* & .menuItemButton,
+  & .filterMenuItemButton {
+    align-items: center;
+    background-color: white;
+    border: none;
+    color: #0c0c0e;
+    display: flex;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 8px;
+    width: 100%;
+  }
+
+  & .filterMenuItemButton {
+    color: #3b3d45;
+  }
+
+  & .navTitle {
+    color: #656a76;
+    margin: 0;
+    padding: 8px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  & .menuItem {
+    color: #3b3d45;
+  } */
+}
