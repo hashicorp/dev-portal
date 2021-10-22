@@ -1,8 +1,6 @@
 import Subnav from '@hashicorp/react-subnav'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import subnavItems from './data/navigation'
-import { productSlug } from './data/metadata'
 
 export default function ProductSubnav() {
   const router = useRouter()
@@ -15,7 +13,7 @@ export default function ProductSubnav() {
       ctaLinks={[
         {
           text: 'GitHub',
-          url: `https://www.github.com/hashicorp/${productSlug}`,
+          url: 'https://www.github.com/hashicorp/waypoint',
         },
         {
           text: 'Download',
@@ -25,7 +23,38 @@ export default function ProductSubnav() {
       hideGithubStars={true}
       currentPath={router.asPath}
       menuItemsAlign="center"
-      menuItems={subnavItems}
+      menuItems={[
+        {
+          text: 'Overview',
+          url: '/',
+          type: 'inbound',
+        },
+        {
+          text: 'Tutorials',
+          url: 'https://learn.hashicorp.com/waypoint',
+          type: 'inbound',
+        },
+        {
+          text: 'Docs',
+          url: '/docs',
+          type: 'inbound',
+        },
+        {
+          text: 'CLI',
+          url: '/commands',
+          type: 'inbound',
+        },
+        {
+          text: 'Plugins',
+          url: '/plugins',
+          type: 'inbound',
+        },
+        {
+          text: 'Community',
+          url: '/community',
+          type: 'inbound',
+        },
+      ]}
       constrainWidth
       Link={Link}
       matchOnBasePath
