@@ -32,6 +32,7 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
+    "@hashicorp/flight-icons": "^1.2.0",
     "@hashicorp/mktg-global-styles": "^4.0.0",
     "@hashicorp/platform-code-highlighting": "^0.1.2",
     "@hashicorp/platform-runtime-error-monitoring": "^0.1.0",
@@ -39,6 +40,7 @@
     "@hashicorp/react-consent-manager": "^7.0.1",
     "@hashicorp/react-docs-page": "^14.2.6-canary-2021830165742",
     "@hashicorp/react-hashi-stack-menu": "^2.0.7",
+    "@hashicorp/react-inline-svg": "^6.0.3",
     "@hashicorp/react-product-downloads-page": "^2.5.2",
     "@hashicorp/react-section-header": "^5.0.4",
     "@hashicorp/react-subnav": "^9.0.1",
