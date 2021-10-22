@@ -1,5 +1,5 @@
 import LongformPage from 'components/longform-page'
-import { getWaypointLayout } from 'layouts/proxied-io-sites/waypoint'
+import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
 
 function SecurityPage() {
   return (
@@ -27,5 +27,5 @@ function SecurityPage() {
   )
 }
 
-SecurityPage.getLayout = getWaypointLayout
+SecurityPage.layout = WaypointIoLayout
 export default SecurityPage

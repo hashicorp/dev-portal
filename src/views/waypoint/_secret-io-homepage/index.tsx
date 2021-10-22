@@ -1,5 +1,4 @@
-import { getWaypointLayout } from 'layouts/proxied-io-sites/waypoint'
-
+import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 import Hero from './components/hero'
 import SectionIntro from './components/sections/intro'
@@ -245,5 +244,5 @@ function WaypointSecretMarketingHomepage(): JSX.Element {
   )
 }
 
-WaypointSecretMarketingHomepage.getLayout = getWaypointLayout
+WaypointSecretMarketingHomepage.layout = WaypointIoLayout
 export default WaypointSecretMarketingHomepage

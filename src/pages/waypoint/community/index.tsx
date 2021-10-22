@@ -2,7 +2,7 @@ import styles from './style.module.css'
 import VerticalTextBlockList from '@hashicorp/react-vertical-text-block-list'
 import SectionHeader from '@hashicorp/react-section-header'
 import Head from 'next/head'
-import { getWaypointLayout } from 'layouts/proxied-io-sites/waypoint'
+import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
 import React from 'react'
 
 function CommunityPage() {
@@ -37,5 +37,5 @@ function CommunityPage() {
   )
 }
 
-CommunityPage.getLayout = getWaypointLayout
+CommunityPage.layout = WaypointIoLayout
 export default CommunityPage

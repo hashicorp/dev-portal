@@ -1,5 +1,5 @@
 import LongformPage from 'components/longform-page'
-import { getWaypointLayout } from 'layouts/proxied-io-sites/waypoint'
+import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
 
 function TermsOfUsePage() {
   return (
@@ -171,5 +171,5 @@ function TermsOfUsePage() {
   )
 }
 
-TermsOfUsePage.getLayout = getWaypointLayout
+TermsOfUsePage.layout = WaypointIoLayout
 export default TermsOfUsePage
