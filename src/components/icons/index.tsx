@@ -10,6 +10,7 @@ interface IconProps {
 
 const cx = classNames.bind(s)
 
+// TODO: replace with flight icon components (ref: https://app.asana.com/0/1201010428539925/1201247589988635/f)
 const Icon: React.FC<IconProps> = ({ className, name, size = 16 }) => {
   const classes = cx('icon', {
     [className]: !!className,
