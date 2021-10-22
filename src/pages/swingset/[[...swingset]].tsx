@@ -1,9 +1,10 @@
 import createPage from 'swingset/page'
 import { createStaticProps, createStaticPaths } from 'swingset/server'
+import EmptyLayout from 'layouts/empty'
 
 const SwingsetPage = createPage()
 
-SwingsetPage.getLayout = (page: React.ReactElement) => page
+SwingsetPage.layout = EmptyLayout
 
 export default SwingsetPage
 
