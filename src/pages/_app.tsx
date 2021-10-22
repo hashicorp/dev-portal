@@ -8,7 +8,7 @@ import './style.css'
 export default function App({ Component, pageProps }) {
   useAnchorLinkAnalytics()
 
-  const Layout = Component.layout || BaseLayout
+  const Layout = Component.layout ?? BaseLayout
 
   return (
     <ErrorBoundary FallbackComponent={Error}>
