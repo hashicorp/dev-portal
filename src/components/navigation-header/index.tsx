@@ -12,6 +12,7 @@ const NavigationHeader: React.FC = () => (
         <ProductChooser />
       </div>
       <div className={s.headerRight}>
+        {/* TODO: make these links functional (ref: https://app.asana.com/0/1201010428539925/1201247589988627/f) */}
         <ul className={s.navLinks}>
           <li>
             <a>Reference Docs</a>
