@@ -73,7 +73,8 @@
       color: #656a76;
     }
 
-    &:hover {
+    &:hover,
+    &:not([value='']) {
       border: 1px solid #8c909c;
       cursor: pointer;
     }
