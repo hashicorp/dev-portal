@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import s from './style.module.css'
 
@@ -16,25 +16,24 @@ const BackToLink = () => (
 
 // TODO: move this into its own file
 const FilterInput = () => {
-  const [showClearButton, setShowClearButton] = useState<boolean>()
+  const inputRef = useRef<HTMLInputElement>()
   const [filterValue, setFilterValue] = useState('')
-
-  const handleBlur = () => {
-    setShowClearButton(false)
-  }
+  const showClearButton = filterValue
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
     setFilterValue(newValue)
-    setShowClearButton(newValue ? true : false)
+  }
+
+  const handleClear = () => {
+    setFilterValue('')
+    inputRef.current.focus()
   }
 
   const handleFocus = () => {
     if (!filterValue) {
       return
     }
-
-    setShowClearButton(true)
   }
 
   return (
@@ -44,20 +43,24 @@ const FilterInput = () => {
         src={require('@hashicorp/flight-icons/svg/filter-16.svg?include')}
       />
       <input
-        onBlur={handleBlur}
         onChange={handleChange}
         onFocus={handleFocus}
         placeholder="Filter sidebar"
+        ref={inputRef}
+        value={filterValue}
       />
-      <button
-        className={s.clearButton}
-        style={{ display: showClearButton ? 'flex' : 'none' }}
-      >
-        <InlineSvg
-          className={s.clearIcon}
-          src={require('@hashicorp/flight-icons/svg/x-16.svg?include')}
-        />
-      </button>
+      {showClearButton && (
+        <button
+          aria-label="Clear filter"
+          className={s.clearButton}
+          onClick={handleClear}
+        >
+          <InlineSvg
+            className={s.clearIcon}
+            src={require('@hashicorp/flight-icons/svg/x-16.svg?include')}
+          />
+        </button>
+      )}
     </div>
   )
 }
