@@ -65,6 +65,39 @@ To run tests in watch mode:
 npm run test:watch
 ```
 
+### Component Organization
+
+In order to create some structure and consistency throughout this project, we're creating some light guidelines around where certain components should live. We have three top-level folders which should house components:
+
+```
+src/
+  components/
+  views/
+  layouts/
+  hooks/
+  contexts/
+```
+
+- **`components`** - Shareable, smaller components for use across any number of other components
+- **`views`** - Componentry which represents a full site "view." This is a way to abstract out page components and easily co-locate related code. Not necessarily intended for re-use, unless one needs to render the same view on multiple pages. This also allows us to co-locate sub-components and test files with page components, which is otherwise difficult with file-based routing
+- **`layouts`** - Layout components which are generic and possibly used across different pages (see [Next.js docs](https://nextjs.org/docs/basic-features/layouts#per-page-layouts))
+- **`hooks`** - Shared hooks which are applicable for use across a variety of other components. Hooks which access shared contexts should live in `contexts/` (see below).
+  -- **`contexts`** - Shared [contexts](https://reactjs.org/docs/context.html) and utilities for accessing / interacting with the context values.
+
+An example implementation of components laid out this way:
+
+```tsx
+// pages/some/page.tsx
+import SomePageView from 'views/some-page'
+import SomeLayout from 'layouts/some-layout'
+
+// if we need to adjust props, can wrap this to make any changes necessary
+const SomePage = SomePageView
+SomePage.layout = SomeLayout
+
+export default SomePage
+```
+
 ## Performance
 
 ### Next Bundle Analysis
