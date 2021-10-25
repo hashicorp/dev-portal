@@ -65,13 +65,94 @@ const FilterInput = () => {
   )
 }
 
+const SIDEBAR_LABEL_ID = 'sidebar-label'
+
+interface MenuItem {
+  divider?: boolean
+  title?: string
+  path?: string
+  routes?: MenuItem[]
+}
+
+const menuItems: MenuItem[] = [
+  {
+    title: 'Introduction',
+    path: '',
+  },
+  {
+    title: 'Getting Started',
+    path: '',
+  },
+  {
+    title: 'Upgrading',
+    path: '',
+  },
+  {
+    divider: true,
+  },
+  {
+    title: 'Kubernetes',
+    path: '',
+  },
+  {
+    divider: true,
+  },
+  {
+    title: 'Projects',
+    path: '',
+  },
+  {
+    title: 'Lifecycle',
+    path: '',
+  },
+  {
+    title: 'waypoint.hcl',
+    path: '',
+  },
+  {
+    title: 'URL Service',
+    path: '',
+  },
+  {
+    title: '...',
+    path: '',
+  },
+]
+
 const Sidebar: React.FC = () => (
   <div className={s.sidebar}>
     <BackToLink />
     <FilterInput />
-    <div></div>
-    <p className={s.navTitle}>Nav title</p>
-    <div>items</div>
+    <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.sidebarNav}>
+      <p className={s.sidebarLabel} id={SIDEBAR_LABEL_ID}>
+        Nav title
+      </p>
+      <ul className={s.sidebarMenuItems}>
+        {menuItems.map((item, index) => {
+          const { divider, title, path } = item
+
+          // There will be no dividers, this will be temporary
+          // until we change the data
+          if (divider) {
+            return null
+          }
+
+          // TODO: implment submenus (ref: https://app.asana.com/0/1201010428539925/1201265683986459/f)
+          // if (routes) { }
+
+          return (
+            <li
+              className={s.sidebarMenuItem}
+              // TODO: come up with better alternative to index
+              // eslint-disable-next-line react/no-array-index-key
+              key={`sidebar-menu-item-${index}`}
+            >
+              <a href={path}>{title}</a>
+            </li>
+          )
+        })}
+      </ul>
+    </nav>
   </div>
 )
 
