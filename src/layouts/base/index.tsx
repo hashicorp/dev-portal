@@ -1,11 +1,10 @@
 import Router from 'next/router'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
-import Footer from 'components/footer/waypoint'
+import Footer from 'components/footer'
 import HashiHead from '@hashicorp/react-head'
-import HashiStackMenu from '@hashicorp/react-hashi-stack-menu'
+import Min100Layout from '@hashicorp/react-min-100-layout'
 import NProgress from '@hashicorp/platform-util/nprogress'
-import ProductSubnav from 'components/navigation/waypoint/subnav'
 
 const ALERT_BANNER_ACTIVE = true
 const alertBannerData = {
@@ -38,13 +37,12 @@ const BaseLayout: React.FC = ({ children }) => (
       <meta name="og:title" property="og:title" content={title} />
       <meta name="og:description" property="og:title" content={description} />
     </HashiHead>
-    {ALERT_BANNER_ACTIVE && (
-      <AlertBanner {...alertBannerData} product="waypoint" hideOnMobile />
-    )}
-    <HashiStackMenu />
-    <ProductSubnav />
-    <div className="content">{children}</div>
-    <Footer openConsentManager={openConsentManager} />
+    <Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
+      {ALERT_BANNER_ACTIVE && (
+        <AlertBanner {...alertBannerData} product="hashicorp" hideOnMobile />
+      )}
+      {children}
+    </Min100Layout>
     <ConsentManager />
   </>
 )

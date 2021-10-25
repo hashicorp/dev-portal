@@ -1,6 +1,7 @@
 import LongformPage from 'components/longform-page'
+import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
 
-export default function TermsOfUsePage() {
+function TermsOfUsePage() {
   return (
     <LongformPage
       className="terms-of-service"
@@ -169,3 +170,6 @@ export default function TermsOfUsePage() {
     </LongformPage>
   )
 }
+
+TermsOfUsePage.layout = WaypointIoLayout
+export default TermsOfUsePage

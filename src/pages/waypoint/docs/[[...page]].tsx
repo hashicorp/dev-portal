@@ -20,7 +20,7 @@ const basePath = 'docs'
 const additionalComponents = { Placement, NestedNode }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default function DocsLayout(props) {
+function DocsLayout(props) {
   return (
     <>
       <NavigationHeader />
@@ -34,8 +34,6 @@ export default function DocsLayout(props) {
     </>
   )
 }
-
-DocsLayout.layout = EmptyLayout
 
 export async function getStaticPaths() {
   const paths = await generateStaticPaths({
@@ -64,3 +62,8 @@ export async function getStaticProps({ params }) {
     revalidate: 10,
   }
 }
+
+// Needs to be EmptyLayout in the assembly-ui-v1 branch for now
+DocsLayout.layout = EmptyLayout
+
+export default DocsLayout
