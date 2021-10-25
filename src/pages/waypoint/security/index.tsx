@@ -1,6 +1,7 @@
 import LongformPage from 'components/longform-page'
+import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
 
-export default function SecurityPage() {
+function SecurityPage() {
   return (
     <LongformPage title="Security" className="security" alert="">
       <p>
@@ -25,3 +26,6 @@ export default function SecurityPage() {
     </LongformPage>
   )
 }
+
+SecurityPage.layout = WaypointIoLayout
+export default SecurityPage

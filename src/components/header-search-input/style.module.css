@@ -1,0 +1,27 @@
+.headerSearchInput {
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid var(--foreground-tertiary);
+  display: flex;
+  height: 34px;
+  justify-content: space-between;
+  padding: 8px 9px;
+  width: 212px;
+
+  & > div {
+    display: flex;
+    align-items: center;
+  }
+
+  & .searchIcon {
+    height: 16px;
+    margin-right: 8px;
+    width: 16px;
+  }
+
+  & p {
+    font-size: 14px;
+    line-height: 18px;
+    margin: 0;
+  }
+}
