@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@datadog/datadog-api-client": "^1.0.0-beta.5",
-    "@hashicorp/platform-nextjs-plugin": "^1.0.1",
+    "@hashicorp/platform-nextjs-plugin": "^1.0.2-canary-2021926192436",
     "@hashicorp/platform-types": "^0.1.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.1",

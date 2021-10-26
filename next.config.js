@@ -18,6 +18,7 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
   withHashicorp({
     nextOptimizedImages: true,
     transpileModules: ['swingset'],
+    css: false,
   })({
     async headers() {
       return [temporary_hideDocsPaths]
