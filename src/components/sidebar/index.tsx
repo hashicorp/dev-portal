@@ -2,9 +2,8 @@ import { useState } from 'react'
 import BackToLink from './components/back-to-link'
 import FilterInput from './components/filter-input'
 import SidebarMenuItem from './components/menu-item'
+import SidebarNav from './components/sidebar-nav'
 import s from './style.module.css'
-
-const SIDEBAR_LABEL_ID = 'sidebar-label'
 
 export interface MenuItem {
   divider?: boolean
@@ -78,21 +77,16 @@ const Sidebar: React.FC = () => {
     <div className={s.sidebar}>
       <BackToLink />
       <FilterInput value={filterValue} onChange={setFilterValue} />
-      <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.sidebarNav}>
-        <p className={s.sidebarLabel} id={SIDEBAR_LABEL_ID}>
-          Nav title
-        </p>
-        <ul className={s.sidebarMenuItems}>
-          {filteredMenuItems.map((item, index) => (
-            <SidebarMenuItem
-              item={item}
-              // TODO: come up with better alternative to index
-              // eslint-disable-next-line react/no-array-index-key
-              key={`sidebar-menu-item-${index}`}
-            />
-          ))}
-        </ul>
-      </nav>
+      <SidebarNav>
+        {filteredMenuItems.map((item, index) => (
+          <SidebarMenuItem
+            item={item}
+            // TODO: come up with better alternative to index
+            // eslint-disable-next-line react/no-array-index-key
+            key={`sidebar-menu-item-${index}`}
+          />
+        ))}
+      </SidebarNav>
     </div>
   )
 }
