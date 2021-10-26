@@ -22,7 +22,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
     return items
   }
 
-  return [...items].filter((item) =>
+  return items.filter((item) =>
     item?.title?.toLowerCase().includes(filterValue.toLowerCase())
   )
 }
