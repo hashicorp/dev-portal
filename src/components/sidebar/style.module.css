@@ -26,27 +26,6 @@
       list-style: none;
       margin: 0;
       padding: 0;
-
-      & .sidebarMenuItem {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-
-        & a {
-          color: #656a76;
-          font-size: 14px;
-          line-height: 18px;
-          padding: 8px;
-          width: 100%;
-          border-radius: 5px;
-
-          &:hover {
-            background-color: #f1f2f3;
-            color: #0c0c0e;
-            cursor: pointer;
-          }
-        }
-      }
     }
   }
 }

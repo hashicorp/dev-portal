@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import BackToLink from './components/back-to-link'
 import FilterInput from './components/filter-input'
+import SidebarMenuItem from './components/menu-item'
 import s from './style.module.css'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 
-interface MenuItem {
+export interface MenuItem {
   divider?: boolean
   title?: string
   path?: string
@@ -82,33 +83,14 @@ const Sidebar: React.FC = () => {
           Nav title
         </p>
         <ul className={s.sidebarMenuItems}>
-          {filteredMenuItems.map((item, index) => {
-            const { divider, title, path } = item
-
-            // TODO: remove this once `divider` isn't in the data anymore
-            if (divider) {
-              return null
-            }
-
-            // TODO: implement submenus (ref: https://app.asana.com/0/1201010428539925/1201265683986459/f)
-            // if (routes) { }
-
-            return (
-              <li
-                className={s.sidebarMenuItem}
-                // TODO: come up with better alternative to index
-                // eslint-disable-next-line react/no-array-index-key
-                key={`sidebar-menu-item-${index}`}
-              >
-                {/* TODO: conditionally render as button if submenu */}
-                <a href={path}>
-                  <span>{title}</span>
-                  {/* TODO: this is for the submenu icon */}
-                  {/* <span></span> */}
-                </a>
-              </li>
-            )
-          })}
+          {filteredMenuItems.map((item, index) => (
+            <SidebarMenuItem
+              item={item}
+              // TODO: come up with better alternative to index
+              // eslint-disable-next-line react/no-array-index-key
+              key={`sidebar-menu-item-${index}`}
+            />
+          ))}
         </ul>
       </nav>
     </div>
