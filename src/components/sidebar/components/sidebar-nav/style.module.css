@@ -1,6 +1,6 @@
 .sidebarNav {
   & .sidebarLabel {
-    color: #3b3d45;
+    color: var(--gray-foreground-secondary);
     font-size: 14px;
     line-height: 18px;
     margin-bottom: 16px;

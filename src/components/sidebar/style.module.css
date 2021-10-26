@@ -4,8 +4,4 @@
   height: 100%;
   padding: var(--sidebar-padding);
   width: var(--sidebar-width);
-
-  & .icon {
-    display: flex;
-  }
 }

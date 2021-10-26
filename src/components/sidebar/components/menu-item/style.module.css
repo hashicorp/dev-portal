@@ -4,7 +4,7 @@
   justify-content: space-between;
 
   & a {
-    color: #656a76;
+    color: var(--gray-foreground-tertiary);
     font-size: 14px;
     line-height: 18px;
     padding: 8px;
@@ -12,8 +12,8 @@
     border-radius: 5px;
 
     &:hover {
-      background-color: #f1f2f3;
-      color: #0c0c0e;
+      background-color: var(--gray-background-secondary);
+      color: var(--gray-foreground-primary);
       cursor: pointer;
     }
   }

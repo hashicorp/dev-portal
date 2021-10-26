@@ -1,6 +1,6 @@
 .backToLink {
   align-items: center;
-  color: #3b3d45;
+  color: var(--gray-foreground-secondary);
   display: flex;
   margin-bottom: var(--sidebar-padding);
   width: fit-content;

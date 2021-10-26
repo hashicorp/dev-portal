@@ -14,7 +14,7 @@
 
   & .filterIcon,
   & .clearButton {
-    color: #656a76;
+    color: var(--gray-foreground-tertiary);
     position: absolute;
     top: calc((38px - 16px) / 2);
   }
@@ -42,7 +42,7 @@
     background-color: transparent;
     border: 1px solid white;
     border-radius: 5px;
-    color: #0c0c0e;
+    color: var(--gray-foreground-primary);
     font-size: 14px;
     line-height: 18px;
     padding-bottom: 9px;
@@ -53,17 +53,17 @@
     width: 100%;
 
     &::placeholder {
-      color: #656a76;
+      color: var(--gray-foreground-tertiary);
     }
 
     &:hover,
     &:not([value='']) {
-      border: 1px solid #8c909c;
+      border: 1px solid var(--gray-foreground-quaternary);
       cursor: pointer;
     }
 
     &:focus {
-      border: 1px solid #1f69ff;
+      border: 1px solid var(--blue-vibrant);
       box-shadow: 0 0 0 3px #a5c2f3;
       outline: none;
     }
