@@ -2,9 +2,8 @@
   background-color: white;
   box-shadow: 0 8px 12px rgba(37, 38, 45, 0.08);
   height: 100%;
-  min-height: 500px; /* TODO: this is temporary */
   padding: var(--sidebar-padding);
-  width: 320px;
+  width: var(--sidebar-width);
 
   & .icon {
     display: flex;
