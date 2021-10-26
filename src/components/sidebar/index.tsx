@@ -15,23 +15,22 @@ const BackToLink = () => (
 )
 
 // TODO: move this into its own file
-const FilterInput = () => {
+const FilterInput = ({ value, onChange }) => {
   const inputRef = useRef<HTMLInputElement>()
-  const [filterValue, setFilterValue] = useState('')
-  const showClearButton = filterValue
+  const showClearButton = value
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
-    setFilterValue(newValue)
+    onChange(newValue)
   }
 
   const handleClear = () => {
-    setFilterValue('')
+    onChange('')
     inputRef.current.focus()
   }
 
   const handleFocus = () => {
-    if (!filterValue) {
+    if (!value) {
       return
     }
   }
@@ -47,7 +46,7 @@ const FilterInput = () => {
         onFocus={handleFocus}
         placeholder="Filter sidebar"
         ref={inputRef}
-        value={filterValue}
+        value={value}
       />
       {showClearButton && (
         <button
@@ -119,45 +118,62 @@ const menuItems: MenuItem[] = [
   },
 ]
 
-const Sidebar: React.FC = () => (
-  <div className={s.sidebar}>
-    <BackToLink />
-    <FilterInput />
-    <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.sidebarNav}>
-      <p className={s.sidebarLabel} id={SIDEBAR_LABEL_ID}>
-        Nav title
-      </p>
-      <ul className={s.sidebarMenuItems}>
-        {menuItems.map((item, index) => {
-          const { divider, title, path } = item
+// TODO: will need to recursively search submenus
+const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
+  if (!filterValue) {
+    return items
+  }
 
-          // TODO: remove this once `divider` isn't in the data anymore
-          if (divider) {
-            return null
-          }
+  return [...items].filter((item) =>
+    item?.title?.toLowerCase().includes(filterValue.toLowerCase())
+  )
+}
 
-          // TODO: implement submenus (ref: https://app.asana.com/0/1201010428539925/1201265683986459/f)
-          // if (routes) { }
+const Sidebar: React.FC = () => {
+  const [filterValue, setFilterValue] = useState('')
 
-          return (
-            <li
-              className={s.sidebarMenuItem}
-              // TODO: come up with better alternative to index
-              // eslint-disable-next-line react/no-array-index-key
-              key={`sidebar-menu-item-${index}`}
-            >
-              {/* TODO: conditionally render as button if submenu */}
-              <a href={path}>
-                <span>{title}</span>
-                {/* TODO: this is for the submenu icon */}
-                {/* <span></span> */}
-              </a>
-            </li>
-          )
-        })}
-      </ul>
-    </nav>
-  </div>
-)
+  const filteredMenuItems = getFilteredMenuItems(menuItems, filterValue)
+
+  return (
+    <div className={s.sidebar}>
+      <BackToLink />
+      <FilterInput value={filterValue} onChange={setFilterValue} />
+      <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.sidebarNav}>
+        <p className={s.sidebarLabel} id={SIDEBAR_LABEL_ID}>
+          Nav title
+        </p>
+        <ul className={s.sidebarMenuItems}>
+          {filteredMenuItems.map((item, index) => {
+            const { divider, title, path } = item
+
+            // TODO: remove this once `divider` isn't in the data anymore
+            if (divider) {
+              return null
+            }
+
+            // TODO: implement submenus (ref: https://app.asana.com/0/1201010428539925/1201265683986459/f)
+            // if (routes) { }
+
+            return (
+              <li
+                className={s.sidebarMenuItem}
+                // TODO: come up with better alternative to index
+                // eslint-disable-next-line react/no-array-index-key
+                key={`sidebar-menu-item-${index}`}
+              >
+                {/* TODO: conditionally render as button if submenu */}
+                <a href={path}>
+                  <span>{title}</span>
+                  {/* TODO: this is for the submenu icon */}
+                  {/* <span></span> */}
+                </a>
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
+    </div>
+  )
+}
 
 export default Sidebar
