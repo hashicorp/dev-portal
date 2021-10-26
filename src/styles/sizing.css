@@ -1,0 +1,5 @@
+:root {
+  --navigation-header-height: 80px;
+  --sidebar-width: 320px;
+  --sidebar-height: calc(100vh - var(--navigation-header-height));
+}
