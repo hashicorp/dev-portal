@@ -12,50 +12,9 @@ export interface MenuItem {
   routes?: MenuItem[]
 }
 
-const menuItems: MenuItem[] = [
-  {
-    title: 'Introduction',
-    path: '',
-  },
-  {
-    title: 'Getting Started',
-    path: '',
-  },
-  {
-    title: 'Upgrading',
-    path: '',
-  },
-  {
-    divider: true,
-  },
-  {
-    title: 'Kubernetes',
-    path: '',
-  },
-  {
-    divider: true,
-  },
-  {
-    title: 'Projects',
-    path: '',
-  },
-  {
-    title: 'Lifecycle',
-    path: '',
-  },
-  {
-    title: 'waypoint.hcl',
-    path: '',
-  },
-  {
-    title: 'URL Service',
-    path: '',
-  },
-  {
-    title: '...',
-    path: '',
-  },
-]
+interface SidebarProps {
+  menuItems: MenuItem[]
+}
 
 // TODO: will need to recursively search submenus
 const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
@@ -68,7 +27,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
   )
 }
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
   const [filterValue, setFilterValue] = useState('')
 
   const filteredMenuItems = getFilteredMenuItems(menuItems, filterValue)
