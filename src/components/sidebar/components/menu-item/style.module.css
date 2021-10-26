@@ -16,5 +16,11 @@
       color: var(--gray-foreground-primary);
       cursor: pointer;
     }
+
+    /* TODO: design is still working on this active state */
+    &[aria-current='page'] {
+      background-color: #dedfe3;
+      color: var(--gray-foreground-primary);
+    }
   }
 }
