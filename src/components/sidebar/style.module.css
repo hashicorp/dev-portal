@@ -119,22 +119,22 @@
 
       & .sidebarMenuItem {
         align-items: center;
-        border-radius: 5px;
-        color: #656a76;
         display: flex;
-        font-size: 14px;
         justify-content: space-between;
-        line-height: 18px;
-        padding: 8px;
-
-        &:hover {
-          background-color: #f1f2f3;
-          color: #0c0c0e;
-          cursor: pointer;
-        }
 
         & a {
-          color: inherit;
+          color: #656a76;
+          font-size: 14px;
+          line-height: 18px;
+          padding: 8px;
+          width: 100%;
+          border-radius: 5px;
+
+          &:hover {
+            background-color: #f1f2f3;
+            color: #0c0c0e;
+            cursor: pointer;
+          }
         }
       }
     }

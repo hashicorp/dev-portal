@@ -131,13 +131,12 @@ const Sidebar: React.FC = () => (
         {menuItems.map((item, index) => {
           const { divider, title, path } = item
 
-          // There will be no dividers, this will be temporary
-          // until we change the data
+          // TODO: remove this once `divider` isn't in the data anymore
           if (divider) {
             return null
           }
 
-          // TODO: implment submenus (ref: https://app.asana.com/0/1201010428539925/1201265683986459/f)
+          // TODO: implement submenus (ref: https://app.asana.com/0/1201010428539925/1201265683986459/f)
           // if (routes) { }
 
           return (
@@ -147,7 +146,12 @@ const Sidebar: React.FC = () => (
               // eslint-disable-next-line react/no-array-index-key
               key={`sidebar-menu-item-${index}`}
             >
-              <a href={path}>{title}</a>
+              {/* TODO: conditionally render as button if submenu */}
+              <a href={path}>
+                <span>{title}</span>
+                {/* TODO: this is for the submenu icon */}
+                {/* <span></span> */}
+              </a>
             </li>
           )
         })}
