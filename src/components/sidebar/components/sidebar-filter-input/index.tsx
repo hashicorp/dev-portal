@@ -7,7 +7,10 @@ interface FilterInputProps {
   onChange: (newValue: FilterInputProps['value']) => void
 }
 
-const FilterInput: React.FC<FilterInputProps> = ({ value, onChange }) => {
+const SidebarFilterInput: React.FC<FilterInputProps> = ({
+  value,
+  onChange,
+}) => {
   const inputRef = useRef<HTMLInputElement>()
   const showClearButton = value
 
@@ -50,4 +53,4 @@ const FilterInput: React.FC<FilterInputProps> = ({ value, onChange }) => {
   )
 }
 
-export default FilterInput
+export default SidebarFilterInput

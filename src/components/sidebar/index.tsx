@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import BackToLink from './components/back-to-link'
-import FilterInput from './components/filter-input'
-import SidebarMenuItem from './components/menu-item'
+import SidebarBackToLink from './components/sidebar-back-to-link'
+import SidebarFilterInput from './components/sidebar-filter-input'
+import SidebarMenuItem from './components/sidebar-menu-item'
 import SidebarNav from './components/sidebar-nav'
 import s from './style.module.css'
 
@@ -39,8 +39,8 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
 
   return (
     <div className={s.sidebar}>
-      <BackToLink />
-      <FilterInput value={filterValue} onChange={setFilterValue} />
+      <SidebarBackToLink />
+      <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       <SidebarNav>
         {filteredMenuItems.map((item, index) => {
           if (item.routes) {
