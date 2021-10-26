@@ -1,6 +1,9 @@
 /* TODO: use variables & math for height/positioning */
 .filterInput {
-  height: 38px;
+  /* Not sure if this is needed in other inputs yet or not */
+  --input-padding: 8px;
+
+  height: var(--input-height);
   margin-bottom: 24px;
   position: relative;
 
@@ -16,21 +19,21 @@
   & .clearButton {
     color: var(--gray-foreground-tertiary);
     position: absolute;
-    top: calc((38px - 16px) / 2);
+    top: calc((var(--input-height) - var(--input-icon-size)) / 2);
   }
 
   & .filterIcon {
-    left: 8px;
+    left: var(--input-padding);
   }
 
   & .clearButton {
     background-color: transparent;
     border: none;
     display: flex;
-    height: 16px;
+    height: var(--input-icon-size);
     padding: 0;
-    right: 8px;
-    width: 16px;
+    right: var(--input-padding);
+    width: var(--input-icon-size);
 
     &:hover {
       cursor: pointer;
@@ -46,8 +49,8 @@
     font-size: 14px;
     line-height: 18px;
     padding-bottom: 9px;
-    padding-left: 32px;
-    padding-right: 8px;
+    padding-left: calc(var(--input-padding) * 2 + var(--input-icon-size));
+    padding-right: var(--input-padding);
     padding-top: 9px;
     position: relative;
     width: 100%;
