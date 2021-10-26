@@ -1,57 +1,7 @@
-import { ChangeEvent, useRef, useState } from 'react'
-import InlineSvg from '@hashicorp/react-inline-svg'
+import { useState } from 'react'
 import BackToLink from './components/back-to-link'
+import FilterInput from './components/filter-input'
 import s from './style.module.css'
-
-// TODO: move this into its own file
-const FilterInput = ({ value, onChange }) => {
-  const inputRef = useRef<HTMLInputElement>()
-  const showClearButton = value
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value
-    onChange(newValue)
-  }
-
-  const handleClear = () => {
-    onChange('')
-    inputRef.current.focus()
-  }
-
-  const handleFocus = () => {
-    if (!value) {
-      return
-    }
-  }
-
-  return (
-    <div className={s.filterInput}>
-      <InlineSvg
-        className={s.filterIcon}
-        src={require('@hashicorp/flight-icons/svg/filter-16.svg?include')}
-      />
-      <input
-        onChange={handleChange}
-        onFocus={handleFocus}
-        placeholder="Filter sidebar"
-        ref={inputRef}
-        value={value}
-      />
-      {showClearButton && (
-        <button
-          aria-label="Clear filter"
-          className={s.clearButton}
-          onClick={handleClear}
-        >
-          <InlineSvg
-            className={s.clearIcon}
-            src={require('@hashicorp/flight-icons/svg/x-16.svg?include')}
-          />
-        </button>
-      )}
-    </div>
-  )
-}
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 
