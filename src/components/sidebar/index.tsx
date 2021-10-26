@@ -41,7 +41,8 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
     <div className={s.sidebar}>
       <SidebarBackToLink />
       <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
-      <SidebarNav>
+      {/* TODO: What should this title be? */}
+      <SidebarNav title="Waypoint">
         {filteredMenuItems.map((item, index) => {
           if (item.routes) {
             return null
