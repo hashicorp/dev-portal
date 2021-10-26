@@ -1,18 +1,7 @@
 import { ChangeEvent, useRef, useState } from 'react'
 import InlineSvg from '@hashicorp/react-inline-svg'
+import BackToLink from './components/back-to-link'
 import s from './style.module.css'
-
-// TODO: Move this into it's own file
-// TODO: design is still planning this functionality
-const BackToLink = () => (
-  <a className={s.backToLink}>
-    <InlineSvg
-      className={s.icon}
-      src={require('@hashicorp/flight-icons/svg/arrow-left-16.svg?include')}
-    />
-    <span>Back to lorem ipsum</span>
-  </a>
-)
 
 // TODO: move this into its own file
 const FilterInput = ({ value, onChange }) => {

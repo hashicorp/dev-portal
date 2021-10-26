@@ -1,20 +1,3 @@
-.backToLink {
-  align-items: center;
-  color: #3b3d45;
-  display: flex;
-  margin-bottom: var(--sidebar-padding);
-  width: fit-content;
-
-  & .icon {
-    margin-right: 8px;
-  }
-
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
-}
-
 /* TODO: use variables & math for height/positioning */
 .filterInput {
   height: 38px;
