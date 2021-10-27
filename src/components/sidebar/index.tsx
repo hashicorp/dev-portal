@@ -9,6 +9,12 @@ import s from './style.module.css'
 // TODO: store this in a Context that ProductChooser updates?
 const product = 'waypoint'
 
+/**
+ *
+ * For reference: this is also defined in react-components/docs-sidenav:
+ * https://github.com/hashicorp/react-components/blob/main/packages/docs-sidenav/types.ts
+ *
+ */
 export interface MenuItem {
   divider?: boolean
   title?: string
