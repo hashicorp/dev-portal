@@ -14,6 +14,7 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
   const { divider, title, path } = item
 
   // TODO: remove this once `divider` isn't in the data anymore
+  // Design decided to remove the dividers in the new sidebar.
   if (divider) {
     return null
   }
