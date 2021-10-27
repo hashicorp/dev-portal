@@ -24,18 +24,11 @@ const SidebarFilterInput: React.FC<FilterInputProps> = ({
     inputRef.current.focus()
   }
 
-  const handleFocus = () => {
-    if (!value) {
-      return
-    }
-  }
-
   return (
     <div className={s.filterInput}>
       <Icon className={s.filterIcon} name="filter" />
       <input
         onChange={handleChange}
-        onFocus={handleFocus}
         placeholder="Filter sidebar"
         ref={inputRef}
         value={value}
