@@ -42,5 +42,6 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
         },
       ],
     },
+    outputFileTracing: false,
   })
 )
