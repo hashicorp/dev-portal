@@ -21,9 +21,13 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
   }
 
   return (
-    <li className={s.sidebarMenuItem}>
+    <li>
       {/* TODO: conditionally render as button if submenu */}
-      <a aria-current={isActive ? 'page' : undefined} href={path}>
+      <a
+        aria-current={isActive ? 'page' : undefined}
+        className={s.sidebarLink}
+        href={path}
+      >
         <span>{title}</span>
         {/* TODO: this is for the submenu icon */}
         {/* <span></span> */}

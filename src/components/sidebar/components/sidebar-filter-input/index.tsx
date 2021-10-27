@@ -25,9 +25,10 @@ const SidebarFilterInput: React.FC<FilterInputProps> = ({
   }
 
   return (
-    <div className={s.filterInput}>
+    <div className={s.filterInputContainer}>
       <Icon className={s.filterIcon} name="filter" />
       <input
+        className={s.filterInput}
         onChange={handleChange}
         placeholder="Filter sidebar"
         ref={inputRef}

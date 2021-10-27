@@ -5,12 +5,12 @@
   margin-bottom: var(--sidebar-padding);
   width: fit-content;
 
-  & .icon {
-    margin-right: 8px;
-  }
-
   &:hover {
     cursor: pointer;
     text-decoration: underline;
   }
+}
+
+.icon {
+  margin-right: 8px;
 }

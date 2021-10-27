@@ -1,72 +1,76 @@
 /* TODO: abstract shared input styles when there are more input components */
-.filterInput {
+
+.sharedFlexCentering {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.sharedIconColorAndPositioning {
+  color: var(--gray-foreground-tertiary);
+  position: absolute;
+  top: calc((var(--input-height) - var(--input-icon-size)) / 2);
+}
+
+.filterInputContainer {
   --input-padding: 8px;
 
   height: var(--input-height);
   margin-bottom: 24px;
   position: relative;
+}
 
-  & .filterIcon,
-  & .clearButton,
-  & .clearIcon {
-    align-items: center;
-    display: flex;
-    justify-content: center;
+.filterIcon {
+  composes: sharedFlexCentering sharedIconColorAndPositioning;
+  left: var(--input-padding);
+}
+
+.clearButton {
+  composes: sharedFlexCentering sharedIconColorAndPositioning;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  height: var(--input-icon-size);
+  padding: 0;
+  right: var(--input-padding);
+  width: var(--input-icon-size);
+
+  &:hover {
+    cursor: pointer;
   }
+}
 
-  & .filterIcon,
-  & .clearButton {
+.clearIcon {
+  composes: sharedFlexCentering;
+}
+
+.filterInput {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: var(--gray-foreground-primary);
+  font-size: 14px;
+  line-height: 18px;
+  padding-bottom: 9px;
+  padding-left: calc(var(--input-padding) * 2 + var(--input-icon-size));
+  padding-right: calc(var(--input-padding) * 2 + var(--input-icon-size));
+  padding-top: 9px;
+  position: relative;
+  width: 100%;
+
+  &::placeholder {
     color: var(--gray-foreground-tertiary);
-    position: absolute;
-    top: calc((var(--input-height) - var(--input-icon-size)) / 2);
   }
 
-  & .filterIcon {
-    left: var(--input-padding);
+  &:hover,
+  &:not([value='']) {
+    border: 1px solid var(--gray-foreground-quaternary);
+    cursor: text;
   }
 
-  & .clearButton {
-    background-color: transparent;
-    border: none;
-    display: flex;
-    height: var(--input-icon-size);
-    padding: 0;
-    right: var(--input-padding);
-    width: var(--input-icon-size);
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  & input {
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 5px;
-    color: var(--gray-foreground-primary);
-    font-size: 14px;
-    line-height: 18px;
-    padding-bottom: 9px;
-    padding-left: calc(var(--input-padding) * 2 + var(--input-icon-size));
-    padding-right: calc(var(--input-padding) * 2 + var(--input-icon-size));
-    padding-top: 9px;
-    position: relative;
-    width: 100%;
-
-    &::placeholder {
-      color: var(--gray-foreground-tertiary);
-    }
-
-    &:hover,
-    &:not([value='']) {
-      border: 1px solid var(--gray-foreground-quaternary);
-      cursor: text;
-    }
-
-    &:focus {
-      border: 1px solid var(--blue-vibrant);
-      box-shadow: 0 0 0 3px #a5c2f3;
-      outline: none;
-    }
+  &:focus {
+    border: 1px solid var(--blue-vibrant);
+    box-shadow: 0 0 0 3px #a5c2f3;
+    outline: none;
   }
 }
