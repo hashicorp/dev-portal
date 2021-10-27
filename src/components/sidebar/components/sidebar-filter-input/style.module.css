@@ -39,7 +39,6 @@
     }
   }
 
-  /* TODO: use variables & math for padding */
   & input {
     background-color: transparent;
     border: 1px solid white;
@@ -49,7 +48,7 @@
     line-height: 18px;
     padding-bottom: 9px;
     padding-left: calc(var(--input-padding) * 2 + var(--input-icon-size));
-    padding-right: var(--input-padding);
+    padding-right: calc(var(--input-padding) * 2 + var(--input-icon-size));
     padding-top: 9px;
     position: relative;
     width: 100%;
@@ -61,7 +60,7 @@
     &:hover,
     &:not([value='']) {
       border: 1px solid var(--gray-foreground-quaternary);
-      cursor: pointer;
+      cursor: text;
     }
 
     &:focus {
