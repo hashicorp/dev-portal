@@ -4,7 +4,7 @@ import s from './style.module.css'
 
 interface FilterInputProps {
   value: string
-  onChange: (newValue: FilterInputProps['value']) => void
+  onChange: (newValue: string) => void
 }
 
 const SidebarFilterInput: React.FC<FilterInputProps> = ({
