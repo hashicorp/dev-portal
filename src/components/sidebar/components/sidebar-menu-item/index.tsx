@@ -11,6 +11,7 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
   isActive = false,
   item,
 }) => {
+  // TODO: handle the case when `href` is set
   const { divider, title, path } = item
 
   // TODO: remove this once `divider` isn't in the data anymore
