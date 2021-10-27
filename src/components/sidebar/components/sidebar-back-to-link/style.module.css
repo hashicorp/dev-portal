@@ -1,0 +1,16 @@
+.backToLink {
+  align-items: center;
+  color: var(--gray-foreground-secondary);
+  display: flex;
+  margin-bottom: var(--sidebar-padding);
+  width: fit-content;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.icon {
+  margin-right: 8px;
+}

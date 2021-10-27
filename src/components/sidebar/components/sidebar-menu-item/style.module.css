@@ -1,0 +1,23 @@
+.sidebarLink {
+  align-items: center;
+  border-radius: 5px;
+  color: var(--gray-foreground-tertiary);
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  line-height: 18px;
+  padding: 8px;
+  width: 100%;
+
+  &:hover {
+    background-color: var(--gray-background-secondary);
+    color: var(--gray-foreground-primary);
+    cursor: pointer;
+  }
+
+  /* TODO: design is still working on this active state */
+  &[aria-current='page'] {
+    background-color: #dedfe3;
+    color: var(--gray-foreground-primary);
+  }
+}

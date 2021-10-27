@@ -1,8 +1,8 @@
 .navigationHeader {
   background-color: var(--navigation-header-background);
   color: white;
-  height: 80px;
-padding: 20px 24px;
+  height: var(--navigation-header-height);
+  padding: 20px 24px;
 
   & nav {
     align-items: center;

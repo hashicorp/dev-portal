@@ -8,6 +8,7 @@ import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
 import NavigationHeader from 'components/navigation-header'
 import EmptyLayout from 'layouts/empty'
+import Sidebar from 'components/sidebar'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -19,18 +20,30 @@ const productSlug = waypointConfig.slug
 const basePath = 'docs'
 const additionalComponents = { Placement, NestedNode }
 
+// TODO: inline styles will be removed in a follow-up layout task (ref: https://app.asana.com/0/0/1201217826547576/f)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function DocsLayout(props) {
   return (
     <>
       <NavigationHeader />
-      <DocsPage
-        product={{ name: productName, slug: productSlug }}
-        baseRoute={basePath}
-        staticProps={props}
-        showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
-        additionalComponents={additionalComponents}
-      />
+      <div style={{ display: 'flex' }}>
+        <Sidebar menuItems={props.navData} />
+        <div
+          style={{
+            width: 'calc(100vw - 320px)',
+            overflowY: 'scroll',
+            maxHeight: 'calc(100vh - 80px)',
+          }}
+        >
+          <DocsPage
+            product={{ name: productName, slug: productSlug }}
+            baseRoute={basePath}
+            staticProps={props}
+            showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
+            additionalComponents={additionalComponents}
+          />
+        </div>
+      </div>
     </>
   )
 }

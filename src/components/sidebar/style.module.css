@@ -1,0 +1,9 @@
+.sidebar {
+  background-color: white;
+  box-shadow: 0 8px 12px rgba(37, 38, 45, 0.08);
+  height: var(--sidebar-height);
+  max-height: var(--sidebar-height);
+  overflow-y: scroll;
+  padding: var(--sidebar-padding);
+  width: var(--sidebar-width);
+}
