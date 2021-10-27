@@ -1,5 +1,5 @@
+/* TODO: abstract shared input styles when there are more input components */
 .filterInput {
-  /* Not sure if this is needed in other inputs yet or not */
   --input-padding: 8px;
 
   height: var(--input-height);
