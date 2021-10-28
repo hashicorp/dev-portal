@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run pa11y-ci Against Sitemap
         run: npm pa11y-ci:sitemap | tee pa11y_output.txt
