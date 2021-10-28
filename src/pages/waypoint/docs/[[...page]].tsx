@@ -7,9 +7,8 @@ import { MDXRemote } from 'next-mdx-remote'
 import waypointConfig from '../../../../config/waypoint.json'
 // import Placement from 'components/author-primitives/shared/placement-table'
 // import NestedNode from 'components/author-primitives/waypoint/nested-node'
-import NavigationHeader from 'components/navigation-header'
 import EmptyLayout from 'layouts/empty'
-import Sidebar from 'components/sidebar'
+import DocsLayout from 'layouts/docs'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -23,35 +22,11 @@ const basePath = 'docs'
 
 // TODO: inline styles will be removed in a follow-up layout task (ref: https://app.asana.com/0/0/1201217826547576/f)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function DocsLayout(props) {
+function WaypointDocsPage(props) {
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
-    >
-      <NavigationHeader />
-      <div style={{ flexGrow: 1, position: 'relative' }}>
-        <Sidebar menuItems={props.navData} />
-        <div
-          style={{
-            height: '100%',
-            left: 'var(--sidebar-width)',
-            overflowY: 'auto',
-            position: 'absolute',
-            right: 0,
-            top: 0,
-          }}
-        >
-          <MDXRemote {...props.mdxSource} />
-          {/* <DocsPage
-            product={{ name: productName, slug: productSlug }}
-            baseRoute={basePath}
-            staticProps={props}
-            showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
-            additionalComponents={additionalComponents}
-          /> */}
-        </div>
-      </div>
-    </div>
+    <DocsLayout {...props}>
+      <MDXRemote {...props.mdxSource} />
+    </DocsLayout>
   )
 }
 
@@ -84,6 +59,6 @@ export async function getStaticProps({ params }) {
 }
 
 // Needs to be EmptyLayout in the assembly-ui-v1 branch for now
-DocsLayout.layout = EmptyLayout
+WaypointDocsPage.layout = EmptyLayout
 
-export default DocsLayout
+export default WaypointDocsPage
