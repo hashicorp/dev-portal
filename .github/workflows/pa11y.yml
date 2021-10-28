@@ -13,7 +13,7 @@ jobs:
         run: npm ci
 
       - name: Run pa11y-ci Against Sitemap
-        run: echo "${{ github.event.deployment_status.target_url }}/sitemap.xml" | xargs npm run pa11y-ci:sitemap | tee pa11y_output.txt
+        run: echo "${{ github.event.deployment_status.target_url }}/sitemap.xml" | xargs npm run pa11y-ci:sitemap 2>&1 | tee pa11y_output.txt
 
       - name: Get Comment Body
         id: get-comment-body
