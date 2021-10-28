@@ -4,7 +4,7 @@
   "scripts": {
     "build": "next build",
     "build:webpack-only": "ts-node --transpile-only ./scripts/next-build-webpack-only.ts",
-    "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics.ts dev-portal",
+    "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics.ts dev-portal && next-sitemap",
     "start": "next",
     "test": "jest",
     "test:watch": "jest --watch"
@@ -26,6 +26,8 @@
     "babel-jest": "^27.2.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.2.4",
+    "next-sitemap": "^1.6.192",
+    "pa11y-ci": "^2.4.2",
     "postcss": "^8.2.15",
     "react-test-renderer": "^17.0.2",
     "ts-node": "^10.2.1",
