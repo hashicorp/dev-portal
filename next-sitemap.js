@@ -1,4 +1,4 @@
 module.exports = {
   generateRobotsTxt: false, // TODO: do we want this?
-  siteUrl: 'http://localhost:3000/',
+  siteUrl: process.env.VERCEL_URL || 'http://localhost:3000/',
 }
