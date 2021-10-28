@@ -17,3 +17,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           coverage-comment: false
+  pa11y:
+    name: 'Run pa11y-ci against sitemap'
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm pa11y:sitemap
