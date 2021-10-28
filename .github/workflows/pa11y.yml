@@ -1,0 +1,11 @@
+name: 'pa11y-ci'
+on: [deployment_status]
+
+jobs:
+  pa11y:
+    name: 'Run pa11y-ci against sitemap'
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm pa11y-ci:sitemap
