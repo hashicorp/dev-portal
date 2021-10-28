@@ -15,35 +15,35 @@ jobs:
       - name: Run pa11y-ci Against Sitemap
         run: echo "${{ github.event.deployment_status.target_url }}/sitemap.xml" | xargs npm run pa11y-ci:sitemap | tee pa11y_output.txt
 
-      # - name: Get Comment Body
-      #   id: get-comment-body
-      #   if: success() && github.event.number
-      #   run: |
-      #     body=$(cat pa11y_output.txt)
-      #     body="${body//'%'/'%25'}"
-      #     body="${body//$'\n'/'%0A'}"
-      #     body="${body//$'\r'/'%0D'}"
-      #     echo ::set-output name=body::$body
+      - name: Get Comment Body
+        id: get-comment-body
+        if: success() && github.event.number
+        run: |
+          body=$(cat pa11y_output.txt)
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}"
+          echo ::set-output name=body::$body
 
-      # - name: Find Comment
-      #   uses: peter-evans/find-comment@v1
-      #   if: success() && github.event.number
-      #   id: fc
-      #   with:
-      #     issue-number: ${{ github.event.number }}
+      - name: Find Comment
+        uses: peter-evans/find-comment@v1
+        if: success() && github.event.number
+        id: fc
+        with:
+          issue-number: ${{ github.event.number }}
 
-      # - name: Create Comment
-      #   uses: peter-evans/create-or-update-comment@v1.4.4
-      #   if: success() && github.event.number && steps.fc.outputs.comment-id == 0
-      #   with:
-      #     issue-number: ${{ github.event.number }}
-      #     body: ${{ steps.get-comment-body.outputs.body }}
+      - name: Create Comment
+        uses: peter-evans/create-or-update-comment@v1.4.4
+        if: success() && github.event.number && steps.fc.outputs.comment-id == 0
+        with:
+          issue-number: ${{ github.event.number }}
+          body: '<details><summary>pa11y-ci results</summary>```${{ steps.get-comment-body.outputs.body }}```</details>'
 
-      # - name: Update Comment
-      #   uses: peter-evans/create-or-update-comment@v1.4.4
-      #   if: success() && github.event.number && steps.fc.outputs.comment-id != 0
-      #   with:
-      #     issue-number: ${{ github.event.number }}
-      #     body: ${{ steps.get-comment-body.outputs.body }}
-      #     comment-id: ${{ steps.fc.outputs.comment-id }}
-      #     edit-mode: replace
+      - name: Update Comment
+        uses: peter-evans/create-or-update-comment@v1.4.4
+        if: success() && github.event.number && steps.fc.outputs.comment-id != 0
+        with:
+          issue-number: ${{ github.event.number }}
+          body: '<details><summary>pa11y-ci results</summary>```${{ steps.get-comment-body.outputs.body }}```</details>'
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          edit-mode: replace
