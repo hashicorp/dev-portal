@@ -6,6 +6,7 @@
     "build:webpack-only": "ts-node --transpile-only ./scripts/next-build-webpack-only.ts",
     "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics.ts dev-portal",
     "start": "next",
+    "start:withAxe": "AXE_ENABLED=true npm start",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -14,6 +15,7 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
+    "@axe-core/react": "^4.3.1",
     "@datadog/datadog-api-client": "^1.0.0-beta.5",
     "@hashicorp/platform-cli": "^1.2.0",
     "@hashicorp/platform-nextjs-plugin": "^1.0.1-canary-202181718385",

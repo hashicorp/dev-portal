@@ -1,3 +1,4 @@
+import React from 'react'
 import '@hashicorp/platform-util/nprogress/style.css'
 import '@hashicorp/platform-util/nprogress/style.css'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
@@ -7,6 +8,14 @@ import './style.css'
 
 export default function App({ Component, pageProps }) {
   useAnchorLinkAnalytics()
+
+  if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const ReactDOM = require('react-dom')
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const axe = require('@axe-core/react')
+    axe(React, ReactDOM, 1000)
+  }
 
   const Layout = Component.layout ?? BaseLayout
 
