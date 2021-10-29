@@ -1,8 +1,13 @@
 import NavigationHeader from 'components/navigation-header'
-import Sidebar from 'components/sidebar'
+import Sidebar, { MenuItem } from 'components/sidebar'
 import s from './docs-layout.module.css'
 
-const DocsLayout: React.FC = (props) => (
+interface DocsLayoutProps {
+  children: React.ReactNode
+  navData: MenuItem[]
+}
+
+const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
   <div className={s.container}>
     <NavigationHeader />
     <div className={s.body}>
