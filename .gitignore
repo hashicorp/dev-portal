@@ -5,3 +5,4 @@ out
 .env*.local
 .vercel
 public/sitemap.xml
+pa11y_output.txt
