@@ -37,14 +37,14 @@ jobs:
             const commentBody = `${porcess.env.BODY_PREFIX}<details><summary>pa11y-ci results :microscope:</summary>\`\`\`${pa11yOutput}\`\`\`</details>`
 
             // Get the comments on this PR
-            const { data } = await github.rest.issues.listComments({
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: prNumber
             })
 
             // Try to find an existing pa11y results comment
-            const previousComment = data.find((comment) => comment.body.startsWith(process.env.BODY_PREFIX))
+            const previousComment = comments.find((comment) => comment.body.startsWith(process.env.BODY_PREFIX))
             if (previousComment) {
               // Update the previous comment
               await github.rest.issues.updateComment({
