@@ -33,7 +33,7 @@ jobs:
 
             // Read the pa11y output and build the comment body
             const pa11yOutput = await fs.readFile('./pa11y_output.txt')
-            const commentBody = `${process.env.BODY_PREFIX}<details><summary>pa11y-ci results :microscope:</summary>\`\`\`${pa11yOutput}\`\`\`</details>`
+            const commentBody = `${process.env.BODY_PREFIX}<h2>:microscope: pa11y-ci results</h2><details><summary>see results</summary><pre><code>${pa11yOutput}</code></pre></details>`
 
             // Get the comments on this PR
             const { data: comments } = await github.rest.issues.listComments({
