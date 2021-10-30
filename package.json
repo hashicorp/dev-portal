@@ -4,7 +4,7 @@
   "scripts": {
     "build": "next build",
     "build:webpack-only": "ts-node --transpile-only ./scripts/next-build-webpack-only.ts",
-    "pa11y-ci:sitemap": "pa11y-ci --sitemap",
+    "pa11y-ci": "pa11y-ci",
     "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics.ts dev-portal && next-sitemap",
     "start": "next",
     "test": "jest",

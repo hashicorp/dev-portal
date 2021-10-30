@@ -13,7 +13,7 @@ jobs:
         run: npm ci
 
       - name: Run pa11y-ci Against Sitemap
-        run: npm run pa11y-ci:sitemap -- "${{ github.event.deployment_status.target_url }}/sitemap.xml" 2>&1 | tee pa11y_output.txt
+        run: npm run pa11y-ci -- --json --sitemap "${{ github.event.deployment_status.target_url }}/sitemap.xml" 2>&1 | tee pa11y_output.txt
 
       - name: Comment on PR
         uses: actions/github-script@v5
@@ -23,17 +23,47 @@ jobs:
           script: |
             const { promises: fs } = require('fs')
 
-            // Find this PR
+            // Find this PR & do nothing if this isn't a PR
             const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
               owner: context.repo.owner,
               repo: context.repo.repo,
               commit_sha: context.sha
             })
-            const prNumber = data[0].number
+            const prNumber = data[0] && data[0].number
+            if (!prNumber) {
+              return
+            }
 
             // Read the pa11y output and build the comment body
-            const pa11yOutput = await fs.readFile('./pa11y_output.txt')
-            const commentBody = `${process.env.BODY_PREFIX}<h2>:microscope: pa11y-ci results</h2><details><summary>see results</summary><pre><code>${pa11yOutput}</code></pre></details>`
+            const pa11yOutput = await fs.readFile('./pa11y_output.txt', 'utf8')
+            const lines = pa11yOutput.split('\n')
+            const asJSON = JSON.parse(lines.find((line) => line.startsWith('{')))
+            const { total, passes, errors, results } = asJSON
+
+            let commentBody = `${process.env.BODY_PREFIX}\n<h2>:microscope: pa11y-ci results</h2>\n\n`
+            commentBody += `- Number of URLs tested: ${total}\n`
+
+            if (!errors) {
+              commentBody += `- No errors were found! :tada:\n`
+            } else {
+              commentBody += `- Number of errors found: ${errors}. :sob:\n`
+
+              let formattedOutput = ''
+              Object.keys(results).forEach(urlKey => {
+                formattedOutput += `- Error in \`${urlKey}\`:\n\n`
+                const errors = results[urlKey]
+                errors.forEach(error => {
+                  formattedOutput += '  ```\n'
+                  formattedOutput += `  ${error.message}\n\n`;
+                  formattedOutput += `  ${error.selector}\n\n`;
+                  formattedOutput += `  ${error.context}\n\n`;
+                  formattedOutput += `  ${error.code}\n`;
+                  formattedOutput += '  ```\n\n'
+                })
+              })
+
+              commentBody += `<details><summary>See results :eyes:</summary>\n\n${formattedOutput}</details>`
+            }
 
             // Get the comments on this PR
             const { data: comments } = await github.rest.issues.listComments({
