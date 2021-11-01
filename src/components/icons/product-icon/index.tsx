@@ -1,5 +1,5 @@
 import InlineSvg from '@hashicorp/react-inline-svg'
-import s from '../style.module.css'
+import s from './style.module.css'
 
 interface ProductIconProps {
   product: 'vault'
