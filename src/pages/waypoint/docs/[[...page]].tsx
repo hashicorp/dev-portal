@@ -1,11 +1,11 @@
-import DocsPage from '@hashicorp/react-docs-page'
+// import DocsPage from '@hashicorp/react-docs-page'
 import {
   generateStaticPaths,
   generateStaticProps,
 } from '@hashicorp/react-docs-page/server'
 import waypointConfig from '../../../../config/waypoint.json'
-import Placement from 'components/author-primitives/shared/placement-table'
-import NestedNode from 'components/author-primitives/waypoint/nested-node'
+// import Placement from 'components/author-primitives/shared/placement-table'
+// import NestedNode from 'components/author-primitives/waypoint/nested-node'
 import NavigationHeader from 'components/navigation-header'
 import EmptyLayout from 'layouts/empty'
 import Sidebar from 'components/sidebar'
@@ -18,7 +18,7 @@ const temporary_noop = 'im just for show'
 const productName = waypointConfig.name
 const productSlug = waypointConfig.slug
 const basePath = 'docs'
-const additionalComponents = { Placement, NestedNode }
+// const additionalComponents = { Placement, NestedNode }
 
 // TODO: inline styles will be removed in a follow-up layout task (ref: https://app.asana.com/0/0/1201217826547576/f)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -35,13 +35,14 @@ function DocsLayout(props) {
             maxHeight: 'calc(100vh - 80px)',
           }}
         >
-          <DocsPage
+          <p>TODO - replace DocsPage component</p>
+          {/* <DocsPage
             product={{ name: productName, slug: productSlug }}
             baseRoute={basePath}
             staticProps={props}
             showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
             additionalComponents={additionalComponents}
-          />
+          /> */}
         </div>
       </div>
     </>
