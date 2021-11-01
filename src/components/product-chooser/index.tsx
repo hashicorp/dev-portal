@@ -1,4 +1,4 @@
-import Icon from 'components/icons'
+import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import ProductIcon from 'components/icons/product-icon'
 import s from './style.module.css'
 
@@ -9,7 +9,7 @@ const ProductChooser: React.FC = () => (
       <ProductIcon product="vault" />
       <p>Vault</p>
     </div>
-    <Icon name="caret" />
+    <IconCaret16 />
   </div>
 )
 

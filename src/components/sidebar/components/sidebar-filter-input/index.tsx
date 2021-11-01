@@ -1,5 +1,6 @@
 import { ChangeEvent, useRef } from 'react'
-import Icon from 'components/icons'
+import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
+import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import s from './style.module.css'
 
 interface FilterInputProps {
@@ -26,7 +27,7 @@ const SidebarFilterInput: React.FC<FilterInputProps> = ({
 
   return (
     <div className={s.filterInputContainer}>
-      <Icon className={s.filterIcon} name="filter" />
+      <IconFilter16 className={s.filterIcon} />
       <input
         className={s.filterInput}
         onChange={handleChange}
@@ -40,7 +41,7 @@ const SidebarFilterInput: React.FC<FilterInputProps> = ({
           className={s.clearButton}
           onClick={handleClear}
         >
-          <Icon className={s.clearIcon} name="x" />
+          <IconX16 className={s.clearIcon} />
         </button>
       )}
     </div>
