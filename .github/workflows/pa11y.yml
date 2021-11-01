@@ -13,7 +13,7 @@ jobs:
         run: npm ci
 
       - name: Run pa11y-ci Against Sitemap
-        run: npm run pa11y-ci -- --json --sitemap "${{ github.event.deployment_status.target_url }}/sitemap.xml" > pa11y_output.txt
+        run: npm run pa11y-ci -- --json --sitemap "${{ github.event.deployment_status.target_url }}/sitemap.xml" 2>&1 | tee pa11y_output.txt
 
       - name: Comment on PR
         uses: actions/github-script@v5
