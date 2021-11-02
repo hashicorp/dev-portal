@@ -1,0 +1,46 @@
+.sidecar {
+  margin-left: 24px;
+  min-width: 268px;
+  position: sticky;
+  text-align: right;
+  top: 0;
+  width: 268px;
+}
+
+.sidecarLabel {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 18px;
+}
+
+.sidecarList {
+  border-right: 1px solid #c2c5cb;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidecarListItem {
+  color: #656a76;
+  font-size: 14px;
+  line-height: 18px;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  & a {
+    color: inherit;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 0 10px;
+
+    &:focus {
+      outline: none;
+      border: 1px solid #1f69ff;
+      box-shadow: 0 0 0 3px #a5c2f3;
+    }
+  }
+}

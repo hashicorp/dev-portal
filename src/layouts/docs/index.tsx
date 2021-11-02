@@ -1,6 +1,7 @@
+import { useLayoutEffect, useState } from 'react'
 import NavigationHeader from 'components/navigation-header'
 import Sidebar, { MenuItem } from 'components/sidebar'
-import { useLayoutEffect, useState } from 'react'
+import Sidecar, { SidecarHeading } from 'components/sidecar'
 import s from './docs-layout.module.css'
 
 interface DocsLayoutProps {
@@ -8,15 +9,9 @@ interface DocsLayoutProps {
   navData: MenuItem[]
 }
 
-// TODO: move to eventual TableOfContents component
-interface TableOfContentsHeading {
-  slug: string
-  text: string
-}
-
 const DocsLayout: React.FC<DocsLayoutProps> = (props) => {
   const [tableOfContentsHeadings, setTableOfContentsHeadings] = useState<
-    TableOfContentsHeading[]
+    SidecarHeading[]
   >([])
 
   // TODO: use new remark plugin instead (ref: https://app.asana.com/0/1100423001970639/1201314477034614/f)
@@ -28,12 +23,14 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => {
     const headings = []
     headingElements.forEach((heading) => {
       const slug = heading.querySelectorAll('a')[1].id
-      const text = heading.textContent.substring(1)
-      headings.push({ slug, text })
+      const title = heading.textContent.substring(1)
+      headings.push({ slug, title })
     })
 
     setTableOfContentsHeadings(headings)
   }, [])
+
+  console.log(tableOfContentsHeadings)
 
   return (
     <div className={s.container}>
@@ -45,21 +42,7 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => {
             {/* TODO: implement version switcher */}
             {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
             <main className={s.main}>{props.children}</main>
-            {/* TODO: move to its own component & file */}
-            <aside className={s.tableOfContents}>
-              <p className={s.tableOfContentsLabel} id="table-of-contents">
-                Table of Contents
-              </p>
-              <nav aria-labelledby="table-of-contents">
-                <ol className={s.tableOfContentsList}>
-                  {tableOfContentsHeadings.map(({ slug, text }) => (
-                    <li className={s.tableOfContentsListItem} key={slug}>
-                      <a href={`#${slug}`}>{text}</a>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-            </aside>
+            <Sidecar headings={tableOfContentsHeadings} />
           </div>
         </div>
       </div>
