@@ -18,7 +18,7 @@ const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 // see the original "proxied" routes, no matter what domain they're on.
 const waypointHost = proxySettings.waypoint.host
 const waypointDomain = proxySettings.waypoint.domain
-const devToWaypointRedirects = proxySettings.waypoint.routesToProxy.map(
+const devPortalToWaypointRedirects = proxySettings.waypoint.routesToProxy.map(
   ({ proxiedRoute, projectPage }) => {
     return {
       source: projectPage,
@@ -54,10 +54,7 @@ const waypointToDevRedirects = devPortalRoutes.map((devPortalRoute) => {
 })
 
 async function redirectsConfig() {
-  return [
-    // ...devToWaypointRedirects,
-    ...waypointToDevRedirects,
-  ]
+  return [...devPortalToWaypointRedirects, ...waypointToDevRedirects]
 }
 
 module.exports = redirectsConfig
