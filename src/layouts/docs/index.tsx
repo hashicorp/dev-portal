@@ -30,8 +30,6 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => {
     setTableOfContentsHeadings(headings)
   }, [])
 
-  console.log(tableOfContentsHeadings)
-
   return (
     <div className={s.container}>
       <NavigationHeader />
