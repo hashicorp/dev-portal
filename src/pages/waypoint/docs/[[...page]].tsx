@@ -7,7 +7,6 @@ import { MDXRemote } from 'next-mdx-remote'
 import waypointConfig from '../../../../config/waypoint.json'
 // import Placement from 'components/author-primitives/shared/placement-table'
 // import NestedNode from 'components/author-primitives/waypoint/nested-node'
-import EmptyLayout from 'layouts/empty'
 import DocsLayout from 'layouts/docs'
 
 // because some of the util functions still require param arity, but we ignore
