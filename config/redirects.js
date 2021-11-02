@@ -16,17 +16,26 @@ const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 // these redirects in dev rather than list specific production hosts.
 // Note: we do this for ALL hosts, as we never want visitors to
 // see the original "proxied" routes, no matter what domain they're on.
-const waypointHost = proxySettings.waypoint.host
-const waypointDomain = proxySettings.waypoint.domain
-const devPortalToWaypointRedirects = proxySettings.waypoint.routesToProxy.map(
-  ({ proxiedRoute, projectPage }) => {
-    return {
-      source: projectPage,
-      destination: waypointDomain + proxiedRoute,
-      permanent: false,
+const DEV_IO_PROXY = process.env.DEV_IO_PROXY
+const productsToProxy = Object.keys(proxySettings)
+//
+const devPortalToDotIoRedirects = productsToProxy.reduce((acc, productSlug) => {
+  const routesToProxy = proxySettings[productSlug].routesToProxy
+  // if we're trying to test this product's redirects in dev,
+  // then we'll set the domain to an empty string for absolute URLs
+  const isDevProduct = DEV_IO_PROXY === productSlug
+  const proxyDomain = isDevProduct ? '' : proxySettings[productSlug].domain
+  const toProductRedirects = routesToProxy.map(
+    ({ proxiedRoute, projectPage }) => {
+      return {
+        source: projectPage,
+        destination: proxyDomain + proxiedRoute,
+        permanent: false,
+      }
     }
-  }
-)
+  )
+  return acc.concat(toProductRedirects)
+}, [])
 // Separate set of redirects:
 // If the route in question is NOT something we want
 // to show on the proxied domain, then we should
@@ -47,7 +56,7 @@ const waypointToDevRedirects = devPortalRoutes.map((devPortalRoute) => {
     has: [
       {
         type: 'host',
-        value: waypointHost,
+        value: proxySettings.waypoint.host,
       },
     ],
   }
@@ -56,6 +65,7 @@ const waypointToDevRedirects = devPortalRoutes.map((devPortalRoute) => {
 async function redirectsConfig() {
   return [
     // ...devPortalToWaypointRedirects,
+    ...devPortalToDotIoRedirects,
     ...waypointToDevRedirects,
   ]
 }

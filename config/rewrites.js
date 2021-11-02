@@ -35,25 +35,35 @@ const proxySettings = require('./proxy-settings')
  *
  */
 
-const waypointHost = proxySettings.waypoint.host
-const waypointProxyRewrites = proxySettings.waypoint.routesToProxy.map(
-  ({ proxiedRoute, projectPage }) => {
+const DEV_IO_PROXY = process.env.DEV_IO_PROXY
+const productsToProxy = Object.keys(proxySettings)
+//
+const dotIoRewrites = productsToProxy.reduce((acc, productSlug) => {
+  const routesToProxy = proxySettings[productSlug].routesToProxy
+  // if we're trying to test this product in dev,
+  // then we'll apply the rewrites without a host condition
+  const isDevProduct = DEV_IO_PROXY === productSlug
+  const rewriteHasCondition = isDevProduct
+    ? []
+    : [
+        {
+          type: 'host',
+          value: proxySettings[productSlug].host,
+        },
+      ]
+  const proxyRewrites = routesToProxy.map(({ proxiedRoute, projectPage }) => {
     return {
       source: proxiedRoute,
       destination: projectPage,
-      has: [
-        {
-          type: 'host',
-          value: waypointHost,
-        },
-      ],
+      has: rewriteHasCondition,
     }
-  }
-)
+  })
+  return acc.concat(proxyRewrites)
+}, [])
 
 async function rewritesConfig() {
   return {
-    beforeFiles: [...waypointProxyRewrites],
+    beforeFiles: [...dotIoRewrites],
   }
 }
 

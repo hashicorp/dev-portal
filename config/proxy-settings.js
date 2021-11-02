@@ -1,4 +1,23 @@
 module.exports = {
+  boundary: {
+    // actually https://boundaryproject.io, but using boundary-test.hashi-mktg.com as a test
+    domain: 'https://boundary-test.hashi-mktg.com',
+    host: 'boundary-test.hashi-mktg.com',
+    routesToProxy: [
+      {
+        proxiedRoute: '/',
+        projectPage: '/_proxied-dot-io/boundary',
+      },
+      {
+        proxiedRoute: '/docs/:path*',
+        projectPage: '/_proxied-dot-io/boundary/docs/:path*',
+      },
+      {
+        proxiedRoute: '/security',
+        projectPage: '/_proxied-dot-io/boundary/security',
+      },
+    ],
+  },
   waypoint: {
     // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
     domain: 'https://wp.snarglepuss.com',
