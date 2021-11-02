@@ -23,11 +23,7 @@ const basePath = 'docs'
 // TODO: inline styles will be removed in a follow-up layout task (ref: https://app.asana.com/0/0/1201217826547576/f)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function WaypointDocsPage(props) {
-  return (
-    <DocsLayout {...props}>
-      <MDXRemote {...props.mdxSource} />
-    </DocsLayout>
-  )
+  return <MDXRemote {...props.mdxSource} />
 }
 
 export async function getStaticPaths() {
@@ -52,13 +48,19 @@ export async function getStaticProps({ params }) {
     params,
     basePath,
   })
+
   return {
-    props,
+    props: {
+      ...props,
+      layoutProps: {
+        navData: props.navData,
+      },
+    },
     revalidate: 10,
   }
 }
 
-// Needs to be EmptyLayout in the assembly-ui-v1 branch for now
-WaypointDocsPage.layout = EmptyLayout
+// Needs to be DocsLayout in the assembly-ui-v1 branch for now
+WaypointDocsPage.layout = DocsLayout
 
 export default WaypointDocsPage

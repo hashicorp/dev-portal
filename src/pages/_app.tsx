@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <ErrorBoundary FallbackComponent={Error}>
-      <Layout>
+      <Layout {...pageProps?.layoutProps}>
         <Component {...pageProps} />
       </Layout>
     </ErrorBoundary>
