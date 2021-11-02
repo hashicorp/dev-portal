@@ -1,9 +1,10 @@
+import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
 import VerticalTextBlockList from '@hashicorp/react-vertical-text-block-list'
 import SectionHeader from '@hashicorp/react-section-header'
 import Head from 'next/head'
 import s from './style.module.css'
 
-export default function CommunityPage() {
+function CommunityPage() {
   return (
     <div className={s.root}>
       <Head>
@@ -32,3 +33,6 @@ export default function CommunityPage() {
     </div>
   )
 }
+
+CommunityPage.layout = BoundaryIoLayout
+export default CommunityPage

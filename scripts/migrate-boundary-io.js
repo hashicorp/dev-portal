@@ -272,8 +272,11 @@ async function migrateBoundaryIo() {
     return newContents
   })
   //
-  // TODO: remaining pages
+  // COMMUNITY PAGE
   //
+  await editFile(`${pagesDir}/community/index.jsx`, (contents) => {
+    return addProxyLayout(contents, 'CommunityPage')
+  })
   // clean up: delete the temporary folder
   //   await exec(`rm -rf ${cloneDir}`)
 }

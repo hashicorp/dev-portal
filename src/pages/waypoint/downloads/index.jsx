@@ -1,6 +1,6 @@
 import waypointConfig from '../../../../config/waypoint.json'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
-import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
+import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import styles from './style.module.css'
 // Imports below are server-side only
 import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
