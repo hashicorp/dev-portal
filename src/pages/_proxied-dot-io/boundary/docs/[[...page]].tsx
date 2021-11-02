@@ -1,12 +1,10 @@
 import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
-import Placement from 'components/author-primitives/shared/placement-table'
-import NestedNode from 'components/author-primitives/waypoint/nested-node'
 import DocsPage from '@hashicorp/react-docs-page'
 import {
   generateStaticPaths,
   generateStaticProps,
 } from '@hashicorp/react-docs-page/server'
-import productConfig from '../../../../../config/waypoint.json'
+import productConfig from '../../../../../config/boundary.json'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -15,7 +13,7 @@ const temporary_noop = 'im just for show'
 
 const product = { name: productConfig.name, slug: productConfig.slug }
 const basePath = 'docs'
-const additionalComponents = { Placement, NestedNode }
+const additionalComponents = {}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function DocsView(props) {

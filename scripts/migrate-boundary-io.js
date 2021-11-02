@@ -221,12 +221,11 @@ async function migrateBoundaryIo() {
     `cp -r ./scripts/migration-templates/docs-page.tsx ${pagesDir}/docs/[[...page]].tsx`
   )
   // replace variables in template
-  const additionalComponentImports =
-    "import Placement from 'components/author-primitives/shared/placement-table'\nimport NestedNode from 'components/author-primitives/waypoint/nested-node'\n"
-  const additionalComponents = '{ Placement, NestedNode }'
+  const additionalComponentImports = ''
+  const additionalComponents = '{}'
   await editFile(`${pagesDir}/docs/[[...page]].tsx`, (contents) => {
     return contents
-      .replace(/\$\$productSlug/g, 'waypoint')
+      .replace(/\$\$productSlug/g, 'boundary')
       .replace(/\$\$layoutName/g, 'BoundaryIoLayout')
       .replace(/\$\$layoutPath/g, 'layouts/_proxied-dot-io/boundary')
       .replace(/\$\$additionalComponentImports\n/, additionalComponentImports)

@@ -4,3 +4,6 @@ node_modules
 out
 .env*.local
 .vercel
+
+# temp migration directories
+_temp-migrate-boundary-io
