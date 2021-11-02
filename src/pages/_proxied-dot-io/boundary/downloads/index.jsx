@@ -1,12 +1,13 @@
-import { VERSION, DESKTOP_VERSION } from 'data/version.js'
-import { productSlug } from 'data/metadata'
+import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
+import { VERSION, DESKTOP_VERSION } from 'components/_proxied-dot-io/boundary/data/version.js'
+import { productSlug } from 'components/_proxied-dot-io/boundary/data/metadata'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
-import MerchDesktopClient from 'components/merch-desktop-client'
+import MerchDesktopClient from 'components/_proxied-dot-io/boundary/merch-desktop-client'
 import styles from './style.module.css'
 
 const DESKTOP_BINARY_SLUG = 'boundary-desktop'
 
-export default function DownloadsPage({ binaryReleases, desktopReleases }) {
+function DownloadsPage({ binaryReleases, desktopReleases }) {
   return (
     <ProductDownloadsPage
       releases={binaryReleases}
@@ -90,3 +91,6 @@ export async function getStaticProps() {
       )
     })
 }
+
+DownloadsPage.layout = BoundaryIoLayout
+export default DownloadsPage

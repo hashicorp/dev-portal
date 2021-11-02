@@ -35,7 +35,7 @@ async function migrateBoundaryIo() {
     pagesDir,
     componentsDir,
     publicDir,
-    './config/boundary.json',
+    // './config/boundary.json',
   ]
   for (let i = 0; i < dirsToDelete.length; i++) {
     if (dirsToDelete[i] && dirsToDelete[i].length > 1) {
@@ -44,8 +44,8 @@ async function migrateBoundaryIo() {
   }
   const filesToReset = [
     './src/pages/style.css',
-    'package.json',
-    'package-lock.json',
+    // 'package.json',
+    // 'package-lock.json',
   ]
   for (let i = 0; i < filesToReset.length; i++) {
     await exec(`git checkout main ${filesToReset[i]}`)
@@ -109,7 +109,7 @@ async function migrateBoundaryIo() {
     '@octokit/openapi-types',
   ]
   console.log('⏳ Installing dependencies...')
-  await exec(`npm i ${npmDependencies.join(' ')}`)
+  // await exec(`npm i ${npmDependencies.join(' ')}`)
   console.log('✅ Done')
   // copy components into dedicated directory
   const missingComponents = [
@@ -120,6 +120,7 @@ async function migrateBoundaryIo() {
     'how-it-works',
     'how-boundary-works',
     'why-boundary',
+    'merch-desktop-client',
   ]
   for (let i = 0; i < missingComponents.length; i++) {
     const srcPath = `${clonedComponents}/${missingComponents[i]}`
@@ -163,7 +164,7 @@ async function migrateBoundaryIo() {
   await exec(
     `cp -r ${clonedData}/navigation.js ${componentsDir}/data/navigation.js`
   )
-
+  await exec(`cp -r ${clonedData}/version.js ${componentsDir}/data/version.js`)
   // edit the subnav file to use the above data files
   await editFile(`${componentsDir}/subnav/index.jsx`, (contents) => {
     return contents.replace(/from 'data/g, "from '../data")
@@ -188,11 +189,7 @@ async function migrateBoundaryIo() {
       "from 'components/_proxied-dot-io/boundary/"
     )
     // add Boundary .io layout
-    newContents = newContents.replace(
-      'export default function HomePage',
-      'function HomePage'
-    )
-    newContents = `import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'\n${newContents}\nHomePage.layout = BoundaryIoLayout\nexport default HomePage\n`
+    newContents = addProxyLayout(newContents, 'HomePage')
     // return
     return newContents
   })
@@ -258,14 +255,22 @@ async function migrateBoundaryIo() {
         "import productData from '../../../../../config/boundary'"
       )
       .replace(/processSchemaFile/g, 'processSchemaString')
-    newContents = newContents.replace(
-      'export default function OpenApiDocsPage',
-      'function OpenApiDocsPage'
-    )
-    newContents = `import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'\n${newContents}\nOpenApiDocsPage.layout = BoundaryIoLayout\nexport default OpenApiDocsPage\n`
+    newContents = addProxyLayout(newContents, 'OpenApiDocsPage')
     return newContents
   })
-
+  //
+  // DOWNLOADS PAGE
+  //
+  await editFile(`${pagesDir}/downloads/index.jsx`, (contents) => {
+    let newContents = contents
+      .replace(
+        /from 'components\//g,
+        "from 'components/_proxied-dot-io/boundary/"
+      )
+      .replace(/from 'data/g, "from 'components/_proxied-dot-io/boundary/data")
+    newContents = addProxyLayout(newContents, 'DownloadsPage')
+    return newContents
+  })
   //
   // TODO: remaining pages
   //
@@ -276,4 +281,13 @@ async function editFile(filePath, editFn) {
   const contents = fs.readFileSync(filePath, 'utf8')
   const editedContents = await editFn(contents)
   fs.writeFileSync(filePath, editedContents, 'utf8')
+}
+
+function addProxyLayout(fileString, pageName) {
+  const layoutName = 'BoundaryIoLayout'
+  const layoutPath = 'layouts/_proxied-dot-io/boundary'
+  return `import ${layoutName} from '${layoutPath}'\n${fileString.replace(
+    `export default function ${pageName}`,
+    `function ${pageName}`
+  )}\n${pageName}.layout = ${layoutName}\nexport default ${pageName}\n`
 }
