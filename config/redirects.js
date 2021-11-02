@@ -54,7 +54,10 @@ const waypointToDevRedirects = devPortalRoutes.map((devPortalRoute) => {
 })
 
 async function redirectsConfig() {
-  return [...devPortalToWaypointRedirects, ...waypointToDevRedirects]
+  return [
+    // ...devPortalToWaypointRedirects,
+    ...waypointToDevRedirects,
+  ]
 }
 
 module.exports = redirectsConfig

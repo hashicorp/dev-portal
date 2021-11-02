@@ -35,6 +35,7 @@ async function migrateBoundaryIo() {
     pagesDir,
     componentsDir,
     publicDir,
+    './config/boundary.json',
   ]
   for (let i = 0; i < dirsToDelete.length; i++) {
     if (dirsToDelete[i] && dirsToDelete[i].length > 1) {
@@ -57,7 +58,11 @@ async function migrateBoundaryIo() {
 
   // clone the boundary repo into a temporary folder
   console.log('⏳ Cloning hashicorp/boundary...')
-  await exec(`git clone https://github.com/hashicorp/boundary.git ${clonedDir}`)
+  if (!fs.existsSync(clonedDir)) {
+    await exec(
+      `git clone https://github.com/hashicorp/boundary.git ${clonedDir}`
+    )
+  }
   console.log('✅ Done')
   const clonedWebsite = path.join(clonedDir, 'website')
   const clonedPages = path.join(clonedWebsite, 'pages')
@@ -81,6 +86,15 @@ async function migrateBoundaryIo() {
     const filepath = path.join(pagesDir, filesToDelete[i])
     await exec(`rm -f ${filepath}`)
   }
+  //
+  // METADATA
+  //
+  const productMeta = { name: 'Boundary', slug: 'boundary' }
+  fs.writeFileSync(
+    './config/boundary.json',
+    JSON.stringify(productMeta, null, 2),
+    'utf8'
+  )
   //
   // DEPENDENCIES
   //
@@ -195,6 +209,28 @@ async function migrateBoundaryIo() {
       .replace(/\$\$layoutName/g, 'BoundaryIoLayout')
       .replace(/\$\$layoutPath/g, 'layouts/_proxied-dot-io/boundary')
       .replace(/\$\$githubUrl/g, 'https://www.github.com/hashicorp/boundary')
+  })
+  //
+  // DOCS PAGE
+  // TODO: abstract to docs route more generally
+  //
+  // delete existing docs page, we'll use a standardized template
+  await exec(`rm -f ${path.join(pagesDir, 'docs', '[[...page]].jsx')}`)
+  // copy template into place
+  await exec(
+    `cp -r ./scripts/migration-templates/docs-page.tsx ${pagesDir}/docs/[[...page]].tsx`
+  )
+  // replace variables in template
+  const additionalComponentImports =
+    "import Placement from 'components/author-primitives/shared/placement-table'\nimport NestedNode from 'components/author-primitives/waypoint/nested-node'\n"
+  const additionalComponents = '{ Placement, NestedNode }'
+  await editFile(`${pagesDir}/docs/[[...page]].tsx`, (contents) => {
+    return contents
+      .replace(/\$\$productSlug/g, 'waypoint')
+      .replace(/\$\$layoutName/g, 'BoundaryIoLayout')
+      .replace(/\$\$layoutPath/g, 'layouts/_proxied-dot-io/boundary')
+      .replace(/\$\$additionalComponentImports\n/, additionalComponentImports)
+      .replace(/\$\$additionalComponents/, additionalComponents)
   })
   //
   // TODO: remaining pages
