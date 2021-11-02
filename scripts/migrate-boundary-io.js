@@ -13,7 +13,7 @@ NOTE: ADDITIONAL MANUAL STEPS
 */
 
 // const srcViewsDir = './src/views'
-const srcPublicDir = './src/public'
+const srcPublicDir = './public'
 const srcPagesDir = './src/pages'
 const srcComponentsDir = './src/components'
 const ioPathBase = '_proxied-dot-io'
@@ -57,7 +57,7 @@ async function migrateBoundaryIo() {
 
   // clone the boundary repo into a temporary folder
   console.log('⏳ Cloning hashicorp/boundary...')
-  // await exec(`git clone https://github.com/hashicorp/boundary.git ${clonedDir}`)
+  await exec(`git clone https://github.com/hashicorp/boundary.git ${clonedDir}`)
   console.log('✅ Done')
   const clonedWebsite = path.join(clonedDir, 'website')
   const clonedPages = path.join(clonedWebsite, 'pages')

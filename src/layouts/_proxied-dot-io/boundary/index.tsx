@@ -52,63 +52,7 @@ function WaypointIoLayout({
         />
       </HashiHead>
 
-      <Min100Layout
-        footer={
-          <Footer
-            // openConsentManager={openConsentManager} TODO: do we need this?
-            heading="Using Waypoint"
-            description="The best way to understand what Waypoint can enable for your projects is to give it a try."
-            cards={[
-              {
-                link:
-                  'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
-                img: '/img/waypoint/get-started-kubernetes.png',
-                eyebrow: 'Tutorial',
-                title: 'Get Started - Kubernetes',
-                description:
-                  'Build, deploy, and release applications to a Kubernetes cluster.',
-              },
-              {
-                link:
-                  'https://learn.hashicorp.com/tutorials/waypoint/get-started-intro',
-                img: '/img/waypoint/intro-to-waypoint.png',
-                eyebrow: 'Tutorial',
-                title: 'Introduction to Waypoint',
-                description:
-                  'Waypoint enables you to publish any application to any platform with a single file and a single command.',
-              },
-            ]}
-            ctaLinks={[
-              {
-                text: 'Waypoint tutorials',
-                url: 'https://learn.hashicorp.com/waypoint',
-              },
-              {
-                text: 'Waypoint documentation',
-                url: '/docs',
-              },
-            ]}
-            navLinks={[
-              {
-                text: 'Documentation',
-                url: '/docs',
-              },
-              {
-                text: 'API Reference',
-                url: '/',
-              },
-              {
-                text: 'Tutorials',
-                url: 'https://learn.hashicorp.com/waypoint',
-              },
-              {
-                text: 'Integrations',
-                url: '/',
-              },
-            ]}
-          />
-        }
-      >
+      <Min100Layout footer={<Footer openConsentManager={() => null} />}>
         {ALERT_BANNER_ACTIVE && (
           <AlertBanner {...alertBannerData} product="waypoint" hideOnMobile />
         )}
