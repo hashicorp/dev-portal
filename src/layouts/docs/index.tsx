@@ -19,7 +19,7 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => {
     TableOfContentsHeading[]
   >([])
 
-  // This is extremely dependent on the HTML passed in
+  // TODO: use new remark plugin instead (ref: https://app.asana.com/0/1100423001970639/1201314477034614/f)
   useLayoutEffect(() => {
     const headingElements = document
       .querySelector('main')
@@ -42,6 +42,7 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => {
         <Sidebar menuItems={props.navData} />
         <div className={s.contentWrapper}>
           <div className={s.content}>
+            {/* TODO: implement version switcher */}
             {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
             <main className={s.main}>{props.children}</main>
             {/* TODO: move to its own component & file */}
