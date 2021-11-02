@@ -51,13 +51,13 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => {
                 Table of Contents
               </p>
               <nav aria-labelledby="table-of-contents">
-                <ul className={s.tableOfContentsList}>
+                <ol className={s.tableOfContentsList}>
                   {tableOfContentsHeadings.map(({ slug, text }) => (
                     <li className={s.tableOfContentsListItem} key={slug}>
                       <a href={`#${slug}`}>{text}</a>
                     </li>
                   ))}
-                </ul>
+                </ol>
               </nav>
             </aside>
           </div>
