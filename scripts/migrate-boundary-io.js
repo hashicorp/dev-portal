@@ -102,11 +102,14 @@ async function migrateBoundaryIo() {
   const npmDependencies = [
     // home page
     '@hashicorp/react-hero',
+    '@hashicorp/react-open-api-page',
     '@hashicorp/react-product-features-list',
     '@hashicorp/react-use-cases',
+    '@octokit/core',
+    '@octokit/openapi-types',
   ]
   console.log('⏳ Installing dependencies...')
-  // await exec(`npm i ${npmDependencies.join(' ')}`)
+  await exec(`npm i ${npmDependencies.join(' ')}`)
   console.log('✅ Done')
   // copy components into dedicated directory
   const missingComponents = [
@@ -231,6 +234,38 @@ async function migrateBoundaryIo() {
       .replace(/\$\$additionalComponentImports\n/, additionalComponentImports)
       .replace(/\$\$additionalComponents/, additionalComponents)
   })
+  //
+  // API-DOCS PAGE
+  //
+  await editFile(`${pagesDir}/api-docs/[[...page]].jsx`, (contents) => {
+    let newContents = contents
+      .replace(
+        "import path from 'path'",
+        "import fetchGithubFile from 'lib/fetch-github-file'"
+      )
+      .replace(
+        "'../internal/gen/controller.swagger.json'",
+        "{\n  owner: 'hashicorp',\n  repo: 'boundary',\n  path: 'internal/gen/controller.swagger.json',\n}"
+      )
+      .replace(
+        /path\.join\(process\.cwd\(\), targetFile\)/g,
+        'await fetchGithubFile(targetFile)'
+      )
+      .replace(/{productName}/g, '{productData.name}')
+      .replace(/{productSlug}/g, '{productData.slug}')
+      .replace(
+        "import { productName, productSlug } from 'data/metadata'",
+        "import productData from '../../../../../config/boundary'"
+      )
+      .replace(/processSchemaFile/g, 'processSchemaString')
+    newContents = newContents.replace(
+      'export default function OpenApiDocsPage',
+      'function OpenApiDocsPage'
+    )
+    newContents = `import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'\n${newContents}\nOpenApiDocsPage.layout = BoundaryIoLayout\nexport default OpenApiDocsPage\n`
+    return newContents
+  })
+
   //
   // TODO: remaining pages
   //

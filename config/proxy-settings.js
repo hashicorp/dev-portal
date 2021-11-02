@@ -13,6 +13,18 @@ module.exports = {
         projectPage: '/_proxied-dot-io/boundary/docs/:path*',
       },
       {
+        proxiedRoute: '/api-docs/:path*',
+        projectPage: '/_proxied-dot-io/boundary/api-docs/:path*',
+      },
+      {
+        proxiedRoute: '/community',
+        projectPage: '/_proxied-dot-io/boundary/community',
+      },
+      {
+        proxiedRoute: '/downloads',
+        projectPage: '/_proxied-dot-io/boundary/downloads',
+      },
+      {
         proxiedRoute: '/security',
         projectPage: '/_proxied-dot-io/boundary/security',
       },
