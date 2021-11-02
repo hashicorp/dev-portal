@@ -1,3 +1,4 @@
+import React from 'react'
 import HashiHead from '@hashicorp/react-head'
 import HashiStackMenu from '@hashicorp/react-hashi-stack-menu'
 import AlertBanner from '@hashicorp/react-alert-banner'
@@ -7,7 +8,14 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 // TODO: consider abstracting this layout to work for all proxied .ios
 import Footer from './footer'
 import ProductSubnav from './subnav'
-import React from 'react'
+
+const headMetadata = {
+  title: 'Waypoint by HashiCorp',
+  description:
+    'Waypoint is  an open source solution that provides a modern workflow for build, deploy, and release across platforms.',
+  image: '/img/waypoint/og-image.png',
+  icon: [{ href: '/img/waypoint/_favicon.ico' }],
+}
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
@@ -24,10 +32,6 @@ const alertBannerData = {
   expirationDate: `2021-06-20T12:00:00-07:00`,
 }
 
-const title = 'Waypoint by HashiCorp'
-const description =
-  'Waypoint is  an open source solution that provides a modern workflow for build, deploy, and release across platforms.'
-
 function WaypointIoLayout({
   children,
 }: {
@@ -37,14 +41,22 @@ function WaypointIoLayout({
   return (
     <>
       <HashiHead
-        title={title}
-        siteName={title}
-        description={description}
-        image="/img/waypoint/og-image.png"
-        icon={[{ href: '/img/waypoint/_favicon.ico' }]}
+        title={headMetadata.title}
+        siteName={headMetadata.title}
+        description={headMetadata.description}
+        image={headMetadata.image}
+        icon={headMetadata.icon}
       >
-        <meta name="og:title" property="og:title" content={title} />
-        <meta name="og:description" property="og:title" content={description} />
+        <meta
+          name="og:title"
+          property="og:title"
+          content={headMetadata.title}
+        />
+        <meta
+          name="og:description"
+          property="og:title"
+          content={headMetadata.description}
+        />
       </HashiHead>
 
       <Min100Layout

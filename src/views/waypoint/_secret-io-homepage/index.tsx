@@ -1,4 +1,4 @@
-import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
+import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 import Hero from './components/hero'
 import SectionIntro from './components/sections/intro'

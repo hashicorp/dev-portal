@@ -6,7 +6,7 @@ import {
 import waypointConfig from '../../../../config/waypoint.json'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
-import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
+import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll

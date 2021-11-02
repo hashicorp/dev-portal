@@ -1,5 +1,5 @@
 import LongformPage from 'components/longform-page'
-import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
+import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 
 function TermsOfUsePage() {
   return (
