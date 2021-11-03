@@ -1,19 +1,30 @@
+const fs = require('fs')
 const path = require('path')
 const klawSync = require('klaw-sync')
 
-module.exports = {
-  boundary: {
-    // actually https://boundaryproject.io, but using test-bd.hashi-mktg.com as a test
-    domain: 'https://test-bd.hashi-mktg.com',
-    host: 'test-bd.hashi-mktg.com',
-    routesToProxy: gatherRoutesToProxy('/_proxied-dot-io/boundary'),
-  },
-  waypoint: {
-    // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
-    domain: 'https://wp.snarglepuss.com',
-    host: 'wp.snarglepuss.com',
-    routesToProxy: gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
-  },
+refreshProxySettings()
+
+function refreshProxySettings() {
+  const proxySettings = {
+    boundary: {
+      // actually https://boundaryproject.io, but using test-bd.hashi-mktg.com as a test
+      domain: 'https://test-bd.hashi-mktg.com',
+      host: 'test-bd.hashi-mktg.com',
+      routesToProxy: gatherRoutesToProxy('/_proxied-dot-io/boundary'),
+    },
+    waypoint: {
+      // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
+      domain: 'https://wp.snarglepuss.com',
+      host: 'wp.snarglepuss.com',
+      routesToProxy: gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
+    },
+  }
+
+  fs.writeFileSync(
+    './config/proxy-settings.json',
+    JSON.stringify(proxySettings, null, 2),
+    'utf8'
+  )
 }
 
 /**

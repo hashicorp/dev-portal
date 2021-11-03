@@ -1,0 +1,70 @@
+{
+  "boundary": {
+    "domain": "https://test-bd.hashi-mktg.com",
+    "host": "test-bd.hashi-mktg.com",
+    "routesToProxy": [
+      {
+        "proxiedRoute": "/",
+        "localRoute": "/_proxied-dot-io/boundary"
+      },
+      {
+        "proxiedRoute": "/api-docs/:path*",
+        "localRoute": "/_proxied-dot-io/boundary/api-docs/:path*"
+      },
+      {
+        "proxiedRoute": "/community",
+        "localRoute": "/_proxied-dot-io/boundary/community"
+      },
+      {
+        "proxiedRoute": "/docs/:path*",
+        "localRoute": "/_proxied-dot-io/boundary/docs/:path*"
+      },
+      {
+        "proxiedRoute": "/downloads",
+        "localRoute": "/_proxied-dot-io/boundary/downloads"
+      },
+      {
+        "proxiedRoute": "/security",
+        "localRoute": "/_proxied-dot-io/boundary/security"
+      }
+    ]
+  },
+  "waypoint": {
+    "domain": "https://wp.snarglepuss.com",
+    "host": "wp.snarglepuss.com",
+    "routesToProxy": [
+      {
+        "proxiedRoute": "/",
+        "localRoute": "/_proxied-dot-io/waypoint"
+      },
+      {
+        "proxiedRoute": "/commands/:path*",
+        "localRoute": "/_proxied-dot-io/waypoint/commands/:path*"
+      },
+      {
+        "proxiedRoute": "/community",
+        "localRoute": "/_proxied-dot-io/waypoint/community"
+      },
+      {
+        "proxiedRoute": "/docs/:path*",
+        "localRoute": "/_proxied-dot-io/waypoint/docs/:path*"
+      },
+      {
+        "proxiedRoute": "/downloads",
+        "localRoute": "/_proxied-dot-io/waypoint/downloads"
+      },
+      {
+        "proxiedRoute": "/plugins/:path*",
+        "localRoute": "/_proxied-dot-io/waypoint/plugins/:path*"
+      },
+      {
+        "proxiedRoute": "/security",
+        "localRoute": "/_proxied-dot-io/waypoint/security"
+      },
+      {
+        "proxiedRoute": "/terms",
+        "localRoute": "/_proxied-dot-io/waypoint/terms"
+      }
+    ]
+  }
+}

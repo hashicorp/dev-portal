@@ -1,4 +1,4 @@
-const proxySettings = require('./proxy-settings')
+const proxySettings = require('./proxy-settings.json')
 
 /**
  * # Some notes on rewrites
