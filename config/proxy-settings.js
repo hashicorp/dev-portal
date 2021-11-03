@@ -1,6 +1,21 @@
 const path = require('path')
 const klawSync = require('klaw-sync')
 
+module.exports = {
+  boundary: {
+    // actually https://boundaryproject.io, but using test-bd.hashi-mktg.com as a test
+    domain: 'https://test-bd.hashi-mktg.com',
+    host: 'test-bd.hashi-mktg.com',
+    routesToProxy: gatherRoutesToProxy('/_proxied-dot-io/boundary'),
+  },
+  waypoint: {
+    // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
+    domain: 'https://wp.snarglepuss.com',
+    host: 'wp.snarglepuss.com',
+    routesToProxy: gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
+  },
+}
+
 /**
  * Given a directory of pages to proxy,
  * returns an array of { proxiedRoute, localRoute } objects,
@@ -42,19 +57,4 @@ function gatherRoutesToProxy(pagesDir) {
       return a < b ? -1 : a > b ? 1 : 0
     })
   return routesToProxy
-}
-
-module.exports = {
-  boundary: {
-    // actually https://boundaryproject.io, but using test-bd.hashi-mktg.com as a test
-    domain: 'https://test-bd.hashi-mktg.com',
-    host: 'test-bd.hashi-mktg.com',
-    routesToProxy: gatherRoutesToProxy('/_proxied-dot-io/boundary'),
-  },
-  waypoint: {
-    // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
-    domain: 'https://wp.snarglepuss.com',
-    host: 'wp.snarglepuss.com',
-    routesToProxy: gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
-  },
 }
