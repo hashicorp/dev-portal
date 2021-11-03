@@ -10,8 +10,8 @@ const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 const productsToProxy = Object.keys(proxySettings)
 // In preview environments, it's actually nice to NOT have these redirects,
 // as they prevent us from seeing the content we build for the preview URL
-const isVercelPreview = process.env.NEXT_PUBLIC_VERCEL_ENV == 'preview'
-const devPortalToDotIoRedirects = isVercelPreview
+const isPreview = process.env.HASHI_ENV == 'preview'
+const devPortalToDotIoRedirects = isPreview
   ? []
   : productsToProxy.reduce((acc, productSlug) => {
       const routesToProxy = proxySettings[productSlug].routesToProxy
