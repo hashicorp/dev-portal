@@ -13,7 +13,7 @@ jobs:
         run: npm ci
 
       - name: Run pa11y-ci
-        run: npm run pa11y-ci -- --json --sitemap ${{ github.event.deployment_status.target_url }}/sitemap.xml |& tee output.txt
+        run: npm run pa11y-ci -- --json --threshold 25 --sitemap ${{ github.event.deployment_status.target_url }}/sitemap.xml |& tee output.txt
 
       - name: Read pa11y-ci output
         uses: actions/github-script@v5
