@@ -12,82 +12,97 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Run pa11y-ci Against Sitemap
-        run: npm run pa11y-ci -- --json --sitemap "${{ github.event.deployment_status.target_url }}/sitemap.xml" 2>&1 | tee pa11y_output.txt
+      - name: Run pa11y-ci
+        run: npm run pa11y-ci -- --json --sitemap ${{ github.event.deployment_status.target_url }}/sitemap.xml |& tee output.txt
 
-      - name: Comment on PR
+      - name: Read pa11y-ci output
         uses: actions/github-script@v5
-        env:
-          BODY_PREFIX: '<!-- pa11y-results -->'
         with:
           script: |
             const { promises: fs } = require('fs')
-
-            // Find this PR & do nothing if this isn't a PR
-            const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: context.sha
-            })
-            const prNumber = data[0] && data[0].number
-            if (!prNumber) {
-              return
+            const pa11yOutput = await fs.readFile('./output.txt', 'utf8')
+            const jsonLineAsString = pa11yOutput.split('\n').find(line => line.startsWith('{'))
+            try {
+              const asJSON = JSON.parse(jsonLineAsString)
+              console.log(asJSON)
+            } catch (err) {
+              console.error('Was not able to parse as JSON:', err)
+              console.error('Attempted to parse:', jsonLineAsString)
             }
 
-            // Read the pa11y output and build the comment body
-            const pa11yOutput = await fs.readFile('./pa11y_output.txt', 'utf8')
-            const lines = pa11yOutput.split('\n')
-            const asJSON = JSON.parse(lines.find((line) => line.startsWith('{')))
-            const { total, passes, errors, results } = asJSON
+      # - name: Comment on PR
+      #   uses: actions/github-script@v5
+      #   env:
+      #     BODY_PREFIX: '<!-- pa11y-results -->'
+      #   with:
+      #     script: |
+      #       const { promises: fs } = require('fs')
 
-            let commentBody = `${process.env.BODY_PREFIX}\n<h2>:microscope: pa11y-ci results</h2>\n\n`
-            commentBody += `- Number of URLs tested: ${total}\n`
+      #       // Find this PR & do nothing if this isn't a PR
+      #       const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         commit_sha: context.sha
+      #       })
+      #       const prNumber = data[0] && data[0].number
+      #       if (!prNumber) {
+      #         return
+      #       }
 
-            if (!errors) {
-              commentBody += `- No errors were found! :tada:\n`
-            } else {
-              commentBody += `- Number of errors found: ${errors}. :sob:\n`
+      #       // Read the pa11y output and build the comment body
+      #       const pa11yOutput = await fs.readFile('./pa11y_output.txt', 'utf8')
+      #       const lines = pa11yOutput.split('\n')
+      #       const asJSON = JSON.parse(lines.find((line) => line.startsWith('{')))
+      #       const { total, passes, errors, results } = asJSON
 
-              let formattedOutput = ''
-              Object.keys(results).forEach(urlKey => {
-                formattedOutput += `- Error in \`${urlKey}\`:\n\n`
-                const errors = results[urlKey]
-                errors.forEach(error => {
-                  formattedOutput += '  ```\n'
-                  formattedOutput += `  ${error.message}\n\n`;
-                  formattedOutput += `  ${error.selector}\n\n`;
-                  formattedOutput += `  ${error.context}\n\n`;
-                  formattedOutput += `  ${error.code}\n`;
-                  formattedOutput += '  ```\n\n'
-                })
-              })
+      #       let commentBody = `${process.env.BODY_PREFIX}\n<h2>:microscope: pa11y-ci results</h2>\n\n`
+      #       commentBody += `- Number of URLs tested: ${total}\n`
 
-              commentBody += `<details><summary>See results :eyes:</summary>\n\n${formattedOutput}</details>`
-            }
+      #       if (!errors) {
+      #         commentBody += `- No errors were found! :tada:\n`
+      #       } else {
+      #         commentBody += `- Number of errors found: ${errors}. :sob:\n`
 
-            // Get the comments on this PR
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: prNumber
-            })
+      #         let formattedOutput = ''
+      #         Object.keys(results).forEach(urlKey => {
+      #           formattedOutput += `- Error in \`${urlKey}\`:\n\n`
+      #           const errors = results[urlKey]
+      #           errors.forEach(error => {
+      #             formattedOutput += '  ```\n'
+      #             formattedOutput += `  ${error.message}\n\n`;
+      #             formattedOutput += `  ${error.selector}\n\n`;
+      #             formattedOutput += `  ${error.context}\n\n`;
+      #             formattedOutput += `  ${error.code}\n`;
+      #             formattedOutput += '  ```\n\n'
+      #           })
+      #         })
 
-            // Try to find an existing pa11y results comment
-            const previousComment = comments.find((comment) => comment.body.startsWith(process.env.BODY_PREFIX))
-            if (previousComment) {
-              // Update the previous comment
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: previousComment.id,
-                body: commentBody
-              })
-            } else {
-              // Create a new comment
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                body: commentBody
-              })
-            }
+      #         commentBody += `<details><summary>See results :eyes:</summary>\n\n${formattedOutput}</details>`
+      #       }
+
+      #       // Get the comments on this PR
+      #       const { data: comments } = await github.rest.issues.listComments({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         issue_number: prNumber
+      #       })
+
+      #       // Try to find an existing pa11y results comment
+      #       const previousComment = comments.find((comment) => comment.body.startsWith(process.env.BODY_PREFIX))
+      #       if (previousComment) {
+      #         // Update the previous comment
+      #         await github.rest.issues.updateComment({
+      #           owner: context.repo.owner,
+      #           repo: context.repo.repo,
+      #           comment_id: previousComment.id,
+      #           body: commentBody
+      #         })
+      #       } else {
+      #         // Create a new comment
+      #         await github.rest.issues.createComment({
+      #           owner: context.repo.owner,
+      #           repo: context.repo.repo,
+      #           issue_number: prNumber,
+      #           body: commentBody
+      #         })
+      #       }
