@@ -26,9 +26,9 @@ const devPortalToDotIoRedirects = productsToProxy.reduce((acc, productSlug) => {
   const isDevProduct = DEV_IO_PROXY === productSlug
   const proxyDomain = isDevProduct ? '' : proxySettings[productSlug].domain
   const toProductRedirects = routesToProxy.map(
-    ({ proxiedRoute, projectPage }) => {
+    ({ proxiedRoute, localRoute }) => {
       return {
-        source: projectPage,
+        source: localRoute,
         destination: proxyDomain + proxiedRoute,
         permanent: false,
       }

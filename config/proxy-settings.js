@@ -1,6 +1,15 @@
 const path = require('path')
 const klawSync = require('klaw-sync')
 
+/**
+ * Given a directory of pages to proxy,
+ * returns an array of { proxiedRoute, localRoute } objects,
+ * which can be used to construct the necessary
+ * redirects and rewrites.
+ *
+ * @param {*} pagesDir
+ * @returns
+ */
 function gatherRoutesToProxy(pagesDir) {
   const targetDir = path.resolve(`./src/pages${pagesDir}`)
   const pageExtensions = ['tsx', 'ts', 'jsx', 'js']
@@ -21,12 +30,10 @@ function gatherRoutesToProxy(pagesDir) {
           ? parentDirRoute
           : path.join(parentDirRoute, basename)
       const proxiedRoute = `/${urlPath}${isDynamic ? '/:path*' : ''}`
-      const projectPage = `${pagesDir}${
-        proxiedRoute == '/' ? '' : proxiedRoute
-      }`
+      const localRoute = `${pagesDir}${proxiedRoute == '/' ? '' : proxiedRoute}`
       return {
         proxiedRoute,
-        projectPage,
+        localRoute,
       }
     })
     .sort((aObj, bObj) => {

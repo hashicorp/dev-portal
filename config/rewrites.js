@@ -51,10 +51,10 @@ const dotIoRewrites = productsToProxy.reduce((acc, productSlug) => {
           value: proxySettings[productSlug].host,
         },
       ]
-  const proxyRewrites = routesToProxy.map(({ proxiedRoute, projectPage }) => {
+  const proxyRewrites = routesToProxy.map(({ proxiedRoute, localRoute }) => {
     return {
       source: proxiedRoute,
-      destination: projectPage,
+      destination: localRoute,
       has: rewriteHasCondition,
     }
   })
