@@ -52,7 +52,7 @@ function WaypointIoLayout({
         />
       </HashiHead>
 
-      <Min100Layout footer={<Footer openConsentManager={() => null} />}>
+      <Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
         {ALERT_BANNER_ACTIVE && (
           <AlertBanner {...alertBannerData} product="waypoint" hideOnMobile />
         )}
