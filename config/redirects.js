@@ -1,4 +1,4 @@
-const proxySettings = require('./proxy-settings.json')
+const proxySettings = require('./proxy-settings')
 
 const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 
