@@ -10,16 +10,15 @@ const proxySettings = require('./proxy-settings')
  * We run our rewrites "beforeFile". This makes it so
  * NextJS does the rewrite even if it has a page file to serve.
  * We do this because we have conflicting pages, such as:
- * - "/" (shows _secret-io-homepage, even though there is a dev-portal landing page)
- * - "/docs" (shows /waypoint/docs, even though there may be a dev-portal docs landing page)
- * - ... etc
+ * - "/" (should show eg /_proxied-dot-io/waypoint/, even though there may be a dev-portal landing page defined at this route)
+ * - "/security" (should show eg /proxied-dot-io/waypoint/security, even though there may be a dev-portal security page defined at this route)
  *
  * ref: https://nextjs.org/docs/api-reference/next.config.js/rewrites
  *
  * ## Explicit rewrites
  *
- * We current have explicit rewrites for the home page
- * as well as for all product pages (just Waypoint for now, but more to add).
+ * We current have explicit rewrites for all
+ * proxied dot-io pages.
  *
  * The reason for this is that regex approaches seemed
  * to consistently cause problems. Specifically:
