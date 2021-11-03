@@ -1,8 +1,8 @@
 module.exports = {
   boundary: {
-    // actually https://boundaryproject.io, but using boundary-test.hashi-mktg.com as a test
-    domain: 'https://boundary-test.hashi-mktg.com',
-    host: 'boundary-test.hashi-mktg.com',
+    // actually https://boundaryproject.io, but using test-bd.hashi-mktg.com as a test
+    domain: 'https://test-bd.hashi-mktg.com',
+    host: 'test-bd.hashi-mktg.com',
     routesToProxy: [
       {
         proxiedRoute: '/',
