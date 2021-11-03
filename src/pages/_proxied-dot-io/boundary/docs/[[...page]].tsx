@@ -4,7 +4,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@hashicorp/react-docs-page/server'
-import productConfig from '../../../../../config/boundary.json'
+import productConfig from 'data/boundary.json'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll

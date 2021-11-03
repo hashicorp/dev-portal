@@ -1,4 +1,4 @@
-import waypointConfig from '../../../../config/waypoint.json'
+import waypointConfig from 'data/waypoint.json'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import styles from './style.module.css'

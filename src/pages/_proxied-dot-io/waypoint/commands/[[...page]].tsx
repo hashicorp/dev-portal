@@ -3,7 +3,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@hashicorp/react-docs-page/server'
-import waypointConfig from '../../../../config/waypoint.json'
+import waypointConfig from 'data/waypoint.json'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
@@ -15,7 +15,7 @@ const temporary_noop = 'im just for show'
 
 const productName = waypointConfig.name
 const productSlug = waypointConfig.slug
-const basePath = 'plugins'
+const basePath = 'commands'
 const additionalComponents = { Placement, NestedNode }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

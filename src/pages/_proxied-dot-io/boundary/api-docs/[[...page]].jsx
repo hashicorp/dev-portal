@@ -1,5 +1,5 @@
 import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
-import productData from '../../../../../config/boundary'
+import productData from 'data/boundary'
 import OpenApiPage from '@hashicorp/react-open-api-page'
 /* Used server-side only */
 import fetchGithubFile from 'lib/fetch-github-file'

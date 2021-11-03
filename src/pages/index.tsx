@@ -22,7 +22,7 @@ export default function Homepage() {
       <h2>Proxied sites</h2>
       <ul>
         <li>
-          <Link href="/waypoint/_secret-io-homepage">Proxied Waypoint</Link>
+          <Link href="/_proxied-dot-io/waypoint">Proxied Waypoint</Link>
         </li>
         <li>
           <Link href="/_proxied-dot-io/boundary">Proxied Boundary</Link>

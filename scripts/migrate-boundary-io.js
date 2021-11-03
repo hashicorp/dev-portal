@@ -35,7 +35,7 @@ async function migrateBoundaryIo() {
     pagesDir,
     componentsDir,
     publicDir,
-    // './config/boundary.json',
+    // './data/boundary.json',
   ]
   for (let i = 0; i < dirsToDelete.length; i++) {
     if (dirsToDelete[i] && dirsToDelete[i].length > 1) {
@@ -91,7 +91,7 @@ async function migrateBoundaryIo() {
   //
   const productMeta = { name: 'Boundary', slug: 'boundary' }
   fs.writeFileSync(
-    './config/boundary.json',
+    './data/boundary.json',
     JSON.stringify(productMeta, null, 2),
     'utf8'
   )
@@ -252,7 +252,7 @@ async function migrateBoundaryIo() {
       .replace(/{productSlug}/g, '{productData.slug}')
       .replace(
         "import { productName, productSlug } from 'data/metadata'",
-        "import productData from '../../../../../config/boundary'"
+        "import productData from 'data/boundary'"
       )
       .replace(/processSchemaFile/g, 'processSchemaString')
     newContents = addProxyLayout(newContents, 'OpenApiDocsPage')
