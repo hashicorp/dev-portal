@@ -22,10 +22,11 @@ export default function Homepage() {
       <h2>Proxied sites</h2>
       <ul>
         <li>
-          <Link href="/_proxied-dot-io/waypoint">Proxied Waypoint</Link>
+          <a href="/_proxied-dot-io/waypoint">Proxied Waypoint</a>
         </li>
         <li>
-          <Link href="/_proxied-dot-io/boundary">Proxied Boundary</Link>
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a href="/_proxied-dot-io/boundary">Proxied Boundary</a>
         </li>
       </ul>
     </div>
