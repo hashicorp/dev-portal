@@ -31,7 +31,7 @@ const devPortalToDotIoRedirects = productsToProxy.reduce((acc, productSlug) => {
 // indexed by search engines on our proxied .io domains, which seems
 // like it could cause problems)
 // TODO: this is a simple single route, we'd probably want to redirect all dev-portal routes
-// We could likely come up with a way to determine a full list by:
+// We could likely come up with a way to determine a full list automatically:
 // 1. list all dev routes, ie everything except what's in /_proxied-dot-io/*
 // 2. for each product domain, build a redirect so that when /some-dev-portal-route
 //    is visited on that product domain, it redirects to dev-portal
