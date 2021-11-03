@@ -34,28 +34,24 @@ const proxySettings = require('./proxy-settings')
  *   This breaks the page.
  *
  */
-
-const DEV_IO_PROXY = process.env.DEV_IO_PROXY
 const productsToProxy = Object.keys(proxySettings)
-//
 const dotIoRewrites = productsToProxy.reduce((acc, productSlug) => {
   const routesToProxy = proxySettings[productSlug].routesToProxy
-  // if we're trying to test this product in dev,
+  // If we're trying to test this product in dev,
   // then we'll apply the rewrites without a host condition
-  const isDevProduct = DEV_IO_PROXY === productSlug
-  const rewriteHasCondition = isDevProduct
-    ? []
-    : [
-        {
-          type: 'host',
-          value: proxySettings[productSlug].host,
-        },
-      ]
+  const isDevProduct = process.env.DEV_IO_PROXY === productSlug
   const proxyRewrites = routesToProxy.map(({ proxiedRoute, localRoute }) => {
     return {
       source: proxiedRoute,
       destination: localRoute,
-      has: rewriteHasCondition,
+      has: isDevProduct
+        ? []
+        : [
+            {
+              type: 'host',
+              value: proxySettings[productSlug].host,
+            },
+          ],
     }
   })
   return acc.concat(proxyRewrites)
