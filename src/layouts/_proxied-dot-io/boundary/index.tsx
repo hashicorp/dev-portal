@@ -25,7 +25,7 @@ const alertBannerData = {
   expirationDate: `2021-06-20T12:00:00-07:00`,
 }
 
-function WaypointIoLayout({
+function BoundaryIoLayout({
   children,
 }: {
   /** Page contents to render in the layout */
@@ -65,9 +65,4 @@ function WaypointIoLayout({
   )
 }
 
-function getWaypointLayout(page) {
-  return <WaypointIoLayout>{page}</WaypointIoLayout>
-}
-
-export default WaypointIoLayout
-export { getWaypointLayout }
+export default BoundaryIoLayout

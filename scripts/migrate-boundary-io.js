@@ -11,20 +11,34 @@ NOTE: ADDITIONAL MANUAL STEPS
 
 */
 
+const tempDir = '_temp-migrations'
 const srcPublicDir = 'public'
 const srcPagesDir = 'src/pages'
 const srcComponentsDir = 'src/components'
-const ioPathBase = '_proxied-dot-io'
+const ioBaseDir = '_proxied-dot-io'
 
 migrateBoundaryIo()
 
 async function migrateBoundaryIo() {
+  const productData = {
+    name: 'Boundary',
+    slug: 'boundary',
+    metadata: {
+      title: 'Boundary by HashiCorp',
+      description:
+        'Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.',
+      image: '/boundary/img/og-image.png',
+      icon: [{ href: '/boundary/_favicon.ico' }],
+    },
+  }
+
   // specify a temporary dir we'll clone into and migrate from
-  const clonedDir = '_temp-migrate-boundary-io'
+  const clonedDir = path.join(tempDir, productData.slug)
+  fs.mkdirSync(tempDir, { recursive: true })
   // specify other directories we'll use
-  const pagesDir = path.join(srcPagesDir, ioPathBase, 'boundary')
-  const componentsDir = path.join(srcComponentsDir, ioPathBase, 'boundary')
-  const publicDir = path.join(srcPublicDir, 'boundary')
+  const pagesDir = path.join(srcPagesDir, ioBaseDir, productData.slug)
+  const componentsDir = path.join(srcComponentsDir, ioBaseDir, productData.slug)
+  const publicDir = path.join(srcPublicDir, productData.slug)
 
   // clean up from any previous migration attempts
   console.log('⏳ Cleaning up previous migration attempt...')
@@ -33,7 +47,7 @@ async function migrateBoundaryIo() {
     pagesDir,
     componentsDir,
     publicDir,
-    // './data/boundary.json',
+    './src/data/boundary.json',
   ]
   for (let i = 0; i < dirsToDelete.length; i++) {
     if (dirsToDelete[i] && dirsToDelete[i].length > 1) {
@@ -88,17 +102,6 @@ async function migrateBoundaryIo() {
   //
   // METADATA
   //
-  const productData = {
-    name: 'Boundary',
-    slug: 'boundary',
-    metadata: {
-      title: 'Boundary by HashiCorp',
-      description:
-        'Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.',
-      image: '/boundary/img/og-image.png',
-      icon: [{ href: '/boundary/_favicon.ico' }],
-    },
-  }
   fs.writeFileSync(
     `./src/data/boundary.json`,
     JSON.stringify(productData, null, 2) + '\n',
