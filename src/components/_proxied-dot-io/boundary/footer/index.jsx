@@ -13,7 +13,7 @@ export default function Footer({ openConsentManager }) {
           <Link href="/security">
             <a>Security</a>
           </Link>
-          <a href="/boundary/files/press-kit.zip">Press Kit</a>
+          <a href="/files/press-kit.zip">Press Kit</a>
           <a onClick={openConsentManager}>Consent Manager</a>
         </div>
       </div>

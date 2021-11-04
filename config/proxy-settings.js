@@ -6,7 +6,13 @@ module.exports = {
     // actually https://boundaryproject.io, but using test-bd.hashi-mktg.com as a test
     domain: 'https://test-bd.hashi-mktg.com',
     host: 'test-bd.hashi-mktg.com',
-    routesToProxy: gatherRoutesToProxy('/_proxied-dot-io/boundary'),
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/boundary'),
+      {
+        proxiedRoute: '/files/press-kit.zip',
+        localRoute: '/boundary/files/press-kit.zip',
+      },
+    ],
   },
   waypoint: {
     // actually https://waypointproject.io, but using wp.snarglepuss.com as a test

@@ -139,13 +139,6 @@ async function migrateBoundaryIo() {
     const destPath = `${componentsDir}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
-  // Update press kit link in footer
-  await editFile(`${componentsDir}/footer/index.jsx`, (contents) => {
-    return contents.replace(
-      '/files/press-kit.zip',
-      `${publicDir}/files/press-kit.zip`.replace(srcPublicDir, '')
-    )
-  })
   //
   // ASSETS
   //
