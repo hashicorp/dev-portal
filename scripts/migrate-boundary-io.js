@@ -8,11 +8,9 @@ const exec = util.promisify(require('child_process').exec)
 NOTE: ADDITIONAL MANUAL STEPS
 
 - set up layout in ./src/layouts/_proxied-dot-io/boundary
-- copy head metadata from cloned _app.js into ./src/layouts/_proxied-dot-io/boundary/head-metadata.json
 
 */
 
-// const srcViewsDir = './src/views'
 const srcPublicDir = 'public'
 const srcPagesDir = 'src/pages'
 const srcComponentsDir = 'src/components'
@@ -90,10 +88,20 @@ async function migrateBoundaryIo() {
   //
   // METADATA
   //
-  const productMeta = { name: 'Boundary', slug: 'boundary' }
+  const productData = {
+    name: 'Boundary',
+    slug: 'boundary',
+    metadata: {
+      title: 'Boundary by HashiCorp',
+      description:
+        'Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.',
+      image: '/boundary/img/og-image.png',
+      icon: [{ href: '/boundary/_favicon.ico' }],
+    },
+  }
   fs.writeFileSync(
     `./src/data/boundary.json`,
-    JSON.stringify(productMeta, null, 2) + '\n',
+    JSON.stringify(productData, null, 2) + '\n',
     'utf8'
   )
   //

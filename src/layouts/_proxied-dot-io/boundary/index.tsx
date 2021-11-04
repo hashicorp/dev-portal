@@ -8,7 +8,7 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 // TODO: consider abstracting this layout to work for all proxied .ios
 import Footer from 'components/_proxied-dot-io/boundary/footer'
 import ProductSubnav from 'components/_proxied-dot-io/boundary/subnav'
-import headMetadata from './head-metadata.json'
+import productData from 'data/boundary.json'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
@@ -34,21 +34,21 @@ function WaypointIoLayout({
   return (
     <>
       <HashiHead
-        title={headMetadata.title}
-        siteName={headMetadata.title}
-        description={headMetadata.description}
-        image={headMetadata.image}
-        icon={headMetadata.icon}
+        title={productData.metadata.title}
+        siteName={productData.metadata.title}
+        description={productData.metadata.description}
+        image={productData.metadata.image}
+        icon={productData.metadata.icon}
       >
         <meta
           name="og:title"
           property="og:title"
-          content={headMetadata.title}
+          content={productData.metadata.title}
         />
         <meta
           name="og:description"
           property="og:title"
-          content={headMetadata.description}
+          content={productData.metadata.description}
         />
       </HashiHead>
 
