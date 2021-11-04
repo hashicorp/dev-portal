@@ -13,9 +13,9 @@ NOTE: ADDITIONAL MANUAL STEPS
 */
 
 // const srcViewsDir = './src/views'
-const srcPublicDir = './public'
-const srcPagesDir = './src/pages'
-const srcComponentsDir = './src/components'
+const srcPublicDir = 'public'
+const srcPagesDir = 'src/pages'
+const srcComponentsDir = 'src/components'
 const ioPathBase = '_proxied-dot-io'
 
 migrateBoundaryIo()
@@ -26,7 +26,7 @@ async function migrateBoundaryIo() {
   // specify other directories we'll use
   const pagesDir = path.join(srcPagesDir, ioPathBase, 'boundary')
   const componentsDir = path.join(srcComponentsDir, ioPathBase, 'boundary')
-  const publicDir = path.join(srcPublicDir, ioPathBase, 'boundary')
+  const publicDir = path.join(srcPublicDir, 'boundary')
 
   // clean up from any previous migration attempts
   console.log('⏳ Cleaning up previous migration attempt...')
@@ -55,6 +55,7 @@ async function migrateBoundaryIo() {
   fs.mkdirSync(pagesDir, { recursive: true })
   fs.mkdirSync(componentsDir, { recursive: true })
   fs.mkdirSync(path.join(publicDir, 'img'), { recursive: true })
+  fs.mkdirSync(path.join(publicDir, 'files'), { recursive: true })
 
   // clone the boundary repo into a temporary folder
   console.log('⏳ Cloning hashicorp/boundary...')
@@ -91,8 +92,8 @@ async function migrateBoundaryIo() {
   //
   const productMeta = { name: 'Boundary', slug: 'boundary' }
   fs.writeFileSync(
-    './data/boundary.json',
-    JSON.stringify(productMeta, null, 2),
+    `./src/data/boundary.json`,
+    JSON.stringify(productMeta, null, 2) + '\n',
     'utf8'
   )
   //
@@ -127,12 +128,24 @@ async function migrateBoundaryIo() {
     const destPath = `${componentsDir}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
+  // Update press kit link in footer
+  await editFile(`${componentsDir}/footer/index.jsx`, (contents) => {
+    return contents.replace(
+      '/files/press-kit.zip',
+      `${publicDir}/files/press-kit.zip`.replace(srcPublicDir, '')
+    )
+  })
   //
   // ASSETS
   //
+  // Copy favicon and open-graph image into public folder
   await exec(`cp ${clonedPublic}/_favicon.ico ${publicDir}/_favicon.ico`)
   await exec(
     `cp ${clonedPublic}/img/og-image.png ${publicDir}/img/og-image.png`
+  )
+  // Copy press kit into public folder
+  await exec(
+    `cp ${clonedPublic}/files/press-kit.zip ${publicDir}/files/press-kit.zip`
   )
   //
   // GLOBAL STYLES
@@ -148,6 +161,7 @@ async function migrateBoundaryIo() {
     })
     .join('\n')
   await editFile('./src/pages/style.css', (contents) => {
+    if (contents.indexOf('Proxied boundary.io page') !== -1) return contents
     return contents.replace(
       '/* Print Styles */',
       `/* Proxied boundary.io page styles */\n${importStatements}\n\n/* Print Styles */`
