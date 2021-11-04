@@ -225,7 +225,7 @@ async function migrateBoundaryIo() {
   await exec(`rm -f ${path.join(pagesDir, 'security', 'index.jsx')}`)
   // copy template into place
   await exec(
-    `cp -r ./scripts/migration-templates/security.tsx ${pagesDir}/security/index.tsx`
+    `cp -r ./scripts/migrate-ios/templates/security.tsx ${pagesDir}/security/index.tsx`
   )
   // replace variables in template
   await editFile(`${pagesDir}/security/index.tsx`, (contents) => {
@@ -243,7 +243,7 @@ async function migrateBoundaryIo() {
   await exec(`rm -f ${path.join(pagesDir, 'docs', '[[...page]].jsx')}`)
   // copy template into place
   await exec(
-    `cp -r ./scripts/migration-templates/docs-page.tsx ${pagesDir}/docs/[[...page]].tsx`
+    `cp -r ./scripts/migrate-ios/templates/docs-page.tsx ${pagesDir}/docs/[[...page]].tsx`
   )
   // replace variables in template
   const additionalComponentImports = ''
