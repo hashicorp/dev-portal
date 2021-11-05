@@ -139,18 +139,40 @@ async function migrateBoundaryIo() {
     const destPath = `${componentsDir}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
+  // replace image path for hero background
+  await editFile(
+    `${componentsDir}/homepage-hero/HomepageHero.module.css`,
+    (contents) => {
+      return contents.replace(
+        '/img/hero-pattern.svg',
+        "'/boundary/img/hero-pattern.svg'"
+      )
+    }
+  )
+  // replace image path for CTA background
+  await editFile(
+    `${componentsDir}/branded-cta/branded-cta.module.css`,
+    (contents) => {
+      return contents.replace('/img/cta-bg.svg', '/boundary/img/cta-bg.svg')
+    }
+  )
   //
   // ASSETS
   //
-  // Copy favicon and open-graph image into public folder
-  await exec(`cp ${clonedPublic}/_favicon.ico ${publicDir}/_favicon.ico`)
-  await exec(
-    `cp ${clonedPublic}/img/og-image.png ${publicDir}/img/og-image.png`
-  )
-  // Copy press kit into public folder
-  await exec(
-    `cp ${clonedPublic}/files/press-kit.zip ${publicDir}/files/press-kit.zip`
-  )
+  const assetsToCopy = [
+    '/_favicon.ico',
+    '/img/og-image.png',
+    // note on press kit:
+    // we have a redirect in place to allow consistent URL
+    '/files/press-kit.zip',
+    '/img/hero-pattern.svg',
+    '/img/cta-bg.svg',
+  ]
+  for (let i = 0; i < assetsToCopy.length; i++) {
+    const srcPath = `${clonedPublic}/${assetsToCopy[i]}`
+    const destPath = `${publicDir}/${assetsToCopy[i]}`
+    await exec(`cp -r ${srcPath} ${destPath}`)
+  }
   //
   // GLOBAL STYLES
   //
@@ -218,7 +240,7 @@ async function migrateBoundaryIo() {
   await exec(`rm -f ${path.join(pagesDir, 'security', 'index.jsx')}`)
   // copy template into place
   await exec(
-    `cp -r ./scripts/migrate-ios/templates/security.tsx ${pagesDir}/security/index.tsx`
+    `cp -r ./scripts/migrate-io/templates/security.tsx ${pagesDir}/security/index.tsx`
   )
   // replace variables in template
   await editFile(`${pagesDir}/security/index.tsx`, (contents) => {
@@ -236,7 +258,7 @@ async function migrateBoundaryIo() {
   await exec(`rm -f ${path.join(pagesDir, 'docs', '[[...page]].jsx')}`)
   // copy template into place
   await exec(
-    `cp -r ./scripts/migrate-ios/templates/docs-page.tsx ${pagesDir}/docs/[[...page]].tsx`
+    `cp -r ./scripts/migrate-io/templates/docs-page.tsx ${pagesDir}/docs/[[...page]].tsx`
   )
   // replace variables in template
   const additionalComponentImports = ''
