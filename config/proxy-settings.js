@@ -18,7 +18,13 @@ module.exports = {
     // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
     domain: 'https://wp.snarglepuss.com',
     host: 'wp.snarglepuss.com',
-    routesToProxy: gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
+      {
+        proxiedRoute: '/files/press-kit.zip',
+        localRoute: '/waypoint/files/press-kit.zip',
+      },
+    ],
   },
 }
 

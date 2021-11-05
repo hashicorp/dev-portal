@@ -6,16 +6,9 @@ import Min100Layout from '@hashicorp/react-min-100-layout'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 // product-specific layout elements
 // TODO: consider abstracting this layout to work for all proxied .ios
-import Footer from './footer'
-import ProductSubnav from './subnav'
-
-const headMetadata = {
-  title: 'Waypoint by HashiCorp',
-  description:
-    'Waypoint is  an open source solution that provides a modern workflow for build, deploy, and release across platforms.',
-  image: '/img/waypoint/og-image.png',
-  icon: [{ href: '/img/waypoint/_favicon.ico' }],
-}
+import Footer from 'components/_proxied-dot-io/waypoint/footer'
+import ProductSubnav from 'components/_proxied-dot-io/waypoint/subnav'
+import productData from 'data/waypoint.json'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
@@ -41,35 +34,35 @@ function WaypointIoLayout({
   return (
     <>
       <HashiHead
-        title={headMetadata.title}
-        siteName={headMetadata.title}
-        description={headMetadata.description}
-        image={headMetadata.image}
-        icon={headMetadata.icon}
+        title={productData.metadata.title}
+        siteName={productData.metadata.title}
+        description={productData.metadata.description}
+        image={productData.metadata.image}
+        icon={productData.metadata.icon}
       >
         <meta
           name="og:title"
           property="og:title"
-          content={headMetadata.title}
+          content={productData.metadata.title}
         />
         <meta
           name="og:description"
           property="og:title"
-          content={headMetadata.description}
+          content={productData.metadata.description}
         />
       </HashiHead>
 
       <Min100Layout
         footer={
           <Footer
-            // openConsentManager={openConsentManager} TODO: do we need this?
+            openConsentManager={openConsentManager}
             heading="Using Waypoint"
             description="The best way to understand what Waypoint can enable for your projects is to give it a try."
             cards={[
               {
                 link:
                   'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
-                img: '/img/waypoint/get-started-kubernetes.png',
+                img: '/img/get-started-kubernetes.png',
                 eyebrow: 'Tutorial',
                 title: 'Get Started - Kubernetes',
                 description:
@@ -78,7 +71,7 @@ function WaypointIoLayout({
               {
                 link:
                   'https://learn.hashicorp.com/tutorials/waypoint/get-started-intro',
-                img: '/img/waypoint/intro-to-waypoint.png',
+                img: '/img/intro-to-waypoint.png',
                 eyebrow: 'Tutorial',
                 title: 'Introduction to Waypoint',
                 description:
@@ -101,8 +94,8 @@ function WaypointIoLayout({
                 url: '/docs',
               },
               {
-                text: 'API Reference',
-                url: '/',
+                text: 'CLI Reference',
+                url: '/commands',
               },
               {
                 text: 'Tutorials',
@@ -110,7 +103,7 @@ function WaypointIoLayout({
               },
               {
                 text: 'Integrations',
-                url: '/',
+                url: '/plugins',
               },
             ]}
           />

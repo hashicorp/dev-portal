@@ -7,6 +7,7 @@ const TEMP_DIR = '_temp-migrations'
 const DEST_PUBLIC = 'public'
 const DEST_PAGES = 'src/pages'
 const DEST_COMPONENTS = 'src/components'
+const DEST_LIB = 'src/lib'
 const IO_BASE_DIR = '_proxied-dot-io'
 
 async function setupProductMigration(productData) {
@@ -21,7 +22,9 @@ async function setupProductMigration(productData) {
   const gitCloneUrl = `https://github.com/hashicorp/${slug}.git`
   console.log(`⏳ Cloning hashicorp/${slug}...`)
   if (!fs.existsSync(clonedDir)) {
-    await exec(`git clone ${gitCloneUrl} ${clonedDir}`)
+    const cloneCommand = `git clone ${gitCloneUrl} ${clonedDir}`
+    console.log({ cloneCommand })
+    await exec(cloneCommand)
   }
   console.log('✅ Done')
   // set up product data file
@@ -40,6 +43,7 @@ async function setupProductMigration(productData) {
     data: path.join(clonedWebsite, 'data'),
     pages: path.join(clonedWebsite, 'pages'),
     public: path.join(clonedWebsite, 'public'),
+    lib: path.join(clonedWebsite, 'lib'),
   }
   //
   // DESTINATION - refresh & set up directories
@@ -48,6 +52,7 @@ async function setupProductMigration(productData) {
   const destDirs = {
     pages: path.join(DEST_PAGES, IO_BASE_DIR, slug),
     components: path.join(DEST_COMPONENTS, IO_BASE_DIR, slug),
+    lib: DEST_LIB,
     public: path.join(DEST_PUBLIC, slug),
   }
   // clean up from any previous migration attempts
@@ -139,10 +144,25 @@ async function addGlobalStyles({ missingStylesheets, productName }) {
   })
 }
 
+async function patchSubnav(filepath) {
+  await editFile(filepath, (contents) => {
+    return (
+      `import { useEffect, useState } from 'react'\n` +
+      contents
+        .replace('router.asPath', 'currentPath')
+        .replace(
+          'const router = useRouter()',
+          'const router = useRouter()\n  const [currentPath, setCurrentPath] = useState()\n\n  useEffect(() => {\n    setCurrentPath(router.asPath)\n  }, [router.asPath])\n'
+        )
+    )
+  })
+}
+
 module.exports = {
   addGlobalStyles,
   addProxyLayout,
   editFile,
+  patchSubnav,
   setupDocsRoute,
   setupProductMigration,
   setupSecurityPage,

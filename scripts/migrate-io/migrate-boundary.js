@@ -6,6 +6,7 @@ const {
   addGlobalStyles,
   addProxyLayout,
   editFile,
+  patchSubnav,
   setupDocsRoute,
   setupProductMigration,
   setupSecurityPage,
@@ -89,6 +90,9 @@ async function migrateBoundaryIo() {
     const destPath = `${destDirs.components}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
+  // temporary fix for currentPath highlighting issue in subnav
+  // TODO there must be a better way to do this?
+  await patchSubnav(`${destDirs.components}/subnav/index.jsx`)
   // replace image path for hero background
   await editFile(
     `${destDirs.components}/homepage-hero/HomepageHero.module.css`,
@@ -108,11 +112,13 @@ async function migrateBoundaryIo() {
   // ASSETS
   //
   const assetsToCopy = [
+    // meta images
     '/_favicon.ico',
     '/img/og-image.png',
-    // note on press kit:
-    // we have a redirect in place to allow consistent URL
+    // press kit
+    // note: we have a redirect in place to allow consistent URL
     '/files/press-kit.zip',
+    // hero images
     '/img/hero-pattern.svg',
     '/img/cta-bg.svg',
   ]

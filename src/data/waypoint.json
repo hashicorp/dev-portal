@@ -2,6 +2,16 @@
   "name": "Waypoint",
   "slug": "waypoint",
   "version": "0.5.2",
+  "metadata": {
+    "title": "Waypoint by HashiCorp",
+    "description": "Waypoint is  an open source solution that provides a modern workflow for build, deploy, and release across platforms.",
+    "image": "/waypoint/img/og-image.png",
+    "icon": [
+      {
+        "href": "/waypoint/_favicon.ico"
+      }
+    ]
+  },
   "packageManagers": [
     {
       "label": "Homebrew",
