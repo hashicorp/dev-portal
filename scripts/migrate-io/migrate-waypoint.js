@@ -205,11 +205,6 @@ async function migrateWaypointIo() {
   // edit file to account for above changes
   await editFile(`${destDirs.pages}/index.tsx`, (contents) => {
     let newContents = contents
-    // replace image import paths
-    // newContents = newContents.replace(
-    //   /require\('\.\/img/g,
-    //   "require('./home/img"
-    // )
     // replace component import paths
     newContents = newContents.replace(
       /from 'components\//g,
