@@ -89,12 +89,13 @@ async function migrateWaypointIo() {
   //
   // DEPENDENCIES
   //
-  // TODO
   // install dependencies required for proxied pages
-  const npmDependencies = []
-  console.log('⏳ Installing dependencies...')
-  // await exec(`npm i ${npmDependencies.join(' ')}`)
-  console.log('✅ Done')
+  // NOTE: none missing at the moment since Waypoint
+  // has already been manually migrated
+  // const missingDependencies = []
+  // console.log('⏳ Installing dependencies...')
+  // await exec(`npm i ${missingDependencies.join(' ')}`)
+  // console.log('✅ Done')
   //
   // COMPONENTS
   //
