@@ -1,7 +1,7 @@
 /* Global Styles */
 @import '~@hashicorp/mktg-global-styles/style.css';
 
-/* Proxied boundary.io page styles */
+/* Proxied Boundary page styles */
 @import './_proxied-dot-io/boundary/home/style.css';
 @import '../components/_proxied-dot-io/boundary/footer/style.css';
 

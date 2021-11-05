@@ -13,7 +13,7 @@ import productConfig from 'data/$$productSlug.json'
 const temporary_noop = 'im just for show'
 
 const product = { name: productConfig.name, slug: productConfig.slug }
-const basePath = 'docs'
+const basePath = '$$basePath'
 const additionalComponents = $$additionalComponents
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -2,7 +2,15 @@ const fs = require('fs')
 const util = require('util')
 const path = require('path')
 const exec = util.promisify(require('child_process').exec)
-const { addProxyLayout, editFile } = require('./_shared')
+const {
+  addGlobalStyles,
+  addProxyLayout,
+  editFile,
+  setupDocsRoute,
+  setupProductMigration,
+  setupSecurityPage,
+} = require('./_shared')
+
 /*
 
 NOTE: ADDITIONAL MANUAL STEPS
@@ -10,12 +18,6 @@ NOTE: ADDITIONAL MANUAL STEPS
 - set up layout in ./src/layouts/_proxied-dot-io/boundary
 
 */
-
-const tempDir = '_temp-migrations'
-const srcPublicDir = 'public'
-const srcPagesDir = 'src/pages'
-const srcComponentsDir = 'src/components'
-const ioBaseDir = '_proxied-dot-io'
 
 migrateBoundaryIo()
 
@@ -31,60 +33,13 @@ async function migrateBoundaryIo() {
       icon: [{ href: '/boundary/_favicon.ico' }],
     },
   }
-
-  // specify a temporary dir we'll clone into and migrate from
-  const clonedDir = path.join(tempDir, productData.slug)
-  fs.mkdirSync(tempDir, { recursive: true })
-  // specify other directories we'll use
-  const pagesDir = path.join(srcPagesDir, ioBaseDir, productData.slug)
-  const componentsDir = path.join(srcComponentsDir, ioBaseDir, productData.slug)
-  const publicDir = path.join(srcPublicDir, productData.slug)
-
-  // clean up from any previous migration attempts
-  console.log('⏳ Cleaning up previous migration attempt...')
-  const dirsToDelete = [
-    // clonedDir,
-    pagesDir,
-    componentsDir,
-    publicDir,
-    './src/data/boundary.json',
-  ]
-  for (let i = 0; i < dirsToDelete.length; i++) {
-    if (dirsToDelete[i] && dirsToDelete[i].length > 1) {
-      await exec(`rm -rf ${dirsToDelete[i]}`)
-    }
-  }
-  const filesToReset = [
-    './src/pages/style.css',
-    // 'package.json',
-    // 'package-lock.json',
-  ]
-  for (let i = 0; i < filesToReset.length; i++) {
-    await exec(`git checkout main ${filesToReset[i]}`)
-  }
-  console.log('✅ Done')
-  // set up directories
-  fs.mkdirSync(pagesDir, { recursive: true })
-  fs.mkdirSync(componentsDir, { recursive: true })
-  fs.mkdirSync(path.join(publicDir, 'img'), { recursive: true })
-  fs.mkdirSync(path.join(publicDir, 'files'), { recursive: true })
-
-  // clone the boundary repo into a temporary folder
-  console.log('⏳ Cloning hashicorp/boundary...')
-  if (!fs.existsSync(clonedDir)) {
-    await exec(
-      `git clone https://github.com/hashicorp/boundary.git ${clonedDir}`
-    )
-  }
-  console.log('✅ Done')
-  const clonedWebsite = path.join(clonedDir, 'website')
-  const clonedPages = path.join(clonedWebsite, 'pages')
-  const clonedComponents = path.join(clonedWebsite, 'components')
-  const clonedData = path.join(clonedWebsite, 'data')
-  const clonedPublic = path.join(clonedWebsite, 'public')
-  // copy all pages from old website into new views dir
-  await exec(`cp -r ${clonedPages}/ ${pagesDir}`)
-  // delete some files we don't need
+  // set up the source direction (cloned product repository)
+  // and the destination directories (all within this project's source)
+  const { repoDirs, destDirs } = await setupProductMigration(productData)
+  //
+  // PAGES FOLDER SETUP
+  //
+  // delete some page files we don't need
   const filesToDelete = [
     '_app.js',
     '_document.js',
@@ -96,17 +51,9 @@ async function migrateBoundaryIo() {
     'index.jsx',
   ]
   for (let i = 0; i < filesToDelete.length; i++) {
-    const filepath = path.join(pagesDir, filesToDelete[i])
+    const filepath = path.join(destDirs.pages, filesToDelete[i])
     await exec(`rm -f ${filepath}`)
   }
-  //
-  // METADATA
-  //
-  fs.writeFileSync(
-    `./src/data/boundary.json`,
-    JSON.stringify(productData, null, 2) + '\n',
-    'utf8'
-  )
   //
   // DEPENDENCIES
   //
@@ -123,6 +70,9 @@ async function migrateBoundaryIo() {
   console.log('⏳ Installing dependencies...')
   // await exec(`npm i ${npmDependencies.join(' ')}`)
   console.log('✅ Done')
+  //
+  // COMPONENTS
+  //
   // copy components into dedicated directory
   const missingComponents = [
     'footer',
@@ -135,26 +85,24 @@ async function migrateBoundaryIo() {
     'merch-desktop-client',
   ]
   for (let i = 0; i < missingComponents.length; i++) {
-    const srcPath = `${clonedComponents}/${missingComponents[i]}`
-    const destPath = `${componentsDir}/${missingComponents[i]}`
+    const srcPath = `${repoDirs.components}/${missingComponents[i]}`
+    const destPath = `${destDirs.components}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
   // replace image path for hero background
   await editFile(
-    `${componentsDir}/homepage-hero/HomepageHero.module.css`,
-    (contents) => {
-      return contents.replace(
+    `${destDirs.components}/homepage-hero/HomepageHero.module.css`,
+    (fileString) =>
+      fileString.replace(
         '/img/hero-pattern.svg',
         "'/boundary/img/hero-pattern.svg'"
       )
-    }
   )
   // replace image path for CTA background
   await editFile(
-    `${componentsDir}/branded-cta/branded-cta.module.css`,
-    (contents) => {
-      return contents.replace('/img/cta-bg.svg', '/boundary/img/cta-bg.svg')
-    }
+    `${destDirs.components}/branded-cta/branded-cta.module.css`,
+    (fileString) =>
+      fileString.replace('/img/cta-bg.svg', '/boundary/img/cta-bg.svg')
   )
   //
   // ASSETS
@@ -169,8 +117,10 @@ async function migrateBoundaryIo() {
     '/img/cta-bg.svg',
   ]
   for (let i = 0; i < assetsToCopy.length; i++) {
-    const srcPath = `${clonedPublic}/${assetsToCopy[i]}`
-    const destPath = `${publicDir}/${assetsToCopy[i]}`
+    const srcPath = `${repoDirs.public}/${assetsToCopy[i]}`
+    const destPath = `${destDirs.public}/${assetsToCopy[i]}`
+    const destDir = path.dirname(destPath)
+    if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, { recursive: true })
     await exec(`cp -r ${srcPath} ${destPath}`)
   }
   //
@@ -181,32 +131,23 @@ async function migrateBoundaryIo() {
     './_proxied-dot-io/boundary/home/style.css',
     '../components/_proxied-dot-io/boundary/footer/style.css',
   ]
-  const importStatements = missingStylesheets
-    .map((cssPath) => {
-      return `@import '${cssPath}';`
-    })
-    .join('\n')
-  await editFile('./src/pages/style.css', (contents) => {
-    if (contents.indexOf('Proxied boundary.io page') !== -1) return contents
-    return contents.replace(
-      '/* Print Styles */',
-      `/* Proxied boundary.io page styles */\n${importStatements}\n\n/* Print Styles */`
-    )
-  })
+  await addGlobalStyles({ missingStylesheets, productName: productData.name })
   //
   // LAYOUT
   //
   // copy data files, kinda temporary for now
-  fs.mkdirSync(path.join(componentsDir, 'data'), { recursive: true })
+  fs.mkdirSync(path.join(destDirs.components, 'data'), { recursive: true })
   await exec(
-    `cp -r ${clonedData}/metadata.js ${componentsDir}/data/metadata.js`
+    `cp -r ${repoDirs.data}/metadata.js ${destDirs.components}/data/metadata.js`
   )
   await exec(
-    `cp -r ${clonedData}/navigation.js ${componentsDir}/data/navigation.js`
+    `cp -r ${repoDirs.data}/navigation.js ${destDirs.components}/data/navigation.js`
   )
-  await exec(`cp -r ${clonedData}/version.js ${componentsDir}/data/version.js`)
+  await exec(
+    `cp -r ${repoDirs.data}/version.js ${destDirs.components}/data/version.js`
+  )
   // edit the subnav file to use the above data files
-  await editFile(`${componentsDir}/subnav/index.jsx`, (contents) => {
+  await editFile(`${destDirs.components}/subnav/index.jsx`, (contents) => {
     return contents.replace(/from 'data/g, "from '../data")
   })
   //
@@ -214,9 +155,9 @@ async function migrateBoundaryIo() {
   //
   // move home page from /home/index.jsx to /index.jsx,
   // to avoid duplicate route (or need for redirect)
-  await exec(`mv ${pagesDir}/home/index.jsx ${pagesDir}/index.jsx`)
+  await exec(`mv ${destDirs.pages}/home/index.jsx ${destDirs.pages}/index.jsx`)
   // edit file to account for above changes
-  await editFile(`${pagesDir}/index.jsx`, (contents) => {
+  await editFile(`${destDirs.pages}/index.jsx`, (contents) => {
     let newContents = contents
     // replace image import paths
     newContents = newContents.replace(
@@ -237,44 +178,27 @@ async function migrateBoundaryIo() {
   // SECURITY PAGE
   //
   // delete existing security page, we'll use a standardized template
-  await exec(`rm -f ${path.join(pagesDir, 'security', 'index.jsx')}`)
-  // copy template into place
-  await exec(
-    `cp -r ./scripts/migrate-io/templates/security.tsx ${pagesDir}/security/index.tsx`
-  )
-  // replace variables in template
-  await editFile(`${pagesDir}/security/index.tsx`, (contents) => {
-    return contents
-      .replace(/\$\$productName/g, 'Boundary')
-      .replace(/\$\$layoutName/g, 'BoundaryIoLayout')
-      .replace(/\$\$layoutPath/g, 'layouts/_proxied-dot-io/boundary')
-      .replace(/\$\$githubUrl/g, 'https://www.github.com/hashicorp/boundary')
-  })
+  await exec(`rm -f ${path.join(destDirs.pages, 'security', 'index.jsx')}`)
+  await setupSecurityPage({ pagesDir: destDirs.pages, productData })
   //
   // DOCS PAGE
-  // TODO: abstract to docs route more generally
   //
-  // delete existing docs page, we'll use a standardized template
-  await exec(`rm -f ${path.join(pagesDir, 'docs', '[[...page]].jsx')}`)
-  // copy template into place
-  await exec(
-    `cp -r ./scripts/migrate-io/templates/docs-page.tsx ${pagesDir}/docs/[[...page]].tsx`
-  )
-  // replace variables in template
   const additionalComponentImports = ''
   const additionalComponents = '{}'
-  await editFile(`${pagesDir}/docs/[[...page]].tsx`, (contents) => {
-    return contents
-      .replace(/\$\$productSlug/g, 'boundary')
-      .replace(/\$\$layoutName/g, 'BoundaryIoLayout')
-      .replace(/\$\$layoutPath/g, 'layouts/_proxied-dot-io/boundary')
-      .replace(/\$\$additionalComponentImports\n/, additionalComponentImports)
-      .replace(/\$\$additionalComponents/, additionalComponents)
+  // delete existing docs page
+  await exec(`rm -f ${path.join(destDirs.pages, 'docs', '[[...page]].jsx')}`)
+  // use standardized template
+  await setupDocsRoute({
+    pagesDir: destDirs.pages,
+    basePath: 'docs',
+    productData,
+    additionalComponentImports,
+    additionalComponents,
   })
   //
   // API-DOCS PAGE
   //
-  await editFile(`${pagesDir}/api-docs/[[...page]].jsx`, (contents) => {
+  await editFile(`${destDirs.pages}/api-docs/[[...page]].jsx`, (contents) => {
     let newContents = contents
       .replace(
         "import path from 'path'",
@@ -301,7 +225,7 @@ async function migrateBoundaryIo() {
   //
   // DOWNLOADS PAGE
   //
-  await editFile(`${pagesDir}/downloads/index.jsx`, (contents) => {
+  await editFile(`${destDirs.pages}/downloads/index.jsx`, (contents) => {
     let newContents = contents
       .replace(
         /from 'components\//g,
@@ -314,7 +238,7 @@ async function migrateBoundaryIo() {
   //
   // COMMUNITY PAGE
   //
-  await editFile(`${pagesDir}/community/index.jsx`, (contents) => {
+  await editFile(`${destDirs.pages}/community/index.jsx`, (contents) => {
     return addProxyLayout(contents, 'CommunityPage')
   })
   // clean up: delete the temporary folder
