@@ -19,7 +19,7 @@ async function setupProductMigration(productData) {
   fs.mkdirSync(TEMP_DIR, { recursive: true })
   // clone the product repository
   const gitCloneUrl = `https://github.com/hashicorp/${slug}.git`
-  console.log('⏳ Cloning hashicorp/boundary...')
+  console.log(`⏳ Cloning hashicorp/${slug}...`)
   if (!fs.existsSync(clonedDir)) {
     await exec(`git clone ${gitCloneUrl} ${clonedDir}`)
   }
@@ -109,9 +109,10 @@ async function setupSecurityPage({ pagesDir, productData }) {
   })
 }
 
-function addProxyLayout(fileString, pageName) {
-  const layoutName = 'BoundaryIoLayout'
-  const layoutPath = 'layouts/_proxied-dot-io/boundary'
+function addProxyLayout(fileString, pageName, productData) {
+  const { name, slug } = productData
+  const layoutName = `${name}IoLayout`
+  const layoutPath = `layouts/_proxied-dot-io/${slug}`
   return `import ${layoutName} from '${layoutPath}'\n${fileString.replace(
     `export default function ${pageName}`,
     `function ${pageName}`

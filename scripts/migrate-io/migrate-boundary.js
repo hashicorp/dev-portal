@@ -170,7 +170,7 @@ async function migrateBoundaryIo() {
       "from 'components/_proxied-dot-io/boundary/"
     )
     // add Boundary .io layout
-    newContents = addProxyLayout(newContents, 'HomePage')
+    newContents = addProxyLayout(newContents, 'HomePage', productData)
     // return
     return newContents
   })
@@ -219,7 +219,7 @@ async function migrateBoundaryIo() {
         "import productData from 'data/boundary'"
       )
       .replace(/processSchemaFile/g, 'processSchemaString')
-    newContents = addProxyLayout(newContents, 'OpenApiDocsPage')
+    newContents = addProxyLayout(newContents, 'OpenApiDocsPage', productData)
     return newContents
   })
   //
@@ -232,14 +232,14 @@ async function migrateBoundaryIo() {
         "from 'components/_proxied-dot-io/boundary/"
       )
       .replace(/from 'data/g, "from 'components/_proxied-dot-io/boundary/data")
-    newContents = addProxyLayout(newContents, 'DownloadsPage')
+    newContents = addProxyLayout(newContents, 'DownloadsPage', productData)
     return newContents
   })
   //
   // COMMUNITY PAGE
   //
   await editFile(`${destDirs.pages}/community/index.jsx`, (contents) => {
-    return addProxyLayout(contents, 'CommunityPage')
+    return addProxyLayout(contents, 'CommunityPage', productData)
   })
   // clean up: delete the temporary folder
   //   await exec(`rm -rf ${cloneDir}`)
