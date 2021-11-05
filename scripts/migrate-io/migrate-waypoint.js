@@ -231,7 +231,7 @@ async function migrateWaypointIo() {
     return newContents
   })
   //
-  // DOCS VIEWS
+  // DOCS VIEW
   //
   const componentsPath = destDirs.components.replace('src/', '')
   const additionalComponentImports = `import Placement from '${componentsPath}/placement-table'\nimport NestedNode from '${componentsPath}/nested-node'\n`
@@ -245,6 +245,19 @@ async function migrateWaypointIo() {
     productData,
     additionalComponentImports,
     additionalComponents,
+  })
+  //
+  // COMMANDS
+  //
+  // delete existing docs page
+  await exec(
+    `rm -f ${path.join(destDirs.pages, 'commands', '[[...page]].jsx')}`
+  )
+  // use standardized template
+  await setupDocsRoute({
+    pagesDir: destDirs.pages,
+    basePath: 'commands',
+    productData,
   })
   //
   // SECURITY PAGE

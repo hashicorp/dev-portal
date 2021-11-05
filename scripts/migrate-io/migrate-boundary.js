@@ -189,8 +189,6 @@ async function migrateBoundaryIo() {
   //
   // DOCS PAGE
   //
-  const additionalComponentImports = ''
-  const additionalComponents = '{}'
   // delete existing docs page
   await exec(`rm -f ${path.join(destDirs.pages, 'docs', '[[...page]].jsx')}`)
   // use standardized template
@@ -198,8 +196,6 @@ async function migrateBoundaryIo() {
     pagesDir: destDirs.pages,
     basePath: 'docs',
     productData,
-    additionalComponentImports,
-    additionalComponents,
   })
   //
   // API-DOCS PAGE

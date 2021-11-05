@@ -77,8 +77,8 @@ async function setupDocsRoute({
   pagesDir,
   basePath,
   productData,
-  additionalComponentImports,
-  additionalComponents,
+  additionalComponentImports = '',
+  additionalComponents = '{}',
 }) {
   const { slug, name } = productData
   // copy template into place
