@@ -24,19 +24,19 @@
   height: 100%;
   justify-content: center;
   overflow-y: auto;
-  padding: 24px;
-  padding-bottom: 100px;
+  padding-bottom: 24px 24px 100px 24px;
   position: relative;
 }
 
 .versionSwitcher {
-  width: 346px;
   height: 18px;
+  width: 346px;
 }
 
+/* TODO: these styles will be changing very soon, this is just to get us started */
 .main {
-  padding: 0 24px;
   max-width: 804px;
+  padding: 0 24px;
 
   & h1:first-child {
     margin-bottom: 12px;
