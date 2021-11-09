@@ -1,18 +1,16 @@
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import DocsPage from '@hashicorp/react-docs-page'
-import {
-  generateStaticPaths,
-  generateStaticProps,
-} from '@hashicorp/react-docs-page/server'
+import { GetStaticPathsResult } from 'next'
+import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import productConfig from 'data/waypoint.json'
-
-// because some of the util functions still require param arity, but we ignore
-// their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
-// just use this string to make it clear by using this k/v
-const temporary_noop = 'im just for show'
 
 const product = { name: productConfig.name, slug: productConfig.slug }
 const basePath = 'commands'
+const navDataFile = `../data/${basePath}-nav-data.json`
+const localContentDir = `../content/${basePath}`
+const enableVersionedDocs =
+  typeof process.env.ENABLE_VERSIONED_DOCS !== 'undefined' &&
+  process.env.ENABLE_VERSIONED_DOCS === 'true'
 const additionalComponents = {}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -22,38 +20,36 @@ function DocsView(props) {
       product={product}
       baseRoute={basePath}
       staticProps={props}
-      showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
+      showVersionSelect={enableVersionedDocs}
       additionalComponents={additionalComponents}
     />
   )
 }
 
-export async function getStaticPaths() {
-  const paths = await generateStaticPaths({
-    navDataFile: temporary_noop,
-    localContentDir: temporary_noop,
-    // new ----
-    product: product,
-    basePath,
-  })
-  return {
-    fallback: 'blocking',
-    paths,
-  }
+const remoteOpts = {
+  strategy: 'remote' as const,
+  basePath,
+}
+const localOpts = {
+  strategy: 'fs' as const,
+  navDataFile,
+  localContentDir,
+}
+const staticFunctions = getStaticGenerationFunctions({
+  ...(enableVersionedDocs ? remoteOpts : localOpts),
+  fallback: 'blocking' as GetStaticPathsResult['fallback'],
+  revalidate: 10,
+  product: productConfig.slug,
+})
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getStaticPaths(ctx) {
+  return staticFunctions.getStaticPaths(ctx)
 }
 
-export async function getStaticProps({ params }) {
-  const props = await generateStaticProps({
-    navDataFile: temporary_noop,
-    localContentDir: temporary_noop,
-    product: product,
-    params,
-    basePath,
-  })
-  return {
-    props,
-    revalidate: 10,
-  }
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getStaticProps(ctx) {
+  return staticFunctions.getStaticProps(ctx)
 }
 
 DocsView.layout = WaypointIoLayout
