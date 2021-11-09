@@ -17,7 +17,7 @@ const temporary_hideDocsPaths = {
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
   withHashicorp({
     nextOptimizedImages: true,
-    transpileModules: ['swingset'],
+    transpileModules: ['swingset', '@hashicorp/flight-icons'],
   })({
     async headers() {
       return [temporary_hideDocsPaths]
