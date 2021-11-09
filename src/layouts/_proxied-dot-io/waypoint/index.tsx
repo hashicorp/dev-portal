@@ -3,7 +3,7 @@ import HashiHead from '@hashicorp/react-head'
 import HashiStackMenu from '@hashicorp/react-hashi-stack-menu'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import Min100Layout from '@hashicorp/react-min-100-layout'
-import useProductMeta from '@hashicorp/platform-product-meta'
+import useProductMeta, { Products } from '@hashicorp/platform-product-meta'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 // product-specific layout elements
 // TODO: consider abstracting this layout to work for all proxied .ios
@@ -32,7 +32,7 @@ function WaypointIoLayout({
   /** Page contents to render in the layout */
   children: React.ReactNode
 }): React.ReactElement {
-  const { themeClass } = useProductMeta(productData.name)
+  const { themeClass } = useProductMeta(productData.name as Products)
 
   return (
     <>
