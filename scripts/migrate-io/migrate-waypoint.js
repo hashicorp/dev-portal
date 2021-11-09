@@ -231,7 +231,7 @@ async function migrateWaypointIo() {
     return newContents
   })
   //
-  // DOCS VIEW
+  // DOCS
   //
   const componentsPath = destDirs.components.replace('src/', '')
   const additionalComponentImports = `import Placement from '${componentsPath}/placement-table'\nimport NestedNode from '${componentsPath}/nested-node'\n`
@@ -258,6 +258,59 @@ async function migrateWaypointIo() {
     pagesDir: destDirs.pages,
     basePath: 'commands',
     productData,
+  })
+  //
+  // PLUGINS
+  //
+  await exec(`rm -f ${path.join(destDirs.pages, 'plugins', '[[...page]].jsx')}`)
+  // use standardized template
+  await setupDocsRoute({
+    pagesDir: destDirs.pages,
+    basePath: 'plugins',
+    productData,
+  })
+  //
+  // COMMUNITY
+  //
+  await editFile(`${destDirs.pages}/community/index.jsx`, (contents) => {
+    return addProxyLayout(contents, 'CommunityPage', productData)
+  })
+  //
+  // DOWNLOADS
+  //
+  await editFile(`${destDirs.pages}/downloads/index.jsx`, (contents) => {
+    let newContents = contents
+      .replace(
+        "import VERSION, { packageManagers } from 'data/version.js'\n",
+        ''
+      )
+      .replace(
+        "import { productName, productSlug } from 'data/metadata'",
+        "import productData from 'data/waypoint'"
+      )
+      .replace('productName={productName}', 'productName={productData.name}')
+      .replace('productId={productSlug}', 'productId={productData.slug}')
+      .replace(
+        'packageManagers={packageManagers}',
+        'packageManagers={productData.packageManagers}'
+      )
+      .replace('latestVersion={VERSION}', 'latestVersion={productData.version}')
+      .replace('latestVersion: VERSION,', 'latestVersion: productData.version,')
+
+    newContents = addProxyLayout(newContents, 'DownloadsPage', productData)
+    return newContents
+  })
+  //
+  // COPYRIGHT POLICY
+  //
+  await editFile(`${destDirs.pages}/copyright-policy/index.jsx`, (contents) => {
+    return addProxyLayout(contents, 'CopyrightPolicyPage', productData)
+  })
+  //
+  // TERMS OF USE
+  //
+  await editFile(`${destDirs.pages}/terms/index.jsx`, (contents) => {
+    return addProxyLayout(contents, 'TermsOfUsePage', productData)
   })
   //
   // SECURITY PAGE

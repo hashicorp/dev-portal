@@ -1,6 +1,7 @@
+import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import LongformPage from 'components/longform-page'
 
-export default function TermsOfUsePage() {
+function TermsOfUsePage() {
   return (
     <LongformPage
       alert={
@@ -168,3 +169,6 @@ export default function TermsOfUsePage() {
     </LongformPage>
   )
 }
+
+TermsOfUsePage.layout = WaypointIoLayout
+export default TermsOfUsePage

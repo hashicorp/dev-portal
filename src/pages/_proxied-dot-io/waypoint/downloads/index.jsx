@@ -1,17 +1,17 @@
-import VERSION, { packageManagers } from 'data/version.js'
-import { productName, productSlug } from 'data/metadata'
+import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
+import productData from 'data/waypoint'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
 import styles from './style.module.css'
 
-export default function DownloadsPage({ releases }) {
+function DownloadsPage({ releases }) {
   return (
     <ProductDownloadsPage
       releases={releases}
-      packageManagers={packageManagers}
-      productName={productName}
-      productId={productSlug}
-      latestVersion={VERSION}
+      packageManagers={productData.packageManagers}
+      productName={productData.name}
+      productId={productData.slug}
+      latestVersion={productData.version}
       getStartedDescription="Follow step-by-step tutorials on AWS, Azure, GCP, and localhost."
       getStartedLinks={[
         {
@@ -52,5 +52,8 @@ export default function DownloadsPage({ releases }) {
 export const getStaticProps = () =>
   generateStaticProps({
     product: 'waypoint',
-    latestVersion: VERSION,
+    latestVersion: productData.version,
   })
+
+DownloadsPage.layout = WaypointIoLayout
+export default DownloadsPage

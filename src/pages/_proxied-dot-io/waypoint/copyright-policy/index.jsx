@@ -1,6 +1,7 @@
+import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import LongformPage from 'components/longform-page'
 
-export default function CopyrightPolicyPage() {
+function CopyrightPolicyPage() {
   return (
     <LongformPage title="Copyright Policy">
       <p>
@@ -155,3 +156,6 @@ export default function CopyrightPolicyPage() {
     </LongformPage>
   )
 }
+
+CopyrightPolicyPage.layout = WaypointIoLayout
+export default CopyrightPolicyPage
