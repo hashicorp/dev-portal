@@ -3,6 +3,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@hashicorp/react-docs-page/server'
+import { anchorLinks } from '@hashicorp/remark-plugins'
 import { MDXRemote } from 'next-mdx-remote'
 import waypointConfig from '../../../../config/waypoint.json'
 // import Placement from 'components/author-primitives/shared/placement-table'
@@ -40,18 +41,22 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  const headings = []
+
   const props = await generateStaticProps({
-    navDataFile: temporary_noop,
-    localContentDir: temporary_noop,
-    product: { name: productName, slug: productSlug },
-    params,
     basePath,
+    localContentDir: temporary_noop,
+    navDataFile: temporary_noop,
+    params,
+    product: { name: productName, slug: productSlug },
+    remarkPlugins: [[anchorLinks, { headings }]],
   })
 
   return {
     props: {
       ...props,
       layoutProps: {
+        headings,
         navData: props.navData,
       },
     },
