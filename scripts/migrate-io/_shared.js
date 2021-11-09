@@ -56,12 +56,15 @@ async function setupProductMigration(productData) {
     public: path.join(DEST_PUBLIC, slug),
   }
   // clean up from any previous migration attempts
-  const destDirValues = Object.values(destDirs)
-  for (let i = 0; i < destDirValues.length; i++) {
+  const destDirKeys = Object.keys(destDirs)
+  for (let i = 0; i < destDirKeys.length; i++) {
+    const destDir = destDirs[destDirKeys[i]]
     // remove old directory
-    await exec(`rm -rf ./${destDirValues[i]}`)
+    if (destDirKeys[i] !== 'lib') {
+      await exec(`rm -rf ./${destDir}`)
+    }
     // set up directories
-    fs.mkdirSync(destDirValues[i], { recursive: true })
+    fs.mkdirSync(destDir, { recursive: true })
   }
   // copy all repo pages into this repo's pages dir
   // (we'll remove some of these files on a product-by-product basis)
