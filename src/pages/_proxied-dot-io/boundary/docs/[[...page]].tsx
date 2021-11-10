@@ -7,7 +7,7 @@ import productConfig from 'data/boundary.json'
 const product = { name: productConfig.name, slug: productConfig.slug }
 const basePath = 'docs'
 const navDataFile = `../data/${basePath}-nav-data.json`
-const localContentDir = `../content/${basePath}`
+const localContentDir = `content/${basePath}`
 const isContentDeployPreview =
   process.env.DEV_IO_PROXY == 'boundary' &&
   process.env.IS_CONTENT_DEPLOY_PREVIEW

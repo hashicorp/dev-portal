@@ -7,7 +7,7 @@ import productConfig from 'data/waypoint.json'
 const product = { name: productConfig.name, slug: productConfig.slug }
 const basePath = 'commands'
 const navDataFile = `../data/${basePath}-nav-data.json`
-const localContentDir = `../content/${basePath}`
+const localContentDir = `content/${basePath}`
 const isContentDeployPreview =
   process.env.DEV_IO_PROXY == 'waypoint' &&
   process.env.IS_CONTENT_DEPLOY_PREVIEW
