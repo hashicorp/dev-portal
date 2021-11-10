@@ -70,7 +70,7 @@
 
   &:focus {
     border: 1px solid var(--blue-vibrant);
-    box-shadow: 0 0 0 3px #a5c2f3;
+    box-shadow: 0 0 0 3px #a5c2f3; /* TODO: replace w/ variable when available */
     outline: none;
   }
 }
