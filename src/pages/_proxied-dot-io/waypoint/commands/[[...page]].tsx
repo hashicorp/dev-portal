@@ -31,6 +31,8 @@ function DocsView(props) {
 
 const remoteOpts = {
   strategy: 'remote' as const,
+  fallback: 'blocking' as GetStaticPathsResult['fallback'],
+  revalidate: 10,
   basePath,
 }
 const localOpts = {
@@ -40,8 +42,6 @@ const localOpts = {
 }
 const staticFunctions = getStaticGenerationFunctions({
   ...(isContentDeployPreview ? localOpts : remoteOpts),
-  fallback: 'blocking' as GetStaticPathsResult['fallback'],
-  revalidate: 10,
   product: productConfig.slug,
 })
 
