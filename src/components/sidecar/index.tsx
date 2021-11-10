@@ -9,6 +9,7 @@ interface SidecarProps {
   headings: SidecarHeading[]
 }
 
+// TODO: there are still a few things to do here. See https://app.asana.com/0/0/1201265683986463/f.
 const Sidecar: React.FC<SidecarProps> = ({ headings }) => (
   <aside className={s.sidecar}>
     <p className={s.sidecarLabel} id="table-of-contents">
