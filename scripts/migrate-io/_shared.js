@@ -22,9 +22,7 @@ async function setupProductMigration(productData) {
   const gitCloneUrl = `https://github.com/hashicorp/${slug}.git`
   console.log(`⏳ Cloning hashicorp/${slug}...`)
   if (!fs.existsSync(clonedDir)) {
-    const cloneCommand = `git clone ${gitCloneUrl} ${clonedDir}`
-    console.log({ cloneCommand })
-    await exec(cloneCommand)
+    await exec(`git clone ${gitCloneUrl} ${clonedDir}`)
   }
   console.log('✅ Done')
   // set up product data file

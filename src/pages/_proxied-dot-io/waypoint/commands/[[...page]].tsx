@@ -8,6 +8,9 @@ const product = { name: productConfig.name, slug: productConfig.slug }
 const basePath = 'commands'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
+const isContentDeployPreview =
+  process.env.DEV_IO_PROXY == 'waypoint' &&
+  process.env.IS_CONTENT_DEPLOY_PREVIEW
 const enableVersionedDocs =
   typeof process.env.ENABLE_VERSIONED_DOCS !== 'undefined' &&
   process.env.ENABLE_VERSIONED_DOCS === 'true'
@@ -20,7 +23,7 @@ function DocsView(props) {
       product={product}
       baseRoute={basePath}
       staticProps={props}
-      showVersionSelect={enableVersionedDocs}
+      showVersionSelect={enableVersionedDocs && !isContentDeployPreview}
       additionalComponents={additionalComponents}
     />
   )
@@ -36,7 +39,7 @@ const localOpts = {
   localContentDir,
 }
 const staticFunctions = getStaticGenerationFunctions({
-  ...(enableVersionedDocs ? remoteOpts : localOpts),
+  ...(isContentDeployPreview ? localOpts : remoteOpts),
   fallback: 'blocking' as GetStaticPathsResult['fallback'],
   revalidate: 10,
   product: productConfig.slug,
