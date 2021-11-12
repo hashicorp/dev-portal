@@ -1,14 +1,14 @@
-import DocsPage from '@hashicorp/react-docs-page'
+// import DocsPage from '@hashicorp/react-docs-page'
 import {
   generateStaticPaths,
   generateStaticProps,
 } from '@hashicorp/react-docs-page/server'
+import { anchorLinks } from '@hashicorp/remark-plugins'
+import { MDXRemote } from 'next-mdx-remote'
 import waypointConfig from '../../../../config/waypoint.json'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
-import NavigationHeader from 'components/navigation-header'
-import EmptyLayout from 'layouts/empty'
-import Sidebar from 'components/sidebar'
+import DocsLayout from 'layouts/docs'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -22,30 +22,8 @@ const additionalComponents = { Placement, NestedNode }
 
 // TODO: inline styles will be removed in a follow-up layout task (ref: https://app.asana.com/0/0/1201217826547576/f)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function DocsLayout(props) {
-  return (
-    <>
-      <NavigationHeader />
-      <div style={{ display: 'flex' }}>
-        <Sidebar menuItems={props.navData} />
-        <div
-          style={{
-            width: 'calc(100vw - 320px)',
-            overflowY: 'scroll',
-            maxHeight: 'calc(100vh - 80px)',
-          }}
-        >
-          <DocsPage
-            product={{ name: productName, slug: productSlug }}
-            baseRoute={basePath}
-            staticProps={props}
-            showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
-            additionalComponents={additionalComponents}
-          />
-        </div>
-      </div>
-    </>
-  )
+function WaypointDocsPage(props) {
+  return <MDXRemote {...props.mdxSource} components={additionalComponents} />
 }
 
 export async function getStaticPaths() {
@@ -63,20 +41,30 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  const headings = []
+
   const props = await generateStaticProps({
-    navDataFile: temporary_noop,
-    localContentDir: temporary_noop,
-    product: { name: productName, slug: productSlug },
-    params,
     basePath,
+    localContentDir: temporary_noop,
+    navDataFile: temporary_noop,
+    params,
+    product: { name: productName, slug: productSlug },
+    remarkPlugins: [[anchorLinks, { headings }]],
   })
+
   return {
-    props,
+    props: {
+      ...props,
+      layoutProps: {
+        headings,
+        navData: props.navData,
+      },
+    },
     revalidate: 10,
   }
 }
 
-// Needs to be EmptyLayout in the assembly-ui-v1 branch for now
-DocsLayout.layout = EmptyLayout
+// Needs to be DocsLayout in the assembly-ui-v1 branch for now
+WaypointDocsPage.layout = DocsLayout
 
-export default DocsLayout
+export default WaypointDocsPage

@@ -1,0 +1,46 @@
+.sidecar {
+  margin-left: 24px;
+  min-width: 268px;
+  position: sticky;
+  text-align: right;
+  top: 0;
+  width: 268px;
+}
+
+.sidecarLabel {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 18px;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+.sidecarList {
+  border-right: 1px solid #c2c5cb;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidecarListItem {
+  color: var(--gray-foreground-tertiary);
+  font-size: 14px;
+  line-height: 18px;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  & a {
+    border-radius: 5px;
+    border: 1px solid transparent;
+    color: inherit;
+    padding: 0 10px;
+
+    &:focus {
+      border: 1px solid var(--blue-vibrant);
+      box-shadow: 0 0 0 3px #a5c2f3; /* TODO: replace w/ variable when available */
+      outline: none;
+    }
+  }
+}
