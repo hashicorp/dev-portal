@@ -9,12 +9,14 @@ const product = { name: productConfig.name, slug: productConfig.slug }
 const basePath = '$$basePath'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `content/${basePath}`
+// TODO: still experimenting with deploy preview approach
+// isContentDeployPreview is a first attempt at building deploy
+// previews in content repo contexts by cloning and building
+// the dev-portal repository
 const isContentDeployPreview =
-  process.env.DEV_IO_PROXY == '$$productSlug' &&
+  process.env.DEV_IO_PROXY == 'boundary' &&
   process.env.IS_CONTENT_DEPLOY_PREVIEW
-const enableVersionedDocs =
-  typeof process.env.ENABLE_VERSIONED_DOCS !== 'undefined' &&
-  process.env.ENABLE_VERSIONED_DOCS === 'true'
+const enableVersionedDocs = process.env.ENABLE_VERSIONED_DOCS === 'true'
 const additionalComponents = $$additionalComponents
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -38,6 +40,7 @@ const remoteOpts = {
 }
 const localOpts = {
   strategy: 'fs' as const,
+  fallback: 'blocking' as GetStaticPathsResult['fallback'],
   navDataFile,
   localContentDir,
 }
