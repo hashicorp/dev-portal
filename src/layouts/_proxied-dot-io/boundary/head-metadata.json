@@ -1,6 +1,0 @@
-{
-  "title": "Boundary by HashiCorp",
-  "description": "Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.",
-  "image": "/_proxied-dot-io/boundary/img/og-image.png",
-  "icon": [{ "href": "/_proxied-dot-io/boundary/_favicon.ico" }]
-}

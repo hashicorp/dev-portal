@@ -5,7 +5,7 @@ function SecurityPage(): React.ReactElement {
   return (
     <SecurityView
       productName="Waypoint"
-      githubUrl="https://github.com/hashicorp/waypoint"
+      githubUrl="https://www.github.com/hashicorp/waypoint"
     />
   )
 }

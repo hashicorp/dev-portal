@@ -40,18 +40,19 @@ const dotIoRewrites = productsToProxy.reduce((acc, productSlug) => {
   // then we'll apply the rewrites without a host condition
   const isDevProduct = process.env.DEV_IO_PROXY === productSlug
   const proxyRewrites = routesToProxy.map(({ proxiedRoute, localRoute }) => {
-    return {
+    const rewrite = {
       source: proxiedRoute,
       destination: localRoute,
-      has: isDevProduct
-        ? []
-        : [
-            {
-              type: 'host',
-              value: proxySettings[productSlug].host,
-            },
-          ],
     }
+    if (!isDevProduct) {
+      rewrite.has = [
+        {
+          type: 'host',
+          value: proxySettings[productSlug].host,
+        },
+      ]
+    }
+    return rewrite
   })
   return acc.concat(proxyRewrites)
 }, [])

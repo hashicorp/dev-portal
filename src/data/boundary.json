@@ -1,4 +1,52 @@
 {
   "name": "Boundary",
-  "slug": "boundary"
+  "slug": "boundary",
+  "metadata": {
+    "title": "Boundary by HashiCorp",
+    "description": "Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.",
+    "image": "/boundary/img/og-image.png",
+    "icon": [
+      {
+        "href": "/boundary/_favicon.ico"
+      }
+    ]
+  },
+  "alertBannerActive": true,
+  "alertBanner": {
+    "tag": "Thank you",
+    "url": "https://hashiconf.com/europe",
+    "text": "HashiConf Europe is a wrap. Watch this year’s sessions on-demand.",
+    "linkText": "Watch Now",
+    "expirationDate": "2021-06-20T12:00:00-07:00"
+  },
+  "version": "0.6.2",
+  "desktopVersion": "1.3.0",
+  "subnavItems": [
+    {
+      "text": "Overview",
+      "url": "/",
+      "type": "inbound"
+    },
+    "divider",
+    {
+      "text": "Tutorials",
+      "url": "https://learn.hashicorp.com/boundary",
+      "type": "inbound"
+    },
+    {
+      "text": "Docs",
+      "url": "/docs",
+      "type": "inbound"
+    },
+    {
+      "text": "API",
+      "url": "/api-docs",
+      "type": "inbound"
+    },
+    {
+      "text": "Community",
+      "url": "/community",
+      "type": "inbound"
+    }
+  ]
 }

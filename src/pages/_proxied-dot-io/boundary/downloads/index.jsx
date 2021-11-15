@@ -1,10 +1,11 @@
 import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
-import { VERSION, DESKTOP_VERSION } from 'components/_proxied-dot-io/boundary/data/version.js'
-import { productSlug } from 'components/_proxied-dot-io/boundary/data/metadata'
+import productData from 'data/boundary'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import MerchDesktopClient from 'components/_proxied-dot-io/boundary/merch-desktop-client'
 import styles from './style.module.css'
 
+const VERSION = productData.version
+const DESKTOP_VERSION = productData.desktopVersion
 const DESKTOP_BINARY_SLUG = 'boundary-desktop'
 
 function DownloadsPage({ binaryReleases, desktopReleases }) {
@@ -67,7 +68,7 @@ export async function getStaticProps() {
   ])
     .then((result) => {
       const binaryReleases = result.find(
-        (releases) => releases.name === productSlug
+        (releases) => releases.name === productData.slug
       )
       const desktopReleases = result.find(
         (releases) => releases.name === DESKTOP_BINARY_SLUG
@@ -83,7 +84,7 @@ export async function getStaticProps() {
       throw new Error(
         `--------------------------------------------------------
         Unable to resolve version ${VERSION} on releases.hashicorp.com from link
-        <https://releases.hashicorp.com/${productSlug}/${VERSION}/index.json>. Usually this
+        <https://releases.hashicorp.com/${productData.slug}/${VERSION}/index.json>. Usually this
         means that the specified version has not yet been released. The downloads page
         version can only be updated after the new version has been released, to ensure
         that it works for all users.

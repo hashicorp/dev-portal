@@ -1,18 +1,17 @@
-import waypointConfig from 'data/waypoint.json'
-import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
-import styles from './style.module.css'
-// Imports below are server-side only
+import productData from 'data/waypoint'
+import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
+import styles from './style.module.css'
 
 function DownloadsPage({ releases }) {
   return (
     <ProductDownloadsPage
       releases={releases}
-      packageManagers={waypointConfig.packageManagers}
-      productName={waypointConfig.name}
-      productId={waypointConfig.slug}
-      latestVersion={waypointConfig.version} // temporary. switch to remote fetch
+      packageManagers={productData.packageManagers}
+      productName={productData.name}
+      productId={productData.slug}
+      latestVersion={productData.version}
       getStartedDescription="Follow step-by-step tutorials on AWS, Azure, GCP, and localhost."
       getStartedLinks={[
         {
@@ -41,7 +40,7 @@ function DownloadsPage({ releases }) {
           src={require('./img/waypoint-logo.svg')}
         />
       }
-      product={waypointConfig.slug}
+      product="waypoint"
       tutorialLink={{
         href: 'https://learn.hashicorp.com/waypoint',
         label: 'View Tutorials at HashiCorp Learn',
@@ -52,8 +51,8 @@ function DownloadsPage({ releases }) {
 
 export const getStaticProps = () =>
   generateStaticProps({
-    product: waypointConfig.slug,
-    latestVersion: waypointConfig.version, // temporary. switch to remote fetch
+    product: 'waypoint',
+    latestVersion: productData.version,
   })
 
 DownloadsPage.layout = WaypointIoLayout
