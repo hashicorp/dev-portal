@@ -10,6 +10,7 @@ const {
   setupDocsRoute,
   setupProductMigration,
   setupSecurityPage,
+  setupIoLayout,
 } = require('./_shared')
 
 /*
@@ -34,6 +35,15 @@ async function migrateBoundaryIo() {
         'Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.',
       image: '/boundary/img/og-image.png',
       icon: [{ href: '/boundary/_favicon.ico' }],
+    },
+    // TODO: parse alertBanner from _app.js
+    alertBannerActive: true,
+    alertBanner: {
+      tag: 'Thank you',
+      url: 'https://hashiconf.com/europe',
+      text: 'HashiConf Europe is a wrap. Watch this year’s sessions on-demand.',
+      linkText: 'Watch Now',
+      expirationDate: `2021-06-20T12:00:00-07:00`,
     },
     // TODO: parse below from version.js
     version: '0.6.2',
@@ -186,6 +196,8 @@ async function migrateBoundaryIo() {
       .replace("import subnavItems from 'data/navigation'\n", '')
       .replace(/subnavItems/g, 'productData.subnavItems')
   })
+  // setup the layout file for this product
+  await setupIoLayout({ layoutDir: destDirs.layouts, productData })
   //
   // HOME PAGE
   //

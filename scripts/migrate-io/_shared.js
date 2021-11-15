@@ -6,6 +6,7 @@ const exec = util.promisify(require('child_process').exec)
 const TEMP_DIR = '_temp-migrations'
 const DEST_PUBLIC = 'public'
 const DEST_PAGES = 'src/pages'
+const DEST_LAYOUTS = 'src/layouts'
 const DEST_COMPONENTS = 'src/components'
 const DEST_LIB = 'src/lib'
 const IO_BASE_DIR = '_proxied-dot-io'
@@ -49,6 +50,7 @@ async function setupProductMigration(productData) {
   console.log('⏳ Setting up destination folders...')
   const destDirs = {
     pages: path.join(DEST_PAGES, IO_BASE_DIR, slug),
+    layouts: path.join(DEST_LAYOUTS, IO_BASE_DIR, slug),
     components: path.join(DEST_COMPONENTS, IO_BASE_DIR, slug),
     lib: DEST_LIB,
     public: path.join(DEST_PUBLIC, slug),
@@ -96,6 +98,20 @@ async function setupDocsRoute({
       .replace(/\$\$additionalComponents/, additionalComponents)
   })
   //
+  return true
+}
+
+async function setupIoLayout({ layoutDir, productData }) {
+  const { slug, name } = productData
+  // copy template into place
+  const templateFile = './scripts/migrate-io/templates/layout.tsx'
+  await exec(`cp -r ${templateFile} ${layoutDir}/index.tsx`)
+  // replace variables in template
+  await editFile(`${layoutDir}/index.tsx`, (contents) => {
+    return contents
+      .replace(/\$\$productSlug/g, slug)
+      .replace(/\$\$productName/g, name)
+  })
   return true
 }
 
@@ -165,6 +181,7 @@ module.exports = {
   editFile,
   patchSubnav,
   setupDocsRoute,
+  setupIoLayout,
   setupProductMigration,
   setupSecurityPage,
 }

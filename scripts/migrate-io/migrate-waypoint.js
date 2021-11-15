@@ -25,6 +25,15 @@ async function migrateWaypointIo() {
       image: '/waypoint/img/og-image.png',
       icon: [{ href: '/waypoint/_favicon.ico' }],
     },
+    // TODO: parse alertBanner from _app.js
+    alertBannerActive: true,
+    alertBanner: {
+      tag: 'Thank you',
+      url: 'https://hashiconf.com/europe',
+      text: 'HashiConf Europe is a wrap. Watch this year’s sessions on-demand.',
+      linkText: 'Watch Now',
+      expirationDate: `2021-06-20T12:00:00-07:00`,
+    },
     // TODO: parse subnavItems from navigation.js
     subnavItems: [
       {

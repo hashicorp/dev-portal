@@ -6,15 +6,15 @@ import Min100Layout from '@hashicorp/react-min-100-layout'
 import useProductMeta, { Products } from '@hashicorp/platform-product-meta'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 // product-specific layout elements
-import Footer from 'components/_proxied-dot-io/boundary/footer'
-import ProductSubnav from 'components/_proxied-dot-io/boundary/subnav'
-import productData from 'data/boundary.json'
+import Footer from 'components/_proxied-dot-io/$$productSlug/footer'
+import ProductSubnav from 'components/_proxied-dot-io/$$productSlug/subnav'
+import productData from 'data/$$productSlug.json'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
 })
 
-function BoundaryIoLayout({
+function $$productNameIoLayout({
   children,
 }: {
   /** Page contents to render in the layout */
@@ -60,4 +60,4 @@ function BoundaryIoLayout({
   )
 }
 
-export default BoundaryIoLayout
+export default $$productNameIoLayout

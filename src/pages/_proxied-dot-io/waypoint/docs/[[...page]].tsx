@@ -2,11 +2,12 @@ import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import Placement from 'components/_proxied-dot-io/waypoint/placement-table'
 import NestedNode from 'components/_proxied-dot-io/waypoint/nested-node'
 import DocsPage from '@hashicorp/react-docs-page'
+import productData from 'data/waypoint.json'
+// Imports below are used in getStatic functions only
 import { GetStaticPathsResult } from 'next'
 import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
-import productConfig from 'data/waypoint.json'
 
-const product = { name: productConfig.name, slug: productConfig.slug }
+const product = { name: productData.name, slug: productData.slug }
 const basePath = 'docs'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `content/${basePath}`
@@ -47,7 +48,7 @@ const localOpts = {
 }
 const staticFunctions = getStaticGenerationFunctions({
   ...(isContentDeployPreview ? localOpts : remoteOpts),
-  product: productConfig.slug,
+  product: productData.slug,
 })
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
