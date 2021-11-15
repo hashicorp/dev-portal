@@ -47,7 +47,7 @@ function $$productNameIoLayout({
         {productData.alertBannerActive && (
           <AlertBanner
             {...productData.alertBanner}
-            product={productData.slug}
+            product={productData.slug as Products}
             hideOnMobile
           />
         )}

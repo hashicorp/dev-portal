@@ -9,6 +9,7 @@ const {
   setupDocsRoute,
   setupProductMigration,
   setupSecurityPage,
+  setupIoLayout,
 } = require('./_shared')
 
 migrateWaypointIo()
@@ -157,7 +158,6 @@ async function migrateWaypointIo() {
   await exec(
     `cp -r ${repoDirs.lib}/hooks/useWaypointServiceStatus.js ${destDirs.lib}/hooks/useWaypointServiceStatus.js`
   )
-
   //
   // COMPONENTS
   //
@@ -175,6 +175,22 @@ async function migrateWaypointIo() {
     const destPath = `${destDirs.components}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
+  // fix asset URL path in footer
+  await editFile(
+    `${destDirs.components}/footer/style.module.css`,
+    (contents) => {
+      return contents
+        .replace(
+          'url(/img/status-degraded.svg)',
+          "url('/waypoint/img/status-degraded.svg')"
+        )
+        .replace(
+          'url(/img/status-normal.svg)',
+          "url('/waypoint/img/status-normal.svg')"
+        )
+    }
+  )
+
   // temporary fix for currentPath highlighting issue in subnav
   // TODO there must be a better way to do this?
   await patchSubnav(`${destDirs.components}/subnav/index.jsx`)
@@ -211,6 +227,12 @@ async function migrateWaypointIo() {
     // press kit
     // note: we have a redirect in place to allow consistent URL
     '/files/press-kit.zip',
+    // footer card images
+    '/img/get-started-kubernetes.png',
+    '/img/intro-to-waypoint.png',
+    // footer status icons
+    '/img/status-normal.svg',
+    '/img/status-degraded.svg',
     // hero images
     '/img/prebuilt-binaries.svg',
     '/img/deploys-kubernetes-helm.svg',
@@ -237,6 +259,40 @@ async function migrateWaypointIo() {
       .replace(/productSlug/g, 'productData.slug')
       .replace("import subnavItems from 'data/navigation'\n", '')
       .replace(/subnavItems/g, 'productData.subnavItems')
+  })
+  // setup a FooterWithProps component
+  // TODO
+  await exec(`mkdir ./${destDirs.components}/footer-with-props`)
+  await exec(`touch ./${destDirs.components}/footer-with-props/index.tsx`)
+  const appJsString = fs.readFileSync(`./${repoDirs.pages}/_app.js`, 'utf8')
+  const footerJsxString = /<Footer([\S\s]*?)\/>/
+    .exec(appJsString)[0]
+    .replace(/'\/img/g, "'/waypoint/img")
+  await editFile(`${destDirs.components}/footer-with-props/index.tsx`, () => {
+    return `import Footer from '${destDirs.components.replace(
+      'src/',
+      ''
+    )}/footer'
+
+function FooterWithProps({
+  openConsentManager,
+}: {
+  openConsentManager: () => void
+}): React.ReactElement {
+  return (
+    ${footerJsxString}
+  )
+}
+
+export default FooterWithProps\n`
+  })
+  // setup the layout file for this product
+  await setupIoLayout({ layoutDir: destDirs.layouts, productData })
+  await editFile(`${destDirs.layouts}/index.tsx`, (contents) => {
+    return contents.replace(
+      "import Footer from 'components/_proxied-dot-io/waypoint/footer'",
+      "import Footer from 'components/_proxied-dot-io/waypoint/footer-with-props'"
+    )
   })
   //
   // HOME PAGE

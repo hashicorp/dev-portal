@@ -155,7 +155,7 @@
 
     & a.normal {
       padding-left: 20px;
-      background: url(/img/status-normal.svg) no-repeat left center;
+      background: url('/waypoint/img/status-normal.svg') no-repeat left center;
     }
   }
 }
@@ -174,7 +174,7 @@
 
   & span {
     padding-left: 24px;
-    background: url(/img/status-degraded.svg) no-repeat left center;
+    background: url('/waypoint/img/status-degraded.svg') no-repeat left center;
   }
 
   &:hover {
