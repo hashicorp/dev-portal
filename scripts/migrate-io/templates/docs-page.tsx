@@ -14,7 +14,7 @@ const localContentDir = `content/${basePath}`
 // previews in content repo contexts by cloning and building
 // the dev-portal repository
 const isContentDeployPreview =
-  process.env.DEV_IO_PROXY == 'boundary' &&
+  process.env.DEV_IO_PROXY == '$$productSlug' &&
   process.env.IS_CONTENT_DEPLOY_PREVIEW
 const enableVersionedDocs = process.env.ENABLE_VERSIONED_DOCS === 'true'
 const additionalComponents = $$additionalComponents

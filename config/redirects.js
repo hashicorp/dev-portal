@@ -62,8 +62,6 @@ const dotIoToDevPortalRedirects = productsToProxy.reduce((acc, productSlug) => {
 }, [])
 
 async function redirectsConfig() {
-  console.log(JSON.stringify(devPortalToDotIoRedirects, null, 2))
-  console.log(JSON.stringify(dotIoToDevPortalRedirects, null, 2))
   return [...devPortalToDotIoRedirects, ...dotIoToDevPortalRedirects]
 }
 

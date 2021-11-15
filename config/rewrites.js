@@ -58,7 +58,6 @@ const dotIoRewrites = productsToProxy.reduce((acc, productSlug) => {
 }, [])
 
 async function rewritesConfig() {
-  console.log(JSON.stringify(dotIoRewrites, null, 2))
   return {
     beforeFiles: [...dotIoRewrites],
   }
