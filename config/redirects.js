@@ -8,14 +8,9 @@ const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 // Note: we do this for ALL domains, as we never want visitors to
 // see the original "proxied" routes, no matter what domain they're on.
 const productsToProxy = Object.keys(proxySettings)
-// In the dev-portal preview environment, it's actually nice to NOT have these redirects,
+// In preview environments, it's actually nice to NOT have these redirects,
 // as they prevent us from seeing the content we build for the preview URL
 const isPreview = process.env.HASHI_ENV == 'preview'
-// In product-specific preview environments,
-// proxy these routes to the Vercel URL
-const isProductPreview = process.env.IS_CONTENT_DEPLOY_PREVIEW
-const vercelUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-//
 const devPortalToDotIoRedirects = isPreview
   ? []
   : productsToProxy.reduce((acc, productSlug) => {
@@ -23,11 +18,7 @@ const devPortalToDotIoRedirects = isPreview
       // If we're trying to test this product's redirects in dev,
       // then we'll set the domain to an empty string for absolute URLs
       const isDevProduct = process.env.DEV_IO_PROXY === productSlug
-      const proxyDomain = isProductPreview
-        ? `https://${vercelUrl}`
-        : isDevProduct
-        ? ''
-        : proxySettings[productSlug].domain
+      const proxyDomain = isDevProduct ? '' : proxySettings[productSlug].domain
       const toDotIoRedirects = routesToProxy.map(
         ({ proxiedRoute, localRoute }) => {
           return {
