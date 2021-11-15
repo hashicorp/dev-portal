@@ -25,6 +25,40 @@ async function migrateWaypointIo() {
       image: '/waypoint/img/og-image.png',
       icon: [{ href: '/waypoint/_favicon.ico' }],
     },
+    // TODO: parse subnavItems from navigation.js
+    subnavItems: [
+      {
+        text: 'Overview',
+        url: '/',
+        type: 'inbound',
+      },
+      {
+        text: 'Tutorials',
+        url: 'https://learn.hashicorp.com/waypoint',
+        type: 'inbound',
+      },
+      {
+        text: 'Docs',
+        url: '/docs',
+        type: 'inbound',
+      },
+      {
+        text: 'CLI',
+        url: '/commands',
+        type: 'inbound',
+      },
+      {
+        text: 'Plugins',
+        url: '/plugins',
+        type: 'inbound',
+      },
+      {
+        text: 'Community',
+        url: '/community',
+        type: 'inbound',
+      },
+    ],
+    // TODO: parse from version.js
     packageManagers: [
       {
         label: 'Homebrew',
@@ -184,17 +218,16 @@ async function migrateWaypointIo() {
   //
   // LAYOUT
   //
-  // copy data files, kinda temporary for now
-  fs.mkdirSync(path.join(destDirs.components, 'data'), { recursive: true })
-  await exec(
-    `cp -r ${repoDirs.data}/metadata.js ${destDirs.components}/data/metadata.js`
-  )
-  await exec(
-    `cp -r ${repoDirs.data}/navigation.js ${destDirs.components}/data/navigation.js`
-  )
-  // edit the subnav file to use the above data files
+  // edit the subnav file to use the consolidated data file
   await editFile(`${destDirs.components}/subnav/index.jsx`, (contents) => {
-    return contents.replace(/from 'data/g, "from '../data")
+    return contents
+      .replace(
+        "import { productSlug } from 'data/metadata'",
+        "import productData from 'data/waypoint'"
+      )
+      .replace(/productSlug/g, 'productData.slug')
+      .replace("import subnavItems from 'data/navigation'\n", '')
+      .replace(/subnavItems/g, 'productData.subnavItems')
   })
   //
   // HOME PAGE

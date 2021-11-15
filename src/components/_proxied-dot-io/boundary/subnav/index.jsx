@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import Subnav from '@hashicorp/react-subnav'
 import { useRouter } from 'next/router'
-import subnavItems from '../data/navigation'
-import { productSlug } from '../data/metadata'
+import productData from 'data/boundary'
 import Link from 'next/link'
 
 export default function ProductSubnav() {
@@ -22,7 +21,7 @@ export default function ProductSubnav() {
       ctaLinks={[
         {
           text: 'GitHub',
-          url: `https://www.github.com/hashicorp/${productSlug}`,
+          url: `https://www.github.com/hashicorp/${productData.slug}`,
         },
         {
           text: 'Download',
@@ -31,7 +30,7 @@ export default function ProductSubnav() {
       ]}
       currentPath={currentPath}
       menuItemsAlign="right"
-      menuItems={subnavItems}
+      menuItems={productData.subnavItems}
       constrainWidth
       Link={Link}
       matchOnBasePath

@@ -26,6 +26,8 @@ async function migrateBoundaryIo() {
   const productData = {
     name: 'Boundary',
     slug: 'boundary',
+    // TODO: automate metadata extraction from _app.js
+    // (lower priority, inconsistent between products
     metadata: {
       title: 'Boundary by HashiCorp',
       description:
@@ -33,6 +35,38 @@ async function migrateBoundaryIo() {
       image: '/boundary/img/og-image.png',
       icon: [{ href: '/boundary/_favicon.ico' }],
     },
+    // TODO: parse below from version.js
+    version: '0.6.2',
+    desktopVersion: '1.3.0',
+    // TODO: parse below from navigation.js
+    subnavItems: [
+      {
+        text: 'Overview',
+        url: '/',
+        type: 'inbound',
+      },
+      'divider',
+      {
+        text: 'Tutorials',
+        url: 'https://learn.hashicorp.com/boundary',
+        type: 'inbound',
+      },
+      {
+        text: 'Docs',
+        url: '/docs',
+        type: 'inbound',
+      },
+      {
+        text: 'API',
+        url: '/api-docs',
+        type: 'inbound',
+      },
+      {
+        text: 'Community',
+        url: '/community',
+        type: 'inbound',
+      },
+    ],
   }
   // set up the source direction (cloned product repository)
   // and the destination directories (all within this project's source)
@@ -141,20 +175,16 @@ async function migrateBoundaryIo() {
   //
   // LAYOUT
   //
-  // copy data files, kinda temporary for now
-  fs.mkdirSync(path.join(destDirs.components, 'data'), { recursive: true })
-  await exec(
-    `cp -r ${repoDirs.data}/metadata.js ${destDirs.components}/data/metadata.js`
-  )
-  await exec(
-    `cp -r ${repoDirs.data}/navigation.js ${destDirs.components}/data/navigation.js`
-  )
-  await exec(
-    `cp -r ${repoDirs.data}/version.js ${destDirs.components}/data/version.js`
-  )
-  // edit the subnav file to use the above data files
+  // edit the subnav file to use the consolidated data file
   await editFile(`${destDirs.components}/subnav/index.jsx`, (contents) => {
-    return contents.replace(/from 'data/g, "from '../data")
+    return contents
+      .replace(
+        "import { productSlug } from 'data/metadata'",
+        "import productData from 'data/boundary'"
+      )
+      .replace(/productSlug/g, 'productData.slug')
+      .replace("import subnavItems from 'data/navigation'\n", '')
+      .replace(/subnavItems/g, 'productData.subnavItems')
   })
   //
   // HOME PAGE
@@ -233,7 +263,22 @@ async function migrateBoundaryIo() {
         /from 'components\//g,
         "from 'components/_proxied-dot-io/boundary/"
       )
-      .replace(/from 'data/g, "from 'components/_proxied-dot-io/boundary/data")
+      .replace(
+        "import { productSlug } from 'data/metadata'",
+        "import productData from 'data/boundary'"
+      )
+      .replace(/productSlug/g, 'productData.slug')
+      .replace(
+        "import { VERSION, DESKTOP_VERSION } from 'data/version.js'\n",
+        ''
+      )
+      .replace(
+        "const DESKTOP_BINARY_SLUG = 'boundary-desktop'",
+        `const VERSION = productData.version
+const DESKTOP_VERSION = productData.desktopVersion
+const DESKTOP_BINARY_SLUG = 'boundary-desktop'`
+      )
+
     newContents = addProxyLayout(newContents, 'DownloadsPage', productData)
     return newContents
   })
