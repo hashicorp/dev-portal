@@ -32,6 +32,7 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       HASHI_ENV: process.env.HASHI_ENV || 'development',
       BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',
       BUGSNAG_SERVER_KEY: 'b32b4487b5dc72b32f51c8fe33641a43',
+      ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
     },
     svgo: {
       plugins: [

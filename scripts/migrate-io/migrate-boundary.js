@@ -27,8 +27,13 @@ async function migrateBoundaryIo() {
   const productData = {
     name: 'Boundary',
     slug: 'boundary',
+    // TODO: confirm this is a decent place for this info
+    algoliaConfig: {
+      indexName: 'product_BOUNDARY',
+      searchOnlyApiKey: '8308498decdf72e11590fc6356e5fdde',
+    },
     // TODO: automate metadata extraction from _app.js
-    // (lower priority, inconsistent between products
+    // (lower priority, not something that seems to change often)
     metadata: {
       title: 'Boundary by HashiCorp',
       description:

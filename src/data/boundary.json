@@ -1,6 +1,10 @@
 {
   "name": "Boundary",
   "slug": "boundary",
+  "algoliaConfig": {
+    "indexName": "product_BOUNDARY",
+    "searchOnlyApiKey": "8308498decdf72e11590fc6356e5fdde"
+  },
   "metadata": {
     "title": "Boundary by HashiCorp",
     "description": "Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.",

@@ -19,6 +19,13 @@ async function migrateWaypointIo() {
     name: 'Waypoint',
     slug: 'waypoint',
     version: '0.5.2',
+    // TODO: confirm this is a decent place for this info
+    algoliaConfig: {
+      indexName: 'product_WAYPOINT',
+      searchOnlyApiKey: '5e4adfd8094367056501547d6fedb6c5',
+    },
+    // TODO: automate metadata extraction from _app.js
+    // (lower priority, not something that seems to change often)
     metadata: {
       title: 'Waypoint by HashiCorp',
       description:
