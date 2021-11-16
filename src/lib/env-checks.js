@@ -6,7 +6,6 @@ function isProxiedProduct(productSlug) {
   const isDevEnvSet = process.env.DEV_IO_PROXY == productSlug
   const commitMsg = process.env.VERCEL_GIT_COMMIT_MESSAGE || ''
   const isCommitMatch = commitMsg.indexOf(`(${productSlug})`) !== -1
-  console.log({ isDevEnvSet, isCommitMatch })
   return isDevEnvSet || isCommitMatch
 }
 
