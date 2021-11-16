@@ -24,8 +24,7 @@ function isVersionedDocsEnabled(productSlug) {
   const enableVersionedDocs =
     process.env.ENABLE_VERSIONED_DOCS &&
     process.env.ENABLE_VERSIONED_DOCS !== 'false'
-  const isDeployPreview = isContentDeployPreview(productSlug)
-  return enableVersionedDocs && !isDeployPreview
+  return enableVersionedDocs && !isContentDeployPreview(productSlug)
 }
 
 module.exports = {
