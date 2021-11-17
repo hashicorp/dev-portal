@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
-import SidebarMenuItem from './components/sidebar-menu-item'
+import SidebarMenuItem from './components/sidebar-nav/sidebar-menu-item'
 import SidebarNav from './components/sidebar-nav'
 import s from './style.module.css'
 
@@ -50,10 +50,6 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
       {/* TODO: What should this title be? */}
       <SidebarNav title="Waypoint">
         {filteredMenuItems.map((item, index) => {
-          if (item.routes) {
-            return null
-          }
-
           const path = `/${product}/docs/${item.path}`
           const isActive = router.asPath === path
           return (

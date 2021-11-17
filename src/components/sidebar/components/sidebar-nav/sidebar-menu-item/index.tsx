@@ -1,9 +1,16 @@
+import { useState } from 'react'
 import { MenuItem } from 'components/sidebar'
 import s from './style.module.css'
 
 interface SidebarMenuItemProps {
   isActive: boolean
   item: MenuItem
+}
+
+const SidebarSubmenu: React.FC<{ item: MenuItem }> = ({ item }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return null
 }
 
 // TODO: implement submenus (ref: https://app.asana.com/0/1201010428539925/1201265683986459/f)
@@ -20,11 +27,17 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
     return null
   }
 
+  if (item.routes) {
+    console.log(item)
+    return null
+  }
+
   return (
     <li>
       {/* TODO: conditionally render as button if submenu */}
       <a
         aria-current={isActive ? 'page' : undefined}
+        role="menuitem"
         className={s.sidebarLink}
         href={path}
       >
