@@ -14,7 +14,7 @@ const SidebarSubmenu: React.FC<{ item: MenuItem }> = ({ item }) => {
 }
 
 // TODO: implement submenus (ref: https://app.asana.com/0/1201010428539925/1201265683986459/f)
-const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
+const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
   isActive = false,
   item,
 }) => {
@@ -49,4 +49,4 @@ const SidebarMenuItem: React.FC<SidebarMenuItemProps> = ({
   )
 }
 
-export default SidebarMenuItem
+export default SidebarNavMenuItem
