@@ -4,9 +4,14 @@ import { MenuItem } from 'components/sidebar'
 import s from './style.module.css'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 
+// TODO: store this in a Context that ProductChooser updates?
+const PRODUCT = 'waypoint'
+
 interface SidebarMenuItemProps {
   item: MenuItem
 }
+
+const getPath = (item: MenuItem): string => `/${PRODUCT}/docs/${item.path}`
 
 const SidebarNavSubmenu: React.FC<{ currentPath: string; item: MenuItem }> = ({
   currentPath,
@@ -39,7 +44,7 @@ const SidebarNavSubmenu: React.FC<{ currentPath: string; item: MenuItem }> = ({
                   }
                   role="menuitem"
                   className={s.sidebarNavMenuItem}
-                  href={route.path}
+                  href={getPath(route)}
                   dangerouslySetInnerHTML={{ __html: route.title }}
                 />
               </li>
@@ -73,7 +78,7 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
         aria-current={isActive ? 'page' : undefined}
         role="menuitem"
         className={s.sidebarNavMenuItem}
-        href={item.path}
+        href={getPath(item)}
       >
         {item.title}
       </a>
