@@ -1,12 +1,15 @@
-.sidebarLink {
+.sidebarNavMenuItem {
   align-items: center;
+  background-color: white;
   border-radius: 5px;
+  border: none;
   color: var(--gray-foreground-tertiary);
   display: flex;
   font-size: 14px;
   justify-content: space-between;
   line-height: 18px;
   padding: 8px;
+  text-align: left;
   width: 100%;
 
   &:hover {
@@ -19,5 +22,18 @@
   &[aria-current='page'] {
     background-color: #dedfe3;
     color: var(--gray-foreground-primary);
+  }
+
+  &[aria-haspopup='true'] {
+    & span:first-child {
+      margin-right: 8px;
+      width: 100%;
+    }
+  }
+
+  &[aria-expanded='true'] {
+    & svg {
+      transform: rotate(90deg);
+    }
   }
 }

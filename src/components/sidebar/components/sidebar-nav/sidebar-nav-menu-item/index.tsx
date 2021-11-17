@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { MenuItem } from 'components/sidebar'
 import s from './style.module.css'
+import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 
 interface SidebarMenuItemProps {
   item: MenuItem
@@ -18,11 +19,12 @@ const SidebarNavSubmenu: React.FC<{ currentPath: string; item: MenuItem }> = ({
       <button
         aria-expanded={isOpen}
         aria-haspopup
+        className={s.sidebarNavMenuItem}
         onClick={() => setIsOpen((prevState) => !prevState)}
         role="menuitem"
-        style={{ display: 'block' }}
       >
-        {item.title}
+        <span>{item.title}</span>
+        <IconChevronRight16 />
       </button>
       {isOpen && (
         <ul role="menu">
@@ -36,7 +38,7 @@ const SidebarNavSubmenu: React.FC<{ currentPath: string; item: MenuItem }> = ({
                     currentPath.endsWith(route.path) ? 'page' : undefined
                   }
                   role="menuitem"
-                  className={s.sidebarLink}
+                  className={s.sidebarNavMenuItem}
                   href={route.path}
                   dangerouslySetInnerHTML={{ __html: route.title }}
                 />
@@ -60,25 +62,23 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
     return null
   }
 
-  const renderMenuItem = () => {
-    if (item.routes) {
-      return <SidebarNavSubmenu currentPath={currentPath} item={item} />
-    }
+  if (item.routes) {
+    return <SidebarNavSubmenu currentPath={currentPath} item={item} />
+  }
 
-    const isActive = currentPath.endsWith(item.path)
-    return (
+  const isActive = currentPath.endsWith(item.path)
+  return (
+    <li role="none">
       <a
         aria-current={isActive ? 'page' : undefined}
         role="menuitem"
-        className={s.sidebarLink}
+        className={s.sidebarNavMenuItem}
         href={item.path}
       >
         {item.title}
       </a>
-    )
-  }
-
-  return <li>{renderMenuItem()}</li>
+    </li>
+  )
 }
 
 export default SidebarNavMenuItem
