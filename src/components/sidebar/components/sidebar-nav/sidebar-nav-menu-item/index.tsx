@@ -9,14 +9,16 @@ const PRODUCT = 'waypoint'
 
 interface SidebarMenuItemProps {
   item: MenuItem
+  tabIndex: 0 | -1
 }
 
 const getPath = (item: MenuItem): string => `/${PRODUCT}/docs/${item.path}`
 
-const SidebarNavSubmenu: React.FC<{ currentPath: string; item: MenuItem }> = ({
-  currentPath,
-  item,
-}) => {
+const SidebarNavSubmenu: React.FC<{
+  currentPath: string
+  item: MenuItem
+  tabIndex: 0 | -1
+}> = ({ currentPath, item, tabIndex }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -27,6 +29,7 @@ const SidebarNavSubmenu: React.FC<{ currentPath: string; item: MenuItem }> = ({
         className={s.sidebarNavMenuItem}
         onClick={() => setIsOpen((prevState) => !prevState)}
         role="menuitem"
+        tabIndex={tabIndex}
       >
         <span>{item.title}</span>
         <IconChevronRight16 />
@@ -35,17 +38,23 @@ const SidebarNavSubmenu: React.FC<{ currentPath: string; item: MenuItem }> = ({
         <ul role="menu">
           {item.routes.map((route) =>
             route.routes ? (
-              <SidebarNavSubmenu currentPath={currentPath} item={route} />
+              <SidebarNavSubmenu
+                currentPath={currentPath}
+                item={route}
+                tabIndex={tabIndex}
+              />
             ) : (
               <li role="none">
                 <a
                   aria-current={
                     currentPath.endsWith(route.path) ? 'page' : undefined
                   }
-                  role="menuitem"
                   className={s.sidebarNavMenuItem}
-                  href={getPath(route)}
+                  // TODO: this might break some accessible labels, probably need aria-label
                   dangerouslySetInnerHTML={{ __html: route.title }}
+                  href={getPath(route)}
+                  role="menuitem"
+                  tabIndex={tabIndex}
                 />
               </li>
             )
@@ -57,7 +66,10 @@ const SidebarNavSubmenu: React.FC<{ currentPath: string; item: MenuItem }> = ({
 }
 
 // TODO: implement submenus (ref: https://app.asana.com/0/1201010428539925/1201265683986459/f)
-const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
+const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
+  item,
+  tabIndex,
+}) => {
   const router = useRouter()
   const currentPath = router.asPath
 
@@ -68,7 +80,13 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   }
 
   if (item.routes) {
-    return <SidebarNavSubmenu currentPath={currentPath} item={item} />
+    return (
+      <SidebarNavSubmenu
+        currentPath={currentPath}
+        item={item}
+        tabIndex={tabIndex}
+      />
+    )
   }
 
   const isActive = currentPath.endsWith(item.path)
@@ -76,12 +94,13 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
     <li role="none">
       <a
         aria-current={isActive ? 'page' : undefined}
-        role="menuitem"
         className={s.sidebarNavMenuItem}
+        // TODO: this might break some accessible labels, probably need aria-label
+        dangerouslySetInnerHTML={{ __html: item.title }}
         href={getPath(item)}
-      >
-        {item.title}
-      </a>
+        role="menuitem"
+        tabIndex={tabIndex}
+      />
     </li>
   )
 }

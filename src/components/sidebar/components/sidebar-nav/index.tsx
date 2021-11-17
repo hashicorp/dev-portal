@@ -22,6 +22,8 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => {
             // TODO: come up with better alternative to index
             // eslint-disable-next-line react/no-array-index-key
             key={`sidebar-nav-menu-item-${index}`}
+            // TODO: still thinking about this approach
+            tabIndex={index === 0 ? 0 : -1}
           />
         ))}
       </ul>
