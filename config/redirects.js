@@ -1,6 +1,8 @@
 const proxySettings = require('./proxy-settings')
-const { isProxiedProduct, isPreview } = require('../src/lib/env-checks')
+const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
 const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
+
+const PROXIED_PRODUCT = getProxiedProductSlug()
 
 // Redirect all proxied product pages
 // to the appropriate product domain
@@ -16,7 +18,7 @@ const devPortalToDotIoRedirects = isPreview()
       const routesToProxy = proxySettings[slug].routesToProxy
       // If we're trying to test this product's redirects in dev,
       // then we'll set the domain to an empty string for absolute URLs
-      const domain = isProxiedProduct(slug) ? '' : proxySettings[slug].domain
+      const domain = slug == PROXIED_PRODUCT ? '' : proxySettings[slug].domain
       const toDotIoRedirects = routesToProxy.map(
         ({ proxiedRoute, localRoute }) => {
           return {
