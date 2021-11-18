@@ -51,7 +51,6 @@ function isVersionedDocsEnabled(productSlug) {
 module.exports = {
   getProxiedProductSlug,
   isPreview,
-  isProxiedProduct,
   isContentDeployPreview,
   isVersionedDocsEnabled,
 }
