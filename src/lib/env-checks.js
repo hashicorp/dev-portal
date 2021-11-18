@@ -4,10 +4,6 @@
 
 const PROXIED_PRODUCTS = ['boundary', 'waypoint']
 
-// function isProduction() {
-//   return process.env.VERCEL_ENV == 'production'
-// }
-
 function isPreview() {
   return process.env.HASHI_ENV == 'preview'
 }
