@@ -1,3 +1,5 @@
+import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
+import { getProxiedProductSlug } from 'lib/env-checks'
 import NotFound from './404'
 import Bugsnag from '@hashicorp/platform-runtime-error-monitoring'
 
@@ -11,4 +13,5 @@ Error.getInitialProps = ({ res, err }) => {
   return { statusCode }
 }
 
+Error.layout = proxiedLayouts[getProxiedProductSlug()]
 export default Error

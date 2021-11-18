@@ -1,9 +1,23 @@
+// NOTE: this module uses CommonJS exports,
+// as it must be required() into redirects and rewrites config,
+// neither of which are transpiled.
+
+const PROXIED_PRODUCTS = ['boundary', 'waypoint']
+
 function isProduction() {
   return process.env.VERCEL_ENV == 'production'
 }
 
 function isPreview() {
   return process.env.HASHI_ENV == 'preview'
+}
+
+function getProxiedProductSlug() {
+  const proxiedProductSlug = PROXIED_PRODUCTS.reduce((acc, slug) => {
+    if (!acc && isProxiedProduct(slug)) return slug
+    return acc
+  }, false)
+  return proxiedProductSlug
 }
 
 function isProxiedProduct(productSlug) {
@@ -35,6 +49,7 @@ function isVersionedDocsEnabled(productSlug) {
 }
 
 module.exports = {
+  getProxiedProductSlug,
   isPreview,
   isProxiedProduct,
   isContentDeployPreview,
