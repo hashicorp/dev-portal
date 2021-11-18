@@ -1,5 +1,7 @@
 const proxySettings = require('./proxy-settings')
-const { isProxiedProduct } = require('../src/lib/env-checks')
+const { getProxiedProductSlug } = require('../src/lib/env-checks')
+
+const PROXIED_PRODUCT = getProxiedProductSlug()
 
 /**
  * # Some notes on rewrites
@@ -44,7 +46,7 @@ const dotIoRewrites = productsToProxy.reduce((acc, slug) => {
       source: proxiedRoute,
       destination: localRoute,
     }
-    if (!isProxiedProduct(slug)) {
+    if (slug !== PROXIED_PRODUCT) {
       rewrite.has = [
         {
           type: 'host',

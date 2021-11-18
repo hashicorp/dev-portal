@@ -1,19 +1,39 @@
-function isProduction() {
-  return process.env.VERCEL_ENV == 'production'
-}
+// NOTE: this module uses CommonJS exports,
+// as it must be required() into redirects and rewrites config,
+// neither of which are transpiled.
+
+const PROXIED_PRODUCTS = ['boundary', 'waypoint']
+
+// function isProduction() {
+//   return process.env.VERCEL_ENV == 'production'
+// }
 
 function isPreview() {
   return process.env.HASHI_ENV == 'preview'
 }
 
+function getProxiedProductSlug() {
+  const proxiedProductSlug = PROXIED_PRODUCTS.reduce((acc, slug) => {
+    if (!acc && isProxiedProduct(slug)) return slug
+    return acc
+  }, false)
+  console.log({ proxiedProductSlug })
+  return proxiedProductSlug
+}
+
 function isProxiedProduct(productSlug) {
   const isDevEnvSet = process.env.DEV_IO_PROXY == productSlug
   // Allow commit messages to trigger specific proxy settings...
-  const commitMsg = process.env.VERCEL_GIT_COMMIT_MESSAGE || ''
+  const commitMsg =
+    process.env.VERCEL_GIT_COMMIT_MESSAGE ||
+    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE ||
+    ''
   const commitFirstLine = commitMsg.split('\n')[0]
   const hasCommitFlag = commitFirstLine.indexOf(`(${productSlug})`) !== -1
   // ... but only if NOT in production
-  const isCommitMatch = !isProduction() && hasCommitFlag
+  const isOnMain = process.env.VERCEL_GIT_COMMIT_REF == 'main'
+  const isCommitMatch = !isOnMain && hasCommitFlag
+  console.log({ commitFirstLine, isDevEnvSet, isCommitMatch, isOnMain })
   return isDevEnvSet || isCommitMatch
 }
 
@@ -35,8 +55,8 @@ function isVersionedDocsEnabled(productSlug) {
 }
 
 module.exports = {
+  getProxiedProductSlug,
   isPreview,
-  isProxiedProduct,
   isContentDeployPreview,
   isVersionedDocsEnabled,
 }
