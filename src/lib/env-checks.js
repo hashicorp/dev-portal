@@ -24,7 +24,10 @@ function getProxiedProductSlug() {
 function isProxiedProduct(productSlug) {
   const isDevEnvSet = process.env.DEV_IO_PROXY == productSlug
   // Allow commit messages to trigger specific proxy settings...
-  const commitMsg = process.env.VERCEL_GIT_COMMIT_MESSAGE || ''
+  const commitMsg =
+    process.env.VERCEL_GIT_COMMIT_MESSAGE ||
+    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE ||
+    ''
   const commitFirstLine = commitMsg.split('\n')[0]
   const hasCommitFlag = commitFirstLine.indexOf(`(${productSlug})`) !== -1
   // ... but only if NOT in production
