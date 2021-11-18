@@ -33,7 +33,6 @@ function isProxiedProduct(productSlug) {
   // ... but only if NOT in production
   const isOnMain = process.env.VERCEL_GIT_COMMIT_REF == 'main'
   const isCommitMatch = !isOnMain && hasCommitFlag
-  console.log({ commitFirstLine, isDevEnvSet, isCommitMatch, isOnMain })
   return isDevEnvSet || isCommitMatch
 }
 
