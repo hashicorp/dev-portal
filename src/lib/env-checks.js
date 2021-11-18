@@ -4,9 +4,9 @@
 
 const PROXIED_PRODUCTS = ['boundary', 'waypoint']
 
-function isProduction() {
-  return process.env.VERCEL_ENV == 'production'
-}
+// function isProduction() {
+//   return process.env.VERCEL_ENV == 'production'
+// }
 
 function isPreview() {
   return process.env.HASHI_ENV == 'preview'
@@ -28,9 +28,9 @@ function isProxiedProduct(productSlug) {
   const commitFirstLine = commitMsg.split('\n')[0]
   const hasCommitFlag = commitFirstLine.indexOf(`(${productSlug})`) !== -1
   // ... but only if NOT in production
-  const isProductionEnv = isProduction()
-  const isCommitMatch = !isProductionEnv && hasCommitFlag
-  console.log({ isDevEnvSet, isCommitMatch, isProductionEnv })
+  const isOnMain = process.env.VERCEL_GIT_COMMIT_REF == 'main'
+  const isCommitMatch = !isOnMain && hasCommitFlag
+  console.log({ isDevEnvSet, isCommitMatch, isOnMain })
   return isDevEnvSet || isCommitMatch
 }
 
