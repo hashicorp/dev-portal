@@ -17,7 +17,6 @@ function getProxiedProductSlug() {
     if (!acc && isProxiedProduct(slug)) return slug
     return acc
   }, false)
-  console.log({ proxiedProductSlug })
   return proxiedProductSlug
 }
 
