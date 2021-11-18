@@ -1,5 +1,5 @@
 const proxySettings = require('./proxy-settings')
-
+const { isProxiedProduct, isPreview } = require('../src/lib/env-checks')
 const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 
 // Redirect all proxied product pages
@@ -10,20 +10,18 @@ const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 const productsToProxy = Object.keys(proxySettings)
 // In preview environments, it's actually nice to NOT have these redirects,
 // as they prevent us from seeing the content we build for the preview URL
-const isPreview = process.env.HASHI_ENV == 'preview'
-const devPortalToDotIoRedirects = isPreview
+const devPortalToDotIoRedirects = isPreview()
   ? []
-  : productsToProxy.reduce((acc, productSlug) => {
-      const routesToProxy = proxySettings[productSlug].routesToProxy
+  : productsToProxy.reduce((acc, slug) => {
+      const routesToProxy = proxySettings[slug].routesToProxy
       // If we're trying to test this product's redirects in dev,
       // then we'll set the domain to an empty string for absolute URLs
-      const isDevProduct = process.env.DEV_IO_PROXY === productSlug
-      const proxyDomain = isDevProduct ? '' : proxySettings[productSlug].domain
+      const domain = isProxiedProduct(slug) ? '' : proxySettings[slug].domain
       const toDotIoRedirects = routesToProxy.map(
         ({ proxiedRoute, localRoute }) => {
           return {
             source: localRoute,
-            destination: proxyDomain + proxiedRoute,
+            destination: domain + proxiedRoute,
             permanent: false,
           }
         }
