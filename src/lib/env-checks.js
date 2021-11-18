@@ -1,11 +1,19 @@
+function isProduction() {
+  return process.env.VERCEL_ENV == 'production'
+}
+
 function isPreview() {
   return process.env.HASHI_ENV == 'preview'
 }
 
 function isProxiedProduct(productSlug) {
   const isDevEnvSet = process.env.DEV_IO_PROXY == productSlug
+  // Allow commit messages to trigger specific proxy settings...
   const commitMsg = process.env.VERCEL_GIT_COMMIT_MESSAGE || ''
-  const isCommitMatch = commitMsg.indexOf(`(${productSlug})`) !== -1
+  const commitFirstLine = commitMsg.split('\n')[0]
+  const hasCommitFlag = commitFirstLine.indexOf(`(${productSlug})`) !== -1
+  // ... but only if NOT in production
+  const isCommitMatch = !isProduction() && hasCommitFlag
   return isDevEnvSet || isCommitMatch
 }
 
