@@ -17,6 +17,7 @@ function getProxiedProductSlug() {
     if (!acc && isProxiedProduct(slug)) return slug
     return acc
   }, false)
+  console.log({ proxiedProductSlug })
   return proxiedProductSlug
 }
 
@@ -27,7 +28,9 @@ function isProxiedProduct(productSlug) {
   const commitFirstLine = commitMsg.split('\n')[0]
   const hasCommitFlag = commitFirstLine.indexOf(`(${productSlug})`) !== -1
   // ... but only if NOT in production
-  const isCommitMatch = !isProduction() && hasCommitFlag
+  const isProductionEnv = isProduction()
+  const isCommitMatch = !isProductionEnv && hasCommitFlag
+  console.log({ isDevEnvSet, isCommitMatch, isProductionEnv })
   return isDevEnvSet || isCommitMatch
 }
 
