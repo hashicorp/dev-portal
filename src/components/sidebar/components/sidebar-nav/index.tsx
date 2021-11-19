@@ -34,6 +34,7 @@ const addActiveStateMetadata = (currentPath: string, items: MenuItem[]) => {
 
 const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => {
   const router = useRouter()
+  // TODO: also need to ignore everything after a `#`
   const currentPath = router.asPath.split('?')[0]
 
   addActiveStateMetadata(currentPath, menuItems)
