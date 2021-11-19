@@ -18,7 +18,9 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
         <div className={s.content}>
           {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
           {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
-          <main className={s.main}>{props.children}</main>
+          <main className={s.main} id="main">
+            {props.children}
+          </main>
           <Sidecar headings={props.headings} />
         </div>
       </div>
