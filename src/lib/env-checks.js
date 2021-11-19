@@ -44,6 +44,10 @@ function isProxiedProduct(productSlug) {
   const isOnMain = commitRef == 'main'
   // When deploying to specific proxied domains,
   // this function should accurately reflect the proxied product
+  // TODO: this doesn't work, the Vercel domain is the same
+  // TODO: regardless of which domain we're viewing the site through
+  // TODO: (eg test-bd.hashicorp.com & wp.snarglepuss.com both just
+  // TODO: point back to the same Vercel domain)
   const deployDomain =
     process.env.VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL
   const isDomainMatch = productSlug == getMatchedDomain(deployDomain)
