@@ -43,7 +43,6 @@ function Error({ statusCode, proxiedProductSlug, hostname }) {
   // we would instead generate specific sets of redirects based on the
   // whether the current branch is a specific `proxied-{product}` branch.
   const Layout = proxiedLayouts[proxiedProductSlug] || BaseLayout
-  console.log({ proxiedProductSlug, hostname })
   return (
     <Layout>
       <NotFound statusCode={statusCode} />
