@@ -29,13 +29,12 @@ const SidebarNavSubmenu: React.FC<{
   currentPath: string
   item: MenuItem
 }> = ({ currentPath, item }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(item.hasActiveChild)
 
   return (
     <li>
       <button
         aria-expanded={isOpen}
-        aria-haspopup
         className={s.sidebarNavMenuItem}
         onClick={() => setIsOpen((prevState) => !prevState)}
       >
