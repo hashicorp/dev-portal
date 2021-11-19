@@ -43,6 +43,9 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => {
       <p className={s.sidebarNavLabel} id={SIDEBAR_LABEL_ID}>
         {title}
       </p>
+      <a className={s.skipToMainContent} href="#main">
+        Skip to main content
+      </a>
       <ul className={s.sidebarNavList} role="menubar">
         {menuItems.map((item, index) => (
           <SidebarNavMenuItem
