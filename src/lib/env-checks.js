@@ -33,12 +33,14 @@ function isProxiedProduct(productSlug) {
   // but NOT if we're deploying off the main branch.
   const commitMsg =
     process.env.VERCEL_GIT_COMMIT_MESSAGE ||
-    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE ||
-    ''
+    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE
   const commitFirstLine = commitMsg.split('\n')[0]
   const isCommitMatch = commitFirstLine.indexOf(`(${productSlug})`) !== -1
   // ... but only if NOT in production
-  const isOnMain = process.env.VERCEL_GIT_COMMIT_REF == 'main'
+  const commitRef =
+    process.env.VERCEL_GIT_COMMIT_REF ||
+    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
+  const isOnMain = commitRef == 'main'
   // When deploying to specific proxied domains,
   // this function should accurately reflect the proxied product
   const deployDomain =
@@ -54,6 +56,7 @@ function isProxiedProduct(productSlug) {
     deployDomain,
     commitFirstLine,
     isCommitMatch,
+    isOnMain,
   })
   return isLocalMatch || isDeployedMatch
 }
