@@ -9,6 +9,7 @@
   top: 0;
   width: var(--sidebar-width);
 
+  /* TODO: won't use margin-left if we want menu items to take up full width */
   & ul ul {
     list-style: none;
     margin: 0;
