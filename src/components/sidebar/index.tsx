@@ -12,6 +12,8 @@ import s from './style.module.css'
  */
 export interface MenuItem {
   divider?: boolean
+  hasActiveChild?: boolean
+  isActive?: boolean
   title?: string
   path?: string
   routes?: MenuItem[]

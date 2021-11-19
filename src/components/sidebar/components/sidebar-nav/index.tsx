@@ -10,9 +10,32 @@ interface SidebarNavProps {
   title: string
 }
 
+const addActiveStateMetadata = (currentPath: string, items: MenuItem[]) => {
+  let foundActiveItem = false
+
+  items.forEach((item) => {
+    if (foundActiveItem) {
+      item[item.routes ? 'hasActiveChild' : 'isActive'] = false
+      return
+    }
+
+    if (item.routes) {
+      foundActiveItem = addActiveStateMetadata(currentPath, item.routes)
+      item.hasActiveChild = foundActiveItem
+    } else {
+      foundActiveItem = currentPath.endsWith(item.path)
+      item.isActive = foundActiveItem
+    }
+  })
+
+  return foundActiveItem
+}
+
 const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => {
   const router = useRouter()
   const currentPath = router.asPath.split('?')[0]
+
+  addActiveStateMetadata(currentPath, menuItems)
 
   return (
     <nav aria-labelledby={SIDEBAR_LABEL_ID}>
