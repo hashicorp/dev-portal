@@ -18,17 +18,20 @@
     cursor: pointer;
   }
 
-  /* TODO: design is still working on this active state */
-  &[aria-current='page'] {
-    background-color: #dedfe3;
-    color: var(--gray-foreground-primary);
+  & span:first-child {
+    margin-right: 8px;
+    width: 100%;
   }
 
-  &[aria-haspopup='true'] {
-    & span:first-child {
-      margin-right: 8px;
-      width: 100%;
-    }
+  &[aria-current='page'] {
+    background-color: #dedfe3;
+  }
+
+  /* TODO: font-weight will be set by a token */
+  &[aria-expanded='true'],
+  &[aria-current='page'] {
+    color: var(--gray-foreground-primary);
+    font-weight: bold;
   }
 
   &[aria-expanded='true'] {
