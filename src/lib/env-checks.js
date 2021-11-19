@@ -33,7 +33,8 @@ function isProxiedProduct(productSlug) {
   // but NOT if we're deploying off the main branch.
   const commitMsg =
     process.env.VERCEL_GIT_COMMIT_MESSAGE ||
-    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE
+    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE ||
+    ''
   const commitFirstLine = commitMsg.split('\n')[0]
   const isCommitMatch = commitFirstLine.indexOf(`(${productSlug})`) !== -1
   // ... but only if NOT in production
