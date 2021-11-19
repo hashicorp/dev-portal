@@ -1,5 +1,7 @@
 const proxySettings = require('./proxy-settings')
 const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
+const boundaryRedirects = require('./proxy-redirects-boundary')
+const waypointRedirects = require('./proxy-redirects-waypoint')
 const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 
 const PROXIED_PRODUCT = getProxiedProductSlug()
@@ -61,8 +63,29 @@ const dotIoToDevPortalRedirects = productsToProxy.reduce((acc, productSlug) => {
   return acc.concat(toDevPortalRedirects)
 }, [])
 
+function addHostCondition(redirects, productSlug) {
+  const host = proxySettings[productSlug].host
+  return redirects.map((redirect) => {
+    if (productSlug == PROXIED_PRODUCT) return redirect
+    return {
+      ...redirect,
+      has: [
+        {
+          type: 'host',
+          value: host,
+        },
+      ],
+    }
+  })
+}
+
 async function redirectsConfig() {
-  return [...devPortalToDotIoRedirects, ...dotIoToDevPortalRedirects]
+  return [
+    ...devPortalToDotIoRedirects,
+    ...dotIoToDevPortalRedirects,
+    ...addHostCondition(boundaryRedirects, 'boundary'),
+    ...addHostCondition(waypointRedirects, 'waypoint'),
+  ]
 }
 
 module.exports = redirectsConfig

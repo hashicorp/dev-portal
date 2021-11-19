@@ -70,6 +70,15 @@ async function setupProductMigration(productData) {
   // (we'll remove some of these files on a product-by-product basis)
   await exec(`cp -r ${repoDirs.pages}/ ${destDirs.pages}`)
   console.log('✅ Done')
+  // Redirects
+  // (these are just copied into place, we import and
+  // deal with them in more detail in ./config/redirects.js)
+  await exec(
+    `cp -r ${path.join(
+      clonedWebsite,
+      'redirects.js'
+    )} ./config/proxy-redirects-${slug}.js`
+  )
   // TODO
   // TODO more setup stuff
   // TODO
