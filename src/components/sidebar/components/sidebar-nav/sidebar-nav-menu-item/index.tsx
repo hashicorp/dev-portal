@@ -59,7 +59,6 @@ const SidebarNavSubmenu: React.FC<{
   )
 }
 
-// TODO: implement submenus (ref: https://app.asana.com/0/1201010428539925/1201265683986459/f)
 const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
   currentPath,
   item,
