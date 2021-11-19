@@ -1,31 +1,31 @@
 const path = require('path')
 const klawSync = require('klaw-sync')
+const proxyConfig = require('./proxy-config')
 
 module.exports = {
   boundary: {
-    // actually https://boundaryproject.io, but using test-bd.hashi-mktg.com as a test
-    domain: 'https://test-bd.hashi-mktg.com',
-    host: 'test-bd.hashi-mktg.com',
+    domain: proxyConfig.boundary.domain,
+    host: proxyConfig.boundary.host,
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/boundary'),
-      {
-        proxiedRoute: '/files/press-kit.zip',
-        localRoute: '/boundary/files/press-kit.zip',
-      },
+      ...buildAssetRoutesToProxy(proxyConfig.boundary.assets, '/boundary'),
     ],
   },
   waypoint: {
-    // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
-    domain: 'https://wp.snarglepuss.com',
-    host: 'wp.snarglepuss.com',
+    domain: proxyConfig.waypoint.domain,
+    host: proxyConfig.waypoint.host,
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
-      {
-        proxiedRoute: '/files/press-kit.zip',
-        localRoute: '/waypoint/files/press-kit.zip',
-      },
+      ...buildAssetRoutesToProxy(proxyConfig.waypoint.assets, '/waypoint'),
     ],
   },
+}
+
+function buildAssetRoutesToProxy(assetPaths, localAssetsDir) {
+  return assetPaths.map((proxiedRoute) => ({
+    proxiedRoute: proxiedRoute,
+    localRoute: `${localAssetsDir}${proxiedRoute}`,
+  }))
 }
 
 /**
