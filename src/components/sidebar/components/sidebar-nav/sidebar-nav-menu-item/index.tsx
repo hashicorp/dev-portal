@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createRef, KeyboardEventHandler, useState } from 'react'
 import { MenuItem } from 'components/sidebar'
 import s from './style.module.css'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
@@ -29,7 +29,16 @@ const SidebarNavSubmenu: React.FC<{
   currentPath: string
   item: MenuItem
 }> = ({ currentPath, item }) => {
+  const buttonRef = createRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(item.hasActiveChild)
+
+  const handleKeyDown: KeyboardEventHandler<HTMLUListElement> = (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault()
+      setIsOpen(false)
+      buttonRef.current.focus()
+    }
+  }
 
   return (
     <li>
@@ -37,12 +46,13 @@ const SidebarNavSubmenu: React.FC<{
         aria-expanded={isOpen}
         className={s.sidebarNavMenuItem}
         onClick={() => setIsOpen((prevState) => !prevState)}
+        ref={buttonRef}
       >
         <span>{item.title}</span>
         <IconChevronRight16 />
       </button>
       {isOpen && (
-        <ul>
+        <ul onKeyDown={handleKeyDown}>
           {item.routes.map((route) =>
             route.routes ? (
               <SidebarNavSubmenu currentPath={currentPath} item={route} />
