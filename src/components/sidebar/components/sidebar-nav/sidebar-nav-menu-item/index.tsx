@@ -39,6 +39,11 @@ const SidebarNavSubmenu: React.FC<{
     }
   }
 
+  /**
+   * TODO: after ids are generated in sidebar-nav, set:
+   *   - the <ul> id attribute based on the item.id
+   *   - the <button> aria-controls attribute to be the <ul> id
+   */
   return (
     <li>
       <button

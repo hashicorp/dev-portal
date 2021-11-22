@@ -20,6 +20,11 @@ const getCurrentPathWithoutParamsOrAnchors = (path: string): string => {
   return path
 }
 
+/**
+ * TODO: update & rename to add additional metadata
+ *   - fullPath: the full subpath of a non-submenu item (currently handled in sidebar-nav-menu-item)
+ *   - id: a generated slug based off of title and/or fullPath (depends if it's a submenu)
+ */
 const addActiveStateMetadata = (currentPath: string, items: MenuItem[]) => {
   let foundActiveItem = false
 
