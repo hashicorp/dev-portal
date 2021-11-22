@@ -3,6 +3,7 @@
   box-shadow: 0 8px 12px rgba(37, 38, 45, 0.08);
   height: 100%;
   left: 0;
+  overflow-x: hidden;
   overflow-y: auto;
   padding: var(--sidebar-padding);
   position: absolute;
