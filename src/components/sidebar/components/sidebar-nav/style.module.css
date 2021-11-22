@@ -16,6 +16,7 @@
   padding: 8px;
   right: -10000px;
   width: fit-content;
+  z-index: 1;
 
   &:focus {
     right: var(--sidebar-padding);
