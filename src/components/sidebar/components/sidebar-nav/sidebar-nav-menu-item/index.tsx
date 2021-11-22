@@ -7,29 +7,27 @@ import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-ri
 const PRODUCT = 'waypoint'
 
 interface SidebarMenuItemProps {
-  currentPath: string
   item: MenuItem
 }
 
 const getPath = (item: MenuItem): string => `/${PRODUCT}/docs/${item.path}`
 
 // TODO: use next/link
-const SidebarNavLink = ({ isActive, item }) => (
+const SidebarNavLink = ({ item }) => (
   <li>
     <a
-      aria-current={isActive ? 'page' : undefined}
+      aria-current={item.isActive ? 'page' : undefined}
       className={s.sidebarNavMenuItem}
       // TODO: this might break some accessible labels, probably need aria-label
       dangerouslySetInnerHTML={{ __html: item.title }}
-      href={getPath(item)}
+      href={item.href || getPath(item)}
     />
   </li>
 )
 
 const SidebarNavSubmenu: React.FC<{
-  currentPath: string
   item: MenuItem
-}> = ({ currentPath, item }) => {
+}> = ({ item }) => {
   const buttonRef = createRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(item.hasActiveChild)
 
@@ -56,12 +54,9 @@ const SidebarNavSubmenu: React.FC<{
         <ul onKeyDown={handleKeyDown}>
           {item.routes.map((route) =>
             route.routes ? (
-              <SidebarNavSubmenu currentPath={currentPath} item={route} />
+              <SidebarNavSubmenu item={route} />
             ) : (
-              <SidebarNavLink
-                isActive={currentPath.endsWith(route.path)}
-                item={route}
-              />
+              <SidebarNavLink item={route} />
             )
           )}
         </ul>
@@ -70,21 +65,17 @@ const SidebarNavSubmenu: React.FC<{
   )
 }
 
-const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
-  currentPath,
-  item,
-}) => {
+const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   // TODO: the designs don't currently show a divider
   if (item.divider) {
     return null
   }
 
   if (item.routes) {
-    return <SidebarNavSubmenu currentPath={currentPath} item={item} />
+    return <SidebarNavSubmenu item={item} />
   }
 
-  const isActive = currentPath.endsWith(item.path)
-  return <SidebarNavLink isActive={isActive} item={item} />
+  return <SidebarNavLink item={item} />
 }
 
 export default SidebarNavMenuItem
