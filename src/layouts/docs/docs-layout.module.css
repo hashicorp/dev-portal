@@ -2,10 +2,10 @@
 .container {
   --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol' !important;
+    'Segoe UI Symbol';
   --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol' !important;
+    'Segoe UI Symbol';
 
   display: flex;
   flex-direction: column;
