@@ -13,6 +13,7 @@ interface SidebarMenuItemProps {
 
 const getPath = (item: MenuItem): string => `/${PRODUCT}/docs/${item.path}`
 
+// TODO: use next/link
 const SidebarNavLink = ({ isActive, item }) => (
   <li>
     <a
