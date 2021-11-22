@@ -1,5 +1,5 @@
-import { MenuItem } from 'components/sidebar'
 import { useRouter } from 'next/router'
+import { MenuItem } from 'components/sidebar'
 import SidebarNavMenuItem from './sidebar-nav-menu-item'
 import s from './style.module.css'
 
@@ -12,7 +12,12 @@ interface SidebarNavProps {
 
 // TODO: this might be a helpful to abstract as a util? The name feels looong
 const getCurrentPathWithoutParamsOrAnchors = (path: string): string => {
-  return path.match(/.+?(?=(#|\?))/)[0]
+  const matches = path.match(/.+?(?=(#|\?))/)
+  if (matches) {
+    return matches[0]
+  }
+
+  return path
 }
 
 const addActiveStateMetadata = (currentPath: string, items: MenuItem[]) => {
@@ -38,7 +43,6 @@ const addActiveStateMetadata = (currentPath: string, items: MenuItem[]) => {
 
 const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => {
   const router = useRouter()
-  // TODO: also need to ignore everything after a `#`
   const currentPath = getCurrentPathWithoutParamsOrAnchors(router.asPath)
 
   addActiveStateMetadata(currentPath, menuItems)
@@ -54,7 +58,6 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => {
       <ul className={s.sidebarNavList} role="menubar">
         {menuItems.map((item, index) => (
           <SidebarNavMenuItem
-            currentPath={currentPath}
             item={item}
             // TODO: come up with better alternative to index
             // eslint-disable-next-line react/no-array-index-key
