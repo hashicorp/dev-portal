@@ -64,7 +64,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => {
         {menuItems.map((item, index) => (
           <SidebarNavMenuItem
             item={item}
-            // TODO: come up with better alternative to index
+            // TODO: use item.id when it has been added to the metadata (see above)
             // eslint-disable-next-line react/no-array-index-key
             key={`sidebar-nav-menu-item-${index}`}
           />
