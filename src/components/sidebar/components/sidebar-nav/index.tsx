@@ -10,6 +10,11 @@ interface SidebarNavProps {
   title: string
 }
 
+// TODO: this might be a helpful to abstract as a util? The name feels looong
+const getCurrentPathWithoutParamsOrAnchors = (path: string): string => {
+  return path.match(/.+?(?=(#|\?))/)[0]
+}
+
 // TODO: I think this will also need to handle item.href
 const addActiveStateMetadata = (currentPath: string, items: MenuItem[]) => {
   let foundActiveItem = false
@@ -35,7 +40,7 @@ const addActiveStateMetadata = (currentPath: string, items: MenuItem[]) => {
 const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => {
   const router = useRouter()
   // TODO: also need to ignore everything after a `#`
-  const currentPath = router.asPath.split('?')[0]
+  const currentPath = getCurrentPathWithoutParamsOrAnchors(router.asPath)
 
   addActiveStateMetadata(currentPath, menuItems)
 
