@@ -15,7 +15,6 @@ const getCurrentPathWithoutParamsOrAnchors = (path: string): string => {
   return path.match(/.+?(?=(#|\?))/)[0]
 }
 
-// TODO: I think this will also need to handle item.href
 const addActiveStateMetadata = (currentPath: string, items: MenuItem[]) => {
   let foundActiveItem = false
 
