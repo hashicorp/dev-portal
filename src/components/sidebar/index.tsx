@@ -13,10 +13,11 @@ import s from './style.module.css'
 export interface MenuItem {
   divider?: boolean
   hasActiveChild?: boolean
+  href?: string
   isActive?: boolean
-  title?: string
   path?: string
   routes?: MenuItem[]
+  title?: string
 }
 
 interface SidebarProps {
