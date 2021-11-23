@@ -34,6 +34,7 @@ const SidebarNavSubmenu: React.FC<{
   const handleKeyDown: KeyboardEventHandler<HTMLUListElement> = (e) => {
     if (e.key === 'Escape') {
       e.preventDefault()
+      e.stopPropagation()
       setIsOpen(false)
       buttonRef.current.focus()
     }
