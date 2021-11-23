@@ -1,4 +1,4 @@
-import { createRef, KeyboardEventHandler, useState } from 'react'
+import { KeyboardEventHandler, useRef, useState } from 'react'
 import { MenuItem } from 'components/sidebar'
 import s from './style.module.css'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
@@ -28,7 +28,7 @@ const SidebarNavLink = ({ item }) => (
 const SidebarNavSubmenu: React.FC<{
   item: MenuItem
 }> = ({ item }) => {
-  const buttonRef = createRef<HTMLButtonElement>()
+  const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(item.hasActiveChild)
 
   const handleKeyDown: KeyboardEventHandler<HTMLUListElement> = (e) => {
