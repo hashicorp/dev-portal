@@ -71,7 +71,6 @@ const getCurrentPathWithoutParamsOrAnchors = (path: string): string => {
   return path
 }
 
-// TODO: will need to recursively search submenus when they're implemented
 const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
   if (!filterValue) {
     return items
