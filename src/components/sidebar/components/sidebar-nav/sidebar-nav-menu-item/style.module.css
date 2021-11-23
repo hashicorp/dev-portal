@@ -8,22 +8,24 @@
   font-size: 14px;
   justify-content: space-between;
   line-height: 18px;
-  margin-bottom: 3px;
   padding: 8px;
+  position: relative;
   text-align: left;
   width: 100%;
-
-  &:hover {
-    background-color: var(--gray-background-secondary);
-    color: var(--gray-foreground-primary);
-    cursor: pointer;
-  }
+  z-index: 0;
 
   /* TODO: this will be abstracted eventually */
   &:focus {
     border: 1px solid var(--blue-vibrant);
     box-shadow: 0 0 0 3px #a5c2f3; /* TODO: replace w/ variable when available */
     outline: none;
+    z-index: 1;
+  }
+
+  &:hover {
+    background-color: var(--gray-background-secondary);
+    color: var(--gray-foreground-primary);
+    cursor: pointer;
   }
 
   & span:first-child {
