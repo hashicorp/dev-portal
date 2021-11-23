@@ -10,6 +10,9 @@ interface SidebarMenuItemProps {
   item: MenuItem
 }
 
+// TODO: we will need to handle more than `docs` for this portion of the path. Some notes:
+//   - we won't need to calculate this here once `addActiveStateMetadata` handles calculating `fullPath`
+//   - maybe `SidebarNav` should accept a prop like `pathPrefix` which in this case would be `/waypoint/docs/`
 const getPath = (item: MenuItem): string => `/${PRODUCT}/docs/${item.path}`
 
 // TODO: use next/link
