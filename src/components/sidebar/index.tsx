@@ -77,9 +77,22 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
     return items
   }
 
-  return items.filter((item) =>
-    item?.title?.toLowerCase().includes(filterValue.toLowerCase())
-  )
+  return items.filter((item) => {
+    const doesTitleMatchFilter = item?.title
+      ?.toLowerCase()
+      .includes(filterValue.toLowerCase())
+    if (doesTitleMatchFilter) {
+      return true
+    }
+
+    const doesChildMatchFilter =
+      item.routes && getFilteredMenuItems(item.routes, filterValue).length
+    if (doesChildMatchFilter) {
+      return true
+    }
+
+    return false
+  })
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
