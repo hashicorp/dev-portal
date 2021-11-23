@@ -60,7 +60,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => {
       <a className={s.skipToMainContent} href="#main">
         Skip to main content
       </a>
-      <ul className={s.sidebarNavList} role="menubar">
+      <ul className={s.sidebarNavList}>
         {menuItems.map((item, index) => (
           <SidebarNavMenuItem
             item={item}
