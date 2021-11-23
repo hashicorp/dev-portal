@@ -71,6 +71,12 @@ const getCurrentPathWithoutParamsOrAnchors = (path: string): string => {
   return path
 }
 
+/**
+ * TODO: this correctly finds the items that match `filterValue`, but if the item is a child
+ * of a submenu, that submenu isn't open after searching. `filter` creates a new array, so maybe
+ * there is an attribute we can add to the submenus that should be open, such as `hasChildMatchingFilter`.
+ * Then we can check that value when initializing `isOpen` in the `SidebarNavSubmenu` sub component.
+ */
 const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
   if (!filterValue) {
     return items
