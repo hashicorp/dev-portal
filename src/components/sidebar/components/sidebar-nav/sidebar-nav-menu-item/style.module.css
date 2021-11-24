@@ -1,0 +1,52 @@
+.sidebarNavMenuItem {
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: var(--gray-foreground-tertiary);
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  line-height: 18px;
+  padding: 8px;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  z-index: 0;
+
+  /* TODO: this will be abstracted eventually */
+  &:focus {
+    border: 1px solid var(--blue-vibrant);
+    box-shadow: 0 0 0 3px #a5c2f3; /* TODO: replace w/ variable when available */
+    outline: none;
+    z-index: 1;
+  }
+
+  &:hover {
+    background-color: var(--gray-background-secondary);
+    color: var(--gray-foreground-primary);
+    cursor: pointer;
+  }
+
+  & span:first-child {
+    margin-right: 8px;
+    width: 100%;
+  }
+
+  &[aria-current='page'] {
+    background-color: #dedfe3;
+  }
+
+  /* TODO: font-weight will be set by a token */
+  &[aria-expanded='true'],
+  &[aria-current='page'] {
+    color: var(--gray-foreground-primary);
+    font-weight: bold;
+  }
+
+  &[aria-expanded='true'] {
+    & svg {
+      transform: rotate(90deg);
+    }
+  }
+}
