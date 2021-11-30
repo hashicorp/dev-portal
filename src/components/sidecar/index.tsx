@@ -1,3 +1,4 @@
+import { useWindowSize } from 'contexts'
 import s from './style.module.css'
 
 export interface SidecarHeading {
@@ -10,21 +11,28 @@ interface SidecarProps {
 }
 
 // TODO: there are still a few things to do here. See https://app.asana.com/0/0/1201265683986463/f.
-const Sidecar: React.FC<SidecarProps> = ({ headings }) => (
-  <aside className={s.sidecar}>
-    <p className={s.sidecarLabel} id="table-of-contents">
-      On this page
-    </p>
-    <nav aria-labelledby="table-of-contents">
-      <ol className={s.sidecarList}>
-        {headings.map(({ slug, title }) => (
-          <li className={s.sidecarListItem} key={slug}>
-            <a href={`#${slug}`}>{title}</a>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  </aside>
-)
+const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
+  const { isMobile, isTablet } = useWindowSize()
+  if (isMobile || isTablet) {
+    return null
+  }
+
+  return (
+    <aside className={s.sidecar}>
+      <p className={s.sidecarLabel} id="table-of-contents">
+        On this page
+      </p>
+      <nav aria-labelledby="table-of-contents">
+        <ol className={s.sidecarList}>
+          {headings.map(({ slug, title }) => (
+            <li className={s.sidecarListItem} key={slug}>
+              <a href={`#${slug}`}>{title}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </aside>
+  )
+}
 
 export default Sidecar
