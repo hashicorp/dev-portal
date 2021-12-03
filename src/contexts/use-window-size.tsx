@@ -4,47 +4,6 @@ const DEFAULT_MOBILE_WIDTH = 728
 
 const DEFAULT_TABLET_WIDTH = 1000
 
-// const getDerivedStateVariables = ({ mobileWidth, tabletWidth, width }) => {
-//   let isMobile = false
-//   let isTablet = false
-
-//   if (width <= mobileWidth) {
-//     isMobile = true
-//   } else if (width <= tabletWidth) {
-//     isTablet = true
-//   }
-
-//   return { isMobile, isTablet }
-// }
-
-// const getDefaultValue = ({
-//   mobileWidth = DEFAULT_MOBILE_WIDTH,
-//   tabletWidth = DEFAULT_TABLET_WIDTH,
-// }) => {
-//   let height: number | undefined
-//   let width: number | undefined
-
-//   if (typeof window !== 'undefined') {
-//     height = window.innerHeight
-//     width = window.innerWidth
-//   }
-
-//   const { isMobile, isTablet } = getDerivedStateVariables({
-//     mobileWidth,
-//     tabletWidth,
-//     width,
-//   })
-
-//   // return { height, isMobile, isTablet, mobileWidth, tabletWidth, width }
-
-//   return { height: undefined, width: undefined }
-// }
-
-// const DEFAULT_VALUE = {
-//   height: typeof window === 'undefined' ? undefined : window.innerHeight,
-//   width: typeof window === 'undefined' ? undefined : window.innerWidth,
-// }
-
 interface WindowSizeProviderProps {
   mobileWidth?: number
   tabletWidth?: number
@@ -57,16 +16,43 @@ interface WindowSize extends WindowSizeProviderProps {
   isTablet?: boolean
 }
 
+// TODO: does this seem useful as a helper/util?
+const getCSSVariableFromDocument = (
+  variableName: string,
+  options: { asNumber?: boolean } = {}
+): string | number => {
+  const value = getComputedStyle(document.documentElement).getPropertyValue(
+    variableName
+  )
+
+  if (options.asNumber) {
+    return parseInt(value, 10)
+  }
+
+  return value
+}
+
 const WindowSizeContext = createContext<WindowSize>(undefined)
 
 const WindowSizeProvider: React.FC<WindowSizeProviderProps> = ({
   children,
-  mobileWidth = DEFAULT_MOBILE_WIDTH,
-  tabletWidth = DEFAULT_TABLET_WIDTH,
 }) => {
-  let mobileMediaQueryListObject
-  let tabletMediaQueryListObject
+  let mobileWidth: number
+  let tabletWidth: number
+  let mobileMediaQueryListObject: MediaQueryList
+  let tabletMediaQueryListObject: MediaQueryList
   if (typeof window !== 'undefined') {
+    mobileWidth =
+      (getCSSVariableFromDocument('--mobile-width-breakpoint', {
+        asNumber: true,
+      }) as number) || DEFAULT_MOBILE_WIDTH
+    tabletWidth =
+      (getCSSVariableFromDocument('--tablet-width-breakpoint', {
+        asNumber: true,
+      }) as number) || DEFAULT_TABLET_WIDTH
+
+    console.log(getCSSVariableFromDocument('--mobile'))
+
     mobileMediaQueryListObject = window.matchMedia(
       `(max-width: ${mobileWidth}px)`
     )
@@ -75,41 +61,32 @@ const WindowSizeProvider: React.FC<WindowSizeProviderProps> = ({
     )
   }
 
-  const [value] = useState<WindowSize>({
+  const [value, setValue] = useState<WindowSize>({
     isMobile: mobileMediaQueryListObject?.matches,
     isTablet: tabletMediaQueryListObject?.matches,
   })
 
-  // useEffect(() => {
-  //   // Define the code to execute
-  //   function doSomething() {
-  //     const height = window.innerHeight
-  //     const width = window.innerWidth
-  //     const isMobile = width <= DEFAULT_MOBILE_WIDTH
-  //     const isTablet = tabletMediaQueryListObject.matches
+  useEffect(() => {
+    const handleChange = () => {
+      setValue({
+        isMobile: mobileMediaQueryListObject?.matches,
+        isTablet: tabletMediaQueryListObject?.matches,
+      })
+    }
 
-  //     console.log({ isMobile, isTablet })
+    mobileMediaQueryListObject.addEventListener('change', handleChange)
+    tabletMediaQueryListObject.addEventListener('change', handleChange)
 
-  //     setValue((prevValue) => ({
-  //       ...prevValue,
-  //       height,
-  //       isMobile,
-  //       isTablet,
-  //       width,
-  //     }))
-  //   }
-
-  //   // Attach the event listeners with the function to execute
-  //   tabletMediaQueryListObject.addEventListener('change', doSomething)
-
-  //   // Execute your function once in case your current screen size
-  //   // already mets the media query conditions
-  //   doSomething()
-
-  //   return () => {
-  //     tabletMediaQueryListObject.removeEventListener('change', doSomething)
-  //   }
-  // }, [mobileWidth, tabletWidth])
+    return () => {
+      mobileMediaQueryListObject.removeEventListener('change', handleChange)
+      tabletMediaQueryListObject.removeEventListener('change', handleChange)
+    }
+  }, [
+    mobileMediaQueryListObject,
+    mobileWidth,
+    tabletMediaQueryListObject,
+    tabletWidth,
+  ])
 
   return (
     <WindowSizeContext.Provider value={value}>
