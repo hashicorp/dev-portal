@@ -4,14 +4,7 @@ const DEFAULT_MOBILE_WIDTH = 728
 
 const DEFAULT_TABLET_WIDTH = 1000
 
-interface WindowSizeProviderProps {
-  mobileWidth?: number
-  tabletWidth?: number
-}
-
-interface WindowSize extends WindowSizeProviderProps {
-  width?: number
-  height?: number
+interface DeviceSize extends DeviceSizeProviderProps {
   isMobile?: boolean
   isTablet?: boolean
 }
@@ -32,15 +25,14 @@ const getCSSVariableFromDocument = (
   return value
 }
 
-const WindowSizeContext = createContext<WindowSize>(undefined)
+const DeviceSizeContext = createContext<DeviceSize>(undefined)
 
-const WindowSizeProvider: React.FC<WindowSizeProviderProps> = ({
-  children,
-}) => {
+const DeviceSizeProvider: React.FC = ({ children }) => {
   let mobileWidth: number
   let tabletWidth: number
   let mobileMediaQueryListObject: MediaQueryList
   let tabletMediaQueryListObject: MediaQueryList
+
   if (typeof window !== 'undefined') {
     mobileWidth =
       (getCSSVariableFromDocument('--mobile-width-breakpoint', {
@@ -51,8 +43,6 @@ const WindowSizeProvider: React.FC<WindowSizeProviderProps> = ({
         asNumber: true,
       }) as number) || DEFAULT_TABLET_WIDTH
 
-    console.log(getCSSVariableFromDocument('--mobile'))
-
     mobileMediaQueryListObject = window.matchMedia(
       `(max-width: ${mobileWidth}px)`
     )
@@ -61,7 +51,7 @@ const WindowSizeProvider: React.FC<WindowSizeProviderProps> = ({
     )
   }
 
-  const [value, setValue] = useState<WindowSize>({
+  const [value, setValue] = useState<DeviceSize>({
     isMobile: mobileMediaQueryListObject?.matches,
     isTablet: tabletMediaQueryListObject?.matches,
   })
@@ -89,19 +79,19 @@ const WindowSizeProvider: React.FC<WindowSizeProviderProps> = ({
   ])
 
   return (
-    <WindowSizeContext.Provider value={value}>
+    <DeviceSizeContext.Provider value={value}>
       {children}
-    </WindowSizeContext.Provider>
+    </DeviceSizeContext.Provider>
   )
 }
 
-const useWindowSize = (): WindowSize => {
-  const context = useContext(WindowSizeContext)
+const useDeviceSize = (): DeviceSize => {
+  const context = useContext(DeviceSizeContext)
   if (context === undefined) {
-    throw new Error('useWindowSize must be used within a WindowSizeProvider')
+    throw new Error('useDeviceSize must be used within a DeviceSizeProvider')
   }
 
   return context
 }
 
-export { WindowSizeProvider, useWindowSize }
+export { DeviceSizeProvider, useDeviceSize }

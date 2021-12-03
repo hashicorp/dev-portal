@@ -1,4 +1,4 @@
-import { useWindowSize } from 'contexts'
+import { useDeviceSize } from 'contexts'
 import s from './style.module.css'
 
 export interface SidecarHeading {
@@ -12,7 +12,7 @@ interface SidecarProps {
 
 // TODO: there are still a few things to do here. See https://app.asana.com/0/0/1201265683986463/f.
 const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
-  const { isMobile, isTablet } = useWindowSize()
+  const { isMobile, isTablet } = useDeviceSize()
   console.log('mobile?', isMobile, 'tablet?', isTablet)
 
   return (
