@@ -4,7 +4,7 @@ const DEFAULT_MOBILE_WIDTH = 728
 
 const DEFAULT_TABLET_WIDTH = 1000
 
-interface DeviceSize extends DeviceSizeProviderProps {
+interface DeviceSize {
   isMobile?: boolean
   isTablet?: boolean
 }
