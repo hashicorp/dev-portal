@@ -8,10 +8,11 @@
 }
 
 .sidecarLabel {
+  color: var(--gray-foreground-secondary);
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 600;
   line-height: 18px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   margin-top: 0;
 }
 
@@ -26,6 +27,7 @@
   color: var(--gray-foreground-tertiary);
   font-size: 14px;
   line-height: 18px;
+  position: relative;
 
   &:not(:last-child) {
     margin-bottom: 16px;
@@ -42,5 +44,25 @@
       box-shadow: 0 0 0 3px #a5c2f3; /* TODO: replace w/ variable when available */
       outline: none;
     }
+  }
+}
+
+.sidecarListItem-active {
+  & a {
+    color: var(--gray-foreground-primary);
+    font-weight: 500;
+    text-decoration: underline;
+  }
+
+  & span {
+    background-color: var(--gray-foreground-primary);
+    border-bottom-left-radius: 1px;
+    border-top-left-radius: 1px;
+    display: block;
+    height: 100%;
+    position: absolute;
+    right: -1px;
+    top: 0;
+    width: 2px;
   }
 }
