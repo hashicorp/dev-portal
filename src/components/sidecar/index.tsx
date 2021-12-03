@@ -14,12 +14,9 @@ interface SidecarProps {
 const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
   const { isMobile, isTablet } = useWindowSize()
   console.log('mobile?', isMobile, 'tablet?', isTablet)
-  if (isMobile || isTablet) {
-    return null
-  }
 
   return (
-    <aside className={s.sidecar}>
+    <aside className={`${s.sidecar} hide-on-mobile hide-on-tablet`}>
       <p className={s.sidecarLabel} id="table-of-contents">
         On this page
       </p>
