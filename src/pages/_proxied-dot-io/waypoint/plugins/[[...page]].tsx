@@ -8,7 +8,8 @@ import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 const product = { name: productData.name, slug: productData.slug }
 const basePath = 'plugins'
 const navDataFile = `../data/${basePath}-nav-data.json`
-const localContentDir = `content/${basePath}`
+const localContentDir = `../content/${basePath}`
+const pathToPartials = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 const additionalComponents = {}
 
@@ -39,6 +40,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
         strategy: 'fs',
         localContentDir,
         navDataFile,
+        pathToPartials,
         product: productData.slug,
       }
 )
