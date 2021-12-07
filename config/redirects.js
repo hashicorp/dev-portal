@@ -2,8 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const proxySettings = require('./proxy-settings')
 const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
-const boundaryRedirects = require('./proxy-redirects-boundary')
-const waypointRedirects = require('./proxy-redirects-waypoint')
 const fetchGithubFile = require('./fetch-github-file')
 const { isContentDeployPreview } = require('../src/lib/env-checks')
 
@@ -98,7 +96,10 @@ async function buildDotIoRedirects() {
         ref: 'stable-website',
       })
   const waypointAuthorRedirects = eval(rawWaypointRedirects)
-  const waypointIoRedirects = [...waypointRedirects, ...waypointAuthorRedirects]
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Waypoint repo
+  // TODO: intent is to do this after all products have been migrated
+  const waypointIoRedirects = [...waypointAuthorRedirects]
   // ... for Boundary
   const rawBoundaryRedirects = isContentDeployPreview('boundary')
     ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'))
@@ -109,7 +110,10 @@ async function buildDotIoRedirects() {
         ref: 'stable-website',
       })
   const boundaryAuthorRedirects = eval(rawBoundaryRedirects)
-  const boundaryIoRedirects = [...boundaryRedirects, ...boundaryAuthorRedirects]
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Boundary repo
+  // TODO: intent is to do this after all products have been migrated
+  const boundaryIoRedirects = [...boundaryAuthorRedirects]
   console.log(boundaryAuthorRedirects)
   // TODO ... consolidate redirects for other products
   return [
