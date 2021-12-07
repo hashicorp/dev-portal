@@ -88,7 +88,7 @@ async function buildDotIoRedirects() {
   // within this repository
   // ... for Waypoint
   const rawWaypointRedirects = isContentDeployPreview('waypoint')
-    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'))
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'waypoint',
@@ -100,9 +100,10 @@ async function buildDotIoRedirects() {
   // TODO: rather than leaving all redirects in the Waypoint repo
   // TODO: intent is to do this after all products have been migrated
   const waypointIoRedirects = [...waypointAuthorRedirects]
+  console.log({ waypointIoRedirects })
   // ... for Boundary
   const rawBoundaryRedirects = isContentDeployPreview('boundary')
-    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'))
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'boundary',
@@ -114,7 +115,7 @@ async function buildDotIoRedirects() {
   // TODO: rather than leaving all redirects in the Boundary repo
   // TODO: intent is to do this after all products have been migrated
   const boundaryIoRedirects = [...boundaryAuthorRedirects]
-  console.log(boundaryAuthorRedirects)
+  console.log({ boundaryIoRedirects })
   // TODO ... consolidate redirects for other products
   return [
     ...devPortalToDotIoRedirects,
