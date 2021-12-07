@@ -100,7 +100,6 @@ async function buildDotIoRedirects() {
   // TODO: rather than leaving all redirects in the Waypoint repo
   // TODO: intent is to do this after all products have been migrated
   const waypointIoRedirects = [...waypointAuthorRedirects]
-  console.log({ waypointIoRedirects })
   // ... for Boundary
   const rawBoundaryRedirects = isContentDeployPreview('boundary')
     ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
@@ -115,7 +114,6 @@ async function buildDotIoRedirects() {
   // TODO: rather than leaving all redirects in the Boundary repo
   // TODO: intent is to do this after all products have been migrated
   const boundaryIoRedirects = [...boundaryAuthorRedirects]
-  console.log({ boundaryIoRedirects })
   // TODO ... consolidate redirects for other products
   return [
     ...devPortalToDotIoRedirects,
