@@ -1,7 +1,12 @@
+const fs = require('fs')
+const path = require('path')
 const proxySettings = require('./proxy-settings')
 const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
 const boundaryRedirects = require('./proxy-redirects-boundary')
 const waypointRedirects = require('./proxy-redirects-waypoint')
+const fetchGithubFile = require('./fetch-github-file')
+const { isContentDeployPreview } = require('../src/lib/env-checks')
+
 const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 
 const PROXIED_PRODUCT = getProxiedProductSlug()
@@ -79,13 +84,45 @@ function addHostCondition(redirects, productSlug) {
   })
 }
 
-async function redirectsConfig() {
+async function buildDotIoRedirects() {
+  // Fetch author-oriented redirects from product repos,
+  // and merge those with dev-oriented redirects from
+  // within this repository
+  // ... for Waypoint
+  const rawWaypointRedirects = isContentDeployPreview('waypoint')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'))
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'waypoint',
+        path: 'website/redirects.js',
+        ref: 'stable-website',
+      })
+  const waypointAuthorRedirects = eval(rawWaypointRedirects)
+  const waypointIoRedirects = [...waypointRedirects, ...waypointAuthorRedirects]
+  // ... for Boundary
+  const rawBoundaryRedirects = isContentDeployPreview('boundary')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'))
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'boundary',
+        path: 'website/redirects.js',
+        ref: 'stable-website',
+      })
+  const boundaryAuthorRedirects = eval(rawBoundaryRedirects)
+  const boundaryIoRedirects = [...boundaryRedirects, ...boundaryAuthorRedirects]
+  console.log(boundaryAuthorRedirects)
+  // TODO ... consolidate redirects for other products
   return [
     ...devPortalToDotIoRedirects,
     ...dotIoToDevPortalRedirects,
-    ...addHostCondition(boundaryRedirects, 'boundary'),
-    ...addHostCondition(waypointRedirects, 'waypoint'),
+    ...addHostCondition(boundaryIoRedirects, 'boundary'),
+    ...addHostCondition(waypointIoRedirects, 'waypoint'),
   ]
+}
+
+async function redirectsConfig() {
+  const dotIoRedirects = await buildDotIoRedirects()
+  return [...dotIoRedirects]
 }
 
 module.exports = redirectsConfig
