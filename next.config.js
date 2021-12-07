@@ -33,8 +33,8 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',
       BUGSNAG_SERVER_KEY: 'b32b4487b5dc72b32f51c8fe33641a43',
       ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
-      IS_CONTENT_DEPLOY_PREVIEW: process.env.IS_CONTENT_DEPLOY_PREVIEW,
-      DEV_IO_PROXY: process.env.DEV_IO_PROXY,
+      IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
+      DEV_IO: process.env.DEV_IO,
     },
     svgo: {
       plugins: [

@@ -28,7 +28,7 @@ function getMatchedDomain(hostname) {
 }
 
 function isProxiedProduct(productSlug, hostname) {
-  const isDevEnvSet = process.env.DEV_IO_PROXY == productSlug
+  const isDevEnvSet = process.env.DEV_IO == productSlug
   // Allow commit messages to trigger specific proxy settings,
   // but NOT if we're deploying off the main branch.
   const commitMsg =
@@ -57,7 +57,7 @@ function isProxiedProduct(productSlug, hostname) {
 // the dev-portal repository
 function isContentDeployPreview(productSlug) {
   const isDeployPreview =
-    process.env.IS_CONTENT_DEPLOY_PREVIEW && isProxiedProduct(productSlug)
+    process.env.IS_CONTENT_PREVIEW && isProxiedProduct(productSlug)
   return isDeployPreview
 }
 

@@ -6,8 +6,8 @@
     "build:webpack-only": "ts-node --transpile-only ./scripts/next-build-webpack-only.ts",
     "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics.ts dev-portal",
     "start": "next",
-    "start:waypoint": "DEV_IO_PROXY=waypoint npm run start",
-    "start:boundary": "DEV_IO_PROXY=boundary npm run start",
+    "start:waypoint": "DEV_IO=waypoint npm run start",
+    "start:boundary": "DEV_IO=boundary npm run start",
     "test": "jest",
     "test:watch": "jest --watch"
   },
