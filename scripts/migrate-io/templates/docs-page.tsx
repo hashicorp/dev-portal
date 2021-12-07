@@ -10,7 +10,7 @@ const product = { name: productData.name, slug: productData.slug }
 const basePath = '$$basePath'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
-const pathToPartials = `../content/partials`
+const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 const additionalComponents = $$additionalComponents
 
@@ -41,7 +41,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
         strategy: 'fs',
         localContentDir,
         navDataFile,
-        pathToPartials,
+        localPartialsDir,
         product: productData.slug,
       }
 )
