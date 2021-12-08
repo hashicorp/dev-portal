@@ -19,6 +19,14 @@ module.exports = {
       ...buildAssetRoutesToProxy(proxyConfig.waypoint.assets, '/waypoint'),
     ],
   },
+  sentinel: {
+    domain: proxyConfig.sentinel.domain,
+    host: proxyConfig.sentinel.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/sentinel'),
+      ...buildAssetRoutesToProxy(proxyConfig.sentinel.assets, '/sentinel'),
+    ],
+  },
 }
 
 function buildAssetRoutesToProxy(assetPaths, localAssetsDir) {

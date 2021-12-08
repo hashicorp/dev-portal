@@ -1,6 +1,6 @@
 const { Octokit } = require('@octokit/core')
 const octokit = new Octokit({
-  auth: process.env.GITHUB_PUBLIC_REPO_TOKEN,
+  auth: process.env.GITHUB_TOKEN,
 })
 
 async function fetchGithubFile({ owner, repo, path, ref }) {

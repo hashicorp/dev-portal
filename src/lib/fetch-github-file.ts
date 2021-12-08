@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/core'
 import { components } from '@octokit/openapi-types'
 const octokit = new Octokit({
-  auth: process.env.GITHUB_PUBLIC_REPO_TOKEN,
+  auth: process.env.GITHUB_TOKEN,
 })
 
 async function fetchGithubFile({

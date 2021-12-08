@@ -114,12 +114,24 @@ async function buildDotIoRedirects() {
   // TODO: rather than leaving all redirects in the Boundary repo
   // TODO: intent is to do this after all products have been migrated
   const boundaryIoRedirects = [...boundaryAuthorRedirects]
+  // ... for Sentinel
+  const rawSentinelRedirects = isContentDeployPreview('sentinel')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.next.js'), 'utf-8')
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'sentinel',
+        path: 'website/redirects.next.js',
+        ref: 'stable-website',
+      })
+  const sentinelAuthorRedirects = eval(rawSentinelRedirects)
+  const sentinelIoRedirects = [...sentinelAuthorRedirects]
   // TODO ... consolidate redirects for other products
   return [
     ...devPortalToDotIoRedirects,
     ...dotIoToDevPortalRedirects,
     ...addHostCondition(boundaryIoRedirects, 'boundary'),
     ...addHostCondition(waypointIoRedirects, 'waypoint'),
+    ...addHostCondition(sentinelIoRedirects, 'sentinel'),
   ]
 }
 

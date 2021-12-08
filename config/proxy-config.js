@@ -11,4 +11,9 @@ module.exports = {
     host: 'wp.snarglepuss.com',
     assets: ['/files/press-kit.zip'],
   },
+  sentinel: {
+    domain: 'https://test-st.hashi-mktg.com',
+    host: 'test-st.hashi-mktg.com',
+    assets: [],
+  },
 }

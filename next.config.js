@@ -17,7 +17,15 @@ const temporary_hideDocsPaths = {
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
   withHashicorp({
     nextOptimizedImages: true,
-    transpileModules: ['swingset'],
+    transpileModules: [
+      'swingset',
+      // TODO: once Sentinel has been migrated into
+      // TODO: the dev-portal repository, we should
+      // TODO: consider localizing the sentinel-embedded
+      // TODO: component. Should first confirm with Cam Stitt
+      // TODO: that this component is not being used elsewhere.
+      '@hashicorp/sentinel-embedded',
+    ],
   })({
     async headers() {
       return [temporary_hideDocsPaths]

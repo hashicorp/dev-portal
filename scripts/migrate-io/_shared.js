@@ -11,8 +11,7 @@ const DEST_COMPONENTS = 'src/components'
 const DEST_LIB = 'src/lib'
 const IO_BASE_DIR = '_proxied-dot-io'
 
-async function setupProductMigration(productData) {
-  const { slug } = productData
+async function setupProductMigration(slug) {
   //
   // SOURCE - clone repo from GitHub
   //
@@ -26,13 +25,7 @@ async function setupProductMigration(productData) {
     await exec(`git clone ${gitCloneUrl} ${clonedDir}`)
   }
   console.log('✅ Done')
-  // set up product data file
-  await exec(`rm -rf ./src/data/${slug}.json`)
-  fs.writeFileSync(
-    `./src/data/${slug}.json`,
-    JSON.stringify(productData, null, 2) + '\n',
-    'utf8'
-  )
+
   // set up a repoDirs object, which we'll
   // return so it can be used for product-specific setup
   const clonedWebsite = path.join(clonedDir, 'website')
@@ -175,10 +168,27 @@ async function patchSubnav(filepath) {
   })
 }
 
+/**
+ * Given the full path to data file,
+ * return the eval()'d file contents.
+ *
+ * Warning: this is quite brittle.
+ * Naively replaces ES6 export statements
+ * for slightly better compatibility.
+ *
+ * @param {string} filePath
+ * @returns
+ */
+function evalDataFile(filePath) {
+  const fileString = fs.readFileSync(filePath, 'utf-8')
+  return eval(fileString.replace('export default ', 'module.exports = '))
+}
+
 module.exports = {
   addGlobalStyles,
   addProxyLayout,
   editFile,
+  evalDataFile,
   patchSubnav,
   setupDocsRoute,
   setupIoLayout,

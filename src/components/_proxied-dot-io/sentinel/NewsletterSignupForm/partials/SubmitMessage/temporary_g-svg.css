@@ -1,0 +1,30 @@
+/*
+
+@TODO
+Would like to split this CSS out to a global SVGs component,
+will do so after https://github.com/hashicorp/web-components/pull/680 is merged
+(see also `Temporary_SvgCheck` within `index.js` of `checkbox-input`)
+
+*/
+.temporary_g-svg {
+  position: relative;
+
+  /* .svg-sizer (img) controls size of .g-svg div */
+  & > .svg-sizer {
+    display: block;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    width: auto;
+  }
+
+  /* svg matches size of .g-svg div */
+  & > svg {
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
