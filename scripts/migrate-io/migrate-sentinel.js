@@ -10,17 +10,8 @@ const {
   patchSubnav,
   setupDocsRoute,
   setupProductMigration,
-  setupSecurityPage,
   setupIoLayout,
 } = require('./_shared')
-
-/*
-
-NOTE: ADDITIONAL MANUAL STEPS
-
-- set up layout in ./src/layouts/_proxied-dot-io/sentinel
-
-*/
 
 migrateSentinelIo()
 
@@ -112,6 +103,9 @@ async function migrateSentinelIo() {
     const destPath = `${destDirs.components}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
+  // temporary fix for currentPath highlighting issue in subnav
+  // TODO there must be a better way to do this?
+  await patchSubnav(`${destDirs.components}/subnav/index.jsx`)
   // fix import path in Footer, and fix duplicate g-footer className
   await editFile(`${destDirs.components}/Footer/index.js`, (contents) => {
     return contents
@@ -183,6 +177,24 @@ async function migrateSentinelIo() {
         /product: productData\.slug,/g,
         'product: productData.slug,\n        remarkSentinel: [remarkSentinel],'
       )
+  )
+  //
+  // INTRO DOCS PAGE
+  //
+  // delete existing docs page
+  await exec(
+    `rm -f ${path.join(destDirs.pages, 'sentinel', 'intro', '[[...page]].jsx')}`
+  )
+  // use standardized template
+  await setupDocsRoute({
+    pagesDir: destDirs.pages,
+    basePath: 'sentinel/intro',
+    productData,
+  })
+  await editFile(
+    path.join(destDirs.pages, 'sentinel', 'intro', '[[...page]].tsx'),
+    (fileString) =>
+      fileString.replace('${basePath}-nav-data.json', 'intro-nav-data.json')
   )
   //
   // DOWNLOADS PAGE
