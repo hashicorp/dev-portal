@@ -1,9 +1,10 @@
+import SentinelIoLayout from 'layouts/_proxied-dot-io/sentinel'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
-import VERSION from '../../../data/version'
+import productData from 'data/boundary'
 import s from './style.module.css'
 
-export default function DownloadsPage(staticProps) {
+function DownloadsPage(staticProps) {
   return (
     <ProductDownloadsPage
       logo={<p className={s.notALogo}>Sentinel</p>}
@@ -55,6 +56,9 @@ export default function DownloadsPage(staticProps) {
 export async function getStaticProps() {
   return await generateStaticProps({
     product: 'sentinel',
-    latestVersion: VERSION,
+    latestVersion: productData.version,
   })
 }
+
+DownloadsPage.layout = SentinelIoLayout
+export default DownloadsPage

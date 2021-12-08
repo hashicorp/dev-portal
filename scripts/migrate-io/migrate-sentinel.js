@@ -58,6 +58,7 @@ async function migrateSentinelIo() {
       linkText: 'Watch Now',
       expirationDate: `2021-06-20T12:00:00-07:00`,
     },
+    version: evalDataFile(path.join(repoDirs.data, 'version.js')),
     subnavItems: evalDataFile(path.join(repoDirs.data, 'subnav.js')),
   }
   // write product data to file
@@ -158,7 +159,6 @@ async function migrateSentinelIo() {
   //
   // DOCS
   //
-  const componentsPath = destDirs.components.replace('src/', '')
   let additionalImports = ''
   additionalImports += `import SentinelEmbedded from '@hashicorp/react-sentinel-embedded'\n`
   additionalImports += `import remarkSentinel from 'lib/remark-sentinel'\n`
@@ -184,5 +184,23 @@ async function migrateSentinelIo() {
         'product: productData.slug,\n        remarkSentinel: [remarkSentinel],'
       )
   )
-  // remarkSentinel: [remarkSentinel],
+  //
+  // DOWNLOADS PAGE
+  //
+  await editFile(
+    `${destDirs.pages}/sentinel/downloads/index.jsx`,
+    (contents) => {
+      let newContents = contents
+        .replace(
+          "import VERSION from '../../../data/version'",
+          "import productData from 'data/boundary'"
+        )
+        .replace(
+          'latestVersion: VERSION,',
+          'latestVersion: productData.version,'
+        )
+      newContents = addProxyLayout(newContents, 'DownloadsPage', productData)
+      return newContents
+    }
+  )
 }
