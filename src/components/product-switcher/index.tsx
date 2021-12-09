@@ -62,6 +62,7 @@ const products: { name: string; code: ProductCode; url: string }[] = [
 const ProductSwitcher: React.FC = () => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
+  const currentProductCode = router.asPath.split('/')[1]
 
   /**
    * I _think_ we want the containing element to be a nav, currently clashes with other
@@ -72,6 +73,7 @@ const ProductSwitcher: React.FC = () => {
       <button
         aria-controls="product-chooser-product-list"
         aria-expanded={isOpen}
+        aria-labelledby={`product-chooser-list-item-${currentProductCode}`}
         onClick={() => {
           setIsOpen(!isOpen)
         }}
@@ -82,26 +84,29 @@ const ProductSwitcher: React.FC = () => {
         </div>
         <IconCaret16 />
       </button>
-      {isOpen && (
-        <ul id="product-chooser-product-list">
-          {products.map((product) => {
-            const pathRegex = RegExp(`^/${product.code}`)
-            const isCurrent = pathRegex.test(router.asPath)
+      <ul
+        id="product-chooser-product-list"
+        style={{ display: isOpen ? 'block' : 'none' }}
+      >
+        {products.map((product) => {
+          const isCurrent = product.code === currentProductCode
 
-            return (
-              <li key={product.code}>
-                <a
-                  aria-current={isCurrent ? 'page' : undefined}
-                  href={product.url}
-                >
-                  <ProductIcon product={product.code} />
-                  <span>{product.name}</span>
-                </a>
-              </li>
-            )
-          })}
-        </ul>
-      )}
+          return (
+            <li
+              id={`product-chooser-list-item-${product.code}`}
+              key={product.code}
+            >
+              <a
+                aria-current={isCurrent ? 'page' : undefined}
+                href={product.url}
+              >
+                <ProductIcon product={product.code} />
+                <span>{product.name}</span>
+              </a>
+            </li>
+          )
+        })}
+      </ul>
     </div>
   )
 }
