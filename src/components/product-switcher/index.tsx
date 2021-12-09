@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { ProductCode } from 'common/types'
 import ProductIcon from 'components/icons/product-icon'
@@ -59,12 +60,16 @@ const products: { name: string; code: ProductCode; url: string }[] = [
 
 // TODO: make this functional (ref: https://app.asana.com/0/1201010428539925/1201247589988629/f)
 const ProductSwitcher: React.FC = () => {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
 
+  /**
+   * I _think_ we want the containing element to be a nav, currently clashes with other
+   * styles so not using that element just yet
+   */
   return (
     <div className={s.productSwitcher}>
       <button
-        onBlur={(e) => console.log('blur event', e)}
         onClick={() => {
           setIsOpen(!isOpen)
         }}
@@ -77,14 +82,22 @@ const ProductSwitcher: React.FC = () => {
       </button>
       {isOpen && (
         <ul>
-          {products.map((product) => (
-            <li key={product.code}>
-              <a href={product.url}>
-                <ProductIcon product={product.code} />
-                <span>{product.name}</span>
-              </a>
-            </li>
-          ))}
+          {products.map((product) => {
+            const pathRegex = RegExp(`^/${product.code}`)
+            const isCurrent = pathRegex.test(router.asPath)
+
+            return (
+              <li key={product.code}>
+                <a
+                  aria-current={isCurrent ? 'page' : undefined}
+                  href={product.url}
+                >
+                  <ProductIcon product={product.code} />
+                  <span>{product.name}</span>
+                </a>
+              </li>
+            )
+          })}
         </ul>
       )}
     </div>
