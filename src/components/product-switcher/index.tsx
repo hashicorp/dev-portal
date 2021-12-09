@@ -70,6 +70,8 @@ const ProductSwitcher: React.FC = () => {
   return (
     <div className={s.productSwitcher}>
       <button
+        aria-controls="product-chooser-product-list"
+        aria-expanded={isOpen}
         onClick={() => {
           setIsOpen(!isOpen)
         }}
@@ -81,7 +83,7 @@ const ProductSwitcher: React.FC = () => {
         <IconCaret16 />
       </button>
       {isOpen && (
-        <ul>
+        <ul id="product-chooser-product-list">
           {products.map((product) => {
             const pathRegex = RegExp(`^/${product.code}`)
             const isCurrent = pathRegex.test(router.asPath)
