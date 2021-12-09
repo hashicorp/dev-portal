@@ -1,7 +1,7 @@
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
 import HeaderSearchInput from 'components/header-search-input'
 import InlineSvg from '@hashicorp/react-inline-svg'
-import ProductChooser from 'components/product-chooser'
+import ProductSwitcher from 'components/product-switcher'
 import s from './style.module.css'
 
 const NavigationHeader: React.FC = () => (
@@ -9,7 +9,7 @@ const NavigationHeader: React.FC = () => (
     <nav>
       <div className={s.headerLeft}>
         <InlineSvg className={s.siteLogo} src={HashiCorpLogo} />
-        <ProductChooser />
+        <ProductSwitcher />
       </div>
       <div className={s.headerRight}>
         {/* TODO: make these links functional (ref: https://app.asana.com/0/1201010428539925/1201247589988627/f) */}

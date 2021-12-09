@@ -3,8 +3,8 @@ import ProductIcon from 'components/icons/product-icon'
 import s from './style.module.css'
 
 // TODO: make this functional (ref: https://app.asana.com/0/1201010428539925/1201247589988629/f)
-const ProductChooser: React.FC = () => (
-  <div className={s.productChooser}>
+const ProductSwitcher: React.FC = () => (
+  <div className={s.productSwitcher}>
     <div className={s.iconAndNameContainer}>
       <ProductIcon product="vault" />
       <p>Vault</p>
@@ -13,4 +13,4 @@ const ProductChooser: React.FC = () => (
   </div>
 )
 
-export default ProductChooser
+export default ProductSwitcher
