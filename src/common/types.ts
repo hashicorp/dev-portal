@@ -1,0 +1,11 @@
+export type ProductCode =
+  | 'boundary'
+  | 'consul'
+  | 'hcp'
+  | 'nomad'
+  | 'packer'
+  | 'sentinel'
+  | 'terraform'
+  | 'vagrant'
+  | 'vault'
+  | 'waypoint'
