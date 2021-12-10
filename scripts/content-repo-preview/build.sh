@@ -51,5 +51,8 @@ npm run build
 echo "Listing files after build..."
 ls -a
 echo "Copying .next output to project root..."
+if [ ! -d "../.next" ]; then
+    mkdir ../.next
+fi
 cp -R .next/* ../.next/
 echo "Done."
