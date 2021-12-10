@@ -7,12 +7,11 @@ ls -a
 # echo "Deleting .next cache..."
 rm -rf .next
 echo "Done"
-
-# Merge the local public folder
-# into the dev-portal public folder
-cp -R ./public/* ./website-preview/public/
 # Change into the website preview directory
 cd ./website-preview
+# Merge the local public folder
+# into the dev-portal public folder
+cp -R ../public/* ./public/
 # Install dependencies
 npm i --production=false
 # Delete other products' docs pages,
