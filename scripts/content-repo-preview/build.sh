@@ -1,12 +1,3 @@
-# Delete cached .next, if present
-# TODO: would be nice to leverage caching,
-# TODO: deleted for now as it makes debugging harder
-cd ..
-echo "Files before .next cache delete:"
-ls -a
-# echo "Deleting .next cache..."
-# rm -rf .next
-# echo "Done"
 # Change into the website preview directory
 cd ./website-preview
 # Merge the local public folder
