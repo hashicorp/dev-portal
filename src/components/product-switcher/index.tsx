@@ -130,8 +130,37 @@ const ProductSwitcher: React.FC = () => {
         style={{ display: isOpen ? 'block' : 'none' }}
         onKeyDown={handleKeyDown}
       >
-        {products.map((product) => {
+        {products.map((product, index) => {
           const isCurrent = product.code === currentProductCode
+
+          const handleAnchorKeyDown = (e) => {
+            const lastIndex = products.length - 1
+            const isFirstItem = index === 0
+            const isLastItem = index === lastIndex
+            const isMiddleItem = !(isFirstItem || isLastItem)
+            if (isMiddleItem) {
+              return
+            }
+
+            const listElement = document.getElementById(
+              'product-chooser-product-list'
+            )
+            const anchorElements = listElement.querySelectorAll('a')
+
+            if (isFirstItem && e.shiftKey && e.key === 'Tab') {
+              e.preventDefault()
+              const lastAnchorElement = anchorElements[lastIndex]
+              lastAnchorElement.focus()
+              return
+            }
+
+            if (isLastItem && !e.shiftKey && e.key === 'Tab') {
+              e.preventDefault()
+              const firstAnchorElement = anchorElements[0]
+              firstAnchorElement.focus()
+              return
+            }
+          }
 
           return (
             <li
@@ -141,6 +170,7 @@ const ProductSwitcher: React.FC = () => {
               <a
                 aria-current={isCurrent ? 'page' : undefined}
                 href={product.url}
+                onKeyDown={handleAnchorKeyDown}
               >
                 <ProductIcon product={product.code} />
                 <span>{product.name}</span>
