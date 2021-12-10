@@ -1,7 +1,11 @@
 const fs = require('fs')
 const path = require('path')
 const proxySettings = require('./proxy-settings')
-const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
+const {
+  getProxiedProductSlug,
+  isPreview,
+  isDeployPreview,
+} = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
 const { isContentDeployPreview } = require('../src/lib/env-checks')
 
@@ -89,6 +93,8 @@ async function buildDotIoRedirects() {
   // ... for Waypoint
   const rawWaypointRedirects = isContentDeployPreview('waypoint')
     ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? []
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'waypoint',
@@ -103,6 +109,8 @@ async function buildDotIoRedirects() {
   // ... for Boundary
   const rawBoundaryRedirects = isContentDeployPreview('boundary')
     ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? []
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'boundary',
@@ -117,6 +125,8 @@ async function buildDotIoRedirects() {
   // ... for Sentinel
   const rawSentinelRedirects = isContentDeployPreview('sentinel')
     ? fs.readFileSync(path.join(process.cwd(), '../redirects.next.js'), 'utf-8')
+    : isDeployPreview()
+    ? []
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'sentinel',

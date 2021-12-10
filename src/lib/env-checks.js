@@ -56,9 +56,11 @@ function isProxiedProduct(productSlug, hostname) {
 // previews in content repo contexts by cloning and building
 // the dev-portal repository
 function isContentDeployPreview(productSlug) {
-  const isDeployPreview =
-    process.env.IS_CONTENT_PREVIEW && isProxiedProduct(productSlug)
-  return isDeployPreview
+  return isDeployPreview() && isProxiedProduct(productSlug)
+}
+
+function isDeployPreview() {
+  return process.env.IS_CONTENT_PREVIEW
 }
 
 function isVersionedDocsEnabled(productSlug) {
@@ -72,5 +74,6 @@ module.exports = {
   getProxiedProductSlug,
   isPreview,
   isContentDeployPreview,
+  isDeployPreview,
   isVersionedDocsEnabled,
 }
