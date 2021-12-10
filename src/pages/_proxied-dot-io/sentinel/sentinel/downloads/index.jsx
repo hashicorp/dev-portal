@@ -1,7 +1,7 @@
 import SentinelIoLayout from 'layouts/_proxied-dot-io/sentinel'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
-import productData from 'data/boundary'
+import productData from 'data/sentinel'
 import s from './style.module.css'
 
 function DownloadsPage(staticProps) {

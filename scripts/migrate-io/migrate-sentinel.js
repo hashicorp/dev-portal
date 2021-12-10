@@ -217,7 +217,7 @@ async function migrateSentinelIo() {
       let newContents = contents
         .replace(
           "import VERSION from '../../../data/version'",
-          "import productData from 'data/boundary'"
+          "import productData from 'data/sentinel'"
         )
         .replace(
           'latestVersion: VERSION,',
