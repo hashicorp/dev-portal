@@ -144,8 +144,6 @@ const ProductSwitcher: React.FC = () => {
         aria-labelledby={`product-chooser-list-item-${currentProductCode}`}
         onClick={() => {
           setIsOpen(!isOpen)
-          // FIXME: this causes the focus style to flash on mouse down
-          buttonRef.current.blur()
         }}
         onKeyDown={handleKeyDown}
         ref={buttonRef}
