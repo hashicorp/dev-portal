@@ -133,7 +133,9 @@ const ProductSwitcher: React.FC = () => {
         {products.map((product, index) => {
           const isCurrent = product.code === currentProductCode
 
-          const handleAnchorKeyDown = (e) => {
+          const handleAnchorKeyDown: KeyboardEventHandler<HTMLAnchorElement> = (
+            e
+          ) => {
             const lastIndex = products.length - 1
             const isFirstItem = index === 0
             const isLastItem = index === lastIndex
