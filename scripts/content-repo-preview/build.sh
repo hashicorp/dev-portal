@@ -5,8 +5,8 @@ cd ..
 echo "Files before .next cache delete:"
 ls -a
 # echo "Deleting .next cache..."
-rm -rf .next
-echo "Done"
+# rm -rf .next
+# echo "Done"
 # Change into the website preview directory
 cd ./website-preview
 # Merge the local public folder
@@ -51,5 +51,5 @@ npm run build
 echo "Listing files after build..."
 ls -a
 echo "Copying .next output to project root..."
-cp -R .next/ ../.next
+cp -R .next/* ../.next/
 echo "Done."
