@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
 import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
 import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
@@ -15,7 +16,7 @@ interface ProductIconProps {
 }
 
 // TODO: what logos for hcp & sentinel?
-const productNamesToIcons: { [key in ProductCode]: any } = {
+const productNamesToIcons: { [key in ProductCode]: ReactElement } = {
   boundary: <IconBoundaryColor16 />,
   consul: <IconConsulColor16 />,
   hcp: <IconHashicorp16 />,
