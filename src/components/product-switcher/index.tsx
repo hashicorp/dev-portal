@@ -58,17 +58,31 @@ const products: { name: string; code: ProductCode; url: string }[] = [
   },
 ]
 
+const getAllAnchorElements = () => {
+  const listElement = document.getElementById('product-chooser-product-list')
+  const anchorElements = listElement.querySelectorAll('a')
+  return anchorElements
+}
+
 // TODO: make this functional (ref: https://app.asana.com/0/1201010428539925/1201247589988629/f)
 const ProductSwitcher: React.FC = () => {
   const router = useRouter()
+  const currentProductCode = router.asPath.split('/')[1]
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
   const buttonRef = useRef<HTMLButtonElement>()
-  const currentProductCode = router.asPath.split('/')[1]
+  const shouldFocusFirstAnchor = useRef<boolean>(false)
 
   useLayoutEffect(() => {
     if (!isOpen) {
       return
+    }
+
+    // Focuses the first anchor element if needed
+    if (shouldFocusFirstAnchor.current) {
+      const firstAnchorElement = getAllAnchorElements()[0]
+      firstAnchorElement.focus()
+      shouldFocusFirstAnchor.current = false
     }
 
     const handleDocumentClick = (e) => {
@@ -93,13 +107,28 @@ const ProductSwitcher: React.FC = () => {
   const handleKeyDown: KeyboardEventHandler<
     HTMLButtonElement | HTMLUListElement
   > = (e) => {
-    if (!isOpen) {
+    const isEscapeKey = e.key === 'Escape'
+    const isEnterKey = e.key === 'Enter'
+    const isSpaceKey = e.key === ' '
+
+    /**
+     * The reason we can't focus the first anchor here is because we have the anchor element
+     * is not rendered until after `setIsOpen(true)` is called by the <button>'s onClick (default
+     * behavior of <button> elements).
+     *
+     * Might be possible to do e.preventDefault and then do the focus() call here? Not sure we
+     * need to do that though unless we are very against this approach. I'd rather not prevent
+     * default behavior if we don't have to.
+     */
+    if (!isOpen && (isEnterKey || isSpaceKey)) {
+      shouldFocusFirstAnchor.current = true
       return
     }
 
-    if (e.key === 'Escape') {
+    if (isEscapeKey) {
       setIsOpen(false)
       buttonRef?.current?.focus()
+      return
     }
   }
 
@@ -115,6 +144,8 @@ const ProductSwitcher: React.FC = () => {
         aria-labelledby={`product-chooser-list-item-${currentProductCode}`}
         onClick={() => {
           setIsOpen(!isOpen)
+          // FIXME: this causes the focus style to flash on mouse down
+          buttonRef.current.blur()
         }}
         onKeyDown={handleKeyDown}
         ref={buttonRef}
@@ -144,10 +175,7 @@ const ProductSwitcher: React.FC = () => {
               return
             }
 
-            const listElement = document.getElementById(
-              'product-chooser-product-list'
-            )
-            const anchorElements = listElement.querySelectorAll('a')
+            const anchorElements = getAllAnchorElements()
 
             if (isFirstItem && e.shiftKey && e.key === 'Tab') {
               e.preventDefault()
