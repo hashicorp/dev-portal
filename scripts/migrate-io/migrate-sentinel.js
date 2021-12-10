@@ -174,9 +174,14 @@ async function migrateSentinelIo() {
     additionalComponents,
   })
   // add unique remarkSentinel setting to config
+  // TODO: TS comment is necessary because docs-page's
+  // TODO: server getStaticGenerationFunctions
+  // TODO: does not currently container remarkPlugins
+  // TODO: in its types. We need to add it.
   await editFile(
     path.join(destDirs.pages, 'sentinel', '[[...page]].tsx'),
     (fileString) =>
+      `// eslint-disable-next-line @typescript-eslint/ban-ts-comment\n// @ts-nocheck\n` +
       fileString.replace(
         /product: productData\.slug,/g,
         'product: productData.slug,\n        remarkSentinel: [remarkSentinel],'

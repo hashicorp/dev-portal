@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import SentinelIoLayout from 'layouts/_proxied-dot-io/sentinel'
 import SentinelEmbedded from '@hashicorp/react-sentinel-embedded'
 import remarkSentinel from 'lib/remark-sentinel'

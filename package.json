@@ -9,6 +9,9 @@
     "start:waypoint": "DEV_IO=waypoint npm run start",
     "start:boundary": "DEV_IO=boundary npm run start",
     "start:sentinel": "DEV_IO=sentinel npm run start",
+    "migrate:waypoint": "node ./scripts/migrate-io/migrate-waypoint.js",
+    "migrate:boundary": "node ./scripts/migrate-io/migrate-boundary.js",
+    "migrate:sentinel": "node ./scripts/migrate-io/migrate-sentinel.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -46,7 +49,7 @@
     "@hashicorp/react-checkbox-input": "^5.0.1",
     "@hashicorp/react-code-block": "^4.1.5",
     "@hashicorp/react-consent-manager": "^7.0.1",
-    "@hashicorp/react-docs-page": "14.10",
+    "@hashicorp/react-docs-page": "^14.11.0",
     "@hashicorp/react-hashi-stack-menu": "^2.0.7",
     "@hashicorp/react-hero": "^8.0.3",
     "@hashicorp/react-inline-svg": "^6.0.3",
