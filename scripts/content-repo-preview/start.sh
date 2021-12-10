@@ -4,7 +4,7 @@ if [ ! -d "node_modules" ]; then
 fi
 # TODO set up watcher to sync all files
 # TODO under website/public into website/website-preview/public
-cp -R ../public/img/** ./public/img/
+cp -R ../public/** ./public/
 # REPO is set in each product repository's
 # call to this start script
 DEV_IO="$REPO" IS_CONTENT_PREVIEW=true ./node_modules/.bin/next
