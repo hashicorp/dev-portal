@@ -4,17 +4,13 @@
 cd ..
 echo "Files before .next cache delete:"
 ls -a
-echo "Deleting .next cache..."
+# echo "Deleting .next cache..."
 rm -rf .next
 echo "Done"
 
-# Merge the local images (all in ./public/img) into
-# the shared dev-portal public folder
-cp -R ./public/img/** ./website-preview/public/img/
-# Delete the local public folder and replace it
-# with the now-combined dev-portal public folder
-rm -rf ./public
-cp -R ./website-preview/public/ ./public
+# Merge the local public folder
+# into the dev-portal public folder
+cp -R ./public/* ./website-preview/public/img/
 # Change into the website preview directory
 cd ./website-preview
 # Install dependencies
