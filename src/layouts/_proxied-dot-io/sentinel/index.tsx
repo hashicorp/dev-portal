@@ -6,7 +6,7 @@ import Min100Layout from '@hashicorp/react-min-100-layout'
 import useProductMeta, { Products } from '@hashicorp/platform-product-meta'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 // product-specific layout elements
-import Footer from 'components/_proxied-dot-io/sentinel/footer'
+import Footer from 'components/_proxied-dot-io/sentinel/Footer'
 import ProductSubnav from 'components/_proxied-dot-io/sentinel/subnav'
 import productData from 'data/sentinel.json'
 

@@ -150,6 +150,10 @@ async function migrateSentinelIo() {
   })
   // setup the layout file for this product
   await setupIoLayout({ layoutDir: destDirs.layouts, productData })
+  // add unique remarkSentinel setting to config
+  await editFile(path.join(destDirs.layouts, 'index.tsx'), (fileString) =>
+    fileString.replace('sentinel/footer', 'sentinel/Footer')
+  )
   //
   // DOCS
   //
