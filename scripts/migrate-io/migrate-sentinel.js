@@ -185,10 +185,12 @@ async function migrateSentinelIo() {
     path.join(destDirs.pages, 'sentinel', '[[...page]].tsx'),
     (fileString) =>
       `// eslint-disable-next-line @typescript-eslint/ban-ts-comment\n// @ts-nocheck\n` +
-      fileString.replace(
-        /product: productData\.slug,/g,
-        'product: productData.slug,\n        remarkSentinel: [remarkSentinel],'
-      )
+      fileString
+        .replace(
+          /product: productData\.slug,/g,
+          'product: productData.slug,\n        remarkSentinel: [remarkSentinel],'
+        )
+        .replace('${basePath}-nav-data.json', 'docs-nav-data.json')
   )
   //
   // INTRO DOCS PAGE

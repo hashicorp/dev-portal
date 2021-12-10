@@ -11,7 +11,7 @@ import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 
 const product = { name: productData.name, slug: productData.slug }
 const basePath = 'sentinel'
-const navDataFile = `../data/${basePath}-nav-data.json`
+const navDataFile = `../data/docs-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
