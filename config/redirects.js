@@ -1,7 +1,14 @@
+const fs = require('fs')
+const path = require('path')
 const proxySettings = require('./proxy-settings')
-const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
-const boundaryRedirects = require('./proxy-redirects-boundary')
-const waypointRedirects = require('./proxy-redirects-waypoint')
+const {
+  getProxiedProductSlug,
+  isPreview,
+  isDeployPreview,
+} = require('../src/lib/env-checks')
+const fetchGithubFile = require('./fetch-github-file')
+const { isContentDeployPreview } = require('../src/lib/env-checks')
+
 const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 
 const PROXIED_PRODUCT = getProxiedProductSlug()
@@ -79,13 +86,89 @@ function addHostCondition(redirects, productSlug) {
   })
 }
 
-async function redirectsConfig() {
+async function buildDotIoRedirects() {
+  // Fetch author-oriented redirects from product repos,
+  // and merge those with dev-oriented redirects from
+  // within this repository
+  // ... for Waypoint
+  const rawWaypointRedirects = isContentDeployPreview('waypoint')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? []
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'waypoint',
+        path: 'website/redirects.js',
+        ref: 'stable-website',
+      })
+  const waypointAuthorRedirects = eval(rawWaypointRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Waypoint repo
+  // TODO: intent is to do this after all products have been migrated
+  const waypointIoRedirects = [...waypointAuthorRedirects]
+  // ... for Boundary
+  const rawBoundaryRedirects = isContentDeployPreview('boundary')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? []
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'boundary',
+        path: 'website/redirects.js',
+        ref: 'stable-website',
+      })
+  const boundaryAuthorRedirects = eval(rawBoundaryRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Boundary repo
+  // TODO: intent is to do this after all products have been migrated
+  const boundaryIoRedirects = [...boundaryAuthorRedirects]
+  // ... for Sentinel
+  // TODO: sentinel is a private repo.
+  // TODO: we need a solution to fetch specific, public-friendly
+  // TODO: assets from the repo. The content API will likely lead the
+  // TODO: way here - as this is needed to render images in Sentinel docs,
+  // TODO: see for example:
+  // TODO: https://sentinel-git-kevin-versioned-docs-hashicorp.vercel.app/sentinel/extending/internals
+  // const rawSentinelRedirects = isContentDeployPreview('sentinel')
+  //   ? fs.readFileSync(path.join(process.cwd(), '../redirects.next.js'), 'utf-8')
+  //   : isDeployPreview()
+  //   ? []
+  //   : await fetchGithubFile({
+  //       owner: 'hashicorp',
+  //       repo: 'sentinel',
+  //       path: 'website/redirects.next.js',
+  //       ref: 'stable-website',
+  //     })
+  const rawSentinelRedirects = [
+    {
+      source: '/',
+      destination: '/sentinel',
+      permanent: true,
+    },
+    {
+      source: '/sentinel/commands/config',
+      destination: '/sentinel/configuration',
+      permanent: true,
+    },
+    // disallow '.html' or '/index.html' in favor of cleaner, simpler paths
+    { source: '/:path*/index', destination: '/:path*', permanent: true },
+    { source: '/:path*.html', destination: '/:path*', permanent: true },
+  ]
+  const sentinelAuthorRedirects = eval(rawSentinelRedirects)
+  const sentinelIoRedirects = [...sentinelAuthorRedirects]
+  // TODO ... consolidate redirects for other products
   return [
     ...devPortalToDotIoRedirects,
     ...dotIoToDevPortalRedirects,
-    ...addHostCondition(boundaryRedirects, 'boundary'),
-    ...addHostCondition(waypointRedirects, 'waypoint'),
+    ...addHostCondition(boundaryIoRedirects, 'boundary'),
+    ...addHostCondition(waypointIoRedirects, 'waypoint'),
+    ...addHostCondition(sentinelIoRedirects, 'sentinel'),
   ]
+}
+
+async function redirectsConfig() {
+  const dotIoRedirects = await buildDotIoRedirects()
+  return [...dotIoRedirects]
 }
 
 module.exports = redirectsConfig

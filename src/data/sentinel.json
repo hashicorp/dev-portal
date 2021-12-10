@@ -1,0 +1,39 @@
+{
+  "name": "Sentinel",
+  "slug": "sentinel",
+  "algoliaConfig": {
+    "indexName": "product_SENTINEL",
+    "searchOnlyApiKey": "55606ae6b6c797d30a84aa0b509711ef"
+  },
+  "metadata": {
+    "title": "Sentinel by HashiCorp",
+    "description": "Sentinel is a language and framework for policy built to be embedded in existing software to enable fine-grained, logic-based policy decisions.",
+    "image": "/sentinel/img/og-image.png",
+    "icon": [
+      {
+        "href": "/sentinel/_favicon.ico"
+      }
+    ]
+  },
+  "alertBannerActive": false,
+  "alertBanner": {
+    "tag": "Thank you",
+    "url": "https://hashiconf.com/europe",
+    "text": "HashiConf Europe is a wrap. Watch this year’s sessions on-demand.",
+    "linkText": "Watch Now",
+    "expirationDate": "2021-06-20T12:00:00-07:00"
+  },
+  "version": "0.18.4",
+  "subnavItems": [
+    {
+      "url": "/sentinel/intro",
+      "text": "Intro",
+      "type": "inbound"
+    },
+    {
+      "url": "/sentinel",
+      "text": "Docs",
+      "type": "inbound"
+    }
+  ]
+}

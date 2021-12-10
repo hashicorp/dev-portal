@@ -17,7 +17,15 @@ const temporary_hideDocsPaths = {
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
   withHashicorp({
     nextOptimizedImages: true,
-    transpileModules: ['swingset'],
+    transpileModules: [
+      'swingset',
+      // TODO: once Sentinel has been migrated into
+      // TODO: the dev-portal repository, we should
+      // TODO: consider localizing the sentinel-embedded
+      // TODO: component. Should first confirm with Cam Stitt
+      // TODO: that this component is not being used elsewhere.
+      '@hashicorp/sentinel-embedded',
+    ],
   })({
     async headers() {
       return [temporary_hideDocsPaths]
@@ -33,7 +41,8 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',
       BUGSNAG_SERVER_KEY: 'b32b4487b5dc72b32f51c8fe33641a43',
       ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
-      DEV_IO_PROXY: process.env.DEV_IO_PROXY,
+      IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
+      DEV_IO: process.env.DEV_IO,
     },
     svgo: {
       plugins: [

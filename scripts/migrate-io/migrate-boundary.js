@@ -255,7 +255,7 @@ async function migrateBoundaryIo() {
       )
       .replace(
         "'../internal/gen/controller.swagger.json'",
-        "{\n  owner: 'hashicorp',\n  repo: 'boundary',\n  path: 'internal/gen/controller.swagger.json',\n}"
+        "{\n  owner: 'hashicorp',\n  repo: 'boundary',\n  path: 'internal/gen/controller.swagger.json',\n  ref: 'stable-website'\n}"
       )
       .replace(
         /path\.join\(process\.cwd\(\), targetFile\)/g,

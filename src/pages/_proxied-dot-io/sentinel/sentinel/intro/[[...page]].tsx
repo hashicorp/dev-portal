@@ -1,19 +1,17 @@
-import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
-import Placement from 'components/_proxied-dot-io/waypoint/placement-table'
-import NestedNode from 'components/_proxied-dot-io/waypoint/nested-node'
+import SentinelIoLayout from 'layouts/_proxied-dot-io/sentinel'
 import DocsPage from '@hashicorp/react-docs-page'
-import productData from 'data/waypoint.json'
+import productData from 'data/sentinel.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 
 const product = { name: productData.name, slug: productData.slug }
-const basePath = 'docs'
-const navDataFile = `../data/${basePath}-nav-data.json`
+const basePath = 'sentinel/intro'
+const navDataFile = `../data/intro-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
-const additionalComponents = { Placement, NestedNode }
+const additionalComponents = {}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function DocsView(props) {
@@ -50,5 +48,5 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
 // Export getStatic functions
 export { getStaticPaths, getStaticProps }
 // Export view with layout
-DocsView.layout = WaypointIoLayout
+DocsView.layout = SentinelIoLayout
 export default DocsView

@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 const klawSync = require('klaw-sync')
 const proxyConfig = require('./proxy-config')
@@ -17,6 +18,14 @@ module.exports = {
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
       ...buildAssetRoutesToProxy(proxyConfig.waypoint.assets, '/waypoint'),
+    ],
+  },
+  sentinel: {
+    domain: proxyConfig.sentinel.domain,
+    host: proxyConfig.sentinel.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/sentinel'),
+      ...buildAssetRoutesToProxy(proxyConfig.sentinel.assets, '/sentinel'),
     ],
   },
 }
@@ -39,6 +48,7 @@ function buildAssetRoutesToProxy(assetPaths, localAssetsDir) {
  */
 function gatherRoutesToProxy(pagesDir) {
   const targetDir = path.resolve(`./src/pages${pagesDir}`)
+  if (!fs.existsSync(targetDir)) return []
   const pageExtensions = ['tsx', 'ts', 'jsx', 'js']
   const pageFilePaths = klawSync(targetDir)
   const routesToProxy = pageFilePaths
