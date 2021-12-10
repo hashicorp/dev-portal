@@ -1,6 +1,13 @@
-import InlineSvg from '@hashicorp/react-inline-svg'
+import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
+import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
+import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
+import { IconNomadColor16 } from '@hashicorp/flight-icons/svg-react/nomad-color-16'
+import { IconPackerColor16 } from '@hashicorp/flight-icons/svg-react/packer-color-16'
+import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
+import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-color-16'
+import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
+import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 import { ProductCode } from 'common/types'
-import s from './style.module.css'
 
 // TODO: is there a programatic way to build this from productNamesToIcons?
 interface ProductIconProps {
@@ -9,20 +16,19 @@ interface ProductIconProps {
 
 // TODO: what logos for hcp & sentinel?
 const productNamesToIcons: { [key in ProductCode]: any } = {
-  boundary: require('@hashicorp/mktg-logos/product/boundary/logomark/color.svg?include'),
-  consul: require('@hashicorp/mktg-logos/product/consul/logomark/color.svg?include'),
-  hcp: require('@hashicorp/mktg-logos/corporate/hashicorp/logomark/black.svg?include'),
-  nomad: require('@hashicorp/mktg-logos/product/nomad/logomark/color.svg?include'),
-  packer: require('@hashicorp/mktg-logos/product/packer/logomark/color.svg?include'),
-  sentinel: require('@hashicorp/mktg-logos/corporate/hashicorp/logomark/black.svg?include'),
-  terraform: require('@hashicorp/mktg-logos/product/terraform/logomark/color.svg?include'),
-  vagrant: require('@hashicorp/mktg-logos/product/vagrant/logomark/color.svg?include'),
-  vault: require('@hashicorp/mktg-logos/product/vault/logomark/color.svg?include'),
-  waypoint: require('@hashicorp/mktg-logos/product/waypoint/logomark/color.svg?include'),
+  boundary: <IconBoundaryColor16 />,
+  consul: <IconConsulColor16 />,
+  hcp: <IconHashicorp16 />,
+  nomad: <IconNomadColor16 />,
+  packer: <IconPackerColor16 />,
+  sentinel: <IconHashicorp16 />,
+  terraform: <IconTerraformColor16 />,
+  vagrant: <IconVagrantColor16 />,
+  vault: <IconVaultColor16 />,
+  waypoint: <IconWaypointColor16 />,
 }
 
-const ProductIcon: React.FC<ProductIconProps> = ({ product }) => (
-  <InlineSvg className={s.icon} src={productNamesToIcons[product]} />
-)
+const ProductIcon: React.FC<ProductIconProps> = ({ product }) =>
+  productNamesToIcons[product]
 
 export default ProductIcon

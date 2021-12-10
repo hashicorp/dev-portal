@@ -91,6 +91,8 @@
         }
 
         & svg {
+          /* FIXME: color is --brand-link from a global sheet */
+          color: black;
           height: 16px;
           margin-right: 4px;
           width: 16px;
