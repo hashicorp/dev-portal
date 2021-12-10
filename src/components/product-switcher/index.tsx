@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { KeyboardEventHandler, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { ProductCode } from 'common/types'
@@ -62,7 +62,28 @@ const products: { name: string; code: ProductCode; url: string }[] = [
 const ProductSwitcher: React.FC = () => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>()
   const currentProductCode = router.asPath.split('/')[1]
+
+  /**
+   * It would be more optimal to set onKeyDown for the containing element, but that is not allowed
+   * on a <div> with no role. We do not want to use a menu role (see https://adrianroselli.com/2017/10/dont-use-aria-menu-roles-for-site-nav.html)
+   * so there is no role currently set on the containing <div>. If we find an appropriate role, then we can
+   * change the approach. For now, it's most appropriate to set onKeyDown on the <button> and <ul>,
+   * hence the `KeyboardEventHandler<HTMLButtonElement | HTMLUListElement>` definition.
+   */
+  const handleKeyDown: KeyboardEventHandler<
+    HTMLButtonElement | HTMLUListElement
+  > = (e) => {
+    if (!isOpen) {
+      return
+    }
+
+    if (e.key === 'Escape') {
+      setIsOpen(false)
+      buttonRef?.current?.focus()
+    }
+  }
 
   /**
    * I _think_ we want the containing element to be a nav, currently clashes with other
@@ -77,6 +98,7 @@ const ProductSwitcher: React.FC = () => {
         onClick={() => {
           setIsOpen(!isOpen)
         }}
+        onKeyDown={handleKeyDown}
       >
         <div className={s.iconAndNameContainer}>
           <ProductIcon product="waypoint" />
@@ -87,6 +109,7 @@ const ProductSwitcher: React.FC = () => {
       <ul
         id="product-chooser-product-list"
         style={{ display: isOpen ? 'block' : 'none' }}
+        onKeyDown={handleKeyDown}
       >
         {products.map((product) => {
           const isCurrent = product.code === currentProductCode
