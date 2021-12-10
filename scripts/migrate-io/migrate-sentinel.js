@@ -188,7 +188,7 @@ async function migrateSentinelIo() {
       fileString
         .replace(
           /product: productData\.slug,/g,
-          'product: productData.slug,\n        remarkSentinel: [remarkSentinel],'
+          'product: productData.slug,\n        remarkPlugins: [remarkSentinel],'
         )
         .replace('${basePath}-nav-data.json', 'docs-nav-data.json')
         .replace('content/${basePath}', 'content/sentinel/docs')

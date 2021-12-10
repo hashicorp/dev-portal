@@ -39,7 +39,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
         fallback: 'blocking',
         revalidate: 360, // 1 hour
         product: productData.slug,
-        remarkSentinel: [remarkSentinel],
+        remarkPlugins: [remarkSentinel],
       }
     : {
         strategy: 'fs',
@@ -47,7 +47,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
         navDataFile,
         localPartialsDir,
         product: productData.slug,
-        remarkSentinel: [remarkSentinel],
+        remarkPlugins: [remarkSentinel],
       }
 )
 
