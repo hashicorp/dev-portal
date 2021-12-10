@@ -191,6 +191,7 @@ async function migrateSentinelIo() {
           'product: productData.slug,\n        remarkSentinel: [remarkSentinel],'
         )
         .replace('${basePath}-nav-data.json', 'docs-nav-data.json')
+        .replace('content/${basePath}', 'content/sentinel/docs')
   )
   //
   // INTRO DOCS PAGE
