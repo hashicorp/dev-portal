@@ -1,4 +1,4 @@
-import { KeyboardEventHandler, useRef, useState } from 'react'
+import { KeyboardEventHandler, useLayoutEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { ProductCode } from 'common/types'
@@ -62,8 +62,26 @@ const products: { name: string; code: ProductCode; url: string }[] = [
 const ProductSwitcher: React.FC = () => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
+  const productChooserRef = useRef<HTMLDivElement>()
   const buttonRef = useRef<HTMLButtonElement>()
   const currentProductCode = router.asPath.split('/')[1]
+
+  useLayoutEffect(() => {
+    if (!isOpen) {
+      return
+    }
+
+    const handleDocumentClick = (e) => {
+      const isClickOutside = !productChooserRef.current.contains(e.target)
+      if (isClickOutside) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('click', handleDocumentClick)
+
+    return () => document.removeEventListener('click', handleDocumentClick)
+  }, [isOpen])
 
   /**
    * It would be more optimal to set onKeyDown for the containing element, but that is not allowed
@@ -90,7 +108,7 @@ const ProductSwitcher: React.FC = () => {
    * styles so not using that element just yet
    */
   return (
-    <div className={s.productSwitcher}>
+    <div className={s.productSwitcher} ref={productChooserRef}>
       <button
         aria-controls="product-chooser-product-list"
         aria-expanded={isOpen}
@@ -99,6 +117,7 @@ const ProductSwitcher: React.FC = () => {
           setIsOpen(!isOpen)
         }}
         onKeyDown={handleKeyDown}
+        ref={buttonRef}
       >
         <div className={s.iconAndNameContainer}>
           <ProductIcon product="waypoint" />
