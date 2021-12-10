@@ -7,4 +7,4 @@ fi
 cp -R ../public/** ./public/
 # REPO is set in each product repository's
 # call to this start script
-DEV_IO="$REPO" IS_CONTENT_PREVIEW=true ./node_modules/.bin/next
+DEV_IO="$REPO" IS_CONTENT_PREVIEW=true ENABLE_VERSIONED_DOCS=false ./node_modules/.bin/next
