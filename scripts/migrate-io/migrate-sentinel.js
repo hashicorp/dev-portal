@@ -73,6 +73,9 @@ async function migrateSentinelIo() {
     '@hashicorp/react-checkbox-input',
     '@hashicorp/react-text-input',
     'unist-util-visit@2',
+    // NewsletterSignupForm
+    '@hashicorp/localstorage-polyfill',
+    'promise-polyfill',
   ]
   console.log('⏳ Installing dependencies...')
   // await exec(`npm i ${npmDependencies.join(' ')}`)
