@@ -1,3 +1,23 @@
+# Delete cached .next, if present
+# TODO: would be nice to leverage caching,
+# TODO: deleted for now as it makes debugging harder
+cd ..
+echo "Files before .next cache delete:"
+ls -a
+echo "Deleting .next cache..."
+rm -rf .next
+echo "Done"
+
+# Merge the local images (all in ./public/img) into
+# the shared dev-portal public folder
+cp -R ./public/img/** ./website-preview/public/img/
+# Delete the local public folder and replace it
+# with the now-combined dev-portal public folder
+rm -rf ./public
+cp -R ./website-preview/public/ ./public
+# Change into the website preview directory
+cd ./website-preview
+# Install dependencies
 npm i --production=false
 # Delete other products' docs pages,
 # these will just increase build times
