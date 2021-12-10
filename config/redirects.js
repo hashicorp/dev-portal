@@ -123,16 +123,37 @@ async function buildDotIoRedirects() {
   // TODO: intent is to do this after all products have been migrated
   const boundaryIoRedirects = [...boundaryAuthorRedirects]
   // ... for Sentinel
-  const rawSentinelRedirects = isContentDeployPreview('sentinel')
-    ? fs.readFileSync(path.join(process.cwd(), '../redirects.next.js'), 'utf-8')
-    : isDeployPreview()
-    ? []
-    : await fetchGithubFile({
-        owner: 'hashicorp',
-        repo: 'sentinel',
-        path: 'website/redirects.next.js',
-        ref: 'stable-website',
-      })
+  // TODO: sentinel is a private repo.
+  // TODO: we need a solution to fetch specific, public-friendly
+  // TODO: assets from the repo. The content API will likely lead the
+  // TODO: way here - as this is needed to render images in Sentinel docs,
+  // TODO: see for example:
+  // TODO: https://sentinel-git-kevin-versioned-docs-hashicorp.vercel.app/sentinel/extending/internals
+  // const rawSentinelRedirects = isContentDeployPreview('sentinel')
+  //   ? fs.readFileSync(path.join(process.cwd(), '../redirects.next.js'), 'utf-8')
+  //   : isDeployPreview()
+  //   ? []
+  //   : await fetchGithubFile({
+  //       owner: 'hashicorp',
+  //       repo: 'sentinel',
+  //       path: 'website/redirects.next.js',
+  //       ref: 'stable-website',
+  //     })
+  const rawSentinelRedirects = [
+    {
+      source: '/',
+      destination: '/sentinel',
+      permanent: true,
+    },
+    {
+      source: '/sentinel/commands/config',
+      destination: '/sentinel/configuration',
+      permanent: true,
+    },
+    // disallow '.html' or '/index.html' in favor of cleaner, simpler paths
+    { source: '/:path*/index', destination: '/:path*', permanent: true },
+    { source: '/:path*.html', destination: '/:path*', permanent: true },
+  ]
   const sentinelAuthorRedirects = eval(rawSentinelRedirects)
   const sentinelIoRedirects = [...sentinelAuthorRedirects]
   // TODO ... consolidate redirects for other products
