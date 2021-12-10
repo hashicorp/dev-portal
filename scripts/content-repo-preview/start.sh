@@ -1,9 +1,7 @@
-# Install dependencies
-# TODO maybe some way to optimize this?
-# TODO or just remove it if node_modules is present?
-# TODO npm install seems unecessary on most runs...
-# TODO but it is useful during dev.
-npm i --production=false
+# Install dependencies, if needed
+if [ ! -d "node_modules" ]; then
+    npm i --production=false
+fi
 # TODO set up watcher to sync all files
 # TODO under website/public into website/website-preview/public
 cp -R ../public/img/** ./public/img/
