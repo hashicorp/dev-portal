@@ -68,8 +68,10 @@ Two items to note:
   - both paddings are set to adjust for transparent border
 */
 .switcherOptionAnchor {
+  composes: focus-border-and-box-shadow from global;
   align-items: center;
   border: 1px solid transparent;
+  border-radius: 5px;
   color: var(--gray-foreground-primary);
   display: flex;
   padding: 6px 14px;
@@ -78,15 +80,6 @@ Two items to note:
   &:hover {
     background-color: #dedfe3;
     text-decoration: none;
-  }
-
-  /* TODO - abstract the focus style */
-  &:focus {
-    outline: none;
-    border: 1px solid var(--blue-vibrant);
-    box-sizing: border-box;
-    box-shadow: 0 0 0 3px #a5c2f3;
-    border-radius: 5px;
   }
 
   &[aria-current='page'] {

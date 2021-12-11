@@ -19,7 +19,9 @@ const Sidecar: React.FC<SidecarProps> = ({ headings }) => (
       <ol className={s.sidecarList}>
         {headings.map(({ slug, title }) => (
           <li className={s.sidecarListItem} key={slug}>
-            <a href={`#${slug}`}>{title}</a>
+            <a className={s.sidecarListItemAnchor} href={`#${slug}`}>
+              {title}
+            </a>
           </li>
         ))}
       </ol>

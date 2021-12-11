@@ -30,17 +30,12 @@
   &:not(:last-child) {
     margin-bottom: 16px;
   }
+}
 
-  & a {
-    border-radius: 5px;
-    border: 1px solid transparent;
-    color: inherit;
-    padding: 0 10px;
-
-    &:focus {
-      border: 1px solid var(--blue-vibrant);
-      box-shadow: 0 0 0 3px #a5c2f3; /* TODO: replace w/ variable when available */
-      outline: none;
-    }
-  }
+.sidecarListItemAnchor {
+  composes: focus-border-and-box-shadow from global;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: inherit;
+  padding: 0 10px;
 }
