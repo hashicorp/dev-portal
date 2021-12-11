@@ -20,3 +20,9 @@ export type ProductName =
   | 'Terraform'
   | 'Vagrant'
   | 'Vault'
+
+export interface Product {
+  name: ProductName
+  code: ProductCode
+  url: string
+}
