@@ -9,3 +9,14 @@ export type ProductCode =
   | 'vagrant'
   | 'vault'
   | 'waypoint'
+
+export type ProductName =
+  | 'Boundary'
+  | 'Consul'
+  | 'HashiCorp Cloud Platform'
+  | 'Nomad'
+  | 'Packer'
+  | 'Sentinel'
+  | 'Terraform'
+  | 'Vagrant'
+  | 'Vault'
