@@ -1,11 +1,24 @@
-import { KeyboardEventHandler, useLayoutEffect, useRef, useState } from 'react'
+import {
+  KeyboardEventHandler,
+  ReactElement,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
 import { useRouter } from 'next/router'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
-import { ProductCode } from 'common/types'
+import { ProductCode, ProductName } from 'common/types'
 import ProductIcon from 'components/icons/product-icon'
 import s from './style.module.css'
 
-const products: { name: string; code: ProductCode; url: string }[] = [
+interface Product {
+  name: ProductName
+  code: ProductCode
+  url: string
+}
+
+// TODO: should we put this somewhere else for easier reuse?
+const products: Product[] = [
   {
     name: 'Terraform',
     code: 'terraform',
@@ -64,7 +77,6 @@ const getAllAnchorElements = () => {
   return anchorElements
 }
 
-// TODO: make this functional (ref: https://app.asana.com/0/1201010428539925/1201247589988629/f)
 const ProductSwitcher: React.FC = () => {
   const router = useRouter()
   const currentProductCode = router.asPath.split('/')[1]
@@ -132,6 +144,54 @@ const ProductSwitcher: React.FC = () => {
     }
   }
 
+  const renderProductListItem = (
+    product: Product,
+    index: number
+  ): ReactElement => {
+    const isCurrentProduct = product.code === currentProductCode
+
+    const handleAnchorKeyDown: KeyboardEventHandler<HTMLAnchorElement> = (
+      e
+    ) => {
+      const lastIndex = products.length - 1
+      const isFirstItem = index === 0
+      const isLastItem = index === lastIndex
+      if (!(isFirstItem || isLastItem)) {
+        return
+      }
+
+      const isTabbingForward = !e.shiftKey && e.key === 'Tab'
+      const isTabbingBackward = e.shiftKey && e.key === 'Tab'
+      if (!(isTabbingForward || isTabbingBackward)) {
+        return
+      }
+
+      const anchorElements = getAllAnchorElements()
+      if (isFirstItem && isTabbingBackward) {
+        const lastAnchorElement = anchorElements[lastIndex]
+        lastAnchorElement.focus()
+        e.preventDefault()
+      } else if (isLastItem && isTabbingForward) {
+        const firstAnchorElement = anchorElements[0]
+        firstAnchorElement.focus()
+        e.preventDefault()
+      }
+    }
+
+    return (
+      <li id={`product-chooser-list-item-${product.code}`} key={product.code}>
+        <a
+          aria-current={isCurrentProduct ? 'page' : undefined}
+          href={product.url}
+          onKeyDown={handleAnchorKeyDown}
+        >
+          <ProductIcon product={product.code} />
+          <span>{product.name}</span>
+        </a>
+      </li>
+    )
+  }
+
   /**
    * I _think_ we want the containing element to be a nav, currently clashes with other
    * styles so not using that element just yet
@@ -159,53 +219,7 @@ const ProductSwitcher: React.FC = () => {
         style={{ display: isOpen ? 'block' : 'none' }}
         onKeyDown={handleKeyDown}
       >
-        {products.map((product, index) => {
-          const isCurrent = product.code === currentProductCode
-
-          const handleAnchorKeyDown: KeyboardEventHandler<HTMLAnchorElement> = (
-            e
-          ) => {
-            const lastIndex = products.length - 1
-            const isFirstItem = index === 0
-            const isLastItem = index === lastIndex
-            const isMiddleItem = !(isFirstItem || isLastItem)
-            if (isMiddleItem) {
-              return
-            }
-
-            const anchorElements = getAllAnchorElements()
-
-            if (isFirstItem && e.shiftKey && e.key === 'Tab') {
-              e.preventDefault()
-              const lastAnchorElement = anchorElements[lastIndex]
-              lastAnchorElement.focus()
-              return
-            }
-
-            if (isLastItem && !e.shiftKey && e.key === 'Tab') {
-              e.preventDefault()
-              const firstAnchorElement = anchorElements[0]
-              firstAnchorElement.focus()
-              return
-            }
-          }
-
-          return (
-            <li
-              id={`product-chooser-list-item-${product.code}`}
-              key={product.code}
-            >
-              <a
-                aria-current={isCurrent ? 'page' : undefined}
-                href={product.url}
-                onKeyDown={handleAnchorKeyDown}
-              >
-                <ProductIcon product={product.code} />
-                <span>{product.name}</span>
-              </a>
-            </li>
-          )
-        })}
+        {products.map(renderProductListItem)}
       </ul>
     </div>
   )
