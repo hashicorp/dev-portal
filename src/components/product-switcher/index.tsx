@@ -50,7 +50,7 @@ const products: Product[] = [
   {
     name: 'Waypoint',
     code: 'waypoint',
-    url: 'https://www.waypointproject.io/docs',
+    url: '/waypoint/docs',
   },
   {
     name: 'Vagrant',
