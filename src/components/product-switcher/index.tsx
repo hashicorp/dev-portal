@@ -153,7 +153,7 @@ const ProductSwitcher: React.FC = () => {
     product: Product,
     index: number
   ): ReactElement => {
-    const isCurrentProduct = product.code === currentProductCode
+    const isCurrentProduct = product.code === currentProduct.code
 
     const handleAnchorKeyDown: KeyboardEventHandler<HTMLAnchorElement> = (
       e
@@ -223,8 +223,8 @@ const ProductSwitcher: React.FC = () => {
         ref={buttonRef}
       >
         <div className={s.switcherOptionContainer}>
-          <ProductIcon product="waypoint" />
-          <span>Waypoint</span>
+          <ProductIcon product={currentProduct.code} />
+          <span>{currentProduct.name}</span>
         </div>
         <IconCaret16 className={s.switcherCaret} />
       </button>
