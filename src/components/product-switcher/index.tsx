@@ -221,8 +221,8 @@ const ProductSwitcher: React.FC = () => {
       <ul
         className={s.switcherOptionList}
         id="product-chooser-product-list"
-        style={{ display: isOpen ? 'block' : 'none' }}
         onKeyDown={handleKeyDown}
+        style={{ display: isOpen ? 'block' : 'none' }}
       >
         {products.map(renderProductListItem)}
       </ul>
