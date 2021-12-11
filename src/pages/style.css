@@ -33,3 +33,11 @@
   font-weight: 700;
   font-style: normal;
 }
+
+.focus-border-and-box-shadow {
+  &:focus {
+    border: 1px solid var(--blue-vibrant);
+    box-shadow: 0 0 0 3px #a5c2f3;
+    outline: none;
+  }
+}
