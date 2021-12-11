@@ -12,6 +12,9 @@ import { Product } from 'common/types'
 import ProductIcon from 'components/icons/product-icon'
 import s from './style.module.css'
 
+const OPTION_LIST_ID = 'product-chooser-option-list'
+const OPTION_ID_PREFIX = 'product-chooser-list-item-'
+
 // TODO: should we put this somewhere else for easier reuse?
 const products: Product[] = [
   {
@@ -66,8 +69,12 @@ const products: Product[] = [
   },
 ]
 
+const generateSwitcherOptionIdFromProduct = (product: Product) => {
+  return `${OPTION_ID_PREFIX}${product.code}`
+}
+
 const getAllAnchorElements = () => {
-  const listElement = document.getElementById('product-chooser-product-list')
+  const listElement = document.getElementById(OPTION_LIST_ID)
   const anchorElements = listElement.querySelectorAll('a')
   return anchorElements
 }
@@ -75,6 +82,9 @@ const getAllAnchorElements = () => {
 const ProductSwitcher: React.FC = () => {
   const router = useRouter()
   const currentProductCode = router.asPath.split('/')[1]
+  const currentProduct = products.find(
+    (product) => product.code === currentProductCode
+  )
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
   const buttonRef = useRef<HTMLButtonElement>()
@@ -176,7 +186,7 @@ const ProductSwitcher: React.FC = () => {
     return (
       <li
         className={s.switcherOption}
-        id={`product-chooser-list-item-${product.code}`}
+        id={generateSwitcherOptionIdFromProduct(product)}
         key={product.code}
       >
         <a
@@ -202,9 +212,9 @@ const ProductSwitcher: React.FC = () => {
   return (
     <div className={s.productSwitcher} ref={productChooserRef}>
       <button
-        aria-controls="product-chooser-product-list"
+        aria-controls={OPTION_LIST_ID}
         aria-expanded={isOpen}
-        aria-labelledby={`product-chooser-list-item-${currentProductCode}`}
+        aria-labelledby={generateSwitcherOptionIdFromProduct(currentProduct)}
         className={s.switcherButton}
         onClick={() => {
           setIsOpen(!isOpen)
@@ -220,7 +230,7 @@ const ProductSwitcher: React.FC = () => {
       </button>
       <ul
         className={s.switcherOptionList}
-        id="product-chooser-product-list"
+        id={OPTION_LIST_ID}
         onKeyDown={handleKeyDown}
         style={{ display: isOpen ? 'block' : 'none' }}
       >
