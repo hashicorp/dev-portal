@@ -1,110 +1,99 @@
 .productSwitcher {
   position: relative;
+}
 
-  & button {
-    align-items: center;
-    background-color: transparent;
-    border-radius: 4px;
-    border: 1px solid var(--gray-foreground-tertiary);
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
-    position: relative;
-    width: 220px;
+.switcherButton {
+  align-items: center;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid var(--gray-foreground-tertiary);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  position: relative;
+  width: 220px;
 
-    &:hover {
-      cursor: pointer;
-    }
-
-    /* TODO - create variables for these colors */
-    &:focus {
-      outline: none;
-      background: #06142d;
-      border: 1px solid var(--blue-vibrant);
-      box-shadow: 0 0 0 3px #0c295a;
-      border-radius: 4px;
-    }
-
-    & svg {
-      color: white;
-      height: 16px;
-      margin-right: 4px;
-      width: 16px;
-    }
-
-    & .iconAndNameContainer {
-      display: flex;
-      align-items: center;
-
-      & span {
-        color: white;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 20px;
-      }
-    }
+  &:hover {
+    cursor: pointer;
   }
 
-  & ul {
-    background-color: white;
+  /* TODO - create variables for these colors */
+  &:focus {
+    outline: none;
+    background: #06142d;
+    border: 1px solid var(--blue-vibrant);
+    box-shadow: 0 0 0 3px #0c295a;
+    border-radius: 4px;
+  }
+}
+
+.switcherCaret {
+  color: white;
+  margin-right: 4px;
+}
+
+.switcherOptionList {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px rgba(101, 106, 118, 0.15),
+    0 2px 3px rgba(101, 106, 118, 0.1),
+    0 8px 16px -10px rgba(101, 106, 118, 0.2);
+  list-style: none;
+  padding: 18px 0;
+  position: absolute;
+  margin: 0;
+  margin-top: 4px;
+  width: 262px;
+  z-index: 100;
+}
+
+.switcherOption {
+  &:not(:last-child) {
+    /* Design shows 2px, but this keeps the focus styles from showing below active sibling item */
+    margin-bottom: 3px;
+  }
+}
+
+.switcherOptionAnchor {
+  align-items: center;
+  border: 1px solid transparent;
+  color: var(--gray-foreground-primary);
+  display: flex;
+  padding: 6px 16px;
+  position: relative;
+
+  &:hover {
+    background-color: #dedfe3;
+    text-decoration: none;
+  }
+
+  /* TODO - abstract the focus style */
+  &:focus {
+    outline: none;
+    border: 1px solid var(--blue-vibrant);
+    box-sizing: border-box;
+    box-shadow: 0 0 0 3px #a5c2f3;
     border-radius: 5px;
-    box-shadow: 0 0 0 1px rgba(101, 106, 118, 0.15),
-      0 2px 3px rgba(101, 106, 118, 0.1),
-      0 8px 16px -10px rgba(101, 106, 118, 0.2);
-    list-style: none;
-    padding: 18px 0;
-    position: absolute;
-    margin: 0;
-    margin-top: 4px;
-    width: 262px;
-    z-index: 100;
+  }
 
-    & li {
-      &:not(:last-child) {
-        /* Design shows 2px, but this keeps the focus styles from showing below active sibling item */
-        margin-bottom: 3px;
-      }
+  &[aria-current='page'] {
+    background-color: var(--gray-background-secondary);
+  }
+}
 
-      & a {
-        align-items: center;
-        border: 1px solid transparent;
-        display: flex;
-        padding: 6px 16px;
-        position: relative;
+.switcherOptionContainer {
+  display: flex;
+  align-items: center;
 
-        &:hover {
-          background-color: #dedfe3;
-          text-decoration: none;
-        }
+  /* TODO: is the HashiCorp logo color correct? */
+  & svg {
+    margin-right: 4px;
+  }
 
-        /* TODO - abstract the focus style */
-        &:focus {
-          outline: none;
-          border: 1px solid var(--blue-vibrant);
-          box-sizing: border-box;
-          box-shadow: 0 0 0 3px #a5c2f3;
-          border-radius: 5px;
-        }
-
-        &[aria-current='page'] {
-          background-color: var(--gray-background-secondary);
-        }
-
-        & svg {
-          /* FIXME: color is --brand-link from a global sheet */
-          color: black;
-          height: 16px;
-          margin-right: 4px;
-          width: 16px;
-        }
-
-        & span {
-          color: var(--gray-foreground-primary);
-          font-size: 14px;
-          font-weight: 500;
-          line-height: 20px;
-        }
-      }
-    }
+  & span {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
   }
 }

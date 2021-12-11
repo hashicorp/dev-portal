@@ -6,16 +6,11 @@ import {
   useState,
 } from 'react'
 import { useRouter } from 'next/router'
+import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
-import { ProductCode, ProductName } from 'common/types'
+import { Product } from 'common/types'
 import ProductIcon from 'components/icons/product-icon'
 import s from './style.module.css'
-
-interface Product {
-  name: ProductName
-  code: ProductCode
-  url: string
-}
 
 // TODO: should we put this somewhere else for easier reuse?
 const products: Product[] = [
@@ -179,9 +174,17 @@ const ProductSwitcher: React.FC = () => {
     }
 
     return (
-      <li id={`product-chooser-list-item-${product.code}`} key={product.code}>
+      <li
+        className={s.switcherOption}
+        id={`product-chooser-list-item-${product.code}`}
+        key={product.code}
+      >
         <a
           aria-current={isCurrentProduct ? 'page' : undefined}
+          className={classNames(
+            s.switcherOptionAnchor,
+            s.switcherOptionContainer
+          )}
           href={product.url}
           onKeyDown={handleAnchorKeyDown}
         >
@@ -202,19 +205,21 @@ const ProductSwitcher: React.FC = () => {
         aria-controls="product-chooser-product-list"
         aria-expanded={isOpen}
         aria-labelledby={`product-chooser-list-item-${currentProductCode}`}
+        className={s.switcherButton}
         onClick={() => {
           setIsOpen(!isOpen)
         }}
         onKeyDown={handleKeyDown}
         ref={buttonRef}
       >
-        <div className={s.iconAndNameContainer}>
+        <div className={s.switcherOptionContainer}>
           <ProductIcon product="waypoint" />
           <span>Waypoint</span>
         </div>
-        <IconCaret16 />
+        <IconCaret16 className={s.switcherCaret} />
       </button>
       <ul
+        className={s.switcherOptionList}
         id="product-chooser-product-list"
         style={{ display: isOpen ? 'block' : 'none' }}
         onKeyDown={handleKeyDown}
