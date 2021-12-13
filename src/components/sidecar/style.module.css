@@ -23,7 +23,7 @@
 }
 
 .sidecarListItem {
-  color: var(--gray-foreground-tertiary);
+  color: var(--token-color-palette-neutral-500);
   font-size: 14px;
   line-height: 18px;
 
