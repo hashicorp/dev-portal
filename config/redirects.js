@@ -90,22 +90,7 @@ async function buildDotIoRedirects() {
   // Fetch author-oriented redirects from product repos,
   // and merge those with dev-oriented redirects from
   // within this repository
-  // ... for Waypoint
-  const rawWaypointRedirects = isContentDeployPreview('waypoint')
-    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
-    : isDeployPreview()
-    ? []
-    : await fetchGithubFile({
-        owner: 'hashicorp',
-        repo: 'waypoint',
-        path: 'website/redirects.js',
-        ref: 'stable-website',
-      })
-  const waypointAuthorRedirects = eval(rawWaypointRedirects)
-  // TODO: split non-author redirects into dev-portal,
-  // TODO: rather than leaving all redirects in the Waypoint repo
-  // TODO: intent is to do this after all products have been migrated
-  const waypointIoRedirects = [...waypointAuthorRedirects]
+
   // ... for Boundary
   const rawBoundaryRedirects = isContentDeployPreview('boundary')
     ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
@@ -122,6 +107,22 @@ async function buildDotIoRedirects() {
   // TODO: rather than leaving all redirects in the Boundary repo
   // TODO: intent is to do this after all products have been migrated
   const boundaryIoRedirects = [...boundaryAuthorRedirects]
+  // ... for Nomad
+  const rawNomadRedirects = isContentDeployPreview('nomad')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? []
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'nomad',
+        path: 'website/redirects.js',
+        ref: 'stable-website',
+      })
+  const nomadAuthorRedirects = eval(rawNomadRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the nomad repo
+  // TODO: intent is to do this after all products have been migrated
+  const nomadIoRedirects = [...nomadAuthorRedirects]
   // ... for Sentinel
   // TODO: sentinel is a private repo.
   // TODO: we need a solution to fetch specific, public-friendly
@@ -139,6 +140,22 @@ async function buildDotIoRedirects() {
   //       path: 'website/redirects.next.js',
   //       ref: 'stable-website',
   //     })
+  // ... for Waypoint
+  const rawWaypointRedirects = isContentDeployPreview('waypoint')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? []
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'waypoint',
+        path: 'website/redirects.js',
+        ref: 'stable-website',
+      })
+  const waypointAuthorRedirects = eval(rawWaypointRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Waypoint repo
+  // TODO: intent is to do this after all products have been migrated
+  const waypointIoRedirects = [...waypointAuthorRedirects]
   const rawSentinelRedirects = [
     {
       source: '/',
@@ -161,8 +178,9 @@ async function buildDotIoRedirects() {
     ...devPortalToDotIoRedirects,
     ...dotIoToDevPortalRedirects,
     ...addHostCondition(boundaryIoRedirects, 'boundary'),
-    ...addHostCondition(waypointIoRedirects, 'waypoint'),
+    ...addHostCondition(nomadIoRedirects, 'nomad'),
     ...addHostCondition(sentinelIoRedirects, 'sentinel'),
+    ...addHostCondition(waypointIoRedirects, 'waypoint'),
   ]
 }
 
