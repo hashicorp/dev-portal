@@ -34,7 +34,7 @@ async function migrateVaultIo() {
       description:
         'Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, auditing, and provides secrets as a service through a unified API.',
       image: '/vault/img/og-image.png',
-      icon: [{ href: '/vault/img/favicon/_favicon.ico' }],
+      icon: [{ href: '/_vault-favicon.ico' }],
     },
     // TODO: parse alertBanner from _app.js
     alertBannerActive: true,
@@ -221,7 +221,8 @@ async function migrateVaultIo() {
   //
   const assetsToCopy = [
     // meta images
-    '/img/favicons/favicon.ico',
+    // '/img/favicons/favicon.ico', NOTE: actually a Consul favicon
+    // Favicon has been manually added as _vault-favicon.ico in public folder
     '/img/og-image.png',
     // press kit
     // note: we have a redirect in place to allow consistent URL
