@@ -110,6 +110,7 @@ async function setupIoLayout({ layoutDir, productData }) {
 
 async function setupSecurityPage({ pagesDir, productData }) {
   const { name, slug } = productData
+  fs.mkdirSync(path.join(pagesDir, 'security'), { recursive: true })
   // copy template into place
   await exec(
     `cp -r ./scripts/migrate-io/templates/security.tsx ${pagesDir}/security/index.tsx`
@@ -128,10 +129,12 @@ function addProxyLayout(fileString, pageName, productData) {
   const { name, slug } = productData
   const layoutName = `${name}IoLayout`
   const layoutPath = `layouts/_proxied-dot-io/${slug}`
-  return `import ${layoutName} from '${layoutPath}'\n${fileString.replace(
-    `export default function ${pageName}`,
-    `function ${pageName}`
-  )}\n${pageName}.layout = ${layoutName}\nexport default ${pageName}\n`
+  return `import ${layoutName} from '${layoutPath}'\n${fileString
+    .replace(`export default function ${pageName}`, `function ${pageName}`)
+    .replace(
+      `export default ${pageName}`,
+      ''
+    )}\n${pageName}.layout = ${layoutName}\nexport default ${pageName}\n`
 }
 
 async function editFile(filePath, editFn) {
