@@ -9,6 +9,7 @@
     "start:boundary": "DEV_IO=boundary npm run start",
     "start:nomad": "DEV_IO=nomad npm run start",
     "start:sentinel": "DEV_IO=sentinel npm run start",
+    "start:vault": "DEV_IO=vault npm run start",
     "start:waypoint": "DEV_IO=waypoint npm run start",
     "migrate:boundary": "node ./scripts/migrate-io/migrate-boundary.js",
     "migrate:nomad": "node ./scripts/migrate-io/migrate-nomad.js",
