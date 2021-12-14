@@ -24,6 +24,6 @@ export type ProductName =
 
 export interface Product {
   name: ProductName
-  code: ProductSlug
+  slug: ProductSlug
   url: string
 }

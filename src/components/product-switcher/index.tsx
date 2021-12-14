@@ -10,67 +10,14 @@ import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { Product } from 'common/types'
 import ProductIcon from 'components/icons/product-icon'
+import { products } from '../../../config/products'
 import s from './style.module.css'
 
 const OPTION_LIST_ID = 'product-chooser-option-list'
 const OPTION_ID_PREFIX = 'product-chooser-list-item-'
 
-// TODO: should we put this somewhere else for easier reuse?
-const products: Product[] = [
-  {
-    name: 'Terraform',
-    code: 'terraform',
-    url: 'https://www.terraform.io/docs/index.html',
-  },
-  {
-    name: 'Packer',
-    code: 'packer',
-    url: 'https://www.packer.io/docs',
-  },
-  {
-    name: 'Consul',
-    code: 'consul',
-    url: 'https://www.consul.io/docs',
-  },
-  {
-    name: 'Vault',
-    code: 'vault',
-    url: 'https://www.vaultproject.io/docs',
-  },
-  {
-    name: 'Boundary',
-    code: 'boundary',
-    url: 'https://www.boundaryproject.io/docs',
-  },
-  {
-    name: 'Nomad',
-    code: 'nomad',
-    url: 'https://www.nomadproject.io/docs',
-  },
-  {
-    name: 'Waypoint',
-    code: 'waypoint',
-    url: '/waypoint/docs',
-  },
-  {
-    name: 'Vagrant',
-    code: 'vagrant',
-    url: 'https://www.vagrantup.com/docs',
-  },
-  {
-    name: 'Sentinel',
-    code: 'sentinel',
-    url: 'https://docs.hashicorp.com/sentinel',
-  },
-  {
-    name: 'HashiCorp Cloud Platform',
-    code: 'hcp',
-    url: 'https://cloud.hashicorp.com/docs/hcp',
-  },
-]
-
 const generateSwitcherOptionIdFromProduct = (product: Product) => {
-  return `${OPTION_ID_PREFIX}${product.code}`
+  return `${OPTION_ID_PREFIX}${product.slug}`
 }
 
 const getAllAnchorElements = () => {
@@ -83,7 +30,7 @@ const ProductSwitcher: React.FC = () => {
   const router = useRouter()
   const currentProductCode = router.asPath.split('/')[1]
   const currentProduct = products.find(
-    (product) => product.code === currentProductCode
+    (product) => product.slug === currentProductCode
   )
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
@@ -153,7 +100,7 @@ const ProductSwitcher: React.FC = () => {
     product: Product,
     index: number
   ): ReactElement => {
-    const isCurrentProduct = product.code === currentProduct.code
+    const isCurrentProduct = product.slug === currentProduct.slug
 
     const handleAnchorKeyDown: KeyboardEventHandler<HTMLAnchorElement> = (
       e
@@ -187,7 +134,7 @@ const ProductSwitcher: React.FC = () => {
       <li
         className={s.switcherOption}
         id={generateSwitcherOptionIdFromProduct(product)}
-        key={product.code}
+        key={product.slug}
       >
         <a
           aria-current={isCurrentProduct ? 'page' : undefined}
@@ -198,7 +145,7 @@ const ProductSwitcher: React.FC = () => {
           href={product.url}
           onKeyDown={handleAnchorKeyDown}
         >
-          <ProductIcon product={product.code} />
+          <ProductIcon product={product.slug} />
           <span>{product.name}</span>
         </a>
       </li>
@@ -223,7 +170,7 @@ const ProductSwitcher: React.FC = () => {
         ref={buttonRef}
       >
         <div className={s.switcherOptionContainer}>
-          <ProductIcon product={currentProduct.code} />
+          <ProductIcon product={currentProduct.slug} />
           <span>{currentProduct.name}</span>
         </div>
         <IconCaret16 className={s.switcherCaret} />
