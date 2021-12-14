@@ -15,7 +15,7 @@ interface ProductIconProps {
   product: ProductSlug
 }
 
-// TODO: what logos for hcp & sentinel?
+// TODO: remove logo for sentinel
 const productNamesToIcons: { [key in ProductSlug]: ReactElement } = {
   boundary: <IconBoundaryColor16 />,
   consul: <IconConsulColor16 />,

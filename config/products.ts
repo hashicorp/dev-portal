@@ -1,5 +1,5 @@
 import capitalize from '@hashicorp/platform-util/text/capitalize'
-import { Product, ProductSlug } from 'common/types'
+import { ProductGroup, ProductSlug } from 'common/types'
 
 /**
  * Holds the product slugs in the order ProductSwitcher will render them.
@@ -7,16 +7,12 @@ import { Product, ProductSlug } from 'common/types'
  *  - TODO: handle groups to render a horizontal rule
  */
 const productSwitcherSlugs = [
-  'terraform',
-  'packer',
-  'vagrant',
-  'vault',
-  'boundary',
-  'consul',
-  'nomad',
-  'waypoint',
-  'hcp',
-  'sentinel',
+  ['terraform', 'packer', 'vagrant'],
+  ['vault', 'boundary'],
+  ['consul'],
+  ['nomad', 'waypoint'],
+  ['hcp'],
+  ['sentinel'],
 ]
 
 /**
@@ -39,14 +35,17 @@ const productSlugsToUrls: { [key in ProductSlug]: string } = {
 /**
  * Generates an array of Product objects from
  */
-const products: Product[] = productSwitcherSlugs.map((slug) => {
-  const name = slug === 'hcp' ? 'HashiCorp Cloud Platform' : capitalize(slug)
-  const url = productSlugsToUrls[slug]
-  return {
-    name,
-    slug,
-    url,
-  }
+const products: ProductGroup[] = productSwitcherSlugs.map((slugGroup) => {
+  const productGroup = slugGroup.map((slug: ProductSlug) => {
+    const name = slug === 'hcp' ? 'HashiCorp Cloud Platform' : capitalize(slug)
+    const url = productSlugsToUrls[slug]
+    return {
+      name,
+      slug,
+      url,
+    }
+  })
+  return productGroup
 })
 
 export { products }

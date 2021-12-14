@@ -1,4 +1,5 @@
 import {
+  Fragment,
   KeyboardEventHandler,
   ReactElement,
   useLayoutEffect,
@@ -8,7 +9,7 @@ import {
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
-import { Product } from 'common/types'
+import { Product, ProductGroup, ProductSlug } from 'common/types'
 import ProductIcon from 'components/icons/product-icon'
 import { products } from '../../../config/products'
 import s from './style.module.css'
@@ -28,14 +29,21 @@ const getAllAnchorElements = () => {
 
 const ProductSwitcher: React.FC = () => {
   const router = useRouter()
-  const currentProductCode = router.asPath.split('/')[1]
-  const currentProduct = products.find(
-    (product) => product.slug === currentProductCode
-  )
+  const currentProductSlug = router.asPath.split('/')[1] as ProductSlug
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
   const buttonRef = useRef<HTMLButtonElement>()
   const shouldFocusFirstAnchor = useRef<boolean>(false)
+
+  let currentProduct: Product
+  products.find((productGroup) =>
+    productGroup.find((product) => {
+      if (product.slug === currentProductSlug) {
+        currentProduct = product
+        return true
+      }
+    })
+  )
 
   useLayoutEffect(() => {
     if (!isOpen) {
@@ -152,6 +160,16 @@ const ProductSwitcher: React.FC = () => {
     )
   }
 
+  const renderProductGroup = (productGroup: ProductGroup, index: number) => {
+    const shouldRenderHorizontalRule = index > 0
+    return (
+      <ul key={`product-group-${index}`} role="group">
+        {shouldRenderHorizontalRule && <hr />}
+        {productGroup.map(renderProductListItem)}
+      </ul>
+    )
+  }
+
   /**
    * I _think_ we want the containing element to be a nav, currently clashes with other
    * styles so not using that element just yet
@@ -181,7 +199,7 @@ const ProductSwitcher: React.FC = () => {
         onKeyDown={handleKeyDown}
         style={{ display: isOpen ? 'block' : 'none' }}
       >
-        {products.map(renderProductListItem)}
+        {products.map(renderProductGroup)}
       </ul>
     </div>
   )
