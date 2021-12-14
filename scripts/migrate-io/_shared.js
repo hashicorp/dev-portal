@@ -110,6 +110,7 @@ async function setupIoLayout({ layoutDir, productData }) {
 
 async function setupSecurityPage({ pagesDir, productData }) {
   const { name, slug } = productData
+  fs.mkdirSync(path.join(pagesDir, 'security'), { recursive: true })
   // copy template into place
   await exec(
     `cp -r ./scripts/migrate-io/templates/security.tsx ${pagesDir}/security/index.tsx`

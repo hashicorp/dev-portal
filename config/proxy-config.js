@@ -36,11 +36,11 @@ module.exports = {
   //   host: 'test-vg.hashi-mktg.com',
   //   assets: [],
   // },
-  // vault: {
-  //   domain: 'https://test-vt.hashi-mktg.com',
-  //   host: 'test-vt.hashi-mktg.com',
-  //   assets: [],
-  // },
+  vault: {
+    domain: 'https://test-vt.hashi-mktg.com',
+    host: 'test-vt.hashi-mktg.com',
+    assets: ['/files/press-kit.zip'],
+  },
   waypoint: {
     // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
     domain: 'https://wp.snarglepuss.com',

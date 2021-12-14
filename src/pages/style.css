@@ -9,6 +9,11 @@
 @import '../components/_proxied-dot-io/sentinel/Footer/style.css';
 @import '../components/_proxied-dot-io/sentinel/NewsletterSignupForm/style.css';
 
+/* Proxied Vault page styles */
+@import './_proxied-dot-io/vault/use-cases/style.css';
+@import '../components/_proxied-dot-io/vault/footer/style.css';
+@import '../components/_proxied-dot-io/vault/use-case-cta-section/style.css';
+
 /* Print Styles */
 @import './print.css';
 
@@ -36,4 +41,49 @@
     url('/fonts/klavika/medium.woff') format('woff');
   font-weight: 700;
   font-style: normal;
+}
+
+/* VAULT */
+/*
+ * Layout Styles
+ *
+ * Note: this is possibly debt we want to replace.
+ * ref: https://app.asana.com/0/1100423001970639/1200768863236365/f
+ */
+.g-section-block section {
+  padding-top: 96px;
+  padding-bottom: 96px;
+
+  & > .g-section-header + *,
+  & > .g-grid-container > .g-section-header + * {
+    margin-top: 72px;
+  }
+
+  &:not(.no-section-spacing) > * + *,
+  &:not(.g-featured-slider-section) > .g-grid-container > * + * {
+    margin-top: 96px;
+  }
+}
+
+.g-section-block .button-container {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin: auto -8px -16px;
+}
+
+.g-section-block section > * + .button-container,
+.g-section-block section > .g-grid-container > * + .button-container {
+  margin-top: 40px;
+}
+
+.g-section-block .button-container > * {
+  margin: auto 8px 16px;
+}
+
+.g-section-block.theme-black-background-white-text {
+  background: var(--gray-1);
+  color: white;
 }

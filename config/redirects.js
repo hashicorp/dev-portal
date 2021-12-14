@@ -156,6 +156,22 @@ async function buildDotIoRedirects() {
   ]
   const sentinelAuthorRedirects = eval(rawSentinelRedirects)
   const sentinelIoRedirects = [...sentinelAuthorRedirects]
+
+  const rawVaultRedirects = isContentDeployPreview('vault')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? []
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'vault',
+        path: 'website/redirects.next.js',
+        ref: 'stable-website',
+      })
+  const vaultAuthorRedirects = eval(rawVaultRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Waypoint repo
+  // TODO: intent is to do this after all products have been migrated
+  const vaultIoRedirects = [...vaultAuthorRedirects]
   // TODO ... consolidate redirects for other products
   return [
     ...devPortalToDotIoRedirects,
@@ -163,6 +179,7 @@ async function buildDotIoRedirects() {
     ...addHostCondition(boundaryIoRedirects, 'boundary'),
     ...addHostCondition(waypointIoRedirects, 'waypoint'),
     ...addHostCondition(sentinelIoRedirects, 'sentinel'),
+    ...addHostCondition(vaultIoRedirects, 'vault'),
   ]
 }
 
