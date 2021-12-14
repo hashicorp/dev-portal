@@ -1,29 +1,9 @@
-export type ProductSlug =
-  | 'boundary'
-  | 'consul'
-  | 'hcp'
-  | 'nomad'
-  | 'packer'
-  | 'sentinel'
-  | 'terraform'
-  | 'vagrant'
-  | 'vault'
-  | 'waypoint'
+import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
 
-export type ProductName =
-  | 'Boundary'
-  | 'Consul'
-  | 'HashiCorp Cloud Platform'
-  | 'Nomad'
-  | 'Packer'
-  | 'Sentinel'
-  | 'Terraform'
-  | 'Vagrant'
-  | 'Vault'
-  | 'Waypoint'
+type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 
-export interface Product {
-  name: ProductName
-  slug: ProductSlug
+interface Product extends ProductMeta {
   url: string
 }
+
+export type { Product, ProductSlug }
