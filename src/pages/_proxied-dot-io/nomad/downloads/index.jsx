@@ -1,10 +1,10 @@
-import VERSION from 'data/version'
-import { productSlug } from 'data/metadata'
+import NomadIoLayout from 'layouts/_proxied-dot-io/nomad'
+import productData from 'data/nomad'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
 import s from './style.module.css'
 
-export default function DownloadsPage(staticProps) {
+function DownloadsPage(staticProps) {
   return (
     <ProductDownloadsPage
       getStartedDescription="Follow step-by-step tutorials on the essentials of Nomad."
@@ -44,7 +44,10 @@ export default function DownloadsPage(staticProps) {
 
 export async function getStaticProps() {
   return generateStaticProps({
-    product: productSlug,
-    latestVersion: VERSION,
+    product: productData.slug,
+    latestVersion: productData.version,
   })
 }
+
+DownloadsPage.layout = NomadIoLayout
+export default DownloadsPage

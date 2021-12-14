@@ -6,7 +6,7 @@ import { isVersionedDocsEnabled } from 'lib/env-checks'
 import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 
 const product = { name: productData.name, slug: productData.slug }
-const basePath = 'tools'
+const basePath = 'api-docs'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const localPartialsDir = `../content/partials`

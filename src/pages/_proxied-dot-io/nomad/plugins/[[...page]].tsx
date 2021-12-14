@@ -1,42 +1,52 @@
-import { productName, productSlug } from 'data/metadata'
+import NomadIoLayout from 'layouts/_proxied-dot-io/nomad'
 import DocsPage from '@hashicorp/react-docs-page'
-import {
-  generateStaticPaths,
-  generateStaticProps,
-} from '@hashicorp/react-docs-page/server'
+import productData from 'data/nomad.json'
+import { isVersionedDocsEnabled } from 'lib/env-checks'
+// Imports below are used in getStatic functions only
+import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 
-const NAV_DATA_FILE = 'data/plugins-nav-data.json'
-const CONTENT_DIR = 'content/plugins'
+const product = { name: productData.name, slug: productData.slug }
 const basePath = 'plugins'
+const navDataFile = `../data/${basePath}-nav-data.json`
+const localContentDir = `../content/${basePath}`
+const localPartialsDir = `../content/partials`
+const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
+const additionalComponents = {}
 
-export default function DocsLayout(props) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+function DocsView(props) {
   return (
     <DocsPage
-      product={{ name: productName, slug: productSlug }}
+      product={product}
       baseRoute={basePath}
       staticProps={props}
+      additionalComponents={additionalComponents}
+      showVersionSelect={enableVersionedDocs}
+      algoliaConfig={productData.algoliaConfig}
     />
   )
 }
 
-export async function getStaticPaths() {
-  return {
-    fallback: false,
-    paths: await generateStaticPaths({
-      navDataFile: NAV_DATA_FILE,
-      localContentDir: CONTENT_DIR,
-    }),
-  }
-}
+const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
+  enableVersionedDocs
+    ? {
+        strategy: 'remote',
+        basePath,
+        fallback: 'blocking',
+        revalidate: 360, // 1 hour
+        product: productData.slug,
+      }
+    : {
+        strategy: 'fs',
+        localContentDir,
+        navDataFile,
+        localPartialsDir,
+        product: productData.slug,
+      }
+)
 
-export async function getStaticProps({ params }) {
-  return {
-    props: await generateStaticProps({
-      navDataFile: NAV_DATA_FILE,
-      localContentDir: CONTENT_DIR,
-      product: { name: productName, slug: productSlug },
-      params,
-      basePath: basePath,
-    }),
-  }
-}
+// Export getStatic functions
+export { getStaticPaths, getStaticProps }
+// Export view with layout
+DocsView.layout = NomadIoLayout
+export default DocsView

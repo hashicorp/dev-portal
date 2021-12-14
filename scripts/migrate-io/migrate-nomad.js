@@ -11,6 +11,7 @@ const {
   setupDocsRoute,
   setupProductMigration,
   setupIoLayout,
+  setupSecurityPage,
 } = require('./_shared')
 
 migrateNomadIo()
@@ -47,7 +48,7 @@ async function migrateNomadIo() {
     subnavItems: evalDataFile(path.join(repoDirs.data, 'subnav.js')),
   }
   // write product data to file
-  await exec(`rm -rf ./src/data/${slug}.json`)
+  await exec(`rm -f ./src/data/${slug}.json`)
   fs.writeFileSync(
     `./src/data/${slug}.json`,
     JSON.stringify(productData, null, 2) + '\n',
@@ -114,7 +115,7 @@ async function migrateNomadIo() {
     return contents
       .replace(
         "import subnavItems from '../../data/subnav'\n",
-        "import productData from 'data/sentinel'\n"
+        "import productData from 'data/nomad'\n"
       )
       .replace(/subnavItems/g, 'productData.subnavItems')
   })
@@ -149,10 +150,11 @@ async function migrateNomadIo() {
     'print.css',
     'style.css',
     'index.jsx',
+    'not-found',
   ]
   for (let i = 0; i < filesToDelete.length; i++) {
     const filepath = path.join(destDirs.pages, filesToDelete[i])
-    await exec(`rm -f ${filepath}`)
+    await exec(`rm -rf ${filepath}`)
   }
   //
   // HOME PAGE
@@ -183,6 +185,47 @@ async function migrateNomadIo() {
     // return
     return newContents
   })
-
-  console.log({ repoDirs, destDirs })
+  //
+  // DOCS routes
+  //
+  const docsRoutes = ['api-docs', 'docs', 'intro', 'plugins', 'tools']
+  for (var i = 0; i < docsRoutes.length; i++) {
+    const basePath = docsRoutes[i]
+    // delete existing docs page
+    await exec(
+      `rm -f ${path.join(destDirs.pages, basePath, '[[...page]].jsx')}`
+    )
+    // use template
+    await setupDocsRoute({
+      pagesDir: destDirs.pages,
+      basePath,
+      productData,
+    })
+  }
+  //
+  // COMMUNITY PAGE
+  //
+  await editFile(`${destDirs.pages}/community/index.jsx`, (contents) => {
+    return addProxyLayout(contents, 'CommunityPage', productData)
+  })
+  //
+  // DOWNLOADS PAGE
+  //
+  await editFile(`${destDirs.pages}/downloads/index.jsx`, (contents) => {
+    let newContents = contents
+      .replace(
+        "import VERSION from 'data/version'\nimport { productSlug } from 'data/metadata'",
+        "import productData from 'data/nomad'"
+      )
+      .replace(/productSlug/g, 'productData.slug')
+      .replace('latestVersion: VERSION', 'latestVersion: productData.version')
+    newContents = addProxyLayout(newContents, 'DownloadsPage', productData)
+    return newContents
+  })
+  //
+  // SECURITY PAGE
+  //
+  // delete existing security page, we'll use a template
+  await exec(`rm -f ${path.join(destDirs.pages, 'security', 'index.jsx')}`)
+  await setupSecurityPage({ pagesDir: destDirs.pages, productData })
 }
