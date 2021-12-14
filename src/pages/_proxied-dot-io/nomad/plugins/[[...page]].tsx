@@ -27,7 +27,7 @@ function DocsView(props) {
   )
 }
 
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
+const staticGenFns = getStaticGenerationFunctions(
   enableVersionedDocs
     ? {
         strategy: 'remote',
@@ -46,7 +46,22 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
 )
 
 // Export getStatic functions
-export { getStaticPaths, getStaticProps }
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function getStaticPaths(ctx) {
+  // TODO: content is not yet extracted, because
+  // TODO: this docs path does not exist on stable-website,
+  // TODO: only on main (unreleased).
+  // TODO: need to consider what approach we'll take
+  // TODO: during migration if website code on main
+  // TODO: is significantly different (slash breaks)
+  // TODO: compared to website code on stable-website.
+  if (enableVersionedDocs) return { paths: [], fallback: 'blocking' }
+  return staticGenFns.getStaticPaths(ctx)
+}
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function getStaticProps(ctx) {
+  return staticGenFns.getStaticProps(ctx)
+}
 // Export view with layout
 DocsView.layout = NomadIoLayout
 export default DocsView

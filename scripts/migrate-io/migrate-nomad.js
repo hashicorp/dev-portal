@@ -45,7 +45,15 @@ async function migrateNomadIo() {
     alertBannerActive: false,
     alertBanner: evalDataFile(path.join(repoDirs.data, 'alert-banner.js')),
     version: evalDataFile(path.join(repoDirs.data, 'version.js')),
-    subnavItems: evalDataFile(path.join(repoDirs.data, 'subnav.js')),
+    // TODO: note that subnav items on nomad main branch
+    // TODO: include /plugins and /tools docs paths.
+    // TODO: content has not been extracted yet,
+    // TODO: so we remove these subnav items, for now.
+    subnavItems: evalDataFile(path.join(repoDirs.data, 'subnav.js')).filter(
+      (item) => {
+        return item.url !== '/plugins' && item.url !== '/tools'
+      }
+    ),
   }
   // write product data to file
   await exec(`rm -f ./src/data/${slug}.json`)
@@ -151,6 +159,10 @@ async function migrateNomadIo() {
     'style.css',
     'index.jsx',
     'not-found',
+    // TODO: note that this is live on the current website,
+    // TODO: but dropped on main. We're going with the
+    // TODO: dropped-on-main version.
+    'use-cases',
   ]
   for (let i = 0; i < filesToDelete.length; i++) {
     const filepath = path.join(destDirs.pages, filesToDelete[i])
@@ -201,6 +213,41 @@ async function migrateNomadIo() {
       basePath,
       productData,
     })
+  }
+  // TODO: temporary fix for docs routes that
+  // TODO: haven't been ETL'd yet
+  for (var i = 3; i < docsRoutes.length; i++) {
+    const basePath = docsRoutes[i]
+    await editFile(
+      path.join(destDirs.pages, basePath, '[[...page]].tsx'),
+      (contents) => {
+        let newContents = contents
+        // replace component import paths
+        newContents = newContents
+          .replace('{ getStaticPaths, getStaticProps }', `staticGenFns`)
+          .replace(
+            'export { getStaticPaths, getStaticProps }\n',
+            `// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function getStaticPaths(ctx) {
+  // TODO: content is not yet extracted, because
+  // TODO: this docs path does not exist on stable-website,
+  // TODO: only on main (unreleased).
+  // TODO: need to consider what approach we'll take
+  // TODO: during migration if website code on main
+  // TODO: is significantly different (slash breaks)
+  // TODO: compared to website code on stable-website.
+  if (enableVersionedDocs) return { paths: [], fallback: 'blocking' }
+  return staticGenFns.getStaticPaths(ctx)
+}
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function getStaticProps(ctx) {
+  return staticGenFns.getStaticProps(ctx)
+}\n`
+          )
+        // return
+        return newContents
+      }
+    )
   }
   //
   // COMMUNITY PAGE
