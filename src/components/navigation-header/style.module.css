@@ -1,6 +1,6 @@
 .navigationHeader {
-  background-color: var(--navigation-header-background);
-  color: white;
+  background-color: var(--token-color-palette-neutral-700);
+  color: var(--token-color-palette-neutral-0);
   height: var(--navigation-header-height);
   padding: 20px 24px;
 
@@ -33,20 +33,25 @@
   list-style: none;
   margin-bottom: 0;
   margin-left: 0;
-  margin-right: 56px;
+  margin-right: 72px;
   margin-top: 0;
 
   & li {
     padding: 8px 12px;
 
     & a {
-      color: var(--navigation-header-link-color);
+      color: var(--token-color-palette-neutral-400);
       font-size: 14px;
-      line-height: 16px;
+      font-weight: 500;
+      line-height: 20px;
 
+      /* TODO: ask design about hover state */
       &:hover {
-        cursor: pointer;
-        text-decoration: underline;
+        color: var(--token-color-palette-neutral-300);
+      }
+
+      &[aria-current='page'] {
+        color: var(--token-color-palette-neutral-100);
       }
     }
   }
