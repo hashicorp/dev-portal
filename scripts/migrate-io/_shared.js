@@ -181,7 +181,11 @@ async function patchSubnav(filepath) {
  */
 function evalDataFile(filePath) {
   const fileString = fs.readFileSync(filePath, 'utf-8')
-  return eval(fileString.replace('export default ', 'module.exports = '))
+  return eval(
+    fileString
+      .replace('export default ', 'module.exports = ')
+      .replace('export const', 'const')
+  )
 }
 
 module.exports = {

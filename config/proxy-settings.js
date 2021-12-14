@@ -12,12 +12,12 @@ module.exports = {
       ...buildAssetRoutesToProxy(proxyConfig.boundary.assets, '/boundary'),
     ],
   },
-  waypoint: {
-    domain: proxyConfig.waypoint.domain,
-    host: proxyConfig.waypoint.host,
+  nomad: {
+    domain: proxyConfig.nomad.domain,
+    host: proxyConfig.nomad.host,
     routesToProxy: [
-      ...gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
-      ...buildAssetRoutesToProxy(proxyConfig.waypoint.assets, '/waypoint'),
+      ...gatherRoutesToProxy('/_proxied-dot-io/nomad'),
+      ...buildAssetRoutesToProxy(proxyConfig.nomad.assets, '/nomad'),
     ],
   },
   sentinel: {
@@ -26,6 +26,14 @@ module.exports = {
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/sentinel'),
       ...buildAssetRoutesToProxy(proxyConfig.sentinel.assets, '/sentinel'),
+    ],
+  },
+  waypoint: {
+    domain: proxyConfig.waypoint.domain,
+    host: proxyConfig.waypoint.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
+      ...buildAssetRoutesToProxy(proxyConfig.waypoint.assets, '/waypoint'),
     ],
   },
 }
