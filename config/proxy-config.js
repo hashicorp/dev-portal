@@ -10,11 +10,11 @@ module.exports = {
   //   host: 'test-cs.hashi-mktg.com',
   //   assets: [],
   // },
-  // nomad: {
-  //   domain: 'https://test-nm.hashi-mktg.com',
-  //   host: 'test-nm.hashi-mktg.com',
-  //   assets: [],
-  // },
+  nomad: {
+    domain: 'https://test-nm.hashi-mktg.com',
+    host: 'test-nm.hashi-mktg.com',
+    assets: ['/files/press-kit.zip'],
+  },
   // packer: {
   //   domain: 'https://test-pk.hashi-mktg.com',
   //   host: 'test-pk.hashi-mktg.com',

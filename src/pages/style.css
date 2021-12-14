@@ -14,6 +14,15 @@
 @import '../components/_proxied-dot-io/vault/footer/style.css';
 @import '../components/_proxied-dot-io/vault/use-case-cta-section/style.css';
 
+/* Proxied Nomad page styles */
+@import './_proxied-dot-io/nomad/home/style.css';
+@import '../components/_proxied-dot-io/nomad/case-study-carousel/style.css';
+@import '../components/_proxied-dot-io/nomad/footer/style.css';
+@import '../components/_proxied-dot-io/nomad/features-list/style.css';
+@import '../components/_proxied-dot-io/nomad/footer/style.css';
+@import '../components/_proxied-dot-io/nomad/homepage-hero/style.css';
+@import '../components/_proxied-dot-io/nomad/mini-cta/style.css';
+
 /* Print Styles */
 @import './print.css';
 

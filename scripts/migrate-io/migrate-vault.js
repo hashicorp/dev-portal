@@ -3,6 +3,7 @@ const util = require('util')
 const path = require('path')
 const exec = util.promisify(require('child_process').exec)
 const {
+  addGlobalStyles,
   addProxyLayout,
   editFile,
   patchSubnav,
@@ -10,7 +11,6 @@ const {
   setupProductMigration,
   setupSecurityPage,
   setupIoLayout,
-  addGlobalStyles,
 } = require('./_shared')
 
 migrateVaultIo()
