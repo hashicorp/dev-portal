@@ -3,14 +3,13 @@ import Link from 'next/link'
 import Button from '@hashicorp/react-button'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
-import { VERSION, CHANGELOG_URL } from 'data/version'
-import { productSlug } from 'data/metadata'
+import productData from 'data/vault'
 import s from './style.module.css'
 
 function DownloadsPage(staticProps) {
-  const changelogUrl = CHANGELOG_URL.length
-    ? CHANGELOG_URL
-    : `https://github.com/hashicorp/vault/blob/v${VERSION}/CHANGELOG.md`
+  const changelogUrl = productData.changelogUrl.length
+    ? productData.changelogUrl
+    : `https://github.com/hashicorp/vault/blob/v${productData.version}/CHANGELOG.md`
 
   return (
     <ProductDownloadsPage
@@ -64,7 +63,7 @@ function DownloadsPage(staticProps) {
 
 export function getStaticProps() {
   return generateStaticProps({
-    product: productSlug,
+    product: productData.slug,
     latestVersion: productData.version,
   })
 }

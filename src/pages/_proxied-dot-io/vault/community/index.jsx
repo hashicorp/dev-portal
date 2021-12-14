@@ -43,7 +43,5 @@ function CommunityPage() {
   )
 }
 
-export default CommunityPage
-
 CommunityPage.layout = VaultIoLayout
 export default CommunityPage

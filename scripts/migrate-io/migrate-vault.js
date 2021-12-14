@@ -20,6 +20,8 @@ async function migrateVaultIo() {
     name: 'Vault',
     slug: 'vault',
     version: '1.9.1',
+    changelogUrl:
+      'https://github.com/hashicorp/vault/blob/main/CHANGELOG.md#191',
     // TODO: confirm this is a decent place for this info
     algoliaConfig: {
       indexName: 'product_VAULT',
@@ -375,6 +377,19 @@ export default FooterWithProps\n`
     productData,
   })
   //
+  // INTRO
+  //
+  // delete existing docs page
+  await exec(
+    `rm -f ${path.join(destDirs.pages, 'intro', '\\[\\[...page\\]\\].jsx')}`
+  )
+  // use standardized template
+  await setupDocsRoute({
+    pagesDir: destDirs.pages,
+    basePath: 'intro',
+    productData,
+  })
+  //
   // COMMUNITY
   //
   await editFile(`${destDirs.pages}/community/index.jsx`, (contents) => {
@@ -385,12 +400,9 @@ export default FooterWithProps\n`
   //
   await editFile(`${destDirs.pages}/downloads/index.jsx`, (contents) => {
     let newContents = contents
+      .replace("import { VERSION, CHANGELOG_URL } from 'data/version'\n", '')
       .replace(
-        "import VERSION, { packageManagers } from 'data/version.js'\n",
-        ''
-      )
-      .replace(
-        "import { productName, productSlug } from 'data/metadata'",
+        "import { productSlug } from 'data/metadata'",
         "import productData from 'data/vault'"
       )
       .replace('productName={productName}', 'productName={productData.name}')
@@ -401,6 +413,9 @@ export default FooterWithProps\n`
       )
       .replace('latestVersion={VERSION}', 'latestVersion={productData.version}')
       .replace('latestVersion: VERSION,', 'latestVersion: productData.version,')
+      .replace(/CHANGELOG_URL/g, 'productData.changelogUrl')
+      .replace(/VERSION/g, 'productData.version')
+      .replace(/productSlug/g, 'productData.slug')
 
     newContents = addProxyLayout(newContents, 'DownloadsPage', productData)
     return newContents
@@ -410,6 +425,7 @@ export default FooterWithProps\n`
   //
   // delete existing security page, we'll use a standardized template
   await exec(`rm -f ${path.join(destDirs.pages, 'security', 'index.jsx')}`)
+  await exec(`rm -f ${path.join(destDirs.pages, 'security.jsx')}`)
   await setupSecurityPage({ pagesDir: destDirs.pages, productData })
 
   /**

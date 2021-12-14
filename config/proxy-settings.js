@@ -28,6 +28,14 @@ module.exports = {
       ...buildAssetRoutesToProxy(proxyConfig.sentinel.assets, '/sentinel'),
     ],
   },
+  vault: {
+    domain: proxyConfig.vault.domain,
+    host: proxyConfig.vault.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/vault'),
+      ...buildAssetRoutesToProxy(proxyConfig.vault.assets, '/vault'),
+    ],
+  },
   waypoint: {
     domain: proxyConfig.waypoint.domain,
     host: proxyConfig.waypoint.host,
