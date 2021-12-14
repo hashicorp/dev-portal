@@ -8,15 +8,15 @@ import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terrafor
 import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-color-16'
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
-import { ProductCode } from 'common/types'
+import { ProductSlug } from 'common/types'
 
 // TODO: is there a programatic way to build this from productNamesToIcons?
 interface ProductIconProps {
-  product: ProductCode
+  product: ProductSlug
 }
 
 // TODO: what logos for hcp & sentinel?
-const productNamesToIcons: { [key in ProductCode]: ReactElement } = {
+const productNamesToIcons: { [key in ProductSlug]: ReactElement } = {
   boundary: <IconBoundaryColor16 />,
   consul: <IconConsulColor16 />,
   hcp: <IconHashicorp16 />,

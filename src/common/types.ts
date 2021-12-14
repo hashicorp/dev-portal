@@ -1,4 +1,4 @@
-export type ProductCode =
+export type ProductSlug =
   | 'boundary'
   | 'consul'
   | 'hcp'
@@ -24,6 +24,6 @@ export type ProductName =
 
 export interface Product {
   name: ProductName
-  code: ProductCode
+  code: ProductSlug
   url: string
 }
