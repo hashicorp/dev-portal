@@ -1,5 +1,5 @@
-import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
-import productData from 'data/packer.json'
+import $$layoutName from '$$layoutPath'
+import productData from 'data/$$productSlug.json'
 import MarkdownPage from '@hashicorp/react-markdown-page'
 import { isContentDeployPreview } from 'lib/env-checks'
 import fetchContentApiFileString from 'lib/fetch-content-api-file-string'
@@ -17,23 +17,22 @@ export async function getStaticProps(ctx) {
   const hasLocalContent = isContentDeployPreview(productData.slug)
   if (hasLocalContent) {
     return generateStaticProps({
-      pagePath: '../content/community-plugins.mdx',
+      pagePath: '$$localFilePath',
     })(ctx)
   }
   // Otherwise, load the MDX content via our content API
   const mdxFileString = await fetchContentApiFileString({
     product: productData.slug,
-    filePath: 'website/content/community-plugins.mdx',
-    version: 'refs/heads/stable-website',
+    filePath: '$$remoteFilePath',
+    version: '$$remoteVersion',
   })
   const withRemoteIncludes = await shimRemoteIncludes(
     mdxFileString,
     productData.slug
   )
-  console.log(withRemoteIncludes)
   return await markdownPageStaticPropsFromString(withRemoteIncludes)()
 }
 
 // Export view with layout
-MarkdownPageView.layout = PackerIoLayout
+MarkdownPageView.layout = $$layoutName
 export default MarkdownPageView

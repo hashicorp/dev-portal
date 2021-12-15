@@ -125,6 +125,30 @@ async function setupSecurityPage({ pagesDir, productData }) {
   })
 }
 
+async function setupMarkdownPage({
+  pageFilePath,
+  productData,
+  localFilePath,
+  remoteFilePath,
+  remoteVersion,
+}) {
+  const { name, slug } = productData
+  // copy template into place
+  await exec(
+    `rm -f ${pageFilePath} && cp ./scripts/migrate-io/templates/markdown-page.jsx ${pageFilePath}`
+  )
+  // replace variables in template
+  await editFile(pageFilePath, (contents) => {
+    return contents
+      .replace(/\$\$productSlug/g, slug)
+      .replace(/\$\$localFilePath/g, localFilePath)
+      .replace(/\$\$remoteFilePath/g, remoteFilePath)
+      .replace(/\$\$remoteVersion/g, remoteVersion)
+      .replace(/\$\$layoutName/g, `${name}IoLayout`)
+      .replace(/\$\$layoutPath/g, `layouts/_proxied-dot-io/${slug}`)
+  })
+}
+
 function addProxyLayout(fileString, pageName, productData) {
   const { name, slug } = productData
   const layoutName = `${name}IoLayout`
@@ -201,4 +225,5 @@ module.exports = {
   setupIoLayout,
   setupProductMigration,
   setupSecurityPage,
+  setupMarkdownPage,
 }

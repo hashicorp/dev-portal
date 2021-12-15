@@ -9,6 +9,7 @@ const {
   evalDataFile,
   patchSubnav,
   setupDocsRoute,
+  setupMarkdownPage,
   setupSecurityPage,
   setupProductMigration,
   setupIoLayout,
@@ -188,6 +189,25 @@ async function migratePackerIo() {
     )
     // return
     return newContents
+  })
+  //
+  // COMMUNITY MDX PAGES
+  //
+  // community-tools.mdx
+  setupMarkdownPage({
+    pageFilePath: `${destDirs.pages}/community-tools.jsx`,
+    productData,
+    localFilePath: '../content/community-tools.mdx',
+    remoteFilePath: 'website/content/community-tools.mdx',
+    remoteVersion: 'refs/heads/stable-website',
+  })
+  // community-plugins.mdx
+  setupMarkdownPage({
+    pageFilePath: `${destDirs.pages}/community-plugins.jsx`,
+    productData,
+    localFilePath: '../content/community-plugins.mdx',
+    remoteFilePath: 'website/content/community-plugins.mdx',
+    remoteVersion: 'refs/heads/stable-website',
   })
   //
   // SECURITY PAGE
