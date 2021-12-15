@@ -15,11 +15,11 @@ module.exports = {
     host: 'test-nm.hashi-mktg.com',
     assets: ['/files/press-kit.zip'],
   },
-  // packer: {
-  //   domain: 'https://test-pk.hashi-mktg.com',
-  //   host: 'test-pk.hashi-mktg.com',
-  //   assets: [],
-  // },
+  packer: {
+    domain: 'https://test-pk.hashi-mktg.com',
+    host: 'test-pk.hashi-mktg.com',
+    assets: ['/files/press-kit.zip'],
+  },
   sentinel: {
     // actually https://docs.hashicorp.com, but using test-st.hashi-mktg.com as a test
     domain: 'https://test-st.hashi-mktg.com',

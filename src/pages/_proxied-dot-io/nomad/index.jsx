@@ -14,10 +14,10 @@ import MiniCTA from 'components/_proxied-dot-io/nomad/mini-cta'
 function HomePage() {
   // Test comment to see if Vercel picks up this commit
   return (
-    <div id="p-home">
+    <div id="p-home-nomad">
       <HomepageHero
         title="Workload Orchestration Made Easy"
-        description="A simple and flexible workload orchestrator to deploy and manage containers and non-containerized applications across on-prem and clouds at scale."
+        description="A simple and flexible scheduler and workload orchestrator to deploy and manage containers and non-containerized applications across on-prem and clouds at scale."
         links={[
           {
             text: 'Download',
@@ -228,7 +228,8 @@ function HomePage() {
             person: {
               firstName: 'Dhasharath',
               lastName: 'Shrivathsa',
-              photo: 'https://www.datocms-assets.com/2885/1623450501-dhasharath-shrivathsa.jpg',
+              photo:
+                'https://www.datocms-assets.com/2885/1623450501-dhasharath-shrivathsa.jpg',
               title: 'CEO',
             },
             company: {
