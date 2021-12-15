@@ -12,12 +12,12 @@ export default function App({ Component, pageProps }) {
   const Layout = Component.layout ?? BaseLayout
 
   return (
-    <DeviceSizeProvider>
-      <ErrorBoundary FallbackComponent={Error}>
+    <ErrorBoundary FallbackComponent={Error}>
+      <DeviceSizeProvider>
         <Layout {...pageProps?.layoutProps}>
           <Component {...pageProps} />
         </Layout>
-      </ErrorBoundary>
-    </DeviceSizeProvider>
+      </DeviceSizeProvider>
+    </ErrorBoundary>
   )
 }
