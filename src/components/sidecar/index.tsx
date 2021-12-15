@@ -9,6 +9,7 @@ interface SidecarProps {
 }
 
 const MAX_CHARACTERS = 25
+const SIDECAR_LABEL_ELEMENT_ID = 'sidecar-label'
 
 const getTruncatedTitle = (fullTitle: string): string => {
   let truncatedTitle: string
@@ -53,10 +54,10 @@ const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
 
   return (
     <nav
-      aria-labelledby="table-of-contents"
+      aria-labelledby={SIDECAR_LABEL_ELEMENT_ID}
       className={`${s.sidecar} hide-on-mobile hide-on-tablet`}
     >
-      <p className={s.sidecarLabel} id="table-of-contents">
+      <p className={s.sidecarLabel} id={SIDECAR_LABEL_ELEMENT_ID}>
         On this page
       </p>
       <ol className={s.sidecarList}>{headings.map(renderListItem)}</ol>
