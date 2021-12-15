@@ -51,7 +51,7 @@ const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
     return (
       <li className={className} key={slug}>
         <a href={`#${slug}`}>{truncatedTitle}</a>
-        {isActive && <span className={s.activeIndicator} />}
+        {isActive && <span aria-hidden className={s.activeIndicator} />}
       </li>
     )
   }
