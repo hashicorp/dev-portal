@@ -53,6 +53,7 @@
         color: var(--token-color-palette-neutral-300);
       }
 
+      /* TODO: replace colors w/ tokens when available */
       &:focus {
         border: 1px solid #107dff;
         box-shadow: 0 0 0 3px #5fbcff;
