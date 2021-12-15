@@ -8,35 +8,34 @@ interface SidecarProps {
   headings: SidecarHeading[]
 }
 
-// TODO: there are still a few things to do here. See https://app.asana.com/0/0/1201265683986463/f.
 const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
   const { isDesktop } = useDeviceSize()
   const activeSection = useActiveSection(headings, isDesktop)
 
+  const renderListItem = ({ slug, title }) => {
+    const isActive = slug === activeSection
+    const className = classNames(s.sidecarListItem, {
+      [s.activeSidecarListItem]: isActive,
+    })
+
+    return (
+      <li className={className} key={slug}>
+        <a href={`#${slug}`}>{title}</a>
+        {isActive && <span className={s.activeIndicator} />}
+      </li>
+    )
+  }
+
   return (
-    <aside className={`${s.sidecar} hide-on-mobile hide-on-tablet`}>
+    <nav
+      aria-labelledby="table-of-contents"
+      className={`${s.sidecar} hide-on-mobile hide-on-tablet`}
+    >
       <p className={s.sidecarLabel} id="table-of-contents">
         On this page
       </p>
-      <nav aria-labelledby="table-of-contents">
-        <ol className={s.sidecarList}>
-          {headings.map(({ slug, title }) => {
-            const isActive = slug === activeSection
-            return (
-              <li
-                className={classNames(s.sidecarListItem, {
-                  [s['sidecarListItem-active']]: isActive,
-                })}
-                key={slug}
-              >
-                <a href={`#${slug}`}>{title}</a>
-                {isActive && <span />}
-              </li>
-            )
-          })}
-        </ol>
-      </nav>
-    </aside>
+      <ol className={s.sidecarList}>{headings.map(renderListItem)}</ol>
+    </nav>
   )
 }
 

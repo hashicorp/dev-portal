@@ -1,18 +1,19 @@
 .sidecar {
   margin-left: 24px;
-  min-width: 268px;
+  max-width: 220px;
+  min-width: 220px;
   position: sticky;
   text-align: right;
   top: 0;
-  width: 268px;
+  width: 220px;
 }
 
 .sidecarLabel {
   color: var(--gray-foreground-secondary);
   font-size: 14px;
   font-weight: 600;
-  line-height: 18px;
-  margin-bottom: 12px;
+  line-height: 20px;
+  margin-bottom: 16px;
   margin-top: 0;
 }
 
@@ -26,18 +27,18 @@
 .sidecarListItem {
   color: var(--gray-foreground-tertiary);
   font-size: 14px;
-  line-height: 18px;
+  line-height: 20px;
   position: relative;
 
   &:not(:last-child) {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   & a {
     border-radius: 5px;
     border: 1px solid transparent;
     color: inherit;
-    padding: 0 10px;
+    padding-right: 8px;
 
     &:focus {
       border: 1px solid var(--blue-vibrant);
@@ -47,22 +48,21 @@
   }
 }
 
-.sidecarListItem-active {
+.activeSidecarListItem {
   & a {
     color: var(--gray-foreground-primary);
     font-weight: 500;
-    text-decoration: underline;
   }
+}
 
-  & span {
-    background-color: var(--gray-foreground-primary);
-    border-bottom-left-radius: 1px;
-    border-top-left-radius: 1px;
-    display: block;
-    height: 100%;
-    position: absolute;
-    right: -1px;
-    top: 0;
-    width: 2px;
-  }
+.activeIndicator {
+  background-color: var(--gray-foreground-primary);
+  border-bottom-left-radius: 1px;
+  border-top-left-radius: 1px;
+  display: block;
+  height: 100%;
+  position: absolute;
+  right: -1px;
+  top: 0;
+  width: 2px;
 }
