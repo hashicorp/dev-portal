@@ -6,19 +6,19 @@ import { SidecarHeading } from './types'
  * https://github.com/hashicorp/react-components/pull/325
  */
 export function useActiveSection(
-  sections: SidecarHeading[],
+  headings: SidecarHeading[],
   isEnabled = true
 ): string {
-  const [activeSection, setActiveSection] = useState<string>()
+  const [activeSection, setActiveSection] = useState<SidecarHeading['slug']>()
   const previousY = useRef<number>()
-
-  const findMatchingSectionIndex = (slug: string) => {
-    return sections.findIndex((section) => section.slug === slug)
-  }
 
   useEffect(() => {
     if (!isEnabled) {
       return
+    }
+
+    const findMatchingSectionIndex = (slug: string) => {
+      return headings.findIndex((section) => section.slug === slug)
     }
 
     const observer = new IntersectionObserver(
@@ -61,34 +61,40 @@ export function useActiveSection(
               if (
                 isSingleEntryLeaving &&
                 singleEntryLeavingIndex > curActiveIndex
-              )
+              ) {
                 return current
+              }
 
               const newIndex = curActiveIndex - 1
 
-              if (newIndex < 0) return current
+              if (newIndex < 0) {
+                return current
+              }
 
-              return sections[newIndex].slug
+              return headings[newIndex].slug
             })
           }
         }
-        if (currentY) previousY.current = currentY
+
+        if (currentY) {
+          previousY.current = currentY
+        }
       },
       { rootMargin: '0% 0% -75% 0%' }
     )
 
-    sections.forEach((section) => {
+    headings.forEach((section) => {
       const el = document.querySelector(`#${section.slug}`)
       if (el) observer.observe(el)
     })
 
     return () => {
-      sections.forEach((section) => {
+      headings.forEach((section) => {
         const el = document.querySelector(`#${section.slug}`)
         if (el) observer.unobserve(el)
       })
     }
-  }, [isEnabled])
+  }, [headings, isEnabled])
 
   return activeSection
 }
