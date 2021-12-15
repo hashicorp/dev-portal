@@ -37,7 +37,11 @@ const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
   const { isDesktop } = useDeviceSize()
   const activeSection = useActiveSection(headings, isDesktop)
 
-  const renderListItem = ({ slug, title }) => {
+  const renderListItem = ({ level, slug, title }) => {
+    if (level > 2) {
+      return null
+    }
+
     const isActive = slug === activeSection
     const className = classNames(s.sidecarListItem, {
       [s.activeSidecarListItem]: isActive,
