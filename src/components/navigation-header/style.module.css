@@ -37,17 +37,27 @@
   margin-top: 0;
 
   & li {
-    padding: 8px 12px;
+    padding: 6px 8px;
 
     & a {
+      border: 1px solid transparent;
+      border-radius: 5px;
       color: var(--token-color-palette-neutral-400);
+      display: block;
       font-size: 14px;
       font-weight: 500;
       line-height: 20px;
+      padding: 0 4px;
 
-      /* TODO: ask design about hover state */
       &:hover {
         color: var(--token-color-palette-neutral-300);
+      }
+
+      &:focus {
+        border: 1px solid #107dff;
+        box-shadow: 0 0 0 3px #5fbcff;
+        color: var(--token-color-palette-neutral-300);
+        outline: none;
       }
 
       &[aria-current='page'] {
