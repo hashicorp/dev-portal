@@ -27,6 +27,7 @@
 .sidecarListItem {
   color: var(--gray-foreground-tertiary);
   font-size: 14px;
+  font-weight: 400;
   line-height: 20px;
   position: relative;
   text-align: right;
@@ -48,8 +49,13 @@
     /* TODO: replace colors w/ variable when available */
     &:focus {
       border: 1px solid #0c56e9;
+      color: var(--gray-foreground-primary);
       box-shadow: 0 0 0 3px #5990ff;
       outline: none;
+    }
+
+    &:hover {
+      color: var(--gray-foreground-primary);
     }
   }
 }
