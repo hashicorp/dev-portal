@@ -46,6 +46,7 @@
 .main {
   max-width: 804px;
   padding: 0 24px;
+  padding-bottom: 50vh;
 
   & h1:first-child {
     margin-bottom: 12px;
