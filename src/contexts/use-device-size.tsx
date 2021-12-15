@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
 const DEFAULT_MOBILE_WIDTH = 728
-
 const DEFAULT_TABLET_WIDTH = 1000
 
 interface DeviceSize {
+  isDesktop?: boolean
   isMobile?: boolean
   isTablet?: boolean
 }
@@ -51,17 +51,22 @@ const DeviceSizeProvider: React.FC = ({ children }) => {
     )
   }
 
-  const [value, setValue] = useState<DeviceSize>({
-    isMobile: mobileMediaQueryListObject?.matches,
-    isTablet: tabletMediaQueryListObject?.matches,
-  })
+  const getDerivedState = () => {
+    const isMobile = mobileMediaQueryListObject?.matches
+    const isTablet = tabletMediaQueryListObject?.matches
+    const isDesktop = !(isMobile || isTablet)
+    return {
+      isDesktop,
+      isMobile,
+      isTablet,
+    }
+  }
+
+  const [value, setValue] = useState<DeviceSize>(() => getDerivedState())
 
   useEffect(() => {
     const handleChange = () => {
-      setValue({
-        isMobile: mobileMediaQueryListObject?.matches,
-        isTablet: tabletMediaQueryListObject?.matches,
-      })
+      setValue(getDerivedState())
     }
 
     mobileMediaQueryListObject.addEventListener('change', handleChange)
@@ -71,12 +76,7 @@ const DeviceSizeProvider: React.FC = ({ children }) => {
       mobileMediaQueryListObject.removeEventListener('change', handleChange)
       tabletMediaQueryListObject.removeEventListener('change', handleChange)
     }
-  }, [
-    mobileMediaQueryListObject,
-    mobileWidth,
-    tabletMediaQueryListObject,
-    tabletWidth,
-  ])
+  })
 
   return (
     <DeviceSizeContext.Provider value={value}>
