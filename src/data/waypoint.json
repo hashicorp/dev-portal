@@ -1,0 +1,29 @@
+{
+  "subnavItems": [
+    {
+      "id": "reference-docs",
+      "label": "Reference Docs",
+      "path": "/waypoint/docs"
+    },
+    {
+      "href": "https://www.waypointproject.io/",
+      "id": "overview",
+      "label": "Overview"
+    },
+    {
+      "href": "https://www.waypointproject.io/commands",
+      "id": "cli",
+      "label": "CLI"
+    },
+    {
+      "href": "https://www.waypointproject.io/plugins",
+      "id": "plugins",
+      "label": "Plugins"
+    },
+    {
+      "href": "https://www.waypointproject.io/downloads",
+      "id": "downloads",
+      "label": "Downloads"
+    }
+  ]
+}

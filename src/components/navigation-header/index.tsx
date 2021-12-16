@@ -3,8 +3,8 @@ import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/wh
 import InlineSvg from '@hashicorp/react-inline-svg'
 import HeaderSearchInput from 'components/header-search-input'
 import ProductChooser from 'components/product-chooser'
-// TODO: do we want to add a path alias for config? It currently lives above baseUrl (src)
-import { navigationLinks } from '../../../config/main-navigation'
+// TODO: we'll need a programatic way to get this data when there are more products
+import waypointData from 'data/waypoint.json'
 import s from './style.module.css'
 
 /**
@@ -41,7 +41,7 @@ const NavigationHeader: React.FC = () => (
       </div>
       <div className={s.headerRight}>
         <ul className={s.navLinks}>
-          {navigationLinks.map((navLink, index) => (
+          {waypointData.subnavItems.map((navLink, index) => (
             <li key={navLink.id}>
               {/* TODO: we'll use the router to determine the current link once they're all internal */}
               <NavLink
