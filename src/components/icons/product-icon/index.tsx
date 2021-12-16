@@ -15,14 +15,13 @@ interface ProductIconProps {
   product: ProductSlug
 }
 
-// TODO: remove logo for sentinel
 const productNamesToIcons: { [key in ProductSlug]: ReactElement } = {
   boundary: <IconBoundaryColor16 />,
   consul: <IconConsulColor16 />,
   hcp: <IconHashicorp16 />,
   nomad: <IconNomadColor16 />,
   packer: <IconPackerColor16 />,
-  sentinel: <IconHashicorp16 />,
+  sentinel: null,
   terraform: <IconTerraformColor16 />,
   vagrant: <IconVagrantColor16 />,
   vault: <IconVaultColor16 />,
