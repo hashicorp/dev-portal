@@ -1,5 +1,5 @@
 .navigationHeader {
-  background-color: var(--navigation-header-background);
+  background-color: var(--gray-foreground-primary);
   color: white;
   height: var(--navigation-header-height);
   padding: 20px 24px;
