@@ -140,7 +140,9 @@ const ProductSwitcher: React.FC = () => {
 
     return (
       <li
-        className={s.switcherOption}
+        className={classNames(s.switcherOption, {
+          [s.activeSwitcherOption]: isCurrentProduct,
+        })}
         id={generateSwitcherOptionIdFromProduct(product)}
         key={product.slug}
       >
@@ -163,10 +165,10 @@ const ProductSwitcher: React.FC = () => {
   const renderProductGroup = (productGroup: ProductGroup, index: number) => {
     const shouldRenderHorizontalRule = index > 0
     return (
-      <ul key={`product-group-${index}`} role="group">
-        {shouldRenderHorizontalRule && <hr />}
-        {productGroup.map(renderProductListItem)}
-      </ul>
+      <Fragment key={`product-group-${index}`}>
+        {shouldRenderHorizontalRule && <hr className={s.separator} />}
+        <ul role="group">{productGroup.map(renderProductListItem)}</ul>
+      </Fragment>
     )
   }
 
