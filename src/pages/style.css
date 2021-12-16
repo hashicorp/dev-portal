@@ -33,3 +33,25 @@
   font-weight: 700;
   font-style: normal;
 }
+
+/* Mobile and tablet breakpoints and helper classes */
+
+:root {
+  --mobile-width-breakpoint: 728px;
+  --tablet-width-breakpoint: 1000px;
+}
+
+@custom-media --mobile only screen and (max-width: 728px);
+@custom-media --tablet only screen and (min-width: 729px) and (max-width: 1000px);
+
+@media (--mobile) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+@media (--tablet) {
+  .hide-on-tablet {
+    display: none;
+  }
+}

@@ -1,6 +1,7 @@
 import NavigationHeader from 'components/navigation-header'
 import Sidebar, { MenuItem } from 'components/sidebar'
-import Sidecar, { SidecarHeading } from 'components/sidecar'
+import Sidecar from 'components/sidecar'
+import { SidecarHeading } from 'components/sidecar/types'
 import s from './docs-layout.module.css'
 
 interface DocsLayoutProps {
