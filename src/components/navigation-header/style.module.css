@@ -37,7 +37,7 @@
   margin-top: 0;
 
   & li {
-    padding: 6px 8px;
+    padding: 4px;
 
     & a {
       border: 1px solid transparent;
@@ -47,7 +47,7 @@
       font-size: 14px;
       font-weight: 500;
       line-height: 20px;
-      padding: 0 4px;
+      padding: 3px 8px;
 
       &:hover {
         color: var(--token-color-palette-neutral-300);
