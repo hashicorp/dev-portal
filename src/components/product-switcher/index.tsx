@@ -21,10 +21,14 @@ const generateSwitcherOptionIdFromProduct = (product: Product) => {
   return `${OPTION_ID_PREFIX}${product.slug}`
 }
 
-const getAllAnchorElements = () => {
-  const listElement = document.getElementById(OPTION_LIST_ID)
-  const anchorElements = listElement.querySelectorAll('a')
-  return anchorElements
+const getFirstProduct = (products: Product[][]) => {
+  return products[0][0]
+}
+
+const getLastProduct = (products: Product[][]) => {
+  const lastProductGroup = products[products.length - 1]
+  const lastProduct = lastProductGroup[lastProductGroup.length - 1]
+  return lastProduct
 }
 
 const ProductSwitcher: React.FC = () => {
@@ -33,7 +37,11 @@ const ProductSwitcher: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
   const buttonRef = useRef<HTMLButtonElement>()
+  const firstAnchorRef = useRef<HTMLAnchorElement>()
+  const lastAnchorRef = useRef<HTMLAnchorElement>()
   const shouldFocusFirstAnchor = useRef<boolean>(false)
+  const firstProduct = getFirstProduct(products)
+  const lastProduct = getLastProduct(products)
 
   let currentProduct: Product
   products.find((productGroup) =>
@@ -52,8 +60,7 @@ const ProductSwitcher: React.FC = () => {
 
     // Focuses the first anchor element if needed
     if (shouldFocusFirstAnchor.current) {
-      const firstAnchorElement = getAllAnchorElements()[0]
-      firstAnchorElement.focus()
+      firstAnchorRef.current.focus()
       shouldFocusFirstAnchor.current = false
     }
 
@@ -104,18 +111,16 @@ const ProductSwitcher: React.FC = () => {
     }
   }
 
-  const renderProductListItem = (
-    product: Product,
-    index: number
-  ): ReactElement => {
+  const renderProductListItem = (product: Product): ReactElement => {
+    const isFirstProduct = product.slug === firstProduct.slug
+    const isLastProduct = product.slug === lastProduct.slug
     const isCurrentProduct = product.slug === currentProduct.slug
 
     const handleAnchorKeyDown: KeyboardEventHandler<HTMLAnchorElement> = (
       e
     ) => {
-      const lastIndex = products.length - 1
-      const isFirstItem = index === 0
-      const isLastItem = index === lastIndex
+      const isFirstItem = firstAnchorRef.current.contains(e.currentTarget)
+      const isLastItem = lastAnchorRef.current.contains(e.currentTarget)
       if (!(isFirstItem || isLastItem)) {
         return
       }
@@ -126,16 +131,20 @@ const ProductSwitcher: React.FC = () => {
         return
       }
 
-      const anchorElements = getAllAnchorElements()
       if (isFirstItem && isTabbingBackward) {
-        const lastAnchorElement = anchorElements[lastIndex]
-        lastAnchorElement.focus()
+        lastAnchorRef.current.focus()
         e.preventDefault()
       } else if (isLastItem && isTabbingForward) {
-        const firstAnchorElement = anchorElements[0]
-        firstAnchorElement.focus()
+        firstAnchorRef.current.focus()
         e.preventDefault()
       }
+    }
+
+    let refToPass
+    if (isFirstProduct) {
+      refToPass = firstAnchorRef
+    } else if (isLastProduct) {
+      refToPass = lastAnchorRef
     }
 
     return (
@@ -154,6 +163,7 @@ const ProductSwitcher: React.FC = () => {
           )}
           href={product.url}
           onKeyDown={handleAnchorKeyDown}
+          ref={refToPass}
         >
           <ProductIcon product={product.slug} />
           <span>{product.name}</span>
@@ -170,7 +180,9 @@ const ProductSwitcher: React.FC = () => {
           <li className={s.separator} role="separator" />
         )}
         <li>
-          <ul role="group">{productGroup.map(renderProductListItem)}</ul>
+          <ul role="group">
+            {productGroup.map((product) => renderProductListItem(product))}
+          </ul>
         </li>
       </Fragment>
     )
