@@ -166,8 +166,12 @@ const ProductSwitcher: React.FC = () => {
     const shouldRenderHorizontalRule = index > 0
     return (
       <Fragment key={`product-group-${index}`}>
-        {shouldRenderHorizontalRule && <hr className={s.separator} />}
-        <ul role="group">{productGroup.map(renderProductListItem)}</ul>
+        {shouldRenderHorizontalRule && (
+          <li className={s.separator} role="separator" />
+        )}
+        <li>
+          <ul role="group">{productGroup.map(renderProductListItem)}</ul>
+        </li>
       </Fragment>
     )
   }
@@ -189,10 +193,10 @@ const ProductSwitcher: React.FC = () => {
         onKeyDown={handleKeyDown}
         ref={buttonRef}
       >
-        <div className={s.switcherOptionContainer}>
+        <span className={s.switcherOptionContainer}>
           <ProductIcon product={currentProduct.slug} />
           <span>{currentProduct.name}</span>
-        </div>
+        </span>
         <IconCaret16 className={s.switcherCaret} />
       </button>
       <ul
