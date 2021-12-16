@@ -7,6 +7,9 @@
     Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
 
+  /* TODO: what should this be? */
+  --font-monospace: Menlo;
+
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -44,19 +47,87 @@
 
 /* TODO: these styles will be changing very soon, this is just to get us started */
 .main {
+  color: #3b3d45;
+  font-size: 16px;
+  line-height: 22px;
   max-width: 804px;
   padding: 0 24px;
 
-  & h1:first-child {
-    margin-bottom: 12px;
+  & :global {
+    & a.__permalink-h {
+      display: none;
+    }
+  }
+
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
+  & h6 {
+    color: #0c0c0e;
+    margin-bottom: 8px;
+    margin-top: 32px;
+  }
+
+  & h1 {
+    font-size: 30px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 38px;
+    margin-bottom: 32px;
+    margin-top: 0;
   }
 
   & h2 {
-    margin-bottom: 12px;
-    margin-top: 40px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 32px;
+  }
+
+  & p {
+    font-style: normal;
+    font-weight: normal;
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+
+  & ul {
+    margin-top: 0;
+  }
+
+  & a {
+    color: #1f69ff;
+    text-decoration: underline;
   }
 
   & img {
     max-width: 100%;
+  }
+
+  /* inline code elements */
+  & code {
+    background: #fafafa;
+    border-radius: 5px;
+    border: 1px solid rgba(101, 106, 118, 0.2);
+    font-size: 13px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 16px;
+    padding: 2px 4px;
+  }
+
+  /* TODO - code blocks */
+  & pre {
+    background-color: #0c0c0e;
+    border-radius: 5px;
+    color: white;
+
+    & code {
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+    }
   }
 }
