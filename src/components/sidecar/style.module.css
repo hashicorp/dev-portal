@@ -9,7 +9,7 @@
 }
 
 .sidecarLabel {
-  color: var(--gray-foreground-secondary);
+  color: var(--token-color-palette-neutral-600);
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -25,7 +25,7 @@
 }
 
 .sidecarListItem {
-  color: var(--gray-foreground-tertiary);
+  color: var(--token-color-palette-neutral-500);
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -49,26 +49,26 @@
     /* TODO: replace colors w/ variable when available */
     &:focus {
       border: 1px solid #0c56e9;
-      color: var(--gray-foreground-primary);
+      color: var(--token-color-palette-neutral-700);
       box-shadow: 0 0 0 3px #5990ff;
       outline: none;
     }
 
     &:hover {
-      color: var(--gray-foreground-primary);
+      color: var(--token-color-palette-neutral-700);
     }
   }
 }
 
 .activeSidecarListItem {
   & a {
-    color: var(--gray-foreground-primary);
+    color: var(--token-color-palette-neutral-700);
     font-weight: 500;
   }
 }
 
 .activeIndicator {
-  background-color: var(--gray-foreground-primary);
+  background-color: var(--token-color-palette-neutral-700);
   border-bottom-left-radius: 1px;
   border-top-left-radius: 1px;
   display: block;

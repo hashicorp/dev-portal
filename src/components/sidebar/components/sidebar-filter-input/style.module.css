@@ -7,7 +7,7 @@
 }
 
 .sharedIconColorAndPositioning {
-  color: var(--gray-foreground-tertiary);
+  color: var(--token-color-palette-neutral-500);
   position: absolute;
   top: calc((var(--input-height) - var(--input-icon-size)) / 2);
 }
@@ -48,7 +48,7 @@
   background-color: transparent;
   border: 1px solid white;
   border-radius: 5px;
-  color: var(--gray-foreground-primary);
+  color: var(--token-color-palette-neutral-700);
   font-size: 14px;
   line-height: 18px;
   padding-bottom: 9px;
@@ -59,12 +59,12 @@
   width: 100%;
 
   &::placeholder {
-    color: var(--gray-foreground-tertiary);
+    color: var(--token-color-palette-neutral-500);
   }
 
   &:hover,
   &:not([value='']) {
-    border: 1px solid var(--gray-foreground-quaternary);
+    border: 1px solid var(--token-color-palette-neutral-400);
     cursor: text;
   }
 

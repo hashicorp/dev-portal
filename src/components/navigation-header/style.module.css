@@ -1,6 +1,6 @@
 .navigationHeader {
-  background-color: var(--navigation-header-background);
-  color: white;
+  background-color: var(--token-color-palette-neutral-700);
+  color: var(--token-color-palette-neutral-0);
   height: var(--navigation-header-height);
   padding: 20px 24px;
 
@@ -33,21 +33,42 @@
   list-style: none;
   margin-bottom: 0;
   margin-left: 0;
-  margin-right: 56px;
+  margin-right: 72px;
   margin-top: 0;
+}
 
-  & li {
-    padding: 8px 12px;
+.navLinksListItem {
+  padding: 4px;
+}
 
-    & a {
-      color: var(--navigation-header-link-color);
-      font-size: 14px;
-      line-height: 16px;
+/* TODO: use `calc` and variables so it's clearer why we're using odd padding values */
+.navLinksAnchor {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: var(--token-color-palette-neutral-400);
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 3px 8px;
 
-      &:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
-    }
+  @media (prefers-reduced-motion: no-preference) {
+    transition: color 0.1s;
+  }
+
+  &:hover {
+    color: var(--token-color-palette-neutral-300);
+  }
+
+  /* TODO: replace colors w/ tokens when available */
+  &:focus {
+    border: 1px solid #107dff;
+    box-shadow: 0 0 0 3px #5fbcff;
+    color: var(--token-color-palette-neutral-300);
+    outline: none;
+  }
+
+  &[aria-current='page'] {
+    color: var(--token-color-palette-neutral-100);
   }
 }
