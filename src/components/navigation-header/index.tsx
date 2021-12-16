@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import Link from 'next/link'
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
@@ -11,22 +12,29 @@ import s from './style.module.css'
  * This is a temporary component. Once all of the nav links point to internal paths,
  * it won't be needed anymore. Not planning to move into a separate file.
  */
-const NavLink: React.FC<{
+const NavLink = ({
+  ariaCurrent,
+  href,
+  label,
+  path,
+}: {
   ariaCurrent: 'page' | undefined
   href: string
   label: string
   path: string
-}> = ({ ariaCurrent, href, label, path }) => {
+}): ReactElement => {
   if (path) {
     return (
       <Link href={path}>
-        <a aria-current={ariaCurrent}>{label}</a>
+        <a aria-current={ariaCurrent} className={s.navLinksAnchor}>
+          {label}
+        </a>
       </Link>
     )
   }
 
   return (
-    <a aria-current={ariaCurrent} href={href}>
+    <a aria-current={ariaCurrent} className={s.navLinksAnchor} href={href}>
       {label}
     </a>
   )
@@ -42,7 +50,7 @@ const NavigationHeader: React.FC = () => (
       <div className={s.headerRight}>
         <ul className={s.navLinks}>
           {waypointData.subnavItems.map((navLink, index) => (
-            <li key={navLink.id}>
+            <li className={s.navLinksListItem} key={navLink.id}>
               {/* TODO: we'll use the router to determine the current link once they're all internal */}
               <NavLink
                 ariaCurrent={index === 0 ? 'page' : undefined}
