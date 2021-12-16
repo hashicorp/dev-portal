@@ -34,10 +34,18 @@
   font-style: normal;
 }
 
-.focus-border-and-box-shadow {
+.focus-border-and-box-shadow-light {
   &:focus {
     border: 1px solid var(--blue-vibrant);
     box-shadow: 0 0 0 3px #a5c2f3;
+    outline: none;
+  }
+}
+
+.focus-border-and-box-shadow-dark {
+  &:focus {
+    border: 1px solid #107dff;
+    box-shadow: 0 0 0 3px #5fbcff;
     outline: none;
   }
 }
