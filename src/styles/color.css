@@ -1,3 +1,8 @@
+/*
+TODO: This file should become irrelevant once the new design tokens are available. The variable names
+defined here will hopefully match the token variable names once released, which should hopefully ease
+the transition into using the tokens.
+*/
 :root {
   --navigation-header-link-color: #a7aab4;
 
@@ -7,6 +12,17 @@
   --gray-foreground-tertiary: #656a76;
   --gray-foreground-quaternary: #8c909c;
   --gray-background-secondary: #f1f2f3;
+
+  /* Neutrals */
+  --token-color-palette-neutral-700: #0c0c0e;
+  --token-color-palette-neutral-600: #3b3d45;
+  --token-color-palette-neutral-500: #656a76;
+  --token-color-palette-neutral-400: #8c909c;
+  --token-color-palette-neutral-300: #c2c5cb;
+  --token-color-palette-neutral-200: #dedfe3;
+  --token-color-palette-neutral-100: #f1f2f3;
+  --token-color-palette-neutral-50: #fafafa;
+  --token-color-palette-neutral-0: #fff;
 
   /* Blues */
   --blue-vibrant: #1f69ff;

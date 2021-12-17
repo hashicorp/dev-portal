@@ -4,7 +4,7 @@
   background-color: white;
   border-radius: 5px;
   border: 1px solid transparent;
-  color: var(--gray-foreground-tertiary);
+  color: var(--token-color-palette-neutral-500);
   display: flex;
   font-size: 14px;
   justify-content: space-between;
@@ -20,8 +20,8 @@
   }
 
   &:hover {
-    background-color: var(--gray-background-secondary);
-    color: var(--gray-foreground-primary);
+    background-color: var(--token-color-palette-neutral-100);
+    color: var(--token-color-palette-neutral-700);
     cursor: pointer;
   }
 
@@ -37,7 +37,7 @@
   /* TODO: font-weight will be set by a token */
   &[aria-expanded='true'],
   &[aria-current='page'] {
-    color: var(--gray-foreground-primary);
+    color: var(--token-color-palette-neutral-700);
     font-weight: bold;
   }
 
