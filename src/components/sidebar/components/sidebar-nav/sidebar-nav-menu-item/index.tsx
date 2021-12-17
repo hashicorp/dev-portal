@@ -1,32 +1,46 @@
 import { KeyboardEventHandler, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 import { MenuItem } from 'components/sidebar'
 import s from './style.module.css'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
-
-// TODO: store this in a Context that ProductChooser updates?
-const PRODUCT = 'waypoint'
 
 interface SidebarMenuItemProps {
   item: MenuItem
 }
 
-// TODO: we will need to handle more than `docs` for this portion of the path. Some notes:
-//   - we won't need to calculate this here once `addActiveStateMetadata` handles calculating `fullPath`
-//   - maybe `SidebarNav` should accept a prop like `pathPrefix` which in this case would be `/waypoint/docs/`
-const getPath = (item: MenuItem): string => `/${PRODUCT}/docs/${item.path}`
+// TODO: temporary copy/paste
+const getCurrentPathWithoutParamsOrAnchors = (path: string): string => {
+  const matches = path.match(/.+?(?=(#|\?))/)
+  if (matches) {
+    return matches[0]
+  }
+
+  return path
+}
 
 // TODO: use next/link
-const SidebarNavLink = ({ item }) => (
-  <li>
-    <a
-      aria-current={item.isActive ? 'page' : undefined}
-      className={s.sidebarNavMenuItem}
-      // TODO: this might break some accessible labels, probably need aria-label
-      dangerouslySetInnerHTML={{ __html: item.title }}
-      href={item.href || getPath(item)}
-    />
-  </li>
-)
+const SidebarNavLink = ({ item }) => {
+  const router = useRouter()
+  const currentPath = getCurrentPathWithoutParamsOrAnchors(router.asPath)
+  const currentPathSplit = currentPath.split('/')
+  const currentProductSlug = currentPathSplit[1]
+  const currentProductSubpage = currentPathSplit[2]
+
+  const getPath = (item: MenuItem): string =>
+    `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
+
+  return (
+    <li>
+      <a
+        aria-current={item.isActive ? 'page' : undefined}
+        className={s.sidebarNavMenuItem}
+        // TODO: this might break some accessible labels, probably need aria-label
+        dangerouslySetInnerHTML={{ __html: item.title }}
+        href={item.href || getPath(item)}
+      />
+    </li>
+  )
+}
 
 const SidebarNavSubmenu: React.FC<{
   item: MenuItem
