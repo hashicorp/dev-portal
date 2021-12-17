@@ -63,7 +63,7 @@
   margin: 2px 0;
 
   &:hover {
-    background-color: #3b3d45;
+    background-color: var(--token-color-palette-neutral-600);
   }
 }
 
