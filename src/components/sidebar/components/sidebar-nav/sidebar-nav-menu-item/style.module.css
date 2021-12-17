@@ -1,4 +1,5 @@
 .sidebarNavMenuItem {
+  composes: focus-border-and-box-shadow-light from global;
   align-items: center;
   background-color: white;
   border-radius: 5px;
@@ -14,11 +15,7 @@
   width: 100%;
   z-index: 0;
 
-  /* TODO: this will be abstracted eventually */
   &:focus {
-    border: 1px solid var(--blue-vibrant);
-    box-shadow: 0 0 0 3px #a5c2f3; /* TODO: replace w/ variable when available */
-    outline: none;
     z-index: 1;
   }
 

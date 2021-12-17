@@ -45,6 +45,7 @@
 }
 
 .filterInput {
+  composes: focus-border-and-box-shadow-light from global;
   background-color: transparent;
   border: 1px solid white;
   border-radius: 5px;
@@ -62,15 +63,9 @@
     color: var(--token-color-palette-neutral-500);
   }
 
-  &:hover,
+  &:hover:not(:focus),
   &:not([value='']) {
     border: 1px solid var(--token-color-palette-neutral-400);
     cursor: text;
-  }
-
-  &:focus {
-    border: 1px solid var(--blue-vibrant);
-    box-shadow: 0 0 0 3px #a5c2f3; /* TODO: replace w/ variable when available */
-    outline: none;
   }
 }

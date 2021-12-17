@@ -3,7 +3,7 @@ import Link from 'next/link'
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import HeaderSearchInput from 'components/header-search-input'
-import ProductChooser from 'components/product-chooser'
+import ProductSwitcher from 'components/product-switcher'
 // TODO: we'll need a programatic way to get this data when there are more products
 import waypointData from 'data/waypoint.json'
 import s from './style.module.css'
@@ -45,7 +45,7 @@ const NavigationHeader: React.FC = () => (
     <nav>
       <div className={s.headerLeft}>
         <InlineSvg className={s.siteLogo} src={HashiCorpLogo} />
-        <ProductChooser />
+        <ProductSwitcher />
       </div>
       <div className={s.headerRight}>
         <ul className={s.navLinks}>

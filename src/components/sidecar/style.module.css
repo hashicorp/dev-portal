@@ -16,14 +16,12 @@
   margin-bottom: 16px;
   margin-top: 0;
 }
-
 .sidecarList {
   border-right: 1px solid #c2c5cb;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
 .sidecarListItem {
   color: var(--token-color-palette-neutral-500);
   font-size: 14px;
@@ -35,28 +33,22 @@
   &:not(:last-child) {
     margin-bottom: 12px;
   }
+}
 
-  & a {
-    border-radius: 5px;
-    border: 1px solid transparent;
-    color: inherit;
-    display: block;
-    margin-left: auto;
-    margin-right: 0;
-    padding: 0 8px;
-    width: fit-content;
+.sidecarListItemAnchor {
+  composes: focus-border-and-box-shadow-light from global;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: inherit;
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+  padding: 0 10px;
+  width: fit-content;
 
-    /* TODO: replace colors w/ variable when available */
-    &:focus {
-      border: 1px solid #0c56e9;
-      color: var(--token-color-palette-neutral-700);
-      box-shadow: 0 0 0 3px #5990ff;
-      outline: none;
-    }
-
-    &:hover {
-      color: var(--token-color-palette-neutral-700);
-    }
+  &:focus,
+  &:hover {
+    color: var(--token-color-palette-neutral-700);
   }
 }
 
