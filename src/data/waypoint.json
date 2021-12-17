@@ -6,22 +6,22 @@
       "path": "/waypoint/docs"
     },
     {
-      "href": "/waypoint",
+      "path": "/waypoint",
       "id": "overview",
       "label": "Overview"
     },
     {
-      "href": "/waypoint/commands",
+      "path": "/waypoint/commands",
       "id": "cli",
       "label": "CLI"
     },
     {
-      "href": "/waypoint/plugins",
+      "path": "/waypoint/plugins",
       "id": "plugins",
       "label": "Plugins"
     },
     {
-      "href": "/waypoint/downloads",
+      "path": "/waypoint/downloads",
       "id": "downloads",
       "label": "Downloads"
     }
