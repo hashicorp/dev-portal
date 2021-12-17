@@ -1,5 +1,5 @@
 import capitalize from '@hashicorp/platform-util/text/capitalize'
-import { ProductGroup, ProductSlug } from 'common/types'
+import { ProductGroup, ProductSlug } from 'types/products'
 
 /**
  * Holds the product slugs in the order ProductSwitcher will render them.
