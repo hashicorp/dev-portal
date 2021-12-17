@@ -4,15 +4,6 @@ defined here will hopefully match the token variable names once released, which 
 the transition into using the tokens.
 */
 :root {
-  --navigation-header-link-color: #a7aab4;
-
-  /* Grays */
-  --gray-foreground-primary: #0c0c0e;
-  --gray-foreground-secondary: #3b3d45;
-  --gray-foreground-tertiary: #656a76;
-  --gray-foreground-quaternary: #8c909c;
-  --gray-background-secondary: #f1f2f3;
-
   /* Neutrals */
   --token-color-palette-neutral-700: #0c0c0e;
   --token-color-palette-neutral-600: #3b3d45;
