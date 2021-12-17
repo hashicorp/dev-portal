@@ -18,7 +18,11 @@ export default function App({ Component, pageProps }) {
           <p>
             You are viewing an internal preview and work in progress version of
             this site.{' '}
-            <a href="https://airtable.com/shrU3eYHIOXO60o23">
+            <a
+              href="https://airtable.com/shrU3eYHIOXO60o23"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               We'd love to hear your feedback
             </a>
             !
