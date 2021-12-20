@@ -108,6 +108,8 @@ async function migratePackerIo() {
     'homepage-hero',
     'integrations-text-split',
     'section-break-cta',
+    // docs
+    'remote-plugin-docs',
   ]
   for (let i = 0; i < missingComponents.length; i++) {
     const srcPath = `${repoDirs.components}/${missingComponents[i]}`
@@ -190,6 +192,10 @@ async function migratePackerIo() {
     // return
     return newContents
   })
+  //
+  // DOCS (INCL. PLUGIN DOCS)
+  //
+
   //
   // COMMUNITY MDX PAGES
   //

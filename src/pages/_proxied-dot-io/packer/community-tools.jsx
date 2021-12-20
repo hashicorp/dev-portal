@@ -30,7 +30,6 @@ export async function getStaticProps(ctx) {
     mdxFileString,
     productData.slug
   )
-  console.log(withRemoteIncludes)
   return await markdownPageStaticPropsFromString(withRemoteIncludes)()
 }
 
