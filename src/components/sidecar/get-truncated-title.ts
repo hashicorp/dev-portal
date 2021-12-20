@@ -1,4 +1,4 @@
-const MAX_CHARACTERS = 25
+const MAX_CHARACTERS = 26
 
 function getTruncatedTitle(fullTitle: string): string {
   let truncatedTitle: string
