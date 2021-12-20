@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import HeaderSearchInput from 'components/header-search-input'
@@ -6,9 +7,13 @@ import ProductSwitcher from 'components/product-switcher'
 // TODO: we'll need a programatic way to get this data when there are more products
 import waypointData from 'data/waypoint.json'
 import s from './style.module.css'
-import { useRouter } from 'next/router'
 
-const isCurrentPage = (pagePath, currentPath) => {
+/**
+ * Checks if a header navigation link's path matches the current route's path.
+ * Useful for setting the `aria-current` property on <a> elements in the nav, which
+ * is used as a CSS selector for applying active styles to links in the header.
+ */
+const isCurrentPage = (pagePath: string, currentPath: string): boolean => {
   const currentPathSplit = currentPath.split('/')
   const currentProductSlug = currentPathSplit[1]
   const currentProductSubpage = currentPathSplit[2]
