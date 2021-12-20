@@ -64,14 +64,5 @@ usual since .dialogArrow is rendered into a Portal. */
 
   & svg {
     display: block;
-    width: 24px;
-    height: 24px;
-    & [fill] {
-      fill: var(--close-icon-color);
-    }
-
-    & [stroke] {
-      stroke: var(--close-icon-color);
-    }
   }
 }
