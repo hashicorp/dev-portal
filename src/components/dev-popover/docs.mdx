@@ -1,0 +1,43 @@
+---
+componentName: 'DevPopover'
+---
+
+**🚧 DO NOT USE IN PRODUCTION, FOR WORK IN PROGRESS ONLY 🚧**
+
+The `DevPopover` component is intended for use with non-interactive, work-in-progress UI implementations. It renders provided children into a `button` element, and shows the provided `note` render slot in a popover when the `button` is clicked.
+
+## Playground
+
+<LiveComponent>{`
+<DevPopover
+  title="This is a dev note"
+  note={
+    <>
+      This is a note about how this work is in progress. We're rebuilding things
+      like{' '}
+      <a href="https://www.waypointproject.io/docs">Waypoint&apos;s docs</a>
+      , and it's helpful to be able to link out to existing work rather than have
+      to fully rebuild it for demo purposes.
+      <br />
+      <br />
+      Feel free to link out to Figma files as well. For example, for our Search
+      component, you can{' '}
+      <a href="https://www.figma.com/file/VD7ahvXuXWJApeGnhbW4hv/Dev-Portal?node-id=1498%3A43240">
+        view the revised designs in Figma
+      </a>
+      .
+    </>
+  }
+>
+  <div
+    style={{
+      border: '1px solid rebeccapurple',
+      padding: '0.5rem 1rem',
+      borderRadius: '4px',
+    }}
+  >
+    This is a work in progress element! Focus and activate it, or click it for
+    info.
+  </div>
+</DevPopover>
+`}</LiveComponent>

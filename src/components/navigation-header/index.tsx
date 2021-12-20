@@ -61,7 +61,7 @@ const NavigationHeader: React.FC = () => (
             </li>
           ))}
         </ul>
-        <HeaderSearchInput />
+        <HeaderSearchInput theme="dark" />
       </div>
     </nav>
   </header>
