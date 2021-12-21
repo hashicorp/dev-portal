@@ -9,7 +9,7 @@ interface UseCurrentPathOptions {
  */
 const useCurrentPath = (options: UseCurrentPathOptions = {}): string => {
   if (typeof window === 'undefined') {
-    return
+    return ''
   }
 
   const { excludeHash = false, excludeSearch = false } = options
