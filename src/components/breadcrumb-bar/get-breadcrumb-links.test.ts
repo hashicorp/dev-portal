@@ -3,19 +3,36 @@ import waypointNavData from './fixtures/waypoint-nav-data.json'
 
 describe('getBreadcrumbLinks', () => {
   it('returns links for a basic example', () => {
-    const basePath = 'docs'
-    const params = ['intro', 'vs']
-    const navData = waypointNavData
+    const args = {
+      basePath: 'docs',
+      pathParts: ['getting-started'],
+      navData: waypointNavData,
+    }
     const expected = [
       {
-        title: 'Overview',
+        title: 'Getting Started',
+        url: '/docs/getting-started',
+      },
+    ]
+    expect(getBreadcrumbLinks(args)).toEqual(expected)
+  })
+
+  it('returns links for overview paths using the title of the parent category', () => {
+    const args = {
+      basePath: 'docs',
+      pathParts: ['intro', 'vs'],
+      navData: waypointNavData,
+    }
+    const expected = [
+      {
+        title: 'Introduction',
         url: '/docs/intro',
       },
       {
-        title: 'Overview',
+        title: 'Waypoint vs. Other Software',
         url: '/docs/intro/vs',
       },
     ]
-    expect(getBreadcrumbLinks({ basePath, navData, params })).toEqual(expected)
+    expect(getBreadcrumbLinks(args)).toEqual(expected)
   })
 })
