@@ -35,4 +35,19 @@ describe('getBreadcrumbLinks', () => {
     ]
     expect(getBreadcrumbLinks(args)).toEqual(expected)
   })
+
+  it('skips index-less categories in breadcrumb paths', () => {
+    const args = {
+      basePath: 'docs',
+      pathParts: ['kubernetes', 'install'],
+      navData: waypointNavData,
+    }
+    const expected = [
+      {
+        title: 'Install',
+        url: '/docs/kubernetes/install',
+      },
+    ]
+    expect(getBreadcrumbLinks(args)).toEqual(expected)
+  })
 })

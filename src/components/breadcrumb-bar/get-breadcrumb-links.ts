@@ -34,9 +34,9 @@ function getBreadcrumbLinks({
   // Map each each breadcrumb path to its
   // associated navData node. This gets slightly
   // complex due to index (aka "Overview") nodes.
-  const breadcrumbNodes = breadcrumbPaths.map((p) =>
-    getPathMatchedNode(navData, p)
-  )
+  const breadcrumbNodes = breadcrumbPaths
+    .map((p) => getPathMatchedNode(navData, p))
+    .filter(Boolean)
   // Map the matched navData nodes into { title, url }
   // objects as needed for breadcrumb link rendering.
   return breadcrumbNodes.map(({ title, path }) => {
@@ -84,10 +84,18 @@ function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
 
 function getPathMatchedNode(navNodes, pathString) {
   const matches = findAllPathMatchedNodes(navNodes, pathString)
+  // If we have zero matches, this means there's an index-less
+  // category somewhere in the path. For example, Waypoint has
+  // pages like https://www.waypointproject.io/docs/kubernetes/install,
+  // but does not have https://www.waypointproject.io/docs/kubernetes
+  // In these cases we omit the missing category page from the breadcrumbs
+  // (we could include a title, but there'd be nothing to link to,
+  // which seems like it'd be awkward)
   if (matches.length == 0) return false
   if (matches.length == 1) return matches[0]
   // If we find more than one node matched for a path,
-  // this is a problem and we should address it.
+  // this is a problem with the navData that was not caught
+  // by our docs-sidenav validation functions, and we should address it.
   // But, in production, we can return the first match to still be
   // able to render the breadcrumb bar.
   if (process.env.HASHI_ENV === 'production') {
