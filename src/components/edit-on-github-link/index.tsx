@@ -1,5 +1,4 @@
-import InlineSvg from '@hashicorp/react-inline-svg'
-import svgGithub from '@hashicorp/flight-icons/svg/github-16.svg?include'
+import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
 import s from './style.module.css'
 
 function EditOnGithubLink({
@@ -13,7 +12,7 @@ function EditOnGithubLink({
 }): React.ReactElement {
   return (
     <a href={url} target="_blank" className={s.editLink} rel="noreferrer">
-      <InlineSvg className={s.editLinkIcon} src={svgGithub} />
+      <IconGithub16 className={s.editLinkIcon} />
       {label}
     </a>
   )

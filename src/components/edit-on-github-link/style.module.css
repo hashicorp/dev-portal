@@ -12,9 +12,6 @@
 }
 
 .editLinkIcon {
+  display: block;
   padding-right: 8px;
-
-  & svg {
-    display: block;
-  }
 }
