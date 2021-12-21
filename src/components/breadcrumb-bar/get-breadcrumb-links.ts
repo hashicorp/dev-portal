@@ -8,9 +8,6 @@ import { BreadcrumbLink } from '.'
  * the basePath. So, in many use cases, consumers will likely
  * want to prefix this array to provide a more complete
  * list of breadcrumb links.
- *
- * @param param0
- * @returns
  */
 function getBreadcrumbLinks({
   basePath,
