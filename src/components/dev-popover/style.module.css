@@ -1,0 +1,21 @@
+.button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: block;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.label {
+  color: #9c64aa;
+  composes: g-type-label from global;
+  padding-bottom: 0.75rem;
+}
+
+.note {
+  color: #5b2668;
+}

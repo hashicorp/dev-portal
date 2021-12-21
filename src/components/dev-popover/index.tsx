@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import Popover from 'components/popover'
+import s from './style.module.css'
 
 /**
  * Renders non-interactive children into a button element,
@@ -22,17 +23,7 @@ function DevPopover({
   return (
     <>
       <button
-        style={{
-          border: 'none',
-          background: 'none',
-          fontSize: 'inherit',
-          fontFamily: 'inherit',
-          padding: 0,
-          margin: 0,
-          display: 'block',
-          cursor: 'pointer',
-          color: 'inherit',
-        }}
+        className={s.button}
         ref={triggerRef}
         onClick={() => setShowDialog(!showDialog)}
       >
@@ -44,13 +35,8 @@ function DevPopover({
         shown={showDialog}
         setIsShown={setShowDialog}
       >
-        <div
-          className="g-type-label"
-          style={{ color: '#9C64AA', paddingBottom: '0.75rem' }}
-        >
-          {title}
-        </div>
-        <div style={{ color: '#5B2668' }}>{note}</div>
+        {title ? <div className={s.label}>{title}</div> : null}
+        <div className={s.note}>{note}</div>
       </Popover>
     </>
   )
