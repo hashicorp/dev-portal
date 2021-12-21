@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { useRouter } from 'next/router'
+import useCurrentPath from 'hooks/use-current-path'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
 import SidebarNav from './components/sidebar-nav'
@@ -61,16 +61,6 @@ const addActiveStateMetadata = (
   return { foundActiveItem, itemsWithMetadata }
 }
 
-// TODO: this might be a helpful to abstract as a util? The name feels looong
-const getCurrentPathWithoutParamsOrAnchors = (path: string): string => {
-  const matches = path.match(/.+?(?=(#|\?))/)
-  if (matches) {
-    return matches[0]
-  }
-
-  return path
-}
-
 /**
  * TODO: this correctly finds the items that match `filterValue`, but if the item is a child
  * of a submenu, that submenu isn't open after searching. `filter` creates a new array, so maybe
@@ -101,8 +91,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
-  const router = useRouter()
-  const currentPath = getCurrentPathWithoutParamsOrAnchors(router.asPath)
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
     () => addActiveStateMetadata(currentPath, menuItems),
     [currentPath, menuItems]

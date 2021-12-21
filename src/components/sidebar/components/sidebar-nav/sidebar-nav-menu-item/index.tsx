@@ -1,6 +1,6 @@
 import { KeyboardEventHandler, useRef, useState } from 'react'
-import { useRouter } from 'next/router'
 import { MenuItem } from 'components/sidebar'
+import useCurrentPath from 'hooks/use-current-path'
 import s from './style.module.css'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 
@@ -8,20 +8,9 @@ interface SidebarMenuItemProps {
   item: MenuItem
 }
 
-// TODO: temporary copy/paste
-const getCurrentPathWithoutParamsOrAnchors = (path: string): string => {
-  const matches = path.match(/.+?(?=(#|\?))/)
-  if (matches) {
-    return matches[0]
-  }
-
-  return path
-}
-
 // TODO: use next/link
 const SidebarNavLink = ({ item }) => {
-  const router = useRouter()
-  const currentPath = getCurrentPathWithoutParamsOrAnchors(router.asPath)
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentPathSplit = currentPath.split('/')
   const currentProductSlug = currentPathSplit[1]
   const currentProductSubpage = currentPathSplit[2]
