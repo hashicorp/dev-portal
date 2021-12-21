@@ -44,6 +44,9 @@ describe('getBreadcrumbLinks', () => {
     }
     const expected = [
       {
+        title: 'Kubernetes',
+      },
+      {
         title: 'Install',
         url: '/docs/kubernetes/install',
       },

@@ -40,7 +40,9 @@ function getBreadcrumbLinks({
   // Map the matched navData nodes into { title, url }
   // objects as needed for breadcrumb link rendering.
   return breadcrumbNodes.map(({ title, path }) => {
-    return { title, url: `/${basePath}/${path}` }
+    const link = { title } as BreadcrumbLink
+    if (path) link.url = `/${basePath}/${path}`
+    return link
   })
 }
 
@@ -61,6 +63,23 @@ function findPathMatchedNodes(navNode, pathString, depth) {
     // that the title of the index page (which is usually "Overview")
     if (indexMatches.length && indexMatches[0].path == pathString) {
       return [{ title: navNode.title, path: indexMatches[0].path }]
+    }
+    // If we don't have a child route that serves as an index page,
+    // then we have an index-less category. We check whether
+    // the current path string matches the inferred path
+    // to the index-less category.
+    if (indexMatches.length == 0) {
+      const routesWithPaths = navNode.routes.filter((r) => {
+        return Boolean(r.path)
+      })
+      if (routesWithPaths.length) {
+        const inferredPathParts = routesWithPaths[0].path.split('/')
+        inferredPathParts.pop()
+        const inferredPath = inferredPathParts.join('/')
+        if (inferredPath == pathString) {
+          return [{ title: navNode.title }]
+        }
+      }
     }
     // Otherwise, continue searching in all child routes
     return findAllPathMatchedNodes(navNode.routes, pathString, depth + 1)
@@ -84,25 +103,27 @@ function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
 
 function getPathMatchedNode(navNodes, pathString) {
   const matches = findAllPathMatchedNodes(navNodes, pathString)
-  // If we have zero matches, this means there's an index-less
-  // category somewhere in the path. For example, Waypoint has
-  // pages like https://www.waypointproject.io/docs/kubernetes/install,
-  // but does not have https://www.waypointproject.io/docs/kubernetes
-  // In these cases we omit the missing category page from the breadcrumbs
-  // (we could include a title, but there'd be nothing to link to,
-  // which seems like it'd be awkward)
-  if (matches.length == 0) return false
+
   if (matches.length == 1) return matches[0]
-  // If we find more than one node matched for a path,
-  // this is a problem with the navData that was not caught
+  // If we do not have exactly one match, we likely
+  // have a problem with the navData that was not caught
   // by our docs-sidenav validation functions, and we should address it.
-  // But, in production, we can return the first match to still be
-  // able to render the breadcrumb bar.
+  // If we have zero matches, we can't recover from this,
+  // so we should throw an error and break the build.
+  if (matches.length == 0) {
+    throw new Error(
+      `Missing breadcrumb path: Found zero matches for "${pathString}". Please ensure there is a node (or index-less category) with the path "${pathString}" in the provided navData.`
+    )
+  }
+  // If we find more than one node matched for a path,
+  // we can return the first match to still be
+  // able to render the breadcrumb bar. We do this in production,
+  // but throw an error during dev to flag the navData issue.
   if (process.env.HASHI_ENV === 'production') {
     return matches[0]
   } else {
     throw new Error(
-      `Ambiguous breadcrumb: Found multiple matches for ${pathString}`
+      `Ambiguous breadcrumb path: Found ${matches.length} matches for "${pathString}". Please ensure there is exactly one node or index-less category with the path "${pathString}" in the provided navData.`
     )
   }
 }

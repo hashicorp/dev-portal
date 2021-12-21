@@ -18,13 +18,13 @@
   align-items: center;
 }
 
-.link {
+.breadcrumbText {
   display: block;
   padding: 0;
   composes: ds-type-body-small;
   color: var(--token-color-palette-neutral-500);
 
-  &:hover {
+  &[href]:hover {
     color: var(--token-color-palette-neutral-600);
     text-decoration: underline;
   }

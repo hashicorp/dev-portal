@@ -4,8 +4,8 @@ import s from './style.module.css'
 interface BreadcrumbLink {
   /** Text to be shown for the link */
   title: string
-  /** The URL to link to. */
-  url: string
+  /** The URL to link to. May be omitted for index-less routes. */
+  url?: string
 }
 
 function BreadcrumbBar({
@@ -17,11 +17,12 @@ function BreadcrumbBar({
     <ul className={s.root}>
       {links.map(({ title, url }, idx, arr) => {
         const isNotLastItem = idx != arr.length - 1
+        const Elem = url ? 'a' : 'span'
         return (
           <li key={url} className={s.listItem}>
-            <a className={s.link} href={url}>
+            <Elem className={s.breadcrumbText} href={url}>
               {title}
-            </a>
+            </Elem>
             {isNotLastItem && <span className={s.divider}>/</span>}
           </li>
         )
