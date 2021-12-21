@@ -8,7 +8,7 @@ describe('getTruncatedTitle', () => {
 
   it('does not add ... to a title of exact limit length', () => {
     const title = 'contrib Tools and Helpers'
-    const expected = 'contrib Tools and...'
+    const expected = 'contrib Tools and Helpers'
     expect(getTruncatedTitle(title)).toBe(expected)
   })
 
