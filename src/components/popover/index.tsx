@@ -6,8 +6,8 @@ import ReachPopover from '@reach/popover'
 import classNames from 'classnames'
 import svgX from '@hashicorp/flight-icons/svg/x-24.svg?include'
 import VisuallyHidden from '@reach/visually-hidden'
-import useOnClickOutside from 'lib/hooks/use-on-click-outside'
-import useOnFocusOutside from 'lib/hooks/use-on-focus-outside'
+import useOnClickOutside from 'hooks/use-on-click-outside'
+import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import s from './style.module.css'
 
 interface PopoverProps {

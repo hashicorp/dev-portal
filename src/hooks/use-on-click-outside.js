@@ -1,10 +1,6 @@
 import { useEffect } from 'react'
 
-export default function useOnClickOutsideDropdown(
-  refs,
-  handler,
-  shouldListen = true
-) {
+export default function useOnClickOutside(refs, handler, shouldListen = true) {
   useEffect(() => {
     const listener = (event) => {
       // Do nothing if clicking ref's element or descendent elements
