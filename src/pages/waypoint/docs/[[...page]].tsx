@@ -9,6 +9,7 @@ import waypointConfig from '../../../../config/waypoint.json'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
 import DocsLayout from 'layouts/docs'
+import getBreadcrumbLinks from 'components/breadcrumb-bar/get-breadcrumb-links'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -58,6 +59,14 @@ export async function getStaticProps({ params }) {
       layoutProps: {
         headings,
         navData: props.navData,
+        breadcrumbLinks: [
+          { title: 'Waypoint', url: '/waypoint' },
+          ...getBreadcrumbLinks({
+            basePath,
+            navData: props.navData,
+            params: params.page,
+          }),
+        ],
       },
     },
     revalidate: 10,
