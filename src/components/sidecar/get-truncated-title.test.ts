@@ -39,7 +39,7 @@ describe('getTruncatedTitle', () => {
   */
   it('handles titles that end in long words', () => {
     const title = 'Set up automated infrastructure'
-    const expected = 'Set up automated...'
+    const expected = 'Set up automated…'
     expect(getTruncatedTitle(title)).toBe(expected)
   })
 })
