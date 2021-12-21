@@ -1,3 +1,4 @@
+import BreadcrumbBar from 'components/breadcrumb-bar'
 import NavigationHeader from 'components/navigation-header'
 import Sidebar, { MenuItem } from 'components/sidebar'
 import Sidecar from 'components/sidecar'
@@ -20,6 +21,22 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
           {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
           {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
           <main className={s.main} id="main">
+            <BreadcrumbBar
+              links={[
+                {
+                  title: 'Vault',
+                  url: '/vault',
+                },
+                {
+                  title: 'Reference Docs',
+                  url: '/vault/reference-docs',
+                },
+                {
+                  title: 'Introduction',
+                  url: '/vault/reference-docs/introduction',
+                },
+              ]}
+            />
             {props.children}
           </main>
           <Sidecar headings={props.headings} />

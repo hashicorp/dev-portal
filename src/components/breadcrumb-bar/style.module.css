@@ -1,0 +1,37 @@
+/* note: the ds- type styles comesfrom the global design system.
+   once we have a way to consume these styles from a more
+   central location, we should switch to that approach. */
+.ds-type-body-small {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.root {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  display: block;
+  padding: 0;
+  composes: ds-type-body-small;
+  color: var(--token-color-palette-neutral-500);
+
+  &:hover {
+    color: var(--token-color-palette-neutral-600);
+    text-decoration: underline;
+  }
+}
+
+.divider {
+  composes: ds-type-body-small;
+  color: var(--token-color-palette-neutral-400);
+  padding: 0 8px;
+}

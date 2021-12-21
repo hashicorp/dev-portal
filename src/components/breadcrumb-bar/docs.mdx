@@ -1,0 +1,24 @@
+---
+componentName: 'BreadcrumbBar'
+---
+
+The `<BreadcrumbBar />` component is used to display a list of parent paths that lead to the current page. This component is intended to help visitors quickly build a mental model of the content hierarchy, and to allow them to easily traverse that hierarchy.
+
+<LiveComponent>{`
+<BreadcrumbBar
+  links={[
+    {
+      title: 'Vault',
+      url: '/vault',
+    },
+    {
+      title: 'Reference Docs',
+      url: '/vault/reference-docs',
+    },
+    {
+      title: 'Introduction',
+      url: '/vault/reference-docs/introduction',
+    },
+  ]}
+/>
+`}</LiveComponent>
