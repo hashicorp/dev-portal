@@ -53,21 +53,23 @@ export async function getStaticProps({ params }) {
     remarkPlugins: [[anchorLinks, { headings }]],
   })
 
+  const breadcrumbLinks = [
+    { title: 'Waypoint', url: '/waypoint' },
+    { title: 'Docs', url: `/waypoint/${basePath}` },
+    ...getBreadcrumbLinks({
+      basePath,
+      navData: props.navData,
+      pathParts: params.page || [],
+    }),
+  ]
+
   return {
     props: {
       ...props,
       layoutProps: {
         headings,
         navData: props.navData,
-        breadcrumbLinks: [
-          { title: 'Waypoint', url: '/waypoint' },
-          { title: 'Docs', url: '/waypoint/docs' },
-          ...getBreadcrumbLinks({
-            basePath,
-            navData: props.navData,
-            pathParts: params.page || [],
-          }),
-        ],
+        breadcrumbLinks,
       },
     },
     revalidate: 10,
