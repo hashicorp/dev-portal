@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import Popover from 'components/popover'
 import s from './style.module.css'
+import VisuallyHidden from '@reach/visually-hidden'
 
 /**
  * Renders non-interactive children into a button element,
@@ -21,13 +22,14 @@ function DevPopover({
   const [showDialog, setShowDialog] = useState(false)
   const triggerRef = useRef(null)
   return (
-    <>
+    <div className={s.root}>
+      {children}
       <button
         className={s.button}
         ref={triggerRef}
         onClick={() => setShowDialog(!showDialog)}
       >
-        {children}
+        <VisuallyHidden>{title}</VisuallyHidden>
       </button>
       <Popover
         themeBackground="#F7D5FF"
@@ -38,7 +40,7 @@ function DevPopover({
         {title ? <div className={s.label}>{title}</div> : null}
         <div className={s.note}>{note}</div>
       </Popover>
-    </>
+    </div>
   )
 }
 

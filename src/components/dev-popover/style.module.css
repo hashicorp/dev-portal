@@ -1,5 +1,14 @@
+.root {
+  position: relative;
+}
+
 .button {
   background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border: none;
   color: inherit;
   cursor: pointer;
