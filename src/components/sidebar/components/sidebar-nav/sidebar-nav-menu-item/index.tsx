@@ -64,7 +64,7 @@ const SidebarNavSubmenu: React.FC<{
         onClick={() => setIsOpen((prevState) => !prevState)}
         ref={buttonRef}
       >
-        <span>{item.title}</span>
+        <span className={s.submenuButtonLabel}>{item.title}</span>
         <IconChevronRight16 />
       </button>
       {isOpen && (

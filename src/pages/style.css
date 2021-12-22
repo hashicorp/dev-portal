@@ -34,6 +34,15 @@
   font-style: normal;
 }
 
+/* TODO: not sure where else to put this yet */
+button {
+  font-family: var(--font-body);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 /* Mobile and tablet breakpoints and helper classes */
 
 :root {
@@ -67,7 +76,7 @@
 .focus-border-and-box-shadow-light {
   &:focus {
     border: 1px solid var(--blue-vibrant);
-    box-shadow: 0 0 0 3px #a5c2f3;
+    box-shadow: 0 0 0 3px #5990ff;
     outline: none;
   }
 }
