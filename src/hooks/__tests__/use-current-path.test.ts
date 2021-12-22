@@ -2,21 +2,19 @@ import { renderHook } from '@testing-library/react-hooks'
 import useCurrentPath from '../use-current-path'
 
 describe('useCurrentPath', () => {
-  const savedLocation = window.location
   const testPath = '/test-path'
   const testOrigin = 'http://www.test.com'
   const testHash = '#test'
   const testSearch = '?foo=bar'
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const useRouter = jest.spyOn(require('next/router'), 'useRouter')
-
+  let useRouter: jest.SpyInstance
   beforeAll(() => {
-    delete window.location
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    useRouter = jest.spyOn(require('next/router'), 'useRouter')
   })
 
   afterAll(() => {
-    window.location = savedLocation
+    useRouter.mockRestore()
   })
 
   describe('when hash and search are not in the URL', () => {
