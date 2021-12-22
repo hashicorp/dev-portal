@@ -3,7 +3,7 @@ const MAX_CHARACTERS = 26
 function getTruncatedTitle(fullTitle: string): string {
   let truncatedTitle: string
 
-  if (fullTitle.length < MAX_CHARACTERS) {
+  if (fullTitle.length <= MAX_CHARACTERS) {
     truncatedTitle = fullTitle
   } else {
     let characterCount = 0
@@ -11,7 +11,7 @@ function getTruncatedTitle(fullTitle: string): string {
     const wordsToInclude = []
     words.forEach((word, idx) => {
       const wordLength = word.length
-      if (characterCount + wordLength < MAX_CHARACTERS) {
+      if (characterCount + wordLength <= MAX_CHARACTERS) {
         wordsToInclude.push(word)
         characterCount += wordLength
         // count spaces as well, since these are counted
