@@ -32,9 +32,9 @@ function getDocsBreadcrumbs({
   // Map each each breadcrumb path to its
   // associated navData node. This gets slightly
   // complex due to index (aka "Overview") nodes.
-  const breadcrumbNodes = breadcrumbPaths
-    .map((p) => getPathMatchedNode(navData, p))
-    .filter(Boolean)
+  const breadcrumbNodes = breadcrumbPaths.map((p) =>
+    getPathMatchedNode(navData, p)
+  )
   // Map the matched navData nodes into { title, url }
   // objects as needed for breadcrumb link rendering.
   return breadcrumbNodes.map(({ title, path }) => {
