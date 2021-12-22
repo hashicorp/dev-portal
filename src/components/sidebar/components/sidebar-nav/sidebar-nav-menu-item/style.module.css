@@ -47,3 +47,9 @@
     }
   }
 }
+
+.divider {
+  background-color: var(--token-color-palette-alpha-200);
+  color: var(--token-color-palette-alpha-200);
+  margin: 12px 8px;
+}

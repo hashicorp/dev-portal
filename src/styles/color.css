@@ -4,6 +4,9 @@ defined here will hopefully match the token variable names once released, which 
 the transition into using the tokens.
 */
 :root {
+  /* Alphas */
+  --token-color-palette-alpha-200: #656a7633;
+
   /* Neutrals */
   --token-color-palette-neutral-700: #0c0c0e;
   --token-color-palette-neutral-600: #3b3d45;

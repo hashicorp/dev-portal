@@ -1,8 +1,8 @@
 import { KeyboardEventHandler, useRef, useState } from 'react'
-import { MenuItem } from 'components/sidebar'
-import useCurrentPath from 'hooks/use-current-path'
-import s from './style.module.css'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
+import useCurrentPath from 'hooks/use-current-path'
+import { MenuItem } from 'components/sidebar'
+import s from './style.module.css'
 
 interface SidebarMenuItemProps {
   item: MenuItem
@@ -85,7 +85,8 @@ const SidebarNavSubmenu: React.FC<{
 const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   // TODO: the designs don't currently show a divider
   if (item.divider) {
-    return null
+    console.log('hello???')
+    return <hr className={s.divider} />
   }
 
   if (item.routes) {
