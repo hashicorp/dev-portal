@@ -5,11 +5,16 @@ import s from './style.module.css'
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 
 interface SidebarNavProps {
+  isSearching: boolean
   menuItems: MenuItem[]
   title: string
 }
 
-const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => (
+const SidebarNav: React.FC<SidebarNavProps> = ({
+  isSearching,
+  menuItems,
+  title,
+}) => (
   <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.sidebarNavElement}>
     <p className={s.sidebarNavLabel} id={SIDEBAR_LABEL_ID}>
       {title}
@@ -20,6 +25,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => (
     <ul className={s.sidebarNavList}>
       {menuItems.map((item, index) => (
         <SidebarNavMenuItem
+          isSearching={isSearching}
           item={item}
           // TODO: use item.id when it has been added to the metadata (see above)
           // eslint-disable-next-line react/no-array-index-key

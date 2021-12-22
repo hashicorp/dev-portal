@@ -5,6 +5,7 @@ import { MenuItem } from 'components/sidebar'
 import s from './style.module.css'
 
 interface SidebarMenuItemProps {
+  isSearching: boolean
   item: MenuItem
 }
 
@@ -37,8 +38,9 @@ const SidebarNavLink = ({ item }) => {
 }
 
 const SidebarNavSubmenu: React.FC<{
+  isSearching: boolean
   item: MenuItem
-}> = ({ item }) => {
+}> = ({ isSearching, item }) => {
   const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(item.hasActiveChild)
 
@@ -59,7 +61,7 @@ const SidebarNavSubmenu: React.FC<{
   return (
     <li>
       <button
-        aria-expanded={isOpen}
+        aria-expanded={isSearching || isOpen}
         className={s.sidebarNavMenuItem}
         onClick={() => setIsOpen((prevState) => !prevState)}
         ref={buttonRef}
@@ -67,11 +69,11 @@ const SidebarNavSubmenu: React.FC<{
         <span className={s.submenuButtonLabel}>{item.title}</span>
         <IconChevronRight16 />
       </button>
-      {isOpen && (
+      {(isSearching || isOpen) && (
         <ul onKeyDown={handleKeyDown}>
           {item.routes.map((route) =>
             route.routes ? (
-              <SidebarNavSubmenu item={route} />
+              <SidebarNavSubmenu isSearching={isSearching} item={route} />
             ) : (
               <SidebarNavLink item={route} />
             )
@@ -82,13 +84,16 @@ const SidebarNavSubmenu: React.FC<{
   )
 }
 
-const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
+const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
+  isSearching,
+  item,
+}) => {
   if (item.divider) {
     return <hr className={s.divider} />
   }
 
   if (item.routes) {
-    return <SidebarNavSubmenu item={item} />
+    return <SidebarNavSubmenu isSearching={isSearching} item={item} />
   }
 
   return <SidebarNavLink item={item} />

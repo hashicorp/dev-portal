@@ -104,7 +104,11 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
       <SidebarBackToLink />
       <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       {/* TODO: What should this title be? */}
-      <SidebarNav title="Waypoint" menuItems={filteredMenuItems} />
+      <SidebarNav
+        isSearching={!!filterValue}
+        title="Waypoint"
+        menuItems={filteredMenuItems}
+      />
     </div>
   )
 }
