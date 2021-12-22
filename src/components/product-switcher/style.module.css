@@ -10,7 +10,7 @@
 .switcherButton {
   composes: focus-border-and-box-shadow-dark from global;
   align-items: center;
-  background-color: #0c0c0e;
+  background-color: var(--token-color-palette-neutral-700);
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0px 1px 1px rgba(194, 197, 203, 0.05),
