@@ -22,9 +22,9 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
           {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
           {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
           <main className={s.main} id="main">
-            {props.breadcrumbLinks ? (
+            {props.breadcrumbLinks && (
               <BreadcrumbBar links={props.breadcrumbLinks} />
-            ) : null}
+            )}
             {props.children}
           </main>
           <Sidecar headings={props.headings} />
