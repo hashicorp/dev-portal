@@ -19,8 +19,6 @@ async function main() {
   console.log('📝 copying files in the public folder')
   await execFile('cp', ['-R', './public', '../'])
 
-  execFileSync('npm', ['-v'], { stdio: 'inherit' })
-
   /**
    * exclude any imports in the global CSS file which rely on other products
    */
@@ -67,9 +65,7 @@ async function main() {
 
   /** Install deps */
   console.log('📦 Installing dependencies')
-  execFileSync('npm', ['ci'], { stdio: 'inherit' })
-
-  execFileSync('ls', ['-a', 'node_modules/@hashicorp'], { stdio: 'inherit' })
+  execFileSync('npm', ['ci', '--include=dev'], { stdio: 'inherit' })
 
   /** Build */
   execFileSync('npm', ['run', 'build'], { stdio: 'inherit' })
