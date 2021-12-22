@@ -18,7 +18,7 @@ async function main() {
   // copy public files
   // cp -R ../public/* ./public/
   console.log('📝 copying files in the public folder')
-  await execFile('cp', ['-R', '../public', './public/'])
+  await execFile('cp', ['-R', '../public', './'])
 
   /**
    * exclude any imports in the global CSS file which rely on other products
@@ -76,7 +76,7 @@ async function main() {
     recursive: true,
   })
 
-  await execFile('cp', ['-R', '.next', '../.next/'])
+  await execFile('cp', ['-R', '.next', '../'])
 }
 
 main()
