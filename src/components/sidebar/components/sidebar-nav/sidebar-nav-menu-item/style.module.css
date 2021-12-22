@@ -10,6 +10,7 @@
   font-weight: 400;
   justify-content: space-between;
   line-height: 18px;
+  margin-bottom: 2px;
   padding: 8px;
   position: relative;
   text-align: left;
@@ -30,6 +31,8 @@
 
   /* AKA open */
   &[aria-expanded='true'] {
+    margin-bottom: 0;
+
     & svg {
       transform: rotate(90deg);
     }
