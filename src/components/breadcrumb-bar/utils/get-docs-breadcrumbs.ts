@@ -1,5 +1,5 @@
 import { NavData } from '@hashicorp/react-docs-sidenav'
-import { BreadcrumbLink } from '../'
+import { BreadcrumbLink } from '..'
 
 /**
  * Given a basePath, navData, and array of path parameters,
@@ -10,7 +10,7 @@ import { BreadcrumbLink } from '../'
  * want to prefix this array to provide a more complete
  * list of breadcrumb links.
  */
-function getBreadcrumbLinks({
+function getDocsBreadcrumbs({
   basePath,
   navData,
   pathParts,
@@ -129,4 +129,4 @@ function getPathMatchedNode(navNodes, pathString) {
   }
 }
 
-export default getBreadcrumbLinks
+export default getDocsBreadcrumbs

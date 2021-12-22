@@ -1,7 +1,7 @@
-import getBreadcrumbLinks from '../utils/get-breadcrumb-links'
+import getDocsBreadcrumbs from '../utils/get-docs-breadcrumbs'
 import waypointNavData from '../__fixtures__/waypoint-nav-data.json'
 
-describe('getBreadcrumbLinks', () => {
+describe('getDocsBreadcrumbs', () => {
   it('returns links for a basic example', () => {
     const args = {
       basePath: 'docs',
@@ -15,7 +15,7 @@ describe('getBreadcrumbLinks', () => {
         isCurrentPage: true,
       },
     ]
-    expect(getBreadcrumbLinks(args)).toEqual(expected)
+    expect(getDocsBreadcrumbs(args)).toEqual(expected)
   })
 
   it('returns links for overview paths using the title of the parent category', () => {
@@ -35,7 +35,7 @@ describe('getBreadcrumbLinks', () => {
         isCurrentPage: true,
       },
     ]
-    expect(getBreadcrumbLinks(args)).toEqual(expected)
+    expect(getDocsBreadcrumbs(args)).toEqual(expected)
   })
 
   it('skips index-less categories in breadcrumb paths', () => {
@@ -54,6 +54,6 @@ describe('getBreadcrumbLinks', () => {
         isCurrentPage: true,
       },
     ]
-    expect(getBreadcrumbLinks(args)).toEqual(expected)
+    expect(getDocsBreadcrumbs(args)).toEqual(expected)
   })
 })
