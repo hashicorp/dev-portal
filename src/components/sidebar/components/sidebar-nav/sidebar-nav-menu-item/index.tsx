@@ -83,9 +83,7 @@ const SidebarNavSubmenu: React.FC<{
 }
 
 const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
-  // TODO: the designs don't currently show a divider
   if (item.divider) {
-    console.log('hello???')
     return <hr className={s.divider} />
   }
 
