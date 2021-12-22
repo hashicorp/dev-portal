@@ -1,12 +1,14 @@
-import DocsPage from '@hashicorp/react-docs-page'
 import {
   generateStaticPaths,
   generateStaticProps,
 } from '@hashicorp/react-docs-page/server'
+import { anchorLinks } from '@hashicorp/remark-plugins'
 import waypointConfig from '../../../../config/waypoint.json'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
-import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
+import DocsLayout from 'layouts/docs'
+import { MDXRemote } from 'next-mdx-remote'
+// import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -19,16 +21,8 @@ const basePath = 'commands'
 const additionalComponents = { Placement, NestedNode }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function DocsLayout(props) {
-  return (
-    <DocsPage
-      product={{ name: productName, slug: productSlug }}
-      baseRoute={basePath}
-      staticProps={props}
-      showVersionSelect={!!+process.env.ENABLE_VERSIONED_DOCS}
-      additionalComponents={additionalComponents}
-    />
-  )
+function WaypointCommandsPage(props) {
+  return <MDXRemote {...props.mdxSource} components={additionalComponents} />
 }
 
 export async function getStaticPaths() {
@@ -46,18 +40,29 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  const headings = []
+
   const props = await generateStaticProps({
-    navDataFile: temporary_noop,
-    localContentDir: temporary_noop,
-    product: { name: productName, slug: productSlug },
-    params,
     basePath,
+    localContentDir: temporary_noop,
+    navDataFile: temporary_noop,
+    params,
+    product: { name: productName, slug: productSlug },
+    remarkPlugins: [[anchorLinks, { headings }]],
   })
+
   return {
-    props,
+    props: {
+      ...props,
+      layoutProps: {
+        headings,
+        navData: props.navData,
+      },
+    },
     revalidate: 10,
   }
 }
 
-DocsLayout.layout = WaypointIoLayout
-export default DocsLayout
+WaypointCommandsPage.layout = DocsLayout
+
+export default WaypointCommandsPage

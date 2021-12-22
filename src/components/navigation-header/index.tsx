@@ -1,5 +1,5 @@
-import { ReactElement } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import HeaderSearchInput from 'components/header-search-input'
@@ -9,62 +9,57 @@ import waypointData from 'data/waypoint.json'
 import s from './style.module.css'
 
 /**
- * This is a temporary component. Once all of the nav links point to internal paths,
- * it won't be needed anymore. Not planning to move into a separate file.
+ * Checks if a header navigation link's path matches the current route's path.
+ * Useful for setting the `aria-current` property on <a> elements in the nav, which
+ * is used as a CSS selector for applying active styles to links in the header.
  */
-const NavLink = ({
-  ariaCurrent,
-  href,
-  label,
-  path,
-}: {
-  ariaCurrent: 'page' | undefined
-  href: string
-  label: string
-  path: string
-}): ReactElement => {
-  if (path) {
-    return (
-      <Link href={path}>
-        <a aria-current={ariaCurrent} className={s.navLinksAnchor}>
-          {label}
-        </a>
-      </Link>
-    )
-  }
+const isCurrentPage = (pagePath: string, currentPath: string): boolean => {
+  const currentPathSplit = currentPath.split('/')
+  const currentProductSlug = currentPathSplit[1]
+  const currentProductSubpage = currentPathSplit[2]
 
-  return (
-    <a aria-current={ariaCurrent} className={s.navLinksAnchor} href={href}>
-      {label}
-    </a>
-  )
+  if (currentProductSubpage) {
+    return pagePath === `/${currentProductSlug}/${currentProductSubpage}`
+  } else {
+    return pagePath === `/${currentProductSlug}`
+  }
 }
 
-const NavigationHeader: React.FC = () => (
-  <header className={s.navigationHeader}>
-    <nav>
-      <div className={s.headerLeft}>
-        <InlineSvg className={s.siteLogo} src={HashiCorpLogo} />
-        <ProductSwitcher />
-      </div>
-      <div className={s.headerRight}>
-        <ul className={s.navLinks}>
-          {waypointData.subnavItems.map((navLink, index) => (
-            <li className={s.navLinksListItem} key={navLink.id}>
-              {/* TODO: we'll use the router to determine the current link once they're all internal */}
-              <NavLink
-                ariaCurrent={index === 0 ? 'page' : undefined}
-                href={navLink.href}
-                label={navLink.label}
-                path={navLink.path}
-              />
-            </li>
-          ))}
-        </ul>
-        <HeaderSearchInput />
-      </div>
-    </nav>
-  </header>
-)
+const NavigationHeader: React.FC = () => {
+  const router = useRouter()
+  const currentPath = router.asPath
+
+  return (
+    <header className={s.navigationHeader}>
+      <nav>
+        <div className={s.headerLeft}>
+          <InlineSvg className={s.siteLogo} src={HashiCorpLogo} />
+          <ProductSwitcher />
+        </div>
+        <div className={s.headerRight}>
+          <ul className={s.navLinks}>
+            {waypointData.subnavItems.map((navLink) => {
+              const isCurrent = isCurrentPage(navLink.path, currentPath)
+
+              return (
+                <li className={s.navLinksListItem} key={navLink.id}>
+                  <Link href={navLink.path}>
+                    <a
+                      aria-current={isCurrent ? 'page' : undefined}
+                      className={s.navLinksAnchor}
+                    >
+                      {navLink.label}
+                    </a>
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+          <HeaderSearchInput />
+        </div>
+      </nav>
+    </header>
+  )
+}
 
 export default NavigationHeader
