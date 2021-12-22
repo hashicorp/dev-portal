@@ -36,7 +36,7 @@ async function main() {
         return `/* ${line} */`
       }
     })
-    .join('\n1')
+    .join('\n')
 
   console.log(`🧹 removing global CSS references for other products`)
   await fs.promises.writeFile(globalCSSFile, newContents)
