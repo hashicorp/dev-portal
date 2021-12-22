@@ -1,4 +1,5 @@
-import { BreadcrumbLink } from '.'
+import { NavData } from '@hashicorp/react-docs-sidenav'
+import { BreadcrumbLink } from '../'
 
 /**
  * Given a basePath, navData, and array of path parameters,
@@ -16,8 +17,8 @@ function getBreadcrumbLinks({
 }: {
   /** The base path for the current route, if applicable. For example, "docs". Returned breadcrumb links will be prefixed with this path. */
   basePath: string
-  /** An array of nav nodes. The typing for each nav node can be inferred from @hashicorp/react-docs-sidenav code, and is also detailed in our MKTG-034 RFC. @TODO would be great to build a navData and navNode types in the docs-sidenav package, or perhaps just in this project, and import them here.*/
-  navData: $TSFixMe[]
+  /** An array of nav nodes, as defined by our sidenav component. */
+  navData: NavData
   /** An array of parameters representing the path from the basePath to the current path.  */
   pathParts: string[]
 }): BreadcrumbLink[] {

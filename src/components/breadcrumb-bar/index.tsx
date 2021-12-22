@@ -21,7 +21,7 @@ function BreadcrumbBar({
         {links.map(({ title, url, isCurrentPage }) => {
           const Elem = url ? 'a' : 'span'
           return (
-            <li key={url} className={s.listItem}>
+            <li key={`${title}_${url}`} className={s.listItem}>
               <Elem
                 className={s.breadcrumbText}
                 href={url}

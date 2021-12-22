@@ -1,5 +1,5 @@
-import getBreadcrumbLinks from './get-breadcrumb-links'
-import waypointNavData from './fixtures/waypoint-nav-data.json'
+import getBreadcrumbLinks from '../utils/get-breadcrumb-links'
+import waypointNavData from '../__fixtures__/waypoint-nav-data.json'
 
 describe('getBreadcrumbLinks', () => {
   it('returns links for a basic example', () => {
@@ -12,6 +12,7 @@ describe('getBreadcrumbLinks', () => {
       {
         title: 'Getting Started',
         url: '/docs/getting-started',
+        isCurrentPage: true,
       },
     ]
     expect(getBreadcrumbLinks(args)).toEqual(expected)
@@ -31,6 +32,7 @@ describe('getBreadcrumbLinks', () => {
       {
         title: 'Waypoint vs. Other Software',
         url: '/docs/intro/vs',
+        isCurrentPage: true,
       },
     ]
     expect(getBreadcrumbLinks(args)).toEqual(expected)
@@ -49,6 +51,7 @@ describe('getBreadcrumbLinks', () => {
       {
         title: 'Install',
         url: '/docs/kubernetes/install',
+        isCurrentPage: true,
       },
     ]
     expect(getBreadcrumbLinks(args)).toEqual(expected)
