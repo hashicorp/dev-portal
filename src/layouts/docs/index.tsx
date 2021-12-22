@@ -23,12 +23,12 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
           {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
           <main className={s.main} id="main">
             {props.children}
-            {props.githubFileUrl ? (
+            {props.githubFileUrl && (
               <EditOnGithubLink
                 url={props.githubFileUrl}
                 label="Edit this page on GitHub"
               />
-            ) : null}
+            )}
           </main>
           <Sidecar headings={props.headings} />
         </div>
