@@ -21,11 +21,11 @@ async function main() {
    */
   if (fs.existsSync(path.join(cwd, '..', '.next'))) {
     console.log('.next folder found, moving into website-preview...')
-    await execFile('cp', ['-R', '../.next', '.'])
+    await execFile('mv', ['../.next', './.next'])
 
     if (fs.existsSync(path.join(cwd, '.next', 'cache', 'node_modules'))) {
       console.log('Found cached node_modules, moving...')
-      await execFile('mv', ['../.next/cache/node_modules', 'node_modules'])
+      await execFile('mv', ['./.next/cache/node_modules', './node_modules'])
     }
   }
 
@@ -79,20 +79,18 @@ async function main() {
 
   /** Install deps */
   console.log('📦 Installing dependencies')
-  execFileSync('npm', ['ci', '--include=dev'], { stdio: 'inherit' })
+  execFileSync('npm', ['install', '--include=dev'], { stdio: 'inherit' })
 
   /** Build */
   execFileSync('npm', ['run', 'build'], { stdio: 'inherit' })
 
-  /** Put node_modules into .next/cache so we can retrieve them on subsequent builds */
-  execFileSync('mv', ['node_modules', '.next/cache'], { stdio: 'inherit' })
-
-  // Using recursive so it doesn't reject if the directory exists
-  await fs.promises.mkdir(path.join('..', '.next'), {
-    recursive: true,
+  // Put node_modules into .next/cache so we can retrieve them on subsequent builds
+  execFileSync('mv', ['node_modules', '.next/cache/node_modules'], {
+    stdio: 'inherit',
   })
 
-  await execFile('cp', ['-R', '.next', '../'])
+  // Move the .next folder to the top-level so the site can be deployed and we can take advantage of the cache
+  await execFile('mv', ['.next', '../.next'])
 }
 
 main()
