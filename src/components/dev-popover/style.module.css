@@ -4,25 +4,24 @@
 
 .button {
   background: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
   border: none;
   color: inherit;
   cursor: pointer;
   display: block;
   font-family: inherit;
   font-size: inherit;
+  height: 100%;
+  left: 0;
   margin: 0;
   padding: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .label {
-  color: #9c64aa;
   composes: g-type-label from global;
+  color: #9c64aa;
   padding-bottom: 0.75rem;
 }
 
