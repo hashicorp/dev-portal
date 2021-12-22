@@ -2,7 +2,7 @@ import {
   Fragment,
   KeyboardEventHandler,
   ReactElement,
-  useLayoutEffect,
+  useEffect,
   useRef,
   useState,
 } from 'react'
@@ -53,7 +53,7 @@ const ProductSwitcher: React.FC = () => {
     })
   )
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!isOpen) {
       return
     }
