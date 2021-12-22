@@ -1,5 +1,5 @@
-/* note: the ds- type styles comesfrom the global design system.
-   once we have a way to consume these styles from a more
+/* note: the ds- type style comes from the global design system.
+   Once we have a way to consume these styles from a more
    central location, we should switch to that approach. */
 .ds-type-body-small {
   font-size: 13px;
@@ -11,31 +11,27 @@
 }
 
 .listRoot {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .listItem {
-  display: flex;
-  align-items: center;
+  composes: ds-type-body-small;
+
+  &:not(:last-child):after {
+    color: var(--token-color-palette-neutral-400);
+    content: '/';
+    padding: 0 8px;
+  }
 }
 
 .breadcrumbText {
-  display: block;
-  padding: 0;
-  composes: ds-type-body-small;
   color: var(--token-color-palette-neutral-500);
 
   &[href]:hover {
     color: var(--token-color-palette-neutral-600);
     text-decoration: underline;
   }
-}
-
-.divider {
-  composes: ds-type-body-small;
-  color: var(--token-color-palette-neutral-400);
-  padding: 0 8px;
 }

@@ -18,8 +18,7 @@ function BreadcrumbBar({
   return (
     <nav aria-label="Breadcrumb" className={s.root}>
       <ol className={s.listRoot}>
-        {links.map(({ title, url, isCurrentPage }, idx, arr) => {
-          const isNotLastItem = idx != arr.length - 1
+        {links.map(({ title, url, isCurrentPage }) => {
           const Elem = url ? 'a' : 'span'
           return (
             <li key={url} className={s.listItem}>
@@ -30,7 +29,6 @@ function BreadcrumbBar({
               >
                 {title}
               </Elem>
-              {isNotLastItem && <span className={s.divider}>/</span>}
             </li>
           )
         })}
