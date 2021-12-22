@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import s from './style.module.css'
 
 interface BreadcrumbLink {
@@ -19,7 +20,7 @@ function BreadcrumbBar({
     <nav aria-label="Breadcrumb" className={s.root}>
       <ol className={s.listRoot}>
         {links.map(({ title, url, isCurrentPage }) => {
-          const Elem = url ? 'a' : 'span'
+          const Elem = url ? InternalLink : 'span'
           return (
             <li key={`${title}_${url}`} className={s.listItem}>
               <Elem
@@ -34,6 +35,14 @@ function BreadcrumbBar({
         })}
       </ol>
     </nav>
+  )
+}
+
+function InternalLink({ href, children, ...rest }) {
+  return (
+    <Link href={href}>
+      <a {...rest}>{children}</a>
+    </Link>
   )
 }
 
