@@ -1,14 +1,14 @@
 .editLink {
   align-items: center;
+  /* --blue-vibrant aka --token-color-action-foreground-primary */
   color: var(--blue-vibrant);
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
   font-family: inherit;
   font-size: 14px;
-  font-weight: 600;
-  justify-content: flex-end;
+  font-weight: 500;
   margin-top: 24px;
-  text-decoration: underline;
 }
 
 .editLinkIcon {
