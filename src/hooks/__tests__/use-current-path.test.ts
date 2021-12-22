@@ -1,3 +1,4 @@
+import { renderHook } from '@testing-library/react-hooks'
 import useCurrentPath from '../use-current-path'
 
 describe('useCurrentPath', () => {
@@ -6,6 +7,9 @@ describe('useCurrentPath', () => {
   const testOrigin = 'http://www.test.com'
   const testHash = '#test'
   const testSearch = '?foo=bar'
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const useRouter = jest.spyOn(require('next/router'), 'useRouter')
 
   beforeAll(() => {
     delete window.location
@@ -17,7 +21,7 @@ describe('useCurrentPath', () => {
 
   describe('when hash and search are not in the URL', () => {
     beforeAll(() => {
-      window.location = Object.assign(new URL(`${testOrigin}${testPath}`))
+      useRouter.mockReturnValue({ asPath: `${testOrigin}${testPath}` })
     })
 
     test.each([
@@ -28,16 +32,19 @@ describe('useCurrentPath', () => {
     ])(
       '.useCurrentPath({ excludeHash: $excludeHash, excludeSearch: $excludeSearch })',
       ({ excludeHash, excludeSearch }) => {
-        expect(useCurrentPath({ excludeHash, excludeSearch })).toEqual(testPath)
+        const { result } = renderHook(() =>
+          useCurrentPath({ excludeHash, excludeSearch })
+        )
+        expect(result.current).toEqual(testPath)
       }
     )
   })
 
   describe('when hash is present and search is not present in the URL', () => {
     beforeAll(() => {
-      window.location = Object.assign(
-        new URL(`${testOrigin}${testPath}${testHash}`)
-      )
+      useRouter.mockReturnValue({
+        asPath: `${testOrigin}${testPath}${testHash}`,
+      })
     })
 
     test.each([
@@ -56,18 +63,19 @@ describe('useCurrentPath', () => {
     ])(
       '.useCurrentPath({ excludeHash: $excludeHash, excludeSearch: $excludeSearch })',
       ({ excludeHash, excludeSearch, expectedPath }) => {
-        expect(useCurrentPath({ excludeHash, excludeSearch })).toEqual(
-          expectedPath
+        const { result } = renderHook(() =>
+          useCurrentPath({ excludeHash, excludeSearch })
         )
+        expect(result.current).toEqual(expectedPath)
       }
     )
   })
 
   describe('when hash is not present and search is present in the URL', () => {
     beforeAll(() => {
-      window.location = Object.assign(
-        new URL(`${testOrigin}${testPath}${testSearch}`)
-      )
+      useRouter.mockReturnValue({
+        asPath: `${testOrigin}${testPath}${testSearch}`,
+      })
     })
 
     test.each([
@@ -90,18 +98,19 @@ describe('useCurrentPath', () => {
     ])(
       '.useCurrentPath({ excludeHash: $excludeHash, excludeSearch: $excludeSearch })',
       ({ excludeHash, excludeSearch, expectedPath }) => {
-        expect(useCurrentPath({ excludeHash, excludeSearch })).toEqual(
-          expectedPath
+        const { result } = renderHook(() =>
+          useCurrentPath({ excludeHash, excludeSearch })
         )
+        expect(result.current).toEqual(expectedPath)
       }
     )
   })
 
   describe('when both hash and search are present in the URL', () => {
     beforeAll(() => {
-      window.location = Object.assign(
-        new URL(`${testOrigin}${testPath}${testSearch}${testHash}`)
-      )
+      useRouter.mockReturnValue({
+        asPath: `${testOrigin}${testPath}${testSearch}${testHash}`,
+      })
     })
 
     test.each([
@@ -124,9 +133,10 @@ describe('useCurrentPath', () => {
     ])(
       '.useCurrentPath({ excludeHash: $excludeHash, excludeSearch: $excludeSearch })',
       ({ excludeHash, excludeSearch, expectedPath }) => {
-        expect(useCurrentPath({ excludeHash, excludeSearch })).toEqual(
-          expectedPath
+        const { result } = renderHook(() =>
+          useCurrentPath({ excludeHash, excludeSearch })
         )
+        expect(result.current).toEqual(expectedPath)
       }
     )
   })
