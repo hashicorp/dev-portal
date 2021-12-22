@@ -39,6 +39,7 @@ function getBreadcrumbLinks({
   return breadcrumbNodes.map(({ title, path }) => {
     const link = { title } as BreadcrumbLink
     if (path) link.url = `/${basePath}/${path}`
+    if (path == pathParts.join('/')) link.isCurrentPage = true
     return link
   })
 }

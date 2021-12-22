@@ -6,6 +6,8 @@ interface BreadcrumbLink {
   title: string
   /** The URL to link to. May be omitted for index-less routes. */
   url?: string
+  /** Whether this breadcrumb represents the current page */
+  isCurrentPage?: boolean
 }
 
 function BreadcrumbBar({
@@ -14,20 +16,26 @@ function BreadcrumbBar({
   links: BreadcrumbLink[]
 }): React.ReactElement {
   return (
-    <ul className={s.root}>
-      {links.map(({ title, url }, idx, arr) => {
-        const isNotLastItem = idx != arr.length - 1
-        const Elem = url ? 'a' : 'span'
-        return (
-          <li key={url} className={s.listItem}>
-            <Elem className={s.breadcrumbText} href={url}>
-              {title}
-            </Elem>
-            {isNotLastItem && <span className={s.divider}>/</span>}
-          </li>
-        )
-      })}
-    </ul>
+    <nav aria-label="Breadcrumb" className={s.root}>
+      <ol className={s.listRoot}>
+        {links.map(({ title, url, isCurrentPage }, idx, arr) => {
+          const isNotLastItem = idx != arr.length - 1
+          const Elem = url ? 'a' : 'span'
+          return (
+            <li key={url} className={s.listItem}>
+              <Elem
+                className={s.breadcrumbText}
+                href={url}
+                aria-current={isCurrentPage ? 'page' : undefined}
+              >
+                {title}
+              </Elem>
+              {isNotLastItem && <span className={s.divider}>/</span>}
+            </li>
+          )
+        })}
+      </ol>
+    </nav>
   )
 }
 
