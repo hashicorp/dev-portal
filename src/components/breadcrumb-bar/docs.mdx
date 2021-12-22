@@ -2,7 +2,7 @@
 componentName: 'BreadcrumbBar'
 ---
 
-The `<BreadcrumbBar />` component is used to display a list of parent paths that lead to the current page.
+The `<BreadcrumbBar />` component is used to display a linked list of parent paths that lead to the current page.
 
 This component is intended to help visitors quickly build a mental model of the content hierarchy, and to allow them to easily traverse that hierarchy. This implementation is modelled off of the [the WAI-ARIA Authoring Practices Breadcrumb widget](https://www.w3.org/TR/wai-aria-practices-1.1/#breadcrumb).
 
@@ -12,7 +12,7 @@ This component is a work in progress. Its current implementation is designed for
 
 ## Utilities
 
-On its own, this component cannot determine which breadcrumb links to render - it must be provided an array of `links` to render. To aid in generating these links, this component contains a `util` folder with helper functions.
+On its own, this component cannot determine which breadcrumb links to render - it must be provided an array of `links` to render, and these `links` must only contain relative URLs. To aid in generating these links, this component contains a `util` folder with helper functions.
 
 At present, we have a single helper function, which accepts Docs page props as arguments, and returns breadcrumb `links` for the page in question. An example usage of this utility function:
 
