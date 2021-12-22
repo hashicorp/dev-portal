@@ -1,6 +1,8 @@
 import { NavData } from '@hashicorp/react-docs-sidenav'
 import { BreadcrumbLink } from '..'
 
+const IS_DEV = process.env.VERCEL_ENV !== 'production'
+
 interface GetPathBreadcrumbsOpts {
   /** The base path for the current route, if applicable. For example, "docs". Returned breadcrumb links will be prefixed with this path. */
   basePath: string
@@ -54,26 +56,24 @@ function getPathMatchedNode(navNodes, pathString) {
   // If we do not have exactly one match, we likely
   // have a problem with the navData that was not caught
   // by our docs-sidenav validation functions, and we should address it.
-  // ...
-  // If we have zero matches, we can't recover from this,
-  // so we should throw an error and break the build.
-  if (matches.length == 0) {
-    throw new Error(
-      `Missing breadcrumb path: Found zero matches for "${pathString}". Please ensure there is a node (or index-less category) with the path "${pathString}" in the provided navData.`
-    )
-  }
-  // If we find more than one node matched for a path,
-  // we can return the first match to still be
-  // able to render the breadcrumb bar.
-  // We take this fallback approach in production contexts,
-  // but throw an error in other envs to flag the navData issue.
-  if (process.env.HASHI_ENV === 'production') {
+  // ..
+  // If navData has ambiguous matches, warn in development.
+  // We can fallback to returning the first match, and this should
+  // be fine from a visitor perspective. Less urgent to fix these types of issues.
+  if (matches.length > 1) {
+    if (IS_DEV) {
+      console.warn(
+        `Ambiguous breadcrumb path: Found ${matches.length} matches for "${pathString}". Please ensure there is exactly one node or index-less category with the path "${pathString}" in the provided navData.`
+      )
+    }
     return matches[0]
-  } else {
-    throw new Error(
-      `Ambiguous breadcrumb path: Found ${matches.length} matches for "${pathString}". Please ensure there is exactly one node or index-less category with the path "${pathString}" in the provided navData.`
-    )
   }
+  // Otherwise, we have zero matches, which would mean a breadcrumb with missing parts.
+  // This would feel broken to a site visitor, so should be a blocking
+  // issue we need to fix, so we throw an error.
+  throw new Error(
+    `Missing breadcrumb path: Found zero matches for "${pathString}". Please ensure there is a node (or index-less category) with the path "${pathString}" in the provided navData.`
+  )
 }
 
 function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
