@@ -35,11 +35,14 @@
 /* TODO: these styles will be changing very soon, this is just to get us started */
 .main {
   color: #3b3d45;
+  flex-grow: 1;
+  flex-shrink: 1;
   font-size: 16px;
   line-height: 22px;
   max-width: 804px;
   padding: 0 24px;
   padding-bottom: 50vh;
+  width: 0;
 
   & :global {
     & a.__permalink-h {
@@ -213,6 +216,70 @@
       background-color: transparent;
       border: none;
       border-radius: 0;
+    }
+  }
+
+  & table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-right: 0;
+    background-color: transparent;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+
+    & th {
+      text-align: left;
+    }
+
+    & td,
+    & th {
+      border-right: 1px solid #ddd;
+      padding: 0;
+    }
+
+    & > tbody > tr:nth-of-type(odd) {
+      background-color: #f9f9f9;
+    }
+
+    & > thead > tr > th,
+    & > tbody > tr > th,
+    & > tfoot > tr > th,
+    & > thead > tr > td,
+    & > tbody > tr > td,
+    & > tfoot > tr > td {
+      padding: 8px;
+      line-height: 1.42857143;
+      vertical-align: top;
+      border-top: 1px solid #ddd;
+    }
+
+    & > thead > tr > th {
+      vertical-align: bottom;
+      border-bottom: 2px solid #ddd;
+    }
+
+    & > caption + thead > tr:first-child > th,
+    & > colgroup + thead > tr:first-child > th,
+    & > thead:first-child > tr:first-child > th,
+    & > caption + thead > tr:first-child > td,
+    & > colgroup + thead > tr:first-child > td,
+    & > thead:first-child > tr:first-child > td {
+      border-top: 0;
+      border-right: 1px solid #ddd;
+    }
+
+    & > tbody + tbody {
+      border-top: 2px solid #ddd;
+    }
+
+    & table {
+      background-color: #fff;
+    }
+
+    & tr.warning td {
+      background: #fcf8e3;
     }
   }
 }
