@@ -6,22 +6,22 @@
       "path": "/waypoint/docs"
     },
     {
-      "href": "https://www.waypointproject.io/",
+      "path": "/waypoint",
       "id": "overview",
       "label": "Overview"
     },
     {
-      "href": "https://www.waypointproject.io/commands",
+      "path": "/waypoint/commands",
       "id": "cli",
       "label": "CLI"
     },
     {
-      "href": "https://www.waypointproject.io/plugins",
+      "path": "/waypoint/plugins",
       "id": "plugins",
       "label": "Plugins"
     },
     {
-      "href": "https://www.waypointproject.io/downloads",
+      "path": "/waypoint/downloads",
       "id": "downloads",
       "label": "Downloads"
     }
