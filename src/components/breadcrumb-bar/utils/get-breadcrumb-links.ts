@@ -102,11 +102,12 @@ function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
 
 function getPathMatchedNode(navNodes, pathString) {
   const matches = findAllPathMatchedNodes(navNodes, pathString)
-
+  // If we have exactly one match, this is great, and expected
   if (matches.length == 1) return matches[0]
   // If we do not have exactly one match, we likely
   // have a problem with the navData that was not caught
   // by our docs-sidenav validation functions, and we should address it.
+  // ...
   // If we have zero matches, we can't recover from this,
   // so we should throw an error and break the build.
   if (matches.length == 0) {
@@ -116,8 +117,9 @@ function getPathMatchedNode(navNodes, pathString) {
   }
   // If we find more than one node matched for a path,
   // we can return the first match to still be
-  // able to render the breadcrumb bar. We do this in production,
-  // but throw an error during dev to flag the navData issue.
+  // able to render the breadcrumb bar.
+  // We take this fallback approach in production contexts,
+  // but throw an error in other envs to flag the navData issue.
   if (process.env.HASHI_ENV === 'production') {
     return matches[0]
   } else {

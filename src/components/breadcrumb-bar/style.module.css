@@ -1,10 +1,16 @@
-/* note: the ds- type style comes from the global design system.
+/* Note: the ds- type style comes from the global design system.
    Once we have a way to consume these styles from a more
    central location, we should switch to that approach. */
 .ds-type-body-small {
   font-size: 13px;
   line-height: 18px;
 }
+
+/* Note: mobile styles have not been fully implemented.
+   For now, the breadcrumb links wrap to additional
+   lines on small viewports. This does not match our
+   current design spec, but felt like an acceptable
+   stopgap. */
 
 .root {
   position: relative;
