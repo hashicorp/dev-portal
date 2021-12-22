@@ -28,6 +28,9 @@
   padding: 24px 24px 100px 24px;
   position: relative;
 
+  /* @TODO this is a temporary solution for demo purposes,
+     we do want to show permalinks, just not with the current design,
+     which relies on a hard-coded arrow character. */
   & :global(.__permalink-h) {
     display: none;
   }
