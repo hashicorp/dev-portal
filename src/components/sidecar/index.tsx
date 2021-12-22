@@ -3,7 +3,7 @@ import { useDeviceSize } from 'contexts'
 import { useActiveSection } from './use-active-section'
 import { SidecarHeading } from './types'
 import s from './style.module.css'
-import getTruncatedTitle from './get-truncated-title'
+import getTruncatedTitle from './utils/get-truncated-title'
 
 interface SidecarProps {
   headings: SidecarHeading[]
