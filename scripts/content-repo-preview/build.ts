@@ -32,9 +32,14 @@ async function main() {
     .split('\n')
     .map((line) => {
       // comment out lines which references paths we will be removing
-      if (line.includes('_proxied-dot-io') && !line.includes(repo)) {
+      if (
+        !line.startsWith('/*') &&
+        line.includes('_proxied-dot-io') &&
+        !line.includes(repo)
+      ) {
         return `/* ${line} */`
       }
+      return line
     })
     .join('\n')
 
