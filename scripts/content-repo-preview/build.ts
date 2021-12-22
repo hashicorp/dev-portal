@@ -15,6 +15,20 @@ async function main() {
   const cwd = process.cwd()
   const globalCSSFile = path.join(cwd, 'src', 'pages', 'style.css')
 
+  /**
+   * Check for a .next folder, if found copy it back into our website-preview dir
+   * This should allow us to take advantage of Vercel's build cache
+   */
+  if (fs.existsSync(path.join(cwd, '..', '.next'))) {
+    console.log('.next folder found, moving into website-preview...')
+    await execFile('cp', ['-R', '../.next', '.'])
+
+    if (fs.existsSync(path.join(cwd, '.next', 'cache', 'node_modules'))) {
+      console.log('Found cached node_modules, moving...')
+      await execFile('mv', ['../.next/cache/node_modules', 'node_modules'])
+    }
+  }
+
   // copy public files
   console.log('📝 copying files in the public folder')
   await execFile('cp', ['-R', './public', '../'])
@@ -69,6 +83,9 @@ async function main() {
 
   /** Build */
   execFileSync('npm', ['run', 'build'], { stdio: 'inherit' })
+
+  /** Put node_modules into .next/cache so we can retrieve them on subsequent builds */
+  execFileSync('mv', ['node_modules', '.next/cache'], { stdio: 'inherit' })
 
   // Using recursive so it doesn't reject if the directory exists
   await fs.promises.mkdir(path.join('..', '.next'), {
