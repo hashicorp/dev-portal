@@ -16,9 +16,8 @@ async function main() {
   const globalCSSFile = path.join(cwd, 'src', 'pages', 'style.css')
 
   // copy public files
-  // cp -R ../public/* ./public/
   console.log('📝 copying files in the public folder')
-  await execFile('cp', ['-R', '../public', './'])
+  await execFile('cp', ['-R', './public', '../'])
 
   /**
    * exclude any imports in the global CSS file which rely on other products
