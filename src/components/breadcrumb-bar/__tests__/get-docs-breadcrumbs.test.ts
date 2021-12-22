@@ -1,7 +1,38 @@
-import getDocsBreadcrumbs from '../utils/get-docs-breadcrumbs'
+import getDocsBreadcrumbs, {
+  getPathBreadcrumbs,
+} from '../utils/get-docs-breadcrumbs'
 import waypointNavData from '../__fixtures__/waypoint-nav-data.json'
 
 describe('getDocsBreadcrumbs', () => {
+  it('prepends docs breadcrumbs for a basic example', () => {
+    const args = {
+      basePath: 'docs',
+      baseName: 'Docs',
+      productPath: 'waypoint',
+      productName: 'Waypoint',
+      pathParts: ['getting-started'],
+      navData: waypointNavData,
+    }
+    const expected = [
+      {
+        title: 'Waypoint',
+        url: '/waypoint',
+      },
+      {
+        title: 'Docs',
+        url: '/waypoint/docs',
+      },
+      {
+        title: 'Getting Started',
+        url: '/waypoint/docs/getting-started',
+        isCurrentPage: true,
+      },
+    ]
+    expect(getDocsBreadcrumbs(args)).toEqual(expected)
+  })
+})
+
+describe('getPathBreadcrumbs', () => {
   it('returns links for a basic example', () => {
     const args = {
       basePath: 'docs',
@@ -15,7 +46,7 @@ describe('getDocsBreadcrumbs', () => {
         isCurrentPage: true,
       },
     ]
-    expect(getDocsBreadcrumbs(args)).toEqual(expected)
+    expect(getPathBreadcrumbs(args)).toEqual(expected)
   })
 
   it('returns links for overview paths using the title of the parent category', () => {
@@ -35,7 +66,7 @@ describe('getDocsBreadcrumbs', () => {
         isCurrentPage: true,
       },
     ]
-    expect(getDocsBreadcrumbs(args)).toEqual(expected)
+    expect(getPathBreadcrumbs(args)).toEqual(expected)
   })
 
   it('skips index-less categories in breadcrumb paths', () => {
@@ -54,6 +85,6 @@ describe('getDocsBreadcrumbs', () => {
         isCurrentPage: true,
       },
     ]
-    expect(getDocsBreadcrumbs(args)).toEqual(expected)
+    expect(getPathBreadcrumbs(args)).toEqual(expected)
   })
 })

@@ -1,6 +1,15 @@
 import { NavData } from '@hashicorp/react-docs-sidenav'
 import { BreadcrumbLink } from '..'
 
+interface GetPathBreadcrumbsOpts {
+  /** The base path for the current route, if applicable. For example, "docs". Returned breadcrumb links will be prefixed with this path. */
+  basePath: string
+  /** An array of nav nodes, as defined by our sidenav component. */
+  navData: NavData
+  /** An array of parameters representing the path from the basePath to the current path.  */
+  pathParts: string[]
+}
+
 /**
  * Given a basePath, navData, and array of path parameters,
  * Return an array of breadcrumb links leading to this page.
@@ -10,18 +19,11 @@ import { BreadcrumbLink } from '..'
  * want to prefix this array to provide a more complete
  * list of breadcrumb links.
  */
-function getDocsBreadcrumbs({
+function getPathBreadcrumbs({
   basePath,
   navData,
   pathParts,
-}: {
-  /** The base path for the current route, if applicable. For example, "docs". Returned breadcrumb links will be prefixed with this path. */
-  basePath: string
-  /** An array of nav nodes, as defined by our sidenav component. */
-  navData: NavData
-  /** An array of parameters representing the path from the basePath to the current path.  */
-  pathParts: string[]
-}): BreadcrumbLink[] {
+}: GetPathBreadcrumbsOpts): BreadcrumbLink[] {
   // Create an array of all successive combinations
   // of the path parts leading to this page.
   // Each item in this array represents a breadcrumb link.
@@ -43,6 +45,42 @@ function getDocsBreadcrumbs({
     if (path == pathParts.join('/')) link.isCurrentPage = true
     return link
   })
+}
+
+function getPathMatchedNode(navNodes, pathString) {
+  const matches = findAllPathMatchedNodes(navNodes, pathString)
+  // If we have exactly one match, this is great, and expected
+  if (matches.length == 1) return matches[0]
+  // If we do not have exactly one match, we likely
+  // have a problem with the navData that was not caught
+  // by our docs-sidenav validation functions, and we should address it.
+  // ...
+  // If we have zero matches, we can't recover from this,
+  // so we should throw an error and break the build.
+  if (matches.length == 0) {
+    throw new Error(
+      `Missing breadcrumb path: Found zero matches for "${pathString}". Please ensure there is a node (or index-less category) with the path "${pathString}" in the provided navData.`
+    )
+  }
+  // If we find more than one node matched for a path,
+  // we can return the first match to still be
+  // able to render the breadcrumb bar.
+  // We take this fallback approach in production contexts,
+  // but throw an error in other envs to flag the navData issue.
+  if (process.env.HASHI_ENV === 'production') {
+    return matches[0]
+  } else {
+    throw new Error(
+      `Ambiguous breadcrumb path: Found ${matches.length} matches for "${pathString}". Please ensure there is exactly one node or index-less category with the path "${pathString}" in the provided navData.`
+    )
+  }
+}
+
+function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
+  return navNodes
+    .slice()
+    .map((node) => findPathMatchedNodes(node, pathString, depth))
+    .reduce((matches, acc) => acc.concat(matches), [])
 }
 
 function findPathMatchedNodes(navNode, pathString, depth) {
@@ -93,40 +131,30 @@ function findPathMatchedNodes(navNode, pathString, depth) {
   return []
 }
 
-function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
-  return navNodes
-    .slice()
-    .map((node) => findPathMatchedNodes(node, pathString, depth))
-    .reduce((matches, acc) => acc.concat(matches), [])
+interface GetDocsBreadcrumbsOpts extends GetPathBreadcrumbsOpts {
+  baseName: string
+  productName: string
+  productPath: string
 }
 
-function getPathMatchedNode(navNodes, pathString) {
-  const matches = findAllPathMatchedNodes(navNodes, pathString)
-  // If we have exactly one match, this is great, and expected
-  if (matches.length == 1) return matches[0]
-  // If we do not have exactly one match, we likely
-  // have a problem with the navData that was not caught
-  // by our docs-sidenav validation functions, and we should address it.
-  // ...
-  // If we have zero matches, we can't recover from this,
-  // so we should throw an error and break the build.
-  if (matches.length == 0) {
-    throw new Error(
-      `Missing breadcrumb path: Found zero matches for "${pathString}". Please ensure there is a node (or index-less category) with the path "${pathString}" in the provided navData.`
-    )
-  }
-  // If we find more than one node matched for a path,
-  // we can return the first match to still be
-  // able to render the breadcrumb bar.
-  // We take this fallback approach in production contexts,
-  // but throw an error in other envs to flag the navData issue.
-  if (process.env.HASHI_ENV === 'production') {
-    return matches[0]
-  } else {
-    throw new Error(
-      `Ambiguous breadcrumb path: Found ${matches.length} matches for "${pathString}". Please ensure there is exactly one node or index-less category with the path "${pathString}" in the provided navData.`
-    )
-  }
+function getDocsBreadcrumbs({
+  basePath,
+  baseName,
+  navData,
+  pathParts,
+  productName,
+  productPath,
+}: GetDocsBreadcrumbsOpts): BreadcrumbLink[] {
+  return [
+    { title: productName, url: `/${productPath}` },
+    { title: baseName, url: `/${productPath}/${basePath}` },
+    ...getPathBreadcrumbs({
+      basePath: `${productPath}/${basePath}`,
+      navData,
+      pathParts,
+    }),
+  ]
 }
 
+export { getPathBreadcrumbs }
 export default getDocsBreadcrumbs

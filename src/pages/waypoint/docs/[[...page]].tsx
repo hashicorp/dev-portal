@@ -53,15 +53,16 @@ export async function getStaticProps({ params }) {
     remarkPlugins: [[anchorLinks, { headings }]],
   })
 
-  const breadcrumbLinks = [
-    { title: 'Waypoint', url: '/waypoint' },
-    { title: 'Docs', url: `/waypoint/${basePath}` },
-    ...getDocsBreadcrumbs({
-      basePath: `waypoint/${basePath}`,
-      navData: props.navData,
-      pathParts: params.page || [],
-    }),
-  ]
+  /* TODO: could be moved into generateStaticProps
+     to further reduce boilerplate */
+  const breadcrumbLinks = getDocsBreadcrumbs({
+    productPath: productSlug,
+    productName,
+    basePath,
+    baseName: 'Docs',
+    pathParts: params.page || [],
+    navData: props.navData,
+  })
 
   return {
     props: {
