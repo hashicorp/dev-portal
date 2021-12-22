@@ -19,6 +19,8 @@ async function main() {
   console.log('📝 copying files in the public folder')
   await execFile('cp', ['-R', './public', '../'])
 
+  execFileSync('npm', ['-v'])
+
   /**
    * exclude any imports in the global CSS file which rely on other products
    */
