@@ -1,12 +1,8 @@
-import { promisify } from 'util'
 import { execFileSync } from 'child_process'
 import path from 'path'
 import fs from 'fs'
 
 async function main() {
-  // imports
-  const execFile = promisify((await import('child_process')).execFile)
-
   // TODO: check for necessary env vars?
 
   const repo = process.env.REPO
@@ -21,17 +17,17 @@ async function main() {
    */
   if (fs.existsSync(path.join(cwd, '..', '.next'))) {
     console.log('.next folder found, moving into website-preview...')
-    await execFile('mv', ['../.next', './.next'])
+    execFileSync('mv', ['../.next', './.next'])
 
     if (fs.existsSync(path.join(cwd, '.next', 'cache', 'node_modules'))) {
       console.log('Found cached node_modules, moving...')
-      await execFile('mv', ['./.next/cache/node_modules', './node_modules'])
+      execFileSync('mv', ['./.next/cache/node_modules', './node_modules'])
     }
   }
 
   // copy public files
   console.log('📝 copying files in the public folder')
-  await execFile('cp', ['-R', './public', '../'])
+  execFileSync('cp', ['-R', './public', '../'])
 
   /**
    * exclude any imports in the global CSS file which rely on other products
