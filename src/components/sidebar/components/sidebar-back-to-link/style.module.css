@@ -1,8 +1,9 @@
 .backToLink {
   align-items: center;
-  color: var(--token-color-palette-neutral-600);
+  color: var(--token-color-palette-neutral-700);
   display: flex;
-  margin-bottom: var(--sidebar-padding);
+  margin-bottom: 16px;
+  padding: 10px 8px;
   width: fit-content;
 
   &:hover {
