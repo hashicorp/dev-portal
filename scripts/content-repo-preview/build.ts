@@ -84,13 +84,13 @@ async function main() {
   /** Build */
   execFileSync('npm', ['run', 'build'], { stdio: 'inherit' })
 
+  // Move the .next folder to the top-level so the site can be deployed and we can take advantage of the cache
+  await execFile('cp', ['-R', '.next', '../.next'])
+
   // Put node_modules into .next/cache so we can retrieve them on subsequent builds
-  execFileSync('mv', ['node_modules', '.next/cache/node_modules'], {
+  execFileSync('mv', ['node_modules', '../.next/cache/node_modules'], {
     stdio: 'inherit',
   })
-
-  // Move the .next folder to the top-level so the site can be deployed and we can take advantage of the cache
-  await execFile('mv', ['.next', '../.next'])
 }
 
 main()
