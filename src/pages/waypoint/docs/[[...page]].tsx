@@ -3,6 +3,7 @@ import {
   generateStaticPaths,
   generateStaticProps,
 } from '@hashicorp/react-docs-page/server'
+import defaultMdxComponents from '@hashicorp/platform-docs-mdx'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 import { MDXRemote } from 'next-mdx-remote'
 import waypointConfig from '../../../../config/waypoint.json'
@@ -18,7 +19,10 @@ const temporary_noop = 'im just for show'
 const productName = waypointConfig.name
 const productSlug = waypointConfig.slug
 const basePath = 'docs'
-const additionalComponents = { Placement, NestedNode }
+const additionalComponents = defaultMdxComponents('waypoint', {
+  Placement,
+  NestedNode,
+})
 
 // TODO: inline styles will be removed in a follow-up layout task (ref: https://app.asana.com/0/0/1201217826547576/f)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

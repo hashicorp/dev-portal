@@ -204,9 +204,7 @@
     padding: 2px 4px;
   }
 
-  /* TODO - code blocks */
   & pre {
-    background-color: #0c0c0e;
     border-radius: 5px;
     color: white;
     margin: 24px 0;
