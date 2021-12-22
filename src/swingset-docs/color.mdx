@@ -1,0 +1,47 @@
+---
+name: 'Color'
+peerComponents:
+  - 'SwingsetColorToken'
+---
+
+<!-- workaround to drop swingset's styling of first h1 -->
+
+<h1 />
+
+Color tokens in this project are currently coming from mixed sources.
+
+## Marketing Color Tokens
+
+At the global marketing level, we have [color tokens set up in `@hashicorp/mktg-global-styles`](https://github.com/hashicorp/mktg-global-styles/blob/main/custom-properties/color.css) which are available for use. These can be viewed in [our `react-components` playground](https://react-components.vercel.app/docs/color).
+
+These tokens are necessary to include in this project in order for our shared `@hashicorp/react-*` component packages to render correctly.
+
+## Placeholders for Design System Color Tokens
+
+We have additional color tokens set up, which are acting as a temporary placeholder for tokens expected to be sourced from the design systems team, from [`hashicorp/design-system-tokens`](https://github.com/hashicorp/design-system-tokens). These temporary tokens are outlined below.
+
+## Neutral Palette
+
+<>
+  {[
+    'token-color-palette-neutral-700',
+    'token-color-palette-neutral-600',
+    'token-color-palette-neutral-500',
+    'token-color-palette-neutral-400',
+    'token-color-palette-neutral-300',
+    'token-color-palette-neutral-200',
+    'token-color-palette-neutral-100',
+    'token-color-palette-neutral-50',
+    'token-color-palette-neutral-0',
+  ].map((n) => (
+    <SwingsetColorToken key={n} token={n} />
+  ))}
+</>
+
+## Blue Palette
+
+<>
+  {['blue-vibrant'].map((n) => (
+    <SwingsetColorToken key={n} token={n} />
+  ))}
+</>

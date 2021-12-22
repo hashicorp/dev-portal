@@ -1,9 +1,10 @@
 .sidebarNavMenuItem {
+  composes: focus-border-and-box-shadow-light from global;
   align-items: center;
   background-color: white;
   border-radius: 5px;
   border: 1px solid transparent;
-  color: var(--gray-foreground-tertiary);
+  color: var(--token-color-palette-neutral-500);
   display: flex;
   font-size: 14px;
   justify-content: space-between;
@@ -14,17 +15,13 @@
   width: 100%;
   z-index: 0;
 
-  /* TODO: this will be abstracted eventually */
   &:focus {
-    border: 1px solid var(--blue-vibrant);
-    box-shadow: 0 0 0 3px #a5c2f3; /* TODO: replace w/ variable when available */
-    outline: none;
     z-index: 1;
   }
 
   &:hover {
-    background-color: var(--gray-background-secondary);
-    color: var(--gray-foreground-primary);
+    background-color: var(--token-color-palette-neutral-100);
+    color: var(--token-color-palette-neutral-700);
     cursor: pointer;
   }
 
@@ -40,7 +37,7 @@
   /* TODO: font-weight will be set by a token */
   &[aria-expanded='true'],
   &[aria-current='page'] {
-    color: var(--gray-foreground-primary);
+    color: var(--token-color-palette-neutral-700);
     font-weight: bold;
   }
 

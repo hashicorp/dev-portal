@@ -1,0 +1,103 @@
+.productSwitcher {
+  position: relative;
+
+  & ul {
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
+.switcherButton {
+  composes: focus-border-and-box-shadow-dark from global;
+  align-items: center;
+  background-color: #0c0c0e;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0px 1px 1px rgba(194, 197, 203, 0.05),
+    0px 2px 2px rgba(194, 197, 203, 0.05);
+  color: var(--token-color-palette-neutral-100);
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  position: relative;
+  width: 240px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &[aria-expanded='true'] {
+    background-color: #030303;
+  }
+}
+
+.switcherCaret {
+  color: #dedfe3;
+  margin-right: 4px;
+}
+
+.switcherOptionList {
+  background-color: #030303;
+  border-radius: 5px;
+  box-shadow: 0px 0px 0px 1px rgba(194, 197, 203, 0.15),
+    0px 2px 3px rgba(194, 197, 203, 0.1),
+    0px 8px 16px -10px rgba(194, 197, 203, 0.2);
+  list-style: none;
+  padding: 2px 0;
+  position: absolute;
+  margin: 0;
+  margin-top: 4px;
+  width: 264px;
+  z-index: 100;
+}
+
+.separator {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.3);
+  margin: 4px 12px;
+}
+
+.switcherOption {
+  padding: 4px;
+  margin: 2px 0;
+
+  &:hover {
+    background-color: var(--token-color-palette-neutral-600);
+  }
+}
+
+.activeSwitcherOption {
+  background-color: #636770;
+}
+
+/*
+Two items to note:
+  - transparent border on default is to prevent layout shift on focus
+  - both paddings are set to adjust for transparent border
+*/
+.switcherOptionAnchor {
+  composes: focus-border-and-box-shadow-dark from global;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: #f1f2f3;
+  display: flex;
+  padding: 3px 7px;
+  position: relative;
+}
+
+.switcherOptionContainer {
+  display: flex;
+  align-items: center;
+
+  & svg {
+    margin-right: 6px;
+  }
+
+  & span {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+}
