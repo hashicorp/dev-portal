@@ -10,7 +10,7 @@ interface SidebarNavProps {
 }
 
 const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => (
-  <nav aria-labelledby={SIDEBAR_LABEL_ID}>
+  <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.sidebarNavElement}>
     <p className={s.sidebarNavLabel} id={SIDEBAR_LABEL_ID}>
       {title}
     </p>
