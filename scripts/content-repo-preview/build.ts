@@ -65,7 +65,7 @@ async function main() {
 
   /** Install deps */
   console.log('Installing dependencies')
-  await execFile('npm', ['i'])
+  execFileSync('npm', ['i'], { stdio: 'inherit' })
 
   /** Build */
   execFileSync('npm', ['run', 'build'], { stdio: 'inherit' })
