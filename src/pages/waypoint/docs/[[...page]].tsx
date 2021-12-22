@@ -57,7 +57,7 @@ export async function getStaticProps({ params }) {
     { title: 'Waypoint', url: '/waypoint' },
     { title: 'Docs', url: `/waypoint/${basePath}` },
     ...getBreadcrumbLinks({
-      basePath,
+      basePath: `waypoint/${basePath}`,
       navData: props.navData,
       pathParts: params.page || [],
     }),
