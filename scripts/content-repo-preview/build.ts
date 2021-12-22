@@ -69,6 +69,8 @@ async function main() {
   console.log('Installing dependencies')
   execFileSync('npm', ['i'], { stdio: 'inherit' })
 
+  execFileSync('ls', ['-a', 'node_modules/@hashicorp'], { stdio: 'inherit' })
+
   /** Build */
   execFileSync('npm', ['run', 'build'], { stdio: 'inherit' })
 
