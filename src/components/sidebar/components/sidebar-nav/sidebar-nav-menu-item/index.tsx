@@ -8,15 +8,20 @@ interface SidebarMenuItemProps {
   item: MenuItem
 }
 
-// TODO: use next/link
-const SidebarNavLink = ({ item }) => {
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+/**
+ * Builds the path for an item based on the current page path.
+ */
+const getItemPath = (item: MenuItem, currentPath: string): string => {
   const currentPathSplit = currentPath.split('/')
   const currentProductSlug = currentPathSplit[1]
   const currentProductSubpage = currentPathSplit[2]
 
-  const getPath = (item: MenuItem): string =>
-    `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
+  return `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
+}
+
+// TODO: use next/link
+const SidebarNavLink = ({ item }) => {
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 
   return (
     <li>
@@ -25,7 +30,7 @@ const SidebarNavLink = ({ item }) => {
         className={s.sidebarNavMenuItem}
         // TODO: this might break some accessible labels, probably need aria-label
         dangerouslySetInnerHTML={{ __html: item.title }}
-        href={item.href || getPath(item)}
+        href={item.href || getItemPath(item, currentPath)}
       />
     </li>
   )
