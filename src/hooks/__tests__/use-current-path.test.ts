@@ -3,7 +3,6 @@ import useCurrentPath from '../use-current-path'
 
 describe('useCurrentPath', () => {
   const testPath = '/test-path'
-  const testOrigin = 'http://www.test.com'
   const testHash = '#test'
   const testSearch = '?foo=bar'
 
@@ -19,7 +18,7 @@ describe('useCurrentPath', () => {
 
   describe('when hash and search are not in the URL', () => {
     beforeAll(() => {
-      useRouter.mockReturnValue({ asPath: `${testOrigin}${testPath}` })
+      useRouter.mockReturnValue({ asPath: testPath })
     })
 
     test.each([
@@ -41,7 +40,7 @@ describe('useCurrentPath', () => {
   describe('when hash is present and search is not present in the URL', () => {
     beforeAll(() => {
       useRouter.mockReturnValue({
-        asPath: `${testOrigin}${testPath}${testHash}`,
+        asPath: `${testPath}${testHash}`,
       })
     })
 
@@ -72,7 +71,7 @@ describe('useCurrentPath', () => {
   describe('when hash is not present and search is present in the URL', () => {
     beforeAll(() => {
       useRouter.mockReturnValue({
-        asPath: `${testOrigin}${testPath}${testSearch}`,
+        asPath: `${testPath}${testSearch}`,
       })
     })
 
@@ -107,7 +106,7 @@ describe('useCurrentPath', () => {
   describe('when both hash and search are present in the URL', () => {
     beforeAll(() => {
       useRouter.mockReturnValue({
-        asPath: `${testOrigin}${testPath}${testSearch}${testHash}`,
+        asPath: `${testPath}${testSearch}${testHash}`,
       })
     })
 
