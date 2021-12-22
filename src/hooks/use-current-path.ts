@@ -15,7 +15,7 @@ const useCurrentPath = (options: UseCurrentPathOptions = {}): string => {
   const { hash, pathname, search } = new URL(
     router.asPath,
     // TODO: replace this with an environment variable soon
-    'http://www.test.com'
+    'https://www.hashicorp.com'
   )
 
   if (excludeHash && excludeSearch) {
