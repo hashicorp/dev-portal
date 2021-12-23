@@ -3,6 +3,7 @@ import { MDXRemote } from 'next-mdx-remote'
 import defaultMdxComponents from '@hashicorp/platform-docs-mdx'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
+import makeDocsAnchor from 'components/docs-anchor'
 
 /**
  * TODO: this will eventually be configurable by all products, not just waypoint
@@ -10,6 +11,7 @@ import NestedNode from 'components/author-primitives/waypoint/nested-node'
 const additionalComponents = defaultMdxComponents('waypoint', {
   Placement,
   NestedNode,
+  a: makeDocsAnchor('waypoint', ['docs', 'plugins', 'commands']),
 })
 
 /**
