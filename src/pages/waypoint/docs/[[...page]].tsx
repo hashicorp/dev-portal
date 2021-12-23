@@ -58,6 +58,7 @@ export async function getStaticProps({ params }) {
       layoutProps: {
         headings,
         navData: props.navData,
+        githubFileUrl: props.githubFileUrl,
       },
     },
     revalidate: 10,
