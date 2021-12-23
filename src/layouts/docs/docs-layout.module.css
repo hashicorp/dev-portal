@@ -36,6 +36,7 @@
 
 /* TODO: these styles will be changing very soon, this is just to get us started */
 .main {
+  width: 100%;
   max-width: 804px;
   padding: 0 24px;
   padding-bottom: 50vh;

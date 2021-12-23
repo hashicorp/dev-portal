@@ -33,7 +33,9 @@ const getLastProduct = (products: Product[][]) => {
 
 const ProductSwitcher: React.FC = () => {
   const router = useRouter()
-  const currentProductSlug = router.asPath.split('/')[1] as ProductSlug
+  const currentProductSlug = router.asPath
+    .split('/')[1]
+    .split('#')[0] as ProductSlug
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
   const buttonRef = useRef<HTMLButtonElement>()
