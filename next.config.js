@@ -14,7 +14,10 @@ const temporary_hideDocsPaths = {
   ],
 }
 
-module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
+module.exports = withSwingset({
+  componentsRoot: 'src/components/*',
+  docsRoot: 'src/swingset-docs/*',
+})(
   withHashicorp({
     nextOptimizedImages: true,
     transpileModules: ['swingset', '@hashicorp/flight-icons'],

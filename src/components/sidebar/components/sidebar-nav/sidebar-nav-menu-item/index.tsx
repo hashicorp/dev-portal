@@ -1,32 +1,40 @@
 import { KeyboardEventHandler, useRef, useState } from 'react'
 import { MenuItem } from 'components/sidebar'
+import useCurrentPath from 'hooks/use-current-path'
 import s from './style.module.css'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
-
-// TODO: store this in a Context that ProductChooser updates?
-const PRODUCT = 'waypoint'
 
 interface SidebarMenuItemProps {
   item: MenuItem
 }
 
-// TODO: we will need to handle more than `docs` for this portion of the path. Some notes:
-//   - we won't need to calculate this here once `addActiveStateMetadata` handles calculating `fullPath`
-//   - maybe `SidebarNav` should accept a prop like `pathPrefix` which in this case would be `/waypoint/docs/`
-const getPath = (item: MenuItem): string => `/${PRODUCT}/docs/${item.path}`
+/**
+ * Builds the path for an item based on the current page path.
+ */
+const getItemPath = (item: MenuItem, currentPath: string): string => {
+  const currentPathSplit = currentPath.split('/')
+  const currentProductSlug = currentPathSplit[1]
+  const currentProductSubpage = currentPathSplit[2]
+
+  return `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
+}
 
 // TODO: use next/link
-const SidebarNavLink = ({ item }) => (
-  <li>
-    <a
-      aria-current={item.isActive ? 'page' : undefined}
-      className={s.sidebarNavMenuItem}
-      // TODO: this might break some accessible labels, probably need aria-label
-      dangerouslySetInnerHTML={{ __html: item.title }}
-      href={item.href || getPath(item)}
-    />
-  </li>
-)
+const SidebarNavLink = ({ item }) => {
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+
+  return (
+    <li>
+      <a
+        aria-current={item.isActive ? 'page' : undefined}
+        className={s.sidebarNavMenuItem}
+        // TODO: this might break some accessible labels, probably need aria-label
+        dangerouslySetInnerHTML={{ __html: item.title }}
+        href={item.href || getItemPath(item, currentPath)}
+      />
+    </li>
+  )
+}
 
 const SidebarNavSubmenu: React.FC<{
   item: MenuItem
