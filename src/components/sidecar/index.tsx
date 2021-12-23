@@ -3,35 +3,13 @@ import { useDeviceSize } from 'contexts'
 import { useActiveSection } from './use-active-section'
 import { SidecarHeading } from './types'
 import s from './style.module.css'
+import getTruncatedTitle from './utils/get-truncated-title'
 
 interface SidecarProps {
   headings: SidecarHeading[]
 }
 
-const MAX_CHARACTERS = 25
 const SIDECAR_LABEL_ELEMENT_ID = 'sidecar-label'
-
-const getTruncatedTitle = (fullTitle: string): string => {
-  let truncatedTitle: string
-
-  if (fullTitle.length < MAX_CHARACTERS) {
-    truncatedTitle = fullTitle
-  } else {
-    let characterCount = 0
-    const words = fullTitle.split(' ')
-    const wordsToInclude = []
-    words.forEach((word) => {
-      const wordLength = word.length
-      if (characterCount + wordLength < MAX_CHARACTERS) {
-        wordsToInclude.push(word)
-        characterCount += wordLength
-      }
-    })
-    truncatedTitle = wordsToInclude.join(' ') + `...`
-  }
-
-  return truncatedTitle
-}
 
 const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
   const { isDesktop } = useDeviceSize()

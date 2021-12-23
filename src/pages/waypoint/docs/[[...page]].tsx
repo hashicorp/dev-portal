@@ -8,7 +8,9 @@ import { MDXRemote } from 'next-mdx-remote'
 import waypointConfig from '../../../../config/waypoint.json'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
+import makeDocsAnchor from 'components/docs-anchor'
 import DocsLayout from 'layouts/docs'
+import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -18,7 +20,11 @@ const temporary_noop = 'im just for show'
 const productName = waypointConfig.name
 const productSlug = waypointConfig.slug
 const basePath = 'docs'
-const additionalComponents = { Placement, NestedNode }
+const additionalComponents = {
+  Placement,
+  NestedNode,
+  a: makeDocsAnchor('waypoint', ['docs', 'plugins', 'commands']),
+}
 
 // TODO: inline styles will be removed in a follow-up layout task (ref: https://app.asana.com/0/0/1201217826547576/f)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -52,12 +58,25 @@ export async function getStaticProps({ params }) {
     remarkPlugins: [[anchorLinks, { headings }]],
   })
 
+  /* TODO: could be moved into generateStaticProps
+     to further reduce boilerplate */
+  const breadcrumbLinks = getDocsBreadcrumbs({
+    productPath: productSlug,
+    productName,
+    basePath,
+    baseName: 'Docs',
+    pathParts: params.page || [],
+    navData: props.navData,
+  })
+
   return {
     props: {
       ...props,
       layoutProps: {
         headings,
         navData: props.navData,
+        breadcrumbLinks,
+        githubFileUrl: props.githubFileUrl,
       },
     },
     revalidate: 10,

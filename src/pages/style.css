@@ -1,6 +1,7 @@
 @import 'styles/color.css';
 @import 'styles/sizing.css';
 @import 'styles/spacing.css';
+@import 'styles/typography.css';
 
 /* Global Styles */
 @import '~@hashicorp/mktg-global-styles/style.css';
