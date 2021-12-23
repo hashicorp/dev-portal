@@ -46,9 +46,7 @@
   --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
-
-  /* TODO: what should this be? */
-  --font-monospace: Menlo;
+  --font-monospace: ui-monospace, Menlo, Consolas, Ubuntu Mono, monospace;
 }
 
 @custom-media --mobile only screen and (max-width: 728px);
