@@ -1,3 +1,4 @@
+import React from 'react'
 import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Sidebar, { MenuItem } from 'components/sidebar'
 import Sidecar from 'components/sidecar'
@@ -12,12 +13,13 @@ interface DocsLayoutProps {
   navData: MenuItem[]
   breadcrumbLinks?: BreadcrumbLink[]
   githubFileUrl?: string
+  basePath: string
 }
 
 const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
   <BaseNewLayout>
     <div className={s.body}>
-      <Sidebar menuItems={props.navData} />
+      <Sidebar menuItems={props.navData} basePath={props.basePath} />
       <div className={s.contentWrapper}>
         <div className={s.content}>
           {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}

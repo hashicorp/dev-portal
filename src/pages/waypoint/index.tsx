@@ -4,6 +4,8 @@ import slugify from 'slugify'
 // imports below are used server-side only
 import { generateStaticProps } from '@hashicorp/react-docs-page/server'
 
+const basePath = 'docs'
+
 const productName = 'Waypoint'
 const productSlug = 'waypoint'
 
@@ -76,7 +78,7 @@ function WaypointLanding(): ReactElement {
 
 export async function getStaticProps() {
   const { navData } = await generateStaticProps({
-    basePath: 'docs',
+    basePath,
     localContentDir: 'temporary_noop',
     navDataFile: 'temporary_noop',
     params: { page: [] },
@@ -94,6 +96,7 @@ export async function getStaticProps() {
           level: 2,
         })),
         navData,
+        basePath: `/waypoint/${basePath}`,
       },
     },
     revalidate: 10,
