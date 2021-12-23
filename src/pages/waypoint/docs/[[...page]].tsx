@@ -8,6 +8,7 @@ import { MDXRemote } from 'next-mdx-remote'
 import waypointConfig from '../../../../config/waypoint.json'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
+import makeDocsAnchor from 'components/docs-anchor'
 import DocsLayout from 'layouts/docs'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
@@ -19,7 +20,11 @@ const temporary_noop = 'im just for show'
 const productName = waypointConfig.name
 const productSlug = waypointConfig.slug
 const basePath = 'docs'
-const additionalComponents = { Placement, NestedNode }
+const additionalComponents = {
+  Placement,
+  NestedNode,
+  a: makeDocsAnchor('waypoint', ['docs', 'plugins', 'commands']),
+}
 
 // TODO: inline styles will be removed in a follow-up layout task (ref: https://app.asana.com/0/0/1201217826547576/f)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
