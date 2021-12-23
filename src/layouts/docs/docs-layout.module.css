@@ -32,11 +32,20 @@
   position: relative;
 }
 
-/* TODO: these styles will be changing very soon, this is just to get us started */
+/*
+TODO: a lot of this will be abstracted further when we have access to design
+tokens and helper classes.
+
+NOTE: the flex-grow and width properties set on the <main> element
+ensure that the element grows to fit the open space. When there are images in
+the <main>, it can become too wide. When there is very little content (such as a
+heading with only a couple words, the element can become too narrow.
+  - flex-grow: 1
+  - width: 0
+*/
 .main {
-  color: #3b3d45;
+  color: var(--token-color-palette-neutral-600);
   flex-grow: 1;
-  flex-shrink: 1;
   font-size: 16px;
   line-height: 22px;
   max-width: 804px;
@@ -53,7 +62,7 @@
       background-color: #f2f8ff;
       border: 1px solid #cce3f3;
       border-radius: 6px;
-      color: #3b3d45;
+      color: var(--token-color-palette-neutral-600);
       padding: 24px;
 
       & code {
@@ -81,7 +90,7 @@
   & h4,
   & h5,
   & h6 {
-    color: #0c0c0e;
+    color: var(--token-color-palette-neutral-700);
 
     & + ul,
     & + ol {
@@ -108,7 +117,7 @@
   & h4,
   & h5,
   & h6 {
-    color: #3b3d45;
+    color: var(--token-color-palette-neutral-600);
   }
 
   /* named Heading 0 */
@@ -182,7 +191,7 @@
   }
 
   & a {
-    color: #1f69ff;
+    color: var(--blue-vibrant);
     font-weight: 500;
     text-decoration: underline;
 
@@ -196,8 +205,8 @@
   }
 
   /* inline code elements */
-  & code {
-    background: #fafafa;
+  & :not(pre) code {
+    background: var(--token-color-palette-neutral-50);
     border-radius: 5px;
     border: 1px solid rgba(101, 106, 118, 0.2);
     font-size: 13px;
@@ -205,18 +214,6 @@
     font-weight: normal;
     line-height: 16px;
     padding: 2px 4px;
-  }
-
-  & pre {
-    border-radius: 5px;
-    color: white;
-    margin: 24px 0;
-
-    & code {
-      background-color: transparent;
-      border: none;
-      border-radius: 0;
-    }
   }
 
   & table {
