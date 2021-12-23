@@ -1,29 +1,31 @@
-import Link from 'next/link'
 import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
-import useCurrentPath from 'hooks/use-current-path'
+import DevPopover from 'components/dev-popover'
 import s from './style.module.css'
-
-const subpagesToTitles = {
-  docs: 'Reference Docs',
-  commands: 'CLI',
-  plugins: 'Plugins',
-}
 
 // TODO: double-checking the desired functionality & also not all cases are covered yet
 const SidebarBackToLink: React.FC = () => {
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-  const currentPathSplit = currentPath.split('/')
-  const currentProductSlug = currentPathSplit[1]
-  const currentProductSubpage = currentPathSplit[2]
-  const backToPath = `/${currentProductSlug}/${currentProductSubpage}`
-
   return (
-    <Link href={backToPath}>
-      <a className={s.backToLink}>
+    <DevPopover
+      title="Work in progress"
+      note={
+        <>
+          We are still ironing out the functionality of this component and how
+          it should behave on the various subpages for each product.
+          <br />
+          <br />
+          We're also working on UI polish. You can{' '}
+          <a href="https://www.figma.com/file/VD7ahvXuXWJApeGnhbW4hv/Dev-Portal?node-id=1498%3A43240">
+            view the revised designs in Figma
+          </a>
+          .
+        </>
+      }
+    >
+      <div className={s.backToLink}>
         <IconArrowLeft16 className={s.icon} />
-        <span>Back to {subpagesToTitles[currentProductSubpage]}</span>
-      </a>
-    </Link>
+        <span>Back to [Page]</span>
+      </div>
+    </DevPopover>
   )
 }
 
