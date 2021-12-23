@@ -71,6 +71,7 @@ export async function getStaticProps({ params }) {
         headings,
         navData: props.navData,
         breadcrumbLinks,
+        githubFileUrl: props.githubFileUrl,
       },
     },
     revalidate: 10,

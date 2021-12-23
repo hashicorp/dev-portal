@@ -2,6 +2,7 @@ import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Sidebar, { MenuItem } from 'components/sidebar'
 import Sidecar from 'components/sidecar'
 import { SidecarHeading } from 'components/sidecar/types'
+import EditOnGithubLink from 'components/edit-on-github-link'
 import BaseNewLayout from 'layouts/base-new'
 import s from './docs-layout.module.css'
 
@@ -10,6 +11,7 @@ interface DocsLayoutProps {
   headings: SidecarHeading[]
   navData: MenuItem[]
   breadcrumbLinks?: BreadcrumbLink[]
+  githubFileUrl?: string
 }
 
 const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
@@ -25,6 +27,13 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
               <BreadcrumbBar links={props.breadcrumbLinks} />
             )}
             {props.children}
+            {props.githubFileUrl && (
+              <EditOnGithubLink
+                className={s.editOnGithubLink}
+                url={props.githubFileUrl}
+                label="Edit this page on GitHub"
+              />
+            )}
           </main>
           <Sidecar headings={props.headings} />
         </div>
