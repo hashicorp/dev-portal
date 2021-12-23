@@ -201,33 +201,31 @@ heading with only a couple words, the element can become too narrow.
   }
 
   & img {
-    border-radius: 6px;
+    border-radius: 5px;
     margin: 24px auto;
     max-width: 100%;
   }
 
   /* inline code elements */
-  & :not(pre) code {
-    background: var(--token-color-palette-neutral-50);
+  & code {
+    background-color: var(--token-color-palette-neutral-50);
     border-radius: 5px;
     border: 1px solid rgba(101, 106, 118, 0.2);
     font-size: 13px;
-    font-style: normal;
-    font-weight: normal;
+    font-weight: 400;
     line-height: 16px;
     padding: 2px 4px;
   }
 
-  /* TODO - clean this up to work with code block component */
+  /* code blocks */
   & pre {
     border-radius: 5px;
-    color: white;
-    margin: 24px 0;
 
     & code {
       background-color: transparent;
       border: none;
       border-radius: 0;
+      padding: 0;
     }
   }
 
