@@ -1,5 +1,13 @@
 .root {
-  background: rgba(0, 0, 255, 0.5);
+  /* background: rgba(0, 0, 255, 0.5); */
+  background: linear-gradient(
+    93deg,
+    rgba(214, 235, 255, 0.5) 6.54%,
+    rgba(143, 199, 253, 0.8) 90.15%
+  );
+  overflow: hidden;
+  min-height: 320px;
+  border-radius: 6px;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 32px;
@@ -10,15 +18,32 @@
 }
 
 .textPart {
-  background: rgba(255, 0, 0, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  padding: 16px 64px;
+  /* background: rgba(255, 0, 0, 0.5); */
+  max-width: 520px;
+
+  & > * {
+    margin: 0;
+  }
+
+  & > h1 {
+    padding-bottom: 8px;
+  }
 }
 
 .imagePart {
-  background: rgba(255, 0, 0, 0.5);
+  /* background: rgba(255, 0, 0, 0.5); */
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  align-content: center;
 
   & > img {
     display: block;
+    height: 100%;
+    width: auto;
   }
 }

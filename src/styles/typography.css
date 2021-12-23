@@ -1,27 +1,15 @@
 /*
 
-TODO
+NOTE
 
-* --token-typography variables are sourced from:
-  https://github.com/hashicorp/design-system-tokens/blob/main/dist/products/css/tokens.css.
-  We could likely install & import from the published `npm` package instead,
-  though this would probably mean we remove our color.css file as well.
-
-* .ds-token-typography classes are temporary stopgaps
-  while the design system team figures out the distribution plan
-  for grouping typography tokens. These are not yet available from
-  hashicorp/design-system-tokens, so we'll likely retain them a little
-  longer than the CSS variables.
+.ds-token-typography classes are temporary stopgaps
+while the design system team figures out the distribution plan
+for grouping typography tokens.
+  
+These are not yet available from
+hashicorp/design-system-tokens.
 
 */
-
-:root {
-  --token-typography-body-small-font-family: -apple-system, BlinkMacSystemFont,
-    SF Pro Text, Segoe UI Text, Ubuntu, sans-serif;
-  --token-typography-body-small-font-size: 0.8125rem; /* 13px/0.8125rem */
-  --token-typography-body-small-line-height: 1.3846; /* 18px */
-  --token-typography-body-small-font-weight: 400; /* regular */
-}
 
 .ds-token-typography-body-small {
   font-family: var(--token-typography-body-small-font-family);

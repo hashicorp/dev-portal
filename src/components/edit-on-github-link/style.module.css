@@ -1,7 +1,7 @@
 .editLink {
   align-items: center;
-  /* --blue-vibrant aka --token-color-action-foreground-primary */
-  color: var(--blue-vibrant);
+  /* --token-color-palette-blue-200 aka --token-color-action-foreground-primary */
+  color: var(--token-color-palette-blue-200);
   cursor: pointer;
   display: flex;
   width: fit-content;

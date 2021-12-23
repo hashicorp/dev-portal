@@ -1,7 +1,8 @@
-.placeholder {
+.root {
   padding: 1rem;
-  border: 1px solid red;
-  background: mistyrose;
+  min-height: 160px;
+  background: var(--token-color-palette-neutral-700);
+  color: var(--token-color-palette-neutral-600);
   display: flex;
   align-items: center;
   justify-content: center;
