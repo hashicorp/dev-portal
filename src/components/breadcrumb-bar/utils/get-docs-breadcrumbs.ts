@@ -1,7 +1,7 @@
 import { NavData } from '@hashicorp/react-docs-sidenav'
 import { BreadcrumbLink } from '..'
 
-const IS_DEV = process.env.VERCEL_ENV !== 'production'
+const IS_DEV = process.env.NODE_ENV !== 'production'
 
 interface GetPathBreadcrumbsOpts {
   /** The base path for the current route, if applicable. For example, "docs". Returned breadcrumb links will be prefixed with this path. */
