@@ -7,18 +7,49 @@ import { generateStaticProps } from '@hashicorp/react-docs-page/server'
 const productName = 'Waypoint'
 const productSlug = 'waypoint'
 
-const headings = [
-  'Introduction',
-  'Explore documentation',
-  'Secrets Management',
-  'Data protection',
-  'Identity-based access',
-  'Start learning',
-].map((title) => ({
-  title,
-  slug: slugify(title, { lower: true }),
-  level: 2,
-}))
+// TODO add content to each of the page sections,
+// TODO and structure it in such a way that it
+// TODO corresponds to pre-build, "block"-like
+// TODO components. Intent being that this
+// TODO content can and should change often,
+// TODO and deliver a good deal of flexibility
+// TODO in page structure at the authoring level.
+// TODO
+// TODO ideally we also structure this in such
+// TODO a way that it is easy(ish) for us to add
+// TODO new "block"-like components for authors to
+// TODO use (otherwise, overusing the same
+// TODO card components over and over may
+// TODO make the content feel stale, even if it's
+// TODO not, due to too much visual repetition over time)
+const rawAuthoredSections = [
+  {
+    heading: 'Introduction',
+  },
+  {
+    heading: 'Explore documentation',
+  },
+  {
+    heading: 'Secrets Management',
+  },
+  {
+    heading: 'Data protection',
+  },
+  {
+    heading: 'Identity-based access',
+  },
+  {
+    heading: 'Start learning',
+  },
+]
+
+const authoredSections = rawAuthoredSections.map((section) => {
+  const { heading } = section
+  return {
+    ...section,
+    slug: slugify(heading, { lower: true }),
+  }
+})
 
 function WaypointLanding(): ReactElement {
   return (
@@ -26,10 +57,11 @@ function WaypointLanding(): ReactElement {
       <h1>Welcome to Waypoint</h1>
       <p>This page is a work in progress.</p>
       <p>This page is a work in progress.</p>
-      {headings.map(({ title, slug }) => {
+      {authoredSections.map((section) => {
+        const { slug, heading } = section
         return (
           <div key={slug}>
-            <h2 id={slug}>{title}</h2>
+            <h2 id={slug}>{heading}</h2>
             <p>This page is a work in progress.</p>
             <p>This page is a work in progress.</p>
             <p>This page is a work in progress.</p>
@@ -56,7 +88,11 @@ export async function getStaticProps() {
     props: {
       // ...props,
       layoutProps: {
-        headings,
+        headings: authoredSections.map(({ heading, slug }) => ({
+          title: heading,
+          slug,
+          level: 2,
+        })),
         navData,
       },
     },
