@@ -9,6 +9,7 @@ import waypointConfig from '../../../../config/waypoint.json'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
 import DocsLayout from 'layouts/docs'
+import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -52,12 +53,24 @@ export async function getStaticProps({ params }) {
     remarkPlugins: [[anchorLinks, { headings }]],
   })
 
+  /* TODO: could be moved into generateStaticProps
+     to further reduce boilerplate */
+  const breadcrumbLinks = getDocsBreadcrumbs({
+    productPath: productSlug,
+    productName,
+    basePath,
+    baseName: 'Docs',
+    pathParts: params.page || [],
+    navData: props.navData,
+  })
+
   return {
     props: {
       ...props,
       layoutProps: {
         headings,
         navData: props.navData,
+        breadcrumbLinks,
         githubFileUrl: props.githubFileUrl,
       },
     },
