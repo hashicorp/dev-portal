@@ -1,5 +1,7 @@
 import { ProductSlug } from 'types/products'
 import Link from 'next/link'
+import s from './style.module.css'
+import classNames from 'classnames'
 
 export default function makeDocsAnchor(
   product: ProductSlug,
@@ -10,7 +12,12 @@ export default function makeDocsAnchor(
     children,
     ...rest
   }) => {
-    if (!href) return <a {...rest}>{children}</a>
+    const passableProps = {
+      ...rest,
+      className: classNames(rest.className, s.anchor),
+    }
+
+    if (!href) return <a {...passableProps}>{children}</a>
 
     let adjustedHref = href
     // TODO: infer this condition dynamically
@@ -24,13 +31,13 @@ export default function makeDocsAnchor(
     if (adjustedHref !== href) {
       return (
         <Link href={adjustedHref}>
-          <a {...rest}>{children}</a>
+          <a {...passableProps}>{children}</a>
         </Link>
       )
     }
 
     return (
-      <a href={adjustedHref} {...rest}>
+      <a href={adjustedHref} {...passableProps}>
         {children}
       </a>
     )

@@ -26,7 +26,7 @@
   justify-content: center;
   overflow-y: auto;
   padding-bottom: 100px;
-  padding-left: 48px;
+  padding-left: 24px;
   padding-right: 24px;
   padding-top: 32px;
   position: relative;
@@ -171,32 +171,24 @@ heading with only a couple words, the element can become too narrow.
     font-weight: 500;
   }
 
-  & ul,
-  & ol {
-    margin: 24px 0;
-    padding-left: 24px;
+  & :not(nav) {
+    & ul,
+    & ol {
+      margin: 24px 0;
+      padding-left: 24px;
 
-    & li {
-      line-height: 24px;
+      & li {
+        line-height: 24px;
 
-      &:not(:last-child) {
-        margin-bottom: 16px;
+        &:not(:last-child) {
+          margin-bottom: 16px;
+        }
+
+        & ul,
+        & ol {
+          margin: 16px 0;
+        }
       }
-
-      & ul,
-      & ol {
-        margin: 16px 0;
-      }
-    }
-  }
-
-  & a {
-    color: var(--blue-vibrant);
-    font-weight: 500;
-    text-decoration: underline;
-
-    &:visited {
-      color: #a737ff;
     }
   }
 
