@@ -9,6 +9,7 @@ const subpagesToTitles = {
   plugins: 'Plugins',
 }
 
+// TODO: double-checking the desired functionality & also not all cases are covered yet
 const SidebarBackToLink: React.FC = () => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentPathSplit = currentPath.split('/')
@@ -16,16 +17,9 @@ const SidebarBackToLink: React.FC = () => {
   const currentProductSubpage = currentPathSplit[2]
   const backToPath = `/${currentProductSlug}/${currentProductSubpage}`
 
-  console.log(backToPath === currentPath)
-
   return (
     <Link href={backToPath}>
-      <a
-        className={s.backToLink}
-        style={{
-          visibility: backToPath === currentPath ? 'hidden' : 'visible',
-        }}
-      >
+      <a className={s.backToLink}>
         <IconArrowLeft16 className={s.icon} />
         <span>Back to {subpagesToTitles[currentProductSubpage]}</span>
       </a>
