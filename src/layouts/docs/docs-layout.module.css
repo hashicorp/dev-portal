@@ -201,6 +201,7 @@ heading with only a couple words, the element can become too narrow.
   }
 
   & img {
+    margin: 24px auto;
     max-width: 100%;
   }
 
