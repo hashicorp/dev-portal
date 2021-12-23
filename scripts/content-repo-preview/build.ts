@@ -2,8 +2,29 @@ import { execFileSync } from 'child_process'
 import path from 'path'
 import fs from 'fs'
 
+function checkEnvVars() {
+  // Filter out defined env vars, leaving only the missing ones
+  const missingEnvVars = ['REPO', 'DEV_IO', 'IS_CONTENT_PREVIEW'].filter(
+    (key) => !process.env[key]
+  )
+
+  if (missingEnvVars.length > 0) {
+    console.error(
+      `Missing required environment variables: ${missingEnvVars.join(
+        ', '
+      )}. Ensure they're defined in .env or in the Vercel project`
+    )
+    return false
+  }
+
+  return true
+}
+
 async function main() {
-  // TODO: check for necessary env vars?
+  if (!checkEnvVars()) {
+    process.exit(1)
+    return
+  }
 
   const repo = process.env.REPO
 
@@ -75,7 +96,7 @@ async function main() {
 
   /** Install deps */
   console.log('📦 Installing dependencies')
-  execFileSync('npm', ['install', '--include=dev'], { stdio: 'inherit' })
+  execFileSync('npm', ['install', '--production=false'], { stdio: 'inherit' })
 
   /** Build */
   execFileSync('npm', ['run', 'build'], { stdio: 'inherit' })
