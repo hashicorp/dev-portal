@@ -53,6 +53,9 @@ const ProductSwitcher: React.FC = () => {
     })
   )
 
+  /* @TODO: handle case where there is no
+     currentProduct, eg on the home page */
+
   useEffect(() => {
     if (!isOpen) {
       return
@@ -114,7 +117,7 @@ const ProductSwitcher: React.FC = () => {
   const renderProductListItem = (product: Product): ReactElement => {
     const isFirstProduct = product.slug === firstProduct.slug
     const isLastProduct = product.slug === lastProduct.slug
-    const isCurrentProduct = product.slug === currentProduct.slug
+    const isCurrentProduct = product.slug === currentProduct?.slug
 
     const handleAnchorKeyDown: KeyboardEventHandler<HTMLAnchorElement> = (
       e
@@ -197,7 +200,9 @@ const ProductSwitcher: React.FC = () => {
       <button
         aria-controls={OPTION_LIST_ID}
         aria-expanded={isOpen}
-        aria-labelledby={generateSwitcherOptionIdFromProduct(currentProduct)}
+        aria-labelledby={generateSwitcherOptionIdFromProduct(
+          currentProduct || getFirstProduct(products)
+        )}
         className={s.switcherButton}
         onClick={() => {
           setIsOpen(!isOpen)
@@ -206,8 +211,8 @@ const ProductSwitcher: React.FC = () => {
         ref={buttonRef}
       >
         <span className={s.switcherOptionContainer}>
-          <ProductIcon product={currentProduct.slug} />
-          <span>{currentProduct.name}</span>
+          {currentProduct && <ProductIcon product={currentProduct.slug} />}
+          <span>{currentProduct ? currentProduct.name : 'Products'}</span>
         </span>
         <IconCaret16 className={s.switcherCaret} />
       </button>

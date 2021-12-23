@@ -1,0 +1,24 @@
+.root {
+  background: rgba(0, 0, 255, 0.5);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 32px;
+
+  @media (min-width: 800px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.textPart {
+  background: rgba(255, 0, 0, 0.5);
+}
+
+.imagePart {
+  background: rgba(255, 0, 0, 0.5);
+  display: flex;
+  justify-content: flex-end;
+
+  & > img {
+    display: block;
+  }
+}

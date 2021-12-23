@@ -20,43 +20,51 @@ const isCurrentPage = (pagePath: string, currentPath: string): boolean => {
 
   if (currentProductSubpage) {
     return pagePath === `/${currentProductSlug}/${currentProductSubpage}`
-  } else {
+  } else if (currentProductSlug) {
     return pagePath === `/${currentProductSlug}`
+  } else {
+    return pagePath === '/'
   }
 }
 
 const NavigationHeader: React.FC = () => {
   const router = useRouter()
   const currentPath = router.asPath
+  const currentProductSlug = currentPath.split('/')[1]
 
   return (
     <header className={s.navigationHeader}>
       <nav>
         <div className={s.headerLeft}>
-          <InlineSvg className={s.siteLogo} src={HashiCorpLogo} />
+          <Link href="/">
+            <a>
+              <InlineSvg className={s.siteLogo} src={HashiCorpLogo} />
+            </a>
+          </Link>
           <ProductSwitcher />
         </div>
-        <div className={s.headerRight}>
-          <ul className={s.navLinks}>
-            {waypointData.subnavItems.map((navLink) => {
-              const isCurrent = isCurrentPage(navLink.path, currentPath)
-
-              return (
-                <li className={s.navLinksListItem} key={navLink.id}>
-                  <Link href={navLink.path}>
-                    <a
-                      aria-current={isCurrent ? 'page' : undefined}
-                      className={s.navLinksAnchor}
-                    >
-                      {navLink.label}
-                    </a>
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-          <HeaderSearchInput theme="dark" />
-        </div>
+        {currentProductSlug == 'waypoint' && (
+          <div className={s.headerRight}>
+            <ul className={s.navLinks}>
+              {waypointData.subnavItems.map((navLink) => {
+                const isCurrent = isCurrentPage(navLink.path, currentPath)
+                return (
+                  <li className={s.navLinksListItem} key={navLink.id}>
+                    <Link href={navLink.path}>
+                      <a
+                        aria-current={isCurrent ? 'page' : undefined}
+                        className={s.navLinksAnchor}
+                      >
+                        {navLink.label}
+                      </a>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+            <HeaderSearchInput theme="dark" />
+          </div>
+        )}
       </nav>
     </header>
   )
