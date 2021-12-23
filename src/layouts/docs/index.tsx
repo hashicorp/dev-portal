@@ -24,6 +24,7 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
             {props.children}
             {props.githubFileUrl && (
               <EditOnGithubLink
+                className={s.editOnGithubLink}
                 url={props.githubFileUrl}
                 label="Edit this page on GitHub"
               />
