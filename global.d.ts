@@ -1,7 +1,7 @@
 /// <reference types="@hashicorp/platform-types" />
 
 declare module 'swingset/page' {
-  const createPage: () => $TSFixMe
+  const createPage: (opts: $TSFixMe) => $TSFixMe
 
   export default createPage
 }

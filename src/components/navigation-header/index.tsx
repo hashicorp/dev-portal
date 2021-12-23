@@ -55,7 +55,7 @@ const NavigationHeader: React.FC = () => {
               )
             })}
           </ul>
-          <HeaderSearchInput />
+          <HeaderSearchInput theme="dark" />
         </div>
       </nav>
     </header>
