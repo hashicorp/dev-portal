@@ -72,6 +72,7 @@ export async function getStaticProps({ params }) {
         navData: props.navData,
         breadcrumbLinks,
         githubFileUrl: props.githubFileUrl,
+        basePaths: ['waypoint', basePath],
       },
     },
     revalidate: 10,

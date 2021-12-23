@@ -6,21 +6,25 @@ import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-ri
 
 interface SidebarMenuItemProps {
   item: MenuItem
+  basePaths?: string[]
 }
 
 /**
  * Builds the path for an item based on the current page path.
  */
-const getItemPath = (item: MenuItem, currentPath: string): string => {
+const getItemPath = (
+  item: MenuItem,
+  currentPath: string,
+  basePaths
+): string => {
   const currentPathSplit = currentPath.split('/')
-  const currentProductSlug = currentPathSplit[1]
-  const currentProductSubpage = currentPathSplit[2]
-
+  const currentProductSlug = basePaths ? basePaths[0] : currentPathSplit[1]
+  const currentProductSubpage = basePaths ? basePaths[1] : currentPathSplit[2]
   return `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
 }
 
 // TODO: use next/link
-const SidebarNavLink = ({ item }) => {
+const SidebarNavLink = ({ item, basePaths }) => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 
   return (
@@ -30,7 +34,7 @@ const SidebarNavLink = ({ item }) => {
         className={s.sidebarNavMenuItem}
         // TODO: this might break some accessible labels, probably need aria-label
         dangerouslySetInnerHTML={{ __html: item.title }}
-        href={item.href || getItemPath(item, currentPath)}
+        href={item.href || getItemPath(item, currentPath, basePaths)}
       />
     </li>
   )
@@ -38,7 +42,8 @@ const SidebarNavLink = ({ item }) => {
 
 const SidebarNavSubmenu: React.FC<{
   item: MenuItem
-}> = ({ item }) => {
+  basePaths?: string[]
+}> = ({ item, basePaths }) => {
   const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(item.hasActiveChild)
 
@@ -71,9 +76,9 @@ const SidebarNavSubmenu: React.FC<{
         <ul onKeyDown={handleKeyDown}>
           {item.routes.map((route) =>
             route.routes ? (
-              <SidebarNavSubmenu item={route} />
+              <SidebarNavSubmenu item={route} basePaths={basePaths} />
             ) : (
-              <SidebarNavLink item={route} />
+              <SidebarNavLink item={route} basePaths={basePaths} />
             )
           )}
         </ul>
@@ -82,17 +87,20 @@ const SidebarNavSubmenu: React.FC<{
   )
 }
 
-const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
+const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
+  item,
+  basePaths,
+}) => {
   // TODO: the designs don't currently show a divider
   if (item.divider) {
     return null
   }
 
   if (item.routes) {
-    return <SidebarNavSubmenu item={item} />
+    return <SidebarNavSubmenu item={item} basePaths={basePaths} />
   }
 
-  return <SidebarNavLink item={item} />
+  return <SidebarNavLink item={item} basePaths={basePaths} c />
 }
 
 export default SidebarNavMenuItem

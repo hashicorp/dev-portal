@@ -22,7 +22,6 @@ const BaseNewLayout: React.FC = ({ children }) => {
       </AlertBanner>
       <NavigationHeader />
       {children}
-      <Footer className={s.footer} />
     </div>
   )
 }

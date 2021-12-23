@@ -96,7 +96,7 @@ export async function getStaticProps() {
           level: 2,
         })),
         navData,
-        basePath: `/waypoint/${basePath}`,
+        basePaths: ['waypoint', basePath],
       },
     },
     revalidate: 10,

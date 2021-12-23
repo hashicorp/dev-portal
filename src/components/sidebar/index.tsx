@@ -23,8 +23,8 @@ export interface MenuItem {
 
 interface SidebarProps {
   menuItems: MenuItem[]
-  /** Optional path string representing the path from the base route. Can be prefixed to MenuItem path values in order to produce a valid internal URL. */
-  basePath?: string
+  /** Optional path strings representing the path from the root URL. */
+  basePaths?: string[]
 }
 
 /**
@@ -92,7 +92,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
   })
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ menuItems, basePath }) => {
+const Sidebar: React.FC<SidebarProps> = ({ menuItems, basePaths }) => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
     () => addActiveStateMetadata(currentPath, menuItems),
@@ -109,7 +109,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItems, basePath }) => {
       <SidebarNav
         title="Waypoint"
         menuItems={filteredMenuItems}
-        basePath={basePath}
+        basePaths={basePaths}
       />
     </div>
   )

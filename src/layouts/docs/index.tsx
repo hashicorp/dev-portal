@@ -13,35 +13,37 @@ interface DocsLayoutProps {
   navData: MenuItem[]
   breadcrumbLinks?: BreadcrumbLink[]
   githubFileUrl?: string
-  basePath: string
+  basePaths: string[]
 }
 
-const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
-  <BaseNewLayout>
-    <div className={s.body}>
-      <Sidebar menuItems={props.navData} basePath={props.basePath} />
-      <div className={s.contentWrapper}>
-        <div className={s.content}>
-          {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
-          {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
-          <main className={s.main} id="main">
-            {props.breadcrumbLinks && (
-              <BreadcrumbBar links={props.breadcrumbLinks} />
-            )}
-            {props.children}
-            {props.githubFileUrl && (
-              <EditOnGithubLink
-                className={s.editOnGithubLink}
-                url={props.githubFileUrl}
-                label="Edit this page on GitHub"
-              />
-            )}
-          </main>
-          <Sidecar headings={props.headings} />
+const DocsLayout: React.FC<DocsLayoutProps> = (props) => {
+  return (
+    <BaseNewLayout>
+      <div className={s.body}>
+        <Sidebar menuItems={props.navData} basePaths={props.basePaths} />
+        <div className={s.contentWrapper}>
+          <div className={s.content}>
+            {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
+            {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
+            <main className={s.main} id="main">
+              {props.breadcrumbLinks && (
+                <BreadcrumbBar links={props.breadcrumbLinks} />
+              )}
+              {props.children}
+              {props.githubFileUrl && (
+                <EditOnGithubLink
+                  className={s.editOnGithubLink}
+                  url={props.githubFileUrl}
+                  label="Edit this page on GitHub"
+                />
+              )}
+            </main>
+            <Sidecar headings={props.headings} />
+          </div>
         </div>
       </div>
-    </div>
-  </BaseNewLayout>
-)
+    </BaseNewLayout>
+  )
+}
 
 export default DocsLayout
