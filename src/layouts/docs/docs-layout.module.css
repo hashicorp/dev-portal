@@ -216,6 +216,19 @@ heading with only a couple words, the element can become too narrow.
     padding: 2px 4px;
   }
 
+  /* TODO - clean this up to work with code block component */
+  & pre {
+    border-radius: 5px;
+    color: white;
+    margin: 24px 0;
+
+    & code {
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+    }
+  }
+
   & table {
     border-collapse: collapse;
     border-spacing: 0;
