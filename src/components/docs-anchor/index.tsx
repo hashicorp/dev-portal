@@ -1,7 +1,7 @@
 import { ProductSlug } from 'types/products'
 import Link from 'next/link'
-import s from './style.module.css'
 import classNames from 'classnames'
+import s from './style.module.css'
 
 export default function makeDocsAnchor(
   product: ProductSlug,
