@@ -1,0 +1,27 @@
+.root {
+  position: relative;
+}
+
+.button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  height: 100%;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.label {
+  composes: g-type-label from global;
+  color: #9c64aa;
+  padding-bottom: 0.75rem;
+}
+
+.note {
+  color: #5b2668;
+}
