@@ -1,48 +1,64 @@
-import { KeyboardEventHandler, useRef, useState } from 'react'
+import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
-import useCurrentPath from 'hooks/use-current-path'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { MenuItem } from 'components/sidebar'
 import s from './style.module.css'
 
 interface SidebarMenuItemProps {
-  isSearching: boolean
   item: MenuItem
 }
 
-/**
- * Builds the path for an item based on the current page path.
- */
-const getItemPath = (item: MenuItem, currentPath: string): string => {
-  const currentPathSplit = currentPath.split('/')
-  const currentProductSlug = currentPathSplit[1]
-  const currentProductSubpage = currentPathSplit[2]
-
-  return `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
-}
-
-// TODO: use next/link
 const SidebarNavLink = ({ item }) => {
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  if (item.fullPath) {
+    return (
+      <li>
+        <Link href={item.fullPath}>
+          <a
+            aria-current={item.isActive ? 'page' : undefined}
+            className={s.sidebarNavMenuItem}
+            // TODO: this might break some accessible labels, probably need aria-label
+            dangerouslySetInnerHTML={{ __html: item.title }}
+          />
+        </Link>
+      </li>
+    )
+  }
 
   return (
     <li>
       <a
         aria-current={item.isActive ? 'page' : undefined}
         className={s.sidebarNavMenuItem}
-        // TODO: this might break some accessible labels, probably need aria-label
-        dangerouslySetInnerHTML={{ __html: item.title }}
-        href={item.href || getItemPath(item, currentPath)}
-      />
+        href={item.href}
+      >
+        <span
+          className={s.navMenuItemLabel}
+          // TODO: this might break some accessible labels, probably need aria-label
+          dangerouslySetInnerHTML={{ __html: item.title }}
+        />
+        <IconExternalLink16 />
+      </a>
     </li>
   )
 }
 
 const SidebarNavSubmenu: React.FC<{
-  isSearching: boolean
   item: MenuItem
-}> = ({ isSearching, item }) => {
+}> = ({ item }) => {
   const buttonRef = useRef<HTMLButtonElement>()
-  const [isOpen, setIsOpen] = useState(item.hasActiveChild)
+  const [isOpen, setIsOpen] = useState(
+    item.hasActiveChild || item.hasChildrenMatchingFilter
+  )
+
+  /**
+   * Without this effect, the menu items aren't re-rerendered to be open. Seems
+   * to be because the item prop sent to the component don't change. Might work
+   * if we pass the props needed instead of just the item object?
+   */
+  useEffect(() => {
+    setIsOpen(item.hasActiveChild || item.hasChildrenMatchingFilter)
+  }, [item.hasActiveChild, item.hasChildrenMatchingFilter])
 
   const handleKeyDown: KeyboardEventHandler<HTMLUListElement> = (e) => {
     if (e.key === 'Escape') {
@@ -53,27 +69,23 @@ const SidebarNavSubmenu: React.FC<{
     }
   }
 
-  /**
-   * TODO: after ids are generated in sidebar-nav, set:
-   *   - the <ul> id attribute based on the item.id
-   *   - the <button> aria-controls attribute to be the <ul> id
-   */
   return (
     <li>
       <button
-        aria-expanded={isSearching || isOpen}
+        aria-controls={item.id}
+        aria-expanded={isOpen}
         className={s.sidebarNavMenuItem}
         onClick={() => setIsOpen((prevState) => !prevState)}
         ref={buttonRef}
       >
-        <span className={s.submenuButtonLabel}>{item.title}</span>
+        <span className={s.navMenuItemLabel}>{item.title}</span>
         <IconChevronRight16 />
       </button>
-      {(isSearching || isOpen) && (
-        <ul onKeyDown={handleKeyDown}>
+      {isOpen && (
+        <ul id={item.id} onKeyDown={handleKeyDown}>
           {item.routes.map((route) =>
             route.routes ? (
-              <SidebarNavSubmenu isSearching={isSearching} item={route} />
+              <SidebarNavSubmenu item={route} />
             ) : (
               <SidebarNavLink item={route} />
             )
@@ -84,16 +96,13 @@ const SidebarNavSubmenu: React.FC<{
   )
 }
 
-const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
-  isSearching,
-  item,
-}) => {
+const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   if (item.divider) {
     return <hr className={s.divider} />
   }
 
   if (item.routes) {
-    return <SidebarNavSubmenu isSearching={isSearching} item={item} />
+    return <SidebarNavSubmenu item={item} />
   }
 
   return <SidebarNavLink item={item} />
