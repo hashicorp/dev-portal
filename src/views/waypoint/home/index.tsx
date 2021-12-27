@@ -29,8 +29,10 @@ function LandingBlocks({ blocks }: { blocks: $TSFixMe[] }) {
               </h2>
             )
           case 'get_started':
-            const { text, link } = block
-            return <GetStarted key={idx} {...{ heading, text, link }} />
+            const { iconSvg, text, link } = block
+            return (
+              <GetStarted key={idx} {...{ iconSvg, heading, text, link }} />
+            )
           case 'cards':
             const { columns, cards } = block
             return <Cards key={idx} {...{ columns, cards }} />

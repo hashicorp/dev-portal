@@ -5,6 +5,7 @@
     { "type": "h2", "heading": "Introduction" },
     {
       "type": "get_started",
+      "iconSvg": "<svg width=\"96\" height=\"96\" viewBox=\"0 0 96 96\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M0 6C0 2.68629 2.68629 0 6 0H90C93.3137 0 96 2.68629 96 6V90C96 93.3137 93.3137 96 90 96H6C2.68629 96 0 93.3137 0 90V6Z\" fill=\"url(#paint0_linear_219_677)\"/>\n<path d=\"M6 1H90V-1H6V1ZM95 6V90H97V6H95ZM90 95H6V97H90V95ZM1 90V6H-1V90H1ZM6 95C3.23858 95 1 92.7614 1 90H-1C-1 93.866 2.13401 97 6 97V95ZM95 90C95 92.7614 92.7614 95 90 95V97C93.866 97 97 93.866 97 90H95ZM90 1C92.7614 1 95 3.23858 95 6H97C97 2.13401 93.866 -1 90 -1V1ZM6 -1C2.13401 -1 -1 2.13401 -1 6H1C1 3.23858 3.23858 1 6 1V-1Z\" fill=\"#CBF1F3\"/>\n<path d=\"M79.6579 28.2935L71.7513 41.9868L63.8446 28.2935H79.6579Z\" fill=\"#14C6CB\"/>\n<path d=\"M37.4487 37.4357H32.1731L45.3598 60.2801L40.0842 69.4179L16.342 28.2935H42.7242L55.9153 51.1423L58.5509 46.5735L47.9998 28.2935H58.5509L63.8309 37.4357L69.1065 46.5735L55.9153 69.4179L37.4487 37.4357Z\" fill=\"#14C6CB\"/>\n<defs>\n<linearGradient id=\"paint0_linear_219_677\" x1=\"96\" y1=\"96\" x2=\"0\" y2=\"0\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#E0FCFF\"/>\n<stop offset=\"1\" stop-color=\"#F6FEFF\"/>\n</linearGradient>\n</defs>\n</svg>\n",
       "heading": "Introduction to Waypoint",
       "text": "Welcome to Waypoint! This introduction section covers what Waypoint is, the problem Waypoint aims to solve, and how Waypoint compares to other software.",
       "link": {

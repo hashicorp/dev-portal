@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 import s from './style.module.css'
 
 interface Card {
@@ -18,10 +19,23 @@ function Cards({
 }): React.ReactElement {
   return (
     <div className={s.root}>
-      Cards{' '}
-      <pre>
-        <code>{JSON.stringify({ columns, cards }, null, 2)}</code>
-      </pre>
+      <div className={classNames(s.cards, s[`columns-${columns}`])}>
+        {cards.map((card, idx) => {
+          return (
+            <div
+              // eslint-disable-next-line react/no-array-index-key
+              key={idx}
+              className={classNames(s.cardWrapper, s[`columns-${columns}`])}
+            >
+              <div className={s.card}>
+                <pre>
+                  <code>{JSON.stringify(card, null, 2)}</code>
+                </pre>
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

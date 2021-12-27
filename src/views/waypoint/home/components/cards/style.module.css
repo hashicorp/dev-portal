@@ -1,3 +1,43 @@
 .root {
-  border: 2px solid green;
+  position: relative;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 0;
+  margin: -12px;
+  /* background: rgba(0, 255, 0, 0.5); */
+}
+
+.cardWrapper {
+  display: block;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 100%;
+  padding: 12px;
+  min-width: 240px;
+
+  &.columns-2 {
+    flex-basis: 50%;
+  }
+
+  &.columns-3 {
+    flex-basis: 33.333%;
+  }
+
+  &.columns-4 {
+    flex-basis: 25%;
+  }
+}
+
+.card {
+  composes: ds-token-elevation-mid from global;
+  border-radius: 6px;
+  padding: 24px;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  min-height: 100px;
+  /* background: rgba(0, 255, 0, 0.5); */
 }
