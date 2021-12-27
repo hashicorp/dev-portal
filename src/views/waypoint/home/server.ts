@@ -14,7 +14,7 @@ async function getStaticProps(): $TSFixMe {
 
   CONTENT.blocks = CONTENT.blocks.map((block) => {
     const { type, heading } = block
-    if (['h1', 'h2', 'h3'].indexOf(type) < 0) return block
+    if (type !== 'heading') return block
     return {
       ...block,
       __heading_slug: slugify(heading, { lower: true }),
@@ -36,11 +36,11 @@ async function getStaticProps(): $TSFixMe {
       // ...props,
       layoutProps: {
         headings: CONTENT.blocks
-          .filter((s) => s.__heading_slug)
-          .map(({ heading, __heading_slug, type }) => ({
+          .filter((s) => s.type == 'heading')
+          .map(({ heading, __heading_slug, level }) => ({
             title: heading,
-            slug: __heading_slug || null,
-            level: parseInt(type.substring(1)),
+            slug: __heading_slug,
+            level,
           })),
         navData,
         basePaths: ['waypoint', basePath],

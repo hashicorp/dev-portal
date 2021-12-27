@@ -1,3 +1,31 @@
 .root {
   overflow: hidden;
 }
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -12px;
+}
+
+.icon {
+  margin: 12px;
+  flex: 0 0 auto;
+
+  & svg {
+    display: block;
+    width: 96px;
+    height: auto;
+  }
+}
+
+.text {
+  margin: 12px;
+  flex: 1 1 0;
+  min-width: 400px;
+
+  & p {
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+}

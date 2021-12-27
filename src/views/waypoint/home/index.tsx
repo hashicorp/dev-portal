@@ -1,11 +1,16 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable react/no-array-index-key */
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import DocsLayout from 'layouts/docs'
-import GetStarted from './components/get-started'
-import Cards from './components/cards'
+import GetStarted, { GetStartedProps } from './components/get-started'
+import Cards, { CardProps } from './components/cards'
+import Heading, { HeadingProps } from './components/heading'
 
-function WaypointLanding({ CONTENT }: { CONTENT: $TSFixMe }): ReactElement {
+function WaypointLanding({
+  CONTENT,
+}: {
+  CONTENT: { heading: string; subheading: string; blocks: Block[] }
+}): ReactElement {
   return (
     <div>
       <h1>{CONTENT.heading}</h1>
@@ -15,19 +20,24 @@ function WaypointLanding({ CONTENT }: { CONTENT: $TSFixMe }): ReactElement {
   )
 }
 
-function LandingBlocks({ blocks }: { blocks: $TSFixMe[] }) {
+interface BlockBase {
+  type: 'heading' | 'get_started' | 'cards'
+}
+
+type Block =
+  | (HeadingProps & BlockBase)
+  | (GetStartedProps & BlockBase)
+  | (CardProps & BlockBase)
+
+function LandingBlocks({ blocks }: { blocks: Block[] }) {
   return (
     <>
       {blocks.map((block, idx) => {
         const { type, heading } = block
         switch (type) {
-          case 'h2':
-            const { __heading_slug } = block
-            return (
-              <h2 key={idx} id={__heading_slug}>
-                {heading}
-              </h2>
-            )
+          case 'heading':
+            const { __heading_slug, level } = block
+            return <Heading key={idx} {...{ __heading_slug, heading, level }} />
           case 'get_started':
             const { iconSvg, text, link } = block
             return (

@@ -1,15 +1,7 @@
 import React from 'react'
+import InlineSvg from '@hashicorp/react-inline-svg'
 import s from './style.module.css'
-
-interface GetStartedProps {
-  iconSvg: string
-  heading: string
-  text: string
-  link: {
-    url: string
-    text: string
-  }
-}
+import { GetStartedProps } from './types'
 
 function GetStarted({
   iconSvg,
@@ -19,11 +11,19 @@ function GetStarted({
 }: GetStartedProps): React.ReactElement {
   return (
     <div className={s.root}>
-      <pre>
-        <code>{JSON.stringify({ iconSvg, heading, text, link }, null, 2)}</code>
-      </pre>
+      <div className={s.container}>
+        <div className={s.icon}>
+          <InlineSvg src={iconSvg} />
+        </div>
+        <div className={s.text}>
+          <span>{heading}</span>
+          <p>{text}</p>
+          <a href={link.url}>{link.text}</a>
+        </div>
+      </div>
     </div>
   )
 }
 
+export type { GetStartedProps }
 export default GetStarted

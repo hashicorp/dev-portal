@@ -41,3 +41,23 @@
   min-height: 100px;
   /* background: rgba(0, 255, 0, 0.5); */
 }
+
+.cardIcon {
+  display: block;
+  background: rgba(255, 0, 0, 0.3);
+}
+
+.cardHeading {
+  display: block;
+  background: rgba(0, 255, 0, 0.3);
+}
+
+.cardText {
+  display: block;
+  background: rgba(0, 0, 255, 0.3);
+}
+
+.cardTags {
+  display: block;
+  background: rgba(255, 255, 0, 0.3);
+}
