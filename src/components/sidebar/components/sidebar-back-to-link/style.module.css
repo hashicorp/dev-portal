@@ -12,6 +12,15 @@
   }
 }
 
+/*
+TODO: This is a temporary class. It should be removed when the development
+popover is removed.
+*/
+.popoverButton {
+  composes: focus-border-and-box-shadow-light from global;
+  border-radius: 5px;
+}
+
 .icon {
   margin-right: 8px;
 }

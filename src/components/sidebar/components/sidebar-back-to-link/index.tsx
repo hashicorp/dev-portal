@@ -6,6 +6,7 @@ import s from './style.module.css'
 const SidebarBackToLink: React.FC = () => {
   return (
     <DevPopover
+      buttonClassName={s.popoverButton}
       title="Work in progress"
       note={
         <>
