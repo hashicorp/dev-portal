@@ -93,8 +93,17 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
   basePaths,
 }) => {
   // TODO: the designs don't currently show a divider
+  // TODO: Update 2022-01-03: product home page, eg /waypoint, does
+  // TODO: show divider. Including a basic implementation for now,
+  // TODO: this is something we likely need to revisit with design.
   if (item.divider) {
-    return null
+    return <hr className={s.divider} />
+  }
+
+  // TODO: 2022-01-03: designs show a heading on the product home page,
+  // TODO: eg /waypoint, so adding this type in.
+  if (item.heading) {
+    return <p className={s.heading}>{item.heading}</p>
   }
 
   if (item.routes) {

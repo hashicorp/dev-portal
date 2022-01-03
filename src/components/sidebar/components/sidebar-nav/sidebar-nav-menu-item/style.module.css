@@ -47,3 +47,22 @@
     }
   }
 }
+
+.divider {
+  background: var(--token-color-palette-alpha-200);
+  border: none;
+  height: 1px;
+  margin-left: 8px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  width: calc(100% - 16px);
+}
+
+.heading {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  padding: 0 8px;
+  composes: ds-token-typography-body-base from global;
+  font-weight: var(--ds-token-font-weight-semibold);
+  color: var(--token-color-neutral-foreground-faint);
+}

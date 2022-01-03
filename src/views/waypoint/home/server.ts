@@ -30,10 +30,20 @@ async function getStaticProps(): Promise<$TSFixMe> {
     remarkPlugins: [],
   })
 
+  const customNavData = [
+    { title: 'Introduction', path: 'intro' },
+    { title: 'Getting Started', path: 'getting-started' },
+    { divider: true },
+    { heading: 'Resources' },
+    { title: 'Releases', href: 'https://www.hashicorp.com' },
+    { title: 'HashiCorp Learn', href: 'https://www.hashicorp.com' },
+    { title: 'Community Forum', href: 'https://www.hashicorp.com' },
+    { title: 'Support', href: 'https://www.hashicorp.com' },
+  ]
+
   return {
     props: {
       CONTENT,
-      // ...props,
       layoutProps: {
         headings: CONTENT.blocks
           .filter((s) => s.type == 'heading')
@@ -42,7 +52,7 @@ async function getStaticProps(): Promise<$TSFixMe> {
             slug: __heading_slug,
             level,
           })),
-        navData,
+        navData: customNavData,
         basePaths: ['waypoint', basePath],
       },
     },
