@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import React from 'react'
 
 function MaybeInternalLink({
   href,
@@ -8,9 +9,7 @@ function MaybeInternalLink({
 }: {
   href: string
   children: React.ReactNode
-  // TODO: determine better solution for ...rest typing here
-  [x: string]: $TSFixMe
-}): React.ReactElement {
+} & React.HTMLProps<HTMLAnchorElement>): React.ReactElement {
   const Elem = isAbsoluteUrl(href) ? InternalLink : 'a'
   return (
     <Elem href={href} {...rest}>
