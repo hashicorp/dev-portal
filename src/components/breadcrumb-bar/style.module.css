@@ -6,6 +6,7 @@
 
 .root {
   position: relative;
+  margin-bottom: 32px;
 }
 
 .listRoot {

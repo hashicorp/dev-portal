@@ -1,14 +1,11 @@
-// import DocsPage from '@hashicorp/react-docs-page'
 import {
   generateStaticPaths,
   generateStaticProps,
 } from '@hashicorp/react-docs-page/server'
 import { anchorLinks } from '@hashicorp/remark-plugins'
-import { MDXRemote } from 'next-mdx-remote'
 import waypointConfig from '../../../../config/waypoint.json'
-import Placement from 'components/author-primitives/shared/placement-table'
-import NestedNode from 'components/author-primitives/waypoint/nested-node'
 import DocsLayout from 'layouts/docs'
+import DocsPage from 'components/docs-page'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
 // because some of the util functions still require param arity, but we ignore
@@ -19,19 +16,16 @@ const temporary_noop = 'im just for show'
 const productName = waypointConfig.name
 const productSlug = waypointConfig.slug
 const basePath = 'docs'
-const additionalComponents = { Placement, NestedNode }
 
-// TODO: inline styles will be removed in a follow-up layout task (ref: https://app.asana.com/0/0/1201217826547576/f)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function WaypointDocsPage(props) {
-  return <MDXRemote {...props.mdxSource} components={additionalComponents} />
+  return <DocsPage {...props.mdxSource} />
 }
 
 export async function getStaticPaths() {
   const paths = await generateStaticPaths({
     navDataFile: temporary_noop,
     localContentDir: temporary_noop,
-    // new ----
     product: { name: productName, slug: productSlug },
     basePath,
   })
@@ -79,7 +73,6 @@ export async function getStaticProps({ params }) {
   }
 }
 
-// Needs to be DocsLayout in the assembly-ui-v1 branch for now
 WaypointDocsPage.layout = DocsLayout
 
 export default WaypointDocsPage
