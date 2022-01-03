@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { Product, ProductGroup, ProductSlug } from 'types/products'
-import ProductIcon from 'components/icons/product-icon'
+import ProductIcon from 'components/product-icon'
 import { products } from '../../../config/products'
 import s from './style.module.css'
 

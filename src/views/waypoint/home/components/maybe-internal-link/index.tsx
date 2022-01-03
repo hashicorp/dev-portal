@@ -8,7 +8,7 @@ function MaybeInternalLink({
 }: {
   href: string
   children: React.ReactNode
-  // ...rest
+  // TODO: determine better solution for ...rest typing here
   [x: string]: $TSFixMe
 }): React.ReactElement {
   const Elem = isAbsoluteUrl(href) ? InternalLink : 'a'

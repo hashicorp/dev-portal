@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import classNames from 'classnames'
+import ProductIcon from 'components/product-icon'
 import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
 import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
@@ -45,16 +46,22 @@ function CardGridSection({ title, products }): ReactElement {
       <span className={s.sectionHeading}>{title}</span>
       <span className={s.sectionBody}>
         {products.map(({ slug, hasLogo, headingIcon, heading, subheading }) => {
-          const Logo = (hasLogo && logoDict[slug]) || null
-          const HeadingIcon = (headingIcon && iconDict[slug]) || null
           return (
             <Link key={slug} href={`/${slug}`}>
               <a className={s.sectionBodyCardWrapper}>
                 <span className={s.sectionBodyCard}>
-                  {Logo && <Logo className={s.sectionBodyCardLogo} />}
+                  {hasLogo && (
+                    <ProductIcon
+                      className={s.sectionBodyCardLogo}
+                      product={slug}
+                    />
+                  )}
                   <span className={s.sectionBodyCardHeading}>
                     {headingIcon && (
-                      <HeadingIcon className={s.sectionBodyCardHeadingIcon} />
+                      <ProductIcon
+                        className={s.sectionBodyCardHeadingIcon}
+                        product={slug}
+                      />
                     )}
                     {heading}
                   </span>

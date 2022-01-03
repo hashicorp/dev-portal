@@ -10,25 +10,30 @@ import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 import { ProductSlug } from 'types/products'
 
-// TODO: is there a programatic way to build this from productNamesToIcons?
+// TODO: is there a programmatic way to build this from productNamesToIcons?
 interface ProductIconProps {
   product: ProductSlug
+  // TODO: determine better solution for ...rest typing here
+  [x: string]: $TSFixMe
 }
 
-const productNamesToIcons: { [key in ProductSlug]: ReactElement } = {
-  boundary: <IconBoundaryColor16 />,
-  consul: <IconConsulColor16 />,
-  hcp: <IconHashicorp16 />,
-  nomad: <IconNomadColor16 />,
-  packer: <IconPackerColor16 />,
+const productNamesToIcons = {
+  boundary: IconBoundaryColor16,
+  consul: IconConsulColor16,
+  hcp: IconHashicorp16,
+  nomad: IconNomadColor16,
+  packer: IconPackerColor16,
   sentinel: null,
-  terraform: <IconTerraformColor16 />,
-  vagrant: <IconVagrantColor16 />,
-  vault: <IconVaultColor16 />,
-  waypoint: <IconWaypointColor16 />,
+  terraform: IconTerraformColor16,
+  vagrant: IconVagrantColor16,
+  vault: IconVaultColor16,
+  waypoint: IconWaypointColor16,
 }
 
-const ProductIcon: React.FC<ProductIconProps> = ({ product }) =>
-  productNamesToIcons[product]
+const ProductIcon: React.FC<ProductIconProps> = ({ product, ...rest }) => {
+  const Icon = productNamesToIcons[product]
+  if (!Icon) return null
+  return <Icon {...rest} />
+}
 
 export default ProductIcon
