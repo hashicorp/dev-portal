@@ -4,12 +4,8 @@ import {
 } from '@hashicorp/react-docs-page/server'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 import waypointConfig from '../../../../config/waypoint.json'
-import Placement from 'components/author-primitives/shared/placement-table'
-import NestedNode from 'components/author-primitives/waypoint/nested-node'
-import makeDocsAnchor from 'components/docs-anchor'
 import DocsLayout from 'layouts/docs'
-import { MDXRemote } from 'next-mdx-remote'
-// import WaypointIoLayout from 'layouts/proxied-io-sites/waypoint'
+import DocsPage from 'components/docs-page'
 
 // because some of the util functions still require param arity, but we ignore
 // their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
@@ -19,22 +15,16 @@ const temporary_noop = 'im just for show'
 const productName = waypointConfig.name
 const productSlug = waypointConfig.slug
 const basePath = 'commands'
-const additionalComponents = {
-  Placement,
-  NestedNode,
-  a: makeDocsAnchor('waypoint', ['docs', 'plugins', 'commands']),
-}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function WaypointCommandsPage(props) {
-  return <MDXRemote {...props.mdxSource} components={additionalComponents} />
+  return <DocsPage {...props.mdxSource} />
 }
 
 export async function getStaticPaths() {
   const paths = await generateStaticPaths({
     navDataFile: temporary_noop,
     localContentDir: temporary_noop,
-    // new ----
     product: { name: productName, slug: productSlug },
     basePath,
   })
