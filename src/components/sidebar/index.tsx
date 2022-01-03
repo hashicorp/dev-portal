@@ -23,7 +23,12 @@ export interface MenuItem {
 
 interface SidebarProps {
   menuItems: MenuItem[]
-  /** Optional path strings representing the path from the root URL. */
+  /** Optional path strings representing the path from the root URL.
+   * Note: this is a temporary solution to allow basePaths to be set, rather than derived
+   * from current location. This allows a bit more flexibility in where the nav
+   * can be placed (eg can then be placed on /waypoint, rather than only
+   * working on /waypoint/docs)
+   **/
   basePaths?: string[]
 }
 

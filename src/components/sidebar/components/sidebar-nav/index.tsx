@@ -7,10 +7,7 @@ const SIDEBAR_LABEL_ID = 'sidebar-label'
 interface SidebarNavProps {
   menuItems: MenuItem[]
   title: string
-  /* Temporary solution to allow basePaths to be set, rather than derived
-    from current location. This allows a bit more flexibility in where the nav
-    can be placed (eg can then be placed on /waypoint, rather than only
-    working on /waypoint/docs) */
+  /** Optional path strings representing the path from the root URL. */
   basePaths?: string[]
 }
 
