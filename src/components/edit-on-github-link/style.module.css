@@ -9,6 +9,11 @@
   font-size: 14px;
   font-weight: 500;
   margin-top: 24px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--token-color-palette-blue-300);
+  }
 }
 
 .editLinkIcon {
