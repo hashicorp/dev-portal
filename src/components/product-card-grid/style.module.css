@@ -142,10 +142,19 @@
   width: 32px;
 }
 
+.sectionBodyCardHeadingIcon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  color: var(--token-color-palette-neutral-700);
+  margin-right: 8px;
+}
+
 .sectionBodyCardHeading {
   composes: ds-token-typography-heading-3 from global;
   color: var(--token-color-palette-neutral-700);
-  display: block;
+  display: flex;
+  align-items: center;
 }
 
 .sectionBodyCardSubheading {
