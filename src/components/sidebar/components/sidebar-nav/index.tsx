@@ -14,30 +14,28 @@ const SidebarNav: React.FC<SidebarNavProps> = ({
   menuItems,
   title,
   basePaths,
-}) => {
-  return (
-    <nav aria-labelledby={SIDEBAR_LABEL_ID}>
-      <p className={s.sidebarNavLabel} id={SIDEBAR_LABEL_ID}>
-        {title}
-      </p>
-      <a className={s.skipToMainContent} href="#main">
-        Skip to main content
-      </a>
-      <ul className={s.sidebarNavList}>
-        {menuItems.map((item, index) => {
-          return (
-            <SidebarNavMenuItem
-              item={item}
-              // TODO: use item.id when it has been added to the metadata (see above)
-              // eslint-disable-next-line react/no-array-index-key
-              key={`sidebar-nav-menu-item-${index}`}
-              basePaths={basePaths}
-            />
-          )
-        })}
-      </ul>
-    </nav>
-  )
-}
+}) => (
+  <nav aria-labelledby={SIDEBAR_LABEL_ID}>
+    <p className={s.sidebarNavLabel} id={SIDEBAR_LABEL_ID}>
+      {title}
+    </p>
+    <a className={s.skipToMainContent} href="#main">
+      Skip to main content
+    </a>
+    <ul className={s.sidebarNavList}>
+      {menuItems.map((item, index) => {
+        return (
+          <SidebarNavMenuItem
+            item={item}
+            // TODO: use item.id when it has been added to the metadata (see above)
+            // eslint-disable-next-line react/no-array-index-key
+            key={`sidebar-nav-menu-item-${index}`}
+            basePaths={basePaths}
+          />
+        )
+      })}
+    </ul>
+  </nav>
+)
 
 export default SidebarNav
