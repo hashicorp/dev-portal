@@ -14,7 +14,12 @@ function HomepageHero({ className }: { className?: string }): ReactElement {
       </div>
       <div className={s.imageSection}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={require('./img/hero-visual.png')} alt="" />
+        <img
+          width={1316}
+          height={640}
+          src={require('./img/hero-visual.png')}
+          alt=""
+        />
       </div>
     </div>
   )
