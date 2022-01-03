@@ -29,7 +29,13 @@
 .heading {
   composes: ds-token-typography-heading-3 from global;
   color: var(--token-color-palette-neutral-700);
-  margin: 0;
+  /**
+    * NOTE: !important is necessary here, as higher specificity styles
+    * are bleeding in from docs layout styles. One path to resolve this
+    * might be to use MDX custom components, rather than raw-element-targeting styles,
+    * in order to styles docs contents
+    **/
+  margin: 0 !important;
 }
 
 .text {
