@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import classNames from 'classnames'
 import Popover from 'components/popover'
 import s from './style.module.css'
 import VisuallyHidden from '@reach/visually-hidden'
@@ -12,20 +13,24 @@ import VisuallyHidden from '@reach/visually-hidden'
  */
 function DevPopover({
   children,
+  buttonClassName,
+  containerClassName,
   note,
   title = 'Note',
 }: {
   children: React.ReactNode
+  buttonClassName?: string
+  containerClassName?: string
   note: React.ReactNode
   title?: string
 }): React.ReactElement {
   const [showDialog, setShowDialog] = useState(false)
   const triggerRef = useRef(null)
   return (
-    <div className={s.root}>
+    <div className={classNames(s.root, containerClassName)}>
       {children}
       <button
-        className={s.button}
+        className={classNames(s.button, buttonClassName)}
         ref={triggerRef}
         onClick={() => setShowDialog(!showDialog)}
       >
