@@ -20,14 +20,10 @@ function WaypointLanding({
   )
 }
 
-interface BlockBase {
-  type: 'heading' | 'get_started' | 'cards'
-}
-
 type Block =
-  | (HeadingProps & BlockBase)
-  | (GetStartedProps & BlockBase)
-  | (CardProps & BlockBase)
+  | ({ type: 'heading' } & HeadingProps)
+  | ({ type: 'get_started' } & GetStartedProps)
+  | ({ type: 'cards' } & CardProps)
 
 function LandingBlocks({ blocks }: { blocks: Block[] }) {
   return (
@@ -35,13 +31,13 @@ function LandingBlocks({ blocks }: { blocks: Block[] }) {
       {blocks.map((block, idx) => {
         const { type } = block
         if (type === 'heading') {
-          const { heading, __heading_slug, level } = block as HeadingProps
+          const { heading, __heading_slug, level } = block
           return <Heading key={idx} {...{ __heading_slug, heading, level }} />
         } else if (type === 'get_started') {
-          const { heading, iconSvg, text, link } = block as GetStartedProps
+          const { heading, iconSvg, text, link } = block
           return <GetStarted key={idx} {...{ iconSvg, heading, text, link }} />
         } else if (type === 'cards') {
-          const { columns, cards } = block as CardProps
+          const { columns, cards } = block
           return <Cards key={idx} {...{ columns, cards }} />
         }
         // If we don't have a recognized card type,
