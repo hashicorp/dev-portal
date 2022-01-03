@@ -4,19 +4,16 @@ import s from './style.module.css'
 function HomepageHero(): ReactElement {
   return (
     <div className={s.root}>
-      <div className={s.textPart}>
-        <h1>Welcome to Dev Portal</h1>
-        <p>
+      <div className={s.textSection}>
+        <h1 className={s.heading}>Welcome to Dev Portal</h1>
+        <p className={s.subheading}>
           This says something here about HashiCorp documentation and it&apos;s
           great.
         </p>
       </div>
-      <div className={s.imagePart}>
+      <div className={s.imageSection}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://www.bloomberg.com/graphics/2015-paul-ford-what-is-code/images/ballmer.gif"
-          alt="A sweaty and enthusiastic person named Steve Ballmer shouting Developers Developers Developers to a rapt audience"
-        />
+        <img src={require('./img/hero-visual.png')} alt="" />
       </div>
     </div>
   )
