@@ -7,16 +7,15 @@
   flex-wrap: wrap;
   flex: 1 1 0;
   margin: -12px;
-  /* background: rgba(0, 255, 0, 0.5); */
 }
 
 .cardWrapper {
   display: block;
+  flex-basis: 100%;
   flex-grow: 1;
   flex-shrink: 1;
-  flex-basis: 100%;
-  padding: 12px;
   min-width: 240px;
+  padding: 12px;
 
   &.columns-2 {
     flex-basis: 50%;
@@ -32,32 +31,58 @@
 }
 
 .card {
-  composes: ds-token-elevation-mid from global;
+  composes: ds-token-elevation-low from global;
   border-radius: 6px;
-  padding: 24px;
-  display: block;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  overflow: hidden;
   min-height: 100px;
-  /* background: rgba(0, 255, 0, 0.5); */
+  overflow: hidden;
+  padding: 16px;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--token-color-palette-neutral-50);
+  }
 }
 
 .cardIcon {
   display: block;
-  background: rgba(255, 0, 0, 0.3);
+  margin-bottom: 12px;
+
+  & svg {
+    display: block;
+    height: 32px;
+    width: 32px;
+  }
 }
 
 .cardHeading {
+  composes: ds-token-typography-body-large from global;
+  color: var(--token-color-palette-neutral-700);
   display: block;
-  background: rgba(0, 255, 0, 0.3);
+  font-weight: var(--ds-token-font-weight-semibold);
 }
 
 .cardText {
+  composes: ds-token-typography-body-base from global;
+  color: var(--token-color-palette-neutral-500);
   display: block;
-  background: rgba(0, 0, 255, 0.3);
+  margin: 4px 0 0 0;
 }
 
 .cardTags {
-  display: block;
-  background: rgba(255, 255, 0, 0.3);
+  display: flex;
+  margin-top: auto;
+  padding-top: 12px;
+
+  & > *:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  & svg {
+    display: block;
+    height: 16px;
+    width: 16px;
+  }
 }

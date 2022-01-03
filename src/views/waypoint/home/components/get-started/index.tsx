@@ -1,5 +1,7 @@
 import React from 'react'
 import InlineSvg from '@hashicorp/react-inline-svg'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+
 import s from './style.module.css'
 import { GetStartedProps } from './types'
 
@@ -12,13 +14,16 @@ function GetStarted({
   return (
     <div className={s.root}>
       <div className={s.container}>
-        <div className={s.icon}>
+        <div className={s.iconSection}>
           <InlineSvg src={iconSvg} />
         </div>
-        <div className={s.text}>
-          <span>{heading}</span>
-          <p>{text}</p>
-          <a href={link.url}>{link.text}</a>
+        <div className={s.textSection}>
+          <h3 className={s.heading}>{heading}</h3>
+          <p className={s.text}>{text}</p>
+          <a className={s.link} href={link.url}>
+            {link.text}
+            <IconArrowRight16 />
+          </a>
         </div>
       </div>
     </div>

@@ -8,24 +8,47 @@
   margin: -12px;
 }
 
-.icon {
-  margin: 12px;
+.iconSection {
+  display: block;
   flex: 0 0 auto;
+  margin: 12px;
 
   & svg {
     display: block;
-    width: 96px;
     height: auto;
+    width: 96px;
   }
 }
 
-.text {
-  margin: 12px;
+.textSection {
   flex: 1 1 0;
+  margin: 12px;
   min-width: 400px;
+}
 
-  & p {
-    margin-top: 4px;
-    margin-bottom: 8px;
+.heading {
+  composes: ds-token-typography-heading-3 from global;
+  color: var(--token-color-palette-neutral-700);
+  margin: 0;
+}
+
+.text {
+  composes: ds-token-typography-body-base from global;
+  color: var(--token-color-palette-neutral-500);
+  margin: 4px 0 8px 0;
+}
+
+.link {
+  composes: ds-token-typography-body-base from global;
+  align-items: center;
+  color: var(--token-color-action-foreground-primary);
+  display: flex;
+  font-weight: var(--ds-token-font-weight-medium);
+
+  & svg {
+    display: block;
+    margin-left: 8px;
+    position: relative;
+    top: 1px;
   }
 }

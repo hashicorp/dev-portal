@@ -11,6 +11,22 @@ hashicorp/design-system-tokens.
 
 */
 
+.ds-token-elevation-low {
+  box-shadow: var(--token-elevation-low-shadow-01-x)
+      var(--token-elevation-low-shadow-01-y)
+      var(--token-elevation-low-shadow-01-blur)
+      var(--token-elevation-low-shadow-01-spread)
+      var(--token-elevation-low-shadow-01-color),
+    var(--token-elevation-low-shadow-02-x)
+      var(--token-elevation-low-shadow-02-y)
+      var(--token-elevation-low-shadow-02-blur)
+      var(--token-elevation-low-shadow-02-spread)
+      var(--token-elevation-low-shadow-02-color);
+  border-width: var(--token-elevation-low-border-width);
+  border-style: solid;
+  border-color: var(--token-elevation-low-border-color);
+}
+
 .ds-token-elevation-mid {
   box-shadow: var(--token-elevation-mid-shadow-01-x)
       var(--token-elevation-mid-shadow-01-y)

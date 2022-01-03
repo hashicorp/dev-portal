@@ -1,6 +1,8 @@
 import React from 'react'
+import Link from 'next/link'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import classNames from 'classnames'
+import tagIconDict from './tag-icon-dict.json'
 import { CardProps } from './types'
 import s from './style.module.css'
 
@@ -16,16 +18,25 @@ function Cards({ columns, cards }: CardProps): React.ReactElement {
               key={idx}
               className={classNames(s.cardWrapper, s[`columns-${columns}`])}
             >
-              <div className={s.card}>
-                {iconSvg && (
-                  <span className={s.cardIcon}>
-                    <InlineSvg src={iconSvg} />
-                  </span>
-                )}
-                <span className={s.cardHeading}>{heading}</span>
-                <span className={s.cardText}>{text}</span>
-                <span className={s.cardTags}>{JSON.stringify(tags)}</span>
-              </div>
+              {/* TODO: use href from props, rather than always same link */}
+              <Link href="/waypoint/docs/intro">
+                <a className={s.card}>
+                  {iconSvg && (
+                    <span className={s.cardIcon}>
+                      <InlineSvg src={iconSvg} />
+                    </span>
+                  )}
+                  <span className={s.cardHeading}>{heading}</span>
+                  <span className={s.cardText}>{text}</span>
+                  {tags && (
+                    <span className={s.cardTags}>
+                      {tags.map((tag) => {
+                        return <InlineSvg key={tag} src={tagIconDict[tag]} />
+                      })}
+                    </span>
+                  )}
+                </a>
+              </Link>
             </div>
           )
         })}
