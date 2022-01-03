@@ -11,6 +11,7 @@ import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-
 import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
 import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
 import s from './style.module.css'
+import CONTENT from './content.json'
 
 const logoDict = {
   terraform: IconTerraformColor16,
@@ -27,105 +28,10 @@ const iconDict = {
   hcp: IconHashicorp16,
 }
 
-const cardGridSections = [
-  {
-    title: 'Infrastructure',
-    products: [
-      {
-        slug: 'terraform',
-        hasLogo: true,
-        heading: 'Terraform',
-        subheading: 'Infrastructure as code',
-      },
-      {
-        slug: 'packer',
-        hasLogo: true,
-        heading: 'Packer',
-        subheading: 'Machine images',
-      },
-    ],
-  },
-  {
-    title: 'Networking',
-    products: [
-      {
-        slug: 'consul',
-        hasLogo: true,
-        heading: 'Consul',
-        subheading: 'Multi-cloud service mesh',
-      },
-    ],
-  },
-  {
-    title: 'Security',
-    products: [
-      {
-        slug: 'vault',
-        hasLogo: true,
-        heading: 'Vault',
-        subheading: 'Managed secrets',
-      },
-      {
-        slug: 'boundary',
-        hasLogo: true,
-        heading: 'Boundary',
-        subheading: 'Identity-based security',
-      },
-    ],
-  },
-  {
-    title: 'Application',
-    products: [
-      {
-        slug: 'nomad',
-        hasLogo: true,
-        heading: 'Nomad',
-        subheading: 'Workload orchestration',
-      },
-      {
-        slug: 'waypoint',
-        hasLogo: true,
-        heading: 'Waypoint',
-        subheading: 'Deployment workflows',
-      },
-      {
-        slug: 'vagrant',
-        hasLogo: true,
-        heading: 'Vagrant',
-        subheading: 'Environment workflows',
-      },
-    ],
-  },
-  {
-    title: 'Cloud',
-    products: [
-      {
-        slug: 'hcp',
-        hasLogo: false,
-        headingIcon: true,
-        heading: 'HashiCorp Cloud Platform (HCP)',
-        subheading:
-          'A fully managed platform to automate infrastructure on any cloud with HashiCorp products. Available on HCP Vault, HCP Consul, and HCP Packer.',
-      },
-    ],
-  },
-  {
-    title: 'Policy',
-    products: [
-      {
-        slug: 'sentinel',
-        hasLogo: false,
-        heading: 'Sentinel',
-        subheading:
-          'Policy as code framework for HashiCorp Enterprise Products.',
-      },
-    ],
-  },
-]
 function ProductCardGrid({ className }: { className?: string }): ReactElement {
   return (
     <div className={classNames(s.root, className)}>
-      {cardGridSections.map((section) => {
+      {CONTENT.cardGridSections.map((section) => {
         const { title, products } = section
         return <CardGridSection key={title} title={title} products={products} />
       })}

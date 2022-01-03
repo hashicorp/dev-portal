@@ -76,7 +76,7 @@
 
 .focus-border-and-box-shadow-light {
   &:focus {
-    border: 1px solid var(--blue-vibrant);
+    border: 1px solid var(--token-color-palette-blue-200);
     box-shadow: 0 0 0 3px #a5c2f3;
     outline: none;
   }
