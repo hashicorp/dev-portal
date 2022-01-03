@@ -100,7 +100,7 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
     return <SidebarNavSubmenu item={item} basePaths={basePaths} />
   }
 
-  return <SidebarNavLink item={item} basePaths={basePaths} c />
+  return <SidebarNavLink item={item} basePaths={basePaths} />
 }
 
 export default SidebarNavMenuItem
