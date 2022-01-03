@@ -9,12 +9,9 @@ function Homepage(): ReactElement {
   return (
     <>
       <div className={s.root}>
-        <br />
-        <br />
-        <HomepageHero />
-        <br />
-        <br />
-        <ProductCardGrid />
+        <HomepageHero className={s.hero} />
+        <h2 className={s.cardGridHeading}>Explore Product Documentation</h2>
+        <ProductCardGrid className={s.cardGrid} />
       </div>
       <Footer className={s.footer} />
     </>

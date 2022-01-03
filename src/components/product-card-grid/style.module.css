@@ -1,10 +1,6 @@
 .root {
-  /* background: rgba(255, 0, 0, 0.5); */
   display: grid;
-  grid-gap: 24px;
-
-  grid-template-rows: repeat(6, auto);
-  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 40px 24px;
   grid-template-areas:
     's1'
     's2'
@@ -12,51 +8,62 @@
     's4'
     's5'
     's6';
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(6, auto);
 
   @media (min-width: 600px) {
-    grid-template-rows: repeat(4, auto);
-    grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
       's1 s1 s2'
       's3 s3 s3'
       's4 s4 s4'
       's5 s5 s6';
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, auto);
   }
 
   @media (min-width: 900px) {
-    grid-template-rows: repeat(3, auto);
-    grid-template-columns: repeat(5, 1fr);
     grid-template-areas:
       's1 s1 s2 s3 s3'
       's4 s4 s4 s6 s6'
       's5 s5 s5 s5 s5';
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, auto);
   }
 
   @media (min-width: 1200px) {
-    grid-template-rows: repeat(2, auto);
-    grid-template-columns: repeat(8, 1fr);
     grid-template-areas:
       's1 s1 s2 s3 s3 s4 s4 s4'
       's5 s5 s5 s5 s5 s5 s6 s6';
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(2, auto);
   }
 }
 
 .cardGridSection {
-  /* background: rgba(0, 0, 255, 0.5); */
   display: flex;
   flex-direction: column;
+  --bar-gradient: var(--token-color-palette-neutral-700);
+  --bar-height: 1px;
 
   &:nth-child(1) {
     grid-area: s1;
+    --bar-gradient: linear-gradient(270deg, #684ace 2.4%, #2091f1 99.78%);
+    --bar-height: 2px;
   }
   &:nth-child(2) {
     grid-area: s2;
+    --bar-gradient: linear-gradient(270deg, #913966 2.4%, #ca2171 100%);
+    --bar-height: 2px;
   }
   &:nth-child(3) {
     grid-area: s3;
+    --bar-gradient: linear-gradient(270deg, #d1b960 2.4%, #bd5053 100%);
+    --bar-height: 2px;
   }
   &:nth-child(4) {
     grid-area: s4;
+    --bar-gradient: linear-gradient(270deg, #00c6c2 2.4%, #2d8b6e 100%);
+    --bar-height: 2px;
   }
   &:nth-child(5) {
     grid-area: s5;
@@ -67,18 +74,21 @@
 }
 
 .sectionHeading {
-  position: relative;
+  composes: ds-token-typography-body-base from global;
+  color: var(--token-color-palette-neutral-600);
   display: block;
-  padding-bottom: 24px;
+  font-weight: var(--ds-token-font-weight-semibold);
+  padding-bottom: 32px;
+  position: relative;
 
   &::after {
-    display: block;
-    position: absolute;
-    bottom: 14px;
-    left: 0;
+    background: var(--bar-gradient);
+    bottom: 16px;
     content: '\200B';
-    /* background: blue; */
-    height: 2px;
+    display: block;
+    height: var(--bar-height);
+    left: 0;
+    position: absolute;
     width: 100%;
   }
 }
@@ -87,24 +97,61 @@
   display: flex;
   flex-wrap: wrap;
   flex: 1 1 0;
-  /* background: rgba(255, 255, 0, 0.5); */
   margin: -12px;
 }
 
 .sectionBodyCardWrapper {
   display: block;
   flex: 1 1 0;
-  width: min-content;
   min-width: 120px;
   padding: 12px;
+  width: min-content;
 }
 
 .sectionBodyCard {
-  composes: ds-token-elevation-mid from global;
+  composes: ds-token-elevation-low from global;
   border-radius: 6px;
-  padding: 24px;
-  display: block;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   min-height: 100px;
-  /* background: rgba(0, 255, 0, 0.5); */
+  padding: 24px;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: var(--token-elevation-high-border-color);
+    border-style: solid;
+    border-width: var(--token-elevation-high-border-width);
+    box-shadow: var(--token-elevation-high-shadow-01-x)
+        var(--token-elevation-high-shadow-01-y)
+        var(--token-elevation-high-shadow-01-blur)
+        var(--token-elevation-high-shadow-01-spread)
+        var(--token-elevation-high-shadow-01-color),
+      var(--token-elevation-high-shadow-02-x)
+        var(--token-elevation-high-shadow-02-y)
+        var(--token-elevation-high-shadow-02-blur)
+        var(--token-elevation-high-shadow-02-spread)
+        var(--token-elevation-high-shadow-02-color);
+  }
+}
+
+.sectionBodyCardLogo {
+  display: block;
+  height: 32px;
+  margin-bottom: 16px;
+  width: 32px;
+}
+
+.sectionBodyCardHeading {
+  composes: ds-token-typography-heading-3 from global;
+  color: var(--token-color-palette-neutral-700);
+  display: block;
+}
+
+.sectionBodyCardSubheading {
+  composes: ds-token-typography-body-base from global;
+  color: var(--token-color-palette-neutral-500);
+  display: block;
+  margin-top: 16px;
+  max-width: 40em;
 }

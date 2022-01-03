@@ -1,36 +1,117 @@
 import React, { ReactElement } from 'react'
 import Link from 'next/link'
+import classNames from 'classnames'
+import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
+import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
+import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
+import { IconNomadColor16 } from '@hashicorp/flight-icons/svg-react/nomad-color-16'
+import { IconPackerColor16 } from '@hashicorp/flight-icons/svg-react/packer-color-16'
+import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-color-16'
+import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
+import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
 import s from './style.module.css'
+
+const logoDict = {
+  terraform: IconTerraformColor16,
+  vault: IconVaultColor16,
+  consul: IconConsulColor16,
+  nomad: IconNomadColor16,
+  packer: IconPackerColor16,
+  vagrant: IconVagrantColor16,
+  waypoint: IconWaypointColor16,
+  boundary: IconBoundaryColor16,
+}
 
 const cardGridSections = [
   {
     title: 'Infrastructure',
-    products: ['terraform', 'packer'],
+    products: [
+      {
+        slug: 'terraform',
+        heading: 'Terraform',
+        subheading: 'Infrastructure as code',
+      },
+      {
+        slug: 'packer',
+        heading: 'Packer',
+        subheading: 'Machine images',
+      },
+    ],
   },
   {
     title: 'Networking',
-    products: ['consul'],
+    products: [
+      {
+        slug: 'consul',
+        heading: 'Consul',
+        subheading: 'Multi-cloud service mesh',
+      },
+    ],
   },
   {
     title: 'Security',
-    products: ['vault', 'boundary'],
+    products: [
+      {
+        slug: 'vault',
+        heading: 'Vault',
+        subheading: 'Managed secrets',
+      },
+      {
+        slug: 'boundary',
+        heading: 'Boundary',
+        subheading: 'Identity-based security',
+      },
+    ],
   },
   {
     title: 'Application',
-    products: ['nomad', 'waypoint', 'vagrant'],
+    products: [
+      {
+        slug: 'nomad',
+        heading: 'Nomad',
+        subheading: 'Workload orchestration',
+      },
+      {
+        slug: 'waypoint',
+        heading: 'Waypoint',
+        subheading: 'Deployment workflows',
+      },
+      {
+        slug: 'vagrant',
+        heading: 'Vagrant',
+        subheading: 'Environment workflows',
+      },
+    ],
   },
   {
     title: 'Cloud',
-    products: ['hcp'],
+    products: [
+      {
+        slug: 'hcp',
+        noLogo: true,
+        headingIcon: true,
+        heading: 'HashiCorp Cloud Platform (HCP)',
+        subheading:
+          'A fully managed platform to automate infrastructure on any cloud with HashiCorp products. Available on HCP Vault, HCP Consul, and HCP Packer.',
+      },
+    ],
   },
   {
     title: 'Policy',
-    products: ['sentinel'],
+    products: [
+      {
+        slug: 'sentinel',
+        noLogo: true,
+        heading: 'Sentinel',
+        subheading:
+          'Policy as code framework for HashiCorp Enterprise Products.',
+      },
+    ],
   },
 ]
-function ProductCardGrid(): ReactElement {
+function ProductCardGrid({ className }: { className?: string }): ReactElement {
   return (
-    <div className={s.root}>
+    <div className={classNames(s.root, className)}>
       {cardGridSections.map((section) => {
         const { title, products } = section
         return <CardGridSection key={title} title={title} products={products} />
@@ -44,11 +125,18 @@ function CardGridSection({ title, products }): ReactElement {
     <div className={s.cardGridSection}>
       <span className={s.sectionHeading}>{title}</span>
       <span className={s.sectionBody}>
-        {products.map((slug) => {
+        {products.map(({ slug, noLogo, headingIcon, heading, subheading }) => {
+          const Logo = noLogo ? null : logoDict[slug]
           return (
             <Link key={slug} href={`/${slug}`}>
               <a className={s.sectionBodyCardWrapper}>
-                <span className={s.sectionBodyCard}>{slug}</span>
+                <span className={s.sectionBodyCard}>
+                  {Logo && <Logo className={s.sectionBodyCardLogo} />}
+                  <span className={s.sectionBodyCardHeading}>{heading}</span>
+                  <span className={s.sectionBodyCardSubheading}>
+                    {subheading}
+                  </span>
+                </span>
               </a>
             </Link>
           )

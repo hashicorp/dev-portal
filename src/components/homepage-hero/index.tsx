@@ -1,9 +1,10 @@
 import { ReactElement } from 'react'
 import s from './style.module.css'
+import classNames from 'classnames'
 
-function HomepageHero(): ReactElement {
+function HomepageHero({ className }: { className?: string }): ReactElement {
   return (
-    <div className={s.root}>
+    <div className={classNames(s.root, className)}>
       <div className={s.textSection}>
         <h1 className={s.heading}>Welcome to Dev Portal</h1>
         <p className={s.subheading}>
