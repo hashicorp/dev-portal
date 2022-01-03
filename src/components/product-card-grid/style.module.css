@@ -119,19 +119,7 @@
   transition: all 0.2s;
 
   &:hover {
-    border-color: var(--token-elevation-high-border-color);
-    border-style: solid;
-    border-width: var(--token-elevation-high-border-width);
-    box-shadow: var(--token-elevation-high-shadow-01-x)
-        var(--token-elevation-high-shadow-01-y)
-        var(--token-elevation-high-shadow-01-blur)
-        var(--token-elevation-high-shadow-01-spread)
-        var(--token-elevation-high-shadow-01-color),
-      var(--token-elevation-high-shadow-02-x)
-        var(--token-elevation-high-shadow-02-y)
-        var(--token-elevation-high-shadow-02-blur)
-        var(--token-elevation-high-shadow-02-spread)
-        var(--token-elevation-high-shadow-02-color);
+    background: var(--token-color-palette-neutral-50);
   }
 }
 
