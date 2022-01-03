@@ -6,6 +6,7 @@ import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-ri
 
 interface SidebarMenuItemProps {
   item: MenuItem
+  /** Optional path strings representing the path from the root URL. */
   basePaths?: string[]
 }
 
@@ -40,10 +41,10 @@ const SidebarNavLink = ({ item, basePaths }) => {
   )
 }
 
-const SidebarNavSubmenu: React.FC<{
-  item: MenuItem
-  basePaths?: string[]
-}> = ({ item, basePaths }) => {
+const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({
+  item,
+  basePaths,
+}) => {
   const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(item.hasActiveChild)
 
