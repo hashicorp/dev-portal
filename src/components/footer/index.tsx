@@ -16,7 +16,7 @@ function Footer({
   return (
     <footer className={classNames(s.root, className)}>
       Dev Portal Footer Placeholder{' '}
-      {Boolean(openConsentManager) && (
+      {typeof openConsentManager == 'function' && (
         <button onClick={openConsentManager}>Open Consent Manager</button>
       )}
     </footer>
