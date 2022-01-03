@@ -10,7 +10,7 @@
       "text": "Welcome to Waypoint! This introduction section covers what Waypoint is, the problem Waypoint aims to solve, and how Waypoint compares to other software.",
       "link": {
         "text": "Get Started",
-        "url": "https://www.hashicorp.com"
+        "url": "/waypoint/docs/intro"
       }
     },
     {
