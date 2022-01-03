@@ -3,7 +3,7 @@
 import React, { ReactElement } from 'react'
 import DocsLayout from 'layouts/docs'
 import GetStarted, { GetStartedProps } from './components/get-started'
-import Cards, { CardProps, CardInterface } from './components/cards'
+import Cards, { CardProps } from './components/cards'
 import Heading, { HeadingProps } from './components/heading'
 
 function WaypointLanding({
@@ -22,22 +22,6 @@ function WaypointLanding({
 
 interface BlockBase {
   type: 'heading' | 'get_started' | 'cards'
-  // TODO: properties below are already defined,
-  // TODO: eg in HeadingProps, GetStartedProps, & CardProps,
-  // TODO: but still getting TypeScript compile errors in switch
-  // TODO: blocks below.
-  // TODO: Need to figure out how to do this type union (?) thing properly
-  heading?: string
-  __heading_slug?: string
-  level?: number
-  iconSvg?: string
-  text?: string
-  link?: {
-    url: string
-    text: string
-  }
-  columns?: number
-  cards?: CardInterface[]
 }
 
 type Block =
@@ -49,26 +33,22 @@ function LandingBlocks({ blocks }: { blocks: Block[] }) {
   return (
     <>
       {blocks.map((block, idx) => {
-        const { type, heading } = block
-        switch (type) {
-          case 'heading':
-            const { __heading_slug, level } = block
-            return <Heading key={idx} {...{ __heading_slug, heading, level }} />
-          case 'get_started':
-            const { iconSvg, text, link } = block
-            return (
-              <GetStarted key={idx} {...{ iconSvg, heading, text, link }} />
-            )
-          case 'cards':
-            const { columns, cards } = block
-            return <Cards key={idx} {...{ columns, cards }} />
-          default:
-            return (
-              <pre key={idx} style={{ border: '1px solid red' }}>
-                <code>{JSON.stringify({ type, block }, null, 2)}</code>
-              </pre>
-            )
+        const { type } = block
+        if (type === 'heading') {
+          const { heading, __heading_slug, level } = block as HeadingProps
+          return <Heading key={idx} {...{ __heading_slug, heading, level }} />
+        } else if (type === 'get_started') {
+          const { heading, iconSvg, text, link } = block as GetStartedProps
+          return <GetStarted key={idx} {...{ iconSvg, heading, text, link }} />
+        } else if (type === 'cards') {
+          const { columns, cards } = block as CardProps
+          return <Cards key={idx} {...{ columns, cards }} />
         }
+        return (
+          <pre key={idx} style={{ border: '1px solid red' }}>
+            <code>{JSON.stringify({ type, block }, null, 2)}</code>
+          </pre>
+        )
       })}
     </>
   )

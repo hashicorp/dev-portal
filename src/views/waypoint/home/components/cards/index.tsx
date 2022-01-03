@@ -3,7 +3,7 @@ import Link from 'next/link'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import classNames from 'classnames'
 import tagIconDict from './tag-icon-dict.json'
-import { CardProps, CardInterface } from './types'
+import { CardProps } from './types'
 import s from './style.module.css'
 
 function Cards({ columns, cards }: CardProps): React.ReactElement {
@@ -45,5 +45,5 @@ function Cards({ columns, cards }: CardProps): React.ReactElement {
   )
 }
 
-export type { CardProps, CardInterface }
+export type { CardProps }
 export default Cards

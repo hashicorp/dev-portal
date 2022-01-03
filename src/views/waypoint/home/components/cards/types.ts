@@ -1,4 +1,4 @@
-export interface CardInterface {
+interface CardInterface {
   iconSvg?: string
   heading: string
   text: string
