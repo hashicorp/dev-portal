@@ -44,6 +44,10 @@ function LandingBlocks({ blocks }: { blocks: Block[] }) {
           const { columns, cards } = block as CardProps
           return <Cards key={idx} {...{ columns, cards }} />
         }
+        // If we don't have a recognized card type,
+        // return a dev-oriented debug view of the block data
+        // TODO: remove this for production, this is here
+        // TODO: temporarily as we work through demo-oriented implementation
         return (
           <pre key={idx} style={{ border: '1px solid red' }}>
             <code>{JSON.stringify({ type, block }, null, 2)}</code>
