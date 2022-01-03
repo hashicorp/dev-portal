@@ -9,7 +9,7 @@ const basePath = 'docs'
 const productName = 'Waypoint'
 const productSlug = 'waypoint'
 
-async function getStaticProps(): $TSFixMe {
+async function getStaticProps(): Promise<$TSFixMe> {
   const CONTENT = TEMP_CONTENT as $TSFixMe
 
   CONTENT.blocks = CONTENT.blocks.map((block) => {

@@ -1,4 +1,4 @@
-interface Card {
+export interface CardInterface {
   iconSvg?: string
   heading: string
   text: string
@@ -8,5 +8,5 @@ interface Card {
 
 export interface CardProps {
   columns: number
-  cards: Card[]
+  cards: CardInterface[]
 }

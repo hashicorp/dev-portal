@@ -3,7 +3,7 @@
 import React, { ReactElement } from 'react'
 import DocsLayout from 'layouts/docs'
 import GetStarted, { GetStartedProps } from './components/get-started'
-import Cards, { CardProps } from './components/cards'
+import Cards, { CardProps, CardInterface } from './components/cards'
 import Heading, { HeadingProps } from './components/heading'
 
 function WaypointLanding({
@@ -22,6 +22,22 @@ function WaypointLanding({
 
 interface BlockBase {
   type: 'heading' | 'get_started' | 'cards'
+  // TODO: properties below are already defined,
+  // TODO: eg in HeadingProps, GetStartedProps, & CardProps,
+  // TODO: but still getting TypeScript compile errors in switch
+  // TODO: blocks below.
+  // TODO: Need to figure out how to do this type union (?) thing properly
+  heading?: string
+  __heading_slug?: string
+  level?: number
+  iconSvg?: string
+  text?: string
+  link?: {
+    url: string
+    text: string
+  }
+  columns?: number
+  cards?: CardInterface[]
 }
 
 type Block =
