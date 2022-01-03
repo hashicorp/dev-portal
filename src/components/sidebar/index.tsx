@@ -62,9 +62,9 @@ const addItemMetadata = (
       foundActiveItem = currentPath.endsWith(item.path)
       itemCopy.isActive = foundActiveItem
       itemCopy.fullPath = `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
-      itemCopy.id = `menu-item${itemCopy.fullPath
+      itemCopy.id = `menu-item-${itemCopy.fullPath
         .replace(/\//g, '-')
-        .toLowerCase()}`
+        .toLowerCase()}`.replace(/-+/g, '-')
     } else if (item.href) {
       itemCopy.id = `external-url-${itemCopy.title
         .replace(/( |\.)/g, '-')
