@@ -13,8 +13,6 @@ import { ProductSlug } from 'types/products'
 // TODO: is there a programmatic way to build this from productNamesToIcons?
 interface ProductIconProps {
   product: ProductSlug
-  // TODO: determine better solution for ...rest typing here
-  [x: string]: $TSFixMe
 }
 
 const productNamesToIcons = {
@@ -30,7 +28,9 @@ const productNamesToIcons = {
   waypoint: IconWaypointColor16,
 }
 
-const ProductIcon: React.FC<ProductIconProps> = ({ product, ...rest }) => {
+const ProductIcon: React.FC<
+  ProductIconProps & React.HTMLProps<SVGSVGElement>
+> = ({ product, ...rest }) => {
   const Icon = productNamesToIcons[product]
   if (!Icon) return null
   return <Icon {...rest} />
