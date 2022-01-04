@@ -201,7 +201,7 @@ const ProductSwitcher: React.FC = () => {
         aria-controls={OPTION_LIST_ID}
         aria-expanded={isOpen}
         aria-labelledby={generateSwitcherOptionIdFromProduct(
-          currentProduct || getFirstProduct(products)
+          currentProduct || firstProduct
         )}
         className={s.switcherButton}
         onClick={() => {
