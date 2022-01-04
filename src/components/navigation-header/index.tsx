@@ -5,6 +5,7 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import HeaderSearchInput from 'components/header-search-input'
 import ProductSwitcher from 'components/product-switcher'
 // TODO: we'll need a programatic way to get this data when there are more products
+// TODO: currently we only show Waypoint navigation data
 import waypointData from 'data/waypoint.json'
 import s from './style.module.css'
 
@@ -43,6 +44,7 @@ const NavigationHeader: React.FC = () => {
           </Link>
           <ProductSwitcher />
         </div>
+        {/* TODO: handle other products, not just Waypoint */}
         {currentProductSlug == 'waypoint' && (
           <div className={s.headerRight}>
             <ul className={s.navLinks}>
