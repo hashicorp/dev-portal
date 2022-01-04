@@ -1,17 +1,18 @@
 .root {
   overflow: hidden;
+  margin-bottom: 48px;
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
-  margin: -12px;
+  margin: -8px;
 }
 
 .iconSection {
   display: block;
   flex: 0 0 auto;
-  margin: 12px;
+  margin: 8px;
 
   & svg {
     display: block;
@@ -22,12 +23,11 @@
 
 .textSection {
   flex: 1 1 0;
-  margin: 12px;
+  margin: 8px;
   min-width: 400px;
 }
 
 .heading {
-  composes: ds-token-typography-heading-3 from global;
   color: var(--token-color-palette-neutral-700);
   /**
     * NOTE: !important is necessary here, as higher specificity styles
@@ -36,25 +36,46 @@
     * in order to styles docs contents
     **/
   margin: 0 !important;
+  /* TODO: normally able to use compose for font settings,
+     * but not here due to need for !important */
+  /* composes: ds-token-typography-heading-3 from global; */
+  font-size: var(--token-typography-heading-3-font-size) !important;
+  font-weight: var(--token-typography-heading-3-font-weight) !important;
+  line-height: var(--token-typography-heading-3-line-height) !important;
 }
 
 .text {
-  composes: ds-token-typography-body-base from global;
   color: var(--token-color-palette-neutral-500);
-  margin: 4px 0 8px 0;
+  /**
+    * NOTE: !important is necessary here, as higher specificity styles
+    * are bleeding in from docs layout styles. One path to resolve this
+    * might be to use MDX custom components, rather than raw-element-targeting styles,
+    * in order to styles docs contents
+    **/
+  margin: 4px 0 8px 0 !important;
+  /* TODO: normally able to use compose for font settings,
+     * but not here due to need for !important */
+  font-size: var(--token-typography-body-base-font-size) !important;
+  font-weight: var(--token-typography-body-base-font-weight) !important;
+  line-height: var(--token-typography-body-base-line-height) !important;
 }
 
 .link {
   composes: ds-token-typography-body-base from global;
   align-items: center;
-  color: var(--token-color-action-foreground-primary);
+  color: var(--token-color-palette-blue-200);
   display: flex;
   font-weight: var(--ds-token-font-weight-medium);
+  transition: color 0.2s;
 
   & svg {
     display: block;
     margin-left: 8px;
     position: relative;
     top: 1px;
+  }
+
+  &:hover {
+    color: var(--token-color-palette-blue-400);
   }
 }

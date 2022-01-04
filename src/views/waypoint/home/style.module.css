@@ -1,0 +1,9 @@
+.pageHeading {
+  margin-bottom: 12px !important;
+  background: rgba(173, 0, 255, 0.5);
+}
+
+.pageSubheading {
+  margin-bottom: 48px !important;
+  background: rgba(173, 0, 255, 0.5);
+}

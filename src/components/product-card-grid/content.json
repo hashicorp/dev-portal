@@ -7,13 +7,13 @@
           "slug": "terraform",
           "hasLogo": true,
           "heading": "Terraform",
-          "subheading": "Infrastructure as code"
+          "subheading": "Infrastructure as&nbsp;code"
         },
         {
           "slug": "packer",
           "hasLogo": true,
           "heading": "Packer",
-          "subheading": "Machine images"
+          "subheading": "Machine<br/>images"
         }
       ]
     },
@@ -24,7 +24,7 @@
           "slug": "consul",
           "hasLogo": true,
           "heading": "Consul",
-          "subheading": "Multi-cloud service mesh"
+          "subheading": "Multi-cloud service&nbsp;mesh"
         }
       ]
     },
@@ -35,13 +35,13 @@
           "slug": "vault",
           "hasLogo": true,
           "heading": "Vault",
-          "subheading": "Managed secrets"
+          "subheading": "Managed<br/>secrets"
         },
         {
           "slug": "boundary",
           "hasLogo": true,
           "heading": "Boundary",
-          "subheading": "Identity-based security"
+          "subheading": "Identity-based<br/>security"
         }
       ]
     },
@@ -52,19 +52,19 @@
           "slug": "nomad",
           "hasLogo": true,
           "heading": "Nomad",
-          "subheading": "Workload orchestration"
+          "subheading": "Workload<br/>orchestration"
         },
         {
           "slug": "waypoint",
           "hasLogo": true,
           "heading": "Waypoint",
-          "subheading": "Deployment workflows"
+          "subheading": "Deployment<br/>workflows"
         },
         {
           "slug": "vagrant",
           "hasLogo": true,
           "heading": "Vagrant",
-          "subheading": "Environment workflows"
+          "subheading": "Environment<br/>workflows"
         }
       ]
     },
@@ -76,7 +76,7 @@
           "hasLogo": false,
           "headingIcon": true,
           "heading": "HashiCorp Cloud Platform (HCP)",
-          "subheading": "A fully managed platform to automate infrastructure on any cloud with HashiCorp products. Available on HCP Vault, HCP Consul, and HCP Packer."
+          "subheading": "A fully managed platform to automate infrastructure on any cloud with HashiCorp products. Available on HCP Vault, HCP Consul, and HCP&nbsp;Packer."
         }
       ]
     },
@@ -87,7 +87,7 @@
           "slug": "sentinel",
           "hasLogo": false,
           "heading": "Sentinel",
-          "subheading": "Policy as code framework for HashiCorp Enterprise Products."
+          "subheading": "Policy as code framework for HashiCorp Enterprise&nbsp;Products."
         }
       ]
     }

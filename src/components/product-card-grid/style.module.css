@@ -78,12 +78,12 @@
   color: var(--token-color-palette-neutral-600);
   display: block;
   font-weight: var(--ds-token-font-weight-semibold);
-  padding-bottom: 32px;
+  padding-bottom: 48px;
   position: relative;
 
   &::after {
     background: var(--bar-gradient);
-    bottom: 16px;
+    bottom: 24px;
     content: '\200B';
     display: block;
     height: var(--bar-height);

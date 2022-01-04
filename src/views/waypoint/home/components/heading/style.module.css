@@ -1,0 +1,5 @@
+.h2 {
+  font-size: var(--token-typography-heading-2-font-size) !important;
+  color: var(--token-color-palette-neutral-700) !important;
+  margin: 24px 0 24px 0 !important;
+}

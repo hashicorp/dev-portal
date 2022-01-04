@@ -1,6 +1,5 @@
 .editLink {
   align-items: center;
-  /* --token-color-palette-blue-200 aka --token-color-action-foreground-primary */
   color: var(--token-color-palette-blue-200);
   cursor: pointer;
   display: flex;
@@ -12,7 +11,7 @@
   transition: color 0.2s;
 
   &:hover {
-    color: var(--token-color-palette-blue-300);
+    color: var(--token-color-palette-blue-400);
   }
 }
 

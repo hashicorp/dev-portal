@@ -5,6 +5,7 @@ import DocsLayout from 'layouts/docs'
 import GetStarted, { GetStartedProps } from './components/get-started'
 import Cards, { CardProps } from './components/cards'
 import Heading, { HeadingProps } from './components/heading'
+import s from './style.module.css'
 
 function WaypointLanding({
   CONTENT,
@@ -13,8 +14,8 @@ function WaypointLanding({
 }): ReactElement {
   return (
     <div>
-      <h1>{CONTENT.heading}</h1>
-      <p>{CONTENT.subheading}</p>
+      <h1 className={s.pageHeading}>{CONTENT.heading}</h1>
+      <p className={s.pageSubheading}>{CONTENT.subheading}</p>
       <LandingBlocks blocks={CONTENT.blocks} />
     </div>
   )

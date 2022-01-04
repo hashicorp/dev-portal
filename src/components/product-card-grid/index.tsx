@@ -41,9 +41,10 @@ function CardGridSection({ title, products }): ReactElement {
                     )}
                     {heading}
                   </span>
-                  <span className={s.sectionBodyCardSubheading}>
-                    {subheading}
-                  </span>
+                  <span
+                    className={s.sectionBodyCardSubheading}
+                    dangerouslySetInnerHTML={{ __html: subheading }}
+                  />
                 </span>
               </a>
             </Link>
