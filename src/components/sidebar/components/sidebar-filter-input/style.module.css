@@ -67,6 +67,7 @@
 
   &:hover:not(:focus),
   &:not([value='']) {
+    border: 1px solid var(--token-color-palette-neutral-400);
     cursor: text;
   }
 }

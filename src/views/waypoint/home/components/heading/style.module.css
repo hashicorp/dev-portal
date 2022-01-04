@@ -1,3 +1,6 @@
+/**
+Unfortunately, these `!important` are necessary to keep styles from #48 from leaking in. Using MDX custom components to implement styling for docs content may provide a path forward to make these `!important` unnecessary.
+*/
 .h2 {
   font-size: var(--token-typography-heading-2-font-size) !important;
   color: var(--token-color-palette-neutral-700) !important;
