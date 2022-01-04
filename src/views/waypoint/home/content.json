@@ -55,32 +55,32 @@
         {
           "heading": "Projects",
           "text": "A project in Waypoint is a 1:1 mapping to a VCS repository. A project can be comprised of...",
-          "url": "https://www.hashicorp.com"
+          "url": "/waypoint/docs/projects"
         },
         {
           "heading": "Plugins",
           "text": "Waypoint supports custom builders, deployment platforms, registries, release managers...",
-          "url": "https://www.hashicorp.com"
+          "url": "/waypoint/docs/plugins"
         },
         {
           "heading": "Build",
           "text": "A build takes application source and converts it to an artifact. An artifact is the packaged...",
-          "url": "https://www.hashicorp.com"
+          "url": "/waypoint/docs/lifecycle/build"
         },
         {
           "heading": "Deploy",
           "text": "A deploy takes a previously built artifact and stages it onto the target deployment...",
-          "url": "https://www.hashicorp.com"
+          "url": "/waypoint/docs/lifecycle/deploy"
         },
         {
           "heading": "Waypoint URL Service",
           "text": "When you deploy your app with Waypoint, you will receive a public waypoint.run URL with...",
-          "url": "https://www.hashicorp.com"
+          "url": "/waypoint/docs/url"
         },
         {
           "heading": "Waypoint Runners",
           "text": "Waypoint utilizes \"runners\" to execute operations. Every build, deploy, or release operation...",
-          "url": "https://www.hashicorp.com"
+          "url": "/waypoint/docs/runner"
         }
       ]
     },
