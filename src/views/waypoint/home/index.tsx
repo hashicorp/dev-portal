@@ -32,8 +32,8 @@ function LandingBlocks({ blocks }: { blocks: Block[] }) {
       {blocks.map((block, idx) => {
         const { type } = block
         if (type === 'heading') {
-          const { heading, __heading_slug, level } = block
-          return <Heading key={idx} {...{ __heading_slug, heading, level }} />
+          const { heading, slug, level } = block
+          return <Heading key={idx} {...{ slug, heading, level }} />
         } else if (type === 'get_started') {
           const { heading, iconSvg, text, link } = block
           return <GetStarted key={idx} {...{ iconSvg, heading, text, link }} />

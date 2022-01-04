@@ -22,7 +22,7 @@ async function getStaticProps(): Promise<$TSFixMe> {
     if (type !== 'heading') return block
     return {
       ...block,
-      __heading_slug: slugify(heading, { lower: true }),
+      slug: slugify(heading, { lower: true }),
     }
   })
 
@@ -59,9 +59,9 @@ async function getStaticProps(): Promise<$TSFixMe> {
       layoutProps: {
         headings: CONTENT.blocks
           .filter((s) => s.type == 'heading')
-          .map(({ heading, __heading_slug, level }) => ({
+          .map(({ heading, slug, level }) => ({
             title: heading,
-            slug: __heading_slug,
+            slug: slug,
             level,
           })),
         navData,
