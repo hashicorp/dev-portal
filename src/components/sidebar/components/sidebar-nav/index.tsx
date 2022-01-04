@@ -18,16 +18,14 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => (
       Skip to main content
     </a>
     <ul className={s.sidebarNavList}>
-      {menuItems.map((item, index) => {
-        return (
-          <SidebarNavMenuItem
-            item={item}
-            // TODO: use item.id when it has been added to the metadata (see above)
-            // eslint-disable-next-line react/no-array-index-key
-            key={`sidebar-nav-menu-item-${index}`}
-          />
-        )
-      })}
+      {menuItems.map((item, index) => (
+        <SidebarNavMenuItem
+          item={item}
+          // TODO: use item.id when it has been added to the metadata (see above)
+          // eslint-disable-next-line react/no-array-index-key
+          key={`sidebar-nav-menu-item-${index}`}
+        />
+      ))}
     </ul>
   </nav>
 )
