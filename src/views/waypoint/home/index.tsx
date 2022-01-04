@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 /* eslint-disable react/no-array-index-key */
 import React, { ReactElement } from 'react'
 import DocsLayout from 'layouts/docs'
