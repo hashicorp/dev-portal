@@ -1,25 +1,41 @@
+.sidebarNavElement {
+  padding-top: 8px;
+  position: relative;
+}
+
 .sidebarNavLabel {
   color: var(--token-color-palette-neutral-600);
   font-size: 14px;
-  line-height: 18px;
-  margin-bottom: 16px;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 0;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 0;
+  margin-bottom: 12px;
   padding: 0 8px;
 }
 
 .skipToMainContent {
+  composes: focus-border-and-box-shadow-light from global;
   background-color: white;
   border-radius: 5px;
-  position: absolute;
+  box-shadow: 0 0 0 3px #5990ff, 0 1px 1px rgba(101, 106, 118, 0.05),
+    0 2px 2px rgba(101, 106, 118, 0.05);
+  color: var(--token-color-palette-blue-200);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
   padding: 8px;
+  position: absolute;
   right: -10000px;
+  top: 0;
   width: fit-content;
   z-index: 1;
 
   &:focus {
-    right: var(--sidebar-padding);
+    right: 0;
+  }
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 

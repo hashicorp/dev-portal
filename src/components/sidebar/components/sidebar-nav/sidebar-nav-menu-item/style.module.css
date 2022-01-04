@@ -7,43 +7,60 @@
   color: var(--token-color-palette-neutral-500);
   display: flex;
   font-size: 14px;
+  font-weight: 400;
   justify-content: space-between;
   line-height: 18px;
+  margin-bottom: 2px;
   padding: 8px;
   position: relative;
   text-align: left;
   width: 100%;
   z-index: 0;
 
-  &:focus {
-    z-index: 1;
-  }
-
-  &:hover {
-    background-color: var(--token-color-palette-neutral-100);
-    color: var(--token-color-palette-neutral-700);
-    cursor: pointer;
-  }
-
-  & span:first-child {
-    margin-right: 8px;
-    width: 100%;
-  }
-
-  &[aria-current='page'] {
-    background-color: #dedfe3;
-  }
-
-  /* TODO: font-weight will be set by a token */
-  &[aria-expanded='true'],
-  &[aria-current='page'] {
-    color: var(--token-color-palette-neutral-700);
-    font-weight: bold;
-  }
-
+  &:focus,
+  &:hover,
+  &[aria-current='page'],
   &[aria-expanded='true'] {
+    color: var(--token-color-palette-neutral-700);
+  }
+
+  /* AKA active */
+  &[aria-current='page'] {
+    background-color: var(--token-color-palette-neutral-200);
+  }
+
+  /* AKA open */
+  &[aria-expanded='true'] {
+    margin-bottom: 0;
+
     & svg {
       transform: rotate(90deg);
     }
   }
+
+  /* AKA active and open */
+  &[aria-expanded='true'],
+  &[aria-current='page'] {
+    font-weight: 500;
+  }
+
+  &:focus {
+    z-index: 1;
+  }
+
+  /* Hover styles take precedence over focus & active styles and should be defined them */
+  &:hover {
+    background-color: var(--token-color-palette-neutral-100);
+  }
+}
+
+.divider {
+  background-color: var(--token-color-palette-alpha-200);
+  color: var(--token-color-palette-alpha-200);
+  margin: 12px 8px;
+}
+
+.navMenuItemLabel {
+  margin-right: 8px;
+  width: 100%;
 }

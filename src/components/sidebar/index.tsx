@@ -13,8 +13,11 @@ import s from './style.module.css'
  */
 export interface MenuItem {
   divider?: boolean
+  fullPath?: string
   hasActiveChild?: boolean
+  hasChildrenMatchingFilter?: boolean
   href?: string
+  id?: string
   isActive?: boolean
   path?: string
   routes?: MenuItem[]
@@ -25,15 +28,14 @@ interface SidebarProps {
   menuItems: MenuItem[]
 }
 
-/**
- * TODO: update & rename to add additional metadata
- *   - fullPath: the full subpath of a non-submenu item (currently handled in sidebar-nav-menu-item)
- *   - id: a generated slug based off of title and/or fullPath (depends if it's a submenu)
- */
-const addActiveStateMetadata = (
+const addItemMetadata = (
   currentPath: string,
   items: MenuItem[]
 ): { foundActiveItem: boolean; itemsWithMetadata: MenuItem[] } => {
+  const currentPathSplit = currentPath.split('/')
+  const currentProductSlug = currentPathSplit[1]
+  const currentProductSubpage = currentPathSplit[2]
+
   let foundActiveItem = false
 
   const itemsWithMetadata = items.map((item) => {
@@ -45,14 +47,31 @@ const addActiveStateMetadata = (
 
     if (foundActiveItem) {
       itemCopy[item.routes ? 'hasActiveChild' : 'isActive'] = false
-    } else if (item.routes) {
-      const result = addActiveStateMetadata(currentPath, item.routes)
+    }
+
+    if (item.routes) {
+      const result = addItemMetadata(currentPath, item.routes)
       foundActiveItem = result.foundActiveItem
       itemCopy.routes = result.itemsWithMetadata
       itemCopy.hasActiveChild = result.foundActiveItem
-    } else {
+      itemCopy.id = `submenu-${itemCopy.title
+        .replace(/( |\.)/g, '-')
+        .replace(/-+/g, '-')
+        .toLowerCase()}`
+    } else if (item.path) {
       foundActiveItem = currentPath.endsWith(item.path)
       itemCopy.isActive = foundActiveItem
+      itemCopy.fullPath = `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
+      itemCopy.id = `menu-item-${itemCopy.fullPath
+        .replace(/\//g, '-')
+        .toLowerCase()}`.replace(/-+/g, '-')
+    } else if (item.href) {
+      itemCopy.id = `external-url-${itemCopy.title
+        .replace(/( |\.)/g, '-')
+        .replace(/-+/g, '-')
+        .toLowerCase()}`
+    } else {
+      // TODO: are there any other cases to cover?
     }
 
     return itemCopy
@@ -62,38 +81,43 @@ const addActiveStateMetadata = (
 }
 
 /**
- * TODO: this correctly finds the items that match `filterValue`, but if the item is a child
- * of a submenu, that submenu isn't open after searching. `filter` creates a new array, so maybe
- * there is an attribute we can add to the submenus that should be open, such as `hasChildMatchingFilter`.
- * Then we can check that value when initializing `isOpen` in the `SidebarNavSubmenu` sub component.
- */
+ * This does not use Array.filter because we need to add metadata to each item
+ * that is used for determining the open/closed state of submenu items.
+ * */
 const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
   if (!filterValue) {
     return items
   }
 
-  return items.filter((item) => {
+  const filteredItems = []
+
+  items.forEach((item) => {
+    const itemCopy = { ...item }
+    let matchingChildren: MenuItem[]
+    let hasChildrenMatchingFilter = false
+
+    if (item.routes) {
+      matchingChildren = getFilteredMenuItems(item.routes, filterValue)
+      hasChildrenMatchingFilter = matchingChildren.length > 0
+      itemCopy.hasChildrenMatchingFilter = hasChildrenMatchingFilter
+      itemCopy.routes = matchingChildren
+    }
+
     const doesTitleMatchFilter = item?.title
       ?.toLowerCase()
       .includes(filterValue.toLowerCase())
-    if (doesTitleMatchFilter) {
-      return true
+    if (doesTitleMatchFilter || hasChildrenMatchingFilter) {
+      filteredItems.push(itemCopy)
     }
-
-    const doesChildMatchFilter =
-      item.routes && getFilteredMenuItems(item.routes, filterValue).length
-    if (doesChildMatchFilter) {
-      return true
-    }
-
-    return false
   })
+
+  return filteredItems
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
-    () => addActiveStateMetadata(currentPath, menuItems),
+    () => addItemMetadata(currentPath, menuItems),
     [currentPath, menuItems]
   )
   const [filterValue, setFilterValue] = useState('')

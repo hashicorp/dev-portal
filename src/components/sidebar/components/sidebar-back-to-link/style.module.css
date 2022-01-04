@@ -1,14 +1,24 @@
 .backToLink {
   align-items: center;
-  color: var(--token-color-palette-neutral-600);
+  color: var(--token-color-palette-neutral-700);
   display: flex;
-  margin-bottom: var(--sidebar-padding);
+  margin-bottom: 16px;
+  padding: 10px 8px;
   width: fit-content;
 
   &:hover {
     cursor: pointer;
     text-decoration: underline;
   }
+}
+
+/*
+TODO: This is a temporary class. It should be removed when the development
+popover is removed.
+*/
+.popoverButton {
+  composes: focus-border-and-box-shadow-light from global;
+  border-radius: 5px;
 }
 
 .icon {
