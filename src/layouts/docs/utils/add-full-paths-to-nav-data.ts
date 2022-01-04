@@ -1,18 +1,38 @@
-// TODO: replace $TSFixMe here with the navNode type
-// TODO: (import from react-docs-sidenav?)
+import { NavNode } from '@hashicorp/react-docs-sidenav/types'
+import { MenuItem } from 'components/sidebar'
+
+// TODO: export NavBranch and NavLeaf
+// TODO: types from react-docs-sidenav
+interface NavBranch {
+  title: string
+  routes: NavNode[]
+}
+
+interface NavLeaf {
+  title: string
+  path: string
+}
+
+function isNavBranch(value: NavNode): value is NavBranch {
+  return value.hasOwnProperty('routes')
+}
+
+function isNavLeaf(value: NavNode): value is NavLeaf {
+  return value.hasOwnProperty('path')
+}
 
 function addFullPathsToNavData(
-  nodes: $TSFixMe[],
+  nodes: NavNode[],
   basePaths: string[]
-): $TSFixMe[] {
+): MenuItem[] {
   return nodes.map((n) => addFullPathToNavNode(n, basePaths))
 }
 
-function addFullPathToNavNode(node: $TSFixMe, basePaths: string[]): $TSFixMe {
-  if (node.routes) {
+function addFullPathToNavNode(node: NavNode, basePaths: string[]): MenuItem {
+  if (isNavBranch(node)) {
     // For nodes with routes, add fullPaths to all routes
     return { ...node, routes: addFullPathsToNavData(node.routes, basePaths) }
-  } else if (node.path) {
+  } else if (isNavLeaf(node)) {
     // For nodes with paths, add fullPath to the node
     return { ...node, fullPath: `/${basePaths.join('/')}/${node.path}` }
   } else {

@@ -18,7 +18,7 @@ interface PopoverProps {
   /** Whether to show the popover or not. */
   shown: boolean
   /** Ref that points to the element that triggered the dialog. */
-  triggerRef: MutableRefObject<$TSFixMe>
+  triggerRef: MutableRefObject<HTMLElement>
   /**  */
   arrowSize?: number
   /** Option to hide the arrow pointing to the popover's trigger.  */
