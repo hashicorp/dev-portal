@@ -13,7 +13,6 @@ interface DocsLayoutProps {
   navData: MenuItem[]
   breadcrumbLinks?: BreadcrumbLink[]
   githubFileUrl?: string
-  basePaths: string[]
   backToLink?: {
     text: string
     url: string
@@ -23,11 +22,7 @@ interface DocsLayoutProps {
 const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
   <BaseNewLayout>
     <div className={s.body}>
-      <Sidebar
-        menuItems={props.navData}
-        basePaths={props.basePaths}
-        backToLink={props.backToLink}
-      />
+      <Sidebar menuItems={props.navData} backToLink={props.backToLink} />
       <div className={s.contentWrapper}>
         <div className={s.content}>
           {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}

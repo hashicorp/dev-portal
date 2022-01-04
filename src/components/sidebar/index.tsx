@@ -27,13 +27,6 @@ export interface MenuItem {
 
 interface SidebarProps {
   menuItems: MenuItem[]
-  /** Optional path strings representing the path from the root URL.
-   * Note: this is a temporary solution to allow basePaths to be set, rather than derived
-   * from current location. This allows a bit more flexibility in where the nav
-   * can be placed (eg can then be placed on /waypoint, rather than only
-   * working on /waypoint/docs)
-   **/
-  basePaths?: string[]
   /** Optional { text, url } to use for the "← Back to..." link at the top of the sidebar */
   backToLink?: {
     text: string
@@ -106,11 +99,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
   })
 }
 
-const Sidebar: React.FC<SidebarProps> = ({
-  menuItems,
-  basePaths,
-  backToLink = {},
-}) => {
+const Sidebar: React.FC<SidebarProps> = ({ menuItems, backToLink = {} }) => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
     () => addActiveStateMetadata(currentPath, menuItems),
@@ -124,11 +113,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       <SidebarBackToLink text={backToLink.text} url={backToLink.url} />
       <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       {/* TODO: What should this title be? */}
-      <SidebarNav
-        title="Waypoint"
-        menuItems={filteredMenuItems}
-        basePaths={basePaths}
-      />
+      <SidebarNav title="Waypoint" menuItems={filteredMenuItems} />
     </div>
   )
 }

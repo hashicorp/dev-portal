@@ -7,15 +7,9 @@ const SIDEBAR_LABEL_ID = 'sidebar-label'
 interface SidebarNavProps {
   menuItems: MenuItem[]
   title: string
-  /** Optional path strings representing the path from the root URL. */
-  basePaths?: string[]
 }
 
-const SidebarNav: React.FC<SidebarNavProps> = ({
-  menuItems,
-  title,
-  basePaths,
-}) => (
+const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => (
   <nav aria-labelledby={SIDEBAR_LABEL_ID}>
     <p className={s.sidebarNavLabel} id={SIDEBAR_LABEL_ID}>
       {title}
@@ -31,7 +25,6 @@ const SidebarNav: React.FC<SidebarNavProps> = ({
             // TODO: use item.id when it has been added to the metadata (see above)
             // eslint-disable-next-line react/no-array-index-key
             key={`sidebar-nav-menu-item-${index}`}
-            basePaths={basePaths}
           />
         )
       })}

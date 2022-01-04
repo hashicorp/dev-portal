@@ -8,26 +8,20 @@ import MaybeInternalLink from 'components/maybe-internal-link'
 
 interface SidebarMenuItemProps {
   item: MenuItem
-  /** Optional path strings representing the path from the root URL. */
-  basePaths?: string[]
 }
 
 /**
  * Builds the path for an item based on the current page path.
  */
-const getItemPath = (
-  item: MenuItem,
-  currentPath: string,
-  basePaths
-): string => {
+const getItemPath = (item: MenuItem, currentPath: string): string => {
   const currentPathSplit = currentPath.split('/')
-  const currentProductSlug = basePaths ? basePaths[0] : currentPathSplit[1]
-  const currentProductSubpage = basePaths ? basePaths[1] : currentPathSplit[2]
+  const currentProductSlug = currentPathSplit[1]
+  const currentProductSubpage = currentPathSplit[2]
   return `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
 }
 
 // TODO: use next/link
-const SidebarNavLink = ({ item, basePaths }) => {
+const SidebarNavLink = ({ item }) => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 
   return (
@@ -36,7 +30,7 @@ const SidebarNavLink = ({ item, basePaths }) => {
         aria-current={item.isActive ? 'page' : undefined}
         className={s.sidebarNavMenuItem}
         // TODO: this might break some accessible labels, probably need aria-label
-        href={item.href || getItemPath(item, currentPath, basePaths)}
+        href={item.href || getItemPath(item, currentPath)}
         target={item._demoExternalLink ? '_blank' : undefined}
       >
         <span dangerouslySetInnerHTML={{ __html: item.title }} />
@@ -46,10 +40,7 @@ const SidebarNavLink = ({ item, basePaths }) => {
   )
 }
 
-const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({
-  item,
-  basePaths,
-}) => {
+const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
   const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(item.hasActiveChild)
 
@@ -82,9 +73,9 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({
         <ul onKeyDown={handleKeyDown}>
           {item.routes.map((route) =>
             route.routes ? (
-              <SidebarNavSubmenu item={route} basePaths={basePaths} />
+              <SidebarNavSubmenu item={route} />
             ) : (
-              <SidebarNavLink item={route} basePaths={basePaths} />
+              <SidebarNavLink item={route} />
             )
           )}
         </ul>
@@ -93,10 +84,7 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({
   )
 }
 
-const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
-  item,
-  basePaths,
-}) => {
+const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   // TODO: the designs don't currently show a divider
   // TODO: Update 2022-01-03: product home page, eg /waypoint, does
   // TODO: show divider. Including a basic implementation for now,
@@ -112,10 +100,10 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({
   }
 
   if (item.routes) {
-    return <SidebarNavSubmenu item={item} basePaths={basePaths} />
+    return <SidebarNavSubmenu item={item} />
   }
 
-  return <SidebarNavLink item={item} basePaths={basePaths} />
+  return <SidebarNavLink item={item} />
 }
 
 export default SidebarNavMenuItem

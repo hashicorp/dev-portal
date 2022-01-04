@@ -29,8 +29,8 @@ async function getStaticProps(): Promise<$TSFixMe> {
   })
 
   const navData = [
-    { title: 'Introduction', path: 'intro' },
-    { title: 'Getting Started', path: 'getting-started' },
+    { title: 'Introduction', href: '/waypoint/docs/intro' },
+    { title: 'Getting Started', href: '/waypoint/docs/getting-started' },
     { divider: true },
     { heading: 'Resources' },
     {
@@ -75,7 +75,6 @@ async function getStaticProps(): Promise<$TSFixMe> {
           { title: 'Developer', url: '/' },
           { title: productName, url: `/${productSlug}` },
         ],
-        basePaths: ['waypoint', basePath],
       },
     },
     revalidate: 10,
