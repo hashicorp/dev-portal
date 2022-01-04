@@ -1,4 +1,3 @@
-import { generateStaticProps } from '@hashicorp/react-docs-page/server'
 import slugify from 'slugify'
 // TODO: need to discuss from whence we should
 // TODO: source content down the road. For now,
@@ -6,12 +5,18 @@ import slugify from 'slugify'
 import TEMP_CONTENT from './content.json'
 
 const basePath = 'docs'
-const productName = 'Waypoint'
-const productSlug = 'waypoint'
 
 async function getStaticProps(): Promise<$TSFixMe> {
   const CONTENT = TEMP_CONTENT as $TSFixMe
 
+  // TODO: Content blocks content should likely
+  // TODO: be fetched dynamically, currently things
+  // TODO: like the title and description of docs pages
+  // TODO: are hard-coded alongside the URL to link to.
+  // TODO: Should be possible to fetch the title and description
+  // TODO: at build time from said URL, to ensure the displayed
+  // TODO: content is accurate, while not needing to be
+  // TODO: manually kept up to date?
   CONTENT.blocks = CONTENT.blocks.map((block) => {
     const { type, heading } = block
     if (type !== 'heading') return block
@@ -21,16 +26,7 @@ async function getStaticProps(): Promise<$TSFixMe> {
     }
   })
 
-  const { navData } = await generateStaticProps({
-    basePath,
-    localContentDir: 'temporary_noop',
-    navDataFile: 'temporary_noop',
-    params: { page: [] },
-    product: { name: productName, slug: productSlug },
-    remarkPlugins: [],
-  })
-
-  const customNavData = [
+  const navData = [
     { title: 'Introduction', path: 'intro' },
     { title: 'Getting Started', path: 'getting-started' },
     { divider: true },
@@ -68,7 +64,11 @@ async function getStaticProps(): Promise<$TSFixMe> {
             slug: __heading_slug,
             level,
           })),
-        navData: customNavData,
+        navData,
+        backToLink: {
+          text: 'Back to Developer',
+          url: '/',
+        },
         basePaths: ['waypoint', basePath],
       },
     },
@@ -76,4 +76,5 @@ async function getStaticProps(): Promise<$TSFixMe> {
   }
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default { getStaticProps }

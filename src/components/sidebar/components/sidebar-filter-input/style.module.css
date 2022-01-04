@@ -47,8 +47,10 @@
 .filterInput {
   composes: focus-border-and-box-shadow-light from global;
   background-color: transparent;
-  border: 1px solid white;
+  border-color: var(--token-elevation-inset-border-color);
   border-radius: 5px;
+  border-style: solid;
+  border-width: var(--token-elevation-inset-border-width);
   color: var(--token-color-palette-neutral-700);
   font-size: 14px;
   line-height: 18px;
@@ -65,7 +67,6 @@
 
   &:hover:not(:focus),
   &:not([value='']) {
-    border: 1px solid var(--token-color-palette-neutral-400);
     cursor: text;
   }
 }

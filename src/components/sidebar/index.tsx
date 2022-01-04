@@ -34,6 +34,11 @@ interface SidebarProps {
    * working on /waypoint/docs)
    **/
   basePaths?: string[]
+  /** Optional { text, url } to use for the "← Back to..." link at the top of the sidebar */
+  backToLink?: {
+    text: string
+    url: string
+  }
 }
 
 /**
@@ -101,7 +106,11 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
   })
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ menuItems, basePaths }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  menuItems,
+  basePaths,
+  backToLink = {},
+}) => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
     () => addActiveStateMetadata(currentPath, menuItems),
@@ -112,7 +121,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItems, basePaths }) => {
 
   return (
     <div className={s.sidebar}>
-      <SidebarBackToLink />
+      <SidebarBackToLink text={backToLink.text} url={backToLink.url} />
       <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       {/* TODO: What should this title be? */}
       <SidebarNav

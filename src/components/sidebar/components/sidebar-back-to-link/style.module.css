@@ -1,4 +1,6 @@
 .backToLink {
+  composes: ds-token-typography-body-base from global;
+  font-weight: var(--ds-token-font-weight-medium);
   align-items: center;
   color: var(--token-color-palette-neutral-600);
   display: flex;
