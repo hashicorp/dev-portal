@@ -6,7 +6,7 @@ import s from './style.module.css'
 const SidebarBackToLink: React.FC<{
   text?: string
   url?: string
-}> = ({ text = 'Back to lorem ipsum', url = '/' }) => (
+}> = ({ text = 'Back to [Page]', url = '/' }) => (
   <MaybeInternalLink className={s.backToLink} href={url}>
     <IconArrowLeft16 className={s.icon} />
     <span>{text}</span>

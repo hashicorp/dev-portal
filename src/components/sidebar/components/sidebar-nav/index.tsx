@@ -10,7 +10,7 @@ interface SidebarNavProps {
 }
 
 const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => (
-  <nav aria-labelledby={SIDEBAR_LABEL_ID}>
+  <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.sidebarNavElement}>
     <p className={s.sidebarNavLabel} id={SIDEBAR_LABEL_ID}>
       {title}
     </p>
@@ -18,13 +18,8 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => (
       Skip to main content
     </a>
     <ul className={s.sidebarNavList}>
-      {menuItems.map((item, index) => (
-        <SidebarNavMenuItem
-          item={item}
-          // TODO: use item.id when it has been added to the metadata (see above)
-          // eslint-disable-next-line react/no-array-index-key
-          key={`sidebar-nav-menu-item-${index}`}
-        />
+      {menuItems.map((item) => (
+        <SidebarNavMenuItem item={item} key={item.id} />
       ))}
     </ul>
   </nav>
