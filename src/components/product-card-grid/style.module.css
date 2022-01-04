@@ -47,7 +47,7 @@
 
   &:nth-child(1) {
     grid-area: s1;
-    --bar-gradient: linear-gradient(270deg, #684ace 2.4%, #2091f1 99.78%);
+    --bar-gradient: linear-gradient(270deg, #7b42bc 2.4%, #02a8ef 99.78%);
     --bar-height: 2px;
   }
   &:nth-child(2) {
@@ -57,12 +57,17 @@
   }
   &:nth-child(3) {
     grid-area: s3;
-    --bar-gradient: linear-gradient(270deg, #d1b960 2.4%, #bd5053 100%);
+    --bar-gradient: linear-gradient(270deg, #d1b960 2.4%, #f04e54 100%);
     --bar-height: 2px;
   }
   &:nth-child(4) {
     grid-area: s4;
-    --bar-gradient: linear-gradient(270deg, #00c6c2 2.4%, #2d8b6e 100%);
+    --bar-gradient: linear-gradient(
+      270deg,
+      #00ca8e 2.02%,
+      #00c6c2 51.11%,
+      #1868f2 100.2%
+    );
     --bar-height: 2px;
   }
   &:nth-child(5) {
@@ -87,6 +92,7 @@
     content: '\200B';
     display: block;
     height: var(--bar-height);
+    border-radius: var(--bar-height);
     left: 0;
     position: absolute;
     width: 100%;
