@@ -2,7 +2,11 @@ import { NavNode } from '@hashicorp/react-docs-sidenav/types'
 import { MenuItem } from 'components/sidebar'
 
 // TODO: export NavBranch and NavLeaf
-// TODO: types from react-docs-sidenav
+// TODO: types from react-docs-sidenav.
+// TODO: isNavBranch & isNavLeaf might
+// TODO: also make sense to include in the
+// TODO: react-docs-sidenav component,
+// TODO: maybe in the types.ts file as well.
 interface NavBranch {
   title: string
   routes: NavNode[]
