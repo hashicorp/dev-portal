@@ -6,16 +6,20 @@ import Cards, { CardProps } from './components/cards'
 import Heading, { HeadingProps } from './components/heading'
 import s from './style.module.css'
 
-function WaypointLanding({
-  CONTENT,
-}: {
-  CONTENT: { heading: string; subheading: string; blocks: Block[] }
-}): ReactElement {
+interface WaypointLandingProps {
+  content: {
+    heading: string
+    subheading: string
+    blocks: Block[]
+  }
+}
+
+function WaypointLanding({ content }: WaypointLandingProps): ReactElement {
   return (
     <div>
-      <h1 className={s.pageHeading}>{CONTENT.heading}</h1>
-      <p className={s.pageSubheading}>{CONTENT.subheading}</p>
-      <LandingBlocks blocks={CONTENT.blocks} />
+      <h1 className={s.pageHeading}>{content.heading}</h1>
+      <p className={s.pageSubheading}>{content.subheading}</p>
+      <LandingBlocks blocks={content.blocks} />
     </div>
   )
 }

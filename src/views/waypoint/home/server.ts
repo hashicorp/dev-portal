@@ -59,7 +59,7 @@ async function getStaticProps(): Promise<$TSFixMe> {
 
   return {
     props: {
-      CONTENT,
+      content: CONTENT,
       layoutProps: {
         headings: CONTENT.blocks
           .filter((s) => s.type == 'heading')
