@@ -6,10 +6,10 @@ import {
   useRef,
   useState,
 } from 'react'
-import { useRouter } from 'next/router'
+import useCurrentPath from 'hooks/use-current-path'
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
-import { Product, ProductGroup, ProductSlug } from 'types/products'
+import { Product, ProductGroup } from 'types/products'
 import ProductIcon from 'components/product-icon'
 import { products } from '../../../config/products'
 import s from './style.module.css'
@@ -32,10 +32,8 @@ const getLastProduct = (products: Product[][]) => {
 }
 
 const ProductSwitcher: React.FC = () => {
-  const router = useRouter()
-  const currentProductSlug = router.asPath
-    .split('/')[1]
-    .split('#')[0] as ProductSlug
+  const currentPath = useCurrentPath()
+  const currentProductSlug = currentPath.split('/')[1]
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
   const buttonRef = useRef<HTMLButtonElement>()
