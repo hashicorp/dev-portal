@@ -3,6 +3,8 @@ import { MenuItem } from 'components/sidebar'
 import useCurrentPath from 'hooks/use-current-path'
 import s from './style.module.css'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import MaybeInternalLink from 'components/maybe-internal-link'
 
 interface SidebarMenuItemProps {
   item: MenuItem
@@ -30,13 +32,16 @@ const SidebarNavLink = ({ item, basePaths }) => {
 
   return (
     <li>
-      <a
+      <MaybeInternalLink
         aria-current={item.isActive ? 'page' : undefined}
         className={s.sidebarNavMenuItem}
         // TODO: this might break some accessible labels, probably need aria-label
-        dangerouslySetInnerHTML={{ __html: item.title }}
         href={item.href || getItemPath(item, currentPath, basePaths)}
-      />
+        target={item._demoExternalLink ? '_blank' : undefined}
+      >
+        <span dangerouslySetInnerHTML={{ __html: item.title }} />
+        {item._demoExternalLink && <IconExternalLink16 />}
+      </MaybeInternalLink>
     </li>
   )
 }

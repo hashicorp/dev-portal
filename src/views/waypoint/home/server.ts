@@ -35,10 +35,26 @@ async function getStaticProps(): Promise<$TSFixMe> {
     { title: 'Getting Started', path: 'getting-started' },
     { divider: true },
     { heading: 'Resources' },
-    { title: 'Releases', href: 'https://www.hashicorp.com' },
-    { title: 'HashiCorp Learn', href: 'https://www.hashicorp.com' },
-    { title: 'Community Forum', href: 'https://www.hashicorp.com' },
-    { title: 'Support', href: 'https://www.hashicorp.com' },
+    {
+      title: 'Releases',
+      href: 'https://releases.hashicorp.com',
+      _demoExternalLink: true,
+    },
+    {
+      title: 'HashiCorp Learn',
+      href: 'https://learn.hashicorp.com',
+      _demoExternalLink: true,
+    },
+    {
+      title: 'Community Forum',
+      href: 'https://discuss.hashicorp.com',
+      _demoExternalLink: true,
+    },
+    {
+      title: 'Support',
+      href: 'https://support.hashicorp.com',
+      _demoExternalLink: true,
+    },
   ]
 
   return {

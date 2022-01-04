@@ -2,7 +2,7 @@ import React from 'react'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import s from './style.module.css'
-import MaybeInternalLink from '../maybe-internal-link'
+import MaybeInternalLink from '../../../../../components/maybe-internal-link'
 import { GetStartedProps } from './types'
 
 function GetStarted({

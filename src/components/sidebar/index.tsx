@@ -21,6 +21,8 @@ export interface MenuItem {
   title?: string
   /* Temporary solution to allow rendering of unlinked headings, as in designs */
   heading?: string
+  /* Temporary solution to show external link icon, for demo purposes */
+  _demoExternalLink?: boolean
 }
 
 interface SidebarProps {

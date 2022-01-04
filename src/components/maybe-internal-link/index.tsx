@@ -4,24 +4,20 @@ import React from 'react'
 
 function MaybeInternalLink({
   href,
-  children,
   ...rest
 }: {
   href: string
-  children: React.ReactNode
 } & React.HTMLProps<HTMLAnchorElement>): React.ReactElement {
   const Elem = isAbsoluteUrl(href) ? InternalLink : 'a'
-  return (
-    <Elem href={href} {...rest}>
-      {children}
-    </Elem>
-  )
+  return <Elem href={href} {...rest} />
 }
 
-function InternalLink({ href, children, ...rest }) {
+function InternalLink({ href, ...rest }) {
   return (
     <Link href={href}>
-      <a {...rest}>{children}</a>
+      {/* Disabling anchor-has-content, children is in ...rest  */}
+      {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
+      <a {...rest} />
     </Link>
   )
 }
