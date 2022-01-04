@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import classNames from 'classnames'
 import tagIconDict from './tag-icon-dict.json'
