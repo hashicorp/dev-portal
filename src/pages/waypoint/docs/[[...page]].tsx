@@ -75,7 +75,7 @@ export async function getStaticProps({ params }) {
   // TODO: on the client side, within sidebar. But, might
   // TODO: make more sense to build this into generateStaticProps
   // TODO: instead?
-  const navDataWithFullPaths = addFullPathsToNavNodes(fullNavData, [
+  const navDataWithFullPaths = addFullPathsToNavData(fullNavData, [
     productSlug,
     basePath,
   ])
