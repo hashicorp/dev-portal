@@ -41,39 +41,32 @@ const addItemMetadata = (
   currentPath: string,
   items: MenuItem[]
 ): { foundActiveItem: boolean; itemsWithMetadata: MenuItem[] } => {
-  const currentPathSplit = currentPath.split('/')
-  const currentProductSlug = currentPathSplit[1]
-  const currentProductSubpage = currentPathSplit[2]
-
   let foundActiveItem = false
 
   const itemsWithMetadata = items.map((item) => {
     const itemCopy = { ...item }
 
-    if (item.divider) {
-      return itemCopy
-    }
-
-    if (foundActiveItem) {
-      itemCopy[item.routes ? 'hasActiveChild' : 'isActive'] = false
-    }
-
     if (item.routes) {
       const result = addItemMetadata(currentPath, item.routes)
-      foundActiveItem = result.foundActiveItem
       itemCopy.routes = result.itemsWithMetadata
-      itemCopy.hasActiveChild = result.foundActiveItem
+      // Note: if an active item has already been found,
+      // we do not flag this category as active.
+      itemCopy.hasActiveChild = !foundActiveItem && result.foundActiveItem
       itemCopy.id = `submenu-${itemCopy.title
         .replace(/( |\.)/g, '-')
         .replace(/-+/g, '-')
         .toLowerCase()}`
+      // Flag if we've found an active item
+      foundActiveItem = itemCopy.hasActiveChild || foundActiveItem
     } else if (item.path) {
-      foundActiveItem = currentPath.endsWith(item.path)
-      itemCopy.isActive = foundActiveItem
-      itemCopy.fullPath = `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
+      // Note: if an active item has already been found,
+      // we do not flag this node as active.
+      itemCopy.isActive = !foundActiveItem && currentPath.endsWith(item.path)
       itemCopy.id = `menu-item-${itemCopy.fullPath
         .replace(/\//g, '-')
         .toLowerCase()}`.replace(/-+/g, '-')
+      // Flag if we've found an active item
+      foundActiveItem = itemCopy.isActive || foundActiveItem
     } else if (item.href) {
       itemCopy.id = `external-url-${itemCopy.title
         .replace(/( |\.)/g, '-')

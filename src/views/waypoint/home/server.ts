@@ -4,7 +4,6 @@ import slugify from 'slugify'
 // TODO: sourcing from JSON for demo purposes.
 import TEMP_CONTENT from './content.json'
 
-const basePath = 'docs'
 const productName = 'Waypoint'
 const productSlug = 'waypoint'
 
@@ -29,8 +28,11 @@ async function getStaticProps(): Promise<$TSFixMe> {
   })
 
   const navData = [
-    { title: 'Introduction', href: '/waypoint/docs/intro' },
-    { title: 'Getting Started', href: '/waypoint/docs/getting-started' },
+    { title: 'Introduction', fullPath: '/waypoint/docs/intro' },
+    {
+      title: 'Getting Started',
+      fullPath: '/waypoint/docs/getting-started',
+    },
     { divider: true },
     { heading: 'Resources' },
     {

@@ -6,6 +6,7 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import waypointConfig from '../../../../config/waypoint.json'
 import DocsLayout from 'layouts/docs'
 import DocsPage from 'components/docs-page'
+import addFullPathsToNavData from 'layouts/docs/utils/add-full-paths-to-nav-data'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
 // because some of the util functions still require param arity, but we ignore
@@ -38,7 +39,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const headings = []
 
-  const props = await generateStaticProps({
+  const { navData, ...restProps } = await generateStaticProps({
     basePath,
     localContentDir: temporary_noop,
     navDataFile: temporary_noop,
@@ -46,6 +47,38 @@ export async function getStaticProps({ params }) {
     product: { name: productName, slug: productSlug },
     remarkPlugins: [[anchorLinks, { headings }]],
   })
+
+  /**
+   * TODO: these will be different by product,
+   * can abstract these further later.
+   * Placing here because we need these links
+   * in the sidebar on all /waypoint/docs views.
+   */
+  const fullNavData = [
+    ...navData,
+    { divider: true },
+    {
+      title: 'HashiCorp Learn',
+      href: 'https://learn.hashicorp.com/waypoint',
+    },
+    {
+      title: 'Community Forum',
+      href: 'https://discuss.hashicorp.com/c/waypoint/51',
+    },
+    {
+      title: 'Support',
+      href: 'https://support.hashicorp.com/',
+    },
+  ]
+
+  // TODO: this removes the need for fullPath construction
+  // TODO: on the client side, within sidebar. But, might
+  // TODO: make more sense to build this into generateStaticProps
+  // TODO: instead?
+  const navDataWithFullPaths = addFullPathsToNavNodes(fullNavData, [
+    productSlug,
+    basePath,
+  ])
 
   /* TODO: could be moved into generateStaticProps
      to further reduce boilerplate */
@@ -55,17 +88,17 @@ export async function getStaticProps({ params }) {
     basePath,
     baseName: 'Docs',
     pathParts: params.page || [],
-    navData: props.navData,
+    navData: navDataWithFullPaths,
   })
 
   return {
     props: {
-      ...props,
+      ...restProps,
       layoutProps: {
         headings,
-        navData: props.navData,
+        navData: navDataWithFullPaths,
         breadcrumbLinks,
-        githubFileUrl: props.githubFileUrl,
+        githubFileUrl: restProps.githubFileUrl,
         backToLink: {
           text: 'Back to Waypoint',
           url: '/waypoint',

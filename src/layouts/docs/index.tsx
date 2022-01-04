@@ -19,56 +19,32 @@ interface DocsLayoutProps {
   }
 }
 
-const DocsLayout: React.FC<DocsLayoutProps> = (props) => {
-  /**
-   * TODO: these will be different by product, can abstract these into separate
-   * config files after some discussion. Placing here because we need these
-   * links everywhere the sidebar shows.
-   */
-  const fullNavData = [
-    ...props.navData,
-    { divider: true },
-    {
-      title: 'HashiCorp Learn',
-      href: 'https://learn.hashicorp.com/waypoint',
-    },
-    {
-      title: 'Community Forum',
-      href: 'https://discuss.hashicorp.com/c/waypoint/51',
-    },
-    {
-      title: 'Support',
-      href: 'https://support.hashicorp.com/',
-    },
-  ]
-
-  return (
-    <BaseNewLayout>
-      <div className={s.body}>
-        <Sidebar menuItems={fullNavData} backToLink={props.backToLink} />
-        <div className={s.contentWrapper}>
-          <div className={s.content}>
-            {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
-            {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
-            <main className={s.main} id="main">
-              {props.breadcrumbLinks && (
-                <BreadcrumbBar links={props.breadcrumbLinks} />
-              )}
-              {props.children}
-              {props.githubFileUrl && (
-                <EditOnGithubLink
-                  className={s.editOnGithubLink}
-                  url={props.githubFileUrl}
-                  label="Edit this page on GitHub"
-                />
-              )}
-            </main>
-            <Sidecar headings={props.headings} />
-          </div>
+const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
+  <BaseNewLayout>
+    <div className={s.body}>
+      <Sidebar menuItems={props.navData} backToLink={props.backToLink} />
+      <div className={s.contentWrapper}>
+        <div className={s.content}>
+          {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
+          {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
+          <main className={s.main} id="main">
+            {props.breadcrumbLinks && (
+              <BreadcrumbBar links={props.breadcrumbLinks} />
+            )}
+            {props.children}
+            {props.githubFileUrl && (
+              <EditOnGithubLink
+                className={s.editOnGithubLink}
+                url={props.githubFileUrl}
+                label="Edit this page on GitHub"
+              />
+            )}
+          </main>
+          <Sidecar headings={props.headings} />
         </div>
       </div>
-    </BaseNewLayout>
-  )
-}
+    </div>
+  </BaseNewLayout>
+)
 
 export default DocsLayout
