@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import slugify from 'slugify'
 import useCurrentPath from 'hooks/use-current-path'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
@@ -52,26 +53,18 @@ const addItemMetadata = (
       // Note: if an active item has already been found,
       // we do not flag this category as active.
       itemCopy.hasActiveChild = !foundActiveItem && result.foundActiveItem
-      itemCopy.id = `submenu-${itemCopy.title
-        .replace(/( |\.)/g, '-')
-        .replace(/-+/g, '-')
-        .toLowerCase()}`
+      itemCopy.id = slugify(`submenu-${itemCopy.title}`, { lower: true })
       // Flag if we've found an active item
       foundActiveItem = itemCopy.hasActiveChild || foundActiveItem
     } else if (item.path) {
       // Note: if an active item has already been found,
       // we do not flag this node as active.
       itemCopy.isActive = !foundActiveItem && currentPath.endsWith(item.path)
-      itemCopy.id = `menu-item-${itemCopy.fullPath
-        .replace(/\//g, '-')
-        .toLowerCase()}`.replace(/-+/g, '-')
+      itemCopy.id = slugify(`menu-item-${itemCopy.fullPath}`, { lower: true })
       // Flag if we've found an active item
       foundActiveItem = itemCopy.isActive || foundActiveItem
     } else if (item.href) {
-      itemCopy.id = `external-url-${itemCopy.title
-        .replace(/( |\.)/g, '-')
-        .replace(/-+/g, '-')
-        .toLowerCase()}`
+      itemCopy.id = slugify(`external-url-${itemCopy.title}`, { lower: true })
     } else {
       // TODO: are there any other cases to cover?
     }
