@@ -5,6 +5,8 @@ import slugify from 'slugify'
 import TEMP_CONTENT from './content.json'
 
 const basePath = 'docs'
+const productName = 'Waypoint'
+const productSlug = 'waypoint'
 
 async function getStaticProps(): Promise<$TSFixMe> {
   const CONTENT = TEMP_CONTENT as $TSFixMe
@@ -69,6 +71,10 @@ async function getStaticProps(): Promise<$TSFixMe> {
           text: 'Back to Developer',
           url: '/',
         },
+        breadcrumbLinks: [
+          { title: 'Developer', url: '/' },
+          { title: productName, url: `/${productSlug}` },
+        ],
         basePaths: ['waypoint', basePath],
       },
     },
