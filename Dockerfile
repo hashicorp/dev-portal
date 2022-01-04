@@ -1,4 +1,4 @@
-FROM docker.mirror.hashicorp.services/node:14.17.0-alpine AS deps
+FROM --platform=linux/amd64 docker.mirror.hashicorp.services/node:14.17.0-alpine AS deps
 
 RUN apk add --update --no-cache \
     autoconf \
