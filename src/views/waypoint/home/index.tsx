@@ -6,6 +6,11 @@ import Cards, { CardProps } from './components/cards'
 import Heading, { HeadingProps } from './components/heading'
 import s from './style.module.css'
 
+type Block =
+  | ({ type: 'heading' } & HeadingProps)
+  | ({ type: 'get_started' } & GetStartedProps)
+  | ({ type: 'cards' } & CardProps)
+
 interface WaypointLandingProps {
   content: {
     heading: string
@@ -16,23 +21,12 @@ interface WaypointLandingProps {
 
 function WaypointLanding({ content }: WaypointLandingProps): ReactElement {
   return (
-    <div>
-      <h1 className={s.pageHeading}>{content.heading}</h1>
-      <p className={s.pageSubheading}>{content.subheading}</p>
-      <LandingBlocks blocks={content.blocks} />
-    </div>
-  )
-}
-
-type Block =
-  | ({ type: 'heading' } & HeadingProps)
-  | ({ type: 'get_started' } & GetStartedProps)
-  | ({ type: 'cards' } & CardProps)
-
-function LandingBlocks({ blocks }: { blocks: Block[] }) {
-  return (
     <>
-      {blocks.map((block, idx) => {
+      <h1 className={s.pageHeading}>{content.heading}</h1>
+      {content.subheading && (
+        <p className={s.pageSubheading}>{content.subheading}</p>
+      )}
+      {content.blocks.map((block, idx) => {
         const { type } = block
         if (type === 'heading') {
           const { heading, slug, level } = block
