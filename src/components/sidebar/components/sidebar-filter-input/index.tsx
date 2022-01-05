@@ -29,6 +29,7 @@ const SidebarFilterInput: React.FC<FilterInputProps> = ({
     <div className={s.filterInputContainer}>
       <IconFilter16 className={s.filterIcon} />
       <input
+        aria-label="Filter sidebar"
         className={s.filterInput}
         onChange={handleChange}
         placeholder="Filter sidebar"
