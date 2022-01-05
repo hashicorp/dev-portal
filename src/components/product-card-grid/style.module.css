@@ -43,11 +43,11 @@
   display: flex;
   flex-direction: column;
   --bar-gradient: var(--token-color-palette-neutral-700);
-  --bar-height: 1px;
+  --bar-height: 2px;
 
   &:nth-child(1) {
     grid-area: s1;
-    --bar-gradient: linear-gradient(270deg, #7b42bc 2.4%, #02a8ef 99.78%);
+    --bar-gradient: linear-gradient(90deg, #7b42bc 2.4%, #02a8ef 99.78%);
     --bar-height: 2px;
   }
   &:nth-child(2) {
@@ -57,13 +57,13 @@
   }
   &:nth-child(3) {
     grid-area: s3;
-    --bar-gradient: linear-gradient(270deg, #d1b960 2.4%, #f04e54 100%);
+    --bar-gradient: linear-gradient(90deg, #d1b960 2.4%, #f04e54 100%);
     --bar-height: 2px;
   }
   &:nth-child(4) {
     grid-area: s4;
     --bar-gradient: linear-gradient(
-      270deg,
+      90deg,
       #00ca8e 2.02%,
       #00c6c2 51.11%,
       #1868f2 100.2%
