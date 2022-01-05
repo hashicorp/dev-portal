@@ -127,7 +127,7 @@ heading with only a couple words, the element can become too narrow.
   & h4,
   & h5,
   & h6 {
-    color: var(--token-color-palette-neutral-600);
+    color: var(--token-color-palette-neutral-700);
   }
 
   /* named Heading 0 */
