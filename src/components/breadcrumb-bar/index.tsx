@@ -44,9 +44,10 @@ function BreadcrumbBar({
                 className={s.breadcrumbText}
                 href={url}
                 aria-current={isCurrentPage ? 'page' : undefined}
-              >
-                {title}
-              </Elem>
+                // Note: HTML setting is necessary here, as some titles
+                // are formatted as "<code>Some title</code>"
+                dangerouslySetInnerHTML={{ __html: title }}
+              />
             </li>
           )
         })}
@@ -55,10 +56,12 @@ function BreadcrumbBar({
   )
 }
 
-function InternalLink({ href, children, ...rest }) {
+function InternalLink({ href, ...rest }) {
   return (
     <Link href={href}>
-      <a {...rest}>{children}</a>
+      {/* Link content may be set by "children" or by setting HTML */}
+      {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
+      <a {...rest} />
     </Link>
   )
 }
