@@ -32,7 +32,7 @@ const getLastProduct = (products: Product[][]) => {
 }
 
 const ProductSwitcher: React.FC = () => {
-  const currentPath = useCurrentPath()
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentProductSlug = currentPath.split('/')[1]
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
