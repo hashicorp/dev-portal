@@ -37,17 +37,17 @@ function BreadcrumbBar({
     <nav aria-label="Breadcrumb" className={s.root}>
       <ol className={s.listRoot}>
         {links.map(({ title, url, isCurrentPage }) => {
+          const cleanTitle = title.replace(/<[^>]+>/g, '')
           const Elem = url ? InternalLink : 'span'
           return (
-            <li key={`${title}_${url}`} className={s.listItem}>
+            <li key={`${cleanTitle}_${url}`} className={s.listItem}>
               <Elem
                 className={s.breadcrumbText}
                 href={url}
                 aria-current={isCurrentPage ? 'page' : undefined}
-                // Note: HTML setting is necessary here, as some titles
-                // are formatted as "<code>Some title</code>"
-                dangerouslySetInnerHTML={{ __html: title }}
-              />
+              >
+                {cleanTitle}
+              </Elem>
             </li>
           )
         })}
@@ -56,12 +56,10 @@ function BreadcrumbBar({
   )
 }
 
-function InternalLink({ href, ...rest }) {
+function InternalLink({ href, children, ...rest }) {
   return (
     <Link href={href}>
-      {/* Link content may be set by "children" or by setting HTML */}
-      {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-      <a {...rest} />
+      <a {...rest}>{children}</a>
     </Link>
   )
 }
