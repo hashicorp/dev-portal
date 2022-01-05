@@ -1,5 +1,17 @@
-/* Global Styles */
+/* Design system */
+/* TODO We're using a local copy of hashicorp/design-system-tokens,
+   rather than the npm package, while that project stabilizes. */
+@import 'styles/_temp-ds-tokens.css';
+/* TODO In the short term, mktg-global-styles will likely be replaced by
+   @hashicorp/design-system-tokens/marketing/css/tokens.css.
+   In the long term, it may be removed from this project. */
 @import '~@hashicorp/mktg-global-styles/style.css';
+
+/* Local global style helpers */
+@import 'styles/elevation.css';
+@import 'styles/sizing.css';
+@import 'styles/spacing.css';
+@import 'styles/typography.css';
 
 /* Print Styles */
 @import './print.css';
@@ -28,4 +40,71 @@
     url('/fonts/klavika/medium.woff') format('woff');
   font-weight: 700;
   font-style: normal;
+}
+
+/* TODO: not sure where else to put this yet */
+button {
+  font-family: var(--font-body);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+/* Mobile and tablet breakpoints and helper classes */
+
+:root {
+  --mobile-width-breakpoint: 728px;
+  --tablet-width-breakpoint: 1000px;
+
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  --font-monospace: ui-monospace, Menlo, Consolas, Ubuntu Mono, monospace;
+}
+
+@custom-media --mobile only screen and (max-width: 728px);
+@custom-media --tablet only screen and (min-width: 729px) and (max-width: 1000px);
+
+@media (--mobile) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+@media (--tablet) {
+  .hide-on-tablet {
+    display: none;
+  }
+}
+
+/* General helper classes */
+
+.focus-border-and-box-shadow-light {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible {
+    border: 1px solid var(--token-color-palette-blue-200);
+    box-shadow: 0 0 0 3px #5990ff;
+    outline: none;
+  }
+}
+
+.focus-border-and-box-shadow-dark {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible {
+    border: 1px solid #107dff;
+    box-shadow: 0 0 0 3px #5fbcff;
+    outline: none;
+  }
 }

@@ -1,0 +1,30 @@
+{
+  "subnavItems": [
+    {
+      "label": "Overview",
+      "path": "/waypoint",
+      "id": "overview"
+    },
+    {
+      "label": "Docs",
+      "id": "reference-docs",
+      "path": "/waypoint/docs"
+    },
+
+    {
+      "label": "CLI",
+      "path": "/waypoint/commands",
+      "id": "cli"
+    },
+    {
+      "label": "Plugins",
+      "path": "/waypoint/plugins",
+      "id": "plugins"
+    },
+    {
+      "label": "Install",
+      "path": "/waypoint/downloads",
+      "id": "downloads"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+.root {
+  position: relative;
+  margin-bottom: 48px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 0;
+  margin: -12px;
+}
+
+.cardWrapper {
+  display: block;
+  flex-basis: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 240px;
+  padding: 12px;
+
+  &.columns-2 {
+    flex-basis: 50%;
+  }
+
+  &.columns-3 {
+    flex-basis: 33.333%;
+  }
+
+  &.columns-4 {
+    flex-basis: 25%;
+  }
+}
+
+.card {
+  composes: ds-token-elevation-low from global;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100px;
+  overflow: hidden;
+  padding: 16px;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--token-color-palette-neutral-50);
+  }
+}
+
+.cardIcon {
+  display: block;
+  margin-bottom: 12px;
+
+  & svg {
+    display: block;
+    height: 32px;
+    width: 32px;
+  }
+}
+
+.cardHeading {
+  composes: ds-token-typography-body-large from global;
+  color: var(--token-color-palette-neutral-700);
+  display: block;
+  font-weight: var(--ds-token-font-weight-semibold);
+}
+
+.cardText {
+  composes: ds-token-typography-body-base from global;
+  color: var(--token-color-palette-neutral-500);
+  display: block;
+  margin: 4px 0 0 0;
+}
+
+.cardTags {
+  display: flex;
+  margin-top: auto;
+  padding-top: 12px;
+
+  & > *:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  & svg {
+    display: block;
+    height: 16px;
+    width: 16px;
+  }
+}

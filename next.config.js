@@ -1,7 +1,7 @@
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
-const redirectsConfig = require('./config/redirects')
-const rewritesConfig = require('./config/rewrites')
+// const redirectsConfig = require('./config/redirects')
+// const rewritesConfig = require('./config/rewrites')
 
 // temporary: set all paths as noindex, until we're serving from this project
 const temporary_hideDocsPaths = {
@@ -14,20 +14,26 @@ const temporary_hideDocsPaths = {
   ],
 }
 
-module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
+module.exports = withSwingset({
+  componentsRoot: 'src/components/*',
+  docsRoot: 'src/swingset-docs/*',
+})(
   withHashicorp({
     nextOptimizedImages: true,
-    transpileModules: ['swingset'],
+    transpileModules: ['swingset', '@hashicorp/flight-icons'],
   })({
     async headers() {
       return [temporary_hideDocsPaths]
     },
-    async redirects() {
-      return await redirectsConfig()
-    },
-    async rewrites() {
-      return await rewritesConfig()
-    },
+    /**
+     * Commented out for the assembly-ui-v1 branch
+     */
+    // async redirects() {
+    //   return await redirectsConfig()
+    // },
+    // async rewrites() {
+    //   return await rewritesConfig()
+    // },
     env: {
       AXE_ENABLED: process.env.AXE_ENABLED || false,
       HASHI_ENV: process.env.HASHI_ENV || 'development',
