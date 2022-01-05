@@ -1,13 +1,9 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { useMemo, useState } from 'react'
+import useCurrentPath from 'hooks/use-current-path'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
-import SidebarMenuItem from './components/sidebar-menu-item'
 import SidebarNav from './components/sidebar-nav'
 import s from './style.module.css'
-
-// TODO: store this in a Context that ProductChooser updates?
-const product = 'waypoint'
 
 /**
  *
@@ -17,56 +13,126 @@ const product = 'waypoint'
  */
 export interface MenuItem {
   divider?: boolean
-  title?: string
+  fullPath?: string
+  hasActiveChild?: boolean
+  hasChildrenMatchingFilter?: boolean
+  href?: string
+  id?: string
+  isActive?: boolean
+  matchesFilter?: boolean
   path?: string
   routes?: MenuItem[]
+  title?: string
+  /* Temporary solution to allow rendering of unlinked headings, as in designs */
+  heading?: string
 }
 
 interface SidebarProps {
   menuItems: MenuItem[]
+  /** Optional { text, url } to use for the "← Back to..." link at the top of the sidebar */
+  backToLink?: {
+    text: string
+    url: string
+  }
 }
 
-// TODO: will need to recursively search submenus when they're implemented
+const addItemMetadata = (
+  currentPath: string,
+  items: MenuItem[]
+): { foundActiveItem: boolean; itemsWithMetadata: MenuItem[] } => {
+  let foundActiveItem = false
+
+  const itemsWithMetadata = items.map((item) => {
+    const itemCopy = { ...item }
+
+    if (item.routes) {
+      const result = addItemMetadata(currentPath, item.routes)
+      itemCopy.routes = result.itemsWithMetadata
+      // Note: if an active item has already been found,
+      // we do not flag this category as active.
+      itemCopy.hasActiveChild = !foundActiveItem && result.foundActiveItem
+      // Flag if we've found an active item
+      foundActiveItem = itemCopy.hasActiveChild || foundActiveItem
+    } else if (item.path) {
+      // Note: if an active item has already been found,
+      // we do not flag this node as active.
+      itemCopy.isActive = !foundActiveItem && currentPath.endsWith(item.path)
+      // Flag if we've found an active item
+      foundActiveItem = itemCopy.isActive || foundActiveItem
+    } else {
+      // TODO: are there any other cases to cover?
+    }
+
+    return itemCopy
+  })
+
+  return { foundActiveItem, itemsWithMetadata }
+}
+
+/**
+ * This does not use Array.filter because we need to add metadata to each item
+ * that is used for determining the open/closed state of submenu items.
+ * */
 const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
   if (!filterValue) {
     return items
   }
 
-  return items.filter((item) =>
-    item?.title?.toLowerCase().includes(filterValue.toLowerCase())
-  )
+  const filteredItems = []
+
+  items.forEach((item) => {
+    const itemCopy = { ...item }
+    let matchingChildren: MenuItem[]
+    let hasChildrenMatchingFilter = false
+
+    const doesTitleMatchFilter = item?.title
+      ?.toLowerCase()
+      .includes(filterValue.toLowerCase())
+    /**
+     * If an item's title matches the filter, we want to include it and its
+     * children in the filter results. `matchesFilter` is added to all items
+     * with a title that matches, and is used in `SidebarNavSubmenu` to
+     * determine if a submenu should be open when searching.
+     *
+     * If an item's title doesn't match the filter, then we need to recursively
+     * look at the children of a submenu to see if any of those have titles or
+     * subemnus that match the filter.
+     *
+     * TODO: write test cases to document this functionality more clearly
+     */
+    if (doesTitleMatchFilter) {
+      itemCopy.matchesFilter = true
+      filteredItems.push(itemCopy)
+    } else if (item.routes) {
+      matchingChildren = getFilteredMenuItems(item.routes, filterValue)
+      hasChildrenMatchingFilter = matchingChildren.length > 0
+      itemCopy.hasChildrenMatchingFilter = hasChildrenMatchingFilter
+      itemCopy.routes = matchingChildren
+
+      if (hasChildrenMatchingFilter) {
+        filteredItems.push(itemCopy)
+      }
+    }
+  })
+
+  return filteredItems
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
-  const router = useRouter()
+const Sidebar: React.FC<SidebarProps> = ({ menuItems, backToLink = {} }) => {
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const { itemsWithMetadata } = useMemo(
+    () => addItemMetadata(currentPath, menuItems),
+    [currentPath, menuItems]
+  )
   const [filterValue, setFilterValue] = useState('')
-
-  const filteredMenuItems = getFilteredMenuItems(menuItems, filterValue)
+  const filteredMenuItems = getFilteredMenuItems(itemsWithMetadata, filterValue)
 
   return (
     <div className={s.sidebar}>
-      <SidebarBackToLink />
+      <SidebarBackToLink text={backToLink.text} url={backToLink.url} />
       <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       {/* TODO: What should this title be? */}
-      <SidebarNav title="Waypoint">
-        {filteredMenuItems.map((item, index) => {
-          if (item.routes) {
-            return null
-          }
-
-          const path = `/${product}/docs/${item.path}`
-          const isActive = router.asPath === path
-          return (
-            <SidebarMenuItem
-              isActive={isActive}
-              item={{ ...item, path }}
-              // TODO: come up with better alternative to index
-              // eslint-disable-next-line react/no-array-index-key
-              key={`sidebar-menu-item-${index}`}
-            />
-          )
-        })}
-      </SidebarNav>
+      <SidebarNav title="Waypoint" menuItems={filteredMenuItems} />
     </div>
   )
 }
