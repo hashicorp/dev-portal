@@ -63,7 +63,7 @@ heading with only a couple words, the element can become too narrow.
       border: 1px solid #cce3f3;
       border-radius: 6px;
       color: var(--token-color-palette-neutral-600);
-      padding: 24px;
+      padding: 16px;
 
       & code {
         background-color: white;
