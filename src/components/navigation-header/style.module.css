@@ -43,6 +43,7 @@
 
 /* TODO: use `calc` and variables so it's clearer why we're using odd padding values */
 .navLinksAnchor {
+  composes: focus-border-and-box-shadow-dark from global;
   border: 1px solid transparent;
   border-radius: 5px;
   color: var(--token-color-palette-neutral-400);
@@ -62,10 +63,7 @@
 
   /* TODO: replace colors w/ tokens when available */
   &:focus {
-    border: 1px solid #107dff;
-    box-shadow: 0 0 0 3px #5fbcff;
     color: var(--token-color-palette-neutral-300);
-    outline: none;
   }
 
   &[aria-current='page'] {

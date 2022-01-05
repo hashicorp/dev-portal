@@ -19,6 +19,7 @@ export interface MenuItem {
   href?: string
   id?: string
   isActive?: boolean
+  matchesFilter?: boolean
   path?: string
   routes?: MenuItem[]
   title?: string
@@ -84,18 +85,33 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
     let matchingChildren: MenuItem[]
     let hasChildrenMatchingFilter = false
 
-    if (item.routes) {
+    const doesTitleMatchFilter = item?.title
+      ?.toLowerCase()
+      .includes(filterValue.toLowerCase())
+    /**
+     * If an item's title matches the filter, we want to include it and its
+     * children in the filter results. `matchesFilter` is added to all items
+     * with a title that matches, and is used in `SidebarNavSubmenu` to
+     * determine if a submenu should be open when searching.
+     *
+     * If an item's title doesn't match the filter, then we need to recursively
+     * look at the children of a submenu to see if any of those have titles or
+     * subemnus that match the filter.
+     *
+     * TODO: write test cases to document this functionality more clearly
+     */
+    if (doesTitleMatchFilter) {
+      itemCopy.matchesFilter = true
+      filteredItems.push(itemCopy)
+    } else if (item.routes) {
       matchingChildren = getFilteredMenuItems(item.routes, filterValue)
       hasChildrenMatchingFilter = matchingChildren.length > 0
       itemCopy.hasChildrenMatchingFilter = hasChildrenMatchingFilter
       itemCopy.routes = matchingChildren
-    }
 
-    const doesTitleMatchFilter = item?.title
-      ?.toLowerCase()
-      .includes(filterValue.toLowerCase())
-    if (doesTitleMatchFilter || hasChildrenMatchingFilter) {
-      filteredItems.push(itemCopy)
+      if (hasChildrenMatchingFilter) {
+        filteredItems.push(itemCopy)
+      }
     }
   })
 

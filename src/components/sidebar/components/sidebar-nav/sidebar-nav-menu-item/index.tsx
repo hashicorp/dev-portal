@@ -44,10 +44,14 @@ const SidebarNavLink = ({ item }) => {
   )
 }
 
+/**
+ * TODO: the `isOpen` boolean is getting a little long, will refactor after some
+ * more thinking on it.
+ */
 const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
   const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(
-    item.hasActiveChild || item.hasChildrenMatchingFilter
+    item.hasActiveChild || item.hasChildrenMatchingFilter || item.matchesFilter
   )
 
   /**
@@ -56,8 +60,12 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
    * if we pass the props needed instead of just the item object?
    */
   useEffect(() => {
-    setIsOpen(item.hasActiveChild || item.hasChildrenMatchingFilter)
-  }, [item.hasActiveChild, item.hasChildrenMatchingFilter])
+    setIsOpen(
+      item.hasActiveChild ||
+        item.hasChildrenMatchingFilter ||
+        item.matchesFilter
+    )
+  }, [item.hasActiveChild, item.hasChildrenMatchingFilter, item.matchesFilter])
 
   const handleKeyDown: KeyboardEventHandler<HTMLUListElement> = (e) => {
     if (e.key === 'Escape') {
