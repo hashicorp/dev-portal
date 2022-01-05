@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import slugify from 'slugify'
 import useCurrentPath from 'hooks/use-current-path'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
@@ -23,54 +24,42 @@ export interface MenuItem {
   path?: string
   routes?: MenuItem[]
   title?: string
+  /* Temporary solution to allow rendering of unlinked headings, as in designs */
+  heading?: string
 }
 
 interface SidebarProps {
   menuItems: MenuItem[]
+  /** Optional { text, url } to use for the "← Back to..." link at the top of the sidebar */
+  backToLink?: {
+    text: string
+    url: string
+  }
 }
 
 const addItemMetadata = (
   currentPath: string,
   items: MenuItem[]
 ): { foundActiveItem: boolean; itemsWithMetadata: MenuItem[] } => {
-  const currentPathSplit = currentPath.split('/')
-  const currentProductSlug = currentPathSplit[1]
-  const currentProductSubpage = currentPathSplit[2]
-
   let foundActiveItem = false
 
   const itemsWithMetadata = items.map((item) => {
     const itemCopy = { ...item }
 
-    if (item.divider) {
-      return itemCopy
-    }
-
-    if (foundActiveItem) {
-      itemCopy[item.routes ? 'hasActiveChild' : 'isActive'] = false
-    }
-
     if (item.routes) {
       const result = addItemMetadata(currentPath, item.routes)
-      foundActiveItem = result.foundActiveItem
       itemCopy.routes = result.itemsWithMetadata
-      itemCopy.hasActiveChild = result.foundActiveItem
-      itemCopy.id = `submenu-${itemCopy.title
-        .replace(/( |\.)/g, '-')
-        .replace(/-+/g, '-')
-        .toLowerCase()}`
+      // Note: if an active item has already been found,
+      // we do not flag this category as active.
+      itemCopy.hasActiveChild = !foundActiveItem && result.foundActiveItem
+      // Flag if we've found an active item
+      foundActiveItem = itemCopy.hasActiveChild || foundActiveItem
     } else if (item.path) {
-      foundActiveItem = currentPath.endsWith(item.path)
-      itemCopy.isActive = foundActiveItem
-      itemCopy.fullPath = `/${currentProductSlug}/${currentProductSubpage}/${item.path}`
-      itemCopy.id = `menu-item-${itemCopy.fullPath
-        .replace(/\//g, '-')
-        .toLowerCase()}`.replace(/-+/g, '-')
-    } else if (item.href) {
-      itemCopy.id = `external-url-${itemCopy.title
-        .replace(/( |\.)/g, '-')
-        .replace(/-+/g, '-')
-        .toLowerCase()}`
+      // Note: if an active item has already been found,
+      // we do not flag this node as active.
+      itemCopy.isActive = !foundActiveItem && currentPath.endsWith(item.path)
+      // Flag if we've found an active item
+      foundActiveItem = itemCopy.isActive || foundActiveItem
     } else {
       // TODO: are there any other cases to cover?
     }
@@ -130,7 +119,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
   return filteredItems
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
+const Sidebar: React.FC<SidebarProps> = ({ menuItems, backToLink = {} }) => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
     () => addItemMetadata(currentPath, menuItems),
@@ -141,7 +130,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuItems }) => {
 
   return (
     <div className={s.sidebar}>
-      <SidebarBackToLink />
+      <SidebarBackToLink text={backToLink.text} url={backToLink.url} />
       <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       {/* TODO: What should this title be? */}
       <SidebarNav title="Waypoint" menuItems={filteredMenuItems} />

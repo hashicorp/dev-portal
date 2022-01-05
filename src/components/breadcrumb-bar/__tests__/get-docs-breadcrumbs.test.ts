@@ -15,6 +15,10 @@ describe('getDocsBreadcrumbs', () => {
     }
     const expected = [
       {
+        title: 'Developer',
+        url: '/',
+      },
+      {
         title: 'Waypoint',
         url: '/waypoint',
       },

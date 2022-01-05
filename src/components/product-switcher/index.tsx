@@ -6,11 +6,11 @@ import {
   useRef,
   useState,
 } from 'react'
-import { useRouter } from 'next/router'
+import useCurrentPath from 'hooks/use-current-path'
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
-import { Product, ProductGroup, ProductSlug } from 'types/products'
-import ProductIcon from 'components/icons/product-icon'
+import { Product, ProductGroup } from 'types/products'
+import ProductIcon from 'components/product-icon'
 import { products } from '../../../config/products'
 import s from './style.module.css'
 
@@ -32,8 +32,8 @@ const getLastProduct = (products: Product[][]) => {
 }
 
 const ProductSwitcher: React.FC = () => {
-  const router = useRouter()
-  const currentProductSlug = router.asPath.split('/')[1] as ProductSlug
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const currentProductSlug = currentPath.split('/')[1]
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
   const buttonRef = useRef<HTMLButtonElement>()
@@ -52,6 +52,9 @@ const ProductSwitcher: React.FC = () => {
       }
     })
   )
+
+  /* @TODO: handle case where there is no
+     currentProduct, eg on the home page */
 
   useEffect(() => {
     if (!isOpen) {
@@ -114,7 +117,7 @@ const ProductSwitcher: React.FC = () => {
   const renderProductListItem = (product: Product): ReactElement => {
     const isFirstProduct = product.slug === firstProduct.slug
     const isLastProduct = product.slug === lastProduct.slug
-    const isCurrentProduct = product.slug === currentProduct.slug
+    const isCurrentProduct = product.slug === currentProduct?.slug
 
     const handleAnchorKeyDown: KeyboardEventHandler<HTMLAnchorElement> = (
       e
@@ -197,7 +200,12 @@ const ProductSwitcher: React.FC = () => {
       <button
         aria-controls={OPTION_LIST_ID}
         aria-expanded={isOpen}
-        aria-labelledby={generateSwitcherOptionIdFromProduct(currentProduct)}
+        aria-labelledby={
+          currentProduct
+            ? generateSwitcherOptionIdFromProduct(currentProduct)
+            : undefined
+        }
+        aria-label={currentProduct ? undefined : 'Product switcher'}
         className={s.switcherButton}
         onClick={() => {
           setIsOpen(!isOpen)
@@ -206,8 +214,8 @@ const ProductSwitcher: React.FC = () => {
         ref={buttonRef}
       >
         <span className={s.switcherOptionContainer}>
-          <ProductIcon product={currentProduct.slug} />
-          <span>{currentProduct.name}</span>
+          {currentProduct && <ProductIcon product={currentProduct.slug} />}
+          <span>{currentProduct ? currentProduct.name : 'Products'}</span>
         </span>
         <IconCaret16 className={s.switcherCaret} />
       </button>

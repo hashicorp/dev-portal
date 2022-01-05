@@ -146,6 +146,7 @@ function getDocsBreadcrumbs({
   productPath,
 }: GetDocsBreadcrumbsOpts): BreadcrumbLink[] {
   return [
+    { title: 'Developer', url: '/' },
     { title: productName, url: `/${productPath}` },
     { title: baseName, url: `/${productPath}/${basePath}` },
     ...getPathBreadcrumbs({

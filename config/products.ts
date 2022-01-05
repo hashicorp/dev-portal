@@ -29,7 +29,7 @@ const productSlugsToUrls: { [key in ProductSlug]: string } = {
   terraform: 'https://www.terraform.io/docs/index.html',
   vagrant: 'https://www.vagrantup.com/docs',
   vault: 'https://www.vaultproject.io/docs',
-  waypoint: '/waypoint/docs',
+  waypoint: '/waypoint',
 }
 
 /**
