@@ -41,11 +41,11 @@ async function getStaticProps(): Promise<$TSFixMe> {
     },
     {
       title: 'HashiCorp Learn',
-      href: 'https://learn.hashicorp.com',
+      href: 'https://learn.hashicorp.com/waypoint',
     },
     {
       title: 'Community Forum',
-      href: 'https://discuss.hashicorp.com',
+      href: 'https://discuss.hashicorp.com/c/waypoint/51',
     },
     {
       title: 'Support',
