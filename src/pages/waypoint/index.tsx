@@ -1,15 +1,9 @@
-import { ReactElement } from 'react'
-import BaseNewLayout from 'layouts/base-new'
+import HomePage from 'views/waypoint/home'
+import server from 'views/waypoint/home/server'
 
-const WaypointHomePage = (): ReactElement => (
-  <div className="g-grid-container">
-    <h1>Welcome to Waypoint</h1>
-    <ul>
-      <li>This page is a work in progress</li>
-    </ul>
-  </div>
-)
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getStaticProps() {
+  return await server.getStaticProps()
+}
 
-WaypointHomePage.layout = BaseNewLayout
-
-export default WaypointHomePage
+export default HomePage

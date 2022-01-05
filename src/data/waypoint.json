@@ -1,29 +1,30 @@
 {
   "subnavItems": [
     {
+      "label": "Overview",
+      "path": "/waypoint",
+      "id": "overview"
+    },
+    {
+      "label": "Docs",
       "id": "reference-docs",
-      "label": "Reference Docs",
       "path": "/waypoint/docs"
     },
+
     {
-      "path": "/waypoint",
-      "id": "overview",
-      "label": "Overview"
-    },
-    {
+      "label": "CLI",
       "path": "/waypoint/commands",
-      "id": "cli",
-      "label": "CLI"
+      "id": "cli"
     },
     {
+      "label": "Plugins",
       "path": "/waypoint/plugins",
-      "id": "plugins",
-      "label": "Plugins"
+      "id": "plugins"
     },
     {
+      "label": "Install",
       "path": "/waypoint/downloads",
-      "id": "downloads",
-      "label": "Downloads"
+      "id": "downloads"
     }
   ]
 }

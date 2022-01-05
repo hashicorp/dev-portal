@@ -1,26 +1,47 @@
-/*
+/**
+ * NOTE
+ * 
+ * .ds-token-typography classes are temporary stopgaps
+ * while the design system team figures out the distribution plan
+ * for grouping typography tokens.
+ *   
+ * These are not yet available from
+ * hashicorp/design-system-tokens.
+ * 
+ **/
 
-TODO
-
-* --token-typography variables are sourced from:
-  https://github.com/hashicorp/design-system-tokens/blob/main/dist/products/css/tokens.css.
-  We could likely install & import from the published `npm` package instead,
-  though this would probably mean we remove our color.css file as well.
-
-* .ds-token-typography classes are temporary stopgaps
-  while the design system team figures out the distribution plan
-  for grouping typography tokens. These are not yet available from
-  hashicorp/design-system-tokens, so we'll likely retain them a little
-  longer than the CSS variables.
-
-*/
-
+/**
+ * NOTE: font-weight tokens are not a design-system blessed thing,
+ * have just swiped from the MDN "common name mapping" for now,
+ * as it seems to align with the font styles and names that
+ * designers are using in Figma.
+ * ref: https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#common_weight_name_mapping
+ **/
 :root {
-  --token-typography-body-small-font-family: -apple-system, BlinkMacSystemFont,
-    SF Pro Text, Segoe UI Text, Ubuntu, sans-serif;
-  --token-typography-body-small-font-size: 0.8125rem; /* 13px/0.8125rem */
-  --token-typography-body-small-line-height: 1.3846; /* 18px */
-  --token-typography-body-small-font-weight: 400; /* regular */
+  --ds-token-font-weight-thin: 100;
+  --ds-token-font-weight-extralight: 200;
+  --ds-token-font-weight-light: 300;
+  --ds-token-font-weight-normal: 400;
+  --ds-token-font-weight-medium: 500;
+  --ds-token-font-weight-semibold: 600;
+  --ds-token-font-weight-bold: 700;
+  --ds-token-font-weight-extrabold: 800;
+  --ds-token-font-weight-black: 900;
+  --ds-token-font-weight-extrablack: 950;
+}
+
+.ds-token-typography-heading-0 {
+  font-family: var(--token-typography-heading-0-font-family);
+  font-size: var(--token-typography-heading-0-font-size);
+  line-height: var(--token-typography-heading-0-line-height);
+  font-weight: var(--token-typography-heading-0-font-weight);
+}
+
+.ds-token-typography-heading-3 {
+  font-family: var(--token-typography-heading-3-font-family);
+  font-size: var(--token-typography-heading-3-font-size);
+  line-height: var(--token-typography-heading-3-line-height);
+  font-weight: var(--token-typography-heading-3-font-weight);
 }
 
 .ds-token-typography-body-small {
@@ -28,4 +49,18 @@ TODO
   font-size: var(--token-typography-body-small-font-size);
   line-height: var(--token-typography-body-small-line-height);
   font-weight: var(--token-typography-body-small-font-weight);
+}
+
+.ds-token-typography-body-base {
+  font-family: var(--token-typography-body-base-font-family);
+  font-size: var(--token-typography-body-base-font-size);
+  line-height: var(--token-typography-body-base-line-height);
+  font-weight: var(--token-typography-body-base-font-weight);
+}
+
+.ds-token-typography-body-large {
+  font-family: var(--token-typography-body-large-font-family);
+  font-size: var(--token-typography-body-large-font-size);
+  line-height: var(--token-typography-body-large-line-height);
+  font-weight: var(--token-typography-body-large-font-weight);
 }

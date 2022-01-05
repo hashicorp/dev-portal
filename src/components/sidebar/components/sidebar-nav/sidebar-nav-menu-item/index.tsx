@@ -1,5 +1,6 @@
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import MaybeInternalLink from 'components/maybe-internal-link'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { MenuItem } from 'components/sidebar'
@@ -27,7 +28,7 @@ const SidebarNavLink = ({ item }) => {
 
   return (
     <li>
-      <a
+      <MaybeInternalLink
         aria-current={item.isActive ? 'page' : undefined}
         className={s.sidebarNavMenuItem}
         href={item.href}
@@ -38,14 +39,12 @@ const SidebarNavLink = ({ item }) => {
           dangerouslySetInnerHTML={{ __html: item.title }}
         />
         <IconExternalLink16 />
-      </a>
+      </MaybeInternalLink>
     </li>
   )
 }
 
-const SidebarNavSubmenu: React.FC<{
-  item: MenuItem
-}> = ({ item }) => {
+const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
   const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(
     item.hasActiveChild || item.hasChildrenMatchingFilter
@@ -99,6 +98,12 @@ const SidebarNavSubmenu: React.FC<{
 const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   if (item.divider) {
     return <hr className={s.divider} />
+  }
+
+  // TODO: 2022-01-03: designs show a heading on the product home page,
+  // TODO: eg /waypoint, so adding this type in.
+  if (item.heading) {
+    return <p className={s.heading}>{item.heading}</p>
   }
 
   if (item.routes) {
