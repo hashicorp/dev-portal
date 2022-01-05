@@ -100,6 +100,16 @@ heading with only a couple words, the element can become too narrow.
     & + p {
       margin-top: 0;
     }
+
+    /*
+    TODO: these values are a special request from design for the purposes of the
+    inital preview. They make <code> elements within heading elements a little
+    less jarring.
+    */
+    & code {
+      font-size: 0.6em;
+      font-weight: 500;
+    }
   }
 
   & h1,
