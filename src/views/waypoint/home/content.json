@@ -92,32 +92,38 @@
         {
           "heading": "Introduction to Waypoint",
           "text": "Deploying applications in the DevOps landscape can be confusing with so many...",
-          "tags": ["video", "waypoint"]
+          "tags": ["video", "waypoint"],
+          "url": "https://learn.hashicorp.com/tutorials/waypoint/get-started-intro"
         },
         {
           "heading": "Get Started - Kubernetes",
           "text": "Build, deploy, and release applications to a Kubernetes cluster.",
-          "tags": ["video", "waypoint"]
+          "tags": ["video", "waypoint"],
+          "url": "https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes"
         },
         {
           "heading": "Get Started - Nomad",
           "text": "Build, deploy, and release applications to a Nomad cluster.",
-          "tags": ["video", "waypoint"]
+          "tags": ["video", "waypoint"],
+          "url": "https://learn.hashicorp.com/collections/waypoint/get-started-nomad"
         },
         {
           "heading": "Get Started - Docker",
           "text": "Start using Waypoint in only a few minutes on a local Docker instance.",
-          "tags": ["video", "waypoint"]
+          "tags": ["video", "waypoint"],
+          "url": "https://learn.hashicorp.com/tutorials/waypoint/get-started-docker"
         },
         {
           "heading": "Deploy an Application to AWS Elastic Container",
           "text": "Run a NodeJS application onto AWS elastic container Service...",
-          "tags": ["video", "waypoint"]
+          "tags": ["video", "waypoint"],
+          "url": "https://learn.hashicorp.com/tutorials/waypoint/aws-ecs"
         },
         {
           "heading": "Deploy an Application to Google Cloud Run",
           "text": "Run an application on Google Cloud Run with Waypoint",
-          "tags": ["video", "waypoint"]
+          "tags": ["video", "waypoint"],
+          "url": "https://learn.hashicorp.com/tutorials/waypoint/google-cloud-run"
         }
       ]
     }
