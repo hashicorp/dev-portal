@@ -25,8 +25,6 @@ export interface MenuItem {
   title?: string
   /* Temporary solution to allow rendering of unlinked headings, as in designs */
   heading?: string
-  /* Temporary solution to show external link icon, for demo purposes */
-  _demoExternalLink?: boolean
 }
 
 interface SidebarProps {
@@ -53,18 +51,14 @@ const addItemMetadata = (
       // Note: if an active item has already been found,
       // we do not flag this category as active.
       itemCopy.hasActiveChild = !foundActiveItem && result.foundActiveItem
-      itemCopy.id = slugify(`submenu-${itemCopy.title}`, { lower: true })
       // Flag if we've found an active item
       foundActiveItem = itemCopy.hasActiveChild || foundActiveItem
     } else if (item.path) {
       // Note: if an active item has already been found,
       // we do not flag this node as active.
       itemCopy.isActive = !foundActiveItem && currentPath.endsWith(item.path)
-      itemCopy.id = slugify(`menu-item-${itemCopy.fullPath}`, { lower: true })
       // Flag if we've found an active item
       foundActiveItem = itemCopy.isActive || foundActiveItem
-    } else if (item.href) {
-      itemCopy.id = slugify(`external-url-${itemCopy.title}`, { lower: true })
     } else {
       // TODO: are there any other cases to cover?
     }
