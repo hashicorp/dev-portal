@@ -84,7 +84,12 @@ button {
 /* General helper classes */
 
 .focus-border-and-box-shadow-light {
-  &:focus {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible {
     border: 1px solid var(--token-color-palette-blue-200);
     box-shadow: 0 0 0 3px #5990ff;
     outline: none;
@@ -92,7 +97,12 @@ button {
 }
 
 .focus-border-and-box-shadow-dark {
-  &:focus {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible {
     border: 1px solid #107dff;
     box-shadow: 0 0 0 3px #5fbcff;
     outline: none;
