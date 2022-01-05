@@ -37,15 +37,16 @@ function BreadcrumbBar({
     <nav aria-label="Breadcrumb" className={s.root}>
       <ol className={s.listRoot}>
         {links.map(({ title, url, isCurrentPage }) => {
+          const cleanTitle = title.replace(/<[^>]+>/g, '')
           const Elem = url ? InternalLink : 'span'
           return (
-            <li key={`${title}_${url}`} className={s.listItem}>
+            <li key={`${cleanTitle}_${url}`} className={s.listItem}>
               <Elem
                 className={s.breadcrumbText}
                 href={url}
                 aria-current={isCurrentPage ? 'page' : undefined}
               >
-                {title}
+                {cleanTitle}
               </Elem>
             </li>
           )
