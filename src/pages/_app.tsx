@@ -6,16 +6,16 @@ import { DeviceSizeProvider } from 'contexts'
 import BaseLayout from 'layouts/base'
 import './style.css'
 
-if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const ReactDOM = require('react-dom')
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const axe = require('@axe-core/react')
-  axe(React, ReactDOM, 1000)
-}
-
 export default function App({ Component, pageProps }) {
   useAnchorLinkAnalytics()
+
+  if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const ReactDOM = require('react-dom')
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const axe = require('@axe-core/react')
+    axe(React, ReactDOM, 1000)
+  }
 
   const Layout = Component.layout ?? BaseLayout
 
