@@ -200,9 +200,12 @@ const ProductSwitcher: React.FC = () => {
       <button
         aria-controls={OPTION_LIST_ID}
         aria-expanded={isOpen}
-        aria-labelledby={generateSwitcherOptionIdFromProduct(
-          currentProduct || firstProduct
-        )}
+        aria-labelledby={
+          currentProduct
+            ? generateSwitcherOptionIdFromProduct(currentProduct)
+            : undefined
+        }
+        aria-label={currentProduct ? undefined : 'Product switcher'}
         className={s.switcherButton}
         onClick={() => {
           setIsOpen(!isOpen)
