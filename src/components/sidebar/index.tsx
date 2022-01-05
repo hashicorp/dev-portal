@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import slugify from 'slugify'
 import useCurrentPath from 'hooks/use-current-path'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
