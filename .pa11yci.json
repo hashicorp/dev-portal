@@ -1,0 +1,10 @@
+{
+  "urls": [
+    "http://localhost:3000/",
+    "http://localhost:3000/waypoint",
+    "http://localhost:3000/waypoint/commands",
+    "http://localhost:3000/waypoint/docs",
+    "http://localhost:3000/waypoint/downloads",
+    "http://localhost:3000/waypoint/plugins"
+  ]
+}
