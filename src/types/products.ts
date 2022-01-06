@@ -4,7 +4,7 @@ type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 
 interface Product extends ProductMeta {
   slug: ProductSlug
-  url: string
+  url?: string
 }
 
 type ProductGroup = Product[]
