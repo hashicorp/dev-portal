@@ -1,9 +1,45 @@
 .root {
-  padding: 1rem;
-  min-height: 160px;
-  background: var(--token-color-palette-neutral-700);
+  padding: 32px 24px;
+  border-top: 1px solid var(--token-color-neutral-border-primary);
+  background: var(--token-color-palette-neutral-0);
   color: var(--token-color-palette-neutral-600);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.logo {
+  position: relative;
+  background: rgba(255, 0, 0, 0.5);
+  margin-right: 40px;
+}
+
+.links {
+  position: relative;
+  display: flex;
+  background: rgba(0, 0, 255, 0.5);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.linkListItem {
+  background: rgba(0, 255, 0, 0.5);
+  &:not(:last-child) {
+    margin-right: 32px;
+  }
+}
+
+.linkAction {
+  composes: ds-token-typography-body-base from global;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--token-color-neutral-foreground-faint);
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--token-color-neutral-foreground-primary);
+  }
 }

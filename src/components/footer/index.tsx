@@ -1,4 +1,7 @@
 import React from 'react'
+import svgHashicorpLogo from '!!raw-loader!./svg/hashicorp-logo.svg'
+import MaybeInternalLink from 'components/maybe-internal-link'
+import InlineSvg from '@hashicorp/react-inline-svg'
 import classNames from 'classnames'
 import s from './style.module.css'
 
@@ -15,10 +18,46 @@ function Footer({
 }: FooterProps): React.ReactElement {
   return (
     <footer className={classNames(s.root, className)}>
-      Dev Portal Footer Placeholder{' '}
-      {typeof openConsentManager == 'function' && (
-        <button onClick={openConsentManager}>Open Consent Manager</button>
-      )}
+      <InlineSvg src={svgHashicorpLogo} />
+      <ul className={s.links}>
+        <li className={s.linkListItem}>
+          <MaybeInternalLink
+            className={s.linkAction}
+            href="https://www.hashicorp.com"
+          >
+            System status
+          </MaybeInternalLink>
+        </li>
+        <li className={s.linkListItem}>
+          <button className={s.linkAction} onClick={openConsentManager}>
+            Cookie Manager
+          </button>
+        </li>
+        <li className={s.linkListItem}>
+          <MaybeInternalLink
+            className={s.linkAction}
+            href="https://www.hashicorp.com"
+          >
+            Terms of use
+          </MaybeInternalLink>
+        </li>
+        <li className={s.linkListItem}>
+          <MaybeInternalLink
+            className={s.linkAction}
+            href="https://www.hashicorp.com"
+          >
+            Security
+          </MaybeInternalLink>
+        </li>
+        <li className={s.linkListItem}>
+          <MaybeInternalLink
+            className={s.linkAction}
+            href="https://www.hashicorp.com"
+          >
+            Privacy
+          </MaybeInternalLink>
+        </li>
+      </ul>
     </footer>
   )
 }
