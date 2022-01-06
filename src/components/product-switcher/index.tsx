@@ -80,11 +80,15 @@ const ProductSwitcher: React.FC = () => {
   }, [isOpen])
 
   /**
-   * It would be more optimal to set onKeyDown for the containing element, but that is not allowed
-   * on a <div> with no role. We do not want to use a menu role (see https://adrianroselli.com/2017/10/dont-use-aria-menu-roles-for-site-nav.html)
-   * so there is no role currently set on the containing <div>. If we find an appropriate role, then we can
-   * change the approach. For now, it's most appropriate to set onKeyDown on the <button> and <ul>,
-   * hence the `KeyboardEventHandler<HTMLButtonElement | HTMLUListElement>` definition.
+   * It would be more optimal to set onKeyDown for the containing element, but
+   * that is not allowed on a <div> with no role. We do not want to use a menu
+   * role (see Adrian Roselli link below) so there is no role currently set on
+   * the containing <div>. If we find an appropriate role, then we can change
+   * the approach. For now, it's most appropriate to set onKeyDown on the
+   * <button> and <ul>, hence this defintion:
+   * `KeyboardEventHandler<HTMLButtonElement | HTMLUListElement>`.
+   *
+   * https://adrianroselli.com/2017/10/dont-use-aria-menu-roles-for-site-nav.html
    */
   const handleKeyDown: KeyboardEventHandler<
     HTMLButtonElement | HTMLUListElement
@@ -94,13 +98,13 @@ const ProductSwitcher: React.FC = () => {
     const isSpaceKey = e.key === ' '
 
     /**
-     * The reason we can't focus the first anchor here is because we have the anchor element
-     * is not rendered until after `setIsOpen(true)` is called by the <button>'s onClick (default
-     * behavior of <button> elements).
+     * The reason we can't focus the first anchor here is because we have the
+     * anchor element is not rendered until after `setIsOpen(true)` is called by
+     * the <button>'s onClick (default behavior of <button> elements).
      *
-     * Might be possible to do e.preventDefault and then do the focus() call here? Not sure we
-     * need to do that though unless we are very against this approach. I'd rather not prevent
-     * default behavior if we don't have to.
+     * Might be possible to do e.preventDefault and then do the focus() call
+     * here? Not sure we need to do that though unless we are very against this
+     * approach. I'd rather not prevent default behavior if we don't have to.
      */
     if (!isOpen && (isEnterKey || isSpaceKey)) {
       shouldFocusFirstAnchor.current = true
@@ -177,11 +181,13 @@ const ProductSwitcher: React.FC = () => {
           onKeyDown={handleAnchorKeyDown}
           ref={refToPass}
         >
-          <ProductIcon
-            className={productIconClassName}
-            product={product.slug}
-          />
-          <span>{product.name}</span>
+          <span className={s.focusContainer}>
+            <ProductIcon
+              className={productIconClassName}
+              product={product.slug}
+            />
+            <span>{product.name}</span>
+          </span>
         </a>
       </li>
     )
@@ -204,8 +210,8 @@ const ProductSwitcher: React.FC = () => {
   }
 
   /**
-   * I _think_ we want the containing element to be a nav, currently clashes with other
-   * styles so not using that element just yet
+   * I _think_ we want the containing element to be a nav, currently clashes
+   * with other styles so not using that element just yet
    */
   return (
     <div className={s.productSwitcher} ref={productChooserRef}>
