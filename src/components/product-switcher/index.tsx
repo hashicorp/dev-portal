@@ -181,11 +181,13 @@ const ProductSwitcher: React.FC = () => {
           onKeyDown={handleAnchorKeyDown}
           ref={refToPass}
         >
-          <ProductIcon
-            className={productIconClassName}
-            product={product.slug}
-          />
-          <span>{product.name}</span>
+          <span className={s.focusContainer}>
+            <ProductIcon
+              className={productIconClassName}
+              product={product.slug}
+            />
+            <span>{product.name}</span>
+          </span>
         </a>
       </li>
     )
