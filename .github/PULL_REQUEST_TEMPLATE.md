@@ -4,6 +4,7 @@
 - [ ] The Asana task has been added to this PR's description
 - [ ] This PR's link has been added to the "📐 Pull Request" field on the Asana task
 - [ ] This Vercel preview link has been added to the "🔍 Preview" field on the Asana task
+- [ ] The description template has been filled in below
 
 ---
 
