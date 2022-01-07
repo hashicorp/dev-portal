@@ -4,6 +4,7 @@ import {
 } from '@hashicorp/react-docs-page/server'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 
+import { Product } from 'types/products'
 import prepareNavDataForClient from 'layouts/docs/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
@@ -17,7 +18,7 @@ async function generateStaticPaths({
   basePath,
 }: {
   basePath: string
-  product: { name: string; slug: string }
+  product: Product
 }): Promise<$TSFixMe[]> {
   const paths = await _generateStaticPaths({
     navDataFile: temporary_noop,
@@ -35,7 +36,7 @@ async function generateStaticProps({
 }: {
   basePath: string
   params: $TSFixMe
-  product: { slug: string; name: string }
+  product: Product
 }): Promise<$TSFixMe> {
   const headings = []
 
