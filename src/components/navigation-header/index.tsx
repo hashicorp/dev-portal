@@ -2,9 +2,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
-// TODO: we'll need a programatic way to get this data when there are more products
-// TODO: currently we only show Waypoint navigation data
-import waypointData from 'data/waypoint.json'
 import { useCurrentProduct } from 'contexts'
 import HeaderSearchInput from 'components/header-search-input'
 import ProductSwitcher from 'components/product-switcher'
@@ -47,10 +44,10 @@ const NavigationHeader: React.FC = () => {
           <ProductSwitcher />
         </div>
         {/* TODO: handle other products, not just Waypoint */}
-        {currentProduct?.slug == 'waypoint' && (
+        {currentProduct?.navigationHeaderItems && (
           <div className={s.headerRight}>
             <ul className={s.navLinks}>
-              {waypointData.subnavItems.map((navLink) => {
+              {currentProduct?.navigationHeaderItems.map((navLink) => {
                 const isCurrent = isCurrentPage(navLink.path, currentPath)
                 return (
                   <li className={s.navLinksListItem} key={navLink.id}>
