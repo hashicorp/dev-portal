@@ -221,7 +221,12 @@ const ProductSwitcher: React.FC = () => {
         ref={buttonRef}
       >
         <span className={s.switcherOptionContainer}>
-          <ProductIcon product={currentProduct?.slug} />
+          <ProductIcon
+            className={classNames({
+              [s.vaultProductIcon]: currentProduct?.slug === 'vault',
+            })}
+            product={currentProduct?.slug}
+          />
           <span>{currentProduct ? currentProduct.name : 'Products'}</span>
         </span>
         <IconCaret16 className={s.switcherCaret} />
