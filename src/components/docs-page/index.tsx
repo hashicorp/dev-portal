@@ -4,7 +4,7 @@ import defaultMdxComponents from '@hashicorp/platform-docs-mdx'
 import { useCurrentProduct } from 'contexts'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
-import makeDocsAnchor from 'components/docs-anchor'
+import DocsAnchor from 'components/docs-anchor'
 
 /**
  * TODO: we may find that we want to allow additional components to be passed in
@@ -18,7 +18,7 @@ const DocsPage = (props): ReactElement => {
     additionalComponents: {
       Placement,
       NestedNode,
-      a: makeDocsAnchor(currentProduct.slug, ['docs', 'plugins', 'commands']),
+      a: DocsAnchor,
     },
   })
 
