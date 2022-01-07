@@ -6,10 +6,10 @@ import {
   useRef,
   useState,
 } from 'react'
-import useCurrentPath from 'hooks/use-current-path'
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { Product, ProductGroup } from 'types/products'
+import { useCurrentProduct } from 'contexts'
 import ProductIcon from 'components/product-icon'
 import { products } from '../../../config/products'
 import s from './style.module.css'
@@ -32,8 +32,7 @@ const getLastProduct = (products: Product[][]) => {
 }
 
 const ProductSwitcher: React.FC = () => {
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-  const currentProductSlug = currentPath.split('/')[1]
+  const currentProduct = useCurrentProduct()
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
   const buttonRef = useRef<HTMLButtonElement>()
@@ -42,16 +41,6 @@ const ProductSwitcher: React.FC = () => {
   const shouldFocusFirstAnchor = useRef<boolean>(false)
   const firstProduct = getFirstProduct(products)
   const lastProduct = getLastProduct(products)
-
-  let currentProduct: Product
-  products.find((productGroup) =>
-    productGroup.find((product) => {
-      if (product.slug === currentProductSlug) {
-        currentProduct = product
-        return true
-      }
-    })
-  )
 
   /* @TODO: handle case where there is no
      currentProduct, eg on the home page */
@@ -232,7 +221,7 @@ const ProductSwitcher: React.FC = () => {
         ref={buttonRef}
       >
         <span className={s.switcherOptionContainer}>
-          {currentProduct && <ProductIcon product={currentProduct.slug} />}
+          <ProductIcon product={currentProduct?.slug} />
           <span>{currentProduct ? currentProduct.name : 'Products'}</span>
         </span>
         <IconCaret16 className={s.switcherCaret} />
