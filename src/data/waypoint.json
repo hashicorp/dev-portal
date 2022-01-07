@@ -1,30 +1,121 @@
 {
+  "name": "Waypoint",
+  "slug": "waypoint",
+  "basePaths": ["commands", "docs", "plugins"],
+  "version": "0.5.2",
+  "algoliaConfig": {
+    "indexName": "product_WAYPOINT",
+    "searchOnlyApiKey": "5e4adfd8094367056501547d6fedb6c5"
+  },
+  "metadata": {
+    "title": "Waypoint by HashiCorp",
+    "description": "Waypoint is  an open source solution that provides a modern workflow for build, deploy, and release across platforms.",
+    "image": "/waypoint/img/og-image.png",
+    "icon": [
+      {
+        "href": "/waypoint/_favicon.ico"
+      }
+    ]
+  },
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/waypoint/docs/intro" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/waypoint/docs/getting-started"
+      }
+    ],
+    "resourcesNavData": [
+      { "heading": "Resources" },
+      {
+        "title": "Releases",
+        "href": "https://releases.hashicorp.com/waypoint/"
+      },
+      {
+        "title": "HashiCorp Learn",
+        "href": "https://learn.hashicorp.com/waypoint"
+      },
+      {
+        "title": "Community Forum",
+        "href": "https://discuss.hashicorp.com/c/waypoint/51"
+      },
+      {
+        "title": "Support",
+        "href": "https://support.hashicorp.com"
+      }
+    ]
+  },
   "subnavItems": [
     {
+      "id": "overview",
       "label": "Overview",
-      "path": "/waypoint",
-      "id": "overview"
+      "path": "/waypoint"
     },
     {
-      "label": "Docs",
       "id": "reference-docs",
+      "label": "Docs",
       "path": "/waypoint/docs"
     },
-
     {
+      "id": "cli",
       "label": "CLI",
-      "path": "/waypoint/commands",
-      "id": "cli"
+      "path": "/waypoint/commands"
     },
     {
+      "id": "plugins",
       "label": "Plugins",
-      "path": "/waypoint/plugins",
-      "id": "plugins"
+      "path": "/waypoint/plugins"
     },
     {
+      "id": "downloads",
       "label": "Install",
-      "path": "/waypoint/downloads",
-      "id": "downloads"
+      "path": "/waypoint/downloads"
+    }
+  ],
+  "packageManagers": [
+    {
+      "label": "Homebrew",
+      "commands": [
+        "brew tap hashicorp/tap",
+        "brew install hashicorp/tap/waypoint"
+      ],
+      "os": "darwin"
+    },
+    {
+      "label": "Ubuntu/Debian",
+      "commands": [
+        "curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -",
+        "sudo apt-add-repository 'deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main'",
+        "sudo apt-get update && sudo apt-get install waypoint"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "CentOS/RHEL",
+      "commands": [
+        "sudo yum install -y yum-utils",
+        "sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo",
+        "sudo yum -y install waypoint"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "Fedora",
+      "commands": [
+        "sudo dnf install -y dnf-plugins-core",
+        "sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
+        "sudo dnf -y install waypoint"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "Amazon Linux",
+      "commands": [
+        "sudo yum install -y yum-utils",
+        "sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo",
+        "sudo yum -y install waypoint"
+      ],
+      "os": "linux"
     }
   ]
 }
