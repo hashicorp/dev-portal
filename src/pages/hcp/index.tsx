@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
 import { GetStaticProps } from 'next'
 import hcpData from 'data/hcp.json'
-import BaseNewLayout from 'layouts/base-new'
 import { Product } from 'types/products'
+import BaseNewLayout from 'layouts/base-new'
 
 const product = hcpData as Product
 
