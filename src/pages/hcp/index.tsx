@@ -1,5 +1,10 @@
 import { ReactElement } from 'react'
+import { GetStaticProps } from 'next'
+import hcpData from 'data/hcp.json'
 import BaseNewLayout from 'layouts/base-new'
+import { Product } from 'types/products'
+
+const product = hcpData as Product
 
 const HCPHomePage = (): ReactElement => {
   return (
@@ -10,13 +15,10 @@ const HCPHomePage = (): ReactElement => {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      product: {
-        slug: 'hcp',
-        name: 'HashiCorp Cloud Platform',
-      },
+      product,
     },
   }
 }
