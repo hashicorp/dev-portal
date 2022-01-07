@@ -49,27 +49,10 @@ async function generateStaticProps({
     remarkPlugins: [[anchorLinks, { headings }]],
   })
 
-  /**
-   * TODO: these will be different by product,
-   * can abstract these further later.
-   * Placing here because we need these links
-   * in the sidebar on all /waypoint/docs views.
-   */
   const fullNavData = [
     ...navData,
     { divider: true },
-    {
-      title: 'HashiCorp Learn',
-      href: 'https://learn.hashicorp.com/waypoint',
-    },
-    {
-      title: 'Community Forum',
-      href: 'https://discuss.hashicorp.com/c/waypoint/51',
-    },
-    {
-      title: 'Support',
-      href: 'https://support.hashicorp.com/',
-    },
+    ...product.sidebar?.resourcesNavData,
   ]
 
   // Add fullPaths and ids to navData
