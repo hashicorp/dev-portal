@@ -1,5 +1,10 @@
 import { ReactElement } from 'react'
+import { GetStaticProps } from 'next'
+import boundaryData from 'data/boundary.json'
+import { Product } from 'types/products'
 import BaseNewLayout from 'layouts/base-new'
+
+const product = boundaryData as Product
 
 const BoundaryHomePage = (): ReactElement => {
   return (
@@ -10,13 +15,10 @@ const BoundaryHomePage = (): ReactElement => {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      product: {
-        slug: 'boundary',
-        name: 'Boundary',
-      },
+      product,
     },
   }
 }
