@@ -1,5 +1,10 @@
 import { ReactElement } from 'react'
+import { GetStaticProps } from 'next'
+import sentinelData from 'data/sentinel.json'
+import { Product } from 'types/products'
 import BaseNewLayout from 'layouts/base-new'
+
+const product = sentinelData as Product
 
 const SentinelHomePage = (): ReactElement => {
   return (
@@ -10,13 +15,10 @@ const SentinelHomePage = (): ReactElement => {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      product: {
-        slug: 'sentinel',
-        name: 'Sentinel',
-      },
+      product,
     },
   }
 }
