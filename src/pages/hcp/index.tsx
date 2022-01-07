@@ -15,7 +15,7 @@ export async function getStaticProps() {
     props: {
       product: {
         slug: 'hcp',
-        name: 'HCP',
+        name: 'HashiCorp Cloud Platform',
       },
     },
   }
