@@ -1,6 +1,7 @@
 {
   "name": "Waypoint",
   "slug": "waypoint",
+  "basePaths": ["commands", "docs", "plugins"],
   "version": "0.5.2",
   "packageManagers": [
     {
