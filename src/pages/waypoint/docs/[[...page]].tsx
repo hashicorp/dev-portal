@@ -1,12 +1,14 @@
-import { generateStaticPaths, generateStaticProps } from 'layouts/docs/server'
 import waypointConfig from '../../../../config/waypoint.json'
+import { Product, ProductSlug } from 'types/products'
+import { generateStaticPaths, generateStaticProps } from 'layouts/docs/server'
 import DocsLayout from 'layouts/docs'
 import DocsPage from 'components/docs-page'
 
 const basePath = 'docs'
-const product = {
+const product: Product = {
+  basePaths: waypointConfig.basePaths,
   name: waypointConfig.name,
-  slug: waypointConfig.slug,
+  slug: waypointConfig.slug as ProductSlug,
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

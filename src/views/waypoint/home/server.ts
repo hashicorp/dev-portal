@@ -61,6 +61,7 @@ async function getStaticProps(): Promise<$TSFixMe> {
     props: {
       content: CONTENT,
       product: {
+        basePaths: ['docs', 'commands', 'plugins'],
         slug: productSlug,
         name: productName,
       },
