@@ -88,6 +88,7 @@ async function generateStaticProps({
 
   const finalProps = {
     mdxSource,
+    product,
     layoutProps: {
       headings,
       navData: navDataWithFullPaths,

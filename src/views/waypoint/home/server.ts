@@ -53,9 +53,17 @@ async function getStaticProps(): Promise<$TSFixMe> {
     },
   ]
 
+  /**
+   * Note: `product` needs to be set here for the ProductSwitcher to display the
+   * correct value.
+   */
   return {
     props: {
       content: CONTENT,
+      product: {
+        slug: productSlug,
+        name: productName,
+      },
       layoutProps: {
         headings: CONTENT.blocks
           .filter((s) => s.type == 'heading')
