@@ -1,5 +1,10 @@
-import BaseNewLayout from 'layouts/base-new'
 import { ReactElement } from 'react'
+import { GetStaticProps } from 'next'
+import waypointData from 'data/waypoint.json'
+import { Product } from 'types/products'
+import BaseNewLayout from 'layouts/base-new'
+
+const product = waypointData as Product
 
 const WaypointDowloadsPage = (): ReactElement => {
   return (
@@ -10,6 +15,13 @@ const WaypointDowloadsPage = (): ReactElement => {
       </ul>
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  return {
+    props: { product },
+    revalidate: 10,
+  }
 }
 
 WaypointDowloadsPage.layout = BaseNewLayout
