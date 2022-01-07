@@ -1,5 +1,10 @@
 import { ReactElement } from 'react'
+import { GetStaticProps } from 'next'
+import nomadData from 'data/nomad.json'
+import { Product } from 'types/products'
 import BaseNewLayout from 'layouts/base-new'
+
+const product = nomadData as Product
 
 const NomadHomePage = (): ReactElement => {
   return (
@@ -10,13 +15,10 @@ const NomadHomePage = (): ReactElement => {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      product: {
-        slug: 'nomad',
-        name: 'Nomad',
-      },
+      product,
     },
   }
 }
