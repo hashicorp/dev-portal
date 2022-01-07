@@ -3,9 +3,13 @@ import slugify from 'slugify'
 // TODO: source content down the road. For now,
 // TODO: sourcing from JSON for demo purposes.
 import TEMP_CONTENT from './content.json'
+import waypointData from 'data/waypoint.json'
 
-const productName = 'Waypoint'
-const productSlug = 'waypoint'
+const product = {
+  basePaths: waypointData.basePaths,
+  name: waypointData.name,
+  slug: waypointData.slug,
+}
 
 async function getStaticProps(): Promise<$TSFixMe> {
   const CONTENT = TEMP_CONTENT as $TSFixMe
@@ -28,29 +32,9 @@ async function getStaticProps(): Promise<$TSFixMe> {
   })
 
   const navData = [
-    { title: 'Introduction', fullPath: '/waypoint/docs/intro' },
-    {
-      title: 'Getting Started',
-      fullPath: '/waypoint/docs/getting-started',
-    },
+    ...waypointData.sidebar.landingPageNavData,
     { divider: true },
-    { heading: 'Resources' },
-    {
-      title: 'Releases',
-      href: 'https://releases.hashicorp.com/waypoint/',
-    },
-    {
-      title: 'HashiCorp Learn',
-      href: 'https://learn.hashicorp.com/waypoint',
-    },
-    {
-      title: 'Community Forum',
-      href: 'https://discuss.hashicorp.com/c/waypoint/51',
-    },
-    {
-      title: 'Support',
-      href: 'https://support.hashicorp.com',
-    },
+    ...waypointData.sidebar.resourcesNavData,
   ]
 
   /**
@@ -60,11 +44,7 @@ async function getStaticProps(): Promise<$TSFixMe> {
   return {
     props: {
       content: CONTENT,
-      product: {
-        basePaths: ['docs', 'commands', 'plugins'],
-        slug: productSlug,
-        name: productName,
-      },
+      product,
       layoutProps: {
         headings: CONTENT.blocks
           .filter((s) => s.type == 'heading')
@@ -80,7 +60,7 @@ async function getStaticProps(): Promise<$TSFixMe> {
         },
         breadcrumbLinks: [
           { title: 'Developer', url: '/' },
-          { title: productName, url: `/${productSlug}` },
+          { title: product.name, url: `/${product.slug}` },
         ],
       },
     },
