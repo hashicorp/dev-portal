@@ -2,18 +2,7 @@ import { createContext, FC, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Product } from 'types/products'
 
-// TODO: this is temporary for testing
-const DEFAULT_PRODUCT: Product = {
-  name: 'Waypoint',
-  slug: 'waypoint',
-  url: '/waypoint',
-}
-
-type CurrentProduct = Product
-
-const CurrentProductContext = createContext<CurrentProduct | undefined>(
-  DEFAULT_PRODUCT
-)
+const CurrentProductContext = createContext<Product | undefined>(undefined)
 
 const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
   children,
@@ -27,7 +16,7 @@ const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
    * single product. This currently includes the main home page.
    */
   useEffect(() => {
-    const handleRouteChangeStart = (url) => {
+    const handleRouteChangeStart = (url: string) => {
       if (url === '/') {
         setValue(null)
       }
@@ -45,7 +34,7 @@ const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
   )
 }
 
-const useCurrentProduct = (): CurrentProduct => {
+const useCurrentProduct = (): Product => {
   const context = useContext(CurrentProductContext)
   if (context === undefined) {
     throw new Error(
