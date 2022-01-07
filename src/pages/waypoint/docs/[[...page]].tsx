@@ -1,17 +1,13 @@
 import { ReactElement } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import waypointData from 'data/waypoint.json'
-import { Product, ProductSlug } from 'types/products'
+import { Product } from 'types/products'
 import { generateStaticPaths, generateStaticProps } from 'layouts/docs/server'
 import DocsLayout from 'layouts/docs'
 import DocsPage from 'components/docs-page'
 
 const basePath = 'docs'
-const product: Product = {
-  basePaths: waypointData.basePaths,
-  name: waypointData.name,
-  slug: waypointData.slug as ProductSlug,
-}
+const product = waypointData as Product
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const WaypointDocsPage = ({ mdxSource }): ReactElement => {
