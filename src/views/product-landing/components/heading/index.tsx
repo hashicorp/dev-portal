@@ -1,4 +1,5 @@
 import { HeadingProps } from './types'
+import clamp from 'lib/clamp'
 import s from './style.module.css'
 
 function Heading({
@@ -12,7 +13,7 @@ function Heading({
     <Component
       id={slug}
       data-style-as={style_as}
-      className={s[`h${typeof style_as == 'number' ? style_as : level}`]}
+      className={s[`h${clamp(style_as || level, 0, 4)}`]}
     >
       {heading}
     </Component>
