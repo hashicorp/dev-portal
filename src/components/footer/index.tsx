@@ -10,33 +10,42 @@ interface FooterProps {
   openConsentManager?: () => void
   /** Optional className for margin addition */
   className?: string
+  /** Optional flag to enable docs-layout friendly styles */
+  styleForDocsLayout?: boolean
 }
 
 function Footer({
   openConsentManager,
   className,
+  styleForDocsLayout,
 }: FooterProps): React.ReactElement {
   return (
-    <footer className={classNames(s.root, className)}>
-      <InlineSvg src={svgHashicorpLogo} />
+    <footer
+      className={classNames(s.root, className, {
+        [s.styleForDocsLayout]: styleForDocsLayout,
+      })}
+    >
+      <InlineSvg className={s.logo} src={svgHashicorpLogo} />
       <ul className={s.links}>
         <li className={s.linkListItem}>
           <MaybeInternalLink
             className={s.linkAction}
-            href="https://www.hashicorp.com"
+            href="https://status.hashicorp.com"
           >
             System status
           </MaybeInternalLink>
         </li>
-        <li className={s.linkListItem}>
-          <button className={s.linkAction} onClick={openConsentManager}>
-            Cookie Manager
-          </button>
-        </li>
+        {typeof openConsentManager == 'function' && (
+          <li className={s.linkListItem}>
+            <button className={s.linkAction} onClick={openConsentManager}>
+              Cookie Manager
+            </button>
+          </li>
+        )}
         <li className={s.linkListItem}>
           <MaybeInternalLink
             className={s.linkAction}
-            href="https://www.hashicorp.com"
+            href="https://www.hashicorp.com/terms-of-service"
           >
             Terms of use
           </MaybeInternalLink>
@@ -44,7 +53,7 @@ function Footer({
         <li className={s.linkListItem}>
           <MaybeInternalLink
             className={s.linkAction}
-            href="https://www.hashicorp.com"
+            href="https://www.hashicorp.com/security"
           >
             Security
           </MaybeInternalLink>
@@ -52,7 +61,7 @@ function Footer({
         <li className={s.linkListItem}>
           <MaybeInternalLink
             className={s.linkAction}
-            href="https://www.hashicorp.com"
+            href="https://www.hashicorp.com/privacy"
           >
             Privacy
           </MaybeInternalLink>

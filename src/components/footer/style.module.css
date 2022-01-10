@@ -1,33 +1,68 @@
 .root {
-  padding: 32px 24px;
-  border-top: 1px solid var(--token-color-neutral-border-primary);
+  align-items: center;
   background: var(--token-color-palette-neutral-0);
+  border-top: 1px solid var(--token-color-neutral-border-primary);
   color: var(--token-color-palette-neutral-600);
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
+  padding: 32px 24px 16px 24px;
+  position: relative;
+
+  &.styleForDocsLayout {
+    border-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+
+    /* before element acts as full-width border in docs layout */
+    &::before {
+      background: var(--token-color-neutral-border-primary);
+      content: '\200B';
+      height: 1px;
+      left: 0;
+      left: 50%;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      width: 200vh;
+    }
+  }
 }
 
 .logo {
   position: relative;
-  background: rgba(255, 0, 0, 0.5);
   margin-right: 40px;
+  margin-bottom: 16px;
 }
 
 .links {
   position: relative;
+  width: 100%;
   display: flex;
-  background: rgba(0, 0, 255, 0.5);
+  flex-wrap: wrap;
   list-style: none;
-  padding: 0;
-  margin: 0;
+  /* !important needed to prevent list styles from leaking in
+     from docs layout content CSS */
+  padding: 0 !important;
+  margin: 0 !important;
+
+  @media (--medium-up) {
+    width: auto;
+  }
 }
 
 .linkListItem {
-  background: rgba(0, 255, 0, 0.5);
+  margin: 0 0 16px 0 !important;
+  width: 100%;
+
   &:not(:last-child) {
-    margin-right: 32px;
+    margin-right: 32px !important;
+  }
+
+  @media (--medium-up) {
+    width: auto;
   }
 }
 

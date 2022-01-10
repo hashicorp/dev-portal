@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from 'components/footer'
 import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Sidebar, { MenuItem } from 'components/sidebar'
 import Sidecar from 'components/sidecar'
@@ -13,6 +14,7 @@ interface DocsLayoutProps {
   navData: MenuItem[]
   breadcrumbLinks?: BreadcrumbLink[]
   githubFileUrl?: string
+  openConsentManager?: () => void
   backToLink?: {
     text: string
     url: string
@@ -39,6 +41,11 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
                 label="Edit this page on GitHub"
               />
             )}
+            <Footer
+              className={s.footer}
+              openConsentManager={props.openConsentManager}
+              styleForDocsLayout
+            />
           </main>
           <Sidecar headings={props.headings} />
         </div>
