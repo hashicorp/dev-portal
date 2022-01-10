@@ -54,25 +54,25 @@
           "iconSvg": "<svg width=\"34\" height=\"34\" viewBox=\"0 0 34 34\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<g filter=\"url(#filter0_d_3564_67652)\">\n<path d=\"M1 6C1 2.68629 3.68629 0 7 0H27C30.3137 0 33 2.68629 33 6V26C33 29.3137 30.3137 32 27 32H7C3.68629 32 1 29.3137 1 26V6Z\" fill=\"url(#paint0_linear_3564_67652)\"/>\n<path d=\"M7 1H27V-1H7V1ZM32 6V26H34V6H32ZM27 31H7V33H27V31ZM2 26V6H0V26H2ZM7 31C4.23858 31 2 28.7614 2 26H0C0 29.866 3.13401 33 7 33V31ZM32 26C32 28.7614 29.7614 31 27 31V33C30.866 33 34 29.866 34 26H32ZM27 1C29.7614 1 32 3.23858 32 6H34C34 2.13401 30.866 -1 27 -1V1ZM7 -1C3.13401 -1 0 2.13401 0 6H2C2 3.23858 4.23858 1 7 1V-1Z\" fill=\"#FEEC7B\"/>\n</g>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M13.25 9C12.0074 9 11 10.0074 11 11.25V20.75C11 21.9926 12.0074 23 13.25 23H21.75C22.4404 23 23 22.4404 23 21.75V10.25C23 9.55964 22.4404 9 21.75 9H13.25ZM12.5 20.7504C12.5002 21.1644 12.8359 21.5 13.25 21.5H21.5V19.5H13.25C12.8357 19.5 12.5 19.8358 12.5 20.2499L12.5 20.7504C12.5 20.7505 12.5 20.7502 12.5 20.7504ZM12.5 18.128C12.7346 18.0451 12.987 18 13.25 18H21.5V10.5H13.25C12.8358 10.5 12.5 10.8358 12.5 11.25V18.128Z\" fill=\"#9A6F00\"/>\n<defs>\n<filter id=\"filter0_d_3564_67652\" x=\"0\" y=\"0\" width=\"34\" height=\"34\" filterUnits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\">\n<feFlood flood-opacity=\"0\" result=\"BackgroundImageFix\"/>\n<feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"/>\n<feOffset dy=\"1\"/>\n<feGaussianBlur stdDeviation=\"0.5\"/>\n<feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.396078 0 0 0 0 0.415686 0 0 0 0 0.462745 0 0 0 0.05 0\"/>\n<feBlend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_3564_67652\"/>\n<feBlend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect1_dropShadow_3564_67652\" result=\"shape\"/>\n</filter>\n<linearGradient id=\"paint0_linear_3564_67652\" x1=\"33\" y1=\"32\" x2=\"1\" y2=\"0\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#FFF9CF\"/>\n<stop offset=\"1\" stop-color=\"#FFFDF2\"/>\n</linearGradient>\n</defs>\n</svg>",
           "heading": "Vault Reference Documentation",
           "text": "This documentation is more of a reference guide for all available features and options of Vault.",
-          "url": "/waypoint/docs"
+          "url": "https://www.vaultproject.io/docs"
         },
         {
           "iconSvg": "<svg width=\"34\" height=\"34\" viewBox=\"0 0 34 34\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<g filter=\"url(#filter0_d_3564_67760)\">\n<path d=\"M1 6C1 2.68629 3.68629 0 7 0H27C30.3137 0 33 2.68629 33 6V26C33 29.3137 30.3137 32 27 32H7C3.68629 32 1 29.3137 1 26V6Z\" fill=\"url(#paint0_linear_3564_67760)\"/>\n<path d=\"M7 1H27V-1H7V1ZM32 6V26H34V6H32ZM27 31H7V33H27V31ZM2 26V6H0V26H2ZM7 31C4.23858 31 2 28.7614 2 26H0C0 29.866 3.13401 33 7 33V31ZM32 26C32 28.7614 29.7614 31 27 31V33C30.866 33 34 29.866 34 26H32ZM27 1C29.7614 1 32 3.23858 32 6H34C34 2.13401 30.866 -1 27 -1V1ZM7 -1C3.13401 -1 0 2.13401 0 6H2C2 3.23858 4.23858 1 7 1V-1Z\" fill=\"#FEEC7B\"/>\n</g>\n<path d=\"M12.9239 13.0199C13.189 12.7017 13.6619 12.6587 13.9802 12.9239L16.9802 15.4239C17.1512 15.5663 17.25 15.7774 17.25 16C17.25 16.2226 17.1512 16.4337 16.9802 16.5762L13.9802 19.0762C13.6619 19.3414 13.189 19.2984 12.9239 18.9802C12.6587 18.6619 12.7017 18.189 13.0199 17.9239L15.3285 16L13.0199 14.0762C12.7017 13.811 12.6587 13.3381 12.9239 13.0199Z\" fill=\"#9A6F00\"/>\n<path d=\"M17.25 18.5C16.8358 18.5 16.5 18.8358 16.5 19.25C16.5 19.6642 16.8358 20 17.25 20H20.25C20.6642 20 21 19.6642 21 19.25C21 18.8358 20.6642 18.5 20.25 18.5H17.25Z\" fill=\"#9A6F00\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9 11.25C9 10.0074 10.0074 9 11.25 9H22.75C23.9926 9 25 10.0074 25 11.25V20.75C25 21.9926 23.9926 23 22.75 23H11.25C10.0074 23 9 21.9926 9 20.75V11.25ZM11.25 10.5C10.8358 10.5 10.5 10.8358 10.5 11.25V20.75C10.5 21.1642 10.8358 21.5 11.25 21.5H22.75C23.1642 21.5 23.5 21.1642 23.5 20.75V11.25C23.5 10.8358 23.1642 10.5 22.75 10.5H11.25Z\" fill=\"#9A6F00\"/>\n<defs>\n<filter id=\"filter0_d_3564_67760\" x=\"0\" y=\"0\" width=\"34\" height=\"34\" filterUnits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\">\n<feFlood flood-opacity=\"0\" result=\"BackgroundImageFix\"/>\n<feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"/>\n<feOffset dy=\"1\"/>\n<feGaussianBlur stdDeviation=\"0.5\"/>\n<feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.396078 0 0 0 0 0.415686 0 0 0 0 0.462745 0 0 0 0.05 0\"/>\n<feBlend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_3564_67760\"/>\n<feBlend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect1_dropShadow_3564_67760\" result=\"shape\"/>\n</filter>\n<linearGradient id=\"paint0_linear_3564_67760\" x1=\"33\" y1=\"32\" x2=\"1\" y2=\"0\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#FFF9CF\"/>\n<stop offset=\"1\" stop-color=\"#FFFDF2\"/>\n</linearGradient>\n</defs>\n</svg>",
           "heading": "Vault CLI",
           "text": "Vault features a command-line interface that wraps common functionality and formats output.",
-          "url": "/waypoint/commands"
+          "url": "https://www.vaultproject.io/docs/commands"
         },
         {
           "iconSvg": "<svg width=\"34\" height=\"34\" viewBox=\"0 0 34 34\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<g filter=\"url(#filter0_d_3564_67661)\">\n<path d=\"M1 6C1 2.68629 3.68629 0 7 0H27C30.3137 0 33 2.68629 33 6V26C33 29.3137 30.3137 32 27 32H7C3.68629 32 1 29.3137 1 26V6Z\" fill=\"url(#paint0_linear_3564_67661)\"/>\n<path d=\"M7 1H27V-1H7V1ZM32 6V26H34V6H32ZM27 31H7V33H27V31ZM2 26V6H0V26H2ZM7 31C4.23858 31 2 28.7614 2 26H0C0 29.866 3.13401 33 7 33V31ZM32 26C32 28.7614 29.7614 31 27 31V33C30.866 33 34 29.866 34 26H32ZM27 1C29.7614 1 32 3.23858 32 6H34C34 2.13401 30.866 -1 27 -1V1ZM7 -1C3.13401 -1 0 2.13401 0 6H2C2 3.23858 4.23858 1 7 1V-1Z\" fill=\"#FEEC7B\"/>\n</g>\n<path d=\"M12 11.25C12 10.8358 12.3358 10.5 12.75 10.5H13.25C13.6642 10.5 14 10.8358 14 11.25C14 11.6642 13.6642 12 13.25 12H12.75C12.3358 12 12 11.6642 12 11.25Z\" fill=\"#9A6F00\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M11.25 8C10.0074 8 9 9.00736 9 10.25V12.75C9 13.9926 10.0074 15 11.25 15H22.75C23.9926 15 25 13.9926 25 12.75V10.25C25 9.00736 23.9926 8 22.75 8H11.25ZM10.5 10.25C10.5 9.83579 10.8358 9.5 11.25 9.5H22.75C23.1642 9.5 23.5 9.83579 23.5 10.25V12.75C23.5 13.1642 23.1642 13.5 22.75 13.5H11.25C10.8358 13.5 10.5 13.1642 10.5 12.75V10.25Z\" fill=\"#9A6F00\"/>\n<path d=\"M12.75 19.5C12.3358 19.5 12 19.8358 12 20.25C12 20.6642 12.3358 21 12.75 21H13.25C13.6642 21 14 20.6642 14 20.25C14 19.8358 13.6642 19.5 13.25 19.5H12.75Z\" fill=\"#9A6F00\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M11.25 17C10.0074 17 9 18.0074 9 19.25V21.75C9 22.9926 10.0074 24 11.25 24H22.75C23.9926 24 25 22.9926 25 21.75V19.25C25 18.0074 23.9926 17 22.75 17H11.25ZM10.5 19.25C10.5 18.8358 10.8358 18.5 11.25 18.5H22.75C23.1642 18.5 23.5 18.8358 23.5 19.25V21.75C23.5 22.1642 23.1642 22.5 22.75 22.5H11.25C10.8358 22.5 10.5 22.1642 10.5 21.75V19.25Z\" fill=\"#9A6F00\"/>\n<defs>\n<filter id=\"filter0_d_3564_67661\" x=\"0\" y=\"0\" width=\"34\" height=\"34\" filterUnits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\">\n<feFlood flood-opacity=\"0\" result=\"BackgroundImageFix\"/>\n<feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"/>\n<feOffset dy=\"1\"/>\n<feGaussianBlur stdDeviation=\"0.5\"/>\n<feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.396078 0 0 0 0 0.415686 0 0 0 0 0.462745 0 0 0 0.05 0\"/>\n<feBlend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_3564_67661\"/>\n<feBlend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect1_dropShadow_3564_67661\" result=\"shape\"/>\n</filter>\n<linearGradient id=\"paint0_linear_3564_67661\" x1=\"33\" y1=\"32\" x2=\"1\" y2=\"0\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#FFF9CF\"/>\n<stop offset=\"1\" stop-color=\"#FFFDF2\"/>\n</linearGradient>\n</defs>\n</svg>",
           "heading": "Vault API",
           "text": "The Vault HTTP API gives you full access to Vault via HTTP.",
-          "url": "/waypoint/plugins"
+          "url": "https://www.vaultproject.io/api-docs"
         },
         {
           "iconSvg": "<svg width=\"34\" height=\"34\" viewBox=\"0 0 34 34\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<g filter=\"url(#filter0_d_3564_67769)\">\n<path d=\"M1 6C1 2.68629 3.68629 0 7 0H27C30.3137 0 33 2.68629 33 6V26C33 29.3137 30.3137 32 27 32H7C3.68629 32 1 29.3137 1 26V6Z\" fill=\"url(#paint0_linear_3564_67769)\"/>\n<path d=\"M7 1H27V-1H7V1ZM32 6V26H34V6H32ZM27 31H7V33H27V31ZM2 26V6H0V26H2ZM7 31C4.23858 31 2 28.7614 2 26H0C0 29.866 3.13401 33 7 33V31ZM32 26C32 28.7614 29.7614 31 27 31V33C30.866 33 34 29.866 34 26H32ZM27 1C29.7614 1 32 3.23858 32 6H34C34 2.13401 30.866 -1 27 -1V1ZM7 -1C3.13401 -1 0 2.13401 0 6H2C2 3.23858 4.23858 1 7 1V-1Z\" fill=\"#FEEC7B\"/>\n</g>\n<path d=\"M17.75 9.75C17.75 9.33579 17.4142 9 17 9C16.5858 9 16.25 9.33579 16.25 9.75V16.3401L14.2996 14.2397C14.0177 13.9361 13.5432 13.9186 13.2397 14.2004C12.9361 14.4823 12.9186 14.9568 13.2004 15.2603L16.4488 18.7586C16.4531 18.7633 16.4575 18.7679 16.4619 18.7725C16.4701 18.7809 16.4785 18.7891 16.487 18.7971C16.6173 18.9193 16.7913 18.9955 16.983 18.9998C16.9886 18.9999 16.9943 19 17 19C17.0057 19 17.0114 18.9999 17.017 18.9998C17.2021 18.9957 17.3706 18.9245 17.4993 18.8097C17.5167 18.7941 17.5335 18.7776 17.5496 18.7603L20.7996 15.2603C21.0815 14.9568 21.0639 14.4823 20.7603 14.2004C20.4568 13.9186 19.9823 13.9361 19.7004 14.2397L17.75 16.3401V9.75Z\" fill=\"#9A6F00\"/>\n<path d=\"M10.75 17C11.1642 17 11.5 17.3358 11.5 17.75V20.75C11.5 21.1642 11.8358 21.5 12.25 21.5H21.75C22.1642 21.5 22.5 21.1642 22.5 20.75V17.75C22.5 17.3358 22.8358 17 23.25 17C23.6642 17 24 17.3358 24 17.75V20.75C24 21.9926 22.9926 23 21.75 23H12.25C11.0074 23 10 21.9926 10 20.75V17.75C10 17.3358 10.3358 17 10.75 17Z\" fill=\"#9A6F00\"/>\n<defs>\n<filter id=\"filter0_d_3564_67769\" x=\"0\" y=\"0\" width=\"34\" height=\"34\" filterUnits=\"userSpaceOnUse\" color-interpolation-filters=\"sRGB\">\n<feFlood flood-opacity=\"0\" result=\"BackgroundImageFix\"/>\n<feColorMatrix in=\"SourceAlpha\" type=\"matrix\" values=\"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0\" result=\"hardAlpha\"/>\n<feOffset dy=\"1\"/>\n<feGaussianBlur stdDeviation=\"0.5\"/>\n<feColorMatrix type=\"matrix\" values=\"0 0 0 0 0.396078 0 0 0 0 0.415686 0 0 0 0 0.462745 0 0 0 0.05 0\"/>\n<feBlend mode=\"normal\" in2=\"BackgroundImageFix\" result=\"effect1_dropShadow_3564_67769\"/>\n<feBlend mode=\"normal\" in=\"SourceGraphic\" in2=\"effect1_dropShadow_3564_67769\" result=\"shape\"/>\n</filter>\n<linearGradient id=\"paint0_linear_3564_67769\" x1=\"33\" y1=\"32\" x2=\"1\" y2=\"0\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#FFF9CF\"/>\n<stop offset=\"1\" stop-color=\"#FFFDF2\"/>\n</linearGradient>\n</defs>\n</svg>",
           "heading": "Vault Install",
           "text": "Please download the proper package for your operating system and architecture.",
-          "url": "/waypoint/downloads"
+          "url": "https://www.vaultproject.io/downloads"
         }
       ]
     },
@@ -84,17 +84,17 @@
         {
           "heading": "KV Secrets Engine",
           "text": "The kv secrets engine is a generic Key-Value store used to store arbitrary secrets...",
-          "url": "/waypoint/docs/projects"
+          "url": "https://www.vaultproject.io/docs/secrets/kv"
         },
         {
           "heading": "AWS Secrets Engine",
           "text": "The AWS secrets engine generates AWS access credentials dynamically...",
-          "url": "/waypoint/docs/plugins"
+          "url": "https://www.vaultproject.io/docs/secrets/aws"
         },
         {
           "heading": "PKI Secrets Engine",
           "text": "The PKI secrets engine generates dynamic X.509 certificates.",
-          "url": "/waypoint/docs/lifecycle/build"
+          "url": "https://www.vaultproject.io/docs/secrets/pki"
         }
       ]
     },
@@ -106,17 +106,17 @@
         {
           "heading": "Transit Secret Engine",
           "text": "The transit secrets engine handles cryptographic functions on data in-transit.",
-          "url": "/waypoint/docs/projects"
+          "url": "https://www.vaultproject.io/docs/secrets/transit"
         },
         {
           "heading": "Key Management",
           "text": "Workflow for distribution and lifecycle management of cryptographic keys in key...",
-          "url": "/waypoint/docs/plugins"
+          "url": "https://www.vaultproject.io/docs/secrets/key-management"
         },
         {
           "heading": "Transform",
           "text": "The Transform secrets engine handles secure data transformation and...",
-          "url": "/waypoint/docs/lifecycle/build"
+          "url": "https://www.vaultproject.io/docs/secrets/transform"
         }
       ]
     },
@@ -128,17 +128,17 @@
         {
           "heading": "Auth Methods",
           "text": "The Transform secrets engine handles secure data transformation and...",
-          "url": "/waypoint/docs/projects"
+          "url": "https://www.vaultproject.io/docs/auth"
         },
         {
           "heading": "Policies",
           "text": "Policies provide a declarative way to grant or forbid access to certain paths and...",
-          "url": "/waypoint/docs/plugins"
+          "url": "https://www.vaultproject.io/docs/concepts/policies"
         },
         {
           "heading": "Tokens",
           "text": "Tokens are the core method for authentication within Vault.",
-          "url": "/waypoint/docs/lifecycle/build"
+          "url": "https://www.vaultproject.io/docs/concepts/tokens"
         }
       ]
     },
@@ -151,25 +151,25 @@
           "heading": "Getting Started",
           "text": "Controls access to passwords, certificates, and other secrets in modern computing.",
           "tags": ["vault"],
-          "url": "https://learn.hashicorp.com/tutorials/waypoint/get-started-intro"
+          "url": "https://learn.hashicorp.com/tutorials/vault/getting-started-intro"
         },
         {
           "heading": "Getting Started with Vault UI",
           "text": "Manage Vault environment as well as your secrets using Vault UI.",
           "tags": ["vault"],
-          "url": "https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes"
+          "url": "https://learn.hashicorp.com/tutorials/vault/getting-started-intro-ui"
         },
         {
           "heading": "Getting Started with HCP Vault",
           "text": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Vault using the HCP portal.",
           "tags": ["vault"],
-          "url": "https://learn.hashicorp.com/collections/waypoint/get-started-nomad"
+          "url": "https://learn.hashicorp.com/tutorials/vault/getting-started-intro"
         },
         {
           "heading": "Vault on Kubernetes Deployment Guide",
           "text": "Describes the required steps to install and configure a single HashiCorp Vault cluster onto a...",
           "tags": ["vault"],
-          "url": "https://learn.hashicorp.com/tutorials/waypoint/get-started-docker"
+          "url": "https://learn.hashicorp.com/tutorials/vault/kubernetes-raft-deployment-guide"
         }
       ]
     }
