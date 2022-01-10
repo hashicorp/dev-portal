@@ -6,14 +6,14 @@ function Heading({
   slug,
   heading,
   level,
-  style_as,
+  size,
 }: HeadingProps): React.ReactElement {
   const Component = `h${level}` as React.ElementType
   return (
     <Component
       id={slug}
-      data-style-as={style_as}
-      className={s[`h${clamp(style_as || level, 0, 4)}`]}
+      data-style-as={size}
+      className={s[`h${clamp(size || level, 0, 4)}`]}
     >
       {heading}
     </Component>

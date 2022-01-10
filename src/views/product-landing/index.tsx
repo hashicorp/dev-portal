@@ -29,8 +29,8 @@ function ProductLanding({ content }: ProductLandingProps): ReactElement {
       {content.blocks.map((block, idx) => {
         const { type } = block
         if (type === 'heading') {
-          const { heading, slug, level, style_as } = block
-          return <Heading key={idx} {...{ slug, heading, level, style_as }} />
+          const { heading, slug, level, size } = block
+          return <Heading key={idx} {...{ slug, heading, level, size }} />
         } else if (type === 'get_started') {
           const { heading, iconSvg, text, link } = block
           return <GetStarted key={idx} {...{ iconSvg, heading, text, link }} />
