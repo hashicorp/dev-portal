@@ -28,7 +28,7 @@ const productSlugsToUrls: { [key in ProductSlug]: string } = {
   sentinel: 'https://docs.hashicorp.com/sentinel',
   terraform: 'https://www.terraform.io/docs/index.html',
   vagrant: 'https://www.vagrantup.com/docs',
-  vault: 'https://www.vaultproject.io/docs',
+  vault: '/vault',
   waypoint: '/waypoint',
 }
 

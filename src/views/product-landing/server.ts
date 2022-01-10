@@ -1,14 +1,19 @@
+import fs from 'fs'
+import path from 'path'
 import slugify from 'slugify'
-// TODO: need to discuss from whence we should
-// TODO: source content down the road. For now,
-// TODO: sourcing from JSON for demo purposes.
-import TEMP_CONTENT from './content.json'
 
-const productName = 'Waypoint'
-const productSlug = 'waypoint'
-
-async function getStaticProps(): Promise<$TSFixMe> {
-  const CONTENT = TEMP_CONTENT as $TSFixMe
+async function getStaticProps({
+  product,
+  contentJsonFile,
+}: {
+  product: { slug: string; name: string }
+  contentJsonFile: string
+}): Promise<$TSFixMe> {
+  // TODO: need to discuss from whence we should
+  // TODO: source content down the road. For now,
+  // TODO: sourcing from JSON for demo purposes.
+  const jsonFilePath = path.join(process.cwd(), contentJsonFile)
+  const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8')) as $TSFixMe
 
   // TODO: Content blocks content should likely
   // TODO: be fetched dynamically, currently things
@@ -27,32 +32,6 @@ async function getStaticProps(): Promise<$TSFixMe> {
     }
   })
 
-  const navData = [
-    { title: 'Introduction', fullPath: '/waypoint/docs/intro' },
-    {
-      title: 'Getting Started',
-      fullPath: '/waypoint/docs/getting-started',
-    },
-    { divider: true },
-    { heading: 'Resources' },
-    {
-      title: 'Releases',
-      href: 'https://releases.hashicorp.com/waypoint/',
-    },
-    {
-      title: 'HashiCorp Learn',
-      href: 'https://learn.hashicorp.com/waypoint',
-    },
-    {
-      title: 'Community Forum',
-      href: 'https://discuss.hashicorp.com/c/waypoint/51',
-    },
-    {
-      title: 'Support',
-      href: 'https://support.hashicorp.com',
-    },
-  ]
-
   return {
     props: {
       content: CONTENT,
@@ -64,14 +43,15 @@ async function getStaticProps(): Promise<$TSFixMe> {
             slug: slug,
             level,
           })),
-        navData,
+        navData: CONTENT.navData,
+        productName: product.name,
         backToLink: {
           text: 'Back to Developer',
           url: '/',
         },
         breadcrumbLinks: [
           { title: 'Developer', url: '/' },
-          { title: productName, url: `/${productSlug}` },
+          { title: product.name, url: `/${product.slug}` },
         ],
       },
     },

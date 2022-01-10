@@ -90,6 +90,7 @@ async function generateStaticProps({
     mdxSource,
     layoutProps: {
       headings,
+      productName: product.name,
       navData: navDataWithFullPaths,
       breadcrumbLinks,
       githubFileUrl,
