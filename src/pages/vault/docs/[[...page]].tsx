@@ -1,32 +1,25 @@
-import { generateStaticPaths, generateStaticProps } from 'layouts/docs/server'
-import vaultConfig from 'data/vault.json'
+import { ReactElement } from 'react'
+import vaultData from 'data/vault.json'
+import { Product } from 'types/products'
+import { getStaticGenerationFunctions } from 'layouts/docs/server'
 import DocsLayout from 'layouts/docs'
-import DocsPage from 'components/docs-page'
+import { MDXRemote } from 'next-mdx-remote'
+import { vaultMdxComponents as components } from 'layouts/docs/utils/mdx-components'
 
 const basePath = 'docs'
-const product = {
-  name: vaultConfig.name,
-  slug: vaultConfig.slug,
-}
+const product = vaultData as Product
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function DocsView({ mdxSource }) {
-  return <DocsPage {...mdxSource} />
+function VaultDocsPage({ mdxSource }): ReactElement {
+  return <MDXRemote {...mdxSource} components={components} />
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: await generateStaticPaths({ basePath, product }),
-    fallback: 'blocking',
-  }
-}
+const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
+  product,
+  basePath,
+})
 
-export async function getStaticProps({ params }) {
-  return {
-    props: await generateStaticProps({ basePath, product, params }),
-    revalidate: 10,
-  }
-}
+VaultDocsPage.layout = DocsLayout
 
-DocsView.layout = DocsLayout
-export default DocsView
+export { getStaticPaths, getStaticProps }
+export default VaultDocsPage

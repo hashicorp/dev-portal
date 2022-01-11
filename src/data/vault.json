@@ -31,5 +31,27 @@
         "href": "https://support.hashicorp.com"
       }
     ]
-  }
+  },
+  "subnavItems": [
+    {
+      "label": "Overview",
+      "path": "/vault",
+      "id": "overview"
+    },
+    {
+      "label": "Docs",
+      "id": "reference-docs",
+      "path": "/vault/docs"
+    },
+    {
+      "label": "API",
+      "path": "/vault/api-docs",
+      "id": "api-docs"
+    },
+    {
+      "label": "Install",
+      "path": "/vault/downloads",
+      "id": "downloads"
+    }
+  ]
 }
