@@ -12,6 +12,7 @@ async function generateStaticProps({
   // TODO: need to discuss from whence we should
   // TODO: source content down the road. For now,
   // TODO: sourcing from JSON for demo purposes.
+  // Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
   const jsonFilePath = path.join(process.cwd(), contentJsonFile)
   const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8')) as $TSFixMe
 
@@ -23,6 +24,7 @@ async function generateStaticProps({
   // TODO: at build time from said URL, to ensure the displayed
   // TODO: content is accurate, while not needing to be
   // TODO: manually kept up to date?
+  // Asana task: https://app.asana.com/0/1201010428539925/1201646299837754/f
   CONTENT.blocks = CONTENT.blocks.map((block) => {
     const { type, heading } = block
     if (type !== 'heading') return block
