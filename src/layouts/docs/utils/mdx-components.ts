@@ -5,6 +5,9 @@ import NestedNode from 'components/author-primitives/waypoint/nested-node'
 import makeDocsAnchor from 'components/docs-anchor'
 import defaultMdxComponents from '@hashicorp/platform-docs-mdx'
 
+// Asana task to discuss MDX custom components in dev-portal:
+// https://app.asana.com/0/1100423001970639/1201648132084613/f
+
 const vaultMdxComponents = defaultMdxComponents({
   // TODO: we should be able to remove the need for product here,
   // TODO: using our existing useProductMeta utility:
