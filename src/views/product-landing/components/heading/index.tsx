@@ -10,11 +10,7 @@ function Heading({
 }: HeadingProps): React.ReactElement {
   const Component = `h${level}` as React.ElementType
   return (
-    <Component
-      id={slug}
-      data-style-as={size}
-      className={s[`h${clamp(size || level, 0, 4)}`]}
-    >
+    <Component id={slug} className={s[`h${clamp(size || level, 0, 4)}`]}>
       {heading}
     </Component>
   )
