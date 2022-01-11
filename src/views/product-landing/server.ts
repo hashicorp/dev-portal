@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
 
-async function getStaticProps({
+async function generateStaticProps({
   product,
   contentJsonFile,
 }: {
@@ -33,31 +33,29 @@ async function getStaticProps({
   })
 
   return {
-    props: {
-      content: CONTENT,
-      layoutProps: {
-        headings: CONTENT.blocks
-          .filter((s) => s.type == 'heading')
-          .map(({ heading, slug, level }) => ({
-            title: heading,
-            slug: slug,
-            level,
-          })),
-        navData: CONTENT.navData,
-        productName: product.name,
-        backToLink: {
-          text: 'Back to Developer',
-          url: '/',
-        },
-        breadcrumbLinks: [
-          { title: 'Developer', url: '/' },
-          { title: product.name, url: `/${product.slug}` },
-        ],
+    content: CONTENT,
+    layoutProps: {
+      headings: CONTENT.blocks
+        .filter((s) => s.type == 'heading')
+        .map(({ heading, slug, level }) => ({
+          title: heading,
+          slug: slug,
+          level,
+        })),
+      navData: CONTENT.navData,
+      productName: product.name,
+      backToLink: {
+        text: 'Back to Developer',
+        url: '/',
       },
+      breadcrumbLinks: [
+        { title: 'Developer', url: '/' },
+        { title: product.name, url: `/${product.slug}` },
+      ],
     },
-    revalidate: 10,
   }
 }
 
+export { generateStaticProps }
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getStaticProps }
+export default { generateStaticProps }
