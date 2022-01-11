@@ -24,7 +24,7 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
   <BaseNewLayout>
     <div className={s.body}>
       <Sidebar
-        productName={props.productName}
+        title={props.productName}
         menuItems={props.navData}
         backToLink={props.backToLink}
       />
