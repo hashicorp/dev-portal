@@ -1,40 +1,39 @@
 .root {
   align-items: center;
   background: var(--token-color-palette-neutral-0);
-  border-top: 1px solid var(--token-color-neutral-border-primary);
   color: var(--token-color-palette-neutral-600);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 32px 24px 16px 24px;
+  padding: 16px 0;
   position: relative;
 
-  &.styleForDocsLayout {
-    border-color: transparent;
-    padding-left: 0;
-    padding-right: 0;
-
-    /* before element acts as full-width border in docs layout */
-    &::before {
-      background: var(--token-color-neutral-border-primary);
-      content: '\200B';
-      height: 1px;
-      left: 0;
-      left: 50%;
-      overflow: hidden;
-      position: absolute;
-      top: 0;
-      transform: translateX(-50%);
-      width: 100%;
-      width: 200vh;
-    }
+  /* before element acts as full-width border,
+     no matter the container size*/
+  &::before {
+    background: var(--token-color-neutral-border-primary);
+    content: '\200B';
+    height: 1px;
+    left: 0;
+    left: 50%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    width: 100%;
+    width: 200vh;
   }
 }
 
 .logo {
   position: relative;
-  margin-right: 40px;
-  margin-bottom: 16px;
+  margin: 16px 40px 16px 0;
+
+  & svg {
+    /* default inline display results
+     in misalignment with footer links */
+    display: block;
+  }
 }
 
 .links {
@@ -54,7 +53,7 @@
 }
 
 .linkListItem {
-  margin: 0 0 16px 0 !important;
+  margin: 16px 0 !important;
   width: 100%;
 
   &:not(:last-child) {

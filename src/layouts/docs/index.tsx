@@ -44,7 +44,6 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
             <Footer
               className={s.footer}
               openConsentManager={props.openConsentManager}
-              styleForDocsLayout
             />
           </main>
           <Sidecar headings={props.headings} />

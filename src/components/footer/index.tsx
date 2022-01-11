@@ -10,21 +10,14 @@ interface FooterProps {
   openConsentManager?: () => void
   /** Optional className for margin addition */
   className?: string
-  /** Optional flag to enable docs-layout friendly styles */
-  styleForDocsLayout?: boolean
 }
 
 function Footer({
   openConsentManager,
   className,
-  styleForDocsLayout,
 }: FooterProps): React.ReactElement {
   return (
-    <footer
-      className={classNames(s.root, className, {
-        [s.styleForDocsLayout]: styleForDocsLayout,
-      })}
-    >
+    <footer className={classNames(s.root, className)}>
       <InlineSvg className={s.logo} src={svgHashicorpLogo} />
       <ul className={s.links}>
         <li className={s.linkListItem}>

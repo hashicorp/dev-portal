@@ -31,7 +31,9 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
       <NavigationHeader />
       {children}
       {withFooter && (
-        <Footer className={s.footer} openConsentManager={openConsentManager} />
+        <div className={s.footerContainer}>
+          <Footer openConsentManager={openConsentManager} />
+        </div>
       )}
     </div>
   )
