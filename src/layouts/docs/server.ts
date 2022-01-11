@@ -100,6 +100,7 @@ export function getStaticGenerationFunctions({
         mdxSource,
         layoutProps: {
           headings,
+          productName: product.name,
           navData: navDataWithFullPaths,
           breadcrumbLinks,
           githubFileUrl,
