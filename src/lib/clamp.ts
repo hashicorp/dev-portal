@@ -12,5 +12,10 @@ export default function clamp(
   /** The maximum allowable value. */
   max: number
 ): number {
+  if (min > max) {
+    throw new Error(
+      'clamp was provided a min value greater than its max value. Please ensure the min value is less than or equal to the max value.'
+    )
+  }
   return Math.min(Math.max(num, min), max)
 }
