@@ -11,7 +11,7 @@ type Block =
   | ({ type: 'get_started' } & GetStartedProps)
   | ({ type: 'cards' } & CardProps)
 
-interface WaypointLandingProps {
+interface ProductLandingProps {
   content: {
     heading: string
     subheading: string
@@ -19,7 +19,7 @@ interface WaypointLandingProps {
   }
 }
 
-function WaypointLanding({ content }: WaypointLandingProps): ReactElement {
+function ProductLanding({ content }: ProductLandingProps): ReactElement {
   return (
     <>
       <h1 className={s.pageHeading}>{content.heading}</h1>
@@ -29,8 +29,8 @@ function WaypointLanding({ content }: WaypointLandingProps): ReactElement {
       {content.blocks.map((block, idx) => {
         const { type } = block
         if (type === 'heading') {
-          const { heading, slug, level } = block
-          return <Heading key={idx} {...{ slug, heading, level }} />
+          const { heading, slug, level, size } = block
+          return <Heading key={idx} {...{ slug, heading, level, size }} />
         } else if (type === 'get_started') {
           const { heading, iconSvg, text, link } = block
           return <GetStarted key={idx} {...{ iconSvg, heading, text, link }} />
@@ -52,5 +52,5 @@ function WaypointLanding({ content }: WaypointLandingProps): ReactElement {
   )
 }
 
-WaypointLanding.layout = DocsLayout
-export default WaypointLanding
+ProductLanding.layout = DocsLayout
+export default ProductLanding

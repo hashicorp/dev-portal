@@ -1,10 +1,36 @@
 {
+  "navData": [
+    { "title": "Introduction", "fullPath": "/waypoint/docs/intro" },
+    {
+      "title": "Getting Started",
+      "fullPath": "/waypoint/docs/getting-started"
+    },
+    { "divider": true },
+    { "heading": "Resources" },
+    {
+      "title": "Releases",
+      "href": "https://releases.hashicorp.com/waypoint/"
+    },
+    {
+      "title": "HashiCorp Learn",
+      "href": "https://learn.hashicorp.com/waypoint"
+    },
+    {
+      "title": "Community Forum",
+      "href": "https://discuss.hashicorp.com/c/waypoint/51"
+    },
+    {
+      "title": "Support",
+      "href": "https://support.hashicorp.com"
+    }
+  ],
   "heading": "Waypoint Documentation",
   "subheading": "Use Waypoint to deliver a PaaS-like experience for Kubernetes, ECS, and other platforms.",
   "blocks": [
     {
       "type": "heading",
       "level": 2,
+      "size": 1,
       "heading": "Explore Waypoint Documentation"
     },
     {
