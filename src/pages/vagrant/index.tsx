@@ -1,5 +1,10 @@
 import { ReactElement } from 'react'
+import { GetStaticProps } from 'next'
+import vagrantData from 'data/vagrant.json'
+import { Product } from 'types/products'
 import BaseNewLayout from 'layouts/base-new'
+
+const product = vagrantData as Product
 
 const VagrantHomePage = (): ReactElement => {
   return (
@@ -10,13 +15,10 @@ const VagrantHomePage = (): ReactElement => {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      product: {
-        slug: 'vagrant',
-        name: 'Vagrant',
-      },
+      product,
     },
   }
 }
