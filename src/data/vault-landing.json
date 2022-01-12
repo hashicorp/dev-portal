@@ -1,32 +1,4 @@
 {
-  "navData": [
-    {
-      "title": "Introduction",
-      "href": "https://www.vaultproject.io/docs/what-is-vault"
-    },
-    {
-      "title": "Getting Started",
-      "href": "https://www.vaultproject.io/docs/install"
-    },
-    { "divider": true },
-    { "heading": "Resources" },
-    {
-      "title": "Releases",
-      "href": "https://releases.hashicorp.com/vault/"
-    },
-    {
-      "title": "HashiCorp Learn",
-      "href": "https://learn.hashicorp.com/vault"
-    },
-    {
-      "title": "Community Forum",
-      "href": "https://discuss.hashicorp.com/c/vault/30"
-    },
-    {
-      "title": "Support",
-      "href": "https://support.hashicorp.com"
-    }
-  ],
   "heading": "Vault Overview",
   "subheading": "Use Vault to securely store, access, and manage secrets and other sensitive data.",
   "blocks": [
