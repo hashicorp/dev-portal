@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { MDXRemote } from 'next-mdx-remote'
 import defaultMdxComponents from '@hashicorp/platform-docs-mdx'
 import { useCurrentProduct } from 'contexts'
@@ -13,14 +13,18 @@ import DocsAnchor from 'components/docs-anchor'
 const DocsPage = (props): ReactElement => {
   const currentProduct = useCurrentProduct()
 
-  const additionalComponents = defaultMdxComponents({
-    product: currentProduct.slug,
-    additionalComponents: {
-      Placement,
-      NestedNode,
-      a: DocsAnchor,
-    },
-  })
+  const additionalComponents = useMemo(
+    () =>
+      defaultMdxComponents({
+        product: currentProduct.slug,
+        additionalComponents: {
+          Placement,
+          NestedNode,
+          a: DocsAnchor,
+        },
+      }),
+    [currentProduct.slug]
+  )
 
   return <MDXRemote {...props} components={additionalComponents} />
 }
