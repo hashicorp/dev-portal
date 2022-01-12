@@ -2,6 +2,8 @@ import { createContext, FC, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Product } from 'types/products'
 
+export type RouteChangeStartHandler = (url: string) => void
+
 type CurrentProduct = Product | undefined
 
 const CurrentProductContext = createContext<CurrentProduct>(undefined)
@@ -21,7 +23,7 @@ const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
    * will throw its error.
    */
   useEffect(() => {
-    const handleRouteChangeStart = (url: string) => {
+    const handleRouteChangeStart: RouteChangeStartHandler = (url: string) => {
       if (url === '/') {
         setValue(null)
       }
