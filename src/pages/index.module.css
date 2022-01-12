@@ -3,6 +3,11 @@
   width: 100%;
   max-width: 1604px;
   margin: 0 auto;
+
+  /* TODO: remove this min-height,
+  just demo-ing the sticky header in
+  BaseNewLayout */
+  min-height: 150vh;
 }
 
 .hero {
