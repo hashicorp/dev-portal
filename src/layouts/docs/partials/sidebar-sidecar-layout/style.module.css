@@ -68,6 +68,7 @@
   align-self: flex-start;
   flex-shrink: 0;
   margin-left: 48px;
+  margin-right: 24px;
   position: sticky;
   top: calc(var(--sticky-bars-height) + var(--main-area-top-padding));
   width: 220px;
