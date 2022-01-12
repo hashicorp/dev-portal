@@ -2,14 +2,16 @@ import { createContext, FC, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Product } from 'types/products'
 
-const CurrentProductContext = createContext<Product | undefined>(undefined)
+type CurrentProduct = Product | undefined
+
+const CurrentProductContext = createContext<CurrentProduct>(undefined)
 
 const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
   children,
   currentProduct,
 }) => {
   const router = useRouter()
-  const [value, setValue] = useState(currentProduct)
+  const [value, setValue] = useState<CurrentProduct>(currentProduct)
 
   /**
    * This effect is for clearing the current product on pages that do not have a
@@ -18,7 +20,7 @@ const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
   useEffect(() => {
     const handleRouteChangeStart = (url: string) => {
       if (url === '/') {
-        setValue(null)
+        setValue(undefined)
       }
     }
 
