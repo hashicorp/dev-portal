@@ -1,5 +1,5 @@
 import React from 'react'
-import svgHashicorpLogo from '!!raw-loader!@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg'
+import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
 import MaybeInternalLink from 'components/maybe-internal-link'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import classNames from 'classnames'
