@@ -20,7 +20,7 @@ const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
   useEffect(() => {
     const handleRouteChangeStart = (url: string) => {
       if (url === '/') {
-        setValue(undefined)
+        setValue(null)
       }
     }
 
