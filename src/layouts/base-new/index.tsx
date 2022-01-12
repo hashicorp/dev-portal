@@ -1,6 +1,5 @@
 import AlertBanner from 'components/alert-banner'
 import NavigationHeader from 'components/navigation-header'
-import Footer from 'components/footer'
 import s from './base-new-layout.module.css'
 
 const BaseNewLayout: React.FC = ({ children }) => {
