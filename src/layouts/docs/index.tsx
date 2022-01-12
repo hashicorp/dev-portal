@@ -38,7 +38,7 @@ const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
             {props.breadcrumbLinks && (
               <BreadcrumbBar links={props.breadcrumbLinks} />
             )}
-            {props.children}
+            <div className={s.tempContentStyles}>{props.children}</div>
             {props.githubFileUrl && (
               <EditOnGithubLink
                 className={s.editOnGithubLink}

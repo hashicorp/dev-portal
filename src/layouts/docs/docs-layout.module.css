@@ -50,7 +50,9 @@ heading with only a couple words, the element can become too narrow.
   max-width: 804px;
   padding: 0 24px;
   width: 0;
+}
 
+.tempContentStyles {
   & :global {
     & a.__permalink-h {
       display: none;

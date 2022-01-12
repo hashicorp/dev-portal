@@ -43,10 +43,8 @@
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  /* !important needed to prevent list styles from leaking in
-     from docs layout content CSS */
-  padding: 0 !important;
-  margin: 0 !important;
+  padding: 0;
+  margin: 0;
 
   @media (--medium-up) {
     width: auto;
@@ -54,11 +52,11 @@
 }
 
 .linkListItem {
-  margin: 16px 0 !important;
+  margin: 16px 0;
   width: 100%;
 
   &:not(:last-child) {
-    margin-right: 32px !important;
+    margin-right: 32px;
   }
 
   @media (--medium-up) {
