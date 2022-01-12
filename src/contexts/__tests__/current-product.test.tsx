@@ -6,6 +6,20 @@ import {
   useCurrentProduct,
 } from 'contexts/current-product'
 
+/**
+ * Handles rendering both `CurrentProductProvider` and `useCurrentProduct` using
+ * the `renderHook` utility from `@testing-library/react-hooks`. Returns the
+ * result of `renderHook`.
+ */
+const setup = (currentProduct: Product) => {
+  const wrapper = ({ children }) => (
+    <CurrentProductProvider currentProduct={currentProduct}>
+      {children}
+    </CurrentProductProvider>
+  )
+  return renderHook(() => useCurrentProduct(), { wrapper })
+}
+
 describe('CurrentProductContext', () => {
   let useRouter: jest.SpyInstance
   beforeAll(() => {
@@ -20,6 +34,7 @@ describe('CurrentProductContext', () => {
 
   test('useCurrentProduct throws an error if not used within CurrentProductProvider', () => {
     const { result } = renderHook(() => useCurrentProduct())
+
     expect(result.error.message).toBe(
       'useCurrentProduct must be used within a CurrentProductProvider'
     )
@@ -38,12 +53,8 @@ describe('CurrentProductContext', () => {
 
   test('useCurrentProduct returns the value provided to CurrentProductProvider', () => {
     const testProduct: Product = { slug: 'waypoint', name: 'Waypoint' }
-    const wrapper = ({ children }) => (
-      <CurrentProductProvider currentProduct={testProduct}>
-        {children}
-      </CurrentProductProvider>
-    )
-    const { result } = renderHook(() => useCurrentProduct(), { wrapper })
+    const { result } = setup(testProduct)
+
     expect(result.current).toEqual(testProduct)
   })
 })
