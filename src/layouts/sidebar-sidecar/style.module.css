@@ -10,7 +10,11 @@
   );
   /* END TODO */
   --siderail-height: calc(100vh - var(--sticky-bars-height));
-  --main-top-padding: 32px;
+  /* for a coherent visual effect, the top padding value
+  must be used for sticky positioning in addition to
+  padding the content area. So, we create a CSS var
+  to make it reusable and express this intent. */
+  --main-area-top-padding: 32px;
 
   position: relative;
   display: flex;
@@ -40,7 +44,7 @@
   margin-right: 48px;
   max-height: var(--siderail-height);
   overflow-y: auto;
-  padding-top: var(--main-top-padding);
+  padding-top: var(--main-area-top-padding);
   position: sticky;
   top: var(--sticky-bars-height);
   width: 320px;
@@ -51,7 +55,7 @@
   flex-grow: 1;
   justify-content: center;
   padding-bottom: 32px;
-  padding-top: var(--main-top-padding);
+  padding-top: var(--main-area-top-padding);
 }
 
 .main {
@@ -65,7 +69,7 @@
   flex-shrink: 0;
   margin-left: 48px;
   position: sticky;
-  top: calc(var(--sticky-bars-height) + var(--main-top-padding));
+  top: calc(var(--sticky-bars-height) + var(--main-area-top-padding));
   width: 220px;
 }
 
