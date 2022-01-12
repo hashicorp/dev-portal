@@ -16,6 +16,9 @@ const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
   /**
    * This effect is for clearing the current product on pages that do not have a
    * single product. This currently includes the main home page.
+   *
+   * This clear value MUST be `null` (not `undefined`) or `useCurrentProduct`
+   * will throw its error.
    */
   useEffect(() => {
     const handleRouteChangeStart = (url: string) => {
