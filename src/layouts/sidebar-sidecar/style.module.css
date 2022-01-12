@@ -50,7 +50,7 @@
   display: flex;
   flex-grow: 1;
   justify-content: center;
-  padding-bottom: var(--main-top-padding);
+  padding-bottom: 32px;
   padding-top: var(--main-top-padding);
 }
 
