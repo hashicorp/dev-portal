@@ -17,6 +17,7 @@
     "migrate:vault": "node ./scripts/migrate-io/migrate-vault.js",
     "migrate:waypoint": "node ./scripts/migrate-io/migrate-waypoint.js",
     "build:deploy-preview": "npx ts-node --transpile-only ./scripts/content-repo-preview/build.ts",
+    "start:local-preview": "./scripts/content-repo-preview/start.sh",
     "test": "jest",
     "test:watch": "jest --watch"
   },
