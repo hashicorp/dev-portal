@@ -1,15 +1,5 @@
 .sidebar {
-  background-color: white;
-  box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
-    0 12px 28px rgba(101, 106, 118, 0.25);
-  height: 100%;
-  left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding: var(--sidebar-padding);
-  position: absolute;
-  top: 0;
-  width: var(--sidebar-width);
+  padding: 0 24px 24px 24px;
 
   /* TODO: won't use margin-left if we want menu items to take up full width */
   & ul ul {

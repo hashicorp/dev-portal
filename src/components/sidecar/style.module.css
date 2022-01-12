@@ -1,11 +1,5 @@
 .sidecar {
-  margin-left: 24px;
-  max-width: 220px;
-  min-width: 220px;
-  position: sticky;
   text-align: right;
-  top: 0;
-  width: 220px;
 }
 
 .sidecarLabel {

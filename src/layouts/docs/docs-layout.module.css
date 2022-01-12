@@ -1,57 +1,14 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  font-family: var(--font-display);
-}
-
-.body {
-  flex-grow: 1;
-  position: relative;
-}
-
-.contentWrapper {
-  height: 100%;
-  left: var(--sidebar-width);
-  overflow-y: auto;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.content {
-  align-items: flex-start;
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  overflow-y: auto;
-  padding-bottom: 100px;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 32px;
-  position: relative;
-}
-
-/*
-TODO: a lot of this will be abstracted further when we have access to design
-tokens and helper classes.
-
-NOTE: the flex-grow and width properties set on the <main> element
-ensure that the element grows to fit the open space. When there are images in
-the <main>, it can become too wide. When there is very little content (such as a
-heading with only a couple words, the element can become too narrow.
-  - flex-grow: 1
-  - width: 0
-*/
 .main {
+  /* the 50vh bottom padding ensures that all
+  jump-nav items have room to be jumped to */
+  padding-bottom: 50vh;
+  /* Remainder of styles here are for docs content.
+    We likely want to convert these to MDX components.
+    Asana task: https://app.asana.com/0/1201010428539925/1201653123138729/f
+    */
   color: var(--token-color-palette-neutral-600);
-  flex-grow: 1;
   font-size: 16px;
   line-height: 22px;
-  max-width: 804px;
-  padding: 0 24px;
-  padding-bottom: 50vh;
-  width: 0;
 
   & :global {
     & a.__permalink-h {

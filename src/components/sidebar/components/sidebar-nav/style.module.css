@@ -1,6 +1,9 @@
 .sidebarNavElement {
   padding-top: 8px;
   position: relative;
+  /* necessary as otherwise the skipToMainContent
+     link causes x-overflow */
+  overflow: hidden;
 }
 
 .sidebarNavLabel {
