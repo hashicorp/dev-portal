@@ -16,7 +16,6 @@
   to make it reusable and express this intent. */
   --main-area-top-padding: 32px;
 
-  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -33,7 +32,6 @@
 .contentArea {
   display: flex;
   flex-grow: 1;
-  position: relative;
 }
 
 .sidebar {
