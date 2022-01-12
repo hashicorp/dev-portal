@@ -16,6 +16,14 @@ const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
   const [value, setValue] = useState<CurrentProduct>(currentProduct)
 
   /**
+   * This effect is for updating the Context value when the `currentProduct`
+   * prop passed into `CurrentProductProvider` changes.
+   */
+  useEffect(() => {
+    setValue(currentProduct)
+  }, [currentProduct])
+
+  /**
    * This effect is for clearing the current product on pages that do not have a
    * single product. This currently includes the main home page.
    *
