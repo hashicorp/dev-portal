@@ -1,12 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
+import { Product } from 'types/products'
 
 async function generateStaticProps({
   product,
   contentJsonFile,
 }: {
-  product: { slug: string; name: string }
+  product: Product
   contentJsonFile: string
 }): Promise<$TSFixMe> {
   // TODO: need to discuss from whence we should
@@ -34,6 +35,12 @@ async function generateStaticProps({
     }
   })
 
+  const navData = [
+    ...product.sidebar.landingPageNavData,
+    { divider: true },
+    ...product.sidebar.resourcesNavData,
+  ]
+
   return {
     content: CONTENT,
     layoutProps: {
@@ -44,7 +51,7 @@ async function generateStaticProps({
           slug: slug,
           level,
         })),
-      navData: CONTENT.navData,
+      navData,
       productName: product.name,
       backToLink: {
         text: 'Back to Developer',
