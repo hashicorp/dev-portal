@@ -59,7 +59,6 @@
 }
 
 .switcherOption {
-  padding: 4px;
   margin: 2px 0;
 
   &:hover {
@@ -77,14 +76,32 @@ Two items to note:
   - both paddings are set to adjust for transparent border
 */
 .switcherOptionAnchor {
-  composes: focus-border-and-box-shadow-dark from global;
+  align-items: center;
+  color: #f1f2f3;
+  display: flex;
+  padding: 3px;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    & .focusContainer {
+      border: 1px solid #107dff;
+      box-shadow: 0 0 0 3px #5fbcff;
+      outline: none;
+    }
+  }
+}
+
+.focusContainer {
   align-items: center;
   border: 1px solid transparent;
   border-radius: 5px;
-  color: #f1f2f3;
   display: flex;
-  padding: 3px 7px;
-  position: relative;
+  padding: 4px 8px;
+  width: 100%;
 }
 
 .switcherOptionContainer {
@@ -99,5 +116,16 @@ Two items to note:
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
+  }
+}
+
+/*
+TODO: this is temporary for the Vault icon since:
+  - we do not have a yellow version of the icon available from flight-icons yet
+  - the icon is currently on a dark background and appears "invisible"
+*/
+.vaultProductIcon {
+  & path {
+    fill: white;
   }
 }

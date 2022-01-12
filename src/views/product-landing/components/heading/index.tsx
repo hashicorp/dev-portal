@@ -1,10 +1,16 @@
 import { HeadingProps } from './types'
+import clamp from 'lib/clamp'
 import s from './style.module.css'
 
-function Heading({ slug, heading, level }: HeadingProps): React.ReactElement {
+function Heading({
+  slug,
+  heading,
+  level,
+  size,
+}: HeadingProps): React.ReactElement {
   const Component = `h${level}` as React.ElementType
   return (
-    <Component id={slug} className={s[`h${level}`]}>
+    <Component id={slug} className={s[`h${clamp(size || level, 0, 4)}`]}>
       {heading}
     </Component>
   )

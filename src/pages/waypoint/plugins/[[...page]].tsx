@@ -1,32 +1,24 @@
-import { generateStaticPaths, generateStaticProps } from 'layouts/docs/server'
-import waypointConfig from '../../../../config/waypoint.json'
+import { ReactElement } from 'react'
+import waypointData from 'data/waypoint.json'
+import { Product } from 'types/products'
+import { getStaticGenerationFunctions } from 'layouts/docs/server'
 import DocsLayout from 'layouts/docs'
 import DocsPage from 'components/docs-page'
 
 const basePath = 'plugins'
-const product = {
-  name: waypointConfig.name,
-  slug: waypointConfig.slug,
-}
+const product = waypointData as Product
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function DocsView({ mdxSource }) {
+const WaypointPluginsPage = ({ mdxSource }): ReactElement => {
   return <DocsPage {...mdxSource} />
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: await generateStaticPaths({ basePath, product }),
-    fallback: 'blocking',
-  }
-}
+const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
+  product,
+  basePath,
+})
 
-export async function getStaticProps({ params }) {
-  return {
-    props: await generateStaticProps({ basePath, product, params }),
-    revalidate: 10,
-  }
-}
+WaypointPluginsPage.layout = DocsLayout
 
-DocsView.layout = DocsLayout
-export default DocsView
+export { getStaticPaths, getStaticProps }
+export default WaypointPluginsPage

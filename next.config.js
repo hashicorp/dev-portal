@@ -5,7 +5,7 @@ const withSwingset = require('swingset')
 
 // temporary: set all paths as noindex, until we're serving from this project
 const temporary_hideDocsPaths = {
-  source: '/:path*',
+  source: '/:path*{/}?',
   headers: [
     {
       key: 'X-Robots-Tag',
