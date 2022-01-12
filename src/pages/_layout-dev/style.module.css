@@ -1,0 +1,87 @@
+.root {
+  --sticky-bars-height: calc(var(--nav-bar-height) + var(--alert-bar-height));
+  --siderail-height: calc(100vh - var(--sticky-bars-height));
+  --main-top-padding: 32px;
+}
+
+.stickyBars {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.header {
+  background: rgba(255, 0, 255, 1);
+  height: var(--nav-bar-height);
+}
+
+.sidebarMainSidecar {
+  position: relative;
+  display: flex;
+}
+
+.sidebar {
+  position: sticky;
+  max-height: var(--siderail-height);
+  align-self: flex-start;
+  overflow-y: auto;
+  background: rgba(0, 0, 255, 0.2);
+  width: 320px;
+  top: var(--sticky-bars-height);
+}
+
+.sidebarContent {
+  position: sticky;
+  top: 0;
+  background: rgba(0, 0, 255, 0.4);
+
+  &.isLongSidebar {
+    min-height: 1200px;
+  }
+}
+
+.mainSidecar {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  padding-top: var(--main-top-padding);
+}
+
+.main {
+  background: rgba(0, 255, 0, 0.2);
+  max-width: 800px; /* TODO: determine actual max-width */
+  align-self: flex-start;
+  flex-grow: 1;
+}
+
+.mainContent {
+  background: rgba(0, 255, 0, 0.4);
+
+  &.isLongMain {
+    min-height: 150vh;
+  }
+}
+
+.sidecar {
+  position: sticky;
+  max-height: calc(var(--siderail-height) - calc(var(--main-top-padding) * 2));
+  align-self: flex-start;
+  overflow-y: auto;
+  top: calc(var(--sticky-bars-height) + var(--main-top-padding));
+  background: rgba(0, 0, 255, 0.2);
+  width: 220px;
+  margin-left: 48px;
+}
+
+.sidecarContent {
+  background: rgba(0, 0, 255, 0.4);
+
+  &.isLongSidecar {
+    min-height: 1200px;
+  }
+}
+
+.footer {
+  background: rgba(255, 0, 0, 0.4);
+  height: 500px;
+}
