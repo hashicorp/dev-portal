@@ -1,9 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import { act, renderHook } from '@testing-library/react-hooks'
+import { render, screen } from '@testing-library/react'
+import { renderHook } from '@testing-library/react-hooks'
 import { Product } from 'types/products'
 import {
   CurrentProductProvider,
-  RouteChangeStartHandler,
   useCurrentProduct,
 } from 'contexts/current-product'
 
@@ -22,8 +21,6 @@ const setup = (currentProduct: Product) => {
 }
 
 describe('CurrentProductContext', () => {
-  let eventName: string
-  let eventCallback: RouteChangeStartHandler
   let useRouter: jest.SpyInstance
   beforeAll(() => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -31,10 +28,7 @@ describe('CurrentProductContext', () => {
     useRouter.mockReturnValue({
       events: {
         off: jest.fn(),
-        on: jest.fn((event, callback) => {
-          eventName = event
-          eventCallback = callback
-        }),
+        on: jest.fn(),
       },
     })
   })
@@ -67,19 +61,5 @@ describe('CurrentProductContext', () => {
     const { result } = setup(testProduct)
 
     expect(result.current).toEqual(testProduct)
-  })
-
-  test('CurrentProductProvider clears value on "/" route', async () => {
-    const testProduct: Product = { slug: 'waypoint', name: 'Waypoint' }
-    const { result } = setup(testProduct)
-
-    expect(eventName).toBe('routeChangeStart')
-    expect(eventCallback).toBeDefined()
-
-    act(() => {
-      eventCallback('/')
-    })
-
-    await waitFor(() => expect(result.current).toBeNull())
   })
 })

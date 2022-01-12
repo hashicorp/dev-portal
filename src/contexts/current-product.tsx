@@ -1,4 +1,4 @@
-import { createContext, FC, useContext, useEffect, useState } from 'react'
+import { createContext, FC, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { Product } from 'types/products'
 
@@ -13,34 +13,7 @@ const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
   currentProduct,
 }) => {
   const router = useRouter()
-  const [value, setValue] = useState<CurrentProduct>(currentProduct)
-
-  /**
-   * This effect is for updating the Context value when the `currentProduct`
-   * prop passed into `CurrentProductProvider` changes.
-   */
-  useEffect(() => {
-    setValue(currentProduct)
-  }, [currentProduct])
-
-  /**
-   * This effect is for clearing the current product on pages that do not have a
-   * single product. This currently includes the main home page.
-   *
-   * This clear value MUST be `null` (not `undefined`) or `useCurrentProduct`
-   * will throw its error.
-   */
-  useEffect(() => {
-    const handleRouteChangeStart: RouteChangeStartHandler = (url: string) => {
-      if (url === '/') {
-        setValue(null)
-      }
-    }
-
-    router.events.on('routeChangeStart', handleRouteChangeStart)
-
-    return () => router.events.off('routeChangeStart', handleRouteChangeStart)
-  }, [])
+  const value = router.asPath === '/' ? null : currentProduct
 
   return (
     <CurrentProductContext.Provider value={value}>
