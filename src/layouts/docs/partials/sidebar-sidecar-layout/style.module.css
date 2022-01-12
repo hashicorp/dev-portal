@@ -44,7 +44,7 @@
   margin-right: 48px;
   max-height: var(--siderail-height);
   overflow-y: auto;
-  padding-top: var(--main-area-top-padding);
+  padding-top: 24px;
   position: sticky;
   top: var(--sticky-bars-height);
   width: 320px;
