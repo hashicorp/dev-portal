@@ -2,6 +2,7 @@ import AlertBanner from 'components/alert-banner'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import s from './base-new-layout.module.css'
+
 interface BaseNewLayoutProps {
   showFooter?: boolean
   openConsentManager?: () => void
