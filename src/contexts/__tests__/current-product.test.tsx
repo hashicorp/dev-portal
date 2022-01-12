@@ -56,10 +56,26 @@ describe('CurrentProductContext', () => {
     expect(screen.getByText(testText)).toBeDefined()
   })
 
-  test('useCurrentProduct returns the value provided to CurrentProductProvider', () => {
+  describe('useCurrentProduct returns the value provided to CurrentProductProvider', () => {
     const testProduct: Product = { slug: 'waypoint', name: 'Waypoint' }
-    const { result } = setup(testProduct)
 
-    expect(result.current).toEqual(testProduct)
+    test('when the path is "/", null is returned', () => {
+      useRouter.mockReturnValueOnce({
+        asPath: '/',
+        events: {
+          off: jest.fn(),
+          on: jest.fn(),
+        },
+      })
+      const { result } = setup(testProduct)
+
+      expect(result.current).toBeNull()
+    })
+
+    test('when the path is not "/", the correct value is returned', () => {
+      const { result } = setup(testProduct)
+
+      expect(result.current).toEqual(testProduct)
+    })
   })
 })
