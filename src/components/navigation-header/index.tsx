@@ -43,7 +43,6 @@ const NavigationHeader: React.FC = () => {
           </Link>
           <ProductSwitcher />
         </div>
-        {/* TODO: handle other products, not just Waypoint */}
         {currentProduct?.navigationHeaderItems && (
           <div className={s.headerRight}>
             <ul className={s.navLinks}>
