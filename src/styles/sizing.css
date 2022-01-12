@@ -1,9 +1,9 @@
 :root {
   --input-height: 38px;
   --input-icon-size: 16px;
-  /* TODO: remove the need for --nav-bar-height
+  /* TODO: remove the need for --navigation-header-height
     and --alert-bar-height. See sidebar-sidecar/style.module.css
     comments for details */
-  --nav-bar-height: 80px;
+  --navigation-header-height: 80px;
   --alert-bar-height: 72px;
 }
