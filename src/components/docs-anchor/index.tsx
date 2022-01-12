@@ -22,7 +22,6 @@ const DocsAnchor: React.FC<JSX.IntrinsicElements['a']> = ({
   if (
     currentProduct.basePaths.some((basePath) => href.startsWith(`/${basePath}`))
   ) {
-    // TODO: infer the product dynamically
     adjustedHref = `/${currentProduct.slug}${href}`
   }
 
