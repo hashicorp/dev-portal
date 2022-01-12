@@ -3,60 +3,61 @@
   --siderail-height: calc(100vh - var(--sticky-bars-height));
   --main-top-padding: 32px;
 
+  position: relative;
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 .header {
   position: sticky;
   top: 0;
+  /* contentArea (& sidebar) comes later in the DOM,
+    but we need header to stay above it */
   z-index: 1;
 }
 
 .contentArea {
-  position: relative;
   display: flex;
-  background: rgba(0, 255, 255, 0.3);
   flex-grow: 1;
+  position: relative;
 }
 
 .sidebar {
-  position: sticky;
-  max-height: var(--siderail-height);
-  /* align-self: flex-start; */
-  overflow-y: auto;
-  background: rgba(0, 0, 255, 0.2);
-  width: 320px;
-  top: var(--sticky-bars-height);
-  padding-top: var(--main-top-padding);
-  margin-right: 48px;
+  background-color: white;
+  box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
+    0 12px 28px rgba(101, 106, 118, 0.25);
   flex-shrink: 0;
+  margin-right: 48px;
+  max-height: var(--siderail-height);
+  overflow-y: auto;
+  padding-top: var(--main-top-padding);
+  position: sticky;
+  top: var(--sticky-bars-height);
+  width: 320px;
 }
 
 .mainArea {
   display: flex;
-  justify-content: center;
   flex-grow: 1;
-  padding-top: var(--main-top-padding);
+  justify-content: center;
   padding-bottom: var(--main-top-padding);
+  padding-top: var(--main-top-padding);
 }
 
 .main {
-  background: rgba(0, 255, 0, 0.2);
-  max-width: 800px;
   align-self: flex-start;
   flex-grow: 1;
+  max-width: 780px;
 }
 
 .sidecar {
-  position: sticky;
   align-self: flex-start;
-  top: calc(var(--sticky-bars-height) + var(--main-top-padding));
-  background: rgba(0, 0, 255, 0.2);
-  width: 220px;
-  margin-left: 48px;
   flex-shrink: 0;
+  margin-left: 48px;
+  position: sticky;
+  top: calc(var(--sticky-bars-height) + var(--main-top-padding));
+  width: 220px;
 }
 
 .footer {

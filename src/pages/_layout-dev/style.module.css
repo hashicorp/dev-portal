@@ -2,7 +2,7 @@
 
 .headerDemo {
   border: 2px solid black;
-  background: rgba(100, 100, 100, 0.8);
+  background: rgba(128, 128, 128, 1);
   height: var(--sticky-bars-height);
 }
 
@@ -18,7 +18,8 @@
 .mainDemo {
   border: 3px solid green;
   background: rgba(0, 255, 0, 0.4);
-  /* 50vh bottom padding ensures that all
+  /* demo meant to match potential docs layout use...
+     the 50vh bottom padding ensures that all
      jump-nav items have room to be jumped to */
   padding-bottom: 50vh;
 
@@ -32,13 +33,13 @@
   background: rgba(0, 0, 255, 0.4);
 
   &.isLong {
-    min-height: 1000px;
+    min-height: 2000px;
   }
 }
 
 .footerDemo {
   border: 2px solid black;
-  background: rgba(100, 100, 100, 0.8);
+  background: rgba(128, 128, 128, 1);
   height: 100px;
 
   &.isLong {
