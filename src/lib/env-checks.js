@@ -19,6 +19,7 @@ function getProxiedProductSlug(hostname) {
 }
 
 function getMatchedDomain(hostname) {
+  if (!hostname) return
   const domainProductSlug = PROXIED_PRODUCTS.reduce((acc, slug) => {
     const productHost = proxyConfig[slug].host
     if (!acc && hostname.match(new RegExp(productHost))) return slug
