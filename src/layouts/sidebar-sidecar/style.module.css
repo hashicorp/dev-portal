@@ -5,8 +5,6 @@
      We should likely implement a size observer, that calculates the height of 
      the .header element in this layout, and sets --sticky-bars-height to match.
      This would eliminate the need for --nav-bar-height and --alert-bar-height. */
-  --nav-bar-height: 80px;
-  --alert-bar-height: 72px;
   --sticky-bars-height: calc(var(--nav-bar-height) + var(--alert-bar-height));
   /* END TODO */
   --siderail-height: calc(100vh - var(--sticky-bars-height));
