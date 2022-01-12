@@ -5,7 +5,7 @@ import HomepageHero from 'components/homepage-hero'
 import Footer from 'components/footer'
 import s from './index.module.css'
 
-const WaypointHomePage = (): ReactElement => {
+function Homepage(): ReactElement {
   return (
     <>
       <div className={s.root}>
@@ -18,6 +18,5 @@ const WaypointHomePage = (): ReactElement => {
   )
 }
 
-WaypointHomePage.layout = BaseNewLayout
-
-export default WaypointHomePage
+Homepage.layout = BaseNewLayout
+export default Homepage
