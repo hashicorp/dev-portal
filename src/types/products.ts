@@ -9,6 +9,7 @@ type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
  */
 interface Product extends ProductMeta {
   basePaths?: string[]
+  name: string
   navigationHeaderItems?: NavigationHeaderItem[]
   sidebar?: {
     landingPageNavData: MenuItem[]
