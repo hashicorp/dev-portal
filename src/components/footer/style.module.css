@@ -32,6 +32,8 @@
     /* default inline display results
      in misalignment with footer links */
     display: block;
+    height: 28px;
+    width: auto;
   }
 }
 
