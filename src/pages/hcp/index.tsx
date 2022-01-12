@@ -9,7 +9,7 @@ const product = hcpData as Product
 const HCPHomePage = (): ReactElement => {
   return (
     <>
-      <h1>HCP</h1>
+      <h1>HashiCorp Cloud Platform</h1>
       <p>This page is a placeholder</p>
     </>
   )
