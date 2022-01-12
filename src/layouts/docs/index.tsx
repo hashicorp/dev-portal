@@ -6,7 +6,7 @@ import Sidebar, { MenuItem } from 'components/sidebar'
 import Sidecar from 'components/sidecar'
 import { SidecarHeading } from 'components/sidecar/types'
 import EditOnGithubLink from 'components/edit-on-github-link'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidebarSidecarLayout from './partials/sidebar-sidecar-layout'
 import s from './docs-layout.module.css'
 
 interface DocsLayoutProps {

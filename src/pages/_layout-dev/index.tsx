@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidebarSidecarLayout from 'layouts/docs/partials/sidebar-sidecar-layout'
 import s from './style.module.css'
 
 function DemoContent({ name }: { name: string }): React.ReactElement {
