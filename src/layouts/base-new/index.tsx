@@ -3,14 +3,14 @@ import NavigationHeader from 'components/navigation-header'
 import Footer from 'components/footer'
 import s from './base-new-layout.module.css'
 interface BaseNewLayoutProps {
-  withFooter?: boolean
+  showFooter?: boolean
   openConsentManager?: () => void
 }
 
 const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
   children,
   openConsentManager,
-  withFooter,
+  showFooter,
 }) => {
   return (
     <div className={s.baseNewLayout}>
@@ -30,7 +30,7 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
       </AlertBanner>
       <NavigationHeader />
       {children}
-      {withFooter && (
+      {showFooter && (
         <div className={s.footerContainer}>
           <Footer openConsentManager={openConsentManager} />
         </div>

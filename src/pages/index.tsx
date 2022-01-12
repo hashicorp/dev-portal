@@ -14,5 +14,5 @@ function Homepage(): ReactElement {
   )
 }
 
-Homepage.layout = (p) => <BaseNewLayout {...p} withFooter />
+Homepage.layout = (p) => <BaseNewLayout {...p} showFooter />
 export default Homepage
