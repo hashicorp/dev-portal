@@ -1,28 +1,17 @@
-import { ReactElement } from 'react'
-import { GetStaticProps } from 'next'
 import vaultData from 'data/vault.json'
 import { Product } from 'types/products'
-import BaseNewLayout from 'layouts/base-new'
+import ProductLandingView from 'views/product-landing'
+import { generateStaticProps } from 'views/product-landing/server'
 
-const product = vaultData as Product
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getStaticProps() {
+  const contentJsonFile = 'src/data/vault-landing.json'
+  const product = vaultData as Product
 
-const VaultHomePage = (): ReactElement => {
-  return (
-    <>
-      <h1>Vault</h1>
-      <p>This page is a placeholder</p>
-    </>
-  )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
   return {
-    props: {
-      product,
-    },
+    props: await generateStaticProps({ product, contentJsonFile }),
+    revalidate: 10,
   }
 }
 
-VaultHomePage.layout = BaseNewLayout
-
-export default VaultHomePage
+export default ProductLandingView
