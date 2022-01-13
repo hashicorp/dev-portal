@@ -33,20 +33,22 @@ for both --navigation-header-height and --alert-bar-height.
 }
 
 .contentArea {
-  /* When footer is absent, stretch the
+  /* flex column gives consumers 
+  flexibility in making their content either
+  grow to fill all available space on short pages,
+  (by adding flex-grow: 1), or stay at an
+  automatic height (by doing nothing) */
+  display: flex;
+  flex-direction: column;
+  /* Stretch the
   content area to ensure the page is at
   least 100vh. The SidebarSidecar layout
   requires this stretching to avoid having
   its sidebar cut off early if page
   content is short. */
   flex-grow: 1;
-
-  /* When footer is present, allow it
-  to fill any remaining 100vh space
-  with its margin-top: auto; */
-  &.showFooter {
-    flex-grow: 0;
-  }
+  position: relative;
+  z-index: 0;
 }
 
 .footer {

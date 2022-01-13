@@ -3,7 +3,15 @@ import classNames from 'classnames'
 import SidebarSidecarLayout from 'layouts/docs/partials/sidebar-sidecar-layout'
 import s from './style.module.css'
 
-function DemoContent({ name }: { name: string }): React.ReactElement {
+function DemoContent({
+  name,
+  showFooter,
+  setShowFooter,
+}: {
+  name: string
+  showFooter?: boolean
+  setShowFooter?: (b: boolean) => void
+}): React.ReactElement {
   const [isLong, setIsLong] = useState(false)
   return (
     <div className={classNames(s[`${name}Demo`], { [s.isLong]: isLong })}>
@@ -12,23 +20,30 @@ function DemoContent({ name }: { name: string }): React.ReactElement {
       <button type="button" onClick={() => setIsLong(!isLong)}>
         Demo {isLong ? 'short' : 'long'} {name} Content
       </button>
+      <br />
+      {setShowFooter && (
+        <button type="button" onClick={() => setShowFooter(!showFooter)}>
+          {showFooter ? 'Hide' : 'Show'} Footer
+        </button>
+      )}
     </div>
   )
 }
 
 function DemoLayoutDev(): React.ReactElement {
+  const [showFooter, setShowFooter] = useState(false)
+
   return (
     <SidebarSidecarLayout
-      header={
-        <div className={s.headerDemo}>
-          header Content (sticky, fixed height)
-        </div>
-      }
+      showFooter={showFooter}
       sidebar={<DemoContent name="sidebar" />}
       sidecar={<DemoContent name="sidecar" />}
-      footer={<DemoContent name="footer" />}
     >
-      <DemoContent name="main" />
+      <DemoContent
+        name="main"
+        setShowFooter={setShowFooter}
+        showFooter={showFooter}
+      />
     </SidebarSidecarLayout>
   )
 }

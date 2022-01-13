@@ -1,6 +1,4 @@
 import React from 'react'
-import DevAlertBanner from 'components/dev-alert-banner'
-import NavigationHeader from 'components/navigation-header'
 import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Sidebar, { MenuItem } from 'components/sidebar'
 import Sidecar from 'components/sidecar'
@@ -32,12 +30,6 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({
   githubFileUrl,
 }) => (
   <SidebarSidecarLayout
-    header={
-      <>
-        <DevAlertBanner />
-        <NavigationHeader />
-      </>
-    }
     sidebar={
       <Sidebar
         title={productName}
