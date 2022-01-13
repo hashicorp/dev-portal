@@ -1,5 +1,4 @@
 import React from 'react'
-import { VisuallyHidden } from '@reach/visually-hidden'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
 import MaybeInternalLink from 'components/maybe-internal-link'
 import InlineSvg from '@hashicorp/react-inline-svg'
@@ -19,9 +18,11 @@ function Footer({
 }: FooterProps): React.ReactElement {
   return (
     <footer className={classNames(s.root, className)}>
-      <a href="https://www.hashicorp.com/">
+      <a
+        href="https://www.hashicorp.com/"
+        aria-label="Go to HashiCorp home page"
+      >
         <InlineSvg className={s.logo} src={svgHashicorpLogo} />
-        <VisuallyHidden>HashiCorp home page</VisuallyHidden>
       </a>
       <ul className={s.links}>
         <li className={s.linkListItem}>
