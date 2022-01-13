@@ -1,7 +1,5 @@
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
-// const redirectsConfig = require('./config/redirects')
-// const rewritesConfig = require('./config/rewrites')
 
 // temporary: set all paths as noindex, until we're serving from this project
 const temporary_hideDocsPaths = {
@@ -24,23 +22,6 @@ module.exports = withSwingset({
   })({
     async headers() {
       return [temporary_hideDocsPaths]
-    },
-    async rewrites() {
-      return [
-        {
-          source: '/vault/api/:path*',
-          destination: '/vault/api-docs/:path*',
-        },
-      ]
-    },
-    async redirects() {
-      return [
-        {
-          source: '/vault/api-docs/:path*',
-          destination: '/vault/api/:path*',
-          permanent: true,
-        },
-      ]
     },
     env: {
       HASHI_ENV: process.env.HASHI_ENV || 'development',

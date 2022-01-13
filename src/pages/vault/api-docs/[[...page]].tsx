@@ -4,6 +4,7 @@ import { Product } from 'types/products'
 import { getStaticGenerationFunctions } from 'layouts/docs/server'
 import DocsLayout from 'layouts/docs'
 import DocsView from 'views/docs-view'
+import { vaultUrlAdjuster } from 'layouts/docs/utils/product-url-adjusters'
 
 const basePath = 'api-docs'
 const baseName = 'API'
@@ -18,6 +19,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   product,
   basePath,
   baseName,
+  additionalRemarkPlugins: [vaultUrlAdjuster],
 })
 
 VaultApiDocsPage.layout = DocsLayout

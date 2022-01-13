@@ -4,6 +4,7 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { Product } from 'types/products'
 import prepareNavDataForClient from 'layouts/docs/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
+import { RemarkPluginEntry } from 'types/remark'
 
 const BASE_REVALIDATE = 10
 
@@ -25,10 +26,12 @@ export function getStaticGenerationFunctions({
   product,
   basePath,
   baseName,
+  additionalRemarkPlugins = [],
 }: {
   product: Product
   basePath: string
   baseName: string
+  additionalRemarkPlugins?: RemarkPluginEntry[]
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
@@ -52,7 +55,12 @@ export function getStaticGenerationFunctions({
     getStaticProps: async (ctx) => {
       const headings = []
 
-      const loader = getLoader({ remarkPlugins: [[anchorLinks, { headings }]] })
+      const loader = getLoader({
+        remarkPlugins: [
+          [anchorLinks, { headings }],
+          ...additionalRemarkPlugins,
+        ],
+      })
 
       const {
         navData,

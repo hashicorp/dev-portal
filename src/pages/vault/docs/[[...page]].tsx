@@ -6,6 +6,7 @@ import DocsLayout from 'layouts/docs'
 import DocsView from 'views/docs-view'
 import Columns from 'components/author-primitives/vault/columns'
 import InlineTag from 'components/author-primitives/vault/inline-tag'
+import { vaultUrlAdjuster } from 'layouts/docs/utils/product-url-adjusters'
 
 const basePath = 'docs'
 const baseName = 'Docs'
@@ -24,6 +25,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   product,
   basePath,
   baseName,
+  additionalRemarkPlugins: [vaultUrlAdjuster],
 })
 
 VaultDocsPage.layout = DocsLayout
