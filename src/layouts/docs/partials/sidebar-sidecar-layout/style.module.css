@@ -1,37 +1,19 @@
-.root {
-  /* TO DO:
-     --navigation-header-height and --alert-bar-height are currently magicky numbers.
-     They could change based on user preferences for font-size or zoom.
-     We should likely implement a size observer, that calculates the height of 
-     the .header element in this layout, and sets --sticky-bars-height to match.
-     This would eliminate the need for --navigation-header-height and --alert-bar-height. */
-  --sticky-bars-height: calc(
-    var(--navigation-header-height) + var(--alert-bar-height)
-  );
-  /* END TODO */
-  --siderail-height: calc(100vh - var(--sticky-bars-height));
-  /* for a coherent visual effect, the top padding value
+/*
+NOTE:
+Relies on `--sticky-bars-height` being set,
+this is currently being done in `BaseNewLayout`.
+See comment in src/layouts/base-new/base-new-layout.module.css
+for further details.
+*/
+
+.contentWrapper {
+  display: flex;
+
+  /* For a coherent visual effect, the top padding value
   must be used for sticky positioning in addition to
   padding the content area. So, we create a CSS var
   to make it reusable and express this intent. */
   --main-area-top-padding: 32px;
-
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.header {
-  position: sticky;
-  top: 0;
-  /* contentArea (& sidebar) comes later in the DOM,
-    but we need header to stay above it */
-  z-index: 1;
-}
-
-.contentArea {
-  display: flex;
-  flex-grow: 1;
 }
 
 .sidebar {
@@ -40,7 +22,10 @@
     0 12px 28px rgba(101, 106, 118, 0.25);
   flex-shrink: 0;
   margin-right: 48px;
-  max-height: var(--siderail-height);
+  /* Sidebar should occupy the full available screen height.
+  We have sticky nav bars, so the full height is equal to
+  100vh minus the combined height of the sticky nav bars. */
+  max-height: calc(100vh - var(--sticky-bars-height));
   overflow-y: auto;
   padding-top: 24px;
   position: sticky;
@@ -70,8 +55,4 @@
   position: sticky;
   top: calc(var(--sticky-bars-height) + var(--main-area-top-padding));
   width: 220px;
-}
-
-.footer {
-  margin-top: auto;
 }

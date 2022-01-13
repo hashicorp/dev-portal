@@ -1,4 +1,5 @@
 import s from './style.module.css'
+import BaseNewLayout from 'layouts/base-new'
 
 interface SidebarSidecarLayoutProps {
   /** Header slot. Wrapped in a position: sticky container, elements in this area will always be visible. */
@@ -16,21 +17,17 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
   children,
   sidebar,
   sidecar,
-  header,
-  footer,
 }) => {
   return (
-    <div className={s.root}>
-      <div className={s.header}>{header}</div>
-      <div className={s.contentArea}>
+    <BaseNewLayout showFooter={false}>
+      <div className={s.contentWrapper}>
         <div className={s.sidebar}>{sidebar}</div>
         <div className={s.mainArea}>
           <div className={s.main}>{children}</div>
           {sidecar && <div className={s.sidecar}>{sidecar}</div>}
         </div>
       </div>
-      {footer && <div className={s.footer}>{footer}</div>}
-    </div>
+    </BaseNewLayout>
   )
 }
 

@@ -1,19 +1,35 @@
-import Min100Layout from '@hashicorp/react-min-100-layout'
-import Footer from 'components/footer'
+import classNames from 'classnames'
 import DevAlertBanner from 'components/dev-alert-banner'
 import NavigationHeader from 'components/navigation-header'
+import Footer from 'components/footer'
 import s from './base-new-layout.module.css'
 
-const BaseNewLayout: React.FC = ({ children }) => {
+interface BaseNewLayoutProps {
+  /** Defaults to true. If true, the global footer will be shown at the bottom of the page. */
+  showFooter?: boolean
+}
+
+const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
+  children,
+  showFooter = true,
+}) => {
   return (
-    <Min100Layout footer={<Footer />}>
+    <div className={s.root}>
       <div className={s.header}>
         <DevAlertBanner />
         <NavigationHeader />
       </div>
-
-      {children}
-    </Min100Layout>
+      <div
+        className={classNames(s.contentArea, { [s.showFooter]: showFooter })}
+      >
+        {children}
+      </div>
+      {showFooter && (
+        <div className={s.footer}>
+          <Footer />
+        </div>
+      )}
+    </div>
   )
 }
 
