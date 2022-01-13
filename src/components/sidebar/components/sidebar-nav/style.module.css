@@ -27,12 +27,12 @@
   padding: 8px;
   position: absolute;
   right: -10000px;
-  top: 0;
+  top: 4px;
   width: fit-content;
   z-index: 1;
 
   &:focus {
-    right: 0;
+    right: 4px;
   }
 
   &:hover {
