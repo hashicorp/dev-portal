@@ -16,7 +16,7 @@ const additionalComponents = {
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function WaypointPluginsPage({ mdxSource }): ReactElement {
+const WaypointPluginsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }
 
