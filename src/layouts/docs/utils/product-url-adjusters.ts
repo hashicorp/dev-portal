@@ -1,8 +1,8 @@
 import { RemarkPlugin, RemarkPluginOptions } from 'types/remark'
-import adjustLinkUrlPlugin from './adjust-link-urls-plugin'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
 
 export const vaultUrlAdjuster: [RemarkPlugin, RemarkPluginOptions] = [
-  adjustLinkUrlPlugin,
+  remarkPluginAdjustLinkUrls,
   {
     urlAdjustFn: (sourceUrl: string): string => {
       let url = sourceUrl.slice()

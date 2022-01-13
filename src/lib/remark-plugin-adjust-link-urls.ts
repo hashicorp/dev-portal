@@ -1,7 +1,7 @@
 import { visit } from 'unist-util-visit'
 import type { Root } from 'mdast'
 
-export default function adjustLinkUrlPlugin({
+export default function remarkPluginAdjustLinkUrls({
   urlAdjustFn,
 }: {
   urlAdjustFn: (url: string) => string
