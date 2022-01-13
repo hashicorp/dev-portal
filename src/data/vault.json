@@ -33,7 +33,7 @@
       }
     ]
   },
-  "subnavItems": [
+  "navigationHeaderItems": [
     {
       "label": "Overview",
       "path": "/vault",
