@@ -1,6 +1,5 @@
 import s from './style.module.css'
 import React from 'react'
-import { MDXProvider } from '@mdx-js/react'
 import { useCurrentProduct } from 'contexts'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import TabsBase, { Tab } from '@hashicorp/react-tabs'
@@ -12,21 +11,6 @@ import DocsAnchor from 'components/docs-anchor'
 // It is intended for use with `next-mdx-remote`.
 export default function defaultMdxComponents({ additionalComponents = {} }) {
   return Object.assign(_defaultComponents(), additionalComponents)
-}
-
-// This function returns an MDXProvider that can be used when rendering
-// within an mdx layout.
-// It is intended for use with `next-mdx-enhanced`. Once we no longer use
-// `next-mdx-enhanced` on any of our properties, it will be deprecated.
-export function createMdxProvider({ additionalComponents = {} }) {
-  const allComponents = Object.assign(
-    _defaultComponents(),
-    additionalComponents
-  )
-
-  return function CustomMDXProvider({ children }) {
-    return <MDXProvider components={allComponents}>{children}</MDXProvider>
-  }
 }
 
 // Purely for sharing between the two functions. Once `createMdxProvider` is
@@ -57,7 +41,7 @@ function EnterpriseAlert(props) {
 
 // Tabs is a general-purpose component that we format for ease of use within mdx
 // It is also wrapped in a span with a css module class for styling overrides
-export function Tabs({ defaultTabIdx, children }) {
+function Tabs({ defaultTabIdx, children }) {
   if (!Array.isArray(children))
     throw new Error('Multiple <Tab> elements required')
 
