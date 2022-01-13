@@ -1,7 +1,7 @@
 import { RemarkPlugin, RemarkPluginOptions } from 'types/remark'
 import adjustLinkUrlPlugin from './adjust-link-urls-plugin'
 
-const vaultUrlAdjuster: [RemarkPlugin, RemarkPluginOptions] = [
+export const vaultUrlAdjuster: [RemarkPlugin, RemarkPluginOptions] = [
   adjustLinkUrlPlugin,
   {
     urlAdjustFn: (sourceUrl: string): string => {
@@ -20,7 +20,3 @@ const vaultUrlAdjuster: [RemarkPlugin, RemarkPluginOptions] = [
     },
   },
 ]
-
-export { vaultUrlAdjuster }
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { vaultUrlAdjuster }
