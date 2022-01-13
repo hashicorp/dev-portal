@@ -1,14 +1,16 @@
 import { visit } from 'unist-util-visit'
-import type { Root } from 'mdast'
+import { Plugin } from 'unified'
 
-export default function remarkPluginAdjustLinkUrls({
+const remarkPluginAdjustLinkUrls = ({
   urlAdjustFn,
 }: {
   urlAdjustFn: (url: string) => string
-}): (tree: Root) => void {
+}): Plugin => {
   return function transformer(tree) {
     visit(tree, 'link', (node) => {
       node.url = urlAdjustFn(node.url)
     })
   }
 }
+
+export default remarkPluginAdjustLinkUrls

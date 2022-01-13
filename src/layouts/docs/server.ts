@@ -1,10 +1,10 @@
+import { Pluggable } from 'unified'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 import { Product } from 'types/products'
 import prepareNavDataForClient from 'layouts/docs/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
-import { RemarkPluginEntry } from 'types/remark'
 
 const BASE_REVALIDATE = 10
 
@@ -31,7 +31,7 @@ export function getStaticGenerationFunctions({
   product: Product
   basePath: string
   baseName: string
-  additionalRemarkPlugins?: RemarkPluginEntry[]
+  additionalRemarkPlugins?: Pluggable[]
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,

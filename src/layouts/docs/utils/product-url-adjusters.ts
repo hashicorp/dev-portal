@@ -1,7 +1,7 @@
-import { RemarkPlugin, RemarkPluginOptions } from 'types/remark'
+import { Pluggable } from 'unified'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
 
-export const vaultUrlAdjuster: [RemarkPlugin, RemarkPluginOptions] = [
+export const vaultUrlAdjuster: Pluggable = [
   remarkPluginAdjustLinkUrls,
   {
     urlAdjustFn: (sourceUrl: string): string => {
