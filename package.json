@@ -60,6 +60,7 @@
     "@reach/tabs": "^0.16.1",
     "@reach/visually-hidden": "^0.16.0",
     "classnames": "^2.3.1",
+    "mdast": "^3.0.0",
     "next": "^11.1.2",
     "next-mdx-remote": "^3.0.5",
     "react": "^17.0.2",

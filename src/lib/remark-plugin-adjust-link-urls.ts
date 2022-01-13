@@ -1,13 +1,14 @@
 import { visit } from 'unist-util-visit'
-import { Plugin } from 'unified'
+import { Link } from 'mdast'
+import { Plugin, Transformer } from 'unified'
 
-const remarkPluginAdjustLinkUrls = ({
+const remarkPluginAdjustLinkUrls: Plugin = ({
   urlAdjustFn,
 }: {
   urlAdjustFn: (url: string) => string
-}): Plugin => {
+}): Transformer => {
   return function transformer(tree) {
-    visit(tree, 'link', (node) => {
+    visit(tree, 'link', (node: Link) => {
       node.url = urlAdjustFn(node.url)
     })
   }
