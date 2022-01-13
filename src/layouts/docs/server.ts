@@ -24,9 +24,11 @@ const BASE_REVALIDATE = 10
 export function getStaticGenerationFunctions({
   product,
   basePath,
+  baseName,
 }: {
   product: Product
   basePath: string
+  baseName: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
@@ -74,7 +76,7 @@ export function getStaticGenerationFunctions({
         productPath: product.slug,
         productName: product.name,
         basePath,
-        baseName: 'Docs',
+        baseName,
         pathParts: (ctx.params.page || []) as string[],
         navData: navDataWithFullPaths,
       })

@@ -6,6 +6,7 @@ import DocsLayout from 'layouts/docs'
 import DocsView from 'views/docs-view'
 
 const basePath = 'api-docs'
+const baseName = 'API'
 const product = vaultData as Product
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -16,6 +17,7 @@ function VaultApiDocsPage({ mdxSource }): ReactElement {
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   product,
   basePath,
+  baseName,
 })
 
 VaultApiDocsPage.layout = DocsLayout

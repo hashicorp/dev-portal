@@ -25,15 +25,23 @@ module.exports = withSwingset({
     async headers() {
       return [temporary_hideDocsPaths]
     },
-    /**
-     * Commented out for the assembly-ui-v1 branch
-     */
-    // async redirects() {
-    //   return await redirectsConfig()
-    // },
-    // async rewrites() {
-    //   return await rewritesConfig()
-    // },
+    async rewrites() {
+      return [
+        {
+          source: '/vault/api/:path*',
+          destination: '/vault/api-docs/:path*',
+        },
+      ]
+    },
+    async redirects() {
+      return [
+        {
+          source: '/vault/api-docs/:path*',
+          destination: '/vault/api/:path*',
+          permanent: true,
+        },
+      ]
+    },
     env: {
       HASHI_ENV: process.env.HASHI_ENV || 'development',
       BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',

@@ -8,6 +8,7 @@ import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
 
 const basePath = 'plugins'
+const baseName = 'Plugins'
 const product = waypointData as Product
 const additionalComponents = {
   Placement,
@@ -22,6 +23,7 @@ function WaypointPluginsPage({ mdxSource }): ReactElement {
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   product,
   basePath,
+  baseName,
 })
 
 WaypointPluginsPage.layout = DocsLayout

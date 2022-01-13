@@ -8,6 +8,7 @@ import Columns from 'components/author-primitives/vault/columns'
 import InlineTag from 'components/author-primitives/vault/inline-tag'
 
 const basePath = 'docs'
+const baseName = 'Docs'
 const product = vaultData as Product
 const additionalComponents = {
   Columns,
@@ -22,6 +23,7 @@ function VaultDocsPage({ mdxSource }): ReactElement {
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   product,
   basePath,
+  baseName,
 })
 
 VaultDocsPage.layout = DocsLayout

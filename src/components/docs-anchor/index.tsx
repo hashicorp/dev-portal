@@ -17,6 +17,9 @@ const DocsAnchor: React.FC<JSX.IntrinsicElements['a']> = ({
 
   if (!href) return <a {...passableProps}>{children}</a>
 
+  // Authors write content as if it only exists for their product,
+  // eg Waypoint content contains links that start with "/docs".
+  // We need to be adjust these links, eg to start with "/waypoint/docs".
   let adjustedHref = href
   // TODO: infer this condition dynamically
   if (
