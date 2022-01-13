@@ -6,11 +6,11 @@
     "landingPageNavData": [
       {
         "title": "Introduction",
-        "href": "https://www.vaultproject.io/docs/what-is-vault"
+        "fullPath": "/vault/docs/what-is-vault"
       },
       {
         "title": "Getting Started",
-        "href": "https://www.vaultproject.io/docs/install"
+        "fullPath": "/vault/docs/install"
       }
     ],
     "resourcesNavData": [
