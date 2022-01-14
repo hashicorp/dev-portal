@@ -4,6 +4,8 @@
   min-height: 100vh;
 }
 
-.footer {
-  margin-top: 128px;
+.footerContainer {
+  margin-top: auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
