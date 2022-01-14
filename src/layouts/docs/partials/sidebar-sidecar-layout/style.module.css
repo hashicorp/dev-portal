@@ -34,6 +34,10 @@ for further details.
   position: sticky;
   top: var(--sticky-bars-height);
   width: 320px;
+  /* z-index is necessary here to prevent any absolutely
+  positioned elements in the main area, namely the footer's
+  top-border, from overlapping the sidebar */
+  z-index: 1;
 }
 
 .mainArea {

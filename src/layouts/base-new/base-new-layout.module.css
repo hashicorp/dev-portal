@@ -40,8 +40,7 @@ for both --navigation-header-height and --alert-bar-height.
   automatic height (by doing nothing) */
   display: flex;
   flex-direction: column;
-  /* Stretch the
-  content area to ensure the page is at
+  /* Stretch the content area to ensure the page is at
   least 100vh. The SidebarSidecar layout
   requires this stretching to avoid having
   its sidebar cut off early if page

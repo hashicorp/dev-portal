@@ -54,10 +54,7 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({
           label="Edit this page on GitHub"
         />
       )}
-       <Footer
-              className={s.footer}
-              openConsentManager={props.openConsentManager}
-            />
+      <Footer className={s.footer} openConsentManager={openConsentManager} />
     </main>
   </SidebarSidecarLayout>
 )
