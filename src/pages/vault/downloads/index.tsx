@@ -1,5 +1,10 @@
-import BaseNewLayout from 'layouts/base-new'
 import { ReactElement } from 'react'
+import { GetStaticProps } from 'next'
+import vaultData from 'data/waypoint.json'
+import { Product } from 'types/products'
+import BaseNewLayout from 'layouts/base-new'
+
+const product = vaultData as Product
 
 const VaultDownloadsPage = (): ReactElement => {
   return (
@@ -10,6 +15,13 @@ const VaultDownloadsPage = (): ReactElement => {
       </ul>
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: { product },
+    revalidate: 10,
+  }
 }
 
 VaultDownloadsPage.layout = BaseNewLayout
