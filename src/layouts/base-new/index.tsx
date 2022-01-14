@@ -1,7 +1,6 @@
 import DevAlertBanner from 'components/dev-alert-banner'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
-import Footer from 'components/footer'
 import s from './base-new-layout.module.css'
 
 interface BaseNewLayoutProps {

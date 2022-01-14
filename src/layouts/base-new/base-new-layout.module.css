@@ -51,7 +51,7 @@ for both --navigation-header-height and --alert-bar-height.
   z-index: 0;
 }
 
-.footerContainer {
+.footer {
   margin-top: auto;
   padding-left: 24px;
   padding-right: 24px;
