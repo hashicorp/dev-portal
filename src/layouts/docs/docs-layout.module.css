@@ -9,7 +9,9 @@
   color: var(--token-color-palette-neutral-600);
   font-size: 16px;
   line-height: 22px;
+}
 
+.tempContentStyles {
   & :global {
     & a.__permalink-h {
       display: none;
@@ -255,4 +257,8 @@
 
 .editOnGithubLink {
   margin-top: 64px;
+}
+
+.footer {
+  margin-top: 360px;
 }

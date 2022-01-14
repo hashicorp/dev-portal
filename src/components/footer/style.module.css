@@ -1,9 +1,81 @@
+@custom-media --list-horizontally (min-width: 1400px);
+
 .root {
-  padding: 1rem;
-  min-height: 160px;
-  background: var(--token-color-palette-neutral-700);
+  align-items: center;
+  background: var(--token-color-palette-neutral-0);
   color: var(--token-color-palette-neutral-600);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 32px 0;
+  position: relative;
+
+  /* before element acts as full-width border,
+     no matter the container size*/
+  &::before {
+    background: var(--token-color-neutral-border-primary);
+    content: '\200B';
+    height: 1px;
+    left: 0;
+    left: 50%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    width: 200vh;
+  }
+}
+
+.logo {
+  position: relative;
+  margin: 8px 40px 8px 0;
+
+  & svg {
+    /* default inline display results
+     in misalignment with footer links */
+    display: block;
+    height: 28px;
+    width: auto;
+  }
+}
+
+.links {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+
+  @media (--list-horizontally) {
+    width: auto;
+    margin-top: 0;
+  }
+}
+
+.linkListItem {
+  margin: 8px 0;
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-right: 32px;
+  }
+
+  @media (--list-horizontally) {
+    width: auto;
+  }
+}
+
+.linkAction {
+  composes: ds-token-typography-body-base from global;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--token-color-neutral-foreground-faint);
+
+  &:hover {
+    color: var(--token-color-neutral-foreground-primary);
+    text-decoration: underline;
+  }
 }
