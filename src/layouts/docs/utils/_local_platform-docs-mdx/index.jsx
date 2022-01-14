@@ -5,6 +5,7 @@ import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import TabsBase, { Tab } from '@hashicorp/react-tabs'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import DocsAnchor from 'components/docs-anchor'
+import Heading from 'components/heading'
 
 // This function returns a simple object containing the default components
 // The `additionalComponents` param is purely for convenience.
@@ -27,6 +28,12 @@ function _defaultComponents() {
     CodeTabs,
     pre,
     a: DocsAnchor,
+    h1: (p) => <Heading level={1} {...p} />,
+    h2: (p) => <Heading level={2} {...p} />,
+    h3: (p) => <Heading level={3} {...p} />,
+    h4: (p) => <Heading level={4} {...p} />,
+    h5: (p) => <Heading level={5} {...p} />,
+    h6: (p) => <Heading level={6} {...p} />,
   }
 }
 

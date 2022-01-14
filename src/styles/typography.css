@@ -64,3 +64,19 @@
   line-height: var(--token-typography-body-large-line-height);
   font-weight: var(--token-typography-body-large-font-weight);
 }
+
+h1,
+h2 {
+  color: var(--token-color-neutral-foreground-primary);
+  font-weight: var(--token-typography-font-weight-bold);
+}
+
+h1 {
+  font-size: var(--token-typography-display-500-font-size);
+  line-height: var(--token-typography-display-500-line-height);
+}
+
+h2 {
+  font-size: var(--token-typography-display-400-font-size);
+  line-height: var(--token-typography-display-400-line-height);
+}

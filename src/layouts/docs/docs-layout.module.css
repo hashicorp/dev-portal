@@ -44,7 +44,6 @@ heading with only a couple words, the element can become too narrow.
   - width: 0
 */
 .main {
-  color: var(--token-color-palette-neutral-600);
   flex-grow: 1;
   font-size: 16px;
   line-height: 22px;
@@ -90,8 +89,6 @@ heading with only a couple words, the element can become too narrow.
   & h4,
   & h5,
   & h6 {
-    color: var(--token-color-palette-neutral-700);
-
     & + ul,
     & + ol {
       margin-top: 12px;
@@ -124,27 +121,21 @@ heading with only a couple words, the element can become too narrow.
     margin-bottom: 8px;
   }
 
-  & h4,
-  & h5,
-  & h6 {
-    color: var(--token-color-palette-neutral-700);
-  }
-
   /* named Heading 0 */
-  & h1 {
+  /* & h1 {
     font-size: 30px;
     font-weight: 700;
     line-height: 38px;
     margin-top: 0;
-  }
+  } */
 
   /* named Heading 1 */
-  & h2 {
+  /* & h2 {
     font-size: 24px;
     font-weight: 700;
     line-height: 32px;
     margin-top: 48px;
-  }
+  } */
 
   /* named Heading 2 */
   & h3 {
