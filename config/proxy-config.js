@@ -44,7 +44,7 @@ module.exports = {
   waypoint: {
     // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
     domain: 'https://wp.snarglepuss.com',
-    host: 'wp.snarglepuss.com',
+    host: '(wp\\.snarglepuss\\.com|test-wp\\.hashi-mktg\\.com)',
     assets: ['/files/press-kit.zip'],
   },
 }
