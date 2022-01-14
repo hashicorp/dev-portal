@@ -1,3 +1,4 @@
+import { Pluggable } from 'unified'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
@@ -24,9 +25,13 @@ const BASE_REVALIDATE = 10
 export function getStaticGenerationFunctions({
   product,
   basePath,
+  baseName,
+  additionalRemarkPlugins = [],
 }: {
   product: Product
   basePath: string
+  baseName: string
+  additionalRemarkPlugins?: Pluggable[]
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
@@ -50,7 +55,12 @@ export function getStaticGenerationFunctions({
     getStaticProps: async (ctx) => {
       const headings = []
 
-      const loader = getLoader({ remarkPlugins: [[anchorLinks, { headings }]] })
+      const loader = getLoader({
+        remarkPlugins: [
+          [anchorLinks, { headings }],
+          ...additionalRemarkPlugins,
+        ],
+      })
 
       const {
         navData,
@@ -74,7 +84,7 @@ export function getStaticGenerationFunctions({
         productPath: product.slug,
         productName: product.name,
         basePath,
-        baseName: 'Docs',
+        baseName,
         pathParts: (ctx.params.page || []) as string[],
         navData: navDataWithFullPaths,
       })

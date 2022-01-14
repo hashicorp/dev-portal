@@ -1,15 +1,16 @@
 {
   "slug": "vault",
   "name": "Vault",
+  "basePaths": ["docs", "api-docs", "intro"],
   "sidebar": {
     "landingPageNavData": [
       {
         "title": "Introduction",
-        "href": "https://www.vaultproject.io/docs/what-is-vault"
+        "fullPath": "/vault/docs/what-is-vault"
       },
       {
         "title": "Getting Started",
-        "href": "https://www.vaultproject.io/docs/install"
+        "fullPath": "/vault/docs/install"
       }
     ],
     "resourcesNavData": [
@@ -31,5 +32,27 @@
         "href": "https://support.hashicorp.com"
       }
     ]
-  }
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/vault",
+      "id": "overview"
+    },
+    {
+      "label": "Docs",
+      "id": "reference-docs",
+      "path": "/vault/docs"
+    },
+    {
+      "label": "API",
+      "path": "/vault/api-docs",
+      "id": "api-docs"
+    },
+    {
+      "label": "Install",
+      "path": "/vault/downloads",
+      "id": "downloads"
+    }
+  ]
 }
