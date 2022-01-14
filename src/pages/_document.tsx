@@ -1,6 +1,11 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import HashiHead from '@hashicorp/react-head'
 
+/**
+ * TODO: update the lang attribute dynamically?
+ * Language code reference: https://www.w3schools.com/tags/ref_language_codes.asp
+ */
+
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
@@ -9,7 +14,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <HashiHead />
         </Head>
