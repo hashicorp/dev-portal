@@ -65,7 +65,7 @@
   align-items: center;
   color: var(--token-color-palette-blue-200);
   display: flex;
-  font-weight: var(--ds-token-font-weight-medium);
+  font-weight: var(--hds-font-weight-medium);
   transition: color 0.2s;
 
   & svg {
