@@ -10,13 +10,6 @@
  * 
  **/
 
-.ds-token-typography-heading-0 {
-  font-family: var(--token-typography-heading-0-font-family);
-  font-size: var(--token-typography-heading-0-font-size);
-  line-height: var(--token-typography-heading-0-line-height);
-  font-weight: var(--token-typography-heading-0-font-weight);
-}
-
 .ds-token-typography-heading-3 {
   font-family: var(--token-typography-heading-3-font-family);
   font-size: var(--token-typography-heading-3-font-size);
