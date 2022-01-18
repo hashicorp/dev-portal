@@ -22,16 +22,16 @@
 }
 
 .heading {
-  composes: ds-token-typography-heading-0 from global;
+  composes: hds-typography-display-500 from global;
+  composes: hds-font-weight-bold from global;
   color: var(--token-color-palette-neutral-700);
-  margin: 0;
-  padding-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .subheading {
-  composes: ds-token-typography-body-large from global;
+  composes: hds-typography-body-300 from global;
+  composes: hds-font-weight-regular from global;
   color: var(--token-color-palette-neutral-600);
-  margin: 0;
 }
 
 .imageSection {
