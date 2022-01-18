@@ -60,13 +60,18 @@
   line-height: var(--token-typography-body-base-line-height) !important;
 }
 
+/*
+NOTE: sets `width: fit-content` so the link does not take up all of the
+available width and have a very wide target.
+*/
 .link {
-  composes: ds-token-typography-body-base from global;
+  composes: hds-typography-body-200 from global;
+  composes: hds-font-weight-medium from global;
   align-items: center;
   color: var(--token-color-palette-blue-200);
   display: flex;
-  font-weight: var(--hds-font-weight-medium);
   transition: color 0.2s;
+  width: fit-content;
 
   & svg {
     display: block;
