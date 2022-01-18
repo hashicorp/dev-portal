@@ -7,6 +7,10 @@
    In the long term, it may be removed from this project. */
 @import '~@hashicorp/mktg-global-styles/style.css';
 
+@import '~@hashicorp/design-system-tokens/devdot/css/tokens.css';
+@import '~@hashicorp/design-system-tokens/devdot/css/helpers/elevation.css';
+@import '~@hashicorp/design-system-tokens/devdot/css/helpers/typography.css';
+
 /* Local global style helpers */
 @import 'styles/elevation.css';
 @import 'styles/sizing.css';
