@@ -62,7 +62,7 @@
   composes: ds-token-typography-body-large from global;
   color: var(--token-color-palette-neutral-700);
   display: block;
-  font-weight: var(--ds-token-font-weight-semibold);
+  font-weight: var(--hds-font-weight-semibold);
 }
 
 .cardText {

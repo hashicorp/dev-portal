@@ -82,7 +82,7 @@
   composes: ds-token-typography-body-base from global;
   color: var(--token-color-palette-neutral-600);
   display: block;
-  font-weight: var(--ds-token-font-weight-semibold);
+  font-weight: var(--hds-font-weight-semibold);
   padding-bottom: 48px;
   position: relative;
 

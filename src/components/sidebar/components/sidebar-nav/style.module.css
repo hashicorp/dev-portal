@@ -5,7 +5,7 @@
 
 .sidebarNavLabel {
   composes: ds-token-typography-body-base from global;
-  font-weight: var(--ds-token-font-weight-semibold);
+  font-weight: var(--hds-font-weight-semibold);
   color: var(--token-color-neutral-foreground-faint);
   margin: 0 0 12px 0;
   padding: 0 8px;
