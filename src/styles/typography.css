@@ -23,10 +23,3 @@
   line-height: var(--token-typography-body-base-line-height);
   font-weight: var(--token-typography-body-base-font-weight);
 }
-
-.ds-token-typography-body-large {
-  font-family: var(--token-typography-body-large-font-family);
-  font-size: var(--token-typography-body-large-font-size);
-  line-height: var(--token-typography-body-large-line-height);
-  font-weight: var(--token-typography-body-large-font-weight);
-}
