@@ -17,13 +17,6 @@
   font-weight: var(--token-typography-heading-3-font-weight);
 }
 
-.ds-token-typography-body-small {
-  font-family: var(--token-typography-body-small-font-family);
-  font-size: var(--token-typography-body-small-font-size);
-  line-height: var(--token-typography-body-small-line-height);
-  font-weight: var(--token-typography-body-small-font-weight);
-}
-
 .ds-token-typography-body-base {
   font-family: var(--token-typography-body-base-font-family);
   font-size: var(--token-typography-body-base-font-size);
