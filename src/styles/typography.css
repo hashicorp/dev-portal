@@ -16,10 +16,3 @@
   line-height: var(--token-typography-heading-3-line-height);
   font-weight: var(--token-typography-heading-3-font-weight);
 }
-
-.ds-token-typography-body-base {
-  font-family: var(--token-typography-body-base-font-family);
-  font-size: var(--token-typography-body-base-font-size);
-  line-height: var(--token-typography-body-base-line-height);
-  font-weight: var(--token-typography-body-base-font-weight);
-}
