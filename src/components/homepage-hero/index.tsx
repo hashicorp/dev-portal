@@ -1,12 +1,21 @@
 import { ReactElement } from 'react'
 import s from './style.module.css'
 import classNames from 'classnames'
+import Heading from 'components/heading'
 
 function HomepageHero({ className }: { className?: string }): ReactElement {
   return (
     <div className={classNames(s.root, className)}>
       <div className={s.textSection}>
-        <h1 className={s.heading}>Welcome to Dev Portal</h1>
+        <Heading
+          className={s.heading}
+          level={1}
+          size={500}
+          slug="welcome-to-dev-portal"
+          weight="bold"
+        >
+          Welcome to Dev Portal
+        </Heading>
         <p className={s.subheading}>
           This says something here about HashiCorp documentation and it&apos;s
           great.

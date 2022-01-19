@@ -22,8 +22,6 @@
 }
 
 .heading {
-  composes: hds-typography-display-500 from global;
-  composes: hds-font-weight-bold from global;
   color: var(--token-color-palette-neutral-700);
   margin-bottom: 8px;
 }
