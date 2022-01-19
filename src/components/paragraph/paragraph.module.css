@@ -1,0 +1,37 @@
+.paragraph {
+  composes: hds-typography-body-300 from global;
+}
+
+/*
+size prop classes
+*/
+.display-100 {
+  composes: hds-typography-body-100 from global;
+}
+
+.display-200 {
+  composes: hds-typography-body-200 from global;
+}
+
+.display-300 {
+  composes: hds-typography-body-300 from global;
+}
+
+/*
+weight prop classes
+*/
+.weight-regular {
+  composes: hds-font-weight-regular from global;
+}
+
+.weight-medium {
+  composes: hds-font-weight-medium from global;
+}
+
+.weight-semibold {
+  composes: hds-font-weight-semibold from global;
+}
+
+.weight-bold {
+  composes: hds-font-weight-bold from global;
+}

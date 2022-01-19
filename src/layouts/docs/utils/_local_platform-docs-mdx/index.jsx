@@ -6,6 +6,7 @@ import TabsBase, { Tab } from '@hashicorp/react-tabs'
 import { useCurrentProduct } from 'contexts'
 import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
+import Paragraph from 'components/paragraph'
 import s from './style.module.css'
 
 /**
@@ -82,6 +83,7 @@ function _defaultComponents() {
     h4: (props) => makeHeadingElement(4, props),
     h5: (props) => makeHeadingElement(5, props),
     h6: (props) => makeHeadingElement(6, props),
+    p: (props) => <Paragraph {...props} className={s.p} />,
   }
 }
 

@@ -8,12 +8,6 @@
   }
 }
 
-/*
-
-NOTE: These are the heading classes for parsed docs.
-
-*/
-
 .h1 {
   color: var(--token-color-neutral-foreground-primary);
   margin-bottom: 12px;
@@ -63,4 +57,9 @@ NOTE: These are the heading classes for parsed docs.
     font-size: 0.6em;
     font-weight: 500;
   }
+}
+
+.p {
+  color: var(--token-color-neutral-foreground-secondary);
+  margin: 16px 0;
 }
