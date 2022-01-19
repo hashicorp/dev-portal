@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import TabsBase, { Tab } from '@hashicorp/react-tabs'
@@ -50,14 +51,15 @@ export default function defaultMdxComponents({ additionalComponents = {} }) {
  */
 function makeHeadingElement(level, props) {
   const customProps = HEADING_LEVELS_TO_PROPS[level]
-  return (
-    <Heading
-      className={s[`h${level}`]}
-      level={level}
-      {...customProps}
-      {...props}
-    />
-  )
+  const className = classNames(props.className, s[`h${level}`])
+  const passableProps = {
+    ...customProps,
+    ...props,
+    className,
+    level,
+  }
+
+  return <Heading {...passableProps} />
 }
 
 // Purely for sharing between the two functions. Once `createMdxProvider` is
