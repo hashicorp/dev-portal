@@ -1,8 +1,8 @@
 /**
  * NOTE: this approach gets us around the following error:
  *
- * > An interface can only extend an identifier/qualified-name with optional
- * > type arguments. ts(2499)
+ * "An interface can only extend an identifier/qualified-name with optional type
+ * arguments. ts(2499)"
  */
 type HeadingElementProps =
   | JSX.IntrinsicElements['h1']
