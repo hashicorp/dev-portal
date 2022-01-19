@@ -3,11 +3,12 @@ import React, { ReactElement } from 'react'
 import DocsLayout from 'layouts/docs'
 import GetStarted, { GetStartedProps } from './components/get-started'
 import Cards, { CardProps } from './components/cards'
-import Heading, { HeadingProps } from './components/heading'
+import Heading, { HeadingProps } from 'components/heading'
 import s from './style.module.css'
+import slugify from 'slugify'
 
 type Block =
-  | ({ type: 'heading' } & HeadingProps)
+  | ({ type: 'heading' } & HeadingProps & { heading: string })
   | ({ type: 'get_started' } & GetStartedProps)
   | ({ type: 'cards' } & CardProps)
 
@@ -22,7 +23,14 @@ interface ProductLandingProps {
 function ProductLanding({ content }: ProductLandingProps): ReactElement {
   return (
     <>
-      <h1 className={s.pageHeading}>{content.heading}</h1>
+      <Heading
+        className={s.pageHeading}
+        size={500}
+        level={1}
+        slug={slugify(content.heading)}
+      >
+        {content.heading}
+      </Heading>
       {content.subheading && (
         <p className={s.pageSubheading}>{content.subheading}</p>
       )}
@@ -30,7 +38,11 @@ function ProductLanding({ content }: ProductLandingProps): ReactElement {
         const { type } = block
         if (type === 'heading') {
           const { heading, slug, level, size } = block
-          return <Heading key={idx} {...{ slug, heading, level, size }} />
+          return (
+            <Heading key={idx} {...{ slug, level, size }}>
+              {heading}
+            </Heading>
+          )
         } else if (type === 'get_started') {
           const { heading, iconSvg, text, link } = block
           return <GetStarted key={idx} {...{ iconSvg, heading, text, link }} />
