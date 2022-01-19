@@ -1,17 +1,63 @@
-import s from './style.module.css'
 import React from 'react'
-import { useCurrentProduct } from 'contexts'
+import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import TabsBase, { Tab } from '@hashicorp/react-tabs'
-import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
+import { useCurrentProduct } from 'contexts'
 import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
+import s from './style.module.css'
+
+/**
+ * Used by `makeHeadingElement`.
+ */
+const HEADING_LEVELS_TO_PROPS = {
+  1: {
+    size: 500,
+    weight: 'bold',
+  },
+  2: {
+    size: 400,
+    weight: 'bold',
+  },
+  3: {
+    size: 300,
+    weight: 'bold',
+  },
+  4: {
+    size: 200,
+    weight: 'semibold',
+  },
+  5: {
+    size: 200,
+    weight: 'semibold',
+  },
+  6: {
+    size: 200,
+    weight: 'semibold',
+  },
+}
 
 // This function returns a simple object containing the default components
 // The `additionalComponents` param is purely for convenience.
 // It is intended for use with `next-mdx-remote`.
 export default function defaultMdxComponents({ additionalComponents = {} }) {
   return Object.assign(_defaultComponents(), additionalComponents)
+}
+
+/**
+ * Returns the Heading element with its given props applied and custom props we
+ * apply for styling these components in docs pages.
+ */
+function makeHeadingElement(level, props) {
+  const customProps = HEADING_LEVELS_TO_PROPS[level]
+  return (
+    <Heading
+      className={s[`h${level}`]}
+      level={level}
+      {...customProps}
+      {...props}
+    />
+  )
 }
 
 // Purely for sharing between the two functions. Once `createMdxProvider` is
@@ -28,12 +74,12 @@ function _defaultComponents() {
     CodeTabs,
     pre,
     a: DocsAnchor,
-    h1: (p) => <Heading level={1} {...p} />,
-    h2: (p) => <Heading level={2} {...p} />,
-    h3: (p) => <Heading level={3} {...p} />,
-    h4: (p) => <Heading level={4} {...p} />,
-    h5: (p) => <Heading level={5} {...p} />,
-    h6: (p) => <Heading level={6} {...p} />,
+    h1: (props) => makeHeadingElement(1, props),
+    h2: (props) => makeHeadingElement(2, props),
+    h3: (props) => makeHeadingElement(3, props),
+    h4: (props) => makeHeadingElement(4, props),
+    h5: (props) => makeHeadingElement(5, props),
+    h6: (props) => makeHeadingElement(6, props),
   }
 }
 
