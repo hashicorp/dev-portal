@@ -1,9 +1,9 @@
 import { ReactElement } from 'react'
 import BaseNewLayout from 'layouts/base-new'
-import ProductCardGrid from 'components/product-card-grid'
-import HomepageHero from 'components/homepage-hero'
-import s from './index.module.css'
 import Heading from 'components/heading'
+import HomepageHero from 'components/homepage-hero'
+import ProductCardGrid from 'components/product-card-grid'
+import s from './index.module.css'
 
 function Homepage(): ReactElement {
   return (
