@@ -1,27 +1,26 @@
 import classNames from 'classnames'
 import { HeadingProps } from './types'
-import clamp from 'lib/clamp'
 import s from './heading.module.css'
 
 const Heading: React.FC<HeadingProps> = ({
-  slug,
-  heading,
   level,
   size,
+  slug,
+  weight,
   ...rest
 }) => {
   const id = slug
   const className = classNames(
-    rest.className,
-    s[`h${clamp(size || level, 0, 4)}`]
+    s[`h${level}`],
+    s[`display-${size}`],
+    s[`weight-${weight}`],
+    rest.className
   )
   const passableProps = {
     ...rest,
     className,
     id,
   }
-
-  console.log(rest)
 
   const HeadingElement = `h${level}` as React.ElementType
   return <HeadingElement {...passableProps} />
