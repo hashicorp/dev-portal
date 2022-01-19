@@ -125,7 +125,7 @@ async function migrateWaypointIo() {
   }
   // set up the source direction (cloned product repository)
   // and the destination directories (all within this project's source)
-  const { repoDirs, destDirs } = await setupProductMigration(productData)
+  const { repoDirs, destDirs } = await setupProductMigration(productData.slug)
   //
   // PAGES FOLDER SETUP
   //
@@ -342,7 +342,13 @@ export default FooterWithProps\n`
   const additionalComponentImports = `import Placement from '${componentsPath}/placement-table'\nimport NestedNode from '${componentsPath}/nested-node'\n`
   const additionalComponents = '{ Placement, NestedNode }'
   // delete existing docs page
-  await exec(`rm -f ${path.join(destDirs.pages, 'docs', '[[...page]].jsx')}`)
+  try {
+    await exec(
+      `rm -f ${path.join(destDirs.pages, 'docs', '\\[\\[...page\\]\\].jsx')}`
+    )
+  } catch {
+    // do nothing
+  }
   // use standardized template
   await setupDocsRoute({
     pagesDir: destDirs.pages,
@@ -355,9 +361,17 @@ export default FooterWithProps\n`
   // COMMANDS
   //
   // delete existing docs page
-  await exec(
-    `rm -f ${path.join(destDirs.pages, 'commands', '[[...page]].jsx')}`
-  )
+  try {
+    await exec(
+      `rm -f ${path.join(
+        destDirs.pages,
+        'commands',
+        '\\[\\[...page\\]\\].jsx'
+      )}`
+    )
+  } catch {
+    // do nothing
+  }
   // use standardized template
   await setupDocsRoute({
     pagesDir: destDirs.pages,
@@ -367,7 +381,13 @@ export default FooterWithProps\n`
   //
   // PLUGINS
   //
-  await exec(`rm -f ${path.join(destDirs.pages, 'plugins', '[[...page]].jsx')}`)
+  try {
+    await exec(
+      `rm -f ${path.join(destDirs.pages, 'plugins', '\\[\\[...page\\]\\].jsx')}`
+    )
+  } catch {
+    // do nothing
+  }
   // use standardized template
   await setupDocsRoute({
     pagesDir: destDirs.pages,
