@@ -45,8 +45,6 @@ heading with only a couple words, the element can become too narrow.
 */
 .main {
   flex-grow: 1;
-  font-size: 16px;
-  line-height: 22px;
   max-width: 804px;
   padding: 0 24px;
   padding-bottom: 50vh;
@@ -91,11 +89,11 @@ heading with only a couple words, the element can become too narrow.
   & h6 {
     & + ul,
     & + ol {
-      margin-top: 12px;
+      /* margin-top: 12px; */
     }
 
     & + p {
-      margin-top: 0;
+      /* margin-top: 0; */
     }
 
     /*
@@ -106,183 +104,6 @@ heading with only a couple words, the element can become too narrow.
     & code {
       font-size: 0.6em;
       font-weight: 500;
-    }
-  }
-
-  & h1,
-  & h2 {
-    margin-bottom: 12px;
-  }
-
-  & h3,
-  & h4,
-  & h5,
-  & h6 {
-    margin-bottom: 8px;
-  }
-
-  /* named Heading 0 */
-  /* & h1 {
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 38px;
-    margin-top: 0;
-  } */
-
-  /* named Heading 1 */
-  /* & h2 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 32px;
-    margin-top: 48px;
-  } */
-
-  /* named Heading 2 */
-  & h3 {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 24px;
-    margin-top: 32px;
-  }
-
-  /* named Heading 3 */
-  & h4 {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 24px;
-    margin-top: 24px;
-  }
-
-  /* named Heading 4 and Heading 5 */
-  & h5,
-  & h6 {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 18px;
-  }
-
-  & p {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    margin: 16px 0;
-  }
-
-  & strong {
-    font-weight: 500;
-  }
-
-  & :not(nav) {
-    & ul,
-    & ol {
-      margin: 24px 0;
-      padding-left: 24px;
-
-      & li {
-        line-height: 24px;
-
-        &:not(:last-child) {
-          margin-bottom: 16px;
-        }
-
-        & ul,
-        & ol {
-          margin: 16px 0;
-        }
-      }
-    }
-  }
-
-  & img {
-    border-radius: 5px;
-    margin: 24px auto;
-    max-width: 100%;
-  }
-
-  /* inline code elements */
-  & code {
-    background-color: var(--token-color-palette-neutral-50);
-    border-radius: 5px;
-    border: 1px solid rgba(101, 106, 118, 0.2);
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 16px;
-    padding: 2px 4px;
-  }
-
-  /* code blocks */
-  & pre {
-    border-radius: 5px;
-
-    & code {
-      background-color: transparent;
-      border: none;
-      border-radius: 0;
-      padding: 0;
-    }
-  }
-
-  & table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    border: 1px solid #ddd;
-    border-right: 0;
-    background-color: transparent;
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 20px;
-
-    & th {
-      text-align: left;
-    }
-
-    & td,
-    & th {
-      border-right: 1px solid #ddd;
-      padding: 0;
-    }
-
-    & > tbody > tr:nth-of-type(odd) {
-      background-color: #f9f9f9;
-    }
-
-    & > thead > tr > th,
-    & > tbody > tr > th,
-    & > tfoot > tr > th,
-    & > thead > tr > td,
-    & > tbody > tr > td,
-    & > tfoot > tr > td {
-      padding: 8px;
-      line-height: 1.42857143;
-      vertical-align: top;
-      border-top: 1px solid #ddd;
-    }
-
-    & > thead > tr > th {
-      vertical-align: bottom;
-      border-bottom: 2px solid #ddd;
-    }
-
-    & > caption + thead > tr:first-child > th,
-    & > colgroup + thead > tr:first-child > th,
-    & > thead:first-child > tr:first-child > th,
-    & > caption + thead > tr:first-child > td,
-    & > colgroup + thead > tr:first-child > td,
-    & > thead:first-child > tr:first-child > td {
-      border-top: 0;
-      border-right: 1px solid #ddd;
-    }
-
-    & > tbody + tbody {
-      border-top: 2px solid #ddd;
-    }
-
-    & table {
-      background-color: #fff;
-    }
-
-    & tr.warning td {
-      background: #fcf8e3;
     }
   }
 }
