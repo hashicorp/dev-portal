@@ -1,11 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 import React, { ReactElement } from 'react'
+import slugify from 'slugify'
 import DocsLayout from 'layouts/docs'
+import Heading, { HeadingProps } from 'components/heading'
 import GetStarted, { GetStartedProps } from './components/get-started'
 import Cards, { CardProps } from './components/cards'
-import Heading, { HeadingProps } from 'components/heading'
 import s from './style.module.css'
-import slugify from 'slugify'
 
 type Block =
   | ({ type: 'heading' } & HeadingProps & { heading: string })
@@ -39,7 +39,11 @@ function ProductLanding({ content }: ProductLandingProps): ReactElement {
         if (type === 'heading') {
           const { heading, slug, level, size } = block
           return (
-            <Heading key={idx} {...{ slug, level, size }}>
+            <Heading
+              className={s[`h${level}`]}
+              key={idx}
+              {...{ slug, level, size }}
+            >
               {heading}
             </Heading>
           )

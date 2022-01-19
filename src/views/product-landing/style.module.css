@@ -1,6 +1,3 @@
-/**
-Unfortunately, these `!important` are necessary to keep styles from #48 from leaking in. Using MDX custom components to implement styling for docs content may provide a path forward to make these `!important` unnecessary.
-*/
 .pageHeading {
   margin-bottom: 12px;
 }
@@ -9,4 +6,9 @@ Unfortunately, these `!important` are necessary to keep styles from #48 from lea
   composes: hds-typography-body-300 from global;
   color: var(--token-color-neutral-foreground-secondary);
   margin-bottom: 48px;
+}
+
+.h2 {
+  margin-top: 48px;
+  margin-bottom: 16px;
 }
