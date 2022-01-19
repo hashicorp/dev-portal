@@ -1,8 +1,18 @@
 import AlertBanner from 'components/alert-banner'
+import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import s from './base-new-layout.module.css'
 
-const BaseNewLayout: React.FC = ({ children }) => {
+interface BaseNewLayoutProps {
+  showFooter?: boolean
+  openConsentManager?: () => void
+}
+
+const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
+  children,
+  openConsentManager,
+  showFooter,
+}) => {
   return (
     <div className={s.baseNewLayout}>
       <AlertBanner type="highlight">
@@ -21,6 +31,11 @@ const BaseNewLayout: React.FC = ({ children }) => {
       </AlertBanner>
       <NavigationHeader />
       {children}
+      {showFooter && (
+        <div className={s.footerContainer}>
+          <Footer openConsentManager={openConsentManager} />
+        </div>
+      )}
     </div>
   )
 }
