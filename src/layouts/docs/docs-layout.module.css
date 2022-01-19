@@ -50,6 +50,8 @@ heading with only a couple words, the element can become too narrow.
 }
 
 .tempContentStyles {
+  composes: hds-typography-body-300 from global;
+
   & :global {
     & a.__permalink-h {
       display: none;
@@ -81,29 +83,119 @@ heading with only a couple words, the element can become too narrow.
     }
   }
 
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5,
-  & h6 {
-    & + ul,
-    & + ol {
-      /* margin-top: 12px; */
-    }
+  & strong {
+    font-weight: 500;
+  }
 
-    & + p {
-      /* margin-top: 0; */
-    }
+  & :not(nav) {
+    & ul,
+    & ol {
+      margin: 24px 0;
+      padding-left: 24px;
 
-    /*
-    TODO: these values are a special request from design for the purposes of the
-    inital preview. They make <code> elements within heading elements a little
-    less jarring.
-    */
+      & li {
+        &:not(:last-child) {
+          margin-bottom: 16px;
+        }
+
+        & ul,
+        & ol {
+          margin: 16px 0;
+        }
+      }
+    }
+  }
+
+  & img {
+    border-radius: 5px;
+    margin: 24px auto;
+    max-width: 100%;
+  }
+
+  /* inline code elements */
+  & code {
+    background-color: var(--token-color-palette-neutral-50);
+    border-radius: 5px;
+    border: 1px solid rgba(101, 106, 118, 0.2);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    padding: 2px 4px;
+  }
+
+  /* code blocks */
+  & pre {
+    border-radius: 5px;
+
     & code {
-      font-size: 0.6em;
-      font-weight: 500;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+    }
+  }
+
+  & table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-right: 0;
+    background-color: transparent;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+
+    & th {
+      text-align: left;
+    }
+
+    & td,
+    & th {
+      border-right: 1px solid #ddd;
+      padding: 0;
+    }
+
+    & > tbody > tr:nth-of-type(odd) {
+      background-color: #f9f9f9;
+    }
+
+    & > thead > tr > th,
+    & > tbody > tr > th,
+    & > tfoot > tr > th,
+    & > thead > tr > td,
+    & > tbody > tr > td,
+    & > tfoot > tr > td {
+      padding: 8px;
+      line-height: 1.42857143;
+      vertical-align: top;
+      border-top: 1px solid #ddd;
+    }
+
+    & > thead > tr > th {
+      vertical-align: bottom;
+      border-bottom: 2px solid #ddd;
+    }
+
+    & > caption + thead > tr:first-child > th,
+    & > colgroup + thead > tr:first-child > th,
+    & > thead:first-child > tr:first-child > th,
+    & > caption + thead > tr:first-child > td,
+    & > colgroup + thead > tr:first-child > td,
+    & > thead:first-child > tr:first-child > td {
+      border-top: 0;
+      border-right: 1px solid #ddd;
+    }
+
+    & > tbody + tbody {
+      border-top: 2px solid #ddd;
+    }
+
+    & table {
+      background-color: #fff;
+    }
+
+    & tr.warning td {
+      background: #fcf8e3;
     }
   }
 }
