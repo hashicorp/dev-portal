@@ -1,5 +1,9 @@
 .paragraph {
   composes: hds-typography-body-300 from global;
+
+  & strong {
+    font-weight: var(--token-typography-font-weight-medium);
+  }
 }
 
 /*

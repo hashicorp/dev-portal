@@ -83,10 +83,6 @@ heading with only a couple words, the element can become too narrow.
     }
   }
 
-  & strong {
-    font-weight: 500;
-  }
-
   & :not(nav) {
     & ul,
     & ol {
