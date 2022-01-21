@@ -83,21 +83,21 @@ heading with only a couple words, the element can become too narrow.
     }
   }
 
-  & :not(nav) {
-    & ul,
-    & ol {
-      margin: 24px 0;
-      padding-left: 24px;
+  & ul,
+  & ol {
+    margin: 24px 0;
+    padding-left: 24px;
 
-      & li {
-        &:not(:last-child) {
-          margin-bottom: 16px;
-        }
+    & li {
+      color: var(--token-color-neutral-foreground-secondary);
 
-        & ul,
-        & ol {
-          margin: 16px 0;
-        }
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
+
+      & ul,
+      & ol {
+        margin: 16px 0;
       }
     }
   }
