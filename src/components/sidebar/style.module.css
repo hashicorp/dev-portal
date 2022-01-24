@@ -6,7 +6,7 @@
   left: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: var(--sidebar-padding);
+  padding: 24px;
   position: absolute;
   top: 0;
   width: var(--sidebar-width);
