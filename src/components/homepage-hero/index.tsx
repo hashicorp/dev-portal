@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
-import s from './style.module.css'
 import classNames from 'classnames'
 import Heading from 'components/heading'
+import s from './style.module.css'
 
 function HomepageHero({ className }: { className?: string }): ReactElement {
   return (
