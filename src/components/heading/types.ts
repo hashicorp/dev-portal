@@ -24,5 +24,5 @@ export interface HeadingProps extends HeadingElementProps {
    */
   size: 100 | 200 | 300 | 400 | 500
   slug: string
-  weight?: 'regular' | 'medium' | 'semibold' | 'bold'
+  weight: 'regular' | 'medium' | 'semibold' | 'bold'
 }
