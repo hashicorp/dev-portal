@@ -50,7 +50,7 @@
 
   /*
   Hover styles take precedence over focus & active styles, so hover styles
-  should be after defined them.
+  should be defined after them.
   */
   &:hover {
     background-color: var(--token-color-palette-neutral-100);
