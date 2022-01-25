@@ -9,8 +9,8 @@ const Paragraph: React.FC<ParagraphProps> = ({
 }) => {
   const className = classNames(
     s.paragraph,
-    s[`display-${size}`],
-    s[`weight-${weight}`],
+    `hds-typography-body-${size}`,
+    `hds-font-weight-${weight}`,
     rest.className
   )
   const passableProps = {
