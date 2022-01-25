@@ -28,6 +28,7 @@ function ProductLanding({ content }: ProductLandingProps): ReactElement {
         size={500}
         level={1}
         slug={slugify(content.heading)}
+        weight="bold"
       >
         {content.heading}
       </Heading>
@@ -42,6 +43,7 @@ function ProductLanding({ content }: ProductLandingProps): ReactElement {
             <Heading
               className={s[`h${level}`]}
               key={idx}
+              weight="bold"
               {...{ slug, level, size }}
             >
               {heading}
