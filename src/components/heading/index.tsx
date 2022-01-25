@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import { HeadingProps } from './types'
-import s from './heading.module.css'
 
 const Heading: React.FC<HeadingProps> = ({
   level,
@@ -11,8 +10,8 @@ const Heading: React.FC<HeadingProps> = ({
 }) => {
   const id = slug
   const className = classNames(
-    s[`display-${size}`],
-    s[`weight-${weight}`],
+    `hds-typography-display-${size}`,
+    `hds-font-weight-${weight}`,
     rest.className
   )
   const passableProps = {
