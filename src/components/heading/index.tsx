@@ -11,7 +11,6 @@ const Heading: React.FC<HeadingProps> = ({
 }) => {
   const id = slug
   const className = classNames(
-    s[`h${level}`],
     s[`display-${size}`],
     s[`weight-${weight}`],
     rest.className
