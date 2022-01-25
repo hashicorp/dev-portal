@@ -1,0 +1,64 @@
+---
+componentName: Heading
+---
+
+The `Heading` component should be used for easily styling `<h1>` - `<h6>` elements to conform to the design system.
+
+## Props
+
+In addition to the props described in the table below, this component also accepts any other valid props for heading elements. A few caveats:
+
+- The given `className` prop is applied last to the list of class names set on the rendered element. This means that some CSS properties applied with the following props can be overwritten if needed (not recommended).
+- If an `id` prop is given, it will be ignored. Use the `slug` prop instead.
+
+| Prop name | Description                                                 | Required? | Type                                            |
+| --------- | ----------------------------------------------------------- | --------- | ----------------------------------------------- |
+| `level`   | The `h` element level to render                             | Yes       | One of: 1, 2, 3, 4, 5, 6                        |
+| `size`    | The number of the `display` style to apply                  | Yes       | One of: 100, 200, 300, 400, 500                 |
+| `slug`    | The value that will be passed as the heading element's `id` | Yes       | string                                          |
+| `weight`  | The name of the font weight style to apply.                 | Yes       | One of: "regular", "medium", "semibold", "bold" |
+
+## Playground
+
+<LiveComponent>{`<>
+  <Heading
+    level={1}
+    size={500}
+    slug="test-heading-1"
+    weight="bold"
+  >
+    h1 size 500
+  </Heading>
+  <Heading
+    level={1}
+    size={400}
+    slug="test-heading-2"
+    weight="bold"
+  >
+    h1 size 400
+  </Heading>
+  <Heading
+    level={1}
+    size={300}
+    slug="test-heading-3"
+    weight="bold"
+  >
+    h1 size 300
+  </Heading>
+  <Heading
+    level={1}
+    size={200}
+    slug="test-heading-4"
+    weight="bold"
+  >
+    h1 size 200
+  </Heading>
+  <Heading
+    level={1}
+    size={100}
+    slug="test-heading-5"
+    weight="bold"
+  >
+    h1 size 100
+  </Heading>
+</>`}</LiveComponent>
