@@ -1,0 +1,6 @@
+.root {
+  &:hover {
+    cursor: pointer;
+    background-color: var(--token-color-neutral-background-secondary);
+  }
+}
