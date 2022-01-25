@@ -1,15 +1,27 @@
-import s from './style.module.css'
+import IconTile from 'components/icon-tile'
 
 interface IconTileLogoProps {
-  size?: 'small' | 'medium' | 'large'
-  brandColor?: string
+  product:
+    | 'boundary'
+    | 'consul'
+    | 'nomad'
+    | 'packer'
+    | 'terraform'
+    | 'vagrant'
+    | 'vault'
+    | 'waypoint'
+    | 'hcp'
 }
 
-function IconTileLogo({
-  size = 'medium',
-  brandColor,
-}: IconTileLogoProps): React.ReactElement {
-  return <div className={s.root}>IconTile</div>
+function IconTileLogo({ product }: IconTileLogoProps): React.ReactElement {
+  return (
+    <IconTile
+      size="extra-large"
+      icon={`${product}-color`}
+      forceIconColor={false}
+      brandColor={product == 'hcp' ? 'neutral' : product}
+    />
+  )
 }
 
 export default IconTileLogo
