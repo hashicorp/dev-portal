@@ -1,9 +1,19 @@
 import { FC } from 'react'
+import classNames from 'classnames'
 import Card from 'components/card'
+import MaybeInternalLink from 'components/maybe-internal-link'
+import { CardLinkProps } from './types'
 import s from './card-link.module.css'
 
-const CardLink: FC = ({ children }) => {
-  return <Card className={s.root}>{children}</Card>
+const CardLink: FC<CardLinkProps> = ({ children, className, href }) => {
+  const classes = classNames(s.root, className)
+
+  return (
+    <MaybeInternalLink href={href}>
+      <Card className={classes}>{children}</Card>
+    </MaybeInternalLink>
+  )
 }
 
+export type { CardLinkProps }
 export default CardLink
