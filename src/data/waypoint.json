@@ -6,6 +6,9 @@
     "indexName": "product_WAYPOINT",
     "searchOnlyApiKey": "5e4adfd8094367056501547d6fedb6c5"
   },
+  "analyticsConfig": {
+    "includedDomains": "waypointproject.io www.waypointproject.io"
+  },
   "metadata": {
     "title": "Waypoint by HashiCorp",
     "description": "Waypoint is  an open source solution that provides a modern workflow for build, deploy, and release across platforms.",
