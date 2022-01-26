@@ -2,6 +2,17 @@
 componentName: CardLink
 ---
 
-<LiveComponent>{`<CardLink elevation="low" href="/">
+## Props
+
+| Prop name   | Description                                                                    | Required? | Default value | Type                         |
+| ----------- | ------------------------------------------------------------------------------ | --------- | ------------- | ---------------------------- |
+| `className` | A string of one or more class names. Passed to the inner `Card` component.     | No        | undefined     | string                       |
+| `children`  | The element(s) to render within the inner `Card` component.                    | Yes       | N/A           | ReactNode                    |
+| `elevation` | The elevation that will be passed to the inner `Card` component.               | No        | undefined     | One of: "low", "mid", "high" |
+| `href`      | The destination of the link. Passed to an inner `MaybeInternalLink` component. | Yes       | undefined     | string                       |
+
+## Playground
+
+<LiveComponent>{`<CardLink href="/">
   I am a CardLink that goes to the home page
 </CardLink>`}</LiveComponent>
