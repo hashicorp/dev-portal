@@ -1,9 +1,6 @@
 .sidebarNavElement {
   padding-top: 8px;
   position: relative;
-  /* necessary as otherwise the skipToMainContent
-     link causes x-overflow */
-  overflow: hidden;
 }
 
 .sidebarNavLabel {
@@ -26,13 +23,13 @@
   line-height: 18px;
   padding: 8px;
   position: absolute;
-  right: -10000px;
-  top: 4px;
+  right: 10000px;
+  top: 0;
   width: fit-content;
   z-index: 1;
 
   &:focus {
-    right: 4px;
+    right: 0;
   }
 
   &:hover {
