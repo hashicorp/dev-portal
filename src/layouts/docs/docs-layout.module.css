@@ -56,6 +56,23 @@
   & h6 {
     color: var(--token-color-palette-neutral-700);
 
+    /*
+    These ::before elements account for the height of the top sticky bars
+    when following #anchor-links to headings. Without the offset caused
+    by these elements, we'd jump to headings that would be hidden underneath
+    the top sticky bars.
+    */
+    & a:global(.__target-h)::before,
+    &::before {
+      display: block;
+      content: '\200B';
+      height: calc(var(--navigation-header-height) + var(--alert-bar-height));
+      margin-top: calc(
+        -1 * calc(var(--navigation-header-height) + var(--alert-bar-height))
+      );
+      visibility: hidden;
+    }
+
     & + ul,
     & + ol {
       margin-top: 12px;
