@@ -1,0 +1,27 @@
+---
+componentName: Paragraph
+---
+
+The `Paragraph` component should be used for easily styling `p` elements to conform to the design system.
+
+## Props
+
+In addition to the props described in the table below, this component also accepts any other valid props for heading elements. A caveat:
+
+- The given `className` prop is applied last to the list of class names set on the rendered element. This means that some CSS properties applied with the following props can be overwritten if needed (not recommended).
+
+| Prop name | Description                                | Required? | Default value | Type                                            |
+| --------- | ------------------------------------------ | --------- | ------------- | ----------------------------------------------- |
+| `size`    | The number of the `display` style to apply | No        | 300           | One of: 100, 200, 300                           |
+| `weight`  | The name of the font weight style to apply | No        | "regular"     | One of: "regular", "medium", "semibold", "bold" |
+
+## Playground
+
+<LiveComponent>{`<>
+  <Paragraph>I am a default <code>Paragraph</code> component.</Paragraph>
+  <Paragraph size={100}>I am a <code>Paragraph</code> with size=100.</Paragraph>
+  <Paragraph size={200}>I am a <code>Paragraph</code> with size=200.</Paragraph>
+  <Paragraph weight="medium">I am a <code>Paragraph</code> with weight="medium".</Paragraph>
+  <Paragraph weight="semibold">I am a <code>Paragraph</code> with weight="semibold".</Paragraph>
+  <Paragraph weight="bold">I am a <code>Paragraph</code> with weight="bold".</Paragraph>
+</>`}</LiveComponent>

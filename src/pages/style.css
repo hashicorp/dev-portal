@@ -1,16 +1,15 @@
 /* Design system */
-/* TODO We're using a local copy of hashicorp/design-system-tokens,
-   rather than the npm package, while that project stabilizes. */
-@import 'styles/_temp-ds-tokens.css';
 /* TODO In the short term, mktg-global-styles will likely be replaced by
    @hashicorp/design-system-tokens/marketing/css/tokens.css.
    In the long term, it may be removed from this project. */
 @import '~@hashicorp/mktg-global-styles/style.css';
 
+@import '~@hashicorp/design-system-tokens/devdot/css/tokens.css';
+@import '~@hashicorp/design-system-tokens/devdot/css/helpers/elevation.css';
+@import '~@hashicorp/design-system-tokens/devdot/css/helpers/typography.css';
+
 /* Local global style helpers */
-@import 'styles/elevation.css';
 @import 'styles/sizing.css';
-@import 'styles/typography.css';
 
 /* Print Styles */
 @import './print.css';

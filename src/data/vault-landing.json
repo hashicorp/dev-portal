@@ -5,7 +5,7 @@
     {
       "type": "heading",
       "level": 2,
-      "size": 1,
+      "size": 400,
       "heading": "Explore Vault Documentation"
     },
     {
@@ -48,7 +48,12 @@
         }
       ]
     },
-    { "type": "heading", "level": 2, "heading": "Secrets Management" },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Secrets Management",
+      "size": 300
+    },
     {
       "type": "cards",
       "columns": 3,
@@ -70,7 +75,12 @@
         }
       ]
     },
-    { "type": "heading", "level": 2, "heading": "Data Protection" },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Data Protection",
+      "size": 300
+    },
     {
       "type": "cards",
       "columns": 3,
@@ -92,7 +102,12 @@
         }
       ]
     },
-    { "type": "heading", "level": 2, "heading": "Identity-based Access" },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Identity-based Access",
+      "size": 300
+    },
     {
       "type": "cards",
       "columns": 3,
@@ -114,7 +129,7 @@
         }
       ]
     },
-    { "type": "heading", "level": 2, "heading": "Start learning" },
+    { "type": "heading", "level": 2, "heading": "Start learning", "size": 300 },
     {
       "type": "cards",
       "columns": 2,

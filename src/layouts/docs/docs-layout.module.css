@@ -14,9 +14,8 @@
  * Asana task: https://app.asana.com/0/1201010428539925/1201653123138729/f
  */
 .tempContentStyles {
-  color: var(--token-color-palette-neutral-600);
-  font-size: 16px;
-  line-height: 22px;
+  composes: hds-typography-body-300 from global;
+
   & :global {
     & a.__permalink-h {
       display: none;
@@ -54,8 +53,6 @@
   & h4,
   & h5,
   & h6 {
-    color: var(--token-color-palette-neutral-700);
-
     /*
     These ::before elements account for the height of the top sticky bars
     when following #anchor-links to headings. Without the offset caused
@@ -72,113 +69,23 @@
       );
       visibility: hidden;
     }
-
-    & + ul,
-    & + ol {
-      margin-top: 12px;
-    }
-
-    & + p {
-      margin-top: 0;
-    }
-
-    /*
-    TODO: these values are a special request from design for the purposes of the
-    inital preview. They make <code> elements within heading elements a little
-    less jarring.
-    */
-    & code {
-      font-size: 0.6em;
-      font-weight: 500;
-    }
   }
 
-  & h1,
-  & h2 {
-    margin-bottom: 12px;
-  }
+  & ul,
+  & ol {
+    margin: 24px 0;
+    padding-left: 24px;
 
-  & h3,
-  & h4,
-  & h5,
-  & h6 {
-    margin-bottom: 8px;
-  }
+    & li {
+      color: var(--token-color-neutral-foreground-secondary);
 
-  & h4,
-  & h5,
-  & h6 {
-    color: var(--token-color-palette-neutral-700);
-  }
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
 
-  /* named Heading 0 */
-  & h1 {
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 38px;
-    margin-top: 0;
-  }
-
-  /* named Heading 1 */
-  & h2 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 32px;
-    margin-top: 48px;
-  }
-
-  /* named Heading 2 */
-  & h3 {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 24px;
-    margin-top: 32px;
-  }
-
-  /* named Heading 3 */
-  & h4 {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 24px;
-    margin-top: 24px;
-  }
-
-  /* named Heading 4 and Heading 5 */
-  & h5,
-  & h6 {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 18px;
-  }
-
-  & p {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    margin: 16px 0;
-  }
-
-  & strong {
-    font-weight: 500;
-  }
-
-  & :not(nav) {
-    & ul,
-    & ol {
-      margin: 24px 0;
-      padding-left: 24px;
-
-      & li {
-        line-height: 24px;
-
-        &:not(:last-child) {
-          margin-bottom: 16px;
-        }
-
-        & ul,
-        & ol {
-          margin: 16px 0;
-        }
+      & ul,
+      & ol {
+        margin: 16px 0;
       }
     }
   }
