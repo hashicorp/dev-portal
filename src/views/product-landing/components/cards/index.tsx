@@ -3,7 +3,7 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import classNames from 'classnames'
 import tagIconDict from './tag-icon-dict.json'
 import { CardProps } from './types'
-import MaybeInternalLink from 'components/maybe-internal-link'
+import CardLink from 'components/card-link'
 import s from './style.module.css'
 
 function Cards({ columns, cards }: CardProps): React.ReactElement {
@@ -19,7 +19,7 @@ function Cards({ columns, cards }: CardProps): React.ReactElement {
               className={classNames(s.cardWrapper, s[`columns-${columns}`])}
             >
               {/* TODO: use href from props, rather than always same link */}
-              <MaybeInternalLink className={s.card} href={url}>
+              <CardLink className={s.card} elevation="low" href={url}>
                 {iconSvg && (
                   <span className={s.cardIcon}>
                     <InlineSvg src={iconSvg} />
@@ -34,7 +34,7 @@ function Cards({ columns, cards }: CardProps): React.ReactElement {
                     })}
                   </span>
                 )}
-              </MaybeInternalLink>
+              </CardLink>
             </div>
           )
         })}
