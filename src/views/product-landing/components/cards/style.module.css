@@ -49,17 +49,18 @@
 }
 
 .cardHeading {
-  composes: ds-token-typography-body-large from global;
+  composes: hds-typography-display-200 from global;
+  composes: hds-font-weight-semibold from global;
   color: var(--token-color-palette-neutral-700);
   display: block;
-  font-weight: var(--ds-token-font-weight-semibold);
 }
 
 .cardText {
-  composes: ds-token-typography-body-base from global;
+  composes: hds-typography-body-200 from global;
+  composes: hds-font-weight-regular from global;
   color: var(--token-color-palette-neutral-500);
   display: block;
-  margin: 4px 0 0 0;
+  margin-top: 4px;
 }
 
 .cardTags {

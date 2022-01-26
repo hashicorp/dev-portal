@@ -43,16 +43,15 @@ heading with only a couple words, the element can become too narrow.
   - width: 0
 */
 .main {
-  color: var(--token-color-palette-neutral-600);
   flex-grow: 1;
-  font-size: 16px;
-  line-height: 22px;
   max-width: 804px;
   padding: 0 24px;
   width: 0;
 }
 
 .tempContentStyles {
+  composes: hds-typography-body-300 from global;
+
   & :global {
     & a.__permalink-h {
       display: none;
@@ -84,120 +83,21 @@ heading with only a couple words, the element can become too narrow.
     }
   }
 
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5,
-  & h6 {
-    color: var(--token-color-palette-neutral-700);
+  & ul,
+  & ol {
+    margin: 24px 0;
+    padding-left: 24px;
 
-    & + ul,
-    & + ol {
-      margin-top: 12px;
-    }
+    & li {
+      color: var(--token-color-neutral-foreground-secondary);
 
-    & + p {
-      margin-top: 0;
-    }
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
 
-    /*
-    TODO: these values are a special request from design for the purposes of the
-    inital preview. They make <code> elements within heading elements a little
-    less jarring.
-    */
-    & code {
-      font-size: 0.6em;
-      font-weight: 500;
-    }
-  }
-
-  & h1,
-  & h2 {
-    margin-bottom: 12px;
-  }
-
-  & h3,
-  & h4,
-  & h5,
-  & h6 {
-    margin-bottom: 8px;
-  }
-
-  & h4,
-  & h5,
-  & h6 {
-    color: var(--token-color-palette-neutral-700);
-  }
-
-  /* named Heading 0 */
-  & h1 {
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 38px;
-    margin-top: 0;
-  }
-
-  /* named Heading 1 */
-  & h2 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 32px;
-    margin-top: 48px;
-  }
-
-  /* named Heading 2 */
-  & h3 {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 24px;
-    margin-top: 32px;
-  }
-
-  /* named Heading 3 */
-  & h4 {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 24px;
-    margin-top: 24px;
-  }
-
-  /* named Heading 4 and Heading 5 */
-  & h5,
-  & h6 {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 18px;
-  }
-
-  & p {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    margin: 16px 0;
-  }
-
-  & strong {
-    font-weight: 500;
-  }
-
-  & :not(nav) {
-    & ul,
-    & ol {
-      margin: 24px 0;
-      padding-left: 24px;
-
-      & li {
-        line-height: 24px;
-
-        &:not(:last-child) {
-          margin-bottom: 16px;
-        }
-
-        & ul,
-        & ol {
-          margin: 16px 0;
-        }
+      & ul,
+      & ol {
+        margin: 16px 0;
       }
     }
   }

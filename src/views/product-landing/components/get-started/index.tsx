@@ -1,9 +1,11 @@
 import React from 'react'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import s from './style.module.css'
+import slugify from 'slugify'
+import Heading from 'components/heading'
 import MaybeInternalLink from 'components/maybe-internal-link'
 import { GetStartedProps } from './types'
+import s from './style.module.css'
 
 function GetStarted({
   iconSvg,
@@ -18,7 +20,15 @@ function GetStarted({
           <InlineSvg src={iconSvg} />
         </div>
         <div className={s.textSection}>
-          <h3 className={s.heading}>{heading}</h3>
+          <Heading
+            className={s.heading}
+            level={3}
+            size={200}
+            slug={slugify(heading)}
+            weight="semibold"
+          >
+            {heading}
+          </Heading>
           <p className={s.text}>{text}</p>
           <MaybeInternalLink className={s.link} href={link.url}>
             {link.text}

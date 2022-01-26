@@ -4,10 +4,10 @@
 }
 
 .sidebarNavLabel {
-  composes: ds-token-typography-body-base from global;
-  font-weight: var(--ds-token-font-weight-semibold);
+  composes: hds-typography-body-200 from global;
+  composes: hds-font-weight-semibold from global;
   color: var(--token-color-neutral-foreground-faint);
-  margin: 0 0 12px 0;
+  margin-bottom: 12px;
   padding: 0 8px;
 }
 
