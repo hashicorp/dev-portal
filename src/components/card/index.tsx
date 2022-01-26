@@ -1,9 +1,13 @@
-import { FC } from 'react'
+import { ReactElement } from 'react'
 import classNames from 'classnames'
 import { CardProps } from './types'
 import s from './card.module.css'
 
-const Card: FC<CardProps> = ({ children, className, elevation = 'low' }) => {
+const Card = ({
+  children,
+  className,
+  elevation = 'low',
+}: CardProps): ReactElement => {
   const classes = classNames(`hds-surface-${elevation}`, s.root, className)
 
   return <div className={classes}>{children}</div>
