@@ -1,9 +1,7 @@
 import { ReactNode } from 'react'
 
-interface CardProps {
+export interface CardProps {
   children: ReactNode
   className?: string
   elevation?: 'base' | 'low' | 'mid' | 'high'
 }
-
-export type { CardProps }
