@@ -4,6 +4,7 @@ const redirectsConfig = require('./config/redirects')
 const rewritesConfig = require('./config/rewrites')
 
 // temporary: set all paths as noindex, until we're serving from this project
+// Update the excluded domains to ensure we are indexing content as the io sites get migrated
 const temporary_hideDocsPaths = {
   source: '/:path*',
   headers: [
@@ -12,6 +13,7 @@ const temporary_hideDocsPaths = {
       value: 'noindex',
     },
   ],
+  has: [{ type: 'host', value: '(^(?!.*(waypointproject)).*$)' }],
 }
 
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
