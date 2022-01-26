@@ -5,11 +5,12 @@
  * arguments. ts(2499)"
  */
 type TextElementProps =
+  | JSX.IntrinsicElements['li']
   | JSX.IntrinsicElements['p']
   | JSX.IntrinsicElements['span']
 
 export type TextProps = TextElementProps & {
-  asElement: 'p' | 'span'
+  asElement: 'li' | 'p' | 'span'
   size?: 100 | 200 | 300
   weight?: 'regular' | 'medium' | 'semibold' | 'bold'
 }
