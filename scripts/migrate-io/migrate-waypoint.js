@@ -18,7 +18,7 @@ async function migrateWaypointIo() {
   const productData = {
     name: 'Waypoint',
     slug: 'waypoint',
-    version: '0.5.2',
+    version: '0.7.1',
     // TODO: confirm this is a decent place for this info
     algoliaConfig: {
       indexName: 'product_WAYPOINT',
