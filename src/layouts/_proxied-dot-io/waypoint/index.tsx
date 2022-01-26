@@ -12,6 +12,7 @@ import ProductSubnav from 'components/_proxied-dot-io/waypoint/subnav'
 import productData from 'data/waypoint.json'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
+  segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
   preset: 'oss',
 })
 
