@@ -20,7 +20,6 @@ for further details.
 }
 
 .sidebar {
-  background-color: white;
   box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
     0 12px 28px rgba(101, 106, 118, 0.25);
   flex-shrink: 0;
