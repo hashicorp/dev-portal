@@ -1,5 +1,5 @@
 .sidebar {
-  padding: 0 24px 24px 24px;
+  padding: 24px;
 
   /* TODO: won't use margin-left if we want menu items to take up full width */
   & ul ul {

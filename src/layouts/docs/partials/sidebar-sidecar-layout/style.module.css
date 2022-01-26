@@ -30,7 +30,6 @@ for further details.
   100vh minus the combined height of the sticky nav bars. */
   max-height: calc(100vh - var(--sticky-bars-height));
   overflow-y: auto;
-  padding-top: 24px;
   position: sticky;
   top: var(--sticky-bars-height);
   width: 320px;
