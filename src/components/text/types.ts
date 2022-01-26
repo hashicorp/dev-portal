@@ -10,7 +10,7 @@ type TextElementProps =
   | JSX.IntrinsicElements['span']
 
 export type TextProps = TextElementProps & {
-  asElement: 'li' | 'p' | 'span'
+  asElement?: 'li' | 'p' | 'span'
   size?: 100 | 200 | 300
   weight?: 'regular' | 'medium' | 'semibold' | 'bold'
 }
