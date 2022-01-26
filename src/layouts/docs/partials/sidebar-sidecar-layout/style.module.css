@@ -23,7 +23,6 @@ for further details.
   box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
     0 12px 28px rgba(101, 106, 118, 0.25);
   flex-shrink: 0;
-  margin-right: 48px;
   /* Sidebar should occupy the full available screen height.
   We have sticky nav bars, so the full height is equal to
   100vh minus the combined height of the sticky nav bars. */
@@ -41,22 +40,27 @@ for further details.
 .mainArea {
   display: flex;
   flex-grow: 1;
+  min-width: 0;
   justify-content: center;
   padding-bottom: 32px;
   padding-top: var(--main-area-top-padding);
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .main {
   align-self: flex-start;
   flex-grow: 1;
-  max-width: 780px;
+  min-width: 0;
+  max-width: 804px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .sidecar {
   align-self: flex-start;
   flex-shrink: 0;
-  margin-left: 48px;
-  margin-right: 24px;
+  margin-left: 24px;
   position: sticky;
   top: calc(var(--sticky-bars-height) + var(--main-area-top-padding));
   width: 220px;
