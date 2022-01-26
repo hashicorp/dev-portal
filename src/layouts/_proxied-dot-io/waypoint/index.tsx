@@ -4,6 +4,7 @@ import HashiStackMenu from '@hashicorp/react-hashi-stack-menu'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import Min100Layout from '@hashicorp/react-min-100-layout'
 import useProductMeta, { Products } from '@hashicorp/platform-product-meta'
+import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 // product-specific layout elements
 import Footer from 'components/_proxied-dot-io/waypoint/footer-with-props'
@@ -20,6 +21,10 @@ function WaypointIoLayout({
   /** Page contents to render in the layout */
   children: React.ReactNode
 }): React.ReactElement {
+  usePageviewAnalytics({
+    siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID_WAYPOINT,
+    includedDomains: productData.analyticsConfig.includedDomains,
+  })
   const { themeClass } = useProductMeta(productData.name as Products)
 
   return (
