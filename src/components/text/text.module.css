@@ -1,4 +1,4 @@
-.paragraph {
+.text {
   & strong {
     font-weight: var(--token-typography-font-weight-medium);
   }
