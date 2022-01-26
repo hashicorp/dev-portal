@@ -1,7 +1,7 @@
 {
   "name": "Waypoint",
   "slug": "waypoint",
-  "version": "0.5.2",
+  "version": "0.7.1",
   "algoliaConfig": {
     "indexName": "product_WAYPOINT",
     "searchOnlyApiKey": "5e4adfd8094367056501547d6fedb6c5"
