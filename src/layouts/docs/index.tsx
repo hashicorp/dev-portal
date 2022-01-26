@@ -44,7 +44,7 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({
   >
     {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
     {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
-    <main className={s.main} id="main">
+    <main id="main">
       {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
       <div className={s.tempContentStyles}>{children}</div>
       {githubFileUrl && (
@@ -54,8 +54,8 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({
           label="Edit this page on GitHub"
         />
       )}
-      <Footer className={s.footer} openConsentManager={openConsentManager} />
     </main>
+    <Footer className={s.footer} openConsentManager={openConsentManager} />
   </SidebarSidecarLayout>
 )
 
