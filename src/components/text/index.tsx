@@ -9,7 +9,7 @@ const Text: React.FC<TextProps> = ({
   ...rest
 }) => {
   const className = classNames(
-    s.text,
+    s.root,
     `hds-typography-body-${size}`,
     `hds-font-weight-${weight}`,
     rest.className
