@@ -24,11 +24,7 @@ function CardGridSection({ title, products }): ReactElement {
         {products.map(({ slug, hasLogo, headingIcon, heading, subheading }) => {
           return (
             <div className={s.sectionBodyCardWrapper} key={slug}>
-              <CardLink
-                className={s.sectionBodyCard}
-                elevation="low"
-                href={`/${slug}`}
-              >
+              <CardLink className={s.sectionBodyCard} href={`/${slug}`}>
                 {hasLogo && (
                   <ProductIcon
                     className={s.sectionBodyCardLogo}

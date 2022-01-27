@@ -8,16 +8,13 @@ import s from './card-link.module.css'
 const CardLink = ({
   children,
   className,
-  elevation,
   href,
 }: CardLinkProps): ReactElement => {
   const classes = classNames(s.root, className)
 
   return (
     <MaybeInternalLink href={href}>
-      <Card className={classes} elevation={elevation}>
-        {children}
-      </Card>
+      <Card className={classes}>{children}</Card>
     </MaybeInternalLink>
   )
 }

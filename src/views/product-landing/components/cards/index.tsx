@@ -19,7 +19,7 @@ function Cards({ columns, cards }: CardProps): React.ReactElement {
               className={classNames(s.cardWrapper, s[`columns-${columns}`])}
             >
               {/* TODO: use href from props, rather than always same link */}
-              <CardLink className={s.card} elevation="low" href={url}>
+              <CardLink className={s.card} href={url}>
                 {iconSvg && (
                   <span className={s.cardIcon}>
                     <InlineSvg src={iconSvg} />
