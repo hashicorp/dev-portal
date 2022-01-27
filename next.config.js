@@ -27,6 +27,7 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       // TODO: component. Should first confirm with Cam Stitt
       // TODO: that this component is not being used elsewhere.
       '@hashicorp/sentinel-embedded',
+      '@hashicorp/flight-icons',
     ],
   })({
     async headers() {

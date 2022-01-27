@@ -1,5 +1,5 @@
 const proxySettings = require('./proxy-settings')
-const { getProxiedProductSlug } = require('../src/lib/env-checks')
+const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
 
 const PROXIED_PRODUCT = getProxiedProductSlug()
 
@@ -54,6 +54,18 @@ const dotIoRewrites = productsToProxy.reduce((acc, slug) => {
         },
       ]
     }
+
+    // To enable previewing of .io sites, we accept an io_preview cookie which must have a value matching a product slug
+    if (isPreview()) {
+      rewrite.has = [
+        {
+          type: 'cookie',
+          key: 'io_preview',
+          value: slug,
+        },
+      ]
+    }
+
     return rewrite
   })
   return acc.concat(proxyRewrites)
