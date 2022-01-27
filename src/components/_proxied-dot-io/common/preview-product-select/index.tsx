@@ -72,11 +72,11 @@ const generateSwitcherOptionIdFromProduct = (product: Product) => {
   return `${OPTION_ID_PREFIX}${product.slug}`
 }
 
-const getFirstProduct = (products: Product[][]) => {
+const getFirstProduct = (products: Product[]) => {
   return products[0]
 }
 
-const getLastProduct = (products: Product[][]) => {
+const getLastProduct = (products: Product[]) => {
   const lastProduct = products[products.length - 1]
   return lastProduct
 }
@@ -249,19 +249,11 @@ const ProductSwitcher: React.FC = () => {
     )
   }
 
-  const renderProductGroup = (productGroup: ProductGroup, index: number) => {
-    const shouldRenderHorizontalRule = index > 0
+  const renderProductGroup = (productGroup: Product[]) => {
     return (
-      <Fragment key={`product-group-${index}`}>
-        {shouldRenderHorizontalRule && (
-          <li className={s.separator} role="separator" />
-        )}
-        <li>
-          <ul role="group">
-            {productGroup.map((product) => renderProductListItem(product))}
-          </ul>
-        </li>
-      </Fragment>
+      <ul role="group">
+        {productGroup.map((product) => renderProductListItem(product))}
+      </ul>
     )
   }
 
