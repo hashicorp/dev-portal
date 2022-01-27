@@ -195,7 +195,7 @@ const ProductSwitcher: React.FC = () => {
     }
 
     const setPreviewProduct = (slug: ProductSlug) => {
-      if (slug !== currentProduct.slug) {
+      if (slug !== currentProduct?.slug) {
         Cookies.set('io_preview', slug)
         window.location.reload()
       }
