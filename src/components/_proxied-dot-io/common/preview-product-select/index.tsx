@@ -208,7 +208,8 @@ const ProductSwitcher: React.FC = () => {
     const setPreviewProduct = (slug: ProductSlug) => {
       if (slug !== currentProduct?.slug) {
         Cookies.set('io_preview', slug)
-        window.location.reload()
+        // navigate back to the homepage
+        window.location.href = '/'
       }
     }
 
