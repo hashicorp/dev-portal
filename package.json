@@ -45,6 +45,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "@hashicorp/flight-icons": "^2.0.2",
     "@hashicorp/localstorage-polyfill": "^1.0.14",
     "@hashicorp/mktg-global-styles": "^4.0.0",
     "@hashicorp/mktg-logos": "^1.2.0",
@@ -79,9 +80,11 @@
     "@hashicorp/sentinel-embedded": "^0.0.14",
     "@octokit/core": "^3.5.1",
     "@octokit/openapi-types": "^11.2.0",
+    "@reach/popover": "^0.16.2",
     "@reach/tabs": "^0.16.4",
     "classnames": "^2.3.1",
     "formik": "^2.2.9",
+    "js-cookie": "^2.2.1",
     "klaw-sync": "^6.0.0",
     "next": "^11.1.2",
     "next-mdx-remote": "^3.0.8",
