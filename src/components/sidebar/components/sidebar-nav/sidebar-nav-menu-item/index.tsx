@@ -4,6 +4,7 @@ import MaybeInternalLink from 'components/maybe-internal-link'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { MenuItem } from 'components/sidebar'
+import Text from 'components/text'
 import s from './style.module.css'
 
 interface SidebarMenuItemProps {
@@ -111,7 +112,11 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   // TODO: 2022-01-03: designs show a heading on the product home page,
   // TODO: eg /waypoint, so adding this type in.
   if (item.heading) {
-    return <p className={s.heading}>{item.heading}</p>
+    return (
+      <Text className={s.heading} size={200} weight="semibold">
+        {item.heading}
+      </Text>
+    )
   }
 
   if (item.routes) {
