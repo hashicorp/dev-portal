@@ -79,8 +79,6 @@
 }
 
 .sectionHeading {
-  composes: hds-typography-body-200 from global;
-  composes: hds-font-weight-semibold from global;
   color: var(--token-color-palette-neutral-600);
   display: block;
   padding-bottom: 48px;
@@ -153,8 +151,6 @@
 }
 
 .sectionBodyCardSubheading {
-  composes: hds-typography-body-200 from global;
-  composes: hds-font-weight-regular from global;
   color: var(--token-color-palette-neutral-500);
   display: block;
   margin-top: 8px;

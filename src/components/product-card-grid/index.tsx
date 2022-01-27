@@ -2,8 +2,9 @@ import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import classNames from 'classnames'
 import ProductIcon from 'components/product-icon'
-import s from './style.module.css'
+import Text from 'components/text'
 import CONTENT from './content.json'
+import s from './style.module.css'
 
 function ProductCardGrid({ className }: { className?: string }): ReactElement {
   return (
@@ -19,7 +20,14 @@ function ProductCardGrid({ className }: { className?: string }): ReactElement {
 function CardGridSection({ title, products }): ReactElement {
   return (
     <div className={s.cardGridSection}>
-      <span className={s.sectionHeading}>{title}</span>
+      <Text
+        asElement="span"
+        className={s.sectionHeading}
+        size={200}
+        weight="semibold"
+      >
+        {title}
+      </Text>
       <span className={s.sectionBody}>
         {products.map(({ slug, hasLogo, headingIcon, heading, subheading }) => {
           return (
@@ -41,9 +49,11 @@ function CardGridSection({ title, products }): ReactElement {
                     )}
                     {heading}
                   </span>
-                  <span
+                  <Text
+                    asElement="span"
                     className={s.sectionBodyCardSubheading}
                     dangerouslySetInnerHTML={{ __html: subheading }}
+                    size={200}
                   />
                 </span>
               </a>
