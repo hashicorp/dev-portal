@@ -13,7 +13,7 @@ const CardLink = ({
   const classes = classNames(s.root, className)
 
   return (
-    <MaybeInternalLink href={href}>
+    <MaybeInternalLink className={s.link} href={href}>
       <Card className={classes}>{children}</Card>
     </MaybeInternalLink>
   )
