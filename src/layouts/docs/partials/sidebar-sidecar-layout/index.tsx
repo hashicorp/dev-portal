@@ -23,7 +23,11 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
         <div className={s.sidebar}>{sidebar}</div>
         <div className={s.mainArea}>
           <div className={s.main}>{children}</div>
-          {sidecar && <div className={s.sidecar}>{sidecar}</div>}
+          {sidecar && (
+            <div className={`${s.sidecar} hide-on-mobile hide-on-tablet`}>
+              {sidecar}
+            </div>
+          )}
         </div>
       </div>
     </BaseNewLayout>

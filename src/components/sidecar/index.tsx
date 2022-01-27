@@ -37,10 +37,7 @@ const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
   }
 
   return (
-    <nav
-      aria-labelledby={SIDECAR_LABEL_ELEMENT_ID}
-      className={`${s.sidecar} hide-on-mobile hide-on-tablet`}
-    >
+    <nav aria-labelledby={SIDECAR_LABEL_ELEMENT_ID} className={s.sidecar}>
       <p className={s.sidecarLabel} id={SIDECAR_LABEL_ELEMENT_ID}>
         On this page
       </p>
