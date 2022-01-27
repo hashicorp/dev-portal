@@ -3,7 +3,7 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
-import BaseLayout from 'layouts/base-new'
+import BaseNewLayout from 'layouts/base-new'
 import './style.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
@@ -13,7 +13,7 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 export default function App({ Component, pageProps }) {
   useAnchorLinkAnalytics()
 
-  const Layout = Component.layout ?? BaseLayout
+  const Layout = Component.layout ?? BaseNewLayout
   const currentProduct = pageProps.product || null
 
   return (

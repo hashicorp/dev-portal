@@ -21,7 +21,7 @@
   line-height: 18px;
   padding: 8px;
   position: absolute;
-  right: -10000px;
+  right: 10000px;
   top: 0;
   width: fit-content;
   z-index: 1;
