@@ -20,7 +20,11 @@ module.exports = withSwingset({
 })(
   withHashicorp({
     nextOptimizedImages: true,
-    transpileModules: ['swingset', '@hashicorp/flight-icons'],
+    transpileModules: [
+      'swingset',
+      '@hashicorp/flight-icons',
+      'unist-util-visit',
+    ],
   })({
     async headers() {
       return [temporary_hideDocsPaths]

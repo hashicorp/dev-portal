@@ -1,9 +1,10 @@
-import AlertBanner from 'components/alert-banner'
+import DevAlertBanner from 'components/dev-alert-banner'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import s from './base-new-layout.module.css'
 
 interface BaseNewLayoutProps {
+  /** Defaults to true. If true, the global footer will be shown at the bottom of the page. */
   showFooter?: boolean
   openConsentManager?: () => void
 }
@@ -11,28 +12,17 @@ interface BaseNewLayoutProps {
 const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
   children,
   openConsentManager,
-  showFooter,
+  showFooter = true,
 }) => {
   return (
-    <div className={s.baseNewLayout}>
-      <AlertBanner type="highlight">
-        <p>
-          You are viewing an internal preview and work in progress version of
-          this site.{' '}
-          <a
-            href="https://airtable.com/shrU3eYHIOXO60o23"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            We&apos;d love to hear your feedback
-          </a>
-          !
-        </p>
-      </AlertBanner>
-      <NavigationHeader />
-      {children}
+    <div className={s.root} data-layout="base-new">
+      <div className={s.header}>
+        <DevAlertBanner />
+        <NavigationHeader />
+      </div>
+      <div className={s.contentArea}>{children}</div>
       {showFooter && (
-        <div className={s.footerContainer}>
+        <div className={s.footer}>
           <Footer openConsentManager={openConsentManager} />
         </div>
       )}
