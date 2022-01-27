@@ -1,7 +1,14 @@
 import DevPopover from 'components/dev-popover'
 import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
 import MaybeInternalLink from 'components/maybe-internal-link'
+import Text from 'components/text'
 import s from './style.module.css'
+
+const BackToLinkText: React.FC = ({ children }) => (
+  <Text asElement="span" size={200} weight="medium">
+    {children}
+  </Text>
+)
 
 // TODO: Design is still planning this functionality & states.
 // TODO: Since not all cases are covered, we return a placeholder
@@ -14,7 +21,7 @@ const SidebarBackToLink: React.FC<{
   return (
     <MaybeInternalLink className={s.backToLink} href={url}>
       <IconArrowLeft16 className={s.icon} />
-      <span>{text}</span>
+      <BackToLinkText>{text}</BackToLinkText>
     </MaybeInternalLink>
   )
 }
@@ -40,7 +47,7 @@ const PlaceholderBackToLink: React.FC = () => {
     >
       <div className={s.backToLink}>
         <IconArrowLeft16 className={s.icon} />
-        <span>Back to [Page]</span>
+        <BackToLinkText>Back to [Page]</BackToLinkText>
       </div>
     </DevPopover>
   )
