@@ -25,7 +25,7 @@
 .textSection {
   flex: 1 1 0;
   margin: 8px;
-  min-width: 400px;
+  min-width: 200px;
 }
 
 .heading {

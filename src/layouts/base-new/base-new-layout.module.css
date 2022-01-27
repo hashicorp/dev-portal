@@ -1,10 +1,56 @@
-.baseNewLayout {
+/*
+
+NOTE:
+
+--navigation-header-height and --alert-bar-height are currently magicky numbers.
+These are necessary for correct positioning in SidebarSidecarLayout.
+
+These values could change based on user preferences for font-size or zoom,
+but we won't know, and our design will break.
+
+To mitigate this, we observe the height of the .header element in this layout,
+and set --sticky-bars-height to match. This would eliminate the need
+for both --navigation-header-height and --alert-bar-height.
+     
+*/
+.root {
+  --sticky-bars-height: calc(
+    var(--navigation-header-height) + var(--alert-bar-height)
+  );
+
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.footerContainer {
+.header {
+  position: sticky;
+  top: 0;
+  /* The contentArea comes later in the DOM, and
+    may have sticky elements, eg sidebars. We need
+    the header to stay above other sticky elements. */
+  z-index: 1;
+}
+
+.contentArea {
+  /* flex column gives consumers 
+  flexibility in making their content either
+  grow to fill all available space on short pages,
+  (by adding flex-grow: 1), or stay at an
+  automatic height (by doing nothing) */
+  display: flex;
+  flex-direction: column;
+  /* Stretch the content area to ensure the page is at
+  least 100vh. The SidebarSidecar layout
+  requires this stretching to avoid having
+  its sidebar cut off early if page
+  content is short. */
+  flex-grow: 1;
+  position: relative;
+  z-index: 0;
+}
+
+.footer {
   margin-top: auto;
   padding-left: 24px;
   padding-right: 24px;
