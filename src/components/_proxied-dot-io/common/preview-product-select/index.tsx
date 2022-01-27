@@ -3,7 +3,7 @@
  * so there's not too much point trying to DRY this up.
  */
 import Cookies from 'js-cookie'
-import Popover, { positionDefault } from '@reach/popover'
+import Popover from '@reach/popover'
 import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
 import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
 import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
@@ -24,8 +24,20 @@ import {
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { Product, ProductGroup, ProductSlug } from 'types/products'
-import { products } from '../../../../../config/products'
+import { products as productGroups } from '../../../../../config/products'
 import s from './style.module.css'
+
+const IO_SITES_ON_DEV_PORTAL = [
+  'waypoint',
+  'boundary',
+  'nomad',
+  'sentinel',
+  'vault',
+]
+
+const products = productGroups
+  .flat()
+  .filter((product) => IO_SITES_ON_DEV_PORTAL.includes(product.slug))
 
 // TODO: is there a programmatic way to build this from productNamesToIcons?
 interface ProductIconProps {
@@ -61,12 +73,11 @@ const generateSwitcherOptionIdFromProduct = (product: Product) => {
 }
 
 const getFirstProduct = (products: Product[][]) => {
-  return products[0][0]
+  return products[0]
 }
 
 const getLastProduct = (products: Product[][]) => {
-  const lastProductGroup = products[products.length - 1]
-  const lastProduct = lastProductGroup[lastProductGroup.length - 1]
+  const lastProduct = products[products.length - 1]
   return lastProduct
 }
 
@@ -296,7 +307,7 @@ const ProductSwitcher: React.FC = () => {
           onKeyDown={handleKeyDown}
           style={{ display: isOpen ? 'block' : 'none' }}
         >
-          {products.map(renderProductGroup)}
+          {renderProductGroup(products)}
         </ul>
       </Popover>
     </div>
