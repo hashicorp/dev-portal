@@ -32,19 +32,9 @@
 }
 
 .card {
-  composes: hds-surface-low from global;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
   height: 100%;
   min-height: 100px;
-  overflow: hidden;
-  padding: 16px;
-  transition: all 0.2s;
-
-  &:hover {
-    background: var(--token-color-palette-neutral-50);
-  }
+  width: 100%;
 }
 
 .cardIcon {
