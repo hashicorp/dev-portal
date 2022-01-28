@@ -32,8 +32,3 @@ style applied to anchor elements.
     cursor: pointer;
   }
 }
-
-.link {
-  display: block;
-  width: fit-content;
-}
