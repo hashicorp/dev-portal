@@ -1,50 +1,62 @@
 import React from 'react'
+import Footer from 'components/footer'
 import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Sidebar, { MenuItem } from 'components/sidebar'
 import Sidecar from 'components/sidecar'
 import { SidecarHeading } from 'components/sidecar/types'
 import EditOnGithubLink from 'components/edit-on-github-link'
-import BaseNewLayout from 'layouts/base-new'
+import SidebarSidecarLayout from './partials/sidebar-sidecar-layout'
 import s from './docs-layout.module.css'
 
 interface DocsLayoutProps {
   children: React.ReactNode
   headings: SidecarHeading[]
   navData: MenuItem[]
+  productName: string
   breadcrumbLinks?: BreadcrumbLink[]
   githubFileUrl?: string
+  openConsentManager?: () => void
   backToLink?: {
     text: string
     url: string
   }
 }
 
-const DocsLayout: React.FC<DocsLayoutProps> = (props) => (
-  <BaseNewLayout>
-    <div className={s.body}>
-      <Sidebar menuItems={props.navData} backToLink={props.backToLink} />
-      <div className={s.contentWrapper}>
-        <div className={s.content}>
-          {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
-          {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
-          <main className={s.main} id="main">
-            {props.breadcrumbLinks && (
-              <BreadcrumbBar links={props.breadcrumbLinks} />
-            )}
-            {props.children}
-            {props.githubFileUrl && (
-              <EditOnGithubLink
-                className={s.editOnGithubLink}
-                url={props.githubFileUrl}
-                label="Edit this page on GitHub"
-              />
-            )}
-          </main>
-          <Sidecar headings={props.headings} />
-        </div>
-      </div>
-    </div>
-  </BaseNewLayout>
+const DocsLayout: React.FC<DocsLayoutProps> = ({
+  productName,
+  navData,
+  backToLink,
+  headings,
+  breadcrumbLinks,
+  children,
+  githubFileUrl,
+  openConsentManager,
+}) => (
+  <SidebarSidecarLayout
+    sidebar={
+      <Sidebar
+        title={productName}
+        menuItems={navData}
+        backToLink={backToLink}
+      />
+    }
+    sidecar={<Sidecar headings={headings} />}
+  >
+    {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
+    {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
+    <main id="main">
+      {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+      <div className={s.tempContentStyles}>{children}</div>
+      {githubFileUrl && (
+        <EditOnGithubLink
+          className={s.editOnGithubLink}
+          url={githubFileUrl}
+          label="Edit this page on GitHub"
+        />
+      )}
+    </main>
+    <Footer className={s.footer} openConsentManager={openConsentManager} />
+  </SidebarSidecarLayout>
 )
 
 export default DocsLayout

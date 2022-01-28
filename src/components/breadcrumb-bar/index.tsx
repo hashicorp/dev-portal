@@ -1,7 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import s from './style.module.css'
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import Text from 'components/text'
+import s from './style.module.css'
 
 interface BreadcrumbLink {
   /** Text to be shown for the link */
@@ -40,7 +41,13 @@ function BreadcrumbBar({
           const cleanTitle = title.replace(/<[^>]+>/g, '')
           const Elem = url ? InternalLink : 'span'
           return (
-            <li key={`${cleanTitle}_${url}`} className={s.listItem}>
+            <Text
+              asElement="li"
+              className={s.listItem}
+              key={`${cleanTitle}_${url}`}
+              size={100}
+              weight="regular"
+            >
               <Elem
                 className={s.breadcrumbText}
                 href={url}
@@ -48,7 +55,7 @@ function BreadcrumbBar({
               >
                 {cleanTitle}
               </Elem>
-            </li>
+            </Text>
           )
         })}
       </ol>

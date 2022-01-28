@@ -1,4 +1,7 @@
 import React from 'react'
+import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
+import MaybeInternalLink from 'components/maybe-internal-link'
+import InlineSvg from '@hashicorp/react-inline-svg'
 import classNames from 'classnames'
 import s from './style.module.css'
 
@@ -15,10 +18,53 @@ function Footer({
 }: FooterProps): React.ReactElement {
   return (
     <footer className={classNames(s.root, className)}>
-      Dev Portal Footer Placeholder{' '}
-      {typeof openConsentManager == 'function' && (
-        <button onClick={openConsentManager}>Open Consent Manager</button>
-      )}
+      <a
+        href="https://www.hashicorp.com/"
+        aria-label="Go to HashiCorp home page"
+      >
+        <InlineSvg className={s.logo} src={svgHashicorpLogo} />
+      </a>
+      <ul className={s.links}>
+        <li className={s.linkListItem}>
+          <MaybeInternalLink
+            className={s.linkAction}
+            href="https://status.hashicorp.com"
+          >
+            System status
+          </MaybeInternalLink>
+        </li>
+        {typeof openConsentManager == 'function' && (
+          <li className={s.linkListItem}>
+            <button className={s.linkAction} onClick={openConsentManager}>
+              Cookie Manager
+            </button>
+          </li>
+        )}
+        <li className={s.linkListItem}>
+          <MaybeInternalLink
+            className={s.linkAction}
+            href="https://www.hashicorp.com/terms-of-service"
+          >
+            Terms of use
+          </MaybeInternalLink>
+        </li>
+        <li className={s.linkListItem}>
+          <MaybeInternalLink
+            className={s.linkAction}
+            href="https://www.hashicorp.com/security"
+          >
+            Security
+          </MaybeInternalLink>
+        </li>
+        <li className={s.linkListItem}>
+          <MaybeInternalLink
+            className={s.linkAction}
+            href="https://www.hashicorp.com/privacy"
+          >
+            Privacy
+          </MaybeInternalLink>
+        </li>
+      </ul>
     </footer>
   )
 }

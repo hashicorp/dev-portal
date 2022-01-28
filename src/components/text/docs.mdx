@@ -1,0 +1,29 @@
+---
+componentName: Text
+---
+
+The `Text` component should be used for easily styling `li`, `p`, and `span` elements to conform to the design system.
+
+## Props
+
+In addition to the props described in the table below, this component also accepts any other valid props for its `asElement`. A caveat:
+
+- The given `className` prop is applied last to the list of class names set on the rendered element. This means that some CSS properties applied with the following props can be overwritten if needed (not recommended).
+
+| Prop name   | Description                                             | Required? | Default value | Type                                            |
+| ----------- | ------------------------------------------------------- | --------- | ------------- | ----------------------------------------------- |
+| `asElement` | The name of the element tag to render.                  | No        | "p"           | One of: "li", "p", "span"                       |
+| `size`      | The number of the `hds-typography-body` style to apply. | No        | 300           | One of: 100, 200, 300                           |
+| `weight`    | The name of the `hds-font-weight` style to apply.       | No        | "regular"     | One of: "regular", "medium", "semibold", "bold" |
+
+## Playground
+
+<LiveComponent>{`<>
+  <Text>I am a default <code>Text</code> component.</Text>
+  <Text asElement="span">I am a <code>Text</code> component rendered as a <code>span</code>.</Text>
+  <Text size={100}>I am a <code>Text</code> with size=100.</Text>
+  <Text size={200}>I am a <code>Text</code> with size=200.</Text>
+  <Text weight="medium">I am a <code>Text</code> with weight="medium".</Text>
+  <Text weight="semibold">I am a <code>Text</code> with weight="semibold".</Text>
+  <Text weight="bold">I am a <code>Text</code> with weight="bold".</Text>
+</>`}</LiveComponent>

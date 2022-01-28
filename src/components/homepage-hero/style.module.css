@@ -22,16 +22,12 @@
 }
 
 .heading {
-  composes: ds-token-typography-heading-0 from global;
   color: var(--token-color-palette-neutral-700);
-  margin: 0;
-  padding-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .subheading {
-  composes: ds-token-typography-body-large from global;
   color: var(--token-color-palette-neutral-600);
-  margin: 0;
 }
 
 .imageSection {

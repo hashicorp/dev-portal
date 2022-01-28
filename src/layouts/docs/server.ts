@@ -1,108 +1,114 @@
-import {
-  generateStaticPaths as _generateStaticPaths,
-  generateStaticProps as _generateStaticProps,
-} from '@hashicorp/react-docs-page/server'
+import { Pluggable } from 'unified'
+import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
+import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
-
+import { Product } from 'types/products'
 import prepareNavDataForClient from 'layouts/docs/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
-// because some of the util functions still require param arity, but we ignore
-// their values when process.env.ENABLE_VERSIONED_DOCS is set to true, we'll
-// just use this string to make it clear by using this k/v
-const temporary_noop = 'im just for show'
+const BASE_REVALIDATE = 10
 
-async function generateStaticPaths({
+/**
+ * Returns static generation functions which can be exported from a page to fetch docs data
+ *
+ * Example usage:
+ *
+ * ```ts
+ * const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
+ *   product,
+ *   basePath,
+ * })
+ *
+ * export { getStaticPaths, getStaticProps }
+ * ```
+ */
+export function getStaticGenerationFunctions({
   product,
   basePath,
+  baseName,
+  additionalRemarkPlugins = [],
 }: {
+  product: Product
   basePath: string
-  product: { name: string; slug: string }
-}): Promise<$TSFixMe[]> {
-  const paths = await _generateStaticPaths({
-    navDataFile: temporary_noop,
-    localContentDir: temporary_noop,
-    product,
+  baseName: string
+  additionalRemarkPlugins?: Pluggable[]
+}): ReturnType<typeof _getStaticGenerationFunctions> {
+  const loaderOptions = {
+    product: product.slug,
     basePath,
-  })
-  return paths
-}
-
-async function generateStaticProps({
-  basePath,
-  params,
-  product,
-}: {
-  basePath: string
-  params: $TSFixMe
-  product: { slug: string; name: string }
-}): Promise<$TSFixMe> {
-  const headings = []
-
-  const { navData, mdxSource, githubFileUrl } = await _generateStaticProps({
-    basePath,
-    localContentDir: temporary_noop,
-    navDataFile: temporary_noop,
-    params,
-    product,
-    remarkPlugins: [[anchorLinks, { headings }]],
-  })
-
-  /**
-   * TODO: these will be different by product,
-   * can abstract these further later.
-   * Placing here because we need these links
-   * in the sidebar on all /waypoint/docs views.
-   */
-  const fullNavData = [
-    ...navData,
-    { divider: true },
-    {
-      title: 'HashiCorp Learn',
-      href: 'https://learn.hashicorp.com/waypoint',
-    },
-    {
-      title: 'Community Forum',
-      href: 'https://discuss.hashicorp.com/c/waypoint/51',
-    },
-    {
-      title: 'Support',
-      href: 'https://support.hashicorp.com/',
-    },
-  ]
-
-  // Add fullPaths and ids to navData
-  const navDataWithFullPaths = prepareNavDataForClient(fullNavData, [
-    product.slug,
-    basePath,
-  ])
-
-  const breadcrumbLinks = getDocsBreadcrumbs({
-    productPath: product.slug,
-    productName: product.name,
-    basePath,
-    baseName: 'Docs',
-    pathParts: params.page || [],
-    navData: navDataWithFullPaths,
-  })
-
-  const finalProps = {
-    mdxSource,
-    layoutProps: {
-      headings,
-      navData: navDataWithFullPaths,
-      breadcrumbLinks,
-      githubFileUrl,
-      backToLink: {
-        text: `Back to ${product.name}`,
-        url: `/${product.slug}`,
-      },
-    },
   }
 
-  return finalProps
-}
+  // Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
+  const getLoader = (
+    extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
+  ) => new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
 
-export { generateStaticPaths, generateStaticProps }
-const defaultExport = { generateStaticPaths, generateStaticProps }
-export default defaultExport
+  return {
+    getStaticPaths: async () => {
+      const paths = await getLoader().loadStaticPaths()
+
+      return {
+        fallback: 'blocking',
+        paths,
+      }
+    },
+    getStaticProps: async (ctx) => {
+      const headings = []
+
+      const loader = getLoader({
+        remarkPlugins: [
+          [anchorLinks, { headings }],
+          ...additionalRemarkPlugins,
+        ],
+      })
+
+      const {
+        navData,
+        mdxSource,
+        githubFileUrl,
+      } = await loader.loadStaticProps(ctx)
+
+      const fullNavData = [
+        ...navData,
+        { divider: true },
+        ...product.sidebar?.resourcesNavData,
+      ]
+
+      // Add fullPaths and ids to navData
+      const navDataWithFullPaths = prepareNavDataForClient(fullNavData, [
+        product.slug,
+        basePath,
+      ])
+
+      const breadcrumbLinks = getDocsBreadcrumbs({
+        productPath: product.slug,
+        productName: product.name,
+        basePath,
+        baseName,
+        pathParts: (ctx.params.page || []) as string[],
+        navData: navDataWithFullPaths,
+      })
+
+      const finalProps = {
+        layoutProps: {
+          backToLink: {
+            text: `Back to ${product.name}`,
+            url: `/${product.slug}`,
+          },
+          breadcrumbLinks,
+          githubFileUrl,
+          headings,
+          navData: navDataWithFullPaths,
+          productName: product.name,
+        },
+        mdxSource,
+        product,
+      }
+
+      return {
+        revalidate: BASE_REVALIDATE,
+        props: finalProps,
+      }
+    },
+  }
+}

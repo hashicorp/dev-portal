@@ -1,0 +1,71 @@
+import fs from 'fs'
+import path from 'path'
+import slugify from 'slugify'
+import { Product } from 'types/products'
+
+async function generateStaticProps({
+  product,
+  contentJsonFile,
+}: {
+  product: Product
+  contentJsonFile: string
+}): Promise<$TSFixMe> {
+  // TODO: need to discuss from whence we should
+  // TODO: source content down the road. For now,
+  // TODO: sourcing from JSON for demo purposes.
+  // Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
+  const jsonFilePath = path.join(process.cwd(), contentJsonFile)
+  const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8')) as $TSFixMe
+
+  // TODO: Content blocks content should likely
+  // TODO: be fetched dynamically, currently things
+  // TODO: like the title and description of docs pages
+  // TODO: are hard-coded alongside the URL to link to.
+  // TODO: Should be possible to fetch the title and description
+  // TODO: at build time from said URL, to ensure the displayed
+  // TODO: content is accurate, while not needing to be
+  // TODO: manually kept up to date?
+  // Asana task: https://app.asana.com/0/1201010428539925/1201646299837754/f
+  CONTENT.blocks = CONTENT.blocks.map((block) => {
+    const { type, heading } = block
+    if (type !== 'heading') return block
+    return {
+      ...block,
+      slug: slugify(heading, { lower: true }),
+    }
+  })
+
+  const navData = [
+    ...product.sidebar.landingPageNavData,
+    { divider: true },
+    ...product.sidebar.resourcesNavData,
+  ]
+
+  return {
+    content: CONTENT,
+    layoutProps: {
+      headings: CONTENT.blocks
+        .filter((s) => s.type == 'heading')
+        .map(({ heading, slug, level }) => ({
+          title: heading,
+          slug: slug,
+          level,
+        })),
+      navData,
+      productName: product.name,
+      backToLink: {
+        text: 'Back to Developer',
+        url: '/',
+      },
+      breadcrumbLinks: [
+        { title: 'Developer', url: '/' },
+        { title: product.name, url: `/${product.slug}` },
+      ],
+    },
+    product,
+  }
+}
+
+export { generateStaticProps }
+// eslint-disable-next-line import/no-anonymous-default-export
+export default { generateStaticProps }

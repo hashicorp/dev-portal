@@ -18,9 +18,7 @@
 }
 
 .listItem {
-  composes: ds-token-typography-body-small from global;
-
-  &:not(:last-child):after {
+  &:not(:last-child)::after {
     color: var(--token-color-palette-neutral-400);
     content: '/';
     padding: 0 8px;

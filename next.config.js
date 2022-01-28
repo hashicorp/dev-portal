@@ -5,7 +5,7 @@ const withSwingset = require('swingset')
 
 // temporary: set all paths as noindex, until we're serving from this project
 const temporary_hideDocsPaths = {
-  source: '/:path*',
+  source: '/:path*{/}?',
   headers: [
     {
       key: 'X-Robots-Tag',
@@ -20,7 +20,11 @@ module.exports = withSwingset({
 })(
   withHashicorp({
     nextOptimizedImages: true,
-    transpileModules: ['swingset', '@hashicorp/flight-icons'],
+    transpileModules: [
+      'swingset',
+      '@hashicorp/flight-icons',
+      'unist-util-visit',
+    ],
   })({
     async headers() {
       return [temporary_hideDocsPaths]
@@ -39,6 +43,7 @@ module.exports = withSwingset({
       HASHI_ENV: process.env.HASHI_ENV || 'development',
       BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',
       BUGSNAG_SERVER_KEY: 'b32b4487b5dc72b32f51c8fe33641a43',
+      SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
     },
     svgo: {
       plugins: [

@@ -35,6 +35,7 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
+    "@hashicorp/design-system-tokens": "^0.4.3",
     "@hashicorp/flight-icons": "^2.0.1",
     "@hashicorp/mktg-global-styles": "^4.0.0",
     "@hashicorp/mktg-logos": "^1.2.0",
@@ -47,7 +48,7 @@
     "@hashicorp/react-call-to-action": "^4.1.0",
     "@hashicorp/react-code-block": "^4.1.5",
     "@hashicorp/react-consent-manager": "^7.0.3",
-    "@hashicorp/react-docs-page": "^14.4.5",
+    "@hashicorp/react-docs-page": "^14.13.0",
     "@hashicorp/react-hashi-stack-menu": "^2.0.7",
     "@hashicorp/react-inline-svg": "^6.0.3",
     "@hashicorp/react-min-100-layout": "^2.0.1",
@@ -62,13 +63,16 @@
     "@reach/tabs": "^0.16.1",
     "@reach/visually-hidden": "^0.16.0",
     "classnames": "^2.3.1",
+    "mdast": "^3.0.0",
     "next": "^11.1.2",
     "next-mdx-remote": "^3.0.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-intersection-observer": "^8.32.1",
     "slugify": "^1.6.4",
-    "swingset": "^0.10.2"
+    "swingset": "^0.10.2",
+    "unified": "^10.1.1",
+    "unist-util-visit": "^4.1.0"
   },
   "nextBundleAnalysis": {
     "budget": null,

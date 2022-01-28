@@ -1,0 +1,58 @@
+{
+  "slug": "vault",
+  "name": "Vault",
+  "basePaths": ["docs", "api-docs", "intro"],
+  "sidebar": {
+    "landingPageNavData": [
+      {
+        "title": "Introduction",
+        "fullPath": "/vault/docs/what-is-vault"
+      },
+      {
+        "title": "Getting Started",
+        "fullPath": "/vault/docs/install"
+      }
+    ],
+    "resourcesNavData": [
+      { "heading": "Resources" },
+      {
+        "title": "Releases",
+        "href": "https://releases.hashicorp.com/vault/"
+      },
+      {
+        "title": "HashiCorp Learn",
+        "href": "https://learn.hashicorp.com/vault"
+      },
+      {
+        "title": "Community Forum",
+        "href": "https://discuss.hashicorp.com/c/vault/30"
+      },
+      {
+        "title": "Support",
+        "href": "https://support.hashicorp.com"
+      }
+    ]
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/vault",
+      "id": "overview"
+    },
+    {
+      "label": "Docs",
+      "id": "reference-docs",
+      "path": "/vault/docs"
+    },
+    {
+      "label": "API",
+      "path": "/vault/api-docs",
+      "id": "api-docs"
+    },
+    {
+      "label": "Install",
+      "path": "/vault/downloads",
+      "id": "downloads"
+    }
+  ]
+}

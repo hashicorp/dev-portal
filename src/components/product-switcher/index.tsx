@@ -6,10 +6,10 @@ import {
   useRef,
   useState,
 } from 'react'
-import useCurrentPath from 'hooks/use-current-path'
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { Product, ProductGroup } from 'types/products'
+import { useCurrentProduct } from 'contexts'
 import ProductIcon from 'components/product-icon'
 import { products } from '../../../config/products'
 import s from './style.module.css'
@@ -32,8 +32,7 @@ const getLastProduct = (products: Product[][]) => {
 }
 
 const ProductSwitcher: React.FC = () => {
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-  const currentProductSlug = currentPath.split('/')[1]
+  const currentProduct = useCurrentProduct()
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
   const buttonRef = useRef<HTMLButtonElement>()
@@ -42,16 +41,6 @@ const ProductSwitcher: React.FC = () => {
   const shouldFocusFirstAnchor = useRef<boolean>(false)
   const firstProduct = getFirstProduct(products)
   const lastProduct = getLastProduct(products)
-
-  let currentProduct: Product
-  products.find((productGroup) =>
-    productGroup.find((product) => {
-      if (product.slug === currentProductSlug) {
-        currentProduct = product
-        return true
-      }
-    })
-  )
 
   /* @TODO: handle case where there is no
      currentProduct, eg on the home page */
@@ -80,11 +69,15 @@ const ProductSwitcher: React.FC = () => {
   }, [isOpen])
 
   /**
-   * It would be more optimal to set onKeyDown for the containing element, but that is not allowed
-   * on a <div> with no role. We do not want to use a menu role (see https://adrianroselli.com/2017/10/dont-use-aria-menu-roles-for-site-nav.html)
-   * so there is no role currently set on the containing <div>. If we find an appropriate role, then we can
-   * change the approach. For now, it's most appropriate to set onKeyDown on the <button> and <ul>,
-   * hence the `KeyboardEventHandler<HTMLButtonElement | HTMLUListElement>` definition.
+   * It would be more optimal to set onKeyDown for the containing element, but
+   * that is not allowed on a <div> with no role. We do not want to use a menu
+   * role (see Adrian Roselli link below) so there is no role currently set on
+   * the containing <div>. If we find an appropriate role, then we can change
+   * the approach. For now, it's most appropriate to set onKeyDown on the
+   * <button> and <ul>, hence this defintion:
+   * `KeyboardEventHandler<HTMLButtonElement | HTMLUListElement>`.
+   *
+   * https://adrianroselli.com/2017/10/dont-use-aria-menu-roles-for-site-nav.html
    */
   const handleKeyDown: KeyboardEventHandler<
     HTMLButtonElement | HTMLUListElement
@@ -94,13 +87,13 @@ const ProductSwitcher: React.FC = () => {
     const isSpaceKey = e.key === ' '
 
     /**
-     * The reason we can't focus the first anchor here is because we have the anchor element
-     * is not rendered until after `setIsOpen(true)` is called by the <button>'s onClick (default
-     * behavior of <button> elements).
+     * The reason we can't focus the first anchor here is because we have the
+     * anchor element is not rendered until after `setIsOpen(true)` is called by
+     * the <button>'s onClick (default behavior of <button> elements).
      *
-     * Might be possible to do e.preventDefault and then do the focus() call here? Not sure we
-     * need to do that though unless we are very against this approach. I'd rather not prevent
-     * default behavior if we don't have to.
+     * Might be possible to do e.preventDefault and then do the focus() call
+     * here? Not sure we need to do that though unless we are very against this
+     * approach. I'd rather not prevent default behavior if we don't have to.
      */
     if (!isOpen && (isEnterKey || isSpaceKey)) {
       shouldFocusFirstAnchor.current = true
@@ -177,11 +170,13 @@ const ProductSwitcher: React.FC = () => {
           onKeyDown={handleAnchorKeyDown}
           ref={refToPass}
         >
-          <ProductIcon
-            className={productIconClassName}
-            product={product.slug}
-          />
-          <span>{product.name}</span>
+          <span className={s.focusContainer}>
+            <ProductIcon
+              className={productIconClassName}
+              product={product.slug}
+            />
+            <span>{product.name}</span>
+          </span>
         </a>
       </li>
     )
@@ -204,8 +199,8 @@ const ProductSwitcher: React.FC = () => {
   }
 
   /**
-   * I _think_ we want the containing element to be a nav, currently clashes with other
-   * styles so not using that element just yet
+   * I _think_ we want the containing element to be a nav, currently clashes
+   * with other styles so not using that element just yet
    */
   return (
     <div className={s.productSwitcher} ref={productChooserRef}>
@@ -226,7 +221,12 @@ const ProductSwitcher: React.FC = () => {
         ref={buttonRef}
       >
         <span className={s.switcherOptionContainer}>
-          {currentProduct && <ProductIcon product={currentProduct.slug} />}
+          <ProductIcon
+            className={classNames({
+              [s.vaultProductIcon]: currentProduct?.slug === 'vault',
+            })}
+            product={currentProduct?.slug}
+          />
           <span>{currentProduct ? currentProduct.name : 'Products'}</span>
         </span>
         <IconCaret16 className={s.switcherCaret} />

@@ -1,47 +1,48 @@
-import { ProductSlug } from 'types/products'
 import Link from 'next/link'
 import classNames from 'classnames'
+import { useCurrentProduct } from 'contexts'
 import s from './style.module.css'
 
-export default function makeDocsAnchor(
-  product: ProductSlug,
-  basePaths: string[]
-) {
-  const DocsAnchor: React.FC<JSX.IntrinsicElements['a']> = ({
-    href,
-    children,
-    ...rest
-  }) => {
-    const passableProps = {
-      ...rest,
-      className: classNames(rest.className, s.anchor),
-    }
+const DocsAnchor: React.FC<JSX.IntrinsicElements['a']> = ({
+  href,
+  children,
+  ...rest
+}) => {
+  const currentProduct = useCurrentProduct()
 
-    if (!href) return <a {...passableProps}>{children}</a>
+  const passableProps = {
+    ...rest,
+    className: classNames(rest.className, s.anchor),
+  }
 
-    let adjustedHref = href
-    // TODO: infer this condition dynamically
-    if (basePaths.some((basePath) => href.startsWith(`/${basePath}`))) {
-      // TODO: infer the product dynamically
-      adjustedHref = `/${product}${href}`
-    }
+  if (!href) return <a {...passableProps}>{children}</a>
 
-    // Render a next/link to avoid a full reload if we know for sure the link is an internal docs link.
-    // TODO: This heuristic can likely be tweaked to be more inclusive of other internal links
-    if (adjustedHref !== href) {
-      return (
-        <Link href={adjustedHref}>
-          <a {...passableProps}>{children}</a>
-        </Link>
-      )
-    }
+  // Authors write content as if it only exists for their product,
+  // eg Waypoint content contains links that start with "/docs".
+  // We need to be adjust these links, eg to start with "/waypoint/docs".
+  let adjustedHref = href
+  // TODO: infer this condition dynamically
+  if (
+    currentProduct.basePaths.some((basePath) => href.startsWith(`/${basePath}`))
+  ) {
+    adjustedHref = `/${currentProduct.slug}${href}`
+  }
 
+  // Render a next/link to avoid a full reload if we know for sure the link is an internal docs link.
+  // TODO: This heuristic can likely be tweaked to be more inclusive of other internal links
+  if (adjustedHref !== href) {
     return (
-      <a href={adjustedHref} {...passableProps}>
-        {children}
-      </a>
+      <Link href={adjustedHref}>
+        <a {...passableProps}>{children}</a>
+      </Link>
     )
   }
 
-  return DocsAnchor
+  return (
+    <a href={adjustedHref} {...passableProps}>
+      {children}
+    </a>
+  )
 }
+
+export default DocsAnchor
