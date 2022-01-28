@@ -1,3 +1,4 @@
+import React from 'react'
 import '@hashicorp/platform-util/nprogress/style.css'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
@@ -5,6 +6,14 @@ import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analyti
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
 import BaseNewLayout from 'layouts/base-new'
 import './style.css'
+
+if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const ReactDOM = require('react-dom')
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const axe = require('@axe-core/react')
+  axe(React, ReactDOM, 1000)
+}
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
