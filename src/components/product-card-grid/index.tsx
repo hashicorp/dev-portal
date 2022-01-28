@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
-import Link from 'next/link'
 import classNames from 'classnames'
+import CardLink from 'components/card-link'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import CONTENT from './content.json'
@@ -31,33 +31,31 @@ function CardGridSection({ title, products }): ReactElement {
       <span className={s.sectionBody}>
         {products.map(({ slug, hasLogo, headingIcon, heading, subheading }) => {
           return (
-            <Link key={slug} href={`/${slug}`}>
-              <a className={s.sectionBodyCardWrapper}>
-                <span className={s.sectionBodyCard}>
-                  {hasLogo && (
+            <div className={s.sectionBodyCardWrapper} key={slug}>
+              <CardLink className={s.sectionBodyCard} href={`/${slug}`}>
+                {hasLogo && (
+                  <ProductIcon
+                    className={s.sectionBodyCardLogo}
+                    product={slug}
+                  />
+                )}
+                <span className={s.sectionBodyCardHeading}>
+                  {headingIcon && (
                     <ProductIcon
-                      className={s.sectionBodyCardLogo}
+                      className={s.sectionBodyCardHeadingIcon}
                       product={slug}
                     />
                   )}
-                  <span className={s.sectionBodyCardHeading}>
-                    {headingIcon && (
-                      <ProductIcon
-                        className={s.sectionBodyCardHeadingIcon}
-                        product={slug}
-                      />
-                    )}
-                    {heading}
-                  </span>
-                  <Text
-                    asElement="span"
-                    className={s.sectionBodyCardSubheading}
-                    dangerouslySetInnerHTML={{ __html: subheading }}
-                    size={200}
-                  />
+                  {heading}
                 </span>
-              </a>
-            </Link>
+                <Text
+                  asElement="span"
+                  className={s.sectionBodyCardSubheading}
+                  dangerouslySetInnerHTML={{ __html: subheading }}
+                  size={200}
+                />
+              </CardLink>
+            </div>
           )
         })}
       </span>
