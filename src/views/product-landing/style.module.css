@@ -3,7 +3,6 @@
 }
 
 .pageSubheading {
-  composes: hds-typography-body-300 from global;
   color: var(--token-color-neutral-foreground-secondary);
   margin-bottom: 48px;
 }

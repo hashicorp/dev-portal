@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
 import Heading from 'components/heading'
+import Text from 'components/text'
 import s from './style.module.css'
 
 function HomepageHero({ className }: { className?: string }): ReactElement {
@@ -16,10 +17,10 @@ function HomepageHero({ className }: { className?: string }): ReactElement {
         >
           Welcome to Dev Portal
         </Heading>
-        <p className={s.subheading}>
+        <Text className={s.subheading}>
           This says something here about HashiCorp documentation and it&apos;s
           great.
-        </p>
+        </Text>
       </div>
       <div className={s.imageSection}>
         {/* eslint-disable-next-line @next/next/no-img-element */}

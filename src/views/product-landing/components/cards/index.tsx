@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import tagIconDict from './tag-icon-dict.json'
 import { CardProps } from './types'
 import CardLink from 'components/card-link'
+import Text from 'components/text'
 import s from './style.module.css'
 
 function Cards({ columns, cards }: CardProps): React.ReactElement {
@@ -25,8 +26,11 @@ function Cards({ columns, cards }: CardProps): React.ReactElement {
                     <InlineSvg src={iconSvg} />
                   </span>
                 )}
+                {/* TODO: should we update this to use body sizes instead of display? */}
                 <span className={s.cardHeading}>{heading}</span>
-                <span className={s.cardText}>{text}</span>
+                <Text asElement="span" className={s.cardText} size={200}>
+                  {text}
+                </Text>
                 {tags && (
                   <span className={s.cardTags}>
                     {tags.map((tag) => {

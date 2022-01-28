@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react'
 import slugify from 'slugify'
 import DocsLayout from 'layouts/docs'
 import Heading, { HeadingProps } from 'components/heading'
+import Text from 'components/text'
 import GetStarted, { GetStartedProps } from './components/get-started'
 import Cards, { CardProps } from './components/cards'
 import s from './style.module.css'
@@ -33,7 +34,7 @@ function ProductLanding({ content }: ProductLandingProps): ReactElement {
         {content.heading}
       </Heading>
       {content.subheading && (
-        <p className={s.pageSubheading}>{content.subheading}</p>
+        <Text className={s.pageSubheading}>{content.subheading}</Text>
       )}
       {content.blocks.map((block, idx) => {
         const { type } = block

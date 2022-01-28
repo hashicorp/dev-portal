@@ -18,9 +18,6 @@
 }
 
 .listItem {
-  composes: hds-typography-body-100 from global;
-  composes: hds-font-weight-regular from global;
-
   &:not(:last-child)::after {
     color: var(--token-color-palette-neutral-400);
     content: '/';

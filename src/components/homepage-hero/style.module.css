@@ -27,8 +27,6 @@
 }
 
 .subheading {
-  composes: hds-typography-body-300 from global;
-  composes: hds-font-weight-regular from global;
   color: var(--token-color-palette-neutral-600);
 }
 
