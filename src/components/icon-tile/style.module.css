@@ -2,6 +2,7 @@
   background: var(--background);
   border-radius: 6px;
   border: 1px solid var(--border-color);
+  color: var(--icon-color);
   display: block;
   height: var(--size);
   /* Adjust padding to account for border width */
@@ -12,10 +13,6 @@
     display: block;
     width: var(--icon-size);
     height: var(--icon-size);
-  }
-
-  &.forceIconColor {
-    color: var(--icon-color);
   }
 }
 
