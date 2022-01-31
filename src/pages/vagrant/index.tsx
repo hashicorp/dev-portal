@@ -1,28 +1,19 @@
-import { ReactElement } from 'react'
-import { GetStaticProps } from 'next'
 import vagrantData from 'data/vagrant.json'
-import { Product } from 'types/products'
-import BaseNewLayout from 'layouts/base-new'
+import ProductLandingView from 'views/product-landing'
+import {
+  generateStaticProps,
+  LandingPageProduct,
+} from 'views/product-landing/server'
 
-const product = vagrantData as Product
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getStaticProps() {
+  const contentJsonFile = 'src/data/vagrant-landing.json'
+  const product = vagrantData as LandingPageProduct
 
-const VagrantHomePage = (): ReactElement => {
-  return (
-    <>
-      <h1>Vagrant</h1>
-      <p>This page is a placeholder</p>
-    </>
-  )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
   return {
-    props: {
-      product,
-    },
+    props: await generateStaticProps({ product, contentJsonFile }),
+    revalidate: 10,
   }
 }
 
-VagrantHomePage.layout = BaseNewLayout
-
-export default VagrantHomePage
+export default ProductLandingView

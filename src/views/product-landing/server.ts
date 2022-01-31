@@ -1,13 +1,25 @@
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
-import { Product } from 'types/products'
+import { MenuItem } from 'components/sidebar'
+import { Products } from '@hashicorp/platform-product-meta'
+
+type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
+
+export type LandingPageProduct = {
+  name: string
+  sidebar: {
+    landingPageNavData: MenuItem[]
+    resourcesNavData: MenuItem[]
+  }
+  slug: ProductSlug
+}
 
 async function generateStaticProps({
   product,
   contentJsonFile,
 }: {
-  product: Product
+  product: LandingPageProduct
   contentJsonFile: string
 }): Promise<$TSFixMe> {
   // TODO: need to discuss from whence we should
