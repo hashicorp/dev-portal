@@ -2,9 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
 import { MenuItem } from 'components/sidebar'
-import { Products } from '@hashicorp/platform-product-meta'
-
-type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
+import { ProductSlug } from 'types/products'
 
 export type LandingPageProduct = {
   name: string
@@ -39,11 +37,36 @@ async function generateStaticProps({
   // TODO: manually kept up to date?
   // Asana task: https://app.asana.com/0/1201010428539925/1201646299837754/f
   CONTENT.blocks = CONTENT.blocks.map((block) => {
-    const { type, heading } = block
-    if (type !== 'heading') return block
-    return {
-      ...block,
-      slug: slugify(heading, { lower: true }),
+    switch (block.type) {
+      case 'heading':
+        // augment heading blocks with a consistent slug,
+        // used for anchor linking
+        return {
+          ...block,
+          slug: slugify(block.heading, { lower: true }),
+        }
+      case 'cards':
+        // TODO: instead of the below, should likely use product context
+        // TODO: in IconTile for default brandColor (rather than current
+        // TODO: behavior of static default to "neutral"). Would eliminate
+        // TODO: the need to add iconBrandColor to cards (unless doing so
+        // TODO: as an explicit override).
+        // ensure cards with icons have an iconBrandColor,
+        // falling back to the current product if not set
+        /* eslint-disable-next-line no-case-declarations */
+        const defaultIconColor =
+          ['hcp', 'sentinel'].indexOf(product.slug) >= 0
+            ? 'neutral'
+            : product.slug
+        return {
+          ...block,
+          cards: block.cards.map((card) => ({
+            ...card,
+            iconBrandColor: block.iconBrandColor || defaultIconColor,
+          })),
+        }
+      default:
+        return block
     }
   })
 

@@ -1,4 +1,7 @@
+import { ProductBrandColor } from 'components/icon-tile'
 interface CardInterface {
+  icon?: string
+  iconBrandColor?: ProductBrandColor
   iconSvg?: string
   heading: string
   text: string

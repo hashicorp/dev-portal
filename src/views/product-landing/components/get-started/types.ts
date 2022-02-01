@@ -1,5 +1,6 @@
+import { ProductSlug } from 'types/products'
 export interface GetStartedProps {
-  iconSvg: string
+  product: Exclude<ProductSlug, 'sentinel'>
   heading: string
   text: string
   link: {
