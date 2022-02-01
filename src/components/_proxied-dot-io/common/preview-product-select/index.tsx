@@ -14,7 +14,6 @@ import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-co
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 import {
-  Fragment,
   KeyboardEventHandler,
   ReactElement,
   useEffect,
@@ -23,7 +22,7 @@ import {
 } from 'react'
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
-import { Product, ProductGroup, ProductSlug } from 'types/products'
+import { Product, ProductSlug } from 'types/products'
 import { products as productGroups } from '../../../../../config/products'
 import s from './style.module.css'
 
@@ -293,7 +292,10 @@ const ProductSwitcher: React.FC = () => {
         </span>
         <IconCaret16 className={s.switcherCaret} />
       </button>
-      <Popover targetRef={buttonRef} style={{ display: 'block' }}>
+      <Popover
+        targetRef={buttonRef}
+        style={{ display: 'block', zIndex: '999' }}
+      >
         <ul
           className={s.switcherOptionList}
           id={OPTION_LIST_ID}
