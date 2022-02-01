@@ -6,7 +6,7 @@ import Min100Layout from '@hashicorp/react-min-100-layout'
 import useProductMeta, { Products } from '@hashicorp/platform-product-meta'
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
-import localConsentManagerServices from 'lib/consent-manager-services/waypoint'
+import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
 // product-specific layout elements
 import Footer from 'components/_proxied-dot-io/waypoint/footer-with-props'
 import ProductSubnav from 'components/_proxied-dot-io/waypoint/subnav'

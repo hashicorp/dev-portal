@@ -13,7 +13,9 @@ const temporary_hideDocsPaths = {
       value: 'noindex',
     },
   ],
-  has: [{ type: 'host', value: '(^(?!.*(waypointproject)).*$)' }],
+  has: [
+    { type: 'host', value: '(^(?!.*(waypointproject|boundaryproject)).*$)' },
+  ],
 }
 
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(

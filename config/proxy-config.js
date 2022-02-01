@@ -1,8 +1,7 @@
 module.exports = {
   boundary: {
-    // actually https://boundaryproject.io, but using test-bd.hashi-mktg.com as a test
-    domain: 'https://test-bd.hashi-mktg.com',
-    host: 'test-bd.hashi-mktg.com',
+    domain: 'https://www.boundaryproject.io',
+    host: '(www\\.boundaryproject\\.io|test-bd\\.hashi-mktg\\.com)',
     assets: ['/files/press-kit.zip'],
   },
   // consul: {

@@ -1,18 +1,16 @@
 import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
-import productData from 'data/boundary'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
+import { generateStaticProps } from 'lib/fetch-release-data'
 import MerchDesktopClient from 'components/_proxied-dot-io/boundary/merch-desktop-client'
 import styles from './style.module.css'
 
-const VERSION = productData.version
-const DESKTOP_VERSION = productData.desktopVersion
 const DESKTOP_BINARY_SLUG = 'boundary-desktop'
 
 function DownloadsPage({ binaryReleases, desktopReleases }) {
   return (
     <ProductDownloadsPage
-      releases={binaryReleases}
-      latestVersion={VERSION}
+      releases={binaryReleases.releases}
+      latestVersion={binaryReleases.latestVersion}
       getStartedLinks={[
         {
           label: 'Install Boundary',
@@ -45,8 +43,8 @@ function DownloadsPage({ binaryReleases, desktopReleases }) {
       }}
       merchandisingSlot={
         <MerchDesktopClient
-          version={DESKTOP_VERSION}
-          releases={desktopReleases}
+          version={desktopReleases.latestVersion}
+          releases={desktopReleases.releases}
         />
       }
     />
@@ -54,43 +52,18 @@ function DownloadsPage({ binaryReleases, desktopReleases }) {
 }
 
 export async function getStaticProps() {
-  return Promise.all([
-    fetch(`https://releases.hashicorp.com/boundary/index.json`, {
-      headers: {
-        'Cache-Control': 'no-cache',
-      },
-    }).then((res) => res.json()),
-    fetch(`https://releases.hashicorp.com/boundary-desktop/index.json`, {
-      headers: {
-        'Cache-Control': 'no-cache',
-      },
-    }).then((res) => res.json()),
+  const [binaryReleases, desktopReleases] = await Promise.all([
+    generateStaticProps('boundary'),
+    generateStaticProps(DESKTOP_BINARY_SLUG),
   ])
-    .then((result) => {
-      const binaryReleases = result.find(
-        (releases) => releases.name === productData.slug
-      )
-      const desktopReleases = result.find(
-        (releases) => releases.name === DESKTOP_BINARY_SLUG
-      )
-      return {
-        props: {
-          binaryReleases,
-          desktopReleases,
-        },
-      }
-    })
-    .catch(() => {
-      throw new Error(
-        `--------------------------------------------------------
-        Unable to resolve version ${VERSION} on releases.hashicorp.com from link
-        <https://releases.hashicorp.com/${productData.slug}/${VERSION}/index.json>. Usually this
-        means that the specified version has not yet been released. The downloads page
-        version can only be updated after the new version has been released, to ensure
-        that it works for all users.
-        ----------------------------------------------------------`
-      )
-    })
+
+  return {
+    revalidate: binaryReleases.revalidate,
+    props: {
+      binaryReleases: binaryReleases.props,
+      desktopReleases: desktopReleases.props,
+    },
+  }
 }
 
 DownloadsPage.layout = BoundaryIoLayout

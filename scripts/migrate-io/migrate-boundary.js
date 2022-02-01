@@ -85,7 +85,7 @@ async function migrateBoundaryIo() {
   }
   // set up the source direction (cloned product repository)
   // and the destination directories (all within this project's source)
-  const { repoDirs, destDirs } = await setupProductMigration(productData)
+  const { repoDirs, destDirs } = await setupProductMigration(productData.slug)
   //
   // PAGES FOLDER SETUP
   //
