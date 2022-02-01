@@ -292,10 +292,7 @@ const ProductSwitcher: React.FC = () => {
         </span>
         <IconCaret16 className={s.switcherCaret} />
       </button>
-      <Popover
-        targetRef={buttonRef}
-        style={{ display: 'block', zIndex: '999' }}
-      >
+      <Popover targetRef={buttonRef} style={{ display: 'block', zIndex: 999 }}>
         <ul
           className={s.switcherOptionList}
           id={OPTION_LIST_ID}
