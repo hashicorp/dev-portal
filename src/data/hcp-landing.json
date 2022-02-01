@@ -1,0 +1,12 @@
+{
+  "heading": "HashiCorp Cloud Platform Overview",
+  "subheading": "Use HCP to fully automate your cloud infrastructure.",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 1,
+      "heading": "Explore HCP Documentation"
+    }
+  ]
+}

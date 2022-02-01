@@ -1,0 +1,12 @@
+{
+  "heading": "Nomad Overview",
+  "subheading": "Use Nomad to do stuff.",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 1,
+      "heading": "Explore Nomad Documentation"
+    }
+  ]
+}

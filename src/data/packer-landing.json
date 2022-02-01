@@ -1,0 +1,12 @@
+{
+  "heading": "Packer Overview",
+  "subheading": "Use Packer to do stuff.",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 1,
+      "heading": "Explore Packer Documentation"
+    }
+  ]
+}

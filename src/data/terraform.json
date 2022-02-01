@@ -1,4 +1,32 @@
 {
   "slug": "terraform",
-  "name": "Terraform"
+  "name": "Terraform",
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/terraform" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/terraform"
+      }
+    ],
+    "resourcesNavData": [
+      { "heading": "Resources" },
+      {
+        "title": "Releases",
+        "href": "https://releases.hashicorp.com/terraform/"
+      },
+      {
+        "title": "HashiCorp Learn",
+        "href": "https://learn.hashicorp.com/terraform"
+      },
+      {
+        "title": "Community Forum",
+        "href": "https://discuss.hashicorp.com/c/terraform"
+      },
+      {
+        "title": "Support",
+        "href": "https://support.hashicorp.com"
+      }
+    ]
+  }
 }

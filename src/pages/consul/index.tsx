@@ -1,28 +1,19 @@
-import { ReactElement } from 'react'
-import { GetStaticProps } from 'next'
 import consulData from 'data/consul.json'
-import { Product } from 'types/products'
-import BaseNewLayout from 'layouts/base-new'
+import ProductLandingView from 'views/product-landing'
+import {
+  generateStaticProps,
+  LandingPageProduct,
+} from 'views/product-landing/server'
 
-const product = consulData as Product
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getStaticProps() {
+  const contentJsonFile = 'src/data/consul-landing.json'
+  const product = consulData as LandingPageProduct
 
-const ConsulHomePage = (): ReactElement => {
-  return (
-    <>
-      <h1>Consul</h1>
-      <p>This page is a placeholder</p>
-    </>
-  )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
   return {
-    props: {
-      product,
-    },
+    props: await generateStaticProps({ product, contentJsonFile }),
+    revalidate: 10,
   }
 }
 
-ConsulHomePage.layout = BaseNewLayout
-
-export default ConsulHomePage
+export default ProductLandingView

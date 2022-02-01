@@ -1,0 +1,12 @@
+{
+  "heading": "Boundary Overview",
+  "subheading": "Use Boundary to do stuff.",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 1,
+      "heading": "Explore Boundary Documentation"
+    }
+  ]
+}
