@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { SidecarHeading } from './types'
+import { useCurrentProduct } from 'contexts'
+import useCurrentPath from 'hooks/use-current-path'
 import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 
 /**
@@ -34,6 +36,13 @@ export function useActiveSection(
   const visibleHeadings = useRef<Set<string>>(new Set())
   const [activeSection, setActiveSection] = useState<SidecarHeading['slug']>()
   const previousY = useRef<number>()
+
+  // isProductLanding is needed to determine the IntersectionObserver threshold
+  // because the headings on product landing pages are smaller than the on docs
+  // pages
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const currentProduct = useCurrentProduct()
+  const isProductLanding = currentPath === `/${currentProduct.slug}`
 
   useEffect(() => {
     // Need to clear this when all headings change
@@ -115,7 +124,10 @@ export function useActiveSection(
           previousY.current = currentY
         }
       },
-      { rootMargin: `-${getFullNavHeaderHeight()}px 0% -60% 0%`, threshold: 1 }
+      {
+        rootMargin: `-${getFullNavHeaderHeight()}px 0% -60% 0%`,
+        threshold: isProductLanding ? 0 : 1,
+      }
     )
 
     headings.forEach((section) => {
@@ -133,7 +145,7 @@ export function useActiveSection(
         if (el) observer.unobserve(el)
       })
     }
-  }, [headings, isEnabled])
+  }, [headings, isEnabled, isProductLanding])
 
   return activeSection
 }
