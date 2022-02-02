@@ -1,9 +1,10 @@
+import { useMemo } from 'react'
 import classNames from 'classnames'
+import { SidecarHeading } from './types'
 import { useDeviceSize } from 'contexts'
 import { useActiveSection } from './use-active-section'
-import { SidecarHeading } from './types'
-import s from './style.module.css'
 import getTruncatedTitle from './utils/get-truncated-title'
+import s from './style.module.css'
 
 interface SidecarProps {
   headings: SidecarHeading[]
@@ -12,14 +13,14 @@ interface SidecarProps {
 const SIDECAR_LABEL_ELEMENT_ID = 'sidecar-label'
 
 const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
+  const level1And2Headings = useMemo(
+    () => headings.filter((heading) => heading.level <= 2),
+    [headings]
+  )
   const { isDesktop } = useDeviceSize()
-  const activeSection = useActiveSection(headings, isDesktop)
+  const activeSection = useActiveSection(level1And2Headings, isDesktop)
 
-  const renderListItem = ({ level, slug, title }) => {
-    if (level > 2) {
-      return null
-    }
-
+  const renderListItem = ({ slug, title }) => {
     const isActive = slug === activeSection
     const className = classNames(s.sidecarListItem, {
       [s.activeSidecarListItem]: isActive,
@@ -41,7 +42,9 @@ const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
       <p className={s.sidecarLabel} id={SIDECAR_LABEL_ELEMENT_ID}>
         On this page
       </p>
-      <ol className={s.sidecarList}>{headings.map(renderListItem)}</ol>
+      <ol className={s.sidecarList}>
+        {level1And2Headings.map(renderListItem)}
+      </ol>
     </nav>
   )
 }
