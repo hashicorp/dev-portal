@@ -18,13 +18,17 @@ const Disclosure: FC<DisclosureProps> = ({
   title,
 }) => {
   const [isOpen, setIsOpen] = useState(open)
+  const rootClassnames = classNames(
+    s.root,
+    s[`root-${isOpen ? 'expanded' : 'collapsed'}`]
+  )
   const buttonClassNames = classNames(
     s.button,
     s[`button-${isOpen ? 'expanded' : 'collapsed'}`]
   )
 
   return (
-    <div className={s.root}>
+    <div className={rootClassnames}>
       <button
         aria-expanded={isOpen}
         className={buttonClassNames}
