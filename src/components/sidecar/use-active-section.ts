@@ -31,7 +31,7 @@ export function useActiveSection(
   headings: SidecarHeading[],
   isEnabled = true
 ): string {
-  const visibleHeadings = useRef<Record<string, any>>({})
+  const visibleHeadings = useRef<Set<string>>(new Set())
   const [activeSection, setActiveSection] = useState<SidecarHeading['slug']>()
   const previousY = useRef<number>()
 
