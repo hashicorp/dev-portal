@@ -1,0 +1,38 @@
+---
+componentName: Disclosure
+---
+
+## Examples
+
+### Disclosure with just a title
+
+<LiveComponent>{`
+<Disclosure
+  title="Accordion with text content and a description"
+>
+  Content that might include a <a href="/">text link</a>.
+</Disclosure>
+`}</LiveComponent>
+
+### Disclosure with a description
+
+<LiveComponent>{`
+<Disclosure
+  title="Accordion with text content and a description"
+  description="All officially supported HashiCorp release channels and their security guarantees."
+>
+  Content that might include a <a href="/">text link</a>.
+</Disclosure>
+`}</LiveComponent>
+
+### Disclosure that is open by default
+
+<LiveComponent>{`
+<Disclosure
+  title="Accordion with text content and a description"
+  description="All officially supported HashiCorp release channels and their security guarantees."
+  open
+>
+  Content that might include a <a href="/">text link</a>.
+</Disclosure>
+`}</LiveComponent>
