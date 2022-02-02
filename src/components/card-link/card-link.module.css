@@ -5,7 +5,7 @@ style applied to anchor elements.
 .root {
   color: black;
 
-  /* Only enable animation if query is supported and no-preference on motion */
+  /* Only enable animation if query is supported and value is no-preference */
   @media (prefers-reduced-motion: no-preference) {
     transition: background-color 0.2s, box-shadow 0.2s;
   }
