@@ -36,6 +36,9 @@ export function useActiveSection(
   const previousY = useRef<number>()
 
   useEffect(() => {
+    // Need to clear this when all headings change
+    visibleHeadings.current = new Set()
+
     if (!isEnabled) {
       return
     }
@@ -118,7 +121,7 @@ export function useActiveSection(
     headings.forEach((section) => {
       const el = document
         .getElementById('main')
-        .querySelector(`#${section.slug}`)
+        ?.querySelector(`#${section.slug}`)
       if (el) observer.observe(el)
     })
 
@@ -126,7 +129,7 @@ export function useActiveSection(
       headings.forEach((section) => {
         const el = document
           .getElementById('main')
-          .querySelector(`#${section.slug}`)
+          ?.querySelector(`#${section.slug}`)
         if (el) observer.unobserve(el)
       })
     }
