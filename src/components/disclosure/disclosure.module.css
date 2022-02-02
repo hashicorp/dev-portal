@@ -1,42 +1,19 @@
 .root {
-  /* composes: hds-surface-mid from global; */
   background-color: white;
   border-radius: 6px;
   width: 100%;
 }
 
 .root-expanded {
-  box-shadow: 0 0 0 var(--token-elevation-mid-border-width)
-      var(--token-elevation-mid-border-color),
-    var(--token-elevation-mid-shadow-01-x)
-      var(--token-elevation-mid-shadow-01-y)
-      var(--token-elevation-mid-shadow-01-blur)
-      var(--token-elevation-mid-shadow-01-spread)
-      var(--token-elevation-mid-shadow-01-color),
-    var(--token-elevation-mid-shadow-02-x)
-      var(--token-elevation-mid-shadow-02-y)
-      var(--token-elevation-mid-shadow-02-blur)
-      var(--token-elevation-mid-shadow-02-spread)
-      var(--token-elevation-mid-shadow-02-color);
+  composes: hds-surface-mid from global;
 }
 
 .button {
+  composes: hds-surface-mid from global;
   align-items: center;
   background-color: transparent;
   border-radius: 6px;
   border: none;
-  box-shadow: 0 0 0 var(--token-elevation-mid-border-width)
-      var(--token-elevation-mid-border-color),
-    var(--token-elevation-mid-shadow-01-x)
-      var(--token-elevation-mid-shadow-01-y)
-      var(--token-elevation-mid-shadow-01-blur)
-      var(--token-elevation-mid-shadow-01-spread)
-      var(--token-elevation-mid-shadow-01-color),
-    var(--token-elevation-mid-shadow-02-x)
-      var(--token-elevation-mid-shadow-02-y)
-      var(--token-elevation-mid-shadow-02-blur)
-      var(--token-elevation-mid-shadow-02-spread)
-      var(--token-elevation-mid-shadow-02-color);
   display: flex;
   padding: 16px;
   text-align: left;
@@ -66,6 +43,10 @@
   }
 }
 
+/*
+TODO: replace this with helper variable when released into tokens package.
+ref: https://github.com/hashicorp/dev-portal/pull/96#issuecomment-1027486184
+*/
 .button-collapsed {
   &:hover {
     box-shadow: 0 0 0 var(--token-elevation-high-border-width)
