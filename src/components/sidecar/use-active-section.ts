@@ -80,7 +80,7 @@ export function useActiveSection(
           previousY.current = currentY
         }
       },
-      { rootMargin: '0% 0% -75% 0%' }
+      { rootMargin: '0% 0% -65% 0%', threshold: 1 }
     )
 
     headings.forEach((section) => {
