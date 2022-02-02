@@ -50,14 +50,14 @@ export function useActiveSection(
         let scrollTrend: 'down' | 'up'
 
         entries.forEach((entry) => {
-          const entryId = entry.target.id
           currentY = window.scrollY
           scrollTrend = previousY.current < currentY ? 'down' : 'up'
 
+          const entryId = entry.target.id
           if (entry.isIntersecting) {
-            visibleHeadings.current[entryId] = entry.target
+            visibleHeadings.current.add(entryId)
           } else {
-            delete visibleHeadings.current[entryId]
+            visibleHeadings.current.delete(entryId)
           }
         })
 
@@ -68,13 +68,12 @@ export function useActiveSection(
           : -1
 
         // Find the heading closest to the top
-        const visibleHeadingIds = Object.keys(visibleHeadings.current)
-        if (visibleHeadingIds.length > 0) {
+        if (visibleHeadings.current.size > 0) {
           let shortestDistance
           let closestHeading
-          visibleHeadingIds.forEach((headingId) => {
-            const headingEntry = visibleHeadings.current[headingId]
-            const distance = headingEntry.getBoundingClientRect().bottom
+          visibleHeadings.current.forEach((headingId) => {
+            const targetElement = document.getElementById(headingId)
+            const distance = targetElement.getBoundingClientRect().bottom
             if (!closestHeading || distance < shortestDistance) {
               closestHeading = headingId
               shortestDistance = distance
@@ -85,7 +84,7 @@ export function useActiveSection(
           // If we detect that we're scrolling up, and there are no visible
           // headers, optimistically set the previous header as visible to make
           // the active section match the visible content
-          if (visibleHeadingIds.length === 0 && scrollTrend === 'up') {
+          if (visibleHeadings.current.size === 0 && scrollTrend === 'up') {
             setActiveSection((current) => {
               const curActiveIndex = findMatchingSectionIndex(current)
 
@@ -115,7 +114,7 @@ export function useActiveSection(
           previousY.current = currentY
         }
       },
-      { rootMargin: `-${getFullNavHeaderHeight()}px 0% -50% 0%`, threshold: 1 }
+      { rootMargin: `-${getFullNavHeaderHeight()}px 0% -60% 0%`, threshold: 1 }
     )
 
     headings.forEach((section) => {
