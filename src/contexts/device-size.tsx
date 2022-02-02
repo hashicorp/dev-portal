@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 
 const DEFAULT_MOBILE_WIDTH = 728
 const DEFAULT_TABLET_WIDTH = 1000
@@ -7,22 +8,6 @@ interface DeviceSize {
   isDesktop?: boolean
   isMobile?: boolean
   isTablet?: boolean
-}
-
-// TODO: does this seem useful as a helper/util?
-const getCSSVariableFromDocument = (
-  variableName: string,
-  options: { asNumber?: boolean } = {}
-): string | number => {
-  const value = getComputedStyle(document.documentElement).getPropertyValue(
-    variableName
-  )
-
-  if (options.asNumber) {
-    return parseInt(value, 10)
-  }
-
-  return value
 }
 
 const DeviceSizeContext = createContext<DeviceSize>(undefined)
