@@ -67,8 +67,8 @@ export function useActiveSection(
           ? findMatchingSectionIndex(entries[0].target.id)
           : -1
 
-        // Find the heading closest to the top
         if (visibleHeadings.current.size > 0) {
+          // Find the heading closest to the top of the viewport
           let shortestDistance
           let closestHeading
           visibleHeadings.current.forEach((headingId) => {
@@ -80,34 +80,32 @@ export function useActiveSection(
             }
           })
           setActiveSection(closestHeading)
-        } else if (previousY.current) {
+        } else if (previousY.current && scrollTrend === 'up') {
           // If we detect that we're scrolling up, and there are no visible
           // headers, optimistically set the previous header as visible to make
           // the active section match the visible content
-          if (visibleHeadings.current.size === 0 && scrollTrend === 'up') {
-            setActiveSection((current) => {
-              const curActiveIndex = findMatchingSectionIndex(current)
+          setActiveSection((current) => {
+            const curActiveIndex = findMatchingSectionIndex(current)
 
-              // Handle an ege case where we get an intersection event for a
-              // heading further down the page leaving intersection, otherwise
-              // this would cause the active heading to incorrectly get bumped
-              // up
-              if (
-                isSingleEntryLeaving &&
-                singleEntryLeavingIndex > curActiveIndex
-              ) {
-                return current
-              }
+            // Handle an ege case where we get an intersection event for a
+            // heading further down the page leaving intersection, otherwise
+            // this would cause the active heading to incorrectly get bumped
+            // up
+            if (
+              isSingleEntryLeaving &&
+              singleEntryLeavingIndex > curActiveIndex
+            ) {
+              return current
+            }
 
-              const newIndex = curActiveIndex - 1
+            const newIndex = curActiveIndex - 1
 
-              if (newIndex < 0) {
-                return current
-              }
+            if (newIndex < 0) {
+              return current
+            }
 
-              return headings[newIndex].slug
-            })
-          }
+            return headings[newIndex].slug
+          })
         }
 
         if (currentY) {
