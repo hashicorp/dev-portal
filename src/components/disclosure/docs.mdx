@@ -1,6 +1,17 @@
 ---
 componentName: Disclosure
+peerComponents:
+  - Card
 ---
+
+## Props
+
+| Prop name     | Description | Required? | Default value | Type      |
+| ------------- | ----------- | --------- | ------------- | --------- |
+| `children`    | TODO        | Yes       | N/A           | ReactNode |
+| `description` | TODO        | No        | undefined     | string    |
+| `open`        | TODO        | No        | undefined     | boolean   |
+| `title`       | TODO        | Yes       | N/A           | string    |
 
 ## Examples
 
@@ -34,5 +45,17 @@ componentName: Disclosure
   open
 >
   Content that might include a <a href="/">text link</a>.
+</Disclosure>
+`}</LiveComponent>
+
+### Disclosure with a base elevation Card inside of it
+
+<LiveComponent>{`
+<Disclosure
+  title="Accordion with text content and a description"
+  description="All officially supported HashiCorp release channels and their security guarantees."
+  open
+>
+  <Card elevation="base">Content that might include a <a href="/">text link</a>.</Card>
 </Disclosure>
 `}</LiveComponent>
