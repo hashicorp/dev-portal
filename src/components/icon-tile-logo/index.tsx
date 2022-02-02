@@ -1,11 +1,6 @@
 import ProductIcon from 'components/product-icon'
-import { ProductSlug } from 'types/products'
 import IconTile from 'components/icon-tile'
-
-type ProductWithIconSlug = Exclude<ProductSlug, 'sentinel'>
-interface IconTileLogoProps {
-  product: ProductWithIconSlug
-}
+import { IconTileLogoProps } from './type'
 
 /**
  * Use the IconTileLogo component when representing the product in our interfaces.
