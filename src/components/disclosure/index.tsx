@@ -7,6 +7,7 @@ import s from './disclosure.module.css'
 interface DisclosureProps {
   children: ReactNode
   description?: string
+  id: string
   open?: boolean
   title: string
 }
@@ -14,18 +15,22 @@ interface DisclosureProps {
 const Disclosure: FC<DisclosureProps> = ({
   children,
   description,
+  id,
   open = false,
   title,
 }) => {
   const [isOpen, setIsOpen] = useState(open)
+  const containerId = `disclosure-${id}`
+  const contentContainerId = `${containerId}-content`
   const rootClassnames = classNames(
     s.root,
     s[`root-${isOpen ? 'expanded' : 'collapsed'}`]
   )
 
   return (
-    <div className={rootClassnames}>
+    <div className={rootClassnames} id={containerId}>
       <button
+        aria-controls={contentContainerId}
         aria-expanded={isOpen}
         className={s.button}
         onClick={() => setIsOpen(!isOpen)}
@@ -42,7 +47,9 @@ const Disclosure: FC<DisclosureProps> = ({
         </span>
         <IconChevronRight24 />
       </button>
-      <div className={s.content}>{children}</div>
+      <div className={s.content} id={contentContainerId}>
+        {children}
+      </div>
     </div>
   )
 }
