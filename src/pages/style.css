@@ -14,6 +14,13 @@
 /* Print Styles */
 @import './print.css';
 
+html {
+  /* Only enable animation if query is supported and value is no-preference */
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
+}
+
 /*
  * About this selector:
  * `.g-subnav ~ *` finds all elements after the navigation.
