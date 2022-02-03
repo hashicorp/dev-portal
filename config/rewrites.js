@@ -1,4 +1,7 @@
 const proxySettings = require('./proxy-settings')
+const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
+
+const PROXIED_PRODUCT = getProxiedProductSlug()
 
 /**
  * # Some notes on rewrites
@@ -10,16 +13,15 @@ const proxySettings = require('./proxy-settings')
  * We run our rewrites "beforeFile". This makes it so
  * NextJS does the rewrite even if it has a page file to serve.
  * We do this because we have conflicting pages, such as:
- * - "/" (shows _secret-io-homepage, even though there is a dev-portal landing page)
- * - "/docs" (shows /waypoint/docs, even though there may be a dev-portal docs landing page)
- * - ... etc
+ * - "/" (should show eg /_proxied-dot-io/waypoint/, even though there may be a dev-portal landing page defined at this route)
+ * - "/security" (should show eg /proxied-dot-io/waypoint/security, even though there may be a dev-portal security page defined at this route)
  *
  * ref: https://nextjs.org/docs/api-reference/next.config.js/rewrites
  *
  * ## Explicit rewrites
  *
- * We current have explicit rewrites for the home page
- * as well as for all product pages (just Waypoint for now, but more to add).
+ * We current have explicit rewrites for all
+ * proxied dot-io pages.
  *
  * The reason for this is that regex approaches seemed
  * to consistently cause problems. Specifically:
@@ -34,26 +36,44 @@ const proxySettings = require('./proxy-settings')
  *   This breaks the page.
  *
  */
-
-const waypointHost = proxySettings.waypoint.host
-const waypointProxyRewrites = proxySettings.waypoint.routesToProxy.map(
-  ({ proxiedRoute, projectPage }) => {
-    return {
+const productsToProxy = Object.keys(proxySettings)
+const dotIoRewrites = productsToProxy.reduce((acc, slug) => {
+  const routesToProxy = proxySettings[slug].routesToProxy
+  // If we're trying to test this product in dev,
+  // then we'll apply the rewrites without a host condition
+  const proxyRewrites = routesToProxy.map(({ proxiedRoute, localRoute }) => {
+    const rewrite = {
       source: proxiedRoute,
-      destination: projectPage,
-      has: [
+      destination: localRoute,
+    }
+    if (slug !== PROXIED_PRODUCT) {
+      rewrite.has = [
         {
           type: 'host',
-          value: waypointHost,
+          value: proxySettings[slug].host,
         },
-      ],
+      ]
     }
-  }
-)
+
+    // To enable previewing of .io sites, we accept an io_preview cookie which must have a value matching a product slug
+    if (isPreview()) {
+      rewrite.has = [
+        {
+          type: 'cookie',
+          key: 'io_preview',
+          value: slug,
+        },
+      ]
+    }
+
+    return rewrite
+  })
+  return acc.concat(proxyRewrites)
+}, [])
 
 async function rewritesConfig() {
   return {
-    beforeFiles: [...waypointProxyRewrites],
+    beforeFiles: [...dotIoRewrites],
   }
 }
 
