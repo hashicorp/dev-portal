@@ -40,23 +40,8 @@
 
   /* aka Disclosure is closed */
   &[aria-expanded='false'] {
-    /*
-    TODO: replace this with helper variable when released into tokens package.
-    ref: https://github.com/hashicorp/dev-portal/pull/96#issuecomment-1027486184
-    */
     &:hover {
-      box-shadow: 0 0 0 var(--token-elevation-high-border-width)
-          var(--token-elevation-high-border-color),
-        var(--token-elevation-high-shadow-01-x)
-          var(--token-elevation-high-shadow-01-y)
-          var(--token-elevation-high-shadow-01-blur)
-          var(--token-elevation-high-shadow-01-spread)
-          var(--token-elevation-high-shadow-01-color),
-        var(--token-elevation-high-shadow-02-x)
-          var(--token-elevation-high-shadow-02-y)
-          var(--token-elevation-high-shadow-02-blur)
-          var(--token-elevation-high-shadow-02-spread)
-          var(--token-elevation-high-shadow-02-color);
+      box-shadow: var(--token-surface-high-box-shadow);
       cursor: pointer;
     }
   }
@@ -71,8 +56,7 @@
   }
 
   &:focus-visible {
-    box-shadow: inset 0 0 0 1px var(--token-color-palette-blue-200),
-      0 0 0 3px #5990ff;
+    box-shadow: var(--token-focus-ring-box-shadow);
   }
 }
 

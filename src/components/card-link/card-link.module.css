@@ -10,25 +10,8 @@ style applied to anchor elements.
     transition: background-color 0.2s, box-shadow 0.2s;
   }
 
-  /*
-  NOTE: 2022-01-27 - Cannot use composition within the :hover selector, so
-  box-shadow is currently copied from hds-surface-high. Will be requesting a
-  single token from the DS team that can be based for `box-shadow` instead of
-  using the helper class.
-  */
   &:hover {
-    box-shadow: 0 0 0 var(--token-elevation-high-border-width)
-        var(--token-elevation-high-border-color),
-      var(--token-elevation-high-shadow-01-x)
-        var(--token-elevation-high-shadow-01-y)
-        var(--token-elevation-high-shadow-01-blur)
-        var(--token-elevation-high-shadow-01-spread)
-        var(--token-elevation-high-shadow-01-color),
-      var(--token-elevation-high-shadow-02-x)
-        var(--token-elevation-high-shadow-02-y)
-        var(--token-elevation-high-shadow-02-blur)
-        var(--token-elevation-high-shadow-02-spread)
-        var(--token-elevation-high-shadow-02-color);
+    box-shadow: var(--token-surface-high-box-shadow);
     cursor: pointer;
   }
 }
