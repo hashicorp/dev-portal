@@ -1,16 +1,9 @@
-import { FC, ReactNode, useState } from 'react'
+import { FC, useState } from 'react'
 import classNames from 'classnames'
 import { IconChevronRight24 } from '@hashicorp/flight-icons/svg-react/chevron-right-24'
 import Text from 'components/text'
+import { DisclosureProps } from './types'
 import s from './disclosure.module.css'
-
-interface DisclosureProps {
-  children: ReactNode
-  description?: string
-  id: string
-  open?: boolean
-  title: string
-}
 
 const Disclosure: FC<DisclosureProps> = ({
   children,
@@ -54,4 +47,5 @@ const Disclosure: FC<DisclosureProps> = ({
   )
 }
 
+export type { DisclosureProps }
 export default Disclosure
