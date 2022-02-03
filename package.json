@@ -73,7 +73,7 @@
     "@hashicorp/react-product-downloads-page": "^2.7.0",
     "@hashicorp/react-product-features-list": "^5.0.1",
     "@hashicorp/react-section-header": "^5.0.4",
-    "@hashicorp/react-sentinel-embedded": "^1.0.3",
+    "@hashicorp/react-sentinel-embedded": "^1.0.4",
     "@hashicorp/react-subnav": "^9.3.3",
     "@hashicorp/react-text-input": "^5.0.1",
     "@hashicorp/react-text-split-with-logo-grid": "^5.1.5",
