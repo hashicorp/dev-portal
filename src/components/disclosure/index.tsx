@@ -14,7 +14,7 @@ interface DisclosureProps {
 const Disclosure: FC<DisclosureProps> = ({
   children,
   description,
-  open,
+  open = false,
   title,
 }) => {
   const [isOpen, setIsOpen] = useState(open)
@@ -22,16 +22,12 @@ const Disclosure: FC<DisclosureProps> = ({
     s.root,
     s[`root-${isOpen ? 'expanded' : 'collapsed'}`]
   )
-  const buttonClassNames = classNames(
-    s.button,
-    s[`button-${isOpen ? 'expanded' : 'collapsed'}`]
-  )
 
   return (
     <div className={rootClassnames}>
       <button
         aria-expanded={isOpen}
-        className={buttonClassNames}
+        className={s.button}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className={s.labelContainer}>
@@ -46,9 +42,7 @@ const Disclosure: FC<DisclosureProps> = ({
         </span>
         <IconChevronRight24 />
       </button>
-      <div className={s.content} style={{ display: isOpen ? 'block' : 'none' }}>
-        {children}
-      </div>
+      <div className={s.content}>{children}</div>
     </div>
   )
 }

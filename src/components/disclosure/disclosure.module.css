@@ -14,6 +14,7 @@
   background-color: transparent;
   border-radius: 6px;
   border: none;
+  cursor: pointer;
   display: flex;
   padding: 16px;
   text-align: left;
@@ -25,6 +26,38 @@
     /* Only enable animation if query is supported and value is no-preference */
     @media (prefers-reduced-motion: no-preference) {
       transition: transform 0.2s;
+    }
+  }
+
+  /* aka Disclosure is open */
+  &[aria-expanded='true'] {
+    box-shadow: none;
+
+    & svg {
+      transform: rotate(90deg);
+    }
+  }
+
+  /* aka Disclosure is closed */
+  &[aria-expanded='false'] {
+    /*
+    TODO: replace this with helper variable when released into tokens package.
+    ref: https://github.com/hashicorp/dev-portal/pull/96#issuecomment-1027486184
+    */
+    &:hover {
+      box-shadow: 0 0 0 var(--token-elevation-high-border-width)
+          var(--token-elevation-high-border-color),
+        var(--token-elevation-high-shadow-01-x)
+          var(--token-elevation-high-shadow-01-y)
+          var(--token-elevation-high-shadow-01-blur)
+          var(--token-elevation-high-shadow-01-spread)
+          var(--token-elevation-high-shadow-01-color),
+        var(--token-elevation-high-shadow-02-x)
+          var(--token-elevation-high-shadow-02-y)
+          var(--token-elevation-high-shadow-02-blur)
+          var(--token-elevation-high-shadow-02-spread)
+          var(--token-elevation-high-shadow-02-color);
+      cursor: pointer;
     }
   }
 
@@ -44,33 +77,19 @@
 }
 
 /*
-TODO: replace this with helper variable when released into tokens package.
-ref: https://github.com/hashicorp/dev-portal/pull/96#issuecomment-1027486184
+Notes:
+  - Setting only the default state of the .content container prevents us from
+    accidentally setting the open state of the container to something incorrect
+    that can potentially break the semantics of the element
+  - Using the aria-expanded attribute selector ensures we're correctly setting
+    the value in the component's JS
+  - Using the next-sibling combinator (`+`) ensures that the .content container
+    is the sibling element immediately after the button
+
+ref: https://adrianroselli.com/2020/05/disclosure-widgets.html#CSS
 */
-.button-collapsed {
-  &:hover {
-    box-shadow: 0 0 0 var(--token-elevation-high-border-width)
-        var(--token-elevation-high-border-color),
-      var(--token-elevation-high-shadow-01-x)
-        var(--token-elevation-high-shadow-01-y)
-        var(--token-elevation-high-shadow-01-blur)
-        var(--token-elevation-high-shadow-01-spread)
-        var(--token-elevation-high-shadow-01-color),
-      var(--token-elevation-high-shadow-02-x)
-        var(--token-elevation-high-shadow-02-y)
-        var(--token-elevation-high-shadow-02-blur)
-        var(--token-elevation-high-shadow-02-spread)
-        var(--token-elevation-high-shadow-02-color);
-    cursor: pointer;
-  }
-}
-
-.button-expanded {
-  box-shadow: none;
-
-  & svg {
-    transform: rotate(90deg);
-  }
+.button[aria-expanded='false'] + .content {
+  display: none;
 }
 
 .labelContainer {
