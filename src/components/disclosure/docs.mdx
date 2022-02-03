@@ -6,12 +6,13 @@ peerComponents:
 
 ## Props
 
-| Prop name     | Description | Required? | Default value | Type      |
-| ------------- | ----------- | --------- | ------------- | --------- |
-| `children`    | TODO        | Yes       | N/A           | ReactNode |
-| `description` | TODO        | No        | undefined     | string    |
-| `open`        | TODO        | No        | undefined     | boolean   |
-| `title`       | TODO        | Yes       | N/A           | string    |
+| Prop name     | Description                                                                                                                                                                                                     | Required? | Default value | Type      |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- | --------- |
+| `children`    | The content to render within the `Disclosure` container.                                                                                                                                                        | Yes       | N/A           | ReactNode |
+| `description` | Secondary label text that renders below the main `title` with less emphasis. Always shows regardless of the `Disclosure`'s open/closed state.                                                                   | No        | undefined     | string    |
+| `id`          | The `id` passed to the root container. Used to generate an `id` for the content container which is also passed to `aria-controls` on the `Disclosure` activator button.                                         | Yes       | undefined     | string    |
+| `open`        | Optional prop that that enables a `Disclosure` to be open on render.                                                                                                                                            | No        | false         | boolean   |
+| `title`       | The main text label that always shows regardless of the `Disclosure`'s open/closed state. These should be descriptive of the disclosed content; labels like "Section 1" or "Section 2" is not very descriptive. | Yes       | N/A           | string    |
 
 ## Examples
 
