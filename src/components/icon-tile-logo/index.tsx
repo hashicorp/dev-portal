@@ -1,6 +1,6 @@
 import ProductIcon from 'components/product-icon'
 import IconTile from 'components/icon-tile'
-import { IconTileLogoProps } from './type'
+import { IconTileLogoProps } from './types'
 
 /**
  * Use the IconTileLogo component when representing the product in our interfaces.

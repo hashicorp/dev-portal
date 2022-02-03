@@ -1,6 +1,6 @@
 import s from './style.module.css'
 import classNames from 'classnames'
-import { IconTileProps } from './type'
+import { IconTileProps } from './types'
 
 /**
  * IconTiles are used to represent objects and resources,
