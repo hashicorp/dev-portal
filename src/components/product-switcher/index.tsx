@@ -112,15 +112,6 @@ const ProductSwitcher: React.FC = () => {
     const isLastProduct = product.slug === lastProduct.slug
     const isCurrentProduct = product.slug === currentProduct?.slug
 
-    /**
-     * TODO: this is temporary for the Vault icon since:
-     *   - we do not have a yellow version of the icon available from
-     *     flight-icons yet
-     *   - the icon is currently on a dark background and appears "invisible"
-     */
-    const productIconClassName =
-      product.slug === 'vault' ? s.vaultProductIcon : undefined
-
     const handleAnchorKeyDown: KeyboardEventHandler<HTMLAnchorElement> = (
       e
     ) => {
@@ -172,7 +163,7 @@ const ProductSwitcher: React.FC = () => {
         >
           <span className={s.focusContainer}>
             <ProductIcon
-              className={productIconClassName}
+              className={s[`${product.slug}ProductIcon`]}
               product={product.slug}
             />
             <span>{product.name}</span>

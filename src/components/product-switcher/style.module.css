@@ -129,3 +129,19 @@ TODO: this is temporary for the Vault icon since:
     fill: white;
   }
 }
+
+/*
+The HCP icon is dark by default, and would not show up on the dark
+ProductSwitcher background. So, we adjust it to be light.
+
+TODO: there may be a better solution to this problem,
+for example we could use the non-"color" version of the HCP icon,
+which we could then change using `currentColor` rather than having to 
+reach into `path`s in the SVG. However, this would break other uses, such as
+in IconTileLogo where we do NOT want the HCP icon to change with `currentColor`.
+*/
+.hcpProductIcon {
+  & path {
+    fill: white;
+  }
+}
