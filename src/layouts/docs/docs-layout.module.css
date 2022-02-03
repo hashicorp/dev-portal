@@ -61,12 +61,18 @@
     */
     & a:global(.__target-h)::before,
     &::before {
+      --permalink-scroll-offset: 24px;
+      --full-header-height: calc(
+        var(--navigation-header-height) + var(--alert-bar-height)
+      );
+      --height: calc(
+        var(--full-header-height) + var(--permalink-scroll-offset)
+      );
+
       display: block;
       content: '\200B';
-      height: calc(var(--navigation-header-height) + var(--alert-bar-height));
-      margin-top: calc(
-        -1 * calc(var(--navigation-header-height) + var(--alert-bar-height))
-      );
+      height: var(--height);
+      margin-top: calc(-1 * var(--height));
       visibility: hidden;
     }
   }
