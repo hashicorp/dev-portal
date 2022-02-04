@@ -4,7 +4,48 @@ peerComponents:
   - SwingsetTestIcon
 ---
 
+The `StandaloneLink` component should be used when a link is needed outside of a body of text. See more documentation [the HDS Product Figma](https://www.figma.com/file/noyY6dUMDYjmySpHcMjhkN/?node-id=2365%3A21590).
+
+Internally, this component uses two other components:
+
+- `MaybeInternalLink`: to automatically determine whether or not `next/link` should be used
+- `Text`: to ensure conformance font size and weight with the design system
+
+## Props
+
+🚨 Guidance on icon sizes to pass into the `icon` prop:
+
+- If `textSize` is being set to 100 or 200, then size 16 icons are recommended
+- If `textSize` is being set to 300, then size 24 icons are recommended
+
+| Prop name      | Description                                                                      | Required? | Default value | Type                            |
+| -------------- | -------------------------------------------------------------------------------- | --------- | ------------- | ------------------------------- |
+| `className`    | A string of one or more class names. Applied last to the rendered `<a>` element. | No        | undefined     | string                          |
+| `href`         | The destination of the link.                                                     | Yes       | N/A           | string                          |
+| `icon`         | An icon from `@hashicorp/flight-icons` to render.                                | Yes       | N/A           | ReactElement                    |
+| `iconPosition` | Where the icon should be rendered within the link. See examples below.           | Yes       | N/A           | Either: 'leading' or 'trailing' |
+| `text`         | The text rendered within the `<a>` element.                                      | Yes       | N/A           | string                          |
+| `textSize`     | The `size` passed to the inner `Text` component.                                 | No        | undefined     | TextProps[`size`]               |
+| `textWeight`   | The `weight` passed to the inner `Text` component.                               | No        | undefined     | TextProps[`weight`]             |
+
 ## Examples
+
+These examples show a `SwingsetTestIcon` that is used for the purpose of rendering icons from `@hashicorp/flight-icons` in Swingset pages. In practice, usage of this commponent should look something like this:
+
+```jsx
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+
+const MyComponent = () => {
+  return (
+    <StandaloneLink
+      href="/"
+      icon={<IconArrowRight16 />}
+      iconPosition="trailing"
+      text="Get Started"
+    />
+  )
+}
+```
 
 ### With a trailing icon
 
