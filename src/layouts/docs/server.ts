@@ -1,3 +1,4 @@
+import fs from 'fs'
 import { Pluggable } from 'unified'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
@@ -7,6 +8,8 @@ import prepareNavDataForClient from 'layouts/docs/utils/prepare-nav-data-for-cli
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
 const BASE_REVALIDATE = 10
+
+const analyzedHeadingsByPageSlug = {}
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -63,10 +66,39 @@ export function getStaticGenerationFunctions({
       })
 
       const {
-        navData,
-        mdxSource,
+        currentPath,
         githubFileUrl,
+        mdxSource,
+        navData,
       } = await loader.loadStaticProps(ctx)
+
+      /**
+       * Build an analysis of the headings to check their lengths.
+       */
+      if (process.env.ANALYZE_HEADINGS) {
+        const pageSlug = `/${product.slug}/${basePath}/${currentPath}`
+
+        headings.forEach((heading, index) => {
+          if (index === 0) {
+            analyzedHeadingsByPageSlug[pageSlug] = []
+          }
+
+          const characterLength = heading.title.length
+          const exceedsLimit = characterLength > 26
+          analyzedHeadingsByPageSlug[pageSlug].push({
+            characterLength,
+            exceedsLimit,
+            level: heading.level,
+            title: heading.title,
+            url: pageSlug,
+          })
+        })
+
+        fs.writeFileSync(
+          'heading-analysis.json',
+          JSON.stringify(analyzedHeadingsByPageSlug, null, 2)
+        )
+      }
 
       const fullNavData = [
         ...navData,

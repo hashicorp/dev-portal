@@ -39,6 +39,7 @@ module.exports = withSwingset({
     //   return await rewritesConfig()
     // },
     env: {
+      ANALYZE_HEADINGS: process.env.ANALYZE_HEADINGS || false,
       AXE_ENABLED: process.env.AXE_ENABLED || false,
       HASHI_ENV: process.env.HASHI_ENV || 'development',
       BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',

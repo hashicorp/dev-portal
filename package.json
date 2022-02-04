@@ -3,6 +3,7 @@
   "private": "true",
   "scripts": {
     "build": "next build",
+    "build:analyze-headings": "rm -rf heading-analysis.json && touch heading-analysis.json && ANALYZE_HEADINGS=true npm run build",
     "build:webpack-only": "ts-node --transpile-only ./scripts/next-build-webpack-only.ts",
     "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics.ts dev-portal",
     "start": "next",
