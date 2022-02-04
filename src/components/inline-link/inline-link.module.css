@@ -6,7 +6,6 @@ ones set in the surrounding text.
   border-radius: 5px;
   color: var(--token-color-action-foreground-on-faint);
   cursor: pointer;
-  position: relative;
   text-decoration: underline;
 
   &:active {
@@ -23,10 +22,10 @@ ones set in the surrounding text.
   */
   &:focus-visible {
     box-shadow: var(--token-focus-ring-box-shadow);
-    outline: none;
-    text-decoration: none;
-    padding: 5px;
     margin: -5px;
+    outline: none;
+    padding: 5px;
+    text-decoration: none;
   }
 
   &:hover {
