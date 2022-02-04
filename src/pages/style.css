@@ -81,6 +81,12 @@ button {
 
 /* General helper classes */
 
+/*
+TODO: this will eventually replace the other focus helpers but they are heavily
+used at the moment and need to be refactored carefully. The places they are used
+do extra math to account for padding, which this helper now does with padding
+and negative margin.
+*/
 .focus-ring-from-box-shadow {
   &:focus {
     outline: none;
