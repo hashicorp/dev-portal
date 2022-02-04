@@ -5,8 +5,18 @@
     {
       "type": "heading",
       "level": 2,
-      "size": 1,
+      "size": 400,
       "heading": "Explore Sentinel Documentation"
+    },
+    {
+      "type": "get_started",
+      "product": "sentinel",
+      "heading": "Lorem ipsum dolor sit amet",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, mattis facilisi aliquam elit velit. Consectetur sit ullamcorper pulvinar a lacus, diam, neque. Faucibus laoreet ipsum.",
+      "link": {
+        "text": "Get Started",
+        "url": "https://docs.hashicorp.com/sentinel"
+      }
     }
   ]
 }

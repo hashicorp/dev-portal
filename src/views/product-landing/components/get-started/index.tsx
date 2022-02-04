@@ -7,6 +7,8 @@ import MaybeInternalLink from 'components/maybe-internal-link'
 import Text from 'components/text'
 import { GetStartedProps } from './types'
 import s from './style.module.css'
+import IconTile from 'components/icon-tile'
+import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
 
 function GetStarted({
   product,
@@ -18,7 +20,13 @@ function GetStarted({
     <div className={s.root}>
       <div className={s.container}>
         <div className={s.iconSection}>
-          <IconTileLogo product={product} />
+          {['sentinel', 'hcp'].indexOf(product) >= 0 ? (
+            <IconTile size="extra-large" brandColor="neutral-dark">
+              <IconHashicorp16 />
+            </IconTile>
+          ) : (
+            <IconTileLogo product={product} />
+          )}
         </div>
         <div className={s.textSection}>
           <Heading

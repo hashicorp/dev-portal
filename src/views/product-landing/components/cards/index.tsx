@@ -14,27 +14,15 @@ function Cards({ columns, cards }: CardProps): React.ReactElement {
     <div className={s.root}>
       <div className={classNames(s.cards, s[`columns-${columns}`])}>
         {cards.map((card, idx) => {
-          const {
-            icon,
-            iconBrandColor,
-            iconSvg,
-            heading,
-            text,
-            tags,
-            url,
-          } = card
-
-          // TODO remove all uses of iconSvg
-          const FlightIcon = icon ? iconDict[icon] : null
-          const IconSvg = FlightIcon
-            ? () => (
-                <IconTile size={'small'} brandColor={iconBrandColor}>
-                  <FlightIcon />
-                </IconTile>
-              )
-            : iconSvg
-            ? () => <InlineSvg src={iconSvg} />
-            : null
+          const { icon, iconBrandColor, heading, text, tags, url } = card
+          const IconSvg = icon ? iconDict[icon] : null
+          if (icon && !iconDict[icon]) {
+            throw new Error(
+              `Icon with key "${icon}" does not seem to be present in the ProductLanding Card component's icon dictionary. Please use one of the existing icons, or add the new icon "${icon}" to the icon dictionary. Existing icons: ${JSON.stringify(
+                Object.keys(iconDict)
+              )}.`
+            )
+          }
 
           return (
             <div
@@ -44,11 +32,13 @@ function Cards({ columns, cards }: CardProps): React.ReactElement {
             >
               {/* TODO: use href from props, rather than always same link */}
               <CardLink className={s.card} href={url}>
-                {iconSvg && (
+                {IconSvg ? (
                   <span className={s.cardIcon}>
-                    <IconSvg />
+                    <IconTile size={'small'} brandColor={iconBrandColor}>
+                      <IconSvg />
+                    </IconTile>
                   </span>
-                )}
+                ) : null}
                 {/* TODO: should we update this to use body sizes instead of display? */}
                 <span className={s.cardHeading}>{heading}</span>
                 <Text asElement="span" className={s.cardText} size={200}>

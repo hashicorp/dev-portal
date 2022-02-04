@@ -52,6 +52,12 @@
   --background: var(--token-color-neutral-background-secondary);
 }
 
+.color-neutral-dark {
+  --icon-color: var(--token-color-neutral-background-primary);
+  --border-color: var(--token-color-neutral-foreground-primary);
+  --background: var(--token-color-neutral-foreground-secondary);
+}
+
 .color-boundary {
   --icon-color: var(--token-color-boundary-foreground);
   --border-color: var(--token-color-boundary-border);

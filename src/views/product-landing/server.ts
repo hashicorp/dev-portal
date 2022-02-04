@@ -62,7 +62,7 @@ async function generateStaticProps({
           ...block,
           cards: block.cards.map((card) => ({
             ...card,
-            iconBrandColor: block.iconBrandColor || defaultIconColor,
+            iconBrandColor: card.iconBrandColor || defaultIconColor,
           })),
         }
       default:

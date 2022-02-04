@@ -1,8 +1,7 @@
-import { ProductBrandColor } from 'components/icon-tile'
+import { ProductBrandColor } from 'components/icon-tile/types'
 interface CardInterface {
   icon?: string
   iconBrandColor?: ProductBrandColor
-  iconSvg?: string
   heading: string
   text: string
   url: string
