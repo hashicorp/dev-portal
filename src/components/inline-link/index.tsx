@@ -1,16 +1,9 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
 import MaybeInternalLink from 'components/maybe-internal-link'
+import Text from 'components/text'
+import { InlineLinkProps } from './types'
 import s from './inline-link.module.css'
-import Text, { TextProps } from 'components/text'
-
-interface InlineLinkProps {
-  className?: string
-  href: string
-  size: 100 | 200 | 300
-  text: string
-  weight?: TextProps['weight']
-}
 
 const InlineLink = ({
   className,
@@ -30,4 +23,5 @@ const InlineLink = ({
   )
 }
 
+export type { InlineLinkProps }
 export default InlineLink
