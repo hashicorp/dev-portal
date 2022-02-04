@@ -3,7 +3,7 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import slugify from 'slugify'
 import Heading from 'components/heading'
-import MaybeInternalLink from 'components/maybe-internal-link'
+import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
 import { GetStartedProps } from './types'
 import s from './style.module.css'
@@ -33,12 +33,14 @@ function GetStarted({
           <Text className={s.text} size={200}>
             {text}
           </Text>
-          <MaybeInternalLink className={s.link} href={link.url}>
-            <Text asElement="span" size={200} weight="medium">
-              {link.text}
-            </Text>
-            <IconArrowRight16 />
-          </MaybeInternalLink>
+          <StandaloneLink
+            href={link.url}
+            icon={<IconArrowRight16 />}
+            iconPosition="trailing"
+            size={200}
+            text={link.text}
+            weight="medium"
+          />
         </div>
       </div>
     </div>
