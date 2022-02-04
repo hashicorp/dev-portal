@@ -8,15 +8,15 @@ import s from './inline-link.module.css'
 const InlineLink = ({
   className,
   href,
-  size,
   text,
-  weight,
+  textSize,
+  textWeight,
 }: InlineLinkProps): ReactElement => {
   const classes = classNames(s.root, className)
 
   return (
     <MaybeInternalLink className={classes} href={href}>
-      <Text asElement="span" size={size} weight={weight}>
+      <Text asElement="span" size={textSize} weight={textWeight}>
         {text}
       </Text>
     </MaybeInternalLink>

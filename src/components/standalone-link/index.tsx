@@ -1,34 +1,25 @@
 import { ReactElement } from 'react'
-import MaybeInternalLink from 'components/maybe-internal-link'
-import s from './standalone-link.module.css'
-import Text, { TextProps } from 'components/text'
 import classNames from 'classnames'
-
-interface StandaloneLinkProps {
-  className?: string
-  href: string
-  icon: ReactElement
-  iconPosition: 'leading' | 'trailing'
-  size: TextProps['size']
-  text: string
-  weight: TextProps['weight']
-}
+import MaybeInternalLink from 'components/maybe-internal-link'
+import Text from 'components/text'
+import { StandaloneLinkProps } from './types'
+import s from './standalone-link.module.css'
 
 const StandaloneLink = ({
   className,
   href,
   icon,
   iconPosition,
-  size,
   text,
-  weight,
+  textSize,
+  textWeight,
 }: StandaloneLinkProps): ReactElement => {
   const classes = classNames(s.root, className)
 
   return (
     <MaybeInternalLink className={classes} href={href}>
       {iconPosition === 'leading' && icon}
-      <Text asElement="span" size={size} weight={weight}>
+      <Text asElement="span" size={textSize} weight={textWeight}>
         {text}
       </Text>
       {iconPosition === 'trailing' && icon}
@@ -36,4 +27,5 @@ const StandaloneLink = ({
   )
 }
 
+export type { StandaloneLinkProps }
 export default StandaloneLink
