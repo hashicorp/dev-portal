@@ -25,8 +25,9 @@ describe('DocsAnchor', () => {
       </CurrentProductProvider>
     )
 
-    const result = screen.queryByText('This is a link')
+    const result = screen.queryByRole('link')
 
     expect(result).toHaveAttribute('href', '/waypoint/docs/some/page')
+    expect(result.textContent).toEqual('This is a link')
   })
 })
