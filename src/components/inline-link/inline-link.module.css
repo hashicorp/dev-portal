@@ -1,4 +1,9 @@
+/*
+Not inheriting font color, weight, or size since they can be different than the
+ones set in the surrounding text.
+*/
 .root {
+  border-radius: 5px;
   color: var(--token-color-action-foreground-on-faint);
   cursor: pointer;
   position: relative;
@@ -9,24 +14,19 @@
   }
 
   &:focus {
-    outline-color: transparent;
+    outline: none;
   }
 
+  /*
+  Not styling ::before with position: absolute and -5px positions because that
+  does not work on links that span more than one line.
+  */
   &:focus-visible {
-    outline-color: transparent;
+    box-shadow: var(--token-focus-ring-box-shadow);
+    outline: none;
     text-decoration: none;
-
-    &:focus-visible::before {
-      border-radius: 5px;
-      bottom: -5px;
-      box-shadow: var(--token-focus-ring-box-shadow);
-      content: '';
-      left: -5px;
-      position: absolute;
-      right: -5px;
-      top: -5px;
-      z-index: -1;
-    }
+    padding: 5px;
+    margin: -5px;
   }
 
   &:hover {
