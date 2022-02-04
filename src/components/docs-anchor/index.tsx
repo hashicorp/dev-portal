@@ -35,8 +35,8 @@ const DocsAnchor: React.FC<JSX.IntrinsicElements['a']> = ({
       <InlineLink
         href={adjustedHref}
         text={children}
-        size={300}
-        weight="medium"
+        textSize={300}
+        textWeight="medium"
       />
     )
   }

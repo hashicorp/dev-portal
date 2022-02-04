@@ -37,9 +37,9 @@ function GetStarted({
             href={link.url}
             icon={<IconArrowRight16 />}
             iconPosition="trailing"
-            size={200}
             text={link.text}
-            weight="medium"
+            textSize={200}
+            textWeight="medium"
           />
         </div>
       </div>
