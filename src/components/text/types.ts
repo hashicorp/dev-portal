@@ -12,5 +12,5 @@ type TextElementProps =
 export type TextProps = TextElementProps & {
   asElement?: 'li' | 'p' | 'span'
   size?: 100 | 200 | 300
-  weight?: 'regular' | 'medium' | 'bold' | 'semibold'
+  weight?: 'regular' | 'medium' | 'semibold' | 'bold'
 }
