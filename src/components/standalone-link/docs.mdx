@@ -1,0 +1,29 @@
+---
+componentName: StandaloneLink
+peerComponents:
+  - SwingsetTestIcon
+---
+
+## Examples
+
+### With a trailing icon
+
+<LiveComponent>{`
+<StandaloneLink
+  href="/"
+  icon={<SwingsetTestIcon name="arrow-right" />}
+  iconPosition="trailing"
+  text="Get Started"
+/>
+`}</LiveComponent>
+
+### With a leading icon
+
+<LiveComponent>{`
+<StandaloneLink
+  href="/"
+  icon={<SwingsetTestIcon name="github" />}
+  iconPosition="leading"
+  text="Edit this page on GitHub"
+/>
+`}</LiveComponent>

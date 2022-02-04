@@ -1,0 +1,39 @@
+.root {
+  align-items: center;
+  border-radius: 5px;
+  color: var(--token-color-action-foreground-on-faint);
+  cursor: pointer;
+  display: flex;
+  text-decoration: none;
+  width: fit-content;
+
+  &:active {
+    color: var(--token-color-action-foreground-high-contrast);
+    text-decoration: ;
+  }
+
+  &:hover {
+    color: var(--token-color-action-foreground-on-faint);
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--token-focus-ring-box-shadow);
+    margin: -5px;
+    outline: none;
+    padding: 5px;
+    text-decoration: none;
+  }
+
+  & svg:first-child {
+    margin-right: 8px;
+  }
+
+  & svg:last-child {
+    margin-left: 8px;
+  }
+}
