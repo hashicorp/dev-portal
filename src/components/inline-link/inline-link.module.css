@@ -3,6 +3,7 @@ Not inheriting font color, weight, or size since they can be different than the
 ones set in the surrounding text.
 */
 .root {
+  composes: focus-ring-from-box-shadow from global;
   border-radius: 5px;
   color: var(--token-color-action-foreground-on-faint);
   cursor: pointer;
@@ -12,19 +13,7 @@ ones set in the surrounding text.
     color: var(--token-color-action-foreground-high-contrast);
   }
 
-  &:focus {
-    outline: none;
-  }
-
-  /*
-  Not styling ::before with position: absolute and -5px positions because that
-  does not work on links that span more than one line.
-  */
   &:focus-visible {
-    box-shadow: var(--token-focus-ring-box-shadow);
-    margin: -5px;
-    outline: none;
-    padding: 5px;
     text-decoration: none;
   }
 

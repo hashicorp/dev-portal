@@ -1,4 +1,5 @@
 .root {
+  composes: focus-ring-from-box-shadow from global;
   align-items: center;
   border-radius: 5px;
   color: var(--token-color-action-foreground-on-faint);
@@ -17,15 +18,7 @@
     text-decoration: underline;
   }
 
-  &:focus {
-    outline: none;
-  }
-
   &:focus-visible {
-    box-shadow: var(--token-focus-ring-box-shadow);
-    margin: -5px;
-    outline: none;
-    padding: 5px;
     text-decoration: none;
   }
 
