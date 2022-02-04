@@ -9,7 +9,7 @@ interface InlineLinkProps {
   href: string
   size: 100 | 200 | 300
   text: string
-  weight: TextProps['weight']
+  weight?: TextProps['weight']
 }
 
 const InlineLink = ({
@@ -17,12 +17,13 @@ const InlineLink = ({
   href,
   size,
   text,
+  weight,
 }: InlineLinkProps): ReactElement => {
   const classes = classNames(s.root, className)
 
   return (
     <MaybeInternalLink className={classes} href={href}>
-      <Text asElement="span" size={size}>
+      <Text asElement="span" size={size} weight={weight}>
         {text}
       </Text>
     </MaybeInternalLink>
