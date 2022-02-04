@@ -68,3 +68,66 @@ const MyComponent = () => {
   text="Edit this page on GitHub"
 />
 `}</LiveComponent>
+
+### With varying textSize values
+
+<LiveComponent>{`
+<>
+  <StandaloneLink
+    href="/"
+    icon={<SwingsetTestIcon name="arrow-right" />}
+    iconPosition="trailing"
+    text="Get Started"
+    textSize={100}
+  />
+  <StandaloneLink
+    href="/"
+    icon={<SwingsetTestIcon name="arrow-right" />}
+    iconPosition="trailing"
+    text="Get Started"
+    textSize={200}
+  />
+  <StandaloneLink
+    href="/"
+    icon={<SwingsetTestIcon name="arrow-right" />}
+    iconPosition="trailing"
+    text="Get Started"
+    textSize={300}
+  />
+</>
+`}</LiveComponent>
+
+### With varying textWeight values
+
+<LiveComponent>{`
+<>
+  <StandaloneLink
+    href="/"
+    icon={<SwingsetTestIcon name="arrow-right" />}
+    iconPosition="trailing"
+    text="Get Started"
+    textWeight="regular"
+  />
+  <StandaloneLink
+    href="/"
+    icon={<SwingsetTestIcon name="arrow-right" />}
+    iconPosition="trailing"
+    text="Get Started"
+    textWeight="medium"
+  />
+  <StandaloneLink
+    href="/"
+    icon={<SwingsetTestIcon name="arrow-right" />}
+    iconPosition="trailing"
+    text="Get Started"
+    textWeight="semibold"
+  />
+  <StandaloneLink
+    href="/"
+    icon={<SwingsetTestIcon name="arrow-right" />}
+    iconPosition="trailing"
+    text="Get Started"
+    textWeight="bold"
+  />
+</>
+`}</LiveComponent>
