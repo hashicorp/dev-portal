@@ -15,7 +15,7 @@
       "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iaculis dui sed venenatis, purus non augue arcu. Faucibus viverra praesent velit id vitae placerat gravida. Quis in nullam.",
       "link": {
         "text": "Learn More",
-        "url": "https://www.boundaryproject.io"
+        "url": "https://www.boundaryproject.io/docs/what-is-boundary"
       }
     },
     {
@@ -26,25 +26,25 @@
           "icon": "IconDocs",
           "heading": "Boundary Reference Documentation",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget blandit ante ut tristique lectus mollis.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs"
         },
         {
           "icon": "IconTerminal",
           "heading": "Boundary CLI",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae ut et tincidunt arcu at vehicula aliquam.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs/api-clients/cli"
         },
         {
           "icon": "IconServer",
           "heading": "Boundary API",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sodales tellus bibendum sit ornare donec vitae.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs/api-clients/api"
         },
         {
           "icon": "IconDownload",
           "heading": "Boundary Install",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius eu in odio turpis felis nisi mauris elit.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/downloads"
         }
       ]
     },
@@ -61,17 +61,17 @@
         {
           "heading": "Amet sed turpis habitant.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum lectus posuere.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs"
         },
         {
           "heading": "Nec lorem sed viverra.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis nunc mus cursus.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs"
         },
         {
           "heading": "At vitae tristique at.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Penatibus laoreet egestas id.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs"
         }
       ]
     },
@@ -88,17 +88,17 @@
         {
           "heading": "Volutpat neque viverra.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis velit elit risus.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs"
         },
         {
           "heading": "Aenean cras purus nulla.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis amet in lorem aliquam.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs"
         },
         {
           "heading": "Nisl feugiat nulla ornare.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit in consectetur sit nec volutpat.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs"
         }
       ]
     },
@@ -115,17 +115,17 @@
         {
           "heading": "Gravida ipsum orci nunc.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id eget eget nulla orci, mi. Ut.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs"
         },
         {
           "heading": "Cursus hendrerit aenean.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis viverra ornare urna.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs"
         },
         {
           "heading": "Morbi augue id vitae ut.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "url": "https://www.boundaryproject.io"
+          "url": "https://www.boundaryproject.io/docs"
         }
       ]
     },
@@ -142,25 +142,25 @@
         {
           "heading": "Vitae tincidunt arcu magna ullamcorper.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hendrerit neque at aliquam est. Sit tellus.",
-          "url": "https://www.boundaryproject.io",
+          "url": "https://learn.hashicorp.com/boundary",
           "tags": ["boundary"]
         },
         {
           "heading": "Pulvinar facilisis est orci ut elit lorem sit.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque lacus risus vitae hac sit.",
-          "url": "https://www.boundaryproject.io",
+          "url": "https://learn.hashicorp.com/boundary",
           "tags": ["boundary"]
         },
         {
           "heading": "Consectetur id nisl tempus ullamcorper.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus augue augue aenean at fringilla.",
-          "url": "https://www.boundaryproject.io",
+          "url": "https://learn.hashicorp.com/boundary",
           "tags": ["boundary"]
         },
         {
           "heading": "Ultrices id id cras quis amet commodo.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper imperdiet id ut tristique nulla auctor.",
-          "url": "https://www.boundaryproject.io",
+          "url": "https://learn.hashicorp.com/boundary",
           "tags": ["boundary"]
         }
       ]

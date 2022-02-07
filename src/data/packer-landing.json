@@ -15,7 +15,7 @@
       "text": "Packer is controlled using a command-line interface. All interaction with Packer is done via the packer tool.",
       "link": {
         "text": "Learn more",
-        "url": "https://www.packer.io"
+        "url": "https://learn.hashicorp.com/tutorials/packer/get-started-install-cli"
       }
     },
     {
@@ -26,25 +26,25 @@
           "icon": "IconDocs",
           "heading": "Packer Reference Documentation",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui elementum sit at mauris. Integer diam vestibulum egestas diam euismod ornare auctor.",
-          "url": "https://www.packer.io"
+          "url": "https://www.packer.io/docs"
         },
         {
           "icon": "IconTerminal",
           "heading": "Packer CLI",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui elementum sit at mauris. Integer diam vestibulum egestas diam euismod ornare auctor.",
-          "url": "https://www.packer.io"
+          "url": "https://www.packer.io/docs/commands"
         },
         {
           "icon": "IconServer",
           "heading": "Packer API",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. At sit ultricies sed bibendum lectus montes.",
-          "url": "https://www.packer.io"
+          "url": "https://cloud.hashicorp.com/api-docs/packer"
         },
         {
           "icon": "IconDownload",
           "heading": "Packer Install",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus donec rutrum dignissim et in at mattis.",
-          "url": "https://www.packer.io"
+          "url": "https://www.packer.io/downloads"
         }
       ]
     },
@@ -142,25 +142,25 @@
         {
           "heading": "Vitae aliquam nisl ligula pharetra.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget eget velit nibh odio a blandit leo euismod.",
-          "url": "https://www.packer.io",
+          "url": "https://learn.hashicorp.com/packer",
           "tags": ["packer"]
         },
         {
           "heading": "Dapibus elementum pretium rutrum odio.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sit enim, risus duis. Lectus vitae.",
-          "url": "https://www.packer.io",
+          "url": "https://learn.hashicorp.com/packer",
           "tags": ["packer"]
         },
         {
           "heading": "Eu magna mattis ultricies aliquet gravida.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Egestas massa eget amet lectus turpis sapien.",
-          "url": "https://www.packer.io",
+          "url": "https://learn.hashicorp.com/packer",
           "tags": ["packer"]
         },
         {
           "heading": "Senectus rhoncus quam ullamcorper vel.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec semper facilisis a ultrices turpis id proin.",
-          "url": "https://www.packer.io",
+          "url": "https://learn.hashicorp.com/packer",
           "tags": ["packer"]
         }
       ]

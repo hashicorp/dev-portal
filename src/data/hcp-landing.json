@@ -15,7 +15,7 @@
       "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, mattis facilisi aliquam elit velit. Consectetur sit ullamcorper pulvinar a lacus, diam, neque. Faucibus laoreet ipsum.",
       "link": {
         "text": "Get Started",
-        "url": "https://cloud.hashicorp.com/docs"
+        "url": "https://cloud.hashicorp.com"
       }
     },
     {
@@ -27,28 +27,28 @@
           "iconBrandColor": "terraform",
           "heading": "Terraform Cloud",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ante potenti vulputate donec magnis sed. Urna.",
-          "url": "https://www.hashicorp.com"
+          "url": "https://cloud.hashicorp.com/products/terraform"
         },
         {
           "icon": "IconVaultColor",
           "iconBrandColor": "vault",
           "heading": "HCP Vault",
           "text": "Use HCP Vault to securely store, access, and manage secrets and other sensitive data.",
-          "url": "https://www.hashicorp.com"
+          "url": "https://cloud.hashicorp.com/products/vault"
         },
         {
           "icon": "IconConsulColor",
           "iconBrandColor": "consul",
           "heading": "HCP Consul",
           "text": "Use HCP Consul to automate network configurations across any cloud.",
-          "url": "https://www.hashicorp.com"
+          "url": "https://cloud.hashicorp.com/products/consul"
         },
         {
           "icon": "IconPackerColor",
           "iconBrandColor": "packer",
           "heading": "HCP Packer",
           "text": "Use HCP Packer to automatically create machine images for multiple cloud platforms.",
-          "url": "https://www.hashicorp.com"
+          "url": "https://cloud.hashicorp.com/products/packer"
         }
       ]
     },
@@ -65,17 +65,17 @@
         {
           "heading": "HCP Architecture",
           "text": "HashiCorp Cloud Platform (HCP) has two main planes for interacting with the platform...",
-          "url": "https://www.hashicorp.com"
+          "url": "https://cloud.hashicorp.com/docs/hcp/architecture"
         },
         {
           "heading": "HashiCorp Virtual Network",
           "text": "Quickly get hands-on with HCP Consul using the HCP portal quickstart deployment...",
-          "url": "https://www.hashicorp.com"
+          "url": "https://learn.hashicorp.com/collections/cloud/networking"
         },
         {
           "heading": "Get Started - HCP Packer",
           "text": "Learn how to securely connect your HCP Consul or HCP Vault clusters by connecting your...",
-          "url": "https://www.hashicorp.com"
+          "url": "https://learn.hashicorp.com/collections/packer/cloud-production"
         }
       ]
     },
@@ -146,25 +146,25 @@
         {
           "heading": "Getting Started with HCP Vault",
           "text": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Vault using the HCP portal and...",
-          "url": "https://www.hashicorp.com",
+          "url": "https://learn.hashicorp.com/collections/vault/cloud",
           "tags": ["vault"]
         },
         {
           "heading": "Getting started with HCP Consul",
           "text": "Learn the fundamentals of expressing your workload as Nomad jobs. Submit, inspect, and monitor a...",
-          "url": "https://www.hashicorp.com",
+          "url": "https://learn.hashicorp.com/collections/consul/cloud-get-started",
           "tags": ["consul"]
         },
         {
           "heading": "Get Started with HCP Packer",
           "text": "HCP Packer registry stores Packer image metadata, enabling you to track your image lifecycle.",
-          "url": "https://www.hashicorp.com",
+          "url": "https://learn.hashicorp.com/collections/packer/cloud-production",
           "tags": ["packer"]
         },
         {
           "heading": "HashiCorp Virtual Network",
           "text": "Learn how to securely connect your HCP Consul or HCP Vault clusters by connecting your VPC to ...",
-          "url": "https://www.hashicorp.com"
+          "url": "https://learn.hashicorp.com/collections/cloud/networking"
         }
       ]
     }
