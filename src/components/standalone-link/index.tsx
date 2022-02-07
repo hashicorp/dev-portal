@@ -19,7 +19,12 @@ const StandaloneLink = ({
   return (
     <MaybeInternalLink className={classes} href={href}>
       {iconPosition === 'leading' && icon}
-      <Text asElement="span" size={textSize} weight={textWeight}>
+      <Text
+        asElement="span"
+        className={s.text}
+        size={textSize}
+        weight={textWeight}
+      >
         {text}
       </Text>
       {iconPosition === 'trailing' && icon}
