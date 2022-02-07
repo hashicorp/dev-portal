@@ -26,7 +26,7 @@ const Disclosure: FC<DisclosureProps> = ({
         aria-controls={contentContainerId}
         aria-expanded={isOpen}
         className={s.button}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(currentIsOpen => !currentIsOpen)}
       >
         <span className={s.labelContainer}>
           <Text asElement="span" className={s.title} weight="semibold">
