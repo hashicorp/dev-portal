@@ -7,6 +7,7 @@ import s from './standalone-link.module.css'
 
 const StandaloneLink = ({
   className,
+  color = 'primary',
   href,
   icon,
   iconPosition,
@@ -14,7 +15,7 @@ const StandaloneLink = ({
   textSize,
   textWeight,
 }: StandaloneLinkProps): ReactElement => {
-  const classes = classNames(s.root, className)
+  const classes = classNames(s.root, s[`color-${color}`], className)
 
   return (
     <MaybeInternalLink className={classes} href={href}>

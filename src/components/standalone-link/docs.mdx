@@ -18,15 +18,16 @@ Internally, this component uses two other components:
 - If `textSize` is being set to 100 or 200, then size 16 icons are recommended
 - If `textSize` is being set to 300, then size 24 icons are recommended
 
-| Prop name      | Description                                                                      | Required? | Default value | Type                            |
-| -------------- | -------------------------------------------------------------------------------- | --------- | ------------- | ------------------------------- |
-| `className`    | A string of one or more class names. Applied last to the rendered `<a>` element. | No        | undefined     | string                          |
-| `href`         | The destination of the link.                                                     | Yes       | N/A           | string                          |
-| `icon`         | An icon from `@hashicorp/flight-icons` to render.                                | Yes       | N/A           | ReactElement                    |
-| `iconPosition` | Where the icon should be rendered within the link. See examples below.           | Yes       | N/A           | Either: 'leading' or 'trailing' |
-| `text`         | The text rendered within the `<a>` element.                                      | Yes       | N/A           | string                          |
-| `textSize`     | The `size` passed to the inner `Text` component.                                 | No        | undefined     | TextProps[`size`]               |
-| `textWeight`   | The `weight` passed to the inner `Text` component.                               | No        | undefined     | TextProps[`weight`]             |
+| Prop name      | Description                                                                      | Required? | Default value | Type                             |
+| -------------- | -------------------------------------------------------------------------------- | --------- | ------------- | -------------------------------- |
+| `color`        | Determines the set of colors to use for various states of the component.         | No        | 'primary'     | Either: 'primary' or 'secondary' |
+| `className`    | A string of one or more class names. Applied last to the rendered `<a>` element. | No        | undefined     | string                           |
+| `href`         | The destination of the link.                                                     | Yes       | N/A           | string                           |
+| `icon`         | An icon from `@hashicorp/flight-icons` to render.                                | Yes       | N/A           | ReactElement                     |
+| `iconPosition` | Where the icon should be rendered within the link. See examples below.           | Yes       | N/A           | Either: 'leading' or 'trailing'  |
+| `text`         | The text rendered within the `<a>` element.                                      | Yes       | N/A           | string                           |
+| `textSize`     | The `size` passed to the inner `Text` component.                                 | No        | undefined     | TextProps[`size`]                |
+| `textWeight`   | The `weight` passed to the inner `Text` component.                               | No        | undefined     | TextProps[`weight`]              |
 
 ## Examples
 
@@ -66,6 +67,18 @@ const MyComponent = () => {
   icon={<SwingsetTestIcon name="github" />}
   iconPosition="leading"
   text="Edit this page on GitHub"
+/>
+`}</LiveComponent>
+
+### With color set to secondary
+
+<LiveComponent>{`
+<StandaloneLink
+  color="secondary"
+  href="/"
+  icon={<SwingsetTestIcon name="arrow-right" />}
+  iconPosition="trailing"
+  text="Get Started"
 />
 `}</LiveComponent>
 

@@ -2,19 +2,16 @@
   composes: focus-ring-from-box-shadow from global;
   align-items: center;
   border-radius: 5px;
-  color: var(--token-color-action-foreground-on-faint);
   cursor: pointer;
   display: flex;
   text-decoration: none;
   width: fit-content;
 
   &:active {
-    color: var(--token-color-action-foreground-high-contrast);
     text-decoration: underline;
   }
 
   &:hover {
-    color: var(--token-color-action-foreground-on-faint);
     text-decoration: underline;
   }
 
@@ -28,6 +25,26 @@
 
   & svg:last-child {
     margin-left: 8px;
+  }
+}
+
+.color-primary {
+  color: var(--token-color-action-foreground-on-faint);
+
+  &:active {
+    color: var(--token-color-action-foreground-high-contrast);
+  }
+
+  &:hover {
+    color: var(--token-color-action-foreground-on-faint);
+  }
+}
+
+.color-secondary {
+  color: var(--token-color-neutral-foreground-primary);
+
+  &:active {
+    color: var(--token-color-neutral-foreground-secondary);
   }
 }
 
