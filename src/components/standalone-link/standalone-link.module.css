@@ -10,7 +10,7 @@
 
   &:active {
     color: var(--token-color-action-foreground-high-contrast);
-    text-decoration: ;
+    text-decoration: underline;
   }
 
   &:hover {
