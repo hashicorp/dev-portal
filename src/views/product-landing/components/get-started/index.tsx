@@ -20,7 +20,7 @@ function GetStarted({
     <div className={s.root}>
       <div className={s.container}>
         <div className={s.iconSection}>
-          {['sentinel', 'hcp'].indexOf(product) >= 0 ? (
+          {product == 'sentinel' || product == 'hcp' ? (
             <IconTile size="extra-large" brandColor="neutral-dark">
               <IconHashicorp16 />
             </IconTile>
