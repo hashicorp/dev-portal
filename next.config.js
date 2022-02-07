@@ -19,6 +19,7 @@ const temporary_hideDocsPaths = {
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
   withHashicorp({
     nextOptimizedImages: true,
+    css: false,
     transpileModules: [
       'swingset',
       // TODO: once Sentinel has been migrated into
@@ -55,5 +56,6 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
         },
       ],
     },
+    outputFileTracing: false,
   })
 )
