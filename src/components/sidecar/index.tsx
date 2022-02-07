@@ -25,12 +25,11 @@ const Sidecar: React.FC<SidecarProps> = ({ headings }) => {
     const className = classNames(s.sidecarListItem, {
       [s.activeSidecarListItem]: isActive,
     })
-    const truncatedTitle = getTruncatedTitle(title)
 
     return (
       <li className={className} key={slug}>
         <a className={s.sidecarListItemAnchor} href={`#${slug}`}>
-          {truncatedTitle}
+          {title}
         </a>
         {isActive && <span aria-hidden className={s.activeIndicator} />}
       </li>
