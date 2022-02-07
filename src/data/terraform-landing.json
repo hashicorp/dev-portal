@@ -1,12 +1,169 @@
 {
   "heading": "Terraform Overview",
-  "subheading": "Use Terraform to do stuff.",
+  "subheading": "Use Terraform to safely and efficiently build, change, and version infrastructure.",
   "blocks": [
     {
       "type": "heading",
       "level": 2,
       "size": 400,
       "heading": "Explore Terraform Documentation"
+    },
+    {
+      "type": "get_started",
+      "product": "terraform",
+      "heading": "Introduction to Terraform",
+      "text": "Terraform is an infrastructure as code (IaC) tool that allows you to build, change, and version infrastructure safely and efficiently.",
+      "link": {
+        "text": "Learn more",
+        "url": "https://www.terraform.io"
+      }
+    },
+    {
+      "type": "cards",
+      "columns": 2,
+      "cards": [
+        {
+          "icon": "IconDocs",
+          "heading": "Terraform Reference Documentation",
+          "text": "The documentation is reference material for all available features and options of Terraform",
+          "url": "https://www.terraform.io"
+        },
+        {
+          "icon": "IconTerminal",
+          "heading": "Terraform CLI",
+          "text": "Relevant to anyone working with CLI-based workflows or those who use Terraform Cloud or Enterprise.",
+          "url": "https://www.terraform.io"
+        },
+        {
+          "icon": "IconProvider",
+          "heading": "Provider Use",
+          "text": "Terraform relies on plugins called \"providers\" to interact with remote systems.",
+          "url": "https://www.terraform.io"
+        },
+        {
+          "icon": "IconDownload",
+          "heading": "Terraform Install",
+          "text": "Please download the proper package for your operating system and architecture.",
+          "url": "https://www.terraform.io"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Featured Terraform Documentation",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Terraform vs. Other",
+          "text": "Terraform provides a flexible abstraction of resources and providers.",
+          "url": "https://www.terraform.io"
+        },
+        {
+          "heading": "Input Variables",
+          "text": "Input variables serve as parameters for a Terraform module, allowing aspects...",
+          "url": "https://www.terraform.io"
+        },
+        {
+          "heading": "Output Values",
+          "text": "Terraform output values allow you to export structured data about your resources.",
+          "url": "https://www.terraform.io"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Lorem ipsum dolor sit amet",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Etiam quis in ac non quam.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
+          "url": "https://www.terraform.io"
+        },
+        {
+          "heading": "Aliquet eu risus dis sed.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
+          "url": "https://www.terraform.io"
+        },
+        {
+          "heading": "Ornare faucibus blandit id.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
+          "url": "https://www.terraform.io"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Lorem ipsum dolor sit amet",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Interdum sollicitudin.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum lectus posuere.",
+          "url": "https://www.terraform.io"
+        },
+        {
+          "heading": "Ornare nibh semper.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
+          "url": "https://www.terraform.io"
+        },
+        {
+          "heading": "Fames nibh gravida.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "url": "https://www.terraform.io"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Start Learning",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 2,
+      "cards": [
+        {
+          "heading": "Get Started - AWS",
+          "text": "Build, change, and destroy AWS infrastructure using Terraform.",
+          "url": "https://www.terraform.io",
+          "tags": ["terraform"]
+        },
+        {
+          "heading": "Get Started - Azure",
+          "text": "Build, change, and destroy Azure infrastructure using Terraform.",
+          "url": "https://www.terraform.io",
+          "tags": ["terraform"]
+        },
+        {
+          "heading": "Get Started - Google Cloud",
+          "text": "Build, change, and destroy Google Cloud Platform using Terraform.",
+          "url": "https://www.terraform.io",
+          "tags": ["terraform"]
+        },
+        {
+          "heading": "Get Started - Terraform Cloud",
+          "text": "Collaborate on version-controlled config using Terraform Cloud.",
+          "url": "https://www.terraform.io",
+          "tags": ["terraform"]
+        }
+      ]
     }
   ]
 }
