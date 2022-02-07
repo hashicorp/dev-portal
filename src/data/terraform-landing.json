@@ -15,7 +15,7 @@
       "text": "Terraform is an infrastructure as code (IaC) tool that allows you to build, change, and version infrastructure safely and efficiently.",
       "link": {
         "text": "Learn more",
-        "url": "https://www.terraform.io"
+        "url": "https://www.terraform.io/intro"
       }
     },
     {
@@ -26,25 +26,25 @@
           "icon": "IconDocs",
           "heading": "Terraform Reference Documentation",
           "text": "The documentation is reference material for all available features and options of Terraform",
-          "url": "https://www.terraform.io"
+          "url": "https://www.terraform.io/docs"
         },
         {
           "icon": "IconTerminal",
           "heading": "Terraform CLI",
           "text": "Relevant to anyone working with CLI-based workflows or those who use Terraform Cloud or Enterprise.",
-          "url": "https://www.terraform.io"
+          "url": "https://www.terraform.io/cli"
         },
         {
           "icon": "IconProvider",
           "heading": "Provider Use",
           "text": "Terraform relies on plugins called \"providers\" to interact with remote systems.",
-          "url": "https://www.terraform.io"
+          "url": "https://www.terraform.io/language/providers"
         },
         {
           "icon": "IconDownload",
           "heading": "Terraform Install",
           "text": "Please download the proper package for your operating system and architecture.",
-          "url": "https://www.terraform.io"
+          "url": "https://www.terraform.io/downloads"
         }
       ]
     },
@@ -59,19 +59,19 @@
       "columns": 3,
       "cards": [
         {
-          "heading": "Terraform vs. Other",
+          "heading": "Terraform vs. Alternatives",
           "text": "Terraform provides a flexible abstraction of resources and providers.",
-          "url": "https://www.terraform.io"
+          "url": "https://www.terraform.io/intro/vs"
         },
         {
           "heading": "Input Variables",
           "text": "Input variables serve as parameters for a Terraform module, allowing aspects...",
-          "url": "https://www.terraform.io"
+          "url": "https://www.terraform.io/language/values/variables"
         },
         {
           "heading": "Output Values",
           "text": "Terraform output values allow you to export structured data about your resources.",
-          "url": "https://www.terraform.io"
+          "url": "https://www.terraform.io/language/values/outputs"
         }
       ]
     },
@@ -142,25 +142,25 @@
         {
           "heading": "Get Started - AWS",
           "text": "Build, change, and destroy AWS infrastructure using Terraform.",
-          "url": "https://www.terraform.io",
+          "url": "https://learn.hashicorp.com/collections/terraform/aws-get-started",
           "tags": ["terraform"]
         },
         {
           "heading": "Get Started - Azure",
           "text": "Build, change, and destroy Azure infrastructure using Terraform.",
-          "url": "https://www.terraform.io",
+          "url": "https://learn.hashicorp.com/collections/terraform/azure-get-started",
           "tags": ["terraform"]
         },
         {
           "heading": "Get Started - Google Cloud",
           "text": "Build, change, and destroy Google Cloud Platform using Terraform.",
-          "url": "https://www.terraform.io",
+          "url": "https://learn.hashicorp.com/collections/terraform/gcp-get-started",
           "tags": ["terraform"]
         },
         {
           "heading": "Get Started - Terraform Cloud",
           "text": "Collaborate on version-controlled config using Terraform Cloud.",
-          "url": "https://www.terraform.io",
+          "url": "https://learn.hashicorp.com/collections/terraform/cloud-get-started",
           "tags": ["terraform"]
         }
       ]

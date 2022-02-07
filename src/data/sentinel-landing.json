@@ -15,7 +15,7 @@
       "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, mattis facilisi aliquam elit velit. Consectetur sit ullamcorper pulvinar a lacus, diam, neque. Faucibus laoreet ipsum.",
       "link": {
         "text": "Get Started",
-        "url": "https://docs.hashicorp.com/sentinel"
+        "url": "https://docs.hashicorp.com/sentinel/concepts"
       }
     },
     {
@@ -30,9 +30,9 @@
         },
         {
           "icon": "IconTerminal",
-          "heading": "Sentinel",
+          "heading": "Sentinel CLI",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Senectus suspendisse tortor, sem dui. ",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "https://docs.hashicorp.com/sentinel/commands"
         },
         {
           "icon": "IconServer",
@@ -44,7 +44,7 @@
           "icon": "IconDownload",
           "heading": "Sentinel",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elementum pretium porta blandit fusce at.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "https://docs.hashicorp.com/sentinel/downloads"
         }
       ]
     },

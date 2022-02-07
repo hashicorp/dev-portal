@@ -15,7 +15,7 @@
       "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iaculis dui sed venenatis, purus non augue arcu. Faucibus viverra praesent velit id vitae placerat gravida. Quis in nullam.",
       "link": {
         "text": "Learn more",
-        "url": "https://www.vagrantup.com"
+        "url": "https://www.vagrantup.com/intro"
       }
     },
     {
@@ -26,25 +26,25 @@
           "icon": "IconDocs",
           "heading": "Vagrant Reference Documentation",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget blandit ante ut tristique lectus mollis.",
-          "url": "https://www.vagrantup.com"
+          "url": "https://www.vagrantup.com/docs"
         },
         {
           "icon": "IconTerminal",
           "heading": "Vagrant CLI",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae ut et tincidunt arcu at vehicula aliquam.",
-          "url": "https://www.vagrantup.com"
+          "url": "https://www.vagrantup.com/docs/cli"
         },
         {
           "icon": "IconServer",
-          "heading": "Vagrant API",
+          "heading": "Vagrant Cloud API",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sodales tellus bibendum sit ornare donec vitae.",
-          "url": "https://www.vagrantup.com"
+          "url": "https://www.vagrantup.com/vagrant-cloud/api"
         },
         {
           "icon": "IconDownload",
           "heading": "Vagrant Install",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius eu in odio turpis felis nisi mauris elit.",
-          "url": "https://www.vagrantup.com"
+          "url": "https://www.vagrantup.com/downloads"
         }
       ]
     },
