@@ -8,6 +8,12 @@ import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-co
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 
+/*
+Note: this is not intended as a final solution.
+This will likely be replaced or augmented using a different approach
+as we continue to iterate on the card components used to render
+the product view content.
+*/
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   boundary: IconBoundaryColor16,

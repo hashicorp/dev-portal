@@ -9,6 +9,12 @@ import { IconTerminal16 } from '@hashicorp/flight-icons/svg-react/terminal-16'
 import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
 
+/*
+Note: this icon dictionary is not intended as a final solution.
+It has been put in place to allow more convenient authoring of content
+via JSON. We will likely want to iterate on this approach in the future,
+as it may not be ideal for bundle size.
+*/
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   IconBox: IconBox16,
