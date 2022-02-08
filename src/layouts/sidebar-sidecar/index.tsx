@@ -6,7 +6,7 @@ import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Sidebar, { MenuItem } from 'components/sidebar'
 import Sidecar from 'components/sidecar'
-import s from './docs-layout.module.css'
+import s from './sidebar-sidecar-layout.module.css'
 
 interface DocsLayoutProps {
   children: React.ReactNode
@@ -22,7 +22,7 @@ interface DocsLayoutProps {
   }
 }
 
-const DocsLayout: React.FC<DocsLayoutProps> = ({
+const SidebarSidecarLayout: React.FC<DocsLayoutProps> = ({
   productName,
   navData,
   backToLink,
@@ -69,4 +69,4 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({
   </BaseNewLayout>
 )
 
-export default DocsLayout
+export default SidebarSidecarLayout
