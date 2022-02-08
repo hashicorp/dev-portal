@@ -1,0 +1,27 @@
+/*
+Not inheriting font color, weight, or size since they can be different than the
+ones set in the surrounding text.
+*/
+.root {
+  composes: focus-ring-from-box-shadow from global;
+  border-radius: 5px;
+  color: var(--token-color-action-foreground-on-faint);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:active {
+    color: var(--token-color-action-foreground-high-contrast);
+  }
+
+  &:focus-visible {
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: var(--token-color-action-background-active);
+  }
+
+  &:visited {
+    color: var(--token-color-highlight-foreground-on-faint);
+  }
+}

@@ -1,0 +1,9 @@
+---
+componentName: SwingsetTestIcon
+---
+
+**🚧 PLACEHOLDER 🚧**
+
+`SwingsetTestIcon` is meant only for use in swingset pages, specifically the swingset `color` docs page. However, swingset does not currently expose `components` as configured in `[[...swingset]].tsx` to `docs` pages. This page is a temporary workaround, that allows the component to be included as a `peerComponent`.
+
+To resolve this issue, we likely want to expose `swingsetOptions` to docs page contexts in some way. See [this line of code in Swingset](https://github.com/hashicorp/swingset/blob/5fbae60a2d13283e5850fae0333bfa6f9f057231/page.jsx#L93) for where we'd likely want to pass `swingsetOptions` (which includes the `components` property).

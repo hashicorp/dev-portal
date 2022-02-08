@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
+import InlineLink from 'components/inline-link'
 import s from './style.module.css'
 
 const DocsAnchor: React.FC<JSX.IntrinsicElements['a']> = ({
@@ -26,6 +27,18 @@ const DocsAnchor: React.FC<JSX.IntrinsicElements['a']> = ({
     currentProduct.basePaths.some((basePath) => href.startsWith(`/${basePath}`))
   ) {
     adjustedHref = `/${currentProduct.slug}${href}`
+  }
+
+  // Render inline link if it's for sure a string and not a heading permalink
+  if (typeof children === 'string' && children !== '»') {
+    return (
+      <InlineLink
+        href={adjustedHref}
+        text={children}
+        textSize={300}
+        textWeight="medium"
+      />
+    )
   }
 
   // Render a next/link to avoid a full reload if we know for sure the link is an internal docs link.

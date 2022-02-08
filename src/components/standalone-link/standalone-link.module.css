@@ -1,0 +1,53 @@
+.root {
+  composes: focus-ring-from-box-shadow from global;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  text-decoration: none;
+  width: fit-content;
+
+  &:active {
+    text-decoration: underline;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    text-decoration: none;
+  }
+
+  & svg:first-child {
+    margin-right: 8px;
+  }
+
+  & svg:last-child {
+    margin-left: 8px;
+  }
+}
+
+.color-primary {
+  color: var(--token-color-action-foreground-on-faint);
+
+  &:active {
+    color: var(--token-color-action-foreground-high-contrast);
+  }
+
+  &:hover {
+    color: var(--token-color-action-foreground-on-faint);
+  }
+}
+
+.color-secondary {
+  color: var(--token-color-neutral-foreground-primary);
+
+  &:active {
+    color: var(--token-color-neutral-foreground-secondary);
+  }
+}
+
+.text {
+  line-height: 1;
+}

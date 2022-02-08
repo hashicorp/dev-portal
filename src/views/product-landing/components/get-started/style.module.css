@@ -36,27 +36,3 @@
   color: var(--token-color-neutral-foreground-faint);
   margin-bottom: 8px;
 }
-
-/*
-NOTE: sets `width: fit-content` so the link does not take up all of the
-available width and have a very wide target.
-*/
-.link {
-  align-items: center;
-  color: var(--token-color-palette-blue-200);
-  display: flex;
-  transition: color 0.2s;
-  width: fit-content;
-
-  & svg {
-    display: block;
-    margin-left: 8px;
-    position: relative;
-    /* TODO: pretty sure this isn't needed? */
-    /* top: 1px; */
-  }
-
-  &:hover {
-    color: var(--token-color-palette-blue-400);
-  }
-}
