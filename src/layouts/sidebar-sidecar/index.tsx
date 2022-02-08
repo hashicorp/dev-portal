@@ -1,11 +1,11 @@
 import React from 'react'
 import BaseNewLayout from 'layouts/base-new'
 import Footer from 'components/footer'
-import { SidecarHeading } from 'components/sidecar/types'
 import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Sidebar, { MenuItem } from 'components/sidebar'
 import Sidecar from 'components/sidecar'
+import { SidecarHeading } from 'components/sidecar/types'
 import s from './sidebar-sidecar-layout.module.css'
 
 interface DocsLayoutProps {
