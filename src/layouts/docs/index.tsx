@@ -1,11 +1,11 @@
 import React from 'react'
+import BaseNewLayout from 'layouts/base-new'
 import Footer from 'components/footer'
+import { SidecarHeading } from 'components/sidecar/types'
 import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
+import EditOnGithubLink from 'components/edit-on-github-link'
 import Sidebar, { MenuItem } from 'components/sidebar'
 import Sidecar from 'components/sidecar'
-import { SidecarHeading } from 'components/sidecar/types'
-import EditOnGithubLink from 'components/edit-on-github-link'
-import SidebarSidecarLayout from './partials/sidebar-sidecar-layout'
 import s from './docs-layout.module.css'
 
 interface DocsLayoutProps {
@@ -32,31 +32,41 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({
   githubFileUrl,
   openConsentManager,
 }) => (
-  <SidebarSidecarLayout
-    sidebar={
-      <Sidebar
-        title={productName}
-        menuItems={navData}
-        backToLink={backToLink}
-      />
-    }
-    sidecar={<Sidecar headings={headings} />}
-  >
-    {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
-    {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
-    <main id="main">
-      {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-      <div className={s.tempContentStyles}>{children}</div>
-      {githubFileUrl && (
-        <EditOnGithubLink
-          className={s.editOnGithubLink}
-          url={githubFileUrl}
-          label="Edit this page on GitHub"
+  <BaseNewLayout>
+    <div className={s.contentWrapper}>
+      <div className={s.sidebar}>
+        <Sidebar
+          title={productName}
+          menuItems={navData}
+          backToLink={backToLink}
         />
-      )}
-    </main>
-    <Footer className={s.footer} openConsentManager={openConsentManager} />
-  </SidebarSidecarLayout>
+      </div>
+      <div className={s.mainArea}>
+        <div className={s.main}>
+          {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
+          {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
+          <main id="main">
+            {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+            <div className={s.tempContentStyles}>{children}</div>
+            {githubFileUrl && (
+              <EditOnGithubLink
+                className={s.editOnGithubLink}
+                url={githubFileUrl}
+                label="Edit this page on GitHub"
+              />
+            )}
+          </main>
+          <Footer
+            className={s.footer}
+            openConsentManager={openConsentManager}
+          />
+        </div>
+        <div className={`${s.sidecar} hide-on-mobile hide-on-tablet`}>
+          <Sidecar headings={headings} />
+        </div>
+      </div>
+    </div>
+  </BaseNewLayout>
 )
 
 export default DocsLayout
