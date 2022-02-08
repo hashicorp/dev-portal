@@ -39,7 +39,6 @@ function GetStarted({
             iconPosition="trailing"
             text={link.text}
             textSize={200}
-            textWeight="medium"
           />
         </div>
       </div>

@@ -13,19 +13,13 @@ const StandaloneLink = ({
   iconPosition,
   text,
   textSize,
-  textWeight,
 }: StandaloneLinkProps): ReactElement => {
   const classes = classNames(s.root, s[`color-${color}`], className)
 
   return (
     <MaybeInternalLink className={classes} href={href}>
       {iconPosition === 'leading' && icon}
-      <Text
-        asElement="span"
-        className={s.text}
-        size={textSize}
-        weight={textWeight}
-      >
+      <Text asElement="span" className={s.text} size={textSize} weight="medium">
         {text}
       </Text>
       {iconPosition === 'trailing' && icon}

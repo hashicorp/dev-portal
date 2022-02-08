@@ -27,7 +27,6 @@ Internally, this component uses two other components:
 | `iconPosition` | Where the icon should be rendered within the link. See examples below.           | Yes       | N/A           | Either: 'leading' or 'trailing'  |
 | `text`         | The text rendered within the `<a>` element.                                      | Yes       | N/A           | string                           |
 | `textSize`     | The `size` passed to the inner `Text` component.                                 | No        | undefined     | TextProps[`size`]                |
-| `textWeight`   | The `weight` passed to the inner `Text` component.                               | No        | undefined     | TextProps[`weight`]              |
 
 ## Examples
 
@@ -107,41 +106,6 @@ const MyComponent = () => {
     iconPosition="trailing"
     text="Get Started"
     textSize={300}
-  />
-</>
-`}</LiveComponent>
-
-### With varying textWeight values
-
-<LiveComponent>{`
-<>
-  <StandaloneLink
-    href="/"
-    icon={<SwingsetTestIcon name="arrow-right" />}
-    iconPosition="trailing"
-    text="Get Started"
-    textWeight="regular"
-  />
-  <StandaloneLink
-    href="/"
-    icon={<SwingsetTestIcon name="arrow-right" />}
-    iconPosition="trailing"
-    text="Get Started"
-    textWeight="medium"
-  />
-  <StandaloneLink
-    href="/"
-    icon={<SwingsetTestIcon name="arrow-right" />}
-    iconPosition="trailing"
-    text="Get Started"
-    textWeight="semibold"
-  />
-  <StandaloneLink
-    href="/"
-    icon={<SwingsetTestIcon name="arrow-right" />}
-    iconPosition="trailing"
-    text="Get Started"
-    textWeight="bold"
   />
 </>
 `}</LiveComponent>

@@ -54,9 +54,4 @@ export interface StandaloneLinkProps {
    * The `size` passed to the inner `Text` component.
    */
   textSize?: TextProps['size']
-
-  /**
-   * The `weight` passed to the inner `Text` component.
-   */
-  textWeight?: TextProps['weight']
 }
