@@ -1,16 +1,17 @@
-import React from 'react'
-import Footer from 'components/footer'
+import React, { useMemo } from 'react'
 import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
-import Sidebar, { MenuItem } from 'components/sidebar'
-import Sidecar from 'components/sidecar'
-import { SidecarHeading } from 'components/sidecar/types'
 import EditOnGithubLink from 'components/edit-on-github-link'
+import Footer from 'components/footer'
+import Sidebar, { MenuItem } from 'components/sidebar'
 import SidebarSidecarLayout from './partials/sidebar-sidecar-layout'
+import TableOfContents, {
+  TableOfContentsHeading,
+} from 'components/table-of-contents'
 import s from './docs-layout.module.css'
 
 interface DocsLayoutProps {
   children: React.ReactNode
-  headings: SidecarHeading[]
+  headings: TableOfContentsHeading[]
   navData: MenuItem[]
   productName: string
   breadcrumbLinks?: BreadcrumbLink[]
@@ -31,32 +32,39 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({
   children,
   githubFileUrl,
   openConsentManager,
-}) => (
-  <SidebarSidecarLayout
-    sidebar={
-      <Sidebar
-        title={productName}
-        menuItems={navData}
-        backToLink={backToLink}
-      />
-    }
-    sidecar={<Sidecar headings={headings} />}
-  >
-    {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
-    {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
-    <main id="main">
-      {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-      <div className={s.tempContentStyles}>{children}</div>
-      {githubFileUrl && (
-        <EditOnGithubLink
-          className={s.editOnGithubLink}
-          url={githubFileUrl}
-          label="Edit this page on GitHub"
+}) => {
+  const level1And2Headings = useMemo(
+    () => headings.filter((heading) => heading.level <= 2),
+    [headings]
+  )
+
+  return (
+    <SidebarSidecarLayout
+      sidebar={
+        <Sidebar
+          title={productName}
+          menuItems={navData}
+          backToLink={backToLink}
         />
-      )}
-    </main>
-    <Footer className={s.footer} openConsentManager={openConsentManager} />
-  </SidebarSidecarLayout>
-)
+      }
+      sidecar={<TableOfContents headings={level1And2Headings} />}
+    >
+      {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
+      {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
+      <main id="main">
+        {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+        <div className={s.tempContentStyles}>{children}</div>
+        {githubFileUrl && (
+          <EditOnGithubLink
+            className={s.editOnGithubLink}
+            url={githubFileUrl}
+            label="Edit this page on GitHub"
+          />
+        )}
+      </main>
+      <Footer className={s.footer} openConsentManager={openConsentManager} />
+    </SidebarSidecarLayout>
+  )
+}
 
 export default DocsLayout

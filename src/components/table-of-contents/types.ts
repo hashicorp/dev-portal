@@ -5,6 +5,5 @@ export interface TableOfContentsHeading {
 }
 
 export interface TableOfContentsProps {
-  className?: string
   headings: TableOfContentsHeading[]
 }
