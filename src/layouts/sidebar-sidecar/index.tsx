@@ -1,5 +1,5 @@
 import React from 'react'
-import BaseNewLayout from 'layouts/base-new'
+import BaseLayout from 'layouts/base-new'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Footer from 'components/footer'
@@ -17,8 +17,9 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
   navData,
   openConsentManager,
   productName,
+  sidecarChildren = <TableOfContents headings={headings} />,
 }) => (
-  <BaseNewLayout>
+  <BaseLayout showFooter={false}>
     <div className={s.contentWrapper}>
       <div className={s.sidebar}>
         <Sidebar
@@ -48,11 +49,11 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
           />
         </div>
         <div className={`${s.sidecar} hide-on-mobile hide-on-tablet`}>
-          <TableOfContents headings={headings} />
+          {sidecarChildren}
         </div>
       </div>
     </div>
-  </BaseNewLayout>
+  </BaseLayout>
 )
 
 export default SidebarSidecarLayout
