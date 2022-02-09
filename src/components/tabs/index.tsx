@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode, useState } from 'react'
 
-interface DevDotTabsProps {
+interface TabsProps {
   initialActiveIndex?: number
   tabs: {
     content: ReactNode
@@ -9,10 +9,7 @@ interface DevDotTabsProps {
   }[]
 }
 
-const DevDotTabs = ({
-  initialActiveIndex = 0,
-  tabs,
-}: DevDotTabsProps): ReactElement => {
+const Tabs = ({ initialActiveIndex = 0, tabs }: TabsProps): ReactElement => {
   const [activeTabIndex, setActiveTabIndex] = useState<number>(
     initialActiveIndex
   )
@@ -61,4 +58,4 @@ const DevDotTabs = ({
   )
 }
 
-export default DevDotTabs
+export default Tabs

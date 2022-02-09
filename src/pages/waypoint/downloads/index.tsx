@@ -7,7 +7,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Card from 'components/card'
 import Text from 'components/text'
 import s from './downloads-page.module.css'
-import DevDotTabs from 'components/dev-dot-tabs'
+import Tabs from 'components/tabs'
 
 const LOREM_IPSUM =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae leo id nunc convallis euismod et vel erat. Fusce vel velit turpis. Vivamus fringilla consequat metus, vitae euismod sem eleifend in. Morbi in ullamcorper dui. Quisque rutrum auctor tristique. Vivamus ac turpis non arcu fringilla interdum. Aliquam feugiat lectus ipsum, eu tincidunt mi tristique id. Aliquam sodales eros semper pharetra molestie. Mauris porta, nunc in tempor eleifend, metus massa sagittis nisi, non maximus quam mauris a erat. Duis nec risus diam. Aenean auctor accumsan ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce et sagittis nunc. Cras vel eros id purus sollicitudin lobortis. Vivamus hendrerit volutpat nulla.'
@@ -47,8 +47,8 @@ const WaypointDowloadsPage = (): ReactElement => {
       productName="Waypoint"
       sidecarChildren={<WaypointDownloadsSidecarContent />}
     >
-      <h1>DevDotTabs Test</h1>
-      <DevDotTabs
+      <h1>Tabs Test</h1>
+      <Tabs
         tabs={[
           {
             id: 'tab-1',
