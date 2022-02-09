@@ -6,6 +6,10 @@ import { TableOfContentsHeading } from 'components/table-of-contents'
 /**
  * The following approach enables us to require the either the `headings` prop
  * OR the `sidecarChildren` prop.
+ *
+ * In the `PropsForTableOfContents` and `PropsForCustomSidecar` interfaces, the
+ * "other" prop is marked optional with its type set to `never` so that we can
+ * continue to destructure both props in the `SidebarSidecarLayout` declaration.
  */
 
 interface BaseProps {
@@ -23,9 +27,11 @@ interface BaseProps {
 
 interface PropsForTableOfContents extends BaseProps {
   headings: TableOfContentsHeading[]
+  sidecarChildren?: never
 }
 
 interface PropsForCustomSidecar extends BaseProps {
+  headings?: never
   sidecarChildren: ReactNode
 }
 
