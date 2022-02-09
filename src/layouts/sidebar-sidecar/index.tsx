@@ -1,8 +1,8 @@
 import React from 'react'
 import BaseNewLayout from 'layouts/base-new'
-import Footer from 'components/footer'
 import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
+import Footer from 'components/footer'
 import Sidebar, { MenuItem } from 'components/sidebar'
 import TableOfContents, {
   TableOfContentsHeading,
@@ -10,28 +10,28 @@ import TableOfContents, {
 import s from './sidebar-sidecar-layout.module.css'
 
 interface SidebarSidecarLayoutProps {
-  children: React.ReactNode
-  headings: TableOfContentsHeading[]
-  navData: MenuItem[]
-  productName: string
-  breadcrumbLinks?: BreadcrumbLink[]
-  githubFileUrl?: string
-  openConsentManager?: () => void
   backToLink?: {
     text: string
     url: string
   }
+  breadcrumbLinks?: BreadcrumbLink[]
+  children: React.ReactNode
+  githubFileUrl?: string
+  headings: TableOfContentsHeading[]
+  navData: MenuItem[]
+  openConsentManager?: () => void
+  productName: string
 }
 
 const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
-  productName,
-  navData,
   backToLink,
-  headings,
   breadcrumbLinks,
   children,
   githubFileUrl,
+  headings,
+  navData,
   openConsentManager,
+  productName,
 }) => (
   <BaseNewLayout>
     <div className={s.contentWrapper}>
