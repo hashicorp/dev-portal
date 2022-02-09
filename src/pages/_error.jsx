@@ -58,7 +58,7 @@ export async function getServerSideProps({ req, res, err }) {
     process.env.HASHI_ENV === 'preview' ? req.cookies['io_preview'] : null
 
   const proxiedProductSlug =
-    ioPreviewProduct ?? getProxiedProductSlug(urlObj.hostname, ioPreviewProduct)
+    ioPreviewProduct ?? getProxiedProductSlug(urlObj.hostname)
 
   // Determine which statusCode to show
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404
