@@ -1,11 +1,60 @@
-.editOnGithubLink {
-  margin-top: 64px;
+/*
+NOTE:
+Relies on `--sticky-bars-height` being set,
+this is currently being done in `BaseNewLayout`.
+See comment in src/layouts/base-new/base-new-layout.module.css
+for further details.
+*/
+
+.contentWrapper {
+  display: flex;
+  /* flex-grow ensures the content fills available
+  space in BaseNewLayout */
+  flex-grow: 1;
+
+  /* For a coherent visual effect, the top padding value
+  must be used for sticky positioning in addition to
+  padding the content area. So, we create a CSS var
+  to make it reusable and express this intent. */
+  --main-area-top-padding: 32px;
 }
 
-.footer {
-  /* the 50vh margin-top on footer ensures that all
-  jump-nav items have room to be jumped to */
-  margin-top: 50vh;
+.sidebar {
+  box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
+    0 12px 28px rgba(101, 106, 118, 0.25);
+  flex-shrink: 0;
+  /* Sidebar should occupy the full available screen height.
+  We have sticky nav bars, so the full height is equal to
+  100vh minus the combined height of the sticky nav bars. */
+  max-height: calc(100vh - var(--sticky-bars-height));
+  overflow-y: auto;
+  position: sticky;
+  top: var(--sticky-bars-height);
+  width: 320px;
+  /* z-index is necessary here to prevent any absolutely
+  positioned elements in the main area, namely the footer's
+  top-border, from overlapping the sidebar */
+  z-index: 1;
+}
+
+.mainArea {
+  display: flex;
+  flex-grow: 1;
+  min-width: 0;
+  justify-content: center;
+  padding-bottom: 32px;
+  padding-top: var(--main-area-top-padding);
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.main {
+  align-self: flex-start;
+  flex-grow: 1;
+  min-width: 0;
+  max-width: 804px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 /**
@@ -188,4 +237,23 @@
       background: #fcf8e3;
     }
   }
+}
+
+.editOnGithubLink {
+  margin-top: 64px;
+}
+
+.footer {
+  /* the 50vh margin-top on footer ensures that all
+  jump-nav items have room to be jumped to */
+  margin-top: 50vh;
+}
+
+.sidecar {
+  align-self: flex-start;
+  flex-shrink: 0;
+  margin-left: 24px;
+  position: sticky;
+  top: calc(var(--sticky-bars-height) + var(--main-area-top-padding));
+  width: 220px;
 }

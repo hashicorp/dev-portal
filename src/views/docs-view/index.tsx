@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { MDXRemote } from 'next-mdx-remote'
-import defaultMdxComponents from 'layouts/docs/utils/_local_platform-docs-mdx'
+import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 
 const DocsView = ({
   additionalComponents = {},
