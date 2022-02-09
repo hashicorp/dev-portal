@@ -12,30 +12,38 @@ const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
   const { isDesktop } = useDeviceSize()
   const activeSection = useActiveSection(headings, isDesktop)
 
-  const renderListItem = ({ slug, title }) => {
-    const isActive = slug === activeSection
-    const className = classNames(s.tableOfContentsListItem, {
-      [s.activeTableOfContentsListItem]: isActive,
-    })
-    const truncatedTitle = getTruncatedTitle(title)
-
-    return (
-      <li className={className} key={slug}>
-        <a className={s.tableOfContentsListItemAnchor} href={`#${slug}`}>
-          {truncatedTitle}
-        </a>
-        {isActive && <span aria-hidden className={s.activeIndicator} />}
-      </li>
-    )
-  }
-
   return (
     <nav aria-labelledby={TABLE_OF_CONTENTS_LABEL_ID}>
       <p className={s.tableOfContentsLabel} id={TABLE_OF_CONTENTS_LABEL_ID}>
         On this page
       </p>
-      <ol className={s.tableOfContentsList}>{headings.map(renderListItem)}</ol>
+      <ol className={s.tableOfContentsList}>
+        {headings.map((heading) => (
+          <TableOfContentsListItem
+            isActive={heading.slug === activeSection}
+            key={heading.slug}
+            slug={heading.slug}
+            title={heading.title}
+          />
+        ))}
+      </ol>
     </nav>
+  )
+}
+
+const TableOfContentsListItem = ({ isActive, slug, title }): ReactElement => {
+  const className = classNames(s.tableOfContentsListItem, {
+    [s.activeTableOfContentsListItem]: isActive,
+  })
+  const truncatedTitle = getTruncatedTitle(title)
+
+  return (
+    <li className={className} key={slug}>
+      <a className={s.tableOfContentsListItemAnchor} href={`#${slug}`}>
+        {truncatedTitle}
+      </a>
+      {isActive && <span aria-hidden className={s.activeIndicator} />}
+    </li>
   )
 }
 
