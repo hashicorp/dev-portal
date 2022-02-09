@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { SidecarHeading } from './types'
+import { TableOfContentsHeading } from './types'
 import { useCurrentProduct } from 'contexts'
 import useCurrentPath from 'hooks/use-current-path'
 import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
@@ -30,11 +30,13 @@ const getFullNavHeaderHeight = () => {
  * https://github.com/hashicorp/react-components/pull/325
  */
 export function useActiveSection(
-  headings: SidecarHeading[],
+  headings: TableOfContentsHeading[],
   isEnabled = true
 ): string {
   const visibleHeadings = useRef<Set<string>>(new Set())
-  const [activeSection, setActiveSection] = useState<SidecarHeading['slug']>()
+  const [activeSection, setActiveSection] = useState<
+    TableOfContentsHeading['slug']
+  >()
   const previousY = useRef<number>()
 
   // isProductLanding is needed to determine the IntersectionObserver threshold

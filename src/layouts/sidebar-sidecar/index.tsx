@@ -1,38 +1,25 @@
 import React from 'react'
-import BaseNewLayout from 'layouts/base-new'
-import Footer from 'components/footer'
-import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
+import BaseLayout from 'layouts/base-new'
+import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
-import Sidebar, { MenuItem } from 'components/sidebar'
-import Sidecar from 'components/sidecar'
-import { SidecarHeading } from 'components/sidecar/types'
+import Footer from 'components/footer'
+import Sidebar from 'components/sidebar'
+import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
+import { SidebarSidecarLayoutProps } from './types'
 import s from './sidebar-sidecar-layout.module.css'
 
-interface SidebarSidecarLayoutProps {
-  children: React.ReactNode
-  headings: SidecarHeading[]
-  navData: MenuItem[]
-  productName: string
-  breadcrumbLinks?: BreadcrumbLink[]
-  githubFileUrl?: string
-  openConsentManager?: () => void
-  backToLink?: {
-    text: string
-    url: string
-  }
-}
-
 const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
-  productName,
-  navData,
   backToLink,
-  headings,
   breadcrumbLinks,
   children,
   githubFileUrl,
+  headings,
+  navData,
   openConsentManager,
+  productName,
+  sidecarChildren = <TableOfContents headings={headings} />,
 }) => (
-  <BaseNewLayout>
+  <BaseLayout showFooter={false}>
     <div className={s.contentWrapper}>
       <div className={s.sidebar}>
         <Sidebar
@@ -62,11 +49,11 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
           />
         </div>
         <div className={`${s.sidecar} hide-on-mobile hide-on-tablet`}>
-          <Sidecar headings={headings} />
+          {sidecarChildren}
         </div>
       </div>
     </div>
-  </BaseNewLayout>
+  </BaseLayout>
 )
 
 export default SidebarSidecarLayout

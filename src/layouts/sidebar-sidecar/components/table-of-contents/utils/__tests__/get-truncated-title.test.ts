@@ -1,4 +1,4 @@
-import getTruncatedTitle from '../utils/get-truncated-title'
+import getTruncatedTitle from '../get-truncated-title'
 
 describe('getTruncatedTitle', () => {
   it('leaves a short title unmodified', () => {
