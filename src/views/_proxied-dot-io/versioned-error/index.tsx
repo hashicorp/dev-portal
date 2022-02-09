@@ -28,7 +28,7 @@ function VersionNotFound({ version }: { version: string }): React.ReactElement {
       </p>
       <p>
         <Link href={`/${basePath}`}>
-          <a className={s.link}>← Go back to Documentation</a>
+          <a>← Go back to Documentation</a>
         </Link>
       </p>
     </div>
@@ -61,18 +61,6 @@ function VersionedErrorPage({
   ) : (
     <ErrorPage statusCode={statusCode} />
   )
-}
-
-VersionedErrorPage.getInitialProps = async ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404
-  const props = { statusCode }
-
-  if (statusCode === 404 && typeof window === 'undefined') {
-    // cache 404 for one day
-    res.setHeader('Cache-Control', 's-maxage=86400')
-  }
-
-  return props
 }
 
 export { VersionedErrorPage }

@@ -1,10 +1,9 @@
 import BaseLayout from 'layouts/base'
 import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
 import { getProxiedProductSlug } from 'lib/env-checks'
-import NotFound from 'views/404'
-import Bugsnag from '@hashicorp/platform-runtime-error-monitoring'
+import { VersionedErrorPage } from 'views/_proxied-dot-io/versioned-error'
 
-function Error({ statusCode, proxiedProductSlug, hostname }) {
+function Error({ statusCode, proxiedProductSlug }) {
   // Unlike other pages, we can't use redirects and rewrites
   // to display proxied .io domain 404 pages on specific hosts.
   // Instead, we must use getServerSideProps to determine which
@@ -45,7 +44,7 @@ function Error({ statusCode, proxiedProductSlug, hostname }) {
   const Layout = proxiedLayouts[proxiedProductSlug] || BaseLayout
   return (
     <Layout>
-      <NotFound statusCode={statusCode} />
+      <VersionedErrorPage statusCode={statusCode} />
     </Layout>
   )
 }
@@ -56,8 +55,13 @@ export async function getServerSideProps({ req, res, err }) {
   const urlObj = new URL(req.url, `http://${req.headers.host}`)
   const proxiedProductSlug = getProxiedProductSlug(urlObj.hostname)
   // Determine which statusCode to show
-  if (err) Bugsnag.notify(err)
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404
+
+  if (statusCode === 404) {
+    // cache 404 for one day
+    res.setHeader('Cache-Control', 's-maxage=86400')
+  }
+
   return {
     props: { statusCode, proxiedProductSlug, hostname: urlObj.hostname },
   }
