@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { MenuItem } from 'components/sidebar'
-import { TableOfContentsHeading } from 'components/table-of-contents'
+import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 
 /**
  * The following approach enables us to require the either the `headings` prop

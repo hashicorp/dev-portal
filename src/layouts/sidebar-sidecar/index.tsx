@@ -4,7 +4,7 @@ import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Footer from 'components/footer'
 import Sidebar from 'components/sidebar'
-import TableOfContents from 'components/table-of-contents'
+import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { SidebarSidecarLayoutProps } from './types'
 import s from './sidebar-sidecar-layout.module.css'
 
