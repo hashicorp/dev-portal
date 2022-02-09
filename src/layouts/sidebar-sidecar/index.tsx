@@ -22,7 +22,7 @@ interface SidebarSidecarLayoutProps {
   }
 }
 
-const SidebarSidecarLayout: React.FC<DocsLayoutProps> = ({
+const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
   productName,
   navData,
   backToLink,
