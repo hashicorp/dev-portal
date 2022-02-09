@@ -1,23 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
-import { MenuItem } from 'components/sidebar'
-import { ProductSlug } from 'types/products'
-
-export type LandingPageProduct = {
-  name: string
-  sidebar: {
-    landingPageNavData: MenuItem[]
-    resourcesNavData: MenuItem[]
-  }
-  slug: ProductSlug
-}
+import { Product } from 'types/products'
 
 async function generateStaticProps({
   product,
   contentJsonFile,
 }: {
-  product: LandingPageProduct
+  product: Product
   contentJsonFile: string
 }): Promise<$TSFixMe> {
   // TODO: need to discuss from whence we should
