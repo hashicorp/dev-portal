@@ -42,7 +42,7 @@ function VersionNotFound({ version }: { version: string }): React.ReactElement {
  * Example:
  *
  * ```tsx
- * import { VersionedErrorPage } from '@hashicorp/react-error-view/versioned-view'
+ * import { VersionedErrorPage } from 'views/_proxied-dot-io/versioned-error'
  *
  * export default VersionedErrorPage
  * ```
