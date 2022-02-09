@@ -1,6 +1,7 @@
 import sentinelData from 'data/sentinel.json'
 import ProductLandingView from 'views/product-landing'
-import { generateStaticProps, Product } from 'views/product-landing/server'
+import { generateStaticProps } from 'views/product-landing/server'
+import { Product } from 'types/products'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function getStaticProps() {
