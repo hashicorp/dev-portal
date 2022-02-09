@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 import { GetStaticProps } from 'next'
 import waypointData from 'data/waypoint.json'
 import { Product } from 'types/products'
+import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Card from 'components/card'
 import Text from 'components/text'
@@ -65,6 +66,6 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-WaypointDowloadsPage.layout = ({ children }) => <>{children}</>
+WaypointDowloadsPage.layout = EmptyLayout
 
 export default WaypointDowloadsPage
