@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
 import waypointData from 'data/waypoint.json'
 import { Product } from 'types/products'
-import { getStaticGenerationFunctions } from 'layouts/docs/server'
-import DocsLayout from 'layouts/docs'
+import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DocsView from 'views/docs-view'
 import Placement from 'components/author-primitives/shared/placement-table'
 import NestedNode from 'components/author-primitives/waypoint/nested-node'
@@ -26,7 +26,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   baseName,
 })
 
-WaypointDocsPage.layout = DocsLayout
+WaypointDocsPage.layout = SidebarSidecarLayout
 
 export { getStaticPaths, getStaticProps }
 export default WaypointDocsPage

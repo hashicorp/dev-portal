@@ -3,7 +3,7 @@ import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 import { Product } from 'types/products'
-import prepareNavDataForClient from 'layouts/docs/utils/prepare-nav-data-for-client'
+import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
 const BASE_REVALIDATE = 10

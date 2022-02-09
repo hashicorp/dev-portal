@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React, { ReactElement } from 'react'
 import slugify from 'slugify'
-import DocsLayout from 'layouts/docs'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Heading, { HeadingProps } from 'components/heading'
 import Text from 'components/text'
 import GetStarted, { GetStartedProps } from './components/get-started'
@@ -71,5 +71,5 @@ function ProductLanding({ content }: ProductLandingProps): ReactElement {
   )
 }
 
-ProductLanding.layout = DocsLayout
+ProductLanding.layout = SidebarSidecarLayout
 export default ProductLanding
