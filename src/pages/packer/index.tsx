@@ -1,14 +1,12 @@
 import packerData from 'data/packer.json'
 import ProductLandingView from 'views/product-landing'
-import {
-  generateStaticProps,
-  LandingPageProduct,
-} from 'views/product-landing/server'
+import { generateStaticProps } from 'views/product-landing/server'
+import { Product } from 'types/products'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function getStaticProps() {
   const contentJsonFile = 'src/data/packer-landing.json'
-  const product = packerData as LandingPageProduct
+  const product = packerData as Product
 
   return {
     props: await generateStaticProps({ product, contentJsonFile }),
