@@ -53,7 +53,13 @@ export async function getServerSideProps({ req, res, err }) {
   // Determine which layout to use, may be dev-portal's base layout,
   // or may be a proxied product layout, depending on the URL host
   const urlObj = new URL(req.url, `http://${req.headers.host}`)
-  const proxiedProductSlug = getProxiedProductSlug(urlObj.hostname)
+  // In preview environments, we can force the app into a certain .io mode with the io_preview cookie
+  const ioPreviewProduct =
+    process.env.HASHI_ENV === 'preview' ? req.cookies['io_preview'] : null
+
+  const proxiedProductSlug =
+    ioPreviewProduct ?? getProxiedProductSlug(urlObj.hostname, ioPreviewProduct)
+
   // Determine which statusCode to show
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404
 
