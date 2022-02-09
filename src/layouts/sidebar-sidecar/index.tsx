@@ -8,7 +8,7 @@ import Sidecar from 'components/sidecar'
 import { SidecarHeading } from 'components/sidecar/types'
 import s from './sidebar-sidecar-layout.module.css'
 
-interface DocsLayoutProps {
+interface SidebarSidecarLayoutProps {
   children: React.ReactNode
   headings: SidecarHeading[]
   navData: MenuItem[]
