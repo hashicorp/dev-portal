@@ -65,10 +65,12 @@ async function generateStaticProps({
         // ensure cards with icons have an iconBrandColor,
         // falling back to the current product if not set
         /* eslint-disable-next-line no-case-declarations */
-        const defaultIconColor =
-          ['hcp', 'sentinel'].indexOf(product.slug) >= 0
-            ? 'neutral'
-            : product.slug
+        let defaultIconColor
+        if (product.slug === 'hcp' || product.slug === 'sentinel') {
+          defaultIconColor = 'neutral'
+        } else {
+          defaultIconColor = product.slug
+        }
         return {
           ...block,
           cards: block.cards.map((card) => ({
