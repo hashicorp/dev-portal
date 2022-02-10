@@ -1,15 +1,20 @@
 import { ReactElement, useState } from 'react'
+import TabPanel from './components/tab'
 import { TabsProps } from './types'
 
 const Tabs = ({
   ariaLabel,
   ariaLabelledBy,
   initialActiveIndex = 0,
-  tabs,
+  children,
 }: TabsProps): ReactElement => {
   const [activeTabIndex, setActiveTabIndex] = useState<number>(
     initialActiveIndex
   )
+
+  if (!Array.isArray(children)) {
+    throw new Error('children must be an array of Tab components')
+  }
 
   return (
     <div>
@@ -18,39 +23,40 @@ const Tabs = ({
         aria-labelledby={ariaLabelledBy}
         role="tablist"
       >
-        {tabs.map((tab, index) => {
-          // TODO: also check the upcoming activeIndex prop
+        {children.map((childTab: ReactElement, index) => {
+          const { id, heading } = childTab.props
           const isActive = index === activeTabIndex
 
           return (
             <button
-              aria-controls={`${tab.id}-tabpanel`}
+              aria-controls={`${id}-tabpanel`}
               aria-selected={isActive}
-              id={`${tab.id}-tab`}
-              key={tab.id}
+              id={`${id}-tab`}
+              key={id}
               onClick={() => setActiveTabIndex(index)}
               role="tab"
               tabIndex={isActive ? 0 : -1}
               type="button"
             >
-              {tab.label}
+              {heading}
             </button>
           )
         })}
       </div>
-      {tabs.map((tab, index) => {
+      {children.map((childTab: ReactElement, index) => {
+        const { id, children } = childTab.props
         const isActive = index === activeTabIndex
 
         return (
           <div
-            aria-labelledby={`${tab.id}-tab`}
-            id={`${tab.id}-tabpanel`}
-            key={tab.id}
+            aria-labelledby={`${id}-tab`}
+            id={`${id}-tabpanel`}
+            key={id}
             style={{ display: isActive ? 'block' : 'none' }}
             role="tabpanel"
             tabIndex={0}
           >
-            {tab.content}
+            {children}
           </div>
         )
       })}
@@ -59,3 +65,4 @@ const Tabs = ({
 }
 
 export default Tabs
+export { TabPanel }

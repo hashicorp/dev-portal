@@ -1,12 +1,8 @@
 import { ReactNode } from 'react'
 
 interface BaseProps {
+  children: ReactNode
   initialActiveIndex?: number
-  tabs: {
-    content: ReactNode
-    id: string
-    label: string
-  }[]
 }
 
 interface PropsForAriaLabel extends BaseProps {
