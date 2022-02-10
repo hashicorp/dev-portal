@@ -11,6 +11,8 @@ function VersionNotFound({ version }: { version: string }): React.ReactElement {
   const { asPath } = useRouter()
   useErrorPageAnalytics(404)
 
+  console.log({ asPath })
+
   const pathWithoutVersion = asPath.replace(versionPattern, '')
   const basePath = asPath.split('/')[1]
 
@@ -57,9 +59,9 @@ function VersionedErrorPage({
   const versionInPath = versionMatches?.groups?.version
 
   return versionInPath && statusCode === 404 ? (
-    <VersionNotFound version={versionInPath} />
+    <VersionNotFound version={versionInPath} key={asPath} />
   ) : (
-    <ErrorPage statusCode={statusCode} />
+    <ErrorPage statusCode={statusCode} key={asPath} />
   )
 }
 
