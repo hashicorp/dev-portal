@@ -68,7 +68,7 @@ function VersionedErrorPage({
   return versionInPath && statusCode === 404 ? (
     <VersionNotFound version={versionInPath} key={String(isMounted)} />
   ) : (
-    <ErrorPage statusCode={statusCode} key={String(isMounted)} />
+    <ErrorPage statusCode={statusCode} />
   )
 }
 
