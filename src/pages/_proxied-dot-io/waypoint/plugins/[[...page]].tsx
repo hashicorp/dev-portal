@@ -27,7 +27,10 @@ function DocsView(props) {
   )
 }
 
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
+const {
+  getStaticPaths: getStaticPathsBase,
+  getStaticProps,
+} = getStaticGenerationFunctions(
   enableVersionedDocs
     ? {
         strategy: 'remote',
@@ -44,6 +47,18 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
         product: productData.slug,
       }
 )
+
+const getStaticPaths = async (ctx) => {
+  const result = await getStaticPathsBase(ctx)
+
+  return {
+    ...result,
+    paths: result.paths.slice(
+      0,
+      Number.parseInt(process.env.IO_SITES_MAX_STATIC_PATHS, 10)
+    ),
+  }
+}
 
 // Export getStatic functions
 export { getStaticPaths, getStaticProps }

@@ -1,3 +1,5 @@
+const fs = require('fs')
+const path = require('path')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
 const redirectsConfig = require('./config/redirects')
@@ -14,6 +16,19 @@ const temporary_hideDocsPaths = {
     },
   ],
   has: [{ type: 'host', value: '(^(?!.*(waypointproject)).*$)' }],
+}
+
+function getHashiEnvironmentConfig() {
+  const env = process.env.HASHI_ENV || 'development'
+  try {
+    const envConfig = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), 'config', `${env}.json`))
+    )
+    return envConfig
+  } catch (err) {
+    console.log('Error loading environment config:', err)
+    return {}
+  }
 }
 
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
@@ -47,6 +62,7 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
       IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
       DEV_IO: process.env.DEV_IO,
+      ...getHashiEnvironmentConfig(),
     },
     svgo: {
       plugins: [
