@@ -1,25 +1,30 @@
 ---
 componentName: Tabs
+peerComponents:
+  - InlineLink
 ---
 
 <LiveComponent>{`
-<Tabs
-  tabs={[
-    {
-      id: 'tab-1',
-      label: 'Tab 1',
-      content: <p>I am in Tab 1</p>
-    },
-    {
-      id: 'tab-2',
-      label: 'Tab 2',
-      content: <p>I am in Tab 2</p>
-    },
-    {
-      id: 'tab-3',
-      label: 'Tab 3',
-      content: <p>I am in Tab 3</p>
-    },
-  ]}
-/>
+<>
+  <h2>Operating Systems</h2>
+  <Tabs
+    tabs={[
+      {
+        id: 'tab-1',
+        label: 'Windows',
+        content: <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows" text="Read more on Wikipedia" />.</p>
+      },
+      {
+        id: 'tab-2',
+        label: 'Mac OS',
+        content: <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems" text="Read more on Wikipedia" />.</p>
+      },
+      {
+        id: 'tab-3',
+        label: 'Linux',
+        content: <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux" text="Read more on Wikipedia" />.</p>
+      },
+    ]}
+  />
+</>
 `}</LiveComponent>
