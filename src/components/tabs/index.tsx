@@ -1,23 +1,23 @@
-import { ReactElement, ReactNode, useState } from 'react'
+import { ReactElement, useState } from 'react'
+import { TabsProps } from './types'
 
-interface TabsProps {
-  initialActiveIndex?: number
-  tabs: {
-    content: ReactNode
-    id: string
-    label: string
-  }[]
-}
-
-const Tabs = ({ initialActiveIndex = 0, tabs }: TabsProps): ReactElement => {
+const Tabs = ({
+  ariaLabel,
+  ariaLabelledBy,
+  initialActiveIndex = 0,
+  tabs,
+}: TabsProps): ReactElement => {
   const [activeTabIndex, setActiveTabIndex] = useState<number>(
     initialActiveIndex
   )
 
   return (
     <div>
-      {/* TODO: label prop? or aria-labelledby? either/or?*/}
-      <div role="tablist">
+      <div
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        role="tablist"
+      >
         {tabs.map((tab, index) => {
           // TODO: also check the upcoming activeIndex prop
           const isActive = index === activeTabIndex
