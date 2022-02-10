@@ -1,3 +1,5 @@
+//@ts-check
+
 const fs = require('fs')
 const util = require('util')
 const path = require('path')
@@ -11,6 +13,30 @@ const DEST_COMPONENTS = 'src/components'
 const DEST_LIB = 'src/lib'
 const IO_BASE_DIR = '_proxied-dot-io'
 
+/**
+ * @typedef {Object} RepositoryDirs
+ * @property {string} root
+ * @property {string} components
+ * @property {string} data
+ * @property {string} pages
+ * @property {string} public
+ * @property {string} lib
+ */
+
+/**
+ * @typedef {Object} DestinationDirs
+ * @property {string} pages
+ * @property {string} layouts
+ * @property {string} components
+ * @property {string} lib
+ * @property {string} public
+ */
+
+/**
+ *
+ * @param {string} slug
+ * @returns {Promise<{ repoDirs: RepositoryDirs, destDirs: DestinationDirs }>}
+ */
 async function setupProductMigration(slug) {
   //
   // SOURCE - clone repo from GitHub
@@ -22,7 +48,11 @@ async function setupProductMigration(slug) {
   const gitCloneUrl = `https://github.com/hashicorp/${slug}.git`
   console.log(`⏳ Cloning hashicorp/${slug}...`)
   if (!fs.existsSync(clonedDir)) {
-    await exec(`git clone ${gitCloneUrl} ${clonedDir}`)
+    // clone with depth of 1 since we don't care about history
+    await exec(`git clone --depth 1 ${gitCloneUrl} ${clonedDir}`)
+  } else {
+    // reset local checkout in the event there are changes
+    await exec(`cd ${clonedDir} && git restore .`)
   }
   console.log('✅ Done')
 
@@ -61,7 +91,7 @@ async function setupProductMigration(slug) {
   }
   // copy all repo pages into this repo's pages dir
   // (we'll remove some of these files on a product-by-product basis)
-  await exec(`cp -r ${repoDirs.pages}/ ${destDirs.pages}`)
+  await exec(`cp -r ${repoDirs.pages}/. ${destDirs.pages}`)
   console.log('✅ Done')
   // TODO
   // TODO more setup stuff
@@ -69,6 +99,16 @@ async function setupProductMigration(slug) {
   return { repoDirs, destDirs }
 }
 
+/**
+ *
+ * @param {Object} params
+ * @param {string} params.pagesDir
+ * @param {string} params.basePath
+ * @param {{ slug: string, name: string }} params.productData
+ * @param {string=} params.additionalComponentImports
+ * @param {string=} params.additionalComponents
+ * @returns {Promise<boolean>}
+ */
 async function setupDocsRoute({
   pagesDir,
   basePath,
@@ -94,6 +134,13 @@ async function setupDocsRoute({
   return true
 }
 
+/**
+ *
+ * @param {Object} params
+ * @param {string} params.layoutDir
+ * @param {{ slug: string, name: string }} params.productData
+ * @returns {Promise<boolean>}
+ */
 async function setupIoLayout({ layoutDir, productData }) {
   const { slug, name } = productData
   // copy template into place
@@ -108,6 +155,13 @@ async function setupIoLayout({ layoutDir, productData }) {
   return true
 }
 
+/**
+ *
+ * @param {Object} params
+ * @param {string} params.pagesDir
+ * @param {{ slug: string, name: string }} params.productData
+ * @returns {Promise<void>}
+ */
 async function setupSecurityPage({ pagesDir, productData }) {
   const { name, slug } = productData
   fs.mkdirSync(path.join(pagesDir, 'security'), { recursive: true })
@@ -125,6 +179,13 @@ async function setupSecurityPage({ pagesDir, productData }) {
   })
 }
 
+/**
+ *
+ * @param {string} fileString
+ * @param {string} pageName
+ * @param {{ slug: string, name: string }} productData
+ * @returns {string}
+ */
 function addProxyLayout(fileString, pageName, productData) {
   const { name, slug } = productData
   const layoutName = `${name}IoLayout`
@@ -137,12 +198,24 @@ function addProxyLayout(fileString, pageName, productData) {
     )}\n${pageName}.layout = ${layoutName}\nexport default ${pageName}\n`
 }
 
+/**
+ *
+ * @param {string} filePath
+ * @param {(s: string) => (Promise<string> | string)} editFn
+ */
 async function editFile(filePath, editFn) {
   const contents = fs.readFileSync(filePath, 'utf8')
   const editedContents = await editFn(contents)
   fs.writeFileSync(filePath, editedContents, 'utf8')
 }
 
+/**
+ *
+ * @param {Object} params
+ * @param {string[]} params.missingStylesheets
+ * @param {string} params.productName
+ * @returns {Promise<void>}
+ */
 async function addGlobalStyles({ missingStylesheets, productName }) {
   const importStatements = missingStylesheets
     .map((cssPath) => `@import '${cssPath}';`)
@@ -157,6 +230,11 @@ async function addGlobalStyles({ missingStylesheets, productName }) {
   })
 }
 
+/**
+ *
+ * @param {string} filepath
+ * @returns {Promise<void>}
+ */
 async function patchSubnav(filepath) {
   await editFile(filepath, (contents) => {
     return (
@@ -180,7 +258,7 @@ async function patchSubnav(filepath) {
  * for slightly better compatibility.
  *
  * @param {string} filePath
- * @returns
+ * @returns {unknown}
  */
 function evalDataFile(filePath) {
   const fileString = fs.readFileSync(filePath, 'utf-8')

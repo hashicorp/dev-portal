@@ -1,4 +1,16 @@
-module.exports = {
+//@ts-check
+
+/**
+ * @typedef {Object} SiteProxyConfig
+ * @property {string} domain
+ * @property {string} host
+ * @property {string[]} assets
+ */
+
+/**
+ * @type {Record<string, SiteProxyConfig>}
+ */
+const proxyConfig = {
   boundary: {
     // actually https://boundaryproject.io, but using test-bd.hashi-mktg.com as a test
     domain: 'https://test-bd.hashi-mktg.com',
@@ -47,3 +59,5 @@ module.exports = {
     assets: ['/files/press-kit.zip'],
   },
 }
+
+module.exports = proxyConfig
