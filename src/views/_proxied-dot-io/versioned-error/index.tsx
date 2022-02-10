@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import useErrorPageAnalytics from '@hashicorp/react-error-view/use-error-page-analytics'
@@ -21,15 +21,11 @@ function VersionNotFound({ version }: { version: string }): React.ReactElement {
       </h1>
       <p>
         Please select either the{' '}
-        <Link href={pathWithoutVersion}>
-          <a>most recent version</a>
-        </Link>{' '}
-        or a valid version that includes the page you are looking for.
+        <Link href={pathWithoutVersion}>most recent version</Link> or a valid
+        version that includes the page you are looking for.
       </p>
       <p>
-        <Link href={`/${basePath}`}>
-          <a>← Go back to Documentation</a>
-        </Link>
+        <Link href={`/${basePath}`}>← Go back to Documentation</Link>
       </p>
     </div>
   )
@@ -51,13 +47,26 @@ function VersionedErrorPage({
   statusCode,
 }: ErrorPageProps): React.ReactElement {
   const { asPath } = useRouter()
+  const [isMounted, setIsMounted] = useState(false)
+
+  /**
+   * Due to how we are rewriting routes on the io sites, the URLs rendered in VersionNotFound are incorrect during SSR,
+   * and for some reason are NOT getting reconciled on the client even though all of the props and state values internal to Link
+   * are correct.
+   *
+   * I think it's because of some hydration mismatch, so I'm using the isMounted state value as a key here to force the error view
+   * to completely re-mount. I'm sorry, I tried everything else I could think of. :')
+   */
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const versionMatches = versionPattern.exec(asPath)
 
   const versionInPath = versionMatches?.groups?.version
 
   return versionInPath && statusCode === 404 ? (
-    <VersionNotFound version={versionInPath} />
+    <VersionNotFound version={versionInPath} key={String(isMounted)} />
   ) : (
     <ErrorPage statusCode={statusCode} />
   )
