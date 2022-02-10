@@ -23,15 +23,11 @@ function VersionNotFound({ version }: { version: string }): React.ReactElement {
       </h1>
       <p>
         Please select either the{' '}
-        <Link href={pathWithoutVersion} passHref>
-          <a>most recent version</a>
-        </Link>{' '}
-        or a valid version that includes the page you are looking for.
+        <Link href={pathWithoutVersion}>most recent version</Link> or a valid
+        version that includes the page you are looking for.
       </p>
       <p>
-        <Link href={`/${basePath}`} passHref>
-          <a>← Go back to Documentation</a>
-        </Link>
+        <Link href={`/${basePath}`}>← Go back to Documentation</Link>
       </p>
     </div>
   )
