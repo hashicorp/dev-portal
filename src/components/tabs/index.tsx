@@ -1,4 +1,10 @@
-import { ReactElement, useLayoutEffect, useRef, useState } from 'react'
+import {
+  KeyboardEvent,
+  ReactElement,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
 import TabPanel from './components/tab'
 import { TabsProps } from './types'
 import s from './tabs.module.css'
@@ -9,10 +15,27 @@ const Tabs = ({
   initialActiveIndex = 0,
   children,
 }: TabsProps): ReactElement => {
+  /**
+   * Disallow rendering a Tabs component with only one Tab.
+   */
   if (!Array.isArray(children)) {
-    throw new Error('children must be an array of Tab components')
+    throw new Error('children must be an array of multiple Tab components')
   }
 
+  /**
+   * TODO: this is a temporary measure until we are able to start requiring
+   * either (but not both) of these properties via TypeScript. See the block
+   * comment in `./types.ts` for context.
+   */
+  if (ariaLabel && ariaLabelledBy) {
+    throw new Error(
+      'Both ariaLabel and ariaLabelledBy provided to Tabs component. Please only provide one.'
+    )
+  }
+
+  /**
+   * Declaring these items after checking for states where we'd throw an error.
+   */
   const [activeTabIndex, setActiveTabIndex] = useState<number>(
     initialActiveIndex
   )
@@ -45,13 +68,34 @@ const Tabs = ({
    * or right arrow key, respectively. Also handles wrapping focus when:
    *   - the first tab button is focused and left arrow key is pressed down
    *   - the last tab button is focused and right arrow key is pressed down
+   *
+   * This handler does not listen to up/down arrow events so that those keys
+   * still provide their normal browser scrolling function.
    */
-  const handleKeyDown = (key: string, tabIndex: number) => {
+  const handleKeyUp = (
+    event: KeyboardEvent<HTMLButtonElement>,
+    tabIndex: number
+  ) => {
+    const { key } = event
+
+    /**
+     * Ignore space and enter keys since we automatically activate each tab with
+     * the left and right arrow keys.
+     */
+    const isSpaceKey = key === ' '
+    const isEnterKey = key === 'Enter'
+    if (isSpaceKey || isEnterKey) {
+      event.preventDefault()
+      return
+    }
+
+    /**
+     * Handle left/right arrow keys and focus wrapping.
+     */
     const isFirstTab = tabIndex === 0
     const isLastTab = tabIndex === lastIndex
     const isArrowLeft = key === 'ArrowLeft'
     const isArrowRight = key === 'ArrowRight'
-
     if (isArrowLeft && isFirstTab) {
       needToFocusNewElement.current = true
       setActiveTabIndex(lastIndex)
@@ -86,7 +130,8 @@ const Tabs = ({
               id={`${id}-tab`}
               key={id}
               onClick={() => setActiveTabIndex(index)}
-              onKeyDown={(e) => handleKeyDown(e.key, index)}
+              onKeyDown={(e) => e.preventDefault()}
+              onKeyUp={(e) => handleKeyUp(e, index)}
               ref={(thisButtonElement) =>
                 (buttonElements.current[id] = thisButtonElement)
               }
