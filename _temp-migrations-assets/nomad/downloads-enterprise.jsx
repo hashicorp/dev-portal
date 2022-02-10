@@ -3,9 +3,10 @@ import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from 'lib/fetch-release-data'
 import s from './style.module.css'
 
-function DownloadsPage({ releases, latestVersion }) {
+function DownloadsPage({ product, releases, latestVersion }) {
   return (
     <ProductDownloadsPage
+      product={product}
       releases={releases}
       latestVersion={latestVersion}
       getStartedDescription="Follow step-by-step tutorials on the essentials of Nomad."
@@ -27,7 +28,6 @@ function DownloadsPage({ releases, latestVersion }) {
           href: 'https://learn.hashicorp.com/nomad',
         },
       ]}
-      product="nomad"
       logo={
         <img
           className={s.logo}
