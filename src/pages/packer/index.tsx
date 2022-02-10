@@ -1,28 +1,17 @@
-import { ReactElement } from 'react'
-import { GetStaticProps } from 'next'
 import packerData from 'data/packer.json'
+import ProductLandingView from 'views/product-landing'
+import { generateStaticProps } from 'views/product-landing/server'
 import { Product } from 'types/products'
-import BaseNewLayout from 'layouts/base-new'
 
-const product = packerData as Product
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getStaticProps() {
+  const contentJsonFile = 'src/data/packer-landing.json'
+  const product = packerData as Product
 
-const PackerHomePage = (): ReactElement => {
-  return (
-    <>
-      <h1>Packer</h1>
-      <p>This page is a placeholder</p>
-    </>
-  )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
   return {
-    props: {
-      product,
-    },
+    props: await generateStaticProps({ product, contentJsonFile }),
+    revalidate: 10,
   }
 }
 
-PackerHomePage.layout = BaseNewLayout
-
-export default PackerHomePage
+export default ProductLandingView

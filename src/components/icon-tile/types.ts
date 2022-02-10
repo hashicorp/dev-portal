@@ -1,6 +1,9 @@
 import { ProductSlug } from 'types/products'
 
-type ProductBrandColor = 'neutral' | Exclude<ProductSlug, 'sentinel' | 'hcp'>
+export type ProductBrandColor =
+  | 'neutral'
+  | 'neutral-dark'
+  | Exclude<ProductSlug, 'sentinel' | 'hcp'>
 
 export interface IconTileProps {
   /** Pass a single child, which should be a Flight icon. For 'small' and 'medium' size, pass the 16px icon size; for other sizes pass the 24px icon size. Note that non-"color" icons will be colored using the "brandColor". */

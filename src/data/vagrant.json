@@ -1,4 +1,32 @@
 {
   "slug": "vagrant",
-  "name": "Vagrant"
+  "name": "Vagrant",
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/vagrant" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/vagrant"
+      }
+    ],
+    "resourcesNavData": [
+      { "heading": "Resources" },
+      {
+        "title": "Releases",
+        "href": "https://releases.hashicorp.com/vagrant/"
+      },
+      {
+        "title": "HashiCorp Learn",
+        "href": "https://learn.hashicorp.com/vagrant"
+      },
+      {
+        "title": "Community Forum",
+        "href": "https://discuss.hashicorp.com/c/vagrant/24"
+      },
+      {
+        "title": "Support",
+        "href": "https://support.hashicorp.com"
+      }
+    ]
+  }
 }

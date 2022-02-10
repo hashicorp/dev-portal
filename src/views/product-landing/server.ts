@@ -26,12 +26,50 @@ async function generateStaticProps({
   // TODO: content is accurate, while not needing to be
   // TODO: manually kept up to date?
   // Asana task: https://app.asana.com/0/1201010428539925/1201646299837754/f
+  const usedHeadings = []
   CONTENT.blocks = CONTENT.blocks.map((block) => {
-    const { type, heading } = block
-    if (type !== 'heading') return block
-    return {
-      ...block,
-      slug: slugify(heading, { lower: true }),
+    switch (block.type) {
+      case 'heading':
+        // augment heading blocks with a consistent slug,
+        // used for anchor linking
+        // if the resulting slug is not unique, append an
+        // integer suffix to make sure that it is
+        // eslint-disable-next-line no-case-declarations
+        const baseSlug = slugify(block.heading, { lower: true })
+        // eslint-disable-next-line no-case-declarations
+        let slug = baseSlug
+        // eslint-disable-next-line no-case-declarations
+        let slugMakeUniquePrefix = 0
+        while (usedHeadings.indexOf(slug) !== -1) {
+          slugMakeUniquePrefix++
+          slug = `${baseSlug}-${slugMakeUniquePrefix}`
+        }
+        usedHeadings.push(slug)
+        return { ...block, slug }
+      case 'cards':
+        // TODO: instead of the below, should likely use product context
+        // TODO: in IconTile for default brandColor (rather than current
+        // TODO: behavior of static default to "neutral"). Would eliminate
+        // TODO: the need to add iconBrandColor to cards (unless doing so
+        // TODO: as an explicit override).
+        // ensure cards with icons have an iconBrandColor,
+        // falling back to the current product if not set
+        /* eslint-disable-next-line no-case-declarations */
+        let defaultIconColor
+        if (product.slug === 'hcp' || product.slug === 'sentinel') {
+          defaultIconColor = 'neutral'
+        } else {
+          defaultIconColor = product.slug
+        }
+        return {
+          ...block,
+          cards: block.cards.map((card) => ({
+            ...card,
+            iconBrandColor: card.iconBrandColor || defaultIconColor,
+          })),
+        }
+      default:
+        return block
     }
   })
 

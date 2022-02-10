@@ -1,0 +1,169 @@
+{
+  "heading": "Nomad Overview",
+  "subheading": "Use Nomad to deploy and manage any containerized or legacy application with a single, unified workflow.",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 400,
+      "heading": "Explore Nomad Documentation"
+    },
+    {
+      "type": "get_started",
+      "product": "nomad",
+      "heading": "Introduction to Nomad",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, mattis facilisi aliquam elit velit. Consectetur sit ullamcorper pulvinar a lacus, diam, neque. Faucibus laoreet ipsum.",
+      "link": {
+        "text": "Get Started",
+        "url": "https://learn.hashicorp.com/tutorials/nomad/get-started-intro"
+      }
+    },
+    {
+      "type": "cards",
+      "columns": 2,
+      "cards": [
+        {
+          "icon": "IconDocs",
+          "heading": "Nomad Reference Documentation",
+          "text": "This documentation is a reference for all available features and options of Nomad.",
+          "url": "https://www.nomadproject.io/docs"
+        },
+        {
+          "icon": "IconTerminal",
+          "heading": "Nomad CLI",
+          "text": "Nomad is controlled via a very easy to use command-line interface (CLI).",
+          "url": "https://www.nomadproject.io/docs/commands"
+        },
+        {
+          "icon": "IconServer",
+          "heading": "Nomad API",
+          "text": "The main interface to Nomad is a RESTful HTTP API. The API can query the current state of the system...",
+          "url": "https://www.nomadproject.io/api-docs"
+        },
+        {
+          "icon": "IconDownload",
+          "heading": "Nomad Install",
+          "text": "Please download the proper package for your operating system and architecture.",
+          "url": "https://www.nomadproject.io/downloads"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Featured Reference Docs",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Nomad vs. Kubernetes",
+          "text": "Kubernetes and Nomad support similar core use cases for application deployment...",
+          "url": "https://www.nomadproject.io/docs/nomad-vs-kubernetes"
+        },
+        {
+          "heading": "Nomad Configuration",
+          "text": "Nomad agents have a variety of parameters that can be specified via configuration...",
+          "url": "https://www.nomadproject.io/docs/configuration"
+        },
+        {
+          "heading": "Docker Driver",
+          "text": "The docker driver provides a first-class Docker workflow on Nomad.",
+          "url": "https://www.nomadproject.io/docs/drivers/docker"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Lorem ipsum dolor sit amet",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Etiam quis in ac non quam.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
+          "url": "https://www.nomadproject.io"
+        },
+        {
+          "heading": "Aliquet eu risus dis sed.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
+          "url": "https://www.nomadproject.io"
+        },
+        {
+          "heading": "Ornare faucibus blandit id.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
+          "url": "https://www.nomadproject.io"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Lorem ipsum dolor sit amet",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Interdum sollicitudin.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum lectus posuere.",
+          "url": "https://www.nomadproject.io"
+        },
+        {
+          "heading": "Ornare nibh semper.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
+          "url": "https://www.nomadproject.io"
+        },
+        {
+          "heading": "Fames nibh gravida.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "url": "https://www.nomadproject.io"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Start Learning",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 2,
+      "cards": [
+        {
+          "heading": "Get Started",
+          "text": "Install and run a sample Nomad environment. Schedule the sample job, deploy multiple...",
+          "url": "https://learn.hashicorp.com/collections/nomad/get-started",
+          "tags": ["nomad"]
+        },
+        {
+          "heading": "Manage Jobs",
+          "text": "Learn the fundamentals of expressing your workload as Nomad jobs. Submit, inspect, and monitor a...",
+          "url": "https://learn.hashicorp.com/collections/nomad/manage-jobs",
+          "tags": ["nomad"]
+        },
+        {
+          "heading": "Web UI",
+          "text": "Take a quick survey of the Nomad web user interface and learn how to perform common...",
+          "url": "https://learn.hashicorp.com/collections/nomad/web-ui",
+          "tags": ["nomad"]
+        },
+        {
+          "heading": "Access Control",
+          "text": "Configure a Nomad cluster for ACLs, bootstrap the ACL system, author your first policy, and grant a...",
+          "url": "https://learn.hashicorp.com/collections/nomad/access-control",
+          "tags": ["nomad"]
+        }
+      ]
+    }
+  ]
+}

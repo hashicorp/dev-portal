@@ -1,28 +1,17 @@
-import { ReactElement } from 'react'
-import { GetStaticProps } from 'next'
 import terraformData from 'data/terraform.json'
+import ProductLandingView from 'views/product-landing'
+import { generateStaticProps } from 'views/product-landing/server'
 import { Product } from 'types/products'
-import BaseNewLayout from 'layouts/base-new'
 
-const product = terraformData as Product
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getStaticProps() {
+  const contentJsonFile = 'src/data/terraform-landing.json'
+  const product = terraformData as Product
 
-const TerraformHomePage = (): ReactElement => {
-  return (
-    <>
-      <h1>Terraform</h1>
-      <p>This page is a placeholder</p>
-    </>
-  )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
   return {
-    props: {
-      product,
-    },
+    props: await generateStaticProps({ product, contentJsonFile }),
+    revalidate: 10,
   }
 }
 
-TerraformHomePage.layout = BaseNewLayout
-
-export default TerraformHomePage
+export default ProductLandingView

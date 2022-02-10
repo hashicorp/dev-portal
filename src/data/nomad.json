@@ -1,4 +1,32 @@
 {
   "slug": "nomad",
-  "name": "Nomad"
+  "name": "Nomad",
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/nomad" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/nomad"
+      }
+    ],
+    "resourcesNavData": [
+      { "heading": "Resources" },
+      {
+        "title": "Releases",
+        "href": "https://releases.hashicorp.com/nomad/"
+      },
+      {
+        "title": "HashiCorp Learn",
+        "href": "https://learn.hashicorp.com/nomad"
+      },
+      {
+        "title": "Community Forum",
+        "href": "https://discuss.hashicorp.com/c/nomad"
+      },
+      {
+        "title": "Support",
+        "href": "https://support.hashicorp.com"
+      }
+    ]
+  }
 }

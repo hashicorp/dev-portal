@@ -213,9 +213,7 @@ const ProductSwitcher: React.FC = () => {
       >
         <span className={s.switcherOptionContainer}>
           <ProductIcon
-            className={classNames({
-              [s.vaultProductIcon]: currentProduct?.slug === 'vault',
-            })}
+            className={s[`${currentProduct?.slug}ProductIcon`]}
             product={currentProduct?.slug}
           />
           <span>{currentProduct ? currentProduct.name : 'Products'}</span>
