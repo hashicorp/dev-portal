@@ -19,7 +19,7 @@
       }
     ]
   },
-  "alertBannerActive": true,
+  "alertBannerActive": false,
   "alertBanner": {
     "tag": "Thank you",
     "url": "https://hashiconf.com/europe",
