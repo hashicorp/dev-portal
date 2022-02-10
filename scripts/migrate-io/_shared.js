@@ -38,6 +38,9 @@ const IO_BASE_DIR = '_proxied-dot-io'
  * @returns {Promise<{ repoDirs: RepositoryDirs, destDirs: DestinationDirs }>}
  */
 async function setupProductMigration(slug) {
+  if (process.platform !== 'darwin' && process.platform !== 'linux') {
+    throw new Error('.io migration scripts only support macOS and Linux')
+  }
   //
   // SOURCE - clone repo from GitHub
   //
@@ -91,7 +94,11 @@ async function setupProductMigration(slug) {
   }
   // copy all repo pages into this repo's pages dir
   // (we'll remove some of these files on a product-by-product basis)
-  await exec(`cp -r ${repoDirs.pages}/. ${destDirs.pages}`)
+  if (process.platform === 'darwin') {
+    await exec(`cp -r ${repoDirs.pages}/ ${destDirs.pages}`)
+  } else {
+    await exec(`cp -r ${repoDirs.pages}/. ${destDirs.pages}`)
+  }
   console.log('✅ Done')
   // TODO
   // TODO more setup stuff
