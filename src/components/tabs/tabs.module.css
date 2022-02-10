@@ -1,0 +1,38 @@
+.root {
+  & [role='tablist'] {
+    align-items: center;
+    display: flex;
+    margin-bottom: 16px;
+  }
+
+  & [role='tab'] {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    color: var(--token-color-neutral-foreground-faint);
+    font-size: var(--token-typography-body-200-font-size);
+    font-weight: var(--token-typography-font-weight-regular);
+    padding: 8px 12px;
+
+    &[aria-selected='true'] {
+      color: var(--token-color-neutral-foreground-primary);
+      background-color: var(--token-color-palette-neutral-200);
+      font-weight: var(--token-typography-font-weight-medium);
+    }
+  }
+
+  /*
+  Since aria-hidden does not have perfect screen reader support, we can maximize
+  compatibility by using it as a selector to apply additional styles. This also
+  keeps us from having to set styles in the JSX.
+
+  ref: https://twitter.com/heydonworks/status/408263890284191745
+  ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
+  */
+  & [role='tabpanel'] {
+    &[aria-hidden='true'] {
+      display: none;
+      visibility: hidden;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { ReactElement, useLayoutEffect, useRef, useState } from 'react'
 import TabPanel from './components/tab'
 import { TabsProps } from './types'
+import s from './tabs.module.css'
 
 const Tabs = ({
   ariaLabel,
@@ -67,7 +68,7 @@ const Tabs = ({
   }
 
   return (
-    <div>
+    <div className={s.root}>
       <div
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
@@ -104,10 +105,10 @@ const Tabs = ({
 
         return (
           <div
+            aria-hidden={!isActive}
             aria-labelledby={`${id}-tab`}
             id={`${id}-tabpanel`}
             key={id}
-            style={{ display: isActive ? 'block' : 'none' }}
             role="tabpanel"
             tabIndex={0}
           >
