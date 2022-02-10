@@ -45,15 +45,7 @@ async function migrateNomadIo() {
     alertBannerActive: false,
     alertBanner: evalDataFile(path.join(repoDirs.data, 'alert-banner.js')),
     version: evalDataFile(path.join(repoDirs.data, 'version.js')),
-    // TODO: note that subnav items on nomad main branch
-    // TODO: include /plugins and /tools docs paths.
-    // TODO: content has not been extracted yet,
-    // TODO: so we remove these subnav items, for now.
-    subnavItems: evalDataFile(path.join(repoDirs.data, 'subnav.js')).filter(
-      (item) => {
-        return item.url !== '/plugins' && item.url !== '/tools'
-      }
-    ),
+    subnavItems: evalDataFile(path.join(repoDirs.data, 'subnav.js')),
   }
   // write product data to file
   await exec(`rm -f ./src/data/${slug}.json`)
@@ -82,6 +74,7 @@ async function migrateNomadIo() {
     // meta images
     '/_favicon.ico',
     '/img/og-image.png',
+    '/img/nomad-bg-pattern.svg',
     // press kit
     // note: we have a redirect in place to allow consistent URL
     '/files/press-kit.zip',
@@ -115,6 +108,15 @@ async function migrateNomadIo() {
     const destPath = `${destDirs.components}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
+  // replace image path for hero background
+  await editFile(
+    `${destDirs.components}/homepage-hero/style.css`,
+    (fileString) =>
+      fileString.replace(
+        '/img/nomad-bg-pattern.svg',
+        "'/nomad/img/nomad-bg-pattern.svg'"
+      )
+  )
   console.log('✅ Done')
   //
   // SUBNAV COMPONENT
@@ -228,37 +230,16 @@ async function migrateNomadIo() {
       productData,
     })
   }
-  // TODO: temporary fix for docs routes that
-  // TODO: haven't been ETL'd yet
-  for (var i = 3; i < docsRoutes.length; i++) {
-    const basePath = docsRoutes[i]
+  // hide version select on /plugins and /tools
+  for (const basePath of ['plugins', 'tools']) {
     await editFile(
       path.join(destDirs.pages, basePath, '[[...page]].tsx'),
       (contents) => {
         let newContents = contents
-        // replace component import paths
-        newContents = newContents
-          .replace('{ getStaticPaths, getStaticProps }', `staticGenFns`)
-          .replace(
-            'export { getStaticPaths, getStaticProps }\n',
-            `// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getStaticPaths(ctx) {
-  // TODO: content is not yet extracted, because
-  // TODO: this docs path does not exist on stable-website,
-  // TODO: only on main (unreleased).
-  // TODO: need to consider what approach we'll take
-  // TODO: during migration if website code on main
-  // TODO: is significantly different (slash breaks)
-  // TODO: compared to website code on stable-website.
-  if (enableVersionedDocs) return { paths: [], fallback: 'blocking' }
-  return staticGenFns.getStaticPaths(ctx)
-}
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getStaticProps(ctx) {
-  return staticGenFns.getStaticProps(ctx)
-}\n`
-          )
-        // return
+        newContents = newContents.replace(
+          'showVersionSelect={enableVersionedDocs}',
+          'showVersionSelect={false}'
+        )
         return newContents
       }
     )

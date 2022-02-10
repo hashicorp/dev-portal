@@ -52,6 +52,16 @@
       "type": "inbound"
     },
     {
+      "text": "Plugins",
+      "url": "/plugins",
+      "type": "inbound"
+    },
+    {
+      "text": "Tools",
+      "url": "/tools",
+      "type": "inbound"
+    },
+    {
       "text": "Community",
       "url": "/community",
       "type": "inbound"

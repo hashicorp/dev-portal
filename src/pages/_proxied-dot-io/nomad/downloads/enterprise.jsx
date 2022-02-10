@@ -27,6 +27,7 @@ function DownloadsPage({ releases, latestVersion }) {
           href: 'https://learn.hashicorp.com/nomad',
         },
       ]}
+      product="nomad"
       logo={
         <img
           className={s.logo}
