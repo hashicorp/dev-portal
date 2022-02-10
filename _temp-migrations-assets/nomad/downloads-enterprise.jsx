@@ -38,6 +38,19 @@ function DownloadsPage({ releases, latestVersion }) {
         href: 'https://learn.hashicorp.com/nomad',
         label: 'View Tutorials at HashiCorp Learn',
       }}
+      merchandisingSlot={
+        <p className={s.legalNotice}>
+          <em>
+            The following shall apply unless your organization has a separately
+            signed Enterprise License Agreement or Evaluation Agreement
+            governing your use of the package: Enterprise packages in this
+            repository are subject to the license terms located in the package.
+            Please read the license terms prior to using the package. Your
+            installation and use of the package constitutes your acceptance of
+            these terms. If you do not accept the terms, do not use the package.
+          </em>
+        </p>
+      }
     />
   )
 }

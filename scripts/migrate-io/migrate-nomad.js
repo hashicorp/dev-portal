@@ -77,6 +77,7 @@ async function migrateNomadIo() {
   //
   // ASSETS
   //
+  console.log('⏳ Copying assets...')
   const assetsToCopy = [
     // meta images
     '/_favicon.ico',
@@ -92,10 +93,12 @@ async function migrateNomadIo() {
     if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, { recursive: true })
     await exec(`cp -r ${srcPath} ${destPath}`)
   }
+  console.log('✅ Done')
   //
   // COMPONENTS
   //
   // copy components into dedicated directory
+  console.log('⏳ Copying components...')
   const missingComponents = [
     // layout
     'subnav',
@@ -112,11 +115,13 @@ async function migrateNomadIo() {
     const destPath = `${destDirs.components}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
+  console.log('✅ Done')
   //
   // SUBNAV COMPONENT
   //
   // temporary fix for currentPath highlighting issue in subnav
   // TODO there must be a better way to do this?
+  console.log('⏳ Updating subnav...')
   await patchSubnav(`${destDirs.components}/subnav/index.jsx`)
   // edit the subnav file to use the consolidated data file
   await editFile(`${destDirs.components}/subnav/index.jsx`, (contents) => {
@@ -127,15 +132,19 @@ async function migrateNomadIo() {
       )
       .replace(/subnavItems/g, 'productData.subnavItems')
   })
+  console.log('✅ Done')
   //
   // LAYOUT
   //
   // setup the layout file for this product
+  console.log('⏳ Setting up layout...')
   await setupIoLayout({ layoutDir: destDirs.layouts, productData })
+  console.log('✅ Done')
   //
   // GLOBAL STYLES
   //
   // add the homepage stylesheet to our main style.css
+  console.log('⏳ Setting up global styles...')
   const missingStylesheets = [
     './_proxied-dot-io/nomad/home/style.css',
     '../components/_proxied-dot-io/nomad/case-study-carousel/style.css',
@@ -146,10 +155,12 @@ async function migrateNomadIo() {
     '../components/_proxied-dot-io/nomad/mini-cta/style.css',
   ]
   await addGlobalStyles({ missingStylesheets, productName: productData.name })
+  console.log('✅ Done')
   //
   // PAGES FOLDER SETUP
   //
   // delete some page files we don't need
+  console.log('⏳ Deleting unnecessary files...')
   const filesToDelete = [
     '_app.js',
     '_document.js',
@@ -168,11 +179,13 @@ async function migrateNomadIo() {
     const filepath = path.join(destDirs.pages, filesToDelete[i])
     await exec(`rm -rf ${filepath}`)
   }
+  console.log('✅ Done')
   //
   // HOME PAGE
   //
   // move home page from /home/index.jsx to /index.jsx,
   // to avoid duplicate route (or need for redirect)
+  console.log('⏳ Updating homepage...')
   await exec(`mv ${destDirs.pages}/home/index.jsx ${destDirs.pages}/index.jsx`)
   // edit file to account for above changes
   await editFile(`${destDirs.pages}/index.jsx`, (contents) => {
@@ -197,6 +210,7 @@ async function migrateNomadIo() {
     // return
     return newContents
   })
+  console.log('✅ Done')
   //
   // DOCS routes
   //
@@ -258,17 +272,12 @@ export function getStaticProps(ctx) {
   //
   // DOWNLOADS PAGE
   //
-  await editFile(`${destDirs.pages}/downloads/index.jsx`, (contents) => {
-    let newContents = contents
-      .replace(
-        "import VERSION from 'data/version'\nimport { productSlug } from 'data/metadata'",
-        "import productData from 'data/nomad'"
-      )
-      .replace(/productSlug/g, 'productData.slug')
-      .replace('latestVersion: VERSION', 'latestVersion: productData.version')
-    newContents = addProxyLayout(newContents, 'DownloadsPage', productData)
-    return newContents
-  })
+  await exec(
+    `cp _temp-migrations-assets/nomad/downloads-index.jsx ${destDirs.pages}/downloads/index.jsx`
+  )
+  await exec(
+    `cp _temp-migrations-assets/nomad/downloads-enterprise.jsx ${destDirs.pages}/downloads/enterprise.jsx`
+  )
   //
   // SECURITY PAGE
   //
