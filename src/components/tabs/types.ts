@@ -13,6 +13,7 @@ export interface TabsProps {
   ariaLabel?: string
   ariaLabelledBy?: string
   children: ReactNode
+  id?: string
   initialActiveIndex?: number
 }
 

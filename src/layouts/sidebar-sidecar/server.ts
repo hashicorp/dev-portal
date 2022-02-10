@@ -5,8 +5,11 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { Product } from 'types/products'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
+import { visit } from 'unist-util-visit'
 
 const BASE_REVALIDATE = 10
+
+let generatedUniqueId = 0
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -58,6 +61,39 @@ export function getStaticGenerationFunctions({
       const loader = getLoader({
         remarkPlugins: [
           [anchorLinks, { headings }],
+          [
+            () => {
+              return function transformer(tree) {
+                visit(tree, 'jsx', (node) => {
+                  const tabPanelRegex = /(<Tab[ |>])(.*)/
+                  const tabPanelMatches = node.value.match(tabPanelRegex)
+                  if (tabPanelMatches) {
+                    const beginning = tabPanelMatches[1]
+                    const rest = tabPanelMatches[2]
+                    node.value = node.value.replace(
+                      tabPanelRegex,
+                      `${beginning} id="devdot-id-${generatedUniqueId}" ${rest}`
+                    )
+                    generatedUniqueId += 1
+                  }
+
+                  const tabsRegex = /(<Tabs)(.*)/
+                  const tabMatches = node.value.match(tabsRegex)
+                  if (tabMatches) {
+                    const beginning = tabMatches[1]
+                    const rest = tabMatches[2]
+                    node.value = node.value.replace(
+                      tabsRegex,
+                      `${beginning} id="devdot-id-${generatedUniqueId}" ${rest}`
+                    )
+                    generatedUniqueId += 1
+                  }
+
+                  console.log('GENERATED ID IS NOW', generatedUniqueId)
+                })
+              }
+            },
+          ],
           ...additionalRemarkPlugins,
         ],
       })

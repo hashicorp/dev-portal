@@ -12,6 +12,7 @@ import s from './tabs.module.css'
 const Tabs = ({
   ariaLabel,
   ariaLabelledBy,
+  id,
   initialActiveIndex = 0,
   children,
 }: TabsProps): ReactElement => {
@@ -112,7 +113,7 @@ const Tabs = ({
   }
 
   return (
-    <div className={s.root}>
+    <div className={s.root} id={id}>
       <div
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
