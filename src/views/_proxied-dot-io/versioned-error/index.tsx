@@ -11,8 +11,6 @@ function VersionNotFound({ version }: { version: string }): React.ReactElement {
   const { asPath } = useRouter()
   useErrorPageAnalytics(404)
 
-  console.log({ asPath })
-
   const pathWithoutVersion = asPath.replace(versionPattern, '')
   const basePath = asPath.split('/')[1]
 
@@ -51,6 +49,14 @@ function VersionedErrorPage({
   const { asPath } = useRouter()
   const [isMounted, setIsMounted] = useState(false)
 
+  /**
+   * Due to how we are rewriting routes on the io sites, the URLs rendered in VersionNotFound are incorrect during SSR,
+   * and for some reason are NOT getting reconciled on the client even though all of the props and state values internal to Link
+   * are correct.
+   *
+   * I think it's because of some hydration mismatch, so I'm using the isMounted state value as a key here to force the error view
+   * to completely re-mount. I'm sorry, I tried everything else I could think of. :')
+   */
   useEffect(() => {
     setIsMounted(true)
   }, [])
