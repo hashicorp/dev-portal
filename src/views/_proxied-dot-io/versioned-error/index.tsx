@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import useErrorPageAnalytics from '@hashicorp/react-error-view/use-error-page-analytics'
@@ -49,15 +49,20 @@ function VersionedErrorPage({
   statusCode,
 }: ErrorPageProps): React.ReactElement {
   const { asPath } = useRouter()
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const versionMatches = versionPattern.exec(asPath)
 
   const versionInPath = versionMatches?.groups?.version
 
   return versionInPath && statusCode === 404 ? (
-    <VersionNotFound version={versionInPath} key={asPath} />
+    <VersionNotFound version={versionInPath} key={String(isMounted)} />
   ) : (
-    <ErrorPage statusCode={statusCode} key={asPath} />
+    <ErrorPage statusCode={statusCode} key={String(isMounted)} />
   )
 }
 
