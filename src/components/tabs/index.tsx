@@ -1,5 +1,6 @@
 import {
   KeyboardEvent,
+  KeyboardEventHandler,
   ReactElement,
   useLayoutEffect,
   useRef,
@@ -64,6 +65,23 @@ const Tabs = ({
     tabButtonToFocus?.focus()
     needToFocusNewElement.current = false
   }, [activeTabIndex, children])
+
+  /**
+   * We only want to prevent default behavior for the keys that we listen for in
+   * the `handleKeyUp` handler. This approach keeps us from disabling scrolling
+   * using the up, down, home, and end keys.
+   */
+  const handleKeyDown: KeyboardEventHandler<HTMLButtonElement> = (event) => {
+    const { key } = event
+    const isArrowLeft = key === 'ArrowLeft'
+    const isArrowRight = key === 'ArrowRight'
+    const isSpaceKey = key === ' '
+    const isEnterKey = key === 'Enter'
+
+    if (isArrowLeft || isArrowRight || isSpaceKey || isEnterKey) {
+      event.preventDefault()
+    }
+  }
 
   /**
    * Sets the active tab index to the previous or next tab button with the left
@@ -142,7 +160,7 @@ const Tabs = ({
               id={`${id}-tab`}
               key={id}
               onClick={() => setActiveTabIndex(index)}
-              onKeyDown={(e) => e.preventDefault()}
+              onKeyDown={handleKeyDown}
               onKeyUp={(e) => handleKeyUp(e, index)}
               ref={(thisButtonElement) =>
                 (buttonElements.current[index] = thisButtonElement)
