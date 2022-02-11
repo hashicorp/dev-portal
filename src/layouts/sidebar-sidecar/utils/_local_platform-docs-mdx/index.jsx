@@ -2,7 +2,8 @@ import React from 'react'
 import classNames from 'classnames'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
-import TabsBase, { Tab } from '@hashicorp/react-tabs'
+// import TabsBase, { Tab } from '@hashicorp/react-tabs'
+import Tabs, { TabPanel as Tab } from 'components/tabs'
 import { useCurrentProduct } from 'contexts'
 import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
@@ -98,15 +99,15 @@ function EnterpriseAlert(props) {
 
 // Tabs is a general-purpose component that we format for ease of use within mdx
 // It is also wrapped in a span with a css module class for styling overrides
-function Tabs({ defaultTabIdx, children }) {
-  if (!Array.isArray(children))
-    throw new Error('Multiple <Tab> elements required')
+// function Tabs({ defaultTabIdx, children }) {
+//   if (!Array.isArray(children))
+//     throw new Error('Multiple <Tab> elements required')
 
-  return (
-    <span className={s.tabsRoot}>
-      <TabsBase className="g-tabs" defaultTabIdx={defaultTabIdx}>
-        {children}
-      </TabsBase>
-    </span>
-  )
-}
+//   return (
+//     <span className={s.tabsRoot}>
+//       <TabsBase className="g-tabs" defaultTabIdx={defaultTabIdx}>
+//         {children}
+//       </TabsBase>
+//     </span>
+//   )
+// }
