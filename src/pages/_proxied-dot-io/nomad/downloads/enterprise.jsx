@@ -9,6 +9,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
       product={product}
       releases={releases}
       latestVersion={latestVersion}
+      enterpriseMode
       getStartedDescription="Follow step-by-step tutorials on the essentials of Nomad."
       getStartedLinks={[
         {
