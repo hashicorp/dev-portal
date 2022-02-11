@@ -1,4 +1,9 @@
 /*
+NOTE: This file mainly uses selectors to apply styles because it ensures that
+the correct elements, roles, states, and properties are being set in the markup.
+*/
+
+/*
 Styles for showing a bottom border on the tab buttons container.
 */
 .tablistWithAnchorLine {
