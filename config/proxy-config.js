@@ -23,8 +23,8 @@ const proxyConfig = {
   //   assets: [],
   // },
   nomad: {
-    domain: 'https://test-nm.hashi-mktg.com',
-    host: 'test-nm.hashi-mktg.com',
+    domain: 'https://www.nomadproject.io',
+    host: '(www\\.nomadproject\\.io|test-nm\\.hashi-mktg\\.com)',
     assets: ['/files/press-kit.zip'],
   },
   // packer: {

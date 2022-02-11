@@ -13,7 +13,7 @@ const temporary_hideDocsPaths = {
       value: 'noindex',
     },
   ],
-  has: [{ type: 'host', value: '(^(?!.*(waypointproject)).*$)' }],
+  has: [{ type: 'host', value: '(^(?!.*(nomadproject|waypointproject)).*$)' }],
 }
 
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
