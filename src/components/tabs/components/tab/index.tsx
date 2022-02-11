@@ -1,13 +1,9 @@
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement } from 'react'
+import { TabProps } from './types'
 
-interface TabPanelProps {
-  heading: string
-  id: string
-  children: ReactNode
-}
-
-const TabPanel = (props: TabPanelProps): ReactElement => {
+const TabPanel = (props: TabProps): ReactElement => {
   return null
 }
 
+export type { TabProps }
 export default TabPanel
