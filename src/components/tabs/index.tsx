@@ -5,7 +5,9 @@ import {
   useRef,
   useState,
 } from 'react'
-import TabPanel from './components/tab'
+import { useId } from '@react-aria/utils'
+import slugify from 'slugify'
+import Tab, { TabProps } from './components/tab'
 import { TabsProps } from './types'
 import s from './tabs.module.css'
 
@@ -39,9 +41,10 @@ const Tabs = ({
   const [activeTabIndex, setActiveTabIndex] = useState<number>(
     initialActiveIndex
   )
-  const tablistRef = useRef<HTMLDivElement>()
   const needToFocusNewElement = useRef<boolean>(false)
   const buttonElements = useRef<{ [key in string]: HTMLButtonElement }>({})
+  const uniqueId = useId()
+  const rootContainerId = `Tabs-${uniqueId}`
   const numTabs = children.length
   const lastIndex = numTabs - 1
 
@@ -57,8 +60,7 @@ const Tabs = ({
       return
     }
 
-    const newlyActiveChild = children[activeTabIndex] as ReactElement
-    const tabButtonToFocus = buttonElements.current[newlyActiveChild.props.id]
+    const tabButtonToFocus = buttonElements.current[activeTabIndex]
     tabButtonToFocus?.focus()
     needToFocusNewElement.current = false
   }, [activeTabIndex, children])
@@ -111,16 +113,26 @@ const Tabs = ({
     }
   }
 
+  /**
+   * Slugifies a tab's heading text and appends it to the root container ID,
+   * which is unique to the main Tabs component. This is a separate function so
+   * that it can be accessed by the separate map calls below where tabs and
+   * their panels need to be aware of each other's element ids.
+   */
+  const getTabId = (heading: TabProps['heading']) => {
+    return `${rootContainerId}-${slugify(heading)}`
+  }
+
   return (
-    <div className={s.root}>
+    <div className={s.root} id={rootContainerId}>
       <div
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
-        ref={tablistRef}
         role="tablist"
       >
         {children.map((childTab: ReactElement, index) => {
-          const { id, heading } = childTab.props
+          const { heading } = childTab.props
+          const id = getTabId(heading)
           const isActive = index === activeTabIndex
 
           return (
@@ -133,7 +145,7 @@ const Tabs = ({
               onKeyDown={(e) => e.preventDefault()}
               onKeyUp={(e) => handleKeyUp(e, index)}
               ref={(thisButtonElement) =>
-                (buttonElements.current[id] = thisButtonElement)
+                (buttonElements.current[index] = thisButtonElement)
               }
               role="tab"
               tabIndex={isActive ? 0 : -1}
@@ -145,7 +157,8 @@ const Tabs = ({
         })}
       </div>
       {children.map((childTab: ReactElement, index) => {
-        const { id, children } = childTab.props
+        const { heading, children } = childTab.props
+        const id = getTabId(heading)
         const isActive = index === activeTabIndex
 
         return (
@@ -166,4 +179,4 @@ const Tabs = ({
 }
 
 export default Tabs
-export { TabPanel }
+export { Tab }
