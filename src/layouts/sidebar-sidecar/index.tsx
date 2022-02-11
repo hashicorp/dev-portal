@@ -17,7 +17,7 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
   navData,
   openConsentManager,
   productName,
-  sidecarChildren = <TableOfContents headings={headings} />,
+  sidecarChildren,
 }) => (
   <BaseLayout showFooter={false}>
     <div className={s.contentWrapper}>
@@ -49,7 +49,13 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
           />
         </div>
         <div className={`${s.sidecar} hide-on-mobile hide-on-tablet`}>
-          {sidecarChildren}
+          {sidecarChildren ? (
+            sidecarChildren
+          ) : (
+            <TableOfContents
+              headings={headings.filter((heading) => heading.level <= 2)}
+            />
+          )}
         </div>
       </div>
     </div>
