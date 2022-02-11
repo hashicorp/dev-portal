@@ -14,6 +14,7 @@ export interface TabsProps {
   ariaLabelledBy?: string
   children: ReactNode
   initialActiveIndex?: number
+  showAnchorLine?: boolean
 }
 
 // interface BaseProps {

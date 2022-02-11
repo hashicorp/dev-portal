@@ -11,12 +11,14 @@ import slugify from 'slugify'
 import Tab, { TabProps } from './components/tab'
 import { TabsProps } from './types'
 import s from './tabs.module.css'
+import classNames from 'classnames'
 
 const Tabs = ({
   ariaLabel,
   ariaLabelledBy,
-  initialActiveIndex = 0,
   children,
+  initialActiveIndex = 0,
+  showAnchorLine = true,
 }: TabsProps): ReactElement => {
   /**
    * Disallow rendering a Tabs component with only one Tab.
@@ -146,6 +148,7 @@ const Tabs = ({
       <div
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
+        className={classNames({ [s.tablistWithAnchorLine]: showAnchorLine })}
         role="tablist"
       >
         {children.map((childTab: ReactElement, index) => {
