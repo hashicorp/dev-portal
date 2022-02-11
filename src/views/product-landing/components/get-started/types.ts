@@ -1,5 +1,6 @@
+import { ProductSlug } from 'types/products'
 export interface GetStartedProps {
-  iconSvg: string
+  product: ProductSlug
   heading: string
   text: string
   link: {

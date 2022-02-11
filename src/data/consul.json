@@ -1,4 +1,32 @@
 {
   "name": "Consul",
-  "slug": "consul"
+  "slug": "consul",
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/consul" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/consul"
+      }
+    ],
+    "resourcesNavData": [
+      { "heading": "Resources" },
+      {
+        "title": "Releases",
+        "href": "https://releases.hashicorp.com/consul/"
+      },
+      {
+        "title": "HashiCorp Learn",
+        "href": "https://learn.hashicorp.com/consul"
+      },
+      {
+        "title": "Community Forum",
+        "href": "https://discuss.hashicorp.com/c/consul"
+      },
+      {
+        "title": "Support",
+        "href": "https://support.hashicorp.com"
+      }
+    ]
+  }
 }

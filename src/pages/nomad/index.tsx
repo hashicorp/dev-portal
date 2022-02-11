@@ -1,28 +1,17 @@
-import { ReactElement } from 'react'
-import { GetStaticProps } from 'next'
 import nomadData from 'data/nomad.json'
+import ProductLandingView from 'views/product-landing'
+import { generateStaticProps } from 'views/product-landing/server'
 import { Product } from 'types/products'
-import BaseNewLayout from 'layouts/base-new'
 
-const product = nomadData as Product
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getStaticProps() {
+  const contentJsonFile = 'src/data/nomad-landing.json'
+  const product = nomadData as Product
 
-const NomadHomePage = (): ReactElement => {
-  return (
-    <>
-      <h1>Nomad</h1>
-      <p>This page is a placeholder</p>
-    </>
-  )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
   return {
-    props: {
-      product,
-    },
+    props: await generateStaticProps({ product, contentJsonFile }),
+    revalidate: 10,
   }
 }
 
-NomadHomePage.layout = BaseNewLayout
-
-export default NomadHomePage
+export default ProductLandingView

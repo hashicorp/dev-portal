@@ -14,12 +14,6 @@
   display: block;
   flex: 0 0 auto;
   margin: 8px;
-
-  & svg {
-    display: block;
-    height: auto;
-    width: 96px;
-  }
 }
 
 .textSection {

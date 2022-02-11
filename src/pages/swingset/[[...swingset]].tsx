@@ -4,10 +4,14 @@ import EmptyLayout from 'layouts/empty'
 // additional components
 import Search from '@hashicorp/react-search'
 import { SearchProvider } from '@hashicorp/react-search'
+import SwingsetColorToken from '__swingset-components/swingset-color-token'
+import SwingsetTestIcon from '__swingset-components/swingset-test-icon'
 
 const components = {
   Search,
   SearchProvider,
+  SwingsetColorToken,
+  SwingsetTestIcon,
 }
 
 const SwingsetPage = createPage({ components })

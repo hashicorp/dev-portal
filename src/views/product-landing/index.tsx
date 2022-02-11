@@ -51,8 +51,8 @@ function ProductLanding({ content }: ProductLandingProps): ReactElement {
             </Heading>
           )
         } else if (type === 'get_started') {
-          const { heading, iconSvg, text, link } = block
-          return <GetStarted key={idx} {...{ iconSvg, heading, text, link }} />
+          const { heading, product, text, link } = block
+          return <GetStarted key={idx} {...{ product, heading, text, link }} />
         } else if (type === 'cards') {
           const { columns, cards } = block
           return <Cards key={idx} {...{ columns, cards }} />

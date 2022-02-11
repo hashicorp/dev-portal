@@ -1,7 +1,7 @@
 import vaultData from 'data/vault.json'
-import { Product } from 'types/products'
 import ProductLandingView from 'views/product-landing'
 import { generateStaticProps } from 'views/product-landing/server'
+import { Product } from 'types/products'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function getStaticProps() {
