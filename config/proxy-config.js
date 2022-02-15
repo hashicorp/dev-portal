@@ -2,7 +2,10 @@ module.exports = {
   boundary: {
     domain: 'https://www.boundaryproject.io',
     host: '(www\\.boundaryproject\\.io|test-bd\\.hashi-mktg\\.com)',
-    assets: ['/files/press-kit.zip'],
+    assets: [
+      '/files/press-kit.zip',
+      '/data/vault/boundary-controller-policy.hcl',
+    ],
   },
   // consul: {
   //   domain: 'https://test-cs.hashi-mktg.com',
