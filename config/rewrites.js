@@ -1,5 +1,9 @@
+//@ts-check
+
 const proxySettings = require('./proxy-settings')
 const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
+
+/** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
 const PROXIED_PRODUCT = getProxiedProductSlug()
 
@@ -37,6 +41,7 @@ const PROXIED_PRODUCT = getProxiedProductSlug()
  *
  */
 const productsToProxy = Object.keys(proxySettings)
+/** @type {Redirect[]} */
 const dotIoRewrites = productsToProxy.reduce((acc, slug) => {
   const routesToProxy = proxySettings[slug].routesToProxy
   // If we're trying to test this product in dev,

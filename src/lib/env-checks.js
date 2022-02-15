@@ -1,3 +1,5 @@
+//@ts-check
+
 const proxyConfig = require('../../config/proxy-config')
 
 // NOTE: this module uses CommonJS exports,
@@ -10,6 +12,11 @@ function isPreview() {
   return process.env.HASHI_ENV == 'preview'
 }
 
+/**
+ *
+ * @param {string=} hostname
+ * @returns {string | boolean}
+ */
 function getProxiedProductSlug(hostname) {
   const proxiedProductSlug = PROXIED_PRODUCTS.reduce((acc, slug) => {
     if (!acc && isProxiedProduct(slug, hostname)) return slug
@@ -18,6 +25,11 @@ function getProxiedProductSlug(hostname) {
   return proxiedProductSlug
 }
 
+/**
+ *
+ * @param {string=} hostname
+ * @returns {string | boolean | undefined}
+ */
 function getMatchedDomain(hostname) {
   if (!hostname) return
   const domainProductSlug = PROXIED_PRODUCTS.reduce((acc, slug) => {
@@ -28,6 +40,12 @@ function getMatchedDomain(hostname) {
   return domainProductSlug
 }
 
+/**
+ *
+ * @param {string} productSlug
+ * @param {string=} hostname
+ * @returns {boolean}
+ */
 function isProxiedProduct(productSlug, hostname) {
   const isDevEnvSet = process.env.DEV_IO == productSlug
   // Allow commit messages to trigger specific proxy settings,
@@ -56,6 +74,11 @@ function isProxiedProduct(productSlug, hostname) {
 // isContentDeployPreview is a first attempt at building deploy
 // previews in content repo contexts by cloning and building
 // the dev-portal repository
+/**
+ *
+ * @param {string} productSlug
+ * @returns {boolean}
+ */
 function isContentDeployPreview(productSlug) {
   return isDeployPreview() && isProxiedProduct(productSlug)
 }
@@ -64,6 +87,11 @@ function isDeployPreview() {
   return process.env.IS_CONTENT_PREVIEW
 }
 
+/**
+ *
+ * @param {string} productSlug
+ * @returns {boolean}
+ */
 function isVersionedDocsEnabled(productSlug) {
   const enableVersionedDocs =
     process.env.ENABLE_VERSIONED_DOCS &&

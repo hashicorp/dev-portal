@@ -1,3 +1,5 @@
+//@ts-check
+
 const fs = require('fs')
 const path = require('path')
 const proxySettings = require('./proxy-settings')
@@ -8,6 +10,8 @@ const {
 } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
 const { isContentDeployPreview } = require('../src/lib/env-checks')
+
+/** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
 const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 
@@ -21,6 +25,7 @@ const PROXIED_PRODUCT = getProxiedProductSlug()
 const productsToProxy = Object.keys(proxySettings)
 // In preview environments, it's actually nice to NOT have these redirects,
 // as they prevent us from seeing the content we build for the preview URL
+/** @type {Redirect[]} */
 const devPortalToDotIoRedirects = isPreview()
   ? []
   : productsToProxy.reduce((acc, slug) => {
@@ -52,6 +57,7 @@ const devPortalToDotIoRedirects = isPreview()
 // 2. for each product domain, build a redirect so that when /some-dev-portal-route
 //    is visited on that product domain, it redirects to dev-portal
 const devPortalRoutes = ['/some-dev-portal-route']
+/** @type {Redirect[]} */
 const dotIoToDevPortalRedirects = productsToProxy.reduce((acc, productSlug) => {
   const productHost = proxySettings[productSlug].host
   const toDevPortalRedirects = devPortalRoutes.map((devPortalRoute) => {
@@ -70,6 +76,12 @@ const dotIoToDevPortalRedirects = productsToProxy.reduce((acc, productSlug) => {
   return acc.concat(toDevPortalRedirects)
 }, [])
 
+/**
+ *
+ * @param {Redirect[]} redirects
+ * @param {string} productSlug
+ * @returns {Redirect[]}
+ */
 function addHostCondition(redirects, productSlug) {
   const host = proxySettings[productSlug].host
   return redirects.map((redirect) => {
@@ -108,7 +120,7 @@ async function buildDotIoRedirects() {
   const rawBoundaryRedirects = isContentDeployPreview('boundary')
     ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
     : isDeployPreview()
-    ? []
+    ? '[]'
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'boundary',
@@ -124,7 +136,7 @@ async function buildDotIoRedirects() {
   const rawNomadRedirects = isContentDeployPreview('nomad')
     ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
     : isDeployPreview()
-    ? []
+    ? '[]'
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'nomad',
@@ -157,7 +169,7 @@ async function buildDotIoRedirects() {
   const rawWaypointRedirects = isContentDeployPreview('waypoint')
     ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
     : isDeployPreview()
-    ? []
+    ? '[]'
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'waypoint',
@@ -169,7 +181,8 @@ async function buildDotIoRedirects() {
   // TODO: rather than leaving all redirects in the Waypoint repo
   // TODO: intent is to do this after all products have been migrated
   const waypointIoRedirects = [...waypointAuthorRedirects]
-  const rawSentinelRedirects = [
+
+  const sentinelIoRedirects = [
     {
       source: '/',
       destination: '/sentinel',
@@ -184,13 +197,11 @@ async function buildDotIoRedirects() {
     { source: '/:path*/index', destination: '/:path*', permanent: true },
     { source: '/:path*.html', destination: '/:path*', permanent: true },
   ]
-  const sentinelAuthorRedirects = eval(rawSentinelRedirects)
-  const sentinelIoRedirects = [...sentinelAuthorRedirects]
 
   const rawVaultRedirects = isContentDeployPreview('vault')
     ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
     : isDeployPreview()
-    ? []
+    ? '[]'
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'vault',
