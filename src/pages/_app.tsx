@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }) {
   const Layout = Component.layout ?? BaseLayout
 
   return (
-    <ErrorBoundary FallbackComponent={Error}>
+    <ErrorBoundary>
       <Layout>
         <Component {...pageProps} />
       </Layout>
