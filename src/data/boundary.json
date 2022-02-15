@@ -5,6 +5,10 @@
     "indexName": "product_BOUNDARY",
     "searchOnlyApiKey": "8308498decdf72e11590fc6356e5fdde"
   },
+  "analyticsConfig": {
+    "includedDomains": "boundaryproject.io www.boundaryproject.io",
+    "segmentWriteKey": "JkNZiSgwVRAAFrkqqdHLxf0xfcZuhYYc"
+  },
   "metadata": {
     "title": "Boundary by HashiCorp",
     "description": "Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.",
@@ -23,8 +27,6 @@
     "linkText": "Watch Now",
     "expirationDate": "2021-06-20T12:00:00-07:00"
   },
-  "version": "0.6.2",
-  "desktopVersion": "1.3.0",
   "subnavItems": [
     {
       "text": "Overview",
