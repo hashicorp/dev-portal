@@ -35,6 +35,10 @@ async function migrateNomadIo() {
       indexName: 'product_NOMAD',
       searchOnlyApiKey: '9bfec34ea54e56a11bd50d6bfedc5e71',
     },
+    analyticsConfig: {
+      includedDomains: 'nomadproject.io www.nomadproject.io',
+      segmentWriteKey: 'qW11yxgipKMsKFKQUCpTVgQUYftYsJj0',
+    },
     metadata: {
       title: 'Nomad by HashiCorp',
       description:
@@ -78,6 +82,8 @@ async function migrateNomadIo() {
     // press kit
     // note: we have a redirect in place to allow consistent URL
     '/files/press-kit.zip',
+    '/data/vault/nomad-server-policy.hcl',
+    '/data/vault/nomad-cluster-role.json',
   ]
   for (let i = 0; i < assetsToCopy.length; i++) {
     const srcPath = `${repoDirs.public}/${assetsToCopy[i]}`
