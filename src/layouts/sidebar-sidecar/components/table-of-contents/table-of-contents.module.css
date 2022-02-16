@@ -36,7 +36,7 @@
 }
 
 .tableOfContentsListItemAnchor {
-  composes: focus-border-and-box-shadow-light from global;
+  composes: g-focus-border-and-box-shadow-light from global;
   border-radius: 5px;
   border: 1px solid transparent;
   color: inherit;

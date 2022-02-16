@@ -45,7 +45,7 @@
 }
 
 .filterInput {
-  composes: focus-border-and-box-shadow-light from global;
+  composes: g-focus-border-and-box-shadow-light from global;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 5px;

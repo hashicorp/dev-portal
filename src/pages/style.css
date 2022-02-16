@@ -104,7 +104,7 @@ and negative margin.
   }
 }
 
-.focus-border-and-box-shadow-light {
+.g-focus-border-and-box-shadow-light {
   &:focus,
   &:focus-visible {
     outline: none;
