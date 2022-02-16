@@ -40,6 +40,14 @@ const proxySettings = {
       ...buildAssetRoutesToProxy(proxyConfig.sentinel.assets, '/sentinel'),
     ],
   },
+  vagrant: {
+    domain: proxyConfig.vagrant.domain,
+    host: proxyConfig.vagrant.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/vagrant'),
+      ...buildAssetRoutesToProxy(proxyConfig.vagrant.assets, '/vagrant'),
+    ],
+  },
   vault: {
     domain: proxyConfig.vault.domain,
     host: proxyConfig.vault.host,
