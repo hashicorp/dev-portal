@@ -294,4 +294,21 @@ describe('<Tabs />', () => {
     expect(rootContainer).toBeInTheDocument()
     expect(rootContainer).toHaveAccessibleName()
   })
+
+  test('the `showAnchorLine` test adds an extra classname to role="tablist"', () => {
+    render(
+      <Tabs>
+        {testData.map(({ heading, content }, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Tab heading={heading} key={index}>
+            {content}
+          </Tab>
+        ))}
+      </Tabs>
+    )
+
+    expect(screen.queryByRole('tablist').getAttribute('class')).toBe(
+      'tablistWithAnchorLine'
+    )
+  })
 })
