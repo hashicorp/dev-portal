@@ -10,10 +10,30 @@ import { ReactNode } from 'react'
  * accomplish requiring either `aria-label` or `aria-labelledby`.
  */
 export interface TabsProps {
+  /**
+   * A non-visible label describing the purpose of the Tabs
+   */
   ariaLabel?: string
+
+  /**
+   * The `id` of an element containing a label describing the purpose of the
+   * Tabs
+   */
   ariaLabelledBy?: string
+
+  /**
+   * At least two `Tab` components, one for each button and panel to render
+   */
   children: ReactNode
+
+  /**
+   * The index of the tab to show as active on initial render
+   */
   initialActiveIndex?: number
+
+  /**
+   * Whether or not a full-width border should be shown below the tab buttons
+   */
   showAnchorLine?: boolean
 }
 
