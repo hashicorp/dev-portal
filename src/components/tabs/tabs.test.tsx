@@ -227,4 +227,31 @@ describe('<Tabs />', () => {
       })
     })
   })
+
+  test('the `initialActiveIndex` correctly activates a tab index on inital render', () => {
+    const testInitialActiveIndex = 1
+    render(
+      <Tabs initialActiveIndex={testInitialActiveIndex}>
+        {testData.map(({ heading, content }, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Tab heading={heading} key={index}>
+            {content}
+          </Tab>
+        ))}
+      </Tabs>
+    )
+
+    expect(
+      screen.queryByRole('tab', {
+        name: testData[testInitialActiveIndex].heading,
+        selected: true,
+      })
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByRole('tabpanel', {
+        name: testData[testInitialActiveIndex].heading,
+        hidden: false,
+      })
+    ).toBeInTheDocument()
+  })
 })
