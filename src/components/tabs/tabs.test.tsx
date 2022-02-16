@@ -254,4 +254,20 @@ describe('<Tabs />', () => {
       })
     ).toBeInTheDocument()
   })
+
+  test('the `ariaLabel` prop correctly gives the component an accessible label', () => {
+    const testAriaLabel = 'A set of tabs'
+    render(
+      <Tabs ariaLabel={testAriaLabel}>
+        {testData.map(({ heading, content }, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Tab heading={heading} key={index}>
+            {content}
+          </Tab>
+        ))}
+      </Tabs>
+    )
+
+    expect(screen.queryByLabelText(testAriaLabel)).toBeInTheDocument()
+  })
 })
