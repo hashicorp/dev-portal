@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
 import Tabs, { Tab } from '.'
@@ -128,5 +128,20 @@ describe('<Tabs />', () => {
     })
     expect(secondTabPanel).toBeInTheDocument()
     expect(secondTabPanel.textContent).toBe(testData[1].content)
+  })
+
+  test('does not change the active tab `onKeyDown`', () => {
+    const keysToTest = ['Enter', ' ', 'ArrowRight', 'ArrowLeft']
+    keysToTest.forEach((key) => {
+      const secondTabButton = screen.queryByRole('tab', {
+        name: testData[1].heading,
+      })
+      fireEvent.keyDown(secondTabButton, { key })
+
+      const firstTabPanel = screen.queryByRole('tabpanel', {
+        name: testData[0].heading,
+      })
+      expect(firstTabPanel).toBeInTheDocument()
+    })
   })
 })
