@@ -3,57 +3,96 @@ import axe from 'axe-core'
 import Tabs, { Tab } from '.'
 
 describe('<Tabs />', () => {
-  test('renders the correct markup with required props', (done) => {
+  describe('with only required props', () => {
+    let container: HTMLElement
     const testData = [
       { heading: 'Tab 1', content: 'content in tab 1' },
       { heading: 'Tab 2', content: 'content in tab 2' },
     ]
-    const { container } = render(
-      <Tabs>
-        {testData.map(({ heading, content }, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <Tab heading={heading} key={index}>
-            {content}
-          </Tab>
-        ))}
-      </Tabs>
-    )
 
-    // Check the tab buttons container
-    const tablist = screen.queryByRole('tablist')
-    expect(tablist).toBeInTheDocument()
-    expect(tablist).not.toHaveAccessibleName()
-
-    testData.forEach(({ heading, content }, index) => {
-      // Check each tab button
-      const tabButton = screen.queryByRole('tab', {
-        name: heading,
-        selected: index === 0,
-      })
-      expect(tabButton).toBeInTheDocument()
-      expect(tabButton).toHaveAccessibleName()
-      expect(tabButton.getAttribute('tabindex')).toBe(index === 0 ? '0' : '-1')
-
-      // Check each tab panel
-      const tabPanel = screen.queryByRole('tabpanel', {
-        name: heading,
-        hidden: index > 0,
-      })
-      if (index === 0) {
-        expect(tabPanel).toBeInTheDocument()
-        expect(tabPanel).toHaveAccessibleName()
-        expect(tabPanel.getAttribute('tabindex')).toBe('0')
-        expect(tabPanel.textContent).toBe(content)
-      } else {
-        expect(tabPanel).not.toBeInTheDocument()
-      }
+    beforeEach(() => {
+      const results = render(
+        <Tabs>
+          {testData.map(({ heading, content }, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Tab heading={heading} key={index}>
+              {content}
+            </Tab>
+          ))}
+        </Tabs>
+      )
+      container = results.container
     })
 
-    // Check for violations identified by axe-core
-    axe.run(container, {}, (err, { violations }) => {
-      expect(err).toBeNull()
-      expect(violations).toHaveLength(0)
-      done()
+    test('has no violations identified by axe-core', (done) => {
+      axe.run(container, {}, (err, { violations }) => {
+        expect(err).toBeNull()
+        expect(violations).toHaveLength(0)
+        done()
+      })
+    })
+
+    test('has a role="tablist" with the correct properties', () => {
+      const tablist = screen.queryByRole('tablist')
+      expect(tablist).toBeInTheDocument()
+      expect(tablist).not.toHaveAccessibleName()
+    })
+
+    test('has the correct number of role="tab" and role="tabpanel" elements with the correct properties', () => {
+      testData.forEach(({ heading, content }, index) => {
+        /**
+         * This query tests the:
+         *  - `heading` prop by find a tab button based on the text in the prop
+         *  - `aria-selected` prop by checking the index of the tab/panel pair
+         *    getting rendered
+         */
+        const tabButton = screen.queryByRole('tab', {
+          name: heading,
+          selected: index === 0,
+        })
+
+        /**
+         * This query tests the:
+         *  - `aria-labelledby` prop on tab panels by checking for a `name` that
+         *    is equal to the associated tab button's text
+         *  - `aria-hidden` prop by checking the index of the tab/panel pair
+         *    getting rendered
+         */
+        const tabPanel = screen.queryByRole('tabpanel', {
+          name: heading,
+          hidden: index > 0,
+        })
+
+        /**
+         * Tab button assertions
+         *
+         * TODO: not sure how to test `aria-controls` or `id` attributes better
+         * yet since only the active (first, in this case) tab panel is in the
+         * document.
+         */
+        expect(tabButton).toBeInTheDocument()
+        expect(tabButton).toHaveAccessibleName()
+        expect(tabButton.getAttribute('aria-controls')).toBeDefined()
+        expect(tabButton.getAttribute('id')).toBeDefined()
+        expect(tabButton.getAttribute('tabindex')).toBe(
+          index === 0 ? '0' : '-1'
+        )
+
+        /**
+         * Tab panel assertions
+         *
+         * Only the active tab panel will be in the document because of the CSS
+         * we apply that hides non-active panels.
+         */
+        if (index === 0) {
+          expect(tabPanel).toBeInTheDocument()
+          expect(tabPanel).toHaveAccessibleName()
+          expect(tabPanel.getAttribute('tabindex')).toBe('0')
+          expect(tabPanel.textContent).toBe(content)
+        } else {
+          expect(tabPanel).not.toBeInTheDocument()
+        }
+      })
     })
   })
 })
