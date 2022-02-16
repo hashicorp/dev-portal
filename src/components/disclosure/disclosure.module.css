@@ -17,6 +17,7 @@
   cursor: pointer;
   display: flex;
   padding: 16px;
+  position: relative;
   text-align: left;
   width: 100%;
 
@@ -55,8 +56,15 @@
     outline: none;
   }
 
-  &:focus-visible {
+  &:focus-visible::before {
+    border-radius: 6px;
+    bottom: 0;
     box-shadow: var(--token-focus-ring-box-shadow);
+    content: '';
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   /* Only enable animation if query is supported and value is no-preference */
