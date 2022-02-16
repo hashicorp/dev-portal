@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
 import Tabs, { Tab } from '.'
@@ -134,6 +134,10 @@ describe('<Tabs />', () => {
         expect(secondTabPanel.textContent).toBe(testData[1].content)
       })
 
+      /**
+       * NOTE: using `fireEvent.keyDown` instead of `userEvent.keyboard` here to
+       * specifically test the `keyDown` handler.
+       */
       test('`onKeyDown` does not change the active tab', () => {
         const keysToTest = ['Enter', ' ', 'ArrowRight', 'ArrowLeft']
         keysToTest.forEach((key) => {
@@ -146,6 +150,27 @@ describe('<Tabs />', () => {
             name: testData[0].heading,
           })
           expect(firstTabPanel).toBeInTheDocument()
+        })
+      })
+
+      /**
+       * NOTE: `fireEvent.key(document.activeElement, { key: 'Tab' })` after
+       * focusing the first tab button does not actually hange focus from the
+       * button the tab panel. `userEvent.tab()` does!
+       */
+      test('Tab key on tab button `onKeyDown` moves focus to the tab panel', async () => {
+        const firstTabButton = screen.queryByRole('tab', {
+          name: testData[0].heading,
+        })
+        firstTabButton.focus()
+        userEvent.tab()
+
+        await waitFor(() => {
+          const firstTabPanel = screen.queryByRole('tabpanel', {
+            name: testData[0].heading,
+          })
+
+          expect(firstTabPanel).toHaveFocus()
         })
       })
 
