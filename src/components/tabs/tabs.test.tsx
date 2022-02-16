@@ -152,7 +152,7 @@ describe('<Tabs />', () => {
         const secondTabButton = screen.queryByRole('tab', {
           name: testData[1].heading,
         })
-        fireEvent.keyDown(secondTabButton, { key })
+        fireEvent.keyUp(secondTabButton, { key })
 
         const firstTabPanel = screen.queryByRole('tabpanel', {
           name: testData[0].heading,
@@ -161,9 +161,35 @@ describe('<Tabs />', () => {
       })
     })
 
-    test.todo(
-      'ArrowRight and ArrowLeft keys set the next and previous tab active, respectively'
-    )
+    test('ArrowRight and ArrowLeft keys set the next and previous tab active, respectively', async () => {
+      /**
+       * Activate the second tab from the first one with ArrowRight.
+       */
+      const firstTabButton = screen.queryByRole('tab', {
+        name: testData[0].heading,
+      })
+      fireEvent.keyUp(firstTabButton, { key: 'ArrowRight' })
+
+      // Wait for the second tab panel to no longer be hidden
+      await screen.findByRole('tabpanel', {
+        name: testData[1].heading,
+        hidden: false,
+      })
+
+      /**
+       * Activate the first tab from the second one with ArrowLeft.
+       */
+      const secondTabButton = screen.queryByRole('tab', {
+        name: testData[1].heading,
+      })
+      fireEvent.keyUp(secondTabButton, { key: 'ArrowLeft' })
+
+      // Wait for the first tab panel to no longer be hidden
+      await screen.findByRole('tabpanel', {
+        name: testData[0].heading,
+        hidden: false,
+      })
+    })
 
     test.todo('Focus wraps to the first tab button from the last on ArrowRight')
 
