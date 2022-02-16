@@ -35,16 +35,6 @@ Styles for each tab button.
     color: var(--token-color-neutral-foreground-primary);
     background-color: var(--token-color-palette-neutral-200);
   }
-
-  &:focus {
-    outline: none;
-  }
-
-  &:focus-visible {
-    box-shadow: var(--token-focus-ring-box-shadow);
-    outline: none;
-    z-index: 1;
-  }
 }
 
 /*

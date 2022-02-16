@@ -160,6 +160,7 @@ const Tabs = ({
             <button
               aria-controls={`${id}-tabpanel`}
               aria-selected={isActive}
+              className="focus-ring-from-box-shadow"
               id={`${id}-tab`}
               key={id}
               onClick={() => setActiveTabIndex(index)}
