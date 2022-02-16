@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@hashicorp/design-system-tokens": "^0.4.7",
-    "@hashicorp/flight-icons": "^2.0.1",
+    "@hashicorp/flight-icons": "^2.1.0",
     "@hashicorp/mktg-global-styles": "^4.0.0",
     "@hashicorp/mktg-logos": "^1.2.0",
     "@hashicorp/platform-code-highlighting": "^0.1.2",
