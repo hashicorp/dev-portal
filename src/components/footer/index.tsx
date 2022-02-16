@@ -3,20 +3,10 @@ import classNames from 'classnames'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
 import Text from 'components/text'
+import { FooterItem, FooterProps } from './types'
 import s from './style.module.css'
 
-interface FooterProps {
-  /** Function that, when called without arguments, opens the consent manager. */
-  openConsentManager?: () => void
-  /** Optional className for margin addition */
-  className?: string
-}
-
-const FOOTER_ITEMS: {
-  type: 'link' | 'consent-manager'
-  text: string
-  href?: string
-}[] = [
+const FOOTER_ITEMS: FooterItem[] = [
   {
     type: 'link',
     href: 'https://status.hashicorp.com',
