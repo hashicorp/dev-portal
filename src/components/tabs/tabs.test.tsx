@@ -1,29 +1,30 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
 import Tabs, { Tab } from '.'
 
 describe('<Tabs />', () => {
+  const testData = [
+    { heading: 'Tab 1', content: 'content in tab 1' },
+    { heading: 'Tab 2', content: 'content in tab 2' },
+  ]
+  let container: HTMLElement
+
+  beforeEach(() => {
+    const results = render(
+      <Tabs>
+        {testData.map(({ heading, content }, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Tab heading={heading} key={index}>
+            {content}
+          </Tab>
+        ))}
+      </Tabs>
+    )
+    container = results.container
+  })
+
   describe('with only required props', () => {
-    let container: HTMLElement
-    const testData = [
-      { heading: 'Tab 1', content: 'content in tab 1' },
-      { heading: 'Tab 2', content: 'content in tab 2' },
-    ]
-
-    beforeEach(() => {
-      const results = render(
-        <Tabs>
-          {testData.map(({ heading, content }, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Tab heading={heading} key={index}>
-              {content}
-            </Tab>
-          ))}
-        </Tabs>
-      )
-      container = results.container
-    })
-
     test('has no violations identified by axe-core', (done) => {
       axe.run(container, {}, (err, { violations }) => {
         expect(err).toBeNull()
@@ -94,5 +95,38 @@ describe('<Tabs />', () => {
         }
       })
     })
+  })
+
+  test('changes the active tab via mouse click', () => {
+    /**
+     * Queries for the second tab button by text and asserts checks that it is
+     * not already selected, which it should not be since the first tab is
+     * active by default.
+     */
+    const secondTabButton = screen.queryByRole('tab', {
+      name: testData[1].heading,
+      selected: false,
+    })
+
+    userEvent.click(secondTabButton)
+
+    /**
+     * Checks that the first tab panel is no longer active and visible in the
+     * document.
+     */
+    const firstTabPanel = screen.queryByRole('tabpanel', {
+      name: testData[0].heading,
+    })
+    expect(firstTabPanel).not.toBeInTheDocument()
+
+    /**
+     * Checks that the second tab panel is active, in the document, and that it
+     * has the correct content.
+     */
+    const secondTabPanel = screen.queryByRole('tabpanel', {
+      name: testData[1].heading,
+    })
+    expect(secondTabPanel).toBeInTheDocument()
+    expect(secondTabPanel.textContent).toBe(testData[1].content)
   })
 })
