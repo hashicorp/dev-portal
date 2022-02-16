@@ -48,7 +48,7 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
             openConsentManager={openConsentManager}
           />
         </div>
-        <div className={`${s.sidecar} g-hide-on-mobile g-hide-on-tablet`}>
+        <div className={`${s.sidecar} hide-on-mobile hide-on-tablet`}>
           {sidecarChildren ? (
             sidecarChildren
           ) : (
