@@ -268,6 +268,8 @@ describe('<Tabs />', () => {
       </Tabs>
     )
 
-    expect(screen.queryByLabelText(testAriaLabel)).toBeInTheDocument()
+    const rootContainer = screen.queryByLabelText(testAriaLabel)
+    expect(rootContainer).toBeInTheDocument()
+    expect(rootContainer).toHaveAccessibleName()
   })
 })
