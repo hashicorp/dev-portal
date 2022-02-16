@@ -144,4 +144,16 @@ describe('<Tabs />', () => {
       expect(firstTabPanel).toBeInTheDocument()
     })
   })
+
+  describe('`onKeyUp`', () => {
+    test.todo('Enter and space keys activate a tab on role="tab" keyup')
+
+    test.todo(
+      'ArrowRight and ArrowLeft keys set the next and previous tab active, respectively'
+    )
+
+    test.todo('Focus wraps to the first tab button from the last on ArrowRight')
+
+    test.todo('Focus wraps to the last tab button from the first on ArrowLeft')
+  })
 })
