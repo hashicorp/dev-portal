@@ -68,13 +68,13 @@ button {
 @custom-media --tablet only screen and (min-width: 729px) and (max-width: 1000px);
 
 @media (--mobile) {
-  .hide-on-mobile {
+  .g-hide-on-mobile {
     display: none;
   }
 }
 
 @media (--tablet) {
-  .hide-on-tablet {
+  .g-hide-on-tablet {
     display: none;
   }
 }
