@@ -272,4 +272,26 @@ describe('<Tabs />', () => {
     expect(rootContainer).toBeInTheDocument()
     expect(rootContainer).toHaveAccessibleName()
   })
+
+  test('the `ariaLabelledBy` prop correctly gives the component an accessible label', () => {
+    const testAriaLabelledById = 'a-special-tabs-label'
+    const testAriaLabelledByText = 'A set of tabs'
+    render(
+      <>
+        <p id={testAriaLabelledById}>{testAriaLabelledByText}</p>
+        <Tabs ariaLabelledBy={testAriaLabelledById}>
+          {testData.map(({ heading, content }, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Tab heading={heading} key={index}>
+              {content}
+            </Tab>
+          ))}
+        </Tabs>
+      </>
+    )
+
+    const rootContainer = screen.queryByLabelText(testAriaLabelledByText)
+    expect(rootContainer).toBeInTheDocument()
+    expect(rootContainer).toHaveAccessibleName()
+  })
 })
