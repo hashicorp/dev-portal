@@ -28,10 +28,6 @@ const WaypointDownloadsSidecarContent = () => {
 }
 
 const WaypointDowloadsPage = (): ReactElement => {
-  const backToLink = {
-    text: 'Back to Waypoint',
-    url: '/waypoint',
-  }
   const navData = [
     ...product.sidebar.landingPageNavData,
     { divider: true },
@@ -41,7 +37,6 @@ const WaypointDowloadsPage = (): ReactElement => {
   // TODO: currently shows placeholder content for testing purposes
   return (
     <SidebarSidecarLayout
-      backToLink={backToLink}
       navData={navData}
       productName="Waypoint"
       sidecarChildren={<WaypointDownloadsSidecarContent />}
