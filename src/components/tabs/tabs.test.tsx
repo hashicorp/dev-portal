@@ -146,7 +146,20 @@ describe('<Tabs />', () => {
   })
 
   describe('`onKeyUp`', () => {
-    test.todo('Enter and space keys activate a tab on role="tab" keyup')
+    test('Enter and space keys do nothing', () => {
+      const keysToTest = ['Enter', ' ']
+      keysToTest.forEach((key) => {
+        const secondTabButton = screen.queryByRole('tab', {
+          name: testData[1].heading,
+        })
+        fireEvent.keyDown(secondTabButton, { key })
+
+        const firstTabPanel = screen.queryByRole('tabpanel', {
+          name: testData[0].heading,
+        })
+        expect(firstTabPanel).toBeInTheDocument()
+      })
+    })
 
     test.todo(
       'ArrowRight and ArrowLeft keys set the next and previous tab active, respectively'
