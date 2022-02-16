@@ -248,6 +248,10 @@ async function migrateVagrantIo() {
       productData,
     })
   }
+  // fix vmware-utility global and add Button component
+  await exec(
+    `cp _temp-migrations-assets/vagrant/docs-page.jsx ${destDirs.pages}/docs/[[...page]].tsx`
+  )
   //
   // COMMUNITY PAGE
   //
