@@ -16,6 +16,7 @@
   border: none;
   cursor: pointer;
   display: flex;
+  isolation: isolate;
   padding: 16px;
   position: relative;
   text-align: left;
@@ -65,6 +66,7 @@
     position: absolute;
     right: 0;
     top: 0;
+    z-index: -1;
   }
 
   /* Only enable animation if query is supported and value is no-preference */
