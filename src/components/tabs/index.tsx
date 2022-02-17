@@ -21,11 +21,34 @@ const Tabs = ({
   showAnchorLine = true,
 }: TabsProps): ReactElement => {
   /**
-   * Disallow rendering a Tabs component with only one Tab.
+   * Disallow rendering a `Tabs` component with only one child.
    */
-  if (!Array.isArray(children)) {
+  if (!Array.isArray(children) || children.length === 1) {
     throw new Error('children must be an array of multiple Tab components')
   }
+
+  /**
+   * Disallow rendering children that are not a `Tab` component.
+   */
+  children.forEach((tabsChild: JSX.Element) => {
+    const isJSXPrimitive = typeof tabsChild.type === 'string'
+    const isFunctionComponent = typeof tabsChild.type === 'function'
+    const isMDXComponent = typeof tabsChild.props.mdxType === 'string'
+
+    const isTabComponent =
+      !isJSXPrimitive ||
+      (isFunctionComponent && tabsChild.type === 'Tab') ||
+      (isMDXComponent && tabsChild.props.mdxType === 'Tab')
+    if (isTabComponent) {
+      return
+    }
+
+    throw new Error(
+      `Found an immediate child of \`Tabs\` that is not a \`Tab\`. You can only render \`Tab\` components within \`Tabs\`. See child with props: ${JSON.stringify(
+        tabsChild.props
+      )}.`
+    )
+  })
 
   /**
    * TODO: this is a temporary measure until we are able to start requiring
