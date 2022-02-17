@@ -155,7 +155,7 @@ describe('<Tabs />', () => {
 
       /**
        * NOTE: `fireEvent.key(document.activeElement, { key: 'Tab' })` after
-       * focusing the first tab button does not actually hange focus from the
+       * focusing the first tab button does not actually change focus from the
        * button the tab panel. `userEvent.tab()` does!
        */
       test('Tab key on tab button `onKeyDown` moves focus to the tab panel', async () => {
