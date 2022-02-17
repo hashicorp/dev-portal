@@ -1,9 +1,21 @@
+//@ts-check
+
 const fs = require('fs')
 const path = require('path')
 const klawSync = require('klaw-sync')
 const proxyConfig = require('./proxy-config')
 
-module.exports = {
+/**
+ * @typedef {Object} SiteProxySettings
+ * @property {string} domain
+ * @property {string} host
+ * @property {{ proxiedRoute: string, localRoute: string }[]} routesToProxy
+ */
+
+/**
+ * @type {Record<string, SiteProxySettings>}
+ */
+const proxySettings = {
   boundary: {
     domain: proxyConfig.boundary.domain,
     host: proxyConfig.boundary.host,
@@ -53,7 +65,14 @@ module.exports = {
     ],
   },
 }
+module.exports = proxySettings
 
+/**
+ *
+ * @param {string[]} assetPaths
+ * @param {string} localAssetsDir
+ * @returns {{ proxiedRoute: string, localRoute: string }[]}
+ */
 function buildAssetRoutesToProxy(assetPaths, localAssetsDir) {
   return assetPaths.map((proxiedRoute) => ({
     proxiedRoute: proxiedRoute,
@@ -67,8 +86,8 @@ function buildAssetRoutesToProxy(assetPaths, localAssetsDir) {
  * which can be used to construct the necessary
  * redirects and rewrites.
  *
- * @param {*} pagesDir
- * @returns
+ * @param {string} pagesDir
+ * @returns {{ proxiedRoute: string, localRoute: string }[]}
  */
 function gatherRoutesToProxy(pagesDir) {
   const targetDir = path.resolve(`./src/pages${pagesDir}`)

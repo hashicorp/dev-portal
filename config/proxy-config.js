@@ -1,4 +1,16 @@
-module.exports = {
+//@ts-check
+
+/**
+ * @typedef {Object} SiteProxyConfig
+ * @property {string} domain
+ * @property {string} host
+ * @property {string[]} assets
+ */
+
+/**
+ * @type {Record<string, SiteProxyConfig>}
+ */
+const proxyConfig = {
   boundary: {
     domain: 'https://www.boundaryproject.io',
     host: '(www\\.boundaryproject\\.io|test-bd\\.hashi-mktg\\.com)',
@@ -13,9 +25,13 @@ module.exports = {
   //   assets: [],
   // },
   nomad: {
-    domain: 'https://test-nm.hashi-mktg.com',
-    host: 'test-nm.hashi-mktg.com',
-    assets: ['/files/press-kit.zip'],
+    domain: 'https://www.nomadproject.io',
+    host: '(www\\.nomadproject\\.io|test-nm\\.hashi-mktg\\.com)',
+    assets: [
+      '/files/press-kit.zip',
+      '/data/vault/nomad-server-policy.hcl',
+      '/data/vault/nomad-cluster-role.json',
+    ],
   },
   packer: {
     domain: 'https://test-pk.hashi-mktg.com',
@@ -49,3 +65,5 @@ module.exports = {
     assets: ['/files/press-kit.zip'],
   },
 }
+
+module.exports = proxyConfig

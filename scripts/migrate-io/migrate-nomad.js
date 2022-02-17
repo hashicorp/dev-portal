@@ -35,6 +35,10 @@ async function migrateNomadIo() {
       indexName: 'product_NOMAD',
       searchOnlyApiKey: '9bfec34ea54e56a11bd50d6bfedc5e71',
     },
+    analyticsConfig: {
+      includedDomains: 'nomadproject.io www.nomadproject.io',
+      segmentWriteKey: 'qW11yxgipKMsKFKQUCpTVgQUYftYsJj0',
+    },
     metadata: {
       title: 'Nomad by HashiCorp',
       description:
@@ -45,15 +49,7 @@ async function migrateNomadIo() {
     alertBannerActive: false,
     alertBanner: evalDataFile(path.join(repoDirs.data, 'alert-banner.js')),
     version: evalDataFile(path.join(repoDirs.data, 'version.js')),
-    // TODO: note that subnav items on nomad main branch
-    // TODO: include /plugins and /tools docs paths.
-    // TODO: content has not been extracted yet,
-    // TODO: so we remove these subnav items, for now.
-    subnavItems: evalDataFile(path.join(repoDirs.data, 'subnav.js')).filter(
-      (item) => {
-        return item.url !== '/plugins' && item.url !== '/tools'
-      }
-    ),
+    subnavItems: evalDataFile(path.join(repoDirs.data, 'subnav.js')),
   }
   // write product data to file
   await exec(`rm -f ./src/data/${slug}.json`)
@@ -77,13 +73,17 @@ async function migrateNomadIo() {
   //
   // ASSETS
   //
+  console.log('⏳ Copying assets...')
   const assetsToCopy = [
     // meta images
     '/_favicon.ico',
     '/img/og-image.png',
+    '/img/nomad-bg-pattern.svg',
     // press kit
     // note: we have a redirect in place to allow consistent URL
     '/files/press-kit.zip',
+    '/data/vault/nomad-server-policy.hcl',
+    '/data/vault/nomad-cluster-role.json',
   ]
   for (let i = 0; i < assetsToCopy.length; i++) {
     const srcPath = `${repoDirs.public}/${assetsToCopy[i]}`
@@ -92,10 +92,12 @@ async function migrateNomadIo() {
     if (!fs.existsSync(destDir)) fs.mkdirSync(destDir, { recursive: true })
     await exec(`cp -r ${srcPath} ${destPath}`)
   }
+  console.log('✅ Done')
   //
   // COMPONENTS
   //
   // copy components into dedicated directory
+  console.log('⏳ Copying components...')
   const missingComponents = [
     // layout
     'subnav',
@@ -112,11 +114,22 @@ async function migrateNomadIo() {
     const destPath = `${destDirs.components}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
+  // replace image path for hero background
+  await editFile(
+    `${destDirs.components}/homepage-hero/style.css`,
+    (fileString) =>
+      fileString.replace(
+        '/img/nomad-bg-pattern.svg',
+        "'/nomad/img/nomad-bg-pattern.svg'"
+      )
+  )
+  console.log('✅ Done')
   //
   // SUBNAV COMPONENT
   //
   // temporary fix for currentPath highlighting issue in subnav
   // TODO there must be a better way to do this?
+  console.log('⏳ Updating subnav...')
   await patchSubnav(`${destDirs.components}/subnav/index.jsx`)
   // edit the subnav file to use the consolidated data file
   await editFile(`${destDirs.components}/subnav/index.jsx`, (contents) => {
@@ -127,15 +140,19 @@ async function migrateNomadIo() {
       )
       .replace(/subnavItems/g, 'productData.subnavItems')
   })
+  console.log('✅ Done')
   //
   // LAYOUT
   //
   // setup the layout file for this product
+  console.log('⏳ Setting up layout...')
   await setupIoLayout({ layoutDir: destDirs.layouts, productData })
+  console.log('✅ Done')
   //
   // GLOBAL STYLES
   //
   // add the homepage stylesheet to our main style.css
+  console.log('⏳ Setting up global styles...')
   const missingStylesheets = [
     './_proxied-dot-io/nomad/home/style.css',
     '../components/_proxied-dot-io/nomad/case-study-carousel/style.css',
@@ -146,10 +163,12 @@ async function migrateNomadIo() {
     '../components/_proxied-dot-io/nomad/mini-cta/style.css',
   ]
   await addGlobalStyles({ missingStylesheets, productName: productData.name })
+  console.log('✅ Done')
   //
   // PAGES FOLDER SETUP
   //
   // delete some page files we don't need
+  console.log('⏳ Deleting unnecessary files...')
   const filesToDelete = [
     '_app.js',
     '_document.js',
@@ -168,11 +187,13 @@ async function migrateNomadIo() {
     const filepath = path.join(destDirs.pages, filesToDelete[i])
     await exec(`rm -rf ${filepath}`)
   }
+  console.log('✅ Done')
   //
   // HOME PAGE
   //
   // move home page from /home/index.jsx to /index.jsx,
   // to avoid duplicate route (or need for redirect)
+  console.log('⏳ Updating homepage...')
   await exec(`mv ${destDirs.pages}/home/index.jsx ${destDirs.pages}/index.jsx`)
   // edit file to account for above changes
   await editFile(`${destDirs.pages}/index.jsx`, (contents) => {
@@ -199,10 +220,7 @@ async function migrateNomadIo() {
     // return
     return newContents
   })
-  // make homepage CSS [GPS](https://github.com/jescalan/gps) id more specific
-  await editFile(`${destDirs.pages}/home/style.css`, (contents) => {
-    return contents.replace(/p-home/g, 'p-home-nomad')
-  })
+  console.log('✅ Done')
   //
   // DOCS routes
   //
@@ -220,37 +238,16 @@ async function migrateNomadIo() {
       productData,
     })
   }
-  // TODO: temporary fix for docs routes that
-  // TODO: haven't been ETL'd yet
-  for (var i = 3; i < docsRoutes.length; i++) {
-    const basePath = docsRoutes[i]
+  // hide version select on /plugins and /tools
+  for (const basePath of ['plugins', 'tools']) {
     await editFile(
       path.join(destDirs.pages, basePath, '[[...page]].tsx'),
       (contents) => {
         let newContents = contents
-        // replace component import paths
-        newContents = newContents
-          .replace('{ getStaticPaths, getStaticProps }', `staticGenFns`)
-          .replace(
-            'export { getStaticPaths, getStaticProps }\n',
-            `// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getStaticPaths(ctx) {
-  // TODO: content is not yet extracted, because
-  // TODO: this docs path does not exist on stable-website,
-  // TODO: only on main (unreleased).
-  // TODO: need to consider what approach we'll take
-  // TODO: during migration if website code on main
-  // TODO: is significantly different (slash breaks)
-  // TODO: compared to website code on stable-website.
-  if (enableVersionedDocs) return { paths: [], fallback: 'blocking' }
-  return staticGenFns.getStaticPaths(ctx)
-}
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getStaticProps(ctx) {
-  return staticGenFns.getStaticProps(ctx)
-}\n`
-          )
-        // return
+        newContents = newContents.replace(
+          'showVersionSelect={enableVersionedDocs}',
+          'showVersionSelect={false}'
+        )
         return newContents
       }
     )
@@ -264,17 +261,12 @@ export function getStaticProps(ctx) {
   //
   // DOWNLOADS PAGE
   //
-  await editFile(`${destDirs.pages}/downloads/index.jsx`, (contents) => {
-    let newContents = contents
-      .replace(
-        "import VERSION from 'data/version'\nimport { productSlug } from 'data/metadata'",
-        "import productData from 'data/nomad'"
-      )
-      .replace(/productSlug/g, 'productData.slug')
-      .replace('latestVersion: VERSION', 'latestVersion: productData.version')
-    newContents = addProxyLayout(newContents, 'DownloadsPage', productData)
-    return newContents
-  })
+  await exec(
+    `cp _temp-migrations-assets/nomad/downloads-index.jsx ${destDirs.pages}/downloads/index.jsx`
+  )
+  await exec(
+    `cp _temp-migrations-assets/nomad/downloads-enterprise.jsx ${destDirs.pages}/downloads/enterprise.jsx`
+  )
   //
   // SECURITY PAGE
   //
