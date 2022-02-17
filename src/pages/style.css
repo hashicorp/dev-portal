@@ -95,7 +95,6 @@ and negative margin.
   &:focus-visible {
     box-shadow: var(--token-focus-ring-box-shadow);
     outline: none;
-    z-index: 1;
   }
 }
 
