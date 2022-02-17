@@ -74,6 +74,19 @@ function addHostCondition(redirects, productSlug) {
   const host = proxySettings[productSlug].host
   return redirects.map((redirect) => {
     if (productSlug == PROXIED_PRODUCT) return redirect
+    // To enable previewing of .io sites, we accept an io_preview cookie which must have a value matching a product slug
+    if (isPreview()) {
+      return {
+        ...redirect,
+        has: [
+          {
+            type: 'cookie',
+            key: 'io_preview',
+            value: productSlug,
+          },
+        ],
+      }
+    }
     return {
       ...redirect,
       has: [

@@ -4,6 +4,7 @@ const redirectsConfig = require('./config/redirects')
 const rewritesConfig = require('./config/rewrites')
 
 // temporary: set all paths as noindex, until we're serving from this project
+// Update the excluded domains to ensure we are indexing content as the io sites get migrated
 const temporary_hideDocsPaths = {
   source: '/:path*',
   headers: [
@@ -12,11 +13,15 @@ const temporary_hideDocsPaths = {
       value: 'noindex',
     },
   ],
+  has: [
+    { type: 'host', value: '(^(?!.*(waypointproject|boundaryproject)).*$)' },
+  ],
 }
 
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
   withHashicorp({
     nextOptimizedImages: true,
+    css: false,
     transpileModules: [
       'swingset',
       // TODO: once Sentinel has been migrated into
@@ -25,6 +30,7 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       // TODO: component. Should first confirm with Cam Stitt
       // TODO: that this component is not being used elsewhere.
       '@hashicorp/sentinel-embedded',
+      '@hashicorp/flight-icons',
     ],
   })({
     async headers() {
@@ -52,5 +58,6 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
         },
       ],
     },
+    outputFileTracing: false,
   })
 )

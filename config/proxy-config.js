@@ -1,9 +1,11 @@
 module.exports = {
   boundary: {
-    // actually https://boundaryproject.io, but using test-bd.hashi-mktg.com as a test
-    domain: 'https://test-bd.hashi-mktg.com',
-    host: 'test-bd.hashi-mktg.com',
-    assets: ['/files/press-kit.zip'],
+    domain: 'https://www.boundaryproject.io',
+    host: '(www\\.boundaryproject\\.io|test-bd\\.hashi-mktg\\.com)',
+    assets: [
+      '/files/press-kit.zip',
+      '/data/vault/boundary-controller-policy.hcl',
+    ],
   },
   // consul: {
   //   domain: 'https://test-cs.hashi-mktg.com',
@@ -42,9 +44,8 @@ module.exports = {
     assets: ['/files/press-kit.zip'],
   },
   waypoint: {
-    // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
-    domain: 'https://wp.snarglepuss.com',
-    host: 'wp.snarglepuss.com',
+    domain: 'https://www.waypointproject.io',
+    host: '(www\\.waypointproject\\.io|test-wp\\.hashi-mktg\\.com)',
     assets: ['/files/press-kit.zip'],
   },
 }

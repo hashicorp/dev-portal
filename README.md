@@ -38,6 +38,8 @@ There are a few things you need to set up before you can begin developing in thi
 
    This command will pull the development environment variables from the linked Vercel project and write them to a new file called `.env.local`.
 
+Additionally, you can add a GitHub [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to prevent running into the GitHub's API rate limit for unauthenticated requests by adding `GITHUB_TOKEN` to your `.env.local`.
+
 ### Running The Project
 
 If you're developing in this repository, get started by running:
@@ -48,6 +50,18 @@ npm start
 ```
 
 This will give you a development server running on [localhost:3000](http://localhost:3000).
+
+To preview the co-located `.io` project sites, you can run variations on the `npm start` command:
+
+```sh
+npm run start:boundary # https://www.boundaryproject.io
+npm run start:nomad # https://www.nomadproject.io
+npm run start:sentinel # https://docs.hashicorp.com/sentinel
+npm run start:vault # https://www.vaultproject.io
+npm run start:waypoint # https://www.boundaryproject.io
+```
+
+These commands set the `DEV_IO` env variable in order to simulate the environment we use to deploy the `.io` sites. Further details on the local preview processes for the `.io` sites can be found in [MKTG-040 RFC](https://docs.google.com/document/d/1iLx2jL09YkLbhSXdK9ScSedwSiujYDEa524FejOAnZM/edit) and in the [corresponding Digital RFC](https://docs.google.com/document/d/1tvEhrLF0YyRimgR-Ibd_lo7sqTvw0TFAi77jbgjROVk/edit).
 
 ### Testing
 
