@@ -17,6 +17,7 @@ interface Product extends ProductMeta {
   }
   slug: ProductSlug
   url?: string
+  version?: string
 }
 
 type ProductGroup = Product[]
