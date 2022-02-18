@@ -8,7 +8,7 @@
 }
 
 .switcherButton {
-  composes: focus-border-and-box-shadow-dark from global;
+  composes: g-focus-border-and-box-shadow-dark from global;
   align-items: center;
   background-color: var(--token-color-palette-neutral-700);
   border-radius: 5px;
@@ -116,17 +116,6 @@ Two items to note:
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
-  }
-}
-
-/*
-TODO: this is temporary for the Vault icon since:
-  - we do not have a yellow version of the icon available from flight-icons yet
-  - the icon is currently on a dark background and appears "invisible"
-*/
-.vaultProductIcon {
-  & path {
-    fill: white;
   }
 }
 

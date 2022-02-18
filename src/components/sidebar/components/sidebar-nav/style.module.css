@@ -10,7 +10,7 @@
 }
 
 .skipToMainContent {
-  composes: focus-border-and-box-shadow-light from global;
+  composes: g-focus-border-and-box-shadow-light from global;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 0 0 3px #5990ff, 0 1px 1px rgba(101, 106, 118, 0.05),

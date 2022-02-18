@@ -1,0 +1,113 @@
+---
+componentName: Tabs
+peerComponents:
+  - InlineLink
+---
+
+## Tabs Props
+
+| Prop name            | Description                                                                  | Required? | Default value | Type      |
+| -------------------- | ---------------------------------------------------------------------------- | --------- | ------------- | --------- |
+| `ariaLabel`          | A non-visible label describing the purpose of the Tabs                       | No        | undefined     | string    |
+| `ariaLabelledBy`     | The `id` of an element containing a label describing the purpose of the Tabs | No        | undefined     | string    |
+| `children`           | At least two `Tab` components, one for each button and panel to render       | Yes       | N/A           | ReactNode |
+| `initialActiveIndex` | The index of the tab to show as active on initial render                     | No        | 0             | number    |
+| `showAnchorLine`     | Whether or not a full-width border should be shown below the tab buttons     | No        | false         | boolean   |
+
+## Tab props
+
+| Prop name  | Description                                | Required? | Default value | Type      |
+| ---------- | ------------------------------------------ | --------- | ------------- | --------- |
+| `children` | The content to render within the tab panel | Yes       | N/A           | ReactNode |
+| `heading`  | The text to show in the tab button         | Yes       | N/A           | string    |
+
+## Playground
+
+<LiveComponent>{`
+<Tabs>
+  <Tab heading="Windows">
+    <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows" text="Read more on Wikipedia" />.</p>
+  </Tab>
+  <Tab heading="Mac OS">
+    <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems" text="Read more on Wikipedia" />.</p>
+  </Tab>
+  <Tab heading="Linux">
+    <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux" text="Read more on Wikipedia" />.</p>
+  </Tab>
+</Tabs>
+`}</LiveComponent>
+
+## Examples
+
+### With `ariaLabel` set for a non-visible label (test using a screen reader)
+
+<LiveComponent>{`
+<Tabs ariaLabel="Definitions of Common Operating Systems">
+  <Tab heading="Windows">
+    <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows" text="Read more on Wikipedia" />.</p>
+  </Tab>
+  <Tab heading="Mac OS">
+    <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems" text="Read more on Wikipedia" />.</p>
+  </Tab>
+  <Tab heading="Linux">
+    <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux" text="Read more on Wikipedia" />.</p>
+  </Tab>
+</Tabs>
+`}</LiveComponent>
+
+### With `ariaLabelledBy` set for a visible label (also test using a screen reader)
+
+<LiveComponent>{`
+<>
+  <p
+    className="hds-typography-display-400 hds-font-weight-bold"
+    id="ariaLablledBy-test-label"
+    style={{ marginBottom: 12 }}
+  >
+    Definitions of Common Operating Systems
+  </p>
+  <Tabs ariaLabel="ariaLablledBy-test-label">
+    <Tab heading="Windows">
+      <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows" text="Read more on Wikipedia" />.</p>
+    </Tab>
+    <Tab heading="Mac OS">
+      <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems" text="Read more on Wikipedia" />.</p>
+    </Tab>
+    <Tab heading="Linux">
+      <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux" text="Read more on Wikipedia" />.</p>
+    </Tab>
+  </Tabs>
+</>
+`}</LiveComponent>
+
+### With `initialActiveIndex` set to something other than the default first tab
+
+<LiveComponent>{`
+<Tabs initialActiveIndex={1}>
+  <Tab heading="Windows">
+    <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows" text="Read more on Wikipedia" />.</p>
+  </Tab>
+  <Tab heading="Mac OS">
+    <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems" text="Read more on Wikipedia" />.</p>
+  </Tab>
+  <Tab heading="Linux">
+    <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux" text="Read more on Wikipedia" />.</p>
+  </Tab>
+</Tabs>
+`}</LiveComponent>
+
+### With `showAnchorLine` set to false
+
+<LiveComponent>{`
+<Tabs showAnchorLine={false}>
+  <Tab heading="Windows">
+    <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows" text="Read more on Wikipedia" />.</p>
+  </Tab>
+  <Tab heading="Mac OS">
+    <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems" text="Read more on Wikipedia" />.</p>
+  </Tab>
+  <Tab heading="Linux">
+    <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux" text="Read more on Wikipedia" />.</p>
+  </Tab>
+</Tabs>
+`}</LiveComponent>

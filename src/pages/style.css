@@ -68,13 +68,13 @@ button {
 @custom-media --tablet only screen and (min-width: 729px) and (max-width: 1000px);
 
 @media (--mobile) {
-  .hide-on-mobile {
+  .g-hide-on-mobile {
     display: none;
   }
 }
 
 @media (--tablet) {
-  .hide-on-tablet {
+  .g-hide-on-tablet {
     display: none;
   }
 }
@@ -92,19 +92,13 @@ and negative margin.
     outline: none;
   }
 
-  /*
-  Not styling ::before with position: absolute and -5px positions because that
-  does not work on links that span more than one line.
-  */
   &:focus-visible {
     box-shadow: var(--token-focus-ring-box-shadow);
-    margin: -5px;
     outline: none;
-    padding: 5px;
   }
 }
 
-.focus-border-and-box-shadow-light {
+.g-focus-border-and-box-shadow-light {
   &:focus,
   &:focus-visible {
     outline: none;
@@ -117,7 +111,7 @@ and negative margin.
   }
 }
 
-.focus-border-and-box-shadow-dark {
+.g-focus-border-and-box-shadow-dark {
   &:focus,
   &:focus-visible {
     outline: none;

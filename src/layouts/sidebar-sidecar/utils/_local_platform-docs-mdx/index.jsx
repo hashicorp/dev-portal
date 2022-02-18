@@ -2,10 +2,10 @@ import React from 'react'
 import classNames from 'classnames'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
-import TabsBase, { Tab } from '@hashicorp/react-tabs'
 import { useCurrentProduct } from 'contexts'
 import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
+import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import s from './style.module.css'
 
@@ -70,7 +70,7 @@ function _defaultComponents() {
     theme: 'dark',
   })
   return {
-    Tabs,
+    Tabs: TabsWrapper,
     Tab,
     EnterpriseAlert,
     CodeBlockConfig,
@@ -96,17 +96,11 @@ function EnterpriseAlert(props) {
   return <EnterpriseAlertBase product={currentProduct?.slug} {...props} />
 }
 
-// Tabs is a general-purpose component that we format for ease of use within mdx
-// It is also wrapped in a span with a css module class for styling overrides
-function Tabs({ defaultTabIdx, children }) {
-  if (!Array.isArray(children))
-    throw new Error('Multiple <Tab> elements required')
-
-  return (
-    <span className={s.tabsRoot}>
-      <TabsBase className="g-tabs" defaultTabIdx={defaultTabIdx}>
-        {children}
-      </TabsBase>
-    </span>
-  )
+/**
+ * Because the `defaultTabIdx` prop is being renamed to `initialActiveIndex`,
+ * this wrapper ensures any use of `defaultTabIdx` is still supported in older
+ * versions of docs.
+ */
+function TabsWrapper({ defaultTabIdx, children }) {
+  return <Tabs initialActiveIndex={defaultTabIdx}>{children}</Tabs>
 }

@@ -1,5 +1,5 @@
 .sidebarNavMenuItem {
-  composes: focus-border-and-box-shadow-light from global;
+  composes: g-focus-border-and-box-shadow-light from global;
   align-items: center;
   background-color: white;
   border-radius: 5px;
