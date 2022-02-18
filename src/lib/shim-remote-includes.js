@@ -9,14 +9,13 @@ async function shimRemoteIncludes(
 ) {
   return await replaceAsync(
     mdxString,
-    /@include "(.*)"\n/g,
+    /@include (?:"|')(.*)(?:"|')\n/g,
     async (match, matchedPath) => {
       const includeFileString = await fetchContentApiFileString({
         product: productSlug,
         filePath: `${partialsDir}/${matchedPath}`,
         version: 'refs/heads/stable-website',
       })
-      console.log({ match, matchedPath, includeFileString })
       return `${includeFileString}\n`
     }
   )
@@ -26,10 +25,10 @@ async function shimRemoteIncludes(
  * Given a string, regex, and async function,
  * Runs the regex replacement
  *
- * @param {*} str
- * @param {*} regex
+ * @param {string} str
+ * @param {RegExp} regex
  * @param {*} asyncFn
- * @returns
+ * @returns {Promise<string>}
  */
 async function replaceAsync(str, regex, asyncFn) {
   const promises = []

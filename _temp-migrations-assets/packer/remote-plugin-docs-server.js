@@ -6,36 +6,11 @@ import {
   getPathsFromNavData,
 } from '@hashicorp/react-docs-page/server'
 import renderPageMdx from '@hashicorp/react-docs-page/render-page-mdx'
-import fetchGithubFile from 'lib/fetch-github-file'
+import shimRemoteIncludes from 'lib/shim-remote-includes'
 import resolveNavDataWithRemotePlugins, {
   appendRemotePluginsNavData,
 } from './utils/resolve-nav-data'
 import fetchLatestReleaseTag from './utils/fetch-latest-release-tag'
-
-async function fetchIncludeContent(includePath) {
-  const fileContent = await fetchGithubFile({
-    owner: 'hashicorp',
-    repo: 'packer',
-    path: path.join('website', 'content', 'partials', includePath),
-    ref: 'stable-website',
-  })
-  return fileContent
-}
-
-async function interpolateIncludes(mdxContent) {
-  const pattern = /^@include\s('|")(?<includePath>.*)('|")$/gm
-  const matches = mdxContent.matchAll(pattern)
-  let newContent = mdxContent
-  for (const match of matches) {
-    const originalIncludeContent = await fetchIncludeContent(
-      match.groups.includePath
-    )
-    const includeContent = await interpolateIncludes(originalIncludeContent)
-    newContent = newContent.replace(match[0], includeContent)
-  }
-
-  return newContent
-}
 
 async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
   const navData = await resolveNavDataWithRemotePlugins(navDataFile, {
@@ -113,7 +88,7 @@ async function generateStaticProps({
       mdxContent = badgesHeaderMdx + '\n\n' + mdxContent
     }
 
-    mdxContent = await interpolateIncludes(mdxContent)
+    mdxContent = await shimRemoteIncludes(mdxContent, 'packer')
 
     return mdxContent
   }
