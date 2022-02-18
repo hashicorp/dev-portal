@@ -1,6 +1,7 @@
 import { GetStaticPropsResult } from 'next'
 import semverSort from 'semver/functions/rsort'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
+import { Product } from 'types/products'
 import { makeFetchWithRetry } from './fetch-with-retry'
 
 export type OperatingSystem =
@@ -56,10 +57,12 @@ function getLatestVersionFromVersions(versions: string[]): string {
 }
 
 export function generateStaticProps(
-  product: string
+  product: Product
 ): Promise<GetStaticPropsResult<{ releases: ReleasesAPIResponse }>> {
+  const productSlug = product.slug
+
   return fetchWithRetry(
-    `https://releases.hashicorp.com/${product}/index.json`,
+    `https://releases.hashicorp.com/${productSlug}/index.json`,
     {
       headers: {
         'Cache-Control': 'no-cache',
@@ -86,7 +89,7 @@ export function generateStaticProps(
       throw new Error(
         `--------------------------------------------------------
         Unable to resolve release data on releases.hashicorp.com from link
-        <https://releases.hashicorp.com/${product}/index.json>.
+        <https://releases.hashicorp.com/${productSlug}/index.json>.
         ----------------------------------------------------------`
       )
     })
