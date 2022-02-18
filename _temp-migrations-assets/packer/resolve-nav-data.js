@@ -22,21 +22,6 @@ async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {
     ref: 'stable-website',
   })
   let navData = JSON.parse(navDataContent)
-  if (options.currentPath === '') {
-    const filePath = path.join('website', 'content', 'plugins', 'index.mdx')
-    const fileString = await fetchGithubFile({
-      owner: 'hashicorp',
-      repo: 'packer',
-      path: filePath,
-      ref: 'stable-website',
-    })
-    const sourceUrl = `https://github.com/packer/blob/stable-website/${filePath}`
-    navData[navData.findIndex((n) => n.path === '')].remoteFile = {
-      filePath,
-      sourceUrl,
-      fileString,
-    }
-  }
   return await appendRemotePluginsNavData(
     remotePluginsFile,
     navData,

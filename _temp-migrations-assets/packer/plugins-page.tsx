@@ -70,10 +70,12 @@ const DocsLayout: NextPage<Props> = ({
 }
 
 export async function getStaticPaths() {
-  const paths = await generateStaticPaths({
+  let paths = await generateStaticPaths({
     navDataFile,
     remotePluginsFile,
   })
+  // remove index-ish pages from static paths
+  paths = paths.filter((p) => p.params.page.filter(Boolean).length > 0)
   return { paths, fallback: false }
 }
 
