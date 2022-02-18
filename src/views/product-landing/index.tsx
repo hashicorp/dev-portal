@@ -21,7 +21,7 @@ interface ProductLandingProps {
   }
 }
 
-function ProductLanding({ content }: ProductLandingProps): ReactElement {
+function ProductLandingView({ content }: ProductLandingProps): ReactElement {
   return (
     <>
       <Heading
@@ -71,5 +71,5 @@ function ProductLanding({ content }: ProductLandingProps): ReactElement {
   )
 }
 
-ProductLanding.layout = SidebarSidecarLayout
-export default ProductLanding
+ProductLandingView.layout = SidebarSidecarLayout
+export default ProductLandingView
