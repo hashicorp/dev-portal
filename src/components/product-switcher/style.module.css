@@ -120,17 +120,6 @@ Two items to note:
 }
 
 /*
-TODO: this is temporary for the Vault icon since:
-  - we do not have a yellow version of the icon available from flight-icons yet
-  - the icon is currently on a dark background and appears "invisible"
-*/
-.vaultProductIcon {
-  & path {
-    fill: white;
-  }
-}
-
-/*
 The HCP icon is dark by default, and would not show up on the dark
 ProductSwitcher background. So, we adjust it to be light.
 
