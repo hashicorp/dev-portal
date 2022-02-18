@@ -1,11 +1,12 @@
 import { ReactElement, useMemo, useState } from 'react'
+import semverRSort from 'semver/functions/rsort'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import Card from 'components/card'
 import Text from 'components/text'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { ReleasesAPIResponse } from './server'
-import s from './downloads-page.module.css'
+import { ReleasesAPIResponse } from 'lib/fetch-release-data'
+import s from './product-downloads-view.module.css'
 
 const LOREM_IPSUM =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae leo id nunc convallis euismod et vel erat. Fusce vel velit turpis. Vivamus fringilla consequat metus, vitae euismod sem eleifend in. Morbi in ullamcorper dui. Quisque rutrum auctor tristique. Vivamus ac turpis non arcu fringilla interdum. Aliquam feugiat lectus ipsum, eu tincidunt mi tristique id. Aliquam sodales eros semper pharetra molestie. Mauris porta, nunc in tempor eleifend, metus massa sagittis nisi, non maximus quam mauris a erat. Duis nec risus diam. Aenean auctor accumsan ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce et sagittis nunc. Cras vel eros id purus sollicitudin lobortis. Vivamus hendrerit volutpat nulla.'
@@ -19,7 +20,7 @@ const WaypointDownloadsSidecarContent = ({
 
   return (
     <>
-      <select onChange={(e) => console.log(e.target.value)}>
+      <select onChange={(e) => setSelectedVersion(e.target.value)}>
         {versionSelectOptions.map((option) => (
           <option
             key={option.value}
@@ -44,28 +45,25 @@ const WaypointDownloadsSidecarContent = ({
 }
 
 interface ProductDownloadsViewProps {
+  latestVersion: string
   releases: ReleasesAPIResponse
 }
 
 const ProductDownloadsView = ({
+  latestVersion,
   releases,
 }: ProductDownloadsViewProps): ReactElement => {
   const currentProduct = useCurrentProduct()
-  const latestVersion = currentProduct.version
 
   // TODO: sort these using `semver` package
   const versionSelectOptions = useMemo(() => {
-    const unsorted = Object.keys(releases.versions)
-      .reverse()
-      .map((version) => {
-        console.log('hi')
-        const isLatest = version === latestVersion
-        return {
-          label: `${version}${isLatest ? ' (latest)' : ''}`,
-          value: version,
-        }
-      })
-    return unsorted
+    return semverRSort(Object.keys(releases.versions)).map((version) => {
+      const isLatest = version === latestVersion
+      return {
+        label: `${version}${isLatest ? ' (latest)' : ''}`,
+        value: version,
+      }
+    })
   }, [latestVersion, releases.versions])
 
   const backToLink = {
@@ -84,6 +82,7 @@ const ProductDownloadsView = ({
       backToLink={backToLink}
       navData={navData}
       productName="Waypoint"
+      showFilterInput={false}
       sidecarChildren={
         <WaypointDownloadsSidecarContent
           latestVersion={latestVersion}
