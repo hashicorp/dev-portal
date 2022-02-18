@@ -110,12 +110,24 @@ async function migratePackerIo() {
     'section-break-cta',
     // docs
     'remote-plugin-docs',
+    // plugins
+    'badge',
+    'badges-header',
+    'checklist',
+    'dev-alert',
+    'plugin-badge',
   ]
   for (let i = 0; i < missingComponents.length; i++) {
     const srcPath = `${repoDirs.components}/${missingComponents[i]}`
     const destPath = `${destDirs.components}/${missingComponents[i]}`
     await exec(`cp -r ${srcPath}/ ${destPath}`)
   }
+  await exec(
+    `cp _temp-migrations-assets/packer/resolve-nav-data.js ${destDirs.components}/remote-plugin-docs/utils/resolve-nav-data.js`
+  )
+  await exec(
+    `cp _temp-migrations-assets/packer/remote-plugin-docs-server.js ${destDirs.components}/remote-plugin-docs/server.js`
+  )
   //
   // SUBNAV COMPONENT
   //
@@ -195,6 +207,30 @@ async function migratePackerIo() {
   //
   // DOCS (INCL. PLUGIN DOCS)
   //
+  const docsRoutes = ['guides', 'intro']
+  for (var i = 0; i < docsRoutes.length; i++) {
+    const basePath = docsRoutes[i]
+    // delete existing docs page
+    await exec(
+      `rm -f ${path.join(destDirs.pages, basePath, '[[...page]].jsx')}`
+    )
+    // use template
+    await setupDocsRoute({
+      pagesDir: destDirs.pages,
+      basePath,
+      productData,
+    })
+  }
+  await exec(`rm -f ${path.join(destDirs.pages, 'plugins', '[[...page]].tsx')}`)
+  await exec(
+    `cp _temp-migrations-assets/packer/docs-page.jsx ${destDirs.pages}/docs/[[...page]].jsx`
+  )
+  await exec(
+    `cp _temp-migrations-assets/packer/plugins-index.tsx ${destDirs.pages}/plugins/index.tsx`
+  )
+  await exec(
+    `cp _temp-migrations-assets/packer/plugins-page.tsx ${destDirs.pages}/plugins/[...page].tsx`
+  )
 
   //
   // COMMUNITY MDX PAGES

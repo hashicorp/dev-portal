@@ -1,23 +1,20 @@
+import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
 import DocsPage from '@hashicorp/react-docs-page'
-import Badge from 'components/badge'
-import BadgesHeader from 'components/badges-header'
-import PluginBadge from 'components/plugin-badge'
-import Checklist from 'components/checklist'
 import productData from 'data/packer.json'
-// Imports below are only used server-side
+import { isVersionedDocsEnabled } from 'lib/env-checks'
+// Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 
-//  Configure the docs path and remote plugin docs loading
 const product = { name: productData.name, slug: productData.slug }
-const basePath = 'docs'
+const basePath = 'intro'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
-const additionalComponents = { Badge, BadgesHeader, PluginBadge, Checklist }
-const mainBranch = 'master'
+const additionalComponents = {}
 
-export default function DocsLayout({ isDevMissingRemotePlugins, ...props }) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+function DocsView(props) {
   return (
     <DocsPage
       product={product}
@@ -31,24 +28,25 @@ export default function DocsLayout({ isDevMissingRemotePlugins, ...props }) {
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
-  process.env.ENABLE_VERSIONED_DOCS === 'true'
+  enableVersionedDocs
     ? {
         strategy: 'remote',
-        basePath: baseRoute,
+        basePath,
         fallback: 'blocking',
         revalidate: 360, // 1 hour
-        product: product.slug,
-        mainBranch: mainBranch,
+        product: productData.slug,
       }
     : {
         strategy: 'fs',
         localContentDir,
         navDataFile,
         localPartialsDir,
-        product: product.slug,
-        revalidate: false,
-        mainBranch: mainBranch,
+        product: productData.slug,
       }
 )
 
+// Export getStatic functions
 export { getStaticPaths, getStaticProps }
+// Export view with layout
+DocsView.layout = PackerIoLayout
+export default DocsView

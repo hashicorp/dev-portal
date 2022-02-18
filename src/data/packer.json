@@ -23,7 +23,7 @@
     "linkText": "Read the post",
     "expirationDate": "2021-12-17T23:00:00-07:00"
   },
-  "version": "1.7.8",
+  "version": "1.7.10",
   "subnavItems": [
     {
       "text": "Overview",
@@ -38,6 +38,11 @@
     {
       "text": "Docs",
       "url": "/docs",
+      "type": "inbound"
+    },
+    {
+      "text": "Plugins",
+      "url": "/plugins",
       "type": "inbound"
     },
     {
