@@ -17,15 +17,17 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
   navData,
   openConsentManager,
   productName,
+  showFilterInput,
   sidecarChildren,
 }) => (
   <BaseLayout showFooter={false}>
     <div className={s.contentWrapper}>
       <div className={s.sidebar}>
         <Sidebar
-          title={productName}
-          menuItems={navData}
           backToLink={backToLink}
+          menuItems={navData}
+          showFilterInput={showFilterInput}
+          title={productName}
         />
       </div>
       <div className={s.mainArea}>

@@ -28,14 +28,16 @@ export interface MenuItem {
 }
 
 interface SidebarProps {
-  menuItems: MenuItem[]
-  /** title to be shown as the title of the sidebar */
-  title: string
   /** Optional { text, url } to use for the "← Back to..." link at the top of the sidebar */
   backToLink?: {
     text: string
     url: string
   }
+  menuItems: MenuItem[]
+  /** Whether or not the Sidebar should render the filter text input */
+  showFilterInput?: boolean
+  /** title to be shown as the title of the sidebar */
+  title: string
 }
 
 const addItemMetadata = (
@@ -123,6 +125,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
 const Sidebar: React.FC<SidebarProps> = ({
   menuItems,
   backToLink = {},
+  showFilterInput = true,
   title,
 }) => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
@@ -136,8 +139,9 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <div className={s.sidebar}>
       <SidebarBackToLink text={backToLink.text} url={backToLink.url} />
-      <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
-      {/* TODO: What should this title be? */}
+      {showFilterInput && (
+        <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
+      )}
       <SidebarNav title={title} menuItems={filteredMenuItems} />
     </div>
   )
