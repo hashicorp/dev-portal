@@ -3,6 +3,10 @@ import { getStaticGenerationFunctions as getStaticGenerationFunctionsBase } from
 export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBase = (
   ...args
 ) => {
+  if (!args[0].revalidate && args[0].strategy === 'remote') {
+    args[0].revalidate = config.io_sites.revalidate
+  }
+
   const {
     getStaticPaths: getStaticPathsBase,
     getStaticProps,
@@ -14,10 +18,7 @@ export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBa
 
       return {
         ...result,
-        paths: result.paths.slice(
-          0,
-          Number.parseInt(process.env.IO_SITES_MAX_STATIC_PATHS, 10)
-        ),
+        paths: result.paths.slice(0, config.io_sites.max_static_paths ?? 0),
       }
     },
     getStaticProps,

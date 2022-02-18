@@ -33,7 +33,6 @@ const staticGenFns = getStaticGenerationFunctions(
         strategy: 'remote',
         basePath,
         fallback: 'blocking',
-        revalidate: 360, // 1 hour
         product: productData.slug,
       }
     : {

@@ -1,5 +1,7 @@
 const fs = require('fs')
 const path = require('path')
+const flat = require('flat')
+const { webpack } = require('next/dist/compiled/webpack/webpack')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
 const redirectsConfig = require('./config/redirects')
@@ -18,17 +20,42 @@ const temporary_hideDocsPaths = {
   has: [{ type: 'host', value: '(^(?!.*(waypointproject)).*$)' }],
 }
 
-function getHashiEnvironmentConfig() {
+/**
+ * Reads in config files from config/[env].json and replaces references in the code
+ * with the literal values using webpack.DefinePlugin
+ */
+function HashiConfigPlugin() {
   const env = process.env.HASHI_ENV || 'development'
-  try {
-    const envConfig = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), 'config', `${env}.json`))
-    )
-    return envConfig
-  } catch (err) {
-    console.log('Error loading environment config:', err)
-    return {}
+  const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
+
+  function getHashiConfig(path) {
+    try {
+      const envConfig = JSON.parse(fs.readFileSync(path))
+      const ret = flat(envConfig, {
+        safe: true,
+      })
+      return ret
+    } catch (err) {
+      console.log('Error loading environment config:', err)
+      return {}
+    }
   }
+
+  return new webpack.DefinePlugin({
+    ...Object.fromEntries(
+      Object.entries(getHashiConfig(envConfigPath)).map(([key]) => {
+        return [
+          `config.${key}`,
+          webpack.DefinePlugin.runtimeValue(
+            () => {
+              return JSON.stringify(getHashiConfig(envConfigPath)[key])
+            },
+            { fileDependencies: [envConfigPath] }
+          ),
+        ]
+      })
+    ),
+  })
 }
 
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
@@ -46,6 +73,10 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       '@hashicorp/flight-icons',
     ],
   })({
+    webpack(config) {
+      config.plugins.push(HashiConfigPlugin())
+      return config
+    },
     async headers() {
       return [temporary_hideDocsPaths]
     },
@@ -62,7 +93,6 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
       IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
       DEV_IO: process.env.DEV_IO,
-      ...getHashiEnvironmentConfig(),
     },
     svgo: {
       plugins: [

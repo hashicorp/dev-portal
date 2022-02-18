@@ -35,7 +35,6 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
         strategy: 'remote',
         basePath,
         fallback: 'blocking',
-        revalidate: 360, // 1 hour
         product: productData.slug,
       }
     : {

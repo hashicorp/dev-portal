@@ -13,4 +13,6 @@ declare module 'swingset/server' {
   export { createStaticPaths, createStaticProps }
 }
 
+declare const config: Record<string, any>
+
 declare module '@hashicorp/react-search'
