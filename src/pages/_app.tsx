@@ -1,4 +1,5 @@
 import React from 'react'
+import { SSRProvider } from '@react-aria/ssr'
 import '@hashicorp/platform-util/nprogress/style.css'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
@@ -26,18 +27,20 @@ export default function App({ Component, pageProps }) {
   const currentProduct = pageProps.product || null
 
   return (
-    <ErrorBoundary FallbackComponent={Error}>
-      <DeviceSizeProvider>
-        <CurrentProductProvider currentProduct={currentProduct}>
-          <Layout
-            {...pageProps?.layoutProps}
-            openConsentManager={openConsentManager}
-          >
-            <Component {...pageProps} />
-          </Layout>
-        </CurrentProductProvider>
-      </DeviceSizeProvider>
-      <ConsentManager />
-    </ErrorBoundary>
+    <SSRProvider>
+      <ErrorBoundary FallbackComponent={Error}>
+        <DeviceSizeProvider>
+          <CurrentProductProvider currentProduct={currentProduct}>
+            <Layout
+              {...pageProps?.layoutProps}
+              openConsentManager={openConsentManager}
+            >
+              <Component {...pageProps} />
+            </Layout>
+          </CurrentProductProvider>
+        </DeviceSizeProvider>
+        <ConsentManager />
+      </ErrorBoundary>
+    </SSRProvider>
   )
 }
