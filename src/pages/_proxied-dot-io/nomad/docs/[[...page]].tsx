@@ -1,4 +1,5 @@
 import NomadIoLayout from 'layouts/_proxied-dot-io/nomad'
+import Placement from 'components/author-primitives/shared/placement-table'
 import DocsPage from '@hashicorp/react-docs-page'
 import productData from 'data/nomad.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
@@ -11,7 +12,7 @@ const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
-const additionalComponents = {}
+const additionalComponents = { Placement }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function DocsView(props) {
