@@ -1,4 +1,5 @@
 import { ReactElement, useMemo } from 'react'
+import { useRouter } from 'next/router'
 import semverRSort from 'semver/functions/rsort'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
@@ -36,17 +37,8 @@ const ProductDownloadsView = ({
   latestVersion,
   releases,
 }: ProductDownloadsViewProps): ReactElement => {
+  const router = useRouter()
   const currentProduct = useCurrentProduct()
-  const versionSwitcherOptions = useMemo(() => {
-    return semverRSort(Object.keys(releases.versions)).map((version) => {
-      const isLatest = version === latestVersion
-      return {
-        label: `${version}${isLatest ? ' (latest)' : ''}`,
-        value: version,
-      }
-    })
-  }, [latestVersion, releases.versions])
-
   const backToLink = {
     text: 'Back to Waypoint',
     url: '/waypoint',
@@ -56,6 +48,15 @@ const ProductDownloadsView = ({
     { divider: true },
     ...currentProduct.sidebar.resourcesNavData,
   ]
+  const versionSwitcherOptions = useMemo(() => {
+    return semverRSort(Object.keys(releases.versions)).map((version) => {
+      const isLatest = version === latestVersion
+      return {
+        label: `${version}${isLatest ? ' (latest)' : ''}`,
+        value: version,
+      }
+    })
+  }, [latestVersion, releases.versions])
 
   // TODO: currently shows placeholder content for testing purposes
   return (
@@ -67,7 +68,7 @@ const ProductDownloadsView = ({
       sidecarChildren={<WaypointDownloadsSidecarContent />}
       versionSwitcherOptions={versionSwitcherOptions}
     >
-      <h1>Lorem ipsum</h1>
+      <h1>Install Waypoint: {router.query.version || latestVersion}</h1>
       {Array(12)
         .fill(null, 0)
         .map((_, index) => (
