@@ -10,8 +10,9 @@
   padding: 32px 0;
   position: relative;
 
-  /* before element acts as full-width border,
-     no matter the container size*/
+  /*
+  before element acts as full-width border, no matter the container size
+  */
   &::before {
     background: var(--token-color-neutral-border-primary);
     content: '\200B';
@@ -27,12 +28,13 @@
 }
 
 .logo {
-  position: relative;
   margin: 8px 40px 8px 0;
+  position: relative;
 
   & svg {
-    /* default inline display results
-     in misalignment with footer links */
+    /*
+    default inline display results in misalignment with footer links
+    */
     display: block;
     height: 28px;
     width: auto;
@@ -40,17 +42,17 @@
 }
 
 .links {
-  position: relative;
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  padding: 0;
   margin: 16px 0 0 0;
+  padding: 0;
+  position: relative;
+  width: 100%;
 
   @media (--list-horizontally) {
-    width: auto;
     margin-top: 0;
+    width: auto;
   }
 }
 
@@ -68,11 +70,10 @@
 }
 
 .linkAction {
-  composes: ds-token-typography-body-base from global;
   background: none;
   border: none;
-  padding: 0;
   color: var(--token-color-neutral-foreground-faint);
+  padding: 0;
 
   &:hover {
     color: var(--token-color-neutral-foreground-primary);
