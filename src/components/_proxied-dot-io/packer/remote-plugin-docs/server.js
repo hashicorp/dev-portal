@@ -1,20 +1,69 @@
 import fs from 'fs'
 import path from 'path'
+import grayMatter from 'gray-matter'
+import { serialize } from 'next-mdx-remote/serialize'
+import markdownDefaults from '@hashicorp/platform-markdown-utils'
 import {
   getNodeFromPath,
   getPathsFromNavData,
 } from '@hashicorp/react-docs-page/server'
-import renderPageMdx from '@hashicorp/react-docs-page/render-page-mdx'
+import fetchGithubFile from 'lib/fetch-github-file'
 import resolveNavDataWithRemotePlugins, {
   appendRemotePluginsNavData,
 } from './utils/resolve-nav-data'
 import fetchLatestReleaseTag from './utils/fetch-latest-release-tag'
 
+async function renderPageMdx(
+  mdxFileString,
+  {
+    mdxContentHook = (c) => c,
+    remarkPlugins = [],
+    scope,
+    localPartialsDir = 'content/partials',
+  } = {}
+) {
+  const { data: frontMatter, content: rawContent } = grayMatter(mdxFileString)
+  const content = await mdxContentHook(rawContent)
+  const mdxSource = await serialize(content, {
+    mdxOptions: markdownDefaults({
+      resolveIncludes: path.join(process.cwd(), localPartialsDir),
+      addRemarkPlugins: remarkPlugins,
+    }),
+    scope,
+  })
+  return { mdxSource, frontMatter }
+}
+
+async function fetchIncludeContent(includePath) {
+  const fileContent = await fetchGithubFile({
+    owner: 'hashicorp',
+    repo: 'packer',
+    path: path.join('website', 'content', 'partials', includePath),
+    ref: 'stable-website',
+  })
+  return fileContent
+}
+
+async function interpolateIncludes(mdxContent) {
+  const pattern = /^@include\s('|")(?<includePath>.*)('|")$/gm
+  const matches = mdxContent.matchAll(pattern)
+  let newContent = mdxContent
+  for (const match of matches) {
+    const originalIncludeContent = await fetchIncludeContent(
+      match.groups.includePath
+    )
+    const includeContent = await interpolateIncludes(originalIncludeContent)
+    newContent = newContent.replace(match[0], includeContent)
+  }
+
+  return newContent
+}
+
 async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
   const navData = await resolveNavDataWithRemotePlugins(navDataFile, {
     remotePluginsFile,
   })
-  const paths = await getPathsFromNavData(navData)
+  const paths = getPathsFromNavData(navData)
   return paths
 }
 
@@ -61,7 +110,7 @@ async function generateStaticProps({
   // (current options are "Official" or "Community")
   // and display whether the plugin is "HCP Packer Ready".
   // Also add a badge to show the latest version
-  function mdxContentHook(mdxContent) {
+  async function mdxContentHook(mdxContent) {
     const badgesMdx = []
     // Add a badge for the plugin tier
     if (pluginData?.tier) {
@@ -85,11 +134,12 @@ async function generateStaticProps({
       const badgesHeaderMdx = `<BadgesHeader>${badgeChildrenMdx}</BadgesHeader>`
       mdxContent = badgesHeaderMdx + '\n\n' + mdxContent
     }
+
+    mdxContent = await interpolateIncludes(mdxContent)
+
     return mdxContent
   }
   const { mdxSource, frontMatter } = await renderPageMdx(mdxString, {
-    additionalComponents,
-    productName: product.name,
     mdxContentHook,
   })
 

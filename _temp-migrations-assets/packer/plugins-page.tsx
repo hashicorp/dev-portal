@@ -1,5 +1,5 @@
+import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
 import DocsPage from '@hashicorp/react-docs-page'
-import { NextPage, InferGetStaticPropsType } from 'next'
 
 import Badge from 'components/_proxied-dot-io/packer/badge'
 import BadgesHeader from 'components/_proxied-dot-io/packer/badges-header'
@@ -26,11 +26,7 @@ const localContentDir = `../content/${basePath}`
 const additionalComponents = { Badge, BadgesHeader, PluginBadge, Checklist }
 const mainBranch = 'master'
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>
-const DocsLayout: NextPage<Props> = ({
-  isDevMissingRemotePlugins,
-  ...props
-}) => {
+function DocsView({ isDevMissingRemotePlugins, ...props }) {
   return (
     <>
       {isDevMissingRemotePlugins ? (
@@ -92,4 +88,5 @@ export async function getStaticProps({ params }) {
   return { props }
 }
 
-export default DocsLayout
+DocsView.layout = PackerIoLayout
+export default DocsView
