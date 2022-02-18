@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useState } from 'react'
+import { ReactElement, useMemo } from 'react'
 import semverRSort from 'semver/functions/rsort'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
@@ -11,26 +11,9 @@ import s from './product-downloads-view.module.css'
 const LOREM_IPSUM =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae leo id nunc convallis euismod et vel erat. Fusce vel velit turpis. Vivamus fringilla consequat metus, vitae euismod sem eleifend in. Morbi in ullamcorper dui. Quisque rutrum auctor tristique. Vivamus ac turpis non arcu fringilla interdum. Aliquam feugiat lectus ipsum, eu tincidunt mi tristique id. Aliquam sodales eros semper pharetra molestie. Mauris porta, nunc in tempor eleifend, metus massa sagittis nisi, non maximus quam mauris a erat. Duis nec risus diam. Aenean auctor accumsan ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce et sagittis nunc. Cras vel eros id purus sollicitudin lobortis. Vivamus hendrerit volutpat nulla.'
 
-const WaypointDownloadsSidecarContent = ({
-  latestVersion,
-  versionSelectOptions,
-}) => {
-  // TODO: Should also be based off of the current URL
-  const [selectedVersion, setSelectedVersion] = useState(latestVersion)
-
+const WaypointDownloadsSidecarContent = () => {
   return (
     <>
-      <select onChange={(e) => setSelectedVersion(e.target.value)}>
-        {versionSelectOptions.map((option) => (
-          <option
-            key={option.value}
-            selected={option.value === selectedVersion}
-            value={option.value}
-          >
-            {option.label}
-          </option>
-        ))}
-      </select>
       <Card elevation="base">
         <Text className={s.sidecarCardLabel} size={200} weight="semibold">
           Lorem ipsum
@@ -54,9 +37,7 @@ const ProductDownloadsView = ({
   releases,
 }: ProductDownloadsViewProps): ReactElement => {
   const currentProduct = useCurrentProduct()
-
-  // TODO: sort these using `semver` package
-  const versionSelectOptions = useMemo(() => {
+  const versionSwitcherOptions = useMemo(() => {
     return semverRSort(Object.keys(releases.versions)).map((version) => {
       const isLatest = version === latestVersion
       return {
@@ -83,12 +64,8 @@ const ProductDownloadsView = ({
       navData={navData}
       productName="Waypoint"
       showFilterInput={false}
-      sidecarChildren={
-        <WaypointDownloadsSidecarContent
-          latestVersion={latestVersion}
-          versionSelectOptions={versionSelectOptions}
-        />
-      }
+      sidecarChildren={<WaypointDownloadsSidecarContent />}
+      versionSwitcherOptions={versionSwitcherOptions}
     >
       <h1>Lorem ipsum</h1>
       {Array(12)

@@ -27,7 +27,7 @@ export interface MenuItem {
   heading?: string
 }
 
-interface SidebarProps {
+export interface SidebarProps {
   /** Optional { text, url } to use for the "← Back to..." link at the top of the sidebar */
   backToLink?: {
     text: string
@@ -38,6 +38,7 @@ interface SidebarProps {
   showFilterInput?: boolean
   /** title to be shown as the title of the sidebar */
   title: string
+  versionSwitcherOptions?: { label: string; value: string }[]
 }
 
 const addItemMetadata = (
@@ -127,7 +128,10 @@ const Sidebar: React.FC<SidebarProps> = ({
   backToLink = {},
   showFilterInput = true,
   title,
+  versionSwitcherOptions,
 }) => {
+  const showVersionSwitcher =
+    versionSwitcherOptions && versionSwitcherOptions.length > 0
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
     () => addItemMetadata(currentPath, menuItems),
@@ -136,11 +140,29 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [filterValue, setFilterValue] = useState('')
   const filteredMenuItems = getFilteredMenuItems(itemsWithMetadata, filterValue)
 
+  // TODO: Should also be based off of the current URL
+  const [selectedVersion, setSelectedVersion] = useState(
+    showVersionSwitcher ? versionSwitcherOptions[0].value : undefined
+  )
+
   return (
     <div className={s.sidebar}>
       <SidebarBackToLink text={backToLink.text} url={backToLink.url} />
       {showFilterInput && (
         <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
+      )}
+      {showVersionSwitcher && (
+        <select onChange={(e) => setSelectedVersion(e.target.value)}>
+          {versionSwitcherOptions.map((option) => (
+            <option
+              key={option.value}
+              selected={option.value === selectedVersion}
+              value={option.value}
+            >
+              {option.label}
+            </option>
+          ))}
+        </select>
       )}
       <SidebarNav title={title} menuItems={filteredMenuItems} />
     </div>
