@@ -37,8 +37,7 @@ const WaypointDowloadsPage = (): ReactElement => {
   // TODO: currently shows placeholder content for testing purposes
   return (
     <SidebarSidecarLayout
-      navData={navData}
-      productName="Waypoint"
+      sidebarProps={{ menuItems: navData, title: 'Waypoint' }}
       sidecarChildren={<WaypointDownloadsSidecarContent />}
     >
       <h1>Lorem ipsum</h1>
