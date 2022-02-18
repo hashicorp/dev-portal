@@ -43,7 +43,7 @@
 
 /* TODO: use `calc` and variables so it's clearer why we're using odd padding values */
 .navLinksAnchor {
-  composes: focus-border-and-box-shadow-dark from global;
+  composes: g-focus-border-and-box-shadow-dark from global;
   border: 1px solid transparent;
   border-radius: 5px;
   color: var(--token-color-palette-neutral-400);

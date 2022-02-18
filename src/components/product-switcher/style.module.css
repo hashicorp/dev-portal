@@ -8,7 +8,7 @@
 }
 
 .switcherButton {
-  composes: focus-border-and-box-shadow-dark from global;
+  composes: g-focus-border-and-box-shadow-dark from global;
   align-items: center;
   background-color: var(--token-color-palette-neutral-700);
   border-radius: 5px;
