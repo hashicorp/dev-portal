@@ -257,4 +257,10 @@ async function migratePackerIo() {
   // delete existing security page, we'll use a template
   await exec(`rm -f ${path.join(destDirs.pages, 'security.jsx')}`)
   await setupSecurityPage({ pagesDir: destDirs.pages, productData })
+  //
+  // DOWNLOADS PAGE
+  //
+  await exec(
+    `cp _temp-migrations-assets/packer/downloads-index.jsx ${destDirs.pages}/downloads/index.jsx`
+  )
 }
