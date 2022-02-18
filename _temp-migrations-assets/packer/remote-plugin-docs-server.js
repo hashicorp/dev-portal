@@ -1,38 +1,16 @@
 import fs from 'fs'
 import path from 'path'
 import grayMatter from 'gray-matter'
-import { serialize } from 'next-mdx-remote/serialize'
-import markdownDefaults from '@hashicorp/platform-markdown-utils'
 import {
   getNodeFromPath,
   getPathsFromNavData,
 } from '@hashicorp/react-docs-page/server'
+import renderPageMdx from '@hashicorp/react-docs-page/render-page-mdx'
 import fetchGithubFile from 'lib/fetch-github-file'
 import resolveNavDataWithRemotePlugins, {
   appendRemotePluginsNavData,
 } from './utils/resolve-nav-data'
 import fetchLatestReleaseTag from './utils/fetch-latest-release-tag'
-
-async function renderPageMdx(
-  mdxFileString,
-  {
-    mdxContentHook = (c) => c,
-    remarkPlugins = [],
-    scope,
-    localPartialsDir = 'content/partials',
-  } = {}
-) {
-  const { data: frontMatter, content: rawContent } = grayMatter(mdxFileString)
-  const content = await mdxContentHook(rawContent)
-  const mdxSource = await serialize(content, {
-    mdxOptions: markdownDefaults({
-      resolveIncludes: path.join(process.cwd(), localPartialsDir),
-      addRemarkPlugins: remarkPlugins,
-    }),
-    scope,
-  })
-  return { mdxSource, frontMatter }
-}
 
 async function fetchIncludeContent(includePath) {
   const fileContent = await fetchGithubFile({
@@ -139,9 +117,10 @@ async function generateStaticProps({
 
     return mdxContent
   }
-  const { mdxSource, frontMatter } = await renderPageMdx(mdxString, {
-    mdxContentHook,
-  })
+
+  const { data: frontMatter, content: rawContent } = grayMatter(mdxString)
+  const content = await mdxContentHook(rawContent)
+  const { mdxSource } = await renderPageMdx(content)
 
   return {
     currentPath,
