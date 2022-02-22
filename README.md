@@ -112,7 +112,7 @@ export default SomePage
 
 ### Configuration
 
-Per-environment configuration is defined in JSON files in the `config/` folder. Each environment has its own config file, currently:
+Per-environment configuration values are defined in JSON files in the `config/` folder. Each environment has its own config file, currently:
 
 ```
 config/
@@ -121,7 +121,7 @@ config/
   production.json
 ```
 
-The configuration values are available globally within the application. They can be accessed from a global `config` object:
+The configuration values are available globally within the application. They can be accessed from a global `__config` object:
 
 ```js
 // config file:
@@ -130,7 +130,7 @@ The configuration values are available globally within the application. They can
 }
 
 // in code:
-console.log(config.my_config_value)
+console.log(__config.my_config_value)
 ```
 
 Configuration files should be used for any non-sensitive configuration values needed throughout the application which might vary by environment. Consider API endpoints, constants, and flags in scope for the configuration files.

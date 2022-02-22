@@ -45,7 +45,7 @@ function HashiConfigPlugin() {
     ...Object.fromEntries(
       Object.entries(getHashiConfig(envConfigPath)).map(([key]) => {
         return [
-          `config.${key}`,
+          `__config.${key}`,
           webpack.DefinePlugin.runtimeValue(
             () => {
               return JSON.stringify(getHashiConfig(envConfigPath)[key])

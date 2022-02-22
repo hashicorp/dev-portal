@@ -4,7 +4,7 @@ export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBa
   ...args
 ) => {
   if (!args[0].revalidate && args[0].strategy === 'remote') {
-    args[0].revalidate = config.io_sites.revalidate
+    args[0].revalidate = __config.io_sites.revalidate
   }
 
   const {
@@ -18,7 +18,7 @@ export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBa
 
       return {
         ...result,
-        paths: result.paths.slice(0, config.io_sites.max_static_paths ?? 0),
+        paths: result.paths.slice(0, __config.io_sites.max_static_paths ?? 0),
       }
     },
     getStaticProps,

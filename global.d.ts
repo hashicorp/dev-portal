@@ -13,6 +13,9 @@ declare module 'swingset/server' {
   export { createStaticPaths, createStaticProps }
 }
 
-declare const config: Record<string, any>
+/**
+ * Application config, defined in environment-specific JSON files in `config/`
+ */
+declare const __config: Record<string, any>
 
 declare module '@hashicorp/react-search'
