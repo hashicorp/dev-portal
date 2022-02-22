@@ -50,8 +50,8 @@ const proxyConfig = {
   //   assets: [],
   // },
   vagrant: {
-    domain: 'https://www.vagrantup.io',
-    host: '(www\\.vagrantup\\.io|test-vg\\.hashi-mktg\\.com)',
+    domain: 'https://www.vagrantup.com',
+    host: '(www\\.vagrantup\\.com|test-vg\\.hashi-mktg\\.com)',
     assets: ['/files/press-kit.zip'],
   },
   vault: {
