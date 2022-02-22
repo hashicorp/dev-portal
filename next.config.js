@@ -1,3 +1,7 @@
+const fs = require('fs')
+const path = require('path')
+const flat = require('flat')
+const { webpack } = require('next/dist/compiled/webpack/webpack')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
 const redirectsConfig = require('./config/redirects')
@@ -21,6 +25,44 @@ const temporary_hideDocsPaths = {
   ],
 }
 
+/**
+ * Reads in config files from config/[env].json and replaces references in the code
+ * with the literal values using webpack.DefinePlugin
+ */
+function HashiConfigPlugin() {
+  const env = process.env.HASHI_ENV || 'development'
+  const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
+
+  function getHashiConfig(path) {
+    try {
+      const envConfig = JSON.parse(fs.readFileSync(path))
+      const ret = flat(envConfig, {
+        safe: true,
+      })
+      return ret
+    } catch (err) {
+      console.log('Error loading environment config:', err)
+      return {}
+    }
+  }
+
+  return new webpack.DefinePlugin({
+    ...Object.fromEntries(
+      Object.entries(getHashiConfig(envConfigPath)).map(([key]) => {
+        return [
+          `__config.${key}`,
+          webpack.DefinePlugin.runtimeValue(
+            () => {
+              return JSON.stringify(getHashiConfig(envConfigPath)[key])
+            },
+            { fileDependencies: [envConfigPath] }
+          ),
+        ]
+      })
+    ),
+  })
+}
+
 module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
   withHashicorp({
     nextOptimizedImages: true,
@@ -36,6 +78,10 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       '@hashicorp/flight-icons',
     ],
   })({
+    webpack(config) {
+      config.plugins.push(HashiConfigPlugin())
+      return config
+    },
     async headers() {
       return [temporary_hideDocsPaths]
     },

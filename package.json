@@ -38,6 +38,7 @@
     "@types/react": "^17.0.38",
     "babel-jest": "^27.4.6",
     "cross-env": "^7.0.3",
+    "flat": "^5.0.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.7",
     "postcss": "^8.4.5",
