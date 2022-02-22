@@ -6,8 +6,10 @@ import { StandaloneLinkProps } from './types'
 import s from './standalone-link.module.css'
 
 const StandaloneLink = ({
+  ariaLabel,
   className,
   color = 'primary',
+  download,
   href,
   icon,
   iconPosition,
@@ -17,7 +19,12 @@ const StandaloneLink = ({
   const classes = classNames(s.root, s[`color-${color}`], className)
 
   return (
-    <MaybeInternalLink className={classes} href={href}>
+    <MaybeInternalLink
+      aria-label={ariaLabel}
+      className={classes}
+      download={download}
+      href={href}
+    >
       {iconPosition === 'leading' && icon}
       <Text asElement="span" className={s.text} size={textSize} weight="medium">
         {text}

@@ -3,6 +3,14 @@ import { TextProps } from 'components/text'
 
 export interface StandaloneLinkProps {
   /**
+   * A non-visible label presented by screen readers. Passed directly to the
+   * internal link element as the `aria-label` prop.
+   *
+   * ref: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label
+   */
+  ariaLabel?: string
+
+  /**
    * A string of one or more class names. Applied last to the rendered `<a>`
    * element.
    */
@@ -12,6 +20,14 @@ export interface StandaloneLinkProps {
    * Determines the set of colors to use for various states of the component.
    */
   color?: 'primary' | 'secondary'
+
+  /**
+   * Same as the <a> element's download prop. Passed directly to the internal
+   * link element.
+   *
+   * ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-download
+   */
+  download?: boolean | string
 
   /**
    * The destination of the link.
