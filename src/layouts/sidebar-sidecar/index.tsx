@@ -19,7 +19,6 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
   productName,
   showFilterInput,
   sidecarChildren,
-  versionSwitcherOptions,
 }) => (
   <BaseLayout showFooter={false}>
     <div className={s.contentWrapper}>
@@ -29,7 +28,6 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
           menuItems={navData}
           showFilterInput={showFilterInput}
           title={productName}
-          versionSwitcherOptions={versionSwitcherOptions}
         />
       </div>
       <div className={s.mainArea}>

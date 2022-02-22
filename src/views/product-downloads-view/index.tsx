@@ -1,5 +1,4 @@
-import { ReactElement, useMemo } from 'react'
-import { useRouter } from 'next/router'
+import { ReactElement, useMemo, useState } from 'react'
 import semverRSort from 'semver/functions/rsort'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
@@ -37,17 +36,6 @@ const ProductDownloadsView = ({
   latestVersion,
   releases,
 }: ProductDownloadsViewProps): ReactElement => {
-  const router = useRouter()
-  const currentProduct = useCurrentProduct()
-  const backToLink = {
-    text: 'Back to Waypoint',
-    url: '/waypoint',
-  }
-  const navData = [
-    ...currentProduct.sidebar.landingPageNavData,
-    { divider: true },
-    ...currentProduct.sidebar.resourcesNavData,
-  ]
   const versionSwitcherOptions = useMemo(() => {
     return semverRSort(Object.keys(releases.versions)).map((version) => {
       const isLatest = version === latestVersion
@@ -57,6 +45,19 @@ const ProductDownloadsView = ({
       }
     })
   }, [latestVersion, releases.versions])
+  const currentProduct = useCurrentProduct()
+  const [selectedVersion, setSelectedVersion] = useState<string>(
+    versionSwitcherOptions[0].value
+  )
+  const backToLink = {
+    text: 'Back to Waypoint',
+    url: '/waypoint',
+  }
+  const navData = [
+    ...currentProduct.sidebar.landingPageNavData,
+    { divider: true },
+    ...currentProduct.sidebar.resourcesNavData,
+  ]
 
   // TODO: currently shows placeholder content for testing purposes
   return (
@@ -66,9 +67,24 @@ const ProductDownloadsView = ({
       productName="Waypoint"
       showFilterInput={false}
       sidecarChildren={<WaypointDownloadsSidecarContent />}
-      versionSwitcherOptions={versionSwitcherOptions}
     >
-      <h1>Install Waypoint: {router.query.version || latestVersion}</h1>
+      <h1>Install Waypoint v{selectedVersion}</h1>
+      {
+        <>
+          <label style={{ display: 'block' }}>Version (temp switcher)</label>
+          <select onChange={(e) => setSelectedVersion(e.target.value)}>
+            {versionSwitcherOptions.map((option) => (
+              <option
+                key={option.value}
+                selected={option.value === selectedVersion}
+                value={option.value}
+              >
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </>
+      }
       {Array(12)
         .fill(null, 0)
         .map((_, index) => (

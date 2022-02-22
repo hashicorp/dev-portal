@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
-import { MenuItem, SidebarProps } from 'components/sidebar'
+import { MenuItem } from 'components/sidebar'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 
 /**
@@ -24,7 +24,6 @@ interface BaseProps {
   openConsentManager?: () => void
   productName: string
   showFilterInput?: boolean
-  versionSwitcherOptions?: SidebarProps['versionSwitcherOptions']
 }
 
 interface PropsForTableOfContents extends BaseProps {

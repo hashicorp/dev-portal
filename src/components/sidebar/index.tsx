@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useRouter } from 'next/router'
+import { useMemo, useState } from 'react'
 import useCurrentPath from 'hooks/use-current-path'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
@@ -39,7 +38,6 @@ export interface SidebarProps {
   showFilterInput?: boolean
   /** title to be shown as the title of the sidebar */
   title: string
-  versionSwitcherOptions?: { label: string; value: string }[]
 }
 
 const addItemMetadata = (
@@ -129,11 +127,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   backToLink = {},
   showFilterInput = true,
   title,
-  versionSwitcherOptions,
 }) => {
-  const router = useRouter()
-  const showVersionSwitcher =
-    versionSwitcherOptions && versionSwitcherOptions.length > 0
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
     () => addItemMetadata(currentPath, menuItems),
@@ -142,46 +136,11 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [filterValue, setFilterValue] = useState('')
   const filteredMenuItems = getFilteredMenuItems(itemsWithMetadata, filterValue)
 
-  // TODO: Should also be based off of the current URL
-  const [selectedVersion, setSelectedVersion] = useState(() => {
-    if (!showVersionSwitcher) {
-      return null
-    }
-
-    if (router.query.version) {
-      return router.query.version
-    }
-
-    return versionSwitcherOptions[0].value
-  })
-
-  const handleVersionChange = (newValue: string) => {
-    const newQueryParams = { ...router.query, version: newValue }
-    router.push({ pathname: router.pathname, query: newQueryParams })
-    setSelectedVersion(newValue)
-  }
-
   return (
     <div className={s.sidebar}>
       <SidebarBackToLink text={backToLink.text} url={backToLink.url} />
       {showFilterInput && (
         <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
-      )}
-      {showVersionSwitcher && (
-        <div style={{ margin: '20px 0' }}>
-          <label style={{ display: 'block' }}>Version (temp switcher)</label>
-          <select onChange={(e) => handleVersionChange(e.target.value)}>
-            {versionSwitcherOptions.map((option) => (
-              <option
-                key={option.value}
-                selected={option.value === selectedVersion}
-                value={option.value}
-              >
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
       )}
       <SidebarNav title={title} menuItems={filteredMenuItems} />
     </div>
