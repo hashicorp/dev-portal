@@ -19,7 +19,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
       logo={
         <img
           className={s.logo}
-          alt="Nomad"
+          alt="Packer"
           src={require('@hashicorp/mktg-logos/product/packer/primary/color.svg')}
         />
       }
