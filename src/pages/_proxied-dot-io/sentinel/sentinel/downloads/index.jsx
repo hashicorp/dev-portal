@@ -1,7 +1,6 @@
 import SentinelIoLayout from 'layouts/_proxied-dot-io/sentinel'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
-import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
-import productData from 'data/sentinel'
+import { generateStaticProps } from 'lib/fetch-release-data'
 import s from './style.module.css'
 
 function DownloadsPage(staticProps) {
@@ -54,10 +53,7 @@ function DownloadsPage(staticProps) {
 }
 
 export async function getStaticProps() {
-  return await generateStaticProps({
-    product: 'sentinel',
-    latestVersion: productData.version,
-  })
+  return await generateStaticProps('sentinel')
 }
 
 DownloadsPage.layout = SentinelIoLayout

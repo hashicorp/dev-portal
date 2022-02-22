@@ -166,7 +166,7 @@ async function migrateSentinelIo() {
   const additionalComponents = '{ SentinelEmbedded }'
   // delete existing docs page
   await exec(
-    `rm -f ${path.join(destDirs.pages, 'sentinel', '[[...page]].jsx')}`
+    `rm -f ${path.join(destDirs.pages, 'sentinel', '\\[\\[...page\\]\\].jsx')}`
   )
   // use standardized template
   await setupDocsRoute({
@@ -198,7 +198,12 @@ async function migrateSentinelIo() {
   //
   // delete existing docs page
   await exec(
-    `rm -f ${path.join(destDirs.pages, 'sentinel', 'intro', '[[...page]].jsx')}`
+    `rm -f ${path.join(
+      destDirs.pages,
+      'sentinel',
+      'intro',
+      '\\[\\[...page\\]\\].jsx'
+    )}`
   )
   // use standardized template
   await setupDocsRoute({
@@ -225,6 +230,10 @@ async function migrateSentinelIo() {
         .replace(
           'latestVersion: VERSION,',
           'latestVersion: productData.version,'
+        )
+        .replace(
+          '@hashicorp/react-product-downloads-page/server',
+          'lib/fetch-release-data'
         )
       newContents = addProxyLayout(newContents, 'DownloadsPage', productData)
       return newContents
