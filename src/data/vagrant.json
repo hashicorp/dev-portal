@@ -1,0 +1,49 @@
+{
+  "name": "Vagrant",
+  "slug": "vagrant",
+  "algoliaConfig": {
+    "indexName": "product_VAGRANT",
+    "searchOnlyApiKey": "9bfec34ea54e56a11bd50d6bfedc5e71"
+  },
+  "analyticsConfig": {
+    "includedDomains": "vagrantup.com www.vagrantup.com",
+    "segmentWriteKey": "qW11yxgipKMsKFKQUCpTVgQUYftYsJj0"
+  },
+  "metadata": {
+    "title": "Vagrant by HashiCorp",
+    "description": "Vagrant enables users to create and configure lightweight, reproducible, and portable development environments.",
+    "image": "/vagrant/img/og-image.png",
+    "icon": [
+      {
+        "href": "/vagrant/favicon.ico"
+      }
+    ]
+  },
+  "alertBannerActive": false,
+  "alertBanner": {
+    "tag": "Blog post",
+    "url": "https://www.hashicorp.com/blog/a-new-chapter-for-hashicorp",
+    "text": "HashiCorp shares have begun trading on the Nasdaq. Read the blog from our founders, Mitchell Hashimoto and Armon Dadgar.",
+    "linkText": "Read the post",
+    "expirationDate": "2021-12-17T23:00:00-07:00"
+  },
+  "version": "2.2.19",
+  "vmwareUtilityVersion": "1.0.21",
+  "subnavItems": [
+    {
+      "text": "Intro",
+      "url": "/intro",
+      "type": "inbound"
+    },
+    {
+      "text": "Docs",
+      "url": "/docs",
+      "type": "inbound"
+    },
+    {
+      "text": "Community",
+      "url": "/community",
+      "type": "inbound"
+    }
+  ]
+}

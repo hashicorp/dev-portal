@@ -32,6 +32,7 @@ const IO_SITES_ON_DEV_PORTAL = [
   'nomad',
   'sentinel',
   'vault',
+  'vagrant',
 ]
 
 const products = productGroups
