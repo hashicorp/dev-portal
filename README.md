@@ -98,6 +98,31 @@ SomePage.layout = SomeLayout
 export default SomePage
 ```
 
+### Configuration
+
+Per-environment configuration values are defined in JSON files in the `config/` folder. Each environment has its own config file, currently:
+
+```
+config/
+  development.json
+  preview.json
+  production.json
+```
+
+The configuration values are available globally within the application. They can be accessed from a global `__config` object:
+
+```js
+// config file:
+{
+   "my_config_value": "foo"
+}
+
+// in code:
+console.log(__config.my_config_value)
+```
+
+Configuration files should be used for any non-sensitive configuration values needed throughout the application which might vary by environment. Consider API endpoints, constants, and flags in scope for the configuration files.
+
 ## Performance
 
 ### Next Bundle Analysis
