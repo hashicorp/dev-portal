@@ -3,6 +3,7 @@ import semverSort from 'semver/functions/rsort'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 import { Product } from 'types/products'
 import { makeFetchWithRetry } from './fetch-with-retry'
+import { products } from '../../config/products'
 
 export type OperatingSystem =
   | 'darwin'
@@ -56,10 +57,21 @@ function getLatestVersionFromVersions(versions: string[]): string {
   return latestVersion
 }
 
+/**
+ * TODO: `product` should eventually just be a Product type but we have the
+ * existing .io sites passing a product slug here and some newer DevDot sites
+ * passing an object for the `CurrentProductContext`. This approach of allowing
+ * either will make merging the `assembly-ui-v1` branch into `main` easier.
+ */
 export function generateStaticProps(
-  product: Product
+  product: Product | string
 ): Promise<GetStaticPropsResult<{ releases: ReleasesAPIResponse }>> {
-  const productSlug = product.slug
+  let productSlug: string
+  if (typeof product === 'string') {
+    productSlug = product
+  } else if (typeof product === 'object') {
+    productSlug = product.slug
+  }
 
   return fetchWithRetry(
     `https://releases.hashicorp.com/${productSlug}/index.json`,
