@@ -23,6 +23,7 @@ interface BaseProps {
   navData: MenuItem[]
   openConsentManager?: () => void
   productName: string
+  showFilterInput?: boolean
 }
 
 interface PropsForTableOfContents extends BaseProps {
