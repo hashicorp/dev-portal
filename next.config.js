@@ -109,5 +109,8 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       ],
     },
     outputFileTracing: false,
+    images: {
+      domains: ['www.datocms-assets.com'],
+    },
   })
 )
