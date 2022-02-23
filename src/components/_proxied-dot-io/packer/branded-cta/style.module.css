@@ -1,7 +1,7 @@
 .brandedCta {
   padding: 88px 0;
   background-color: var(--packer-secondary);
-  background-image: url('/img/branded-cta/cta-right.svg');
+  background-image: url('/packer/img/branded-cta/cta-right.svg');
   background-position: bottom right;
   background-size: auto 100%;
   background-repeat: no-repeat;
