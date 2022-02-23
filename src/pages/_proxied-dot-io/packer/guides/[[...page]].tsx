@@ -3,7 +3,7 @@ import DocsPage from '@hashicorp/react-docs-page'
 import productData from 'data/packer.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
-import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
+import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 
 const product = { name: productData.name, slug: productData.slug }
 const basePath = 'guides'

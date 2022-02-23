@@ -7,7 +7,7 @@ import BadgesHeader from 'components/_proxied-dot-io/packer/badges-header'
 import PluginBadge from 'components/_proxied-dot-io/packer/plugin-badge'
 import Checklist from 'components/_proxied-dot-io/packer/checklist'
 // Imports below are used in getStatic functions only
-import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
+import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 
 const product = { name: productData.name, slug: productData.slug }
 const basePath = 'docs'

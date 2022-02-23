@@ -4,7 +4,7 @@ import productData from 'data/packer.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 import PluginBadge from 'components/_proxied-dot-io/packer/plugin-badge'
 // Imports below are used in getStatic functions only
-import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
+import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
 
 const product = { name: productData.name, slug: productData.slug }
