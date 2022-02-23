@@ -8,7 +8,7 @@ async function fetchLatestReleaseTag(repo) {
   const latestReleaseUrl = `https://github.com/${repo}/releases/latest`
   let res = await fetch(latestReleaseUrl, {
     headers: {
-      Authorization: `Bearer ${process.env.PLUGIN_REPO_GITHUB_TOKEN}`,
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     },
   })
 
@@ -21,7 +21,7 @@ async function fetchLatestReleaseTag(repo) {
 
     if (res.status === 429) {
       console.error(
-        'GitHub API rate limit exceeded: Double check that a `PLUGIN_REPO_GITHUB_TOKEN` environment variable is set.'
+        'GitHub API rate limit exceeded: Double check that a `GITHUB_TOKEN` environment variable is set.'
       )
     }
 

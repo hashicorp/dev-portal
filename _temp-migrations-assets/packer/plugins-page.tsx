@@ -47,7 +47,7 @@ function DocsView({ isDevMissingRemotePlugins, ...props }) {
               🛠
             </span>{' '}
             <strong>To preview docs pulled from plugin repos</strong>, please
-            include a <code>GITHUB_API_TOKEN</code> in{' '}
+            include a <code>GITHUB_TOKEN</code> in{' '}
             <code>website/.env.local</code>.
           </p>
         </DevAlert>
