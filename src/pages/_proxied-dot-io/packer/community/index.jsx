@@ -1,3 +1,4 @@
+import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
 import VerticalTextBlockList from '@hashicorp/react-vertical-text-block-list'
 import SectionHeader from '@hashicorp/react-section-header'
 import Head from 'next/head'
@@ -47,3 +48,4 @@ export default function CommunityPage() {
     </div>
   )
 }
+CommunityPage.layout = PackerIoLayout
