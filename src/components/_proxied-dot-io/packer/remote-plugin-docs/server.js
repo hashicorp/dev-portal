@@ -21,7 +21,6 @@ async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
 }
 
 async function generateStaticProps({
-  additionalComponents,
   localContentDir,
   mainBranch = 'main',
   navDataFile,
