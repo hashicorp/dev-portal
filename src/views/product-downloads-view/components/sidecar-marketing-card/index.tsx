@@ -6,6 +6,7 @@ import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
 import MaybeInternalLink from 'components/maybe-internal-link'
 import { SidecarMarketingCardProps } from './types'
+import s from './sidecar-marketing-card.module.css'
 
 const SidecarMarketingCard = ({
   title,
@@ -14,10 +15,10 @@ const SidecarMarketingCard = ({
   featuredDocsLinks,
 }: SidecarMarketingCardProps): ReactElement => (
   <Card elevation="base">
-    <Text size={200} weight="semibold">
+    <Text className={s.cardTitle} size={200} weight="semibold">
       {title}
     </Text>
-    <Text size={200} weight="regular">
+    <Text className={s.cardSubtitle} size={200} weight="regular">
       {subtitle}
     </Text>
     <StandaloneLink
@@ -28,13 +29,21 @@ const SidecarMarketingCard = ({
       textSize={200}
       text="Learn more"
     />
-    <Text size={200} weight="semibold">
+    <Text className={s.featuredDocsLabel} size={200} weight="semibold">
       Featured docs
     </Text>
-    <ul>
+    <ul className={s.featuredDocsLinksList}>
       {featuredDocsLinks.map(({ href, text }) => (
-        <Text asElement="li" key={slugify(text)} size={200} weight="regular">
-          <MaybeInternalLink href={href}>{text}</MaybeInternalLink>
+        <Text
+          className={s.featuredDocsListItem}
+          asElement="li"
+          key={slugify(text)}
+          size={200}
+          weight="regular"
+        >
+          <MaybeInternalLink className={s.featuredDocsLink} href={href}>
+            {text}
+          </MaybeInternalLink>
         </Text>
       ))}
     </ul>
