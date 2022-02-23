@@ -224,6 +224,9 @@ async function migrateNomadIo() {
   //
   // DOCS routes
   //
+  let additionalImports = ''
+  additionalImports += `import Placement from 'components/author-primitives/shared/placement-table'\n`
+  const additionalComponents = '{ Placement }'
   const docsRoutes = ['api-docs', 'docs', 'intro', 'plugins', 'tools']
   for (var i = 0; i < docsRoutes.length; i++) {
     const basePath = docsRoutes[i]
@@ -236,6 +239,8 @@ async function migrateNomadIo() {
       pagesDir: destDirs.pages,
       basePath,
       productData,
+      additionalComponentImports: additionalImports,
+      additionalComponents,
     })
   }
   // hide version select on /plugins and /tools

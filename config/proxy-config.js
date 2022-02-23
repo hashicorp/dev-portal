@@ -49,11 +49,11 @@ const proxyConfig = {
   //   host: 'test-tf.hashi-mktg.com',
   //   assets: [],
   // },
-  // vagrant: {
-  //   domain: 'https://test-vg.hashi-mktg.com',
-  //   host: 'test-vg.hashi-mktg.com',
-  //   assets: [],
-  // },
+  vagrant: {
+    domain: 'https://www.vagrantup.com',
+    host: '(www\\.vagrantup\\.com|test-vg\\.hashi-mktg\\.com)',
+    assets: ['/files/press-kit.zip'],
+  },
   vault: {
     domain: 'https://test-vt.hashi-mktg.com',
     host: 'test-vt.hashi-mktg.com',
