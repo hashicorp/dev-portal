@@ -18,6 +18,28 @@ const initializeBackToLink = (currentProduct: Product) => {
   }
 }
 
+const initializeBreadcrumbLinks = (
+  currentProduct: Product,
+  selectedVersion: string
+) => {
+  return [
+    {
+      title: 'Developer',
+      url: '/',
+    },
+    {
+      title: currentProduct.name,
+      url: `/${currentProduct.slug}`,
+    },
+    {
+      title: 'Install',
+    },
+    {
+      title: selectedVersion,
+    },
+  ]
+}
+
 const initializeNavData = (currentProduct: Product) => {
   return [
     ...currentProduct.sidebar.landingPageNavData,
@@ -46,6 +68,10 @@ const ProductDownloadsView = ({
   const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
     currentProduct,
   ])
+  const breadcrumbLinks = useMemo(
+    () => initializeBreadcrumbLinks(currentProduct, selectedVersion),
+    [currentProduct, selectedVersion]
+  )
   const navData = useMemo(() => initializeNavData(currentProduct), [
     currentProduct,
   ])
@@ -54,6 +80,7 @@ const ProductDownloadsView = ({
   return (
     <SidebarSidecarLayout
       backToLink={backToLink}
+      breadcrumbLinks={breadcrumbLinks}
       navData={navData}
       productName="Waypoint"
       showFilterInput={false}
@@ -63,13 +90,12 @@ const ProductDownloadsView = ({
       {
         <>
           <label style={{ display: 'block' }}>Version (temp switcher)</label>
-          <select onChange={(e) => setSelectedVersion(e.target.value)}>
+          <select
+            onChange={(e) => setSelectedVersion(e.target.value)}
+            value={selectedVersion}
+          >
             {versionSwitcherOptions.map((option) => (
-              <option
-                key={option.value}
-                selected={option.value === selectedVersion}
-                value={option.value}
-              >
+              <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
