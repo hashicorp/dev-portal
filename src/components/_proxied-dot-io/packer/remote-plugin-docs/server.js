@@ -17,7 +17,7 @@ async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
     remotePluginsFile,
   })
   const paths = getPathsFromNavData(navData)
-  return paths.slice(0, __config.io_sites.max_static_paths ?? 0)
+  return paths
 }
 
 async function generateStaticProps({

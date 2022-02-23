@@ -70,9 +70,15 @@ export async function getStaticPaths() {
     navDataFile,
     remotePluginsFile,
   })
-  // remove index-ish pages from static paths
-  paths = paths.filter((p) => p.params.page.filter(Boolean).length > 0)
-  return { paths, fallback: false }
+  paths = paths
+    // remove index-ish pages from static paths
+    .filter((p) => p.params.page.filter(Boolean).length > 0)
+    // limit number of paths to max_static_paths
+    .slice(0, __config.io_sites.max_static_paths ?? 0)
+  return {
+    paths,
+    fallback: 'blocking',
+  }
 }
 
 export async function getStaticProps({ params }) {
@@ -84,7 +90,7 @@ export async function getStaticProps({ params }) {
     product,
     remotePluginsFile,
   })
-  return { props }
+  return { props, revalidate: __config.io_sites.revalidate }
 }
 
 DocsView.layout = PackerIoLayout
