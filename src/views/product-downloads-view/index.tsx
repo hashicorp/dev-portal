@@ -1,63 +1,19 @@
 import { ReactElement, useMemo, useState } from 'react'
 import semverRSort from 'semver/functions/rsort'
-import { Product } from 'types/products'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
-import { MenuItem } from 'components/sidebar'
 import Text from 'components/text'
+import {
+  getPageSubtitle,
+  initializeBackToLink,
+  initializeBreadcrumbLinks,
+  initializeNavData,
+} from './helpers'
 import { ProductDownloadsViewProps } from './types'
 import s from './product-downloads-view.module.css'
-
-const initializeBackToLink = (currentProduct: Product) => {
-  return {
-    text: `Back to ${currentProduct.name}`,
-    url: `/${currentProduct.slug}`,
-  }
-}
-
-const initializeBreadcrumbLinks = (
-  currentProduct: Product,
-  selectedVersion: string
-): BreadcrumbLink[] => {
-  return [
-    {
-      title: 'Developer',
-      url: '/',
-    },
-    {
-      title: currentProduct.name,
-      url: `/${currentProduct.slug}`,
-    },
-    {
-      isCurrentPage: true,
-      title: `Install v${selectedVersion}`,
-      url: `/${currentProduct.slug}/downloads/${currentProduct.slug}`,
-    },
-  ]
-}
-
-const initializeNavData = (currentProduct: Product): MenuItem[] => {
-  return [
-    ...currentProduct.sidebar.landingPageNavData,
-    { divider: true },
-    ...currentProduct.sidebar.resourcesNavData,
-  ]
-}
-
-const getPageSubtitle = (
-  currentProduct: Product,
-  selectedVersion: string,
-  isLatestVersion: boolean
-): string => {
-  const versionText = `v${selectedVersion}${
-    isLatestVersion ? ' (latest version)' : ''
-  }`
-  return `Install or update to ${versionText} of ${currentProduct.name} to get started.`
-}
 
 const ProductDownloadsView = ({
   latestVersion,
