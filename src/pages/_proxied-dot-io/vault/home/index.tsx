@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Head from 'next/head'
-import rivetQuery from '@hashicorp/platform-cms'
+import { proxiedRivetClient } from 'lib/cms'
 import homepageQuery from './query.graphql'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import { renderMetaTags } from 'react-datocms'
@@ -156,7 +156,8 @@ export default function Homepage({ data }): React.ReactElement {
 Homepage.layout = VaultIoLayout
 
 export async function getStaticProps() {
-  const { vaultHomepage } = await rivetQuery({
+  const query = proxiedRivetClient('vault')
+  const { vaultHomepage } = await query({
     query: homepageQuery,
   })
 

@@ -10,7 +10,6 @@
 @import '../components/_proxied-dot-io/sentinel/NewsletterSignupForm/style.css';
 
 /* Proxied Vault page styles */
-@import './_proxied-dot-io/vault/use-cases/style.css';
 @import '../components/_proxied-dot-io/vault/footer/style.css';
 @import '../components/_proxied-dot-io/vault/use-case-cta-section/style.css';
 

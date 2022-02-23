@@ -1,7 +1,6 @@
 import '@hashicorp/platform-util/nprogress/style.css'
 import dynamic from 'next/dynamic'
-import rivetQuery, { client as rivetClient } from '@hashicorp/platform-cms'
-import { headers } from '@hashicorp/platform-cms/config'
+import rivetQuery, { proxiedRivetClient } from 'lib/cms'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import BaseLayout from 'layouts/base'
@@ -34,13 +33,12 @@ App.getInitialProps = async ({ Component, ctx }) => {
     ? Component.layout?.rivetParams ?? null
     : null
 
+  let query = rivetQuery
   if (ctx.pathname.includes('_proxied-dot-io/vault')) {
-    rivetClient.setHeader('Authorization', '88b4984480dad56295a8aadae6caad')
-  } else {
-    rivetClient.setHeader('Authorization', headers.Authorization)
+    query = proxiedRivetClient('vault')
   }
 
-  const layoutData = layoutQuery ? await rivetQuery(layoutQuery) : null
+  const layoutData = layoutQuery ? await query(layoutQuery) : null
 
   let pageProps = {}
 
