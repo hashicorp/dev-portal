@@ -2,20 +2,15 @@ import { ReactElement, useMemo, useState } from 'react'
 import semverRSort from 'semver/functions/rsort'
 import { Product } from 'types/products'
 import { useCurrentProduct } from 'contexts'
-import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
-import Text from 'components/text'
-import s from './product-downloads-view.module.css'
 import { MenuItem } from 'components/sidebar'
-
-interface ProductDownloadsViewProps {
-  latestVersion: string
-  releases: ReleasesAPIResponse
-}
+import Text from 'components/text'
+import { ProductDownloadsViewProps } from './types'
+import s from './product-downloads-view.module.css'
 
 const initializeBackToLink = (currentProduct: Product) => {
   return {
