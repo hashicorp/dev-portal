@@ -3,12 +3,17 @@ import semverRSort from 'semver/functions/rsort'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { ReleasesAPIResponse } from 'lib/fetch-release-data'
-
-interface ProductDownloadsViewProps {
-  latestVersion: string
-  releases: ReleasesAPIResponse
-}
+import Heading from 'components/heading'
+import IconTileLogo from 'components/icon-tile-logo'
+import Text from 'components/text'
+import {
+  getPageSubtitle,
+  initializeBackToLink,
+  initializeBreadcrumbLinks,
+  initializeNavData,
+} from './helpers'
+import { ProductDownloadsViewProps } from './types'
+import s from './product-downloads-view.module.css'
 
 const ProductDownloadsView = ({
   latestVersion,
@@ -23,40 +28,66 @@ const ProductDownloadsView = ({
       }
     })
   }, [latestVersion, releases.versions])
-  const currentProduct = useCurrentProduct()
   const [selectedVersion, setSelectedVersion] = useState<string>(
     versionSwitcherOptions[0].value
   )
-  const backToLink = {
-    text: 'Back to Waypoint',
-    url: '/waypoint',
-  }
-  const navData = [
-    ...currentProduct.sidebar.landingPageNavData,
-    { divider: true },
-    ...currentProduct.sidebar.resourcesNavData,
-  ]
+  const currentProduct = useCurrentProduct()
+  const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
+    currentProduct,
+  ])
+  const breadcrumbLinks = useMemo(
+    () => initializeBreadcrumbLinks(currentProduct, selectedVersion),
+    [currentProduct, selectedVersion]
+  )
+  const navData = useMemo(() => initializeNavData(currentProduct), [
+    currentProduct,
+  ])
 
-  // TODO: currently shows placeholder content for testing purposes
+  const pageTitle = `Install ${currentProduct.name}`
+  const pageSubtitle = getPageSubtitle(
+    currentProduct,
+    selectedVersion,
+    selectedVersion === latestVersion
+  )
   return (
     <SidebarSidecarLayout
       backToLink={backToLink}
+      breadcrumbLinks={breadcrumbLinks}
       navData={navData}
       productName="Waypoint"
       showFilterInput={false}
       sidecarChildren={<></>}
     >
-      <h1>Install Waypoint v{selectedVersion}</h1>
+      <div className={s.pageHeader}>
+        <IconTileLogo
+          product={
+            currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
+          }
+        />
+        <div className={s.pageHeaderText}>
+          <Heading
+            className={s.pageHeaderTitle}
+            level={1}
+            size={500}
+            slug={`install-${currentProduct.slug}`}
+            weight="bold"
+          >
+            {pageTitle}
+          </Heading>
+          <Text className={s.pageHeaderSubtitle} size={300} weight="regular">
+            {pageSubtitle}
+          </Text>
+        </div>
+      </div>
       {
         <>
           <label style={{ display: 'block' }}>Version (temp switcher)</label>
-          <select onChange={(e) => setSelectedVersion(e.target.value)}>
+          <select
+            onChange={(e) => setSelectedVersion(e.target.value)}
+            value={selectedVersion}
+          >
             {versionSwitcherOptions.map((option) => (
-              <option
-                key={option.value}
-                selected={option.value === selectedVersion}
-                value={option.value}
-              >
+              <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}

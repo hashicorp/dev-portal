@@ -64,4 +64,5 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
   </BaseLayout>
 )
 
+export type { SidebarSidecarLayoutProps }
 export default SidebarSidecarLayout
