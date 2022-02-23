@@ -3,5 +3,7 @@
     "max_static_paths": 9999,
     "revalidate": 360
   },
-  "flags": {}
+  "flags": {
+    "enable_new_downloads_view": false
+  }
 }
