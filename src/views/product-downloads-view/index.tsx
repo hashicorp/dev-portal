@@ -2,9 +2,13 @@ import { ReactElement, useMemo, useState } from 'react'
 import semverRSort from 'semver/functions/rsort'
 import { Product } from 'types/products'
 import { useCurrentProduct } from 'contexts'
+import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { ReleasesAPIResponse } from 'lib/fetch-release-data'
+import Heading from 'components/heading'
+import IconTileLogo from 'components/icon-tile-logo'
+import Text from 'components/text'
+import s from './product-downloads-view.module.css'
 
 interface ProductDownloadsViewProps {
   latestVersion: string
@@ -48,6 +52,13 @@ const initializeNavData = (currentProduct: Product) => {
   ]
 }
 
+const getPageSubtitle = (currentProduct, selectedVersion, isLatestVersion) => {
+  const versionText = `v${selectedVersion}${
+    isLatestVersion ? ' (latest version)' : ''
+  }`
+  return `Install or update to ${versionText} of ${currentProduct.name} to get started.`
+}
+
 const ProductDownloadsView = ({
   latestVersion,
   releases,
@@ -76,7 +87,12 @@ const ProductDownloadsView = ({
     currentProduct,
   ])
 
-  // TODO: currently shows placeholder content for testing purposes
+  const pageTitle = `Install ${currentProduct.name}`
+  const pageSubtitle = getPageSubtitle(
+    currentProduct,
+    selectedVersion,
+    selectedVersion === latestVersion
+  )
   return (
     <SidebarSidecarLayout
       backToLink={backToLink}
@@ -86,7 +102,27 @@ const ProductDownloadsView = ({
       showFilterInput={false}
       sidecarChildren={<></>}
     >
-      <h1>Install {currentProduct.name}</h1>
+      <div className={s.pageHeader}>
+        <IconTileLogo
+          product={
+            currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
+          }
+        />
+        <div className={s.pageHeaderText}>
+          <Heading
+            className={s.pageHeaderTitle}
+            level={1}
+            size={500}
+            slug={`install-${currentProduct.slug}`}
+            weight="bold"
+          >
+            {pageTitle}
+          </Heading>
+          <Text className={s.pageHeaderSubtitle} size={300} weight="regular">
+            {pageSubtitle}
+          </Text>
+        </div>
+      </div>
       {
         <>
           <label style={{ display: 'block' }}>Version (temp switcher)</label>

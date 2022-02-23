@@ -1,3 +1,17 @@
-/*
-TODO: this is temporarily empty
-*/
+.pageHeader {
+  align-items: center;
+  display: flex;
+  margin-bottom: 48px;
+}
+
+.pageHeaderText {
+  margin-left: 16px;
+}
+
+.pageHeaderTitle {
+  margin-bottom: 12px;
+}
+
+.pageHeaderSubtitle {
+  color: var(--token-color-neutral-foreground-secondary);
+}
