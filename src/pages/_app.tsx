@@ -1,6 +1,5 @@
 import '@hashicorp/platform-util/nprogress/style.css'
 import dynamic from 'next/dynamic'
-import rivetQuery, { proxiedRivetClient } from 'lib/cms'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import BaseLayout from 'layouts/base'
@@ -33,6 +32,7 @@ App.getInitialProps = async ({ Component, ctx }) => {
     ? Component.layout?.rivetParams ?? null
     : null
 
+  const { default: rivetQuery, proxiedRivetClient } = await import('lib/cms')
   let query = rivetQuery
   if (ctx.pathname.includes('_proxied-dot-io/vault')) {
     query = proxiedRivetClient('vault')
