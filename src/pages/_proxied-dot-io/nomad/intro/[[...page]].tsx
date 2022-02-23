@@ -4,7 +4,7 @@ import DocsPage from '@hashicorp/react-docs-page'
 import productData from 'data/nomad.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
-import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
+import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 
 const product = { name: productData.name, slug: productData.slug }
 const basePath = 'intro'
@@ -34,7 +34,6 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
         strategy: 'remote',
         basePath,
         fallback: 'blocking',
-        revalidate: 360, // 1 hour
         product: productData.slug,
       }
     : {

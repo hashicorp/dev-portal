@@ -1,0 +1,6 @@
+{
+  "io_sites": {
+    "max_static_paths": 10,
+    "revalidate": 360
+  }
+}
