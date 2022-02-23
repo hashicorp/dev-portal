@@ -35,6 +35,12 @@ export interface ReleasesAPIResponse {
   }
 }
 
+export interface GeneratedProps {
+  latestVersion: string
+  product: Product | string
+  releases: ReleasesAPIResponse
+}
+
 /**
  * There is a bit of a race condition with product releases and the metadata for the latest release
  * propagating to releases.hashicorp.com. Often all it takes is a re-deploy of the website for it to work,
@@ -65,7 +71,7 @@ function getLatestVersionFromVersions(versions: string[]): string {
  */
 export function generateStaticProps(
   product: Product | string
-): Promise<GetStaticPropsResult<{ releases: ReleasesAPIResponse }>> {
+): Promise<GetStaticPropsResult<GeneratedProps>> {
   let productSlug: string
   if (typeof product === 'string') {
     productSlug = product
