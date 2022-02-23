@@ -66,7 +66,7 @@
     "@hashicorp/react-checkbox-input": "^5.0.1",
     "@hashicorp/react-code-block": "^4.4.0",
     "@hashicorp/react-consent-manager": "^7.1.0",
-    "@hashicorp/react-docs-page": "^14.14.0",
+    "@hashicorp/react-docs-page": "^14.14.3",
     "@hashicorp/react-error-view": "^0.0.1",
     "@hashicorp/react-featured-slider": "^5.0.1",
     "@hashicorp/react-hashi-stack-menu": "^2.1.2",
