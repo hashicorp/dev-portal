@@ -1,13 +1,15 @@
 import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 
+export interface PackageManager {
+  label: string
+  commands: string[]
+  os: string
+}
+
 export interface ProductDownloadsViewProps {
   latestVersion: string
   pageContent: {
-    packageManagers: {
-      label: string
-      commands: string[]
-      os: string
-    }[]
+    packageManagers: PackageManager[]
   }
   releases: ReleasesAPIResponse
 }
