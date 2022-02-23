@@ -15,3 +15,11 @@
 .pageHeaderSubtitle {
   color: var(--token-color-neutral-foreground-secondary);
 }
+
+.operatingSystemTitle {
+  margin-bottom: 12px;
+}
+
+.tabContent {
+  margin-top: 16px;
+}
