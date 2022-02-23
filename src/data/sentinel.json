@@ -5,6 +5,10 @@
     "indexName": "product_SENTINEL",
     "searchOnlyApiKey": "55606ae6b6c797d30a84aa0b509711ef"
   },
+  "analyticsConfig": {
+    "includedDomains": "docs.hashicorp.com",
+    "segmentWriteKey": "X4VJ1pUW2yM3NLldLbHF6337lbDLTQ5h"
+  },
   "metadata": {
     "title": "Sentinel by HashiCorp",
     "description": "Sentinel is a language and framework for policy built to be embedded in existing software to enable fine-grained, logic-based policy decisions.",
@@ -23,7 +27,7 @@
     "linkText": "Watch Now",
     "expirationDate": "2021-06-20T12:00:00-07:00"
   },
-  "version": "0.18.4",
+  "version": "0.18.6",
   "subnavItems": [
     {
       "url": "/sentinel/intro",

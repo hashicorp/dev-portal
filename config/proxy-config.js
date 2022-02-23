@@ -40,8 +40,8 @@ const proxyConfig = {
   // },
   sentinel: {
     // actually https://docs.hashicorp.com, but using test-st.hashi-mktg.com as a test
-    domain: 'https://test-st.hashi-mktg.com',
-    host: 'test-st.hashi-mktg.com',
+    domain: 'https://docs.hashicorp.com',
+    host: '(docs\\.hashicorp\\.com|test-st\\.hashi-mktg\\.com)',
     assets: [],
   },
   // terraform: {

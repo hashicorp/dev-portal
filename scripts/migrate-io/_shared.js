@@ -126,7 +126,9 @@ async function setupDocsRoute({
   const { slug, name } = productData
   // copy template into place
   const templateFile = './scripts/migrate-io/templates/docs-page.tsx'
-  await exec(`cp -r ${templateFile} ${pagesDir}/${basePath}/[[...page]].tsx`)
+  await exec(
+    `cp -r ${templateFile} ${pagesDir}/${basePath}/\\[\\[...page\\]\\].tsx`
+  )
   // replace variables in template
   await editFile(`${pagesDir}/${basePath}/[[...page]].tsx`, (contents) => {
     return contents
