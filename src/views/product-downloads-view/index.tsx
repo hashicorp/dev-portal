@@ -5,10 +5,12 @@ import { useCurrentProduct } from 'contexts'
 import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
 import s from './product-downloads-view.module.css'
+import { MenuItem } from 'components/sidebar'
 
 interface ProductDownloadsViewProps {
   latestVersion: string
@@ -25,7 +27,7 @@ const initializeBackToLink = (currentProduct: Product) => {
 const initializeBreadcrumbLinks = (
   currentProduct: Product,
   selectedVersion: string
-) => {
+): BreadcrumbLink[] => {
   return [
     {
       title: 'Developer',
@@ -36,15 +38,14 @@ const initializeBreadcrumbLinks = (
       url: `/${currentProduct.slug}`,
     },
     {
-      title: 'Install',
-    },
-    {
-      title: selectedVersion,
+      isCurrentPage: true,
+      title: `Install v${selectedVersion}`,
+      url: `/${currentProduct.slug}/downloads/${currentProduct.slug}`,
     },
   ]
 }
 
-const initializeNavData = (currentProduct: Product) => {
+const initializeNavData = (currentProduct: Product): MenuItem[] => {
   return [
     ...currentProduct.sidebar.landingPageNavData,
     { divider: true },
@@ -52,7 +53,11 @@ const initializeNavData = (currentProduct: Product) => {
   ]
 }
 
-const getPageSubtitle = (currentProduct, selectedVersion, isLatestVersion) => {
+const getPageSubtitle = (
+  currentProduct: Product,
+  selectedVersion: string,
+  isLatestVersion: boolean
+): string => {
   const versionText = `v${selectedVersion}${
     isLatestVersion ? ' (latest version)' : ''
   }`
