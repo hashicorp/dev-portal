@@ -2,20 +2,16 @@ import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
 import DocsPage from '@hashicorp/react-docs-page'
 import productData from 'data/packer.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
-import Badge from 'components/_proxied-dot-io/packer/badge'
-import BadgesHeader from 'components/_proxied-dot-io/packer/badges-header'
-import PluginBadge from 'components/_proxied-dot-io/packer/plugin-badge'
-import Checklist from 'components/_proxied-dot-io/packer/checklist'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 
 const product = { name: productData.name, slug: productData.slug }
-const basePath = 'docs'
+const basePath = 'intro'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
-const additionalComponents = { Badge, BadgesHeader, PluginBadge, Checklist }
+const additionalComponents = {}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function DocsView(props) {
