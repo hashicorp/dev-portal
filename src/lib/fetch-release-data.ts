@@ -70,7 +70,8 @@ function getLatestVersionFromVersions(versions: string[]): string {
  * either will make merging the `assembly-ui-v1` branch into `main` easier.
  */
 export function generateStaticProps(
-  product: Product | string
+  product: Product | string,
+  additionalProps?: Record<string, any>
 ): Promise<GetStaticPropsResult<GeneratedProps>> {
   let productSlug: string
   if (typeof product === 'string') {
@@ -97,6 +98,7 @@ export function generateStaticProps(
         // 5 minutes
         revalidate: 300,
         props: {
+          ...additionalProps,
           releases: result,
           product,
           latestVersion,
