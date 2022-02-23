@@ -3,7 +3,6 @@ import semverSort from 'semver/functions/rsort'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 import { Product } from 'types/products'
 import { makeFetchWithRetry } from './fetch-with-retry'
-import { products } from '../../config/products'
 
 export type OperatingSystem =
   | 'darwin'
@@ -70,8 +69,7 @@ function getLatestVersionFromVersions(versions: string[]): string {
  * either will make merging the `assembly-ui-v1` branch into `main` easier.
  */
 export function generateStaticProps(
-  product: Product | string,
-  additionalProps?: Record<string, any>
+  product: Product | string
 ): Promise<GetStaticPropsResult<GeneratedProps>> {
   let productSlug: string
   if (typeof product === 'string') {
@@ -98,7 +96,6 @@ export function generateStaticProps(
         // 5 minutes
         revalidate: 300,
         props: {
-          ...additionalProps,
           releases: result,
           product,
           latestVersion,

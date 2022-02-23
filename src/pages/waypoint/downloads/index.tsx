@@ -8,14 +8,12 @@ import EmptyLayout from 'layouts/empty'
 import ProductDownloadsView from 'views/product-downloads-view'
 import PlaceholderDownloadsView from 'views/placeholder-product-downloads-view'
 
-const WaypointDownloadsPage = (
-  props: GeneratedProps & { pageContent: any }
-): ReactElement => {
+const WaypointDownloadsPage = (props: GeneratedProps): ReactElement => {
   if (__config.flags.enable_new_downloads_view) {
-    const { latestVersion, pageContent, releases } = props
+    const { latestVersion, releases } = props
     return (
       <ProductDownloadsView
-        pageContent={pageContent}
+        pageContent={installData}
         latestVersion={latestVersion}
         releases={releases}
       />
@@ -27,9 +25,8 @@ const WaypointDownloadsPage = (
 
 export const getStaticProps: GetStaticProps = async () => {
   const product = waypointData as Product
-  const pageContent = installData
 
-  return generateStaticProps(product, { pageContent })
+  return generateStaticProps(product)
 }
 
 WaypointDownloadsPage.layout = EmptyLayout
