@@ -1,5 +1,6 @@
 import { ReactElement, useMemo, useState } from 'react'
 import semverRSort from 'semver/functions/rsort'
+import { Product } from 'types/products'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import Card from 'components/card'
@@ -32,6 +33,21 @@ interface ProductDownloadsViewProps {
   releases: ReleasesAPIResponse
 }
 
+const initializeBackToLink = (currentProduct: Product) => {
+  return {
+    text: `Back to ${currentProduct.name}`,
+    url: `/${currentProduct.slug}`,
+  }
+}
+
+const initializeNavData = (currentProduct: Product) => {
+  return [
+    ...currentProduct.sidebar.landingPageNavData,
+    { divider: true },
+    ...currentProduct.sidebar.resourcesNavData,
+  ]
+}
+
 const ProductDownloadsView = ({
   latestVersion,
   releases,
@@ -45,19 +61,16 @@ const ProductDownloadsView = ({
       }
     })
   }, [latestVersion, releases.versions])
-  const currentProduct = useCurrentProduct()
   const [selectedVersion, setSelectedVersion] = useState<string>(
     versionSwitcherOptions[0].value
   )
-  const backToLink = {
-    text: 'Back to Waypoint',
-    url: '/waypoint',
-  }
-  const navData = [
-    ...currentProduct.sidebar.landingPageNavData,
-    { divider: true },
-    ...currentProduct.sidebar.resourcesNavData,
-  ]
+  const currentProduct = useCurrentProduct()
+  const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
+    currentProduct,
+  ])
+  const navData = useMemo(() => initializeNavData(currentProduct), [
+    currentProduct,
+  ])
 
   // TODO: currently shows placeholder content for testing purposes
   return (
@@ -68,7 +81,7 @@ const ProductDownloadsView = ({
       showFilterInput={false}
       sidecarChildren={<WaypointDownloadsSidecarContent />}
     >
-      <h1>Install Waypoint v{selectedVersion}</h1>
+      <h1>Install {currentProduct.name}</h1>
       {
         <>
           <label style={{ display: 'block' }}>Version (temp switcher)</label>
