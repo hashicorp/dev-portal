@@ -5,6 +5,10 @@
     "indexName": "product_PACKER",
     "searchOnlyApiKey": "4e1ea7f4bf4335ac43d9f28463e42148"
   },
+  "analyticsConfig": {
+    "includedDomains": "packer.io www.packer.io",
+    "segmentWriteKey": "AjXdfmTTk1I9q9dfyePuDFHBrz1tCO3l"
+  },
   "metadata": {
     "title": "Packer by HashiCorp",
     "description": "Packer is a free and open source tool for creating golden images for multiple platforms from a single source configuration.",
