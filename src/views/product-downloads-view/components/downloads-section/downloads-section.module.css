@@ -1,0 +1,37 @@
+.operatingSystemTitle {
+  color: var(--token-color-neutral-foreground-primary);
+  margin-bottom: 12px;
+}
+
+.tabContent {
+  margin-top: 16px;
+}
+
+.subHeading {
+  color: var(--token-color-neutral-foreground-primary);
+  margin-bottom: 16px;
+  margin-top: 24px;
+}
+
+.downloadCard {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+.downloadCardText {
+  margin-right: 16px;
+}
+
+.archNameLabel {
+  color: var(--token-color-neutral-foreground-primary);
+  margin-bottom: 4px;
+}
+
+.archVersionLabel {
+  color: var(--token-color-neutral-foreground-faint);
+}

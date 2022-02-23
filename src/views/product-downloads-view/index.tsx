@@ -1,23 +1,19 @@
 import { ReactElement, useMemo, useState } from 'react'
-import CodeBlock from '@hashicorp/react-code-block'
 import semverRSort from 'semver/functions/rsort'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import Card from 'components/card'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
-import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import {
   getPageSubtitle,
   initializeBackToLink,
   initializeBreadcrumbLinks,
   initializeNavData,
-  sortPlatforms,
-  prettyOs,
 } from './helpers'
 import { ProductDownloadsViewProps } from './types'
+import DownloadsSection from './components/downloads-section'
 import s from './product-downloads-view.module.css'
 
 const ProductDownloadsView = ({
@@ -48,25 +44,6 @@ const ProductDownloadsView = ({
   const navData = useMemo(() => initializeNavData(currentProduct), [
     currentProduct,
   ])
-
-  const downloadsByOS = useMemo(
-    () => sortPlatforms(releases.versions[selectedVersion]),
-    [releases.versions, selectedVersion]
-  )
-  const packageManagersByOS = useMemo(() => {
-    const result = {}
-
-    pageContent.packageManagers.forEach((packageManager) => {
-      const { os } = packageManager
-      if (result[os]) {
-        result[os].push(packageManager)
-      } else {
-        result[os] = [packageManager]
-      }
-    })
-
-    return result
-  }, [pageContent.packageManagers])
 
   const pageTitle = `Install ${currentProduct.name}`
   const pageSubtitle = getPageSubtitle(
@@ -121,51 +98,10 @@ const ProductDownloadsView = ({
           </>
         }
       </div>
-      <Card elevation="base">
-        <Heading
-          className={s.operatingSystemTitle}
-          level={2}
-          size={300}
-          slug="operating-system"
-          weight="bold"
-        >
-          Operating System
-        </Heading>
-        <Tabs showAnchorLine>
-          {Object.keys(downloadsByOS).map((os) => {
-            const packageManagers = packageManagersByOS[os]
-            const hasOnePackageManager = packageManagers?.length === 1
-            const hasManyPackageManagers = packageManagers?.length > 1
-
-            const prettyOSName = prettyOs(os)
-            return (
-              <Tab heading={prettyOSName} key={os}>
-                <div className={s.tabContent}>
-                  {hasOnePackageManager && (
-                    <>
-                      <Heading
-                        level={3}
-                        size={200}
-                        slug={`package-manager-for-${prettyOSName}`}
-                        weight="semibold"
-                      >
-                        Package manager for {prettyOSName}
-                      </Heading>
-                      <CodeBlock
-                        code={packageManagers[0].commands
-                          .map((command) => `$ ${command}`)
-                          .join('\n')}
-                        options={{ showClipboard: true }}
-                      />
-                    </>
-                  )}
-                  {hasManyPackageManagers && <>{/* TODO: Tabs */}</>}
-                </div>
-              </Tab>
-            )
-          })}
-        </Tabs>
-      </Card>
+      <DownloadsSection
+        packageManagers={pageContent.packageManagers}
+        selectedRelease={releases.versions[selectedVersion]}
+      />
     </SidebarSidecarLayout>
   )
 }
