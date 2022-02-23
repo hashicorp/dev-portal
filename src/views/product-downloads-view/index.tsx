@@ -1,18 +1,25 @@
 import { ReactElement, useMemo, useState } from 'react'
 import semverRSort from 'semver/functions/rsort'
+import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { ReleasesAPIResponse } from 'lib/fetch-release-data'
+import SidecarMarketingCard, {
+  SidecarMarketingCardProps,
+} from './components/sidecar-marketing-card'
 
 interface ProductDownloadsViewProps {
   latestVersion: string
   releases: ReleasesAPIResponse
+  pageContent: {
+    sidecarMarketingCard: SidecarMarketingCardProps
+  }
 }
 
 const ProductDownloadsView = ({
   latestVersion,
   releases,
+  pageContent,
 }: ProductDownloadsViewProps): ReactElement => {
   const versionSwitcherOptions = useMemo(() => {
     return semverRSort(Object.keys(releases.versions)).map((version) => {
@@ -44,7 +51,9 @@ const ProductDownloadsView = ({
       navData={navData}
       productName="Waypoint"
       showFilterInput={false}
-      sidecarChildren={<></>}
+      sidecarChildren={
+        <SidecarMarketingCard {...pageContent.sidecarMarketingCard} />
+      }
     >
       <h1>Install Waypoint v{selectedVersion}</h1>
       {
