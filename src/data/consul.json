@@ -4,10 +4,10 @@
   "basePaths": ["docs", "api-docs", "commands"],
   "sidebar": {
     "landingPageNavData": [
-      { "title": "Introduction", "fullPath": "/consul" },
+      { "title": "Introduction", "fullPath": "/consul/docs/intro" },
       {
         "title": "Getting Started",
-        "fullPath": "/consul"
+        "fullPath": "/consul/docs/install"
       }
     ],
     "resourcesNavData": [
