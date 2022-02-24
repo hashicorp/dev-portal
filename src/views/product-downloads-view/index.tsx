@@ -85,21 +85,17 @@ const ProductDownloadsView = ({
         </div>
       </div>
       <div style={{ marginBottom: 48 }}>
-        {
-          <>
-            <label style={{ display: 'block' }}>Version (temp switcher)</label>
-            <select
-              onChange={(e) => setSelectedVersion(e.target.value)}
-              value={selectedVersion}
-            >
-              {versionSwitcherOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </>
-        }
+        <label style={{ display: 'block' }}>Version (temp switcher)</label>
+        <select
+          onChange={(e) => setSelectedVersion(e.target.value)}
+          value={selectedVersion}
+        >
+          {versionSwitcherOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </div>
       <DownloadsSection
         packageManagers={pageContent.packageManagers}
