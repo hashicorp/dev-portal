@@ -1,4 +1,5 @@
 import { ReleasesAPIResponse } from 'lib/fetch-release-data'
+import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 
 export interface PackageManager {
   label: string
@@ -12,4 +13,7 @@ export interface ProductDownloadsViewProps {
     packageManagers: PackageManager[]
   }
   releases: ReleasesAPIResponse
+  pageContent: {
+    sidecarMarketingCard: SidecarMarketingCardProps
+  }
 }
