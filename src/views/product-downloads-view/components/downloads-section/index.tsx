@@ -68,12 +68,12 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
          * ref: https://app.asana.com/0/1201010428539925/1201881376116200/f
          */
         <Tabs showAnchorLine={false}>
-          {packageManagers.map((packageManager) => {
+          {packageManagers.map(({ label, commands }) => {
             return (
-              <Tab heading={packageManager.label} key={packageManager.label}>
+              <Tab heading={label} key={label}>
                 <CodeBlock
                   className={s.codeTabsCodeBlock}
-                  code={packageManager.commands
+                  code={commands
                     .map((command: string) => `$ ${command}`)
                     .join('\n')}
                   language="shell-session"
@@ -94,6 +94,7 @@ const BinaryDownloadsSection = ({
   prettyOSName,
   selectedRelease,
 }) => {
+  const { version } = selectedRelease
   return (
     <>
       <Heading
@@ -112,7 +113,7 @@ const BinaryDownloadsSection = ({
               {arch.toUpperCase()}
             </Text>
             <Text className={s.archVersionLabel} size={200} weight="regular">
-              Version: {selectedRelease.version}
+              Version: {version}
             </Text>
           </div>
           <DownloadStandaloneLink
@@ -126,6 +127,7 @@ const BinaryDownloadsSection = ({
 }
 
 const ChangelogSection = ({ selectedRelease }) => {
+  const { version } = selectedRelease
   return (
     <>
       <Heading
@@ -143,12 +145,12 @@ const ChangelogSection = ({ selectedRelease }) => {
             Changelog
           </Text>
           <Text className={s.archVersionLabel} size={200} weight="regular">
-            Version: {selectedRelease.version}
+            Version: {version}
           </Text>
         </div>
         <StandaloneLink
           ariaLabel="TODO"
-          href={`https://github.com/hashicorp/waypoint/blob/v${selectedRelease.version}/CHANGELOG.md`}
+          href={`https://github.com/hashicorp/waypoint/blob/v${version}/CHANGELOG.md`}
           icon={<IconExternalLink16 />}
           iconPosition="trailing"
           openInNewTab
@@ -161,6 +163,7 @@ const ChangelogSection = ({ selectedRelease }) => {
 }
 
 const NotesSection = ({ selectedRelease }) => {
+  const { name, shasums, shasums_signature, version } = selectedRelease
   return (
     <>
       <Heading
@@ -176,13 +179,13 @@ const NotesSection = ({ selectedRelease }) => {
       <Text size={200}>
         You can find the{' '}
         <InlineLink
-          href={`https://releases.hashicorp.com/${selectedRelease.name}/${selectedRelease.version}/${selectedRelease.shasums}`}
-          text={`SHA256 checksums for Waypoint ${selectedRelease.version}`}
+          href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
+          text={`SHA256 checksums for Waypoint ${version}`}
           textSize={200}
         />{' '}
         online and you can{' '}
         <InlineLink
-          href={`https://releases.hashicorp.com/${selectedRelease.name}/${selectedRelease.version}/${selectedRelease.shasums_signature}`}
+          href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
           text="verify the checksums signature file"
           textSize={200}
         />{' '}
