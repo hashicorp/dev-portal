@@ -1,19 +1,13 @@
 import { ReactElement, useMemo } from 'react'
 import CodeBlock from '@hashicorp/react-code-block'
-import { ReleaseVersion } from 'lib/fetch-release-data'
 import Card from 'components/card'
 import Heading from 'components/heading'
-import { PackageManager } from 'views/product-downloads-view/types'
 import { sortPlatforms, prettyOs } from 'views/product-downloads-view/helpers'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import s from './downloads-section.module.css'
 import DownloadStandaloneLink from 'components/download-standalone-link'
-
-interface DownloadsSectionProps {
-  packageManagers: PackageManager[]
-  selectedRelease: ReleaseVersion
-}
+import { DownloadsSectionProps } from './types'
 
 const DownloadsSection = ({
   packageManagers,
