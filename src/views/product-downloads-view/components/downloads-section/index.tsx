@@ -79,7 +79,7 @@ const BinaryDownloadsSection = ({
   prettyOSName,
   selectedRelease,
 }) => {
-  const { version } = selectedRelease
+  const { name, version } = selectedRelease
   return (
     <>
       <Heading
@@ -99,7 +99,7 @@ const BinaryDownloadsSection = ({
             </Text>
           </div>
           <DownloadStandaloneLink
-            ariaLabel="TODO"
+            ariaLabel={`download ${name} version ${version} for ${prettyOSName}, architecture ${arch}`}
             href={downloadsByOS[os][arch]}
           />
         </Card>
