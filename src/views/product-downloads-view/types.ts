@@ -11,9 +11,7 @@ export interface ProductDownloadsViewProps {
   latestVersion: string
   pageContent: {
     packageManagers: PackageManager[]
-  }
-  releases: ReleasesAPIResponse
-  pageContent: {
     sidecarMarketingCard: SidecarMarketingCardProps
   }
+  releases: ReleasesAPIResponse
 }

@@ -21,7 +21,6 @@ const ProductDownloadsView = ({
   latestVersion,
   pageContent,
   releases,
-  pageContent,
 }: ProductDownloadsViewProps): ReactElement => {
   const versionSwitcherOptions = useMemo(() => {
     return semverRSort(Object.keys(releases.versions)).map((version) => {
