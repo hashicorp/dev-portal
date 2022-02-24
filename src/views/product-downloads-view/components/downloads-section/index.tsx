@@ -1,4 +1,5 @@
 import { ReactElement, useMemo } from 'react'
+import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
 import { PackageManager } from 'views/product-downloads-view/types'
@@ -159,8 +160,11 @@ const NotesSection = ({ selectedRelease }) => {
     <>
       <Heading
         {...SHARED_HEADING_LEVEL_3_PROPS}
+        className={classNames(
+          SHARED_HEADING_LEVEL_3_PROPS.className,
+          s.specialSubHeading
+        )}
         slug="notes"
-        style={{ marginBottom: 8 }}
       >
         Notes
       </Heading>
