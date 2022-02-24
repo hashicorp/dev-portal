@@ -8,6 +8,7 @@ import { sortPlatforms, prettyOs } from 'views/product-downloads-view/helpers'
 import Card from 'components/card'
 import DownloadStandaloneLink from 'components/download-standalone-link'
 import Heading from 'components/heading'
+import InlineLink from 'components/inline-link'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
@@ -95,7 +96,6 @@ const DownloadsSection = ({
                       tabs={packageManagers.map(({ label }) => label)}
                     >
                       {packageManagers.map((packageManager) => {
-                        console.log(packageManager)
                         return (
                           <CodeBlock
                             key={packageManager.label}
@@ -181,6 +181,37 @@ const DownloadsSection = ({
                       textSize={200}
                     />
                   </Card>
+                  <Heading
+                    className={s.subHeading}
+                    level={3}
+                    size={200}
+                    slug="notes"
+                    style={{ marginBottom: 8 }}
+                    weight="semibold"
+                  >
+                    Notes
+                  </Heading>
+                  <Text size={200}>
+                    You can find the{' '}
+                    <InlineLink
+                      href={`https://releases.hashicorp.com/${selectedRelease.name}/${selectedRelease.version}/${selectedRelease.shasums}`}
+                      text={`SHA256 checksums for Waypoint ${selectedRelease.version}`}
+                      textSize={200}
+                    />{' '}
+                    online and you can{' '}
+                    <InlineLink
+                      href={`https://releases.hashicorp.com/${selectedRelease.name}/${selectedRelease.version}/${selectedRelease.shasums_signature}`}
+                      text="verify the checksums signature file"
+                      textSize={200}
+                    />{' '}
+                    which has been signed using{' '}
+                    <InlineLink
+                      href="https://www.hashicorp.com/security"
+                      text="HashiCorp's GPG key"
+                      textSize={200}
+                    />
+                    .
+                  </Text>
                 </div>
               </Tab>
             )
