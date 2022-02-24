@@ -2,39 +2,27 @@ import { ReactElement, useMemo } from 'react'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
 import { PackageManager } from 'views/product-downloads-view/types'
-import { ReleaseVersion } from 'lib/fetch-release-data'
-import { sortPlatforms, prettyOs } from 'views/product-downloads-view/helpers'
+import { prettyOs } from 'views/product-downloads-view/helpers'
 import Card from 'components/card'
 import DownloadStandaloneLink from 'components/download-standalone-link'
-import Heading from 'components/heading'
+import Heading, { HeadingProps } from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
-import s from './downloads-section.module.css'
 import { DownloadsSectionProps } from './types'
+import {
+  generateCodePropFromCommands,
+  groupDownloadsByOS,
+  groupPackageManagersByOS,
+} from './helpers'
+import s from './downloads-section.module.css'
 
-const groupDownloadsByOS = (selectedRelease: ReleaseVersion) => {
-  return sortPlatforms(selectedRelease)
-}
-
-const groupPackageManagersByOS = (packageManagers: PackageManager[]) => {
-  const result = {}
-
-  packageManagers.forEach((packageManager) => {
-    const { os } = packageManager
-    if (result[os]) {
-      result[os].push(packageManager)
-    } else {
-      result[os] = [packageManager]
-    }
-  })
-
-  return result
-}
-
-const generateCodePropFromCommands = (commands: PackageManager['commands']) => {
-  return commands.map((command: string) => `$ ${command}`).join('\n')
+const SHARED_HEADING_LEVEL_3_PROPS = {
+  className: s.subHeading,
+  level: 3 as HeadingProps['level'],
+  size: 200 as HeadingProps['size'],
+  weight: 'semibold' as HeadingProps['weight'],
 }
 
 const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
@@ -46,11 +34,8 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
     <>
       {hasPackageManagers && (
         <Heading
-          className={s.subHeading}
-          level={3}
-          size={200}
+          {...SHARED_HEADING_LEVEL_3_PROPS}
           slug={`package-manager-for-${prettyOSName}`}
-          weight="semibold"
         >
           Package manager for {prettyOSName}
         </Heading>
@@ -98,11 +83,8 @@ const BinaryDownloadsSection = ({
   return (
     <>
       <Heading
-        className={s.subHeading}
-        level={3}
-        size={200}
+        {...SHARED_HEADING_LEVEL_3_PROPS}
         slug={`binary-download-for-${prettyOSName}`}
-        weight="semibold"
       >
         Binary download for {prettyOSName}
       </Heading>
@@ -130,13 +112,7 @@ const ChangelogSection = ({ selectedRelease }) => {
   const { version } = selectedRelease
   return (
     <>
-      <Heading
-        className={s.subHeading}
-        level={3}
-        size={200}
-        slug="release-information"
-        weight="semibold"
-      >
+      <Heading {...SHARED_HEADING_LEVEL_3_PROPS} slug="release-information">
         Release information
       </Heading>
       <Card className={s.downloadCard} elevation="base">
@@ -167,12 +143,9 @@ const NotesSection = ({ selectedRelease }) => {
   return (
     <>
       <Heading
-        className={s.subHeading}
-        level={3}
-        size={200}
+        {...SHARED_HEADING_LEVEL_3_PROPS}
         slug="notes"
         style={{ marginBottom: 8 }}
-        weight="semibold"
       >
         Notes
       </Heading>
@@ -230,6 +203,12 @@ const DownloadsSection = ({
             const packageManagers: PackageManager[] = packageManagersByOS[os]
             const prettyOSName = prettyOs(os)
 
+            /**
+             * TODO: it might be nice to introduce a local Context here with all
+             * the information needed so that these helper components don't have
+             * APIs that could potentially require changes with every visual
+             * change.
+             */
             return (
               <Tab heading={prettyOSName} key={os}>
                 <div className={s.tabContent}>
