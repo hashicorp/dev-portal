@@ -1,19 +1,21 @@
 import { ReactElement, useMemo } from 'react'
 import CodeBlock from '@hashicorp/react-code-block'
-import Card from 'components/card'
-import Heading from 'components/heading'
+import { PackageManager } from 'views/product-downloads-view/types'
+import { ReleaseVersion } from 'lib/fetch-release-data'
 import { sortPlatforms, prettyOs } from 'views/product-downloads-view/helpers'
+import Card from 'components/card'
+import DownloadStandaloneLink from 'components/download-standalone-link'
+import Heading from 'components/heading'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import s from './downloads-section.module.css'
-import DownloadStandaloneLink from 'components/download-standalone-link'
 import { DownloadsSectionProps } from './types'
 
-const groupDownloadsByOS = (selectedRelease) => {
+const groupDownloadsByOS = (selectedRelease: ReleaseVersion) => {
   return sortPlatforms(selectedRelease)
 }
 
-const groupPackageManagersByOS = (packageManagers) => {
+const groupPackageManagersByOS = (packageManagers: PackageManager[]) => {
   const result = {}
 
   packageManagers.forEach((packageManager) => {
