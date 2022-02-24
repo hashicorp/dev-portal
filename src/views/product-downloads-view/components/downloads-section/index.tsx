@@ -1,5 +1,6 @@
 import { ReactElement, useMemo } from 'react'
 import CodeBlock from '@hashicorp/react-code-block'
+import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 import { PackageManager } from 'views/product-downloads-view/types'
 import { ReleaseVersion } from 'lib/fetch-release-data'
 import { sortPlatforms, prettyOs } from 'views/product-downloads-view/helpers'
@@ -59,32 +60,52 @@ const DownloadsSection = ({
             const packageManagers = packageManagersByOS[os]
             const hasOnePackageManager = packageManagers?.length === 1
             const hasManyPackageManagers = packageManagers?.length > 1
+            const hasPackageManagers =
+              hasOnePackageManager || hasManyPackageManagers
 
             const prettyOSName = prettyOs(os)
             return (
               <Tab heading={prettyOSName} key={os}>
                 <div className={s.tabContent}>
+                  {hasPackageManagers && (
+                    <Heading
+                      className={s.subHeading}
+                      level={3}
+                      size={200}
+                      slug={`package-manager-for-${prettyOSName}`}
+                      weight="semibold"
+                    >
+                      Package manager for {prettyOSName}
+                    </Heading>
+                  )}
                   {hasOnePackageManager && (
-                    <>
-                      <Heading
-                        className={s.subHeading}
-                        level={3}
-                        size={200}
-                        slug={`package-manager-for-${prettyOSName}`}
-                        weight="semibold"
-                      >
-                        Package manager for {prettyOSName}
-                      </Heading>
-                      <CodeBlock
-                        code={packageManagers[0].commands
-                          .map((command) => `$ ${command}`)
-                          .join('\n')}
-                        options={{ showClipboard: true }}
-                      />
-                    </>
+                    <CodeBlock
+                      code={packageManagers[0].commands
+                        .map((command: string) => `$ ${command}`)
+                        .join('\n')}
+                      language="shell-session"
+                      options={{ showClipboard: true }}
+                    />
                   )}
                   {hasManyPackageManagers && (
-                    <>TODO: show tabs component for many package managers</>
+                    <CodeTabs
+                      className={s.codeTabs}
+                      tabs={packageManagers.map(({ label }) => label)}
+                    >
+                      {packageManagers.map((packageManager) => {
+                        console.log(packageManager)
+                        return (
+                          <CodeBlock
+                            key={packageManager.label}
+                            code={packageManager.commands
+                              .map((command: string) => `$ ${command}`)
+                              .join('\n')}
+                            language="shell-session"
+                            options={{ showClipboard: true }}
+                          />
+                        )
+                      })}
+                    </CodeTabs>
                   )}
                   <Heading
                     className={s.subHeading}
