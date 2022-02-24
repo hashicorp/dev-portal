@@ -177,6 +177,7 @@ const DownloadsSection = ({
                       href={`https://github.com/hashicorp/waypoint/blob/v${selectedRelease.version}/CHANGELOG.md`}
                       icon={<IconExternalLink16 />}
                       iconPosition="trailing"
+                      openInNewTab
                       text="GitHub"
                       textSize={200}
                     />
