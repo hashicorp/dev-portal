@@ -70,21 +70,6 @@ function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
       id: slugify(`menu-item-${node.path}`, { lower: true }),
     }
   } else if (isNavDirectLink(node)) {
-    // TODO: Previous implementation assumed  all direct link nodes
-    // TODO: would be absolute, external URLs.
-    // TODO: This assumption is not correct, I think... we have some
-    // TODO: direct link nodes which use absolute URLs, eg `/api-docs`
-    // TODO: or `/commands`. These need to be adjusted, as such URLs would
-    // TODO: assume {product}.io/{href}, while here in dev-portal, our URL
-    // TODO: structure needs to be dev.hashicorp.com/{productSlug}/{href}.
-    // TODO:
-    // TODO: productSlug is already available in this context as basePaths[0].
-    // TODO:
-    // TODO: For example, if basePaths[0] is "consul", `/api-docs` should
-    // TODO: become `/consul/api-docs`, `/commands` should become
-    // TODO: `/consul/commands`, and so on.
-    // TODO:
-    // TODO: First cut at fixing this below, with adjustedHref...
     // For direct links, if they're absolute URLs,
     // such as https://www.example.com, then leave them untouched.
     // Otherwise, prefix them with the product slug (basePath[0])
