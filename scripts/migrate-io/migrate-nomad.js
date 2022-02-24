@@ -215,6 +215,8 @@ async function migrateNomadIo() {
       'export default function Homepage',
       'function HomePage'
     )
+    // make homepage CSS [GPS](https://github.com/jescalan/gps) id more specific
+    newContents = newContents.replace(/p-home/g, 'p-home-nomad')
     // return
     return newContents
   })
