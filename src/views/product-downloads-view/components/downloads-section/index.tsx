@@ -89,12 +89,20 @@ const BinaryDownloadsSection = ({
         Binary download for {prettyOSName}
       </Heading>
       {Object.keys(downloadsByOS[os]).map((arch) => (
-        <Card className={s.downloadCard} elevation="base" key={arch}>
-          <div className={s.downloadCardText}>
-            <Text className={s.archNameLabel} size={200} weight="semibold">
+        <Card className={s.textAndLinkCard} elevation="base" key={arch}>
+          <div className={s.textAndLinkCardTextContainer}>
+            <Text
+              className={s.textAndLinkCardLabel}
+              size={200}
+              weight="semibold"
+            >
               {arch.toUpperCase()}
             </Text>
-            <Text className={s.archVersionLabel} size={200} weight="regular">
+            <Text
+              className={s.textAndLinkCardVersionLabel}
+              size={200}
+              weight="regular"
+            >
               Version: {version}
             </Text>
           </div>
@@ -115,12 +123,16 @@ const ChangelogSection = ({ selectedRelease }) => {
       <Heading {...SHARED_HEADING_LEVEL_3_PROPS} slug="release-information">
         Release information
       </Heading>
-      <Card className={s.downloadCard} elevation="base">
-        <div className={s.downloadCardText}>
-          <Text className={s.archNameLabel} size={200} weight="semibold">
+      <Card className={s.textAndLinkCard} elevation="base">
+        <div className={s.textAndLinkCardTextContainer}>
+          <Text className={s.textAndLinkCardLabel} size={200} weight="semibold">
             Changelog
           </Text>
-          <Text className={s.archVersionLabel} size={200} weight="regular">
+          <Text
+            className={s.textAndLinkCardVersionLabel}
+            size={200}
+            weight="regular"
+          >
             Version: {version}
           </Text>
         </div>
