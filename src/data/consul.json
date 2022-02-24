@@ -1,6 +1,7 @@
 {
   "name": "Consul",
   "slug": "consul",
+  "basePaths": ["docs", "api-docs", "commands"],
   "sidebar": {
     "landingPageNavData": [
       { "title": "Introduction", "fullPath": "/consul" },
@@ -28,5 +29,32 @@
         "href": "https://support.hashicorp.com"
       }
     ]
-  }
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/consul",
+      "id": "overview"
+    },
+    {
+      "label": "Docs",
+      "id": "docs",
+      "path": "/consul/docs"
+    },
+    {
+      "label": "API",
+      "path": "/consul/api-docs",
+      "id": "api-docs"
+    },
+    {
+      "label": "CLI",
+      "path": "/consul/commands",
+      "id": "commands"
+    },
+    {
+      "label": "Install",
+      "path": "/consul/downloads",
+      "id": "downloads"
+    }
+  ]
 }

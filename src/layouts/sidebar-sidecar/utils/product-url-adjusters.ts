@@ -14,12 +14,16 @@ import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
  */
 export const vaultUrlAdjuster: Pluggable = [
   remarkPluginAdjustLinkUrls,
-  {
-    urlAdjustFn: (sourceUrl: string): string => {
-      let url = sourceUrl.slice()
-      const isBadApiUrl = url == '/api' || url.startsWith('/api/')
-      if (isBadApiUrl) url = url.replace(/^\/api/, '/api-docs')
-      return url
-    },
-  },
+  { urlAdjustFn: rewriteApiToApiDocs },
 ]
+export const consulUrlAdjuster: Pluggable = [
+  remarkPluginAdjustLinkUrls,
+  { urlAdjustFn: rewriteApiToApiDocs },
+]
+
+function rewriteApiToApiDocs(inputUrl: string): string {
+  let outputUrl = inputUrl.slice()
+  const isBadApiUrl = outputUrl == '/api' || outputUrl.startsWith('/api/')
+  if (isBadApiUrl) outputUrl = outputUrl.replace(/^\/api/, '/api-docs')
+  return outputUrl
+}
