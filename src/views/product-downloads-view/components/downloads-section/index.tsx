@@ -1,4 +1,5 @@
 import { ReactElement, useMemo } from 'react'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 import { PackageManager } from 'views/product-downloads-view/types'
@@ -9,6 +10,7 @@ import DownloadStandaloneLink from 'components/download-standalone-link'
 import Heading from 'components/heading'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
+import StandaloneLink from 'components/standalone-link'
 import s from './downloads-section.module.css'
 import { DownloadsSectionProps } from './types'
 
@@ -144,6 +146,41 @@ const DownloadsSection = ({
                       />
                     </Card>
                   ))}
+                  <Heading
+                    className={s.subHeading}
+                    level={3}
+                    size={200}
+                    slug="release-information"
+                    weight="semibold"
+                  >
+                    Release information
+                  </Heading>
+                  <Card className={s.downloadCard} elevation="base">
+                    <div className={s.downloadCardText}>
+                      <Text
+                        className={s.archNameLabel}
+                        size={200}
+                        weight="semibold"
+                      >
+                        Changelog
+                      </Text>
+                      <Text
+                        className={s.archVersionLabel}
+                        size={200}
+                        weight="regular"
+                      >
+                        Version: {selectedRelease.version}
+                      </Text>
+                    </div>
+                    <StandaloneLink
+                      ariaLabel="TODO"
+                      href={`https://github.com/hashicorp/waypoint/blob/v${selectedRelease.version}/CHANGELOG.md`}
+                      icon={<IconExternalLink16 />}
+                      iconPosition="trailing"
+                      text="GitHub"
+                      textSize={200}
+                    />
+                  </Card>
                 </div>
               </Tab>
             )
