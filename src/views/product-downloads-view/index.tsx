@@ -34,6 +34,7 @@ const ProductDownloadsView = ({
   const [selectedVersion, setSelectedVersion] = useState<string>(
     versionSwitcherOptions[0].value
   )
+  const latestVersionIsSelected = selectedVersion === latestVersion
   const currentProduct = useCurrentProduct()
   const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
     currentProduct,
@@ -50,7 +51,7 @@ const ProductDownloadsView = ({
   const pageSubtitle = getPageSubtitle(
     currentProduct,
     selectedVersion,
-    selectedVersion === latestVersion
+    latestVersionIsSelected
   )
   return (
     <SidebarSidecarLayout
@@ -98,6 +99,7 @@ const ProductDownloadsView = ({
         </select>
       </div>
       <DownloadsSection
+        latestVersionIsSelected={latestVersionIsSelected}
         packageManagers={pageContent.packageManagers}
         selectedRelease={releases.versions[selectedVersion]}
       />

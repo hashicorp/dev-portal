@@ -30,16 +30,19 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
   const hasManyPackageManagers = packageManagers?.length > 1
   const hasPackageManagers = hasOnePackageManager || hasManyPackageManagers
 
+  if (!hasPackageManagers) {
+    return null
+  }
+
   return (
     <>
-      {hasPackageManagers && (
-        <Heading
-          {...SHARED_HEADING_LEVEL_3_PROPS}
-          slug={`package-manager-for-${prettyOSName}`}
-        >
-          Package manager for {prettyOSName}
-        </Heading>
-      )}
+      <Heading
+        {...SHARED_HEADING_LEVEL_3_PROPS}
+        slug={`package-manager-for-${prettyOSName}`}
+      >
+        Package manager for {prettyOSName}
+      </Heading>
+
       {hasOnePackageManager && (
         <CodeBlock
           code={generateCodePropFromCommands(packageManagers[0].commands)}
@@ -187,6 +190,7 @@ const NotesSection = ({ selectedRelease }) => {
 }
 
 const DownloadsSection = ({
+  latestVersionIsSelected,
   packageManagers,
   selectedRelease,
 }: DownloadsSectionProps): ReactElement => {
@@ -224,10 +228,12 @@ const DownloadsSection = ({
             return (
               <Tab heading={prettyOSName} key={os}>
                 <div className={s.tabContent}>
-                  <PackageManagerSection
-                    packageManagers={packageManagers}
-                    prettyOSName={prettyOSName}
-                  />
+                  {latestVersionIsSelected && (
+                    <PackageManagerSection
+                      packageManagers={packageManagers}
+                      prettyOSName={prettyOSName}
+                    />
+                  )}
                   <BinaryDownloadsSection
                     downloadsByOS={downloadsByOS}
                     os={os}
