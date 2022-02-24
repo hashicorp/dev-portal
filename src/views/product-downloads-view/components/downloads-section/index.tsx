@@ -33,6 +33,10 @@ const groupPackageManagersByOS = (packageManagers: PackageManager[]) => {
   return result
 }
 
+const generateCodePropFromCommands = (commands: PackageManager['commands']) => {
+  return commands.map((command: string) => `$ ${command}`).join('\n')
+}
+
 const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
   const hasOnePackageManager = packageManagers?.length === 1
   const hasManyPackageManagers = packageManagers?.length > 1
@@ -53,9 +57,7 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
       )}
       {hasOnePackageManager && (
         <CodeBlock
-          code={packageManagers[0].commands
-            .map((command: string) => `$ ${command}`)
-            .join('\n')}
+          code={generateCodePropFromCommands(packageManagers[0].commands)}
           language="shell-session"
           options={{ showClipboard: true }}
         />
@@ -73,9 +75,7 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
               <Tab heading={label} key={label}>
                 <CodeBlock
                   className={s.codeTabsCodeBlock}
-                  code={commands
-                    .map((command: string) => `$ ${command}`)
-                    .join('\n')}
+                  code={generateCodePropFromCommands(commands)}
                   language="shell-session"
                   options={{ showClipboard: true }}
                 />
