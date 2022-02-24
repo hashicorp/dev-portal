@@ -13,6 +13,10 @@
   margin-top: 24px;
 }
 
+.codeTabsCodeBlock {
+  margin-top: 4px;
+}
+
 .downloadCard {
   align-items: center;
   display: flex;

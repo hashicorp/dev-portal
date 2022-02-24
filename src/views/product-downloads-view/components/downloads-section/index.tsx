@@ -1,7 +1,6 @@
 import { ReactElement, useMemo } from 'react'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
-import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 import { PackageManager } from 'views/product-downloads-view/types'
 import { ReleaseVersion } from 'lib/fetch-release-data'
 import { sortPlatforms, prettyOs } from 'views/product-downloads-view/helpers'
@@ -60,7 +59,7 @@ const DownloadsSection = ({
         </Heading>
         <Tabs showAnchorLine>
           {Object.keys(downloadsByOS).map((os) => {
-            const packageManagers = packageManagersByOS[os]
+            const packageManagers: PackageManager[] = packageManagersByOS[os]
             const hasOnePackageManager = packageManagers?.length === 1
             const hasManyPackageManagers = packageManagers?.length > 1
             const hasPackageManagers =
@@ -91,23 +90,31 @@ const DownloadsSection = ({
                     />
                   )}
                   {hasManyPackageManagers && (
-                    <CodeTabs
-                      className={s.codeTabs}
-                      tabs={packageManagers.map(({ label }) => label)}
-                    >
+                    /**
+                     * TODO: this will eventually be <CodeTabs> once a bug has
+                     * been fixed.
+                     *
+                     * ref: https://app.asana.com/0/1201010428539925/1201881376116200/f
+                     */
+                    <Tabs showAnchorLine={false}>
                       {packageManagers.map((packageManager) => {
                         return (
-                          <CodeBlock
+                          <Tab
+                            heading={packageManager.label}
                             key={packageManager.label}
-                            code={packageManager.commands
-                              .map((command: string) => `$ ${command}`)
-                              .join('\n')}
-                            language="shell-session"
-                            options={{ showClipboard: true }}
-                          />
+                          >
+                            <CodeBlock
+                              className={s.codeTabsCodeBlock}
+                              code={packageManager.commands
+                                .map((command: string) => `$ ${command}`)
+                                .join('\n')}
+                              language="shell-session"
+                              options={{ showClipboard: true }}
+                            />
+                          </Tab>
                         )
                       })}
-                    </CodeTabs>
+                    </Tabs>
                   )}
                   <Heading
                     className={s.subHeading}
