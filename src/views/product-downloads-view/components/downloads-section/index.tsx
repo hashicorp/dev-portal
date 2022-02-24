@@ -9,27 +9,36 @@ import s from './downloads-section.module.css'
 import DownloadStandaloneLink from 'components/download-standalone-link'
 import { DownloadsSectionProps } from './types'
 
+const groupDownloadsByOS = (selectedRelease) => {
+  return sortPlatforms(selectedRelease)
+}
+
+const groupPackageManagersByOS = (packageManagers) => {
+  const result = {}
+
+  packageManagers.forEach((packageManager) => {
+    const { os } = packageManager
+    if (result[os]) {
+      result[os].push(packageManager)
+    } else {
+      result[os] = [packageManager]
+    }
+  })
+
+  return result
+}
+
 const DownloadsSection = ({
   packageManagers,
   selectedRelease,
 }: DownloadsSectionProps): ReactElement => {
-  const downloadsByOS = useMemo(() => sortPlatforms(selectedRelease), [
+  const downloadsByOS = useMemo(() => groupDownloadsByOS(selectedRelease), [
     selectedRelease,
   ])
-  const packageManagersByOS = useMemo(() => {
-    const result = {}
-
-    packageManagers.forEach((packageManager) => {
-      const { os } = packageManager
-      if (result[os]) {
-        result[os].push(packageManager)
-      } else {
-        result[os] = [packageManager]
-      }
-    })
-
-    return result
-  }, [packageManagers])
+  const packageManagersByOS = useMemo(
+    () => groupPackageManagersByOS(packageManagers),
+    [packageManagers]
+  )
 
   return (
     <section>
