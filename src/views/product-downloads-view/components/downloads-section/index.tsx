@@ -109,7 +109,7 @@ const BinaryDownloadsSection = ({
 }
 
 const ChangelogSection = ({ selectedRelease }) => {
-  const { version } = selectedRelease
+  const { name, version } = selectedRelease
   return (
     <>
       <Heading {...SHARED_HEADING_LEVEL_3_PROPS} slug="release-information">
@@ -125,7 +125,7 @@ const ChangelogSection = ({ selectedRelease }) => {
           </Text>
         </div>
         <StandaloneLink
-          ariaLabel="TODO"
+          ariaLabel={`${name} version ${version} changelog`}
           href={`https://github.com/hashicorp/waypoint/blob/v${version}/CHANGELOG.md`}
           icon={<IconExternalLink16 />}
           iconPosition="trailing"
