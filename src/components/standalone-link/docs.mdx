@@ -16,17 +16,18 @@ Internally, this component uses two other components:
 - If `textSize` is being set to 100 or 200, then size 16 icons are recommended
 - If `textSize` is being set to 300, then size 24 icons are recommended
 
-| Prop name      | Description                                                                                                             | Required? | Default value | Type                                   |
-| -------------- | ----------------------------------------------------------------------------------------------------------------------- | --------- | ------------- | -------------------------------------- |
-| `ariaLabel`    | A non-visible label presented by screen readers. Passed directly to the internal link element as the `aria-label` prop. | No        | undefined     | string                                 |
-| `className`    | A string of one or more class names. Applied last to the rendered `<a>` element.                                        | No        | undefined     | string                                 |
-| `color`        | Determines the set of colors to use for various states of the component.                                                | No        | 'primary'     | Either: 'primary' or 'secondary'       |
-| `download`     | Same as the `<a>` element's download prop. Passed directly to the internal link element.                                | No        | undefined     | Either as boolean or with string value |
-| `href`         | The destination of the link.                                                                                            | Yes       | N/A           | string                                 |
-| `icon`         | An icon from `@hashicorp/flight-icons` to render.                                                                       | Yes       | N/A           | ReactElement                           |
-| `iconPosition` | Where the icon should be rendered within the link. See examples below.                                                  | Yes       | N/A           | Either: 'leading' or 'trailing'        |
-| `text`         | The text rendered within the `<a>` element.                                                                             | Yes       | N/A           | string                                 |
-| `textSize`     | The `size` passed to the inner `Text` component.                                                                        | No        | undefined     | TextProps[`size`]                      |
+| Prop name      | Description                                                                                                                             | Required? | Default value | Type                                   |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- | -------------------------------------- |
+| `ariaLabel`    | A non-visible label presented by screen readers. Passed directly to the internal link element as the `aria-label` prop.                 | No        | undefined     | string                                 |
+| `className`    | A string of one or more class names. Applied last to the rendered `<a>` element.                                                        | No        | undefined     | string                                 |
+| `color`        | Determines the set of colors to use for various states of the component.                                                                | No        | 'primary'     | Either: 'primary' or 'secondary'       |
+| `download`     | Same as the `<a>` element's download prop. Passed directly to the internal link element.                                                | No        | undefined     | Either as boolean or with string value |
+| `href`         | The destination of the link.                                                                                                            | Yes       | N/A           | string                                 |
+| `icon`         | An icon from `@hashicorp/flight-icons` to render.                                                                                       | Yes       | N/A           | ReactElement                           |
+| `iconPosition` | Where the icon should be rendered within the link. See examples below.                                                                  | Yes       | N/A           | Either: 'leading' or 'trailing'        |
+| `openInNewTab` | Whether or not the link should open in a new tab. Affects the `target` and `rel` props passed to the internally rendered `<a>` element. | No        | false         | boolean                                |
+| `text`         | The text rendered within the `<a>` element.                                                                                             | Yes       | N/A           | string                                 |
+| `textSize`     | The `size` passed to the inner `Text` component.                                                                                        | No        | undefined     | TextProps[`size`]                      |
 
 ## Examples
 
