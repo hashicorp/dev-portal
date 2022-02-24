@@ -3,6 +3,7 @@ import semverRSort from 'semver/functions/rsort'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidecarMarketingCard from './components/sidecar-marketing-card'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
@@ -18,6 +19,7 @@ import s from './product-downloads-view.module.css'
 const ProductDownloadsView = ({
   latestVersion,
   releases,
+  pageContent,
 }: ProductDownloadsViewProps): ReactElement => {
   const versionSwitcherOptions = useMemo(() => {
     return semverRSort(Object.keys(releases.versions)).map((version) => {
@@ -56,7 +58,9 @@ const ProductDownloadsView = ({
       navData={navData}
       productName="Waypoint"
       showFilterInput={false}
-      sidecarChildren={<></>}
+      sidecarChildren={
+        <SidecarMarketingCard {...pageContent.sidecarMarketingCard} />
+      }
     >
       <div className={s.pageHeader}>
         <IconTileLogo

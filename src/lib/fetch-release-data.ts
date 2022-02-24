@@ -3,7 +3,6 @@ import semverSort from 'semver/functions/rsort'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 import { Product } from 'types/products'
 import { makeFetchWithRetry } from './fetch-with-retry'
-import { products } from '../../config/products'
 
 export type OperatingSystem =
   | 'darwin'
