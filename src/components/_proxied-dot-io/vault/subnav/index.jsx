@@ -1,6 +1,6 @@
 import Subnav from '@hashicorp/react-subnav'
 import classNames from 'classnames'
-import { useProxiedPath } from 'lib/hooks'
+import useProxiedPath from 'lib/hooks/useProxiedPath'
 import s from './style.module.css'
 import Link from 'next/link'
 

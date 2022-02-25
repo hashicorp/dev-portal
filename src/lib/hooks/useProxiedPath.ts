@@ -13,7 +13,7 @@ import { useRouter } from 'next/router'
  * Furthermore, it returns the product slug for the given page, which can be
  * used to determine which product we're currently rendering.
  */
-export function useProxiedPath(): {
+export default function useProxiedPath(): {
   asPath: string
   proxiedProduct: string | null
 } {

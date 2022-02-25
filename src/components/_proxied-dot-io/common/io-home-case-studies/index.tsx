@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Image from 'next/image'
-import { useProxiedPath } from 'lib/hooks'
+import useProxiedPath from 'lib/hooks/useProxiedPath'
 import { isInternalLink } from 'lib/utils'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
