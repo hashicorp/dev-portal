@@ -11,7 +11,7 @@ const baseName = 'API'
 const product = consulData as Product
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const consulDocsPage = ({ mdxSource }): ReactElement => {
+const ConsulApiDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} />
 }
 
@@ -22,7 +22,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   additionalRemarkPlugins: [consulUrlAdjuster],
 })
 
-consulDocsPage.layout = SidebarSidecarLayout
+ConsulApiDocsPage.layout = SidebarSidecarLayout
 
 export { getStaticPaths, getStaticProps }
-export default consulDocsPage
+export default ConsulApiDocsPage

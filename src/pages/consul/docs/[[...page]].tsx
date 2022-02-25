@@ -13,7 +13,7 @@ const product = consulData as Product
 const additionalComponents = { ConfigEntryReference }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const consulDocsPage = ({ mdxSource }): ReactElement => {
+const ConsulDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }
 
@@ -24,7 +24,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   additionalRemarkPlugins: [consulUrlAdjuster],
 })
 
-consulDocsPage.layout = SidebarSidecarLayout
+ConsulDocsPage.layout = SidebarSidecarLayout
 
 export { getStaticPaths, getStaticProps }
-export default consulDocsPage
+export default ConsulDocsPage
