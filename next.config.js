@@ -21,7 +21,7 @@ const temporary_hideDocsPaths = {
     {
       type: 'host',
       value:
-        '(^(?!.*(boundaryproject|nomadproject|packer|vagrantup|waypointproject|docs\\.hashicorp)).*$)',
+        '(^(?!.*(boundaryproject|nomadproject|packer|vagrantup|vaultproject|waypointproject|docs\\.hashicorp)).*$)',
     },
   ],
 }
@@ -109,5 +109,8 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       ],
     },
     outputFileTracing: false,
+    images: {
+      domains: ['www.datocms-assets.com'],
+    },
   })
 )

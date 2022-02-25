@@ -1,23 +1,18 @@
-import { useEffect, useState } from 'react'
 import Subnav from '@hashicorp/react-subnav'
-import { useRouter } from 'next/router'
-import productData from 'data/vault.json'
+import classNames from 'classnames'
+import useProxiedPath from 'lib/hooks/useProxiedPath'
+import s from './style.module.css'
+import Link from 'next/link'
 
-export default function ProductSubnav() {
-  const router = useRouter()
-  const [currentPath, setCurrentPath] = useState()
-
-  useEffect(() => {
-    setCurrentPath(router.asPath)
-  }, [router.asPath])
-
+export default function ProductSubnav({ menuItems }) {
+  const { asPath } = useProxiedPath()
 
   return (
     <Subnav
-      className="g-product-subnav"
+      className={classNames('g-product-subnav', s.subnav)}
       hideGithubStars={true}
       titleLink={{
-        text: 'vault',
+        text: 'HashiCorp Vault',
         url: '/',
       }}
       ctaLinks={[
@@ -33,13 +28,17 @@ export default function ProductSubnav() {
         {
           text: 'Download',
           url: '/downloads',
+          theme: {
+            brand: 'vault',
+          },
         },
       ]}
-      currentPath={currentPath}
-      menuItems={productData.subnavItems}
+      currentPath={asPath}
+      menuItems={menuItems}
       menuItemsAlign="right"
       constrainWidth
       matchOnBasePath
+      Link={Link}
     />
   )
 }

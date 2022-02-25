@@ -12,17 +12,38 @@ const PreviewProductSwitcher = dynamic(
   { ssr: false }
 )
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()
 
   const Layout = Component.layout ?? BaseLayout
 
   return (
     <ErrorBoundary>
-      <Layout>
+      <Layout {...(layoutProps && { data: layoutProps })}>
         <Component {...pageProps} />
       </Layout>
       {isPreview ? <PreviewProductSwitcher /> : null}
     </ErrorBoundary>
   )
+}
+
+App.getInitialProps = async ({ Component, ctx }) => {
+  const layoutQuery = Component.layout
+    ? Component.layout?.rivetParams ?? null
+    : null
+
+  const { default: rivetQuery, proxiedRivetClient } = await import('lib/cms')
+  let query = rivetQuery
+  if (ctx.pathname.includes('_proxied-dot-io/vault')) {
+    query = proxiedRivetClient('vault')
+  }
+
+  const layoutProps = layoutQuery ? await query(layoutQuery) : null
+
+  let pageProps = {}
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx)
+  }
+  return { pageProps, layoutProps }
 }
