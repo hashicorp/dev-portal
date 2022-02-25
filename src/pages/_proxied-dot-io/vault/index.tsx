@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Head from 'next/head'
 import { proxiedRivetClient } from 'lib/cms'
-import homepageQuery from './query.graphql'
+import homepageQuery from './home/query.graphql'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import { renderMetaTags } from 'react-datocms'
 import IoHomeHero from 'components/_proxied-dot-io/common/io-home-hero'
@@ -11,7 +11,7 @@ import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container
 import IoHomeCaseStudies from 'components/_proxied-dot-io/common/io-home-case-studies'
 import IoHomeCallToAction from 'components/_proxied-dot-io/common/io-home-call-to-action'
 import IoHomePreFooter from 'components/_proxied-dot-io/common/io-home-pre-footer'
-import s from './style.module.css'
+import s from './home/style.module.css'
 
 export default function Homepage({ data }): React.ReactElement {
   const {
@@ -165,9 +165,6 @@ export async function getStaticProps() {
     props: {
       data: vaultHomepage,
     },
-    revalidate:
-      process.env.HASHI_ENV === 'production'
-        ? process.env.GLOBAL_REVALIDATE
-        : 10,
+    revalidate: __config.io_sites.revalidate,
   }
 }
