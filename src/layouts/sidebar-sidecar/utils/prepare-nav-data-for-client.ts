@@ -70,17 +70,32 @@ function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
       id: slugify(`menu-item-${node.path}`, { lower: true }),
     }
   } else if (isNavDirectLink(node)) {
-    // For direct links, if they're absolute URLs,
-    // such as https://www.example.com, then leave them untouched.
-    // Otherwise, prefix them with the product slug (basePath[0])
-    const adjustedHref = isAbsoluteUrl(node.href)
-      ? node.href
-      : `/${basePaths[0]}${node.href}`
-    // Also add `id` for direct links
-    return {
-      ...node,
-      href: adjustedHref,
-      id: slugify(`external-url-${node.title}`, { lower: true }),
+    const id = slugify(`external-url-${node.title}`, { lower: true })
+    // Check if there is data that disagrees with DevDot's assumptions.
+    // This can happen because in the context of dot-io domains,
+    // authors may write NavDirectLinks with href values that are
+    // internal to the site, but outside the current docs route.
+    // For example, an author working in the Consul sidebar may
+    // create a NavDirectLink with an href of "/downloads".
+    // Here in DevDot, we want this URL to be "/consul/downloads",
+    // and we want to use an internal rather than external link.
+    const hrefIsNotAbsolute = !isAbsoluteUrl(node.href)
+    if (hrefIsNotAbsolute) {
+      // If we have a non-absolute NavDirectLink,
+      // convert it to a NavLeaf node, and treat it similarly.
+      // Note that the `fullPath` added here differs from typical
+      // NavLeaf treatment, as we only use the first part of the `basePath`.
+      // (We expect this to be the product slug, eg "consul").
+      return {
+        title: node.title,
+        path: node.href,
+        id,
+        fullPath: `/${basePaths[0]}${node.href}`,
+      }
+    } else {
+      // Otherwise, this is a genuinely external NavDirectLink,
+      // so we only need to add an `id` to it.
+      return { ...node, id }
     }
   } else {
     // Otherwise return the node unmodified
