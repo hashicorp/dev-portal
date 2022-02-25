@@ -172,7 +172,7 @@ export default function UseCasePage({ data }) {
               url: link.link,
             }
           })}
-          pattern="/valut/img/usecase-callout-pattern.svg"
+          pattern="/vault/img/usecase-callout-pattern.svg"
         />
       </div>
 
