@@ -7,6 +7,10 @@
     "indexName": "product_VAULT",
     "searchOnlyApiKey": "9c555e8fa951c1c53e726c0ce2eb3b73"
   },
+  "analyticsConfig": {
+    "includedDomains": "vaultproject.io www.vaultproject.io",
+    "segmentWriteKey": "OdSFDq9PfujQpmkZf03dFpcUlywme4sC"
+  },
   "datoToken": "88b4984480dad56295a8aadae6caad",
   "metadata": {
     "title": "Vault by HashiCorp",

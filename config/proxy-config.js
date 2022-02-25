@@ -55,8 +55,8 @@ const proxyConfig = {
     assets: ['/files/press-kit.zip'],
   },
   vault: {
-    domain: 'https://test-vt.hashi-mktg.com',
-    host: 'test-vt.hashi-mktg.com',
+    domain: 'https://www.vaultproject.io',
+    host: '(www\\.vaultproject\\.io|test-vt\\.hashi-mktg\\.com)',
     assets: ['/files/press-kit.zip'],
   },
   waypoint: {

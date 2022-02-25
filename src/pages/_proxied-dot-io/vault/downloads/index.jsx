@@ -2,18 +2,20 @@ import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import Link from 'next/link'
 import Button from '@hashicorp/react-button'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
-import { generateStaticProps } from '@hashicorp/react-product-downloads-page/server'
+import { generateStaticProps } from 'lib/fetch-release-data'
 import productData from 'data/vault'
 import s from './style.module.css'
 
-function DownloadsPage(staticProps) {
+function DownloadsPage({ product, releases, latestVersion }) {
   const changelogUrl = productData.changelogUrl.length
     ? productData.changelogUrl
     : `https://github.com/hashicorp/vault/blob/v${productData.version}/CHANGELOG.md`
 
   return (
     <ProductDownloadsPage
-      {...staticProps}
+      product={product}
+      releases={releases}
+      latestVersion={latestVersion}
       changelog={changelogUrl}
       getStartedDescription="Follow step-by-step tutorials on the essentials of Vault."
       getStartedLinks={[
@@ -23,11 +25,13 @@ function DownloadsPage(staticProps) {
         },
         {
           label: 'Getting Started with Vault UI',
-          href: 'http://learn.hashicorp.com/collections/vault/getting-started-ui',
+          href:
+            'http://learn.hashicorp.com/collections/vault/getting-started-ui',
         },
         {
           label: 'Vault on HCP',
-          href: 'http://learn.hashicorp.com/collections/vault/getting-started-ui',
+          href:
+            'http://learn.hashicorp.com/collections/vault/getting-started-ui',
         },
         {
           label: 'View all Vault tutorials',
@@ -61,12 +65,7 @@ function DownloadsPage(staticProps) {
   )
 }
 
-export function getStaticProps() {
-  return generateStaticProps({
-    product: productData.slug,
-    latestVersion: productData.version,
-  })
-}
+export const getStaticProps = () => generateStaticProps('vault')
 
 function MerchandisingSlot() {
   return (
