@@ -43,7 +43,6 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
       >
         Package manager for {prettyOSName}
       </Heading>
-
       {hasOnePackageManager && (
         <CodeBlock
           code={generateCodePropFromCommands(packageManagers[0].commands)}
