@@ -32,6 +32,12 @@ const FeaturedTutorialsSection = ({
       <div className={s.cardGrid}>
         {featuredTutorials.map(({ title, description, href }) => {
           return (
+            /**
+             * TODO: these will more than likely be replaced by a future
+             * `LearnTutorialCard` component.
+             *
+             * ref: https://app.asana.com/0/1201010428539925/1201654639085737/f
+             */
             <CardLink className={s.card} key={href} href={href}>
               <div>
                 <Text className={s.cardTitle} size={300} weight="semibold">
