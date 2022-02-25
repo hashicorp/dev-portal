@@ -1,17 +1,11 @@
-import { useEffect, useState } from 'react'
 import Subnav from '@hashicorp/react-subnav'
 import classNames from 'classnames'
-import { useRouter } from 'next/router'
+import { useProxiedPath } from 'lib/hooks'
 import s from './style.module.css'
 import Link from 'next/link'
 
 export default function ProductSubnav({ menuItems }) {
-  const router = useRouter()
-  const [currentPath, setCurrentPath] = useState()
-
-  useEffect(() => {
-    setCurrentPath(router.asPath)
-  }, [router.asPath])
+  const { asPath } = useProxiedPath()
 
   return (
     <Subnav
@@ -39,7 +33,7 @@ export default function ProductSubnav({ menuItems }) {
           },
         },
       ]}
-      currentPath={currentPath}
+      currentPath={asPath}
       menuItems={menuItems}
       menuItemsAlign="right"
       constrainWidth

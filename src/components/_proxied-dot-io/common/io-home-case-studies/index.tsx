@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Image from 'next/image'
+import { useProxiedPath } from 'lib/hooks'
 import { isInternalLink } from 'lib/utils'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
@@ -28,6 +29,8 @@ export default function IoHomeCaseStudies({
   primary,
   secondary,
 }: IoHomeCaseStudiesProps): React.ReactElement {
+  const { proxiedProduct } = useProxiedPath()
+
   return (
     <section className={s.root}>
       <div className={s.container}>
@@ -62,7 +65,7 @@ export default function IoHomeCaseStudies({
                   <a className={s.link} href={item.link}>
                     <span className={s.linkInner}>
                       <h3 className={s.linkHeading}>{item.heading}</h3>
-                      {isInternalLink(item.link) ? (
+                      {isInternalLink(item.link, proxiedProduct) ? (
                         <IconArrowRight16 />
                       ) : (
                         <IconExternalLink16 />
