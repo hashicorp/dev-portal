@@ -41,7 +41,7 @@ export const initializeBreadcrumbLinks = (
     {
       isCurrentPage: true,
       title: `Install v${selectedVersion}`,
-      url: `/${currentProduct.slug}/downloads/${currentProduct.slug}`,
+      url: `/${currentProduct.slug}/downloads`,
     },
   ]
 }
