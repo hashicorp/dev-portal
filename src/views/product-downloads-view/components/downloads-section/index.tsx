@@ -2,6 +2,7 @@ import { ReactElement, useMemo } from 'react'
 import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
+import { useCurrentProduct } from 'contexts'
 import { PackageManager } from 'views/product-downloads-view/types'
 import { prettyOs } from 'views/product-downloads-view/helpers'
 import Card from 'components/card'
@@ -141,7 +142,7 @@ const ChangelogSection = ({ selectedRelease }) => {
         </div>
         <StandaloneLink
           ariaLabel={`${name} version ${version} changelog`}
-          href={`https://github.com/hashicorp/waypoint/blob/v${version}/CHANGELOG.md`}
+          href={`https://github.com/hashicorp/${name}/blob/v${version}/CHANGELOG.md`}
           icon={<IconExternalLink16 />}
           iconPosition="trailing"
           openInNewTab
@@ -154,7 +155,9 @@ const ChangelogSection = ({ selectedRelease }) => {
 }
 
 const NotesSection = ({ selectedRelease }) => {
+  const currentProduct = useCurrentProduct()
   const { name, shasums, shasums_signature, version } = selectedRelease
+
   return (
     <>
       <Heading
@@ -171,7 +174,7 @@ const NotesSection = ({ selectedRelease }) => {
         You can find the{' '}
         <InlineLink
           href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
-          text={`SHA256 checksums for Waypoint ${version}`}
+          text={`SHA256 checksums for ${currentProduct.name} ${version}`}
           textSize={200}
         />{' '}
         online and you can{' '}
