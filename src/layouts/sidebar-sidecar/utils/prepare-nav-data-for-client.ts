@@ -87,10 +87,11 @@ function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
       // NavLeaf treatment, as we only use the first part of the `basePath`.
       // (We expect this to be the product slug, eg "consul").
       return {
-        title: node.title,
-        path: node.href,
-        id,
+        ...node,
         fullPath: `/${basePaths[0]}${node.href}`,
+        href: null,
+        id,
+        path: node.href,
       }
     } else {
       // Otherwise, this is a genuinely external NavDirectLink,
