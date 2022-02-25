@@ -14,6 +14,7 @@ import {
   initializeNavData,
 } from './helpers'
 import { ProductDownloadsViewProps } from './types'
+import OfficialReleasesSection from './components/official-releases-section'
 import s from './product-downloads-view.module.css'
 
 const ProductDownloadsView = ({
@@ -102,6 +103,7 @@ const ProductDownloadsView = ({
         This content should only show when the{' '}
         <code>enable_new_downloads_view</code> flag is on
       </p>
+      <OfficialReleasesSection />
     </SidebarSidecarLayout>
   )
 }
