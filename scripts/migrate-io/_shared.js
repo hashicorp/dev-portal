@@ -126,7 +126,9 @@ async function setupDocsRoute({
   const { slug, name } = productData
   // copy template into place
   const templateFile = './scripts/migrate-io/templates/docs-page.tsx'
-  await exec(`cp -r ${templateFile} ${pagesDir}/${basePath}/[[...page]].tsx`)
+  await exec(
+    `cp -r ${templateFile} ${pagesDir}/${basePath}/\\[\\[...page\\]\\].tsx`
+  )
   // replace variables in template
   await editFile(`${pagesDir}/${basePath}/[[...page]].tsx`, (contents) => {
     return contents
@@ -183,6 +185,39 @@ async function setupSecurityPage({ pagesDir, productData }) {
       .replace(/\$\$layoutName/g, `${name}IoLayout`)
       .replace(/\$\$layoutPath/g, `layouts/_proxied-dot-io/${slug}`)
       .replace(/\$\$githubUrl/g, `https://www.github.com/hashicorp/${slug}`)
+  })
+}
+
+/**
+ *
+ * @param {Object} params
+ * @param {string} params.pageFilePath
+ * @param {{ slug: string, name: string }} params.productData
+ * @param {string} params.localFilePath
+ * @param {string} params.remoteFilePath
+ * @param {string} params.remoteVersion
+ */
+async function setupMarkdownPage({
+  pageFilePath,
+  productData,
+  localFilePath,
+  remoteFilePath,
+  remoteVersion,
+}) {
+  const { name, slug } = productData
+  // copy template into place
+  await exec(
+    `rm -f ${pageFilePath} && cp ./scripts/migrate-io/templates/markdown-page.jsx ${pageFilePath}`
+  )
+  // replace variables in template
+  await editFile(pageFilePath, (contents) => {
+    return contents
+      .replace(/\$\$productSlug/g, slug)
+      .replace(/\$\$localFilePath/g, localFilePath)
+      .replace(/\$\$remoteFilePath/g, remoteFilePath)
+      .replace(/\$\$remoteVersion/g, remoteVersion)
+      .replace(/\$\$layoutName/g, `${name}IoLayout`)
+      .replace(/\$\$layoutPath/g, `layouts/_proxied-dot-io/${slug}`)
   })
 }
 
@@ -286,4 +321,5 @@ module.exports = {
   setupIoLayout,
   setupProductMigration,
   setupSecurityPage,
+  setupMarkdownPage,
 }

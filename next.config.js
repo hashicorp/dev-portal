@@ -21,7 +21,7 @@ const temporary_hideDocsPaths = {
     {
       type: 'host',
       value:
-        '(^(?!.*(boundaryproject|nomadproject|vagrantup|waypointproject)).*$)',
+        '(^(?!.*(boundaryproject|nomadproject|packer|vagrantup|waypointproject|docs\\.hashicorp)).*$)',
     },
   ],
 }
