@@ -229,6 +229,22 @@ async function buildDotIoRedirects() {
   // TODO: rather than leaving all redirects in the Vagrant repo
   // TODO: intent is to do this after all products have been migrated
   const vagrantIoRedirects = [...vagrantAuthorRedirects]
+
+  const rawPackerRedirects = isContentDeployPreview('packer')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? '[]'
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'packer',
+        path: 'website/redirects.next.js',
+        ref: 'stable-website',
+      })
+  const packerAuthorRedirects = eval(rawPackerRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Packer repo
+  // TODO: intent is to do this after all products have been migrated
+  const packerIoRedirects = [...packerAuthorRedirects]
   // TODO ... consolidate redirects for other products
   return [
     ...devPortalToDotIoRedirects,
@@ -239,6 +255,7 @@ async function buildDotIoRedirects() {
     ...addHostCondition(vaultIoRedirects, 'vault'),
     ...addHostCondition(waypointIoRedirects, 'waypoint'),
     ...addHostCondition(vagrantIoRedirects, 'vagrant'),
+    ...addHostCondition(packerIoRedirects, 'packer'),
   ]
 }
 
