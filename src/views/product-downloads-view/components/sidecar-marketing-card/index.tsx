@@ -26,6 +26,7 @@ const SidecarMarketingCard = ({
       href={learnMoreLink}
       icon={<IconExternalLink16 />}
       iconPosition="trailing"
+      openInNewTab
       textSize={200}
       text="Learn more"
     />

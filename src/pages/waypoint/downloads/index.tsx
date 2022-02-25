@@ -13,8 +13,8 @@ const WaypointDownloadsPage = (props: GeneratedProps): ReactElement => {
     const { latestVersion, releases } = props
     return (
       <ProductDownloadsView
-        pageContent={installData}
         latestVersion={latestVersion}
+        pageContent={installData}
         releases={releases}
       />
     )

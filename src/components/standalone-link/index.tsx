@@ -13,6 +13,7 @@ const StandaloneLink = ({
   href,
   icon,
   iconPosition,
+  openInNewTab = false,
   text,
   textSize,
 }: StandaloneLinkProps): ReactElement => {
@@ -24,6 +25,8 @@ const StandaloneLink = ({
       className={classes}
       download={download}
       href={href}
+      target={openInNewTab ? '_blank' : '_self'}
+      rel={openInNewTab ? 'noreferrer noopener' : undefined}
     >
       {iconPosition === 'leading' && icon}
       <Text asElement="span" className={s.text} size={textSize} weight="medium">
