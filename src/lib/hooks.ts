@@ -19,7 +19,7 @@ export function useProxiedPath(): {
 } {
   const router = useRouter()
 
-  const pattern = /\/\_proxied-dot-io\/(?<product>[a-z]*)\/(?<path>.*)/
+  const pattern = /\/\_proxied-dot-io\/(?<product>[a-z]*)(?:\/(?<path>.*))?/
 
   let asPath = router.asPath
   const asPathMatches = pattern.exec(router.asPath)
@@ -27,6 +27,10 @@ export function useProxiedPath(): {
     // We add a `/` character here since our RegEx group doesn't capture
     // leading slashes
     asPath = `/${asPathMatches.groups.path}`
+  } else if (asPathMatches !== null) {
+    // If exec returns a match that doesn't have a value for the named capture
+    // group `path`, we're on the index route.
+    asPath = '/'
   }
 
   let proxiedProduct: string | null = null
