@@ -14,6 +14,7 @@ import {
   initializeNavData,
 } from './helpers'
 import { ProductDownloadsViewProps } from './types'
+import FeaturedTutorialsSection from './components/featured-tutorials-section'
 import OfficialReleasesSection from './components/official-releases-section'
 import s from './product-downloads-view.module.css'
 
@@ -104,6 +105,9 @@ const ProductDownloadsView = ({
         <code>enable_new_downloads_view</code> flag is on
       </p>
       <OfficialReleasesSection />
+      <FeaturedTutorialsSection
+        featuredTutorials={pageContent.featuredTutorials}
+      />
     </SidebarSidecarLayout>
   )
 }
