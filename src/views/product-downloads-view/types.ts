@@ -1,6 +1,11 @@
 import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 
+export interface FeaturedTutorial {
+  description: string
+  href: string
+  title: string
+}
 export interface PackageManager {
   label: string
   commands: string[]
@@ -10,6 +15,7 @@ export interface PackageManager {
 export interface ProductDownloadsViewProps {
   latestVersion: string
   pageContent: {
+    featuredTutorials: FeaturedTutorial[]
     packageManagers: PackageManager[]
     sidecarMarketingCard: SidecarMarketingCardProps
   }

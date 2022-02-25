@@ -1,0 +1,48 @@
+.sectionHeading {
+  color: var(--token-color-neutral-foreground-primary);
+  margin-bottom: 12px;
+}
+
+/*
+TODO: these @media queries come from the numbers defined in src/pages/style.css
+but I wasn't able to get the @media --mobile and @media --tablet queries to work
+like they do in that file. The code below will eventually need to be refactored,
+this is a temporary copy/paste to get the new install view out.
+*/
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 24px;
+  grid-row-gap: 24px;
+
+  @media only screen and (min-width: 729px) and (max-width: 1000px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media only screen and (max-width: 728px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.cardTitle {
+  color: var(--token-color-neutral-foreground-primary);
+  margin-bottom: 4px;
+}
+
+.cardBody {
+  color: var(--token-color-neutral-foreground-faint);
+  margin-bottom: 12px;
+}
+
+.cardIcons {
+  & svg:not(:last-child) {
+    margin-right: 8px;
+  }
+}

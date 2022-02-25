@@ -15,6 +15,8 @@ import {
 } from './helpers'
 import { ProductDownloadsViewProps } from './types'
 import DownloadsSection from './components/downloads-section'
+import FeaturedTutorialsSection from './components/featured-tutorials-section'
+import OfficialReleasesSection from './components/official-releases-section'
 import s from './product-downloads-view.module.css'
 
 const ProductDownloadsView = ({
@@ -102,6 +104,10 @@ const ProductDownloadsView = ({
         latestVersionIsSelected={latestVersionIsSelected}
         packageManagers={pageContent.packageManagers}
         selectedRelease={releases.versions[selectedVersion]}
+      />
+      <OfficialReleasesSection />
+      <FeaturedTutorialsSection
+        featuredTutorials={pageContent.featuredTutorials}
       />
     </SidebarSidecarLayout>
   )
