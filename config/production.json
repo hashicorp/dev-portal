@@ -4,6 +4,6 @@
     "revalidate": 360
   },
   "flags": {
-    "enable_new_downloads_view": false
+    "enable_new_downloads_view": true
   }
 }
