@@ -209,7 +209,7 @@ const DownloadsSection = ({
   )
 
   return (
-    <article>
+    <article className={s.root}>
       <Card elevation="base">
         <Heading
           className={s.operatingSystemTitle}
