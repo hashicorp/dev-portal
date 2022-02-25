@@ -9,6 +9,7 @@
 }
 
 .pageHeaderTitle {
+  color: var(--token-color-neutral-foreground-primary);
   margin-bottom: 12px;
 }
 

@@ -1,0 +1,45 @@
+.operatingSystemTitle {
+  color: var(--token-color-neutral-foreground-primary);
+  margin-bottom: 12px;
+}
+
+.tabContent {
+  margin-top: 16px;
+}
+
+.subHeading {
+  color: var(--token-color-neutral-foreground-primary);
+  margin-bottom: 16px;
+  margin-top: 24px;
+}
+
+.specialSubHeading {
+  margin-bottom: 8px;
+}
+
+.codeTabsCodeBlock {
+  margin-top: 4px;
+}
+
+.textAndLinkCard {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+.textAndLinkCardTextContainer {
+  margin-right: 16px;
+}
+
+.textAndLinkCardLabel {
+  color: var(--token-color-neutral-foreground-primary);
+  margin-bottom: 4px;
+}
+
+.textAndLinkCardVersionLabel {
+  color: var(--token-color-neutral-foreground-faint);
+}

@@ -62,6 +62,12 @@ export interface StandaloneLinkProps {
   iconPosition: 'leading' | 'trailing'
 
   /**
+   * Whether or not the link should open in a new tab. Affects the `target` and
+   * `rel` props passed to the internally rendered `<a>` element.
+   */
+  openInNewTab?: boolean
+
+  /**
    * The text rendered within the `<a>` element.
    */
   text: string

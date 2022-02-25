@@ -6,6 +6,7 @@ import { DownloadStandaloneLinkProps } from './types'
 const DownloadStandaloneLink = ({
   ariaLabel,
   href,
+  textSize = 200,
 }: DownloadStandaloneLinkProps): ReactElement => (
   <StandaloneLink
     ariaLabel={ariaLabel}
@@ -14,6 +15,7 @@ const DownloadStandaloneLink = ({
     icon={<IconDownload16 />}
     iconPosition="trailing"
     text="Download"
+    textSize={textSize}
   />
 )
 

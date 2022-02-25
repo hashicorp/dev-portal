@@ -14,14 +14,15 @@ import {
   initializeNavData,
 } from './helpers'
 import { ProductDownloadsViewProps } from './types'
+import DownloadsSection from './components/downloads-section'
 import FeaturedTutorialsSection from './components/featured-tutorials-section'
 import OfficialReleasesSection from './components/official-releases-section'
 import s from './product-downloads-view.module.css'
 
 const ProductDownloadsView = ({
   latestVersion,
-  releases,
   pageContent,
+  releases,
 }: ProductDownloadsViewProps): ReactElement => {
   const versionSwitcherOptions = useMemo(() => {
     return semverRSort(Object.keys(releases.versions)).map((version) => {
@@ -35,6 +36,7 @@ const ProductDownloadsView = ({
   const [selectedVersion, setSelectedVersion] = useState<string>(
     versionSwitcherOptions[0].value
   )
+  const latestVersionIsSelected = selectedVersion === latestVersion
   const currentProduct = useCurrentProduct()
   const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
     currentProduct,
@@ -51,7 +53,7 @@ const ProductDownloadsView = ({
   const pageSubtitle = getPageSubtitle(
     currentProduct,
     selectedVersion,
-    selectedVersion === latestVersion
+    latestVersionIsSelected
   )
   return (
     <SidebarSidecarLayout
@@ -85,25 +87,24 @@ const ProductDownloadsView = ({
           </Text>
         </div>
       </div>
-      {
-        <>
-          <label style={{ display: 'block' }}>Version (temp switcher)</label>
-          <select
-            onChange={(e) => setSelectedVersion(e.target.value)}
-            value={selectedVersion}
-          >
-            {versionSwitcherOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </>
-      }
-      <p>
-        This content should only show when the{' '}
-        <code>enable_new_downloads_view</code> flag is on
-      </p>
+      <div style={{ marginBottom: 48 }}>
+        <label style={{ display: 'block' }}>Version (temp switcher)</label>
+        <select
+          onChange={(e) => setSelectedVersion(e.target.value)}
+          value={selectedVersion}
+        >
+          {versionSwitcherOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+      <DownloadsSection
+        latestVersionIsSelected={latestVersionIsSelected}
+        packageManagers={pageContent.packageManagers}
+        selectedRelease={releases.versions[selectedVersion]}
+      />
       <OfficialReleasesSection />
       <FeaturedTutorialsSection
         featuredTutorials={pageContent.featuredTutorials}

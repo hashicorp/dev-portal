@@ -6,12 +6,18 @@ export interface FeaturedTutorial {
   href: string
   title: string
 }
+export interface PackageManager {
+  label: string
+  commands: string[]
+  os: string
+}
 
 export interface ProductDownloadsViewProps {
   latestVersion: string
-  releases: ReleasesAPIResponse
   pageContent: {
     featuredTutorials: FeaturedTutorial[]
+    packageManagers: PackageManager[]
     sidecarMarketingCard: SidecarMarketingCardProps
   }
+  releases: ReleasesAPIResponse
 }
