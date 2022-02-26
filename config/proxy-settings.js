@@ -72,6 +72,14 @@ const proxySettings = {
       ...buildAssetRoutesToProxy(proxyConfig.waypoint.assets, '/waypoint'),
     ],
   },
+  consul: {
+    domain: proxyConfig.consul.domain,
+    host: proxyConfig.consul.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/consul'),
+      ...buildAssetRoutesToProxy(proxyConfig.consul.assets, '/consul'),
+    ],
+  },
 }
 module.exports = proxySettings
 

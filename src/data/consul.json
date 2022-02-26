@@ -1,0 +1,33 @@
+{
+  "name": "Consul",
+  "slug": "consul",
+  "algoliaConfig": {
+    "indexName": "product_CONSUL",
+    "searchOnlyApiKey": "fbd5dc1f0078d41509fcc560386fd534"
+  },
+  "analyticsConfig": {
+    "includedDomains": "consul.io www.consul.io",
+    "segmentWriteKey": "IyzLrqXkox5KJ8XL4fo8vTYNGfiKlTCm"
+  },
+  "datoToken": "88b4984480dad56295a8aadae6caad",
+  "metadata": {
+    "title": "Consul by HashiCorp",
+    "description": "Consul is a service networking solution to automate network configurations, discover services, and enable secure connectivity across any cloud or runtime.",
+    "image": "/consul/img/og-image.png",
+    "icon": [
+      {
+        "href": "/consul/_favicon.ico"
+      }
+    ]
+  },
+  "alertBannerActive": false,
+  "alertBanner": {
+    "tag": "Blog post",
+    "url": "https://www.hashicorp.com/blog/a-new-chapter-for-hashicorp",
+    "text": "HashiCorp shares have begun trading on the Nasdaq. Read the blog from our founders, Mitchell Hashimoto and Armon Dadgar.",
+    "linkText": "Read the post",
+    "expirationDate": "2021-12-17T23:00:00-07:00"
+  },
+  "version": "1.11.3",
+  "subnavItems": []
+}
