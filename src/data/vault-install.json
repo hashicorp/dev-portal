@@ -1,0 +1,107 @@
+{
+  "featuredTutorials": [
+    {
+      "title": "Getting Started",
+      "description": "Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Get started here.",
+      "href": "https://learn.hashicorp.com/collections/vault/getting-started"
+    },
+    {
+      "title": "Getting Started with Vault UI",
+      "description": "Manage Vault environment as well as your secrets using Vault UI.",
+      "href": "https://learn.hashicorp.com/collections/vault/getting-started-ui"
+    },
+    {
+      "title": "Getting Started with HCP Vault",
+      "description": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Vault using the HCP portal and setup your managed Vault cluster.",
+      "href": "https://learn.hashicorp.com/collections/vault/cloud"
+    },
+    {
+      "title": "App Integration",
+      "description": "Integrate your applications with Vault. Some tutorials leverage tools and some tutorials demonstrate code examples.",
+      "href": "https://learn.hashicorp.com/collections/vault/app-integration"
+    },
+    {
+      "title": "HCP Vault",
+      "description": "Learn how to provision and connect to HCP Vault clusters.",
+      "href": "https://learn.hashicorp.com/collections/vault/cloud-ops"
+    },
+    {
+      "title": "Custom Secrets Engines",
+      "description": "Learn how to build a custom secrets engine to rotate your own tokens, passwords, and more with Vault and a target API.",
+      "href": "https://learn.hashicorp.com/collections/vault/custom-secrets-engine"
+    }
+  ],
+  "packageManagers": [
+    {
+      "label": "Homebrew",
+      "commands": [
+        "brew tap hashicorp/tap",
+        "brew install hashicorp/tap/vault"
+      ],
+      "os": "darwin"
+    },
+    {
+      "label": "Ubuntu/Debian",
+      "commands": [
+        "curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -",
+        "sudo apt-add-repository \"deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main\"",
+        "sudo apt-get update && sudo apt-get install vault"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "CentOS/RHEL",
+      "commands": [
+        "sudo yum install -y yum-utils",
+        "sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo",
+        "sudo yum -y install vault"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "Fedora",
+      "commands": [
+        "sudo dnf install -y dnf-plugins-core",
+        "sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
+        "sudo dnf -y install vault"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "Amazon Linux",
+      "commands": [
+        "sudo yum install -y yum-utils",
+        "sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo",
+        "sudo yum -y install vault"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "Homebrew",
+      "commands": [
+        "brew tap hashicorp/tap",
+        "brew install hashicorp/tap/vault"
+      ],
+      "os": "linux"
+    }
+  ],
+  "sidecarMarketingCard": {
+    "title": "About Vault",
+    "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+    "learnMoreLink": "https://www.vaultproject.io/",
+    "featuredDocsLinks": [
+      {
+        "href": "/vault/docs/what-is-vault",
+        "text": "What is Vault?"
+      },
+      {
+        "href": "/vault/docs/use-cases",
+        "text": "Use Cases"
+      },
+      {
+        "href": "/vault/docs/get-started/developer-qs",
+        "text": "Developer Quick Start"
+      }
+    ]
+  }
+}

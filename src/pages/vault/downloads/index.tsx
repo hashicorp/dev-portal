@@ -1,28 +1,33 @@
 import { ReactElement } from 'react'
 import { GetStaticProps } from 'next'
 import vaultData from 'data/vault.json'
+import installData from 'data/vault-install.json'
 import { Product } from 'types/products'
-import BaseNewLayout from 'layouts/base-new'
+import { generateStaticProps, GeneratedProps } from 'lib/fetch-release-data'
+import EmptyLayout from 'layouts/empty'
+import ProductDownloadsView from 'views/product-downloads-view'
+import PlaceholderDownloadsView from 'views/placeholder-product-downloads-view'
 
-const product = vaultData as Product
-
-const VaultDownloadsPage = (): ReactElement => {
-  return (
-    <div className="g-grid-container">
-      <h1>Vault Downloads</h1>
-      <ul>
-        <li>This page is a work in progress</li>
-      </ul>
-    </div>
-  )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: { product },
-    revalidate: 10,
+const VaultDownloadsPage = (props: GeneratedProps): ReactElement => {
+  if (__config.flags.enable_new_downloads_view) {
+    const { latestVersion, releases } = props
+    return (
+      <ProductDownloadsView
+        latestVersion={latestVersion}
+        pageContent={installData}
+        releases={releases}
+      />
+    )
+  } else {
+    return <PlaceholderDownloadsView />
   }
 }
 
-VaultDownloadsPage.layout = BaseNewLayout
+export const getStaticProps: GetStaticProps = async () => {
+  const product = vaultData as Product
+
+  return generateStaticProps(product)
+}
+
+VaultDownloadsPage.layout = EmptyLayout
 export default VaultDownloadsPage
