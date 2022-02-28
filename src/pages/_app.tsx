@@ -4,6 +4,7 @@ import '@hashicorp/platform-util/nprogress/style.css'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
+import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
 import BaseNewLayout from 'layouts/base-new'
 import './style.css'
@@ -31,12 +32,14 @@ export default function App({ Component, pageProps }) {
       <ErrorBoundary FallbackComponent={Error}>
         <DeviceSizeProvider>
           <CurrentProductProvider currentProduct={currentProduct}>
-            <Layout
-              {...pageProps?.layoutProps}
-              openConsentManager={openConsentManager}
-            >
-              <Component {...pageProps} />
-            </Layout>
+            <CodeTabsProvider>
+              <Layout
+                {...pageProps?.layoutProps}
+                openConsentManager={openConsentManager}
+              >
+                <Component {...pageProps} />
+              </Layout>
+            </CodeTabsProvider>
           </CurrentProductProvider>
         </DeviceSizeProvider>
         <ConsentManager />
