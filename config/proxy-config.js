@@ -20,8 +20,8 @@ const proxyConfig = {
     ],
   },
   consul: {
-    domain: 'https://test-cs.hashi-mktg.com',
-    host: 'test-cs.hashi-mktg.com',
+    domain: 'https://www.consul.io',
+    host: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
     assets: ['/files/press-kit.zip'],
   },
   nomad: {
