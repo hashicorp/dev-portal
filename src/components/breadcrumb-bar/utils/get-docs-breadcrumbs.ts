@@ -89,8 +89,8 @@ function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
 }
 
 function findPathMatchedNodes(navNode, pathString, depth) {
-  // If it's a node with child routes, return true
-  // if any of the child routes are active
+  // If it's a node with child routes, look for matches
+  // within the child routes
   if (navNode.routes) {
     // Check for an index (aka "Overview") node in the child routes.
     // These nodes will have paths with a number of parts
