@@ -104,6 +104,17 @@ for further details.
   & h5,
   & h6 {
     /*
+    This prevents the tall ::before elements (defined next) from interfering
+    with events on elements rendered right before them. For example, this will
+    prevent a heading element directly after a CardLink from interfering with
+    the CardLink's hover state. This changes the cursor but it is still possible
+    to select text.
+
+    ref: https://app.asana.com/0/1201010428539925/1201885695157827/f
+    */
+    pointer-events: none;
+
+    /*
     These ::before elements account for the height of the top sticky bars
     when following #anchor-links to headings. Without the offset caused
     by these elements, we'd jump to headings that would be hidden underneath
