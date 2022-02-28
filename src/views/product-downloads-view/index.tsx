@@ -19,13 +19,21 @@ import FeaturedTutorialsSection from './components/featured-tutorials-section'
 import OfficialReleasesSection from './components/official-releases-section'
 import s from './product-downloads-view.module.css'
 
+// exclude pre-releases and such
+const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
+
 const ProductDownloadsView = ({
   latestVersion,
   pageContent,
   releases,
 }: ProductDownloadsViewProps): ReactElement => {
   const versionSwitcherOptions = useMemo(() => {
-    return semverRSort(Object.keys(releases.versions)).map((version) => {
+    return semverRSort(
+      Object.keys(releases.versions).filter((version) => {
+        const isValidRegex = !!version.match(VALID_SEMVER_REGEX)
+        return isValidRegex
+      })
+    ).map((version) => {
       const isLatest = version === latestVersion
       return {
         label: `${version}${isLatest ? ' (latest)' : ''}`,
