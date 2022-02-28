@@ -103,6 +103,12 @@ for further details.
   & h4,
   & h5,
   & h6 {
+    /*
+    Because not all jump link headings have an anchor child, such as the ones on
+    the product landing pages
+    */
+    scroll-margin-top: 11rem; /* 176px */
+
     & a:global(.__target-h) {
       scroll-margin-top: 11rem; /* 176px */
     }
