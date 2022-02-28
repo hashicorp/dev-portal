@@ -103,14 +103,20 @@ for further details.
   & h4,
   & h5,
   & h6 {
+    --permalink-scroll-offset: 24px;
+    --full-header-height: calc(
+      var(--navigation-header-height) + var(--alert-bar-height)
+    );
+    --height: calc(var(--full-header-height) + var(--permalink-scroll-offset));
+
     /*
     Because not all jump link headings have an anchor child, such as the ones on
     the product landing pages
     */
-    scroll-margin-top: 11rem; /* 176px */
+    scroll-margin-top: var(--height);
 
     & a:global(.__target-h) {
-      scroll-margin-top: 11rem; /* 176px */
+      scroll-margin-top: var(--height);
     }
   }
 
