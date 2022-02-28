@@ -26,25 +26,25 @@
           "icon": "IconDocs",
           "heading": "Nomad Reference Documentation",
           "text": "This documentation is a reference for all available features and options of Nomad.",
-          "url": "https://www.nomadproject.io/docs"
+          "url": "/nomad/docs"
         },
         {
           "icon": "IconTerminal",
           "heading": "Nomad CLI",
           "text": "Nomad is controlled via a very easy to use command-line interface (CLI).",
-          "url": "https://www.nomadproject.io/docs/commands"
+          "url": "/nomad/docs/commands"
         },
         {
           "icon": "IconServer",
           "heading": "Nomad API",
           "text": "The main interface to Nomad is a RESTful HTTP API. The API can query the current state of the system...",
-          "url": "https://www.nomadproject.io/api-docs"
+          "url": "/nomad/api-docs"
         },
         {
           "icon": "IconDownload",
           "heading": "Nomad Install",
           "text": "Please download the proper package for your operating system and architecture.",
-          "url": "https://www.nomadproject.io/downloads"
+          "url": "/nomad/downloads"
         }
       ]
     },
@@ -61,17 +61,17 @@
         {
           "heading": "Nomad vs. Kubernetes",
           "text": "Kubernetes and Nomad support similar core use cases for application deployment...",
-          "url": "https://www.nomadproject.io/docs/nomad-vs-kubernetes"
+          "url": "/nomad/docs/nomad-vs-kubernetes"
         },
         {
           "heading": "Nomad Configuration",
           "text": "Nomad agents have a variety of parameters that can be specified via configuration...",
-          "url": "https://www.nomadproject.io/docs/configuration"
+          "url": "/nomad/docs/configuration"
         },
         {
           "heading": "Docker Driver",
           "text": "The docker driver provides a first-class Docker workflow on Nomad.",
-          "url": "https://www.nomadproject.io/docs/drivers/docker"
+          "url": "/nomad/docs/drivers/docker"
         }
       ]
     },
@@ -88,17 +88,17 @@
         {
           "heading": "Etiam quis in ac non quam.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
-          "url": "https://www.nomadproject.io"
+          "url": "/nomad"
         },
         {
           "heading": "Aliquet eu risus dis sed.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
-          "url": "https://www.nomadproject.io"
+          "url": "/nomad"
         },
         {
           "heading": "Ornare faucibus blandit id.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
-          "url": "https://www.nomadproject.io"
+          "url": "/nomad"
         }
       ]
     },
@@ -115,17 +115,17 @@
         {
           "heading": "Interdum sollicitudin.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum lectus posuere.",
-          "url": "https://www.nomadproject.io"
+          "url": "/nomad"
         },
         {
           "heading": "Ornare nibh semper.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
-          "url": "https://www.nomadproject.io"
+          "url": "/nomad"
         },
         {
           "heading": "Fames nibh gravida.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "url": "https://www.nomadproject.io"
+          "url": "/nomad"
         }
       ]
     },
