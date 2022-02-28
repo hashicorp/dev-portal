@@ -37,7 +37,7 @@ function getPathBreadcrumbs({
   // associated navData node. This gets slightly
   // complex due to index (aka "Overview") nodes.
   const breadcrumbNodes = breadcrumbPaths.map((p) =>
-    getPathMatchedNode(navData, p)
+    getPathMatchedNode(navData, p, basePath)
   )
   // Map the matched navData nodes into { title, url }
   // objects as needed for breadcrumb link rendering.
@@ -49,7 +49,7 @@ function getPathBreadcrumbs({
   })
 }
 
-function getPathMatchedNode(navNodes, pathString) {
+function getPathMatchedNode(navNodes, pathString, basePath) {
   const matches = findAllPathMatchedNodes(navNodes, pathString)
   // If we have exactly one match, this is great, and expected
   if (matches.length == 1) return matches[0]
@@ -63,17 +63,22 @@ function getPathMatchedNode(navNodes, pathString) {
   if (matches.length > 1) {
     if (IS_DEV) {
       console.warn(
-        `Ambiguous breadcrumb path: Found ${matches.length} matches for "${pathString}". Please ensure there is exactly one node or index-less category with the path "${pathString}" in the provided navData.`
+        `Ambiguous breadcrumb path under "${basePath}": Found ${matches.length} matches for "${pathString}". Please ensure there is exactly one node or index-less category with the path "${pathString}" in the provided navData.`
       )
     }
     return matches[0]
   }
   // Otherwise, we have zero matches, which would mean a breadcrumb with missing parts.
-  // This would feel broken to a site visitor, so should be a blocking
-  // issue we need to fix, so we throw an error.
-  throw new Error(
-    `Missing breadcrumb path: Found zero matches for "${pathString}". Please ensure there is a node (or index-less category) with the path "${pathString}" in the provided navData.`
-  )
+  // We have no nav-data to render a nice "title" for the breadcrumb bar, and
+  // there isn't a matched path to link to, but we can still render an
+  // unlinked breadcrumb item using the "pathString" as the title
+  if (IS_DEV) {
+    console.warn(
+      `Missing breadcrumb path under "${basePath}": Found zero matches for "${pathString}". Please ensure there is a node (or index-less category) with the path "${pathString}" in the provided navData.`
+    )
+  }
+  const lastPathPart = pathString.split('/').pop()
+  return { title: lastPathPart }
 }
 
 function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
