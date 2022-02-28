@@ -49,12 +49,12 @@
     {
       "label": "Plugins",
       "path": "/nomad/plugins",
-      "id": "commands"
+      "id": "plugins"
     },
     {
       "label": "Tools",
       "path": "/nomad/tools",
-      "id": "commands"
+      "id": "tools"
     },
     {
       "label": "Install",
