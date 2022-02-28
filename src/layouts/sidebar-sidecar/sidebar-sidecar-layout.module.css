@@ -103,38 +103,8 @@ for further details.
   & h4,
   & h5,
   & h6 {
-    /*
-    This prevents the tall ::before elements (defined next) from interfering
-    with events on elements rendered right before them. For example, this will
-    prevent a heading element directly after a CardLink from interfering with
-    the CardLink's hover state. This changes the cursor but it is still possible
-    to select text.
-
-    ref: https://app.asana.com/0/1201010428539925/1201885695157827/f
-    */
-    pointer-events: none;
-
-    /*
-    These ::before elements account for the height of the top sticky bars
-    when following #anchor-links to headings. Without the offset caused
-    by these elements, we'd jump to headings that would be hidden underneath
-    the top sticky bars.
-    */
-    & a:global(.__target-h)::before,
-    &::before {
-      --permalink-scroll-offset: 24px;
-      --full-header-height: calc(
-        var(--navigation-header-height) + var(--alert-bar-height)
-      );
-      --height: calc(
-        var(--full-header-height) + var(--permalink-scroll-offset)
-      );
-
-      display: block;
-      content: '\200B';
-      height: var(--height);
-      margin-top: calc(-1 * var(--height));
-      visibility: hidden;
+    & a:global(.__target-h) {
+      scroll-margin-top: 11rem; /* 176px */
     }
   }
 
