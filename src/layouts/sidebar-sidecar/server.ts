@@ -33,7 +33,7 @@ export function getStaticGenerationFunctions({
   basePath: string
   baseName: string
   additionalRemarkPlugins?: Pluggable[]
-  scope?: $TSFixMe
+  scope?: Record<string, $TSFixMe>
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
