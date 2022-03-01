@@ -27,11 +27,13 @@ export function getStaticGenerationFunctions({
   basePath,
   baseName,
   additionalRemarkPlugins = [],
+  scope,
 }: {
   product: Product
   basePath: string
   baseName: string
   additionalRemarkPlugins?: Pluggable[]
+  scope?: $TSFixMe
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
@@ -60,6 +62,7 @@ export function getStaticGenerationFunctions({
           [anchorLinks, { headings }],
           ...additionalRemarkPlugins,
         ],
+        scope,
       })
 
       const {

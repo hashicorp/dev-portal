@@ -16,11 +16,19 @@ const VagrantDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }
 
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
+const {
+  getStaticPaths,
+  getStaticProps: generatedGetStaticProps,
+} = getStaticGenerationFunctions({
   product,
   basePath,
   baseName,
+  scope: { VMWARE_UTILITY_VERSION: '1.0.21' },
 })
+
+async function getStaticProps(context) {
+  return await generatedGetStaticProps(context)
+}
 
 VagrantDocsPage.layout = SidebarSidecarLayout
 
