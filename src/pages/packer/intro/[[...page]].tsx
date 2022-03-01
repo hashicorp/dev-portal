@@ -4,12 +4,12 @@ import DocsView from 'views/docs-view'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 
-const basePath = 'guides'
-const baseName = 'Guides'
+const basePath = 'intro'
+const baseName = 'Intro'
 const product = packerData as Product
 const mainBranch = 'master'
 
-const PackerGuidePage = ({ mdxSource }): React.ReactElement => {
+const PackerIntroPage = ({ mdxSource }): React.ReactElement => {
   return <DocsView {...mdxSource} />
 }
 
@@ -20,7 +20,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   mainBranch,
 })
 
-PackerGuidePage.layout = SidebarSidecarLayout
+PackerIntroPage.layout = SidebarSidecarLayout
 
 export { getStaticProps, getStaticPaths }
-export default PackerGuidePage
+export default PackerIntroPage
