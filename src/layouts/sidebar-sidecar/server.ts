@@ -27,11 +27,13 @@ export function getStaticGenerationFunctions({
   basePath,
   baseName,
   additionalRemarkPlugins = [],
+  mainBranch,
 }: {
   product: Product
   basePath: string
   baseName: string
   additionalRemarkPlugins?: Pluggable[]
+  mainBranch?: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
@@ -56,6 +58,7 @@ export function getStaticGenerationFunctions({
       const headings = []
 
       const loader = getLoader({
+        mainBranch,
         remarkPlugins: [
           [anchorLinks, { headings }],
           ...additionalRemarkPlugins,
