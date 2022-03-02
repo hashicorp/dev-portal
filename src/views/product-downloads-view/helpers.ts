@@ -79,7 +79,7 @@ export const generateDefaultPackageManagers = (
 }
 
 export const getPageSubtitle = (
-  currentProduct: Product,
+  currentProduct: Pick<Product, 'name'>,
   selectedVersion: string,
   isLatestVersion: boolean
 ): string => {
@@ -90,7 +90,7 @@ export const getPageSubtitle = (
 }
 
 export const initializeBackToLink = (
-  currentProduct: Product
+  currentProduct: Pick<Product, 'name' | 'slug'>
 ): SidebarSidecarLayoutProps['backToLink'] => {
   return {
     text: `Back to ${currentProduct.name}`,
@@ -99,7 +99,7 @@ export const initializeBackToLink = (
 }
 
 export const initializeBreadcrumbLinks = (
-  currentProduct: Product,
+  currentProduct: Pick<Product, 'name' | 'slug'>,
   selectedVersion: string
 ): BreadcrumbLink[] => {
   return [
@@ -119,7 +119,9 @@ export const initializeBreadcrumbLinks = (
   ]
 }
 
-export const initializeNavData = (currentProduct: Product): MenuItem[] => {
+export const initializeNavData = (
+  currentProduct: Pick<Product, 'sidebar'>
+): MenuItem[] => {
   return [
     ...currentProduct.sidebar.landingPageNavData,
     { divider: true },
