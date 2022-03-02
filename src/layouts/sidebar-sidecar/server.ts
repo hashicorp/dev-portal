@@ -27,13 +27,13 @@ export function getStaticGenerationFunctions({
   basePath,
   baseName,
   additionalRemarkPlugins = [],
-  scope,
+  getScope = async () => ({}),
 }: {
   product: Product
   basePath: string
   baseName: string
   additionalRemarkPlugins?: Pluggable[]
-  scope?: Record<string, $TSFixMe>
+  getScope?: () => Promise<Record<string, $TSFixMe>>
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
@@ -62,7 +62,7 @@ export function getStaticGenerationFunctions({
           [anchorLinks, { headings }],
           ...additionalRemarkPlugins,
         ],
-        scope,
+        scope: await getScope(),
       })
 
       const {

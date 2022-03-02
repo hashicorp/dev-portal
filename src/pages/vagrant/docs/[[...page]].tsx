@@ -1,12 +1,13 @@
 import { ReactElement } from 'react'
 import vagrantData from 'data/vagrant.json'
 import { Product } from 'types/products'
-import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DocsView from 'views/docs-view'
 import Button from '@hashicorp/react-button'
-import fetchContentApiFileString from 'lib/fetch-content-api-file-string'
-import { GetStaticPropsContext, GetStaticPropsResult } from 'next'
+// imports below are used on server
+import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
+import fetchFileString from 'lib/fetch-file-string'
+import { getLatestVersionFromVersions } from 'lib/fetch-release-data'
 
 const basePath = 'docs'
 const baseName = 'Docs'
@@ -18,35 +19,28 @@ const VagrantDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }
 
-const { getStaticPaths } = getStaticGenerationFunctions({
+// Note that we require VMWARE_UTILITY_VERSION to be in { scope } for the MDX
+// on the  /vagrant/docs/providers/vmware/vagrant-vmware-utility page.
+// We fetch VMWARE_UTILITY_VERSION from the releases.hashicorp.com API.
+const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   product,
   basePath,
   baseName,
+  getScope: async () => ({
+    VMWARE_UTILITY_VERSION: await getLatestVagrantVmwareVersion(),
+  }),
 })
 
-// TODO: We need to pass VMWARE_UTILITY_VERSION as { scope } in order to render
-// TODO: the "/vagrant/docs/providers/vmware/vagrant-vmware-utility" route.
-// TODO: VMWARE_UTILITY_VERSION is kept up to date in the "version.json"
-// TODO: file in the "hashicorp/packer" repository.
-// TODO: Below is a temporary solution using getStaticGenerationFunctions as-is,
-// TODO: calling it within getStaticProps AFTER first fetching vagrant's
-// TODO: "version.json" file and pulling VMWARE_UTILITY_VERSION out of it.
-async function getStaticProps(
-  context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<$TSFixMe>> {
-  const versionData = JSON.parse(
-    await fetchContentApiFileString({
-      product: 'vagrant',
-      filePath: 'website/data/version.json',
-      version: 'refs/heads/stable-website',
-    })
-  )
-  const { VMWARE_UTILITY_VERSION } = versionData
-  const scope = { VMWARE_UTILITY_VERSION }
-  const {
-    getStaticProps: generatedGetStaticProps,
-  } = getStaticGenerationFunctions({ product, basePath, baseName, scope })
-  return await generatedGetStaticProps(context)
+/**
+ * Fetch the latest version of the Vagrant VMWare utility
+ * from the releases.hashicorp.com API.
+ *
+ * @returns {string} A semver string representing the latest version number
+ */
+async function getLatestVagrantVmwareVersion(): Promise<string> {
+  const url = 'https://releases.hashicorp.com/vagrant-vmware-utility/index.json'
+  const releaseData = JSON.parse(await fetchFileString(url))
+  return getLatestVersionFromVersions(Object.keys(releaseData.versions))
 }
 
 VagrantDocsPage.layout = SidebarSidecarLayout
