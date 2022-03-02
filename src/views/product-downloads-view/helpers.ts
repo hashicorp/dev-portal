@@ -18,7 +18,7 @@ export interface SortedReleases {
 }
 
 export const generateDefaultPackageManagers = (
-  product: Product
+  product: Pick<Product, 'slug'>
 ): PackageManager[] => {
   const productSlug = product.slug
 
