@@ -22,7 +22,11 @@ const VagrantDocsPage = ({ mdxSource }): ReactElement => {
 // Note that we require VMWARE_UTILITY_VERSION to be in { scope } for the MDX
 // on the  /vagrant/docs/providers/vmware/vagrant-vmware-utility page.
 // We fetch VMWARE_UTILITY_VERSION from the releases.hashicorp.com API.
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
+type MdxScope = { VMWARE_UTILITY_VERSION: string }
+const {
+  getStaticPaths,
+  getStaticProps,
+} = getStaticGenerationFunctions<MdxScope>({
   product,
   basePath,
   baseName,

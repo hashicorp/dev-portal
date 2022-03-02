@@ -22,18 +22,20 @@ const BASE_REVALIDATE = 10
  * export { getStaticPaths, getStaticProps }
  * ```
  */
-export function getStaticGenerationFunctions({
+export function getStaticGenerationFunctions<
+  MdxScope = Record<string, unknown>
+>({
   product,
   basePath,
   baseName,
   additionalRemarkPlugins = [],
-  getScope = async () => ({}),
+  getScope = async () => ({} as MdxScope),
 }: {
   product: Product
   basePath: string
   baseName: string
   additionalRemarkPlugins?: Pluggable[]
-  getScope?: () => Promise<Record<string, $TSFixMe>>
+  getScope?: () => Promise<MdxScope>
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
