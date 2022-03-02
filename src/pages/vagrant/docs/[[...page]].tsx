@@ -6,8 +6,8 @@ import DocsView from 'views/docs-view'
 import Button from '@hashicorp/react-button'
 // imports below are used on server
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
-import fetchFileString from 'lib/fetch-file-string'
 import { getLatestVersionFromVersions } from 'lib/fetch-release-data'
+import { makeFetchWithRetry } from 'lib/fetch-with-retry'
 
 const basePath = 'docs'
 const baseName = 'Docs'
@@ -36,6 +36,13 @@ const {
 })
 
 /**
+ * As noted in src/lib/fetch-release-data, we want to use fetch-with-retry
+ * when pulling data from releases.hashicorp.com in order to avoid finicky
+ * redeploys due to race conditions between the latest release showing up.
+ */
+const fetchWithRetry = makeFetchWithRetry(fetch, { retries: 3, delay: 1000 })
+
+/**
  * Fetch the latest version of the Vagrant VMWare utility
  * from the releases.hashicorp.com API.
  *
@@ -43,8 +50,15 @@ const {
  */
 async function getLatestVagrantVmwareVersion(): Promise<string> {
   const url = 'https://releases.hashicorp.com/vagrant-vmware-utility/index.json'
-  const releaseData = JSON.parse(await fetchFileString(url))
-  return getLatestVersionFromVersions(Object.keys(releaseData.versions))
+  return await fetchWithRetry(url, {
+    headers: {
+      'Cache-Control': 'no-cache',
+    },
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      return getLatestVersionFromVersions(Object.keys(result.versions))
+    })
 }
 
 VagrantDocsPage.layout = SidebarSidecarLayout
