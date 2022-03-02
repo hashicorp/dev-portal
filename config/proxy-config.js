@@ -19,11 +19,11 @@ const proxyConfig = {
       '/data/vault/boundary-controller-policy.hcl',
     ],
   },
-  // consul: {
-  //   domain: 'https://test-cs.hashi-mktg.com',
-  //   host: 'test-cs.hashi-mktg.com',
-  //   assets: [],
-  // },
+  consul: {
+    domain: 'https://www.consul.io',
+    host: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
+    assets: ['/files/press-kit.zip'],
+  },
   nomad: {
     domain: 'https://www.nomadproject.io',
     host: '(www\\.nomadproject\\.io|test-nm\\.hashi-mktg\\.com)',

@@ -279,15 +279,16 @@ async function addGlobalStyles({ missingStylesheets, productName }) {
  */
 async function patchSubnav(filepath) {
   await editFile(filepath, (contents) => {
-    return (
-      `import { useEffect, useState } from 'react'\n` +
-      contents
-        .replace('router.asPath', 'currentPath')
-        .replace(
-          'const router = useRouter()',
-          'const router = useRouter()\n  const [currentPath, setCurrentPath] = useState()\n\n  useEffect(() => {\n    setCurrentPath(router.asPath)\n  }, [router.asPath])\n'
-        )
-    )
+    return contents
+      .replace(
+        `import { useRouter } from 'next/router'`,
+        `import useProxiedPath from 'lib/hooks/useProxiedPath'`
+      )
+      .replace(
+        `const router = useRouter()`,
+        `const { asPath } = useProxiedPath()`
+      )
+      .replace('currentPath={router.asPath}', 'currentPath={asPath}')
   })
 }
 
