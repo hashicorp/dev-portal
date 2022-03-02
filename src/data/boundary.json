@@ -48,6 +48,11 @@
       "label": "API",
       "path": "/boundary/api-docs",
       "id": "api-docs"
+    },
+    {
+      "label": "Install",
+      "path": "/boundary/downloads",
+      "id": "downloads"
     }
   ]
 }
