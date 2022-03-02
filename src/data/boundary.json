@@ -1,12 +1,16 @@
 {
   "name": "Boundary",
   "slug": "boundary",
+  "basePaths": ["docs", "api-docs"],
   "sidebar": {
     "landingPageNavData": [
-      { "title": "Introduction", "fullPath": "/boundary" },
+      {
+        "title": "Introduction",
+        "fullPath": "/boundary/docs/what-is-boundary"
+      },
       {
         "title": "Getting Started",
-        "fullPath": "/boundary"
+        "fullPath": "/boundary/docs/getting-started"
       }
     ],
     "resourcesNavData": [
@@ -28,5 +32,22 @@
         "href": "https://support.hashicorp.com"
       }
     ]
-  }
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/boundary",
+      "id": "overview"
+    },
+    {
+      "label": "Docs",
+      "path": "/boundary/docs",
+      "id": "docs"
+    },
+    {
+      "label": "API",
+      "path": "/boundary/api-docs",
+      "id": "api-docs"
+    }
+  ]
 }
