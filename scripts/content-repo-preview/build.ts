@@ -83,7 +83,7 @@ async function main() {
 
   const proxiedIoDirs = (
     await fs.promises.readdir(proxiedIoPagesDir, { withFileTypes: true })
-  ).filter((ent) => ent.isDirectory)
+  ).filter((ent) => ent.isDirectory())
 
   for (const dir of proxiedIoDirs) {
     if (!dir.name.includes(repo)) {
