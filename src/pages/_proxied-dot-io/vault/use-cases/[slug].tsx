@@ -232,9 +232,6 @@ export async function getStaticProps({ params, ...ctx }) {
     props: {
       data: page,
     },
-    revalidate:
-      process.env.HASHI_ENV === 'production'
-        ? process.env.GLOBAL_REVALIDATE
-        : 10,
+    revalidate: __config.io_sites.revalidate,
   }
 }
