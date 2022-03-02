@@ -9,7 +9,7 @@ const baseName = 'Guides'
 const product = packerData as Product
 const mainBranch = 'master'
 
-const PackerGuidePage = ({ mdxSource }): React.ReactElement => {
+const PackerGuidesPage = ({ mdxSource }): React.ReactElement => {
   return <DocsView {...mdxSource} />
 }
 
@@ -20,7 +20,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   mainBranch,
 })
 
-PackerGuidePage.layout = SidebarSidecarLayout
+PackerGuidePages.layout = SidebarSidecarLayout
 
 export { getStaticProps, getStaticPaths }
-export default PackerGuidePage
+export default PackerGuidesPage
