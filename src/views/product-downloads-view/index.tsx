@@ -8,6 +8,7 @@ import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
 import {
+  generateDefaultPackageManagers,
   getPageSubtitle,
   initializeBackToLink,
   initializeBreadcrumbLinks,
@@ -110,7 +111,10 @@ const ProductDownloadsView = ({
       </div>
       <DownloadsSection
         latestVersionIsSelected={latestVersionIsSelected}
-        packageManagers={pageContent.packageManagers}
+        packageManagers={
+          pageContent.packageManagers ||
+          generateDefaultPackageManagers(currentProduct)
+        }
         selectedRelease={releases.versions[selectedVersion]}
       />
       <OfficialReleasesSection />
