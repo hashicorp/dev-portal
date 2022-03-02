@@ -50,7 +50,7 @@ const fetchWithRetry = makeFetchWithRetry(fetch, { retries: 3, delay: 1000 })
 // exclude pre-releases and such
 const validSemverRegex = /^\d+\.\d+\.\d+$/
 
-function getLatestVersionFromVersions(versions: string[]): string {
+export function getLatestVersionFromVersions(versions: string[]): string {
   // exclude pre-releases and/or versions with tags or extra metadata
   const validVersions = versions.filter((version) =>
     version.match(validSemverRegex)
