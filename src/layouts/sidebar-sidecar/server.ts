@@ -30,12 +30,14 @@ export function getStaticGenerationFunctions<
   baseName,
   additionalRemarkPlugins = [],
   getScope = async () => ({} as MdxScope),
+  mainBranch,
 }: {
   product: Product
   basePath: string
   baseName: string
   additionalRemarkPlugins?: Pluggable[]
   getScope?: () => Promise<MdxScope>
+  mainBranch?: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
@@ -60,6 +62,7 @@ export function getStaticGenerationFunctions<
       const headings = []
 
       const loader = getLoader({
+        mainBranch,
         remarkPlugins: [
           [anchorLinks, { headings }],
           ...additionalRemarkPlugins,

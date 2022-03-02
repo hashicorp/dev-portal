@@ -3,6 +3,7 @@ import { ReleaseVersion } from 'lib/fetch-release-data'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { MenuItem } from 'components/sidebar'
+import { PackageManager } from './types'
 
 const PLATFORM_MAP = {
   Mac: 'darwin',
@@ -16,8 +17,80 @@ export interface SortedReleases {
   }
 }
 
+export const generateDefaultPackageManagers = (
+  product: Pick<Product, 'slug'>
+): PackageManager[] => {
+  const productSlug = product.slug
+
+  return [
+    {
+      label: 'Homebrew',
+      commands: [
+        `brew tap hashicorp/tap`,
+        `brew install hashicorp/tap/${productSlug}`,
+      ],
+      os: 'darwin',
+    },
+    {
+      label: 'Ubuntu/Debian',
+      commands: [
+        `curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -`,
+        `sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"`,
+        `sudo apt-get update && sudo apt-get install ${productSlug}`,
+      ],
+      os: 'linux',
+    },
+    {
+      label: 'CentOS/RHEL',
+      commands: [
+        `sudo yum install -y yum-utils`,
+        `sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo`,
+        `sudo yum -y install ${productSlug}`,
+      ],
+      os: 'linux',
+    },
+    {
+      label: 'Fedora',
+      commands: [
+        `sudo dnf install -y dnf-plugins-core`,
+        `sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`,
+        `sudo dnf -y install ${productSlug}`,
+      ],
+      os: 'linux',
+    },
+    {
+      label: 'Amazon Linux',
+      commands: [
+        `sudo yum install -y yum-utils`,
+        `sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo`,
+        `sudo yum -y install ${productSlug}`,
+      ],
+      os: 'linux',
+    },
+    {
+      label: 'Homebrew',
+      commands: [
+        `brew tap hashicorp/tap`,
+        `brew install hashicorp/tap/${productSlug}`,
+      ],
+      os: 'linux',
+    },
+  ]
+}
+
+export const getPageSubtitle = (
+  currentProduct: Pick<Product, 'name'>,
+  selectedVersion: string,
+  isLatestVersion: boolean
+): string => {
+  const versionText = `v${selectedVersion}${
+    isLatestVersion ? ' (latest version)' : ''
+  }`
+  return `Install or update to ${versionText} of ${currentProduct.name} to get started.`
+}
+
 export const initializeBackToLink = (
-  currentProduct: Product
+  currentProduct: Pick<Product, 'name' | 'slug'>
 ): SidebarSidecarLayoutProps['backToLink'] => {
   return {
     text: `Back to ${currentProduct.name}`,
@@ -26,7 +99,7 @@ export const initializeBackToLink = (
 }
 
 export const initializeBreadcrumbLinks = (
-  currentProduct: Product,
+  currentProduct: Pick<Product, 'name' | 'slug'>,
   selectedVersion: string
 ): BreadcrumbLink[] => {
   return [
@@ -46,23 +119,14 @@ export const initializeBreadcrumbLinks = (
   ]
 }
 
-export const initializeNavData = (currentProduct: Product): MenuItem[] => {
+export const initializeNavData = (
+  currentProduct: Pick<Product, 'sidebar'>
+): MenuItem[] => {
   return [
     ...currentProduct.sidebar.landingPageNavData,
     { divider: true },
     ...currentProduct.sidebar.resourcesNavData,
   ]
-}
-
-export const getPageSubtitle = (
-  currentProduct: Product,
-  selectedVersion: string,
-  isLatestVersion: boolean
-): string => {
-  const versionText = `v${selectedVersion}${
-    isLatestVersion ? ' (latest version)' : ''
-  }`
-  return `Install or update to ${versionText} of ${currentProduct.name} to get started.`
 }
 
 export const sortPlatforms = (releaseData: ReleaseVersion): SortedReleases => {
