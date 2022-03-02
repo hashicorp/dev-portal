@@ -20,7 +20,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   mainBranch,
 })
 
-PackerGuidesPages.layout = SidebarSidecarLayout
+PackerGuidesPage.layout = SidebarSidecarLayout
 
 export { getStaticProps, getStaticPaths }
 export default PackerGuidesPage
