@@ -1,13 +1,10 @@
 import { ReactElement } from 'react'
-import { useCurrentProduct } from 'contexts'
 import CardLink from 'components/card-link'
 import Heading from 'components/heading'
 import Text from 'components/text'
 import s from './official-releases-section.module.css'
 
 const OfficialReleasesSection = (): ReactElement => {
-  const currentProduct = useCurrentProduct()
-
   return (
     <div className={s.root}>
       <Heading
@@ -19,7 +16,7 @@ const OfficialReleasesSection = (): ReactElement => {
       >
         Looking for more?
       </Heading>
-      <CardLink href={`https://releases.hashicorp.com/${currentProduct.slug}`}>
+      <CardLink href="https://www.hashicorp.com/official-release-channels">
         <Text className={s.cardTitle} size={300} weight="semibold">
           Official releases
         </Text>
