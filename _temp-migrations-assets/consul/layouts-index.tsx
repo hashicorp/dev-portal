@@ -42,7 +42,7 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
         />
         <meta
           name="og:description"
-          property="og:title"
+          property="og:description"
           content={productData.metadata.description}
         />
       </HashiHead>
