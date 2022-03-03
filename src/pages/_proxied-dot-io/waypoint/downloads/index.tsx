@@ -49,6 +49,12 @@ function WaypointDownloadsPage({
   }
 
   return (
+    /**
+     * TODO: once the source component has been updated, remove the
+     * `enterpriseMode` and `merchandisingSlot` props passed here.
+     *
+     * ref: https://app.asana.com/0/1100423001970639/1201915132498455/f
+     */
     <ProductDownloadsPage
       enterpriseMode={false}
       getStartedDescription={getStartedDescription}
