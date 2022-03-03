@@ -6,6 +6,7 @@ export interface FeaturedTutorial {
   href: string
   title: string
 }
+
 export interface PackageManager {
   label: string
   commands: string[]
@@ -19,4 +20,10 @@ export interface ProductDownloadsViewProps {
     sidecarMarketingCard: SidecarMarketingCardProps
   }
   releases: ReleasesAPIResponse
+}
+
+export interface SortedReleases {
+  [os: string]: {
+    [arch: string]: string
+  }
 }
