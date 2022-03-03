@@ -1,0 +1,57 @@
+{
+  "featuredTutorials": [
+    {
+      "description": "Packer must first be installed on the machine you want to run it on.",
+      "href": "https://learn.hashicorp.com/tutorials/packer/get-started-install-cli",
+      "title": "Install Packer"
+    },
+    {
+      "description": "HashiCorp Packer automates the creation of any type of machine image, including Docker images. You'll build a Docker image on your local machine without using any paid cloud resources.",
+      "href": "https://learn.hashicorp.com/collections/packer/docker-get-started",
+      "title": "Getting Started with Docker"
+    },
+    {
+      "description": "HashiCorp Packer automates the creation of any type of machine image, including AWS AMIs. You'll build an Ubuntu machine image on AWS in this tutorial.",
+      "href": "https://learn.hashicorp.com/collections/packer/aws-get-started",
+      "title": "Getting Started with AWS"
+    },
+    {
+      "description": "HCP Packer registry stores Packer image metadata, enabling you to track your image lifecycle. Build an Ubuntu machine image, push its metadata to AWS, and reference the images in Terraform or Packer configuration.",
+      "href": "https://learn.hashicorp.com/collections/packer/hcp-get-started",
+      "title": "Get Started with HCP Packer"
+    },
+    {
+      "description": "Create an image with Packer, containing SSH keys, a new user, and a demo webapp, and deploy it with Terraform.",
+      "href": "https://learn.hashicorp.com/tutorials/terraform/packer",
+      "title": "Provision Infrastructure with Packer"
+    },
+    {
+      "description": "Create a Vagrant box with Packer post-processors.",
+      "href": "https://learn.hashicorp.com/tutorials/packer/aws-get-started-post-processors-vagrant",
+      "title": "Post-Processors - Vagrant"
+    }
+  ],
+  "sidecarMarketingCard": {
+    "title": "About Packer",
+    "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+    "learnMoreLink": "https://www.packer.io/",
+    "featuredDocsLinks": [
+      {
+        "href": "/packer/docs/install",
+        "text": "Install"
+      },
+      {
+        "href": "/packer/docs/configure",
+        "text": "Configure"
+      },
+      {
+        "href": "/packer/docs/debugging",
+        "text": "Debug"
+      },
+      {
+        "href": "/packer/docs/plugins",
+        "text": "Plugins"
+      }
+    ]
+  }
+}
