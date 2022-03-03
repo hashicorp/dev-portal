@@ -10,7 +10,7 @@ const baseName = 'Docs'
 const product = boundaryData as Product
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const ConsulDocsPage = ({ mdxSource }): ReactElement => {
+const BoundaryDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} />
 }
 
@@ -20,7 +20,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   baseName,
 })
 
-ConsulDocsPage.layout = SidebarSidecarLayout
+BoundaryDocsPage.layout = SidebarSidecarLayout
 
 export { getStaticPaths, getStaticProps }
-export default ConsulDocsPage
+export default BoundaryDocsPage
