@@ -57,12 +57,8 @@ const instance = rivetClient({})
 const client = instance.client
 
 function proxiedRivetClient(productSlug: ProductSlug) {
-  console.log(`generating custom rivet client for ${productSlug}`)
-  console.log({ keys: Object.keys(productConfig), productSlug })
   const product = productConfig[productSlug]
-  console.log({ dataKeys: Object.keys(product) })
   if (product.datoToken) {
-    console.log(`returning custom client with token ${product.datoToken}`)
     return rivetClient({ headers: { Authorization: product.datoToken } })
   }
 
