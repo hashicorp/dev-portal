@@ -16,7 +16,6 @@ export interface ProductDownloadsViewProps {
   latestVersion: string
   pageContent: {
     featuredTutorials: FeaturedTutorial[]
-    packageManagers?: PackageManager[]
     sidecarMarketingCard: SidecarMarketingCardProps
   }
   releases: ReleasesAPIResponse
