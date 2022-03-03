@@ -7,6 +7,10 @@ export interface FeaturedTutorial {
   title: string
 }
 
+export interface GroupedPackageManagers {
+  [os: string]: PackageManager[]
+}
+
 export interface PackageManager {
   label: string
   commands: string[]
