@@ -7,7 +7,6 @@ import SidecarMarketingCard from './components/sidecar-marketing-card'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
-import VersionContextSwitcher from 'components/version-context-switcher'
 import {
   generateDefaultPackageManagers,
   getPageSubtitle,
@@ -20,7 +19,6 @@ import DownloadsSection from './components/downloads-section'
 import FeaturedTutorialsSection from './components/featured-tutorials-section'
 import OfficialReleasesSection from './components/official-releases-section'
 import s from './product-downloads-view.module.css'
-import ProductIcon from 'components/product-icon'
 
 // exclude pre-releases and such
 const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
@@ -98,20 +96,15 @@ const ProductDownloadsView = ({
           </Text>
         </div>
       </div>
-      <div style={{ margin: '48px 0' }}>
-        <VersionContextSwitcher
-          leadingIcon={<ProductIcon product={currentProduct.slug} />}
-          onChange={(e) => setSelectedVersion(e.target.value)}
-          options={versionSwitcherOptions}
-        />
-      </div>
       <DownloadsSection
         latestVersionIsSelected={latestVersionIsSelected}
+        onVersionChange={(newValue) => setSelectedVersion(newValue)}
         packageManagers={
           pageContent.packageManagers ||
           generateDefaultPackageManagers(currentProduct)
         }
         selectedRelease={releases.versions[selectedVersion]}
+        versionSwitcherOptions={versionSwitcherOptions}
       />
       <OfficialReleasesSection />
       <FeaturedTutorialsSection

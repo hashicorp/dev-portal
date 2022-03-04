@@ -1,23 +1,24 @@
 .root {
   position: relative;
+  width: 100%;
+}
+
+.leadingIcon,
+.trailingIcon {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
 }
 
 .leadingIcon {
   left: 12px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
 }
 
 .trailingIcon {
   right: 12px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
 }
 
 .select {

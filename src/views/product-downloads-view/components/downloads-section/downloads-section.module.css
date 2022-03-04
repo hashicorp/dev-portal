@@ -2,6 +2,12 @@
   margin-bottom: 48px;
 }
 
+.cardHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
 .operatingSystemTitle {
   color: var(--token-color-neutral-foreground-primary);
   margin-bottom: 12px;

@@ -9,9 +9,11 @@ import Card from 'components/card'
 import DownloadStandaloneLink from 'components/download-standalone-link'
 import Heading, { HeadingProps } from 'components/heading'
 import InlineLink from 'components/inline-link'
+import ProductIcon from 'components/product-icon'
+import StandaloneLink from 'components/standalone-link'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
-import StandaloneLink from 'components/standalone-link'
+import VersionContextSwitcher from 'components/version-context-switcher'
 import { DownloadsSectionProps } from './types'
 import {
   generateCodePropFromCommands,
@@ -198,8 +200,11 @@ const NotesSection = ({ selectedRelease }) => {
 const DownloadsSection = ({
   latestVersionIsSelected,
   packageManagers,
+  onVersionChange,
   selectedRelease,
+  versionSwitcherOptions,
 }: DownloadsSectionProps): ReactElement => {
+  const currentProduct = useCurrentProduct()
   const downloadsByOS = useMemo(() => groupDownloadsByOS(selectedRelease), [
     selectedRelease,
   ])
@@ -211,15 +216,24 @@ const DownloadsSection = ({
   return (
     <article className={s.root}>
       <Card elevation="base">
-        <Heading
-          className={s.operatingSystemTitle}
-          level={2}
-          size={300}
-          slug="operating-system"
-          weight="bold"
-        >
-          Operating System
-        </Heading>
+        <div className={s.cardHeader}>
+          <Heading
+            className={s.operatingSystemTitle}
+            level={2}
+            size={300}
+            slug="operating-system"
+            weight="bold"
+          >
+            Operating System
+          </Heading>
+          <div>
+            <VersionContextSwitcher
+              leadingIcon={<ProductIcon product={currentProduct.slug} />}
+              onChange={(e) => onVersionChange(e.target.value)}
+              options={versionSwitcherOptions}
+            />
+          </div>
+        </div>
         <Tabs showAnchorLine>
           {Object.keys(downloadsByOS).map((os) => {
             const packageManagers: PackageManager[] = packageManagersByOS[os]
