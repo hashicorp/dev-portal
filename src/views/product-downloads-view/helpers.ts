@@ -72,15 +72,17 @@ export const generateDefaultPackageManagers = (
   ]
 }
 
-export const getPageSubtitle = (
-  currentProduct: Pick<Product, 'name'>,
-  selectedVersion: string,
+export const getPageSubtitle = ({
+  productName,
+  version,
+  isLatestVersion,
+}: {
+  productName: Product['name']
+  version: string
   isLatestVersion: boolean
-): string => {
-  const versionText = `v${selectedVersion}${
-    isLatestVersion ? ' (latest version)' : ''
-  }`
-  return `Install or update to ${versionText} of ${currentProduct.name} to get started.`
+}): string => {
+  const versionText = `v${version}${isLatestVersion ? ' (latest version)' : ''}`
+  return `Install or update to ${versionText} of ${productName} to get started.`
 }
 
 export const initializeBackToLink = (

@@ -55,11 +55,11 @@ const ProductDownloadsViewContent = ({
   ])
 
   const pageTitle = `Install ${currentProduct.name}`
-  const pageSubtitle = getPageSubtitle(
-    currentProduct,
-    currentVersion,
-    latestVersionIsSelected
-  )
+  const pageSubtitle = getPageSubtitle({
+    productName: currentProduct.name,
+    version: currentVersion,
+    isLatestVersion: latestVersionIsSelected,
+  })
   return (
     <SidebarSidecarLayout
       backToLink={backToLink}
