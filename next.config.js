@@ -4,7 +4,7 @@ const flat = require('flat')
 const { webpack } = require('next/dist/compiled/webpack/webpack')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
-const redirectsConfig = require('./config/redirects')
+const { redirectsConfig } = require('./config/redirects')
 const rewritesConfig = require('./config/rewrites')
 
 // temporary: set all paths as noindex, until we're serving from this project
@@ -87,7 +87,13 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       return [temporary_hideDocsPaths]
     },
     async redirects() {
-      return await redirectsConfig()
+      const { simpleRedirects, globRedirects } = await redirectsConfig()
+      await fs.promises.writeFile(
+        path.join('src', 'data', '_redirects.generated.json'),
+        JSON.stringify(simpleRedirects, null, 2),
+        'utf-8'
+      )
+      return globRedirects
     },
     async rewrites() {
       return await rewritesConfig()

@@ -5,3 +5,4 @@ out
 .env*.local
 .vercel
 _temp-migrations/
+src/data/_redirects.generated.json
