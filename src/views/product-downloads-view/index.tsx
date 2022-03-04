@@ -1,12 +1,16 @@
-import { ReactElement, useMemo, useState } from 'react'
+// Third-party imports
+import { ReactElement, useMemo } from 'react'
 import semverRSort from 'semver/functions/rsort'
+
+// Global imports
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import SidecarMarketingCard from './components/sidecar-marketing-card'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
+
+// Local imports
 import {
   generateDefaultPackageManagers,
   getPageSubtitle,
@@ -15,44 +19,37 @@ import {
   initializeNavData,
 } from './helpers'
 import { ProductDownloadsViewProps } from './types'
+import {
+  CurrentVersionProvider,
+  useCurrentVersion,
+} from './current-version-context'
 import DownloadsSection from './components/downloads-section'
 import FeaturedTutorialsSection from './components/featured-tutorials-section'
 import OfficialReleasesSection from './components/official-releases-section'
+import SidecarMarketingCard from './components/sidecar-marketing-card'
 import s from './product-downloads-view.module.css'
+import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 
 // exclude pre-releases and such
 const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
 
-const ProductDownloadsView = ({
+const ProductDownloadsViewContent = ({
   latestVersion,
   pageContent,
   releases,
-}: ProductDownloadsViewProps): ReactElement => {
-  const versionSwitcherOptions = useMemo(() => {
-    return semverRSort(
-      Object.keys(releases.versions).filter((version) => {
-        const isValidRegex = !!version.match(VALID_SEMVER_REGEX)
-        return isValidRegex
-      })
-    ).map((version) => {
-      const isLatest = version === latestVersion
-      return {
-        label: `${version}${isLatest ? ' (latest)' : ''}`,
-        value: version,
-      }
-    })
-  }, [latestVersion, releases.versions])
-  const [selectedVersion, setSelectedVersion] = useState<string>(
-    versionSwitcherOptions[0].value
-  )
-  const latestVersionIsSelected = selectedVersion === latestVersion
+  versionSwitcherOptions,
+}: ProductDownloadsViewProps & {
+  versionSwitcherOptions: VersionContextSwitcherProps['options']
+}) => {
   const currentProduct = useCurrentProduct()
+  const [currentVersion] = useCurrentVersion()
+  const latestVersionIsSelected = currentVersion === latestVersion
   const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
     currentProduct,
   ])
   const breadcrumbLinks = useMemo(
-    () => initializeBreadcrumbLinks(currentProduct, selectedVersion),
-    [currentProduct, selectedVersion]
+    () => initializeBreadcrumbLinks(currentProduct, currentVersion),
+    [currentProduct, currentVersion]
   )
   const navData = useMemo(() => initializeNavData(currentProduct), [
     currentProduct,
@@ -61,7 +58,7 @@ const ProductDownloadsView = ({
   const pageTitle = `Install ${currentProduct.name}`
   const pageSubtitle = getPageSubtitle(
     currentProduct,
-    selectedVersion,
+    currentVersion,
     latestVersionIsSelected
   )
   return (
@@ -98,9 +95,8 @@ const ProductDownloadsView = ({
       </div>
       <DownloadsSection
         latestVersionIsSelected={latestVersionIsSelected}
-        onVersionChange={(newValue) => setSelectedVersion(newValue)}
         packageManagers={generateDefaultPackageManagers(currentProduct)}
-        selectedRelease={releases.versions[selectedVersion]}
+        selectedRelease={releases.versions[currentVersion]}
         versionSwitcherOptions={versionSwitcherOptions}
       />
       <OfficialReleasesSection />
@@ -108,6 +104,35 @@ const ProductDownloadsView = ({
         featuredTutorials={pageContent.featuredTutorials}
       />
     </SidebarSidecarLayout>
+  )
+}
+
+const ProductDownloadsView = (
+  props: ProductDownloadsViewProps
+): ReactElement => {
+  const { latestVersion, releases } = props
+  const versionSwitcherOptions = useMemo(() => {
+    return semverRSort(
+      Object.keys(releases.versions).filter((version) => {
+        const isValidRegex = !!version.match(VALID_SEMVER_REGEX)
+        return isValidRegex
+      })
+    ).map((version) => {
+      const isLatest = version === latestVersion
+      return {
+        label: `${version}${isLatest ? ' (latest)' : ''}`,
+        value: version,
+      }
+    })
+  }, [latestVersion, releases.versions])
+
+  return (
+    <CurrentVersionProvider initialValue={versionSwitcherOptions[0].value}>
+      <ProductDownloadsViewContent
+        {...props}
+        versionSwitcherOptions={versionSwitcherOptions}
+      />
+    </CurrentVersionProvider>
   )
 }
 

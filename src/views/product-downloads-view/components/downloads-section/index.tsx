@@ -4,6 +4,7 @@ import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-l
 import CodeBlock from '@hashicorp/react-code-block'
 import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
+import { useCurrentVersion } from 'views/product-downloads-view/current-version-context'
 import Card from 'components/card'
 import DownloadStandaloneLink from 'components/download-standalone-link'
 import Heading, { HeadingProps } from 'components/heading'
@@ -199,11 +200,11 @@ const NotesSection = ({ selectedRelease }) => {
 const DownloadsSection = ({
   latestVersionIsSelected,
   packageManagers,
-  onVersionChange,
   selectedRelease,
   versionSwitcherOptions,
 }: DownloadsSectionProps): ReactElement => {
   const currentProduct = useCurrentProduct()
+  const [, setCurrentVersion] = useCurrentVersion()
   const downloadsByOS = useMemo(() => groupDownloadsByOS(selectedRelease), [
     selectedRelease,
   ])
@@ -234,7 +235,7 @@ const DownloadsSection = ({
           <div>
             <VersionContextSwitcher
               leadingIcon={<ProductIcon product={currentProduct.slug} />}
-              onChange={(e) => onVersionChange(e.target.value)}
+              onChange={(e) => setCurrentVersion(e.target.value)}
               options={versionSwitcherOptions}
             />
           </div>
