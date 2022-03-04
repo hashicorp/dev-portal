@@ -20,6 +20,7 @@ import DownloadsSection from './components/downloads-section'
 import FeaturedTutorialsSection from './components/featured-tutorials-section'
 import OfficialReleasesSection from './components/official-releases-section'
 import s from './product-downloads-view.module.css'
+import ProductIcon from 'components/product-icon'
 
 // exclude pre-releases and such
 const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
@@ -99,6 +100,7 @@ const ProductDownloadsView = ({
       </div>
       <div style={{ margin: '48px 0' }}>
         <VersionContextSwitcher
+          leadingIcon={<ProductIcon product={currentProduct.slug} />}
           onChange={(e) => setSelectedVersion(e.target.value)}
           options={versionSwitcherOptions}
         />
