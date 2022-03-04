@@ -5,15 +5,11 @@ import { ReactElement, useMemo } from 'react'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import Heading from 'components/heading'
-import IconTileLogo from 'components/icon-tile-logo'
-import Text from 'components/text'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 
 // Local imports
 import {
   generateDefaultPackageManagers,
-  getPageSubtitle,
   initializeBackToLink,
   initializeBreadcrumbLinks,
   initializeNavData,
@@ -25,9 +21,9 @@ import {
   DownloadsSection,
   FeaturedTutorialsSection,
   OfficialReleasesSection,
+  PageHeader,
   SidecarMarketingCard,
 } from './components'
-import s from './product-downloads-view.module.css'
 
 const ProductDownloadsViewContent = ({
   latestVersion,
@@ -50,12 +46,6 @@ const ProductDownloadsViewContent = ({
   const navData = useMemo(() => initializeNavData(currentProduct), [
     currentProduct,
   ])
-  const pageTitle = `Install ${currentProduct.name}`
-  const pageSubtitle = getPageSubtitle({
-    productName: currentProduct.name,
-    version: currentVersion,
-    isLatestVersion: latestVersionIsSelected,
-  })
 
   return (
     <SidebarSidecarLayout
@@ -68,27 +58,7 @@ const ProductDownloadsViewContent = ({
         <SidecarMarketingCard {...pageContent.sidecarMarketingCard} />
       }
     >
-      <div className={s.pageHeader}>
-        <IconTileLogo
-          product={
-            currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
-          }
-        />
-        <div className={s.pageHeaderText}>
-          <Heading
-            className={s.pageHeaderTitle}
-            level={1}
-            size={500}
-            slug={`install-${currentProduct.slug}`}
-            weight="bold"
-          >
-            {pageTitle}
-          </Heading>
-          <Text className={s.pageHeaderSubtitle} size={300} weight="regular">
-            {pageSubtitle}
-          </Text>
-        </div>
-      </div>
+      <PageHeader latestVersion={latestVersion} />
       <DownloadsSection
         latestVersionIsSelected={latestVersionIsSelected}
         packageManagers={generateDefaultPackageManagers(currentProduct)}
