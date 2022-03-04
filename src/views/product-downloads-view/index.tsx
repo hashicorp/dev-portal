@@ -23,10 +23,12 @@ import {
   CurrentVersionProvider,
   useCurrentVersion,
 } from './current-version-context'
-import DownloadsSection from './components/downloads-section'
-import FeaturedTutorialsSection from './components/featured-tutorials-section'
-import OfficialReleasesSection from './components/official-releases-section'
-import SidecarMarketingCard from './components/sidecar-marketing-card'
+import {
+  DownloadsSection,
+  FeaturedTutorialsSection,
+  OfficialReleasesSection,
+  SidecarMarketingCard,
+} from './components'
 import s from './product-downloads-view.module.css'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 
