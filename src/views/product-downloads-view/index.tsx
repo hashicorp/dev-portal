@@ -7,6 +7,7 @@ import SidecarMarketingCard from './components/sidecar-marketing-card'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
+import VersionContextSwitcher from 'components/version-context-switcher'
 import {
   generateDefaultPackageManagers,
   getPageSubtitle,
@@ -96,18 +97,11 @@ const ProductDownloadsView = ({
           </Text>
         </div>
       </div>
-      <div style={{ marginBottom: 48 }}>
-        <label style={{ display: 'block' }}>Version (temp switcher)</label>
-        <select
+      <div style={{ margin: '48px 0' }}>
+        <VersionContextSwitcher
           onChange={(e) => setSelectedVersion(e.target.value)}
-          value={selectedVersion}
-        >
-          {versionSwitcherOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+          options={versionSwitcherOptions}
+        />
       </div>
       <DownloadsSection
         latestVersionIsSelected={latestVersionIsSelected}
