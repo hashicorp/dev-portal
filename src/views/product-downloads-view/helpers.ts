@@ -3,18 +3,12 @@ import { ReleaseVersion } from 'lib/fetch-release-data'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { MenuItem } from 'components/sidebar'
-import { PackageManager } from './types'
+import { PackageManager, SortedReleases } from './types'
 
 const PLATFORM_MAP = {
   Mac: 'darwin',
   Win: 'windows',
   Linux: 'linux',
-}
-
-export interface SortedReleases {
-  [os: string]: {
-    [arch: string]: string
-  }
 }
 
 export const generateDefaultPackageManagers = (

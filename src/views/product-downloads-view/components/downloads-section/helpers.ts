@@ -1,5 +1,9 @@
 import { ReleaseVersion } from 'lib/fetch-release-data'
-import { PackageManager } from 'views/product-downloads-view/types'
+import {
+  GroupedPackageManagers,
+  PackageManager,
+  SortedReleases,
+} from 'views/product-downloads-view/types'
 import { sortPlatforms } from 'views/product-downloads-view/helpers'
 
 export const generateCodePropFromCommands = (
@@ -8,11 +12,15 @@ export const generateCodePropFromCommands = (
   return commands.map((command: string) => `$ ${command}`).join('\n')
 }
 
-export const groupDownloadsByOS = (selectedRelease: ReleaseVersion) => {
+export const groupDownloadsByOS = (
+  selectedRelease: ReleaseVersion
+): SortedReleases => {
   return sortPlatforms(selectedRelease)
 }
 
-export const groupPackageManagersByOS = (packageManagers: PackageManager[]) => {
+export const groupPackageManagersByOS = (
+  packageManagers: PackageManager[]
+): GroupedPackageManagers => {
   const result = {}
 
   packageManagers.forEach((packageManager) => {

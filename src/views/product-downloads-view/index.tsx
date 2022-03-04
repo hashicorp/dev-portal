@@ -99,10 +99,7 @@ const ProductDownloadsView = ({
       <DownloadsSection
         latestVersionIsSelected={latestVersionIsSelected}
         onVersionChange={(newValue) => setSelectedVersion(newValue)}
-        packageManagers={
-          pageContent.packageManagers ||
-          generateDefaultPackageManagers(currentProduct)
-        }
+        packageManagers={generateDefaultPackageManagers(currentProduct)}
         selectedRelease={releases.versions[selectedVersion]}
         versionSwitcherOptions={versionSwitcherOptions}
       />
