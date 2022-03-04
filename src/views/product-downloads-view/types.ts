@@ -6,6 +6,11 @@ export interface FeaturedTutorial {
   href: string
   title: string
 }
+
+export interface GroupedPackageManagers {
+  [os: string]: PackageManager[]
+}
+
 export interface PackageManager {
   label: string
   commands: string[]
@@ -16,8 +21,13 @@ export interface ProductDownloadsViewProps {
   latestVersion: string
   pageContent: {
     featuredTutorials: FeaturedTutorial[]
-    packageManagers?: PackageManager[]
     sidecarMarketingCard: SidecarMarketingCardProps
   }
   releases: ReleasesAPIResponse
+}
+
+export interface SortedReleases {
+  [os: string]: {
+    [arch: string]: string
+  }
 }
