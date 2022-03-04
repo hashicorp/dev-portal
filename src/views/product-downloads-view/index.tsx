@@ -50,19 +50,19 @@ const ProductDownloadsViewContent = ({
   const navData = useMemo(() => initializeNavData(currentProduct), [
     currentProduct,
   ])
-
   const pageTitle = `Install ${currentProduct.name}`
   const pageSubtitle = getPageSubtitle({
     productName: currentProduct.name,
     version: currentVersion,
     isLatestVersion: latestVersionIsSelected,
   })
+
   return (
     <SidebarSidecarLayout
       backToLink={backToLink}
       breadcrumbLinks={breadcrumbLinks}
       navData={navData}
-      productName="Waypoint"
+      productName={currentProduct.name}
       showFilterInput={false}
       sidecarChildren={
         <SidecarMarketingCard {...pageContent.sidecarMarketingCard} />
