@@ -1,4 +1,5 @@
 import { ChangeEventHandler, ReactElement, useState } from 'react'
+import s from './version-context-switcher.module.css'
 
 interface ContextSwitcherOption {
   label: string
@@ -29,13 +30,19 @@ const VersionContextSwitcher = ({
   }
 
   return (
-    <select onChange={handleOnChange} value={selectedVersion}>
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
+    <>
+      <select
+        className={s.root}
+        onChange={handleOnChange}
+        value={selectedVersion}
+      >
+        {options.map((option) => (
+          <option className={s.option} key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </>
   )
 }
 

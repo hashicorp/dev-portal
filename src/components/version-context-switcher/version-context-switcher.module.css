@@ -1,0 +1,25 @@
+.root {
+  /* composition */
+  composes: hds-surface-low from global;
+
+  /* properties */
+  appearance: none;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 40px;
+  padding-top: 8px;
+  width: 100%;
+}
+
+.option {
+  /* compositions */
+  composes: hds-typography-body-200 from global;
+
+  /* properties */
+  color: var(--token-color-neutral-foreground-primary);
+  font-weight: var(--token-typography-font-weight-regular);
+}
