@@ -13,14 +13,16 @@ export type OperatingSystem =
   | 'linux'
   | 'windows'
 
+export type Version = string
+
 export interface ReleaseVersion {
   name: HashiCorpProduct
-  version: string
+  version: Version
   shasums: string
   shasums_signature: string
   builds: {
     name: HashiCorpProduct
-    version: string
+    version: Version
     os: OperatingSystem
     arch: string
     filename: string
@@ -35,7 +37,7 @@ export interface ReleasesAPIResponse {
 }
 
 export interface GeneratedProps {
-  latestVersion: string
+  latestVersion: Version
   product: Product | string
   releases: ReleasesAPIResponse
 }
