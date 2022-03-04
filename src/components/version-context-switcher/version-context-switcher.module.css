@@ -23,6 +23,7 @@
 
 .select {
   /* composition */
+  composes: focus-ring-from-box-shadow from global;
   composes: hds-surface-low from global;
 
   /* properties */
