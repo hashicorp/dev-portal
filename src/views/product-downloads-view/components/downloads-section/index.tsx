@@ -198,13 +198,12 @@ const NotesSection = ({ selectedRelease }) => {
 }
 
 const DownloadsSection = ({
-  latestVersionIsSelected,
   packageManagers,
   selectedRelease,
   versionSwitcherOptions,
 }: DownloadsSectionProps): ReactElement => {
   const currentProduct = useCurrentProduct()
-  const { setCurrentVersion } = useCurrentVersion()
+  const { isLatestVersion, setCurrentVersion } = useCurrentVersion()
   const downloadsByOS = useMemo(() => groupDownloadsByOS(selectedRelease), [
     selectedRelease,
   ])
@@ -254,7 +253,7 @@ const DownloadsSection = ({
             return (
               <Tab heading={prettyOSName} key={os}>
                 <div className={s.tabContent}>
-                  {latestVersionIsSelected && (
+                  {isLatestVersion && (
                     <PackageManagerSection
                       packageManagers={packageManagers}
                       prettyOSName={prettyOSName}
