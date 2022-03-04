@@ -4,7 +4,7 @@ import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-l
 import CodeBlock from '@hashicorp/react-code-block'
 import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
-import { useCurrentVersion } from 'views/product-downloads-view/current-version-context'
+import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import Card from 'components/card'
 import DownloadStandaloneLink from 'components/download-standalone-link'
 import Heading, { HeadingProps } from 'components/heading'

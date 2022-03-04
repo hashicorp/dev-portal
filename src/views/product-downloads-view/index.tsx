@@ -9,6 +9,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
+import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 
 // Local imports
 import {
@@ -19,10 +20,7 @@ import {
   initializeNavData,
 } from './helpers'
 import { ProductDownloadsViewProps } from './types'
-import {
-  CurrentVersionProvider,
-  useCurrentVersion,
-} from './current-version-context'
+import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
   DownloadsSection,
   FeaturedTutorialsSection,
@@ -30,7 +28,6 @@ import {
   SidecarMarketingCard,
 } from './components'
 import s from './product-downloads-view.module.css'
-import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 
 // exclude pre-releases and such
 const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
