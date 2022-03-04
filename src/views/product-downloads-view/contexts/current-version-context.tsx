@@ -6,8 +6,7 @@ import {
   useContext,
   useState,
 } from 'react'
-
-type Version = string
+import { Version } from 'lib/fetch-release-data'
 
 interface CurrentVersion {
   currentVersion: Version
