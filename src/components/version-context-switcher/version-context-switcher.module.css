@@ -18,6 +18,7 @@
 }
 
 .trailingIcon {
+  color: var(--token-color-palette-neutral-600);
   right: 12px;
 }
 
