@@ -34,7 +34,7 @@ const ProductDownloadsViewContent = ({
   versionSwitcherOptions: VersionContextSwitcherProps['options']
 }) => {
   const currentProduct = useCurrentProduct()
-  const [currentVersion] = useCurrentVersion()
+  const { currentVersion } = useCurrentVersion()
   const latestVersionIsSelected = currentVersion === latestVersion
   const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
     currentProduct,
@@ -83,7 +83,10 @@ const ProductDownloadsView = (
   )
 
   return (
-    <CurrentVersionProvider initialValue={versionSwitcherOptions[0].value}>
+    <CurrentVersionProvider
+      initialValue={versionSwitcherOptions[0].value}
+      latestVersion={latestVersion}
+    >
       <ProductDownloadsViewContent
         {...props}
         versionSwitcherOptions={versionSwitcherOptions}

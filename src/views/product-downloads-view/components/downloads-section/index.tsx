@@ -204,7 +204,7 @@ const DownloadsSection = ({
   versionSwitcherOptions,
 }: DownloadsSectionProps): ReactElement => {
   const currentProduct = useCurrentProduct()
-  const [, setCurrentVersion] = useCurrentVersion()
+  const { setCurrentVersion } = useCurrentVersion()
   const downloadsByOS = useMemo(() => groupDownloadsByOS(selectedRelease), [
     selectedRelease,
   ])

@@ -9,18 +9,32 @@ import {
 
 type Version = string
 
-type CurrentVersion = [Version, Dispatch<SetStateAction<Version>>] | undefined
+interface CurrentVersion {
+  currentVersion: Version
+  isLatestVersion: boolean
+  latestVersion: Version
+  setCurrentVersion: Dispatch<SetStateAction<Version>>
+}
 
-const CurrentVersionContext = createContext<CurrentVersion>(undefined)
+const CurrentVersionContext = createContext<CurrentVersion | undefined>(
+  undefined
+)
 
-const CurrentVersionProvider: FC<{ initialValue: Version }> = ({
-  children,
-  initialValue,
-}) => {
+const CurrentVersionProvider: FC<{
+  initialValue: Version
+  latestVersion: Version
+}> = ({ children, initialValue, latestVersion }) => {
   const [currentVersion, setCurrentVersion] = useState<Version>(initialValue)
+  const isLatestVersion = currentVersion === latestVersion
+  const value = {
+    currentVersion,
+    isLatestVersion,
+    latestVersion,
+    setCurrentVersion,
+  }
 
   return (
-    <CurrentVersionContext.Provider value={[currentVersion, setCurrentVersion]}>
+    <CurrentVersionContext.Provider value={value}>
       {children}
     </CurrentVersionContext.Provider>
   )

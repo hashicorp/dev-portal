@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import { useCurrentProduct } from 'contexts'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
@@ -6,10 +7,9 @@ import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import { getPageSubtitle } from 'views/product-downloads-view/helpers'
 import s from './page-header.module.css'
 
-const PageHeader = ({ latestVersion }) => {
+const PageHeader = (): ReactElement => {
   const currentProduct = useCurrentProduct()
-  const [currentVersion] = useCurrentVersion()
-  const isLatestVersion = currentVersion === latestVersion
+  const { currentVersion, isLatestVersion } = useCurrentVersion()
   const pageTitle = `Install ${currentProduct.name}`
   const pageSubtitle = getPageSubtitle({
     productName: currentProduct.name,
