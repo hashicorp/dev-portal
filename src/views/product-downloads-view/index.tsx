@@ -1,6 +1,5 @@
 // Third-party imports
 import { ReactElement, useMemo } from 'react'
-import semverRSort from 'semver/functions/rsort'
 
 // Global imports
 import { useCurrentProduct } from 'contexts'
@@ -18,6 +17,7 @@ import {
   initializeBackToLink,
   initializeBreadcrumbLinks,
   initializeNavData,
+  initializeVersionSwitcherOptions,
 } from './helpers'
 import { ProductDownloadsViewProps } from './types'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
@@ -28,9 +28,6 @@ import {
   SidecarMarketingCard,
 } from './components'
 import s from './product-downloads-view.module.css'
-
-// exclude pre-releases and such
-const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
 
 const ProductDownloadsViewContent = ({
   latestVersion,
@@ -110,20 +107,10 @@ const ProductDownloadsView = (
   props: ProductDownloadsViewProps
 ): ReactElement => {
   const { latestVersion, releases } = props
-  const versionSwitcherOptions = useMemo(() => {
-    return semverRSort(
-      Object.keys(releases.versions).filter((version) => {
-        const isValidRegex = !!version.match(VALID_SEMVER_REGEX)
-        return isValidRegex
-      })
-    ).map((version) => {
-      const isLatest = version === latestVersion
-      return {
-        label: `${version}${isLatest ? ' (latest)' : ''}`,
-        value: version,
-      }
-    })
-  }, [latestVersion, releases.versions])
+  const versionSwitcherOptions = useMemo(
+    () => initializeVersionSwitcherOptions({ latestVersion, releases }),
+    [latestVersion, releases]
+  )
 
   return (
     <CurrentVersionProvider initialValue={versionSwitcherOptions[0].value}>
