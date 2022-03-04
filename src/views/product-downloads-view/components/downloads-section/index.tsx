@@ -226,6 +226,12 @@ const DownloadsSection = ({
           >
             Operating System
           </Heading>
+          {/*
+          NOTE: This wrapper `<div>` shrinks `VersionContextSwitcher` to only
+          take up as much space as needed for its content, an effect of using
+          flexbox to render the `Heading` and `VersionContextSwitcher` in the
+          same line.
+          */}
           <div>
             <VersionContextSwitcher
               leadingIcon={<ProductIcon product={currentProduct.slug} />}
