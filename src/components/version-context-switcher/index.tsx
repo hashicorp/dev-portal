@@ -1,18 +1,7 @@
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { ChangeEventHandler, ReactElement, useState } from 'react'
+import { ContextSwitcherOption, VersionContextSwitcherProps } from './types'
 import s from './version-context-switcher.module.css'
-
-interface ContextSwitcherOption {
-  label: string
-  value: string
-}
-
-interface VersionContextSwitcherProps {
-  initialValue?: ContextSwitcherOption['value']
-  leadingIcon: ReactElement
-  onChange?: ChangeEventHandler<HTMLSelectElement>
-  options: ContextSwitcherOption[]
-}
 
 const VersionContextSwitcher = ({
   initialValue,
@@ -53,4 +42,5 @@ const VersionContextSwitcher = ({
   )
 }
 
+export type { ContextSwitcherOption, VersionContextSwitcherProps }
 export default VersionContextSwitcher
