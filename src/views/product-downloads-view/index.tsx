@@ -5,7 +5,6 @@ import { ReactElement, useMemo } from 'react'
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 
 // Local imports
 import {
@@ -15,7 +14,10 @@ import {
   initializeNavData,
   initializeVersionSwitcherOptions,
 } from './helpers'
-import { ProductDownloadsViewProps } from './types'
+import {
+  ProductDownloadsViewContentProps,
+  ProductDownloadsViewProps,
+} from './types'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
   DownloadsSection,
@@ -26,16 +28,12 @@ import {
 } from './components'
 
 const ProductDownloadsViewContent = ({
-  latestVersion,
   pageContent,
   releases,
   versionSwitcherOptions,
-}: ProductDownloadsViewProps & {
-  versionSwitcherOptions: VersionContextSwitcherProps['options']
-}) => {
+}: ProductDownloadsViewContentProps) => {
   const currentProduct = useCurrentProduct()
   const { currentVersion } = useCurrentVersion()
-  const latestVersionIsSelected = currentVersion === latestVersion
   const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
     currentProduct,
   ])
@@ -58,9 +56,8 @@ const ProductDownloadsViewContent = ({
         <SidecarMarketingCard {...pageContent.sidecarMarketingCard} />
       }
     >
-      <PageHeader latestVersion={latestVersion} />
+      <PageHeader />
       <DownloadsSection
-        latestVersionIsSelected={latestVersionIsSelected}
         packageManagers={generateDefaultPackageManagers(currentProduct)}
         selectedRelease={releases.versions[currentVersion]}
         versionSwitcherOptions={versionSwitcherOptions}
@@ -73,10 +70,11 @@ const ProductDownloadsViewContent = ({
   )
 }
 
-const ProductDownloadsView = (
-  props: ProductDownloadsViewProps
-): ReactElement => {
-  const { latestVersion, releases } = props
+const ProductDownloadsView = ({
+  latestVersion,
+  pageContent,
+  releases,
+}: ProductDownloadsViewProps): ReactElement => {
   const versionSwitcherOptions = useMemo(
     () => initializeVersionSwitcherOptions({ latestVersion, releases }),
     [latestVersion, releases]
@@ -88,7 +86,8 @@ const ProductDownloadsView = (
       latestVersion={latestVersion}
     >
       <ProductDownloadsViewContent
-        {...props}
+        pageContent={pageContent}
+        releases={releases}
         versionSwitcherOptions={versionSwitcherOptions}
       />
     </CurrentVersionProvider>
