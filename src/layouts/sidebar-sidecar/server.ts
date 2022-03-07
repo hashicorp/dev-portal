@@ -27,6 +27,7 @@ export function getStaticGenerationFunctions<
 >({
   product,
   basePath,
+  basePathForLoader = basePath,
   baseName,
   additionalRemarkPlugins = [],
   getScope = async () => ({} as MdxScope),
@@ -34,6 +35,7 @@ export function getStaticGenerationFunctions<
 }: {
   product: Product
   basePath: string
+  basePathForLoader?: string
   baseName: string
   additionalRemarkPlugins?: Pluggable[]
   getScope?: () => Promise<MdxScope>
@@ -41,7 +43,7 @@ export function getStaticGenerationFunctions<
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
-    basePath,
+    basePath: basePathForLoader,
   }
 
   // Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
