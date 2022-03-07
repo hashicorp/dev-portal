@@ -1,11 +1,10 @@
 import { ReactElement } from 'react'
 import sentinelData from 'data/sentinel.json'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { Product } from 'types/products'
-import DocsView from 'views/docs-view'
-//
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import { sentinelUrlAdjuster } from 'layouts/sidebar-sidecar/utils/product-url-adjusters'
+import DocsView from 'views/docs-view'
 
 const basePath = 'intro'
 const basePathForLoader = 'sentinel/intro'
