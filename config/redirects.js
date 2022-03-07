@@ -321,7 +321,10 @@ function groupSimpleRedirects(redirects) {
   const groupedRedirects = {}
   redirects.forEach((redirect) => {
     if (redirect.has && redirect.has.length > 0) {
-      const product = hostMatching[redirect.has[0].value]
+      const product =
+        redirect.has[0].type === 'host'
+          ? hostMatching[redirect.has[0].value]
+          : redirect.has[0].value
 
       if (product) {
         if (product in groupedRedirects) {
@@ -353,7 +356,7 @@ async function redirectsConfig() {
   if (process.env.DEBUG_REDIRECTS) {
     console.log(
       '[DEBUG_REDIRECTS]',
-      JSON.stringify({ simpleRedirects, groupSimpleRedirects, globRedirects })
+      JSON.stringify({ simpleRedirects, groupedSimpleRedirects, globRedirects })
     )
   }
   return {
