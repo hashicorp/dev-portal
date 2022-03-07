@@ -63,7 +63,9 @@ const ProductIcon: React.FC<
   ProductIconProps & React.HTMLProps<SVGSVGElement>
 > = ({ product, ...rest }) => {
   const Icon = productNamesToIcons[product]
-  if (!Icon) return null
+  if (!Icon) {
+    return null
+  }
   return <Icon {...rest} />
 }
 
@@ -260,7 +262,9 @@ const ProductSwitcher: React.FC = () => {
     )
   }
 
-  if (!isMounted) return null
+  if (!isMounted) {
+    return null
+  }
 
   /**
    * I _think_ we want the containing element to be a nav, currently clashes
