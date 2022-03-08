@@ -47,9 +47,9 @@
  * Colors
  */
 .color-neutral {
-  --icon-color: var(--token-color-neutral-foreground-faint);
-  --border-color: var(--token-color-neutral-border-primary);
-  --background: var(--token-color-neutral-background-secondary);
+  --icon-color: var(--token-color-foreground-faint);
+  --border-color: var(--token-color-border-primary);
+  --background: var(--token-color-surface-faint);
 }
 
 /*
@@ -58,9 +58,9 @@ but is necessary for us to implement the current designs for the
 /sentinel and /hcp product landing pages.
 */
 .color-neutral-dark {
-  --icon-color: var(--token-color-neutral-background-primary);
-  --border-color: var(--token-color-neutral-foreground-primary);
-  --background: var(--token-color-neutral-foreground-secondary);
+  --icon-color: var(--token-color-foreground-high-contrast);
+  --border-color: var(--token-color-foreground-strong);
+  --background: var(--token-color-foreground-primary);
 }
 
 .color-boundary {

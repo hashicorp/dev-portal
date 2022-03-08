@@ -126,7 +126,7 @@ for further details.
     padding-left: 24px;
 
     & li {
-      color: var(--token-color-neutral-foreground-secondary);
+      color: var(--token-color-foreground-primary);
 
       &:not(:last-child) {
         margin-bottom: 16px;

@@ -47,10 +47,10 @@
 }
 
 .color-secondary {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
 
   &:active {
-    color: var(--token-color-neutral-foreground-secondary);
+    color: var(--token-color-foreground-primary);
   }
 }
 
