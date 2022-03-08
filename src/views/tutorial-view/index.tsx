@@ -1,8 +1,8 @@
-export default function TutorialView() {
+export default function TutorialView(props) {
   return (
     <>
-      <h1>Tutorial Heading</h1>
-      <div>MDX CONTENT</div>
+      <h1>{props.name}</h1>
+      <div>{props.content}</div>
     </>
   )
 }

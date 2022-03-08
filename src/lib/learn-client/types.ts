@@ -171,17 +171,6 @@ export enum HandsOnLabProviderOption {
   instruqt = 'instruqt',
 }
 
-// For collection logo card
-export enum CompanyLogoOption {
-  docker = 'docker',
-  github = 'github',
-  'microsoft-azure' = 'microsoft-azure',
-  oci = 'oci',
-  'google-cloud' = 'google-cloud',
-  'terraform-cloud' = 'terraform-cloud',
-  aws = 'aws',
-}
-
 /**
  * TYPE GUARDS ---------------------------------
  */

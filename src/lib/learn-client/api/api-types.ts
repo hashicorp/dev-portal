@@ -6,7 +6,6 @@ import {
   uuid,
   CollectionLevelOption,
   CollectionCategoryOption,
-  CompanyLogoOption,
   ThemeOption,
   EditionOption,
   HandsOnLabProviderOption,
@@ -89,90 +88,4 @@ export interface ApiProductsUsed extends BaseModel {
   min_version: string | null
   max_version: string | null
   product: ApiProduct
-}
-
-export interface ApiPage extends BaseModel {
-  slug: string
-  /** Note that page_data may later vary depending on the type of page.
-   * For now, we only have product pages, so we only expect ApiProductPageData.
-   * Fetched data is validated using a Joi schema in getPage and getPages. */
-  page_data: ApiProductPageData
-}
-
-export interface ApiProductPageData {
-  blocks: ApiProductViewBlock[]
-  show_product_sitemap?: boolean
-  docs_cta?: {
-    heading: string
-    subheading: string
-    links: {
-      title: string
-      url: string
-    }[]
-  }
-}
-
-/** Note that apart from snake_casing rather than camelCasing,
- * ApiProductViewBlock is the same as ProductViewBlock.
- */
-export type ApiProductViewBlock =
-  | ApiFeaturedStackBlock
-  | ApiBrandedCalloutBlock
-  | ApiCardListBlock
-  | ApiTutorialsStackBlock
-  | ApiCollectionsStackBlock
-
-type ApiFeaturedStackBlock = {
-  type: 'FeaturedStack'
-  heading: string
-  subheading?: string
-  blocks: (
-    | ApiBrandedCalloutBlock
-    | ApiCardListBlock
-    | ApiTutorialsStackBlock
-    | ApiCollectionsStackBlock
-  )[]
-}
-
-type ApiBrandedCalloutBlock = {
-  type: 'BrandedCallout'
-  product: ProductOption
-  heading: string
-  subheading?: string
-  cta: {
-    text: string
-    url: string
-  }
-}
-
-type ApiLogoCardBlock = {
-  type: 'LogoCard'
-  logo: CompanyLogoOption
-  /** A single collection identifier string, which will be filled in
-   * using fetched inlineCollections data */
-  collection_slug: string
-}
-
-type ApiCardListBlock = {
-  type: 'CardList'
-  items: ApiLogoCardBlock[]
-}
-
-type ApiTutorialsStackBlock = {
-  type: 'TutorialsStack'
-  heading: string
-  subheading: string
-  /** Tutorial identifier strings, which will be filled in
-   * using fetched inlineCollections data */
-  tutorial_slugs: string[]
-}
-
-type ApiCollectionsStackBlock = {
-  type: 'CollectionsStack'
-  heading: string
-  subheading: string
-  product: ProductOption
-  /** Collection identifier strings, which will be filled in
-   * using fetched inlineCollections data */
-  collection_slugs: string[]
 }
