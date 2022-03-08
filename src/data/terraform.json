@@ -1,6 +1,7 @@
 {
   "slug": "terraform",
   "name": "Terraform",
+  "basePaths": ["language"],
   "sidebar": {
     "landingPageNavData": [
       { "title": "Introduction", "fullPath": "/terraform" },
@@ -28,5 +29,22 @@
         "href": "https://support.hashicorp.com"
       }
     ]
-  }
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/terraform",
+      "id": "overview"
+    },
+    {
+      "label": "Language",
+      "path": "/terraform/language",
+      "id": "language"
+    },
+    {
+      "label": "Install",
+      "path": "/terraform/downloads",
+      "id": "downloads"
+    }
+  ]
 }

@@ -27,6 +27,7 @@ export function getStaticGenerationFunctions<
 >({
   product,
   basePath,
+  productSlugForLoader = product.slug,
   basePathForLoader = basePath,
   baseName,
   additionalRemarkPlugins = [],
@@ -35,6 +36,7 @@ export function getStaticGenerationFunctions<
 }: {
   product: Product
   basePath: string
+  productSlugForLoader?: string
   basePathForLoader?: string
   baseName: string
   additionalRemarkPlugins?: Pluggable[]
@@ -42,7 +44,7 @@ export function getStaticGenerationFunctions<
   mainBranch?: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
-    product: product.slug,
+    product: productSlugForLoader,
     basePath: basePathForLoader,
   }
 
