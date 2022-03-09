@@ -31,6 +31,18 @@
       "title": "Post-Processors - Vagrant"
     }
   ],
+  "packageManagerOverrides": [
+    {
+      "label": "Homebrew",
+      "commands": ["brew install vagrant"],
+      "os": "darwin"
+    },
+    {
+      "label": "Homebrew",
+      "commands": ["brew install vagrant"],
+      "os": "linux"
+    }
+  ],
   "sidecarMarketingCard": {
     "title": "About Vagrant",
     "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
