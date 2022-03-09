@@ -9,6 +9,7 @@ import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
 import {
   generateDefaultPackageManagers,
+  generatePackageManagers,
   getPageSubtitle,
   initializeBackToLink,
   initializeBreadcrumbLinks,
@@ -57,6 +58,14 @@ const ProductDownloadsView = ({
   const navData = useMemo(() => initializeNavData(currentProduct), [
     currentProduct,
   ])
+  const packageManagers = useMemo(
+    () =>
+      generatePackageManagers({
+        defaultPackageManagers: generateDefaultPackageManagers(currentProduct),
+        packageManagerOverrides: pageContent.packageManagerOverrides,
+      }),
+    [currentProduct, pageContent.packageManagerOverrides]
+  )
 
   const pageTitle = `Install ${currentProduct.name}`
   const pageSubtitle = getPageSubtitle(
@@ -111,7 +120,7 @@ const ProductDownloadsView = ({
       </div>
       <DownloadsSection
         latestVersionIsSelected={latestVersionIsSelected}
-        packageManagers={generateDefaultPackageManagers(currentProduct)}
+        packageManagers={packageManagers}
         selectedRelease={releases.versions[selectedVersion]}
       />
       <OfficialReleasesSection />
