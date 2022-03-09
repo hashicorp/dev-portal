@@ -1,8 +1,10 @@
+import semverRSort from 'semver/functions/rsort'
 import { Product } from 'types/products'
-import { ReleaseVersion } from 'lib/fetch-release-data'
+import { ReleasesAPIResponse, ReleaseVersion } from 'lib/fetch-release-data'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { MenuItem } from 'components/sidebar'
+import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
 
 const PLATFORM_MAP = {
@@ -10,6 +12,9 @@ const PLATFORM_MAP = {
   Win: 'windows',
   Linux: 'linux',
 }
+
+// exclude pre-releases and such
+const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
 
 export const generateDefaultPackageManagers = (
   product: Pick<Product, 'slug'>
@@ -97,15 +102,17 @@ export const generatePackageManagers = ({
   return packageManagers
 }
 
-export const getPageSubtitle = (
-  currentProduct: Pick<Product, 'name'>,
-  selectedVersion: string,
+export const getPageSubtitle = ({
+  productName,
+  version,
+  isLatestVersion,
+}: {
+  productName: Product['name']
+  version: string
   isLatestVersion: boolean
-): string => {
-  const versionText = `v${selectedVersion}${
-    isLatestVersion ? ' (latest version)' : ''
-  }`
-  return `Install or update to ${versionText} of ${currentProduct.name} to get started.`
+}): string => {
+  const versionText = `v${version}${isLatestVersion ? ' (latest version)' : ''}`
+  return `Install or update to ${versionText} of ${productName} to get started.`
 }
 
 export const initializeBackToLink = (
@@ -146,6 +153,27 @@ export const initializeNavData = (
     { divider: true },
     ...currentProduct.sidebar.resourcesNavData,
   ]
+}
+
+export const initializeVersionSwitcherOptions = ({
+  latestVersion,
+  releases,
+}: {
+  latestVersion: ReleaseVersion['version']
+  releases: ReleasesAPIResponse
+}): VersionContextSwitcherProps['options'] => {
+  return semverRSort(
+    Object.keys(releases.versions).filter((version) => {
+      const isValidRegex = !!version.match(VALID_SEMVER_REGEX)
+      return isValidRegex
+    })
+  ).map((version) => {
+    const isLatest = version === latestVersion
+    return {
+      label: `${version}${isLatest ? ' (latest)' : ''}`,
+      value: version,
+    }
+  })
 }
 
 export const sortPlatforms = (releaseData: ReleaseVersion): SortedReleases => {
