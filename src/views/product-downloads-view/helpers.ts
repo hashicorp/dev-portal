@@ -72,6 +72,31 @@ export const generateDefaultPackageManagers = (
   ]
 }
 
+export const generatePackageManagers = ({
+  defaultPackageManagers,
+  packageManagerOverrides,
+}: {
+  defaultPackageManagers: PackageManager[]
+  packageManagerOverrides: PackageManager[]
+}): PackageManager[] => {
+  let packageManagers: PackageManager[]
+
+  if (packageManagerOverrides) {
+    packageManagers = defaultPackageManagers.map((defaultPackageManager) => {
+      const override = packageManagerOverrides.find(
+        ({ os, label }) =>
+          os === defaultPackageManager.os &&
+          label === defaultPackageManager.label
+      )
+      return override || defaultPackageManager
+    })
+  } else {
+    packageManagers = defaultPackageManagers
+  }
+
+  return packageManagers
+}
+
 export const getPageSubtitle = (
   currentProduct: Pick<Product, 'name'>,
   selectedVersion: string,
