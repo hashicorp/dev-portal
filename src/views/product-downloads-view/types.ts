@@ -22,6 +22,7 @@ export interface ProductDownloadsViewProps {
   pageContent: {
     doesNotHavePackageManagers?: boolean
     featuredTutorials?: FeaturedTutorial[]
+    packageManagerOverrides?: PackageManager[]
     sidecarMarketingCard: SidecarMarketingCardProps
   }
   releases: ReleasesAPIResponse
