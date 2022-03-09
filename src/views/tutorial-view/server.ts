@@ -3,7 +3,7 @@ import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
 import {
   ProductOption,
-  Tutorial as ClientTutorial,
+  TutorialFullCollectionCtx as ClientTutorial,
 } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './helpers'
