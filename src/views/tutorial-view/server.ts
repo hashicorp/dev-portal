@@ -54,9 +54,10 @@ export async function getTutorialPagePaths(
   product: ProductOption
 ): Promise<TutorialPagePaths[]> {
   const allCollections = await getAllCollections({ product })
-  // @TODO - clean this up or write notes...use reduce?
+  // go through all collections, get the collection slug
   const paths = allCollections.flatMap((collection) => {
     const collectionSlug = splitProductFromFilename(collection.slug)
+    // go through the tutorials within this collection, create a path for each
     return collection.tutorials.map((tutorial) => {
       const tutorialSlug = splitProductFromFilename(tutorial.slug)
 
