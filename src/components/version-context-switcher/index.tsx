@@ -4,6 +4,15 @@ import { useCurrentProduct } from 'contexts'
 import { ContextSwitcherOption, VersionContextSwitcherProps } from './types'
 import s from './version-context-switcher.module.css'
 
+/**
+ * To be used as control that changes the content of a page or as form control.
+ * This component should not be used for page navigation because it does not
+ * have the semantics for doing so.
+ *
+ * TODO: this will eventually render a ContextSwitcher, it just hasn't been
+ * built yet for the sake of time and because the component is also a WIP on the
+ * design systems side.
+ */
 const VersionContextSwitcher = ({
   initialValue,
   productIcon,
