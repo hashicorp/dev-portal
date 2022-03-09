@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
 import { useCurrentProduct } from 'contexts'
-import { PackageManager } from 'views/product-downloads-view/types'
 import { prettyOs } from 'views/product-downloads-view/helpers'
 import Card from 'components/card'
 import DownloadStandaloneLink from 'components/download-standalone-link'
@@ -222,7 +221,7 @@ const DownloadsSection = ({
         </Heading>
         <Tabs showAnchorLine>
           {Object.keys(downloadsByOS).map((os) => {
-            const packageManagers: PackageManager[] = packageManagersByOS[os]
+            const packageManagers = packageManagersByOS[os]
             const prettyOSName = prettyOs(os)
 
             /**

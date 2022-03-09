@@ -26,13 +26,13 @@ Styles for each tab button.
   background-color: white;
   border: none;
   border-radius: 5px;
-  color: var(--token-color-neutral-foreground-faint);
+  color: var(--token-color-foreground-faint);
   font-size: var(--token-typography-body-200-font-size);
   font-weight: var(--token-typography-font-weight-regular);
   padding: 8px 12px;
 
   &[aria-selected='true'] {
-    color: var(--token-color-neutral-foreground-primary);
+    color: var(--token-color-foreground-strong);
     background-color: var(--token-color-palette-neutral-200);
   }
 

@@ -23,7 +23,7 @@
   width: 100%;
 
   & svg {
-    color: var(--token-color-neutral-foreground-faint);
+    color: var(--token-color-foreground-faint);
 
     /* Only enable animation if query is supported and value is no-preference */
     @media (prefers-reduced-motion: no-preference) {
@@ -97,12 +97,12 @@ ref: https://adrianroselli.com/2020/05/disclosure-widgets.html#CSS
 }
 
 .title {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   display: block;
 }
 
 .description {
-  color: var(--token-color-neutral-foreground-faint);
+  color: var(--token-color-foreground-faint);
   display: block;
   margin-top: 4px;
 }

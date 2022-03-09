@@ -1,15 +1,15 @@
 .cardTitle {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 4px;
 }
 
 .cardSubtitle {
-  color: var(--token-color-neutral-foreground-faint);
+  color: var(--token-color-foreground-faint);
   margin-bottom: 8px;
 }
 
 .featuredDocsLabel {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 8px;
   margin-top: 24px;
 }
@@ -27,7 +27,7 @@
 }
 
 .featuredDocsLink {
-  color: var(--token-color-neutral-foreground-faint);
+  color: var(--token-color-foreground-faint);
   display: block;
   padding: 8px 0;
   width: fit-content;

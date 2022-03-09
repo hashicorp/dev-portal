@@ -65,6 +65,7 @@ module.exports = withSwingset({
     transpileModules: [
       'swingset',
       '@hashicorp/flight-icons',
+      '@hashicorp/sentinel-embedded',
       'unist-util-visit',
     ],
   })({

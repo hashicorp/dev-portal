@@ -111,10 +111,7 @@ const ProductDownloadsView = ({
       </div>
       <DownloadsSection
         latestVersionIsSelected={latestVersionIsSelected}
-        packageManagers={
-          pageContent.packageManagers ||
-          generateDefaultPackageManagers(currentProduct)
-        }
+        packageManagers={generateDefaultPackageManagers(currentProduct)}
         selectedRelease={releases.versions[selectedVersion]}
       />
       <OfficialReleasesSection />

@@ -3,7 +3,7 @@
 }
 
 .operatingSystemTitle {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 12px;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .subHeading {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 16px;
   margin-top: 24px;
 }
@@ -40,10 +40,10 @@
 }
 
 .textAndLinkCardLabel {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 4px;
 }
 
 .textAndLinkCardVersionLabel {
-  color: var(--token-color-neutral-foreground-faint);
+  color: var(--token-color-foreground-faint);
 }

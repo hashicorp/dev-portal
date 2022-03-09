@@ -1,12 +1,13 @@
 {
   "slug": "sentinel",
   "name": "Sentinel",
+  "basePaths": ["docs", "intro"],
   "sidebar": {
     "landingPageNavData": [
-      { "title": "Introduction", "fullPath": "/sentinel" },
+      { "title": "Introduction", "fullPath": "/sentinel/intro" },
       {
         "title": "Getting Started",
-        "fullPath": "/sentinel"
+        "fullPath": "/sentinel/intro/getting-started"
       }
     ],
     "resourcesNavData": [
@@ -28,5 +29,27 @@
         "href": "https://support.hashicorp.com"
       }
     ]
-  }
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/sentinel",
+      "id": "overview"
+    },
+    {
+      "label": "Intro",
+      "path": "/sentinel/intro",
+      "id": "intro"
+    },
+    {
+      "label": "Docs",
+      "path": "/sentinel/docs",
+      "id": "docs"
+    },
+    {
+      "label": "Install",
+      "path": "/sentinel/downloads",
+      "id": "downloads"
+    }
+  ]
 }
