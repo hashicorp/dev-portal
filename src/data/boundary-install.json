@@ -1,0 +1,57 @@
+{
+  "featuredTutorials": [
+    {
+      "description": "Quick start with a new identity-based access management tool.",
+      "href": "https://learn.hashicorp.com/collections/boundary/getting-started",
+      "title": "Getting Started"
+    },
+    {
+      "description": "Instructions to configure dynamic host catalogs with Amazon Web Services (AWS).",
+      "href": "https://learn.hashicorp.com/tutorials/boundary/aws-host-catalogs",
+      "title": "Dynamic Host Catalogs on AWS"
+    },
+    {
+      "description": "Instructions to configure dynamic host catalogs with Microsoft Azure.",
+      "href": "https://learn.hashicorp.com/tutorials/boundary/azure-host-catalogs",
+      "title": "Dynamic Host Catalogs on Azure"
+    },
+    {
+      "description": "Instructions to integrate Vault and Boundary in dev mode to enable credential brokering.",
+      "href": "https://learn.hashicorp.com/tutorials/boundary/vault-cred-brokering-quickstart",
+      "title": "Vault Credential Brokering Quickstart"
+    },
+    {
+      "description": "Common workflows for managing targets, identities, and sessions within Boundary.",
+      "href": "https://learn.hashicorp.com/collections/boundary/basic-administration",
+      "title": "Boundary Resource Management Workflows"
+    },
+    {
+      "description": "Learn the standard operational tasks to manage and configure your Boundary environment.",
+      "href": "https://learn.hashicorp.com/collections/boundary/configuration",
+      "title": "Common Administration Workflows"
+    }
+  ],
+  "sidecarMarketingCard": {
+    "title": "About Boundary",
+    "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+    "learnMoreLink": "https://www.boundaryproject.io/",
+    "featuredDocsLinks": [
+      {
+        "href": "boundary/docs/getting-started",
+        "text": "Getting Started"
+      },
+      {
+        "href": "/boundary/docs/concepts",
+        "text": "Concepts"
+      },
+      {
+        "href": "/boundary/docs/configuration",
+        "text": "Configuration"
+      },
+      {
+        "href": "/boundary/docs/common-workflows",
+        "text": "Common Workflows"
+      }
+    ]
+  }
+}

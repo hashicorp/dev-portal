@@ -13,6 +13,8 @@ import {
 } from './types'
 import {
   generateDefaultPackageManagers,
+  generatePackageManagers,
+  getPageSubtitle,
   initializeBackToLink,
   initializeBreadcrumbLinks,
   initializeNavData,
@@ -49,6 +51,14 @@ const ProductDownloadsViewContent = ({
   const navData = useMemo(() => initializeNavData(currentProduct), [
     currentProduct,
   ])
+  const packageManagers = useMemo(
+    () =>
+      generatePackageManagers({
+        defaultPackageManagers: generateDefaultPackageManagers(currentProduct),
+        packageManagerOverrides: pageContent.packageManagerOverrides,
+      }),
+    [currentProduct, pageContent.packageManagerOverrides]
+  )
 
   return (
     <SidebarSidecarLayout
@@ -63,7 +73,7 @@ const ProductDownloadsViewContent = ({
     >
       <PageHeader />
       <DownloadsSection
-        packageManagers={generateDefaultPackageManagers(currentProduct)}
+        packageManagers={packageManagers}
         selectedRelease={releases.versions[currentVersion]}
         versionSwitcherOptions={versionSwitcherOptions}
       />
