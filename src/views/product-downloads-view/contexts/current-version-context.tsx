@@ -19,6 +19,11 @@ const CurrentVersionContext = createContext<CurrentVersion | undefined>(
   undefined
 )
 
+/**
+ * Stores the currently selected version in the `ProductDownloadsView`, derives
+ * `isLatestVersion` based on the data stored, and additionally returns a setter
+ * function for updating the version stored.
+ */
 const CurrentVersionProvider: FC<{
   initialValue: Version
   latestVersion: Version
@@ -39,6 +44,9 @@ const CurrentVersionProvider: FC<{
   )
 }
 
+/**
+ * Provides a way to consume the value of `CurrentVersionProvider`.
+ */
 const useCurrentVersion = (): CurrentVersion => {
   const context = useContext(CurrentVersionContext)
   if (context === undefined) {
