@@ -30,8 +30,8 @@
   /* properties */
   appearance: none;
   background-color: white;
-  border: none;
   border-radius: 5px;
+  border: none;
   cursor: pointer;
   padding-bottom: 8px;
   padding-left: 34px;
@@ -41,7 +41,7 @@
 }
 
 .option {
-  /* compositions */
+  /* composition */
   composes: hds-typography-body-200 from global;
 
   /* properties */
