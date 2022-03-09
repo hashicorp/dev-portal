@@ -1,65 +1,57 @@
-import { ReactElement, useMemo, useState } from 'react'
-import semverRSort from 'semver/functions/rsort'
+// Third-party imports
+import { ReactElement, useMemo } from 'react'
+
+// Global imports
 import { useCurrentProduct } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import SidecarMarketingCard from './components/sidecar-marketing-card'
-import Heading from 'components/heading'
-import IconTileLogo from 'components/icon-tile-logo'
-import Text from 'components/text'
+
+// Local imports
+import {
+  ProductDownloadsViewContentProps,
+  ProductDownloadsViewProps,
+} from './types'
 import {
   generateDefaultPackageManagers,
   generatePackageManagers,
-  getPageSubtitle,
   initializeBackToLink,
   initializeBreadcrumbLinks,
   initializeNavData,
+  initializeVersionSwitcherOptions,
 } from './helpers'
-import { ProductDownloadsViewProps } from './types'
-import DownloadsSection from './components/downloads-section'
-import FeaturedTutorialsSection from './components/featured-tutorials-section'
-import OfficialReleasesSection from './components/official-releases-section'
-import s from './product-downloads-view.module.css'
+import { CurrentVersionProvider, useCurrentVersion } from './contexts'
+import {
+  DownloadsSection,
+  FeaturedTutorialsSection,
+  OfficialReleasesSection,
+  PageHeader,
+  SidecarMarketingCard,
+} from './components'
 
-// exclude pre-releases and such
-const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
-
-const ProductDownloadsView = ({
-  latestVersion,
+/**
+ * This component is used to make it possible to consume the `useCurrentVersion`
+ * hook in this view. `ProductDownloadsView` renders `CurrentVersionProvider`
+ * and passes this component as the child.
+ */
+const ProductDownloadsViewContent = ({
   pageContent,
   releases,
-}: ProductDownloadsViewProps): ReactElement => {
+  versionSwitcherOptions,
+}: ProductDownloadsViewContentProps) => {
   const {
     doesNotHavePackageManagers,
     featuredTutorials,
     packageManagerOverrides,
     sidecarMarketingCard,
   } = pageContent
-  const versionSwitcherOptions = useMemo(() => {
-    return semverRSort(
-      Object.keys(releases.versions).filter((version) => {
-        const isValidRegex = !!version.match(VALID_SEMVER_REGEX)
-        return isValidRegex
-      })
-    ).map((version) => {
-      const isLatest = version === latestVersion
-      return {
-        label: `${version}${isLatest ? ' (latest)' : ''}`,
-        value: version,
-      }
-    })
-  }, [latestVersion, releases.versions])
-  const [selectedVersion, setSelectedVersion] = useState<string>(
-    versionSwitcherOptions[0].value
-  )
-  const latestVersionIsSelected = selectedVersion === latestVersion
   const currentProduct = useCurrentProduct()
+  const { currentVersion } = useCurrentVersion()
   const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
     currentProduct,
   ])
   const breadcrumbLinks = useMemo(
-    () => initializeBreadcrumbLinks(currentProduct, selectedVersion),
-    [currentProduct, selectedVersion]
+    () => initializeBreadcrumbLinks(currentProduct, currentVersion),
+    [currentProduct, currentVersion]
   )
   const navData = useMemo(() => initializeNavData(currentProduct), [
     currentProduct,
@@ -75,65 +67,53 @@ const ProductDownloadsView = ({
     })
   }, [currentProduct, doesNotHavePackageManagers, packageManagerOverrides])
 
-  const pageTitle = `Install ${currentProduct.name}`
-  const pageSubtitle = getPageSubtitle(
-    currentProduct,
-    selectedVersion,
-    latestVersionIsSelected
-  )
   return (
     <SidebarSidecarLayout
       backToLink={backToLink}
       breadcrumbLinks={breadcrumbLinks}
       navData={navData}
-      productName="Waypoint"
+      productName={currentProduct.name}
       showFilterInput={false}
       sidecarChildren={<SidecarMarketingCard {...sidecarMarketingCard} />}
     >
-      <div className={s.pageHeader}>
-        <IconTileLogo
-          product={
-            currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
-          }
-        />
-        <div className={s.pageHeaderText}>
-          <Heading
-            className={s.pageHeaderTitle}
-            level={1}
-            size={500}
-            slug={`install-${currentProduct.slug}`}
-            weight="bold"
-          >
-            {pageTitle}
-          </Heading>
-          <Text className={s.pageHeaderSubtitle} size={300} weight="regular">
-            {pageSubtitle}
-          </Text>
-        </div>
-      </div>
-      <div style={{ marginBottom: 48 }}>
-        <label style={{ display: 'block' }}>Version (temp switcher)</label>
-        <select
-          onChange={(e) => setSelectedVersion(e.target.value)}
-          value={selectedVersion}
-        >
-          {versionSwitcherOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </div>
+      <PageHeader />
       <DownloadsSection
-        latestVersionIsSelected={latestVersionIsSelected}
         packageManagers={packageManagers}
-        selectedRelease={releases.versions[selectedVersion]}
+        selectedRelease={releases.versions[currentVersion]}
+        versionSwitcherOptions={versionSwitcherOptions}
       />
       <OfficialReleasesSection />
       {featuredTutorials && (
         <FeaturedTutorialsSection featuredTutorials={featuredTutorials} />
       )}
     </SidebarSidecarLayout>
+  )
+}
+
+/**
+ * Handles rendering and initializing `CurrentVersionProvider`.
+ */
+const ProductDownloadsView = ({
+  latestVersion,
+  pageContent,
+  releases,
+}: ProductDownloadsViewProps): ReactElement => {
+  const versionSwitcherOptions = useMemo(
+    () => initializeVersionSwitcherOptions({ latestVersion, releases }),
+    [latestVersion, releases]
+  )
+
+  return (
+    <CurrentVersionProvider
+      initialValue={versionSwitcherOptions[0].value}
+      latestVersion={latestVersion}
+    >
+      <ProductDownloadsViewContent
+        pageContent={pageContent}
+        releases={releases}
+        versionSwitcherOptions={versionSwitcherOptions}
+      />
+    </CurrentVersionProvider>
   )
 }
 

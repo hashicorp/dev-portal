@@ -4,13 +4,15 @@ import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-l
 import CodeBlock from '@hashicorp/react-code-block'
 import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
+import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import Card from 'components/card'
 import DownloadStandaloneLink from 'components/download-standalone-link'
 import Heading, { HeadingProps } from 'components/heading'
 import InlineLink from 'components/inline-link'
+import StandaloneLink from 'components/standalone-link'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
-import StandaloneLink from 'components/standalone-link'
+import VersionContextSwitcher from 'components/version-context-switcher'
 import { DownloadsSectionProps } from './types'
 import {
   generateCodePropFromCommands,
@@ -195,10 +197,11 @@ const NotesSection = ({ selectedRelease }) => {
 }
 
 const DownloadsSection = ({
-  latestVersionIsSelected,
   packageManagers,
   selectedRelease,
+  versionSwitcherOptions,
 }: DownloadsSectionProps): ReactElement => {
+  const { isLatestVersion, setCurrentVersion } = useCurrentVersion()
   const downloadsByOS = useMemo(() => groupDownloadsByOS(selectedRelease), [
     selectedRelease,
   ])
@@ -208,17 +211,31 @@ const DownloadsSection = ({
   )
 
   return (
-    <article className={s.root}>
+    <div className={s.root}>
       <Card elevation="base">
-        <Heading
-          className={s.operatingSystemTitle}
-          level={2}
-          size={300}
-          slug="operating-system"
-          weight="bold"
-        >
-          Operating System
-        </Heading>
+        <div className={s.cardHeader}>
+          <Heading
+            className={s.operatingSystemTitle}
+            level={2}
+            size={300}
+            slug="operating-system"
+            weight="bold"
+          >
+            Operating System
+          </Heading>
+          {/*
+          NOTE: This wrapper `<div>` shrinks `VersionContextSwitcher` to only
+          take up as much space as needed for its content, an effect of using
+          flexbox to render the `Heading` and `VersionContextSwitcher` in the
+          same line.
+          */}
+          <div>
+            <VersionContextSwitcher
+              onChange={(e) => setCurrentVersion(e.target.value)}
+              options={versionSwitcherOptions}
+            />
+          </div>
+        </div>
         <Tabs showAnchorLine>
           {Object.keys(downloadsByOS).map((os) => {
             const packageManagers = packageManagersByOS[os]
@@ -233,7 +250,7 @@ const DownloadsSection = ({
             return (
               <Tab heading={prettyOSName} key={os}>
                 <div className={s.tabContent}>
-                  {latestVersionIsSelected && (
+                  {isLatestVersion && (
                     <PackageManagerSection
                       packageManagers={packageManagers}
                       prettyOSName={prettyOSName}
@@ -253,7 +270,7 @@ const DownloadsSection = ({
           })}
         </Tabs>
       </Card>
-    </article>
+    </div>
   )
 }
 

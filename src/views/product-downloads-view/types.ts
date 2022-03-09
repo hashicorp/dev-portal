@@ -1,4 +1,5 @@
 import { ReleasesAPIResponse } from 'lib/fetch-release-data'
+import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 
 export interface FeaturedTutorial {
@@ -15,6 +16,12 @@ export interface PackageManager {
   label: string
   commands: string[]
   os: string
+}
+
+export interface ProductDownloadsViewContentProps {
+  pageContent: ProductDownloadsViewProps['pageContent']
+  releases: ProductDownloadsViewProps['releases']
+  versionSwitcherOptions: VersionContextSwitcherProps['options']
 }
 
 export interface ProductDownloadsViewProps {
