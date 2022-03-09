@@ -24,7 +24,11 @@ const VersionContextSwitcher = ({
     ContextSwitcherOption['value']
   >(initialValue || options[0].value)
 
-  const handleOnChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
+  /**
+   * Handle change event for switcher, invoking the `onChange` function last if
+   * it has been passed in the `onChange` prop.
+   */
+  const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setSelectedVersion(e.target.value)
 
     if (onChange) {
@@ -38,7 +42,7 @@ const VersionContextSwitcher = ({
       <select
         aria-label="Choose a different version to install"
         className={s.select}
-        onChange={handleOnChange}
+        onChange={handleChange}
         value={selectedVersion}
       >
         {options.map((option) => (
