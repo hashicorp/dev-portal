@@ -18,10 +18,9 @@ export interface PackageManager {
   os: string
 }
 
-export type ProductDownloadsViewContentProps = Pick<
-  ProductDownloadsViewProps,
-  'pageContent' | 'releases'
-> & {
+export interface ProductDownloadsViewContentProps {
+  pageContent: ProductDownloadsViewProps['pageContent']
+  releases: ProductDownloadsViewProps['releases']
   versionSwitcherOptions: VersionContextSwitcherProps['options']
 }
 
