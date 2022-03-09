@@ -8,16 +8,16 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 
 // Local imports
 import {
+  ProductDownloadsViewContentProps,
+  ProductDownloadsViewProps,
+} from './types'
+import {
   generateDefaultPackageManagers,
   initializeBackToLink,
   initializeBreadcrumbLinks,
   initializeNavData,
   initializeVersionSwitcherOptions,
 } from './helpers'
-import {
-  ProductDownloadsViewContentProps,
-  ProductDownloadsViewProps,
-} from './types'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
   DownloadsSection,
@@ -27,6 +27,11 @@ import {
   SidecarMarketingCard,
 } from './components'
 
+/**
+ * This component is used to make it possible to consume the `useCurrentVersion`
+ * hook in this view. `ProductDownloadsView` renders `CurrentVersionProvider`
+ * and passes this component as the child.
+ */
 const ProductDownloadsViewContent = ({
   pageContent,
   releases,
@@ -70,6 +75,9 @@ const ProductDownloadsViewContent = ({
   )
 }
 
+/**
+ * Handles rendering and initializing `CurrentVersionProvider`.
+ */
 const ProductDownloadsView = ({
   latestVersion,
   pageContent,
