@@ -11,8 +11,25 @@ export interface ContextSwitcherOption {
 }
 
 export interface VersionContextSwitcherProps {
+  /**
+   * (optional) The initial value of the switcher when first rendered.
+   */
   initialValue?: ContextSwitcherOption['value']
+
+  /**
+   * The icon to render on the left side of the switcher.
+   */
   leadingIcon: ReactElement
+
+  /**
+   * (optional) A function invoked when the value of the switcher has changed.
+   * It is invoked after the component has run its internal code for handling
+   * changes to the switcher.
+   */
   onChange?: ChangeEventHandler<HTMLSelectElement>
+
+  /**
+   * An array of the options to render in the switcher.
+   */
   options: ContextSwitcherOption[]
 }
