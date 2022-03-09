@@ -8,7 +8,7 @@ import DocsView from 'views/docs-view'
 const basePath = 'cdktf'
 const baseName = 'CDKTF'
 const product = terraformData as Product
-const productSlugForLoader = 'terraform-website'
+const productSlugForLoader = 'terraform-cdk'
 
 const additionalComponents = {}
 
