@@ -1,0 +1,61 @@
+{
+  "featuredTutorials": [
+    {
+      "description": "Build, change, and destroy AWS infrastructure using Terraform. Step-by-step, command-line tutorials will walk you through the Terraform basics for the first time.",
+      "href": "https://learn.hashicorp.com/collections/terraform/aws-get-started",
+      "title": "Get Started - AWS"
+    },
+    {
+      "description": "Build, change, and destroy Azure infrastructure using Terraform. Step-by-step, command-line tutorials will walk you through the Terraform basics for the first time.",
+      "href": "https://learn.hashicorp.com/collections/terraform/azure-get-started",
+      "title": "Get Started - Azure"
+    },
+    {
+      "description": "Build, change, and destroy Google Cloud Platform (GCP) infrastructure using Terraform. Step-by-step, command-line tutorials will walk you through the Terraform basics for the first time.",
+      "href": "https://learn.hashicorp.com/collections/terraform/gcp-get-started",
+      "title": "Get Started - Google Cloud"
+    },
+    {
+      "description": "Build, change, and destroy Docker infrastructure using Terraform. Step-by-step, command-line tutorials will walk you through the Terraform basics for the first time.",
+      "href": "https://learn.hashicorp.com/collections/terraform/docker-get-started",
+      "title": "Get Started - Docker"
+    },
+    {
+      "description": "Build, change, and destroy a virtual cloud network and subnet on Oracle Cloud Infrastructure (OCI) using Terraform. Step-by-step, command-line tutorials will walk you through the Terraform basics for the first time.",
+      "href": "https://learn.hashicorp.com/collections/terraform/oci-get-started",
+      "title": "Get Started - OCI"
+    },
+    {
+      "description": "Collaborate on version-controlled configuration using Terraform Cloud. Follow this track to build, change, and destroy infrastructure using remote runs and state.",
+      "href": "https://learn.hashicorp.com/collections/terraform/cloud-get-started",
+      "title": "Get Started - Terraform Cloud"
+    }
+  ],
+  "sidecarMarketingCard": {
+    "title": "About Terraform",
+    "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+    "learnMoreLink": "https://www.terraform.io/",
+    "featuredDocsLinks": [
+      {
+        "href": "/terraform/internals",
+        "text": "Internals"
+      },
+      {
+        "href": "/terraform/language",
+        "text": "Configuration"
+      },
+      {
+        "href": "/terraform/cli/commands",
+        "text": "CLI"
+      },
+      {
+        "href": "/terraform/language/providers",
+        "text": "Providers"
+      },
+      {
+        "href": "/terraform/language/resources/provisioners/syntax",
+        "text": "Provisioners"
+      }
+    ]
+  }
+}
