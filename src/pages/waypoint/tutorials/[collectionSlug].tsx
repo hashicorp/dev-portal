@@ -19,20 +19,26 @@ export default function WaypointCollectionPage(props) {
     <>
       <h1>{props.collection.name}</h1>
       <p>{props.collection.description}</p>
-      {/** TODO shape these slugs here, insert collection */}
       <ol>
-        {props.collection.tutorials.map((tutorial) => (
-          <li key={tutorial.id}>
-            <Link href={tutorial.slug}>
-              <>
-                <a>{tutorial.name}</a> <br />
-              </>
-            </Link>
-          </li>
-        ))}
+        {props.collection.tutorials.map((tutorial) => {
+          const slug = getTutorialSlug(tutorial.slug, props.collection.slug)
+          return (
+            <li key={tutorial.id}>
+              <Link href={slug}>
+                <a>{tutorial.name}</a>
+              </Link>
+            </li>
+          )
+        })}
       </ol>
     </>
   )
+}
+
+function getTutorialSlug(dbslug: string, collectionSlug: string) {
+  const [product, tutorialFilename] = dbslug.split('/')
+  const collectionFilename = splitProductFromFilename(collectionSlug)
+  return `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
 }
 
 export async function getStaticProps({
