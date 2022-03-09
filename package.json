@@ -39,7 +39,7 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "@hashicorp/design-system-tokens": "^0.4.7",
+    "@hashicorp/design-system-tokens": "^0.5.1",
     "@hashicorp/flight-icons": "^2.1.0",
     "@hashicorp/mktg-global-styles": "^4.0.0",
     "@hashicorp/mktg-logos": "^1.2.0",

@@ -1,5 +1,5 @@
 .sectionHeading {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 12px;
 }
 
@@ -32,12 +32,12 @@ this is a temporary copy/paste to get the new install view out.
 }
 
 .cardTitle {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 4px;
 }
 
 .cardBody {
-  color: var(--token-color-neutral-foreground-faint);
+  color: var(--token-color-foreground-faint);
   margin-bottom: 12px;
 }
 
