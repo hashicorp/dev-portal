@@ -15,7 +15,7 @@
       "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, mattis facilisi aliquam elit velit. Consectetur sit ullamcorper pulvinar a lacus, diam, neque. Faucibus laoreet ipsum.",
       "link": {
         "text": "Get Started",
-        "url": "https://docs.hashicorp.com/sentinel/concepts"
+        "url": "/sentinel/docs/concepts"
       }
     },
     {
@@ -26,25 +26,25 @@
           "icon": "IconDocs",
           "heading": "Sentinel Reference Documentation",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet vestibulum lorem sapien ut magna ut.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         },
         {
           "icon": "IconTerminal",
           "heading": "Sentinel CLI",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Senectus suspendisse tortor, sem dui. ",
-          "url": "https://docs.hashicorp.com/sentinel/commands"
+          "url": "/sentinel/docs/commands"
         },
         {
           "icon": "IconServer",
           "heading": "Sentinel",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec morbi sit posuere quam a, scelerisque amet. Et placerat commodo viverra sit viverra. Velit.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         },
         {
           "icon": "IconDownload",
           "heading": "Sentinel",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elementum pretium porta blandit fusce at.",
-          "url": "https://docs.hashicorp.com/sentinel/downloads"
+          "url": "/sentinel/docs/downloads"
         }
       ]
     },
@@ -61,17 +61,17 @@
         {
           "heading": "Libero odio risus est.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fermentum facilisi nunc nec.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         },
         {
           "heading": "Pellentesque ac eget nulla.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam scelerisque placerat sed.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         },
         {
           "heading": "Morbi pellentesque sed.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem nibh fermentum.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         }
       ]
     },
@@ -88,17 +88,17 @@
         {
           "heading": "Etiam quis in ac non quam.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         },
         {
           "heading": "Aliquet eu risus dis sed.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         },
         {
           "heading": "Ornare faucibus blandit id.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         }
       ]
     },
@@ -115,17 +115,17 @@
         {
           "heading": "Interdum sollicitudin.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Porttitor facilisi dui pharetra.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         },
         {
           "heading": "Ornare nibh semper.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         },
         {
           "heading": "Fames nibh gravida.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "url": "https://docs.hashicorp.com/sentinel"
+          "url": "/sentinel/docs"
         }
       ]
     }

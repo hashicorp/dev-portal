@@ -35,22 +35,22 @@
 }
 
 .color-primary {
-  color: var(--token-color-action-foreground-on-faint);
+  color: var(--token-color-foreground-action);
 
   &:active {
-    color: var(--token-color-action-foreground-high-contrast);
+    color: var(--token-color-foreground-action-active);
   }
 
   &:hover {
-    color: var(--token-color-action-foreground-on-faint);
+    color: var(--token-color-foreground-action-hover);
   }
 }
 
 .color-secondary {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
 
   &:active {
-    color: var(--token-color-neutral-foreground-secondary);
+    color: var(--token-color-foreground-primary);
   }
 }
 

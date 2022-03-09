@@ -3,7 +3,7 @@
 }
 
 .pageSubheading {
-  color: var(--token-color-neutral-foreground-secondary);
+  color: var(--token-color-foreground-primary);
   margin-bottom: 48px;
 }
 

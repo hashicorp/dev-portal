@@ -3,15 +3,15 @@
 }
 
 .sectionHeading {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 12px;
 }
 
 .cardTitle {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 4px;
 }
 
 .cardBody {
-  color: var(--token-color-neutral-foreground-faint);
+  color: var(--token-color-foreground-faint);
 }

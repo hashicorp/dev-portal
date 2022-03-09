@@ -13,7 +13,7 @@ const basePath = 'docs'
 const baseName = 'Docs'
 const product = packerData as Product
 const mainBranch = 'master'
-const additionalComponents = { Badge, BadgesHeader, PluginBadge, Checklist }
+const additionalComponents = { Badge, BadgesHeader, Checklist, PluginBadge }
 
 const PackerDocsPage = ({ mdxSource }): React.ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
