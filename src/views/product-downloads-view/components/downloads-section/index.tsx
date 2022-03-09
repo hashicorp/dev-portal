@@ -9,7 +9,6 @@ import Card from 'components/card'
 import DownloadStandaloneLink from 'components/download-standalone-link'
 import Heading, { HeadingProps } from 'components/heading'
 import InlineLink from 'components/inline-link'
-import ProductIcon from 'components/product-icon'
 import StandaloneLink from 'components/standalone-link'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
@@ -202,7 +201,6 @@ const DownloadsSection = ({
   selectedRelease,
   versionSwitcherOptions,
 }: DownloadsSectionProps): ReactElement => {
-  const currentProduct = useCurrentProduct()
   const { isLatestVersion, setCurrentVersion } = useCurrentVersion()
   const downloadsByOS = useMemo(() => groupDownloadsByOS(selectedRelease), [
     selectedRelease,
@@ -233,7 +231,6 @@ const DownloadsSection = ({
           */}
           <div>
             <VersionContextSwitcher
-              productIcon={<ProductIcon product={currentProduct.slug} />}
               onChange={(e) => setCurrentVersion(e.target.value)}
               options={versionSwitcherOptions}
             />

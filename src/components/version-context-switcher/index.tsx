@@ -1,6 +1,7 @@
 import { ChangeEventHandler, ReactElement, useState } from 'react'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { useCurrentProduct } from 'contexts'
+import ProductIcon from 'components/product-icon'
 import { ContextSwitcherOption, VersionContextSwitcherProps } from './types'
 import s from './version-context-switcher.module.css'
 
@@ -15,7 +16,6 @@ import s from './version-context-switcher.module.css'
  */
 const VersionContextSwitcher = ({
   initialValue,
-  productIcon,
   onChange,
   options,
 }: VersionContextSwitcherProps): ReactElement => {
@@ -38,7 +38,9 @@ const VersionContextSwitcher = ({
 
   return (
     <div className={s.root}>
-      <span className={s.productIcon}>{productIcon}</span>
+      <span className={s.productIcon}>
+        <ProductIcon product={currentProduct.slug} />
+      </span>
       <select
         aria-label="Choose a different version to install"
         className={s.select}

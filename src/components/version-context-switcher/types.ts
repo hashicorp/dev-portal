@@ -1,4 +1,4 @@
-import { ChangeEventHandler, ReactElement } from 'react'
+import { ChangeEventHandler } from 'react'
 
 /**
  * TODO: this should be moved to exist in a ContextSwitcher component once we
@@ -15,11 +15,6 @@ export interface VersionContextSwitcherProps {
    * (optional) The initial value of the switcher when first rendered.
    */
   initialValue?: ContextSwitcherOption['value']
-
-  /**
-   * The product icon to render on the left side of the switcher.
-   */
-  productIcon: ReactElement
 
   /**
    * (optional) A function invoked when the value of the switcher has changed.
