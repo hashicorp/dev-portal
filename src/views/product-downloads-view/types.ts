@@ -20,7 +20,8 @@ export interface PackageManager {
 export interface ProductDownloadsViewProps {
   latestVersion: string
   pageContent: {
-    featuredTutorials: FeaturedTutorial[]
+    doesNotHavePackageManagers?: boolean
+    featuredTutorials?: FeaturedTutorial[]
     sidecarMarketingCard: SidecarMarketingCardProps
   }
   releases: ReleasesAPIResponse

@@ -28,6 +28,11 @@ const ProductDownloadsView = ({
   pageContent,
   releases,
 }: ProductDownloadsViewProps): ReactElement => {
+  const {
+    doesNotHavePackageManagers,
+    featuredTutorials,
+    sidecarMarketingCard,
+  } = pageContent
   const versionSwitcherOptions = useMemo(() => {
     return semverRSort(
       Object.keys(releases.versions).filter((version) => {
@@ -58,6 +63,9 @@ const ProductDownloadsView = ({
     currentProduct,
   ])
 
+  const packageManagers = doesNotHavePackageManagers
+    ? []
+    : generateDefaultPackageManagers(currentProduct)
   const pageTitle = `Install ${currentProduct.name}`
   const pageSubtitle = getPageSubtitle(
     currentProduct,
@@ -71,9 +79,7 @@ const ProductDownloadsView = ({
       navData={navData}
       productName="Waypoint"
       showFilterInput={false}
-      sidecarChildren={
-        <SidecarMarketingCard {...pageContent.sidecarMarketingCard} />
-      }
+      sidecarChildren={<SidecarMarketingCard {...sidecarMarketingCard} />}
     >
       <div className={s.pageHeader}>
         <IconTileLogo
@@ -111,13 +117,13 @@ const ProductDownloadsView = ({
       </div>
       <DownloadsSection
         latestVersionIsSelected={latestVersionIsSelected}
-        packageManagers={generateDefaultPackageManagers(currentProduct)}
+        packageManagers={packageManagers}
         selectedRelease={releases.versions[selectedVersion]}
       />
       <OfficialReleasesSection />
-      <FeaturedTutorialsSection
-        featuredTutorials={pageContent.featuredTutorials}
-      />
+      {featuredTutorials && (
+        <FeaturedTutorialsSection featuredTutorials={featuredTutorials} />
+      )}
     </SidebarSidecarLayout>
   )
 }
