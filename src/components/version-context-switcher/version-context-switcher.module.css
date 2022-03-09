@@ -3,7 +3,7 @@
   width: 100%;
 }
 
-.leadingIcon,
+.productIcon,
 .trailingIcon {
   align-items: center;
   bottom: 0;
@@ -13,7 +13,7 @@
   top: 0;
 }
 
-.leadingIcon {
+.productIcon {
   left: 12px;
 }
 

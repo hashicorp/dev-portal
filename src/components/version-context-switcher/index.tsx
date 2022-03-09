@@ -6,7 +6,7 @@ import s from './version-context-switcher.module.css'
 
 const VersionContextSwitcher = ({
   initialValue,
-  leadingIcon,
+  productIcon,
   onChange,
   options,
 }: VersionContextSwitcherProps): ReactElement => {
@@ -25,7 +25,7 @@ const VersionContextSwitcher = ({
 
   return (
     <div className={s.root}>
-      <span className={s.leadingIcon}>{leadingIcon}</span>
+      <span className={s.productIcon}>{productIcon}</span>
       <select
         aria-label="Choose a different version to install"
         className={s.select}

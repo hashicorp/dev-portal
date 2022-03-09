@@ -17,9 +17,9 @@ export interface VersionContextSwitcherProps {
   initialValue?: ContextSwitcherOption['value']
 
   /**
-   * The icon to render on the left side of the switcher.
+   * The product icon to render on the left side of the switcher.
    */
-  leadingIcon: ReactElement
+  productIcon: ReactElement
 
   /**
    * (optional) A function invoked when the value of the switcher has changed.

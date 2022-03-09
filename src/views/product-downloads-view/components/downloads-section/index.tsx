@@ -233,7 +233,7 @@ const DownloadsSection = ({
           */}
           <div>
             <VersionContextSwitcher
-              leadingIcon={<ProductIcon product={currentProduct.slug} />}
+              productIcon={<ProductIcon product={currentProduct.slug} />}
               onChange={(e) => setCurrentVersion(e.target.value)}
               options={versionSwitcherOptions}
             />
