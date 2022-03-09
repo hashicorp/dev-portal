@@ -39,7 +39,7 @@ export async function getTutorialPageProps(
 
 export interface TutorialPagePaths {
   params: {
-    tutorialSlug: string[]
+    tutorialSlug: [string, string]
   }
 }
 
@@ -62,7 +62,9 @@ export async function getTutorialPagePaths(
       const tutorialSlug = splitProductFromFilename(tutorial.slug)
 
       return {
-        params: { tutorialSlug: [collectionSlug, tutorialSlug] },
+        params: {
+          tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
+        },
       }
     })
   })
