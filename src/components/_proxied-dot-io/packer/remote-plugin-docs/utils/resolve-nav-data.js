@@ -102,6 +102,7 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
     repo,
     version,
     pluginTier,
+    archived = false,
     isHcpPackerReady = false,
     sourceBranch = 'main',
     zipFile = '',
@@ -151,6 +152,7 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
         tier: parsedPluginTier,
         isHcpPackerReady,
         version,
+        archived,
       },
     }
   })
