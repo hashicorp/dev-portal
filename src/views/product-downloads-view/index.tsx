@@ -32,6 +32,7 @@ const ProductDownloadsView = ({
   const {
     doesNotHavePackageManagers,
     featuredTutorials,
+    packageManagerOverrides,
     sidecarMarketingCard,
   } = pageContent
   const versionSwitcherOptions = useMemo(() => {
@@ -63,18 +64,17 @@ const ProductDownloadsView = ({
   const navData = useMemo(() => initializeNavData(currentProduct), [
     currentProduct,
   ])
-  const packageManagers = useMemo(
-    () =>
-      generatePackageManagers({
-        defaultPackageManagers: generateDefaultPackageManagers(currentProduct),
-        packageManagerOverrides: pageContent.packageManagerOverrides,
-      }),
-    [currentProduct, pageContent.packageManagerOverrides]
-  )
+  const packageManagers = useMemo(() => {
+    if (doesNotHavePackageManagers) {
+      return []
+    }
 
-  const packageManagers = doesNotHavePackageManagers
-    ? []
-    : generateDefaultPackageManagers(currentProduct)
+    return generatePackageManagers({
+      defaultPackageManagers: generateDefaultPackageManagers(currentProduct),
+      packageManagerOverrides: packageManagerOverrides,
+    })
+  }, [currentProduct, doesNotHavePackageManagers, packageManagerOverrides])
+
   const pageTitle = `Install ${currentProduct.name}`
   const pageSubtitle = getPageSubtitle(
     currentProduct,
