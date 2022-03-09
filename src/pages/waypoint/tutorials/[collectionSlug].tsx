@@ -8,7 +8,7 @@ export default function CollectionPage() {
   return (
     <>
       <h1>Collection Heading</h1>
-      <Link href="/get-started-intro">
+      <Link href="/waypoint/tutorials/get-started-docker/get-started-intro">
         <a>Go to this tutorial</a>
       </Link>
     </>

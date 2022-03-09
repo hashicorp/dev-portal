@@ -1,44 +1,32 @@
-import { getTutorial } from 'lib/learn-client/api/tutorial'
 import { ProductOption } from 'lib/learn-client/types'
-import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import TutorialView from 'views/tutorial-view'
+import {
+  getTutorialPagePaths,
+  getTutorialPageProps,
+  TutorialPageProps,
+  TutorialPagePaths,
+} from 'views/tutorial-view/server'
 
-export default function TutorialPage({ tutorial }) {
+export default function TutorialPage({
+  tutorial,
+}: TutorialPageProps): React.ReactElement {
   return <TutorialView {...tutorial} />
 }
 
-export async function getStaticProps({ params }) {
-  const product = ProductOption['waypoint']
-  const { tutorialSlug: slug } = params
-  const dbSlug = `${product}/${slug[1]}` // Write note on the slug diff structure
-  const tutorial = await getTutorial(dbSlug)
-  const props = stripUndefinedProperties({
-    tutorial,
-    product: {
-      slug: product,
-    },
-  })
-
-  return {
-    props,
-  }
+export async function getStaticProps({
+  params,
+}): Promise<{ props: TutorialPageProps }> {
+  const props = await getTutorialPageProps(
+    ProductOption['waypoint'],
+    params.tutorialSlug
+  )
+  return props
 }
 
-/**
- * Note....generating these paths will be different now
- * Instead of getting all tutorial paths....
- * We'll need to... get all collections related to the product
- * then generate the routes based on the collection tutorials
- */
-export function getStaticPaths() {
-  return {
-    paths: [
-      {
-        params: {
-          tutorialSlug: ['some-collection', 'get-started-intro'],
-        },
-      },
-    ],
-    fallback: false,
-  }
+export async function getStaticPaths(): Promise<{
+  paths: TutorialPagePaths[]
+  fallback: boolean
+}> {
+  const paths = await getTutorialPagePaths(ProductOption['waypoint'])
+  return { paths, fallback: false }
 }
