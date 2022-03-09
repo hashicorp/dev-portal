@@ -211,7 +211,7 @@ const DownloadsSection = ({
   )
 
   return (
-    <article className={s.root}>
+    <div className={s.root}>
       <Card elevation="base">
         <div className={s.cardHeader}>
           <Heading
@@ -270,7 +270,7 @@ const DownloadsSection = ({
           })}
         </Tabs>
       </Card>
-    </article>
+    </div>
   )
 }
 
