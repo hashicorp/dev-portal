@@ -15,7 +15,7 @@
       "text": "In this guide we cover what Consul is, what problems it can solve, how it compares to existing software, and how you can get started using it.",
       "link": {
         "text": "Learn More",
-        "url": "https://www.consul.io/docs/intro"
+        "url": "/consul/docs/intro"
       }
     },
     {
@@ -26,25 +26,25 @@
           "icon": "IconDocs",
           "heading": "Consul Reference Documentation",
           "text": "The documentation is reference material for all available features and options of Consul",
-          "url": "https://www.consul.io/docs"
+          "url": "/consul/docs"
         },
         {
           "icon": "IconTerminal",
           "heading": "Consul CLI",
           "text": "Consul is controlled via a very easy to use command-line interface (CLI).",
-          "url": "https://www.consul.io/commands"
+          "url": "/consul/commands"
         },
         {
           "icon": "IconServer",
           "heading": "Consul API",
           "text": "The main interface to Consul is a RESTful HTTP API. The API can perform basic CRUD operations on nodes, services, checks, configuration, and more.",
-          "url": "https://www.consul.io/api-docs"
+          "url": "/consul/api-docs"
         },
         {
           "icon": "IconDownload",
           "heading": "Consul Install",
           "text": "Please download the proper package for your operating system and architecture.",
-          "url": "https://www.consul.io/downloads"
+          "url": "/consul/downloads"
         }
       ]
     },
@@ -61,17 +61,17 @@
         {
           "heading": "Connect",
           "text": "Consul Connect provides service-to-service connection authorization and encryption...",
-          "url": "https://www.consul.io/docs/connect"
+          "url": "/consul/docs/connect"
         },
         {
           "heading": "Services",
           "text": "One of the main goals of service discovery is to provide a catalog of available services. ",
-          "url": "https://www.consul.io/docs/discovery/services"
+          "url": "/consul/docs/discovery/services"
         },
         {
           "heading": "Configuration",
           "text": "The agent has various configuration options that can be specified via the...",
-          "url": "https://www.consul.io/docs/agent/options"
+          "url": "/consul/docs/agent/options"
         }
       ]
     },
@@ -88,17 +88,17 @@
         {
           "heading": "Etiam quis in ac non quam.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
-          "url": "https://www.consul.io"
+          "url": "/consul/docs"
         },
         {
           "heading": "Aliquet eu risus dis sed.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
-          "url": "https://www.consul.io"
+          "url": "/consul/docs"
         },
         {
           "heading": "Ornare faucibus blandit id.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
-          "url": "https://www.consul.io"
+          "url": "/consul/docs"
         }
       ]
     },
@@ -115,17 +115,17 @@
         {
           "heading": "Interdum sollicitudin.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum lectus posuere.",
-          "url": "https://www.consul.io"
+          "url": "/consul/docs"
         },
         {
           "heading": "Ornare nibh semper.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
-          "url": "https://www.consul.io"
+          "url": "/consul/docs"
         },
         {
           "heading": "Fames nibh gravida.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "url": "https://www.consul.io"
+          "url": "/consul/docs"
         }
       ]
     },

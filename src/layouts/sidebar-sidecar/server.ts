@@ -22,20 +22,28 @@ const BASE_REVALIDATE = 10
  * export { getStaticPaths, getStaticProps }
  * ```
  */
-export function getStaticGenerationFunctions({
+export function getStaticGenerationFunctions<
+  MdxScope = Record<string, unknown>
+>({
   product,
   basePath,
+  basePathForLoader = basePath,
   baseName,
   additionalRemarkPlugins = [],
+  getScope = async () => ({} as MdxScope),
+  mainBranch,
 }: {
   product: Product
   basePath: string
+  basePathForLoader?: string
   baseName: string
   additionalRemarkPlugins?: Pluggable[]
+  getScope?: () => Promise<MdxScope>
+  mainBranch?: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
     product: product.slug,
-    basePath,
+    basePath: basePathForLoader,
   }
 
   // Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
@@ -56,10 +64,12 @@ export function getStaticGenerationFunctions({
       const headings = []
 
       const loader = getLoader({
+        mainBranch,
         remarkPlugins: [
           [anchorLinks, { headings }],
           ...additionalRemarkPlugins,
         ],
+        scope: await getScope(),
       })
 
       const {

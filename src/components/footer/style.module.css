@@ -14,7 +14,7 @@
   before element acts as full-width border, no matter the container size
   */
   &::before {
-    background: var(--token-color-neutral-border-primary);
+    background: var(--token-color-border-primary);
     content: '\200B';
     height: 1px;
     left: 0;
@@ -72,11 +72,11 @@
 .linkAction {
   background: none;
   border: none;
-  color: var(--token-color-neutral-foreground-faint);
+  color: var(--token-color-foreground-faint);
   padding: 0;
 
   &:hover {
-    color: var(--token-color-neutral-foreground-primary);
+    color: var(--token-color-foreground-strong);
     text-decoration: underline;
   }
 }

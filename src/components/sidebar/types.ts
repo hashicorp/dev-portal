@@ -27,6 +27,8 @@ export interface SidebarProps {
     url: string
   }
   menuItems: MenuItem[]
+  /** Whether or not the Sidebar should render the filter text input */
+  showFilterInput?: boolean
   /** title to be shown as the title of the sidebar */
   title: string
 }

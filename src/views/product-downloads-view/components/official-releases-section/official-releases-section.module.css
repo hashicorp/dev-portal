@@ -1,0 +1,17 @@
+.root {
+  margin-bottom: 48px;
+}
+
+.sectionHeading {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 4px;
+}
+
+.cardBody {
+  color: var(--token-color-foreground-faint);
+}

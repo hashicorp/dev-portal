@@ -1,0 +1,18 @@
+.root {
+  align-items: center;
+  display: flex;
+  margin-bottom: 48px;
+}
+
+.pageHeaderText {
+  margin-left: 16px;
+}
+
+.pageHeaderTitle {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 12px;
+}
+
+.pageHeaderSubtitle {
+  color: var(--token-color-foreground-primary);
+}

@@ -103,27 +103,20 @@ for further details.
   & h4,
   & h5,
   & h6 {
-    /*
-    These ::before elements account for the height of the top sticky bars
-    when following #anchor-links to headings. Without the offset caused
-    by these elements, we'd jump to headings that would be hidden underneath
-    the top sticky bars.
-    */
-    & a:global(.__target-h)::before,
-    &::before {
-      --permalink-scroll-offset: 24px;
-      --full-header-height: calc(
-        var(--navigation-header-height) + var(--alert-bar-height)
-      );
-      --height: calc(
-        var(--full-header-height) + var(--permalink-scroll-offset)
-      );
+    --permalink-scroll-offset: 24px;
+    --full-header-height: calc(
+      var(--navigation-header-height) + var(--alert-bar-height)
+    );
+    --height: calc(var(--full-header-height) + var(--permalink-scroll-offset));
 
-      display: block;
-      content: '\200B';
-      height: var(--height);
-      margin-top: calc(-1 * var(--height));
-      visibility: hidden;
+    /*
+    Because not all jump link headings have an anchor child, such as the ones on
+    the product landing pages
+    */
+    scroll-margin-top: var(--height);
+
+    & a:global(.__target-h) {
+      scroll-margin-top: var(--height);
     }
   }
 
@@ -133,7 +126,7 @@ for further details.
     padding-left: 24px;
 
     & li {
-      color: var(--token-color-neutral-foreground-secondary);
+      color: var(--token-color-foreground-primary);
 
       &:not(:last-child) {
         margin-bottom: 16px;

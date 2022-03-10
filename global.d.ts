@@ -14,3 +14,8 @@ declare module 'swingset/server' {
 }
 
 declare module '@hashicorp/react-search'
+
+/**
+ * Application config, defined in environment-specific JSON files in `config/`
+ */
+declare const __config: Record<string, any>

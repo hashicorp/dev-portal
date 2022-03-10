@@ -1,12 +1,13 @@
 {
   "slug": "vagrant",
   "name": "Vagrant",
+  "basePaths": ["docs", "intro", "vagrant-cloud", "vmware"],
   "sidebar": {
     "landingPageNavData": [
-      { "title": "Introduction", "fullPath": "/vagrant" },
+      { "title": "Introduction", "fullPath": "/vagrant/intro" },
       {
         "title": "Getting Started",
-        "fullPath": "/vagrant"
+        "fullPath": "/vagrant/docs/installation"
       }
     ],
     "resourcesNavData": [
@@ -28,5 +29,27 @@
         "href": "https://support.hashicorp.com"
       }
     ]
-  }
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/vagrant",
+      "id": "overview"
+    },
+    {
+      "label": "Intro",
+      "path": "/vagrant/intro",
+      "id": "intro"
+    },
+    {
+      "label": "Docs",
+      "path": "/vagrant/docs",
+      "id": "docs"
+    },
+    {
+      "label": "Install",
+      "path": "/vagrant/downloads",
+      "id": "downloads"
+    }
+  ]
 }

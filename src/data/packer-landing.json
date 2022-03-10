@@ -26,13 +26,13 @@
           "icon": "IconDocs",
           "heading": "Packer Reference Documentation",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui elementum sit at mauris. Integer diam vestibulum egestas diam euismod ornare auctor.",
-          "url": "https://www.packer.io/docs"
+          "url": "/packer/docs"
         },
         {
           "icon": "IconTerminal",
           "heading": "Packer CLI",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui elementum sit at mauris. Integer diam vestibulum egestas diam euismod ornare auctor.",
-          "url": "https://www.packer.io/docs/commands"
+          "url": "/packer/docs/commands"
         },
         {
           "icon": "IconServer",
@@ -44,7 +44,7 @@
           "icon": "IconDownload",
           "heading": "Packer Install",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus donec rutrum dignissim et in at mattis.",
-          "url": "https://www.packer.io/downloads"
+          "url": "/packer/downloads"
         }
       ]
     },
@@ -61,17 +61,17 @@
         {
           "heading": "Morbi nam convallis.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisl in eu est ut vulputate neque.",
-          "url": "https://www.packer.io"
+          "url": "/packer"
         },
         {
           "heading": "Diam tellus egestas lacus.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Congue a ut a amet gravida.",
-          "url": "https://www.packer.io"
+          "url": "/packer"
         },
         {
           "heading": "Sed penatibus nulla.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Justo ipsum sagittis laoreet vel.",
-          "url": "https://www.packer.io"
+          "url": "/packer"
         }
       ]
     },
@@ -88,17 +88,17 @@
         {
           "heading": "Etiam quis in ac non quam.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
-          "url": "https://www.packer.io"
+          "url": "/packer"
         },
         {
           "heading": "Aliquet eu risus dis sed.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
-          "url": "https://www.packer.io"
+          "url": "/packer"
         },
         {
           "heading": "Ornare faucibus blandit id.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
-          "url": "https://www.packer.io"
+          "url": "/packer"
         }
       ]
     },
@@ -115,17 +115,17 @@
         {
           "heading": "Interdum sollicitudin.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum lectus posuere.",
-          "url": "https://www.packer.io"
+          "url": "/packer"
         },
         {
           "heading": "Ornare nibh semper.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
-          "url": "https://www.packer.io"
+          "url": "/packer"
         },
         {
           "heading": "Fames nibh gravida.",
           "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "url": "https://www.packer.io"
+          "url": "/packer"
         }
       ]
     },

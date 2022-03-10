@@ -1,12 +1,13 @@
 {
   "slug": "packer",
   "name": "Packer",
+  "basePaths": ["docs", "guides", "intro", "plugins"],
   "sidebar": {
     "landingPageNavData": [
-      { "title": "Introduction", "fullPath": "/packer" },
+      { "title": "Introduction", "fullPath": "/packer/intro" },
       {
         "title": "Getting Started",
-        "fullPath": "/packer"
+        "fullPath": "/packer/docs/install"
       }
     ],
     "resourcesNavData": [
@@ -28,5 +29,27 @@
         "href": "https://support.hashicorp.com"
       }
     ]
-  }
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/packer",
+      "id": "overview"
+    },
+    {
+      "label": "Docs",
+      "id": "docs",
+      "path": "/packer/docs"
+    },
+    {
+      "label": "Plugins",
+      "path": "/packer/plugins",
+      "id": "plugins"
+    },
+    {
+      "label": "Install",
+      "path": "/packer/downloads",
+      "id": "downloads"
+    }
+  ]
 }

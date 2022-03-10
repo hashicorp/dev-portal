@@ -6,18 +6,28 @@ import { StandaloneLinkProps } from './types'
 import s from './standalone-link.module.css'
 
 const StandaloneLink = ({
+  ariaLabel,
   className,
   color = 'primary',
+  download,
   href,
   icon,
   iconPosition,
+  openInNewTab = false,
   text,
   textSize,
 }: StandaloneLinkProps): ReactElement => {
   const classes = classNames(s.root, s[`color-${color}`], className)
 
   return (
-    <MaybeInternalLink className={classes} href={href}>
+    <MaybeInternalLink
+      aria-label={ariaLabel}
+      className={classes}
+      download={download}
+      href={href}
+      target={openInNewTab ? '_blank' : '_self'}
+      rel={openInNewTab ? 'noreferrer noopener' : undefined}
+    >
       {iconPosition === 'leading' && icon}
       <Text asElement="span" className={s.text} size={textSize} weight="medium">
         {text}

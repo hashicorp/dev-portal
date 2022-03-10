@@ -27,6 +27,6 @@
 }
 
 .text {
-  color: var(--token-color-neutral-foreground-faint);
+  color: var(--token-color-foreground-faint);
   margin-bottom: 8px;
 }

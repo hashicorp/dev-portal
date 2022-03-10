@@ -9,18 +9,18 @@
 }
 
 .h1 {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 12px;
 }
 
 .h2 {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 12px;
   margin-top: 48px;
 }
 
 .h3 {
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   margin-bottom: 8px;
   margin-top: 32px;
 }
@@ -28,7 +28,7 @@
 .h4,
 .h5,
 .h6 {
-  color: var(--token-color-neutral-foreground-secondary);
+  color: var(--token-color-foreground-primary);
   margin-bottom: 8px;
   margin-top: 24px;
 }
@@ -60,6 +60,6 @@
 }
 
 .p {
-  color: var(--token-color-neutral-foreground-secondary);
+  color: var(--token-color-foreground-primary);
   margin: 16px 0;
 }

@@ -1,0 +1,61 @@
+{
+  "featuredTutorials": [
+    {
+      "description": "Install and run a sample Nomad environment. Schedule the sample job, deploy multiple instances of it, and perform a rolling update.",
+      "href": "https://learn.hashicorp.com/collections/nomad/get-started",
+      "title": "Get Started"
+    },
+    {
+      "description": "Take a quick survey of the Nomad web user interface and learn how to perform common operations with it.",
+      "href": "https://learn.hashicorp.com/collections/nomad/web-ui",
+      "title": "Explore the Nomad Web UI"
+    },
+    {
+      "description": "Learn by doing! Use Nomad on real infrastructure in your web browser.",
+      "href": "https://learn.hashicorp.com/collections/nomad/interactive",
+      "title": "Interactive Labs"
+    },
+    {
+      "description": "Add an Enterprise license to Vault, Consul, or Nomad with environment variables, a license file, or a configuration value.",
+      "href": "https://learn.hashicorp.com/tutorials/nomad/hashicorp-enterprise-license",
+      "title": "Install a HashiCorp Enterprise License"
+    },
+    {
+      "description": "Use the Nomad Autoscaler to dynamically resize your Nomad cluster to ensure your Nomad workloads meet your SLAs.",
+      "href": "https://learn.hashicorp.com/tutorials/nomad/horizontal-cluster-scaling",
+      "title": "Horizontal Cluster Autoscaling"
+    },
+    {
+      "description": "Deploy applications to multiple federated Nomad clusters with configurable rollout and rollback strategies.",
+      "href": "https://learn.hashicorp.com/tutorials/nomad/multiregion-deployments",
+      "title": "Multi-Region Deployments"
+    }
+  ],
+  "sidecarMarketingCard": {
+    "title": "About Nomad",
+    "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+    "learnMoreLink": "https://www.nomadproject.io/",
+    "featuredDocsLinks": [
+      {
+        "href": "/nomad/docs/install",
+        "text": "Installing"
+      },
+      {
+        "href": "/nomad/docs/upgrade",
+        "text": "Upgrading"
+      },
+      {
+        "href": "/nomad/docs/integrations",
+        "text": "Integrations"
+      },
+      {
+        "href": "/nomad/docs/nomad-vs-kubernetes/alternative",
+        "text": "An alternative to Kubernetes"
+      },
+      {
+        "href": "/nomad/docs/nomad-vs-kubernetes/supplement",
+        "text": "Supplement to Kubernetes"
+      }
+    ]
+  }
+}

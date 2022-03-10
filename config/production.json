@@ -1,0 +1,9 @@
+{
+  "io_sites": {
+    "max_static_paths": 9999,
+    "revalidate": 360
+  },
+  "flags": {
+    "enable_new_downloads_view": true
+  }
+}

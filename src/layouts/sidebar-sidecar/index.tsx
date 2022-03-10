@@ -23,6 +23,7 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
         <Sidebar
           backToLink={sidebarProps.backToLink}
           menuItems={sidebarProps.menuItems}
+          showFilterInput={sidebarProps.showFilterInput}
           title={sidebarProps.title}
         />
       </div>
@@ -60,4 +61,5 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
   </BaseLayout>
 )
 
+export type { SidebarSidecarLayoutProps }
 export default SidebarSidecarLayout
