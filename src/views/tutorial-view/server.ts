@@ -11,11 +11,19 @@ import { splitProductFromFilename } from './helpers'
 // @TODO just a stub - adjust page props interface
 export interface TutorialPageProps {
   tutorial: ClientTutorial
-  product: Pick<ProductContext, 'slug'>
+  product: TutorialPageProduct // controls the ProductSwitcher
+}
+
+/**
+ *  This slug needs to use the Learn product option enum,
+ *  as the types in `ProductContext` slug aren't valid for the API req
+ */
+export interface TutorialPageProduct extends Pick<ProductContext, 'name'> {
+  slug: ProductOption
 }
 
 export async function getTutorialPageProps(
-  product: ProductOption,
+  product: TutorialPageProduct,
   slug: [string, string]
 ): Promise<{ props: TutorialPageProps }> {
   /**
@@ -23,17 +31,14 @@ export async function getTutorialPageProps(
    * the tutorialSlug passed in is based on /{collection-name}/{tutorial-name}
    * from the params. So we can assume `slug` index 1 is always the tutorial name
    * */
-  const dbSlug = `${product}/${slug[1]}`
+  const dbSlug = `${product.slug}/${slug[1]}`
   const tutorial = await getTutorial(dbSlug)
-  const props = stripUndefinedProperties({
-    tutorial,
-    product: {
-      slug: product,
-    },
-  })
 
   return {
-    props,
+    props: stripUndefinedProperties({
+      tutorial,
+      product,
+    }),
   }
 }
 
