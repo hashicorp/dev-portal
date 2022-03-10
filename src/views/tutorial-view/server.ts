@@ -3,8 +3,8 @@ import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
 import { ProductOption } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { splitProductFromFilename } from './helpers'
-import { serializeContent } from './helpers/serialize-content'
+import { splitProductFromFilename } from './utils'
+import { serializeContent } from './utils/serialize-content'
 import { TutorialViewProps } from '.'
 
 // @TODO just a stub - adjust page props interface
@@ -33,12 +33,6 @@ export async function getTutorialPageProps(
   const tutorialFilename = slug[1]
   const dbSlug = `${product.slug}/${tutorialFilename}`
   const baseTutorialData = await getTutorial(dbSlug)
-
-  // if the tutorial doesn't exist, return null
-  if (baseTutorialData === null) {
-    return null
-  }
-
   const serializedContent = await serializeContent(baseTutorialData)
 
   return {

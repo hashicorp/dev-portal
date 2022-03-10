@@ -1,7 +1,7 @@
 import Content from '@hashicorp/react-content'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { TutorialFullCollectionCtx as ClientTutorial } from 'lib/learn-client/types'
-import MDX_COMPONENTS from './helpers/mdx-components'
+import MDX_COMPONENTS from './utils/mdx-components'
 
 export interface TutorialViewProps extends Omit<ClientTutorial, 'content'> {
   content: MDXRemoteSerializeResult
@@ -13,13 +13,11 @@ export default function TutorialView({
   content,
 }: TutorialViewProps): React.ReactElement {
   return (
-    <>
+    <main>
       <h1>{name}</h1>
-      <main>
-        <Content
-          content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
-        />
-      </main>
-    </>
+      <Content
+        content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
+      />
+    </main>
   )
 }
