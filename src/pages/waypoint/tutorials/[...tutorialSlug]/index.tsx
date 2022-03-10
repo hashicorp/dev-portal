@@ -8,7 +8,7 @@ import {
   TutorialPagePaths,
   TutorialPageProduct,
 } from 'views/tutorial-view/server'
-import { name, slug } from 'data/waypoint.json'
+import waypointData from 'data/waypoint.json'
 
 export default function WaypointTutorialPage({
   tutorial,
@@ -20,8 +20,8 @@ export async function getStaticProps({
   params,
 }): Promise<{ props: TutorialPageProps }> {
   const product = {
-    slug,
-    name,
+    slug: waypointData.slug,
+    name: waypointData.name,
   } as TutorialPageProduct
   const props = await getTutorialPageProps(product, params.tutorialSlug)
   return props
