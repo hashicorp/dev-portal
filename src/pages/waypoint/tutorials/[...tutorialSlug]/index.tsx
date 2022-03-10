@@ -7,7 +7,7 @@ import {
   TutorialPagePaths,
 } from 'views/tutorial-view/server'
 
-export default function TutorialPage({
+export default function WaypointTutorialPage({
   tutorial,
 }: TutorialPageProps): React.ReactElement {
   return <TutorialView {...tutorial} />

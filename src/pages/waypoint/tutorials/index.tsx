@@ -4,7 +4,7 @@
 
 import Link from 'next/link'
 
-export default function ProductTutorialHubPage() {
+export default function WaypointTutorialHubPage() {
   return (
     <>
       <h1>Waypoint Tutorials</h1>

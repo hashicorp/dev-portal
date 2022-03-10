@@ -4,7 +4,7 @@
 
 import Link from 'next/link'
 
-export default function CollectionPage() {
+export default function WaypointCollectionPage() {
   return (
     <>
       <h1>Collection Heading</h1>
