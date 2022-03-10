@@ -69,11 +69,13 @@ const ProductDownloadsViewContent = ({
 
   return (
     <SidebarSidecarLayout
-      backToLink={backToLink}
+      sidebarProps={{
+        backToLink,
+        menuItems: navData,
+        showFilterInput: false,
+        title: currentProduct.name,
+      }}
       breadcrumbLinks={breadcrumbLinks}
-      navData={navData}
-      productName={currentProduct.name}
-      showFilterInput={false}
       sidecarChildren={<SidecarMarketingCard {...sidecarMarketingCard} />}
     >
       <PageHeader />

@@ -1,9 +1,8 @@
 import semverRSort from 'semver/functions/rsort'
 import { Product } from 'types/products'
 import { ReleasesAPIResponse, ReleaseVersion } from 'lib/fetch-release-data'
-import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
-import { MenuItem } from 'components/sidebar'
+import { MenuItem, SidebarProps } from 'components/sidebar'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
 
@@ -117,7 +116,7 @@ export const getPageSubtitle = ({
 
 export const initializeBackToLink = (
   currentProduct: Pick<Product, 'name' | 'slug'>
-): SidebarSidecarLayoutProps['backToLink'] => {
+): SidebarProps['backToLink'] => {
   return {
     text: `Back to ${currentProduct.name}`,
     url: `/${currentProduct.slug}`,
