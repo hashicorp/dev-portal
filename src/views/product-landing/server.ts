@@ -103,6 +103,7 @@ async function generateStaticProps({
           url: '/',
         },
         menuItems: navData,
+        showFilterInput: false,
         title: product.name,
       },
     },
