@@ -1,7 +1,9 @@
+import { ReactElement } from 'react'
 import DevPopover from 'components/dev-popover'
 import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
 import MaybeInternalLink from 'components/maybe-internal-link'
 import Text from 'components/text'
+import { SidebarBackToLinkProps } from './types'
 import s from './style.module.css'
 
 const BackToLinkText: React.FC = ({ children }) => (
@@ -10,14 +12,19 @@ const BackToLinkText: React.FC = ({ children }) => (
   </Text>
 )
 
-// TODO: Design is still planning this functionality & states.
-// TODO: Since not all cases are covered, we return a placeholder
-// TODO: link if necessary props aren't provided.
-const SidebarBackToLink: React.FC<{
-  text?: string
-  url?: string
-}> = ({ text, url }) => {
-  if (!text || !url) return <PlaceholderBackToLink />
+/**
+ * TODO: Design is still planning this functionality & states. Since not all
+ * cases are covered, we return a placeholder link if necessary props aren't
+ * provided.
+ */
+const SidebarBackToLink = ({
+  text,
+  url,
+}: SidebarBackToLinkProps): ReactElement => {
+  if (!text || !url) {
+    return <PlaceholderBackToLink />
+  }
+
   return (
     <MaybeInternalLink className={s.backToLink} href={url}>
       <IconArrowLeft16 className={s.icon} />
@@ -26,7 +33,7 @@ const SidebarBackToLink: React.FC<{
   )
 }
 
-const PlaceholderBackToLink: React.FC = () => {
+const PlaceholderBackToLink = (): ReactElement => {
   return (
     <DevPopover
       buttonClassName={s.popoverButton}
