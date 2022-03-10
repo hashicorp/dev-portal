@@ -63,7 +63,7 @@ export function getStaticGenerationFunctions<
       }
     },
     getStaticProps: async (ctx) => {
-      const headings = []
+      const headings = [] // populated by loader.loadStaticProps()
 
       const loader = getLoader({
         mainBranch,
@@ -79,6 +79,28 @@ export function getStaticGenerationFunctions<
         mdxSource,
         githubFileUrl,
       } = await loader.loadStaticProps(ctx)
+
+      /**
+       * NOTE: we've encountered empty headings on at least one page:
+       * "/terraform/enterprise/install/automated/active-active"
+       * Passing empty headings to the client creates broken behaviour,
+       * so we filter them out.
+       * TODO: This change should perhaps be moved into our anchor-links plugin
+       */
+      const nonEmptyHeadings = headings.slice().filter(({ title }) => {
+        const isValid = typeof title == 'string' && title !== ''
+        if (isValid) {
+          return true
+        } else {
+          const paramsAsPath =
+            typeof ctx.params.page == 'string'
+              ? ctx.params.page
+              : ctx.params.page.join('/')
+          console.warn(
+            `Found an empty title on page "/${product.slug}/${basePath}/${paramsAsPath}". Empty titles are omitted from our sidebar. Ideally, they should be removed in the source MDX.`
+          )
+        }
+      })
 
       const fullNavData = [
         ...navData,
@@ -109,7 +131,7 @@ export function getStaticGenerationFunctions<
           },
           breadcrumbLinks,
           githubFileUrl,
-          headings,
+          headings: nonEmptyHeadings,
           navData: navDataWithFullPaths,
           productName: product.name,
         },
