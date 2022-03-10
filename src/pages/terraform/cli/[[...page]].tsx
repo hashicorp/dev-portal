@@ -8,9 +8,11 @@ import DocsView from 'views/docs-view'
 const basePath = 'cli'
 const baseName = 'CLI'
 const product = terraformData as Product
-// TODO: productSlug should possibly actually be `terraform`,
-// TODO: but https://mktg-content-api.vercel.app/api/content/terraform/version-metadata?partial=true
-// TODO: does not return any version with "isLatest: true"
+/**
+ * TODO: productSlug should possibly actually be `terraform`,
+ * but https://mktg-content-api.vercel.app/api/content/terraform/version-metadata?partial=true
+ * does not return any version with "isLatest: true"
+ */
 const productSlugForLoader = 'terraform-website'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

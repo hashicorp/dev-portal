@@ -10,11 +10,9 @@ const baseName = 'Plugin'
 const product = terraformData as Product
 const productSlugForLoader = 'terraform-website'
 
-const additionalComponents = {}
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const TerraformPluginPage = ({ mdxSource }): ReactElement => {
-  return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
+  return <DocsView {...mdxSource} />
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
