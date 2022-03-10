@@ -46,7 +46,7 @@ const ProductDownloadsViewContent = ({
   } = pageContent
   const currentProduct = useCurrentProduct()
   const { currentVersion } = useCurrentVersion()
-  const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
+  const backToLinkProps = useMemo(() => initializeBackToLink(currentProduct), [
     currentProduct,
   ])
   const breadcrumbLinks = useMemo(
@@ -70,7 +70,7 @@ const ProductDownloadsViewContent = ({
   return (
     <SidebarSidecarLayout
       sidebarProps={{
-        backToLink,
+        backToLinkProps,
         menuItems: navData,
         showFilterInput: false,
         title: currentProduct.name,

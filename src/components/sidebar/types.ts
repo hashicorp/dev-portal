@@ -1,3 +1,5 @@
+import { SidebarBackToLinkProps } from './components/sidebar-back-to-link/types'
+
 /**
  *
  * For reference: this is also defined in react-components/docs-sidenav:
@@ -22,10 +24,7 @@ export interface MenuItem {
 
 export interface SidebarProps {
   /** Optional { text, url } to use for the "← Back to..." link at the top of the sidebar */
-  backToLink?: {
-    text: string
-    url: string
-  }
+  backToLinkProps?: SidebarBackToLinkProps
   menuItems: MenuItem[]
   /** Whether or not the Sidebar should render the filter text input */
   showFilterInput?: boolean

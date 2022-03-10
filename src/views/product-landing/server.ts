@@ -89,7 +89,7 @@ async function generateStaticProps({
           slug: slug,
           level,
         })),
-      backToLink: {
+      backToLinkProps: {
         text: 'Back to Developer',
         url: '/',
       },
@@ -98,7 +98,7 @@ async function generateStaticProps({
         { title: product.name, url: `/${product.slug}` },
       ],
       sidebarProps: {
-        backToLink: {
+        backToLinkProps: {
           text: 'Back to Developer',
           url: '/',
         },

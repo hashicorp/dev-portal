@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 import useCurrentPath from 'hooks/use-current-path'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
@@ -88,12 +88,12 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
   return filteredItems
 }
 
-const Sidebar: React.FC<SidebarProps> = ({
-  backToLink = {},
+const Sidebar = ({
+  backToLinkProps = {},
   menuItems,
   showFilterInput = true,
   title,
-}) => {
+}: SidebarProps): ReactElement => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
     () => addItemMetadata(currentPath, menuItems),
@@ -104,7 +104,10 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <div className={s.sidebar}>
-      <SidebarBackToLink text={backToLink.text} url={backToLink.url} />
+      <SidebarBackToLink
+        text={backToLinkProps.text}
+        url={backToLinkProps.url}
+      />
       {showFilterInput && (
         <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       )}

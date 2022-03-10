@@ -105,7 +105,7 @@ export function getStaticGenerationFunctions<
           githubFileUrl,
           headings,
           sidebarProps: {
-            backToLink: {
+            backToLinkProps: {
               text: `Back to ${product.name}`,
               url: `/${product.slug}`,
             },

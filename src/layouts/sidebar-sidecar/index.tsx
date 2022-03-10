@@ -21,7 +21,7 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
     <div className={s.contentWrapper}>
       <div className={s.sidebar}>
         <Sidebar
-          backToLink={sidebarProps.backToLink}
+          backToLinkProps={sidebarProps.backToLinkProps}
           menuItems={sidebarProps.menuItems}
           showFilterInput={sidebarProps.showFilterInput}
           title={sidebarProps.title}

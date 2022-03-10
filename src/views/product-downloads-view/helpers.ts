@@ -116,7 +116,7 @@ export const getPageSubtitle = ({
 
 export const initializeBackToLink = (
   currentProduct: Pick<Product, 'name' | 'slug'>
-): SidebarProps['backToLink'] => {
+): SidebarProps['backToLinkProps'] => {
   return {
     text: `Back to ${currentProduct.name}`,
     url: `/${currentProduct.slug}`,
