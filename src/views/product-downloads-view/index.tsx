@@ -14,7 +14,6 @@ import {
 import {
   generateDefaultPackageManagers,
   generatePackageManagers,
-  getPageSubtitle,
   initializeBackToLink,
   initializeBreadcrumbLinks,
   initializeNavData,
@@ -39,6 +38,12 @@ const ProductDownloadsViewContent = ({
   releases,
   versionSwitcherOptions,
 }: ProductDownloadsViewContentProps) => {
+  const {
+    doesNotHavePackageManagers,
+    featuredTutorials,
+    packageManagerOverrides,
+    sidecarMarketingCard,
+  } = pageContent
   const currentProduct = useCurrentProduct()
   const { currentVersion } = useCurrentVersion()
   const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
@@ -51,14 +56,16 @@ const ProductDownloadsViewContent = ({
   const navData = useMemo(() => initializeNavData(currentProduct), [
     currentProduct,
   ])
-  const packageManagers = useMemo(
-    () =>
-      generatePackageManagers({
-        defaultPackageManagers: generateDefaultPackageManagers(currentProduct),
-        packageManagerOverrides: pageContent.packageManagerOverrides,
-      }),
-    [currentProduct, pageContent.packageManagerOverrides]
-  )
+  const packageManagers = useMemo(() => {
+    if (doesNotHavePackageManagers) {
+      return []
+    }
+
+    return generatePackageManagers({
+      defaultPackageManagers: generateDefaultPackageManagers(currentProduct),
+      packageManagerOverrides: packageManagerOverrides,
+    })
+  }, [currentProduct, doesNotHavePackageManagers, packageManagerOverrides])
 
   return (
     <SidebarSidecarLayout
@@ -67,9 +74,7 @@ const ProductDownloadsViewContent = ({
       navData={navData}
       productName={currentProduct.name}
       showFilterInput={false}
-      sidecarChildren={
-        <SidecarMarketingCard {...pageContent.sidecarMarketingCard} />
-      }
+      sidecarChildren={<SidecarMarketingCard {...sidecarMarketingCard} />}
     >
       <PageHeader />
       <DownloadsSection
@@ -78,9 +83,9 @@ const ProductDownloadsViewContent = ({
         versionSwitcherOptions={versionSwitcherOptions}
       />
       <OfficialReleasesSection />
-      <FeaturedTutorialsSection
-        featuredTutorials={pageContent.featuredTutorials}
-      />
+      {featuredTutorials && (
+        <FeaturedTutorialsSection featuredTutorials={featuredTutorials} />
+      )}
     </SidebarSidecarLayout>
   )
 }

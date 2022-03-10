@@ -36,10 +36,22 @@ const VersionContextSwitcher = ({
     }
   }
 
+  /**
+   * TODO: hopefully this is temporary. Because Sentinel does not have a
+   * `ProductIcon` and the component intentionally returns `null` for if the
+   * value for the `product` prop is `'sentinel'`, opting to pass a different
+   * value for Sentinel here rather than affect all current references to
+   * ProductIcon.
+   *  - `ProductSwitcher` is one example that would be imacted by adding a
+   *    ProductIcon for Sentinel. We currently do not want to render an icon
+   *    for Sentinel in `ProductSwitcher`.
+   */
+  const productIconSlug =
+    currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
   return (
     <div className={s.root}>
       <span className={s.productIcon}>
-        <ProductIcon product={currentProduct.slug} />
+        <ProductIcon product={productIconSlug} />
       </span>
       <select
         aria-label="Choose a different version to install"

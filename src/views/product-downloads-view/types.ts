@@ -27,7 +27,8 @@ export interface ProductDownloadsViewContentProps {
 export interface ProductDownloadsViewProps {
   latestVersion: string
   pageContent: {
-    featuredTutorials: FeaturedTutorial[]
+    doesNotHavePackageManagers?: boolean
+    featuredTutorials?: FeaturedTutorial[]
     packageManagerOverrides?: PackageManager[]
     sidecarMarketingCard: SidecarMarketingCardProps
   }
