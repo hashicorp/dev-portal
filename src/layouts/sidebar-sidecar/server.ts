@@ -85,7 +85,10 @@ export function getStaticGenerationFunctions<
        * "/terraform/enterprise/install/automated/active-active"
        * Passing empty headings to the client creates broken behaviour,
        * so we filter them out.
-       * TODO: This change should perhaps be moved into our anchor-links plugin
+       * TODO: This change should perhaps be moved into our anchor-links plugin.
+       * Either way, we will likely need to keep this fix in place indefinitely,
+       * UNLESS we either fix all past versions of docs, OR implement a version
+       * cutoff that excludes all past versions of docs with this issue.
        */
       const nonEmptyHeadings = headings.slice().filter(({ title }) => {
         const isValid = typeof title == 'string' && title !== ''
