@@ -16,7 +16,7 @@ const productSlugForLoader = 'terraform-website'
 const additionalComponents = {}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const TerraformIntroPage = ({ mdxSource }): ReactElement => {
+const TerraformLanguagePage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }
 
@@ -27,7 +27,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   baseName,
 })
 
-TerraformIntroPage.layout = SidebarSidecarLayout
+TerraformLanguagePage.layout = SidebarSidecarLayout
 
 export { getStaticPaths, getStaticProps }
-export default TerraformIntroPage
+export default TerraformLanguagePage

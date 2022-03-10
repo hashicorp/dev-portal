@@ -5,15 +5,15 @@ import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DocsView from 'views/docs-view'
 
-const basePath = 'plugin'
-const baseName = 'Plugin'
+const basePath = 'registry'
+const baseName = 'Registry'
 const product = terraformData as Product
 const productSlugForLoader = 'terraform-website'
 
 const additionalComponents = {}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const TerraformPluginPage = ({ mdxSource }): ReactElement => {
+const TerraformRegistryPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }
 
@@ -24,7 +24,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   baseName,
 })
 
-TerraformPluginPage.layout = SidebarSidecarLayout
+TerraformRegistryPage.layout = SidebarSidecarLayout
 
 export { getStaticPaths, getStaticProps }
-export default TerraformPluginPage
+export default TerraformRegistryPage

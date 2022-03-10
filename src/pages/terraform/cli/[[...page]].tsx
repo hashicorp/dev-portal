@@ -13,11 +13,9 @@ const product = terraformData as Product
 // TODO: does not return any version with "isLatest: true"
 const productSlugForLoader = 'terraform-website'
 
-const additionalComponents = {}
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const TerraformCliPage = ({ mdxSource }): ReactElement => {
-  return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
+  return <DocsView {...mdxSource} />
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({

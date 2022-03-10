@@ -10,11 +10,9 @@ const baseName = 'CDKTF'
 const product = terraformData as Product
 const productSlugForLoader = 'terraform-cdk'
 
-const additionalComponents = {}
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const TerraformCdktfPage = ({ mdxSource }): ReactElement => {
-  return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
+  return <DocsView {...mdxSource} />
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
