@@ -2,6 +2,7 @@ import { ReactElement, useMemo } from 'react'
 import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
+import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
 import { useCurrentVersion } from 'views/product-downloads-view/contexts'
@@ -53,26 +54,19 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
         />
       )}
       {hasManyPackageManagers && (
-        /**
-         * TODO: this will eventually be <CodeTabs> once a bug has
-         * been fixed.
-         *
-         * ref: https://app.asana.com/0/1201010428539925/1201881376116200/f
-         */
-        <Tabs showAnchorLine={false}>
+        <CodeTabs tabs={packageManagers.map(({ label }) => label)}>
           {packageManagers.map(({ label, commands }) => {
             return (
-              <Tab heading={label} key={label}>
-                <CodeBlock
-                  className={s.codeTabsCodeBlock}
-                  code={generateCodePropFromCommands(commands)}
-                  language="shell-session"
-                  options={{ showClipboard: true }}
-                />
-              </Tab>
+              <CodeBlock
+                key={label}
+                className={s.codeTabsCodeBlock}
+                code={generateCodePropFromCommands(commands)}
+                language="shell-session"
+                options={{ showClipboard: true }}
+              />
             )
           })}
-        </Tabs>
+        </CodeTabs>
       )}
     </>
   )
