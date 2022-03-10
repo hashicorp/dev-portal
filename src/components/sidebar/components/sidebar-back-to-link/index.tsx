@@ -60,4 +60,5 @@ const PlaceholderBackToLink = (): ReactElement => {
   )
 }
 
+export type { SidebarBackToLinkProps }
 export default SidebarBackToLink

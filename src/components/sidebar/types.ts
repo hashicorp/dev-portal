@@ -1,4 +1,4 @@
-import { SidebarBackToLinkProps } from './components/sidebar-back-to-link/types'
+import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 
 /**
  *
