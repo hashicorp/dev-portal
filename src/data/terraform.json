@@ -53,7 +53,7 @@
     },
     {
       "label": "Config",
-      "path": "/terraform/config",
+      "path": "/terraform/configuration",
       "id": "config"
     },
     {
