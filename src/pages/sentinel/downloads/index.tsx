@@ -8,7 +8,7 @@ import EmptyLayout from 'layouts/empty'
 import ProductDownloadsView from 'views/product-downloads-view'
 import PlaceholderDownloadsView from 'views/placeholder-product-downloads-view'
 
-const SentienlDownloadsPage = (props: GeneratedProps): ReactElement => {
+const SentinelDownloadsPage = (props: GeneratedProps): ReactElement => {
   if (__config.flags.enable_new_downloads_view) {
     const { latestVersion, releases } = props
     return (
@@ -29,6 +29,6 @@ export const getStaticProps: GetStaticProps = async () => {
   return generateStaticProps(product)
 }
 
-SentienlDownloadsPage.layout = EmptyLayout
+SentinelDownloadsPage.layout = EmptyLayout
 
-export default SentienlDownloadsPage
+export default SentinelDownloadsPage
