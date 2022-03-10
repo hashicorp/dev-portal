@@ -52,12 +52,6 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
         />
       )}
       {hasManyPackageManagers && (
-        /**
-         * TODO: this will eventually be <CodeTabs> once a bug has
-         * been fixed.
-         *
-         * ref: https://app.asana.com/0/1201010428539925/1201881376116200/f
-         */
         <CodeTabs tabs={packageManagers.map(({ label }) => label)}>
           {packageManagers.map(({ label, commands }) => {
             return (
