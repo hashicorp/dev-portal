@@ -31,7 +31,8 @@ export async function getTutorialPageProps(
    * the tutorialSlug passed in is based on /{collection-name}/{tutorial-name}
    * from the params. So we can assume `slug` index 1 is always the tutorial name
    * */
-  const dbSlug = `${product.slug}/${slug[1]}`
+  const tutorialFilename = slug[1]
+  const dbSlug = `${product.slug}/${tutorialFilename}`
   const tutorial = await getTutorial(dbSlug)
 
   return {
