@@ -20,7 +20,9 @@ async function fetchDocsFiles({ repo, tag }) {
   const docsZipResponse = await fetch(docsZipUrl, { method: 'GET' })
   const hasDocsZip = docsZipResponse.status === 200
   // Note: early return!
-  if (hasDocsZip) return await parseDocsZip(docsZipResponse)
+  if (hasDocsZip) {
+    return await parseDocsZip(docsZipResponse)
+  }
   // Else if docs.zip is not present, and we only have the "latest" tag,
   // then throw an error - we can't resolve the fallback source ZIP
   // unless we resort to calling the GitHub API, which we do not want to do

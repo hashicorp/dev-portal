@@ -26,9 +26,13 @@ export function makeFetchWithRetry(
 
     while (attempts <= retries) {
       // if we've passed in a delay, multiple it by the number of attempts to introduce a linear backoff
-      if (delay && attempts > 0) await sleep(delay * attempts)
+      if (delay && attempts > 0) {
+        await sleep(delay * attempts)
+      }
       const result = await tryFetch()
-      if (result) return result
+      if (result) {
+        return result
+      }
     }
 
     // should never actually be returned, but is required to satisfy TS
