@@ -32,13 +32,19 @@ export async function getTutorialPageProps(
    * */
   const tutorialFilename = slug[1]
   const dbSlug = `${product.slug}/${tutorialFilename}`
-  const tutorial = await getTutorial(dbSlug)
-  const serializedContent = await serializeContent(tutorial)
+  const baseTutorialData = await getTutorial(dbSlug)
+
+  // if the tutorial doesn't exist, return null
+  if (baseTutorialData === null) {
+    return null
+  }
+
+  const serializedContent = await serializeContent(baseTutorialData)
 
   return {
     props: stripUndefinedProperties({
       tutorial: {
-        ...tutorial,
+        ...baseTutorialData,
         content: serializedContent,
       },
       product,

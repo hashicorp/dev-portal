@@ -1,6 +1,8 @@
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
-import { Tab } from '@hashicorp/react-tabs'
-import Tabs from 'components/tabs'
+import Tabs, { Tab } from '@hashicorp/react-tabs'
+/**
+ * @TODO move over these components, update to new spec
+ */
 // import Accordion from 'components/accordion'
 // import { LabToggleButton } from 'components/lab-embed'
 // import VideoEmbed from 'components/video-embed'
