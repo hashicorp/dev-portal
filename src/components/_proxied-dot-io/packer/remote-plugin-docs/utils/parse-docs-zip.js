@@ -27,7 +27,9 @@ async function parseDocsZip(response) {
   // Validate the file paths within the "docs" folder
   const docsFilePaths = docsEntries.map((e) => e.entryName)
   const validationError = validatePluginDocsFiles(docsFilePaths)
-  if (validationError) return [validationError, null]
+  if (validationError) {
+    return [validationError, null]
+  }
   // If valid, filter for MDX files only, and return
   // a { filePath, fileString } object for each mdx file
   const docsMdxFiles = docsEntries

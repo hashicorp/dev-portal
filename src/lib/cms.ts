@@ -12,7 +12,9 @@ let url = process.env.HASHI_DATO_ENVIRONMENT
   ? `https://graphql.datocms.com/environments/${process.env.HASHI_DATO_ENVIRONMENT}`
   : 'https://graphql.datocms.com'
 
-if (process.env.HASHI_ENV === 'preview') url += '/preview'
+if (process.env.HASHI_ENV === 'preview') {
+  url += '/preview'
+}
 
 const token = process.env.HASHI_DATO_TOKEN || '2f7896a6b4f1948af64900319aed60'
 

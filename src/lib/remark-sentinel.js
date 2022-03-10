@@ -6,7 +6,9 @@ module.exports = () => (tree) => {
   visit(tree, 'code', (node) => {
     let example
     if (node.lang === 'sentinel') {
-      if (!node.meta || !node.meta.includes('playground')) return
+      if (!node.meta || !node.meta.includes('playground')) {
+        return
+      }
       example = {
         policy: node.value,
       }

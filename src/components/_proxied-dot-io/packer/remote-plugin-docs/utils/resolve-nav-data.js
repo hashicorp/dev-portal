@@ -102,6 +102,7 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
     repo,
     version,
     pluginTier,
+    archived = false,
     isHcpPackerReady = false,
     sourceBranch = 'main',
     zipFile = '',
@@ -151,6 +152,7 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
         tier: parsedPluginTier,
         isHcpPackerReady,
         version,
+        archived,
       },
     }
   })
@@ -160,14 +162,20 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
     const aTitle = a.title.toLowerCase()
     const bTitle = b.title.toLowerCase()
     // (exception: "Overview" comes first)
-    if (aTitle === 'overview') return -1
-    if (bTitle === 'overview') return 1
+    if (aTitle === 'overview') {
+      return -1
+    }
+    if (bTitle === 'overview') {
+      return 1
+    }
     return aTitle < bTitle ? -1 : aTitle > bTitle ? 1 : 0
   })
   //
   const navNodesByComponent = navNodes.reduce((acc, navLeaf) => {
     const componentType = navLeaf.remoteFile.filePath.split('/')[1]
-    if (!acc[componentType]) acc[componentType] = []
+    if (!acc[componentType]) {
+      acc[componentType] = []
+    }
     acc[componentType].push(navLeaf)
     return acc
   }, {})
@@ -176,7 +184,9 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
     // Plugins many not contain every component type,
     // we return null if this is the case
     const rawNavNodes = navNodesByComponent[type]
-    if (!rawNavNodes) return null
+    if (!rawNavNodes) {
+      return null
+    }
     // Avoid unnecessary nesting if there's only a single doc file
     const navData = normalizeNavNodes(title, rawNavNodes)
     // Prefix paths to fit into broader docs nav-data
@@ -191,10 +201,14 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
     // Without this optimization, we would send all fileStrings
     // for all NavLeafRemote nodes
     const withOptimizedFileStrings = visitNavLeaves(withPrefixedPaths, (n) => {
-      if (!n.remoteFile) return n
+      if (!n.remoteFile) {
+        return n
+      }
       const noCurrentPath = typeof currentPath === 'undefined'
       const isPathMatch = currentPath === n.path
-      if (noCurrentPath || isPathMatch) return n
+      if (noCurrentPath || isPathMatch) {
+        return n
+      }
       const { filePath } = n.remoteFile
       return { ...n, remoteFile: { filePath } }
     })
@@ -202,7 +216,9 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
     return { type, navData: withOptimizedFileStrings }
   })
   const componentsObj = components.reduce((acc, component) => {
-    if (!component) return acc
+    if (!component) {
+      return acc
+    }
     acc[component.type] = component.navData
     return acc
   }, {})

@@ -24,7 +24,9 @@ function Terminal({ tabs, children }: TerminalProps): JSX.Element {
   }
   useInterval(
     () => {
-      if (!tabs) return
+      if (!tabs) {
+        return
+      }
       if (tabIndex >= tabs.length - 1) {
         setTabIndex(0)
       } else {

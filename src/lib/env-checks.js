@@ -19,7 +19,9 @@ function isPreview() {
  */
 function getProxiedProductSlug(hostname) {
   const proxiedProductSlug = PROXIED_PRODUCTS.reduce((acc, slug) => {
-    if (!acc && isProxiedProduct(slug, hostname)) return slug
+    if (!acc && isProxiedProduct(slug, hostname)) {
+      return slug
+    }
     return acc
   }, false)
   return proxiedProductSlug
@@ -31,10 +33,14 @@ function getProxiedProductSlug(hostname) {
  * @returns {string | boolean | undefined}
  */
 function getMatchedDomain(hostname) {
-  if (!hostname) return
+  if (!hostname) {
+    return
+  }
   const domainProductSlug = PROXIED_PRODUCTS.reduce((acc, slug) => {
     const productHost = proxyConfig[slug].host
-    if (!acc && hostname.match(new RegExp(productHost))) return slug
+    if (!acc && hostname.match(new RegExp(productHost))) {
+      return slug
+    }
     return acc
   }, false)
   return domainProductSlug
