@@ -89,10 +89,6 @@ async function generateStaticProps({
           slug: slug,
           level,
         })),
-      backToLinkProps: {
-        text: 'Back to Developer',
-        url: '/',
-      },
       breadcrumbLinks: [
         { title: 'Developer', url: '/' },
         { title: product.name, url: `/${product.slug}` },
