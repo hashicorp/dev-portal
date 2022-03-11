@@ -8,10 +8,10 @@ import {
 } from 'views/collection-view/server'
 import waypointData from 'data/waypoint.json'
 
-export default function WaypointCollectionPage({
-  collection,
-}: CollectionPageProps): React.ReactElement {
-  return <CollectionView {...collection} />
+export default function WaypointCollectionPage(
+  props: CollectionPageProps
+): React.ReactElement {
+  return <CollectionView {...props} />
 }
 
 export async function getStaticProps({

@@ -1,13 +1,13 @@
 import Link from 'next/link'
-import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { getTutorialSlug } from './helpers'
+import { CollectionPageProps } from './server'
 
 export default function CollectionView({
-  name,
-  slug,
-  description,
-  tutorials,
-}: ClientCollection): React.ReactElement {
+  collection,
+  allProductCollections, // for sidebar section
+  product,
+}: CollectionPageProps): React.ReactElement {
+  const { name, slug, description, tutorials } = collection
   return (
     <>
       <h1>{name}</h1>

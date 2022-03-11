@@ -12,6 +12,7 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 
 export interface CollectionPageProps {
   collection: ClientCollection
+  allProductCollections: ClientCollection[]
   product: CollectionPageProduct
 }
 
@@ -28,12 +29,17 @@ export async function getCollectionPageProps(
   slug: string
 ): Promise<{ props: CollectionPageProps }> {
   const collection = await getCollection(`${product.slug}/${slug}`)
+  // For sidebar data
+  const allProductCollections = await getAllCollections({
+    product: product.slug,
+  })
 
   return {
-    props: {
-      collection: stripUndefinedProperties(collection),
+    props: stripUndefinedProperties({
+      collection: collection,
+      allProductCollections,
       product,
-    },
+    }),
   }
 }
 
