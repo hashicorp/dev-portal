@@ -1,36 +1,29 @@
-/**
- * TODO - create proper view
- */
-
-import {
-  getAllCollections,
-  getCollection,
-} from 'lib/learn-client/api/collection'
-import {
-  Collection as ClientCollection,
-  ProductOption,
-} from 'lib/learn-client/types'
-import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { splitProductFromFilename } from 'views/tutorial-view/helpers'
+import { ProductOption } from 'lib/learn-client/types'
 import CollectionView from 'views/collection-view'
+import {
+  getCollectionPageProps,
+  getCollectionPaths,
+  CollectionPageProduct,
+  CollectionPageProps,
+} from 'views/collection-view/server'
+import waypointData from 'data/waypoint.json'
 
-export default function WaypointCollectionPage(props) {
-  return <CollectionView {...props.collection} />
+export default function WaypointCollectionPage({
+  collection,
+}: CollectionPageProps): React.ReactElement {
+  return <CollectionView {...collection} />
 }
 
 export async function getStaticProps({
   params,
-}): Promise<{ props: { collection: ClientCollection } }> {
+}): Promise<{ props: CollectionPageProps }> {
   const { collectionSlug } = params
-  const collection = await getCollection(
-    `${ProductOption['waypoint']}/${collectionSlug}`
-  )
-
-  return {
-    props: {
-      collection: stripUndefinedProperties(collection),
-    },
-  }
+  const product = {
+    slug: waypointData.slug,
+    name: waypointData.name,
+  } as CollectionPageProduct
+  const props = await getCollectionPageProps(product, collectionSlug)
+  return props
 }
 
 interface CollectionPagePaths {
@@ -43,14 +36,7 @@ export async function getStaticPaths(): Promise<{
   paths: CollectionPagePaths[]
   fallback: boolean
 }> {
-  const collections = await getAllCollections({
-    product: ProductOption['waypoint'],
-  })
-  const paths = collections.map((collection) => ({
-    params: {
-      collectionSlug: splitProductFromFilename(collection.slug),
-    },
-  }))
+  const paths = await getCollectionPaths(ProductOption['waypoint'])
   return {
     paths,
     fallback: false,
