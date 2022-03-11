@@ -14,7 +14,7 @@ Check these items off in the GitHub PR UI as you complete them.
 
 ## Relevant links
 
-- [Preview link](url) 🔎
+- [Preview link](https://dev-portal-git-BRANCH_NAME-hashicorp.vercel.app/PATH_TO_VIEW) 🔎
 - [Asana task](url) 🎟️
 
 ## What
