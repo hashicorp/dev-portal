@@ -1,8 +1,8 @@
-const visit = require('unist-util-visit')
+import { visit } from 'unist-util-visit'
 
 const api = process.env.PLAYGROUND_API_URL
 
-module.exports = () => (tree) => {
+const remarkSentinel = () => (tree) => {
   visit(tree, 'code', (node) => {
     let example
     if (node.lang === 'sentinel') {
@@ -28,3 +28,5 @@ module.exports = () => (tree) => {
     }
   })
 }
+
+export default remarkSentinel
