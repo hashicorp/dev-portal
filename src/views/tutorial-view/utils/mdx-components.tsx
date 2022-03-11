@@ -1,5 +1,5 @@
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
-import Tabs, { Tab } from '@hashicorp/react-tabs' // @TODO use the new tabs within dev-portal, once we figure out groups
+import Tabs, { Tab } from 'components/tabs' // @TODO note that this doesn't support groups yet
 /**
  * @TODO move over these components from learn, update to new spec
  *
