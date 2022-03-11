@@ -138,7 +138,7 @@
     "rivet-graphql": "^0.3.1",
     "slugify": "^1.6.4",
     "swingset": "^0.11.0",
-    "unified": "^10.1.1",
+    "unified": "^9.2.0",
     "unist-util-visit": "^4.1.0",
     "validator": "^13.7.0"
   },
