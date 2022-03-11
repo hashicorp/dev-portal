@@ -1,7 +1,20 @@
 {
   "slug": "terraform",
   "name": "Terraform",
-  "basePaths": ["language"],
+  "basePaths": [
+    "cdktf",
+    "cli",
+    "cloud-docs",
+    "configuration",
+    "docs",
+    "enterprise",
+    "guides",
+    "internals",
+    "intro",
+    "language",
+    "plugin",
+    "registry"
+  ],
   "sidebar": {
     "landingPageNavData": [
       { "title": "Introduction", "fullPath": "/terraform" },
