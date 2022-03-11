@@ -9,25 +9,22 @@ import { SidebarSidecarLayoutProps } from './types'
 import s from './sidebar-sidecar-layout.module.css'
 
 const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
-  backToLink,
   breadcrumbLinks,
   children,
   githubFileUrl,
   headings,
-  navData,
   openConsentManager,
-  productName,
-  showFilterInput,
+  sidebarProps,
   sidecarChildren,
 }) => (
   <BaseLayout showFooter={false}>
     <div className={s.contentWrapper}>
       <div className={s.sidebar}>
         <Sidebar
-          backToLink={backToLink}
-          menuItems={navData}
-          showFilterInput={showFilterInput}
-          title={productName}
+          backToLinkProps={sidebarProps.backToLinkProps}
+          menuItems={sidebarProps.menuItems}
+          showFilterInput={sidebarProps.showFilterInput}
+          title={sidebarProps.title}
         />
       </div>
       <div className={s.mainArea}>

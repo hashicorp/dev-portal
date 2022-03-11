@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
-import { MenuItem } from 'components/sidebar'
+import { SidebarProps } from 'components/sidebar'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 
 /**
@@ -13,17 +13,11 @@ import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table
  */
 
 interface BaseProps {
-  backToLink?: {
-    text: string
-    url: string
-  }
   breadcrumbLinks?: BreadcrumbLink[]
   children: React.ReactNode
   githubFileUrl?: string
-  navData: MenuItem[]
   openConsentManager?: () => void
-  productName: string
-  showFilterInput?: boolean
+  sidebarProps: SidebarProps
 }
 
 interface PropsForTableOfContents extends BaseProps {

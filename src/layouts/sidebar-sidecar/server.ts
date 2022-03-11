@@ -128,15 +128,17 @@ export function getStaticGenerationFunctions<
 
       const finalProps = {
         layoutProps: {
-          backToLink: {
-            text: `Back to ${product.name}`,
-            url: `/${product.slug}`,
-          },
           breadcrumbLinks,
           githubFileUrl,
           headings: nonEmptyHeadings,
-          navData: navDataWithFullPaths,
-          productName: product.name,
+          sidebarProps: {
+            backToLinkProps: {
+              text: `Back to ${product.name}`,
+              url: `/${product.slug}`,
+            },
+            menuItems: navDataWithFullPaths,
+            title: product.name,
+          },
         },
         mdxSource,
         product,

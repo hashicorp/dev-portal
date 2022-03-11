@@ -89,16 +89,19 @@ async function generateStaticProps({
           slug: slug,
           level,
         })),
-      navData,
-      productName: product.name,
-      backToLink: {
-        text: 'Back to Developer',
-        url: '/',
-      },
       breadcrumbLinks: [
         { title: 'Developer', url: '/' },
         { title: product.name, url: `/${product.slug}` },
       ],
+      sidebarProps: {
+        backToLinkProps: {
+          text: 'Back to Developer',
+          url: '/',
+        },
+        menuItems: navData,
+        showFilterInput: false,
+        title: product.name,
+      },
     },
     product,
   }

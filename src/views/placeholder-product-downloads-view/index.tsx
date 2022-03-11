@@ -35,8 +35,10 @@ const PlaceholderDownloadsView = (): ReactElement => {
 
   return (
     <SidebarSidecarLayout
-      navData={navData}
-      productName={currentProduct.name}
+      sidebarProps={{
+        menuItems: navData,
+        title: currentProduct.name,
+      }}
       sidecarChildren={<PlaceholderSidecarContent />}
     >
       <h1>Install {currentProduct.name}</h1>
