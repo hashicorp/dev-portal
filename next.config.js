@@ -4,13 +4,15 @@ const flat = require('flat')
 const { webpack } = require('next/dist/compiled/webpack/webpack')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
-// const redirectsConfig = require('./config/redirects')
-// const rewritesConfig = require('./config/rewrites')
+
+// TODO: `assembly-ui-v1` had these commented out
+const redirectsConfig = require('./config/redirects')
+const rewritesConfig = require('./config/rewrites')
 
 // temporary: set all paths as noindex, until we're serving from this project
 // Update the excluded domains to ensure we are indexing content as the io sites get migrated
 const temporary_hideDocsPaths = {
-  source: '/:path*{/}?',
+  source: '/:path*',
   headers: [
     {
       key: 'X-Robots-Tag',
@@ -27,46 +29,8 @@ const temporary_hideDocsPaths = {
 }
 
 /**
- * Reads in config files from config/[env].json and replaces references in the code
- * with the literal values using webpack.DefinePlugin
- */
-function HashiConfigPlugin() {
-  const env = process.env.HASHI_ENV || 'development'
-  const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
-
-  function getHashiConfig(path) {
-    try {
-      const envConfig = JSON.parse(fs.readFileSync(path))
-      const ret = flat(envConfig, {
-        safe: true,
-      })
-      return ret
-    } catch (err) {
-      console.log('Error loading environment config:', err)
-      return {}
-    }
-  }
-
-  return new webpack.DefinePlugin({
-    ...Object.fromEntries(
-      Object.entries(getHashiConfig(envConfigPath)).map(([key]) => {
-        return [
-          `__config.${key}`,
-          webpack.DefinePlugin.runtimeValue(
-            () => {
-              return JSON.stringify(getHashiConfig(envConfigPath)[key])
-            },
-            { fileDependencies: [envConfigPath] }
-          ),
-        ]
-      })
-    ),
-  })
-}
-
-/**
- * Reads in config files from config/[env].json and replaces references in the code
- * with the literal values using webpack.DefinePlugin
+ * Reads in config files from config/[env].json and replaces references in the
+ * code with the literal values using webpack.DefinePlugin
  */
 function HashiConfigPlugin() {
   const env = process.env.HASHI_ENV || 'development'
@@ -129,15 +93,14 @@ module.exports = withSwingset({
     async headers() {
       return [temporary_hideDocsPaths]
     },
-    /**
-     * TODO: Commented out for the assembly-ui-v1 branch
-     */
-    // async redirects() {
-    //   return await redirectsConfig()
-    // },
-    // async rewrites() {
-    //   return await rewritesConfig()
-    // },
+    // TODO: was commented out on `assembly-ui-v1`
+    async redirects() {
+      return await redirectsConfig()
+    },
+    // TODO: was commented out on `assembly-ui-v1`
+    async rewrites() {
+      return await rewritesConfig()
+    },
     env: {
       AXE_ENABLED: process.env.AXE_ENABLED || false,
       BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',
@@ -146,7 +109,8 @@ module.exports = withSwingset({
       ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
       HASHI_ENV: process.env.HASHI_ENV || 'development',
       IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
-      SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
+      // TODO: was in `assembly-ui-v1`, needed in `main`?
+      // SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
     },
     svgo: {
       plugins: [
