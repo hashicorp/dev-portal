@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import BaseNewLayout from 'layouts/base-new'
 import Heading from 'components/heading'
 import HomepageHero from 'components/homepage-hero'
 import ProductCardGrid from 'components/product-card-grid'
@@ -22,4 +23,5 @@ function Homepage(): ReactElement {
   )
 }
 
+Homepage.layout = BaseNewLayout
 export default Homepage
