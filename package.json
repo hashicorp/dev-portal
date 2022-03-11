@@ -50,7 +50,7 @@
     "@hashicorp/react-alert-banner": "^7.0.1",
     "@hashicorp/react-button": "^6.0.3",
     "@hashicorp/react-call-to-action": "^4.1.0",
-    "@hashicorp/react-code-block": "^4.1.5",
+    "@hashicorp/react-code-block": "^4.5.0",
     "@hashicorp/react-consent-manager": "^7.0.3",
     "@hashicorp/react-docs-page": "^14.13.0",
     "@hashicorp/react-hashi-stack-menu": "^2.0.7",
@@ -69,6 +69,7 @@
     "@reach/visually-hidden": "^0.16.0",
     "@react-aria/ssr": "^3.1.0",
     "@react-aria/utils": "^3.11.0",
+    "@vercel/fetch": "^6.2.0",
     "classnames": "^2.3.1",
     "mdast": "^3.0.0",
     "next": "^11.1.2",
@@ -79,7 +80,8 @@
     "slugify": "^1.6.4",
     "swingset": "^0.11.0",
     "unified": "^10.1.1",
-    "unist-util-visit": "^4.1.0"
+    "unist-util-visit": "^4.1.0",
+    "validator": "^13.7.0"
   },
   "nextBundleAnalysis": {
     "budget": null,
