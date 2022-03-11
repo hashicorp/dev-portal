@@ -1,10 +1,3 @@
-@import '~@hashicorp/design-system-tokens/devdot/css/tokens.css';
-@import '~@hashicorp/design-system-tokens/devdot/css/helpers/elevation.css';
-@import '~@hashicorp/design-system-tokens/devdot/css/helpers/typography.css';
-
-/* Local global style helpers */
-@import 'styles/sizing.css';
-
 /*
 * About this selector:
 * `.g-subnav ~ *` finds all elements after the navigation.
@@ -31,21 +24,12 @@
   font-style: normal;
 }
 
-/* TODO: not sure where else to put this yet */
-button {
-  font-family: var(--font-body);
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-/* Mobile and tablet breakpoints and helper classes */
-
-:root {
+.root {
+  /* Mobile and tablet breakpoints */
   --mobile-width-breakpoint: 728px;
   --tablet-width-breakpoint: 1000px;
 
+  /* Font overwrites */
   --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
@@ -53,6 +37,15 @@ button {
     Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
   --font-monospace: ui-monospace, Menlo, Consolas, Ubuntu Mono, monospace;
+
+  /* TODO: not sure where else to put this yet */
+  & button {
+    font-family: var(--font-body);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 @custom-media --mobile only screen and (max-width: 728px);

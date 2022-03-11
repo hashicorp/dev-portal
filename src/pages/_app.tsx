@@ -1,6 +1,5 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import Cookies from 'js-cookie'
 import { SSRProvider } from '@react-aria/ssr'
 import '@hashicorp/platform-util/nprogress/style.css'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
@@ -29,17 +28,6 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
 })
-
-/**
- * TODO: not sure yet if this works on previews. Cannot only put in App because
- * then global styles are imported and applied after individual component
- * styles. For example, `design-system-tokens` resets `margin` and `padding` of
- * text CSS helpers. If imported in App, then the styles in Heading are
- * overwritten.
- */
-if (!Cookies.get('io_preview')) {
-  require('./dev-dot.css')
-}
 
 export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()

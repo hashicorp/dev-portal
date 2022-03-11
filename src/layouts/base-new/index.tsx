@@ -1,6 +1,7 @@
 import DevAlertBanner from 'components/dev-alert-banner'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import s from './base-new-layout.module.css'
 
 interface BaseNewLayoutProps {
@@ -15,18 +16,20 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
   showFooter = true,
 }) => {
   return (
-    <div className={s.root} data-layout="base-new">
-      <div className={s.header}>
-        <DevAlertBanner />
-        <NavigationHeader />
-      </div>
-      <div className={s.contentArea}>{children}</div>
-      {showFooter && (
-        <div className={s.footer}>
-          <Footer openConsentManager={openConsentManager} />
+    <CoreDevDotLayout>
+      <div className={s.root} data-layout="base-new">
+        <div className={s.header}>
+          <DevAlertBanner />
+          <NavigationHeader />
         </div>
-      )}
-    </div>
+        <div className={s.contentArea}>{children}</div>
+        {showFooter && (
+          <div className={s.footer}>
+            <Footer openConsentManager={openConsentManager} />
+          </div>
+        )}
+      </div>
+    </CoreDevDotLayout>
   )
 }
 

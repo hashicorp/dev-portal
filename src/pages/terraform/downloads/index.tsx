@@ -8,7 +8,7 @@ import terraformData from 'data/terraform.json'
 import installData from 'data/terraform-install.json'
 import { Product } from 'types/products'
 import { generateStaticProps, GeneratedProps } from 'lib/fetch-release-data'
-import EmptyLayout from 'layouts/empty'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductDownloadsView from 'views/product-downloads-view'
 import PlaceholderDownloadsView from 'views/placeholder-product-downloads-view'
 
@@ -34,14 +34,18 @@ const TerraformDownloadsPage = (props: GeneratedProps): ReactElement => {
  * https://github.com/hashicorp/terraform-website/blob/master/pages/downloads/index.jsx#L55-L98
  */
 function filterOldVersions(props) {
-  if (!props?.props?.releases?.versions) return props
+  if (!props?.props?.releases?.versions) {
+    return props
+  }
 
   const versions = props.props.releases.versions
 
   // versions is in the form of { [version]: { ...metadata } }
   // Filter by arbitrary & reasonable version cutoff
   const filteredVersions = Object.keys(versions).filter((version) => {
-    if (!semverGte(version, VERSION_DOWNLOAD_CUTOFF)) return false
+    if (!semverGte(version, VERSION_DOWNLOAD_CUTOFF)) {
+      return false
+    }
     return true
   })
 
@@ -87,6 +91,6 @@ export const getStaticProps: GetStaticProps = async () => {
   return generatedProps
 }
 
-TerraformDownloadsPage.layout = EmptyLayout
+TerraformDownloadsPage.layout = CoreDevDotLayout
 
 export default TerraformDownloadsPage
