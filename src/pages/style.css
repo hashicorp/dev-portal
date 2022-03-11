@@ -11,17 +11,6 @@
 
 /*
 ***
-* HashiCorp Design System Tokens imports
-***
-* Repo: https://github.com/hashicorp/design-system/tree/main/packages/tokens
-***
-*/
-@import '~@hashicorp/design-system-tokens/devdot/css/tokens.css';
-@import '~@hashicorp/design-system-tokens/devdot/css/helpers/elevation.css';
-@import '~@hashicorp/design-system-tokens/devdot/css/helpers/typography.css';
-
-/*
-***
 * Locally defined global style helpers
 ***
 */
@@ -143,85 +132,4 @@
 .g-section-block.theme-black-background-white-text {
   background: var(--gray-1);
   color: white;
-}
-
-/*
-***
-* DevDot
-***
-* Note (2022-03-11): These styles were originally ported over from the the
-* `assembly-ui-v1` branch where the initial DevDot UI work started.
-***
-*/
-
-/* Mobile and tablet breakpoints and helper classes */
-:root {
-  --mobile-width-breakpoint: 728px;
-  --tablet-width-breakpoint: 1000px;
-
-  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-  --font-monospace: ui-monospace, Menlo, Consolas, Ubuntu Mono, monospace;
-}
-
-@custom-media --mobile only screen and (max-width: 728px);
-@custom-media --tablet only screen and (min-width: 729px) and (max-width: 1000px);
-
-@media (--mobile) {
-  .g-hide-on-mobile {
-    display: none;
-  }
-}
-
-@media (--tablet) {
-  .g-hide-on-tablet {
-    display: none;
-  }
-}
-
-/* General helper classes */
-
-/* TODO: this will eventually replace the other focus helpers but they are
-heavily used at the moment and need to be refactored carefully. The places they
-are used do extra math to account for padding, which this helper now does with
-padding and negative margin. */
-.focus-ring-from-box-shadow {
-  &:focus {
-    outline: none;
-  }
-
-  &:focus-visible {
-    box-shadow: var(--token-focus-ring-box-shadow);
-    outline: none;
-  }
-}
-
-.g-focus-border-and-box-shadow-light {
-  &:focus,
-  &:focus-visible {
-    outline: none;
-  }
-
-  &:focus-visible {
-    border: 1px solid var(--token-color-palette-blue-200);
-    box-shadow: 0 0 0 3px #5990ff;
-    outline: none;
-  }
-}
-
-.g-focus-border-and-box-shadow-dark {
-  &:focus,
-  &:focus-visible {
-    outline: none;
-  }
-
-  &:focus-visible {
-    border: 1px solid #107dff;
-    box-shadow: 0 0 0 3px #5fbcff;
-    outline: none;
-  }
 }
