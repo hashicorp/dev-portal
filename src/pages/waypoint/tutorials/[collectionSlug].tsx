@@ -11,34 +11,11 @@ import {
   ProductOption,
 } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import Link from 'next/link'
 import { splitProductFromFilename } from 'views/tutorial-view/helpers'
+import CollectionView from 'views/collection-view'
 
 export default function WaypointCollectionPage(props) {
-  return (
-    <>
-      <h1>{props.collection.name}</h1>
-      <p>{props.collection.description}</p>
-      <ol>
-        {props.collection.tutorials.map((tutorial) => {
-          const slug = getTutorialSlug(tutorial.slug, props.collection.slug)
-          return (
-            <li key={tutorial.id}>
-              <Link href={slug}>
-                <a>{tutorial.name}</a>
-              </Link>
-            </li>
-          )
-        })}
-      </ol>
-    </>
-  )
-}
-
-function getTutorialSlug(dbslug: string, collectionSlug: string) {
-  const [product, tutorialFilename] = dbslug.split('/')
-  const collectionFilename = splitProductFromFilename(collectionSlug)
-  return `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
+  return <CollectionView {...props.collection} />
 }
 
 export async function getStaticProps({
