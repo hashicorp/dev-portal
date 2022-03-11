@@ -1,6 +1,60 @@
 {
-  "slug": "packer",
   "name": "Packer",
+  "slug": "packer",
+  "algoliaConfig": {
+    "indexName": "product_PACKER",
+    "searchOnlyApiKey": "4e1ea7f4bf4335ac43d9f28463e42148"
+  },
+  "analyticsConfig": {
+    "includedDomains": "packer.io www.packer.io",
+    "segmentWriteKey": "AjXdfmTTk1I9q9dfyePuDFHBrz1tCO3l"
+  },
+  "metadata": {
+    "title": "Packer by HashiCorp",
+    "description": "Packer is a free and open source tool for creating golden images for multiple platforms from a single source configuration.",
+    "image": "/packer/img/og-image.png",
+    "icon": [
+      {
+        "href": "/packer/favicon.ico"
+      }
+    ]
+  },
+  "alertBannerActive": true,
+  "alertBanner": {
+    "tag": "New",
+    "url": "https://cloud.hashicorp.com/products/packer",
+    "text": "HCP Packer offers automation and security workflows for Packer, and is now generally available.",
+    "linkText": "Sign up for free",
+    "expirationDate": "2022-04-07T23:00:00-07:00"
+  },
+  "version": "1.7.10",
+  "subnavItems": [
+    {
+      "text": "Overview",
+      "url": "/",
+      "type": "inbound"
+    },
+    {
+      "text": "Tutorials",
+      "url": "https://learn.hashicorp.com/packer",
+      "type": "outbound"
+    },
+    {
+      "text": "Docs",
+      "url": "/docs",
+      "type": "inbound"
+    },
+    {
+      "text": "Plugins",
+      "url": "/plugins",
+      "type": "inbound"
+    },
+    {
+      "text": "Community",
+      "url": "/community",
+      "type": "inbound"
+    }
+  ],
   "basePaths": ["docs", "guides", "intro", "plugins"],
   "sidebar": {
     "landingPageNavData": [

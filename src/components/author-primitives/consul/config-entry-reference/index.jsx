@@ -47,7 +47,9 @@ export default function ConfigEntryReference({ keys, topLevel = true }) {
  * @returns {JSX.Element|null}
  */
 function renderKeys(keys, isHCLTab) {
-  if (!keys) return null
+  if (!keys) {
+    return null
+  }
   return <ul>{keys.map((key) => renderKey(key, isHCLTab))}</ul>
 }
 
@@ -59,9 +61,15 @@ function renderKeys(keys, isHCLTab) {
  * @returns {JSX.Element|null}
  */
 function renderKey(key, isHCLTab) {
-  if (!key.name) return null
-  if (isHCLTab && key.hcl === false) return null
-  if (!isHCLTab && key.yaml === false) return null
+  if (!key.name) {
+    return null
+  }
+  if (isHCLTab && key.hcl === false) {
+    return null
+  }
+  if (!isHCLTab && key.yaml === false) {
+    return null
+  }
 
   const keyName = isHCLTab ? key.name : toYAMLKeyName(key.name)
 

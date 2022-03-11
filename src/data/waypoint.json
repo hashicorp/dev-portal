@@ -1,14 +1,17 @@
 {
   "name": "Waypoint",
   "slug": "waypoint",
-  "basePaths": ["commands", "docs", "plugins"],
   "algoliaConfig": {
     "indexName": "product_WAYPOINT",
     "searchOnlyApiKey": "5e4adfd8094367056501547d6fedb6c5"
   },
+  "analyticsConfig": {
+    "includedDomains": "waypointproject.io www.waypointproject.io",
+    "segmentWriteKey": "9mlIVayJbNtJW2EOdAFKHNKcdLAgEDlV"
+  },
   "metadata": {
     "title": "Waypoint by HashiCorp",
-    "description": "Waypoint is  an open source solution that provides a modern workflow for build, deploy, and release across platforms.",
+    "description": "Waypoint is an open source solution that provides a modern workflow for build, deploy, and release across platforms.",
     "image": "/waypoint/img/og-image.png",
     "icon": [
       {
@@ -16,6 +19,47 @@
       }
     ]
   },
+  "alertBannerActive": true,
+  "alertBanner": {
+    "tag": "Thank you",
+    "url": "https://hashiconf.com/europe",
+    "text": "HashiConf Europe is a wrap. Watch this year’s sessions on-demand.",
+    "linkText": "Watch Now",
+    "expirationDate": "2021-06-20T12:00:00-07:00"
+  },
+  "subnavItems": [
+    {
+      "text": "Overview",
+      "url": "/",
+      "type": "inbound"
+    },
+    {
+      "text": "Tutorials",
+      "url": "https://learn.hashicorp.com/waypoint",
+      "type": "inbound"
+    },
+    {
+      "text": "Docs",
+      "url": "/docs",
+      "type": "inbound"
+    },
+    {
+      "text": "CLI",
+      "url": "/commands",
+      "type": "inbound"
+    },
+    {
+      "text": "Plugins",
+      "url": "/plugins",
+      "type": "inbound"
+    },
+    {
+      "text": "Community",
+      "url": "/community",
+      "type": "inbound"
+    }
+  ],
+  "basePaths": ["commands", "docs", "plugins"],
   "sidebar": {
     "landingPageNavData": [
       { "title": "Introduction", "fullPath": "/waypoint/docs/intro" },

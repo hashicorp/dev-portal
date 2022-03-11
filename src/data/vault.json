@@ -1,6 +1,150 @@
 {
-  "slug": "vault",
   "name": "Vault",
+  "slug": "vault",
+  "version": "1.9.3",
+  "changelogUrl": "https://github.com/hashicorp/vault/blob/main/CHANGELOG.md#191",
+  "algoliaConfig": {
+    "indexName": "product_VAULT",
+    "searchOnlyApiKey": "9c555e8fa951c1c53e726c0ce2eb3b73"
+  },
+  "analyticsConfig": {
+    "includedDomains": "vaultproject.io www.vaultproject.io",
+    "segmentWriteKey": "OdSFDq9PfujQpmkZf03dFpcUlywme4sC"
+  },
+  "datoToken": "88b4984480dad56295a8aadae6caad",
+  "metadata": {
+    "title": "Vault by HashiCorp",
+    "description": "Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, auditing, and provides secrets as a service through a unified API.",
+    "image": "/vault/img/og-image.png",
+    "icon": [
+      {
+        "href": "https://www.datocms-assets.com/2885/1597163356-vault-favicon.png?h=16&w=16",
+        "type": "image/png",
+        "sizes": "16x16"
+      },
+      {
+        "href": "https://www.datocms-assets.com/2885/1597163356-vault-favicon.png?h=32&w=32",
+        "type": "image/png",
+        "sizes": "32x32"
+      },
+      {
+        "href": "https://www.datocms-assets.com/2885/1597163356-vault-favicon.png?h=96&w=96",
+        "type": "image/png",
+        "sizes": "96x96"
+      },
+      {
+        "href": "https://www.datocms-assets.com/2885/1597163356-vault-favicon.png?h=192&w=192",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ]
+  },
+  "alertBannerActive": true,
+  "alertBanner": {
+    "tag": "Blog post",
+    "url": "https://www.hashicorp.com/blog/a-new-chapter-for-hashicorp",
+    "text": "HashiCorp shares have begun trading on the Nasdaq. Read the blog from our founders, Mitchell Hashimoto and Armon Dadgar.",
+    "linkText": "Read the post",
+    "expirationDate": "2021-12-17T23:00:00-07:00"
+  },
+  "subnavItems": [
+    {
+      "text": "Overview",
+      "url": "/"
+    },
+    {
+      "text": "Use Cases",
+      "submenu": [
+        {
+          "text": "Secrets Management",
+          "url": "/use-cases/secrets-management"
+        },
+        {
+          "text": "Data Encryption",
+          "url": "/use-cases/data-encryption"
+        },
+        {
+          "text": "Identity-based Access",
+          "url": "/use-cases/identity-based-access"
+        }
+      ]
+    },
+    {
+      "text": "Enterprise",
+      "url": "https://www.hashicorp.com/products/vault/enterprise"
+    },
+    "divider",
+    {
+      "text": "Tutorials",
+      "url": "https://learn.hashicorp.com/vault"
+    },
+    {
+      "text": "Docs",
+      "url": "/docs"
+    },
+    {
+      "text": "API",
+      "url": "/api-docs"
+    },
+    {
+      "text": "Community",
+      "url": "/community"
+    }
+  ],
+  "packageManagers": [
+    {
+      "label": "Homebrew",
+      "commands": [
+        "brew tap hashicorp/tap",
+        "brew install hashicorp/tap/vault"
+      ],
+      "os": "darwin"
+    },
+    {
+      "label": "Ubuntu/Debian",
+      "commands": [
+        "curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -",
+        "sudo apt-add-repository \"deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main\"",
+        "sudo apt-get update && sudo apt-get install vault"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "CentOS/RHEL",
+      "commands": [
+        "sudo yum install -y yum-utils",
+        "sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo",
+        "sudo yum -y install vault"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "Fedora",
+      "commands": [
+        "sudo dnf install -y dnf-plugins-core",
+        "sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
+        "sudo dnf -y install vault"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "Amazon Linux",
+      "commands": [
+        "sudo yum install -y yum-utils",
+        "sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo",
+        "sudo yum -y install vault"
+      ],
+      "os": "linux"
+    },
+    {
+      "label": "Homebrew",
+      "commands": [
+        "brew tap hashicorp/tap",
+        "brew install hashicorp/tap/vault"
+      ],
+      "os": "linux"
+    }
+  ],
   "basePaths": ["docs", "api-docs", "intro"],
   "sidebar": {
     "landingPageNavData": [

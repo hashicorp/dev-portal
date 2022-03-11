@@ -1,32 +1,91 @@
-/* Design system */
-/* TODO In the short term, mktg-global-styles will likely be replaced by
-   @hashicorp/design-system-tokens/marketing/css/tokens.css.
-   In the long term, it may be removed from this project. */
+/*
+***
+* Global style imports
+***
+* TODO: In the short term, mktg-global-styles will likely be replaced by
+* @hashicorp/design-system-tokens/devdot/css/tokens.css. In the long term, it
+* may be removed from this project.
+***
+*/
 @import '~@hashicorp/mktg-global-styles/style.css';
 
+/*
+***
+* HashiCorp Design System Tokens imports
+***
+* Repo: https://github.com/hashicorp/design-system/tree/main/packages/tokens
+***
+*/
 @import '~@hashicorp/design-system-tokens/devdot/css/tokens.css';
 @import '~@hashicorp/design-system-tokens/devdot/css/helpers/elevation.css';
 @import '~@hashicorp/design-system-tokens/devdot/css/helpers/typography.css';
 
-/* Local global style helpers */
+/*
+***
+* Locally defined global style helpers
+***
+*/
+
+/* sizing */
 @import 'styles/sizing.css';
 
-/* Print Styles */
+/* print */
 @import './print.css';
 
 /*
- * About this selector:
- * `.g-subnav ~ *` finds all elements after the navigation.
- * `:target` finds the active permalink on the page.
- *
- * About this style:
- * `scroll-margin-top` adjusts the vertical scroll of a permalink.
- * `64px` adjusts the scroll to account for the navigation.
- * `0.5em` further adjusts the scroll to give the permalink breathing room.
- *
- * See: https://developer.mozilla.org/en-US/docs/Web/CSS/:target
- * See: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-top
- */
+***
+* Proxied .io product page styles
+***
+*/
+
+/* Boundary */
+@import './_proxied-dot-io/boundary/home/style.css';
+@import '../components/_proxied-dot-io/boundary/footer/style.css';
+
+/* Sentinel */
+@import '../components/_proxied-dot-io/sentinel/Footer/style.css';
+@import '../components/_proxied-dot-io/sentinel/NewsletterSignupForm/style.css';
+
+/* Vault */
+@import '../components/_proxied-dot-io/vault/footer/style.css';
+@import '../components/_proxied-dot-io/vault/use-case-cta-section/style.css';
+
+/* Nomad */
+@import './_proxied-dot-io/nomad/home/style.css';
+@import '../components/_proxied-dot-io/nomad/case-study-carousel/style.css';
+@import '../components/_proxied-dot-io/nomad/footer/style.css';
+@import '../components/_proxied-dot-io/nomad/features-list/style.css';
+@import '../components/_proxied-dot-io/nomad/footer/style.css';
+@import '../components/_proxied-dot-io/nomad/homepage-hero/style.css';
+@import '../components/_proxied-dot-io/nomad/mini-cta/style.css';
+
+/* Packer */
+@import '../components/_proxied-dot-io/packer/footer/style.css';
+
+/* Consul */
+@import '../components/_proxied-dot-io/consul/footer/style.css';
+
+/*
+***
+* Global styles
+***
+*/
+
+/*
+***
+* About this selector:
+* `.g-subnav ~ *` finds all elements after the navigation.
+* `:target` finds the active permalink on the page.
+*
+* About this style:
+* `scroll-margin-top` adjusts the vertical scroll of a permalink.
+* `64px` adjusts the scroll to account for the navigation.
+* `0.5em` further adjusts the scroll to give the permalink breathing room.
+*
+* See: https://developer.mozilla.org/en-US/docs/Web/CSS/:target
+* See: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-top
+***
+*/
 .g-subnav ~ * :target {
   scroll-margin-top: calc(64px + 0.5em);
 }
@@ -40,17 +99,62 @@
   font-style: normal;
 }
 
-/* TODO: not sure where else to put this yet */
-button {
-  font-family: var(--font-body);
+/*
+***
+* Vault layout styles
+***
+* Note: this is possibly debt we want to replace.
+* ref: https://app.asana.com/0/1100423001970639/1200768863236365/f
+***
+*/
+.g-section-block section {
+  padding-top: 96px;
+  padding-bottom: 96px;
 
-  &:hover {
-    cursor: pointer;
+  & > .g-section-header + *,
+  & > .g-grid-container > .g-section-header + * {
+    margin-top: 72px;
+  }
+
+  &:not(.no-section-spacing) > * + *,
+  &:not(.g-featured-slider-section) > .g-grid-container > * + * {
+    margin-top: 96px;
   }
 }
 
-/* Mobile and tablet breakpoints and helper classes */
+.g-section-block .button-container {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin: auto -8px -16px;
+}
 
+.g-section-block section > * + .button-container,
+.g-section-block section > .g-grid-container > * + .button-container {
+  margin-top: 40px;
+}
+
+.g-section-block .button-container > * {
+  margin: auto 8px 16px;
+}
+
+.g-section-block.theme-black-background-white-text {
+  background: var(--gray-1);
+  color: white;
+}
+
+/*
+***
+* DevDot
+***
+* Note (2022-03-11): These styles were originally ported over from the the
+* `assembly-ui-v1` branch where the initial DevDot UI work started.
+***
+*/
+
+/* Mobile and tablet breakpoints and helper classes */
 :root {
   --mobile-width-breakpoint: 728px;
   --tablet-width-breakpoint: 1000px;
@@ -81,12 +185,10 @@ button {
 
 /* General helper classes */
 
-/*
-TODO: this will eventually replace the other focus helpers but they are heavily
-used at the moment and need to be refactored carefully. The places they are used
-do extra math to account for padding, which this helper now does with padding
-and negative margin.
-*/
+/* TODO: this will eventually replace the other focus helpers but they are
+heavily used at the moment and need to be refactored carefully. The places they
+are used do extra math to account for padding, which this helper now does with
+padding and negative margin. */
 .focus-ring-from-box-shadow {
   &:focus {
     outline: none;

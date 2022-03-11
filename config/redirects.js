@@ -1,60 +1,284 @@
+//@ts-check
+
+const fs = require('fs')
+const path = require('path')
 const proxySettings = require('./proxy-settings')
+const {
+  getProxiedProductSlug,
+  isPreview,
+  isDeployPreview,
+} = require('../src/lib/env-checks')
+const fetchGithubFile = require('./fetch-github-file')
+const { isContentDeployPreview } = require('../src/lib/env-checks')
+
+/** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
 const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
 
-// Redirect all proxied Waypoint pages
-// to the Waypoint project domain
-// (we do this regardless of which domain we're serving from)
-// TODO: should work for all routes on all products
-// for now, just testing for manually specific waypoint routes...
-// 2. expand to all routes for all products
-// 3. find way to abstract the above so it's not repetitive, if it makes sense
-//    ... maybe read in from pages folder or something, if that makes sense?
-// TODO: we want to apply these redirects on the live site, but not in local dev
-// one way to achieve this would be with a "has" entry. However, for local dev
-// we'll likely be doing other env-based stuff, so it may be easier to just remove
-// these redirects in dev rather than list specific production hosts.
-// Note: we do this for ALL hosts, as we never want visitors to
+const PROXIED_PRODUCT = getProxiedProductSlug()
+
+// Redirect all proxied product pages
+// to the appropriate product domain
+//
+// Note: we do this for ALL domains, as we never want visitors to
 // see the original "proxied" routes, no matter what domain they're on.
-const waypointHost = proxySettings.waypoint.host
-const waypointDomain = proxySettings.waypoint.domain
-const devToWaypointRedirects = proxySettings.waypoint.routesToProxy.map(
-  ({ proxiedRoute, projectPage }) => {
-    return {
-      source: projectPage,
-      destination: waypointDomain + proxiedRoute,
-      permanent: false,
-    }
-  }
-)
-// Separate set of redirects:
-// If the route in question is NOT something we want
-// to show on the proxied domain, then we should
-// redirect to the live dev portal domain
+const productsToProxy = Object.keys(proxySettings)
+// In preview environments, it's actually nice to NOT have these redirects,
+// as they prevent us from seeing the content we build for the preview URL
+/** @type {Redirect[]} */
+const devPortalToDotIoRedirects = isPreview()
+  ? []
+  : productsToProxy.reduce((acc, slug) => {
+      const routesToProxy = proxySettings[slug].routesToProxy
+      // If we're trying to test this product's redirects in dev,
+      // then we'll set the domain to an empty string for absolute URLs
+      const domain = slug == PROXIED_PRODUCT ? '' : proxySettings[slug].domain
+      const toDotIoRedirects = routesToProxy.map(
+        ({ proxiedRoute, localRoute }) => {
+          return {
+            source: localRoute,
+            destination: domain + proxiedRoute,
+            permanent: false,
+          }
+        }
+      )
+      return acc.concat(toDotIoRedirects)
+    }, [])
+
+// Redirect dev-portal routes to the dev-portal domain,
+// if we're on the proxied domain.
+//
+// (Note: without these redirects, dev-portal routes will be visible and
+// indexed by search engines on our proxied .io domains, which seems
+// like it could cause problems)
 // TODO: this is a simple single route, we'd probably want to redirect all dev-portal routes
-// (also this may be totally unnecessary if .io homepages are isolated on a separate branch,
-// which will be our default assumption - silo-ing things seem safer. We could figure
-// out a better strategy for these redirects if EVERYTHING, ie new dev-portally stuff and
-// existing pages to be proxy-served through .io domains, is to live on one branch)
+// We could likely come up with a way to determine a full list automatically:
+// 1. list all dev routes, ie everything except what's in /_proxied-dot-io/*
+// 2. for each product domain, build a redirect so that when /some-dev-portal-route
+//    is visited on that product domain, it redirects to dev-portal
 const devPortalRoutes = ['/some-dev-portal-route']
-// For all these redirects, we want them to
-// be specific to the Waypoint site hostname
-const waypointToDevRedirects = devPortalRoutes.map((devPortalRoute) => {
-  return {
-    source: devPortalRoute,
-    destination: DEV_PORTAL_DOMAIN + devPortalRoute,
-    permanent: false,
-    has: [
-      {
-        type: 'host',
-        value: waypointHost,
-      },
-    ],
-  }
-})
+/** @type {Redirect[]} */
+const dotIoToDevPortalRedirects = productsToProxy.reduce((acc, productSlug) => {
+  const productHost = proxySettings[productSlug].host
+  const toDevPortalRedirects = devPortalRoutes.map((devPortalRoute) => {
+    return {
+      source: devPortalRoute,
+      destination: DEV_PORTAL_DOMAIN + devPortalRoute,
+      permanent: false,
+      has: [
+        {
+          type: 'host',
+          value: productHost,
+        },
+      ],
+    }
+  })
+  return acc.concat(toDevPortalRedirects)
+}, [])
+
+/**
+ *
+ * @param {Redirect[]} redirects
+ * @param {string} productSlug
+ * @returns {Redirect[]}
+ */
+function addHostCondition(redirects, productSlug) {
+  const host = proxySettings[productSlug].host
+  return redirects.map((redirect) => {
+    if (productSlug == PROXIED_PRODUCT) return redirect
+    // To enable previewing of .io sites, we accept an io_preview cookie which must have a value matching a product slug
+    if (isPreview()) {
+      return {
+        ...redirect,
+        has: [
+          {
+            type: 'cookie',
+            key: 'io_preview',
+            value: productSlug,
+          },
+        ],
+      }
+    }
+    return {
+      ...redirect,
+      has: [
+        {
+          type: 'host',
+          value: host,
+        },
+      ],
+    }
+  })
+}
+
+async function buildDotIoRedirects() {
+  // Fetch author-oriented redirects from product repos,
+  // and merge those with dev-oriented redirects from
+  // within this repository
+
+  // ... for Boundary
+  const rawBoundaryRedirects = isContentDeployPreview('boundary')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? '[]'
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'boundary',
+        path: 'website/redirects.js',
+        ref: 'stable-website',
+      })
+  const boundaryAuthorRedirects = eval(rawBoundaryRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Boundary repo
+  // TODO: intent is to do this after all products have been migrated
+  const boundaryIoRedirects = [...boundaryAuthorRedirects]
+  // ... for Nomad
+  const rawNomadRedirects = isContentDeployPreview('nomad')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? '[]'
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'nomad',
+        path: 'website/redirects.js',
+        ref: 'stable-website',
+      })
+  const nomadAuthorRedirects = eval(rawNomadRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the nomad repo
+  // TODO: intent is to do this after all products have been migrated
+  const nomadIoRedirects = [...nomadAuthorRedirects]
+  // ... for Sentinel
+  // TODO: sentinel is a private repo.
+  // TODO: we need a solution to fetch specific, public-friendly
+  // TODO: assets from the repo. The content API will likely lead the
+  // TODO: way here - as this is needed to render images in Sentinel docs,
+  // TODO: see for example:
+  // TODO: https://sentinel-git-kevin-versioned-docs-hashicorp.vercel.app/sentinel/extending/internals
+  // const rawSentinelRedirects = isContentDeployPreview('sentinel')
+  //   ? fs.readFileSync(path.join(process.cwd(), '../redirects.next.js'), 'utf-8')
+  //   : isDeployPreview()
+  //   ? []
+  //   : await fetchGithubFile({
+  //       owner: 'hashicorp',
+  //       repo: 'sentinel',
+  //       path: 'website/redirects.next.js',
+  //       ref: 'stable-website',
+  //     })
+  // ... for Waypoint
+  const rawWaypointRedirects = isContentDeployPreview('waypoint')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? '[]'
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'waypoint',
+        path: 'website/redirects.js',
+        ref: 'stable-website',
+      })
+  const waypointAuthorRedirects = eval(rawWaypointRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Waypoint repo
+  // TODO: intent is to do this after all products have been migrated
+  const waypointIoRedirects = [...waypointAuthorRedirects]
+
+  const sentinelIoRedirects = [
+    {
+      source: '/',
+      destination: '/sentinel',
+      permanent: true,
+    },
+    {
+      source: '/sentinel/commands/config',
+      destination: '/sentinel/configuration',
+      permanent: true,
+    },
+    // disallow '.html' or '/index.html' in favor of cleaner, simpler paths
+    { source: '/:path*/index', destination: '/:path*', permanent: true },
+    { source: '/:path*.html', destination: '/:path*', permanent: true },
+  ]
+
+  const rawVaultRedirects = isContentDeployPreview('vault')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? '[]'
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'vault',
+        path: 'website/redirects.next.js',
+        ref: 'stable-website',
+      })
+  const vaultAuthorRedirects = eval(rawVaultRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Waypoint repo
+  // TODO: intent is to do this after all products have been migrated
+  const vaultIoRedirects = [...vaultAuthorRedirects]
+
+  const rawVagrantRedirects = isContentDeployPreview('vagrant')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? '[]'
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'vagrant',
+        path: 'website/redirects.next.js',
+        ref: 'stable-website',
+      })
+  const vagrantAuthorRedirects = eval(rawVagrantRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Vagrant repo
+  // TODO: intent is to do this after all products have been migrated
+  const vagrantIoRedirects = [...vagrantAuthorRedirects]
+
+  const rawPackerRedirects = isContentDeployPreview('packer')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? '[]'
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'packer',
+        path: 'website/redirects.next.js',
+        ref: 'stable-website',
+      })
+  const packerAuthorRedirects = eval(rawPackerRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Packer repo
+  // TODO: intent is to do this after all products have been migrated
+  const packerIoRedirects = [...packerAuthorRedirects]
+
+  const rawConsulRedirects = isContentDeployPreview('consul')
+    ? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+    : isDeployPreview()
+    ? '[]'
+    : await fetchGithubFile({
+        owner: 'hashicorp',
+        repo: 'consul',
+        path: 'website/redirects.next.js',
+        ref: 'stable-website',
+      })
+  const consulAuthorRedirects = eval(rawConsulRedirects)
+  // TODO: split non-author redirects into dev-portal,
+  // TODO: rather than leaving all redirects in the Packer repo
+  // TODO: intent is to do this after all products have been migrated
+  const consulIoRedirects = [...consulAuthorRedirects]
+  // TODO ... consolidate redirects for other products
+  return [
+    ...devPortalToDotIoRedirects,
+    ...dotIoToDevPortalRedirects,
+    ...addHostCondition(boundaryIoRedirects, 'boundary'),
+    ...addHostCondition(nomadIoRedirects, 'nomad'),
+    ...addHostCondition(sentinelIoRedirects, 'sentinel'),
+    ...addHostCondition(vaultIoRedirects, 'vault'),
+    ...addHostCondition(waypointIoRedirects, 'waypoint'),
+    ...addHostCondition(vagrantIoRedirects, 'vagrant'),
+    ...addHostCondition(packerIoRedirects, 'packer'),
+    ...addHostCondition(consulIoRedirects, 'consul'),
+  ]
+}
 
 async function redirectsConfig() {
-  return [...devToWaypointRedirects, ...waypointToDevRedirects]
+  const dotIoRedirects = await buildDotIoRedirects()
+  return [...dotIoRedirects]
 }
 
 module.exports = redirectsConfig
