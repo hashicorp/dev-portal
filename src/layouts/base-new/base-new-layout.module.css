@@ -1,116 +1,22 @@
 /*
-***
-* HashiCorp Design System Tokens imports
-***
-* Repo: https://github.com/hashicorp/design-system/tree/main/packages/tokens
-***
-*/
-@import '~@hashicorp/design-system-tokens/devdot/css/tokens.css';
-@import '~@hashicorp/design-system-tokens/devdot/css/helpers/elevation.css';
-@import '~@hashicorp/design-system-tokens/devdot/css/helpers/typography.css';
 
-/*
-***
-* DevDot BaseNew Layout
-***
-* Note (2022-03-11): These styles were originally ported over from the the
-* `assembly-ui-v1` branch where the initial DevDot UI work started. These lived
-* in `src/pages/style.css` but were moved here because they were affecting
-* styles in the dev-portal .io sites. This new home is global just to DevDot
-* because it is the only place this layout is used.
-***
-*/
+NOTE:
 
-/* Mobile and tablet breakpoints and helper classes */
+--navigation-header-height and --alert-bar-height are currently magicky numbers.
+These are necessary for correct positioning in SidebarSidecarLayout.
 
-@custom-media --mobile only screen and (max-width: 728px);
-@custom-media --tablet only screen and (min-width: 729px) and (max-width: 1000px);
+These values could change based on user preferences for font-size or zoom,
+but we won't know, and our design will break.
 
-@media (--mobile) {
-  .g-hide-on-mobile {
-    display: none;
-  }
-}
-
-@media (--tablet) {
-  .g-hide-on-tablet {
-    display: none;
-  }
-}
-
-/* General helper classes */
-
-/* TODO: this will eventually replace the other focus helpers but they are
-heavily used at the moment and need to be refactored carefully. The places they
-are used do extra math to account for padding, which this helper now does with
-padding and negative margin. */
-.focus-ring-from-box-shadow {
-  &:focus {
-    outline: none;
-  }
-
-  &:focus-visible {
-    box-shadow: var(--token-focus-ring-box-shadow);
-    outline: none;
-  }
-}
-
-.g-focus-border-and-box-shadow-light {
-  &:focus,
-  &:focus-visible {
-    outline: none;
-  }
-
-  &:focus-visible {
-    border: 1px solid var(--token-color-palette-blue-200);
-    box-shadow: 0 0 0 3px #5990ff;
-    outline: none;
-  }
-}
-
-.g-focus-border-and-box-shadow-dark {
-  &:focus,
-  &:focus-visible {
-    outline: none;
-  }
-
-  &:focus-visible {
-    border: 1px solid #107dff;
-    box-shadow: 0 0 0 3px #5fbcff;
-    outline: none;
-  }
-}
-
-/*
-***
-* NOTE:
-* 
-* --navigation-header-height and --alert-bar-height are currently magicky
-* numbers. These are necessary for correct positioning in SidebarSidecarLayout.
-*
-* These values could change based on user preferences for font-size or zoom,
-* but we won't know, and our design will break.
-*
-* To mitigate this, we observe the height of the .header element in this layout,
-* and set --sticky-bars-height to match. This would eliminate the need
-* for both --navigation-header-height and --alert-bar-height.
-***
+To mitigate this, we observe the height of the .header element in this layout,
+and set --sticky-bars-height to match. This would eliminate the need
+for both --navigation-header-height and --alert-bar-height.
+     
 */
 .root {
   --sticky-bars-height: calc(
     var(--navigation-header-height) + var(--alert-bar-height)
   );
-
-  /* note: these vars used to be in `src/pages/style.css` */
-  --mobile-width-breakpoint: 728px;
-  --tablet-width-breakpoint: 1000px;
-  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-  --font-monospace: ui-monospace, Menlo, Consolas, Ubuntu Mono, monospace;
 
   display: flex;
   flex-direction: column;
@@ -120,7 +26,6 @@ padding and negative margin. */
 .header {
   position: sticky;
   top: 0;
-
   /* The contentArea comes later in the DOM, and
     may have sticky elements, eg sidebars. We need
     the header to stay above other sticky elements. */
@@ -135,7 +40,6 @@ padding and negative margin. */
   automatic height (by doing nothing) */
   display: flex;
   flex-direction: column;
-
   /* Stretch the content area to ensure the page is at
   least 100vh. The SidebarSidecar layout
   requires this stretching to avoid having
