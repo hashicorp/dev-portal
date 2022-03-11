@@ -46,7 +46,7 @@ const ProductDownloadsViewContent = ({
   } = pageContent
   const currentProduct = useCurrentProduct()
   const { currentVersion } = useCurrentVersion()
-  const backToLink = useMemo(() => initializeBackToLink(currentProduct), [
+  const backToLinkProps = useMemo(() => initializeBackToLink(currentProduct), [
     currentProduct,
   ])
   const breadcrumbLinks = useMemo(
@@ -69,11 +69,13 @@ const ProductDownloadsViewContent = ({
 
   return (
     <SidebarSidecarLayout
-      backToLink={backToLink}
+      sidebarProps={{
+        backToLinkProps,
+        menuItems: navData,
+        showFilterInput: false,
+        title: currentProduct.name,
+      }}
       breadcrumbLinks={breadcrumbLinks}
-      navData={navData}
-      productName={currentProduct.name}
-      showFilterInput={false}
       sidecarChildren={<SidecarMarketingCard {...sidecarMarketingCard} />}
     >
       <PageHeader />

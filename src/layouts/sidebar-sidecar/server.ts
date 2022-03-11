@@ -27,6 +27,7 @@ export function getStaticGenerationFunctions<
 >({
   product,
   basePath,
+  productSlugForLoader = product.slug,
   basePathForLoader = basePath,
   baseName,
   additionalRemarkPlugins = [],
@@ -35,6 +36,7 @@ export function getStaticGenerationFunctions<
 }: {
   product: Product
   basePath: string
+  productSlugForLoader?: string
   basePathForLoader?: string
   baseName: string
   additionalRemarkPlugins?: Pluggable[]
@@ -42,7 +44,7 @@ export function getStaticGenerationFunctions<
   mainBranch?: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   const loaderOptions = {
-    product: product.slug,
+    product: productSlugForLoader,
     basePath: basePathForLoader,
   }
 
@@ -61,7 +63,7 @@ export function getStaticGenerationFunctions<
       }
     },
     getStaticProps: async (ctx) => {
-      const headings = []
+      const headings = [] // populated by loader.loadStaticProps()
 
       const loader = getLoader({
         mainBranch,
@@ -77,6 +79,31 @@ export function getStaticGenerationFunctions<
         mdxSource,
         githubFileUrl,
       } = await loader.loadStaticProps(ctx)
+
+      /**
+       * NOTE: we've encountered empty headings on at least one page:
+       * "/terraform/enterprise/install/automated/active-active"
+       * Passing empty headings to the client creates broken behaviour,
+       * so we filter them out.
+       * TODO: This change should perhaps be moved into our anchor-links plugin.
+       * Either way, we will likely need to keep this fix in place indefinitely,
+       * UNLESS we either fix all past versions of docs, OR implement a version
+       * cutoff that excludes all past versions of docs with this issue.
+       */
+      const nonEmptyHeadings = headings.slice().filter(({ title }) => {
+        const isValid = typeof title == 'string' && title !== ''
+        if (isValid) {
+          return true
+        } else {
+          const paramsAsPath =
+            typeof ctx.params.page == 'string'
+              ? ctx.params.page
+              : ctx.params.page.join('/')
+          console.warn(
+            `Found an empty title on page "/${product.slug}/${basePath}/${paramsAsPath}". Empty titles are omitted from our sidebar. Ideally, they should be removed in the source MDX.`
+          )
+        }
+      })
 
       const fullNavData = [
         ...navData,
@@ -101,15 +128,17 @@ export function getStaticGenerationFunctions<
 
       const finalProps = {
         layoutProps: {
-          backToLink: {
-            text: `Back to ${product.name}`,
-            url: `/${product.slug}`,
-          },
           breadcrumbLinks,
           githubFileUrl,
-          headings,
-          navData: navDataWithFullPaths,
-          productName: product.name,
+          headings: nonEmptyHeadings,
+          sidebarProps: {
+            backToLinkProps: {
+              text: `Back to ${product.name}`,
+              url: `/${product.slug}`,
+            },
+            menuItems: navDataWithFullPaths,
+            title: product.name,
+          },
         },
         mdxSource,
         product,

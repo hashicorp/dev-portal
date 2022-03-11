@@ -1,6 +1,20 @@
 {
   "slug": "terraform",
   "name": "Terraform",
+  "basePaths": [
+    "cdktf",
+    "cli",
+    "cloud-docs",
+    "configuration",
+    "docs",
+    "enterprise",
+    "guides",
+    "internals",
+    "intro",
+    "language",
+    "plugin",
+    "registry"
+  ],
   "sidebar": {
     "landingPageNavData": [
       { "title": "Introduction", "fullPath": "/terraform" },
@@ -28,5 +42,77 @@
         "href": "https://support.hashicorp.com"
       }
     ]
-  }
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/terraform",
+      "id": "overview"
+    },
+    {
+      "label": "CDKTF",
+      "path": "/terraform/cdktf",
+      "id": "cdktf"
+    },
+    {
+      "label": "CLI",
+      "path": "/terraform/cli",
+      "id": "cli"
+    },
+    {
+      "label": "Cloud",
+      "path": "/terraform/cloud-docs",
+      "id": "cloud-docs"
+    },
+    {
+      "label": "Config",
+      "path": "/terraform/configuration",
+      "id": "config"
+    },
+    {
+      "label": "Docs",
+      "path": "/terraform/docs",
+      "id": "docs"
+    },
+    {
+      "label": "Enterprise",
+      "path": "/terraform/enterprise",
+      "id": "enterprise"
+    },
+    {
+      "label": "Guides",
+      "path": "/terraform/guides",
+      "id": "guides"
+    },
+    {
+      "label": "Internals",
+      "path": "/terraform/internals",
+      "id": "internals"
+    },
+    {
+      "label": "Intro",
+      "path": "/terraform/intro",
+      "id": "intro"
+    },
+    {
+      "label": "Language",
+      "path": "/terraform/language",
+      "id": "language"
+    },
+    {
+      "label": "Plugins",
+      "path": "/terraform/plugin",
+      "id": "plugin"
+    },
+    {
+      "label": "Registry",
+      "path": "/terraform/registry",
+      "id": "registry"
+    },
+    {
+      "label": "Install",
+      "path": "/terraform/downloads",
+      "id": "downloads"
+    }
+  ]
 }
