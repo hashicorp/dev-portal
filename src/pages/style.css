@@ -1,15 +1,44 @@
-/* Design system */
-/* TODO In the short term, mktg-global-styles will likely be replaced by
-   @hashicorp/design-system-tokens/marketing/css/tokens.css.
-   In the long term, it may be removed from this project. */
+/* Global Styles */
 @import '~@hashicorp/mktg-global-styles/style.css';
 
+/*
+***
+* HashiCorp Design System Tokens. These are used in DevDot pages.
+***
+*/
 @import '~@hashicorp/design-system-tokens/devdot/css/tokens.css';
 @import '~@hashicorp/design-system-tokens/devdot/css/helpers/elevation.css';
 @import '~@hashicorp/design-system-tokens/devdot/css/helpers/typography.css';
 
-/* Local global style helpers */
+/* Sizing styles, used in DevDot */
 @import 'styles/sizing.css';
+
+/* Proxied Boundary page styles */
+@import './_proxied-dot-io/boundary/home/style.css';
+@import '../components/_proxied-dot-io/boundary/footer/style.css';
+
+/* Proxied Sentinel page styles */
+@import '../components/_proxied-dot-io/sentinel/Footer/style.css';
+@import '../components/_proxied-dot-io/sentinel/NewsletterSignupForm/style.css';
+
+/* Proxied Vault page styles */
+@import '../components/_proxied-dot-io/vault/footer/style.css';
+@import '../components/_proxied-dot-io/vault/use-case-cta-section/style.css';
+
+/* Proxied Nomad page styles */
+@import './_proxied-dot-io/nomad/home/style.css';
+@import '../components/_proxied-dot-io/nomad/case-study-carousel/style.css';
+@import '../components/_proxied-dot-io/nomad/footer/style.css';
+@import '../components/_proxied-dot-io/nomad/features-list/style.css';
+@import '../components/_proxied-dot-io/nomad/footer/style.css';
+@import '../components/_proxied-dot-io/nomad/homepage-hero/style.css';
+@import '../components/_proxied-dot-io/nomad/mini-cta/style.css';
+
+/* Proxied Packer page styles */
+@import '../components/_proxied-dot-io/packer/footer/style.css';
+
+/* Proxied Consul page styles */
+@import '../components/_proxied-dot-io/consul/footer/style.css';
 
 /* Print Styles */
 @import './print.css';
@@ -40,86 +69,47 @@
   font-style: normal;
 }
 
-/* TODO: not sure where else to put this yet */
-button {
-  font-family: var(--font-body);
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-/* Mobile and tablet breakpoints and helper classes */
-
-:root {
-  --mobile-width-breakpoint: 728px;
-  --tablet-width-breakpoint: 1000px;
-
-  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-  --font-monospace: ui-monospace, Menlo, Consolas, Ubuntu Mono, monospace;
-}
-
-@custom-media --mobile only screen and (max-width: 728px);
-@custom-media --tablet only screen and (min-width: 729px) and (max-width: 1000px);
-
-@media (--mobile) {
-  .g-hide-on-mobile {
-    display: none;
-  }
-}
-
-@media (--tablet) {
-  .g-hide-on-tablet {
-    display: none;
-  }
-}
-
-/* General helper classes */
-
+/* VAULT */
 /*
-TODO: this will eventually replace the other focus helpers but they are heavily
-used at the moment and need to be refactored carefully. The places they are used
-do extra math to account for padding, which this helper now does with padding
-and negative margin.
-*/
-.focus-ring-from-box-shadow {
-  &:focus {
-    outline: none;
+ * Layout Styles
+ *
+ * Note: this is possibly debt we want to replace.
+ * ref: https://app.asana.com/0/1100423001970639/1200768863236365/f
+ */
+.g-section-block section {
+  padding-top: 96px;
+  padding-bottom: 96px;
+
+  & > .g-section-header + *,
+  & > .g-grid-container > .g-section-header + * {
+    margin-top: 72px;
   }
 
-  &:focus-visible {
-    box-shadow: var(--token-focus-ring-box-shadow);
-    outline: none;
+  &:not(.no-section-spacing) > * + *,
+  &:not(.g-featured-slider-section) > .g-grid-container > * + * {
+    margin-top: 96px;
   }
 }
 
-.g-focus-border-and-box-shadow-light {
-  &:focus,
-  &:focus-visible {
-    outline: none;
-  }
-
-  &:focus-visible {
-    border: 1px solid var(--token-color-palette-blue-200);
-    box-shadow: 0 0 0 3px #5990ff;
-    outline: none;
-  }
+.g-section-block .button-container {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin: auto -8px -16px;
 }
 
-.g-focus-border-and-box-shadow-dark {
-  &:focus,
-  &:focus-visible {
-    outline: none;
-  }
+.g-section-block section > * + .button-container,
+.g-section-block section > .g-grid-container > * + .button-container {
+  margin-top: 40px;
+}
 
-  &:focus-visible {
-    border: 1px solid #107dff;
-    box-shadow: 0 0 0 3px #5fbcff;
-    outline: none;
-  }
+.g-section-block .button-container > * {
+  margin: auto 8px 16px;
+}
+
+.g-section-block.theme-black-background-white-text {
+  background: var(--gray-1);
+  color: white;
 }

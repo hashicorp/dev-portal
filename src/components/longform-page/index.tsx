@@ -1,7 +1,20 @@
 import classNames from 'classnames'
+import React from 'react'
 import styles from './style.module.css'
 
-export default function LongformPage({ className, title, alert, children }) {
+interface LongformPageProps {
+  className?: string
+  title?: string
+  alert?: React.ReactNode
+  children: React.ReactNode
+}
+
+export default function LongformPage({
+  className,
+  title,
+  alert,
+  children,
+}: LongformPageProps): React.ReactElement {
   return (
     <div className={classNames(styles.longformPage, className)}>
       <div className="g-grid-container">
