@@ -5,7 +5,7 @@ import { devices } from '@playwright/test'
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  testDir: './e2e',
+  testDir: './src/__tests__/e2e',
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
