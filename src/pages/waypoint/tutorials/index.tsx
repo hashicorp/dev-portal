@@ -1,38 +1,23 @@
-/**
- * TODO create proper view
- */
-
-import { getAllCollections } from 'lib/learn-client/api/collection'
 import {
   Collection as ClientCollection,
   ProductOption,
 } from 'lib/learn-client/types'
-import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import Link from 'next/link'
+import { getProductTutorialsPageProps } from 'views/product-tutorials-view/server'
+import waypointData from 'data/waypoint.json'
+import ProductTutorialsView from 'views/product-tutorials-view'
 
-export default function WaypointTutorialHubPage() {
-  return (
-    <>
-      <h1>Waypoint Tutorials</h1>
-      <h2>All Collections</h2>
-      <Link href="/waypoint/tutorials/get-started-docker">
-        <a>See this collection</a>
-      </Link>
-    </>
-  )
+export default function WaypointTutorialHubPage(props) {
+  return <ProductTutorialsView {...props} />
 }
 
 export async function getStaticProps(): Promise<{
   props: { collections: ClientCollection[] }
 }> {
-  // also call product, incorporate this into the client, to get description etc.
-  const collections = await getAllCollections({
-    product: ProductOption['waypoint'],
-  })
-
-  return {
-    props: {
-      collections: stripUndefinedProperties(collections),
-    },
+  const product = {
+    slug: ProductOption['waypoint'],
+    name: waypointData.name,
   }
+  const props = await getProductTutorialsPageProps(product)
+
+  return props
 }
