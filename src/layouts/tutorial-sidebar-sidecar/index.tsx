@@ -1,8 +1,7 @@
 import BaseLayout from 'layouts/base-new'
 import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
-import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 
-interface TutorialSidebarSidecarProps {
+export interface TutorialSidebarSidecarProps {
   children: React.ReactNode
   breadcrumbLinks?: BreadcrumbLink[]
 }

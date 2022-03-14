@@ -1,4 +1,5 @@
 import { Product as ProductContext } from 'types/products'
+import { TutorialSidebarSidecarProps } from 'layouts/tutorial-sidebar-sidecar'
 import {
   getAllCollections,
   getCollection,
@@ -18,6 +19,7 @@ export interface TutorialPageProps {
   tutorial: TutorialViewProps
   currentCollection: ClientCollection
   product: TutorialPageProduct // controls the ProductSwitcher
+  layoutProps: TutorialSidebarSidecarProps
 }
 
 /**
@@ -44,6 +46,22 @@ export async function getTutorialPageProps(
   const collectionDbSlug = `${product.slug}/${collectionFilename}`
   const currentCollectionData = await getCollection(collectionDbSlug) // for sidebar
 
+  const layoutProps = {
+    breadcrumbLinks: [
+      { title: 'Developer', url: '/' },
+      { title: product.name, url: `/${product.slug}` },
+      { title: 'Tutorials', url: `/${product.slug}/tutorials` },
+      {
+        title: currentCollectionData.shortName,
+        url: `/${product.slug}/tutorials/${currentCollectionData.slug}`,
+      },
+      {
+        title: baseTutorialData.name,
+        url: `/${product.slug}/tutorials/${currentCollectionData.slug}/${baseTutorialData.slug}`,
+      },
+    ],
+  }
+
   // @TODO if is last tutorial in collection, call the endpoint to get next tutorial, other
 
   return {
@@ -54,6 +72,7 @@ export async function getTutorialPageProps(
       },
       currentCollection: currentCollectionData,
       product,
+      layoutProps,
     }),
   }
 }
