@@ -38,6 +38,11 @@
     'Segoe UI Symbol';
   --font-monospace: ui-monospace, Menlo, Consolas, Ubuntu Mono, monospace;
 
+  /* We usually set this on `body`, but we're re-declaring --font-body here
+  within `body`, so I think we need to redeclare `font-family` here 
+  to have it take effect in the way we expect. */
+  font-family: var(--font-body);
+
   /* TODO: not sure where else to put this yet */
   & button {
     font-family: var(--font-body);
