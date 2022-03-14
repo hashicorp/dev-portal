@@ -13,6 +13,7 @@ import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
 export function WaypointTutorialPage({
   tutorial,
+  currentCollection,
 }: TutorialPageProps): React.ReactElement {
   return <TutorialView {...tutorial} />
 }
