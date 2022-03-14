@@ -1,7 +1,13 @@
 import { Product as ProductContext } from 'types/products'
-import { getAllCollections } from 'lib/learn-client/api/collection'
+import {
+  getAllCollections,
+  getCollection,
+} from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
-import { ProductOption } from 'lib/learn-client/types'
+import {
+  Collection as ClientCollection,
+  ProductOption,
+} from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
@@ -10,6 +16,7 @@ import { TutorialViewProps } from '.'
 // @TODO just a stub - adjust page props interface
 export interface TutorialPageProps {
   tutorial: TutorialViewProps
+  currentCollection: ClientCollection
   product: TutorialPageProduct // controls the ProductSwitcher
 }
 
@@ -30,10 +37,14 @@ export async function getTutorialPageProps(
    * the tutorialSlug passed in is based on /{collection-name}/{tutorial-name}
    * from the params. So we can assume `slug` index 1 is always the tutorial name
    * */
-  const tutorialFilename = slug[1]
-  const dbSlug = `${product.slug}/${tutorialFilename}`
-  const baseTutorialData = await getTutorial(dbSlug)
+  const [collectionFilename, tutorialFilename] = slug
+  const tutorialDbSlug = `${product.slug}/${tutorialFilename}`
+  const baseTutorialData = await getTutorial(tutorialDbSlug)
   const serializedContent = await serializeContent(baseTutorialData)
+  const collectionDbSlug = `${product.slug}/${collectionFilename}`
+  const currentCollectionData = await getCollection(collectionDbSlug) // for sidebar
+
+  // @TODO if is last tutorial in collection, call the endpoint to get next tutorial, other
 
   return {
     props: stripUndefinedProperties({
@@ -41,6 +52,7 @@ export async function getTutorialPageProps(
         ...baseTutorialData,
         content: serializedContent,
       },
+      currentCollection: currentCollectionData,
       product,
     }),
   }

@@ -3,19 +3,17 @@ import {
   getAllTutorialsOptions,
   identifier,
   Tutorial,
-  TutorialFullCollectionCtx,
 } from 'lib/learn-client/types'
 import { get, toError } from '../../index'
 import { formatBatchQueryStr, formatIdentifier, fetchAll } from '../utils'
 import { formatTutorialData } from './formatting'
-import { augmentTutorial } from './augment-tutorial'
 import { ApiTutorial } from 'lib/learn-client/api/api-types'
 
 export const TUTORIAL_API_ROUTE = '/tutorials'
 
 export async function getTutorial(
   idOrSlug: identifier
-): Promise<TutorialFullCollectionCtx | null> {
+): Promise<Tutorial | null> {
   const identifier = formatIdentifier(idOrSlug)
 
   // /tutorials/:id
@@ -24,8 +22,7 @@ export async function getTutorial(
 
   if (getTutorialRes.ok) {
     const res = await getTutorialRes.json()
-    const augmentedData = await augmentTutorial(res.result) // additional Api call here
-    return formatTutorialData(augmentedData) as TutorialFullCollectionCtx
+    return formatTutorialData(res.result) as Tutorial
   }
 
   // This is handled by tutorial template /pages/tutorials/[...slug] to render 404 page
