@@ -47,6 +47,11 @@ function determineProductSlug(req: NextRequest): string | null {
   return null
 }
 
+/**
+ * Root-level middleware that will process all middleware-capable requests.
+ * Currently used to support:
+ * - Handling simple one-to-one redirects
+ */
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
   const product = determineProductSlug(req)
   if (process.env.DEBUG_REDIRECTS) {

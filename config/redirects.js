@@ -277,7 +277,9 @@ async function buildDotIoRedirects() {
 }
 
 /**
- *
+ * Splits an array of redirects into simple (one-to-one path matches without
+ * regex matching) and glob-based (with regex matching). Enables processing
+ * redirects via middleware instead of the built-in redirects handling.
  * @param {Redirect[]} redirects
  * @returns {{ simpleRedirects: Redirect[], globRedirects: Redirect[] }}
  */
@@ -304,7 +306,8 @@ function splitRedirectsByType(redirects) {
 }
 
 /**
- *
+ * Groups simple redirects into an object keyed by the product slug they apply
+ * to (as determined by the `host` property).
  * @param {Redirect[]} redirects
  */
 function groupSimpleRedirects(redirects) {
