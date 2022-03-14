@@ -294,7 +294,8 @@ function splitRedirectsByType(redirects) {
     if (
       ['(', ')', '{', '}', ':', '*', '+', '?'].some((char) =>
         redirect.source.includes(char)
-      )
+      ) ||
+      (redirect.has && redirect.has.some((has) => has.type !== 'host'))
     ) {
       globRedirects.push(redirect)
     } else {

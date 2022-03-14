@@ -11,8 +11,38 @@ describe('splitRedirectsByType', () => {
         destination: '/',
       },
       {
+        source: '/has-cookie/:path',
+        destination: '/cookie',
+        has: [
+          {
+            type: 'cookie',
+            key: 'cookie',
+          },
+        ],
+      },
+      {
+        source: '/has-cookie',
+        destination: '/cookie',
+        has: [
+          {
+            type: 'cookie',
+            key: 'cookie',
+          },
+        ],
+      },
+      {
         source: '/path',
         destination: '',
+      },
+      {
+        source: '/has-host',
+        destination: '/host',
+        has: [
+          {
+            type: 'host',
+            value: 'www.host.com',
+          },
+        ],
       },
     ])
     expect(simpleRedirects).toStrictEqual([
@@ -20,11 +50,41 @@ describe('splitRedirectsByType', () => {
         source: '/path',
         destination: '',
       },
+      {
+        source: '/has-host',
+        destination: '/host',
+        has: [
+          {
+            type: 'host',
+            value: 'www.host.com',
+          },
+        ],
+      },
     ])
     expect(globRedirects).toStrictEqual([
       {
         source: '/:path',
         destination: '/',
+      },
+      {
+        source: '/has-cookie/:path',
+        destination: '/cookie',
+        has: [
+          {
+            type: 'cookie',
+            key: 'cookie',
+          },
+        ],
+      },
+      {
+        source: '/has-cookie',
+        destination: '/cookie',
+        has: [
+          {
+            type: 'cookie',
+            key: 'cookie',
+          },
+        ],
       },
     ])
   })
