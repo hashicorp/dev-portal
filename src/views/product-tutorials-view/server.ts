@@ -1,25 +1,34 @@
 import { getAllCollections } from 'lib/learn-client/api/collection'
-import { Collection as ClientCollection } from 'lib/learn-client/types'
+import { getProduct } from 'lib/learn-client/api/product'
+import {
+  Collection as ClientCollection,
+  ProductOption,
+  Product as ClientProduct,
+} from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { TutorialPageProduct } from 'views/tutorial-view/server'
+import { filterCollections } from './helpers'
 
 export interface ProductTutorialsPageProps {
   collections: ClientCollection[]
-  product: TutorialPageProduct
+  product: ClientProduct
 }
 
 export async function getProductTutorialsPageProps(
-  product: TutorialPageProduct
+  productSlug: ProductOption
 ): Promise<{ props: ProductTutorialsPageProps }> {
-  // @TODO potentially call 'getProduct' here to get description etc from db
-  const collections = await getAllCollections({
-    product: product.slug,
+  const product = await getProduct(productSlug)
+  const allProductCollections = await getAllCollections({
+    product: productSlug,
   })
+  const filteredCollections = filterCollections(
+    allProductCollections,
+    productSlug
+  )
 
   return {
-    props: {
-      collections: stripUndefinedProperties(collections),
+    props: stripUndefinedProperties({
+      collections: filteredCollections,
       product,
-    },
+    }),
   }
 }

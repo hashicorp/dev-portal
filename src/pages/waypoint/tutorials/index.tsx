@@ -3,7 +3,6 @@ import {
   getProductTutorialsPageProps,
   ProductTutorialsPageProps,
 } from 'views/product-tutorials-view/server'
-import waypointData from 'data/waypoint.json'
 import ProductTutorialsView from 'views/product-tutorials-view'
 
 export default function WaypointTutorialHubPage(
@@ -15,12 +14,7 @@ export default function WaypointTutorialHubPage(
 export async function getStaticProps(): Promise<{
   props: ProductTutorialsPageProps
 }> {
-  // @TODO consider sourcing the product data from the API
-  const product = {
-    slug: ProductOption['waypoint'],
-    name: waypointData.name,
-  }
-  const props = await getProductTutorialsPageProps(product)
+  const props = await getProductTutorialsPageProps(ProductOption['waypoint'])
 
   return props
 }
