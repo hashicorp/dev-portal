@@ -21,11 +21,11 @@
   },
   "alertBannerActive": true,
   "alertBanner": {
-    "tag": "Blog post",
-    "url": "https://www.hashicorp.com/blog/a-new-chapter-for-hashicorp",
-    "text": "HashiCorp shares have begun trading on the Nasdaq. Read the blog from our founders, Mitchell Hashimoto and Armon Dadgar.",
-    "linkText": "Read the post",
-    "expirationDate": "2021-12-17T23:00:00-07:00"
+    "tag": "New",
+    "url": "https://cloud.hashicorp.com/products/packer",
+    "text": "HCP Packer offers automation and security workflows for Packer, and is now generally available.",
+    "linkText": "Sign up for free",
+    "expirationDate": "2022-04-07T23:00:00-07:00"
   },
   "version": "1.7.10",
   "subnavItems": [

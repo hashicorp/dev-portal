@@ -22,6 +22,13 @@ To add the recommended extensions:
 4. Hit the `Enter` key
 5. Click the "Install Workspace Recommended Extensions" icon (it looks like a cloud with an arrow pointing down) under the Workspace Recommendations section of the sidebar
 
+### Project VS Code Settings
+
+In the `.vscode` directory, you'll find [a `settings.json` file](./.vscode/settings.json) with VS Code settings for this project.
+
+- `source.fixAll.eslint` enables auto-fixing of eslint issues when a file is saved
+- `eslint.codeActionsOnSave.rules` specifies which rules can be auto-fixed on save
+
 ### Setting Up Environment Variables
 
 There are a few things you need to set up before you can begin developing in this repository.

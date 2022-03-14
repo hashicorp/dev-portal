@@ -23,7 +23,9 @@ function NewsletterSignupForm(props) {
   useEffect(() => {
     require('@hashicorp/localstorage-polyfill/dist')
     let retrievedEmail = window.localStorage.getItem(EMAIL_STORAGE_KEY)
-    if (retrievedEmail !== null) setStoredEmail(retrievedEmail)
+    if (retrievedEmail !== null) {
+      setStoredEmail(retrievedEmail)
+    }
     require('promise-polyfill').default // For use in handleSubmit
   }, [])
 
@@ -60,9 +62,13 @@ function NewsletterSignupForm(props) {
           'Content-Type': 'application/json',
         },
       })
-      if (!res.ok) throw new Error(res.statusText)
+      if (!res.ok) {
+        throw new Error(res.statusText)
+      }
       const response = await res.json()
-      if (response.error) throw new Error(response.error)
+      if (response.error) {
+        throw new Error(response.error)
+      }
       submitStatus = 'success'
       submitError = null
     } catch (err) {
@@ -79,7 +85,9 @@ function NewsletterSignupForm(props) {
     }
     // Call the finished function to notify a parent element that form is done
     const hasCallback = finished && typeof finished === 'function'
-    if (hasCallback) finished({ error: submitError })
+    if (hasCallback) {
+      finished({ error: submitError })
+    }
   }
 
   const { placeholder, buttonText, theme, allowHorizontalLayout } = props
