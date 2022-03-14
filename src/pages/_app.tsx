@@ -35,6 +35,10 @@ export default function App({ Component, pageProps, layoutProps }) {
   const Layout = Component.layout ?? BaseLayout
   const currentProduct = pageProps.product || null
 
+  /**
+   * TODO: refactor this so that pageProps.layoutProps is the only place where
+   * layoutProps come from.
+   */
   const allLayoutProps = {
     ...pageProps.layoutProps,
     ...layoutProps,
@@ -48,7 +52,6 @@ export default function App({ Component, pageProps, layoutProps }) {
             <CodeTabsProvider>
               <Layout
                 {...allLayoutProps}
-                // TODO: assembly-ui-v1 did layout props differently than this
                 data={allLayoutProps}
                 openConsentManager={openConsentManager}
               >
