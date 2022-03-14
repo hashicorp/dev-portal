@@ -13,6 +13,7 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
 import { TutorialViewProps } from '.'
+import generateOutline from 'lib/generate-mdx-outline'
 
 // @TODO just a stub - adjust page props interface
 export interface TutorialPageProps {
@@ -45,19 +46,21 @@ export async function getTutorialPageProps(
   const serializedContent = await serializeContent(baseTutorialData)
   const collectionDbSlug = `${product.slug}/${collectionFilename}`
   const currentCollectionData = await getCollection(collectionDbSlug) // for sidebar
+  const tutorialOutline = await generateOutline(baseTutorialData.content)
 
   const layoutProps = {
+    headings: tutorialOutline,
     breadcrumbLinks: [
       { title: 'Developer', url: '/' },
       { title: product.name, url: `/${product.slug}` },
       { title: 'Tutorials', url: `/${product.slug}/tutorials` },
       {
         title: currentCollectionData.shortName,
-        url: `/${product.slug}/tutorials/${currentCollectionData.slug}`,
+        url: `/${product.slug}/tutorials/${collectionFilename}`,
       },
       {
         title: baseTutorialData.name,
-        url: `/${product.slug}/tutorials/${currentCollectionData.slug}/${baseTutorialData.slug}`,
+        url: `/${product.slug}/tutorials/${collectionFilename}/${tutorialFilename}`,
       },
     ],
   }
