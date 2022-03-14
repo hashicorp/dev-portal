@@ -3,9 +3,10 @@ import dynamic from 'next/dynamic'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import BaseLayout from 'layouts/base'
+import { isDeployPreview, isPreview } from 'lib/env-checks'
 import './style.css'
 
-const isPreview = process.env.HASHI_ENV === 'preview'
+const showProductSwitcher = isPreview() && !isDeployPreview()
 
 const PreviewProductSwitcher = dynamic(
   () => import('components/_proxied-dot-io/common/preview-product-select'),
@@ -22,7 +23,7 @@ export default function App({ Component, pageProps, layoutProps }) {
       <Layout {...(layoutProps && { data: layoutProps })}>
         <Component {...pageProps} />
       </Layout>
-      {isPreview ? <PreviewProductSwitcher /> : null}
+      {showProductSwitcher ? <PreviewProductSwitcher /> : null}
     </ErrorBoundary>
   )
 }
