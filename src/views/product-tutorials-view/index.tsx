@@ -1,7 +1,12 @@
 import Link from 'next/link'
+import React from 'react'
 import { getCollectionSlug } from './helpers'
+import { ProductTutorialsPageProps } from './server'
 
-export default function ProductTutorialsView({ collections, product }) {
+export default function ProductTutorialsView({
+  collections,
+  product,
+}: ProductTutorialsPageProps): React.ReactElement {
   return (
     <>
       <h1>{product.name} Tutorials</h1>
@@ -11,7 +16,9 @@ export default function ProductTutorialsView({ collections, product }) {
   )
 }
 
-function AllProductCollections({ collections }) {
+function AllProductCollections({
+  collections,
+}: Pick<ProductTutorialsPageProps, 'collections'>): React.ReactElement {
   return (
     <ul>
       {collections.map((collection) => (
