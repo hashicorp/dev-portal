@@ -6,8 +6,6 @@ import { Product } from 'types/products'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
-const BASE_REVALIDATE = 10
-
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
  *
@@ -59,7 +57,7 @@ export function getStaticGenerationFunctions<
 
       return {
         fallback: 'blocking',
-        paths,
+        paths: paths.slice(0, __config.dev_dot.max_static_paths ?? 0),
       }
     },
     getStaticProps: async (ctx) => {
@@ -145,7 +143,7 @@ export function getStaticGenerationFunctions<
       }
 
       return {
-        revalidate: BASE_REVALIDATE,
+        revalidate: __config.dev_dot.revalidate,
         props: finalProps,
       }
     },

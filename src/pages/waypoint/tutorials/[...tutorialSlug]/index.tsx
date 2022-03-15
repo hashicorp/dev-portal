@@ -1,3 +1,4 @@
+import { GetStaticPathsResult } from 'next'
 import { ProductOption } from 'lib/learn-client/types'
 import TutorialView from 'views/tutorial-view'
 import {
@@ -26,10 +27,12 @@ export async function getStaticProps({
   return props
 }
 
-export async function getStaticPaths(): Promise<{
-  paths: TutorialPagePaths[]
-  fallback: boolean
-}> {
+export async function getStaticPaths(): Promise<
+  GetStaticPathsResult<TutorialPagePaths['params']>
+> {
   const paths = await getTutorialPagePaths(ProductOption['waypoint'])
-  return { paths, fallback: false }
+  return {
+    paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
+    fallback: 'blocking',
+  }
 }
