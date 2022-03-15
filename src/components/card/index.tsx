@@ -29,5 +29,5 @@ const CardLink = ({
 }
 
 export { CardLink }
-export type { CardProps }
+export type { CardProps, CardLinkProps }
 export default Card

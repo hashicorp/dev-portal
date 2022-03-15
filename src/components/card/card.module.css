@@ -5,7 +5,13 @@
   width: 100%;
 }
 
+/*
+NOTE: `color: black` is needed because the color is otherwise set by a global
+style applied to anchor elements.
+*/
 .linked {
+  color: black;
+
   @media (prefers-reduced-motion: no-preference) {
     transition: background-color 0.2s, box-shadow 0.2s;
   }
