@@ -22,8 +22,12 @@ export default function AnimatedTerminal({
   const [frame, setFrame] = useState(0)
   useEffect(() => {
     let interval = setInterval(() => {
-      if (paused) return
-      if (loop) return setFrame((frame) => frame + 1)
+      if (paused) {
+        return
+      }
+      if (loop) {
+        return setFrame((frame) => frame + 1)
+      }
       if (frame + 1 < totalFrames) {
         setFrame((frame) => frame + 1)
       }

@@ -1,34 +1,27 @@
-import Link from 'next/link'
+import { ReactElement } from 'react'
+import BaseNewLayout from 'layouts/base-new'
+import Heading from 'components/heading'
+import HomepageHero from 'components/homepage-hero'
+import ProductCardGrid from 'components/product-card-grid'
+import s from './index.module.css'
 
-export default function Homepage() {
+function Homepage(): ReactElement {
   return (
-    <div className="g-grid-container">
-      <h1>Welcome to Dev Portal</h1>
-      <h2>Dev Portal links</h2>
-      <ul>
-        <li>
-          <Link href="/consul">Consul</Link>
-        </li>
-        <li>
-          <Link href="/nomad">Nomad</Link>
-        </li>
-        <li>
-          <Link href="/vault">Vault</Link>
-        </li>
-        <li>
-          <Link href="/waypoint">Waypoint</Link>
-        </li>
-      </ul>
-      <h2>Proxied sites</h2>
-      <ul>
-        <li>
-          <a href="/_proxied-dot-io/waypoint">Proxied Waypoint</a>
-        </li>
-        <li>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/_proxied-dot-io/boundary">Proxied Boundary</a>
-        </li>
-      </ul>
+    <div className={s.root}>
+      <HomepageHero className={s.hero} />
+      <Heading
+        className={s.cardGridHeading}
+        level={2}
+        size={400}
+        slug="explore-product-documentation"
+        weight="bold"
+      >
+        Explore Product Documentation
+      </Heading>
+      <ProductCardGrid className={s.cardGrid} />
     </div>
   )
 }
+
+Homepage.layout = BaseNewLayout
+export default Homepage

@@ -1,0 +1,78 @@
+---
+componentName: 'BreadcrumbBar'
+---
+
+The `<BreadcrumbBar />` component is used to display a linked list of parent paths that lead to the current page.
+
+This component is intended to help visitors quickly build a mental model of the content hierarchy, and to allow them to easily traverse that hierarchy. This implementation is modelled off of the [the WAI-ARIA Authoring Practices Breadcrumb widget](https://www.w3.org/TR/wai-aria-practices-1.1/#breadcrumb).
+
+## Work In Progress
+
+This component is a work in progress. Its current implementation is designed for wider viewports only. We have more complex behaviour we need to implement for narrower viewports.
+
+## Utilities
+
+On its own, this component cannot determine which breadcrumb links to render - it must be provided an array of `links` to render, and these `links` must only contain relative URLs. To aid in generating these links, this component contains a `util` folder with helper functions.
+
+At present, we have a single helper function, which accepts Docs page props as arguments, and returns breadcrumb `links` for the page in question. An example usage of this utility function:
+
+```js
+import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
+
+const breadcrumbLinks = getDocsBreadcrumbs({
+  productPath: 'waypoint' /* product landing path, often the product slug */,
+  productName: 'Waypoint' /* link text to show for the productPath link */,
+  basePath /* basePath, eg "docs", as set in the page file */,
+  baseName: 'Docs' /* link text to be shown for the basePath link */,
+  pathParts: params.page || [] /* params from getStaticProps */,
+  navData: props.navData /* as returned by docs-page server utils */,
+})
+```
+
+## Examples
+
+Typical use:
+
+<LiveComponent>{`
+<BreadcrumbBar
+  links={[
+    {
+      title: 'Vault',
+      url: '/vault',
+    },
+    {
+      title: 'Reference Docs',
+      url: '/vault/reference-docs',
+    },
+    {
+      title: 'Introduction',
+      url: '/vault/reference-docs/introduction',
+      isCurrentPage: true
+    },
+  ]}
+/>
+`}</LiveComponent>
+
+With unlinked breadcrumb part:
+
+<LiveComponent>{`
+<BreadcrumbBar
+  links={[
+    {
+      title: 'Waypoint',
+      url: '/waypoint',
+    },
+    {
+      title: 'Docs',
+      url: '/waypoint/docs',
+    },
+    {
+      title: 'Kubernetes',
+    },
+    {
+      title: 'Install',
+      url: '/waypoint/docs/kubernetes/install',
+    },
+  ]}
+/>
+`}</LiveComponent>

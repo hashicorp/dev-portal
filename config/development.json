@@ -2,5 +2,15 @@
   "io_sites": {
     "max_static_paths": 0,
     "revalidate": 360
+  },
+  "dev_dot": {
+    "max_static_paths": 0,
+    "revalidate": 360
+  },
+  "learn": {
+    "max_static_paths": 0
+  },
+  "flags": {
+    "enable_new_downloads_view": true
   }
 }

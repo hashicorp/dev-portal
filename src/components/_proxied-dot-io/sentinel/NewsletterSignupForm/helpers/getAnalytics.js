@@ -14,7 +14,9 @@ import cookie from 'js-cookie'
  */
 
 function getAnalytics() {
-  if (typeof window === 'undefined') return {}
+  if (typeof window === 'undefined') {
+    return {}
+  }
   const qs = queryString.parse(window.location.search)
   return {
     utm_medium: qs.utm_medium || '',

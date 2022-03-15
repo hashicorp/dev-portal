@@ -1,0 +1,32 @@
+.root {
+  overflow: hidden;
+  margin-bottom: 48px;
+  margin-top: 24px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -8px;
+}
+
+.iconSection {
+  display: block;
+  flex: 0 0 auto;
+  margin: 8px;
+}
+
+.textSection {
+  flex: 1 1 0;
+  margin: 8px;
+  min-width: 200px;
+}
+
+.heading {
+  margin-bottom: 4px;
+}
+
+.text {
+  color: var(--token-color-foreground-faint);
+  margin-bottom: 8px;
+}

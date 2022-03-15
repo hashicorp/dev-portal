@@ -1,0 +1,57 @@
+{
+  "featuredTutorials": [
+    {
+      "title": "Introduction to Waypoint",
+      "description": "Waypoint enables you to publish any application to any platform with a single file and a single command. Build, deploy, and release applications programmatically using HashiCorp Configuration Language.",
+      "href": "https://learn.hashicorp.com/tutorials/waypoint/get-started-intro"
+    },
+    {
+      "title": "Install Waypoint",
+      "description": "Install the Waypoint binary locally on Mac, Linux, or Windows, manually or using a package manager (Homebrew).",
+      "href": "https://learn.hashicorp.com/tutorials/waypoint/get-started-install"
+    },
+    {
+      "title": "Use Waypoint with Docker",
+      "description": "Deploy a Waypoint application locally to Docker.",
+      "href": "https://learn.hashicorp.com/tutorials/waypoint/get-started-docker"
+    },
+    {
+      "title": "Deploy an Application onto AWS Lambda",
+      "description": "Deploy a Ruby application onto AWS Lambda with Waypoint",
+      "href": "https://learn.hashicorp.com/tutorials/waypoint/aws-lambda"
+    },
+    {
+      "title": "Get Started - Kubernetes",
+      "description": "Build, deploy, and release applications to a Kubernetes cluster.",
+      "href": "https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes"
+    },
+    {
+      "title": "Get Started - Nomad",
+      "description": "Build, deploy, and release applications to a Nomad cluster.",
+      "href": "https://learn.hashicorp.com/collections/waypoint/get-started-nomad"
+    }
+  ],
+  "sidecarMarketingCard": {
+    "title": "About Waypoint",
+    "subtitle": "Use Waypoint to deliver a PaaS-like experience for Kubernetes, ECS, and other platforms.",
+    "learnMoreLink": "https://www.waypointproject.io/",
+    "featuredDocsLinks": [
+      {
+        "href": "/waypoint/docs/projects",
+        "text": "Projects"
+      },
+      {
+        "href": "/waypoint/docs/plugins",
+        "text": "Plugins"
+      },
+      {
+        "href": "/waypoint/docs/lifecycle/build",
+        "text": "Build"
+      },
+      {
+        "href": "/waypoint/docs/lifecycle/deploy",
+        "text": "Deploy"
+      }
+    ]
+  }
+}

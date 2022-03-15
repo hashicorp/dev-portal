@@ -1,0 +1,33 @@
+---
+componentName: Card
+---
+
+## Props
+
+| Prop name   | Description                                                                | Required? | Default value | Type                          |
+| ----------- | -------------------------------------------------------------------------- | --------- | ------------- | ----------------------------- |
+| `children`  | The element(s) to render within the `Card`.                                | Yes       | N/A           | ReactNode                     |
+| `className` | A string of one or more class names. Applied last to the `Card` container. | No        | undefined     | string                        |
+| `elevation` | The elevation of the `hds-surface` class to apply to the `Card` container. | No        | "mid"         | One of: "base", "mid", "high" |
+
+## Playground
+
+<LiveComponent>{`
+<>
+  <Card>
+    I am a default card.
+  </Card>
+  <br />
+  <Card elevation="base">
+    I am a elevation="base" card.
+  </Card>
+  <br />
+  <Card elevation="mid">
+    I am a elevation="mid" card.
+  </Card>
+  <br />
+  <Card elevation="high">
+    I am a elevation="high" card.
+  </Card>
+</>
+`}</LiveComponent>

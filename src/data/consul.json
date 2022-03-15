@@ -29,5 +29,61 @@
     "expirationDate": "2021-12-17T23:00:00-07:00"
   },
   "version": "1.11.3",
-  "subnavItems": []
+  "subnavItems": [],
+  "basePaths": ["docs", "api-docs", "commands"],
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/consul/docs/intro" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/consul/docs/install"
+      }
+    ],
+    "resourcesNavData": [
+      { "heading": "Resources" },
+      {
+        "title": "Releases",
+        "href": "https://releases.hashicorp.com/consul/"
+      },
+      {
+        "title": "HashiCorp Learn",
+        "href": "https://learn.hashicorp.com/consul"
+      },
+      {
+        "title": "Community Forum",
+        "href": "https://discuss.hashicorp.com/c/consul"
+      },
+      {
+        "title": "Support",
+        "href": "https://support.hashicorp.com"
+      }
+    ]
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/consul",
+      "id": "overview"
+    },
+    {
+      "label": "Docs",
+      "id": "docs",
+      "path": "/consul/docs"
+    },
+    {
+      "label": "API",
+      "path": "/consul/api-docs",
+      "id": "api-docs"
+    },
+    {
+      "label": "CLI",
+      "path": "/consul/commands",
+      "id": "commands"
+    },
+    {
+      "label": "Install",
+      "path": "/consul/downloads",
+      "id": "downloads"
+    }
+  ]
 }

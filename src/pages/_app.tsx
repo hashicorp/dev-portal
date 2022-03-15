@@ -1,7 +1,12 @@
-import '@hashicorp/platform-util/nprogress/style.css'
+import React from 'react'
 import dynamic from 'next/dynamic'
+import { SSRProvider } from '@react-aria/ssr'
+import '@hashicorp/platform-util/nprogress/style.css'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
+import CodeTabsProvider from '@hashicorp/react-code-block/provider'
+import createConsentManager from '@hashicorp/react-consent-manager/loader'
+import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
 import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import './style.css'
@@ -13,18 +18,53 @@ const PreviewProductSwitcher = dynamic(
   { ssr: false }
 )
 
+if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const ReactDOM = require('react-dom')
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const axe = require('@axe-core/react')
+  axe(React, ReactDOM, 1000)
+}
+
+const { ConsentManager, openConsentManager } = createConsentManager({
+  preset: 'oss',
+})
+
 export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()
 
   const Layout = Component.layout ?? BaseLayout
+  const currentProduct = pageProps.product || null
+
+  /**
+   * TODO: refactor this so that pageProps.layoutProps is the only place where
+   * layoutProps come from.
+   */
+  const allLayoutProps = {
+    ...pageProps.layoutProps,
+    ...layoutProps,
+  }
 
   return (
-    <ErrorBoundary>
-      <Layout {...(layoutProps && { data: layoutProps })}>
-        <Component {...pageProps} />
-      </Layout>
-      {showProductSwitcher ? <PreviewProductSwitcher /> : null}
-    </ErrorBoundary>
+    <SSRProvider>
+      <ErrorBoundary FallbackComponent={Error}>
+        <DeviceSizeProvider>
+          <CurrentProductProvider currentProduct={currentProduct}>
+            <CodeTabsProvider>
+              <Layout
+                {...allLayoutProps}
+                data={allLayoutProps}
+                openConsentManager={openConsentManager}
+              >
+                <Component {...pageProps} />
+              </Layout>
+              {showProductSwitcher ? <PreviewProductSwitcher /> : null}
+            </CodeTabsProvider>
+          </CurrentProductProvider>
+        </DeviceSizeProvider>
+        <ConsentManager />
+      </ErrorBoundary>
+    </SSRProvider>
   )
 }
 
@@ -48,5 +88,9 @@ App.getInitialProps = async ({ Component, ctx }) => {
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx)
   }
-  return { pageProps, layoutProps }
+
+  return {
+    pageProps,
+    layoutProps,
+  }
 }

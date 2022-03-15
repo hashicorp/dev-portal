@@ -1,12 +1,14 @@
-const visit = require('unist-util-visit')
+import { visit } from 'unist-util-visit'
 
 const api = process.env.PLAYGROUND_API_URL
 
-module.exports = () => (tree) => {
+const remarkSentinel = () => (tree) => {
   visit(tree, 'code', (node) => {
     let example
     if (node.lang === 'sentinel') {
-      if (!node.meta || !node.meta.includes('playground')) return
+      if (!node.meta || !node.meta.includes('playground')) {
+        return
+      }
       example = {
         policy: node.value,
       }
@@ -26,3 +28,5 @@ module.exports = () => (tree) => {
     }
   })
 }
+
+export default remarkSentinel

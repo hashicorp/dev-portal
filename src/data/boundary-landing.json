@@ -1,0 +1,169 @@
+{
+  "heading": "Boundary Overview",
+  "subheading": "Use Boundary to create granular, identity-based access controls to manage user access across dynamic infrastructures.",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 400,
+      "heading": "Explore Boundary Documentation"
+    },
+    {
+      "type": "get_started",
+      "product": "boundary",
+      "heading": "Introduction to Boundary",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iaculis dui sed venenatis, purus non augue arcu. Faucibus viverra praesent velit id vitae placerat gravida. Quis in nullam.",
+      "link": {
+        "text": "Learn More",
+        "url": "/boundary/docs/what-is-boundary"
+      }
+    },
+    {
+      "type": "cards",
+      "columns": 2,
+      "cards": [
+        {
+          "icon": "IconDocs",
+          "heading": "Boundary Reference Documentation",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget blandit ante ut tristique lectus mollis.",
+          "url": "/boundary/docs"
+        },
+        {
+          "icon": "IconTerminal",
+          "heading": "Boundary CLI",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae ut et tincidunt arcu at vehicula aliquam.",
+          "url": "/boundary/docs/api-clients/cli"
+        },
+        {
+          "icon": "IconServer",
+          "heading": "Boundary API",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sodales tellus bibendum sit ornare donec vitae.",
+          "url": "/boundary/docs/api-clients/api"
+        },
+        {
+          "icon": "IconDownload",
+          "heading": "Boundary Install",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius eu in odio turpis felis nisi mauris elit.",
+          "url": "/boundary/downloads"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Featured Reference Docs",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Amet sed turpis habitant.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum lectus posuere.",
+          "url": "/boundary/docs"
+        },
+        {
+          "heading": "Nec lorem sed viverra.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis nunc mus cursus.",
+          "url": "/boundary/docs"
+        },
+        {
+          "heading": "At vitae tristique at.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Penatibus laoreet egestas id.",
+          "url": "/boundary/docs"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Lorem ipsum dolor sit amet",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Volutpat neque viverra.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis velit elit risus.",
+          "url": "/boundary/docs"
+        },
+        {
+          "heading": "Aenean cras purus nulla.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis amet in lorem aliquam.",
+          "url": "/boundary/docs"
+        },
+        {
+          "heading": "Nisl feugiat nulla ornare.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit in consectetur sit nec volutpat.",
+          "url": "/boundary/docs"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Lorem ipsum dolor sit amet",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Gravida ipsum orci nunc.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id eget eget nulla orci, mi. Ut.",
+          "url": "/boundary/docs"
+        },
+        {
+          "heading": "Cursus hendrerit aenean.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Facilisis viverra ornare urna.",
+          "url": "/boundary/docs"
+        },
+        {
+          "heading": "Morbi augue id vitae ut.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "url": "/boundary/docs"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Start Learning",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 2,
+      "cards": [
+        {
+          "heading": "Vitae tincidunt arcu magna ullamcorper.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hendrerit neque at aliquam est. Sit tellus.",
+          "url": "https://learn.hashicorp.com/boundary",
+          "tags": ["boundary"]
+        },
+        {
+          "heading": "Pulvinar facilisis est orci ut elit lorem sit.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque lacus risus vitae hac sit.",
+          "url": "https://learn.hashicorp.com/boundary",
+          "tags": ["boundary"]
+        },
+        {
+          "heading": "Consectetur id nisl tempus ullamcorper.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus augue augue aenean at fringilla.",
+          "url": "https://learn.hashicorp.com/boundary",
+          "tags": ["boundary"]
+        },
+        {
+          "heading": "Ultrices id id cras quis amet commodo.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper imperdiet id ut tristique nulla auctor.",
+          "url": "https://learn.hashicorp.com/boundary",
+          "tags": ["boundary"]
+        }
+      ]
+    }
+  ]
+}
