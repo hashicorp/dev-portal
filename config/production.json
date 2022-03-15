@@ -3,6 +3,13 @@
     "max_static_paths": 9999,
     "revalidate": 360
   },
+  "dev_dot": {
+    "max_static_paths": 10,
+    "revalidate": 360
+  },
+  "learn": {
+    "max_static_paths": 10
+  },
   "flags": {
     "enable_new_downloads_view": true
   }
