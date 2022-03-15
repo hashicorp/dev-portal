@@ -120,7 +120,6 @@ module.exports = withSwingset({
         },
       ],
     },
-    // outputFileTracing: false,
     images: {
       domains: ['www.datocms-assets.com'],
     },
