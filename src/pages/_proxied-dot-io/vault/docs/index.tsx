@@ -1,12 +1,9 @@
 import { ReactElement } from 'react'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
-import Card, { CardLink } from 'components/card'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/vault.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
-import classNames from 'classnames'
-import Button from '@hashicorp/react-button'
-import s from './index.module.css'
+import ProductDocsLanding from 'views/product-docs-landing'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticProps } from 'next'
@@ -57,93 +54,7 @@ function VaultDocsLandingPage({
       versions={versions}
       algoliaConfig={productData.algoliaConfig}
     >
-      <div className={s.pageContents}>
-        <h1 className="g-type-display-2">Documentation</h1>
-        <p>
-          Welcome to Vault documentation! Vault is an identity-based secret and
-          encryption management system. This documentation covers the main
-          concepts of Vault, what problems it can solve, and contains a quick
-          start for using Vault.
-        </p>
-        <Card className={s.featuredCard}>
-          <article className={s.featuredCardContent}>
-            <div className={s.featuredCardText}>
-              <h1 className={s.featuredCardHeading}>Get Started</h1>
-              <p className={s.featuredCardBody}>
-                Use Vault to securely store, access, and manage secrets and
-                other sensitive data.
-              </p>
-              <div className={classNames(s.featuredCardCtas, s.flexGridParent)}>
-                <Button
-                  theme={{
-                    variant: 'primary',
-                    brand: 'vault',
-                    background: 'light',
-                  }}
-                  title="CLI Quick Start"
-                  url="https://www.hashicorp.com"
-                  size="small"
-                />
-                <Button
-                  theme={{
-                    variant: 'secondary',
-                    brand: 'vault',
-                    background: 'light',
-                  }}
-                  title="Developer Quick Start"
-                  url="https://www.hashicorp.com"
-                  size="small"
-                />
-              </div>
-            </div>
-            <div className={s.featuredCardImage}>
-              <img src={require('./vault-get-started-diagram.png')} alt="" />
-            </div>
-          </article>
-        </Card>
-        <h2 className="g-type-display-3">Use Cases</h2>
-        <div className={s.useCaseCards}>
-          <Card>
-            <pre>
-              <code>{`Secrets Management
-Centrally store, access, and deploy secrets across applications, systems, and infrastructure.
-Key/Value, Database Credentials, Kubernetes Secrets
-`}</code>
-            </pre>
-          </Card>
-          <Card>
-            <pre>
-              <code>{`Encryption Services
-Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.
-Transit, Transform, Tokenization
-`}</code>
-            </pre>
-          </Card>
-          <Card>
-            <pre>
-              <code>{`Key Management
-Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.
-PKI, KMIP, KMSE
-`}</code>
-            </pre>
-          </Card>
-        </div>
-        <h2 className="g-type-display-3">Developers</h2>
-        <div className={s.developerCards}>
-          <CardLink href="https://www.vaultproject.io/api-docs/libraries">
-            Client Libraries
-          </CardLink>
-          <CardLink href="https://www.vaultproject.io/api-docs/index">
-            API Reference
-          </CardLink>
-          <CardLink href="https://github.com/hashicorp/hello-vault-go">
-            Sample Integrations Some Very Very Long Text Wow This Is Too Long
-          </CardLink>
-          <CardLink href="https://github.com/hashicorp/vault-examples">
-            GitHub Samples
-          </CardLink>
-        </div>
-      </div>
+      <ProductDocsLanding />
     </DocsPageInner>
   )
 }

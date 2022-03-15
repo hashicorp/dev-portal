@@ -22,34 +22,36 @@
 .featuredCardHeading {
   composes: g-type-display-5 from global;
   /* !important is necessary here to stop leaks from enclosing
-  @hashicorp/react-content component styles */
+    @hashicorp/react-content component styles */
   margin: 0 !important;
 }
 
 .featuredCardBody {
   /* !important is necessary here to stop leaks from enclosing
-  @hashicorp/react-content component styles */
+    @hashicorp/react-content component styles */
   margin: 8px 0 0 0 !important;
 }
 
 .featuredCardCtas {
+  margin-top: 24px;
+}
+
+.flexGridParent {
   /*
-  We want CTA items to have space between them when on the same line,
-  but we also want them to wrap to multiple lines when space is limited.
-  we use a flex layout with some margin tricks to achieve this. each CTA item
-  creates a buffer around it, and the container offset the "edges" of this
-  buffer with negative margin.
-  (Note as well that margin does NOT collapse in flex layouts,
-  which is why the item buffer is half the desired spacing)
-  */
-  --item-spacing: 8px;
-  --item-buffer: calc(var(--item-spacing) * 0.5);
+    We want CTA items to have space between them when on the same line,
+    but we also want them to wrap to multiple lines when space is limited.
+    we use a flex layout with some margin tricks to achieve this. each CTA item
+    creates a buffer around it, and the container offset the "edges" of this
+    buffer with negative margin.
+    (Note as well that margin does NOT collapse in flex layouts,
+    which is why the item buffer is half the desired spacing)
+    */
+  --local-item-spacing: var(--item-spacing, 8px);
+  --item-buffer: calc(var(--local-item-spacing) * 0.5);
   --item-buffer-offset: calc(var(--item-buffer) * -1);
   display: flex;
   flex-wrap: wrap;
   margin: var(--item-buffer-offset);
-  /* We also want some spacing above, to separate from the previous element */
-  margin-top: calc(24px + var(--item-buffer-offset));
 
   & > * {
     margin: var(--item-buffer);
@@ -70,7 +72,6 @@
 
 .useCaseCards {
   display: grid;
-  border: 1px solid red;
   /* stick to 1 column at 100% no matter what */
   grid-template-columns: 100%;
   grid-gap: 16px;
@@ -78,6 +79,21 @@
   @media (min-width: 640px) {
     grid-gap: 24px;
   }
+}
+
+.useCaseCardHeading {
+  composes: g-type-display-5 from global;
+  margin: 0 !important;
+}
+
+.useCaseCardBody {
+  margin: 8px 0 0 0 !important;
+}
+
+.useCaseCardCtas {
+  --item-spacing: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
 }
 
 .developerCards {
