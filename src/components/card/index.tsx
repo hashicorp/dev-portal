@@ -16,6 +16,7 @@ const Card = ({
 
 const CardLink = ({ children, className, href }: $TSFixMe): ReactElement => {
   const classes = classNames(`hds-surface-mid`, s.root, s.linked, className)
+
   return (
     <MaybeInternalLink className={classes} href={href}>
       {children}
