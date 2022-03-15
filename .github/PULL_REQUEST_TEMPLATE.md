@@ -14,6 +14,10 @@ Check these items off in the GitHub PR UI as you complete them.
 
 ## Relevant links
 
+<!-- 
+Make sure to remove any '.' characters from the branch name 
+Example: ks.my-branch --> ksmy-branch
+-->
 - [Preview link](https://dev-portal-git-BRANCH_NAME-hashicorp.vercel.app/PATH_TO_VIEW) 🔎
 - [Asana task](url) 🎟️
 
