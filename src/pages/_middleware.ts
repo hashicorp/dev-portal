@@ -53,31 +53,33 @@ function determineProductSlug(req: NextRequest): string | null {
  * - Handling simple one-to-one redirects
  */
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
+  // Handle redirects
   const product = determineProductSlug(req)
   if (process.env.DEBUG_REDIRECTS) {
     console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
   }
-  if (product && redirects[product]) {
-    if (req.nextUrl.pathname in redirects[product]) {
-      const { destination, permanent } = redirects[product][
-        req.nextUrl.pathname
-      ]
-      if (process.env.DEBUG_REDIRECTS) {
-        console.log(
-          `[DEBUG_REDIRECTS] redirecting ${req.nextUrl.pathname} to ${destination}`
-        )
-      }
-      if (destination.startsWith('http')) {
-        return NextResponse.redirect(destination, permanent ? 308 : 307)
-      }
-
-      // Next.js doesn't support redirecting to a pathname, so we clone the
-      // request URL to adjust the pathname in an absolute URL
-      const url = req.nextUrl.clone()
-      url.pathname = destination
-      return NextResponse.redirect(url, permanent ? 308 : 307)
+  if (
+    product &&
+    redirects[product] &&
+    req.nextUrl.pathname in redirects[product]
+  ) {
+    const { destination, permanent } = redirects[product][req.nextUrl.pathname]
+    if (process.env.DEBUG_REDIRECTS) {
+      console.log(
+        `[DEBUG_REDIRECTS] redirecting ${req.nextUrl.pathname} to ${destination}`
+      )
     }
+    if (destination.startsWith('http')) {
+      return NextResponse.redirect(destination, permanent ? 308 : 307)
+    }
+
+    // Next.js doesn't support redirecting to a pathname, so we clone the
+    // request URL to adjust the pathname in an absolute URL
+    const url = req.nextUrl.clone()
+    url.pathname = destination
+    return NextResponse.redirect(url, permanent ? 308 : 307)
   }
 
+  // Continue request processing
   return NextResponse.next()
 }
