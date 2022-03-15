@@ -15,7 +15,7 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
   headings,
   openConsentManager,
   sidebarProps,
-  sidecarChildren,
+  sidecarSlot,
 }) => (
   <BaseLayout showFooter={false}>
     <div className={s.contentWrapper}>
@@ -46,8 +46,8 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
           />
         </div>
         <div className={`${s.sidecar} g-hide-on-mobile g-hide-on-tablet`}>
-          {sidecarChildren ? (
-            sidecarChildren
+          {sidecarSlot ? (
+            sidecarSlot
           ) : (
             <TableOfContents
               headings={headings.filter((heading) => heading.level <= 2)}

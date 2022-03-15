@@ -5,7 +5,7 @@ import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table
 
 /**
  * The following approach enables us to require the either the `headings` prop
- * OR the `sidecarChildren` prop.
+ * OR the `sidecarSlot` prop.
  *
  * In the `PropsForTableOfContents` and `PropsForCustomSidecar` interfaces, the
  * "other" prop is marked optional with its type set to `never` so that we can
@@ -22,12 +22,12 @@ interface BaseProps {
 
 interface PropsForTableOfContents extends BaseProps {
   headings: TableOfContentsHeading[]
-  sidecarChildren?: never
+  sidecarSlot?: never
 }
 
 interface PropsForCustomSidecar extends BaseProps {
   headings?: never
-  sidecarChildren: ReactNode
+  sidecarSlot: ReactNode
 }
 
 export type SidebarSidecarLayoutProps =
