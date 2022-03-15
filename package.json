@@ -126,7 +126,7 @@
     "js-cookie": "^2.2.1",
     "klaw-sync": "^6.0.0",
     "mdast": "^3.0.0",
-    "next": "^12.0.10",
+    "next": "^12.1.0",
     "next-mdx-remote": "^3.0.8",
     "nuka-carousel": "^4.8.4",
     "promise-polyfill": "^8.2.1",
@@ -139,6 +139,7 @@
     "slugify": "^1.6.4",
     "swingset": "^0.11.0",
     "unified": "^9.2.0",
+    "unist-util-is": "^5.1.1",
     "unist-util-visit": "^4.1.0",
     "validator": "^13.7.0"
   },

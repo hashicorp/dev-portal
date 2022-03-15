@@ -1,16 +1,15 @@
 import { Product as ProductContext } from 'types/products'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
-import {
-  ProductOption,
-  TutorialFullCollectionCtx as ClientTutorial,
-} from 'lib/learn-client/types'
+import { ProductOption } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { splitProductFromFilename } from './helpers'
+import { splitProductFromFilename } from './utils'
+import { serializeContent } from './utils/serialize-content'
+import { TutorialViewProps } from '.'
 
 // @TODO just a stub - adjust page props interface
 export interface TutorialPageProps {
-  tutorial: ClientTutorial
+  tutorial: TutorialViewProps
   product: TutorialPageProduct // controls the ProductSwitcher
 }
 
@@ -33,11 +32,15 @@ export async function getTutorialPageProps(
    * */
   const tutorialFilename = slug[1]
   const dbSlug = `${product.slug}/${tutorialFilename}`
-  const tutorial = await getTutorial(dbSlug)
+  const baseTutorialData = await getTutorial(dbSlug)
+  const serializedContent = await serializeContent(baseTutorialData)
 
   return {
     props: stripUndefinedProperties({
-      tutorial,
+      tutorial: {
+        ...baseTutorialData,
+        content: serializedContent,
+      },
       product,
     }),
   }
