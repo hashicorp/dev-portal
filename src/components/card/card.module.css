@@ -4,3 +4,14 @@
   padding: 16px;
   width: 100%;
 }
+
+.linked {
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
+
+  &:hover {
+    box-shadow: var(--token-surface-high-box-shadow);
+    cursor: pointer;
+  }
+}

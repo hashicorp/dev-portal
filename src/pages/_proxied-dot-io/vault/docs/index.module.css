@@ -1,0 +1,27 @@
+.pageContents {
+  padding-bottom: 128px;
+}
+
+.useCaseCards {
+  display: grid;
+  border: 1px solid red;
+  /* stick to 1 column at 100% no matter what */
+  grid-template-columns: 100%;
+  grid-gap: 16px;
+
+  @media (min-width: 640px) {
+    grid-gap: 24px;
+  }
+}
+
+.developerCards {
+  display: grid;
+  grid-gap: 16px;
+  /* automatically use more columns, as long as columns are >= 320px wide */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  align-items: stretch;
+
+  @media (min-width: 640px) {
+    grid-gap: 24px;
+  }
+}

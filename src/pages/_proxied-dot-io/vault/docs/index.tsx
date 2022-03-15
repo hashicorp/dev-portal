@@ -1,10 +1,10 @@
 import { ReactElement } from 'react'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
-import Card from 'components/card'
-import CardLink from 'components/card-link'
+import Card, { CardLink } from 'components/card'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/vault.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
+import s from './index.module.css'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticProps } from 'next'
@@ -55,60 +55,65 @@ function VaultDocsLandingPage({
       versions={versions}
       algoliaConfig={productData.algoliaConfig}
     >
-      <h1 className="g-type-display-2">Documentation</h1>
-      <p>
-        Welcome to Vault documentation! Vault is an identity-based secret and
-        encryption management system. This documentation covers the main
-        concepts of Vault, what problems it can solve, and contains a quick
-        start for using Vault.
-      </p>
-      <Card>
-        <pre>
-          <code>{`Get Started
+      <div className={s.pageContents}>
+        <h1 className="g-type-display-2">Documentation</h1>
+        <p>
+          Welcome to Vault documentation! Vault is an identity-based secret and
+          encryption management system. This documentation covers the main
+          concepts of Vault, what problems it can solve, and contains a quick
+          start for using Vault.
+        </p>
+        <Card>
+          <pre>
+            <code>{`Get Started
 Use Vault to securely store, access, and manage secrets and other sensitive data.
 <button> CLI quick start </button> <button>Developer quick start</button>
 `}</code>
-        </pre>
-      </Card>
-      <h2 className="g-type-display-3">Use Cases</h2>
-      <Card>
-        <pre>
-          <code>{`Secrets Management
+          </pre>
+        </Card>
+        <h2 className="g-type-display-3">Use Cases</h2>
+        <div className={s.useCaseCards}>
+          <Card>
+            <pre>
+              <code>{`Secrets Management
 Centrally store, access, and deploy secrets across applications, systems, and infrastructure.
 Key/Value, Database Credentials, Kubernetes Secrets
 `}</code>
-        </pre>
-      </Card>
-      <Card>
-        <pre>
-          <code>{`Encryption Services
+            </pre>
+          </Card>
+          <Card>
+            <pre>
+              <code>{`Encryption Services
 Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.
 Transit, Transform, Tokenization
 `}</code>
-        </pre>
-      </Card>
-      <Card>
-        <pre>
-          <code>{`Key Management
+            </pre>
+          </Card>
+          <Card>
+            <pre>
+              <code>{`Key Management
 Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.
 PKI, KMIP, KMSE
 `}</code>
-        </pre>
-      </Card>
-      <h2 className="g-type-display-3">Developers</h2>
-      <CardLink href="https://www.vaultproject.io/api-docs/libraries">
-        Client Libraries
-      </CardLink>
-      <CardLink href="https://www.vaultproject.io/api-docs/index">
-        API Reference
-      </CardLink>
-      <CardLink href="https://github.com/hashicorp/hello-vault-go">
-        Sample Integrations
-      </CardLink>
-      <CardLink href="https://github.com/hashicorp/vault-examples">
-        GitHub Samples
-      </CardLink>
-      {/* TODO: add some space at the bottom of the page */}
+            </pre>
+          </Card>
+        </div>
+        <h2 className="g-type-display-3">Developers</h2>
+        <div className={s.developerCards}>
+          <CardLink href="https://www.vaultproject.io/api-docs/libraries">
+            Client Libraries
+          </CardLink>
+          <CardLink href="https://www.vaultproject.io/api-docs/index">
+            API Reference
+          </CardLink>
+          <CardLink href="https://github.com/hashicorp/hello-vault-go">
+            Sample Integrations Some Very Very Long Text Wow This Is Too Long
+          </CardLink>
+          <CardLink href="https://github.com/hashicorp/vault-examples">
+            GitHub Samples
+          </CardLink>
+        </div>
+      </div>
     </DocsPageInner>
   )
 }

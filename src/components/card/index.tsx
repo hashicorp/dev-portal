@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
 import { CardProps } from './types'
+import MaybeInternalLink from 'components/maybe-internal-link'
 import s from './card.module.css'
 
 const Card = ({
@@ -13,5 +14,15 @@ const Card = ({
   return <div className={classes}>{children}</div>
 }
 
+const CardLink = ({ children, className, href }: $TSFixMe): ReactElement => {
+  const classes = classNames(`hds-surface-mid`, s.root, s.linked, className)
+  return (
+    <MaybeInternalLink className={classes} href={href}>
+      {children}
+    </MaybeInternalLink>
+  )
+}
+
+export { CardLink }
 export type { CardProps }
 export default Card
