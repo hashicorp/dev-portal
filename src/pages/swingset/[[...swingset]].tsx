@@ -1,12 +1,22 @@
 import createPage from 'swingset/page'
 import { createStaticProps, createStaticPaths } from 'swingset/server'
-import EmptyLayout from 'layouts/empty'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
+// additional components
+import Search from '@hashicorp/react-search'
+import { SearchProvider } from '@hashicorp/react-search'
+import SwingsetColorToken from '__swingset-components/swingset-color-token'
+import SwingsetTestIcon from '__swingset-components/swingset-test-icon'
 
-const SwingsetPage = createPage()
+const components = {
+  Search,
+  SearchProvider,
+  SwingsetColorToken,
+  SwingsetTestIcon,
+}
 
-SwingsetPage.layout = EmptyLayout
-
-export default SwingsetPage
+const SwingsetPage = createPage({ components })
+SwingsetPage.layout = CoreDevDotLayout
 
 export const getStaticPaths = createStaticPaths()
 export const getStaticProps = createStaticProps()
+export default SwingsetPage

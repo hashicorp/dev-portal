@@ -1,0 +1,19 @@
+.root {
+  padding: 0 24px;
+  width: 100%;
+  max-width: 1604px;
+  margin: 0 auto;
+}
+
+.hero {
+  margin-top: 24px;
+}
+
+.cardGridHeading {
+  margin-top: 64px;
+}
+
+.cardGrid {
+  margin-top: 32px;
+  margin-bottom: 144px;
+}

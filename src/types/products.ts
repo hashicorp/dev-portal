@@ -1,4 +1,6 @@
 import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
+import { NavigationHeaderItem } from 'components/navigation-header/types'
+import { MenuItem } from 'components/sidebar'
 
 type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 
@@ -8,6 +10,11 @@ type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 interface Product extends ProductMeta {
   basePaths?: string[]
   name: string
+  navigationHeaderItems?: NavigationHeaderItem[]
+  sidebar?: {
+    landingPageNavData: MenuItem[]
+    resourcesNavData: MenuItem[]
+  }
   slug: ProductSlug
   url?: string
 }

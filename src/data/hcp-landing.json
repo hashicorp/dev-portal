@@ -1,0 +1,172 @@
+{
+  "heading": "HashiCorp Cloud Platform Overview",
+  "subheading": "Use HCP to fully automate your cloud infrastructure.",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 400,
+      "heading": "Explore HCP Documentation"
+    },
+    {
+      "type": "get_started",
+      "product": "hcp",
+      "heading": "Lorem ipsum dolor sit amet",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, mattis facilisi aliquam elit velit. Consectetur sit ullamcorper pulvinar a lacus, diam, neque. Faucibus laoreet ipsum.",
+      "link": {
+        "text": "Get Started",
+        "url": "https://cloud.hashicorp.com"
+      }
+    },
+    {
+      "type": "cards",
+      "columns": 2,
+      "cards": [
+        {
+          "icon": "IconTerraformColor",
+          "iconBrandColor": "terraform",
+          "heading": "Terraform Cloud",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ante potenti vulputate donec magnis sed. Urna.",
+          "url": "https://cloud.hashicorp.com/products/terraform"
+        },
+        {
+          "icon": "IconVaultColor",
+          "iconBrandColor": "vault",
+          "heading": "HCP Vault",
+          "text": "Use HCP Vault to securely store, access, and manage secrets and other sensitive data.",
+          "url": "https://cloud.hashicorp.com/products/vault"
+        },
+        {
+          "icon": "IconConsulColor",
+          "iconBrandColor": "consul",
+          "heading": "HCP Consul",
+          "text": "Use HCP Consul to automate network configurations across any cloud.",
+          "url": "https://cloud.hashicorp.com/products/consul"
+        },
+        {
+          "icon": "IconPackerColor",
+          "iconBrandColor": "packer",
+          "heading": "HCP Packer",
+          "text": "Use HCP Packer to automatically create machine images for multiple cloud platforms.",
+          "url": "https://cloud.hashicorp.com/products/packer"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 300,
+      "heading": "Featured Reference Docs"
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "HCP Architecture",
+          "text": "HashiCorp Cloud Platform (HCP) has two main planes for interacting with the platform...",
+          "url": "https://cloud.hashicorp.com/docs/hcp/architecture"
+        },
+        {
+          "heading": "HashiCorp Virtual Network",
+          "text": "Quickly get hands-on with HCP Consul using the HCP portal quickstart deployment...",
+          "url": "https://learn.hashicorp.com/collections/cloud/networking"
+        },
+        {
+          "heading": "Get Started - HCP Packer",
+          "text": "Learn how to securely connect your HCP Consul or HCP Vault clusters by connecting your...",
+          "url": "https://learn.hashicorp.com/collections/packer/cloud-production"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 300,
+      "heading": "Lorem ipsum dolor sit amet"
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Etiam quis in ac non quam.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
+          "url": "https://www.hashicorp.com"
+        },
+        {
+          "heading": "Aliquet eu risus dis sed.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
+          "url": "https://www.hashicorp.com"
+        },
+        {
+          "heading": "Ornare faucibus blandit id.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
+          "url": "https://www.hashicorp.com"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 300,
+      "heading": "Lorem ipsum dolor sit amet"
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Interdum sollicitudin.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Porttitor facilisi dui pharetra.",
+          "url": "https://www.hashicorp.com"
+        },
+        {
+          "heading": "Ornare nibh semper.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
+          "url": "https://www.hashicorp.com"
+        },
+        {
+          "heading": "Fames nibh gravida.",
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+          "url": "https://www.hashicorp.com"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 300,
+      "heading": "Start learning"
+    },
+    {
+      "type": "cards",
+      "columns": 2,
+      "cards": [
+        {
+          "heading": "Getting Started with HCP Vault",
+          "text": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Vault using the HCP portal and...",
+          "url": "https://learn.hashicorp.com/collections/vault/cloud",
+          "tags": ["vault"]
+        },
+        {
+          "heading": "Getting started with HCP Consul",
+          "text": "Learn the fundamentals of expressing your workload as Nomad jobs. Submit, inspect, and monitor a...",
+          "url": "https://learn.hashicorp.com/collections/consul/cloud-get-started",
+          "tags": ["consul"]
+        },
+        {
+          "heading": "Get Started with HCP Packer",
+          "text": "HCP Packer registry stores Packer image metadata, enabling you to track your image lifecycle.",
+          "url": "https://learn.hashicorp.com/collections/packer/cloud-production",
+          "tags": ["packer"]
+        },
+        {
+          "heading": "HashiCorp Virtual Network",
+          "text": "Learn how to securely connect your HCP Consul or HCP Vault clusters by connecting your VPC to ...",
+          "url": "https://learn.hashicorp.com/collections/cloud/networking"
+        }
+      ]
+    }
+  ]
+}

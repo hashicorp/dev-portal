@@ -1,8 +1,82 @@
-.placeholder {
-  padding: 1rem;
-  border: 1px solid red;
-  background: mistyrose;
-  display: flex;
+@custom-media --list-horizontally (min-width: 1400px);
+
+.root {
   align-items: center;
-  justify-content: center;
+  background: var(--token-color-palette-neutral-0);
+  color: var(--token-color-palette-neutral-600);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 32px 0;
+  position: relative;
+
+  /*
+  before element acts as full-width border, no matter the container size
+  */
+  &::before {
+    background: var(--token-color-border-primary);
+    content: '\200B';
+    height: 1px;
+    left: 0;
+    left: 50%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    width: 200vh;
+  }
+}
+
+.logo {
+  margin: 8px 40px 8px 0;
+  position: relative;
+
+  & svg {
+    /*
+    default inline display results in misalignment with footer links
+    */
+    display: block;
+    height: 28px;
+    width: auto;
+  }
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 16px 0 0 0;
+  padding: 0;
+  position: relative;
+  width: 100%;
+
+  @media (--list-horizontally) {
+    margin-top: 0;
+    width: auto;
+  }
+}
+
+.linkListItem {
+  margin: 8px 0;
+  width: 100%;
+
+  &:not(:last-child) {
+    margin-right: 32px;
+  }
+
+  @media (--list-horizontally) {
+    width: auto;
+  }
+}
+
+.linkAction {
+  background: none;
+  border: none;
+  color: var(--token-color-foreground-faint);
+  padding: 0;
+
+  &:hover {
+    color: var(--token-color-foreground-strong);
+    text-decoration: underline;
+  }
 }

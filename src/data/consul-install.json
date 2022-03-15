@@ -1,0 +1,57 @@
+{
+  "featuredTutorials": [
+    {
+      "description": "Consul is a networking tool that provides a fully featured service mesh and service discovery. Try Consul locally.",
+      "href": "https://learn.hashicorp.com/collections/consul/getting-started",
+      "title": "Get Started"
+    },
+    {
+      "description": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Consul using the HCP portal quickstart deployment, experiment with the Consul UI, and try out the key-value store.",
+      "href": "https://learn.hashicorp.com/collections/consul/cloud-get-started",
+      "title": "HashiCorp Cloud Platform (HCP) Consul"
+    },
+    {
+      "description": "Create a new HashiCorp Consul Service (HCS) on Azure and connect VMs or Azure Kubernetes Service (AKS) as Consul clients.",
+      "href": "https://learn.hashicorp.com/collections/consul/hcs-azure",
+      "title": "HashiCorp Consul Service (HCS) on Azure"
+    },
+    {
+      "description": "Setup Consul service mesh to get experience deploying service sidecar proxies and securing service with mTLS",
+      "href": "https://learn.hashicorp.com/collections/consul/gs-consul-service-mesh",
+      "title": "Get Started on Kubernetes"
+    },
+    {
+      "description": "Authenticate service-to-service communication with mTLS and authorization with Access Control Lists (ACLs).",
+      "href": "https://learn.hashicorp.com/collections/consul/service-mesh-security",
+      "title": "Secure Service Communication"
+    },
+    {
+      "description": "Consul-Terraform-Sync helps you automate infrastructure changes to react to changes in your Consul service catalog.",
+      "href": "https://learn.hashicorp.com/collections/consul/network-infrastructure-automation",
+      "title": "Network Infrastructure Automation (NIA)"
+    }
+  ],
+  "sidecarMarketingCard": {
+    "title": "About Consul",
+    "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+    "learnMoreLink": "https://www.consul.io/",
+    "featuredDocsLinks": [
+      {
+        "href": "/consul/docs/intro",
+        "text": "Introduction"
+      },
+      {
+        "href": "/consul/docs/install",
+        "text": "Install"
+      },
+      {
+        "href": "/consul/api-docs",
+        "text": "API Introduction"
+      },
+      {
+        "href": "/consul/commands",
+        "text": "Commands (CLI)"
+      }
+    ]
+  }
+}

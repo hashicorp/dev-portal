@@ -1,0 +1,164 @@
+{
+  "heading": "Vault Overview",
+  "subheading": "Use Vault to securely store, access, and manage secrets and other sensitive data.",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "size": 400,
+      "heading": "Explore Vault Documentation"
+    },
+    {
+      "type": "get_started",
+      "product": "vault",
+      "heading": "Introduction to Vault",
+      "text": "This guide covers what Vault is, what problems it can solve, how it compares to existing software, and contains a quick start for using Vault.",
+      "link": {
+        "text": "Learn more",
+        "url": "/vault/docs/what-is-vault"
+      }
+    },
+    {
+      "type": "cards",
+      "columns": 2,
+      "cards": [
+        {
+          "icon": "IconDocs",
+          "heading": "Vault Reference Documentation",
+          "text": "This documentation is more of a reference guide for all available features and options of Vault.",
+          "url": "/vault/docs"
+        },
+        {
+          "icon": "IconTerminal",
+          "heading": "Vault CLI",
+          "text": "Vault features a command-line interface that wraps common functionality and formats output.",
+          "url": "/vault/docs/commands"
+        },
+        {
+          "icon": "IconServer",
+          "heading": "Vault API",
+          "text": "The Vault HTTP API gives you full access to Vault via HTTP.",
+          "url": "/vault/api-docs"
+        },
+        {
+          "icon": "IconDownload",
+          "heading": "Vault Install",
+          "text": "Please download the proper package for your operating system and architecture.",
+          "url": "/vault/downloads"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Secrets Management",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "KV Secrets Engine",
+          "text": "The kv secrets engine is a generic Key-Value store used to store arbitrary secrets...",
+          "url": "/vault/docs/secrets/kv"
+        },
+        {
+          "heading": "AWS Secrets Engine",
+          "text": "The AWS secrets engine generates AWS access credentials dynamically...",
+          "url": "/vault/docs/secrets/aws"
+        },
+        {
+          "heading": "PKI Secrets Engine",
+          "text": "The PKI secrets engine generates dynamic X.509 certificates.",
+          "url": "/vault/docs/secrets/pki"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Data Protection",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Transit Secret Engine",
+          "text": "The transit secrets engine handles cryptographic functions on data in-transit.",
+          "url": "/vault/docs/secrets/transit"
+        },
+        {
+          "heading": "Key Management",
+          "text": "Workflow for distribution and lifecycle management of cryptographic keys in key...",
+          "url": "/vault/docs/secrets/key-management"
+        },
+        {
+          "heading": "Transform",
+          "text": "The Transform secrets engine handles secure data transformation and...",
+          "url": "/vault/docs/secrets/transform"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Identity-based Access",
+      "size": 300
+    },
+    {
+      "type": "cards",
+      "columns": 3,
+      "cards": [
+        {
+          "heading": "Auth Methods",
+          "text": "The Transform secrets engine handles secure data transformation and...",
+          "url": "/vault/docs/auth"
+        },
+        {
+          "heading": "Policies",
+          "text": "Policies provide a declarative way to grant or forbid access to certain paths and...",
+          "url": "/vault/docs/concepts/policies"
+        },
+        {
+          "heading": "Tokens",
+          "text": "Tokens are the core method for authentication within Vault.",
+          "url": "/vault/docs/concepts/tokens"
+        }
+      ]
+    },
+    { "type": "heading", "level": 2, "heading": "Start learning", "size": 300 },
+    {
+      "type": "cards",
+      "columns": 2,
+      "cards": [
+        {
+          "heading": "Getting Started",
+          "text": "Controls access to passwords, certificates, and other secrets in modern computing.",
+          "tags": ["vault"],
+          "url": "https://learn.hashicorp.com/tutorials/vault/getting-started-intro"
+        },
+        {
+          "heading": "Getting Started with Vault UI",
+          "text": "Manage Vault environment as well as your secrets using Vault UI.",
+          "tags": ["vault"],
+          "url": "https://learn.hashicorp.com/tutorials/vault/getting-started-intro-ui"
+        },
+        {
+          "heading": "Getting Started with HCP Vault",
+          "text": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Vault using the HCP portal.",
+          "tags": ["vault"],
+          "url": "https://learn.hashicorp.com/tutorials/vault/getting-started-intro"
+        },
+        {
+          "heading": "Vault on Kubernetes Deployment Guide",
+          "text": "Describes the required steps to install and configure a single HashiCorp Vault cluster onto a...",
+          "tags": ["vault"],
+          "url": "https://learn.hashicorp.com/tutorials/vault/kubernetes-raft-deployment-guide"
+        }
+      ]
+    }
+  ]
+}

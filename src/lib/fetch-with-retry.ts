@@ -3,7 +3,8 @@ function sleep(delay: number) {
 }
 
 /**
- * Creates a wrapped fetch implementation with retries and (optional) retry delays baked-in.
+ * Creates a wrapped fetch implementation with retries and (optional) retry
+ * delays baked-in.
  */
 export function makeFetchWithRetry(
   wrappedFetch: typeof fetch,
@@ -25,7 +26,10 @@ export function makeFetchWithRetry(
     }
 
     while (attempts <= retries) {
-      // if we've passed in a delay, multiple it by the number of attempts to introduce a linear backoff
+      /**
+       * if we've passed in a delay, multiple it by the number of attempts
+       * tointroduce a linear backoff
+       */
       if (delay && attempts > 0) {
         await sleep(delay * attempts)
       }

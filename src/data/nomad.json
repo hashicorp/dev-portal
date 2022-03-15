@@ -70,5 +70,66 @@
       "url": "/community",
       "type": "inbound"
     }
+  ],
+  "basePaths": ["docs", "api-docs", "plugins", "tools", "intro"],
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/nomad/intro" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/nomad/docs/install"
+      }
+    ],
+    "resourcesNavData": [
+      { "heading": "Resources" },
+      {
+        "title": "Releases",
+        "href": "https://releases.hashicorp.com/nomad/"
+      },
+      {
+        "title": "HashiCorp Learn",
+        "href": "https://learn.hashicorp.com/nomad"
+      },
+      {
+        "title": "Community Forum",
+        "href": "https://discuss.hashicorp.com/c/nomad"
+      },
+      {
+        "title": "Support",
+        "href": "https://support.hashicorp.com"
+      }
+    ]
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/nomad",
+      "id": "overview"
+    },
+    {
+      "label": "Docs",
+      "id": "docs",
+      "path": "/nomad/docs"
+    },
+    {
+      "label": "API",
+      "path": "/nomad/api-docs",
+      "id": "api-docs"
+    },
+    {
+      "label": "Plugins",
+      "path": "/nomad/plugins",
+      "id": "plugins"
+    },
+    {
+      "label": "Tools",
+      "path": "/nomad/tools",
+      "id": "tools"
+    },
+    {
+      "label": "Install",
+      "path": "/nomad/downloads",
+      "id": "downloads"
+    }
   ]
 }

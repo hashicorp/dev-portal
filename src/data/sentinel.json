@@ -39,5 +39,56 @@
       "text": "Docs",
       "type": "inbound"
     }
+  ],
+  "basePaths": ["docs", "intro"],
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/sentinel/intro" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/sentinel/intro/getting-started"
+      }
+    ],
+    "resourcesNavData": [
+      { "heading": "Resources" },
+      {
+        "title": "Releases",
+        "href": "https://releases.hashicorp.com/sentinel/"
+      },
+      {
+        "title": "HashiCorp Learn",
+        "href": "https://learn.hashicorp.com/sentinel"
+      },
+      {
+        "title": "Community Forum",
+        "href": "https://discuss.hashicorp.com/c/sentinel/25"
+      },
+      {
+        "title": "Support",
+        "href": "https://support.hashicorp.com"
+      }
+    ]
+  },
+  "navigationHeaderItems": [
+    {
+      "label": "Overview",
+      "path": "/sentinel",
+      "id": "overview"
+    },
+    {
+      "label": "Intro",
+      "path": "/sentinel/intro",
+      "id": "intro"
+    },
+    {
+      "label": "Docs",
+      "path": "/sentinel/docs",
+      "id": "docs"
+    },
+    {
+      "label": "Install",
+      "path": "/sentinel/downloads",
+      "id": "downloads"
+    }
   ]
 }

@@ -1,0 +1,253 @@
+/*
+NOTE:
+Relies on `--sticky-bars-height` being set,
+this is currently being done in `BaseNewLayout`.
+See comment in src/layouts/base-new/base-new-layout.module.css
+for further details.
+*/
+
+.contentWrapper {
+  display: flex;
+  /* flex-grow ensures the content fills available
+  space in BaseNewLayout */
+  flex-grow: 1;
+
+  /* For a coherent visual effect, the top padding value
+  must be used for sticky positioning in addition to
+  padding the content area. So, we create a CSS var
+  to make it reusable and express this intent. */
+  --main-area-top-padding: 32px;
+}
+
+.sidebar {
+  background-color: white;
+  box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
+    0 12px 28px rgba(101, 106, 118, 0.25);
+  flex-shrink: 0;
+  /* Sidebar should occupy the full available screen height.
+  We have sticky nav bars, so the full height is equal to
+  100vh minus the combined height of the sticky nav bars. */
+  max-height: calc(100vh - var(--sticky-bars-height));
+  overflow-y: auto;
+  position: sticky;
+  top: var(--sticky-bars-height);
+  width: 320px;
+  /* z-index is necessary here to prevent any absolutely
+  positioned elements in the main area, namely the footer's
+  top-border, from overlapping the sidebar */
+  z-index: 1;
+}
+
+.mainArea {
+  display: flex;
+  flex-grow: 1;
+  min-width: 0;
+  justify-content: center;
+  padding-bottom: 32px;
+  padding-top: var(--main-area-top-padding);
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.main {
+  align-self: flex-start;
+  flex-grow: 1;
+  min-width: 0;
+  max-width: 804px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/**
+ * Remainder of styles here are for docs content.
+ * We likely want to convert these to MDX components.
+ * Asana task: https://app.asana.com/0/1201010428539925/1201653123138729/f
+ */
+.tempContentStyles {
+  composes: hds-typography-body-300 from global;
+
+  & :global {
+    & a.__permalink-h {
+      display: none;
+    }
+
+    & .alert.alert-info {
+      background-color: #f2f8ff;
+      border: 1px solid #cce3f3;
+      border-radius: 6px;
+      color: var(--token-color-palette-neutral-600);
+      padding: 16px;
+
+      & code {
+        background-color: white;
+        border: 1px solid #cce3fe;
+        border-radius: 5px;
+        color: inherit;
+      }
+
+      & p {
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
+  & h6 {
+    --permalink-scroll-offset: 24px;
+    --full-header-height: calc(
+      var(--navigation-header-height) + var(--alert-bar-height)
+    );
+    --height: calc(var(--full-header-height) + var(--permalink-scroll-offset));
+
+    /*
+    Because not all jump link headings have an anchor child, such as the ones on
+    the product landing pages
+    */
+    scroll-margin-top: var(--height);
+
+    & a:global(.__target-h) {
+      scroll-margin-top: var(--height);
+    }
+  }
+
+  & ul,
+  & ol {
+    margin: 24px 0;
+    padding-left: 24px;
+
+    & li {
+      color: var(--token-color-foreground-primary);
+
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
+
+      & ul,
+      & ol {
+        margin: 16px 0;
+      }
+    }
+  }
+
+  & img {
+    border-radius: 5px;
+    margin: 24px auto;
+    max-width: 100%;
+  }
+
+  /* inline code elements */
+  & code {
+    background-color: var(--token-color-palette-neutral-50);
+    border-radius: 5px;
+    border: 1px solid rgba(101, 106, 118, 0.2);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    padding: 2px 4px;
+  }
+
+  /* code blocks */
+  & pre {
+    border-radius: 5px;
+
+    & code {
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+    }
+  }
+
+  & table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-right: 0;
+    background-color: transparent;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+
+    & th {
+      text-align: left;
+    }
+
+    & td,
+    & th {
+      border-right: 1px solid #ddd;
+      padding: 0;
+    }
+
+    & > tbody > tr:nth-of-type(odd) {
+      background-color: #f9f9f9;
+    }
+
+    & > thead > tr > th,
+    & > tbody > tr > th,
+    & > tfoot > tr > th,
+    & > thead > tr > td,
+    & > tbody > tr > td,
+    & > tfoot > tr > td {
+      padding: 8px;
+      line-height: 1.42857143;
+      vertical-align: top;
+      border-top: 1px solid #ddd;
+    }
+
+    & > thead > tr > th {
+      vertical-align: bottom;
+      border-bottom: 2px solid #ddd;
+    }
+
+    & > caption + thead > tr:first-child > th,
+    & > colgroup + thead > tr:first-child > th,
+    & > thead:first-child > tr:first-child > th,
+    & > caption + thead > tr:first-child > td,
+    & > colgroup + thead > tr:first-child > td,
+    & > thead:first-child > tr:first-child > td {
+      border-top: 0;
+      border-right: 1px solid #ddd;
+    }
+
+    & > tbody + tbody {
+      border-top: 2px solid #ddd;
+    }
+
+    & table {
+      background-color: #fff;
+    }
+
+    & tr.warning td {
+      background: #fcf8e3;
+    }
+  }
+}
+
+.editOnGithubLink {
+  margin-top: 64px;
+}
+
+.footer {
+  /* the 50vh margin-top on footer ensures that all
+  jump-nav items have room to be jumped to */
+  margin-top: 50vh;
+}
+
+.sidecar {
+  align-self: flex-start;
+  flex-shrink: 0;
+  margin-left: 24px;
+  position: sticky;
+  top: calc(var(--sticky-bars-height) + var(--main-area-top-padding));
+  width: 220px;
+}

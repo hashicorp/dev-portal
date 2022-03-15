@@ -1,15 +1,17 @@
-import Link from 'next/link'
+import waypointData from 'data/waypoint.json'
+import ProductLandingView from 'views/product-landing'
+import { generateStaticProps } from 'views/product-landing/server'
+import { Product } from 'types/products'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default function Homepage() {
-  return (
-    <div className="g-grid-container">
-      <h1>Welcome to Waypoint</h1>
-      <ul>
-        <li>
-          <Link href="/docs">View Docs</Link>
-        </li>
-      </ul>
-    </div>
-  )
+export async function getStaticProps() {
+  const contentJsonFile = 'src/data/waypoint-landing.json'
+  const product = waypointData as Product
+
+  return {
+    props: await generateStaticProps({ product, contentJsonFile }),
+    revalidate: 10,
+  }
 }
+
+export default ProductLandingView
