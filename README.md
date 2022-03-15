@@ -86,6 +86,20 @@ To run tests in watch mode:
 npm run test:watch
 ```
 
+Additionally, we use [Playwright](https://playwright.dev/) for end-to-end integration tests. Playwright tests should be used when testing functionality that requires a running Next.js server, such as middleware and redirects.
+
+To run the end-to-end tests:
+
+```
+npm run test:e2e
+```
+
+To view the report for an end-to-end test run:
+
+```
+npx playwright show-report
+```
+
 ### Component Organization
 
 In order to create some structure and consistency throughout this project, we're creating some light guidelines around where certain components should live. We have three top-level folders which should house components:

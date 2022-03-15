@@ -276,9 +276,97 @@ async function buildDotIoRedirects() {
   ]
 }
 
-async function redirectsConfig() {
-  const dotIoRedirects = await buildDotIoRedirects()
-  return [...dotIoRedirects]
+/**
+ * Splits an array of redirects into simple (one-to-one path matches without
+ * regex matching) and glob-based (with regex matching). Enables processing
+ * redirects via middleware instead of the built-in redirects handling.
+ * @param {Redirect[]} redirects
+ * @returns {{ simpleRedirects: Redirect[], globRedirects: Redirect[] }}
+ */
+function splitRedirectsByType(redirects) {
+  /** @type {Redirect[]} */
+  const simpleRedirects = []
+
+  /** @type {Redirect[]} */
+  const globRedirects = []
+
+  redirects.forEach((redirect) => {
+    if (
+      ['(', ')', '{', '}', ':', '*', '+', '?'].some((char) =>
+        redirect.source.includes(char)
+      ) ||
+      (redirect.has && redirect.has.some((has) => has.type !== 'host'))
+    ) {
+      globRedirects.push(redirect)
+    } else {
+      simpleRedirects.push(redirect)
+    }
+  })
+
+  return { simpleRedirects, globRedirects }
 }
 
-module.exports = redirectsConfig
+/**
+ * Groups simple redirects into an object keyed by the product slug they apply
+ * to (as determined by the `host` property).
+ * @param {Redirect[]} redirects
+ */
+function groupSimpleRedirects(redirects) {
+  /** @type {Record<string, string>} */
+  const hostMatching = Object.entries(proxySettings).reduce(
+    (acc, [productSlug, productProxySettings]) => {
+      acc[productProxySettings.host] = productSlug
+      return acc
+    },
+    {}
+  )
+
+  /** @type {Record<string, Record<string, { destination: string, permanent?: boolean }>>} */
+  const groupedRedirects = {}
+  redirects.forEach((redirect) => {
+    if (redirect.has && redirect.has.length > 0) {
+      const product =
+        redirect.has[0].type === 'host'
+          ? hostMatching[redirect.has[0].value]
+          : redirect.has[0].value
+
+      if (product) {
+        if (product in groupedRedirects) {
+          groupedRedirects[product][redirect.source] = {
+            destination: redirect.destination,
+            permanent: redirect.permanent,
+          }
+        } else {
+          groupedRedirects[product] = {
+            [redirect.source]: {
+              destination: redirect.destination,
+              permanent: redirect.permanent,
+            },
+          }
+        }
+      }
+    }
+  })
+
+  return groupedRedirects
+}
+
+async function redirectsConfig() {
+  const dotIoRedirects = await buildDotIoRedirects()
+  const { simpleRedirects, globRedirects } = splitRedirectsByType(
+    dotIoRedirects
+  )
+  const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
+  if (process.env.DEBUG_REDIRECTS) {
+    console.log(
+      '[DEBUG_REDIRECTS]',
+      JSON.stringify({ simpleRedirects, groupedSimpleRedirects, globRedirects })
+    )
+  }
+  return {
+    simpleRedirects: groupedSimpleRedirects,
+    globRedirects,
+  }
+}
+
+module.exports = { redirectsConfig, splitRedirectsByType, groupSimpleRedirects }
