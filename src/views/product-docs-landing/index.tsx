@@ -2,110 +2,54 @@ import { ReactElement } from 'react'
 import Card, { CardLink } from 'components/card'
 import Button from '@hashicorp/react-button'
 import s from './style.module.css'
+import CONTENT from './vault-content'
+
+// TODO: consider product slug setting. variable per-card?
 
 function ProductDocsLanding(): ReactElement {
   return (
     <div className={s.pageContents}>
-      <h1 className="g-type-display-2">Documentation</h1>
-      <p>
-        Welcome to Vault documentation! Vault is an identity-based secret and
-        encryption management system. This documentation covers the main
-        concepts of Vault, what problems it can solve, and contains a quick
-        start for using Vault.
-      </p>
-      <FeaturedCard />
+      <h1 className="g-type-display-2">{CONTENT.pageTitle}</h1>
+      <p>{CONTENT.pageSubtitle}</p>
+      <FeaturedCard
+        heading={CONTENT.featuredCard.heading}
+        imgSrc={CONTENT.featuredCard.imgSrc}
+        body={CONTENT.featuredCard.body}
+        links={CONTENT.featuredCard.links}
+      />
       <h2 className="g-type-display-3">Use Cases</h2>
       <div className={s.useCaseCards}>
-        <UseCaseCard
-          heading="Secrets Management"
-          body="Centrally store, access, and deploy secrets across applications, systems, and infrastructure."
-          links={[
-            {
-              title: 'Key/Value',
-              url: 'https://www.hashicorp.com',
-            },
-            {
-              title: 'Database Credentials',
-              url: 'https://www.hashicorp.com',
-            },
-            {
-              title: 'Kubernetes Secrets',
-              url: 'https://www.hashicorp.com',
-            },
-          ]}
-        />
-        <UseCaseCard
-          heading="Encryption Services"
-          body="Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information."
-          links={[
-            {
-              title: 'Transit Secrets Engine',
-              url: 'https://www.hashicorp.com',
-            },
-            {
-              title: 'Transform Secrets Engine',
-              url: 'https://www.hashicorp.com',
-            },
-            {
-              title: 'Tokenization',
-              url: 'https://www.hashicorp.com',
-            },
-          ]}
-        />
-        <UseCaseCard
-          heading="Key Management"
-          body="Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers."
-          links={[
-            {
-              title: 'KMIP Secrets Engine',
-              url: 'https://www.hashicorp.com',
-            },
-            {
-              title: 'Key Management Secrets Engine',
-              url: 'https://www.hashicorp.com',
-            },
-            {
-              title: 'PKI',
-              url: 'https://www.hashicorp.com',
-            },
-          ]}
-        />
+        {CONTENT.useCaseCards.map(({ heading, body, links }, stableIdx) => {
+          return (
+            <UseCaseCard
+              // eslint-disable-next-line react/no-array-index-key
+              key={stableIdx}
+              heading={heading}
+              body={body}
+              links={links}
+            />
+          )
+        })}
       </div>
       <h2 className="g-type-display-3">Developers</h2>
       <div className={s.developerCards}>
-        <CardLink href="https://www.vaultproject.io/api-docs/libraries">
-          Client Libraries
-        </CardLink>
-        <CardLink href="https://www.vaultproject.io/api-docs/index">
-          API Reference
-        </CardLink>
-        <CardLink href="https://github.com/hashicorp/hello-vault-go">
-          Sample Integrations
-        </CardLink>
-        <CardLink href="https://github.com/hashicorp/vault-examples">
-          GitHub Samples
-        </CardLink>
+        {CONTENT.developerCards.map(({ title, url }, stableIdx) => {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <CardLink key={stableIdx} href={url}>
+              {title}
+            </CardLink>
+          )
+        })}
       </div>
     </div>
   )
 }
 
-function FeaturedCard() {
-  const heading = 'Get Started'
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const imgSrc = require('./vault-get-started-diagram.png')
-  const body =
-    'Use Vault to securely store, access, and manage secrets and other sensitive data.'
-  const links = [
-    {
-      title: 'CLI Quick Start',
-      url: 'https://www.hashicorp.com',
-    },
-    {
-      title: 'Developer Quick Start',
-      url: 'https://www.hashicorp.com',
-    },
-  ]
+/**
+ * TODO: split this out into a separate component folder
+ */
+function FeaturedCard({ heading, imgSrc, body, links }) {
   return (
     <Card className={s.featuredCard}>
       <article className={s.featuredCardContent}>
@@ -141,6 +85,9 @@ function FeaturedCard() {
   )
 }
 
+/**
+ * TODO: split this out into a separate component folder
+ */
 function UseCaseCard({ heading, body, links }) {
   return (
     <Card>
