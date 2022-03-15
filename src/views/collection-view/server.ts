@@ -6,7 +6,7 @@ import {
   getAllCollections,
   getCollection,
 } from 'lib/learn-client/api/collection'
-import { splitProductFromFilename } from 'views/tutorial-view/helpers'
+import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { TutorialPageProduct } from 'views/tutorial-view/server'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 

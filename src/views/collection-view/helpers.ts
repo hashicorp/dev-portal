@@ -1,4 +1,4 @@
-import { splitProductFromFilename } from 'views/tutorial-view/helpers'
+import { splitProductFromFilename } from 'views/tutorial-view/utils'
 
 /**
  * takes db slug format --> waypoint/intro
