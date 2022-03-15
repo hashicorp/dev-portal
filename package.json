@@ -41,7 +41,7 @@
     "@hashicorp/platform-nextjs-plugin": "^2.0.1",
     "@hashicorp/platform-postcss-config": "^0.1.0",
     "@hashicorp/platform-types": "^0.1.1",
-    "@playwright/test": "^1.19.2",
+    "@playwright/test": "^1.20.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/react-hooks": "^7.0.2",
