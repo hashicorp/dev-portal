@@ -56,6 +56,7 @@
     "flat": "^5.0.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.7",
+    "nextjs-bundle-analysis": "^0.5.0-canary.1",
     "postcss": "^8.4.5",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-normalize": "^10.0.1",
@@ -148,6 +149,7 @@
   "nextBundleAnalysis": {
     "budget": null,
     "budgetPercentIncreaseRed": 20,
-    "showDetails": true
+    "showDetails": true,
+    "minimumChangeThreshold": 300
   }
 }
