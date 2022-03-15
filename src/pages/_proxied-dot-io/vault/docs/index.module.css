@@ -2,6 +2,72 @@
   padding-bottom: 128px;
 }
 
+.featuredCard {
+  background-color: var(--vault-secondary);
+}
+
+.featuredCardContent {
+  display: grid;
+  /* automatically use more columns, as long as columns are >= 400px wide */
+  /* note that minimum size is adjusted to less than 400px if 100% < 400px */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+  grid-gap: 24px;
+  align-items: center;
+}
+
+.featuredCardText {
+  text-align: left;
+}
+
+.featuredCardHeading {
+  composes: g-type-display-5 from global;
+  /* !important is necessary here to stop leaks from enclosing
+  @hashicorp/react-content component styles */
+  margin: 0 !important;
+}
+
+.featuredCardBody {
+  /* !important is necessary here to stop leaks from enclosing
+  @hashicorp/react-content component styles */
+  margin: 8px 0 0 0 !important;
+}
+
+.featuredCardCtas {
+  /*
+  We want CTA items to have space between them when on the same line,
+  but we also want them to wrap to multiple lines when space is limited.
+  we use a flex layout with some margin tricks to achieve this. each CTA item
+  creates a buffer around it, and the container offset the "edges" of this
+  buffer with negative margin.
+  (Note as well that margin does NOT collapse in flex layouts,
+  which is why the item buffer is half the desired spacing)
+  */
+  --item-spacing: 8px;
+  --item-buffer: calc(var(--item-spacing) * 0.5);
+  --item-buffer-offset: calc(var(--item-buffer) * -1);
+  display: flex;
+  flex-wrap: wrap;
+  margin: var(--item-buffer-offset);
+  /* We also want some spacing above, to separate from the previous element */
+  margin-top: calc(24px + var(--item-buffer-offset));
+
+  & > * {
+    margin: var(--item-buffer);
+  }
+}
+
+.featuredCardImage {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+
+  & img {
+    max-width: 300px;
+    margin: 0;
+    display: block;
+  }
+}
+
 .useCaseCards {
   display: grid;
   border: 1px solid red;
@@ -18,7 +84,8 @@
   display: grid;
   grid-gap: 16px;
   /* automatically use more columns, as long as columns are >= 320px wide */
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  /* note that minimum size is adjusted to less than 320px if 100% < 320px */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   align-items: stretch;
 
   @media (min-width: 640px) {

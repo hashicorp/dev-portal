@@ -4,6 +4,8 @@ import Card, { CardLink } from 'components/card'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/vault.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
+import classNames from 'classnames'
+import Button from '@hashicorp/react-button'
 import s from './index.module.css'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
@@ -63,13 +65,41 @@ function VaultDocsLandingPage({
           concepts of Vault, what problems it can solve, and contains a quick
           start for using Vault.
         </p>
-        <Card>
-          <pre>
-            <code>{`Get Started
-Use Vault to securely store, access, and manage secrets and other sensitive data.
-<button> CLI quick start </button> <button>Developer quick start</button>
-`}</code>
-          </pre>
+        <Card className={s.featuredCard}>
+          <article className={s.featuredCardContent}>
+            <div className={s.featuredCardText}>
+              <h1 className={s.featuredCardHeading}>Get Started</h1>
+              <p className={s.featuredCardBody}>
+                Use Vault to securely store, access, and manage secrets and
+                other sensitive data.
+              </p>
+              <div className={classNames(s.featuredCardCtas, s.flexGridParent)}>
+                <Button
+                  theme={{
+                    variant: 'primary',
+                    brand: 'vault',
+                    background: 'light',
+                  }}
+                  title="CLI Quick Start"
+                  url="https://www.hashicorp.com"
+                  size="small"
+                />
+                <Button
+                  theme={{
+                    variant: 'secondary',
+                    brand: 'vault',
+                    background: 'light',
+                  }}
+                  title="Developer Quick Start"
+                  url="https://www.hashicorp.com"
+                  size="small"
+                />
+              </div>
+            </div>
+            <div className={s.featuredCardImage}>
+              <img src={require('./vault-get-started-diagram.png')} alt="" />
+            </div>
+          </article>
         </Card>
         <h2 className="g-type-display-3">Use Cases</h2>
         <div className={s.useCaseCards}>
