@@ -1,6 +1,7 @@
 import Content from '@hashicorp/react-content'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { TutorialFullCollectionCtx as ClientTutorial } from 'lib/learn-client/types'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import MDX_COMPONENTS from './utils/mdx-components'
 
 export interface TutorialViewProps extends Omit<ClientTutorial, 'content'> {
@@ -13,11 +14,28 @@ export default function TutorialView({
   content,
 }: TutorialViewProps): React.ReactElement {
   return (
-    <main>
+    <SidebarSidecarLayout
+      sidebarSlot={
+        <>
+          {new Array(20).fill(null).map((_) => (
+            <div key={_}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+              eros diam, fringilla ac malesuada vel, faucibus quis mauris.
+            </div>
+          ))}
+        </>
+      }
+      sidecarSlot={
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+          eros diam, fringilla ac malesuada vel, faucibus quis mauris.
+        </div>
+      }
+    >
       <h1>{name}</h1>
       <Content
         content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
       />
-    </main>
+    </SidebarSidecarLayout>
   )
 }
