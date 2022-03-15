@@ -17,7 +17,16 @@ interface BaseProps {
   children: React.ReactNode
   githubFileUrl?: string
   openConsentManager?: () => void
+}
+
+interface PropsForDefaultSidebar extends BaseProps {
   sidebarProps: SidebarProps
+  sidebarSlot?: never
+}
+
+interface PropsForCustomSidebar extends BaseProps {
+  sidebarProps?: never
+  sidebarSlot: ReactElement
 }
 
 interface PropsForTableOfContents extends BaseProps {
@@ -30,6 +39,9 @@ interface PropsForCustomSidecar extends BaseProps {
   sidecarSlot: ReactElement
 }
 
-export type SidebarSidecarLayoutProps =
-  | PropsForTableOfContents
-  | PropsForCustomSidecar
+// TODO: hard to read
+export type SidebarSidecarLayoutProps = (
+  | PropsForDefaultSidebar
+  | PropsForCustomSidebar
+) &
+  (PropsForTableOfContents | PropsForCustomSidecar)

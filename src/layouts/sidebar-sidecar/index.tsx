@@ -15,8 +15,24 @@ const SidebarSidecarLayout: FC<SidebarSidecarLayoutProps> = ({
   headings,
   openConsentManager,
   sidebarProps,
+  sidebarSlot,
   sidecarSlot,
 }) => {
+  const SidebarContent = (): ReactElement => {
+    if (sidebarSlot) {
+      return sidebarSlot
+    }
+
+    return (
+      <Sidebar
+        backToLinkProps={sidebarProps.backToLinkProps}
+        menuItems={sidebarProps.menuItems}
+        showFilterInput={sidebarProps.showFilterInput}
+        title={sidebarProps.title}
+      />
+    )
+  }
+
   const SidecarContent = (): ReactElement => {
     if (sidecarSlot) {
       return sidecarSlot
@@ -33,12 +49,7 @@ const SidebarSidecarLayout: FC<SidebarSidecarLayoutProps> = ({
     <BaseLayout showFooter={false}>
       <div className={s.contentWrapper}>
         <div className={s.sidebar}>
-          <Sidebar
-            backToLinkProps={sidebarProps.backToLinkProps}
-            menuItems={sidebarProps.menuItems}
-            showFilterInput={sidebarProps.showFilterInput}
-            title={sidebarProps.title}
-          />
+          <SidebarContent />
         </div>
         <div className={s.mainArea}>
           <div className={s.main}>
