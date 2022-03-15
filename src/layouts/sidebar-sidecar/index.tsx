@@ -29,8 +29,6 @@ const SidebarSidecarLayout: React.FC<SidebarSidecarLayoutProps> = ({
       </div>
       <div className={s.mainArea}>
         <div className={s.main}>
-          {/* TODO: implement version switcher (ref: https://app.asana.com/0/1201010428539925/1201342966970641/f) */}
-          {/* <div className={s.versionSwitcher}>VERSION SWITCHER</div> */}
           <main id="main">
             {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
             <div className={s.tempContentStyles}>{children}</div>
