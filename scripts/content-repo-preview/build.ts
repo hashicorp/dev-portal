@@ -74,11 +74,24 @@ async function main() {
   /**
    * Remove dirs in `src/pages` which are not associated with the product
    */
-  const proxiedIoPagesDir = path.join(cwd, 'src', 'pages', '_proxied-dot-io')
+  const pagesDir = path.join(cwd, 'src', 'pages')
+  const proxiedIoPagesDir = path.join(pagesDir, '_proxied-dot-io')
 
+  const rootPagesDirs = (
+    await fs.promises.readdir(pagesDir, { withFileTypes: true })
+  ).filter((ent) => ent.isDirectory())
   const proxiedIoDirs = (
     await fs.promises.readdir(proxiedIoPagesDir, { withFileTypes: true })
   ).filter((ent) => ent.isDirectory())
+
+  for (const dir of rootPagesDirs) {
+    if (dir.name !== '_proxied-dot-io') {
+      console.log(`🧹 removing pages at /${dir.name}`)
+      await fs.promises.rm(path.join(proxiedIoPagesDir, dir.name), {
+        recursive: true,
+      })
+    }
+  }
 
   for (const dir of proxiedIoDirs) {
     if (!dir.name.includes(repo)) {
