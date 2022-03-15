@@ -9,8 +9,9 @@ import {
   TutorialPageProduct,
 } from 'views/tutorial-view/server'
 import waypointData from 'data/waypoint.json'
+import BaseLayout from 'layouts/base-new'
 
-export default function WaypointTutorialPage({
+export function WaypointTutorialPage({
   tutorial,
 }: TutorialPageProps): React.ReactElement {
   return <TutorialView {...tutorial} />
@@ -36,3 +37,6 @@ export async function getStaticPaths(): Promise<
     fallback: 'blocking',
   }
 }
+
+WaypointTutorialPage.layout = BaseLayout
+export default WaypointTutorialPage
