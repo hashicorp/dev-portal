@@ -33,17 +33,12 @@ async function main() {
   const globalCSSFile = path.join(cwd, 'src', 'pages', 'style.css')
 
   /**
-   * Check for a .next folder, if found copy it back into our website-preview dir
+   * Check for a cached node_modules folder folder, if found copy it back into our website-preview dir
    * This should allow us to take advantage of Vercel's build cache
    */
-  if (fs.existsSync(path.join(cwd, '..', '.next'))) {
-    console.log('.next folder found, moving into website-preview...')
-    execFileSync('mv', ['../.next', './.next'])
-
-    if (fs.existsSync(path.join(cwd, '.next', 'cache', 'node_modules'))) {
-      console.log('Found cached node_modules, moving...')
-      execFileSync('mv', ['./.next/cache/node_modules', './node_modules'])
-    }
+  if (fs.existsSync(path.join(cwd, '.next', 'cache', 'node_modules'))) {
+    console.log('Found cached node_modules, moving...')
+    execFileSync('mv', ['./.next/cache/node_modules', './node_modules'])
   }
 
   // copy public files
@@ -79,11 +74,24 @@ async function main() {
   /**
    * Remove dirs in `src/pages` which are not associated with the product
    */
-  const proxiedIoPagesDir = path.join(cwd, 'src', 'pages', '_proxied-dot-io')
+  const pagesDir = path.join(cwd, 'src', 'pages')
+  const proxiedIoPagesDir = path.join(pagesDir, '_proxied-dot-io')
 
+  const rootPagesDirs = (
+    await fs.promises.readdir(pagesDir, { withFileTypes: true })
+  ).filter((ent) => ent.isDirectory())
   const proxiedIoDirs = (
     await fs.promises.readdir(proxiedIoPagesDir, { withFileTypes: true })
   ).filter((ent) => ent.isDirectory())
+
+  for (const dir of rootPagesDirs) {
+    if (dir.name !== '_proxied-dot-io') {
+      console.log(`🧹 removing pages at /${dir.name}`)
+      await fs.promises.rm(path.join(pagesDir, dir.name), {
+        recursive: true,
+      })
+    }
+  }
 
   for (const dir of proxiedIoDirs) {
     if (!dir.name.includes(repo)) {
@@ -101,14 +109,8 @@ async function main() {
   /** Build */
   execFileSync('npm', ['run', 'build'], { stdio: 'inherit' })
 
-  // Copy the .next folder to the top-level so the site can be deployed and we can take advantage of the cache
-  // We are using cp here because the Vercel build is still running in the context of the nested website-preview directory,
-  // and so it needs the .next folder available to complete the deployment
-  execFileSync('cp', ['-R', '.next', '../.next'], { stdio: 'inherit' })
-
   // Put node_modules into .next/cache so we can retrieve them on subsequent builds
-  // We are using mv here because it is more efficient than cp, and node_modules is a big chungus
-  execFileSync('mv', ['node_modules', '../.next/cache/node_modules'], {
+  execFileSync('cp', ['-R', 'node_modules', '.next/cache'], {
     stdio: 'inherit',
   })
 }

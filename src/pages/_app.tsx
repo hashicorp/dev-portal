@@ -8,9 +8,10 @@ import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
 import BaseLayout from 'layouts/base'
+import { isDeployPreview, isPreview } from 'lib/env-checks'
 import './style.css'
 
-const isPreview = process.env.HASHI_ENV === 'preview'
+const showProductSwitcher = isPreview() && !isDeployPreview()
 
 const PreviewProductSwitcher = dynamic(
   () => import('components/_proxied-dot-io/common/preview-product-select'),
@@ -57,7 +58,7 @@ export default function App({ Component, pageProps, layoutProps }) {
               >
                 <Component {...pageProps} />
               </Layout>
-              {isPreview ? <PreviewProductSwitcher /> : null}
+              {showProductSwitcher ? <PreviewProductSwitcher /> : null}
             </CodeTabsProvider>
           </CurrentProductProvider>
         </DeviceSizeProvider>
