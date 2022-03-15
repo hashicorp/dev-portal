@@ -5,10 +5,6 @@ import CardLink from 'components/card-link'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/vault.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
-import {
-  generateSlug,
-  generateAriaLabel,
-} from '@hashicorp/platform-remark-plugins/util/generate-slug'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticProps } from 'next'
@@ -29,6 +25,14 @@ const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
  * ref: https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes
  */
 
+/**
+ * Hot take: it might be nice to modify DocsPageInner so that
+ * it does NOT automatically wrap content in the <Content /> component.
+ * The default export, DocsPage, would do the wrapping, so would be unaffected.
+ * This would open the possibility of moving away from cascading,
+ * inherited styles (which leak unintentionally into custom components,
+ * like Card), and towards more encapsulated styles.
+ */
 function VaultDocsLandingPage({
   frontMatter,
   currentPath,
@@ -51,7 +55,7 @@ function VaultDocsLandingPage({
       versions={versions}
       algoliaConfig={productData.algoliaConfig}
     >
-      <DocsPageInnerCompatHeading level={1} title="Documentation" />
+      <h1 className="g-type-display-2">Documentation</h1>
       <p>
         Welcome to Vault documentation! Vault is an identity-based secret and
         encryption management system. This documentation covers the main
@@ -66,7 +70,7 @@ Use Vault to securely store, access, and manage secrets and other sensitive data
 `}</code>
         </pre>
       </Card>
-      <DocsPageInnerCompatHeading level={2} title="Use Cases" />
+      <h2 className="g-type-display-3">Use Cases</h2>
       <Card>
         <pre>
           <code>{`Secrets Management
@@ -91,7 +95,7 @@ PKI, KMIP, KMSE
 `}</code>
         </pre>
       </Card>
-      <DocsPageInnerCompatHeading level={2} title="Developers" />
+      <h2 className="g-type-display-3">Developers</h2>
       <CardLink href="https://www.vaultproject.io/api-docs/libraries">
         Client Libraries
       </CardLink>
@@ -104,44 +108,8 @@ PKI, KMIP, KMSE
       <CardLink href="https://github.com/hashicorp/vault-examples">
         GitHub Samples
       </CardLink>
+      {/* TODO: add some space at the bottom of the page */}
     </DocsPageInner>
-  )
-}
-
-/**
- * TODO
- * This is a stopgap solution, because DocsPageInner automatically tries
- * to inject a jump-to-section menu, and throws an error if there are
- * any headings that do not have the __permalink-h attribute.
- * I think we might have fixed the "throw error" part of the equation in
- * a recent release, need to check that.
- *
- * Hot take here is that there isn't really a need for jump-to-section headings,
- * so we should be fine to not render the __permalink-h stuff.
- *
- * Broader hot take is that it might be nice to modify DocsPageInner so that
- * it does NOT automatically wrap content in the <Content /> component.
- * The default export, DocsPage, would do the wrapping, so would be unaffected.
- * This would open the possibility of moving away from cascading,
- * inherited styles (which leak unintentionally into custom components,
- * like Card), and towards more encapsulated styles.
- */
-function DocsPageInnerCompatHeading({ level, title, children = title }) {
-  const Elem = `h${level}` as keyof JSX.IntrinsicElements
-  const slug = generateSlug(title, [])
-  return (
-    <Elem className={`g-type-display-${level + 1}`}>
-      <a
-        className="__permalink-h"
-        href={`#${slug}`}
-        aria-label={generateAriaLabel(title)}
-      >
-        »
-      </a>
-      {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-      <a className="__target-h" id={slug} aria-hidden="true"></a>
-      {children}
-    </Elem>
   )
 }
 
