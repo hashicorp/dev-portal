@@ -1,8 +1,9 @@
-import Button from '@hashicorp/react-button'
-import Card, { CardProps } from 'components/card'
+import { ReactElement } from 'react'
 import Link from 'next/link'
+import Button from '@hashicorp/react-button'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import useWaypointServiceStatus from 'lib/hooks/useWaypointServiceStatus'
+import Card, { CardProps } from 'components/_proxied-dot-io/waypoint/card'
 import s from './style.module.css'
 
 interface LinkProps {
@@ -39,7 +40,7 @@ export default function Footer({
   ctaLinks,
   navLinks,
   openConsentManager,
-}: FooterProps) {
+}: FooterProps): ReactElement {
   const waypointServiceOK = useWaypointServiceStatus()
   return (
     <footer className={s.footer}>

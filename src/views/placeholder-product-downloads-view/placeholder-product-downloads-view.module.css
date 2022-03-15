@@ -1,0 +1,7 @@
+.sidecarCardLabel {
+  margin-bottom: 4px;
+}
+
+.sidecarCardText {
+  color: var(--token-color-foreground-faint);
+}

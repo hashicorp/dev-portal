@@ -27,8 +27,8 @@ const temporary_hideDocsPaths = {
 }
 
 /**
- * Reads in config files from config/[env].json and replaces references in the code
- * with the literal values using webpack.DefinePlugin
+ * Reads in config files from config/[env].json and replaces references in the
+ * code with the literal values using webpack.DefinePlugin
  */
 function HashiConfigPlugin() {
   const env = process.env.HASHI_ENV || 'development'
@@ -64,19 +64,24 @@ function HashiConfigPlugin() {
   })
 }
 
-module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
+module.exports = withSwingset({
+  componentsRoot: 'src/components/*',
+  docsRoot: 'src/swingset-docs/*',
+})(
   withHashicorp({
     nextOptimizedImages: true,
     css: false,
     transpileModules: [
-      'swingset',
-      // TODO: once Sentinel has been migrated into
-      // TODO: the dev-portal repository, we should
-      // TODO: consider localizing the sentinel-embedded
-      // TODO: component. Should first confirm with Cam Stitt
-      // TODO: that this component is not being used elsewhere.
-      '@hashicorp/sentinel-embedded',
       '@hashicorp/flight-icons',
+      /**
+       * TODO: once Sentinel has been migrated into the dev-portal repository,
+       * we should consider localizing the sentinel-embedded component. Should
+       * first confirm with Cam Stitt that this component is not being used
+       * elsewhere.
+       */
+      '@hashicorp/sentinel-embedded',
+      'swingset',
+      'unist-util-visit',
     ],
   })({
     webpack(config) {
@@ -86,6 +91,7 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
     async headers() {
       return [temporary_hideDocsPaths]
     },
+    // TODO: was commented out on `assembly-ui-v1`
     async redirects() {
       const { simpleRedirects, globRedirects } = await redirectsConfig()
       await fs.promises.writeFile(
@@ -95,16 +101,20 @@ module.exports = withSwingset({ componentsRoot: 'src/components/*' })(
       )
       return globRedirects
     },
+    // TODO: was commented out on `assembly-ui-v1`
     async rewrites() {
       return await rewritesConfig()
     },
     env: {
-      HASHI_ENV: process.env.HASHI_ENV || 'development',
+      AXE_ENABLED: process.env.AXE_ENABLED || false,
       BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',
       BUGSNAG_SERVER_KEY: 'b32b4487b5dc72b32f51c8fe33641a43',
-      ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
-      IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
       DEV_IO: process.env.DEV_IO,
+      ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
+      HASHI_ENV: process.env.HASHI_ENV || 'development',
+      IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
+      // TODO: determine if DevDot needs this or not
+      SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
     },
     svgo: {
       plugins: [

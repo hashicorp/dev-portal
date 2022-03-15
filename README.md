@@ -167,3 +167,7 @@ We use the [Next.js Bundle Analysis GitHub Action](https://github.com/hashicorp/
 ## Documentation Content
 
 Documentation for each product is sourced from its respective product repository, and served via Digital's [content API](https://github.com/hashicorp/mktg-content-workflows/#get-apicontentproductfullpath)
+
+## Repository Documentation
+
+Additional documentation for this repository is located in the [docs directory](./docs/README.md).

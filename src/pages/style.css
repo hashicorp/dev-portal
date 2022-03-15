@@ -1,6 +1,18 @@
 /* Global Styles */
 @import '~@hashicorp/mktg-global-styles/style.css';
 
+/*
+***
+* HashiCorp Design System Tokens. These are used in DevDot pages.
+***
+*/
+@import '~@hashicorp/design-system-tokens/devdot/css/tokens.css';
+@import '~@hashicorp/design-system-tokens/devdot/css/helpers/elevation.css';
+@import '~@hashicorp/design-system-tokens/devdot/css/helpers/typography.css';
+
+/* Sizing styles, used in DevDot */
+@import 'styles/sizing.css';
+
 /* Proxied Boundary page styles */
 @import './_proxied-dot-io/boundary/home/style.css';
 @import '../components/_proxied-dot-io/boundary/footer/style.css';

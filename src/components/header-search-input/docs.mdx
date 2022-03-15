@@ -1,0 +1,49 @@
+---
+componentName: 'HeaderSearchInput'
+---
+
+**🚧 WORK IN PROGRESS 🚧**
+
+The `HeaderSearchInput` is intended to be a version of our existing [`@hashicorp/react-search`](https://react-components.vercel.app/components/search) component that uses alternate styling for both the input, and for hits.
+
+## Look and feel
+
+The ability to re-skin our existing Search input still needs to be implemented. Differences in HTML structure required for efficient style application may mean we need be to rebuild our search input from the ground up, using what we have in [`@hashicorp/react-search`](https://react-components.vercel.app/components/search) as a starting point.
+
+For now, we show a placeholder version of this component:
+
+`theme="light"`
+
+<div
+  style={{
+    padding: '1rem',
+    background: 'var(--white)',
+    borderRadius: '2px',
+  }}
+>
+  <HeaderSearchInput theme="light" />
+</div>
+
+`theme="dark"`
+
+<div
+  style={{
+    padding: '1rem',
+    background: 'var(--black)',
+    borderRadius: '4px',
+  }}
+>
+  <HeaderSearchInput theme="dark" />
+</div>
+
+## Functionality
+
+For a preview of the functionality of the search input, refer to the existing [`@hashicorp/react-search`](https://react-components.vercel.app/components/search) component, previewed below!
+
+<LiveComponent>{`<SearchProvider>
+  <Search
+    renderHitContent={({ hit, Highlight }) => <div><p>{hit.description}</p></div>}
+    resolveHitLink={(hit) => ({ href: { pathname: '/' + hit.objectID, query: { id: hit.__queryID} } })}
+    placeholder="Search documentation"
+  />
+</SearchProvider>`}</LiveComponent>

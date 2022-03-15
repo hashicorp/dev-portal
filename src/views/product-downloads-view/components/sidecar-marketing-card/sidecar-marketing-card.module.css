@@ -1,0 +1,38 @@
+.cardTitle {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 4px;
+}
+
+.cardSubtitle {
+  color: var(--token-color-foreground-faint);
+  margin-bottom: 8px;
+}
+
+.featuredDocsLabel {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 8px;
+  margin-top: 24px;
+}
+
+.featuredDocsLinksList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.featuredDocsListItem {
+  &:not(:last-child) {
+    margin-bottom: 2px;
+  }
+}
+
+.featuredDocsLink {
+  color: var(--token-color-foreground-faint);
+  display: block;
+  padding: 8px 0;
+  width: fit-content;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

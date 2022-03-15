@@ -1,0 +1,114 @@
+/*
+* About this selector:
+* `.g-subnav ~ *` finds all elements after the navigation.
+* `:target` finds the active permalink on the page.
+*
+* About this style:
+* `scroll-margin-top` adjusts the vertical scroll of a permalink.
+* `64px` adjusts the scroll to account for the navigation.
+* `0.5em` further adjusts the scroll to give the permalink breathing room.
+*
+* See: https://developer.mozilla.org/en-US/docs/Web/CSS/:target
+* See: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-top
+*/
+.g-subnav ~ * :target {
+  scroll-margin-top: calc(64px + 0.5em);
+}
+
+/* Custom web font, deprecated */
+@font-face {
+  font-family: 'klavika-web';
+  src: url('/fonts/klavika/medium.woff2') format('woff2'),
+    url('/fonts/klavika/medium.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+.root {
+  /* Mobile and tablet breakpoints */
+  --mobile-width-breakpoint: 728px;
+  --tablet-width-breakpoint: 1000px;
+
+  /* Font overwrites */
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  --font-monospace: ui-monospace, Menlo, Consolas, Ubuntu Mono, monospace;
+
+  /* Custom properties are calculated before they're inherited, so the
+  font-family: var(--font-body) we set on our `body` element needs to be
+  re-declared here, so that our "system-ui" font stack cascades as expected. */
+  font-family: var(--font-body);
+
+  /* TODO: not sure where else to put this yet */
+  & button {
+    font-family: var(--font-body);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+@custom-media --mobile only screen and (max-width: 728px);
+@custom-media --tablet only screen and (min-width: 729px) and (max-width: 1000px);
+
+@media (--mobile) {
+  .g-hide-on-mobile {
+    display: none;
+  }
+}
+
+@media (--tablet) {
+  .g-hide-on-tablet {
+    display: none;
+  }
+}
+
+/* General helper classes */
+
+/*
+TODO: this will eventually replace the other focus helpers but they are heavily
+used at the moment and need to be refactored carefully. The places they are used
+do extra math to account for padding, which this helper now does with padding
+and negative margin.
+*/
+.focus-ring-from-box-shadow {
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--token-focus-ring-box-shadow);
+    outline: none;
+  }
+}
+
+.g-focus-border-and-box-shadow-light {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible {
+    border: 1px solid var(--token-color-palette-blue-200);
+    box-shadow: 0 0 0 3px #5990ff;
+    outline: none;
+  }
+}
+
+.g-focus-border-and-box-shadow-dark {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible {
+    border: 1px solid #107dff;
+    box-shadow: 0 0 0 3px #5fbcff;
+    outline: none;
+  }
+}
