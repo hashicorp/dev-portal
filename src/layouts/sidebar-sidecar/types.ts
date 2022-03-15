@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactElement } from 'react'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { SidebarProps } from 'components/sidebar'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
@@ -27,7 +27,7 @@ interface PropsForTableOfContents extends BaseProps {
 
 interface PropsForCustomSidecar extends BaseProps {
   headings?: never
-  sidecarSlot: ReactNode
+  sidecarSlot: ReactElement
 }
 
 export type SidebarSidecarLayoutProps =
