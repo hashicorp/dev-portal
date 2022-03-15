@@ -87,7 +87,7 @@ async function main() {
   for (const dir of rootPagesDirs) {
     if (dir.name !== '_proxied-dot-io') {
       console.log(`🧹 removing pages at /${dir.name}`)
-      await fs.promises.rm(path.join(proxiedIoPagesDir, dir.name), {
+      await fs.promises.rm(path.join(pagesDir, dir.name), {
         recursive: true,
       })
     }
