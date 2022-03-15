@@ -1,6 +1,6 @@
 import createPage from 'swingset/page'
 import { createStaticProps, createStaticPaths } from 'swingset/server'
-import EmptyLayout from 'layouts/empty'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 // additional components
 import Search from '@hashicorp/react-search'
 import { SearchProvider } from '@hashicorp/react-search'
@@ -15,7 +15,7 @@ const components = {
 }
 
 const SwingsetPage = createPage({ components })
-SwingsetPage.layout = EmptyLayout
+SwingsetPage.layout = CoreDevDotLayout
 
 export const getStaticPaths = createStaticPaths()
 export const getStaticProps = createStaticProps()

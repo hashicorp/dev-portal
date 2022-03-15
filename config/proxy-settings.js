@@ -1,41 +1,141 @@
-module.exports = {
-  waypoint: {
-    // actually https://waypointproject.io, but using wp.snarglepuss.com as a test
-    domain: 'https://wp.snarglepuss.com',
-    host: 'wp.snarglepuss.com',
+//@ts-check
+
+const fs = require('fs')
+const path = require('path')
+const klawSync = require('klaw-sync')
+const proxyConfig = require('./proxy-config')
+
+/**
+ * @typedef {Object} SiteProxySettings
+ * @property {string} domain
+ * @property {string} host
+ * @property {{ proxiedRoute: string, localRoute: string }[]} routesToProxy
+ */
+
+/**
+ * @type {Record<string, SiteProxySettings>}
+ */
+const proxySettings = {
+  boundary: {
+    domain: proxyConfig.boundary.domain,
+    host: proxyConfig.boundary.host,
     routesToProxy: [
-      {
-        proxiedRoute: '/',
-        projectPage: '/waypoint/_secret-io-homepage',
-      },
-      {
-        proxiedRoute: '/commands/:path*',
-        projectPage: '/waypoint/commands/:path*',
-      },
-      {
-        proxiedRoute: '/community',
-        projectPage: '/waypoint/community',
-      },
-      {
-        proxiedRoute: '/docs/:path*',
-        projectPage: '/waypoint/docs/:path*',
-      },
-      {
-        proxiedRoute: '/downloads',
-        projectPage: '/waypoint/downloads',
-      },
-      {
-        proxiedRoute: '/plugins/:path*',
-        projectPage: '/waypoint/plugins/:path*',
-      },
-      {
-        proxiedRoute: '/security',
-        projectPage: '/waypoint/security',
-      },
-      {
-        proxiedRoute: '/terms',
-        projectPage: '/waypoint/terms',
-      },
+      ...gatherRoutesToProxy('/_proxied-dot-io/boundary'),
+      ...buildAssetRoutesToProxy(proxyConfig.boundary.assets, '/boundary'),
     ],
   },
+  nomad: {
+    domain: proxyConfig.nomad.domain,
+    host: proxyConfig.nomad.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/nomad'),
+      ...buildAssetRoutesToProxy(proxyConfig.nomad.assets, '/nomad'),
+    ],
+  },
+  packer: {
+    domain: proxyConfig.packer.domain,
+    host: proxyConfig.packer.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/packer'),
+      ...buildAssetRoutesToProxy(proxyConfig.packer.assets, '/packer'),
+    ],
+  },
+  sentinel: {
+    domain: proxyConfig.sentinel.domain,
+    host: proxyConfig.sentinel.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/sentinel'),
+      ...buildAssetRoutesToProxy(proxyConfig.sentinel.assets, '/sentinel'),
+    ],
+  },
+  vagrant: {
+    domain: proxyConfig.vagrant.domain,
+    host: proxyConfig.vagrant.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/vagrant'),
+      ...buildAssetRoutesToProxy(proxyConfig.vagrant.assets, '/vagrant'),
+    ],
+  },
+  vault: {
+    domain: proxyConfig.vault.domain,
+    host: proxyConfig.vault.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/vault'),
+      ...buildAssetRoutesToProxy(proxyConfig.vault.assets, '/vault'),
+    ],
+  },
+  waypoint: {
+    domain: proxyConfig.waypoint.domain,
+    host: proxyConfig.waypoint.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
+      ...buildAssetRoutesToProxy(proxyConfig.waypoint.assets, '/waypoint'),
+    ],
+  },
+  consul: {
+    domain: proxyConfig.consul.domain,
+    host: proxyConfig.consul.host,
+    routesToProxy: [
+      ...gatherRoutesToProxy('/_proxied-dot-io/consul'),
+      ...buildAssetRoutesToProxy(proxyConfig.consul.assets, '/consul'),
+    ],
+  },
+}
+module.exports = proxySettings
+
+/**
+ *
+ * @param {string[]} assetPaths
+ * @param {string} localAssetsDir
+ * @returns {{ proxiedRoute: string, localRoute: string }[]}
+ */
+function buildAssetRoutesToProxy(assetPaths, localAssetsDir) {
+  return assetPaths.map((proxiedRoute) => ({
+    proxiedRoute: proxiedRoute,
+    localRoute: `${localAssetsDir}${proxiedRoute}`,
+  }))
+}
+
+/**
+ * Given a directory of pages to proxy,
+ * returns an array of { proxiedRoute, localRoute } objects,
+ * which can be used to construct the necessary
+ * redirects and rewrites.
+ *
+ * @param {string} pagesDir
+ * @returns {{ proxiedRoute: string, localRoute: string }[]}
+ */
+function gatherRoutesToProxy(pagesDir) {
+  const targetDir = path.resolve(`./src/pages${pagesDir}`)
+  if (!fs.existsSync(targetDir)) return []
+  const pageExtensions = ['tsx', 'ts', 'jsx', 'js']
+  const pageFilePaths = klawSync(targetDir)
+  const routesToProxy = pageFilePaths
+    .filter((file) => {
+      const extension = path.extname(file.path).slice(1)
+      const isPage = pageExtensions.indexOf(extension) != -1
+      return isPage
+    })
+    .map((file) => {
+      const extension = path.extname(file.path)
+      const basename = path.basename(file.path, extension)
+      const isDynamic = basename.slice(0, 1) == '['
+      const parentDirRoute = path.relative(targetDir, path.dirname(file.path))
+      const urlPath =
+        basename === 'index' || isDynamic
+          ? parentDirRoute
+          : path.join(parentDirRoute, basename)
+      const proxiedRoute = `/${urlPath}${isDynamic ? '/:path*' : ''}`
+      const localRoute = `${pagesDir}${proxiedRoute == '/' ? '' : proxiedRoute}`
+      return {
+        proxiedRoute,
+        localRoute,
+      }
+    })
+    .sort((aObj, bObj) => {
+      const a = aObj.proxiedRoute
+      const b = bObj.proxiedRoute
+      return a < b ? -1 : a > b ? 1 : 0
+    })
+  return routesToProxy
 }

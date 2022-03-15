@@ -43,9 +43,11 @@ export interface GeneratedProps {
 }
 
 /**
- * There is a bit of a race condition with product releases and the metadata for the latest release
- * propagating to releases.hashicorp.com. Often all it takes is a re-deploy of the website for it to work,
- * so we're introducing a retry when fetching the release data in hopes that we can avoid manual intervention.
+ * There is a bit of a race condition with product releases and the metadata for
+ * the latest release propagating to releases.hashicorp.com. Often all it takes
+ * is a re-deploy of the website for it to work, so we're introducing a retry
+ * when fetching the release data in hopes that we can avoid manual
+ * intervention.
  */
 const fetchWithRetry = makeFetchWithRetry(fetch, { retries: 3, delay: 1000 })
 

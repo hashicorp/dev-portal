@@ -1,0 +1,63 @@
+@import './temporary_g-svg.css';
+
+.g-newsletter-signup-form {
+  & > .submitted-msg {
+    align-items: flex-start;
+    bottom: 0;
+    display: flex;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: opacity 0.35s, visibility 0.35s;
+    visibility: hidden;
+    z-index: 1;
+
+    & > .temporary_g-svg {
+      margin-right: 12px;
+      & svg path {
+        fill: var(--warning);
+      }
+    }
+
+    & > .g-type-body {
+      color: var(--gray-2);
+    }
+
+    &[data-success='true'] {
+      & > .temporary_g-svg svg path {
+        fill: var(--success);
+      }
+    }
+
+    &[data-theme-bg='dark'] {
+      & > .g-type-body {
+        color: var(--gray-5);
+        & a {
+          color: var(--brand-link-on-dark);
+        }
+      }
+    }
+
+    &[data-theme-bg='brand'] {
+      & > .temporary_g-svg svg path {
+        fill: var(--white);
+      }
+      & > .g-type-body {
+        color: var(--brand-secondary);
+        & a {
+          color: var(--white);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &[data-submitted='true'] {
+    & > .submitted-msg {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

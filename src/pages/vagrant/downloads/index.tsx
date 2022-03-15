@@ -4,7 +4,7 @@ import vagrantData from 'data/vagrant.json'
 import installData from 'data/vagrant-install.json'
 import { Product } from 'types/products'
 import { generateStaticProps, GeneratedProps } from 'lib/fetch-release-data'
-import EmptyLayout from 'layouts/empty'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductDownloadsView from 'views/product-downloads-view'
 import PlaceholderDownloadsView from 'views/placeholder-product-downloads-view'
 
@@ -29,6 +29,6 @@ export const getStaticProps: GetStaticProps = async () => {
   return generateStaticProps(product)
 }
 
-VagrantDownloadsPage.layout = EmptyLayout
+VagrantDownloadsPage.layout = CoreDevDotLayout
 
 export default VagrantDownloadsPage

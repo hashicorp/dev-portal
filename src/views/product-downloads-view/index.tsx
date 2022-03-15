@@ -3,7 +3,7 @@ import { ReactElement, useMemo } from 'react'
 
 // Global imports
 import { useCurrentProduct } from 'contexts'
-import EmptyLayout from 'layouts/empty'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 
 // Local imports
@@ -119,5 +119,5 @@ const ProductDownloadsView = ({
   )
 }
 
-ProductDownloadsView.layout = EmptyLayout
+ProductDownloadsView.layout = CoreDevDotLayout
 export default ProductDownloadsView
