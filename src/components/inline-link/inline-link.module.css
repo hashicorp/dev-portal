@@ -29,5 +29,9 @@ ones set in the surrounding text.
 
   &:visited {
     color: var(--token-color-foreground-action-visited);
+
+    &:hover {
+      color: var(--token-color-palette-purple-400);
+    }
   }
 }
