@@ -1,23 +1,7 @@
+/* Note: also used by components/card-link */
 .root {
   background-color: white;
   border-radius: 6px;
   padding: 16px;
   width: 100%;
-}
-
-/*
-NOTE: `color: black` is needed because the color is otherwise set by a global
-style applied to anchor elements.
-*/
-.linked {
-  color: black;
-
-  @media (prefers-reduced-motion: no-preference) {
-    transition: background-color 0.2s, box-shadow 0.2s;
-  }
-
-  &:hover {
-    box-shadow: var(--token-surface-high-box-shadow);
-    cursor: pointer;
-  }
 }
