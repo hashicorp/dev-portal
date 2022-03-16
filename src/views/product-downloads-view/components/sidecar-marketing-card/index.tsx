@@ -15,7 +15,7 @@ const SidecarMarketingCard = ({
   featuredDocsLinks,
 }: SidecarMarketingCardProps): ReactElement => (
   <Card elevation="base">
-    <Text className={s.cardTitle} size={200} weight="semibold">
+    <Text className={s.cardTitle} size={300} weight="semibold">
       {title}
     </Text>
     <Text className={s.cardSubtitle} size={200} weight="regular">
