@@ -16,21 +16,13 @@ const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 
 /**
- * Note: we've switched from `/docs/[[...page]].tsx`, an "optional catch-all",
+ * Note: this route is set up solely for the `/docs` landing page.
+ * For other pages, we've switched `/docs/[[...page]].tsx`, an "optional catch-all",
  * to `/docs/[...page].tsx`, a "catch-all" route. As mentioned in the NextJS
  * docs, the main difference is that the latter will not match the route
  * without parameters - ie the landing page. This allows us to avoid
  * conflicting page files.
  * ref: https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes
- */
-
-/**
- * Hot take: it might be nice to modify DocsPageInner so that
- * it does NOT automatically wrap content in the <Content /> component.
- * The default export, DocsPage, would do the wrapping, so would be unaffected.
- * This would open the possibility of moving away from cascading,
- * inherited styles (which leak unintentionally into custom components,
- * like Card), and towards more encapsulated styles.
  */
 function VaultDocsLandingPage({
   frontMatter,
