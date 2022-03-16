@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
-import MaybeInternalLink from 'components/maybe-internal-link'
 import Card from 'components/card'
+import MaybeInternalLink from 'components/maybe-internal-link'
 import { CardLinkProps } from './types'
 import s from './card-link.module.css'
 
