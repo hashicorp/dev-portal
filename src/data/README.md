@@ -18,7 +18,27 @@ TODO - describe the properties used in DevDot
 
 This file is only used in DevDot. It contains the data and content needed for each product's landing page (`/boundary`, `/consul`, etc.).
 
-TODO - describe the properties used
+### Editing product landing content
+
+Our `<product slug>-landing.json` pages take a "block"-based authoring approach for the main content area. This approach allows authors to write content in JSON instead of JSX. An example file might look like:
+
+```json5
+{
+  "heading": "string", // required
+  "subheading": "string", // required
+  "blocks": "array of objects", // required, see below for guide on "blocks"
+}
+```
+
+Each of these top-level properties is addressed in more detail below.
+
+#### `heading` and `subheading`
+
+The `heading` and `subheading` properties
+
+#### `blocks`
+
+TO DO add detail here. 
 
 ## `<product slug>-install.json`
 
