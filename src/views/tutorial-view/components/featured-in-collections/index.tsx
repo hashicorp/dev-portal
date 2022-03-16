@@ -6,6 +6,7 @@ interface FeaturedInCollectionsProps {
   collections: CollectionCardProps[]
 }
 
+// @TODO move this to the collection card component file when we make it
 export interface CollectionCardProps
   extends Pick<
     ClientCollection,

@@ -21,7 +21,13 @@ import { getTutorialSlug } from 'views/collection-view/helpers'
 export interface TutorialViewProps
   extends Pick<
     ClientTutorial,
-    'name' | 'slug' | 'readTime' | 'productsUsed' | 'edition' | 'handsOnLab'
+    | 'name'
+    | 'slug'
+    | 'readTime'
+    | 'productsUsed'
+    | 'edition'
+    | 'handsOnLab'
+    | 'video'
   > {
   collectionCtx: CollectionContext
   content: MDXRemoteSerializeResult
@@ -49,6 +55,7 @@ export default function TutorialView({
   productsUsed,
   edition,
   handsOnLab,
+  video,
   collectionCtx,
 }: TutorialViewProps): React.ReactElement {
   return (
@@ -76,6 +83,8 @@ export default function TutorialView({
           <p>Read time: {readTime} min</p>
           <p>Products used: {productsUsed.map((p) => p.product.name)}</p>
           <p>Edition: {edition}</p>
+          <p>Video: {`${Boolean(video?.id)}`}</p>
+          <p>Interactive Lab: {`${Boolean(handsOnLab?.id)}`}</p>
         </div>
         {/** @TODO Need to wire up instruqt embed */}
         {handsOnLab?.id ? <button>Show Terminal</button> : null}
