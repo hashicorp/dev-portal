@@ -2,6 +2,7 @@ import remark from 'remark'
 import { visit } from 'unist-util-visit'
 import generateSlug from '@hashicorp/remark-plugins/generate_slug'
 
+/** This function is used for the tutorial table of contents and also for search indexing */
 export interface OutlineItem {
   slug: string
   title: string
@@ -17,7 +18,9 @@ export default async function generateOutline(
     const links = []
     visit(tree, 'heading', (node) => {
       const title = node.children.reduce((m, n) => {
-        if (n.value) m += n.value
+        if (n.value) {
+          m += n.value
+        }
         return m
       }, '')
       // Only include level 1 or level 2 headings

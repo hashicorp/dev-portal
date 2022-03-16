@@ -6,9 +6,9 @@ import {
   TutorialFullCollectionCtx,
 } from 'lib/learn-client/types'
 import { get, toError } from '../../index'
-import { augmentTutorial } from './augment-tutorial'
 import { formatBatchQueryStr, formatIdentifier, fetchAll } from '../utils'
 import { formatTutorialData } from './formatting'
+import { augmentTutorial } from './augment-tutorial'
 import { ApiTutorial } from 'lib/learn-client/api/api-types'
 
 export const TUTORIAL_API_ROUTE = '/tutorials'
