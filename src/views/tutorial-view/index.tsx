@@ -1,4 +1,5 @@
 import Content from '@hashicorp/react-content'
+import { useRouter } from 'next/router'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import {
   Collection as ClientCollection,
@@ -67,6 +68,7 @@ export default function TutorialView({
   video,
   collectionCtx,
 }: TutorialViewProps): React.ReactElement {
+  const { asPath } = useRouter()
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layout.breadcrumbLinks}
@@ -74,7 +76,7 @@ export default function TutorialView({
         <Sidebar
           title={collectionCtx.current.shortName}
           menuItems={collectionCtx.current.tutorials.map((t) =>
-            formatTutorialToMenuItem(t, collectionCtx.current.slug)
+            formatTutorialToMenuItem(t, collectionCtx.current.slug, asPath)
           )}
         />
       }

@@ -8,11 +8,14 @@ export function splitProductFromFilename(slug: string): string {
 
 export function formatTutorialToMenuItem(
   tutorial: ClientTutorialLite,
-  collectionSlug: string
+  collectionSlug: string,
+  currentPath: string
 ): MenuItem {
+  const path = getTutorialSlug(tutorial.slug, collectionSlug)
   return {
     title: tutorial.name,
-    fullPath: getTutorialSlug(tutorial.slug, collectionSlug),
+    fullPath: path,
     id: tutorial.id,
+    isActive: path === currentPath,
   }
 }
