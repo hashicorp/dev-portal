@@ -1,5 +1,4 @@
 import { Product as ProductContext } from 'types/products'
-import { TutorialSidebarSidecarProps } from 'layouts/tutorial-sidebar-sidecar'
 import {
   getAllCollections,
   getCollection,
@@ -12,7 +11,7 @@ import {
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
-import { TutorialViewProps } from '.'
+import { TutorialViewProps, TutorialSidebarSidecarProps } from '.'
 import generateOutline from 'lib/generate-mdx-outline'
 
 // @TODO just a stub - adjust page props interface

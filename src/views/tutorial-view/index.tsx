@@ -19,7 +19,7 @@ export interface TutorialViewProps extends Omit<ClientTutorial, 'content'> {
   layout: TutorialSidebarSidecarProps
   currentCollection: ClientCollection
 }
-type TutorialSidebarSidecarProps = Pick<
+export type TutorialSidebarSidecarProps = Pick<
   SidebarSidecarLayoutProps,
   'children' | 'headings' | 'breadcrumbLinks'
 >
