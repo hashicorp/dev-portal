@@ -12,6 +12,7 @@ import Heading from 'components/heading'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { TutorialSidebar as Sidebar } from './components'
 import { getTutorialSlug } from 'views/collection-view/helpers'
+import s from './style.module.css'
 
 // @TODO refine this interface once there's a better idea of page needs
 export interface TutorialViewProps extends Omit<ClientTutorial, 'content'> {
@@ -31,6 +32,9 @@ export default function TutorialView({
   content,
   layout,
   currentCollection,
+  readTime,
+  productsUsed,
+  edition,
 }: TutorialViewProps): React.ReactElement {
   return (
     <SidebarSidecarLayout
@@ -51,11 +55,22 @@ export default function TutorialView({
         <Heading level={1} size={500} weight="bold" slug={slug}>
           {name}
         </Heading>
-        <p>Read time, products used etc.</p>
+        <div>
+          <h2>Badges Stub</h2>
+          <p>Read time: {readTime} min</p>
+          <p>Products used: {productsUsed.map((p) => p.product.name)}</p>
+          <p>Edition: {edition}</p>
+        </div>
       </header>
       <Content
         content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
       />
+      <div>
+        <h2>Next / Prev component</h2>
+      </div>
+      <div>
+        <h2>Featured Collections</h2>
+      </div>
     </SidebarSidecarLayout>
   )
 }
