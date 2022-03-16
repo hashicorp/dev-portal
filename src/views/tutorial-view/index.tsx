@@ -1,23 +1,29 @@
 import Content from '@hashicorp/react-content'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { TutorialFullCollectionCtx as ClientTutorial } from 'lib/learn-client/types'
+import {
+  Collection as ClientCollection,
+  TutorialFullCollectionCtx as ClientTutorial,
+} from 'lib/learn-client/types'
 import SidebarSidecarLayout, {
   SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
-import MDX_COMPONENTS from './utils/mdx-components'
-import Heading from 'components/heading'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
+import Heading from 'components/heading'
+import MDX_COMPONENTS from './utils/mdx-components'
+import { TutorialSidebar as Sidebar } from './components'
 
+// @TODO refine this interface once there's a better idea of page needs
 export interface TutorialViewProps extends Omit<ClientTutorial, 'content'> {
   content: MDXRemoteSerializeResult
   layout: TutorialSidebarSidecarProps
+  currentCollection: ClientCollection
 }
 type TutorialSidebarSidecarProps = Pick<
   SidebarSidecarLayoutProps,
   'children' | 'headings' | 'breadcrumbLinks'
 >
 
-// @TODO update this interface once we have a better idea of the page needs
+// @TODO add canonical url for the default collection - at the page level?
 export default function TutorialView({
   name,
   slug,
@@ -27,15 +33,7 @@ export default function TutorialView({
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layout.breadcrumbLinks}
-      sidebarSlot={
-        <>
-          {new Array(5).fill(null).map((_) => (
-            <div key={_}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
-          ))}
-        </>
-      }
+      sidebarSlot={<Sidebar />}
       sidecarSlot={<TableOfContents headings={layout.headings} />}
     >
       <header id="overview">
@@ -44,7 +42,6 @@ export default function TutorialView({
         </Heading>
         <p>Read time, products used etc.</p>
       </header>
-
       <Content
         content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
       />
