@@ -15,6 +15,7 @@ import {
   TutorialSidebar as Sidebar,
   FeaturedInCollections,
   CollectionCardProps,
+  Badges,
 } from './components'
 
 export interface TutorialViewProps
@@ -53,7 +54,6 @@ export type TutorialSidebarSidecarProps = Pick<
  * - skeleton out the next / prev component after API endpoint is updated - https://app.asana.com/0/1201903760348480/1201932088801131/f
  */
 
-// @TODO add canonical url if this is the default collection
 export default function TutorialView({
   name,
   slug,
@@ -83,14 +83,15 @@ export default function TutorialView({
         <Heading level={1} size={500} weight="bold" slug={slug}>
           {name}
         </Heading>
-        <div>
-          <h2>Badges Stub</h2>
-          <p>Read time: {readTime} min</p>
-          <p>Products used: {productsUsed.map((p) => p.product.name)}</p>
-          <p>Edition: {edition}</p>
-          <p>Video: {`${Boolean(video?.id)}`}</p>
-          <p>Interactive Lab: {`${Boolean(handsOnLab?.id)}`}</p>
-        </div>
+        <Badges
+          tutorialMeta={{
+            readTime,
+            products: productsUsed.map((p) => p.product.slug),
+            edition,
+            hasVideo: Boolean(video),
+            isInteractive: Boolean(handsOnLab),
+          }}
+        />
         {handsOnLab?.id ? <button>Show Terminal</button> : null}
       </header>
       <Content
