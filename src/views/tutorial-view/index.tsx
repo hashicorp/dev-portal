@@ -11,6 +11,7 @@ import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-content
 import Heading from 'components/heading'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { TutorialSidebar as Sidebar } from './components'
+import { getTutorialSlug } from 'views/collection-view/helpers'
 
 // @TODO refine this interface once there's a better idea of page needs
 export interface TutorialViewProps extends Omit<ClientTutorial, 'content'> {
@@ -29,11 +30,21 @@ export default function TutorialView({
   slug,
   content,
   layout,
+  currentCollection,
 }: TutorialViewProps): React.ReactElement {
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layout.breadcrumbLinks}
-      sidebarSlot={<Sidebar />}
+      sidebarSlot={
+        <Sidebar
+          title={currentCollection.shortName}
+          menuItems={currentCollection.tutorials.map((t) => ({
+            title: t.name,
+            fullPath: getTutorialSlug(t.slug, currentCollection.slug),
+            id: t.id,
+          }))}
+        />
+      }
       sidecarSlot={<TableOfContents headings={layout.headings} />}
     >
       <header id="overview">
