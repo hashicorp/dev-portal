@@ -11,8 +11,11 @@ import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-content
 import Heading from 'components/heading'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { TutorialSidebar as Sidebar } from './components'
-import { getTutorialSlug } from 'views/collection-view/helpers'
-import s from './style.module.css'
+import {
+  getCollectionSlug,
+  getTutorialSlug,
+} from 'views/collection-view/helpers'
+import CardLink from 'components/card-link'
 
 // @TODO refine this interface once there's a better idea of page needs
 export interface TutorialViewProps extends Omit<ClientTutorial, 'content'> {
@@ -86,14 +89,15 @@ export default function TutorialView({
         <ul>
           {collectionCtx.featuredIn.map((c) => {
             console.log({ c })
-            // may need tutorials length here
-            // could we add a property that lists the number of tutorials
-            // also need description
+            // Should link to the other collection
             return (
               <li key={c.id}>
-                <p>{collectionCtx.featuredIn.length} Tutorials</p>
-                <h3>{c.name}</h3>
-                <p>{c.description}</p>
+                <CardLink href={getCollectionSlug(c.slug)}>
+                  <p>{collectionCtx.featuredIn.length} Tutorials</p>
+                  <h3>{c.name}</h3>
+                  <p>{c.description}</p>
+                  <p>{c.theme} Logo</p>
+                </CardLink>
               </li>
             )
           })}
