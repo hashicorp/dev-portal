@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
-import Card, { CardLink } from 'components/card'
+import Card from 'components/card'
+import CardLink from 'components/card-link'
 import Button from '@hashicorp/react-button'
 import s from './style.module.css'
 import CONTENT from './vault-content'
