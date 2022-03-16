@@ -2,7 +2,7 @@
   /*
   We want items to have space between them when on the same line,
   but we also want them to wrap to multiple lines when space is limited.
-  We use a flex layout with some margin tricks to achieve this. Each CTA item
+  We use a flex layout with some interesting margin settings to achieve this.
   Each item creates a buffer around it with margin, and the container offsets
   the "edges" of this buffer with negative margin.
   

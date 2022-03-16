@@ -4,7 +4,7 @@ import s from './style.module.css'
 
 /**
  * Renders child items in a float-like arrangement using display: flex,
- * with a clean interface for modifying the gap between items.
+ * with a clean interface for controlling the gap between items.
  */
 function FlexFloat({ children, gap }: FlexFloatProps): ReactElement {
   return (
