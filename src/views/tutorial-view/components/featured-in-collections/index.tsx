@@ -14,7 +14,7 @@ export interface CollectionCardProps
   numTutorials: number
 }
 
-// This should render the eventual `CollectionCard` component
+// This should render the eventual `CollectionCard` component (doesn't exist yet)
 // which will be used on many other views
 export function FeaturedInCollections({
   collections,

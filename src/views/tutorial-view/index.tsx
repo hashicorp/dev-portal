@@ -18,7 +18,6 @@ import {
 
 import { getTutorialSlug } from 'views/collection-view/helpers'
 
-// @TODO refine this interface once there's a better idea of page needs
 export interface TutorialViewProps
   extends Pick<
     ClientTutorial,
@@ -40,13 +39,12 @@ export type TutorialSidebarSidecarProps = Pick<
   'children' | 'headings' | 'breadcrumbLinks'
 >
 
-// @TODO add canonical url for the default collection - at the page level?
+// @TODO add canonical url if this is the default collection
 export default function TutorialView({
   name,
   slug,
   content,
   layout,
-
   readTime,
   productsUsed,
   edition,
@@ -68,6 +66,7 @@ export default function TutorialView({
       }
       sidecarSlot={<TableOfContents headings={layout.headings} />}
     >
+      {/** @TODO fix: the toc overview linking isn't properly aligning */}
       <header id="overview">
         <Heading level={1} size={500} weight="bold" slug={slug}>
           {name}
@@ -78,7 +77,7 @@ export default function TutorialView({
           <p>Products used: {productsUsed.map((p) => p.product.name)}</p>
           <p>Edition: {edition}</p>
         </div>
-        {/** Need to wire up instruqt embed */}
+        {/** @TODO Need to wire up instruqt embed */}
         {handsOnLab?.id ? <button>Show Terminal</button> : null}
       </header>
       <Content
@@ -91,9 +90,7 @@ export default function TutorialView({
          * */}
         <h2>Next / Prev component</h2>
       </div>
-      <div>
-        <FeaturedInCollections collections={collectionCtx.featuredIn} />
-      </div>
+      <FeaturedInCollections collections={collectionCtx.featuredIn} />
     </SidebarSidecarLayout>
   )
 }
