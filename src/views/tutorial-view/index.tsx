@@ -10,19 +10,31 @@ import SidebarSidecarLayout, {
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import Heading from 'components/heading'
 import MDX_COMPONENTS from './utils/mdx-components'
-import { TutorialSidebar as Sidebar } from './components'
 import {
-  getCollectionSlug,
-  getTutorialSlug,
-} from 'views/collection-view/helpers'
-import CardLink from 'components/card-link'
+  TutorialSidebar as Sidebar,
+  FeaturedInCollections,
+  CollectionCardProps,
+} from './components'
+
+import { getTutorialSlug } from 'views/collection-view/helpers'
 
 // @TODO refine this interface once there's a better idea of page needs
-export interface TutorialViewProps extends Omit<ClientTutorial, 'content'> {
+export interface TutorialViewProps
+  extends Pick<
+    ClientTutorial,
+    'name' | 'slug' | 'readTime' | 'productsUsed' | 'edition' | 'handsOnLab'
+  > {
+  collectionCtx: CollectionContext
   content: MDXRemoteSerializeResult
   layout: TutorialSidebarSidecarProps
-  currentCollection: ClientCollection
 }
+
+export type CollectionContext = {
+  isDefault: boolean
+  current: ClientCollection
+  featuredIn?: CollectionCardProps[]
+}
+
 export type TutorialSidebarSidecarProps = Pick<
   SidebarSidecarLayoutProps,
   'children' | 'headings' | 'breadcrumbLinks'
@@ -34,7 +46,7 @@ export default function TutorialView({
   slug,
   content,
   layout,
-  currentCollection,
+
   readTime,
   productsUsed,
   edition,
@@ -46,10 +58,10 @@ export default function TutorialView({
       breadcrumbLinks={layout.breadcrumbLinks}
       sidebarSlot={
         <Sidebar
-          title={currentCollection.shortName}
-          menuItems={currentCollection.tutorials.map((t) => ({
+          title={collectionCtx.current.shortName}
+          menuItems={collectionCtx.current.tutorials.map((t) => ({
             title: t.name,
-            fullPath: getTutorialSlug(t.slug, currentCollection.slug),
+            fullPath: getTutorialSlug(t.slug, collectionCtx.current.slug),
             id: t.id,
           }))}
         />
@@ -67,7 +79,7 @@ export default function TutorialView({
           <p>Edition: {edition}</p>
         </div>
         {/** Need to wire up instruqt embed */}
-        {handsOnLab.id ? <button>Show Terminal</button> : null}
+        {handsOnLab?.id ? <button>Show Terminal</button> : null}
       </header>
       <Content
         content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
@@ -80,28 +92,7 @@ export default function TutorialView({
         <h2>Next / Prev component</h2>
       </div>
       <div>
-        {/**
-         * Stub this out
-         * if has other featured collections besides current, render
-         */}
-
-        <h2>Featured Collections</h2>
-        <ul>
-          {collectionCtx.featuredIn.map((c) => {
-            console.log({ c })
-            // Should link to the other collection
-            return (
-              <li key={c.id}>
-                <CardLink href={getCollectionSlug(c.slug)}>
-                  <p>{collectionCtx.featuredIn.length} Tutorials</p>
-                  <h3>{c.name}</h3>
-                  <p>{c.description}</p>
-                  <p>{c.theme} Logo</p>
-                </CardLink>
-              </li>
-            )
-          })}
-        </ul>
+        <FeaturedInCollections collections={collectionCtx.featuredIn} />
       </div>
     </SidebarSidecarLayout>
   )

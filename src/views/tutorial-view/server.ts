@@ -1,23 +1,17 @@
 import { Product as ProductContext } from 'types/products'
-import {
-  getAllCollections,
-  getCollection,
-} from 'lib/learn-client/api/collection'
+import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
-import {
-  Collection as ClientCollection,
-  ProductOption,
-} from 'lib/learn-client/types'
+import { ProductOption } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
 import { TutorialViewProps, TutorialSidebarSidecarProps } from '.'
 import generateOutline from 'lib/generate-mdx-outline'
+import { getCollectionContext } from './utils/get-collection-context'
 
 // @TODO just a stub - adjust page props interface
 export interface TutorialPageProps {
   tutorial: TutorialViewProps
-  currentCollection: ClientCollection
   product: TutorialPageProduct // controls the ProductSwitcher
   layoutProps: TutorialSidebarSidecarProps
 }
@@ -43,14 +37,10 @@ export async function getTutorialPageProps(
   const tutorialDbSlug = `${product.slug}/${tutorialFilename}`
   const baseTutorialData = await getTutorial(tutorialDbSlug)
   const serializedContent = await serializeContent(baseTutorialData)
-  /**
-   * maybe isDefault
-   * maybe featured collections if not the main one
-   * def the current
-   */
-  const collectionDbSlug = `${product.slug}/${collectionFilename}`
-  const currentCollectionData = baseTutorialData.collectionCtx.featuredIn.find(
-    ({ slug }) => slug === collectionDbSlug
+  const collectionContext = getCollectionContext(
+    product.slug,
+    collectionFilename,
+    baseTutorialData.collectionCtx
   )
   const tutorialOutline = await generateOutline(baseTutorialData.content)
   // @TODO make this breadcrumb generation into a function
@@ -61,7 +51,7 @@ export async function getTutorialPageProps(
       { title: product.name, url: `/${product.slug}` },
       { title: 'Tutorials', url: `/${product.slug}/tutorials` },
       {
-        title: currentCollectionData.shortName,
+        title: collectionContext.current.shortName,
         url: `/${product.slug}/tutorials/${collectionFilename}`,
       },
       {
@@ -78,8 +68,8 @@ export async function getTutorialPageProps(
       tutorial: {
         ...baseTutorialData,
         content: serializedContent,
+        collectionCtx: collectionContext,
       },
-      currentCollection: currentCollectionData,
       product,
       layoutProps,
     }),

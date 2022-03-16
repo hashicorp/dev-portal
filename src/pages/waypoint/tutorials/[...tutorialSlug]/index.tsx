@@ -13,16 +13,9 @@ import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
 export function WaypointTutorialPage({
   tutorial,
-  currentCollection,
   layoutProps,
 }: TutorialPageProps): React.ReactElement {
-  return (
-    <TutorialView
-      {...tutorial}
-      layout={layoutProps}
-      currentCollection={currentCollection}
-    />
-  )
+  return <TutorialView {...tutorial} layout={layoutProps} />
 }
 
 export async function getStaticProps({
