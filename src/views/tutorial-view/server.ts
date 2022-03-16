@@ -8,6 +8,7 @@ import { serializeContent } from './utils/serialize-content'
 import { TutorialViewProps, TutorialSidebarSidecarProps } from '.'
 import generateOutline from 'lib/generate-mdx-outline'
 import { getCollectionContext } from './utils/get-collection-context'
+import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 
 // @TODO just a stub - adjust page props interface
 export interface TutorialPageProps {
@@ -43,25 +44,24 @@ export async function getTutorialPageProps(
     baseTutorialData.collectionCtx
   )
   const tutorialOutline = await generateOutline(baseTutorialData.content)
-  // @TODO make this breadcrumb generation into a function
   const layoutProps = {
     headings: tutorialOutline,
-    breadcrumbLinks: [
-      { title: 'Developer', url: '/' },
-      { title: product.name, url: `/${product.slug}` },
-      { title: 'Tutorials', url: `/${product.slug}/tutorials` },
-      {
-        title: collectionContext.current.shortName,
-        url: `/${product.slug}/tutorials/${collectionFilename}`,
+    breadcrumbLinks: getTutorialsBreadcrumb({
+      product: { name: product.name, slug: product.slug },
+      collection: {
+        name: collectionContext.current.name,
+        slug: collectionFilename,
       },
-      {
-        title: baseTutorialData.name,
-        url: `/${product.slug}/tutorials/${collectionFilename}/${tutorialFilename}`,
-      },
-    ],
+      tutorial: { name: baseTutorialData.name, slug: tutorialFilename },
+    }),
   }
 
-  // @TODO if is last tutorial in collection, call the endpoint to get next tutorial, other
+  /**
+   * @TODO handle next / prev tutorial data
+   * if is last tutorial in collection, call the endpoint to get next tutorial,
+   * e.g. /products/terraform/collections?topLevelCategorySort=true&after=collection-slug&limit=1
+   * https://app.asana.com/0/1201903760348480/1201932088801131/f
+   *  */
 
   return {
     props: stripUndefinedProperties({
@@ -82,13 +82,6 @@ export interface TutorialPagePaths {
   }
 }
 
-/**
- * Not using ISR for now as Waypoint only has 22 tutorial routes, feels reasonable
- *
- * We'll need to accept an array of products until they are a
- * all setup, in which case we'll fetch all collections and run the map
- * We can't use the fathom analytics endpoint for ISR until we set it up
- */
 export async function getTutorialPagePaths(
   product: ProductOption
 ): Promise<TutorialPagePaths[]> {
