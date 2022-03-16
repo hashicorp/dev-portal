@@ -39,6 +39,11 @@ Styles for each tab button.
   &:focus-visible {
     z-index: 1;
   }
+
+  &:hover {
+    color: var(--token-color-foreground-strong);
+    background-color: var(--token-color-palette-neutral-100);
+  }
 }
 
 /*
