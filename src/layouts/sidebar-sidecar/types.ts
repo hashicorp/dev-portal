@@ -7,7 +7,6 @@ import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table
  * `BaseProps` represents the props that are defined for every usage of
  * `SidebarSidecarLayout`.
  */
-
 interface BaseProps {
   breadcrumbLinks?: BreadcrumbLink[]
   children: React.ReactNode
