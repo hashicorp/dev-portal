@@ -1,6 +1,4 @@
 .sidebar {
-  padding: 24px;
-
   & ul ul {
     list-style: none;
     margin: 0;

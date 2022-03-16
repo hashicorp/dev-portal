@@ -76,7 +76,7 @@ const ProductDownloadsViewContent = ({
         title: currentProduct.name,
       }}
       breadcrumbLinks={breadcrumbLinks}
-      sidecarChildren={<SidecarMarketingCard {...sidecarMarketingCard} />}
+      sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
     >
       <PageHeader />
       <DownloadsSection
