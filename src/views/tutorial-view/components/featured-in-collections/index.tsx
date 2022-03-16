@@ -32,7 +32,7 @@ export function FeaturedInCollections({
           return (
             <li key={c.id}>
               <CardLink href={getCollectionSlug(c.slug)}>
-                <p>{c.numTutorials} Tutorials</p>
+                <span>{c.numTutorials} Tutorials</span>
                 <h3>{c.name}</h3>
                 <p>{c.description}</p>
                 <p>{c.theme} Logo</p>
