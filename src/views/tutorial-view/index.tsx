@@ -61,6 +61,7 @@ export default function TutorialView({
           <p>Products used: {productsUsed.map((p) => p.product.name)}</p>
           <p>Edition: {edition}</p>
         </div>
+        <button>Show Terminal</button>
       </header>
       <Content
         content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
