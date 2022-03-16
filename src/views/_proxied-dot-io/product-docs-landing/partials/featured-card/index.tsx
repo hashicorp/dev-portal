@@ -1,13 +1,16 @@
+import { ReactElement } from 'react'
 import Button from '@hashicorp/react-button'
 import Card from 'components/card'
-import FlexGrid from '../flex-grid'
-import { ReactElement } from 'react'
+import FlexFloat from '../flex-float'
+import { FeaturedCardProps } from './types'
 import s from './style.module.css'
 
-/**
- * TODO: split this out into a separate component folder
- */
-function FeaturedCard({ heading, imgSrc, body, links }): ReactElement {
+function FeaturedCard({
+  heading,
+  imgSrc,
+  body,
+  links,
+}: FeaturedCardProps): ReactElement {
   return (
     <Card className={s.featuredCard}>
       <article className={s.featuredCardContent}>
@@ -15,7 +18,7 @@ function FeaturedCard({ heading, imgSrc, body, links }): ReactElement {
           <h1 className={s.featuredCardHeading}>{heading}</h1>
           <p className={s.featuredCardBody}>{body}</p>
           <div className={s.featuredCardCtas}>
-            <FlexGrid gap={8}>
+            <FlexFloat gap={8}>
               {links.map(({ title, url }, stableIdx) => {
                 const variant = stableIdx == 0 ? 'primary' : 'secondary'
                 return (
@@ -33,7 +36,7 @@ function FeaturedCard({ heading, imgSrc, body, links }): ReactElement {
                   />
                 )
               })}
-            </FlexGrid>
+            </FlexFloat>
           </div>
         </div>
         <div className={s.featuredCardImage}>

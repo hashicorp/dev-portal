@@ -3,22 +3,32 @@ import CardLink from 'components/card-link'
 import FeaturedCard from './partials/featured-card'
 import UseCaseCard from './partials/use-case-card'
 import s from './style.module.css'
-import CONTENT from './vault-content'
+import VAULT_CONTENT from './vault-content'
 
 function ProductDocsLanding(): ReactElement {
+  // Note: later we could use this view with products other than Vault,
+  // and put this content somewhere more author-friendly (eg DatoCMS).
+  const {
+    pageTitle,
+    pageSubtitle,
+    featuredCard,
+    useCaseCards,
+    developerCards,
+  } = VAULT_CONTENT
+
   return (
     <div className={s.pageContent}>
-      <h1 className="g-type-display-2">{CONTENT.pageTitle}</h1>
-      <p>{CONTENT.pageSubtitle}</p>
+      <h1 className="g-type-display-2">{pageTitle}</h1>
+      <p>{pageSubtitle}</p>
       <FeaturedCard
-        heading={CONTENT.featuredCard.heading}
-        imgSrc={CONTENT.featuredCard.imgSrc}
-        body={CONTENT.featuredCard.body}
-        links={CONTENT.featuredCard.links}
+        heading={featuredCard.heading}
+        imgSrc={featuredCard.imgSrc}
+        body={featuredCard.body}
+        links={featuredCard.links}
       />
       <h2 className="g-type-display-3">Use Cases</h2>
       <div className={s.useCaseCards}>
-        {CONTENT.useCaseCards.map(({ heading, body, links }, stableIdx) => {
+        {useCaseCards.map(({ heading, body, links }, stableIdx) => {
           return (
             <UseCaseCard
               // eslint-disable-next-line react/no-array-index-key
@@ -32,7 +42,7 @@ function ProductDocsLanding(): ReactElement {
       </div>
       <h2 className="g-type-display-3">Developers</h2>
       <div className={s.developerCards}>
-        {CONTENT.developerCards.map(({ title, url }, stableIdx) => {
+        {developerCards.map(({ title, url }, stableIdx) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
             <CardLink key={stableIdx} href={url}>

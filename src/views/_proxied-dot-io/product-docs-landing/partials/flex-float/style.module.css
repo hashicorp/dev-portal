@@ -1,0 +1,22 @@
+.root {
+  /*
+  We want items to have space between them when on the same line,
+  but we also want them to wrap to multiple lines when space is limited.
+  We use a flex layout with some margin tricks to achieve this. Each CTA item
+  Each item creates a buffer around it with margin, and the container offsets
+  the "edges" of this buffer with negative margin.
+  
+  Note as well that margin does NOT collapse in flex layouts,
+  which is why the item buffer is half the desired spacing.
+  */
+  /* --item-spacing: set in JSX, via style={} prop */
+  --item-buffer: calc(var(--item-spacing) * 0.5);
+  --item-buffer-offset: calc(var(--item-buffer) * -1);
+  display: flex;
+  flex-wrap: wrap;
+  margin: var(--item-buffer-offset);
+
+  & > * {
+    margin: var(--item-buffer);
+  }
+}
