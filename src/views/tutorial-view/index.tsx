@@ -16,6 +16,7 @@ import {
   FeaturedInCollections,
   CollectionCardProps,
   Badges,
+  getIsBeta,
 } from './components'
 
 export interface TutorialViewProps
@@ -87,6 +88,7 @@ export default function TutorialView({
           tutorialMeta={{
             readTime,
             products: productsUsed.map((p) => p.product.slug),
+            isBeta: getIsBeta(productsUsed),
             edition,
             hasVideo: Boolean(video),
             isInteractive: Boolean(handsOnLab),

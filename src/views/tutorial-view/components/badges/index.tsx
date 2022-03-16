@@ -4,21 +4,32 @@ interface BadgesProps {
   tutorialMeta: {
     readTime: number
     products: ProductOption[]
+    isBeta: boolean
     edition: EditionOption
     hasVideo: boolean
     isInteractive: boolean
   }
 }
 export function Badges({ tutorialMeta }: BadgesProps): React.ReactElement {
-  const { readTime, products, edition, hasVideo, isInteractive } = tutorialMeta
+  const {
+    readTime,
+    products,
+    edition,
+    isBeta,
+    hasVideo,
+    isInteractive,
+  } = tutorialMeta
   return (
     <>
       <h2>Badges Stub</h2>
-      <p>Read time: {readTime} min</p>
-      <p>Products used: {products.join(', ')}</p>
-      <p>Edition: {edition}</p>
-      <p>Video: {`${hasVideo}`}</p>
-      <p>Interactive Lab: {`${isInteractive}`}</p>
+      <ul>
+        <li>Read time: {readTime} min</li>
+        <li>Products used: {products.join(', ')}</li>
+        <li>Edition: {edition}</li>
+        <li>Beta: {`${isBeta}`}</li>
+        <li>Video: {`${hasVideo}`}</li>
+        <li>Interactive Lab: {`${isInteractive}`}</li>
+      </ul>
     </>
   )
 }
