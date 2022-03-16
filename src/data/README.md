@@ -20,13 +20,13 @@ This file is only used in DevDot. It contains the data and content needed for ea
 
 ### Editing product landing content
 
-Our `<product slug>-landing.json` pages take a "block"-based authoring approach for the main content area. This approach allows authors to write content in JSON instead of JSX. An example file might look like:
+Our `<product slug>-landing.json` pages take a "block"-based authoring approach for the main content area. This approach allows authors to write content in JSON instead of JSX. As an overview, each file has three properties, all are required:
 
 ```json5
 {
   "heading": "string", // required
   "subheading": "string", // required
-  "blocks": "array of objects", // required, see below for guide on "blocks"
+  "blocks": [ /*  array of objects, required */ ], 
 }
 ```
 
@@ -34,11 +34,131 @@ Each of these top-level properties is addressed in more detail below.
 
 #### `heading` and `subheading`
 
-The `heading` and `subheading` properties
+Set the heading and subheading shown on the page.
+
+<details>
+<summary>Example</summary>
+
+Source: 
+
+
+```json5
+{
+  "heading": "Waypoint Documentation", 
+  "subheading": "Use Waypoint to deliver a PaaS-like experience for Kubernetes, ECS, and other platforms.", 
+  "blocks": [ /* ... */ ],
+}
+```
+
+Result:
+
+<!-- TODO: update this image -->
+
+![](https://user-images.githubusercontent.com/4624598/155219830-f013d329-2d4c-4186-bd35-e3de495fe83d.png)
+
+</details>
 
 #### `blocks`
 
-TO DO add detail here. 
+Each item in the `blocks` array represents a component on the page. Each of these items must have a `type` property, which can be one of the types listed below.
+
+<!-- block: type heading -->
+
+<details>
+<summary>Block type: <code>"heading"</code></summary>
+
+```json5
+{
+  "type": "heading",
+  "level": 2,
+  "size": 400,
+  "heading": "Explore Waypoint Documentation"
+}
+```
+
+Result:
+
+<!-- TODO: update this image -->
+
+![](https://user-images.githubusercontent.com/4624598/155219830-f013d329-2d4c-4186-bd35-e3de495fe83d.png)
+
+</details>
+
+<!-- block type: get_started -->
+
+<details>
+<summary>Block type: <code>"get_started"</code></summary>
+
+<!-- TODO: add detail here -->
+
+```json5
+{
+  "type": "get_started",
+  "product": "waypoint",
+  "heading": "Introduction to Waypoint",
+  "text": "Welcome to Waypoint! This introduction section covers what Waypoint is, the problem Waypoint aims to solve, and how Waypoint compares to other software.",
+  "link": {
+    "text": "Get Started",
+    "url": "/waypoint/docs/intro"
+  }
+}
+```
+
+Result:
+
+<!-- TODO: update this image -->
+
+![](https://user-images.githubusercontent.com/4624598/155219830-f013d329-2d4c-4186-bd35-e3de495fe83d.png)
+
+</details>
+
+<!-- block type: cards -->
+
+<details>
+<summary>Block type: <code>"cards"</code></summary>
+
+<!-- TODO: add detail here -->
+
+```json5
+{
+  "type": "cards",
+  "columns": 2,
+  "cards": [
+    {
+      "icon": "IconDocs",
+      "heading": "Waypoint Reference Documentation",
+      "text": "Learn and develop your knowledge of Waypoint with these tutorials and code resources.",
+      "url": "/waypoint/docs"
+    },
+    {
+      "icon": "IconTerminal",
+      "heading": "Waypoint CLI",
+      "text": "Waypoint is controlled via a very easy to use command-line interface (CLI).",
+      "url": "/waypoint/commands"
+    },
+    {
+      "icon": "IconBox",
+      "heading": "Waypoint Plugins",
+      "text": "Waypoint uses a plugin architecture to provide its build, registry, deploy, and release abilities.",
+      "url": "/waypoint/plugins"
+    },
+    {
+      "icon": "IconDownload",
+      "heading": "Waypoint Downloads",
+      "text": "Please download the proper package for your operating system and architecture.",
+      "url": "/waypoint/downloads"
+    }
+  ]
+}
+```
+
+Result:
+
+<!-- TODO: update this image -->
+
+![](https://user-images.githubusercontent.com/4624598/155219830-f013d329-2d4c-4186-bd35-e3de495fe83d.png)
+
+</details>
 
 ## `<product slug>-install.json`
 
