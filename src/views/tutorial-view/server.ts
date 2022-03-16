@@ -43,8 +43,15 @@ export async function getTutorialPageProps(
   const tutorialDbSlug = `${product.slug}/${tutorialFilename}`
   const baseTutorialData = await getTutorial(tutorialDbSlug)
   const serializedContent = await serializeContent(baseTutorialData)
+  /**
+   * maybe isDefault
+   * maybe featured collections if not the main one
+   * def the current
+   */
   const collectionDbSlug = `${product.slug}/${collectionFilename}`
-  const currentCollectionData = await getCollection(collectionDbSlug) // for sidebar
+  const currentCollectionData = baseTutorialData.collectionCtx.featuredIn.find(
+    ({ slug }) => slug === collectionDbSlug
+  )
   const tutorialOutline = await generateOutline(baseTutorialData.content)
   // @TODO make this breadcrumb generation into a function
   const layoutProps = {

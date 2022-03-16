@@ -35,6 +35,8 @@ export default function TutorialView({
   readTime,
   productsUsed,
   edition,
+  handsOnLab,
+  collectionCtx,
 }: TutorialViewProps): React.ReactElement {
   return (
     <SidebarSidecarLayout
@@ -61,16 +63,41 @@ export default function TutorialView({
           <p>Products used: {productsUsed.map((p) => p.product.name)}</p>
           <p>Edition: {edition}</p>
         </div>
-        <button>Show Terminal</button>
+        {/** Need to wire up instruqt embed */}
+        {handsOnLab.id ? <button>Show Terminal</button> : null}
       </header>
       <Content
         content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
       />
       <div>
+        {/**
+         * Waiting on an api endpoint for this
+         * could do basic logic though unless its the last one
+         * */}
         <h2>Next / Prev component</h2>
       </div>
       <div>
+        {/**
+         * Stub this out
+         * if has other featured collections besides current, render
+         */}
+
         <h2>Featured Collections</h2>
+        <ul>
+          {collectionCtx.featuredIn.map((c) => {
+            console.log({ c })
+            // may need tutorials length here
+            // could we add a property that lists the number of tutorials
+            // also need description
+            return (
+              <li key={c.id}>
+                <p>{collectionCtx.featuredIn.length} Tutorials</p>
+                <h3>{c.name}</h3>
+                <p>{c.description}</p>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </SidebarSidecarLayout>
   )
