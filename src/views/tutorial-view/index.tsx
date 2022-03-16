@@ -10,13 +10,12 @@ import SidebarSidecarLayout, {
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import Heading from 'components/heading'
 import MDX_COMPONENTS from './utils/mdx-components'
+import { formatTutorialToMenuItem } from './utils'
 import {
   TutorialSidebar as Sidebar,
   FeaturedInCollections,
   CollectionCardProps,
 } from './components'
-
-import { getTutorialSlug } from 'views/collection-view/helpers'
 
 export interface TutorialViewProps
   extends Pick<
@@ -45,6 +44,15 @@ export type TutorialSidebarSidecarProps = Pick<
   'children' | 'headings' | 'breadcrumbLinks'
 >
 
+/**
+ *
+ * Outstanding @TODOs
+ * - add canonical url if this is the default collection
+ * - fix: the toc overview linking isn't properly aligning
+ * - wire up instruqt embed for interactive labs
+ * - skeleton out the next / prev component after API endpoint is updated - https://app.asana.com/0/1201903760348480/1201932088801131/f
+ */
+
 // @TODO add canonical url if this is the default collection
 export default function TutorialView({
   name,
@@ -64,16 +72,13 @@ export default function TutorialView({
       sidebarSlot={
         <Sidebar
           title={collectionCtx.current.shortName}
-          menuItems={collectionCtx.current.tutorials.map((t) => ({
-            title: t.name,
-            fullPath: getTutorialSlug(t.slug, collectionCtx.current.slug),
-            id: t.id,
-          }))}
+          menuItems={collectionCtx.current.tutorials.map((t) =>
+            formatTutorialToMenuItem(t, collectionCtx.current.slug)
+          )}
         />
       }
       sidecarSlot={<TableOfContents headings={layout.headings} />}
     >
-      {/** @TODO fix: the toc overview linking isn't properly aligning */}
       <header id="overview">
         <Heading level={1} size={500} weight="bold" slug={slug}>
           {name}
@@ -86,17 +91,12 @@ export default function TutorialView({
           <p>Video: {`${Boolean(video?.id)}`}</p>
           <p>Interactive Lab: {`${Boolean(handsOnLab?.id)}`}</p>
         </div>
-        {/** @TODO Need to wire up instruqt embed */}
         {handsOnLab?.id ? <button>Show Terminal</button> : null}
       </header>
       <Content
         content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
       />
       <div>
-        {/**
-         * Waiting on an api endpoint for this
-         * could do basic logic though unless its the last one
-         * */}
         <h2>Next / Prev component</h2>
       </div>
       <FeaturedInCollections collections={collectionCtx.featuredIn} />
