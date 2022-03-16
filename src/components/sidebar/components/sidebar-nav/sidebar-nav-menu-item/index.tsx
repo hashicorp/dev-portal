@@ -86,7 +86,10 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
         onClick={() => setIsOpen((prevState) => !prevState)}
         ref={buttonRef}
       >
-        <span className={s.navMenuItemLabel}>{item.title}</span>
+        <span
+          className={s.navMenuItemLabel}
+          dangerouslySetInnerHTML={{ __html: item.title }}
+        />
         <IconChevronRight16 />
       </button>
       {isOpen && (
