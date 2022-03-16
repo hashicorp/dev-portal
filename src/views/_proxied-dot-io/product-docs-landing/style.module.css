@@ -25,3 +25,10 @@
     grid-gap: 24px;
   }
 }
+
+.developerCard {
+  /* necessary because CardLink is a <div> nested in an <a>, 
+  the <a> will behave as expected in the .developerCards grid layout,
+  we need the <div> to match its height to get the desired effect */
+  height: 100%;
+}

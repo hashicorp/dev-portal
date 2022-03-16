@@ -48,7 +48,7 @@ function ProductDocsLanding(): ReactElement {
         {developerCards.map(({ title, url }, stableIdx) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
-            <CardLink key={stableIdx} href={url}>
+            <CardLink key={stableIdx} href={url} className={s.developerCard}>
               {title}
             </CardLink>
           )

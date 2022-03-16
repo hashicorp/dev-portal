@@ -3,8 +3,6 @@ NOTE: `color: black` is needed because the color is otherwise set by a global
 style applied to anchor elements.
 */
 .root {
-  composes: root from '../card/card.module.css';
-  display: block;
   color: black;
 
   /* Only enable animation if query is supported and value is no-preference */
