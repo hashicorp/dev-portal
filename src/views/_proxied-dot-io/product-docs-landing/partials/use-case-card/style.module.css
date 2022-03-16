@@ -1,0 +1,24 @@
+.useCaseCards {
+  display: grid;
+  /* stick to 1 column at 100% no matter what */
+  grid-template-columns: 100%;
+  grid-gap: 16px;
+
+  @media (min-width: 640px) {
+    grid-gap: 24px;
+  }
+}
+
+.useCaseCardHeading {
+  composes: g-type-display-5 from global;
+  margin: 0 !important;
+}
+
+.useCaseCardBody {
+  margin: 8px 0 0 0 !important;
+}
+
+.useCaseCardCtas {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
