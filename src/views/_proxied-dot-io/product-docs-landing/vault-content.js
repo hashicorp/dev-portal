@@ -4,7 +4,10 @@ const vaultContent = {
     'Welcome to Vault documentation! Vault is an identity-based secret and encryption management system. This documentation covers the main concepts of Vault, what problems it can solve, and contains a quick start for using Vault.',
   featuredCard: {
     heading: 'Get Started',
-    imgSrc: require('./vault-get-started-diagram.png'),
+    image: {
+      src: require('./vault-get-started-diagram.png'),
+      alt: '' /* note: image is presentational in this specific case */,
+    },
     body:
       'Use Vault to securely store, access, and manage secrets and other sensitive data.',
     links: [

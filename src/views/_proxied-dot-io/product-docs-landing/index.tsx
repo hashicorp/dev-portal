@@ -8,6 +8,7 @@ import VAULT_CONTENT from './vault-content'
 function ProductDocsLanding(): ReactElement {
   // Note: later we could use this view with products other than Vault,
   // and put this content somewhere more author-friendly (eg DatoCMS).
+  const productSlug = 'vault'
   const {
     pageTitle,
     pageSubtitle,
@@ -22,9 +23,10 @@ function ProductDocsLanding(): ReactElement {
       <p>{pageSubtitle}</p>
       <FeaturedCard
         heading={featuredCard.heading}
-        imgSrc={featuredCard.imgSrc}
+        image={featuredCard.image}
         body={featuredCard.body}
         links={featuredCard.links}
+        productThemeSlug={productSlug}
       />
       <h2 className="g-type-display-3">Use Cases</h2>
       <div className={s.useCaseCards}>
@@ -36,6 +38,7 @@ function ProductDocsLanding(): ReactElement {
               heading={heading}
               body={body}
               links={links}
+              productThemeSlug={productSlug}
             />
           )
         })}

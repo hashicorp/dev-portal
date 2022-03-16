@@ -5,7 +5,12 @@ import FlexFloat from '../flex-float'
 import { UseCaseCardProps } from './types'
 import s from './style.module.css'
 
-function UseCaseCard({ heading, body, links }: UseCaseCardProps): ReactElement {
+function UseCaseCard({
+  heading,
+  body,
+  links,
+  productThemeSlug = 'hashicorp',
+}: UseCaseCardProps): ReactElement {
   return (
     <Card>
       <article>
@@ -20,8 +25,7 @@ function UseCaseCard({ heading, body, links }: UseCaseCardProps): ReactElement {
                   key={stableIdx}
                   theme={{
                     variant: 'tertiary',
-                    // TODO: use product context, or expose via prop
-                    brand: 'vault',
+                    brand: productThemeSlug,
                   }}
                   title={title}
                   url={url}

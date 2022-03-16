@@ -7,17 +7,18 @@ import s from './style.module.css'
 
 function FeaturedCard({
   heading,
-  imgSrc,
+  image,
   body,
   links,
+  productThemeSlug = 'hashicorp',
 }: FeaturedCardProps): ReactElement {
   return (
-    <Card className={s.featuredCard}>
-      <article className={s.featuredCardContent}>
-        <div className={s.featuredCardText}>
-          <h1 className={s.featuredCardHeading}>{heading}</h1>
-          <p className={s.featuredCardBody}>{body}</p>
-          <div className={s.featuredCardCtas}>
+    <Card className={s.root}>
+      <article className={s.content}>
+        <div className={s.text}>
+          <h1 className={s.heading}>{heading}</h1>
+          <p className={s.body}>{body}</p>
+          <div className={s.ctas}>
             <FlexFloat gap={8}>
               {links.map(({ title, url }, stableIdx) => {
                 const variant = stableIdx == 0 ? 'primary' : 'secondary'
@@ -27,8 +28,7 @@ function FeaturedCard({
                     key={stableIdx}
                     theme={{
                       variant,
-                      // TODO: use product context, or expose via prop
-                      brand: 'vault',
+                      brand: productThemeSlug,
                     }}
                     title={title}
                     url={url}
@@ -39,8 +39,9 @@ function FeaturedCard({
             </FlexFloat>
           </div>
         </div>
-        <div className={s.featuredCardImage}>
-          <img src={imgSrc} alt="" />
+        <div className={s.image}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={image.src} alt={image.alt} />
         </div>
       </article>
     </Card>
