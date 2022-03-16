@@ -46,7 +46,7 @@ export async function getTutorialPageProps(
   const collectionDbSlug = `${product.slug}/${collectionFilename}`
   const currentCollectionData = await getCollection(collectionDbSlug) // for sidebar
   const tutorialOutline = await generateOutline(baseTutorialData.content)
-
+  // @TODO make this breadcrumb generation into a function
   const layoutProps = {
     headings: tutorialOutline,
     breadcrumbLinks: [
