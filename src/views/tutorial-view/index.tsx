@@ -67,7 +67,6 @@ export default function TutorialView({
   collectionCtx,
 }: TutorialViewProps): React.ReactElement {
   const { asPath } = useRouter()
-  const tutorialFilename = splitProductFromFilename(slug)
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layout.breadcrumbLinks}
@@ -86,7 +85,7 @@ export default function TutorialView({
           level={1}
           size={500}
           weight="bold"
-          slug={tutorialFilename}
+          slug={layout.headings[0].slug}
           id={slug}
         >
           {name}
