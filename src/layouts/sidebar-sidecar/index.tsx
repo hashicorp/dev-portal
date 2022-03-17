@@ -1,10 +1,11 @@
 import { FC, ReactElement } from 'react'
 import BaseLayout from 'layouts/base-new'
+import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
+import DevDotContent from 'components/dev-dot-content'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Footer from 'components/footer'
 import Sidebar from 'components/sidebar'
-import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { SidebarSidecarLayoutProps } from './types'
 import s from './sidebar-sidecar-layout.module.css'
 
@@ -55,7 +56,7 @@ const SidebarSidecarLayout: FC<SidebarSidecarLayoutProps> = ({
           <div className={s.main}>
             <main id="main">
               {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-              <div className={s.tempContentStyles}>{children}</div>
+              <DevDotContent>{children}</DevDotContent>
               {githubFileUrl && (
                 <EditOnGithubLink
                   className={s.editOnGithubLink}
