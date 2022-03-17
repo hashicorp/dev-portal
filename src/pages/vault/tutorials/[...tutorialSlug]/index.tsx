@@ -11,11 +11,11 @@ import {
 } from 'views/tutorial-view/server'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
-export function WaypointTutorialPage({
+export function VaultTutorialPage({
   tutorial,
   layoutProps,
 }: TutorialPageProps): React.ReactElement {
-  return <TutorialView {...tutorial} layout={layoutProps} />
+  return <TutorialView tutorial={tutorial} layout={layoutProps} />
 }
 
 export async function getStaticProps({
@@ -39,5 +39,5 @@ export async function getStaticPaths(): Promise<
   }
 }
 
-WaypointTutorialPage.layout = CoreDevDotLayout
-export default WaypointTutorialPage
+VaultTutorialPage.layout = CoreDevDotLayout
+export default VaultTutorialPage
