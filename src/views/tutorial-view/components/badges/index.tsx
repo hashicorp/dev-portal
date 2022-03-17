@@ -10,6 +10,7 @@ interface BadgesProps {
     isInteractive: boolean
   }
 }
+
 export function Badges({ tutorialMeta }: BadgesProps): React.ReactElement {
   const {
     readTime,
