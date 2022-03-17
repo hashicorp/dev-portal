@@ -6,7 +6,7 @@ import Heading, { HeadingProps } from 'components/heading'
 import Text from 'components/text'
 import GetStarted, { GetStartedProps } from './components/get-started'
 import Cards, { CardProps } from './components/cards'
-import s from './style.module.css'
+import s from './product-landing.module.css'
 
 type Block =
   | ({ type: 'heading' } & HeadingProps & { heading: string })

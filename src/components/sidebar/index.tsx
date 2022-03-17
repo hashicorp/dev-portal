@@ -4,7 +4,7 @@ import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
 import { MenuItem, SidebarProps } from './types'
 import SidebarNav from './components/sidebar-nav'
-import s from './style.module.css'
+import s from './sidebar.module.css'
 
 const addItemMetadata = (
   currentPath: string,

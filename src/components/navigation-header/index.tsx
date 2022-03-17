@@ -5,7 +5,7 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import { useCurrentProduct } from 'contexts'
 import HeaderSearchInput from 'components/header-search-input'
 import ProductSwitcher from 'components/product-switcher'
-import s from './style.module.css'
+import s from './navigation-header.module.css'
 
 /**
  * Checks if a header navigation link's path matches the current route's path.
