@@ -112,7 +112,7 @@ The `"get_started"` block renders a heading, descriptive text, and a single link
 | Property | Type | Details |
 | --- | --- | --- |
 | `type` | `"get_started"` | Block type |
-| `product` | `"terraform" \| "vault" \| "consul" \| "nomad" \| "packer" \| "vagrant" \| "boundary" \| "waypoint" \| "sentinel" \| "hcp"` | Product icon to be shown. |
+| `product` | `"boundary" \| "consul" \| "nomad" \| "packer" \| "terraform" \| "vault" \| "vagrant" \| "waypoint" \| "sentinel" \| "hcp"` | Product icon to be shown. |
 | `heading` | `string` | Text for the heading |
 | `text` | `string` | Descriptive text shown below the heading |
 | `link` | `{ text: string, url: string }` | Link shown below the body text |
@@ -141,7 +141,26 @@ Example: Waypoint `"get_started"` block
 <details>
 <summary>Block type: <code>"cards"</code></summary>
 
-<!-- TODO: add detail here -->
+The `"cards"` block displays a grid of cards, each linked using a single `url`.
+
+| Property | Type | Details |
+| --- | --- | --- |
+| `type` | `"cards"` | Block type |
+| `columns` | `2 \| 3` | The maximum number of columns |
+| `cards` | `Array<{ icon, iconBrandColor, heading, text, url, tags }>` | An array of `card` objects, described in detail below |
+
+Each item in the `cards` array has the following structure:
+
+| Property | Type | Details |
+| --- | --- | --- |
+| `icon` | (optional) `"IconBox" \| "IconConsulColor" \| "IconDocs" \| "IconDownload" \| "IconPackerColor" \| "IconProvider" \| "IconServer" \| "IconTerminal" \| "IconTerraformColor" \| "IconVaultColor"` | Optional icon to show at the top of the card. |
+| `iconBrandColor` | (optional) `"boundary" \| "consul" \| "nomad" \| "packer" \| "terraform" \| "vault" \| "vagrant" \| "waypoint" \| "neutral" \| "neutral-dark"` | Optional brand color override to apply to the icon. Defaults to the current product context. |
+| `heading` | `string` | Text for the card heading |
+| `text` | `string` | Text for the card body |
+| `url` | `string` | URL to link to |
+| `tags` | (optional) `Array<"boundary" \| "consul" \| "nomad" \| "packer" \| "terraform" \| "vagrant" \| "vault" \| "video" \| "waypoint">` | Optional array of tags, to be displayed as icons at the bottom of the card |
+
+Example: 2-column cards with icons
 
 ```json5
 {
@@ -176,11 +195,56 @@ Example: Waypoint `"get_started"` block
 }
 ```
 
-Result:
+![](https://user-images.githubusercontent.com/4624598/158826286-cc94d884-fad7-4d5f-a3f5-52f4b931d7a6.png)
 
-<!-- TODO: update this image -->
+Example: 3-column cards with tags
 
-![](https://user-images.githubusercontent.com/4624598/155219830-f013d329-2d4c-4186-bd35-e3de495fe83d.png)
+```json5
+{
+  "type": "cards",
+  "columns": 3,
+  "cards": [
+    {
+      "heading": "Introduction to Waypoint",
+      "text": "Deploying applications in the DevOps landscape can be confusing with so many...",
+      "tags": ["video", "waypoint"],
+      "url": "https://learn.hashicorp.com/tutorials/waypoint/get-started-intro"
+    },
+    {
+      "heading": "Get Started - Kubernetes",
+      "text": "Build, deploy, and release applications to a Kubernetes cluster.",
+      "tags": ["video", "waypoint"],
+      "url": "https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes"
+    },
+    {
+      "heading": "Get Started - Nomad",
+      "text": "Build, deploy, and release applications to a Nomad cluster.",
+      "tags": ["video", "waypoint"],
+      "url": "https://learn.hashicorp.com/collections/waypoint/get-started-nomad"
+    },
+    {
+      "heading": "Get Started - Docker",
+      "text": "Start using Waypoint in only a few minutes on a local Docker instance.",
+      "tags": ["video", "waypoint"],
+      "url": "https://learn.hashicorp.com/tutorials/waypoint/get-started-docker"
+    },
+    {
+      "heading": "Deploy an Application to AWS Elastic Container",
+      "text": "Run a NodeJS application onto AWS elastic container Service...",
+      "tags": ["video", "waypoint"],
+      "url": "https://learn.hashicorp.com/tutorials/waypoint/aws-ecs"
+    },
+    {
+      "heading": "Deploy an Application to Google Cloud Run",
+      "text": "Run an application on Google Cloud Run with Waypoint",
+      "tags": ["video", "waypoint"],
+      "url": "https://learn.hashicorp.com/tutorials/waypoint/google-cloud-run"
+    }
+  ]
+}
+```
+
+![](https://user-images.githubusercontent.com/4624598/158826414-e4f7a18c-cfd8-4b8b-bc4e-58e58cb0224d.png)
 
 </details>
 
