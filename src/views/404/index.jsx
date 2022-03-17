@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
-import s from './style.module.css'
+import s from './404.module.css'
 
 export default function NotFound() {
   useEffect(() => {
