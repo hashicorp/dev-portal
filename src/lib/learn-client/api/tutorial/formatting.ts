@@ -97,12 +97,13 @@ export function formatVideo({
 }: ApiTutorial | ApiTutorialFullCollectionCtx): TutorialVideo | undefined {
   let video = undefined
 
-  if (video_id)
+  if (video_id) {
     video = {
       id: video_id,
       videoHost: video_host,
       videoInline: video_inline,
     }
+  }
 
   return video
 }
@@ -113,11 +114,12 @@ export function formatHandsOnLab({
 }: ApiTutorial | ApiTutorialFullCollectionCtx): TutorialHandsOnLab | undefined {
   let handsOnLab = undefined
 
-  if (hands_on_lab_id)
+  if (hands_on_lab_id) {
     handsOnLab = {
       id: hands_on_lab_id,
       provider: hands_on_lab_provider,
     }
+  }
 
   return handsOnLab
 }

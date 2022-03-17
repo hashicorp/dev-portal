@@ -43,8 +43,12 @@ function getPathBreadcrumbs({
   // objects as needed for breadcrumb link rendering.
   return breadcrumbNodes.map(({ title, path }) => {
     const link = { title } as BreadcrumbLink
-    if (path) link.url = `/${basePath}/${path}`
-    if (path == pathParts.join('/')) link.isCurrentPage = true
+    if (path) {
+      link.url = `/${basePath}/${path}`
+    }
+    if (path == pathParts.join('/')) {
+      link.isCurrentPage = true
+    }
     return link
   })
 }
@@ -52,7 +56,9 @@ function getPathBreadcrumbs({
 function getPathMatchedNode(navNodes, pathString, basePath) {
   const matches = findAllPathMatchedNodes(navNodes, pathString)
   // If we have exactly one match, this is great, and expected
-  if (matches.length == 1) return matches[0]
+  if (matches.length == 1) {
+    return matches[0]
+  }
   // If we do not have exactly one match, we likely
   // have a problem with the navData that was not caught
   // by our docs-sidenav validation functions, and we should address it.
@@ -96,7 +102,9 @@ function findPathMatchedNodes(navNode, pathString, depth) {
     // These nodes will have paths with a number of parts
     // equal to the current route depth + 1
     const indexMatches = navNode.routes.filter((r) => {
-      if (!r.path) return false
+      if (!r.path) {
+        return false
+      }
       const pathParts = r.path.split('/')
       return pathParts.length == depth + 1
     })
