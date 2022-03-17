@@ -49,7 +49,9 @@ export async function getCollectionPaths(
   const collections = await getAllCollections({
     product,
   })
-  const paths = collections.map((collection) => ({
+  // Only build collections where this product is the main 'theme'
+  const filteredCollections = collections.filter((c) => c.theme === product) // @TODO once we implement the `theme` option, remove this
+  const paths = filteredCollections.map((collection) => ({
     params: {
       collectionSlug: splitProductFromFilename(collection.slug),
     },
