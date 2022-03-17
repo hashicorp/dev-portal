@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
 export interface DevDotContentProps {
-  className: string
+  className?: string
   children: ReactNode
 }
