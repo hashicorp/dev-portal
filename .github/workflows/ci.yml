@@ -1,4 +1,5 @@
 name: 'CI'
+
 on:
   pull_request:
   push:
@@ -17,3 +18,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           coverage-comment: false
+  lint:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js 16.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.x
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Run type check
+      run: npm run lint
