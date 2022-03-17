@@ -33,6 +33,7 @@
   width: fit-content;
 
   &:hover {
+    color: var(--token-color-foreground-strong);
     text-decoration: underline;
   }
 }
