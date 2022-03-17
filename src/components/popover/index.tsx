@@ -1,14 +1,14 @@
 import React, { useRef, MutableRefObject } from 'react'
-import { useRect } from '@reach/rect'
-import InlineSvg from '@hashicorp/react-inline-svg'
+import classNames from 'classnames'
 import Portal from '@reach/portal'
 import ReachPopover from '@reach/popover'
-import classNames from 'classnames'
-import svgX from '@hashicorp/flight-icons/svg/x-24.svg?include'
+import { useRect } from '@reach/rect'
 import VisuallyHidden from '@reach/visually-hidden'
+import InlineSvg from '@hashicorp/react-inline-svg'
+import svgX from '@hashicorp/flight-icons/svg/x-24.svg?include'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
-import s from './style.module.css'
+import s from './popover.module.css'
 
 interface PopoverProps {
   /** Elements to render in the content area of the popover. */
@@ -49,7 +49,9 @@ function Popover({
 
   const themeClass = s[`theme-${theme}`]
   const themeProps = {}
-  if (themeBackground) themeProps['--theme-background'] = themeBackground
+  if (themeBackground) {
+    themeProps['--theme-background'] = themeBackground
+  }
 
   return (
     <div>
@@ -152,7 +154,9 @@ function DialogArrow({
   /** An object of style properties */
   themeProps: $TSFixMe
 }): React.ReactElement {
-  if (!shown) return null
+  if (!shown) {
+    return null
+  }
   const arrowLeft = triggerRect
     ? `${Math.min(
         // Centered position, covers most use cases
