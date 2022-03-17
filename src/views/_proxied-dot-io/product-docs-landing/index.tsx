@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import CardLink from 'components/card-link'
-import FeaturedCard from './partials/featured-card'
-import UseCaseCard from './partials/use-case-card'
+import FeaturedCard from './components/featured-card'
+import UseCaseCard from './components/use-case-card'
 import s from './style.module.css'
 import VAULT_CONTENT from './vault-content'
 
