@@ -1,3 +1,4 @@
+import { GetStaticPathsResult } from 'next'
 import { ProductOption } from 'lib/learn-client/types'
 import CollectionView from 'views/collection-view'
 import {
@@ -31,15 +32,11 @@ interface CollectionPagePaths {
   }
 }
 
-export async function getStaticPaths(): Promise<{
-  paths: CollectionPagePaths[]
-  fallback: boolean
-}> {
+export async function getStaticPaths(): Promise<
+  GetStaticPathsResult<CollectionPagePaths['params']>
+> {
   const paths = await getCollectionPaths(ProductOption['waypoint'])
-  return {
-    paths,
-    fallback: false,
-  }
+  return paths
 }
 
 WaypointCollectionPage.layout = BaseLayout

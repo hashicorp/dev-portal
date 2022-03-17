@@ -1,3 +1,4 @@
+import { GetStaticPathsResult } from 'next'
 import {
   Collection as ClientCollection,
   ProductOption,
@@ -47,7 +48,7 @@ export async function getCollectionPageProps(
 
 export async function getCollectionPaths(
   product: ProductOption
-): Promise<CollectionPagePath[]> {
+): Promise<GetStaticPathsResult<CollectionPagePath['params']>> {
   const collections = await getAllCollections({
     product,
   })
@@ -57,7 +58,10 @@ export async function getCollectionPaths(
     },
   }))
 
-  return paths
+  return {
+    paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
+    fallback: 'blocking',
+  }
 }
 
 // Get product based on collection theme
