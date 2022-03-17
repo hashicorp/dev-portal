@@ -11,7 +11,9 @@ export function getCollectionContext(
 ): CollectionContext {
   const isDefault = currentCollection.id === collectionCtx.default.id
   const featuredIn = collectionCtx.featuredIn
-    .filter((c) => c.id !== currentCollection.id)
+    .filter(
+      (c) => c.id !== currentCollection.id && !c.slug.includes('onboarding') // filter out onboarding content for CS team
+    )
     .map(formatCollectionCard)
 
   return {
