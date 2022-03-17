@@ -52,9 +52,7 @@ Source:
 
 Result:
 
-<!-- TODO: update this image -->
-
-![](https://user-images.githubusercontent.com/4624598/155219830-f013d329-2d4c-4186-bd35-e3de495fe83d.png)
+![](https://user-images.githubusercontent.com/4624598/158818382-e78ea677-85c1-41aa-92b4-ca8714f06f2d.png)
 
 </details>
 
@@ -67,20 +65,40 @@ Each item in the `blocks` array represents a component on the page. Each of thes
 <details>
 <summary>Block type: <code>"heading"</code></summary>
 
+Heading blocks render HTML heading elements. Each block accepts the following properties:
+
+| Property | Type | Details |
+| --- | --- | --- |
+| `type` | `"heading"` | Block type |
+| `heading` | `string` | Text for the heading |
+| `level` | `2 \| 3 \| 4 \| 5 \| 6` | Semantic heading level, for example `2` becomes `<h2>`. Note that there is already an `<h1>` rendered for the page, so only values  should be used. |
+| `size` | `100 \| 200 \| 300 \| 400 \| 500` | Visual size of the heading. `500` is the largest size and `100` is the smallest. Visual size should generally reflect the semantic level, with `h2 = 300`, `h3 = 200`, and `h4` and below at the `100` size.
+
+Example: `h2` with `300` size:
+
 ```json5
 {
   "type": "heading",
+  "heading": "Featured Reference Docs",
   "level": 2,
-  "size": 400,
-  "heading": "Explore Waypoint Documentation"
+  "size": 300,
 }
 ```
 
-Result:
+![](https://user-images.githubusercontent.com/4624598/158818745-a20d1892-efa6-4053-9d00-811645d642aa.png)
 
-<!-- TODO: update this image -->
+Example: `h2` with `400` size:
 
-![](https://user-images.githubusercontent.com/4624598/155219830-f013d329-2d4c-4186-bd35-e3de495fe83d.png)
+```json5
+{
+  "type": "heading",
+  "heading": "Explore Waypoint Documentation",
+  "level": 2,
+  "size": 400,
+}
+```
+
+![](https://user-images.githubusercontent.com/4624598/158818617-2b8ce029-ad41-4081-8701-869d51abf40b.png)
 
 </details>
 
@@ -89,7 +107,17 @@ Result:
 <details>
 <summary>Block type: <code>"get_started"</code></summary>
 
-<!-- TODO: add detail here -->
+The `"get_started"` block renders a heading, descriptive text, and a single link alongside a product icon.
+
+| Property | Type | Details |
+| --- | --- | --- |
+| `type` | `"get_started"` | Block type |
+| `product` | `"terraform" \| "vault" \| "consul" \| "nomad" \| "packer" \| "vagrant" \| "boundary" \| "waypoint" \| "sentinel" \| "hcp"` | Product icon to be shown. |
+| `heading` | `string` | Text for the heading |
+| `text` | `string` | Descriptive text shown below the heading |
+| `link` | `{ text: string, url: string }` | Link shown below the body text |
+
+Example: Waypoint `"get_started"` block
 
 ```json5
 {
@@ -104,11 +132,7 @@ Result:
 }
 ```
 
-Result:
-
-<!-- TODO: update this image -->
-
-![](https://user-images.githubusercontent.com/4624598/155219830-f013d329-2d4c-4186-bd35-e3de495fe83d.png)
+![](https://user-images.githubusercontent.com/4624598/158821262-03798dca-12e6-487b-ac3e-e8bab51be8b1.png)
 
 </details>
 
