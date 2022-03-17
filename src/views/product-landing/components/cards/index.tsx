@@ -1,13 +1,12 @@
 import React from 'react'
-import InlineSvg from '@hashicorp/react-inline-svg'
 import classNames from 'classnames'
+import CardLink from 'components/card-link'
+import IconTile from 'components/icon-tile'
+import Text from 'components/text'
 import iconDict from './icon-dict'
 import tagIconDict from './tag-icon-dict'
 import { CardProps } from './types'
-import CardLink from 'components/card-link'
-import Text from 'components/text'
-import s from './style.module.css'
-import IconTile from 'components/icon-tile'
+import s from './cards.module.css'
 
 function Cards({ columns, cards }: CardProps): React.ReactElement {
   return (

@@ -7,7 +7,7 @@ import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
-import s from './style.module.css'
+import s from './_local_platform-docs-mdx.module.css'
 
 /**
  * Used by `makeHeadingElement`.

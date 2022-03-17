@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
 import classNames from 'classnames'
-import Popover from 'components/popover'
-import s from './style.module.css'
 import VisuallyHidden from '@reach/visually-hidden'
+import Popover from 'components/popover'
+import s from './dev-popover.module.css'
 
 /**
  * Renders non-interactive children into a button element,
