@@ -1,6 +1,6 @@
 import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
 import classNames from 'classnames'
-import s from './style.module.css'
+import s from './edit-on-github-link.module.css'
 
 function EditOnGithubLink({
   url,
