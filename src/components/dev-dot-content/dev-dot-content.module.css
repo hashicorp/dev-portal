@@ -80,6 +80,7 @@
   }
 
   & img {
+    background-color: white;
     border-radius: 5px;
     margin: 24px auto;
     max-width: 100%;
