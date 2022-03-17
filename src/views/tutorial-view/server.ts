@@ -6,7 +6,6 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
 import { TutorialViewProps, TutorialSidebarSidecarProps } from '.'
-import generateOutline from 'lib/generate-mdx-outline'
 import { getCollectionContext } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 
@@ -37,15 +36,16 @@ export async function getTutorialPageProps(
   const [collectionFilename, tutorialFilename] = slug
   const tutorialDbSlug = `${product.slug}/${tutorialFilename}`
   const baseTutorialData = await getTutorial(tutorialDbSlug)
-  const serializedContent = await serializeContent(baseTutorialData)
+  const { content: serializedContent, headings } = await serializeContent(
+    baseTutorialData
+  )
   const collectionContext = getCollectionContext(
     product.slug,
     collectionFilename,
     baseTutorialData.collectionCtx
   )
-  const tutorialOutline = await generateOutline(baseTutorialData.content)
   const layoutProps = {
-    headings: tutorialOutline,
+    headings,
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, slug: product.slug },
       collection: {
@@ -69,6 +69,7 @@ export async function getTutorialPageProps(
         ...baseTutorialData,
         content: serializedContent,
         collectionCtx: collectionContext,
+        headings,
       },
       product,
       layoutProps,

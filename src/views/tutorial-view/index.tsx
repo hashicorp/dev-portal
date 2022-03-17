@@ -8,10 +8,9 @@ import {
 import SidebarSidecarLayout, {
   SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
-import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import Heading from 'components/heading'
 import MDX_COMPONENTS from './utils/mdx-components'
-import { formatTutorialToMenuItem } from './utils'
+import { formatTutorialToMenuItem, splitProductFromFilename } from './utils'
 import {
   TutorialSidebar as Sidebar,
   FeaturedInCollections,
@@ -42,9 +41,8 @@ export type CollectionContext = {
   featuredIn?: CollectionCardProps[]
 }
 
-export type TutorialSidebarSidecarProps = Pick<
-  SidebarSidecarLayoutProps,
-  'children' | 'headings' | 'breadcrumbLinks'
+export type TutorialSidebarSidecarProps = Required<
+  Pick<SidebarSidecarLayoutProps, 'children' | 'headings' | 'breadcrumbLinks'>
 >
 
 /**
@@ -69,6 +67,7 @@ export default function TutorialView({
   collectionCtx,
 }: TutorialViewProps): React.ReactElement {
   const { asPath } = useRouter()
+  const tutorialFilename = splitProductFromFilename(slug)
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layout.breadcrumbLinks}
@@ -80,10 +79,16 @@ export default function TutorialView({
           )}
         />
       }
-      sidecarSlot={<TableOfContents headings={layout.headings} />}
+      headings={layout.headings}
     >
       <header id="overview">
-        <Heading level={1} size={500} weight="bold" slug={slug}>
+        <Heading
+          level={1}
+          size={500}
+          weight="bold"
+          slug={tutorialFilename}
+          id={slug}
+        >
           {name}
         </Heading>
         <Badges
