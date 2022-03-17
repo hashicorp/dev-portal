@@ -5,13 +5,13 @@ import { ProductOption } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
-import { TutorialViewProps, TutorialSidebarSidecarProps } from '.'
+import { TutorialSidebarSidecarProps, TutorialData } from '.'
 import { getCollectionContext } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 
 // @TODO just a stub - adjust page props interface
 export interface TutorialPageProps {
-  tutorial: TutorialViewProps
+  tutorial: TutorialData
   product: TutorialPageProduct // controls the ProductSwitcher
   layoutProps: TutorialSidebarSidecarProps
 }

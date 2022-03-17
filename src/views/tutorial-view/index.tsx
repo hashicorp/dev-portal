@@ -1,6 +1,6 @@
 import Content from '@hashicorp/react-content'
-import { useRouter } from 'next/router'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import useCurrentPath from 'hooks/use-current-path'
 import {
   Collection as ClientCollection,
   TutorialFullCollectionCtx as ClientTutorial,
@@ -10,7 +10,7 @@ import SidebarSidecarLayout, {
 } from 'layouts/sidebar-sidecar'
 import Heading from 'components/heading'
 import MDX_COMPONENTS from './utils/mdx-components'
-import { formatTutorialToMenuItem, splitProductFromFilename } from './utils'
+import { formatTutorialToMenuItem } from './utils'
 import {
   TutorialSidebar as Sidebar,
   FeaturedInCollections,
@@ -19,7 +19,12 @@ import {
   getIsBeta,
 } from './components'
 
-export interface TutorialViewProps
+export interface TutorialViewProps {
+  tutorial: TutorialData
+  layout: TutorialSidebarSidecarProps
+}
+
+export interface TutorialData
   extends Pick<
     ClientTutorial,
     | 'name'
@@ -32,7 +37,6 @@ export interface TutorialViewProps
   > {
   collectionCtx: CollectionContext
   content: MDXRemoteSerializeResult
-  layout: TutorialSidebarSidecarProps
 }
 
 export type CollectionContext = {
@@ -55,18 +59,21 @@ export type TutorialSidebarSidecarProps = Required<
  */
 
 export default function TutorialView({
-  name,
-  slug,
-  content,
   layout,
-  readTime,
-  productsUsed,
-  edition,
-  handsOnLab,
-  video,
-  collectionCtx,
+  tutorial,
 }: TutorialViewProps): React.ReactElement {
-  const { asPath } = useRouter()
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const {
+    name,
+    slug,
+    content,
+    readTime,
+    productsUsed,
+    edition,
+    handsOnLab,
+    video,
+    collectionCtx,
+  } = tutorial
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layout.breadcrumbLinks}
@@ -74,7 +81,7 @@ export default function TutorialView({
         <Sidebar
           title={collectionCtx.current.shortName}
           menuItems={collectionCtx.current.tutorials.map((t) =>
-            formatTutorialToMenuItem(t, collectionCtx.current.slug, asPath)
+            formatTutorialToMenuItem(t, collectionCtx.current.slug, currentPath)
           )}
         />
       }

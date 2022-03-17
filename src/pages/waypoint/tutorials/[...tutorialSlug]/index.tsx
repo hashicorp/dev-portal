@@ -15,7 +15,7 @@ export function WaypointTutorialPage({
   tutorial,
   layoutProps,
 }: TutorialPageProps): React.ReactElement {
-  return <TutorialView {...tutorial} layout={layoutProps} />
+  return <TutorialView tutorial={tutorial} layout={layoutProps} />
 }
 
 export async function getStaticProps({
