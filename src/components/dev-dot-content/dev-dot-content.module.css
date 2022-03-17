@@ -1,6 +1,6 @@
 /**
- * Remainder of styles here are for docs content.
- * We likely want to convert these to MDX components.
+ * Remainder of styles in .root are for docs content. We likely want to convert
+ * these to MDX components.
  * Asana task: https://app.asana.com/0/1201010428539925/1201653123138729/f
  */
 .root {
@@ -172,4 +172,68 @@
       background: #fcf8e3;
     }
   }
+}
+
+/*
+***
+* The following classes are for handling color and margin styles for heading and
+* paragraph elements in DevDot. Note that they are made available for use
+* outside of DevDotContent because not every page with DevDotContent uses these
+* styles (e.g., product landing pages).
+***
+*/
+.h1 {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 12px;
+}
+
+.h2 {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 12px;
+  margin-top: 48px;
+}
+
+.h3 {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 8px;
+  margin-top: 32px;
+}
+
+.h4,
+.h5,
+.h6 {
+  color: var(--token-color-foreground-primary);
+  margin-bottom: 8px;
+  margin-top: 24px;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  & + ul,
+  & + ol {
+    margin-top: 12px;
+  }
+
+  & + p {
+    margin-top: 0;
+  }
+
+  /*
+  TODO: these values are a special request from design for the purposes of the
+  inital preview. They make <code> elements within heading elements a little
+  less jarring.
+  */
+  & code {
+    font-size: 0.6em;
+    font-weight: 500;
+  }
+}
+
+.p {
+  color: var(--token-color-foreground-primary);
+  margin: 16px 0;
 }
