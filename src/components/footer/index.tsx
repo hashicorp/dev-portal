@@ -4,7 +4,7 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
 import Text from 'components/text'
 import { FooterItem, FooterProps } from './types'
-import s from './style.module.css'
+import s from './footer.module.css'
 
 const FOOTER_ITEMS: FooterItem[] = [
   {
