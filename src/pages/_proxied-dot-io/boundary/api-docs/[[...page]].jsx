@@ -13,7 +13,7 @@ const targetFile = {
   owner: 'hashicorp',
   repo: 'boundary',
   path: 'internal/gen/controller.swagger.json',
-  ref: 'stable-website'
+  ref: 'stable-website',
 }
 const pathFromRoot = 'api-docs'
 

@@ -3,7 +3,9 @@ import { useInView } from 'react-intersection-observer'
 import Typical from 'components/_proxied-dot-io/waypoint/typical'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import NumberedBlock from 'components/_proxied-dot-io/waypoint/homepage/numbered-block'
-import Features, { FeaturesProps } from 'components/_proxied-dot-io/waypoint/homepage/features'
+import Features, {
+  FeaturesProps,
+} from 'components/_proxied-dot-io/waypoint/homepage/features'
 import usePrefersReducedMotion from 'lib/hooks/usePrefersReducedMotion'
 import classNames from 'classnames'
 import s from './style.module.css'
