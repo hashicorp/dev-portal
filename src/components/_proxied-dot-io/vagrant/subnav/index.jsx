@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 export default function VagrantSubnav() {
   const router = useRouter()
-  const [currentPath, setCurrentPath] = useState()
+  const [, setCurrentPath] = useState()
 
   useEffect(() => {
     setCurrentPath(router.asPath)
