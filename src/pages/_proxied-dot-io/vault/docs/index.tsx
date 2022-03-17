@@ -3,7 +3,7 @@ import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/vault.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
-import ProductDocsLanding from 'views/_proxied-dot-io/product-docs-landing'
+import ProductDocsLanding from 'views/_proxied-dot-io/vault-docs-landing'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticProps } from 'next'
