@@ -1,3 +1,4 @@
+import { GetStaticPathsResult } from 'next'
 import { Product as ProductContext } from 'types/products'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
@@ -8,6 +9,7 @@ import { serializeContent } from './utils/serialize-content'
 import { TutorialViewProps, TutorialSidebarSidecarProps } from '.'
 import { getCollectionContext } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
+import { getCurrentProduct } from './utils/get-current-product'
 
 // @TODO just a stub - adjust page props interface
 export interface TutorialPageProps {
@@ -25,7 +27,7 @@ export interface TutorialPageProduct extends Pick<ProductContext, 'name'> {
 }
 
 export async function getTutorialPageProps(
-  product: TutorialPageProduct,
+  productSlug: ProductOption,
   slug: [string, string]
 ): Promise<{ props: TutorialPageProps }> {
   /**
@@ -34,20 +36,24 @@ export async function getTutorialPageProps(
    * from the params. So we can assume `slug` index 1 is always the tutorial name
    * */
   const [collectionFilename, tutorialFilename] = slug
-  const tutorialDbSlug = `${product.slug}/${tutorialFilename}`
+  const tutorialDbSlug = `${productSlug}/${tutorialFilename}`
   const baseTutorialData = await getTutorial(tutorialDbSlug)
   const { content: serializedContent, headings } = await serializeContent(
     baseTutorialData
   )
   const collectionContext = getCollectionContext(
-    product.slug,
+    productSlug,
     collectionFilename,
     baseTutorialData.collectionCtx
+  )
+  const product = getCurrentProduct(
+    baseTutorialData.productsUsed,
+    collectionContext.current.theme as ProductOption
   )
   const layoutProps = {
     headings,
     breadcrumbLinks: getTutorialsBreadcrumb({
-      product: { name: product.name, slug: product.slug },
+      product,
       collection: {
         name: collectionContext.current.name,
         slug: collectionFilename,
@@ -85,7 +91,7 @@ export interface TutorialPagePaths {
 
 export async function getTutorialPagePaths(
   product: ProductOption
-): Promise<TutorialPagePaths[]> {
+): Promise<GetStaticPathsResult<TutorialPagePaths['params']>> {
   const allCollections = await getAllCollections({ product })
   // go through all collections, get the collection slug
   const paths = allCollections.flatMap((collection) => {
@@ -101,5 +107,8 @@ export async function getTutorialPagePaths(
       }
     })
   })
-  return paths
+  return {
+    paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
+    fallback: 'blocking',
+  }
 }
