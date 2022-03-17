@@ -9,6 +9,7 @@ import {
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { TutorialPageProduct } from 'views/tutorial-view/server'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import { Product as ProductContext } from 'types/products'
 
 export interface CollectionPageProps {
   collection: ClientCollection
@@ -25,20 +26,21 @@ export interface CollectionPagePath {
 export type CollectionPageProduct = TutorialPageProduct
 
 export async function getCollectionPageProps(
-  product: CollectionPageProduct,
+  productSlug: ProductOption,
   slug: string
 ): Promise<{ props: CollectionPageProps }> {
-  const collection = await getCollection(`${product.slug}/${slug}`)
+  const collection = await getCollection(`${productSlug}/${slug}`)
   // For sidebar data
   const allProductCollections = await getAllCollections({
-    product: product.slug,
+    product: productSlug,
   })
+  const currentProduct = getProductFromCollectionTheme(collection)
 
   return {
     props: stripUndefinedProperties({
       collection: collection,
       allProductCollections,
-      product,
+      product: currentProduct,
     }),
   }
 }
@@ -56,4 +58,30 @@ export async function getCollectionPaths(
   }))
 
   return paths
+}
+
+// Get product based on collection theme
+function getProductFromCollectionTheme(
+  collection: ClientCollection
+): ProductContext {
+  let product
+
+  for (let i = 0; i < collection.tutorials.length; i++) {
+    if (product !== undefined) {
+      break
+    }
+
+    const current = collection.tutorials[i].productsUsed.find(
+      (p) => p.product.slug === collection.theme
+    )
+
+    if (current) {
+      product = current.product
+    }
+  }
+
+  return {
+    slug: product.name,
+    name: product.slug,
+  } as ProductContext
 }
