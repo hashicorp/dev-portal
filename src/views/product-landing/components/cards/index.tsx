@@ -6,7 +6,7 @@ import Text from 'components/text'
 import iconDict from './icon-dict'
 import tagIconDict from './tag-icon-dict'
 import { CardProps } from './types'
-import s from './product-landing-cards.module.css'
+import s from './cards.module.css'
 
 function Cards({ columns, cards }: CardProps): React.ReactElement {
   return (

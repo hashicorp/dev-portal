@@ -8,7 +8,7 @@ import IconTileLogo from 'components/icon-tile-logo'
 import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
 import { GetStartedProps } from './types'
-import s from './product-landing-get-started.module.css'
+import s from './get-started.module.css'
 
 function GetStarted({
   product,
