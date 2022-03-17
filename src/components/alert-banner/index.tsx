@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import s from './style.module.css'
+import s from './alert-banner.module.css'
 
 interface AlertBannerProps {
   type: 'action' | 'danger' | 'highlight' | 'success' | 'warning'
