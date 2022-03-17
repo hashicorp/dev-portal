@@ -4,15 +4,9 @@ The `src/data/` directory contains all of the product data needed for various vi
 
 ## `<product slug>.json`
 
-The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views.
+The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views, including their .io site and Dev Portal pages.
 
-### .io sites
-
-TODO - describe the properties used for .io sites
-
-### DevDot
-
-TODO - describe the properties used in DevDot
+The canonical list of options (including a brief description of their usage) can be found in the [type definition for `ProductData`](./types.d.ts).
 
 ## `<product slug>-landing.json`
 
