@@ -1,8 +1,13 @@
-import { FC } from 'react'
+import { ReactElement } from 'react'
+import classNames from 'classnames'
+import { DevDotContentProps } from './types'
 import s from './dev-dot-content.module.css'
 
-const DevDotContent: FC = ({ children }) => {
-  return <div className={s.root}>{children}</div>
+const DevDotContent = ({
+  className,
+  children,
+}: DevDotContentProps): ReactElement => {
+  return <div className={classNames(s.root, className)}>{children}</div>
 }
 
 export default DevDotContent
