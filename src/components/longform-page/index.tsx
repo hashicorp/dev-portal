@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
-import styles from './style.module.css'
+import styles from './longform-page.module.css'
 
 interface LongformPageProps {
   className?: string
