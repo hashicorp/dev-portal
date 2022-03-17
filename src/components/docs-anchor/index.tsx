@@ -2,7 +2,7 @@ import Link from 'next/link'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import InlineLink from 'components/inline-link'
-import s from './style.module.css'
+import s from './docs-anchor.module.css'
 
 const DocsAnchor: React.FC<JSX.IntrinsicElements['a']> = ({
   href,
@@ -16,7 +16,9 @@ const DocsAnchor: React.FC<JSX.IntrinsicElements['a']> = ({
     className: classNames(rest.className, s.anchor),
   }
 
-  if (!href) return <a {...passableProps}>{children}</a>
+  if (!href) {
+    return <a {...passableProps}>{children}</a>
+  }
 
   // Authors write content as if it only exists for their product,
   // eg Waypoint content contains links that start with "/docs".
