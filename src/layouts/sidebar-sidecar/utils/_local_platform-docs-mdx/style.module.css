@@ -1,13 +1,3 @@
-.tabsRoot {
-  & :global(.g-tabs) {
-    & :global(.g-grid-container),
-    & > :global(.g-grid-container) {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-}
-
 .h1 {
   color: var(--token-color-foreground-strong);
   margin-bottom: 12px;
