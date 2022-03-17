@@ -90,9 +90,9 @@ export interface TutorialPagePaths {
 }
 
 export async function getTutorialPagePaths(
-  product: ProductOption
+  productSlug: ProductOption
 ): Promise<GetStaticPathsResult<TutorialPagePaths['params']>> {
-  const allCollections = await getAllCollections({ product })
+  const allCollections = await getAllCollections({ product: productSlug })
   // go through all collections, get the collection slug
   const paths = allCollections.flatMap((collection) => {
     const collectionSlug = splitProductFromFilename(collection.slug)
