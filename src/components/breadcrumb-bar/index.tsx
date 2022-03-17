@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Text from 'components/text'
-import s from './style.module.css'
+import s from './breadcrumb-bar.module.css'
 
 interface BreadcrumbLink {
   /** Text to be shown for the link */
