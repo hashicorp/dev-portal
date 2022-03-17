@@ -1,14 +1,14 @@
 import React from 'react'
-import IconTileLogo from 'components/icon-tile-logo'
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import slugify from 'slugify'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
 import Heading from 'components/heading'
+import IconTile from 'components/icon-tile'
+import IconTileLogo from 'components/icon-tile-logo'
 import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
 import { GetStartedProps } from './types'
-import s from './style.module.css'
-import IconTile from 'components/icon-tile'
-import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
+import s from './product-landing-get-started.module.css'
 
 function GetStarted({
   product,
