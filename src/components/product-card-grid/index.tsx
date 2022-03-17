@@ -4,7 +4,7 @@ import CardLink from 'components/card-link'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import CONTENT from './content.json'
-import s from './style.module.css'
+import s from './product-card-grid.module.css'
 
 function ProductCardGrid({ className }: { className?: string }): ReactElement {
   return (
