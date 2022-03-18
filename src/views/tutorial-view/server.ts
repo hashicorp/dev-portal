@@ -1,15 +1,18 @@
 import { Product as ProductContext } from 'types/products'
-import {
-  getAllCollections,
-  getCollection,
-} from 'lib/learn-client/api/collection'
+import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
-import { ProductOption } from 'lib/learn-client/types'
+import {
+  ProductOption,
+  Collection as ClientCollection,
+} from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
 import { TutorialSidebarSidecarProps, TutorialData } from '.'
-import { getCollectionContext } from './utils/get-collection-context'
+import {
+  getCollectionContext,
+  getCurrentCollectionTutorial,
+} from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 
 // @TODO just a stub - adjust page props interface
@@ -31,39 +34,17 @@ export async function getTutorialPageProps(
   product: TutorialPageProduct,
   slug: [string, string]
 ): Promise<{ props: TutorialPageProps }> {
-  /**
-   * In the db, slug structure for tutorials is {product}/{tutorial-filename}
-   * the tutorialSlug passed in is based on /{collection-name}/{tutorial-name}
-   * from the params. So we can assume `slug` index 1 is always the tutorial name
-   * */
-  const [collectionFilename, tutorialFilename] = slug
-  const collectionDbSlug = `${product.slug}/${collectionFilename}`
-  const currentCollection = await getCollection(collectionDbSlug)
-  /**
-   * We need to get the database slug for this tutorial, which may belong in a different
-   * product directory in the filesystem. For example a tutorial with slug : `consul/get-started`
-   * may be reference in a vault collection. So we can't assume this current
-   * product context is valid for the db slug path
-   *
-   * @TODO - FOR PROD We will add a check in the content sync that
-   * ensures no two files in a collection have the same filename
-   */
-  const currentTutorial = currentCollection.tutorials.find((t) =>
-    t.slug.endsWith(tutorialFilename)
-  )
-
-  if (!currentTutorial) {
-    throw Error(
-      `Tutorial filename: ${tutorialFilename} does not exist in collection: ${collectionDbSlug}`
-    )
-  }
-
-  const baseTutorialData = await getTutorial(currentTutorial.slug)
+  const { currentCollection, currentTutorial } =
+    await getCurrentCollectionTutorial({
+      productSlug: product.slug,
+      tutorialSlug: slug,
+    })
+  const baseTutorialData = await getTutorial(currentTutorial.data.slug)
   const { content: serializedContent, headings } = await serializeContent(
     baseTutorialData
   )
   const collectionContext = getCollectionContext(
-    currentCollection,
+    currentCollection.data as ClientCollection,
     baseTutorialData.collectionCtx
   )
   const layoutProps = {
@@ -72,9 +53,9 @@ export async function getTutorialPageProps(
       product: { name: product.name, slug: product.slug },
       collection: {
         name: collectionContext.current.name,
-        slug: collectionFilename,
+        slug: currentCollection.filename,
       },
-      tutorial: { name: baseTutorialData.name, slug: tutorialFilename },
+      tutorial: { name: baseTutorialData.name, slug: currentTutorial.filename },
     }),
   }
 

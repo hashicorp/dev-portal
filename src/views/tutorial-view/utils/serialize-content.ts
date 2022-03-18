@@ -13,9 +13,7 @@ import { rewriteStaticAssetsPlugin } from 'lib/remark-plugins/rewrite-static-ass
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { splitProductFromFilename } from '.'
 
-export async function serializeContent(
-  tutorial: ClientTutorial
-): Promise<{
+export async function serializeContent(tutorial: ClientTutorial): Promise<{
   content: MDXRemoteSerializeResult
   headings: TableOfContentsHeading[]
 }> {
