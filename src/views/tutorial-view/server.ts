@@ -1,10 +1,7 @@
 import { Product as ProductContext } from 'types/products'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
-import {
-  ProductOption,
-  Collection as ClientCollection,
-} from 'lib/learn-client/types'
+import { ProductOption } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
