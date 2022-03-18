@@ -6,9 +6,9 @@
 * HashiCorp Design System Tokens. These are used in DevDot pages.
 ***
 */
-@import '~@hashicorp/design-system-tokens/devdot/css/tokens.css';
-@import '~@hashicorp/design-system-tokens/devdot/css/helpers/elevation.css';
-@import '~@hashicorp/design-system-tokens/devdot/css/helpers/typography.css';
+@import '~@hashicorp/design-system-tokens/dist/devdot/css/tokens.css';
+@import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/elevation.css';
+@import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/typography.css';
 
 /* Sizing styles, used in DevDot */
 @import 'styles/sizing.css';

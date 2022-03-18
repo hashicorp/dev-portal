@@ -58,7 +58,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@hashicorp/design-system-tokens": "^0.5.1",
+    "@hashicorp/design-system-tokens": "^0.6.0",
     "@hashicorp/flight-icons": "^2.1.0",
     "@hashicorp/localstorage-polyfill": "^1.0.14",
     "@hashicorp/mktg-global-styles": "^4.0.0",
