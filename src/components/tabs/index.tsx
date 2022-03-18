@@ -2,7 +2,7 @@ import {
   KeyboardEvent,
   KeyboardEventHandler,
   ReactElement,
-  useLayoutEffect,
+  useEffect,
   useRef,
   useState,
 } from 'react'
@@ -81,7 +81,7 @@ const Tabs = ({
    * this ref, this effect when run even when `activeTabIndex` is updated via
    * mouse click, which is unecessary here.
    */
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!needToFocusNewElement.current) {
       return
     }
