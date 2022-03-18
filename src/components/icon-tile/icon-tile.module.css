@@ -5,6 +5,7 @@
   color: var(--icon-color);
   display: block;
   height: var(--size);
+
   /* Adjust padding to account for border width */
   padding: calc(var(--padding) - 1px);
   width: var(--size);

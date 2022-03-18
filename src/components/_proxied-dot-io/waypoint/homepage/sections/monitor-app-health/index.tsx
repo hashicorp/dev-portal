@@ -5,7 +5,9 @@ import Section, {
   SectionDescription,
 } from 'components/_proxied-dot-io/waypoint/homepage/section'
 import GraphicSvg from './graphic'
-import Features, { FeaturesProps } from 'components/_proxied-dot-io/waypoint/homepage/features'
+import Features, {
+  FeaturesProps,
+} from 'components/_proxied-dot-io/waypoint/homepage/features'
 import usePrefersReducedMotion from 'lib/hooks/usePrefersReducedMotion'
 import s from './style.module.css'
 

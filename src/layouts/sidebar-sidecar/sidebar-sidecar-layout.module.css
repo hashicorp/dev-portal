@@ -8,6 +8,7 @@ for further details.
 
 .contentWrapper {
   display: flex;
+
   /* flex-grow ensures the content fills available
   space in BaseNewLayout */
   flex-grow: 1;
@@ -24,6 +25,7 @@ for further details.
   box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
     0 12px 28px rgba(101, 106, 118, 0.25);
   flex-shrink: 0;
+
   /* Sidebar should occupy the full available screen height.
   We have sticky nav bars, so the full height is equal to
   100vh minus the combined height of the sticky nav bars. */
@@ -33,6 +35,7 @@ for further details.
   position: sticky;
   top: var(--sticky-bars-height);
   width: 320px;
+
   /* z-index is necessary here to prevent any absolutely
   positioned elements in the main area, namely the footer's
   top-border, from overlapping the sidebar */

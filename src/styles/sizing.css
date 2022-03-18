@@ -1,6 +1,7 @@
 :root {
   --input-height: 38px;
   --input-icon-size: 16px;
+
   /* NOTE: The --navigation-header-height
     and --alert-bar-height may be brittle.
     See layouts/base-new/base-new-layout.module.css

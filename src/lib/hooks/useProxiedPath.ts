@@ -19,6 +19,7 @@ export default function useProxiedPath(): {
 } {
   const router = useRouter()
 
+  // eslint-disable-next-line no-useless-escape
   const pattern = /\/\_proxied-dot-io\/(?<product>[a-z]*)(?:\/(?<path>.*))?/
 
   let asPath = router.asPath

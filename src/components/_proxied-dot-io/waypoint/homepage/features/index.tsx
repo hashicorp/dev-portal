@@ -1,4 +1,6 @@
-import MediaObject, { MediaObjectProps } from 'components/_proxied-dot-io/waypoint/homepage/media-object'
+import MediaObject, {
+  MediaObjectProps,
+} from 'components/_proxied-dot-io/waypoint/homepage/media-object'
 
 export type FeaturesProps = Array<MediaObjectProps>
 

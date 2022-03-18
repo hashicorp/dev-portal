@@ -56,6 +56,7 @@ function DocsView({ isDevMissingRemotePlugins, ...props }) {
         additionalComponents={additionalComponents}
         baseRoute={basePath}
         product={product}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         staticProps={props}
         showVersionSelect={false}

@@ -10,7 +10,7 @@ export default function AnimatedTerminal({
   // Determine the total number of frames
   let totalFrames = 0
   lines.forEach((line) => {
-    let frames = line.frames ? line.frames : 1
+    const frames = line.frames ? line.frames : 1
     if (Array.isArray(line.code)) {
       totalFrames += line.code.length * frames
     } else {
@@ -21,7 +21,7 @@ export default function AnimatedTerminal({
   // Set up Animation
   const [frame, setFrame] = useState(0)
   useEffect(() => {
-    let interval = setInterval(() => {
+    const interval = setInterval(() => {
       if (paused) {
         return
       }

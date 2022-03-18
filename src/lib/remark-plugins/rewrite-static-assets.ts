@@ -22,8 +22,9 @@ const ASSET_API_ENDPOINT =
 export const rewriteStaticAssetsPlugin: Plugin = () => {
   return function transformer(tree) {
     return flatMap(tree, (node: Node) => {
-      if (!is<Image>(node, 'image') && !is<Definition>(node, 'definition'))
+      if (!is<Image>(node, 'image') && !is<Definition>(node, 'definition')) {
         return [node]
+      }
 
       /**
        * Hotfix: the Definition node could be used by an image or link reference
@@ -36,7 +37,9 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
       const regex = /^\/img|\/public\/img/ // Ensures non-image links aren't rewritten
       const isImagePath = regex.test(node.url)
 
-      if (!isImagePath || !path.isAbsolute(node.url)) return [node]
+      if (!isImagePath || !path.isAbsolute(node.url)) {
+        return [node]
+      }
 
       const isVercelBuild =
         process.env.VERCEL_ENV === 'production' ||

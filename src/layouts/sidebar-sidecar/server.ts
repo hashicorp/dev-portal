@@ -106,7 +106,7 @@ export function getStaticGenerationFunctions<
       const fullNavData = [
         ...navData,
         { divider: true },
-        ...product.sidebar?.resourcesNavData,
+        ...product.sidebar.resourcesNavData,
       ]
 
       // Add fullPaths and ids to navData

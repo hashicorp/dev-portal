@@ -53,7 +53,9 @@ export async function fetchAll({
      ** If there's less than 100 tutorials fetched (less than the max limit),
      ** that means that we've fetched everything.
      */
-    if (!recurse || data.result.length < Number(MAX_LIMIT)) return allTutorials
+    if (!recurse || data.result.length < Number(MAX_LIMIT)) {
+      return allTutorials
+    }
 
     // Otherwise, recurse to get the next batch of tutorials
     return fetchAll({
@@ -77,8 +79,12 @@ async function fetchTutorialsOrCollections(
 ) {
   const params = new URLSearchParams({ limit })
 
-  if (after) params.append('after', after)
-  if (full) params.append('full', '1')
+  if (after) {
+    params.append('after', after)
+  }
+  if (full) {
+    params.append('full', '1')
+  }
 
   const queryStr = `?${params.toString()}`
   const route = path.join(baseRoute, queryStr)

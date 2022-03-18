@@ -1,4 +1,6 @@
-import Features, { FeaturesProps } from 'components/_proxied-dot-io/waypoint/homepage/features'
+import Features, {
+  FeaturesProps,
+} from 'components/_proxied-dot-io/waypoint/homepage/features'
 import Terminal, {
   TerminalLine,
   TerminalToken,

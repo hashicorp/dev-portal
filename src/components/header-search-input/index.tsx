@@ -21,7 +21,7 @@ function HeaderSearchInput({
           <a href="https://www.waypointproject.io/docs">Waypoint&apos;s docs</a>
           .<br />
           <br />
-          We're also working on UI polish. You can{' '}
+          We&apos;re also working on UI polish. You can{' '}
           <a href="https://www.figma.com/file/VD7ahvXuXWJApeGnhbW4hv/Dev-Portal?node-id=1498%3A43240">
             view the revised designs in Figma
           </a>

@@ -32,7 +32,9 @@ export function formatBatchQueryStr(
     }
   }
 
-  if (withContent) params.append('full', '1')
+  if (withContent) {
+    params.append('full', '1')
+  }
 
   return `?${params.toString()}`
 }
