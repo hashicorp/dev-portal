@@ -6,7 +6,99 @@ The `src/data/` directory contains all of the product data needed for various vi
 
 The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views, including their .io site and Dev Portal pages.
 
+### .io properties
+
 The canonical list of options (including a brief description of their usage) can be found in the [type definition for `ProductData`](./types.d.ts).
+
+### DevDot properties
+
+<!-- name -->
+
+<details>
+<summary><code>name</code></summary>
+
+This is the human-readable, proper noun name of a product. It is used for displaying the name of a product in various parts of DevDot. It is one of two properties required in the `product` object that should be provided as a prop for every DevDot page component that uses `ProductSwitcher`. The other required property is `slug`, which is described next.
+
+See the `ProductName` type defined in [`types/products.ts`](/src/types/products.ts) for all possible values.
+
+</details>
+
+<!-- slug -->
+
+<details>
+<summary><code>slug</code></summary>
+
+This is the machine-readable version of a product's name. It is considered the unique ID for each product, which enables customizing behavior by product (see [ProductIcon](/src/components/product-icon/index.tsx) for example).
+
+See the `ProductSlug` type defined in [`types/products.ts`](/src/types/products.ts) for all possible values.
+
+</details>
+
+<!-- basePaths -->
+
+<details>
+<summary><code>basePaths</code></summary>
+
+This is an array of strings representing all of the base documentation paths for a product. This array is used in when [preparing data for the sidebar](/src/layouts/sidebar-sidecar/utils/prepare-nav-data-for-client.ts), [adjusting `href`s client-size in `DocsAnchor`](/src/components/docs-anchor/index.tsx), and [adjusting URLs server-side with remark](/src/layouts/sidebar-sidecar/utils/product-url-adjusters.ts).
+
+See the type for this property defined in [`types/products.ts`](/src/types/products.ts).
+
+</details>
+
+<!-- sidebar -->
+
+<details>
+<summary><code>sidebar</code></summary>
+
+This is an object with two properties at the time of writing. Both of these arrays contain `MenuItem` objects (defined in [`components/sidebar/types.ts`](/src/components/sidebar/types.ts)).
+
+- `landingPageNavData`: this is an array of items to show in the top of the sidebar in a product's landing page (`/boundary`, `/consul`, etc.).
+- `resourcesNavData`: this is an array of items that represents the "Resources" section for a product that is shown at the bottom of the sidebar in many different pages for the product.
+
+How to add different types of items:
+
+- To insert an internal link item, provide an object with the `fullPath` and `title` properties. Example:
+
+  ```json
+  {
+    "title": "Introduction",
+    "fullPath": "/waypoint/docs/intro"
+  }
+  ```
+
+- To insert an external link item (an external link icon is rendered next to it), provide an object with the `href` and `title` properties. Example:
+
+  ```json
+  {
+    "title": "Releases",
+    "href": "https://releases.hashicorp.com/waypoint/"
+  }
+  ```
+
+- To insert a heading in one of these arrays, an object with only a `heading` property is required. Example:
+
+  ```json
+  { "heading": "Resources" }
+  ```
+
+- To insert a horizontal divider in one of these arrays, the following object should be used:
+
+  ```json
+  { "divider": true }
+  ```
+
+</details>
+
+<!-- navigationHeaderItems -->
+
+<details>
+<summary><code>navigationHeaderItems</code></summary>
+
+This is an array of objects used to populate the main navigation header at the top of every page for a product.
+
+See the `NavigationHeaderItem` interface defined in [`components/navigation-header/types.ts`](/src/components/navigation-header/types.ts) for details on the properties needed for each object in the array.
+
+</details>
 
 ## `<product slug>-landing.json`
 
