@@ -28,7 +28,7 @@ See the `ProductName` type defined in [`types/products.ts`](/src/types/products.
 <details>
 <summary><code>slug</code></summary>
 
-This is the machine-readable version of a product's name. It is considered the unique ID for each product, which enables customizing behavior by product (see [ProductIcon](/src/components/product-icon/index.tsx) for example).
+This is the machine-readable version of a product's name. It is considered the unique ID for each product, which enables customizing behavior by product (see [ProductIcon](/src/components/product-icon/index.tsx) for example). It is the second of two properties required in the `product` object that should be provided as a prop for every DevDot page component that uses `ProductSwitcher`.
 
 See the `ProductSlug` type defined in [`types/products.ts`](/src/types/products.ts) for all possible values.
 
