@@ -2,6 +2,18 @@ import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
 import { NavigationHeaderItem } from 'components/navigation-header/types'
 import { MenuItem } from 'components/sidebar'
 
+type ProductName =
+  | 'Boundary'
+  | 'Consul'
+  | 'HashiCorp Cloud Platform'
+  | 'Nomad'
+  | 'Packer'
+  | 'Sentinel'
+  | 'Terraform'
+  | 'Vagrant'
+  | 'Vault'
+  | 'Waypoint'
+
 type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 
 /**
@@ -9,7 +21,7 @@ type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
  */
 interface Product extends ProductMeta {
   basePaths?: string[]
-  name: string
+  name: ProductName
   navigationHeaderItems?: NavigationHeaderItem[]
   sidebar?: {
     landingPageNavData: MenuItem[]
@@ -21,4 +33,4 @@ interface Product extends ProductMeta {
 
 type ProductGroup = Product[]
 
-export type { Product, ProductGroup, ProductSlug }
+export type { Product, ProductGroup, ProductName, ProductSlug }
