@@ -88,7 +88,7 @@
     "@hashicorp/react-code-block": "^4.5.0",
     "@hashicorp/react-command-line-terminal": "^2.0.4",
     "@hashicorp/react-consent-manager": "^7.1.0",
-    "@hashicorp/react-docs-page": "^14.14.3",
+    "@hashicorp/react-docs-page": "^14.14.5",
     "@hashicorp/react-error-view": "^0.0.1",
     "@hashicorp/react-featured-slider": "^5.0.1",
     "@hashicorp/react-hashi-stack-menu": "^2.1.2",

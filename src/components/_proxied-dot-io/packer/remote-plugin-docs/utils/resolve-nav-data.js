@@ -11,6 +11,7 @@ import fetchDevPluginDocs from './fetch-dev-plugin-docs'
  * @param {string} navDataFile path to the nav-data.json file, relative to the `website` directory of the Packer GitHub repo. Example: "data/docs-nav-data.json".
  * @param {object} options optional configuration object
  * @param {string} options.remotePluginsFile path to a remote-plugins.json file, relative to the website directory of the Packer repo. Example: "data/docs-remote-plugins.json".
+ * @param {string} [options.currentPath] the path of the page that's invoking this function
  * @returns {Promise<array>} the resolved navData. This includes NavBranch nodes pulled from remote plugin repositories, as well as filePath properties on all local NavLeaf nodes, and remoteFile properties on all NavLeafRemote nodes.
  */
 async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {

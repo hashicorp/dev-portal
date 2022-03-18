@@ -27,6 +27,13 @@ async function generateStaticProps({
   params,
   product,
   remotePluginsFile,
+}: {
+  localContentDir: string
+  mainBranch?: string
+  navDataFile: string
+  params: { page?: string[] }
+  product: { name: string; slug: string }
+  remotePluginsFile: string
 }) {
   // Build the currentPath from page parameters
   const currentPath = params.page ? params.page.join('/') : ''
@@ -96,7 +103,16 @@ async function generateStaticProps({
     return mdxContent
   }
 
-  const { data: frontMatter, content: rawContent } = grayMatter(mdxString)
+  const { data, content: rawContent } = grayMatter(mdxString)
+  // We manually construct the frontMatter property here since grayMatter
+  // types data as { [key: string]: any } which doesn't satisfy the frontMatter
+  // type for DocsPage which requires specific properties.
+  const frontMatter = {
+    ...data,
+    canonical_url: data.canonical_url ?? null,
+    description: data.description,
+    page_title: data.page_title,
+  }
   const content = await mdxContentHook(rawContent)
   const { mdxSource } = await renderPageMdx(content)
 
@@ -108,6 +124,7 @@ async function generateStaticProps({
     githubFileUrl,
     navData,
     navNode,
+    versions: [],
   }
 }
 
