@@ -20,7 +20,8 @@
     "start": "next",
     "test:e2e": "playwright test",
     "test:watch": "jest --watch",
-    "test": "jest"
+    "test": "jest",
+    "typecheck": "tsc -p ."
   },
   "engines": {
     "npm": ">=7.0.0",
