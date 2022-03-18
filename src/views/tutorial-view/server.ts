@@ -34,25 +34,30 @@ export async function getTutorialPageProps(
   product: TutorialPageProduct,
   slug: [string, string]
 ): Promise<{ props: TutorialPageProps }> {
-  const { currentCollection, currentTutorial } =
-    await getCurrentCollectionTutorial(product.slug, slug)
-  const baseTutorialData = await getTutorial(currentTutorial.data.slug)
+  const { collection, tutorialReference } = await getCurrentCollectionTutorial(
+    product.slug,
+    slug
+  )
+  const fullTutorialData = await getTutorial(tutorialReference.dbSlug)
   const { content: serializedContent, headings } = await serializeContent(
-    baseTutorialData
+    fullTutorialData
   )
   const collectionContext = getCollectionContext(
-    currentCollection.data as ClientCollection,
-    baseTutorialData.collectionCtx
+    collection.data,
+    fullTutorialData.collectionCtx
   )
   const layoutProps = {
     headings,
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, slug: product.slug },
       collection: {
-        name: collectionContext.current.shortName,
-        slug: currentCollection.filename,
+        name: collection.data.shortName,
+        slug: collection.filename,
       },
-      tutorial: { name: baseTutorialData.name, slug: currentTutorial.filename },
+      tutorial: {
+        name: fullTutorialData.name,
+        slug: tutorialReference.filename,
+      },
     }),
   }
 
@@ -66,7 +71,7 @@ export async function getTutorialPageProps(
   return {
     props: stripUndefinedProperties({
       tutorial: {
-        ...baseTutorialData,
+        ...fullTutorialData,
         content: serializedContent,
         collectionCtx: collectionContext,
         headings,

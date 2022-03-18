@@ -1,7 +1,6 @@
 import {
   Collection as ClientCollection,
   ProductOption,
-  TutorialLite as ClientTutorialLite,
   TutorialFullCollectionCtx as ClientTutorialFullCollectionCtx,
 } from 'lib/learn-client/types'
 import { getCollection } from 'lib/learn-client/api/collection'
@@ -19,9 +18,13 @@ import { formatCollectionCard } from '../components/featured-in-collections/help
  */
 
 interface CurrentCollectionTutorial {
-  [key: string]: {
+  collection: {
     filename: string
-    data: ClientCollection | ClientTutorialLite
+    data: ClientCollection
+  }
+  tutorialReference: {
+    filename: string
+    dbSlug: string
   }
 }
 
@@ -36,8 +39,12 @@ export async function getCurrentCollectionTutorial(
    * */
   const [collectionFilename, tutorialFilename] = tutorialSlug
   const collectionDbSlug = `${productSlug}/${collectionFilename}`
-  const currentCollection = await getCollection(collectionDbSlug)
-  const currentTutorial = currentCollection.tutorials.find((t) =>
+  const collection = await getCollection(collectionDbSlug)
+  /**
+   * This type is only `TutorialLite` which doesn't have the tutorial content
+   * so we only need the slug to make another request to get the full tutorial data in server.ts
+   */
+  const currentTutorial = collection.tutorials.find((t) =>
     t.slug.endsWith(tutorialFilename)
   )
 
@@ -48,13 +55,13 @@ export async function getCurrentCollectionTutorial(
   }
 
   return {
-    currentCollection: {
+    collection: {
       filename: collectionFilename,
-      data: currentCollection,
+      data: collection,
     },
-    currentTutorial: {
+    tutorialReference: {
       filename: tutorialFilename,
-      data: currentTutorial,
+      dbSlug: currentTutorial.slug,
     },
   }
 }
