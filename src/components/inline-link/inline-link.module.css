@@ -31,7 +31,7 @@ ones set in the surrounding text.
     color: var(--token-color-foreground-action-visited);
 
     &:hover {
-      color: var(--token-color-palette-purple-400);
+      color: var(--token-color-foreground-action-visited-hover);
     }
   }
 }
