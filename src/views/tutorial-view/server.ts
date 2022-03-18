@@ -52,7 +52,7 @@ export async function getTutorialPageProps(
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, slug: product.slug },
       collection: {
-        name: collectionContext.current.name,
+        name: collectionContext.current.shortName,
         slug: currentCollection.filename,
       },
       tutorial: { name: baseTutorialData.name, slug: currentTutorial.filename },
