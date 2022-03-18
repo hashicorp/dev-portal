@@ -3,7 +3,7 @@ Not inheriting font color, weight, or size since they can be different than the
 ones set in the surrounding text.
 */
 .root {
-  composes: focus-ring-from-box-shadow from global;
+  composes: g-focus-ring-from-box-shadow from global;
   border-radius: 5px;
   color: var(--token-color-foreground-action);
   cursor: pointer;

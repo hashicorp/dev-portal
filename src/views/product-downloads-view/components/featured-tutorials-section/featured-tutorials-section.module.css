@@ -5,9 +5,10 @@
 
 /*
 TODO: these @media queries come from the numbers defined in src/pages/style.css
-but I wasn't able to get the @media --mobile and @media --tablet queries to work
-like they do in that file. The code below will eventually need to be refactored,
-this is a temporary copy/paste to get the new install view out.
+but I wasn't able to get the @media --dev-dot-mobile and @media --dev-dot-tablet
+queries to work like they do in that file. The code below will eventually need
+to be refactored, this is a temporary copy/paste to get the new install view
+out.
 */
 .cardGrid {
   display: grid;

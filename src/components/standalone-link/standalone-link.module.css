@@ -1,5 +1,5 @@
 .root {
-  composes: focus-ring-from-box-shadow from global;
+  composes: g-focus-ring-from-box-shadow from global;
   align-items: center;
   border-radius: 5px;
   cursor: pointer;

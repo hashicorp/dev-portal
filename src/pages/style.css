@@ -113,3 +113,69 @@
   background: var(--gray-1);
   color: white;
 }
+
+/*
+***
+* DevDot
+***
+* The custom media and classes below are helpers used in DevDot.
+***
+*/
+
+@custom-media --dev-dot-mobile only screen and (max-width: 728px);
+@custom-media --dev-dot-tablet only screen and (min-width: 729px) and (max-width: 1000px);
+
+@media (--dev-dot-mobile) {
+  .g-hide-on-mobile {
+    display: none;
+  }
+}
+
+@media (--dev-dot-tablet) {
+  .g-hide-on-tablet {
+    display: none;
+  }
+}
+
+/*
+TODO: this will eventually replace the other focus helpers but they are heavily
+used at the moment and need to be refactored carefully. The places they are used
+do extra math to account for padding, which this helper now does with padding
+and negative margin.
+*/
+.g-focus-ring-from-box-shadow {
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--token-focus-ring-box-shadow);
+    outline: none;
+  }
+}
+
+.g-focus-border-and-box-shadow-light {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible {
+    border: 1px solid var(--token-color-palette-blue-200);
+    box-shadow: 0 0 0 3px #5990ff;
+    outline: none;
+  }
+}
+
+.g-focus-border-and-box-shadow-dark {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible {
+    border: 1px solid #107dff;
+    box-shadow: 0 0 0 3px #5fbcff;
+    outline: none;
+  }
+}
