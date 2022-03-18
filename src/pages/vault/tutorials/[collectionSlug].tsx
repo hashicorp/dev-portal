@@ -9,7 +9,7 @@ import {
 import vaultData from 'data/vault.json'
 import BaseLayout from 'layouts/base-new'
 
-export function WaypointCollectionPage(
+export function VaultCollectionPage(
   props: CollectionPageProps
 ): React.ReactElement {
   return <CollectionView {...props} />
@@ -44,5 +44,5 @@ export async function getStaticPaths(): Promise<{
   }
 }
 
-WaypointCollectionPage.layout = BaseLayout
-export default WaypointCollectionPage
+VaultCollectionPage.layout = BaseLayout
+export default VaultCollectionPage
