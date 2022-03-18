@@ -17,10 +17,6 @@ import { formatCollectionCard } from '../components/featured-in-collections/help
  * @TODO - FOR PROD We will add a check in the content sync that
  * ensures no two files in a collection have the same filename
  */
-interface CurrentCollectionTutorialOptions {
-  productSlug: ProductOption
-  tutorialSlug: [string, string]
-}
 
 interface CurrentCollectionTutorial {
   [key: string]: {
@@ -29,10 +25,10 @@ interface CurrentCollectionTutorial {
   }
 }
 
-export async function getCurrentCollectionTutorial({
-  productSlug,
-  tutorialSlug,
-}: CurrentCollectionTutorialOptions): Promise<CurrentCollectionTutorial> {
+export async function getCurrentCollectionTutorial(
+  productSlug: ProductOption,
+  tutorialSlug: [string, string]
+): Promise<CurrentCollectionTutorial> {
   /**
    * In the db, slug structure for tutorials is {product}/{tutorial-filename}
    * the tutorialSlug passed in is based on /{collection-name}/{tutorial-name}

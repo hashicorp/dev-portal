@@ -35,10 +35,7 @@ export async function getTutorialPageProps(
   slug: [string, string]
 ): Promise<{ props: TutorialPageProps }> {
   const { currentCollection, currentTutorial } =
-    await getCurrentCollectionTutorial({
-      productSlug: product.slug,
-      tutorialSlug: slug,
-    })
+    await getCurrentCollectionTutorial(product.slug, slug)
   const baseTutorialData = await getTutorial(currentTutorial.data.slug)
   const { content: serializedContent, headings } = await serializeContent(
     baseTutorialData
