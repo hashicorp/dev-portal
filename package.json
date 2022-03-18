@@ -2,11 +2,11 @@
   "name": "dev-portal",
   "private": "true",
   "scripts": {
-    "build:deploy-preview": "npx ts-node --transpile-only ./scripts/content-repo-preview/build.ts",
-    "build:webpack-only": "ts-node --transpile-only ./scripts/next-build-webpack-only.ts",
+    "build:deploy-preview": "hc-tools ./scripts/content-repo-preview/build.ts",
+    "build:webpack-only": "hc-tools ./scripts/next-build-webpack-only.ts",
     "build": "next build",
     "lint": "next-hashicorp lint",
-    "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics.ts dev-portal",
+    "postbuild": "hc-tools ./scripts/capture-build-metrics.ts dev-portal",
     "start:boundary": "cross-env DEV_IO=boundary npm run start",
     "start:consul": "cross-env DEV_IO=consul npm run start",
     "start:local-preview": "./scripts/content-repo-preview/start.sh",
@@ -65,7 +65,6 @@
     "postcss-preset-env": "^6.7.0",
     "react-test-renderer": "^17.0.2",
     "simple-git-hooks": "^2.7.0",
-    "ts-node": "^10.4.0",
     "typescript": "^4.5.5"
   },
   "dependencies": {
@@ -81,6 +80,7 @@
     "@hashicorp/platform-markdown-utils": "^0.2.0",
     "@hashicorp/platform-product-meta": "^0.1.0",
     "@hashicorp/platform-runtime-error-monitoring": "^0.1.0",
+    "@hashicorp/platform-tools": "^0.1.0",
     "@hashicorp/react-alert-banner": "^7.0.1",
     "@hashicorp/react-button": "^6.0.3",
     "@hashicorp/react-call-to-action": "^4.1.1",
