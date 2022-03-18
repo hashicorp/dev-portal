@@ -16,16 +16,12 @@ TODO - describe the properties used
 
 ## `<product slug>-install.json`
 
-This file is only used in DevDot. It contains the data and content needed for each product's downloads page (`/boundary/downloads`, `/consul/downloads`, etc.).
+This file is only used in DevDot. It contains the data and content needed for each product's downloads page (`/boundary/downloads`, `/consul/downloads`, etc.). There are four possible data properties that can be provided at the highest level: `doesNotHavePackageManagers`, `featuredTutorials`, `packageManagerOverrides`, and `sidebarMarketingCard`.
 
-**Data Properties**
+<!-- doesNotHavePackageManagers -->
 
-- [`doesNotHavePackageManagers`](#doesnothavepackagemanagers)
-- [`featuredTutorials`](#featuredtutorials)
-- [`packageManagerOverrides`](#packagemanageroverrides)
-- [`sidecarMarketingCard`](#sidecarmarketingcard)
-
-### `doesNotHavePackageManagers`
+<details>
+<summary><code>doesNotHavePackageManagers</code></summary>
 
 This is an optional `boolean` property used for specifying if a product's downloads page should show package managers for each operating system. It only needs to be specified if no package managers need to be shown.
 
@@ -37,7 +33,12 @@ Example usage:
 }
 ```
 
-### `featuredTutorials`
+</details>
+
+<!-- featuredTutorials -->
+
+<details>
+<summary><code>featuredTutorials</code></summary>
 
 🚧 The Featured Tutorials section will see update soon with the Learn integration
 
@@ -47,7 +48,12 @@ This is an array of objects. For every object, a `LearnTutorialCard` component (
 - `href`: The URL to the Tutorial or Collection
 - `title`: The title of the Tutorial or Collection
 
-### `packageManagerOverrides`
+</details>
+
+<!-- packageManagerOverrides -->
+
+<details>
+<summary><code>packageManagerOverrides</code></summary>
 
 This is an array of objects. There is a default list of package managers that is shown for every product (see the `generateDefaultPackageManagers` helper in [`ProductDownloadsView`](../views/product-downloads-view/helpers.ts)). This property can be used to override any of the default package managers based on the `os` and `label` properties provided.
 
@@ -65,7 +71,12 @@ Example usage showing an override for macOS Homebrew:
 }
 ```
 
-### `sidecarMarketingCard`
+</details>
+
+<!-- sidecarMarketingCard -->
+
+<details>
+<summary><code>sidecarMarketingCard</code></summary>
 
 This is an object for the marketing content located in a `Card` in the Sidecar of the downloads view.
 
@@ -75,3 +86,5 @@ This is an object for the marketing content located in a `Card` in the Sidecar o
 - `featuredDocsLinks`: An array of objects with the following properties:
   - `href`: The internal path to a documentation page
   - `label`: The text to show for the link
+
+</details>
