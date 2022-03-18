@@ -24,9 +24,9 @@ Our `<product slug>-landing.json` pages take a "block"-based authoring approach 
 
 ```json5
 {
-  "heading": "string", // required
-  "subheading": "string", // required
-  "blocks": [ /*  array of objects, required */ ], 
+  "heading": "string",
+  "subheading": "string",
+  "blocks": [ /* array of objects */ ], 
 }
 ```
 
@@ -40,7 +40,6 @@ Set the heading and subheading shown on the page.
 <summary>Example</summary>
 
 Source: 
-
 
 ```json5
 {
@@ -71,7 +70,7 @@ Heading blocks render HTML heading elements. Each block accepts the following pr
 | --- | --- | --- |
 | `type` | `"heading"` | Block type |
 | `heading` | `string` | Text for the heading |
-| `level` | `2 \| 3 \| 4 \| 5 \| 6` | Semantic heading level, for example `2` becomes `<h2>`. Note that there is already an `<h1>` rendered for the page, so only values  should be used. |
+| `level` | `2 \| 3 \| 4 \| 5 \| 6` | Semantic heading level, for example `2` becomes `<h2>`. Note that there is already an `<h1>` rendered for the page, so only these values should be used. |
 | `size` | `100 \| 200 \| 300 \| 400 \| 500` | Visual size of the heading. `500` is the largest size and `100` is the smallest. Visual size should generally reflect the semantic level, with `h2 = 300`, `h3 = 200`, and `h4` and below at the `100` size.
 
 Example: `h2` with `300` size:
@@ -115,7 +114,7 @@ The `"get_started"` block renders a heading, descriptive text, and a single link
 | `product` | `"boundary" \| "consul" \| "nomad" \| "packer" \| "terraform" \| "vault" \| "vagrant" \| "waypoint" \| "sentinel" \| "hcp"` | Product icon to be shown. |
 | `heading` | `string` | Text for the heading |
 | `text` | `string` | Descriptive text shown below the heading |
-| `link` | `{ text: string, url: string }` | Link shown below the body text |
+| `link` | `{ text: string, url: string }` | `StandaloneLink` shown below the body text |
 
 Example: Waypoint `"get_started"` block
 
@@ -141,13 +140,13 @@ Example: Waypoint `"get_started"` block
 <details>
 <summary>Block type: <code>"cards"</code></summary>
 
-The `"cards"` block displays a grid of cards, each linked using a single `url`.
+The `"cards"` block displays a grid of `CardLink`s, each linked using a single `url`.
 
 | Property | Type | Details |
 | --- | --- | --- |
 | `type` | `"cards"` | Block type |
 | `columns` | `2 \| 3` | The maximum number of columns |
-| `cards` | `Array<{ icon, iconBrandColor, heading, text, url, tags }>` | An array of `card` objects, described in detail below |
+| `cards` | `Array<{ icon, iconBrandColor, heading, text, url, tags }>` | An array of objects, described in detail below |
 
 Each item in the `cards` array has the following structure:
 
