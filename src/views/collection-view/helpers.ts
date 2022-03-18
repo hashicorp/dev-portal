@@ -18,7 +18,7 @@ export function getTutorialSlug(
   return `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
 }
 
-export function getCollectionSlug(tutorialDbSlug: string): string {
-  const [product, collectionFilename] = tutorialDbSlug.split('/')
+export function getCollectionSlug(collectionDbSlug: string): string {
+  const [product, collectionFilename] = collectionDbSlug.split('/')
   return `/${product}/tutorials/${collectionFilename}`
 }
