@@ -153,7 +153,7 @@ Each item in the `cards` array has the following structure:
 | Property | Type | Details |
 | --- | --- | --- |
 | `icon` | (optional) `string` | Optional icon to show at the top of the card. Must be one of the keys in [the card component's icon dictionary](../views/product-landing/components/cards/icon-dict.js) |
-| `iconBrandColor` | (optional) [ProductBrandColor](../components/icon-tile/types.ts) string or `"neutral" \| "neutral-dark"` | Optional brand color override to apply to the icon. Defaults to the current product context. |
+| `iconBrandColor` | (optional) [ProductBrandColor](../components/icon-tile/types.ts) string | Optional brand color override to apply to the icon. Defaults to the current product context. |
 | `heading` | `string` | Text for the card heading |
 | `text` | `string` | Text for the card body |
 | `url` | `string` | URL to link to |
