@@ -64,14 +64,14 @@ Each item in the `blocks` array represents a component on the page. Each of thes
 <details>
 <summary>Block type: <code>"heading"</code></summary>
 
-Heading blocks render HTML heading elements. Each block accepts the following properties:
+Heading blocks render HTML heading elements using [our Heading component](../components/heading/index.tsx). Each block accepts the following properties:
 
 | Property | Type | Details |
 | --- | --- | --- |
 | `type` | `"heading"` | Block type |
 | `heading` | `string` | Text for the heading |
-| `level` | `2 \| 3 \| 4 \| 5 \| 6` | Semantic heading level, for example `2` becomes `<h2>`. Note that there is already an `<h1>` rendered for the page, so only these values should be used. |
-| `size` | `100 \| 200 \| 300 \| 400 \| 500` | Visual size of the heading. `500` is the largest size and `100` is the smallest. Visual size should generally reflect the semantic level, with `h2 = 300`, `h3 = 200`, and `h4` and below at the `100` size.
+| `level` | [`2 \| 3 \| 4 \| 5 \| 6`](../components/heading/types.ts) | Semantic heading level, for example `2` becomes `<h2>`. Note that there is already an `<h1>` rendered for the page, so only these values should be used. |
+| `size` | [`100 \| 200 \| 300 \| 400 \| 500`](../components/heading/types.ts) | Visual size of the heading. `500` is the largest size and `100` is the smallest. Visual size should generally reflect the semantic level, with `h2 = 300`, `h3 = 200`, and `h4` and below at the `100` size.
 
 Example: `h2` with `300` size:
 
@@ -111,10 +111,10 @@ The `"get_started"` block renders a heading, descriptive text, and a single link
 | Property | Type | Details |
 | --- | --- | --- |
 | `type` | `"get_started"` | Block type |
-| `product` | `"boundary" \| "consul" \| "nomad" \| "packer" \| "terraform" \| "vault" \| "vagrant" \| "waypoint" \| "sentinel" \| "hcp"` | Product icon to be shown. |
+| `product` | [ProductSlug](../types/products.ts) | Product icon to be shown. |
 | `heading` | `string` | Text for the heading |
 | `text` | `string` | Descriptive text shown below the heading |
-| `link` | `{ text: string, url: string }` | `StandaloneLink` shown below the body text |
+| `link` | `{ text: string, url: string }` | [`StandaloneLink`](../components/standalone-link/index.tsx) shown below the body text |
 
 Example: Waypoint `"get_started"` block
 
@@ -152,12 +152,12 @@ Each item in the `cards` array has the following structure:
 
 | Property | Type | Details |
 | --- | --- | --- |
-| `icon` | (optional) `"IconBox" \| "IconConsulColor" \| "IconDocs" \| "IconDownload" \| "IconPackerColor" \| "IconProvider" \| "IconServer" \| "IconTerminal" \| "IconTerraformColor" \| "IconVaultColor"` | Optional icon to show at the top of the card. |
-| `iconBrandColor` | (optional) `"boundary" \| "consul" \| "nomad" \| "packer" \| "terraform" \| "vault" \| "vagrant" \| "waypoint" \| "neutral" \| "neutral-dark"` | Optional brand color override to apply to the icon. Defaults to the current product context. |
+| `icon` | (optional) `string` | Optional icon to show at the top of the card. Must be one of the keys in [the card component's icon dictionary](../views/product-landing/components/cards/icon-dict.js) |
+| `iconBrandColor` | (optional) [Products](https://github.com/hashicorp/web-platform-packages/blob/69b2cf609a254c0f469142266ecb60ffe04cbc7a/packages/product-meta/index.tsx#L11) string or `"neutral" \| "neutral-dark"` | Optional brand color override to apply to the icon. Defaults to the current product context. |
 | `heading` | `string` | Text for the card heading |
 | `text` | `string` | Text for the card body |
 | `url` | `string` | URL to link to |
-| `tags` | (optional) `Array<"boundary" \| "consul" \| "nomad" \| "packer" \| "terraform" \| "vagrant" \| "vault" \| "video" \| "waypoint">` | Optional array of tags, to be displayed as icons at the bottom of the card |
+| `tags` | (optional) `Array<string>` | Optional array of tags, to be displayed as icons at the bottom of the card. Each tag string be one of the keys in [the card component's tag dictionary](../views/product-landing/components/cards/tag-icon-dict.js) |
 
 Example: 2-column cards with icons
 
