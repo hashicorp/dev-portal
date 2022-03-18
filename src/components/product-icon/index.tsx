@@ -31,7 +31,9 @@ const ProductIcon: React.FC<
   ProductIconProps & React.HTMLProps<SVGSVGElement>
 > = ({ product, ...rest }) => {
   const Icon = productNamesToIcons[product]
-  if (!Icon) return null
+  if (!Icon) {
+    return null
+  }
   return <Icon {...rest} />
 }
 

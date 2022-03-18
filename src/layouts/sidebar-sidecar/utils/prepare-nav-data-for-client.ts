@@ -51,10 +51,22 @@ function prepareNavDataForClient(
   nodes: NavNode[],
   basePaths: string[]
 ): MenuItem[] {
-  return nodes.map((n) => prepareNavNodeForClient(n, basePaths))
+  return nodes
+    .map((n) => prepareNavNodeForClient(n, basePaths))
+    .filter((node) => node)
 }
 
 function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
+  /**
+   * TODO: we need aligned types that will work here. NavNode (external import)
+   * does not allow the `hidden` property.
+   *
+   * ref: https://app.asana.com/0/1201010428539925/1201602267333015/f
+   */
+  if ((node as any).hidden) {
+    return null
+  }
+
   if (isNavBranch(node)) {
     // For nodes with routes, add fullPaths to all routes, and `id`
     return {

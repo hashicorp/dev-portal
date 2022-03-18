@@ -7,7 +7,7 @@ import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
-import s from './style.module.css'
+import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 
 /**
  * Used by `makeHeadingElement`.
@@ -52,7 +52,7 @@ export default function defaultMdxComponents({ additionalComponents = {} }) {
  */
 function makeHeadingElement(level, props) {
   const customProps = HEADING_LEVELS_TO_PROPS[level]
-  const className = classNames(props.className, s[`h${level}`])
+  const className = classNames(props.className, devDotStyles[`h${level}`])
   const passableProps = {
     ...customProps,
     ...props,
@@ -83,7 +83,7 @@ function _defaultComponents() {
     h4: (props) => makeHeadingElement(4, props),
     h5: (props) => makeHeadingElement(5, props),
     h6: (props) => makeHeadingElement(6, props),
-    p: (props) => <Text {...props} className={s.p} />,
+    p: (props) => <Text {...props} className={devDotStyles.p} />,
   }
 }
 

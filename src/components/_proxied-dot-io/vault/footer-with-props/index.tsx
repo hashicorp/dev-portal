@@ -5,9 +5,7 @@ function FooterWithProps({
 }: {
   openConsentManager: () => void
 }): React.ReactElement {
-  return (
-    <Footer openConsentManager={openConsentManager} />
-  )
+  return <Footer openConsentManager={openConsentManager} />
 }
 
 export default FooterWithProps

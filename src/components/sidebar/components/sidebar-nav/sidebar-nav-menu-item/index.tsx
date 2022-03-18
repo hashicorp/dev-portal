@@ -1,11 +1,11 @@
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import MaybeInternalLink from 'components/maybe-internal-link'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import MaybeInternalLink from 'components/maybe-internal-link'
 import { MenuItem } from 'components/sidebar'
 import Text from 'components/text'
-import s from './style.module.css'
+import s from './sidebar-nav-menu-item.module.css'
 
 interface SidebarMenuItemProps {
   item: MenuItem
@@ -86,7 +86,10 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
         onClick={() => setIsOpen((prevState) => !prevState)}
         ref={buttonRef}
       >
-        <span className={s.navMenuItemLabel}>{item.title}</span>
+        <span
+          className={s.navMenuItemLabel}
+          dangerouslySetInnerHTML={{ __html: item.title }}
+        />
         <IconChevronRight16 />
       </button>
       {isOpen && (

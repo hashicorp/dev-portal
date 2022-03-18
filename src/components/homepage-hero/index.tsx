@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import classNames from 'classnames'
 import Heading from 'components/heading'
 import Text from 'components/text'
-import s from './style.module.css'
+import s from './homepage-hero.module.css'
 
 function HomepageHero({ className }: { className?: string }): ReactElement {
   return (

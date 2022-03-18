@@ -4,7 +4,7 @@ import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16
 import MaybeInternalLink from 'components/maybe-internal-link'
 import Text from 'components/text'
 import { SidebarBackToLinkProps } from './types'
-import s from './style.module.css'
+import s from './sidebar-back-to-link.module.css'
 
 const BackToLinkText: React.FC = ({ children }) => (
   <Text asElement="span" size={200} weight="medium">

@@ -1,4 +1,5 @@
 import { GetStaticPathsResult } from 'next'
+import waypointData from 'data/waypoint.json'
 import { ProductOption } from 'lib/learn-client/types'
 import TutorialView from 'views/tutorial-view'
 import {
@@ -8,13 +9,13 @@ import {
   TutorialPagePaths,
   TutorialPageProduct,
 } from 'views/tutorial-view/server'
-import waypointData from 'data/waypoint.json'
-import BaseLayout from 'layouts/base-new'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
 export function WaypointTutorialPage({
   tutorial,
+  layoutProps,
 }: TutorialPageProps): React.ReactElement {
-  return <TutorialView {...tutorial} />
+  return <TutorialView tutorial={tutorial} layout={layoutProps} />
 }
 
 export async function getStaticProps({
@@ -38,5 +39,5 @@ export async function getStaticPaths(): Promise<
   }
 }
 
-WaypointTutorialPage.layout = BaseLayout
+WaypointTutorialPage.layout = CoreDevDotLayout
 export default WaypointTutorialPage

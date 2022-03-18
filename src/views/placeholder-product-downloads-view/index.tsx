@@ -39,7 +39,7 @@ const PlaceholderDownloadsView = (): ReactElement => {
         menuItems: navData,
         title: currentProduct.name,
       }}
-      sidecarChildren={<PlaceholderSidecarContent />}
+      sidecarSlot={<PlaceholderSidecarContent />}
     >
       <h1>Install {currentProduct.name}</h1>
       <p>{LOREM_IPSUM}</p>

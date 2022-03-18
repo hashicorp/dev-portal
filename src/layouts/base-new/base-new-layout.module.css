@@ -26,6 +26,7 @@ for both --navigation-header-height and --alert-bar-height.
 .header {
   position: sticky;
   top: 0;
+
   /* The contentArea comes later in the DOM, and
     may have sticky elements, eg sidebars. We need
     the header to stay above other sticky elements. */
@@ -40,6 +41,7 @@ for both --navigation-header-height and --alert-bar-height.
   automatic height (by doing nothing) */
   display: flex;
   flex-direction: column;
+
   /* Stretch the content area to ensure the page is at
   least 100vh. The SidebarSidecar layout
   requires this stretching to avoid having

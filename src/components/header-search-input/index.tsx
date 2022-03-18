@@ -2,7 +2,7 @@ import DevPopover from 'components/dev-popover'
 import { IconSlashSquare16 } from '@hashicorp/flight-icons/svg-react/slash-square-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import classNames from 'classnames'
-import s from './style.module.css'
+import s from './header-search-input.module.css'
 
 interface HeaderSearchInputProps {
   theme?: 'light' | 'dark'
@@ -21,7 +21,7 @@ function HeaderSearchInput({
           <a href="https://www.waypointproject.io/docs">Waypoint&apos;s docs</a>
           .<br />
           <br />
-          We're also working on UI polish. You can{' '}
+          We&apos;re also working on UI polish. You can{' '}
           <a href="https://www.figma.com/file/VD7ahvXuXWJApeGnhbW4hv/Dev-Portal?node-id=1498%3A43240">
             view the revised designs in Figma
           </a>

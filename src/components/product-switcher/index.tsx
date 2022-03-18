@@ -12,7 +12,7 @@ import { Product, ProductGroup } from 'types/products'
 import { useCurrentProduct } from 'contexts'
 import ProductIcon from 'components/product-icon'
 import { products } from '../../../config/products'
-import s from './style.module.css'
+import s from './product-switcher.module.css'
 
 const OPTION_LIST_ID = 'product-chooser-option-list'
 const OPTION_ID_PREFIX = 'product-chooser-list-item-'

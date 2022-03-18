@@ -30,13 +30,13 @@
   --tablet-width-breakpoint: 1000px;
 
   /* Font overwrites */
-  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+  --font-body: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
+    helvetica, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
-  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+  --font-display: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI',
+    roboto, helvetica, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
-  --font-monospace: ui-monospace, Menlo, Consolas, Ubuntu Mono, monospace;
+  --font-monospace: ui-monospace, menlo, consolas, ubuntu mono, monospace;
 
   /* Custom properties are calculated before they're inherited, so the
   font-family: var(--font-body) we set on our `body` element needs to be

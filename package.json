@@ -5,15 +5,7 @@
     "build:deploy-preview": "npx ts-node --transpile-only ./scripts/content-repo-preview/build.ts",
     "build:webpack-only": "ts-node --transpile-only ./scripts/next-build-webpack-only.ts",
     "build": "next build",
-    "lint": "next lint --quiet",
-    "migrate:boundary": "node ./scripts/migrate-io/migrate-boundary.js",
-    "migrate:consul": "node ./scripts/migrate-io/migrate-consul.js",
-    "migrate:nomad": "node ./scripts/migrate-io/migrate-nomad.js",
-    "migrate:packer": "node ./scripts/migrate-io/migrate-packer.js",
-    "migrate:sentinel": "node ./scripts/migrate-io/migrate-sentinel.js",
-    "migrate:vagrant": "node ./scripts/migrate-io/migrate-vagrant.js",
-    "migrate:vault": "node ./scripts/migrate-io/migrate-vault.js",
-    "migrate:waypoint": "node ./scripts/migrate-io/migrate-waypoint.js",
+    "lint": "next-hashicorp lint",
     "postbuild": "ts-node --transpile-only ./scripts/capture-build-metrics.ts dev-portal",
     "start:boundary": "cross-env DEV_IO=boundary npm run start",
     "start:consul": "cross-env DEV_IO=consul npm run start",
@@ -30,6 +22,15 @@
     "test:watch": "jest --watch",
     "test": "jest"
   },
+  "simple-git-hooks": {
+    "pre-commit": "npx next-hashicorp precommit"
+  },
+  "lint-staged": {
+    "*.+(js|jsx|ts|tsx)": [
+      "next-hashicorp format",
+      "next-hashicorp lint"
+    ]
+  },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
@@ -37,7 +38,7 @@
   "devDependencies": {
     "@axe-core/react": "^4.3.1",
     "@datadog/datadog-api-client": "^1.0.0-beta.7",
-    "@hashicorp/platform-cli": "^1.2.1",
+    "@hashicorp/platform-cli": "^2.0.0",
     "@hashicorp/platform-nextjs-plugin": "^2.0.1",
     "@hashicorp/platform-postcss-config": "^0.1.0",
     "@hashicorp/platform-types": "^0.1.1",
@@ -62,11 +63,12 @@
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^6.7.0",
     "react-test-renderer": "^17.0.2",
+    "simple-git-hooks": "^2.7.0",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@hashicorp/design-system-tokens": "^0.5.1",
+    "@hashicorp/design-system-tokens": "^0.6.0",
     "@hashicorp/flight-icons": "^2.1.0",
     "@hashicorp/localstorage-polyfill": "^1.0.14",
     "@hashicorp/mktg-global-styles": "^4.0.0",

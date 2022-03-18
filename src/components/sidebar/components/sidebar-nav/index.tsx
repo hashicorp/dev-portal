@@ -1,7 +1,7 @@
 import { MenuItem } from 'components/sidebar'
 import Text from 'components/text'
 import SidebarNavMenuItem from './sidebar-nav-menu-item'
-import s from './style.module.css'
+import s from './sidebar-nav.module.css'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 

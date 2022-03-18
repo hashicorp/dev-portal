@@ -1,4 +1,6 @@
-import Features, { FeaturesProps } from 'components/_proxied-dot-io/waypoint/homepage/features'
+import Features, {
+  FeaturesProps,
+} from 'components/_proxied-dot-io/waypoint/homepage/features'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import Button from '@hashicorp/react-button'
 import NumberedBlock from 'components/_proxied-dot-io/waypoint/homepage/numbered-block'
