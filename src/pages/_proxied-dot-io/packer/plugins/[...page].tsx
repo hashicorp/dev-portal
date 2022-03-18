@@ -1,10 +1,10 @@
+import { InferGetStaticPropsType } from 'next'
 import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
 import DocsPage from '@hashicorp/react-docs-page'
 
 import Badge from 'components/_proxied-dot-io/packer/badge'
 import BadgesHeader from 'components/_proxied-dot-io/packer/badges-header'
 import PluginBadge from 'components/_proxied-dot-io/packer/plugin-badge'
-import DevAlert from 'components/_proxied-dot-io/packer/dev-alert'
 import Checklist from 'components/_proxied-dot-io/packer/checklist'
 import productData from 'data/packer.json'
 // Imports below are only used server-side
@@ -26,43 +26,16 @@ const localContentDir = `../content/${basePath}`
 const additionalComponents = { Badge, BadgesHeader, PluginBadge, Checklist }
 const mainBranch = 'master'
 
-function DocsView({ isDevMissingRemotePlugins, ...props }) {
+function DocsView(props: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <>
-      {isDevMissingRemotePlugins ? (
-        <DevAlert>
-          <strong className="g-type-label-strong">
-            Note for local development
-          </strong>
-          <p>
-            <span role="img" aria-label="Alert: ">
-              🚨
-            </span>{' '}
-            <strong>This preview is missing plugin docs</strong> pulled from
-            remote repos.
-          </p>
-
-          <p>
-            <span role="img" aria-label="Fix: ">
-              🛠
-            </span>{' '}
-            <strong>To preview docs pulled from plugin repos</strong>, please
-            include a <code>GITHUB_TOKEN</code> in{' '}
-            <code>website/.env.local</code>.
-          </p>
-        </DevAlert>
-      ) : null}
-      <DocsPage
-        additionalComponents={additionalComponents}
-        baseRoute={basePath}
-        product={product}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        staticProps={props}
-        showVersionSelect={false}
-        algoliaConfig={productData.algoliaConfig}
-      />
-    </>
+    <DocsPage
+      additionalComponents={additionalComponents}
+      baseRoute={basePath}
+      product={product}
+      staticProps={props}
+      showVersionSelect={false}
+      algoliaConfig={productData.algoliaConfig}
+    />
   )
 }
 
