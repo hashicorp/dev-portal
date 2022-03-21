@@ -10,17 +10,14 @@ import SidebarSidecarLayout, {
   SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import Heading from 'components/heading'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem } from './utils'
 import {
   TutorialSidebar as Sidebar,
   FeaturedInCollections,
   CollectionCardProps,
-  Badges,
-  getIsBeta,
-  InteractiveLabToggle,
 } from './components'
+import TutorialMeta from 'components/tutorial-meta'
 
 export interface TutorialViewProps {
   tutorial: TutorialData
@@ -101,28 +98,12 @@ export default function TutorialView({
         }
         headings={layout.headings}
       >
-        <header id="overview">
-          <Heading
-            level={1}
-            size={500}
-            weight="bold"
-            slug={layout.headings[0].slug}
-            id={slug}
-          >
-            {name}
-          </Heading>
-          <Badges
-            tutorialMeta={{
-              readTime,
-              products: productsUsed.map((p) => p.product.slug),
-              isBeta: getIsBeta(productsUsed),
-              edition,
-              hasVideo: Boolean(video),
-              isInteractive,
-            }}
-          />
-          {isInteractive ? <InteractiveLabToggle /> : null}
-        </header>
+        <TutorialMeta
+          heading={{ slug: layout.headings[0].slug, text: name }}
+          isInteractive={Boolean(handsOnLab?.id)}
+          hasVideo={Boolean(video?.id)}
+          readTime={readTime}
+        />
         <Content
           content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
         />
