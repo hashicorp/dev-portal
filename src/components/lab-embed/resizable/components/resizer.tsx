@@ -5,10 +5,10 @@ import styles from './resizer.module.css'
 
 interface ResizerProps {
   onMouseDown(e: React.MouseEvent): void
+  panelActive: boolean
+  style: { [key: string]: any }
   onMouseUp?(e: React.MouseEvent): void
   onClosePanel?(boolean): void
-  panelActive: boolean
-  style: any
 }
 
 export default function Resizer({

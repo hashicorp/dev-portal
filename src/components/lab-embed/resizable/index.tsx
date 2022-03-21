@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import CSS from 'csstype'
 import Resizer from './components/resizer'
 import styles from './resizable.module.css'
 
@@ -7,7 +8,7 @@ interface ResizableProps {
   children: React.ReactNode
   setPanelActive(boolean): void
   initialHeight: number
-  style: any
+  style: CSS.Properties
 }
 
 export default function Resizable({
