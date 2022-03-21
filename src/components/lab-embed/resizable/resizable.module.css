@@ -19,6 +19,3 @@
 .resizing > iframe {
   pointer-events: none;
 }
-.resizing > [data-katacoda-id] {
-  pointer-events: none;
-}
