@@ -1,3 +1,20 @@
-.lab-button {
-  border: 1px solid black;
+.labButton {
+  composes: hds-font-weight-medium from global;
+  composes: hds-typography-display-100 from global;
+  display: none;
+  border: 1px solid var(--token-color-palette-alpha-300);
+  border-radius: 5px;
+  margin: 0;
+  text-decoration: none;
+  background: var(--token-color-palette-neutral-50);
+  color: var(--token-color-neutral-foreground-secondary);
+  cursor: pointer;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  @media (--medium-up) {
+    display: block;
+    padding: 10px 16px;
+  }
 }

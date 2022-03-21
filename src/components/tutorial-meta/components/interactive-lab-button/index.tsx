@@ -1,3 +1,5 @@
+import s from './interactive-lab-button.module.css'
+
 interface InteractiveLabButtonProps {
   showButton: boolean
 }
@@ -8,5 +10,5 @@ export default function InteractiveLabButton({
   if (!showButton) {
     return null
   }
-  return <button>Show Terminal</button>
+  return <button className={s.labButton}>Show Terminal</button>
 }
