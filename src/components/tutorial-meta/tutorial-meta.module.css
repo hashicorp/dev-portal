@@ -1,0 +1,26 @@
+.header {
+  --spacing-sml: 18px;
+  --spacing-med: 20px;
+  --spacing-lrg: 24px;
+  --spacing-xl: 32px;
+}
+
+.heading {
+  margin-bottom: var(--spacing-med);
+
+  @media (--medium-up) {
+    margin-bottom: var(--spacing-sml);
+  }
+
+  @media (--large) {
+    margin-bottom: var(--spacing-lrg);
+  }
+}
+
+.meta {
+  margin-bottom: var(--spacing-lrg);
+
+  @media (--medium-up) {
+    margin-bottom: var(--spacing-xl);
+  }
+}

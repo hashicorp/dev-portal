@@ -100,9 +100,13 @@ export default function TutorialView({
       >
         <TutorialMeta
           heading={{ slug: layout.headings[0].slug, text: name }}
-          isInteractive={Boolean(handsOnLab?.id)}
-          hasVideo={Boolean(video?.id)}
-          readTime={readTime}
+          meta={{
+            readTime,
+            edition,
+            productsUsed,
+            isInteractive: Boolean(handsOnLab?.id),
+            hasVideo: Boolean(video?.id),
+          }}
         />
         <Content
           content={<MDXRemote {...content} components={MDX_COMPONENTS} />}

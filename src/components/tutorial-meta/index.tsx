@@ -1,40 +1,42 @@
 import Heading from 'components/heading'
-// import { Badges, getIsBeta } from './components'
+import { TutorialData } from 'views/tutorial-view'
+import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
+import s from './tutorial-meta.module.css'
 
 interface TutorialMetaProps {
   heading: { slug: string; text: string }
-  readTime: number
-  isInteractive: boolean
-  hasVideo: boolean
+  meta: Pick<TutorialData, 'readTime' | 'edition' | 'productsUsed'> & {
+    isInteractive: boolean
+    hasVideo: boolean
+  }
 }
 
-export default function TutorialMeta({
-  isInteractive,
-  heading,
-}: TutorialMetaProps) {
+export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
+  const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
   return (
-    <header>
+    <header className={s.header}>
       <Heading
         level={1}
         size={500}
         weight="bold"
         slug={heading.slug}
         id={heading.slug}
+        className={s.heading}
       >
         {heading.text}
       </Heading>
-      {/* <Badges
-        tutorialMeta={{
-          readTime,
-          products: productsUsed.map((p) => p.product.slug),
-          isBeta: getIsBeta(productsUsed),
-          edition,
-          hasVideo: Boolean(video),
-          isInteractive: Boolean(handsOnLab),
-        }}
-      /> */}
-      <InteractiveLabButton showButton={isInteractive} />
+      <div className={s.meta}>
+        <Badges
+          readTime={readTime}
+          isBeta={getIsBeta(productsUsed)}
+          products={productsUsed.map((p) => p.product.slug)}
+          edition={edition}
+          hasVideo={hasVideo}
+          isInteractive={isInteractive}
+        />
+        <InteractiveLabButton showButton={isInteractive} />
+      </div>
     </header>
   )
 }

@@ -1,0 +1,25 @@
+ul.list {
+  --badge-spacing: 8px;
+
+  margin-bottom: calc(var(--spacing-lrg) - var(--badge-spacing));
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+
+  @media (--medium-up) {
+    margin-bottom: calc(var(--spacing-xl) - var(--badge-spacing));
+  }
+
+  & li {
+    border-radius: 5px;
+    background-color: var(--token-color-palette-neutral-100);
+    margin: 0 0 var(--badge-spacing) 0;
+    padding: 4px 8px;
+
+    &:not(:last-child) {
+      margin-right: var(--badge-spacing);
+      margin-bottom: var(--badge-spacing);
+    }
+  }
+}
