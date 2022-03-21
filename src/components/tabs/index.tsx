@@ -64,9 +64,8 @@ const Tabs = ({
   /**
    * Declaring these items after checking for states where we'd throw an error.
    */
-  const [activeTabIndex, setActiveTabIndex] = useState<number>(
-    initialActiveIndex
-  )
+  const [activeTabIndex, setActiveTabIndex] =
+    useState<number>(initialActiveIndex)
   const needToFocusNewElement = useRef<boolean>(false)
   const buttonElements = useRef<{ [key in string]: HTMLButtonElement }>({})
   const uniqueId = useId()
@@ -183,7 +182,7 @@ const Tabs = ({
             <button
               aria-controls={`${id}-tabpanel`}
               aria-selected={isActive}
-              className="focus-ring-from-box-shadow"
+              className="g-focus-ring-from-box-shadow"
               id={`${id}-tab`}
               key={id}
               onClick={() => setActiveTabIndex(index)}
