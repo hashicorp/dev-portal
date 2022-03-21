@@ -5,6 +5,8 @@ interface InteractiveLabButtonProps {
   showButton: boolean
 }
 
+// @TODO replace with Button component once implemented
+
 export default function InteractiveLabButton({
   showButton,
 }: InteractiveLabButtonProps) {
