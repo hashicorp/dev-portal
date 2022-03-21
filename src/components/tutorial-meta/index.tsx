@@ -30,7 +30,10 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
         <Badges
           readTime={readTime}
           isBeta={getIsBeta(productsUsed)}
-          products={productsUsed.map((p) => p.product.slug)}
+          products={productsUsed.map((p) => ({
+            name: p.product.name,
+            slug: p.product.slug,
+          }))}
           edition={edition}
           hasVideo={hasVideo}
           isInteractive={isInteractive}

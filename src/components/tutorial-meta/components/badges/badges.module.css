@@ -11,15 +11,28 @@ ul.list {
     margin-bottom: calc(var(--spacing-xl) - var(--badge-spacing));
   }
 
-  & li {
-    border-radius: 5px;
-    background-color: var(--token-color-palette-neutral-100);
-    margin: 0 0 var(--badge-spacing) 0;
-    padding: 4px 8px;
-
-    &:not(:last-child) {
-      margin-right: var(--badge-spacing);
-      margin-bottom: var(--badge-spacing);
-    }
+  & li:not(:last-child) {
+    margin-bottom: var(--badge-spacing);
   }
+}
+
+.badgeItem {
+  composes: hds-font-weight-medium from global;
+  composes: hds-typography-display-100 from global;
+  border-radius: 5px;
+  background-color: var(--token-color-palette-neutral-100);
+  margin: 0 var(--badge-spacing) var(--badge-spacing) 0;
+  padding: 4px 8px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.beta {
+  background-color: var(--token-color-highlight-background-faint);
+  color: var(--token-color-palette-purple-300) !important;
+}
+
+.icon {
+  margin-right: 4px;
 }
