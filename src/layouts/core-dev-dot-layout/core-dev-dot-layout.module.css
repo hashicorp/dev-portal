@@ -82,7 +82,7 @@ and negative margin.
   }
 
   &:focus-visible {
-    box-shadow: var(--token-focus-ring-box-shadow);
+    box-shadow: var(--token-focus-ring-action-box-shadow);
     outline: none;
   }
 }
@@ -95,7 +95,7 @@ and negative margin.
 
   &:focus-visible {
     border: 1px solid var(--token-color-palette-blue-200);
-    box-shadow: 0 0 0 3px #5990ff;
+    box-shadow: 0 0 0 3px var(--token-color-focus-action-external);
     outline: none;
   }
 }
