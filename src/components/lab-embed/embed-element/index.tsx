@@ -1,6 +1,7 @@
 import { MutableRefObject, useRef, useEffect } from 'react'
+import classNames from 'classnames'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
-import styles from './embed-element.module.css'
+import s from './embed-element.module.css'
 
 export default function EmbedElement(): JSX.Element {
   const ref: MutableRefObject<HTMLIFrameElement> = useRef()
@@ -25,7 +26,7 @@ export default function EmbedElement(): JSX.Element {
       sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
       src={`https://play.instruqt.com/embed/${labId}`}
       style={{ height: 'inherit', minHeight: '640px' }}
-      className={`${styles.baseEmbedElement} ${!active ? styles.hide : ''}`}
+      className={classNames(s.baseEmbedElement, { [s.hide]: !active })}
     />
   )
 }

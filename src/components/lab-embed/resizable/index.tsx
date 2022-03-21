@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import CSS from 'csstype'
+import classNames from 'classnames'
 import Resizer from './components/resizer'
-import styles from './resizable.module.css'
+import s from './resizable.module.css'
 
 interface ResizableProps {
   panelActive: boolean
@@ -74,9 +75,11 @@ export default function Resizable({
 
   return (
     <div
-      className={`${styles.resizable}  ${isResizing ? styles.resizing : ''} ${
-        !panelActive ? styles.hide : ''
-      }`}
+      className={classNames(
+        s.resizable,
+        { [s.resizing]: isResizing },
+        { [s.hide]: !panelActive }
+      )}
       ref={resizableDiv}
       style={{
         height: `${height}px`,
