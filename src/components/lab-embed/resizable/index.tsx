@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Dispatch, SetStateAction } from 'react'
 import CSS from 'csstype'
 import classNames from 'classnames'
 import Resizer from './components/resizer'
@@ -7,7 +7,7 @@ import s from './resizable.module.css'
 interface ResizableProps {
   panelActive: boolean
   children: React.ReactNode
-  setPanelActive(boolean): void
+  setPanelActive: Dispatch<SetStateAction<boolean>>
   initialHeight: number
   style: CSS.Properties
 }

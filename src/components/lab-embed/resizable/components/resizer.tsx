@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react'
 import CSS from 'csstype'
 import CloseIcon from '@hashicorp/flight-icons/svg/x-24.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
@@ -9,7 +10,7 @@ interface ResizerProps {
   panelActive: boolean
   style: CSS.Properties
   onMouseUp?(e: React.MouseEvent): void
-  onClosePanel?(boolean): void
+  onClosePanel?: Dispatch<SetStateAction<boolean>>
 }
 
 export default function Resizer({
