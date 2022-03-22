@@ -60,7 +60,7 @@
   &:focus-visible::before {
     border-radius: 6px;
     bottom: 0;
-    box-shadow: var(--token-focus-ring-box-shadow);
+    box-shadow: var(--token-focus-ring-action-box-shadow);
     content: '';
     left: 0;
     position: absolute;
