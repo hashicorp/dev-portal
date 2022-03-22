@@ -6,23 +6,23 @@ export function trackInstruqtEvent(
   const eventData = e.data
 
   if (e.origin && e.origin.indexOf('instruqt.com') >= 0) {
-    let evtName = ''
+    let eventName = ''
 
     switch (eventData.event) {
       case 'track.started':
-        evtName = 'Instruqt Track Started'
+        eventName = 'Instruqt Track Started'
         break
       case 'track.completed':
-        evtName = 'Instruqt Track Completed'
+        eventName = 'Instruqt Track Completed'
         break
       case 'track.challenge_started':
-        evtName = 'Instruqt Challenge Started'
+        eventName = 'Instruqt Challenge Started'
         break
       case 'track.challenge_completed':
-        evtName = 'Instruqt Challenge Completed'
+        eventName = 'Instruqt Challenge Completed'
         break
       default:
-        evtName = 'Instruqt Track Progressed'
+        eventName = 'Instruqt Track Progressed'
         break
     }
 
@@ -32,6 +32,6 @@ export function trackInstruqtEvent(
       event: eventData.event,
     }
 
-    window.analytics?.track(evtName, properties)
+    window.analytics?.track(eventName, properties)
   }
 }
