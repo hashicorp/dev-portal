@@ -49,7 +49,11 @@ export async function getCollectionPaths(
   const collections = await getAllCollections({
     product,
   })
-  const paths = collections.map((collection) => ({
+  // Only build collections where this product is the main 'theme'
+  // @TODO once we implement the `theme` query option, remove the theme filtering
+  // https://app.asana.com/0/1201903760348480/1201932088801131/f
+  const filteredCollections = collections.filter((c) => c.theme === product)
+  const paths = filteredCollections.map((collection) => ({
     params: {
       collectionSlug: splitProductFromFilename(collection.slug),
     },

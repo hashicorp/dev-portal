@@ -6,7 +6,10 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
 import { TutorialSidebarSidecarProps, TutorialData } from '.'
-import { getCollectionContext } from './utils/get-collection-context'
+import {
+  getCollectionContext,
+  getCurrentCollectionTutorial,
+} from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 
 // @TODO just a stub - adjust page props interface
@@ -28,31 +31,30 @@ export async function getTutorialPageProps(
   product: TutorialPageProduct,
   slug: [string, string]
 ): Promise<{ props: TutorialPageProps }> {
-  /**
-   * In the db, slug structure for tutorials is {product}/{tutorial-filename}
-   * the tutorialSlug passed in is based on /{collection-name}/{tutorial-name}
-   * from the params. So we can assume `slug` index 1 is always the tutorial name
-   * */
-  const [collectionFilename, tutorialFilename] = slug
-  const tutorialDbSlug = `${product.slug}/${tutorialFilename}`
-  const baseTutorialData = await getTutorial(tutorialDbSlug)
+  const { collection, tutorialReference } = await getCurrentCollectionTutorial(
+    product.slug,
+    slug
+  )
+  const fullTutorialData = await getTutorial(tutorialReference.dbSlug)
   const { content: serializedContent, headings } = await serializeContent(
-    baseTutorialData
+    fullTutorialData
   )
   const collectionContext = getCollectionContext(
-    product.slug,
-    collectionFilename,
-    baseTutorialData.collectionCtx
+    collection.data,
+    fullTutorialData.collectionCtx
   )
   const layoutProps = {
     headings,
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, slug: product.slug },
       collection: {
-        name: collectionContext.current.name,
-        slug: collectionFilename,
+        name: collection.data.shortName,
+        slug: collection.filename,
       },
-      tutorial: { name: baseTutorialData.name, slug: tutorialFilename },
+      tutorial: {
+        name: fullTutorialData.name,
+        slug: tutorialReference.filename,
+      },
     }),
   }
 
@@ -66,7 +68,7 @@ export async function getTutorialPageProps(
   return {
     props: stripUndefinedProperties({
       tutorial: {
-        ...baseTutorialData,
+        ...fullTutorialData,
         content: serializedContent,
         collectionCtx: collectionContext,
         headings,
