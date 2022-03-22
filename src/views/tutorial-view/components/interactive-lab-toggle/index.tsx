@@ -12,9 +12,10 @@ export function InteractiveLabToggle({
   if (!showButton || !ctx.labId) {
     return null
   }
+
+  const buttonText = `${ctx.active ? 'Hide' : 'Show'} Terminal`
+
   return (
-    <button onClick={() => ctx.setActive(!ctx.active)}>{`${
-      ctx.active ? 'Hide' : 'Show'
-    } Terminal`}</button>
+    <button onClick={() => ctx.setActive(!ctx.active)}>{buttonText}</button>
   )
 }
