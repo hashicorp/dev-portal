@@ -104,8 +104,8 @@ export default function TutorialView({
             readTime,
             edition,
             productsUsed,
-            isInteractive: Boolean(handsOnLab?.id),
-            hasVideo: Boolean(video?.id),
+            isInteractive: Boolean(handsOnLab),
+            hasVideo: Boolean(video),
           }}
         />
         <Content
