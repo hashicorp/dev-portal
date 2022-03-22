@@ -77,13 +77,13 @@ export default function TutorialView({
     video,
     collectionCtx,
   } = tutorial
-
-  const InteractiveLabWrapper = handsOnLab?.id ? InstruqtProvider : Fragment
+  const isInteractive = handsOnLab
+  const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
 
   return (
     <InteractiveLabWrapper
       key={slug}
-      {...(handsOnLab?.id && { labId: handsOnLab?.id })}
+      {...(isInteractive && { labId: handsOnLab.id })}
     >
       <SidebarSidecarLayout
         breadcrumbLinks={layout.breadcrumbLinks}
@@ -121,7 +121,7 @@ export default function TutorialView({
               isInteractive: Boolean(handsOnLab),
             }}
           />
-          <InteractiveLabToggle showButton={Boolean(handsOnLab?.id)} />
+          {isInteractive ? <InteractiveLabToggle /> : null}
         </header>
         <Content
           content={<MDXRemote {...content} components={MDX_COMPONENTS} />}

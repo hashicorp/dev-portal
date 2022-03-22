@@ -1,15 +1,9 @@
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 
-interface InteractiveLabToggleProps {
-  showButton: boolean
-}
-
-export function InteractiveLabToggle({
-  showButton,
-}: InteractiveLabToggleProps) {
+export function InteractiveLabToggle() {
   const ctx = useInstruqtEmbed()
 
-  if (!showButton || !ctx.labId) {
+  if (!ctx.labId) {
     return null
   }
 
