@@ -1,3 +1,10 @@
+const eventTypesToNames = {
+  'track.started': 'Instruqt Track Started',
+  'track.completed': 'Instruqt Track Completed',
+  'track.challenge_started': 'Instruqt Challenge Started',
+  'track.challenge_completed': 'Instruqt Challenge Completed',
+}
+
 // Sends instruqt activity data to Heap
 export function trackInstruqtEvent(
   e: MessageEvent,
@@ -6,25 +13,8 @@ export function trackInstruqtEvent(
   const eventData = e.data
 
   if (e.origin && e.origin.indexOf('instruqt.com') >= 0) {
-    let eventName = ''
-
-    switch (eventData.event) {
-      case 'track.started':
-        eventName = 'Instruqt Track Started'
-        break
-      case 'track.completed':
-        eventName = 'Instruqt Track Completed'
-        break
-      case 'track.challenge_started':
-        eventName = 'Instruqt Challenge Started'
-        break
-      case 'track.challenge_completed':
-        eventName = 'Instruqt Challenge Completed'
-        break
-      default:
-        eventName = 'Instruqt Track Progressed'
-        break
-    }
+    const eventName =
+      eventTypesToNames[eventData.event] || 'Instruqt Track Progressed'
 
     const properties = {
       id: options.labId,
