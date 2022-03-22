@@ -16,17 +16,22 @@ export interface BadgesProps {
   hasVideo: boolean
   isInteractive: boolean
 }
-
-const badgeDisplayOptions: {
-  [BadgeOption: string]: {
-    label: string
-    icon?: ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>
+//TODO add return type
+function generateBadges(readTime, products, edition) {
+  return {
+    readTime: {
+      label: `${readTime} min`,
+      icon: IconClock16,
+    },
+    isBeta: { label: 'Beta' },
+    edition: { label: editionDisplayOptions[edition] },
+    products: products.map((p) => ({
+      label: p.name,
+      icon: () => <ProductIcon product={p.slug} />,
+    })),
+    hasVideo: { label: 'Video', icon: IconPlay16 },
+    isInteractive: { label: 'Interactive', icon: IconTerminalScreen16 },
   }
-} = {
-  readTime: { label: ' min', icon: IconClock16 },
-  hasVideo: { label: 'Video', icon: IconPlay16 },
-  isInteractive: { label: 'Interactive', icon: IconTerminalScreen16 },
-  isBeta: { label: 'Beta' },
 }
 
 const editionDisplayOptions = {
@@ -45,54 +50,42 @@ const editionDisplayOptions = {
 }
 
 interface BadgeProps {
-  type?: keyof BadgesProps
-  label?: string
+  type: keyof BadgesProps
   className?: string
   children?: React.ReactNode
 }
 
-// @TODO eventually this will be a link when we have the advanced search page
-function Badge({ type, label, children, className }: BadgeProps) {
-  const badge = badgeDisplayOptions[type]
-  const Icon = badge?.icon
-  const Label = label || badge?.label
-  const Inner =
-    type && badge ? (
-      <>
-        {badge.icon ? <Icon className={s.icon} /> : null}
-        {Label}
-      </>
-    ) : (
-      children
-    )
-  return <li className={classNames(s.badgeItem, className)}>{Inner}</li>
-}
-
 // @TODO cleanup conditional rendering, look for improved abstraction
 
-export function Badges({
-  readTime,
-  products,
-  edition,
-  isBeta,
-  hasVideo,
-  isInteractive,
-}: BadgesProps): React.ReactElement {
+export function Badges(props: BadgesProps): React.ReactElement {
+  const { readTime, products, edition, isBeta, hasVideo, isInteractive } = props
+  const badgeDisplayOptions = generateBadges(readTime, products, edition)
+
+  // could use object.keys here in the displayoptions thing to render the badge component
+  // need to handle the products
+  function Badge({ type, className }: BadgeProps) {
+    const badge = badgeDisplayOptions[type]
+    const Icon = badge.icon ? badge.icon : null
+    return (
+      <li className={classNames(s.badgeItem, className)}>
+        <Icon className={s.icon} />
+        {badge.label}
+      </li>
+    )
+  }
   return (
     <ul className={s.list}>
-      <Badge type="readTime" label={`${readTime} min`} />
+      <Badge type="readTime" />
       {isBeta ? <Badge className={s.beta} type="isBeta" /> : null}
-      {edition !== 'open_source' ? (
-        <Badge>{editionDisplayOptions[edition].label}</Badge>
-      ) : null}
-      {products.length > 0
+      {edition !== 'open_source' ? <Badge type="edition" /> : null}
+      {/* {products.length > 0
         ? products.map((p) => (
             <Badge key={p.slug}>
               <ProductIcon product={p.slug} className={s.icon} />
               {p.name}
             </Badge>
           ))
-        : null}
+        : null} */}
       {hasVideo ? <Badge type="hasVideo" /> : null}
       {isInteractive ? <Badge type="isInteractive" /> : null}
     </ul>
