@@ -87,8 +87,7 @@ export default function Resizable({
       data-resizing={String(isResizing)}
     >
       <Resizer
-        onClosePanel={setPanelActive}
-        panelActive={panelActive}
+        onClosePanel={() => setPanelActive(!panelActive)}
         onMouseDown={enableResize}
         style={style}
       />

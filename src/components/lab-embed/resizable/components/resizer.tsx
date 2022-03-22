@@ -1,23 +1,23 @@
-import { Dispatch, SetStateAction } from 'react'
+import { MouseEventHandler } from 'react'
 import CSS from 'csstype'
-import CloseIcon from '@hashicorp/flight-icons/svg/x-24.svg?include'
+import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import ResizeBar from './img/resize_bar.svg?include'
 import s from './resizer.module.css'
 
 interface ResizerProps {
-  onMouseDown(e: React.MouseEvent): void
-  panelActive: boolean
+  onMouseDown: MouseEventHandler<HTMLDivElement>
   style: CSS.Properties
-  onMouseUp?(e: React.MouseEvent): void
-  onClosePanel?: Dispatch<SetStateAction<boolean>>
+  onMouseUp?: MouseEventHandler<HTMLDivElement>
+  onClosePanel?(): void
 }
+
+/**@TODO the wrapper `div` needs a 'role' since its interactive  */
 
 export default function Resizer({
   onMouseDown,
   onMouseUp,
   onClosePanel,
-  panelActive,
   style = {},
 }: ResizerProps) {
   return (
@@ -28,9 +28,9 @@ export default function Resizer({
       style={style}
     >
       <InlineSvg className={s.resizeBar} src={ResizeBar} />
-      <div className={s.closeIcon} onClick={() => onClosePanel(!panelActive)}>
-        <InlineSvg src={CloseIcon} />
-      </div>
+      <button className={s.closeIcon} onClick={onClosePanel}>
+        <IconX24 />
+      </button>
     </div>
   )
 }

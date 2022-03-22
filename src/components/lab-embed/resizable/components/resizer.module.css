@@ -17,6 +17,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  & svg {
+    fill: var(--token-color-palette-neutral-300);
+  }
 }
 
 .closeIcon {
@@ -26,6 +30,9 @@
   right: 20px;
   cursor: pointer;
   z-index: 11;
+  background: none;
+  border: none;
+  padding: 0;
 
   & svg {
     width: 100%;
