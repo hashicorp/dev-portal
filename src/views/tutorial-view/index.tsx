@@ -77,7 +77,7 @@ export default function TutorialView({
     video,
     collectionCtx,
   } = tutorial
-  const isInteractive = handsOnLab
+  const isInteractive = Boolean(handsOnLab)
   const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
 
   return (
