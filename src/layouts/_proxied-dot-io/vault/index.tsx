@@ -1,4 +1,5 @@
 import React from 'react'
+import { trackGoal as trackFathomGoal } from 'fathom-client'
 import HashiHead from '@hashicorp/react-head'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import Min100Layout from '@hashicorp/react-min-100-layout'
@@ -11,7 +12,6 @@ import Footer from 'components/_proxied-dot-io/vault/footer-with-props'
 import ProductSubnav from 'components/_proxied-dot-io/vault/subnav'
 import productData from 'data/vault.json'
 import query from './query.graphql'
-import { trackGoal as trackFathomGoal } from 'fathom-client'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
