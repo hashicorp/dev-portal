@@ -4,25 +4,14 @@ import { Product } from 'types/products'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DocsView from 'views/docs-view'
-import Placement from 'components/author-primitives/shared/placement-table'
-import NestedNode from 'components/author-primitives/waypoint/nested-node'
 
 const basePath = 'plugins'
 const baseName = 'Plugins'
 const product = waypointData as Product
-const additionalComponents = {
-  Placement,
-  NestedNode,
-}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const WaypointPluginsPage = ({ mdxSource }): ReactElement => {
-  return (
-    <DocsView
-      mdxSource={mdxSource}
-      additionalComponents={additionalComponents}
-    />
-  )
+  return <DocsView mdxSource={mdxSource} />
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({

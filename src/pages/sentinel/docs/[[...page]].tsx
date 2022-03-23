@@ -1,5 +1,4 @@
 import { ReactElement } from 'react'
-import SentinelEmbedded from '@hashicorp/react-sentinel-embedded'
 import sentinelData from 'data/sentinel.json'
 import { Product } from 'types/products'
 import remarkSentinel from 'lib/remark-sentinel'
@@ -12,16 +11,10 @@ const basePath = 'docs'
 const basePathForLoader = 'sentinel'
 const baseName = 'Docs'
 const product = sentinelData as Product
-const additionalComponents = { SentinelEmbedded }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const SentinelDocsPage = ({ mdxSource }): ReactElement => {
-  return (
-    <DocsView
-      mdxSource={mdxSource}
-      additionalComponents={additionalComponents}
-    />
-  )
+  return <DocsView mdxSource={mdxSource} />
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({

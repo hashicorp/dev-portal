@@ -4,23 +4,15 @@ import { Product } from 'types/products'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DocsView from 'views/docs-view'
-import ProviderTable from 'components/author-primitives/terraform/provider-table'
 
 const basePath = 'docs'
 const baseName = 'Docs'
 const product = terraformData as Product
 const productSlugForLoader = 'terraform-website'
 
-const additionalComponents = { ProviderTable }
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const TerraformDocsPage = ({ mdxSource }): ReactElement => {
-  return (
-    <DocsView
-      mdxSource={mdxSource}
-      additionalComponents={additionalComponents}
-    />
-  )
+  return <DocsView mdxSource={mdxSource} />
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
