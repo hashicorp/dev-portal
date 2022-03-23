@@ -9,7 +9,7 @@ const proxyConfig = require('./proxy-config')
  * @typedef {Object} SiteProxySettings
  * @property {string} domain
  * @property {string} host
- * @property {{ proxiedRoute: string, localRoute: string }[]} routesToProxy
+ * @property {{ proxiedRoute: string, localRoute: string, skipRedirect?: boolean }[]} routesToProxy
  */
 
 /**
