@@ -118,7 +118,7 @@ export default function TutorialView({
               isBeta: getIsBeta(productsUsed),
               edition,
               hasVideo: Boolean(video),
-              isInteractive: Boolean(handsOnLab),
+              isInteractive,
             }}
           />
           {isInteractive ? <InteractiveLabToggle /> : null}
