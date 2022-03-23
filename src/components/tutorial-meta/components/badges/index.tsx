@@ -32,7 +32,7 @@ export function Badges({ options }: BadgesProps): React.ReactElement {
   return (
     <ul className={s.list}>
       <Badge type="readTime" />
-      {!isBeta ? <Badge className={s.beta} type="isBeta" /> : null}
+      {isBeta ? <Badge className={s.beta} type="isBeta" /> : null}
       {showEditionBadge ? <Badge type="edition" /> : null}
       {showProductBadges ? renderProductBadges(productBadgeOptions) : null}
       {hasVideo ? <Badge type="hasVideo" /> : null}
