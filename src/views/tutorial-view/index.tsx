@@ -54,7 +54,6 @@ export type TutorialSidebarSidecarProps = Required<
  * Outstanding @TODOs
  * - add canonical url if this is the default collection
  * - fix: the toc overview linking isn't properly aligning
- * - wire up instruqt embed for interactive labs
  * - skeleton out the next / prev component after API endpoint is updated - https://app.asana.com/0/1201903760348480/1201932088801131/f
  */
 

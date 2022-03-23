@@ -36,22 +36,17 @@ type DisplayOption = {
   icon?: ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>
 }
 
-const editionDisplayOptions = {
-  [EditionOption.tfcFree]: { label: 'Terraform Cloud' },
-  [EditionOption.tfcTeam]: { label: 'Team' },
-  [EditionOption.tfcGov]: {
-    label: 'Team & Governance',
-  },
-  [EditionOption.enterprise]: {
-    label: 'Enterprise',
-  },
-  [EditionOption.tfcBiz]: { label: 'Business' },
-  [EditionOption.hcp]: {
-    label: 'HCP',
-  },
+const editionDisplayOptions: { [K in EditionOption]: string } = {
+  [EditionOption.tfcFree]: 'Terraform Cloud',
+  [EditionOption.tfcTeam]: 'Team',
+  [EditionOption.tfcGov]: 'Team & Governance',
+  [EditionOption.enterprise]: 'Enterprise',
+  [EditionOption.tfcBiz]: 'Business',
+  [EditionOption.hcp]: 'HCP',
+  [EditionOption.openSource]: 'Open Source',
 }
 
-// Returns a map of badge display options and a Badge component to render
+// Returns a map of badge display options and a Default Badge component to render
 export function generateBadges(
   readTime,
   products,
@@ -72,5 +67,6 @@ export function generateBadges(
     isInteractive: { label: 'Interactive', icon: IconTerminalScreen16 },
   }
   const Badge = getBadgeComponent(displayOptions)
+
   return [displayOptions, Badge]
 }

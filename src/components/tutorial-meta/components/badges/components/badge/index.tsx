@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import classNames from 'classnames'
 import { ProductOption } from 'lib/learn-client/types'
 import ProductIcon from 'components/product-icon'
@@ -33,7 +34,8 @@ export function getBadgeComponent(displayOptions) {
       return null
     }
 
-    const Icon = badge.icon ? badge.icon : null
+    const Icon = badge.icon ? badge.icon : Fragment
+
     return (
       <li className={classNames(s.badgeItem, className)}>
         <Icon className={s.icon} />

@@ -19,6 +19,7 @@ export function Badges(props: BadgesProps): React.ReactElement {
     products,
     edition
   )
+  const showEditionBadge = edition !== 'open_source' // Edu team wants to hide the open source badge
   const productBadgeOptions =
     badgeDisplayOptions.products as ProductDisplayOption[]
   const showProductBadges =
@@ -28,7 +29,7 @@ export function Badges(props: BadgesProps): React.ReactElement {
     <ul className={s.list}>
       <Badge type="readTime" />
       {isBeta ? <Badge className={s.beta} type="isBeta" /> : null}
-      {edition !== 'open_source' ? <Badge type="edition" /> : null}
+      {showEditionBadge ? <Badge type="edition" /> : null}
       {showProductBadges ? renderProductBadges(productBadgeOptions) : null}
       {hasVideo ? <Badge type="hasVideo" /> : null}
       {isInteractive ? <Badge type="isInteractive" /> : null}
