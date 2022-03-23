@@ -12,7 +12,7 @@ interface ResizerProps {
   onClosePanel?(): void
 }
 
-/**@TODO the wrapper `div` needs a 'role' since its interactive  */
+/**@TODO the resize bar `div` needs a 'role' since its interactive  */
 
 export default function Resizer({
   onMouseDown,
@@ -21,13 +21,14 @@ export default function Resizer({
   style = {},
 }: ResizerProps) {
   return (
-    <div
-      className={s.resizer}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      style={style}
-    >
-      <InlineSvg className={s.resizeBar} src={ResizeBar} />
+    <div className={s.resizeWrapper} style={style}>
+      <div
+        className={s.resizer}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+      >
+        <InlineSvg className={s.resizeBar} src={ResizeBar} />
+      </div>
       <button className={s.closeIcon} onClick={onClosePanel}>
         <IconX24 />
       </button>
