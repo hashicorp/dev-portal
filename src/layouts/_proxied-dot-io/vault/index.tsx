@@ -11,11 +11,14 @@ import Footer from 'components/_proxied-dot-io/vault/footer-with-props'
 import ProductSubnav from 'components/_proxied-dot-io/vault/subnav'
 import productData from 'data/vault.json'
 import query from './query.graphql'
+import { trackGoal as trackFathomGoal } from 'fathom-client'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
   preset: 'oss',
   otherServices: [...localConsentManagerServices],
+  onAcceptAll: () => trackFathomGoal('AETLPQG1', 0),
+  onManagePreferences: () => trackFathomGoal('KWURQRAQ', 0),
 })
 
 function VaultIoLayout({ children, data }: Props): React.ReactElement {
