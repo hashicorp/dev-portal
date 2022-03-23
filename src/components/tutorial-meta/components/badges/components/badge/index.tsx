@@ -14,12 +14,12 @@ export interface BadgeComponentProps {
  * The badge component depends on a map of display options
  * and renders a label and optional icon depending on the option type
  *
- * This component also accepts children so it can render a badge that doesn't
+ * This component also accepts children so it can render a composition that doesn't
  * abide directly by the display options
  */
 
 export function getBadgeComponent(displayOptions) {
-  function BadgeComponent({
+  function DefaultBadgeComponent({
     type,
     children,
     className,
@@ -27,7 +27,12 @@ export function getBadgeComponent(displayOptions) {
     if (children) {
       return <li className={classNames(s.badgeItem, className)}>{children}</li>
     }
+
     const badge = displayOptions[type]
+    if (!badge) {
+      return null
+    }
+
     const Icon = badge.icon ? badge.icon : null
     return (
       <li className={classNames(s.badgeItem, className)}>
@@ -37,7 +42,7 @@ export function getBadgeComponent(displayOptions) {
     )
   }
 
-  return BadgeComponent
+  return DefaultBadgeComponent
 }
 
 export type ProductDisplayOption = { label: string; slug: ProductOption }
@@ -49,4 +54,12 @@ export function ProductBadge({ product }: { product: ProductDisplayOption }) {
       {product.label}
     </li>
   )
+}
+
+export function renderProductBadges(
+  productDisplayOptions: ProductDisplayOption[]
+) {
+  return productDisplayOptions.map((p) => (
+    <ProductBadge key={p.label} product={p} />
+  ))
 }

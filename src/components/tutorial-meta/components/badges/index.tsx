@@ -1,6 +1,6 @@
 import { Product as ClientProduct } from 'lib/learn-client/types'
 import { TutorialData } from 'views/tutorial-view'
-import { ProductBadge } from './components/badge'
+import { renderProductBadges, ProductDisplayOption } from './components/badge'
 import { generateBadges } from './helpers'
 import s from './badges.module.css'
 
@@ -19,17 +19,17 @@ export function Badges(props: BadgesProps): React.ReactElement {
     products,
     edition
   )
+  const productBadgeOptions =
+    badgeDisplayOptions.products as ProductDisplayOption[]
+  const showProductBadges =
+    Array.isArray(productBadgeOptions) && productBadgeOptions.length > 0
 
   return (
     <ul className={s.list}>
       <Badge type="readTime" />
       {isBeta ? <Badge className={s.beta} type="isBeta" /> : null}
       {edition !== 'open_source' ? <Badge type="edition" /> : null}
-      {products.length > 0 && Array.isArray(badgeDisplayOptions.products)
-        ? badgeDisplayOptions.products.map((p) => (
-            <ProductBadge key={p.label} product={p} />
-          ))
-        : null}
+      {showProductBadges ? renderProductBadges(productBadgeOptions) : null}
       {hasVideo ? <Badge type="hasVideo" /> : null}
       {isInteractive ? <Badge type="isInteractive" /> : null}
     </ul>
