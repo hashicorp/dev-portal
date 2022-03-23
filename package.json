@@ -2,7 +2,7 @@
   "name": "dev-portal",
   "private": "true",
   "scripts": {
-    "build:deploy-preview": "hc-tools ./scripts/content-repo-preview/build.ts",
+    "build:deploy-preview": "npx --package @hashicorp/platform-tools hc-tools ./scripts/content-repo-preview/build.ts",
     "build:webpack-only": "hc-tools next-build-webpack-only",
     "build": "next build",
     "lint": "next-hashicorp lint",
