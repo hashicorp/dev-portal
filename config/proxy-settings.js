@@ -9,7 +9,7 @@ const proxyConfig = require('./proxy-config')
  * @typedef {Object} SiteProxySettings
  * @property {string} domain
  * @property {string} host
- * @property {{ proxiedRoute: string, localRoute: string }[]} routesToProxy
+ * @property {{ proxiedRoute: string, localRoute: string, skipRedirect?: boolean }[]} routesToProxy
  */
 
 /**
@@ -22,6 +22,7 @@ const proxySettings = {
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/boundary'),
       ...buildAssetRoutesToProxy(proxyConfig.boundary.assets, '/boundary'),
+      ...getDevPortalRoutesToProxy('boundary'),
     ],
   },
   nomad: {
@@ -30,6 +31,7 @@ const proxySettings = {
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/nomad'),
       ...buildAssetRoutesToProxy(proxyConfig.nomad.assets, '/nomad'),
+      ...getDevPortalRoutesToProxy('nomad'),
     ],
   },
   packer: {
@@ -38,6 +40,7 @@ const proxySettings = {
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/packer'),
       ...buildAssetRoutesToProxy(proxyConfig.packer.assets, '/packer'),
+      ...getDevPortalRoutesToProxy('packer'),
     ],
   },
   sentinel: {
@@ -46,6 +49,7 @@ const proxySettings = {
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/sentinel'),
       ...buildAssetRoutesToProxy(proxyConfig.sentinel.assets, '/sentinel'),
+      ...getDevPortalRoutesToProxy('sentinel'),
     ],
   },
   vagrant: {
@@ -54,6 +58,7 @@ const proxySettings = {
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/vagrant'),
       ...buildAssetRoutesToProxy(proxyConfig.vagrant.assets, '/vagrant'),
+      ...getDevPortalRoutesToProxy('vagrant'),
     ],
   },
   vault: {
@@ -62,6 +67,7 @@ const proxySettings = {
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/vault'),
       ...buildAssetRoutesToProxy(proxyConfig.vault.assets, '/vault'),
+      ...getDevPortalRoutesToProxy('vault'),
     ],
   },
   waypoint: {
@@ -70,6 +76,7 @@ const proxySettings = {
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
       ...buildAssetRoutesToProxy(proxyConfig.waypoint.assets, '/waypoint'),
+      ...getDevPortalRoutesToProxy('waypoint'),
     ],
   },
   consul: {
@@ -78,10 +85,31 @@ const proxySettings = {
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/consul'),
       ...buildAssetRoutesToProxy(proxyConfig.consul.assets, '/consul'),
+      ...getDevPortalRoutesToProxy('consul'),
     ],
   },
 }
 module.exports = proxySettings
+
+/**
+ * Rewrites known dev-portal routes to the proxied product routes, even if they don't exist.
+ * This ensures that we aren't inadvertently exposing dev-portal routes through our .io sites
+ *
+ * @param {string} product
+ * @returns {{ proxiedRoute: string, localRoute: string, skipRedirect: boolean }[]}
+ */
+function getDevPortalRoutesToProxy(product) {
+  return fs
+    .readdirSync(path.join(process.cwd(), 'src', 'pages'), {
+      withFileTypes: true,
+    })
+    .filter((ent) => ent.isDirectory() && ent.name !== '_proxied-dot-io')
+    .map(({ name }) => ({
+      proxiedRoute: `/:path((?!${product})${name}.*)`,
+      localRoute: `/_proxied-dot-io/${product}/:path`,
+      skipRedirect: true,
+    }))
+}
 
 /**
  *

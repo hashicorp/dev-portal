@@ -6,5 +6,6 @@ out
 .vercel
 _temp-migrations/
 src/data/_redirects.generated.json
+src/data/_rewrites.generated.json
 test-results/
 playwright-report/

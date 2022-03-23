@@ -33,15 +33,15 @@ const devPortalToDotIoRedirects = isPreview()
       // If we're trying to test this product's redirects in dev,
       // then we'll set the domain to an empty string for absolute URLs
       const domain = slug == PROXIED_PRODUCT ? '' : proxySettings[slug].domain
-      const toDotIoRedirects = routesToProxy.map(
-        ({ proxiedRoute, localRoute }) => {
+      const toDotIoRedirects = routesToProxy
+        .filter(({ skipRedirect }) => !skipRedirect)
+        .map(({ proxiedRoute, localRoute }) => {
           return {
             source: localRoute,
             destination: domain + proxiedRoute,
             permanent: false,
           }
-        }
-      )
+        })
       return acc.concat(toDotIoRedirects)
     }, [])
 
@@ -353,9 +353,8 @@ function groupSimpleRedirects(redirects) {
 
 async function redirectsConfig() {
   const dotIoRedirects = await buildDotIoRedirects()
-  const { simpleRedirects, globRedirects } = splitRedirectsByType(
-    dotIoRedirects
-  )
+  const { simpleRedirects, globRedirects } =
+    splitRedirectsByType(dotIoRedirects)
   const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
   if (process.env.DEBUG_REDIRECTS) {
     console.log(
