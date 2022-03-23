@@ -1,7 +1,8 @@
 import { ReactElement } from 'react'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import { useCurrentProduct } from 'contexts'
+import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 
 // Author primitives
 import Badge from 'components/author-primitives/packer/badge'
@@ -49,5 +50,7 @@ const DocsView = ({ mdxSource, lazy }: DocsViewProps): ReactElement => {
     <MDXRemote {...{ compiledSource, scope, lazy }} components={components} />
   )
 }
+
+DocsView.layout = SidebarSidecarLayout
 
 export default DocsView

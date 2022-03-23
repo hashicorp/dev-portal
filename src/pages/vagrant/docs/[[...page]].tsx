@@ -1,7 +1,5 @@
-import { ReactElement } from 'react'
 import vagrantData from 'data/vagrant.json'
 import { Product } from 'types/products'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DocsView from 'views/docs-view'
 // imports below are used on server
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
@@ -11,11 +9,6 @@ import { makeFetchWithRetry } from 'lib/fetch-with-retry'
 const basePath = 'docs'
 const baseName = 'Docs'
 const product = vagrantData as Product
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const VagrantDocsPage = ({ mdxSource }): ReactElement => {
-  return <DocsView mdxSource={mdxSource} />
-}
 
 // Note that we require VMWARE_UTILITY_VERSION to be in { scope } for the MDX
 // on the  /vagrant/docs/providers/vmware/vagrant-vmware-utility page.
@@ -57,7 +50,5 @@ async function getLatestVagrantVmwareVersion(): Promise<string> {
     })
 }
 
-VagrantDocsPage.layout = SidebarSidecarLayout
-
 export { getStaticPaths, getStaticProps }
-export default VagrantDocsPage
+export default DocsView
