@@ -91,7 +91,6 @@ module.exports = withSwingset({
     async headers() {
       return [temporary_hideDocsPaths]
     },
-    // TODO: was commented out on `assembly-ui-v1`
     async redirects() {
       const { simpleRedirects, globRedirects } = await redirectsConfig()
       await fs.promises.writeFile(
@@ -101,9 +100,18 @@ module.exports = withSwingset({
       )
       return globRedirects
     },
-    // TODO: was commented out on `assembly-ui-v1`
     async rewrites() {
-      return await rewritesConfig()
+      const rewrites = await rewritesConfig()
+
+      if (process.env.DEBUG_REWRITES) {
+        await fs.promises.writeFile(
+          path.join('src', 'data', '_rewrites.generated.json'),
+          JSON.stringify(rewrites, null, 2),
+          'utf-8'
+        )
+      }
+
+      return rewrites
     },
     env: {
       AXE_ENABLED: process.env.AXE_ENABLED || false,
