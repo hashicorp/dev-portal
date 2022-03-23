@@ -4,5 +4,12 @@ module.exports = {
   rules: {
     curly: 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/typedef': [
+      'warn',
+      {
+        arrowParameter: true,
+        parameter: true,
+      },
+    ],
   },
 }
