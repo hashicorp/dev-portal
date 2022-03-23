@@ -38,7 +38,7 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
           hasVideo={hasVideo}
           isInteractive={isInteractive}
         />
-        <InteractiveLabButton showButton={isInteractive} />
+        <InteractiveLabButton />
       </div>
     </header>
   )
