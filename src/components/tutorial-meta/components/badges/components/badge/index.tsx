@@ -4,14 +4,20 @@ import ProductIcon from 'components/product-icon'
 import { BadgeOptions } from '../..'
 import s from './badge.module.css'
 
-export interface BadgeComponentProps {
-  type?: keyof BadgeOptions
+/**
+ * Badge wrapper provides basic badge styles and markup
+ */
+interface BadgeWrapperProps {
+  children: React.ReactNode
   className?: string
-  children?: React.ReactNode
+}
+
+function BadgeWrapper({ children, className }: BadgeWrapperProps) {
+  return <li className={classNames(s.badgeItem, className)}>{children}</li>
 }
 
 /**
- * This function takes a map of display options
+ * `getBadgeComponent` takes a map of display options
  * and returns a default badge component that renders a label
  * and optional icon depending on the option type
  *
@@ -22,48 +28,42 @@ export interface BadgeComponentProps {
  * library views
  */
 
+export interface BadgeComponentProps {
+  type: keyof BadgeOptions
+  className?: string
+}
+
 export function getBadgeComponent(displayOptions) {
   function DefaultBadgeComponent({
     type,
-    children,
     className,
   }: BadgeComponentProps): React.ReactElement {
-    if (children) {
-      return <li className={classNames(s.badgeItem, className)}>{children}</li>
-    }
-
     const badge = displayOptions[type]
     if (!badge) {
       return null
     }
 
     return (
-      <li className={classNames(s.badgeItem, className)}>
+      <BadgeWrapper className={className}>
         {badge.icon ? <badge.icon className={s.icon} /> : null}
         {badge.label}
-      </li>
+      </BadgeWrapper>
     )
   }
 
   return DefaultBadgeComponent
 }
 
+// Product badges need a custom badge variant with the `ProductIcon` component
 export type ProductDisplayOption = { label: string; slug: ProductOption }
-
-// This is a badge variant using `ProductIcon` component for the product badges
-export function ProductBadge({ product }: { product: ProductDisplayOption }) {
-  return (
-    <li className={s.badgeItem}>
-      <ProductIcon product={product.slug} className={s.icon} />
-      {product.label}
-    </li>
-  )
-}
 
 export function renderProductBadges(
   productDisplayOptions: ProductDisplayOption[]
 ) {
-  return productDisplayOptions.map((p) => (
-    <ProductBadge key={p.label} product={p} />
+  return productDisplayOptions.map((p: ProductDisplayOption) => (
+    <BadgeWrapper key={p.slug}>
+      <ProductIcon product={p.slug} className={s.icon} />
+      {p.label}
+    </BadgeWrapper>
   ))
 }
