@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import Content from '@hashicorp/react-content'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import useCurrentPath from 'hooks/use-current-path'
@@ -8,6 +9,7 @@ import {
 import SidebarSidecarLayout, {
   SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
+import InstruqtProvider from 'contexts/instruqt-lab'
 import Heading from 'components/heading'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem } from './utils'
@@ -17,6 +19,7 @@ import {
   CollectionCardProps,
   Badges,
   getIsBeta,
+  InteractiveLabToggle,
 } from './components'
 
 export interface TutorialViewProps {
@@ -74,48 +77,60 @@ export default function TutorialView({
     video,
     collectionCtx,
   } = tutorial
+  const isInteractive = Boolean(handsOnLab)
+  const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
+
   return (
-    <SidebarSidecarLayout
-      breadcrumbLinks={layout.breadcrumbLinks}
-      sidebarSlot={
-        <Sidebar
-          title={collectionCtx.current.shortName}
-          menuItems={collectionCtx.current.tutorials.map((t) =>
-            formatTutorialToMenuItem(t, collectionCtx.current.slug, currentPath)
-          )}
-        />
-      }
-      headings={layout.headings}
+    <InteractiveLabWrapper
+      key={slug}
+      {...(isInteractive && { labId: handsOnLab.id })}
     >
-      <header id="overview">
-        <Heading
-          level={1}
-          size={500}
-          weight="bold"
-          slug={layout.headings[0].slug}
-          id={slug}
-        >
-          {name}
-        </Heading>
-        <Badges
-          tutorialMeta={{
-            readTime,
-            products: productsUsed.map((p) => p.product.slug),
-            isBeta: getIsBeta(productsUsed),
-            edition,
-            hasVideo: Boolean(video),
-            isInteractive: Boolean(handsOnLab),
-          }}
+      <SidebarSidecarLayout
+        breadcrumbLinks={layout.breadcrumbLinks}
+        sidebarSlot={
+          <Sidebar
+            title={collectionCtx.current.shortName}
+            menuItems={collectionCtx.current.tutorials.map((t) =>
+              formatTutorialToMenuItem(
+                t,
+                collectionCtx.current.slug,
+                currentPath
+              )
+            )}
+          />
+        }
+        headings={layout.headings}
+      >
+        <header id="overview">
+          <Heading
+            level={1}
+            size={500}
+            weight="bold"
+            slug={layout.headings[0].slug}
+            id={slug}
+          >
+            {name}
+          </Heading>
+          <Badges
+            tutorialMeta={{
+              readTime,
+              products: productsUsed.map((p) => p.product.slug),
+              isBeta: getIsBeta(productsUsed),
+              edition,
+              hasVideo: Boolean(video),
+              isInteractive,
+            }}
+          />
+          {isInteractive ? <InteractiveLabToggle /> : null}
+        </header>
+        <Content
+          content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
         />
-        {handsOnLab?.id ? <button>Show Terminal</button> : null}
-      </header>
-      <Content
-        content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
-      />
-      <div>
-        <h2>Next / Prev component</h2>
-      </div>
-      <FeaturedInCollections collections={collectionCtx.featuredIn} />
-    </SidebarSidecarLayout>
+        <div>
+          <h2>Next / Prev component</h2>
+        </div>
+        <FeaturedInCollections collections={collectionCtx.featuredIn} />
+      </SidebarSidecarLayout>
+    </InteractiveLabWrapper>
   )
 }

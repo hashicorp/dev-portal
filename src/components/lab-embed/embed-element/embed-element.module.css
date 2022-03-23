@@ -1,0 +1,11 @@
+.baseEmbedElement {
+  width: 100%;
+  height: 100%;
+  & > iframe {
+    padding-top: 20px;
+  }
+}
+
+.hide {
+  display: none;
+}
