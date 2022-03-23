@@ -28,15 +28,17 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
       </Heading>
       <div className={s.meta}>
         <Badges
-          readTime={readTime}
-          isBeta={getIsBeta(productsUsed)}
-          products={productsUsed.map((p) => ({
-            name: p.product.name,
-            slug: p.product.slug,
-          }))}
-          edition={edition}
-          hasVideo={hasVideo}
-          isInteractive={isInteractive}
+          options={{
+            readTime,
+            isBeta: getIsBeta(productsUsed),
+            products: productsUsed.map((p) => ({
+              name: p.product.name,
+              slug: p.product.slug,
+            })),
+            edition,
+            hasVideo,
+            isInteractive,
+          }}
         />
         <InteractiveLabButton />
       </div>

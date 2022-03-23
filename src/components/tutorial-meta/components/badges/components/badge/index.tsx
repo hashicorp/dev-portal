@@ -1,12 +1,11 @@
-import { Fragment } from 'react'
 import classNames from 'classnames'
 import { ProductOption } from 'lib/learn-client/types'
 import ProductIcon from 'components/product-icon'
-import { BadgesProps } from '../..'
+import { BadgeOptions } from '../..'
 import s from './badge.module.css'
 
 export interface BadgeComponentProps {
-  type?: keyof BadgesProps
+  type?: keyof BadgeOptions
   className?: string
   children?: React.ReactNode
 }

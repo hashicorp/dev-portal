@@ -10,25 +10,10 @@ import {
   ProductDisplayOption,
   BadgeComponentProps,
 } from './components/badge'
-import { BadgesProps } from '.'
-
-export function getIsBeta(productsUsed: ClientProductUsed[]): boolean {
-  let isBeta = false
-
-  for (let i; i < productsUsed.length; i++) {
-    if (productsUsed[i].isBeta) {
-      isBeta = true
-      break
-    }
-  }
-
-  return isBeta
-}
-
-type BadgeOptions = keyof BadgesProps
+import { BadgeOptions } from '.'
 
 type DisplayOptions = {
-  [K in BadgeOptions]: DisplayOption | ProductDisplayOption[]
+  [K in keyof BadgeOptions]: DisplayOption | ProductDisplayOption[]
 }
 
 type DisplayOption = {
@@ -69,4 +54,18 @@ export function generateBadges(
   const Badge = getBadgeComponent(displayOptions)
 
   return [displayOptions, Badge]
+}
+
+// calculates whether a tutorial is 'beta' based on productsUsed data
+export function getIsBeta(productsUsed: ClientProductUsed[]): boolean {
+  let isBeta = false
+
+  for (let i; i < productsUsed.length; i++) {
+    if (productsUsed[i].isBeta) {
+      isBeta = true
+      break
+    }
+  }
+
+  return isBeta
 }

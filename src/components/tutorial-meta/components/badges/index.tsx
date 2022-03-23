@@ -4,7 +4,10 @@ import { renderProductBadges, ProductDisplayOption } from './components/badge'
 import { generateBadges } from './helpers'
 import s from './badges.module.css'
 
-export interface BadgesProps
+export interface BadgesProps {
+  options: BadgeOptions
+}
+export interface BadgeOptions
   extends Pick<TutorialData, 'readTime' | 'edition'> {
   products: Pick<ClientProduct, 'name' | 'slug'>[]
   isBeta: boolean
@@ -12,8 +15,9 @@ export interface BadgesProps
   isInteractive: boolean
 }
 
-export function Badges(props: BadgesProps): React.ReactElement {
-  const { readTime, products, edition, isBeta, hasVideo, isInteractive } = props
+export function Badges({ options }: BadgesProps): React.ReactElement {
+  const { readTime, products, edition, isBeta, hasVideo, isInteractive } =
+    options
   const [badgeDisplayOptions, Badge] = generateBadges(
     readTime,
     products,
