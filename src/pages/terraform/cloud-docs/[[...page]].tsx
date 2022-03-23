@@ -10,7 +10,6 @@ const baseName = 'Cloud Docs'
 const product = terraformData as Product
 const productSlugForLoader = 'terraform-website'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const TerraformCloudDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} />
 }

@@ -11,7 +11,6 @@ const basePathForLoader = 'sentinel/intro'
 const baseName = 'Intro'
 const product = sentinelData as Product
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const SentinelIntroPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} />
 }

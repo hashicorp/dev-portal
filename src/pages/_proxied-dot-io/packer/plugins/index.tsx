@@ -18,7 +18,6 @@ const additionalComponents = { PluginBadge }
 // path relative to the `website` directory of the Packer GitHub repo
 const remotePluginsFile = 'data/plugins-manifest.json'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function DocsView(props) {
   return (
     <DocsPage

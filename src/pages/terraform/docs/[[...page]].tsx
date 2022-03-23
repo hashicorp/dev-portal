@@ -13,7 +13,6 @@ const productSlugForLoader = 'terraform-website'
 
 const additionalComponents = { ProviderTable }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const TerraformDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }

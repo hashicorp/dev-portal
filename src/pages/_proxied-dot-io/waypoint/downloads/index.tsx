@@ -6,7 +6,6 @@ import {
 } from 'lib/fetch-release-data'
 import styles from './style.module.css'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function WaypointDownloadsPage({
   latestVersion,
   releases,
@@ -19,13 +18,11 @@ function WaypointDownloadsPage({
   const getStartedLinks = [
     {
       label: 'Deploy to Docker',
-      href:
-        'https://learn.hashicorp.com/collections/waypoint/get-started-docker',
+      href: 'https://learn.hashicorp.com/collections/waypoint/get-started-docker',
     },
     {
       label: 'Deploy to Kubernetes',
-      href:
-        'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
+      href: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
     },
     {
       label: 'Deploy to AWS',
@@ -61,7 +58,6 @@ function WaypointDownloadsPage({
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getStaticProps = () => generateStaticProps('waypoint')
 
 WaypointDownloadsPage.layout = WaypointIoLayout

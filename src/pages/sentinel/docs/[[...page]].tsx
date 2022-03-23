@@ -14,7 +14,6 @@ const baseName = 'Docs'
 const product = sentinelData as Product
 const additionalComponents = { SentinelEmbedded }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const SentinelDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }

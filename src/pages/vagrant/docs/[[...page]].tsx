@@ -14,7 +14,6 @@ const baseName = 'Docs'
 const product = vagrantData as Product
 const additionalComponents = { Button }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const VagrantDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }
@@ -23,17 +22,15 @@ const VagrantDocsPage = ({ mdxSource }): ReactElement => {
 // on the  /vagrant/docs/providers/vmware/vagrant-vmware-utility page.
 // We fetch VMWARE_UTILITY_VERSION from the releases.hashicorp.com API.
 type MdxScope = { VMWARE_UTILITY_VERSION: string }
-const {
-  getStaticPaths,
-  getStaticProps,
-} = getStaticGenerationFunctions<MdxScope>({
-  product,
-  basePath,
-  baseName,
-  getScope: async () => ({
-    VMWARE_UTILITY_VERSION: await getLatestVagrantVmwareVersion(),
-  }),
-})
+const { getStaticPaths, getStaticProps } =
+  getStaticGenerationFunctions<MdxScope>({
+    product,
+    basePath,
+    baseName,
+    getScope: async () => ({
+      VMWARE_UTILITY_VERSION: await getLatestVagrantVmwareVersion(),
+    }),
+  })
 
 /**
  * As noted in src/lib/fetch-release-data, we want to use fetch-with-retry
