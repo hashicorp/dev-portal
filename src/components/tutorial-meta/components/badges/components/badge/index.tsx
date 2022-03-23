@@ -11,11 +11,15 @@ export interface BadgeComponentProps {
 }
 
 /**
- * The badge component depends on a map of display options
- * and renders a label and optional icon depending on the option type
+ * This function takes a map of display options
+ * and returns a default badge component that renders a label
+ * and optional icon depending on the option type
  *
  * This component also accepts children so it can render a composition that doesn't
- * abide directly by the display options
+ * abide directly by the default badge display options
+ *
+ * _Note_: eventually these badges may also serve as links to filtered
+ * library views
  */
 
 export function getBadgeComponent(displayOptions) {
@@ -46,6 +50,7 @@ export function getBadgeComponent(displayOptions) {
 
 export type ProductDisplayOption = { label: string; slug: ProductOption }
 
+// This is a badge variant using `ProductIcon` component for the product badges
 export function ProductBadge({ product }: { product: ProductDisplayOption }) {
   return (
     <li className={s.badgeItem}>

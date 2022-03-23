@@ -1,6 +1,7 @@
 ul.list {
   --badge-spacing: 8px;
 
+  /** --spacing tokens live in tutorial-meta-module.css */
   margin-bottom: calc(var(--spacing-lrg) - var(--badge-spacing));
   padding-left: 0;
   display: flex;

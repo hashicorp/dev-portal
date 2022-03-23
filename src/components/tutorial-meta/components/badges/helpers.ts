@@ -47,13 +47,13 @@ export function generateBadges(
     products: products.map((p) => ({
       label: p.name,
       slug: p.slug,
-    })) as ProductDisplayOption[],
+    })) as ProductDisplayOption[], // There can be many products associated with a single tutorial
     hasVideo: { label: 'Video', icon: IconPlay16 },
     isInteractive: { label: 'Interactive', icon: IconTerminalScreen16 },
   }
-  const Badge = getBadgeComponent(displayOptions)
+  const DefaultBadgeComponent = getBadgeComponent(displayOptions)
 
-  return [displayOptions, Badge]
+  return [displayOptions, DefaultBadgeComponent]
 }
 
 // calculates whether a tutorial is 'beta' based on productsUsed data
