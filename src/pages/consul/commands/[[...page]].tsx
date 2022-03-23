@@ -12,7 +12,7 @@ const product = consulData as Product
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const ConsulCommandsPage = ({ mdxSource }): ReactElement => {
-  return <DocsView {...mdxSource} />
+  return <DocsView mdxSource={mdxSource} />
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({

@@ -13,7 +13,12 @@ const additionalComponents = { Placement }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const NomadDocsPage = ({ mdxSource }): ReactElement => {
-  return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
+  return (
+    <DocsView
+      mdxSource={mdxSource}
+      additionalComponents={additionalComponents}
+    />
+  )
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({

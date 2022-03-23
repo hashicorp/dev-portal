@@ -10,7 +10,7 @@ const product = packerData as Product
 const mainBranch = 'master'
 
 const PackerGuidesPage = ({ mdxSource }): React.ReactElement => {
-  return <DocsView {...mdxSource} />
+  return <DocsView mdxSource={mdxSource} />
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({

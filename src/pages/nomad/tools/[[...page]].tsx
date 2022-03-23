@@ -11,7 +11,7 @@ const product = nomadData as Product
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const NomadToolsDocsPage = ({ mdxSource }): ReactElement => {
-  return <DocsView {...mdxSource} />
+  return <DocsView mdxSource={mdxSource} />
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
