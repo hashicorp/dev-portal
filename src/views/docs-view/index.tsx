@@ -67,8 +67,14 @@ const DocsView = ({ mdxSource, lazy }: DocsViewProps): ReactElement => {
   const additionalComponents =
     productsToAdditionalComponents[currentProduct.slug] || {}
   const components = defaultMdxComponents({ additionalComponents })
+
   return (
-    <MDXRemote {...{ compiledSource, scope, lazy }} components={components} />
+    <MDXRemote
+      compiledSource={compiledSource}
+      components={components}
+      lazy={lazy}
+      scope={scope}
+    />
   )
 }
 
