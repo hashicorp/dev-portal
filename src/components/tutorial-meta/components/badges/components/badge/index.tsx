@@ -34,11 +34,9 @@ export function getBadgeComponent(displayOptions) {
       return null
     }
 
-    const Icon = badge.icon ? badge.icon : Fragment
-
     return (
       <li className={classNames(s.badgeItem, className)}>
-        <Icon className={s.icon} />
+        {badge.icon ? <badge.icon className={s.icon} /> : null}
         {badge.label}
       </li>
     )
