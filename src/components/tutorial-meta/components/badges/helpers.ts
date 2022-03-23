@@ -1,9 +1,4 @@
-import React, {
-  ForwardRefExoticComponent,
-  RefAttributes,
-  ReactElement,
-  JSXElementConstructor,
-} from 'react'
+import React, { ForwardRefExoticComponent, RefAttributes } from 'react'
 import { IconProps } from '@hashicorp/flight-icons/svg-react/types'
 import { IconClock16 } from '@hashicorp/flight-icons/svg-react/clock-16'
 import { IconPlay16 } from '@hashicorp/flight-icons/svg-react/play-16'
