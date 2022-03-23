@@ -10,7 +10,6 @@ const basePath = 'api-docs'
 const baseName = 'API'
 const product = vaultData as Product
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const VaultApiDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} />
 }

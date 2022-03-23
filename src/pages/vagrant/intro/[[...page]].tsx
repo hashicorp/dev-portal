@@ -9,7 +9,6 @@ const basePath = 'intro'
 const baseName = 'Intro'
 const product = vagrantData as Product
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const VagrantIntroPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} />
 }

@@ -16,7 +16,6 @@ const additionalComponents = {
   Tag: InlineTag,
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const VaultDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }

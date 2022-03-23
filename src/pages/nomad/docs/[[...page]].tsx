@@ -11,7 +11,6 @@ const baseName = 'Docs'
 const product = nomadData as Product
 const additionalComponents = { Placement }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const NomadDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }

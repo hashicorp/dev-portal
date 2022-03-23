@@ -9,7 +9,6 @@ const basePath = 'vagrant-cloud'
 const baseName = 'Vagrant Cloud'
 const product = vagrantData as Product
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const VagrantCloudPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} />
 }

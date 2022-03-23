@@ -9,7 +9,6 @@ const basePath = 'plugins'
 const baseName = 'Plugins'
 const product = nomadData as Product
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const NomadPluginsDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} />
 }

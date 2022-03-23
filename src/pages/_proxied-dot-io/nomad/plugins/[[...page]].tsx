@@ -14,7 +14,6 @@ const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 const additionalComponents = { Placement }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function DocsView(props) {
   return (
     <DocsPage

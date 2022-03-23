@@ -72,11 +72,8 @@ export function getStaticGenerationFunctions<
         scope: await getScope(),
       })
 
-      const {
-        navData,
-        mdxSource,
-        githubFileUrl,
-      } = await loader.loadStaticProps(ctx)
+      const { navData, mdxSource, githubFileUrl } =
+        await loader.loadStaticProps(ctx)
 
       /**
        * NOTE: we've encountered empty headings on at least one page:

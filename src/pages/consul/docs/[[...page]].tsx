@@ -12,7 +12,6 @@ const baseName = 'Docs'
 const product = consulData as Product
 const additionalComponents = { ConfigEntryReference }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const ConsulDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} additionalComponents={additionalComponents} />
 }

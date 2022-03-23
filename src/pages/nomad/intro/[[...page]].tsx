@@ -9,7 +9,6 @@ const basePath = 'intro'
 const baseName = 'Intro'
 const product = nomadData as Product
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const NomadIntroDocsPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} />
 }

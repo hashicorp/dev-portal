@@ -10,7 +10,6 @@ const baseName = 'CDKTF'
 const product = terraformData as Product
 const productSlugForLoader = 'terraform-cdk'
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const TerraformCdktfPage = ({ mdxSource }): ReactElement => {
   return <DocsView {...mdxSource} />
 }
