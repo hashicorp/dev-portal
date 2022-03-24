@@ -1,12 +1,16 @@
 import { test, expect } from '@playwright/test'
 
 // This test is primarily to ensure that known dev-portal routes aren't exposed via io sites
-test('should rewrite known dev-portal routes', async ({ page, context }) => {
+test('should rewrite known dev-portal routes', async ({
+  page,
+  context,
+  baseURL,
+}) => {
   await context.addCookies([
     {
       name: 'io_preview',
       value: 'waypoint',
-      url: 'http://localhost:3000',
+      url: baseURL,
     },
   ])
   const response = await page.goto('/vault')
