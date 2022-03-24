@@ -19,14 +19,27 @@ const Button = ({
   const className = classNames(s.root, s[size], s[color], {
     [s.fullWidth]: isFullWidth,
   })
-  const hasLeadingIcon = icon && iconPosition === 'leading'
-  const hasTrailingIcon = icon && iconPosition === 'trailing'
+  const hasIcon = !!icon
+  const hasLeadingIcon = hasIcon && iconPosition === 'leading'
+  const hasTrailingIcon = hasIcon && iconPosition === 'trailing'
   const hasText = !!text
   const hasLabel = !!ariaLabel || !!ariaLabelledBy || !!ariaDescribedBy
 
-  if (!hasText && !hasLabel) {
+  if (!hasIcon && !hasText) {
     throw new Error(
-      'Icon-only `Button`s require an accessible label. Either provide the `text` prop or one of: `ariaLabel`, `ariaLabelledBy`, `ariaDescribedBy`'
+      '`Button` must have either `text` or an `icon` with accessible labels.'
+    )
+  }
+
+  if (hasIcon && !hasLabel) {
+    throw new Error(
+      'Icon-only `Button`s require an accessible label. Either provide the `text` prop or one of: `ariaLabel`, `ariaLabelledBy`, `ariaDescribedBy`.'
+    )
+  }
+
+  if (ariaLabel && ariaLabelledBy) {
+    throw new Error(
+      '`Button` does not accept both `ariaLabel` and `ariaLabelledBy`. Only provide one or the other.'
     )
   }
 
