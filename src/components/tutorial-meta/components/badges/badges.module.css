@@ -8,7 +8,7 @@ ul.list {
   flex-wrap: wrap;
   list-style: none;
 
-  @media (--medium-up) {
+  @media (--dev-dot-tablet-up) {
     margin-bottom: calc(var(--spacing-xl) - var(--badge-spacing));
   }
 

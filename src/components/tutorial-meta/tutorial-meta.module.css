@@ -8,19 +8,26 @@
 .heading {
   margin-bottom: var(--spacing-med);
 
-  @media (--medium-up) {
+  @media (--dev-dot-tablet-up) {
     margin-bottom: var(--spacing-sml);
   }
 
-  @media (--large) {
+  @media (--dev-dot-desktop) {
     margin-bottom: var(--spacing-lrg);
   }
 }
 
 .meta {
   margin-bottom: var(--spacing-lrg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  @media (--medium-up) {
+  @media (--dev-dot-tablet-up) {
     margin-bottom: var(--spacing-xl);
+  }
+
+  @media (--dev-dot-desktop) {
+    display: block;
   }
 }
