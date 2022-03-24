@@ -7,12 +7,15 @@ const Button = ({
   disabled,
   icon,
   iconPosition = 'leading',
+  isFullWidth,
   onClick,
   size = 'medium',
   text,
   type = 'button',
 }: ButtonProps) => {
-  const className = classNames(s.root, s[size], s[color])
+  const className = classNames(s.root, s[size], s[color], {
+    [s.fullWidth]: isFullWidth,
+  })
   const hasLeadingIcon = icon && iconPosition === 'leading'
   const hasTrailingIcon = icon && iconPosition === 'trailing'
 

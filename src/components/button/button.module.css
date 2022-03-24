@@ -12,9 +12,10 @@
   border-width: var(--border-width);
   display: flex;
   font-size: var(--font-size);
+  justify-content: center;
   line-height: var(--line-height);
-  position: relative;
   padding: var(--padding-top-bottom) var(--padding-left-right);
+  position: relative;
 
   &::before {
     border-radius: 8px;
@@ -53,6 +54,10 @@
   & svg:last-child {
     margin-left: 8px;
   }
+}
+
+.fullWidth {
+  width: 100%;
 }
 
 /*

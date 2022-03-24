@@ -9,6 +9,7 @@ export type ButtonProps = Pick<
   color?: 'primary' | 'secondary' | 'tertiary' | 'critical'
   icon?: ReactElement
   iconPosition?: 'leading' | 'trailing'
+  isFullWidth?: boolean
   size?: 'small' | 'medium' | 'large'
   text: string
 }
