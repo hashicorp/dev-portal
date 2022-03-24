@@ -3,9 +3,9 @@ import s from './home/style.module.css'
 import Button from '@hashicorp/react-button'
 import TextSplit from 'components/_proxied-dot-io/vagrant/temporary_text-split'
 import CodeBlock from '@hashicorp/react-code-block'
-import config from 'data/vagrant.json'
+import { generateStaticProps } from 'lib/fetch-release-data'
 
-function HomePage() {
+function HomePage({ latestVersion }) {
   return (
     <div>
       <section className={s.hero}>
@@ -17,7 +17,7 @@ function HomePage() {
           <div className={s.buttons}>
             <Button title="Get Started" url="/intro/index" />
             <Button
-              title={`Download ${config.version}`}
+              title={`Download ${latestVersion}`}
               theme={{ variant: 'secondary' }}
               url="/downloads"
             />
@@ -36,8 +36,7 @@ function HomePage() {
             text={{
               tag: 'Unified Workflow',
               headline: 'Simple and Powerful',
-              text:
-                'HashiCorp Vagrant provides the same, easy workflow regardless of your role as a developer, operator, or designer. It leverages a declarative configuration file which describes all your software requirements, packages, operating system configuration, users, and more.',
+              text: 'HashiCorp Vagrant provides the same, easy workflow regardless of your role as a developer, operator, or designer. It leverages a declarative configuration file which describes all your software requirements, packages, operating system configuration, users, and more.',
             }}
           >
             <CodeBlock
@@ -63,8 +62,7 @@ $ vagrant ssh
             text={{
               tag: 'Enforce Consistency',
               headline: 'Production Parity',
-              text:
-                'The cost of fixing a bug exponentially increases the closer it gets to production. Vagrant aims to mirror production environments by providing the same operating system, packages, users, and configurations, all while giving users the flexibility to use their favorite editor, IDE, and browser. Vagrant also integrates with your existing configuration management tooling like Ansible, Chef, Docker, Puppet or Salt, so you can use the same scripts to configure Vagrant as production.',
+              text: 'The cost of fixing a bug exponentially increases the closer it gets to production. Vagrant aims to mirror production environments by providing the same operating system, packages, users, and configurations, all while giving users the flexibility to use their favorite editor, IDE, and browser. Vagrant also integrates with your existing configuration management tooling like Ansible, Chef, Docker, Puppet or Salt, so you can use the same scripts to configure Vagrant as production.',
             }}
             reverse={true}
           >
@@ -82,8 +80,7 @@ $ vagrant ssh
             text={{
               tag: 'Cross-Platform',
               headline: 'Works where you work',
-              text:
-                "Vagrant works on Mac, Linux, Windows, and more. Remote development environments force users to give up their favorite editors and programs. Vagrant works on your local system with the tools you're already familiar with. Easily code in your favorite text editor, edit images in your favorite manipulation program, and debug using your favorite tools, all from the comfort of your local laptop.",
+              text: "Vagrant works on Mac, Linux, Windows, and more. Remote development environments force users to give up their favorite editors and programs. Vagrant works on your local system with the tools you're already familiar with. Easily code in your favorite text editor, edit images in your favorite manipulation program, and debug using your favorite tools, all from the comfort of your local laptop.",
             }}
           >
             {['apple', 'linux', 'windows'].map((platform) => (
@@ -120,3 +117,13 @@ $ vagrant ssh
 
 HomePage.layout = VagrantIoLayout
 export default HomePage
+
+export const getStaticProps = async () => {
+  const result = await generateStaticProps('vagrant')
+
+  return {
+    props: {
+      latestVersion: result.props.latestVersion,
+    },
+  }
+}
