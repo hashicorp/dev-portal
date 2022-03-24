@@ -3,6 +3,9 @@ import s from './button.module.css'
 import classNames from 'classnames'
 
 const Button = ({
+  ariaLabel,
+  ariaLabelledBy,
+  ariaDescribedBy,
   color = 'primary',
   disabled,
   icon,
@@ -18,16 +21,27 @@ const Button = ({
   })
   const hasLeadingIcon = icon && iconPosition === 'leading'
   const hasTrailingIcon = icon && iconPosition === 'trailing'
+  const hasText = !!text
+  const hasLabel = !!ariaLabel || !!ariaLabelledBy || !!ariaDescribedBy
+
+  if (!hasText && !hasLabel) {
+    throw new Error(
+      'Icon-only `Button`s require an accessible label. Either provide the `text` prop or one of: `ariaLabel`, `ariaLabelledBy`, `ariaDescribedBy`'
+    )
+  }
 
   return (
     <button
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+      aria-describedby={ariaDescribedBy}
       className={className}
       disabled={disabled}
       onClick={onClick}
       type={type}
     >
       {hasLeadingIcon && icon}
-      {text && <span className={s.text}>{text}</span>}
+      {hasText && <span className={s.text}>{text}</span>}
       {hasTrailingIcon && icon}
     </button>
   )

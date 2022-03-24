@@ -97,18 +97,26 @@ componentName: Button
 
 <LiveComponent>{`
 <>
+  <p>With <code>ariaLabel</code>, a screen reader should say "Copy, button" in this example.</p>
   <Button
-    icon={<SwingsetTestIcon name="plus" />}
+    ariaLabel="Copy"
+    icon={<SwingsetTestIcon name="copy" />}
     size="small"
   />
   <br />
+  <p>With <code>ariaLabelledBy</code>, a screen reader should say "Add, button" in this example.</p>
+  <p ariaHidden id="button-label" style={{ display: 'none', visibility: 'hidden'}}>Add</p>
   <Button
+    ariaLabelledBy="button-label"
     icon={<SwingsetTestIcon name="plus" />}
     size="medium"
   />
   <br />
+  <p>With <code>ariaDescribedBy</code>, a screen reader should say "Next, button" in this example.</p>
+  <p ariaHidden id="button-description" style={{ display: 'none', visibility: 'hidden'}}>Next</p>
   <Button
-    icon={<SwingsetTestIcon name="plus" size={24} />}
+    ariaDescribedBy="button-description"
+    icon={<SwingsetTestIcon name="arrow-right" size={24} />}
     size="large"
   />
   <br />
