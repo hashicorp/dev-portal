@@ -7,10 +7,7 @@ function SecurityPage({ productName, githubUrl }) {
     vulnerabilities found and we'll handle it quickly.`
   return (
     <>
-      <HashiHead title={title} description={description}>
-        <meta name="og:title" property="og:title" content={title} />
-        <meta name="og:description" property="og:title" content={description} />
-      </HashiHead>
+      <HashiHead title={title} pageName={title} description={description} />
       <LongformPage title="Security" className="security" alert="">
         <p>
           We understand that many users place a high level of trust in HashiCorp
