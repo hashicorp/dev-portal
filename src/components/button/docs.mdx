@@ -16,3 +16,65 @@ componentName: Button
   text="Click me!"
 />
 `}</LiveComponent>
+
+## Icon
+
+<LiveComponent>{`
+<>
+  <Button
+    icon={<SwingsetTestIcon name="plus" />}
+    iconPosition="leading"
+    size="small"
+    text="Small"
+  />
+  <Button
+    icon={<SwingsetTestIcon name="plus" />}
+    iconPosition="trailing"
+    size="small"
+    text="Small"
+  />
+  <Button
+    icon={<SwingsetTestIcon name="plus" />}
+    iconPosition="leading"
+    size="medium"
+    text="Medium"
+  />
+  <Button
+    icon={<SwingsetTestIcon name="plus" />}
+    iconPosition="trailing"
+    size="medium"
+    text="Medium"
+  />
+  <Button
+    icon={<SwingsetTestIcon name="plus" size={24} />}
+    iconPosition="leading"
+    size="large"
+    text="Large"
+  />
+  <Button
+    icon={<SwingsetTestIcon name="plus" size={24} />}
+    iconPosition="trailing"
+    size="large"
+    text="Large"
+  />
+</>
+`}</LiveComponent>
+
+## Size
+
+<LiveComponent>{`
+<>
+  <Button
+    size="small"
+    text="Small"
+  />
+  <Button
+    size="medium"
+    text="Medium"
+  />
+  <Button
+    size="large"
+    text="Large"
+  />
+</>
+`}</LiveComponent>

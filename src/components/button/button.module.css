@@ -1,3 +1,42 @@
 .root {
-  padding: 8px;
+  composes: hds-font-weight-medium from global;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid black;
+  display: flex;
+
+  & svg:first-child {
+    margin-right: 8px;
+  }
+
+  & svg:last-child {
+    margin-left: 8px;
+  }
+}
+
+.small {
+  padding: 6px 12px;
+
+  & .text {
+    font-size: 0.8125rem;
+    line-height: 1;
+  }
+}
+
+.medium {
+  padding: 10px 16px;
+
+  & .text {
+    font-size: 0.875rem;
+    line-height: 1rem;
+  }
+}
+
+.large {
+  padding: 12px 20px;
+
+  & .text {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 }
