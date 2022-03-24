@@ -1,6 +1,8 @@
 import { ReactElement } from 'react'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
+import { IconClipboardCopy16 } from '@hashicorp/flight-icons/svg-react/clipboard-copy-16'
+import { IconClipboardCopy24 } from '@hashicorp/flight-icons/svg-react/clipboard-copy-24'
 import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
 import { IconPlus24 } from '@hashicorp/flight-icons/svg-react/plus-24'
 import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
@@ -10,6 +12,10 @@ const ICON_MAP = {
   'arrow-right': {
     16: <IconArrowRight16 />,
     24: <IconArrowRight24 />,
+  },
+  copy: {
+    16: <IconClipboardCopy16 />,
+    24: <IconClipboardCopy24 />,
   },
   github: {
     16: <IconGithub16 />,
