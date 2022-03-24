@@ -3,6 +3,7 @@ import s from './button.module.css'
 import classNames from 'classnames'
 
 const Button = ({
+  color = 'primary',
   icon,
   iconPosition = 'leading',
   onClick,
@@ -10,7 +11,7 @@ const Button = ({
   text,
   type = 'button',
 }: ButtonProps) => {
-  const className = classNames(s.root, s[size])
+  const className = classNames(s.root, s[size], s[color])
   const hasLeadingIcon = icon && iconPosition === 'leading'
   const hasTrailingIcon = icon && iconPosition === 'trailing'
 

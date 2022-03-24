@@ -17,6 +17,20 @@ componentName: Button
 />
 `}</LiveComponent>
 
+## Color
+
+<LiveComponent>{`
+<>
+  <Button color="primary" text="Medium" />
+  <br />
+  <Button color="secondary" text="Medium" />
+  <br />
+  <Button color="tertiary" text="Medium" />
+  <br />
+  <Button color="critical" text="Medium" />
+</>
+`}</LiveComponent>
+
 ## Icon
 
 <LiveComponent>{`
@@ -27,30 +41,35 @@ componentName: Button
     size="small"
     text="Small"
   />
+  <br />
   <Button
     icon={<SwingsetTestIcon name="plus" />}
     iconPosition="trailing"
     size="small"
     text="Small"
   />
+  <br />
   <Button
     icon={<SwingsetTestIcon name="plus" />}
     iconPosition="leading"
     size="medium"
     text="Medium"
   />
+  <br />
   <Button
     icon={<SwingsetTestIcon name="plus" />}
     iconPosition="trailing"
     size="medium"
     text="Medium"
   />
+  <br />
   <Button
     icon={<SwingsetTestIcon name="plus" size={24} />}
     iconPosition="leading"
     size="large"
     text="Large"
   />
+  <br />
   <Button
     icon={<SwingsetTestIcon name="plus" size={24} />}
     iconPosition="trailing"
@@ -68,10 +87,12 @@ componentName: Button
     size="small"
     text="Small"
   />
+  <br />
   <Button
     size="medium"
     text="Medium"
   />
+  <br />
   <Button
     size="large"
     text="Large"
