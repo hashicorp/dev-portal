@@ -39,7 +39,7 @@ export function generateBadges(
 ): [DisplayOptions, React.FC<BadgeComponentProps>] {
   const displayOptions = {
     readTime: {
-      label: `${readTime} min`,
+      label: getReadableTime(readTime),
       icon: IconClock16,
     },
     isBeta: { label: 'Beta' },
@@ -68,4 +68,19 @@ export function getIsBeta(productsUsed: ClientProductUsed[]): boolean {
   }
 
   return isBeta
+}
+
+// This utility function creates a readable string for presentation only
+// based on the number of minutes provided
+// For example: 831 => 13 HR 51 MIN
+export default function getReadableTime(minutes: number): string {
+  const hours = Math.floor(minutes / 60)
+  const min = minutes % 60
+  if (hours && min > 0) {
+    return `${hours}hr ${min}min`
+  }
+  if (hours) {
+    return `${hours}hr`
+  }
+  return `${minutes}min`
 }
