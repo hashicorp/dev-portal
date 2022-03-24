@@ -30,14 +30,12 @@ const BaseLayout: React.FC = ({ children }) => (
   <>
     <HashiHead
       title={title}
+      pageName={title}
       siteName={title}
       description={description}
       image="https://www.waypointproject.io/img/og-image.png"
       icon={[{ href: '/_favicon.ico' }]}
-    >
-      <meta name="og:title" property="og:title" content={title} />
-      <meta name="og:description" property="og:title" content={description} />
-    </HashiHead>
+    />
     <Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
       {ALERT_BANNER_ACTIVE && (
         <AlertBanner {...alertBannerData} product="hashicorp" hideOnMobile />
