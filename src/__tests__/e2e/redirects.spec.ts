@@ -36,6 +36,6 @@ test('should use glob-based redirects', async ({ page, context }) => {
       url: 'http://localhost:3000/',
     },
   ])
-  await page.goto('/docs/platform/k8s/service-sync')
-  expect(page.url()).toBe('http://localhost:3000/docs/k8s/service-sync')
+  await page.goto('/security/index.html')
+  expect(page.url()).toBe('http://localhost:3000/security')
 })
