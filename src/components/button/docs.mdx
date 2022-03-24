@@ -2,11 +2,33 @@
 componentName: Button
 ---
 
+The `Button` component should be used when [an HTML `<button>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) is needed in a style according to the design system.
+
+> 🚨 This component does not render [an HTML `<a>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a). See related [`InlineLink`](/swingset/components/inlinelink) or [`StandaloneLink`](/swingset/components/standalonelink) for components that render `<a>` elements.
+
 ## Props
 
-| Prop name | Description | Required? | Default value | Type |
-| --------- | ----------- | --------- | ------------- | ---- |
-| TODO      | TODO        | TODO      | TODO          | TODO |
+🚨 Guidance on icon sizes to pass into the `icon` prop:
+
+- If `size` is being set to "small" or "medium", then size 16 icons are recommended.
+- If `size` is being set to "large", then size 24 icons are recommended.
+
+| Prop name         | Description                                                                                                                                                                                                                               | Required? | Default value | Type                                                   |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- | ------------------------------------------------------ |
+| `ariaDescribedBy` | The value of the `id` of the element that describes the action a button allows a user to do. The describing element does not have to be visible. If there are multiple labeling elements, this can be be a comma-separated list of `id`s. | No        | undefined     | string                                                 |
+| `ariaLabel`       | A non-visual label accessible and descriptive label for the action a button allows the user to do.                                                                                                                                        | No        | undefined     | string                                                 |
+| `ariaLabelledBy`  | The value of the `id` of the element that labels the button. The labeling element does not have to be visible. If there are multiple labeling elements, this can be be a comma-separated list of `id`s.                                   | No        | undefined     | string                                                 |
+| `color`           | The name of the color to apply styles to the button. The default value is "primary".                                                                                                                                                      | No        | "primary"     | One of: "primary", "secondary", "tertiary", "critical" |
+| `disabled`        | Whether or not the button should have all interaction disabled. Same as the HTML `disabled` attribute.                                                                                                                                    | No        | undefined     | boolean                                                |
+| `icon`            | An icon from `@hashicorp/flight-icons` to render.                                                                                                                                                                                         | No        | undefined     | ReactElement                                           |
+| `iconPosition`    | Where the icon should be rendered within the button. 'leading' will render the icon before `text`, 'trailing' will render the icon after `text`. The default value is "leading".                                                          | No        | "leading"     | Either: "leading", "trailing"                          |
+| `id`              | The string `id` to give the rendered `<button>` element. Same as the HTML `id` attribute.                                                                                                                                                 | No        | undefined     | string                                                 |
+| `isFullWidth`     | Whether or not the button should take up the full width of its container. Buttons do not take up their container's full width by default.                                                                                                 | No        | undefined     | boolean                                                |
+| `name`            | The string `name` to give the rendered `<button>` element. Same as the HTML `name` attribute.                                                                                                                                             | No        | undefined     | string                                                 |
+| `onClick`         | The function invoked after the button is clicked. Passed directly to the rendered `<button>` element. Same as the HTML `onClick` attribute.                                                                                               | No        | undefined     | See [`ButtonProps`](../types.ts) for exact type        |
+| `size`            | The size of the button, which mainly affects font size and padding. The default value is "medium".                                                                                                                                        | No        | "medium"      | One of: "small", "medium", "large"                     |
+| `text`            | The text to render inside of the button. This is not required for icon-only buttons.                                                                                                                                                      | No        | undefined     | string                                                 |
+| `type`            | The `type` to give the rendered `<button>` element. Same as the HTML `type` attribute for button elements.                                                                                                                                | No        | "button"      | See [`ButtonProps`](../types.ts) for exact type        |
 
 ## Playground
 
@@ -95,6 +117,17 @@ componentName: Button
 
 ## Icon only
 
+If the `icon` prop is provided and no prop `text` is provided, the component will throw an error if there is no accessible label given.
+
+🚨 Guidance on accessible labels:
+
+- `ariaLabel` and `ariaLabelledBy` cannot both be provided.
+- `ariaDescribedBy` can be provided in addition to `ariaLabel` or `ariaLabelledBy`.
+- A button's label should concisely express what will happen when the button is clicked. Examples:
+  - "Copy to clipboard"
+  - "Add to cart"
+  - "Undo changes"
+
 <LiveComponent>{`
 <>
   <p>With <code>ariaLabel</code>, a screen reader should say "Copy, button" in this example.</p>
@@ -105,7 +138,7 @@ componentName: Button
   />
   <br />
   <p>With <code>ariaLabelledBy</code>, a screen reader should say "Add, button" in this example.</p>
-  <p ariaHidden id="button-label" style={{ display: 'none', visibility: 'hidden'}}>Add</p>
+  <p aria-hidden id="button-label" style={{ display: 'none', visibility: 'hidden'}}>Add</p>
   <Button
     ariaLabelledBy="button-label"
     icon={<SwingsetTestIcon name="plus" />}
@@ -113,7 +146,7 @@ componentName: Button
   />
   <br />
   <p>With <code>ariaDescribedBy</code>, a screen reader should say "Next, button" in this example.</p>
-  <p ariaHidden id="button-description" style={{ display: 'none', visibility: 'hidden'}}>Next</p>
+  <p aria-hidden id="button-description" style={{ display: 'none', visibility: 'hidden'}}>Next</p>
   <Button
     ariaDescribedBy="button-description"
     icon={<SwingsetTestIcon name="arrow-right" size={24} />}
