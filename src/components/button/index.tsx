@@ -3,14 +3,16 @@ import s from './button.module.css'
 import classNames from 'classnames'
 
 const Button = ({
+  ariaDescribedBy,
   ariaLabel,
   ariaLabelledBy,
-  ariaDescribedBy,
   color = 'primary',
   disabled,
   icon,
+  id,
   iconPosition = 'leading',
   isFullWidth,
+  name,
   onClick,
   size = 'medium',
   text,
@@ -51,6 +53,8 @@ const Button = ({
       aria-describedby={ariaDescribedBy}
       className={className}
       disabled={disabled}
+      id={id}
+      name={name}
       onClick={onClick}
       type={type}
     >
