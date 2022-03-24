@@ -1,3 +1,4 @@
+/* Root class applied to all button variations. */
 .root {
   /* variables */
   --border-width: 1px;
@@ -56,6 +57,7 @@
   }
 }
 
+/* Class applied when the `isFullWidth` prop is present. */
 .fullWidth {
   width: 100%;
 }
