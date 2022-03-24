@@ -1,9 +1,18 @@
 .root {
+  /* variables */
+  --border-width: 1px;
+
+  /* composition */
   composes: hds-font-weight-medium from global;
+
+  /* attributes */
   align-items: center;
   border-radius: 5px;
-  border: 1px solid black;
+  border: var(--border-width) solid black;
   display: flex;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  padding: var(--padding-top-bottom) var(--padding-left-right);
 
   & svg:first-child {
     margin-right: 8px;
@@ -15,28 +24,22 @@
 }
 
 .small {
-  padding: 6px 12px;
-
-  & .text {
-    font-size: 0.8125rem;
-    line-height: 1;
-  }
+  --padding-top-bottom: calc(6px - var(--border-width));
+  --padding-left-right: calc(12px - var(--border-width));
+  --font-size: 0.8125rem;
+  --line-height: 1;
 }
 
 .medium {
-  padding: 10px 16px;
-
-  & .text {
-    font-size: 0.875rem;
-    line-height: 1rem;
-  }
+  --padding-top-bottom: calc(10px - var(--border-width));
+  --padding-left-right: calc(16px - var(--border-width));
+  --font-size: 0.875rem;
+  --line-height: 1rem;
 }
 
 .large {
-  padding: 12px 20px;
-
-  & .text {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
+  --padding-top-bottom: calc(12px - var(--border-width));
+  --padding-left-right: calc(20px - var(--border-width));
+  --font-size: 1rem;
+  --line-height: 1.5rem;
 }
