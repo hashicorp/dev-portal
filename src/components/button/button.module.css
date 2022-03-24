@@ -29,13 +29,13 @@
     z-index: -1;
   }
 
-  &:hover {
-    cursor: pointer;
-  }
-
   &:focus,
   &:focus-visible {
     outline: none;
+  }
+
+  &:not(:disabled) {
+    cursor: pointer;
   }
 
   &:disabled {
@@ -93,13 +93,13 @@
   border-color: var(--token-color-palette-blue-300);
   color: var(--token-color-foreground-high-contrast);
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: var(--token-color-palette-blue-300);
     border-color: var(--token-color-palette-blue-400);
     color: var(--token-color-foreground-high-contrast);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background-color: var(--token-color-palette-blue-400);
     border-color: var(--token-color-palette-blue-400);
     box-shadow: none;
@@ -128,13 +128,13 @@
   box-shadow: var(--token-elevation-low-box-shadow);
   color: var(--token-color-foreground-primary);
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: var(--token-color-surface-primary);
     border-color: var(--token-color-border-strong);
     color: var(--token-color-foreground-primary);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background-color: var(--token-color-surface-interactive-active);
     border-color: var(--token-color-border-strong);
     box-shadow: none;
@@ -157,13 +157,13 @@
   border-color: transparent;
   color: var(--token-color-foreground-action);
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: var(--token-color-surface-primary);
     border-color: var(--token-color-border-strong);
     color: var(--token-color-foreground-action-hover);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background-color: var(--token-color-surface-interactive-active);
     border-color: var(--token-color-border-strong);
     box-shadow: none;
@@ -191,13 +191,13 @@
   box-shadow: var(--token-elevation-low-box-shadow);
   color: var(--token-color-foreground-critical-on-surface);
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: var(--token-color-palette-red-300);
     border-color: var(--token-color-palette-red-400);
     color: var(--token-color-foreground-high-contrast);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background-color: var(--token-color-palette-red-400);
     border-color: var(--token-color-palette-red-400);
     box-shadow: none;

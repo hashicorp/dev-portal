@@ -4,6 +4,7 @@ import classNames from 'classnames'
 
 const Button = ({
   color = 'primary',
+  disabled,
   icon,
   iconPosition = 'leading',
   onClick,
@@ -16,7 +17,12 @@ const Button = ({
   const hasTrailingIcon = icon && iconPosition === 'trailing'
 
   return (
-    <button className={className} onClick={onClick} type={type}>
+    <button
+      className={className}
+      disabled={disabled}
+      onClick={onClick}
+      type={type}
+    >
       {hasLeadingIcon && icon}
       <span className={s.text}>{text}</span>
       {hasTrailingIcon && icon}
