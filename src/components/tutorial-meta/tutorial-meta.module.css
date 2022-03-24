@@ -19,15 +19,8 @@
 
 .meta {
   margin-bottom: var(--spacing-lrg);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 
   @media (--dev-dot-tablet-up) {
     margin-bottom: var(--spacing-xl);
-  }
-
-  @media (--dev-dot-desktop) {
-    display: block;
   }
 }
