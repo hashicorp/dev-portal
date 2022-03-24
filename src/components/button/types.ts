@@ -1,28 +1,8 @@
 import { ReactElement } from 'react'
 
-type ButtonElementProps = JSX.IntrinsicElements['button']
+type NativeButtonProps = JSX.IntrinsicElements['button']
 
-export type ButtonProps = Pick<
-  ButtonElementProps,
-  'disabled' | 'onClick' | 'type'
-> & {
-  /**
-   * A non-visual label accessible and descriptive label for the action a button
-   * allows the user to do.
-   *
-   * See: https://www.w3.org/TR/wai-aria-1.2/#aria-label
-   */
-  ariaLabel?: ButtonElementProps['aria-label']
-
-  /**
-   * The value of the `id` of the element that labels the button. The labeling
-   * element does not have to be visible. If there are multiple labeling
-   * elements, this can be be a comma-separated list of `id`s.
-   *
-   * See: https://www.w3.org/TR/wai-aria-1.2/#aria-labelledby
-   */
-  ariaLabelledBy?: ButtonElementProps['aria-labelledby']
-
+export interface ButtonProps {
   /**
    * The value of the `id` of the element that describes the action a button
    * allows a user to do. The describing element does not have to be visible. If
@@ -31,13 +11,36 @@ export type ButtonProps = Pick<
    *
    * See: https://www.w3.org/TR/wai-aria-1.2/#aria-describedby
    */
-  ariaDescribedBy?: ButtonElementProps['aria-describedby']
+  ariaDescribedBy?: NativeButtonProps['aria-describedby']
+
+  /**
+   * A non-visual label accessible and descriptive label for the action a button
+   * allows the user to do.
+   *
+   * See: https://www.w3.org/TR/wai-aria-1.2/#aria-label
+   */
+  ariaLabel?: NativeButtonProps['aria-label']
+
+  /**
+   * The value of the `id` of the element that labels the button. The labeling
+   * element does not have to be visible. If there are multiple labeling
+   * elements, this can be be a comma-separated list of `id`s.
+   *
+   * See: https://www.w3.org/TR/wai-aria-1.2/#aria-labelledby
+   */
+  ariaLabelledBy?: NativeButtonProps['aria-labelledby']
 
   /**
    * The name of the color to apply styles to the button. The default value is
    * "primary".
    */
   color?: 'primary' | 'secondary' | 'tertiary' | 'critical'
+
+  /**
+   * Whether or not the button should have all interaction disabled. Same as the
+   * HTML `disabled` attribute.
+   */
+  disabled?: NativeButtonProps['disabled']
 
   /**
    * An icon from `@hashicorp/flight-icons` to render.
@@ -67,10 +70,28 @@ export type ButtonProps = Pick<
   iconPosition?: 'leading' | 'trailing'
 
   /**
+   * The string `id` to give the rendered `<button>` element. Same as the HTML
+   * `id` attribute.
+   */
+  id?: NativeButtonProps['id']
+
+  /**
    * Whether or not the button should take up the full width of its container.
    * Buttons do not take up their container's full width by default.
    */
   isFullWidth?: boolean
+
+  /**
+   * The string `name` to give the rendered `<button>` element. Same as the HTML
+   * `name` attribute.
+   */
+  name?: NativeButtonProps['name']
+
+  /**
+   * The function invoked after the button is clicked. Passed directly to the
+   * rendered `<button>` element. Same as the HTML `onClick` attribute.
+   */
+  onClick?: NativeButtonProps['onClick']
 
   /**
    * The size of the button, which mainly affects font size and padding.
@@ -83,4 +104,10 @@ export type ButtonProps = Pick<
    * buttons.
    */
   text?: string
+
+  /**
+   * The `type` to give the rendered `<button>` element. Same as the HTML `type`
+   * attribute for button elements.
+   */
+  type?: NativeButtonProps['type']
 }
