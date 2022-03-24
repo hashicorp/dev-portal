@@ -27,7 +27,7 @@ const Button = ({
       type={type}
     >
       {hasLeadingIcon && icon}
-      <span className={s.text}>{text}</span>
+      {text && <span className={s.text}>{text}</span>}
       {hasTrailingIcon && icon}
     </button>
   )

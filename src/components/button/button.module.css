@@ -48,12 +48,22 @@
     cursor: not-allowed;
   }
 
-  & svg:first-child {
-    margin-right: 8px;
-  }
+  /* Classes applied to the `icon` given */
+  & svg {
+    /* leading icon */
+    &:first-child {
+      margin-right: 8px;
+    }
 
-  & svg:last-child {
-    margin-left: 8px;
+    /* trailing icon */
+    &:last-child {
+      margin-left: 8px;
+    }
+
+    /* when no `text` prop is given */
+    &:only-child {
+      margin: 0;
+    }
   }
 }
 

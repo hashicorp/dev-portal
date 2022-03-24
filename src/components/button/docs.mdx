@@ -45,7 +45,7 @@ componentName: Button
 </>
 `}</LiveComponent>
 
-## Icon
+## Icon and text
 
 <LiveComponent>{`
 <>
@@ -90,6 +90,28 @@ componentName: Button
     size="large"
     text="Large"
   />
+</>
+`}</LiveComponent>
+
+## Icon only
+
+<LiveComponent>{`
+<>
+  <Button
+    icon={<SwingsetTestIcon name="plus" />}
+    size="small"
+  />
+  <br />
+  <Button
+    icon={<SwingsetTestIcon name="plus" />}
+    size="medium"
+  />
+  <br />
+  <Button
+    icon={<SwingsetTestIcon name="plus" size={24} />}
+    size="large"
+  />
+  <br />
 </>
 `}</LiveComponent>
 
