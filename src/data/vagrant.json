@@ -3,7 +3,7 @@
   "slug": "vagrant",
   "algoliaConfig": {
     "indexName": "product_VAGRANT",
-    "searchOnlyApiKey": "9bfec34ea54e56a11bd50d6bfedc5e71"
+    "searchOnlyApiKey": "c4c3e690f46940fa3ba9624da4d7fc0c"
   },
   "analyticsConfig": {
     "includedDomains": "vagrantup.com www.vagrantup.com",

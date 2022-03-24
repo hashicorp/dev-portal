@@ -1,9 +1,9 @@
-import { ReactElement } from 'react'
 import dynamic from 'next/dynamic'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemote } from 'next-mdx-remote'
 import { useCurrentProduct } from 'contexts'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 
 // Author primitives
 const Badge = dynamic(() => import('components/author-primitives/packer/badge'))
@@ -39,33 +39,23 @@ const SentinelEmbedded = dynamic(
   () => import('@hashicorp/react-sentinel-embedded')
 )
 
-const productsToAdditionalComponents = {
+const productsToPrimitives: ProductsToPrimitivesMap = {
+  boundary: null,
   consul: { ConfigEntryReference },
+  hcp: null,
   nomad: { Placement },
   packer: { Badge, BadgesHeader, Checklist, PluginBadge },
   sentinel: { SentinelEmbedded },
   terraform: { ProviderTable },
   vagrant: { Button },
-  vault: {
-    Columns,
-    Tag: InlineTag,
-  },
-  waypoint: {
-    NestedNode,
-    Placement,
-  },
+  vault: { Columns, Tag: InlineTag },
+  waypoint: { NestedNode, Placement },
 }
 
-export interface DocsViewProps {
-  mdxSource: MDXRemoteSerializeResult
-  lazy?: boolean
-}
-
-const DocsView = ({ mdxSource, lazy }: DocsViewProps): ReactElement => {
+const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
   const currentProduct = useCurrentProduct()
   const { compiledSource, scope } = mdxSource
-  const additionalComponents =
-    productsToAdditionalComponents[currentProduct.slug] || {}
+  const additionalComponents = productsToPrimitives[currentProduct.slug] || {}
   const components = defaultMdxComponents({ additionalComponents })
 
   return (
@@ -80,4 +70,5 @@ const DocsView = ({ mdxSource, lazy }: DocsViewProps): ReactElement => {
 
 DocsView.layout = SidebarSidecarLayout
 
+export type { DocsViewProps }
 export default DocsView
