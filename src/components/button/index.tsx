@@ -20,10 +20,11 @@ const Button = ({
     [s.fullWidth]: isFullWidth,
   })
   const hasIcon = !!icon
-  const hasLeadingIcon = hasIcon && iconPosition === 'leading'
-  const hasTrailingIcon = hasIcon && iconPosition === 'trailing'
   const hasText = !!text
   const hasLabel = !!ariaLabel || !!ariaLabelledBy || !!ariaDescribedBy
+  const hasLeadingIcon = hasIcon && iconPosition === 'leading'
+  const hasTrailingIcon = hasIcon && iconPosition === 'trailing'
+  const isIconOnly = hasIcon && !hasText
 
   if (!hasIcon && !hasText) {
     throw new Error(
@@ -31,7 +32,7 @@ const Button = ({
     )
   }
 
-  if (hasIcon && !hasLabel) {
+  if (isIconOnly && !hasLabel) {
     throw new Error(
       'Icon-only `Button`s require an accessible label. Either provide the `text` prop or one of: `ariaLabel`, `ariaLabelledBy`, `ariaDescribedBy`.'
     )
