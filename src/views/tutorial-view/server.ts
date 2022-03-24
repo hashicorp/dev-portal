@@ -1,7 +1,13 @@
 import { Product as ProductContext } from 'types/products'
-import { getAllCollections } from 'lib/learn-client/api/collection'
+import {
+  getAllCollections,
+  getNextCollectionInSidebar,
+} from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
-import { ProductOption } from 'lib/learn-client/types'
+import {
+  Collection as ClientCollection,
+  ProductOption,
+} from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
@@ -17,6 +23,7 @@ export interface TutorialPageProps {
   tutorial: TutorialData
   product: TutorialPageProduct // controls the ProductSwitcher
   layoutProps: TutorialSidebarSidecarProps
+  nextCollection?: ClientCollection | null // if null, it is the last collection in the sidebar order
 }
 
 /**
@@ -57,13 +64,22 @@ export async function getTutorialPageProps(
       },
     }),
   }
+  const lastTutorialIndex = collectionContext.current.tutorials.length - 1
+  const isLastTutorial =
+    collectionContext.current.tutorials[lastTutorialIndex].id ===
+    fullTutorialData.id
 
-  /**
-   * @TODO handle next / prev tutorial data
-   * if is last tutorial in collection, call the endpoint to get next tutorial,
-   * e.g. /products/terraform/collections?topLevelCategorySort=true&after=collection-slug&limit=1
-   * https://app.asana.com/0/1201903760348480/1201932088801131/f
-   *  */
+  // do we handle the next logic for the tutorials??
+  // or rather should the default be that it goes to the tutorials and
+  // if its passed next collection, go to that
+  let nextCollection = undefined
+
+  if (isLastTutorial) {
+    nextCollection = await getNextCollectionInSidebar({
+      product: product.slug,
+      after: collectionContext.current.slug,
+    })
+  }
 
   return {
     props: stripUndefinedProperties({
@@ -75,6 +91,7 @@ export async function getTutorialPageProps(
       },
       product,
       layoutProps,
+      nextCollection,
     }),
   }
 }

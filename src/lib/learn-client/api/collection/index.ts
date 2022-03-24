@@ -6,9 +6,13 @@ import {
   Collection,
   getAllCollectionsOptions,
   themeIsProduct,
+  ProductOption,
 } from 'lib/learn-client/types'
 import { get, toError } from '../../index'
-import { fetchAllCollectionsByProduct } from './fetch-product-collections'
+import {
+  fetchAllCollectionsByProduct,
+  PRODUCT_COLLECTION_API_ROUTE,
+} from './fetch-product-collections'
 import { formatCollection } from './formatting'
 
 const COLLECTION_API_ROUTE = '/collections'
@@ -81,4 +85,29 @@ export async function getAllCollections(
   }
 
   return collections.map(formatCollection)
+}
+
+export async function getNextCollectionInSidebar({
+  product,
+  after,
+}: {
+  product: ProductOption
+  after: string // slug of the current collection
+}): Promise<Collection[]> {
+  const baseUrl = PRODUCT_COLLECTION_API_ROUTE(product)
+  const params = new URLSearchParams({
+    topLevelCategorySort: 'true',
+    theme: product,
+    limit: '1',
+    startKey: after,
+  })
+  const route = baseUrl + `?${params.toString()}`
+
+  const nextCollectionRes = await get(route)
+
+  if (nextCollectionRes.ok) {
+    const res = await nextCollectionRes.json()
+    console.log({ res })
+    return res.result
+  }
 }

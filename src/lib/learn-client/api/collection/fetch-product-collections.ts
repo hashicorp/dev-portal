@@ -2,8 +2,9 @@ import { Collection, uuid, ProductOption } from 'lib/learn-client/types'
 import { get, toError } from '../../index'
 
 // /products/:identifier/collections
-const PRODUCT_COLLECTION_API_ROUTE = (identifier: ProductOption | uuid) =>
-  `/products/${identifier}/collections`
+export const PRODUCT_COLLECTION_API_ROUTE = (
+  identifier: ProductOption | uuid
+) => `/products/${identifier}/collections`
 
 /**
  * Returns all collections associated with a product.
@@ -19,7 +20,10 @@ export async function fetchAllCollectionsByProduct(
 
   if (getProductCollectionsRes.ok) {
     const res = await getProductCollectionsRes.json()
-    return res.result
+    if (res.result.length === 0) {
+      return null // this means its the last collection in the sidebar
+    }
+    return res.result[0]
   }
 
   const error = toError(getProductCollectionsRes)
