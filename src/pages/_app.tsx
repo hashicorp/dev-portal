@@ -38,7 +38,8 @@ export default function App({ Component, pageProps, layoutProps }) {
   if (process.env.HASHI_ENV !== 'production') {
     const isDevDotPage =
       !currentPath.startsWith(`/_proxied-dot-io`) &&
-      !currentPath.startsWith(`/swingset`)
+      // TODO: change back to !currentPath.startsWith(`/swingset`) after testing
+      currentPath.startsWith(`/swingset`)
     const isNotHomePage = currentPath !== '/'
     const isMissingProductData = !pageProps.product
     if (isDevDotPage && isNotHomePage && isMissingProductData) {
