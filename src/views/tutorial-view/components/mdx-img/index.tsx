@@ -1,26 +1,15 @@
 import { ReactElement } from 'react'
+import { MdxImgProps } from './types'
+import classNames from 'classnames'
 import s from './mdx-img.module.css'
 
-/**
- * TODO: support captions somehow.
- * maybe through title attribute...
- * maybe through a custom <Image /> component...
- *
- * Asana task:
- * https://app.asana.com/0/1201987349274776/1201999966887531/f
- */
-
-function MdxImg({
-  src,
-  alt,
-  title,
-}: {
-  src: string
-  alt: string
-  title: string
-}): ReactElement {
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img className={s.root} src={src} alt={alt} title={title} />
+function MdxImg({ src, alt, title, noMargin }: MdxImgProps): ReactElement {
+  return (
+    <div className={classNames(s.root, { [s.noMargin]: noMargin })}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className={s.img} src={src} alt={alt} title={title} />
+    </div>
+  )
 }
 
 export default MdxImg

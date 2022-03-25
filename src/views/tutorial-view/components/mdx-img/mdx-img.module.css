@@ -1,4 +1,26 @@
 .root {
-  border: 1px solid red;
+  background-color: white;
   border-radius: 6px;
+  border: 1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  text-align: center;
+  justify-content: center;
+  margin: 24px auto;
+
+  &.noMargin {
+    margin: 0 !important;
+  }
+}
+
+.img {
+  /* TODO: remove content styles which force !important here */
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  display: block !important;
+  height: auto !important;
+  margin: 0 !important;
+  width: auto !important;
+  max-width: 100% !important;
 }
