@@ -1,11 +1,11 @@
 import boundaryData from 'data/boundary.json'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import DocsView from 'views/docs-view'
 
 const basePath = 'docs'
 const baseName = 'Docs'
-const product = boundaryData as Product
+const product = boundaryData as ProductData
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   product,

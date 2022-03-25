@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { render, screen } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Product } from 'types/products'
@@ -12,8 +13,18 @@ import {
  * result of `renderHook`.
  */
 const setup = (currentProduct: Product) => {
-  const wrapper = ({ children }) => (
-    <CurrentProductProvider currentProduct={currentProduct}>
+  const wrapper = ({ children }: { children: ReactNode }) => (
+    <CurrentProductProvider
+      currentProduct={{
+        ...currentProduct,
+        basePaths: [],
+        navigationHeaderItems: [],
+        sidebar: {
+          landingPageNavData: [],
+          resourcesNavData: [],
+        },
+      }}
+    >
       {children}
     </CurrentProductProvider>
   )
@@ -57,8 +68,6 @@ describe('CurrentProductContext', () => {
   })
 
   describe('useCurrentProduct returns the value provided to CurrentProductProvider', () => {
-    const testProduct: Product = { slug: 'waypoint', name: 'Waypoint' }
-
     test('when the path is "/", null is returned', () => {
       useRouter.mockReturnValueOnce({
         asPath: '/',
@@ -67,15 +76,15 @@ describe('CurrentProductContext', () => {
           on: jest.fn(),
         },
       })
-      const { result } = setup(testProduct)
+      const { result } = setup({ slug: 'waypoint', name: 'Waypoint' })
 
       expect(result.current).toBeNull()
     })
 
     test('when the path is not "/", the correct value is returned', () => {
-      const { result } = setup(testProduct)
+      const { result } = setup({ slug: 'waypoint', name: 'Waypoint' })
 
-      expect(result.current).toEqual(testProduct)
+      expect(result.current).toEqual({ slug: 'waypoint', name: 'Waypoint' })
     })
   })
 })

@@ -35,11 +35,9 @@ const products: ProductGroup[] = productSwitcherSlugs.map(
   (slugGroup: ProductSlug[]) => {
     const productGroup = slugGroup.map((slug: ProductSlug) => {
       const name = productSlugsToNames[slug]
-      const url = `/${slug}`
       return {
         name,
         slug,
-        url,
       }
     })
     return productGroup

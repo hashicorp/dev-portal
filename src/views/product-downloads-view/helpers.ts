@@ -1,5 +1,5 @@
 import semverRSort from 'semver/functions/rsort'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import { ReleasesAPIResponse, ReleaseVersion } from 'lib/fetch-release-data'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { MenuItem, SidebarProps } from 'components/sidebar'
@@ -16,7 +16,7 @@ const PLATFORM_MAP = {
 const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
 
 export const generateDefaultPackageManagers = (
-  product: Pick<Product, 'slug'>
+  product: Pick<ProductData, 'slug'>
 ): PackageManager[] => {
   const productSlug = product.slug
 
@@ -106,7 +106,7 @@ export const getPageSubtitle = ({
   version,
   isLatestVersion,
 }: {
-  productName: Product['name']
+  productName: ProductData['name']
   version: string
   isLatestVersion: boolean
 }): string => {
@@ -115,7 +115,7 @@ export const getPageSubtitle = ({
 }
 
 export const initializeBackToLink = (
-  currentProduct: Pick<Product, 'name' | 'slug'>
+  currentProduct: Pick<ProductData, 'name' | 'slug'>
 ): SidebarProps['backToLinkProps'] => {
   return {
     text: `Back to ${currentProduct.name}`,
@@ -124,7 +124,7 @@ export const initializeBackToLink = (
 }
 
 export const initializeBreadcrumbLinks = (
-  currentProduct: Pick<Product, 'name' | 'slug'>,
+  currentProduct: Pick<ProductData, 'name' | 'slug'>,
   selectedVersion: string
 ): BreadcrumbLink[] => {
   return [
@@ -145,7 +145,7 @@ export const initializeBreadcrumbLinks = (
 }
 
 export const initializeNavData = (
-  currentProduct: Pick<Product, 'sidebar'>
+  currentProduct: Pick<ProductData, 'sidebar'>
 ): MenuItem[] => {
   return [
     ...currentProduct.sidebar.landingPageNavData,
@@ -178,7 +178,9 @@ export const initializeVersionSwitcherOptions = ({
 export const sortPlatforms = (releaseData: ReleaseVersion): SortedReleases => {
   // first we pull the platforms out of the release data object and format it the way we want
   const platforms = releaseData.builds.reduce((acc, build) => {
-    if (!acc[build.os]) acc[build.os] = {}
+    if (!acc[build.os]) {
+      acc[build.os] = {}
+    }
     acc[build.os][build.arch] = build.url
     return acc
   }, {})

@@ -6,7 +6,7 @@ import semverMinor from 'semver/functions/minor'
 import semverPatch from 'semver/functions/patch'
 import terraformData from 'data/terraform.json'
 import installData from 'data/terraform-install.json'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import { generateStaticProps, GeneratedProps } from 'lib/fetch-release-data'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductDownloadsView from 'views/product-downloads-view'
@@ -83,7 +83,7 @@ function filterOldVersions(props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const product = terraformData as Product
+  const product = terraformData as ProductData
   const generatedProps = await generateStaticProps(product)
 
   filterOldVersions(generatedProps)

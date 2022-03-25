@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import waypointData from 'data/waypoint.json'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import { CurrentProductProvider } from 'contexts'
 import DocsAnchor from '../'
 
-const product = waypointData as Product
+const product = waypointData as ProductData
 
 describe('DocsAnchor', () => {
   let useRouter: jest.SpyInstance
