@@ -47,7 +47,7 @@ export default function App({ Component, pageProps, layoutProps }) {
   const isMissingProductData = !pageProps.product
   if (isDevDotPage && isNotHomePage && isMissingProductData) {
     throw new Error(
-      `\`product\` property is missing from \`pageProps\` prop on path: \`${currentPath}\`. Product data is needed to hydrate \`CurrentProductContext\`.`
+      `\`product\` property is missing from \`pageProps\` prop on path: \`${currentPath}\`. Product data from \`src/data/{product}.json\` is needed to hydrate \`CurrentProductContext\`.`
     )
   }
 
