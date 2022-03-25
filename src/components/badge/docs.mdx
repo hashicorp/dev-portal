@@ -24,7 +24,7 @@ componentName: Badge
     This is a paragraph{' '}
     {
       <Badge
-        icon={<SwingsetTestIcon name="plus" size={24} />}
+        icon={<SwingsetTestIcon name="plus" />}
         text="Lorem ipsum"
       />
     }
@@ -43,13 +43,13 @@ componentName: Badge
   />
   <br />
   <Badge
-    icon={<SwingsetTestIcon name="plus" size={16} />}
+    icon={<SwingsetTestIcon name="plus" />}
     size="medium"
     text="Medium"
   />
   <br />
   <Badge
-    icon={<SwingsetTestIcon name="plus" size={24} />}
+    icon={<SwingsetTestIcon name="plus" />}
     size="large"
     text="Large"
   />
@@ -131,6 +131,7 @@ componentName: Badge
                         type={type}
                       />
                       <Badge
+                        ariaLabel="Lorem ipsum"
                         color={color}
                         size={size}
                         icon={<SwingsetTestIcon name="plus" />}
