@@ -26,6 +26,7 @@ export function NextPrevious({
   finalLink,
 }: NextPreviousProps) {
   function renderPreviousLink() {
+    // by default, render the link to the previous tutorial in the collection
     if (tutorial.previous) {
       return (
         <DirectionalLinkBox
@@ -37,6 +38,10 @@ export function NextPrevious({
       )
     }
 
+    /**
+     *  if the previous tutorial is undefined (its the first
+     * tutorial in a collection) render a 'back to collection' link
+     */
     return (
       <DirectionalLinkBox
         link={{ href: collection.current.path }}
@@ -48,6 +53,7 @@ export function NextPrevious({
   }
 
   function renderNextLink() {
+    // by default, link to the next tutorial in the collection
     if (tutorial.next && !tutorial.isLast) {
       return (
         <DirectionalLinkBox
@@ -65,7 +71,8 @@ export function NextPrevious({
      * In learn, it links to a filtered advanced search page state
      * e.g. https://learn.hashicorp.com/search?product=waypoint&page=1
      *
-     * Since don't have an advanced search page for beta, were linking folks back to the base
+     * Since don't have an advanced search page for beta,
+     * were linking folks back to the base
      * product tutorials page.
      *
      */
@@ -83,6 +90,10 @@ export function NextPrevious({
       )
     }
 
+    /**
+     *  if the tutorial is the last in the collection,
+     *  link to the next collection in the product collection sidebar order
+     */
     return (
       <DirectionalLinkBox
         link={{ href: collection.next.path }}
