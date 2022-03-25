@@ -4,6 +4,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import useCurrentPath from 'hooks/use-current-path'
 import {
   Collection as ClientCollection,
+  CollectionLite as ClientCollectionLite,
   TutorialFullCollectionCtx as ClientTutorial,
 } from 'lib/learn-client/types'
 import SidebarSidecarLayout, {
@@ -16,12 +17,15 @@ import {
   TutorialSidebar as Sidebar,
   FeaturedInCollections,
   CollectionCardProps,
+  NextPrevious,
+  getNextPrevious,
 } from './components'
 import TutorialMeta from 'components/tutorial-meta'
 
 export interface TutorialViewProps {
   tutorial: TutorialData
   layout: TutorialSidebarSidecarProps
+  nextCollection: ClientCollectionLite
 }
 
 export interface TutorialData
@@ -53,13 +57,12 @@ export type TutorialSidebarSidecarProps = Required<
  *
  * Outstanding @TODOs
  * - add canonical url if this is the default collection
- * - fix: the toc overview linking isn't properly aligning
- * - skeleton out the next / prev component after API endpoint is updated - https://app.asana.com/0/1201903760348480/1201932088801131/f
  */
 
 export default function TutorialView({
   layout,
   tutorial,
+  nextCollection,
 }: TutorialViewProps): React.ReactElement {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const {
@@ -75,6 +78,11 @@ export default function TutorialView({
   } = tutorial
   const isInteractive = Boolean(handsOnLab)
   const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
+  const nextPreviousData = getNextPrevious({
+    currentCollection: collectionCtx.current,
+    currentTutorialSlug: slug,
+    nextCollectionInSidebar: nextCollection,
+  })
 
   return (
     <InteractiveLabWrapper
@@ -110,9 +118,7 @@ export default function TutorialView({
         <Content
           content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
         />
-        <div>
-          <h2>Next / Prev component</h2>
-        </div>
+        <NextPrevious {...nextPreviousData} />
         <FeaturedInCollections collections={collectionCtx.featuredIn} />
       </SidebarSidecarLayout>
     </InteractiveLabWrapper>

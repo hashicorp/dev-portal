@@ -5,7 +5,7 @@ import {
 } from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
 import {
-  Collection as ClientCollection,
+  CollectionLite as ClientCollectionLite,
   ProductOption,
 } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
@@ -18,12 +18,11 @@ import {
 } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 
-// @TODO just a stub - adjust page props interface
 export interface TutorialPageProps {
   tutorial: TutorialData
   product: TutorialPageProduct // controls the ProductSwitcher
   layoutProps: TutorialSidebarSidecarProps
-  nextCollection?: ClientCollection | null // if null, it is the last collection in the sidebar order
+  nextCollection?: ClientCollectionLite | null // if null, it is the last collection in the sidebar order
 }
 
 /**
@@ -69,9 +68,6 @@ export async function getTutorialPageProps(
     collectionContext.current.tutorials[lastTutorialIndex].id ===
     fullTutorialData.id
 
-  // do we handle the next logic for the tutorials??
-  // or rather should the default be that it goes to the tutorials and
-  // if its passed next collection, go to that
   let nextCollection = undefined
 
   if (isLastTutorial) {
