@@ -4,7 +4,7 @@
   border-radius: 4px;
   border-style: solid;
   border-width: 1px;
-  display: flex;
+  display: inline-flex;
   font-family: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
     helvetica, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
