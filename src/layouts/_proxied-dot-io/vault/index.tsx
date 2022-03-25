@@ -1,4 +1,5 @@
 import React from 'react'
+import { trackGoal as trackFathomGoal } from 'fathom-client'
 import HashiHead from '@hashicorp/react-head'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import Min100Layout from '@hashicorp/react-min-100-layout'
@@ -16,6 +17,8 @@ const { ConsentManager, openConsentManager } = createConsentManager({
   segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
   preset: 'oss',
   otherServices: [...localConsentManagerServices],
+  onAcceptAll: () => trackFathomGoal('AETLPQG1', 0),
+  onManagePreferences: () => trackFathomGoal('KWURQRAQ', 0),
 })
 
 function VaultIoLayout({ children, data }: Props): React.ReactElement {
