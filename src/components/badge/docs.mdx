@@ -16,6 +16,22 @@ componentName: Badge
 />
 `}</LiveComponent>
 
+## Inline with a paragraph
+
+<LiveComponent>{`
+<>
+  <p>
+    This is a paragraph{' '}
+    {
+      <Badge
+        icon={<SwingsetTestIcon name="plus" size={24} />}
+        text="Lorem ipsum"
+      />
+    }
+  </p>
+</>
+`}</LiveComponent>
+
 ## Icon with text
 
 <LiveComponent>{`
