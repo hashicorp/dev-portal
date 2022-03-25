@@ -10,17 +10,14 @@ import SidebarSidecarLayout, {
   SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import Heading from 'components/heading'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem } from './utils'
 import {
   TutorialSidebar as Sidebar,
   FeaturedInCollections,
   CollectionCardProps,
-  Badges,
-  getIsBeta,
-  InteractiveLabToggle,
 } from './components'
+import TutorialMeta from 'components/tutorial-meta'
 
 export interface TutorialViewProps {
   tutorial: TutorialData
@@ -57,7 +54,6 @@ export type TutorialSidebarSidecarProps = Required<
  * Outstanding @TODOs
  * - add canonical url if this is the default collection
  * - fix: the toc overview linking isn't properly aligning
- * - wire up instruqt embed for interactive labs
  * - skeleton out the next / prev component after API endpoint is updated - https://app.asana.com/0/1201903760348480/1201932088801131/f
  */
 
@@ -101,28 +97,16 @@ export default function TutorialView({
         }
         headings={layout.headings}
       >
-        <header id="overview">
-          <Heading
-            level={1}
-            size={500}
-            weight="bold"
-            slug={layout.headings[0].slug}
-            id={slug}
-          >
-            {name}
-          </Heading>
-          <Badges
-            tutorialMeta={{
-              readTime,
-              products: productsUsed.map((p) => p.product.slug),
-              isBeta: getIsBeta(productsUsed),
-              edition,
-              hasVideo: Boolean(video),
-              isInteractive,
-            }}
-          />
-          {isInteractive ? <InteractiveLabToggle /> : null}
-        </header>
+        <TutorialMeta
+          heading={{ slug: layout.headings[0].slug, text: name }}
+          meta={{
+            readTime,
+            edition,
+            productsUsed,
+            isInteractive: Boolean(handsOnLab),
+            hasVideo: Boolean(video),
+          }}
+        />
         <Content
           content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
         />
