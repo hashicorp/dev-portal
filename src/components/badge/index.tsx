@@ -6,13 +6,14 @@ const Badge = ({
   ariaDescribedBy,
   ariaLabel,
   ariaLabelledBy,
+  className,
   color = 'neutral',
   icon,
   size = 'medium',
   text,
   type = 'filled',
 }: BadgeProps) => {
-  const className = classNames(s.root, s[size], s[`${type}-${color}`])
+  const classes = classNames(s.root, s[size], s[`${type}-${color}`], className)
   const hasIcon = !!icon
   const hasText = !!text
   const hasLabel = !!ariaDescribedBy || !!ariaLabel || !!ariaLabelledBy
@@ -49,7 +50,7 @@ const Badge = ({
       aria-describedby={ariaDescribedBy}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
-      className={className}
+      className={classes}
     >
       {icon}
       {text && <span>{text}</span>}

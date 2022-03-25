@@ -27,6 +27,12 @@ export interface BadgeProps {
   ariaLabelledBy?: string
 
   /**
+   * A string of one or more classnames. Is appended to list of classnames
+   * passed to the container element.
+   */
+  className?: string
+
+  /**
    * The name of the color to apply styles to the badge. The default value is
    * "neutral".
    */

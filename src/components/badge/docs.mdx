@@ -9,6 +9,7 @@ componentName: Badge
 | `ariaDescribedBy` | The value of the `id` of the element that describes the badge. The describing element does not have to be visible. If there are multiple labeling elements, this can be be a comma-separated list of `id`s. | No        | undefined     | string                                                                             |
 | `ariaLabel`       | A non-visual label accessible and descriptive label for the badge.                                                                                                                                          | No        | undefined     | string                                                                             |
 | `ariaLabelledBy`  | The value of the `id` of the element that labels the badge. The labeling element does not have to be visible. If there are multiple labeling elements, this can be be a comma-separated list of `id`s.      | No        | undefined     | string                                                                             |
+| `className`       | A string of one or more classnames. Is appended to list of classnames passed to the container element.                                                                                                      | No        | undefined     | string                                                                             |
 | `color`           | The name of the color to apply styles to the badge.                                                                                                                                                         | No        | "neutral"     | One of: "error", "highlight", "neutral-dark-mode", "neutral", "success", "warning" |
 | `icon`            | An icon from `@hashicorp/flight-icons` to render.                                                                                                                                                           | No        | undefined     | ReactElement                                                                       |
 | `size`            | The size of the badge, which mainly affects font size and padding.                                                                                                                                          | No        | "medium"      | One of: "small", "medium", "large"                                                 |
@@ -30,14 +31,16 @@ componentName: Badge
   {<Badge icon={<SwingsetTestIcon name="plus" />} text="Lorem ipsum" />}
 </p>
 
-## All `type` and `color` variations
+## All `color`, `type`, and `size` variations
 
 <table>
   <thead>
-    <th>Color</th>
-    <th>Type: filled</th>
-    <th>Type: inverted</th>
-    <th>Type: outlined</th>
+    <tr>
+      <th>Color</th>
+      <th>Type: filled</th>
+      <th>Type: inverted</th>
+      <th>Type: outlined</th>
+    </tr>
   </thead>
   <tbody>
     {[
