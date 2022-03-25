@@ -33,22 +33,24 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 
 export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 
   /**
    * TODO: this will be temporary and last for as long as we have to manually
    * hydrate product data from page components. Ideally, we won't have to do
    * this we use more dynamic routes.
    */
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-  const isDevDotPage =
-    !currentPath.startsWith(`/_proxied-dot-io`) &&
-    !currentPath.startsWith(`/swingset`)
-  const isNotHomePage = currentPath !== '/'
-  const isMissingProductData = !pageProps.product
-  if (isDevDotPage && isNotHomePage && isMissingProductData) {
-    throw new Error(
-      `\`product\` property is missing from \`pageProps\` prop on path: \`${currentPath}\`. Product data from \`src/data/{product}.json\` is needed to hydrate \`CurrentProductContext\`.`
-    )
+  if (process.env.HASHI_ENV !== 'production') {
+    const isDevDotPage =
+      !currentPath.startsWith(`/_proxied-dot-io`) &&
+      !currentPath.startsWith(`/swingset`)
+    const isNotHomePage = currentPath !== '/'
+    const isMissingProductData = !pageProps.product
+    if (isDevDotPage && isNotHomePage && isMissingProductData) {
+      throw new Error(
+        `\`product\` property is missing from \`pageProps\` prop on path: \`${currentPath}\`. Product data from \`src/data/{product}.json\` is needed to hydrate \`CurrentProductContext\`.`
+      )
+    }
   }
 
   const Layout = Component.layout ?? BaseLayout
