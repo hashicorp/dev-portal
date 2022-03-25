@@ -36,16 +36,20 @@ export default function App({ Component, pageProps, layoutProps }) {
    * hydrate product data from page components. Ideally, we won't have to do
    * this we use more dynamic routes.
    */
-  if (process.env.HASHI_ENV !== 'production' && !Cookies.get('io_preview')) {
-    const isDevDotPage =
-      !currentPath.startsWith(`/_proxied-dot-io`) &&
-      !currentPath.startsWith(`/swingset`)
-    const isNotHomePage = currentPath !== '/'
-    const isMissingProductData = !pageProps.product
-    if (isDevDotPage && isNotHomePage && isMissingProductData) {
-      throw new Error(
-        `\`product\` property is missing from \`pageProps\` prop on path: \`${currentPath}\`. Product data from \`src/data/{product}.json\` is needed to hydrate \`CurrentProductContext\`.`
-      )
+  if (process.env.HASHI_ENV !== 'production') {
+    const hasPreviewCookie =
+      typeof window !== 'undefined' && Cookies.get('io_preview')
+    if (!hasPreviewCookie) {
+      const isDevDotPage =
+        !currentPath.startsWith(`/_proxied-dot-io`) &&
+        !currentPath.startsWith(`/swingset`)
+      const isNotHomePage = currentPath !== '/'
+      const isMissingProductData = !pageProps.product
+      if (isDevDotPage && isNotHomePage && isMissingProductData) {
+        throw new Error(
+          `\`product\` property is missing from \`pageProps\` prop on path: \`${currentPath}\`. Product data from \`src/data/{product}.json\` is needed to hydrate \`CurrentProductContext\`.`
+        )
+      }
     }
   }
 
