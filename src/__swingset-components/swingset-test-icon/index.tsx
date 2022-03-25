@@ -7,15 +7,33 @@ import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
 import { IconPlus24 } from '@hashicorp/flight-icons/svg-react/plus-24'
 import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
 import { IconGithub24 } from '@hashicorp/flight-icons/svg-react/github-24'
+import { IconCheck16 } from '@hashicorp/flight-icons/svg-react/check-16'
+import { IconCheck24 } from '@hashicorp/flight-icons/svg-react/check-24'
+import { IconAlertTriangle16 } from '@hashicorp/flight-icons/svg-react/alert-triangle-16'
+import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
+import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
+import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
 const ICON_MAP = {
   'arrow-right': {
     16: <IconArrowRight16 />,
     24: <IconArrowRight24 />,
   },
+  'alert-triangle': {
+    16: <IconAlertTriangle16 />,
+    24: <IconAlertTriangle24 />,
+  },
+  check: {
+    16: <IconCheck16 />,
+    24: <IconCheck24 />,
+  },
   copy: {
     16: <IconClipboardCopy16 />,
     24: <IconClipboardCopy24 />,
+  },
+  cross: {
+    16: <IconX16 />,
+    24: <IconX24 />,
   },
   github: {
     16: <IconGithub16 />,
