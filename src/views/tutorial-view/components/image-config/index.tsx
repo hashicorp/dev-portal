@@ -3,10 +3,6 @@ import MdxImg from '../mdx-img'
 // import classNames from 'classnames'
 import s from './image-config.module.css'
 
-// TODO: consider JSX slot rather than string for "caption" prop?
-// maybe we wait on this - future enhancement if authors need to include
-// links in captions.
-
 /**
  * Configure extra settings for images via MDX.
  * Designed to wrap a single markdown image.
