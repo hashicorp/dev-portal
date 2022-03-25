@@ -10,7 +10,7 @@ import classNames from 'classnames'
 /**
  * Wrapper component for MDX images, formerly used to apply border styles.
  *
- * Maintained here only as a way to keep being noisy about use,
+ * Maintained here only as a way to keep being noisy about deprecation,
  * and ensure we root out all content uses before removing the component.
  *
  * Source from learn:
