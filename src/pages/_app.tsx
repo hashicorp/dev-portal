@@ -7,6 +7,7 @@ import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analyti
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
+import useCurrentPath from 'hooks/use-current-path'
 import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import './style.css'
@@ -32,6 +33,23 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 
 export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()
+
+  /**
+   * TODO: this will be temporary and last for as long as we have to manually
+   * hydrate product data from page components. Ideally, we won't have to do
+   * this we use more dynamic routes.
+   */
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const isDevDotPage =
+    !currentPath.startsWith(`/_proxied-dot-io`) &&
+    !currentPath.startsWith(`/swingset`)
+  const isNotHomePage = currentPath !== '/'
+  const isMissingProductData = !pageProps.product
+  if (isDevDotPage && isNotHomePage && isMissingProductData) {
+    throw new Error(
+      `\`product\` property is missing from \`pageProps\` prop on path: \`${currentPath}\`. Product data is needed to hydrate \`CurrentProductContext\`.`
+    )
+  }
 
   const Layout = Component.layout ?? BaseLayout
   const currentProduct = pageProps.product || null
