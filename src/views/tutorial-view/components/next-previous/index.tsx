@@ -1,4 +1,5 @@
 import DirectionalLinkBox from './components/directional-link-box'
+import s from './next-previous.module.css'
 
 interface NextPreviousProps {
   tutorial: {
@@ -54,38 +55,25 @@ export function NextPrevious({ tutorial, collection }: NextPreviousProps) {
     }
 
     /**
-     * We don't have an advanced search page, so we can't use the search query thing yet
-     * should it just point to Learn?
+     * We don't have an advanced search page, so we can't use the search query thing yet. should it just point to Learn?
      * if it is the last collection in the sidebar...we provide the search query path for the
      * advanced search page. for now we should just go to the product tutorial home page?
+     *
+     * if (collection.isLast) {
+     *   const searchLink = TODO link to filtered product search page
+     *     return (
+     *       <DirectionalLinkBox
+     *         link={{
+     *           href: searchLink,
+     *           as: searchLink,
+     *         }}
+     *         label="Browse Tutorials"
+     *         direction="final"
+     *         title="Browse Tutorials"
+     *       />
+     *     )
+     *  }
      */
-    //   if (collection.isLast) {
-    //     const searchLink = '/search'
-    //     const isProduct = themeIsProduct(productSlug)
-
-    //     if (isProduct) {
-    //       searchLink = searchLink + `?product=${productSlug}`
-    //     }
-
-    //     if (badge) {
-    //       const badgeQuery = `${isProduct ? '&' : '?'}edition=${
-    //         badge.includes(':') ? badge.substring(0, badge.indexOf(':')) : badge
-    //       }`
-    //       searchLink = searchLink + badgeQuery
-    //     }
-
-    //     return (
-    //       <DirectionalLinkBox
-    //         link={{
-    //           href: searchLink,
-    //           as: searchLink,
-    //         }}
-    //         label="Browse Tutorials"
-    //         direction="final"
-    //         title="Browse Tutorials"
-    //       />
-    //     )
-    //   }
 
     return (
       <DirectionalLinkBox
@@ -97,7 +85,7 @@ export function NextPrevious({ tutorial, collection }: NextPreviousProps) {
     )
   }
   return (
-    <div>
+    <div className={s.linkBoxWrapper}>
       {renderPreviousLink()}
       {renderNextLink()}
     </div>

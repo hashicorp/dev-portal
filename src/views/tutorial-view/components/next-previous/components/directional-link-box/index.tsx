@@ -1,7 +1,7 @@
 import React from 'react'
 import Link, { LinkProps } from 'next/link'
 import InlineSvg from '@hashicorp/react-inline-svg'
-import s from './styles.module.css'
+import s from './directional-link-box.module.css'
 
 interface DirectionalLinkBoxProps {
   link: LinkProps
@@ -12,18 +12,15 @@ interface DirectionalLinkBoxProps {
 
 type DirectionOption = 'next' | 'previous' | 'final'
 
-/**
- *  @TODO: when we're redoing all icons figure out the most
- * performant way to dynamically require icons like this.
- * This pattern causes all those assets to load. Skateboard approach
- * for now as a larger icon refactor is on the horizon — re: new flight-icons lib
- */
-
 const IconSrcDict: { [k in DirectionOption]: string } = {
-  next: require(`@hashicorp/flight-icons/svg/chevron-right-24.svg?include`),
-  previous: require(`@hashicorp/flight-icons/svg/chevron-left-24.svg?include`),
+  next: require(`@hashicorp/flight-icons/svg/arrow-right-16.svg?include`),
+  previous: require(`@hashicorp/flight-icons/svg/arrow-left-16.svg?include`),
   final: require(`@hashicorp/flight-icons/svg/sliders-24.svg?include`),
 }
+
+/*
+@TODO style to spec
+*/
 
 function DirectionalLinkBox({
   link,

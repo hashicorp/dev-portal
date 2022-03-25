@@ -1,12 +1,11 @@
 .card {
+  border: 1px solid magenta; /** @TODO style these to spec, remove any prev imp styles necessary */
   position: relative;
   display: block;
   background: var(--white);
-  border: 1px solid var(--gray-5);
-  border-radius: 2px;
+  border-radius: 5px;
   margin: 0;
   padding: 20px;
-  transition: box-shadow 0.2s;
 }
 
 /* visually hidden */
@@ -26,15 +25,15 @@
   align-items: center;
   width: 100%;
   background-color: var(--white);
-  transition: background-color 0.2s ease;
   color: var(--black);
+  box-shadow: var(--token-surface-mid-box-shadow);
+  transition: box-shadow 0.3s;
 
   &[data-direction='previous'] {
     text-align: left;
     justify-content: flex-start;
     &:hover {
-      background-color: var(--gray-6);
-      transition: background-color 0.2s ease;
+      box-shadow: var(--token-surface-high-box-shadow);
     }
   }
 
@@ -42,12 +41,9 @@
   &[data-direction='final'] {
     text-align: right;
     justify-content: flex-end;
-    border-color: var(--brand, #2e71e5);
-    box-shadow: 0 4px 6px rgba(52, 53, 54, 0.08);
 
     &:hover {
-      background-color: var(--info-l2);
-      transition: background-color 0.2s ease;
+      box-shadow: var(--token-surface-high-box-shadow);
     }
   }
 
@@ -97,9 +93,7 @@
 }
 
 .text {
-  composes: g-type-buttons-and-standalone-links from global;
   text-decoration: none;
-  color: #000;
 
   @media (--small) {
     display: none;
