@@ -1,4 +1,8 @@
-import { Collection, CollectionLite } from 'lib/learn-client/types'
+import {
+  Collection as ClientCollection,
+  CollectionLite as ClientCollectionLite,
+  TutorialLite as ClientTutorialLite,
+} from 'lib/learn-client/types'
 import {
   getCollectionSlug,
   getTutorialSlug,
@@ -7,8 +11,8 @@ import { NextPreviousProps } from '.'
 
 interface GetNextPreviousParams {
   currentTutorialSlug: string
-  currentCollection: Collection
-  nextCollectionInSidebar: CollectionLite
+  currentCollection: ClientCollection
+  nextCollectionInSidebar: ClientCollectionLite
 }
 
 export function getNextPrevious({
@@ -20,7 +24,7 @@ export function getNextPrevious({
   let nextTutorial
   let nextCollection
   const tutorialIndex = currentCollection.tutorials.findIndex(
-    (t) => t.slug === currentTutorialSlug
+    (t: ClientTutorialLite) => t.slug === currentTutorialSlug
   )
   const isFirstTutorial = tutorialIndex === 0
   const isLastTutorial =
