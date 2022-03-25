@@ -1,7 +1,7 @@
 .root {
-  background-color: white;
+  background-color: var(--token-color-surface-primary);
+  box-shadow: var(--token-surface-base-box-shadow);
   border-radius: 6px;
-  border: 1px solid red;
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
@@ -10,7 +10,11 @@
   margin: 24px auto;
 
   &.noMargin {
-    margin: 0 !important;
+    margin: 0;
+  }
+
+  &.noBorder {
+    box-shadow: none;
   }
 }
 

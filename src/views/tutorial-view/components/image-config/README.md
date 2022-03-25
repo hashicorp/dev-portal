@@ -1,34 +1,26 @@
 # ImageConfig
 
-> Util component to apply styling to Markdown images
-
-Say you're writing some MDX, and you've got an image...
-
-```mdx
-## Verify the configuration
-
-Ensure that your dashboard looks like this:
-
-![dashboard image](path/to/image.jpg)
-```
-
-...but you need to customize its appearance.
-
-Wrap the image in an `<ImageConfig>`, and tweak the styling via props:
-
-```mdx
-## Verify the configuration
-
-Ensure that your dashboard looks like this:
-
-<ImageConfig hideBorder>
-
-![dashboard image](path/to/image.jpg)
-
-</ImageConfig>
-```
+`ImageConfig` is used to augment images in markdown with additional properties.
 
 ## Props
 
-- `hideBorder: boolean = false` — toggle the borders off.
-  - **Note** — all images should have borders applied, except [old images that have borders within the actual file](https://app.asana.com/0/0/1200064497615039/f).
+- `caption` `string` - a plain text caption to show below the image.
+  <details><summary>Example of `caption` in use</summary>
+
+  ```md
+  ## Verify the configuration
+
+  Once you've verified configuration, the Vault UI should display something that's related to the image below.
+
+  <ImageConfig caption="This is a plain text caption that will appear below the image.">
+
+  ![The Vault UI, showing something important happening that should be mentioned in this alternate text.](/path/to/image.jpg)
+
+  </ImageConfig>
+  ```
+
+  </details>
+
+### Deprecated props
+
+- 🚫 `hideBorder` `boolean` - was a boolean prop. This prop is now deprecated. Please remove borders from all images.

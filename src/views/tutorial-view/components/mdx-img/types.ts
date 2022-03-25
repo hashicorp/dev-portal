@@ -7,4 +7,6 @@ export interface MdxImgProps {
   title?: JSX.IntrinsicElements['img']['title']
   /** Avoid adding margin to the component. For use in other elements, such as ImageConfig */
   noMargin?: boolean
+  /** Avoid adding border to the component. For use in other elements, such as ImageConfig */
+  noBorder?: boolean
 }

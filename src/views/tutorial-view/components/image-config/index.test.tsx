@@ -18,9 +18,7 @@ const testImage = (
 const renderBasicMock = () =>
   render(
     <ImageConfig hideBorder>
-      <p className="g-type-long-body" data-testid="p">
-        {testImage}
-      </p>
+      <p className="g-type-long-body">{testImage}</p>
     </ImageConfig>
   )
 
@@ -38,14 +36,8 @@ describe('basic functionality', () => {
 
   it('should apply `noBorder` styling if `hideBorder` is provided', () => {
     renderBasicMock()
-    const p = screen.getByTestId('p')
-    expect(p).toHaveClass('noBorder')
-  })
-
-  it("should preserve children's existing classNames", () => {
-    renderBasicMock()
-    const p = screen.getByTestId('p')
-    expect(p).toHaveClass('g-type-long-body')
+    const mdxImgContainer = screen.getByAltText('hashicorp logo').parentNode
+    expect(mdxImgContainer).toHaveClass('noBorder')
   })
 })
 
@@ -65,14 +57,14 @@ describe('warnings', () => {
   it('should emit a warning when using deprecated props', () => {
     renderBasicMock()
     expect(mockStdout).toEqual([
-      'Warning: <ImageConfig /> was initialized with a deprecated prop "hideBorder"',
+      'Warning: <ImageConfig /> was initialized with a deprecated prop "hideBorder". This property will be deprecated in the near future. If you\'ve provided an image caption, a border will be displayed even if "hideBorder" is set. If your image has a border built into it, please crop it to remove it.',
     ])
   })
 
   it('should emit a warning when instantiated with default props', () => {
     render(<ImageConfig>{testImage}</ImageConfig>)
     expect(mockStdout).toEqual([
-      'Warning: <ImageConfig /> was initialized with default props and should be removed',
+      'Warning: <ImageConfig /> was initialized with default props. Please remove <ImageConfig /> if configuration is not needed.',
     ])
   })
 })
@@ -85,6 +77,10 @@ describe('errors', () => {
 
   it('should error with invalid children', () => {
     expect(() => render(<ImageConfig> </ImageConfig>)).toThrowError()
+    expect(() => render(<ImageConfig>{4}</ImageConfig>)).toThrowError()
+    expect(() =>
+      render(<ImageConfig>{'some-string'}</ImageConfig>)
+    ).toThrowError()
   })
 
   it('should error with multiple children', () => {

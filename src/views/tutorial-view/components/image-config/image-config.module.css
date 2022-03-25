@@ -3,5 +3,7 @@
 }
 
 .caption {
-  margin-top: 12px;
+  composes: hds-typography-body-200 from global;
+  color: var(--token-color-foreground-primary);
+  margin-top: 16px;
 }
