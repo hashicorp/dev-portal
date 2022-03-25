@@ -1,7 +1,7 @@
 import DirectionalLinkBox from './components/directional-link-box'
 import s from './next-previous.module.css'
 
-interface NextPreviousProps {
+export interface NextPreviousProps {
   tutorial: {
     next?: LinkProps
     previous?: LinkProps
