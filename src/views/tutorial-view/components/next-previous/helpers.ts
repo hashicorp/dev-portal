@@ -1,4 +1,8 @@
 import { Collection, CollectionLite } from 'lib/learn-client/types'
+import {
+  getCollectionSlug,
+  getTutorialSlug,
+} from 'views/collection-view/helpers'
 
 interface GetNextPreviousParams {
   currentTutorialSlug: string
@@ -15,6 +19,18 @@ export function getNextPrevious({
   let nextTutorial
   let isFirstTutorial = false
   let isLastTutorial = false
+
+  /**
+   * @TODO - interim state for 'final' link
+   * This link shows on the last tutorial in the last collection in sidebar order
+   * In learn, it links to a filtered advanced search page state
+   * e.g. https://learn.hashicorp.com/search?product=waypoint&page=1
+   *
+   * Since don't have an advanced search page for beta, were linking folks back to the base
+   * product tutorials page.
+   *
+   */
+  const finalLink = `/${currentCollection.theme}/tutorials`
 
   /**
    * get next & previous tutorials
@@ -35,7 +51,7 @@ export function getNextPrevious({
   if (!isFirstTutorial) {
     const { slug, name } = currentCollection.tutorials[tutorialIndex - 1]
     previousTutorial = {
-      path: slug, // format
+      path: getTutorialSlug(slug, currentCollection.slug),
       name,
     }
   }
@@ -43,7 +59,7 @@ export function getNextPrevious({
   if (!isLastTutorial) {
     const { slug, name } = currentCollection.tutorials[tutorialIndex + 1]
     nextTutorial = {
-      path: slug, // format
+      path: getTutorialSlug(slug, currentCollection.slug),
       name,
     }
   }
@@ -53,14 +69,14 @@ export function getNextPrevious({
    */
   const nextCollection = nextCollectionInSidebar
     ? {
-        path: nextCollectionInSidebar.slug, //format
+        path: getCollectionSlug(nextCollectionInSidebar.slug),
         name: nextCollectionInSidebar.shortName,
       }
     : undefined
 
   const collection = {
     current: {
-      path: currentCollection.slug, //format
+      path: getCollectionSlug(currentCollection.slug),
       name: currentCollection.shortName,
     },
     next: nextCollection,
@@ -74,6 +90,7 @@ export function getNextPrevious({
       isLast: isLastTutorial,
     },
     collection,
+    finalLink,
   }
 
   return data

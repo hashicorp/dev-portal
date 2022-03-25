@@ -12,6 +12,7 @@ interface NextPreviousProps {
     next?: LinkProps
     isLast: boolean
   }
+  finalLink: string
 }
 
 type LinkProps = {
@@ -19,7 +20,11 @@ type LinkProps = {
   path: string
 }
 
-export function NextPrevious({ tutorial, collection }: NextPreviousProps) {
+export function NextPrevious({
+  tutorial,
+  collection,
+  finalLink,
+}: NextPreviousProps) {
   function renderPreviousLink() {
     if (tutorial.previous) {
       return (
@@ -55,25 +60,28 @@ export function NextPrevious({ tutorial, collection }: NextPreviousProps) {
     }
 
     /**
-     * We don't have an advanced search page, so we can't use the search query thing yet. should it just point to Learn?
-     * if it is the last collection in the sidebar...we provide the search query path for the
-     * advanced search page. for now we should just go to the product tutorial home page?
+     * @TODO - interim state for 'final' link
+     * This link shows on the last tutorial in the last collection in sidebar order
+     * In learn, it links to a filtered advanced search page state
+     * e.g. https://learn.hashicorp.com/search?product=waypoint&page=1
      *
-     * if (collection.isLast) {
-     *   const searchLink = TODO link to filtered product search page
-     *     return (
-     *       <DirectionalLinkBox
-     *         link={{
-     *           href: searchLink,
-     *           as: searchLink,
-     *         }}
-     *         label="Browse Tutorials"
-     *         direction="final"
-     *         title="Browse Tutorials"
-     *       />
-     *     )
-     *  }
+     * Since don't have an advanced search page for beta, were linking folks back to the base
+     * product tutorials page.
+     *
      */
+
+    if (collection.isLast) {
+      return (
+        <DirectionalLinkBox
+          link={{
+            href: finalLink,
+          }}
+          label="Browse Tutorials"
+          direction="final"
+          title="Browse Tutorials"
+        />
+      )
+    }
 
     return (
       <DirectionalLinkBox
