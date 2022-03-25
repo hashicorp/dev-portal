@@ -49,7 +49,7 @@ const FeaturedTutorialsSection = ({
               </div>
               <div className={s.cardIcons}>
                 <IconPlay16 />
-                <ProductIcon product={currentProduct.slug} />
+                <ProductIcon productSlug={currentProduct.slug} />
               </div>
             </CardLink>
           )

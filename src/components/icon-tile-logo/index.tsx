@@ -18,7 +18,7 @@ function IconTileLogo({ product }: IconTileLogoProps): React.ReactElement {
       size="extra-large"
       brandColor={product == 'hcp' ? 'neutral' : product}
     >
-      <ProductIcon product={product} />
+      <ProductIcon productSlug={product} />
     </IconTile>
   )
 }

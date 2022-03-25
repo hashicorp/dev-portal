@@ -22,8 +22,8 @@ const productSlugsToIcons = {
   waypoint: IconWaypointColor16,
 }
 
-const ProductIcon = ({ product, ...rest }: ProductIconProps) => {
-  const Icon = productSlugsToIcons[product]
+const ProductIcon = ({ productSlug, ...rest }: ProductIconProps) => {
+  const Icon = productSlugsToIcons[productSlug]
   if (!Icon) {
     return null
   }
