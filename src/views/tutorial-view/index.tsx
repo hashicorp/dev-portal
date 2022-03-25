@@ -25,7 +25,6 @@ import TutorialMeta from 'components/tutorial-meta'
 export interface TutorialViewProps {
   tutorial: TutorialData
   layout: TutorialSidebarSidecarProps
-  nextCollection: ClientCollectionLite
 }
 
 export interface TutorialData
@@ -41,6 +40,7 @@ export interface TutorialData
   > {
   collectionCtx: CollectionContext
   content: MDXRemoteSerializeResult
+  nextCollectionInSidebar?: ClientCollectionLite
 }
 
 export type CollectionContext = {
@@ -62,7 +62,6 @@ export type TutorialSidebarSidecarProps = Required<
 export default function TutorialView({
   layout,
   tutorial,
-  nextCollection,
 }: TutorialViewProps): React.ReactElement {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const {
@@ -81,7 +80,7 @@ export default function TutorialView({
   const nextPreviousData = getNextPrevious({
     currentCollection: collectionCtx.current,
     currentTutorialSlug: slug,
-    nextCollectionInSidebar: nextCollection,
+    nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
 
   return (

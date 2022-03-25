@@ -84,6 +84,7 @@ export async function getTutorialPageProps(
         content: serializedContent,
         collectionCtx: collectionContext,
         headings,
+        nextCollectionInSidebar: nextCollection,
       },
       product,
       layoutProps,

@@ -16,13 +16,7 @@ export function VaultTutorialPage({
   layoutProps,
   nextCollection,
 }: TutorialPageProps): React.ReactElement {
-  return (
-    <TutorialView
-      tutorial={tutorial}
-      layout={layoutProps}
-      nextCollection={nextCollection}
-    />
-  )
+  return <TutorialView tutorial={tutorial} layout={layoutProps} />
 }
 
 export async function getStaticProps({
