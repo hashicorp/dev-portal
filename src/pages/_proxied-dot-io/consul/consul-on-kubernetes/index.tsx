@@ -1,5 +1,5 @@
 import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
-import ReactHead from '@hashicorp/react-head'
+import HashiHead from '@hashicorp/react-head'
 import Button from '@hashicorp/react-button'
 import ConsulOnKubernetesHero from 'components/_proxied-dot-io/consul/consul-on-kubernetes-hero'
 import FeaturesList from 'components/_proxied-dot-io/consul/features-list'
@@ -16,7 +16,7 @@ function ConsulOnKubernetesPage() {
 
   return (
     <div>
-      <ReactHead
+      <HashiHead
         title={pageTitle}
         pageName={pageTitle}
         description={pageDescription}
@@ -25,8 +25,8 @@ function ConsulOnKubernetesPage() {
       >
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
-        <meta name="author" content="@HashiCorp" />
-      </ReactHead>
+        <meta name="twitter:creator" content="@HashiCorp" />
+      </HashiHead>
 
       <ConsulOnKubernetesHero
         title="Consul on Kubernetes"
@@ -34,8 +34,7 @@ function ConsulOnKubernetesPage() {
         ctas={[
           {
             text: 'Try HCP Consul',
-            url:
-              'https://portal.cloud.hashicorp.com/?utm_source=docs&utm_content=consul_on_kubernetes_landing',
+            url: 'https://portal.cloud.hashicorp.com/?utm_source=docs&utm_content=consul_on_kubernetes_landing',
           },
           {
             text: 'Install Consul on Kubernetes',
@@ -145,8 +144,7 @@ function ConsulOnKubernetesPage() {
               ],
               cta: {
                 text: 'Start tutorial',
-                url:
-                  'https://learn.hashicorp.com/tutorials/consul/kubernetes-deployment-guide?in=consul/kubernetes',
+                url: 'https://learn.hashicorp.com/tutorials/consul/kubernetes-deployment-guide?in=consul/kubernetes',
               },
               image: require('./images/features/multi-platform.svg'),
             },
@@ -178,8 +176,7 @@ function ConsulOnKubernetesPage() {
               ],
               cta: {
                 text: 'Start tutorial',
-                url:
-                  'https://learn.hashicorp.com/tutorials/consul/kubernetes-custom-resource-definitions?in=consul/kubernetes',
+                url: 'https://learn.hashicorp.com/tutorials/consul/kubernetes-custom-resource-definitions?in=consul/kubernetes',
               },
               image: require('./images/features/workflow.svg'),
             },
@@ -210,8 +207,7 @@ function ConsulOnKubernetesPage() {
               ],
               cta: {
                 text: 'Start tutorial',
-                url:
-                  'https://learn.hashicorp.com/tutorials/consul/kubernetes-layer7-observability?in=consul/kubernetes',
+                url: 'https://learn.hashicorp.com/tutorials/consul/kubernetes-layer7-observability?in=consul/kubernetes',
               },
               image: require('./images/features/observable.svg'),
             },
@@ -246,8 +242,7 @@ function ConsulOnKubernetesPage() {
               ],
               cta: {
                 text: 'Start tutorial',
-                url:
-                  'https://learn.hashicorp.com/tutorials/consul/kubernetes-secure-agents?in=consul/kubernetes',
+                url: 'https://learn.hashicorp.com/tutorials/consul/kubernetes-secure-agents?in=consul/kubernetes',
               },
               image: require('./images/features/secure.svg'),
             },
@@ -266,16 +261,14 @@ function ConsulOnKubernetesPage() {
                 heading: 'Get started on Kubernetes',
                 description:
                   'Setup Consul service mesh to get experience deploying service sidecar proxies and securing service with mTLS.',
-                url:
-                  'https://learn.hashicorp.com/tutorials/consul/service-mesh-deploy?in=consul/gs-consul-service-mesh',
+                url: 'https://learn.hashicorp.com/tutorials/consul/service-mesh-deploy?in=consul/gs-consul-service-mesh',
               },
               {
                 eyebrow: '22 min',
                 heading: 'Secure Consul and registered services on Kubernetes',
                 description:
                   'Secure Consul on Kubernetes using gossip encryption, TLS certificates, Access Control Lists, and Consul intentions.',
-                url:
-                  'https://learn.hashicorp.com/tutorials/consul/kubernetes-secure-agents?in=consul/kubernetes',
+                url: 'https://learn.hashicorp.com/tutorials/consul/kubernetes-secure-agents?in=consul/kubernetes',
               },
               {
                 eyebrow: '21 min',
@@ -283,8 +276,7 @@ function ConsulOnKubernetesPage() {
                   'Layer 7 observability with Prometheus, Grafana, and Kubernetes',
                 description:
                   'Collect and visualize layer 7 metrics from services in your Kubernetes cluster using Consul service mesh, Prometheus, and Grafana.',
-                url:
-                  'https://learn.hashicorp.com/tutorials/consul/kubernetes-layer7-observability?in=consul/kubernetes',
+                url: 'https://learn.hashicorp.com/tutorials/consul/kubernetes-layer7-observability?in=consul/kubernetes',
               },
             ]}
           />
@@ -313,8 +305,7 @@ function ConsulOnKubernetesPage() {
                   'Use Consul’s Terraform provider for deploying and maintaining Consul agents across both Kubernetes and non-Kubernetes environments.',
                 cta: {
                   text: 'Terraform provider',
-                  url:
-                    'https://registry.terraform.io/providers/hashicorp/consul/latest/docs',
+                  url: 'https://registry.terraform.io/providers/hashicorp/consul/latest/docs',
                 },
               },
             ]}

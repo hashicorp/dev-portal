@@ -21,8 +21,12 @@
   & button {
     font-family: var(--font-body);
 
-    &:hover {
+    &:not(:disabled) {
       cursor: pointer;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
     }
   }
 }

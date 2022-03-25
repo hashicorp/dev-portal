@@ -34,22 +34,12 @@ function WaypointIoLayout({
     <>
       <HashiHead
         title={productData.metadata.title}
+        pageName={productData.metadata.title}
         siteName={productData.metadata.title}
         description={productData.metadata.description}
         image={productData.metadata.image}
         icon={productData.metadata.icon}
-      >
-        <meta
-          name="og:title"
-          property="og:title"
-          content={productData.metadata.title}
-        />
-        <meta
-          name="og:description"
-          property="og:title"
-          content={productData.metadata.description}
-        />
-      </HashiHead>
+      />
 
       <Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
         {productData.alertBannerActive && (

@@ -1,3 +1,4 @@
+import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import DevAlertBanner from 'components/dev-alert-banner'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
@@ -7,29 +8,34 @@ import s from './base-new-layout.module.css'
 interface BaseNewLayoutProps {
   /** Defaults to true. If true, the global footer will be shown at the bottom of the page. */
   showFooter?: boolean
-  openConsentManager?: () => void
 }
+
+const { ConsentManager, openConsentManager } = createConsentManager({
+  preset: 'oss',
+})
 
 const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
   children,
-  openConsentManager,
   showFooter = true,
 }) => {
   return (
-    <CoreDevDotLayout>
-      <div className={s.root} data-layout="base-new">
-        <div className={s.header}>
-          <DevAlertBanner />
-          <NavigationHeader />
-        </div>
-        <div className={s.contentArea}>{children}</div>
-        {showFooter && (
-          <div className={s.footer}>
-            <Footer openConsentManager={openConsentManager} />
+    <>
+      <CoreDevDotLayout>
+        <div className={s.root} data-layout="base-new">
+          <div className={s.header}>
+            <DevAlertBanner />
+            <NavigationHeader />
           </div>
-        )}
-      </div>
-    </CoreDevDotLayout>
+          <div className={s.contentArea}>{children}</div>
+          {showFooter && (
+            <div className={s.footer}>
+              <Footer openConsentManager={openConsentManager} />
+            </div>
+          )}
+        </div>
+      </CoreDevDotLayout>
+      <ConsentManager />
+    </>
   )
 }
 

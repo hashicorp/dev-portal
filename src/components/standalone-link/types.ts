@@ -57,7 +57,7 @@ export interface StandaloneLinkProps {
   icon: ReactElement
 
   /**
-   * Where the icon should be rendered within the link. See examples below.
+   * Where the icon should be rendered within the link.
    */
   iconPosition: 'leading' | 'trailing'
 

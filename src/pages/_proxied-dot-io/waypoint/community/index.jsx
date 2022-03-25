@@ -1,15 +1,16 @@
+import HashiHead from '@hashicorp/react-head'
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import styles from './style.module.css'
 import VerticalTextBlockList from '@hashicorp/react-vertical-text-block-list'
 import SectionHeader from '@hashicorp/react-section-header'
-import Head from 'next/head'
 
 function CommunityPage() {
   return (
     <div className={styles.communityPage}>
-      <Head>
-        <title key="title">Community | Waypoint by HashiCorp</title>
-      </Head>
+      <HashiHead
+        title="Community | Waypoint by HashiCorp"
+        pageName="Community | Waypoint by HashiCorp"
+      />
       <div className={styles.sectionHeaderWrapper}>
         <SectionHeader
           headline="Community"
@@ -22,13 +23,11 @@ function CommunityPage() {
         data={[
           {
             header: 'Community Forum',
-            body:
-              '<a href="https://discuss.hashicorp.com/c/waypoint">Waypoint Community Forum</a>',
+            body: '<a href="https://discuss.hashicorp.com/c/waypoint">Waypoint Community Forum</a>',
           },
           {
             header: 'Bug Tracker',
-            body:
-              '<a href="https://github.com/hashicorp/waypoint/issues">Issue tracker on GitHub</a>. Please only use this for reporting bugs. Do not ask for general help here; use the Community Form for that.',
+            body: '<a href="https://github.com/hashicorp/waypoint/issues">Issue tracker on GitHub</a>. Please only use this for reporting bugs. Do not ask for general help here; use the Community Form for that.',
           },
         ]}
       />
