@@ -20,10 +20,7 @@ export async function fetchAllCollectionsByProduct(
 
   if (getProductCollectionsRes.ok) {
     const res = await getProductCollectionsRes.json()
-    if (res.result.length === 0) {
-      return null // this means its the last collection in the sidebar
-    }
-    return res.result[0]
+    return res.result
   }
 
   const error = toError(getProductCollectionsRes)

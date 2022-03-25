@@ -63,18 +63,18 @@ export function getNextPrevious({
       path: currentCollection.slug, //format
       name: currentCollection.shortName,
     },
-    nextCollection,
+    next: nextCollection,
     isLast: isLastTutorial && !nextCollection, // if next collection isn't defined and were on the last tutorial, the api returned null
   }
 
-  {
-    return {
-      tutorial: {
-        previous: previousTutorial,
-        next: nextTutorial,
-        isLast: isLastTutorial,
-      },
-      collection,
-    }
+  const data = {
+    tutorial: {
+      previous: previousTutorial,
+      next: nextTutorial,
+      isLast: isLastTutorial,
+    },
+    collection,
   }
+
+  return data
 }

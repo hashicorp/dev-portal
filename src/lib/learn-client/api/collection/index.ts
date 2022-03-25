@@ -7,6 +7,7 @@ import {
   getAllCollectionsOptions,
   themeIsProduct,
   ProductOption,
+  CollectionLite,
 } from 'lib/learn-client/types'
 import { get, toError } from '../../index'
 import {
@@ -14,6 +15,7 @@ import {
   PRODUCT_COLLECTION_API_ROUTE,
 } from './fetch-product-collections'
 import { formatCollection } from './formatting'
+import { formatToCollectionLite } from '../tutorial/formatting'
 
 const COLLECTION_API_ROUTE = '/collections'
 
@@ -93,7 +95,7 @@ export async function getNextCollectionInSidebar({
 }: {
   product: ProductOption
   after: string // slug of the current collection
-}): Promise<Collection[]> {
+}): Promise<CollectionLite> {
   const baseUrl = PRODUCT_COLLECTION_API_ROUTE(product)
   const params = new URLSearchParams({
     topLevelCategorySort: 'true',
@@ -107,7 +109,11 @@ export async function getNextCollectionInSidebar({
 
   if (nextCollectionRes.ok) {
     const res = await nextCollectionRes.json()
-    console.log({ res })
-    return res.result
+    if (res.result.length === 0) {
+      return null // this means its the last collection in the sidebar
+    }
+
+    const formattedCollection = formatToCollectionLite(res.result[0])
+    return formattedCollection
   }
 }
