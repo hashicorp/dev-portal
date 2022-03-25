@@ -1,5 +1,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
+import Cookies from 'js-cookie'
 import { SSRProvider } from '@react-aria/ssr'
 import '@hashicorp/platform-util/nprogress/style.css'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
@@ -35,7 +36,7 @@ export default function App({ Component, pageProps, layoutProps }) {
    * hydrate product data from page components. Ideally, we won't have to do
    * this we use more dynamic routes.
    */
-  if (process.env.HASHI_ENV !== 'production') {
+  if (process.env.HASHI_ENV !== 'production' && !Cookies.get('io_preview')) {
     const isDevDotPage =
       !currentPath.startsWith(`/_proxied-dot-io`) &&
       !currentPath.startsWith(`/swingset`)
