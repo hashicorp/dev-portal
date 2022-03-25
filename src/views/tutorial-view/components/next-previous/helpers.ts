@@ -18,6 +18,7 @@ export function getNextPrevious({
 }: GetNextPreviousParams): NextPreviousProps {
   let previousTutorial
   let nextTutorial
+  let nextCollection
   const tutorialIndex = currentCollection.tutorials.findIndex(
     (t) => t.slug === currentTutorialSlug
   )
@@ -41,12 +42,12 @@ export function getNextPrevious({
     }
   }
 
-  const nextCollection = nextCollectionInSidebar
-    ? {
-        path: getCollectionSlug(nextCollectionInSidebar.slug),
-        name: nextCollectionInSidebar.shortName,
-      }
-    : undefined
+  if (nextCollectionInSidebar) {
+    nextCollection = {
+      path: getCollectionSlug(nextCollectionInSidebar.slug),
+      name: nextCollectionInSidebar.shortName,
+    }
+  }
 
   /**
    * @TODO - interim state for 'final' link
