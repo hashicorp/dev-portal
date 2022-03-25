@@ -123,9 +123,7 @@ export default function TutorialView({
           />
           {isInteractive ? <InteractiveLabToggle /> : null}
         </header>
-        <Content
-          content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
-        />
+        <MDXRemote {...content} components={MDX_COMPONENTS} />
         <div>
           <h2>Next / Prev component</h2>
         </div>
