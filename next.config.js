@@ -56,7 +56,11 @@ function HashiConfigPlugin() {
             () => {
               return JSON.stringify(getHashiConfig(envConfigPath)[key])
             },
-            { fileDependencies: [envConfigPath] }
+            /**
+             * version is set to env here to ensure that webpack's persistent cache
+             * does not cache the wrong config values across builds with different HASHI_ENV values
+             */
+            { fileDependencies: [envConfigPath], version: env }
           ),
         ]
       })
