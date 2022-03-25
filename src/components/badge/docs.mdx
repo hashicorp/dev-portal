@@ -32,52 +32,7 @@ componentName: Badge
 </>
 `}</LiveComponent>
 
-## Icon with text
-
-<LiveComponent>{`
-<>
-  <Badge
-    icon={<SwingsetTestIcon name="plus" />}
-    size="small"
-    text="Small"
-  />
-  <br />
-  <Badge
-    icon={<SwingsetTestIcon name="plus" />}
-    size="medium"
-    text="Medium"
-  />
-  <br />
-  <Badge
-    icon={<SwingsetTestIcon name="plus" />}
-    size="large"
-    text="Large"
-  />
-</>
-`}</LiveComponent>
-
-## Size
-
-<LiveComponent>{`
-<>
-  <Badge
-    size="small"
-    text="Small"
-  />
-  <br />
-  <Badge
-    size="medium"
-    text="Medium"
-  />
-  <br />
-  <Badge
-    size="large"
-    text="Large"
-  />
-</>
-`}</LiveComponent>
-
-## Type and Color
+## All `type` and `color` variations
 
 <table>
   <thead>
@@ -108,6 +63,10 @@ componentName: Badge
                 }}
               >
                 {['small', 'medium', 'large'].map((size) => {
+                  const isStatus =
+                    color === 'success' ||
+                    color === 'warning' ||
+                    color === 'critical'
                   return (
                     <div
                       style={{
@@ -124,12 +83,15 @@ componentName: Badge
                         text="Lorem ipsum"
                         type={type}
                       />
-                      <Badge
-                        color={color}
-                        size={size}
-                        text="Lorem ipsum"
-                        type={type}
-                      />
+                      {/* To avoid the error */}
+                      {!isStatus && (
+                        <Badge
+                          color={color}
+                          size={size}
+                          text="Lorem ipsum"
+                          type={type}
+                        />
+                      )}
                       <Badge
                         ariaLabel="Lorem ipsum"
                         color={color}
