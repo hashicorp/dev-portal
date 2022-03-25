@@ -14,7 +14,6 @@ import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 export function VaultTutorialPage({
   tutorial,
   layoutProps,
-  nextCollection,
 }: TutorialPageProps): React.ReactElement {
   return <TutorialView tutorial={tutorial} layout={layoutProps} />
 }
