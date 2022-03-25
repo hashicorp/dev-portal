@@ -1,4 +1,5 @@
-import { Children, isValidElement, ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode } from 'react'
+import getValidatedImgChild from './get-validated-image-child'
 import MdxImg from '../mdx-img'
 // import classNames from 'classnames'
 import s from './image-config.module.css'
@@ -67,67 +68,5 @@ export default function ImageConfig({
   } else {
     // Otherwise render a plain image tag
     return <MdxImg src={src} alt={alt} title={title} noBorder={hideBorder} />
-  }
-}
-
-/**
- * Given the incoming children passed to <ImageConfig />,
- * validate that the children are in the expected structure.
- *
- * Return the child <img /> element if the structure is expected,
- * throw an error otherwise.
- */
-function getValidatedImgChild(children: ReactNode) {
-  // Validate that there is exactly one valid child element
-  const childCount = Children.count(children)
-  const validChildren = Children.toArray(children)
-  if (childCount !== 1 || validChildren.length !== 1) {
-    throw new Error(
-      `In ImageConfig, found ${childCount} total children and ${validChildren.length} valid children. Please ensure that ImageConfig has exactly one child element, and ensure it is a valid image element.`
-    )
-  }
-  // Validate that the child is a ReactElement (not a Fragment or Portal)
-  const onlyChild = validChildren[0]
-  if (!isValidElement(onlyChild)) {
-    throw new Error(
-      `In ImageConfig, found child that does not seem to be a valid React element. Please ensure that ImageConfig contains a valid image element.`
-    )
-  }
-  // Validate that the child is either:
-  // 1. a single <p><img /></p> -- expected in markdown use, ie ![](/img.jpg)
-  // 2. a single <img /> -- expected when using an <img /> HTML tag
-  const onlyChildType = onlyChild.props.mdxType || onlyChild.type
-  const isChildImg = onlyChildType === 'img'
-  const isChildP = onlyChildType === 'p'
-  const isValidChild = isChildP || isChildImg
-  if (!isValidChild) {
-    throw new Error(
-      `In ImageConfig, found child with unexpected type: "${onlyChildType}". Please ensure that ImageConfig contains a single <img /> element. Child element details: ${JSON.stringify(
-        onlyChild,
-        null,
-        2
-      )}`
-    )
-  }
-  // If child is <p>, validate that it has a single nested <img> element
-  const nestedChildren = Children.toArray(onlyChild.props.children)
-  if (isChildP) {
-    const isSingleNestedChild = nestedChildren.length == 1
-    const nestedChild = nestedChildren[0]
-    const isNestedImg =
-      isValidElement(nestedChild) &&
-      (nestedChild.props.mdxType || nestedChild.type) === 'img'
-    if (!isSingleNestedChild || !isNestedImg) {
-      throw new Error(
-        `In ImageConfig, found an unexpected element nested in the expected <p/> tag. Please ensure that ImageConfig contains a single <img /> element. Child element details: ${JSON.stringify(
-          onlyChild,
-          null,
-          2
-        )}`
-      )
-    }
-    return nestedChild
-  } else {
-    return onlyChild
   }
 }
