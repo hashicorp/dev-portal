@@ -1,0 +1,133 @@
+---
+componentName: Badge
+---
+
+## Props
+
+| Prop name | Description | Required? | Default value | Type |
+| --------- | ----------- | --------- | ------------- | ---- |
+| `TODO`    | TODO        | TODO      | TODO          | TODO |
+
+## Playground
+
+<LiveComponent>{`
+<Badge
+  text="Default"
+/>
+`}</LiveComponent>
+
+## Icon with text
+
+<LiveComponent>{`
+<>
+  <Badge
+    icon={<SwingsetTestIcon name="plus" />}
+    size="small"
+    text="Small"
+  />
+  <br />
+  <Badge
+    icon={<SwingsetTestIcon name="plus" size={16} />}
+    size="medium"
+    text="Medium"
+  />
+  <br />
+  <Badge
+    icon={<SwingsetTestIcon name="plus" size={24} />}
+    size="large"
+    text="Large"
+  />
+</>
+`}</LiveComponent>
+
+## Size
+
+<LiveComponent>{`
+<>
+  <Badge
+    size="small"
+    text="Small"
+  />
+  <br />
+  <Badge
+    size="medium"
+    text="Medium"
+  />
+  <br />
+  <Badge
+    size="large"
+    text="Large"
+  />
+</>
+`}</LiveComponent>
+
+## Type and Color
+
+<table>
+  <thead>
+    <th>Color</th>
+    <th>Type: filled</th>
+    <th>Type: inverted</th>
+    <th>Type: outlined</th>
+  </thead>
+  <tbody>
+    {[
+      'neutral',
+      'neutral-dark-mode',
+      'highlight',
+      'success',
+      'warning',
+      'critical',
+    ].map((color) => {
+      return (
+        <tr>
+          <td>{color}</td>
+          {['filled', 'inverted', 'outlined'].map((type) => {
+            return (
+              <td
+                style={{
+                  backgroundColor:
+                    color === 'neutral-dark-mode' ? 'black' : 'transparent',
+                  padding: 16,
+                }}
+              >
+                {['small', 'medium', 'large'].map((size) => {
+                  return (
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        marginBottom: 8,
+                        gap: 8,
+                      }}
+                    >
+                      <Badge
+                        color={color}
+                        icon={<SwingsetTestIcon name="plus" />}
+                        size={size}
+                        text="Lorem ipsum"
+                        type={type}
+                      />
+                      <Badge
+                        color={color}
+                        size={size}
+                        text="Lorem ipsum"
+                        type={type}
+                      />
+                      <Badge
+                        color={color}
+                        size={size}
+                        icon={<SwingsetTestIcon name="plus" />}
+                        type={type}
+                      />
+                    </div>
+                  )
+                })}
+              </td>
+            )
+          })}
+        </tr>
+      )
+    })}
+  </tbody>
+</table>
