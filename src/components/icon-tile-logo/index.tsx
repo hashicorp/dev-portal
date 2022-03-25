@@ -12,13 +12,13 @@ import { IconTileLogoProps } from './types'
  *
  * ref: https://www.figma.com/file/noyY6dUMDYjmySpHcMjhkN/HDS-Product---Components-%5BWIP%5D?node-id=1377%3A11992
  */
-function IconTileLogo({ product }: IconTileLogoProps): React.ReactElement {
+function IconTileLogo({ productSlug }: IconTileLogoProps): React.ReactElement {
   return (
     <IconTile
       size="extra-large"
-      brandColor={product == 'hcp' ? 'neutral' : product}
+      brandColor={productSlug == 'hcp' ? 'neutral' : productSlug}
     >
-      <ProductIcon productSlug={product} />
+      <ProductIcon productSlug={productSlug} />
     </IconTile>
   )
 }
