@@ -5,9 +5,6 @@
   border-style: solid;
   border-width: 1px;
   display: inline-flex;
-  font-family: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
-    helvetica, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
   font-size: var(--font-size);
   font-weight: 500;
   justify-content: center;
