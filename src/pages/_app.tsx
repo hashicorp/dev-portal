@@ -6,7 +6,6 @@ import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
-import useCurrentPath from 'hooks/use-current-path'
 import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import './style.css'
@@ -28,25 +27,6 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 
 export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-
-  /**
-   * TODO: this will be temporary and last for as long as we have to manually
-   * hydrate product data from page components. Ideally, we won't have to do
-   * this we use more dynamic routes.
-   */
-  if (process.env.HASHI_ENV !== 'production') {
-    const isDevDotPage =
-      !currentPath.startsWith(`/_proxied-dot-io`) &&
-      !currentPath.startsWith(`/swingset`)
-    const isNotHomePage = currentPath !== '/'
-    const isMissingProductData = !pageProps.product
-    if (isDevDotPage && isNotHomePage && isMissingProductData) {
-      throw new Error(
-        `\`product\` property is missing from \`pageProps\` prop on path: \`${currentPath}\`. Product data from \`src/data/{product}.json\` is needed to hydrate \`CurrentProductContext\`.`
-      )
-    }
-  }
 
   const Layout = Component.layout ?? BaseLayout
   const currentProduct = pageProps.product || null
