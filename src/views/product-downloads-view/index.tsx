@@ -46,16 +46,18 @@ const ProductDownloadsViewContent = ({
   } = pageContent
   const currentProduct = useCurrentProduct()
   const { currentVersion } = useCurrentVersion()
-  const backToLinkProps = useMemo(() => initializeBackToLink(currentProduct), [
-    currentProduct,
-  ])
+  const backToLinkProps = useMemo(
+    () => initializeBackToLink(currentProduct),
+    [currentProduct]
+  )
   const breadcrumbLinks = useMemo(
     () => initializeBreadcrumbLinks(currentProduct, currentVersion),
     [currentProduct, currentVersion]
   )
-  const navData = useMemo(() => initializeNavData(currentProduct), [
-    currentProduct,
-  ])
+  const navData = useMemo(
+    () => initializeNavData(currentProduct),
+    [currentProduct]
+  )
   const packageManagers = useMemo(() => {
     if (doesNotHavePackageManagers) {
       return []
