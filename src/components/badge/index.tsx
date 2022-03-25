@@ -3,6 +3,9 @@ import { BadgeProps } from './types'
 import s from './badge.module.css'
 
 const Badge = ({
+  ariaDescribedBy,
+  ariaLabel,
+  ariaLabelledBy,
   color = 'neutral',
   icon,
   size = 'medium',
@@ -11,7 +14,12 @@ const Badge = ({
 }: BadgeProps) => {
   const className = classNames(s.root, s[size], s[`${type}-${color}`])
   return (
-    <span className={className}>
+    <span
+      aria-describedby={ariaDescribedBy}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+      className={className}
+    >
       {icon}
       {text && <span>{text}</span>}
     </span>
