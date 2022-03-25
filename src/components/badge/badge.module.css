@@ -13,6 +13,7 @@
   padding: var(--padding-top-bottom) var(--padding-left-right);
   width: fit-content;
 
+  /* HDS Badge has 12px icons when size="small" */
   & svg {
     height: var(--icon-size);
     line-height: var(--line-height);
