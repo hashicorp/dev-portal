@@ -84,7 +84,8 @@ describe('CurrentProductContext', () => {
     test('when the path is not "/", the correct value is returned', () => {
       const { result } = setup({ slug: 'waypoint', name: 'Waypoint' })
 
-      expect(result.current).toEqual({ slug: 'waypoint', name: 'Waypoint' })
+      expect(result.current.slug).toEqual('waypoint')
+      expect(result.current.name).toEqual('Waypoint')
     })
   })
 })
