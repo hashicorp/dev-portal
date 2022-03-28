@@ -25,7 +25,7 @@ function GetStarted({
               <IconHashicorp16 />
             </IconTile>
           ) : (
-            <IconTileLogo product={product} />
+            <IconTileLogo productSlug={product} />
           )}
         </div>
         <div className={s.textSection}>

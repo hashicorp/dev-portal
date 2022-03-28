@@ -1,5 +1,5 @@
-import ProductIcon from 'components/product-icon'
 import IconTile from 'components/icon-tile'
+import ProductIcon from 'components/product-icon'
 import { IconTileLogoProps } from './types'
 
 /**
@@ -12,7 +12,7 @@ import { IconTileLogoProps } from './types'
  *
  * ref: https://www.figma.com/file/noyY6dUMDYjmySpHcMjhkN/HDS-Product---Components-%5BWIP%5D?node-id=1377%3A11992
  */
-function IconTileLogo({ product }: IconTileLogoProps): React.ReactElement {
+function IconTileLogo({ product }: IconTileLogoProps) {
   return (
     <IconTile
       size="extra-large"

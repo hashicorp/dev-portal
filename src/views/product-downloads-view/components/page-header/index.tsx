@@ -20,7 +20,7 @@ const PageHeader = (): ReactElement => {
   return (
     <div className={s.root}>
       <IconTileLogo
-        product={
+        productSlug={
           currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
         }
       />
