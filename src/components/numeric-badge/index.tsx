@@ -1,14 +1,14 @@
 import classNames from 'classnames'
 import Badge from 'components/badge'
-import { CountBadgeProps } from './types'
-import s from './count-badge.module.css'
+import { NumericBadgeProps } from './types'
+import s from './numeric-badge.module.css'
 
-const CountBadge = ({
+const NumericBadge = ({
   color = 'neutral',
   size = 'medium',
   text,
   type = 'filled',
-}: CountBadgeProps) => {
+}: NumericBadgeProps) => {
   const classes = classNames(s.root, s[size])
 
   return (
@@ -22,5 +22,5 @@ const CountBadge = ({
   )
 }
 
-export type { CountBadgeProps }
-export default CountBadge
+export type { NumericBadgeProps }
+export default NumericBadge
