@@ -19,8 +19,9 @@ const IconSrcDict: { [k in DirectionOption]: string } = {
 }
 
 /*
-@TODO style to spec
-*/
+ * @TODO style to spec
+ * look at the `CardLink` component to use for base styles!
+ */
 
 function DirectionalLinkBox({
   link,
