@@ -36,14 +36,14 @@ function CardGridSection({ title, products }): ReactElement {
                 {hasLogo && (
                   <ProductIcon
                     className={s.sectionBodyCardLogo}
-                    product={slug}
+                    productSlug={slug}
                   />
                 )}
                 <span className={s.sectionBodyCardHeading}>
                   {headingIcon && (
                     <ProductIcon
                       className={s.sectionBodyCardHeadingIcon}
-                      product={slug}
+                      productSlug={slug}
                     />
                   )}
                   {heading}
