@@ -1,0 +1,83 @@
+---
+componentName: NumericBadge
+---
+
+## Props
+
+| Prop name | Description                                          | Required? | Default value | Type                                   |
+| --------- | ---------------------------------------------------- | --------- | ------------- | -------------------------------------- |
+| `color`   | Similar to `Badge`'s `color` prop, but less options. | No        | "neutral"     | One of: "neutral", "neutral-dark-mode" |
+| `size`    | Same as `Badge`'s `size` prop.                       | No        | "medium"      | See `BadgeProps`                       |
+| `text`    | Similar to `Badge`'s `text` prop, but is required.   | Yes       | N/A           | See `BadgeProps`                       |
+| `type`    | Same as `Badge`'s `type` prop.                       | No        | "filled"      | See `BadgeProps`                       |
+
+## Playground
+
+<LiveComponent>{`
+<NumericBadge text="100" />
+`}</LiveComponent>
+
+## All `color`, `type`, and `size` variations
+
+<table>
+  <thead>
+    <tr>
+      <th>Color</th>
+      <th>Type: filled</th>
+      <th>Type: inverted</th>
+      <th>Type: outlined</th>
+    </tr>
+  </thead>
+  <tbody>
+    {['neutral', 'neutral-dark-mode'].map((color) => {
+      return (
+        <tr>
+          <td>{color}</td>
+          {['filled', 'inverted', 'outlined'].map((type) => {
+            return (
+              <td
+                style={{
+                  backgroundColor:
+                    color === 'neutral-dark-mode' ? 'black' : 'transparent',
+                  padding: 16,
+                }}
+              >
+                {['small', 'medium', 'large'].map((size) => {
+                  return (
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        marginBottom: 8,
+                        gap: 8,
+                      }}
+                    >
+                      <NumericBadge
+                        color={color}
+                        size={size}
+                        text="100"
+                        type={type}
+                      />
+                      <NumericBadge
+                        color={color}
+                        size={size}
+                        text="v1.2.3"
+                        type={type}
+                      />
+                      <NumericBadge
+                        color={color}
+                        size={size}
+                        text="99+"
+                        type={type}
+                      />
+                    </div>
+                  )
+                })}
+              </td>
+            )
+          })}
+        </tr>
+      )
+    })}
+  </tbody>
+</table>

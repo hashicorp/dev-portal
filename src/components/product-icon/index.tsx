@@ -30,4 +30,5 @@ const ProductIcon = ({ productSlug, ...rest }: ProductIconProps) => {
   return <Icon {...rest} />
 }
 
+export type { ProductIconProps }
 export default ProductIcon

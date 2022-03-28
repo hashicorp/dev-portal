@@ -1,6 +1,7 @@
-import { HTMLProps } from 'react'
 import { ProductSlug } from 'types/products'
 
-export interface ProductIconProps extends HTMLProps<SVGSVGElement> {
+type SvgElementProps = JSX.IntrinsicElements['svg']
+
+export interface ProductIconProps extends SvgElementProps {
   productSlug: ProductSlug
 }
