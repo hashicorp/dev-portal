@@ -1,18 +1,10 @@
 /**
- * Abstracted from the ProductSwitcher component in development for the new dev portal UI. This is a temporary component
- * so there's not too much point trying to DRY this up.
+ * Abstracted from the ProductSwitcher component in development for the new dev
+ * portal UI. This is a temporary component so there's not too much point trying
+ * to DRY this up.
  */
 import Cookies from 'js-cookie'
 import Popover from '@reach/popover'
-import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
-import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
-import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
-import { IconNomadColor16 } from '@hashicorp/flight-icons/svg-react/nomad-color-16'
-import { IconPackerColor16 } from '@hashicorp/flight-icons/svg-react/packer-color-16'
-import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
-import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-color-16'
-import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
-import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 import {
   KeyboardEventHandler,
   ReactElement,
@@ -24,6 +16,7 @@ import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { Product, ProductSlug } from 'types/products'
 import { products as productGroups } from '../../../../../config/products'
+import ProductIcon from 'components/product-icon'
 import s from './style.module.css'
 
 const IO_SITES_ON_DEV_PORTAL = [
@@ -41,34 +34,6 @@ const products = productGroups
   .flat()
   .filter((product) => IO_SITES_ON_DEV_PORTAL.includes(product.slug))
 
-// TODO: is there a programmatic way to build this from productNamesToIcons?
-interface ProductIconProps {
-  product: ProductSlug
-}
-
-const productNamesToIcons = {
-  boundary: IconBoundaryColor16,
-  consul: IconConsulColor16,
-  hcp: IconHashicorp16,
-  nomad: IconNomadColor16,
-  packer: IconPackerColor16,
-  sentinel: null,
-  terraform: IconTerraformColor16,
-  vagrant: IconVagrantColor16,
-  vault: IconVaultColor16,
-  waypoint: IconWaypointColor16,
-}
-
-const ProductIcon: React.FC<
-  ProductIconProps & React.HTMLProps<SVGSVGElement>
-> = ({ product, ...rest }) => {
-  const Icon = productNamesToIcons[product]
-  if (!Icon) {
-    return null
-  }
-  return <Icon {...rest} />
-}
-
 const OPTION_LIST_ID = 'product-chooser-option-list'
 const OPTION_ID_PREFIX = 'product-chooser-list-item-'
 
@@ -85,7 +50,7 @@ const getLastProduct = (products: Product[]) => {
   return lastProduct
 }
 
-const ProductSwitcher: React.FC = () => {
+const PreviewProductSwitcher: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
@@ -245,7 +210,7 @@ const ProductSwitcher: React.FC = () => {
           <span className={s.focusContainer}>
             <ProductIcon
               className={productIconClassName}
-              product={product.slug}
+              productSlug={product.slug}
             />
             <span>{product.name}</span>
           </span>
@@ -293,7 +258,7 @@ const ProductSwitcher: React.FC = () => {
             className={classNames({
               [s.vaultProductIcon]: currentProduct?.slug === 'vault',
             })}
-            product={currentProduct?.slug}
+            productSlug={currentProduct?.slug}
           />
           <span>{currentProduct ? currentProduct.name : 'Products'}</span>
         </span>
@@ -313,4 +278,4 @@ const ProductSwitcher: React.FC = () => {
   )
 }
 
-export default ProductSwitcher
+export default PreviewProductSwitcher
