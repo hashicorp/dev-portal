@@ -1,6 +1,7 @@
 /**
- * Abstracted from the ProductSwitcher component in development for the new dev portal UI. This is a temporary component
- * so there's not too much point trying to DRY this up.
+ * Abstracted from the ProductSwitcher component in development for the new dev
+ * portal UI. This is a temporary component so there's not too much point trying
+ * to DRY this up.
  */
 import Cookies from 'js-cookie'
 import Popover from '@reach/popover'
@@ -49,7 +50,7 @@ const getLastProduct = (products: Product[]) => {
   return lastProduct
 }
 
-const ProductSwitcher: React.FC = () => {
+const PreviewProductSwitcher: React.FC = () => {
   const [isMounted, setIsMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const productChooserRef = useRef<HTMLDivElement>()
@@ -277,4 +278,4 @@ const ProductSwitcher: React.FC = () => {
   )
 }
 
-export default ProductSwitcher
+export default PreviewProductSwitcher
