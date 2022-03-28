@@ -8,8 +8,7 @@ const vaultContent = {
       src: require('./vault-get-started-diagram.png'),
       alt: '' /* note: image is presentational in this specific case */,
     },
-    body:
-      'Use Vault to securely store, access, and manage secrets and other sensitive data.',
+    body: 'Use Vault to securely store, access, and manage secrets and other sensitive data.',
     links: [
       {
         title: 'CLI Quick Start',
@@ -17,15 +16,14 @@ const vaultContent = {
       },
       {
         title: 'Developer Quick Start',
-        url: 'https://learn.hashicorp.com/collections/vault/cloud',
+        url: '/docs/get-started/developer-qs',
       },
     ],
   },
   useCaseCards: [
     {
       heading: 'Secrets Management',
-      body:
-        'Centrally store, access, and deploy secrets across applications, systems, and infrastructure.',
+      body: 'Centrally store, access, and deploy secrets across applications, systems, and infrastructure.',
       links: [
         {
           title: 'Key/Value',
@@ -43,8 +41,7 @@ const vaultContent = {
     },
     {
       heading: 'Encryption Services',
-      body:
-        'Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.',
+      body: 'Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.',
       links: [
         {
           title: 'Transit Secrets Engine',
@@ -62,8 +59,7 @@ const vaultContent = {
     },
     {
       heading: 'Key Management',
-      body:
-        'Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.',
+      body: 'Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.',
       links: [
         {
           title: 'KMIP Secrets Engine',
@@ -94,7 +90,7 @@ const vaultContent = {
       url: 'https://github.com/hashicorp/hello-vault-go',
     },
     {
-      title: 'GitHub Samples',
+      title: 'Code Samples',
       url: 'https://github.com/hashicorp/vault-examples',
     },
   ],
