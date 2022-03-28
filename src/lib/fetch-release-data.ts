@@ -73,7 +73,7 @@ export function getLatestVersionFromVersions(versions: string[]): string {
  */
 export function generateStaticProps(
   product: Product | string
-): Promise<{ props: GeneratedProps; revalidate?: number | boolean }> {
+): Promise<{ props: GeneratedProps; revalidate: number }> {
   let productSlug: string
   if (typeof product === 'string') {
     productSlug = product
