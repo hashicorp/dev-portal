@@ -47,10 +47,6 @@ function filterVersions(
   // Filter by arbitrary & reasonable version cutoff
   const filteredVersions = Object.keys(versions).filter(
     (versionNumber: string) => {
-      console.log({
-        versionNumber,
-        satisfies: semverSatisfies(versionNumber, versionRange),
-      })
       return semverSatisfies(versionNumber, versionRange)
     }
   )
