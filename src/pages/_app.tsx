@@ -5,7 +5,6 @@ import '@hashicorp/platform-util/nprogress/style.css'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
-import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
 import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
@@ -25,10 +24,6 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
   const axe = require('@axe-core/react')
   axe(React, ReactDOM, 1000)
 }
-
-const { ConsentManager, openConsentManager } = createConsentManager({
-  preset: 'oss',
-})
 
 export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()
@@ -51,18 +46,13 @@ export default function App({ Component, pageProps, layoutProps }) {
         <DeviceSizeProvider>
           <CurrentProductProvider currentProduct={currentProduct}>
             <CodeTabsProvider>
-              <Layout
-                {...allLayoutProps}
-                data={allLayoutProps}
-                openConsentManager={openConsentManager}
-              >
+              <Layout {...allLayoutProps} data={allLayoutProps}>
                 <Component {...pageProps} />
               </Layout>
               {showProductSwitcher ? <PreviewProductSwitcher /> : null}
             </CodeTabsProvider>
           </CurrentProductProvider>
         </DeviceSizeProvider>
-        <ConsentManager />
       </ErrorBoundary>
     </SSRProvider>
   )

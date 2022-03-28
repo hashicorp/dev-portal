@@ -1,0 +1,33 @@
+.labButton {
+  composes: hds-font-weight-medium from global;
+  composes: hds-typography-display-100 from global;
+  display: none;
+  border: 1px solid var(--token-color-palette-alpha-300);
+  border-radius: 5px;
+  margin: 0;
+  text-decoration: none;
+  background-color: var(--token-color-palette-neutral-50);
+  color: var(--token-color-neutral-foreground-secondary);
+  text-align: center;
+  height: fit-content;
+  white-space: no-wrap;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-shadow: var(--token-elevation-low-box-shadow);
+
+  @media (--dev-dot-tablet-up) {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+  }
+
+  &:hover {
+    background-color: var(--token-color-palette-neutral-100);
+    transition: background-color 250ms ease;
+  }
+}
+
+.terminalIcon {
+  margin-right: 6px;
+  height: 16px;
+}

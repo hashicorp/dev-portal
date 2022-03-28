@@ -1,0 +1,23 @@
+ul.list {
+  --badge-spacing: 8px;
+
+  /** --spacing tokens live in tutorial-meta-module.css */
+  margin-bottom: calc(var(--spacing-lrg) - var(--badge-spacing));
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+
+  @media (--dev-dot-tablet-up) {
+    margin-bottom: calc(var(--spacing-xl) - var(--badge-spacing));
+  }
+
+  & li:not(:last-child) {
+    margin-bottom: var(--badge-spacing);
+  }
+}
+
+.beta {
+  background-color: var(--token-color-highlight-background-faint);
+  color: var(--token-color-palette-purple-300) !important;
+}
