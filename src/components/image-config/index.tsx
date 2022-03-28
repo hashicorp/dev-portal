@@ -1,7 +1,6 @@
 import { ReactElement, ReactNode } from 'react'
 import getValidatedImgChild from './get-validated-image-child'
 import MdxImg from '../mdx-img'
-// import classNames from 'classnames'
 import s from './image-config.module.css'
 
 /**

@@ -1,7 +1,7 @@
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import Tabs, { Tab } from 'components/tabs' // @TODO note that this doesn't support groups yet
-import ImageConfig from '../components/image-config'
-import MdxImg from '../components/mdx-img'
+import ImageConfig from 'components/image-config'
+import MdxImg from 'components/mdx-img'
 
 /**
  * @TODO move over these components from learn, update to new spec
