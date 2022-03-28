@@ -210,7 +210,7 @@ const PreviewProductSwitcher: React.FC = () => {
           <span className={s.focusContainer}>
             <ProductIcon
               className={productIconClassName}
-              product={product.slug}
+              productSlug={product.slug}
             />
             <span>{product.name}</span>
           </span>
@@ -258,7 +258,7 @@ const PreviewProductSwitcher: React.FC = () => {
             className={classNames({
               [s.vaultProductIcon]: currentProduct?.slug === 'vault',
             })}
-            product={currentProduct?.slug}
+            productSlug={currentProduct?.slug}
           />
           <span>{currentProduct ? currentProduct.name : 'Products'}</span>
         </span>
