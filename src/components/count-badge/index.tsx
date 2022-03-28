@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import Badge from 'components/badge'
 import { CountBadgeProps } from './types'
-import s from './badge-count.module.css'
+import s from './count-badge.module.css'
 
 const CountBadge = ({
   color = 'neutral',
