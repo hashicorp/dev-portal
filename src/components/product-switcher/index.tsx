@@ -164,7 +164,7 @@ const ProductSwitcher: React.FC = () => {
           <span className={s.focusContainer}>
             <ProductIcon
               className={s[`${product.slug}ProductIcon`]}
-              product={product.slug}
+              productSlug={product.slug}
             />
             <span>{product.name}</span>
           </span>
@@ -214,7 +214,7 @@ const ProductSwitcher: React.FC = () => {
         <span className={s.switcherOptionContainer}>
           <ProductIcon
             className={s[`${currentProduct?.slug}ProductIcon`]}
-            product={currentProduct?.slug}
+            productSlug={currentProduct?.slug}
           />
           <span>{currentProduct ? currentProduct.name : 'Products'}</span>
         </span>
