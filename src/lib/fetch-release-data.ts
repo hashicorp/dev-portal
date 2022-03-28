@@ -1,4 +1,3 @@
-import { GetStaticPropsResult } from 'next'
 import semverSort from 'semver/functions/rsort'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 import { Product } from 'types/products'
@@ -74,7 +73,7 @@ export function getLatestVersionFromVersions(versions: string[]): string {
  */
 export function generateStaticProps(
   product: Product | string
-): Promise<GetStaticPropsResult<GeneratedProps>> {
+): Promise<{ props: GeneratedProps; revalidate?: number | boolean }> {
   let productSlug: string
   if (typeof product === 'string') {
     productSlug = product
