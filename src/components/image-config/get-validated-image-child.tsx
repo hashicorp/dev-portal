@@ -16,6 +16,7 @@ function getValidatedImgChild(children: ReactNode): ReactElement {
       `In ImageConfig, found ${childCount} total children and ${validChildren.length} valid children. Please ensure that ImageConfig has exactly one child element, and ensure it is a valid image element.`
     )
   }
+
   // Validate that the child is a ReactElement
   const onlyChild = validChildren[0]
   if (!isValidElement(onlyChild)) {
@@ -23,6 +24,7 @@ function getValidatedImgChild(children: ReactNode): ReactElement {
       `In ImageConfig, found child that does not seem to be a valid React element. Please ensure that ImageConfig contains a valid image element.`
     )
   }
+
   // Validate that the child is either:
   // 1. a single <p><img /></p> -- expected in markdown use, ie ![](/img.jpg)
   // 2. a single <img /> -- expected when using an <img /> HTML tag
