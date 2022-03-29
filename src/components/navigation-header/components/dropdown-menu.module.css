@@ -44,8 +44,12 @@
 }
 
 .dropdownList {
-  background-color: pink;
+  background-color: white;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  box-shadow: var(--token-elevation-higher-box-shadow);
   margin: 0;
-  padding: 0;
+  min-width: 252px;
+  padding: 16px;
   position: absolute;
 }
