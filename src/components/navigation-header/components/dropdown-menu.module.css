@@ -54,7 +54,12 @@
   position: absolute;
 }
 
-.itemsGroup {
+.itemGroupDivider {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.itemGroup {
   list-style: none;
   margin: 0;
   padding: 0;
