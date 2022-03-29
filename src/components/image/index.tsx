@@ -1,15 +1,18 @@
 import { ReactElement } from 'react'
-import { MdxImgProps } from './types'
+import { ImageProps } from './types'
 import classNames from 'classnames'
-import s from './mdx-img.module.css'
+import s from './image.module.css'
 
-function MdxImg({
+/**
+ * An Image component for use in MDX
+ */
+function Image({
   src,
   alt,
   title,
   noMargin,
   noBorder,
-}: MdxImgProps): ReactElement {
+}: ImageProps): ReactElement {
   return (
     <div
       className={classNames(s.root, {
@@ -23,4 +26,4 @@ function MdxImg({
   )
 }
 
-export default MdxImg
+export default Image

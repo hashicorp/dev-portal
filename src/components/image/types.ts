@@ -1,4 +1,4 @@
-export interface MdxImgProps {
+export interface ImageProps {
   /** Source attribute for the image tag. */
   src: JSX.IntrinsicElements['img']['src']
   /** Alternate text for the image tag. Should be a text equivalent to the information conveyed in the image. As an example, the alternate text "Diagram of Humans or Machines Clients" is likely not sufficient because it does not express all of the same information as the diagram does for sighted users. It's important to provide the same information experience for all users regardless of ability. */

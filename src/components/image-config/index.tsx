@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react'
 import getValidatedImgChild from './get-validated-image-child'
-import MdxImg from '../mdx-img'
+import Image from 'components/image'
 import s from './image-config.module.css'
 
 /**
@@ -60,12 +60,12 @@ export default function ImageConfig({
     // Note that we ignore the hideBorder prop in this case.
     return (
       <figure className={s.figure}>
-        <MdxImg src={src} alt={alt} title={title} noMargin />
+        <Image src={src} alt={alt} title={title} noMargin />
         <figcaption className={s.caption}>{TEMP_DEV_CAPTION}</figcaption>
       </figure>
     )
   } else {
     // Otherwise render a plain image tag
-    return <MdxImg src={src} alt={alt} title={title} noBorder={hideBorder} />
+    return <Image src={src} alt={alt} title={title} noBorder={hideBorder} />
   }
 }
