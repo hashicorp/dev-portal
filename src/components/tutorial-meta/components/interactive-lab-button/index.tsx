@@ -1,8 +1,10 @@
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
+import Button from 'components/button'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
-import s from './interactive-lab-button.module.css'
 
-// @TODO replace with Button component once implemented
+/**@TODO this button shows a drop-shadow elevation in the design,
+ * adjust button to support or chat with design
+ * */
 
 export default function InteractiveLabButton() {
   const ctx = useInstruqtEmbed()
@@ -14,9 +16,13 @@ export default function InteractiveLabButton() {
   const buttonText = `${ctx.active ? 'Hide' : 'Show'} Terminal`
 
   return (
-    <button className={s.labButton} onClick={() => ctx.setActive(!ctx.active)}>
-      <IconTerminalScreen16 className={s.terminalIcon} />
-      <span>{buttonText}</span>
-    </button>
+    <Button
+      color="primary"
+      text={buttonText}
+      onClick={() => ctx.setActive(!ctx.active)}
+      size="medium"
+      iconPosition="leading"
+      icon={<IconTerminalScreen16 />}
+    />
   )
 }
