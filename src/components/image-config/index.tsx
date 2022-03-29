@@ -1,24 +1,18 @@
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement } from 'react'
 import getValidatedImgChild from './get-validated-image-child'
 import Image from 'components/image'
 import s from './image-config.module.css'
+import { ImageConfigProps } from './types'
 
 /**
  * Configure extra settings for images via MDX.
  * Designed to wrap a single markdown image.
  */
 export default function ImageConfig({
-  /** Hide borders (temporarily configurable while we remove baked-in borders from existing images) */
-  hideBorder = false,
-  /** A caption to display below the image. */
-  caption,
-  /** An MDX `img`, e.g. `![some alt text](path/to/img.jpg)` */
   children,
-}: {
-  caption?: string
-  hideBorder?: boolean
-  children: ReactNode
-}): ReactElement {
+  caption,
+  hideBorder = false,
+}: ImageConfigProps): ReactElement {
   //  emit a warning if no meaningful props are present
   if (!hideBorder && !caption) {
     console.warn(
