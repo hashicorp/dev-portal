@@ -41,9 +41,18 @@ export function getStaticGenerationFunctions<
   getScope?: () => Promise<MdxScope>
   mainBranch?: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
-  const loaderOptions = {
+  /**
+   * These products, defined in our config files, will source content from a long-lived branch named 'dev-portal'
+   */
+  const isProductWithContentPreviewBranch =
+    __config.dev_dot.products_with_content_preview_branch.includes(product.slug)
+
+  const loaderOptions: RemoteContentLoader['opts'] = {
     product: productSlugForLoader,
     basePath: basePathForLoader,
+    latestVersionRef: isProductWithContentPreviewBranch
+      ? __config.dev_dot.content_preview_branch
+      : undefined,
   }
 
   // Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
