@@ -1,11 +1,11 @@
 import boundaryData from 'data/boundary.json'
 import ProductLandingView from 'views/product-landing'
 import { generateStaticProps } from 'views/product-landing/server'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 
 export async function getStaticProps() {
   const contentJsonFile = 'src/data/boundary-landing.json'
-  const product = boundaryData as Product
+  const product = boundaryData as ProductData
 
   return {
     props: await generateStaticProps({ product, contentJsonFile }),

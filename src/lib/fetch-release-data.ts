@@ -1,6 +1,6 @@
 import semverSort from 'semver/functions/rsort'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import { makeFetchWithRetry } from './fetch-with-retry'
 
 export type OperatingSystem =
@@ -37,7 +37,7 @@ export interface ReleasesAPIResponse {
 
 export interface GeneratedProps {
   latestVersion: Version
-  product: Product | string
+  product: ProductData | string
   releases: ReleasesAPIResponse
 }
 
@@ -72,7 +72,7 @@ export function getLatestVersionFromVersions(versions: string[]): string {
  * either will make merging the `assembly-ui-v1` branch into `main` easier.
  */
 export function generateStaticProps(
-  product: Product | string
+  product: ProductData | string
 ): Promise<{ props: GeneratedProps; revalidate: number }> {
   let productSlug: string
   if (typeof product === 'string') {

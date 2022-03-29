@@ -20,17 +20,19 @@ type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
  * TODO: put basePaths in a separate interface that extends the Product one?
  */
 interface Product extends ProductMeta {
-  basePaths?: string[]
   name: ProductName
-  navigationHeaderItems?: NavigationHeaderItem[]
-  sidebar?: {
+  slug: ProductSlug
+}
+
+interface ProductData extends Product {
+  basePaths: string[]
+  navigationHeaderItems: NavigationHeaderItem[]
+  sidebar: {
     landingPageNavData: MenuItem[]
     resourcesNavData: MenuItem[]
   }
-  slug: ProductSlug
-  url?: string
 }
 
 type ProductGroup = Product[]
 
-export type { Product, ProductGroup, ProductName, ProductSlug }
+export type { Product, ProductData, ProductGroup, ProductName, ProductSlug }

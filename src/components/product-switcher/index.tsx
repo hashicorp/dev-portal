@@ -157,7 +157,7 @@ const ProductSwitcher: React.FC = () => {
             s.switcherOptionAnchor,
             s.switcherOptionContainer
           )}
-          href={product.url}
+          href={`/${product.slug}`}
           onKeyDown={handleAnchorKeyDown}
           ref={refToPass}
         >
@@ -182,7 +182,9 @@ const ProductSwitcher: React.FC = () => {
         )}
         <li>
           <ul role="group">
-            {productGroup.map((product) => renderProductListItem(product))}
+            {productGroup.map((product: Product) =>
+              renderProductListItem(product)
+            )}
           </ul>
         </li>
       </Fragment>

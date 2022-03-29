@@ -1,11 +1,11 @@
 import sentinelData from 'data/sentinel.json'
 import ProductLandingView from 'views/product-landing'
 import { generateStaticProps } from 'views/product-landing/server'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 
 export async function getStaticProps() {
   const contentJsonFile = 'src/data/sentinel-landing.json'
-  const product = sentinelData as Product
+  const product = sentinelData as ProductData
 
   return {
     props: await generateStaticProps({ product, contentJsonFile }),

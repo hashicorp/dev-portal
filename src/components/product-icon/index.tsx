@@ -9,7 +9,7 @@ import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 import { ProductIconProps } from './types'
 
-const productNamesToIcons = {
+const productSlugsToIcons = {
   boundary: IconBoundaryColor16,
   consul: IconConsulColor16,
   hcp: IconHashicorpColor16,
@@ -23,7 +23,7 @@ const productNamesToIcons = {
 }
 
 const ProductIcon = ({ productSlug, ...rest }: ProductIconProps) => {
-  const Icon = productNamesToIcons[productSlug]
+  const Icon = productSlugsToIcons[productSlug]
   if (!Icon) {
     return null
   }
