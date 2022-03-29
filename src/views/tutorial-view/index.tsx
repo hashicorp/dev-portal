@@ -113,9 +113,7 @@ export default function TutorialView({
             hasVideo: Boolean(video),
           }}
         />
-        <Content
-          content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
-        />
+        <MDXRemote {...content} components={MDX_COMPONENTS} />
         <NextPrevious {...nextPreviousData} />
         <FeaturedInCollections collections={collectionCtx.featuredIn} />
       </SidebarSidecarLayout>
