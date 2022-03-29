@@ -13,6 +13,8 @@ export interface ProductTutorialsPageProps {
   product: ClientProduct
 }
 
+/** @TODO add sidebar sort capability */
+
 export async function getProductTutorialsPageProps(
   productSlug: ProductOption
 ): Promise<{ props: ProductTutorialsPageProps }> {
