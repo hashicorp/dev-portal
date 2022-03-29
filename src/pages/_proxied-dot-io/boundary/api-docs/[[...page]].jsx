@@ -19,6 +19,7 @@ const targetFile = {
   path: 'internal/gen/controller.swagger.json',
   ref: 'stable-website',
 }
+// The path to read from when running local preview in the context of the boundary repository
 const targetLocalFile = '../../internal/gen/controller.swagger.json'
 
 const pathFromRoot = 'api-docs'
