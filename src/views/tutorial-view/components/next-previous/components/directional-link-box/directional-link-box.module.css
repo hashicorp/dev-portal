@@ -1,5 +1,5 @@
 .card {
-  border: 1px solid magenta; /** @TODO style these to spec, remove any prev imp styles necessary */
+  border: 1px solid magenta; /** @TODO style these to spec, remove any prev imp styles necessary - https://www.figma.com/file/VD7ahvXuXWJApeGnhbW4hv/Dev-Portal?node-id=6298%3A73041 */
   position: relative;
   display: block;
   background: var(--white);
