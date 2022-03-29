@@ -7,7 +7,7 @@
     "max_static_paths": 0,
     "revalidate": 360,
     "content_preview_branch": "dev-portal",
-    "products_with_content_preview_branch": ["waypoint"]
+    "products_with_content_preview_branch": ["waypoint", "vault"]
   },
   "learn": {
     "max_static_paths": 0
