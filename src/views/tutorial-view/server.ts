@@ -89,8 +89,12 @@ export async function getTutorialPagePaths(
   product: ProductOption
 ): Promise<TutorialPagePaths[]> {
   const allCollections = await getAllCollections({ product })
+  // Only build collections where this product is the main 'theme'
+  // @TODO once we implement the `theme` query option, remove the theme filtering
+  // https://app.asana.com/0/1201903760348480/1201932088801131/f
+  const filteredCollections = allCollections.filter((c) => c.theme === product)
   // go through all collections, get the collection slug
-  const paths = allCollections.flatMap((collection) => {
+  const paths = filteredCollections.flatMap((collection) => {
     const collectionSlug = splitProductFromFilename(collection.slug)
     // go through the tutorials within this collection, create a path for each
     return collection.tutorials.map((tutorial) => {

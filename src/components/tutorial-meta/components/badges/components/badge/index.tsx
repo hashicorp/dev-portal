@@ -62,7 +62,7 @@ export function renderProductBadges(
 ) {
   return productDisplayOptions.map((p: ProductDisplayOption) => (
     <BadgeWrapper key={p.slug}>
-      <ProductIcon product={p.slug} className={s.icon} />
+      <ProductIcon productSlug={p.slug} className={s.icon} />
       {p.label}
     </BadgeWrapper>
   ))
