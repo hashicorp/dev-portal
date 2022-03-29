@@ -4,6 +4,7 @@ import { useCurrentProduct } from 'contexts'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { DocsViewProps, ProductsToPrimitivesMap } from './types'
+import Image from 'components/image'
 
 // Author primitives
 const Badge = dynamic(() => import('components/author-primitives/packer/badge'))
@@ -55,7 +56,14 @@ const productsToPrimitives: ProductsToPrimitivesMap = {
 const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
   const currentProduct = useCurrentProduct()
   const { compiledSource, scope } = mdxSource
-  const additionalComponents = productsToPrimitives[currentProduct.slug] || {}
+  const productSpecificMdxComponents =
+    productsToPrimitives[currentProduct.slug] || {}
+  const additionalComponents = {
+    ...productSpecificMdxComponents,
+    img: ({ alt, src, title }: JSX.IntrinsicElements['img']) => (
+      <Image alt={alt} src={src} title={title} noBorder={true} />
+    ),
+  }
   const components = defaultMdxComponents({ additionalComponents })
 
   return (
