@@ -46,22 +46,13 @@ export default function ImageConfig({
     )
   }
 
-  // TODO: remove this once we're done reviewing
-  // (here for now because otherwise, previewing this seemed difficult)
-  const TEMP_DEV_CAPTION =
-    caption ||
-    (src ==
-    'https://mktg-content-api-hashicorp.vercel.app/api/assets?product=tutorials&version=main&asset=public%2Fimg%2Fvault%2Fui%2Fvault-ui-intro.png'
-      ? 'This is a test default caption, I just want to see what it looks like.'
-      : null)
-
-  if (TEMP_DEV_CAPTION) {
+  if (caption) {
     // If a caption has been provided, then render an image with a caption.
     // Note that we ignore the hideBorder prop in this case.
     return (
       <figure className={s.figure}>
         <Image src={src} alt={alt} title={title} noMargin />
-        <figcaption className={s.caption}>{TEMP_DEV_CAPTION}</figcaption>
+        <figcaption className={s.caption}>{caption}</figcaption>
       </figure>
     )
   } else {
