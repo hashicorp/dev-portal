@@ -13,7 +13,12 @@ function Image({
   noMargin,
   noBorder,
 }: ImageProps): ReactElement {
-  // Warn if there's no intentional alt prop
+  /**
+   * Warn if there's no intentional alt prop.
+   *
+   * TODO: determine approach for presentation alt text in MDX
+   * Asana: https://app.asana.com/0/1201987349274776/1202042900781423/f
+   */
   if (typeof alt !== 'string') {
     console.warn(
       `Warning: Found MDX image with undefined alternate text. Even if an image is decorative, it's important for alt to be set to an empty string. Please define alt text the syntax "![Some alt text.](/some-image.jpg)". Image details: ${JSON.stringify(
