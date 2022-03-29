@@ -4,6 +4,55 @@ componentName: NavigationHeader
 
 ## Future NavigationHeaderDropdownMenu
 
-<div style={{ backgroundColor: '#0C0C0E', paddingLeft: 200 }}>
-  <NavigationHeaderDropdownMenu />
+<div
+  style={{
+    alignItems: 'center',
+    backgroundColor: '#0C0C0E',
+    display: 'flex',
+    paddingLeft: 200,
+  }}
+>
+  <NavigationHeaderDropdownMenu
+    label="Home"
+    itemGroups={[
+      [
+        {
+          icon: 'home',
+          label: 'Developer Home',
+          path: '/',
+        },
+      ],
+      [
+        { icon: 'vault', label: 'Vault', path: '/vault' },
+        { icon: 'waypoint', label: 'Waypoint', path: '/waypoint' },
+      ],
+    ]}
+  />
+  <NavigationHeaderDropdownMenu
+    label="Documentation"
+    itemGroups={[
+      [
+        { icon: 'vault', label: 'Vault', path: '/vault/docs' },
+        { icon: 'waypoint', label: 'Waypoint', path: '/waypoint/docs' },
+      ],
+    ]}
+  />
+  <NavigationHeaderDropdownMenu
+    label="Tutorials"
+    itemGroups={[
+      [
+        { icon: 'vault', label: 'Vault', path: '/vault/tutorials' },
+        { icon: 'waypoint', label: 'Waypoint', path: '/waypoint/tutorials' },
+      ],
+    ]}
+  />
+  <NavigationHeaderDropdownMenu
+    label="Install"
+    itemGroups={[
+      [
+        { icon: 'vault', label: 'Vault', path: '/vault/downloads' },
+        { icon: 'waypoint', label: 'Waypoint', path: '/waypoint/downloads' },
+      ],
+    ]}
+  />
 </div>
