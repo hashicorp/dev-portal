@@ -44,13 +44,43 @@
   }
 }
 
-.dropdownList {
+.dropdownContainer {
   background-color: white;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
   box-shadow: var(--token-elevation-higher-box-shadow);
-  margin: 0;
   min-width: 252px;
   padding: 16px;
   position: absolute;
+}
+
+.itemsGroup {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.itemContainer {
+  padding: 8px;
+
+  &:not(:last-child) {
+    margin-bottom: 2px;
+  }
+}
+
+.itemLink {
+  align-items: center;
+  color: var(--token-color-foreground-primary);
+  display: flex;
+  text-decoration: none;
+  width: fit-content;
+
+  &:hover {
+    color: var(--token-color-foreground-strong);
+    text-decoration: underline;
+  }
+}
+
+.itemText {
+  margin-left: 8px;
 }
