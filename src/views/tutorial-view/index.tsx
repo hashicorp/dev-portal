@@ -1,5 +1,4 @@
 import { Fragment } from 'react'
-import Content from '@hashicorp/react-content'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import useCurrentPath from 'hooks/use-current-path'
 import {
@@ -114,9 +113,7 @@ export default function TutorialView({
             hasVideo: Boolean(video),
           }}
         />
-        <Content
-          content={<MDXRemote {...content} components={MDX_COMPONENTS} />}
-        />
+        <MDXRemote {...content} components={MDX_COMPONENTS} />
         <NextPrevious {...nextPreviousData} />
         <FeaturedInCollections collections={collectionCtx.featuredIn} />
       </SidebarSidecarLayout>

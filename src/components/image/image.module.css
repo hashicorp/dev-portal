@@ -1,0 +1,29 @@
+.root {
+  background-color: white;
+  box-shadow: var(--token-surface-base-box-shadow);
+  border-radius: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  text-align: center;
+  justify-content: center;
+  margin: 24px auto;
+
+  &.noMargin {
+    margin: 0;
+  }
+
+  &.noBorder {
+    box-shadow: none;
+    border-radius: 0;
+  }
+}
+
+.img {
+  /* TODO: remove content styles which force !important here */
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  display: block;
+  margin: 0 !important;
+  max-width: 100% !important;
+}
