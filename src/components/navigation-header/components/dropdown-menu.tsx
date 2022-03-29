@@ -29,7 +29,7 @@ const NavigationHeaderDropdownMenu = () => {
         className={s.dropdownList}
         style={{ display: isOpen ? 'block' : 'none' }}
       >
-        menu items
+        TODO: menu items
       </ul>
     </div>
   )
