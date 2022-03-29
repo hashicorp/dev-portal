@@ -6,6 +6,7 @@
   "dev_dot": {
     "max_static_paths": 10,
     "revalidate": 360,
+    "content_preview_branch": "dev-portal",
     "products_with_content_preview_branch": ["waypoint"]
   },
   "learn": {
