@@ -1,0 +1,21 @@
+.activator {
+  align-items: center;
+  display: flex;
+
+  &[aria-expanded='true'] {
+    & .activatorIcon {
+      transform: rotate(-180deg);
+    }
+  }
+}
+
+.activatorText {
+  margin-right: 6px;
+}
+
+.activatorIcon {
+  /* Only enable animation if query is supported and value is no-preference */
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 0.2s ease-in-out;
+  }
+}
