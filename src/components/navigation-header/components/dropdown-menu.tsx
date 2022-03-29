@@ -7,12 +7,24 @@ const NavigationHeaderDropdownMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className={s.root}>
+    <div
+      className={s.root}
+      onMouseLeave={() => {
+        if (isOpen) {
+          setIsOpen(false)
+        }
+      }}
+    >
       <div className={s.activatorWrapper}>
         <button
           aria-expanded={isOpen}
           className={s.activator}
           onClick={() => setIsOpen(!isOpen)}
+          onMouseEnter={() => {
+            if (!isOpen) {
+              setIsOpen(true)
+            }
+          }}
         >
           <Text
             asElement="span"
