@@ -1,5 +1,5 @@
 .root {
-  background-color: var(--token-color-surface-primary);
+  background-color: white;
   box-shadow: var(--token-surface-base-box-shadow);
   border-radius: 6px;
   display: flex;
@@ -15,6 +15,7 @@
 
   &.noBorder {
     box-shadow: none;
+    border-radius: 0;
   }
 }
 
