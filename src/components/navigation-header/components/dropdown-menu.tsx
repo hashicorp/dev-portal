@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
@@ -9,6 +9,7 @@ import { ProductSlug } from 'types/products'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import s from './dropdown-menu.module.css'
+import slugify from 'slugify'
 
 const iconNamesToIcons = {
   docs: <IconDocs16 />,
@@ -24,13 +25,15 @@ type NavigationHeaderIcons =
   | 'terminalScreen'
   | 'tools'
 
+interface NavigationHeaderItem {
+  icon: NavigationHeaderIcons
+  label: string
+  path: string
+}
+
 interface NavigationHeaderDropdownMenuProps {
   label: string
-  itemGroups: {
-    icon: NavigationHeaderIcons
-    label: string
-    path: string
-  }[][]
+  itemGroups: NavigationHeaderItem[][]
 }
 
 const NavigationHeaderDropdownMenu = ({
@@ -38,6 +41,16 @@ const NavigationHeaderDropdownMenu = ({
   itemGroups,
 }: NavigationHeaderDropdownMenuProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const numberOfItemGroups = itemGroups.length
+  const menuId = useMemo(() => `menu-${slugify(label)}`, [label])
+
+  const getItemGroupId = (groupIndex: number): string => {
+    return `${menuId}-itemGroup-${groupIndex}`
+  }
+
+  const getItemId = (prefix: string, itemIndex: number): string => {
+    return `${prefix}-item-${itemIndex}`
+  }
 
   const handleClick = () => {
     setIsOpen(!isOpen)
@@ -77,36 +90,45 @@ const NavigationHeaderDropdownMenu = ({
       </div>
       <div
         className={s.dropdownContainer}
-        // style={{ display: isOpen ? 'block' : 'none' }}
+        style={{ display: isOpen ? 'block' : 'none' }}
       >
-        {itemGroups.map((items, groupIndex) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <ul className={s.itemsGroup} key={groupIndex}>
-            {items.map((item, itemIndex) => {
-              const icon = iconNamesToIcons[item.icon] || (
-                <ProductIcon productSlug={item.icon as ProductSlug} />
-              )
-              return (
-                // eslint-disable-next-line react/no-array-index-key
-                <li className={s.itemContainer} key={itemIndex}>
-                  <Link href={item.path}>
-                    <a className={s.itemLink}>
-                      {icon}
-                      <Text
-                        asElement="span"
-                        className={s.itemText}
-                        size={100}
-                        weight="regular"
-                      >
-                        {item.label}
-                      </Text>
-                    </a>
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        ))}
+        {itemGroups.map((items: NavigationHeaderItem[], groupIndex: number) => {
+          const groupId = getItemGroupId(groupIndex)
+          const isNotLastItemGroup =
+            numberOfItemGroups > 1 && groupIndex !== numberOfItemGroups - 1
+          return (
+            <Fragment key={groupId}>
+              {/* eslint-disable-next-line react/no-array-index-key */}
+              <ul className={s.itemGroup}>
+                {items.map((item: NavigationHeaderItem, itemIndex: number) => {
+                  const itemId = getItemId(groupId, itemIndex)
+                  const icon = iconNamesToIcons[item.icon] || (
+                    <ProductIcon productSlug={item.icon as ProductSlug} />
+                  )
+                  return (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <li className={s.itemContainer} key={itemId}>
+                      <Link href={item.path}>
+                        <a className={s.itemLink}>
+                          {icon}
+                          <Text
+                            asElement="span"
+                            className={s.itemText}
+                            size={100}
+                            weight="regular"
+                          >
+                            {item.label}
+                          </Text>
+                        </a>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+              {isNotLastItemGroup && <hr className={s.itemGroupDivider} />}
+            </Fragment>
+          )
+        })}
       </div>
     </div>
   )
