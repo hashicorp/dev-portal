@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 import Link from 'next/link'
 import slugify from 'slugify'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -12,16 +12,24 @@ import Text from 'components/text'
 import {
   NewNavigationHeaderItem as NavigationHeaderItem,
   NavigationHeaderDropdownMenuProps,
+  SupportedIcon,
 } from 'components/navigation-header/types'
 import s from './dropdown-menu.module.css'
 
-const supportedIcons = {
+/**
+ * The icons supported in this menu in addition to the Product logo icons.
+ */
+const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
   docs: <IconDocs16 />,
   home: <IconHome16 />,
   terminalScreen: <IconTerminalScreen16 />,
   tools: <IconTools16 />,
 }
 
+/**
+ * A single menu item rendered within an item group. Expects the item object
+ * passed to have `icon`, `label`, and `path` properties.
+ */
 const NavigationHeaderDropdownMenuItem = ({
   item,
 }: {
@@ -50,6 +58,12 @@ const NavigationHeaderDropdownMenuItem = ({
   )
 }
 
+/**
+ * A group of items rendered within in the dropdown portion ofthe menu. Expects
+ * `groupId` so it can generate unique item IDs, an `items` array so it can
+ * render each item, and `showDivider` so it can render a separator if it is not
+ * the only or last item group.
+ */
 const NavigationHeaderDropdownMenuItemGroup = ({
   groupId,
   items,
@@ -76,6 +90,12 @@ const NavigationHeaderDropdownMenuItemGroup = ({
   )
 }
 
+/**
+ * A dropdown menu consisiting of an activator button and a dropdown containing
+ * menu item groups.
+ *
+ * TODO: add more details as more interaction support is added
+ */
 const NavigationHeaderDropdownMenu = ({
   label,
   itemGroups,
@@ -84,26 +104,53 @@ const NavigationHeaderDropdownMenu = ({
   const numberOfItemGroups = itemGroups.length
   const menuId = useMemo(() => `menu-${slugify(label)}`, [label])
 
+  /**
+   * Generates a unique ID for a group of items based on the main menu ID and
+   * the index of the group.
+   */
   const getItemGroupId = (groupIndex: number): string => {
     return `${menuId}-itemGroup-${groupIndex}`
   }
 
+  /**
+   * Handles click interaction with the activator button. When clicked, if the
+   * menu is:
+   *  - open, then it will be closed
+   *  - closed, then it will be opened
+   */
   const handleClick = () => {
     setIsOpen(!isOpen)
   }
 
+  /**
+   * Handles the start of a mouse hover interaction with the activator button.
+   * When the mouse pointer hovers over the activator button, the menu will be
+   * opened if it is not already open.
+   */
   const handleMouseEnter = () => {
     if (!isOpen) {
       setIsOpen(true)
     }
   }
 
+  /**
+   * Handles the end of a mouse hover interaction with the entire menu. If the
+   * menu is open, and the mouse moves outside the bounds either the activator
+   * button or the dropdown menu list, then the menu will be closed.
+   */
   const handleMouseLeave = () => {
     if (isOpen) {
       setIsOpen(false)
     }
   }
 
+  /**
+   * The button that is used to open the menu. It is programmatically connected
+   * to the dropdown list using the `aria-controls` prop. The open/closed state
+   * of the menu is expressed using the `aria-expanded` prop on this button.
+   *
+   * TODO: add more details as more interaction support is added
+   */
   const ActivatorButton = () => {
     return (
       <button

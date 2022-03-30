@@ -1,14 +1,11 @@
 import { ProductSlug } from 'types/products'
 
-type NavigationHeaderIcons =
-  | ProductSlug
-  | 'docs'
-  | 'home'
-  | 'terminalScreen'
-  | 'tools'
+type SupportedIcon = 'docs' | 'home' | 'terminalScreen' | 'tools'
+
+type NavigationHeaderIcon = ProductSlug | SupportedIcon
 
 interface NewNavigationHeaderItem {
-  icon: NavigationHeaderIcons
+  icon: NavigationHeaderIcon
   label: string
   path: string
 }
@@ -26,6 +23,8 @@ interface NavigationHeaderDropdownMenuProps {
 
 export type {
   NavigationHeaderDropdownMenuProps,
+  NavigationHeaderIcon,
   NavigationHeaderItem,
   NewNavigationHeaderItem,
+  SupportedIcon,
 }
