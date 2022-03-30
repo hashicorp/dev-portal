@@ -8,7 +8,7 @@ import SwingsetColorToken from '__swingset-components/swingset-color-token'
 import SwingsetTestIcon from '__swingset-components/swingset-test-icon'
 
 // TODO: temporary for building new navigation menus
-import NavigationHeaderDropdownMenu from 'components/navigation-header/components/dropdown-menu'
+import { NavigationHeaderDropdownMenu } from 'components/navigation-header/components'
 
 const components = {
   Search,
