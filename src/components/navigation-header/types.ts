@@ -1,5 +1,31 @@
-export interface NavigationHeaderItem {
-  id: string
-  path: string
+import { ProductSlug } from 'types/products'
+
+type NavigationHeaderIcons =
+  | ProductSlug
+  | 'docs'
+  | 'home'
+  | 'terminalScreen'
+  | 'tools'
+
+interface NewNavigationHeaderItem {
+  icon: NavigationHeaderIcons
   label: string
+  path: string
+}
+
+interface NavigationHeaderItem {
+  id: string
+  label: string
+  path: string
+}
+
+interface NavigationHeaderDropdownMenuProps {
+  itemGroups: NavigationHeaderItem[][]
+  label: string
+}
+
+export type {
+  NavigationHeaderDropdownMenuProps,
+  NavigationHeaderItem,
+  NewNavigationHeaderItem,
 }
