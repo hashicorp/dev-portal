@@ -53,6 +53,14 @@ const productsToPrimitives: ProductsToPrimitivesMap = {
   waypoint: { NestedNode, Placement },
 }
 
+const sharedMdxComponents = {
+  // In /docs, we want to hide image borders by default for now,
+  // to match existing behaviour. Later we may adjust this.
+  img: ({ alt, src, title }: JSX.IntrinsicElements['img']) => (
+    <Image alt={alt} src={src} title={title} noBorder={true} />
+  ),
+}
+
 const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
   const currentProduct = useCurrentProduct()
   const { compiledSource, scope } = mdxSource
@@ -60,9 +68,7 @@ const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
     productsToPrimitives[currentProduct.slug] || {}
   const additionalComponents = {
     ...productSpecificMdxComponents,
-    img: ({ alt, src, title }: JSX.IntrinsicElements['img']) => (
-      <Image alt={alt} src={src} title={title} noBorder={true} />
-    ),
+    ...sharedMdxComponents,
   }
   const components = defaultMdxComponents({ additionalComponents })
 
