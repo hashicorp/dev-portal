@@ -5,6 +5,7 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import { useCurrentProduct } from 'contexts'
 import HeaderSearchInput from 'components/header-search-input'
 import ProductSwitcher from 'components/product-switcher'
+import { NavigationHeaderItem } from './types'
 import s from './navigation-header.module.css'
 
 /**
@@ -27,10 +28,12 @@ const isCurrentPage = (pagePath: string, currentPath: string): boolean => {
   }
 }
 
-const NavigationHeader: React.FC = () => {
+const NavigationHeader = () => {
   const router = useRouter()
   const currentPath = router.asPath
   const currentProduct = useCurrentProduct()
+  const navItems = currentProduct?.navigationHeaderItems || []
+  const hasNavigationItems = navItems.length > 0
 
   return (
     <header className={s.navigationHeader}>
@@ -43,10 +46,10 @@ const NavigationHeader: React.FC = () => {
           </Link>
           <ProductSwitcher />
         </div>
-        {currentProduct?.navigationHeaderItems && (
+        {hasNavigationItems && (
           <div className={s.headerRight}>
             <ul className={s.navLinks}>
-              {currentProduct?.navigationHeaderItems.map((navLink) => {
+              {navItems.map((navLink: NavigationHeaderItem) => {
                 const isCurrent = isCurrentPage(navLink.path, currentPath)
                 return (
                   <li className={s.navLinksListItem} key={navLink.id}>
@@ -70,4 +73,5 @@ const NavigationHeader: React.FC = () => {
   )
 }
 
+export type { NavigationHeaderItem }
 export default NavigationHeader

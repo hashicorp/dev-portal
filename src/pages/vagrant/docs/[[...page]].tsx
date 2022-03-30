@@ -1,5 +1,5 @@
 import vagrantData from 'data/vagrant.json'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import DocsView from 'views/docs-view'
 // imports below are used on server
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
@@ -8,7 +8,7 @@ import { makeFetchWithRetry } from 'lib/fetch-with-retry'
 
 const basePath = 'docs'
 const baseName = 'Docs'
-const product = vagrantData as Product
+const product = vagrantData as ProductData
 
 // Note that we require VMWARE_UTILITY_VERSION to be in { scope } for the MDX
 // on the  /vagrant/docs/providers/vmware/vagrant-vmware-utility page.

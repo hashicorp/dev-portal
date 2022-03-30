@@ -2,8 +2,9 @@ import { Collection, uuid, ProductOption } from 'lib/learn-client/types'
 import { get, toError } from '../../index'
 
 // /products/:identifier/collections
-const PRODUCT_COLLECTION_API_ROUTE = (identifier: ProductOption | uuid) =>
-  `/products/${identifier}/collections`
+export const PRODUCT_COLLECTION_API_ROUTE = (
+  identifier: ProductOption | uuid
+) => `/products/${identifier}/collections`
 
 /**
  * Returns all collections associated with a product.

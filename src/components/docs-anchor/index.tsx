@@ -4,11 +4,11 @@ import { useCurrentProduct } from 'contexts'
 import InlineLink from 'components/inline-link'
 import s from './docs-anchor.module.css'
 
-const DocsAnchor: React.FC<JSX.IntrinsicElements['a']> = ({
+const DocsAnchor = ({
   href,
   children,
   ...rest
-}) => {
+}: JSX.IntrinsicElements['a']) => {
   const currentProduct = useCurrentProduct()
 
   const passableProps = {

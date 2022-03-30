@@ -157,14 +157,14 @@ const ProductSwitcher: React.FC = () => {
             s.switcherOptionAnchor,
             s.switcherOptionContainer
           )}
-          href={product.url}
+          href={`/${product.slug}`}
           onKeyDown={handleAnchorKeyDown}
           ref={refToPass}
         >
           <span className={s.focusContainer}>
             <ProductIcon
               className={s[`${product.slug}ProductIcon`]}
-              product={product.slug}
+              productSlug={product.slug}
             />
             <span>{product.name}</span>
           </span>
@@ -182,7 +182,9 @@ const ProductSwitcher: React.FC = () => {
         )}
         <li>
           <ul role="group">
-            {productGroup.map((product) => renderProductListItem(product))}
+            {productGroup.map((product: Product) =>
+              renderProductListItem(product)
+            )}
           </ul>
         </li>
       </Fragment>
@@ -214,7 +216,7 @@ const ProductSwitcher: React.FC = () => {
         <span className={s.switcherOptionContainer}>
           <ProductIcon
             className={s[`${currentProduct?.slug}ProductIcon`]}
-            product={currentProduct?.slug}
+            productSlug={currentProduct?.slug}
           />
           <span>{currentProduct ? currentProduct.name : 'Products'}</span>
         </span>

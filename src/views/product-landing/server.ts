@@ -1,13 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 
 async function generateStaticProps({
   product,
   contentJsonFile,
 }: {
-  product: Product
+  product: ProductData
   contentJsonFile: string
 }): Promise<$TSFixMe> {
   // TODO: need to discuss from whence we should

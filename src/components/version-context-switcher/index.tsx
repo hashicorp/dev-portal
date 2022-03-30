@@ -51,7 +51,7 @@ const VersionContextSwitcher = ({
   return (
     <div className={s.root}>
       <span className={s.productIcon}>
-        <ProductIcon product={productIconSlug} />
+        <ProductIcon productSlug={productIconSlug} />
       </span>
       <select
         aria-label="Choose a different version to install"

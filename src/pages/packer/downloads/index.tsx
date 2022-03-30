@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { GetStaticProps } from 'next'
 import packerData from 'data/packer.json'
 import installData from 'data/packer-install.json'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import { generateStaticProps, GeneratedProps } from 'lib/fetch-release-data'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductDownloadsView from 'views/product-downloads-view'
@@ -24,7 +24,7 @@ const PackerDownloadsPage = (props: GeneratedProps): ReactElement => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const product = packerData as Product
+  const product = packerData as ProductData
 
   return generateStaticProps(product)
 }

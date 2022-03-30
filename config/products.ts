@@ -19,7 +19,7 @@ const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
 /**
  * Holds the product slugs in the order ProductSwitcher will render them.
  */
-const productSwitcherSlugs = [
+const productSwitcherSlugs: ProductSlug[][] = [
   ['terraform', 'packer', 'vagrant'],
   ['vault', 'boundary'],
   ['consul'],
@@ -29,19 +29,19 @@ const productSwitcherSlugs = [
 ]
 
 /**
- * Generates an array of Product objects from
+ * Generates a 2D array of Product objects from `productSwitcherSlugs`.
  */
-const products: ProductGroup[] = productSwitcherSlugs.map((slugGroup) => {
-  const productGroup = slugGroup.map((slug: ProductSlug) => {
-    const name = productSlugsToNames[slug]
-    const url = `/${slug}`
-    return {
-      name,
-      slug,
-      url,
-    }
-  })
-  return productGroup
-})
+const products: ProductGroup[] = productSwitcherSlugs.map(
+  (slugGroup: ProductSlug[]) => {
+    const productGroup = slugGroup.map((slug: ProductSlug) => {
+      const name = productSlugsToNames[slug]
+      return {
+        name,
+        slug,
+      }
+    })
+    return productGroup
+  }
+)
 
 export { products }

@@ -7,14 +7,9 @@ import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terrafor
 import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-color-16'
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
-import { ProductSlug } from 'types/products'
+import { ProductIconProps } from './types'
 
-// TODO: is there a programmatic way to build this from productNamesToIcons?
-interface ProductIconProps {
-  product: ProductSlug
-}
-
-const productNamesToIcons = {
+const productSlugsToIcons = {
   boundary: IconBoundaryColor16,
   consul: IconConsulColor16,
   hcp: IconHashicorpColor16,
@@ -27,14 +22,13 @@ const productNamesToIcons = {
   waypoint: IconWaypointColor16,
 }
 
-const ProductIcon: React.FC<
-  ProductIconProps & React.HTMLProps<SVGSVGElement>
-> = ({ product, ...rest }) => {
-  const Icon = productNamesToIcons[product]
+const ProductIcon = ({ productSlug, ...rest }: ProductIconProps) => {
+  const Icon = productSlugsToIcons[productSlug]
   if (!Icon) {
     return null
   }
   return <Icon {...rest} />
 }
 
+export type { ProductIconProps }
 export default ProductIcon

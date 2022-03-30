@@ -1,17 +1,22 @@
-import { createContext, FC, useContext } from 'react'
+import { createContext, ReactNode, useContext } from 'react'
 import { useRouter } from 'next/router'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 
 export type RouteChangeStartHandler = (url: string) => void
 
-type CurrentProduct = Product | undefined
+type CurrentProduct = ProductData | undefined
 
 const CurrentProductContext = createContext<CurrentProduct>(undefined)
 
-const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
+interface CurrentProductProviderProps {
+  children: ReactNode
+  currentProduct: ProductData
+}
+
+const CurrentProductProvider = ({
   children,
   currentProduct,
-}) => {
+}: CurrentProductProviderProps) => {
   const router = useRouter()
   const value = router.asPath === '/' ? null : currentProduct
 
@@ -22,7 +27,7 @@ const CurrentProductProvider: FC<{ currentProduct: Product }> = ({
   )
 }
 
-const useCurrentProduct = (): Product => {
+const useCurrentProduct = (): ProductData => {
   const context = useContext(CurrentProductContext)
   if (context === undefined) {
     throw new Error(

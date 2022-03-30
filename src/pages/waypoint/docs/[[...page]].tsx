@@ -1,11 +1,11 @@
 import waypointData from 'data/waypoint.json'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import DocsView from 'views/docs-view'
 
 const basePath = 'docs'
 const baseName = 'Docs'
-const product = waypointData as Product
+const product = waypointData as ProductData
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   product,

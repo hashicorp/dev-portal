@@ -1,11 +1,11 @@
 import terraformData from 'data/terraform.json'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import DocsView from 'views/docs-view'
 
 const basePath = 'configuration'
 const baseName = 'Configuration'
-const product = terraformData as Product
+const product = terraformData as ProductData
 /**
  * TODO: productSlug should possibly actually be `terraform`,
  * but https://mktg-content-api.vercel.app/api/content/terraform/version-metadata?partial=true

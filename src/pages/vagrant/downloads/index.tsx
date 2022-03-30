@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { GetStaticProps } from 'next'
 import vagrantData from 'data/vagrant.json'
 import installData from 'data/vagrant-install.json'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import { generateStaticProps, GeneratedProps } from 'lib/fetch-release-data'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductDownloadsView from 'views/product-downloads-view'
@@ -24,7 +24,7 @@ const VagrantDownloadsPage = (props: GeneratedProps): ReactElement => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const product = vagrantData as Product
+  const product = vagrantData as ProductData
 
   return generateStaticProps(product)
 }

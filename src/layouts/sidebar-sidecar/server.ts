@@ -2,7 +2,7 @@ import { Pluggable } from 'unified'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
@@ -32,7 +32,7 @@ export function getStaticGenerationFunctions<
   getScope = async () => ({} as MdxScope),
   mainBranch,
 }: {
-  product: Product
+  product: ProductData
   basePath: string
   productSlugForLoader?: string
   basePathForLoader?: string
@@ -41,9 +41,18 @@ export function getStaticGenerationFunctions<
   getScope?: () => Promise<MdxScope>
   mainBranch?: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
-  const loaderOptions = {
+  /**
+   * These products, defined in our config files, will source content from a long-lived branch named 'dev-portal'
+   */
+  const isProductWithContentPreviewBranch =
+    __config.dev_dot.products_with_content_preview_branch.includes(product.slug)
+
+  const loaderOptions: RemoteContentLoader['opts'] = {
     product: productSlugForLoader,
     basePath: basePathForLoader,
+    latestVersionRef: isProductWithContentPreviewBranch
+      ? __config.dev_dot.content_preview_branch
+      : undefined,
   }
 
   // Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
