@@ -91,6 +91,35 @@ const NavigationHeaderDropdownMenuItemGroup = ({
 }
 
 /**
+ * The button that is used to open the menu. It is programmatically connected
+ * to the dropdown list using the `aria-controls` prop. The open/closed state
+ * of the menu is expressed using the `aria-expanded` prop on this button.
+ *
+ * TODO: add more details as more interaction support is added
+ */
+const ActivatorButton = () => {
+  return (
+    <button
+      aria-controls={menuId}
+      aria-expanded={isOpen}
+      className={s.activator}
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+    >
+      <Text
+        asElement="span"
+        className={s.activatorText}
+        size={200}
+        weight="medium"
+      >
+        {label}
+      </Text>
+      <IconChevronDown16 className={s.activatorIcon} />
+    </button>
+  )
+}
+
+/**
  * A dropdown menu consisiting of an activator button and a dropdown containing
  * menu item groups.
  *
