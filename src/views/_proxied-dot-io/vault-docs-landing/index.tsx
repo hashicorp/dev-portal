@@ -3,7 +3,7 @@ import CardLink from 'components/card-link'
 import FeaturedCard from './components/featured-card'
 import UseCaseCard from './components/use-case-card'
 import s from './style.module.css'
-import VAULT_CONTENT from './vault-content'
+import VAULT_CONTENT from './vault-content.json'
 
 function ProductDocsLanding(): ReactElement {
   // Note: later we could use this view with products other than Vault,
