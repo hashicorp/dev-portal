@@ -20,7 +20,7 @@ interface NavigationHeaderItem {
 }
 
 interface NavigationHeaderDropdownMenuProps {
-  itemGroups: NavigationHeaderItem[][]
+  itemGroups: NewNavigationHeaderItem[][]
   label: string
 }
 
