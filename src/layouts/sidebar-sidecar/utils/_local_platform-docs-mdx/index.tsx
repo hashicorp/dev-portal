@@ -1,4 +1,4 @@
-import React, { JSX } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
