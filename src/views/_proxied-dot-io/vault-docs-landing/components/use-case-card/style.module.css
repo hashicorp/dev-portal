@@ -10,7 +10,7 @@
 .ctas {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 16px;
   margin-bottom: 8px;
   margin-top: 16px;
 }
