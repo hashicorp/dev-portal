@@ -64,10 +64,9 @@ const sharedMdxComponents = {
 const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
   const currentProduct = useCurrentProduct()
   const { compiledSource, scope } = mdxSource
-  const productSpecificMdxComponents =
-    productsToPrimitives[currentProduct.slug] || {}
+  const productMdxComponents = productsToPrimitives[currentProduct.slug] || {}
   const additionalComponents = {
-    ...productSpecificMdxComponents,
+    ...productMdxComponents,
     ...sharedMdxComponents,
   }
   const components = defaultMdxComponents({ additionalComponents })
