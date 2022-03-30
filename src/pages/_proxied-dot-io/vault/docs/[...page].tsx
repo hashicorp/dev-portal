@@ -30,25 +30,23 @@ function DocsView(props) {
   )
 }
 
-const {
-  getStaticPaths: generatedGetStaticPaths,
-  getStaticProps,
-} = getStaticGenerationFunctions(
-  enableVersionedDocs
-    ? {
-        strategy: 'remote',
-        basePath,
-        fallback: 'blocking',
-        product: productData.slug,
-      }
-    : {
-        strategy: 'fs',
-        localContentDir,
-        navDataFile,
-        localPartialsDir,
-        product: productData.slug,
-      }
-)
+const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
+  getStaticGenerationFunctions(
+    enableVersionedDocs
+      ? {
+          strategy: 'remote',
+          basePath,
+          fallback: 'blocking',
+          product: productData.slug,
+        }
+      : {
+          strategy: 'fs',
+          localContentDir,
+          navDataFile,
+          localPartialsDir,
+          product: productData.slug,
+        }
+  )
 
 // Export getStaticPaths function
 /**
