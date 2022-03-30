@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { JSX } from 'react'
 import classNames from 'classnames'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
@@ -7,6 +7,7 @@ import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
+import Image from 'components/image'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 
 /**
@@ -77,6 +78,16 @@ function _defaultComponents() {
     CodeTabs,
     pre,
     a: DocsAnchor,
+    /**
+     * In /docs, we want to hide image borders by default for now,
+     * to match existing behaviour. Note that in /tutorials, we want
+     * to show image borders by default. Later we may adjust these
+     * defaults; it would likely be ideal for /docs and /tutorials
+     * to have the same default behaviour.
+     */
+    img: ({ alt, src, title }: JSX.IntrinsicElements['img']) => (
+      <Image alt={alt} src={src} title={title} noBorder={true} />
+    ),
     h1: (props) => makeHeadingElement(1, props),
     h2: (props) => makeHeadingElement(2, props),
     h3: (props) => makeHeadingElement(3, props),

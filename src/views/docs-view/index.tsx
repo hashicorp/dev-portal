@@ -4,7 +4,6 @@ import { useCurrentProduct } from 'contexts'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { DocsViewProps, ProductsToPrimitivesMap } from './types'
-import Image from 'components/image'
 
 // Author primitives
 const Badge = dynamic(() => import('components/author-primitives/packer/badge'))
@@ -53,22 +52,10 @@ const productsToPrimitives: ProductsToPrimitivesMap = {
   waypoint: { NestedNode, Placement },
 }
 
-const sharedMdxComponents = {
-  // In /docs, we want to hide image borders by default for now,
-  // to match existing behaviour. Later we may adjust this.
-  img: ({ alt, src, title }: JSX.IntrinsicElements['img']) => (
-    <Image alt={alt} src={src} title={title} noBorder={true} />
-  ),
-}
-
 const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
   const currentProduct = useCurrentProduct()
   const { compiledSource, scope } = mdxSource
-  const productMdxComponents = productsToPrimitives[currentProduct.slug] || {}
-  const additionalComponents = {
-    ...productMdxComponents,
-    ...sharedMdxComponents,
-  }
+  const additionalComponents = productsToPrimitives[currentProduct.slug] || {}
   const components = defaultMdxComponents({ additionalComponents })
 
   return (
