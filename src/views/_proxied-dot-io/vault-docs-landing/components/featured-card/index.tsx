@@ -20,13 +20,14 @@ function FeaturedCard({
           <div className={s.ctas}>
             {links.map(({ title, url }, stableIdx) => {
               const variant = stableIdx == 0 ? 'primary' : 'secondary'
+              const brand = stableIdx == 0 ? 'neutral' : productThemeSlug
               return (
                 <Button
                   // eslint-disable-next-line react/no-array-index-key
                   key={stableIdx}
                   theme={{
                     variant,
-                    brand: productThemeSlug,
+                    brand,
                   }}
                   title={title}
                   url={url}
