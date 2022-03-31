@@ -20,10 +20,6 @@
 }
 
 .img {
-  /* TODO: remove content styles which force !important here */
-  border-radius: 0 !important;
-  background-color: transparent !important;
   display: block;
-  margin: 0 !important;
-  max-width: 100% !important;
+  max-width: 100%;
 }
