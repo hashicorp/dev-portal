@@ -16,6 +16,15 @@ declare module 'swingset/server' {
 declare module '@hashicorp/react-search'
 
 /**
+ * Modules declared after enabling noImplicitAny
+ */
+declare module '@hashicorp/react-inline-svg'
+declare module 'nprogress'
+declare module 'js-cookie'
+declare module '@mdx-js/react'
+declare module '@hashicorp/platform-docs-mdx'
+
+/**
  * Application config, defined in environment-specific JSON files in `config/`
  */
 declare const __config: Record<string, any>
