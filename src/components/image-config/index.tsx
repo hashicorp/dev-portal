@@ -14,9 +14,10 @@ export default function ImageConfig({
   hideBorder = false,
   width,
   height,
+  inline,
 }: ImageConfigProps): ReactElement {
   //  emit a warning if no meaningful props are present
-  if (!hideBorder && !caption) {
+  if (!hideBorder && !caption && !width && !height) {
     console.warn(
       `Warning: <ImageConfig /> was initialized with default props. Please remove <ImageConfig /> if configuration is not needed.`
     )
@@ -68,6 +69,7 @@ export default function ImageConfig({
         noBorder={hideBorder}
         width={width}
         height={height}
+        inline={inline}
       />
     )
   }

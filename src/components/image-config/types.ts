@@ -27,4 +27,9 @@ export interface ImageConfigProps {
    * An explicit height value to be passed to the image element
    */
   height?: ImageProps['height']
+
+  /**
+   * Indicate whether or not the rendered image element should be inline
+   */
+  inline?: ImageProps['inline']
 }

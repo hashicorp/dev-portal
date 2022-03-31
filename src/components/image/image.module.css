@@ -17,9 +17,13 @@
     box-shadow: none;
     border-radius: 0;
   }
-}
 
-.img {
-  display: block;
-  max-width: 100%;
+  &.inline {
+    display: inline-flex;
+  }
+
+  & img {
+    display: block;
+    max-width: 100%;
+  }
 }

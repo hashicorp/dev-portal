@@ -14,6 +14,7 @@ function Image({
   noBorder,
   height,
   width,
+  inline = false,
 }: ImageProps): ReactElement {
   /**
    * Warn if there's no intentional alt prop.
@@ -34,17 +35,11 @@ function Image({
       className={classNames(s.root, {
         [s.noMargin]: noMargin,
         [s.noBorder]: noBorder,
+        [s.inline]: inline,
       })}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className={s.img}
-        src={src}
-        alt={alt}
-        title={title}
-        height={height}
-        width={width}
-      />
+      <img src={src} alt={alt} title={title} height={height} width={width} />
     </div>
   )
 }

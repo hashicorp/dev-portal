@@ -41,4 +41,10 @@ export interface ImageProps {
    * An explicit height value to be passed to the img element
    */
   height?: number
+
+  /**
+   * Indicates whether or not the image element should render as an inline element,
+   * as opposed to a block element. Defaults to: false.
+   */
+  inline?: boolean
 }
