@@ -35,6 +35,13 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
 /**
  * A single menu item rendered within an item group. Expects the item object
  * passed to have `icon`, `label`, and `path` properties.
+ *
+ * The anchor rendered has `tabIndex` set to `-1` so that it is not reachable
+ * via TAB or SHIFT+TAB. This enables us to leverage the default TAB and
+ * SHIFT+TAB behavior of the activator button to navigate between menus without
+ * having to hook into the `onBlur` event listener for the button.
+ *
+ * TODO: add details about ArrowDown and ArrowUp interaction after they're added
  */
 const NavigationHeaderDropdownMenuItem = ({
   item,
