@@ -76,6 +76,7 @@ export default function TutorialView({
     video,
     collectionCtx,
   } = tutorial
+  const hasVideo = Boolean(video)
   const isInteractive = Boolean(handsOnLab)
   const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
   const nextPreviousData = getNextPrevious({
@@ -111,8 +112,8 @@ export default function TutorialView({
             readTime,
             edition,
             productsUsed,
-            isInteractive: Boolean(handsOnLab),
-            hasVideo: Boolean(video),
+            isInteractive,
+            hasVideo,
           }}
         />
         <pre
@@ -122,7 +123,7 @@ export default function TutorialView({
         >
           <code>{JSON.stringify({ video }, null, 2)}</code>
         </pre>
-        {video.id && !video.videoInline && (
+        {hasVideo && video.id && !video.videoInline && (
           <VideoEmbed
             url={getVideoUrl({ videoId: video.id, videoHost: video.videoHost })}
           />
