@@ -1,4 +1,10 @@
-import { ReactElement, useMemo, useState } from 'react'
+import {
+  KeyboardEventHandler,
+  ReactElement,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import Link from 'next/link'
 import slugify from 'slugify'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -42,7 +48,7 @@ const NavigationHeaderDropdownMenuItem = ({
   return (
     <li className={s.itemContainer}>
       <Link href={item.path}>
-        <a className={s.itemLink}>
+        <a className={s.itemLink} tabIndex={-1}>
           {icon}
           <Text
             asElement="span"
@@ -97,14 +103,32 @@ const NavigationHeaderDropdownMenuItemGroup = ({
  *
  * TODO: add more details as more interaction support is added
  */
-const ActivatorButton = () => {
+const ActivatorButton = ({
+  ariaControls,
+  ariaExpanded,
+  label,
+  onClick,
+  onFocus,
+  onKeyDown,
+  onMouseEnter,
+}: {
+  ariaControls: string
+  ariaExpanded: boolean
+  label: string
+  onClick: () => void
+  onFocus: () => void
+  onKeyDown: KeyboardEventHandler<HTMLButtonElement>
+  onMouseEnter: () => void
+}) => {
   return (
     <button
-      aria-controls={menuId}
-      aria-expanded={isOpen}
+      aria-controls={ariaControls}
+      aria-expanded={ariaExpanded}
       className={s.activator}
-      onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
+      onClick={onClick}
+      onFocus={onFocus}
+      onKeyDown={onKeyDown}
+      onMouseEnter={onMouseEnter}
     >
       <Text
         asElement="span"
@@ -129,6 +153,7 @@ const NavigationHeaderDropdownMenu = ({
   label,
   itemGroups,
 }: NavigationHeaderDropdownMenuProps) => {
+  const menuRef = useRef<HTMLDivElement>()
   const [isOpen, setIsOpen] = useState(false)
   const numberOfItemGroups = itemGroups.length
   const menuId = useMemo(() => `menu-${slugify(label)}`, [label])
@@ -174,38 +199,49 @@ const NavigationHeaderDropdownMenu = ({
   }
 
   /**
-   * The button that is used to open the menu. It is programmatically connected
-   * to the dropdown list using the `aria-controls` prop. The open/closed state
-   * of the menu is expressed using the `aria-expanded` prop on this button.
+   * Handles TAB and SHIFT+TAB keyboard interaction on an activator button that
+   * has focus. If the menu is open, and:
+   *  - SHIFT+TAB occurs, the menu will be closed
+   *  - TAB occurs, the menu will be closed
    *
-   * TODO: add more details as more interaction support is added
+   * Default TAB & SHIFT+TAB behavior is not prevented.
+   *  - SHIFT+TAB should focus the previous focusable element that comes right
+   *    before the current menu. This may be another menu in `NavigationHeader`,
+   *    or it may be an element located before a collection of these menus.
+   *  - TAB should focus the next focusable element that comes right after the
+   *    current menu. This may be another menu in `NavigationHeader`, or it may
+   *    be an element located after a collection of these menus.
    */
-  const ActivatorButton = () => {
-    return (
-      <button
-        aria-controls={menuId}
-        aria-expanded={isOpen}
-        className={s.activator}
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-      >
-        <Text
-          asElement="span"
-          className={s.activatorText}
-          size={200}
-          weight="medium"
-        >
-          {label}
-        </Text>
-        <IconChevronDown16 className={s.activatorIcon} />
-      </button>
-    )
+  const handleKeyDown = (e) => {
+    const isTab = e.key === 'Tab' && !e.shiftKey
+    const isShiftTab = e.key === 'Tab' && e.shiftKey
+    if (isOpen && (isTab || isShiftTab)) {
+      setIsOpen(false)
+    }
+  }
+
+  /**
+   * Handles what happens after an activator button is brought into focus. If
+   * the menu associated with the button is closed, then it will be opened.
+   */
+  const handleFocus = () => {
+    if (!isOpen) {
+      setIsOpen(true)
+    }
   }
 
   return (
-    <div className={s.root} onMouseLeave={handleMouseLeave}>
+    <div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
       <div className={s.activatorWrapper}>
-        <ActivatorButton />
+        <ActivatorButton
+          ariaControls={menuId}
+          ariaExpanded={isOpen}
+          label={label}
+          onClick={handleClick}
+          onFocus={handleFocus}
+          onKeyDown={handleKeyDown}
+          onMouseEnter={handleMouseEnter}
+        />
       </div>
       <div
         className={s.dropdownContainer}
