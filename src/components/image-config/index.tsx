@@ -55,6 +55,7 @@ export default function ImageConfig({
           noMargin
           width={width}
           height={height}
+          inline={inline}
         />
         <figcaption className={s.caption}>{caption}</figcaption>
       </figure>
