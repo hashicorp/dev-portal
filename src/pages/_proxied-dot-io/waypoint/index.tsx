@@ -116,7 +116,7 @@ function HomePage(): JSX.Element {
     <span class="token keyword">chart</span> = "\${<span class="token keyword">path</span>.app}<span class="token string">/chart</span>"
     <span class="token keyword">set</span> {
       <span class="token keyword">name</span>  = <span class="token string">"deployment.image"</span>
-      <span class="token keyword">value</span> = artfact.name
+      <span class="token keyword">value</span> = artifact.name
     }
   }
 }`}
