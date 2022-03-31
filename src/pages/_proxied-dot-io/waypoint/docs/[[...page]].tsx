@@ -4,9 +4,14 @@ import NestedNode from 'components/_proxied-dot-io/waypoint/nested-node'
 import DocsPage from '@hashicorp/react-docs-page'
 import productData from 'data/waypoint.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
-import ImageConfig from 'components/image-config'
+import ImageConfigBase from 'components/image-config'
+import { ImageConfigProps } from 'components/image-config/types'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
+
+const ImageConfig = (props: ImageConfigProps) => (
+  <ImageConfigBase hideBorder {...props} />
+)
 
 const product = { name: productData.name, slug: productData.slug }
 const basePath = 'docs'
