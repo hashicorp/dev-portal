@@ -69,6 +69,8 @@ App.getInitialProps = async ({ Component, ctx }) => {
     query = proxiedRivetClient('vault')
   } else if (ctx.pathname.includes('_proxied-dot-io/consul')) {
     query = proxiedRivetClient('consul')
+  } else if (ctx.pathname.includes('_proxied-dot-io/nomad')) {
+    query = proxiedRivetClient('nomad')
   }
 
   const layoutProps = layoutQuery ? await query(layoutQuery) : null
