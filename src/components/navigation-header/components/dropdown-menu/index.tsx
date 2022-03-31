@@ -1,5 +1,6 @@
 import {
   KeyboardEventHandler,
+  MutableRefObject,
   ReactElement,
   useMemo,
   useRef,
@@ -45,8 +46,12 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
  */
 const NavigationHeaderDropdownMenuItem = ({
   item,
+  itemId,
+  menuItemRefs,
 }: {
   item: NavigationHeaderItem
+  itemId: string
+  menuItemRefs: MutableRefObject<any>
 }) => {
   const icon = supportedIcons[item.icon] || (
     <ProductIcon productSlug={item.icon as ProductSlug} />
@@ -55,7 +60,16 @@ const NavigationHeaderDropdownMenuItem = ({
   return (
     <li className={s.itemContainer}>
       <Link href={item.path}>
-        <a className={s.itemLink} tabIndex={-1}>
+        <a
+          className={s.itemLink}
+          ref={(e) => {
+            if (!menuItemRefs.current[itemId]) {
+              const indexOfItem = Object.keys(menuItemRefs.current).length
+              menuItemRefs.current[itemId] = { index: indexOfItem, element: e }
+            }
+          }}
+          tabIndex={-1}
+        >
           {icon}
           <Text
             asElement="span"
@@ -80,10 +94,12 @@ const NavigationHeaderDropdownMenuItem = ({
 const NavigationHeaderDropdownMenuItemGroup = ({
   groupId,
   items,
+  menuItemRefs,
   showDivider,
 }: {
   groupId: string
   items: NavigationHeaderItem[]
+  menuItemRefs: MutableRefObject<any>
   showDivider: boolean
 }) => {
   const getItemId = (prefix: string, itemIndex: number): string => {
@@ -95,7 +111,14 @@ const NavigationHeaderDropdownMenuItemGroup = ({
       <ul className={s.itemGroup}>
         {items.map((item: NavigationHeaderItem, itemIndex: number) => {
           const itemId = getItemId(groupId, itemIndex)
-          return <NavigationHeaderDropdownMenuItem key={itemId} item={item} />
+          return (
+            <NavigationHeaderDropdownMenuItem
+              key={itemId}
+              item={item}
+              itemId={itemId}
+              menuItemRefs={menuItemRefs}
+            />
+          )
         })}
       </ul>
       {showDivider && <hr className={s.itemGroupDivider} />}
@@ -161,6 +184,7 @@ const NavigationHeaderDropdownMenu = ({
   itemGroups,
 }: NavigationHeaderDropdownMenuProps) => {
   const menuRef = useRef<HTMLDivElement>()
+  const menuItemRefs = useRef({})
   const [isOpen, setIsOpen] = useState(false)
   const numberOfItemGroups = itemGroups.length
   const menuId = useMemo(() => `menu-${slugify(label)}`, [label])
@@ -224,6 +248,24 @@ const NavigationHeaderDropdownMenu = ({
     const isShiftTab = e.key === 'Tab' && e.shiftKey
     if (isOpen && (isTab || isShiftTab)) {
       setIsOpen(false)
+      return
+    }
+
+    const isArrowDown = e.key === 'ArrowDown'
+    const isArrowUp = e.key === 'ArrowUp'
+    if (isArrowDown) {
+      const firstItemId = Object.keys(menuItemRefs.current)[0]
+      const firstItem = menuItemRefs.current[firstItemId].element
+
+      e.preventDefault()
+      firstItem.focus()
+    } else if (isArrowUp) {
+      const allItemIds = Object.keys(menuItemRefs.current)
+      const lastItemId = allItemIds[allItemIds.length - 1]
+      const lastItem = menuItemRefs.current[lastItemId].element
+
+      e.preventDefault()
+      lastItem.focus()
     }
   }
 
@@ -264,6 +306,7 @@ const NavigationHeaderDropdownMenu = ({
               groupId={groupId}
               items={items}
               key={groupId}
+              menuItemRefs={menuItemRefs}
               showDivider={showDivider}
             />
           )
