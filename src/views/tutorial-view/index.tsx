@@ -116,13 +116,6 @@ export default function TutorialView({
             hasVideo,
           }}
         />
-        <pre
-          style={{
-            border: '1px solid magenta',
-          }}
-        >
-          <code>{JSON.stringify({ video }, null, 2)}</code>
-        </pre>
         {hasVideo && video.id && !video.videoInline && (
           <VideoEmbed
             url={getVideoUrl({ videoId: video.id, videoHost: video.videoHost })}
