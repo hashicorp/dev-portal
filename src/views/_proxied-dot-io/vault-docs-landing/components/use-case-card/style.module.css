@@ -1,9 +1,14 @@
 .heading {
   composes: g-type-display-5 from global;
+
+  /* !important is necessary here to stop leaks from enclosing
+     @hashicorp/react-content component styles */
   margin: 0 !important;
 }
 
 .body {
+  /* !important is necessary here to stop leaks from enclosing
+     @hashicorp/react-content component styles */
   margin: 8px 0 0 0 !important;
 }
 
