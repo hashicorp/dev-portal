@@ -4,6 +4,7 @@ import NestedNode from 'components/_proxied-dot-io/waypoint/nested-node'
 import DocsPage from '@hashicorp/react-docs-page'
 import productData from 'data/waypoint.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
+import ImageConfig from 'components/image-config'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 
@@ -13,7 +14,7 @@ const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
-const additionalComponents = { Placement, NestedNode }
+const additionalComponents = { Placement, NestedNode, ImageConfig }
 
 function DocsView(props) {
   return (

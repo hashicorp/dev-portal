@@ -5,6 +5,7 @@ import DocsPage from '@hashicorp/react-docs-page'
 import productData from 'data/vault.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
+import ImageConfig from 'components/image-config'
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
 
@@ -14,7 +15,7 @@ const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
-const additionalComponents = { Columns, Tag }
+const additionalComponents = { Columns, Tag, ImageConfig }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function DocsView(props) {

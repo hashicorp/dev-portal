@@ -31,4 +31,14 @@ export interface ImageProps {
    * For use in other elements, such as ImageConfig
    */
   noBorder?: boolean
+
+  /**
+   * An explicit width value to be passed to the img element
+   */
+  width?: number
+
+  /**
+   * An explicit height value to be passed to the img element
+   */
+  height?: number
 }
