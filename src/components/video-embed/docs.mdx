@@ -1,0 +1,61 @@
+---
+componentName: VideoEmbed
+---
+
+# Video Embed
+
+Powered by [React Player](https://github.com/CookPete/react-player), this component allows you to embed videos from the following hosts:
+
+- youtube
+- facebook
+- soundcloud
+- vimeo
+- wistia
+- mixcloud
+- dailymotion
+- twitch
+- local files
+
+## Usage
+
+### Adding a Video to a Tutorial (Default)
+
+Add a `video_id` and `video_host` to your Tutorial's frontmatter and it will automatically be prepended to the top of the tutorial.
+
+```yml
+name: Getting Started
+video_id: uxglzsJkBJg
+video_host: youtube
+```
+
+### Adding a Video Inline in a Tutorial
+
+If you want to specify where the video is displayed within your Tutorial, include the `<VideoEmbed />` component directly. A special `video` variable is available within the body of your Markdown content, containing the URL derived from your `video_id` and `video_host`:
+
+```mdx
+<!-- Within your .mdx file, after the Front-Matter -->
+
+### Video Example
+
+Follow along in this video:
+
+<!--  *video* is a constant which resolves to  'https://youtube.com/watch?v=uxglzsJkBJg' here >
+<VideoEmbed url={video} />
+```
+
+You can also just pass a regular URL - for example, if you have multiple videos on one page:
+
+```mdx
+### Another Video Example
+
+<VideoEmbed url="https://hashicorp.wistia.com/medias/abc123" />
+```
+
+### Customizing the Player
+
+Since this component is built off on top of [React Player](https://github.com/CookPete/react-player), it can be extremely customized. You can see the full list of `Props` that the `VideoEmbed` can accept at the [React Player Readme](https://github.com/CookPete/react-player#props).
+
+Additionally, there is a special prop - `start` - where you can set the start offset time for the video, in seconds. This works for Youtube and Wistia video URLs. It may work with other video hosts.
+
+Example:
+`<VideoEmbed url={video} start={1477} />`
