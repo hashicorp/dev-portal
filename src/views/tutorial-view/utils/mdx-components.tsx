@@ -2,6 +2,7 @@ import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import Tabs, { Tab } from 'components/tabs' // @TODO note that this doesn't support groups yet
 import ImageConfig from 'components/image-config'
 import Image from 'components/image'
+import VideoEmbed from 'components/video-embed'
 
 /**
  * @TODO move over these components from learn, update to new spec
@@ -25,6 +26,7 @@ const MDX_COMPONENTS = {
   CodeTabs,
   ImageConfig,
   img: Image,
+  VideoEmbed,
 }
 
 export default MDX_COMPONENTS

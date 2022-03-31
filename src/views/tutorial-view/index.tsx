@@ -19,7 +19,9 @@ import {
   NextPrevious,
   getNextPrevious,
 } from './components'
+import getVideoUrl from './utils/get-video-url'
 import TutorialMeta from 'components/tutorial-meta'
+import VideoEmbed from 'components/video-embed'
 
 export interface TutorialViewProps {
   tutorial: TutorialData
@@ -113,6 +115,18 @@ export default function TutorialView({
             hasVideo: Boolean(video),
           }}
         />
+        <pre
+          style={{
+            border: '1px solid magenta',
+          }}
+        >
+          <code>{JSON.stringify({ video }, null, 2)}</code>
+        </pre>
+        {video.id && !video.videoInline && (
+          <VideoEmbed
+            url={getVideoUrl({ videoId: video.id, videoHost: video.videoHost })}
+          />
+        )}
         <MDXRemote {...content} components={MDX_COMPONENTS} />
         <NextPrevious {...nextPreviousData} />
         <FeaturedInCollections collections={collectionCtx.featuredIn} />
