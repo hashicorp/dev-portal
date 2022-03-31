@@ -33,6 +33,30 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
   tools: <IconTools16 />,
 }
 
+const getNextMenuItem = (menuItemRefs, thisItemId) => {
+  const allItemIds = Object.keys(menuItemRefs.current)
+  const numItems = allItemIds.length
+  const thisItemIndex = menuItemRefs.current[thisItemId].index
+  const isLastItem = thisItemIndex === numItems - 1
+  const nextItemIndex = isLastItem ? 0 : thisItemIndex + 1
+  const nextItemId = allItemIds[nextItemIndex]
+  const nextItem = menuItemRefs.current[nextItemId].element
+
+  return nextItem
+}
+
+const getPreviousMenuItem = (menuItemRefs, thisItemId) => {
+  const allItemIds = Object.keys(menuItemRefs.current)
+  const numItems = allItemIds.length
+  const thisItemIndex = menuItemRefs.current[thisItemId].index
+  const isFirstItem = thisItemIndex === 0
+  const previousItemIndex = isFirstItem ? numItems - 1 : thisItemIndex - 1
+  const previousItemId = allItemIds[previousItemIndex]
+  const previousItem = menuItemRefs.current[previousItemId].element
+
+  return previousItem
+}
+
 /**
  * A single menu item rendered within an item group. Expects the item object
  * passed to have `icon`, `label`, and `path` properties.
@@ -62,6 +86,19 @@ const NavigationHeaderDropdownMenuItem = ({
       <Link href={item.path}>
         <a
           className={s.itemLink}
+          onKeyDown={(e) => {
+            const isArrowDown = e.key === 'ArrowDown'
+            const isArrowUp = e.key === 'ArrowUp'
+            if (isArrowDown) {
+              const nextItem = getNextMenuItem(menuItemRefs, itemId)
+              e.preventDefault()
+              nextItem.focus()
+            } else if (isArrowUp) {
+              const previousItem = getPreviousMenuItem(menuItemRefs, itemId)
+              e.preventDefault()
+              previousItem.focus()
+            }
+          }}
           ref={(e) => {
             if (!menuItemRefs.current[itemId]) {
               const indexOfItem = Object.keys(menuItemRefs.current).length
