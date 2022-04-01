@@ -24,8 +24,7 @@ function HomePage(): JSX.Element {
         description="Waypoint allows developers to deploy, manage, and observe their applications through a consistent abstraction of underlying infrastructure. Waypoint works with Kubernetes, ECS and many other platforms."
         link={{
           title: 'Get Started',
-          url:
-            'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
+          url: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
         }}
       />
       <SectionIntro
@@ -234,14 +233,18 @@ function HomePage(): JSX.Element {
         links={[
           {
             text: 'Get Started',
-            url:
-              'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
+            url: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
           },
           { text: 'Explore Documentation', url: '/docs' },
         ]}
       />
     </div>
   )
+}
+
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
 }
 
 HomePage.layout = WaypointIoLayout

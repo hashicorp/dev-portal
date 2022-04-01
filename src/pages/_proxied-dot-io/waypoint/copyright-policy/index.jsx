@@ -157,5 +157,10 @@ function CopyrightPolicyPage() {
   )
 }
 
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
+}
+
 CopyrightPolicyPage.layout = WaypointIoLayout
 export default CopyrightPolicyPage
