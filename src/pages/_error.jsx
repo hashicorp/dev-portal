@@ -49,7 +49,7 @@ function Error({ statusCode, proxiedProductSlug, layoutProps }) {
   // whether the current branch is a specific `proxied-{product}` branch.
   const Layout = proxiedLayouts[proxiedProductSlug] || BaseLayout
   return (
-    <Layout data={...layoutProps}>
+    <Layout data={{ ...layoutProps }}>
       <VersionedErrorPage statusCode={statusCode} />
     </Layout>
   )
