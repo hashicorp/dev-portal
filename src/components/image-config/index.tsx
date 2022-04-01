@@ -17,7 +17,7 @@ export default function ImageConfig({
   inline,
 }: ImageConfigProps): ReactElement {
   //  emit a warning if no meaningful props are present
-  if (!hideBorder && !caption && !width && !height) {
+  if (!hideBorder && !caption && !width && !height && !inline) {
     console.warn(
       `Warning: <ImageConfig /> was initialized with default props. Please remove <ImageConfig /> if configuration is not needed.`
     )
