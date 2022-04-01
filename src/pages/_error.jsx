@@ -4,6 +4,11 @@ import { getProxiedProductSlug } from 'lib/env-checks'
 import { VersionedErrorPage } from 'views/_proxied-dot-io/versioned-error'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 
+// resolve a default export
+function resolve(obj) {
+  return obj && obj.__esModule ? obj.default : obj
+}
+
 function Error({ statusCode, proxiedProductSlug, layoutProps }) {
   // Unlike other pages, we can't use redirects and rewrites
   // to display proxied .io domain 404 pages on specific hosts.
@@ -70,7 +75,7 @@ export async function getServerSideProps(ctx) {
     res.setHeader('Cache-Control', 's-maxage=86400')
   }
 
-  const layout = await proxiedLayouts[proxiedProductSlug].preload()
+  const layout = resolve(await proxiedLayouts[proxiedProductSlug].preload())
 
   const layoutProps = await fetchLayoutProps(layout, ctx)
 
