@@ -8,6 +8,7 @@ import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
 import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
+import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
@@ -59,19 +60,14 @@ export default function App({ Component, pageProps, layoutProps }) {
 }
 
 App.getInitialProps = async ({ Component, ctx }) => {
-  const layoutQuery = Component.layout
-    ? Component.layout?.rivetParams ?? null
-    : null
-
-  const { default: rivetQuery, proxiedRivetClient } = await import('lib/cms')
-  let query = rivetQuery
+  // Determine the product being served through our rewrites so we can fetch the correct layout data
+  let proxiedProduct
   if (ctx.pathname.includes('_proxied-dot-io/vault')) {
-    query = proxiedRivetClient('vault')
+    proxiedProduct = 'vault'
   } else if (ctx.pathname.includes('_proxied-dot-io/consul')) {
-    query = proxiedRivetClient('consul')
+    proxiedProduct = 'consul'
   }
-
-  const layoutProps = layoutQuery ? await query(layoutQuery) : null
+  const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
 
   let pageProps = {}
 
