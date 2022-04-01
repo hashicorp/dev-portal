@@ -75,9 +75,18 @@ export async function getServerSideProps(ctx) {
     res.setHeader('Cache-Control', 's-maxage=86400')
   }
 
-  const layout = resolve(await proxiedLayouts[proxiedProductSlug].preload())
+  /**
+   * Resolve the next/dynamic component so we can access the layout component itself,
+   * and subsequently the static .rivetParams via fetchLayoutProps
+   */
+  let layoutProps = {}
 
-  const layoutProps = await fetchLayoutProps(layout, ctx)
+  if (proxiedProductSlug) {
+    const layout = resolve(
+      await proxiedLayouts[proxiedProductSlug].render.preload()
+    )
+    layoutProps = await fetchLayoutProps(layout, proxiedProductSlug)
+  }
 
   return {
     props: {

@@ -60,7 +60,14 @@ export default function App({ Component, pageProps, layoutProps }) {
 }
 
 App.getInitialProps = async ({ Component, ctx }) => {
-  const layoutProps = await fetchLayoutProps(Component.layout, ctx)
+  // Determine the product being served through our rewrites so we can fetch the correct layout data
+  let proxiedProduct
+  if (ctx.pathname.includes('_proxied-dot-io/vault')) {
+    proxiedProduct = 'vault'
+  } else if (ctx.pathname.includes('_proxied-dot-io/consul')) {
+    proxiedProduct = 'consul'
+  }
+  const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
 
   let pageProps = {}
 
