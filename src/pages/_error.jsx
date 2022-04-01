@@ -81,11 +81,18 @@ export async function getServerSideProps(ctx) {
    */
   let layoutProps = {}
 
-  if (proxiedProductSlug) {
-    const layout = resolve(
-      await proxiedLayouts[proxiedProductSlug].render.preload()
-    )
-    layoutProps = await fetchLayoutProps(layout, proxiedProductSlug)
+  try {
+    if (proxiedProductSlug) {
+      const layout = resolve(
+        await proxiedLayouts[proxiedProductSlug].render.preload()
+      )
+      layoutProps = await fetchLayoutProps(layout, proxiedProductSlug)
+    }
+  } catch {
+    /**
+     * Do nothing, continue on with no layoutProps. Ensure that we don't potentially get into an
+     * infinite error scenario if the fetching fails when attempting to render the error page
+     */
   }
 
   return {
