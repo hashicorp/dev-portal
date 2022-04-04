@@ -1,15 +1,20 @@
 .linkbox {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  text-align: center;
   justify-content: center;
+  height: 100%;
 
   @media (--medium-up) {
     &.direction-previous {
+      text-align: left;
       justify-content: flex-start;
     }
 
     &.direction-next,
     &.direction-final {
+      text-align: right;
       justify-content: flex-end;
     }
   }
@@ -18,24 +23,14 @@
 .icon {
   display: block;
 
-  @media (--medium-up) {
-    &.direction-previous {
-      order: 0;
-      margin-right: 8px;
-    }
-
-    &.direction-next,
-    &.direction-final {
-      order: 1;
-      margin-left: 8px;
-    }
+  &.direction-previous {
+    order: 0;
+    margin-right: 8px;
   }
-}
 
-.text {
-  display: none;
-
-  @media (--medium-up) {
-    display: block;
+  &.direction-next,
+  &.direction-final {
+    order: 1;
+    margin-left: 8px;
   }
 }
