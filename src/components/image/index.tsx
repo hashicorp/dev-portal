@@ -6,7 +6,7 @@ import s from './image.module.css'
 /**
  * Create an object to be passed as a style prop to the underlying img element
  */
-function makeStyleProp(
+function generateStyleProp(
   width: ImageProps['width'],
   height: ImageProps['height']
 ): Pick<CSSProperties, 'width' | 'height'> {
@@ -54,7 +54,7 @@ function Image({
    * We're passing width and height as style here to ensure they override
    * any base styles.
    */
-  const style = makeStyleProp(width, height)
+  const style = generateStyleProp(width, height)
 
   return (
     <div
