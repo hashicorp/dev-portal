@@ -15,25 +15,17 @@ const IconDict: { [k in DirectionOption]: typeof IconArrowRight16 } = {
 }
 
 function DirectionalLinkBox({
-  link,
+  href,
   label,
   title,
   direction,
 }: DirectionalLinkBoxProps) {
   const Icon = IconDict[direction]
 
-  /**
-   * DirectionalLinkBox accepts link.href to match next/link.
-   * When passing href to CardLink, we need to make sure href is a string.
-   */
-  const { href, as } = link
-  const hrefString = typeof href == 'string' ? href : href.toString()
-
   return (
     <CardLink
       className={classNames(s.linkbox, s[`direction-${direction}`])}
-      href={hrefString}
-      as={as}
+      href={href}
       aria-label={title}
     >
       <Icon className={classNames(s.icon, s[`direction-${direction}`])} />

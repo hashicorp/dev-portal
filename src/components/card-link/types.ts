@@ -18,11 +18,6 @@ export interface CardLinkProps {
   href: string
 
   /**
-   * Optional decorator for the path that will be shown in the browser URL bar.
-   */
-  as?: LinkProps['as']
-
-  /**
    * An optional string value that labels the link. For use when content visible in the DOM meant to give the link meaning is either missing, or does not accurately describe the link.
    */
   'aria-label'?: string

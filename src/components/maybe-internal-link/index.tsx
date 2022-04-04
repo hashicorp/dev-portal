@@ -5,16 +5,15 @@ import { MaybeInternalLinkProps } from './types'
 
 function MaybeInternalLink({
   href,
-  as,
   ...rest
 }: MaybeInternalLinkProps): React.ReactElement {
   const Elem = isAbsoluteUrl(href) ? InternalLink : 'a'
   return <Elem href={href} {...rest} />
 }
 
-function InternalLink({ href, as, ...rest }: MaybeInternalLinkProps) {
+function InternalLink({ href, ...rest }: MaybeInternalLinkProps) {
   return (
-    <Link href={href} as={as}>
+    <Link href={href}>
       {/* Disabling anchor-has-content, children is in ...rest  */}
       {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
       <a {...rest} />

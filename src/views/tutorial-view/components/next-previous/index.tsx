@@ -31,7 +31,7 @@ export function NextPrevious({
       return (
         <DirectionalLinkBox
           label="Previous"
-          link={{ href: tutorial.previous.path }}
+          href={tutorial.previous.path}
           direction={'previous'}
           title={`Go to previous tutorial: ${tutorial.previous.name}`}
         />
@@ -44,7 +44,7 @@ export function NextPrevious({
      */
     return (
       <DirectionalLinkBox
-        link={{ href: collection.current.path }}
+        href={collection.current.path}
         label="Back to Collection"
         direction={'previous'}
         title={`Go back to collection: ${collection.current.name}`}
@@ -58,7 +58,7 @@ export function NextPrevious({
       return (
         <DirectionalLinkBox
           label="Next"
-          link={{ href: tutorial.next.path }}
+          href={tutorial.next.path}
           direction="next"
           title={`Go to next tutorial: ${tutorial.next.name}`}
         />
@@ -80,9 +80,7 @@ export function NextPrevious({
     if (collection.isLast) {
       return (
         <DirectionalLinkBox
-          link={{
-            href: finalLink,
-          }}
+          href={finalLink}
           label="Browse Tutorials"
           direction="final"
           title="Browse Tutorials"
@@ -96,7 +94,7 @@ export function NextPrevious({
      */
     return (
       <DirectionalLinkBox
-        link={{ href: collection.next.path }}
+        href={collection.next.path}
         label="Next Collection"
         direction="next"
         title={`Go to next collection: ${collection.next.name}`}
