@@ -1,3 +1,4 @@
+import { LinkProps } from 'next/link'
 import { ReactNode } from 'react'
 
 export interface CardLinkProps {
@@ -15,6 +16,11 @@ export interface CardLinkProps {
    * The destination of the link.
    */
   href: string
+
+  /**
+   * Optional decorator for the path that will be shown in the browser URL bar.
+   */
+  as?: string
 
   /**
    * An optional string value that labels the link. For use when content visible in the DOM meant to give the link meaning is either missing, or does not accurately describe the link.
