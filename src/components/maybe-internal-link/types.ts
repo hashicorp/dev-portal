@@ -3,4 +3,4 @@ import { LinkProps } from 'next/link'
 export type MaybeInternalLinkProps = {
   href: string
   as?: LinkProps['as']
-} & React.HTMLProps<HTMLAnchorElement>
+} & Omit<React.HTMLProps<HTMLAnchorElement>, 'as'>
