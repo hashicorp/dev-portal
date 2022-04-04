@@ -1,5 +1,5 @@
 .root {
-  & ul {
+  & ul:not([class]) {
     list-style: none;
     margin-left: 2rem;
 

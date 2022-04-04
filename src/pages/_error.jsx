@@ -2,8 +2,14 @@ import BaseLayout from 'layouts/base'
 import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
 import { getProxiedProductSlug } from 'lib/env-checks'
 import { VersionedErrorPage } from 'views/_proxied-dot-io/versioned-error'
+import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 
-function Error({ statusCode, proxiedProductSlug }) {
+// resolve a default export
+function resolve(obj) {
+  return obj && obj.__esModule ? obj.default : obj
+}
+
+function Error({ statusCode, proxiedProductSlug, layoutProps }) {
   // Unlike other pages, we can't use redirects and rewrites
   // to display proxied .io domain 404 pages on specific hosts.
   // Instead, we must use getServerSideProps to determine which
@@ -43,13 +49,14 @@ function Error({ statusCode, proxiedProductSlug }) {
   // whether the current branch is a specific `proxied-{product}` branch.
   const Layout = proxiedLayouts[proxiedProductSlug] || BaseLayout
   return (
-    <Layout>
+    <Layout data={{ ...layoutProps }}>
       <VersionedErrorPage statusCode={statusCode} />
     </Layout>
   )
 }
 
-export async function getServerSideProps({ req, res, err }) {
+export async function getServerSideProps(ctx) {
+  const { req, res, err } = ctx
   // Determine which layout to use, may be dev-portal's base layout,
   // or may be a proxied product layout, depending on the URL host
   const urlObj = new URL(req.url, `http://${req.headers.host}`)
@@ -68,8 +75,33 @@ export async function getServerSideProps({ req, res, err }) {
     res.setHeader('Cache-Control', 's-maxage=86400')
   }
 
+  /**
+   * Resolve the next/dynamic component so we can access the layout component itself,
+   * and subsequently the static .rivetParams via fetchLayoutProps
+   */
+  let layoutProps = {}
+
+  try {
+    if (proxiedProductSlug) {
+      const layout = resolve(
+        await proxiedLayouts[proxiedProductSlug].render.preload()
+      )
+      layoutProps = await fetchLayoutProps(layout, proxiedProductSlug)
+    }
+  } catch {
+    /**
+     * Do nothing, continue on with no layoutProps. Ensure that we don't potentially get into an
+     * infinite error scenario if the fetching fails when attempting to render the error page
+     */
+  }
+
   return {
-    props: { statusCode, proxiedProductSlug, hostname: urlObj.hostname },
+    props: {
+      statusCode,
+      proxiedProductSlug,
+      hostname: urlObj.hostname,
+      layoutProps,
+    },
   }
 }
 

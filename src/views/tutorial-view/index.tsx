@@ -19,7 +19,9 @@ import {
   NextPrevious,
   getNextPrevious,
 } from './components'
+import getVideoUrl from './utils/get-video-url'
 import TutorialMeta from 'components/tutorial-meta'
+import VideoEmbed from 'components/video-embed'
 
 export interface TutorialViewProps {
   tutorial: TutorialData
@@ -74,6 +76,7 @@ export default function TutorialView({
     video,
     collectionCtx,
   } = tutorial
+  const hasVideo = Boolean(video)
   const isInteractive = Boolean(handsOnLab)
   const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
   const nextPreviousData = getNextPrevious({
@@ -109,10 +112,15 @@ export default function TutorialView({
             readTime,
             edition,
             productsUsed,
-            isInteractive: Boolean(handsOnLab),
-            hasVideo: Boolean(video),
+            isInteractive,
+            hasVideo,
           }}
         />
+        {hasVideo && video.id && !video.videoInline && (
+          <VideoEmbed
+            url={getVideoUrl({ videoId: video.id, videoHost: video.videoHost })}
+          />
+        )}
         <MDXRemote {...content} components={MDX_COMPONENTS} />
         <NextPrevious {...nextPreviousData} />
         <FeaturedInCollections collections={collectionCtx.featuredIn} />
