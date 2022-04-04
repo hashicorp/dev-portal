@@ -1,20 +1,18 @@
 import React from 'react'
-import InlineSvg from '@hashicorp/react-inline-svg'
 import classNames from 'classnames'
-import s from './directional-link-box.module.css'
-import { DirectionalLinkBoxProps, DirectionOption } from './types'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
+import { IconSliders24 } from '@hashicorp/flight-icons/svg-react/sliders-24'
 import CardLink from 'components/card-link'
+import Text from 'components/text'
+import { DirectionalLinkBoxProps, DirectionOption } from './types'
+import s from './directional-link-box.module.css'
 
-const IconSrcDict: { [k in DirectionOption]: string } = {
-  next: require(`@hashicorp/flight-icons/svg/arrow-right-16.svg?include`),
-  previous: require(`@hashicorp/flight-icons/svg/arrow-left-16.svg?include`),
-  final: require(`@hashicorp/flight-icons/svg/sliders-24.svg?include`),
+const IconDict: { [k in DirectionOption]: typeof IconArrowRight16 } = {
+  next: IconArrowRight16,
+  previous: IconArrowLeft16,
+  final: IconSliders24,
 }
-
-/*
- * @TODO style to spec
- * look at the `CardLink` component to use for base styles!
- */
 
 function DirectionalLinkBox({
   link,
@@ -22,17 +20,18 @@ function DirectionalLinkBox({
   title,
   direction,
 }: DirectionalLinkBoxProps) {
+  const Icon = IconDict[direction]
   return (
     <CardLink
       className={classNames(s.linkbox, s[`direction-${direction}`])}
-      href={`${link.href}`}
-      as={`${link.as}`}
+      href={String(link.href)}
+      as={String(link.as)}
       aria-label={title}
     >
-      <span className={classNames(s.icon, s[`direction-${direction}`])}>
-        <InlineSvg src={IconSrcDict[direction]} />
-      </span>
-      <span className={s.text}>{label}</span>
+      <Icon className={classNames(s.icon, s[`direction-${direction}`])} />
+      <Text asElement="span" className={s.text} size={200} weight="medium">
+        {label}
+      </Text>
     </CardLink>
   )
 }
