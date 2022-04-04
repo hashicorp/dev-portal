@@ -1,16 +1,8 @@
 import React from 'react'
-import Link, { LinkProps } from 'next/link'
+import Link from 'next/link'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import s from './directional-link-box.module.css'
-
-interface DirectionalLinkBoxProps {
-  link: LinkProps
-  label: string
-  title: string
-  direction: DirectionOption
-}
-
-type DirectionOption = 'next' | 'previous' | 'final'
+import { DirectionalLinkBoxProps, DirectionOption } from './types'
 
 const IconSrcDict: { [k in DirectionOption]: string } = {
   next: require(`@hashicorp/flight-icons/svg/arrow-right-16.svg?include`),
