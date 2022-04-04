@@ -1,8 +1,9 @@
 import React from 'react'
-import Link from 'next/link'
 import InlineSvg from '@hashicorp/react-inline-svg'
+import classNames from 'classnames'
 import s from './directional-link-box.module.css'
 import { DirectionalLinkBoxProps, DirectionOption } from './types'
+import CardLink from 'components/card-link'
 
 const IconSrcDict: { [k in DirectionOption]: string } = {
   next: require(`@hashicorp/flight-icons/svg/arrow-right-16.svg?include`),
@@ -22,17 +23,17 @@ function DirectionalLinkBox({
   direction,
 }: DirectionalLinkBoxProps) {
   return (
-    <Link href={link.href} as={link.as}>
-      <a className={s.linkbox} data-direction={direction}>
-        <span className={s.icon} data-direction={direction}>
-          <InlineSvg src={IconSrcDict[direction]} />
-        </span>
-        <span className={s.text}>
-          <span aria-hidden="true">{label}</span>
-          <span className={s.hidden}>{title}</span>
-        </span>
-      </a>
-    </Link>
+    <CardLink
+      className={classNames(s.linkbox, s[`direction-${direction}`])}
+      href={`${link.href}`}
+      as={`${link.as}`}
+      aria-label={title}
+    >
+      <span className={classNames(s.icon, s[`direction-${direction}`])}>
+        <InlineSvg src={IconSrcDict[direction]} />
+      </span>
+      <span className={s.text}>{label}</span>
+    </CardLink>
   )
 }
 
