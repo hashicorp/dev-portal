@@ -1,6 +1,6 @@
 import { InferGetStaticPropsType } from 'next'
 import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
-import DocsPage from '@hashicorp/react-docs-page'
+import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 
 import Badge from 'components/_proxied-dot-io/packer/badge'
 import BadgesHeader from 'components/_proxied-dot-io/packer/badges-header'
