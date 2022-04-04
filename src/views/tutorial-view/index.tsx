@@ -32,6 +32,7 @@ export interface TutorialData
     ClientTutorial,
     | 'name'
     | 'slug'
+    | 'description'
     | 'readTime'
     | 'productsUsed'
     | 'edition'
@@ -67,6 +68,7 @@ export default function TutorialView({
   const {
     name,
     slug,
+    description,
     content,
     readTime,
     productsUsed,
@@ -108,6 +110,7 @@ export default function TutorialView({
           heading={{ slug: layout.headings[0].slug, text: name }}
           meta={{
             readTime,
+            description,
             edition,
             productsUsed,
             isInteractive: Boolean(handsOnLab),
