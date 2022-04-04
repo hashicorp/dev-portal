@@ -9,37 +9,16 @@
 .root {
   composes: hds-typography-body-300 from global;
 
+  /* BEGIN move to <a /> MDX custom component */
   & :global {
     & a.__permalink-h {
       display: none;
     }
-
-    & .alert.alert-info {
-      background-color: #f2f8ff;
-      border: 1px solid #cce3f3;
-      border-radius: 6px;
-      color: var(--token-color-palette-neutral-600);
-      padding: 16px;
-
-      & code {
-        background-color: white;
-        border: 1px solid #cce3fe;
-        border-radius: 5px;
-        color: inherit;
-      }
-
-      & p {
-        &:first-child {
-          margin-top: 0;
-        }
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-    }
   }
 
+  /* END move to <a /> MDX custom component */
+
+  /* BEGIN move to Heading aka <h{n} />  MDX custom component */
   & h1,
   & h2,
   & h3,
@@ -63,6 +42,9 @@
     }
   }
 
+  /* END move to Heading aka <h{n} />  MDX custom component */
+
+  /* BEGIN move to <ol>, <ul>, & MAYBE even <li> custom components */
   & ul,
   & ol {
     margin: 24px 0;
@@ -82,6 +64,10 @@
     }
   }
 
+  /* END move to <ol>, <ul>, & MAYBE even <li> custom components */
+
+  /* BEGIN move to inline <code> custom component  */
+
   /* inline code elements */
   & code {
     background-color: var(--token-color-palette-neutral-50);
@@ -92,6 +78,10 @@
     line-height: 16px;
     padding: 2px 4px;
   }
+
+  /* END move to inline <code> custom component  */
+
+  /* BEGIN move to <pre> custom component (possibly already handled?)  */
 
   /* code blocks */
   & pre {
@@ -105,6 +95,9 @@
     }
   }
 
+  /* END move to <pre> custom component (possibly already handled?)  */
+
+  /* BEGIN move to <table> custom component */
   & table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -170,6 +163,8 @@
   }
 }
 
+/* END move to <table> custom component */
+
 /*
 ***
 * The following classes are for handling color and margin styles for heading and
@@ -209,6 +204,8 @@
 .h4,
 .h5,
 .h6 {
+  /* BEGIN possibly remove these sibling selectors,
+     & ask design for per-element rather than per-element-pair spacing rules  */
   & + ul,
   & + ol {
     margin-top: 12px;
@@ -218,18 +215,28 @@
     margin-top: 0;
   }
 
+  /* END possibly remove these sibling selectors,
+     & ask design for per-element rather than per-element-pair spacing rules  */
+
   /*
   TODO: these values are a special request from design for the purposes of the
   inital preview. They make <code> elements within heading elements a little
   less jarring.
   */
+
+  /* BEGIN move to Heading aka <h{n} />  MDX custom component */
   & code {
     font-size: 0.6em;
     font-weight: 500;
   }
+
+  /* END move to Heading aka <h{n} />  MDX custom component */
 }
 
+/* BEGIN move to <p> custom component (loose wrapper around Text) */
 .p {
   color: var(--token-color-foreground-primary);
   margin: 16px 0;
 }
+
+/* END move to <p> custom component (loose wrapper around Text) */

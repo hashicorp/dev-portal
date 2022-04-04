@@ -1,0 +1,42 @@
+/**
+ * These styles are necessary as long as we're using the
+ * "paragraph-custom-alerts" remark plugin:
+ * 
+ * In web-platform-packages:
+ * https://github.com/hashicorp/web-platform-packages/tree/main/packages/remark-plugins/plugins/paragraph-custom-alerts
+ * 
+ * Note: we have a task to move away from using a remark plugin to turn
+ * alerts into custom HTML. Instead, we want to expose an <Alert />
+ * custom component in MDX. For backwards compatibility, we can write
+ * a remark plugin which continues to recognize the existing custom syntax,
+ * transforming it into the MDX custom component rather than into HTML.
+ *
+ * Asana task:
+ * https://app.asana.com/0/1100423001970639/1200034293471289/f
+ */
+.root {
+  & :global .alert.alert-info {
+    background-color: #f2f8ff;
+    border: 1px solid #cce3f3;
+    border-radius: 6px;
+    color: var(--token-color-palette-neutral-600);
+    padding: 16px;
+
+    & code {
+      background-color: white;
+      border: 1px solid #cce3fe;
+      border-radius: 5px;
+      color: inherit;
+    }
+
+    & p {
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
