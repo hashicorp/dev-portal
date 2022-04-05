@@ -25,7 +25,7 @@ function alsoImportDevDotCustomMedia(postcssConfig) {
     const newImportFrom = [alsoImportFrom].concat(existingImportFrom)
     // tack the newImportFrom on to the existing settings,
     // while retaining the rest of the settings
-    const newPresetEnvSettings = [...presentEnvOptions]
+    const newPresetEnvSettings = { ...presetEnvOptions }
     newPresetEnvSettings.features['custom-media-queries'].importFrom =
       newImportFrom
     return [presetEnvName, newPresetEnvSettings]
