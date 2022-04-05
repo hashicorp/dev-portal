@@ -1,4 +1,5 @@
-import { CardLinkProps } from 'components/card-link/types'
+import { CardLinkProps } from 'components/card-link'
+
 export type DirectionOption = 'next' | 'previous' | 'final'
 
 export interface DirectionalLinkBoxProps {
