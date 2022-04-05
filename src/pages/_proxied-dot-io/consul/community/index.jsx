@@ -45,5 +45,10 @@ function CommunityPage() {
   )
 }
 
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
+}
+
 CommunityPage.layout = ConsulIoLayout
 export default CommunityPage

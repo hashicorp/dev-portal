@@ -205,7 +205,7 @@ async function buildDotIoRedirects() {
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'vault',
-        path: 'website/redirects.next.js',
+        path: 'website/redirects.js',
         ref: 'stable-website',
       })
   const vaultAuthorRedirects = eval(rawVaultRedirects)
