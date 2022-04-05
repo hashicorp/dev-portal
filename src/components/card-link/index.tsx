@@ -9,7 +9,7 @@ const CardLink = ({
   children,
   className,
   href,
-  'aria-label': ariaLabel,
+  ariaLabel,
 }: CardLinkProps): ReactElement => {
   const classes = classNames(s.root, className)
 

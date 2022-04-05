@@ -26,7 +26,7 @@ function DirectionalLinkBox({
     <CardLink
       className={classNames(s.linkbox, s[`direction-${direction}`])}
       href={href}
-      aria-label={title}
+      ariaLabel={title}
     >
       <Icon className={classNames(s.icon, s[`direction-${direction}`])} />
       <Text asElement="span" size={200} weight="medium">

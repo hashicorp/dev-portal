@@ -20,5 +20,5 @@ export interface CardLinkProps {
   /**
    * An optional string value that labels the link. For use when content visible in the DOM meant to give the link meaning is either missing, or does not accurately describe the link.
    */
-  'aria-label'?: string
+  ariaLabel?: string
 }
