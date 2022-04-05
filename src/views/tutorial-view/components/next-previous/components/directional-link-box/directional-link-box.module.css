@@ -33,3 +33,7 @@
     margin-left: 8px;
   }
 }
+
+.text {
+  color: var(--token-color-foreground-primary);
+}

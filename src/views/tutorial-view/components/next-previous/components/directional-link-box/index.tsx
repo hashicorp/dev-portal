@@ -29,7 +29,7 @@ function DirectionalLinkBox({
       ariaLabel={ariaLabel}
     >
       <Icon className={classNames(s.icon, s[`direction-${direction}`])} />
-      <Text asElement="span" size={200} weight="medium">
+      <Text className={s.text} asElement="span" size={200} weight="medium">
         {label}
       </Text>
     </CardLink>
