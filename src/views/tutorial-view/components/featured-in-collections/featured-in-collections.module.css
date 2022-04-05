@@ -9,7 +9,7 @@
 }
 
 .listRoot {
-  /* align-items: stretch; */
+  align-items: stretch;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
