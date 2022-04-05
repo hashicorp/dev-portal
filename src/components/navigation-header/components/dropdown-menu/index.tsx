@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useState } from 'react'
+import { ReactElement, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import slugify from 'slugify'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -6,6 +6,7 @@ import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
 import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
+import deriveKeyEventState from 'lib/derive-key-event-state'
 import { ProductSlug } from 'types/products'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
@@ -36,6 +37,7 @@ const NavigationHeaderDropdownMenu = ({
   label,
   itemGroups,
 }: NavigationHeaderDropdownMenuProps) => {
+  const activatorButtonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(false)
   const numberOfItemGroups = itemGroups.length
   const menuId = useMemo(() => `menu-${slugify(label)}`, [label])
@@ -89,7 +91,17 @@ const NavigationHeaderDropdownMenu = ({
   }
 
   return (
-    <div className={s.root} onMouseLeave={handleMouseLeave}>
+    <div
+      className={s.root}
+      onKeyDown={(e) => {
+        const { isEscape } = deriveKeyEventState(e)
+        if (isOpen && isEscape) {
+          setIsOpen(false)
+          activatorButtonRef.current.focus()
+        }
+      }}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className={s.activatorWrapper}>
         <button
           aria-controls={menuId}
@@ -97,6 +109,7 @@ const NavigationHeaderDropdownMenu = ({
           className={s.activator}
           onClick={handleClick}
           onMouseEnter={handleMouseEnter}
+          ref={activatorButtonRef}
         >
           <Text
             asElement="span"
@@ -116,14 +129,15 @@ const NavigationHeaderDropdownMenu = ({
       >
         {itemGroups.map((items: NavigationHeaderItem[], groupIndex: number) => {
           const groupId = getItemGroupId(groupIndex)
-          const showDivider =
-            numberOfItemGroups > 1 && groupIndex !== numberOfItemGroups - 1
+          const numberOfMenuItems = items.length
+          const isLastItemGroup = groupIndex === numberOfItemGroups - 1
+          const showDivider = numberOfItemGroups > 1 && !isLastItemGroup
           return (
             <>
               <ul className={s.itemGroup}>
                 {items.map((item: NavigationHeaderItem, itemIndex: number) => {
-                  const isFirstMenuItem = itemIndex === 0
-                  const isLastMenuItem = itemIndex === numberOfItemGroups - 1
+                  const isLastMenuItem =
+                    isLastItemGroup && itemIndex === numberOfMenuItems - 1
                   const icon = supportedIcons[item.icon] || (
                     <ProductIcon productSlug={item.icon as ProductSlug} />
                   )
@@ -135,12 +149,8 @@ const NavigationHeaderDropdownMenu = ({
                         <a
                           className={s.itemLink}
                           onKeyDown={(e) => {
-                            const isTab = e.key === 'Tab' && !e.shiftKey
-                            const isShiftTab = e.key === 'Tab' && e.shiftKey
-
-                            if (isFirstMenuItem && isShiftTab) {
-                              setIsOpen(false)
-                            } else if (isLastMenuItem && isTab) {
+                            const { isTab } = deriveKeyEventState(e)
+                            if (isLastMenuItem && isTab) {
                               setIsOpen(false)
                             }
                           }}
