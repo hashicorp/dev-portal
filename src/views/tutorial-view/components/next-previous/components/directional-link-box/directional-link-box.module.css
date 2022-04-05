@@ -6,7 +6,7 @@
   justify-content: center;
   height: 100%;
 
-  @media (min-width: 729px) {
+  @media (--dev-dot-tablet-up) {
     &.direction-previous {
       text-align: left;
       justify-content: flex-start;
