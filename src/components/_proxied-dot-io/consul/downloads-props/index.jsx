@@ -12,8 +12,7 @@ export default function DownloadsProps(preMerchandisingSlot) {
       },
       {
         label: 'HCP Consul',
-        href:
-          'https://learn.hashicorp.com/collections/consul/cloud-get-started',
+        href: 'https://learn.hashicorp.com/collections/consul/cloud-get-started',
       },
       {
         label: 'HCS on Azure',
@@ -21,8 +20,7 @@ export default function DownloadsProps(preMerchandisingSlot) {
       },
       {
         label: 'Kubernetes Quickstart',
-        href:
-          'https://learn.hashicorp.com/collections/consul/gs-consul-service-mesh',
+        href: 'https://learn.hashicorp.com/collections/consul/gs-consul-service-mesh',
       },
       {
         label: 'View all Consul tutorials',

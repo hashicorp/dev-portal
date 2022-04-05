@@ -16,7 +16,9 @@ function getTruncatedTitle(fullTitle: string): string {
         characterCount += wordLength
         // count spaces as well, since these are counted
         // in the fullTitle.length comparison
-        if (idx !== words.length) characterCount++
+        if (idx !== words.length) {
+          characterCount++
+        }
       }
     })
     truncatedTitle = wordsToInclude.join(' ') + `…`

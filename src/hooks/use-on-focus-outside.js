@@ -7,7 +7,9 @@ function useOnFocusOutside(ref, handler) {
   useEffect(() => {
     function handleFocusChange(event) {
       const isOutside = ref.current && !ref.current.contains(event.target)
-      if (isOutside) handler(event)
+      if (isOutside) {
+        handler(event)
+      }
     }
 
     // Bind the event listener

@@ -7,7 +7,9 @@ export default function useOnClickOutside(refs, handler, shouldListen = true) {
       const isClickInside = refs.reduce((acc, ref) => {
         return acc || !ref.current || ref.current.contains(event.target)
       }, false)
-      if (isClickInside) return
+      if (isClickInside) {
+        return
+      }
       handler(event)
     }
     // listen for touchstart or click events; but only when this dropdown is active via shouldListen
