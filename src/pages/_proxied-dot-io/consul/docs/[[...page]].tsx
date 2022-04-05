@@ -1,5 +1,6 @@
 import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
-import DocsPage from '@hashicorp/react-docs-page'
+import DocsPage from 'components/_proxied-dot-io/common/docs-page'
+import ConfigEntryReference from 'components/_proxied-dot-io/consul/config-entry-reference'
 import productData from 'data/consul.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
@@ -11,7 +12,7 @@ const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
-const additionalComponents = {}
+const additionalComponents = { ConfigEntryReference }
 
 function DocsView(props) {
   return (

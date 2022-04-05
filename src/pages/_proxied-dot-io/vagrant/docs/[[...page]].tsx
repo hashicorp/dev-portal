@@ -1,5 +1,5 @@
 import VagrantIoLayout from 'layouts/_proxied-dot-io/vagrant'
-import DocsPage from '@hashicorp/react-docs-page'
+import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import Button from '@hashicorp/react-button'
 import productData from 'data/vagrant.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'

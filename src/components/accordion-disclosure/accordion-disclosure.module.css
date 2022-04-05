@@ -31,7 +31,7 @@
     }
   }
 
-  /* aka Disclosure is open */
+  /* aka AccordionDisclosure is open */
   &[aria-expanded='true'] {
     box-shadow: none;
 
@@ -40,7 +40,7 @@
     }
   }
 
-  /* aka Disclosure is closed */
+  /* aka AccordionDisclosure is closed */
   &[aria-expanded='false'] {
     &:hover {
       box-shadow: var(--token-surface-high-box-shadow);

@@ -16,7 +16,7 @@ componentName: ImageConfig
 
 ## Props
 
-- `caption` `string` - a plain text caption to show below the image.
+- `caption: string` - a plain text caption to show below the image.
 
   <details><summary>Example of `caption` in use</summary>
 
@@ -34,6 +34,20 @@ componentName: ImageConfig
 
   </details>
 
+- `inline: boolean` - Indicate whether or not the rendered image element should be inline
+- `height: number` - An explicit height value (in px) to be passed to the rendered image element
+- `width: number` - An explicit width value (in px) to be passed to the rendered image element
+
 ### Deprecated props
 
-- 🚫 `hideBorder` `boolean` - was a boolean prop. This prop is now deprecated. Please remove borders from all images.
+- 🚫 `hideBorder: boolean` - was a boolean prop. This prop is now deprecated. Please remove borders from all images.
+
+## Explicit dimensions
+
+Pass `height` and `width` to apply explicit dimensions to the `img` element.
+
+<LiveComponent>{`
+<ImageConfig height={200} width={200} inline>
+  <img src="https://place-hold.it/500x300" />
+</ImageConfig>
+`}</LiveComponent>

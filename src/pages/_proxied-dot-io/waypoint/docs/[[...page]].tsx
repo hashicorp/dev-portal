@@ -1,7 +1,7 @@
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import Placement from 'components/_proxied-dot-io/waypoint/placement-table'
 import NestedNode from 'components/_proxied-dot-io/waypoint/nested-node'
-import DocsPage from '@hashicorp/react-docs-page'
+import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import productData from 'data/waypoint.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only

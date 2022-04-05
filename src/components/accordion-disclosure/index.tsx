@@ -1,17 +1,17 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import classNames from 'classnames'
 import { IconChevronRight24 } from '@hashicorp/flight-icons/svg-react/chevron-right-24'
 import Text from 'components/text'
-import { DisclosureProps } from './types'
-import s from './disclosure.module.css'
+import { AccordionDisclosureProps } from './types'
+import s from './accordion-disclosure.module.css'
 
-const Disclosure: FC<DisclosureProps> = ({
+const AccordionDisclosure = ({
   children,
   description,
   id,
   open = false,
   title,
-}) => {
+}: AccordionDisclosureProps) => {
   const [isOpen, setIsOpen] = useState(open)
   const containerId = `disclosure-${id}`
   const contentContainerId = `${containerId}-content`
@@ -26,7 +26,7 @@ const Disclosure: FC<DisclosureProps> = ({
         aria-controls={contentContainerId}
         aria-expanded={isOpen}
         className={s.button}
-        onClick={() => setIsOpen((currentIsOpen) => !currentIsOpen)}
+        onClick={() => setIsOpen((currentIsOpen: boolean) => !currentIsOpen)}
       >
         <span className={s.labelContainer}>
           <Text asElement="span" className={s.title} weight="semibold">
@@ -47,5 +47,5 @@ const Disclosure: FC<DisclosureProps> = ({
   )
 }
 
-export type { DisclosureProps }
-export default Disclosure
+export type { AccordionDisclosureProps }
+export default AccordionDisclosure

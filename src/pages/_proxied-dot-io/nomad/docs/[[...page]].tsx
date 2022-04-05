@@ -1,6 +1,6 @@
 import NomadIoLayout from 'layouts/_proxied-dot-io/nomad'
 import Placement from 'components/author-primitives/shared/placement-table'
-import DocsPage from '@hashicorp/react-docs-page'
+import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import productData from 'data/nomad.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
