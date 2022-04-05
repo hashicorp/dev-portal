@@ -122,14 +122,29 @@ const NavigationHeaderDropdownMenu = ({
             <>
               <ul className={s.itemGroup}>
                 {items.map((item: NavigationHeaderItem, itemIndex: number) => {
+                  const isFirstMenuItem = itemIndex === 0
+                  const isLastMenuItem = itemIndex === numberOfItemGroups - 1
                   const icon = supportedIcons[item.icon] || (
                     <ProductIcon productSlug={item.icon as ProductSlug} />
                   )
                   const itemId = getItemId(groupId, itemIndex)
+
                   return (
                     <li className={s.itemContainer} key={itemId}>
                       <Link href={item.path}>
-                        <a className={s.itemLink}>
+                        <a
+                          className={s.itemLink}
+                          onKeyDown={(e) => {
+                            const isTab = e.key === 'Tab' && !e.shiftKey
+                            const isShiftTab = e.key === 'Tab' && e.shiftKey
+
+                            if (isFirstMenuItem && isShiftTab) {
+                              setIsOpen(false)
+                            } else if (isLastMenuItem && isTab) {
+                              setIsOpen(false)
+                            }
+                          }}
+                        >
                           {icon}
                           <Text
                             asElement="span"
