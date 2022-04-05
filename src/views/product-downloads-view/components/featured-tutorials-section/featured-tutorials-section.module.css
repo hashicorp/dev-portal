@@ -16,11 +16,11 @@ out.
   grid-column-gap: 24px;
   grid-row-gap: 24px;
 
-  @media only screen and (min-width: 729px) and (max-width: 1000px) {
+  @media (--dev-dot-tablet) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media only screen and (max-width: 728px) {
+  @media (--dev-dot-mobile) {
     grid-template-columns: repeat(1, 1fr);
   }
 }

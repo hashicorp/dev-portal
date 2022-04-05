@@ -1,0 +1,12 @@
+/*
+***
+* DevDot
+***
+* The custom media below are helpers used in DevDot.
+***
+*/
+
+@custom-media --dev-dot-mobile only screen and (max-width: 728px);
+@custom-media --dev-dot-tablet only screen and (min-width: 729px) and (max-width: 1000px);
+@custom-media --dev-dot-tablet-up only screen and (min-width: 729px);
+@custom-media --dev-dot-desktop only screen and (min-width: 1001px);
