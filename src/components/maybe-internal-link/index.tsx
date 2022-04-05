@@ -3,10 +3,7 @@ import Link from 'next/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import { MaybeInternalLinkProps } from './types'
 
-function MaybeInternalLink({
-  href,
-  ...rest
-}: MaybeInternalLinkProps): React.ReactElement {
+function MaybeInternalLink({ href, ...rest }: MaybeInternalLinkProps) {
   const Elem = isAbsoluteUrl(href) ? InternalLink : 'a'
   return <Elem href={href} {...rest} />
 }
