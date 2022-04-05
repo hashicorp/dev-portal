@@ -30,6 +30,14 @@
   flex-grow: 1;
   min-width: 240px;
   width: 0;
+
+  /**
+   * Note: !important is necessary here as we're within a content container
+   * that uses nested generic selectors to style <li />.
+   * TODO: convert the nested generic selectors to MDX components.
+   * Asana task:
+   * https://app.asana.com/0/1201987349274776/1201653123138729/f
+   */
   margin-bottom: 0 !important;
 }
 

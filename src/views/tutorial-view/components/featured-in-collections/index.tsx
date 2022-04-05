@@ -22,9 +22,12 @@ export function FeaturedInCollections({
           return (
             <li key={id} className={s.listItem}>
               <CollectionCard
-                // Note: className here necessary because CardLink
-                // doesn't automatically behave as expected in grid layouts...
-                // It requires height: 100% to be set on the inner <a /> element.
+                /**
+                 * Note: className here necessary because CardLink
+                 * doesn't automatically behave as one might expect.
+                 * It requires height 100% to be set on the inner <a /> element,
+                 * which we do through this className.
+                 */
                 className={s.listItemCard}
                 slug={slug}
                 numTutorials={numTutorials}
