@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { IconChevronRight24 } from '@hashicorp/flight-icons/svg-react/chevron-right-24'
 import Text from 'components/text'
 import { AccordionDisclosureProps } from './types'
-import s from './disclosure.module.css'
+import s from './accordion-disclosure.module.css'
 
 const AccordionDisclosure = ({
   children,
