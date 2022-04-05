@@ -1,5 +1,5 @@
-import { MaybeInternalLinkProps } from 'components/maybe-internal-link/types'
 import { ReactNode } from 'react'
+import { MaybeInternalLinkProps } from 'components/maybe-internal-link'
 
 export interface CardLinkProps {
   /**

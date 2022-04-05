@@ -18,4 +18,5 @@ function InternalLink({ href, ...rest }: MaybeInternalLinkProps) {
   )
 }
 
+export type { MaybeInternalLinkProps }
 export default MaybeInternalLink
