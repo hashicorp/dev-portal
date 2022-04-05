@@ -14,8 +14,7 @@ function HomePage() {
       <section id="hero">
         <HomepageHero
           alert={{
-            url:
-              'https://hashicorp.com/blog/hcp-packer-is-now-generally-available',
+            url: 'https://hashicorp.com/blog/hcp-packer-is-now-generally-available',
             tag: 'BLOG POST',
             text: 'Announcing HCP Packer Standard tier',
           }}
@@ -24,8 +23,7 @@ function HomePage() {
           links={[
             {
               text: 'Try HCP Packer',
-              url:
-                'https://cloud.hashicorp.com/products/packer?utm_source=packer_io&utm_content=homepage_hero_packer',
+              url: 'https://cloud.hashicorp.com/products/packer?utm_source=packer_io&utm_content=homepage_hero_packer',
             },
             {
               text: 'Install Packer',
@@ -40,27 +38,23 @@ function HomePage() {
                   color: 'gray',
                 },
                 {
-                  code:
-                    '==> virtualbox: virtualbox output will be in this color.',
+                  code: '==> virtualbox: virtualbox output will be in this color.',
                   color: 'white',
                 },
                 { code: '==> vmware: vmware output will be in this color.' },
                 {
-                  code:
-                    '==> vmware: Copying or downloading ISO. Progress will be reported periodically.',
+                  code: '==> vmware: Copying or downloading ISO. Progress will be reported periodically.',
                 },
                 { code: '==> vmware: Creating virtual machine disk' },
                 { code: '==> vmware: Building and writing VMX file' },
                 { code: '==> vmware: Starting HTTP server on port 8964' },
                 { code: '==> vmware: Starting virtual machine...' },
                 {
-                  code:
-                    '==> virtualbox: Downloading VirtualBox guest additions. Progress will be shown periodically',
+                  code: '==> virtualbox: Downloading VirtualBox guest additions. Progress will be shown periodically',
                   color: 'white',
                 },
                 {
-                  code:
-                    '==> virtualbox: Copying or downloading ISO. Progress will be reported periodically.',
+                  code: '==> virtualbox: Copying or downloading ISO. Progress will be reported periodically.',
                   color: 'white',
                 },
                 {
@@ -130,8 +124,7 @@ function HomePage() {
           description="Set up HCP Packer in minutes to start tracking Packer images across your provisioning pipeline."
           link={{
             text: 'Learn more',
-            url:
-              'https://cloud.hashicorp.com/products/packer?utm_source=packer_io&utm_content=homepage_signup_callout',
+            url: 'https://cloud.hashicorp.com/products/packer?utm_source=packer_io&utm_content=homepage_signup_callout',
           }}
           media={{
             src: '/packer/img/hcp-callout.svg',
@@ -193,6 +186,11 @@ function HomePage() {
       </section>
     </div>
   )
+}
+
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
 }
 
 HomePage.layout = PackerIoLayout

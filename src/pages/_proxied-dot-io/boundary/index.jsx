@@ -16,8 +16,7 @@ function HomePage() {
         links={[
           {
             title: 'Get Started',
-            url:
-              'https://learn.hashicorp.com/collections/boundary/getting-started',
+            url: 'https://learn.hashicorp.com/collections/boundary/getting-started',
             external: true,
           },
           {
@@ -39,8 +38,7 @@ function HomePage() {
           playbackRate: 1,
         }}
         desktopVideo={{
-          url:
-            'https://www.datocms-assets.com/2885/1614100044-hero-desktop.mp4',
+          url: 'https://www.datocms-assets.com/2885/1614100044-hero-desktop.mp4',
           srcType: 'mp4',
           aspectRatio: 0.59968354,
           playbackRate: 1,
@@ -237,8 +235,7 @@ function HomePage() {
               link: {
                 type: 'inbound',
                 text: 'Learn more',
-                url:
-                  'https://learn.hashicorp.com/tutorials/boundary/getting-started-intro',
+                url: 'https://learn.hashicorp.com/tutorials/boundary/getting-started-intro',
               },
             },
             {
@@ -249,8 +246,7 @@ function HomePage() {
               link: {
                 type: 'inbound',
                 text: 'Learn more',
-                url:
-                  'https://learn.hashicorp.com/tutorials/boundary/manage-sessions?in=boundary/common-workflows',
+                url: 'https://learn.hashicorp.com/tutorials/boundary/manage-sessions?in=boundary/common-workflows',
               },
             },
             {
@@ -272,8 +268,7 @@ function HomePage() {
               link: {
                 type: 'inbound',
                 text: 'Learn more',
-                url:
-                  'https://learn.hashicorp.com/tutorials/boundary/vault-cred-brokering-quickstart',
+                url: 'https://learn.hashicorp.com/tutorials/boundary/vault-cred-brokering-quickstart',
               },
             },
             {
@@ -290,8 +285,7 @@ function HomePage() {
               link: {
                 type: 'inbound',
                 text: 'Learn more',
-                url:
-                  'https://learn.hashicorp.com/tutorials/boundary/getting-started-config',
+                url: 'https://learn.hashicorp.com/tutorials/boundary/getting-started-config',
               },
             },
           ]}
@@ -324,8 +318,7 @@ function HomePage() {
                 },
                 link: {
                   title: 'Learn more',
-                  url:
-                    'https://learn.hashicorp.com/tutorials/boundary/manage-sessions',
+                  url: 'https://learn.hashicorp.com/tutorials/boundary/manage-sessions',
                 },
               },
               {
@@ -337,8 +330,7 @@ function HomePage() {
                 },
                 link: {
                   title: 'Learn more',
-                  url:
-                    'https://learn.hashicorp.com/tutorials/boundary/vault-cred-brokering-quickstart',
+                  url: 'https://learn.hashicorp.com/tutorials/boundary/vault-cred-brokering-quickstart',
                 },
               },
             ]}
@@ -361,6 +353,11 @@ function HomePage() {
       />
     </div>
   )
+}
+
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
 }
 
 HomePage.layout = BoundaryIoLayout
