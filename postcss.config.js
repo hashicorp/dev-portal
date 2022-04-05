@@ -8,30 +8,27 @@ const platformPostcssConfig = require('@hashicorp/platform-postcss-config')
  * pass additional files to `importFrom`?
  */
 function alsoImportDevDotCustomMedia(postcssConfig) {
-  const newPlugins = postcssConfig.plugins.map((p) => {
+  const newPlugins = postcssConfig.plugins.map((plugin) => {
     // we only want to modify postcss-preset-env
     const isPresetEnv =
-      Array.isArray(p) && p.length == 2 && p[0] == 'postcss-preset-env'
-    if (!isPresetEnv) return p
+      Array.isArray(plugin) &&
+      plugin.length == 2 &&
+      plugin[0] == 'postcss-preset-env'
+    if (!isPresetEnv) return plugin
     // we want to modify the postcss-preset-env settings object,
     // which we expect as a second part of a tuple in the plugin array entry.
     // specifically, we want to add to the "importFrom" setting.
-    const existingImportFrom = p[1].features['custom-media-queries'].importFrom
+    const [presetEnvName, presetEnvOptions] = plugin
+    const existingImportFrom =
+      presetEnvOptions.features['custom-media-queries'].importFrom
     const alsoImportFrom = require.resolve('./src/styles/custom-media.css')
     const newImportFrom = [alsoImportFrom].concat(existingImportFrom)
     // tack the newImportFrom on to the existing settings,
     // while retaining the rest of the settings
-    const newPresetEnvSettings = {
-      ...p[1],
-      features: {
-        ...p[1].features,
-        'custom-media-queries': {
-          ...p[1].features['custom-media-queries'],
-          importFrom: newImportFrom,
-        },
-      },
-    }
-    return ['postcss-preset-env', newPresetEnvSettings]
+    const newPresetEnvSettings = [...presentEnvOptions]
+    newPresetEnvSettings.features['custom-media-queries'].importFrom =
+      newImportFrom
+    return [presetEnvName, newPresetEnvSettings]
   })
   // return the modified config
   return { ...postcssConfig, plugins: newPlugins }
