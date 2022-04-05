@@ -1,11 +1,4 @@
-import {
-  KeyboardEventHandler,
-  MutableRefObject,
-  ReactElement,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 import Link from 'next/link'
 import slugify from 'slugify'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -33,183 +26,6 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
   tools: <IconTools16 />,
 }
 
-const getNextMenuItem = (menuItemRefs, thisItemId) => {
-  const allItemIds = Object.keys(menuItemRefs.current)
-  const numItems = allItemIds.length
-  const thisItemIndex = menuItemRefs.current[thisItemId].index
-  const isLastItem = thisItemIndex === numItems - 1
-  const nextItemIndex = isLastItem ? 0 : thisItemIndex + 1
-  const nextItemId = allItemIds[nextItemIndex]
-  const nextItem = menuItemRefs.current[nextItemId].element
-
-  return nextItem
-}
-
-const getPreviousMenuItem = (menuItemRefs, thisItemId) => {
-  const allItemIds = Object.keys(menuItemRefs.current)
-  const numItems = allItemIds.length
-  const thisItemIndex = menuItemRefs.current[thisItemId].index
-  const isFirstItem = thisItemIndex === 0
-  const previousItemIndex = isFirstItem ? numItems - 1 : thisItemIndex - 1
-  const previousItemId = allItemIds[previousItemIndex]
-  const previousItem = menuItemRefs.current[previousItemId].element
-
-  return previousItem
-}
-
-/**
- * A single menu item rendered within an item group. Expects the item object
- * passed to have `icon`, `label`, and `path` properties.
- *
- * The anchor rendered has `tabIndex` set to `-1` so that it is not reachable
- * via TAB or SHIFT+TAB. This enables us to leverage the default TAB and
- * SHIFT+TAB behavior of the activator button to navigate between menus without
- * having to hook into the `onBlur` event listener for the button.
- *
- * TODO: add details about ArrowDown and ArrowUp interaction after they're added
- */
-const NavigationHeaderDropdownMenuItem = ({
-  item,
-  itemId,
-  menuItemRefs,
-}: {
-  item: NavigationHeaderItem
-  itemId: string
-  menuItemRefs: MutableRefObject<any>
-}) => {
-  const icon = supportedIcons[item.icon] || (
-    <ProductIcon productSlug={item.icon as ProductSlug} />
-  )
-
-  return (
-    <li className={s.itemContainer}>
-      <Link href={item.path}>
-        <a
-          className={s.itemLink}
-          onKeyDown={(e) => {
-            const isArrowDown = e.key === 'ArrowDown'
-            const isArrowUp = e.key === 'ArrowUp'
-            if (isArrowDown) {
-              const nextItem = getNextMenuItem(menuItemRefs, itemId)
-              e.preventDefault()
-              nextItem.focus()
-            } else if (isArrowUp) {
-              const previousItem = getPreviousMenuItem(menuItemRefs, itemId)
-              e.preventDefault()
-              previousItem.focus()
-            }
-          }}
-          ref={(e) => {
-            if (!menuItemRefs.current[itemId]) {
-              const indexOfItem = Object.keys(menuItemRefs.current).length
-              menuItemRefs.current[itemId] = { index: indexOfItem, element: e }
-            }
-          }}
-          tabIndex={-1}
-        >
-          {icon}
-          <Text
-            asElement="span"
-            className={s.itemText}
-            size={100}
-            weight="regular"
-          >
-            {item.label}
-          </Text>
-        </a>
-      </Link>
-    </li>
-  )
-}
-
-/**
- * A group of items rendered within in the dropdown portion ofthe menu. Expects
- * `groupId` so it can generate unique item IDs, an `items` array so it can
- * render each item, and `showDivider` so it can render a separator if it is not
- * the only or last item group.
- */
-const NavigationHeaderDropdownMenuItemGroup = ({
-  groupId,
-  items,
-  menuItemRefs,
-  showDivider,
-}: {
-  groupId: string
-  items: NavigationHeaderItem[]
-  menuItemRefs: MutableRefObject<any>
-  showDivider: boolean
-}) => {
-  const getItemId = (prefix: string, itemIndex: number): string => {
-    return `${prefix}-item-${itemIndex}`
-  }
-
-  return (
-    <>
-      <ul className={s.itemGroup}>
-        {items.map((item: NavigationHeaderItem, itemIndex: number) => {
-          const itemId = getItemId(groupId, itemIndex)
-          return (
-            <NavigationHeaderDropdownMenuItem
-              key={itemId}
-              item={item}
-              itemId={itemId}
-              menuItemRefs={menuItemRefs}
-            />
-          )
-        })}
-      </ul>
-      {showDivider && <hr className={s.itemGroupDivider} />}
-    </>
-  )
-}
-
-/**
- * The button that is used to open the menu. It is programmatically connected
- * to the dropdown list using the `aria-controls` prop. The open/closed state
- * of the menu is expressed using the `aria-expanded` prop on this button.
- *
- * TODO: add more details as more interaction support is added
- */
-const ActivatorButton = ({
-  ariaControls,
-  ariaExpanded,
-  label,
-  onClick,
-  onFocus,
-  onKeyDown,
-  onMouseEnter,
-}: {
-  ariaControls: string
-  ariaExpanded: boolean
-  label: string
-  onClick: () => void
-  onFocus: () => void
-  onKeyDown: KeyboardEventHandler<HTMLButtonElement>
-  onMouseEnter: () => void
-}) => {
-  return (
-    <button
-      aria-controls={ariaControls}
-      aria-expanded={ariaExpanded}
-      className={s.activator}
-      onClick={onClick}
-      onFocus={onFocus}
-      onKeyDown={onKeyDown}
-      onMouseEnter={onMouseEnter}
-    >
-      <Text
-        asElement="span"
-        className={s.activatorText}
-        size={200}
-        weight="medium"
-      >
-        {label}
-      </Text>
-      <IconChevronDown16 className={s.activatorIcon} />
-    </button>
-  )
-}
-
 /**
  * A dropdown menu consisiting of an activator button and a dropdown containing
  * menu item groups.
@@ -220,11 +36,13 @@ const NavigationHeaderDropdownMenu = ({
   label,
   itemGroups,
 }: NavigationHeaderDropdownMenuProps) => {
-  const menuRef = useRef<HTMLDivElement>()
-  const menuItemRefs = useRef({})
   const [isOpen, setIsOpen] = useState(false)
   const numberOfItemGroups = itemGroups.length
   const menuId = useMemo(() => `menu-${slugify(label)}`, [label])
+
+  const getItemId = (prefix: string, itemIndex: number): string => {
+    return `${prefix}-item-${itemIndex}`
+  }
 
   /**
    * Generates a unique ID for a group of items based on the main menu ID and
@@ -266,68 +84,26 @@ const NavigationHeaderDropdownMenu = ({
     }
   }
 
-  /**
-   * Handles TAB and SHIFT+TAB keyboard interaction on an activator button that
-   * has focus. If the menu is open, and:
-   *  - SHIFT+TAB occurs, the menu will be closed
-   *  - TAB occurs, the menu will be closed
-   *
-   * Default TAB & SHIFT+TAB behavior is not prevented.
-   *  - SHIFT+TAB should focus the previous focusable element that comes right
-   *    before the current menu. This may be another menu in `NavigationHeader`,
-   *    or it may be an element located before a collection of these menus.
-   *  - TAB should focus the next focusable element that comes right after the
-   *    current menu. This may be another menu in `NavigationHeader`, or it may
-   *    be an element located after a collection of these menus.
-   */
-  const handleKeyDown = (e) => {
-    const isTab = e.key === 'Tab' && !e.shiftKey
-    const isShiftTab = e.key === 'Tab' && e.shiftKey
-    if (isOpen && (isTab || isShiftTab)) {
-      setIsOpen(false)
-      return
-    }
-
-    const isArrowDown = e.key === 'ArrowDown'
-    const isArrowUp = e.key === 'ArrowUp'
-    if (isArrowDown) {
-      const firstItemId = Object.keys(menuItemRefs.current)[0]
-      const firstItem = menuItemRefs.current[firstItemId].element
-
-      e.preventDefault()
-      firstItem.focus()
-    } else if (isArrowUp) {
-      const allItemIds = Object.keys(menuItemRefs.current)
-      const lastItemId = allItemIds[allItemIds.length - 1]
-      const lastItem = menuItemRefs.current[lastItemId].element
-
-      e.preventDefault()
-      lastItem.focus()
-    }
-  }
-
-  /**
-   * Handles what happens after an activator button is brought into focus. If
-   * the menu associated with the button is closed, then it will be opened.
-   */
-  const handleFocus = () => {
-    if (!isOpen) {
-      setIsOpen(true)
-    }
-  }
-
   return (
-    <div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
+    <div className={s.root} onMouseLeave={handleMouseLeave}>
       <div className={s.activatorWrapper}>
-        <ActivatorButton
-          ariaControls={menuId}
-          ariaExpanded={isOpen}
-          label={label}
+        <button
+          aria-controls={menuId}
+          aria-expanded={isOpen}
+          className={s.activator}
           onClick={handleClick}
-          onFocus={handleFocus}
-          onKeyDown={handleKeyDown}
           onMouseEnter={handleMouseEnter}
-        />
+        >
+          <Text
+            asElement="span"
+            className={s.activatorText}
+            size={200}
+            weight="medium"
+          >
+            {label}
+          </Text>
+          <IconChevronDown16 className={s.activatorIcon} />
+        </button>
       </div>
       <div
         className={s.dropdownContainer}
@@ -339,13 +115,34 @@ const NavigationHeaderDropdownMenu = ({
           const showDivider =
             numberOfItemGroups > 1 && groupIndex !== numberOfItemGroups - 1
           return (
-            <NavigationHeaderDropdownMenuItemGroup
-              groupId={groupId}
-              items={items}
-              key={groupId}
-              menuItemRefs={menuItemRefs}
-              showDivider={showDivider}
-            />
+            <>
+              <ul className={s.itemGroup}>
+                {items.map((item: NavigationHeaderItem, itemIndex: number) => {
+                  const icon = supportedIcons[item.icon] || (
+                    <ProductIcon productSlug={item.icon as ProductSlug} />
+                  )
+                  const itemId = getItemId(groupId, itemIndex)
+                  return (
+                    <li className={s.itemContainer} key={itemId}>
+                      <Link href={item.path}>
+                        <a className={s.itemLink}>
+                          {icon}
+                          <Text
+                            asElement="span"
+                            className={s.itemText}
+                            size={100}
+                            weight="regular"
+                          >
+                            {item.label}
+                          </Text>
+                        </a>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+              {showDivider && <hr className={s.itemGroupDivider} />}
+            </>
           )
         })}
       </div>
