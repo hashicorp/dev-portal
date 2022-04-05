@@ -126,8 +126,7 @@ function HomePage() {
             },
             company: {
               name: 'Internet Archive',
-              logo:
-                'https://www.datocms-assets.com/2885/1616436427-artboard.png',
+              logo: 'https://www.datocms-assets.com/2885/1616436427-artboard.png',
             },
           },
           {
@@ -144,8 +143,7 @@ function HomePage() {
             },
             company: {
               name: 'Cloudflare',
-              logo:
-                'https://www.datocms-assets.com/2885/1522194205-cf-logo-h-rgb.png',
+              logo: 'https://www.datocms-assets.com/2885/1522194205-cf-logo-h-rgb.png',
             },
           },
           {
@@ -162,8 +160,7 @@ function HomePage() {
             },
             company: {
               name: 'Navi Capital',
-              logo:
-                'https://www.datocms-assets.com/2885/1590509560-navi-logo.png',
+              logo: 'https://www.datocms-assets.com/2885/1590509560-navi-logo.png',
             },
           },
           {
@@ -180,8 +177,7 @@ function HomePage() {
             },
             company: {
               name: 'Trivago',
-              logo:
-                'https://www.datocms-assets.com/2885/1582162145-trivago.svg',
+              logo: 'https://www.datocms-assets.com/2885/1582162145-trivago.svg',
             },
           },
           {
@@ -198,8 +194,7 @@ function HomePage() {
             },
             company: {
               name: 'CircleCI',
-              logo:
-                'https://www.datocms-assets.com/2885/1582180745-circleci-logo.svg',
+              logo: 'https://www.datocms-assets.com/2885/1582180745-circleci-logo.svg',
             },
           },
           {
@@ -216,8 +211,7 @@ function HomePage() {
             },
             company: {
               name: 'BetterHelp',
-              logo:
-                'https://www.datocms-assets.com/2885/1592925329-betterhelp-logo.png',
+              logo: 'https://www.datocms-assets.com/2885/1592925329-betterhelp-logo.png',
             },
           },
           {
@@ -234,8 +228,7 @@ function HomePage() {
             },
             company: {
               name: 'Radix',
-              logo:
-                'https://www.datocms-assets.com/2885/1594233325-radix-logo-1.svg',
+              logo: 'https://www.datocms-assets.com/2885/1594233325-radix-logo-1.svg',
             },
           },
           {
@@ -252,41 +245,34 @@ function HomePage() {
             },
             company: {
               name: 'Bowery',
-              logo:
-                'https://www.datocms-assets.com/2885/1594242826-bowery-logo-2.png',
+              logo: 'https://www.datocms-assets.com/2885/1594242826-bowery-logo-2.png',
             },
           },
         ]}
         featuredLogos={[
           {
             companyName: 'Trivago',
-            url:
-              'https://www.datocms-assets.com/2885/1582162317-trivago-monochromatic.svg',
+            url: 'https://www.datocms-assets.com/2885/1582162317-trivago-monochromatic.svg',
           },
           {
             companyName: 'CircleCI',
-            url:
-              'https://www.datocms-assets.com/2885/1582180745-circleci-logo.svg',
+            url: 'https://www.datocms-assets.com/2885/1582180745-circleci-logo.svg',
           },
           {
             companyName: 'SAP Ariba',
-            url:
-              'https://www.datocms-assets.com/2885/1580419436-logosap-ariba.svg',
+            url: 'https://www.datocms-assets.com/2885/1580419436-logosap-ariba.svg',
           },
           {
             companyName: 'Pandora',
-            url:
-              'https://www.datocms-assets.com/2885/1523044075-pandora-black.svg',
+            url: 'https://www.datocms-assets.com/2885/1523044075-pandora-black.svg',
           },
           {
             companyName: 'Deluxe',
-            url:
-              'https://www.datocms-assets.com/2885/1582323254-deluxe-logo.svg',
+            url: 'https://www.datocms-assets.com/2885/1582323254-deluxe-logo.svg',
           },
           {
             companyName: 'Radix',
-            url:
-              'https://www.datocms-assets.com/2885/1594233325-radix-logo-1.svg',
+            url: 'https://www.datocms-assets.com/2885/1594233325-radix-logo-1.svg',
           },
         ]}
       />
@@ -463,6 +449,11 @@ function HomePage() {
       />
     </div>
   )
+}
+
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
 }
 
 HomePage.layout = NomadIoLayout

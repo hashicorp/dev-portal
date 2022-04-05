@@ -316,5 +316,10 @@ function ConsulOnKubernetesPage() {
   )
 }
 
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
+}
+
 ConsulOnKubernetesPage.layout = ConsulIoLayout
 export default ConsulOnKubernetesPage

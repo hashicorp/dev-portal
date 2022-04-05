@@ -170,5 +170,10 @@ function TermsOfUsePage() {
   )
 }
 
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
+}
+
 TermsOfUsePage.layout = WaypointIoLayout
 export default TermsOfUsePage
