@@ -13,11 +13,8 @@ export default function InteractiveLabButton() {
 
   return (
     <Button
-      color="primary"
       text={buttonText}
       onClick={() => ctx.setActive(!ctx.active)}
-      size="medium"
-      iconPosition="leading"
       icon={<IconTerminalScreen16 />}
     />
   )
