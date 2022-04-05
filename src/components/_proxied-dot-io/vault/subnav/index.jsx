@@ -22,8 +22,7 @@ export default function ProductSubnav({ menuItems }) {
         },
         {
           text: 'Try Cloud',
-          url:
-            'https://portal.cloud.hashicorp.com/sign-up?utm_source=vault_io&utm_content=top_nav_vault',
+          url: 'https://portal.cloud.hashicorp.com/sign-up?utm_source=vault_io&utm_content=top_nav_vault',
         },
         {
           text: 'Download',

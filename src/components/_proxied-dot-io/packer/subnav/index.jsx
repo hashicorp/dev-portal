@@ -22,8 +22,7 @@ export default function PackerSubnav() {
         { text: 'Install Packer', url: '/downloads' },
         {
           text: 'Try HCP Packer',
-          url:
-            'https://cloud.hashicorp.com/products/packer?utm_source=packer_io&utm_content=top_nav_packer',
+          url: 'https://cloud.hashicorp.com/products/packer?utm_source=packer_io&utm_content=top_nav_packer',
         },
       ]}
       hideGithubStars={true}
