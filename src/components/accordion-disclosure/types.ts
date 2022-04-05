@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export interface DisclosureProps {
+export interface AccordionDisclosureProps {
   children: ReactNode
   description?: string
   id: string
