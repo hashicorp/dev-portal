@@ -17,7 +17,7 @@ const IconDict: { [k in DirectionOption]: typeof IconArrowRight16 } = {
 function DirectionalLinkBox({
   href,
   label,
-  title,
+  ariaLabel,
   direction,
 }: DirectionalLinkBoxProps) {
   const Icon = IconDict[direction]
@@ -26,7 +26,7 @@ function DirectionalLinkBox({
     <CardLink
       className={classNames(s.linkbox, s[`direction-${direction}`])}
       href={href}
-      ariaLabel={title}
+      ariaLabel={ariaLabel}
     >
       <Icon className={classNames(s.icon, s[`direction-${direction}`])} />
       <Text asElement="span" size={200} weight="medium">

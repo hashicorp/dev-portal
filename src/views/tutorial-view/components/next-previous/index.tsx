@@ -33,7 +33,7 @@ export function NextPrevious({
           label="Previous"
           href={tutorial.previous.path}
           direction={'previous'}
-          title={`Go to previous tutorial: ${tutorial.previous.name}`}
+          ariaLabel={`Go to previous tutorial: ${tutorial.previous.name}`}
         />
       )
     }
@@ -47,7 +47,7 @@ export function NextPrevious({
         href={collection.current.path}
         label="Back to Collection"
         direction={'previous'}
-        title={`Go back to collection: ${collection.current.name}`}
+        ariaLabel={`Go back to collection: ${collection.current.name}`}
       />
     )
   }
@@ -60,7 +60,7 @@ export function NextPrevious({
           label="Next"
           href={tutorial.next.path}
           direction="next"
-          title={`Go to next tutorial: ${tutorial.next.name}`}
+          ariaLabel={`Go to next tutorial: ${tutorial.next.name}`}
         />
       )
     }
@@ -83,7 +83,7 @@ export function NextPrevious({
           href={finalLink}
           label="Browse Tutorials"
           direction="final"
-          title="Browse Tutorials"
+          ariaLabel="Browse Tutorials"
         />
       )
     }
@@ -97,7 +97,7 @@ export function NextPrevious({
         href={collection.next.path}
         label="Next Collection"
         direction="next"
-        title={`Go to next collection: ${collection.next.name}`}
+        ariaLabel={`Go to next collection: ${collection.next.name}`}
       />
     )
   }

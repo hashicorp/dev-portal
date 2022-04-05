@@ -1,8 +1,9 @@
+import { CardLinkProps } from 'components/card-link/types'
 export type DirectionOption = 'next' | 'previous' | 'final'
 
 export interface DirectionalLinkBoxProps {
-  href: string
+  href: CardLinkProps['href']
   label: string
-  title: string
+  ariaLabel: CardLinkProps['ariaLabel']
   direction: DirectionOption
 }
