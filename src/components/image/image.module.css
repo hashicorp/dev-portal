@@ -17,9 +17,21 @@
     box-shadow: none;
     border-radius: 0;
   }
-}
 
-.img {
-  display: block;
-  max-width: 100%;
+  &.inline {
+    display: inline-flex;
+  }
+
+  /*
+  This is nested inside .root, instead of delcared as its own class, to ensure that the selector
+  is specfic enough to take precedence over the styles declared in @hashicorp/react-content.
+
+  TODO: we should be able to switch this back to a standalone class after all products are migrated to
+  dev-portal.
+  */
+  & img {
+    display: block;
+    max-width: 100%;
+    margin: 0;
+  }
 }

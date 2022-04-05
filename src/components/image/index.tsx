@@ -1,7 +1,27 @@
-import { ReactElement } from 'react'
+import { CSSProperties, ReactElement } from 'react'
 import { ImageProps } from './types'
 import classNames from 'classnames'
 import s from './image.module.css'
+
+/**
+ * Create an object to be passed as a style prop to the underlying img element
+ */
+function generateStyleProp(
+  width: ImageProps['width'],
+  height: ImageProps['height']
+): Pick<CSSProperties, 'width' | 'height'> {
+  const style: Pick<CSSProperties, 'width' | 'height'> = {}
+
+  if (width) {
+    style.width = `${width}px`
+  }
+
+  if (height) {
+    style.height = `${height}px`
+  }
+
+  return style
+}
 
 /**
  * An Image component for use in MDX
@@ -12,6 +32,9 @@ function Image({
   title,
   noMargin,
   noBorder,
+  height,
+  width,
+  inline = false,
 }: ImageProps): ReactElement {
   /**
    * Warn if there's no intentional alt prop.
@@ -27,15 +50,22 @@ function Image({
     )
   }
 
+  /**
+   * We're passing width and height as style here to ensure they override
+   * any base styles.
+   */
+  const style = generateStyleProp(width, height)
+
   return (
     <div
       className={classNames(s.root, {
         [s.noMargin]: noMargin,
         [s.noBorder]: noBorder,
+        [s.inline]: inline,
       })}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className={s.img} src={src} alt={alt} title={title} />
+      <img src={src} alt={alt} title={title} style={style} />
     </div>
   )
 }

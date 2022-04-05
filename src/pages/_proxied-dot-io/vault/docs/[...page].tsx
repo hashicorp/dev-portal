@@ -1,7 +1,7 @@
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import Columns from 'components/_proxied-dot-io/vault/columns'
 import Tag from 'components/_proxied-dot-io/vault/inline-tag'
-import DocsPage from '@hashicorp/react-docs-page'
+import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import productData from 'data/vault.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only

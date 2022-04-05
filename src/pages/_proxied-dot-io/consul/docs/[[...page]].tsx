@@ -1,5 +1,5 @@
 import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
-import DocsPage from '@hashicorp/react-docs-page'
+import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import ConfigEntryReference from 'components/_proxied-dot-io/consul/config-entry-reference'
 import productData from 'data/consul.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
