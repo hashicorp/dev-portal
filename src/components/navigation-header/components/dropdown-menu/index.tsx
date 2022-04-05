@@ -40,8 +40,12 @@ const NavigationHeaderDropdownMenu = ({
   const numberOfItemGroups = itemGroups.length
   const menuId = useMemo(() => `menu-${slugify(label)}`, [label])
 
-  const getItemId = (prefix: string, itemIndex: number): string => {
-    return `${prefix}-item-${itemIndex}`
+  /**
+   * Generates a unique ID for a single dropdown menu item based on the ID of
+   * the group it belongs to.
+   */
+  const getItemId = (groupId: string, itemIndex: number): string => {
+    return `${groupId}-item-${itemIndex}`
   }
 
   /**
