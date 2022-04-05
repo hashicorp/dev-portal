@@ -115,18 +115,8 @@
 }
 
 /*
-***
-* DevDot
-***
-* The custom media and classes below are helpers used in DevDot.
-***
+Mobile & tablet visibility helpers, specific to dev-dot.
 */
-
-@custom-media --dev-dot-mobile only screen and (max-width: 728px);
-@custom-media --dev-dot-tablet only screen and (min-width: 729px) and (max-width: 1000px);
-@custom-media --dev-dot-tablet-up only screen and (min-width: 729px);
-@custom-media --dev-dot-desktop only screen and (min-width: 1001px);
-
 @media (--dev-dot-mobile) {
   .g-hide-on-mobile {
     display: none;
