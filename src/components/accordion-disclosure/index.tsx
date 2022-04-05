@@ -26,7 +26,7 @@ const AccordionDisclosure = ({
         aria-controls={contentContainerId}
         aria-expanded={isOpen}
         className={s.button}
-        onClick={() => setIsOpen((currentIsOpen) => !currentIsOpen)}
+        onClick={() => setIsOpen((currentIsOpen: boolean) => !currentIsOpen)}
       >
         <span className={s.labelContainer}>
           <Text asElement="span" className={s.title} weight="semibold">
