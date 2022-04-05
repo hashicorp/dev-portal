@@ -12,8 +12,7 @@ function FooterWithProps({
       description="The best way to understand what Waypoint can enable for your projects is to give it a try."
       cards={[
         {
-          link:
-            'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
+          link: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
           img: '/waypoint/img/get-started-kubernetes.png',
           eyebrow: 'Tutorial',
           title: 'Get Started - Kubernetes',
@@ -21,8 +20,7 @@ function FooterWithProps({
             'Build, deploy, and release applications to a Kubernetes cluster.',
         },
         {
-          link:
-            'https://learn.hashicorp.com/tutorials/waypoint/get-started-intro',
+          link: 'https://learn.hashicorp.com/tutorials/waypoint/get-started-intro',
           img: '/waypoint/img/intro-to-waypoint.png',
           eyebrow: 'Tutorial',
           title: 'Introduction to Waypoint',
