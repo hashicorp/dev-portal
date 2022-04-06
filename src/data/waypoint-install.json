@@ -6,29 +6,29 @@
       "href": "https://learn.hashicorp.com/tutorials/waypoint/get-started-intro"
     },
     {
-      "title": "Install Waypoint",
-      "description": "Install the Waypoint binary locally on Mac, Linux, or Windows, manually or using a package manager (Homebrew).",
-      "href": "https://learn.hashicorp.com/tutorials/waypoint/get-started-install"
-    },
-    {
-      "title": "Use Waypoint with Docker",
-      "description": "Deploy a Waypoint application locally to Docker.",
-      "href": "https://learn.hashicorp.com/tutorials/waypoint/get-started-docker"
-    },
-    {
-      "title": "Deploy an Application onto AWS Lambda",
-      "description": "Deploy a Ruby application onto AWS Lambda with Waypoint",
-      "href": "https://learn.hashicorp.com/tutorials/waypoint/aws-lambda"
-    },
-    {
       "title": "Get Started - Kubernetes",
-      "description": "Build, deploy, and release applications to a Kubernetes cluster.",
+      "description": "Learn how you can use Waypoint to deploy application to a Kubernetes cluster.",
       "href": "https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes"
     },
     {
       "title": "Get Started - Nomad",
       "description": "Build, deploy, and release applications to a Nomad cluster.",
       "href": "https://learn.hashicorp.com/collections/waypoint/get-started-nomad"
+    },
+    {
+      "title": "Deploy applications to AWS",
+      "description": "Use your existing AWS environment and leverage Waypoint to deploy applications to AWS ECS and AWS Lambda.",
+      "href": "https://learn.hashicorp.com/collections/waypoint/deploy-aws"
+    },
+    {
+      "title": "Deploy applications to Azure",
+      "description": "Learn how to use Waypoint to deploy applications to Azure Container Instances.",
+      "href": "https://learn.hashicorp.com/collections/waypoint/deploy-azure"
+    },
+    {
+      "title": "Deploy applications to Google Cloud",
+      "description": "Waypoint can deploy applications to Google Cloud Run. Learn how to deploy your applications through Waypoint.",
+      "href": "https://learn.hashicorp.com/collections/waypoint/deploy-google-cloud"
     }
   ],
   "sidecarMarketingCard": {
