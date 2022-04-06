@@ -43,7 +43,7 @@
   "alertBanner": {
     "tag": "New",
     "url": "https://www.hashicorp.com/blog/login-mfa-support-added-to-vault-open-source-and-hcp-vault",
-    "text": "Vault OSS Now Includes Multi-factor Authentication!",
+    "text": "All HCP Vault clusters now include MFA!",
     "linkText": "Learn more",
     "expirationDate": "2022-05-31T23:00:00-07:00"
   },
