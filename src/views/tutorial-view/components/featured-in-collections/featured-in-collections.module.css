@@ -20,8 +20,12 @@
    * Asana task:
    * https://app.asana.com/0/1201987349274776/1201653123138729/f
    */
-  margin: 0 !important;
-  padding: 16px 0 0 0 !important;
+  margin: 12px 0 0 0 !important;
+  padding: 0 !important;
+
+  @media (--dev-dot-tablet-up) {
+    margin: 16px 0 0 0 !important;
+  }
 }
 
 .listItem {
