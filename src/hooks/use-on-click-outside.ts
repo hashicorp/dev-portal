@@ -1,10 +1,14 @@
-import { useEffect } from 'react'
+import { MouseEvent, MutableRefObject, TouchEvent, useEffect } from 'react'
 
-export default function useOnClickOutside(refs, handler, shouldListen = true) {
+export default function useOnClickOutside(
+  refs: MutableRefObject<HTMLElement>[],
+  handler: (event?: MouseEvent | TouchEvent) => void,
+  shouldListen: boolean = true
+) {
   useEffect(() => {
     const listener = (event) => {
       // See if any provided refs had a click inside of them
-      const isClickInside = refs.some((ref) =>
+      const isClickInside = refs.some((ref: MutableRefObject<HTMLElement>) =>
         ref?.current?.contains(event.target)
       )
 
