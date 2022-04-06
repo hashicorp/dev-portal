@@ -25,8 +25,5 @@ export function generateCanonicalUrl(
   tutorialSlug: string
 ): URL {
   const path = getTutorialSlug(tutorialSlug, defaultCollectionSlug)
-  const base = __config.dev_dot.canonical_base_url
-  const url = new URL(path, base)
-
-  return url
+  return new URL(path, __config.dev_dot.canonical_base_url)
 }
