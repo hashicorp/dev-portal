@@ -1,4 +1,5 @@
 .linkbox {
+  color: var(--token-color-foreground-primary);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
