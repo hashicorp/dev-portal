@@ -158,7 +158,7 @@ and negative margin.
   }
 
   &:focus-visible {
-    box-shadow: 0 0 0 1px #107dff, 0 0 0 3px #5fbcff;
+    box-shadow: var(--custom-token-focus-ring-action-box-shadow-dark);
     outline: none;
   }
 }
