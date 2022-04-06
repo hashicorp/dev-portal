@@ -1,4 +1,10 @@
-import { Dispatch, MutableRefObject, ReactNode, SetStateAction } from 'react'
+import {
+  CSSProperties,
+  Dispatch,
+  MutableRefObject,
+  ReactNode,
+  SetStateAction,
+} from 'react'
 
 export interface DialogArrowProps {
   /**
@@ -29,7 +35,7 @@ export interface DialogArrowProps {
   /**
    * An object of style properties.
    */
-  themeProps: $TSFixMe
+  themeProps: CSSProperties
 }
 
 export interface PopoverProps {
