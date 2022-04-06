@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useRef, useState } from 'react'
+import { KeyboardEvent, ReactElement, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import slugify from 'slugify'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -78,6 +78,25 @@ const NavigationHeaderDropdownMenu = ({
   }
 
   /**
+   * Handles the behavior that should happen when a key is pressed down.
+   * Currently used by both the activator button and each menu item anchor
+   * element. Currently only handles what happens when the Escape is pressed
+   * because all other keyboard interaction is handled by default interactions
+   * with these elements.
+   *
+   * On Escape:
+   *  - the menu is closed, if it is open
+   *  - the activator button is given focus
+   */
+  const handleKeyDown = (e: KeyboardEvent) => {
+    const { isEscapeKey } = deriveKeyEventState(e)
+    if (isEscapeKey) {
+      setIsOpen(false)
+      activatorButtonRef.current.focus()
+    }
+  }
+
+  /**
    * Handles the start of a mouse hover interaction with the activator button.
    * When the mouse pointer hovers over the activator button, the menu will be
    * opened if it is not already open.
@@ -100,24 +119,14 @@ const NavigationHeaderDropdownMenu = ({
   }
 
   return (
-    <div
-      className={s.root}
-      onKeyDown={(e) => {
-        const { isEscapeKey } = deriveKeyEventState(e)
-        if (isOpen && isEscapeKey) {
-          setIsOpen(false)
-          activatorButtonRef.current.focus()
-        }
-      }}
-      onMouseLeave={handleMouseLeave}
-      ref={menuRef}
-    >
+    <div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
       <div className={s.activatorWrapper}>
         <button
           aria-controls={menuId}
           aria-expanded={isOpen}
           className={s.activator}
           onClick={handleClick}
+          onKeyDown={handleKeyDown}
           onMouseEnter={handleMouseEnter}
           ref={activatorButtonRef}
         >
@@ -153,7 +162,7 @@ const NavigationHeaderDropdownMenu = ({
                   return (
                     <li className={s.itemContainer} key={itemId}>
                       <Link href={item.path}>
-                        <a className={s.itemLink}>
+                        <a className={s.itemLink} onKeyDown={handleKeyDown}>
                           {icon}
                           <Text
                             asElement="span"
