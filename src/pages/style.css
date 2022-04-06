@@ -146,6 +146,23 @@ and negative margin.
   }
 }
 
+/*
+***
+* TODO: update the hardcoded box-shadow hex colors to design system tokens after
+* we hear from design which tokens to use.
+***
+*/
+.g-focus-ring-from-box-shadow-dark {
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--custom-token-focus-ring-action-box-shadow-dark);
+    outline: none;
+  }
+}
+
 .g-focus-border-and-box-shadow-light {
   &:focus,
   &:focus-visible {
