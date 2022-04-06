@@ -1,11 +1,9 @@
 .heading {
   margin: 0;
   padding: 0;
+  composes: hds-typography-display-200 from global;
   font-weight: var(--token-typography-font-weight-semibold);
-  font-family: var(--token-typography-display-200-font-family);
-  font-size: var(--token-typography-display-200-font-size);
-  line-height: var(--token-typography-display-200-line-height);
-  letter-spacing: var(--token-typography-display-200-letter-spacing);
+  color: var(--token-color-foreground-strong);
 }
 
 .listRoot {
