@@ -9,8 +9,6 @@ import { splitProductFromFilename } from 'views/tutorial-view/utils'
  * reference a different product context
  */
 
-const BETA_PRODUCTS = ['vault', 'waypoint']
-
 export function getTutorialSlug(
   tutorialDbSlug: string,
   collectionDbSlug: string
@@ -22,7 +20,8 @@ export function getTutorialSlug(
 
 export function getCollectionSlug(collectionDbSlug: string): string {
   const [product, collectionFilename] = collectionDbSlug.split('/')
-  const isBetaProduct = BETA_PRODUCTS.indexOf(product) === -1
+  const isBetaProduct =
+    __config.dev_dot.products_with_content_preview_branch.includes(product)
 
   // if not a 'sanctioned product', link externally to Learn
   // interim solution for BETA where not all products are onboarded
