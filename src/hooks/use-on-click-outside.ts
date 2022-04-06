@@ -17,13 +17,13 @@ export default function useOnClickOutside(refs, handler, shouldListen = true) {
       handler(event)
     }
 
-    // listen for touchstart or click events; but only when this dropdown is active via shouldListen
+    // Listen for pointer events if `shouldListen` is true
     if (shouldListen) {
       document.addEventListener('mousedown', listener)
       document.addEventListener('touchstart', listener)
     }
 
-    // remove listeners upon unmounting
+    // Remove listeners upon unmounting
     return () => {
       document.removeEventListener('mousedown', listener)
       document.removeEventListener('touchstart', listener)
