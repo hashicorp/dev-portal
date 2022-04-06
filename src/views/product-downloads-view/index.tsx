@@ -5,6 +5,7 @@ import { ReactElement, useMemo } from 'react'
 import { useCurrentProduct } from 'contexts'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import DevDotContent from 'components/dev-dot-content'
 
 // Local imports
 import {
@@ -80,16 +81,18 @@ const ProductDownloadsViewContent = ({
       breadcrumbLinks={breadcrumbLinks}
       sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
     >
-      <PageHeader />
-      <DownloadsSection
-        packageManagers={packageManagers}
-        selectedRelease={releases.versions[currentVersion]}
-        versionSwitcherOptions={versionSwitcherOptions}
-      />
-      <OfficialReleasesSection />
-      {featuredTutorials && (
-        <FeaturedTutorialsSection featuredTutorials={featuredTutorials} />
-      )}
+      <DevDotContent>
+        <PageHeader />
+        <DownloadsSection
+          packageManagers={packageManagers}
+          selectedRelease={releases.versions[currentVersion]}
+          versionSwitcherOptions={versionSwitcherOptions}
+        />
+        <OfficialReleasesSection />
+        {featuredTutorials && (
+          <FeaturedTutorialsSection featuredTutorials={featuredTutorials} />
+        )}
+      </DevDotContent>
     </SidebarSidecarLayout>
   )
 }

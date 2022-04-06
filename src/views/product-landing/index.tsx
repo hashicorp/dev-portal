@@ -4,6 +4,7 @@ import slugify from 'slugify'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Heading, { HeadingProps } from 'components/heading'
 import Text from 'components/text'
+import DevDotContent from 'components/dev-dot-content'
 import GetStarted, { GetStartedProps } from './components/get-started'
 import Cards, { CardProps } from './components/cards'
 import s from './product-landing.module.css'
@@ -23,7 +24,7 @@ interface ProductLandingProps {
 
 function ProductLandingView({ content }: ProductLandingProps): ReactElement {
   return (
-    <>
+    <DevDotContent>
       <Heading
         className={s.pageHeading}
         size={500}
@@ -67,7 +68,7 @@ function ProductLandingView({ content }: ProductLandingProps): ReactElement {
           </pre>
         )
       })}
-    </>
+    </DevDotContent>
   )
 }
 

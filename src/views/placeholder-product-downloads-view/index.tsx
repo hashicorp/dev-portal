@@ -4,6 +4,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Card from 'components/card'
 import Text from 'components/text'
 import s from './placeholder-product-downloads-view.module.css'
+import DevDotContent from 'components/dev-dot-content'
 
 const LOREM_IPSUM =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae leo id nunc convallis euismod et vel erat. Fusce vel velit turpis. Vivamus fringilla consequat metus, vitae euismod sem eleifend in. Morbi in ullamcorper dui. Quisque rutrum auctor tristique. Vivamus ac turpis non arcu fringilla interdum. Aliquam feugiat lectus ipsum, eu tincidunt mi tristique id. Aliquam sodales eros semper pharetra molestie. Mauris porta, nunc in tempor eleifend, metus massa sagittis nisi, non maximus quam mauris a erat. Duis nec risus diam. Aenean auctor accumsan ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce et sagittis nunc. Cras vel eros id purus sollicitudin lobortis. Vivamus hendrerit volutpat nulla.'
@@ -41,8 +42,10 @@ const PlaceholderDownloadsView = (): ReactElement => {
       }}
       sidecarSlot={<PlaceholderSidecarContent />}
     >
-      <h1>Install {currentProduct.name}</h1>
-      <p>{LOREM_IPSUM}</p>
+      <DevDotContent>
+        <h1>Install {currentProduct.name}</h1>
+        <p>{LOREM_IPSUM}</p>
+      </DevDotContent>
     </SidebarSidecarLayout>
   )
 }
