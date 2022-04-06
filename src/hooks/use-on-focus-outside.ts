@@ -3,22 +3,28 @@ import { useEffect } from 'react'
 /**
  * Hook that runs a callback on focus outside the ref
  */
-function useOnFocusOutside(ref, handler) {
+function useOnFocusOutside(refs, handler, shouldListen = true) {
   useEffect(() => {
     function handleFocusChange(event) {
-      const isOutside = ref.current && !ref.current.contains(event.target)
-      if (isOutside) {
-        handler(event)
+      const isFocusInside = refs.some((ref) =>
+        ref?.current?.contains(event.target as Node)
+      )
+      if (isFocusInside) {
+        return
       }
+      handler(event)
     }
 
     // Bind the event listener
-    document.addEventListener('focusin', handleFocusChange)
+    if (shouldListen) {
+      document.addEventListener('focusin', handleFocusChange)
+    }
+
     return () => {
       // Unbind the event listener on clean up
       document.removeEventListener('focusin', handleFocusChange)
     }
-  }, [ref, handler])
+  }, [refs, handler, shouldListen])
 }
 
 export default useOnFocusOutside
