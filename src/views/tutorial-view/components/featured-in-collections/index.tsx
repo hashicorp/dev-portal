@@ -1,23 +1,11 @@
-import { getCollectionSlug } from 'views/collection-view/helpers'
-import CardLink from 'components/card-link'
-import { Collection as ClientCollection } from 'lib/learn-client/types'
-
-interface FeaturedInCollectionsProps {
-  collections: CollectionCardProps[]
-}
-
-// @TODO move this to the collection card component file when we make it
-export interface CollectionCardProps
-  extends Pick<
-    ClientCollection,
-    'id' | 'name' | 'slug' | 'theme' | 'description'
-  > {
-  numTutorials: number
-}
+import CollectionCard from 'views/tutorial-view/components/collection-card'
+import { FeaturedInCollectionsProps } from './types'
+import s from './featured-in-collections.module.css'
 
 // This should render the eventual `CollectionCard` component (doesn't exist yet)
 // which will be used on many other views
 export function FeaturedInCollections({
+  className,
   collections,
 }: FeaturedInCollectionsProps): React.ReactElement {
   if (collections.length === 0) {
@@ -25,22 +13,28 @@ export function FeaturedInCollections({
   }
 
   return (
-    <>
-      <h2>Featured Collections</h2>
-      <ul>
-        {collections.map((c) => {
+    <div className={className}>
+      <h2 className={s.heading}>This tutorial also appears in:</h2>
+      <ul className={s.listRoot}>
+        {collections.map((collection) => {
+          const { id, slug, numTutorials, name, description, theme } =
+            collection
           return (
-            <li key={c.id}>
-              <CardLink href={getCollectionSlug(c.slug)}>
-                <span>{c.numTutorials} Tutorials</span>
-                <h3>{c.name}</h3>
-                <p>{c.description}</p>
-                <p>{c.theme} Logo</p>
-              </CardLink>
+            <li key={id} className={s.listItem}>
+              <CollectionCard
+                className={s.listItemCard}
+                slug={slug}
+                numTutorials={numTutorials}
+                name={name}
+                description={description}
+                theme={theme}
+              />
             </li>
           )
         })}
       </ul>
-    </>
+    </div>
   )
 }
+
+export default FeaturedInCollections

@@ -1,0 +1,54 @@
+.heading {
+  margin: 0;
+  padding: 0;
+  composes: hds-typography-display-200 from global;
+  font-weight: var(--token-typography-font-weight-semibold);
+  color: var(--token-color-foreground-strong);
+}
+
+.listRoot {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  list-style: none;
+
+  /**
+   * Note: !important is necessary here as we're within a content container
+   * that uses nested generic selectors to style <ul />.
+   * TODO: convert the nested generic selectors to MDX components.
+   * Asana task:
+   * https://app.asana.com/0/1201987349274776/1201653123138729/f
+   */
+  margin: 12px 0 0 0 !important;
+  padding: 0 !important;
+
+  @media (--dev-dot-tablet-up) {
+    margin: 16px 0 0 0 !important;
+  }
+}
+
+.listItem {
+  flex-grow: 1;
+  min-width: 240px;
+  width: 0;
+
+  /**
+   * Note: !important is necessary here as we're within a content container
+   * that uses nested generic selectors to style <li />.
+   * TODO: convert the nested generic selectors to MDX components.
+   * Asana task:
+   * https://app.asana.com/0/1201987349274776/1201653123138729/f
+   */
+  margin-bottom: 0 !important;
+}
+
+/**
+  * Note: this className is necessary because CardLink
+  * doesn't automatically behave as one might expect.
+  * It requires height 100% to be set on the inner <a /> element,
+  * which we do through CollectionCard.
+  */
+.listItemCard {
+  height: 100%;
+}

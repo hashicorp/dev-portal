@@ -1,5 +1,5 @@
 import { Collection as ClientCollection } from 'lib/learn-client/types'
-import { CollectionCardProps } from '.'
+import { CollectionCardProps } from '../collection-card'
 
 export function formatCollectionCard(
   collection: ClientCollection
