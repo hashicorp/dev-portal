@@ -9,6 +9,7 @@ import {
 import SidebarSidecarLayout, {
   SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
+import DevDotContent from 'components/dev-dot-content'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem } from './utils'
@@ -121,7 +122,9 @@ export default function TutorialView({
             url={getVideoUrl({ videoId: video.id, videoHost: video.videoHost })}
           />
         )}
-        <MDXRemote {...content} components={MDX_COMPONENTS} />
+        <DevDotContent>
+          <MDXRemote {...content} components={MDX_COMPONENTS} />
+        </DevDotContent>
         <NextPrevious {...nextPreviousData} />
         <FeaturedInCollections collections={collectionCtx.featuredIn} />
       </SidebarSidecarLayout>
