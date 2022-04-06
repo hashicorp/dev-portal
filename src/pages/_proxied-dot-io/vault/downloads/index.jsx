@@ -25,13 +25,11 @@ function DownloadsPage({ product, releases, latestVersion }) {
         },
         {
           label: 'Getting Started with Vault UI',
-          href:
-            'http://learn.hashicorp.com/collections/vault/getting-started-ui',
+          href: 'http://learn.hashicorp.com/collections/vault/getting-started-ui',
         },
         {
           label: 'Vault on HCP',
-          href:
-            'http://learn.hashicorp.com/collections/vault/getting-started-ui',
+          href: 'http://learn.hashicorp.com/collections/vault/getting-started-ui',
         },
         {
           label: 'View all Vault tutorials',

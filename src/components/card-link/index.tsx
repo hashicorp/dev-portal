@@ -9,11 +9,12 @@ const CardLink = ({
   children,
   className,
   href,
+  ariaLabel,
 }: CardLinkProps): ReactElement => {
   const classes = classNames(s.root, className)
 
   return (
-    <MaybeInternalLink href={href}>
+    <MaybeInternalLink href={href} aria-label={ariaLabel}>
       <Card className={classes}>{children}</Card>
     </MaybeInternalLink>
   )

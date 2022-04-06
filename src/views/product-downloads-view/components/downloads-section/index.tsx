@@ -196,9 +196,10 @@ const DownloadsSection = ({
   versionSwitcherOptions,
 }: DownloadsSectionProps): ReactElement => {
   const { isLatestVersion, setCurrentVersion } = useCurrentVersion()
-  const downloadsByOS = useMemo(() => groupDownloadsByOS(selectedRelease), [
-    selectedRelease,
-  ])
+  const downloadsByOS = useMemo(
+    () => groupDownloadsByOS(selectedRelease),
+    [selectedRelease]
+  )
   const packageManagersByOS = useMemo(
     () => groupPackageManagersByOS(packageManagers),
     [packageManagers]

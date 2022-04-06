@@ -49,7 +49,9 @@ export const sentinelUrlAdjuster: Pluggable = [
  */
 function prefixSentinelDocsUrls(inputUrl: string): string {
   // We only want to adjust internal URLs, so we return absolute URLs as-is
-  if (isAbsoluteUrl(inputUrl)) return inputUrl
+  if (isAbsoluteUrl(inputUrl)) {
+    return inputUrl
+  }
 
   // We now know we're dealing with internal URLs only
   let outputUrl = inputUrl.slice()
@@ -100,17 +102,23 @@ function prefixSentinelDocsUrls(inputUrl: string): string {
   const hasSentinelPrefix = outputUrl.startsWith('/sentinel')
   const willBePrefixedOnClient = isBasePathExceptDocs || isDocsUrl
   const shouldRemovePrefix = hasSentinelPrefix && willBePrefixedOnClient
-  if (shouldRemovePrefix) outputUrl = outputUrl.replace('/sentinel', '')
+  if (shouldRemovePrefix) {
+    outputUrl = outputUrl.replace('/sentinel', '')
+  }
 
   // Finally, we also need to prefix "docs" URLs with "/docs" in order
   // to match the route structure we have here in dev-dot
-  if (isDocsUrl) outputUrl = `/docs${outputUrl}`
+  if (isDocsUrl) {
+    outputUrl = `/docs${outputUrl}`
+  }
   return outputUrl
 }
 
 function rewriteApiToApiDocs(inputUrl: string): string {
   let outputUrl = inputUrl.slice()
   const isBadApiUrl = outputUrl == '/api' || outputUrl.startsWith('/api/')
-  if (isBadApiUrl) outputUrl = outputUrl.replace(/^\/api/, '/api-docs')
+  if (isBadApiUrl) {
+    outputUrl = outputUrl.replace(/^\/api/, '/api-docs')
+  }
   return outputUrl
 }

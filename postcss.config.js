@@ -14,7 +14,9 @@ function alsoImportDevDotCustomMedia(postcssConfig) {
       Array.isArray(plugin) &&
       plugin.length == 2 &&
       plugin[0] == 'postcss-preset-env'
-    if (!isPresetEnv) return plugin
+    if (!isPresetEnv) {
+      return plugin
+    }
     // we want to modify the postcss-preset-env settings object,
     // which we expect as a second part of a tuple in the plugin array entry.
     // specifically, we want to add to the "importFrom" setting.

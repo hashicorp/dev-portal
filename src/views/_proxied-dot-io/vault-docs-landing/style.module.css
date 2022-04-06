@@ -4,6 +4,7 @@
 
 .useCaseCards {
   display: grid;
+
   /* stick to 1 column at 100% no matter what */
   grid-template-columns: 100%;
   grid-gap: 16px;
@@ -16,7 +17,9 @@
 .developerCards {
   display: grid;
   grid-gap: 16px;
+
   /* automatically use more columns, as long as columns are >= 320px wide */
+
   /* note that minimum size can be less than 320px, if 100% < 320px */
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   align-items: stretch;

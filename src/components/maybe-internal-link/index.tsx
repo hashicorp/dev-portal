@@ -1,18 +1,14 @@
+import React from 'react'
 import Link from 'next/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
-import React from 'react'
+import { MaybeInternalLinkProps } from './types'
 
-function MaybeInternalLink({
-  href,
-  ...rest
-}: {
-  href: string
-} & React.HTMLProps<HTMLAnchorElement>): React.ReactElement {
+function MaybeInternalLink({ href, ...rest }: MaybeInternalLinkProps) {
   const Elem = isAbsoluteUrl(href) ? InternalLink : 'a'
   return <Elem href={href} {...rest} />
 }
 
-function InternalLink({ href, ...rest }) {
+function InternalLink({ href, ...rest }: MaybeInternalLinkProps) {
   return (
     <Link href={href}>
       {/* Disabling anchor-has-content, children is in ...rest  */}
@@ -22,4 +18,5 @@ function InternalLink({ href, ...rest }) {
   )
 }
 
+export type { MaybeInternalLinkProps }
 export default MaybeInternalLink

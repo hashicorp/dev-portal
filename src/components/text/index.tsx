@@ -7,7 +7,7 @@ const Text: React.FC<TextProps> = ({
   size = 300,
   weight = 'regular',
   ...rest
-}) => {
+}: TextProps) => {
   const className = classNames(
     s.root,
     `hds-typography-body-${size}`,

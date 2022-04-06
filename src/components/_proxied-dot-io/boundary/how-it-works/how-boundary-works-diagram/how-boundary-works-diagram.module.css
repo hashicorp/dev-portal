@@ -11,9 +11,9 @@
     opacity: 0;
     transition: opacity ease-in 0.5s;
 
-  &:last-child {
-    opacity: 1;
-  }
+    &:last-child {
+      opacity: 1;
+    }
   }
 
   @media (--medium-up) {
