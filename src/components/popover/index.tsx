@@ -44,8 +44,9 @@ function Popover({
 }: PopoverProps): React.ReactElement {
   const triggerRect = useRect(triggerRef, { observe: true })
   const popoverRef = useRef()
-  useOnClickOutside([triggerRef, popoverRef], () => setIsShown(false))
-  useOnFocusOutside([popoverRef], () => setIsShown(false))
+
+  useOnClickOutside([triggerRef, popoverRef], () => setIsShown(false), shown)
+  useOnFocusOutside([popoverRef], () => setIsShown(false), shown)
 
   const themeClass = s[`theme-${theme}`]
   const themeProps = {}
