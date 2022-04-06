@@ -7,7 +7,7 @@
     },
     {
       "title": "Get Started - Kubernetes",
-      "description": "Learn how you can use Waypoin to deploy application to a Kubernetes cluster.",
+      "description": "Learn how you can use Waypoint to deploy application to a Kubernetes cluster.",
       "href": "https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes"
     },
     {
@@ -23,7 +23,7 @@
     {
       "title": "Deploy applications to Azure",
       "description": "Learn how to use Waypoint to deploy applications to Azure Container Instances.",
-      "href": "https://learn.hashicorp.com/collections/waypoint/get-started-nomad"
+      "href": "https://learn.hashicorp.com/collections/waypoint/deploy-azure"
     },
     {
       "title": "Deploy applications to Google Cloud",
