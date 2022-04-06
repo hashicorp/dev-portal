@@ -4,6 +4,7 @@ module.exports = {
   rules: {
     curly: 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/typedef': [
       'warn',
       {
