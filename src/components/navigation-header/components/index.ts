@@ -1,3 +1,3 @@
-import NavigationHeaderDropdownMenu from './dropdown-menu/dropdown-menu'
+import NavigationHeaderDropdownMenu from './dropdown-menu'
 
 export { NavigationHeaderDropdownMenu }
