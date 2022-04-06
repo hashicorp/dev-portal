@@ -3,8 +3,10 @@ import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/consul.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
-import ProductDocsLanding from 'views/_proxied-dot-io/vault-docs-landing'
+// import ProductDocsLanding from 'views/_proxied-dot-io/product-docs-landing'
 // Imports below are used in getStatic functions only
+import fs from 'fs'
+import path from 'path'
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticProps } from 'next'
 
@@ -30,7 +32,10 @@ function ConsulDocsLandingPage({
   navData,
   githubFileUrl,
   versions,
-}: DocsPageProps['staticProps']): ReactElement {
+  landingPageContent,
+}: DocsPageProps['staticProps'] & {
+  landingPageContent: $TSFixMe
+}): ReactElement {
   return (
     <DocsPageInner
       canonicalUrl={frontMatter.canonical_url}
@@ -46,7 +51,13 @@ function ConsulDocsLandingPage({
       versions={versions}
       algoliaConfig={productData.algoliaConfig}
     >
-      <ProductDocsLanding />
+      <pre>
+        <code>{JSON.stringify({ landingPageContent }, null, 2)}</code>
+      </pre>
+      {/* <ProductDocsLanding
+        content={landingPageContent}
+        themeSlug={productData.slug}
+      /> */}
     </DocsPageInner>
   )
 }
@@ -73,7 +84,34 @@ const { getStaticProps: generatedGetStaticProps } =
 const getStaticProps: GetStaticProps = async (context) => {
   // Our generatedGetStaticProps expects params, so we gotta pass em,
   // even though in this context we're not getting them from NextJS
-  return await generatedGetStaticProps({ ...context, params: { page: [] } })
+  const staticPropsResult = await generatedGetStaticProps({
+    ...context,
+    params: { page: [] },
+  })
+  // staticPropsResult is typed such that it may not have any "props",
+  // we need to guard against this
+  function staticPropsHasProps(
+    obj: Record<string, unknown>
+  ): obj is Record<string, unknown> & { props: Record<string, unknown> } {
+    return typeof obj.props !== 'undefined'
+  }
+  if (!staticPropsHasProps(staticPropsResult)) {
+    return staticPropsResult
+  }
+  // we know we have props, so we tack on our landing page content
+  const landingPageContent = JSON.parse(
+    fs.readFileSync(
+      path.join(
+        process.cwd(),
+        'src/pages/_proxied-dot-io/consul/docs/consul-docs-landing-content.json'
+      ),
+      'utf8'
+    )
+  )
+  return {
+    ...staticPropsResult,
+    props: { ...staticPropsResult.props, landingPageContent },
+  }
 }
 export { getStaticProps }
 
