@@ -25,7 +25,7 @@ export function generateCanonicalUrl(
   tutorialSlug: string
 ): URL {
   const path = getTutorialSlug(tutorialSlug, defaultCollectionSlug)
-  const base = 'https://developer.hashi-mktg.com'
+  const base = __config.dev_dot.base_url || 'https://developer.hashi-mktg.com'
   const url = new URL(path, base)
 
   return url
