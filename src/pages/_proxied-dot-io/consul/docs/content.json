@@ -10,15 +10,15 @@
     "body": "Use Consul to implement a service mesh on your target platform.",
     "links": [
       {
-        "title": "HashiCorp Cloud Platform (HCP) Getting Started",
+        "title": "HashiCorp Cloud Platform (HCP)",
         "url": "https://learn.hashicorp.com/collections/consul/cloud-get-started"
       },
       {
-        "title": "Kubernetes Getting Started",
+        "title": "Kubernetes",
         "url": "https://learn.hashicorp.com/collections/consul/gs-consul-service-mesh"
       },
       {
-        "title": "VM Getting Started",
+        "title": "VM",
         "url": "https://learn.hashicorp.com/collections/consul/getting-started"
       }
     ]
