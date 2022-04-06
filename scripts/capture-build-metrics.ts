@@ -47,7 +47,9 @@ function captureMetric({
 }
 
 async function main() {
-  if (!process.env.CI || process.env.DEV_IO) return
+  if (!process.env.CI || process.env.DEV_IO) {
+    return
+  }
 
   const [, , appName] = process.argv
 

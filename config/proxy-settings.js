@@ -135,7 +135,9 @@ function buildAssetRoutesToProxy(assetPaths, localAssetsDir) {
  */
 function gatherRoutesToProxy(pagesDir) {
   const targetDir = path.resolve(`./src/pages${pagesDir}`)
-  if (!fs.existsSync(targetDir)) return []
+  if (!fs.existsSync(targetDir)) {
+    return []
+  }
   const pageExtensions = ['tsx', 'ts', 'jsx', 'js']
   const pageFilePaths = klawSync(targetDir)
   const routesToProxy = pageFilePaths
