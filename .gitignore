@@ -9,3 +9,4 @@ src/data/_redirects.generated.json
 src/data/_rewrites.generated.json
 test-results/
 playwright-report/
+tsconfig.tsbuildinfo
