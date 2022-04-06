@@ -25,7 +25,7 @@ export function getCollectionSlug(collectionDbSlug: string): string {
 
   // if not a 'sanctioned product', link externally to Learn
   // interim solution for BETA where not all products are onboarded
-  if (isBetaProduct) {
+  if (!isBetaProduct) {
     return `https://learn.hashicorp.com/collections/${collectionDbSlug}`
   }
 
