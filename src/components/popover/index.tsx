@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { CSSProperties, useRef } from 'react'
 import classNames from 'classnames'
 import Portal from '@reach/portal'
 import ReachPopover from '@reach/popover'
@@ -21,7 +21,7 @@ function Popover({
   theme = 'light',
   themeBackground,
   triggerRef,
-}: PopoverProps): React.ReactElement {
+}: PopoverProps) {
   const triggerRect = useRect(triggerRef, { observe: true })
   const popoverRef = useRef()
 
@@ -49,12 +49,12 @@ function Popover({
               {
                 '--collision-buffer': collisionBuffer + 'px',
                 ...themeProps,
-              } as React.CSSProperties
+              } as CSSProperties
             }
           >
             <button
               className={classNames(s.dialogClose, themeClass)}
-              style={themeProps as React.CSSProperties}
+              style={themeProps as CSSProperties}
               onClick={() => setIsShown(false)}
             >
               <VisuallyHidden>Close</VisuallyHidden>
@@ -121,7 +121,7 @@ function DialogArrow({
   arrowSize,
   themeClass,
   themeProps,
-}: DialogArrowProps): React.ReactElement {
+}: DialogArrowProps) {
   if (!shown) {
     return null
   }
@@ -147,7 +147,7 @@ function DialogArrow({
             '--top': arrowTop,
             '--arrow-size': arrowSize + 'px',
             ...themeProps,
-          } as React.CSSProperties
+          } as CSSProperties
         }
       />
     </Portal>
