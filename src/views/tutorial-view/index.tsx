@@ -22,6 +22,7 @@ import {
 import getVideoUrl from './utils/get-video-url'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
+import s from './tutorial-view.module.css'
 
 export interface TutorialViewProps {
   tutorial: TutorialData
@@ -123,7 +124,10 @@ export default function TutorialView({
         )}
         <MDXRemote {...content} components={MDX_COMPONENTS} />
         <NextPrevious {...nextPreviousData} />
-        <FeaturedInCollections collections={collectionCtx.featuredIn} />
+        <FeaturedInCollections
+          className={s.featuredInCollections}
+          collections={collectionCtx.featuredIn}
+        />
       </SidebarSidecarLayout>
     </InteractiveLabWrapper>
   )
