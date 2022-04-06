@@ -10,38 +10,38 @@ function deriveKeyEventState(keyboardEvent: KeyboardEvent) {
   const { key, shiftKey } = keyboardEvent
 
   // Arrow keys
-  const isArrowDown = key === 'ArrowDown'
-  const isArrowLeft = key === 'ArrowLeft'
-  const isArrowRight = key === 'ArrowRight'
-  const isArrowUp = key === 'ArrowUp'
+  const isArrowDownKey = key === 'ArrowDown'
+  const isArrowLeftKey = key === 'ArrowLeft'
+  const isArrowRightKey = key === 'ArrowRight'
+  const isArrowUpKey = key === 'ArrowUp'
 
   // Escape, Space, Enter
-  const isEscape = key === 'Escape'
-  const isSpace = key === ' '
+  const isEscapeKey = key === 'Escape'
+  const isSpaceKey = key === ' '
 
   // Home, End, PageUp, PageDown
-  const isHome = key === 'Home'
-  const isEnd = key === 'End'
-  const isPageUp = key === 'PageUp'
-  const isPageDown = key === 'PageDown'
+  const isHomeKey = key === 'Home'
+  const isEndKey = key === 'End'
+  const isPageUpKey = key === 'PageUp'
+  const isPageDownKey = key === 'PageDown'
 
   // Tab, Shift+Tab
-  const isShiftTab = shiftKey && key === 'Tab'
-  const isTab = !shiftKey && key === 'Tab'
+  const isShiftTabKey = shiftKey && key === 'Tab'
+  const isTabKey = !shiftKey && key === 'Tab'
 
   return {
-    isArrowDown,
-    isArrowLeft,
-    isArrowRight,
-    isArrowUp,
-    isEnd,
-    isEscape,
-    isHome,
-    isPageDown,
-    isPageUp,
-    isShiftTab,
-    isSpace,
-    isTab,
+    isArrowDownKey,
+    isArrowLeftKey,
+    isArrowRightKey,
+    isArrowUpKey,
+    isEndKey,
+    isEscapeKey,
+    isHomeKey,
+    isPageDownKey,
+    isPageUpKey,
+    isShiftTabKey,
+    isSpaceKey,
+    isTabKey,
   }
 }
 

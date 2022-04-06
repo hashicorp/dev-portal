@@ -103,8 +103,8 @@ const NavigationHeaderDropdownMenu = ({
     <div
       className={s.root}
       onKeyDown={(e) => {
-        const { isEscape } = deriveKeyEventState(e)
-        if (isOpen && isEscape) {
+        const { isEscapeKey } = deriveKeyEventState(e)
+        if (isOpen && isEscapeKey) {
           setIsOpen(false)
           activatorButtonRef.current.focus()
         }
