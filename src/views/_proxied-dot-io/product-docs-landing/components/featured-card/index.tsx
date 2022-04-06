@@ -37,10 +37,12 @@ function FeaturedCard({
             })}
           </div>
         </div>
-        <div className={s.image}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={image.src} alt={image.alt} />
-        </div>
+        {image ? (
+          <div className={s.image}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={image.src} alt={image.alt} />
+          </div>
+        ) : null}
       </article>
     </Card>
   )

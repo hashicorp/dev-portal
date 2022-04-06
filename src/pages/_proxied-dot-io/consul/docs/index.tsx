@@ -3,7 +3,9 @@ import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/consul.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
-// import ProductDocsLanding from 'views/_proxied-dot-io/product-docs-landing'
+import ProductDocsLanding, {
+  ProductDocsLandingProps,
+} from 'views/_proxied-dot-io/product-docs-landing'
 // Imports below are used in getStatic functions only
 import fs from 'fs'
 import path from 'path'
@@ -52,13 +54,10 @@ function ConsulDocsLandingPage({
       versions={versions}
       algoliaConfig={productData.algoliaConfig}
     >
-      <pre>
-        <code>{JSON.stringify({ landingPageContent }, null, 2)}</code>
-      </pre>
-      {/* <ProductDocsLanding
+      <ProductDocsLanding
         content={landingPageContent}
         themeSlug={productData.slug}
-      /> */}
+      />
     </DocsPageInner>
   )
 }

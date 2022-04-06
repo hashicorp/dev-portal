@@ -1,96 +1,126 @@
 {
   "pageTitle": "Documentation",
-  "pageSubtitle": "Welcome to Consul documentation! Consul is an identity-based secret and encryption management system. This documentation covers the main concepts of Consul, what problems it can solve, and contains a quick start for using Consul.",
+  "pageSubtitle": "Welcome to the Consul documentation! Consul is a multi-networking tool that offers a fully-featured service mesh solution that solves the networking and security challenges of operating microservices and cloud infrastructure (multi-cloud and hybrid cloud). This documentation covers the main concepts of Consul, what problems it can solve, and contains a quick start for using Consul.",
   "featuredCard": {
     "heading": "Get Started",
     "image": {
-      "src": "https://www.datocms-assets.com/2885/1648667794-2022-03-30-vault-feature-innovate-trimmed.svg",
+      "src": "https://place-hold.it/300x220&text=FPO",
       "alt": ""
     },
-    "body": "Use Consul to securely store, access, and manage secrets and other sensitive data.",
+    "body": "Use Consul to implement a service mesh on your target platform.",
     "links": [
       {
-        "title": "CLI Quick Start",
-        "url": "https://learn.hashicorp.com/collections/consul/getting-started"
+        "title": "HashiCorp Cloud Platform (HCP) Getting Started",
+        "url": "https://learn.hashicorp.com/collections/consul/cloud-get-started"
       },
       {
-        "title": "Developer Quick Start",
-        "url": "/docs/get-started/developer-qs"
+        "title": "Kubernetes Getting Started",
+        "url": "https://learn.hashicorp.com/collections/consul/gs-consul-service-mesh"
+      },
+      {
+        "title": "VM Getting Started",
+        "url": "https://learn.hashicorp.com/collections/consul/getting-started"
       }
     ]
   },
   "useCaseCards": [
     {
-      "heading": "Secrets Management",
-      "body": "Centrally store, access, and deploy secrets across applications, systems, and infrastructure.",
+      "heading": "Service Mesh",
+      "body": "Consul Service Mesh provides service-to-service connection authorization and encryption using mutual Transport Layer Security (TLS).",
       "links": [
         {
-          "title": "Key/Value",
-          "url": "/docs/secrets/kv"
+          "title": "Register mesh services",
+          "url": "/docs/discovery/services"
         },
         {
-          "title": "Database Credentials",
-          "url": "/docs/secrets/databases"
+          "title": "Configure mesh behavior",
+          "url": "/docs/connect/config-entries"
         },
         {
-          "title": "Kubernetes Secrets",
-          "url": "https://learn.hashicorp.com/collections/consul/kubernetes"
+          "title": "Manage mesh traffic",
+          "url": "/docs/connect/gateways"
+        },
+        {
+          "title": "Setup API Gateway",
+          "url": "/docs/api-gateway"
         }
       ]
     },
     {
-      "heading": "Encryption Services",
-      "body": "Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.",
+      "heading": "Kubernetes",
+      "body": "Consul has many integrations with Kubernetes. You can deploy Consul to Kubernetes using the Helm chart or Consul K8s CLI, sync services between Consul and Kubernetes, run Consul Service Mesh, and more",
       "links": [
         {
-          "title": "Transit Secrets Engine",
-          "url": "/docs/secrets/transit"
+          "title": "Install Consul on Kubernetes",
+          "url": "/docs/k8s/installation/install"
         },
         {
-          "title": "Transform Secrets Engine",
-          "url": "/docs/secrets/transform"
+          "title": "Consul Service Mesh on Kubernetes",
+          "url": "/docs/k8s/connect"
         },
         {
-          "title": "Tokenization",
-          "url": "/docs/secrets/transform/tokenization"
+          "title": "Multi-Cluster",
+          "url": "/docs/k8s/service-sync"
+        },
+        {
+          "title": "Syncing Kubernetes and Consul Services",
+          "url": "/docs/k8s/service-sync"
         }
       ]
     },
     {
-      "heading": "Key Management",
-      "body": "Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.",
+      "heading": "Network Infrastructure Automation",
+      "body": "Consul-Terraform-Sync (CTS) enables dynamic updates to network infrastructure devices triggered by service changes. ",
       "links": [
         {
-          "title": "KMIP Secrets Engine",
-          "url": "/docs/secrets/kmip"
+          "title": "Installation",
+          "url": "/docs/nia/installation/install"
         },
         {
-          "title": "Key Management Secrets Engine",
-          "url": "/docs/secrets/key-management"
+          "title": "Network Drivers",
+          "url": "/docs/nia/network-drivers"
         },
         {
-          "title": "PKI",
-          "url": "/docs/secrets/pki"
+          "title": "Tasks",
+          "url": "/docs/nia/tasks"
+        }
+      ]
+    },
+    {
+      "heading": "Consul Integrations",
+      "body": "Consul can be integrated with several other platforms and products. Learn more about Consul integrations and how to enable them.",
+      "links": [
+        {
+          "title": "Nomad",
+          "url": "/docs/connect/nomad"
+        },
+        {
+          "title": "Vault",
+          "url": "/docs/connect/ca/vault"
+        },
+        {
+          "title": "AWS ECS",
+          "url": "/docs/ecs"
         }
       ]
     }
   ],
   "developerCards": [
     {
-      "title": "Client Libraries",
-      "url": "/api-docs/libraries"
+      "title": "Envoy Integration",
+      "url": "/docs/connect/proxies/envoy"
     },
     {
       "title": "API Reference",
-      "url": "/api-docs/index"
+      "url": "/api-docs"
     },
     {
-      "title": "Sample Integrations",
-      "url": "https://github.com/hashicorp/hello-consul-go"
+      "title": "Consul Ecosystem Tools",
+      "url": "/docs/download-tools"
     },
     {
-      "title": "Code Samples",
-      "url": "https://github.com/hashicorp/consul-examples"
+      "title": "GitHub Samples",
+      "url": "https://github.com/hashicorp?q=learn-consul&type=public&language=&sort=stargazers"
     }
   ]
 }
