@@ -49,7 +49,7 @@ const NavigationHeaderDropdownMenu = ({
   useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
 
   // Handles closing the menu if focus moves outside of it and it is open.
-  useOnFocusOutside(menuRef, () => setIsOpen(false), isOpen)
+  useOnFocusOutside([menuRef], () => setIsOpen(false), isOpen)
 
   /**
    * Generates a unique ID for a single dropdown menu item based on the ID of
