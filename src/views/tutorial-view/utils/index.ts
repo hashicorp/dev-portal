@@ -19,3 +19,14 @@ export function formatTutorialToMenuItem(
     isActive: path === currentPath,
   }
 }
+
+export function generateCanonicalUrl(
+  defaultCollectionSlug: string,
+  tutorialSlug: string
+): URL {
+  const path = getTutorialSlug(tutorialSlug, defaultCollectionSlug)
+  const base = 'https://developer.hashi-mktg.com'
+  const url = new URL(path, base)
+
+  return url
+}
