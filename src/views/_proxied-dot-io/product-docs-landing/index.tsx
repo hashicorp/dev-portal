@@ -2,12 +2,8 @@ import { ReactElement } from 'react'
 import CardLink from 'components/card-link'
 import FeaturedCard from './components/featured-card'
 import UseCaseCard from './components/use-case-card'
+import { ProductDocsLandingProps } from './types'
 import s from './style.module.css'
-
-interface ProductDocsLandingProps {
-  content: $TSFixMe
-  themeSlug: $TSFixMe
-}
 
 function ProductDocsLanding({
   content,
@@ -64,4 +60,5 @@ function ProductDocsLanding({
   )
 }
 
+export type { ProductDocsLandingProps }
 export default ProductDocsLanding

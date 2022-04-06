@@ -7,6 +7,7 @@ import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
 import fs from 'fs'
 import path from 'path'
+import { appendStaticProps } from 'views/_proxied-dot-io/product-docs-landing/server'
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticProps } from 'next'
 
@@ -34,7 +35,7 @@ function ConsulDocsLandingPage({
   versions,
   landingPageContent,
 }: DocsPageProps['staticProps'] & {
-  landingPageContent: $TSFixMe
+  landingPageContent: ProductDocsLandingProps['content']
 }): ReactElement {
   return (
     <DocsPageInner
@@ -88,30 +89,20 @@ const getStaticProps: GetStaticProps = async (context) => {
     ...context,
     params: { page: [] },
   })
-  // staticPropsResult is typed such that it may not have any "props",
-  // we need to guard against this
-  function staticPropsHasProps(
-    obj: Record<string, unknown>
-  ): obj is Record<string, unknown> & { props: Record<string, unknown> } {
-    return typeof obj.props !== 'undefined'
-  }
-  if (!staticPropsHasProps(staticPropsResult)) {
-    return staticPropsResult
-  }
-  // we know we have props, so we tack on our landing page content
+  // Read in our content
   const landingPageContent = JSON.parse(
     fs.readFileSync(
       path.join(
         process.cwd(),
-        'src/pages/_proxied-dot-io/consul/docs/consul-docs-landing-content.json'
+        'src/pages/_proxied-dot-io/consul/docs/content.json'
       ),
       'utf8'
     )
   )
-  return {
-    ...staticPropsResult,
-    props: { ...staticPropsResult.props, landingPageContent },
-  }
+  // Tack on a "landingPageContent" prop to the getStaticProps result
+  return appendStaticProps(staticPropsResult, {
+    landingPageContent,
+  })
 }
 export { getStaticProps }
 
