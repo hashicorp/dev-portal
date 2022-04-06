@@ -1,7 +1,17 @@
 import { MutableRefObject, useEffect } from 'react'
 
 /**
- * Hook that runs a callback on focus outside the ref
+ * Given an array of ref objects and a callback handler, invokes the handler if
+ * a `focusin` event does not occur inside of any of the ref objects.
+ *
+ * Listens for `focusin` events by default, but this can be disabled by passing
+ * `false` for the `shouldListen` parameter.
+ *
+ * Note: `shouldListen` is particularly useful when this hook is used in
+ * components that manage an open/closed state. Passing `false` for
+ * `shouldListen` when these types of components are in a closed state, and
+ * `focusin` events don't need to be listened to, prevents adding
+ * unnecessary event listeners to the document.
  */
 export default function useOnFocusOutside(
   refs: MutableRefObject<HTMLElement>[],
