@@ -7,11 +7,22 @@
 }
 
 .listRoot {
+  --min-column-width: 240px;
+
   align-items: stretch;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
+  display: grid;
+  grid-gap: 24px;
   list-style: none;
+
+  /**
+  * Automatically use more columns, as long as columns are >= min-column-width.
+  * Note: minimum size may be < min-column-width, if 100% < min-column-width.
+  * This ensures that on small viewports, content will never overflow.
+  */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--min-column-width)), 1fr)
+  );
 
   /**
    * Note: !important is necessary here as we're within a content container
@@ -29,10 +40,6 @@
 }
 
 .listItem {
-  flex-grow: 1;
-  min-width: 240px;
-  width: 0;
-
   /**
    * Note: !important is necessary here as we're within a content container
    * that uses nested generic selectors to style <li />.
