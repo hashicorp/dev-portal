@@ -34,9 +34,8 @@ export function useActiveSection(
   isEnabled = true
 ): string {
   const visibleHeadings = useRef<Set<string>>(new Set())
-  const [activeSection, setActiveSection] = useState<
-    TableOfContentsHeading['slug']
-  >()
+  const [activeSection, setActiveSection] =
+    useState<TableOfContentsHeading['slug']>()
   const previousY = useRef<number>()
 
   // isProductLanding is needed to determine the IntersectionObserver threshold
@@ -136,7 +135,9 @@ export function useActiveSection(
       const el = document
         .getElementById('main')
         ?.querySelector(`#${section.slug}`)
-      if (el) observer.observe(el)
+      if (el) {
+        observer.observe(el)
+      }
     })
 
     return () => {
@@ -144,7 +145,9 @@ export function useActiveSection(
         const el = document
           .getElementById('main')
           ?.querySelector(`#${section.slug}`)
-        if (el) observer.unobserve(el)
+        if (el) {
+          observer.unobserve(el)
+        }
       })
     }
   }, [headings, isEnabled, isProductLanding])

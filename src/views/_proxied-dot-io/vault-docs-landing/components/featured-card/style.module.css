@@ -4,7 +4,9 @@
 
 .content {
   display: grid;
+
   /* automatically use more columns, as long as columns are >= 400px wide */
+
   /* note that minimum size is adjusted to less than 400px if 100% < 400px */
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
   grid-gap: 24px;
@@ -17,6 +19,7 @@
 
 .heading {
   composes: g-type-display-5 from global;
+
   /* !important is necessary here to stop leaks from enclosing
       @hashicorp/react-content component styles */
   margin: 0 !important;
