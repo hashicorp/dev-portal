@@ -25,17 +25,12 @@ export async function fetchAllCollectionsByProduct(
 ): Promise<Collection[]> {
   const baseUrl = PRODUCT_COLLECTION_API_ROUTE(product.slug)
   let route = baseUrl
-  const hasQueryParams = !!(product.sidebarSort || product.filterByTheme)
 
-  if (hasQueryParams) {
-    const params = new URLSearchParams()
-
-    if (product.sidebarSort) {
-      params.append('topLevelCategorySort', 'true')
-    }
-    if (product.filterByTheme) {
-      params.append('theme', product.slug)
-    }
+  if (product.sidebarSort) {
+    const params = new URLSearchParams([
+      ['topLevelCategorySort', 'true'],
+      ['theme', product.slug],
+    ])
 
     route = baseUrl + `?${params.toString()}`
   }

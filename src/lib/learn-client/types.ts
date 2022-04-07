@@ -116,7 +116,6 @@ export interface getAllCollectionsOptions
 export type AllCollectionsProductOptions = {
   slug: ProductOption | ThemeOption // If theme option, empty array is returned
   sidebarSort?: boolean
-  filterByTheme?: boolean
 }
 
 /**

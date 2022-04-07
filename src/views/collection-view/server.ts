@@ -37,7 +37,7 @@ export async function getCollectionPageProps(
   const collection = await getCollection(`${product.slug}/${slug}`)
   // For sidebar data
   const allProductCollections = await getAllCollections({
-    product: { slug: product.slug, sidebarSort: true, filterByTheme: true },
+    product: { slug: product.slug, sidebarSort: true },
   })
 
   return {
