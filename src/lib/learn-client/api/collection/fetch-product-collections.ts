@@ -17,7 +17,7 @@ export const PRODUCT_COLLECTION_API_ROUTE = (
  * one tutorial whose primary product (first in frontmatter array)
  * matches this product slug
  *
- * Optional query params will return collections 
+ * Optional query params will return collections
  * sorted according to the category sidebar sort (which automatically
  * includes filtering for theme
  */
