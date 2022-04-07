@@ -56,7 +56,7 @@
         },
         {
           "title": "Multi-Cluster",
-          "url": "/docs/k8s/service-sync"
+          "url": "/docs/k8s/installation/multi-cluster"
         },
         {
           "title": "Syncing Kubernetes and Consul Services",
@@ -83,7 +83,7 @@
       ]
     },
     {
-      "heading": "Consul Integrations",
+      "heading": "Platforms",
       "body": "Consul can be integrated with several other platforms and products. Learn more about Consul integrations and how to enable them.",
       "links": [
         {
