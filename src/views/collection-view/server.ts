@@ -8,13 +8,12 @@ import {
   getCollection,
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import { TutorialPageProduct } from 'views/tutorial-view/server'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 
 export interface CollectionPageProps {
   collection: ClientCollection
   allProductCollections: ClientCollection[]
-  product: CollectionPageProduct
+  product: ProductData
 }
 
 export interface CollectionPagePath {
@@ -22,8 +21,6 @@ export interface CollectionPagePath {
     collectionSlug: string
   }
 }
-
-export type CollectionPageProduct = TutorialPageProduct
 
 /**
  * Given a ProductData object (imported from src/data JSON files) and a
