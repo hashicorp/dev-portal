@@ -1,4 +1,4 @@
-import { ProductData } from 'types/products'
+import { LearnProductData } from 'types/products'
 import {
   Collection as ClientCollection,
   ProductOption,
@@ -13,7 +13,7 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 export interface CollectionPageProps {
   collection: ClientCollection
   allProductCollections: ClientCollection[]
-  product: ProductData
+  product: LearnProductData
 }
 
 export interface CollectionPagePath {
@@ -31,13 +31,13 @@ export interface CollectionPagePath {
  * which is needed for other areas of the app to function.
  */
 export async function getCollectionPageProps(
-  product: ProductData,
+  product: LearnProductData,
   slug: string
 ): Promise<{ props: CollectionPageProps }> {
   const collection = await getCollection(`${product.slug}/${slug}`)
   // For sidebar data
   const allProductCollections = await getAllCollections({
-    product: product.slug as ProductOption,
+    product: product.slug,
   })
 
   return {
