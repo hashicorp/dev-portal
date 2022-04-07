@@ -11,5 +11,5 @@ export interface ProductDocsLandingProps {
     developerCards: { title: string; url: string }[]
   }
   /** Used for theming. Should be a valid "Products" from @hashicorp/platform-product-meta. */
-  themeSlug: string | Products
+  themeSlug: Products
 }
