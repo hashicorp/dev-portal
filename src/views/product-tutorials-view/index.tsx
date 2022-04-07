@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { getCollectionSlug } from './helpers'
+import { getCollectionSlug } from 'views/collection-view/helpers'
 import { ProductTutorialsPageProps } from './server'
 
 export default function ProductTutorialsView({
