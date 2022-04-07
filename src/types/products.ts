@@ -1,5 +1,5 @@
 import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
-import { ProductOption } from 'lib/learn-client/types'
+import { Product as LearnProduct } from 'lib/learn-client/types'
 import { MenuItem } from 'components/sidebar'
 import { NavigationHeaderItem } from 'components/navigation-header'
 
@@ -23,12 +23,24 @@ interface Product extends ProductMeta {
 }
 
 /**
+ * This is needed so that `LearnProductData` can extend both `ProductData` and
+ * `LearnProduct`. Otherwise, we get the following error:
+ *
+ * "Types of property 'name' are incompatible"
+ */
+type LearnProductName = Exclude<
+  ProductName,
+  'HashiCorp Cloud Platform' | 'Sentinel'
+>
+
+/**
  * Learn does not support all of the products in `ProductSlug`, so this is the
  * interface almost the same as `ProductData`, just with a limited set of
  * options for `slug`.
  */
-interface LearnProductData extends ProductData {
-  slug: ProductOption
+interface LearnProductData extends ProductData, LearnProduct {
+  name: LearnProductName
+  slug: LearnProduct['slug']
 }
 
 interface ProductData extends Product {

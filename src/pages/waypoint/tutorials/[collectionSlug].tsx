@@ -1,5 +1,5 @@
 import waypointData from 'data/waypoint.json'
-import { LearnProductData } from 'types/products'
+import { ProductData } from 'types/products'
 import { ProductOption } from 'lib/learn-client/types'
 import CollectionView from 'views/collection-view'
 import {
@@ -19,7 +19,7 @@ export async function getStaticProps({
   params,
 }): Promise<{ props: CollectionPageProps }> {
   const { collectionSlug } = params
-  const product = waypointData as LearnProductData
+  const product = waypointData as ProductData
   return await getCollectionPageProps(product, collectionSlug)
 }
 

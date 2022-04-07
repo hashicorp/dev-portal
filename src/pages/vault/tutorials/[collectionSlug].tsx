@@ -1,5 +1,5 @@
 import vaultData from 'data/vault.json'
-import { LearnProductData } from 'types/products'
+import { ProductData } from 'types/products'
 import { ProductOption } from 'lib/learn-client/types'
 import CollectionView from 'views/collection-view'
 import {
@@ -19,7 +19,7 @@ export async function getStaticProps({
   params,
 }): Promise<{ props: CollectionPageProps }> {
   const { collectionSlug } = params
-  const product = vaultData as LearnProductData
+  const product = vaultData as ProductData
   return await getCollectionPageProps(product, collectionSlug)
 }
 
