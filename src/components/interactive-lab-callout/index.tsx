@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Button from 'components/button'
+import Card from 'components/card'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import s from './interactive-lab-callout.module.css'
 
@@ -11,7 +12,7 @@ export default function InteractiveLabCallout() {
   }
 
   return (
-    <div className={s.interactiveCallout}>
+    <Card className={s.interactiveCallout} elevation="low">
       <div>
         <p className={s.title}>Launch Terminal</p>
         <p className={s.description}>
@@ -40,6 +41,6 @@ export default function InteractiveLabCallout() {
           layout="responsive"
         />
       </div>
-    </div>
+    </Card>
   )
 }

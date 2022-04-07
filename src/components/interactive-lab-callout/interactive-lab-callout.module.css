@@ -1,8 +1,6 @@
 .interactiveCallout {
   align-items: center;
   background-color: var(--token-color-foreground-strong);
-  border-radius: 6px;
-  padding: 16px;
 
   @media (--medium-up) {
     display: flex;
