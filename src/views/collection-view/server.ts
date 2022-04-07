@@ -37,7 +37,7 @@ export async function getCollectionPageProps(
   const collection = await getCollection(`${product.slug}/${slug}`)
   // For sidebar data
   const allProductCollections = await getAllCollections({
-    product: ProductOption[product.slug],
+    product: { slug: product.slug, sidebarSort: true, filterByTheme: true },
   })
 
   return {
@@ -53,7 +53,7 @@ export async function getCollectionPaths(
   product: ProductOption
 ): Promise<CollectionPagePath[]> {
   const collections = await getAllCollections({
-    product,
+    product: { slug: product },
   })
   // Only build collections where this product is the main 'theme'
   // @TODO once we implement the `theme` query option, remove the theme filtering

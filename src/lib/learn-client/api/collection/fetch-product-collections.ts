@@ -1,4 +1,9 @@
-import { Collection, uuid, ProductOption } from 'lib/learn-client/types'
+import {
+  Collection,
+  uuid,
+  ProductOption,
+  AllCollectionsProductOptions,
+} from 'lib/learn-client/types'
 import { get, toError } from '../../index'
 
 // /products/:identifier/collections
@@ -11,11 +16,30 @@ export const PRODUCT_COLLECTION_API_ROUTE = (
  * Collections will be product associated if they have at least
  * one tutorial whose primary product (first in frontmatter array)
  * matches this product slug
+ *
+ * Optional query params will return collections filtered by
+ * theme or sorted according to the category sidebar sort
  */
 export async function fetchAllCollectionsByProduct(
-  identifier: ProductOption | uuid
+  product: AllCollectionsProductOptions
 ): Promise<Collection[]> {
-  const route = PRODUCT_COLLECTION_API_ROUTE(identifier)
+  const baseUrl = PRODUCT_COLLECTION_API_ROUTE(product.slug)
+  let route = baseUrl
+  const hasQueryParams = !!(product.sidebarSort || product.filterByTheme)
+
+  if (hasQueryParams) {
+    const params = new URLSearchParams()
+
+    if (product.sidebarSort) {
+      params.append('topLevelCategorySort', 'true')
+    }
+    if (product.filterByTheme) {
+      params.append('theme', product.slug)
+    }
+
+    route = baseUrl + `?${params.toString()}`
+  }
+
   const getProductCollectionsRes = await get(route)
 
   if (getProductCollectionsRes.ok) {

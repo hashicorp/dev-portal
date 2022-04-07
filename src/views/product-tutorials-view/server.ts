@@ -34,7 +34,7 @@ export async function getProductTutorialsPageProps(
   const productSlug = productData.slug
   const product = await getProduct(productSlug)
   const allProductCollections = await getAllCollections({
-    product: ProductOption[productSlug],
+    product: { slug: productSlug },
   })
   const filteredCollections = filterCollections(
     allProductCollections,

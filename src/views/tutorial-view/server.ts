@@ -102,7 +102,7 @@ export interface TutorialPagePaths {
 export async function getTutorialPagePaths(
   product: ProductOption
 ): Promise<TutorialPagePaths[]> {
-  const allCollections = await getAllCollections({ product })
+  const allCollections = await getAllCollections({ product: { slug: product } })
   // Only build collections where this product is the main 'theme'
   // @TODO once we implement the `theme` query option, remove the theme filtering
   // https://app.asana.com/0/1201903760348480/1201932088801131/f
