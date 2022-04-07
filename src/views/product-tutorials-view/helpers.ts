@@ -1,15 +1,6 @@
 import { Collection as ClientCollection } from 'lib/learn-client/types'
 
 /**
- * Takes db collection slug format: waypoint/get-started --> waypoint/tutorials/get-started
- */
-
-export function getCollectionSlug(dbslug: string): string {
-  const [product, collectionFilename] = dbslug.split('/')
-  return `/${product}/tutorials/${collectionFilename}`
-}
-
-/**
  * This function is an interim solution for filtering content from the /onboarding dir
  * to render on the frontend - esp in the product sitemaps and featured products options
  *

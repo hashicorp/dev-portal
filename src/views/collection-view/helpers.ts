@@ -20,5 +20,14 @@ export function getTutorialSlug(
 
 export function getCollectionSlug(collectionDbSlug: string): string {
   const [product, collectionFilename] = collectionDbSlug.split('/')
+  const isBetaProduct =
+    __config.dev_dot.products_with_content_preview_branch.includes(product)
+
+  // if not a 'sanctioned product', link externally to Learn
+  // interim solution for BETA where not all products are onboarded
+  if (!isBetaProduct) {
+    return `https://learn.hashicorp.com/collections/${collectionDbSlug}`
+  }
+
   return `/${product}/tutorials/${collectionFilename}`
 }
