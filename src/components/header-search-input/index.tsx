@@ -13,6 +13,7 @@ function HeaderSearchInput({
 }: HeaderSearchInputProps): React.ReactElement {
   return (
     <DevPopover
+      containerClassName={s.popoverContainer}
       title="Work in progress"
       note={
         <>
