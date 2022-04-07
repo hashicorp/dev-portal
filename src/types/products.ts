@@ -1,5 +1,6 @@
 import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
 import { MenuItem } from 'components/sidebar'
+import { NavigationHeaderItem } from 'components/navigation-header'
 
 type ProductName =
   | 'Boundary'
@@ -26,7 +27,11 @@ interface Product extends ProductMeta {
 interface ProductData extends Product {
   basePaths: string[]
   navigationHeaderItems: {
-    [key: string]: { icon: string; pathSuffix: string; label: string }
+    [key: string]: {
+      icon: NavigationHeaderItem['icon']
+      pathSuffix: string
+      label: NavigationHeaderItem['label']
+    }[]
   }
   sidebar: {
     landingPageNavData: MenuItem[]

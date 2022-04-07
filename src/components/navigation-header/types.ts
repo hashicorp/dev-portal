@@ -4,20 +4,14 @@ type SupportedIcon = 'docs' | 'home' | 'terminalScreen' | 'tools'
 
 type NavigationHeaderIcon = ProductSlug | SupportedIcon
 
-interface NewNavigationHeaderItem {
+interface NavigationHeaderItem {
   icon: NavigationHeaderIcon
   label: string
   path: string
 }
 
-interface NavigationHeaderItem {
-  id: string
-  label: string
-  path: string
-}
-
 interface NavigationHeaderDropdownMenuProps {
-  itemGroups: NewNavigationHeaderItem[][]
+  itemGroups: NavigationHeaderItem[][]
   label: string
 }
 
@@ -25,6 +19,5 @@ export type {
   NavigationHeaderDropdownMenuProps,
   NavigationHeaderIcon,
   NavigationHeaderItem,
-  NewNavigationHeaderItem,
   SupportedIcon,
 }
