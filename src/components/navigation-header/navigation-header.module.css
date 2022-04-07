@@ -9,7 +9,6 @@
 ***
 */
 .root {
-  align-items: center;
   background-color: var(--token-color-palette-neutral-700);
   display: flex;
   justify-content: space-between;
@@ -30,10 +29,14 @@
   justify-content: right;
 }
 
+.nav {
+  margin-left: 100px;
+}
+
 .navList {
   align-items: center;
   display: flex;
+  list-style: none;
   margin: 0;
-  margin-left: 100px;
   padding: 0;
 }

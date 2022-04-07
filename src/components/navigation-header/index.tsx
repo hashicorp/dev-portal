@@ -33,7 +33,7 @@ const NavigationHeader = () => {
             className={s.logo}
             src="https://via.placeholder.com/232x32?text=LOGO"
           />
-          <nav>
+          <nav className={s.nav}>
             <ul className={s.navList}>
               {homePageNavItems.map(
                 (navItem: { label: string; path: string }) => {
