@@ -76,10 +76,7 @@ const { getStaticProps: generatedGetStaticProps } =
 const getStaticProps: GetStaticProps = async (context) => {
   // Our generatedGetStaticProps expects params, so we gotta pass em,
   // even though in this context we're not getting them from NextJS
-  return await generatedGetStaticProps({
-    ...context,
-    params: { page: [] },
-  })
+  return await generatedGetStaticProps({ ...context, params: { page: [] } })
 }
 export { getStaticProps }
 
