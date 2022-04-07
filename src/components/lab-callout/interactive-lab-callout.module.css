@@ -19,6 +19,32 @@
 
 .description {
   composes: hds-typography-body-100 from global;
+
+  /**
+   * TODO: raise with design-systems team:
+   * line-height defined in relative-to-font-size units often
+   * ends up with weird rounding.
+   
+   * For example, for body-100, the desired line height is 18px.
+   * But the font size is 13px, so the relative line-height value
+   * defined by body-100 comes out to 17.998px.
+
+   * Ideally this would have little to no effect,
+   * but it seems that at least in some cases, this does cause issues.
+   * For example, in Safari, this issue creates a 2px difference in
+   * the height of a two-line-tall paragraph of body-100 text.
+   
+   * We want to design our components to handle these types of differences,
+   * but unfortunately in some cases this can cause layout jank.
+
+   * Proposed solution: Define line-height in rems.
+   * font-size is already defined in rems.
+   * Therefore, it seems line-height is indirectly relative to rems anyways.
+   * By making it directly relative, we get better rounding, at least
+   * for the default font-size of 16px (which is nicely split into
+   * 1px increments by a non-repeating decimal of 0.0625).
+   */
+  line-height: 1.125rem;
   color: var(--token-color-surface-faint);
   margin: 4px 0 0 0 !important;
   max-width: 45em;
