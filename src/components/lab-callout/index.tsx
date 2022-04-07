@@ -13,7 +13,7 @@ export default function InteractiveLabCallout() {
   return (
     <div className={s.interactiveCallout}>
       <div>
-        <h2 className={s.title}>Launch Terminal</h2>
+        <p className={s.title}>Launch Terminal</p>
         <p className={s.description}>
           This tutorial includes a free interactive command-line lab that lets
           you follow along on actual cloud infrastructure.
