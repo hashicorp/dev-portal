@@ -1,4 +1,4 @@
-import { ProductData } from 'types/products'
+import { LearnProductData, ProductData } from 'types/products'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import {
@@ -10,7 +10,7 @@ import { filterCollections } from './helpers'
 
 export interface ProductTutorialsPageProps {
   collections: ClientCollection[]
-  product: ProductData
+  product: LearnProductData
 }
 
 /**
@@ -29,17 +29,33 @@ export async function getProductTutorialsPageProps(
   const productSlug = productData.slug
   const product = await getProduct(productSlug)
   const allProductCollections = await getAllCollections({
-    product: productSlug as ProductOption,
+    product: ProductOption[productSlug],
   })
   const filteredCollections = filterCollections(
     allProductCollections,
     productSlug
   )
 
+  /**
+   * Destructuring the Learn data for now so it can be treated as the source of
+   * truth in this view.
+   *
+   * @TODO Determine which should be the source of truth in the long term since
+   * both Learn and existing Docs properties are both needed to be returned from
+   * here.
+   */
+  const { description, docsUrl, id, name, slug } = product
   return {
     props: stripUndefinedProperties({
       collections: filteredCollections,
-      product: { ...product, ...productData },
+      product: {
+        ...productData,
+        description,
+        docsUrl,
+        id,
+        name,
+        slug,
+      },
     }),
   }
 }
