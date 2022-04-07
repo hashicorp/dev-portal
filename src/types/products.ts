@@ -38,7 +38,7 @@ type LearnProductName = Exclude<
  * interface almost the same as `ProductData`, just with a limited set of
  * options for `slug`.
  */
-interface LearnProductData extends ProductData, LearnProduct {
+interface LearnProductData extends ProductData {
   name: LearnProductName
   slug: LearnProduct['slug']
 }

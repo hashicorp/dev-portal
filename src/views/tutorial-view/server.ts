@@ -1,4 +1,4 @@
-import { ProductData } from 'types/products'
+import { LearnProductData } from 'types/products'
 import {
   getAllCollections,
   getNextCollectionInSidebar,
@@ -20,7 +20,7 @@ import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 
 export interface TutorialPageProps {
   tutorial: TutorialData
-  product: ProductData
+  product: LearnProductData
   layoutProps: TutorialSidebarSidecarProps
   nextCollection?: ClientCollectionLite | null // if null, it is the last collection in the sidebar order
 }
@@ -34,7 +34,7 @@ export interface TutorialPageProps {
  * which is needed for other areas of the app to function.
  */
 export async function getTutorialPageProps(
-  product: ProductData,
+  product: LearnProductData,
   slug: [string, string]
 ): Promise<{ props: TutorialPageProps }> {
   const { collection, tutorialReference } = await getCurrentCollectionTutorial(
