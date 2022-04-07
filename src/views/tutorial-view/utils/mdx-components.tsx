@@ -2,7 +2,7 @@ import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import Tabs, { Tab } from 'components/tabs' // @TODO note that this doesn't support groups yet
 import ImageConfig from 'components/image-config'
 import Image from 'components/image'
-import InteractiveLabCallout from 'components/lab-callout'
+import InteractiveLabCallout from 'components/interactive-lab-callout'
 import VideoEmbed from 'components/video-embed'
 
 /**
