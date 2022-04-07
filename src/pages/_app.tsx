@@ -5,7 +5,11 @@ import '@hashicorp/platform-util/nprogress/style.css'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
-import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
+import {
+  AllProductDataProvider,
+  CurrentProductProvider,
+  DeviceSizeProvider,
+} from 'contexts'
 import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
@@ -45,14 +49,16 @@ export default function App({ Component, pageProps, layoutProps }) {
     <SSRProvider>
       <ErrorBoundary FallbackComponent={Error}>
         <DeviceSizeProvider>
-          <CurrentProductProvider currentProduct={currentProduct}>
-            <CodeTabsProvider>
-              <Layout {...allLayoutProps} data={allLayoutProps}>
-                <Component {...pageProps} />
-              </Layout>
-              {showProductSwitcher ? <PreviewProductSwitcher /> : null}
-            </CodeTabsProvider>
-          </CurrentProductProvider>
+          <AllProductDataProvider>
+            <CurrentProductProvider currentProduct={currentProduct}>
+              <CodeTabsProvider>
+                <Layout {...allLayoutProps} data={allLayoutProps}>
+                  <Component {...pageProps} />
+                </Layout>
+                {showProductSwitcher ? <PreviewProductSwitcher /> : null}
+              </CodeTabsProvider>
+            </CurrentProductProvider>
+          </AllProductDataProvider>
         </DeviceSizeProvider>
       </ErrorBoundary>
     </SSRProvider>
