@@ -2,10 +2,7 @@ import { LearnProductData, ProductData } from 'types/products'
 import { Product as ClientProduct } from 'lib/learn-client/types'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
-import {
-  Collection as ClientCollection,
-  ProductOption,
-} from 'lib/learn-client/types'
+import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { filterCollections } from './helpers'
 
