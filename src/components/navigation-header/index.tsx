@@ -27,6 +27,8 @@ const NavigationHeader = () => {
   const betaProductSlugs = __config.dev_dot.products_with_content_preview_branch
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentProduct = useCurrentProduct()
+  const isBetaProduct =
+    currentProduct.slug === 'waypoint' || currentProduct.slug === 'vault'
 
   const Header = ({ children }: { children: ReactNode }) => (
     <header className={s.root}>{children}</header>
@@ -86,62 +88,64 @@ const NavigationHeader = () => {
               ].toUpperCase()}-LOGO`}
             />
           </div>
-          <nav style={{ marginLeft: 114 }}>
-            <ul
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                listStyle: 'none',
-                margin: 0,
-                padding: 0,
-              }}
-            >
-              {productPageNavItems.map(
-                (navItem: {
-                  id?: string
-                  isSubmenu?: boolean
-                  label: string
-                  pathSuffix?: string
-                }) => {
-                  const { id, isSubmenu, label, pathSuffix } = navItem
-                  return (
-                    <li key={label}>
-                      {isSubmenu ? (
-                        <NavigationHeaderDropdownMenu
-                          itemGroups={[
-                            currentProduct.navigationHeaderItems[id].map(
-                              ({ icon, label, pathSuffix }) => ({
-                                icon,
-                                label,
-                                path: `/${currentProduct.slug}/${pathSuffix}`,
-                              })
-                            ),
-                          ]}
-                          label={label}
-                        />
-                      ) : (
-                        <Link href={`/${currentProduct.slug}/${pathSuffix}`}>
-                          <a
-                            className="g-focus-ring-from-box-shadow-dark"
-                            style={{
-                              borderRadius: 5,
-                              color: 'var(--token-color-palette-neutral-400)',
-                              cursor: 'pointer',
-                              padding: '8px 12px',
-                            }}
-                          >
-                            <Text asElement="span" size={200} weight="medium">
-                              {label}
-                            </Text>
-                          </a>
-                        </Link>
-                      )}
-                    </li>
-                  )
-                }
-              )}
-            </ul>
-          </nav>
+          {isBetaProduct && (
+            <nav style={{ marginLeft: 114 }}>
+              <ul
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                }}
+              >
+                {productPageNavItems.map(
+                  (navItem: {
+                    id?: string
+                    isSubmenu?: boolean
+                    label: string
+                    pathSuffix?: string
+                  }) => {
+                    const { id, isSubmenu, label, pathSuffix } = navItem
+                    return (
+                      <li key={label}>
+                        {isSubmenu ? (
+                          <NavigationHeaderDropdownMenu
+                            itemGroups={[
+                              currentProduct.navigationHeaderItems[id].map(
+                                ({ icon, label, pathSuffix }) => ({
+                                  icon,
+                                  label,
+                                  path: `/${currentProduct.slug}/${pathSuffix}`,
+                                })
+                              ),
+                            ]}
+                            label={label}
+                          />
+                        ) : (
+                          <Link href={`/${currentProduct.slug}/${pathSuffix}`}>
+                            <a
+                              className="g-focus-ring-from-box-shadow-dark"
+                              style={{
+                                borderRadius: 5,
+                                color: 'var(--token-color-palette-neutral-400)',
+                                cursor: 'pointer',
+                                padding: '8px 12px',
+                              }}
+                            >
+                              <Text asElement="span" size={200} weight="medium">
+                                {label}
+                              </Text>
+                            </a>
+                          </Link>
+                        )}
+                      </li>
+                    )
+                  }
+                )}
+              </ul>
+            </nav>
+          )}
         </div>
         <div className={s.rightSide}>
           <HeaderSearchInput theme="dark" />
