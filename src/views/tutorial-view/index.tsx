@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import Head from 'next/head'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import useCurrentPath from 'hooks/use-current-path'
 import {
@@ -12,7 +13,7 @@ import SidebarSidecarLayout, {
 import DevDotContent from 'components/dev-dot-content'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import MDX_COMPONENTS from './utils/mdx-components'
-import { formatTutorialToMenuItem } from './utils'
+import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import {
   TutorialSidebar as Sidebar,
   FeaturedInCollections,
@@ -47,7 +48,7 @@ export interface TutorialData
 }
 
 export type CollectionContext = {
-  isDefault: boolean
+  default: Pick<ClientCollection, 'slug' | 'id'>
   current: ClientCollection
   featuredIn?: CollectionCardProps[]
 }
@@ -55,12 +56,6 @@ export type CollectionContext = {
 export type TutorialSidebarSidecarProps = Required<
   Pick<SidebarSidecarLayoutProps, 'children' | 'headings' | 'breadcrumbLinks'>
 >
-
-/**
- *
- * Outstanding @TODOs
- * - add canonical url if this is the default collection
- */
 
 export default function TutorialView({
   layout,
@@ -86,52 +81,62 @@ export default function TutorialView({
     currentTutorialSlug: slug,
     nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
+  const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
 
   return (
-    <InteractiveLabWrapper
-      key={slug}
-      {...(isInteractive && { labId: handsOnLab.id })}
-    >
-      <SidebarSidecarLayout
-        breadcrumbLinks={layout.breadcrumbLinks}
-        sidebarSlot={
-          <Sidebar
-            title={collectionCtx.current.shortName}
-            menuItems={collectionCtx.current.tutorials.map((t) =>
-              formatTutorialToMenuItem(
-                t,
-                collectionCtx.current.slug,
-                currentPath
-              )
-            )}
-          />
-        }
-        headings={layout.headings}
+    <>
+      <Head>
+        <title>{name}</title>
+        <link rel="canonical" href={canonicalUrl.toString()} />
+      </Head>
+      <InteractiveLabWrapper
+        key={slug}
+        {...(isInteractive && { labId: handsOnLab.id })}
       >
-        <TutorialMeta
-          heading={{ slug: layout.headings[0].slug, text: name }}
-          meta={{
-            readTime,
-            edition,
-            productsUsed,
-            isInteractive,
-            hasVideo,
-          }}
-        />
-        {hasVideo && video.id && !video.videoInline && (
-          <VideoEmbed
-            url={getVideoUrl({ videoId: video.id, videoHost: video.videoHost })}
+        <SidebarSidecarLayout
+          breadcrumbLinks={layout.breadcrumbLinks}
+          sidebarSlot={
+            <Sidebar
+              title={collectionCtx.current.shortName}
+              menuItems={collectionCtx.current.tutorials.map((t) =>
+                formatTutorialToMenuItem(
+                  t,
+                  collectionCtx.current.slug,
+                  currentPath
+                )
+              )}
+            />
+          }
+          headings={layout.headings}
+        >
+          <TutorialMeta
+            heading={{ slug: layout.headings[0].slug, text: name }}
+            meta={{
+              readTime,
+              edition,
+              productsUsed,
+              isInteractive,
+              hasVideo,
+            }}
           />
-        )}
-        <DevDotContent>
-          <MDXRemote {...content} components={MDX_COMPONENTS} />
-        </DevDotContent>
-        <NextPrevious {...nextPreviousData} />
-        <FeaturedInCollections
-          className={s.featuredInCollections}
-          collections={collectionCtx.featuredIn}
-        />
-      </SidebarSidecarLayout>
-    </InteractiveLabWrapper>
+          {hasVideo && video.id && !video.videoInline && (
+            <VideoEmbed
+              url={getVideoUrl({
+                videoId: video.id,
+                videoHost: video.videoHost,
+              })}
+            />
+          )}
+          <DevDotContent>
+            <MDXRemote {...content} components={MDX_COMPONENTS} />
+          </DevDotContent>
+          <NextPrevious {...nextPreviousData} />
+          <FeaturedInCollections
+            className={s.featuredInCollections}
+            collections={collectionCtx.featuredIn}
+          />
+        </SidebarSidecarLayout>
+      </InteractiveLabWrapper>
+    </>
   )
 }

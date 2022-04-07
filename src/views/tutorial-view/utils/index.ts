@@ -19,3 +19,11 @@ export function formatTutorialToMenuItem(
     isActive: path === currentPath,
   }
 }
+
+export function generateCanonicalUrl(
+  defaultCollectionSlug: string,
+  tutorialSlug: string
+): URL {
+  const path = getTutorialSlug(tutorialSlug, defaultCollectionSlug)
+  return new URL(path, __config.dev_dot.canonical_base_url)
+}

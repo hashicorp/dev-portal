@@ -4,6 +4,7 @@
     "revalidate": 360
   },
   "dev_dot": {
+    "canonical_base_url": "https://developer.hashi-mktg.com",
     "max_static_paths": 0,
     "revalidate": 360,
     "content_preview_branch": "dev-portal",
