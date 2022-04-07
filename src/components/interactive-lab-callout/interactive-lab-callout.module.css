@@ -2,7 +2,7 @@
   align-items: center;
   background-color: var(--token-color-foreground-strong);
 
-  @media (--medium-up) {
+  @media (--dev-dot-tablet-up) {
     display: flex;
     gap: 32px;
   }
@@ -38,7 +38,7 @@
 .image {
   display: none;
 
-  @media (--medium-up) {
+  @media (--dev-dot-tablet-up) {
     display: block;
     position: relative;
     flex-shrink: 0;
