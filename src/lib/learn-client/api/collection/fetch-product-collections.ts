@@ -17,8 +17,9 @@ export const PRODUCT_COLLECTION_API_ROUTE = (
  * one tutorial whose primary product (first in frontmatter array)
  * matches this product slug
  *
- * Optional query params will return collections filtered by
- * theme or sorted according to the category sidebar sort
+ * Optional query params will return collections 
+ * sorted according to the category sidebar sort (which automatically
+ * includes filtering for theme
  */
 export async function fetchAllCollectionsByProduct(
   product: AllCollectionsProductOptions
