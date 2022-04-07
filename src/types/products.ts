@@ -1,5 +1,4 @@
 import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
-import { NavigationHeaderItem } from 'components/navigation-header/types'
 import { MenuItem } from 'components/sidebar'
 
 type ProductName =
@@ -26,7 +25,9 @@ interface Product extends ProductMeta {
 
 interface ProductData extends Product {
   basePaths: string[]
-  navigationHeaderItems: NavigationHeaderItem[]
+  navigationHeaderItems: {
+    [key: string]: { icon: string; pathSuffix: string; label: string }
+  }
   sidebar: {
     landingPageNavData: MenuItem[]
     resourcesNavData: MenuItem[]

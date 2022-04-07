@@ -84,26 +84,5 @@
       }
     ]
   },
-  "navigationHeaderItems": [
-    {
-      "label": "Overview",
-      "path": "/packer",
-      "id": "overview"
-    },
-    {
-      "label": "Docs",
-      "id": "docs",
-      "path": "/packer/docs"
-    },
-    {
-      "label": "Plugins",
-      "path": "/packer/plugins",
-      "id": "plugins"
-    },
-    {
-      "label": "Install",
-      "path": "/packer/downloads",
-      "id": "downloads"
-    }
-  ]
+  "navigationHeaderItems": {}
 }

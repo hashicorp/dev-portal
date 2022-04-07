@@ -75,26 +75,5 @@
       }
     ]
   },
-  "navigationHeaderItems": [
-    {
-      "label": "Overview",
-      "path": "/vagrant",
-      "id": "overview"
-    },
-    {
-      "label": "Intro",
-      "path": "/vagrant/intro",
-      "id": "intro"
-    },
-    {
-      "label": "Docs",
-      "path": "/vagrant/docs",
-      "id": "docs"
-    },
-    {
-      "label": "Install",
-      "path": "/vagrant/downloads",
-      "id": "downloads"
-    }
-  ]
+  "navigationHeaderItems": {}
 }

@@ -177,26 +177,23 @@
       }
     ]
   },
-  "navigationHeaderItems": [
-    {
-      "label": "Overview",
-      "path": "/vault",
-      "id": "overview"
-    },
-    {
-      "label": "Docs",
-      "id": "reference-docs",
-      "path": "/vault/docs"
-    },
-    {
-      "label": "API",
-      "path": "/vault/api-docs",
-      "id": "api-docs"
-    },
-    {
-      "label": "Install",
-      "path": "/vault/downloads",
-      "id": "downloads"
-    }
-  ]
+  "navigationHeaderItems": {
+    "documentation": [
+      {
+        "label": "General Documentation",
+        "icon": "docs",
+        "pathSuffix": "docs"
+      },
+      {
+        "label": "CLI",
+        "icon": "terminalScreen",
+        "pathSuffix": "docs/commands"
+      },
+      {
+        "label": "Plugins",
+        "icon": "tools",
+        "pathSuffix": "plugins"
+      }
+    ]
+  }
 }
