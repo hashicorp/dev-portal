@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import Link from 'next/Link'
+import Link from 'next/link'
 import { productSlugsToNames } from '../../../config/products'
 import { ProductSlug } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
