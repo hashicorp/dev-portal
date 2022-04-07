@@ -15,6 +15,7 @@
   font-size: var(--font-size);
   justify-content: center;
   line-height: var(--line-height);
+  min-height: var(--min-height);
   padding: var(--padding-top-bottom) var(--padding-left-right);
   position: relative;
 
@@ -82,7 +83,8 @@
   --padding-top-bottom: calc(6px - var(--border-width));
   --padding-left-right: calc(12px - var(--border-width));
   --font-size: 0.8125rem;
-  --line-height: 1;
+  --line-height: 0.875rem;
+  --min-height: 1.75rem;
 }
 
 .medium {
@@ -90,6 +92,7 @@
   --padding-left-right: calc(16px - var(--border-width));
   --font-size: 0.875rem;
   --line-height: 1rem;
+  --min-height: 2.25rem;
 }
 
 .large {
@@ -97,6 +100,7 @@
   --padding-left-right: calc(20px - var(--border-width));
   --font-size: 1rem;
   --line-height: 1.5rem;
+  --min-height: 3rem;
 }
 
 /*
