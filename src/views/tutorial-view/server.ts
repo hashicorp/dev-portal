@@ -25,6 +25,14 @@ export interface TutorialPageProps {
   nextCollection?: ClientCollectionLite | null // if null, it is the last collection in the sidebar order
 }
 
+/**
+ * Given a ProductData object (imported from src/data JSON files) and a tutorial
+ * slug, fetches and returns the page props for
+ * `/{productSlug}/tutorials/{collectionSlug}/{tutorialSlug}` pages.
+ *
+ * Returns the given ProductData object unmodified as the `product` page prop,
+ * which is needed for other areas of the app to function.
+ */
 export async function getTutorialPageProps(
   product: ProductData,
   slug: [string, string]
