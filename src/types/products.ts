@@ -16,9 +16,6 @@ type ProductName =
 
 type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 
-/**
- * TODO: put basePaths in a separate interface that extends the Product one?
- */
 interface Product extends ProductMeta {
   name: ProductName
   slug: ProductSlug
