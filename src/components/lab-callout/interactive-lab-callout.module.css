@@ -19,21 +19,6 @@
 
 .description {
   composes: hds-typography-body-100 from global;
-
-  /* TODO: surface with design team issue on line-height value rounding.
-  body-100 font-size is 0.8125 rem, exactly 13px. great!
-  body-100 line-height is 1.3846.. comes out as 17.998 px. In safari at least,
-  this somehow causes a 2px diff in the size of the text element.
-  By changing to rem for line height, we might be able to avoid this?
-  It seems like this might be fine - line-height is relative to font-size,
-  which is defined in rem... so it seems safe to define line-height in
-  rem directly, rather than indirectly via font-size.
-  (It also seems this will most often result in round numbers for the default
-  16px body size... 16px divides nicely!)
-  Though I'm sure there are other implications...
-  So perhaps will drop this and give a sad shrug at the jank, it may
-  be worth some compromise decided on the design-systems team side. */
-  line-height: 1.125rem;
   color: var(--token-color-surface-faint);
   margin: 4px 0 0 0 !important;
   max-width: 45em;
