@@ -27,8 +27,6 @@ const NavigationHeader = () => {
   const betaProductSlugs = __config.dev_dot.products_with_content_preview_branch
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentProduct = useCurrentProduct()
-  const isBetaProduct =
-    currentProduct.slug === 'waypoint' || currentProduct.slug === 'vault'
 
   const Header = ({ children }: { children: ReactNode }) => (
     <header className={s.root}>{children}</header>
@@ -75,6 +73,8 @@ const NavigationHeader = () => {
       </Header>
     )
   } else {
+    const isBetaProduct =
+      currentProduct.slug === 'waypoint' || currentProduct.slug === 'vault'
     return (
       <Header>
         <div className={s.leftSide}>
