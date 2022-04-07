@@ -1,12 +1,12 @@
+import waypointData from 'data/waypoint.json'
+import { ProductData } from 'types/products'
 import { ProductOption } from 'lib/learn-client/types'
 import CollectionView from 'views/collection-view'
 import {
   getCollectionPageProps,
   getCollectionPaths,
-  CollectionPageProduct,
   CollectionPageProps,
 } from 'views/collection-view/server'
-import waypointData from 'data/waypoint.json'
 import BaseLayout from 'layouts/base-new'
 
 export function WaypointCollectionPage(
@@ -19,12 +19,8 @@ export async function getStaticProps({
   params,
 }): Promise<{ props: CollectionPageProps }> {
   const { collectionSlug } = params
-  const product = {
-    slug: waypointData.slug,
-    name: waypointData.name,
-  } as CollectionPageProduct
-  const props = await getCollectionPageProps(product, collectionSlug)
-  return props
+  const product = waypointData as ProductData
+  return await getCollectionPageProps(product, collectionSlug)
 }
 
 interface CollectionPagePaths {
