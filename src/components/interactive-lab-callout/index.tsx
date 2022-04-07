@@ -12,7 +12,7 @@ export default function InteractiveLabCallout() {
   }
 
   return (
-    <Card className={s.interactiveCallout} elevation="low">
+    <Card className={s.interactiveCallout} elevation="base">
       <div>
         <p className={s.title}>Launch Terminal</p>
         <p className={s.description}>
