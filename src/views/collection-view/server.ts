@@ -24,7 +24,7 @@ export interface CollectionPagePath {
 
 /**
  * Given a ProductData object (imported from src/data JSON files) and a
- * Collection slug, , fetches and returns the page props for
+ * Collection slug, fetches and returns the page props for
  * `/{productSlug}/tutorials/{collectionSlug}` pages.
  *
  * Returns the given ProductData object unmodified as the `product` page prop,
