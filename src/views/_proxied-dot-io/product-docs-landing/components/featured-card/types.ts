@@ -2,7 +2,7 @@ import { Products } from '@hashicorp/platform-product-meta'
 
 export interface FeaturedCardProps {
   heading: string
-  image: {
+  image?: {
     src: string
     alt: string
   }

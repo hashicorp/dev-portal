@@ -3,13 +3,11 @@ import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/consul.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
-import ProductDocsLanding, {
-  ProductDocsLandingProps,
-} from 'views/_proxied-dot-io/product-docs-landing'
+import ProductDocsLanding from 'views/_proxied-dot-io/product-docs-landing'
+// Note: content is imported directly. Could be moved to getStaticProps.
+// ref: https://github.com/hashicorp/dev-portal/commit/cee04fb08dda81e95ebcf9e6ff08b6245872589b
+import PAGE_CONTENT from './content.json'
 // Imports below are used in getStatic functions only
-import fs from 'fs'
-import path from 'path'
-import { appendStaticProps } from 'views/_proxied-dot-io/product-docs-landing/server'
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticProps } from 'next'
 
@@ -35,10 +33,7 @@ function ConsulDocsLandingPage({
   navData,
   githubFileUrl,
   versions,
-  landingPageContent,
-}: DocsPageProps['staticProps'] & {
-  landingPageContent: ProductDocsLandingProps['content']
-}): ReactElement {
+}: DocsPageProps['staticProps']): ReactElement {
   return (
     <DocsPageInner
       canonicalUrl={frontMatter.canonical_url}
@@ -54,10 +49,7 @@ function ConsulDocsLandingPage({
       versions={versions}
       algoliaConfig={productData.algoliaConfig}
     >
-      <ProductDocsLanding
-        content={landingPageContent}
-        themeSlug={productData.slug}
-      />
+      <ProductDocsLanding content={PAGE_CONTENT} themeSlug={productData.slug} />
     </DocsPageInner>
   )
 }
@@ -84,23 +76,9 @@ const { getStaticProps: generatedGetStaticProps } =
 const getStaticProps: GetStaticProps = async (context) => {
   // Our generatedGetStaticProps expects params, so we gotta pass em,
   // even though in this context we're not getting them from NextJS
-  const staticPropsResult = await generatedGetStaticProps({
+  return await generatedGetStaticProps({
     ...context,
     params: { page: [] },
-  })
-  // Read in our content
-  const landingPageContent = JSON.parse(
-    fs.readFileSync(
-      path.join(
-        process.cwd(),
-        'src/pages/_proxied-dot-io/consul/docs/content.json'
-      ),
-      'utf8'
-    )
-  )
-  // Tack on a "landingPageContent" prop to the getStaticProps result
-  return appendStaticProps(staticPropsResult, {
-    landingPageContent,
   })
 }
 export { getStaticProps }
