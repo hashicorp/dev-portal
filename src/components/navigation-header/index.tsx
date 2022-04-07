@@ -1,17 +1,26 @@
 import { ReactNode } from 'react'
+import Link from 'next/Link'
 import { productSlugsToNames } from '../../../config/products'
 import { ProductSlug } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import HeaderSearchInput from 'components/header-search-input'
+import Text from 'components/text'
 import { NavigationHeaderItem } from './types'
-import s from './navigation-header.module.css'
 import { NavigationHeaderDropdownMenu } from './components'
+import s from './navigation-header.module.css'
 
 const homePageNavItems = [
-  { label: 'Documentation', path: 'docs' },
-  { label: 'Tutorials', path: 'tutorials' },
-  { label: 'Install', path: 'downloads' },
+  { label: 'Documentation', pathSuffix: 'docs' },
+  { label: 'Tutorials', pathSuffix: 'tutorials' },
+  { label: 'Install', pathSuffix: 'downloads' },
+]
+
+const productPageNavItems = [
+  { label: 'Home', pathSuffix: '' },
+  { label: 'Documentation', id: 'documentation', isSubmenu: true },
+  { label: 'Tutorials', pathSuffix: 'tutorials' },
+  { label: 'Install', pathSuffix: 'downloads' },
 ]
 
 const NavigationHeader = () => {
@@ -31,22 +40,22 @@ const NavigationHeader = () => {
           <img
             alt=""
             className={s.logo}
-            src="https://via.placeholder.com/232x32?text=LOGO"
+            src="https://via.placeholder.com/232x32?text=SITE-LOGO"
           />
           <nav className={s.nav}>
             <ul className={s.navList}>
               {homePageNavItems.map(
-                (navItem: { label: string; path: string }) => {
-                  const { label, path } = navItem
+                (navItem: { label: string; pathSuffix: string }) => {
+                  const { label, pathSuffix } = navItem
                   const menuItems = betaProductSlugs.map(
                     (slug: ProductSlug) => ({
                       icon: slug,
                       label: productSlugsToNames[slug],
-                      path: `/${slug}/${path}`,
+                      path: `/${slug}/${pathSuffix}`,
                     })
                   )
                   return (
-                    <li key={path}>
+                    <li key={pathSuffix}>
                       <NavigationHeaderDropdownMenu
                         itemGroups={[menuItems]}
                         label={label}
@@ -66,9 +75,77 @@ const NavigationHeader = () => {
   } else {
     return (
       <Header>
-        <div
-          style={{ color: 'white', padding: 24 }}
-        >{`WIP: ${currentProduct.name} Header`}</div>
+        <div className={s.leftSide}>
+          <button style={{ marginRight: 24 }}>TODO: H menu</button>
+          <div style={{ maxWidth: 142 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt=""
+              src={`https://via.placeholder.com/142x40?text=${productSlugsToNames[
+                currentProduct.slug
+              ].toUpperCase()}-LOGO`}
+            />
+          </div>
+          <nav style={{ marginLeft: 114 }}>
+            <ul
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                listStyle: 'none',
+                margin: 0,
+                padding: 0,
+              }}
+            >
+              {productPageNavItems.map(
+                (navItem: {
+                  id?: string
+                  isSubmenu?: boolean
+                  label: string
+                  pathSuffix?: string
+                }) => {
+                  const { id, isSubmenu, label, pathSuffix } = navItem
+                  return (
+                    <li key={label}>
+                      {isSubmenu ? (
+                        <NavigationHeaderDropdownMenu
+                          itemGroups={[
+                            currentProduct.navigationHeaderItems[id].map(
+                              ({ icon, label, pathSuffix }) => ({
+                                icon,
+                                label,
+                                path: `/${currentProduct.slug}/${pathSuffix}`,
+                              })
+                            ),
+                          ]}
+                          label={label}
+                        />
+                      ) : (
+                        <Link href={`/${currentProduct.slug}/${pathSuffix}`}>
+                          <a
+                            className="g-focus-ring-from-box-shadow-dark"
+                            style={{
+                              borderRadius: 5,
+                              color: 'var(--token-color-palette-neutral-400)',
+                              cursor: 'pointer',
+                              padding: '8px 12px',
+                            }}
+                          >
+                            <Text asElement="span" size={200} weight="medium">
+                              {label}
+                            </Text>
+                          </a>
+                        </Link>
+                      )}
+                    </li>
+                  )
+                }
+              )}
+            </ul>
+          </nav>
+        </div>
+        <div className={s.rightSide}>
+          <HeaderSearchInput theme="dark" />
+        </div>
       </Header>
     )
   }
