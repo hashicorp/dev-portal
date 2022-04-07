@@ -1,5 +1,6 @@
 import { GetStaticPathsResult } from 'next'
 import waypointData from 'data/waypoint.json'
+import { ProductData } from 'types/products'
 import { ProductOption } from 'lib/learn-client/types'
 import TutorialView from 'views/tutorial-view'
 import {
@@ -7,7 +8,6 @@ import {
   getTutorialPageProps,
   TutorialPageProps,
   TutorialPagePaths,
-  TutorialPageProduct,
 } from 'views/tutorial-view/server'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
@@ -21,12 +21,8 @@ export function WaypointTutorialPage({
 export async function getStaticProps({
   params,
 }): Promise<{ props: TutorialPageProps }> {
-  const product = {
-    slug: waypointData.slug,
-    name: waypointData.name,
-  } as TutorialPageProduct
-  const props = await getTutorialPageProps(product, params.tutorialSlug)
-  return props
+  const product = waypointData as ProductData
+  return await getTutorialPageProps(product, params.tutorialSlug)
 }
 
 export async function getStaticPaths(): Promise<
