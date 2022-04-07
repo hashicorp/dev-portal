@@ -14,6 +14,11 @@
   composes: hds-typography-body-200 from global;
   color: var(--token-color-surface-primary);
   font-weight: var(--token-typography-font-weight-semibold);
+
+  /**
+   * Note: !important needed, as generic <h2> styles leak from DevDotContent.
+   * Task to fix:https://app.asana.com/0/1201987349274776/1201653123138729/f
+   */
   margin: 0 !important;
 }
 
@@ -30,12 +35,17 @@
    */
   line-height: 1.125rem;
   color: var(--token-color-surface-faint);
+
+  /**
+   * Note: !important needed, as generic <p> styles leak from DevDotContent.
+   * Task to fix:https://app.asana.com/0/1201987349274776/1201653123138729/f
+   */
   margin: 4px 0 0 0 !important;
   max-width: 45em;
 }
 
 .ctaButton {
-  margin: 12px 0 0 0 !important;
+  margin-top: 12px;
 }
 
 .image {
