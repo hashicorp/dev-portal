@@ -24,7 +24,7 @@
     "typecheck": "tsc -p ."
   },
   "simple-git-hooks": {
-    "pre-commit": "npx next-hashicorp precommit"
+    "pre-commit": "npx next-hashicorp precommit && npm run typecheck"
   },
   "lint-staged": {
     "*.+(js|jsx|ts|tsx)": [
