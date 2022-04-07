@@ -1,73 +1,42 @@
-.navigationHeader {
+/*
+***
+* Class for the main container.
+***
+* Notes:
+*   - `height` does not need to be set here because it is based on the height of
+*     the `NavigationHeaderDropdownMenu` buttons, which respect dynamic
+*     `font-size` units.
+***
+*/
+.root {
   background-color: var(--token-color-palette-neutral-700);
-  color: var(--token-color-palette-neutral-0);
-  height: var(--navigation-header-height);
-  padding: 20px 24px;
-
-  & nav {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
+  display: flex;
+  justify-content: space-between;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
 }
 
-.headerLeft,
-.headerRight {
+.leftSide {
   align-items: center;
   display: flex;
+  justify-content: left;
 }
 
-.siteLogo {
+.rightSide {
+  align-items: center;
   display: flex;
-  margin-right: 12px;
-
-  & svg {
-    height: 40px;
-    width: 40px;
-  }
+  justify-content: right;
 }
 
-.navLinks {
+.nav {
+  margin-left: 100px;
+}
+
+.navList {
   align-items: center;
   display: flex;
   list-style: none;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 72px;
-  margin-top: 0;
-}
-
-.navLinksListItem {
-  padding: 4px;
-}
-
-/* TODO: use `calc` and variables so it's clearer why we're using odd padding values */
-.navLinksAnchor {
-  composes: g-focus-border-and-box-shadow-dark from global;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  color: var(--token-color-palette-neutral-400);
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  padding: 3px 8px;
-
-  /* Only enable animation if query is supported and value is no-preference */
-  @media (prefers-reduced-motion: no-preference) {
-    transition: color 0.1s;
-  }
-
-  &:hover {
-    color: var(--token-color-palette-neutral-300);
-  }
-
-  /* TODO: replace colors w/ tokens when available */
-  &:focus {
-    color: var(--token-color-palette-neutral-300);
-  }
-
-  &[aria-current='page'] {
-    color: var(--token-color-palette-neutral-100);
-  }
+  margin: 0;
+  padding: 0;
 }

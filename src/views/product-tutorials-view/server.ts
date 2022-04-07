@@ -1,36 +1,61 @@
+import { LearnProductData, ProductData } from 'types/products'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import {
   Collection as ClientCollection,
   ProductOption,
-  Product as ClientProduct,
 } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { filterCollections } from './helpers'
 
 export interface ProductTutorialsPageProps {
   collections: ClientCollection[]
-  product: ClientProduct
+  product: LearnProductData
 }
 
-/** @TODO add sidebar sort capability */
-
+/**
+ * Given a ProductData object (imported from src/data JSON files), fetches and
+ * returns the page props for `/{product}/tutorials` pages.
+ *
+ * Merges the product object fetched from `/products/:identifier` with the given
+ * ProductData object and returns the merged object under the `product` page
+ * prop, which is needed for other areas of the app to function.
+ *
+ * @TODO add sidebar sort capability
+ */
 export async function getProductTutorialsPageProps(
-  productSlug: ProductOption
+  productData: ProductData
 ): Promise<{ props: ProductTutorialsPageProps }> {
+  const productSlug = productData.slug
   const product = await getProduct(productSlug)
   const allProductCollections = await getAllCollections({
-    product: productSlug,
+    product: ProductOption[productSlug],
   })
   const filteredCollections = filterCollections(
     allProductCollections,
     productSlug
   )
 
+  /**
+   * Destructuring the Learn data for now so it can be treated as the source of
+   * truth in this view.
+   *
+   * @TODO Determine which should be the source of truth in the long term since
+   * both Learn and existing Docs properties are both needed to be returned from
+   * here.
+   */
+  const { description, docsUrl, id, name, slug } = product
   return {
     props: stripUndefinedProperties({
       collections: filteredCollections,
-      product,
+      product: {
+        ...productData,
+        description,
+        docsUrl,
+        id,
+        name,
+        slug,
+      },
     }),
   }
 }

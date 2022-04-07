@@ -28,13 +28,13 @@ function DevPopover({
   const triggerRef = useRef(null)
   return (
     <div className={classNames(s.root, containerClassName)}>
-      {children}
       <button
         className={classNames(s.button, buttonClassName)}
         ref={triggerRef}
         onClick={() => setShowDialog(!showDialog)}
       >
         <VisuallyHidden>{title}</VisuallyHidden>
+        {children}
       </button>
       <Popover
         themeBackground="#F7D5FF"

@@ -12,7 +12,7 @@ import deriveKeyEventState from 'lib/derive-key-event-state'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import {
-  NewNavigationHeaderItem as NavigationHeaderItem,
+  NavigationHeaderItem,
   NavigationHeaderDropdownMenuProps,
   SupportedIcon,
 } from 'components/navigation-header/types'

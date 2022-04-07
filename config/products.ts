@@ -44,4 +44,4 @@ const products: ProductGroup[] = productSwitcherSlugs.map(
   }
 )
 
-export { products }
+export { products, productSlugsToNames }

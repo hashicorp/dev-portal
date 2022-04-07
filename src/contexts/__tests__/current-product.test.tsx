@@ -18,7 +18,7 @@ const setup = (currentProduct: Product) => {
       currentProduct={{
         ...currentProduct,
         basePaths: [],
-        navigationHeaderItems: [],
+        navigationHeaderItems: {},
         sidebar: {
           landingPageNavData: [],
           resourcesNavData: [],

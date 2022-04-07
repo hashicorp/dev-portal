@@ -1,6 +1,7 @@
 import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
-import { NavigationHeaderItem } from 'components/navigation-header/types'
+import { Product as LearnProduct } from 'lib/learn-client/types'
 import { MenuItem } from 'components/sidebar'
+import { NavigationHeaderItem } from 'components/navigation-header'
 
 type ProductName =
   | 'Boundary'
@@ -16,17 +17,41 @@ type ProductName =
 
 type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 
-/**
- * TODO: put basePaths in a separate interface that extends the Product one?
- */
 interface Product extends ProductMeta {
   name: ProductName
   slug: ProductSlug
 }
 
+/**
+ * This is needed so that `LearnProductData` can extend both `ProductData` and
+ * `LearnProduct`. Otherwise, we get the following error:
+ *
+ * "Types of property 'name' are incompatible"
+ */
+type LearnProductName = Exclude<
+  ProductName,
+  'HashiCorp Cloud Platform' | 'Sentinel'
+>
+
+/**
+ * Learn does not support all of the products in `ProductSlug`, so this is the
+ * interface almost the same as `ProductData`, just with a limited set of
+ * options for `slug`.
+ */
+interface LearnProductData extends ProductData, LearnProduct {
+  name: LearnProductName
+  slug: LearnProduct['slug']
+}
+
 interface ProductData extends Product {
   basePaths: string[]
-  navigationHeaderItems: NavigationHeaderItem[]
+  navigationHeaderItems: {
+    [key: string]: {
+      icon: NavigationHeaderItem['icon']
+      pathSuffix: string
+      label: NavigationHeaderItem['label']
+    }[]
+  }
   sidebar: {
     landingPageNavData: MenuItem[]
     resourcesNavData: MenuItem[]
@@ -35,4 +60,11 @@ interface ProductData extends Product {
 
 type ProductGroup = Product[]
 
-export type { Product, ProductData, ProductGroup, ProductName, ProductSlug }
+export type {
+  LearnProductData,
+  Product,
+  ProductData,
+  ProductGroup,
+  ProductName,
+  ProductSlug,
+}

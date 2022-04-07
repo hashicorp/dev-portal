@@ -1,3 +1,4 @@
+import { ProductData } from 'types/products'
 import {
   Collection as ClientCollection,
   ProductOption,
@@ -7,13 +8,12 @@ import {
   getCollection,
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import { TutorialPageProduct } from 'views/tutorial-view/server'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 
 export interface CollectionPageProps {
   collection: ClientCollection
   allProductCollections: ClientCollection[]
-  product: CollectionPageProduct
+  product: ProductData
 }
 
 export interface CollectionPagePath {
@@ -22,16 +22,22 @@ export interface CollectionPagePath {
   }
 }
 
-export type CollectionPageProduct = TutorialPageProduct
-
+/**
+ * Given a ProductData object (imported from src/data JSON files) and a
+ * Collection slug, fetches and returns the page props for
+ * `/{productSlug}/tutorials/{collectionSlug}` pages.
+ *
+ * Returns the given ProductData object unmodified as the `product` page prop,
+ * which is needed for other areas of the app to function.
+ */
 export async function getCollectionPageProps(
-  product: CollectionPageProduct,
+  product: ProductData,
   slug: string
 ): Promise<{ props: CollectionPageProps }> {
   const collection = await getCollection(`${product.slug}/${slug}`)
   // For sidebar data
   const allProductCollections = await getAllCollections({
-    product: product.slug,
+    product: ProductOption[product.slug],
   })
 
   return {

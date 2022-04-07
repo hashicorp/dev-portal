@@ -69,26 +69,5 @@
       }
     ]
   },
-  "navigationHeaderItems": [
-    {
-      "label": "Overview",
-      "path": "/sentinel",
-      "id": "overview"
-    },
-    {
-      "label": "Intro",
-      "path": "/sentinel/intro",
-      "id": "intro"
-    },
-    {
-      "label": "Docs",
-      "path": "/sentinel/docs",
-      "id": "docs"
-    },
-    {
-      "label": "Install",
-      "path": "/sentinel/downloads",
-      "id": "downloads"
-    }
-  ]
+  "navigationHeaderItems": {}
 }

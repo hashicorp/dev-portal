@@ -87,26 +87,5 @@
       }
     ]
   },
-  "navigationHeaderItems": [
-    {
-      "label": "Overview",
-      "path": "/boundary",
-      "id": "overview"
-    },
-    {
-      "label": "Docs",
-      "path": "/boundary/docs",
-      "id": "docs"
-    },
-    {
-      "label": "API",
-      "path": "/boundary/api-docs",
-      "id": "api-docs"
-    },
-    {
-      "label": "Install",
-      "path": "/boundary/downloads",
-      "id": "downloads"
-    }
-  ]
+  "navigationHeaderItems": {}
 }

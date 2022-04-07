@@ -88,31 +88,23 @@
       }
     ]
   },
-  "navigationHeaderItems": [
-    {
-      "id": "overview",
-      "label": "Overview",
-      "path": "/waypoint"
-    },
-    {
-      "id": "reference-docs",
-      "label": "Docs",
-      "path": "/waypoint/docs"
-    },
-    {
-      "id": "cli",
-      "label": "CLI",
-      "path": "/waypoint/commands"
-    },
-    {
-      "id": "plugins",
-      "label": "Plugins",
-      "path": "/waypoint/plugins"
-    },
-    {
-      "id": "downloads",
-      "label": "Install",
-      "path": "/waypoint/downloads"
-    }
-  ]
+  "navigationHeaderItems": {
+    "documentation": [
+      {
+        "label": "General Documentation",
+        "icon": "docs",
+        "pathSuffix": "docs"
+      },
+      {
+        "label": "CLI",
+        "icon": "terminalScreen",
+        "pathSuffix": "commands"
+      },
+      {
+        "label": "Plugins",
+        "icon": "tools",
+        "pathSuffix": "plugins"
+      }
+    ]
+  }
 }

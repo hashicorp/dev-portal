@@ -1,76 +1,158 @@
+import { ReactNode } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
-import InlineSvg from '@hashicorp/react-inline-svg'
+import { productSlugsToNames } from '../../../config/products'
+import { ProductSlug } from 'types/products'
+import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import HeaderSearchInput from 'components/header-search-input'
-import ProductSwitcher from 'components/product-switcher'
+import Text from 'components/text'
 import { NavigationHeaderItem } from './types'
+import { NavigationHeaderDropdownMenu } from './components'
 import s from './navigation-header.module.css'
 
-/**
- * Checks if a header navigation link's path matches the current route's path.
- * Useful for setting the `aria-current` property on <a> elements in the nav,
- * which is used as a CSS selector for applying active styles to links in the
- * header.
- */
-const isCurrentPage = (pagePath: string, currentPath: string): boolean => {
-  const currentPathSplit = currentPath.split('/')
-  const currentProductSlug = currentPathSplit[1]
-  const currentProductSubpage = currentPathSplit[2]
+const homePageNavItems = [
+  { label: 'Documentation', pathSuffix: 'docs' },
+  { label: 'Tutorials', pathSuffix: 'tutorials' },
+  { label: 'Install', pathSuffix: 'downloads' },
+]
 
-  if (currentProductSubpage) {
-    return pagePath === `/${currentProductSlug}/${currentProductSubpage}`
-  } else if (currentProductSlug) {
-    return pagePath === `/${currentProductSlug}`
-  } else {
-    return pagePath === '/'
-  }
-}
+const productPageNavItems = [
+  { label: 'Home', pathSuffix: '' },
+  { label: 'Documentation', id: 'documentation', isSubmenu: true },
+  { label: 'Tutorials', pathSuffix: 'tutorials' },
+  { label: 'Install', pathSuffix: 'downloads' },
+]
 
 const NavigationHeader = () => {
-  const router = useRouter()
-  const currentPath = router.asPath
+  const betaProductSlugs = __config.dev_dot.products_with_content_preview_branch
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentProduct = useCurrentProduct()
-  const navItems = currentProduct?.navigationHeaderItems || []
-  const hasNavigationItems = navItems.length > 0
 
-  return (
-    <header className={s.navigationHeader}>
-      <nav>
-        <div className={s.headerLeft}>
-          <Link href="/">
-            <a>
-              <InlineSvg className={s.siteLogo} src={HashiCorpLogo} />
-            </a>
-          </Link>
-          <ProductSwitcher />
-        </div>
-        {hasNavigationItems && (
-          <div className={s.headerRight}>
-            <ul className={s.navLinks}>
-              {navItems.map((navLink: NavigationHeaderItem) => {
-                const isCurrent = isCurrentPage(navLink.path, currentPath)
-                return (
-                  <li className={s.navLinksListItem} key={navLink.id}>
-                    <Link href={navLink.path}>
-                      <a
-                        aria-current={isCurrent ? 'page' : undefined}
-                        className={s.navLinksAnchor}
-                      >
-                        {navLink.label}
-                      </a>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-            <HeaderSearchInput theme="dark" />
-          </div>
-        )}
-      </nav>
-    </header>
+  const Header = ({ children }: { children: ReactNode }) => (
+    <header className={s.root}>{children}</header>
   )
+
+  if (currentPath === '/') {
+    return (
+      <Header>
+        <div className={s.leftSide}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt=""
+            className={s.logo}
+            src="https://via.placeholder.com/232x32?text=SITE-LOGO"
+          />
+          <nav className={s.nav}>
+            <ul className={s.navList}>
+              {homePageNavItems.map(
+                (navItem: { label: string; pathSuffix: string }) => {
+                  const { label, pathSuffix } = navItem
+                  const menuItems = betaProductSlugs.map(
+                    (slug: ProductSlug) => ({
+                      icon: slug,
+                      label: productSlugsToNames[slug],
+                      path: `/${slug}/${pathSuffix}`,
+                    })
+                  )
+                  return (
+                    <li key={pathSuffix}>
+                      <NavigationHeaderDropdownMenu
+                        itemGroups={[menuItems]}
+                        label={label}
+                      />
+                    </li>
+                  )
+                }
+              )}
+            </ul>
+          </nav>
+        </div>
+        <div className={s.rightSide}>
+          <HeaderSearchInput theme="dark" />
+        </div>
+      </Header>
+    )
+  } else {
+    const isBetaProduct =
+      currentProduct.slug === 'waypoint' || currentProduct.slug === 'vault'
+    return (
+      <Header>
+        <div className={s.leftSide}>
+          <button style={{ marginRight: 24 }}>TODO: H menu</button>
+          <div style={{ maxWidth: 142 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt=""
+              src={`https://via.placeholder.com/142x40?text=${productSlugsToNames[
+                currentProduct.slug
+              ].toUpperCase()}-LOGO`}
+            />
+          </div>
+          {isBetaProduct && (
+            <nav style={{ marginLeft: 114 }}>
+              <ul
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                }}
+              >
+                {productPageNavItems.map(
+                  (navItem: {
+                    id?: string
+                    isSubmenu?: boolean
+                    label: string
+                    pathSuffix?: string
+                  }) => {
+                    const { id, isSubmenu, label, pathSuffix } = navItem
+                    return (
+                      <li key={label}>
+                        {isSubmenu ? (
+                          <NavigationHeaderDropdownMenu
+                            itemGroups={[
+                              currentProduct.navigationHeaderItems[id].map(
+                                ({ icon, label, pathSuffix }) => ({
+                                  icon,
+                                  label,
+                                  path: `/${currentProduct.slug}/${pathSuffix}`,
+                                })
+                              ),
+                            ]}
+                            label={label}
+                          />
+                        ) : (
+                          <Link href={`/${currentProduct.slug}/${pathSuffix}`}>
+                            <a
+                              className="g-focus-ring-from-box-shadow-dark"
+                              style={{
+                                borderRadius: 5,
+                                color: 'var(--token-color-palette-neutral-400)',
+                                cursor: 'pointer',
+                                padding: '8px 12px',
+                              }}
+                            >
+                              <Text asElement="span" size={200} weight="medium">
+                                {label}
+                              </Text>
+                            </a>
+                          </Link>
+                        )}
+                      </li>
+                    )
+                  }
+                )}
+              </ul>
+            </nav>
+          )}
+        </div>
+        <div className={s.rightSide}>
+          <HeaderSearchInput theme="dark" />
+        </div>
+      </Header>
+    )
+  }
 }
 
 export type { NavigationHeaderItem }

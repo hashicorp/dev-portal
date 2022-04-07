@@ -1,4 +1,5 @@
-import { ProductOption } from 'lib/learn-client/types'
+import productData from 'data/vault.json'
+import { ProductData } from 'types/products'
 import {
   getProductTutorialsPageProps,
   ProductTutorialsPageProps,
@@ -15,7 +16,7 @@ export function VaultTutorialHubPage(
 export async function getStaticProps(): Promise<{
   props: ProductTutorialsPageProps
 }> {
-  const props = await getProductTutorialsPageProps(ProductOption['vault'])
+  const props = await getProductTutorialsPageProps(productData as ProductData)
 
   return props
 }

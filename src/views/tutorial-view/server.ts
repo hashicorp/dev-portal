@@ -1,4 +1,4 @@
-import { Product as ProductContext } from 'types/products'
+import { ProductData } from 'types/products'
 import {
   getAllCollections,
   getNextCollectionInSidebar,
@@ -20,25 +20,25 @@ import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 
 export interface TutorialPageProps {
   tutorial: TutorialData
-  product: TutorialPageProduct // controls the ProductSwitcher
+  product: ProductData
   layoutProps: TutorialSidebarSidecarProps
   nextCollection?: ClientCollectionLite | null // if null, it is the last collection in the sidebar order
 }
 
 /**
- *  This slug needs to use the Learn product option enum,
- *  as the types in `ProductContext` slug aren't valid for the API req
+ * Given a ProductData object (imported from src/data JSON files) and a tutorial
+ * slug, fetches and returns the page props for
+ * `/{productSlug}/tutorials/{collectionSlug}/{tutorialSlug}` pages.
+ *
+ * Returns the given ProductData object unmodified as the `product` page prop,
+ * which is needed for other areas of the app to function.
  */
-export interface TutorialPageProduct extends Pick<ProductContext, 'name'> {
-  slug: ProductOption
-}
-
 export async function getTutorialPageProps(
-  product: TutorialPageProduct,
+  product: ProductData,
   slug: [string, string]
 ): Promise<{ props: TutorialPageProps }> {
   const { collection, tutorialReference } = await getCurrentCollectionTutorial(
-    product.slug,
+    product.slug as ProductOption,
     slug
   )
   const fullTutorialData = await getTutorial(tutorialReference.dbSlug)
@@ -72,7 +72,7 @@ export async function getTutorialPageProps(
 
   if (isLastTutorial) {
     nextCollection = await getNextCollectionInSidebar({
-      product: product.slug,
+      product: product.slug as ProductOption,
       after: collectionContext.current.slug,
     })
   }
