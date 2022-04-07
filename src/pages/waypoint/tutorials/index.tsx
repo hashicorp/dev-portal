@@ -1,5 +1,5 @@
 import productData from 'data/waypoint.json'
-import { ProductData } from 'types/products'
+import { LearnProductData } from 'types/products'
 import {
   getProductTutorialsPageProps,
   ProductTutorialsPageProps,
@@ -16,7 +16,9 @@ export function WaypointTutorialHubPage(
 export async function getStaticProps(): Promise<{
   props: ProductTutorialsPageProps
 }> {
-  const props = await getProductTutorialsPageProps(productData as ProductData)
+  const props = await getProductTutorialsPageProps(
+    productData as LearnProductData
+  )
 
   return props
 }

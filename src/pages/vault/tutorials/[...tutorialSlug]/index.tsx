@@ -1,6 +1,6 @@
 import { GetStaticPathsResult } from 'next'
 import vaultData from 'data/vault.json'
-import { ProductData } from 'types/products'
+import { LearnProductData } from 'types/products'
 import { ProductOption } from 'lib/learn-client/types'
 import TutorialView from 'views/tutorial-view'
 import {
@@ -21,7 +21,7 @@ export function VaultTutorialPage({
 export async function getStaticProps({
   params,
 }): Promise<{ props: TutorialPageProps }> {
-  const product = vaultData as ProductData
+  const product = vaultData as LearnProductData
   return getTutorialPageProps(product, params.tutorialSlug)
 }
 
