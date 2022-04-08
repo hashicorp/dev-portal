@@ -1,28 +1,47 @@
+// Third-party imports
 import { ReactNode } from 'react'
 import Link from 'next/link'
+
+// Global imports
 import { productSlugsToNames } from '../../../config/products'
 import { ProductSlug } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import HeaderSearchInput from 'components/header-search-input'
 import Text from 'components/text'
+
+// Local imports
 import { NavigationHeaderItem } from './types'
 import { NavigationHeaderDropdownMenu } from './components'
 import s from './navigation-header.module.css'
 
-const homePageNavItems = [
+/**
+ * Defines the navigation items for the main home page of the app. If this
+ * becomes authorable, it can be lifted into another area of the codebase.
+ */
+const HOME_PAGE_NAV_ITEMS = [
   { label: 'Documentation', pathSuffix: 'docs' },
   { label: 'Tutorials', pathSuffix: 'tutorials' },
   { label: 'Install', pathSuffix: 'downloads' },
 ]
 
-const productPageNavItems = [
+/**
+ * Defined the navigation items for all pages that live under `/{productSlug}`
+ * routes. If this becomes authorable, it can be lifted into another area of the
+ * codebase.
+ */
+const PRODUCT_PAGE_NAV_ITEMS = [
   { label: 'Home', pathSuffix: '' },
   { label: 'Documentation', id: 'documentation', isSubmenu: true },
   { label: 'Tutorials', pathSuffix: 'tutorials' },
   { label: 'Install', pathSuffix: 'downloads' },
 ]
 
+/**
+ * The main navigation header for all DevDot pages. Renders two different
+ * styles: one for the main home page, and one for all routes under
+ * `/{productSlug}.`
+ */
 const NavigationHeader = () => {
   const betaProductSlugs = __config.dev_dot.products_with_content_preview_branch
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
@@ -44,7 +63,7 @@ const NavigationHeader = () => {
           />
           <nav className={s.nav}>
             <ul className={s.navList}>
-              {homePageNavItems.map(
+              {HOME_PAGE_NAV_ITEMS.map(
                 (navItem: { label: string; pathSuffix: string }) => {
                   const { label, pathSuffix } = navItem
                   const menuItems = betaProductSlugs.map(
@@ -99,7 +118,7 @@ const NavigationHeader = () => {
                   padding: 0,
                 }}
               >
-                {productPageNavItems.map(
+                {PRODUCT_PAGE_NAV_ITEMS.map(
                   (navItem: {
                     id?: string
                     isSubmenu?: boolean
