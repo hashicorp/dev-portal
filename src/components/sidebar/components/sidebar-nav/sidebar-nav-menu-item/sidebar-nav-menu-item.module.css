@@ -1,7 +1,3 @@
-.sidebarNavListItem {
-  list-style: none;
-}
-
 .sidebarNavMenuItem {
   composes: g-focus-border-and-box-shadow-light from global;
   align-items: center;
