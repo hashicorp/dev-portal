@@ -23,6 +23,7 @@ declare module 'nprogress'
 declare module 'js-cookie'
 declare module '@mdx-js/react'
 declare module '@hashicorp/platform-docs-mdx'
+declare module '@hashicorp/react-code-block/mdx'
 
 /**
  * Application config, defined in environment-specific JSON files in `config/`

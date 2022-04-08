@@ -1,4 +1,3 @@
-// @ts-expect-error - @hashicorp/react-code-block/mdx has no types
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import Tabs, { Tab } from 'components/tabs' // @TODO note that this doesn't support groups yet
 import ImageConfig from 'components/image-config'
