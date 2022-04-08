@@ -38,9 +38,10 @@ const initalizeState = (allProductSlugs: ProductSlug[]): ContextState => {
 
   // initalize the state object for each product
   const defaultProductState: ProductState = { isBetaProduct: false }
-  allProductSlugs.forEach(
-    (slug: ProductSlug) => (result[slug] = defaultProductState)
-  )
+  allProductSlugs.forEach((slug: ProductSlug) => {
+    // This needs to be a copy since we modify the object while deriving state
+    result[slug] = { ...defaultProductState }
+  })
 
   // derive `isBetaProduct` state booleans from config
   const betaProductSlugs = __config.dev_dot.beta_product_slugs
