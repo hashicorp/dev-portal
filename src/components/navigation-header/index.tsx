@@ -11,7 +11,7 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import { productSlugsToNames } from '../../../config/products'
 import { ProductSlug } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
-import { useCurrentProduct } from 'contexts'
+import { useCurrentProduct, useIsBetaProduct } from 'contexts'
 import HeaderSearchInput from 'components/header-search-input'
 import Text from 'components/text'
 
@@ -89,10 +89,9 @@ const HomePageHeaderContent = () => {
 }
 
 const ProductPageHeaderContent = () => {
-  const betaProductSlugs = __config.dev_dot.products_with_content_preview_branch
   const currentProduct = useCurrentProduct()
-  const isBetaProduct =
-    currentProduct.slug === 'waypoint' || currentProduct.slug === 'vault'
+  const isBetaProduct = useIsBetaProduct(currentProduct.slug)
+  const betaProductSlugs = __config.dev_dot.beta_product_slugs
   const companyLogo = (
     <InlineSvg className={s.companyLogo} src={HashiCorpLogo} />
   )
