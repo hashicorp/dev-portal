@@ -1,8 +1,11 @@
+import Link from 'next/link'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
   TutorialLite as ClientTutorialLite,
   Collection as ClientCollection,
 } from 'lib/learn-client/types'
-import Link from 'next/link'
+import SidebarNav from 'components/sidebar/components/sidebar-nav'
+import useCurrentPath from 'hooks/use-current-path'
 import { getCollectionSlug, getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 
@@ -11,10 +14,33 @@ export default function CollectionView({
   allProductCollections, // for sidebar section
   product,
 }: CollectionPageProps): React.ReactElement {
-  const { name, slug, description, tutorials } = collection
+  const { name, slug, description, shortName, tutorials } = collection
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 
   return (
-    <>
+    <SidebarSidecarLayout
+      breadcrumbLinks={[{ title: 'hi' }]}
+      headings={[
+        { title: 'Overview', slug: 'overview', level: 1 },
+        { title: 'Tutorials', slug: 'tutorials', level: 1 },
+      ]}
+      sidebarSlot={
+        <SidebarNav
+          title={shortName}
+          menuItems={allProductCollections.map(
+            (collection: ClientCollection) => {
+              const path = getCollectionSlug(collection.slug)
+              return {
+                title: collection.shortName,
+                fullPath: path,
+                id: collection.id,
+                isActive: path === currentPath,
+              }
+            }
+          )}
+        />
+      }
+    >
       <h1>{name}</h1>
       <p>{description}</p>
       <ol>
@@ -42,6 +68,6 @@ export default function CollectionView({
           )
         })}
       </ul>
-    </>
+    </SidebarSidecarLayout>
   )
 }
