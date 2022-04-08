@@ -3,6 +3,7 @@ import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData } from 'types/products'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
@@ -42,15 +43,15 @@ export function getStaticGenerationFunctions<
   mainBranch?: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
   /**
-   * These products, defined in our config files, will source content from a long-lived branch named 'dev-portal'
+   * Beta products, defined in our config files, will source content from a
+   * long-lived branch named 'dev-portal'
    */
-  const isProductWithContentPreviewBranch =
-    __config.dev_dot.products_with_content_preview_branch.includes(product.slug)
+  const isBetaProduct = getIsBetaProduct(product.slug)
 
   const loaderOptions: RemoteContentLoader['opts'] = {
     product: productSlugForLoader,
     basePath: basePathForLoader,
-    latestVersionRef: isProductWithContentPreviewBranch
+    latestVersionRef: isBetaProduct
       ? __config.dev_dot.content_preview_branch
       : undefined,
   }
