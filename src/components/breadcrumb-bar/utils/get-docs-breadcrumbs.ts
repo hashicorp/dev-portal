@@ -1,5 +1,68 @@
-import { NavData } from '@hashicorp/react-docs-sidenav'
 import { BreadcrumbLink } from '..'
+
+/**
+ * These type definitions are from docs-sidenav.
+ * TODO: reconcile these type definitions with sidebar MenuItem type
+ */
+
+type NavData = NavNode[]
+
+type NavNode =
+  | NavLeaf
+  | NavUnlinkedLeaf
+  | NavDirectLink
+  | NavDivider
+  | NavHeading
+  | NavBranch
+interface NavUnlinkedLeaf {
+  title: string
+}
+
+// A NavLeaf represents a page with content.
+//
+// The "path" refers to the URL route from the content subpath.
+// For all current docs sites, this "path" also
+// corresponds to the content location in the filesystem.
+//
+// Note that "path" can refer to either "named" or "index" files.
+// For example, we will automatically resolve the path
+// "commands" to either "commands.mdx" or "commands/index.mdx".
+// If both exist, we will throw an error to alert authors
+// to the ambiguity.
+interface NavLeaf {
+  title: string
+  path: string
+}
+
+// A NavDirectLink allows linking outside the content subpath.
+//
+// This includes links on the same domain,
+// for example, where the content subpath is `/docs`,
+// one can create a direct link with href `/use-cases`.
+//
+// This also allows for linking to external URLs,
+// for example, one could link to `https://hashiconf.com/`.
+interface NavDirectLink {
+  title: string
+  href: string
+}
+
+// A NavDivider represents a divider line
+interface NavDivider {
+  divider: true
+}
+
+interface NavHeading {
+  heading: string
+}
+
+// A NavBranch represents nested navigation data.
+interface NavBranch {
+  title: string
+  routes: NavNode[]
+}
+
+// ...
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -53,7 +116,11 @@ function getPathBreadcrumbs({
   })
 }
 
-function getPathMatchedNode(navNodes, pathString, basePath) {
+function getPathMatchedNode(
+  navNodes: NavData,
+  pathString: string,
+  basePath: string
+): NavNode {
   const matches = findAllPathMatchedNodes(navNodes, pathString)
   // If we have exactly one match, this is great, and expected
   if (matches.length == 1) {
@@ -87,22 +154,43 @@ function getPathMatchedNode(navNodes, pathString, basePath) {
   return { title: lastPathPart }
 }
 
-function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
+function findAllPathMatchedNodes(
+  navNodes: NavData,
+  pathString: string,
+  // eslint-disable-next-line @typescript-eslint/typedef
+  depth = 0
+): NavNode[] {
   return navNodes
     .slice()
-    .map((node) => findPathMatchedNodes(node, pathString, depth))
-    .reduce((matches, acc) => acc.concat(matches), [])
+    .map((node: NavNode) => findPathMatchedNodes(node, pathString, depth))
+    .reduce((matches: NavNode[], acc: NavNode[]) => acc.concat(matches), [])
 }
 
-function findPathMatchedNodes(navNode, pathString, depth) {
+function isNavBranch(navNode: NavNode): navNode is NavBranch {
+  // TODO: figure out how to do this typeguard
+  // @ts-expect-error - not sure how to do this typeguard?
+  return Array.isArray(navNode.routes)
+}
+
+function isNavLeaf(navNode: NavNode): navNode is NavLeaf {
+  // TODO: figure out how to do this typeguard
+  // @ts-expect-error - not sure how to do this typeguard?
+  return typeof navNode.path === 'string'
+}
+
+function findPathMatchedNodes(
+  navNode: NavNode,
+  pathString: string,
+  depth: number
+): NavNode[] {
   // If it's a node with child routes, look for matches
   // within the child routes
-  if (navNode.routes) {
+  if (isNavBranch(navNode)) {
     // Check for an index (aka "Overview") node in the child routes.
     // These nodes will have paths with a number of parts
     // equal to the current route depth + 1
     const indexMatches = navNode.routes.filter((r) => {
-      if (!r.path) {
+      if (!isNavLeaf(r)) {
         return false
       }
       const pathParts = r.path.split('/')
@@ -111,7 +199,11 @@ function findPathMatchedNodes(navNode, pathString, depth) {
     // If we have a child route which serves as an index page,
     // then return the title of this "parent" navNode, rather
     // that the title of the index page (which is usually "Overview")
-    if (indexMatches.length && indexMatches[0].path == pathString) {
+    if (
+      indexMatches.length &&
+      isNavLeaf(indexMatches[0]) &&
+      indexMatches[0].path == pathString
+    ) {
       return [{ title: navNode.title, path: indexMatches[0].path }]
     }
     // If we don't have a child route that serves as an index page,
@@ -119,10 +211,10 @@ function findPathMatchedNodes(navNode, pathString, depth) {
     // the current path string matches the inferred path
     // to the index-less category.
     if (indexMatches.length == 0) {
-      const routesWithPaths = navNode.routes.filter((r) => {
-        return Boolean(r.path)
+      const routesWithPaths = navNode.routes.filter((r: NavNode) => {
+        return isNavLeaf(r)
       })
-      if (routesWithPaths.length) {
+      if (routesWithPaths.length && isNavLeaf(routesWithPaths[0])) {
         const inferredPathParts = routesWithPaths[0].path.split('/')
         inferredPathParts.pop()
         const inferredPath = inferredPathParts.join('/')
@@ -136,7 +228,7 @@ function findPathMatchedNodes(navNode, pathString, depth) {
   }
   // If it's a node with a path value,
   // return the node if the path is a match
-  if (typeof navNode.path == 'string') {
+  if (isNavLeaf(navNode)) {
     return navNode.path === pathString ? [{ ...navNode }] : []
   }
   // Otherwise, it's a divider or a direct link,
