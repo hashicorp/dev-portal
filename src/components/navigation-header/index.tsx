@@ -24,7 +24,7 @@ const productPageNavItems = [
 ]
 
 const NavigationHeader = () => {
-  const betaProductSlugs = __config.dev_dot.products_with_content_preview_branch
+  const betaProductSlugs = __config.dev_dot.beta_product_slugs
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentProduct = useCurrentProduct()
 
