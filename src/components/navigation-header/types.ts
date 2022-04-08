@@ -12,6 +12,7 @@ interface NavigationHeaderItem {
 }
 
 interface NavigationHeaderDropdownMenuProps {
+  ariaLabel?: string
   buttonClassName?: string
   id?: string
   leadingIcon?: ReactElement

@@ -44,6 +44,7 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
  * TODO: add more details as more interaction support is added
  */
 const NavigationHeaderDropdownMenu = ({
+  ariaLabel,
   buttonClassName,
   id,
   itemGroups,
@@ -135,6 +136,7 @@ const NavigationHeaderDropdownMenu = ({
         <button
           aria-controls={menuId}
           aria-expanded={isOpen}
+          aria-label={ariaLabel}
           className={classNames(s.activator, buttonClassName)}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
