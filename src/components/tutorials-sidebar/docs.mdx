@@ -7,8 +7,8 @@ These are the `TutorialsSidebar` docs!
 ## Landing View
 
 <LiveComponent>{`
-  <TutorialsSidebar backToLink={{ text: "Vault Home", href: "/" }}>
-    <SectionTitle text="Tutorials" as="h1" />
+  <TutorialsSidebar backToLink={{ text: "Vault Home", href: "/" }} ariaLabelledBy="sidebar-title">
+    <SectionTitle id="sidebar-title" text="Tutorials" as="h1" />
     <SectionList items={[{ text: 'Overview', href: '/', isActive: true }]} />
     <HorizontalRule />
     <SectionTitle text="Get Started" />
@@ -62,8 +62,8 @@ These are the `TutorialsSidebar` docs!
 ## Collection View
 
 <LiveComponent>{`
-  <TutorialsSidebar backToLink={{ text: "Vault Home", href: "/" }}>
-    <SectionTitle text="Tutorials" as="h1" />
+  <TutorialsSidebar backToLink={{ text: "Vault Home", href: "/" }} ariaLabelledBy="sidebar-title">
+    <SectionTitle id="sidebar-title" text="Tutorials" as="h1" />
     <SectionList items={[{ text: 'Overview', href: '/' }]} />
     <HorizontalRule />
     <SectionTitle text="Get Started" />

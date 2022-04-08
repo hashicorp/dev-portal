@@ -15,9 +15,14 @@ function TutorialsSidebar({
   backToLink,
   children,
   ariaLabel,
+  ariaLabelledBy,
 }: TutorialSidebarProps) {
   return (
-    <nav aria-label={ariaLabel} className={s.root}>
+    <nav
+      className={s.root}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+    >
       <SkipToMainContent />
       <StandaloneLink
         className={s.backToLink}
@@ -57,9 +62,13 @@ function ListItem({ href, isActive, text, isExternal }: ListItemProps) {
   return <SidebarNavLink item={{ isActive, title: text, ...hrefOrFullPath }} />
 }
 
-function SectionTitle({ text, as = 'h2' }: SectionTitleProps) {
+function SectionTitle({ text, as = 'h2', id }: SectionTitleProps) {
   const Elem = as
-  return <Elem className={s.sectionTitle}>{text}</Elem>
+  return (
+    <Elem className={s.sectionTitle} id={id}>
+      {text}
+    </Elem>
+  )
 }
 
 function HorizontalRule() {
