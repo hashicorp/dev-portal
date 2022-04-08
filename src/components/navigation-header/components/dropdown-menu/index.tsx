@@ -12,6 +12,7 @@ import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
 
 // Global imports
 import { ProductSlug } from 'types/products'
+import useCurrentPath from 'hooks/use-current-path'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import deriveKeyEventState from 'lib/derive-key-event-state'
@@ -49,6 +50,7 @@ const NavigationHeaderDropdownMenu = ({
   leadingIcon,
 }: NavigationHeaderDropdownMenuProps) => {
   const uniqueId = useId()
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const menuRef = useRef<HTMLDivElement>()
   const activatorButtonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(false)
@@ -174,11 +176,17 @@ const NavigationHeaderDropdownMenu = ({
                     <ProductIcon productSlug={item.icon as ProductSlug} />
                   )
                   const itemId = generateItemId(groupId, itemIndex)
+                  const linkHref = item.path
+                  const isCurrentPage = linkHref === currentPath
 
                   return (
                     <li className={s.itemContainer} key={itemId}>
-                      <Link href={item.path}>
-                        <a className={s.itemLink} onKeyDown={handleKeyDown}>
+                      <Link href={linkHref}>
+                        <a
+                          aria-current={isCurrentPage ? 'page' : undefined}
+                          className={s.itemLink}
+                          onKeyDown={handleKeyDown}
+                        >
                           {icon}
                           <Text
                             asElement="span"
