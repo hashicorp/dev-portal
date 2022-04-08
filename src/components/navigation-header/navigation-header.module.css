@@ -23,19 +23,27 @@
   justify-content: left;
 }
 
+/*
+***
+* Note: these are all classes that get passed to `InlineSvg`. They need
+* `display: flex` set or there will be a small gap below the SVG, making them
+* off-center vertically.
+***
+*/
+.siteLogo,
+.companyLogo,
+.productLogo {
+  display: flex;
+}
+
 .companyLogoMenuButton {
   padding-bottom: 2px;
   padding-top: 2px;
 }
 
-.companyLogo {
-  align-items: center;
-  display: flex;
-
-  & svg {
-    height: 32px;
-    width: 32px;
-  }
+.companyLogo svg {
+  height: 32px;
+  width: 32px;
 }
 
 .productLogoLink {
@@ -47,14 +55,9 @@
   margin-left: 12px;
 }
 
-.productLogo {
-  align-items: center;
-  display: flex;
-
-  & svg {
-    height: 40px;
-    width: auto;
-  }
+.productLogo svg {
+  height: 40px;
+  width: auto;
 }
 
 .rightSide {

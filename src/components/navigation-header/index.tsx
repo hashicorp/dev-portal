@@ -57,10 +57,9 @@ const HomePageHeaderContent = () => {
   return (
     <div className={s.leftSide}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        alt=""
-        className={s.logo}
-        src="https://via.placeholder.com/232x32?text=SITE-LOGO"
+      <InlineSvg
+        className={s.siteLogo}
+        src={require('./img/logo-white.svg?include')}
       />
       <nav className={s.nav}>
         <ul className={s.navList}>
