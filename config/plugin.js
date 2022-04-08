@@ -28,6 +28,8 @@ const { getHashiConfig } = require('./index')
  *   "x": "y"
  * }
  * ```
+ *
+ * See the test file at `./config/__tests__/index.test.js` for a more thorough example.
  */
 module.exports = function HashiConfigPlugin() {
   const env = process.env.HASHI_ENV || 'development'

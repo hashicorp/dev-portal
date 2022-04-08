@@ -20,6 +20,8 @@ describe('loadHashiConfigByEnvironment', () => {
     expect(loadHashiConfigForEnvironment()).toMatchInlineSnapshot(`
       Object {
         "alpha": "beta",
+        "deeply.nested.another_property": false,
+        "deeply.nested.property": true,
         "extends": "base",
         "foo": "bar",
       }

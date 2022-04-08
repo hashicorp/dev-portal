@@ -1,4 +1,9 @@
 {
   "extends": "base",
-  "alpha": "beta"
+  "alpha": "beta",
+  "deeply": {
+    "nested": {
+      "another_property": false
+    }
+  }
 }

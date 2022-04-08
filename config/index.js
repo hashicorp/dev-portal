@@ -44,7 +44,7 @@ function getHashiConfig(configPath) {
     const finalConfig = { ...extendsFlattened, ...envFlattened }
 
     if (process.env.DEBUG_CONFIG) {
-      console.log(finalConfig)
+      console.log('[DEBUG_CONFIG]', finalConfig)
     }
 
     return finalConfig
