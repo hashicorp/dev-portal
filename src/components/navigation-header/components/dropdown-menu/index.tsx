@@ -44,7 +44,6 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
 const NavigationHeaderDropdownMenu = ({
   ariaLabel,
   buttonClassName,
-  id,
   itemGroups,
   label,
   leadingIcon,
