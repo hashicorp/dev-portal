@@ -5,6 +5,8 @@ export interface TutorialSidebarProps {
   backToLink: { href: string; text: string }
   /** Children to render in the main items area. Expects a mix of SectionTitle, SectionList, and HorizontalRule components. */
   children: ReactNode
+  /** A label to use as the title of the sidebar. */
+  ariaLabel?: string
 }
 
 export interface ListItemProps {

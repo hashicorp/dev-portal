@@ -11,9 +11,13 @@ import {
 } from './types'
 import s from './tutorials-sidebar.module.css'
 
-function TutorialsSidebar({ backToLink, children }: TutorialSidebarProps) {
+function TutorialsSidebar({
+  backToLink,
+  children,
+  ariaLabel,
+}: TutorialSidebarProps) {
   return (
-    <nav className={s.root}>
+    <nav aria-label={ariaLabel} className={s.root}>
       <SkipToMainContent />
       <StandaloneLink
         className={s.backToLink}
