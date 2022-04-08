@@ -56,6 +56,7 @@ const NavigationHeaderDropdownMenu = ({
   const [isOpen, setIsOpen] = useState(false)
   const numberOfItemGroups = itemGroups.length
   const menuId = `navigation-header-menu-${uniqueId}`
+  const hasLeadingIcon = !!leadingIcon
 
   // Handles closing the menu if there is a click outside of it and it is open.
   useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
@@ -64,7 +65,7 @@ const NavigationHeaderDropdownMenu = ({
   useOnFocusOutside([menuRef], () => setIsOpen(false), isOpen)
 
   // Check for a visible icon or label
-  if (!label && !leadingIcon) {
+  if (!label && !hasLeadingIcon) {
     throw new Error(
       '`NavigationHeaderDropdownMenu` needs either the `label` or `leadingIcon` prop.'
     )
@@ -145,6 +146,38 @@ const NavigationHeaderDropdownMenu = ({
     }
   }
 
+  /**
+   * Handles rendering the leading icon and/or label text for the menu's
+   * activator button.
+   */
+  const ActivatorButtonContent = () => {
+    let icon: ReactElement
+    if (hasLeadingIcon) {
+      icon = <span className={s.activatorLeadingIcon}>{leadingIcon}</span>
+    }
+
+    let text: ReactElement
+    if (label) {
+      text = (
+        <Text
+          asElement="span"
+          className={s.activatorText}
+          size={200}
+          weight="medium"
+        >
+          {label}
+        </Text>
+      )
+    }
+
+    return (
+      <>
+        {icon}
+        {text}
+      </>
+    )
+  }
+
   return (
     <div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
       <div className={s.activatorWrapper}>
@@ -158,19 +191,7 @@ const NavigationHeaderDropdownMenu = ({
           onMouseEnter={handleMouseEnter}
           ref={activatorButtonRef}
         >
-          {leadingIcon && (
-            <span className={s.activatorLeadingIcon}>{leadingIcon}</span>
-          )}
-          {label && (
-            <Text
-              asElement="span"
-              className={s.activatorText}
-              size={200}
-              weight="medium"
-            >
-              {label}
-            </Text>
-          )}
+          <ActivatorButtonContent />
           <IconChevronDown16 className={s.activatorTrailingIcon} />
         </button>
       </div>
