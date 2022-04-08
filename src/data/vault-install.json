@@ -33,7 +33,7 @@
   ],
   "sidecarMarketingCard": {
     "title": "About Vault",
-    "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+    "subtitle": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
     "learnMoreLink": "https://www.vaultproject.io/",
     "featuredDocsLinks": [
       {
