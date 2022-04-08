@@ -30,7 +30,6 @@ function TutorialsSidebar({
           textSize={200}
         />
       </div>
-
       <div className={s.itemsContainer}>
         <SkipToMainContent />
         {children}
