@@ -1,7 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
+import { Products } from '@hashicorp/platform-product-meta'
 import { ProductData } from 'types/products'
+import { ProductLandingProps, Block } from './types'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar/types'
+import { CardInterface } from './components/cards/types'
+
+type ThemeSlug = Exclude<Products, 'hashicorp'> | 'neutral'
 
 async function generateStaticProps({
   product,
@@ -9,7 +15,15 @@ async function generateStaticProps({
 }: {
   product: ProductData
   contentJsonFile: string
-}): Promise<$TSFixMe> {
+}): Promise<{
+  content: ProductLandingProps
+  layoutProps: {
+    headings: SidebarSidecarLayoutProps['headings']
+    breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
+    sidebarProps: SidebarSidecarLayoutProps['sidebarProps']
+  }
+  product: ProductData
+}> {
   // TODO: need to discuss from whence we should
   // TODO: source content down the road. For now,
   // TODO: sourcing from JSON for demo purposes.
@@ -26,8 +40,8 @@ async function generateStaticProps({
   // TODO: content is accurate, while not needing to be
   // TODO: manually kept up to date?
   // Asana task: https://app.asana.com/0/1201010428539925/1201646299837754/f
-  const usedHeadings = []
-  CONTENT.blocks = CONTENT.blocks.map((block) => {
+  const usedHeadings: string[] = []
+  CONTENT.blocks = CONTENT.blocks.map((block: Block) => {
     switch (block.type) {
       case 'heading':
         // augment heading blocks with a consistent slug,
@@ -55,7 +69,7 @@ async function generateStaticProps({
         // ensure cards with icons have an iconBrandColor,
         // falling back to the current product if not set
         /* eslint-disable-next-line no-case-declarations */
-        let defaultIconColor
+        let defaultIconColor: ThemeSlug
         if (product.slug === 'hcp' || product.slug === 'sentinel') {
           defaultIconColor = 'neutral'
         } else {
@@ -63,7 +77,7 @@ async function generateStaticProps({
         }
         return {
           ...block,
-          cards: block.cards.map((card) => ({
+          cards: block.cards.map((card: CardInterface) => ({
             ...card,
             iconBrandColor: card.iconBrandColor || defaultIconColor,
           })),
@@ -83,12 +97,22 @@ async function generateStaticProps({
     content: CONTENT,
     layoutProps: {
       headings: CONTENT.blocks
-        .filter((s) => s.type == 'heading')
-        .map(({ heading, slug, level }) => ({
-          title: heading,
-          slug: slug,
-          level,
-        })),
+        .filter((b: Block) => b.type == 'heading')
+        .map(
+          ({
+            heading,
+            slug,
+            level,
+          }: {
+            heading: string
+            slug: string
+            level: number
+          }) => ({
+            title: heading,
+            slug: slug,
+            level,
+          })
+        ),
       breadcrumbLinks: [
         { title: 'Developer', url: '/' },
         { title: product.name, url: `/${product.slug}` },

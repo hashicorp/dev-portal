@@ -2,25 +2,13 @@
 import React, { ReactElement } from 'react'
 import slugify from 'slugify'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import Heading, { HeadingProps } from 'components/heading'
+import Heading from 'components/heading'
 import Text from 'components/text'
 import DevDotContent from 'components/dev-dot-content'
-import GetStarted, { GetStartedProps } from './components/get-started'
-import Cards, { CardProps } from './components/cards'
+import GetStarted from './components/get-started'
+import Cards from './components/cards'
+import { ProductLandingProps } from './types'
 import s from './product-landing.module.css'
-
-type Block =
-  | ({ type: 'heading' } & HeadingProps & { heading: string })
-  | ({ type: 'get_started' } & GetStartedProps)
-  | ({ type: 'cards' } & CardProps)
-
-interface ProductLandingProps {
-  content: {
-    heading: string
-    subheading: string
-    blocks: Block[]
-  }
-}
 
 function ProductLandingView({ content }: ProductLandingProps): ReactElement {
   return (

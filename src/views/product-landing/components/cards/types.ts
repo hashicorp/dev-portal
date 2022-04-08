@@ -1,5 +1,5 @@
 import { ProductBrandColor } from 'components/icon-tile/types'
-interface CardInterface {
+export interface CardInterface {
   icon?: string
   iconBrandColor?: ProductBrandColor
   heading: string
