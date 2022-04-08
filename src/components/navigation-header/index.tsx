@@ -1,5 +1,4 @@
 // Third-party imports
-import { ReactNode } from 'react'
 import Link from 'next/link'
 
 // Global imports
