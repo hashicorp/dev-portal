@@ -38,10 +38,18 @@
   }
 }
 
+.productLogoLink {
+  /* Composition */
+  composes: g-focus-ring-from-box-shadow-dark from global;
+
+  /* CSS properties */
+  border-radius: 5px;
+  margin-left: 12px;
+}
+
 .productLogo {
   align-items: center;
   display: flex;
-  margin-left: 12px;
 
   & svg {
     height: 40px;

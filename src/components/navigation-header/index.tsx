@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 // HashiCorp imports
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
-import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary/colorwhite.svg?include'
-import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary/colorwhite.svg?include'
+import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/colorwhite.svg?include'
+import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
@@ -108,12 +108,20 @@ const ProductPageHeaderContent = () => {
   return (
     <div className={s.leftSide}>
       <NavigationHeaderDropdownMenu
+        ariaLabel="Main menu"
         buttonClassName={s.companyLogoMenuButton}
         id="main-menu"
         itemGroups={allMainMenuItems}
         leadingIcon={companyLogo}
       />
-      <InlineSvg className={s.productLogo} src={productLogo} />
+      <Link href={`/${currentProduct.slug}`}>
+        <a
+          aria-label={`${currentProduct.name} home`}
+          className={s.productLogoLink}
+        >
+          <InlineSvg className={s.productLogo} src={productLogo} />
+        </a>
+      </Link>
       {isBetaProduct && (
         <nav className={s.nav}>
           <ul className={s.navList}>
@@ -125,10 +133,12 @@ const ProductPageHeaderContent = () => {
                 pathSuffix?: string
               }) => {
                 const { id, isSubmenu, label, pathSuffix } = navItem
+                const ariaLabel = `${currentProduct.name} ${label}`
                 return (
                   <li key={label}>
                     {isSubmenu ? (
                       <NavigationHeaderDropdownMenu
+                        ariaLabel={ariaLabel}
                         itemGroups={[
                           currentProduct.navigationHeaderItems[id].map(
                             ({ icon, label, pathSuffix }) => ({
@@ -142,7 +152,7 @@ const ProductPageHeaderContent = () => {
                       />
                     ) : (
                       <Link href={`/${currentProduct.slug}/${pathSuffix}`}>
-                        <a className={s.mainNavLink}>
+                        <a aria-label={ariaLabel} className={s.mainNavLink}>
                           <Text asElement="span" size={200} weight="medium">
                             {label}
                           </Text>
