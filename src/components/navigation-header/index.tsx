@@ -56,11 +56,12 @@ const HomePageHeaderContent = () => {
 
   return (
     <div className={s.leftSide}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <InlineSvg
-        className={s.siteLogo}
-        src={require('./img/logo-white.svg?include')}
-      />
+      <div className={s.contentBeforeNav}>
+        <InlineSvg
+          className={s.siteLogo}
+          src={require('./img/logo-white.svg?include')}
+        />
+      </div>
       <nav className={s.nav}>
         <ul className={s.navList}>
           {HOME_PAGE_NAV_ITEMS.map(
@@ -106,21 +107,23 @@ const ProductPageHeaderContent = () => {
 
   return (
     <div className={s.leftSide}>
-      <NavigationHeaderDropdownMenu
-        ariaLabel="Main menu"
-        buttonClassName={s.companyLogoMenuButton}
-        id="main-menu"
-        itemGroups={allMainMenuItems}
-        leadingIcon={companyLogo}
-      />
-      <Link href={`/${currentProduct.slug}`}>
-        <a
-          aria-label={`${currentProduct.name} home`}
-          className={s.productLogoLink}
-        >
-          <InlineSvg className={s.productLogo} src={productLogo} />
-        </a>
-      </Link>
+      <div className={s.contentBeforeNav}>
+        <NavigationHeaderDropdownMenu
+          ariaLabel="Main menu"
+          buttonClassName={s.companyLogoMenuButton}
+          id="main-menu"
+          itemGroups={allMainMenuItems}
+          leadingIcon={companyLogo}
+        />
+        <Link href={`/${currentProduct.slug}`}>
+          <a
+            aria-label={`${currentProduct.name} home`}
+            className={s.productLogoLink}
+          >
+            <InlineSvg className={s.productLogo} src={productLogo} />
+          </a>
+        </Link>
+      </div>
       {isBetaProduct && (
         <nav className={s.nav}>
           <ul className={s.navList}>
