@@ -11,7 +11,7 @@
   color: var(--token-color-palette-neutral-500);
   display: flex;
   font-size: 14px;
-  font-weight: var(--token-typography-font-weight-regular);
+  font-weight: 400;
   gap: 8px;
   justify-content: space-between;
   line-height: 18px;
@@ -46,7 +46,7 @@
   /* AKA active and open */
   &[aria-expanded='true'],
   &[aria-current='page'] {
-    font-weight: var(--token-typography-font-weight-medium);
+    font-weight: 500;
   }
 
   &:focus {
