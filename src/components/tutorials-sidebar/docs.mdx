@@ -117,7 +117,8 @@ These are the `TutorialsSidebar` docs!
 ## Tutorial View
 
 <LiveComponent>{`
-  <TutorialsSidebar backToLink={{ text: "UI Quick Start", href: "/" }} ariaLabel="UI Quick Start Collection">
+  <TutorialsSidebar backToLink={{ text: "UI Quick Start", href: "/" }} ariaLabelledBy="sidebar-title">
+    <SectionTitle id="sidebar-title" text="UI Quick Start Collection" as="h1" visuallyHidden={true} />
     <SectionList
       items={[
         { text: 'Getting Started With Vault UI', href: '/', isActive: true },

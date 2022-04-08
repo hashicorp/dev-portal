@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+import VisuallyHidden from '@reach/visually-hidden'
 import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import StandaloneLink from 'components/standalone-link'
@@ -14,15 +16,10 @@ import s from './tutorials-sidebar.module.css'
 function TutorialsSidebar({
   backToLink,
   children,
-  ariaLabel,
   ariaLabelledBy,
 }: TutorialSidebarProps) {
   return (
-    <nav
-      className={s.root}
-      aria-label={ariaLabel}
-      aria-labelledby={ariaLabelledBy}
-    >
+    <nav className={s.root} aria-labelledby={ariaLabelledBy}>
       <div className={s.backToLink}>
         <StandaloneLink
           href={backToLink.href}
@@ -66,12 +63,20 @@ function ListItem({ href, isActive, text, isExternal }: ListItemProps) {
   return <SidebarNavLink item={{ isActive, title: text, ...hrefOrFullPath }} />
 }
 
-function SectionTitle({ text, as = 'h2', id }: SectionTitleProps) {
+function SectionTitle({
+  text,
+  as = 'h2',
+  id,
+  visuallyHidden,
+}: SectionTitleProps) {
+  const Wrapper = visuallyHidden ? VisuallyHidden : Fragment
   const Elem = as
   return (
-    <Elem className={s.sectionTitle} id={id}>
-      {text}
-    </Elem>
+    <Wrapper>
+      <Elem className={s.sectionTitle} id={id}>
+        {text}
+      </Elem>
+    </Wrapper>
   )
 }
 

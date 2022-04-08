@@ -7,8 +7,6 @@ export interface TutorialSidebarProps {
   children: ReactNode
   /** An id to point to a visible element that acts as the title of the sidebar */
   ariaLabelledBy?: string
-  /** A label to use as the title of the sidebar. */
-  ariaLabel?: string
 }
 
 export interface ListItemProps {
@@ -26,5 +24,6 @@ export interface SectionListProps {
 export interface SectionTitleProps {
   text: string
   as?: 'h1' | 'h2'
-  id: string
+  id?: string
+  visuallyHidden?: boolean
 }
