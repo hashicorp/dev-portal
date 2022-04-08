@@ -1,7 +1,7 @@
 // Third-party imports
-import { KeyboardEvent, ReactElement, useMemo, useRef, useState } from 'react'
+import { Fragment, KeyboardEvent, ReactElement, useRef, useState } from 'react'
 import Link from 'next/link'
-import slugify from 'slugify'
+import { useId } from '@react-aria/utils'
 
 // HashiCorp imports
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -38,10 +38,8 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
 }
 
 /**
- * A dropdown menu consisiting of an activator button and a dropdown containing
- * menu item groups.
- *
- * TODO: add more details as more interaction support is added
+ * A dropdown navigation menu consisiting of an activator button and a dropdown
+ * containing groups of menu item links.
  */
 const NavigationHeaderDropdownMenu = ({
   ariaLabel,
@@ -51,11 +49,12 @@ const NavigationHeaderDropdownMenu = ({
   label,
   leadingIcon,
 }: NavigationHeaderDropdownMenuProps) => {
+  const uniqueId = useId()
   const menuRef = useRef<HTMLDivElement>()
   const activatorButtonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(false)
   const numberOfItemGroups = itemGroups.length
-  const menuId = useMemo(() => `menu-${slugify(label || id)}`, [id, label])
+  const menuId = `navigation-header-menu-${uniqueId}`
 
   // Handles closing the menu if there is a click outside of it and it is open.
   useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
@@ -67,7 +66,7 @@ const NavigationHeaderDropdownMenu = ({
    * Generates a unique ID for a single dropdown menu item based on the ID of
    * the group it belongs to.
    */
-  const getItemId = (groupId: string, itemIndex: number): string => {
+  const generateItemId = (groupId: string, itemIndex: number): string => {
     return `${groupId}-item-${itemIndex}`
   }
 
@@ -75,7 +74,7 @@ const NavigationHeaderDropdownMenu = ({
    * Generates a unique ID for a group of items based on the main menu ID and
    * the index of the group.
    */
-  const getItemGroupId = (groupIndex: number): string => {
+  const generateItemGroupId = (groupIndex: number): string => {
     return `${menuId}-itemGroup-${groupIndex}`
   }
 
@@ -165,17 +164,17 @@ const NavigationHeaderDropdownMenu = ({
         style={{ display: isOpen ? 'block' : 'none' }}
       >
         {itemGroups.map((items: NavigationHeaderItem[], groupIndex: number) => {
-          const groupId = getItemGroupId(groupIndex)
+          const groupId = generateItemGroupId(groupIndex)
           const isLastItemGroup = groupIndex === numberOfItemGroups - 1
           const showDivider = numberOfItemGroups > 1 && !isLastItemGroup
           return (
-            <>
+            <Fragment key={groupId}>
               <ul className={s.itemGroup}>
                 {items.map((item: NavigationHeaderItem, itemIndex: number) => {
                   const icon = supportedIcons[item.icon] || (
                     <ProductIcon productSlug={item.icon as ProductSlug} />
                   )
-                  const itemId = getItemId(groupId, itemIndex)
+                  const itemId = generateItemId(groupId, itemIndex)
 
                   return (
                     <li className={s.itemContainer} key={itemId}>
@@ -197,7 +196,7 @@ const NavigationHeaderDropdownMenu = ({
                 })}
               </ul>
               {showDivider && <hr className={s.itemGroupDivider} />}
-            </>
+            </Fragment>
           )
         })}
       </div>
