@@ -1,11 +1,10 @@
 const fs = require('fs')
 const path = require('path')
-const flat = require('flat')
-const { webpack } = require('next/dist/compiled/webpack/webpack')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
-const { redirectsConfig } = require('./config/redirects')
-const rewritesConfig = require('./config/rewrites')
+const { redirectsConfig } = require('./build-libs/redirects')
+const rewritesConfig = require('./build-libs/rewrites')
+const HashiConfigPlugin = require('./config/plugin')
 
 // temporary: set all paths as noindex, until we're serving from this project
 // Update the excluded domains to ensure we are indexing content as the io sites get migrated
@@ -24,48 +23,6 @@ const temporary_hideDocsPaths = {
         '(^(?!.*(boundaryproject|consul|nomadproject|packer|vagrantup|vaultproject|waypointproject|docs\\.hashicorp)).*$)',
     },
   ],
-}
-
-/**
- * Reads in config files from config/[env].json and replaces references in the
- * code with the literal values using webpack.DefinePlugin
- */
-function HashiConfigPlugin() {
-  const env = process.env.HASHI_ENV || 'development'
-  const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
-
-  function getHashiConfig(path) {
-    try {
-      const envConfig = JSON.parse(fs.readFileSync(path))
-      const ret = flat(envConfig, {
-        safe: true,
-      })
-      return ret
-    } catch (err) {
-      console.log('Error loading environment config:', err)
-      return {}
-    }
-  }
-
-  return new webpack.DefinePlugin({
-    ...Object.fromEntries(
-      Object.entries(getHashiConfig(envConfigPath)).map(([key]) => {
-        return [
-          `__config.${key}`,
-          webpack.DefinePlugin.runtimeValue(
-            () => {
-              return JSON.stringify(getHashiConfig(envConfigPath)[key])
-            },
-            /**
-             * version is set to env here to ensure that webpack's persistent cache
-             * does not cache the wrong config values across builds with different HASHI_ENV values
-             */
-            { fileDependencies: [envConfigPath], version: env }
-          ),
-        ]
-      })
-    ),
-  })
 }
 
 module.exports = withSwingset({
