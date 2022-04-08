@@ -2,6 +2,7 @@
 import { Fragment, KeyboardEvent, ReactElement, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useId } from '@react-aria/utils'
+import classNames from 'classnames'
 
 // HashiCorp imports
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -26,7 +27,6 @@ import {
 
 // Local imports
 import s from './dropdown-menu.module.css'
-import classNames from 'classnames'
 
 /**
  * The icons supported in this menu in addition to the Product logo icons.
