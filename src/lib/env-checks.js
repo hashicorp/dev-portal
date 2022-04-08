@@ -1,6 +1,6 @@
 //@ts-check
 
-const proxyConfig = require('../../config/proxy-config')
+const proxyConfig = require('../../build-libs/proxy-config')
 
 // NOTE: this module uses CommonJS exports,
 // as it must be required() into redirects and rewrites config,
