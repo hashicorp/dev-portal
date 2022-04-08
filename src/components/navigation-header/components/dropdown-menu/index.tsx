@@ -63,6 +63,21 @@ const NavigationHeaderDropdownMenu = ({
   // Handles closing the menu if focus moves outside of it and it is open.
   useOnFocusOutside([menuRef], () => setIsOpen(false), isOpen)
 
+  // Check for a visible icon or label
+  if (!label && !leadingIcon) {
+    throw new Error(
+      '`NavigationHeaderDropdownMenu` needs either the `label` or `leadingIcon` prop.'
+    )
+  }
+
+  // Check for an accesible label if there is a leading icon
+  const accessibleLabel = ariaLabel || label
+  if (leadingIcon && !accessibleLabel) {
+    throw new Error(
+      '`NavigationHeaderDropdownMenu` needs either the `ariaLabel` or `label` prop to have an accessible label.'
+    )
+  }
+
   /**
    * Generates a unique ID for a single dropdown menu item based on the ID of
    * the group it belongs to.
@@ -136,7 +151,7 @@ const NavigationHeaderDropdownMenu = ({
         <button
           aria-controls={menuId}
           aria-expanded={isOpen}
-          aria-label={ariaLabel}
+          aria-label={accessibleLabel}
           className={classNames(s.activator, buttonClassName)}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
