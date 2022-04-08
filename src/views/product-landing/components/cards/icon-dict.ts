@@ -16,7 +16,7 @@ via JSON. We will likely want to iterate on this approach in the future,
 as it may not be ideal for bundle size.
 */
 // eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const iconDict = {
   IconBox: IconBox16,
   IconConsulColor: IconConsulColor16,
   IconDocs: IconDocs16,
@@ -28,3 +28,6 @@ export default {
   IconTerraformColor: IconTerraformColor16,
   IconVaultColor: IconVaultColor16,
 }
+
+export type IconKey = keyof typeof iconDict
+export default iconDict
