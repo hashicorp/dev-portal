@@ -1,4 +1,8 @@
 .root {
+  /* Widths/spacing needed in multiple stylesheets */
+  --dev-dot-sidebar-width: 320px;
+  --main-area-padding-left-right: 24px;
+
   /* Mobile and tablet breakpoints */
   --mobile-width-breakpoint: 728px;
   --tablet-width-breakpoint: 1000px;

@@ -2,18 +2,23 @@
 ***
 * Class for the main container.
 ***
-* Notes:
-*   - `height` does not need to be set here because it is based on the height of
-*     the `NavigationHeaderDropdownMenu` buttons, which respect dynamic
-*     `font-size` units.
+* Note: `min-height` is needed on the home page because the
+* `NavigationHeaderDropdownMenu` buttons that are intended to make the header
+* grow are only inside of the absolutely positioned `nav` element. On the
+* product pages, the main menu is a `NavigationHeaderDropdownMenu` button
+* located inside of an element that's not absolutely positioned.
 ***
 */
 .root {
+  --header-padding-left-right: 24px;
+  --header-dropdown-menu-padding-left-right: 12px;
+
   background-color: var(--token-color-palette-neutral-700);
   display: flex;
   justify-content: space-between;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: var(--header-padding-left-right);
+  padding-right: var(--header-padding-left-right);
+  position: relative;
   width: 100%;
 }
 
@@ -23,14 +28,67 @@
   justify-content: left;
 }
 
+/*
+***
+* Note: these are all classes that get passed to `InlineSvg`. They need
+* `display: flex` set or there will be a small gap below the SVG, making them
+* off-center vertically.
+***
+*/
+.siteLogo,
+.companyLogo,
+.productLogo {
+  display: flex;
+}
+
+.companyLogoMenuButton {
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+.companyLogo svg {
+  height: 32px;
+  width: 32px;
+}
+
+.productLogoLink {
+  /* Composition */
+  composes: g-focus-ring-from-box-shadow-dark from global;
+
+  /* CSS properties */
+  border-radius: 5px;
+  margin-left: 12px;
+}
+
+.productLogo svg {
+  height: 40px;
+  width: auto;
+}
+
 .rightSide {
   align-items: center;
   display: flex;
   justify-content: right;
 }
 
-.nav {
-  margin-left: 100px;
+/*
+***
+* Note: this fancy math is used for two reasons. First, to make sure the <nav>
+* items are always locatated in the same place in the header (when they're
+* visible). Second, which explains the precise values, to make sure the text of
+* the first <nav> item left-aligns with the text of the page content when there
+* is no extra space on the left or right side of it.
+***
+*/
+.contentBeforeNav {
+  align-items: center;
+  display: flex;
+  justify-content: left;
+  width: calc(
+    var(--dev-dot-sidebar-width) + 2 * var(--main-area-padding-left-right) -
+      var(--header-padding-left-right) -
+      var(--header-dropdown-menu-padding-left-right)
+  );
 }
 
 .navList {
@@ -39,4 +97,22 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.mainNavLink {
+  /* Composition */
+  composes: g-focus-ring-from-box-shadow-dark from global;
+
+  /* CSS properties */
+  border-radius: 5px;
+  color: var(--token-color-palette-neutral-400);
+  padding-bottom: 8px;
+  padding-left: var(--header-dropdown-menu-padding-left-right);
+  padding-right: var(--header-dropdown-menu-padding-left-right);
+  padding-top: 8px;
+
+  &:hover {
+    color: var(--token-color-surface-primary);
+    cursor: pointer;
+  }
 }
