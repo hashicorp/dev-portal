@@ -104,13 +104,15 @@ function getPathBreadcrumbs({
   )
   // Map the matched navData nodes into { title, url }
   // objects as needed for breadcrumb link rendering.
-  return breadcrumbNodes.map(({ title, path }) => {
-    const link = { title } as BreadcrumbLink
-    if (path) {
-      link.url = `/${basePath}/${path}`
-    }
-    if (path == pathParts.join('/')) {
-      link.isCurrentPage = true
+  return breadcrumbNodes.map((navNode) => {
+    const link = { title: navNode.title } as BreadcrumbLink
+    if (isNavLeaf(navNode)) {
+      if (navNode.path) {
+        link.url = `/${basePath}/${navNode.path}`
+      }
+      if (navNode.path == pathParts.join('/')) {
+        link.isCurrentPage = true
+      }
     }
     return link
   })
@@ -120,10 +122,10 @@ function getPathMatchedNode(
   navNodes: NavData,
   pathString: string,
   basePath: string
-): NavNode {
+): NavLeaf | NavUnlinkedLeaf {
   const matches = findAllPathMatchedNodes(navNodes, pathString)
   // If we have exactly one match, this is great, and expected
-  if (matches.length == 1) {
+  if (matches.length == 1 && isNavLeaf(matches[0])) {
     return matches[0]
   }
   // If we do not have exactly one match, we likely
@@ -133,7 +135,7 @@ function getPathMatchedNode(
   // If navData has ambiguous matches, warn in development.
   // We can fallback to returning the first match, and this should
   // be fine from a visitor perspective. Less urgent to fix these types of issues.
-  if (matches.length > 1) {
+  if (matches.length > 1 && isNavLeaf(matches[0])) {
     if (IS_DEV) {
       console.warn(
         `Ambiguous breadcrumb path under "${basePath}": Found ${matches.length} matches for "${pathString}". Please ensure there is exactly one node or index-less category with the path "${pathString}" in the provided navData.`
