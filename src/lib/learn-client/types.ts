@@ -110,7 +110,12 @@ export interface getAllTutorialsOptions {
 
 export interface getAllCollectionsOptions
   extends Pick<getAllTutorialsOptions, 'limit'> {
-  product?: ProductOption | ThemeOption // If theme option, empty array is returned
+  product?: AllCollectionsProductOptions
+}
+
+export type AllCollectionsProductOptions = {
+  slug: ProductOption | ThemeOption // If theme option, empty array is returned
+  sidebarSort?: boolean
 }
 
 /**
