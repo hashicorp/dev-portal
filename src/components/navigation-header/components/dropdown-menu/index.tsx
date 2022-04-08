@@ -1,13 +1,19 @@
+// Third-party imports
 import { KeyboardEvent, ReactElement, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import slugify from 'slugify'
+
+// HashiCorp imports
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
 import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
+
+// Global imports
 import { ProductSlug } from 'types/products'
 import useOnClickOutside from 'hooks/use-on-click-outside'
+import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
@@ -16,8 +22,10 @@ import {
   NavigationHeaderDropdownMenuProps,
   SupportedIcon,
 } from 'components/navigation-header/types'
+
+// Local imports
 import s from './dropdown-menu.module.css'
-import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import classNames from 'classnames'
 
 /**
  * The icons supported in this menu in addition to the Product logo icons.
@@ -36,14 +44,17 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
  * TODO: add more details as more interaction support is added
  */
 const NavigationHeaderDropdownMenu = ({
-  label,
+  buttonClassName,
+  id,
   itemGroups,
+  label,
+  leadingIcon,
 }: NavigationHeaderDropdownMenuProps) => {
   const menuRef = useRef<HTMLDivElement>()
   const activatorButtonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(false)
   const numberOfItemGroups = itemGroups.length
-  const menuId = useMemo(() => `menu-${slugify(label)}`, [label])
+  const menuId = useMemo(() => `menu-${slugify(label || id)}`, [id, label])
 
   // Handles closing the menu if there is a click outside of it and it is open.
   useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
@@ -124,21 +135,26 @@ const NavigationHeaderDropdownMenu = ({
         <button
           aria-controls={menuId}
           aria-expanded={isOpen}
-          className={s.activator}
+          className={classNames(s.activator, buttonClassName)}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
           onMouseEnter={handleMouseEnter}
           ref={activatorButtonRef}
         >
-          <Text
-            asElement="span"
-            className={s.activatorText}
-            size={200}
-            weight="medium"
-          >
-            {label}
-          </Text>
-          <IconChevronDown16 className={s.activatorIcon} />
+          {leadingIcon && (
+            <span className={s.activatorLeadingIcon}>{leadingIcon}</span>
+          )}
+          {label && (
+            <Text
+              asElement="span"
+              className={s.activatorText}
+              size={200}
+              weight="medium"
+            >
+              {label}
+            </Text>
+          )}
+          <IconChevronDown16 className={s.activatorTrailingIcon} />
         </button>
       </div>
       <div

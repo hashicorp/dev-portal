@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import { ProductSlug } from 'types/products'
 
 type SupportedIcon = 'docs' | 'home' | 'terminalScreen' | 'tools'
@@ -11,8 +12,11 @@ interface NavigationHeaderItem {
 }
 
 interface NavigationHeaderDropdownMenuProps {
+  buttonClassName?: string
+  id?: string
+  leadingIcon?: ReactElement
   itemGroups: NavigationHeaderItem[][]
-  label: string
+  label?: string
 }
 
 export type {

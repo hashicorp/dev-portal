@@ -28,7 +28,7 @@
       color: var(--token-color-surface-primary);
     }
 
-    & .activatorIcon {
+    & .activatorTrailingIcon {
       color: var(--token-color-surface-primary);
       transform: rotate(-180deg);
     }
@@ -40,7 +40,11 @@
   margin-right: 6px;
 }
 
-.activatorIcon {
+.activatorLeadingIcon {
+  margin-right: 4px;
+}
+
+.activatorTrailingIcon {
   color: var(--token-color-palette-neutral-400);
 
   /* Only enable animation if query is supported and value is no-preference */
