@@ -4,12 +4,7 @@ import Card from 'components/card'
 import { UseCaseCardProps } from './types'
 import s from './style.module.css'
 
-function UseCaseCard({
-  heading,
-  body,
-  links,
-  productThemeSlug = 'hashicorp',
-}: UseCaseCardProps): ReactElement {
+function UseCaseCard({ heading, body, links }: UseCaseCardProps): ReactElement {
   return (
     <Card>
       <article>
@@ -21,10 +16,7 @@ function UseCaseCard({
               <Button
                 // eslint-disable-next-line react/no-array-index-key
                 key={stableIdx}
-                theme={{
-                  variant: 'tertiary',
-                  brand: productThemeSlug,
-                }}
+                theme={{ variant: 'tertiary' }}
                 title={title}
                 url={url}
                 size="small"

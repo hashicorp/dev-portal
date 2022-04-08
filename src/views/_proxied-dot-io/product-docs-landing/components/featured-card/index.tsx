@@ -9,7 +9,6 @@ function FeaturedCard({
   image,
   body,
   links,
-  productThemeSlug = 'hashicorp',
 }: FeaturedCardProps): ReactElement {
   return (
     <Card className={s.root}>
@@ -20,15 +19,12 @@ function FeaturedCard({
           <div className={s.ctas}>
             {links.map(({ title, url }, stableIdx) => {
               const variant = stableIdx == 0 ? 'primary' : 'secondary'
-              const brand = stableIdx == 0 ? 'neutral' : productThemeSlug
+              const brand = stableIdx == 0 ? 'neutral' : undefined
               return (
                 <Button
                   // eslint-disable-next-line react/no-array-index-key
                   key={stableIdx}
-                  theme={{
-                    variant,
-                    brand,
-                  }}
+                  theme={{ variant, brand }}
                   title={title}
                   url={url}
                   size="small"
