@@ -79,10 +79,10 @@
 */
 
 .small {
-  --padding-top-bottom: calc(6px - var(--border-width));
+  --padding-top-bottom: calc(7px - var(--border-width));
   --padding-left-right: calc(12px - var(--border-width));
   --font-size: 0.8125rem;
-  --line-height: 1;
+  --line-height: 0.875rem;
 }
 
 .medium {

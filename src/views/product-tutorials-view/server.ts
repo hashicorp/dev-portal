@@ -1,16 +1,18 @@
 import { LearnProductData, ProductData } from 'types/products'
+import { Product as ClientProduct } from 'lib/learn-client/types'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
-import {
-  Collection as ClientCollection,
-  ProductOption,
-} from 'lib/learn-client/types'
+import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { filterCollections } from './helpers'
 
+// Some of the product data is coming from the API client on this view
+type ProductTutorialsPageProduct = ClientProduct &
+  Omit<ProductData, 'name' | 'slug'>
+
 export interface ProductTutorialsPageProps {
   collections: ClientCollection[]
-  product: LearnProductData
+  product: ProductTutorialsPageProduct
 }
 
 /**
@@ -24,12 +26,12 @@ export interface ProductTutorialsPageProps {
  * @TODO add sidebar sort capability
  */
 export async function getProductTutorialsPageProps(
-  productData: ProductData
+  productData: LearnProductData
 ): Promise<{ props: ProductTutorialsPageProps }> {
   const productSlug = productData.slug
   const product = await getProduct(productSlug)
   const allProductCollections = await getAllCollections({
-    product: ProductOption[productSlug],
+    product: { slug: productSlug },
   })
   const filteredCollections = filterCollections(
     allProductCollections,

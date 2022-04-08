@@ -4,6 +4,7 @@ import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 // additional components
 import Search from '@hashicorp/react-search'
 import { SearchProvider } from '@hashicorp/react-search'
+import InstruqtProvider from 'contexts/instruqt-lab'
 import SwingsetColorToken from '__swingset-components/swingset-color-token'
 import SwingsetTestIcon from '__swingset-components/swingset-test-icon'
 
@@ -11,6 +12,7 @@ import SwingsetTestIcon from '__swingset-components/swingset-test-icon'
 import { NavigationHeaderDropdownMenu } from 'components/navigation-header/components'
 
 const components = {
+  InstruqtProvider,
   Search,
   SearchProvider,
   SwingsetColorToken,
