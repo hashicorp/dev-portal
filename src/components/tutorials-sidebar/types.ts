@@ -1,12 +1,14 @@
 import { ReactNode } from 'react'
 
 export interface TutorialSidebarProps {
+  /** Title text to show at the top of the sidebar */
+  title: string
   /** A "back" link to display at the top of the sidebar */
   backToLink: { href: string; text: string }
   /** Children to render in the main items area. Expects a mix of SectionTitle, SectionList, and HorizontalRule components. */
   children: ReactNode
-  /** An id to point to a visible element that acts as the title of the sidebar */
-  ariaLabelledBy?: string
+  /** Optional. If true, the title of the sidebar will be visually hidden. */
+  visuallyHideTitle?: string
 }
 
 export interface ListItemProps {
@@ -23,7 +25,4 @@ export interface SectionListProps {
 
 export interface SectionTitleProps {
   text: string
-  as?: 'h1' | 'h2'
-  id?: string
-  visuallyHidden?: boolean
 }

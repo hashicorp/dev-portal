@@ -7,8 +7,10 @@ These are the `TutorialsSidebar` docs!
 ## Landing View
 
 <LiveComponent>{`
-  <TutorialsSidebar backToLink={{ text: "Vault Home", href: "/" }} ariaLabelledBy="sidebar-title">
-    <SectionTitle id="sidebar-title" text="Tutorials" as="h1" />
+  <TutorialsSidebar
+    backToLink={{ text: "Vault Home", href: "/" }}
+    title="Tutorials"
+  >
     <SectionList items={[{ text: 'Overview', href: '/', isActive: true }]} />
     <HorizontalRule />
     <SectionTitle text="Get Started" />
@@ -62,8 +64,10 @@ These are the `TutorialsSidebar` docs!
 ## Collection View
 
 <LiveComponent>{`
-  <TutorialsSidebar backToLink={{ text: "Vault Home", href: "/" }} ariaLabelledBy="sidebar-title">
-    <SectionTitle id="sidebar-title" text="Tutorials" as="h1" />
+  <TutorialsSidebar
+    backToLink={{ text: "Vault Home", href: "/" }}
+    title="Tutorials"
+  >
     <SectionList items={[{ text: 'Overview', href: '/' }]} />
     <HorizontalRule />
     <SectionTitle text="Get Started" />
@@ -117,8 +121,11 @@ These are the `TutorialsSidebar` docs!
 ## Tutorial View
 
 <LiveComponent>{`
-  <TutorialsSidebar backToLink={{ text: "UI Quick Start", href: "/" }} ariaLabelledBy="sidebar-title">
-    <SectionTitle id="sidebar-title" text="UI Quick Start Collection" as="h1" visuallyHidden={true} />
+  <TutorialsSidebar
+    backToLink={{ text: "UI Quick Start", href: "/" }}
+    title="UI Quick Start Collection"
+    visuallyHideTitle={true}
+  >
     <SectionList
       items={[
         { text: 'Getting Started With Vault UI', href: '/', isActive: true },

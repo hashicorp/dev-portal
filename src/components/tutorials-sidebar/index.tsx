@@ -14,13 +14,19 @@ import {
 import s from './tutorials-sidebar.module.css'
 import { HorizontalRule as DocsHorizontalRule } from 'components/sidebar/components/sidebar-nav/sidebar-nav-menu-item'
 
+const NAV_LABEL_ID = 'TutorialsSidebar_label'
+
 function TutorialsSidebar({
   backToLink,
   children,
-  ariaLabelledBy,
+  title,
+  visuallyHideTitle,
 }: TutorialSidebarProps) {
+  // To visually hide the title, wrap in VisuallyHidden
+  const TitleWrapper = visuallyHideTitle ? VisuallyHidden : Fragment
+
   return (
-    <nav className={s.root} aria-labelledby={ariaLabelledBy}>
+    <nav className={s.root} aria-labelledby={NAV_LABEL_ID}>
       <div className={s.backToLink}>
         <StandaloneLink
           href={backToLink.href}
@@ -30,8 +36,14 @@ function TutorialsSidebar({
           textSize={200}
         />
       </div>
+
       <div className={s.itemsContainer}>
         <SkipToMainContent />
+        <TitleWrapper>
+          <h2 className={s.sectionTitle} id={NAV_LABEL_ID}>
+            {title}
+          </h2>
+        </TitleWrapper>
         {children}
       </div>
     </nav>
@@ -63,21 +75,8 @@ function ListItem({ href, isActive, text, isExternal }: ListItemProps) {
   return <SidebarNavLink item={{ isActive, title: text, ...hrefOrFullPath }} />
 }
 
-function SectionTitle({
-  text,
-  as = 'h2',
-  id,
-  visuallyHidden,
-}: SectionTitleProps) {
-  const Wrapper = visuallyHidden ? VisuallyHidden : Fragment
-  const Elem = as
-  return (
-    <Wrapper>
-      <Elem className={s.sectionTitle} id={id}>
-        {text}
-      </Elem>
-    </Wrapper>
-  )
+function SectionTitle({ text }: SectionTitleProps) {
+  return <h3 className={s.sectionTitle}>{text}</h3>
 }
 
 function HorizontalRule() {
