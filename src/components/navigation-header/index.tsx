@@ -85,20 +85,20 @@ const ProductPageHeaderContent = () => {
   const companyLogo = (
     <InlineSvg className={s.companyLogo} src={HashiCorpLogo} />
   )
+  const homeMenuItem = { icon: 'home', label: 'Developer Home', path: '/' }
+  const betaProductMenuItems = betaProductSlugs.map((slug: ProductSlug) => ({
+    icon: slug,
+    label: productSlugsToNames[slug],
+    path: `/${slug}`,
+  }))
+  const allMainMenuItems = [[homeMenuItem], betaProductMenuItems]
 
   return (
     <div className={s.leftSide}>
       <NavigationHeaderDropdownMenu
         buttonClassName={s.companyLogoMenuButton}
         id="main-menu"
-        itemGroups={[
-          [{ icon: 'home', label: 'Developer Home', path: '/' }],
-          betaProductSlugs.map((slug: ProductSlug) => ({
-            icon: slug,
-            label: productSlugsToNames[slug],
-            path: `/${slug}`,
-          })),
-        ]}
+        itemGroups={allMainMenuItems}
         leadingIcon={companyLogo}
       />
       <div style={{ maxWidth: 142 }}>
