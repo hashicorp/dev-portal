@@ -101,26 +101,17 @@ const ProductPageHeaderContent = () => {
         itemGroups={allMainMenuItems}
         leadingIcon={companyLogo}
       />
-      <div style={{ maxWidth: 142 }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          alt=""
-          src={`https://via.placeholder.com/142x40?text=${productSlugsToNames[
-            currentProduct.slug
-          ].toUpperCase()}-LOGO`}
-        />
-      </div>
+      {/** @TODO replace with assets from Figma */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        alt=""
+        src={`https://via.placeholder.com/142x40?text=${productSlugsToNames[
+          currentProduct.slug
+        ].toUpperCase()}-LOGO`}
+      />
       {isBetaProduct && (
-        <nav style={{ marginLeft: 114 }}>
-          <ul
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              listStyle: 'none',
-              margin: 0,
-              padding: 0,
-            }}
-          >
+        <nav className={s.nav}>
+          <ul className={s.navList}>
             {PRODUCT_PAGE_NAV_ITEMS.map(
               (navItem: {
                 id?: string
@@ -146,15 +137,7 @@ const ProductPageHeaderContent = () => {
                       />
                     ) : (
                       <Link href={`/${currentProduct.slug}/${pathSuffix}`}>
-                        <a
-                          className="g-focus-ring-from-box-shadow-dark"
-                          style={{
-                            borderRadius: 5,
-                            color: 'var(--token-color-palette-neutral-400)',
-                            cursor: 'pointer',
-                            padding: '8px 12px',
-                          }}
-                        >
+                        <a className={s.mainNavLink}>
                           <Text asElement="span" size={200} weight="medium">
                             {label}
                           </Text>
