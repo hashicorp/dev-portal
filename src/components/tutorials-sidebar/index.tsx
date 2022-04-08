@@ -3,7 +3,7 @@ import VisuallyHidden from '@reach/visually-hidden'
 import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import StandaloneLink from 'components/standalone-link'
-import { SkipToMainContent } from 'components/sidebar/components/sidebar-nav'
+import SkipToMainContent from 'components/sidebar/components/sidebar-nav/skip-to-main-content'
 import { SidebarNavLink } from 'components/sidebar/components/sidebar-nav/sidebar-nav-menu-item'
 import {
   ListItemProps,

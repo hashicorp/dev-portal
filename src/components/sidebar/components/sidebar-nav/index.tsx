@@ -31,5 +31,4 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => (
   </nav>
 )
 
-export { SkipToMainContent }
 export default SidebarNav
