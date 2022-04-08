@@ -3,6 +3,8 @@ import Link from 'next/link'
 
 // HashiCorp imports
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
+import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary/colorwhite.svg?include'
+import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary/colorwhite.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
@@ -39,6 +41,15 @@ const PRODUCT_PAGE_NAV_ITEMS = [
   { label: 'Tutorials', pathSuffix: 'tutorials' },
   { label: 'Install', pathSuffix: 'downloads' },
 ]
+
+/**
+ * A mapping of Product slugs to their imported SVG colorwhite logos. Used for
+ * the headers under `/{productSlug}` pages.
+ */
+const PRODUCT_SLUGS_TO_LOGOS = {
+  vault: VaultLogo,
+  waypoint: WaypointLogo,
+}
 
 const HomePageHeaderContent = () => {
   const betaProductSlugs = __config.dev_dot.products_with_content_preview_branch
@@ -92,6 +103,7 @@ const ProductPageHeaderContent = () => {
     path: `/${slug}`,
   }))
   const allMainMenuItems = [[homeMenuItem], betaProductMenuItems]
+  const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
 
   return (
     <div className={s.leftSide}>
@@ -101,14 +113,7 @@ const ProductPageHeaderContent = () => {
         itemGroups={allMainMenuItems}
         leadingIcon={companyLogo}
       />
-      {/** @TODO replace with assets from Figma */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        alt=""
-        src={`https://via.placeholder.com/142x40?text=${productSlugsToNames[
-          currentProduct.slug
-        ].toUpperCase()}-LOGO`}
-      />
+      <InlineSvg className={s.productLogo} src={productLogo} />
       {isBetaProduct && (
         <nav className={s.nav}>
           <ul className={s.navList}>
