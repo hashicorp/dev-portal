@@ -1,3 +1,5 @@
+import { LearnProductSlug } from 'types/products'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 
 /**
@@ -20,8 +22,7 @@ export function getTutorialSlug(
 
 export function getCollectionSlug(collectionDbSlug: string): string {
   const [product, collectionFilename] = collectionDbSlug.split('/')
-  const isBetaProduct =
-    __config.dev_dot.products_with_content_preview_branch.includes(product)
+  const isBetaProduct = getIsBetaProduct(product as LearnProductSlug)
 
   // if not a 'sanctioned product', link externally to Learn
   // interim solution for BETA where not all products are onboarded
