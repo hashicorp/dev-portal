@@ -12,6 +12,7 @@ import {
   TutorialSidebarProps,
 } from './types'
 import s from './tutorials-sidebar.module.css'
+import { HorizontalRule as DocsHorizontalRule } from 'components/sidebar/components/sidebar-nav/sidebar-nav-menu-item'
 
 function TutorialsSidebar({
   backToLink,
@@ -81,7 +82,7 @@ function SectionTitle({
 }
 
 function HorizontalRule() {
-  return <hr className={s.hr} />
+  return <DocsHorizontalRule className={s.hr} />
 }
 
 export { HorizontalRule, ListItem, SectionList, SectionTitle }

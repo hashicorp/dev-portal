@@ -24,23 +24,9 @@ Spaces all items except the "back to" link
 /*
 Horizontal rule
 */
-.hr {
-  position: relative;
-  background: none;
-  height: 1px;
-  border: none;
-  outline: none;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  margin: 0;
-
-  &::before {
-    display: block;
-    content: '';
-    background: var(--token-color-border-primary);
-    width: 100%;
-    height: 1px;
-  }
+hr.hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 /*
