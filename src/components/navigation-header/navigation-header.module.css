@@ -23,6 +23,21 @@
   justify-content: left;
 }
 
+.companyLogoMenuButton {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.companyLogo {
+  align-items: center;
+  display: flex;
+
+  & svg {
+    height: 32px;
+    width: 32px;
+  }
+}
+
 .rightSide {
   align-items: center;
   display: flex;

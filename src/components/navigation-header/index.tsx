@@ -1,6 +1,10 @@
 // Third-party imports
 import Link from 'next/link'
 
+// HashiCorp imports
+import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
+import InlineSvg from '@hashicorp/react-inline-svg'
+
 // Global imports
 import { productSlugsToNames } from '../../../config/products'
 import { ProductSlug } from 'types/products'
@@ -74,13 +78,29 @@ const HomePageHeaderContent = () => {
 }
 
 const ProductPageHeaderContent = () => {
+  const betaProductSlugs = __config.dev_dot.products_with_content_preview_branch
   const currentProduct = useCurrentProduct()
   const isBetaProduct =
     currentProduct.slug === 'waypoint' || currentProduct.slug === 'vault'
+  const companyLogo = (
+    <InlineSvg className={s.companyLogo} src={HashiCorpLogo} />
+  )
 
   return (
     <div className={s.leftSide}>
-      <button style={{ marginRight: 24 }}>TODO: H menu</button>
+      <NavigationHeaderDropdownMenu
+        buttonClassName={s.companyLogoMenuButton}
+        id="main-menu"
+        itemGroups={[
+          [{ icon: 'home', label: 'Developer Home', path: '/' }],
+          betaProductSlugs.map((slug: ProductSlug) => ({
+            icon: slug,
+            label: productSlugsToNames[slug],
+            path: `/${slug}`,
+          })),
+        ]}
+        leadingIcon={companyLogo}
+      />
       <div style={{ maxWidth: 142 }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
