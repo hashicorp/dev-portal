@@ -22,6 +22,8 @@ interface Product extends ProductMeta {
   slug: ProductSlug
 }
 
+type LearnProductSlug = Exclude<ProductSlug, 'hcp' | 'sentinel'>
+
 /**
  * This is needed so that `LearnProductData` can extend both `ProductData` and
  * `LearnProduct`. Otherwise, we get the following error:
@@ -62,6 +64,8 @@ type ProductGroup = Product[]
 
 export type {
   LearnProductData,
+  LearnProductName,
+  LearnProductSlug,
   Product,
   ProductData,
   ProductGroup,

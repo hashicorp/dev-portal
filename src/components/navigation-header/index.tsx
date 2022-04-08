@@ -52,7 +52,7 @@ const PRODUCT_SLUGS_TO_LOGOS = {
 }
 
 const HomePageHeaderContent = () => {
-  const betaProductSlugs = __config.dev_dot.products_with_content_preview_branch
+  const betaProductSlugs = __config.dev_dot.beta_product_slugs
 
   return (
     <div className={s.leftSide}>
