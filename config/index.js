@@ -49,8 +49,7 @@ function getHashiConfig(configPath) {
 
     return finalConfig
   } catch (err) {
-    console.log('Error loading environment config:', err)
-    return {}
+    throw new Error('Error loading environment config: ' + err)
   }
 }
 
