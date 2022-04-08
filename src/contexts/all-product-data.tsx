@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
 import { ProductSlug } from 'types/products'
-import { productSlugsToNames } from '../../config/products'
+import { productSlugsToNames } from 'lib/products'
 
 /**
  * Describes the shape of each product's state manged by this Context.

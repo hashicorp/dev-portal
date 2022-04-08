@@ -11,7 +11,7 @@ import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { Product, ProductGroup } from 'types/products'
 import { useCurrentProduct } from 'contexts'
 import ProductIcon from 'components/product-icon'
-import { products } from '../../../config/products'
+import { products } from 'lib/products'
 import s from './product-switcher.module.css'
 
 const OPTION_LIST_ID = 'product-chooser-option-list'
