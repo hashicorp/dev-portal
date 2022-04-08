@@ -15,7 +15,7 @@ import {
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { Product, ProductSlug } from 'types/products'
-import { products as productGroups } from '../../../../../config/products'
+import { products as productGroups } from 'lib/products'
 import ProductIcon from 'components/product-icon'
 import s from './style.module.css'
 

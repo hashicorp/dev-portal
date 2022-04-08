@@ -1,7 +1,4 @@
-import {
-  splitRedirectsByType,
-  groupSimpleRedirects,
-} from '../../config/redirects'
+import { splitRedirectsByType, groupSimpleRedirects } from '../redirects'
 
 describe('splitRedirectsByType', () => {
   test('splits simple and glob redirects', () => {

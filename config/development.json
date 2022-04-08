@@ -1,19 +1,12 @@
 {
+  "extends": "base",
   "io_sites": {
-    "max_static_paths": 0,
-    "revalidate": 360
+    "max_static_paths": 0
   },
   "dev_dot": {
-    "canonical_base_url": "https://developer.hashi-mktg.com",
-    "max_static_paths": 0,
-    "revalidate": 360,
-    "content_preview_branch": "dev-portal",
-    "beta_product_slugs": ["waypoint", "vault"]
+    "max_static_paths": 0
   },
   "learn": {
     "max_static_paths": 0
-  },
-  "flags": {
-    "enable_new_downloads_view": true
   }
 }

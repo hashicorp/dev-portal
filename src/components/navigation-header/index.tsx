@@ -8,7 +8,7 @@ import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding
 import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
-import { productSlugsToNames } from '../../../config/products'
+import { productSlugsToNames } from 'lib/products'
 import { ProductSlug } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct, useIsBetaProduct } from 'contexts'

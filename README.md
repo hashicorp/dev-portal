@@ -139,10 +139,13 @@ Per-environment configuration values are defined in JSON files in the `config/` 
 
 ```
 config/
+  base.json # Not used directly (see below)
   development.json
   preview.json
   production.json
 ```
+
+Each configuration can define an `extends` property, which will cause it to merge its properties with the extended configuration file. If no `extends` property is explicitly defined, the configuration file will extend from `base.json`.
 
 The configuration values are available globally within the application. They can be accessed from a global `__config` object:
 
