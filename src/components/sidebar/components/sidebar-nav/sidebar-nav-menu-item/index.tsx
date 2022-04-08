@@ -108,7 +108,7 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
   )
 }
 
-export function HorizontalRule({ className }: { className?: string }) {
+function HorizontalRule({ className }: { className?: string }) {
   return <hr className={classNames(s.divider, className)} />
 }
 
@@ -134,5 +134,5 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   return <SidebarNavLink item={item} />
 }
 
-export { SidebarNavLink }
+export { HorizontalRule, SidebarNavLink }
 export default SidebarNavMenuItem
