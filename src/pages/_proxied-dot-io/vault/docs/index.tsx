@@ -1,5 +1,4 @@
 import { ReactElement } from 'react'
-import { Products } from '@hashicorp/platform-product-meta'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/vault.json'
@@ -50,10 +49,7 @@ function VaultDocsLandingPage({
       versions={versions}
       algoliaConfig={productData.algoliaConfig}
     >
-      <ProductDocsLanding
-        themeSlug={productData.slug as Products}
-        content={PAGE_CONTENT}
-      />
+      <ProductDocsLanding content={PAGE_CONTENT} />
     </DocsPageInner>
   )
 }

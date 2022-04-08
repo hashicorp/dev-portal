@@ -7,7 +7,6 @@ import s from './style.module.css'
 
 function ProductDocsLanding({
   content,
-  themeSlug,
 }: ProductDocsLandingProps): ReactElement {
   // Note: later we could use this view with products other than Vault,
   // and put this content somewhere more author-friendly (eg DatoCMS).
@@ -28,7 +27,6 @@ function ProductDocsLanding({
         image={featuredCard.image}
         body={featuredCard.body}
         links={featuredCard.links}
-        productThemeSlug={themeSlug}
       />
       <h2 className="g-type-display-3">Use Cases</h2>
       <div className={s.useCaseCards}>
@@ -40,7 +38,6 @@ function ProductDocsLanding({
               heading={heading}
               body={body}
               links={links}
-              productThemeSlug={themeSlug}
             />
           )
         })}

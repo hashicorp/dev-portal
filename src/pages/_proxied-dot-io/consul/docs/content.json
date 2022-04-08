@@ -17,7 +17,11 @@
         "title": "VM",
         "url": "https://learn.hashicorp.com/collections/consul/getting-started"
       }
-    ]
+    ],
+    "image": {
+      "src": "https://www.datocms-assets.com/2885/1649438362-consul-featured-card-image.svg",
+      "alt": ""
+    }
   },
   "useCaseCards": [
     {
