@@ -1,5 +1,4 @@
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import MaybeInternalLink from 'components/maybe-internal-link'
@@ -11,35 +10,21 @@ interface SidebarMenuItemProps {
   item: MenuItem
 }
 
-const SidebarNavLink = ({ item }) => {
-  if (item.fullPath) {
-    return (
-      <li>
-        <Link href={item.fullPath}>
-          <a
-            aria-current={item.isActive ? 'page' : undefined}
-            className={s.sidebarNavMenuItem}
-            // TODO: this might break some accessible labels, probably need aria-label
-            dangerouslySetInnerHTML={{ __html: item.title }}
-          />
-        </Link>
-      </li>
-    )
-  }
-
+function SidebarNavLink({ item }: SidebarMenuItemProps) {
+  const { isActive, fullPath, href, title } = item
   return (
-    <li>
+    <li className={s.sidebarNavListItem}>
       <MaybeInternalLink
-        aria-current={item.isActive ? 'page' : undefined}
+        aria-current={isActive ? 'page' : undefined}
         className={s.sidebarNavMenuItem}
-        href={item.href}
+        href={fullPath || href}
       >
         <span
           className={s.navMenuItemLabel}
           // TODO: this might break some accessible labels, probably need aria-label
-          dangerouslySetInnerHTML={{ __html: item.title }}
+          dangerouslySetInnerHTML={{ __html: title }}
         />
-        <IconExternalLink16 />
+        {href ? <IconExternalLink16 /> : null}
       </MaybeInternalLink>
     </li>
   )
@@ -129,4 +114,5 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   return <SidebarNavLink item={item} />
 }
 
+export { SidebarNavLink }
 export default SidebarNavMenuItem

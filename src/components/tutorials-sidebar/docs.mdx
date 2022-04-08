@@ -1,0 +1,144 @@
+---
+componentName: 'TutorialsSidebar'
+---
+
+These are the `TutorialsSidebar` docs!
+
+## Landing View
+
+<LiveComponent>{`
+  <TutorialsSidebar backToLink={{ text: "Vault Home", href: "/" }}>
+    <SectionTitle text="Tutorials" as="h1" />
+    <SectionList items={[{ text: 'Overview', href: '/', isActive: true }]} />
+    <HorizontalRule />
+    <SectionTitle text="Get Started" />
+    <SectionList
+      items={[
+        { text: 'CLI Quick Start', href: '/' },
+        { text: 'HCP Vault Quick Start', href: '/' },
+        { text: 'UI Quick Start', href: '/' },
+      ]}
+    />
+    <HorizontalRule />
+    <SectionTitle text="Use Cases" />
+    <SectionList
+      items={[
+        { text: 'ADP', href: '/' },
+        { text: 'Data Encryption', href: '/' },
+        { text: 'Database Credentials', href: '/' },
+        { text: 'Key Management', href: '/' },
+        { text: 'Secrets Management', href: '/' },
+      ]}
+    />
+    <HorizontalRule />
+    <SectionTitle text="Certification Prep" />
+    <SectionList
+      items={[
+        { text: 'Associate', href: '/' },
+        { text: 'Operations Pro', href: '/' },
+      ]}
+    />
+    <HorizontalRule />
+    <SectionTitle text="Production" />
+    <SectionList
+      items={[
+        { text: 'Day One Consul Storage', href: '/' },
+        { text: 'Day One Integrated Storage', href: '/' },
+      ]}
+    />
+    <HorizontalRule />
+    <SectionTitle text="Resources" />
+    <SectionList
+      items={[
+        { text: 'All Tutorials', href: '/', isExternal: true },
+        { text: 'Community Forum', href: '/', isExternal: true },
+        { text: 'Support', href: '/', isExternal: true },
+        { text: 'GitHub', href: '/', isExternal: true },
+      ]}
+    />
+  </TutorialsSidebar>
+`}</LiveComponent>
+
+## Collection View
+
+<LiveComponent>{`
+  <TutorialsSidebar backToLink={{ text: "Vault Home", href: "/" }}>
+    <SectionTitle text="Tutorials" as="h1" />
+    <SectionList items={[{ text: 'Overview', href: '/' }]} />
+    <HorizontalRule />
+    <SectionTitle text="Get Started" />
+    <SectionList
+      items={[
+        { text: 'CLI Quick Start', href: '/' },
+        { text: 'HCP Vault Quick Start', href: '/' },
+        { text: 'UI Quick Start', href: '/', isActive: true },
+      ]}
+    />
+    <HorizontalRule />
+    <SectionTitle text="Use Cases" />
+    <SectionList
+      items={[
+        { text: 'ADP', href: '/' },
+        { text: 'Data Encryption', href: '/' },
+        { text: 'Database Credentials', href: '/' },
+        { text: 'Key Management', href: '/' },
+        { text: 'Secrets Management', href: '/' },
+      ]}
+    />
+    <HorizontalRule />
+    <SectionTitle text="Certification Prep" />
+    <SectionList
+      items={[
+        { text: 'Associate', href: '/' },
+        { text: 'Operations Pro', href: '/' },
+      ]}
+    />
+    <HorizontalRule />
+    <SectionTitle text="Production" />
+    <SectionList
+      items={[
+        { text: 'Day One Consul Storage', href: '/' },
+        { text: 'Day One Integrated Storage', href: '/' },
+      ]}
+    />
+    <HorizontalRule />
+    <SectionTitle text="Resources" />
+    <SectionList
+      items={[
+        { text: 'All Tutorials', href: '/', isExternal: true },
+        { text: 'Community Forum', href: '/', isExternal: true },
+        { text: 'Support', href: '/', isExternal: true },
+        { text: 'GitHub', href: '/', isExternal: true },
+      ]}
+    />
+  </TutorialsSidebar>
+`}</LiveComponent>
+
+## Tutorial View
+
+<LiveComponent>{`
+  <TutorialsSidebar backToLink={{ text: "Vault Home", href: "/" }}>
+    <SectionList
+      items={[
+        { text: 'Getting Started With Vault UI', href: '/', isActive: true },
+        { text: 'Install Vault', href: '/' },
+        { text: 'Web UI', href: '/' },
+        { text: 'Create Vault Policies', href: '/' },
+        { text: 'Manage Authentication Methods', href: '/' },
+        { text: 'Manage Secrets Engine', href: '/' },
+        { text: 'API Explorer in Vault UI', href: '/' },
+        { text: 'Next Steps', href: '/' },
+      ]}
+    />
+    <HorizontalRule />
+    <SectionTitle text="Resources" />
+    <SectionList
+      items={[
+        { text: 'All Tutorials', href: '/', isExternal: true },
+        { text: 'Community Forum', href: '/', isExternal: true },
+        { text: 'Support', href: '/', isExternal: true },
+        { text: 'GitHub', href: '/', isExternal: true },
+      ]}
+    />
+  </TutorialsSidebar>
+`}</LiveComponent>
