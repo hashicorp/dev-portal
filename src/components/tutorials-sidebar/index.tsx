@@ -23,16 +23,20 @@ function TutorialsSidebar({
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
     >
-      <SkipToMainContent />
-      <StandaloneLink
-        className={s.backToLink}
-        href={backToLink.href}
-        text={backToLink.text}
-        icon={<IconChevronLeft16 />}
-        iconPosition="leading"
-        textSize={200}
-      />
-      <div className={s.itemsContainer}>{children}</div>
+      <div className={s.backToLink}>
+        <StandaloneLink
+          href={backToLink.href}
+          text={backToLink.text}
+          icon={<IconChevronLeft16 />}
+          iconPosition="leading"
+          textSize={200}
+        />
+      </div>
+
+      <div className={s.itemsContainer}>
+        <SkipToMainContent />
+        {children}
+      </div>
     </nav>
   )
 }
