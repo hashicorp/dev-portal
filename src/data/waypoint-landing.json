@@ -1,6 +1,6 @@
 {
   "heading": "Waypoint Documentation",
-  "subheading": "Use Waypoint to deliver a PaaS-like experience for Kubernetes, ECS, and other platforms.",
+  "subheading": "Use Waypoint to deliver a PaaS-like experience for Kubernetes, and other platforms.",
   "blocks": [
     {
       "type": "heading",
@@ -119,22 +119,22 @@
           "url": "https://learn.hashicorp.com/collections/waypoint/get-started-nomad"
         },
         {
-          "heading": "Get Started - Docker",
-          "text": "Start using Waypoint in only a few minutes on a local Docker instance.",
+          "heading": "Deploy applications to AWS",
+          "text": "Use your existing AWS environment and leverage Waypoint to deploy applications to AWS ECS and AWS Lambda.",
           "tags": ["video", "waypoint"],
-          "url": "https://learn.hashicorp.com/tutorials/waypoint/get-started-docker"
+          "url": "https://learn.hashicorp.com/collections/waypoint/deploy-aws"
         },
         {
-          "heading": "Deploy an Application to AWS Elastic Container",
-          "text": "Run a NodeJS application onto AWS elastic container Service...",
+          "heading": "Deploy applications to Azure",
+          "text": "Learn how to use Waypoint to deploy applications to Azure Container Instances.",
           "tags": ["video", "waypoint"],
-          "url": "https://learn.hashicorp.com/tutorials/waypoint/aws-ecs"
+          "url": "https://learn.hashicorp.com/collections/waypoint/deploy-azure"
         },
         {
-          "heading": "Deploy an Application to Google Cloud Run",
-          "text": "Run an application on Google Cloud Run with Waypoint",
+          "heading": "Deploy applications to Google Cloud",
+          "text": "Waypoint can deploy applications to Google Cloud Run. Learn how to deploy your applications through Waypoint.",
           "tags": ["video", "waypoint"],
-          "url": "https://learn.hashicorp.com/tutorials/waypoint/google-cloud-run"
+          "url": "https://learn.hashicorp.com/collections/waypoint/deploy-google-cloud"
         }
       ]
     }
