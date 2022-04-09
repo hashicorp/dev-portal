@@ -24,7 +24,6 @@ function TutorialsSidebar({
 }: TutorialSidebarProps) {
   // To visually hide the title, wrap in VisuallyHidden
   const TitleWrapper = visuallyHideTitle ? VisuallyHidden : Fragment
-
   return (
     <nav className={s.root} aria-labelledby={NAV_LABEL_ID}>
       <div className={s.backToLink}>
@@ -36,7 +35,6 @@ function TutorialsSidebar({
           textSize={200}
         />
       </div>
-
       <div className={s.itemsContainer}>
         <SkipToMainContent />
         <TitleWrapper>
