@@ -12,7 +12,8 @@ import {
   PrimaryNavLink,
   PrimaryNavSubmenu,
 } from '..'
-import s from '../../navigation-header.module.css'
+import sharedNavStyles from '../../navigation-header.module.css'
+import s from './product-page-content.module.css'
 
 /**
  * Defined the navigation items for all pages that live under `/{productSlug}`
@@ -54,8 +55,8 @@ const ProductPageHeaderContent = () => {
   const isProductHomePage = currentPath === `/${currentProduct.slug}`
 
   return (
-    <div className={s.leftSide}>
-      <div className={s.contentBeforeNav}>
+    <div className={sharedNavStyles.leftSide}>
+      <div className={sharedNavStyles.contentBeforeNav}>
         <NavigationHeaderDropdownMenu
           ariaLabel="Main menu"
           buttonClassName={s.companyLogoMenuButton}
@@ -68,13 +69,16 @@ const ProductPageHeaderContent = () => {
             aria-label={`${currentProduct.name} home`}
             className={s.productLogoLink}
           >
-            <InlineSvg className={s.productLogo} src={productLogo} />
+            <InlineSvg
+              className={sharedNavStyles.productLogo}
+              src={productLogo}
+            />
           </a>
         </Link>
       </div>
       {isBetaProduct && (
-        <nav className={s.nav}>
-          <ul className={s.navList}>
+        <nav className={sharedNavStyles.nav}>
+          <ul className={sharedNavStyles.navList}>
             {PRODUCT_PAGE_NAV_ITEMS.map((navItem) => {
               const { isSubmenu, label } = navItem
               const ariaLabel = `${currentProduct.name} ${label}`

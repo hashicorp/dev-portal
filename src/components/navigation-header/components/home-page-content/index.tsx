@@ -2,7 +2,8 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import { NavigationHeaderDropdownMenu } from '..'
-import s from '../../navigation-header.module.css'
+import sharedNavStyles from '../../navigation-header.module.css'
+import s from './home-page-content.module.css'
 
 /**
  * Defines the navigation items for the main home page of the app. If this
@@ -18,15 +19,15 @@ const HomePageHeaderContent = () => {
   const betaProductSlugs = __config.dev_dot.beta_product_slugs
 
   return (
-    <div className={s.leftSide}>
-      <div className={s.contentBeforeNav}>
+    <div className={sharedNavStyles.leftSide}>
+      <div className={sharedNavStyles.contentBeforeNav}>
         <InlineSvg
           className={s.siteLogo}
           src={require('../../img/logo-white.svg?include')}
         />
       </div>
-      <nav className={s.nav}>
-        <ul className={s.navList}>
+      <nav className={sharedNavStyles.nav}>
+        <ul className={sharedNavStyles.navList}>
           {HOME_PAGE_NAV_ITEMS.map(
             (navItem: { label: string; pathSuffix: string }) => {
               const { label, pathSuffix } = navItem

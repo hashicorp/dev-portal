@@ -2,7 +2,7 @@ import Link from 'next/link'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import Text from 'components/text'
-import s from '../../navigation-header.module.css'
+import s from './primary-nav-link.module.css'
 
 interface PrimaryNavLinkProps {
   ariaLabel: string
@@ -27,7 +27,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
       <a
         aria-current={isCurrentPage ? 'page' : undefined}
         aria-label={ariaLabel}
-        className={s.mainNavLink}
+        className={s.root}
       >
         <Text asElement="span" size={200} weight="medium">
           {label}
