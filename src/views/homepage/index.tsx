@@ -1,13 +1,24 @@
 import { ReactElement } from 'react'
+import { products } from 'lib/products'
 import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import BaseNewLayout from 'layouts/base-new'
 import PreFooter from './components/pre-footer'
+import ProductNav from './components/product-nav'
 
+const filteredProductSlugs = ['hcp', 'sentinel']
+const flattenedProducts = products
+  .flatMap((product) => product)
+  .filter((product) => !filteredProductSlugs.includes(product.slug))
 function Homepage(): ReactElement {
   return (
     <>
+  <ProductNav
+        notice="All HashiCorp products are being added and will be available here in the
+        Developer Portal"
+        products={flattenedProducts}
+      />
       <PreFooter
         heading="Looking for help?"
         description="Aenean interdum pulvinar nunc et maximus. Etiam imperdiet mattis sapien id commodow Aenean interdum pulvinar nunc nean interdum pulvinar."
@@ -33,7 +44,6 @@ function Homepage(): ReactElement {
             link: '/',
           },
         ]}
-      />
     </>
   )
 }
