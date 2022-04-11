@@ -7,8 +7,11 @@ import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct, useIsBetaProduct } from 'contexts'
-import Text from 'components/text'
-import { NavigationHeaderDropdownMenu } from '..'
+import {
+  NavigationHeaderDropdownMenu,
+  PrimaryNavLink,
+  PrimaryNavSubmenu,
+} from '..'
 import s from '../../navigation-header.module.css'
 
 /**
@@ -33,8 +36,8 @@ const PRODUCT_SLUGS_TO_LOGOS = {
 }
 
 const ProductPageHeaderContent = () => {
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentProduct = useCurrentProduct()
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const isBetaProduct = useIsBetaProduct(currentProduct.slug)
   const betaProductSlugs = __config.dev_dot.beta_product_slugs
   const companyLogo = (
@@ -49,6 +52,8 @@ const ProductPageHeaderContent = () => {
   const allMainMenuItems = [[homeMenuItem], betaProductMenuItems]
   const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
   const isProductHomePage = currentPath === `/${currentProduct.slug}`
+
+  console.log('companyLogoMenuButton', s.companyLogoMenuButton)
 
   return (
     <div className={s.leftSide}>
@@ -72,58 +77,23 @@ const ProductPageHeaderContent = () => {
       {isBetaProduct && (
         <nav className={s.nav}>
           <ul className={s.navList}>
-            {PRODUCT_PAGE_NAV_ITEMS.map(
-              (navItem: {
-                id?: string
-                isSubmenu?: boolean
-                label: string
-                pathSuffix?: string
-              }) => {
-                const { id, isSubmenu, label, pathSuffix } = navItem
-                const ariaLabel = `${currentProduct.name} ${label}`
+            {PRODUCT_PAGE_NAV_ITEMS.map((navItem) => {
+              const { isSubmenu, label } = navItem
+              const ariaLabel = `${currentProduct.name} ${label}`
 
-                const Submenu = () => {
-                  return (
-                    <NavigationHeaderDropdownMenu
-                      ariaLabel={ariaLabel}
-                      itemGroups={[
-                        currentProduct.navigationHeaderItems[id].map(
-                          ({ icon, label, pathSuffix }) => ({
-                            icon,
-                            label,
-                            path: `/${currentProduct.slug}/${pathSuffix}`,
-                          })
-                        ),
-                      ]}
-                      label={label}
-                    />
-                  )
-                }
-
-                const NavLink = () => {
-                  const linkHref = `/${currentProduct.slug}/${pathSuffix}`
-                  const isCurrentPage =
-                    linkHref === currentPath || linkHref === `${currentPath}/`
-                  return (
-                    <Link href={linkHref}>
-                      <a
-                        aria-current={isCurrentPage ? 'page' : undefined}
-                        aria-label={ariaLabel}
-                        className={s.mainNavLink}
-                      >
-                        <Text asElement="span" size={200} weight="medium">
-                          {label}
-                        </Text>
-                      </a>
-                    </Link>
-                  )
-                }
-
-                return (
-                  <li key={label}>{isSubmenu ? <Submenu /> : <NavLink />}</li>
-                )
+              let ItemContent
+              if (isSubmenu) {
+                ItemContent = PrimaryNavSubmenu
+              } else {
+                ItemContent = PrimaryNavLink
               }
-            )}
+
+              return (
+                <li key={label}>
+                  <ItemContent ariaLabel={ariaLabel} navItem={navItem} />
+                </li>
+              )
+            })}
           </ul>
         </nav>
       )}
