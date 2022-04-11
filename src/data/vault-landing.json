@@ -1,6 +1,6 @@
 {
   "heading": "Vault Overview",
-  "subheading": "Use Vault to securely store, access, and manage secrets and other sensitive data.",
+  "subheading": "Vault provides encryption services that are gated by authentication and authorization methods. Use Vault to securely store, access, and manage secrets and other sensitive data.",
   "blocks": [
     {
       "type": "heading",
@@ -12,9 +12,9 @@
       "type": "get_started",
       "product": "vault",
       "heading": "Introduction to Vault",
-      "text": "This guide covers what Vault is, what problems it can solve, how it compares to existing software, and contains a quick start for using Vault.",
+      "text": "Welcome to Vault! This introduction section gives an overview of what Vault is, what problems it can solve, how it compares to existing software, and contains a quick start for using Vault.",
       "link": {
-        "text": "Learn more",
+        "text": "Get Started",
         "url": "/vault/docs/what-is-vault"
       }
     },
@@ -24,26 +24,26 @@
       "cards": [
         {
           "icon": "IconDocs",
-          "heading": "Vault Reference Documentation",
-          "text": "This documentation is more of a reference guide for all available features and options of Vault.",
+          "heading": "Vault Documentation",
+          "text": "Find user references for Vault concepts, server configuration, upgrade guides, release notes, FAQs, and more.",
           "url": "/vault/docs"
         },
         {
           "icon": "IconTerminal",
           "heading": "Vault CLI",
-          "text": "Vault features a command-line interface that wraps common functionality and formats output.",
+          "text": "Vault features a command-line interface (CLI) that wraps common functionality and formats output.",
           "url": "/vault/docs/commands"
         },
         {
           "icon": "IconServer",
           "heading": "Vault API",
-          "text": "The Vault HTTP API gives you full access to Vault via HTTP.",
+          "text": "This is the Vault HTTP API reference. Find the API endpoints and available parameters.",
           "url": "/vault/api-docs"
         },
         {
           "icon": "IconDownload",
           "heading": "Vault Install",
-          "text": "Please download the proper package for your operating system and architecture.",
+          "text": "Download the proper package for your operating system and architecture to get started.",
           "url": "/vault/downloads"
         }
       ]
@@ -60,7 +60,7 @@
       "cards": [
         {
           "heading": "KV Secrets Engine",
-          "text": "The kv secrets engine is a generic Key-Value store used to store arbitrary secrets...",
+          "text": "Vault's key/value secrets engine encrypts and store arbitrary secrets.",
           "url": "/vault/docs/secrets/kv"
         },
         {
