@@ -2,7 +2,7 @@ import Link from 'next/link'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import Text from 'components/text'
-import s from '../../../navigation-header.module.css'
+import s from '../../navigation-header.module.css'
 
 interface PrimaryNavLinkProps {
   ariaLabel: string
