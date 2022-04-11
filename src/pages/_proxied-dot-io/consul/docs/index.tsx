@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
-import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
+import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
-import productData from 'data/vault.json'
+import productData from 'data/consul.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 import ProductDocsLanding from 'views/_proxied-dot-io/product-docs-landing'
 // Note: content is imported directly. Could be moved to getStaticProps.
@@ -27,7 +27,7 @@ const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
  * conflicting page files.
  * ref: https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes
  */
-function VaultDocsLandingPage({
+function ConsulDocsLandingPage({
   frontMatter,
   currentPath,
   navData,
@@ -81,5 +81,5 @@ const getStaticProps: GetStaticProps = async (context) => {
 export { getStaticProps }
 
 // Export view with layout
-VaultDocsLandingPage.layout = VaultIoLayout
-export default VaultDocsLandingPage
+ConsulDocsLandingPage.layout = ConsulIoLayout
+export default ConsulDocsLandingPage

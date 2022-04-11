@@ -2,20 +2,21 @@ import { ReactElement } from 'react'
 import CardLink from 'components/card-link'
 import FeaturedCard from './components/featured-card'
 import UseCaseCard from './components/use-case-card'
+import { ProductDocsLandingProps } from './types'
 import s from './style.module.css'
-import VAULT_CONTENT from './vault-content.json'
 
-function ProductDocsLanding(): ReactElement {
+function ProductDocsLanding({
+  content,
+}: ProductDocsLandingProps): ReactElement {
   // Note: later we could use this view with products other than Vault,
   // and put this content somewhere more author-friendly (eg DatoCMS).
-  const productSlug = 'vault'
   const {
     pageTitle,
     pageSubtitle,
     featuredCard,
     useCaseCards,
     developerCards,
-  } = VAULT_CONTENT
+  } = content
 
   return (
     <div className={s.pageContent}>
@@ -26,7 +27,6 @@ function ProductDocsLanding(): ReactElement {
         image={featuredCard.image}
         body={featuredCard.body}
         links={featuredCard.links}
-        productThemeSlug={productSlug}
       />
       <h2 className="g-type-display-3">Use Cases</h2>
       <div className={s.useCaseCards}>
@@ -38,7 +38,6 @@ function ProductDocsLanding(): ReactElement {
               heading={heading}
               body={body}
               links={links}
-              productThemeSlug={productSlug}
             />
           )
         })}
@@ -58,4 +57,5 @@ function ProductDocsLanding(): ReactElement {
   )
 }
 
+export type { ProductDocsLandingProps }
 export default ProductDocsLanding
