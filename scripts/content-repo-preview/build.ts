@@ -43,7 +43,7 @@ async function main() {
 
   // copy public files
   console.log('📝 copying files in the public folder')
-  execFileSync('cp', ['-Rf', './public', `../`])
+  execFileSync('cp', ['-R', './public', `../`])
 
   /**
    * exclude any imports in the global CSS file which rely on other products
