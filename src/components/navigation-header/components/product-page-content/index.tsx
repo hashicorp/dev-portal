@@ -53,8 +53,6 @@ const ProductPageHeaderContent = () => {
   const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
   const isProductHomePage = currentPath === `/${currentProduct.slug}`
 
-  console.log('companyLogoMenuButton', s.companyLogoMenuButton)
-
   return (
     <div className={s.leftSide}>
       <div className={s.contentBeforeNav}>
