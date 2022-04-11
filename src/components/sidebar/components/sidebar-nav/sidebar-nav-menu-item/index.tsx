@@ -1,5 +1,6 @@
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import classNames from 'classnames'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import MaybeInternalLink from 'components/maybe-internal-link'
@@ -107,9 +108,13 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
   )
 }
 
+function HorizontalRule({ className }: { className?: string }) {
+  return <hr className={classNames(s.divider, className)} />
+}
+
 const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   if (item.divider) {
-    return <hr className={s.divider} />
+    return <HorizontalRule />
   }
 
   // TODO: 2022-01-03: designs show a heading on the product home page,
@@ -129,4 +134,5 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   return <SidebarNavLink item={item} />
 }
 
+export { HorizontalRule, SidebarNavLink }
 export default SidebarNavMenuItem

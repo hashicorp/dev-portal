@@ -1,6 +1,7 @@
 import { MenuItem } from 'components/sidebar'
 import Text from 'components/text'
 import SidebarNavMenuItem from './sidebar-nav-menu-item'
+import SkipToMainContent from './skip-to-main-content'
 import s from './sidebar-nav.module.css'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
@@ -20,9 +21,8 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => (
     >
       {title}
     </Text>
-    <a className={s.skipToMainContent} href="#main">
-      Skip to main content
-    </a>
+
+    <SkipToMainContent />
     <ul className={s.sidebarNavList}>
       {menuItems.map((item) => (
         <SidebarNavMenuItem item={item} key={item.id} />
