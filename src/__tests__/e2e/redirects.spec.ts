@@ -43,3 +43,9 @@ test('should use glob-based redirects', async ({ page, context, baseURL }) => {
   const { pathname } = new URL(page.url())
   expect(pathname).toBe('/security')
 })
+
+test('should use dev portal redirects', async ({ page, context, baseURL }) => {
+  await page.goto('/hashicorp-cloud-platform')
+  const { pathname } = new URL(page.url())
+  expect(pathname).toBe('/hcp')
+})
