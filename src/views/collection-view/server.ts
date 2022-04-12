@@ -42,9 +42,7 @@ export async function getCollectionPageProps(
   const allProductCollections = await getAllCollections({
     product: { slug: product.slug, sidebarSort: true },
   })
-
   const layoutProps = {
-    // @TODO integrate so the anchor tags track
     headings: [
       { title: 'Overview', slug: 'overview', level: 1 },
       { title: 'Tutorials', slug: 'tutorials', level: 1 },

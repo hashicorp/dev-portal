@@ -11,7 +11,7 @@ import { CollectionPageProps } from './server'
 
 export default function CollectionView({
   collection,
-  allProductCollections, // for sidebar section
+  allProductCollections, // for sidebar section and sitemap
   product,
   layoutProps,
 }: CollectionPageProps): React.ReactElement {
@@ -39,8 +39,9 @@ export default function CollectionView({
         />
       }
     >
-      <h1>{name}</h1>
+      <h1 id={layoutProps.headings[0].slug}>{name}</h1>
       <p>{description}</p>
+      <h2 id={layoutProps.headings[1].slug}>Tutorials</h2>
       <ol>
         {tutorials.map((tutorial: ClientTutorialLite) => {
           const tutorialSlug = getTutorialSlug(tutorial.slug, slug)
