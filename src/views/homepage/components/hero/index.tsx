@@ -4,16 +4,19 @@ import Heading from 'components/heading'
 import s from './hero.module.css'
 
 interface HeroProps {
+  badgeText?: string
   heading: string
   description: ReactElement
 }
 
-export default function Hero({ heading, description }: HeroProps) {
+export default function Hero({ badgeText, heading, description }: HeroProps) {
   return (
     <header className={s.hero}>
       <div className={s.container}>
         <div className={s.content}>
-          <Badge text="Beta" color="highlight" type="outlined" />
+          {badgeText ? (
+            <Badge text={badgeText} color="highlight" type="outlined" />
+          ) : null}
           <Heading
             className={s.title}
             level={1}

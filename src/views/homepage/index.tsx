@@ -15,6 +15,7 @@ function Homepage(): ReactElement {
   return (
     <>
       <Hero
+        badgeText="Beta"
         heading="HashiCorp Developer Portal"
         description={
           <>
