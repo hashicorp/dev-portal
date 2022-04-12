@@ -12,33 +12,12 @@ Back to link has some padding, unlike typical StandloneLink
 }
 
 /*
-Spaces all items except the "back to" link
-*/
-.itemsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  position: relative;
-}
-
-/*
 Horizontal rule
 Note: overrides top and bottom margin of HorizontalRule from components/sidebar
 */
 hr.hr {
   margin-top: 8px;
   margin-bottom: 8px;
-}
-
-/*
-Section title
-Note: used for the <SectionTitle /> component, and also for the top-level
-<nav> title.
-*/
-.sectionTitle {
-  composes: hds-typography-body-100 from global;
-  font-weight: var(--token-typography-font-weight-semibold);
-  padding-left: 8px;
 }
 
 /*

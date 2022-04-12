@@ -13,6 +13,10 @@ import {
 } from './types'
 import s from './tutorials-sidebar.module.css'
 import { HorizontalRule as DocsHorizontalRule } from 'components/sidebar/components/sidebar-nav/sidebar-nav-menu-item'
+import {
+  SidebarSectionHeading,
+  SidebarTitleHeading,
+} from 'components/sidebar/components'
 
 const NAV_LABEL_ID = 'TutorialsSidebar_label'
 
@@ -35,12 +39,10 @@ function TutorialsSidebar({
           textSize={200}
         />
       </div>
-      <div className={s.itemsContainer}>
+      <div>
         <SkipToMainContent />
         <TitleWrapper>
-          <h2 className={s.sectionTitle} id={NAV_LABEL_ID}>
-            {title}
-          </h2>
+          <SidebarTitleHeading text={title} id={NAV_LABEL_ID} />
         </TitleWrapper>
         {children}
       </div>
@@ -74,7 +76,7 @@ function ListItem({ href, isActive, text, isExternal }: ListItemProps) {
 }
 
 function SectionTitle({ text }: SectionTitleProps) {
-  return <h3 className={s.sectionTitle}>{text}</h3>
+  return <SidebarSectionHeading text={text} />
 }
 
 function HorizontalRule() {
