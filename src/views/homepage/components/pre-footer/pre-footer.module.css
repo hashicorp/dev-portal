@@ -31,7 +31,7 @@
 .content {
   grid-column: 1 / -1;
 
-  @media (--medium-up) {
+  @media (--dev-dot-tablet-up) {
     grid-column: 2 / 6;
   }
 }
