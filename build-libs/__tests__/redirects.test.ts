@@ -159,6 +159,18 @@ describe('groupSimpleRedirects', () => {
       },
     })
   })
+
+  test('loses simple redirects without associated product', () => {
+    const groupedSimpleRedirects = groupSimpleRedirects([
+      {
+        source: '/source',
+        destination: '/destination',
+        permanent: false,
+      },
+    ])
+
+    expect(groupedSimpleRedirects).not.toEqual({})
+  })
 })
 
 export {}
