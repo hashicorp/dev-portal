@@ -7,7 +7,7 @@ import {
   getCollectionPaths,
   CollectionPageProps,
 } from 'views/collection-view/server'
-import BaseLayout from 'layouts/base-new'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
 export function WaypointCollectionPage(
   props: CollectionPageProps
@@ -40,5 +40,5 @@ export async function getStaticPaths(): Promise<{
   }
 }
 
-WaypointCollectionPage.layout = BaseLayout
+WaypointCollectionPage.layout = CoreDevDotLayout
 export default WaypointCollectionPage

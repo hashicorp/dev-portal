@@ -7,7 +7,7 @@ import {
   getCollectionPaths,
   CollectionPageProps,
 } from 'views/collection-view/server'
-import BaseLayout from 'layouts/base-new'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
 export function VaultCollectionPage(
   props: CollectionPageProps
@@ -40,5 +40,5 @@ export async function getStaticPaths(): Promise<{
   }
 }
 
-VaultCollectionPage.layout = BaseLayout
+VaultCollectionPage.layout = CoreDevDotLayout
 export default VaultCollectionPage
