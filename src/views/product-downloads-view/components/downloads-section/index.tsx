@@ -142,7 +142,6 @@ const ChangelogSection = ({ selectedRelease }) => {
           iconPosition="trailing"
           openInNewTab
           text="GitHub"
-          textSize={200}
         />
       </Card>
     </>

@@ -46,7 +46,6 @@ function GetStarted({
             icon={<IconArrowRight16 />}
             iconPosition="trailing"
             text={link.text}
-            textSize={200}
           />
         </div>
       </div>

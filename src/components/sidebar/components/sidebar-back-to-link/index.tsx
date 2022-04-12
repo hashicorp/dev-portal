@@ -25,7 +25,6 @@ const SidebarBackToLink = ({
       icon={<IconArrowLeft16 className={s.icon} />}
       iconPosition="leading"
       text={text}
-      textSize={200}
     />
   )
 }

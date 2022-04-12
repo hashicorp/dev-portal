@@ -32,7 +32,6 @@ function TutorialsSidebar({
           text={backToLink.text}
           icon={<IconChevronLeft16 />}
           iconPosition="leading"
-          textSize={200}
         />
       </div>
       <div className={s.itemsContainer}>

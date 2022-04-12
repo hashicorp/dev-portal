@@ -13,8 +13,8 @@ Internally, this component uses two other components:
 
 🚨 Guidance on icon sizes to pass into the `icon` prop:
 
-- If `textSize` is being set to 100 or 200, then size 16 icons are recommended
-- If `textSize` is being set to 300, then size 24 icons are recommended
+- If `size` set to "small" or "medium", then size 16 icons are recommended
+- If `size` set to "large", then size 24 icons are recommended
 
 | Prop name      | Description                                                                                                                             | Required? | Default value | Type                                   |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- | -------------------------------------- |
@@ -26,8 +26,8 @@ Internally, this component uses two other components:
 | `icon`         | An icon from `@hashicorp/flight-icons` to render.                                                                                       | Yes       | N/A           | ReactElement                           |
 | `iconPosition` | Where the icon should be rendered within the link. See examples below.                                                                  | Yes       | N/A           | Either: 'leading' or 'trailing'        |
 | `openInNewTab` | Whether or not the link should open in a new tab. Affects the `target` and `rel` props passed to the internally rendered `<a>` element. | No        | false         | boolean                                |
+| `size`         | The size of the rendered link, which mainly affects the `font-size` and `line-height` CSS properties.                                   | No        | undefined     | One of: 'small', 'medium', 'large'     |
 | `text`         | The text rendered within the `<a>` element.                                                                                             | Yes       | N/A           | string                                 |
-| `textSize`     | The `size` passed to the inner `Text` component.                                                                                        | No        | undefined     | TextProps[`size`]                      |
 
 ## Examples
 
@@ -82,7 +82,7 @@ const MyComponent = () => {
 />
 `}</LiveComponent>
 
-### With varying textSize values
+### With varying size values
 
 <LiveComponent>{`
 <>
@@ -90,23 +90,23 @@ const MyComponent = () => {
     href="/"
     icon={<SwingsetTestIcon name="arrow-right" />}
     iconPosition="trailing"
+    size="small"
     text="Get Started"
-    textSize={100}
   />
   <StandaloneLink
     href="/"
     icon={<SwingsetTestIcon name="arrow-right" />}
     iconPosition="trailing"
+    size="medium"
     text="Get Started"
-    textSize={200}
   />
-  {/* Reminder: It's important to use size 24 icons when textSize is 300 */}
+  {/* Reminder: It's important to use size 24 icons when size is "large" */}
   <StandaloneLink
     href="/"
     icon={<SwingsetTestIcon name="arrow-right" size={24} />}
     iconPosition="trailing"
+    size="large"
     text="Get Started"
-    textSize={300}
   />
 </>
 `}</LiveComponent>
