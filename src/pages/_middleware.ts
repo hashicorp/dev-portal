@@ -28,7 +28,7 @@ const HOSTNAME_MAP = {
   'test-wp.hashi-mktg.com': 'waypoint',
 }
 
-function determineProductSlug(req: NextRequest): string | null {
+function determineProductSlug(req: NextRequest): string {
   // .io preview on dev portal
   if (req.cookies.io_preview) {
     return req.cookies.io_preview
@@ -44,7 +44,8 @@ function determineProductSlug(req: NextRequest): string | null {
     return HOSTNAME_MAP[req.nextUrl.hostname]
   }
 
-  return null
+  // dev portal
+  return '*'
 }
 
 /**
@@ -58,11 +59,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   if (process.env.DEBUG_REDIRECTS) {
     console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
   }
-  if (
-    product &&
-    redirects[product] &&
-    req.nextUrl.pathname in redirects[product]
-  ) {
+  if (redirects[product] && req.nextUrl.pathname in redirects[product]) {
     const { destination, permanent } = redirects[product][req.nextUrl.pathname]
     if (process.env.DEBUG_REDIRECTS) {
       console.log(
