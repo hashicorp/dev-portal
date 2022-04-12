@@ -5,6 +5,11 @@
 
   position: relative;
   padding: 64px 24px;
+  background-image: radial-gradient(
+    at bottom,
+    var(--token-color-palette-neutral-100),
+    --token-color-palette-neutral-0
+  );
 
   @media (--medium-up) {
     --grid-template-columns: 12;
