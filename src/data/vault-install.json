@@ -2,7 +2,7 @@
   "featuredTutorials": [
     {
       "title": "Getting Started",
-      "description": "Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Get started here.",
+      "description": "A quick tour of common Vault features to jump-start.",
       "href": "https://learn.hashicorp.com/collections/vault/getting-started"
     },
     {
@@ -12,23 +12,23 @@
     },
     {
       "title": "Getting Started with HCP Vault",
-      "description": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Vault using the HCP portal and setup your managed Vault cluster.",
+      "description": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Vault.",
       "href": "https://learn.hashicorp.com/collections/vault/cloud"
     },
     {
-      "title": "App Integration",
-      "description": "Integrate your applications with Vault. Some tutorials leverage tools and some tutorials demonstrate code examples.",
-      "href": "https://learn.hashicorp.com/collections/vault/app-integration"
+      "title": "Production Hardening",
+      "description": "Best practices for a production hardened deployment of Vault.",
+      "href": "https://learn.hashicorp.com/tutorials/vault/production-hardening"
     },
     {
-      "title": "HCP Vault",
-      "description": "Learn how to provision and connect to HCP Vault clusters.",
-      "href": "https://learn.hashicorp.com/collections/vault/cloud-ops"
+      "title": "Reference Architecture",
+      "description": "Architectural best practices for implementing Vault with Integrated Storage.",
+      "href": "https://learn.hashicorp.com/tutorials/vault/raft-reference-architecture"
     },
     {
-      "title": "Custom Secrets Engines",
-      "description": "Learn how to build a custom secrets engine to rotate your own tokens, passwords, and more with Vault and a target API.",
-      "href": "https://learn.hashicorp.com/collections/vault/custom-secrets-engine"
+      "title": "Vault Deployment Guide",
+      "description": "Steps to install and configure a Vault according to the Reference Architecture.",
+      "href": "https://learn.hashicorp.com/tutorials/vault/raft-deployment-guide"
     }
   ],
   "sidecarMarketingCard": {
