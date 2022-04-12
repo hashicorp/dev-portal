@@ -1,11 +1,13 @@
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import classNames from 'classnames'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import MaybeInternalLink from 'components/maybe-internal-link'
 import { MenuItem } from 'components/sidebar'
-import { SidebarSectionHeading } from 'components/sidebar/components'
+import {
+  SidebarHorizontalRule,
+  SidebarSectionHeading,
+} from 'components/sidebar/components'
 import s from './sidebar-nav-menu-item.module.css'
 
 interface SidebarMenuItemProps {
@@ -108,13 +110,9 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
   )
 }
 
-function HorizontalRule({ className }: { className?: string }) {
-  return <hr className={classNames(s.divider, className)} />
-}
-
 const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   if (item.divider) {
-    return <HorizontalRule />
+    return <SidebarHorizontalRule />
   }
   if (item.heading) {
     return <SidebarSectionHeading text={item.heading} />
@@ -127,5 +125,5 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   return <SidebarNavLink item={item} />
 }
 
-export { HorizontalRule, SidebarNavLink }
+export { SidebarNavLink }
 export default SidebarNavMenuItem
