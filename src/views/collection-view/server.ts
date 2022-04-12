@@ -11,6 +11,7 @@ import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
+import { filterCollections } from '../product-tutorials-view/helpers'
 
 export interface CollectionPageProps {
   collection: ClientCollection
@@ -59,7 +60,10 @@ export async function getCollectionPageProps(
   return {
     props: stripUndefinedProperties({
       collection: collection,
-      allProductCollections,
+      allProductCollections: filterCollections(
+        allProductCollections,
+        product.slug
+      ),
       product,
       layoutProps,
     }),

@@ -1,6 +1,7 @@
 import { LearnProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
+import { Collection as ClientCollection } from 'lib/learn-client/types'
 
 /**
  * takes db slug format --> waypoint/intro

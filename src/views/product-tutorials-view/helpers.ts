@@ -1,4 +1,7 @@
-import { Collection as ClientCollection } from 'lib/learn-client/types'
+import {
+  Collection as ClientCollection,
+  ProductOption,
+} from 'lib/learn-client/types'
 
 /**
  * This function is an interim solution for filtering content from the /onboarding dir
@@ -7,10 +10,13 @@ import { Collection as ClientCollection } from 'lib/learn-client/types'
  * This function also filters collections that don't have the product as the main theme
  */
 
-export function filterCollections(collections, theme) {
-  return collections
-    .filter((c) => c.theme === theme && !c.slug.includes('onboarding'))
-    .sort(sortAlphabetically('name'))
+export function filterCollections(
+  collections: ClientCollection[],
+  theme: ProductOption
+) {
+  return collections.filter(
+    (c: ClientCollection) => c.theme === theme && !c.slug.includes('onboarding')
+  )
 }
 
 function sortAlphabetically(
@@ -28,4 +34,11 @@ function sortAlphabetically(
     }
     return 0
   }
+}
+
+export function filterAndSortCollections(
+  collections: ClientCollection[],
+  theme: ProductOption
+) {
+  return filterCollections(collections, theme).sort(sortAlphabetically('name'))
 }
