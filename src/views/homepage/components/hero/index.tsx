@@ -1,9 +1,14 @@
+import { ReactElement } from 'react'
 import Badge from 'components/badge'
 import Heading from 'components/heading'
-import Text from 'components/text'
 import s from './hero.module.css'
 
-export default function Hero({ heading, description }) {
+interface HeroProps {
+  heading: string
+  description: ReactElement
+}
+
+export default function Hero({ heading, description }: HeroProps) {
   return (
     <header className={s.hero}>
       <div className={s.container}>
