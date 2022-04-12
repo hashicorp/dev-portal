@@ -8,7 +8,6 @@
 
   @media (--dev-dot-tablet-up) {
     --grid-template-columns: 12;
-    --grid-column-gap: 32px;
   }
 }
 
@@ -29,10 +28,6 @@
   @media (--dev-dot-tablet-up) {
     grid-column: 1 / 7;
   }
-
-  @media (--dev-dot-desktop) {
-    grid-column: 2 / 7;
-  }
 }
 
 .description {
@@ -47,10 +42,6 @@
     grid-column: 8 / -1;
     display: flex;
     justify-content: flex-end;
-  }
-
-  @media (--dev-dot-desktop) {
-    grid-column: 8 / 12;
   }
 }
 
