@@ -1,5 +1,4 @@
 import { MenuItem } from 'components/sidebar'
-import Text from 'components/text'
 import SidebarNavMenuItem from './sidebar-nav-menu-item'
 import SkipToMainContent from './skip-to-main-content'
 import s from './sidebar-nav.module.css'
@@ -11,17 +10,11 @@ interface SidebarNavProps {
   title: string
 }
 
-const SidebarNav: React.FC<SidebarNavProps> = ({ menuItems, title }) => (
+const SidebarNav = ({ menuItems, title }: SidebarNavProps) => (
   <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.sidebarNavElement}>
-    <Text
-      className={s.sidebarNavLabel}
-      id={SIDEBAR_LABEL_ID}
-      size={200}
-      weight="semibold"
-    >
+    <h2 className={s.title} id={SIDEBAR_LABEL_ID}>
       {title}
-    </Text>
-
+    </h2>
     <SkipToMainContent />
     <ul className={s.sidebarNavList}>
       {menuItems.map((item) => (
