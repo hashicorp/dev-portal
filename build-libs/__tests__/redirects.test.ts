@@ -160,7 +160,7 @@ describe('groupSimpleRedirects', () => {
     })
   })
 
-  test('loses simple redirects without associated product', () => {
+  test('handles simple redirects without associated product', () => {
     const groupedSimpleRedirects = groupSimpleRedirects([
       {
         source: '/source',
@@ -169,7 +169,14 @@ describe('groupSimpleRedirects', () => {
       },
     ])
 
-    expect(groupedSimpleRedirects).not.toEqual({})
+    expect(groupedSimpleRedirects).toEqual({
+      '*': {
+        '/source': {
+          destination: '/destination',
+          permanent: false,
+        },
+      },
+    })
   })
 })
 

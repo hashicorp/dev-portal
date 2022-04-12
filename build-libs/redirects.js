@@ -279,6 +279,20 @@ async function buildDotIoRedirects() {
 }
 
 /**
+ *
+ * @returns {Promise<Redirect[]>}
+ */
+async function buildDevPortalRedirects() {
+  return [
+    {
+      source: '/hashicorp-cloud-platform',
+      destination: '/hcp',
+      permanent: true,
+    },
+  ]
+}
+
+/**
  * Splits an array of redirects into simple (one-to-one path matches without
  * regex matching) and glob-based (with regex matching). Enables processing
  * redirects via middleware instead of the built-in redirects handling.
@@ -347,6 +361,20 @@ function groupSimpleRedirects(redirects) {
           }
         }
       }
+    } else {
+      if ('*' in groupedRedirects) {
+        groupedRedirects['*'][redirect.source] = {
+          destination: redirect.destination,
+          permanent: redirect.permanent,
+        }
+      } else {
+        groupedRedirects['*'] = {
+          [redirect.source]: {
+            destination: redirect.destination,
+            permanent: redirect.permanent,
+          },
+        }
+      }
     }
   })
 
@@ -355,8 +383,11 @@ function groupSimpleRedirects(redirects) {
 
 async function redirectsConfig() {
   const dotIoRedirects = await buildDotIoRedirects()
-  const { simpleRedirects, globRedirects } =
-    splitRedirectsByType(dotIoRedirects)
+  const devPortalRedirects = await buildDevPortalRedirects()
+  const { simpleRedirects, globRedirects } = splitRedirectsByType([
+    ...dotIoRedirects,
+    ...devPortalRedirects,
+  ])
   const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
   if (process.env.DEBUG_REDIRECTS) {
     console.log(
