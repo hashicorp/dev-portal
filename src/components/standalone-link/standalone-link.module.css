@@ -25,12 +25,16 @@
     padding: 5px;
   }
 
-  & svg:first-child {
-    margin-right: 6px;
-  }
+  & svg {
+    flex-shrink: 0;
 
-  & svg:last-child {
-    margin-left: 6px;
+    &:first-child {
+      margin-right: 8px;
+    }
+
+    &:last-child {
+      margin-left: 8px;
+    }
   }
 }
 

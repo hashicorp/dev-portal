@@ -1,6 +1,6 @@
 {
   "heading": "Vault Overview",
-  "subheading": "Use Vault to securely store, access, and manage secrets and other sensitive data.",
+  "subheading": "Vault provides encryption services that are gated by authentication and authorization methods. Use Vault to securely store, access, and manage secrets and other sensitive data.",
   "blocks": [
     {
       "type": "heading",
@@ -12,9 +12,9 @@
       "type": "get_started",
       "product": "vault",
       "heading": "Introduction to Vault",
-      "text": "This guide covers what Vault is, what problems it can solve, how it compares to existing software, and contains a quick start for using Vault.",
+      "text": "Welcome to Vault! This introduction section gives an overview of what Vault is, what problems it can solve, how it compares to existing software, and contains a quick start for using Vault.",
       "link": {
-        "text": "Learn more",
+        "text": "Get Started",
         "url": "/vault/docs/what-is-vault"
       }
     },
@@ -24,26 +24,26 @@
       "cards": [
         {
           "icon": "IconDocs",
-          "heading": "Vault Reference Documentation",
-          "text": "This documentation is more of a reference guide for all available features and options of Vault.",
+          "heading": "Vault Documentation",
+          "text": "Find user references for Vault concepts, server configuration, upgrade guides, release notes, FAQs, and more.",
           "url": "/vault/docs"
         },
         {
           "icon": "IconTerminal",
           "heading": "Vault CLI",
-          "text": "Vault features a command-line interface that wraps common functionality and formats output.",
+          "text": "Vault features a command-line interface (CLI) that wraps common functionality and formats output.",
           "url": "/vault/docs/commands"
         },
         {
           "icon": "IconServer",
           "heading": "Vault API",
-          "text": "The Vault HTTP API gives you full access to Vault via HTTP.",
+          "text": "This is the Vault HTTP API reference. Find the API endpoints and available parameters.",
           "url": "/vault/api-docs"
         },
         {
           "icon": "IconDownload",
           "heading": "Vault Install",
-          "text": "Please download the proper package for your operating system and architecture.",
+          "text": "Download the proper package for your operating system and architecture to get started.",
           "url": "/vault/downloads"
         }
       ]
@@ -51,7 +51,7 @@
     {
       "type": "heading",
       "level": 2,
-      "heading": "Secrets Management",
+      "heading": "Secrets Management & Data Protection",
       "size": 300
     },
     {
@@ -59,53 +59,36 @@
       "columns": 3,
       "cards": [
         {
-          "heading": "KV Secrets Engine",
-          "text": "The kv secrets engine is a generic Key-Value store used to store arbitrary secrets...",
-          "url": "/vault/docs/secrets/kv"
+          "heading": "Vault Secrets Engine",
+          "text": "Secrets engines are pluggable components which store, generate, or encrypt sensitive data.",
+          "url": "/vault/docs/secrets"
         },
         {
-          "heading": "AWS Secrets Engine",
-          "text": "The AWS secrets engine generates AWS access credentials dynamically...",
-          "url": "/vault/docs/secrets/aws"
+          "heading": "Key/Value Secrets Engine",
+          "text": "Vault's key/value secrets engine encrypts and store arbitrary secrets.",
+          "url": "https://learn.hashicorp.com/tutorials/vault/versioned-kv"
         },
         {
-          "heading": "PKI Secrets Engine",
-          "text": "The PKI secrets engine generates dynamic X.509 certificates.",
-          "url": "/vault/docs/secrets/pki"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Data Protection",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
+          "heading": "Database Secrets Engine",
+          "text": "Dynamically generates database credentials based on pre-configured roles.",
+          "url": "/vault/docs/secrets/databases"
+        },
         {
-          "heading": "Transit Secret Engine",
-          "text": "The transit secrets engine handles cryptographic functions on data in-transit.",
+          "heading": "Transit Secrets Engine",
+          "text": "Encrypt data in-transit to provide encryption as a service.",
           "url": "/vault/docs/secrets/transit"
         },
         {
-          "heading": "Key Management",
-          "text": "Workflow for distribution and lifecycle management of cryptographic keys in key...",
-          "url": "/vault/docs/secrets/key-management"
-        },
-        {
-          "heading": "Transform",
-          "text": "The Transform secrets engine handles secure data transformation and...",
-          "url": "/vault/docs/secrets/transform"
+          "heading": "Transform Secrets Engine",
+          "text": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
+          "url": "/vault/docs/secrets/databases"
         }
       ]
     },
     {
       "type": "heading",
       "level": 2,
-      "heading": "Identity-based Access",
+      "heading": "Automated PKI Infrastructure",
       "size": 300
     },
     {
@@ -113,49 +96,45 @@
       "columns": 3,
       "cards": [
         {
-          "heading": "Auth Methods",
-          "text": "The Transform secrets engine handles secure data transformation and...",
-          "url": "/vault/docs/auth"
+          "heading": "PKI Secret Engine",
+          "text": "The PKI secrets engine generates dynamic X.509 certificates.",
+          "url": "/vault/docs/secrets/pki"
         },
         {
-          "heading": "Policies",
-          "text": "Policies provide a declarative way to grant or forbid access to certain paths and...",
-          "url": "/vault/docs/concepts/policies"
+          "heading": "TLS Certificates Auth Method",
+          "text": "Authenticate using SSL/TLS client certificates that are either signed by a CA or self-signed.",
+          "url": "/vault/docs/auth/cert"
         },
         {
-          "heading": "Tokens",
-          "text": "Tokens are the core method for authentication within Vault.",
-          "url": "/vault/docs/concepts/tokens"
+          "heading": "Build Your Own Certificate Authority (CA)",
+          "text": "Walkthrough the user of the PKI secrets engine to create X.509 certificates.",
+          "url": "https://learn.hashicorp.com/tutorials/vault/pki-engine"
         }
       ]
     },
-    { "type": "heading", "level": 2, "heading": "Start learning", "size": 300 },
+    {
+      "type": "heading",
+      "level": 2,
+      "heading": "Kubernetes",
+      "size": 300
+    },
     {
       "type": "cards",
-      "columns": 2,
+      "columns": 3,
       "cards": [
         {
-          "heading": "Getting Started",
-          "text": "Controls access to passwords, certificates, and other secrets in modern computing.",
-          "tags": ["vault"],
-          "url": "https://learn.hashicorp.com/tutorials/vault/getting-started-intro"
+          "heading": "Vault Helm Chart",
+          "text": "Use the Vault Helm chart to install and configure Vault on Kubernetes.",
+          "url": "/vault/docs/platform/k8s/helm"
         },
         {
-          "heading": "Getting Started with Vault UI",
-          "text": "Manage Vault environment as well as your secrets using Vault UI.",
-          "tags": ["vault"],
-          "url": "https://learn.hashicorp.com/tutorials/vault/getting-started-intro-ui"
-        },
-        {
-          "heading": "Getting Started with HCP Vault",
-          "text": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Vault using the HCP portal.",
-          "tags": ["vault"],
-          "url": "https://learn.hashicorp.com/tutorials/vault/getting-started-intro"
+          "heading": "Agent Sidecar Injector",
+          "text": "Alters pod specifications to include Vault Agent containers that render secrets.",
+          "url": "/vault/docs/platform/k8s/injector"
         },
         {
           "heading": "Vault on Kubernetes Deployment Guide",
-          "text": "Describes the required steps to install and configure a single HashiCorp Vault cluster onto a...",
-          "tags": ["vault"],
+          "text": "Describes steps to install and configure a single Vault cluster on Kubernetes.",
           "url": "https://learn.hashicorp.com/tutorials/vault/kubernetes-raft-deployment-guide"
         }
       ]
