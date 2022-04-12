@@ -4,6 +4,7 @@ import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import BaseNewLayout from 'layouts/base-new'
+import Hero from './components/hero'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import TutorialCard from './components/tutorial-card'
@@ -13,6 +14,8 @@ const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 function Homepage(): ReactElement {
   return (
     <>
+      <Hero heading="HashiCorp Developer Portal" />
+
       <ProductNav
         notice="All HashiCorp products are being added and will be available here in the
         Developer Portal"
