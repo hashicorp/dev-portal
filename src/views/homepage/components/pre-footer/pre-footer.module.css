@@ -30,6 +30,7 @@
 
 .content {
   grid-column: 1 / -1;
+
   @media (--medium-up) {
     grid-column: 2 / 6;
   }
