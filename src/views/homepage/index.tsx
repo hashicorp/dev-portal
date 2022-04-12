@@ -14,7 +14,18 @@ const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 function Homepage(): ReactElement {
   return (
     <>
-      <Hero heading="HashiCorp Developer Portal" />
+      <Hero
+        heading="HashiCorp Developer Portal"
+        description={
+          <>
+            <p>
+              The home of HashiCorp documentation and learning content for
+              developers and technology professionals.
+            </p>
+            <p>More products and featrues coming soon....</p>
+          </>
+        }
+      />
 
       <ProductNav
         notice="All HashiCorp products are being added and will be available here in the

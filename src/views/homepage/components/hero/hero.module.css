@@ -40,10 +40,11 @@
 
 .description {
   display: grid;
-  gap: 1rem;
   margin-top: 24px;
+  gap: 1rem;
 
   & > * {
+    margin: 0;
     font-size: 20px;
   }
 }

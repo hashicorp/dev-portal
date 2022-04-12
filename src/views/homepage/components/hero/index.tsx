@@ -18,13 +18,7 @@ export default function Hero({ heading, description }) {
           >
             {heading}
           </Heading>
-          <div className={s.description}>
-            <Text size={300}>
-              The home of HashiCorp documentation and learning content for
-              developers and technology professionals.
-            </Text>
-            <Text size={300}>More products and featrues coming soon....</Text>
-          </div>
+          <div className={s.description}>{description}</div>
         </div>
       </div>
     </header>
