@@ -5,7 +5,7 @@ import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-ri
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import MaybeInternalLink from 'components/maybe-internal-link'
 import { MenuItem } from 'components/sidebar'
-import Text from 'components/text'
+import { SidebarSectionHeading } from 'components/sidebar/components'
 import s from './sidebar-nav-menu-item.module.css'
 
 interface SidebarMenuItemProps {
@@ -116,15 +116,8 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   if (item.divider) {
     return <HorizontalRule />
   }
-
-  // TODO: 2022-01-03: designs show a heading on the product home page,
-  // TODO: eg /waypoint, so adding this type in.
   if (item.heading) {
-    return (
-      <Text className={s.heading} size={200} weight="semibold">
-        {item.heading}
-      </Text>
-    )
+    return <SidebarSectionHeading text={item.heading} />
   }
 
   if (item.routes) {
