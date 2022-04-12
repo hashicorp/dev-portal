@@ -27,6 +27,10 @@
   grid-column: 1 / -1;
 
   @media (--dev-dot-tablet-up) {
+    grid-column: 1 / 7;
+  }
+
+  @media (--dev-dot-desktop) {
     grid-column: 2 / 7;
   }
 }
@@ -40,9 +44,13 @@
   grid-column: 1 / -1;
 
   @media (--dev-dot-tablet-up) {
-    grid-column: 8 / 12;
+    grid-column: 8 / -1;
     display: flex;
     justify-content: flex-end;
+  }
+
+  @media (--dev-dot-desktop) {
+    grid-column: 8 / 12;
   }
 }
 
