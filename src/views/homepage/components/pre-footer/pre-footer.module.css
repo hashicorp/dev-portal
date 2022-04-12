@@ -8,7 +8,7 @@
   background-image: radial-gradient(
     at bottom,
     var(--token-color-palette-neutral-100),
-    --token-color-palette-neutral-0
+    var(--token-color-palette-neutral-0)
   );
 
   @media (--dev-dot-tablet-up) {
