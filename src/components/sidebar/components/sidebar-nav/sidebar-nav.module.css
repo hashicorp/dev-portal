@@ -1,12 +1,12 @@
 .title {
-  color: var(--token-color-foreground-primary);
-  font-size: var(--token-typography-display-100-font-size);
-  font-weight: var(--token-typography-font-weight-semibold);
-  line-height: var(--token-typography-display-100-line-height);
-  margin-bottom: 12px;
-  margin-top: 0;
-  padding-left: 8px;
-  padding-right: 8px;
+  color: var(--sidebar-heading-color);
+  font-size: var(--sidebar-heading-font-size);
+  font-weight: var(--sidebar-heading-font-weight);
+  line-height: var(--sidebar-heading-line-height);
+  margin-bottom: var(--sidebar-heading-margin-bottom);
+  margin-top: var(--sidebar-heading-margin-top);
+  padding-left: var(--sidebar-heading-padding-left);
+  padding-right: var(--sidebar-heading-padding-right);
 }
 
 .nav {
