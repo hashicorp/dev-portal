@@ -68,8 +68,14 @@ interface ProductNavProps {
 
 export default function ProductNav({ notice, products }: ProductNavProps) {
   return (
-    <div>
-      {notice ? <p className={s.notice}>{notice}</p> : null}
+    <div className={s.productNav}>
+      {notice ? (
+        <div className={s.notice}>
+          <Text size={100} className={s.noticeText}>
+            {notice}
+          </Text>
+        </div>
+      ) : null}
       <nav className={s.nav}>
         <ul className={s.list}>
           {products.map((product) => {
