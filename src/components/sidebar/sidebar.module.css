@@ -1,20 +1,20 @@
 .sidebar {
-  /* Shared properties between the sidebar title and section headings. */
-  --sidebar-heading-color: var(--token-color-foreground-primary);
-  --sidebar-heading-font-size: var(--token-typography-display-100-font-size);
-  --sidebar-heading-font-weight: var(--token-typography-font-weight-semibold);
-  --sidebar-heading-line-height: var(
-    --token-typography-display-100-line-height
-  );
-  --sidebar-heading-margin-bottom: 12px;
-  --sidebar-heading-margin-top: 0;
-  --sidebar-heading-padding-left: 8px;
-  --sidebar-heading-padding-right: 8px;
-
   & ul ul {
     list-style: none;
     margin: 0;
     padding: 0;
     margin-left: 1em;
   }
+}
+
+.title,
+.heading {
+  color: var(--token-color-foreground-primary);
+  font-size: var(--token-typography-display-100-font-size);
+  font-weight: var(--token-typography-font-weight-semibold);
+  line-height: var(--token-typography-display-100-line-height);
+  margin-bottom: 12px;
+  margin-top: 0;
+  padding-left: 8px;
+  padding-right: 8px;
 }

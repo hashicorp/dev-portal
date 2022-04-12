@@ -1,14 +1,3 @@
-.title {
-  color: var(--sidebar-heading-color);
-  font-size: var(--sidebar-heading-font-size);
-  font-weight: var(--sidebar-heading-font-weight);
-  line-height: var(--sidebar-heading-line-height);
-  margin-bottom: var(--sidebar-heading-margin-bottom);
-  margin-top: var(--sidebar-heading-margin-top);
-  padding-left: var(--sidebar-heading-padding-left);
-  padding-right: var(--sidebar-heading-padding-right);
-}
-
 .nav {
   position: relative;
 }
