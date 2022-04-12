@@ -9,12 +9,11 @@
   padding-right: 8px;
 }
 
-.sidebarNavElement {
-  padding-top: 8px;
+.nav {
   position: relative;
 }
 
-.sidebarNavList {
+.navList {
   list-style: none;
   margin: 0;
   padding: 0;

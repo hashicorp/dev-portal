@@ -11,12 +11,12 @@ interface SidebarNavProps {
 }
 
 const SidebarNav = ({ menuItems, title }: SidebarNavProps) => (
-  <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.sidebarNavElement}>
+  <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.nav}>
     <h2 className={s.title} id={SIDEBAR_LABEL_ID}>
       {title}
     </h2>
     <SkipToMainContent />
-    <ul className={s.sidebarNavList}>
+    <ul className={s.navList}>
       {menuItems.map((item) => (
         <SidebarNavMenuItem item={item} key={item.id} />
       ))}
