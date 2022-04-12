@@ -6,21 +6,29 @@ import ProductCardGrid from 'components/product-card-grid'
 import s from './index.module.css'
 
 function Homepage(): ReactElement {
-  return (
-    <div className={s.root}>
-      <HomepageHero className={s.hero} />
-      <Heading
-        className={s.cardGridHeading}
-        level={2}
-        size={400}
-        slug="explore-product-documentation"
-        weight="bold"
-      >
-        Explore Product Documentation
-      </Heading>
-      <ProductCardGrid className={s.cardGrid} />
-    </div>
-  )
+  if (__config.flags.enable_new_homepage_view) {
+    return (
+      <>
+        <p>New homepage</p>
+      </>
+    )
+  } else {
+    return (
+      <div className={s.root}>
+        <HomepageHero className={s.hero} />
+        <Heading
+          className={s.cardGridHeading}
+          level={2}
+          size={400}
+          slug="explore-product-documentation"
+          weight="bold"
+        >
+          Explore Product Documentation
+        </Heading>
+        <ProductCardGrid className={s.cardGrid} />
+      </div>
+    )
+  }
 }
 
 Homepage.layout = BaseNewLayout
