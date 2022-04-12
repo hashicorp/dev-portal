@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import slugify from 'slugify'
 import Heading from 'components/heading'
@@ -5,7 +6,22 @@ import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
 import s from './pre-footer.module.css'
 
-export default function PreFooter({ heading, description, ctas }) {
+interface PreFooterProps {
+  heading: string
+  description: string
+  ctas: Array<{
+    icon: ReactElement
+    heading: string
+    description: string
+    link: string
+  }>
+}
+
+export default function PreFooter({
+  heading,
+  description,
+  ctas,
+}: PreFooterProps) {
   return (
     <section className={s.preFooter}>
       <div className={s.container}>
