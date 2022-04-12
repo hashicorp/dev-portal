@@ -397,6 +397,8 @@ async function redirectsConfig() {
   }
   return {
     simpleRedirects: groupedSimpleRedirects,
+    dotIoRedirects,
+    devPortalRedirects,
     globRedirects,
   }
 }
