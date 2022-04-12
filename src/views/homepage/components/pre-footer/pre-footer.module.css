@@ -11,7 +11,7 @@
     --token-color-palette-neutral-0
   );
 
-  @media (--medium-up) {
+  @media (--dev-dot-tablet-up) {
     --grid-template-columns: 12;
     --grid-column-gap: 32px;
   }
