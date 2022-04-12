@@ -1,15 +1,10 @@
 .preFooter {
-  --container-max-width: 1140px;
+  --container-max-width: 1240px;
   --grid-template-columns: 4;
   --grid-column-gap: 24px;
 
   position: relative;
   padding: 64px 24px;
-  background-image: radial-gradient(
-    at bottom,
-    var(--token-color-palette-neutral-100),
-    var(--token-color-palette-neutral-0)
-  );
 
   @media (--dev-dot-tablet-up) {
     --grid-template-columns: 12;
@@ -46,6 +41,8 @@
 
   @media (--dev-dot-tablet-up) {
     grid-column: 8 / 12;
+    display: flex;
+    justify-content: flex-end;
   }
 }
 
