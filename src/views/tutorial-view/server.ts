@@ -52,14 +52,14 @@ export async function getTutorialPageProps(
   const layoutProps = {
     headings,
     breadcrumbLinks: getTutorialsBreadcrumb({
-      product: { name: product.name, slug: product.slug },
+      product: { name: product.name, filename: product.slug },
       collection: {
         name: collection.data.shortName,
-        slug: collection.filename,
+        filename: collection.filename,
       },
       tutorial: {
         name: fullTutorialData.name,
-        slug: tutorialReference.filename,
+        filename: tutorialReference.filename,
       },
     }),
   }

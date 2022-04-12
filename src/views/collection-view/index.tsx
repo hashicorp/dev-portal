@@ -13,17 +13,15 @@ export default function CollectionView({
   collection,
   allProductCollections, // for sidebar section
   product,
+  layoutProps,
 }: CollectionPageProps): React.ReactElement {
   const { name, slug, description, shortName, tutorials } = collection
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 
   return (
     <SidebarSidecarLayout
-      breadcrumbLinks={[{ title: 'hi' }]}
-      headings={[
-        { title: 'Overview', slug: 'overview', level: 1 },
-        { title: 'Tutorials', slug: 'tutorials', level: 1 },
-      ]}
+      breadcrumbLinks={layoutProps.breadcrumbLinks}
+      headings={layoutProps.headings}
       sidebarSlot={
         <SidebarNav
           title={shortName}

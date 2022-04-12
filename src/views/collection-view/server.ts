@@ -9,11 +9,14 @@ import {
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 
 export interface CollectionPageProps {
   collection: ClientCollection
   allProductCollections: ClientCollection[]
   product: LearnProductData
+  layoutProps: Pick<SidebarSidecarLayoutProps, 'headings' | 'breadcrumbLinks'>
 }
 
 export interface CollectionPagePath {
@@ -40,11 +43,27 @@ export async function getCollectionPageProps(
     product: { slug: product.slug, sidebarSort: true },
   })
 
+  const layoutProps = {
+    // @TODO integrate so the anchor tags track
+    headings: [
+      { title: 'Overview', slug: 'overview', level: 1 },
+      { title: 'Tutorials', slug: 'tutorials', level: 1 },
+    ],
+    breadcrumbLinks: getTutorialsBreadcrumb({
+      product: { name: product.name, filename: product.slug },
+      collection: {
+        name: collection.shortName,
+        filename: splitProductFromFilename(collection.slug),
+      },
+    }),
+  }
+
   return {
     props: stripUndefinedProperties({
       collection: collection,
       allProductCollections,
       product,
+      layoutProps,
     }),
   }
 }
