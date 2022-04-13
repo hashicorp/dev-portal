@@ -37,14 +37,20 @@
 }
 
 .content {
-  grid-column: 1 / -1;
+  text-align: center;
+  grid-column: 3 / 11;
 
-  @media (--dev-dot-tablet-up) {
-    grid-column: 1 / 9;
-  }
+  @nest .withActions & {
+    text-align: left;
+    grid-column: 1 / -1;
 
-  @media (--dev-dot-desktop) {
-    grid-column: 1 / 5;
+    @media (--dev-dot-tablet-up) {
+      grid-column: 1 / 9;
+    }
+
+    @media (--dev-dot-desktop) {
+      grid-column: 1 / 5;
+    }
   }
 }
 

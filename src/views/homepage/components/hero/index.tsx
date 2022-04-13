@@ -27,8 +27,9 @@ export default function Hero({
   description,
   actions,
 }: HeroProps) {
+  const hasActions = actions?.length > 0
   return (
-    <header className={s.hero}>
+    <header className={classNames(s.hero, hasActions && s.withActions)}>
       <div className={s.container}>
         <div className={s.content}>
           {badgeText ? <Badge text={badgeText} color="highlight" /> : null}
@@ -44,7 +45,7 @@ export default function Hero({
           <div className={s.description}>{description}</div>
         </div>
 
-        {actions?.length ? (
+        {hasActions ? (
           <ul className={s.list}>
             {actions.map((action, index) => {
               const slug = slugify(action.heading)
