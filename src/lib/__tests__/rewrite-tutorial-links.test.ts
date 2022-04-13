@@ -6,21 +6,18 @@
 
 // test for beta product linking internally
 
-import path from 'path'
-import fs from 'fs'
 import remark from 'remark'
-import remarkMdx from 'remark-mdx'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 
-describe('transformRewriteStandaloneStaticAssets', () => {
-  test('Resolves images relative to the document', async () => {
-    // load the fixture
-    const tutorialFixture = fs.readFileSync(
-      path.join(process.cwd(), '/src/lib/__tests__/__fixtures__/tutorial.md')
-    )
+// Matches the pattern /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
+// @TODO load beta products from config, concat as string construction to dynamically load the products?
+const validDevPortalTutorialsPath = new RegExp(
+  /^\/(waypoint|vault)\/tutorials\/[a-z0-9]+(?:[-][a-z0-9]+)*(\/[a-z0-9]+(?:[-][a-z0-9]+)*)?/
+)
 
-    // console.log({ tutorialFixture })
-
+describe('rewriteTutorialLinks remark plugin', () => {
+  test('Beta product tutorial links are rewritten to dev portal paths', async () => {
+    // load beta product config
     const contents = await remark()
       .use(rewriteTutorialLinksPlugin)
       .process(
@@ -28,10 +25,7 @@ describe('transformRewriteStandaloneStaticAssets', () => {
       )
 
     const result = String(contents)
-
-    //     expect(result.document.markdownSource).toMatchInlineSnapshot(`
-    // "![image](https://mktg-content-api-hashicorp.vercel.app/api/assets?product=terraform-cdk&version=stable-website&asset=website%2Fdocs%2Fcdktf%2Fimage.png)
-    // "
-    // `)
+    const isValidPath = validDevPortalTutorialsPath.test(result)
+    expect(isValidPath).toEqual(true)
   })
 })

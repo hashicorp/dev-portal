@@ -13,13 +13,17 @@
  * /tutorials/{product}/{tutorial-name}  --> /{product}/tutorials/{collection-name}/{tutorial-name}
  */
 
+import { Link } from 'mdast'
 import { Plugin } from 'unified'
+import { is } from 'unist-util-is'
 import { visit } from 'unist-util-visit'
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return function transformer(tree) {
-    visit(tree, 'link', (node) => {
-      console.log({ node }, '!!!!!')
+    visit(tree, 'link', (node: Link) => {
+      console.log(node.url, '-- original url!')
+      node.url = '/something'
+      console.log(node.url)
     })
   }
 }
