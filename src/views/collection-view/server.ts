@@ -11,7 +11,10 @@ import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
-import { SidebarSection, collectionsToSidebarSections } from './helpers'
+import {
+  CollectionCategorySidebarSection,
+  collectionsToSidebarSections,
+} from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
 
 export interface CollectionPageProps {
@@ -24,7 +27,7 @@ export interface CollectionPageProps {
 type CollectionLayout = Pick<
   SidebarSidecarLayoutProps,
   'headings' | 'breadcrumbLinks'
-> & { sidebarSections: SidebarSection[] }
+> & { sidebarSections: CollectionCategorySidebarSection[] }
 
 export interface CollectionPagePath {
   params: {
@@ -65,7 +68,10 @@ export async function getCollectionPageProps(
         filename: splitProductFromFilename(collection.slug),
       },
     }),
-    sidebarSections: collectionsToSidebarSections(filteredCollections),
+    sidebarSections: collectionsToSidebarSections(
+      filteredCollections,
+      collection.slug
+    ),
   }
 
   return {

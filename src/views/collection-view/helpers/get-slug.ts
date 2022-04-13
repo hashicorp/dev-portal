@@ -1,11 +1,6 @@
 import { LearnProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import {
-  Collection as ClientCollection,
-  CollectionCategoryOption,
-} from 'lib/learn-client/types'
-import { ListItemProps } from 'components/tutorials-sidebar/types'
 
 /**
  * takes db slug format --> waypoint/intro
@@ -36,47 +31,4 @@ export function getCollectionSlug(collectionDbSlug: string): string {
   }
 
   return `/${product}/tutorials/${collectionFilename}`
-}
-
-export interface SidebarSection {
-  title: CollectionCategoryOption
-  items: ClientCollection[]
-}
-
-export function collectionsToSidebarSections(
-  collections: ClientCollection[]
-): SidebarSection[] {
-  const categorySlugs = Object.keys(CollectionCategoryOption)
-
-  const sidebarSectionsByCategory = categorySlugs.map(
-    (category: CollectionCategoryOption) => {
-      // get collections associated with that category
-      const items = collections.filter(
-        (c: ClientCollection) => c.category === category
-      )
-
-      return {
-        title: CollectionCategoryOption[category],
-        items,
-      }
-    }
-  )
-
-  return filterEmptySections(sidebarSectionsByCategory)
-}
-
-function filterEmptySections(sections) {
-  return sections.filter((c) => c.items.length > 0)
-}
-
-export function formatCollectionToSectionItem(
-  collection: ClientCollection,
-  currentPath: string
-): ListItemProps {
-  const path = getCollectionSlug(collection.slug)
-  return {
-    text: collection.shortName,
-    href: path,
-    isActive: path === currentPath,
-  }
 }

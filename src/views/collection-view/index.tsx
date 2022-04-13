@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
-import useCurrentPath from 'hooks/use-current-path'
-import { formatCollectionToSectionItem, getTutorialSlug } from './helpers'
+import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import TutorialsSidebar, {
   HorizontalRule,
@@ -16,7 +15,6 @@ export default function CollectionView({
   layoutProps,
 }: CollectionPageProps): React.ReactElement {
   const { name, slug, description, shortName, tutorials } = collection
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 
   return (
     <SidebarSidecarLayout
@@ -44,11 +42,7 @@ export default function CollectionView({
               <>
                 <HorizontalRule />
                 <SectionTitle text={section.title} />
-                <SectionList
-                  items={section.items.map((item) =>
-                    formatCollectionToSectionItem(item, currentPath)
-                  )}
-                />
+                <SectionList items={section.items} />
               </>
             )
           })}
