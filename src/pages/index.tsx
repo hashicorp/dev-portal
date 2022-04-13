@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import BaseNewLayout from 'layouts/base-new'
+import NewHomepage from 'views/homepage'
 import Heading from 'components/heading'
 import HomepageHero from 'components/homepage-hero'
 import ProductCardGrid from 'components/product-card-grid'
@@ -9,7 +10,7 @@ function Homepage(): ReactElement {
   if (__config.flags.enable_new_homepage_view) {
     return (
       <>
-        <p>New homepage</p>
+        <NewHomepage />
       </>
     )
   } else {
