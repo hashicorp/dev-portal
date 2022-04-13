@@ -5,7 +5,7 @@ import {
   Collection as ClientCollection,
   CollectionCategoryOption,
 } from 'lib/learn-client/types'
-import { MenuItem } from 'components/sidebar'
+import { ListItemProps } from 'components/tutorials-sidebar/types'
 
 /**
  * takes db slug format --> waypoint/intro
@@ -69,15 +69,14 @@ function filterEmptySections(sections) {
   return sections.filter((c) => c.items.length > 0)
 }
 
-export function formatCollectionToMenuItem(
+export function formatCollectionToSectionItem(
   collection: ClientCollection,
-  currentPath
-): MenuItem {
+  currentPath: string
+): ListItemProps {
   const path = getCollectionSlug(collection.slug)
   return {
-    title: collection.shortName,
-    fullPath: path,
-    id: collection.id,
+    text: collection.shortName,
+    href: path,
     isActive: path === currentPath,
   }
 }

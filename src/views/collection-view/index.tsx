@@ -1,11 +1,14 @@
 import Link from 'next/link'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
-import SidebarNav from 'components/sidebar/components/sidebar-nav'
-import { MenuItem } from 'components/sidebar'
 import useCurrentPath from 'hooks/use-current-path'
-import { formatCollectionToMenuItem, getTutorialSlug } from './helpers'
+import { formatCollectionToSectionItem, getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
+import TutorialsSidebar, {
+  HorizontalRule,
+  SectionList,
+  SectionTitle,
+} from 'components/tutorials-sidebar'
 
 export default function CollectionView({
   collection,
@@ -20,20 +23,36 @@ export default function CollectionView({
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
       sidebarSlot={
-        <SidebarNav
-          title={shortName}
-          menuItems={[
-            ...layoutProps.sidebarSections.flatMap((category): MenuItem[] => {
-              return [
-                { divider: true },
-                { heading: category.title },
-                ...category.items.map((c) =>
-                  formatCollectionToMenuItem(c, currentPath)
-                ),
-              ]
-            }),
-          ]}
-        />
+        <TutorialsSidebar
+          title={`${product.name} Tutorials`}
+          backToLink={{
+            text: `${product.name} Home`,
+            href: `/${product.slug}`,
+          }}
+        >
+          <SectionList
+            items={[
+              {
+                text: 'Overview',
+                href: `${product.slug}/tutorials`,
+                isActive: false,
+              },
+            ]}
+          />
+          {layoutProps.sidebarSections.map((section) => {
+            return (
+              <>
+                <HorizontalRule />
+                <SectionTitle text={section.title} />
+                <SectionList
+                  items={section.items.map((item) =>
+                    formatCollectionToSectionItem(item, currentPath)
+                  )}
+                />
+              </>
+            )
+          })}
+        </TutorialsSidebar>
       }
     >
       <h1 id={layoutProps.headings[0].slug}>{name}</h1>
