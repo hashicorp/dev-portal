@@ -89,7 +89,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
 }
 
 const Sidebar = ({
-  backToLinkProps = {},
+  backToLinkProps,
   menuItems,
   showFilterInput = true,
   title,
@@ -102,12 +102,15 @@ const Sidebar = ({
   const [filterValue, setFilterValue] = useState('')
   const filteredMenuItems = getFilteredMenuItems(itemsWithMetadata, filterValue)
 
+  let backToLink
+  if (backToLinkProps) {
+    const { text, url } = backToLinkProps
+    backToLink = <SidebarBackToLink text={text} url={url} />
+  }
+
   return (
     <div className={s.sidebar}>
-      <SidebarBackToLink
-        text={backToLinkProps.text}
-        url={backToLinkProps.url}
-      />
+      {backToLink}
       {showFilterInput && (
         <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       )}
