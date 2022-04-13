@@ -1,11 +1,11 @@
 import type { ProductSlug } from 'types/products'
 import { productSlugs } from 'lib/products'
-import ProductIcon from 'components/product-icon'
 import { IconPlay16 } from '@hashicorp/flight-icons/svg-react/play-16'
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
 import Badge from 'components/badge'
 import CardLink from 'components/card-link'
 import Heading from 'components/heading'
+import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import s from './tutorial-card.module.css'
 
