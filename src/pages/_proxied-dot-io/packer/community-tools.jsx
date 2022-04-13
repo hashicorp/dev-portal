@@ -18,6 +18,7 @@ export async function getStaticProps(ctx) {
   if (hasLocalContent) {
     return generateStaticProps({
       pagePath: '../content/community-tools.mdx',
+      includesRoot: '../content/partials',
     })(ctx)
   }
   // Otherwise, load the MDX content via our content API
