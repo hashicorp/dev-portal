@@ -32,20 +32,28 @@
 }
 
 .list {
-  --border-radius: 12px;
-
-  position: relative;
   list-style: none;
-  max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0;
-  display: flex;
+  max-width: var(--container-max-width);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
   border-radius: 14px;
-  background-color: var(--white);
-  box-shadow: var(--token-elevation-inset-box-shadow);
+
+  @media (--dev-dot-tablet-up) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (--dev-dot-desktop) {
+    display: flex;
+    gap: 0;
+    box-shadow: var(--token-surface-base-box-shadow);
+  }
 }
 
 .listItem {
+  position: relative;
   flex: 1;
 }
 
@@ -53,20 +61,60 @@
   position: relative;
   display: grid;
   place-items: center;
-  margin-bottom: -1px;
   padding-top: 24px;
   padding-bottom: 24px;
+  border-radius: 14px;
+  background-color: var(--token-color-surface-primary);
   color: var(--token-color-foreground-disabled);
-  border-bottom: 5px solid var(--product-color);
+  box-shadow: var(--token-surface-base-box-shadow);
   overflow: hidden;
+
+  @media (--dev-dot-desktop) {
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+
+    @nest .listItem:first-child & {
+      border-top-left-radius: 14px;
+      border-bottom-left-radius: 14px;
+    }
+
+    @nest .listItem:last-child & {
+      border-top-right-radius: 14px;
+      border-bottom-right-radius: 14px;
+    }
+  }
 
   &[href] {
     color: var(--token-color-palette-neutral-800);
 
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      border-bottom: 4px solid var(--border-color);
+      transition: all 0.1s;
+    }
+
     &:hover {
-      box-shadow: var(--token-elevation-high-box-shadow);
-      border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px;
+      z-index: 1;
+      box-shadow: var(--token-surface-high-box-shadow);
+
+      @media (--dev-dot-desktop) {
+        box-shadow: none;
+
+        &::after {
+          box-shadow: var(--token-surface-high-box-shadow);
+          border-bottom-left-radius: 4px;
+          border-bottom-right-radius: 4px;
+          height: calc(100% + 4px);
+        }
+      }
+    }
+
+    &:focus {
+      z-index: 1;
     }
   }
 }

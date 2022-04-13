@@ -1,6 +1,7 @@
 import { CSSProperties, ReactElement } from 'react'
 import Link from 'next/link'
-import type { Product, ProductSlug } from 'types/products'
+import type { ProductSlug } from 'types/products'
+import { productSlugsToNames } from 'lib/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { IconTerraform24 } from '@hashicorp/flight-icons/svg-react/terraform-24'
 import { IconTerraformColor24 } from '@hashicorp/flight-icons/svg-react/terraform-color-24'
@@ -22,11 +23,15 @@ import Text from 'components/text'
 import s from './product-nav.module.css'
 
 const productIcons: {
-  [key in Exclude<ProductSlug, 'sentinel' | 'hcp'>]: {
+  [key in Exclude<ProductSlug, 'sentinel'>]: {
     neutral: ReactElement
     color: ReactElement
   }
 } = {
+  hcp: {
+    neutral: <IconTerraform24 />,
+    color: <IconTerraformColor24 />,
+  },
   terraform: {
     neutral: <IconTerraform24 />,
     color: <IconTerraformColor24 />,
@@ -63,7 +68,7 @@ const productIcons: {
 
 interface ProductNavProps {
   notice?: string
-  products: Array<Product>
+  products: Array<ProductSlug>
 }
 
 export default function ProductNav({ notice, products }: ProductNavProps) {
@@ -79,40 +84,43 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
       <nav className={s.nav}>
         <ul className={s.list}>
           {products.map((product) => {
-            const isBetaProduct = getIsBetaProduct(product.slug)
+            const isBetaProduct = getIsBetaProduct(product)
+            const productName =
+              product === 'hcp' ? 'HCP' : productSlugsToNames[product]
             return (
-              <li className={s.listItem} key={product.slug}>
+              <li
+                className={s.listItem}
+                key={product}
+                style={
+                  {
+                    '--border-color': `var(--${product})`,
+                  } as CSSProperties
+                }
+              >
                 {isBetaProduct ? (
-                  <Link href={`/${product.slug}/`}>
-                    <a
-                      className={s.product}
-                      style={
-                        {
-                          '--product-color': `var(--${product.slug})`,
-                        } as CSSProperties
-                      }
-                    >
-                      {productIcons[product.slug].color}
+                  <Link href={`/${product}/`}>
+                    <a className={s.product}>
+                      {productIcons[product].color}
                       <Text
-                        weight="medium"
+                        weight="semibold"
                         size={200}
                         className={s.productName}
                         asElement="span"
                       >
-                        {product.name}
+                        {productName}
                       </Text>
                     </a>
                   </Link>
                 ) : (
                   <span className={s.product}>
-                    {productIcons[product.slug].neutral}
+                    {productIcons[product].neutral}
                     <Text
-                      weight="medium"
+                      weight="semibold"
                       size={200}
                       className={s.productName}
                       asElement="span"
                     >
-                      {product.name}
+                      {productName}
                     </Text>
                   </span>
                 )}
