@@ -18,19 +18,24 @@ import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { ProductOption } from 'lib/learn-client/types'
 
-const LearnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
+const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
+const internalLearnLink = new RegExp(
+  '(learn.hashicorp.com?|collections|tutorials)'
+)
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return function transformer(tree) {
     visit(tree, 'link', (node: Link) => {
       console.log(node.url, '-- original url!')
-
+      // return early if non tutorial or collection link
+      if (!internalLearnLink.test(node.url)) {
+        return
+      }
       // find product
-      const [product] = node.url.match(LearnProducts)
+      const [product] = node.url.match(learnProducts)
       const slugParts = node.url.trim().split('/')
       const isTutorialPath = slugParts.includes('tutorials')
       const isCollectionPath = slugParts.includes('collections')
-      console.log(slugParts)
       const isBetaProduct =
         __config.dev_dot.beta_product_slugs.includes(product)
 
