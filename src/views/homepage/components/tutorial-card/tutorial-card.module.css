@@ -6,6 +6,10 @@
   background-color: var(--token-color-surface-primary);
   box-shadow: var(--token-surface-mid-box-shadow);
   border-radius: 6px;
+
+  &:hover {
+    box-shadow: var(--token-surface-high-box-shadow);
+  }
 }
 
 .duration {
