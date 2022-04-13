@@ -10,6 +10,12 @@ export interface CollectionCategorySidebarSection {
   items: ListItemProps[]
 }
 
+/**
+ * This function creates an array of collection category
+ * sections for the sidebar. The sections include the associated
+ * collections with that category. The collection category order
+ * and options are linked to the `CollectionCategoryOption` enum
+ */
 export function collectionsToSidebarSections(
   collections: ClientCollection[],
   currentSlug: string
