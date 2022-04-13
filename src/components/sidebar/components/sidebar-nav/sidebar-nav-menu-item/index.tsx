@@ -1,11 +1,13 @@
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import classNames from 'classnames'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import MaybeInternalLink from 'components/maybe-internal-link'
 import { MenuItem } from 'components/sidebar'
-import Text from 'components/text'
+import {
+  SidebarHorizontalRule,
+  SidebarSectionHeading,
+} from 'components/sidebar/components'
 import s from './sidebar-nav-menu-item.module.css'
 
 interface SidebarMenuItemProps {
@@ -108,23 +110,12 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
   )
 }
 
-function HorizontalRule({ className }: { className?: string }) {
-  return <hr className={classNames(s.divider, className)} />
-}
-
 const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   if (item.divider) {
-    return <HorizontalRule />
+    return <SidebarHorizontalRule />
   }
-
-  // TODO: 2022-01-03: designs show a heading on the product home page,
-  // TODO: eg /waypoint, so adding this type in.
   if (item.heading) {
-    return (
-      <Text className={s.heading} size={200} weight="semibold">
-        {item.heading}
-      </Text>
-    )
+    return <SidebarSectionHeading text={item.heading} />
   }
 
   if (item.routes) {
@@ -134,5 +125,5 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   return <SidebarNavLink item={item} />
 }
 
-export { HorizontalRule, SidebarNavLink }
+export { SidebarNavLink }
 export default SidebarNavMenuItem

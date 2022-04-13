@@ -1,15 +1,8 @@
-.sidebarNavElement {
-  padding-top: 8px;
+.nav {
   position: relative;
 }
 
-.sidebarNavLabel {
-  color: var(--token-color-foreground-faint);
-  margin-bottom: 12px;
-  padding: 0 8px;
-}
-
-.sidebarNavList {
+.navList {
   list-style: none;
   margin: 0;
   padding: 0;

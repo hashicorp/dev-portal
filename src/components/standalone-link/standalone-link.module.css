@@ -29,11 +29,11 @@
     flex-shrink: 0;
 
     &:first-child {
-      margin-right: 8px;
+      margin-right: 6px;
     }
 
     &:last-child {
-      margin-left: 8px;
+      margin-left: 6px;
     }
   }
 }
