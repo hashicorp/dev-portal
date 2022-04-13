@@ -1,4 +1,4 @@
-import { ProductGroup, ProductName, ProductSlug } from 'types/products'
+import { Product, ProductName, ProductSlug } from 'types/products'
 
 /**
  * A map of product slugs to their proper noun names.
@@ -17,31 +17,27 @@ const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
 }
 
 /**
- * Holds the product slugs in the order ProductSwitcher will render them.
+ * An array of all Product slugs.
  */
-const productSwitcherSlugs: ProductSlug[][] = [
-  ['terraform', 'packer', 'vagrant'],
-  ['vault', 'boundary'],
-  ['consul'],
-  ['nomad', 'waypoint'],
-  ['hcp'],
-  ['sentinel'],
+const productSlugs: ProductSlug[] = [
+  'boundary',
+  'consul',
+  'hcp',
+  'nomad',
+  'packer',
+  'sentinel',
+  'terraform',
+  'vagrant',
+  'vault',
+  'waypoint',
 ]
 
 /**
- * Generates a 2D array of Product objects from `productSwitcherSlugs`.
+ * Generates an array of Product objects from `productSlugs`.
  */
-const products: ProductGroup[] = productSwitcherSlugs.map(
-  (slugGroup: ProductSlug[]) => {
-    const productGroup = slugGroup.map((slug: ProductSlug) => {
-      const name = productSlugsToNames[slug]
-      return {
-        name,
-        slug,
-      }
-    })
-    return productGroup
-  }
-)
+const products: Product[] = productSlugs.map((slug: ProductSlug) => {
+  const name = productSlugsToNames[slug]
+  return { name, slug }
+})
 
-export { products, productSlugsToNames }
+export { products, productSlugs, productSlugsToNames }

@@ -15,7 +15,7 @@ import {
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { Product, ProductSlug } from 'types/products'
-import { products as productGroups } from 'lib/products'
+import { products as allProducts } from 'lib/products'
 import ProductIcon from 'components/product-icon'
 import s from './style.module.css'
 
@@ -30,9 +30,9 @@ const IO_SITES_ON_DEV_PORTAL = [
   'consul',
 ]
 
-const products = productGroups
-  .flat()
-  .filter((product) => IO_SITES_ON_DEV_PORTAL.includes(product.slug))
+const products = allProducts.filter((product: Product) =>
+  IO_SITES_ON_DEV_PORTAL.includes(product.slug)
+)
 
 const OPTION_LIST_ID = 'product-chooser-option-list'
 const OPTION_ID_PREFIX = 'product-chooser-list-item-'
@@ -64,9 +64,9 @@ const PreviewProductSwitcher: React.FC = () => {
   const currentProduct =
     typeof window === 'undefined'
       ? null
-      : products
-          .flat()
-          .find((product) => product.slug === Cookies.get('io_preview'))
+      : products.find(
+          (product: Product) => product.slug === Cookies.get('io_preview')
+        )
 
   useEffect(() => {
     setIsMounted(true)
@@ -219,14 +219,6 @@ const PreviewProductSwitcher: React.FC = () => {
     )
   }
 
-  const renderProductGroup = (productGroup: Product[]) => {
-    return (
-      <ul role="group">
-        {productGroup.map((product) => renderProductListItem(product))}
-      </ul>
-    )
-  }
-
   if (!isMounted) {
     return null
   }
@@ -271,7 +263,7 @@ const PreviewProductSwitcher: React.FC = () => {
           onKeyDown={handleKeyDown}
           style={{ display: isOpen ? 'block' : 'none' }}
         >
-          {renderProductGroup(products)}
+          {products.map(renderProductListItem)}
         </ul>
       </Popover>
     </div>
