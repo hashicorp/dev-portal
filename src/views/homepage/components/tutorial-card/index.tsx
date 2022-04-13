@@ -28,8 +28,10 @@ interface TutorialCardProps {
   duration?: string
   heading: string
   description: string
-  badges: Array<ProductSlug | 'video' | 'interactive'>
+  badges: Array<Exclude<ProductSlug, 'sentinel'> | 'video' | 'interactive'>
 }
+
+console.log(productSlugs)
 
 export default function TutorialCard({
   link,

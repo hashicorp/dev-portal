@@ -31,7 +31,7 @@ function Homepage(): ReactElement {
           duration="10min"
           heading="Title Max 70 Characters"
           description="Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v..."
-          badges={['vault', 'boundary', 'nomad', 'video']}
+          badges={['hcp', 'vault', 'boundary', 'nomad', 'video']}
         />
         <TutorialCard
           link="/"
