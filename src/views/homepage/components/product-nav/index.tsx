@@ -95,6 +95,7 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
                       {productIcons[product.slug].color}
                       <Text
                         weight="medium"
+                        size={200}
                         className={s.productName}
                         asElement="span"
                       >
@@ -107,6 +108,7 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
                     {productIcons[product.slug].neutral}
                     <Text
                       weight="medium"
+                      size={200}
                       className={s.productName}
                       asElement="span"
                     >
