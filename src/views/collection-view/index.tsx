@@ -3,11 +3,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
-import TutorialsSidebar, {
-  HorizontalRule,
-  SectionList,
-  SectionTitle,
-} from 'components/tutorials-sidebar'
+import CollectionViewSidebar from './components/collection-view-sidebar'
 
 export default function CollectionView({
   collection,
@@ -21,32 +17,10 @@ export default function CollectionView({
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
       sidebarSlot={
-        <TutorialsSidebar
-          title={`${product.name} Tutorials`}
-          backToLink={{
-            text: `${product.name} Home`,
-            href: `/${product.slug}`,
-          }}
-        >
-          <SectionList
-            items={[
-              {
-                text: 'Overview',
-                href: `/${product.slug}/tutorials`,
-                isActive: false,
-              },
-            ]}
-          />
-          {layoutProps.sidebarSections.map((section) => {
-            return (
-              <>
-                <HorizontalRule />
-                <SectionTitle text={section.title} />
-                <SectionList items={section.items} />
-              </>
-            )
-          })}
-        </TutorialsSidebar>
+        <CollectionViewSidebar
+          product={product}
+          sections={layoutProps.sidebarSections}
+        />
       }
     >
       <h1 id={layoutProps.headings[0].slug}>{name}</h1>
