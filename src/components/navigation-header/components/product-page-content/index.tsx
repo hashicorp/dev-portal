@@ -60,6 +60,7 @@ const ProductPageHeaderContent = () => {
         <NavigationHeaderDropdownMenu
           ariaLabel="Main menu"
           buttonClassName={s.companyLogoMenuButton}
+          dropdownClassName={s.companyLogoMenuButtonDropdown}
           itemGroups={allMainMenuItems}
           leadingIcon={companyLogo}
         />

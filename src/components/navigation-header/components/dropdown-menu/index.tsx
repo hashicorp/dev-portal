@@ -45,6 +45,7 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
 const NavigationHeaderDropdownMenu = ({
   ariaLabel,
   buttonClassName,
+  dropdownClassName,
   itemGroups,
   label,
   leadingIcon,
@@ -196,7 +197,7 @@ const NavigationHeaderDropdownMenu = ({
         </button>
       </div>
       <div
-        className={s.dropdownContainer}
+        className={classNames(s.dropdownContainer, dropdownClassName)}
         id={menuId}
         style={{ display: isOpen ? 'block' : 'none' }}
       >
