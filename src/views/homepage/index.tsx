@@ -26,6 +26,22 @@ function Homepage(): ReactElement {
             <p>More products and featrues coming soon....</p>
           </>
         }
+        actions={[
+          {
+            heading: 'This is a pretty long  CTA headline for this area',
+            description:
+              'This is supporting docs or left cta copy for hero section. This is also a lot of supporting copy for such a small area.',
+            link: '/',
+            linkText: 'Get started',
+          },
+          {
+            heading: 'This headline could literally be anything',
+            description:
+              'This is supporting docs or left cta copy for hero section. This is also a lot of supporting copy for such a small area.',
+            link: '/',
+            linkText: 'Get started',
+          },
+        ]}
       />
 
       <ProductNav
