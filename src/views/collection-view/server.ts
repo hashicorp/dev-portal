@@ -11,14 +11,20 @@ import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
+import { SidebarSection, collectionsToSidebarSections } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
 
 export interface CollectionPageProps {
   collection: ClientCollection
   allProductCollections: ClientCollection[]
   product: LearnProductData
-  layoutProps: Pick<SidebarSidecarLayoutProps, 'headings' | 'breadcrumbLinks'>
+  layoutProps: CollectionLayout
 }
+
+type CollectionLayout = Pick<
+  SidebarSidecarLayoutProps,
+  'headings' | 'breadcrumbLinks'
+> & { sidebarSections: SidebarSection[] }
 
 export interface CollectionPagePath {
   params: {
@@ -43,6 +49,10 @@ export async function getCollectionPageProps(
   const allProductCollections = await getAllCollections({
     product: { slug: product.slug, sidebarSort: true },
   })
+  const filteredCollections = filterCollections(
+    allProductCollections,
+    product.slug
+  )
   const layoutProps = {
     headings: [
       { title: 'Overview', slug: 'overview', level: 1 },
@@ -55,15 +65,12 @@ export async function getCollectionPageProps(
         filename: splitProductFromFilename(collection.slug),
       },
     }),
+    sidebarSections: collectionsToSidebarSections(filteredCollections),
   }
 
   return {
     props: stripUndefinedProperties({
       collection: collection,
-      allProductCollections: filterCollections(
-        allProductCollections,
-        product.slug
-      ),
       product,
       layoutProps,
     }),
