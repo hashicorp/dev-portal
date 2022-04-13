@@ -34,7 +34,7 @@ export default function CollectionView({
             items={[
               {
                 text: 'Overview',
-                href: `${product.slug}/tutorials`,
+                href: `/${product.slug}/tutorials`,
                 isActive: false,
               },
             ]}
