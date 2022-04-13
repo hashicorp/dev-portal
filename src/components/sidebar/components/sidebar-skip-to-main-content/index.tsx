@@ -1,6 +1,6 @@
 import s from './skip-to-main-content.module.css'
 
-function SkipToMainContent() {
+const SidebarSkipToMainContent = () => {
   return (
     <a className={s.root} href="#main">
       Skip to main content
@@ -8,4 +8,4 @@ function SkipToMainContent() {
   )
 }
 
-export default SkipToMainContent
+export default SidebarSkipToMainContent
