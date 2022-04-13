@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
+import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
 import StandaloneLink from 'components/standalone-link'
 import { SidebarBackToLinkProps } from './types'
 import s from './sidebar-back-to-link.module.css'
@@ -12,7 +12,7 @@ const SidebarBackToLink = ({
     <div className={s.root}>
       <StandaloneLink
         href={url}
-        icon={<IconArrowLeft16 className={s.icon} />}
+        icon={<IconChevronLeft16 className={s.icon} />}
         iconPosition="leading"
         text={text}
       />
