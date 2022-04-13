@@ -14,8 +14,6 @@ export interface TutorialSidebarProps {
 export interface ListItemProps {
   href: string
   isActive?: boolean
-  /** Optional. If true, this link will show an external icon and will open in a new tab. If false, this link will not show an icon, and will not open in a new tab. If omitted, then isExternal will be set to true if href is an absolute URL, or will be set to false otherwise. */
-  isExternal?: boolean
   text: string
 }
 
