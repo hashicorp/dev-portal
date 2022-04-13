@@ -1,9 +1,9 @@
 .sidebarNavMenuItem {
-  composes: g-focus-border-and-box-shadow-light from global;
+  composes: g-focus-ring-from-box-shadow from global;
   align-items: center;
   background-color: white;
   border-radius: 5px;
-  border: 1px solid transparent;
+  border: none;
   color: var(--token-color-palette-neutral-500);
   display: flex;
   justify-content: space-between;
