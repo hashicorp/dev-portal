@@ -25,7 +25,7 @@ export function collectionsToSidebarSections(
 
       return {
         title: CollectionCategoryOption[category],
-        items: items.map((collection) =>
+        items: items.map((collection: ClientCollection) =>
           formatCollectionToSectionItem(collection, currentSlug)
         ),
       }
@@ -35,7 +35,9 @@ export function collectionsToSidebarSections(
   return filterEmptySections(sidebarSectionsByCategory)
 }
 
-function filterEmptySections(sections) {
+function filterEmptySections(
+  sections: CollectionCategorySidebarSection[]
+): CollectionCategorySidebarSection[] {
   return sections.filter((c) => c.items.length > 0)
 }
 
