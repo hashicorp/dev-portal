@@ -2,35 +2,26 @@ import { Product, ProductName, ProductSlug } from 'types/products'
 
 /**
  * A map of product slugs to their proper noun names.
+ *
+ * 🚨 NOTE: the order of this object matters for the Home page.
  */
 const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
-  boundary: 'Boundary',
-  consul: 'Consul',
-  hcp: 'HashiCorp Cloud Platform',
-  nomad: 'Nomad',
-  packer: 'Packer',
   sentinel: 'Sentinel',
+  hcp: 'HashiCorp Cloud Platform',
   terraform: 'Terraform',
-  vagrant: 'Vagrant',
+  packer: 'Packer',
+  consul: 'Consul',
   vault: 'Vault',
+  boundary: 'Boundary',
+  nomad: 'Nomad',
   waypoint: 'Waypoint',
+  vagrant: 'Vagrant',
 }
 
 /**
- * An array of all Product slugs.
+ * An array of all Product slugs, generated from `productSlugsToNames`.
  */
-const productSlugs: ProductSlug[] = [
-  'boundary',
-  'consul',
-  'hcp',
-  'nomad',
-  'packer',
-  'sentinel',
-  'terraform',
-  'vagrant',
-  'vault',
-  'waypoint',
-]
+const productSlugs = Object.keys(productSlugsToNames) as ProductSlug[]
 
 /**
  * Generates an array of Product objects from `productSlugs`.
