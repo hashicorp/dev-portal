@@ -31,8 +31,6 @@ interface TutorialCardProps {
   badges: Array<Exclude<ProductSlug, 'sentinel'> | 'video' | 'interactive'>
 }
 
-console.log(productSlugs)
-
 export default function TutorialCard({
   link,
   duration,
