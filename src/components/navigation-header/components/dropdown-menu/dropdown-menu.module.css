@@ -55,7 +55,7 @@
 
 .dropdownContainer {
   background-color: white;
-  border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 0;
   border-bottom-right-radius: 6px;
   box-shadow: var(--token-elevation-higher-box-shadow);
   left: calc(-1 * var(--header-padding-left-right));
