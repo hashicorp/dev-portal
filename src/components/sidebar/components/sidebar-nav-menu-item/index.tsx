@@ -8,6 +8,7 @@ import {
   SidebarHorizontalRule,
   SidebarSectionHeading,
 } from 'components/sidebar/components'
+import Text from 'components/text'
 import s from './sidebar-nav-menu-item.module.css'
 
 interface SidebarMenuItemProps {
@@ -21,10 +22,16 @@ const SidebarNavLink = ({ item }: { item: MenuItem }) => {
   return (
     <li>
       <Link href={href}>
-        <a aria-current={item.isActive} className={s.sidebarNavMenuItem}>
-          <span
+        <a
+          aria-current={item.isActive ? 'page' : undefined}
+          className={s.sidebarNavMenuItem}
+        >
+          <Text
+            asElement="span"
             className={s.navMenuItemLabel}
             dangerouslySetInnerHTML={{ __html: item.title }}
+            size={200}
+            weight="regular"
           />
           {isExternal && <IconExternalLink16 />}
         </a>
@@ -70,9 +77,12 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
         onClick={() => setIsOpen((prevState) => !prevState)}
         ref={buttonRef}
       >
-        <span
+        <Text
+          asElement="span"
           className={s.navMenuItemLabel}
           dangerouslySetInnerHTML={{ __html: item.title }}
+          size={200}
+          weight="regular"
         />
         <IconChevronRight16 />
       </button>
