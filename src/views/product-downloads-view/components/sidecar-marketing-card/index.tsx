@@ -27,7 +27,6 @@ const SidecarMarketingCard = ({
       icon={<IconExternalLink16 />}
       iconPosition="trailing"
       openInNewTab
-      textSize={200}
       text="Learn more"
     />
     <Text className={s.featuredDocsLabel} size={200} weight="semibold">

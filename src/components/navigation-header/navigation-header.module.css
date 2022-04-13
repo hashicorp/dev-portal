@@ -38,10 +38,10 @@
 .productLogo {
   display: flex;
 
-& svg {
-  height: 40px;
-  width: auto;
-}
+  & svg {
+    height: 40px;
+    width: auto;
+  }
 }
 
 .rightSide {

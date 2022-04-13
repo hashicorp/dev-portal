@@ -11,10 +11,4 @@ export interface DownloadStandaloneLinkProps {
    * rendered `StandaloneLink`.
    */
   href: StandaloneLinkProps['href']
-
-  /**
-   * Same as the `StandaloneLink` `textSize` prop and passed directly to the
-   * internally rendered `StandaloneLink`.
-   */
-  textSize?: StandaloneLinkProps['textSize']
 }

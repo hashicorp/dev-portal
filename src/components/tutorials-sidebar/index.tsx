@@ -1,8 +1,7 @@
 import { Fragment } from 'react'
 import VisuallyHidden from '@reach/visually-hidden'
-import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
 import isAbsoluteUrl from 'lib/is-absolute-url'
-import StandaloneLink from 'components/standalone-link'
+import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 import SkipToMainContent from 'components/sidebar/components/sidebar-nav/skip-to-main-content'
 import { SidebarNavLink } from 'components/sidebar/components/sidebar-nav/sidebar-nav-menu-item'
 import {
@@ -29,17 +28,9 @@ function TutorialsSidebar({
   // To visually hide the title, wrap in VisuallyHidden
   const TitleWrapper = visuallyHideTitle ? VisuallyHidden : Fragment
   return (
-    <nav className={s.root} aria-labelledby={NAV_LABEL_ID}>
-      <div className={s.backToLink}>
-        <StandaloneLink
-          href={backToLink.href}
-          text={backToLink.text}
-          icon={<IconChevronLeft16 />}
-          iconPosition="leading"
-          textSize={200}
-        />
-      </div>
-      <div>
+    <nav aria-labelledby={NAV_LABEL_ID}>
+      <SidebarBackToLink text={backToLink.text} url={backToLink.href} />
+      <div className={s.itemsContainer}>
         <SkipToMainContent />
         <TitleWrapper>
           <SidebarTitleHeading text={title} id={NAV_LABEL_ID} />

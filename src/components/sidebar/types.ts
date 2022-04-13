@@ -23,11 +23,25 @@ export interface MenuItem {
 }
 
 export interface SidebarProps {
-  /** Optional { text, url } to use for the "← Back to..." link at the top of the sidebar */
+  /**
+   * Optional props to send to `SidebarBackToLink` which is displayed at the top
+   * of the sidebar. If this prop is omitted, `SidebarBackToLink` will not be
+   * rendered.
+   */
   backToLinkProps?: SidebarBackToLinkProps
+
+  /**
+   * Menu items to render in the sidebar.
+   */
   menuItems: MenuItem[]
-  /** Whether or not the Sidebar should render the filter text input */
+
+  /**
+   * Whether or not the Sidebar should render the filter text input.
+   */
   showFilterInput?: boolean
-  /** title to be shown as the title of the sidebar */
+
+  /**
+   * Text to be shown as the title of the sidebar.
+   */
   title: string
 }

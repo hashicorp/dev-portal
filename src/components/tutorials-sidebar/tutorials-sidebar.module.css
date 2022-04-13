@@ -1,16 +1,3 @@
-.root {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/*
-Back to link has some padding, unlike typical StandloneLink
-*/
-.backToLink {
-  padding-left: 4px;
-}
-
 /*
 Horizontal rule
 Note: overrides top and bottom margin of HorizontalRule from components/sidebar
