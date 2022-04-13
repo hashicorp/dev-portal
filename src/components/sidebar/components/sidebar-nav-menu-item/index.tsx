@@ -33,10 +33,6 @@ const SidebarNavLink = ({ item }: { item: MenuItem }) => {
   )
 }
 
-/**
- * TODO: the `isOpen` boolean is getting a little long, will refactor after some
- * more thinking on it.
- */
 const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
   const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(
