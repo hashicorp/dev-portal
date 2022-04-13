@@ -4,7 +4,6 @@
   --notice-background-color: var(--token-color-palette-neutral-700);
 
   position: relative;
-  background-color: var(--background-color);
 }
 
 .notice {
