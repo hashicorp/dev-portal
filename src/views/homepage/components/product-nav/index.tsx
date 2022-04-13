@@ -3,6 +3,8 @@ import Link from 'next/link'
 import type { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
+import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
+import { IconHashicorpColor24 } from '@hashicorp/flight-icons/svg-react/hashicorp-color-24'
 import { IconTerraform24 } from '@hashicorp/flight-icons/svg-react/terraform-24'
 import { IconTerraformColor24 } from '@hashicorp/flight-icons/svg-react/terraform-color-24'
 import { IconPacker24 } from '@hashicorp/flight-icons/svg-react/packer-24'
@@ -23,14 +25,18 @@ import Text from 'components/text'
 import s from './product-nav.module.css'
 
 const productIcons: {
-  [key in Exclude<ProductSlug, 'sentinel'>]: {
+  [key in ProductSlug]: {
     neutral: ReactElement
     color: ReactElement
   }
 } = {
   hcp: {
-    neutral: <IconTerraform24 />,
-    color: <IconTerraformColor24 />,
+    neutral: <IconHashicorp24 />,
+    color: <IconHashicorpColor24 />,
+  },
+  sentinel: {
+    neutral: <IconHashicorp24 />,
+    color: <IconHashicorpColor24 />,
   },
   terraform: {
     neutral: <IconTerraform24 />,
