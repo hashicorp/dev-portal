@@ -1,3 +1,10 @@
+.tutorialCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
 .duration {
   margin-bottom: 8px;
   color: var(--token-color-foreground-faint);
