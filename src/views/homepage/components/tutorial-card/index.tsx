@@ -41,7 +41,7 @@ export default function TutorialCard({
   badges,
 }: TutorialCardProps) {
   return (
-    <CardLink href="/" className={s.tutorialCard}>
+    <CardLink href={link} className={s.tutorialCard}>
       {duration ? (
         <Text className={s.duration} size={100} weight="medium">
           {duration}
