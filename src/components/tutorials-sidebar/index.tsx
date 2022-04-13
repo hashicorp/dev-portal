@@ -2,8 +2,7 @@ import { Fragment } from 'react'
 import VisuallyHidden from '@reach/visually-hidden'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
-import SkipToMainContent from 'components/sidebar/components/sidebar-nav/skip-to-main-content'
-import { SidebarNavLink } from 'components/sidebar/components/sidebar-nav/sidebar-nav-menu-item'
+import { SidebarNavLink } from 'components/sidebar/components/sidebar-nav-menu-item'
 import {
   ListItemProps,
   SectionListProps,
@@ -14,6 +13,7 @@ import s from './tutorials-sidebar.module.css'
 import {
   SidebarHorizontalRule,
   SidebarSectionHeading,
+  SidebarSkipToMainContent,
   SidebarTitleHeading,
 } from 'components/sidebar/components'
 
@@ -31,7 +31,7 @@ function TutorialsSidebar({
     <nav aria-labelledby={NAV_LABEL_ID}>
       <SidebarBackToLink text={backToLink.text} url={backToLink.href} />
       <div className={s.itemsContainer}>
-        <SkipToMainContent />
+        <SidebarSkipToMainContent />
         <TitleWrapper>
           <SidebarTitleHeading text={title} id={NAV_LABEL_ID} />
         </TitleWrapper>
