@@ -13,7 +13,7 @@ import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import {
   CollectionCategorySidebarSection,
-  collectionsToSidebarSections,
+  formatSidebarCategorySections,
 } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
 
@@ -68,7 +68,7 @@ export async function getCollectionPageProps(
         filename: splitProductFromFilename(collection.slug),
       },
     }),
-    sidebarSections: collectionsToSidebarSections(
+    sidebarSections: formatSidebarCategorySections(
       filteredCollections,
       collection.slug
     ),

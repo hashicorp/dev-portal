@@ -16,7 +16,7 @@ export interface CollectionCategorySidebarSection {
  * collections with that category. The collection category order
  * and options are linked to the `CollectionCategoryOption` enum
  */
-export function collectionsToSidebarSections(
+export function formatSidebarCategorySections(
   collections: ClientCollection[],
   currentSlug: string
 ): CollectionCategorySidebarSection[] {
