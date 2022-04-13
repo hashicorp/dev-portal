@@ -1,5 +1,3 @@
-import Link from 'next/link'
-import { VisuallyHidden } from '@reach/visually-hidden'
 import type { ProductSlug } from 'types/products'
 import { productSlugs } from 'lib/products'
 import ProductIcon from 'components/product-icon'
