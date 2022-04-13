@@ -1,47 +1,34 @@
-import { ProductGroup, ProductName, ProductSlug } from 'types/products'
+import { Product, ProductName, ProductSlug } from 'types/products'
 
 /**
  * A map of product slugs to their proper noun names.
+ *
+ * 🚨 NOTE: the order of this object matters for the Home page.
  */
 const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
-  boundary: 'Boundary',
-  consul: 'Consul',
-  hcp: 'HashiCorp Cloud Platform',
-  nomad: 'Nomad',
-  packer: 'Packer',
   sentinel: 'Sentinel',
+  hcp: 'HashiCorp Cloud Platform',
   terraform: 'Terraform',
-  vagrant: 'Vagrant',
+  packer: 'Packer',
+  consul: 'Consul',
   vault: 'Vault',
+  boundary: 'Boundary',
+  nomad: 'Nomad',
   waypoint: 'Waypoint',
+  vagrant: 'Vagrant',
 }
 
 /**
- * Holds the product slugs in the order ProductSwitcher will render them.
+ * An array of all Product slugs, generated from `productSlugsToNames`.
  */
-const productSwitcherSlugs: ProductSlug[][] = [
-  ['terraform', 'packer', 'vagrant'],
-  ['vault', 'boundary'],
-  ['consul'],
-  ['nomad', 'waypoint'],
-  ['hcp'],
-  ['sentinel'],
-]
+const productSlugs = Object.keys(productSlugsToNames) as ProductSlug[]
 
 /**
- * Generates a 2D array of Product objects from `productSwitcherSlugs`.
+ * Generates an array of Product objects from `productSlugs`.
  */
-const products: ProductGroup[] = productSwitcherSlugs.map(
-  (slugGroup: ProductSlug[]) => {
-    const productGroup = slugGroup.map((slug: ProductSlug) => {
-      const name = productSlugsToNames[slug]
-      return {
-        name,
-        slug,
-      }
-    })
-    return productGroup
-  }
-)
+const products: Product[] = productSlugs.map((slug: ProductSlug) => {
+  const name = productSlugsToNames[slug]
+  return { name, slug }
+})
 
-export { products, productSlugsToNames }
+export { products, productSlugs, productSlugsToNames }
