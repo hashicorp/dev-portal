@@ -12,6 +12,7 @@ type ActionProps = {
   description: string
   link: string
   linkText: string
+  theme?: 'green' | 'purple'
 }
 
 interface HeroProps {
@@ -32,7 +33,9 @@ export default function Hero({
     <header className={classNames(s.hero, hasActions && s.withActions)}>
       <div className={s.container}>
         <div className={s.content}>
-          {badgeText ? <Badge text={badgeText} color="highlight" /> : null}
+          {badgeText ? (
+            <Badge text={badgeText} color="highlight" className={s.badge} />
+          ) : null}
           <Heading
             className={s.title}
             level={1}
@@ -46,12 +49,12 @@ export default function Hero({
         </div>
 
         {hasActions ? (
-          <ul className={s.list}>
+          <ul className={s.actions}>
             {actions.map((action, index) => {
               const slug = slugify(action.heading)
-              const theme = index === 0 ? 'green' : 'purple'
+              const theme = action.theme || index === 0 ? 'green' : 'purple'
               return (
-                <li key={slug} className={s.listItem}>
+                <li key={slug} className={s.actionsItem}>
                   <article className={classNames(s.action, s[theme])}>
                     <div className={s.actionInner}>
                       <Heading

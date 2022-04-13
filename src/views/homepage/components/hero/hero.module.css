@@ -1,15 +1,28 @@
 .hero {
   --container-max-width: 1600px;
-  --grid-template-columns: 4;
+  --grid-template-columns: 1;
   --grid-column-gap: 24px;
 
   padding: 0 24px;
   background-color: var(--token-color-palette-neutral-700);
+  background-image: url('/img/homepage/hero-accent-right.svg');
+  background-position: right -200px top;
+  background-repeat: no-repeat;
   color: var(--token-color-palette-neutral-0);
 
   @media (--dev-dot-tablet-up) {
     --grid-template-columns: 12;
     --grid-column-gap: 32px;
+
+    &.withActions {
+      background-image: none;
+    }
+
+    &:not(.withActions) {
+      background-image: url('/img/homepage/hero-accent-right.svg'),
+        url('/img/homepage/hero-accent-left.svg');
+      background-position: right -100px top -100px, left -200px bottom -250px;
+    }
   }
 }
 
@@ -23,22 +36,28 @@
   grid-template-columns: repeat(var(--grid-template-columns), 1fr);
   grid-column-gap: var(--grid-column-gap);
   grid-row-gap: 64px;
-  background-image: url('/img/homepage/hero-accent.svg');
-  background-repeat: no-repeat;
-  background-position: right top;
 
-  @media (--dev-dot-tablet-up) {
-    background-position: right 0 center;
-  }
+  @nest .withActions & {
+    @media (--dev-dot-tablet-up) {
+      background-image: url('/img/homepage/hero-accent.svg');
+      background-repeat: no-repeat;
+      background-position: right top;
+      background-position: right 0 center;
+    }
 
-  @media (min-width: 1400px) {
-    background-position: right 250px center;
+    @media (min-width: 1400px) {
+      background-position: right 250px center;
+    }
   }
 }
 
 .content {
-  text-align: center;
-  grid-column: 3 / 11;
+  grid-column: 1 / -1;
+
+  @media (--dev-dot-tablet-up) {
+    text-align: center;
+    grid-column: 3 / 11;
+  }
 
   @nest .withActions & {
     text-align: left;
@@ -54,8 +73,11 @@
   }
 }
 
+.badge {
+  margin-bottom: 12px;
+}
+
 .title {
-  margin-top: 12px;
   font-size: 40px;
   line-height: 1.3;
 
@@ -78,7 +100,7 @@
   }
 }
 
-.list {
+.actions {
   grid-column: 1 / -1;
   list-style: none;
   margin: 0;
@@ -92,7 +114,7 @@
   }
 }
 
-.listItem {
+.actionsItem {
   display: flex;
   grid-column: 1 / -1;
 
