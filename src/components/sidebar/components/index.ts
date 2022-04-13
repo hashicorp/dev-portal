@@ -1,5 +1,4 @@
 import SidebarHorizontalRule from './sidebar-horizontal-rule'
-import SidebarSectionHeading from './sidebar-section-heading'
-import SidebarTitleHeading from './sidebar-title-heading'
+import { SidebarSectionHeading, SidebarTitleHeading } from './sidebar-headings'
 
 export { SidebarHorizontalRule, SidebarSectionHeading, SidebarTitleHeading }

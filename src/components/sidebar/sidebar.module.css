@@ -6,15 +6,3 @@
     margin-left: 1em;
   }
 }
-
-.title,
-.heading {
-  color: var(--token-color-foreground-primary);
-  font-size: var(--token-typography-display-100-font-size);
-  font-weight: var(--token-typography-font-weight-semibold);
-  line-height: var(--token-typography-display-100-line-height);
-  margin-bottom: 12px;
-  margin-top: 0;
-  padding-left: 8px;
-  padding-right: 8px;
-}
