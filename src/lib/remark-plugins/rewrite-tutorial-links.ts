@@ -22,8 +22,12 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
   return function transformer(tree) {
     visit(tree, 'link', (node: Link) => {
       console.log(node.url, '-- original url!')
+      // if it matches beta product
+      console.log(__config)
+
+      // if not
       node.url = '/something'
-      console.log(node.url)
+      console.log(node.url, '--final url')
     })
   }
 }
