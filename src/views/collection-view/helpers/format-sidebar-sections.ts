@@ -32,7 +32,7 @@ export function collectionsToSidebarSections(
       return {
         title: CollectionCategoryOption[category],
         items: items.map((collection: ClientCollection) =>
-          formatCollectionToSectionItem(collection, currentSlug)
+          formatCollectionToListItem(collection, currentSlug)
         ),
       }
     }
@@ -47,7 +47,7 @@ function filterEmptySections(
   return sections.filter((c) => c.items.length > 0)
 }
 
-function formatCollectionToSectionItem(
+function formatCollectionToListItem(
   collection: ClientCollection,
   currentSlug: string
 ): ListItemProps {
