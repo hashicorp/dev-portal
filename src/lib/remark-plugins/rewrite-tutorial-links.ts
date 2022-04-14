@@ -13,7 +13,6 @@
  * /tutorials/{product}/{tutorial-name}  --> /{product}/tutorials/{collection-name}/{tutorial-name}
  */
 
-import path from 'path'
 import { Link } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
@@ -25,11 +24,12 @@ const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return function transformer(tree) {
     visit(tree, 'link', (node: Link) => {
-      console.log(node.url, '-- original url!')
+      console.log(node.url, '— ORIGINAL')
       // return early if non tutorial or collection link
       if (!learnLink.test(node.url)) {
         return
       }
+
       // find product
       const [product] = node.url.match(learnProducts)
       const slugParts = node.url.trim().split('/')
@@ -43,9 +43,9 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
         node.url = `/${product}/tutorials/collection-name/tutorial-name`
         // need to get tutorial default collection name
       } else {
-        // if its already an external link, don't rewrite it
+        // if its already an external link on a non-beta product, don't rewrite it
         if (!isExternalLearnLink) {
-          // make sure that its a relative path
+          // if its a relative path, turn it into an external learn link
           node.url = new URL(
             node.url,
             'https://learn.hashicorp.com/'
@@ -53,7 +53,7 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
         }
       }
 
-      console.log(node.url, '--final url')
+      console.log(node.url, '— FINAL')
     })
   }
 }
