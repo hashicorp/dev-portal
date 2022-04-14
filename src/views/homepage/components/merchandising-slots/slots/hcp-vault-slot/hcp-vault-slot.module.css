@@ -14,6 +14,11 @@
   background-repeat: no-repeat;
   background-position: right top var(--background-offset);
 
+  /* Only enable animation if query is supported and value is no-preference */
+  @media (prefers-reduced-motion: no-preference) {
+    transition: box-shadow 0.2s;
+  }
+
   @media (--dev-dot-tablet-up) {
     --padding: 48px;
     --min-height: 500px;
