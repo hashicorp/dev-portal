@@ -41,6 +41,14 @@ const TEST_MD_LINKS = {
     '[link to beta product tutorial with anchor](/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
 }
 
+// Used to mock for the api call
+const MOCK_TUTORIAL = {
+  slug: 'waypoint/getting-started-config',
+  default_collection: {
+    slug: 'waypoint/getting-started',
+  },
+}
+
 function isolatePathFromMarkdown(mdLink: string): string {
   // target the path within the md syntax
   // split at the ], then remove the enclosing parens from the path
@@ -58,7 +66,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
     const scope = nock(process.env.NEXT_PUBLIC_LEARN_API_BASE_URL)
       .persist()
       .get(/.*/)
-      .reply(200, { result: [{ hi: 'hola' }, { hello: 'yallo' }] })
+      .reply(200, { result: [MOCK_TUTORIAL] })
   })
 
   test('Only internal Learn links are rewritten', async () => {
