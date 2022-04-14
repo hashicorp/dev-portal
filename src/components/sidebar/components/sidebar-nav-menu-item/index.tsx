@@ -2,57 +2,51 @@ import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
-import MaybeInternalLink from 'components/maybe-internal-link'
+import isAbsoluteUrl from 'lib/is-absolute-url'
 import { MenuItem } from 'components/sidebar'
 import {
   SidebarHorizontalRule,
   SidebarSectionHeading,
 } from 'components/sidebar/components'
+import Text from 'components/text'
+import { SidebarNavMenuItemProps } from './types'
 import s from './sidebar-nav-menu-item.module.css'
 
-interface SidebarMenuItemProps {
-  item: MenuItem
-}
-
-const SidebarNavLink = ({ item }) => {
-  if (item.fullPath) {
-    return (
-      <li>
-        <Link href={item.fullPath}>
-          <a
-            aria-current={item.isActive ? 'page' : undefined}
-            className={s.sidebarNavMenuItem}
-            // TODO: this might break some accessible labels, probably need aria-label
-            dangerouslySetInnerHTML={{ __html: item.title }}
-          />
-        </Link>
-      </li>
-    )
-  }
+/**
+ * Handles rendering a link menu item in the Sidebar. Will automatically
+ * determine whether or not the link is external to DevDot, and will render an
+ * external link icon if the link is external.
+ */
+const SidebarNavLink = ({ item }: SidebarNavMenuItemProps) => {
+  const href = item.fullPath || item.href
+  const isExternal = isAbsoluteUrl(href)
 
   return (
     <li>
-      <MaybeInternalLink
-        aria-current={item.isActive ? 'page' : undefined}
-        className={s.sidebarNavMenuItem}
-        href={item.href}
-      >
-        <span
-          className={s.navMenuItemLabel}
-          // TODO: this might break some accessible labels, probably need aria-label
-          dangerouslySetInnerHTML={{ __html: item.title }}
-        />
-        <IconExternalLink16 />
-      </MaybeInternalLink>
+      <Link href={href}>
+        <a
+          aria-current={item.isActive ? 'page' : undefined}
+          className={s.sidebarNavMenuItem}
+        >
+          <Text
+            asElement="span"
+            className={s.navMenuItemLabel}
+            dangerouslySetInnerHTML={{ __html: item.title }}
+            size={200}
+            weight="regular"
+          />
+          {isExternal && <IconExternalLink16 />}
+        </a>
+      </Link>
     </li>
   )
 }
 
 /**
- * TODO: the `isOpen` boolean is getting a little long, will refactor after some
- * more thinking on it.
+ * Handles rendering a collapsible/expandable submenu item and its child menu
+ * items in the Sidebar.
  */
-const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
+const SidebarNavSubmenu = ({ item }: SidebarNavMenuItemProps) => {
   const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(
     item.hasActiveChild || item.hasChildrenMatchingFilter || item.matchesFilter
@@ -86,18 +80,21 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
         aria-controls={item.id}
         aria-expanded={isOpen}
         className={s.sidebarNavMenuItem}
-        onClick={() => setIsOpen((prevState) => !prevState)}
+        onClick={() => setIsOpen((prevState: boolean) => !prevState)}
         ref={buttonRef}
       >
-        <span
+        <Text
+          asElement="span"
           className={s.navMenuItemLabel}
           dangerouslySetInnerHTML={{ __html: item.title }}
+          size={200}
+          weight="regular"
         />
         <IconChevronRight16 />
       </button>
       {isOpen && (
         <ul id={item.id} onKeyDown={handleKeyDown}>
-          {item.routes.map((route) =>
+          {item.routes.map((route: MenuItem) =>
             route.routes ? (
               <SidebarNavSubmenu item={route} />
             ) : (
@@ -110,10 +107,19 @@ const SidebarNavSubmenu: React.FC<SidebarMenuItemProps> = ({ item }) => {
   )
 }
 
-const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
+/**
+ * Handles conditionally rendering one of the following based on the properties
+ * of the `item` passed in:
+ *  - SidebarHorizontalRule
+ *  - SidebarSectionHeading
+ *  - SidebarNavSubmenu
+ *  - SidebarNavLink
+ */
+const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
   if (item.divider) {
     return <SidebarHorizontalRule />
   }
+
   if (item.heading) {
     return <SidebarSectionHeading text={item.heading} />
   }
@@ -125,5 +131,4 @@ const SidebarNavMenuItem: React.FC<SidebarMenuItemProps> = ({ item }) => {
   return <SidebarNavLink item={item} />
 }
 
-export { SidebarNavLink }
 export default SidebarNavMenuItem

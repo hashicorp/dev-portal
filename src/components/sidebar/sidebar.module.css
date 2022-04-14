@@ -6,3 +6,13 @@
     margin-left: 1em;
   }
 }
+
+.nav {
+  position: relative;
+}
+
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

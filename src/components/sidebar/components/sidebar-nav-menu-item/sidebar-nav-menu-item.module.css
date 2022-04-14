@@ -1,15 +1,12 @@
 .sidebarNavMenuItem {
-  composes: g-focus-border-and-box-shadow-light from global;
+  composes: g-focus-ring-from-box-shadow from global;
   align-items: center;
   background-color: white;
   border-radius: 5px;
-  border: 1px solid transparent;
+  border: none;
   color: var(--token-color-palette-neutral-500);
   display: flex;
-  font-size: 14px;
-  font-weight: 400;
   justify-content: space-between;
-  line-height: 18px;
   margin-bottom: 2px;
   padding: 8px;
   position: relative;
@@ -41,7 +38,9 @@
   /* AKA active and open */
   &[aria-expanded='true'],
   &[aria-current='page'] {
-    font-weight: 500;
+    & .navMenuItemLabel {
+      font-weight: var(--token-typography-font-weight-medium);
+    }
   }
 
   &:focus {
