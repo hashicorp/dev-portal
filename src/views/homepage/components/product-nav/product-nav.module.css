@@ -48,6 +48,7 @@
     display: flex;
     gap: 0;
     box-shadow: var(--token-surface-base-box-shadow);
+    background: var(--token-color-surface-primary);
   }
 }
 
