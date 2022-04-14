@@ -4,6 +4,8 @@ import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import BaseNewLayout from 'layouts/base-new'
+import Text from 'components/text'
+import Hero from './components/hero'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import TutorialCard from './components/tutorial-card'
@@ -13,6 +15,36 @@ const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 function Homepage(): ReactElement {
   return (
     <>
+      <Hero
+        badgeText="Beta"
+        heading="HashiCorp Developer Portal"
+        description={
+          <>
+            <Text>
+              The home of HashiCorp documentation and learning content for
+              developers and technology professionals.
+            </Text>
+            <Text>More products and featrues coming soon....</Text>
+          </>
+        }
+        actions={[
+          {
+            heading: 'This is a pretty long  CTA headline for this area',
+            description:
+              'This is supporting docs or left cta copy for hero section. This is also a lot of supporting copy for such a small area.',
+            link: '/',
+            linkText: 'Get started',
+          },
+          {
+            heading: 'This headline could literally be anything',
+            description:
+              'This is supporting docs or left cta copy for hero section. This is also a lot of supporting copy for such a small area.',
+            link: '/',
+            linkText: 'Get started',
+          },
+        ]}
+      />
+
       <ProductNav
         notice="All HashiCorp products are being added and will be available here in the
         Developer Portal"
