@@ -53,7 +53,7 @@
 }
 
 .tutorials {
-  --overlap-height: 50%;
+  --overlap-height: 80px;
 
   padding-left: var(--padding-x);
   padding-right: var(--padding-x);
@@ -62,6 +62,10 @@
     var(--token-color-vault-brand) var(--overlap-height),
     var(--token-color-neutral-background-primary) var(--overlap-height)
   );
+
+  @media (--dev-dot-tablet-up) {
+    --overlap-height: 50%;
+  }
 }
 
 .tutorialsList {
