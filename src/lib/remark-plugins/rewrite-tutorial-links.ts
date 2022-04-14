@@ -25,24 +25,30 @@ import { visit } from 'unist-util-visit'
 import { ProductOption } from 'lib/learn-client/types'
 import path, { isAbsolute } from 'path'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
+import { getTutorialSlug } from 'views/collection-view/helpers'
 
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 const LEARN_URL = 'https://learn.hashicorp.com/'
-const TUTORIAL_MAP = {}
+let TUTORIAL_MAP = {}
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
     if (Object.keys(TUTORIAL_MAP).length === 0) {
-      // make the call to populate the map
-      // call getAllTutorials
-      console.log('calling GET ALL TUTORIALS')
+      // if it hasn't been defined yet, make the call to cache the map
+
       const allTutorials = await getAllTutorials({
         fullContent: false,
         slugsOnly: true,
       })
 
-      console.log(allTutorials.length)
+      const mapItems = allTutorials.map((t) => {
+        const oldPath = t.slug
+        const newPath = getTutorialSlug(t.slug, t.collection_slug)
+        return [oldPath, newPath]
+      })
+
+      TUTORIAL_MAP = Object.fromEntries(mapItems)
     }
     visit(tree, 'link', (node: Link) => {
       console.log(node.url, '— ORIGINAL')
@@ -82,14 +88,20 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
         if (contentType === 'collections') {
           node.url = `/${product}/tutorials/${filename}`
         } else if (contentType === 'tutorials') {
-          const tutorialSlug = [product, filename].join('/')
-          // const tutorial = await getTutorial(tutorialSlug)
-          // TODO get default context from the API
+          let tutorialSlug = [product, filename].join('/')
+          let finalSlug
 
-          // check if it has a query param
-          // if so, use that
+          if (tutorialSlug.includes('#')) {
+            const [isolatedSlug, anchor] = tutorialSlug.split('#')
+            tutorialSlug = isolatedSlug
+            finalSlug = TUTORIAL_MAP[tutorialSlug] + anchor
+          } else {
+            finalSlug = TUTORIAL_MAP[tutorialSlug]
+          }
 
-          node.url = `/${product}/tutorials/collection-todo/${filename}`
+          // TODO check if it has a query param
+
+          node.url = finalSlug
           // also what about the query param links
         }
       } else {

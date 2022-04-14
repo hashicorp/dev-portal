@@ -42,12 +42,26 @@ const TEST_MD_LINKS = {
 }
 
 // Used to mock for the api call
-const MOCK_TUTORIAL = {
-  slug: 'waypoint/getting-started-config',
-  default_collection: {
-    slug: 'waypoint/getting-started',
+const MOCK_TUTORIALS = [
+  {
+    slug: 'waypoint/getting-started-config',
+    default_collection: {
+      slug: 'waypoint/getting-started',
+    },
   },
-}
+  {
+    slug: 'waypoint/get-started-ui',
+    default_collection: {
+      slug: 'waypoint/getting-started',
+    },
+  },
+  {
+    slug: 'vault/consul-deploy',
+    default_collection: {
+      slug: 'vault/consul-integration',
+    },
+  },
+]
 
 function isolatePathFromMarkdown(mdLink: string): string {
   // target the path within the md syntax
@@ -66,7 +80,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
     const scope = nock(process.env.NEXT_PUBLIC_LEARN_API_BASE_URL)
       .persist()
       .get(/.*/)
-      .reply(200, { result: [MOCK_TUTORIAL] })
+      .reply(200, { result: MOCK_TUTORIALS })
   })
 
   test('Only internal Learn links are rewritten', async () => {
