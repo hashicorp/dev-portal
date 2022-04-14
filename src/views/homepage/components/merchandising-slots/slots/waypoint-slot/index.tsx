@@ -12,7 +12,7 @@ export default function WaypointSlot() {
         <Heading level={2} size={500} weight="bold" slug="hcp-vault">
           Waypoint
         </Heading>
-        <Text className={s.description}>
+        <Text className={s.description} weight="semibold">
           Things that Waypoint really excells at doing and is compelling.
         </Text>
       </a>

@@ -25,5 +25,6 @@
 
 .description {
   margin-top: 12px;
+  font-size: 24px;
   color: var(--token-color-surface-faint);
 }

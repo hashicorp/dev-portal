@@ -10,9 +10,13 @@ export default function HashiConfGlobalSlot() {
         <Heading level={2} size={500} weight="bold" slug="hcp-vault">
           HashiConf Global
         </Heading>
-        <Text className={s.description}>
-          October 4-6, 2O22 (PST)Los Angeles & Virtual
-        </Text>
+
+        <footer className={s.footer}>
+          <Text className={s.description}>
+            October 4-6, 2O22 (PST) <br /> Los Angeles & Virtual
+          </Text>
+          <Text className={s.description}>hashiconf.com</Text>
+        </footer>
       </a>
     </Link>
   )
