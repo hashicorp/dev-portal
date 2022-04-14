@@ -8,11 +8,7 @@ import {
   CollectionPageProps,
 } from 'views/collection-view/server'
 
-export default function WaypointCollectionPage(
-  props: CollectionPageProps
-): React.ReactElement {
-  return <CollectionView {...props} />
-}
+export default CollectionView
 
 export async function getStaticProps({
   params,
