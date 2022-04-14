@@ -74,7 +74,7 @@
     border-radius: 0;
     overflow: visible;
 
-    @nest .listItem:first-child & {
+    &.isFirstChild {
       border-top-left-radius: 14px;
       border-bottom-left-radius: 14px;
 
@@ -83,7 +83,7 @@
       }
     }
 
-    @nest .listItem:last-child & {
+    &.isLastChild {
       border-top-right-radius: 14px;
       border-bottom-right-radius: 14px;
 
