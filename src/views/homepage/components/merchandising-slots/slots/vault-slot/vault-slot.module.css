@@ -1,0 +1,25 @@
+.root {
+  min-height: 300px;
+  padding: 48px;
+  border-radius: 6px;
+  background-color: black;
+  color: white;
+  box-shadow: var(--token-surface-mid-box-shadow);
+  background-image: url('/img/homepage/vault-slot-accent.svg');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+
+  &:hover {
+    box-shadow: var(--token-surface-high-box-shadow);
+  }
+}
+
+.logo {
+  display: flex;
+  width: 117px;
+}
+
+.description {
+  margin-top: 12px;
+  color: var(--token-color-surface-faint);
+}

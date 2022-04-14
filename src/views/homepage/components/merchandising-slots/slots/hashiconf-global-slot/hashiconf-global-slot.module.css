@@ -1,0 +1,28 @@
+.root {
+  --padding: 24px;
+  --min-height: 200px;
+
+  padding: var(--padding);
+  min-height: var(--min-height);
+  border-radius: 6px;
+  background-color: black;
+  color: white;
+  box-shadow: var(--token-surface-mid-box-shadow);
+  background-image: url('/img/homepage/hashiconf-global-slot-accent.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  @media (--dev-dot-tablet-up) {
+    --padding: 48px;
+  }
+
+  &:hover {
+    box-shadow: var(--token-surface-high-box-shadow);
+  }
+}
+
+.description {
+  margin-top: 12px;
+  color: var(--token-color-surface-faint);
+}

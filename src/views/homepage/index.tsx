@@ -12,6 +12,12 @@ import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
+import {
+  HcpVaultSlot,
+  WaypointSlot,
+  HashiConfGlobalSlot,
+  VaultSlot,
+} from './components/merchandising-slots/slots'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
@@ -55,10 +61,10 @@ function Homepage(): ReactElement {
       />
 
       <MerchandisingSlots>
-        <div>One</div>
-        <div>Two</div>
-        <div>Three</div>
-        <div>Four</div>
+        <HcpVaultSlot />
+        <WaypointSlot />
+        <HashiConfGlobalSlot />
+        <VaultSlot />
       </MerchandisingSlots>
 
       <LearnSection
