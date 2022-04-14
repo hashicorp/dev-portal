@@ -7,9 +7,8 @@ import {
   getCollectionPaths,
   CollectionPageProps,
 } from 'views/collection-view/server'
-import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
-export function WaypointCollectionPage(
+export default function WaypointCollectionPage(
   props: CollectionPageProps
 ): React.ReactElement {
   return <CollectionView {...props} />
@@ -39,6 +38,3 @@ export async function getStaticPaths(): Promise<{
     fallback: false,
   }
 }
-
-WaypointCollectionPage.layout = CoreDevDotLayout
-export default WaypointCollectionPage

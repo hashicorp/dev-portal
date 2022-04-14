@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import CollectionViewSidebar from './components/collection-view-sidebar'
 
-export default function CollectionView({
+function CollectionView({
   collection,
   product,
   layoutProps,
@@ -41,3 +42,6 @@ export default function CollectionView({
     </SidebarSidecarLayout>
   )
 }
+
+CollectionView.layout = CoreDevDotLayout
+export default CollectionView

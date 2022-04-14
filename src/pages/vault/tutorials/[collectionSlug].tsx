@@ -7,9 +7,8 @@ import {
   getCollectionPaths,
   CollectionPageProps,
 } from 'views/collection-view/server'
-import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
-export function VaultCollectionPage(
+export default function VaultCollectionPage(
   props: CollectionPageProps
 ): React.ReactElement {
   return <CollectionView {...props} />
@@ -39,6 +38,3 @@ export async function getStaticPaths(): Promise<{
     fallback: false,
   }
 }
-
-VaultCollectionPage.layout = CoreDevDotLayout
-export default VaultCollectionPage
