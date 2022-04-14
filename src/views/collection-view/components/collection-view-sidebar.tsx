@@ -17,7 +17,7 @@ export default function CollectionViewSidebar({
 }: CollectionViewSidebarProps) {
   return (
     <TutorialsSidebar
-      title={`${product.name} Tutorials`}
+      title="Tutorials"
       backToLink={{
         text: `${product.name} Home`,
         href: `/${product.slug}`,
