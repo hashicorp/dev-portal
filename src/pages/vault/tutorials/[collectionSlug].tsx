@@ -8,8 +8,6 @@ import {
   CollectionPageProps,
 } from 'views/collection-view/server'
 
-export default CollectionView
-
 export async function getStaticProps({
   params,
 }): Promise<{ props: CollectionPageProps }> {
@@ -34,3 +32,5 @@ export async function getStaticPaths(): Promise<{
     fallback: false,
   }
 }
+
+export default CollectionView
