@@ -10,7 +10,9 @@
 
 // test with more md content to ensure its only targeting links
 
+import nock from 'nock'
 import remark from 'remark'
+import path from 'path'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 
 // Matches the pattern /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
@@ -44,8 +46,21 @@ function isolatePathFromMarkdown(mdLink: string): string {
   // split at the ], then remove the enclosing parens from the path
   return mdLink.split(']')[1].trim().slice(1, -1)
 }
+// Note: Mock `@vercel/fetch` during jest tests to avoid the following test-only error:
+// > thrown: “Exceeded timeout of 5000 ms for a test.
+jest.mock('@vercel/fetch', () => () => require('node-fetch'))
+const nockBack = nock.back
+nockBack.fixtures = path.join(__dirname, '__nock-fixtures__')
+nockBack.setMode('record')
 
 describe('rewriteTutorialLinks remark plugin', () => {
+  beforeEach(async () => {
+    const scope = nock(process.env.NEXT_PUBLIC_LEARN_API_BASE_URL)
+      .persist()
+      .get(/.*/)
+      .reply(200, { result: [{ hi: 'hola' }, { hello: 'yallo' }] })
+  })
+
   test('Only internal Learn links are rewritten', async () => {
     const contentsWithoutPlugin = await remark().process(
       TEST_MD_LINKS.nonLearnLink

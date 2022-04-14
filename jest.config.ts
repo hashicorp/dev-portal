@@ -1,7 +1,7 @@
 import { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
-  setupFilesAfterEnv: ['<rootDir>/.jest/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/.jest/setup.js', 'dotenv/config'],
   roots: ['config', 'src', 'build-libs'],
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',

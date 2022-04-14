@@ -62,6 +62,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.7",
     "nextjs-bundle-analysis": "^0.5.0-canary.1",
+    "nock": "^13.2.4",
     "postcss": "^8.4.5",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-normalize": "^10.0.1",

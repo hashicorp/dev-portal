@@ -9,7 +9,11 @@
  *
  * decide whether to write as collection or tutorial slug
  *
- * account for ANCHOR LINK
+ * account for ANCHOR LINK basic
+ *
+ * ANCHOR LINK within a query param --
+ *
+ * query param
  *
  * /collections/{product}/{collection-name} --> /{product}/tutorials/{collection-name}
  * /tutorials/{product}/{tutorial-name}  --> /{product}/tutorials/{collection-name}/{tutorial-name}
@@ -20,14 +24,26 @@ import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { ProductOption } from 'lib/learn-client/types'
 import path, { isAbsolute } from 'path'
-import { getTutorial } from 'lib/learn-client/api/tutorial'
+import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 const LEARN_URL = 'https://learn.hashicorp.com/'
+const TUTORIAL_MAP = {}
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
-  return function transformer(tree) {
+  return async function transformer(tree) {
+    if (Object.keys(TUTORIAL_MAP).length === 0) {
+      // make the call to populate the map
+      // call getAllTutorials
+      console.log('calling GET ALL TUTORIALS')
+      const allTutorials = await getAllTutorials({
+        fullContent: false,
+        slugsOnly: true,
+      })
+
+      console.log(allTutorials.length)
+    }
     visit(tree, 'link', (node: Link) => {
       console.log(node.url, '— ORIGINAL')
       // return early if non tutorial or collection link
@@ -69,6 +85,10 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
           const tutorialSlug = [product, filename].join('/')
           // const tutorial = await getTutorial(tutorialSlug)
           // TODO get default context from the API
+
+          // check if it has a query param
+          // if so, use that
+
           node.url = `/${product}/tutorials/collection-todo/${filename}`
           // also what about the query param links
         }
