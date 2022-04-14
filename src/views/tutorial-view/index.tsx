@@ -15,12 +15,17 @@ import InstruqtProvider from 'contexts/instruqt-lab'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import {
-  TutorialSidebar as Sidebar,
   FeaturedInCollections,
   CollectionCardProps,
   NextPrevious,
   getNextPrevious,
 } from './components'
+import { getCollectionSlug } from 'views/collection-view/helpers'
+import TutorialsSidebar, {
+  HorizontalRule,
+  SectionList,
+  SectionTitle,
+} from 'components/tutorials-sidebar'
 import getVideoUrl from './utils/get-video-url'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
@@ -96,16 +101,40 @@ export default function TutorialView({
         <SidebarSidecarLayout
           breadcrumbLinks={layout.breadcrumbLinks}
           sidebarSlot={
-            <Sidebar
-              title={collectionCtx.current.shortName}
-              menuItems={collectionCtx.current.tutorials.map((t) =>
-                formatTutorialToMenuItem(
-                  t,
-                  collectionCtx.current.slug,
-                  currentPath
-                )
-              )}
-            />
+            <TutorialsSidebar
+              backToLink={{
+                text: collectionCtx.current.shortName,
+                href: getCollectionSlug(collectionCtx.current.slug),
+              }}
+              title={`${collectionCtx.current.shortName} Collection`}
+              visuallyHideTitle={true}
+            >
+              <SectionList
+                items={collectionCtx.current.tutorials.map((t) =>
+                  formatTutorialToMenuItem(
+                    t,
+                    collectionCtx.current.slug,
+                    currentPath
+                  )
+                )}
+              />
+              <HorizontalRule />
+              <SectionTitle text="Resources" />
+              <SectionList
+                items={[
+                  {
+                    text: 'All Tutorials',
+                    href: 'https://learn.hashicorp.com',
+                  },
+                  {
+                    text: 'Community Forum',
+                    href: 'https://discuss.hashicorp.com',
+                  },
+                  { text: 'Support', href: 'https://support.hashicorp.com' },
+                  { text: 'GitHub', href: 'http://github.com/hashicorp' },
+                ]}
+              />
+            </TutorialsSidebar>
           }
           headings={layout.headings}
         >
