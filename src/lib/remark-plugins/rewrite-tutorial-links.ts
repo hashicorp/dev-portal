@@ -9,6 +9,8 @@
  *
  * decide whether to write as collection or tutorial slug
  *
+ * account for ANCHOR LINK
+ *
  * /collections/{product}/{collection-name} --> /{product}/tutorials/{collection-name}
  * /tutorials/{product}/{tutorial-name}  --> /{product}/tutorials/{collection-name}/{tutorial-name}
  */
@@ -18,6 +20,7 @@ import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { ProductOption } from 'lib/learn-client/types'
 import path, { isAbsolute } from 'path'
+import { getTutorial } from 'lib/learn-client/api/tutorial'
 
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
@@ -53,18 +56,21 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
         }
 
         const [, contentType, product, filename] = nodePath.split('/') as [
-          any, // assuming aboslute path here
+          string, // the leading slash
           'collections' | 'tutorials',
           ProductOption,
           string
-        ] // take off leading slash and split into path parts
+        ]
 
         // always return relative dev portal path
         if (contentType === 'collections') {
           node.url = `/${product}/tutorials/${filename}`
         } else if (contentType === 'tutorials') {
+          const tutorialSlug = [product, filename].join('/')
+          // const tutorial = await getTutorial(tutorialSlug)
           // TODO get default context from the API
           node.url = `/${product}/tutorials/collection-todo/${filename}`
+          // also what about the query param links
         }
       } else {
         // if its already an external link on a non-beta product, don't rewrite it

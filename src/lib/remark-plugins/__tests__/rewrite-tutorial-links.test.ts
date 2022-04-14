@@ -18,7 +18,7 @@ const slug = '[a-z0-9]+(?:[-][a-z0-9]+)*' // matches lower case letters, numbers
 const devDotTutorialsPath = new RegExp(
   `^/(${__config.dev_dot.beta_product_slugs.join(
     '|'
-  )})/tutorials/${slug}(/${slug})?$`
+  )})/tutorials/${slug}(/${slug})?(#${slug})?$`
 )
 const TEST_MD_LINKS = {
   nonLearnLink:
@@ -35,6 +35,8 @@ const TEST_MD_LINKS = {
     '[link to beta product external collection](https://learn.hashicorp.com/collections/vault/getting-started)',
   betaProductRelativePath:
     '[link to beta product non aboslute path](collections/vault/getting-started)',
+  betaProductTutorialAnchorLink:
+    '[link to beta product tutorial with anchor](/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
 }
 
 function isolatePathFromMarkdown(mdLink: string): string {
@@ -113,6 +115,15 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
     const result = String(contents)
     const path = isolatePathFromMarkdown(result)
+    expect(path).toMatch(devDotTutorialsPath)
+  })
+
+  test('Anchor links are accommodated', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductTutorialAnchorLink)
+
+    const path = isolatePathFromMarkdown(String(contents))
     expect(path).toMatch(devDotTutorialsPath)
   })
 })
