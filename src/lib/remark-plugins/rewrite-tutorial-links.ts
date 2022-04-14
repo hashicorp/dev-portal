@@ -13,22 +13,21 @@
  * /tutorials/{product}/{tutorial-name}  --> /{product}/tutorials/{collection-name}/{tutorial-name}
  */
 
+import path from 'path'
 import { Link } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { ProductOption } from 'lib/learn-client/types'
 
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
-const internalLearnLink = new RegExp(
-  '(learn.hashicorp.com?|collections|tutorials)'
-)
+const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return function transformer(tree) {
     visit(tree, 'link', (node: Link) => {
       console.log(node.url, '-- original url!')
       // return early if non tutorial or collection link
-      if (!internalLearnLink.test(node.url)) {
+      if (!learnLink.test(node.url)) {
         return
       }
       // find product
@@ -38,12 +37,20 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
       const isCollectionPath = slugParts.includes('collections')
       const isBetaProduct =
         __config.dev_dot.beta_product_slugs.includes(product)
+      const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
 
       if (isBetaProduct) {
         node.url = `/${product}/tutorials/collection-name/tutorial-name`
         // need to get tutorial default collection name
       } else {
-        node.url = '/something'
+        // if its already an external link, don't rewrite it
+        if (!isExternalLearnLink) {
+          // make sure that its a relative path
+          node.url = new URL(
+            node.url,
+            'https://learn.hashicorp.com/'
+          ).toString()
+        }
       }
 
       console.log(node.url, '--final url')
