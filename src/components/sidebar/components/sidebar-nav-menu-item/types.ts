@@ -1,7 +1,7 @@
 import { MenuItem } from 'components/sidebar'
 
-interface SidebarMenuItemProps {
+interface SidebarNavMenuItemProps {
   item: MenuItem
 }
 
-export type { SidebarMenuItemProps }
+export type { SidebarNavMenuItemProps }

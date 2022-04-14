@@ -9,7 +9,7 @@ import {
   SidebarSectionHeading,
 } from 'components/sidebar/components'
 import Text from 'components/text'
-import { SidebarMenuItemProps } from './types'
+import { SidebarNavMenuItemProps } from './types'
 import s from './sidebar-nav-menu-item.module.css'
 
 /**
@@ -46,7 +46,7 @@ const SidebarNavLink = ({ item }: { item: MenuItem }) => {
  * Handles rendering a collapsible/expandable submenu item and its child menu
  * items in the Sidebar.
  */
-const SidebarNavSubmenu = ({ item }: SidebarMenuItemProps) => {
+const SidebarNavSubmenu = ({ item }: SidebarNavMenuItemProps) => {
   const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(
     item.hasActiveChild || item.hasChildrenMatchingFilter || item.matchesFilter
@@ -115,7 +115,7 @@ const SidebarNavSubmenu = ({ item }: SidebarMenuItemProps) => {
  *  - SidebarNavSubmenu
  *  - SidebarNavLink
  */
-const SidebarNavMenuItem = ({ item }: SidebarMenuItemProps) => {
+const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
   if (item.divider) {
     return <SidebarHorizontalRule />
   }
