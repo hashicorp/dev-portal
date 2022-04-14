@@ -10,6 +10,7 @@ import Hero from './components/hero'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
+import InlineLink from 'components/inline-link'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
@@ -66,8 +67,11 @@ function Homepage(): ReactElement {
           <Text size={300}>
             Learn at your own pace, with self-guided tutorials, videos, and
             Advance your career through our industry-recognized{' '}
-            <a href="/">HashiCorp Cloud Engineer Certifications</a>. Use our
-            study guides and sample questions to prepare.
+            <InlineLink
+              href="/example"
+              text="HashiCorp Cloud Engineer Certifications"
+            />
+            . Use our study guides and sample questions to prepare.
           </Text>
         }
         tutorials={[
