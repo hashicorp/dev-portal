@@ -1,22 +1,32 @@
-import {
-  TutorialLite as ClientTutorialLite,
-  Collection as ClientCollection,
-} from 'lib/learn-client/types'
 import Link from 'next/link'
-import { getCollectionSlug, getTutorialSlug } from './helpers'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
+import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
+import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
+import CollectionViewSidebar from './components/collection-view-sidebar'
 
-export default function CollectionView({
+function CollectionView({
   collection,
-  allProductCollections, // for sidebar section
   product,
+  layoutProps,
 }: CollectionPageProps): React.ReactElement {
-  const { name, slug, description, tutorials } = collection
+  const { name, slug, description, shortName, tutorials } = collection
 
   return (
-    <>
-      <h1>{name}</h1>
+    <SidebarSidecarLayout
+      breadcrumbLinks={layoutProps.breadcrumbLinks}
+      headings={layoutProps.headings}
+      sidebarSlot={
+        <CollectionViewSidebar
+          product={product}
+          sections={layoutProps.sidebarSections}
+        />
+      }
+    >
+      <h1 id={layoutProps.headings[0].slug}>{name}</h1>
       <p>{description}</p>
+      <h2 id={layoutProps.headings[1].slug}>Tutorials</h2>
       <ol>
         {tutorials.map((tutorial: ClientTutorialLite) => {
           const tutorialSlug = getTutorialSlug(tutorial.slug, slug)
@@ -29,19 +39,9 @@ export default function CollectionView({
           )
         })}
       </ol>
-      <h2>Sidebar Data</h2>
-      <ul>
-        {allProductCollections.map((collection: ClientCollection) => {
-          const collectionSlug = getCollectionSlug(collection.slug)
-          return (
-            <li key={collection.id}>
-              <Link href={collectionSlug}>
-                <a>{collection.shortName}</a>
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
-    </>
+    </SidebarSidecarLayout>
   )
 }
+
+CollectionView.layout = CoreDevDotLayout
+export default CollectionView

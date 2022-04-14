@@ -7,13 +7,6 @@ import {
   getCollectionPaths,
   CollectionPageProps,
 } from 'views/collection-view/server'
-import BaseLayout from 'layouts/base-new'
-
-export function VaultCollectionPage(
-  props: CollectionPageProps
-): React.ReactElement {
-  return <CollectionView {...props} />
-}
 
 export async function getStaticProps({
   params,
@@ -40,5 +33,4 @@ export async function getStaticPaths(): Promise<{
   }
 }
 
-VaultCollectionPage.layout = BaseLayout
-export default VaultCollectionPage
+export default CollectionView

@@ -8,7 +8,7 @@ interface TutorialsBreadcrumbOptions {
 
 type BasePathType = {
   name: string
-  slug: string
+  filename: string
 }
 
 export function getTutorialsBreadcrumb({
@@ -18,20 +18,20 @@ export function getTutorialsBreadcrumb({
 }: TutorialsBreadcrumbOptions): BreadcrumbLink[] {
   const paths = [
     { title: 'Developer', url: '/' },
-    { title: product.name, url: `/${product.slug}` },
-    { title: 'Tutorials', url: `/${product.slug}/tutorials` },
+    { title: product.name, url: `/${product.filename}` },
+    { title: 'Tutorials', url: `/${product.filename}/tutorials` },
   ]
 
   if (collection) {
     paths.push({
       title: collection.name,
-      url: `/${product.slug}/tutorials/${collection.slug}`,
+      url: `/${product.filename}/tutorials/${collection.filename}`,
     })
 
     if (tutorial) {
       paths.push({
         title: tutorial.name,
-        url: `/${product.slug}/tutorials/${collection.slug}/${tutorial.slug}`,
+        url: `/${product.filename}/tutorials/${collection.filename}/${tutorial.filename}`,
       })
     }
   }
