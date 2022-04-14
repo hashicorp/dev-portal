@@ -91,7 +91,7 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
       <nav className={s.nav}>
         <ul className={s.list}>
           {products.map((product, index) => {
-            const isBetaProduct = true || getIsBetaProduct(product)
+            const isBetaProduct = getIsBetaProduct(product)
             const productName =
               product === 'hcp' ? 'HCP' : productSlugsToNames[product]
             const productBorderColor =
