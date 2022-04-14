@@ -14,19 +14,10 @@
   background-repeat: no-repeat;
   background-position: right top var(--background-offset);
 
-  /* Only enable animation if query is supported and value is no-preference */
-  @media (prefers-reduced-motion: no-preference) {
-    transition: box-shadow 0.2s;
-  }
-
   @media (--dev-dot-tablet-up) {
     --padding: 48px;
     --min-height: 500px;
     --background-offset: 200px;
-  }
-
-  &:hover {
-    box-shadow: var(--token-surface-high-box-shadow);
   }
 }
 
