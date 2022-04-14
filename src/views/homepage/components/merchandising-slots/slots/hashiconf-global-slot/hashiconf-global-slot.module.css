@@ -4,6 +4,7 @@
 
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   padding: var(--padding);
   min-height: var(--min-height);
   border-radius: 6px;
@@ -25,7 +26,14 @@
   }
 }
 
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .footer {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;

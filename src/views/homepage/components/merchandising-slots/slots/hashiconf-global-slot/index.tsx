@@ -1,5 +1,7 @@
 import Link from 'next/link'
-import Heading from 'components/heading'
+import Image from 'next/image'
+import VisuallyHidden from '@reach/visually-hidden'
+import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
 import Text from 'components/text'
 import s from './hashiconf-global-slot.module.css'
 
@@ -7,9 +9,16 @@ export default function HashiConfGlobalSlot() {
   return (
     <Link href="/">
       <a className={s.root}>
-        <Heading level={2} size={500} weight="bold" slug="hcp-vault">
-          HashiConf Global
-        </Heading>
+        <header className={s.header}>
+          <VisuallyHidden as="h2">HashiConf Global</VisuallyHidden>
+          <Image
+            src="/img/homepage/hashiconf-global-logo.svg"
+            width="194"
+            height="83"
+            alt="HashiConf Global"
+          />
+          <IconHashicorp24 />
+        </header>
 
         <footer className={s.footer}>
           <Text className={s.description}>
