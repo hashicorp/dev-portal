@@ -4,6 +4,7 @@ import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import BaseNewLayout from 'layouts/base-new'
+import Text from 'components/text'
 import Hero from './components/hero'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
@@ -19,11 +20,11 @@ function Homepage(): ReactElement {
         heading="HashiCorp Developer Portal"
         description={
           <>
-            <p>
+            <Text>
               The home of HashiCorp documentation and learning content for
               developers and technology professionals.
-            </p>
-            <p>More products and featrues coming soon....</p>
+            </Text>
+            <Text>More products and featrues coming soon....</Text>
           </>
         }
         actions={[
