@@ -8,7 +8,7 @@ export interface TutorialSidebarProps {
   /** Children to render in the main items area. Expects a mix of SectionTitle, SectionList, and HorizontalRule components. */
   children: ReactNode
   /** Optional. If true, the title of the sidebar will be visually hidden. */
-  visuallyHideTitle?: string
+  visuallyHideTitle?: boolean
 }
 
 export interface ListItemProps {
