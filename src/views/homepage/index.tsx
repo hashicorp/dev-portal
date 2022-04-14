@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import Image from 'next/image'
 import { productSlugs } from 'lib/products'
 import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
@@ -8,7 +9,6 @@ import Text from 'components/text'
 import Hero from './components/hero'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
-import TutorialCard from './components/tutorial-card'
 import LearnSection from './components/learn-section'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
@@ -53,14 +53,22 @@ function Homepage(): ReactElement {
       />
 
       <LearnSection
+        media={
+          <Image
+            src="/img/homepage/vault-certified-expert-badge.svg"
+            width={397}
+            height={228}
+            alt="Vault certified expert badge"
+          />
+        }
         heading="Prepare for Vault Certifications"
         description={
-          <p>
+          <Text size={300}>
             Learn at your own pace, with self-guided tutorials, videos, and
-            Advance your career through our industry-recognized HashiCorp Cloud
-            Engineer Certifications. Use our study guides and sample questions
-            to prepare.
-          </p>
+            Advance your career through our industry-recognized{' '}
+            <a href="/">HashiCorp Cloud Engineer Certifications</a>. Use our
+            study guides and sample questions to prepare.
+          </Text>
         }
         tutorials={[
           {

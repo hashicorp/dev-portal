@@ -7,12 +7,14 @@ import TutorialCard from '../tutorial-card'
 import s from './learn-section.module.css'
 
 interface LearnSectionProps {
+  media: ReactElement
   heading: string
   description: ReactElement
   tutorials: Array<TutorialCardProps>
 }
 
 export default function LearnSection({
+  media,
   heading,
   description,
   tutorials,
@@ -21,17 +23,20 @@ export default function LearnSection({
     <section className={s.learnSection}>
       <div className={s.intro}>
         <div className={s.introInner}>
-          <Heading level={2} size={500} weight="bold" slug={heading}>
-            {heading}
-          </Heading>
-          <div>{description}</div>
-          <StandaloneLink
-            href="/"
-            text="Start learning"
-            iconPosition="trailing"
-            icon={<IconArrowRight16 />}
-            color="secondary"
-          />
+          <div className={s.introMedia}>{media}</div>
+          <header className={s.introContent}>
+            <Heading level={2} size={500} weight="bold" slug={heading}>
+              {heading}
+            </Heading>
+            <div className={s.introDescription}>{description}</div>
+            <StandaloneLink
+              href="/"
+              text="Start learning"
+              iconPosition="trailing"
+              icon={<IconArrowRight16 />}
+              color="secondary"
+            />
+          </header>
         </div>
       </div>
 
