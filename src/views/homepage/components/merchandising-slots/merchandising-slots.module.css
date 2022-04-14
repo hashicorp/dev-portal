@@ -1,0 +1,20 @@
+.merchandisingSlots {
+  --container-max-width: 1240px;
+  --grid-template-columns: 1;
+  --grid-gap: 24px;
+
+  @media (--dev-dot-tablet-up) {
+    --grid-template-columns: 2;
+  }
+
+  padding: 88px 24px;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin-right: auto;
+  margin-left: auto;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-template-columns), 1fr);
+  gap: var(--grid-gap);
+}

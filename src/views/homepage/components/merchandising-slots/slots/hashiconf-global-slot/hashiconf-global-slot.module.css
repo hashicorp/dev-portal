@@ -1,0 +1,44 @@
+.root {
+  --padding: 24px;
+  --min-height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--padding);
+  min-height: var(--min-height);
+  border-radius: 6px;
+  background-color: black;
+  color: white;
+  box-shadow: var(--token-surface-mid-box-shadow);
+  background-image: url('/img/homepage/hashiconf-global-slot-accent.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  @media (--dev-dot-tablet-up) {
+    --padding: 48px;
+    --min-height: 300px;
+  }
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: auto;
+}
+
+.description {
+  color: var(--token-color-surface-faint);
+}
