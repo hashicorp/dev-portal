@@ -17,7 +17,7 @@ import s from './sidebar-nav-menu-item.module.css'
  * determine whether or not the link is external to DevDot, and will render an
  * external link icon if the link is external.
  */
-const SidebarNavLink = ({ item }: { item: MenuItem }) => {
+const SidebarNavLink = ({ item }: SidebarNavMenuItemProps) => {
   const href = item.fullPath || item.href
   const isExternal = isAbsoluteUrl(href)
 
