@@ -17,9 +17,11 @@ import { Link } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { ProductOption } from 'lib/learn-client/types'
+import path, { isAbsolute } from 'path'
 
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
+const LEARN_URL = 'https://learn.hashicorp.com/'
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return function transformer(tree) {
@@ -32,24 +34,43 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
 
       // find product
       const [product] = node.url.match(learnProducts)
-      const slugParts = node.url.trim().split('/')
-      const isTutorialPath = slugParts.includes('tutorials')
-      const isCollectionPath = slugParts.includes('collections')
       const isBetaProduct =
         __config.dev_dot.beta_product_slugs.includes(product)
       const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
 
       if (isBetaProduct) {
-        node.url = `/${product}/tutorials/collection-name/tutorial-name`
-        // need to get tutorial default collection name
+        let nodePath = node.url
+
+        // if its an external link, isolate the path to be rewritten
+        if (isExternalLearnLink) {
+          const fullUrl = new URL(nodePath)
+          nodePath = fullUrl.pathname
+        }
+
+        if (!isAbsolute(nodePath)) {
+          // handle relative paths - edge case
+          nodePath = path.format({ root: '/', base: nodePath })
+        }
+
+        const [, contentType, product, filename] = nodePath.split('/') as [
+          any, // assuming aboslute path here
+          'collections' | 'tutorials',
+          ProductOption,
+          string
+        ] // take off leading slash and split into path parts
+
+        // always return relative dev portal path
+        if (contentType === 'collections') {
+          node.url = `/${product}/tutorials/${filename}`
+        } else if (contentType === 'tutorials') {
+          // TODO get default context from the API
+          node.url = `/${product}/tutorials/collection-todo/${filename}`
+        }
       } else {
         // if its already an external link on a non-beta product, don't rewrite it
         if (!isExternalLearnLink) {
           // if its a relative path, turn it into an external learn link
-          node.url = new URL(
-            node.url,
-            'https://learn.hashicorp.com/'
-          ).toString()
+          node.url = new URL(node.url, LEARN_URL).toString()
         }
       }
 

@@ -8,6 +8,8 @@
 
 // handle docs links??
 
+// test with more md content to ensure its only targeting links
+
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 
@@ -27,6 +29,18 @@ const TEST_MD_LINKS = {
     '[link to non-beta product tutorial](/tutorials/consul/get-started)',
   betaProductTutorial:
     '[link to beta product tutorial](/tutorials/waypoint/get-started-ui)',
+  betaProductCollection:
+    '[link to beta product collection](/collections/vault/getting-started)',
+  betaProductExternalCollection:
+    '[link to beta product external collection](https://learn.hashicorp.com/collections/vault/getting-started)',
+  betaProductRelativePath:
+    '[link to beta product non aboslute path](collections/vault/getting-started)',
+}
+
+function isolatePathFromMarkdown(mdLink: string): string {
+  // target the path within the md syntax
+  // split at the ], then remove the enclosing parens from the path
+  return mdLink.split(']')[1].trim().slice(1, -1)
 }
 
 describe('rewriteTutorialLinks remark plugin', () => {
@@ -49,7 +63,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
       .process(TEST_MD_LINKS.betaProductTutorial)
 
     const result = String(contents)
-    const path = result.split('(')[1].trim().slice(0, -1) // target the path within the md syntax
+    const path = isolatePathFromMarkdown(result)
 
     expect(path).toMatch(devDotTutorialsPath)
   })
@@ -63,12 +77,42 @@ describe('rewriteTutorialLinks remark plugin', () => {
     expect(result.includes('https://learn.hashicorp.com/')).toBeTruthy()
   })
 
-  test("Non beta product tutorial full URLs aren't rewritten", async () => {
+  test("Non-beta product tutorial full URLs aren't rewritten", async () => {
     const contents = await remark()
       .use(rewriteTutorialLinksPlugin)
       .process(TEST_MD_LINKS.nonBetaProductExternalUrl)
 
     const result = String(contents)
     expect(result).toMatch(TEST_MD_LINKS.nonBetaProductExternalUrl)
+  })
+
+  test('Beta product collection links are rewritten to dev portal paths', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductCollection)
+
+    const result = String(contents)
+    const path = isolatePathFromMarkdown(result)
+    expect(path).toMatch(devDotTutorialsPath)
+  })
+
+  test('Beta product external collection links are rewritten to relative dev portal paths', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductExternalCollection)
+
+    const result = String(contents)
+    const path = isolatePathFromMarkdown(result)
+    expect(path).toMatch(devDotTutorialsPath)
+  })
+
+  test('Beta product relative path is handled propertly', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductRelativePath)
+
+    const result = String(contents)
+    const path = isolatePathFromMarkdown(result)
+    expect(path).toMatch(devDotTutorialsPath)
   })
 })
