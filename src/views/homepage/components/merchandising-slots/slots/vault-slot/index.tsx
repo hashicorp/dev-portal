@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import VisuallyHidden from '@reach/visually-hidden'
 import logo from '@hashicorp/mktg-logos/product/vault/primary/colorwhite.svg'
 import { IconClock16 } from '@hashicorp/flight-icons/svg-react/clock-16'
 import Text from 'components/text'
 import s from './vault-slot.module.css'
-import VisuallyHidden from '@reach/visually-hidden'
 
 export default function VaultSlot() {
   return (
