@@ -1,5 +1,6 @@
 import { CSSProperties, ReactElement } from 'react'
 import Link from 'next/link'
+import classNames from 'classnames'
 import type { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
@@ -89,10 +90,14 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
       ) : null}
       <nav className={s.nav}>
         <ul className={s.list}>
-          {products.map((product) => {
+          {products.map((product, index) => {
             const isBetaProduct = getIsBetaProduct(product)
             const productName =
               product === 'hcp' ? 'HCP' : productSlugsToNames[product]
+            const productClassName = classNames(s.product, {
+              [s.isFirstChild]: index == 0,
+              [s.isLastChild]: index == products.length - 1,
+            })
             return (
               <li
                 className={s.listItem}
@@ -105,7 +110,7 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
               >
                 {isBetaProduct ? (
                   <Link href={`/${product}/`}>
-                    <a className={s.product}>
+                    <a className={productClassName}>
                       {productIcons[product].color}
                       <Text
                         weight="semibold"
@@ -118,7 +123,7 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
                     </a>
                   </Link>
                 ) : (
-                  <span className={s.product}>
+                  <span className={productClassName}>
                     {productIcons[product].neutral}
                     <Text
                       weight="semibold"
