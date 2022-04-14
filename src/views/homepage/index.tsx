@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import Image from 'next/image'
 import { productSlugs } from 'lib/products'
 import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
@@ -8,7 +9,8 @@ import Text from 'components/text'
 import Hero from './components/hero'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
-import TutorialCard from './components/tutorial-card'
+import LearnSection from './components/learn-section'
+import InlineLink from 'components/inline-link'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
@@ -51,35 +53,53 @@ function Homepage(): ReactElement {
         products={productNavSlugs}
       />
 
-      <section
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 24,
-        }}
-      >
-        <TutorialCard
-          link="/"
-          duration="10min"
-          heading="Title Max 70 Characters"
-          description="Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v..."
-          badges={['hcp', 'vault', 'boundary', 'nomad', 'video']}
-        />
-        <TutorialCard
-          link="/"
-          duration="10min"
-          heading="Title Max 70 Characters Try and Keep it to a Max of Three Lines Loremi"
-          description="Body maximum 130 characters. Auctor vitae pharetra accumsan risu, eu v..."
-          badges={['vault', 'terraform', 'consul', 'video']}
-        />
-        <TutorialCard
-          link="/"
-          duration="10min"
-          heading="Title Max 70 Characters"
-          description="Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v..."
-          badges={['vault', 'boundary', 'interactive', 'video']}
-        />
-      </section>
+      <LearnSection
+        media={
+          <Image
+            src="/img/homepage/vault-certified-expert-badge.svg"
+            width={397}
+            height={228}
+            alt="Vault certified expert badge"
+          />
+        }
+        heading="Prepare for Vault Certifications"
+        description={
+          <Text size={300}>
+            Learn at your own pace, with self-guided tutorials, videos, and
+            Advance your career through our industry-recognized{' '}
+            <InlineLink
+              href="/example"
+              text="HashiCorp Cloud Engineer Certifications"
+            />
+            . Use our study guides and sample questions to prepare.
+          </Text>
+        }
+        tutorials={[
+          {
+            link: '/',
+            duration: '10min',
+            heading: 'Title Max 70 Characters',
+            description: 'Body maximum 130 characters.',
+            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+          },
+          {
+            link: '/',
+            duration: '10min',
+            heading: 'Title Max 70 Characters',
+            description:
+              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
+            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+          },
+          {
+            link: '/',
+            duration: '10min',
+            heading: 'Title Max 70 Characters',
+            description:
+              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
+            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+          },
+        ]}
+      />
 
       <PreFooter
         heading="Looking for help?"

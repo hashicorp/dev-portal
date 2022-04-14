@@ -23,7 +23,7 @@ const BADGE_ICON_MAP = {
   interactive: <IconTerminalScreen16 />,
 }
 
-interface TutorialCardProps {
+export interface TutorialCardProps {
   link: string
   duration?: string
   heading: string

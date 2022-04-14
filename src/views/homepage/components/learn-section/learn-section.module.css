@@ -1,0 +1,85 @@
+.learnSection {
+  --container-max-width: 1240px;
+  --padding-y: 64px;
+  --padding-x: 24px;
+
+  background-color: var(--token-color-vault-brand);
+}
+
+.intro {
+  padding: var(--padding-y) var(--padding-x);
+}
+
+.introInner {
+  --grid-template-columns: 1;
+
+  margin: 0 auto;
+  max-width: var(--container-max-width);
+  display: grid;
+  grid-template-columns: repeat(var(--grid-template-columns), 1fr);
+  gap: 24px;
+
+  @media (--dev-dot-tablet-up) {
+    --grid-template-columns: 3;
+  }
+}
+
+.introMedia {
+  display: flex;
+  grid-column: 1 / -1;
+
+  @media (--dev-dot-tablet-up) {
+    grid-column: 3 / -1;
+    grid-row: 1;
+  }
+}
+
+.introContent {
+  grid-column: 1 / -1;
+
+  @media (--dev-dot-tablet-up) {
+    grid-column: 1 / 3;
+    max-width: 760px;
+  }
+}
+
+.introDescription {
+  margin: 12px 0 24px;
+
+  & a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+.tutorials {
+  --overlap-height: 80px;
+
+  padding-left: var(--padding-x);
+  padding-right: var(--padding-x);
+  background-image: linear-gradient(
+    to bottom,
+    var(--token-color-vault-brand) var(--overlap-height),
+    var(--token-color-neutral-background-primary) var(--overlap-height)
+  );
+
+  @media (--dev-dot-tablet-up) {
+    --overlap-height: 50%;
+  }
+}
+
+.tutorialsList {
+  --grid-template-columns: 1;
+
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: var(--container-max-width);
+  display: grid;
+  grid-template-columns: repeat(var(--grid-template-columns), 1fr);
+  gap: 24px;
+
+  @media (--dev-dot-tablet-up) {
+    --grid-template-columns: 3;
+  }
+}
