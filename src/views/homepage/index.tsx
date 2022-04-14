@@ -6,6 +6,7 @@ import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import BaseNewLayout from 'layouts/base-new'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
+import TutorialCard from './components/tutorial-card'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
@@ -17,6 +18,36 @@ function Homepage(): ReactElement {
         Developer Portal"
         products={productNavSlugs}
       />
+
+      <section
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 24,
+        }}
+      >
+        <TutorialCard
+          link="/"
+          duration="10min"
+          heading="Title Max 70 Characters"
+          description="Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v..."
+          badges={['hcp', 'vault', 'boundary', 'nomad', 'video']}
+        />
+        <TutorialCard
+          link="/"
+          duration="10min"
+          heading="Title Max 70 Characters Try and Keep it to a Max of Three Lines Loremi"
+          description="Body maximum 130 characters. Auctor vitae pharetra accumsan risu, eu v..."
+          badges={['vault', 'terraform', 'consul', 'video']}
+        />
+        <TutorialCard
+          link="/"
+          duration="10min"
+          heading="Title Max 70 Characters"
+          description="Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v..."
+          badges={['vault', 'boundary', 'interactive', 'video']}
+        />
+      </section>
 
       <PreFooter
         heading="Looking for help?"
