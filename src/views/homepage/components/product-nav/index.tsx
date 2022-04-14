@@ -91,9 +91,11 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
       <nav className={s.nav}>
         <ul className={s.list}>
           {products.map((product, index) => {
-            const isBetaProduct = getIsBetaProduct(product)
+            const isBetaProduct = true || getIsBetaProduct(product)
             const productName =
               product === 'hcp' ? 'HCP' : productSlugsToNames[product]
+            const productBorderColor =
+              product === 'hcp' ? 'var(--black)' : `var(--${product})`
             const productClassName = classNames(s.product, {
               [s.isFirstChild]: index == 0,
               [s.isLastChild]: index == products.length - 1,
@@ -104,7 +106,7 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
                 key={product}
                 style={
                   {
-                    '--border-color': `var(--${product})`,
+                    '--border-color': productBorderColor,
                   } as CSSProperties
                 }
               >
