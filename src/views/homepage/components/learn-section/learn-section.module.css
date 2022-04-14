@@ -16,12 +16,14 @@
 }
 
 .tutorials {
+  --overlap-height: 48px;
+
   padding-left: var(--padding-x);
   padding-right: var(--padding-x);
   background-image: linear-gradient(
     to bottom,
-    var(--token-color-vault-brand) 48px,
-    var(--token-color-neutral-background-primary) 48px
+    var(--token-color-vault-brand) var(--overlap-height),
+    var(--token-color-neutral-background-primary) var(--overlap-height)
   );
 }
 
@@ -29,8 +31,9 @@
   --grid-template-columns: 1;
 
   list-style: none;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
+  max-width: var(--container-max-width);
   display: grid;
   grid-template-columns: repeat(var(--grid-template-columns), 1fr);
   gap: 24px;
