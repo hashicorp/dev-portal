@@ -1,6 +1,9 @@
 .root {
-  min-height: 300px;
-  padding: 48px;
+  --padding: 24px;
+  --min-height: 200px;
+
+  padding: var(--padding);
+  min-height: var(--min-height);
   border-radius: 6px;
   background-color: black;
   color: white;
@@ -9,14 +12,14 @@
   background-repeat: no-repeat;
   background-position: right bottom;
 
+  @media (--dev-dot-tablet-up) {
+    --padding: 48px;
+    --min-height: 300px;
+  }
+
   &:hover {
     box-shadow: var(--token-surface-high-box-shadow);
   }
-}
-
-.logo {
-  display: flex;
-  width: 117px;
 }
 
 .description {

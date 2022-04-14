@@ -10,9 +10,7 @@ export default function VaultSlot() {
     <Link href="/">
       <a className={s.root}>
         <Heading level={2} size={500} weight="bold" slug="hcp-vault">
-          <span className={s.logo}>
-            <Image src={logo} width={208} height={88} alt="" />
-          </span>
+          Vault
         </Heading>
         <Text className={s.description}>Create your first secret</Text>
       </a>

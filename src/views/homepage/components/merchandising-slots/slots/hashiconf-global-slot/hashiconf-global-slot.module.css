@@ -15,6 +15,7 @@
 
   @media (--dev-dot-tablet-up) {
     --padding: 48px;
+    --min-height: 300px;
   }
 
   &:hover {
