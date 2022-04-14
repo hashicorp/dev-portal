@@ -1,0 +1,14 @@
+.learnSection {
+  --container-max-width: 1240px;
+  --padding-x: 24px;
+}
+
+.content {
+  padding: 128px var(--padding-x);
+  background-color: var(--token-color-vault-brand);
+}
+
+.container {
+  margin: 0 auto;
+  max-width: var(--container-max-width);
+}

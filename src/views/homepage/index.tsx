@@ -9,6 +9,7 @@ import Hero from './components/hero'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import TutorialCard from './components/tutorial-card'
+import LearnSection from './components/learn-section'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
@@ -51,35 +52,27 @@ function Homepage(): ReactElement {
         products={productNavSlugs}
       />
 
-      <section
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 24,
-        }}
-      >
-        <TutorialCard
-          link="/"
-          duration="10min"
-          heading="Title Max 70 Characters"
-          description="Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v..."
-          badges={['hcp', 'vault', 'boundary', 'nomad', 'video']}
-        />
-        <TutorialCard
-          link="/"
-          duration="10min"
-          heading="Title Max 70 Characters Try and Keep it to a Max of Three Lines Loremi"
-          description="Body maximum 130 characters. Auctor vitae pharetra accumsan risu, eu v..."
-          badges={['vault', 'terraform', 'consul', 'video']}
-        />
-        <TutorialCard
-          link="/"
-          duration="10min"
-          heading="Title Max 70 Characters"
-          description="Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v..."
-          badges={['vault', 'boundary', 'interactive', 'video']}
-        />
-      </section>
+      <LearnSection
+        heading="Prepare for Vault Certifications"
+        description={
+          <p>
+            Learn at your own pace, with self-guided tutorials, videos, and
+            Advance your career through our industry-recognized HashiCorp Cloud
+            Engineer Certifications. Use our study guides and sample questions
+            to prepare.
+          </p>
+        }
+        tutorials={[
+          {
+            link: '/',
+            duration: '10min',
+            heading: 'Title Max 70 Characters',
+            description:
+              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
+            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+          },
+        ]}
+      />
 
       <PreFooter
         heading="Looking for help?"
