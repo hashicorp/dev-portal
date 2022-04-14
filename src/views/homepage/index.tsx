@@ -67,6 +67,21 @@ function Homepage(): ReactElement {
             link: '/',
             duration: '10min',
             heading: 'Title Max 70 Characters',
+            description: 'Body maximum 130 characters.',
+            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+          },
+          {
+            link: '/',
+            duration: '10min',
+            heading: 'Title Max 70 Characters',
+            description:
+              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
+            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+          },
+          {
+            link: '/',
+            duration: '10min',
+            heading: 'Title Max 70 Characters',
             description:
               'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
             badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],

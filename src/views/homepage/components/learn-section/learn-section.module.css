@@ -1,14 +1,41 @@
 .learnSection {
   --container-max-width: 1240px;
+  --padding-y: 64px;
   --padding-x: 24px;
-}
 
-.content {
-  padding: 128px var(--padding-x);
   background-color: var(--token-color-vault-brand);
 }
 
-.container {
+.intro {
+  padding: var(--padding-y) var(--padding-x);
+}
+
+.introInner {
   margin: 0 auto;
   max-width: var(--container-max-width);
+}
+
+.tutorials {
+  padding-left: var(--padding-x);
+  padding-right: var(--padding-x);
+  background-image: linear-gradient(
+    to bottom,
+    var(--token-color-vault-brand) 48px,
+    var(--token-color-neutral-background-primary) 48px
+  );
+}
+
+.tutorialsList {
+  --grid-template-columns: 1;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-template-columns), 1fr);
+  gap: 24px;
+
+  @media (--dev-dot-tablet-up) {
+    --grid-template-columns: 3;
+  }
 }
