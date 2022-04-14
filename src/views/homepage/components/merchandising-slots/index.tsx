@@ -3,7 +3,7 @@ import s from './merchandising-slots.module.css'
 
 export default function MerchandisingSlots({ children }) {
   const totalSlots = Children.count(children)
-  if (Children.count(children) !== 4) {
+  if (totalSlots !== 4) {
     throw new Error(
       `MerchandisingSlots expects 4 children, but received ${totalSlots}`
     )
