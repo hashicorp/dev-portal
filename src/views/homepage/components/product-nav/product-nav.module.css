@@ -7,10 +7,12 @@
 }
 
 .notice {
-  position: relative;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
   margin: 0;
   padding: 0 var(--padding-x) 12px;
-  background-color: var(--notice-background-color);
   text-align: center;
 }
 
