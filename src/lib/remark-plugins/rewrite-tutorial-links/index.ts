@@ -54,11 +54,10 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
           return
         }
 
-        // find product
         const [product] = node.url.match(learnProducts)
+        const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
         const isBetaProduct =
           __config.dev_dot.beta_product_slugs.includes(product)
-        const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
 
         // if its not a beta product and also not an external link, rewrite
         // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/vault
