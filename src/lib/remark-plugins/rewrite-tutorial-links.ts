@@ -109,8 +109,6 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
 
     visit(tree, 'link', (node: Link) => {
       try {
-        console.log(node.url, '— ORIGINAL')
-
         // return early if non tutorial or collection link
         if (!learnLink.test(node.url)) {
           return
@@ -152,8 +150,6 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
               `[MDX TUTORIAL]: internal link could not be rewritten: ${nodePath}`
             )
           }
-
-          console.log(node.url, '— FINAL')
         }
       } catch (e) {
         console.error(e)
