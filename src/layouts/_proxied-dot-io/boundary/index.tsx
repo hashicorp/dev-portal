@@ -49,7 +49,7 @@ function BoundaryIoLayout({
             hideOnMobile
           />
         )}
-        <HashiStackMenu onPanelChange={() => null} />
+        <HashiStackMenu onPanelChange={() => null as $TSFixMe} />
         <ProductSubnav />
         <div className={themeClass}>{children}</div>
       </Min100Layout>
