@@ -21,7 +21,6 @@ function TabButtonControls({
    * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role#example
    * Our tests currently rely on onKeyUp being used, NOT onKeydown.
    * Switching to onKeydown would require refactoring tests.
-   * I need to get some more context on why we use keyup rather than keydown.
    */
   useEffect(() => {
     if (wasKeypress.current) {
