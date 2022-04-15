@@ -8,42 +8,10 @@ import {
   SidebarTitleHeading,
 } from 'components/sidebar/components'
 import { MenuItem, SidebarProps } from './types'
+import { addNavItemMetaData } from './helpers'
 import s from './sidebar.module.css'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
-
-const addItemMetadata = (
-  currentPath: string,
-  items: MenuItem[]
-): { foundActiveItem: boolean; itemsWithMetadata: MenuItem[] } => {
-  let foundActiveItem = false
-
-  const itemsWithMetadata = items.map((item) => {
-    const itemCopy = { ...item }
-
-    if (item.routes) {
-      const result = addItemMetadata(currentPath, item.routes)
-      itemCopy.routes = result.itemsWithMetadata
-      // Note: if an active item has already been found,
-      // we do not flag this category as active.
-      itemCopy.hasActiveChild = !foundActiveItem && result.foundActiveItem
-      // Flag if we've found an active item
-      foundActiveItem = itemCopy.hasActiveChild || foundActiveItem
-    } else if (item.path) {
-      // Note: if an active item has already been found,
-      // we do not flag this node as active.
-      itemCopy.isActive = !foundActiveItem && currentPath.endsWith(item.path)
-      // Flag if we've found an active item
-      foundActiveItem = itemCopy.isActive || foundActiveItem
-    } else {
-      // TODO: are there any other cases to cover?
-    }
-
-    return itemCopy
-  })
-
-  return { foundActiveItem, itemsWithMetadata }
-}
 
 /**
  * This does not use Array.filter because we need to add metadata to each item
@@ -102,7 +70,7 @@ const Sidebar = ({
 }: SidebarProps): ReactElement => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
-    () => addItemMetadata(currentPath, menuItems),
+    () => addNavItemMetaData(currentPath, menuItems),
     [currentPath, menuItems]
   )
   const [filterValue, setFilterValue] = useState('')

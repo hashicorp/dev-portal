@@ -99,7 +99,7 @@ type FilteredNavItem = FilteredSubmenuNavItem | FilteredLinkNavItem
  * https://github.com/hashicorp/react-components/blob/main/packages/docs-sidenav/types.ts
  *
  */
-export interface MenuItem {
+interface MenuItem {
   divider?: boolean
   fullPath?: string
   hasActiveChild?: boolean
@@ -115,7 +115,7 @@ export interface MenuItem {
   heading?: string
 }
 
-export interface SidebarProps {
+interface SidebarProps {
   /**
    * Optional props to send to `SidebarBackToLink` which is displayed at the top
    * of the sidebar. If this prop is omitted, `SidebarBackToLink` will not be
@@ -126,7 +126,7 @@ export interface SidebarProps {
   /**
    * Menu items to render in the sidebar.
    */
-  menuItems: MenuItem[]
+  menuItems: EnrichedNavItem[]
 
   /**
    * Whether or not the Sidebar should render the filter text input.
@@ -137,4 +137,15 @@ export interface SidebarProps {
    * Text to be shown as the title of the sidebar.
    */
   title: string
+}
+
+export type {
+  EnrichedLinkNavItem,
+  EnrichedNavItem,
+  EnrichedSubmenuNavItem,
+  LinkNavItemWithMetaData,
+  MenuItem,
+  NavItemWithMetaData,
+  SidebarProps,
+  SubmenuNavItemWithMetaData,
 }
