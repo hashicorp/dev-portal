@@ -172,6 +172,7 @@
   background-color: var(--token-color-surface-faint);
 
   &:hover {
+    background-color: var(--token-color-surface-primary);
     box-shadow: var(--token-elevation-low-box-shadow);
   }
 }
