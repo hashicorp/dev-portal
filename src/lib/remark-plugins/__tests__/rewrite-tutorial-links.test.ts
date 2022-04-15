@@ -12,7 +12,7 @@ jest.mock('@vercel/fetch', () => () => require('node-fetch'))
 const slug = '[a-z0-9]+(?:[-][a-z0-9]+)*' // matches lower case letters, numbers and hyphens
 const betaProductSlugs = __config.dev_dot.beta_product_slugs.join('|')
 const devDotTutorialsPath = new RegExp(
-  `^/(${betaProductSlugs})/tutorials/${slug}(/${slug})?(#${slug})?$`
+  `^/(${betaProductSlugs})/tutorials/${slug}(/${slug})?$`
 )
 
 function isolatePathFromMarkdown(mdLink: string): string {
@@ -36,7 +36,7 @@ const TEST_MD_LINKS = {
     '[link to beta product collection](/collections/vault/getting-started)',
   betaProductExternalCollection:
     '[link to beta product external collection](https://learn.hashicorp.com/collections/vault/getting-started)',
-  betaProductRelativePath:
+  betaProductNonAbsolutePath:
     '[link to beta product non aboslute path](collections/vault/getting-started)',
   betaProductTutorialAnchorLink:
     '[link to beta product tutorial with anchor](/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
@@ -78,16 +78,8 @@ const MOCK_TUTORIALS = [
 
 /**
  *  TODO 
- * 
- * test for regular link
-
- test for non beta product links to external hashicorp
 
  test for link reference
-
- test for beta product linking internally
-
- test for query params
 
  handle docs links??
 
@@ -167,7 +159,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
   test('Beta product relative path is handled propertly', async () => {
     const contents = await remark()
       .use(rewriteTutorialLinksPlugin)
-      .process(TEST_MD_LINKS.betaProductRelativePath)
+      .process(TEST_MD_LINKS.betaProductNonAbsolutePath)
 
     const result = String(contents)
     const path = isolatePathFromMarkdown(result)
@@ -180,7 +172,11 @@ describe('rewriteTutorialLinks remark plugin', () => {
       .process(TEST_MD_LINKS.betaProductTutorialAnchorLink)
 
     const path = isolatePathFromMarkdown(String(contents))
-    expect(path).toMatch(devDotTutorialsPath)
+    const anchorLinkPath = new RegExp(
+      `^/(${betaProductSlugs})/tutorials/${slug}(/${slug})#`
+    )
+
+    expect(path).toMatch(anchorLinkPath)
   })
 
   test('Query params are rewritten properly', async () => {
