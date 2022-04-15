@@ -62,6 +62,7 @@
   display: grid;
   margin-top: 24px;
   gap: 1rem;
+  color: var(--token-color-surface-faint);
 }
 
 .actions {
