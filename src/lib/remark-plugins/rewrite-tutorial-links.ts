@@ -7,14 +7,6 @@
  *
  * need to handle link references as well
  *
- * decide whether to write as collection or tutorial slug
- *
- * account for ANCHOR LINK basic
- *
- * ANCHOR LINK within a query param --
- *
- * query param
- *
  * /collections/{product}/{collection-name} --> /{product}/tutorials/{collection-name}
  * /tutorials/{product}/{tutorial-name}  --> /{product}/tutorials/{collection-name}/{tutorial-name}
  */
@@ -24,7 +16,6 @@ import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import moize, { Options } from 'moize'
 import { ProductOption } from 'lib/learn-client/types'
-import path, { isAbsolute } from 'path'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 
