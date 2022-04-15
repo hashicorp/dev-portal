@@ -1,14 +1,27 @@
 /**
- * If there is a relative path to another tutorial
- * check if the associated product is 'in beta'
- * if it is, rewrite to point internally
+ *  @TODO clean up notes here:
+ *  @TODO need to handle link references as well
  *
- * if not, point it to external learn
+ * If there is a relative path to another tutorial check if the associated product is 'in beta'
+ * if it is, rewrite to point internally if not, point it to external learn
  *
- * need to handle link references as well
- *
+ * COLLECTION PATH MAPPING:
  * /collections/{product}/{collection-name} --> /{product}/tutorials/{collection-name}
+ *
+ * TUTORIAL PATH MAPPING:
  * /tutorials/{product}/{tutorial-name}  --> /{product}/tutorials/{collection-name}/{tutorial-name}
+ *
+ * Tutorial paths can also have query params to reference collections not in the default context:
+ * /tutorials/${product}/{tutorial-name}?in=${product}/${collection-name}
+ * --> /{product}/tutorials/{collection-name}/{tutorial-name}
+ *
+ * And query params with anchor links
+ * /tutorials/${product}/{tutorial-name}?in=${product}/${collection-name}#{anchor}
+ * --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
+ *
+ * And regular anchor links
+ * /tutorials/${product}/{tutorial-name}#{anchor} --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
+ *
  */
 
 import { Link } from 'mdast'
@@ -69,7 +82,8 @@ function handleTutorialLink(nodePath: string) {
   const tutorialSlug = [product, filename].join('/')
   let finalSlug = TUTORIAL_MAP[tutorialSlug]
 
-  // if there is a query param, the collection name is in provided, so we don't use the map
+  // if there is a query param, the collection name is in provided
+  // so we don't use the tutorial map
   if (hasQueryParam) {
     // isolate the collection name from the query
     const [, collectionSlug] = queryParam.split('/')
@@ -78,11 +92,12 @@ function handleTutorialLink(nodePath: string) {
     // sometimes query params also have an anchor
     if (hasAnchorLink) {
       const [slug, anchor] = collectionSlug.split('#')
-      finalSlug = `/${product}/tutorials/${slug}/${filename}#${anchor}`
+      const base = `/${product}/tutorials/${slug}/${filename}`
+      finalSlug = [base, anchor].join('#')
     }
   } else if (hasAnchorLink) {
     const [isolatedSlug, anchor] = tutorialSlug.split('#')
-    finalSlug = TUTORIAL_MAP[isolatedSlug] + `#${anchor}`
+    finalSlug = [TUTORIAL_MAP[isolatedSlug], anchor].join('#')
   }
 
   return finalSlug
@@ -139,6 +154,8 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
           }
 
           if (!node.url) {
+            // If the link wasn't found in the map, default to original link
+            // Could be a typo, its up to the author to correct -- this feedback should help
             node.url = nodePath
             throw new Error(
               `[MDX TUTORIAL]: internal link could not be rewritten: ${nodePath} \nPlease check all Learn links in that tutorial to ensure they are correct.`
@@ -146,7 +163,7 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
           }
         }
       } catch (e) {
-        console.error(e)
+        console.error(e) // we don't want an incorrect link to break the build
       }
     })
   }
