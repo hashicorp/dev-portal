@@ -18,38 +18,40 @@ interface BaseNavItem {
   title: string
 }
 
-interface SubmenuNavItem extends BaseNavItem {
-  routes: SidebarNavItem[]
+interface RawSubmenuNavItem extends BaseNavItem {
+  routes: RawSidebarNavItem[]
 }
 
-interface InternalLinkNavItem extends BaseNavItem {
+interface RawInternalLinkNavItem extends BaseNavItem {
   path: string
 }
 
-interface ExternalLinkNavItem extends BaseNavItem {
+interface RawExternalLinkNavItem extends BaseNavItem {
   href: string
 }
 
 // LinkNavItems should have either path or href, but not both
-interface LinkNavItem extends InternalLinkNavItem, ExternalLinkNavItem {}
+interface RawLinkNavItem
+  extends RawInternalLinkNavItem,
+    RawExternalLinkNavItem {}
 
 // The main, general nav item type
-type SidebarNavItem =
+type RawSidebarNavItem =
   | DividerNavItem
   | HeadingNavItem
-  | SubmenuNavItem
-  | LinkNavItem
+  | RawSubmenuNavItem
+  | RawLinkNavItem
 
 /**
  * Interfaces for enriched nav items without filtering via the filter input
  */
 
-interface EnrichedSubmenuNavItem extends SubmenuNavItem {
+interface EnrichedSubmenuNavItem extends RawSubmenuNavItem {
   id: string
   routes: EnrichedNavItem[]
 }
 
-interface EnrichedLinkNavItem extends LinkNavItem {
+interface EnrichedLinkNavItem extends RawLinkNavItem {
   fullPath: string
   isActive: boolean
   id: string
