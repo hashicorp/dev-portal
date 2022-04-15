@@ -24,7 +24,7 @@ function TabSelectControls({
         value={activeTabIndex}
       >
         {tabItems.map((item: TabItem, index: number) => {
-          const { isActive, tabId, label, panelId } = item
+          const { isActive, tabId, label } = item
           return (
             <option
               key={tabId}
@@ -33,7 +33,6 @@ function TabSelectControls({
               value={index}
               aria-label={label}
               selected={isActive}
-              aria-controls={panelId}
             >
               {label}
             </option>
