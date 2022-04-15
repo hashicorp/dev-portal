@@ -19,7 +19,7 @@
   align-items: center;
 
   @media (--dev-dot-tablet-up) {
-    --grid-template-columns: 3;
+    --grid-template-columns: 12;
   }
 }
 
@@ -28,7 +28,7 @@
   grid-column: 1 / -1;
 
   @media (--dev-dot-tablet-up) {
-    grid-column: 3 / -1;
+    grid-column: 9 / -1;
     grid-row: 1;
   }
 }
@@ -37,8 +37,7 @@
   grid-column: 1 / -1;
 
   @media (--dev-dot-tablet-up) {
-    grid-column: 1 / 3;
-    max-width: 760px;
+    grid-column: 1 / 7;
   }
 
   & a {
