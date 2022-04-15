@@ -69,7 +69,6 @@ function Homepage(): ReactElement {
       </MerchandisingSlots>
 
       <LearnSection
-        product="vault"
         media={
           <Image
             src="/img/homepage/vault-certified-expert-badge.svg"

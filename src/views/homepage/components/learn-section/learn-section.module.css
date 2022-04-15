@@ -1,11 +1,26 @@
 .learnSection {
-  background-color: var(--background-color);
   color: var(--color);
 }
 
 .intro {
+  position: relative;
   padding-top: var(--homepage-section-padding-y);
   padding-bottom: calc(var(--homepage-section-padding-y) / 2);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 100px);
+    background: linear-gradient(
+      315deg,
+      var(--token-color-vagrant-gradient-faint-stop) 0%,
+      var(--token-color-vagrant-gradient-faint-start) 100%
+    );
+    z-index: -1;
+  }
 }
 
 .introInner {
@@ -42,6 +57,10 @@
 
   & a {
     color: inherit;
+
+    &:hover {
+      color: var(--token-color-foreground-primary);
+    }
   }
 }
 
@@ -54,17 +73,7 @@
 }
 
 .tutorials {
-  --overlap-height: 80px;
-
-  background-image: linear-gradient(
-    to bottom,
-    var(--background-color) var(--overlap-height),
-    var(--token-color-neutral-background-primary) var(--overlap-height)
-  );
-
-  @media (--dev-dot-tablet-up) {
-    --overlap-height: 50%;
-  }
+  position: relative;
 }
 
 .tutorialsList {

@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactElement } from 'react'
+import type { ReactElement } from 'react'
 import slugify from 'slugify'
 import type { Products } from '@hashicorp/platform-product-meta'
 import type { TutorialCardProps } from '../tutorial-card'
@@ -9,36 +9,20 @@ import TutorialCard from '../tutorial-card'
 import s from './learn-section.module.css'
 
 interface LearnSectionProps {
-  product?: Products
   media: ReactElement
   heading: string
   description: ReactElement
   tutorials: Array<TutorialCardProps>
 }
 
-/**
- * Products whose text should be displayed with dark text color.
- */
-const darkColorProducts = ['vault', 'waypoint', 'packer', 'nomad']
-
 export default function LearnSection({
-  product = 'hashicorp',
   media,
   heading,
   description,
   tutorials,
 }: LearnSectionProps) {
-  const color = darkColorProducts.includes(product) ? 'black' : 'white'
   return (
-    <section
-      className={s.learnSection}
-      style={
-        {
-          '--background-color': `var(--token-color-${product}-brand)`,
-          '--color': `var(--${color})`,
-        } as CSSProperties
-      }
-    >
+    <section className={s.learnSection}>
       <div className={s.intro}>
         <div className={s.introInner}>
           <div className={s.introMedia}>{media}</div>
