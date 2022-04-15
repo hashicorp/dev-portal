@@ -401,7 +401,11 @@ async function redirectsConfig() {
   if (process.env.DEBUG_REDIRECTS) {
     console.log(
       '[DEBUG_REDIRECTS]',
-      JSON.stringify({ simpleRedirects, groupedSimpleRedirects, globRedirects })
+      JSON.stringify(
+        { simpleRedirects, groupedSimpleRedirects, globRedirects },
+        null,
+        2
+      )
     )
   }
   return {

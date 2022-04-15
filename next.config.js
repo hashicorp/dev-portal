@@ -58,11 +58,6 @@ module.exports = withSwingset({
         JSON.stringify(simpleRedirects, null, 2),
         'utf-8'
       )
-      if (process.env.DEBUG_REDIRECTS) {
-        console.log(
-          `[DEBUG_REDIRECTS] ${JSON.stringify(simpleRedirects, null, 2)}`
-        )
-      }
       return globRedirects
     },
     env: {
