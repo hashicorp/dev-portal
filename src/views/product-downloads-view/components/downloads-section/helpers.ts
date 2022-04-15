@@ -21,7 +21,7 @@ export const groupDownloadsByOS = (
 export const groupPackageManagersByOS = (
   packageManagers: PackageManager[]
 ): GroupedPackageManagers => {
-  const result = {}
+  const result: Record<string, $TSFixMe> = {}
 
   packageManagers.forEach((packageManager) => {
     const { os } = packageManager
