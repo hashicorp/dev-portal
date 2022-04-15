@@ -1,0 +1,48 @@
+/*
+NOTE: This file mainly uses selectors to apply styles because it ensures that
+the correct elements, roles, states, and properties are being set in the markup.
+*/
+
+.tabList[role='tablist'] {
+  align-items: center;
+  display: flex;
+}
+
+/*
+Styles for each tab button.
+
+Note: should have role="tab"! Ideally we'd enforce this with a CSS selector,
+so that styles break if this role is broken, but unfortunately we would
+then be unable to `compose` our g-focus-ring class.
+*/
+.tabButton {
+  composes: g-focus-ring-from-box-shadow from global;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  color: var(--token-color-foreground-faint);
+  cursor: pointer;
+
+  /*
+  Ensure each item will not shrink, so that overflow will be triggered
+  rather than items going to multi-line.
+  */
+  flex-shrink: 0;
+  font-size: var(--token-typography-body-200-font-size);
+  font-weight: var(--token-typography-font-weight-regular);
+  padding: 8px 12px;
+
+  &[aria-selected='true'] {
+    color: var(--token-color-foreground-strong);
+    background-color: var(--token-color-palette-neutral-200);
+  }
+
+  &:focus-visible {
+    z-index: 1;
+  }
+
+  &:hover {
+    color: var(--token-color-foreground-strong);
+    background-color: var(--token-color-palette-neutral-100);
+  }
+}
