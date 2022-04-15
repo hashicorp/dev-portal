@@ -130,7 +130,7 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
         }
 
         if (isBetaProduct) {
-          let nodePath = node.url // the path to be formatted
+          let nodePath = node.url // the path to be formatted - assumes to be absolute as current Learn impl does
           const isCollectionPath = nodePath.includes('collections')
           const isTutorialPath = nodePath.includes('tutorials')
 
@@ -138,11 +138,6 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
           if (isExternalLearnLink) {
             const fullUrl = new URL(nodePath)
             nodePath = fullUrl.pathname
-          }
-
-          if (!isAbsolute(nodePath)) {
-            // handle path without leading slash i.e. [](tutorials/waypoint/get-started)  - edge case
-            nodePath = path.format({ root: '/', base: nodePath })
           }
 
           // handle rewriting collection and tutorial dev portal paths

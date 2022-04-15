@@ -36,8 +36,6 @@ const TEST_MD_LINKS = {
     '[link to beta product collection](/collections/vault/getting-started)',
   betaProductExternalCollection:
     '[link to beta product external collection](https://learn.hashicorp.com/collections/vault/getting-started)',
-  betaProductNonAbsolutePath:
-    '[link to beta product non aboslute path](collections/vault/getting-started)',
   betaProductTutorialAnchorLink:
     '[link to beta product tutorial with anchor](/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
   betaProductTutorialQueryParam:
@@ -151,16 +149,6 @@ describe('rewriteTutorialLinks remark plugin', () => {
     const contents = await remark()
       .use(rewriteTutorialLinksPlugin)
       .process(TEST_MD_LINKS.betaProductExternalCollection)
-
-    const result = String(contents)
-    const path = isolatePathFromMarkdown(result)
-    expect(path).toMatch(devDotTutorialsPath)
-  })
-
-  test('Beta product relative path is handled propertly', async () => {
-    const contents = await remark()
-      .use(rewriteTutorialLinksPlugin)
-      .process(TEST_MD_LINKS.betaProductNonAbsolutePath)
 
     const result = String(contents)
     const path = isolatePathFromMarkdown(result)
