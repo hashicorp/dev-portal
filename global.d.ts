@@ -36,6 +36,7 @@ declare module '@hashicorp/react-command-line-terminal'
 declare module '@hashicorp/react-text-split-with-image'
 declare module '@hashicorp/react-docs-page/render-page-mdx'
 declare module '@hashicorp/react-hashi-stack-menu'
+declare module '@hashicorp/react-enterprise-alert'
 
 /**
  * Application config, defined in environment-specific JSON files in `config/`
