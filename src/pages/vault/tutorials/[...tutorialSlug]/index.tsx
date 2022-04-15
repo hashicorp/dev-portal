@@ -20,7 +20,7 @@ export function VaultTutorialPage({
 
 export async function getStaticProps({
   params,
-}): Promise<{ props: TutorialPageProps }> {
+}: $TSFixMe): Promise<{ props: TutorialPageProps }> {
   const product = vaultData as LearnProductData
   return getTutorialPageProps(product, params.tutorialSlug)
 }

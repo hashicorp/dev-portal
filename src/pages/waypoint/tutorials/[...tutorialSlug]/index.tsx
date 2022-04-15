@@ -20,7 +20,7 @@ export function WaypointTutorialPage({
 
 export async function getStaticProps({
   params,
-}): Promise<{ props: TutorialPageProps }> {
+}: $TSFixMe): Promise<{ props: TutorialPageProps }> {
   const product = waypointData as LearnProductData
   return await getTutorialPageProps(product, params.tutorialSlug)
 }
