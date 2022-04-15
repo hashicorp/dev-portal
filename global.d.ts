@@ -31,6 +31,10 @@ declare module '@hashicorp/react-sentinel-embedded'
 declare module '@hashicorp/platform-runtime-error-monitoring'
 declare module '@hashicorp/platform-util/anchor-link-analytics'
 declare module 'unist-util-flatmap'
+declare module '@hashicorp/react-call-to-action'
+declare module '@hashicorp/react-command-line-terminal'
+declare module '@hashicorp/react-text-split-with-image'
+declare module '@hashicorp/react-docs-page/render-page-mdx'
 
 /**
  * Application config, defined in environment-specific JSON files in `config/`

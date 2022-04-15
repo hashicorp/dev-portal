@@ -39,7 +39,7 @@ export default function Resizable({
     }
   }, [moveMouseY, downMouseY, previousHeight])
 
-  function enableResize(e) {
+  function enableResize(e: $TSFixMe) {
     e.preventDefault()
     // We need to know where the mouse started from since default state was just 0
     setDownMouseY(e.screenY)
@@ -51,7 +51,7 @@ export default function Resizable({
     addListeners()
   }
 
-  function resize(e) {
+  function resize(e: $TSFixMe) {
     setPreviousHeight(height)
     setMoveMouseY(e.screenY)
   }

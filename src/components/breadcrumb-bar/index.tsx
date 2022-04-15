@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Text from 'components/text'
@@ -63,7 +63,14 @@ function BreadcrumbBar({
   )
 }
 
-function InternalLink({ href, children, ...rest }) {
+function InternalLink({
+  href,
+  children,
+  ...rest
+}: {
+  href: string
+  children: ReactNode
+}) {
   return (
     <Link href={href}>
       <a {...rest}>{children}</a>

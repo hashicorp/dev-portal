@@ -10,7 +10,7 @@ import {
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
-interface GetPathBreadcrumbsOpts {
+export interface GetPathBreadcrumbsOpts {
   /** The base path for the current route, if applicable. For example, "docs". Returned breadcrumb links will be prefixed with this path. */
   basePath: string
   /** An array of nav nodes, as defined by our sidenav component. */
@@ -170,7 +170,7 @@ function findPathMatchedNodes(
   return []
 }
 
-interface GetDocsBreadcrumbsOpts extends GetPathBreadcrumbsOpts {
+export interface GetDocsBreadcrumbsOpts extends GetPathBreadcrumbsOpts {
   baseName: string
   productName: string
   productPath: string

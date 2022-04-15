@@ -20,7 +20,7 @@ interface FooterProps {
   openConsentManager: () => void
 }
 
-function FooterLink({ text, url }) {
+function FooterLink({ text, url }: $TSFixMe) {
   const isInternalLink = url && (url.startsWith('/') || url.startsWith('#'))
   if (isInternalLink) {
     return (

@@ -209,7 +209,7 @@ const NavigationHeaderDropdownMenu = ({
             <Fragment key={groupId}>
               <ul className={s.itemGroup}>
                 {items.map((item: NavigationHeaderItem, itemIndex: number) => {
-                  const icon = supportedIcons[item.icon] || (
+                  const icon = supportedIcons[item.icon as SupportedIcon] || (
                     <ProductIcon productSlug={item.icon as ProductSlug} />
                   )
                   const itemId = generateItemId(groupId, itemIndex)

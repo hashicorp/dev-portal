@@ -12,7 +12,10 @@ import resolveNavDataWithRemotePlugins, {
 } from './utils/resolve-nav-data'
 import fetchLatestReleaseTag from './utils/fetch-latest-release-tag'
 
-async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
+async function generateStaticPaths({
+  navDataFile,
+  remotePluginsFile,
+}: $TSFixMe) {
   const navData = await resolveNavDataWithRemotePlugins(navDataFile, {
     remotePluginsFile,
   })
@@ -69,7 +72,7 @@ async function generateStaticProps({
   // (current options are "Official" or "Community")
   // and display whether the plugin is "HCP Packer Ready".
   // Also add a badge to show the latest version
-  async function mdxContentHook(mdxContent) {
+  async function mdxContentHook(mdxContent: $TSFixMe) {
     const badgesMdx = []
     // Add a badge for the plugin tier
     if (pluginData?.tier) {
@@ -124,7 +127,7 @@ async function generateStaticProps({
     githubFileUrl,
     navData,
     navNode,
-    versions: [],
+    versions: [] as $TSFixMe,
   }
 }
 

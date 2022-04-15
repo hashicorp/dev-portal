@@ -34,7 +34,7 @@ export default function InstruqtProvider({
   const [active, setActive] = useState(false)
 
   useEffect(() => {
-    const handler = (e) => trackInstruqtEvent(e, { labId })
+    const handler = (e: $TSFixMe) => trackInstruqtEvent(e, { labId })
 
     if (active) {
       // If active, listen for & track events from Instruqt

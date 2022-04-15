@@ -5,7 +5,7 @@ export default function IntegrationsTextSplit({
   links,
   content,
   image,
-}) {
+}: $TSFixMe) {
   return (
     <TextSplitWithImage
       textSplit={{

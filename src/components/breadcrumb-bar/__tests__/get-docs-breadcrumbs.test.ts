@@ -1,17 +1,20 @@
 import getDocsBreadcrumbs, {
   getPathBreadcrumbs,
+  GetDocsBreadcrumbsOpts,
+  GetPathBreadcrumbsOpts,
 } from '../utils/get-docs-breadcrumbs'
+import { NavData } from '../utils/types'
 import waypointNavData from '../__fixtures__/waypoint-nav-data.json'
 
 describe('getDocsBreadcrumbs', () => {
   it('prepends docs breadcrumbs for a basic example', () => {
-    const args = {
+    const args: GetDocsBreadcrumbsOpts = {
       basePath: 'docs',
       baseName: 'Docs',
       productPath: 'waypoint',
       productName: 'Waypoint',
       pathParts: ['getting-started'],
-      navData: waypointNavData,
+      navData: waypointNavData as NavData,
     }
     const expected = [
       {
@@ -38,10 +41,10 @@ describe('getDocsBreadcrumbs', () => {
 
 describe('getPathBreadcrumbs', () => {
   it('returns links for a basic example', () => {
-    const args = {
+    const args: GetPathBreadcrumbsOpts = {
       basePath: 'docs',
       pathParts: ['getting-started'],
-      navData: waypointNavData,
+      navData: waypointNavData as NavData,
     }
     const expected = [
       {
@@ -54,10 +57,10 @@ describe('getPathBreadcrumbs', () => {
   })
 
   it('returns links for overview paths using the title of the parent category', () => {
-    const args = {
+    const args: GetPathBreadcrumbsOpts = {
       basePath: 'docs',
       pathParts: ['intro', 'vs'],
-      navData: waypointNavData,
+      navData: waypointNavData as NavData,
     }
     const expected = [
       {
@@ -74,10 +77,10 @@ describe('getPathBreadcrumbs', () => {
   })
 
   it('skips index-less categories in breadcrumb paths', () => {
-    const args = {
+    const args: GetPathBreadcrumbsOpts = {
       basePath: 'docs',
       pathParts: ['kubernetes', 'install'],
-      navData: waypointNavData,
+      navData: waypointNavData as NavData,
     }
     const expected = [
       {

@@ -14,7 +14,8 @@ export function trackInstruqtEvent(
 
   if (e.origin && e.origin.indexOf('instruqt.com') >= 0) {
     const eventName =
-      eventTypesToNames[eventData.event] || 'Instruqt Track Progressed'
+      eventTypesToNames[eventData.event as keyof typeof eventTypesToNames] ||
+      'Instruqt Track Progressed'
 
     const properties = {
       id: options.labId,

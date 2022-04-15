@@ -8,7 +8,7 @@ export default function HomepageHero({
   subheading,
   links,
   alert,
-}) {
+}: $TSFixMe) {
   return (
     <div className={s.homepageHero}>
       <div className={s.gridContainer}>
@@ -25,7 +25,7 @@ export default function HomepageHero({
           <h1 className={s.heading}>{heading}</h1>
           <p className={s.subheading}>{subheading}</p>
           <div className={s.links}>
-            {links.map((link, index) => (
+            {links.map((link: $TSFixMe, index: number) => (
               <Button
                 key={link.text}
                 title={link.text}

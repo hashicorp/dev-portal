@@ -6,10 +6,10 @@ export default function AnimatedTerminal({
   frameLength = 1000,
   paused,
   loop,
-}) {
+}: $TSFixMe) {
   // Determine the total number of frames
   let totalFrames = 0
-  lines.forEach((line) => {
+  lines.forEach((line: $TSFixMe) => {
     const frames = line.frames ? line.frames : 1
     if (Array.isArray(line.code)) {
       totalFrames += line.code.length * frames
