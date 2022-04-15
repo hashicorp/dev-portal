@@ -27,7 +27,7 @@
 import { Link } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
-import moize, { Options } from 'moize'
+//import moize, { Options } from 'moize'
 import { ProductOption } from 'lib/learn-client/types'
 import {
   generateTutorialMap,
@@ -38,12 +38,12 @@ import {
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 // @TODO, test efficacy of the memoization with ISR
-const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
-const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
+// const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
+// const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
-    const TUTORIAL_MAP = await cachedGenerateTutorialMap()
+    const TUTORIAL_MAP = await generateTutorialMap()
 
     visit(tree, 'link', (node: Link) => {
       try {
