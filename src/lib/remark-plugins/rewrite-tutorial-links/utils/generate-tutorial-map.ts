@@ -3,16 +3,17 @@ import path from 'path'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 
-const TUTORIALS_MAP_PATH = path.resolve('/public/tutorials-map.json')
+const TUTORIALS_MAP_PATH = path.resolve('.tutorials-map.json')
 
 export async function generateTutorialMap() {
   let cachedData
+
   try {
     cachedData = JSON.parse(
       fs.readFileSync(path.join(process.cwd(), TUTORIALS_MAP_PATH), 'utf8')
     )
   } catch (e) {
-    console.log('Tutorials map not initialized')
+    console.log('[TUTORIAL]: Tutorials map not initialized')
     console.error(e.message)
   }
 
@@ -34,7 +35,7 @@ export async function generateTutorialMap() {
         JSON.stringify(Object.fromEntries(mapItems)),
         'utf8'
       )
-      console.log('Wrote to tutorials map cache')
+      console.log('[TUTORIAL]: Created tutorials map cache')
     } catch (error) {
       console.error(error.message)
     }
