@@ -5,6 +5,10 @@
     100% - calc(var(--homepage-container-padding-x) * 2),
     var(--homepage-container-max-width, 1240px)
   );
-  --homepage-section-padding-y: 88px;
+  --homepage-section-padding-y: 64px;
   --homepage-grid-gap: 24px;
+
+  @media (--dev-dot-tablet-up) {
+    --homepage-section-padding-y: 88px;
+  }
 }

@@ -1,15 +1,22 @@
 .productNav {
+  --background-color: var(--token-color-palette-neutral-700);
+
   position: relative;
 }
 
 .notice {
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  right: 0;
-  margin: 0;
   padding-bottom: 12px;
   text-align: center;
+  background-color: var(--background-color);
+
+  @media (--dev-dot-tablet-up) {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    margin: 0;
+    background-color: transparent;
+  }
 }
 
 .noticeText {
@@ -24,7 +31,7 @@
   padding: 0 var(--padding-x);
   background-image: linear-gradient(
     to bottom,
-    var(--token-color-palette-neutral-700) 24px,
+    var(--background-color) 24px,
     var(--token-color-palette-neutral-0) 24px
   );
 }
