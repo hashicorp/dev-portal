@@ -53,6 +53,56 @@ async function generateTutorialMap() {
   return Object.fromEntries(mapItems)
 }
 
+type SplitLearnPath = [
+  string, // the leading slash
+  'collections' | 'tutorials',
+  ProductOption,
+  string
+]
+
+function handleTutorialLink(nodePath: string) {
+  const hasQueryParam = nodePath.includes('?')
+  const hasAnchorLink = nodePath.includes('#')
+  let queryParam
+
+  if (hasQueryParam) {
+    const [tutorialSlug, query] = nodePath.split('?')
+    nodePath = tutorialSlug
+    queryParam = query
+  }
+
+  const [, , product, filename] = nodePath.split('/') as SplitLearnPath
+
+  const tutorialSlug = [product, filename].join('/')
+  let finalSlug = TUTORIAL_MAP[tutorialSlug]
+
+  // if there is a query param, the collection name is in provided, so we don't use the map
+  if (queryParam) {
+    // isolate the collection name from the query
+    const [, collectionSlug] = queryParam.split('/')
+    finalSlug = `/${product}/tutorials/${collectionSlug}/${filename}`
+
+    // sometimes query params also have an anchor
+    if (hasAnchorLink) {
+      const [slug, anchor] = collectionSlug.split('#')
+      finalSlug = `/${product}/tutorials/${slug}/${filename}#${anchor}`
+    }
+  } else if (hasAnchorLink) {
+    const [isolatedSlug, anchor] = tutorialSlug.split('#')
+    finalSlug = TUTORIAL_MAP[isolatedSlug] + `#${anchor}`
+  }
+
+  return finalSlug
+}
+
+function handleCollectionLink(nodePath: string) {
+  const [, , product, filename] = nodePath.split('/') as SplitLearnPath
+
+  return `/${product}/tutorials/${filename}`
+}
+
+// REMARK PLUGIN -------------------------------------------------------
+
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
     TUTORIAL_MAP = await cachedGenerateTutorialMap()
@@ -81,6 +131,8 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
 
         if (isBetaProduct) {
           let nodePath = node.url // the path to be formatted
+          const isCollectionPath = nodePath.includes('collections')
+          const isTutorialPath = nodePath.includes('tutorials')
 
           // if its an external link, isolate the pathname
           if (isExternalLearnLink) {
@@ -93,17 +145,10 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
             nodePath = path.format({ root: '/', base: nodePath })
           }
 
-          const [, contentType, product, filename] = nodePath.split('/') as [
-            string, // the leading slash
-            'collections' | 'tutorials',
-            ProductOption,
-            string
-          ]
-
           // handle rewriting collection and tutorial dev portal paths
-          if (contentType === 'collections') {
-            node.url = `/${product}/tutorials/${filename}`
-          } else if (contentType === 'tutorials') {
+          if (isCollectionPath) {
+            node.url = handleCollectionLink(nodePath)
+          } else if (isTutorialPath) {
             node.url = handleTutorialLink(nodePath)
           }
 
@@ -120,44 +165,4 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
       }
     })
   }
-}
-
-function handleTutorialLink(nodePath: string) {
-  const hasQueryParam = nodePath.includes('?')
-  const hasAnchorLink = nodePath.includes('#')
-  let queryParam
-
-  if (hasQueryParam) {
-    const [tutorialSlug, query] = nodePath.split('?')
-    nodePath = tutorialSlug
-    queryParam = query
-  }
-
-  const [, , product, filename] = nodePath.split('/') as [
-    string, // the leading slash
-    'collections' | 'tutorials',
-    ProductOption,
-    string
-  ]
-
-  const tutorialSlug = [product, filename].join('/')
-  let finalSlug = TUTORIAL_MAP[tutorialSlug]
-
-  // if there is a query param, the collection name is in provided, so we don't use the map
-  if (queryParam) {
-    // isolate the collection name from the query
-    const [, collectionSlug] = queryParam.split('/')
-    finalSlug = `/${product}/tutorials/${collectionSlug}/${filename}`
-
-    // sometimes query params also have an anchor
-    if (hasAnchorLink) {
-      const [slug, anchor] = collectionSlug.split('#')
-      finalSlug = `/${product}/tutorials/${slug}/${filename}#${anchor}`
-    }
-  } else if (hasAnchorLink) {
-    const [isolatedSlug, anchor] = tutorialSlug.split('#')
-    finalSlug = TUTORIAL_MAP[isolatedSlug] + `#${anchor}`
-  }
-
-  return finalSlug
 }
