@@ -100,6 +100,11 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
     } else {
       url.pathname = `/_proxied-dot-io/${product}${url.pathname}`
     }
+    if (process.env.DEBUG_REWRITES) {
+      console.log(
+        `[DEBUG_REWRITES] rewriting ${req.nextUrl.pathname} to ${url.pathname}`
+      )
+    }
 
     return NextResponse.rewrite(url)
   }
