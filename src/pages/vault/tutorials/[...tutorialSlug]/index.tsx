@@ -29,6 +29,7 @@ export async function getStaticProps({
   params,
 }): Promise<{ props: TutorialPageProps }> {
   const product = vaultData as LearnProductData
+  const thingie = cachedTestFunction()
   return getTutorialPageProps(product, params.tutorialSlug)
 }
 
@@ -36,7 +37,7 @@ export async function getStaticPaths(): Promise<
   GetStaticPathsResult<TutorialPagePaths['params']>
 > {
   const paths = await getTutorialPagePaths(ProductOption['vault'])
-  const thingie = cachedTestFunction()
+
   return {
     paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
     fallback: 'blocking',
