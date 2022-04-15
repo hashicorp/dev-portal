@@ -37,9 +37,8 @@
   grid-column: 1 / -1;
 
   @media (--dev-dot-tablet-up) {
-    grid-column: 8 / -1;
+    grid-column: 9 / -1;
     display: flex;
-    justify-content: flex-end;
   }
 }
 
