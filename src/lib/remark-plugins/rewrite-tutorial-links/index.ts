@@ -37,7 +37,6 @@ import {
 
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
-const LEARN_URL = 'https://learn.hashicorp.com/'
 // @TODO, test efficacy of the memoization with ISR
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
 const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
@@ -65,7 +64,10 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
         // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/vault
         if (!isBetaProduct && !isExternalLearnLink) {
           // If its an internal link, rewrite to an external learn link
-          node.url = new URL(node.url, LEARN_URL).toString()
+          node.url = new URL(
+            node.url,
+            'https://learn.hashicorp.com/'
+          ).toString()
         }
 
         if (isBetaProduct) {
