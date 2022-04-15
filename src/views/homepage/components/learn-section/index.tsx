@@ -1,6 +1,5 @@
 import type { ReactElement } from 'react'
 import slugify from 'slugify'
-import type { Products } from '@hashicorp/platform-product-meta'
 import type { TutorialCardProps } from '../tutorial-card'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import Heading from 'components/heading'
