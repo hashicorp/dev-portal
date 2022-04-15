@@ -16,7 +16,7 @@ declare module 'swingset/server' {
 declare module '@hashicorp/react-search'
 
 /**
- * Modules declared after enabling noImplicitAny
+ * Modules declared while enabling noImplicitAny
  */
 declare module '@hashicorp/react-inline-svg'
 declare module 'nprogress'

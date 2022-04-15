@@ -26,7 +26,7 @@ export function get(path: string, token?: string) {
   return fetch(`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`, options)
 }
 
-export function put(path, token, bodyJson) {
+export function put(path: string, token: string, bodyJson: $TSFixMe) {
   return fetch(`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`, {
     method: 'PUT',
     headers: {
@@ -37,7 +37,7 @@ export function put(path, token, bodyJson) {
   })
 }
 
-export function post(path, token, bodyJson) {
+export function post(path: string, token: string, bodyJson: $TSFixMe) {
   return fetch(`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`, {
     method: 'POST',
     headers: {
@@ -48,7 +48,7 @@ export function post(path, token, bodyJson) {
   })
 }
 
-export function destroy(path, token) {
+export function destroy(path: string, token: string) {
   return fetch(`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`, {
     method: 'DELETE',
     headers: {
@@ -57,7 +57,7 @@ export function destroy(path, token) {
   })
 }
 
-export async function toError(errorResponse) {
+export async function toError(errorResponse: $TSFixMe) {
   let json
   try {
     json = await errorResponse.json()

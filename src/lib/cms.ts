@@ -30,7 +30,7 @@ const productConfig = [
   vagrant,
   vault,
   waypoint,
-].reduce((a, b) => {
+].reduce((a: $TSFixMe, b) => {
   a[b.slug] = b
   return a
 }, {} as { [key in ProductSlug]: ProductData })

@@ -65,13 +65,13 @@ export async function getCollections(
 export async function getAllCollections(
   options?: getAllCollectionsOptions
 ): Promise<Collection[]> {
-  let collections = []
+  let collections: ApiCollection[] = []
 
   // check if the product option is valid, i.e. not 'cloud' or 'hashicorp'
   if (options?.product && themeIsProduct(options.product.slug)) {
     const allCollections = await fetchAllCollectionsByProduct(options.product)
 
-    collections = [...allCollections]
+    collections = [...allCollections] as $TSFixMe as ApiCollection[]
   } else {
     const limit = options?.limit?.toString()
     const recurse = Boolean(!limit)
