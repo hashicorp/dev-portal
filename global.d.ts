@@ -30,6 +30,7 @@ declare module '@hashicorp/react-code-block/provider'
 declare module '@hashicorp/react-sentinel-embedded'
 declare module '@hashicorp/platform-runtime-error-monitoring'
 declare module '@hashicorp/platform-util/anchor-link-analytics'
+declare module 'unist-util-flatmap'
 
 /**
  * Application config, defined in environment-specific JSON files in `config/`
