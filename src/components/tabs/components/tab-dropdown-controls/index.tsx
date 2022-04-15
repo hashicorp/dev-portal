@@ -1,6 +1,6 @@
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { TabControlsProps, TabItem } from '../../types'
-import s from './tab-select-controls.module.css'
+import s from './tab-dropdown-controls.module.css'
 
 /**
  * TODO: current TabDropdownControls is temporary, and will be redone later.
