@@ -177,19 +177,22 @@ export const initializeVersionSwitcherOptions = ({
 
 export const sortPlatforms = (releaseData: ReleaseVersion): SortedReleases => {
   // first we pull the platforms out of the release data object and format it the way we want
-  const platforms = releaseData.builds.reduce((acc, build) => {
-    if (!acc[build.os]) {
-      acc[build.os] = {}
-    }
-    acc[build.os][build.arch] = build.url
-    return acc
-  }, {})
+  const platforms = releaseData.builds.reduce(
+    (acc: Record<string, $TSFixMe>, build) => {
+      if (!acc[build.os]) {
+        acc[build.os] = {}
+      }
+      acc[build.os][build.arch] = build.url
+      return acc
+    },
+    {}
+  )
 
   const platformKeys = Object.keys(platforms)
 
   // create array of sorted values to base the order on
   const sortedValues = Object.keys(PLATFORM_MAP)
-    .map((e) => PLATFORM_MAP[e])
+    .map((e: keyof typeof PLATFORM_MAP) => PLATFORM_MAP[e])
     // join the lists together to make sure
     // all items are accounted for when sorting
     .concat(platformKeys)
@@ -205,7 +208,7 @@ export const sortPlatforms = (releaseData: ReleaseVersion): SortedReleases => {
         return sortedValues.indexOf(a) - sortedValues.indexOf(b)
       })
       // create new sorted object to return
-      .reduce((result, key) => {
+      .reduce((result: Record<string, $TSFixMe>, key) => {
         result[key] = platforms[key]
         return result
       }, {})
