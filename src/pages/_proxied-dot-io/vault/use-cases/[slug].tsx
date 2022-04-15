@@ -12,7 +12,7 @@ import IoVideoCallout from 'components/_proxied-dot-io/common/io-video-callout'
 import IoUsecaseCallToAction from 'components/_proxied-dot-io/common/io-usecase-call-to-action'
 import s from './style.module.css'
 
-export default function UseCasePage({ data }) {
+export default function UseCasePage({ data }: $TSFixMe) {
   const {
     seo,
     heroHeading,
@@ -103,7 +103,7 @@ export default function UseCasePage({ data }) {
           }}
           heading={_customerCaseStudy.heading}
           description={_customerCaseStudy.description}
-          stats={_customerCaseStudy.stats.map((stat) => {
+          stats={_customerCaseStudy.stats.map((stat: $TSFixMe) => {
             return {
               value: stat.value,
               key: stat.label,
@@ -122,7 +122,7 @@ export default function UseCasePage({ data }) {
             text: 'Explore all',
           }}
           cardsPerRow={3}
-          cards={documentationCards.map((card) => {
+          cards={documentationCards.map((card: $TSFixMe) => {
             return {
               eyebrow: card.eyebrow,
               link: {
@@ -145,7 +145,7 @@ export default function UseCasePage({ data }) {
             text: 'Explore all',
           }}
           cardsPerRow={3}
-          cards={tutorialCards.map((card) => {
+          cards={tutorialCards.map((card: $TSFixMe) => {
             return {
               eyebrow: card.eyebrow,
               link: {
@@ -166,7 +166,7 @@ export default function UseCasePage({ data }) {
           brand="vault"
           heading={callToActionHeading}
           description={callToActionDescription}
-          links={callToActionLinks.map((link) => {
+          links={callToActionLinks.map((link: $TSFixMe) => {
             return {
               text: link.title,
               url: link.link,
@@ -203,7 +203,7 @@ export async function getStaticPaths() {
   })
 
   return {
-    paths: allVaultUseCases.map((page) => {
+    paths: allVaultUseCases.map((page: $TSFixMe) => {
       return {
         params: {
           slug: page.slug,
@@ -214,7 +214,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params, ...ctx }) {
+export async function getStaticProps({ params, ...ctx }: $TSFixMe) {
   const { slug } = params
 
   const query = proxiedRivetClient('vault')
@@ -222,7 +222,7 @@ export async function getStaticProps({ params, ...ctx }) {
     query: useCasesQuery,
   })
 
-  const page = allVaultUseCases.find((page) => page.slug === slug)
+  const page = allVaultUseCases.find((page: $TSFixMe) => page.slug === slug)
 
   if (!page) {
     return { notFound: true }

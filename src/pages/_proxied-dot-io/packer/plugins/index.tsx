@@ -6,6 +6,7 @@ import PluginBadge from 'components/_proxied-dot-io/packer/plugin-badge'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
+import { GetStaticPropsContext } from 'next'
 
 const product = { name: productData.name, slug: productData.slug }
 const basePath = 'plugins'
@@ -49,7 +50,7 @@ const { getStaticProps: baseGetStaticProps } = getStaticGenerationFunctions(
       }
 )
 
-async function getStaticProps(ctx) {
+async function getStaticProps(ctx: GetStaticPropsContext) {
   const staticProps = await baseGetStaticProps({ params: {}, ...ctx })
   if ('props' in staticProps) {
     const navData = await appendRemotePluginsNavData(

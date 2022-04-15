@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
+/** type */
 import redirects from 'data/_redirects.generated.json'
 
-const HOSTNAME_MAP = {
+const HOSTNAME_MAP: Record<string, string> = {
   'www.boundaryproject.io': 'boundary',
   'test-bd.hashi-mktg.com': 'boundary',
 
@@ -59,8 +60,11 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   if (process.env.DEBUG_REDIRECTS) {
     console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
   }
-  if (redirects[product] && req.nextUrl.pathname in redirects[product]) {
-    const { destination, permanent } = redirects[product][req.nextUrl.pathname]
+
+  const generatedRedirects: Record<string, $TSFixMe> = redirects
+  const productRedirects: Record<string, $TSFixMe> = generatedRedirects[product]
+  if (productRedirects && req.nextUrl.pathname in productRedirects) {
+    const { destination, permanent } = productRedirects[req.nextUrl.pathname]
     if (process.env.DEBUG_REDIRECTS) {
       console.log(
         `[DEBUG_REDIRECTS] redirecting ${req.nextUrl.pathname} to ${destination}`

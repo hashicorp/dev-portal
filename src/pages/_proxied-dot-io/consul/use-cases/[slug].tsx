@@ -12,7 +12,7 @@ import IoVideoCallout from 'components/_proxied-dot-io/common/io-video-callout'
 import IoUsecaseCallToAction from 'components/_proxied-dot-io/common/io-usecase-call-to-action'
 import s from './style.module.css'
 
-function UseCasePage({ data }) {
+function UseCasePage({ data }: $TSFixMe) {
   const {
     seo,
     heroHeading,
@@ -103,7 +103,7 @@ function UseCasePage({ data }) {
           }}
           heading={_customerCaseStudy.heading}
           description={_customerCaseStudy.description}
-          stats={_customerCaseStudy.stats.map((stat) => {
+          stats={_customerCaseStudy.stats.map((stat: $TSFixMe) => {
             return {
               value: stat.value,
               key: stat.label,
@@ -124,7 +124,7 @@ function UseCasePage({ data }) {
             text: 'Explore all',
           }}
           cardsPerRow={3}
-          cards={tutorialCards.map((card) => {
+          cards={tutorialCards.map((card: $TSFixMe) => {
             return {
               eyebrow: card.eyebrow,
               link: {
@@ -145,7 +145,7 @@ function UseCasePage({ data }) {
             text: 'Explore all',
           }}
           cardsPerRow={3}
-          cards={documentationCards.map((card) => {
+          cards={documentationCards.map((card: $TSFixMe) => {
             return {
               eyebrow: card.eyebrow,
               link: {
@@ -166,7 +166,7 @@ function UseCasePage({ data }) {
           brand="consul"
           heading={callToActionHeading}
           description={callToActionDescription}
-          links={callToActionLinks.map((link) => {
+          links={callToActionLinks.map((link: $TSFixMe) => {
             return {
               text: link.title,
               url: link.link,
@@ -202,7 +202,7 @@ export async function getStaticPaths() {
   })
 
   return {
-    paths: allConsulUseCases.map((page) => {
+    paths: allConsulUseCases.map((page: $TSFixMe) => {
       return {
         params: {
           slug: page.slug,
@@ -213,7 +213,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: $TSFixMe) {
   const { slug } = params
 
   const query = proxiedRivetClient('consul')
@@ -221,7 +221,7 @@ export async function getStaticProps({ params }) {
     query: useCasesQuery,
   })
 
-  const page = allConsulUseCases.find((page) => page.slug === slug)
+  const page = allConsulUseCases.find((page: $TSFixMe) => page.slug === slug)
 
   if (!page) {
     return { notFound: true }
