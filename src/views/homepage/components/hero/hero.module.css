@@ -58,6 +58,13 @@
   margin-bottom: 12px;
 }
 
+.title {
+  @media (--dev-dot-tablet-up) {
+    font-size: 54px;
+    line-height: 1.1851851852;
+  }
+}
+
 .description {
   display: grid;
   margin-top: 24px;
