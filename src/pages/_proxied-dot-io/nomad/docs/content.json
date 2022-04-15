@@ -1,126 +1,122 @@
 {
   "pageTitle": "Documentation",
-  "pageSubtitle": "Welcome to the Consul documentation! Consul is a multi-networking tool that offers a fully-featured service mesh solution that solves the networking and security challenges of operating microservices and cloud infrastructure (multi-cloud and hybrid cloud). This documentation covers the main concepts of Consul, what problems it can solve, and contains a quick start for using Consul.",
+  "pageSubtitle": "Welcome to the Nomad documentation. Nomad is a scheduler and workload orchestrator. This documentation is a reference for all available features and options of Nomad.",
   "featuredCard": {
     "heading": "Get Started",
-    "body": "Use Consul to implement a service mesh on your target platform.",
+    "body": "Learn how to use Nomad to schedule and orchestrate workloads.",
     "links": [
       {
-        "title": "HashiCorp Cloud Platform (HCP)",
-        "url": "https://learn.hashicorp.com/collections/consul/cloud-get-started"
-      },
-      {
-        "title": "Kubernetes",
-        "url": "https://learn.hashicorp.com/collections/consul/gs-consul-service-mesh"
-      },
-      {
-        "title": "VM",
-        "url": "https://learn.hashicorp.com/collections/consul/getting-started"
+        "title": "CLI Quick Start",
+        "url": "https://learn.hashicorp.com/collections/nomad/get-started"
       }
     ],
     "image": {
-      "src": "https://www.datocms-assets.com/2885/1649441112-consul-featured-card-image.png",
+      "src": "https://www.datocms-assets.com/2885/1642017592-nomad-feature-build.svg",
       "alt": ""
     }
   },
   "useCaseCards": [
     {
-      "heading": "Service Mesh",
-      "body": "Consul Service Mesh provides service-to-service connection authorization and encryption using mutual Transport Layer Security (TLS).",
+      "heading": "Nomad Pack",
+      "body": "Use Nomad Pack to deploy popular applications to Nomad.",
       "links": [
         {
-          "title": "Register mesh services",
-          "url": "/docs/discovery/services"
+          "title": "Introduction to Nomad Pack",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/nomad-pack-intro?in=nomad/nomad-pack"
         },
         {
-          "title": "Configure mesh behavior",
-          "url": "/docs/connect/config-entries"
+          "title": "Write a custom Nomad Pack",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/nomad-pack-writing-packs?in=nomad/nomad-pack"
         },
         {
-          "title": "Manage mesh traffic",
-          "url": "/docs/connect/gateways"
-        },
-        {
-          "title": "Setup API Gateway",
-          "url": "/docs/api-gateway"
+          "title": "Nomad Pack repository",
+          "url": "https://github.com/hashicorp/nomad-pack-community-registry"
         }
       ]
     },
     {
-      "heading": "Kubernetes",
-      "body": "Consul has many integrations with Kubernetes. You can deploy Consul to Kubernetes using the Helm chart or Consul K8s CLI, sync services between Consul and Kubernetes, run Consul Service Mesh, and more.",
+      "heading": "Autoscaling",
+      "body": "Automatically maintain your cluster and workload instance count to respond to demand while minimizing over-provisioning cost.",
       "links": [
         {
-          "title": "Install Consul on Kubernetes",
-          "url": "/docs/k8s/installation/install"
+          "title": "Introduction to Autoscaling",
+          "url": "/tools/autoscaling"
         },
         {
-          "title": "Consul Service Mesh on Kubernetes",
-          "url": "/docs/k8s/connect"
+          "title": "Enable Horizontal Cluster Autoscaling",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/horizontal-cluster-scaling?in=nomad/autoscaler"
         },
         {
-          "title": "Multi-Cluster",
-          "url": "/docs/k8s/installation/multi-cluster"
+          "title": "Create On-demand Batch Jobs",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/horizontal-cluster-scaling-on-demand-batch?in=nomad/autoscaler"
         },
         {
-          "title": "Syncing Kubernetes and Consul Services",
-          "url": "/docs/k8s/service-sync"
+          "title": "Manage Job Placement and Affinities",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/affinity?in=nomad/advanced-scheduling"
         }
       ]
     },
     {
-      "heading": "Network Infrastructure Automation",
-      "body": "Consul-Terraform-Sync (CTS) enables dynamic updates to network infrastructure devices triggered by service changes. ",
+      "heading": "Cluster Management",
+      "body": "Learn the features operators will need to build and maintain Nomad clusters.",
       "links": [
         {
-          "title": "Install and Configure CTS",
-          "url": "https://www.consul.io/docs/nia/installation/install"
+          "title": "Upgrade a Cluster",
+          "url": "/docs/upgrade"
         },
         {
-          "title": "Define Dynamic Updates",
-          "url": "https://www.consul.io/docs/nia/tasks"
+          "title": "Enable Multi-Region Federation",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/federation?in=nomad/manage-clusters"
         },
         {
-          "title": "Create a Terraform Module",
-          "url": "https://www.consul.io/docs/nia/terraform-modules"
+          "title": "Connect Nodes into a Cluster",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/clustering?in=nomad/manage-clusters"
+        },
+        {
+          "title": "Enable Autopilot",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/autopilot"
         }
       ]
     },
     {
-      "heading": "Platforms",
-      "body": "Consul can be integrated with several other platforms and products. Learn more about Consul integrations and how to enable them.",
+      "heading": "Nomad Fundamentals",
+      "body": "Become familiar with the core concepts of Nomad.",
       "links": [
         {
-          "title": "Nomad",
-          "url": "https://www.consul.io/docs/connect/nomad"
+          "title": "Installing Nomad",
+          "url": "/docs/install"
         },
         {
-          "title": "Vault",
-          "url": "https://www.consul.io/docs/connect/ca/vault"
+          "title": "Writing Job Specs",
+          "url": "/docs/job-specification"
         },
         {
-          "title": "AWS ECS",
-          "url": "https://www.consul.io/docs/ecs"
+          "title": "Agent Configuration",
+          "url": "/docs/configuration"
+        },
+        {
+          "title": "Deploy Nomad Jobs",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/jobs?in=nomad/manage-jobs"
         }
       ]
     }
   ],
   "developerCards": [
     {
-      "title": "Envoy Integration",
-      "url": "/docs/connect/proxies/envoy"
+      "title": "Plugins",
+      "url": "https://github.com/hashicorp/nomad-pack"
     },
     {
       "title": "API Reference",
       "url": "/api-docs"
     },
     {
-      "title": "Consul Ecosystem Tools",
-      "url": "/docs/download-tools"
+      "title": "Nomad Ecosystem Tools",
+      "url": "/docs/ecosystem"
     },
     {
-      "title": "GitHub Samples",
-      "url": "https://github.com/hashicorp?q=learn-consul&type=public&language=&sort=stargazers"
+      "title": "Community Task Drivers",
+      "url": "/plugins/drivers/community"
     }
   ]
 }
