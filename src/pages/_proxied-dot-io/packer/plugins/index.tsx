@@ -18,7 +18,7 @@ const additionalComponents = { PluginBadge }
 // path relative to the `website` directory of the Packer GitHub repo
 const remotePluginsFile = 'data/plugins-manifest.json'
 
-function DocsView(props) {
+function DocsView(props: $TSFixMe) {
   return (
     <DocsPage
       product={product}
