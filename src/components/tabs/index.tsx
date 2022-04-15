@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react'
 import classNames from 'classnames'
-import { Tab, TabButtonControls, TabSelectControls } from './components'
+import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import { useOverflowRef, useTabItems } from './hooks'
 import { TabItem, TabsProps } from './types'
 import s from './tabs.module.css'
@@ -41,11 +41,11 @@ const Tabs = ({
 
   /**
    * If there's overflow, show a dropdown. Otherwise show typical tabs.
-   * TODO: current TabSelectControls is temporary, and will be redone later.
-   * Task to replace TabSelectControls:
+   * TODO: current TabDropdownControls is temporary, and will be redone later.
+   * Task to replace TabDropdownControls:
    * https://app.asana.com/0/1202097197789424/1202133172981709/f
    */
-  const TabControls = hasOverflow ? TabSelectControls : TabButtonControls
+  const TabControls = hasOverflow ? TabDropdownControls : TabButtonControls
 
   return (
     <div ref={overflowRef}>

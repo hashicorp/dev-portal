@@ -80,7 +80,7 @@ export interface TabItem extends RawTabItemWithIds {
 }
 
 /**
- * TabControlsProps is used for both TabButtonControls & TabSelectControls.
+ * TabControlsProps is used for both TabButtonControls & TabDropdownControls.
  * Those components are meant to be interchangeable, so they share
  * the same interface.
  */

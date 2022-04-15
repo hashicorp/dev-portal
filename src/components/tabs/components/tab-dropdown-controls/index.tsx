@@ -3,11 +3,11 @@ import { TabControlsProps, TabItem } from '../../types'
 import s from './tab-select-controls.module.css'
 
 /**
- * TODO: current TabSelectControls is temporary, and will be redone later.
- * Task to replace TabSelectControls:
+ * TODO: current TabDropdownControls is temporary, and will be redone later.
+ * Task to replace TabDropdownControls:
  * https://app.asana.com/0/1202097197789424/1202133172981709/f
  */
-function TabSelectControls({
+function TabDropdownControls({
   ariaLabel = 'Select a tab panel',
   ariaLabelledBy,
   activeTabIndex,
@@ -46,4 +46,4 @@ function TabSelectControls({
   )
 }
 
-export default TabSelectControls
+export default TabDropdownControls

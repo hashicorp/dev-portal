@@ -1,5 +1,5 @@
 import Tab from './tab'
 import TabButtonControls from './tab-button-controls'
-import TabSelectControls from './tab-select-controls'
+import TabDropdownControls from './tab-dropdown-controls'
 
-export { Tab, TabButtonControls, TabSelectControls }
+export { Tab, TabButtonControls, TabDropdownControls }
