@@ -311,7 +311,10 @@ function splitRedirectsByType(redirects) {
       ['(', ')', '{', '}', ':', '*', '+', '?'].some((char) =>
         redirect.source.includes(char)
       ) ||
-      (redirect.has && redirect.has.some((has) => has.type !== 'host'))
+      (redirect.has &&
+        redirect.has.some(
+          (has) => has.type !== 'host' && has.type !== 'cookie'
+        ))
     ) {
       globRedirects.push(redirect)
     } else {

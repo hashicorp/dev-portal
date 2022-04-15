@@ -44,6 +44,16 @@ describe('splitRedirectsByType', () => {
     ])
     expect(simpleRedirects).toStrictEqual([
       {
+        source: '/has-cookie',
+        destination: '/cookie',
+        has: [
+          {
+            type: 'cookie',
+            key: 'cookie',
+          },
+        ],
+      },
+      {
         source: '/path',
         destination: '',
       },
@@ -65,16 +75,6 @@ describe('splitRedirectsByType', () => {
       },
       {
         source: '/has-cookie/:path',
-        destination: '/cookie',
-        has: [
-          {
-            type: 'cookie',
-            key: 'cookie',
-          },
-        ],
-      },
-      {
-        source: '/has-cookie',
         destination: '/cookie',
         has: [
           {
