@@ -22,6 +22,7 @@
 import { Link } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
+import moize, { Options } from 'moize'
 import { ProductOption } from 'lib/learn-client/types'
 import path, { isAbsolute } from 'path'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
@@ -30,26 +31,36 @@ import { getTutorialSlug } from 'views/collection-view/helpers'
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 const LEARN_URL = 'https://learn.hashicorp.com/'
-let TUTORIAL_MAP = {}
+
+// SHOULD this be lifted up into the tutorial template and be made accessible or passed as a param
+const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
+const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
+
+async function generateTutorialMap() {
+  console.log('GENERATING MAP')
+
+  /**
+   * Issue is that this is called for every tutorial page....
+   * what if this is passed as a param and called / memoized at the template level
+   *  */
+  const allTutorials = await getAllTutorials({
+    fullContent: false,
+    slugsOnly: true,
+  })
+
+  const mapItems = allTutorials.map((t) => {
+    const oldPath = t.slug
+    const newPath = getTutorialSlug(t.slug, t.collection_slug)
+    return [oldPath, newPath]
+  })
+
+  return Object.fromEntries(mapItems)
+}
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
-    if (Object.keys(TUTORIAL_MAP).length === 0) {
-      // if it hasn't been defined yet, make the call to cache the map
+    const TUTORIAL_MAP = await cachedGenerateTutorialMap()
 
-      const allTutorials = await getAllTutorials({
-        fullContent: false,
-        slugsOnly: true,
-      })
-
-      const mapItems = allTutorials.map((t) => {
-        const oldPath = t.slug
-        const newPath = getTutorialSlug(t.slug, t.collection_slug)
-        return [oldPath, newPath]
-      })
-
-      TUTORIAL_MAP = Object.fromEntries(mapItems)
-    }
     visit(tree, 'link', (node: Link) => {
       console.log(node.url, '— ORIGINAL')
       // return early if non tutorial or collection link
@@ -101,7 +112,7 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
 
           // TODO check if it has a query param
 
-          node.url = finalSlug
+          node.url = finalSlug || `/something-with-query-param`
           // also what about the query param links
         }
       } else {
