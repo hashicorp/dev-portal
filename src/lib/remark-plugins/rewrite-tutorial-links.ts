@@ -59,9 +59,9 @@ function handleTutorialLink(nodePath: string) {
   let queryParam
 
   if (hasQueryParam) {
-    const [tutorialSlug, query] = nodePath.split('?')
+    const [tutorialSlug, collectionSlug] = nodePath.split('?')
     nodePath = tutorialSlug
-    queryParam = query
+    queryParam = collectionSlug
   }
 
   const [, , product, filename] = nodePath.split('/') as SplitLearnPath
@@ -70,7 +70,7 @@ function handleTutorialLink(nodePath: string) {
   let finalSlug = TUTORIAL_MAP[tutorialSlug]
 
   // if there is a query param, the collection name is in provided, so we don't use the map
-  if (queryParam) {
+  if (hasQueryParam) {
     // isolate the collection name from the query
     const [, collectionSlug] = queryParam.split('/')
     finalSlug = `/${product}/tutorials/${collectionSlug}/${filename}`
