@@ -12,7 +12,6 @@
 
 import nock from 'nock'
 import remark from 'remark'
-import path from 'path'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 
 // Matches the pattern /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
@@ -71,9 +70,6 @@ function isolatePathFromMarkdown(mdLink: string): string {
 // Note: Mock `@vercel/fetch` during jest tests to avoid the following test-only error:
 // > thrown: “Exceeded timeout of 5000 ms for a test.
 jest.mock('@vercel/fetch', () => () => require('node-fetch'))
-const nockBack = nock.back
-nockBack.fixtures = path.join(__dirname, '__nock-fixtures__')
-nockBack.setMode('record')
 
 describe('rewriteTutorialLinks remark plugin', () => {
   beforeEach(async () => {
