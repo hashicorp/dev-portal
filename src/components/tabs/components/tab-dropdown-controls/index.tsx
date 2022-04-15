@@ -24,7 +24,7 @@ function TabDropdownControls({
         value={activeTabIndex}
       >
         {tabItems.map((item: TabItem, index: number) => {
-          const { isActive, tabId, label } = item
+          const { tabId, label } = item
           return (
             <option
               key={tabId}
@@ -32,7 +32,6 @@ function TabDropdownControls({
               id={tabId}
               value={index}
               aria-label={label}
-              selected={isActive}
             >
               {label}
             </option>
