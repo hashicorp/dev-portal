@@ -51,7 +51,7 @@
           "url": "https://learn.hashicorp.com/tutorials/nomad/nomad-pack-writing-packs?in=nomad/nomad-pack"
         },
         {
-          "title": "Nomad Pack repository",
+          "title": "Community Registry",
           "url": "https://github.com/hashicorp/nomad-pack-community-registry"
         }
       ]
@@ -103,8 +103,8 @@
   ],
   "developerCards": [
     {
-      "title": "Plugins",
-      "url": "https://github.com/hashicorp/nomad-pack-community-registry"
+      "title": "Provision Nomad with Terraform",
+      "url": "https://github.com/hashicorp/nomad/tree/main/terraform"
     },
     {
       "title": "API Reference",
