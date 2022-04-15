@@ -1,26 +1,28 @@
-// test for regular link
-
-// test for non beta product links to external hashicorp
-
-// test for link reference
-
-// test for beta product linking internally
-
-// handle docs links??
-
-// test with more md content to ensure its only targeting links
-
 import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 
+// Note: Mock `@vercel/fetch` during jest tests to avoid the following test-only error:
+// > thrown: “Exceeded timeout of 5000 ms for a test.
+jest.mock('@vercel/fetch', () => () => require('node-fetch'))
+
+// HELPERS ------------------------------------------------------
+
 // Matches the pattern /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
 const slug = '[a-z0-9]+(?:[-][a-z0-9]+)*' // matches lower case letters, numbers and hyphens
+const betaProductSlugs = __config.dev_dot.beta_product_slugs.join('|')
 const devDotTutorialsPath = new RegExp(
-  `^/(${__config.dev_dot.beta_product_slugs.join(
-    '|'
-  )})/tutorials/${slug}(/${slug})?(#${slug})?$`
+  `^/(${betaProductSlugs})/tutorials/${slug}(/${slug})?(#${slug})?$`
 )
+
+function isolatePathFromMarkdown(mdLink: string): string {
+  // target the path within the md syntax
+  // split at the ], then remove the enclosing parens from the path
+  return mdLink.split(']')[1].trim().slice(1, -1)
+}
+
+// MOCK DATA -----------------------------------------------------
+
 const TEST_MD_LINKS = {
   nonLearnLink:
     '[link to external docs](https://docs.microsoft.com/en-us/azure)',
@@ -62,14 +64,25 @@ const MOCK_TUTORIALS = [
   },
 ]
 
-function isolatePathFromMarkdown(mdLink: string): string {
-  // target the path within the md syntax
-  // split at the ], then remove the enclosing parens from the path
-  return mdLink.split(']')[1].trim().slice(1, -1)
-}
-// Note: Mock `@vercel/fetch` during jest tests to avoid the following test-only error:
-// > thrown: “Exceeded timeout of 5000 ms for a test.
-jest.mock('@vercel/fetch', () => () => require('node-fetch'))
+// TESTS -----------------------------------------------------------------
+
+/**
+ *  TODO 
+ * 
+ * test for regular link
+
+ test for non beta product links to external hashicorp
+
+ test for link reference
+
+ test for beta product linking internally
+
+ test for query params
+
+ handle docs links??
+
+ test with more md content to ensure its only targeting links
+ */
 
 describe('rewriteTutorialLinks remark plugin', () => {
   beforeEach(async () => {
