@@ -29,85 +29,19 @@ import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import moize, { Options } from 'moize'
 import { ProductOption } from 'lib/learn-client/types'
-import { getAllTutorials } from 'lib/learn-client/api/tutorial'
-import { getTutorialSlug } from 'views/collection-view/helpers'
-
-type SplitLearnPath = [
-  string, // the leading slash
-  'collections' | 'tutorials',
-  ProductOption,
-  string
-]
+import {
+  generateTutorialMap,
+  handleCollectionLink,
+  handleTutorialLink,
+} from './utils'
 
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 const LEARN_URL = 'https://learn.hashicorp.com/'
-
-// HELPERS -----------------------------------------------------------------
-
 // @TODO, test efficacy of the memoization with ISR
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
 const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
 let TUTORIAL_MAP = {}
-
-async function generateTutorialMap() {
-  console.log('GENERATING MAP') // Going to check the logs to test caching
-  const allTutorials = await getAllTutorials({
-    fullContent: false,
-    slugsOnly: true,
-  })
-
-  const mapItems = allTutorials.map((t) => {
-    const oldPath = t.slug
-    const newPath = getTutorialSlug(t.slug, t.collection_slug)
-    return [oldPath, newPath]
-  })
-
-  return Object.fromEntries(mapItems)
-}
-
-function handleTutorialLink(nodePath: string) {
-  const hasQueryParam = nodePath.includes('?')
-  const hasAnchorLink = nodePath.includes('#')
-  let queryParam
-
-  if (hasQueryParam) {
-    const [tutorialSlug, collectionSlug] = nodePath.split('?')
-    nodePath = tutorialSlug
-    queryParam = collectionSlug
-  }
-
-  const [, , product, filename] = nodePath.split('/') as SplitLearnPath
-
-  const tutorialSlug = [product, filename].join('/')
-  let finalSlug = TUTORIAL_MAP[tutorialSlug]
-
-  // if there is a query param, the collection name is in provided
-  // so we don't use the tutorial map
-  if (hasQueryParam) {
-    // isolate the collection name from the query
-    const [, collectionSlug] = queryParam.split('/')
-    finalSlug = `/${product}/tutorials/${collectionSlug}/${filename}`
-
-    // sometimes query params also have an anchor
-    if (hasAnchorLink) {
-      const [slug, anchor] = collectionSlug.split('#')
-      const base = `/${product}/tutorials/${slug}/${filename}`
-      finalSlug = [base, anchor].join('#')
-    }
-  } else if (hasAnchorLink) {
-    const [isolatedSlug, anchor] = tutorialSlug.split('#')
-    finalSlug = [TUTORIAL_MAP[isolatedSlug], anchor].join('#')
-  }
-
-  return finalSlug
-}
-
-function handleCollectionLink(nodePath: string) {
-  const [, , product, filename] = nodePath.split('/') as SplitLearnPath
-
-  return `/${product}/tutorials/${filename}`
-}
 
 // REMARK PLUGIN -------------------------------------------------------
 
@@ -150,7 +84,7 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
           if (isCollectionPath) {
             node.url = handleCollectionLink(nodePath)
           } else if (isTutorialPath) {
-            node.url = handleTutorialLink(nodePath)
+            node.url = handleTutorialLink(nodePath, TUTORIAL_MAP)
           }
 
           if (!node.url) {
