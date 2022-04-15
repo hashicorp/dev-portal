@@ -41,8 +41,6 @@ const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
 const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
 
-// REMARK PLUGIN -------------------------------------------------------
-
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
     const TUTORIAL_MAP = await cachedGenerateTutorialMap()

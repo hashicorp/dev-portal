@@ -10,6 +10,7 @@ import {
   TutorialPagePaths,
 } from 'views/tutorial-view/server'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
+import moize, { Options } from 'moize'
 
 export function VaultTutorialPage({
   tutorial,
@@ -17,6 +18,12 @@ export function VaultTutorialPage({
 }: TutorialPageProps): React.ReactElement {
   return <TutorialView tutorial={tutorial} layout={layoutProps} />
 }
+
+const moizeOpts: Options = { maxSize: Infinity }
+const cachedTestFunction = moize(() => {
+  console.log('TESTS FUNCTION')
+  return 'hello'
+}, moizeOpts)
 
 export async function getStaticProps({
   params,
@@ -29,6 +36,7 @@ export async function getStaticPaths(): Promise<
   GetStaticPathsResult<TutorialPagePaths['params']>
 > {
   const paths = await getTutorialPagePaths(ProductOption['vault'])
+  const thingie = cachedTestFunction()
   return {
     paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
     fallback: 'blocking',
