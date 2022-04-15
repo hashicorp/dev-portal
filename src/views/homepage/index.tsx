@@ -120,7 +120,7 @@ function Homepage(): ReactElement {
       <PreFooter
         heading="Looking for help?"
         description="Aenean interdum pulvinar nunc et maximus. Etiam imperdiet mattis sapien id commodow Aenean interdum pulvinar nunc nean interdum pulvinar."
-        ctas={[
+        actions={[
           {
             icon: (
               <IconSupport24 color="var(--token-color-highlight-foreground-primary)" />
