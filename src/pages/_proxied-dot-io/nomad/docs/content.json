@@ -17,6 +17,28 @@
   },
   "useCaseCards": [
     {
+      "heading": "Nomad Fundamentals",
+      "body": "Become familiar with the core concepts of Nomad.",
+      "links": [
+        {
+          "title": "Installing Nomad",
+          "url": "/docs/install"
+        },
+        {
+          "title": "Writing Job Specs",
+          "url": "/docs/job-specification"
+        },
+        {
+          "title": "Agent Configuration",
+          "url": "/docs/configuration"
+        },
+        {
+          "title": "Deploy Nomad Jobs",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/jobs?in=nomad/manage-jobs"
+        }
+      ]
+    },
+    {
       "heading": "Nomad Pack",
       "body": "Use Nomad Pack to deploy popular applications to Nomad.",
       "links": [
@@ -77,34 +99,12 @@
           "url": "https://learn.hashicorp.com/tutorials/nomad/autopilot"
         }
       ]
-    },
-    {
-      "heading": "Nomad Fundamentals",
-      "body": "Become familiar with the core concepts of Nomad.",
-      "links": [
-        {
-          "title": "Installing Nomad",
-          "url": "/docs/install"
-        },
-        {
-          "title": "Writing Job Specs",
-          "url": "/docs/job-specification"
-        },
-        {
-          "title": "Agent Configuration",
-          "url": "/docs/configuration"
-        },
-        {
-          "title": "Deploy Nomad Jobs",
-          "url": "https://learn.hashicorp.com/tutorials/nomad/jobs?in=nomad/manage-jobs"
-        }
-      ]
     }
   ],
   "developerCards": [
     {
       "title": "Plugins",
-      "url": "https://github.com/hashicorp/nomad-pack"
+      "url": "https://github.com/hashicorp/nomad-pack-community-registry"
     },
     {
       "title": "API Reference",
@@ -112,7 +112,7 @@
     },
     {
       "title": "Nomad Ecosystem Tools",
-      "url": "/docs/ecosystem"
+      "url": "/tools"
     },
     {
       "title": "Community Task Drivers",
