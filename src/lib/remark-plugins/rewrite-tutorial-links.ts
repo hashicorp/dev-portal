@@ -32,17 +32,12 @@ const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 const LEARN_URL = 'https://learn.hashicorp.com/'
 
-// SHOULD this be lifted up into the tutorial template and be made accessible or passed as a param
+// @TODO, test efficacy of the memoization with ISR
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
 const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
 
 async function generateTutorialMap() {
-  console.log('GENERATING MAP')
-
-  /**
-   * Issue is that this is called for every tutorial page....
-   * what if this is passed as a param and called / memoized at the template level
-   *  */
+  console.log('GENERATING MAP') // Going to check the logs to test caching
   const allTutorials = await getAllTutorials({
     fullContent: false,
     slugsOnly: true,
@@ -73,6 +68,7 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
       const isBetaProduct =
         __config.dev_dot.beta_product_slugs.includes(product)
       const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
+      let queryParam
 
       if (isBetaProduct) {
         let nodePath = node.url
@@ -86,6 +82,12 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
         if (!isAbsolute(nodePath)) {
           // handle relative paths - edge case
           nodePath = path.format({ root: '/', base: nodePath })
+        }
+
+        if (nodePath.includes('?')) {
+          const [tutorialSlug, query] = nodePath.split('?')
+          nodePath = tutorialSlug
+          queryParam = query
         }
 
         const [, contentType, product, filename] = nodePath.split('/') as [
@@ -102,7 +104,20 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
           let tutorialSlug = [product, filename].join('/')
           let finalSlug
 
-          if (tutorialSlug.includes('#')) {
+          if (queryParam) {
+            // isolate the collection name from the query
+            let [, collectionSlug] = queryParam.split('/')
+            let anchor = ''
+
+            if (collectionSlug.includes('#')) {
+              const [slug, anchorTag] = collectionSlug.split('#')
+              collectionSlug = slug
+
+              anchor = `#${anchorTag}`
+            }
+            finalSlug =
+              `/${product}/tutorials/${collectionSlug}/${filename}` + anchor
+          } else if (tutorialSlug.includes('#')) {
             const [isolatedSlug, anchor] = tutorialSlug.split('#')
             tutorialSlug = isolatedSlug
             finalSlug = TUTORIAL_MAP[tutorialSlug] + anchor
@@ -110,10 +125,7 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
             finalSlug = TUTORIAL_MAP[tutorialSlug]
           }
 
-          // TODO check if it has a query param
-
-          node.url = finalSlug || `/something-with-query-param`
-          // also what about the query param links
+          node.url = finalSlug
         }
       } else {
         // if its already an external link on a non-beta product, don't rewrite it

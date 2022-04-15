@@ -40,6 +40,10 @@ const TEST_MD_LINKS = {
     '[link to beta product non aboslute path](collections/vault/getting-started)',
   betaProductTutorialAnchorLink:
     '[link to beta product tutorial with anchor](/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
+  betaProductTutorialQueryParam:
+    '[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-kubernetes)',
+  betaeProductTutorialQueryParamWithAnchor:
+    '[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-nomad#install-the-waypoint-server)',
 }
 
 // Used to mock for the api call
@@ -60,6 +64,12 @@ const MOCK_TUTORIALS = [
     slug: 'vault/consul-deploy',
     default_collection: {
       slug: 'vault/consul-integration',
+    },
+  },
+  {
+    slug: 'waypoint/get-started',
+    default_collection: {
+      slug: 'waypoint/get-started-docker',
     },
   },
 ]
@@ -164,12 +174,32 @@ describe('rewriteTutorialLinks remark plugin', () => {
     expect(path).toMatch(devDotTutorialsPath)
   })
 
-  test('Anchor links are accommodated', async () => {
+  test('Anchor links are rewritten properly', async () => {
     const contents = await remark()
       .use(rewriteTutorialLinksPlugin)
       .process(TEST_MD_LINKS.betaProductTutorialAnchorLink)
 
     const path = isolatePathFromMarkdown(String(contents))
     expect(path).toMatch(devDotTutorialsPath)
+  })
+
+  test('Query params are rewritten properly', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductTutorialQueryParam)
+
+    const queryParamCollectionSlug = /get-started-kubernetes/
+
+    expect(String(contents)).toMatch(queryParamCollectionSlug)
+  })
+
+  test('Query params with an anchor link are rewritten properly', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaeProductTutorialQueryParamWithAnchor)
+
+    const queryParamSlugWithAnchor = new RegExp(`get-started-nomad/${slug}#`)
+
+    expect(String(contents)).toMatch(queryParamSlugWithAnchor)
   })
 })
