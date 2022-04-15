@@ -10,7 +10,6 @@ import {
   TutorialPagePaths,
 } from 'views/tutorial-view/server'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
-import moize, { Options } from 'moize'
 
 export function VaultTutorialPage({
   tutorial,
@@ -19,17 +18,10 @@ export function VaultTutorialPage({
   return <TutorialView tutorial={tutorial} layout={layoutProps} />
 }
 
-const moizeOpts: Options = { maxSize: Infinity }
-const cachedTestFunction = moize(() => {
-  console.log('TESTS FUNCTION')
-  return 'hello'
-}, moizeOpts)
-
 export async function getStaticProps({
   params,
 }): Promise<{ props: TutorialPageProps }> {
   const product = vaultData as LearnProductData
-  const thingie = cachedTestFunction()
   return getTutorialPageProps(product, params.tutorialSlug)
 }
 
