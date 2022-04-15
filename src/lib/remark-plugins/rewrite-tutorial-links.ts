@@ -19,9 +19,18 @@ import { ProductOption } from 'lib/learn-client/types'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 
+type SplitLearnPath = [
+  string, // the leading slash
+  'collections' | 'tutorials',
+  ProductOption,
+  string
+]
+
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 const LEARN_URL = 'https://learn.hashicorp.com/'
+
+// HELPERS -----------------------------------------------------------------
 
 // @TODO, test efficacy of the memoization with ISR
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
@@ -43,13 +52,6 @@ async function generateTutorialMap() {
 
   return Object.fromEntries(mapItems)
 }
-
-type SplitLearnPath = [
-  string, // the leading slash
-  'collections' | 'tutorials',
-  ProductOption,
-  string
-]
 
 function handleTutorialLink(nodePath: string) {
   const hasQueryParam = nodePath.includes('?')
@@ -137,8 +139,9 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
           }
 
           if (!node.url) {
+            node.url = nodePath
             throw new Error(
-              `[MDX TUTORIAL]: internal link could not be rewritten: ${nodePath}`
+              `[MDX TUTORIAL]: internal link could not be rewritten: ${nodePath} \nPlease check all Learn links in that tutorial to ensure they are correct.`
             )
           }
         }

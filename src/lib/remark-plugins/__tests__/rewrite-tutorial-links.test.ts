@@ -187,4 +187,12 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
     expect(String(contents)).toMatch(queryParamSlugWithAnchor)
   })
+
+  test('Incorrect link does not throw, only logs the error message', async () => {
+    const getContents = async () =>
+      await remark()
+        .use(rewriteTutorialLinksPlugin)
+        .process(TEST_MD_LINKS.errorLink)
+    expect(getContents).not.toThrowError()
+  })
 })
