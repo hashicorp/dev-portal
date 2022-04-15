@@ -1,4 +1,4 @@
-import type { ReactElement } from 'react'
+import type { CSSProperties, ReactElement } from 'react'
 import slugify from 'slugify'
 import type { TutorialCardProps } from '../tutorial-card'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
@@ -47,7 +47,14 @@ export default function LearnSection({
       </div>
 
       <div className={s.tutorials}>
-        <ul className={s.tutorialsList}>
+        <ul
+          className={s.tutorialsList}
+          style={
+            {
+              '--tutorials-count': tutorials.length,
+            } as CSSProperties
+          }
+        >
           {tutorials.map((tutorial) => {
             return (
               <li
