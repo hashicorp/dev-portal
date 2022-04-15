@@ -42,8 +42,9 @@ const TEST_MD_LINKS = {
     '[link to beta product tutorial with anchor](/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
   betaProductTutorialQueryParam:
     '[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-kubernetes)',
-  betaeProductTutorialQueryParamWithAnchor:
+  betaProductTutorialQueryParamWithAnchor:
     '[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-nomad#install-the-waypoint-server)',
+  errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
 }
 
 // Used to mock for the api call
@@ -192,7 +193,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
   test('Query params with an anchor link are rewritten properly', async () => {
     const contents = await remark()
       .use(rewriteTutorialLinksPlugin)
-      .process(TEST_MD_LINKS.betaeProductTutorialQueryParamWithAnchor)
+      .process(TEST_MD_LINKS.betaProductTutorialQueryParamWithAnchor)
 
     const queryParamSlugWithAnchor = new RegExp(`get-started-nomad/${slug}#`)
 

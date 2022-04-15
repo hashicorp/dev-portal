@@ -58,56 +58,66 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
     TUTORIAL_MAP = await cachedGenerateTutorialMap()
 
     visit(tree, 'link', (node: Link) => {
-      console.log(node.url, '— ORIGINAL')
+      try {
+        console.log(node.url, '— ORIGINAL')
 
-      // return early if non tutorial or collection link
-      if (!learnLink.test(node.url)) {
-        return
-      }
-
-      // find product
-      const [product] = node.url.match(learnProducts)
-      const isBetaProduct =
-        __config.dev_dot.beta_product_slugs.includes(product)
-      const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
-
-      // if its not a beta product and also not an external link, rewrite
-      // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/vault
-      if (!isBetaProduct && !isExternalLearnLink) {
-        // If its an internal link, rewrite to an external learn link
-        node.url = new URL(node.url, LEARN_URL).toString()
-      }
-
-      if (isBetaProduct) {
-        let nodePath = node.url // the path to be formatted
-
-        // if its an external link, isolate the pathname
-        if (isExternalLearnLink) {
-          const fullUrl = new URL(nodePath)
-          nodePath = fullUrl.pathname
+        // return early if non tutorial or collection link
+        if (!learnLink.test(node.url)) {
+          return
         }
 
-        if (!isAbsolute(nodePath)) {
-          // handle path without leading slash i.e. [](tutorials/waypoint/get-started)  - edge case
-          nodePath = path.format({ root: '/', base: nodePath })
+        // find product
+        const [product] = node.url.match(learnProducts)
+        const isBetaProduct =
+          __config.dev_dot.beta_product_slugs.includes(product)
+        const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
+
+        // if its not a beta product and also not an external link, rewrite
+        // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/vault
+        if (!isBetaProduct && !isExternalLearnLink) {
+          // If its an internal link, rewrite to an external learn link
+          node.url = new URL(node.url, LEARN_URL).toString()
         }
 
-        const [, contentType, product, filename] = nodePath.split('/') as [
-          string, // the leading slash
-          'collections' | 'tutorials',
-          ProductOption,
-          string
-        ]
+        if (isBetaProduct) {
+          let nodePath = node.url // the path to be formatted
 
-        // handle rewriting collection and tutorial dev portal paths
-        if (contentType === 'collections') {
-          node.url = `/${product}/tutorials/${filename}`
-        } else if (contentType === 'tutorials') {
-          node.url = handleTutorialLink(nodePath)
+          // if its an external link, isolate the pathname
+          if (isExternalLearnLink) {
+            const fullUrl = new URL(nodePath)
+            nodePath = fullUrl.pathname
+          }
+
+          if (!isAbsolute(nodePath)) {
+            // handle path without leading slash i.e. [](tutorials/waypoint/get-started)  - edge case
+            nodePath = path.format({ root: '/', base: nodePath })
+          }
+
+          const [, contentType, product, filename] = nodePath.split('/') as [
+            string, // the leading slash
+            'collections' | 'tutorials',
+            ProductOption,
+            string
+          ]
+
+          // handle rewriting collection and tutorial dev portal paths
+          if (contentType === 'collections') {
+            node.url = `/${product}/tutorials/${filename}`
+          } else if (contentType === 'tutorials') {
+            node.url = handleTutorialLink(nodePath)
+          }
+
+          if (!node.url) {
+            throw new Error(
+              `[MDX TUTORIAL]: internal link could not be rewritten: ${nodePath}`
+            )
+          }
+
+          console.log(node.url, '— FINAL')
         }
+      } catch (e) {
+        console.error(e)
       }
-
-      console.log(node.url, '— FINAL')
     })
   }
 }
@@ -130,29 +140,23 @@ function handleTutorialLink(nodePath: string) {
     string
   ]
 
-  let tutorialSlug = [product, filename].join('/')
-  let finalSlug
+  const tutorialSlug = [product, filename].join('/')
+  let finalSlug = TUTORIAL_MAP[tutorialSlug]
 
+  // if there is a query param, the collection name is in provided, so we don't use the map
   if (queryParam) {
     // isolate the collection name from the query
-    let [, collectionSlug] = queryParam.split('/')
-    let anchor = ''
+    const [, collectionSlug] = queryParam.split('/')
+    finalSlug = `/${product}/tutorials/${collectionSlug}/${filename}`
 
+    // sometimes query params also have an anchor
     if (hasAnchorLink) {
-      const [slug, anchorTag] = collectionSlug.split('#')
-      collectionSlug = slug
-
-      anchor = `#${anchorTag}`
+      const [slug, anchor] = collectionSlug.split('#')
+      finalSlug = `/${product}/tutorials/${slug}/${filename}#${anchor}`
     }
-    finalSlug = `/${product}/tutorials/${collectionSlug}/${filename}` + anchor
   } else if (hasAnchorLink) {
     const [isolatedSlug, anchor] = tutorialSlug.split('#')
-    tutorialSlug = isolatedSlug
-
-    finalSlug = TUTORIAL_MAP[tutorialSlug] + `#${anchor}`
-    console.log(finalSlug)
-  } else {
-    finalSlug = TUTORIAL_MAP[tutorialSlug]
+    finalSlug = TUTORIAL_MAP[isolatedSlug] + `#${anchor}`
   }
 
   return finalSlug
