@@ -41,13 +41,12 @@ const LEARN_URL = 'https://learn.hashicorp.com/'
 // @TODO, test efficacy of the memoization with ISR
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
 const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
-let TUTORIAL_MAP = {}
 
 // REMARK PLUGIN -------------------------------------------------------
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
-    TUTORIAL_MAP = await cachedGenerateTutorialMap()
+    const TUTORIAL_MAP = await cachedGenerateTutorialMap()
 
     visit(tree, 'link', (node: Link) => {
       try {
