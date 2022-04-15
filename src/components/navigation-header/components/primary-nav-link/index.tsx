@@ -29,7 +29,12 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
         aria-label={ariaLabel}
         className={s.root}
       >
-        <Text asElement="span" size={200} weight="medium">
+        <Text
+          asElement="span"
+          className={s.linkText}
+          size={200}
+          weight="medium"
+        >
           {label}
         </Text>
       </a>
