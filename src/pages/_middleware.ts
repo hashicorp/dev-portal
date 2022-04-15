@@ -50,7 +50,15 @@ function determineProductSlug(req: NextRequest): string {
 
 const PUBLIC_FILE = /\.(hcl|ico|jpg|jpeg|js|json|png|svg|webp|zip)$/
 function isStaticAsset(url: NextRequest['nextUrl']): boolean {
-  return PUBLIC_FILE.test(url.pathname)
+  return (
+    // These two checks are to prevent /data and /files routes from skipping
+    // rewrites since *technically* they're static assets. Will be able to be
+    // removed once affectes .io sites are being served from Dev Portal and
+    // we can add redirects to append `/{productSlug}` to them.
+    url.pathname.startsWith('/data') &&
+    url.pathname.startsWith('/files') &&
+    PUBLIC_FILE.test(url.pathname)
+  )
 }
 
 /**
