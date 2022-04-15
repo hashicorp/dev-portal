@@ -33,7 +33,7 @@ function IoCard({
   description,
   children,
 }: IoCardProps): React.ReactElement {
-  const LinkWrapper = ({ className, children }) =>
+  const LinkWrapper = ({ className, children }: $TSFixMe) =>
     link.type === 'inbound' ? (
       <Link href={link.url}>
         <a className={className}>{children}</a>
@@ -65,7 +65,7 @@ function IoCard({
           {products && (
             <ul className={s.products}>
               {products.map(({ name }, index) => {
-                const key = name.toLowerCase()
+                const key = name.toLowerCase() as keyof typeof productLogos
                 const version = variant === 'dark' ? 'neutral' : 'color'
                 return (
                   // eslint-disable-next-line react/no-array-index-key
