@@ -71,7 +71,7 @@ export function getStaticGenerationFunctions<
       }
     },
     getStaticProps: async (ctx) => {
-      const headings = [] // populated by loader.loadStaticProps()
+      const headings: $TSFixMe[] = [] // populated by loader.loadStaticProps()
 
       const loader = getLoader({
         mainBranch,
@@ -128,7 +128,7 @@ export function getStaticGenerationFunctions<
         basePath,
         baseName,
         pathParts: (ctx.params.page || []) as string[],
-        navData: navDataWithFullPaths,
+        navData: navDataWithFullPaths as $TSFixMe,
       })
 
       const finalProps = {

@@ -82,9 +82,9 @@ export function useActiveSection(
 
         if (visibleHeadings.current.size > 0) {
           // Find the heading closest to the top of the viewport
-          let shortestDistance
-          let closestHeading
-          visibleHeadings.current.forEach((headingId) => {
+          let shortestDistance: number
+          let closestHeading: string
+          visibleHeadings.current.forEach((headingId: string) => {
             const targetElement = document.getElementById(headingId)
             const distance = targetElement.getBoundingClientRect().bottom
             if (!closestHeading || distance < shortestDistance) {
@@ -97,7 +97,7 @@ export function useActiveSection(
           // If we detect that we're scrolling up, and there are no visible
           // headers, optimistically set the previous header as visible to make
           // the active section match the visible content
-          setActiveSection((current) => {
+          setActiveSection((current: string) => {
             const curActiveIndex = findMatchingSectionIndex(current)
 
             // Handle an ege case where we get an intersection event for a
