@@ -51,7 +51,7 @@
           "url": "https://learn.hashicorp.com/tutorials/nomad/nomad-pack-writing-packs?in=nomad/nomad-pack"
         },
         {
-          "title": "Community Registry",
+          "title": "Community Repository",
           "url": "https://github.com/hashicorp/nomad-pack-community-registry"
         }
       ]
