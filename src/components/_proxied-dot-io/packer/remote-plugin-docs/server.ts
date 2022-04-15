@@ -72,8 +72,8 @@ async function generateStaticProps({
   async function mdxContentHook(mdxContent) {
     const badgesMdx = []
     // Add a badge for the plugin tier
-    if (pluginData?.tier) {
-      badgesMdx.push(`<PluginBadge type="${pluginData.tier}" />`)
+    if (pluginData?.pluginTier) {
+      badgesMdx.push(`<PluginBadge type="${pluginData.pluginTier}" />`)
     }
     // Add a badge if the plugin is "HCP Packer Ready"
     if (pluginData?.isHcpPackerReady) {
@@ -120,7 +120,6 @@ async function generateStaticProps({
     currentPath,
     frontMatter,
     mdxSource,
-    mdxString,
     githubFileUrl,
     navData,
     navNode,
