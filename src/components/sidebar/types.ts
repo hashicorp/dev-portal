@@ -143,6 +143,7 @@ export type {
   EnrichedLinkNavItem,
   EnrichedNavItem,
   EnrichedSubmenuNavItem,
+  FilteredNavItem,
   LinkNavItemWithMetaData,
   MenuItem,
   NavItemWithMetaData,
