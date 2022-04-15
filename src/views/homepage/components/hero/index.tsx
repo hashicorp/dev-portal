@@ -59,7 +59,7 @@ export default function Hero({
                     <Heading
                       className={s.actionHeading}
                       level={2}
-                      size={300}
+                      size={400}
                       weight="bold"
                       slug={slug}
                     >
