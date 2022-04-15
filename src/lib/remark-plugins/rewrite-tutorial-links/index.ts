@@ -71,8 +71,6 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
 
         if (isBetaProduct) {
           let nodePath = node.url // the path to be formatted - assumes to be absolute as current Learn impl does
-          const isCollectionPath = nodePath.includes('collections')
-          const isTutorialPath = nodePath.includes('tutorials')
 
           // if its an external link, isolate the pathname
           if (isExternalLearnLink) {
@@ -81,9 +79,9 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
           }
 
           // handle rewriting collection and tutorial dev portal paths
-          if (isCollectionPath) {
+          if (nodePath.includes('collections')) {
             node.url = handleCollectionLink(nodePath)
-          } else if (isTutorialPath) {
+          } else if (nodePath.includes('tutorials')) {
             node.url = handleTutorialLink(nodePath, TUTORIAL_MAP)
           }
 
