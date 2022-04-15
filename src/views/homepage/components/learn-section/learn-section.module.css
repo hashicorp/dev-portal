@@ -1,23 +1,21 @@
 .learnSection {
-  --container-max-width: 1240px;
-  --padding-y: 64px;
-  --padding-x: 24px;
-
   background-color: var(--token-color-vault-brand);
 }
 
 .intro {
-  padding: var(--padding-y) var(--padding-x);
+  padding-top: var(--homepage-section-padding-y);
+  padding-bottom: calc(var(--homepage-section-padding-y) / 2);
 }
 
 .introInner {
   --grid-template-columns: 1;
 
   margin: 0 auto;
-  max-width: var(--container-max-width);
+  width: var(--homepage-container-width);
   display: grid;
   grid-template-columns: repeat(var(--grid-template-columns), 1fr);
-  gap: 24px;
+  gap: var(--homepage-grid-gap);
+  align-items: center;
 
   @media (--dev-dot-tablet-up) {
     --grid-template-columns: 3;
@@ -55,8 +53,6 @@
 .tutorials {
   --overlap-height: 80px;
 
-  padding-left: var(--padding-x);
-  padding-right: var(--padding-x);
   background-image: linear-gradient(
     to bottom,
     var(--token-color-vault-brand) var(--overlap-height),
@@ -73,8 +69,8 @@
 
   list-style: none;
   margin: 0 auto;
+  width: var(--homepage-container-width);
   padding: 0;
-  max-width: var(--container-max-width);
   display: grid;
   grid-template-columns: repeat(var(--grid-template-columns), 1fr);
   gap: 24px;

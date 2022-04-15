@@ -1,9 +1,4 @@
 .hero {
-  --container-max-width: 1600px;
-  --grid-template-columns: 1;
-  --grid-column-gap: 24px;
-
-  padding: 0 24px;
   background-color: var(--token-color-palette-neutral-700);
   background-image: url('/img/homepage/hero-accent-right.svg');
   background-position: right -200px top;
@@ -11,25 +6,31 @@
   color: var(--token-color-palette-neutral-0);
 
   @media (--dev-dot-tablet-up) {
-    --grid-template-columns: 12;
-    --grid-column-gap: 32px;
-
     background-image: none;
   }
 }
 
 .container {
-  max-width: var(--container-max-width);
+  --container-max-width: 1600px;
+  --grid-template-columns: 1;
+
+  padding-top: var(--homepage-section-padding-y);
+  padding-bottom: var(--homepage-section-padding-y);
   margin-right: auto;
   margin-left: auto;
-  padding-top: 128px;
-  padding-bottom: 128px;
+  width: min(
+    100% - calc(var(--homepage-container-padding-x) * 2),
+    var(--container-max-width)
+  );
   display: grid;
   grid-template-columns: repeat(var(--grid-template-columns), 1fr);
-  grid-column-gap: var(--grid-column-gap);
-  grid-row-gap: 64px;
+  grid-gap: 64px 32px;
 
   @media (--dev-dot-tablet-up) {
+    --grid-template-columns: 12;
+
+    padding-top: 128px;
+    padding-bottom: 128px;
     background-image: url('/img/homepage/hero-accent.svg');
     background-repeat: no-repeat;
     background-position: right top;

@@ -1,25 +1,23 @@
 .preFooter {
-  --container-max-width: 1240px;
-  --grid-template-columns: 4;
-  --grid-column-gap: 24px;
-
   position: relative;
-  padding: 64px 24px;
+  padding-top: var(--homepage-section-padding-y);
+  padding-bottom: var(--homepage-section-padding-y);
+}
+
+.container {
+  --grid-template-columns: 4;
+
+  margin-right: auto;
+  margin-left: auto;
+  width: var(--homepage-container-width);
+  display: grid;
+  grid-template-columns: repeat(var(--grid-template-columns), 1fr);
+  grid-gap: var(--homepage-grid-gap);
+  align-items: center;
 
   @media (--dev-dot-tablet-up) {
     --grid-template-columns: 12;
   }
-}
-
-.container {
-  max-width: var(--container-max-width);
-  margin-right: auto;
-  margin-left: auto;
-  display: grid;
-  grid-template-columns: repeat(var(--grid-template-columns), 1fr);
-  grid-column-gap: var(--grid-column-gap);
-  grid-row-gap: 32px;
-  align-items: center;
 }
 
 .content {

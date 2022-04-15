@@ -18,12 +18,13 @@ import {
   HashiConfGlobalSlot,
   VaultSlot,
 } from './components/merchandising-slots/slots'
+import s from './homepage.module.css'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
 function Homepage(): ReactElement {
   return (
-    <>
+    <div className={s.homepage}>
       <Hero
         badgeText="Beta"
         heading="HashiCorp Developer Portal"
@@ -141,7 +142,7 @@ function Homepage(): ReactElement {
           },
         ]}
       />
-    </>
+    </div>
   )
 }
 
