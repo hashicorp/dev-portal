@@ -55,8 +55,8 @@ function isStaticAsset(url: NextRequest['nextUrl']): boolean {
     // rewrites since *technically* they're static assets. Will be able to be
     // removed once affectes .io sites are being served from Dev Portal and
     // we can add redirects to append `/{productSlug}` to them.
-    url.pathname.startsWith('/data') &&
-    url.pathname.startsWith('/files') &&
+    !url.pathname.startsWith('/data') &&
+    !url.pathname.startsWith('/files') &&
     PUBLIC_FILE.test(url.pathname)
   )
 }
