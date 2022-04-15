@@ -383,6 +383,12 @@ function groupSimpleRedirects(redirects) {
 
 async function redirectsConfig() {
   const dotIoRedirects = await buildDotIoRedirects()
+  if (process.env.DEBUG_REDIRECTS) {
+    console.log(
+      '[DEBUG_REDIRECTS]',
+      `Length of dotIoRedirects: ${dotIoRedirects.length}`
+    )
+  }
   const devPortalRedirects = await buildDevPortalRedirects()
   const { simpleRedirects, globRedirects } = splitRedirectsByType([
     ...dotIoRedirects,
