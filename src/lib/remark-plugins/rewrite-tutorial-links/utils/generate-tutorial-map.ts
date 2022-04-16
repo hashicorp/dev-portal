@@ -3,7 +3,7 @@ import path from 'path'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 
-const TUTORIALS_MAP_PATH = path.resolve('.tutorials-map.json')
+const TUTORIALS_MAP_PATH = path.resolve('.tutorials-map')
 
 export async function generateTutorialMap() {
   let cachedData
