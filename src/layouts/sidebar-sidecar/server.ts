@@ -117,7 +117,7 @@ export function getStaticGenerationFunctions<
       ]
 
       // Add fullPaths and ids to navData
-      const navDataWithFullPaths = prepareNavDataForClient({
+      const { preparedItems: navDataWithFullPaths } = prepareNavDataForClient({
         basePaths: [product.slug, basePath],
         nodes: fullNavData,
       })

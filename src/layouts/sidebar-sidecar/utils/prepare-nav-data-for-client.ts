@@ -1,4 +1,3 @@
-import slugify from 'slugify'
 import { NavNode } from '@hashicorp/react-docs-sidenav/types'
 import { MenuItem } from 'components/sidebar'
 import isAbsoluteUrl from 'lib/is-absolute-url'
@@ -50,22 +49,40 @@ function isNavDirectLink(value: NavNode): value is NavDirectLink {
 function prepareNavDataForClient({
   basePaths,
   nodes,
+  startingIndex = 0,
 }: {
   basePaths: string[]
   nodes: NavNode[]
-}): MenuItem[] {
-  return nodes
-    .map((node) => prepareNavNodeForClient({ basePaths, node }))
-    .filter((node) => node)
+  startingIndex?: number
+}): { preparedItems: MenuItem[]; traversedNodes: number } {
+  const preparedNodes = []
+
+  let count = 0
+  nodes.forEach((node) => {
+    const result = prepareNavNodeForClient({
+      basePaths,
+      node,
+      nodeIndex: startingIndex + count,
+    })
+    if (result) {
+      const { preparedItem, traversedNodes } = result
+      preparedNodes.push(preparedItem)
+      count += traversedNodes
+    }
+  })
+
+  return { preparedItems: preparedNodes, traversedNodes: count }
 }
 
 function prepareNavNodeForClient({
   basePaths,
   node,
+  nodeIndex,
 }: {
   node: NavNode
   basePaths: string[]
-}): MenuItem {
+  nodeIndex: number
+}): { preparedItem: MenuItem; traversedNodes: number } {
   /**
    * TODO: we need aligned types that will work here. NavNode (external import)
    * does not allow the `hidden` property.
@@ -76,22 +93,34 @@ function prepareNavNodeForClient({
     return null
   }
 
+  // Generate a unique ID from `nodeIndex`
+  const id = `sidebar-nav-item-${nodeIndex}`
+
   if (isNavBranch(node)) {
     // For nodes with routes, add fullPaths to all routes, and `id`
-    return {
+    const { preparedItems, traversedNodes } = prepareNavDataForClient({
+      basePaths,
+      nodes: node.routes,
+      startingIndex: nodeIndex + 1,
+    })
+    const preparedItem = {
       ...node,
-      routes: prepareNavDataForClient({ basePaths, nodes: node.routes }),
-      id: slugify(`submenu-${node.title}`, { lower: true }),
+      id,
+      routes: preparedItems,
+    }
+    return {
+      preparedItem,
+      traversedNodes: traversedNodes + 1,
     }
   } else if (isNavLeaf(node)) {
     // For nodes with paths, add fullPath to the node, and `id`
-    return {
+    const preparedItem = {
       ...node,
       fullPath: `/${basePaths.join('/')}/${node.path}`,
-      id: slugify(`menu-item-${node.path}`, { lower: true }),
+      id,
     }
+    return { preparedItem, traversedNodes: 1 }
   } else if (isNavDirectLink(node)) {
-    const id = slugify(`external-url-${node.title}`, { lower: true })
     // Check if there is data that disagrees with DevDot's assumptions.
     // This can happen because in the context of dot-io domains,
     // authors may write NavDirectLinks with href values that are
@@ -107,21 +136,24 @@ function prepareNavNodeForClient({
       // Note that the `fullPath` added here differs from typical
       // NavLeaf treatment, as we only use the first part of the `basePath`.
       // (We expect this to be the product slug, eg "consul").
-      return {
+      const preparedItem = {
         ...node,
         fullPath: `/${basePaths[0]}${node.href}`,
         href: null,
         id,
         path: node.href,
       }
+      return { preparedItem, traversedNodes: 1 }
     } else {
       // Otherwise, this is a genuinely external NavDirectLink,
       // so we only need to add an `id` to it.
-      return { ...node, id }
+      const preparedItem = { ...node, id }
+      return { preparedItem, traversedNodes: 1 }
     }
   } else {
     // Otherwise return the node unmodified
-    return node
+    const preparedItem = { ...node, id }
+    return { preparedItem, traversedNodes: 1 }
   }
 }
 
