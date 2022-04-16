@@ -117,10 +117,10 @@ export function getStaticGenerationFunctions<
       ]
 
       // Add fullPaths and ids to navData
-      const navDataWithFullPaths = prepareNavDataForClient(fullNavData, [
-        product.slug,
-        basePath,
-      ])
+      const navDataWithFullPaths = prepareNavDataForClient({
+        basePaths: [product.slug, basePath],
+        nodes: fullNavData,
+      })
 
       const breadcrumbLinks = getDocsBreadcrumbs({
         productPath: product.slug,

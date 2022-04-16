@@ -47,16 +47,25 @@ function isNavDirectLink(value: NavNode): value is NavDirectLink {
   return value.hasOwnProperty('href')
 }
 
-function prepareNavDataForClient(
-  nodes: NavNode[],
+function prepareNavDataForClient({
+  basePaths,
+  nodes,
+}: {
   basePaths: string[]
-): MenuItem[] {
+  nodes: NavNode[]
+}): MenuItem[] {
   return nodes
-    .map((n) => prepareNavNodeForClient(n, basePaths))
+    .map((node) => prepareNavNodeForClient({ basePaths, node }))
     .filter((node) => node)
 }
 
-function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
+function prepareNavNodeForClient({
+  basePaths,
+  node,
+}: {
+  node: NavNode
+  basePaths: string[]
+}): MenuItem {
   /**
    * TODO: we need aligned types that will work here. NavNode (external import)
    * does not allow the `hidden` property.
@@ -71,7 +80,7 @@ function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
     // For nodes with routes, add fullPaths to all routes, and `id`
     return {
       ...node,
-      routes: prepareNavDataForClient(node.routes, basePaths),
+      routes: prepareNavDataForClient({ basePaths, nodes: node.routes }),
       id: slugify(`submenu-${node.title}`, { lower: true }),
     }
   } else if (isNavLeaf(node)) {
