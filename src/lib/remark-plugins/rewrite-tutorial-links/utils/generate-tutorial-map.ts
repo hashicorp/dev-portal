@@ -37,6 +37,7 @@ export async function generateTutorialMap() {
       )
       console.log('[TUTORIAL]: Created tutorials map cache')
     } catch (error) {
+      console.log('[TUTORIAL]: Unable to write to file')
       console.error(error.message)
     }
 
