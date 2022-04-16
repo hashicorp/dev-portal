@@ -22,23 +22,21 @@ const SidebarNavLink = ({ item }: SidebarNavMenuItemProps) => {
   const isExternal = isAbsoluteUrl(href)
 
   return (
-    <li>
-      <Link href={href}>
-        <a
-          aria-current={item.isActive ? 'page' : undefined}
-          className={s.sidebarNavMenuItem}
-        >
-          <Text
-            asElement="span"
-            className={s.navMenuItemLabel}
-            dangerouslySetInnerHTML={{ __html: item.title }}
-            size={200}
-            weight="regular"
-          />
-          {isExternal && <IconExternalLink16 />}
-        </a>
-      </Link>
-    </li>
+    <Link href={href}>
+      <a
+        aria-current={item.isActive ? 'page' : undefined}
+        className={s.sidebarNavMenuItem}
+      >
+        <Text
+          asElement="span"
+          className={s.navMenuItemLabel}
+          dangerouslySetInnerHTML={{ __html: item.title }}
+          size={200}
+          weight="regular"
+        />
+        {isExternal && <IconExternalLink16 />}
+      </a>
+    </Link>
   )
 }
 
@@ -75,7 +73,7 @@ const SidebarNavSubmenu = ({ item }: SidebarNavMenuItemProps) => {
   }
 
   return (
-    <li>
+    <>
       <button
         aria-controls={item.id}
         aria-expanded={isOpen}
@@ -92,18 +90,16 @@ const SidebarNavSubmenu = ({ item }: SidebarNavMenuItemProps) => {
         />
         <IconChevronRight16 />
       </button>
-      {isOpen && (
-        <ul id={item.id} onKeyDown={handleKeyDown}>
-          {item.routes.map((route: MenuItem) =>
-            route.routes ? (
-              <SidebarNavSubmenu item={route} />
-            ) : (
-              <SidebarNavLink item={route} />
-            )
-          )}
-        </ul>
-      )}
-    </li>
+      <ul
+        id={item.id}
+        onKeyDown={handleKeyDown}
+        style={{ display: isOpen ? 'block' : 'none' }}
+      >
+        {item.routes.map((childItem: MenuItem) => (
+          <SidebarNavMenuItem item={childItem} key={childItem.id} />
+        ))}
+      </ul>
+    </>
   )
 }
 
@@ -116,19 +112,18 @@ const SidebarNavSubmenu = ({ item }: SidebarNavMenuItemProps) => {
  *  - SidebarNavLink
  */
 const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
+  let itemContent
   if (item.divider) {
-    return <SidebarHorizontalRule />
+    itemContent = <SidebarHorizontalRule />
+  } else if (item.heading) {
+    itemContent = <SidebarSectionHeading text={item.heading} />
+  } else if (item.routes) {
+    itemContent = <SidebarNavSubmenu item={item} />
+  } else {
+    itemContent = <SidebarNavLink item={item} />
   }
 
-  if (item.heading) {
-    return <SidebarSectionHeading text={item.heading} />
-  }
-
-  if (item.routes) {
-    return <SidebarNavSubmenu item={item} />
-  }
-
-  return <SidebarNavLink item={item} />
+  return <li id={item.id}>{itemContent}</li>
 }
 
 export default SidebarNavMenuItem
