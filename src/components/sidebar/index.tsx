@@ -12,6 +12,27 @@ import s from './sidebar.module.css'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 
+const RESOURCES_NAV_ITEMS = [
+  { divider: true },
+  { heading: 'Resources' },
+  {
+    title: 'All Product Tutorials',
+    href: 'https://learn.hashicorp.com',
+  },
+  {
+    title: 'Community Forum',
+    href: 'https://discuss.hashicorp.com',
+  },
+  {
+    title: 'Support',
+    href: 'https://support.hashicorp.com',
+  },
+  {
+    title: 'GitHub',
+    href: 'https://github.com/hashicorp',
+  },
+]
+
 const addItemMetadata = (
   currentPath: string,
   items: MenuItem[]
@@ -102,7 +123,7 @@ const Sidebar = ({
 }: SidebarProps): ReactElement => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
-    () => addItemMetadata(currentPath, menuItems),
+    () => addItemMetadata(currentPath, [...menuItems, ...RESOURCES_NAV_ITEMS]),
     [currentPath, menuItems]
   )
   const [filterValue, setFilterValue] = useState('')

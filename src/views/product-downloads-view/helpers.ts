@@ -147,11 +147,7 @@ export const initializeBreadcrumbLinks = (
 export const initializeNavData = (
   currentProduct: Pick<ProductData, 'sidebar'>
 ): MenuItem[] => {
-  return [
-    ...currentProduct.sidebar.landingPageNavData,
-    { divider: true },
-    ...currentProduct.sidebar.resourcesNavData,
-  ]
+  return currentProduct.sidebar.landingPageNavData
 }
 
 export const initializeVersionSwitcherOptions = ({

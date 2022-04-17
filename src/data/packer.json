@@ -63,25 +63,6 @@
         "title": "Getting Started",
         "fullPath": "/packer/docs/install"
       }
-    ],
-    "resourcesNavData": [
-      { "heading": "Resources" },
-      {
-        "title": "Releases",
-        "href": "https://releases.hashicorp.com/packer/"
-      },
-      {
-        "title": "HashiCorp Learn",
-        "href": "https://learn.hashicorp.com/packer"
-      },
-      {
-        "title": "Community Forum",
-        "href": "https://discuss.hashicorp.com/c/packer"
-      },
-      {
-        "title": "Support",
-        "href": "https://support.hashicorp.com"
-      }
     ]
   },
   "navigationHeaderItems": {}

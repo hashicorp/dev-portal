@@ -110,16 +110,10 @@ export function getStaticGenerationFunctions<
         }
       })
 
-      const fullNavData = [
-        ...navData,
-        { divider: true },
-        ...product.sidebar.resourcesNavData,
-      ]
-
       // Add fullPaths and ids to navData
       const { preparedItems: navDataWithFullPaths } = prepareNavDataForClient({
         basePaths: [product.slug, basePath],
-        nodes: fullNavData,
+        nodes: navData,
       })
 
       const breadcrumbLinks = getDocsBreadcrumbs({

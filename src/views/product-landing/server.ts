@@ -73,11 +73,7 @@ async function generateStaticProps({
     }
   })
 
-  const navData = [
-    ...product.sidebar.landingPageNavData,
-    { divider: true },
-    ...product.sidebar.resourcesNavData,
-  ]
+  const navData = product.sidebar.landingPageNavData
 
   return {
     content: CONTENT,

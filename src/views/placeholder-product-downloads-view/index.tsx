@@ -28,11 +28,7 @@ const PlaceholderSidecarContent = () => {
 
 const PlaceholderDownloadsView = (): ReactElement => {
   const currentProduct = useCurrentProduct()
-  const navData = [
-    ...currentProduct.sidebar.landingPageNavData,
-    { divider: true },
-    ...currentProduct.sidebar.resourcesNavData,
-  ]
+  const navData = currentProduct.sidebar.landingPageNavData
 
   return (
     <SidebarSidecarLayout

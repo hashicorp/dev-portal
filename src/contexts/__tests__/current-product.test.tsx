@@ -21,7 +21,6 @@ const setup = (currentProduct: Product) => {
         navigationHeaderItems: {},
         sidebar: {
           landingPageNavData: [],
-          resourcesNavData: [],
         },
       }}
     >
