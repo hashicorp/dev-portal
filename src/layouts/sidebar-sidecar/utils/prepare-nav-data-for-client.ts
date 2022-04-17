@@ -46,6 +46,12 @@ function isNavDirectLink(value: NavNode): value is NavDirectLink {
   return value.hasOwnProperty('href')
 }
 
+/**
+ * Prepares all sidebar nav items for client-side rendering. Keeps track of the
+ * index of each node using `startingIndex` and the `traversedNodes` property
+ * returned from `prepareNavNodeForClient`. Also returns its own
+ * `traversedNodes` since it is recursively called in `prepareNavDataForClient`.
+ */
 function prepareNavDataForClient({
   basePaths,
   nodes,
@@ -74,6 +80,23 @@ function prepareNavDataForClient({
   return { preparedItems: preparedNodes, traversedNodes: count }
 }
 
+/**
+ * Prepares a single sidebar nav item for client-side rendering. All items will
+ * have an auto-generated `id` added to them based on `nodeIndex` (which is the
+ * index of the current node being prepared) unless they have the "hidden"
+ * property set to TRUE. Returns the number of nodes it has traversed
+ * (`traversedNodes`) to help `prepareNavDataForClient` keep track of node
+ * indices.
+ *
+ * How different types of items are prepared:
+ *  - If the item is a submenu, its child items will be prepared as well.
+ *  - If the item is a link with the `path` property, then its `fullPath`
+ *    property will be generated from `basePaths` and `path`.
+ *  - If the item is a link with the `href` property and the `href` is an
+ *    internal path, then the object is "reset" to have the `path` and
+ *    `fullPath` properties.
+ *  - Otherwise, nothing is added to an item but a unique `id`.
+ */
 function prepareNavNodeForClient({
   basePaths,
   node,
