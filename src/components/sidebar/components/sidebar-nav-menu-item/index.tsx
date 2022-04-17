@@ -21,6 +21,14 @@ const SidebarNavLink = ({ item }: SidebarNavMenuItemProps) => {
   const href = item.fullPath || item.href
   const isExternal = isAbsoluteUrl(href)
 
+  // TODO: replace any with MenuItem
+  let leadingIcon
+  if ((item as any).leadingIcon) {
+    leadingIcon = (
+      <div className={s.leadingIcon}>{(item as any).leadingIcon}</div>
+    )
+  }
+
   return (
     <li>
       <Link href={href}>
@@ -28,6 +36,7 @@ const SidebarNavLink = ({ item }: SidebarNavMenuItemProps) => {
           aria-current={item.isActive ? 'page' : undefined}
           className={s.sidebarNavMenuItem}
         >
+          {leadingIcon}
           <Text
             asElement="span"
             className={s.navMenuItemLabel}
