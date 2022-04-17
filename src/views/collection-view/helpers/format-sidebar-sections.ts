@@ -2,12 +2,11 @@ import {
   Collection as ClientCollection,
   CollectionCategoryOption,
 } from 'lib/learn-client/types'
-import { ListItemProps } from 'components/tutorials-sidebar/types'
 import { getCollectionSlug } from './get-slug'
 
 export interface CollectionCategorySidebarSection {
   title: CollectionCategoryOption
-  items: ListItemProps[]
+  routes: { title: string; href: string; isActive: boolean }[]
 }
 
 /**
@@ -31,7 +30,7 @@ export function formatSidebarCategorySections(
 
       return {
         title: CollectionCategoryOption[category],
-        items: items.map((collection: ClientCollection) =>
+        routes: items.map((collection: ClientCollection) =>
           formatCollectionToListItem(collection, currentSlug)
         ),
       }
@@ -44,16 +43,16 @@ export function formatSidebarCategorySections(
 function filterEmptySections(
   sections: CollectionCategorySidebarSection[]
 ): CollectionCategorySidebarSection[] {
-  return sections.filter((c) => c.items.length > 0)
+  return sections.filter((c) => c.routes.length > 0)
 }
 
 function formatCollectionToListItem(
   collection: ClientCollection,
   currentSlug: string
-): ListItemProps {
+): { title: string; href: string; isActive: boolean } {
   const path = getCollectionSlug(collection.slug)
   return {
-    text: collection.shortName,
+    title: collection.shortName,
     href: path,
     isActive: collection.slug === currentSlug,
   }

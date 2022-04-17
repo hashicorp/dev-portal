@@ -4,7 +4,6 @@ import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
-import CollectionViewSidebar from './components/collection-view-sidebar'
 
 function CollectionView({
   collection,
@@ -13,16 +12,32 @@ function CollectionView({
 }: CollectionPageProps): React.ReactElement {
   const { name, slug, description, shortName, tutorials } = collection
 
+  const navItems: any[] = [
+    {
+      title: 'Overview',
+      href: `/${product.slug}/tutorials`,
+      isActive: false,
+    },
+  ]
+  layoutProps.sidebarSections.forEach((section) => {
+    navItems.push({ divider: true })
+    navItems.push({ heading: section.title })
+    navItems.push(...section.routes)
+  })
+
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
-      sidebarSlot={
-        <CollectionViewSidebar
-          product={product}
-          sections={layoutProps.sidebarSections}
-        />
-      }
+      sidebarProps={{
+        backToLinkProps: {
+          text: `${product.name} Home`,
+          url: `/${product.slug}`,
+        },
+        menuItems: navItems,
+        showFilterInput: false,
+        title: 'Tutorials',
+      }}
     >
       <h1 id={layoutProps.headings[0].slug}>{name}</h1>
       <p>{description}</p>
