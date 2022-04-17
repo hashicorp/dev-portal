@@ -21,11 +21,6 @@ import {
   getNextPrevious,
 } from './components'
 import { getCollectionSlug } from 'views/collection-view/helpers'
-import TutorialsSidebar, {
-  HorizontalRule,
-  SectionList,
-  SectionTitle,
-} from 'components/tutorials-sidebar'
 import getVideoUrl from './utils/get-video-url'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
@@ -87,6 +82,9 @@ export default function TutorialView({
     nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
   const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
+  const navItems = collectionCtx.current.tutorials.map((t) =>
+    formatTutorialToMenuItem(t, collectionCtx.current.slug, currentPath)
+  )
 
   return (
     <>
@@ -100,43 +98,16 @@ export default function TutorialView({
       >
         <SidebarSidecarLayout
           breadcrumbLinks={layout.breadcrumbLinks}
-          sidebarSlot={
-            <TutorialsSidebar
-              backToLink={{
-                text: collectionCtx.current.shortName,
-                href: getCollectionSlug(collectionCtx.current.slug),
-              }}
-              title={`${collectionCtx.current.shortName} Collection`}
-              visuallyHideTitle={true}
-            >
-              <SectionList
-                items={collectionCtx.current.tutorials.map((t) =>
-                  formatTutorialToMenuItem(
-                    t,
-                    collectionCtx.current.slug,
-                    currentPath
-                  )
-                )}
-              />
-              <HorizontalRule />
-              <SectionTitle text="Resources" />
-              <SectionList
-                items={[
-                  {
-                    text: 'All Tutorials',
-                    href: 'https://learn.hashicorp.com',
-                  },
-                  {
-                    text: 'Community Forum',
-                    href: 'https://discuss.hashicorp.com',
-                  },
-                  { text: 'Support', href: 'https://support.hashicorp.com' },
-                  { text: 'GitHub', href: 'http://github.com/hashicorp' },
-                ]}
-              />
-            </TutorialsSidebar>
-          }
           headings={layout.headings}
+          sidebarProps={{
+            backToLinkProps: {
+              text: collectionCtx.current.shortName,
+              url: getCollectionSlug(collectionCtx.current.slug),
+            },
+            menuItems: navItems,
+            showFilterInput: false,
+            title: `${collectionCtx.current.shortName} Collection`,
+          }}
         >
           <TutorialMeta
             heading={{ slug: layout.headings[0].slug, text: name }}
