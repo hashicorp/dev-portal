@@ -122,6 +122,7 @@ const Sidebar = ({
   menuItems,
   showFilterInput = true,
   title,
+  visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
@@ -144,7 +145,9 @@ const Sidebar = ({
         <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       )}
       <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.nav}>
-        <SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
+        <div className={visuallyHideTitle ? 'g-screen-reader-only' : undefined}>
+          <SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
+        </div>
         <SidebarSkipToMainContent />
         <ul className={s.navList}>
           {filteredMenuItems.map((item) => (

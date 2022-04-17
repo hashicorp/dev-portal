@@ -44,4 +44,9 @@ export interface SidebarProps {
    * Text to be shown as the title of the sidebar.
    */
   title: string
+
+  /**
+   * If `true`, will make the Sidebar title only available to screen readers.
+   */
+  visuallyHideTitle?: boolean
 }

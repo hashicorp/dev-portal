@@ -29,6 +29,7 @@ const SidebarSidecarLayout = ({
         menuItems={sidebarProps.menuItems}
         showFilterInput={sidebarProps.showFilterInput}
         title={sidebarProps.title}
+        visuallyHideTitle={sidebarProps.visuallyHideTitle}
       />
     )
   }

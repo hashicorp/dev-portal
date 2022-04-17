@@ -74,6 +74,7 @@ export async function getTutorialPageProps(
       menuItems: sidebarNavItems,
       showFilterInput: false,
       title: `${collectionContext.current.shortName} Collection`,
+      visuallyHideTitle: true,
     },
   }
   const lastTutorialIndex = collectionContext.current.tutorials.length - 1
