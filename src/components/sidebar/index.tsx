@@ -1,5 +1,6 @@
 import { ReactElement, useMemo, useState } from 'react'
 import useCurrentPath from 'hooks/use-current-path'
+import isAbsoluteUrl from 'lib/is-absolute-url'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
 import {
@@ -41,6 +42,7 @@ const addItemMetadata = (
 
   const itemsWithMetadata = items.map((item) => {
     const itemCopy = { ...item }
+    const itemHref = item.path || item.fullPath || item.href
 
     if (item.routes) {
       const result = addItemMetadata(currentPath, item.routes)
@@ -50,10 +52,10 @@ const addItemMetadata = (
       itemCopy.hasActiveChild = !foundActiveItem && result.foundActiveItem
       // Flag if we've found an active item
       foundActiveItem = itemCopy.hasActiveChild || foundActiveItem
-    } else if (item.path) {
+    } else if (!isAbsoluteUrl(itemHref)) {
       // Note: if an active item has already been found,
       // we do not flag this node as active.
-      itemCopy.isActive = !foundActiveItem && currentPath.endsWith(item.path)
+      itemCopy.isActive = !foundActiveItem && currentPath.endsWith(itemHref)
       // Flag if we've found an active item
       foundActiveItem = itemCopy.isActive || foundActiveItem
     } else {
