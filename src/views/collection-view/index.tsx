@@ -10,20 +10,7 @@ function CollectionView({
   product,
   layoutProps,
 }: CollectionPageProps): React.ReactElement {
-  const { name, slug, description, shortName, tutorials } = collection
-
-  const navItems: any[] = [
-    {
-      title: 'Overview',
-      href: `/${product.slug}/tutorials`,
-      isActive: false,
-    },
-  ]
-  layoutProps.sidebarSections.forEach((section) => {
-    navItems.push({ divider: true })
-    navItems.push({ heading: section.title })
-    navItems.push(...section.routes)
-  })
+  const { name, slug, description, tutorials } = collection
 
   return (
     <SidebarSidecarLayout
@@ -34,7 +21,7 @@ function CollectionView({
           text: `${product.name} Home`,
           url: `/${product.slug}`,
         },
-        menuItems: navItems,
+        menuItems: layoutProps.sidebarNavItems,
         showFilterInput: false,
         title: 'Tutorials',
       }}
