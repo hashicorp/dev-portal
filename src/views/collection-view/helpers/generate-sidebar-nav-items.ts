@@ -19,7 +19,7 @@ export function generateSidebarNavItems(
 ): MenuItem[] {
   // initialize the list of items with the static Overview item
   const sidebarNavItems: MenuItem[] = [
-    { title: 'Overview', href: `/${productSlug}/tutorials`, isActive: false },
+    { title: 'Overview', href: `/${productSlug}/tutorials` },
   ]
 
   // get all category slugs from CollectionCategoryOption
@@ -33,7 +33,7 @@ export function generateSidebarNavItems(
     collections.forEach((collection: ClientCollection) => {
       const isInCategory = collection.category === categorySlug
       if (isInCategory) {
-        items.push(formatCollectionToListItem(collection))
+        items.push(formatCollectionToMenuItem(collection))
       }
     })
 
@@ -48,7 +48,7 @@ export function generateSidebarNavItems(
   return sidebarNavItems
 }
 
-function formatCollectionToListItem(collection: ClientCollection): MenuItem {
+function formatCollectionToMenuItem(collection: ClientCollection): MenuItem {
   const path = getCollectionSlug(collection.slug)
   return {
     title: collection.shortName,
