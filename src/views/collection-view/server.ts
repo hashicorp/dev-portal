@@ -66,11 +66,7 @@ export async function getCollectionPageProps(
         filename: splitProductFromFilename(collection.slug),
       },
     }),
-    sidebarNavItems: generateSidebarNavItems(
-      filteredCollections,
-      collection.slug,
-      product.slug
-    ),
+    sidebarNavItems: generateSidebarNavItems(filteredCollections, product.slug),
   }
 
   return {

@@ -15,7 +15,6 @@ import { getCollectionSlug } from './get-slug'
  */
 export function generateSidebarNavItems(
   collections: ClientCollection[],
-  collectionSlug: string,
   productSlug: LearnProductSlug
 ): MenuItem[] {
   // initialize the list of items with the static Overview item
@@ -34,7 +33,7 @@ export function generateSidebarNavItems(
     collections.forEach((collection: ClientCollection) => {
       const isInCategory = collection.category === categorySlug
       if (isInCategory) {
-        items.push(formatCollectionToListItem(collection, collectionSlug))
+        items.push(formatCollectionToListItem(collection))
       }
     })
 
@@ -49,14 +48,10 @@ export function generateSidebarNavItems(
   return sidebarNavItems
 }
 
-function formatCollectionToListItem(
-  collection: ClientCollection,
-  currentSlug: string
-): { title: string; href: string; isActive: boolean } {
+function formatCollectionToListItem(collection: ClientCollection): MenuItem {
   const path = getCollectionSlug(collection.slug)
   return {
     title: collection.shortName,
     href: path,
-    isActive: collection.slug === currentSlug,
   }
 }
