@@ -18,7 +18,7 @@ import s from './sidebar-nav-menu-item.module.css'
  * external link icon if the link is external.
  */
 const SidebarNavLink = ({ item }: SidebarNavMenuItemProps) => {
-  const href = item.fullPath || item.href
+  const href = item.fullPath || item.path || item.href
   const isExternal = isAbsoluteUrl(href)
 
   return (
