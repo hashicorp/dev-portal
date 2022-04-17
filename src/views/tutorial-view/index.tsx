@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 import Head from 'next/head'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-import useCurrentPath from 'hooks/use-current-path'
 import {
   Collection as ClientCollection,
   CollectionLite as ClientCollectionLite,
@@ -13,14 +12,13 @@ import SidebarSidecarLayout, {
 import DevDotContent from 'components/dev-dot-content'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import MDX_COMPONENTS from './utils/mdx-components'
-import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
+import { generateCanonicalUrl } from './utils'
 import {
   FeaturedInCollections,
   CollectionCardProps,
   NextPrevious,
   getNextPrevious,
 } from './components'
-import { getCollectionSlug } from 'views/collection-view/helpers'
 import getVideoUrl from './utils/get-video-url'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
@@ -54,14 +52,16 @@ export type CollectionContext = {
 }
 
 export type TutorialSidebarSidecarProps = Required<
-  Pick<SidebarSidecarLayoutProps, 'children' | 'headings' | 'breadcrumbLinks'>
+  Pick<
+    SidebarSidecarLayoutProps,
+    'children' | 'headings' | 'breadcrumbLinks' | 'sidebarProps'
+  >
 >
 
 export default function TutorialView({
   layout,
   tutorial,
 }: TutorialViewProps): React.ReactElement {
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const {
     name,
     slug,
@@ -82,9 +82,6 @@ export default function TutorialView({
     nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
   const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
-  const navItems = collectionCtx.current.tutorials.map((t) =>
-    formatTutorialToMenuItem(t, collectionCtx.current.slug, currentPath)
-  )
 
   return (
     <>
@@ -99,15 +96,7 @@ export default function TutorialView({
         <SidebarSidecarLayout
           breadcrumbLinks={layout.breadcrumbLinks}
           headings={layout.headings}
-          sidebarProps={{
-            backToLinkProps: {
-              text: collectionCtx.current.shortName,
-              url: getCollectionSlug(collectionCtx.current.slug),
-            },
-            menuItems: navItems,
-            showFilterInput: false,
-            title: `${collectionCtx.current.shortName} Collection`,
-          }}
+          sidebarProps={layout.sidebarProps}
         >
           <TutorialMeta
             heading={{ slug: layout.headings[0].slug, text: name }}

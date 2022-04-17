@@ -9,7 +9,8 @@ import {
   ProductOption,
 } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { splitProductFromFilename } from './utils'
+import { getCollectionSlug } from 'views/collection-view/helpers'
+import { formatTutorialToMenuItem, splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
 import { TutorialSidebarSidecarProps, TutorialData } from '.'
 import {
@@ -49,6 +50,9 @@ export async function getTutorialPageProps(
     collection.data,
     fullTutorialData.collectionCtx
   )
+  const sidebarNavItems = collectionContext.current.tutorials.map((t) =>
+    formatTutorialToMenuItem(t, collectionContext.current.slug)
+  )
   const layoutProps = {
     headings,
     breadcrumbLinks: getTutorialsBreadcrumb({
@@ -62,6 +66,15 @@ export async function getTutorialPageProps(
         filename: tutorialReference.filename,
       },
     }),
+    sidebarProps: {
+      backToProps: {
+        text: collectionContext.current.shortName,
+        url: getCollectionSlug(collectionContext.current.slug),
+      },
+      menuItems: sidebarNavItems,
+      showFilterInput: false,
+      title: `${collectionContext.current.shortName} Collection`,
+    },
   }
   const lastTutorialIndex = collectionContext.current.tutorials.length - 1
   const isLastTutorial =

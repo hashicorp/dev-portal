@@ -1,5 +1,6 @@
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import { getTutorialSlug } from 'views/collection-view/helpers'
+import { MenuItem } from 'components/sidebar'
 
 export function splitProductFromFilename(slug: string): string {
   return slug.split('/')[1]
@@ -7,14 +8,13 @@ export function splitProductFromFilename(slug: string): string {
 
 export function formatTutorialToMenuItem(
   tutorial: ClientTutorialLite,
-  collectionSlug: string,
-  currentPath: string
-): { title: string; href: string; isActive: boolean } {
+  collectionSlug: string
+): MenuItem {
   const path = getTutorialSlug(tutorial.slug, collectionSlug)
+  const title = tutorial.name
   return {
-    title: tutorial.name,
-    href: path,
-    isActive: path === currentPath,
+    title,
+    path,
   }
 }
 
