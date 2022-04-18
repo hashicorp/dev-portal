@@ -45,33 +45,15 @@ const TEST_MD_LINKS = {
   errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
 }
 
-// Used to mock for the api call
-const MOCK_TUTORIALS = [
-  {
-    slug: 'waypoint/getting-started-config',
-    default_collection: {
-      slug: 'waypoint/getting-started',
-    },
-  },
-  {
-    slug: 'waypoint/get-started-ui',
-    default_collection: {
-      slug: 'waypoint/getting-started',
-    },
-  },
-  {
-    slug: 'vault/consul-deploy',
-    default_collection: {
-      slug: 'vault/consul-integration',
-    },
-  },
-  {
-    slug: 'waypoint/get-started',
-    default_collection: {
-      slug: 'waypoint/get-started-docker',
-    },
-  },
-]
+// [key: database tutorial slug]: value: dev dot absolute path
+const MOCK_RESPONSE = {
+  'waypoint/getting-started-config':
+    '/waypoint/tutorials/getting-started/getting-started-config',
+  'waypoint/get-started-ui':
+    '/waypoint/tutorials/getting-started/getting-started-ui',
+  'vault/consul-deploy': '/vault/tutorials/consul-integration/consul-deploy',
+  'waypoint/get-started': '/waypoint/tutorials/get-started-docker/get-started',
+}
 
 // TESTS -----------------------------------------------------------------
 
@@ -87,10 +69,10 @@ const MOCK_TUTORIALS = [
 
 describe('rewriteTutorialLinks remark plugin', () => {
   beforeEach(async () => {
-    const scope = nock(process.env.NEXT_PUBLIC_LEARN_API_BASE_URL)
+    const scope = nock('http://localhost:3000/api/tutorials-map')
       .persist()
       .get(/.*/)
-      .reply(200, { result: MOCK_TUTORIALS })
+      .reply(200, MOCK_RESPONSE)
   })
 
   test('Only internal Learn links are rewritten', async () => {
@@ -113,6 +95,8 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
     const result = String(contents)
     const path = isolatePathFromMarkdown(result)
+
+    console.log({ path })
 
     expect(path).toMatch(devDotTutorialsPath)
   })

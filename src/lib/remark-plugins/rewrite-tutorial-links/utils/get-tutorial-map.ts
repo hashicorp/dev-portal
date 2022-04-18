@@ -1,3 +1,5 @@
+import fetch from 'node-fetch'
+
 export async function getTutorialMap() {
   let result = {}
   const baseUrl = process.env.VERCEL_URL
