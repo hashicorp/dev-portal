@@ -42,7 +42,6 @@ async function getTutorials() {
 
 export async function generateTutorialMap() {
   let cachedData
-
   //   try {
   //     cachedData = JSON.parse(
   //       fs.readFileSync(path.join(process.cwd(), TUTORIALS_MAP_PATH), 'utf8')
@@ -94,10 +93,12 @@ export async function generateTutorialMap() {
   return cachedData
 }
 
+const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const mapData = await generateTutorialMap()
+  const mapData = await cachedGenerateTutorialMap()
   res.status(200).json(mapData)
 }
