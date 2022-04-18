@@ -48,9 +48,11 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
     try {
       const baseUrl =
         `https://${process.env.VERCEL_URL}` || 'http://localhost:3000'
-      console.log({ baseUrl })
+
       const route = new URL('api/tutorial-map', baseUrl)
+      console.log(route.toString())
       const tutorialMapRes = await fetch(route.toString())
+      console.log({ tutorialMapRes })
       TUTORIAL_MAP = await tutorialMapRes.json()
     } catch (e) {
       console.error(e, 'from within plugin')

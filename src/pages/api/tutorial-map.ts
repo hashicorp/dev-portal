@@ -52,6 +52,7 @@ export async function generateTutorialMap() {
     //     },
     //   },
     // ]
+    console.log(allTutorials.length, '-----------------------------')
 
     const mapItems = allTutorials.map((t) => {
       const oldPath = t.slug
