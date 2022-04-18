@@ -4,7 +4,7 @@ import path from 'path'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 
-const TUTORIALS_MAP_PATH = path.resolve('/public/tutorials-map.json')
+const TUTORIALS_MAP_PATH = path.resolve('.tutorials-map')
 
 export async function generateTutorialMap() {
   let cachedData
@@ -21,37 +21,37 @@ export async function generateTutorialMap() {
 
   if (!cachedData) {
     console.log('no cached data, trying to write')
-    const allTutorials = await getAllTutorials({
-      fullContent: false,
-      slugsOnly: true,
-    })
+    // const allTutorials = await getAllTutorials({
+    //   fullContent: false,
+    //   slugsOnly: true,
+    // })
 
-    // const allTutorials = [
-    //   {
-    //     slug: 'waypoint/getting-started-config',
-    //     default_collection: {
-    //       slug: 'waypoint/getting-started',
-    //     },
-    //   },
-    //   {
-    //     slug: 'waypoint/get-started-ui',
-    //     default_collection: {
-    //       slug: 'waypoint/getting-started',
-    //     },
-    //   },
-    //   {
-    //     slug: 'vault/consul-deploy',
-    //     default_collection: {
-    //       slug: 'vault/consul-integration',
-    //     },
-    //   },
-    //   {
-    //     slug: 'waypoint/get-started',
-    //     default_collection: {
-    //       slug: 'waypoint/get-started-docker',
-    //     },
-    //   },
-    // ]
+    const allTutorials = [
+      {
+        slug: 'waypoint/getting-started-config',
+        default_collection: {
+          slug: 'waypoint/getting-started',
+        },
+      },
+      {
+        slug: 'waypoint/get-started-ui',
+        default_collection: {
+          slug: 'waypoint/getting-started',
+        },
+      },
+      {
+        slug: 'vault/consul-deploy',
+        default_collection: {
+          slug: 'vault/consul-integration',
+        },
+      },
+      {
+        slug: 'waypoint/get-started',
+        default_collection: {
+          slug: 'waypoint/get-started-docker',
+        },
+      },
+    ]
     console.log(allTutorials.length, '-----------------------------')
 
     const mapItems = allTutorials.map((t) => {
