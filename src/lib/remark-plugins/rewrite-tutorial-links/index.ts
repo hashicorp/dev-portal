@@ -1,26 +1,17 @@
 /**
- *  @TODO clean up notes here:
+ * This plugin writes urls for learn tutorial content that reference other
+ * learn tutorials or collections.
  *
- * If there is a relative path to another tutorial check if the associated product is 'in beta'
- * if it is, rewrite to point internally if not, point it to external learn
+ * If the link references a tutorial or collection that is included in the
+ * beta-product list, this rewrites the link path to be relative to dev dot.
  *
- * COLLECTION PATH MAPPING:
- * /collections/{product}/{collection-name} --> /{product}/tutorials/{collection-name}
+ * All other tutorial and collection links are rewritten to point externally
+ * to production learn.hashicorp.com
  *
- * TUTORIAL PATH MAPPING:
- * /tutorials/{product}/{tutorial-name}  --> /{product}/tutorials/{collection-name}/{tutorial-name}
- *
- * Tutorial paths can also have query params to reference collections not in the default context:
- * /tutorials/${product}/{tutorial-name}?in=${product}/${collection-name}
- * --> /{product}/tutorials/{collection-name}/{tutorial-name}
- *
- * And query params with anchor links
- * /tutorials/${product}/{tutorial-name}?in=${product}/${collection-name}#{anchor}
- * --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
- *
- * And regular anchor links
- * /tutorials/${product}/{tutorial-name}#{anchor} --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
- *
+ * ONCE DEV PORTAL IS GENERALLY AVAILBLE, this plugin will be deprecated
+ * as all written internal links within the content will be updated in the
+ * content itself. This is an interim workaround while we have a divergent state
+ * during beta.
  */
 
 import { Link, Definition } from 'mdast'

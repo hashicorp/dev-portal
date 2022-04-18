@@ -4,11 +4,10 @@ import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-
 
 // HELPERS ------------------------------------------------------
 
-// Matches the pattern /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
 const slug = '[a-z0-9]+(?:[-][a-z0-9]+)*' // matches lower case letters, numbers and hyphens
 const betaProductSlugs = __config.dev_dot.beta_product_slugs.join('|')
 const devDotTutorialsPath = new RegExp(
-  `^/(${betaProductSlugs})/tutorials/${slug}(/${slug})?$`
+  `^/(${betaProductSlugs})/tutorials/${slug}(/${slug})?$` // Matches /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
 )
 
 function isolatePathFromMarkdown(mdLink: string): string {
@@ -42,8 +41,12 @@ const TEST_MD_LINKS = {
   errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
 }
 
-// [key: database tutorial slug]: value — dev dot absolute path
-// When adding new MD_LINK tests, make sure the path is accounted for below
+/**
+ * Mocks return value from 'api/tutorials-map' endpoint
+ * When adding new MD_LINK tests, make sure the path is accounted for below
+ *
+ * [key: database tutorial slug]: value — dev dot absolute path
+ */
 const MOCK_TUTORIALS_MAP = {
   'waypoint/getting-started-config':
     '/waypoint/tutorials/getting-started/getting-started-config',

@@ -1,5 +1,19 @@
 import { ProductOption } from 'lib/learn-client/types'
 
+/**
+ * TUTORIAL PATH MAPPING:
+ * /tutorials/{product}/{tutorial-name}  --> /{product}/tutorials/{collection-name}/{tutorial-name}
+ *
+ * Tutorial paths can also have query params to reference collections not in the default context:
+ * /tutorials/${product}/{tutorial-name}?in=${product}/${collection-name} --> /{product}/tutorials/{collection-name}/{tutorial-name}
+ *
+ * And query params with anchor links
+ * /tutorials/${product}/{tutorial-name}?in=${product}/${collection-name}#{anchor} --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
+ *
+ * And regular anchor links
+ * /tutorials/${product}/{tutorial-name}#{anchor} --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
+ */
+
 type SplitLearnPath = [
   string, // the leading slash
   'collections' | 'tutorials',
@@ -46,6 +60,11 @@ export function handleTutorialLink(
 
   return finalSlug
 }
+
+/**
+ * COLLECTION PATH MAPPING:
+ * /collections/{product}/{collection-name} --> /{product}/tutorials/{collection-name}
+ */
 
 export function handleCollectionLink(nodePath: string) {
   const [, , product, filename] = nodePath.split('/') as SplitLearnPath
