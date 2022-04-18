@@ -2,10 +2,6 @@ import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 
-// Note: Mock `@vercel/fetch` during jest tests to avoid the following test-only error:
-// > thrown: “Exceeded timeout of 5000 ms for a test.
-jest.mock('@vercel/fetch', () => () => require('node-fetch'))
-
 // HELPERS ------------------------------------------------------
 
 // Matches the pattern /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
@@ -87,8 +83,6 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
     const result = String(contents)
     const path = isolatePathFromMarkdown(result)
-
-    console.log({ path })
 
     expect(path).toMatch(devDotTutorialsPath)
   })
