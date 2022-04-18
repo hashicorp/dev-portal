@@ -64,11 +64,15 @@ export async function generateTutorialMap() {
       fullContent: false,
       slugsOnly: true,
     })
-    console.log(allTutorials.length, '-----------------------------')
+    console.log(
+      allTutorials.length,
+      allTutorials[0],
+      '-----------------------------'
+    )
 
     const mapItems = allTutorials.map((t) => {
       const oldPath = t.slug
-      const newPath = getTutorialSlug(t.slug, t.default_collection.slug)
+      const newPath = getTutorialSlug(t.slug, t.collection_slug)
       return [oldPath, newPath]
     })
 

@@ -84,6 +84,6 @@ export async function getAllTutorials(
   } else {
     return allTutorials.map(formatTutorialData)
   }
-  console.log({ result })
+
   return result
 }
