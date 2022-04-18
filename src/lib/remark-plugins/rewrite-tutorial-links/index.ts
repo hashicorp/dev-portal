@@ -44,12 +44,17 @@ const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
     // const TUTORIAL_MAP = await generateTutorialMap()
-    const baseUrl = process.env.VERCEL_URL || 'http://localhost:3000'
-    console.log({ baseUrl })
-    const route = new URL('api/tutorial-map', baseUrl)
-    const tutorialMapRes = await fetch(route.toString())
-    const data = await tutorialMapRes.json()
-    console.log(data, '+++++++++++++++++++++++++++')
+    try {
+      const baseUrl = process.env.VERCEL_URL || 'http://localhost:3000'
+      console.log({ baseUrl })
+      const route = new URL('api/tutorial-map', baseUrl)
+      const tutorialMapRes = await fetch(route.toString())
+      const data = await tutorialMapRes.json()
+      console.log(data, '+++++++++++++++++++++++++++')
+    } catch (e) {
+      console.error(e, 'from within plugin')
+    }
+
     const TUTORIAL_MAP = {
       'packer/hcp-schedule-image-iterations-revocation':
         '/packer/tutorials/hcp/hcp-schedule-image-iterations-revocation',
