@@ -44,7 +44,9 @@ const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
     // const TUTORIAL_MAP = await generateTutorialMap()
-    const tutorialMapRes = await fetch('http://localhost:3000/api/tutorial-map')
+    const tutorialMapRes = await fetch(
+      'https://dev-portal-git-ksrewrite-tutorial-urls-hashicorp.vercel.app/api/tutorial-map'
+    )
     const data = await tutorialMapRes.json()
     console.log(data, '+++++++++++++++++++++++++++')
     const TUTORIAL_MAP = {
