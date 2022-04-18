@@ -60,6 +60,7 @@ const MOCK_TUTORIALS_MAP = {
 
 describe('rewriteTutorialLinks remark plugin', () => {
   beforeEach(async () => {
+    // the api base url defaults to localhost
     const scope = nock('http://localhost:3000/api/tutorials-map')
       .persist()
       .get(/.*/)
