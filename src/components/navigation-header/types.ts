@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { ProductSlug } from 'types/products'
 
-type SupportedIcon = 'docs' | 'home' | 'terminalScreen' | 'tools'
+type SupportedIcon = 'box' | 'docs' | 'home' | 'terminalScreen' | 'tools'
 
 type NavigationHeaderIcon = ProductSlug | SupportedIcon
 
