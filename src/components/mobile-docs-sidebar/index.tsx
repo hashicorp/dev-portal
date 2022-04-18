@@ -1,4 +1,3 @@
-import Button from 'components/button'
 import Sidebar, { SidebarProps } from 'components/sidebar'
 import { useState } from 'react'
 
@@ -8,8 +7,29 @@ interface MobileDocsSidebar {
 
 const MobileDocsSidebar = ({ levels }: MobileDocsSidebar) => {
   const numberOfLevels = levels.length
-  const [currentLevel, setCurrentLevel] = useState(numberOfLevels - 1)
+  const [currentLevel, setCurrentLevel] = useState<number>(numberOfLevels - 1)
   const currentLevelSidebarProps = levels[currentLevel]
+
+  let levelButtonProps
+  if (currentLevel === 0 && numberOfLevels > 1) {
+    levelButtonProps = {
+      text: 'Waypoint Home',
+      iconPosition: 'trailing',
+      onClick: () => setCurrentLevel(1),
+    }
+  } else if (currentLevel === 1) {
+    levelButtonProps = {
+      text: 'Back to Developer',
+      iconPosition: 'leading',
+      onClick: () => setCurrentLevel(0),
+    }
+  } else if (currentLevel === 2) {
+    levelButtonProps = {
+      text: 'Back to Waypoint',
+      iconPosition: 'leading',
+      onClick: () => setCurrentLevel(1),
+    }
+  }
 
   return (
     <div
@@ -22,26 +42,10 @@ const MobileDocsSidebar = ({ levels }: MobileDocsSidebar) => {
         overflowY: 'scroll',
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: 48,
-        }}
-      >
-        <Button
-          disabled={currentLevel === 0}
-          text="Up"
-          onClick={() => setCurrentLevel(currentLevel - 1)}
-        />
-        <Button
-          disabled={currentLevel === numberOfLevels - 1}
-          text="Down"
-          onClick={() => setCurrentLevel(currentLevel + 1)}
-        />
-      </div>
-      <Sidebar {...currentLevelSidebarProps} />
+      <Sidebar
+        {...currentLevelSidebarProps}
+        levelButtonProps={levelButtonProps}
+      />
     </div>
   )
 }

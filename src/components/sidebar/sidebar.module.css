@@ -16,3 +16,41 @@
   margin: 0;
   padding: 0;
 }
+
+/*
+***
+* Classes for the mobile sidebar's level button
+***
+*/
+
+/* To left-align with the filter input */
+.levelButton {
+  margin-left: 1px;
+}
+
+/* To left-align the button icon with headings and nav item text */
+.levelButtonWithLeadingIcon {
+  /* TODO: need padding-right so padding looks even */
+  padding-left: 2px;
+}
+
+/* To left-align the button text with headings and nav item text */
+.levelButtonWithTrailingIcon {
+  /* TODO: need padding-right so padding looks even */
+  padding-left: 7px;
+}
+
+/* Spacing after the button when there is a filter input following */
+.levelButtonBeforeFilterInput {
+  margin-bottom: 6px;
+}
+
+/* Spacing after the button when there is a heading following  */
+.levelButtonBeforeHeading {
+  margin-bottom: 10px;
+}
+
+/* Spacing after the button when there is a nav item following */
+.levelButtonBeforeNavItem {
+  margin-bottom: 10px;
+}

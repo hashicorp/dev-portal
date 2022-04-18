@@ -1,5 +1,6 @@
 import { ReactElement, useMemo, useState } from 'react'
 import useCurrentPath from 'hooks/use-current-path'
+import Button from 'components/button'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
 import {
@@ -9,6 +10,9 @@ import {
 } from 'components/sidebar/components'
 import { MenuItem, SidebarProps } from './types'
 import s from './sidebar.module.css'
+import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
+import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
+import classNames from 'classnames'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 
@@ -96,9 +100,11 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
 
 const Sidebar = ({
   backToLinkProps,
+  levelButtonProps,
   menuItems,
   showFilterInput = true,
   title,
+  visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { itemsWithMetadata } = useMemo(
@@ -108,15 +114,39 @@ const Sidebar = ({
   const [filterValue, setFilterValue] = useState('')
   const filteredMenuItems = getFilteredMenuItems(itemsWithMetadata, filterValue)
 
-  let backToLink
-  if (backToLinkProps) {
+  let backToElement
+  if (levelButtonProps) {
+    const { iconPosition, onClick, text } = levelButtonProps
+    backToElement = (
+      <Button
+        className={classNames(s.levelButton, {
+          [s.levelButtonWithLeadingIcon]: iconPosition === 'leading',
+          [s.levelButtonWithTrailingIcon]: iconPosition === 'trailing',
+          [s.levelButtonBeforeFilterInput]: showFilterInput,
+          [s.levelButtonBeforeHeading]: !showFilterInput && !visuallyHideTitle,
+          [s.levelButtonBeforeNavItem]: !showFilterInput && visuallyHideTitle,
+        })}
+        color="tertiary"
+        icon={
+          iconPosition === 'leading' ? (
+            <IconChevronLeft16 />
+          ) : (
+            <IconChevronRight16 />
+          )
+        }
+        iconPosition={iconPosition}
+        onClick={onClick}
+        text={text}
+      />
+    )
+  } else if (backToLinkProps) {
     const { text, url } = backToLinkProps
-    backToLink = <SidebarBackToLink text={text} url={url} />
+    backToElement = <SidebarBackToLink text={text} url={url} />
   }
 
   return (
     <div className={s.sidebar}>
-      {backToLink}
+      {backToElement}
       {showFilterInput && (
         <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       )}

@@ -1,3 +1,4 @@
+import { ButtonProps } from 'components/button'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 
 /**
@@ -31,6 +32,11 @@ export interface SidebarProps {
   backToLinkProps?: SidebarBackToLinkProps
 
   /**
+   * @TODO write up description
+   */
+  levelButtonProps?: Pick<ButtonProps, 'text' | 'iconPosition' | 'onClick'>
+
+  /**
    * Menu items to render in the sidebar.
    */
   menuItems: MenuItem[]
@@ -44,4 +50,9 @@ export interface SidebarProps {
    * Text to be shown as the title of the sidebar.
    */
   title: string
+
+  /**
+   * @TODO this is coming from another PR
+   */
+  visuallyHideTitle?: boolean
 }
