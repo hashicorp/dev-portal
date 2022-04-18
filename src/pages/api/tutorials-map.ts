@@ -3,11 +3,15 @@ import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 import moize, { Options } from 'moize'
 
+// 1 hour
+const MAP_MAX_AGE_IN_SECONDS = 60 * 60 * 60
+
 export default async function tutorialsMapHandler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const mapData = await cachedGenerateTutorialMap()
+  res.setHeader('cache-control', `s-maxage=${MAP_MAX_AGE_IN_SECONDS}`)
   res.status(200).json(mapData)
 }
 
@@ -16,11 +20,6 @@ export async function generateTutorialMap() {
     fullContent: false,
     slugsOnly: true,
   })
-  console.log(
-    allTutorials.length,
-    allTutorials[0],
-    '-----------------------------'
-  )
 
   const mapItems = allTutorials.map((t) => {
     const oldPath = t.slug
