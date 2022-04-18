@@ -43,15 +43,15 @@ async function getTutorials() {
 export async function generateTutorialMap() {
   let cachedData
 
-  try {
-    cachedData = JSON.parse(
-      fs.readFileSync(path.join(process.cwd(), TUTORIALS_MAP_PATH), 'utf8')
-    )
-    console.log('READING FROM CACHED DATA!')
-  } catch (e) {
-    console.log('[TUTORIAL]: Tutorials map not initialized')
-    console.error(e.message)
-  }
+  //   try {
+  //     cachedData = JSON.parse(
+  //       fs.readFileSync(path.join(process.cwd(), TUTORIALS_MAP_PATH), 'utf8')
+  //     )
+  //     console.log('READING FROM CACHED DATA!')
+  //   } catch (e) {
+  //     console.log('[TUTORIAL]: Tutorials map not initialized')
+  //     console.error(e.message)
+  //   }
 
   if (!cachedData) {
     console.log('no cached data, trying to write')
@@ -69,17 +69,17 @@ export async function generateTutorialMap() {
       return [oldPath, newPath]
     })
 
-    try {
-      fs.writeFileSync(
-        path.join(process.cwd(), TUTORIALS_MAP_PATH),
-        JSON.stringify(Object.fromEntries(mapItems)),
-        'utf8'
-      )
-      console.log('[TUTORIAL]: Created tutorials map cache')
-    } catch (error) {
-      console.log('[TUTORIAL]: Unable to write to file')
-      console.error(error.message)
-    }
+    // try {
+    //   fs.writeFileSync(
+    //     path.join(process.cwd(), TUTORIALS_MAP_PATH),
+    //     JSON.stringify(Object.fromEntries(mapItems)),
+    //     'utf8'
+    //   )
+    //   console.log('[TUTORIAL]: Created tutorials map cache')
+    // } catch (error) {
+    //   console.log('[TUTORIAL]: Unable to write to file')
+    //   console.error(error.message)
+    // }
 
     cachedData = Object.fromEntries(mapItems)
   }
