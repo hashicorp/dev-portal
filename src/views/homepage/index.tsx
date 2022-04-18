@@ -71,7 +71,7 @@ function Homepage(): ReactElement {
       <LearnSection
         media={
           <Image
-            src="/img/homepage/vault-certified-expert-badge.svg"
+            src="/img/homepage/vault-certified-expert-badge.png"
             width={397}
             height={228}
             alt="Vault certified expert badge"
