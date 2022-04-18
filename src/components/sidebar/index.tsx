@@ -117,6 +117,14 @@ const Sidebar = ({
   let backToElement
   if (levelButtonProps) {
     const { iconPosition, onClick, text } = levelButtonProps
+
+    let icon
+    if (iconPosition === 'leading') {
+      icon = <IconChevronLeft16 />
+    } else {
+      icon = <IconChevronRight16 />
+    }
+
     backToElement = (
       <Button
         className={classNames(s.levelButton, {
@@ -127,13 +135,7 @@ const Sidebar = ({
           [s.levelButtonBeforeNavItem]: !showFilterInput && visuallyHideTitle,
         })}
         color="tertiary"
-        icon={
-          iconPosition === 'leading' ? (
-            <IconChevronLeft16 />
-          ) : (
-            <IconChevronRight16 />
-          )
-        }
+        icon={icon}
         iconPosition={iconPosition}
         onClick={onClick}
         text={text}
