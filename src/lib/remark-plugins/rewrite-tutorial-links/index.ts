@@ -45,7 +45,8 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
     // const TUTORIAL_MAP = await generateTutorialMap()
     try {
-      const baseUrl = process.env.VERCEL_URL || 'http://localhost:3000'
+      const baseUrl =
+        `https://${process.env.VERCEL_URL}` || 'http://localhost:3000'
       console.log({ baseUrl })
       const route = new URL('api/tutorial-map', baseUrl)
       const tutorialMapRes = await fetch(route.toString())
