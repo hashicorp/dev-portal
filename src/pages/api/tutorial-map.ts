@@ -8,7 +8,7 @@ import moize, { Options } from 'moize'
 const TUTORIALS_MAP_PATH = path.resolve('.tutorials-map')
 
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
-const cachedGetTutorials = moize(getTutorials, moizeOpts)
+const cachedGetAllTutorials = moize(getAllTutorials, moizeOpts)
 
 async function getTutorials() {
   console.log('getting TUTORIALS')
@@ -60,7 +60,10 @@ export async function generateTutorialMap() {
     //   slugsOnly: true,
     // })
 
-    const allTutorials = await cachedGetTutorials()
+    const allTutorials = await cachedGetAllTutorials({
+      fullContent: false,
+      slugsOnly: true,
+    })
     console.log(allTutorials.length, '-----------------------------')
 
     const mapItems = allTutorials.map((t) => {
