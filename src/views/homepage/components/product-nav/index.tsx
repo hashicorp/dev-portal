@@ -83,7 +83,7 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
     <div className={s.productNav}>
       {notice ? (
         <div className={s.notice}>
-          <Text size={100} className={s.noticeText}>
+          <Text size={200} className={s.noticeText}>
             {notice}
           </Text>
         </div>

@@ -9,7 +9,7 @@ import s from './pre-footer.module.css'
 interface PreFooterProps {
   heading: string
   description: string
-  ctas: Array<{
+  actions: Array<{
     icon: ReactElement
     heading: string
     description: string
@@ -20,7 +20,7 @@ interface PreFooterProps {
 export default function PreFooter({
   heading,
   description,
-  ctas,
+  actions,
 }: PreFooterProps) {
   return (
     <section className={s.preFooter}>
@@ -33,28 +33,28 @@ export default function PreFooter({
         </div>
 
         <div className={s.actions}>
-          <ul className={s.ctaList}>
-            {ctas.map((cta) => {
-              const slug = slugify(cta.heading)
+          <ul className={s.actionsList}>
+            {actions.map((action) => {
+              const slug = slugify(action.heading)
               return (
-                <li className={s.ctaItem} key={slug}>
-                  <span className={s.ctaIcon}>{cta.icon}</span>
+                <li className={s.actionsListItem} key={slug}>
+                  <span className={s.actionsIcon}>{action.icon}</span>
                   <div>
                     <Heading
                       level={2}
                       size={300}
                       weight="bold"
                       slug={slug}
-                      className={s.ctaHeading}
+                      className={s.actionsHeading}
                     >
-                      {cta.heading}
+                      {action.heading}
                     </Heading>
                     <StandaloneLink
                       color="secondary"
-                      href={cta.link}
+                      href={action.link}
                       icon={<IconExternalLink16 />}
                       iconPosition="trailing"
-                      text={cta.description}
+                      text={action.description}
                     />
                   </div>
                 </li>
