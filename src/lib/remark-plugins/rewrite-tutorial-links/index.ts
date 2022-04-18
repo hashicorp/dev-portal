@@ -43,7 +43,18 @@ const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
-    const TUTORIAL_MAP = await generateTutorialMap()
+    // const TUTORIAL_MAP = await generateTutorialMap()
+    const tutorialMapRes = await fetch('http://localhost:3000/api/tutorial-map')
+    const data = await tutorialMapRes.json()
+    console.log(data, '+++++++++++++++++++++++++++')
+    const TUTORIAL_MAP = {
+      'packer/hcp-schedule-image-iterations-revocation':
+        '/packer/tutorials/hcp/hcp-schedule-image-iterations-revocation',
+      'waypoint/get-started-nomad':
+        '/waypoint/tutorials/get-started-nomad/get-started-nomad',
+      'waypoint/get-started-kubernetes':
+        '/waypoint/tutorials/get-started-kubernetes/get-started-kubernetes',
+    }
 
     visit(tree, 'link', (node: Link) => {
       try {
