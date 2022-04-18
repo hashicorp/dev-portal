@@ -3,8 +3,42 @@ import fs from 'fs'
 import path from 'path'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
+import moize, { Options } from 'moize'
 
 const TUTORIALS_MAP_PATH = path.resolve('.tutorials-map')
+
+const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
+const cachedGetTutorials = moize(getTutorials, moizeOpts)
+
+async function getTutorials() {
+  console.log('getting TUTORIALS')
+  return [
+    {
+      slug: 'waypoint/getting-started-config',
+      default_collection: {
+        slug: 'waypoint/getting-started',
+      },
+    },
+    {
+      slug: 'waypoint/get-started-ui',
+      default_collection: {
+        slug: 'waypoint/getting-started',
+      },
+    },
+    {
+      slug: 'vault/consul-deploy',
+      default_collection: {
+        slug: 'vault/consul-integration',
+      },
+    },
+    {
+      slug: 'waypoint/get-started',
+      default_collection: {
+        slug: 'waypoint/get-started-docker',
+      },
+    },
+  ]
+}
 
 export async function generateTutorialMap() {
   let cachedData
@@ -26,32 +60,7 @@ export async function generateTutorialMap() {
     //   slugsOnly: true,
     // })
 
-    const allTutorials = [
-      {
-        slug: 'waypoint/getting-started-config',
-        default_collection: {
-          slug: 'waypoint/getting-started',
-        },
-      },
-      {
-        slug: 'waypoint/get-started-ui',
-        default_collection: {
-          slug: 'waypoint/getting-started',
-        },
-      },
-      {
-        slug: 'vault/consul-deploy',
-        default_collection: {
-          slug: 'vault/consul-integration',
-        },
-      },
-      {
-        slug: 'waypoint/get-started',
-        default_collection: {
-          slug: 'waypoint/get-started-docker',
-        },
-      },
-    ]
+    const allTutorials = await cachedGetTutorials()
     console.log(allTutorials.length, '-----------------------------')
 
     const mapItems = allTutorials.map((t) => {
