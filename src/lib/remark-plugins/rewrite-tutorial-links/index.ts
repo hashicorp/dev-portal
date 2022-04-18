@@ -30,34 +30,17 @@ import { visit } from 'unist-util-visit'
 //import moize, { Options } from 'moize'
 import { ProductOption } from 'lib/learn-client/types'
 import {
-  generateTutorialMap,
+  getTutorialMap,
   handleCollectionLink,
   handleTutorialLink,
 } from './utils'
 
 const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
 const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
-// @TODO, test efficacy of the memoization with ISR
-// const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
-// const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
-    let TUTORIAL_MAP = {}
-    // const TUTORIAL_MAP = await generateTutorialMap()
-    try {
-      const baseUrl = process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : 'http://localhost:3000'
-
-      const route = new URL('api/tutorial-map', baseUrl)
-      console.log(route.toString())
-      const tutorialMapRes = await fetch(route.toString())
-      console.log({ tutorialMapRes })
-      TUTORIAL_MAP = await tutorialMapRes.json()
-    } catch (e) {
-      console.error(e, 'from within plugin')
-    }
+    const TUTORIAL_MAP = await getTutorialMap()
 
     visit(tree, 'link', (node: Link) => {
       try {
