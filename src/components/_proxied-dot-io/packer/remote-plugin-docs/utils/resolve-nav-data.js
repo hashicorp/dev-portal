@@ -1,8 +1,6 @@
 import path from 'path'
-import grayMatter from 'gray-matter'
+import { resolvePluginDocs } from '@hashicorp/platform-packer-plugins'
 import fetchGithubFile from 'lib/fetch-github-file'
-import fetchPluginDocs from './fetch-plugin-docs'
-import fetchDevPluginDocs from './fetch-dev-plugin-docs'
 
 /**
  * Resolves nav-data from file with
@@ -45,9 +43,11 @@ export async function appendRemotePluginsNavData(
   const pluginEntries = JSON.parse(remotePluginsContent)
   // Add navData for each plugin's component.
   // Note that leaf nodes include a remoteFile property object with the full MDX fileString
-  const pluginEntriesWithDocs = await Promise.all(
-    pluginEntries.map(
-      async (entry) => await resolvePluginEntryDocs(entry, currentPath)
+  const pluginEntriesWithFiles = await resolvePluginDocs(pluginEntries)
+
+  const navDataFromPluginEntries = await Promise.all(
+    pluginEntriesWithFiles.map(
+      async (entry) => await transformPluginEntriesToNavData(entry, currentPath)
     )
   )
 
@@ -59,7 +59,7 @@ export async function appendRemotePluginsNavData(
   }
 
   return navData.concat(
-    pluginEntriesWithDocs.map((entry) => {
+    navDataFromPluginEntries.map((entry) => {
       return {
         title: entry.title,
         routes: Object.entries(entry.components).map(
@@ -88,77 +88,17 @@ export async function appendRemotePluginsNavData(
   )
 }
 
-// Fetch remote plugin docs .mdx files, and
-// transform each plugin's array of .mdx files into navData.
+// Transform each plugin's array of .mdx files into navData.
 // Organize this navData by component, add it to the plugin config entry,
 // and return the modified entry.
 //
 // Note that navData leaf nodes have a special remoteFile property,
 // which contains { filePath, fileString } data for the remote
 // plugin doc .mdx file
-async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
-  const {
-    title,
-    path: slug,
-    repo,
-    version,
-    pluginTier,
-    archived = false,
-    isHcpPackerReady = false,
-    sourceBranch = 'main',
-    zipFile = '',
-  } = pluginConfigEntry
-  // Determine the pluginTier, which can be set manually,
-  // or will be automatically set based on repo ownership
-  const pluginOwner = repo.split('/')[0]
-  const parsedPluginTier =
-    pluginTier || (pluginOwner === 'hashicorp' ? 'official' : 'community')
-  // Fetch the MDX files for the plugin entry
-  var docsMdxFiles
-  if (zipFile !== '') {
-    docsMdxFiles = await fetchDevPluginDocs(zipFile)
-  } else {
-    docsMdxFiles = await fetchPluginDocs({ repo, tag: version })
-  }
-  // We construct a special kind of "NavLeaf" node, with a remoteFile property,
-  // consisting of a { filePath, fileString, sourceUrl }, where:
-  // - filePath is the path to the source file in the source repo
-  // - fileString is a string representing the file source
-  // - sourceUrl is a link to the original file in the source repo
-  // We also add pluginData, which is used to add badges
-  // such as the plugin's tier when rendering the page.
-  const navNodes = docsMdxFiles.map((mdxFile) => {
-    const { filePath, fileString } = mdxFile
-    // Process into a NavLeaf, with a remoteFile attribute
-    const dirs = path.dirname(filePath).split('/')
-    const dirUrl = dirs.slice(2).join('/')
-    const basename = path.basename(filePath, path.extname(filePath))
-    // build urlPath
-    // note that this will be prefixed to get to our final path
-    const isIndexFile = basename === 'index'
-    const urlPath = isIndexFile ? dirUrl : path.join(dirUrl, basename)
-    // parse title, either from frontmatter or file name
-    const { data: frontmatter } = grayMatter(fileString)
-    const { nav_title, sidebar_title } = frontmatter
-    const title = nav_title || sidebar_title || basename
-    // construct sourceUrl (used for "Edit this page" link)
-    const sourceUrl = `https://github.com/${repo}/blob/${sourceBranch}/${filePath}`
-    // Construct and return a NavLeafRemote node
-    return {
-      title,
-      path: urlPath,
-      remoteFile: { filePath, fileString, sourceUrl },
-      pluginData: {
-        repo,
-        tier: parsedPluginTier,
-        isHcpPackerReady,
-        version,
-        archived,
-      },
-    }
-  })
-  //
-  navNodes.sort((a, b) => {
+async function transformPluginEntriesToNavData(pluginConfigEntry, currentPath) {
+  const { title, path: slug, files } = pluginConfigEntry
+
+  const sortedFiles = [...files].sort((a, b) => {
     // ensure casing does not affect ordering
     const aTitle = a.title.toLowerCase()
     const bTitle = b.title.toLowerCase()
@@ -171,7 +111,15 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
     }
     return aTitle < bTitle ? -1 : aTitle > bTitle ? 1 : 0
   })
-  //
+
+  const navNodes = sortedFiles.map(({ title, path, ...file }) => ({
+    title,
+    path,
+    remoteFile: { ...file },
+    pluginData: { ...pluginConfigEntry, files: [] },
+  }))
+
+  // Bucket each node by type
   const navNodesByComponent = navNodes.reduce((acc, navLeaf) => {
     const componentType = navLeaf.remoteFile.filePath.split('/')[1]
     if (!acc[componentType]) {
@@ -180,6 +128,7 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
     acc[componentType].push(navLeaf)
     return acc
   }, {})
+
   //
   const components = Object.keys(navNodesByComponent).map((type) => {
     // Plugins many not contain every component type,
@@ -223,7 +172,7 @@ async function resolvePluginEntryDocs(pluginConfigEntry, currentPath) {
     acc[component.type] = component.navData
     return acc
   }, {})
-  return { ...pluginConfigEntry, components: componentsObj }
+  return { ...pluginConfigEntry, files: [], components: componentsObj }
 }
 
 // For components with a single doc file, transform so that
