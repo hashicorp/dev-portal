@@ -42,6 +42,7 @@ const TEST_MD_LINKS = {
     '[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-kubernetes)',
   betaProductTutorialQueryParamWithAnchor:
     '[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-nomad#install-the-waypoint-server)',
+  betaProductDefintionLink: '[1]: /tutorials/waypoint/get-started-ui',
   errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
 }
 
@@ -57,16 +58,6 @@ const MOCK_TUTORIALS_MAP = {
 }
 
 // TESTS -----------------------------------------------------------------
-
-/**
- *  TODO 
-
- test for link reference
-
- handle docs links??
-
- test with more md content to ensure its only targeting links
- */
 
 describe('rewriteTutorialLinks remark plugin', () => {
   beforeEach(async () => {
@@ -179,5 +170,14 @@ describe('rewriteTutorialLinks remark plugin', () => {
         .use(rewriteTutorialLinksPlugin)
         .process(TEST_MD_LINKS.errorLink)
     expect(getContents).not.toThrowError()
+  })
+
+  test('Definition link is rewritten', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDefintionLink)
+
+    const path = String(contents).split(':')[1].trim()
+    expect(path).toMatch(devDotTutorialsPath)
   })
 })
