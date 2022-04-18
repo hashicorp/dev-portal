@@ -45,8 +45,9 @@ const TEST_MD_LINKS = {
   errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
 }
 
-// [key: database tutorial slug]: value: dev dot absolute path
-const MOCK_RESPONSE = {
+// [key: database tutorial slug]: value — dev dot absolute path
+// When adding new MD_LINK tests, make sure the path is accounted for below
+const MOCK_TUTORIALS_MAP = {
   'waypoint/getting-started-config':
     '/waypoint/tutorials/getting-started/getting-started-config',
   'waypoint/get-started-ui':
@@ -72,7 +73,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
     const scope = nock('http://localhost:3000/api/tutorials-map')
       .persist()
       .get(/.*/)
-      .reply(200, MOCK_RESPONSE)
+      .reply(200, MOCK_TUTORIALS_MAP)
   })
 
   test('Only internal Learn links are rewritten', async () => {
