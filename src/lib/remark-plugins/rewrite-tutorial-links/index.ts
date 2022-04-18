@@ -43,6 +43,7 @@ const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
+    let TUTORIAL_MAP = {}
     // const TUTORIAL_MAP = await generateTutorialMap()
     try {
       const baseUrl =
@@ -50,19 +51,9 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
       console.log({ baseUrl })
       const route = new URL('api/tutorial-map', baseUrl)
       const tutorialMapRes = await fetch(route.toString())
-      const data = await tutorialMapRes.json()
-      console.log(data, '+++++++++++++++++++++++++++')
+      TUTORIAL_MAP = await tutorialMapRes.json()
     } catch (e) {
       console.error(e, 'from within plugin')
-    }
-
-    const TUTORIAL_MAP = {
-      'packer/hcp-schedule-image-iterations-revocation':
-        '/packer/tutorials/hcp/hcp-schedule-image-iterations-revocation',
-      'waypoint/get-started-nomad':
-        '/waypoint/tutorials/get-started-nomad/get-started-nomad',
-      'waypoint/get-started-kubernetes':
-        '/waypoint/tutorials/get-started-kubernetes/get-started-kubernetes',
     }
 
     visit(tree, 'link', (node: Link) => {
