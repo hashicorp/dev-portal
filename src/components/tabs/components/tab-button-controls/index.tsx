@@ -1,4 +1,5 @@
 import { KeyboardEvent, useEffect, useRef } from 'react'
+import classNames from 'classnames'
 import { TabControlsProps, TabItem } from '../../types'
 import newIndexFromKeypress from '../../helpers/new-index-from-keypress'
 import s from './tab-button-controls.module.css'
@@ -52,7 +53,7 @@ function TabButtonControls({
         const { label, tabId, panelId, isActive } = tabItem
         return (
           <button
-            className={s.tabButton}
+            className={classNames(s.tabButton, 'g-focus-ring-from-box-shadow')}
             aria-controls={panelId}
             aria-selected={isActive}
             id={tabId}

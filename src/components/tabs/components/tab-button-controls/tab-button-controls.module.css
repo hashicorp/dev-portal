@@ -10,13 +10,8 @@ the correct elements, roles, states, and properties are being set in the markup.
 
 /*
 Styles for each tab button.
-
-Note: should have role="tab"! Ideally we'd enforce this with a CSS selector,
-so that styles break if this role is broken, but unfortunately we would
-then be unable to `compose` our g-focus-ring class.
 */
-.tabButton {
-  composes: g-focus-ring-from-box-shadow from global;
+.tabButton[role='tab'] {
   background-color: white;
   border: none;
   border-radius: 5px;
