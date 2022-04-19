@@ -6,6 +6,7 @@ import TutorialsSidebar, {
   HorizontalRule,
   SectionTitle,
 } from 'components/tutorials-sidebar'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import {
   getCollectionSlug,
   getTutorialSlug,
@@ -13,13 +14,12 @@ import {
 
 import { ProductTutorialsPageProps } from './server'
 
-export default function ProductTutorialsView({
+function ProductTutorialsView({
   layoutProps,
   data,
   product,
 }: ProductTutorialsPageProps): React.ReactElement {
   const { showProductSitemap, blocks, collections } = data.pageData
-  console.log({ blocks })
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
@@ -69,6 +69,9 @@ export default function ProductTutorialsView({
     </SidebarSidecarLayout>
   )
 }
+
+ProductTutorialsView.layout = CoreDevDotLayout
+export default ProductTutorialsView
 
 function AllProductCollections({ collections }): React.ReactElement {
   // @TODO render the tutorial links as well. this data is within the collection

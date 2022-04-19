@@ -5,9 +5,8 @@ import {
   ProductTutorialsPageProps,
 } from 'views/product-tutorials-view/server'
 import ProductTutorialsView from 'views/product-tutorials-view'
-import BaseLayout from 'layouts/base-new'
 
-export function VaultTutorialHubPage(
+export default function VaultTutorialHubPage(
   props: ProductTutorialsPageProps
 ): React.ReactElement {
   return <ProductTutorialsView {...props} />
@@ -22,6 +21,3 @@ export async function getStaticProps(): Promise<{
 
   return props
 }
-
-VaultTutorialHubPage.layout = BaseLayout
-export default VaultTutorialHubPage
