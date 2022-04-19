@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import Subnav from '@hashicorp/react-subnav'
-import productData from 'data/nomad'
 import { useRouter } from 'next/router'
 
 export default function NomadSubnav({ menuItems }) {
