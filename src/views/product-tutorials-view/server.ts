@@ -9,6 +9,10 @@ import getProductPageContent from './helpers/get-product-page-content'
 import { filterCollections, sortAlphabetically } from './helpers'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import { CollectionLayout } from 'views/collection-view/server'
+import {
+  InlineCollections,
+  InlineTutorials,
+} from './helpers/get-inline-content'
 
 // Some of the product data is coming from the API client on this view
 type ProductTutorialsPageProduct = ClientProduct &
@@ -22,8 +26,8 @@ export interface ProductTutorialsPageProps {
       showProductSitemap: boolean
       collections: ClientCollection[]
     }
-    inlineCollections: any // @TODO type
-    inlineTutorials: any // @TODO type
+    inlineCollections: InlineCollections
+    inlineTutorials: InlineTutorials
   }
   product: ProductTutorialsPageProduct
 }

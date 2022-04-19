@@ -19,6 +19,7 @@ export default function ProductTutorialsView({
   product,
 }: ProductTutorialsPageProps): React.ReactElement {
   const { showProductSitemap, blocks, collections } = data.pageData
+  console.log({ blocks })
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
@@ -53,6 +54,12 @@ export default function ProductTutorialsView({
       }
     >
       <h1 id={layoutProps.headings[0].slug}>{product.name} Tutorials</h1>
+      {blocks.map((b, i) => (
+        <>
+          <h3>Block type: {b.type}</h3>
+          <p key={`${b.type}-${i}`}>{b.heading}</p>
+        </>
+      ))}
       <h2 id={layoutProps.headings[layoutProps.headings.length - 1].slug}>
         All tutorials
       </h2>
