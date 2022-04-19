@@ -118,6 +118,14 @@ export type AllCollectionsProductOptions = {
   sidebarSort?: boolean
 }
 
+export interface ProductPage {
+  slug: string
+  pageData: {
+    blocks: any[] // @TODO update when we add in blocks
+    showProductSitemap?: boolean
+  }
+}
+
 /**
  * MISC ENUMS -------------------------------
  */
