@@ -1,15 +1,16 @@
 import { getCollections } from 'lib/learn-client/api/collection'
 import { getTutorials } from 'lib/learn-client/api/tutorial'
-import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
-import { getBadges } from './get-badges'
-import { formatProductsUsed } from './'
+import {
+  Tutorial as ClientTutorial,
+  Collection as ClientCollection,
+} from 'lib/learn-client/types'
 
 export interface InlineTutorials {
-  [slug: string]: any //@TODO type this!
+  [slug: string]: ClientTutorial[]
 }
 
 export interface InlineCollections {
-  [slug: string]: any //@TODO type this!
+  [slug: string]: ClientCollection[]
 }
 
 export async function getInlineTutorials(
@@ -20,26 +21,13 @@ export async function getInlineTutorials(
     false
   )) as ClientTutorial[]
 
-  const augmentedTutorials = tutorials.reduce((acc, tutorial) => {
-    const badges = getBadges(tutorial.productsUsed, tutorial.edition)
-    const productsUsed = tutorial.productsUsed
-      ? formatProductsUsed(tutorial.productsUsed)
-      : undefined
-
+  const formattedTutorials = tutorials.reduce((acc, tutorial) => {
     return Object.assign(acc, {
-      [tutorial.slug]: {
-        ...tutorial,
-        productsUsed,
-        badges,
-        defaultContext: tutorial.collectionCtx.default.slug,
-        videoId: tutorial.video?.id || undefined,
-        handsOnLabId: tutorial.handsOnLab?.id || undefined,
-        handsOnLabProvider: tutorial.handsOnLab?.provider || undefined,
-      },
+      [tutorial.slug]: tutorial,
     })
   }, {})
 
-  return augmentedTutorials
+  return formattedTutorials
 }
 
 export async function getInlineCollections(
@@ -48,19 +36,7 @@ export async function getInlineCollections(
   const collections = await getCollections(collectionSlugs)
   const formattedCollections = collections.reduce((acc, collection) => {
     return Object.assign(acc, {
-      [collection.slug]: {
-        ...collection,
-        tutorials: collection.tutorials.map((t) => {
-          if (!t.productsUsed) {
-            return t
-          }
-
-          return {
-            ...t,
-            productsUsed: formatProductsUsed(t.productsUsed),
-          }
-        }),
-      },
+      [collection.slug]: collection,
     })
   }, {})
 

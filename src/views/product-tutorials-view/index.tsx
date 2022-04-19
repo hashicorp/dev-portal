@@ -13,7 +13,11 @@ function ProductTutorialsView({
   data,
   product,
 }: ProductTutorialsPageProps): React.ReactElement {
-  const { showProductSitemap, blocks, collections } = data.pageData
+  const { showProductSitemap, blocks, allCollections } = data.pageData
+  const sidebarProduct = {
+    name: product.name,
+    slug: product.slug,
+  } as ProductCollectionsSidebarProps['product']
 
   return (
     <SidebarSidecarLayout
@@ -22,12 +26,7 @@ function ProductTutorialsView({
       sidebarSlot={
         <ProductCollectionsSidebar
           isOverview={true}
-          product={
-            {
-              name: product.name,
-              slug: product.slug,
-            } as ProductCollectionsSidebarProps['product']
-          }
+          product={sidebarProduct}
           sections={layoutProps.sidebarSections}
         />
       }
@@ -44,7 +43,7 @@ function ProductTutorialsView({
           <h2 id={layoutProps.headings[layoutProps.headings.length - 1].slug}>
             All tutorials
           </h2>
-          <ProductTutorialsSitemap collections={collections} />
+          <ProductTutorialsSitemap collections={allCollections} />
         </>
       ) : null}
     </SidebarSidecarLayout>

@@ -31,7 +31,7 @@ export interface ProductPageData {
   pageData: {
     blocks: any // @TODO type
     showProductSitemap: boolean
-    collections: ClientCollection[]
+    allCollections: ClientCollection[]
   }
   inlineCollections: InlineCollections
   inlineTutorials: InlineTutorials
@@ -84,7 +84,7 @@ export async function getProductTutorialsPageProps(
       data: {
         pageData: {
           ...pageData,
-          collections: filteredCollections.sort(sortAlphabetically('name')),
+          allCollections: filteredCollections.sort(sortAlphabetically('name')),
         },
         inlineCollections,
         inlineTutorials,

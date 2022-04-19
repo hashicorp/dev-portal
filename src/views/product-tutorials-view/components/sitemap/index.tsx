@@ -8,7 +8,7 @@ import { ProductPageData } from 'views/product-tutorials-view/server'
 export function ProductTutorialsSitemap({
   collections,
 }: {
-  collections: ProductPageData['pageData']['collections']
+  collections: ProductPageData['pageData']['allCollections']
 }): React.ReactElement {
   return (
     <ul>
