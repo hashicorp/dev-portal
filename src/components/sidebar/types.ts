@@ -2,7 +2,10 @@ import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 
 /**
  * Interfaces for each nav item in their raw form, before any enrichment or
- * filtering via the filter input
+ * filtering via the filter input. They are based off of some of the types
+ * defined in `mktg-content-workflows/shared/types.ts`.
+ *
+ * ref: https://github.com/hashicorp/mktg-content-workflows/blob/main/shared/types.ts
  */
 
 interface DividerNavItem {
