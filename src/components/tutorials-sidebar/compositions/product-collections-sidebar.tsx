@@ -43,6 +43,22 @@ export default function ProductCollectionsSidebar({
           </>
         )
       })}
+      <HorizontalRule />
+      <SectionTitle text="Resources" />
+      <SectionList
+        items={[
+          {
+            text: 'All Tutorials',
+            href: 'https://learn.hashicorp.com',
+          },
+          {
+            text: 'Community Forum',
+            href: 'https://discuss.hashicorp.com',
+          },
+          { text: 'Support', href: 'https://support.hashicorp.com' },
+          { text: 'GitHub', href: 'http://github.com/hashicorp' },
+        ]}
+      />
     </TutorialsSidebar>
   )
 }
