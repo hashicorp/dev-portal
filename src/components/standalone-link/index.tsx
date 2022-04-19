@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
 import MaybeInternalLink from 'components/maybe-internal-link'
-import Text from 'components/text'
 import { StandaloneLinkProps } from './types'
 import s from './standalone-link.module.css'
 
@@ -14,10 +13,10 @@ const StandaloneLink = ({
   icon,
   iconPosition,
   openInNewTab = false,
+  size = 'medium',
   text,
-  textSize,
 }: StandaloneLinkProps): ReactElement => {
-  const classes = classNames(s.root, s[`color-${color}`], className)
+  const classes = classNames(s.root, s[`color-${color}`], s[size], className)
 
   return (
     <MaybeInternalLink
@@ -29,9 +28,7 @@ const StandaloneLink = ({
       rel={openInNewTab ? 'noreferrer noopener' : undefined}
     >
       {iconPosition === 'leading' && icon}
-      <Text asElement="span" className={s.text} size={textSize} weight="medium">
-        {text}
-      </Text>
+      <span className={s.text}>{text}</span>
       {iconPosition === 'trailing' && icon}
     </MaybeInternalLink>
   )

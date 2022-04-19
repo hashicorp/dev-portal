@@ -24,7 +24,7 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
     includedDomains: productData.analyticsConfig.includedDomains,
   })
   const { themeClass } = useProductMeta(productData.name as Products)
-  const { useCaseNavItems } = data
+  const { useCaseNavItems = [] } = data ?? {}
 
   return (
     <>
@@ -61,8 +61,7 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
             },
             {
               text: 'Enterprise',
-              url:
-                'https://www.hashicorp.com/products/consul/?utm_source=oss&utm_medium=header-nav&utm_campaign=consul',
+              url: 'https://www.hashicorp.com/products/consul/?utm_source=oss&utm_medium=header-nav&utm_campaign=consul',
               type: 'outbound',
             },
             'divider',

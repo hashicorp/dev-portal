@@ -10,5 +10,10 @@ function SecurityPage(): React.ReactElement {
   )
 }
 
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
+}
+
 SecurityPage.layout = WaypointIoLayout
 export default SecurityPage

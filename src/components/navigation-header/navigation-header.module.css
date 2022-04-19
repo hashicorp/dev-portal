@@ -1,73 +1,79 @@
-.navigationHeader {
-  background-color: var(--token-color-palette-neutral-700);
-  color: var(--token-color-palette-neutral-0);
-  height: var(--navigation-header-height);
-  padding: 20px 24px;
+/*
+***
+* Class for the main container.
+***
+* Note: `min-height` is needed on the home page because the
+* `NavigationHeaderDropdownMenu` buttons that are intended to make the header
+* grow are only inside of the absolutely positioned `nav` element. On the
+* product pages, the main menu is a `NavigationHeaderDropdownMenu` button
+* located inside of an element that's not absolutely positioned.
+***
+*/
+.root {
+  --header-padding-left-right: 24px;
+  --header-dropdown-menu-padding-left-right: 12px;
 
-  & nav {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-  }
+  background-color: var(--token-color-palette-neutral-700);
+  display: flex;
+  justify-content: space-between;
+  padding-left: var(--header-padding-left-right);
+  padding-right: var(--header-padding-left-right);
+  position: relative;
+  width: 100%;
 }
 
-.headerLeft,
-.headerRight {
+.leftSide {
   align-items: center;
   display: flex;
+  justify-content: left;
 }
 
-.siteLogo {
+/*
+***
+* Note: these are all classes that get passed to `InlineSvg`. They need
+* `display: flex` set or there will be a small gap below the SVG, making them
+* off-center vertically.
+***
+*/
+.productLogo {
   display: flex;
-  margin-right: 12px;
 
   & svg {
     height: 40px;
-    width: 40px;
+    width: auto;
   }
 }
 
-.navLinks {
+.rightSide {
+  align-items: center;
+  display: flex;
+  justify-content: right;
+}
+
+/*
+***
+* Note: this fancy math is used for two reasons. First, to make sure the <nav>
+* items are always locatated in the same place in the header (when they're
+* visible). Second, which explains the precise values, to make sure the text of
+* the first <nav> item left-aligns with the text of the page content when there
+* is no extra space on the left or right side of it.
+***
+*/
+.contentBeforeNav {
+  align-items: center;
+  display: flex;
+  justify-content: left;
+  width: calc(
+    var(--dev-dot-sidebar-width) + 2 * var(--main-area-padding-left-right) -
+      var(--header-padding-left-right) -
+      var(--header-dropdown-menu-padding-left-right)
+  );
+}
+
+.navList {
   align-items: center;
   display: flex;
   list-style: none;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 72px;
-  margin-top: 0;
-}
-
-.navLinksListItem {
-  padding: 4px;
-}
-
-/* TODO: use `calc` and variables so it's clearer why we're using odd padding values */
-.navLinksAnchor {
-  composes: g-focus-border-and-box-shadow-dark from global;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  color: var(--token-color-palette-neutral-400);
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  padding: 3px 8px;
-
-  /* Only enable animation if query is supported and value is no-preference */
-  @media (prefers-reduced-motion: no-preference) {
-    transition: color 0.1s;
-  }
-
-  &:hover {
-    color: var(--token-color-palette-neutral-300);
-  }
-
-  /* TODO: replace colors w/ tokens when available */
-  &:focus {
-    color: var(--token-color-palette-neutral-300);
-  }
-
-  &[aria-current='page'] {
-    color: var(--token-color-palette-neutral-100);
-  }
+  margin: 0;
+  padding: 0;
 }

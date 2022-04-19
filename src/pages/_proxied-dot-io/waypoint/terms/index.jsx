@@ -31,7 +31,7 @@ function TermsOfUsePage() {
         to access the Services is revoked in such jurisdictions.
       </p>
       <p>
-        <strong>1. ACCESS TO THE SERVICES.</strong>
+        <strong>1. ACCESS TO THE SERVICES.</strong>
         The <a href="https://waypointproject.io">waypointproject.io</a> website
         and domain name and any other linked pages, features, content, or
         application services (the “Website”) and any related services (such as
@@ -45,7 +45,7 @@ function TermsOfUsePage() {
         acceptance of the terms and conditions of this Agreement as modified.
       </p>
       <p>
-        <strong>2. SERVICES CONTENT.</strong> The Services and the “Content”
+        <strong>2. SERVICES CONTENT.</strong> The Services and the “Content”
         (which includes, without limitation website URLs, applications or other
         information linked to by the website URLs, text, graphics, articles,
         photographs, images, and/or illustrations) may only be used in
@@ -55,7 +55,7 @@ function TermsOfUsePage() {
         Services.
       </p>
       <p>
-        <strong>3. RESTRICTIONS.</strong> You warrant and agree that you will
+        <strong>3. RESTRICTIONS.</strong> You warrant and agree that you will
         not contribute any Content or otherwise use the Services in a manner
         that (i) violates the intellectual property rights or proprietary
         rights, rights of publicity or privacy, or other rights of any third
@@ -76,7 +76,7 @@ function TermsOfUsePage() {
         otherwise disseminate using the Services.
       </p>
       <p>
-        <strong>4. WARRANTY DISCLAIMER.</strong>  THE SERVICES, CONTENT, WEBSITE
+        <strong>4. WARRANTY DISCLAIMER.</strong> THE SERVICES, CONTENT, WEBSITE
         AND ANY SOFTWARE ARE PROVIDED ON AN “AS IS” BASIS, WITHOUT WARRANTIES OF
         ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION,
         IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
@@ -85,9 +85,9 @@ function TermsOfUsePage() {
         WARRANTY LASTS, SO THE ABOVE LIMITATIONS MAY NOT APPLY TO YOU.
       </p>
       <p>
-        <strong>5. PRIVACY POLICY.</strong> For information regarding Company’s
+        <strong>5. PRIVACY POLICY.</strong> For information regarding Company’s
         treatment of personally identifiable information, please review
-        Company’s current Privacy Policy at 
+        Company’s current Privacy Policy at
         <a href="https://www.hashicorp.com/privacy">
           hashicorp.com/privacy
         </a>{' '}
@@ -97,7 +97,7 @@ function TermsOfUsePage() {
         a child under 13, please contact us at privacy@hashicorp.com
       </p>
       <p>
-        <strong>6. INDEMNITY.</strong> You will indemnify and hold Company, its
+        <strong>6. INDEMNITY.</strong> You will indemnify and hold Company, its
         parents, subsidiaries, affiliates, officers, and employees harmless
         (including, without limitation, from all damages, liabilities,
         settlements, costs and attorneys’ fees) from any claim or demand made by
@@ -107,7 +107,7 @@ function TermsOfUsePage() {
         person or entity.
       </p>
       <p>
-        <strong>7. LIMITATION OF LIABILITY.</strong> TO THE FULLEST EXTENT
+        <strong>7. LIMITATION OF LIABILITY.</strong> TO THE FULLEST EXTENT
         ALLOWED BY APPLICABLE LAW, IN NO EVENT SHALL COMPANY OR ITS SUPPLIERS,
         OR THEIR RESPECTIVE OFFICERS, DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE
         WITH RESPECT TO THE WEBSITE OR THE SERVICES UNDER ANY CONTRACT,
@@ -121,7 +121,7 @@ function TermsOfUsePage() {
         EXCLUSIONS MAY NOT APPLY TO YOU.
       </p>
       <p>
-        <strong>8. TERMINATION.</strong> This Agreement shall remain in full
+        <strong>8. TERMINATION.</strong> This Agreement shall remain in full
         force and effect while you use the Services. You may terminate your use
         of the Services at any time. Company may terminate or suspend your
         access to the Services or your membership at any time, for any reason,
@@ -132,7 +132,7 @@ function TermsOfUsePage() {
         provisions, warranty disclaimers, and limitations of liability.
       </p>
       <p>
-        <strong>9. MISCELLANEOUS.</strong> The failure of either party to
+        <strong>9. MISCELLANEOUS.</strong> The failure of either party to
         exercise any right provided for herein shall not be deemed a waiver of
         any further rights hereunder. Company shall not be liable for any
         failure to perform its obligations hereunder where such failure results
@@ -155,7 +155,7 @@ function TermsOfUsePage() {
         are no third-party beneficiaries intended under this Agreement.
       </p>
       <p>
-        <strong>10. GOVERNING LAW.</strong> This Agreement shall be governed by
+        <strong>10. GOVERNING LAW.</strong> This Agreement shall be governed by
         and construed in accordance with the laws of the State of California
         without regard to the conflict of laws provisions thereof. For all
         purposes of this Agreement, the parties consent to exclusive
@@ -163,11 +163,16 @@ function TermsOfUsePage() {
         the Northern District of California.
       </p>
       <p>
-        <strong>11. COPYRIGHT DISPUTE POLICY.</strong> Please refer to the 
+        <strong>11. COPYRIGHT DISPUTE POLICY.</strong> Please refer to the
         <a href="/copyright-policy">Copyright Policy.</a>
       </p>
     </LongformPage>
   )
+}
+
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
 }
 
 TermsOfUsePage.layout = WaypointIoLayout

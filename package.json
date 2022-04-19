@@ -2,10 +2,11 @@
   "name": "dev-portal",
   "private": "true",
   "scripts": {
-    "build:deploy-preview": "npx --package @hashicorp/platform-tools@0.2.0 hc-tools ./scripts/content-repo-preview/build.ts",
+    "build:deploy-preview": "npx --package @hashicorp/platform-tools@0.5.0 hc-tools --resolve-paths false ./scripts/content-repo-preview/build.ts",
     "build:webpack-only": "hc-tools next-build-webpack-only",
     "build": "next build",
     "lint": "next-hashicorp lint",
+    "prepare": "simple-git-hooks",
     "postbuild": "hc-tools ./scripts/capture-build-metrics.ts dev-portal",
     "start:boundary": "cross-env DEV_IO=boundary npm run start",
     "start:consul": "cross-env DEV_IO=consul npm run start",
@@ -24,7 +25,7 @@
     "typecheck": "tsc -p ."
   },
   "simple-git-hooks": {
-    "pre-commit": "npx next-hashicorp precommit"
+    "pre-commit": "npx next-hashicorp precommit && npm run typecheck"
   },
   "lint-staged": {
     "*.+(js|jsx|ts|tsx)": [
@@ -39,10 +40,11 @@
   "devDependencies": {
     "@axe-core/react": "^4.3.1",
     "@datadog/datadog-api-client": "^1.0.0-beta.7",
-    "@hashicorp/platform-cli": "^2.0.0",
+    "@hashicorp/platform-cli": "^2.1.0",
+    "@hashicorp/platform-configs": "^0.1.0",
     "@hashicorp/platform-nextjs-plugin": "^2.0.1",
     "@hashicorp/platform-postcss-config": "^0.1.0",
-    "@hashicorp/platform-tools": "^0.2.0",
+    "@hashicorp/platform-tools": "^0.5.0",
     "@hashicorp/platform-types": "^0.1.1",
     "@playwright/test": "^1.20.0",
     "@testing-library/jest-dom": "^5.16.1",
@@ -69,16 +71,17 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@hashicorp/design-system-tokens": "^0.7.0",
+    "@hashicorp/design-system-tokens": "^0.8.0",
     "@hashicorp/flight-icons": "^2.1.0",
     "@hashicorp/localstorage-polyfill": "^1.0.14",
     "@hashicorp/mktg-global-styles": "^4.0.0",
-    "@hashicorp/mktg-logos": "^1.2.0",
+    "@hashicorp/mktg-logos": "^1.3.1",
     "@hashicorp/platform-analytics": "^0.3.0",
     "@hashicorp/platform-cms": "^0.3.0",
     "@hashicorp/platform-code-highlighting": "^0.1.2",
     "@hashicorp/platform-docs-mdx": "^0.1.3",
     "@hashicorp/platform-markdown-utils": "^0.2.0",
+    "@hashicorp/platform-packer-plugins": "^0.2.0",
     "@hashicorp/platform-product-meta": "^0.1.0",
     "@hashicorp/platform-runtime-error-monitoring": "^0.1.0",
     "@hashicorp/react-alert-banner": "^7.0.1",
@@ -89,6 +92,7 @@
     "@hashicorp/react-command-line-terminal": "^2.0.4",
     "@hashicorp/react-consent-manager": "^7.2.0",
     "@hashicorp/react-docs-page": "^14.16.0",
+    "@hashicorp/react-enterprise-alert": "^6.0.1",
     "@hashicorp/react-error-view": "^0.0.1",
     "@hashicorp/react-featured-slider": "^5.0.1",
     "@hashicorp/react-hashi-stack-menu": "^2.1.2",
@@ -105,6 +109,7 @@
     "@hashicorp/react-section-header": "^5.0.4",
     "@hashicorp/react-sentinel-embedded": "^1.0.4",
     "@hashicorp/react-subnav": "^9.3.3",
+    "@hashicorp/react-tabs": "^7.1.2",
     "@hashicorp/react-text-input": "^5.0.1",
     "@hashicorp/react-text-split-with-image": "^4.3.0",
     "@hashicorp/react-text-split-with-logo-grid": "^5.1.5",
@@ -150,6 +155,10 @@
     "unist-util-is": "^5.1.1",
     "unist-util-visit": "^4.1.0",
     "validator": "^13.7.0"
+  },
+  "overrides": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "nextBundleAnalysis": {
     "budget": null,

@@ -1,101 +1,40 @@
-.card {
-  border: 1px solid magenta; /** @TODO style these to spec, remove any prev imp styles necessary - https://www.figma.com/file/VD7ahvXuXWJApeGnhbW4hv/Dev-Portal?node-id=6298%3A73041 */
-  position: relative;
-  display: block;
-  background: var(--white);
-  border-radius: 5px;
-  margin: 0;
-  padding: 20px;
-}
-
-/* visually hidden */
-.hidden {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
 .linkbox {
-  composes: card;
+  color: var(--token-color-foreground-primary);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  width: 100%;
-  background-color: var(--white);
-  color: var(--black);
-  box-shadow: var(--token-surface-mid-box-shadow);
-  transition: box-shadow 0.3s;
+  text-align: center;
+  justify-content: center;
+  height: 100%;
 
-  &[data-direction='previous'] {
-    text-align: left;
-    justify-content: flex-start;
-    &:hover {
-      box-shadow: var(--token-surface-high-box-shadow);
-    }
-  }
-
-  &[data-direction='next'],
-  &[data-direction='final'] {
-    text-align: right;
-    justify-content: flex-end;
-
-    &:hover {
-      box-shadow: var(--token-surface-high-box-shadow);
-    }
-  }
-
-  @media (--small) {
-    &[data-direction='previous'] {
-      justify-content: center;
+  @media (--dev-dot-tablet-up) {
+    &.direction-previous {
+      text-align: left;
+      justify-content: flex-start;
     }
 
-    &[data-direction='next'],
-    &[data-direction='final'] {
-      justify-content: center;
+    &.direction-next,
+    &.direction-final {
+      text-align: right;
+      justify-content: flex-end;
     }
   }
 }
 
 .icon {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  color: var(--black);
+  display: block;
 
-  & > div {
-    display: flex;
+  &.direction-previous {
+    margin-right: 8px;
   }
 
-  &[data-direction='previous'] {
-    order: 0;
-    margin-right: 12px;
-  }
-
-  &[data-direction='next'],
-  &[data-direction='final'] {
+  &.direction-next,
+  &.direction-final {
     order: 1;
-    margin-left: 12px;
-  }
-
-  @media (--small) {
-    &[data-direction='previous'] {
-      margin-right: 0;
-    }
-
-    &[data-direction='next'],
-    &[data-direction='final'] {
-      margin-left: 0;
-    }
+    margin-left: 8px;
   }
 }
 
 .text {
-  text-decoration: none;
-
-  @media (--small) {
-    display: none;
-  }
+  color: var(--token-color-foreground-primary);
 }

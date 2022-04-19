@@ -14,18 +14,15 @@ function DownloadsPage({ product, releases, latestVersion }) {
       getStartedLinks={[
         {
           label: 'Quick Start',
-          href:
-            'https://learn.hashicorp.com/tutorials/vagrant/getting-started-index',
+          href: 'https://learn.hashicorp.com/tutorials/vagrant/getting-started-index',
         },
         {
           label: 'Install and Specify a Box',
-          href:
-            'https://learn.hashicorp.com/tutorials/vagrant/getting-started-boxes',
+          href: 'https://learn.hashicorp.com/tutorials/vagrant/getting-started-boxes',
         },
         {
           label: 'Configure the Network',
-          href:
-            'https://learn.hashicorp.com/tutorials/vagrant/getting-started-networking',
+          href: 'https://learn.hashicorp.com/tutorials/vagrant/getting-started-networking',
         },
         {
           label: 'View all Vagrant tutorials',

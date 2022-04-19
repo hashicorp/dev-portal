@@ -68,7 +68,7 @@ export async function getAllCollections(
   let collections = []
 
   // check if the product option is valid, i.e. not 'cloud' or 'hashicorp'
-  if (options?.product && themeIsProduct(options.product)) {
+  if (options?.product && themeIsProduct(options.product.slug)) {
     const allCollections = await fetchAllCollectionsByProduct(options.product)
 
     collections = [...allCollections]

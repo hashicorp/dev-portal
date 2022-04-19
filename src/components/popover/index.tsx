@@ -1,4 +1,4 @@
-import React, { useRef, MutableRefObject } from 'react'
+import { CSSProperties, useRef } from 'react'
 import classNames from 'classnames'
 import Portal from '@reach/portal'
 import ReachPopover from '@reach/popover'
@@ -8,44 +8,25 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import svgX from '@hashicorp/flight-icons/svg/x-24.svg?include'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import { DialogArrowProps, PopoverProps } from './types'
 import s from './popover.module.css'
-
-interface PopoverProps {
-  /** Elements to render in the content area of the popover. */
-  children: React.ReactNode
-  /** Function to set the shown state of the popover. Necessary for close functionality. */
-  setIsShown: React.Dispatch<React.SetStateAction<boolean>>
-  /** Whether to show the popover or not. */
-  shown: boolean
-  /** Ref that points to the element that triggered the dialog. */
-  triggerRef: MutableRefObject<HTMLElement>
-  /**  */
-  arrowSize?: number
-  /** Option to hide the arrow pointing to the popover's trigger.  */
-  hideArrow?: boolean
-  /** Minimum distance in pixels that the popover should be from the viewport edge.  */
-  collisionBuffer?: number
-  /** Color scheme appearance of the component. Works best in contexts with a matching theme. */
-  theme?: 'light' | 'dark'
-  /** Optional CSS property override for the component's background color. */
-  themeBackground?: string
-}
 
 function Popover({
   arrowSize = 10,
-  hideArrow,
   children,
   collisionBuffer = 8,
+  hideArrow,
+  setIsShown,
+  shown,
   theme = 'light',
   themeBackground,
   triggerRef,
-  shown,
-  setIsShown,
-}: PopoverProps): React.ReactElement {
+}: PopoverProps) {
   const triggerRect = useRect(triggerRef, { observe: true })
   const popoverRef = useRef()
-  useOnClickOutside([triggerRef, popoverRef], () => setIsShown(false))
-  useOnFocusOutside(popoverRef, () => setIsShown(false))
+
+  useOnClickOutside([triggerRef, popoverRef], () => setIsShown(false), shown)
+  useOnFocusOutside([popoverRef], () => setIsShown(false), shown)
 
   const themeClass = s[`theme-${theme}`]
   const themeProps = {}
@@ -68,12 +49,12 @@ function Popover({
               {
                 '--collision-buffer': collisionBuffer + 'px',
                 ...themeProps,
-              } as React.CSSProperties
+              } as CSSProperties
             }
           >
             <button
               className={classNames(s.dialogClose, themeClass)}
-              style={themeProps as React.CSSProperties}
+              style={themeProps as CSSProperties}
               onClick={() => setIsShown(false)}
             >
               <VisuallyHidden>Close</VisuallyHidden>
@@ -83,12 +64,12 @@ function Popover({
           </ReachPopover>
           {!hideArrow && (
             <DialogArrow
-              shown={true}
-              triggerRect={triggerRect}
-              collisionBuffer={collisionBuffer}
               arrowSize={arrowSize}
+              collisionBuffer={collisionBuffer}
+              shown={true}
               themeClass={themeClass}
               themeProps={themeProps}
+              triggerRect={triggerRect}
             />
           )}
         </>
@@ -140,20 +121,7 @@ function DialogArrow({
   arrowSize,
   themeClass,
   themeProps,
-}: {
-  /** Whether the arrow should be shown */
-  shown: boolean
-  /** DOMRect of the target element, for positioning the arrow */
-  triggerRect: DOMRect
-  /** Minimum distance in pixels that the arrow should be from the viewport edge  */
-  collisionBuffer: number
-  /** Size in pixels of the arrow */
-  arrowSize: number
-  /** Arrow coloration  */
-  themeClass: string
-  /** An object of style properties */
-  themeProps: $TSFixMe
-}): React.ReactElement {
+}: DialogArrowProps) {
   if (!shown) {
     return null
   }
@@ -179,11 +147,12 @@ function DialogArrow({
             '--top': arrowTop,
             '--arrow-size': arrowSize + 'px',
             ...themeProps,
-          } as React.CSSProperties
+          } as CSSProperties
         }
       />
     </Portal>
   )
 }
 
+export type { PopoverProps }
 export default Popover

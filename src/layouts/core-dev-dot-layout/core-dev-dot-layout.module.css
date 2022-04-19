@@ -1,16 +1,25 @@
 .root {
+  /* Widths/spacing needed in multiple stylesheets */
+  --dev-dot-sidebar-width: 320px;
+  --main-area-padding-left-right: 24px;
+
   /* Mobile and tablet breakpoints */
   --mobile-width-breakpoint: 728px;
   --tablet-width-breakpoint: 1000px;
 
   /* Font overwrites */
-  --font-body: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
-    helvetica, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-  --font-display: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI',
-    roboto, helvetica, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol';
-  --font-monospace: ui-monospace, menlo, consolas, ubuntu mono, monospace;
+  --font-body: var(--token-typography-font-stack-text);
+  --font-display: var(--token-typography-font-stack-display);
+  --font-monospace: var(--token-typography-font-stack-code);
+
+  /* Custom tokens that aren't in the design system, but may be in the future */
+  --custom-token-color-focus-action-internal-dark: var(
+    --token-color-foreground-action-hover
+  );
+  --custom-token-color-focus-action-external-light: #5fbcff;
+  --custom-token-focus-ring-action-box-shadow-dark: 0 0 0 1px
+      var(--custom-token-color-focus-action-internal-dark),
+    0 0 0 3px var(--custom-token-color-focus-action-external-light);
 
   /* Custom properties are calculated before they're inherited, so the
   font-family: var(--font-body) we set on our `body` element needs to be

@@ -1,0 +1,70 @@
+---
+componentName: AccordionDisclosure
+peerComponents:
+  - Card
+---
+
+The `AccordionDisclosure` is a component used for showing or hiding sections of page content. This component should not be used for menus or page navigation components.
+
+> 🚨 If you need to render multiple `AccordionDisclosure`s in a group, use the `Accordion` component (COMING SOON).
+
+## Props
+
+| Prop name     | Description                                                                                                                                                                                                              | Required? | Default value | Type      |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ------------- | --------- |
+| `children`    | The content to render within the `AccordionDisclosure` container.                                                                                                                                                        | Yes       | N/A           | ReactNode |
+| `description` | Secondary label text that renders below the main `title` with less emphasis. Always shows regardless of the `AccordionDisclosure`'s open/closed state.                                                                   | No        | undefined     | string    |
+| `id`          | The `id` passed to the root container. Used to generate an `id` for the content container which is also passed to `aria-controls` on the `AccordionDisclosure` activator button.                                         | Yes       | undefined     | string    |
+| `open`        | Optional prop that that enables a `AccordionDisclosure` to be open on render.                                                                                                                                            | No        | false         | boolean   |
+| `title`       | The main text label that always shows regardless of the `AccordionDisclosure`'s open/closed state. These should be descriptive of the disclosed content; labels like "Section 1" or "Section 2" is not very descriptive. | Yes       | N/A           | string    |
+
+## Examples
+
+### AccordionDisclosure with just a title
+
+<LiveComponent>{`
+<AccordionDisclosure
+  id="example-title"
+  title="AccordionDisclosure with text content and a description"
+>
+  Content that might include a <a href="/">text link</a>.
+</AccordionDisclosure>
+`}</LiveComponent>
+
+### AccordionDisclosure with a description
+
+<LiveComponent>{`
+<AccordionDisclosure
+  id="example-description"
+  title="AccordionDisclosure with text content and a description"
+  description="All officially supported HashiCorp release channels and their security guarantees."
+>
+  Content that might include a <a href="/">text link</a>.
+</AccordionDisclosure>
+`}</LiveComponent>
+
+### AccordionDisclosure that is open by default
+
+<LiveComponent>{`
+<AccordionDisclosure
+  id="example-open"
+  title="AccordionDisclosure with text content and a description"
+  description="All officially supported HashiCorp release channels and their security guarantees."
+  open
+>
+  Content that might include a <a href="/">text link</a>.
+</AccordionDisclosure>
+`}</LiveComponent>
+
+### AccordionDisclosure with a base elevation Card inside of it
+
+<LiveComponent>{`
+<AccordionDisclosure
+  id="example-card"
+  title="AccordionDisclosure with text content and a description"
+  description="All officially supported HashiCorp release channels and their security guarantees."
+  open
+>
+  <Card elevation="base">Content that might include a <a href="/">text link</a>.</Card>
+</AccordionDisclosure>
+`}</LiveComponent>

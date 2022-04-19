@@ -31,10 +31,13 @@ for further details.
   100vh minus the combined height of the sticky nav bars. */
   max-height: calc(100vh - var(--sticky-bars-height));
   overflow-y: auto;
-  padding: 24px;
+  padding-bottom: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 32px;
   position: sticky;
   top: var(--sticky-bars-height);
-  width: 320px;
+  width: var(--dev-dot-sidebar-width);
 
   /* z-index is necessary here to prevent any absolutely
   positioned elements in the main area, namely the footer's
@@ -49,8 +52,8 @@ for further details.
   justify-content: center;
   padding-bottom: 32px;
   padding-top: var(--main-area-top-padding);
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: var(--main-area-padding-left-right);
+  padding-right: var(--main-area-padding-left-right);
 }
 
 .main {
@@ -58,8 +61,8 @@ for further details.
   flex-grow: 1;
   min-width: 0;
   max-width: 804px;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: var(--main-area-padding-left-right);
+  padding-right: var(--main-area-padding-left-right);
 }
 
 .editOnGithubLink {

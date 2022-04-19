@@ -13,7 +13,9 @@ function HeaderSearchInput({
 }: HeaderSearchInputProps): React.ReactElement {
   return (
     <DevPopover
-      title="Work in progress"
+      buttonClassName="g-focus-ring-from-box-shadow-dark"
+      containerClassName={s.popoverContainer}
+      title="Single Product searching is currently a work in progress"
       note={
         <>
           For initial launch, search will be scoped by product. Search

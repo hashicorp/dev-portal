@@ -83,6 +83,7 @@ type ProductSlug =
   | 'boundary'
   | 'consul'
   | 'nomad'
+  | 'packer'
   | 'sentinel'
   | 'terraform'
   | 'vagrant'

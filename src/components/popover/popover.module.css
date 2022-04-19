@@ -19,6 +19,7 @@ usual since .dialogArrow is rendered into a Portal. */
   /* top & left positioning is done in JS,
     via @reach/popovers built-in `position` prop */
   position: fixed;
+  z-index: 1;
 
   /* --collision-buffer is set in JS, as it is
   used for dynamic positioning calculations */
@@ -37,6 +38,7 @@ usual since .dialogArrow is rendered into a Portal. */
 
 .dialogArrow {
   position: fixed;
+  z-index: 2;
 
   /* --top, --left, and --arrow-size
    are set in JS, to allow for dynamic,

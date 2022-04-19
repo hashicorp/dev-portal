@@ -12,9 +12,12 @@ export default function ImageConfig({
   children,
   caption,
   hideBorder = false,
+  width,
+  height,
+  inline,
 }: ImageConfigProps): ReactElement {
   //  emit a warning if no meaningful props are present
-  if (!hideBorder && !caption) {
+  if (!hideBorder && !caption && !width && !height && !inline) {
     console.warn(
       `Warning: <ImageConfig /> was initialized with default props. Please remove <ImageConfig /> if configuration is not needed.`
     )
@@ -45,12 +48,30 @@ export default function ImageConfig({
     // Note that we ignore the hideBorder prop in this case.
     return (
       <figure className={s.figure}>
-        <Image src={src} alt={alt} title={title} noMargin />
+        <Image
+          src={src}
+          alt={alt}
+          title={title}
+          noMargin
+          width={width}
+          height={height}
+          inline={inline}
+        />
         <figcaption className={s.caption}>{caption}</figcaption>
       </figure>
     )
   } else {
     // Otherwise render a plain image tag
-    return <Image src={src} alt={alt} title={title} noBorder={hideBorder} />
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        title={title}
+        noBorder={hideBorder}
+        width={width}
+        height={height}
+        inline={inline}
+      />
+    )
   }
 }

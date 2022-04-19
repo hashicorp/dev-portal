@@ -5,15 +5,12 @@
 .button {
   background: none;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   display: block;
-  height: 100%;
-  left: 0;
   margin: 0;
   padding: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
+  width: fit-content;
 }
 
 .label {

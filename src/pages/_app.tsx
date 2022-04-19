@@ -5,9 +5,14 @@ import '@hashicorp/platform-util/nprogress/style.css'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
-import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
+import {
+  AllProductDataProvider,
+  CurrentProductProvider,
+  DeviceSizeProvider,
+} from 'contexts'
 import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
+import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
@@ -44,14 +49,16 @@ export default function App({ Component, pageProps, layoutProps }) {
     <SSRProvider>
       <ErrorBoundary FallbackComponent={Error}>
         <DeviceSizeProvider>
-          <CurrentProductProvider currentProduct={currentProduct}>
-            <CodeTabsProvider>
-              <Layout {...allLayoutProps} data={allLayoutProps}>
-                <Component {...pageProps} />
-              </Layout>
-              {showProductSwitcher ? <PreviewProductSwitcher /> : null}
-            </CodeTabsProvider>
-          </CurrentProductProvider>
+          <AllProductDataProvider>
+            <CurrentProductProvider currentProduct={currentProduct}>
+              <CodeTabsProvider>
+                <Layout {...allLayoutProps} data={allLayoutProps}>
+                  <Component {...pageProps} />
+                </Layout>
+                {showProductSwitcher ? <PreviewProductSwitcher /> : null}
+              </CodeTabsProvider>
+            </CurrentProductProvider>
+          </AllProductDataProvider>
         </DeviceSizeProvider>
       </ErrorBoundary>
     </SSRProvider>
@@ -59,21 +66,16 @@ export default function App({ Component, pageProps, layoutProps }) {
 }
 
 App.getInitialProps = async ({ Component, ctx }) => {
-  const layoutQuery = Component.layout
-    ? Component.layout?.rivetParams ?? null
-    : null
-
-  const { default: rivetQuery, proxiedRivetClient } = await import('lib/cms')
-  let query = rivetQuery
+  // Determine the product being served through our rewrites so we can fetch the correct layout data
+  let proxiedProduct
   if (ctx.pathname.includes('_proxied-dot-io/vault')) {
-    query = proxiedRivetClient('vault')
+    proxiedProduct = 'vault'
   } else if (ctx.pathname.includes('_proxied-dot-io/consul')) {
-    query = proxiedRivetClient('consul')
+    proxiedProduct = 'consul'
   } else if (ctx.pathname.includes('_proxied-dot-io/nomad')) {
-    query = proxiedRivetClient('nomad')
+    proxiedProduct = 'nomad'
   }
-
-  const layoutProps = layoutQuery ? await query(layoutQuery) : null
+  const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
 
   let pageProps = {}
 

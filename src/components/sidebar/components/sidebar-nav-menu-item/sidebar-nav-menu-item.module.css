@@ -1,0 +1,69 @@
+.sidebarNavMenuItem {
+  composes: g-focus-ring-from-box-shadow from global;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  color: var(--token-color-palette-neutral-500);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+  padding: 8px;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  z-index: 0;
+
+  &:focus,
+  &:hover,
+  &[aria-current='page'],
+  &[aria-expanded='true'] {
+    color: var(--token-color-palette-neutral-700);
+  }
+
+  /* AKA active */
+  &[aria-current='page'] {
+    background-color: var(--token-color-palette-neutral-200);
+  }
+
+  /* AKA open */
+  &[aria-expanded='true'] {
+    margin-bottom: 0;
+
+    & svg {
+      transform: rotate(90deg);
+    }
+  }
+
+  /* AKA active and open */
+  &[aria-expanded='true'],
+  &[aria-current='page'] {
+    & .navMenuItemLabel {
+      font-weight: var(--token-typography-font-weight-medium);
+    }
+  }
+
+  &:focus {
+    z-index: 1;
+  }
+
+  /*
+  Hover styles take precedence over focus & active styles, so hover styles
+  should be defined after them.
+  */
+  &:hover {
+    background-color: var(--token-color-palette-neutral-100);
+  }
+}
+
+.navMenuItemLabel {
+  margin-right: 8px;
+  width: 100%;
+}
+
+.heading {
+  color: var(--token-color-foreground-faint);
+  margin-bottom: 16px;
+  margin-top: 24px;
+  padding: 0 8px;
+}

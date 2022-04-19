@@ -1,0 +1,38 @@
+.root {
+  --padding: 24px;
+  --min-height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--padding);
+  min-height: var(--min-height);
+  border-radius: 6px;
+  background-color: black;
+  color: white;
+  box-shadow: var(--token-surface-mid-box-shadow);
+  background-image: url('/img/homepage/vault-slot-accent.svg');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+
+  @media (--dev-dot-tablet-up) {
+    --padding: 48px;
+    --min-height: 300px;
+  }
+}
+
+.description {
+  margin-top: 12px;
+  font-size: 24px;
+  color: var(--token-color-surface-faint);
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  margin-bottom: 0;
+  font-size: 15px;
+  opacity: 0.7;
+}

@@ -41,11 +41,11 @@
   },
   "alertBannerActive": true,
   "alertBanner": {
-    "tag": "Blog post",
-    "url": "https://www.hashicorp.com/blog/a-new-chapter-for-hashicorp",
-    "text": "HashiCorp shares have begun trading on the Nasdaq. Read the blog from our founders, Mitchell Hashimoto and Armon Dadgar.",
-    "linkText": "Read the post",
-    "expirationDate": "2021-12-17T23:00:00-07:00"
+    "tag": "New",
+    "url": "https://www.hashicorp.com/blog/login-mfa-support-added-to-vault-open-source-and-hcp-vault",
+    "text": "Vault OSS Now Includes Multi-factor Authentication!",
+    "linkText": "Learn more",
+    "expirationDate": "2022-05-31T23:00:00-07:00"
   },
   "subnavItems": [
     {
@@ -177,26 +177,18 @@
       }
     ]
   },
-  "navigationHeaderItems": [
-    {
-      "label": "Overview",
-      "path": "/vault",
-      "id": "overview"
-    },
-    {
-      "label": "Docs",
-      "id": "reference-docs",
-      "path": "/vault/docs"
-    },
-    {
-      "label": "API",
-      "path": "/vault/api-docs",
-      "id": "api-docs"
-    },
-    {
-      "label": "Install",
-      "path": "/vault/downloads",
-      "id": "downloads"
-    }
-  ]
+  "navigationHeaderItems": {
+    "documentation": [
+      {
+        "label": "General Documentation",
+        "icon": "docs",
+        "pathSuffix": "docs"
+      },
+      {
+        "label": "API",
+        "icon": "tools",
+        "pathSuffix": "api-docs"
+      }
+    ]
+  }
 }

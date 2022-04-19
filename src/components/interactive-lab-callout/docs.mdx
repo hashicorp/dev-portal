@@ -1,0 +1,33 @@
+---
+componentName: InteractiveLabCallout
+---
+
+# Interactive Lab Callout
+
+This component showcases a callout to draw attention to the interactive lab feature. It is a non-configurable component that is defined inline along content. This means that this component accepts no props or customization options whatsoever. It offers a button that when clicked, will open the interactive lab tab. If this component is defined inline on a tutorial that does not have an interactive lab, it will not render.
+
+## Playground
+
+<LiveComponent>{`
+<InstruqtProvider labId="hashicorp-learn/tracks/read-secrets-from-vault-using-vault-agent?token=em_CzIllfgt8ushWfcm">
+    <InteractiveLabCallout />
+</InstruqtProvider>
+`}</LiveComponent>
+
+## Usage
+
+Below is an example of how to use this component within _mdx_ content. This component does not accept props and cannot be customized.
+
+```md
+## This is the first heading within the mdx content body
+
+Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+<InteractiveLabCallout />
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+```
+
+## Guidelines
+
+Please place this component early on in the tutorial, directly following introductory content. Use discretion in where you think this component will best suit the flow of the content. Please avoid placing the callout alongside other visually complex components such as an `info` or `alert` blurb. This helps with visual balance and to draw attention without overwhelming the reader.

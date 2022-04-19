@@ -1,0 +1,113 @@
+.root {
+  background-color: white;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.root-expanded {
+  composes: hds-surface-mid from global;
+}
+
+.button {
+  composes: hds-surface-mid from global;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  isolation: isolate;
+  padding: 16px;
+  position: relative;
+  text-align: left;
+  width: 100%;
+
+  & svg {
+    color: var(--token-color-foreground-faint);
+
+    /* Only enable animation if query is supported and value is no-preference */
+    @media (prefers-reduced-motion: no-preference) {
+      transition: transform 0.2s;
+    }
+  }
+
+  /* aka AccordionDisclosure is open */
+  &[aria-expanded='true'] {
+    box-shadow: none;
+
+    & svg {
+      transform: rotate(90deg);
+    }
+  }
+
+  /* aka AccordionDisclosure is closed */
+  &[aria-expanded='false'] {
+    &:hover {
+      box-shadow: var(--token-surface-high-box-shadow);
+      cursor: pointer;
+    }
+  }
+
+  /*
+  TODO: not composing focus styles here because they use a border. Long term
+  goal is to refactor those to use a box-shadow only like in this situation.
+  */
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::before {
+    border-radius: 6px;
+    bottom: 0;
+    box-shadow: var(--token-focus-ring-action-box-shadow);
+    content: '';
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+
+  /* Only enable animation if query is supported and value is no-preference */
+  @media (prefers-reduced-motion: no-preference) {
+    transition: box-shadow 0.2s;
+  }
+}
+
+/*
+Notes:
+  - Setting only the default state of the .content container prevents us from
+    accidentally setting the open state of the container to something incorrect
+    that can potentially break the semantics of the element
+  - Using the aria-expanded attribute selector ensures we're correctly setting
+    the value in the component's JS
+  - Using the next-sibling combinator (`+`) ensures that the .content container
+    is the sibling element immediately after the button
+
+ref: https://adrianroselli.com/2020/05/disclosure-widgets.html#CSS
+*/
+.button[aria-expanded='false'] + .content {
+  display: none;
+}
+
+.labelContainer {
+  margin-right: 16px;
+  width: 100%;
+}
+
+.title {
+  color: var(--token-color-foreground-strong);
+  display: block;
+}
+
+.description {
+  color: var(--token-color-foreground-faint);
+  display: block;
+  margin-top: 4px;
+}
+
+.content {
+  padding: 16px;
+  padding-top: 0;
+}

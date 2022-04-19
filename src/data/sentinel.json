@@ -15,7 +15,20 @@
     "image": "/sentinel/img/og-image.png",
     "icon": [
       {
-        "href": "/sentinel/_favicon.ico"
+        "href": "/sentinel/favicon.svg",
+        "sizes": "16x16"
+      },
+      {
+        "href": "/sentinel/favicon.svg",
+        "sizes": "32x32"
+      },
+      {
+        "href": "/sentinel/favicon.svg",
+        "sizes": "96x96"
+      },
+      {
+        "href": "/sentinel/favicon.svg",
+        "sizes": "192x192"
       }
     ]
   },
@@ -69,26 +82,5 @@
       }
     ]
   },
-  "navigationHeaderItems": [
-    {
-      "label": "Overview",
-      "path": "/sentinel",
-      "id": "overview"
-    },
-    {
-      "label": "Intro",
-      "path": "/sentinel/intro",
-      "id": "intro"
-    },
-    {
-      "label": "Docs",
-      "path": "/sentinel/docs",
-      "id": "docs"
-    },
-    {
-      "label": "Install",
-      "path": "/sentinel/downloads",
-      "id": "downloads"
-    }
-  ]
+  "navigationHeaderItems": {}
 }

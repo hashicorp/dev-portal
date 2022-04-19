@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import Head from 'next/head'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import useCurrentPath from 'hooks/use-current-path'
 import {
@@ -9,17 +10,26 @@ import {
 import SidebarSidecarLayout, {
   SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
+import DevDotContent from 'components/dev-dot-content'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import MDX_COMPONENTS from './utils/mdx-components'
-import { formatTutorialToMenuItem } from './utils'
+import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import {
-  TutorialSidebar as Sidebar,
   FeaturedInCollections,
   CollectionCardProps,
   NextPrevious,
   getNextPrevious,
 } from './components'
+import { getCollectionSlug } from 'views/collection-view/helpers'
+import TutorialsSidebar, {
+  HorizontalRule,
+  SectionList,
+  SectionTitle,
+} from 'components/tutorials-sidebar'
+import getVideoUrl from './utils/get-video-url'
 import TutorialMeta from 'components/tutorial-meta'
+import VideoEmbed from 'components/video-embed'
+import s from './tutorial-view.module.css'
 
 export interface TutorialViewProps {
   tutorial: TutorialData
@@ -43,7 +53,7 @@ export interface TutorialData
 }
 
 export type CollectionContext = {
-  isDefault: boolean
+  default: Pick<ClientCollection, 'slug' | 'id'>
   current: ClientCollection
   featuredIn?: CollectionCardProps[]
 }
@@ -51,12 +61,6 @@ export type CollectionContext = {
 export type TutorialSidebarSidecarProps = Required<
   Pick<SidebarSidecarLayoutProps, 'children' | 'headings' | 'breadcrumbLinks'>
 >
-
-/**
- *
- * Outstanding @TODOs
- * - add canonical url if this is the default collection
- */
 
 export default function TutorialView({
   layout,
@@ -74,6 +78,7 @@ export default function TutorialView({
     video,
     collectionCtx,
   } = tutorial
+  const hasVideo = Boolean(video)
   const isInteractive = Boolean(handsOnLab)
   const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
   const nextPreviousData = getNextPrevious({
@@ -81,42 +86,86 @@ export default function TutorialView({
     currentTutorialSlug: slug,
     nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
+  const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
 
   return (
-    <InteractiveLabWrapper
-      key={slug}
-      {...(isInteractive && { labId: handsOnLab.id })}
-    >
-      <SidebarSidecarLayout
-        breadcrumbLinks={layout.breadcrumbLinks}
-        sidebarSlot={
-          <Sidebar
-            title={collectionCtx.current.shortName}
-            menuItems={collectionCtx.current.tutorials.map((t) =>
-              formatTutorialToMenuItem(
-                t,
-                collectionCtx.current.slug,
-                currentPath
-              )
-            )}
-          />
-        }
-        headings={layout.headings}
+    <>
+      <Head>
+        <title>{name}</title>
+        <link rel="canonical" href={canonicalUrl.toString()} />
+      </Head>
+      <InteractiveLabWrapper
+        key={slug}
+        {...(isInteractive && { labId: handsOnLab.id })}
       >
-        <TutorialMeta
-          heading={{ slug: layout.headings[0].slug, text: name }}
-          meta={{
-            readTime,
-            edition,
-            productsUsed,
-            isInteractive: Boolean(handsOnLab),
-            hasVideo: Boolean(video),
-          }}
-        />
-        <MDXRemote {...content} components={MDX_COMPONENTS} />
-        <NextPrevious {...nextPreviousData} />
-        <FeaturedInCollections collections={collectionCtx.featuredIn} />
-      </SidebarSidecarLayout>
-    </InteractiveLabWrapper>
+        <SidebarSidecarLayout
+          breadcrumbLinks={layout.breadcrumbLinks}
+          sidebarSlot={
+            <TutorialsSidebar
+              backToLink={{
+                text: collectionCtx.current.shortName,
+                href: getCollectionSlug(collectionCtx.current.slug),
+              }}
+              title={`${collectionCtx.current.shortName} Collection`}
+              visuallyHideTitle={true}
+            >
+              <SectionList
+                items={collectionCtx.current.tutorials.map((t) =>
+                  formatTutorialToMenuItem(
+                    t,
+                    collectionCtx.current.slug,
+                    currentPath
+                  )
+                )}
+              />
+              <HorizontalRule />
+              <SectionTitle text="Resources" />
+              <SectionList
+                items={[
+                  {
+                    text: 'All Tutorials',
+                    href: 'https://learn.hashicorp.com',
+                  },
+                  {
+                    text: 'Community Forum',
+                    href: 'https://discuss.hashicorp.com',
+                  },
+                  { text: 'Support', href: 'https://support.hashicorp.com' },
+                  { text: 'GitHub', href: 'http://github.com/hashicorp' },
+                ]}
+              />
+            </TutorialsSidebar>
+          }
+          headings={layout.headings}
+        >
+          <TutorialMeta
+            heading={{ slug: layout.headings[0].slug, text: name }}
+            meta={{
+              readTime,
+              edition,
+              productsUsed,
+              isInteractive,
+              hasVideo,
+            }}
+          />
+          {hasVideo && video.id && !video.videoInline && (
+            <VideoEmbed
+              url={getVideoUrl({
+                videoId: video.id,
+                videoHost: video.videoHost,
+              })}
+            />
+          )}
+          <DevDotContent>
+            <MDXRemote {...content} components={MDX_COMPONENTS} />
+          </DevDotContent>
+          <NextPrevious {...nextPreviousData} />
+          <FeaturedInCollections
+            className={s.featuredInCollections}
+            collections={collectionCtx.featuredIn}
+          />
+        </SidebarSidecarLayout>
+      </InteractiveLabWrapper>
+    </>
   )
 }

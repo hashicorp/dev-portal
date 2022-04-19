@@ -1,0 +1,35 @@
+.tutorialCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.duration {
+  margin-bottom: 8px;
+  color: var(--token-color-foreground-faint);
+}
+
+.heading {
+  color: var(--token-color-foreground-strong);
+}
+
+.description {
+  margin-top: 4px;
+  color: var(--token-color-foreground-faint);
+}
+
+.badgesList {
+  list-style: none;
+  margin: auto 0 0;
+  padding: 16px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.badge {
+  & svg {
+    width: 12px;
+  }
+}

@@ -79,10 +79,10 @@
 */
 
 .small {
-  --padding-top-bottom: calc(6px - var(--border-width));
+  --padding-top-bottom: calc(7px - var(--border-width));
   --padding-left-right: calc(12px - var(--border-width));
   --font-size: 0.8125rem;
-  --line-height: 1;
+  --line-height: 0.875rem;
 }
 
 .medium {
@@ -109,6 +109,7 @@
   background-color: var(--token-color-palette-blue-200);
   border-color: var(--token-color-palette-blue-300);
   color: var(--token-color-foreground-high-contrast);
+  box-shadow: var(--token-elevation-low-box-shadow);
 
   &:hover:not(:disabled) {
     background-color: var(--token-color-palette-blue-300);
@@ -127,6 +128,7 @@
     background-color: var(--token-color-palette-blue-200);
     border-color: var(--token-color-focus-action-internal);
     color: var(--token-color-foreground-high-contrast);
+    box-shadow: none;
 
     &::before {
       border-radius: 10px;
@@ -162,6 +164,7 @@
     background-color: var(--token-color-surface-faint);
     border-color: var(--token-color-focus-action-internal);
     color: var(--token-color-foreground-primary);
+    box-shadow: none;
 
     &::before {
       border-color: var(--token-color-focus-action-external);
@@ -225,6 +228,7 @@
     background-color: var(--token-color-surface-critical);
     border-color: var(--token-color-focus-critical-internal);
     color: var(--token-color-foreground-critical-on-surface);
+    box-shadow: none;
 
     &::before {
       border-color: var(--token-color-focus-critical-external);

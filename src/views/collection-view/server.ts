@@ -1,3 +1,4 @@
+import { LearnProductData } from 'types/products'
 import {
   Collection as ClientCollection,
   ProductOption,
@@ -7,14 +8,26 @@ import {
   getCollection,
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import { TutorialPageProduct } from 'views/tutorial-view/server'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
+import {
+  CollectionCategorySidebarSection,
+  formatSidebarCategorySections,
+} from './helpers'
+import { filterCollections } from '../product-tutorials-view/helpers'
 
 export interface CollectionPageProps {
   collection: ClientCollection
   allProductCollections: ClientCollection[]
-  product: CollectionPageProduct
+  product: LearnProductData
+  layoutProps: CollectionLayout
 }
+
+type CollectionLayout = Pick<
+  SidebarSidecarLayoutProps,
+  'headings' | 'breadcrumbLinks'
+> & { sidebarSections: CollectionCategorySidebarSection[] }
 
 export interface CollectionPagePath {
   params: {
@@ -22,23 +35,50 @@ export interface CollectionPagePath {
   }
 }
 
-export type CollectionPageProduct = TutorialPageProduct
-
+/**
+ * Given a ProductData object (imported from src/data JSON files) and a
+ * Collection slug, fetches and returns the page props for
+ * `/{productSlug}/tutorials/{collectionSlug}` pages.
+ *
+ * Returns the given ProductData object unmodified as the `product` page prop,
+ * which is needed for other areas of the app to function.
+ */
 export async function getCollectionPageProps(
-  product: CollectionPageProduct,
+  product: LearnProductData,
   slug: string
 ): Promise<{ props: CollectionPageProps }> {
   const collection = await getCollection(`${product.slug}/${slug}`)
   // For sidebar data
   const allProductCollections = await getAllCollections({
-    product: product.slug,
+    product: { slug: product.slug, sidebarSort: true },
   })
+  const filteredCollections = filterCollections(
+    allProductCollections,
+    product.slug
+  )
+  const layoutProps = {
+    headings: [
+      { title: 'Overview', slug: 'overview', level: 1 },
+      { title: 'Tutorials', slug: 'tutorials', level: 1 },
+    ],
+    breadcrumbLinks: getTutorialsBreadcrumb({
+      product: { name: product.name, filename: product.slug },
+      collection: {
+        name: collection.shortName,
+        filename: splitProductFromFilename(collection.slug),
+      },
+    }),
+    sidebarSections: formatSidebarCategorySections(
+      filteredCollections,
+      collection.slug
+    ),
+  }
 
   return {
     props: stripUndefinedProperties({
       collection: collection,
-      allProductCollections,
       product,
+      layoutProps,
     }),
   }
 }
@@ -47,7 +87,7 @@ export async function getCollectionPaths(
   product: ProductOption
 ): Promise<CollectionPagePath[]> {
   const collections = await getAllCollections({
-    product,
+    product: { slug: product },
   })
   // Only build collections where this product is the main 'theme'
   // @TODO once we implement the `theme` query option, remove the theme filtering

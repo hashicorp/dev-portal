@@ -1,30 +1,28 @@
+import { ReactElement } from 'react'
 import { ProductSlug } from 'types/products'
 
-type SupportedIcon = 'docs' | 'home' | 'terminalScreen' | 'tools'
+type SupportedIcon = 'box' | 'docs' | 'home' | 'terminalScreen' | 'tools'
 
 type NavigationHeaderIcon = ProductSlug | SupportedIcon
 
-interface NewNavigationHeaderItem {
+interface NavigationHeaderItem {
   icon: NavigationHeaderIcon
   label: string
   path: string
 }
 
-interface NavigationHeaderItem {
-  id: string
-  label: string
-  path: string
-}
-
 interface NavigationHeaderDropdownMenuProps {
-  itemGroups: NewNavigationHeaderItem[][]
-  label: string
+  ariaLabel?: string
+  buttonClassName?: string
+  dropdownClassName?: string
+  itemGroups: NavigationHeaderItem[][]
+  label?: string
+  leadingIcon?: ReactElement
 }
 
 export type {
   NavigationHeaderDropdownMenuProps,
   NavigationHeaderIcon,
   NavigationHeaderItem,
-  NewNavigationHeaderItem,
   SupportedIcon,
 }

@@ -101,36 +101,5 @@
       }
     ]
   },
-  "navigationHeaderItems": [
-    {
-      "label": "Overview",
-      "path": "/nomad",
-      "id": "overview"
-    },
-    {
-      "label": "Docs",
-      "id": "docs",
-      "path": "/nomad/docs"
-    },
-    {
-      "label": "API",
-      "path": "/nomad/api-docs",
-      "id": "api-docs"
-    },
-    {
-      "label": "Plugins",
-      "path": "/nomad/plugins",
-      "id": "plugins"
-    },
-    {
-      "label": "Tools",
-      "path": "/nomad/tools",
-      "id": "tools"
-    },
-    {
-      "label": "Install",
-      "path": "/nomad/downloads",
-      "id": "downloads"
-    }
-  ]
+  "navigationHeaderItems": {}
 }

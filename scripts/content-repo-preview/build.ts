@@ -41,9 +41,14 @@ async function main() {
     execFileSync('mv', ['./.next/cache/node_modules', './node_modules'])
   }
 
-  // copy public files
+  /**
+   * Copy public files
+   *
+   * Vercel uploads the public/ directory from the root directory of the project, so we want to pull
+   * the public files from website-preview up a level.
+   */
   console.log('📝 copying files in the public folder')
-  execFileSync('cp', ['-Rf', '../public', `./${process.env.DEV_IO}`])
+  execFileSync('cp', ['-R', './public', `../`])
 
   /**
    * exclude any imports in the global CSS file which rely on other products

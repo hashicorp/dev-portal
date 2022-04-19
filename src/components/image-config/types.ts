@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { ImageProps } from 'components/image/types'
 
 export interface ImageConfigProps {
   /**
@@ -16,4 +17,19 @@ export interface ImageConfigProps {
    * baked-in borders from existing images)
    */
   hideBorder?: boolean
+
+  /**
+   * An explicit width value to be passed to the image element
+   */
+  width?: ImageProps['width']
+
+  /**
+   * An explicit height value to be passed to the image element
+   */
+  height?: ImageProps['height']
+
+  /**
+   * Indicate whether or not the rendered image element should be inline
+   */
+  inline?: ImageProps['inline']
 }

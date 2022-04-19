@@ -1,5 +1,4 @@
 import { ReactElement } from 'react'
-import { TextProps } from 'components/text'
 
 export interface StandaloneLinkProps {
   /**
@@ -73,7 +72,8 @@ export interface StandaloneLinkProps {
   text: string
 
   /**
-   * The `size` passed to the inner `Text` component.
+   * The size of the rendered link, which mainly affects the font-size and
+   * line-height CSS properties.
    */
-  textSize?: TextProps['size']
+  size?: 'small' | 'medium' | 'large'
 }

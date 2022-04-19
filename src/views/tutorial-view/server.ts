@@ -1,4 +1,4 @@
-import { Product as ProductContext } from 'types/products'
+import { LearnProductData } from 'types/products'
 import {
   getAllCollections,
   getNextCollectionInSidebar,
@@ -20,25 +20,25 @@ import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 
 export interface TutorialPageProps {
   tutorial: TutorialData
-  product: TutorialPageProduct // controls the ProductSwitcher
+  product: LearnProductData
   layoutProps: TutorialSidebarSidecarProps
   nextCollection?: ClientCollectionLite | null // if null, it is the last collection in the sidebar order
 }
 
 /**
- *  This slug needs to use the Learn product option enum,
- *  as the types in `ProductContext` slug aren't valid for the API req
+ * Given a ProductData object (imported from src/data JSON files) and a tutorial
+ * slug, fetches and returns the page props for
+ * `/{productSlug}/tutorials/{collectionSlug}/{tutorialSlug}` pages.
+ *
+ * Returns the given ProductData object unmodified as the `product` page prop,
+ * which is needed for other areas of the app to function.
  */
-export interface TutorialPageProduct extends Pick<ProductContext, 'name'> {
-  slug: ProductOption
-}
-
 export async function getTutorialPageProps(
-  product: TutorialPageProduct,
+  product: LearnProductData,
   slug: [string, string]
 ): Promise<{ props: TutorialPageProps }> {
   const { collection, tutorialReference } = await getCurrentCollectionTutorial(
-    product.slug,
+    product.slug as ProductOption,
     slug
   )
   const fullTutorialData = await getTutorial(tutorialReference.dbSlug)
@@ -52,14 +52,14 @@ export async function getTutorialPageProps(
   const layoutProps = {
     headings,
     breadcrumbLinks: getTutorialsBreadcrumb({
-      product: { name: product.name, slug: product.slug },
+      product: { name: product.name, filename: product.slug },
       collection: {
         name: collection.data.shortName,
-        slug: collection.filename,
+        filename: collection.filename,
       },
       tutorial: {
         name: fullTutorialData.name,
-        slug: tutorialReference.filename,
+        filename: tutorialReference.filename,
       },
     }),
   }
@@ -72,7 +72,7 @@ export async function getTutorialPageProps(
 
   if (isLastTutorial) {
     nextCollection = await getNextCollectionInSidebar({
-      product: product.slug,
+      product: product.slug as ProductOption,
       after: collectionContext.current.slug,
     })
   }
@@ -102,7 +102,7 @@ export interface TutorialPagePaths {
 export async function getTutorialPagePaths(
   product: ProductOption
 ): Promise<TutorialPagePaths[]> {
-  const allCollections = await getAllCollections({ product })
+  const allCollections = await getAllCollections({ product: { slug: product } })
   // Only build collections where this product is the main 'theme'
   // @TODO once we implement the `theme` query option, remove the theme filtering
   // https://app.asana.com/0/1201903760348480/1201932088801131/f

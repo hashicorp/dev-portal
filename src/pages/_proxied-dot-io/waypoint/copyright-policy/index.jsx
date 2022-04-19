@@ -7,7 +7,7 @@ function CopyrightPolicyPage() {
       <p>
         HashiCorp, Inc. (Company) has adopted the following general policy
         toward copyright infringement in accordance with the Digital Millennium
-        Copyright Act or DMCA (posted at 
+        Copyright Act or DMCA (posted at&nbsp;
         <a href="http://www.copyright.gov/legislation/dmca.pdf">
           www.copyright.gov/legislation/dmca.pdf
         </a>
@@ -155,6 +155,11 @@ function CopyrightPolicyPage() {
       </p>
     </LongformPage>
   )
+}
+
+export function getStaticProps() {
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
 }
 
 CopyrightPolicyPage.layout = WaypointIoLayout

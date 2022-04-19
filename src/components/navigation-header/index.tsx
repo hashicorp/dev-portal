@@ -1,74 +1,38 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
-import InlineSvg from '@hashicorp/react-inline-svg'
-import { useCurrentProduct } from 'contexts'
+import useCurrentPath from 'hooks/use-current-path'
 import HeaderSearchInput from 'components/header-search-input'
-import ProductSwitcher from 'components/product-switcher'
 import { NavigationHeaderItem } from './types'
+import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
 import s from './navigation-header.module.css'
 
 /**
- * Checks if a header navigation link's path matches the current route's path.
- * Useful for setting the `aria-current` property on <a> elements in the nav,
- * which is used as a CSS selector for applying active styles to links in the
- * header.
+ * The header content displayed to the far right of the window. This content is
+ * the same for every page in the app.
+ *
+ * @TODO when we work on adding single-product search for beta, determine if we
+ * will be showing `HeaderSearchInput` on the main home page.
  */
-const isCurrentPage = (pagePath: string, currentPath: string): boolean => {
-  const currentPathSplit = currentPath.split('/')
-  const currentProductSlug = currentPathSplit[1]
-  const currentProductSubpage = currentPathSplit[2]
-
-  if (currentProductSubpage) {
-    return pagePath === `/${currentProductSlug}/${currentProductSubpage}`
-  } else if (currentProductSlug) {
-    return pagePath === `/${currentProductSlug}`
-  } else {
-    return pagePath === '/'
-  }
+const RightSideHeaderContent = () => {
+  return (
+    <div className={s.rightSide}>
+      <HeaderSearchInput theme="dark" />
+    </div>
+  )
 }
 
+/**
+ * The main navigation header for all DevDot pages. Renders two different
+ * styles: one for the main home page, and one for all routes under
+ * `/{productSlug}.`
+ */
 const NavigationHeader = () => {
-  const router = useRouter()
-  const currentPath = router.asPath
-  const currentProduct = useCurrentProduct()
-  const navItems = currentProduct?.navigationHeaderItems || []
-  const hasNavigationItems = navItems.length > 0
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const LeftSideHeaderContent =
+    currentPath === '/' ? HomePageHeaderContent : ProductPageHeaderContent
 
   return (
-    <header className={s.navigationHeader}>
-      <nav>
-        <div className={s.headerLeft}>
-          <Link href="/">
-            <a>
-              <InlineSvg className={s.siteLogo} src={HashiCorpLogo} />
-            </a>
-          </Link>
-          <ProductSwitcher />
-        </div>
-        {hasNavigationItems && (
-          <div className={s.headerRight}>
-            <ul className={s.navLinks}>
-              {navItems.map((navLink: NavigationHeaderItem) => {
-                const isCurrent = isCurrentPage(navLink.path, currentPath)
-                return (
-                  <li className={s.navLinksListItem} key={navLink.id}>
-                    <Link href={navLink.path}>
-                      <a
-                        aria-current={isCurrent ? 'page' : undefined}
-                        className={s.navLinksAnchor}
-                      >
-                        {navLink.label}
-                      </a>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-            <HeaderSearchInput theme="dark" />
-          </div>
-        )}
-      </nav>
+    <header className={s.root}>
+      <LeftSideHeaderContent />
+      <RightSideHeaderContent />
     </header>
   )
 }

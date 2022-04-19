@@ -2,9 +2,15 @@ import { ReactElement, useMemo, useState } from 'react'
 import useCurrentPath from 'hooks/use-current-path'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
+import {
+  SidebarNavMenuItem,
+  SidebarSkipToMainContent,
+  SidebarTitleHeading,
+} from 'components/sidebar/components'
 import { MenuItem, SidebarProps } from './types'
-import SidebarNav from './components/sidebar-nav'
 import s from './sidebar.module.css'
+
+const SIDEBAR_LABEL_ID = 'sidebar-label'
 
 const addItemMetadata = (
   currentPath: string,
@@ -89,7 +95,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
 }
 
 const Sidebar = ({
-  backToLinkProps = {},
+  backToLinkProps,
   menuItems,
   showFilterInput = true,
   title,
@@ -102,16 +108,27 @@ const Sidebar = ({
   const [filterValue, setFilterValue] = useState('')
   const filteredMenuItems = getFilteredMenuItems(itemsWithMetadata, filterValue)
 
+  let backToLink
+  if (backToLinkProps) {
+    const { text, url } = backToLinkProps
+    backToLink = <SidebarBackToLink text={text} url={url} />
+  }
+
   return (
     <div className={s.sidebar}>
-      <SidebarBackToLink
-        text={backToLinkProps.text}
-        url={backToLinkProps.url}
-      />
+      {backToLink}
       {showFilterInput && (
         <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       )}
-      <SidebarNav title={title} menuItems={filteredMenuItems} />
+      <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.nav}>
+        <SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
+        <SidebarSkipToMainContent />
+        <ul className={s.navList}>
+          {filteredMenuItems.map((item) => (
+            <SidebarNavMenuItem item={item} key={item.id} />
+          ))}
+        </ul>
+      </nav>
     </div>
   )
 }

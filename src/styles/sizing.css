@@ -6,6 +6,6 @@
     and --alert-bar-height may be brittle.
     See layouts/base-new/base-new-layout.module.css
     comments for details */
-  --navigation-header-height: 80px;
+  --navigation-header-height: 68px;
   --alert-bar-height: 72px;
 }

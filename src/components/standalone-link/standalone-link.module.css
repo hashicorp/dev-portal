@@ -25,14 +25,30 @@
     padding: 5px;
   }
 
-  & svg:first-child {
-    margin-right: 8px;
-  }
+  & svg {
+    flex-shrink: 0;
 
-  & svg:last-child {
-    margin-left: 8px;
+    &:first-child {
+      margin-right: 6px;
+    }
+
+    &:last-child {
+      margin-left: 6px;
+    }
   }
 }
+
+.text {
+  font-size: var(--font-size);
+  font-weight: var(--token-typography-font-weight-medium);
+  line-height: var(--line-height);
+}
+
+/*
+***
+* color helper classes
+***
+*/
 
 .color-primary {
   color: var(--token-color-foreground-action);
@@ -54,6 +70,23 @@
   }
 }
 
-.text {
-  line-height: 1;
+/*
+***
+* size helper classes
+***
+*/
+
+.small {
+  --font-size: var(--token-typography-body-100-font-size);
+  --line-height: 1rem;
+}
+
+.medium {
+  --font-size: var(--token-typography-body-200-font-size);
+  --line-height: 1rem;
+}
+
+.large {
+  --font-size: var(--token-typography-body-300-font-size);
+  --line-height: 1.5rem;
 }
