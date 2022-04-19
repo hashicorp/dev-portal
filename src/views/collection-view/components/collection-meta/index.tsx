@@ -24,6 +24,9 @@ export default function CollectionMeta({
   cta,
   numTutorials,
 }: CollectionMetaProps) {
+  const ctaText = `${numTutorials} ${
+    numTutorials > 1 ? `tutorials` : `tutorial`
+  }`
   return (
     <>
       <IconTile size="large">
@@ -47,9 +50,7 @@ export default function CollectionMeta({
         </span>
         <span className={s.ctaText}>
           <IconCollections16 className={s.ctaIcon} />
-          <Text>{`${numTutorials} ${
-            numTutorials > 1 ? `tutorials` : `tutorial`
-          }`}</Text>
+          <Text>{ctaText}</Text>
         </span>
       </div>
     </>
