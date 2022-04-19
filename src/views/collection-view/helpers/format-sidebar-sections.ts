@@ -18,7 +18,7 @@ export interface CollectionCategorySidebarSection {
  */
 export function formatSidebarCategorySections(
   collections: ClientCollection[],
-  currentSlug: string
+  currentSlug?: string
 ): CollectionCategorySidebarSection[] {
   const categorySlugs = Object.keys(CollectionCategoryOption)
 
@@ -49,7 +49,7 @@ function filterEmptySections(
 
 function formatCollectionToListItem(
   collection: ClientCollection,
-  currentSlug: string
+  currentSlug?: string
 ): ListItemProps {
   const path = getCollectionSlug(collection.slug)
   return {

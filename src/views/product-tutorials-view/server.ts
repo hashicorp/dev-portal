@@ -4,18 +4,24 @@ import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import { formatSidebarCategorySections } from 'views/collection-view/helpers'
 import getProductPageContent from './helpers/get-product-page-content'
-import { filterAndSortCollections } from './helpers'
+import { filterCollections, sortAlphabetically } from './helpers'
+import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
+import { CollectionLayout } from 'views/collection-view/server'
 
 // Some of the product data is coming from the API client on this view
 type ProductTutorialsPageProduct = ClientProduct &
   Omit<ProductData, 'name' | 'slug'>
 
 export interface ProductTutorialsPageProps {
+  layoutProps: ProductTutorialsLayout
   pageData: any // @TODO  type this
   collections: ClientCollection[]
   product: ProductTutorialsPageProduct
 }
+
+type ProductTutorialsLayout = CollectionLayout
 
 /**
  * Given a ProductData object (imported from src/data JSON files), fetches and
@@ -34,12 +40,19 @@ export async function getProductTutorialsPageProps(
   const pageData = await getProductPageContent(productSlug)
   const product = await getProduct(productSlug)
   const allProductCollections = await getAllCollections({
-    product: { slug: productSlug },
+    product: { slug: productSlug, sidebarSort: true },
   })
-  const filteredCollections = filterAndSortCollections(
+  const filteredCollections = filterCollections(
     allProductCollections,
     productSlug
   )
+  const layoutProps = {
+    headings: [{ title: 'Overview', slug: 'overview', level: 1 }],
+    breadcrumbLinks: getTutorialsBreadcrumb({
+      product: { name: product.name, filename: product.slug },
+    }),
+    sidebarSections: formatSidebarCategorySections(filteredCollections),
+  }
 
   /**
    * Destructuring the Learn data for now so it can be treated as the source of
@@ -53,7 +66,8 @@ export async function getProductTutorialsPageProps(
   return {
     props: stripUndefinedProperties({
       pageData,
-      collections: filteredCollections,
+      collections: filteredCollections.sort(sortAlphabetically('name')),
+      layoutProps,
       product: {
         ...productData,
         description,
