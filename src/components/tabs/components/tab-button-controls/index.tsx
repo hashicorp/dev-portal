@@ -1,5 +1,6 @@
 import { KeyboardEvent, useEffect, useRef } from 'react'
 import classNames from 'classnames'
+import deriveKeyEventState from 'lib/derive-key-event-state'
 import { TabControlsProps, TabItem } from '../../types'
 import newIndexFromKeypress from '../../helpers/new-index-from-keypress'
 import s from './tab-button-controls.module.css'
@@ -34,14 +35,10 @@ function TabButtonControls({
    * the `handleKeyUp` handler, as well as for the Space and Enter keys,
    * which would otherwise trigger unnecessary `onClick` events.
    */
-  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    const { key } = event
-    const isArrowLeft = key === 'ArrowLeft'
-    const isArrowRight = key === 'ArrowRight'
-    const isSpaceKey = key === ' '
-    const isEnterKey = key === 'Enter'
-
-    if (isArrowLeft || isArrowRight || isSpaceKey || isEnterKey) {
+  const handleKeyDown = (event: KeyboardEvent) => {
+    const { isArrowRightKey, isArrowLeftKey, isSpaceKey, isEnterKey } =
+      deriveKeyEventState(event)
+    if (isArrowLeftKey || isArrowRightKey || isSpaceKey || isEnterKey) {
       event.preventDefault()
     }
   }
@@ -54,9 +51,9 @@ function TabButtonControls({
    * This is based on the implementation at:
    * https://www.w3.org/TR/wai-aria-practices-1.2/examples/tabs/tabs-1/tabs.html
    */
-  const handleKeyUp = (event: KeyboardEvent<HTMLButtonElement>) => {
+  const handleKeyUp = (event: KeyboardEvent) => {
     const newIndex = newIndexFromKeypress(
-      event.key,
+      event,
       activeTabIndex,
       tabItems.length
     )

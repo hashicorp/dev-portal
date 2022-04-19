@@ -1,3 +1,6 @@
+import { KeyboardEvent } from 'react'
+import deriveKeyEventState from 'lib/derive-key-event-state'
+
 /**
  * Given the key just pressed,
  * the current tab index, and the total tab count,
@@ -21,12 +24,11 @@
  * implementation is to retain the scrolling functionality of those keys.
  */
 function newIndexFromKeypress(
-  key: string,
+  e: KeyboardEvent,
   currentIndex: number,
   tabsCount: number
 ): number {
-  const isArrowRightKey = key == 'ArrowRight'
-  const isArrowLeftKey = key == 'ArrowLeft'
+  const { isArrowRightKey, isArrowLeftKey } = deriveKeyEventState(e)
   const isFirstTab = currentIndex === 0
   const isLastTab = currentIndex === tabsCount - 1
 
