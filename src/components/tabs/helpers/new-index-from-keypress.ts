@@ -25,28 +25,33 @@ function newIndexFromKeypress(
   currentIndex: number,
   tabsCount: number
 ): number {
-  if (key == 'ArrowRight') {
-    // Move right
-    const nextIndex = currentIndex + 1
-    if (nextIndex >= tabsCount) {
-      // If we're at the end, move to the start
-      return 0
-    } else {
-      return nextIndex
-    }
-  } else if (key == 'ArrowLeft') {
-    // Move left
-    const previousIndex = currentIndex - 1
-    if (previousIndex < 0) {
-      // If we're at the start, move to the end
-      return tabsCount - 1
-    } else {
-      return previousIndex
-    }
-  } else {
-    // No movement
-    return currentIndex
+  const isArrowRightKey = key == 'ArrowRight'
+  const isArrowLeftKey = key == 'ArrowLeft'
+  const isFirstTab = currentIndex === 0
+  const isLastTab = currentIndex === tabsCount - 1
+
+  // Move focus to first tab
+  if (isArrowRightKey && isLastTab) {
+    return 0
   }
+
+  // Move focus to next tab
+  if (isArrowRightKey && !isLastTab) {
+    return currentIndex + 1
+  }
+
+  // Move focus to last tab
+  if (isArrowLeftKey && isFirstTab) {
+    return tabsCount - 1
+  }
+
+  // Move focus to previous tab
+  if (isArrowLeftKey && !isFirstTab) {
+    return currentIndex - 1
+  }
+
+  // Do not move focus
+  return currentIndex
 }
 
 export default newIndexFromKeypress
