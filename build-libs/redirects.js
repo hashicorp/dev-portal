@@ -239,7 +239,7 @@ async function buildDotIoRedirects() {
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'packer',
-        path: 'website/redirects.js',
+        path: 'website/redirects.next.js',
         ref: 'stable-website',
       })
   const packerAuthorRedirects = eval(rawPackerRedirects)
