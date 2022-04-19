@@ -19,13 +19,24 @@ export default function CollectionMeta({
 }: CollectionMetaProps) {
   return (
     <>
-      <p>Collection icon here</p>
-      <Heading level={1} size={500} weight="bold" slug={heading.id}>
+      <span className={s.icon}>(Collection icon)</span>
+      <Heading
+        level={1}
+        size={500}
+        weight="bold"
+        slug={heading.id}
+        className={s.heading}
+      >
         {heading.text}
       </Heading>
       <Text className={s.description}>{description}</Text>
-      <Button color="primary" text="Start" />
-      <p>{`(icon) ${numTutorials} tutorials`}</p>
+      <div className={s.cta}>
+        {/* TODO this needs to be a link*/}
+        <Button color="primary" text="Start" />
+        <Text className={s.ctaCollectionInfo}>{`(icon) ${numTutorials} ${
+          numTutorials > 1 ? `tutorials` : `tutorial`
+        }`}</Text>
+      </div>
     </>
   )
 }

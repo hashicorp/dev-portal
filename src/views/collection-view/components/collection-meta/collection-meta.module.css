@@ -1,3 +1,30 @@
+.icon {
+  border: 1px solid magenta;
+}
+
+.heading {
+  margin-top: 12px;
+}
+
 .description {
+  margin-top: 8px;
   color: var(--token-color-foreground-primary);
+}
+
+.cta {
+  border: 1px solid magenta;
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 16px;
+
+  @media (--dev-dot-tablet-up) {
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+}
+
+.ctaCollectionInfo {
+  color: var(--token-color-foreground-faint);
+  margin: 0 0 0 16px;
 }
