@@ -42,7 +42,8 @@ interface SidebarBaseProps {
   title: string
 
   /**
-   * @TODO - write description
+   * Optional. If true, the title of the sidebar will be visually hidden using
+   * the `.g-screen-reader-only` global CSS helper class.
    */
   visuallyHideTitle?: boolean
 }
