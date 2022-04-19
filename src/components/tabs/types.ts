@@ -76,7 +76,7 @@ export interface RawTabItemWithIds extends RawTabItem {
  * which includes active state.
  */
 export interface TabItem extends RawTabItemWithIds {
-  isActive?: boolean
+  isActive: boolean
 }
 
 /**
