@@ -5,7 +5,6 @@ import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import BaseNewLayout from 'layouts/base-new'
-import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import Hero from './components/hero'
 import PreFooter from './components/pre-footer'
@@ -13,8 +12,6 @@ import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
 import {
-  HcpVaultSlot,
-  WaypointSlot,
   HashiConfGlobalSlot,
   VaultSlot,
 } from './components/merchandising-slots/slots'
@@ -62,10 +59,8 @@ function Homepage(): ReactElement {
       />
 
       <MerchandisingSlots>
-        <HcpVaultSlot />
-        <WaypointSlot />
-        <HashiConfGlobalSlot />
         <VaultSlot />
+        <HashiConfGlobalSlot />
       </MerchandisingSlots>
 
       <LearnSection
