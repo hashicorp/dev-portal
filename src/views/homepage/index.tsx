@@ -18,22 +18,23 @@ import {
   HashiConfGlobalSlot,
   VaultSlot,
 } from './components/merchandising-slots/slots'
+import s from './homepage.module.css'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
 function Homepage(): ReactElement {
   return (
-    <>
+    <div className={s.homepage}>
       <Hero
         badgeText="Beta"
-        heading="HashiCorp Developer Portal"
+        heading="HashiCorp Developer"
         description={
           <>
             <Text>
-              The home of HashiCorp documentation and learning content for
-              developers and technology professionals.
+              Learn at your own pace in one place with reference docs, step by
+              step tutorials, videos, and real hands-on lab workstations to
+              automate your infrastructure, networking, and security workflows.
             </Text>
-            <Text>More products and featrues coming soon....</Text>
           </>
         }
         actions={[
@@ -76,17 +77,23 @@ function Homepage(): ReactElement {
             alt="Vault certified expert badge"
           />
         }
-        heading="Prepare for Vault Certifications"
+        heading="Become HashiCorp Vault Certified"
         description={
-          <Text size={300}>
-            Learn at your own pace, with self-guided tutorials, videos, and
-            Advance your career through our industry-recognized{' '}
-            <InlineLink
-              href="/example"
-              text="HashiCorp Cloud Engineer Certifications"
-            />
-            . Use our study guides and sample questions to prepare.
-          </Text>
+          <>
+            <Text size={300}>
+              As a Cloud Engineer specializing in security, development, or
+              operations, you can take the Vault Associate exam to validate your
+              knowledge of the basic concepts, skills, and use cases associated
+              with open source HashiCorp Vault. Or take the Vault Operations
+              Professional exam to demonstrate your proficiency with deploying,
+              configuring, managing, and monitoring HashiCorp Vault in
+              production.
+            </Text>
+            <Text size={300}>
+              Upon passing either exam, you can easily communicate your
+              proficiency and employers can quickly verify your results.
+            </Text>
+          </>
         }
         tutorials={[
           {
@@ -118,7 +125,7 @@ function Homepage(): ReactElement {
       <PreFooter
         heading="Looking for help?"
         description="Aenean interdum pulvinar nunc et maximus. Etiam imperdiet mattis sapien id commodow Aenean interdum pulvinar nunc nean interdum pulvinar."
-        ctas={[
+        actions={[
           {
             icon: (
               <IconSupport24 color="var(--token-color-highlight-foreground-primary)" />
@@ -141,7 +148,7 @@ function Homepage(): ReactElement {
           },
         ]}
       />
-    </>
+    </div>
   )
 }
 

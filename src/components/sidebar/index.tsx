@@ -102,6 +102,7 @@ const Sidebar = ({
   backToLinkProps,
   levelButtonProps,
   menuItems,
+  overviewItemHref,
   showFilterInput = true,
   title,
   visuallyHideTitle = false,
@@ -146,6 +147,19 @@ const Sidebar = ({
     backToElement = <SidebarBackToLink text={text} url={url} />
   }
 
+  let overviewItem
+  if (overviewItemHref) {
+    overviewItem = (
+      <SidebarNavMenuItem
+        item={{
+          href: overviewItemHref,
+          title: 'Overview',
+          isActive: overviewItemHref === currentPath,
+        }}
+      />
+    )
+  }
+
   return (
     <div className={s.sidebar}>
       {backToElement}
@@ -156,6 +170,7 @@ const Sidebar = ({
         <SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
         <SidebarSkipToMainContent />
         <ul className={s.navList}>
+          {overviewItem}
           {filteredMenuItems.map((item) => (
             <SidebarNavMenuItem item={item} key={item.id} />
           ))}

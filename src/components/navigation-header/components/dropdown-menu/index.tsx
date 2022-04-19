@@ -27,11 +27,13 @@ import {
 
 // Local imports
 import s from './dropdown-menu.module.css'
+import { IconBox16 } from '@hashicorp/flight-icons/svg-react/box-16'
 
 /**
  * The icons supported in this menu in addition to the Product logo icons.
  */
 const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
+  box: <IconBox16 />,
   docs: <IconDocs16 />,
   home: <IconHome16 />,
   terminalScreen: <IconTerminalScreen16 />,

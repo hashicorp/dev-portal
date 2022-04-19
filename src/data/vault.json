@@ -185,14 +185,9 @@
         "pathSuffix": "docs"
       },
       {
-        "label": "CLI",
-        "icon": "terminalScreen",
-        "pathSuffix": "docs/commands"
-      },
-      {
-        "label": "Plugins",
+        "label": "API",
         "icon": "tools",
-        "pathSuffix": "docs/plugins"
+        "pathSuffix": "api-docs"
       }
     ]
   }

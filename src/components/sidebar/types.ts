@@ -42,6 +42,13 @@ export interface SidebarProps {
   menuItems: MenuItem[]
 
   /**
+   * Optional href for the Overview menu item that shows at the top of the
+   * Sidebar <nav>. Sidebar will only show this menu item if this prop is
+   * provided.
+   */
+  overviewItemHref?: string
+
+  /**
    * Whether or not the Sidebar should render the filter text input.
    */
   showFilterInput?: boolean

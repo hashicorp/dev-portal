@@ -1,4 +1,5 @@
-import type { ReactElement } from 'react'
+import type { CSSProperties, ReactElement } from 'react'
+import slugify from 'slugify'
 import type { TutorialCardProps } from '../tutorial-card'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import Heading from 'components/heading'
@@ -25,7 +26,12 @@ export default function LearnSection({
         <div className={s.introInner}>
           <div className={s.introMedia}>{media}</div>
           <header className={s.introContent}>
-            <Heading level={2} size={500} weight="bold" slug={heading}>
+            <Heading
+              level={2}
+              size={500}
+              weight="bold"
+              slug={slugify(heading, { lower: true })}
+            >
               {heading}
             </Heading>
             <div className={s.introDescription}>{description}</div>
@@ -41,10 +47,20 @@ export default function LearnSection({
       </div>
 
       <div className={s.tutorials}>
-        <ul className={s.tutorialsList}>
-          {tutorials.map((tutorial, index) => {
+        <ul
+          className={s.tutorialsList}
+          style={
+            {
+              '--tutorials-count': tutorials.length,
+            } as CSSProperties
+          }
+        >
+          {tutorials.map((tutorial) => {
             return (
-              <li key={index} className={s.tutorialsListItem}>
+              <li
+                key={slugify(tutorial.heading, { lower: true })}
+                className={s.tutorialsListItem}
+              >
                 <TutorialCard {...tutorial} />
               </li>
             )
