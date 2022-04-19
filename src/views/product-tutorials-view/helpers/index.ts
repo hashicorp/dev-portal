@@ -1,5 +1,6 @@
 import {
   Collection as ClientCollection,
+  ProductUsed as ClientProductUsed,
   ProductOption,
 } from 'lib/learn-client/types'
 
@@ -41,4 +42,13 @@ export function filterAndSortCollections(
   theme: ProductOption
 ) {
   return filterCollections(collections, theme).sort(sortAlphabetically('name'))
+}
+
+export function formatProductsUsed(products: ClientProductUsed[]) {
+  return products.map((p) => ({
+    ...p,
+    isBeta: p.isBeta ? 1 : 0,
+    isPrimary: p.isPrimary ? 1 : 0,
+    product: p.product.slug,
+  }))
 }

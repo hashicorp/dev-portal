@@ -151,6 +151,10 @@ export enum EditionOption {
   hcp = 'hcp',
 }
 
+export type BadgeOption =
+  | Exclude<EditionOption, EditionOption.openSource> //  "openSource" is default (no badge)
+  | 'beta'
+
 export enum ThemeOption {
   cloud = 'cloud',
   hashicorp = 'hashicorp',

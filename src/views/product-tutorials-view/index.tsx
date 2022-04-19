@@ -4,9 +4,11 @@ import { getCollectionSlug } from 'views/collection-view/helpers'
 import { ProductTutorialsPageProps } from './server'
 
 export default function ProductTutorialsView({
+  pageData,
   collections,
   product,
 }: ProductTutorialsPageProps): React.ReactElement {
+  console.log({ pageData })
   return (
     <>
       <h1>{product.name} Tutorials</h1>
