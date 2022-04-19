@@ -71,17 +71,16 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
 
     if (isBetaProduct) {
       let nodePath = node.url // the path to be formatted - assumes to be absolute as current Learn impl does
+      const isCollectionPath = nodePath.includes('collections')
+      const isTutorialPath = nodePath.includes('tutorials')
+      const learnProductHub = new RegExp(`/${product}$`)
+      const isProductHubPath = learnProductHub.test(nodePath)
 
       // if its an external link, isolate the pathname
       if (isExternalLearnLink) {
         const fullUrl = new URL(nodePath)
         nodePath = fullUrl.pathname
       }
-
-      const isCollectionPath = nodePath.includes('collections')
-      const isTutorialPath = nodePath.includes('tutorials')
-      const learnProductHub = new RegExp(`^/${product}$`)
-      const isProductHubPath = learnProductHub.test(nodePath)
 
       // handle rewriting collection and tutorial dev portal paths
       if (isCollectionPath) {
