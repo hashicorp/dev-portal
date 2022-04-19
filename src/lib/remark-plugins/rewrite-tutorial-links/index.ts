@@ -20,7 +20,7 @@
 import { Link, Definition } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
-//import moize, { Options } from 'moize'
+import { ProductSlug } from 'types/products'
 import { ProductOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import {
@@ -28,7 +28,6 @@ import {
   handleCollectionLink,
   handleTutorialLink,
 } from './utils'
-import { ProductSlug } from 'types/products'
 
 const learnProductOptions = Object.keys(ProductOption).join('|')
 /**
