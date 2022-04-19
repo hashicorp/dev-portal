@@ -31,7 +31,8 @@ export interface ButtonProps {
   ariaLabelledBy?: NativeButtonProps['aria-labelledby']
 
   /**
-   * @TODO write description
+   * A string of one or more classnames. Is appended last to list of classnames
+   * passed to the button element.
    */
   className?: NativeButtonProps['className']
 
