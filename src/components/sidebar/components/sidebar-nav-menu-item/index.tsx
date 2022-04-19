@@ -1,5 +1,12 @@
-import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
+import {
+  KeyboardEventHandler,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import Link from 'next/link'
+import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import isAbsoluteUrl from 'lib/is-absolute-url'
@@ -11,22 +18,37 @@ import {
 import Text from 'components/text'
 import { SidebarNavMenuItemProps } from './types'
 import s from './sidebar-nav-menu-item.module.css'
+import ProductIcon from 'components/product-icon'
+
+// Use for leading icon in SidebarNavLink
+type SupportedIconName = 'home' | 'vault' | 'waypoint'
+
+// Use for leading icon in SidebarNavLink
+const SUPPORTED_LEADING_ICONS: {
+  [key in SupportedIconName]: ReactElement
+} = {
+  home: <IconHome16 name="home" />,
+  vault: <ProductIcon productSlug="vault" />,
+  waypoint: <ProductIcon productSlug="waypoint" />,
+}
+
+interface SidebarNavLinkItem extends MenuItem {
+  leadingIconName?: SupportedIconName
+}
 
 /**
  * Handles rendering a link menu item in the Sidebar. Will automatically
  * determine whether or not the link is external to DevDot, and will render an
  * external link icon if the link is external.
  */
-const SidebarNavLink = ({ item }: SidebarNavMenuItemProps) => {
+const SidebarNavLink = ({ item }: { item: SidebarNavLinkItem }) => {
   const href = item.fullPath || item.href
   const isExternal = isAbsoluteUrl(href)
 
-  // TODO: replace any with MenuItem
   let leadingIcon
-  if ((item as any).leadingIcon) {
-    leadingIcon = (
-      <div className={s.leadingIcon}>{(item as any).leadingIcon}</div>
-    )
+  if (item.leadingIconName) {
+    const icon = SUPPORTED_LEADING_ICONS[item.leadingIconName]
+    leadingIcon = <div className={s.leadingIcon}>{icon}</div>
   }
 
   return (
