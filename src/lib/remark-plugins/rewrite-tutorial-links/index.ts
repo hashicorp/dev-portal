@@ -12,6 +12,9 @@
  * as all written internal links within the content will be updated in the
  * content itself. This is an interim workaround while we have a divergent state
  * during beta.
+ *
+ * Please refer to this diagram for full details on remapping
+ * https://whimsical.com/url-remaps-TqyEmfG6gYyiAZR1HWSWEL
  */
 
 import { Link, Definition } from 'mdast'
@@ -19,14 +22,25 @@ import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 //import moize, { Options } from 'moize'
 import { ProductOption } from 'lib/learn-client/types'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import {
   getTutorialMap,
   handleCollectionLink,
   handleTutorialLink,
 } from './utils'
+import { ProductSlug } from 'types/products'
 
-const learnProducts = new RegExp(Object.keys(ProductOption).join('|'), 'g')
-const learnLink = new RegExp('(learn.hashicorp.com|collections|tutorials)')
+const learnProductOptions = Object.keys(ProductOption).join('|')
+/**
+ * Matches anything that
+ * - contains learn.hashicorp.com
+ * - collection & tutorial routes: /collections/waypoint/some-slug or /tutorials/terraform/another-slug
+ * - product hub pages i.e. /boundary /waypoint
+ */
+const learnLink = new RegExp(
+  `(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud)/)|^/(${learnProductOptions}|cloud)$`
+)
+
 let TUTORIAL_MAP
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
@@ -45,12 +59,12 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
       return
     }
 
-    const [product] = node.url.match(learnProducts)
+    const [product] = node.url.match(new RegExp(`${learnProductOptions}|cloud`))
     const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
-    const isBetaProduct = __config.dev_dot.beta_product_slugs.includes(product)
+    const isBetaProduct = getIsBetaProduct(product as ProductSlug)
 
     // if its not a beta product and also not an external link, rewrite
-    // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/vault
+    // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/consul
     if (!isBetaProduct && !isExternalLearnLink) {
       // If its an internal link, rewrite to an external learn link
       node.url = new URL(node.url, 'https://learn.hashicorp.com/').toString()
@@ -58,8 +72,6 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
 
     if (isBetaProduct) {
       let nodePath = node.url // the path to be formatted - assumes to be absolute as current Learn impl does
-      const isCollectionPath = nodePath.includes('collections')
-      const isTutorialPath = nodePath.includes('tutorials')
 
       // if its an external link, isolate the pathname
       if (isExternalLearnLink) {
@@ -67,11 +79,18 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
         nodePath = fullUrl.pathname
       }
 
+      const isCollectionPath = nodePath.includes('collections')
+      const isTutorialPath = nodePath.includes('tutorials')
+      const learnProductHub = new RegExp(`^/${product}$`)
+      const isProductHubPath = learnProductHub.test(nodePath)
+
       // handle rewriting collection and tutorial dev portal paths
       if (isCollectionPath) {
         node.url = handleCollectionLink(nodePath)
       } else if (isTutorialPath) {
         node.url = handleTutorialLink(nodePath, TUTORIAL_MAP)
+      } else if (isProductHubPath) {
+        node.url = `${nodePath}/tutorials`
       }
 
       if (!node.url) {

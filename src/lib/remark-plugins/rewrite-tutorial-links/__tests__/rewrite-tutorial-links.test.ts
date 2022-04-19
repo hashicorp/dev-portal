@@ -1,6 +1,7 @@
 import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
+import { expect } from '@playwright/test'
 
 // HELPERS ------------------------------------------------------
 
@@ -38,7 +39,14 @@ const TEST_MD_LINKS = {
   betaProductTutorialQueryParamWithAnchor:
     '[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-nomad#install-the-waypoint-server)',
   betaProductDefintionLink: '[1]: /tutorials/waypoint/get-started-ui',
+  betaProductHubLink: '[link to product hub page](/vault)',
+  betaProductHubExternalLink:
+    '[External link to product hub page](https://learn.hashicorp.com/vault)',
+  nonBetaProductHubLink: '[non beta product hub link](/terraform)',
+  nonBetaProductHubExternalLink:
+    '[non beta product hub link](https://learn.hashicorp.com/terraform)',
   errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
+  searchPage: '[link to search page on Learn](/search)',
 }
 
 /**
@@ -177,5 +185,28 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
     const path = String(contents).split(':')[1].trim()
     expect(path).toMatch(devDotTutorialsPath)
+  })
+
+  test('Search page on learn is made external', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.searchPage)
+
+    expect(String(contents)).toMatch(/(learn.hashicorp.com)?\/search/)
+  })
+
+  test('Beta-product hub pages should be rewritten to dev portal', async () => {
+    const interalLinkContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductHubLink)
+    const internalPath = isolatePathFromMarkdown(String(interalLinkContents))
+    const externalLinkContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductHubExternalLink)
+    const externalPath = isolatePathFromMarkdown(String(externalLinkContents))
+    const productHub = /^\/vault\/tutorials$/
+
+    expect(internalPath).toMatch(productHub)
+    expect(externalPath).toMatch(productHub)
   })
 })
