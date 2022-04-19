@@ -141,6 +141,7 @@ export function getStaticGenerationFunctions<
               text: `Back to ${product.name}`,
               href: `/${product.slug}`,
             },
+            overviewItemHref: `/${product.slug}/${basePath}`,
             menuItems: navDataWithFullPaths,
             title: product.name,
           },

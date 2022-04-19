@@ -3,6 +3,7 @@ import useCurrentPath from 'hooks/use-current-path'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
 import {
+  SidebarNavLinkItem,
   SidebarNavMenuItem,
   SidebarSkipToMainContent,
   SidebarTitleHeading,
@@ -102,6 +103,7 @@ const Sidebar = ({
   backToLinkProps,
   children,
   menuItems,
+  overviewItemHref,
   showFilterInput = true,
   title,
   visuallyHideTitle = false,
@@ -136,6 +138,19 @@ const Sidebar = ({
     )
   }
 
+  let overviewItem
+  if (overviewItemHref) {
+    overviewItem = (
+      <SidebarNavLinkItem
+        item={{
+          href: overviewItemHref,
+          title: 'Overview',
+          isActive: overviewItemHref === currentPath,
+        }}
+      />
+    )
+  }
+
   return (
     <div className={s.sidebar}>
       {backToLink}
@@ -147,6 +162,7 @@ const Sidebar = ({
           <SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
         </div>
         <SidebarSkipToMainContent />
+        {overviewItem}
         {sidebarContent}
       </nav>
     </div>

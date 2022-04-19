@@ -27,6 +27,7 @@ const SidebarSidecarLayout = ({
       <Sidebar
         backToLinkProps={sidebarProps.backToLinkProps}
         menuItems={sidebarProps.menuItems}
+        overviewItemHref={sidebarProps.overviewItemHref}
         showFilterInput={sidebarProps.showFilterInput}
         title={sidebarProps.title}
       />
