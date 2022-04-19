@@ -20,19 +20,21 @@ type ProductTutorialsPageProduct = ClientProduct &
 
 export interface ProductTutorialsPageProps {
   layoutProps: ProductTutorialsLayout
-  data: {
-    pageData: {
-      blocks: any // @TODO type
-      showProductSitemap: boolean
-      collections: ClientCollection[]
-    }
-    inlineCollections: InlineCollections
-    inlineTutorials: InlineTutorials
-  }
+  data: ProductPageData
   product: ProductTutorialsPageProduct
 }
 
 type ProductTutorialsLayout = CollectionLayout
+
+export interface ProductPageData {
+  pageData: {
+    blocks: any // @TODO type
+    showProductSitemap: boolean
+    collections: ClientCollection[]
+  }
+  inlineCollections: InlineCollections
+  inlineTutorials: InlineTutorials
+}
 
 /**
  * Given a ProductData object (imported from src/data JSON files), fetches and

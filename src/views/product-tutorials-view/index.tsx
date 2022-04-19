@@ -1,16 +1,10 @@
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import Link from 'next/link'
-import React from 'react'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
-import {
-  getCollectionSlug,
-  getTutorialSlug,
-} from 'views/collection-view/helpers'
-
-import { ProductTutorialsPageProps } from './server'
 import ProductCollectionsSidebar, {
   ProductCollectionsSidebarProps,
 } from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
+import { ProductTutorialsSitemap } from './components'
+import { ProductTutorialsPageProps } from './server'
 
 function ProductTutorialsView({
   layoutProps,
@@ -42,11 +36,13 @@ function ProductTutorialsView({
           <p key={`${b.type}-${i}`}>{b.heading}</p>
         </>
       ))}
-      <h2 id={layoutProps.headings[layoutProps.headings.length - 1].slug}>
-        All tutorials
-      </h2>
       {showProductSitemap ? (
-        <AllProductCollections collections={collections} />
+        <>
+          <h2 id={layoutProps.headings[layoutProps.headings.length - 1].slug}>
+            All tutorials
+          </h2>
+          <ProductTutorialsSitemap collections={collections} />
+        </>
       ) : null}
     </SidebarSidecarLayout>
   )
@@ -54,27 +50,3 @@ function ProductTutorialsView({
 
 ProductTutorialsView.layout = CoreDevDotLayout
 export default ProductTutorialsView
-
-function AllProductCollections({ collections }): React.ReactElement {
-  // @TODO render the tutorial links as well. this data is within the collection
-  return (
-    <ul>
-      {collections.map((collection) => (
-        <li key={collection.id}>
-          <Link href={getCollectionSlug(collection.slug)}>
-            <a>{collection.shortName}</a>
-          </Link>
-          <ul>
-            {collection.tutorials.map((t) => (
-              <li key={t.id}>
-                <Link href={getTutorialSlug(t.slug, collection.slug)}>
-                  <a>{t.name}</a>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </li>
-      ))}
-    </ul>
-  )
-}
