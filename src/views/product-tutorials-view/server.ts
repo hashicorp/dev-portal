@@ -47,7 +47,10 @@ export async function getProductTutorialsPageProps(
     productSlug
   )
   const layoutProps = {
-    headings: [{ title: 'Overview', slug: 'overview', level: 1 }],
+    headings: [
+      { title: 'Overview', slug: 'overview', level: 1 },
+      { title: 'All tutorials', slug: 'all-tutorials', level: 1 },
+    ],
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, filename: product.slug },
     }),

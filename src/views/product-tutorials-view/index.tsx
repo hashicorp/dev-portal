@@ -6,7 +6,11 @@ import TutorialsSidebar, {
   HorizontalRule,
   SectionTitle,
 } from 'components/tutorials-sidebar'
-import { getCollectionSlug } from 'views/collection-view/helpers'
+import {
+  getCollectionSlug,
+  getTutorialSlug,
+} from 'views/collection-view/helpers'
+
 import { ProductTutorialsPageProps } from './server'
 
 export default function ProductTutorialsView({
@@ -49,8 +53,10 @@ export default function ProductTutorialsView({
         </TutorialsSidebar>
       }
     >
-      <h1>{product.name} Tutorials</h1>
-      <h2>All Collections</h2>
+      <h1 id={layoutProps.headings[0].slug}>{product.name} Tutorials</h1>
+      <h2 id={layoutProps.headings[layoutProps.headings.length - 1].slug}>
+        All tutorials
+      </h2>
       <AllProductCollections collections={collections} />
     </SidebarSidecarLayout>
   )
@@ -59,6 +65,7 @@ export default function ProductTutorialsView({
 function AllProductCollections({
   collections,
 }: Pick<ProductTutorialsPageProps, 'collections'>): React.ReactElement {
+  // @TODO render the tutorial links as well. this data is within the collection
   return (
     <ul>
       {collections.map((collection) => (
@@ -66,6 +73,15 @@ function AllProductCollections({
           <Link href={getCollectionSlug(collection.slug)}>
             <a>{collection.shortName}</a>
           </Link>
+          <ul>
+            {collection.tutorials.map((t) => (
+              <li key={t.id}>
+                <Link href={getTutorialSlug(t.slug, collection.slug)}>
+                  <a>{t.name}</a>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </li>
       ))}
     </ul>
