@@ -7,5 +7,5 @@ export interface SidebarBackToLinkProps {
   /**
    * Where the SidebarBackToLink link should go when activated.
    */
-  url: string
+  href: string
 }

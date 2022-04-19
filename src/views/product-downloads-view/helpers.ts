@@ -119,7 +119,7 @@ export const initializeBackToLink = (
 ): SidebarProps['backToLinkProps'] => {
   return {
     text: `Back to ${currentProduct.name}`,
-    url: `/${currentProduct.slug}`,
+    href: `/${currentProduct.slug}`,
   }
 }
 
