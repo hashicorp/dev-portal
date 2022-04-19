@@ -63,7 +63,6 @@ export async function getAllTutorials(
 ): Promise<
   Tutorial[] | (Pick<Tutorial, 'slug'> & { collection_slug: string }[])
 > {
-  console.log('CALLING GET ALL TUTORIALS!!!!!!!!!!!!!!!!!') // testing the caching efficacy
   let result = []
   const limit = options?.limit?.toString()
   const recurse = Boolean(!limit)
