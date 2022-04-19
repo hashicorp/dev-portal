@@ -3,6 +3,14 @@ import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { SidebarProps } from 'components/sidebar'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 
+// TODO: wip
+interface SidebarNavDataLevel {
+  levelButtonProps: SidebarProps['levelButtonProps']
+  menuItems: SidebarProps['menuItems']
+  showFilterInput?: SidebarProps['showFilterInput']
+  title: SidebarProps['title']
+}
+
 /**
  * `BaseProps` represents the props that are defined for every usage of
  * `SidebarSidecarLayout`.
@@ -12,6 +20,8 @@ interface BaseProps {
   children: React.ReactNode
   githubFileUrl?: string
   openConsentManager?: () => void
+  // TODO: wip
+  sidebarNavDataLevels?: SidebarNavDataLevel[]
 }
 
 /**

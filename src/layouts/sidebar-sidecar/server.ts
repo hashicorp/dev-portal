@@ -6,6 +6,10 @@ import { ProductData } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
+import {
+  generateProductLandingNavItems,
+  generateTopLevelNavItems,
+} from 'components/sidebar/helpers'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -122,6 +126,41 @@ export function getStaticGenerationFunctions<
         basePath,
       ])
 
+      /**
+       * constructs the levels of nav data for DocsView pages
+       *
+       * @TODO - do something with it?
+       */
+      const sidebarNavDataLevels = [
+        {
+          levelButtonProps: {
+            text: `${product.name} Home`,
+            iconPosition: 'trailing',
+          },
+          menuItems: generateTopLevelNavItems(),
+          showFilterInput: false,
+          title: 'Main Menu',
+        },
+        {
+          levelButtonProps: {
+            text: 'Back to Developer',
+            iconPosition: 'leading',
+          },
+          menuItems: generateProductLandingNavItems(product),
+          showFilterInput: false,
+          title: product.name,
+        },
+        {
+          levelButtonProps: {
+            text: `Back to ${product.name}`,
+            iconPosition: 'leading',
+          },
+          menuItems: navDataWithFullPaths,
+          title: 'Documentation', // TODO: this depends on basePath
+        },
+      ]
+      console.log('STUFF', sidebarNavDataLevels)
+
       const breadcrumbLinks = getDocsBreadcrumbs({
         productPath: product.slug,
         productName: product.name,
@@ -136,6 +175,7 @@ export function getStaticGenerationFunctions<
           breadcrumbLinks,
           githubFileUrl,
           headings: nonEmptyHeadings,
+          sidebarNavDataLevels,
           sidebarProps: {
             backToLinkProps: {
               text: `Back to ${product.name}`,
