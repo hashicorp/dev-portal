@@ -1,20 +1,22 @@
+import { LearnProductData } from 'types/products'
+import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import TutorialsSidebar, {
   SectionList,
   HorizontalRule,
   SectionTitle,
-} from 'components/tutorials-sidebar'
-import { LearnProductData } from 'types/products'
-import { CollectionCategorySidebarSection } from '../helpers'
+} from '../'
 
-interface CollectionViewSidebarProps {
-  product: LearnProductData
+export interface ProductCollectionsSidebarProps {
+  product: Pick<LearnProductData, 'name' | 'slug'>
   sections: CollectionCategorySidebarSection[]
+  isOverview?: boolean
 }
 
-export default function CollectionViewSidebar({
+export default function ProductCollectionsSidebar({
   product,
   sections,
-}: CollectionViewSidebarProps) {
+  isOverview = false,
+}: ProductCollectionsSidebarProps) {
   return (
     <TutorialsSidebar
       title="Tutorials"
@@ -28,7 +30,7 @@ export default function CollectionViewSidebar({
           {
             text: 'Overview',
             href: `/${product.slug}/tutorials`,
-            isActive: false,
+            isActive: isOverview,
           },
         ]}
       />

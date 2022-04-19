@@ -1,11 +1,6 @@
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Link from 'next/link'
 import React from 'react'
-import TutorialsSidebar, {
-  SectionList,
-  HorizontalRule,
-  SectionTitle,
-} from 'components/tutorials-sidebar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import {
   getCollectionSlug,
@@ -13,6 +8,9 @@ import {
 } from 'views/collection-view/helpers'
 
 import { ProductTutorialsPageProps } from './server'
+import ProductCollectionsSidebar, {
+  ProductCollectionsSidebarProps,
+} from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
 
 function ProductTutorialsView({
   layoutProps,
@@ -25,32 +23,16 @@ function ProductTutorialsView({
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
       sidebarSlot={
-        <TutorialsSidebar
-          title="Tutorials"
-          backToLink={{
-            text: `${product.name} Home`,
-            href: `/${product.slug}`,
-          }}
-        >
-          <SectionList
-            items={[
-              {
-                text: 'Overview',
-                href: `/${product.slug}/tutorials`,
-                isActive: true,
-              },
-            ]}
-          />
-          {layoutProps.sidebarSections.map((section) => {
-            return (
-              <>
-                <HorizontalRule />
-                <SectionTitle text={section.title} />
-                <SectionList items={section.items} />
-              </>
-            )
-          })}
-        </TutorialsSidebar>
+        <ProductCollectionsSidebar
+          isOverview={true}
+          product={
+            {
+              name: product.name,
+              slug: product.slug,
+            } as ProductCollectionsSidebarProps['product']
+          }
+          sections={layoutProps.sidebarSections}
+        />
       }
     >
       <h1 id={layoutProps.headings[0].slug}>{product.name} Tutorials</h1>
