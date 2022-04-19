@@ -74,7 +74,11 @@ function TabButtonControls({
         const { label, tabId, panelId, isActive } = tabItem
         return (
           <button
-            className={classNames(s.tabButton, 'g-focus-ring-from-box-shadow')}
+            className={classNames(
+              s.tabButton,
+              'g-focus-ring-from-box-shadow',
+              'hds-typography-body-200'
+            )}
             aria-controls={panelId}
             aria-selected={isActive}
             id={tabId}
