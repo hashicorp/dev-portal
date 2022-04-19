@@ -6,7 +6,7 @@ import CardLink from 'components/card-link'
 import Text from 'components/text'
 import s from './vault-slot.module.css'
 
-export default function VaultSlot() {
+function VaultSlot() {
   return (
     <CardLink href="/" className={s.root}>
       <VisuallyHidden as="h2">Vault</VisuallyHidden>
@@ -23,3 +23,5 @@ export default function VaultSlot() {
     </CardLink>
   )
 }
+
+export { VaultSlot }

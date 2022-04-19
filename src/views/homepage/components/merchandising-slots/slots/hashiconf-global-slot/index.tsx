@@ -4,7 +4,7 @@ import CardLink from 'components/card-link'
 import Text from 'components/text'
 import s from './hashiconf-global-slot.module.css'
 
-export default function HashiConfGlobalSlot() {
+function HashiConfGlobalSlot() {
   return (
     <CardLink href="/" className={s.root}>
       <VisuallyHidden as="h2">HashiConf Global</VisuallyHidden>
@@ -27,3 +27,5 @@ export default function HashiConfGlobalSlot() {
     </CardLink>
   )
 }
+
+export { HashiConfGlobalSlot }
