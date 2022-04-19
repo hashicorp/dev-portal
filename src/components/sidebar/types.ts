@@ -40,6 +40,11 @@ interface SidebarBaseProps {
    * Text to be shown as the title of the sidebar.
    */
   title: string
+
+  /**
+   * @TODO - write description
+   */
+  visuallyHideTitle?: boolean
 }
 
 /**
