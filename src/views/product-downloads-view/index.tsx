@@ -6,6 +6,7 @@ import { useCurrentProduct } from 'contexts'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DevDotContent from 'components/dev-dot-content'
+import { EnrichedNavItem } from 'components/sidebar/types'
 
 // Local imports
 import {
@@ -74,7 +75,7 @@ const ProductDownloadsViewContent = ({
     <SidebarSidecarLayout
       sidebarProps={{
         backToLinkProps,
-        menuItems: navData,
+        menuItems: navData as EnrichedNavItem[],
         showFilterInput: false,
         title: currentProduct.name,
       }}

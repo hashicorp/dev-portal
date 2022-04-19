@@ -2,12 +2,110 @@ import { ReactNode } from 'react'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 
 /**
+ * Interfaces for each nav item in their raw form, before any enrichment or
+ * filtering via the filter input. They are based off of some of the types
+ * defined in `mktg-content-workflows/shared/types.ts`.
+ *
+ * ref: https://github.com/hashicorp/mktg-content-workflows/blob/main/shared/types.ts
+ */
+
+interface DividerNavItem {
+  divider: boolean
+}
+
+interface HeadingNavItem {
+  heading: string
+}
+
+interface BaseNavItem {
+  hidden?: boolean
+  title: string
+}
+
+interface RawSubmenuNavItem extends BaseNavItem {
+  routes: RawSidebarNavItem[]
+}
+
+interface RawInternalLinkNavItem extends BaseNavItem {
+  path: string
+}
+
+interface RawExternalLinkNavItem extends BaseNavItem {
+  href: string
+}
+
+// LinkNavItems should have either path or href, but not both
+interface RawLinkNavItem
+  extends RawInternalLinkNavItem,
+    RawExternalLinkNavItem {}
+
+// The main, general nav item type
+type RawSidebarNavItem =
+  | DividerNavItem
+  | HeadingNavItem
+  | RawSubmenuNavItem
+  | RawLinkNavItem
+
+/**
+ * Interfaces for enriched nav items without filtering via the filter input
+ */
+
+interface EnrichedSubmenuNavItem extends RawSubmenuNavItem {
+  id: string
+  routes: EnrichedNavItem[]
+}
+
+interface EnrichedLinkNavItem extends RawLinkNavItem {
+  fullPath: string
+  isActive: boolean
+  id: string
+}
+
+type EnrichedNavItem =
+  | DividerNavItem
+  | HeadingNavItem
+  | EnrichedSubmenuNavItem
+  | EnrichedLinkNavItem
+
+/**
+ * Interfaces for nav items that have had meta data added to them by Sidebar
+ */
+interface SubmenuNavItemWithMetaData extends EnrichedSubmenuNavItem {
+  hasActiveChild: boolean
+  routes: NavItemWithMetaData[]
+}
+
+interface LinkNavItemWithMetaData extends EnrichedLinkNavItem {
+  isActive: boolean
+}
+
+type NavItemWithMetaData =
+  | DividerNavItem
+  | HeadingNavItem
+  | SubmenuNavItemWithMetaData
+  | LinkNavItemWithMetaData
+
+/**
+ * Interfaces for nav items that have been filtered via the filter input
+ */
+interface FilteredSubmenuNavItem extends EnrichedSubmenuNavItem {
+  hasChildrenMatchingFilter: boolean
+  routes: FilteredNavItem[]
+}
+
+interface FilteredLinkNavItem extends EnrichedLinkNavItem {
+  matchesFilter: boolean
+}
+
+type FilteredNavItem = FilteredSubmenuNavItem | FilteredLinkNavItem
+
+/**
  *
  * For reference: this is also defined in react-components/docs-sidenav:
  * https://github.com/hashicorp/react-components/blob/main/packages/docs-sidenav/types.ts
  *
  */
-export interface MenuItem {
+interface MenuItem {
   divider?: boolean
   fullPath?: string
   hasActiveChild?: boolean
@@ -75,7 +173,19 @@ type SidebarContentProps =
     }
   | {
       children?: never
-      menuItems: MenuItem[]
+      menuItems: EnrichedNavItem[]
     }
 
-export type SidebarProps = SidebarBaseProps & SidebarContentProps
+type SidebarProps = SidebarBaseProps & SidebarContentProps
+
+export type {
+  EnrichedLinkNavItem,
+  EnrichedNavItem,
+  EnrichedSubmenuNavItem,
+  FilteredNavItem,
+  LinkNavItemWithMetaData,
+  MenuItem,
+  NavItemWithMetaData,
+  SidebarProps,
+  SubmenuNavItemWithMetaData,
+}
