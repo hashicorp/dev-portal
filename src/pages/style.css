@@ -130,6 +130,26 @@ Mobile & tablet visibility helpers, specific to dev-dot.
 }
 
 /*
+***
+* Screen reader only global helper
+***
+* Visually hides content so it is only available to screen readers. Sourced
+* Scott O'Hara's Inclusively Hidden article.
+*
+* https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
+***
+*/
+.g-screen-reader-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/*
 TODO: this will eventually replace the other focus helpers but they are heavily
 used at the moment and need to be refactored carefully. The places they are used
 do extra math to account for padding, which this helper now does with padding

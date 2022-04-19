@@ -28,7 +28,11 @@ export const addNavItemMetaData = (
   currentPath: string,
   items: EnrichedNavItem[]
 ): AddNavItemMetaDataResult => {
+  // `menuItems` is an optional prop, so nothing to do if `items` is undefined
   let foundActiveItem = false
+  if (!items) {
+    return { foundActiveItem, itemsWithMetadata: [] }
+  }
 
   const itemsWithMetadata = items.map(
     (item: EnrichedNavItem): NavItemWithMetaData => {

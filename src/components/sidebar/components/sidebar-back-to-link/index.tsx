@@ -6,12 +6,12 @@ import s from './sidebar-back-to-link.module.css'
 
 const SidebarBackToLink = ({
   text,
-  url,
+  href,
 }: SidebarBackToLinkProps): ReactElement => {
   return (
     <div className={s.root}>
       <StandaloneLink
-        href={url}
+        href={href}
         icon={<IconChevronLeft16 className={s.icon} />}
         iconPosition="leading"
         text={text}
