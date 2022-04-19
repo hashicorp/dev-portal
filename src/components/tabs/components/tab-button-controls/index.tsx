@@ -16,13 +16,10 @@ function TabButtonControls({
   const buttonElements = useRef<{ [key in string]: HTMLButtonElement }>({})
 
   /**
-   * After a keypress event, focus the newly active tab button.
-   * Note: keyUp events don't repeat, but keyDown ones do.
-   * We don't want a long hold of the left or right arrow keys to
-   * rapidly change the active tab. So, we use keyUp here.
-   *
-   * This is based on the implementation at:
-   * https://www.w3.org/TR/wai-aria-practices-1.2/examples/tabs/tabs-1/tabs.html
+   * After keypress events, but not after clicks,
+   * focus the newly active tab button.
+   * The `wasKeypress` ref is necessary so that this effect only runs when
+   * `activeTabIndex` is updated via arrow key presses.
    */
   useEffect(() => {
     if (wasKeypress.current) {
@@ -49,6 +46,26 @@ function TabButtonControls({
     }
   }
 
+  /**
+   * Note: keyUp events don't repeat, but keyDown ones do.
+   * We don't want a long hold of the left or right arrow keys to
+   * rapidly change the active tab. So, we use keyUp here.
+   *
+   * This is based on the implementation at:
+   * https://www.w3.org/TR/wai-aria-practices-1.2/examples/tabs/tabs-1/tabs.html
+   */
+  const handleKeyUp = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const newIndex = newIndexFromKeypress(
+      event.key,
+      activeTabIndex,
+      tabItems.length
+    )
+    if (newIndex !== activeTabIndex) {
+      wasKeypress.current = true
+      setActiveTabIndex(newIndex)
+    }
+  }
+
   return (
     <div
       aria-label={!ariaLabelledBy ? ariaLabel : undefined}
@@ -67,17 +84,7 @@ function TabButtonControls({
             key={tabId}
             onClick={() => setActiveTabIndex(index)}
             onKeyDown={handleKeyDown}
-            onKeyUp={(e: KeyboardEvent<HTMLButtonElement>) => {
-              const newIndex = newIndexFromKeypress(
-                e.key,
-                activeTabIndex,
-                tabItems.length
-              )
-              if (newIndex !== activeTabIndex) {
-                wasKeypress.current = true
-                setActiveTabIndex(newIndex)
-              }
-            }}
+            onKeyUp={handleKeyUp}
             ref={(element: HTMLButtonElement) =>
               (buttonElements.current[index] = element)
             }
