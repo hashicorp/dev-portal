@@ -1,20 +1,19 @@
 .merchandisingSlots {
-  --container-max-width: 1240px;
-  --grid-template-columns: 1;
-  --grid-gap: 24px;
-
-  @media (--dev-dot-tablet-up) {
-    --grid-template-columns: 2;
-  }
-
-  padding: 88px 24px;
+  padding-top: var(--homepage-section-padding-y);
+  padding-bottom: var(--homepage-section-padding-y);
 }
 
 .container {
-  max-width: var(--container-max-width);
+  --grid-template-columns: 1;
+
+  width: var(--homepage-container-width);
   margin-right: auto;
   margin-left: auto;
   display: grid;
   grid-template-columns: repeat(var(--grid-template-columns), 1fr);
-  gap: var(--grid-gap);
+  gap: var(--homepage-grid-gap);
+
+  @media (--dev-dot-tablet-up) {
+    --grid-template-columns: 2;
+  }
 }

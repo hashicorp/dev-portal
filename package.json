@@ -81,6 +81,7 @@
     "@hashicorp/platform-code-highlighting": "^0.1.2",
     "@hashicorp/platform-docs-mdx": "^0.1.3",
     "@hashicorp/platform-markdown-utils": "^0.2.0",
+    "@hashicorp/platform-packer-plugins": "^0.2.0",
     "@hashicorp/platform-product-meta": "^0.1.0",
     "@hashicorp/platform-runtime-error-monitoring": "^0.1.0",
     "@hashicorp/react-alert-banner": "^7.0.1",

@@ -1,48 +1,15 @@
 /*
-NOTE: This file mainly uses selectors to apply styles because it ensures that
+NOTE: This file uses `role` selectors to apply styles because it ensures that
 the correct elements, roles, states, and properties are being set in the markup.
 */
 
-/*
-Styles for showing a bottom border on the tab buttons container.
-*/
-.tablistWithAnchorLine {
-  border-bottom: 1px solid var(--token-color-palette-neutral-200);
-  padding-bottom: 16px;
-}
-
-/*
-Styles for the tab buttons container.
-*/
-.root [role='tablist'] {
-  align-items: center;
-  display: flex;
-}
-
-/*
-Styles for each tab button.
-*/
-.root [role='tab'] {
-  background-color: white;
-  border: none;
-  border-radius: 5px;
-  color: var(--token-color-foreground-faint);
-  font-size: var(--token-typography-body-200-font-size);
-  font-weight: var(--token-typography-font-weight-regular);
-  padding: 8px 12px;
-
-  &[aria-selected='true'] {
-    color: var(--token-color-foreground-strong);
-    background-color: var(--token-color-palette-neutral-200);
-  }
-
-  &:focus-visible {
-    z-index: 1;
-  }
-
-  &:hover {
-    color: var(--token-color-foreground-strong);
-    background-color: var(--token-color-palette-neutral-100);
+.tabControls {
+  /*
+  Styles for showing a bottom border on the tab buttons container.
+  */
+  &.showAnchorLine {
+    border-bottom: 1px solid var(--token-color-palette-neutral-200);
+    padding-bottom: 16px;
   }
 }
 
@@ -56,7 +23,7 @@ keeps us from having to set styles in the JSX.
 ref: https://twitter.com/heydonworks/status/408263890284191745
 ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
 */
-.root [role='tabpanel'] {
+.tabPanel[role='tabpanel'] {
   &[aria-hidden='true'] {
     display: none;
     visibility: hidden;

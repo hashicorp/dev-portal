@@ -16,6 +16,7 @@ const SIDEBAR_LABEL_ID = 'sidebar-label'
 const Sidebar = ({
   backToLinkProps,
   menuItems,
+  overviewItemHref,
   showFilterInput = true,
   title,
 }: SidebarProps): ReactElement => {
@@ -33,6 +34,19 @@ const Sidebar = ({
     backToLink = <SidebarBackToLink text={text} url={url} />
   }
 
+  let overviewItem
+  if (overviewItemHref) {
+    overviewItem = (
+      <SidebarNavMenuItem
+        item={{
+          href: overviewItemHref,
+          title: 'Overview',
+          isActive: overviewItemHref === currentPath,
+        }}
+      />
+    )
+  }
+
   return (
     <div className={s.sidebar}>
       {backToLink}
@@ -43,6 +57,7 @@ const Sidebar = ({
         <SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
         <SidebarSkipToMainContent />
         <ul className={s.navList}>
+          {overviewItem}
           {filteredMenuItems.map((item: FilteredNavItem) => (
             <SidebarNavMenuItem item={item} key={item.id} />
           ))}

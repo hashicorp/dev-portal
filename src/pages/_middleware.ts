@@ -34,17 +34,12 @@ function determineProductSlug(req: NextRequest): string {
     return req.cookies.io_preview
   }
 
-  // deploy preview in product repo and local preview
-  if (process.env.DEV_IO) {
-    return process.env.DEV_IO
-  }
-
   // .io production deploy
   if (req.nextUrl.hostname in HOSTNAME_MAP) {
     return HOSTNAME_MAP[req.nextUrl.hostname]
   }
 
-  // dev portal
+  // dev portal / deploy preview and local preview of io sites
   return '*'
 }
 
