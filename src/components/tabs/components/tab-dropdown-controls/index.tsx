@@ -46,4 +46,3 @@ function TabDropdownControls({
 }
 
 export { TabDropdownControls }
-export default TabDropdownControls
