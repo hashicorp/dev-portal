@@ -96,6 +96,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
 
 const Sidebar = ({
   backToLinkProps,
+  children,
   menuItems,
   showFilterInput = true,
   title,
@@ -110,8 +111,17 @@ const Sidebar = ({
 
   let backToLink
   if (backToLinkProps) {
-    const { text, url } = backToLinkProps
-    backToLink = <SidebarBackToLink text={text} url={url} />
+    const { text, href } = backToLinkProps
+    backToLink = <SidebarBackToLink text={text} href={href} />
+  }
+
+  let sidebarContent
+  if (children) {
+    sidebarContent = children
+  } else {
+    sidebarContent = filteredMenuItems.map((item) => (
+      <SidebarNavMenuItem item={item} key={item.id} />
+    ))
   }
 
   return (
@@ -123,11 +133,7 @@ const Sidebar = ({
       <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.nav}>
         <SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
         <SidebarSkipToMainContent />
-        <ul className={s.navList}>
-          {filteredMenuItems.map((item) => (
-            <SidebarNavMenuItem item={item} key={item.id} />
-          ))}
-        </ul>
+        <ul className={s.navList}>{sidebarContent}</ul>
       </nav>
     </div>
   )
