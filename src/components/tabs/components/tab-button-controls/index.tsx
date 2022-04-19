@@ -32,23 +32,29 @@ function TabButtonControls({
     }
   }, [activeTabIndex])
 
+  /**
+   * We want to prevent default behavior for the keys that we listen for in
+   * the `handleKeyUp` handler, as well as for the Space and Enter keys,
+   * which would otherwise trigger unnecessary `onClick` events.
+   */
+  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    const { key } = event
+    const isArrowLeft = key === 'ArrowLeft'
+    const isArrowRight = key === 'ArrowRight'
+    const isSpaceKey = key === ' '
+    const isEnterKey = key === 'Enter'
+
+    if (isArrowLeft || isArrowRight || isSpaceKey || isEnterKey) {
+      event.preventDefault()
+    }
+  }
+
   return (
     <div
       aria-label={!ariaLabelledBy ? ariaLabel : undefined}
       aria-labelledby={ariaLabelledBy}
       className={s.tabList}
       role="tablist"
-      onKeyUp={(e: KeyboardEvent<HTMLDivElement>) => {
-        const newIndex = newIndexFromKeypress(
-          e.key,
-          activeTabIndex,
-          tabItems.length
-        )
-        if (newIndex !== activeTabIndex) {
-          wasKeypress.current = true
-          setActiveTabIndex(newIndex)
-        }
-      }}
     >
       {tabItems.map((tabItem: TabItem, index: number) => {
         const { label, tabId, panelId, isActive } = tabItem
@@ -60,6 +66,18 @@ function TabButtonControls({
             id={tabId}
             key={tabId}
             onClick={() => setActiveTabIndex(index)}
+            onKeyDown={handleKeyDown}
+            onKeyUp={(e: KeyboardEvent<HTMLButtonElement>) => {
+              const newIndex = newIndexFromKeypress(
+                e.key,
+                activeTabIndex,
+                tabItems.length
+              )
+              if (newIndex !== activeTabIndex) {
+                wasKeypress.current = true
+                setActiveTabIndex(newIndex)
+              }
+            }}
             ref={(element: HTMLButtonElement) =>
               (buttonElements.current[index] = element)
             }
