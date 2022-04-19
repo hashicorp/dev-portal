@@ -102,7 +102,7 @@ export default function TutorialView({
           breadcrumbLinks={layout.breadcrumbLinks}
           sidebarSlot={
             <TutorialsSidebar
-              backToLink={{
+              backToLinkProps={{
                 text: collectionCtx.current.shortName,
                 href: getCollectionSlug(collectionCtx.current.slug),
               }}
