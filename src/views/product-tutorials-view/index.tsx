@@ -15,11 +15,10 @@ import { ProductTutorialsPageProps } from './server'
 
 export default function ProductTutorialsView({
   layoutProps,
-  pageData,
-  collections,
+  data,
   product,
 }: ProductTutorialsPageProps): React.ReactElement {
-  console.log({ pageData }, { layoutProps })
+  const { showProductSitemap, blocks, collections } = data.pageData
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
@@ -57,14 +56,14 @@ export default function ProductTutorialsView({
       <h2 id={layoutProps.headings[layoutProps.headings.length - 1].slug}>
         All tutorials
       </h2>
-      <AllProductCollections collections={collections} />
+      {showProductSitemap ? (
+        <AllProductCollections collections={collections} />
+      ) : null}
     </SidebarSidecarLayout>
   )
 }
 
-function AllProductCollections({
-  collections,
-}: Pick<ProductTutorialsPageProps, 'collections'>): React.ReactElement {
+function AllProductCollections({ collections }): React.ReactElement {
   // @TODO render the tutorial links as well. this data is within the collection
   return (
     <ul>

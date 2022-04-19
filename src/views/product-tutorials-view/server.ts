@@ -16,8 +16,15 @@ type ProductTutorialsPageProduct = ClientProduct &
 
 export interface ProductTutorialsPageProps {
   layoutProps: ProductTutorialsLayout
-  pageData: any // @TODO  type this
-  collections: ClientCollection[]
+  data: {
+    pageData: {
+      blocks: any // @TODO type
+      showProductSitemap: boolean
+      collections: ClientCollection[]
+    }
+    inlineCollections: any // @TODO type
+    inlineTutorials: any // @TODO type
+  }
   product: ProductTutorialsPageProduct
 }
 
@@ -37,7 +44,8 @@ export async function getProductTutorialsPageProps(
   productData: LearnProductData
 ): Promise<{ props: ProductTutorialsPageProps }> {
   const productSlug = productData.slug
-  const pageData = await getProductPageContent(productSlug)
+  const { pageData, inlineCollections, inlineTutorials } =
+    await getProductPageContent(productSlug)
   const product = await getProduct(productSlug)
   const allProductCollections = await getAllCollections({
     product: { slug: productSlug, sidebarSort: true },
@@ -68,8 +76,14 @@ export async function getProductTutorialsPageProps(
   const { description, docsUrl, id, name, slug } = product
   return {
     props: stripUndefinedProperties({
-      pageData,
-      collections: filteredCollections.sort(sortAlphabetically('name')),
+      data: {
+        pageData: {
+          ...pageData,
+          collections: filteredCollections.sort(sortAlphabetically('name')),
+        },
+        inlineCollections,
+        inlineTutorials,
+      },
       layoutProps,
       product: {
         ...productData,
