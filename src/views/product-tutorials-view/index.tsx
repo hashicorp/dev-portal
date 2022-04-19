@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+import slugify from 'slugify'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductCollectionsSidebar, {
@@ -12,6 +14,7 @@ function ProductTutorialsView({
   product,
 }: ProductTutorialsPageProps): React.ReactElement {
   const { showProductSitemap, blocks, collections } = data.pageData
+
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
@@ -31,10 +34,10 @@ function ProductTutorialsView({
     >
       <h1 id={layoutProps.headings[0].slug}>{product.name} Tutorials</h1>
       {blocks.map((b, i) => (
-        <>
-          <h3>Block type: {b.type}</h3>
-          <p key={`${b.type}-${i}`}>{b.heading}</p>
-        </>
+        <Fragment key={`${b.type}-${i}`}>
+          <h3 id={slugify(b.heading)}> {b.heading} </h3>
+          <p>Block type: {b.type}</p>
+        </Fragment>
       ))}
       {showProductSitemap ? (
         <>

@@ -6,13 +6,14 @@ import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { formatSidebarCategorySections } from 'views/collection-view/helpers'
 import getProductPageContent from './helpers/get-product-page-content'
-import { filterCollections, sortAlphabetically } from './helpers'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import { CollectionLayout } from 'views/collection-view/server'
 import {
   InlineCollections,
   InlineTutorials,
 } from './helpers/get-inline-content'
+import { generateHeadings } from './helpers/generate-headings'
+import { filterCollections, sortAlphabetically } from './helpers'
 
 // Some of the product data is coming from the API client on this view
 type ProductTutorialsPageProduct = ClientProduct &
@@ -60,11 +61,9 @@ export async function getProductTutorialsPageProps(
     allProductCollections,
     productSlug
   )
+
   const layoutProps = {
-    headings: [
-      { title: 'Overview', slug: 'overview', level: 1 },
-      { title: 'All tutorials', slug: 'all-tutorials', level: 1 },
-    ],
+    headings: generateHeadings(pageData.blocks),
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, filename: product.slug },
     }),
