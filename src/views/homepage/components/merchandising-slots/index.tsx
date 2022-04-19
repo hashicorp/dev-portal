@@ -1,7 +1,11 @@
-import { Children } from 'react'
+import { Children, ReactNode } from 'react'
 import s from './merchandising-slots.module.css'
 
-export default function MerchandisingSlots({ children }) {
+export default function MerchandisingSlots({
+  children,
+}: {
+  children: ReactNode
+}) {
   const totalSlots = Children.count(children)
   if (totalSlots !== 4) {
     throw new Error(

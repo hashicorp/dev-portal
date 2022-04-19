@@ -328,9 +328,11 @@ function splitRedirectsByType(redirects) {
  * @param {Redirect[]} redirects
  */
 function groupSimpleRedirects(redirects) {
-  /** @type {Record<string, string>} */
   const hostMatching = Object.entries(proxySettings).reduce(
-    (acc, [productSlug, productProxySettings]) => {
+    (
+      /** @type {Record<string, string>} */ acc,
+      [productSlug, productProxySettings]
+    ) => {
       acc[productProxySettings.host] = productSlug
       return acc
     },

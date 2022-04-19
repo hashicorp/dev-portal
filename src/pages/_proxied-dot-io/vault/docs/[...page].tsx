@@ -17,7 +17,7 @@ const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 const additionalComponents = { Columns, Tag }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function DocsView(props) {
+function DocsView(props: $TSFixMe) {
   return (
     <DocsPage
       product={product}

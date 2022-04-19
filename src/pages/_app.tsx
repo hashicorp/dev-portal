@@ -30,7 +30,7 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
   axe(React, ReactDOM, 1000)
 }
 
-export default function App({ Component, pageProps, layoutProps }) {
+export default function App({ Component, pageProps, layoutProps }: $TSFixMe) {
   useAnchorLinkAnalytics()
 
   const Layout = Component.layout ?? BaseLayout
@@ -65,7 +65,7 @@ export default function App({ Component, pageProps, layoutProps }) {
   )
 }
 
-App.getInitialProps = async ({ Component, ctx }) => {
+App.getInitialProps = async ({ Component, ctx }: $TSFixMe) => {
   // Determine the product being served through our rewrites so we can fetch the correct layout data
   let proxiedProduct
   if (ctx.pathname.includes('_proxied-dot-io/vault')) {
@@ -73,7 +73,10 @@ App.getInitialProps = async ({ Component, ctx }) => {
   } else if (ctx.pathname.includes('_proxied-dot-io/consul')) {
     proxiedProduct = 'consul'
   }
-  const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
+  const layoutProps = await fetchLayoutProps(
+    Component.layout,
+    proxiedProduct as $TSFixMe
+  )
 
   let pageProps = {}
 

@@ -19,7 +19,7 @@ function Terminal({ tabs, children }: TerminalProps): JSX.Element {
   const { ref, inView } = useInView({
     threshold: 1,
   })
-  const handleTabsChange = (index) => {
+  const handleTabsChange = (index: number) => {
     setTabIndex(index)
   }
   useInterval(

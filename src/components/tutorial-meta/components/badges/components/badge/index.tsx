@@ -33,7 +33,7 @@ export interface BadgeComponentProps {
   className?: string
 }
 
-export function getBadgeComponent(displayOptions) {
+export function getBadgeComponent(displayOptions: $TSFixMe) {
   function DefaultBadgeComponent({
     type,
     className,

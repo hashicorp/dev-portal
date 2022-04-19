@@ -68,7 +68,7 @@ export function formatToCollectionLite(
 
 function formatCollectionCtx(
   featuredCollections: ApiCollection[] | ApiCollectionLite[],
-  defaultCollectionId
+  defaultCollectionId: $TSFixMe
 ): CollectionCtxLite | CollectionCtxFull {
   let featuredIn
   const defaultCollection = featuredCollections.find(

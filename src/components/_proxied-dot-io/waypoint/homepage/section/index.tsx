@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import classNames from 'classnames'
 import s from './style.module.css'
 
@@ -15,11 +15,11 @@ function Section({ className, id, children }: SectionProps) {
     </section>
   )
 }
-function SectionHeading({ children }) {
+function SectionHeading({ children }: { children: ReactNode }) {
   return <h2 className={s.sectionHeading}>{children}</h2>
 }
 
-function SectionDescription({ children }) {
+function SectionDescription({ children }: { children: ReactNode }) {
   return <p className={s.sectionDescription}>{children}</p>
 }
 

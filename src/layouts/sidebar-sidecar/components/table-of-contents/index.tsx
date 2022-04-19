@@ -31,7 +31,11 @@ const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
   )
 }
 
-const TableOfContentsListItem = ({ isActive, slug, title }): ReactElement => {
+const TableOfContentsListItem = ({
+  isActive,
+  slug,
+  title,
+}: $TSFixMe): ReactElement => {
   const className = classNames(s.tableOfContentsListItem, {
     [s.activeTableOfContentsListItem]: isActive,
   })

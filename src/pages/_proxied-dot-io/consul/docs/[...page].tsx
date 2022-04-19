@@ -15,7 +15,7 @@ const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 const additionalComponents = { ConfigEntryReference }
 
-function DocsView(props) {
+function DocsView(props: $TSFixMe) {
   return (
     <DocsPage
       product={product}

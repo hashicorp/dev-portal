@@ -61,7 +61,7 @@ export async function getTutorials(
 export async function getAllTutorials(
   options?: getAllTutorialsOptions
 ): Promise<Tutorial[] | Pick<Tutorial, 'slug'>[]> {
-  let result = []
+  let result: $TSFixMe[] = []
   const limit = options?.limit?.toString()
   const recurse = Boolean(!limit)
 

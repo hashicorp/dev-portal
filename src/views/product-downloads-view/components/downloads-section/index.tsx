@@ -29,7 +29,7 @@ const SHARED_HEADING_LEVEL_3_PROPS = {
   weight: 'semibold' as HeadingProps['weight'],
 }
 
-const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
+const PackageManagerSection = ({ packageManagers, prettyOSName }: $TSFixMe) => {
   const hasOnePackageManager = packageManagers?.length === 1
   const hasManyPackageManagers = packageManagers?.length > 1
   const hasPackageManagers = hasOnePackageManager || hasManyPackageManagers
@@ -54,8 +54,8 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
         />
       )}
       {hasManyPackageManagers && (
-        <CodeTabs tabs={packageManagers.map(({ label }) => label)}>
-          {packageManagers.map(({ label, commands }) => {
+        <CodeTabs tabs={packageManagers.map(({ label }: $TSFixMe) => label)}>
+          {packageManagers.map(({ label, commands }: $TSFixMe) => {
             return (
               <CodeBlock
                 key={label}
@@ -77,7 +77,7 @@ const BinaryDownloadsSection = ({
   os,
   prettyOSName,
   selectedRelease,
-}) => {
+}: $TSFixMe) => {
   const { name, version } = selectedRelease
   return (
     <>
@@ -115,7 +115,7 @@ const BinaryDownloadsSection = ({
   )
 }
 
-const ChangelogSection = ({ selectedRelease }) => {
+const ChangelogSection = ({ selectedRelease }: $TSFixMe) => {
   const { name, version } = selectedRelease
   return (
     <>
@@ -148,7 +148,7 @@ const ChangelogSection = ({ selectedRelease }) => {
   )
 }
 
-const NotesSection = ({ selectedRelease }) => {
+const NotesSection = ({ selectedRelease }: $TSFixMe) => {
   const currentProduct = useCurrentProduct()
   const { name, shasums, shasums_signature, version } = selectedRelease
 

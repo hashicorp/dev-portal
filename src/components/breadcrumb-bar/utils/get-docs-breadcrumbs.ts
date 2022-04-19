@@ -1,9 +1,16 @@
-import { NavData } from '@hashicorp/react-docs-sidenav'
 import { BreadcrumbLink } from '..'
+import {
+  NavData,
+  NavNode,
+  NavLeaf,
+  NavUnlinkedLeaf,
+  isNavLeaf,
+  isNavBranch,
+} from './types'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
-interface GetPathBreadcrumbsOpts {
+export interface GetPathBreadcrumbsOpts {
   /** The base path for the current route, if applicable. For example, "docs". Returned breadcrumb links will be prefixed with this path. */
   basePath: string
   /** An array of nav nodes, as defined by our sidenav component. */
@@ -41,22 +48,28 @@ function getPathBreadcrumbs({
   )
   // Map the matched navData nodes into { title, url }
   // objects as needed for breadcrumb link rendering.
-  return breadcrumbNodes.map(({ title, path }) => {
-    const link = { title } as BreadcrumbLink
-    if (path) {
-      link.url = `/${basePath}/${path}`
-    }
-    if (path == pathParts.join('/')) {
-      link.isCurrentPage = true
+  return breadcrumbNodes.map((navNode) => {
+    const link = { title: navNode.title } as BreadcrumbLink
+    if (isNavLeaf(navNode)) {
+      if (navNode.path) {
+        link.url = `/${basePath}/${navNode.path}`
+      }
+      if (navNode.path == pathParts.join('/')) {
+        link.isCurrentPage = true
+      }
     }
     return link
   })
 }
 
-function getPathMatchedNode(navNodes, pathString, basePath) {
+function getPathMatchedNode(
+  navNodes: NavData,
+  pathString: string,
+  basePath: string
+): NavLeaf | NavUnlinkedLeaf {
   const matches = findAllPathMatchedNodes(navNodes, pathString)
   // If we have exactly one match, this is great, and expected
-  if (matches.length == 1) {
+  if (matches.length == 1 && isNavLeaf(matches[0])) {
     return matches[0]
   }
   // If we do not have exactly one match, we likely
@@ -66,7 +79,7 @@ function getPathMatchedNode(navNodes, pathString, basePath) {
   // If navData has ambiguous matches, warn in development.
   // We can fallback to returning the first match, and this should
   // be fine from a visitor perspective. Less urgent to fix these types of issues.
-  if (matches.length > 1) {
+  if (matches.length > 1 && isNavLeaf(matches[0])) {
     if (IS_DEV) {
       console.warn(
         `Ambiguous breadcrumb path under "${basePath}": Found ${matches.length} matches for "${pathString}". Please ensure there is exactly one node or index-less category with the path "${pathString}" in the provided navData.`
@@ -87,22 +100,31 @@ function getPathMatchedNode(navNodes, pathString, basePath) {
   return { title: lastPathPart }
 }
 
-function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
+function findAllPathMatchedNodes(
+  navNodes: NavData,
+  pathString: string,
+  // eslint-disable-next-line @typescript-eslint/typedef
+  depth = 0
+): NavNode[] {
   return navNodes
     .slice()
-    .map((node) => findPathMatchedNodes(node, pathString, depth))
-    .reduce((matches, acc) => acc.concat(matches), [])
+    .map((node: NavNode) => findPathMatchedNodes(node, pathString, depth))
+    .reduce((matches: NavNode[], acc: NavNode[]) => acc.concat(matches), [])
 }
 
-function findPathMatchedNodes(navNode, pathString, depth) {
+function findPathMatchedNodes(
+  navNode: NavNode,
+  pathString: string,
+  depth: number
+): NavNode[] {
   // If it's a node with child routes, look for matches
   // within the child routes
-  if (navNode.routes) {
+  if (isNavBranch(navNode)) {
     // Check for an index (aka "Overview") node in the child routes.
     // These nodes will have paths with a number of parts
     // equal to the current route depth + 1
     const indexMatches = navNode.routes.filter((r) => {
-      if (!r.path) {
+      if (!isNavLeaf(r)) {
         return false
       }
       const pathParts = r.path.split('/')
@@ -111,7 +133,11 @@ function findPathMatchedNodes(navNode, pathString, depth) {
     // If we have a child route which serves as an index page,
     // then return the title of this "parent" navNode, rather
     // that the title of the index page (which is usually "Overview")
-    if (indexMatches.length && indexMatches[0].path == pathString) {
+    if (
+      indexMatches.length &&
+      isNavLeaf(indexMatches[0]) &&
+      indexMatches[0].path == pathString
+    ) {
       return [{ title: navNode.title, path: indexMatches[0].path }]
     }
     // If we don't have a child route that serves as an index page,
@@ -119,10 +145,10 @@ function findPathMatchedNodes(navNode, pathString, depth) {
     // the current path string matches the inferred path
     // to the index-less category.
     if (indexMatches.length == 0) {
-      const routesWithPaths = navNode.routes.filter((r) => {
-        return Boolean(r.path)
+      const routesWithPaths = navNode.routes.filter((r: NavNode) => {
+        return isNavLeaf(r)
       })
-      if (routesWithPaths.length) {
+      if (routesWithPaths.length && isNavLeaf(routesWithPaths[0])) {
         const inferredPathParts = routesWithPaths[0].path.split('/')
         inferredPathParts.pop()
         const inferredPath = inferredPathParts.join('/')
@@ -136,7 +162,7 @@ function findPathMatchedNodes(navNode, pathString, depth) {
   }
   // If it's a node with a path value,
   // return the node if the path is a match
-  if (typeof navNode.path == 'string') {
+  if (isNavLeaf(navNode)) {
     return navNode.path === pathString ? [{ ...navNode }] : []
   }
   // Otherwise, it's a divider or a direct link,
@@ -144,7 +170,7 @@ function findPathMatchedNodes(navNode, pathString, depth) {
   return []
 }
 
-interface GetDocsBreadcrumbsOpts extends GetPathBreadcrumbsOpts {
+export interface GetDocsBreadcrumbsOpts extends GetPathBreadcrumbsOpts {
   baseName: string
   productName: string
   productPath: string

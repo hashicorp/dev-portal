@@ -10,7 +10,7 @@ import {
 
 export async function getStaticProps({
   params,
-}): Promise<{ props: CollectionPageProps }> {
+}: $TSFixMe): Promise<{ props: CollectionPageProps }> {
   const { collectionSlug } = params
   const product = waypointData as LearnProductData
   return await getCollectionPageProps(product, collectionSlug)

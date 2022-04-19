@@ -49,7 +49,7 @@ export default function IoHomeFeature({
   )
 }
 
-function IoHomeFeatureWrap({ href, children }) {
+function IoHomeFeatureWrap({ href, children }: $TSFixMe) {
   if (!href) {
     return <div className={s.feature}>{children}</div>
   }

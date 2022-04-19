@@ -34,7 +34,7 @@ const initializeAllProductSlugs = () => {
  * more booleans in the future.
  */
 const initalizeState = (allProductSlugs: ProductSlug[]): ContextState => {
-  const result = {}
+  const result: Record<string, $TSFixMe> = {}
 
   // initalize the state object for each product
   const defaultProductState: ProductState = { isBetaProduct: false }

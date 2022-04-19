@@ -10,7 +10,7 @@ import Text from 'components/text'
 import s from './tutorial-card.module.css'
 
 const getProductIcons = () => {
-  const icons = {}
+  const icons: Record<string, $TSFixMe> = {}
   for (const slug of productSlugs) {
     icons[slug] = <ProductIcon productSlug={slug} />
   }
@@ -58,7 +58,7 @@ export default function TutorialCard({
         {description}
       </Text>
       <ul className={s.badgesList}>
-        {badges.map((badge, index) => {
+        {badges.map((badge: keyof typeof BADGE_ICON_MAP, index) => {
           return (
             <li key={index} className={s.badgesListItem}>
               <Badge

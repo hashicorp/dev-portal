@@ -51,7 +51,10 @@ const ProductPageHeaderContent = () => {
     path: `/${slug}`,
   }))
   const allMainMenuItems = [[homeMenuItem], betaProductMenuItems]
-  const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
+  const productLogo =
+    PRODUCT_SLUGS_TO_LOGOS[
+      currentProduct.slug as keyof typeof PRODUCT_SLUGS_TO_LOGOS
+    ]
   const isProductHomePage = currentPath === `/${currentProduct.slug}`
 
   return (

@@ -10,7 +10,7 @@ function getTruncatedText(string: string, characterLimit: number): string {
   } else {
     let characterCount = 0
     const words = string.split(' ')
-    const wordsToInclude = []
+    const wordsToInclude: string[] = []
     words.forEach((word, index) => {
       const wordLength = word.length
       if (characterCount + wordLength <= characterLimit) {

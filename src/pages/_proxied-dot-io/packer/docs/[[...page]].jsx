@@ -17,7 +17,7 @@ const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 const additionalComponents = { Badge, BadgesHeader, PluginBadge, Checklist }
 
-function DocsView(props) {
+function DocsView(props: $TSFixMe) {
   return (
     <DocsPage
       product={product}

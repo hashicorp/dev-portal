@@ -85,7 +85,7 @@ const PreviewProductSwitcher: React.FC = () => {
       shouldFocusFirstAnchor.current = false
     }
 
-    const handleDocumentClick = (e) => {
+    const handleDocumentClick = (e: $TSFixMe) => {
       const isClickOutside = !productChooserRef.current.contains(e.target)
       if (isClickOutside) {
         setIsOpen(false)
@@ -205,7 +205,7 @@ const PreviewProductSwitcher: React.FC = () => {
           )}
           onClick={() => setPreviewProduct(product.slug)}
           onKeyDown={handleButtonKeyDown}
-          ref={refToPass}
+          ref={refToPass as $TSFixMe}
         >
           <span className={s.focusContainer}>
             <ProductIcon

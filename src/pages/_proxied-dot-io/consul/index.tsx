@@ -13,7 +13,7 @@ import IoHomeCallToAction from 'components/_proxied-dot-io/common/io-home-call-t
 import IoHomePreFooter from 'components/_proxied-dot-io/common/io-home-pre-footer'
 import s from './home/style.module.css'
 
-function Homepage({ data }): React.ReactElement {
+function Homepage({ data }: $TSFixMe): React.ReactElement {
   const {
     seo,
     heroHeading,
@@ -62,7 +62,7 @@ function Homepage({ data }): React.ReactElement {
         heading={heroHeading}
         description={heroDescription}
         ctas={heroCtas}
-        cards={heroCards.map((card) => {
+        cards={heroCards.map((card: $TSFixMe) => {
           return {
             ...card,
             cta: card.cta[0],
@@ -103,7 +103,7 @@ function Homepage({ data }): React.ReactElement {
             heading={useCasesHeading}
             description={useCasesDescription}
             cardsPerRow={4}
-            cards={useCasesCards.map((card) => {
+            cards={useCasesCards.map((card: $TSFixMe) => {
               return {
                 eyebrow: card.eyebrow,
                 link: {
@@ -124,7 +124,7 @@ function Homepage({ data }): React.ReactElement {
           <IoCardContainer
             heading={tutorialsHeading}
             cardsPerRow={3}
-            cards={tutorialCards.map((card) => {
+            cards={tutorialCards.map((card: $TSFixMe) => {
               return {
                 eyebrow: card.eyebrow,
                 link: {
@@ -145,7 +145,7 @@ function Homepage({ data }): React.ReactElement {
         pattern="/consul/img/practice-pattern.svg"
         heading={inPracticeHeading}
         description={inPracticeDescription}
-        cards={inPracticeCards.map((card) => {
+        cards={inPracticeCards.map((card: $TSFixMe) => {
           return {
             eyebrow: card.eyebrow,
             link: {

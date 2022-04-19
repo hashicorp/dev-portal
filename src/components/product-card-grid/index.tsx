@@ -17,7 +17,7 @@ function ProductCardGrid({ className }: { className?: string }): ReactElement {
   )
 }
 
-function CardGridSection({ title, products }): ReactElement {
+function CardGridSection({ title, products }: $TSFixMe): ReactElement {
   return (
     <div className={s.cardGridSection}>
       <Text
@@ -29,35 +29,37 @@ function CardGridSection({ title, products }): ReactElement {
         {title}
       </Text>
       <span className={s.sectionBody}>
-        {products.map(({ slug, hasLogo, headingIcon, heading, subheading }) => {
-          return (
-            <div className={s.sectionBodyCardWrapper} key={slug}>
-              <CardLink className={s.sectionBodyCard} href={`/${slug}`}>
-                {hasLogo && (
-                  <ProductIcon
-                    className={s.sectionBodyCardLogo}
-                    productSlug={slug}
-                  />
-                )}
-                <span className={s.sectionBodyCardHeading}>
-                  {headingIcon && (
+        {products.map(
+          ({ slug, hasLogo, headingIcon, heading, subheading }: $TSFixMe) => {
+            return (
+              <div className={s.sectionBodyCardWrapper} key={slug}>
+                <CardLink className={s.sectionBodyCard} href={`/${slug}`}>
+                  {hasLogo && (
                     <ProductIcon
-                      className={s.sectionBodyCardHeadingIcon}
+                      className={s.sectionBodyCardLogo}
                       productSlug={slug}
                     />
                   )}
-                  {heading}
-                </span>
-                <Text
-                  asElement="span"
-                  className={s.sectionBodyCardSubheading}
-                  dangerouslySetInnerHTML={{ __html: subheading }}
-                  size={200}
-                />
-              </CardLink>
-            </div>
-          )
-        })}
+                  <span className={s.sectionBodyCardHeading}>
+                    {headingIcon && (
+                      <ProductIcon
+                        className={s.sectionBodyCardHeadingIcon}
+                        productSlug={slug}
+                      />
+                    )}
+                    {heading}
+                  </span>
+                  <Text
+                    asElement="span"
+                    className={s.sectionBodyCardSubheading}
+                    dangerouslySetInnerHTML={{ __html: subheading }}
+                    size={200}
+                  />
+                </CardLink>
+              </div>
+            )
+          }
+        )}
       </span>
     </div>
   )

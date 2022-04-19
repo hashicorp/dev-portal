@@ -14,8 +14,7 @@ This will likely be replaced or augmented using a different approach
 as we continue to iterate on the card components used to render
 the product view content.
 */
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const tagIconDict = {
   boundary: IconBoundaryColor16,
   consul: IconConsulColor16,
   nomad: IconNomadColor16,
@@ -26,3 +25,6 @@ export default {
   video: IconPlay16,
   waypoint: IconWaypointColor16,
 }
+
+export type TagIconKey = keyof typeof tagIconDict
+export default tagIconDict

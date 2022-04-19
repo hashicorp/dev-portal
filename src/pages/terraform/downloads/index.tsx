@@ -72,7 +72,7 @@ function filterVersions(
   })
 
   // Turn the reduced tree of latest patches only into an array
-  const latestPatchesOnly = []
+  const latestPatchesOnly: $TSFixMe[] = []
   Object.entries(tree).forEach(([x, xObj]) => {
     Object.entries(xObj).forEach(([y, z]) => {
       latestPatchesOnly.push(`${x}.${y}.${z}`)
@@ -80,7 +80,7 @@ function filterVersions(
   })
 
   // Turn the array of latest patches only into an object with release data
-  const filteredVersionsObj = {}
+  const filteredVersionsObj: $TSFixMe = {}
   latestPatchesOnly.forEach((versionNumber: string) => {
     filteredVersionsObj[versionNumber] = versions[versionNumber]
   })

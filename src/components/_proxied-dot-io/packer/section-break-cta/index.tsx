@@ -9,7 +9,7 @@ export default function SectionBreakCta({
   description,
   link,
   media,
-}) {
+}: $TSFixMe) {
   return (
     <div className={s.sectionBreakCta}>
       <div className={s.content}>

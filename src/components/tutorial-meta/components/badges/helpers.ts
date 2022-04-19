@@ -33,9 +33,9 @@ const editionDisplayOptions: { [K in EditionOption]: string } = {
 
 // Returns a map of badge display options and a Default Badge component to render
 export function generateBadges(
-  readTime,
-  products,
-  edition
+  readTime: number,
+  products: $TSFixMe,
+  edition: $TSFixMe
 ): [DisplayOptions, React.FC<BadgeComponentProps>] {
   const displayOptions = {
     readTime: {
@@ -43,8 +43,10 @@ export function generateBadges(
       icon: IconClock16,
     },
     isBeta: { label: 'Beta' },
-    edition: { label: editionDisplayOptions[edition] },
-    products: products.map((p) => ({
+    edition: {
+      label: editionDisplayOptions[edition as EditionOption],
+    },
+    products: products.map((p: $TSFixMe) => ({
       label: p.name,
       slug: p.slug,
     })) as ProductDisplayOption[], // There can be many products associated with a single tutorial
@@ -60,7 +62,7 @@ export function generateBadges(
 export function getIsBeta(productsUsed: ClientProductUsed[]): boolean {
   let isBeta = false
 
-  for (let i; i < productsUsed.length; i++) {
+  for (let i = 0; i < productsUsed.length; i++) {
     if (productsUsed[i].isBeta) {
       isBeta = true
       break

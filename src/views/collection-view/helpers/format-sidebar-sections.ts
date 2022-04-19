@@ -23,10 +23,20 @@ export function formatSidebarCategorySections(
   const categorySlugs = Object.keys(CollectionCategoryOption)
 
   const sidebarSectionsByCategory = categorySlugs.map(
-    (category: CollectionCategoryOption) => {
+    (category: keyof typeof CollectionCategoryOption) => {
       // get collections associated with that category
       const items = collections.filter(
-        (c: ClientCollection) => c.category === category
+        /**
+         * TODO: is the CollectionCategoryOption type on
+         * ClientCollection['category'] correct? It would seem
+         * that ClientCollection['category'] may not be expected to be
+         * one of the enum values, but instead one of the enum keys?
+         *
+         * The dual conversion here is necessary to avoid a type error.
+         */
+        (c: ClientCollection) =>
+          (c.category as $TSFixMe as keyof typeof CollectionCategoryOption) ===
+          category
       )
 
       return {

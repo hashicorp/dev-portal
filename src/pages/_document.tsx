@@ -2,7 +2,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 import HashiHead from '@hashicorp/react-head'
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+  static async getInitialProps(ctx: $TSFixMe) {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
   }

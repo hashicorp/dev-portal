@@ -1,7 +1,7 @@
 import s from './style.module.css'
 import Button from '@hashicorp/react-button'
 
-export default function BrandedCta({ heading, content, links }) {
+export default function BrandedCta({ heading, content, links }: $TSFixMe) {
   return (
     <div className={s.brandedCta}>
       <div className={`g-grid-container ${s.contentContainer}`}>
@@ -9,7 +9,7 @@ export default function BrandedCta({ heading, content, links }) {
         <div className="content-and-links">
           <p className={`g-type-body-large ${s.content}`}>{content}</p>
           <div className={s.links}>
-            {links.map((link, stableIdx) => {
+            {links.map((link: $TSFixMe, stableIdx: number) => {
               return (
                 <Button
                   // eslint-disable-next-line react/no-array-index-key

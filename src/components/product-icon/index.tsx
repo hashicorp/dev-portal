@@ -15,7 +15,7 @@ const productSlugsToIcons = {
   hcp: IconHashicorpColor16,
   nomad: IconNomadColor16,
   packer: IconPackerColor16,
-  sentinel: null,
+  sentinel: null as $TSFixMe,
   terraform: IconTerraformColor16,
   vagrant: IconVagrantColor16,
   vault: IconVaultColor16,

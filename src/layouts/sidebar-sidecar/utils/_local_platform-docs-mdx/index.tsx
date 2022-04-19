@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import classNames from 'classnames'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
@@ -52,7 +52,10 @@ export default function defaultMdxComponents({ additionalComponents = {} }) {
  * Returns the Heading element with its given props applied and custom props we
  * apply for styling these components in docs pages.
  */
-function makeHeadingElement(level, props) {
+function makeHeadingElement(
+  level: keyof typeof HEADING_LEVELS_TO_PROPS,
+  props: $TSFixMe
+) {
   const customProps = HEADING_LEVELS_TO_PROPS[level]
   const className = classNames(props.className, devDotStyles[`h${level}`])
   const passableProps = {
@@ -96,13 +99,13 @@ function _defaultComponents() {
     pre,
     a: DocsAnchor,
     img: makeImageElement({ noBorder: true }),
-    h1: (props) => makeHeadingElement(1, props),
-    h2: (props) => makeHeadingElement(2, props),
-    h3: (props) => makeHeadingElement(3, props),
-    h4: (props) => makeHeadingElement(4, props),
-    h5: (props) => makeHeadingElement(5, props),
-    h6: (props) => makeHeadingElement(6, props),
-    p: (props) => <Text {...props} className={devDotStyles.p} />,
+    h1: (props: $TSFixMe) => makeHeadingElement(1, props),
+    h2: (props: $TSFixMe) => makeHeadingElement(2, props),
+    h3: (props: $TSFixMe) => makeHeadingElement(3, props),
+    h4: (props: $TSFixMe) => makeHeadingElement(4, props),
+    h5: (props: $TSFixMe) => makeHeadingElement(5, props),
+    h6: (props: $TSFixMe) => makeHeadingElement(6, props),
+    p: (props: $TSFixMe) => <Text {...props} className={devDotStyles.p} />,
   }
 }
 
@@ -110,7 +113,7 @@ function _defaultComponents() {
 // Base components need to be slightly modified
 // to fit our use cases in dev-portal
 //
-function EnterpriseAlert(props) {
+function EnterpriseAlert(props: $TSFixMe) {
   const currentProduct = useCurrentProduct()
   return <EnterpriseAlertBase product={currentProduct?.slug} {...props} />
 }
@@ -120,6 +123,12 @@ function EnterpriseAlert(props) {
  * this wrapper ensures any use of `defaultTabIdx` is still supported in older
  * versions of docs.
  */
-function TabsWrapper({ defaultTabIdx, children }) {
+function TabsWrapper({
+  defaultTabIdx,
+  children,
+}: {
+  defaultTabIdx: number
+  children: ReactNode
+}) {
   return <Tabs initialActiveIndex={defaultTabIdx}>{children}</Tabs>
 }

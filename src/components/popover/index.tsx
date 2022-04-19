@@ -29,7 +29,7 @@ function Popover({
   useOnFocusOutside([popoverRef], () => setIsShown(false), shown)
 
   const themeClass = s[`theme-${theme}`]
-  const themeProps = {}
+  const themeProps: Record<string, $TSFixMe> = {}
   if (themeBackground) {
     themeProps['--theme-background'] = themeBackground
   }
@@ -91,7 +91,11 @@ function Popover({
  * doesn't appear at the very edge of the
  * viewport.
  */
-function centeringFunction(triggerRect, tooltipRect, collisionBuffer) {
+function centeringFunction(
+  triggerRect: $TSFixMe,
+  tooltipRect: $TSFixMe,
+  collisionBuffer: $TSFixMe
+) {
   const triggerCenter = triggerRect.left + triggerRect.width / 2
   const left = triggerCenter - tooltipRect.width / 2
   const maxLeft = window.innerWidth - tooltipRect.width - collisionBuffer

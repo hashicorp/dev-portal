@@ -55,7 +55,7 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: $TSFixMe) {
   const props = await generateStaticProps({
     localContentDir,
     mainBranch,

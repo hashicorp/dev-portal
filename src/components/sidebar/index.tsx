@@ -54,7 +54,7 @@ const getFilteredMenuItems = (items: MenuItem[], filterValue: string) => {
     return items
   }
 
-  const filteredItems = []
+  const filteredItems: $TSFixMe[] = []
 
   items.forEach((item) => {
     const itemCopy = { ...item }

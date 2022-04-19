@@ -1,11 +1,13 @@
 import { ProductBrandColor } from 'components/icon-tile/types'
-interface CardInterface {
-  icon?: string
+import { TagIconKey } from './tag-icon-dict'
+import { IconKey } from './icon-dict'
+export interface CardInterface {
+  icon?: IconKey
   iconBrandColor?: ProductBrandColor
   heading: string
   text: string
   url: string
-  tags?: string[]
+  tags?: TagIconKey[]
 }
 
 export interface CardProps {
