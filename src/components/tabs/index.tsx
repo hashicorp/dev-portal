@@ -4,6 +4,7 @@ import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import { useOverflowRef, useTabItems } from './hooks'
 import { TabItem, TabsProps } from './types'
 import s from './tabs.module.css'
+import useSyncedTabGroups from './helpers/use-synced-tab-groups'
 
 const Tabs = ({
   ariaLabel,
@@ -38,6 +39,14 @@ const Tabs = ({
    * useTabItems efficiently handles validation & activation of tabItems
    */
   const tabItems = useTabItems({ children, activeTabIndex, initialActiveIndex })
+
+  /**
+   * useSyncedTabGroups hooks into TabProvider,
+   * and keeps activeTabIndex & activeTabGroup in sync.
+   *
+   * Note: only applies where tabs have groups, eg <Tab group="some-string" />.
+   */
+  useSyncedTabGroups({ activeTabIndex, setActiveTabIndex, tabItems })
 
   /**
    * If there's overflow, show a dropdown. Otherwise show typical tabs.
