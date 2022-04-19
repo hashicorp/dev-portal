@@ -16,7 +16,11 @@ const addItemMetadata = (
   currentPath: string,
   items: MenuItem[]
 ): { foundActiveItem: boolean; itemsWithMetadata: MenuItem[] } => {
+  // `menuItems` is an optional prop, so nothing to do if `items` is undefined
   let foundActiveItem = false
+  if (!items) {
+    return { foundActiveItem, itemsWithMetadata: [] }
+  }
 
   const itemsWithMetadata = items.map((item) => {
     const itemCopy = { ...item }
@@ -103,12 +107,11 @@ const Sidebar = ({
   visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const [filterValue, setFilterValue] = useState('')
   const { itemsWithMetadata } = useMemo(
     () => addItemMetadata(currentPath, menuItems),
     [currentPath, menuItems]
   )
-  const [filterValue, setFilterValue] = useState('')
-  const filteredMenuItems = getFilteredMenuItems(itemsWithMetadata, filterValue)
 
   let backToLink
   if (backToLinkProps) {
@@ -120,9 +123,17 @@ const Sidebar = ({
   if (children) {
     sidebarContent = children
   } else {
-    sidebarContent = filteredMenuItems.map((item) => (
-      <SidebarNavMenuItem item={item} key={item.id} />
-    ))
+    const filteredMenuItems = getFilteredMenuItems(
+      itemsWithMetadata,
+      filterValue
+    )
+    sidebarContent = (
+      <ul className={s.navList}>
+        {filteredMenuItems.map((item) => (
+          <SidebarNavMenuItem item={item} key={item.id} />
+        ))}
+      </ul>
+    )
   }
 
   return (
@@ -136,7 +147,7 @@ const Sidebar = ({
           <SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
         </div>
         <SidebarSkipToMainContent />
-        <ul className={s.navList}>{sidebarContent}</ul>
+        {sidebarContent}
       </nav>
     </div>
   )
