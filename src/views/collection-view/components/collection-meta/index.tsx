@@ -1,6 +1,8 @@
+import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import Heading from 'components/heading'
 import Button from 'components/button'
 import Text from 'components/text'
+import IconTile from 'components/icon-tile'
 import s from './collection-meta.module.css'
 
 interface CollectionMetaProps {
@@ -19,7 +21,9 @@ export default function CollectionMeta({
 }: CollectionMetaProps) {
   return (
     <>
-      <span className={s.icon}>(Collection icon)</span>
+      <IconTile size="large">
+        <IconCollections16 />
+      </IconTile>
       <Heading
         level={1}
         size={500}
