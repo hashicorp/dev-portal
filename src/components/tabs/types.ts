@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-
 /**
  * TODO: We more than likely want to require an accessible label on Tabs in the
  * future, but we do not currently require it on our existing Tabs from
@@ -53,3 +52,42 @@ export interface TabsProps {
 // }
 
 // export type TabsProps = PropsForAriaLabel | PropsForAriaLabelledBy
+
+/**
+ * RawTabItem is used for items parsed directly from <Tab /> children
+ */
+export interface RawTabItem {
+  label: string
+  content: ReactNode
+}
+
+/**
+ * RawTabItemWithID includes tabId & panelId properties.
+ * These are regenerated at the same time as RawTabItem entries are parsed,
+ * so the separation here is for convenience and clarity.
+ */
+export interface RawTabItemWithIds extends RawTabItem {
+  tabId: string
+  panelId: string
+}
+
+/**
+ * TabItem includes all properties needed to render tabs,
+ * which includes active state.
+ */
+export interface TabItem extends RawTabItemWithIds {
+  isActive: boolean
+}
+
+/**
+ * TabControlsProps is used for both TabButtonControls & TabDropdownControls.
+ * Those components are meant to be interchangeable, so they share
+ * the same interface.
+ */
+export interface TabControlsProps {
+  tabItems: TabItem[]
+  activeTabIndex: number
+  setActiveTabIndex: (newActiveIndex: number) => void
+  ariaLabel?: TabsProps['ariaLabel']
+  ariaLabelledBy?: TabsProps['ariaLabelledBy']
+}
