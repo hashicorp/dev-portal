@@ -16,6 +16,7 @@ export default async function tutorialsMapHandler(
 }
 
 export async function generateTutorialMap() {
+  console.log('Generating tutorial map') // to test caching
   const allTutorials = await getAllTutorials({
     fullContent: false,
     slugsOnly: true,
