@@ -1,6 +1,7 @@
 import Heading from 'components/heading'
 import Button from 'components/button'
 import Text from 'components/text'
+import s from './collection-meta.module.css'
 
 interface CollectionMetaProps {
   heading: {
@@ -22,7 +23,7 @@ export default function CollectionMeta({
       <Heading level={1} size={500} weight="bold" slug={heading.id}>
         {heading.text}
       </Heading>
-      <Text>{description}</Text>
+      <Text className={s.description}>{description}</Text>
       <Button color="primary" text="Start" />
       <p>{`(icon) ${numTutorials} tutorials`}</p>
     </>
