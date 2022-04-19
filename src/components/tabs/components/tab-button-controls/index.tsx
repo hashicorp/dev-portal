@@ -93,4 +93,5 @@ function TabButtonControls({
   )
 }
 
+export { TabButtonControls }
 export default TabButtonControls

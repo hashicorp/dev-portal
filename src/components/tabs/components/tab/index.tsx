@@ -18,4 +18,5 @@ const Tab = (props: TabProps): ReactElement => {
 }
 
 export type { TabProps }
+export { Tab }
 export default Tab
