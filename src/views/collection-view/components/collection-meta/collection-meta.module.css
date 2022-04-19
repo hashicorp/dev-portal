@@ -1,5 +1,5 @@
 .icon {
-  border: 1px solid magenta;
+  color: var(--token-color-foreground-primary);
 }
 
 .heading {
@@ -12,7 +12,6 @@
 }
 
 .cta {
-  border: 1px solid magenta;
   display: flex;
   align-items: center;
   margin-top: 24px;
@@ -24,7 +23,23 @@
   }
 }
 
-.ctaCollectionInfo {
+.ctaButton {
+  composes: root from '/src/components/button/button.module.css';
+  composes: primary from '/src/components/button/button.module.css';
+  composes: medium from '/src/components/button/button.module.css';
+  & a {
+    color: inherit;
+  }
+}
+
+.ctaText {
   color: var(--token-color-foreground-faint);
   margin: 0 0 0 16px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.ctaIcon {
+  margin-right: 6px;
 }

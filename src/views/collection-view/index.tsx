@@ -28,6 +28,7 @@ function CollectionView({
       <CollectionMeta
         heading={{ text: name, id: layoutProps.headings[0].slug }}
         description={description}
+        cta={{ href: getTutorialSlug(tutorials[0].slug, slug) }}
         numTutorials={tutorials.length}
       />
       <h2 id={layoutProps.headings[1].slug}>Tutorials</h2>

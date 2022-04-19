@@ -1,6 +1,7 @@
+import Link from 'next/link'
+import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import Heading from 'components/heading'
-import Button from 'components/button'
 import Text from 'components/text'
 import IconTile from 'components/icon-tile'
 import s from './collection-meta.module.css'
@@ -12,17 +13,21 @@ interface CollectionMetaProps {
   }
   description: string
   numTutorials: number
+  cta: {
+    href: string
+  }
 }
 
 export default function CollectionMeta({
   heading,
   description,
+  cta,
   numTutorials,
 }: CollectionMetaProps) {
   return (
     <>
       <IconTile size="large">
-        <IconCollections16 />
+        <IconCollections24 className={s.icon} />
       </IconTile>
       <Heading
         level={1}
@@ -35,11 +40,17 @@ export default function CollectionMeta({
       </Heading>
       <Text className={s.description}>{description}</Text>
       <div className={s.cta}>
-        {/* TODO this needs to be a link*/}
-        <Button color="primary" text="Start" />
-        <Text className={s.ctaCollectionInfo}>{`(icon) ${numTutorials} ${
-          numTutorials > 1 ? `tutorials` : `tutorial`
-        }`}</Text>
+        <span className={s.ctaButton}>
+          <Link href={cta.href}>
+            <a>Start</a>
+          </Link>
+        </span>
+        <span className={s.ctaText}>
+          <IconCollections16 className={s.ctaIcon} />
+          <Text>{`${numTutorials} ${
+            numTutorials > 1 ? `tutorials` : `tutorial`
+          }`}</Text>
+        </span>
       </div>
     </>
   )
