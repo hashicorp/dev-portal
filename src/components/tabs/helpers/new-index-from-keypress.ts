@@ -12,6 +12,8 @@
  *    If focus is on the first tab, moves focus to the last tab.
  *
  * Keyboard interaction reference:
+ * https://www.w3.org/TR/wai-aria-practices-1.2/#keyboard-interaction-21
+ * And example based on that reference:
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tablist_Role#keyboard_interactions
  *
  * Note that "Home" and "End" are suggested as optional mechanisms to quickly

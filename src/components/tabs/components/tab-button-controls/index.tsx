@@ -17,11 +17,12 @@ function TabButtonControls({
 
   /**
    * After a keypress event, focus the newly active tab button.
-   * Note: MDN example uses keydown, not keyup, though not sure how
-   * much stock we should place in that:
-   * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role#example
-   * Our tests currently rely on onKeyUp being used, NOT onKeydown.
-   * Switching to onKeydown would require refactoring tests.
+   * Note: keyUp events don't repeat, but keyDown ones do.
+   * We don't want a long hold of the left or right arrow keys to
+   * rapidly change the active tab. So, we use keyUp here.
+   *
+   * This is based on the implementation at:
+   * https://www.w3.org/TR/wai-aria-practices-1.2/examples/tabs/tabs-1/tabs.html
    */
   useEffect(() => {
     if (wasKeypress.current) {
