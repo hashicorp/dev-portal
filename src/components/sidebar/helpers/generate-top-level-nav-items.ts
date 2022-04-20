@@ -5,7 +5,7 @@ export const generateTopLevelNavItems = () => {
   const result = [
     {
       leadingIconName: 'home',
-      path: '/',
+      href: '/',
       title: 'Developer Home',
     },
     {
@@ -17,9 +17,9 @@ export const generateTopLevelNavItems = () => {
   betaProductSlugs.forEach((productSlug: ProductSlug) => {
     const title = productSlugsToNames[productSlug]
     const leadingIconName = productSlug
-    const path = `/${productSlug}`
+    const href = `/${productSlug}`
 
-    result.push({ leadingIconName, path, title })
+    result.push({ leadingIconName, href, title })
   })
 
   return result
