@@ -28,6 +28,7 @@ import {
   handleCollectionLink,
   handleTutorialLink,
 } from './utils'
+import { parseTutorialsMapCache } from 'pages/api/tutorials-map'
 
 const learnProductOptions = Object.keys(ProductOption).join('|')
 /**
@@ -44,7 +45,7 @@ let TUTORIAL_MAP
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
-    TUTORIAL_MAP = await getTutorialMap()
+    TUTORIAL_MAP = parseTutorialsMapCache()
 
     visit(tree, 'link', handleRewriteTutorialsLink)
     visit(tree, 'definition', handleRewriteTutorialsLink)

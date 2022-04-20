@@ -17,6 +17,7 @@ import {
   getCurrentCollectionTutorial,
 } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
+import { generateStaticTutorialMap } from 'pages/api/tutorials-map'
 
 export interface TutorialPageProps {
   tutorial: TutorialData
@@ -37,6 +38,8 @@ export async function getTutorialPageProps(
   product: LearnProductData,
   slug: [string, string]
 ): Promise<{ props: TutorialPageProps }> {
+  const tutorialMap = await generateStaticTutorialMap()
+  console.log(Object.keys(tutorialMap).length)
   const { collection, tutorialReference } = await getCurrentCollectionTutorial(
     product.slug as ProductOption,
     slug
