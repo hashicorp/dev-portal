@@ -13,7 +13,7 @@ export default async function tutorialsMapHandler(
 ) {
   const mapData = await cachedGenerateTutorialMap()
   res.setHeader('cache-control', `s-maxage=${MAP_MAX_AGE_IN_SECONDS}`)
-  if (mapData.keys().length > 0) {
+  if (Object.keys(mapData).length > 0) {
     res.status(StatusCodes.OK).json(mapData)
   } else {
     res.status(StatusCodes.BAD_REQUEST).json('Failed to fetch all tutorials')
@@ -21,6 +21,7 @@ export default async function tutorialsMapHandler(
 }
 
 export async function generateTutorialMap() {
+  console.log('Generating tutorial map') // For testing caching
   const allTutorials = await getAllTutorials({
     fullContent: false,
     slugsOnly: true,
