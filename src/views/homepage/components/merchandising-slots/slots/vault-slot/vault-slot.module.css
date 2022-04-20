@@ -1,6 +1,7 @@
 .root {
-  --padding: 24px;
+  --padding: 32px;
   --min-height: 200px;
+  --background-right-offset: -120px;
 
   display: flex;
   flex-direction: column;
@@ -8,31 +9,47 @@
   padding: var(--padding);
   min-height: var(--min-height);
   border-radius: 6px;
-  background-color: black;
-  color: white;
-  box-shadow: var(--token-surface-mid-box-shadow);
-  background-image: url('/img/homepage/vault-slot-accent.svg');
+  color: var(--black);
+  background: url('/img/homepage/vault-slot-accent.svg') right
+      var(--background-right-offset) bottom -50px,
+    linear-gradient(140.72deg, #fffbdc 30.64%, #fffeea 104.14%);
   background-repeat: no-repeat;
-  background-position: right bottom;
 
   @media (--dev-dot-tablet-up) {
     --padding: 48px;
-    --min-height: 300px;
+    --min-height: 450px;
+    --background-right-offset: -60px;
   }
 }
 
-.description {
-  margin-top: 12px;
-  font-size: 24px;
-  color: var(--token-color-surface-faint);
+.logo {
+  display: block;
+
+  /* Removes top/bottom padding from logo */
+  margin-top: -8px;
+  margin-bottom: -8px;
 }
 
-.duration {
+.description {
+  max-width: 390px;
+  margin-top: 12px;
+  margin-bottom: 64px;
+  font-size: 24px;
+}
+
+.cta {
   display: flex;
   align-items: center;
   gap: 6px;
   margin-top: auto;
   margin-bottom: 0;
-  font-size: 15px;
-  opacity: 0.7;
+  font-weight: var(--token-typography-font-weight-medium);
+
+  & svg {
+    transition: transform 0.2s;
+
+    @nest .root:hover & {
+      transform: translate(2px);
+    }
+  }
 }

@@ -16,4 +16,8 @@
   @media (--dev-dot-tablet-up) {
     --grid-template-columns: 2;
   }
+
+  & > * {
+    display: flex;
+  }
 }

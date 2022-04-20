@@ -12,8 +12,6 @@ import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
 import {
-  HcpVaultSlot,
-  WaypointSlot,
   HashiConfGlobalSlot,
   VaultSlot,
 } from './components/merchandising-slots/slots'
@@ -62,10 +60,8 @@ function Homepage(): ReactElement {
       />
 
       <MerchandisingSlots>
-        <HcpVaultSlot />
-        <WaypointSlot />
-        <HashiConfGlobalSlot />
         <VaultSlot />
+        <HashiConfGlobalSlot />
       </MerchandisingSlots>
 
       <LearnSection
