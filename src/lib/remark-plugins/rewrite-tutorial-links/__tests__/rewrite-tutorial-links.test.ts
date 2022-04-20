@@ -53,6 +53,8 @@ const TEST_MD_LINKS = {
  * When adding new MD_LINK tests, make sure the path is accounted for below
  *
  * [key: database tutorial slug]: value — dev dot absolute path
+ *
+ * something
  */
 const MOCK_TUTORIALS_MAP = {
   'waypoint/getting-started-config':
@@ -67,6 +69,7 @@ const MOCK_TUTORIALS_MAP = {
 
 describe('rewriteTutorialLinks remark plugin', () => {
   beforeEach(async () => {
+    console.log(process.env.CI, '!!!!!!!!!!!!!!!!!!!!!!!!!')
     // the api base url defaults to localhost when no VERCEL_URL is provided
     const scope = nock('http://localhost:3000/api/tutorials-map')
       .persist()
