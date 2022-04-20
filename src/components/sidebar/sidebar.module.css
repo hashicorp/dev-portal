@@ -9,6 +9,10 @@
 
 .nav {
   position: relative;
+
+  &:first-child {
+    margin-top: 8px;
+  }
 }
 
 .navList {
