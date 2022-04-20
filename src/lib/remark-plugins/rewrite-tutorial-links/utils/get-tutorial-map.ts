@@ -4,7 +4,7 @@ import { generateTutorialMap } from 'pages/api/tutorials-map'
 
 export async function getTutorialMap() {
   let result = {}
-  const isDuringBuild = Boolean(process.env.CI)
+  const isDuringBuild = process.env.VERCEL && process.env.CI
   const baseUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : 'http://localhost:3000'
