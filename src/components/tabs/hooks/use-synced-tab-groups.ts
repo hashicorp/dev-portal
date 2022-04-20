@@ -42,9 +42,11 @@ function useSyncedTabGroups({
   }, [tabItems, tabGroupContext])
 
   /**
-   * Create a mapping between tabIndex & tabGroup values.
+   * Create a mapping from tab.group => tabIndex values.
    * This mapping only needs to be updated when tabItems change.
    * We'll use this mapping to keep activeTabGroup in sync.
+   * (Note the reverse mapping, tabIndex => tabGroup, is already available:
+   * we can do tabItems[idx].group to achieve this mapping).
    */
   type TabGroupToIndex = Record<string, number>
   const [tabGroupToIndex, setTabGroupToIndex] = useState<TabGroupToIndex>({})
