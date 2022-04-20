@@ -15,6 +15,7 @@ import s from './sidebar.module.css'
 import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import classNames from 'classnames'
+import { useDeviceSize } from 'contexts'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 
@@ -28,6 +29,7 @@ const Sidebar = ({
   title,
   visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
+  const { isDesktop } = useDeviceSize()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const [filterValue, setFilterValue] = useState('')
   const { itemsWithMetadata } = useMemo(
@@ -36,7 +38,7 @@ const Sidebar = ({
   )
 
   let backToElement
-  if (levelButtonProps) {
+  if (levelButtonProps && !isDesktop) {
     const { iconPosition, onClick, text } = levelButtonProps
 
     let icon

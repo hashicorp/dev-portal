@@ -22,13 +22,7 @@ const SidebarSidecarLayout = ({
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const numSidebarLevels = sidebarPropsLevels ? sidebarPropsLevels.length : 0
-  const initialSidebarLevel = useMemo(() => {
-    if (numSidebarLevels > 0) {
-      return numSidebarLevels - 1
-    } else {
-      return 0
-    }
-  }, [numSidebarLevels])
+  const initialSidebarLevel = numSidebarLevels > 0 ? numSidebarLevels - 1 : 0
 
   // If `sidebarPropsLevels` is given, set current level to last level.
   const [currentSidebarLevel, setCurrentSidebarLevel] =
@@ -48,6 +42,9 @@ const SidebarSidecarLayout = ({
   /**
    * Initializes sidebarProps based on the current device size, number of
    * sidebar props levels given, and current sidebar level.
+   *
+   * @TODO we'll probably be able to remove this with the addition of a new
+   * Context is a couple of PRs
    */
   const finalSidebarProps: SidebarProps = useMemo(() => {
     // Make backwards compatible with `sidebarProps`
@@ -61,24 +58,17 @@ const SidebarSidecarLayout = ({
     }
 
     /**
-     * If desktop, we only care about `backToLinkProps`. Otherwise, tell each
-     * level's Button what to do `onClick`.
+     * @TODO handle this in Sidebar with a Context in follow-up PRs?
      */
-    if (isDesktop) {
-      delete propsCopy.levelButtonProps
-    } else {
-      delete propsCopy.backToLinkProps
-
-      if (numSidebarLevels > 1) {
-        propsCopy.levelButtonProps.onClick = () => {
-          setCurrentSidebarLevel((prevLevel: number) => {
-            if (prevLevel === 0) {
-              return prevLevel + 1
-            } else {
-              return prevLevel - 1
-            }
-          })
-        }
+    if (!isDesktop && numSidebarLevels > 1) {
+      propsCopy.levelButtonProps.onClick = () => {
+        setCurrentSidebarLevel((prevLevel: number) => {
+          if (prevLevel === 0) {
+            return prevLevel + 1
+          } else {
+            return prevLevel - 1
+          }
+        })
       }
     }
 
@@ -94,7 +84,9 @@ const SidebarSidecarLayout = ({
 
   /**
    * @TODO the docs Sidebar can have props spread onto it but not all uses of
-   * sidebarSlot allow props spreading.
+   * sidebarSlot allow props spreading. The spreading may also become
+   * unnecessary once there is a Context that helps manage the current sidebar
+   * level and how to change it.
    */
   const SidebarContent = (): ReactElement => {
     if (sidebarSlot) {
