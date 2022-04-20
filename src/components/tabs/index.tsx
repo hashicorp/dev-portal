@@ -1,10 +1,9 @@
 import { ReactElement, useState } from 'react'
 import classNames from 'classnames'
 import { Tab, TabButtonControls, TabDropdownControls } from './components'
-import { useOverflowRef, useTabItems } from './hooks'
+import { useOverflowRef, useTabItems, useSyncedTabGroups } from './hooks'
 import { TabItem, TabsProps } from './types'
 import s from './tabs.module.css'
-import useSyncedTabGroups from './helpers/use-synced-tab-groups'
 
 const Tabs = ({
   ariaLabel,
