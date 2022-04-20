@@ -1,10 +1,10 @@
-import Link from 'next/link'
 import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import Heading from 'components/heading'
 import Text from 'components/text'
 import IconTile from 'components/icon-tile'
 import s from './collection-meta.module.css'
+import ButtonLink from 'components/button-link'
 
 interface CollectionMetaProps {
   heading: {
@@ -43,11 +43,11 @@ export default function CollectionMeta({
       </Heading>
       <Text className={s.description}>{description}</Text>
       <div className={s.cta}>
-        <span className={s.ctaButton}>
-          <Link href={cta.href}>
-            <a>Start</a>
-          </Link>
-        </span>
+        <ButtonLink
+          href={cta.href}
+          text="Start"
+          ariaLabel="Start first tutorial"
+        />
         <span className={s.ctaText}>
           <IconCollections16 className={s.ctaIcon} />
           <Text>{ctaText}</Text>
