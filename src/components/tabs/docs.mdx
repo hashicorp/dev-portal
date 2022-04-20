@@ -118,7 +118,7 @@ First, second and third tabs should be actively synced based on their matching `
 
 _Note_: the `TabProvider` must wrap the page where this component is used for 'groups' to function properly.
 
-_Note_: ideally, tab groups should appear in the same order. However, in practice, it is possible for authors to change the order. Our implementation needs to account for the fact that a tab with a particular `group` value could appear at any place in the array of tab children.
+_Note_: ideally, tab groups should appear in the same order. However, in practice, it is possible for authors to change the order, or vary the number of tabs. Our implementation needs to account for the fact that a tab with a particular `group` value could appear at any place in the array of tab children.
 
 <LiveComponent>{`
 <TabProvider>
