@@ -144,7 +144,7 @@ export function getStaticGenerationFunctions<
         },
         {
           levelButtonProps: {
-            text: 'Back to Developer',
+            text: 'Main Menu',
             iconPosition: 'leading',
           },
           menuItems: generateProductLandingNavItems(product),
@@ -153,11 +153,11 @@ export function getStaticGenerationFunctions<
         },
         {
           backToLinkProps: {
-            text: `Back to ${product.name}`,
+            text: `${product.name} Home`,
             href: `/${product.slug}`,
           },
           levelButtonProps: {
-            text: `Back to ${product.name}`,
+            text: `${product.name} Home`,
             iconPosition: 'leading',
           },
           menuItems: navDataWithFullPaths,
