@@ -6,12 +6,6 @@ import {
 } from 'views/product-tutorials-view/server'
 import ProductTutorialsView from 'views/product-tutorials-view'
 
-export default function VaultTutorialHubPage(
-  props: ProductTutorialsPageProps
-): React.ReactElement {
-  return <ProductTutorialsView {...props} />
-}
-
 export async function getStaticProps(): Promise<{
   props: ProductTutorialsPageProps
 }> {
@@ -21,3 +15,5 @@ export async function getStaticProps(): Promise<{
 
   return props
 }
+
+export default ProductTutorialsView
