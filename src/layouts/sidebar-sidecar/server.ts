@@ -132,7 +132,7 @@ export function getStaticGenerationFunctions<
        *
        * @TODO - do something with it?
        */
-      const sidebarNavDataLevels = [
+      const sidebarPropsLevels = [
         {
           levelButtonProps: {
             text: `${product.name} Home`,
@@ -152,15 +152,19 @@ export function getStaticGenerationFunctions<
           title: product.name,
         },
         {
+          backToLinkProps: {
+            text: `Back to ${product.name}`,
+            href: `/${product.slug}`,
+          },
           levelButtonProps: {
             text: `Back to ${product.name}`,
             iconPosition: 'leading',
           },
           menuItems: navDataWithFullPaths,
           title: 'Documentation', // TODO: this depends on basePath
+          overviewItemHref: `/${product.slug}/${basePath}`,
         },
       ]
-      console.log('STUFF', sidebarNavDataLevels)
 
       const breadcrumbLinks = getDocsBreadcrumbs({
         productPath: product.slug,
@@ -176,16 +180,7 @@ export function getStaticGenerationFunctions<
           breadcrumbLinks,
           githubFileUrl,
           headings: nonEmptyHeadings,
-          sidebarNavDataLevels,
-          sidebarProps: {
-            backToLinkProps: {
-              text: `Back to ${product.name}`,
-              href: `/${product.slug}`,
-            },
-            overviewItemHref: `/${product.slug}/${basePath}`,
-            menuItems: navDataWithFullPaths,
-            title: product.name,
-          },
+          sidebarPropsLevels,
         },
         mdxSource,
         product,
