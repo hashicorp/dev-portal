@@ -132,7 +132,7 @@ export function getStaticGenerationFunctions<
        *
        * @TODO - do something with it?
        */
-      const sidebarPropsLevels = [
+      const sidebarNavDataLevels = [
         {
           levelButtonProps: {
             text: `${product.name} Home`,
@@ -180,7 +180,7 @@ export function getStaticGenerationFunctions<
           breadcrumbLinks,
           githubFileUrl,
           headings: nonEmptyHeadings,
-          sidebarPropsLevels,
+          sidebarNavDataLevels,
         },
         mdxSource,
         product,

@@ -13,7 +13,7 @@ interface BaseProps {
   githubFileUrl?: string
   openConsentManager?: () => void
   // TODO: wip
-  sidebarPropsLevels?: SidebarProps[]
+  sidebarNavDataLevels?: SidebarProps[]
 }
 
 /**
