@@ -8,7 +8,7 @@ import { useTabGroups } from '../provider'
  * to keep activeTabIndex in sync with activeTabGroup.
  *
  * Figures out how to map tab indexes to tab groups
- * from the provided tabItems.
+ * by using the provided tabItems.
  */
 function useSyncedTabGroups({
   activeTabIndex,
