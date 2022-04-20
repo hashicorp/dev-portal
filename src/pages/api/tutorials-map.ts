@@ -12,7 +12,7 @@ export default async function tutorialsMapHandler(
   res: NextApiResponse
 ) {
   try {
-    const mapData = await generateTutorialMap()
+    const mapData = await cachedGenerateTutorialMap()
     if (Object.keys(mapData).length > 0) {
       res.setHeader('cache-control', `s-maxage=${MAP_MAX_AGE_IN_SECONDS}`)
       res.status(StatusCodes.OK).json(mapData)
