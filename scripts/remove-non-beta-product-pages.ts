@@ -25,9 +25,12 @@ async function main() {
     await fs.promises.readdir(pagesDir, { withFileTypes: true })
   ).filter((ent) => ent.isDirectory())
 
-  // Remove page files which are not for the beta products specified in our config
+  /**
+   * Remove page files which are not for the beta products specified in our config
+   * Ensure we retain _proxied-dot-io as it serves our production .io sites
+   */
   for (const dir of rootPagesDirs) {
-    if (!betaProducts.includes(dir.name)) {
+    if (!betaProducts.includes(dir.name) && dir.name !== '__proxied-dot-io') {
       console.log(`🧹 removing pages at /${dir.name}`)
       await fs.promises.rm(path.join(pagesDir, dir.name), {
         recursive: true,
