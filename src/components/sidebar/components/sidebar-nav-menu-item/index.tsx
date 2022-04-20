@@ -17,28 +17,26 @@ import s from './sidebar-nav-menu-item.module.css'
  * determine whether or not the link is external to DevDot, and will render an
  * external link icon if the link is external.
  */
-const SidebarNavLink = ({ item }: SidebarNavMenuItemProps) => {
+const SidebarNavLinkItem = ({ item }: SidebarNavMenuItemProps) => {
   const href = item.fullPath || item.href
   const isExternal = isAbsoluteUrl(href)
 
   return (
-    <li>
-      <Link href={href}>
-        <a
-          aria-current={item.isActive ? 'page' : undefined}
-          className={s.sidebarNavMenuItem}
-        >
-          <Text
-            asElement="span"
-            className={s.navMenuItemLabel}
-            dangerouslySetInnerHTML={{ __html: item.title }}
-            size={200}
-            weight="regular"
-          />
-          {isExternal && <IconExternalLink16 />}
-        </a>
-      </Link>
-    </li>
+    <Link href={href}>
+      <a
+        aria-current={item.isActive ? 'page' : undefined}
+        className={s.sidebarNavMenuItem}
+      >
+        <Text
+          asElement="span"
+          className={s.navMenuItemLabel}
+          dangerouslySetInnerHTML={{ __html: item.title }}
+          size={200}
+          weight="regular"
+        />
+        {isExternal && <IconExternalLink16 />}
+      </a>
+    </Link>
   )
 }
 
@@ -46,7 +44,7 @@ const SidebarNavLink = ({ item }: SidebarNavMenuItemProps) => {
  * Handles rendering a collapsible/expandable submenu item and its child menu
  * items in the Sidebar.
  */
-const SidebarNavSubmenu = ({ item }: SidebarNavMenuItemProps) => {
+const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
   const buttonRef = useRef<HTMLButtonElement>()
   const [isOpen, setIsOpen] = useState(
     item.hasActiveChild || item.hasChildrenMatchingFilter || item.matchesFilter
@@ -75,7 +73,7 @@ const SidebarNavSubmenu = ({ item }: SidebarNavMenuItemProps) => {
   }
 
   return (
-    <li>
+    <>
       <button
         aria-controls={item.id}
         aria-expanded={isOpen}
@@ -94,16 +92,12 @@ const SidebarNavSubmenu = ({ item }: SidebarNavMenuItemProps) => {
       </button>
       {isOpen && (
         <ul id={item.id} onKeyDown={handleKeyDown}>
-          {item.routes.map((route: MenuItem) =>
-            route.routes ? (
-              <SidebarNavSubmenu item={route} />
-            ) : (
-              <SidebarNavLink item={route} />
-            )
-          )}
+          {item.routes.map((route: MenuItem) => (
+            <SidebarNavMenuItem key={item.id} item={route} />
+          ))}
         </ul>
       )}
-    </li>
+    </>
   )
 }
 
@@ -116,19 +110,19 @@ const SidebarNavSubmenu = ({ item }: SidebarNavMenuItemProps) => {
  *  - SidebarNavLink
  */
 const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
+  let itemContent
   if (item.divider) {
-    return <SidebarHorizontalRule />
+    itemContent = <SidebarHorizontalRule />
+  } else if (item.heading) {
+    itemContent = <SidebarSectionHeading text={item.heading} />
+  } else if (item.routes) {
+    itemContent = <SidebarNavSubmenuItem item={item} />
+  } else {
+    itemContent = <SidebarNavLinkItem item={item} />
   }
 
-  if (item.heading) {
-    return <SidebarSectionHeading text={item.heading} />
-  }
-
-  if (item.routes) {
-    return <SidebarNavSubmenu item={item} />
-  }
-
-  return <SidebarNavLink item={item} />
+  return <li id={item.id}>{itemContent}</li>
 }
 
+export { SidebarNavLinkItem, SidebarNavSubmenuItem }
 export default SidebarNavMenuItem

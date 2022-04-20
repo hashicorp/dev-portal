@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 
 /**
@@ -120,18 +121,13 @@ interface MenuItem {
   heading?: string
 }
 
-interface SidebarProps {
+interface SidebarBaseProps {
   /**
    * Optional props to send to `SidebarBackToLink` which is displayed at the top
    * of the sidebar. If this prop is omitted, `SidebarBackToLink` will not be
    * rendered.
    */
   backToLinkProps?: SidebarBackToLinkProps
-
-  /**
-   * Menu items to render in the sidebar.
-   */
-  menuItems: EnrichedNavItem[]
 
   /**
    * Optional href for the Overview menu item that shows at the top of the
@@ -149,7 +145,38 @@ interface SidebarProps {
    * Text to be shown as the title of the sidebar.
    */
   title: string
+
+  /**
+   * Optional. If true, the title of the sidebar will be visually hidden using
+   * the `.g-screen-reader-only` global CSS helper class.
+   */
+  visuallyHideTitle?: boolean
 }
+
+/**
+ * `SidebarContentProps` defines the properties that represent what content is
+ * rendered inside of `Sidebar` below the consistent "header" section used in
+ * all instances of `Sidebar`.
+ *
+ * This approach allows us to require either (not both) `children` and
+ * `menuItems` since providing both of these props is not a case that this
+ * component handles.
+ *
+ * TODO: we may decide to remove `menuItems` from instances of `Sidebar` that
+ * used that prop before the `children` prop was introduced. For now, we will
+ * support either prop.
+ */
+type SidebarContentProps =
+  | {
+      children: ReactNode
+      menuItems?: never
+    }
+  | {
+      children?: never
+      menuItems: EnrichedNavItem[]
+    }
+
+type SidebarProps = SidebarBaseProps & SidebarContentProps
 
 export type {
   EnrichedLinkNavItem,

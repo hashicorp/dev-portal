@@ -140,7 +140,7 @@ export function getStaticGenerationFunctions<
           sidebarProps: {
             backToLinkProps: {
               text: `Back to ${product.name}`,
-              url: `/${product.slug}`,
+              href: `/${product.slug}`,
             },
             overviewItemHref: `/${product.slug}/${basePath}`,
             menuItems: navDataWithFullPaths,

@@ -19,7 +19,7 @@ export function filterCollections(
   )
 }
 
-function sortAlphabetically(
+export function sortAlphabetically(
   property: keyof Pick<ClientCollection, 'shortName' | 'name'>
 ) {
   return (a: ClientCollection, b: ClientCollection) => {
@@ -34,11 +34,4 @@ function sortAlphabetically(
     }
     return 0
   }
-}
-
-export function filterAndSortCollections(
-  collections: ClientCollection[],
-  theme: ProductOption
-) {
-  return filterCollections(collections, theme).sort(sortAlphabetically('name'))
 }

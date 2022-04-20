@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react'
+import { ReactElement } from 'react'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
@@ -8,7 +8,7 @@ import Sidebar from 'components/sidebar'
 import { SidebarSidecarLayoutProps } from './types'
 import s from './sidebar-sidecar-layout.module.css'
 
-const SidebarSidecarLayout: FC<SidebarSidecarLayoutProps> = ({
+const SidebarSidecarLayout = ({
   breadcrumbLinks,
   children,
   githubFileUrl,
@@ -17,7 +17,7 @@ const SidebarSidecarLayout: FC<SidebarSidecarLayoutProps> = ({
   sidebarProps,
   sidebarSlot,
   sidecarSlot,
-}) => {
+}: SidebarSidecarLayoutProps) => {
   const SidebarContent = (): ReactElement => {
     if (sidebarSlot) {
       return sidebarSlot
