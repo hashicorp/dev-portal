@@ -1,15 +1,26 @@
-import { ReactElement, useEffect, useMemo, useState } from 'react'
+import { ReactElement } from 'react'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Footer from 'components/footer'
-import Sidebar, { SidebarProps } from 'components/sidebar'
+import Sidebar from 'components/sidebar'
 import { SidebarSidecarLayoutProps } from './types'
 import s from './sidebar-sidecar-layout.module.css'
-import { useDeviceSize } from 'contexts'
+import {
+  SidebarNavDataProvider,
+  useSidebarNavData,
+} from './contexts/sidebar-nav-data'
 
-const SidebarSidecarLayout = ({
+const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
+  return (
+    <SidebarNavDataProvider navDataLevels={props.sidebarPropsLevels}>
+      <SidebarSidecarLayoutContent {...props} />
+    </SidebarNavDataProvider>
+  )
+}
+
+const SidebarSidecarLayoutContent = ({
   breadcrumbLinks,
   children,
   githubFileUrl,
@@ -20,67 +31,10 @@ const SidebarSidecarLayout = ({
   sidecarSlot,
   sidebarPropsLevels,
 }: SidebarSidecarLayoutProps) => {
-  const { isDesktop } = useDeviceSize()
-  const numSidebarLevels = sidebarPropsLevels ? sidebarPropsLevels.length : 0
-  const initialSidebarLevel = numSidebarLevels > 0 ? numSidebarLevels - 1 : 0
-
-  // If `sidebarPropsLevels` is given, set current level to last level.
-  const [currentSidebarLevel, setCurrentSidebarLevel] =
-    useState<number>(initialSidebarLevel)
-
-  /**
-   * @TODO I think this is temporary until all the pages have
-   * `sidebarPropsLevels`. Otherwise, when we switch from something like
-   * /waypoint to /waypoint/docs, the sidebar level that shows is the first one
-   * because this layout component isn't getting re-rendered in a way that
-   * re-initializes `currentSidebarLevel`.
-   */
-  useEffect(() => {
-    setCurrentSidebarLevel(initialSidebarLevel)
-  }, [initialSidebarLevel])
-
-  /**
-   * Initializes sidebarProps based on the current device size, number of
-   * sidebar props levels given, and current sidebar level.
-   *
-   * @TODO we'll probably be able to remove this with the addition of a new
-   * Context is a couple of PRs
-   */
-  const finalSidebarProps: SidebarProps = useMemo(() => {
-    // Make backwards compatible with `sidebarProps`
-    if (!sidebarPropsLevels) {
-      return sidebarProps
-    }
-
-    // Copy provided props so we don't modify the original
-    const propsCopy = {
-      ...sidebarPropsLevels[currentSidebarLevel],
-    }
-
-    /**
-     * @TODO handle this in Sidebar with a Context in follow-up PRs?
-     */
-    if (!isDesktop && numSidebarLevels > 1) {
-      propsCopy.levelButtonProps.onClick = () => {
-        setCurrentSidebarLevel((prevLevel: number) => {
-          if (prevLevel === 0) {
-            return prevLevel + 1
-          } else {
-            return prevLevel - 1
-          }
-        })
-      }
-    }
-
-    // Return the modified copy of props
-    return propsCopy
-  }, [
-    currentSidebarLevel,
-    isDesktop,
-    numSidebarLevels,
-    sidebarProps,
-    sidebarPropsLevels,
-  ])
+  const { currentLevel } = useSidebarNavData()
+  const finalSidebarProps = sidebarPropsLevels
+    ? sidebarPropsLevels[currentLevel]
+    : sidebarProps
 
   /**
    * @TODO the docs Sidebar can have props spread onto it but not all uses of

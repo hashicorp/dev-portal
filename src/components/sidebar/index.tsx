@@ -14,8 +14,8 @@ import { addNavItemMetaData, getFilteredNavItems } from './helpers'
 import s from './sidebar.module.css'
 import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
-import classNames from 'classnames'
 import { useDeviceSize } from 'contexts'
+import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 
@@ -30,6 +30,8 @@ const Sidebar = ({
   visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
   const { isDesktop } = useDeviceSize()
+  const { hasManyLevels, isFirstLevel, isMiddleLevel, setCurrentLevel } =
+    useSidebarNavData()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const [filterValue, setFilterValue] = useState('')
   const { itemsWithMetadata } = useMemo(
@@ -37,9 +39,13 @@ const Sidebar = ({
     [currentPath, menuItems]
   )
 
+  /**
+   * @TODO clean up this section, too long
+   */
+
   let backToElement
   if (levelButtonProps && !isDesktop) {
-    const { iconPosition, onClick, text } = levelButtonProps
+    const { iconPosition, text } = levelButtonProps
 
     let icon
     if (iconPosition === 'leading') {
@@ -48,21 +54,50 @@ const Sidebar = ({
       icon = <IconChevronRight16 />
     }
 
+    let backButton
+    if (hasManyLevels && !isFirstLevel) {
+      backButton = (
+        <Button
+          className={s.backButton}
+          color="tertiary"
+          icon={icon}
+          iconPosition={iconPosition}
+          text={text}
+          onClick={() => setCurrentLevel((prevLevel) => prevLevel - 1)}
+        />
+      )
+    }
+
+    let forwardButton
+    if (hasManyLevels && isFirstLevel) {
+      forwardButton = (
+        <Button
+          className={s.forwardButton}
+          color="tertiary"
+          icon={icon}
+          iconPosition={iconPosition}
+          text={text}
+          onClick={() => setCurrentLevel((prevLevel) => prevLevel + 1)}
+        />
+      )
+    } else if (hasManyLevels && isMiddleLevel) {
+      forwardButton = (
+        <Button
+          className={s.forwardButton}
+          color="tertiary"
+          icon={<IconChevronRight16 />}
+          iconPosition={'trailing'}
+          text="Previous"
+          onClick={() => setCurrentLevel((prevLevel) => prevLevel + 1)}
+        />
+      )
+    }
+
     backToElement = (
-      <Button
-        className={classNames(s.levelButton, {
-          [s.levelButtonWithLeadingIcon]: iconPosition === 'leading',
-          [s.levelButtonWithTrailingIcon]: iconPosition === 'trailing',
-          [s.levelButtonBeforeFilterInput]: showFilterInput,
-          [s.levelButtonBeforeHeading]: !showFilterInput && !visuallyHideTitle,
-          [s.levelButtonBeforeNavItem]: !showFilterInput && visuallyHideTitle,
-        })}
-        color="tertiary"
-        icon={icon}
-        iconPosition={iconPosition}
-        onClick={onClick}
-        text={text}
-      />
+      <div className={s.mobileControls}>
+        {backButton}
+        {forwardButton}
+      </div>
     )
   } else if (backToLinkProps) {
     const { text, href } = backToLinkProps

@@ -23,6 +23,21 @@
 ***
 */
 
+.mobileControls {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.backButton {
+  padding-left: 2px;
+}
+
+.forwardButton {
+  padding-right: 2px;
+}
+
 /* To left-align with the filter input */
 .levelButton {
   margin-left: 1px;
