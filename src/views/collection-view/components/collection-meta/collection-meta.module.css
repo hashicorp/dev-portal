@@ -1,0 +1,36 @@
+.icon {
+  color: var(--token-color-foreground-primary);
+}
+
+.heading {
+  margin-top: 12px;
+}
+
+.description {
+  margin-top: 8px;
+  color: var(--token-color-foreground-primary);
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 16px;
+
+  @media (--dev-dot-tablet-up) {
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+}
+
+.ctaText {
+  color: var(--token-color-foreground-faint);
+  margin: 0 0 0 16px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.ctaIcon {
+  margin-right: 6px;
+}
