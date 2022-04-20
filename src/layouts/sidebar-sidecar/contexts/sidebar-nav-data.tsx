@@ -1,9 +1,10 @@
 import {
   createContext,
   Dispatch,
-  SetStateAction,
   ReactNode,
+  SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from 'react'
 import { SidebarProps } from 'components/sidebar'
@@ -29,10 +30,13 @@ const SidebarNavDataProvider = ({
   children,
   navDataLevels,
 }: SidebarNavDataProviderProps) => {
-  const numberOfLevels = navDataLevels?.length
-  const [currentLevel, setCurrentLevel] = useState<number>(
-    numberOfLevels - 1 || 0
-  )
+  const numberOfLevels = navDataLevels.length
+  const [currentLevel, setCurrentLevel] = useState<number | null>()
+
+  useEffect(() => {
+    setCurrentLevel(numberOfLevels - 1)
+  }, [navDataLevels, numberOfLevels])
+
   const state: State = {
     currentLevel,
     hasManyLevels: numberOfLevels > 1,
