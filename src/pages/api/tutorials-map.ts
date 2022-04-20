@@ -11,12 +11,20 @@ export default async function tutorialsMapHandler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const mapData = await cachedGenerateTutorialMap()
-  res.setHeader('cache-control', `s-maxage=${MAP_MAX_AGE_IN_SECONDS}`)
-  if (Object.keys(mapData).length > 0) {
-    res.status(StatusCodes.OK).json(mapData)
-  } else {
-    res.status(StatusCodes.BAD_REQUEST).json('Failed to fetch all tutorials')
+  try {
+    const mapData = await cachedGenerateTutorialMap()
+    if (Object.keys(mapData).length > 0) {
+      res.status(StatusCodes.OK).json(mapData)
+      res.setHeader('cache-control', `s-maxage=${MAP_MAX_AGE_IN_SECONDS}`)
+    } else {
+      res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: 'Failed to generate tutorial map' })
+    }
+  } catch (e) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: 'Server error: unable to generate tutorial map' })
   }
 }
 

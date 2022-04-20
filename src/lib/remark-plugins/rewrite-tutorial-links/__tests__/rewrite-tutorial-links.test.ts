@@ -1,7 +1,6 @@
 import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
-import { expect } from '@playwright/test'
 
 // HELPERS ------------------------------------------------------
 
