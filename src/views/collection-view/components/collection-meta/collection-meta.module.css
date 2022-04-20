@@ -23,15 +23,6 @@
   }
 }
 
-.ctaButton {
-  composes: root from '/src/components/button/button.module.css';
-  composes: primary from '/src/components/button/button.module.css';
-  composes: medium from '/src/components/button/button.module.css';
-  & a {
-    color: inherit;
-  }
-}
-
 .ctaText {
   color: var(--token-color-foreground-faint);
   margin: 0 0 0 16px;
