@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { useDeviceSize } from 'contexts'
 import { SidebarProps } from 'components/sidebar'
 
 interface State {
@@ -30,12 +31,13 @@ const SidebarNavDataProvider = ({
   children,
   navDataLevels,
 }: SidebarNavDataProviderProps) => {
+  const { isDesktop } = useDeviceSize()
   const numberOfLevels = navDataLevels.length
   const [currentLevel, setCurrentLevel] = useState<number | null>()
 
   useEffect(() => {
     setCurrentLevel(numberOfLevels - 1)
-  }, [navDataLevels, numberOfLevels])
+  }, [isDesktop, navDataLevels, numberOfLevels])
 
   const state: State = {
     currentLevel,
