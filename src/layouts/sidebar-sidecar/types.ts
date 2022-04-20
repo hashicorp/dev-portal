@@ -12,7 +12,6 @@ interface BaseProps {
   children: React.ReactNode
   githubFileUrl?: string
   openConsentManager?: () => void
-  // TODO: wip
   sidebarNavDataLevels?: SidebarProps[]
 }
 
