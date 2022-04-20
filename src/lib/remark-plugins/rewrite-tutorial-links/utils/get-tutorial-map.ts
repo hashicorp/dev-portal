@@ -11,6 +11,13 @@ export async function getTutorialMap() {
   const apiRoute = new URL('api/tutorials-map', baseUrl)
 
   try {
+    /**
+     * We can't call the api route during the build
+     * so instead we call the generate map function directly
+     * Since majority of pages are built via ISR, we need the api
+     * route to cache this, since its not guaranteed that the caching
+     * will occur on the same lambda
+     */
     if (isDuringBuild) {
       console.log('DURING BUILD -------------')
       const tutorialMapRes = await cachedGenerateTutorialMap()

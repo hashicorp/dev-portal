@@ -5,7 +5,6 @@ import { StatusCodes } from 'http-status-codes'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 import moize, { Options } from 'moize'
-import { ProductOption } from 'lib/learn-client/types'
 
 // 1 hour
 const MAP_MAX_AGE_IN_SECONDS = 60 * 60 * 60
@@ -52,13 +51,22 @@ const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
 
 const TUTORIALS_MAP_PATH = '.tutorials-map'
 
+// We only want one cache to be created at /.next/server/pages
+// since this is being called within a product tutorial route, we need
+// to isolate to the root pages directory
+function getRootPagesDirname() {
+  return __dirname.slice(0, __dirname.indexOf('pages') + 'pages'.length)
+}
+
 export async function generateStaticTutorialMap() {
   let cachedData
 
-  console.log({ __dirname })
   try {
     cachedData = JSON.parse(
-      fs.readFileSync(path.join(__dirname, TUTORIALS_MAP_PATH), 'utf8')
+      fs.readFileSync(
+        path.join(getRootPagesDirname(), TUTORIALS_MAP_PATH),
+        'utf8'
+      )
     )
   } catch (e) {
     console.log('Tutorials map not initialized')
@@ -80,7 +88,7 @@ export async function generateStaticTutorialMap() {
 
     try {
       fs.writeFileSync(
-        path.join(__dirname, TUTORIALS_MAP_PATH),
+        path.join(getRootPagesDirname(), TUTORIALS_MAP_PATH),
         JSON.stringify(Object.fromEntries(mapItems)),
         'utf8'
       )
@@ -97,8 +105,12 @@ export async function generateStaticTutorialMap() {
 
 export function parseTutorialsMapCache() {
   try {
+    console.log(getRootPagesDirname(), __dirname)
     const cachedJobs = JSON.parse(
-      fs.readFileSync(path.join(__dirname, TUTORIALS_MAP_PATH), 'utf8')
+      fs.readFileSync(
+        path.join(getRootPagesDirname(), TUTORIALS_MAP_PATH),
+        'utf8'
+      )
     )
     return cachedJobs || null
   } catch (error) {

@@ -10,6 +10,7 @@ import {
   TutorialPagePaths,
 } from 'views/tutorial-view/server'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
+import { generateStaticTutorialMap } from 'pages/api/tutorials-map'
 
 export function WaypointTutorialPage({
   tutorial,
@@ -22,6 +23,7 @@ export async function getStaticProps({
   params,
 }): Promise<{ props: TutorialPageProps }> {
   const product = waypointData as LearnProductData
+
   return await getTutorialPageProps(product, params.tutorialSlug)
 }
 
