@@ -44,5 +44,5 @@ export async function generateTutorialMap() {
   return Object.fromEntries(mapItems)
 }
 
-// const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
-// const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
+const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
+const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
