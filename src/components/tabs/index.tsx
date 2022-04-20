@@ -43,9 +43,13 @@ const Tabs = ({
    * useSyncedTabGroups hooks into TabProvider,
    * and keeps activeTabIndex & activeTabGroup in sync.
    *
-   * Note: only applies where tabs have groups, eg <Tab group="some-string" />.
+   * Note: only works where tabs have groups, eg <Tab group="some-string" />.
    */
-  useSyncedTabGroups({ activeTabIndex, setActiveTabIndex, tabItems })
+  const setSyncedActiveTabIndex = useSyncedTabGroups({
+    activeTabIndex,
+    setActiveTabIndex,
+    tabItems,
+  })
 
   /**
    * If there's overflow, show a dropdown. Otherwise show typical tabs.
@@ -67,7 +71,7 @@ const Tabs = ({
           ariaLabelledBy={ariaLabelledBy}
           tabItems={tabItems}
           activeTabIndex={activeTabIndex}
-          setActiveTabIndex={setActiveTabIndex}
+          setActiveTabIndex={setSyncedActiveTabIndex}
         />
       </div>
       {tabItems.map((tabItem: TabItem) => {

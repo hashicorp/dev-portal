@@ -16,9 +16,9 @@ function useSyncedTabGroups({
   tabItems,
 }: {
   activeTabIndex: number
-  setActiveTabIndex: $TSFixMe
+  setActiveTabIndex: (activeTabIndex: number) => void
   tabItems: TabItem[]
-}): void {
+}): (activeTabIndex: number) => void {
   /**
    * Use the tab group context
    */
@@ -44,7 +44,7 @@ function useSyncedTabGroups({
   /**
    * Create a mapping between tabIndex & tabGroup values.
    * This mapping only needs to be updated when tabItems change.
-   * We'll use this mapping to keep activeTabGroup & activeTabIndex in sync.
+   * We'll use this mapping to keep activeTabGroup in sync.
    */
   type TabGroupToIndex = Record<string, number>
   const [tabGroupToIndex, setTabGroupToIndex] = useState<TabGroupToIndex>({})
@@ -62,44 +62,41 @@ function useSyncedTabGroups({
   }, [tabItems])
 
   /**
-   * When the activeTabGroup changes, setActiveTabIndex, if it makes sense
+   * When the activeTabGroup changes, setActiveTabIndex, if it makes sense.
    *
    * It makes sense to sync these if there is a tab.group => tabIndex mapping
    * for the current tabGroup. If there is such a mapping, and if the current
    * activeTabIndex does not match, then we call setActiveTabIndex.
    */
-  const { activeTabGroup } = tabGroupContext || {}
   useEffect(() => {
-    if (activeTabGroup) {
+    if (tabGroupContext) {
+      const { activeTabGroup } = tabGroupContext
       const targetIndex = tabGroupToIndex[activeTabGroup]
       if (typeof targetIndex == 'number' && activeTabIndex !== targetIndex) {
         setActiveTabIndex(targetIndex)
       }
     }
-    // Note: adding activeTabIndex as a dependency causes an infinite loop.
-    // We want this effect to focus on whether activeTabGroup has changed.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTabGroup, tabGroupToIndex])
+  }, [tabGroupContext, tabGroupToIndex, activeTabIndex, setActiveTabIndex])
 
   /**
-   * When activeTabIndex changes, setActiveTabGroup if it makes sense
+   * Instead of calling setActiveTabIndex only,
+   * we want to also call setActiveTabGroup if it makes sense.
    *
    * It makes sense to sync these if there is a tabIndex => tab.group mapping
-   * for the current activeTabIndex. If there is such a mapping, and if
-   * the current activeTabGroup does not match, then we call setActiveTabGroup.
+   * for the target activeTabIndex.
    */
-  useEffect(() => {
+  function setSyncedActiveTabIndex(targetIndex: number): void {
+    setActiveTabIndex(targetIndex)
     if (tabGroupContext) {
       const { activeTabGroup, setActiveTabGroup } = tabGroupContext
-      const targetGroup = tabItems[activeTabIndex]?.group
+      const targetGroup = tabItems[targetIndex]?.group
       if (typeof targetGroup == 'string' && activeTabGroup !== targetGroup) {
         setActiveTabGroup(targetGroup)
       }
     }
-    // Note: adding tabGroupContext as a dependency causes an infinite loop.
-    // We want this effect to focus on whether activeTabIndex has changed.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTabIndex, tabItems])
+  }
+
+  return setSyncedActiveTabIndex
 }
 
 export default useSyncedTabGroups
