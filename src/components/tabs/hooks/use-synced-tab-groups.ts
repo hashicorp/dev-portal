@@ -62,11 +62,11 @@ function useSyncedTabGroups({
   }, [tabItems])
 
   /**
-   * When the activeTabGroup changes, setActiveTabIndex, if it makes sense.
+   * When the activeTabGroup changes, call setActiveTabIndex, if it makes sense.
    *
-   * It makes sense to sync these if there is a tab.group => tabIndex mapping
-   * for the current tabGroup. If there is such a mapping, and if the current
-   * activeTabIndex does not match, then we call setActiveTabIndex.
+   * It makes sense to call setActiveTabIndex if there is a
+   * tab.group => tabIndex mapping for the current activeTabGroup,
+   * and if the resulting target tab index is not already active.
    */
   useEffect(() => {
     if (tabGroupContext) {
@@ -82,8 +82,9 @@ function useSyncedTabGroups({
    * Instead of calling setActiveTabIndex only,
    * we want to also call setActiveTabGroup if it makes sense.
    *
-   * It makes sense to sync these if there is a tabIndex => tab.group mapping
-   * for the target activeTabIndex.
+   * It makes sense to call setActiveTabGroup if there is a
+   * tabIndex => tab.group mapping for the target activeTabIndex,
+   * and if the expected activeTabGroup is not yet active.
    */
   function setSyncedActiveTabIndex(targetIndex: number): void {
     setActiveTabIndex(targetIndex)
