@@ -1,18 +1,16 @@
 import { ReactElement } from 'react'
-import { IconAlertTriangle16 } from '@hashicorp/flight-icons/svg-react/alert-triangle-16'
-import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
-import { IconCheck16 } from '@hashicorp/flight-icons/svg-react/check-16'
-import { IconCheck24 } from '@hashicorp/flight-icons/svg-react/check-24'
 import { IconClipboardCopy16 } from '@hashicorp/flight-icons/svg-react/clipboard-copy-16'
 import { IconClipboardCopy24 } from '@hashicorp/flight-icons/svg-react/clipboard-copy-24'
-import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
-import { IconGithub24 } from '@hashicorp/flight-icons/svg-react/github-24'
-import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
-import { IconHome24 } from '@hashicorp/flight-icons/svg-react/home-24'
 import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
 import { IconPlus24 } from '@hashicorp/flight-icons/svg-react/plus-24'
+import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
+import { IconGithub24 } from '@hashicorp/flight-icons/svg-react/github-24'
+import { IconCheck16 } from '@hashicorp/flight-icons/svg-react/check-16'
+import { IconCheck24 } from '@hashicorp/flight-icons/svg-react/check-24'
+import { IconAlertTriangle16 } from '@hashicorp/flight-icons/svg-react/alert-triangle-16'
+import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
@@ -41,10 +39,6 @@ const ICON_MAP = {
     16: <IconGithub16 />,
     24: <IconGithub24 />,
   },
-  home: {
-    16: <IconHome16 />,
-    24: <IconHome24 />,
-  },
   plus: {
     16: <IconPlus16 />,
     24: <IconPlus24 />,
@@ -52,15 +46,7 @@ const ICON_MAP = {
 }
 
 interface SwingsetTestIconProps {
-  name:
-    | 'alert-triangle'
-    | 'arrow-right'
-    | 'check'
-    | 'copy'
-    | 'cross'
-    | 'github'
-    | 'home'
-    | 'plus'
+  name: 'arrow-right' | 'github' | 'plus'
   size: 16 | 24
 }
 
