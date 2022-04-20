@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useState } from 'react'
+import { ReactElement, useEffect, useMemo, useState } from 'react'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
@@ -22,11 +22,28 @@ const SidebarSidecarLayout = ({
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const numSidebarLevels = sidebarPropsLevels ? sidebarPropsLevels.length : 0
+  const initialSidebarLevel = useMemo(() => {
+    if (numSidebarLevels > 0) {
+      return numSidebarLevels - 1
+    } else {
+      return 0
+    }
+  }, [numSidebarLevels])
 
   // If `sidebarPropsLevels` is given, set current level to last level.
-  const [currentSidebarLevel, setCurrentSidebarLevel] = useState<number>(
-    numSidebarLevels ? numSidebarLevels - 1 : 0
-  )
+  const [currentSidebarLevel, setCurrentSidebarLevel] =
+    useState<number>(initialSidebarLevel)
+
+  /**
+   * @TODO I think this is temporary until all the pages have
+   * `sidebarPropsLevels`. Otherwise, when we switch from something like
+   * /waypoint to /waypoint/docs, the sidebar level that shows is the first one
+   * because this layout component isn't getting re-rendered in a way that
+   * re-initializes `currentSidebarLevel`.
+   */
+  useEffect(() => {
+    setCurrentSidebarLevel(initialSidebarLevel)
+  }, [initialSidebarLevel])
 
   /**
    * Initializes sidebarProps based on the current device size, number of
