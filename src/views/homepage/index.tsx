@@ -6,7 +6,7 @@ import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
-import Hero from './components/hero'
+import { HeroWithVideo, HeroWithActions } from './components/hero'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
@@ -23,7 +23,7 @@ const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 function Homepage(): ReactElement {
   return (
     <div className={s.homepage}>
-      <Hero
+      {/* <HeroWithActions
         badgeText="Beta"
         heading="HashiCorp Developer"
         description={
@@ -51,6 +51,20 @@ function Homepage(): ReactElement {
             linkText: 'Get started',
           },
         ]}
+      /> */}
+      <HeroWithVideo
+        badgeText="Beta"
+        heading="HashiCorp Developer"
+        description={
+          <>
+            <Text>
+              Learn at your own pace in one place with reference docs, step by
+              step tutorials, videos, and real hands-on lab workstations to
+              automate your infrastructure, networking, and security workflows.
+            </Text>
+          </>
+        }
+        videoUrl="https://www.youtube.com/watch?v=Y7c_twmDxQ4"
       />
 
       <ProductNav
