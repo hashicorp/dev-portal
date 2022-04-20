@@ -13,9 +13,13 @@ import {
 } from './contexts/sidebar-nav-data'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
+  const navDataLevels = props.sidebarPropsLevels || [props.sidebarProps]
   return (
-    <SidebarNavDataProvider navDataLevels={props.sidebarPropsLevels}>
-      <SidebarSidecarLayoutContent {...props} />
+    <SidebarNavDataProvider navDataLevels={navDataLevels}>
+      <SidebarSidecarLayoutContent
+        {...props}
+        sidebarPropsLevels={navDataLevels}
+      />
     </SidebarNavDataProvider>
   )
 }
@@ -26,15 +30,12 @@ const SidebarSidecarLayoutContent = ({
   githubFileUrl,
   headings,
   openConsentManager,
-  sidebarProps,
   sidebarSlot,
   sidecarSlot,
   sidebarPropsLevels,
 }: SidebarSidecarLayoutProps) => {
   const { currentLevel } = useSidebarNavData()
-  const finalSidebarProps = sidebarPropsLevels
-    ? sidebarPropsLevels[currentLevel]
-    : sidebarProps
+  const sidebarProps = sidebarPropsLevels[currentLevel]
 
   /**
    * @TODO the docs Sidebar can have props spread onto it but not all uses of
@@ -47,7 +48,7 @@ const SidebarSidecarLayoutContent = ({
       return sidebarSlot
     }
 
-    return <Sidebar {...finalSidebarProps} />
+    return <Sidebar {...sidebarProps} />
   }
 
   const SidecarContent = (): ReactElement => {
