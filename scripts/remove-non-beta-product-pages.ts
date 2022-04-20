@@ -10,7 +10,7 @@ import { loadHashiConfigForEnvironment } from '../config'
 async function main() {
   if (
     !process.env.CI ||
-    // process.env.HASHI_ENV !== 'production' ||
+    process.env.HASHI_ENV !== 'production' ||
     process.env.DEV_IO
   ) {
     return
