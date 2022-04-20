@@ -1,0 +1,1 @@
+export { ProductTutorialsSitemap } from './sitemap'

@@ -2,9 +2,9 @@ import Link from 'next/link'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
+import ProductCollectionsSidebar from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
-import CollectionViewSidebar from './components/collection-view-sidebar'
 
 function CollectionView({
   collection,
@@ -18,8 +18,8 @@ function CollectionView({
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
       sidebarSlot={
-        <CollectionViewSidebar
-          product={product}
+        <ProductCollectionsSidebar
+          product={{ name: product.name, slug: product.slug }}
           sections={layoutProps.sidebarSections}
         />
       }
