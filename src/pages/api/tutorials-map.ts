@@ -14,8 +14,8 @@ export default async function tutorialsMapHandler(
   try {
     const mapData = await cachedGenerateTutorialMap()
     if (Object.keys(mapData).length > 0) {
-      res.status(StatusCodes.OK).json(mapData)
       res.setHeader('cache-control', `s-maxage=${MAP_MAX_AGE_IN_SECONDS}`)
+      res.status(StatusCodes.OK).json(mapData)
     } else {
       res
         .status(StatusCodes.BAD_REQUEST)
