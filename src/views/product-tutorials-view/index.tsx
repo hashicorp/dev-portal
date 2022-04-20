@@ -1,33 +1,54 @@
-import Link from 'next/link'
-import React from 'react'
-import { getCollectionSlug } from 'views/collection-view/helpers'
+import { Fragment } from 'react'
+import slugify from 'slugify'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
+import ProductCollectionsSidebar, {
+  ProductCollectionsSidebarProps,
+} from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
+import { ProductTutorialsSitemap } from './components'
 import { ProductTutorialsPageProps } from './server'
 
-export default function ProductTutorialsView({
-  collections,
+function ProductTutorialsView({
+  layoutProps,
+  data,
   product,
 }: ProductTutorialsPageProps): React.ReactElement {
+  const { showProductSitemap, blocks, allCollections } = data.pageData
+  const sidebarProduct = {
+    name: product.name,
+    slug: product.slug,
+  } as ProductCollectionsSidebarProps['product']
+
   return (
-    <>
-      <h1>{product.name} Tutorials</h1>
-      <h2>All Collections</h2>
-      <AllProductCollections collections={collections} />
-    </>
+    <SidebarSidecarLayout
+      breadcrumbLinks={layoutProps.breadcrumbLinks}
+      headings={layoutProps.headings}
+      sidebarSlot={
+        <ProductCollectionsSidebar
+          isOverview={true}
+          product={sidebarProduct}
+          sections={layoutProps.sidebarSections}
+        />
+      }
+    >
+      <h1 id={layoutProps.headings[0].slug}>{product.name} Tutorials</h1>
+      {blocks.map((b, i) => (
+        <Fragment key={`${b.type}-${i}`}>
+          <h3 id={slugify(b.heading)}> {b.heading} </h3>
+          <p>Block type: {b.type}</p>
+        </Fragment>
+      ))}
+      {showProductSitemap ? (
+        <>
+          <h2 id={layoutProps.headings[layoutProps.headings.length - 1].slug}>
+            All tutorials
+          </h2>
+          <ProductTutorialsSitemap collections={allCollections} />
+        </>
+      ) : null}
+    </SidebarSidecarLayout>
   )
 }
 
-function AllProductCollections({
-  collections,
-}: Pick<ProductTutorialsPageProps, 'collections'>): React.ReactElement {
-  return (
-    <ul>
-      {collections.map((collection) => (
-        <li key={collection.id}>
-          <Link href={getCollectionSlug(collection.slug)}>
-            <a>{collection.shortName}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  )
-}
+ProductTutorialsView.layout = CoreDevDotLayout
+export default ProductTutorialsView

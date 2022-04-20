@@ -1,6 +1,8 @@
 import path from 'path'
+import fs from 'fs'
 import { resolvePluginDocs } from '@hashicorp/platform-packer-plugins'
 import fetchGithubFile from 'lib/fetch-github-file'
+import { isContentDeployPreview } from 'lib/env-checks'
 
 /**
  * Resolves nav-data from file with
@@ -14,12 +16,22 @@ import fetchGithubFile from 'lib/fetch-github-file'
  */
 async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {
   const { remotePluginsFile, currentPath } = options
-  const navDataContent = await fetchGithubFile({
-    owner: 'hashicorp',
-    repo: 'packer',
-    path: path.join('website', navDataFile),
-    ref: 'stable-website',
-  })
+
+  let navDataContent
+  if (isContentDeployPreview('packer')) {
+    // When running in the context of hashicorp/packer, attempt to load the local file
+    navDataContent = fs.readFileSync(
+      path.join(process.cwd(), '..', navDataFile)
+    )
+  } else {
+    navDataContent = await fetchGithubFile({
+      owner: 'hashicorp',
+      repo: 'packer',
+      path: path.join('website', navDataFile),
+      ref: 'stable-website',
+    })
+  }
+
   let navData = JSON.parse(navDataContent)
   return await appendRemotePluginsNavData(
     remotePluginsFile,
@@ -34,12 +46,21 @@ export async function appendRemotePluginsNavData(
   currentPath
 ) {
   // Read in and parse the plugin configuration JSON
-  const remotePluginsContent = await fetchGithubFile({
-    owner: 'hashicorp',
-    repo: 'packer',
-    path: path.join('website', remotePluginsFile),
-    ref: 'stable-website',
-  })
+  let remotePluginsContent
+  if (isContentDeployPreview('packer')) {
+    // When running in the context of hashicorp/packer, attempt to load the local file
+    remotePluginsContent = fs.readFileSync(
+      path.join(process.cwd(), '..', remotePluginsFile)
+    )
+  } else {
+    remotePluginsContent = await fetchGithubFile({
+      owner: 'hashicorp',
+      repo: 'packer',
+      path: path.join('website', remotePluginsFile),
+      ref: 'stable-website',
+    })
+  }
+
   const pluginEntries = JSON.parse(remotePluginsContent)
   // Add navData for each plugin's component.
   // Note that leaf nodes include a remoteFile property object with the full MDX fileString
