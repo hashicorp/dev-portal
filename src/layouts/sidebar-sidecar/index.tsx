@@ -1,12 +1,13 @@
-import { ReactElement } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Footer from 'components/footer'
-import Sidebar from 'components/sidebar'
+import Sidebar, { SidebarProps } from 'components/sidebar'
 import { SidebarSidecarLayoutProps } from './types'
 import s from './sidebar-sidecar-layout.module.css'
+import { useDeviceSize } from 'contexts'
 
 const SidebarSidecarLayout = ({
   breadcrumbLinks,
@@ -14,24 +15,56 @@ const SidebarSidecarLayout = ({
   githubFileUrl,
   headings,
   openConsentManager,
-  sidebarProps,
   sidebarSlot,
   sidecarSlot,
+  sidebarPropsLevels,
 }: SidebarSidecarLayoutProps) => {
+  const { isDesktop } = useDeviceSize()
+  const numSidebarLevels = sidebarPropsLevels.length
+  const [currentSidebarLevel, setCurrentSidebarLevel] = useState<number>(
+    numSidebarLevels - 1
+  )
+
+  /**
+   * Initializes sidebarProps based on the current device size, number of
+   * sidebar props levels given, and current sidebar level.
+   */
+  const sidebarProps: SidebarProps = useMemo(() => {
+    const propsCopy = {
+      ...sidebarPropsLevels[currentSidebarLevel],
+    }
+
+    if (isDesktop) {
+      delete propsCopy.levelButtonProps
+    } else {
+      delete propsCopy.backToLinkProps
+
+      if (numSidebarLevels > 1) {
+        propsCopy.levelButtonProps.onClick = () => {
+          setCurrentSidebarLevel((prevLevel: number) => {
+            if (prevLevel === 0) {
+              return prevLevel + 1
+            } else {
+              return prevLevel - 1
+            }
+          })
+        }
+      }
+    }
+
+    return propsCopy
+  }, [currentSidebarLevel, isDesktop, numSidebarLevels, sidebarPropsLevels])
+
+  /**
+   * @TODO the docs Sidebar can have props spread onto it but not all uses of
+   * sidebarSlot allow props spreading.
+   */
   const SidebarContent = (): ReactElement => {
     if (sidebarSlot) {
       return sidebarSlot
     }
 
-    return (
-      <Sidebar
-        backToLinkProps={sidebarProps.backToLinkProps}
-        menuItems={sidebarProps.menuItems}
-        overviewItemHref={sidebarProps.overviewItemHref}
-        showFilterInput={sidebarProps.showFilterInput}
-        title={sidebarProps.title}
-      />
-    )
+    return <Sidebar {...sidebarProps} />
   }
 
   const SidecarContent = (): ReactElement => {
