@@ -15,25 +15,38 @@ const SidebarSidecarLayout = ({
   githubFileUrl,
   headings,
   openConsentManager,
+  sidebarProps,
   sidebarSlot,
   sidecarSlot,
   sidebarPropsLevels,
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
-  const numSidebarLevels = sidebarPropsLevels.length
+  const numSidebarLevels = sidebarPropsLevels ? sidebarPropsLevels.length : 0
+
+  // If `sidebarPropsLevels` is given, set current level to last level.
   const [currentSidebarLevel, setCurrentSidebarLevel] = useState<number>(
-    numSidebarLevels - 1
+    numSidebarLevels ? numSidebarLevels - 1 : 0
   )
 
   /**
    * Initializes sidebarProps based on the current device size, number of
    * sidebar props levels given, and current sidebar level.
    */
-  const sidebarProps: SidebarProps = useMemo(() => {
+  const finalSidebarProps: SidebarProps = useMemo(() => {
+    // Make backwards compatible with `sidebarProps`
+    if (!sidebarPropsLevels) {
+      return sidebarProps
+    }
+
+    // Copy provided props so we don't modify the original
     const propsCopy = {
       ...sidebarPropsLevels[currentSidebarLevel],
     }
 
+    /**
+     * If desktop, we only care about `backToLinkProps`. Otherwise, tell each
+     * level's Button what to do `onClick`.
+     */
     if (isDesktop) {
       delete propsCopy.levelButtonProps
     } else {
@@ -52,8 +65,15 @@ const SidebarSidecarLayout = ({
       }
     }
 
+    // Return the modified copy of props
     return propsCopy
-  }, [currentSidebarLevel, isDesktop, numSidebarLevels, sidebarPropsLevels])
+  }, [
+    currentSidebarLevel,
+    isDesktop,
+    numSidebarLevels,
+    sidebarProps,
+    sidebarPropsLevels,
+  ])
 
   /**
    * @TODO the docs Sidebar can have props spread onto it but not all uses of
@@ -64,7 +84,7 @@ const SidebarSidecarLayout = ({
       return sidebarSlot
     }
 
-    return <Sidebar {...sidebarProps} />
+    return <Sidebar {...finalSidebarProps} />
   }
 
   const SidecarContent = (): ReactElement => {
