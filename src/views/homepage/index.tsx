@@ -1,11 +1,10 @@
 import { ReactElement } from 'react'
-import Image from 'next/image'
 import { productSlugs } from 'lib/products'
 import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
+import InlineSvg from '@hashicorp/react-inline-svg'
 import BaseNewLayout from 'layouts/base-new'
-import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import Hero from './components/hero'
 import PreFooter from './components/pre-footer'
@@ -18,6 +17,7 @@ import {
   HashiConfGlobalSlot,
   VaultSlot,
 } from './components/merchandising-slots/slots'
+import badge from './img/vault-certified-expert-badge.svg?include'
 import s from './homepage.module.css'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
@@ -69,14 +69,7 @@ function Homepage(): ReactElement {
       </MerchandisingSlots>
 
       <LearnSection
-        media={
-          <Image
-            src="/img/homepage/vault-certified-expert-badge.svg"
-            width={397}
-            height={228}
-            alt="Vault certified expert badge"
-          />
-        }
+        media={<InlineSvg src={badge} />}
         heading="Become HashiCorp Vault Certified"
         description={
           <>

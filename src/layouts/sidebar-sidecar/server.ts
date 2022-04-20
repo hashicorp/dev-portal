@@ -55,6 +55,7 @@ export function getStaticGenerationFunctions<
   const loaderOptions: RemoteContentLoader['opts'] = {
     product: productSlugForLoader,
     basePath: basePathForLoader,
+    enabledVersionedDocs: true,
     latestVersionRef: isBetaProduct
       ? __config.dev_dot.content_preview_branch
       : undefined,
@@ -86,7 +87,7 @@ export function getStaticGenerationFunctions<
         scope: await getScope(),
       })
 
-      const { navData, mdxSource, githubFileUrl } =
+      const { navData, mdxSource, githubFileUrl, versions } =
         await loader.loadStaticProps(ctx)
 
       /**
@@ -179,7 +180,7 @@ export function getStaticGenerationFunctions<
           sidebarProps: {
             backToLinkProps: {
               text: `Back to ${product.name}`,
-              url: `/${product.slug}`,
+              href: `/${product.slug}`,
             },
             overviewItemHref: `/${product.slug}/${basePath}`,
             menuItems: navDataWithFullPaths,
@@ -188,6 +189,7 @@ export function getStaticGenerationFunctions<
         },
         mdxSource,
         product,
+        versions,
       }
 
       return {

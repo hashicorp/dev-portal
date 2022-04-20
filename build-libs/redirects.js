@@ -223,7 +223,7 @@ async function buildDotIoRedirects() {
     : await fetchGithubFile({
         owner: 'hashicorp',
         repo: 'vagrant',
-        path: 'website/redirects.next.js',
+        path: 'website/redirects.js',
         ref: 'stable-website',
       })
   const vagrantAuthorRedirects = eval(rawVagrantRedirects)

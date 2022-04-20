@@ -5,6 +5,7 @@ import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DevDotContent from 'components/dev-dot-content'
 import { DocsViewProps, ProductsToPrimitivesMap } from './types'
+import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 
 // Author primitives
 const Badge = dynamic(() => import('components/author-primitives/packer/badge'))
@@ -61,6 +62,7 @@ const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
 
   return (
     <DevDotContent>
+      <NoIndexTagIfVersioned />
       <MDXRemote
         compiledSource={compiledSource}
         components={components}
