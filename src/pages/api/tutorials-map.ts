@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { StatusCodes } from 'http-status-codes'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 import moize, { Options } from 'moize'
@@ -12,11 +13,14 @@ export default async function tutorialsMapHandler(
 ) {
   const mapData = await cachedGenerateTutorialMap()
   res.setHeader('cache-control', `s-maxage=${MAP_MAX_AGE_IN_SECONDS}`)
-  res.status(200).json(mapData)
+  if (mapData.keys().length > 0) {
+    res.status(StatusCodes.OK).json(mapData)
+  } else {
+    res.status(StatusCodes.BAD_REQUEST).json('Failed to fetch all tutorials')
+  }
 }
 
 export async function generateTutorialMap() {
-  console.log('Generating tutorial map') // to test caching
   const allTutorials = await getAllTutorials({
     fullContent: false,
     slugsOnly: true,
