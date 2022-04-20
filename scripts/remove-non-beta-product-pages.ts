@@ -30,7 +30,7 @@ async function main() {
    * Ensure we retain _proxied-dot-io as it serves our production .io sites
    */
   for (const dir of rootPagesDirs) {
-    if (!betaProducts.includes(dir.name) && dir.name !== '__proxied-dot-io') {
+    if (!betaProducts.includes(dir.name) && dir.name !== '_proxied-dot-io') {
       console.log(`🧹 removing pages at /${dir.name}`)
       await fs.promises.rm(path.join(pagesDir, dir.name), {
         recursive: true,
