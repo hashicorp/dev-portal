@@ -49,19 +49,17 @@ function useSyncedTabGroups({
   type TabGroupToIndex = Record<string, number>
   const [tabGroupToIndex, setTabGroupToIndex] = useState<TabGroupToIndex>({})
   useEffect(() => {
-    if (tabGroupContext) {
-      // Create the group => index map
-      setTabGroupToIndex(
-        tabItems.reduce(
-          (acc: TabGroupToIndex, { group }: TabItem, index: number) => {
-            // Spread acc at the end, so that the first matched tab is used
-            return { ...{ [group]: index }, ...acc }
-          },
-          {}
-        )
+    // Create the group => index map
+    setTabGroupToIndex(
+      tabItems.reduce(
+        (acc: TabGroupToIndex, { group }: TabItem, index: number) => {
+          // Spread acc at the end, so that the first matched tab is used
+          return { ...{ [group]: index }, ...acc }
+        },
+        {}
       )
-    }
-  }, [tabItems, tabGroupContext])
+    )
+  }, [tabItems])
 
   /**
    * When the activeTabGroup changes, setActiveTabIndex, if it makes sense
@@ -72,9 +70,11 @@ function useSyncedTabGroups({
    */
   const { activeTabGroup } = tabGroupContext || {}
   useEffect(() => {
-    const targetIndex = tabGroupToIndex[activeTabGroup]
-    if (typeof targetIndex == 'number' && activeTabIndex !== targetIndex) {
-      setActiveTabIndex(targetIndex)
+    if (activeTabGroup) {
+      const targetIndex = tabGroupToIndex[activeTabGroup]
+      if (typeof targetIndex == 'number' && activeTabIndex !== targetIndex) {
+        setActiveTabIndex(targetIndex)
+      }
     }
     // Note: adding activeTabIndex as a dependency causes an infinite loop.
     // We want this effect to focus on whether activeTabGroup has changed.
