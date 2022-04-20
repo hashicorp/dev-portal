@@ -12,7 +12,7 @@ export default async function tutorialsMapHandler(
   res: NextApiResponse
 ) {
   try {
-    const mapData = await cachedGenerateTutorialMap()
+    const mapData = await generateTutorialMap()
     if (Object.keys(mapData).length > 0) {
       res.setHeader('cache-control', `s-maxage=${MAP_MAX_AGE_IN_SECONDS}`)
       res.status(StatusCodes.OK).json(mapData)
@@ -44,5 +44,5 @@ export async function generateTutorialMap() {
   return Object.fromEntries(mapItems)
 }
 
-const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
-const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
+// const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
+// const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
