@@ -12,6 +12,7 @@ function CardHeading({ text, level, logo }: CardHeadingProps) {
       <span className={classNames(hasLogo && 'g-screen-reader-only')}>
         {text}
       </span>
+      {/* Note: logo is used by CollectionCard */}
       {hasLogo && (
         <span className={s.logo}>
           <CompanyLogo name={logo} />
