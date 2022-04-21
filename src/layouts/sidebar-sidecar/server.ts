@@ -28,7 +28,7 @@ import {
  */
 const BASE_PATHS_TO_NAMES = {
   'api-docs': 'API Documentation',
-  comands: 'CLI',
+  commands: 'CLI',
   docs: 'Documentation',
   intro: 'Introduction',
   plugins: 'Plugins',
