@@ -5,14 +5,14 @@
   margin-bottom: 12px;
 }
 
-.backButton {
+.levelUpButton {
   padding-bottom: 7px;
   padding-left: 3px;
   padding-right: 9px;
   padding-top: 7px;
 }
 
-.forwardButton {
+.levelDownButton {
   padding-bottom: 7px;
   padding-left: 9px;
   padding-right: 3px;
