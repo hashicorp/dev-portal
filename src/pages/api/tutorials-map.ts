@@ -2,11 +2,16 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { StatusCodes } from 'http-status-codes'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
-import moize, { Options } from 'moize'
 
 // 1 hour
 const MAP_MAX_AGE_IN_SECONDS = 60 * 60 * 60
 
+/**
+ * This API caches a tutorial-map blob for the tutorial rewrites
+ * remark plugin - lib/remark-plugins/rewrite-tutorial-links.
+ * This ensures that calls to `getAllTutorials` are limited
+ * for ISR generated tutorial views
+ */
 export default async function tutorialsMapHandler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -28,8 +33,10 @@ export default async function tutorialsMapHandler(
   }
 }
 
+/**
+ * This function creates a map of 'database-slug': 'dev-dot/path'
+ */
 export async function generateTutorialMap() {
-  console.log('Generating tutorial map') // For testing caching
   const allTutorials = await getAllTutorials({
     fullContent: false,
     slugsOnly: true,

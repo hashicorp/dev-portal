@@ -12,8 +12,8 @@ export async function getTutorialMap() {
 
   /**
    * For statically generated pages, we can cache the tutorial
-   * map in memory. For ISR pages, we call an api route where
-   * the map is cached. This ensures that the expensive map
+   * map in memory. For ISR pages, we call an api route (/api/tutorials-map)
+   * where the map is cached. This ensures that the expensive map
    * generation function is not called for every single tutorial
    */
   try {
@@ -33,5 +33,6 @@ export async function getTutorialMap() {
   return result
 }
 
+// Caching the return value in memory for static builds to limit api calls
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
 const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
