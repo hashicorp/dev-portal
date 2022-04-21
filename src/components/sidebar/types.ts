@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { ButtonProps } from 'components/button'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 
 /**
