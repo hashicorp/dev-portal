@@ -60,11 +60,12 @@ export async function getTutorials(
 // if a limit is not passed, all tutorials are fetched
 export async function getAllTutorials(
   options?: getAllTutorialsOptions
-): Promise<Tutorial[] | Pick<Tutorial, 'slug'>[]> {
+): Promise<
+  Tutorial[] | (Pick<Tutorial, 'slug'> & { collection_slug: string }[])
+> {
   let result = []
   const limit = options?.limit?.toString()
   const recurse = Boolean(!limit)
-
   // errors handled by the `fetchAll` function
   const allTutorials = (await fetchAll({
     baseUrl: TUTORIAL_API_ROUTE,
@@ -74,7 +75,10 @@ export async function getAllTutorials(
   })) as ApiTutorial[]
 
   if (options?.slugsOnly) {
-    result = allTutorials.map(({ slug }) => slug)
+    result = allTutorials.map(({ slug, default_collection }) => ({
+      slug,
+      collection_slug: default_collection.slug,
+    }))
   } else {
     return allTutorials.map(formatTutorialData)
   }
