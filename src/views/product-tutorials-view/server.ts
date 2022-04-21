@@ -67,7 +67,8 @@ export async function getProductTutorialsPageProps(
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, filename: product.slug },
     }),
-    sidebarSections: formatSidebarCategorySections(filteredCollections),
+    collectionViewSidebarSections:
+      formatSidebarCategorySections(filteredCollections),
   }
 
   /**
