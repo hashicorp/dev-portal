@@ -27,7 +27,7 @@ export interface CollectionPageProps {
 export type CollectionLayout = Pick<
   SidebarSidecarLayoutProps,
   'headings' | 'breadcrumbLinks'
-> & { sidebarSections: CollectionCategorySidebarSection[] }
+> & { collectionViewSidebarSections: CollectionCategorySidebarSection[] }
 
 export interface CollectionPagePath {
   params: {
@@ -75,7 +75,10 @@ export async function getCollectionPageProps(
         filename: splitProductFromFilename(collection.slug),
       },
     }),
-    sidebarSections: getCollectionViewSidebarSections(product, collection),
+    collectionViewSidebarSections: await getCollectionViewSidebarSections(
+      product,
+      collection
+    ),
   }
 
   return {
