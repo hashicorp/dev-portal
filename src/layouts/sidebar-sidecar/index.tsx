@@ -42,12 +42,6 @@ const SidebarSidecarLayoutContent = ({
   const { currentLevel } = useSidebarNavData()
   const sidebarProps = sidebarNavDataLevels[currentLevel]
 
-  /**
-   * @TODO the docs Sidebar can have props spread onto it but not all uses of
-   * AlternateSidebar allow props spreading. The spreading may also become
-   * unnecessary once there is a Context that helps manage the current sidebar
-   * level and how to change it.
-   */
   const SidebarContent = (): ReactElement => {
     if (AlternateSidebar && !sidebarProps?.menuItems) {
       return <AlternateSidebar {...sidebarProps} />
