@@ -1,25 +1,54 @@
-import { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
+import {
+  KeyboardEventHandler,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import Link from 'next/link'
+import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import { MenuItem } from 'components/sidebar'
+import ProductIcon from 'components/product-icon'
 import {
   SidebarHorizontalRule,
   SidebarSectionHeading,
 } from 'components/sidebar/components'
 import Text from 'components/text'
-import { SidebarNavMenuItemProps } from './types'
+import {
+  SidebarNavLinkItemProps,
+  SidebarNavMenuItemProps,
+  SupportedIconName,
+} from './types'
 import s from './sidebar-nav-menu-item.module.css'
+
+/**
+ * Used for leading icon in `SidebarNavLinkItem`.
+ */
+const SUPPORTED_LEADING_ICONS: {
+  [key in SupportedIconName]: ReactElement
+} = {
+  home: <IconHome16 name="home" />,
+  vault: <ProductIcon productSlug="vault" />,
+  waypoint: <ProductIcon productSlug="waypoint" />,
+}
 
 /**
  * Handles rendering a link menu item in the Sidebar. Will automatically
  * determine whether or not the link is external to DevDot, and will render an
  * external link icon if the link is external.
  */
-const SidebarNavLinkItem = ({ item }: SidebarNavMenuItemProps) => {
+const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
   const href = item.fullPath || item.href
   const isExternal = isAbsoluteUrl(href)
+
+  let leadingIcon
+  if (item.leadingIconName) {
+    const icon = SUPPORTED_LEADING_ICONS[item.leadingIconName]
+    leadingIcon = <div className={s.leadingIcon}>{icon}</div>
+  }
 
   return (
     <Link href={href}>
@@ -27,6 +56,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavMenuItemProps) => {
         aria-current={item.isActive ? 'page' : undefined}
         className={s.sidebarNavMenuItem}
       >
+        {leadingIcon}
         <Text
           asElement="span"
           className={s.navMenuItemLabel}

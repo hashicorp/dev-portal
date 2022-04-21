@@ -4,4 +4,17 @@ interface SidebarNavMenuItemProps {
   item: MenuItem
 }
 
-export type { SidebarNavMenuItemProps }
+type SupportedIconName = 'home' | 'vault' | 'waypoint'
+interface SidebarNavLinkItem extends MenuItem {
+  leadingIconName?: SupportedIconName
+}
+
+interface SidebarNavLinkItemProps {
+  item: SidebarNavLinkItem
+}
+
+export type {
+  SidebarNavLinkItemProps,
+  SidebarNavMenuItemProps,
+  SupportedIconName,
+}

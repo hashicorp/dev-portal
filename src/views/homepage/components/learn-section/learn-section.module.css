@@ -44,8 +44,16 @@
   grid-column: 1 / -1;
 
   @media (--dev-dot-tablet-up) {
-    grid-column: 9 / -1;
+    grid-column: 8 / -1;
     grid-row: 1;
+  }
+
+  @media (--dev-dot-desktop) {
+    grid-column: 9 / -1;
+  }
+
+  & svg {
+    max-width: 100%;
   }
 }
 

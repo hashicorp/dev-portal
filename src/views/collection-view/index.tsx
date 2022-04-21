@@ -2,9 +2,10 @@ import Link from 'next/link'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
+import ProductCollectionsSidebar from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
-import CollectionViewSidebar from './components/collection-view-sidebar'
+import CollectionMeta from './components/collection-meta'
 
 function CollectionView({
   collection,
@@ -18,14 +19,18 @@ function CollectionView({
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
       sidebarSlot={
-        <CollectionViewSidebar
-          product={product}
+        <ProductCollectionsSidebar
+          product={{ name: product.name, slug: product.slug }}
           sections={layoutProps.sidebarSections}
         />
       }
     >
-      <h1 id={layoutProps.headings[0].slug}>{name}</h1>
-      <p>{description}</p>
+      <CollectionMeta
+        heading={{ text: name, id: layoutProps.headings[0].slug }}
+        description={description}
+        cta={{ href: getTutorialSlug(tutorials[0].slug, slug) }}
+        numTutorials={tutorials.length}
+      />
       <h2 id={layoutProps.headings[1].slug}>Tutorials</h2>
       <ol>
         {tutorials.map((tutorial: ClientTutorialLite) => {

@@ -24,7 +24,7 @@ export interface CollectionPageProps {
   layoutProps: CollectionLayout
 }
 
-type CollectionLayout = Pick<
+export type CollectionLayout = Pick<
   SidebarSidecarLayoutProps,
   'headings' | 'breadcrumbLinks'
 > & { sidebarSections: CollectionCategorySidebarSection[] }

@@ -1,7 +1,7 @@
 import { ReactElement, useMemo, useState } from 'react'
+import classNames from 'classnames'
 import useCurrentPath from 'hooks/use-current-path'
-import SidebarBackToLink from './components/sidebar-back-to-link'
-import SidebarFilterInput from './components/sidebar-filter-input'
+import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
   SidebarNavLinkItem,
   SidebarNavMenuItem,
@@ -10,6 +10,9 @@ import {
 } from 'components/sidebar/components'
 import { FilteredNavItem, MenuItem, SidebarProps } from './types'
 import { addNavItemMetaData, getFilteredNavItems } from './helpers'
+import SidebarBackToLink from './components/sidebar-back-to-link'
+import SidebarFilterInput from './components/sidebar-filter-input'
+import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
@@ -23,6 +26,7 @@ const Sidebar = ({
   title,
   visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
+  const { shouldRenderMobileControls } = useSidebarNavData()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const [filterValue, setFilterValue] = useState('')
   const { itemsWithMetadata } = useMemo(
@@ -30,10 +34,42 @@ const Sidebar = ({
     [currentPath, menuItems]
   )
 
-  let backToLink
-  if (backToLinkProps) {
+  let backToElement
+  if (shouldRenderMobileControls) {
+    backToElement = <SidebarMobileControls />
+  } else if (backToLinkProps) {
     const { text, href } = backToLinkProps
-    backToLink = <SidebarBackToLink text={text} href={href} />
+    backToElement = (
+      <div className={s.backToLinkWrapper}>
+        <SidebarBackToLink text={text} href={href} />
+      </div>
+    )
+  }
+
+  let sidebarFilterInput
+  if (showFilterInput) {
+    sidebarFilterInput = (
+      <div
+        className={classNames(s.filterInputWrapper, {
+          [s['filerInputWrapper--mobile']]: shouldRenderMobileControls,
+        })}
+      >
+        <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
+      </div>
+    )
+  }
+
+  let overviewItem
+  if (overviewItemHref) {
+    overviewItem = (
+      <SidebarNavLinkItem
+        item={{
+          href: overviewItemHref,
+          title: 'Overview',
+          isActive: overviewItemHref === currentPath,
+        }}
+      />
+    )
   }
 
   let sidebarContent
@@ -53,25 +89,10 @@ const Sidebar = ({
     )
   }
 
-  let overviewItem
-  if (overviewItemHref) {
-    overviewItem = (
-      <SidebarNavLinkItem
-        item={{
-          href: overviewItemHref,
-          title: 'Overview',
-          isActive: overviewItemHref === currentPath,
-        }}
-      />
-    )
-  }
-
   return (
     <div className={s.sidebar}>
-      {backToLink}
-      {showFilterInput && (
-        <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
-      )}
+      {backToElement}
+      {sidebarFilterInput}
       <nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.nav}>
         <div className={visuallyHideTitle ? 'g-screen-reader-only' : undefined}>
           <SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />

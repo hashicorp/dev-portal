@@ -118,6 +118,14 @@ export type AllCollectionsProductOptions = {
   sidebarSort?: boolean
 }
 
+export interface ProductPage {
+  slug: string
+  pageData: {
+    blocks: any[] // @TODO update when we add in blocks
+    showProductSitemap?: boolean
+  }
+}
+
 /**
  * MISC ENUMS -------------------------------
  */
@@ -142,6 +150,10 @@ export enum EditionOption {
   tfcBiz = 'tfc:business',
   hcp = 'hcp',
 }
+
+export type BadgeOption =
+  | Exclude<EditionOption, EditionOption.openSource> //  "openSource" is default (no badge)
+  | 'beta'
 
 export enum ThemeOption {
   cloud = 'cloud',

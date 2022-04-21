@@ -26,6 +26,10 @@
   grid-template-columns: repeat(var(--grid-template-columns), 1fr);
   grid-gap: 64px 32px;
 
+  @nest .withVideo & {
+    align-items: center;
+  }
+
   @media (--dev-dot-tablet-up) {
     --grid-template-columns: 12;
 
@@ -42,15 +46,27 @@
   }
 }
 
-.content {
+.primary {
   grid-column: 1 / -1;
 
-  @media (--dev-dot-tablet-up) {
-    grid-column: 1 / 9;
+  @nest .withVideo & {
+    @media (--dev-dot-tablet-up) {
+      grid-column: 1 / 9;
+    }
+
+    @media (--dev-dot-desktop) {
+      grid-column: 1 / 6;
+    }
   }
 
-  @media (--dev-dot-desktop) {
-    grid-column: 1 / 5;
+  @nest .withActions & {
+    @media (--dev-dot-tablet-up) {
+      grid-column: 1 / 9;
+    }
+
+    @media (--dev-dot-desktop) {
+      grid-column: 1 / 5;
+    }
   }
 }
 
@@ -72,18 +88,29 @@
   color: var(--token-color-surface-faint);
 }
 
-.actions {
+.secondary {
   grid-column: 1 / -1;
+
+  @nest .withVideo & {
+    @media (--dev-dot-desktop) {
+      grid-column: 7 / -1;
+    }
+  }
+
+  @nest .withActions & {
+    @media (--dev-dot-desktop) {
+      grid-column: 6 / -1;
+    }
+  }
+}
+
+.actions {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
-
-  @media (--dev-dot-desktop) {
-    grid-column: 6 / -1;
-  }
 }
 
 .actionsItem {

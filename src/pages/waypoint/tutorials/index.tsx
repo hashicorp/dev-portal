@@ -5,13 +5,6 @@ import {
   ProductTutorialsPageProps,
 } from 'views/product-tutorials-view/server'
 import ProductTutorialsView from 'views/product-tutorials-view'
-import BaseLayout from 'layouts/base-new'
-
-export function WaypointTutorialHubPage(
-  props: ProductTutorialsPageProps
-): React.ReactElement {
-  return <ProductTutorialsView {...props} />
-}
 
 export async function getStaticProps(): Promise<{
   props: ProductTutorialsPageProps
@@ -23,5 +16,4 @@ export async function getStaticProps(): Promise<{
   return props
 }
 
-WaypointTutorialHubPage.layout = BaseLayout
-export default WaypointTutorialHubPage
+export default ProductTutorialsView
