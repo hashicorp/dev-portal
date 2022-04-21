@@ -4,7 +4,10 @@ import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
-import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
+import {
+  generateProductLandingSidebarNavData,
+  generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 import TutorialsSidebar, {
   HorizontalRule,
   SectionList,
@@ -35,6 +38,15 @@ function CollectionView({
     {
       levelButtonProps: {
         levelUpButtonText: 'Main Menu',
+        levelDownButtonText: 'Previous',
+      },
+      menuItems: generateProductLandingSidebarNavData(currentProduct),
+      showFilterInput: false,
+      title: currentProduct.name,
+    },
+    {
+      levelButtonProps: {
+        levelUpButtonText: `${currentProduct.name} Home`,
         levelDownButtonText: 'Previous',
       },
       backToLinkProps: {
