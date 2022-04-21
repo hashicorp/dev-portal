@@ -6,6 +6,33 @@ import { ProductData } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
+import {
+  generateProductLandingSidebarNavData,
+  generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
+
+/**
+ * @TODO update the basePaths inside of `src/data/${productSLug}.json` files to
+ * be arrays of objects that look like:
+ *
+ *   ```
+ *   {
+ *     path: string
+ *     name: string
+ *   }
+ *   ```
+ *
+ * This will require a decent amount of refactoring code that uses
+ * `ProductData['basePaths']`, so this is the temporary stopgap until we can do
+ * the refactor. Or decide on another approach. :)
+ */
+const BASE_PATHS_TO_NAMES = {
+  'api-docs': 'API Documentation',
+  commands: 'CLI',
+  docs: 'Documentation',
+  intro: 'Introduction',
+  plugins: 'Plugins',
+}
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -123,6 +150,33 @@ export function getStaticGenerationFunctions<
         basePath,
       ])
 
+      /**
+       * Constructs the levels of nav data used in the `Sidebar` on all
+       * `DocsView` pages.
+       */
+      const sidebarNavDataLevels = [
+        {
+          menuItems: generateTopLevelSidebarNavData(),
+          showFilterInput: false,
+          title: 'Main Menu',
+        },
+        {
+          menuItems: generateProductLandingSidebarNavData(product),
+          showFilterInput: false,
+          title: product.name,
+        },
+        {
+          backToLinkProps: {
+            text: `${product.name} Home`,
+            href: `/${product.slug}`,
+          },
+          menuItems: navDataWithFullPaths,
+          // TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
+          title: BASE_PATHS_TO_NAMES[basePath] || product.name,
+          overviewItemHref: `/${product.slug}/${basePath}`,
+        },
+      ]
+
       const breadcrumbLinks = getDocsBreadcrumbs({
         productPath: product.slug,
         productName: product.name,
@@ -137,15 +191,7 @@ export function getStaticGenerationFunctions<
           breadcrumbLinks,
           githubFileUrl,
           headings: nonEmptyHeadings,
-          sidebarProps: {
-            backToLinkProps: {
-              text: `Back to ${product.name}`,
-              href: `/${product.slug}`,
-            },
-            overviewItemHref: `/${product.slug}/${basePath}`,
-            menuItems: navDataWithFullPaths,
-            title: product.name,
-          },
+          sidebarNavDataLevels,
         },
         mdxSource,
         product,

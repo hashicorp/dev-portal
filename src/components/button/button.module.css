@@ -52,12 +52,12 @@
   & svg {
     /* leading icon */
     &:first-child {
-      margin-right: 8px;
+      margin-right: 6px;
     }
 
     /* trailing icon */
     &:last-child {
-      margin-left: 8px;
+      margin-left: 6px;
     }
 
     /* when no `text` prop is given */
