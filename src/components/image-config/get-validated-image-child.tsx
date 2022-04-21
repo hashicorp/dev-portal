@@ -59,9 +59,12 @@ function getImgChild(pChild: ReactElement) {
   const nestedChildren = Children.toArray(pChild.props.children)
   const isSingleNestedChild = nestedChildren.length == 1
   const nestedChild = nestedChildren[0]
-  const isNestedImg =
-    isValidElement(nestedChild) &&
-    (nestedChild.props.mdxType || nestedChild.type) === 'img'
+  if (!isValidElement(nestedChild)) {
+    throw new Error(
+      `In ImageConfig, found nested child that does not seem to be a valid React element. Please ensure that ImageConfig contains a valid image element.`
+    )
+  }
+  const isNestedImg = (nestedChild.props.mdxType || nestedChild.type) === 'img'
   if (!isSingleNestedChild || !isNestedImg) {
     warnInDev(
       `In ImageConfig, found an unexpected element nested in the expected <p/> tag. Please ensure that ImageConfig contains a single <img /> element. Child element details: ${JSON.stringify(
@@ -71,11 +74,7 @@ function getImgChild(pChild: ReactElement) {
       )}`
     )
   }
-  if (!isValidElement(nestedChild)) {
-    throw new Error(
-      `In ImageConfig, found nested child that does not seem to be a valid React element. Please ensure that ImageConfig contains a valid image element.`
-    )
-  }
+
   return nestedChild
 }
 
