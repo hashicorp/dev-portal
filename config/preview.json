@@ -3,7 +3,5 @@
   "io_sites": {
     "max_static_paths": 10
   },
-  "flags": {
-    "enable_new_homepage_view": true
-  }
+  "flags": {}
 }
