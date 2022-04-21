@@ -12,7 +12,7 @@ function getValidatedImgChild(children: ReactNode): ReactElement {
   const childCount = Children.count(children)
   const validChildren = Children.toArray(children)
   if (childCount !== 1 || validChildren.length !== 1) {
-    warnInDev(
+    throw new Error(
       `In ImageConfig, found ${childCount} total children and ${validChildren.length} valid children. Please ensure that ImageConfig has exactly one child element, and ensure it is a valid image element.`
     )
   }
@@ -39,7 +39,7 @@ function getValidatedImgChild(children: ReactNode): ReactElement {
     return getImgChild(onlyChild)
   } else {
     // Otherwise throw an error, this is an unexpected structure
-    warnInDev(
+    throw new Error(
       `In ImageConfig, found child with unexpected type: "${onlyChildType}". Please ensure that ImageConfig contains a single <img /> element. Child element details: ${JSON.stringify(
         onlyChild,
         null,
@@ -57,17 +57,16 @@ function getValidatedImgChild(children: ReactNode): ReactElement {
  */
 function getImgChild(pChild: ReactElement) {
   const nestedChildren = Children.toArray(pChild.props.children)
-  const isSingleNestedChild = nestedChildren.length == 1
-  const nestedChild = nestedChildren[0]
-  if (!isValidElement(nestedChild)) {
+  const nestedImgMatches = nestedChildren.filter((child) => {
+    if (!isValidElement(child)) {
+      return false
+    }
+    return (child.props.mdxType || child.type) == 'img'
+  })
+
+  if (nestedImgMatches.length == 0 || !isValidElement(nestedImgMatches[0])) {
     throw new Error(
-      `In ImageConfig, found nested child that does not seem to be a valid React element. Please ensure that ImageConfig contains a valid image element.`
-    )
-  }
-  const isNestedImg = (nestedChild.props.mdxType || nestedChild.type) === 'img'
-  if (!isSingleNestedChild || !isNestedImg) {
-    warnInDev(
-      `In ImageConfig, found an unexpected element nested in the expected <p/> tag. Please ensure that ImageConfig contains a single <img /> element. Child element details: ${JSON.stringify(
+      `In ImageConfig, could not find a valid image element. Please ensure that ImageConfig contains a valid image element. Child element details: ${JSON.stringify(
         pChild,
         null,
         2
@@ -75,23 +74,7 @@ function getImgChild(pChild: ReactElement) {
     )
   }
 
-  return nestedChild
-}
-
-const IS_DEV = process.env.NODE_ENV !== 'production'
-/**
- * Given an error message,
- * silently ignore the message if we're in production,
- * or warn if we're in a development environment.
- *
- * TODO: we likely want to fix all content issues at the source,
- * and throw an error here rather than warn. Asana task:
- * https://app.asana.com/0/1202097197789424/1202163585099211/f
- */
-function warnInDev(message: string) {
-  if (IS_DEV) {
-    console.warn(message)
-  }
+  return nestedImgMatches[0]
 }
 
 export default getValidatedImgChild
