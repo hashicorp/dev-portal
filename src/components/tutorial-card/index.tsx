@@ -9,6 +9,9 @@ import {
 } from 'components/tutorial-collection-cards'
 import s from './tutorial-card.module.css'
 
+/**
+ * Render a card that links to a tutorial.
+ */
 function TutorialCard({
   url,
   duration,
@@ -31,7 +34,7 @@ function TutorialCard({
   }
 
   return (
-    <CardLink href={url} className={s.tutorialCard}>
+    <CardLink href={url} className={s.root}>
       <CardEyebrow text={duration} />
       <CardHeading level={3} text={heading} />
       <CardBody text={description} />

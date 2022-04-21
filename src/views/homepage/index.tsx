@@ -100,27 +100,33 @@ function Homepage(): ReactElement {
         }
         tutorials={[
           {
-            link: '/',
+            url: '/',
             duration: '10min',
             heading: 'Title Max 70 Characters',
             description: 'Body maximum 130 characters.',
-            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+            productsUsed: ['hcp', 'vault', 'boundary', 'nomad'],
+            hasVideo: true,
+            hasInteractiveLab: false,
           },
           {
-            link: '/',
+            url: '/',
             duration: '10min',
             heading: 'Title Max 70 Characters',
             description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
-            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
+            productsUsed: ['hcp', 'vault', 'boundary', 'nomad'],
+            hasVideo: true,
+            hasInteractiveLab: false,
           },
           {
-            link: '/',
+            url: '/',
             duration: '10min',
             heading: 'Title Max 70 Characters',
             description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
-            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu video. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
+            productsUsed: ['hcp', 'vault', 'boundary', 'nomad'],
+            hasVideo: true,
+            hasInteractiveLab: false,
           },
         ]}
       />
