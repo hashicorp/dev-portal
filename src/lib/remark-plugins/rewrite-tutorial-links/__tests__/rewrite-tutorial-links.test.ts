@@ -9,6 +9,10 @@ const betaProductSlugs = __config.dev_dot.beta_product_slugs.join('|')
 const devDotTutorialsPath = new RegExp(
   `^/(${betaProductSlugs})/tutorials/${slug}(/${slug})?$` // Matches /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
 )
+const devDotDocsPath = new RegExp(
+  `^/(${betaProductSlugs})/(docs|plugins|api-docs|commands)/?.*`
+)
+console.log({ devDotDocsPath })
 
 function isolatePathFromMarkdown(mdLink: string): string {
   // target the path within the md syntax
@@ -46,6 +50,18 @@ const TEST_MD_LINKS = {
     '[non beta product hub link](https://learn.hashicorp.com/terraform)',
   errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
   searchPage: '[link to search page on Learn](/search)',
+  betaProductPluginsLink:
+    '[link to waypoint docs](https://www.waypointproject.io/plugins/aws-ecs)',
+  betaProductDocsLink:
+    '[link to waypoint docs](https://www.waypointproject.io/docs/aws-ecs)',
+  betaProductDocsApiLink:
+    '[link to vault api docs](https://www.vaultproject.io/api/auth/approle/index.html#generate-new-secret-id)',
+  betaProductDocsApiLinkWithIndex:
+    '[link to vault api docs](https://www.vaultproject.io/api/auth/approle/index.html)',
+  betaProductDocsAnchorLink:
+    '[link to vault api docs](https://www.vaultproject.io/api/auth/approle#generate-new-secret-id)',
+  nonBetaProductDocsLink:
+    '[non beta product docs link](https://www.terraform.io/docs/language/state/workspaces.html)',
 }
 
 /**
@@ -209,5 +225,14 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
     expect(internalPath).toMatch(productHub)
     expect(externalPath).toMatch(productHub)
+  })
+
+  test('Beta-product docs links are rewritten to dev portal', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsLink)
+
+    const path = isolatePathFromMarkdown(String(contents))
+    expect(path).toMatch(devDotDocsPath)
   })
 })

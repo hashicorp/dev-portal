@@ -27,6 +27,8 @@ import {
   getTutorialMap,
   handleCollectionLink,
   handleTutorialLink,
+  handleDocsLink,
+  PRODUCT_DOCS_PATHS,
 } from './utils'
 
 const learnProductOptions = Object.keys(ProductOption).join('|')
@@ -39,6 +41,7 @@ const learnProductOptions = Object.keys(ProductOption).join('|')
 const learnLink = new RegExp(
   `(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud)/)|^/(${learnProductOptions}|cloud)$`
 )
+const docsLink = new RegExp(`(${Object.values(PRODUCT_DOCS_PATHS).join('|')})`) // @TODO tighten this up?
 
 let TUTORIAL_MAP
 
@@ -54,7 +57,7 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
 function handleRewriteTutorialsLink(node: Link | Definition) {
   try {
     // return early if non tutorial or collection link
-    if (!learnLink.test(node.url)) {
+    if (!learnLink.test(node.url) && !docsLink) {
       return
     }
 
@@ -68,6 +71,7 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
       // If its an internal link, rewrite to an external learn link
       node.url = new URL(node.url, 'https://learn.hashicorp.com/').toString()
     }
+    console.log(node.url)
 
     if (isBetaProduct) {
       let nodePath = node.url // the path to be formatted - assumes to be absolute as current Learn impl does
@@ -75,15 +79,18 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
       const isTutorialPath = nodePath.includes('tutorials')
       const learnProductHub = new RegExp(`/${product}$`)
       const isProductHubPath = learnProductHub.test(nodePath)
+      const isDocsPath = nodePath.includes(PRODUCT_DOCS_PATHS[product])
 
       // if its an external link, isolate the pathname
-      if (isExternalLearnLink) {
+      if (isExternalLearnLink || isDocsPath) {
         const fullUrl = new URL(nodePath)
         nodePath = fullUrl.pathname
       }
 
       // handle rewriting collection and tutorial dev portal paths
-      if (isCollectionPath) {
+      if (isDocsPath) {
+        node.url = handleDocsLink(nodePath, product as ProductSlug)
+      } else if (isCollectionPath) {
         node.url = handleCollectionLink(nodePath)
       } else if (isTutorialPath) {
         node.url = handleTutorialLink(nodePath, TUTORIAL_MAP)
