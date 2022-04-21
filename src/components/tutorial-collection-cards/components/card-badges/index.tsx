@@ -30,7 +30,7 @@ const PRODUCT_ICON_MAP: Record<ProductSlug, JSX.Element> = {
   vault: <ProductIcon productSlug="vault" />,
   vagrant: <ProductIcon productSlug="vagrant" />,
   waypoint: <ProductIcon productSlug="waypoint" />,
-  hcp: <ProductIcon productSlug="hcp" />,
+  cloud: <ProductIcon productSlug="hcp" />,
 }
 const CARD_BADGE_MAP: Record<CardBadgeOption, JSX.Element> = {
   ...PRODUCT_ICON_MAP,
