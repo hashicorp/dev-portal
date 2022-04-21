@@ -66,7 +66,6 @@ export async function getAllTutorials(
   let result = []
   const limit = options?.limit?.toString()
   const recurse = Boolean(!limit)
-  console.log('CALLING GET ALL TUTORIALS!!!!!!!!!!!!!!!!!!!')
   // errors handled by the `fetchAll` function
   const allTutorials = (await fetchAll({
     baseUrl: TUTORIAL_API_ROUTE,
