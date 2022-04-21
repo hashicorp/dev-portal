@@ -17,6 +17,7 @@ import {
   getCurrentCollectionTutorial,
 } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
+import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 
 export interface TutorialPageProps {
   tutorial: TutorialData
@@ -49,6 +50,10 @@ export async function getTutorialPageProps(
     collection.data,
     fullTutorialData.collectionCtx
   )
+  const collectionViewSidebarSections = await getCollectionViewSidebarSections(
+    product,
+    collection.data
+  )
   const layoutProps = {
     headings,
     breadcrumbLinks: getTutorialsBreadcrumb({
@@ -62,6 +67,7 @@ export async function getTutorialPageProps(
         filename: tutorialReference.filename,
       },
     }),
+    collectionViewSidebarSections,
   }
   const lastTutorialIndex = collectionContext.current.tutorials.length - 1
   const isLastTutorial =
