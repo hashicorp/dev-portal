@@ -31,6 +31,12 @@ export interface ButtonProps {
   ariaLabelledBy?: NativeButtonProps['aria-labelledby']
 
   /**
+   * A string of one or more classnames. Is appended last to list of classnames
+   * passed to the button element.
+   */
+  className?: NativeButtonProps['className']
+
+  /**
    * The name of the color to apply styles to the button. The default value is
    * "primary".
    */

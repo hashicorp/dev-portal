@@ -1,0 +1,20 @@
+.root {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.levelUpButton {
+  padding-bottom: 7px;
+  padding-left: 3px;
+  padding-right: 9px;
+  padding-top: 7px;
+}
+
+.levelDownButton {
+  padding-bottom: 7px;
+  padding-left: 9px;
+  padding-right: 3px;
+  padding-top: 7px;
+}
