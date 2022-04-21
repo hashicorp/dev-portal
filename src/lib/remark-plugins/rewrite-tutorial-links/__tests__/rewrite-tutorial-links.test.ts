@@ -69,7 +69,6 @@ const MOCK_TUTORIALS_MAP = {
 
 describe('rewriteTutorialLinks remark plugin', () => {
   beforeEach(async () => {
-    console.log(process.env.CI, '!!!!!!!!!!!!!!!!!!!!!!!!!')
     // the api base url defaults to localhost when no VERCEL_URL is provided
     const scope = nock('http://localhost:3000/api/tutorials-map')
       .persist()
