@@ -12,6 +12,29 @@ import {
 } from 'components/sidebar/helpers'
 
 /**
+ * @TODO update the basePaths inside of `src/data/${productSLug}.json` files to
+ * be arrays of objects that look like:
+ *
+ *   ```
+ *   {
+ *     path: string
+ *     name: string
+ *   }
+ *   ```
+ *
+ * This will require a decent amount of refactoring code that uses
+ * `ProductData['basePaths']`, so this is the temporary stopgap until we can do
+ * the refactor. Or decide on another approach. :)
+ */
+const BASE_PATHS_TO_NAMES = {
+  'api-docs': 'API Documentation',
+  comands: 'CLI',
+  docs: 'Documentation',
+  intro: 'Introduction',
+  plugins: 'Plugins',
+}
+
+/**
  * Returns static generation functions which can be exported from a page to fetch docs data
  *
  * Example usage:
@@ -134,19 +157,11 @@ export function getStaticGenerationFunctions<
        */
       const sidebarNavDataLevels = [
         {
-          levelButtonProps: {
-            text: `${product.name} Home`,
-            iconPosition: 'trailing',
-          },
           menuItems: generateTopLevelNavItems(),
           showFilterInput: false,
           title: 'Main Menu',
         },
         {
-          levelButtonProps: {
-            text: 'Main Menu',
-            iconPosition: 'leading',
-          },
           menuItems: generateProductLandingNavItems(product),
           showFilterInput: false,
           title: product.name,
@@ -156,12 +171,8 @@ export function getStaticGenerationFunctions<
             text: `${product.name} Home`,
             href: `/${product.slug}`,
           },
-          levelButtonProps: {
-            text: `${product.name} Home`,
-            iconPosition: 'leading',
-          },
           menuItems: navDataWithFullPaths,
-          title: 'Documentation', // TODO: this depends on basePath
+          title: BASE_PATHS_TO_NAMES[basePath],
           overviewItemHref: `/${product.slug}/${basePath}`,
         },
       ]
