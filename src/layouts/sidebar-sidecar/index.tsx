@@ -13,6 +13,11 @@ import {
 } from './contexts/sidebar-nav-data'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
+  /**
+   * The goal is to replace `sidebarProps` with `sidebarNavDataLevels`, so this
+   * coercion is needed for uses of this layout that do not pass a value for the
+   * `sidebarNavDataLevels` prop.
+   */
   const navDataLevels = props.sidebarNavDataLevels || [props.sidebarProps]
   return (
     <SidebarNavDataProvider navDataLevels={navDataLevels}>
