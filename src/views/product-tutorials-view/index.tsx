@@ -24,8 +24,8 @@ function ProductTutorialsView({
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
       // TODO: temporary
-      SidebarSlot={() => null}
-      // SidebarSlot={
+      AlternateSidebar={() => null}
+      // AlternateSidebar={
       //   <ProductCollectionsSidebar
       //     isOverview={true}
       //     product={sidebarProduct}

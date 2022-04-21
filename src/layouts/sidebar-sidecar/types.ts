@@ -18,18 +18,18 @@ interface BaseProps {
 /**
  * `PropsForSidebar` defines the properties that represent `Sidebar` behavior.
  * This approach allows us to require either (not both) `sidebarProps` and
- * `SidebarSlot` since providing both of these props is not a case that this
+ * `AlternateSidebar` since providing both of these props is not a case that this
  * component handles.
  */
 type PropsForSidebar =
   | {
       sidebarProps: SidebarProps
-      SidebarSlot?: never
+      AlternateSidebar?: never
     }
   | {
       sidebarProps?: never
       // TODO: replace any
-      SidebarSlot: (props: any) => ReactElement
+      AlternateSidebar: (props: any) => ReactElement
     }
 
 /**

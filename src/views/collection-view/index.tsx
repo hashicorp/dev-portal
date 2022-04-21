@@ -19,8 +19,8 @@ function CollectionView({
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
       // TODO: temporary
-      SidebarSlot={() => null}
-      // SidebarSlot={
+      AlternateSidebar={() => null}
+      // AlternateSidebar={
       //   <ProductCollectionsSidebar
       //     product={{ name: product.name, slug: product.slug }}
       //     sections={layoutProps.sidebarSections}
