@@ -23,13 +23,15 @@ function ProductTutorialsView({
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
-      sidebarSlot={
-        <ProductCollectionsSidebar
-          isOverview={true}
-          product={sidebarProduct}
-          sections={layoutProps.sidebarSections}
-        />
-      }
+      // TODO: temporary
+      SidebarSlot={() => null}
+      // SidebarSlot={
+      //   <ProductCollectionsSidebar
+      //     isOverview={true}
+      //     product={sidebarProduct}
+      //     sections={layoutProps.sidebarSections}
+      //   />
+      // }
     >
       <h1 id={layoutProps.headings[0].slug}>{product.name} Tutorials</h1>
       {blocks.map((b, i) => (

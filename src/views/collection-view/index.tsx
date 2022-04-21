@@ -18,12 +18,14 @@ function CollectionView({
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
-      sidebarSlot={
-        <ProductCollectionsSidebar
-          product={{ name: product.name, slug: product.slug }}
-          sections={layoutProps.sidebarSections}
-        />
-      }
+      // TODO: temporary
+      SidebarSlot={() => null}
+      // SidebarSlot={
+      //   <ProductCollectionsSidebar
+      //     product={{ name: product.name, slug: product.slug }}
+      //     sections={layoutProps.sidebarSections}
+      //   />
+      // }
     >
       <CollectionMeta
         heading={{ text: name, id: layoutProps.headings[0].slug }}
