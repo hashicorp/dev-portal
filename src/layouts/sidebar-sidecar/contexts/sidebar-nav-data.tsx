@@ -18,6 +18,7 @@ interface State {
   isLastLevel: boolean
   isMiddleLevel: boolean
   setCurrentLevel: Dispatch<SetStateAction<number>>
+  shouldRenderMobileControls: boolean
 }
 
 const SidebarNavDataContext = createContext<State | undefined>(undefined)
@@ -35,18 +36,29 @@ const SidebarNavDataProvider = ({
   const numberOfLevels = navDataLevels.length
   const [currentLevel, setCurrentLevel] = useState<number | null>()
 
+  // Reset the current level if the device size or props change
   useEffect(() => {
     setCurrentLevel(numberOfLevels - 1)
   }, [isDesktop, navDataLevels, numberOfLevels])
 
+  // Derive booleans based on main state
+  const hasManyLevels = numberOfLevels > 1
+  const hasMaxLevels = numberOfLevels === 3
+  const isFirstLevel = currentLevel === 0
+  const isLastLevel = currentLevel === numberOfLevels - 1
+  const isMiddleLevel = currentLevel === 1
+  const shouldRenderMobileControls = hasManyLevels && !isDesktop
+
+  // Create state object to pass to the Provider
   const state: State = {
     currentLevel,
-    hasManyLevels: numberOfLevels > 1,
-    hasMaxLevels: numberOfLevels === 3,
-    isFirstLevel: currentLevel === 0,
-    isLastLevel: currentLevel === numberOfLevels - 1,
-    isMiddleLevel: currentLevel === 1,
+    hasManyLevels,
+    hasMaxLevels,
+    isFirstLevel,
+    isLastLevel,
+    isMiddleLevel,
     setCurrentLevel,
+    shouldRenderMobileControls,
   }
 
   return (
