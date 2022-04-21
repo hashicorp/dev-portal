@@ -6,10 +6,9 @@ export interface CardHeadingProps {
   level: HeadingProps['level']
 
   /**
-   * Optionally render a logo as the heading of the card.
-   * Used by CollectionCard.
+   * If true, visually hide the heading element.
    */
-  logo?: CompanyLogoOption
+  screenReaderOnly?: boolean
 }
 
 export { CompanyLogoOption }

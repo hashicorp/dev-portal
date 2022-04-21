@@ -4,3 +4,15 @@
   justify-content: space-between;
   height: 100%;
 }
+
+.logo {
+  display: block;
+  height: 20px;
+  position: relative;
+  width: 100%;
+  margin-bottom: 8px;
+
+  &:not(:first-child) {
+    margin-top: 16px;
+  }
+}

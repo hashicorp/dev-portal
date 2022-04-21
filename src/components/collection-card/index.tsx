@@ -7,6 +7,7 @@ import {
   CardBadges,
 } from 'components/tutorial-collection-cards'
 import { CollectionCardProps } from './types'
+import CompanyLogo from './components/company-logo'
 import s from './collection-card.module.css'
 
 /**
@@ -20,13 +21,19 @@ function CollectionCard({
   description,
   productsUsed,
 }: CollectionCardProps) {
+  const hasLogo = Boolean(logo)
   return (
     <CardLink href={url} className={s.root}>
       <CardEyebrow
         icon={<IconCollections16 />}
         text={`${tutorialCount} tutorial${tutorialCount !== 1 ? 's' : ''}`}
       />
-      <CardHeading level={3} text={heading} logo={logo} />
+      {hasLogo && (
+        <span className={s.logo}>
+          <CompanyLogo name={logo} />
+        </span>
+      )}
+      <CardHeading level={3} text={heading} screenReaderOnly={hasLogo} />
       <CardBody text={description} />
       <CardBadges badges={productsUsed} />
     </CardLink>

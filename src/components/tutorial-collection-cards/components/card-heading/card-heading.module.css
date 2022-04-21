@@ -2,27 +2,9 @@
   composes: hds-typography-body-200 from global;
   color: var(--token-color-foreground-strong);
   font-weight: var(--token-typography-font-weight-semibold);
-
-  /* Spacing for heading text */
   margin: 0 0 4px 0;
 
   &:not(:first-child) {
     margin-top: 8px;
   }
-
-  /* Spacing for heading logo */
-  &.hasLogo {
-    margin-bottom: 8px;
-
-    &:not(:first-child) {
-      margin-top: 16px;
-    }
-  }
-}
-
-.logo {
-  display: block;
-  height: 20px;
-  position: relative;
-  width: 100%;
 }
