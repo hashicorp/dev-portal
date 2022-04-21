@@ -1,4 +1,5 @@
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
+import classNames from 'classnames'
 import CardLink from 'components/card-link'
 import {
   CardEyebrow,
@@ -29,7 +30,7 @@ function CollectionCard({
         text={`${tutorialCount} tutorial${tutorialCount !== 1 ? 's' : ''}`}
       />
       {hasLogo && (
-        <span className={s.logo}>
+        <span className={s.logoContainer}>
           <CompanyLogo name={logo} />
         </span>
       )}

@@ -5,11 +5,9 @@
   height: 100%;
 }
 
-.logo {
-  display: block;
-  height: 20px;
+.logoContainer {
   position: relative;
-  width: 100%;
+  height: 24px;
   margin-bottom: 8px;
 
   &:not(:first-child) {
