@@ -1,4 +1,5 @@
 import { ReactElement, useMemo, useState } from 'react'
+import classNames from 'classnames'
 import useCurrentPath from 'hooks/use-current-path'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
@@ -39,7 +40,7 @@ const Sidebar = ({
   } else if (backToLinkProps) {
     const { text, href } = backToLinkProps
     backToElement = (
-      <div style={{ marginTop: 8 }}>
+      <div className={s.backToLinkWrapper}>
         <SidebarBackToLink text={text} href={href} />
       </div>
     )
@@ -49,10 +50,9 @@ const Sidebar = ({
   if (showFilterInput) {
     sidebarFilterInput = (
       <div
-        style={{
-          marginTop: shouldRenderMobileControls ? 12 : 16,
-          marginBottom: 16,
-        }}
+        className={classNames(s.filterInputWrapper, {
+          [s['filerInputWrapper--mobile']]: shouldRenderMobileControls,
+        })}
       >
         <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
       </div>

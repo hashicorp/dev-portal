@@ -24,3 +24,23 @@
   margin: 0;
   padding: 0;
 }
+
+/*
+***
+* The values set in the following classes are specific so that Sidebar content
+* always appears consistently placed regardless of viewport size.
+***
+*/
+
+.backToLinkWrapper {
+  margin-bottom: 8px;
+}
+
+.filterInputWrapper {
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.filerInputWrapper--mobile {
+  margin-top: 12px;
+}
