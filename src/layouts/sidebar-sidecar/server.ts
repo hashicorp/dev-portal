@@ -151,9 +151,8 @@ export function getStaticGenerationFunctions<
       ])
 
       /**
-       * constructs the levels of nav data for DocsView pages
-       *
-       * @TODO - do something with it?
+       * Constructs the levels of nav data used in the `Sidebar` on all
+       * `DocsView` pages.
        */
       const sidebarNavDataLevels = [
         {
