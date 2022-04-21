@@ -7,7 +7,7 @@ import getIsBetaProduct from 'lib/get-is-beta-product'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 import {
-  generateProductLandingNavItems,
+  generateProductLandingSidebarNavData,
   generateTopLevelNavItems,
 } from 'components/sidebar/helpers'
 
@@ -162,7 +162,7 @@ export function getStaticGenerationFunctions<
           title: 'Main Menu',
         },
         {
-          menuItems: generateProductLandingNavItems(product),
+          menuItems: generateProductLandingSidebarNavData(product),
           showFilterInput: false,
           title: product.name,
         },
