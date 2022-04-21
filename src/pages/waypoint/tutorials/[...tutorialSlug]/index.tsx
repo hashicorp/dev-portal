@@ -10,7 +10,6 @@ import {
   TutorialPagePaths,
 } from 'views/tutorial-view/server'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
-import { generateStaticTutorialMap } from 'pages/api/tutorials-map'
 
 export function WaypointTutorialPage({
   tutorial,

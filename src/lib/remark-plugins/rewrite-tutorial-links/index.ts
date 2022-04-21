@@ -23,12 +23,8 @@ import { visit } from 'unist-util-visit'
 import { ProductSlug } from 'types/products'
 import { ProductOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
-import {
-  getTutorialMap,
-  handleCollectionLink,
-  handleTutorialLink,
-} from './utils'
-import { parseTutorialsMapCache } from 'pages/api/tutorials-map'
+import { handleCollectionLink, handleTutorialLink } from './utils'
+import { parseTutorialsMapCache } from 'views/tutorial-view/utils/generate-tutorial-map'
 
 const learnProductOptions = Object.keys(ProductOption).join('|')
 /**
