@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { StatusCodes } from 'http-status-codes'
-import { getTutorialSlug } from 'views/collection-view/helpers'
-import { getAllTutorials } from 'lib/learn-client/api/tutorial'
+import { generateTutorialMap } from 'lib/remark-plugins/rewrite-tutorial-links/utils/get-tutorial-map'
 
 // 1 hour
 const MAP_MAX_AGE_IN_SECONDS = 60 * 60 * 60
@@ -31,22 +30,4 @@ export default async function tutorialsMapHandler(
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ message: 'Server error: unable to generate tutorial map' })
   }
-}
-
-/**
- * This function creates a map of 'database-slug': 'dev-dot/path'
- */
-export async function generateTutorialMap() {
-  const allTutorials = await getAllTutorials({
-    fullContent: false,
-    slugsOnly: true,
-  })
-
-  const mapItems = allTutorials.map((t) => {
-    const oldPath = t.slug
-    const newPath = getTutorialSlug(t.slug, t.collection_slug)
-    return [oldPath, newPath]
-  })
-
-  return Object.fromEntries(mapItems)
 }

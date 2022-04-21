@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 import moize, { Options } from 'moize'
-import { generateTutorialMap } from 'pages/api/tutorials-map'
+import { getTutorialSlug } from 'views/collection-view/helpers'
+import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 
 export async function getTutorialMap() {
   let result = {}
@@ -36,3 +37,21 @@ export async function getTutorialMap() {
 // Caching the return value in memory for static builds to limit api calls
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
 const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
+
+/**
+ * This function creates a map of 'database-slug': 'dev-dot/path'
+ */
+export async function generateTutorialMap() {
+  const allTutorials = await getAllTutorials({
+    fullContent: false,
+    slugsOnly: true,
+  })
+
+  const mapItems = allTutorials.map((t) => {
+    const oldPath = t.slug
+    const newPath = getTutorialSlug(t.slug, t.collection_slug)
+    return [oldPath, newPath]
+  })
+
+  return Object.fromEntries(mapItems)
+}
