@@ -203,7 +203,7 @@ export default function TutorialView({
         <SidebarSidecarLayout
           breadcrumbLinks={layout.breadcrumbLinks}
           sidebarNavDataLevels={sidebarNavDataLevels as any[]}
-          SidebarSlot={TutorialsSidebar}
+          AlternateSidebar={TutorialsSidebar}
           headings={layout.headings}
         >
           <TutorialMeta

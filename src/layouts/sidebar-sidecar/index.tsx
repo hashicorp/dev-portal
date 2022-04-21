@@ -35,7 +35,7 @@ const SidebarSidecarLayoutContent = ({
   githubFileUrl,
   headings,
   openConsentManager,
-  SidebarSlot,
+  AlternateSidebar,
   sidecarSlot,
   sidebarNavDataLevels,
 }: SidebarSidecarLayoutProps) => {
@@ -44,13 +44,13 @@ const SidebarSidecarLayoutContent = ({
 
   /**
    * @TODO the docs Sidebar can have props spread onto it but not all uses of
-   * SidebarSlot allow props spreading. The spreading may also become
+   * AlternateSidebar allow props spreading. The spreading may also become
    * unnecessary once there is a Context that helps manage the current sidebar
    * level and how to change it.
    */
   const SidebarContent = (): ReactElement => {
-    if (SidebarSlot && !sidebarProps?.menuItems) {
-      return <SidebarSlot {...sidebarProps} />
+    if (AlternateSidebar && !sidebarProps?.menuItems) {
+      return <AlternateSidebar {...sidebarProps} />
     }
 
     return <Sidebar {...sidebarProps} />
