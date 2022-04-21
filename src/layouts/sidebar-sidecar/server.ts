@@ -172,7 +172,8 @@ export function getStaticGenerationFunctions<
             href: `/${product.slug}`,
           },
           menuItems: navDataWithFullPaths,
-          title: BASE_PATHS_TO_NAMES[basePath],
+          // TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
+          title: BASE_PATHS_TO_NAMES[basePath] || product.name,
           overviewItemHref: `/${product.slug}/${basePath}`,
         },
       ]
