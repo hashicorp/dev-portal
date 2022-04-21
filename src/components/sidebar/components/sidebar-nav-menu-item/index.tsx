@@ -11,19 +11,22 @@ import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-ri
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import { MenuItem } from 'components/sidebar'
+import ProductIcon from 'components/product-icon'
 import {
   SidebarHorizontalRule,
   SidebarSectionHeading,
 } from 'components/sidebar/components'
 import Text from 'components/text'
-import { SidebarNavMenuItemProps } from './types'
+import {
+  SidebarNavLinkItemProps,
+  SidebarNavMenuItemProps,
+  SupportedIconName,
+} from './types'
 import s from './sidebar-nav-menu-item.module.css'
-import ProductIcon from 'components/product-icon'
 
-// Use for leading icon in SidebarNavLink
-type SupportedIconName = 'home' | 'vault' | 'waypoint'
-
-// Use for leading icon in SidebarNavLink
+/**
+ * Used for leading icon in `SidebarNavLinkItem`.
+ */
 const SUPPORTED_LEADING_ICONS: {
   [key in SupportedIconName]: ReactElement
 } = {
@@ -32,16 +35,12 @@ const SUPPORTED_LEADING_ICONS: {
   waypoint: <ProductIcon productSlug="waypoint" />,
 }
 
-interface SidebarNavLinkItem extends MenuItem {
-  leadingIconName?: SupportedIconName
-}
-
 /**
  * Handles rendering a link menu item in the Sidebar. Will automatically
  * determine whether or not the link is external to DevDot, and will render an
  * external link icon if the link is external.
  */
-const SidebarNavLinkItem = ({ item }: { item: SidebarNavLinkItem }) => {
+const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
   const href = item.fullPath || item.href
   const isExternal = isAbsoluteUrl(href)
 
