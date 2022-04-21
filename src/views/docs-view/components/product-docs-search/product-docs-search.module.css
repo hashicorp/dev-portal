@@ -1,21 +1,8 @@
 .root {
   position: relative;
   margin-bottom: 34px;
-
-  &:not([aria-expanded='true'])::after {
-    content: ' ';
-    mask-image: url('~@hashicorp/flight-icons/svg/slash-square-16.svg');
-    background-color: var(--token-color-foreground-faint);
-    position: absolute;
-    top: calc(50% - 8px);
-    right: 12px;
-    font-size: 10px;
-    font-weight: 600;
-    height: 16px;
-    width: 16px;
-    line-height: 16px;
-  }
 }
+
 .form {
   border: none;
   box-shadow: var(--token-surface-inset-box-shadow);
@@ -34,6 +21,18 @@
   }
 }
 
+.keyboardHintIcon {
+  color: var(--token-color-foreground-faint);
+  position: absolute;
+  top: calc(50% - 8px);
+  right: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  height: 16px;
+  width: 16px;
+  line-height: 16px;
+}
+
 .inputWrapperPrefix {
   display: inline-block;
 }
@@ -48,7 +47,7 @@
   align-items: center;
 
   & svg {
-    fill: var(--token-color-foreground-faint);
+    color: var(--token-color-foreground-faint);
   }
 }
 
@@ -97,6 +96,7 @@
 }
 
 .panel {
+  width: 100%;
   max-height: 360px;
   position: absolute;
   background: var(--token-color-neutral-background-base);

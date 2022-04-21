@@ -13,6 +13,7 @@ import {
 import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
+import { IconSlashSquare16 } from '@hashicorp/flight-icons/svg-react/slash-square-16'
 import Badge from 'components/badge'
 import s from './product-docs-search.module.css'
 
@@ -109,6 +110,36 @@ function Autocomplete(props: Partial<AutocompleteOptions<AutocompleteItem>>) {
   const panelRef = React.useRef<HTMLDivElement>(null)
   const { getEnvironmentProps } = autocomplete
 
+  // Focus the search input when pressing the '/' key
+  React.useEffect(() => {
+    function onKeyDown(e) {
+      const elt = e.target || e.srcElement
+      const tagName = elt.tagName
+      if (
+        elt.isContentEditable ||
+        tagName === 'INPUT' ||
+        tagName === 'SELECT' ||
+        tagName === 'TEXTAREA'
+      ) {
+        // Already in an input
+        return
+      }
+
+      // Bind to the `/` key
+      if (e.keyCode !== 191) {
+        return
+      }
+
+      inputRef.current?.focus()
+      e.stopPropagation()
+      e.preventDefault()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
   React.useEffect(() => {
     if (!formRef.current || !panelRef.current || !inputRef.current) {
       return undefined
@@ -160,6 +191,9 @@ function Autocomplete(props: Partial<AutocompleteOptions<AutocompleteItem>>) {
             <IconX16 />
           </button>
         </div>
+        {autocompleteState.query ? null : (
+          <IconSlashSquare16 className={s.keyboardHintIcon} />
+        )}
       </form>
 
       {autocompleteState.isOpen && (
