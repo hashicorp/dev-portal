@@ -1,31 +1,89 @@
 import Link from 'next/link'
+import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
+import useCurrentPath from 'hooks/use-current-path'
+import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
-import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
-import ProductCollectionsSidebar from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
-import { getTutorialSlug } from './helpers'
+import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
+import TutorialsSidebar, {
+  HorizontalRule,
+  SectionList,
+  SectionTitle,
+} from 'components/tutorials-sidebar'
+import { CollectionCategorySidebarSection, getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
 
 function CollectionView({
   collection,
-  product,
   layoutProps,
 }: CollectionPageProps): React.ReactElement {
-  const { name, slug, description, shortName, tutorials } = collection
+  const currentProduct = useCurrentProduct()
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const { name, slug, description, tutorials } = collection
+
+  // TODO: refactor, very long
+  const sidebarNavDataLevels = [
+    {
+      menuItems: generateTopLevelSidebarNavData(),
+      showFilterInput: false,
+      title: 'Main Menu',
+    },
+    {
+      backToLinkProps: {
+        text: `${currentProduct.name} Home`,
+        href: `/${currentProduct.slug}`,
+      },
+      title: 'Tutorials',
+      children: [
+        <>
+          <SectionList
+            items={[
+              {
+                text: 'Overview',
+                href: `/${currentProduct.slug}/tutorials`,
+                isActive: currentPath === `/${currentProduct.slug}/tutorials`,
+              },
+            ]}
+          />
+          {layoutProps.collectionViewSidebarSections.map(
+            (section: CollectionCategorySidebarSection) => {
+              return (
+                <>
+                  <HorizontalRule />
+                  <SectionTitle text={section.title} />
+                  <SectionList items={section.items} />
+                </>
+              )
+            }
+          )}
+          <HorizontalRule />
+          <SectionTitle text="Resources" />
+          <SectionList
+            items={[
+              {
+                text: 'All Tutorials',
+                href: 'https://learn.hashicorp.com',
+              },
+              {
+                text: 'Community Forum',
+                href: 'https://discuss.hashicorp.com',
+              },
+              { text: 'Support', href: 'https://support.hashicorp.com' },
+              { text: 'GitHub', href: 'http://github.com/hashicorp' },
+            ]}
+          />
+        </>,
+      ],
+    },
+  ]
 
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
-      // TODO: temporary
-      AlternateSidebar={() => null}
-      // AlternateSidebar={
-      //   <ProductCollectionsSidebar
-      //     product={{ name: product.name, slug: product.slug }}
-      //     sections={layoutProps.sidebarSections}
-      //   />
-      // }
+      AlternateSidebar={TutorialsSidebar}
+      sidebarNavDataLevels={sidebarNavDataLevels as any[]}
     >
       <CollectionMeta
         heading={{ text: name, id: layoutProps.headings[0].slug }}
