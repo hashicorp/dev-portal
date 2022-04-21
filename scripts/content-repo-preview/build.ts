@@ -90,7 +90,7 @@ async function main() {
   ).filter((ent) => ent.isDirectory())
 
   for (const dir of rootPagesDirs) {
-    if (dir.name !== '_proxied-dot-io') {
+    if (dir.name !== '_proxied-dot-io' && dir.name !== 'api') {
       console.log(`🧹 removing pages at /${dir.name}`)
       await fs.promises.rm(path.join(pagesDir, dir.name), {
         recursive: true,
