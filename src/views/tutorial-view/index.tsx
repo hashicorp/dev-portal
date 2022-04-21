@@ -17,7 +17,10 @@ import {
   CollectionCategorySidebarSection,
   getCollectionSlug,
 } from 'views/collection-view/helpers'
-import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
+import {
+  generateProductLandingSidebarNavData,
+  generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 import DevDotContent from 'components/dev-dot-content'
 import TutorialsSidebar, {
   HorizontalRule,
@@ -105,11 +108,27 @@ export default function TutorialView({
   // TODO: this is long, refactor
   const sidebarNavDataLevels = [
     {
+      levelButtonProps: {
+        levelDownButtonText: `${currentProduct.name} Home`,
+      },
       menuItems: generateTopLevelSidebarNavData(),
       showFilterInput: false,
       title: 'Main Menu',
     },
     {
+      levelButtonProps: {
+        levelUpButtonText: 'Main Menu',
+        levelDownButtonText: 'Previous',
+      },
+      menuItems: generateProductLandingSidebarNavData(currentProduct),
+      showFilterInput: false,
+      title: currentProduct.name,
+    },
+    {
+      levelButtonProps: {
+        levelUpButtonText: `${currentProduct.name} Home`,
+        levelDownButtonText: 'Previous',
+      },
       title: 'Tutorials',
       children: [
         <>
@@ -153,6 +172,9 @@ export default function TutorialView({
       ],
     },
     {
+      levelButtonProps: {
+        levelUpButtonText: collectionCtx.current.shortName,
+      },
       backToLinkProps: {
         text: collectionCtx.current.shortName,
         href: getCollectionSlug(collectionCtx.current.slug),

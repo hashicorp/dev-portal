@@ -15,12 +15,14 @@ import s from './tutorials-sidebar.module.css'
 function TutorialsSidebar({
   backToLinkProps,
   children,
+  levelButtonProps,
   title,
   visuallyHideTitle,
 }: TutorialSidebarProps) {
   return (
     <Sidebar
       backToLinkProps={backToLinkProps}
+      levelButtonProps={levelButtonProps}
       showFilterInput={false}
       title={title}
       visuallyHideTitle={visuallyHideTitle}

@@ -156,11 +156,18 @@ export function getStaticGenerationFunctions<
        */
       const sidebarNavDataLevels = [
         {
+          levelButtonProps: {
+            levelDownButtonText: `${product.name} Home`,
+          },
           menuItems: generateTopLevelSidebarNavData(),
           showFilterInput: false,
           title: 'Main Menu',
         },
         {
+          levelButtonProps: {
+            levelUpButtonText: 'Main Menu',
+            levelDownButtonText: 'Previous',
+          },
           menuItems: generateProductLandingSidebarNavData(product),
           showFilterInput: false,
           title: product.name,
@@ -169,6 +176,9 @@ export function getStaticGenerationFunctions<
           backToLinkProps: {
             text: `${product.name} Home`,
             href: `/${product.slug}`,
+          },
+          levelButtonProps: {
+            levelUpButtonText: `${product.name} Home`,
           },
           menuItems: navDataWithFullPaths,
           // TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
