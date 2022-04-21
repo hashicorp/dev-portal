@@ -6,6 +6,7 @@
     "build:webpack-only": "hc-tools next-build-webpack-only",
     "build": "next build",
     "lint": "next-hashicorp lint",
+    "prebuild": "hc-tools ./scripts/remove-non-beta-product-pages.ts",
     "prepare": "simple-git-hooks",
     "postbuild": "hc-tools ./scripts/capture-build-metrics.ts dev-portal",
     "start:boundary": "cross-env DEV_IO=boundary npm run start",
