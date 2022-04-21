@@ -17,6 +17,8 @@ export interface TutorialSidebarProps {
    */
   children: SidebarProps['children']
 
+  levelButtonProps?: SidebarProps['levelButtonProps']
+
   /**
    * Optional. If true, the title of the sidebar will be visually hidden.
    */
