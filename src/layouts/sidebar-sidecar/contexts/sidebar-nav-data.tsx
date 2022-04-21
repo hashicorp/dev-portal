@@ -13,10 +13,8 @@ import { SidebarProps } from 'components/sidebar'
 interface State {
   currentLevel: number
   hasManyLevels: boolean
-  hasMaxLevels: boolean
   isFirstLevel: boolean
   isLastLevel: boolean
-  isMiddleLevel: boolean
   setCurrentLevel: Dispatch<SetStateAction<number>>
   shouldRenderMobileControls: boolean
 }
@@ -43,20 +41,16 @@ const SidebarNavDataProvider = ({
 
   // Derive booleans based on main state
   const hasManyLevels = numberOfLevels > 1
-  const hasMaxLevels = numberOfLevels === 3
   const isFirstLevel = currentLevel === 0
   const isLastLevel = currentLevel === numberOfLevels - 1
-  const isMiddleLevel = currentLevel === 1
   const shouldRenderMobileControls = hasManyLevels && !isDesktop
 
   // Create state object to pass to the Provider
   const state: State = {
     currentLevel,
     hasManyLevels,
-    hasMaxLevels,
     isFirstLevel,
     isLastLevel,
-    isMiddleLevel,
     setCurrentLevel,
     shouldRenderMobileControls,
   }
