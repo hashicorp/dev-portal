@@ -1,6 +1,6 @@
 import type { ProductSlug } from 'types/products'
 
-export type CardBadgeOption = ProductSlug | 'video' | 'interactive'
+export type CardBadgeOption = ProductOption | 'video' | 'interactive'
 
 export interface CardBadgesProps {
   badges: CardBadgeOption[]
