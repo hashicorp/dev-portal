@@ -12,7 +12,7 @@ function getValidatedImgChild(children: ReactNode): ReactElement {
   const childCount = Children.count(children)
   const validChildren = Children.toArray(children)
   if (childCount !== 1 || validChildren.length !== 1) {
-    throw new Error(
+    warnInDev(
       `In ImageConfig, found ${childCount} total children and ${validChildren.length} valid children. Please ensure that ImageConfig has exactly one child element, and ensure it is a valid image element.`
     )
   }
@@ -39,7 +39,7 @@ function getValidatedImgChild(children: ReactNode): ReactElement {
     return getImgChild(onlyChild)
   } else {
     // Otherwise throw an error, this is an unexpected structure
-    throw new Error(
+    warnInDev(
       `In ImageConfig, found child with unexpected type: "${onlyChildType}". Please ensure that ImageConfig contains a single <img /> element. Child element details: ${JSON.stringify(
         onlyChild,
         null,
@@ -63,7 +63,7 @@ function getImgChild(pChild: ReactElement) {
     isValidElement(nestedChild) &&
     (nestedChild.props.mdxType || nestedChild.type) === 'img'
   if (!isSingleNestedChild || !isNestedImg) {
-    throw new Error(
+    warnInDev(
       `In ImageConfig, found an unexpected element nested in the expected <p/> tag. Please ensure that ImageConfig contains a single <img /> element. Child element details: ${JSON.stringify(
         pChild,
         null,
@@ -71,7 +71,28 @@ function getImgChild(pChild: ReactElement) {
       )}`
     )
   }
+  if (!isValidElement(nestedChild)) {
+    throw new Error(
+      `In ImageConfig, found nested child that does not seem to be a valid React element. Please ensure that ImageConfig contains a valid image element.`
+    )
+  }
   return nestedChild
+}
+
+const IS_DEV = process.env.NODE_ENV !== 'production'
+/**
+ * Given an error message,
+ * silently ignore the message if we're in production,
+ * or warn if we're in a development environment.
+ *
+ * TODO: we likely want to fix all content issues at the source,
+ * and throw an error here rather than warn. Asana task:
+ * https://app.asana.com/0/1202097197789424/1202163585099211/f
+ */
+function warnInDev(message: string) {
+  if (IS_DEV) {
+    console.warn(message)
+  }
 }
 
 export default getValidatedImgChild
