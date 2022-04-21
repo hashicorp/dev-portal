@@ -12,12 +12,7 @@ import s from './navigation-header.module.css'
  * the same for every page in the app.
  */
 const RightSideHeaderContent = () => {
-  const { isDesktop } = useDeviceSize()
   const { sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
-
-  if (isDesktop) {
-    return null
-  }
 
   return (
     <div className={s.rightSide}>
@@ -37,14 +32,18 @@ const RightSideHeaderContent = () => {
  * `/{productSlug}.`
  */
 const NavigationHeader = () => {
+  const { isDesktop } = useDeviceSize()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const LeftSideHeaderContent =
     currentPath === '/' ? HomePageHeaderContent : ProductPageHeaderContent
 
+  // TODO: Currently awaiting designs for mobile nav on home page
+  const shouldShowRightSide = !isDesktop && currentPath !== '/'
+
   return (
     <header className={s.root}>
       <LeftSideHeaderContent />
-      <RightSideHeaderContent />
+      {shouldShowRightSide && <RightSideHeaderContent />}
     </header>
   )
 }
