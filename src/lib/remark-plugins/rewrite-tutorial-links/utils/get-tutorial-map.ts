@@ -17,15 +17,15 @@ export async function getTutorialMap() {
    * generation function is not called for every single tutorial
    */
   try {
-    // if (isDuringBuild) {
-    const tutorialMapRes = await cachedGenerateTutorialMap()
-    result = tutorialMapRes
-    // } else {
-    //   const tutorialMapRes = await fetch(apiRoute)
-    //   if (tutorialMapRes.ok) {
-    //     result = await tutorialMapRes.json()
-    //   }
-    // }
+    if (isDuringBuild) {
+      const tutorialMapRes = await cachedGenerateTutorialMap()
+      result = tutorialMapRes
+    } else {
+      const tutorialMapRes = await fetch(apiRoute)
+      if (tutorialMapRes.ok) {
+        result = await tutorialMapRes.json()
+      }
+    }
   } catch (e) {
     console.error(e, 'Tutorials map could not be generated')
   }
