@@ -6,6 +6,8 @@ import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getAllTutorials } from 'lib/learn-client/api/tutorial'
 import moize, { Options } from 'moize'
 
+//** NOT USING THIS API ENDPOINT HERE, see final impl for that */
+
 // 1 hour
 const MAP_MAX_AGE_IN_SECONDS = 60 * 60 * 60
 
@@ -49,15 +51,14 @@ export async function generateTutorialMap() {
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
 const cachedGenerateTutorialMap = moize(generateTutorialMap, moizeOpts)
 
+/**
+ *
+ * TRYING OUT THE STATIC APPROACH HERE
+ * IT SEEMS LIKE THE ISR SERVERS ARE READ ONLY
+ * SO THIS WORKS FOR STATIC BUIDS
+ *
+ */
 const TUTORIALS_MAP_PATH = '.tutorials-map'
-
-// We only want one cache to be created at /.next/server/pages
-// since this is being called within a product tutorial route, we need
-// to isolate to the root pages directory
-function getRootPagesDirname() {
-  console.log({ __dirname })
-  return __dirname.slice(0, __dirname.indexOf('pages') + 'pages'.length)
-}
 
 export async function generateStaticTutorialMap() {
   let cachedData
