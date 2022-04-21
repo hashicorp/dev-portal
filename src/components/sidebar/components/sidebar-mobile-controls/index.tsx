@@ -1,11 +1,16 @@
 import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
-import Button, { ButtonProps } from 'components/button'
-import { SidebarProps } from 'components/sidebar/types'
+import { useCurrentProduct } from 'contexts'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
+import Button, { ButtonProps } from 'components/button'
 import s from './sidebar-mobile-controls.module.css'
 
-const BaseButton = ({
+/**
+ * The base `Button` component used by both `LevelUpButton` and
+ * `LevelDownButton`. Handles setting the `Button` props that are the same for
+ * both buttons.
+ */
+const BaseControlButton = ({
   className,
   icon,
   iconPosition,
@@ -24,10 +29,18 @@ const BaseButton = ({
   )
 }
 
-const BackButton = ({ onClick, text }: ButtonProps) => {
+/**
+ * The `Button` that handles moving the user "up" one nav data level in
+ * `Sidebar`.
+ *
+ * Notes:
+ *  - Always has a leading chevron-left icon.
+ *  - Always displays on the lefthand side of the `Sidebar`.
+ */
+const LevelUpButton = ({ onClick, text }: ButtonProps) => {
   return (
-    <BaseButton
-      className={s.backButton}
+    <BaseControlButton
+      className={s.levelUpButton}
       icon={<IconChevronLeft16 />}
       iconPosition="leading"
       onClick={onClick}
@@ -35,11 +48,20 @@ const BackButton = ({ onClick, text }: ButtonProps) => {
     />
   )
 }
-
-const ForwardButton = ({ onClick, text }: ButtonProps) => {
+/**
+ * The `Button` that handles moving the user "down" one nav data level in
+ * `Sidebar`.
+ *
+ * Notes:
+ *  - Always has a trailing chevron-right icon.
+ *  - If rendered with `LevelUpButton`, displays on the righthand side of the
+ *    `Sidebar`.
+ *  - If rendered alone, displays on the lefthand side of the `Sidebar`.
+ */
+const LevelDownButton = ({ onClick, text }: ButtonProps) => {
   return (
-    <BaseButton
-      className={s.forwardButton}
+    <BaseControlButton
+      className={s.levelDownButton}
       icon={<IconChevronRight16 />}
       iconPosition="trailing"
       onClick={onClick}
@@ -48,38 +70,44 @@ const ForwardButton = ({ onClick, text }: ButtonProps) => {
   )
 }
 
-const SidebarMobileControls = ({
-  levelButtonProps,
-}: Pick<SidebarProps, 'levelButtonProps'>) => {
+/**
+ * Handles rendering either one or both of `LevelUpButton` and
+ * `LevelDownButton`. It determines what to render by consuming data from
+ * `SidebarNavDataContext` using the `useSidebarNavData` hook.
+ */
+const SidebarMobileControls = () => {
+  const currentProduct = useCurrentProduct()
   const { hasManyLevels, isFirstLevel, isLastLevel, setCurrentLevel } =
     useSidebarNavData()
-  const { text } = levelButtonProps
+  const mainMenuText = 'Main Menu'
+  const productLandingText = `${currentProduct.name} Home`
 
-  let backButton
+  // Show `LevelUpButton` on all levels but the first one
+  let levelUpButton
   if (hasManyLevels && !isFirstLevel) {
-    backButton = (
-      <BackButton
-        text={text}
+    levelUpButton = (
+      <LevelUpButton
+        text={isLastLevel ? productLandingText : mainMenuText}
         onClick={() => setCurrentLevel((prevLevel: number) => prevLevel - 1)}
       />
     )
   }
 
-  let forwardButton
+  // Show `LevelDownButton` on all levels but the last one
+  let levelDownButton
   if (hasManyLevels && !isLastLevel) {
-    forwardButton = (
-      <ForwardButton
-        text={isFirstLevel ? text : 'Previous'}
+    levelDownButton = (
+      <LevelDownButton
+        text={isFirstLevel ? productLandingText : 'Previous'}
         onClick={() => setCurrentLevel((prevLevel: number) => prevLevel + 1)}
       />
     )
   }
 
-  // TODO
   return (
     <div className={s.root}>
-      {backButton}
-      {forwardButton}
+      {levelUpButton}
+      {levelDownButton}
     </div>
   )
 }

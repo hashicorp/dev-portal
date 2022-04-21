@@ -131,11 +131,6 @@ interface SidebarBaseProps {
   backToLinkProps?: SidebarBackToLinkProps
 
   /**
-   * @TODO write up description
-   */
-  levelButtonProps?: Pick<ButtonProps, 'text' | 'iconPosition' | 'onClick'>
-
-  /**
    * Optional href for the Overview menu item that shows at the top of the
    * Sidebar <nav>. Sidebar will only show this menu item if this prop is
    * provided.

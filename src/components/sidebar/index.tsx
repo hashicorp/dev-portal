@@ -1,6 +1,6 @@
 import { ReactElement, useMemo, useState } from 'react'
-import { useDeviceSize } from 'contexts'
 import useCurrentPath from 'hooks/use-current-path'
+import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
   SidebarNavLinkItem,
   SidebarNavMenuItem,
@@ -18,7 +18,6 @@ const SIDEBAR_LABEL_ID = 'sidebar-label'
 
 const Sidebar = ({
   backToLinkProps,
-  levelButtonProps,
   children,
   menuItems,
   overviewItemHref,
@@ -26,8 +25,7 @@ const Sidebar = ({
   title,
   visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
-  const { isDesktop } = useDeviceSize()
-  const shouldRenderMobileControls = levelButtonProps && !isDesktop
+  const { shouldRenderMobileControls } = useSidebarNavData()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const [filterValue, setFilterValue] = useState('')
   const { itemsWithMetadata } = useMemo(
@@ -35,15 +33,9 @@ const Sidebar = ({
     [currentPath, menuItems]
   )
 
-  /**
-   * @TODO clean up this section, too long
-   */
-
   let backToElement
   if (shouldRenderMobileControls) {
-    backToElement = (
-      <SidebarMobileControls levelButtonProps={levelButtonProps} />
-    )
+    backToElement = <SidebarMobileControls />
   } else if (backToLinkProps) {
     const { text, href } = backToLinkProps
     backToElement = (
