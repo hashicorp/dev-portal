@@ -57,6 +57,12 @@ function getValidatedImgChild(children: ReactNode): ReactElement {
  */
 function getImgChild(pChild: ReactElement) {
   const nestedChildren = Children.toArray(pChild.props.children)
+
+  if (nestedChildren.length > 1) {
+    console.warn(
+      `Warning: <ImageConfig /> was passed multiple children. We'll filter these children to find the image element being configured. All other children will be ignored. Please ensure that ImageConfig contains only a single image element.`
+    )
+  }
   const nestedImgMatches = nestedChildren.filter((child) => {
     if (!isValidElement(child)) {
       return false
