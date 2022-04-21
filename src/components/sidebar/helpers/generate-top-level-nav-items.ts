@@ -1,7 +1,14 @@
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 
-export const generateTopLevelNavItems = () => {
+/**
+ * Generates the top-level website nav data for rendering in `Sidebar` as the
+ * top-level of the mobile navigation experience.
+ *
+ * Depends on the `__config.dev_dot.beta_product_slugs` variable to be set in
+ * the current environment config.
+ */
+export const generateTopLevelSidebarNavData = () => {
   const result = [
     {
       leadingIconName: 'home',

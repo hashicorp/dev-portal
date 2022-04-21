@@ -8,7 +8,7 @@ import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-d
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 import {
   generateProductLandingSidebarNavData,
-  generateTopLevelNavItems,
+  generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 
 /**
@@ -157,7 +157,7 @@ export function getStaticGenerationFunctions<
        */
       const sidebarNavDataLevels = [
         {
-          menuItems: generateTopLevelNavItems(),
+          menuItems: generateTopLevelSidebarNavData(),
           showFilterInput: false,
           title: 'Main Menu',
         },
