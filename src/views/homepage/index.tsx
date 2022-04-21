@@ -17,6 +17,7 @@ import {
 } from './components/merchandising-slots/slots'
 import badge from './img/vault-certified-expert-badge.svg?include'
 import s from './homepage.module.css'
+import { ProductOption } from 'lib/learn-client/types'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
@@ -104,7 +105,7 @@ function Homepage(): ReactElement {
             duration: '10min',
             heading: 'Title Max 70 Characters',
             description: 'Body maximum 130 characters.',
-            productsUsed: ['hcp', 'vault', 'boundary', 'nomad'],
+            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
             hasVideo: true,
             hasInteractiveLab: false,
           },
@@ -114,7 +115,7 @@ function Homepage(): ReactElement {
             heading: 'Title Max 70 Characters',
             description:
               'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
-            productsUsed: ['hcp', 'vault', 'boundary', 'nomad'],
+            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
             hasVideo: true,
             hasInteractiveLab: false,
           },
@@ -124,7 +125,7 @@ function Homepage(): ReactElement {
             heading: 'Title Max 70 Characters',
             description:
               'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu video. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
-            productsUsed: ['hcp', 'vault', 'boundary', 'nomad'],
+            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
             hasVideo: true,
             hasInteractiveLab: false,
           },

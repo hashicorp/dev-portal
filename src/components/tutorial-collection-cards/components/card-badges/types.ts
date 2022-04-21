@@ -1,4 +1,4 @@
-import type { ProductSlug } from 'types/products'
+import { ProductOption } from 'lib/learn-client/types'
 
 export type CardBadgeOption = ProductOption | 'video' | 'interactive'
 

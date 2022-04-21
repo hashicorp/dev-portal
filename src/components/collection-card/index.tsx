@@ -11,11 +11,6 @@ import s from './collection-card.module.css'
 
 /**
  * Render a card that links to a collection.
- *
- * TODO: note that not all collection links will work, for now.
- * This is because not all product collections are in dev-dot, yet.
- * Asana task to address:
- * https://app.asana.com/0/1201987349274776/1201991101510148
  */
 function CollectionCard({
   url,

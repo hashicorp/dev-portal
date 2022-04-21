@@ -1,4 +1,4 @@
-import { ProductSlug } from 'types/products'
+import { ProductOption } from 'lib/learn-client/types'
 
 export interface TutorialCardProps {
   /**

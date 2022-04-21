@@ -1,9 +1,9 @@
 import { getCollectionSlug } from 'views/collection-view/helpers'
 import {
   Collection as ClientCollection,
+  ProductOption,
   themeIsProduct,
 } from 'lib/learn-client/types'
-import { ProductSlug } from 'types/products'
 import { CollectionCardPropsWithId } from './types'
 
 export function formatCollectionCard(
@@ -26,7 +26,7 @@ export function formatCollectionCard(
  * to show a more complete list? Or will this result in more of a
  * "product icon overload" on these cards?
  */
-function parseProductsUsed(collection: ClientCollection): ProductSlug[] {
+function parseProductsUsed(collection: ClientCollection): ProductOption[] {
   const theme = collection.theme
   if (themeIsProduct(theme)) {
     // For product themes, return the product slug,
@@ -34,6 +34,6 @@ function parseProductsUsed(collection: ClientCollection): ProductSlug[] {
     return [theme]
   } else {
     // For other themes, return "hcp", for a generic "H" logo
-    return ['hcp']
+    return []
   }
 }
