@@ -21,6 +21,12 @@ type AutocompleteProps<THit extends Hit<unknown>> = Partial<
   ResultComponent: React.ComponentType<{ hit: THit }>
 }
 
+/**
+ * Algolia search UI implementation, based on the utilities from @algolia/autocomplete-core
+ *
+ * We're not using Algolia's fully-baked UI implementation, @algolia/autocomplete-js, as we need
+ * to be able to customize all parts of the UI.
+ */
 export function AlgoliaSearch<THit extends Hit<unknown>>({
   ResultComponent,
   ...props
@@ -94,13 +100,11 @@ export function AlgoliaSearch<THit extends Hit<unknown>>({
             </button>
           </label>
         </div>
-        <div className={s.inputWrapper}>
-          <input
-            className={s.input}
-            ref={inputRef}
-            {...autocomplete.getInputProps({ inputElement: inputRef.current })}
-          />
-        </div>
+        <input
+          className={s.input}
+          ref={inputRef}
+          {...autocomplete.getInputProps({ inputElement: inputRef.current })}
+        />
         <div className={s.inputWrapperSuffix}>
           <button
             className={s.clearButton}
@@ -112,21 +116,17 @@ export function AlgoliaSearch<THit extends Hit<unknown>>({
           </button>
         </div>
         {autocompleteState.query ? null : (
-          <IconSlashSquare16 className={s.keyboardHintIcon} />
+          <IconSlashSquare16
+            className={s.keyboardHintIcon}
+            title="Type '/' to Search"
+          />
         )}
       </form>
 
       {autocompleteState.isOpen && (
         <div
           ref={panelRef}
-          className={[
-            s.panel,
-            'aa-Panel',
-            'aa-Panel--desktop',
-            autocompleteState.status === 'stalled' && 'aa-Panel--stalled',
-          ]
-            .filter(Boolean)
-            .join(' ')}
+          className={s.panel}
           {...autocomplete.getPanelProps({})}
         >
           <div className={s.panelLayout}>
@@ -134,7 +134,7 @@ export function AlgoliaSearch<THit extends Hit<unknown>>({
               const { source, items } = collection
 
               return (
-                <section key={`source-${index}`} className="aa-Source">
+                <section key={`source-${index}`}>
                   {items.length > 0 && (
                     <ul className={s.list} {...autocomplete.getListProps()}>
                       {items.map((item) => {

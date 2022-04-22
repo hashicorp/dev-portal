@@ -51,12 +51,8 @@
   }
 }
 
-.inputWrapper {
-  flex-grow: 1;
-  height: 36px;
-}
-
 .input {
+  flex-grow: 1;
   position: relative;
   border: 0;
 

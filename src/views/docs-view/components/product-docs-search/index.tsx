@@ -12,7 +12,7 @@ const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
 const searchClient = algoliasearch(appId, apiKey)
 
-function ProductItem({
+function ProductSearchResult({
   hit,
 }: {
   hit: Hit<{
@@ -39,14 +39,15 @@ function ProductItem({
   )
 }
 
-export function ProductDocsSearch() {
+export default function ProductDocsSearch() {
   const currentProduct = useCurrentProduct()
 
   return (
+    // TODO(brkalow): setup analytics integration
     <AlgoliaSearch
       openOnFocus={true}
-      placeholder="Search"
-      ResultComponent={ProductItem}
+      placeholder={`Search ${currentProduct.slug} documentation`}
+      ResultComponent={ProductSearchResult}
       getSources={({ query }) => {
         if (!query) {
           return []
@@ -62,6 +63,10 @@ export function ProductDocsSearch() {
                   {
                     indexName: currentProduct.algoliaConfig.indexName,
                     query,
+                    params: {
+                      clickAnalytics: true,
+                      hitsPerPage: 25,
+                    },
                   },
                   // TODO(brkalow): add additional queries to support cross-product?
                   // {
