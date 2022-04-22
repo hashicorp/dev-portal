@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
@@ -43,6 +43,7 @@ const SidebarSidecarLayoutContent = ({
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const { currentLevel, sidebarIsOpen } = useSidebarNavData()
+  const shouldReduceMotion = useReducedMotion()
   const sidebarProps = sidebarNavDataLevels[currentLevel]
 
   /**
@@ -91,7 +92,7 @@ const SidebarSidecarLayoutContent = ({
         <motion.div
           animate={sidebarIsVisible ? 'visible' : 'hidden'}
           variants={sidebarMotion}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           className={s.sidebar}
         >
           <SidebarContent />
