@@ -38,7 +38,5 @@ export function handleDocsLink(nodePath: string, product: ProductSlug) {
     finalPath = finalPath.replace('/api/', '/api-docs/')
   }
 
-  console.log({ nodePath }, { finalPath })
-
   return finalPath
 }
