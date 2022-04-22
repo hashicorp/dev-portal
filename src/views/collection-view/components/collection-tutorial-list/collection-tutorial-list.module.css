@@ -26,7 +26,7 @@
      * cards are meant to be in two columns.
      * 
      * Note: we could explicitly set 2 columns here instead - it would achieve
-     * a similar effect. However, it would be arguable much more brittle,
+     * a similar effect. However, it would arguably be much more brittle,
      * and might be more difficult to reason about. For example, with 2
      * explicit columns, if our content area shrank to below 540px
      * for some reason, or rather below 564px since we have 24px gap,
