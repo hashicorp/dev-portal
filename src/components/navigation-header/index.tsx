@@ -13,10 +13,12 @@ import s from './navigation-header.module.css'
  */
 const RightSideHeaderContent = () => {
   const { sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
+  const ariaLabel = `${sidebarIsOpen ? 'Close' : 'Open'} navigation menu`
 
   return (
     <div className={s.rightSide}>
       <button
+        aria-label={ariaLabel}
         className={s.mobileMenuButton}
         onClick={() => setSidebarIsOpen((prevState) => !prevState)}
       >
