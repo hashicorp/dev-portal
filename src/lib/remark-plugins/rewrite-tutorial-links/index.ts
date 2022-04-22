@@ -61,9 +61,12 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
       return
     }
 
-    const [product] = node.url.match(new RegExp(`${learnProductOptions}|cloud`))
+    const match = node.url.match(new RegExp(`${learnProductOptions}|cloud`))
+    const product = match ? match[0] : null
     const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
-    const isBetaProduct = getIsBetaProduct(product as ProductSlug)
+    const isBetaProduct = product
+      ? getIsBetaProduct(product as ProductSlug)
+      : false
 
     // if its not a beta product and also not an external link, rewrite
     // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/consul

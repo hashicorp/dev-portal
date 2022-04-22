@@ -268,7 +268,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
     const path = isolatePathFromMarkdown(String(contents))
 
-    expect(path.includes('index.html')).toBe(false)
+    expect(path.includes('.html')).toBe(false)
     expect(path).toMatch(/(?!(.*\.html))\/vault\/api/)
   })
 
