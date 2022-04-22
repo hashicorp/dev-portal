@@ -63,7 +63,7 @@ const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
 
   return (
     <>
-      <ProductDocsSearch />
+      {__config.flags.enable_product_docs_search ? <ProductDocsSearch /> : null}
       <DevDotContent>
         <NoIndexTagIfVersioned />
         <MDXRemote
