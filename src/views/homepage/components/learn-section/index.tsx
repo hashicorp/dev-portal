@@ -1,10 +1,10 @@
 import type { CSSProperties, ReactElement } from 'react'
 import slugify from 'slugify'
-import type { TutorialCardProps } from '../tutorial-card'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import Heading from 'components/heading'
 import StandaloneLink from 'components/standalone-link'
-import TutorialCard from '../tutorial-card'
+import TutorialCard from 'components/tutorial-card'
+import { TutorialCardProps } from 'components/tutorial-card/types'
 import s from './learn-section.module.css'
 
 interface LearnSectionProps {
@@ -55,7 +55,7 @@ export default function LearnSection({
             } as CSSProperties
           }
         >
-          {tutorials.map((tutorial) => {
+          {tutorials.map((tutorial: TutorialCardProps) => {
             return (
               <li
                 key={slugify(tutorial.heading, { lower: true })}

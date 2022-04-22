@@ -59,6 +59,7 @@ export interface TabsProps {
 export interface RawTabItem {
   label: string
   content: ReactNode
+  group?: string
 }
 
 /**

@@ -1,0 +1,62 @@
+/**
+ * .root occupies the full width and height
+ * of the consumer's parent container.
+ * 
+ * It renders logos vertically centered within this container,
+ * and aims for optically consistent logo size rather than strict
+ * width or height consistency.
+ */
+.root {
+  align-items: center;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/**
+ * .inner is used to adjust relative logos sizes.
+ *
+ * due to various differences between logos, from aspect ratios
+ * to typographic boldness to colour, these adjustments are required
+ * for the logos to *look* the same size.
+ *
+ * without these adjustments, logos could all be the exact same
+ * height or width, but some would appear larger than others.
+ * for example, a 20px tall ORACLE logo looks a lot bigger than
+ * a 20px tall AWS logo.
+ */
+.inner {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+
+  &.logo-docker {
+    height: 90%;
+  }
+
+  &.logo-github {
+    height: 65%;
+  }
+
+  &.logo-microsoft-azure {
+    height: 90%;
+  }
+
+  &.logo-oci {
+    height: 50%;
+  }
+
+  &.logo-google-cloud {
+    height: 80%;
+  }
+
+  &.logo-terraform-cloud {
+    height: 100%;
+  }
+
+  &.logo-aws {
+    height: 90%;
+  }
+}

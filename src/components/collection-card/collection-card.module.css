@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.logoContainer {
+  position: relative;
+  height: 24px;
+  margin-bottom: 8px;
+
+  &:not(:first-child) {
+    margin-top: 16px;
+  }
+}

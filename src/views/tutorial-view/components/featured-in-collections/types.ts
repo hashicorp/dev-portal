@@ -1,10 +1,12 @@
-import { CollectionCardProps } from 'views/tutorial-view/components/collection-card'
+import { CollectionCardProps } from 'components/collection-card/types'
+
+export type CollectionCardPropsWithId = CollectionCardProps & { id: string }
 
 export interface FeaturedInCollectionsProps {
   /**
    * An array of collections to display.
    */
-  collections: CollectionCardProps[]
+  collections: CollectionCardPropsWithId[]
 
   /**
    * Optional className to put on the root element. Useful for spacing.
