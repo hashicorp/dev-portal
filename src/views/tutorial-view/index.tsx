@@ -12,6 +12,7 @@ import SidebarSidecarLayout, {
 } from 'layouts/sidebar-sidecar'
 import DevDotContent from 'components/dev-dot-content'
 import InstruqtProvider from 'contexts/instruqt-lab'
+import TabProvider from 'components/tabs/provider'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import {
@@ -156,9 +157,11 @@ export default function TutorialView({
               })}
             />
           )}
-          <DevDotContent>
-            <MDXRemote {...content} components={MDX_COMPONENTS} />
-          </DevDotContent>
+          <TabProvider>
+            <DevDotContent>
+              <MDXRemote {...content} components={MDX_COMPONENTS} />
+            </DevDotContent>
+          </TabProvider>
           <NextPrevious {...nextPreviousData} />
           <FeaturedInCollections
             className={s.featuredInCollections}

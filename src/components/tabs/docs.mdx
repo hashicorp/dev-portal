@@ -111,3 +111,39 @@ peerComponents:
   </Tab>
 </Tabs>
 `}</LiveComponent>
+
+### With group syncing from `TabProvider`
+
+First, second and third tabs should be actively synced based on their matching `group` property.
+
+_Note_: the `TabProvider` must wrap the page where this component is used for 'groups' to function properly.
+
+_Note_: ideally, tab groups should appear in the same order. However, in practice, it is possible for authors to change the order, or vary the number of tabs. Our implementation needs to account for the fact that a tab with a particular `group` value could appear at any place in the array of tab children.
+
+<LiveComponent>{`
+<TabProvider>
+  <Tabs>
+    <Tab heading="First Tab" group="first">
+      <p>First tab content</p>
+    </Tab>
+    <Tab heading="Second Tab" group="second">
+      <p>Second tab content</p>
+    </Tab>
+    <Tab heading="Third Tab" group="third">
+      <p>Third tab content</p>
+    </Tab>
+  </Tabs>
+  <Tabs>
+     <Tab heading="Second Group Tab" group="second">
+      <p>More second group tab content</p>
+    </Tab>
+    <Tab heading="First Group Tab" group="first">
+      <p>More first tab content</p>
+    </Tab>
+   
+    <Tab heading="Third Tab" group="third">
+      <p>More third tab content</p>
+    </Tab>
+  </Tabs>
+</TabProvider>
+`}</LiveComponent>
