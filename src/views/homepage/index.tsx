@@ -17,6 +17,7 @@ import {
 } from './components/merchandising-slots/slots'
 import badge from './img/vault-certified-expert-badge.svg?include'
 import s from './homepage.module.css'
+import { ProductOption } from 'lib/learn-client/types'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
@@ -100,27 +101,33 @@ function Homepage(): ReactElement {
         }
         tutorials={[
           {
-            link: '/',
+            url: '/',
             duration: '10min',
             heading: 'Title Max 70 Characters',
             description: 'Body maximum 130 characters.',
-            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+            hasVideo: true,
+            hasInteractiveLab: false,
           },
           {
-            link: '/',
+            url: '/',
             duration: '10min',
             heading: 'Title Max 70 Characters',
             description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
-            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
+            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+            hasVideo: true,
+            hasInteractiveLab: false,
           },
           {
-            link: '/',
+            url: '/',
             duration: '10min',
             heading: 'Title Max 70 Characters',
             description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
-            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu video. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
+            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+            hasVideo: true,
+            hasInteractiveLab: false,
           },
         ]}
       />
