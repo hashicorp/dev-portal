@@ -8,6 +8,7 @@ import { getHitLink } from './lib/get-hit-link'
 import s from './product-docs-search.module.css'
 import { DocsSearchHit } from './types'
 
+// TODO(brkalow): We might consider lazy-loading the search client
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
 const searchClient = algoliasearch(appId, apiKey)
