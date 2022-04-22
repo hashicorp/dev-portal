@@ -71,7 +71,6 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
       // If its an internal link, rewrite to an external learn link
       node.url = new URL(node.url, 'https://learn.hashicorp.com/').toString()
     }
-    console.log(node.url)
 
     if (isBetaProduct) {
       let nodePath = node.url // the path to be formatted - assumes to be absolute as current Learn impl does
@@ -84,7 +83,9 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
       // if its an external link, isolate the pathname
       if (isExternalLearnLink || isDocsPath) {
         const fullUrl = new URL(nodePath)
-        nodePath = fullUrl.pathname
+        // removing the origin from the href instead of only using
+        // 'pathname' so that anchor links are included
+        nodePath = fullUrl.href.replace(fullUrl.origin, '')
       }
 
       // handle rewriting collection and tutorial dev portal paths

@@ -12,7 +12,6 @@ const devDotTutorialsPath = new RegExp(
 const devDotDocsPath = new RegExp(
   `^/(${betaProductSlugs})/(docs|plugins|api-docs|commands)/?.*`
 )
-console.log({ devDotDocsPath })
 
 function isolatePathFromMarkdown(mdLink: string): string {
   // target the path within the md syntax
@@ -53,15 +52,19 @@ const TEST_MD_LINKS = {
   betaProductPluginsLink:
     '[link to waypoint docs](https://www.waypointproject.io/plugins/aws-ecs)',
   betaProductDocsLink:
-    '[link to waypoint docs](https://www.waypointproject.io/docs/aws-ecs)',
+    '[link to waypoint docs](https://www.vaultproject.io/docs/secrets/databases/mssql)',
   betaProductDocsApiLink:
-    '[link to vault api docs](https://www.vaultproject.io/api/auth/approle/index.html#generate-new-secret-id)',
-  betaProductDocsApiLinkWithIndex:
-    '[link to vault api docs](https://www.vaultproject.io/api/auth/approle/index.html)',
+    '[link to vault api docs](https://www.vaultproject.io/api/auth/approle)',
+  betaProductDocsApiLinkWithHtml:
+    '[link to vault api docs](https://www.vaultproject.io/api/index.html)',
   betaProductDocsAnchorLink:
-    '[link to vault api docs](https://www.vaultproject.io/api/auth/approle#generate-new-secret-id)',
+    '[link to vault api docs](https://www.vaultproject.io/api/auth/something#generate-new-secret-id)',
+  betaProductDocsLinkAnchorWithHtml:
+    '[link to vault api docs](https://www.vaultproject.io/api/index.html#some-anchor)',
   nonBetaProductDocsLink:
     '[non beta product docs link](https://www.terraform.io/docs/language/state/workspaces.html)',
+  externalAnchorLink:
+    '[external learn link with anchor](https://learn.hashicorp.com/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
 }
 
 /**
@@ -69,8 +72,6 @@ const TEST_MD_LINKS = {
  * When adding new MD_LINK tests, make sure the path is accounted for below
  *
  * [key: database tutorial slug]: value — dev dot absolute path
- *
- * something
  */
 const MOCK_TUTORIALS_MAP = {
   'waypoint/getting-started-config':
@@ -159,12 +160,21 @@ describe('rewriteTutorialLinks remark plugin', () => {
       .use(rewriteTutorialLinksPlugin)
       .process(TEST_MD_LINKS.betaProductTutorialAnchorLink)
 
+    const externalLinkContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.externalAnchorLink)
+
     const path = isolatePathFromMarkdown(String(contents))
+    const externalLinkPath = isolatePathFromMarkdown(
+      String(externalLinkContents)
+    )
+
     const anchorLinkPath = new RegExp(
       `^/(${betaProductSlugs})/tutorials/${slug}(/${slug})#`
     )
 
     expect(path).toMatch(anchorLinkPath)
+    expect(externalLinkPath).toMatch(anchorLinkPath)
   })
 
   test('Query params are rewritten properly', async () => {
@@ -228,11 +238,54 @@ describe('rewriteTutorialLinks remark plugin', () => {
   })
 
   test('Beta-product docs links are rewritten to dev portal', async () => {
-    const contents = await remark()
+    const docsLinkContents = await remark()
       .use(rewriteTutorialLinksPlugin)
       .process(TEST_MD_LINKS.betaProductDocsLink)
+    const pluginLinkContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductPluginsLink)
+
+    const pluginLinkPath = isolatePathFromMarkdown(String(pluginLinkContents))
+    const docsLinkPath = isolatePathFromMarkdown(String(docsLinkContents))
+
+    expect(pluginLinkPath).toMatch(devDotDocsPath)
+    expect(docsLinkPath).toMatch(devDotDocsPath)
+  })
+
+  test('Beta-product api links are rewritten to api-docs', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsApiLink)
 
     const path = isolatePathFromMarkdown(String(contents))
     expect(path).toMatch(devDotDocsPath)
+  })
+
+  test('Beta product docs link .html reference should be removed', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsApiLinkWithHtml)
+
+    const path = isolatePathFromMarkdown(String(contents))
+
+    expect(path.includes('.html')).toBe(false)
+    expect(path).toMatch(/(?!(.*\.html))\/vault\/api/)
+  })
+
+  test('Beta-product docs link with anchor are rewritten properly', async () => {
+    const basicAnchorContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsAnchorLink)
+
+    // const anchorWithHtmlContents = await remark()
+    //   .use(rewriteTutorialLinksPlugin)
+    //   .process(TEST_MD_LINKS.betaProductDocsLinkAnchorWithHtml)
+
+    const basicAnchorPath = isolatePathFromMarkdown(String(basicAnchorContents))
+    // const anchorWithHtmlPath = isolatePathFromMarkdown(
+    //   String(anchorWithHtmlContents)
+    // )
+
+    expect(basicAnchorPath).toMatch(/#.+$/)
   })
 })
