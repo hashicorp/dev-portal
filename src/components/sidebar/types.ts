@@ -131,7 +131,7 @@ interface SidebarBaseProps {
   backToLinkProps?: SidebarBackToLinkProps
 
   /**
-   * @TODO write description. optional, for now?
+   * Used to customize the buttons rendered by SidebarMobileControls.
    */
   levelButtonProps?: SidebarMobileControlsProps
 
