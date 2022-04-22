@@ -1,7 +1,6 @@
 import React from 'react'
 import algoliasearch from 'algoliasearch'
 import { getAlgoliaResults } from '@algolia/autocomplete-preset-algolia'
-import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 import AlgoliaSearch, { Highlight } from 'components/algolia-search'
 import { useCurrentProduct } from 'contexts'
 import { getHitLink } from './lib/get-hit-link'
@@ -22,7 +21,6 @@ function ProductSearchResult({ hit }: { hit: DocsSearchHit }) {
       <div className={s.itemDescription}>
         <Highlight hit={hit} attribute="description" />
       </div>
-      <IconCornerDownLeft16 className={s.enterIcon} />
     </div>
   )
 }

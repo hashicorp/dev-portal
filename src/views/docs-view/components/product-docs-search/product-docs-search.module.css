@@ -9,14 +9,6 @@
   }
 }
 
-.enterIcon {
-  color: var(--token-color-foreground-faint);
-  display: none;
-  position: absolute;
-  right: 14px;
-  top: calc(50% - 8px);
-}
-
 .itemDescription {
   color: var(--token-color-foreground-faint);
   font-size: 14px;
