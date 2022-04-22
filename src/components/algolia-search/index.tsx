@@ -8,17 +8,25 @@ import { Hit } from '@algolia/client-search'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { IconSlashSquare16 } from '@hashicorp/flight-icons/svg-react/slash-square-16'
-import s from './product-docs-search.module.css'
 import useFocusOnKeyClick from 'hooks/use-focus-on-key-click'
-import SearchResultsLegend from './search-results-legend'
+import SearchResultsLegend from './components/search-results-legend'
+import HitWrapper from './components/hit-wrapper'
+import { useAlgoliaNavigatorNext } from './lib/use-algolia-navigator-next'
 
-type AutocompleteProps<THit extends Hit<unknown>> = Partial<
+import s from './algolia-search.module.css'
+
+export type AutocompleteProps<THit extends Hit<unknown>> = Partial<
   AutocompleteOptions<THit>
 > & {
   /**
    * The component which will accept a Hit object from algolia and render a result
    */
   ResultComponent: React.ComponentType<{ hit: THit }>
+
+  /**
+   * Function to derive an object to be passed to next/link as props
+   */
+  getHitLinkProps: (THit) => { href: { pathname: string; href?: string } }
 }
 
 /**
@@ -27,10 +35,20 @@ type AutocompleteProps<THit extends Hit<unknown>> = Partial<
  * We're not using Algolia's fully-baked UI implementation, @algolia/autocomplete-js, as we need
  * to be able to customize all parts of the UI.
  */
-export function AlgoliaSearch<THit extends Hit<unknown>>({
+export default function AlgoliaSearch<THit extends Hit<unknown>>({
   ResultComponent,
+  getHitLinkProps,
   ...props
 }: AutocompleteProps<THit>) {
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  const formRef = React.useRef<HTMLFormElement>(null)
+  const panelRef = React.useRef<HTMLDivElement>(null)
+
+  const navigator = useAlgoliaNavigatorNext<THit>()
+
+  /**
+   * Initialize Algolia's autocomplete instance and its state
+   */
   const [autocompleteState, setAutocompleteState] = React.useState<
     AutocompleteState<THit>
   >({
@@ -42,6 +60,7 @@ export function AlgoliaSearch<THit extends Hit<unknown>>({
     activeItemId: null,
     status: 'idle',
   })
+
   const autocomplete = React.useMemo(() => {
     return createAutocomplete<
       THit,
@@ -52,13 +71,14 @@ export function AlgoliaSearch<THit extends Hit<unknown>>({
       onStateChange({ state }) {
         setAutocompleteState(state)
       },
+      navigator,
       ...props,
     })
   }, [])
 
-  const inputRef = React.useRef<HTMLInputElement>(null)
-  const formRef = React.useRef<HTMLFormElement>(null)
-  const panelRef = React.useRef<HTMLDivElement>(null)
+  /**
+   * Initialize event listeners for touch events
+   */
   const { getEnvironmentProps } = autocomplete
 
   React.useEffect(() => {
@@ -66,9 +86,6 @@ export function AlgoliaSearch<THit extends Hit<unknown>>({
       return undefined
     }
 
-    /**
-     * Initialize event listeners for touch events
-     */
     const { onTouchStart, onTouchMove } = getEnvironmentProps({
       formElement: formRef.current,
       inputElement: inputRef.current,
@@ -84,6 +101,9 @@ export function AlgoliaSearch<THit extends Hit<unknown>>({
     }
   }, [getEnvironmentProps, formRef, inputRef, panelRef])
 
+  /**
+   * Allow focusing of the search input on pressing '/'
+   */
   useFocusOnKeyClick(inputRef, '/')
 
   return (
@@ -144,7 +164,16 @@ export function AlgoliaSearch<THit extends Hit<unknown>>({
                             className={s.item}
                             {...autocomplete.getItemProps({ item, source })}
                           >
-                            <ResultComponent hit={item} />
+                            <HitWrapper
+                              hit={item}
+                              className={s.itemLink}
+                              onHitClick={() => {
+                                autocomplete.setQuery('')
+                              }}
+                              getHitLinkProps={getHitLinkProps}
+                            >
+                              <ResultComponent hit={item} />
+                            </HitWrapper>
                           </li>
                         )
                       })}
@@ -160,3 +189,5 @@ export function AlgoliaSearch<THit extends Hit<unknown>>({
     </div>
   )
 }
+
+export { Highlight } from './components/highlight'

@@ -6,7 +6,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DevDotContent from 'components/dev-dot-content'
 import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
-import { ProductDocsSearch } from './components/product-docs-search'
+import ProductDocsSearch from './components/product-docs-search'
 
 // Author primitives
 const Badge = dynamic(() => import('components/author-primitives/packer/badge'))

@@ -1,5 +1,5 @@
 import Badge from 'components/badge'
-import s from './product-docs-search.module.css'
+import s from '../algolia-search.module.css'
 
 export default function SearchResultsLegend() {
   return (
