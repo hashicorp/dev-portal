@@ -1,0 +1,54 @@
+---
+componentName: TutorialCard
+---
+
+Displays a linked card to a tutorial.
+
+## Examples
+
+<LiveComponent>{`
+<TutorialCard
+    duration='10min'
+    heading='Vault as Consul Connect Service Mesh Certification Authority'
+    description={
+        'Use Vault to automatically generate Consul Connect service mesh certificates.'
+    }
+    productsUsed={['vault', 'consul', 'terraform', 'nomad', 'boundary']}
+    hasInteractiveLab={true}
+    hasVideo={true}
+/>
+`}</LiveComponent>
+
+<LiveComponent>{`
+<TutorialCard
+    url='/vault/tutorials/openldap'
+    duration='13min'
+    heading='Vault as Consul Connect Service Mesh Certification Authority'
+    description={
+        'Vault 1.4 introduces a secrets engine designed to help manage existing OpenLDAP entry passwords for UNIX and Linux applications. The OpenLDAP secret engine allows management of LDAP entry passwords as well as dynamic creation of credentials. This engine supports interacting with Active Directory which is compatible with LDAP v3.'
+    }
+    productsUsed={['vault']}
+    hasInteractiveLab={true}
+    hasVideo={false}
+/>
+`}</LiveComponent>
+
+## Note on truncation
+
+`TutorialCard` uses CSS-based truncation to limit the number of `description` lines to `3`.
+
+<LiveComponent>{`
+<div style={{ maxWidth: '400px' }}>
+  <TutorialCard
+    url='/vault/tutorials/openldap'
+    duration='13min'
+    heading='Vault as Consul Connect Service Mesh Certification Authority'
+    description={
+      'Vault 1.4 introduces a secrets engine designed to help manage existing OpenLDAP entry passwords for UNIX and Linux applications. The OpenLDAP secret engine allows management of LDAP entry passwords as well as dynamic creation of credentials. This engine supports interacting with Active Directory which is compatible with LDAP v3.'
+    }
+    productsUsed={['vault']}
+    hasInteractiveLab={true}
+    hasVideo={false}
+  />
+</div>
+`}</LiveComponent>
