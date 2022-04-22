@@ -12,8 +12,8 @@ export const useAlgoliaNavigatorNext: <
   const router = useRouter()
 
   return {
-    navigate({ itemUrl, state }) {
-      router.push({ pathname: itemUrl })
+    navigate({ itemUrl }) {
+      router.push(itemUrl)
     },
   }
 }
