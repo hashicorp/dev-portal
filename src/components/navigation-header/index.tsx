@@ -37,7 +37,7 @@ const NavigationHeader = () => {
   const LeftSideHeaderContent =
     currentPath === '/' ? HomePageHeaderContent : ProductPageHeaderContent
 
-  // TODO: Currently awaiting designs for mobile nav on home page
+  // TODO: menu for the home page, which does not use SidebarSidecarLayout
   const shouldShowRightSide = !isDesktop && currentPath !== '/'
 
   return (
