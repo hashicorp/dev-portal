@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
@@ -13,6 +13,7 @@ import {
   SidebarNavDataProvider,
   useSidebarNavData,
 } from './contexts/sidebar-nav-data'
+import useOnFocusOutside from 'hooks/use-on-focus-outside'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   /**
@@ -42,9 +43,18 @@ const SidebarSidecarLayoutContent = ({
   sidebarNavDataLevels,
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
-  const { currentLevel, sidebarIsOpen } = useSidebarNavData()
+  const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
   const shouldReduceMotion = useReducedMotion()
+  const sidebarRef = useRef<HTMLDivElement>()
   const sidebarProps = sidebarNavDataLevels[currentLevel]
+  const sidebarIsVisible = isDesktop || sidebarIsOpen
+
+  // Handles closing the sidebar if focus moves outside of it and it is open.
+  useOnFocusOutside(
+    [sidebarRef],
+    () => setSidebarIsOpen(false),
+    !isDesktop && sidebarIsVisible
+  )
 
   /**
    * @TODO the docs Sidebar can have props spread onto it but not all uses of
@@ -85,11 +95,11 @@ const SidebarSidecarLayoutContent = ({
     },
   }
 
-  const sidebarIsVisible = isDesktop || sidebarIsOpen
   return (
     <BaseLayout showFooter={false}>
       <div className={s.contentWrapper}>
         <motion.div
+          ref={sidebarRef}
           animate={sidebarIsVisible ? 'visible' : 'hidden'}
           variants={sidebarMotion}
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
