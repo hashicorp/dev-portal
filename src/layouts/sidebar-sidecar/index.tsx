@@ -99,11 +99,11 @@ const SidebarSidecarLayoutContent = ({
     <BaseLayout showFooter={false}>
       <div className={s.contentWrapper}>
         <motion.div
-          ref={sidebarRef}
           animate={sidebarIsVisible ? 'visible' : 'hidden'}
-          variants={sidebarMotion}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           className={s.sidebar}
+          ref={sidebarRef}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
+          variants={sidebarMotion}
         >
           <SidebarContent />
         </motion.div>
