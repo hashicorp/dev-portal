@@ -61,7 +61,9 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
       return
     }
 
-    const match = node.url.match(new RegExp(`${learnProductOptions}|cloud`))
+    const match: RegExpMatchArray | null = node.url.match(
+      new RegExp(`${learnProductOptions}|cloud`)
+    )
     const product = match ? match[0] : null
     const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
     const isBetaProduct = product
