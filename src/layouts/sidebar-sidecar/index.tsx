@@ -1,4 +1,6 @@
 import { ReactElement } from 'react'
+import { motion } from 'framer-motion'
+import { useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
@@ -39,6 +41,7 @@ const SidebarSidecarLayoutContent = ({
   sidecarSlot,
   sidebarNavDataLevels,
 }: SidebarSidecarLayoutProps) => {
+  const { isDesktop } = useDeviceSize()
   const { currentLevel, sidebarIsOpen } = useSidebarNavData()
   const sidebarProps = sidebarNavDataLevels[currentLevel]
 
@@ -68,16 +71,31 @@ const SidebarSidecarLayoutContent = ({
     )
   }
 
+  const sidebarMotion = {
+    visible: {
+      left: 0,
+      display: 'block',
+    },
+    hidden: {
+      left: '-150vw',
+      transitionEnd: {
+        display: 'none',
+      },
+    },
+  }
+
+  const sidebarIsVisible = isDesktop || sidebarIsOpen
   return (
     <BaseLayout showFooter={false}>
       <div className={s.contentWrapper}>
-        <div
+        <motion.div
+          animate={sidebarIsVisible ? 'visible' : 'hidden'}
+          variants={sidebarMotion}
+          transition={{ duration: 0.6 }}
           className={s.sidebar}
-          // TODO: use classes instead?
-          style={{ left: sidebarIsOpen ? 0 : '-150vw' }}
         >
           <SidebarContent />
-        </div>
+        </motion.div>
         <div className={s.mainArea}>
           <div className={s.main}>
             <main id="main">
