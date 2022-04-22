@@ -39,7 +39,7 @@ const SidebarSidecarLayoutContent = ({
   sidecarSlot,
   sidebarNavDataLevels,
 }: SidebarSidecarLayoutProps) => {
-  const { currentLevel } = useSidebarNavData()
+  const { currentLevel, sidebarIsOpen } = useSidebarNavData()
   const sidebarProps = sidebarNavDataLevels[currentLevel]
 
   /**
@@ -71,7 +71,11 @@ const SidebarSidecarLayoutContent = ({
   return (
     <BaseLayout showFooter={false}>
       <div className={s.contentWrapper}>
-        <div className={s.sidebar}>
+        <div
+          className={s.sidebar}
+          // TODO: use classes instead?
+          style={{ left: sidebarIsOpen ? 0 : '-150vw' }}
+        >
           <SidebarContent />
         </div>
         <div className={s.mainArea}>
