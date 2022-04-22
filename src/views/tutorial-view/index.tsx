@@ -27,6 +27,7 @@ import TutorialsSidebar, {
   SectionList,
   SectionTitle,
 } from 'components/tutorials-sidebar'
+import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import InstruqtProvider from 'contexts/instruqt-lab'
@@ -246,9 +247,11 @@ export default function TutorialView({
               })}
             />
           )}
-          <DevDotContent>
-            <MDXRemote {...content} components={MDX_COMPONENTS} />
-          </DevDotContent>
+          <TabProvider>
+            <DevDotContent>
+              <MDXRemote {...content} components={MDX_COMPONENTS} />
+            </DevDotContent>
+          </TabProvider>
           <NextPrevious {...nextPreviousData} />
           <FeaturedInCollections
             className={s.featuredInCollections}
