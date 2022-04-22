@@ -31,7 +31,6 @@ export default function ProductDocsSearch() {
   return (
     // TODO(brkalow): setup analytics integration
     <AlgoliaSearch
-      debug
       openOnFocus={true}
       placeholder={`Search ${currentProduct.slug} documentation`}
       ResultComponent={ProductSearchResult}
