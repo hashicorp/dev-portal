@@ -36,6 +36,8 @@ const TEST_MD_LINKS = {
     '[link to beta product external collection](https://learn.hashicorp.com/collections/vault/getting-started)',
   betaProductTutorialAnchorLink:
     '[link to beta product tutorial with anchor](/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
+  externalAnchorLink:
+    '[external learn link with anchor](https://learn.hashicorp.com/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
   betaProductTutorialQueryParam:
     '[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-kubernetes)',
   betaProductTutorialQueryParamWithAnchor:
@@ -63,8 +65,6 @@ const TEST_MD_LINKS = {
     '[link to vault api docs](https://www.vaultproject.io/api/index.html#some-anchor)',
   nonBetaProductDocsLink:
     '[non beta product docs link](https://www.terraform.io/docs/language/state/workspaces.html)',
-  externalAnchorLink:
-    '[external learn link with anchor](https://learn.hashicorp.com/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
 }
 
 /**
@@ -277,15 +277,28 @@ describe('rewriteTutorialLinks remark plugin', () => {
       .use(rewriteTutorialLinksPlugin)
       .process(TEST_MD_LINKS.betaProductDocsAnchorLink)
 
-    // const anchorWithHtmlContents = await remark()
-    //   .use(rewriteTutorialLinksPlugin)
-    //   .process(TEST_MD_LINKS.betaProductDocsLinkAnchorWithHtml)
+    const anchorWithHtmlContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsLinkAnchorWithHtml)
 
     const basicAnchorPath = isolatePathFromMarkdown(String(basicAnchorContents))
-    // const anchorWithHtmlPath = isolatePathFromMarkdown(
-    //   String(anchorWithHtmlContents)
-    // )
+    const anchorWithHtmlPath = isolatePathFromMarkdown(
+      String(anchorWithHtmlContents)
+    )
+    const anchorLinkPath = new RegExp(`#${slug}$`)
 
-    expect(basicAnchorPath).toMatch(/#.+$/)
+    console.log({ anchorWithHtmlPath })
+
+    expect(basicAnchorPath).toMatch(anchorLinkPath)
+    expect(anchorWithHtmlPath.includes('.html')).toBe(false)
+    expect(anchorWithHtmlPath).toMatch(anchorLinkPath)
+  })
+
+  test('Non-beta product docs links are not rewritten', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.nonBetaProductDocsLink)
+
+    expect(String(contents)).toMatch(TEST_MD_LINKS.nonBetaProductDocsLink)
   })
 })

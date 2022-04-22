@@ -31,7 +31,6 @@ export const PRODUCT_DOCS_PATHS = {
 export function handleDocsLink(nodePath: string, product: ProductSlug) {
   let finalPath = path.join(`/${product}`, nodePath).replace('.html', '')
   const isApiDocsPath = finalPath.includes('/api/')
-  const hasAnchorLink = finalPath.includes('#')
 
   if (isApiDocsPath) {
     finalPath = finalPath.replace('/api/', '/api-docs/')
