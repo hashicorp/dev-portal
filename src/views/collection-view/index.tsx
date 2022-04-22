@@ -16,10 +16,6 @@ function CollectionView({
 }: CollectionPageProps): React.ReactElement {
   const { name, slug, description, tutorials, ordered } = collection
 
-  const formattedTutorials = tutorials.map((t: ClientTutorialLite) =>
-    formatTutorialCard(t, slug)
-  )
-
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
@@ -40,7 +36,9 @@ function CollectionView({
       <h2 id={layoutProps.headings[1].slug}>Tutorials</h2>
       <CollectionTutorialList
         isOrdered={ordered}
-        tutorials={formattedTutorials}
+        tutorials={tutorials.map((t: ClientTutorialLite) =>
+          formatTutorialCard(t, slug)
+        )}
       />
     </SidebarSidecarLayout>
   )
