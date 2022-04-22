@@ -1,0 +1,47 @@
+.listRoot {
+  --min-card-width: 270px;
+
+  background: var(--token-color-surface-faint);
+  box-shadow: var(--token-surface-base-box-shadow);
+  border-radius: 6px;
+  display: grid;
+  gap: 24px;
+
+  /**
+  * Automatically use more columns, as long as columns are >= min-column-width.
+  * Note: minimum size may be < min-column-width, if 100% < min-column-width.
+  * This ensures that on small viewports, content will never overflow.
+  */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--min-card-width)), 1fr)
+  );
+  list-style: none;
+  margin: 0;
+  padding: 16px;
+
+  @media (--dev-dot-tablet-up) {
+    /**
+     * On larger viewports, where our content area reaches up to 780px width,
+     * cards are meant to be in two columns.
+     * 
+     * Note: we could explicitly set 2 columns here instead - it would achieve
+     * a similar effect. However, it would be arguable much more brittle,
+     * and might be more difficult to reason about. For example, with 2
+     * explicit columns, if our content area shrank to below 540px
+     * for some reason, or rather below 564px since we have 24px gap,
+     * we'd end up breaking our desired 270px minimum card width.
+     * Setting minimum card width instead of column count means slightly
+     * more complex CSS, but seems to provide a better guarantee that our
+     * layout will not break, even in unexpected scenarios.
+     */
+    --min-card-width: 300px;
+  }
+
+  &.isOrdered {
+    /**
+     * For ordered collections, cards are always in one column
+     */
+    grid-template-columns: 1fr;
+  }
+}
