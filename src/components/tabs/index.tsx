@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react'
 import classNames from 'classnames'
 import { Tab, TabButtonControls, TabDropdownControls } from './components'
-import { useOverflowRef, useTabItems } from './hooks'
+import { useOverflowRef, useTabItems, useSyncedTabGroups } from './hooks'
 import { TabItem, TabsProps } from './types'
 import s from './tabs.module.css'
 
@@ -40,6 +40,18 @@ const Tabs = ({
   const tabItems = useTabItems({ children, activeTabIndex, initialActiveIndex })
 
   /**
+   * useSyncedTabGroups hooks into TabProvider,
+   * and keeps activeTabIndex & activeTabGroup in sync.
+   *
+   * Note: only works where tabs have groups, eg <Tab group="some-string" />.
+   */
+  const setSyncedActiveTabIndex = useSyncedTabGroups({
+    activeTabIndex,
+    setActiveTabIndex,
+    tabItems,
+  })
+
+  /**
    * If there's overflow, show a dropdown. Otherwise show typical tabs.
    * TODO: current TabDropdownControls is temporary, and will be redone later.
    * Task to replace TabDropdownControls:
@@ -59,7 +71,7 @@ const Tabs = ({
           ariaLabelledBy={ariaLabelledBy}
           tabItems={tabItems}
           activeTabIndex={activeTabIndex}
-          setActiveTabIndex={setActiveTabIndex}
+          setActiveTabIndex={setSyncedActiveTabIndex}
         />
       </div>
       {tabItems.map((tabItem: TabItem) => {

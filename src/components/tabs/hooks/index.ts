@@ -1,5 +1,5 @@
 import useOverflowRef from './use-overflow-ref'
+import useSyncedTabGroups from './use-synced-tab-groups'
 import useTabItems from './use-tab-items'
-import useWindowSize from 'hooks/use-window-size'
 
-export { useOverflowRef, useTabItems, useWindowSize }
+export { useOverflowRef, useSyncedTabGroups, useTabItems }
