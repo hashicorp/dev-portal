@@ -1,5 +1,5 @@
-import CollectionCard from 'views/tutorial-view/components/collection-card'
-import { FeaturedInCollectionsProps } from './types'
+import CollectionCard from 'components/collection-card'
+import { FeaturedInCollectionsProps, CollectionCardPropsWithId } from './types'
 import s from './featured-in-collections.module.css'
 
 // This should render the eventual `CollectionCard` component (doesn't exist yet)
@@ -16,18 +16,18 @@ export function FeaturedInCollections({
     <div className={className}>
       <h2 className={s.heading}>This tutorial also appears in:</h2>
       <ul className={s.listRoot}>
-        {collections.map((collection) => {
-          const { id, slug, numTutorials, name, description, theme } =
+        {collections.map((collection: CollectionCardPropsWithId) => {
+          const { description, heading, id, productsUsed, tutorialCount, url } =
             collection
+
           return (
             <li key={id} className={s.listItem}>
               <CollectionCard
-                className={s.listItemCard}
-                slug={slug}
-                numTutorials={numTutorials}
-                name={name}
                 description={description}
-                theme={theme}
+                heading={heading}
+                productsUsed={productsUsed}
+                tutorialCount={tutorialCount}
+                url={url}
               />
             </li>
           )

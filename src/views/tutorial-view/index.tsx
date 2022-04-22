@@ -17,10 +17,10 @@ import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import {
   FeaturedInCollections,
-  CollectionCardProps,
   NextPrevious,
   getNextPrevious,
 } from './components'
+import { CollectionCardPropsWithId } from './components/featured-in-collections/types'
 import { getCollectionSlug } from 'views/collection-view/helpers'
 import TutorialsSidebar, {
   HorizontalRule,
@@ -56,7 +56,7 @@ export interface TutorialData
 export type CollectionContext = {
   default: Pick<ClientCollection, 'slug' | 'id'>
   current: ClientCollection
-  featuredIn?: CollectionCardProps[]
+  featuredIn?: CollectionCardPropsWithId[]
 }
 
 export type TutorialSidebarSidecarProps = Required<
