@@ -29,7 +29,9 @@ export const PRODUCT_DOCS_PATHS = {
 }
 
 export function handleDocsLink(nodePath: string, product: ProductSlug) {
-  let finalPath = path.join(`/${product}`, nodePath).replace('.html', '')
+  let finalPath = path
+    .join(`/${product}`, nodePath)
+    .replace(/(\/index)?.html/, '')
   const isApiDocsPath = finalPath.includes('/api/')
 
   if (isApiDocsPath) {

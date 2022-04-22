@@ -268,7 +268,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
     const path = isolatePathFromMarkdown(String(contents))
 
-    expect(path.includes('.html')).toBe(false)
+    expect(path.includes('index.html')).toBe(false)
     expect(path).toMatch(/(?!(.*\.html))\/vault\/api/)
   })
 
@@ -286,8 +286,6 @@ describe('rewriteTutorialLinks remark plugin', () => {
       String(anchorWithHtmlContents)
     )
     const anchorLinkPath = new RegExp(`#${slug}$`)
-
-    console.log({ anchorWithHtmlPath })
 
     expect(basicAnchorPath).toMatch(anchorLinkPath)
     expect(anchorWithHtmlPath.includes('.html')).toBe(false)
