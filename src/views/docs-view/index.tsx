@@ -3,6 +3,7 @@ import { MDXRemote } from 'next-mdx-remote'
 import { useCurrentProduct } from 'contexts'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import TabProvider from 'components/tabs/provider'
 import DevDotContent from 'components/dev-dot-content'
 import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
@@ -63,12 +64,14 @@ const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
   return (
     <DevDotContent>
       <NoIndexTagIfVersioned />
-      <MDXRemote
-        compiledSource={compiledSource}
-        components={components}
-        lazy={lazy}
-        scope={scope}
-      />
+      <TabProvider>
+        <MDXRemote
+          compiledSource={compiledSource}
+          components={components}
+          lazy={lazy}
+          scope={scope}
+        />
+      </TabProvider>
     </DevDotContent>
   )
 }
