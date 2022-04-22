@@ -55,6 +55,10 @@ function useSyncedTabGroups({
     setTabGroupToIndex(
       tabItems.reduce(
         (acc: TabGroupToIndex, { group }: TabItem, index: number) => {
+          // Avoid adding "undefined" to the map
+          if (typeof group != 'string') {
+            return acc
+          }
           // Spread acc at the end, so that the first matched tab is used
           return { ...{ [group]: index }, ...acc }
         },
