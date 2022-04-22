@@ -58,6 +58,9 @@ interface ProductData extends Product {
     landingPageNavData: MenuItem[]
     resourcesNavData: MenuItem[]
   }
+  algoliaConfig: {
+    indexName: string
+  }
 }
 
 type ProductGroup = Product[]

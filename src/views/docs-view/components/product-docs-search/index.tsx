@@ -6,6 +6,7 @@ import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-d
 import s from './product-docs-search.module.css'
 import { AlgoliaSearch } from './algolia-search'
 import { Highlight } from './highlight'
+import { useCurrentProduct } from 'contexts'
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
@@ -21,8 +22,10 @@ function ProductItem({
     __autocomplete_indexName: string
   }>
 }) {
+  const product = useCurrentProduct()
+
   return (
-    <a href={`/waypoint/${hit.objectID}`} className={s.itemLink}>
+    <a href={`/${product.slug}/${hit.objectID}`} className={s.itemLink}>
       <div className={s.itemContent}>
         <div className={s.itemTitle}>
           <Highlight hit={hit} attribute="page_title" />
@@ -37,6 +40,8 @@ function ProductItem({
 }
 
 export function ProductDocsSearch() {
+  const currentProduct = useCurrentProduct()
+
   return (
     <AlgoliaSearch
       openOnFocus={true}
@@ -55,7 +60,7 @@ export function ProductDocsSearch() {
                 searchClient,
                 queries: [
                   {
-                    indexName: 'product_WAYPOINT',
+                    indexName: currentProduct.algoliaConfig.indexName,
                     query,
                   },
                   // TODO(brkalow): add additional queries to support cross-product?
