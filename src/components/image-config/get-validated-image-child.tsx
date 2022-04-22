@@ -57,21 +57,30 @@ function getValidatedImgChild(children: ReactNode): ReactElement {
  */
 function getImgChild(pChild: ReactElement) {
   const nestedChildren = Children.toArray(pChild.props.children)
-  const isSingleNestedChild = nestedChildren.length == 1
-  const nestedChild = nestedChildren[0]
-  const isNestedImg =
-    isValidElement(nestedChild) &&
-    (nestedChild.props.mdxType || nestedChild.type) === 'img'
-  if (!isSingleNestedChild || !isNestedImg) {
+
+  if (nestedChildren.length > 1) {
+    console.warn(
+      `Warning: <ImageConfig /> was passed multiple children. We'll filter these children to find the image element being configured. All other children will be ignored. Please ensure that ImageConfig contains only a single image element.`
+    )
+  }
+  const nestedImgMatches = nestedChildren.filter((child) => {
+    if (!isValidElement(child)) {
+      return false
+    }
+    return (child.props.mdxType || child.type) == 'img'
+  })
+
+  if (nestedImgMatches.length == 0 || !isValidElement(nestedImgMatches[0])) {
     throw new Error(
-      `In ImageConfig, found an unexpected element nested in the expected <p/> tag. Please ensure that ImageConfig contains a single <img /> element. Child element details: ${JSON.stringify(
+      `In ImageConfig, could not find a valid image element. Please ensure that ImageConfig contains a valid image element. Child element details: ${JSON.stringify(
         pChild,
         null,
         2
       )}`
     )
   }
-  return nestedChild
+
+  return nestedImgMatches[0]
 }
 
 export default getValidatedImgChild
