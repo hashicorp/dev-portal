@@ -28,9 +28,22 @@ import {
   handleCollectionLink,
   handleTutorialLink,
   handleDocsLink,
-  PRODUCT_DOCS_PATHS,
 } from './utils'
 
+let TUTORIAL_MAP
+
+// @TODO - should this live in the __config data?
+const PRODUCT_DOCS_PATHS = {
+  boundary: 'www.boundaryproject.io',
+  consul: 'www.consul.io',
+  nomad: 'www.nomadproject.io',
+  packer: 'www.packer.io',
+  sentinel: 'docs.hashicorp.com',
+  terraform: 'terraform.io',
+  vagrant: 'www.vagrantup.com',
+  vault: 'www.vaultproject.io',
+  waypoint: 'www.waypointproject.io',
+}
 const learnProductOptions = Object.keys(ProductOption).join('|')
 /**
  * Matches anything that
@@ -41,9 +54,7 @@ const learnProductOptions = Object.keys(ProductOption).join('|')
 const learnLink = new RegExp(
   `(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud)/)|^/(${learnProductOptions}|cloud)$`
 )
-const docsLink = new RegExp(`(${Object.values(PRODUCT_DOCS_PATHS).join('|')})`) // @TODO tighten this up?
-
-let TUTORIAL_MAP
+const docsLink = new RegExp(`(${Object.values(PRODUCT_DOCS_PATHS).join('|')})`)
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {

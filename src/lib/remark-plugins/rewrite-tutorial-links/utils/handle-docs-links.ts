@@ -1,32 +1,18 @@
-/**
- * waypointproject.io
- * vaultproject.io
- *
- * docs ---> waypoint/docs/...
- * api --> vault/api-docs
- */
 import path from 'path'
 import { ProductSlug } from 'types/products'
 
-export const PRODUCT_DOCS_PATHS = {
-  boundary: 'www.boundaryproject.io',
-
-  consul: 'www.consul.io',
-
-  nomad: 'www.nomadproject.io',
-
-  packer: 'www.packer.io',
-
-  sentinel: 'docs.hashicorp.com',
-
-  terraform: 'terraform.io',
-
-  vagrant: 'www.vagrantup.com',
-
-  vault: 'www.vaultproject.io',
-
-  waypoint: 'www.waypointproject.io',
-}
+/**
+ *
+ * This function handles rewrites for docs links in learn content
+ * Refer to this whimsical for full mapping - https://whimsical.com/url-remaps-TqyEmfG6gYyiAZR1HWSWEL
+ *
+ * It accept a nodePath, which should be the url pathname only (e.g. just /docs, not vaultproject.io/docs)
+ *
+ * /docs ---> /waypoint/docs/...
+ * /api --> vault/api-docs
+ * /docs/some-doc.html --> /waypoint/docs/some-doc
+ * /api/index.html --> waypoint/api
+ */
 
 export function handleDocsLink(nodePath: string, product: ProductSlug) {
   let finalPath = path
