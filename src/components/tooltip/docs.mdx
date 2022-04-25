@@ -1,0 +1,68 @@
+---
+componentName: 'Tooltip'
+---
+
+The tooltip component is used to display supplementary, non-critical information. When the user's mouse or focus rests on an element, a
+non-interactive popup is displayed near it.
+
+## Rough guidelines for `Tooltip` use
+
+- Do not use tooltips for information vital to task completion
+- Tooltips may be useful in providing extra information or hints
+- The element a tooltip is attached to should usually make sense on its own
+- Keep tooltip content minimal. Longer form content likely belongs in a modal, or perhaps even in a separate page.
+
+- New users may benefit from tooltips
+- Experienced users should rarely have to reference tooltips. The need for an experienced user to access a tooltip may indicate that the content within is somewhat vital to task completion, or that the element to which the tooltip is attached does not make enough sense on its own.
+
+Note that **touch events are not supported**. This is a somewhat intentional limitation of the underlying dependency, `@reach/tooltip`. See [Reach UI's `<Tooltip />` docs](https://reach.tech/tooltip/) for details.
+
+## Examples
+
+### `label="Plain text"`
+
+<Tooltip label="Hi there! I'm a tooltip, and this is some long plain text, which should wrap nicely based on some collision calculations we're doing behind the scenes.">
+  <div
+    style={{
+      display: 'inline-block',
+      border: '1px solid magenta',
+      padding: '0.25rem 0.5rem',
+      borderRadius: '5px',
+    }}
+  >
+    I'm a React node with a tooltip.
+  </div>
+</Tooltip>
+
+### `label={<Slot />}`
+
+<Tooltip
+  theme="light"
+  forceVisible
+  label={
+    <div
+      style={{
+        display: 'inline-block',
+        border: '1px solid magenta',
+        padding: '0.25rem 0.5rem',
+        borderRadius: '4px',
+      }}
+    >
+      Hi there! This is a React node rendered within a tooltip.
+    </div>
+  }
+>
+  <div
+    style={{
+      display: 'inline-block',
+      border: '1px solid magenta',
+      padding: '0.25rem 0.5rem',
+      borderRadius: '5px',
+    }}
+  >
+    This tooltip wraps a text node, and renders a React node as the tooltip
+    contents.
+  </div>
+</Tooltip>
+
+### `theme="light" vs theme="dark"`

@@ -1,0 +1,48 @@
+/*
+Additional composition is helpful here.
+Note that .arrow and .root can't use CSS custom properties
+nicely since .arrow is rendered into a Portal.
+
+This also means that, unlike in other /partials,
+we can't reliably pull CSS custom properties from a
+theme.module.css class at the component root.
+*/
+
+.theme-light {
+  --background: var(--theme-background, var(--gray-2));
+  --foreground: var(--white);
+}
+
+.theme-dark {
+  --background: var(--theme-background, var(--gray-1));
+  --foreground: var(--white);
+}
+
+.arrow {
+  position: absolute;
+
+  /* --top and --left are set in JS, to allow
+    for dynamic, collision-free positioning. */
+  top: var(--top);
+  left: var(--left);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid var(--background);
+}
+
+.box {
+  composes: g-type-body-small from global;
+  font-size: 0.875rem;
+  background: var(--background);
+  box-shadow: 2px 2px 10px hsla(0, 0%, 0%, 0.1);
+  color: var(--foreground);
+  padding: 0.5em 1em;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  border-radius: 3px;
+  max-width: 75vw;
+  max-width: min(75vw, 20em);
+}
