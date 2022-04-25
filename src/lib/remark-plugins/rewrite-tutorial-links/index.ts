@@ -34,15 +34,15 @@ let TUTORIAL_MAP
 
 // @TODO - should this live in the __config data?
 const PRODUCT_DOCS_PATHS = {
-  boundary: 'www.boundaryproject.io',
-  consul: 'www.consul.io',
-  nomad: 'www.nomadproject.io',
-  packer: 'www.packer.io',
+  boundary: 'boundaryproject.io',
+  consul: 'consul.io',
+  nomad: 'nomadproject.io',
+  packer: 'packer.io',
   sentinel: 'docs.hashicorp.com',
   terraform: 'terraform.io',
-  vagrant: 'www.vagrantup.com',
-  vault: 'www.vaultproject.io',
-  waypoint: 'www.waypointproject.io',
+  vagrant: 'vagrantup.com',
+  vault: 'vaultproject.io',
+  waypoint: 'waypointproject.io',
 }
 const learnProductOptions = Object.keys(ProductOption).join('|')
 /**
