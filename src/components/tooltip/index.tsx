@@ -1,23 +1,9 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import Portal from '@reach/portal'
 import { useTooltip, TooltipPopup } from '@reach/tooltip'
 import classNames from 'classnames'
+import { TooltipArrowProps, TooltipProps, PRect } from './types'
 import s from './style.module.css'
-
-interface TooltipProps {
-  /** Element that, when hovered, will display the tooltip. */
-  children: React.ReactElement
-  /** Plain text for the tooltip to render */
-  label: React.ReactNode
-  /** What the screen reader announces  */
-  'aria-label'?: string
-  /** Minimum spacing from viewport edge */
-  collisionBuffer?: number
-  /** Theme for light or dark mode */
-  theme: 'light' | 'dark'
-  /** Optional CSS override for background color. Foreground color can be overridden by passing a styled React node to the label prop.  */
-  themeBackground?: string
-}
 
 function Tooltip({
   children,
@@ -25,40 +11,33 @@ function Tooltip({
   collisionBuffer = 8,
   'aria-label': ariaLabel,
   theme = 'light',
-  themeBackground,
-}: TooltipProps): React.ReactElement {
+}: TooltipProps): ReactElement {
   const [trigger, tooltip] = useTooltip()
   const { isVisible, triggerRect } = tooltip
 
   const themeClass = s[`theme-${theme}`]
-  const themeProps = {}
-  if (themeBackground) {
-    themeProps['--theme-background'] = themeBackground
-  }
 
   return (
     <>
       {typeof children == 'string'
         ? React.createElement('span', trigger, children)
         : React.cloneElement(children, trigger)}
-      {isVisible && (
+      {isVisible ? (
         <Portal>
-          <Arrow
+          <TooltipArrow
             triggerRect={triggerRect}
             collisionBuffer={collisionBuffer}
             themeClass={themeClass}
-            themeProps={themeProps}
           />
         </Portal>
-      )}
+      ) : null}
       <TooltipPopup
         {...tooltip}
         isVisible={isVisible}
-        style={themeProps as React.CSSProperties}
-        className={classNames(s.box, themeClass)}
+        className={classNames(s.tooltip, themeClass)}
         label={label}
         aria-label={ariaLabel}
-        position={(triggerRect, tooltipRect) =>
+        position={(triggerRect: PRect, tooltipRect: PRect) =>
           centeringFunction(triggerRect, tooltipRect, collisionBuffer)
         }
       />
@@ -79,7 +58,11 @@ function Tooltip({
  * doesn't appear at the very edge of the
  * viewport.
  */
-function centeringFunction(triggerRect, tooltipRect, collisionBuffer) {
+function centeringFunction(
+  triggerRect: PRect,
+  tooltipRect: PRect,
+  collisionBuffer: number
+) {
   const triggerCenter = triggerRect.left + triggerRect.width / 2
   const left = triggerCenter - tooltipRect.width / 2
   const maxLeft = window.innerWidth - tooltipRect.width - collisionBuffer
@@ -102,7 +85,11 @@ function centeringFunction(triggerRect, tooltipRect, collisionBuffer) {
  * than have it perfectly centered but
  * disconnected from the popup.
  */
-function Arrow({ triggerRect, collisionBuffer, themeClass, themeProps }) {
+function TooltipArrow({
+  triggerRect,
+  collisionBuffer,
+  themeClass,
+}: TooltipArrowProps) {
   const arrowThickness = 10
   const arrowLeft = triggerRect
     ? `${Math.min(
@@ -125,7 +112,6 @@ function Arrow({ triggerRect, collisionBuffer, themeClass, themeProps }) {
         {
           '--left': arrowLeft,
           '--top': arrowTop,
-          ...themeProps,
         } as React.CSSProperties
       }
     />

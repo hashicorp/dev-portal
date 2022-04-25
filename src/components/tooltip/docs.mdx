@@ -22,16 +22,15 @@ Note that **touch events are not supported**. This is a somewhat intentional lim
 ### `label="Plain text"`
 
 <Tooltip label="Hi there! I'm a tooltip, and this is some long plain text, which should wrap nicely based on some collision calculations we're doing behind the scenes.">
-  <div
+  <button
     style={{
-      display: 'inline-block',
       border: '1px solid magenta',
       padding: '0.25rem 0.5rem',
       borderRadius: '5px',
     }}
   >
     I'm a React node with a tooltip.
-  </div>
+  </button>
 </Tooltip>
 
 ### `label={<Slot />}`
@@ -52,9 +51,8 @@ Note that **touch events are not supported**. This is a somewhat intentional lim
     </div>
   }
 >
-  <div
+  <button
     style={{
-      display: 'inline-block',
       border: '1px solid magenta',
       padding: '0.25rem 0.5rem',
       borderRadius: '5px',
@@ -62,7 +60,32 @@ Note that **touch events are not supported**. This is a somewhat intentional lim
   >
     This tooltip wraps a text node, and renders a React node as the tooltip
     contents.
-  </div>
+  </button>
 </Tooltip>
 
 ### `theme="light" vs theme="dark"`
+
+<Tooltip label="Light theme tooltip contents." theme="dark">
+  <button
+    style={{
+      border: '1px solid magenta',
+      padding: '0.25rem 0.5rem',
+      borderRadius: '5px',
+      marginRight: '8px',
+    }}
+  >
+    <code>theme="light"</code>
+  </button>
+</Tooltip>
+
+<Tooltip label="Dark theme tooltip contents." theme="dark">
+  <button
+    style={{
+      border: '1px solid magenta',
+      padding: '0.25rem 0.5rem',
+      borderRadius: '5px',
+    }}
+  >
+    <code>theme="dark"</code>
+  </button>
+</Tooltip>

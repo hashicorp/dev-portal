@@ -32,7 +32,7 @@ theme.module.css class at the component root.
   border-bottom: 10px solid var(--background);
 }
 
-.box {
+.tooltip {
   composes: g-type-body-small from global;
   font-size: 0.875rem;
   background: var(--background);
