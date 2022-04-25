@@ -6,7 +6,6 @@ import ProductIcon from 'components/product-icon'
 import { CardBadgesProps, CardBadgeOption } from './types'
 import s from './card-badges.module.css'
 import Tooltip from 'components/tooltip'
-import { useId } from '@react-aria/utils'
 
 /**
  * Map product badge options to icons
