@@ -1,4 +1,5 @@
 import { getTutorialSlug } from 'views/collection-view/helpers'
+import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import {
   ProductUsed,
   TutorialLite as ClientTutorialLite,
@@ -12,7 +13,7 @@ export function formatTutorialCard(
   return {
     id: tutorial.id,
     description: tutorial.description,
-    duration: `${tutorial.readTime}min`,
+    duration: getReadableTime(tutorial.readTime),
     hasInteractiveLab: Boolean(tutorial.handsOnLab),
     hasVideo: Boolean(tutorial.video),
     heading: tutorial.name,
