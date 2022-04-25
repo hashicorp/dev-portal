@@ -1,15 +1,13 @@
 import classNames from 'classnames'
 import TutorialCard from 'components/tutorial-card'
 import { TutorialCardPropsWithId } from 'components/tutorial-card/types'
+import { CollectionTutorialListProps } from './types'
 import s from './collection-tutorial-list.module.css'
 
 function CollectionTutorialList({
   tutorials,
   isOrdered,
-}: {
-  tutorials: TutorialCardPropsWithId[]
-  isOrdered: boolean
-}) {
+}: CollectionTutorialListProps) {
   const ListRoot = isOrdered ? 'ol' : 'ul'
 
   return (
