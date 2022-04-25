@@ -30,7 +30,7 @@ function Tooltip({
   children,
   label,
   ariaLabel,
-  theme = 'light',
+  theme = 'dark',
 }: TooltipProps): ReactElement {
   const [trigger, tooltip] = useTooltip()
   const { isVisible, triggerRect } = tooltip

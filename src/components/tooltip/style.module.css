@@ -39,7 +39,7 @@ theme.module.css class at the component root.
   height: var(--size);
   left: var(--left);
   position: absolute;
-  transform: translateY(-50%);
+  transform: translateY(-48%); /* not 50% avoids off-by-a-bit rounding issues */
   display: flex;
   align-items: center;
   justify-content: center;

@@ -14,7 +14,7 @@ export interface TooltipProps {
   /** Minimum spacing from viewport edge */
   collisionBuffer?: number
   /** Theme for light or dark mode */
-  theme: 'light' | 'dark'
+  theme?: 'light' | 'dark'
   /** Optional CSS override for background color. Foreground color can be overridden by passing a styled React node to the label prop.  */
   themeBackground?: string
 }
