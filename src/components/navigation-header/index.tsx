@@ -14,7 +14,9 @@ import s from './navigation-header.module.css'
 const RightSideHeaderContent = () => {
   return (
     <div className={s.rightSide}>
-      <HeaderSearchInput theme="dark" />
+      {__config.flags.enable_product_docs_search ? null : (
+        <HeaderSearchInput theme="dark" />
+      )}
     </div>
   )
 }

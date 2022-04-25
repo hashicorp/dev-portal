@@ -3,5 +3,7 @@
   "io_sites": {
     "max_static_paths": 9999
   },
-  "flags": {}
+  "flags": {
+    "enable_product_docs_search": false
+  }
 }
