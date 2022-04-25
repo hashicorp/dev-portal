@@ -10,7 +10,7 @@ export interface TooltipProps {
   label: ReactNode
   /** Optional alternate content for screen readers.
    * Useful if the label prop is not suitable for screen reader announcement. */
-  'aria-label'?: string
+  ariaLabel?: string
   /** Minimum spacing from viewport edge */
   collisionBuffer?: number
   /** Theme for light or dark mode */
@@ -23,4 +23,5 @@ export interface TooltipArrowProps {
   triggerRect: PRect
   collisionBuffer: number
   themeClass: string
+  arrowWidth: number
 }

@@ -17,23 +17,45 @@ non-interactive popup is displayed near it.
 
 Note that **touch events are not supported**. This is a somewhat intentional limitation of the underlying dependency, `@reach/tooltip`. See [Reach UI's `<Tooltip />` docs](https://reach.tech/tooltip/) for details.
 
+## Playground
+
+<LiveComponent>{`
+<Tooltip
+  theme="light"
+  label="Hi there! I'm a tooltip, and this is some long plain text, which should wrap nicely based on some collision calculations we're doing behind the scenes."
+>
+  <button>I'm a React node with a tooltip.</button>
+</Tooltip>
+`}</LiveComponent>
+
 ## Examples
 
 ### `label="Plain text"`
 
-<Tooltip label="Hi there! I'm a tooltip, and this is some long plain text, which should wrap nicely based on some collision calculations we're doing behind the scenes.">
-  <button
-    style={{
-      border: '1px solid magenta',
-      padding: '0.25rem 0.5rem',
-      borderRadius: '5px',
-    }}
-  >
-    I'm a React node with a tooltip.
+<Tooltip
+  theme="light"
+  label="Hi there! I'm a tooltip, and this is some long plain text, which should wrap nicely based on some collision calculations we're doing behind the scenes."
+>
+  <button>I'm a React node with a tooltip.</button>
+</Tooltip>
+
+### `theme="light" vs theme="dark"`
+
+<Tooltip label="Light theme tooltip contents." theme="light">
+  <button style={{ marginRight: '8px' }}>
+    <code>theme="light"</code>
+  </button>
+</Tooltip>
+
+<Tooltip label="Dark theme tooltip contents." theme="dark">
+  <button>
+    <code>theme="dark"</code>
   </button>
 </Tooltip>
 
 ### `label={<Slot />}`
+
+Note: with the guidelines for tooltips in mind, the React element support of the `label` prop should be used only after very careful consideration.
 
 <Tooltip
   theme="light"
@@ -43,7 +65,6 @@ Note that **touch events are not supported**. This is a somewhat intentional lim
       style={{
         display: 'inline-block',
         border: '1px solid magenta',
-        padding: '0.25rem 0.5rem',
         borderRadius: '4px',
       }}
     >
@@ -51,41 +72,8 @@ Note that **touch events are not supported**. This is a somewhat intentional lim
     </div>
   }
 >
-  <button
-    style={{
-      border: '1px solid magenta',
-      padding: '0.25rem 0.5rem',
-      borderRadius: '5px',
-    }}
-  >
+  <button>
     This tooltip wraps a text node, and renders a React node as the tooltip
     contents.
-  </button>
-</Tooltip>
-
-### `theme="light" vs theme="dark"`
-
-<Tooltip label="Light theme tooltip contents." theme="dark">
-  <button
-    style={{
-      border: '1px solid magenta',
-      padding: '0.25rem 0.5rem',
-      borderRadius: '5px',
-      marginRight: '8px',
-    }}
-  >
-    <code>theme="light"</code>
-  </button>
-</Tooltip>
-
-<Tooltip label="Dark theme tooltip contents." theme="dark">
-  <button
-    style={{
-      border: '1px solid magenta',
-      padding: '0.25rem 0.5rem',
-      borderRadius: '5px',
-    }}
-  >
-    <code>theme="dark"</code>
   </button>
 </Tooltip>

@@ -5,11 +5,31 @@ import classNames from 'classnames'
 import { TooltipArrowProps, TooltipProps, PRect } from './types'
 import s from './style.module.css'
 
+/**
+ * OFFSET is the pixel distance to set
+ * between the child element's edge and the tooltip edge.
+ * Note that the tooltip arrow extends above the tooltip edge.
+ */
+const SPACE_FROM_CHILDREN = 12
+
+/**
+ * ARROW_WIDTH is the width of the tooltip arrow.
+ * In an ideal world we might calculate this from the .arrow element size
+ * after its 45 degree rotation has been applied, but it's much
+ * easier to instead hard-code this value.
+ */
+const ARROW_WIDTH = 16
+
+/**
+ * COLLISION_BUFFER is the minimum pixel distance to maintain
+ * between the tooltip edge and the viewport edge.
+ */
+const COLLISION_BUFFER = 8
+
 function Tooltip({
   children,
   label,
-  collisionBuffer = 8,
-  'aria-label': ariaLabel,
+  ariaLabel,
   theme = 'light',
 }: TooltipProps): ReactElement {
   const [trigger, tooltip] = useTooltip()
@@ -25,8 +45,9 @@ function Tooltip({
       {isVisible ? (
         <Portal>
           <TooltipArrow
+            arrowWidth={ARROW_WIDTH}
             triggerRect={triggerRect}
-            collisionBuffer={collisionBuffer}
+            collisionBuffer={COLLISION_BUFFER}
             themeClass={themeClass}
           />
         </Portal>
@@ -38,7 +59,12 @@ function Tooltip({
         label={label}
         aria-label={ariaLabel}
         position={(triggerRect: PRect, tooltipRect: PRect) =>
-          centeringFunction(triggerRect, tooltipRect, collisionBuffer)
+          centeringFunction(
+            triggerRect,
+            tooltipRect,
+            COLLISION_BUFFER,
+            SPACE_FROM_CHILDREN
+          )
         }
       />
     </>
@@ -61,14 +87,15 @@ function Tooltip({
 function centeringFunction(
   triggerRect: PRect,
   tooltipRect: PRect,
-  collisionBuffer: number
+  collisionBuffer: number,
+  spaceFromChildren: number
 ) {
   const triggerCenter = triggerRect.left + triggerRect.width / 2
   const left = triggerCenter - tooltipRect.width / 2
   const maxLeft = window.innerWidth - tooltipRect.width - collisionBuffer
   return {
     left: Math.min(Math.max(collisionBuffer, left), maxLeft) + window.scrollX,
-    top: triggerRect.bottom + collisionBuffer + window.scrollY,
+    top: triggerRect.bottom + spaceFromChildren + window.scrollY,
   }
 }
 
@@ -89,32 +116,35 @@ function TooltipArrow({
   triggerRect,
   collisionBuffer,
   themeClass,
+  arrowWidth,
 }: TooltipArrowProps) {
-  const arrowThickness = 10
   const arrowLeft = triggerRect
     ? `${Math.min(
         // Centered position, covers most use cases
-        triggerRect.left - arrowThickness + triggerRect.width / 2,
+        triggerRect.left - arrowWidth / 2 + triggerRect.width / 2,
         // Ensure the arrow is not rendered even partially offscreen,
         // as it will look disconnected from our tooltip body,
         // which must be rendered within the viewport
-        window.innerWidth - arrowThickness * 2 - collisionBuffer
+        window.innerWidth - arrowWidth - collisionBuffer
       )}px`
     : 'auto'
   const arrowTop = triggerRect
-    ? `${triggerRect.bottom + window.scrollY}px`
+    ? `${triggerRect.bottom + window.scrollY + SPACE_FROM_CHILDREN}px`
     : 'auto'
 
   return (
     <div
-      className={classNames(s.arrow, themeClass)}
+      className={classNames(s.arrowContainer, themeClass)}
       style={
         {
           '--left': arrowLeft,
           '--top': arrowTop,
+          '--size': arrowWidth + 'px',
         } as React.CSSProperties
       }
-    />
+    >
+      <div className={s.arrow} />
+    </div>
   )
 }
 
