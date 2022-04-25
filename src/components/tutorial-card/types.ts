@@ -37,3 +37,10 @@ export interface TutorialCardProps {
    */
   productsUsed: ProductOption[]
 }
+
+export interface TutorialCardPropsWithId extends TutorialCardProps {
+  /**
+   * The tutorial's unique identifier
+   */
+  id: string
+}
