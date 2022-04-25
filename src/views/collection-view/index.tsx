@@ -28,7 +28,9 @@ function CollectionView({
       }
     >
       <CollectionMeta
-        heading={{ text: name, id: 'overview' }}
+        // Note: id is passed here because it is required by <Heading />,
+        // it's not used for #anchor linking since there is no sidecar.
+        heading={{ text: name, id: collection.id }}
         description={description}
         cta={{ href: getTutorialSlug(tutorials[0].slug, slug) }}
         numTutorials={tutorials.length}
