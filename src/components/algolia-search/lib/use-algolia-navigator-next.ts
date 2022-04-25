@@ -3,7 +3,7 @@ import { Hit } from '@algolia/client-search'
 import { useRouter } from 'next/router'
 
 /**
- * Constructors a [navigator](https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/keyboard-navigation/#reference)
+ * Constructs a [navigator](https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/keyboard-navigation/#reference)
  * instance for use in a Next.js application. Leverages Next's router.
  */
 export const useAlgoliaNavigatorNext: <
