@@ -23,6 +23,9 @@ const setup = (currentProduct: Product) => {
           landingPageNavData: [],
           resourcesNavData: [],
         },
+        algoliaConfig: {
+          indexName: '',
+        },
       }}
     >
       {children}
