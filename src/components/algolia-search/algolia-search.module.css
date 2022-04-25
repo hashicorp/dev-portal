@@ -13,10 +13,6 @@
 
   &:focus-within {
     outline: none;
-
-    /* --token-color-focus-action-internal */
-
-    /* border: 1px solid var(--token-color-palette-blue-300); */
     box-shadow: var(--token-focus-ring-action-box-shadow);
   }
 }
@@ -45,6 +41,8 @@
   border-radius: 5px;
   flex-direction: row;
   align-items: center;
+  padding-left: 12px;
+  padding-right: 8px;
 
   & svg {
     color: var(--token-color-foreground-faint);
@@ -55,6 +53,7 @@
   flex-grow: 1;
   position: relative;
   border: 0;
+  padding: 0;
 
   /* TODO: token for font-size? */
   font-size: 16px;
