@@ -12,5 +12,10 @@ export type AutocompleteProps<THit extends Hit<unknown>> = Partial<
   /**
    * Function to derive an object to be passed to next/link as props
    */
-  getHitLinkProps: (hit: THit) => { href: { pathname: string; href?: string } }
+  getHitLinkProps: (THit) => { href: { pathname: string; href?: string } }
+
+  /**
+   * Class to be applied to the top-level element
+   */
+  className?: string
 }

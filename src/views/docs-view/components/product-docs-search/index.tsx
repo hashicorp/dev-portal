@@ -31,11 +31,13 @@ export default function ProductDocsSearch() {
   return (
     // TODO(brkalow): setup analytics integration
     <AlgoliaSearch
+      className={s.root}
       openOnFocus={true}
       placeholder={`Search ${currentProduct.slug} documentation`}
       ResultComponent={ProductSearchResult}
       getHitLinkProps={getHitLink}
       getSources={({ query }) => {
+        // Prevent showing results on focus when no query has been entered
         if (!query) {
           return []
         }

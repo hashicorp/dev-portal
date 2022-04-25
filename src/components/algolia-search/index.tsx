@@ -1,9 +1,10 @@
 import React from 'react'
+import classNames from 'classnames'
 import {
-  AutocompleteOptions,
   AutocompleteState,
   createAutocomplete,
 } from '@algolia/autocomplete-core'
+import { useRouter } from 'next/router'
 import { Hit } from '@algolia/client-search'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
@@ -13,22 +14,9 @@ import useFocusOnKeyClick from 'hooks/use-focus-on-key-click'
 import SearchResultsLegend from './components/search-results-legend'
 import HitWrapper from './components/hit-wrapper'
 import { useAlgoliaNavigatorNext } from './lib/use-algolia-navigator-next'
+import { AutocompleteProps } from './types'
 
 import s from './algolia-search.module.css'
-
-export type AutocompleteProps<THit extends Hit<unknown>> = Partial<
-  AutocompleteOptions<THit>
-> & {
-  /**
-   * The component which will accept a Hit object from algolia and render a result
-   */
-  ResultComponent: React.ComponentType<{ hit: THit }>
-
-  /**
-   * Function to derive an object to be passed to next/link as props
-   */
-  getHitLinkProps: (THit) => { href: { pathname: string; href?: string } }
-}
 
 /**
  * Algolia search UI implementation, based on the utilities from @algolia/autocomplete-core
@@ -39,12 +27,14 @@ export type AutocompleteProps<THit extends Hit<unknown>> = Partial<
 export default function AlgoliaSearch<THit extends Hit<unknown>>({
   ResultComponent,
   getHitLinkProps,
+  className,
   ...props
 }: AutocompleteProps<THit>) {
   const inputRef = React.useRef<HTMLInputElement>(null)
   const formRef = React.useRef<HTMLFormElement>(null)
   const panelRef = React.useRef<HTMLDivElement>(null)
 
+  const router = useRouter()
   const navigator = useAlgoliaNavigatorNext<THit>()
 
   /**
@@ -78,6 +68,21 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
   }, [])
 
   /**
+   * Clear the query input on route change
+   */
+  React.useEffect(() => {
+    const handleRouteChangeStart = () => {
+      autocomplete.setQuery('')
+    }
+
+    router.events.on('routeChangeStart', handleRouteChangeStart)
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChangeStart)
+    }
+  }, [autocomplete.setQuery])
+
+  /**
    * Initialize event listeners for touch events
    */
   const { getEnvironmentProps } = autocomplete
@@ -108,7 +113,10 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
   useFocusOnKeyClick(inputRef, '/')
 
   return (
-    <div className={s.root} {...autocomplete.getRootProps({})}>
+    <div
+      className={classNames(s.root, className)}
+      {...autocomplete.getRootProps({})}
+    >
       <form
         ref={formRef}
         className={s.form}
