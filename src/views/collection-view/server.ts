@@ -26,7 +26,7 @@ export interface CollectionPageProps {
 
 export type CollectionLayout = Pick<
   SidebarSidecarLayoutProps,
-  'headings' | 'breadcrumbLinks'
+  'breadcrumbLinks'
 > & { sidebarSections: CollectionCategorySidebarSection[] }
 
 export interface CollectionPagePath {
@@ -57,10 +57,6 @@ export async function getCollectionPageProps(
     product.slug
   )
   const layoutProps = {
-    headings: [
-      { title: 'Overview', slug: 'overview', level: 1 },
-      { title: 'Tutorials', slug: 'tutorials', level: 1 },
-    ],
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, filename: product.slug },
       collection: {

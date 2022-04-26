@@ -19,7 +19,7 @@ function CollectionView({
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
-      headings={layoutProps.headings}
+      sidecarSlot={null}
       sidebarSlot={
         <ProductCollectionsSidebar
           product={{ name: product.name, slug: product.slug }}
@@ -28,12 +28,13 @@ function CollectionView({
       }
     >
       <CollectionMeta
-        heading={{ text: name, id: layoutProps.headings[0].slug }}
+        // Note: id is passed here because it is required by <Heading />,
+        // it's not used for #anchor linking since there is no sidecar.
+        heading={{ text: name, id: collection.id }}
         description={description}
         cta={{ href: getTutorialSlug(tutorials[0].slug, slug) }}
         numTutorials={tutorials.length}
       />
-      <h2 id={layoutProps.headings[1].slug}>Tutorials</h2>
       <CollectionTutorialList
         isOrdered={ordered}
         tutorials={tutorials.map((t: ClientTutorialLite) =>
