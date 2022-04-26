@@ -15,6 +15,8 @@ interface CollectionStackItem
 export interface CollectionsStackProps {
   /** Heading to show above the collection cards. */
   heading: string
+  /** headingSlug is optional cause not in raw data, added later */
+  headingSlug?: string
   /** Subheading to show above the collection cards. */
   subheading?: string
   /** A product slug, used for theming */

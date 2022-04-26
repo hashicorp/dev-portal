@@ -5,10 +5,15 @@ import s from './tutorials-stack.module.css'
 function TutorialsStack({
   featuredTutorials,
   heading,
+  headingSlug,
   subheading,
 }: TutorialsStackProps): JSX.Element {
   return (
-    <FeaturedStack heading={heading} subheading={subheading}>
+    <FeaturedStack
+      heading={heading}
+      headingSlug={headingSlug}
+      subheading={subheading}
+    >
       <pre className={s.placeholder}>
         <code>
           {JSON.stringify(

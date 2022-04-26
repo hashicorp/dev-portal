@@ -25,11 +25,21 @@ function ProductViewContent({
       {blocks.map((block: ProductViewBlock, idx: number) => {
         switch (block.type) {
           case 'FeaturedStack':
+            /**
+             * Note: FeaturedStack is only ever used with LogoCardList,
+             * so could make sense here to use LogoCardList directly,
+             * and deprecate FeaturedStack as authorable
+             * (we can achieving similar things with either specific
+             * blocks like LogoCardList, or a flatter structure with less
+             * nesting - eg, heading & subheading blocks, rather than
+             * FeaturedStack with heading, subheading, & children.)
+             */
             return (
               <FeaturedStack
                 // eslint-disable-next-line react/no-array-index-key
                 key={idx}
                 heading={block.heading}
+                headingSlug={block.headingSlug}
                 subheading={block.subheading}
               >
                 <ProductViewContent
@@ -45,6 +55,7 @@ function ProductViewContent({
                 // eslint-disable-next-line react/no-array-index-key
                 key={idx}
                 heading={block.heading}
+                headingSlug={block.headingSlug}
                 subheading={block.subheading}
                 product={block.product}
                 cta={block.cta}
@@ -69,6 +80,7 @@ function ProductViewContent({
                 // eslint-disable-next-line react/no-array-index-key
                 key={idx}
                 heading={block.heading}
+                headingSlug={block.headingSlug}
                 subheading={block.subheading}
                 featuredTutorials={block.tutorialSlugs.map(
                   (slug) => inlineTutorials[slug]
@@ -81,6 +93,7 @@ function ProductViewContent({
                 // eslint-disable-next-line react/no-array-index-key
                 key={idx}
                 heading={block.heading}
+                headingSlug={block.headingSlug}
                 subheading={block.subheading}
                 product={block.product}
                 featuredCollections={block.collectionSlugs.map(

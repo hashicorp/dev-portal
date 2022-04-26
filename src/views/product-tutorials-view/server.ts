@@ -13,7 +13,10 @@ import {
   InlineCollections,
   InlineTutorials,
 } from './helpers/get-inline-content'
-import { generateHeadings } from './helpers/generate-headings'
+import {
+  addHeadingSlugsToBlocks,
+  buildLayoutHeadings,
+} from './helpers/heading-helpers'
 import { filterCollections, sortAlphabetically } from './helpers'
 
 // Some of the product data is coming from the API client on this view
@@ -55,8 +58,13 @@ export async function getProductTutorialsPageProps(
   productData: LearnProductData
 ): Promise<{ props: ProductTutorialsPageProps }> {
   const productSlug = productData.slug
-  const { pageData, inlineCollections, inlineTutorials } =
-    await getProductPageContent(productSlug)
+  const {
+    pageData: rawPageData,
+    inlineCollections,
+    inlineTutorials,
+  } = await getProductPageContent(productSlug)
+  // Add headings to page data, for use with the page's sidecar
+  const pageData = addHeadingSlugsToBlocks(rawPageData)
   const product = await getProduct(productSlug)
   const allProductCollections = await getAllCollections({
     product: { slug: productSlug, sidebarSort: true },
@@ -67,7 +75,7 @@ export async function getProductTutorialsPageProps(
   )
 
   const layoutProps = {
-    headings: generateHeadings(pageData.blocks),
+    headings: buildLayoutHeadings(pageData, product.name),
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, filename: product.slug },
     }),

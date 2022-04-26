@@ -8,10 +8,15 @@ import s from './collections-stack.module.css'
 function CollectionsStack({
   featuredCollections,
   heading,
+  headingSlug,
   subheading,
 }: CollectionsStackProps): JSX.Element {
   return (
-    <FeaturedStack heading={heading} subheading={subheading}>
+    <FeaturedStack
+      heading={heading}
+      headingSlug={headingSlug}
+      subheading={subheading}
+    >
       <pre className={s.placeholder}>
         <code>
           {JSON.stringify(

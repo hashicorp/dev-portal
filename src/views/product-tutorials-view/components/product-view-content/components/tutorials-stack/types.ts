@@ -68,6 +68,8 @@ export interface TutorialStackItem
 export interface TutorialsStackProps {
   /** Heading to show above the tutorial cards. */
   heading: string
+  /** headingSlug is optional cause not in raw data, added later */
+  headingSlug?: string
   /** Subheading to show above the tutorial cards. */
   subheading?: string
   featuredTutorials: $TSFixMe[] // TutorialStackItem
