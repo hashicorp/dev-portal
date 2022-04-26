@@ -5,7 +5,11 @@ import Badge from 'components/badge'
 import ProductIcon from 'components/product-icon'
 import { CardBadgesProps, CardBadgeOption } from './types'
 import s from './card-badges.module.css'
+import Tooltip from 'components/tooltip'
 
+/**
+ * Map product badge options to icons
+ */
 const PRODUCT_ICON_MAP: Record<ProductOption, JSX.Element> = {
   boundary: <ProductIcon productSlug="boundary" />,
   consul: <ProductIcon productSlug="consul" />,
@@ -16,10 +20,35 @@ const PRODUCT_ICON_MAP: Record<ProductOption, JSX.Element> = {
   vagrant: <ProductIcon productSlug="vagrant" />,
   waypoint: <ProductIcon productSlug="waypoint" />,
 }
-const CARD_BADGE_MAP: Record<CardBadgeOption, JSX.Element> = {
+/**
+ * Map all card badge options to icons
+ */
+const CARD_BADGE_ICON_MAP: Record<CardBadgeOption, JSX.Element> = {
   ...PRODUCT_ICON_MAP,
   video: <IconPlay16 />,
   interactive: <IconTerminalScreen16 />,
+}
+
+/**
+ * Map product badge options to badge labels
+ */
+const PRODUCT_LABEL_MAP: Record<ProductOption, string> = {
+  boundary: 'Boundary',
+  consul: 'Consul',
+  nomad: 'Nomad',
+  packer: 'Packer',
+  terraform: 'Terraform',
+  vault: 'Vault',
+  vagrant: 'Vagrant',
+  waypoint: 'Waypoint',
+}
+/**
+ * Map all card badge options to badge labels
+ */
+const CARD_BADGE_LABEL_MAP: Record<CardBadgeOption, string> = {
+  ...PRODUCT_LABEL_MAP,
+  video: 'Video',
+  interactive: 'Interactive',
 }
 
 function CardBadges({ badges }: CardBadgesProps) {
@@ -28,11 +57,13 @@ function CardBadges({ badges }: CardBadgesProps) {
       {badges.map((badge: CardBadgeOption) => {
         return (
           <li key={badge}>
-            <Badge
-              ariaLabel={badge}
-              icon={CARD_BADGE_MAP[badge]}
-              className={s.badge}
-            />
+            <Tooltip label={CARD_BADGE_LABEL_MAP[badge]}>
+              <Badge
+                ariaLabel={CARD_BADGE_LABEL_MAP[badge]}
+                icon={CARD_BADGE_ICON_MAP[badge]}
+                className={s.badge}
+              />
+            </Tooltip>
           </li>
         )
       })}
