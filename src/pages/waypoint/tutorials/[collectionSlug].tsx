@@ -14,7 +14,6 @@ export async function getStaticProps({
 }): Promise<GetStaticPropsResult<CollectionPageProps>> {
   const { collectionSlug } = params
   const product = waypointData as LearnProductData
-  console.log('getting collectin page data')
   const props = await getCollectionPageProps(product, collectionSlug)
 
   // If the collection doesn't exist, hit the 404
