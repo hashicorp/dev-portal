@@ -58,13 +58,22 @@ export async function getProductTutorialsPageProps(
   productData: LearnProductData
 ): Promise<{ props: ProductTutorialsPageProps }> {
   const productSlug = productData.slug
+  /**
+   * Get the raw page data
+   */
   const {
     pageData: rawPageData,
     inlineCollections,
     inlineTutorials,
   } = await getProductPageContent(productSlug)
-  // Add headings to page data, for use with the page's sidecar
+  /**
+   * Add headings to raw page data, for use with the page's sidecar
+   */
   const pageData = addHeadingSlugsToBlocks(rawPageData)
+  /**
+   * Get the product data, and all collections,
+   * both of which are needed for layoutProps
+   */
   const product = await getProduct(productSlug)
   const allProductCollections = await getAllCollections({
     product: { slug: productSlug, sidebarSort: true },
@@ -73,7 +82,9 @@ export async function getProductTutorialsPageProps(
     allProductCollections,
     productSlug
   )
-
+  /**
+   * Build & return layout props to pass to SidebarSidecarLayout
+   */
   const layoutProps = {
     headings: buildLayoutHeadings(pageData, product.name),
     breadcrumbLinks: getTutorialsBreadcrumb({
