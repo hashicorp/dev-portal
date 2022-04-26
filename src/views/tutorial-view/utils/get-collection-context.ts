@@ -12,9 +12,6 @@ import { formatCollectionCard } from '../components/featured-in-collections/help
  * product directory in the filesystem. For example a tutorial with slug : `consul/get-started`
  * may be reference in a vault collection. So we can't assume this current
  * product context is valid for the db slug path
- *
- * @TODO - FOR PROD We will add a check in the content sync that
- * ensures no two files in a collection have the same filename
  */
 
 interface CurrentCollectionTutorial {
@@ -44,12 +41,12 @@ export async function getCurrentCollectionTutorial(
    * This type is only `TutorialLite` which doesn't have the tutorial content
    * so we only need the slug to make another request to get the full tutorial data in server.ts
    */
-  const currentTutorial = collection.tutorials.find((t) =>
+  const currentTutorial = collection?.tutorials.find((t) =>
     t.slug.endsWith(tutorialFilename)
   )
 
   if (!currentTutorial) {
-    throw Error(
+    console.error(
       `Tutorial filename: ${tutorialFilename} does not exist in collection: ${collectionDbSlug}`
     )
   }
@@ -57,11 +54,11 @@ export async function getCurrentCollectionTutorial(
   return {
     collection: {
       filename: collectionFilename,
-      data: collection,
+      data: collection || null,
     },
     tutorialReference: {
       filename: tutorialFilename,
-      dbSlug: currentTutorial.slug,
+      dbSlug: currentTutorial?.slug || null,
     },
   }
 }

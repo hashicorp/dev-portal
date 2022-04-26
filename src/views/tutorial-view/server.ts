@@ -36,11 +36,17 @@ export interface TutorialPageProps {
 export async function getTutorialPageProps(
   product: LearnProductData,
   slug: [string, string]
-): Promise<{ props: TutorialPageProps }> {
+): Promise<TutorialPageProps | null> {
   const { collection, tutorialReference } = await getCurrentCollectionTutorial(
     product.slug as ProductOption,
     slug
   )
+
+  // the tutorial doesn't exist - return 404
+  if (tutorialReference.dbSlug === null || collection.data === null) {
+    return null
+  }
+
   const fullTutorialData = await getTutorial(tutorialReference.dbSlug)
   const { content: serializedContent, headings } = await serializeContent(
     fullTutorialData
@@ -77,20 +83,20 @@ export async function getTutorialPageProps(
     })
   }
 
-  return {
-    props: stripUndefinedProperties({
-      tutorial: {
-        ...fullTutorialData,
-        content: serializedContent,
-        collectionCtx: collectionContext,
-        headings,
-        nextCollectionInSidebar: nextCollection,
-      },
-      product,
-      layoutProps,
-      nextCollection,
-    }),
-  }
+  const props = stripUndefinedProperties({
+    tutorial: {
+      ...fullTutorialData,
+      content: serializedContent,
+      collectionCtx: collectionContext,
+      headings,
+      nextCollectionInSidebar: nextCollection,
+    },
+    product,
+    layoutProps,
+    nextCollection,
+  })
+
+  return props
 }
 
 export interface TutorialPagePaths {
