@@ -1,11 +1,8 @@
 /*
-Additional composition is helpful here.
-Note that .arrow and .root can't use CSS custom properties
-nicely since .arrow is rendered into a Portal.
-
-This also means that, unlike in other /partials,
-we can't reliably pull CSS custom properties from a
-theme.module.css class at the component root.
+Duplicative composing of `.theme-light` & `.theme-dark` in JSX may seem odd,
+compared to propogating the CSS custom properties from a single parent element,
+but note that .arrowContainer and .tooltip don't have a common parent element,
+as .arrowContainer is rendered into a Portal.
 */
 
 .theme-light {
