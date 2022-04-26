@@ -8,7 +8,6 @@ export interface TutorialCardProps {
 
   /**
    * A string representation the duration of the tutorial, such as "10mins".
-   * TODO: change this to be a number, and do formatting in in this component
    */
   duration: string
 
