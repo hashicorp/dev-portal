@@ -33,6 +33,8 @@ function ProductViewContent({
              * blocks like LogoCardList, or a flatter structure with less
              * nesting - eg, heading & subheading blocks, rather than
              * FeaturedStack with heading, subheading, & children.)
+             * Asana task:
+             * https://app.asana.com/0/0/1202182325935208/f
              */
             return (
               <FeaturedStack
