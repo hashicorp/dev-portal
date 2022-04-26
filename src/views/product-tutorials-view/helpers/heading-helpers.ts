@@ -34,7 +34,7 @@ function buildLayoutHeadings(
         acc.push({
           title: block.heading,
           slug: block.headingSlug,
-          level: 2, // TODO: is this used in Sidecar? Need to investigate
+          level: 2,
         })
       }
       return acc
@@ -86,7 +86,8 @@ function addHeadingSlugsToBlocks(rawPageData: {
     if (typeof block.heading === undefined) {
       return block
     }
-    return { ...block, headingSlug: slugify(block.heading, { lower: true }) }
+    const headingSlug = slugify(block.heading, { lower: true })
+    return { ...block, headingSlug }
   })
   // Return the page data with these new blocks
   return { ...rawPageData, blocks: blocksWithHeadings }
