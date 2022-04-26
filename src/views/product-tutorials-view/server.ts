@@ -1,4 +1,5 @@
 import { LearnProductData, ProductData } from 'types/products'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { Product as ClientProduct } from 'lib/learn-client/types'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
@@ -7,7 +8,7 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { formatSidebarCategorySections } from 'views/collection-view/helpers'
 import getProductPageContent from './helpers/get-product-page-content'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
-import { CollectionLayout } from 'views/collection-view/server'
+import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import {
   InlineCollections,
   InlineTutorials,
@@ -25,7 +26,10 @@ export interface ProductTutorialsPageProps {
   product: ProductTutorialsPageProduct
 }
 
-type ProductTutorialsLayout = CollectionLayout
+type ProductTutorialsLayout = Pick<
+  SidebarSidecarLayoutProps,
+  'headings' | 'breadcrumbLinks'
+> & { sidebarSections: CollectionCategorySidebarSection[] }
 
 export interface ProductPageData {
   pageData: {
