@@ -4,7 +4,7 @@ import {
   ProductUsed,
   TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
-import { TutorialCardPropsWithId } from './types'
+import { TutorialCardPropsWithId } from '../types'
 
 export function formatTutorialCard(
   tutorial: ClientTutorialLite,
