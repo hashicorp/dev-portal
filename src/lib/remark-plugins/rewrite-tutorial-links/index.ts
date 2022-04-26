@@ -80,10 +80,12 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
     const isBetaProduct = product
       ? getIsBetaProduct(product as ProductSlug)
       : false
+    // Anchor links for the current tutorial shouldn't be rewritten. i.e. #some-heading
+    const isAnchorLink = node.url.startsWith('#')
 
     // if its not a beta product and also not an external link, rewrite
     // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/consul
-    if (!isBetaProduct && !isExternalLearnLink) {
+    if (!isBetaProduct && !isExternalLearnLink && !isAnchorLink) {
       // If its an internal link, rewrite to an external learn link
       node.url = new URL(node.url, 'https://learn.hashicorp.com/').toString()
     }

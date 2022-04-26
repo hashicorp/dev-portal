@@ -24,6 +24,7 @@ function isolatePathFromMarkdown(mdLink: string): string {
 const TEST_MD_LINKS = {
   nonLearnLink:
     '[link to external docs](https://docs.microsoft.com/en-us/azure)',
+  plainAnchor: '[plain anchor link to current tutorial](#some-heading)',
   nonBetaProductExternalUrl:
     '[link to external learn path](https://learn.hashicorp.com/tutorials/consul/get-started)',
   nonBetaProductTutorial:
@@ -103,6 +104,15 @@ describe('rewriteTutorialLinks remark plugin', () => {
       .process(TEST_MD_LINKS.nonLearnLink)
 
     expect(String(contentsWithPlugin)).toEqual(String(contentsWithoutPlugin))
+  })
+
+  test("Local anchor links aren't rewritten", async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.plainAnchor)
+
+    const path = isolatePathFromMarkdown(String(contents))
+    expect(path.startsWith('#')).toBe(true)
   })
 
   test('Beta product tutorial links are rewritten to dev portal paths', async () => {
