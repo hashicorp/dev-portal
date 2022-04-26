@@ -19,7 +19,7 @@ export interface TooltipProps {
   ariaLabel?: string
 
   /**
-   * Theme for light or dark mode
+   * Optionally specify the appearance of the component. Defaults to "dark".
    */
   theme?: 'light' | 'dark'
 }
