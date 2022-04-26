@@ -3,6 +3,14 @@ import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table
 import { ProductPageBlock } from 'lib/learn-client/types'
 import { ProductViewBlock } from '../components/product-view-content'
 
+/**
+ * Given pageData for product view,
+ * as well as a productName,
+ *
+ * Return an array of Sidecar-compatible
+ * TableOfContentsHeading objects, each representing
+ * a section that will be rendered on the page.
+ */
 function buildLayoutHeadings(
   pageData: {
     blocks: ProductViewBlock[]
@@ -12,13 +20,14 @@ function buildLayoutHeadings(
 ): TableOfContentsHeading[] {
   const { blocks, showProductSitemap } = pageData
 
-  // Add an overview heading (will be visually hidden in the UI)
+  /**
+   * Build an <h1> overview heading
+   */
   const overviewHeading = [getOverviewHeading(productName)]
 
-  // If there's a product sitemap, manually add a heading item for it
-  const sitemapHeading = showProductSitemap ? [getSitemapHeading()] : []
-
-  // Extract headings from each block
+  /**
+   * Extract headings from each block
+   */
   const blockHeadings = blocks.reduce(
     (acc: TableOfContentsHeading[], block: ProductViewBlock) => {
       if (block.type !== 'CardList') {
@@ -33,13 +42,31 @@ function buildLayoutHeadings(
     []
   )
 
+  /**
+   * If there's a product sitemap, build add a heading item for it
+   */
+  const sitemapHeading = showProductSitemap ? [getSitemapHeading()] : []
+
+  /**
+   * Flatten the array of headings, and return them
+   */
   return [...overviewHeading, ...blockHeadings, ...sitemapHeading]
 }
 
+/**
+ * Given a productName,
+ * return a TableOfContentsHeading object
+ * representing a top-level heading for a product tutorials view
+ */
 function getOverviewHeading(productName: string): TableOfContentsHeading {
   return { title: `${productName} Tutorials`, slug: 'overview', level: 1 }
 }
 
+/**
+ * Return a TableOfContentsHeading object
+ * representing a heading for a sitemap section
+ * on a product tutorials view
+ */
 function getSitemapHeading(): TableOfContentsHeading {
   return { title: 'All tutorials', slug: 'all-tutorials', level: 2 }
 }
