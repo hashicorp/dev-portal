@@ -42,12 +42,17 @@ export async function getTutorialPageProps(
     slug
   )
 
-  // the tutorial doesn't exist - return 404
+  // the tutorial doesn't exist in collection - return 404
   if (tutorialReference.dbSlug === null || collection.data === null) {
     return null
   }
 
   const fullTutorialData = await getTutorial(tutorialReference.dbSlug)
+  // double guard if tutorial doesn't exist after call - return 404
+  if (fullTutorialData === null) {
+    return null
+  }
+
   const { content: serializedContent, headings } = await serializeContent(
     fullTutorialData
   )
