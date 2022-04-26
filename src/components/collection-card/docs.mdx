@@ -28,15 +28,7 @@ With logos as heading:
     gap: '16px',
   }}
 >
-  {[
-    'docker',
-    'github',
-    'microsoft-azure',
-    'oci',
-    'google-cloud',
-    'terraform-cloud',
-    'aws',
-  ].map((logo, index) => {
+  {Object.keys(CompanyLogoOption).map((logo, index) => {
     return (
       <CollectionCard
         key={logo}

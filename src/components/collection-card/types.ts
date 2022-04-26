@@ -1,6 +1,7 @@
-import type { ProductOption } from 'lib/learn-client/types'
-import type { CompanyLogoOption } from './components/company-logo/types'
+import { ProductOption } from 'lib/learn-client/types'
+import { CompanyLogoOption } from './components/company-logo/types'
 
+export { CompanyLogoOption }
 export interface CollectionCardProps {
   description: string
   heading: string
