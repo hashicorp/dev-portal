@@ -1,11 +1,13 @@
+import slugify from 'slugify'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { ProductPageBlock } from 'lib/learn-client/types'
-import slugify from 'slugify'
 import { ProductViewBlock } from '../components/product-view-content'
-import { ProductPageData } from '../server'
 
 function buildLayoutHeadings(
-  pageData: Pick<ProductPageData['pageData'], 'blocks' | 'showProductSitemap'>,
+  pageData: {
+    blocks: ProductViewBlock[]
+    showProductSitemap?: boolean
+  },
   productName: string
 ): TableOfContentsHeading[] {
   const { blocks, showProductSitemap } = pageData
