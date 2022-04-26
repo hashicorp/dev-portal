@@ -39,9 +39,8 @@ function Tooltip({
 
   return (
     <>
-      {typeof children == 'string'
-        ? React.createElement('span', trigger, children)
-        : React.cloneElement(children, trigger)}
+      {/* Wrapper span acts as trigger */}
+      {React.createElement('span', trigger, children)}
       {isVisible ? (
         <Portal>
           <TooltipArrow

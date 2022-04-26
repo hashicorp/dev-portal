@@ -58,13 +58,11 @@ function CardBadges({ badges }: CardBadgesProps) {
         return (
           <li key={badge}>
             <Tooltip label={CARD_BADGE_LABEL_MAP[badge]}>
-              <div role="button">
-                <Badge
-                  ariaLabel={CARD_BADGE_LABEL_MAP[badge]}
-                  icon={CARD_BADGE_ICON_MAP[badge]}
-                  className={s.badge}
-                />
-              </div>
+              <Badge
+                ariaLabel={CARD_BADGE_LABEL_MAP[badge]}
+                icon={CARD_BADGE_ICON_MAP[badge]}
+                className={s.badge}
+              />
             </Tooltip>
           </li>
         )
