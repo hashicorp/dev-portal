@@ -18,12 +18,13 @@ import {
   buildLayoutHeadings,
 } from './helpers/heading-helpers'
 import { filterCollections, sortAlphabetically } from './helpers'
+import { ProductViewBlock } from './components/product-view-content'
 
 // Some of the product data is coming from the API client on this view
 type ProductTutorialsPageProduct = ClientProduct &
   Omit<ProductData, 'name' | 'slug'>
 
-export interface ProductTutorialsPageProps {
+export interface ProductTutorialsViewProps {
   layoutProps: ProductTutorialsLayout
   data: ProductPageData
   product: ProductTutorialsPageProduct
@@ -36,10 +37,10 @@ type ProductTutorialsLayout = Pick<
 
 export interface ProductPageData {
   pageData: {
-    blocks: any // @TODO type
-    showProductSitemap: boolean
-    allCollections: ClientCollection[]
+    blocks: ProductViewBlock[]
+    showProductSitemap?: boolean
   }
+  allCollections: ClientCollection[]
   inlineCollections: InlineCollections
   inlineTutorials: InlineTutorials
 }
@@ -54,9 +55,9 @@ export interface ProductPageData {
  *
  * @TODO add sidebar sort capability
  */
-export async function getProductTutorialsPageProps(
+export async function getProductTutorialsViewProps(
   productData: LearnProductData
-): Promise<{ props: ProductTutorialsPageProps }> {
+): Promise<{ props: ProductTutorialsViewProps }> {
   const productSlug = productData.slug
   /**
    * Get the raw page data
@@ -105,10 +106,8 @@ export async function getProductTutorialsPageProps(
   return {
     props: stripUndefinedProperties({
       data: {
-        pageData: {
-          ...pageData,
-          allCollections: filteredCollections.sort(sortAlphabetically('name')),
-        },
+        pageData,
+        allCollections: filteredCollections.sort(sortAlphabetically('name')),
         inlineCollections,
         inlineTutorials,
       },

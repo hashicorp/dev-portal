@@ -9,7 +9,7 @@ import s from './sitemap.module.css'
 export function ProductTutorialsSitemap({
   collections,
 }: {
-  collections: ProductPageData['pageData']['allCollections']
+  collections: ProductPageData['allCollections']
 }): React.ReactElement {
   return (
     <ul className={s.root}>

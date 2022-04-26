@@ -1,13 +1,6 @@
-export enum CompanyLogoOption {
-  docker = 'docker',
-  github = 'github',
-  'microsoft-azure' = 'microsoft-azure',
-  oci = 'oci',
-  'google-cloud' = 'google-cloud',
-  'terraform-cloud' = 'terraform-cloud',
-  aws = 'aws',
-}
+import { CompanyLogoOption } from 'lib/learn-client/types'
 
+export { CompanyLogoOption }
 export interface CompanyLogoProps {
   name: CompanyLogoOption
 }

@@ -4,21 +4,20 @@ import ProductCollectionsSidebar, {
   ProductCollectionsSidebarProps,
 } from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
 import { ProductTutorialsSitemap } from './components'
-import { ProductTutorialsPageProps } from './server'
+import { ProductTutorialsViewProps } from './server'
 import ProductViewContent from './components/product-view-content'
 import {
   getOverviewHeading,
   getSitemapHeading,
 } from './helpers/heading-helpers'
-import { JSXElementConstructor } from 'react'
 
 function ProductTutorialsView({
   layoutProps,
   data,
   product,
-}: ProductTutorialsPageProps): React.ReactElement {
-  const { inlineCollections, inlineTutorials, pageData } = data
-  const { showProductSitemap, blocks, allCollections } = pageData
+}: ProductTutorialsViewProps): React.ReactElement {
+  const { inlineCollections, inlineTutorials, pageData, allCollections } = data
+  const { showProductSitemap, blocks } = pageData
   const sidebarProduct = {
     name: product.name,
     slug: product.slug,
