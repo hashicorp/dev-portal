@@ -12,5 +12,5 @@ export interface BrandedCalloutProps {
     url: string
   }
   subheading?: string
-  product: ProductOption
+  product?: ProductOption
 }
