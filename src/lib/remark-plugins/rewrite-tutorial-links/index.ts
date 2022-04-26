@@ -32,7 +32,7 @@ import {
 
 let TUTORIAL_MAP
 
-// @TODO - should this live in the __config data?
+// @TODO - lift this into a shared place. e.g. `src/constants`
 const PRODUCT_DOCS_PATHS = {
   boundary: 'boundaryproject.io',
   consul: 'consul.io',
