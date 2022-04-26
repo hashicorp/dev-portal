@@ -32,11 +32,11 @@ export function buildAriaLabel({
       .map((p: ProductOption) => PRODUCT_LABEL_MAP[p])
       .join(', ')}.`
   }
-  if (hasVideo) {
-    ariaLabel += ` Tutorial has video.`
-  }
   if (hasInteractiveLab) {
     ariaLabel += ` Tutorial has interactive lab.`
+  }
+  if (hasVideo) {
+    ariaLabel += ` Tutorial has video.`
   }
   return ariaLabel
 }
