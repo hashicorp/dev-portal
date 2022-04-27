@@ -1,9 +1,11 @@
 import { LearnProductData, ProductData } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import { Product as ClientProduct } from 'lib/learn-client/types'
+import {
+  Product as ClientProduct,
+  Collection as ClientCollection,
+} from 'lib/learn-client/types'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
-import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { formatSidebarCategorySections } from 'views/collection-view/helpers'
 import getProductPageContent from './helpers/get-product-page-content'

@@ -1,6 +1,6 @@
 import slugify from 'slugify'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
-import { ProductPageBlock } from 'lib/learn-client/types'
+import { ProductPageBlock as LearnClientProductPageBlock } from 'lib/learn-client/types'
 import { ProductViewBlock } from '../components/product-view-content'
 
 /**
@@ -75,7 +75,7 @@ function getSitemapHeading(): TableOfContentsHeading {
  * Adds "headingSlug" properties to all blocks with defined "heading"
  */
 function addHeadingSlugsToBlocks(rawPageData: {
-  blocks: ProductPageBlock[]
+  blocks: LearnClientProductPageBlock[]
   showProductSitemap?: boolean
 }): {
   blocks: ProductViewBlock[]
