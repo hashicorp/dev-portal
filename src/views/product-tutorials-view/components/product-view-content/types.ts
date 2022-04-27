@@ -10,8 +10,7 @@ import {
   TutorialsStackProps,
 } from './components'
 
-interface FeaturedStackBlock
-  extends Pick<FeaturedStackProps, 'heading' | 'subheading'> {
+interface FeaturedStackBlock extends Omit<FeaturedStackProps, 'children'> {
   type: 'FeaturedStack'
   /** Note that only CardLists are supported for authorable use in FeaturedStack.
    * We may choose to change the CardList block to use FeaturedStack under the
@@ -37,7 +36,7 @@ type CardListBlock = {
 }
 
 interface TutorialsStackBlock
-  extends Pick<TutorialsStackProps, 'heading' | 'subheading'> {
+  extends Omit<TutorialsStackProps, 'featuredTutorials'> {
   type: 'TutorialsStack'
   /** Tutorial identifier strings, which will be filled in
    * using fetched inlineCollections data */
@@ -45,7 +44,7 @@ interface TutorialsStackBlock
 }
 
 interface CollectionsStackBlock
-  extends Pick<CollectionsStackProps, 'heading' | 'subheading' | 'product'> {
+  extends Omit<CollectionsStackProps, 'featuredCollections'> {
   type: 'CollectionsStack'
   /** Collection identifier strings, which will be filled in
    * using fetched inlineCollections data */

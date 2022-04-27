@@ -3,26 +3,30 @@ import s from './branded-callout.module.css'
 
 function BrandedCallout({
   heading,
+  headingSlug,
   subheading,
   cta,
   product,
 }: BrandedCalloutProps) {
   return (
-    <pre className={s.placeholder}>
-      <code>
-        {JSON.stringify(
-          {
-            component: 'BrandedCallout',
-            heading,
-            subheading,
-            cta,
-            product,
-          },
-          null,
-          2
-        )}
-      </code>
-    </pre>
+    <div>
+      <h2 id={headingSlug}>{heading}</h2>
+      <pre className={s.placeholder}>
+        <code>
+          {JSON.stringify(
+            {
+              component: 'BrandedCallout',
+              heading,
+              subheading,
+              cta,
+              product,
+            },
+            null,
+            2
+          )}
+        </code>
+      </pre>
+    </div>
   )
 }
 
