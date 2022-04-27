@@ -9,6 +9,9 @@ const betaProductSlugs = __config.dev_dot.beta_product_slugs.join('|')
 const devDotTutorialsPath = new RegExp(
   `^/(${betaProductSlugs})/tutorials/${slug}(/${slug})?$` // Matches /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
 )
+const devDotDocsPath = new RegExp(
+  `^/(${betaProductSlugs})/(docs|plugins|api-docs|commands)/?.*`
+)
 
 function isolatePathFromMarkdown(mdLink: string): string {
   // target the path within the md syntax
@@ -21,6 +24,7 @@ function isolatePathFromMarkdown(mdLink: string): string {
 const TEST_MD_LINKS = {
   nonLearnLink:
     '[link to external docs](https://docs.microsoft.com/en-us/azure)',
+  plainAnchor: '[plain anchor link to current tutorial](#some-heading)',
   nonBetaProductExternalUrl:
     '[link to external learn path](https://learn.hashicorp.com/tutorials/consul/get-started)',
   nonBetaProductTutorial:
@@ -33,6 +37,8 @@ const TEST_MD_LINKS = {
     '[link to beta product external collection](https://learn.hashicorp.com/collections/vault/getting-started)',
   betaProductTutorialAnchorLink:
     '[link to beta product tutorial with anchor](/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
+  externalAnchorLink:
+    '[external learn link with anchor](https://learn.hashicorp.com/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
   betaProductTutorialQueryParam:
     '[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-kubernetes)',
   betaProductTutorialQueryParamWithAnchor:
@@ -46,6 +52,20 @@ const TEST_MD_LINKS = {
     '[non beta product hub link](https://learn.hashicorp.com/terraform)',
   errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
   searchPage: '[link to search page on Learn](/search)',
+  betaProductPluginsLink:
+    '[link to waypoint docs](https://www.waypointproject.io/plugins/aws-ecs)',
+  betaProductDocsLink:
+    '[link to waypoint docs](https://www.vaultproject.io/docs/secrets/databases/mssql)',
+  betaProductDocsApiLink:
+    '[link to vault api docs](https://www.vaultproject.io/api/auth/approle)',
+  betaProductDocsApiLinkWithHtml:
+    '[link to vault api docs](https://www.vaultproject.io/api/index.html)',
+  betaProductDocsAnchorLink:
+    '[link to vault api docs](https://www.vaultproject.io/api/auth/something#generate-new-secret-id)',
+  betaProductDocsLinkAnchorWithHtml:
+    '[link to vault api docs](https://www.vaultproject.io/api/index.html#some-anchor)',
+  nonBetaProductDocsLink:
+    '[non beta product docs link](https://www.terraform.io/docs/language/state/workspaces.html)',
 }
 
 /**
@@ -53,8 +73,6 @@ const TEST_MD_LINKS = {
  * When adding new MD_LINK tests, make sure the path is accounted for below
  *
  * [key: database tutorial slug]: value — dev dot absolute path
- *
- * something
  */
 const MOCK_TUTORIALS_MAP = {
   'waypoint/getting-started-config':
@@ -86,6 +104,15 @@ describe('rewriteTutorialLinks remark plugin', () => {
       .process(TEST_MD_LINKS.nonLearnLink)
 
     expect(String(contentsWithPlugin)).toEqual(String(contentsWithoutPlugin))
+  })
+
+  test("Local anchor links aren't rewritten", async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.plainAnchor)
+
+    const path = isolatePathFromMarkdown(String(contents))
+    expect(path.startsWith('#')).toBe(true)
   })
 
   test('Beta product tutorial links are rewritten to dev portal paths', async () => {
@@ -143,12 +170,21 @@ describe('rewriteTutorialLinks remark plugin', () => {
       .use(rewriteTutorialLinksPlugin)
       .process(TEST_MD_LINKS.betaProductTutorialAnchorLink)
 
+    const externalLinkContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.externalAnchorLink)
+
     const path = isolatePathFromMarkdown(String(contents))
+    const externalLinkPath = isolatePathFromMarkdown(
+      String(externalLinkContents)
+    )
+
     const anchorLinkPath = new RegExp(
       `^/(${betaProductSlugs})/tutorials/${slug}(/${slug})#`
     )
 
     expect(path).toMatch(anchorLinkPath)
+    expect(externalLinkPath).toMatch(anchorLinkPath)
   })
 
   test('Query params are rewritten properly', async () => {
@@ -209,5 +245,68 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
     expect(internalPath).toMatch(productHub)
     expect(externalPath).toMatch(productHub)
+  })
+
+  test('Beta-product docs links are rewritten to dev portal', async () => {
+    const docsLinkContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsLink)
+    const pluginLinkContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductPluginsLink)
+
+    const pluginLinkPath = isolatePathFromMarkdown(String(pluginLinkContents))
+    const docsLinkPath = isolatePathFromMarkdown(String(docsLinkContents))
+
+    expect(pluginLinkPath).toMatch(devDotDocsPath)
+    expect(docsLinkPath).toMatch(devDotDocsPath)
+  })
+
+  test('Beta-product api links are rewritten to api-docs', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsApiLink)
+
+    const path = isolatePathFromMarkdown(String(contents))
+    expect(path).toMatch(devDotDocsPath)
+  })
+
+  test('Beta product docs link .html reference should be removed', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsApiLinkWithHtml)
+
+    const path = isolatePathFromMarkdown(String(contents))
+
+    expect(path.includes('.html')).toBe(false)
+    expect(path).toMatch(/(?!(.*\.html))\/vault\/api/)
+  })
+
+  test('Beta-product docs link with anchor are rewritten properly', async () => {
+    const basicAnchorContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsAnchorLink)
+
+    const anchorWithHtmlContents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsLinkAnchorWithHtml)
+
+    const basicAnchorPath = isolatePathFromMarkdown(String(basicAnchorContents))
+    const anchorWithHtmlPath = isolatePathFromMarkdown(
+      String(anchorWithHtmlContents)
+    )
+    const anchorLinkPath = new RegExp(`#${slug}$`)
+
+    expect(basicAnchorPath).toMatch(anchorLinkPath)
+    expect(anchorWithHtmlPath.includes('.html')).toBe(false)
+    expect(anchorWithHtmlPath).toMatch(anchorLinkPath)
+  })
+
+  test('Non-beta product docs links are not rewritten', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.nonBetaProductDocsLink)
+
+    expect(String(contents)).toMatch(TEST_MD_LINKS.nonBetaProductDocsLink)
   })
 })
