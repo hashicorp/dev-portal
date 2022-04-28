@@ -1,4 +1,4 @@
-import CardsGrid from 'components/cards-grid-list'
+import CardsGridList from 'components/cards-grid-list'
 import CollectionCard, {
   CollectionCardPropsWithId,
 } from 'components/collection-card'
@@ -19,12 +19,12 @@ function LogoCardList({ items }: LogoCardListProps): JSX.Element {
   }) as CollectionCardPropsWithId[]
 
   return (
-    <CardsGrid>
+    <CardsGridList>
       {collectionCards.map((cardPropsWithId: CollectionCardPropsWithId) => {
         const { id, ...cardProps } = cardPropsWithId
         return <CollectionCard key={id} {...cardProps} />
       })}
-    </CardsGrid>
+    </CardsGridList>
   )
 }
 
