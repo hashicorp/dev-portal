@@ -6,7 +6,11 @@ import {
   CardBody,
   CardBadges,
 } from 'components/tutorial-collection-cards'
-import { CollectionCardProps, CompanyLogoOption } from './types'
+import {
+  CollectionCardProps,
+  CollectionCardPropsWithId,
+  CompanyLogoOption,
+} from './types'
 import CompanyLogo from './components/company-logo'
 import s from './collection-card.module.css'
 
@@ -41,4 +45,5 @@ function CollectionCard({
 }
 
 export { CompanyLogoOption }
+export type { CollectionCardProps, CollectionCardPropsWithId }
 export default CollectionCard

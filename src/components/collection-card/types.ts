@@ -1,7 +1,6 @@
 import { ProductOption, CompanyLogoOption } from 'lib/learn-client/types'
 
 export { CompanyLogoOption }
-
 export interface CollectionCardProps {
   description: string
   heading: string
@@ -10,3 +9,5 @@ export interface CollectionCardProps {
   url: string
   logo?: CompanyLogoOption
 }
+
+export type CollectionCardPropsWithId = CollectionCardProps & { id: string }
