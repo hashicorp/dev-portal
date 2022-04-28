@@ -22,14 +22,14 @@ export async function getStaticProps({
   params,
 }): Promise<GetStaticPropsResult<TutorialPageProps>> {
   const product = vaultData as LearnProductData
-  const data = await getTutorialPageProps(product, params.tutorialSlug)
+  const props = await getTutorialPageProps(product, params.tutorialSlug)
 
   // If the tutorial doesn't exist, hit the 404
-  if (!data) {
+  if (!props) {
     return { notFound: true }
   }
 
-  return { props: data, revalidate: 300 }
+  return props
 }
 
 export async function getStaticPaths(): Promise<

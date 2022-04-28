@@ -36,7 +36,7 @@ export interface TutorialPageProps {
 export async function getTutorialPageProps(
   product: LearnProductData,
   slug: [string, string]
-): Promise<TutorialPageProps | null> {
+): Promise<{ props: TutorialPageProps } | null> {
   const { collection, tutorialReference } = await getCurrentCollectionTutorial(
     product.slug as ProductOption,
     slug
@@ -88,20 +88,20 @@ export async function getTutorialPageProps(
     })
   }
 
-  const props = stripUndefinedProperties({
-    tutorial: {
-      ...fullTutorialData,
-      content: serializedContent,
-      collectionCtx: collectionContext,
-      headings,
-      nextCollectionInSidebar: nextCollection,
-    },
-    product,
-    layoutProps,
-    nextCollection,
-  })
-
-  return props
+  return {
+    props: stripUndefinedProperties({
+      tutorial: {
+        ...fullTutorialData,
+        content: serializedContent,
+        collectionCtx: collectionContext,
+        headings,
+        nextCollectionInSidebar: nextCollection,
+      },
+      product,
+      layoutProps,
+      nextCollection,
+    }),
+  }
 }
 
 export interface TutorialPagePaths {

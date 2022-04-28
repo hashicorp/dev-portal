@@ -22,10 +22,7 @@ export async function getStaticProps({
     return { notFound: true }
   }
 
-  return {
-    props,
-    revalidate: 300,
-  }
+  return props
 }
 
 interface CollectionPagePaths {

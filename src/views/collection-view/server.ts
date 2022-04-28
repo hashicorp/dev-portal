@@ -46,7 +46,7 @@ export interface CollectionPagePath {
 export async function getCollectionPageProps(
   product: LearnProductData,
   slug: string
-): Promise<CollectionPageProps | null> {
+): Promise<{ props: CollectionPageProps } | null> {
   const collection = await getCollection(`${product.slug}/${slug}`)
 
   // if null the api encountered a 404
@@ -76,13 +76,13 @@ export async function getCollectionPageProps(
     ),
   }
 
-  const data = stripUndefinedProperties({
-    collection: collection,
-    product,
-    layoutProps,
-  })
-
-  return data
+  return {
+    props: stripUndefinedProperties({
+      collection: collection,
+      product,
+      layoutProps,
+    }),
+  }
 }
 
 export async function getCollectionPaths(
