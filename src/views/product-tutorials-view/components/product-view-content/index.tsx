@@ -6,6 +6,7 @@ import {
   LogoCardList,
 } from './components'
 import { ProductViewBlock, ProductViewContentProps } from './types'
+import s from './product-view-content.module.css'
 
 const SUPPORTED_BLOCK_TYPES = [
   'BrandedCallout',
@@ -21,7 +22,7 @@ function ProductViewContent({
   inlineTutorials,
 }: ProductViewContentProps): React.ReactElement {
   return (
-    <div>
+    <div className={s.root}>
       {blocks.map((block: ProductViewBlock, idx: number) => {
         switch (block.type) {
           case 'FeaturedStack':

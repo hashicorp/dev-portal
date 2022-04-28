@@ -1,8 +1,16 @@
-.root {
-  border: 1px solid magenta;
+.heading {
+  composes: hds-typography-display-300 from global;
+  color: var(--token-color-foreground-strong);
+  font-weight: var(--token-typography-font-weight-bold);
 }
 
-.placeholder {
-  font-size: 12px;
-  margin: 0;
+.subheading {
+  composes: hds-typography-body-300 from global;
+  color: var(--token-color-foreground-primary);
+  font-weight: var(--token-typography-font-weight-regular);
+  margin-top: 4px;
+}
+
+.children {
+  margin-top: 16px;
 }

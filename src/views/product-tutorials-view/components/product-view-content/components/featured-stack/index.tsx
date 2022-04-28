@@ -8,22 +8,12 @@ function FeaturedStack({
   children,
 }: FeaturedStackProps): React.ReactElement {
   return (
-    <div className={s.root}>
-      <h2 id={headingSlug}>{heading}</h2>
-      <pre className={s.placeholder}>
-        <code>
-          {JSON.stringify(
-            {
-              component: 'FeaturedStack',
-              heading,
-              subheading,
-            },
-            null,
-            2
-          )}
-        </code>
-      </pre>
-      {children}
+    <div>
+      <h2 id={headingSlug} className={s.heading}>
+        {heading}
+      </h2>
+      {subheading ? <p className={s.subheading}>{subheading}</p> : null}
+      <div className={s.children}>{children}</div>
     </div>
   )
 }
