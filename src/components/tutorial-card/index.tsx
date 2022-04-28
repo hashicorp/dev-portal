@@ -1,5 +1,5 @@
 import CardLink from 'components/card-link'
-import { TutorialCardProps } from './types'
+import { TutorialCardProps, TutorialCardPropsWithId } from './types'
 import {
   CardEyebrow,
   CardHeading,
@@ -52,4 +52,5 @@ function TutorialCard({
   )
 }
 
+export type { TutorialCardProps, TutorialCardPropsWithId }
 export default TutorialCard
