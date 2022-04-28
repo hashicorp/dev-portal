@@ -118,10 +118,65 @@ export type AllCollectionsProductOptions = {
   sidebarSort?: boolean
 }
 
+/**
+ * PRODUCT LANDING PAGES -------------------------------
+ */
+
+export interface ProductPageBlockBrandedCallout {
+  heading: string
+  subheading?: string
+  cta: {
+    text: string
+    url: string
+  }
+  product: ProductOption
+}
+
+export interface ProductPageBlockLogoCard {
+  type: 'LogoCard'
+  logo: CompanyLogoOption
+  collectionSlug: string
+}
+
+export interface ProductPageBlockCardList {
+  type: 'CardList'
+  items: ProductPageBlockLogoCard[]
+}
+
+export interface ProductPageBlockTutorialsStack {
+  type: 'TutorialsStack'
+  product: ProductOption
+  heading?: string
+  subheading?: string
+  tutorialSlugs: string[]
+}
+
+export interface ProductPageBlockCollectionsStack {
+  type: 'CollectionsStack'
+  product: ProductOption
+  heading?: string
+  subheading?: string
+  collectionSlugs: string[]
+}
+
+export interface ProductPageBlockFeaturedStack {
+  type: 'FeaturedStack'
+  heading: string
+  subheading?: string
+  blocks: ProductPageBlockCardList[]
+}
+
+export type ProductPageBlock =
+  | ProductPageBlockFeaturedStack
+  | ProductPageBlockBrandedCallout
+  | ProductPageBlockCardList
+  | ProductPageBlockTutorialsStack
+  | ProductPageBlockCollectionsStack
+
 export interface ProductPage {
   slug: string
   pageData: {
-    blocks: any[] // @TODO update when we add in blocks
+    blocks: ProductPageBlock[]
     showProductSitemap?: boolean
   }
 }
@@ -186,6 +241,16 @@ export enum VideoHostOption {
 export enum HandsOnLabProviderOption {
   katacoda = 'katacoda',
   instruqt = 'instruqt',
+}
+
+export enum CompanyLogoOption {
+  docker = 'docker',
+  github = 'github',
+  'microsoft-azure' = 'microsoft-azure',
+  oci = 'oci',
+  'google-cloud' = 'google-cloud',
+  'terraform-cloud' = 'terraform-cloud',
+  aws = 'aws',
 }
 
 /**

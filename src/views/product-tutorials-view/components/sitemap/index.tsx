@@ -4,14 +4,15 @@ import {
   getTutorialSlug,
 } from 'views/collection-view/helpers'
 import { ProductPageData } from 'views/product-tutorials-view/server'
+import s from './sitemap.module.css'
 
 export function ProductTutorialsSitemap({
   collections,
 }: {
-  collections: ProductPageData['pageData']['allCollections']
+  collections: ProductPageData['allCollections']
 }): React.ReactElement {
   return (
-    <ul>
+    <ul className={s.root}>
       {collections.map((collection) => (
         <li key={collection.id}>
           <Link href={getCollectionSlug(collection.slug)}>
