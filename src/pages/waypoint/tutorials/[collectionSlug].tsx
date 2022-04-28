@@ -7,13 +7,21 @@ import {
   getCollectionPaths,
   CollectionPageProps,
 } from 'views/collection-view/server'
+import { GetStaticPropsResult } from 'next'
 
 export async function getStaticProps({
   params,
-}): Promise<{ props: CollectionPageProps }> {
+}): Promise<GetStaticPropsResult<CollectionPageProps>> {
   const { collectionSlug } = params
   const product = waypointData as LearnProductData
-  return await getCollectionPageProps(product, collectionSlug)
+  const props = await getCollectionPageProps(product, collectionSlug)
+
+  // If the collection doesn't exist, hit the 404
+  if (!props) {
+    return { notFound: true }
+  }
+
+  return props
 }
 
 interface CollectionPagePaths {

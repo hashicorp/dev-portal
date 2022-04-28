@@ -32,6 +32,12 @@ export async function getCollection(idOrSlug: identifier): Promise<Collection> {
     return formatCollection(res.result)
   }
 
+  // This is handled by tutorial or collection template to render 404 page
+  if (getCollectionRes.status === 404) {
+    console.error('Learn Api Client: 404 — Collection not found')
+    return null
+  }
+
   const error = toError(getCollectionRes)
   throw error
 }
