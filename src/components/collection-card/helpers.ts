@@ -1,9 +1,9 @@
+import { getCollectionSlug } from 'views/collection-view/helpers'
 import {
   Collection as ClientCollection,
   ProductOption,
   themeIsProduct,
 } from 'lib/learn-client/types'
-import { getCollectionSlug } from 'views/collection-view/helpers'
 import { CollectionCardPropsWithId } from './types'
 
 export function formatCollectionCard(
