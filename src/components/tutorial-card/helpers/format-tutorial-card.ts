@@ -8,6 +8,14 @@ import { TutorialCardPropsWithId } from '../types'
 
 export function formatTutorialCard(
   tutorial: ClientTutorialLite,
+  /**
+   * Optional collection slug, used for URL.
+   * Note that each tutorial has a "default" collection context,
+   * which we use if `collectionSlug` is not provided.
+   * If `collectionSlug` is provided, it overrides that default
+   * collection context. Note that `collectionSlug` is not validated;
+   * please ensure it corresponds to a valid collection.
+   */
   collectionSlug?: string
 ): TutorialCardPropsWithId {
   const safeCollectionSlug = collectionSlug || tutorial.defaultContext.slug
