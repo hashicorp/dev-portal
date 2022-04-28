@@ -46,8 +46,14 @@ export interface CollectionPagePath {
 export async function getCollectionPageProps(
   product: LearnProductData,
   slug: string
-): Promise<{ props: CollectionPageProps }> {
+): Promise<{ props: CollectionPageProps } | null> {
   const collection = await getCollection(`${product.slug}/${slug}`)
+
+  // if null the api encountered a 404
+  if (collection === null) {
+    return null
+  }
+
   // For sidebar data
   const allProductCollections = await getAllCollections({
     product: { slug: product.slug, sidebarSort: true },
