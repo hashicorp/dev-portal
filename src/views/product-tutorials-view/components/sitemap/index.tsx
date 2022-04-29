@@ -33,13 +33,6 @@ export function ProductTutorialsSitemap({
         <HeadingElem id={slug} className={s.heading}>
           {title}
         </HeadingElem>
-        <StandaloneLink
-          href={`https://learn.hashicorp.com/search?product=${product}`}
-          icon={<IconExternalLink16 />}
-          iconPosition="trailing"
-          text="Search all tutorials"
-          openInNewTab={true}
-        />
       </div>
       <ul className={s.collectionListRoot}>
         {collections.map((collection: ClientCollection) => (

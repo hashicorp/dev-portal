@@ -5,7 +5,7 @@
 .heading {
   composes: hds-typography-display-300 from global;
   font-weight: var(--token-typography-font-weight-bold);
-  margin: 0 auto 0 0;
+  margin: 0;
 }
 
 .collectionListRoot {
