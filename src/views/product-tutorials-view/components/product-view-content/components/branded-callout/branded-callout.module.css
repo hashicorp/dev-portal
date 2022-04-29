@@ -1,5 +1,55 @@
-.placeholder {
-  font-size: 12px;
+.root {
+  composes: hds-surface-low from global;
+
+  /** Note: --gradient-start & --gradient-stop set in JS */
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--gradient-stop) 100%
+  );
+  border-radius: 6px;
+  display: flex;
+}
+
+.textContainer {
+  overflow: hidden;
+  padding: 24px;
+}
+
+.heading {
   margin: 0;
-  border: 1px solid magenta;
+
+  /** TODO: duplicated from --dev-dot-content. Maybe this should be part of an anchored-heading component or something? */
+  --permalink-scroll-offset: 24px;
+  --full-header-height: calc(
+    var(--navigation-header-height) + var(--alert-bar-height)
+  );
+  --height: calc(var(--full-header-height) + var(--permalink-scroll-offset));
+
+  scroll-margin-top: var(--height);
+}
+
+.subheading {
+  margin: 4px 0 0 0;
+}
+
+.cta {
+  font-size: 12px;
+  margin: 12px 0 0 0;
+}
+
+.productPattern {
+  display: none;
+
+  @media (--dev-dot-tablet-up) {
+    position: relative;
+    display: block;
+    width: 138px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    font-size: 12px;
+    margin: 0;
+    overflow: hidden;
+    margin-left: auto;
+  }
 }
