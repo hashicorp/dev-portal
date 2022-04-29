@@ -1,10 +1,11 @@
+import { CSSProperties } from 'react'
 import Image from 'next/image'
 import StandaloneLink from 'components/standalone-link'
 import { BrandedCalloutProps } from './types'
 import { ProductOption } from 'lib/learn-client/types'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import s from './branded-callout.module.css'
-// Note: images must be static imports so that they can be analyzed at build time
+// Note: images are static imports, seems to be a requirement of next/image
 // ref: https://nextjs.org/docs/basic-features/image-optimization#local-images
 import patternBoundary from './img/boundary.png'
 import patternConsul from './img/consul.png'
@@ -14,7 +15,6 @@ import patternTerraform from './img/terraform.png'
 import patternVagrant from './img/vagrant.png'
 import patternVault from './img/vault.png'
 import patternWaypoint from './img/waypoint.png'
-import React from 'react'
 
 const PATTERN_IMG_MAP: Record<ProductOption, string> = {
   boundary: patternBoundary,
@@ -41,7 +41,7 @@ function BrandedCallout({
         {
           '--gradient-start': `var(--token-color-${product}-gradient-faint-start)`,
           '--gradient-stop': `var(--token-color-${product}-gradient-faint-stop)`,
-        } as React.CSSProperties
+        } as CSSProperties
       }
     >
       <div className={s.textContainer}>
