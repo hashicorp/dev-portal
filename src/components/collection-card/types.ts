@@ -10,3 +10,5 @@ export interface CollectionCardProps {
   url: string
   logo?: CompanyLogoOption
 }
+
+export type CollectionCardPropsWithId = CollectionCardProps & { id: string }
