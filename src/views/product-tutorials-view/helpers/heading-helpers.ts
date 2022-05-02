@@ -11,26 +11,23 @@ import { ProductViewBlock } from '../components/product-view-content'
  * TableOfContentsHeading objects, each representing
  * a section that will be rendered on the page.
  */
-function buildLayoutHeadings(
-  pageData: {
-    blocks: ProductViewBlock[]
-    showProductSitemap?: boolean
-  },
-  productName: string
-): TableOfContentsHeading[] {
+function buildLayoutHeadings(pageData: {
+  blocks: ProductViewBlock[]
+  showProductSitemap?: boolean
+}): TableOfContentsHeading[] {
   const { blocks, showProductSitemap } = pageData
 
   /**
    * Build an <h1> overview heading
    */
-  const overviewHeading = [getOverviewHeading(productName)]
+  const overviewHeading = [getOverviewHeading()]
 
   /**
    * Extract headings from each block
    */
   const blockHeadings = blocks.reduce(
     (acc: TableOfContentsHeading[], block: ProductViewBlock) => {
-      if (block.type !== 'CardList') {
+      if (isBlockWithHeadingSlug(block)) {
         acc.push({
           title: block.heading,
           slug: block.headingSlug,
@@ -54,12 +51,36 @@ function buildLayoutHeadings(
 }
 
 /**
+ * Check if a block has a heading,
+ * and is a block type we want to show in the table of contents,
+ * in which case we can generate a headingSlug for it
+ */
+function isBlockWithHeading<T extends { type: string; heading?: unknown }>(
+  block: T
+): block is T & { heading: string } {
+  const isTargetType =
+    block.type == 'CollectionsStack' ||
+    block.type == 'FeaturedStack' ||
+    block.type == 'TutorialsStack'
+  return isTargetType && typeof block.heading == 'string'
+}
+
+/**
+ * Check if a block can be added to the table of contents
+ */
+function isBlockWithHeadingSlug<
+  T extends { type: string; headingSlug?: unknown }
+>(block: T): block is T & { headingSlug: string } {
+  return isBlockWithHeading(block) && typeof block.headingSlug == 'string'
+}
+
+/**
  * Given a productName,
  * return a TableOfContentsHeading object
  * representing a top-level heading for a product tutorials view
  */
-function getOverviewHeading(productName: string): TableOfContentsHeading {
-  return { title: `${productName} Tutorials`, slug: 'overview', level: 1 }
+function getOverviewHeading(): TableOfContentsHeading {
+  return { title: 'Overview', slug: 'overview', level: 1 }
 }
 
 /**
@@ -82,13 +103,15 @@ function addHeadingSlugsToBlocks(rawPageData: {
   showProductSitemap?: boolean
 } {
   const { blocks } = rawPageData
-  const blocksWithHeadings = blocks.map((block: $TSFixMe) => {
-    if (typeof block.heading === undefined) {
-      return block
+  const blocksWithHeadings = blocks.map(
+    (block: LearnClientProductPageBlock) => {
+      if (!isBlockWithHeading(block)) {
+        return block
+      }
+      const headingSlug = slugify(block.heading, { lower: true })
+      return { ...block, headingSlug }
     }
-    const headingSlug = slugify(block.heading, { lower: true })
-    return { ...block, headingSlug }
-  })
+  )
   // Return the page data with these new blocks
   return { ...rawPageData, blocks: blocksWithHeadings }
 }

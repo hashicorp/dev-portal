@@ -1,7 +1,3 @@
-.heading {
-  composes: g-offset-scroll-margin-top from global;
-}
-
 .placeholder {
   font-size: 12px;
   margin: 0;

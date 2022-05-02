@@ -3,16 +3,13 @@ import s from './branded-callout.module.css'
 
 function BrandedCallout({
   heading,
-  headingSlug,
   subheading,
   cta,
   product,
 }: BrandedCalloutProps) {
   return (
     <div>
-      <h2 id={headingSlug} className={s.heading}>
-        {heading}
-      </h2>
+      <div>{heading}</div>
       <pre className={s.placeholder}>
         <code>
           {JSON.stringify(

@@ -123,6 +123,7 @@ export type AllCollectionsProductOptions = {
  */
 
 export interface ProductPageBlockBrandedCallout {
+  type: 'BrandedCallout'
   heading: string
   subheading?: string
   cta: {

@@ -22,9 +22,13 @@ function ProductTutorialsView({
   } as ProductCollectionsSidebarProps['product']
 
   const PageHeading = () => {
-    const { title, level, slug } = getOverviewHeading(product.name)
+    const { title, level, slug } = getOverviewHeading()
     const HeadingElem = `h${level}` as React.ElementType
-    return <HeadingElem id={slug}>{title}</HeadingElem>
+    return (
+      <HeadingElem id={slug} className={s.heading}>
+        {title}
+      </HeadingElem>
+    )
   }
 
   return (
