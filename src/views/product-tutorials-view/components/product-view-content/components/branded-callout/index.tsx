@@ -10,7 +10,9 @@ function BrandedCallout({
 }: BrandedCalloutProps) {
   return (
     <div>
-      <h2 id={headingSlug}>{heading}</h2>
+      <h2 id={headingSlug} className={s.heading}>
+        {heading}
+      </h2>
       <pre className={s.placeholder}>
         <code>
           {JSON.stringify(
