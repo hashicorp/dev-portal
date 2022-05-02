@@ -9,13 +9,10 @@ import detectAndReformatLearnUrl from './detect-and-reformat-learn-url'
  * Fix up product tutorials view page data
  * before sending it to the client
  */
-async function processPageData(
-  rawPageData: {
-    blocks: LearnClientProductPageBlock[]
-    showProductSitemap?: boolean
-  },
-  productName: string
-): Promise<{
+async function processPageData(rawPageData: {
+  blocks: LearnClientProductPageBlock[]
+  showProductSitemap?: boolean
+}): Promise<{
   pageData: {
     blocks: ProductViewBlock[]
     showProductSitemap?: boolean
@@ -24,7 +21,7 @@ async function processPageData(
 }> {
   const withHeadings = addHeadingSlugsToBlocks(rawPageData)
   const withFixedUrls = await fixBrandedCalloutUrls(withHeadings)
-  const headings = buildLayoutHeadings(withFixedUrls, productName)
+  const headings = buildLayoutHeadings(withFixedUrls)
   return { pageData: withFixedUrls, headings }
 }
 

@@ -82,10 +82,7 @@ export async function getProductTutorialsViewProps(
    * Process page data, reformatting as needed.
    * Includes parsing headings, for use with the page's sidecar
    */
-  const { pageData, headings } = await processPageData(
-    rawPageData,
-    product.name
-  )
+  const { pageData, headings } = await processPageData(rawPageData)
   /**
    * Build & return layout props to pass to SidebarSidecarLayout
    */
