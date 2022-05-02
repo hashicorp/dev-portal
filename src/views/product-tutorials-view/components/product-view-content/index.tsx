@@ -58,7 +58,6 @@ function ProductViewContent({
                 // eslint-disable-next-line react/no-array-index-key
                 key={idx}
                 heading={block.heading}
-                headingSlug={block.headingSlug}
                 subheading={block.subheading}
                 product={block.product}
                 cta={block.cta}

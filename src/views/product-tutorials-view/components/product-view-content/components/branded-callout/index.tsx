@@ -29,7 +29,6 @@ const PATTERN_IMG_MAP: Record<ProductOption, string> = {
 
 function BrandedCallout({
   heading,
-  headingSlug,
   subheading,
   cta,
   product,
@@ -45,7 +44,7 @@ function BrandedCallout({
       }
     >
       <div className={s.textContainer}>
-        <h2 id={headingSlug} className={s.heading}>
+        <h2 className={s.heading}>
           {heading}
         </h2>
         {subheading ? <p className={s.subheading}>{subheading}</p> : null}
