@@ -44,9 +44,7 @@ function BrandedCallout({
       }
     >
       <div className={s.textContainer}>
-        <h2 className={s.heading}>
-          {heading}
-        </h2>
+        <h2 className={s.heading}>{heading}</h2>
         {subheading ? <p className={s.subheading}>{subheading}</p> : null}
         <p className={s.cta}>
           <StandaloneLink
