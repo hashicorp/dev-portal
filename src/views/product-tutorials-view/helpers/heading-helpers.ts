@@ -27,7 +27,7 @@ function buildLayoutHeadings(pageData: {
    */
   const blockHeadings = blocks.reduce(
     (acc: TableOfContentsHeading[], block: ProductViewBlock) => {
-      if (isBlockWithHeadingSlug(block)) {
+      if (isReadyForTableOfContents(block)) {
         acc.push({
           title: block.heading,
           slug: block.headingSlug,
@@ -55,9 +55,9 @@ function buildLayoutHeadings(pageData: {
  * and is a block type we want to show in the table of contents,
  * in which case we can generate a headingSlug for it
  */
-function isBlockWithHeading<T extends { type: string; heading?: unknown }>(
-  block: T
-): block is T & { heading: string } {
+function isIntendedForTableOfContents<
+  T extends { type: string; heading?: unknown }
+>(block: T): block is T & { heading: string } {
   const isTargetType =
     block.type == 'CollectionsStack' ||
     block.type == 'FeaturedStack' ||
@@ -68,10 +68,12 @@ function isBlockWithHeading<T extends { type: string; heading?: unknown }>(
 /**
  * Check if a block can be added to the table of contents
  */
-function isBlockWithHeadingSlug<
+function isReadyForTableOfContents<
   T extends { type: string; headingSlug?: unknown }
 >(block: T): block is T & { headingSlug: string } {
-  return isBlockWithHeading(block) && typeof block.headingSlug == 'string'
+  return (
+    isIntendedForTableOfContents(block) && typeof block.headingSlug == 'string'
+  )
 }
 
 /**
@@ -105,7 +107,7 @@ function addHeadingSlugsToBlocks(rawPageData: {
   const { blocks } = rawPageData
   const blocksWithHeadings = blocks.map(
     (block: LearnClientProductPageBlock) => {
-      if (!isBlockWithHeading(block)) {
+      if (!isIntendedForTableOfContents(block)) {
         return block
       }
       const headingSlug = slugify(block.heading, { lower: true })
