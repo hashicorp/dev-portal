@@ -34,6 +34,7 @@
   composes: g-focus-ring-from-box-shadow from global;
   composes: hds-typography-body-200 from global;
   align-items: center;
+  border-radius: 8px; /* For focus ring */
   color: var(--token-color-foreground-primary);
   display: flex;
   font-weight: var(--token-typography-font-weight-medium);
@@ -41,6 +42,13 @@
 
   &:hover {
     color: var(--token-color-foreground-strong);
+  }
+
+  /* Focus ring styles */
+  &:focus-visible {
+    text-decoration: none;
+    margin: -4px;
+    padding: 4px;
   }
 }
 
@@ -79,7 +87,7 @@
   font-weight: var(--token-typography-font-weight-medium);
 
   /* padding used for 8px net spacing, margin plays badly with columns */
-  padding: 4px 0 4px 12px;
+  padding: 4px 8px 4px 12px;
   page-break-inside: avoid;
   position: relative;
 
@@ -98,11 +106,20 @@
 
 .tutorialLink {
   composes: g-focus-ring-from-box-shadow from global;
+  display: block; /* For focus ring */
+  border-radius: 4px; /* For focus ring */
   color: currentColor;
   margin: 0;
   text-decoration: underline;
 
   &:hover {
     color: var(--token-color-foreground-strong);
+  }
+
+  /* Focus ring styles */
+  &:focus-visible {
+    text-decoration: none;
+    margin: -1px -2px;
+    padding: 1px 2px;
   }
 }
