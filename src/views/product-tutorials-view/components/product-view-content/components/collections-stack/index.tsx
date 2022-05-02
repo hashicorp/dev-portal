@@ -1,6 +1,10 @@
+import CardsGridList from 'components/cards-grid-list'
+import CollectionCard, {
+  CollectionCardPropsWithId,
+} from 'components/collection-card'
+import { formatCollectionCard } from 'components/collection-card/helpers'
 import { FeaturedStack } from '../featured-stack'
 import { CollectionsStackProps } from './types'
-import s from './collections-stack.module.css'
 
 // Reminder:  make sure heap stuff is carried forward
 // const HEAP_ID = 'CollectionCard'
@@ -11,21 +15,26 @@ function CollectionsStack({
   headingSlug,
   subheading,
 }: CollectionsStackProps): JSX.Element {
+  /**
+   * TODO: Instead of passing full ClientCollection data to frontend,
+   * and trimming it down here to card data, it seems like we could
+   * do this trimming server side, and end up with a much smaller
+   * bundle of static props JSON.
+   * Asana task: https://app.asana.com/0/0/1202182325935203/f
+   */
+  const collectionCards = featuredCollections.map(formatCollectionCard)
   return (
     <FeaturedStack
       heading={heading}
       headingSlug={headingSlug}
       subheading={subheading}
     >
-      <pre className={s.placeholder}>
-        <code>
-          {JSON.stringify(
-            { component: 'CollectionsStack', featuredCollections },
-            null,
-            2
-          )}
-        </code>
-      </pre>
+      <CardsGridList>
+        {collectionCards.map((cardPropsWithId: CollectionCardPropsWithId) => {
+          const { id, ...cardProps } = cardPropsWithId
+          return <CollectionCard key={id} {...cardProps} />
+        })}
+      </CardsGridList>
     </FeaturedStack>
   )
 }

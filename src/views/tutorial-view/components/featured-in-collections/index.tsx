@@ -1,5 +1,7 @@
-import CollectionCard from 'components/collection-card'
-import { FeaturedInCollectionsProps, CollectionCardPropsWithId } from './types'
+import CollectionCard, {
+  CollectionCardPropsWithId,
+} from 'components/collection-card'
+import { FeaturedInCollectionsProps } from './types'
 import s from './featured-in-collections.module.css'
 
 // This should render the eventual `CollectionCard` component (doesn't exist yet)

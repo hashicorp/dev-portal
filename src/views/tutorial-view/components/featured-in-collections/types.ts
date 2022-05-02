@@ -1,7 +1,4 @@
-import { CollectionCardProps } from 'components/collection-card/types'
-
-export type CollectionCardPropsWithId = CollectionCardProps & { id: string }
-
+import { CollectionCardPropsWithId } from 'components/collection-card/types'
 export interface FeaturedInCollectionsProps {
   /**
    * An array of collections to display.

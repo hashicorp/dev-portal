@@ -57,7 +57,7 @@ for further details.
   align-self: flex-start;
   flex-grow: 1;
   min-width: 0;
-  max-width: 804px;
+  max-width: calc(780px + (var(--main-area-padding-left-right) * 2));
   padding-left: var(--main-area-padding-left-right);
   padding-right: var(--main-area-padding-left-right);
 }

@@ -5,7 +5,7 @@ import {
 } from 'lib/learn-client/types'
 import { getCollection } from 'lib/learn-client/api/collection'
 import { CollectionContext } from '..'
-import { formatCollectionCard } from '../components/featured-in-collections/helpers'
+import { formatCollectionCard } from 'components/collection-card/helpers'
 
 /**
  * We need to get the database slug for this tutorial, which may belong in a different
