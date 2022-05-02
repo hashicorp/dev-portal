@@ -89,7 +89,7 @@ export async function getProductTutorialsViewProps(
    * Build & return layout props to pass to SidebarSidecarLayout
    */
   const layoutProps = {
-    headings: buildLayoutHeadings(pageData, product.name),
+    headings: buildLayoutHeadings(pageData),
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, filename: product.slug },
     }),

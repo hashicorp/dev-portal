@@ -1,3 +1,8 @@
+.heading {
+  composes: g-offset-scroll-margin-top from global;
+  composes: g-screen-reader-only from global;
+}
+
 .sitemap {
   margin-top: 48px;
 }
