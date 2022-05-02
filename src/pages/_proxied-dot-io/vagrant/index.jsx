@@ -15,7 +15,7 @@ function HomePage({ latestVersion }) {
             Development Environments Made Easy
           </h1>
           <div className={s.buttons}>
-            <Button title="Get Started" url="/intro/index" />
+            <Button title="Get Started" url="/intro" />
             <Button
               title={`Download ${latestVersion}`}
               theme={{ variant: 'secondary' }}
