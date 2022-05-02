@@ -6,10 +6,8 @@ import ProductCollectionsSidebar, {
 import { ProductTutorialsSitemap } from './components'
 import { ProductTutorialsViewProps } from './server'
 import ProductViewContent from './components/product-view-content'
-import {
-  getOverviewHeading,
-  getSitemapHeading,
-} from './helpers/heading-helpers'
+import { getOverviewHeading } from './helpers/heading-helpers'
+import s from './product-tutorials-view.module.css'
 
 function ProductTutorialsView({
   layoutProps,
@@ -47,18 +45,14 @@ function ProductTutorialsView({
         inlineCollections={inlineCollections}
         inlineTutorials={inlineTutorials}
       />
-      {showProductSitemap
-        ? (() => {
-            const { title, level, slug } = getSitemapHeading()
-            const HeadingElem = `h${level}` as React.ElementType
-            return (
-              <>
-                <HeadingElem id={slug}>{title}</HeadingElem>
-                <ProductTutorialsSitemap collections={allCollections} />
-              </>
-            )
-          })()
-        : null}
+      {showProductSitemap ? (
+        <div className={s.sitemap}>
+          <ProductTutorialsSitemap
+            collections={allCollections}
+            product={product.slug}
+          />
+        </div>
+      ) : null}
     </SidebarSidecarLayout>
   )
 }
