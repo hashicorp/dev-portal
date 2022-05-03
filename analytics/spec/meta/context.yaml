@@ -1,0 +1,29 @@
+type: object
+properties:
+  page:
+    type: object
+    properties:
+      path:
+        type: string
+        description: Containing an initial '/' followed by the path of the URL
+      referrer:
+        type: string
+        description: Contains an absolute or partial address of the page that makes the request
+      search:
+        type: string
+        description: The URL parameters passed to the page
+      title:
+        type: string
+        description: The document's title that is shown in a browser's title bar or a page's tab
+      url:
+        type: string
+        description: The full URL of where the analytics request took place
+    required:
+      - path
+      - url
+  userAgent:
+    type: string
+    description: A characteristic string that lets servers and network peers identify the application, operating system, vendor, and/or version of the requesting user agent.
+  locale:
+    type: string
+    description: Locale is a set of language - or country-based preferences for a user interface.
