@@ -20,7 +20,7 @@ import {
   NextPrevious,
   getNextPrevious,
 } from './components'
-import { CollectionCardPropsWithId } from './components/featured-in-collections/types'
+import { CollectionCardPropsWithId } from 'components/collection-card'
 import { getCollectionSlug } from 'views/collection-view/helpers'
 import TutorialsSidebar, {
   HorizontalRule,

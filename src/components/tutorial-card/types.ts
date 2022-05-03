@@ -8,7 +8,6 @@ export interface TutorialCardProps {
 
   /**
    * A string representation the duration of the tutorial, such as "10mins".
-   * TODO: change this to be a number, and do formatting in in this component
    */
   duration: string
 
@@ -36,4 +35,11 @@ export interface TutorialCardProps {
    * A list of product slugs, representing products used in the tutorial.
    */
   productsUsed: ProductOption[]
+}
+
+export interface TutorialCardPropsWithId extends TutorialCardProps {
+  /**
+   * The tutorial's unique identifier
+   */
+  id: string
 }

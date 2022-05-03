@@ -1,23 +1,35 @@
-import { Fragment } from 'react'
-import slugify from 'slugify'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductCollectionsSidebar, {
   ProductCollectionsSidebarProps,
 } from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
 import { ProductTutorialsSitemap } from './components'
-import { ProductTutorialsPageProps } from './server'
+import { ProductTutorialsViewProps } from './server'
+import ProductViewContent from './components/product-view-content'
+import { getOverviewHeading } from './helpers/heading-helpers'
+import s from './product-tutorials-view.module.css'
 
 function ProductTutorialsView({
   layoutProps,
   data,
   product,
-}: ProductTutorialsPageProps): React.ReactElement {
-  const { showProductSitemap, blocks, allCollections } = data.pageData
+}: ProductTutorialsViewProps): React.ReactElement {
+  const { inlineCollections, inlineTutorials, pageData, allCollections } = data
+  const { showProductSitemap, blocks } = pageData
   const sidebarProduct = {
     name: product.name,
     slug: product.slug,
   } as ProductCollectionsSidebarProps['product']
+
+  const PageHeading = () => {
+    const { title, level, slug } = getOverviewHeading()
+    const HeadingElem = `h${level}` as React.ElementType
+    return (
+      <HeadingElem id={slug} className={s.heading}>
+        {title}
+      </HeadingElem>
+    )
+  }
 
   return (
     <SidebarSidecarLayout
@@ -31,20 +43,19 @@ function ProductTutorialsView({
         />
       }
     >
-      <h1 id={layoutProps.headings[0].slug}>{product.name} Tutorials</h1>
-      {blocks.map((b, i) => (
-        <Fragment key={`${b.type}-${i}`}>
-          <h3 id={slugify(b.heading)}> {b.heading} </h3>
-          <p>Block type: {b.type}</p>
-        </Fragment>
-      ))}
+      <PageHeading />
+      <ProductViewContent
+        blocks={blocks}
+        inlineCollections={inlineCollections}
+        inlineTutorials={inlineTutorials}
+      />
       {showProductSitemap ? (
-        <>
-          <h2 id={layoutProps.headings[layoutProps.headings.length - 1].slug}>
-            All tutorials
-          </h2>
-          <ProductTutorialsSitemap collections={allCollections} />
-        </>
+        <div className={s.sitemap}>
+          <ProductTutorialsSitemap
+            collections={allCollections}
+            product={product.slug}
+          />
+        </div>
       ) : null}
     </SidebarSidecarLayout>
   )

@@ -7,6 +7,7 @@ import TabProvider from 'components/tabs/provider'
 import DevDotContent from 'components/dev-dot-content'
 import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
+import ProductDocsSearch from './components/product-docs-search'
 
 // Author primitives
 const Badge = dynamic(() => import('components/author-primitives/packer/badge'))
@@ -62,17 +63,20 @@ const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
   const components = defaultMdxComponents({ additionalComponents })
 
   return (
-    <DevDotContent>
-      <NoIndexTagIfVersioned />
-      <TabProvider>
-        <MDXRemote
-          compiledSource={compiledSource}
-          components={components}
-          lazy={lazy}
-          scope={scope}
-        />
-      </TabProvider>
-    </DevDotContent>
+    <>
+      {__config.flags.enable_product_docs_search ? <ProductDocsSearch /> : null}
+      <DevDotContent>
+        <NoIndexTagIfVersioned />
+        <TabProvider>
+          <MDXRemote
+            compiledSource={compiledSource}
+            components={components}
+            lazy={lazy}
+            scope={scope}
+          />
+        </TabProvider>
+      </DevDotContent>
+    </>
   )
 }
 

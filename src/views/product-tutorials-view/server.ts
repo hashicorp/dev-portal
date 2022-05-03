@@ -1,38 +1,48 @@
 import { LearnProductData, ProductData } from 'types/products'
-import { Product as ClientProduct } from 'lib/learn-client/types'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import {
+  Product as ClientProduct,
+  Collection as ClientCollection,
+} from 'lib/learn-client/types'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
-import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { formatSidebarCategorySections } from 'views/collection-view/helpers'
 import getProductPageContent from './helpers/get-product-page-content'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
-import { CollectionLayout } from 'views/collection-view/server'
+import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import {
   InlineCollections,
   InlineTutorials,
 } from './helpers/get-inline-content'
-import { generateHeadings } from './helpers/generate-headings'
+import {
+  addHeadingSlugsToBlocks,
+  buildLayoutHeadings,
+} from './helpers/heading-helpers'
 import { filterCollections, sortAlphabetically } from './helpers'
+import { ProductViewBlock } from './components/product-view-content'
 
 // Some of the product data is coming from the API client on this view
 type ProductTutorialsPageProduct = ClientProduct &
   Omit<ProductData, 'name' | 'slug'>
 
-export interface ProductTutorialsPageProps {
+export interface ProductTutorialsViewProps {
   layoutProps: ProductTutorialsLayout
   data: ProductPageData
   product: ProductTutorialsPageProduct
 }
 
-type ProductTutorialsLayout = CollectionLayout
+type ProductTutorialsLayout = Pick<
+  SidebarSidecarLayoutProps,
+  'headings' | 'breadcrumbLinks'
+> & { sidebarSections: CollectionCategorySidebarSection[] }
 
 export interface ProductPageData {
   pageData: {
-    blocks: any // @TODO type
-    showProductSitemap: boolean
-    allCollections: ClientCollection[]
+    blocks: ProductViewBlock[]
+    showProductSitemap?: boolean
   }
+  allCollections: ClientCollection[]
   inlineCollections: InlineCollections
   inlineTutorials: InlineTutorials
 }
@@ -47,12 +57,26 @@ export interface ProductPageData {
  *
  * @TODO add sidebar sort capability
  */
-export async function getProductTutorialsPageProps(
+export async function getProductTutorialsViewProps(
   productData: LearnProductData
-): Promise<{ props: ProductTutorialsPageProps }> {
+): Promise<{ props: ProductTutorialsViewProps }> {
   const productSlug = productData.slug
-  const { pageData, inlineCollections, inlineTutorials } =
-    await getProductPageContent(productSlug)
+  /**
+   * Get the raw page data
+   */
+  const {
+    pageData: rawPageData,
+    inlineCollections,
+    inlineTutorials,
+  } = await getProductPageContent(productSlug)
+  /**
+   * Add headings to raw page data, for use with the page's sidecar
+   */
+  const pageData = addHeadingSlugsToBlocks(rawPageData)
+  /**
+   * Get the product data, and all collections,
+   * both of which are needed for layoutProps
+   */
   const product = await getProduct(productSlug)
   const allProductCollections = await getAllCollections({
     product: { slug: productSlug, sidebarSort: true },
@@ -61,9 +85,11 @@ export async function getProductTutorialsPageProps(
     allProductCollections,
     productSlug
   )
-
+  /**
+   * Build & return layout props to pass to SidebarSidecarLayout
+   */
   const layoutProps = {
-    headings: generateHeadings(pageData.blocks),
+    headings: buildLayoutHeadings(pageData),
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, filename: product.slug },
     }),
@@ -82,10 +108,8 @@ export async function getProductTutorialsPageProps(
   return {
     props: stripUndefinedProperties({
       data: {
-        pageData: {
-          ...pageData,
-          allCollections: filteredCollections.sort(sortAlphabetically('name')),
-        },
+        pageData,
+        allCollections: filteredCollections.sort(sortAlphabetically('name')),
         inlineCollections,
         inlineTutorials,
       },

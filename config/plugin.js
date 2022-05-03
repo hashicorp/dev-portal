@@ -34,6 +34,7 @@ const { getHashiConfig } = require('./index')
 module.exports = function HashiConfigPlugin() {
   const env = process.env.HASHI_ENV || 'development'
   const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
+  const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
 
   return new webpack.DefinePlugin({
     ...Object.fromEntries(
@@ -48,7 +49,7 @@ module.exports = function HashiConfigPlugin() {
              * version is set to env here to ensure that webpack's persistent cache
              * does not cache the wrong config values across builds with different HASHI_ENV values
              */
-            { fileDependencies: [envConfigPath], version: env }
+            { fileDependencies: [envConfigPath, baseConfigPath], version: env }
           ),
         ]
       })

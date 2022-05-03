@@ -27,8 +27,23 @@ import {
   getTutorialMap,
   handleCollectionLink,
   handleTutorialLink,
+  handleDocsLink,
 } from './utils'
 
+let TUTORIAL_MAP
+
+// @TODO - lift this into a shared place. e.g. `src/constants`
+const PRODUCT_DOCS_PATHS = {
+  boundary: 'boundaryproject.io',
+  consul: 'consul.io',
+  nomad: 'nomadproject.io',
+  packer: 'packer.io',
+  sentinel: 'docs.hashicorp.com',
+  terraform: 'terraform.io',
+  vagrant: 'vagrantup.com',
+  vault: 'vaultproject.io',
+  waypoint: 'waypointproject.io',
+}
 const learnProductOptions = Object.keys(ProductOption).join('|')
 /**
  * Matches anything that
@@ -39,8 +54,7 @@ const learnProductOptions = Object.keys(ProductOption).join('|')
 const learnLink = new RegExp(
   `(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud)/)|^/(${learnProductOptions}|cloud)$`
 )
-
-let TUTORIAL_MAP
+const docsLink = new RegExp(`(${Object.values(PRODUCT_DOCS_PATHS).join('|')})`)
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
@@ -54,17 +68,24 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
 function handleRewriteTutorialsLink(node: Link | Definition) {
   try {
     // return early if non tutorial or collection link
-    if (!learnLink.test(node.url)) {
+    if (!learnLink.test(node.url) && !docsLink) {
       return
     }
 
-    const [product] = node.url.match(new RegExp(`${learnProductOptions}|cloud`))
+    const match: RegExpMatchArray | null = node.url.match(
+      new RegExp(`${learnProductOptions}|cloud`)
+    )
+    const product = match ? match[0] : null
     const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
-    const isBetaProduct = getIsBetaProduct(product as ProductSlug)
+    const isBetaProduct = product
+      ? getIsBetaProduct(product as ProductSlug)
+      : false
+    // Anchor links for the current tutorial shouldn't be rewritten. i.e. #some-heading
+    const isAnchorLink = node.url.startsWith('#')
 
     // if its not a beta product and also not an external link, rewrite
     // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/consul
-    if (!isBetaProduct && !isExternalLearnLink) {
+    if (!isBetaProduct && !isExternalLearnLink && !isAnchorLink) {
       // If its an internal link, rewrite to an external learn link
       node.url = new URL(node.url, 'https://learn.hashicorp.com/').toString()
     }
@@ -75,15 +96,20 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
       const isTutorialPath = nodePath.includes('tutorials')
       const learnProductHub = new RegExp(`/${product}$`)
       const isProductHubPath = learnProductHub.test(nodePath)
+      const isDocsPath = nodePath.includes(PRODUCT_DOCS_PATHS[product])
 
       // if its an external link, isolate the pathname
-      if (isExternalLearnLink) {
+      if (isExternalLearnLink || isDocsPath) {
         const fullUrl = new URL(nodePath)
-        nodePath = fullUrl.pathname
+        // removing the origin from the href instead of only using
+        // 'pathname' so that anchor links are included
+        nodePath = fullUrl.href.replace(fullUrl.origin, '')
       }
 
       // handle rewriting collection and tutorial dev portal paths
-      if (isCollectionPath) {
+      if (isDocsPath) {
+        node.url = handleDocsLink(nodePath, product as ProductSlug)
+      } else if (isCollectionPath) {
         node.url = handleCollectionLink(nodePath)
       } else if (isTutorialPath) {
         node.url = handleTutorialLink(nodePath, TUTORIAL_MAP)

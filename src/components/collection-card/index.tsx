@@ -1,5 +1,4 @@
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
-import classNames from 'classnames'
 import CardLink from 'components/card-link'
 import {
   CardEyebrow,
@@ -7,7 +6,11 @@ import {
   CardBody,
   CardBadges,
 } from 'components/tutorial-collection-cards'
-import { CollectionCardProps } from './types'
+import {
+  CollectionCardProps,
+  CollectionCardPropsWithId,
+  CompanyLogoOption,
+} from './types'
 import CompanyLogo from './components/company-logo'
 import s from './collection-card.module.css'
 
@@ -41,4 +44,6 @@ function CollectionCard({
   )
 }
 
+export { CompanyLogoOption }
+export type { CollectionCardProps, CollectionCardPropsWithId }
 export default CollectionCard

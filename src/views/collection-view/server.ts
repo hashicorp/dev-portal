@@ -26,7 +26,7 @@ export interface CollectionPageProps {
 
 export type CollectionLayout = Pick<
   SidebarSidecarLayoutProps,
-  'headings' | 'breadcrumbLinks'
+  'breadcrumbLinks'
 > & { sidebarSections: CollectionCategorySidebarSection[] }
 
 export interface CollectionPagePath {
@@ -46,8 +46,14 @@ export interface CollectionPagePath {
 export async function getCollectionPageProps(
   product: LearnProductData,
   slug: string
-): Promise<{ props: CollectionPageProps }> {
+): Promise<{ props: CollectionPageProps } | null> {
   const collection = await getCollection(`${product.slug}/${slug}`)
+
+  // if null the api encountered a 404
+  if (collection === null) {
+    return null
+  }
+
   // For sidebar data
   const allProductCollections = await getAllCollections({
     product: { slug: product.slug, sidebarSort: true },
@@ -57,10 +63,6 @@ export async function getCollectionPageProps(
     product.slug
   )
   const layoutProps = {
-    headings: [
-      { title: 'Overview', slug: 'overview', level: 1 },
-      { title: 'Tutorials', slug: 'tutorials', level: 1 },
-    ],
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, filename: product.slug },
       collection: {
