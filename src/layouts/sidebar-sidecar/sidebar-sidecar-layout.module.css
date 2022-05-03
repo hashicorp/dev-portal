@@ -94,3 +94,9 @@ for further details.
   top: calc(var(--sticky-bars-height) + var(--main-area-top-padding));
   width: 220px;
 }
+
+.breadcrumbOptOutGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}

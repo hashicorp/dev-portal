@@ -31,6 +31,7 @@ const SidebarSidecarLayoutContent = ({
   headings,
   openConsentManager,
   AlternateSidebar,
+  optOutButtonSlot,
   sidecarSlot,
   sidebarNavDataLevels,
 }: SidebarSidecarLayoutProps) => {
@@ -96,7 +97,10 @@ const SidebarSidecarLayoutContent = ({
         <div className={s.mainArea}>
           <div className={s.main}>
             <main id="main">
-              {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+              <span className={s.breadcrumbOptOutGroup}>
+                {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+                {optOutButtonSlot && optOutButtonSlot}
+              </span>
               {children}
               {githubFileUrl && (
                 <EditOnGithubLink
