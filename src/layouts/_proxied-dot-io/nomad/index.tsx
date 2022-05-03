@@ -1,6 +1,5 @@
 import React from 'react'
 import HashiHead from '@hashicorp/react-head'
-import HashiStackMenu from '@hashicorp/react-hashi-stack-menu'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import Min100Layout from '@hashicorp/react-min-100-layout'
 import useProductMeta, { Products } from '@hashicorp/platform-product-meta'
@@ -11,6 +10,18 @@ import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
 import Footer from 'components/_proxied-dot-io/nomad/footer'
 import ProductSubnav from 'components/_proxied-dot-io/nomad/subnav'
 import productData from 'data/nomad.json'
+import query from './query.graphql'
+
+interface Props {
+  /**
+   * Data from data which may contain nav items for the use cases nav
+   */
+  data: {
+    useCaseNavItems: Array<{ url: string; text: string }>
+  }
+  /** Page contents to render in the layout */
+  children: React.ReactNode
+}
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
@@ -18,17 +29,13 @@ const { ConsentManager, openConsentManager } = createConsentManager({
   otherServices: [...localConsentManagerServices],
 })
 
-function NomadIoLayout({
-  children,
-}: {
-  /** Page contents to render in the layout */
-  children: React.ReactNode
-}): React.ReactElement {
+function NomadIoLayout({ children, data }: Props): React.ReactElement {
   usePageviewAnalytics({
     siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID_NOMAD,
     includedDomains: productData.analyticsConfig.includedDomains,
   })
   const { themeClass } = useProductMeta(productData.name as Products)
+  const { useCaseNavItems } = data
 
   return (
     <>
@@ -49,13 +56,68 @@ function NomadIoLayout({
             hideOnMobile
           />
         )}
-        <HashiStackMenu onPanelChange={() => null} />
-        <ProductSubnav />
+        <ProductSubnav
+          menuItems={[
+            { text: 'Overview', url: '/', type: 'inbound' },
+            {
+              text: 'Use Cases',
+              submenu: [
+                ...useCaseNavItems.map((item) => {
+                  return {
+                    text: item.text,
+                    url: `/use-cases/${item.url}`,
+                  }
+                }),
+              ].sort((a, b) => a.text.localeCompare(b.text)),
+            },
+            {
+              text: 'Enterprise',
+              url: 'https://www.hashicorp.com/products/nomad/',
+              type: 'outbound',
+            },
+            'divider',
+            {
+              text: 'Tutorials',
+              url: 'https://learn.hashicorp.com/nomad',
+              type: 'outbound',
+            },
+            {
+              text: 'Docs',
+              url: '/docs',
+              type: 'inbound',
+            },
+            {
+              text: 'API',
+              url: '/api-docs',
+              type: 'inbound',
+            },
+            {
+              text: 'Plugins',
+              url: '/plugins',
+              type: 'inbound',
+            },
+            {
+              text: 'Tools',
+              url: '/tools',
+              type: 'inbound',
+            },
+            {
+              text: 'Community',
+              url: '/community',
+              type: 'inbound',
+            },
+          ]}
+        />
         <div className={themeClass}>{children}</div>
       </Min100Layout>
       <ConsentManager />
     </>
   )
+}
+
+NomadIoLayout.rivetParams = {
+  query,
+  dependencies: [],
 }
 
 export default NomadIoLayout

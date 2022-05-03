@@ -134,7 +134,7 @@ export default function IoHomeIntro({
         </div>
       ) : null}
 
-      {video ? (
+      {video?.youtubeId && video?.thumbnail ? (
         <div className={s.video}>
           <IoVideoCallout
             youtubeId={video.youtubeId}

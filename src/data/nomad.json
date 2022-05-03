@@ -9,6 +9,7 @@
     "includedDomains": "nomadproject.io www.nomadproject.io",
     "segmentWriteKey": "qW11yxgipKMsKFKQUCpTVgQUYftYsJj0"
   },
+  "datoToken": "88b4984480dad56295a8aadae6caad",
   "metadata": {
     "title": "Nomad by HashiCorp",
     "description": "Nomad is a highly available, distributed, data-center aware cluster and application scheduler designed to support the modern datacenter with support for long-running services, batch jobs, and much more.",
