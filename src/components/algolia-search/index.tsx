@@ -17,6 +17,7 @@ import { useAlgoliaNavigatorNext } from './lib/use-algolia-navigator-next'
 import { AutocompleteProps } from './types'
 
 import s from './algolia-search.module.css'
+import Panel from './components/panel'
 
 /**
  * Algolia search UI implementation, based on the utilities from @algolia/autocomplete-core
@@ -63,6 +64,7 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
         setAutocompleteState(state)
       },
       navigator,
+      debug: true,
       ...props,
     })
   }, [])
@@ -151,50 +153,14 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
           />
         )}
       </form>
-
       {autocompleteState.isOpen && (
-        <div
-          ref={panelRef}
-          className={s.panel}
-          {...autocomplete.getPanelProps({})}
-        >
-          <div className={s.panelLayout}>
-            {autocompleteState.collections.map((collection, index) => {
-              const { source, items } = collection
-
-              return (
-                <section key={`source-${index}`}>
-                  {items.length > 0 && (
-                    <ul className={s.list} {...autocomplete.getListProps()}>
-                      {items.map((item) => {
-                        return (
-                          <li
-                            key={item.objectID}
-                            className={s.item}
-                            {...autocomplete.getItemProps({ item, source })}
-                          >
-                            <HitWrapper
-                              hit={item}
-                              className={s.itemLink}
-                              onHitClick={() => {
-                                autocomplete.setQuery('')
-                              }}
-                              getHitLinkProps={getHitLinkProps}
-                            >
-                              <ResultComponent hit={item} />
-                              <IconCornerDownLeft16 className={s.enterIcon} />
-                            </HitWrapper>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  )}
-                </section>
-              )
-            })}
-          </div>
-          <SearchResultsLegend />
-        </div>
+        <Panel
+          autocomplete={autocomplete}
+          collections={autocompleteState.collections}
+          ResultComponent={ResultComponent}
+          getHitLinkProps={getHitLinkProps}
+          formRef={formRef}
+        />
       )}
     </div>
   )
