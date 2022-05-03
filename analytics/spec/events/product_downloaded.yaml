@@ -1,0 +1,28 @@
+name: Product Downloaded
+description: User has downloaded a product
+rules:
+  '$schema': http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    context:
+      $ref: ../meta/context.yaml
+    properties:
+      type: object
+      properties:
+        product:
+          $ref: ../global/types/hashicorp_product.yaml
+        version:
+          description: The version of the software that was downloaded
+          pattern: '[0-9]+\.[0-9]+\.[0-9]+'
+          type: string
+        operating_system:
+          description: The operating system of the software that was downloaded
+          type: string
+        architecture:
+          description: The architecture of the software that was downloaded
+          type: string
+      required:
+        - product
+        - version
+        - operating_system
+        - architecture
