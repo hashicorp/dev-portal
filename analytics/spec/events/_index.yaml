@@ -1,2 +1,4 @@
 - $ref: ./page_viewed.yaml
 - $ref: ./page_scrolled.yaml
+- $ref: ./beta_opted_in.yaml
+- $ref: ./beta_opted_out.yaml
