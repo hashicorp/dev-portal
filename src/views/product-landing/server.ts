@@ -1,8 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 import { ProductData } from 'types/products'
+import { SidebarProps } from 'components/sidebar'
+import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { ProductLandingContent, ProductLandingContentSchema } from './schema'
 import { validateAgainstSchema } from './helpers'
+import { EnrichedNavItem } from 'components/sidebar/types'
 
 async function generateStaticProps({
   product,
@@ -13,9 +17,9 @@ async function generateStaticProps({
 }): Promise<{
   content: ProductLandingContent
   layoutProps: {
-    headings: $TSFixMe
-    breadcrumbLinks: $TSFixMe
-    sidebarProps: $TSFixMe
+    headings: TableOfContentsHeading[]
+    breadcrumbLinks: BreadcrumbLink[]
+    sidebarProps: SidebarProps
   }
   product: ProductData
 }> {
@@ -78,10 +82,17 @@ async function generateStaticProps({
         { title: product.name, url: `/${product.slug}` },
       ],
       sidebarProps: {
+        /**
+         * TODO: we may need to map MenuItem entries to
+         * EnrichedNavItem entries? For now, I've casted them
+         * to sidestep the issue, but this is likely not
+         * a good long-term solution.
+         */
         menuItems: [
-          ...product.sidebar.landingPageNavData,
+          ...(product.sidebar
+            .landingPageNavData as unknown as EnrichedNavItem[]),
           { divider: true },
-          ...product.sidebar.resourcesNavData,
+          ...(product.sidebar.resourcesNavData as unknown as EnrichedNavItem[]),
         ],
         showFilterInput: false,
         title: product.name,
