@@ -2,15 +2,15 @@ import * as React from 'react'
 import Head from 'next/head'
 import { renderMetaTags } from '@hashicorp/react-head'
 import { proxiedRivetClient } from 'lib/cms'
-import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import IoUsecaseHero from 'components/_proxied-dot-io/common/io-usecase-hero'
 import IoUsecaseSection from 'components/_proxied-dot-io/common/io-usecase-section'
 import IoUsecaseCustomer from 'components/_proxied-dot-io/common/io-usecase-customer'
 import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container'
 import IoVideoCallout from 'components/_proxied-dot-io/common/io-video-callout'
 import IoUsecaseCallToAction from 'components/_proxied-dot-io/common/io-usecase-call-to-action'
+import NomadIoLayout from 'layouts/_proxied-dot-io/nomad'
 import useCasesQuery from './query.graphql'
-import s from './style.module.css'
+import s from './use-cases.module.css'
 
 export default function UseCasePage({ data }) {
   const {
@@ -48,11 +48,11 @@ export default function UseCasePage({ data }) {
         eyebrow="Use case"
         heading={heroHeading}
         description={heroDescription}
-        pattern="/vault/img/usecase-hero-pattern.svg"
+        pattern="/nomad/img/usecase-hero-pattern.svg"
       />
 
       <IoUsecaseSection
-        brand="vault"
+        brand="nomad"
         eyebrow="Challenge"
         heading={challengeHeading}
         description={challengeDescription}
@@ -69,7 +69,7 @@ export default function UseCasePage({ data }) {
       />
 
       <IoUsecaseSection
-        brand="vault"
+        brand="nomad"
         bottomIsFlush={_customerCaseStudy}
         eyebrow="Solution"
         heading={solutionHeading}
@@ -163,7 +163,7 @@ export default function UseCasePage({ data }) {
       <div className={s.callToAction}>
         <IoUsecaseCallToAction
           theme="light"
-          brand="vault"
+          brand="nomad"
           heading={callToActionHeading}
           description={callToActionDescription}
           links={callToActionLinks.map((link) => {
@@ -172,7 +172,7 @@ export default function UseCasePage({ data }) {
               url: link.link,
             }
           })}
-          pattern="/vault/img/usecase-callout-pattern.svg"
+          pattern="/nomad/img/usecase-callout-pattern.svg"
         />
       </div>
 
@@ -194,16 +194,16 @@ export default function UseCasePage({ data }) {
     </>
   )
 }
-UseCasePage.layout = VaultIoLayout
+UseCasePage.layout = NomadIoLayout
 
 export async function getStaticPaths() {
-  const query = proxiedRivetClient('vault')
-  const { allVaultUseCases } = await query({
+  const query = proxiedRivetClient('nomad')
+  const { allNomadUseCases } = await query({
     query: useCasesQuery,
   })
 
   return {
-    paths: allVaultUseCases.map((page) => {
+    paths: allNomadUseCases.map((page) => {
       return {
         params: {
           slug: page.slug,
@@ -214,15 +214,15 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({ params, ...ctx }) {
+export async function getStaticProps({ params }) {
   const { slug } = params
 
-  const query = proxiedRivetClient('vault')
-  const { allVaultUseCases } = await query({
+  const query = proxiedRivetClient('nomad')
+  const { allNomadUseCases } = await query({
     query: useCasesQuery,
   })
 
-  const page = allVaultUseCases.find((page) => page.slug === slug)
+  const page = allNomadUseCases.find((page) => page.slug === slug)
 
   if (!page) {
     return { notFound: true }
@@ -232,6 +232,9 @@ export async function getStaticProps({ params, ...ctx }) {
     props: {
       data: page,
     },
-    revalidate: __config.io_sites.revalidate,
+    revalidate:
+      process.env.HASHI_ENV === 'production'
+        ? process.env.GLOBAL_REVALIDATE
+        : 10,
   }
 }

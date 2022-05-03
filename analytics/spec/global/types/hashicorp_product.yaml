@@ -1,0 +1,12 @@
+description: The related HashiCorp product
+type: string
+enum:
+  - boundary
+  - consul
+  - nomad
+  - packer
+  - sentinel
+  - terraform
+  - vagrant
+  - vault
+  - waypoint
