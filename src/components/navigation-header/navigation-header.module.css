@@ -20,6 +20,11 @@
   padding-right: var(--header-padding-left-right);
   position: relative;
   width: 100%;
+
+  @media (--dev-dot-tablet-down) {
+    padding-bottom: 16px;
+    padding-top: 16px;
+  }
 }
 
 .leftSide {
@@ -76,4 +81,19 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.mobileMenuButton {
+  align-items: center;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: var(--token-color-foreground-high-contrast);
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+
+  &:hover {
+    border: 1px solid var(--token-color-palette-neutral-200);
+  }
 }
