@@ -1,0 +1,126 @@
+.headingBar {
+  display: flex;
+}
+
+.heading {
+  composes: hds-typography-display-300 from global;
+  composes: g-offset-scroll-margin-top from global;
+  font-weight: var(--token-typography-font-weight-bold);
+  margin: 0;
+}
+
+.collectionListRoot {
+  margin: 32px 0 0 0;
+  list-style: none;
+  padding: 0;
+}
+
+.collectionListItem {
+  &:not(:first-child) {
+    margin-top: 32px;
+  }
+}
+
+/**
+ * .collectionLinkSizer makes it so .collectionLink is NOT full width.
+ * An alternative might be display: inline-flex on .collectionLink,
+ * chose this instead cause it makes vertical spacing easier to reason about.
+ */
+.collectionLinkSizer {
+  display: flex;
+  align-items: flex-start;
+}
+
+.collectionLink {
+  composes: g-focus-ring-from-box-shadow from global;
+  composes: hds-typography-body-200 from global;
+  align-items: center;
+  border-radius: 8px; /* For focus ring */
+  color: var(--token-color-foreground-primary);
+  display: flex;
+  font-weight: var(--token-typography-font-weight-medium);
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--token-color-foreground-strong);
+  }
+
+  /* Focus ring styles */
+  &:focus-visible {
+    text-decoration: none;
+    margin: -4px;
+    padding: 4px;
+  }
+}
+
+.collectionLinkIcon {
+  display: block;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.tutorialListRoot {
+  /* note: top & bottom margin adjusted for use of 4px padding in list items */
+  margin: 12px 0 -4px 0;
+  list-style: none;
+  padding: 0;
+
+  &.hasMultipleItems {
+    @media (--dev-dot-tablet-up) {
+      columns: 2;
+      column-gap: 24px;
+    }
+  }
+}
+
+.tutorialListItem {
+  composes: hds-typography-body-100 from global;
+
+  /* body-100 is intended to have 18px line-height, but due to expression
+     of line height as a multiple of the 13px font-size, rounding can cause
+     noticeable differences in spacing. We re-declare the same intended 18px
+     line-height in rem here, as it sidesteps rounding issues. */
+  line-height: 1.125rem;
+
+  /* break-inside prevents spacing from breaking across columns */
+  break-inside: avoid;
+  color: var(--token-color-foreground-primary);
+  font-weight: var(--token-typography-font-weight-medium);
+
+  /* padding used for 8px net spacing, margin plays badly with columns */
+  padding: 4px 8px 4px 12px;
+  page-break-inside: avoid;
+  position: relative;
+
+  &::before {
+    background: currentColor;
+    border-radius: 2px;
+    content: '\200B';
+    display: block;
+    height: 4px;
+    left: 0;
+    position: absolute;
+    top: calc(4px + 0.5em);
+    width: 4px;
+  }
+}
+
+.tutorialLink {
+  composes: g-focus-ring-from-box-shadow from global;
+  display: block; /* For focus ring */
+  border-radius: 4px; /* For focus ring */
+  color: currentColor;
+  margin: 0;
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--token-color-foreground-strong);
+  }
+
+  /* Focus ring styles */
+  &:focus-visible {
+    text-decoration: none;
+    margin: -1px -2px;
+    padding: 1px 2px;
+  }
+}

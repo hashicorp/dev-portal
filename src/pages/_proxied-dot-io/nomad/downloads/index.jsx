@@ -42,8 +42,9 @@ function DownloadsPage({ product, releases, latestVersion }) {
       merchandisingSlot={
         <div className={s.releaseCandidate}>
           <p>
-            A beta for Nomad v1.3.0 is available! The release can be{' '}
-            <a href="https://releases.hashicorp.com/nomad/1.3.0-beta.1/">
+            A release candidate for Nomad v1.3.0 is available! The release can
+            be{' '}
+            <a href="https://releases.hashicorp.com/nomad/1.3.0-rc.1/">
               downloaded here.
             </a>
           </p>

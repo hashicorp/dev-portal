@@ -6,11 +6,11 @@ import {
 } from 'lib/learn-client/types'
 
 export interface InlineTutorials {
-  [slug: string]: ClientTutorial[]
+  [slug: string]: ClientTutorial
 }
 
 export interface InlineCollections {
-  [slug: string]: ClientCollection[]
+  [slug: string]: ClientCollection
 }
 
 export async function getInlineTutorials(

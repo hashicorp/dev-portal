@@ -37,12 +37,23 @@ export interface TutorialPageProps {
 export async function getTutorialPageProps(
   product: LearnProductData,
   slug: [string, string]
-): Promise<{ props: TutorialPageProps }> {
+): Promise<{ props: TutorialPageProps } | null> {
   const { collection, tutorialReference } = await getCurrentCollectionTutorial(
     product.slug as ProductOption,
     slug
   )
+
+  // the tutorial doesn't exist in collection - return 404
+  if (tutorialReference.dbSlug === null || collection.data === null) {
+    return null
+  }
+
   const fullTutorialData = await getTutorial(tutorialReference.dbSlug)
+  // double guard if tutorial doesn't exist after call - return 404
+  if (fullTutorialData === null) {
+    return null
+  }
+
   const { content: serializedContent, headings } = await serializeContent(
     fullTutorialData
   )

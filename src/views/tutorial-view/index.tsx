@@ -17,11 +17,12 @@ import {
   CollectionCategorySidebarSection,
   getCollectionSlug,
 } from 'views/collection-view/helpers'
+import { CollectionCardPropsWithId } from 'components/collection-card'
+import DevDotContent from 'components/dev-dot-content'
 import {
   generateProductLandingSidebarNavData,
   generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
-import DevDotContent from 'components/dev-dot-content'
 import TutorialsSidebar, {
   HorizontalRule,
   SectionList,
@@ -38,7 +39,6 @@ import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import {
   FeaturedInCollections,
-  CollectionCardProps,
   NextPrevious,
   getNextPrevious,
 } from './components'
@@ -69,7 +69,7 @@ export interface TutorialData
 export type CollectionContext = {
   default: Pick<ClientCollection, 'slug' | 'id'>
   current: ClientCollection
-  featuredIn?: CollectionCardProps[]
+  featuredIn?: CollectionCardPropsWithId[]
 }
 
 export type TutorialSidebarSidecarProps = Required<

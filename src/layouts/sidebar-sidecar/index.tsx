@@ -51,7 +51,7 @@ const SidebarSidecarLayoutContent = ({
   }
 
   const SidecarContent = (): ReactElement => {
-    if (sidecarSlot) {
+    if (typeof sidecarSlot !== 'undefined') {
       return sidecarSlot
     }
 

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
@@ -16,6 +15,8 @@ import TutorialsSidebar, {
 import { CollectionCategorySidebarSection, getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
+import CollectionTutorialList from './components/collection-tutorial-list'
+import { formatTutorialCard } from 'components/tutorial-card/helpers'
 
 function CollectionView({
   collection,
@@ -23,7 +24,7 @@ function CollectionView({
 }: CollectionPageProps): React.ReactElement {
   const currentProduct = useCurrentProduct()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-  const { name, slug, description, tutorials } = collection
+  const { name, slug, description, tutorials, ordered } = collection
 
   // TODO: refactor, very long
   const sidebarNavDataLevels = [
@@ -65,7 +66,7 @@ function CollectionView({
               },
             ]}
           />
-          {layoutProps.collectionViewSidebarSections.map(
+          {layoutProps.sidebarSections.map(
             (section: CollectionCategorySidebarSection) => {
               return (
                 <>
@@ -100,29 +101,24 @@ function CollectionView({
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
-      headings={layoutProps.headings}
       AlternateSidebar={TutorialsSidebar}
       sidebarNavDataLevels={sidebarNavDataLevels as any[]}
+      sidecarSlot={null}
     >
       <CollectionMeta
-        heading={{ text: name, id: layoutProps.headings[0].slug }}
+        // Note: id is passed here because it is required by <Heading />,
+        // it's not used for #anchor linking since there is no sidecar.
+        heading={{ text: name, id: collection.id }}
         description={description}
         cta={{ href: getTutorialSlug(tutorials[0].slug, slug) }}
         numTutorials={tutorials.length}
       />
-      <h2 id={layoutProps.headings[1].slug}>Tutorials</h2>
-      <ol>
-        {tutorials.map((tutorial: ClientTutorialLite) => {
-          const tutorialSlug = getTutorialSlug(tutorial.slug, slug)
-          return (
-            <li key={tutorial.id}>
-              <Link href={tutorialSlug}>
-                <a>{tutorial.name}</a>
-              </Link>
-            </li>
-          )
-        })}
-      </ol>
+      <CollectionTutorialList
+        isOrdered={ordered}
+        tutorials={tutorials.map((t: ClientTutorialLite) =>
+          formatTutorialCard(t, slug)
+        )}
+      />
     </SidebarSidecarLayout>
   )
 }

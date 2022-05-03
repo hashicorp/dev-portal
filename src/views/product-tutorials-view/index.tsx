@@ -1,5 +1,3 @@
-import { Fragment } from 'react'
-import slugify from 'slugify'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
@@ -15,15 +13,20 @@ import TutorialsSidebar, {
   SectionTitle,
 } from 'components/tutorials-sidebar'
 import { ProductTutorialsSitemap } from './components'
-import { ProductTutorialsPageProps } from './server'
+import { ProductTutorialsViewProps } from './server'
+import ProductViewContent from './components/product-view-content'
+import { getOverviewHeading } from './helpers/heading-helpers'
+import s from './product-tutorials-view.module.css'
+import { ProductOption } from 'lib/learn-client/types'
 
 function ProductTutorialsView({
   layoutProps,
   data,
-}: ProductTutorialsPageProps): React.ReactElement {
+}: ProductTutorialsViewProps): React.ReactElement {
   const currentProduct = useCurrentProduct()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-  const { showProductSitemap, blocks, allCollections } = data.pageData
+  const { inlineCollections, inlineTutorials, pageData, allCollections } = data
+  const { showProductSitemap, blocks } = pageData
 
   // TODO: refactor, very long
   const sidebarNavDataLevels = [
@@ -65,7 +68,7 @@ function ProductTutorialsView({
               },
             ]}
           />
-          {layoutProps.collectionViewSidebarSections.map(
+          {layoutProps.sidebarSections.map(
             (section: CollectionCategorySidebarSection) => {
               return (
                 <>
@@ -97,6 +100,16 @@ function ProductTutorialsView({
     },
   ]
 
+  const PageHeading = () => {
+    const { title, level, slug } = getOverviewHeading()
+    const HeadingElem = `h${level}` as React.ElementType
+    return (
+      <HeadingElem id={slug} className={s.heading}>
+        {title}
+      </HeadingElem>
+    )
+  }
+
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
@@ -104,20 +117,19 @@ function ProductTutorialsView({
       AlternateSidebar={TutorialsSidebar}
       sidebarNavDataLevels={sidebarNavDataLevels as any[]}
     >
-      <h1 id={layoutProps.headings[0].slug}>{currentProduct.name} Tutorials</h1>
-      {blocks.map((b, i) => (
-        <Fragment key={`${b.type}-${i}`}>
-          <h3 id={slugify(b.heading)}> {b.heading} </h3>
-          <p>Block type: {b.type}</p>
-        </Fragment>
-      ))}
+      <PageHeading />
+      <ProductViewContent
+        blocks={blocks}
+        inlineCollections={inlineCollections}
+        inlineTutorials={inlineTutorials}
+      />
       {showProductSitemap ? (
-        <>
-          <h2 id={layoutProps.headings[layoutProps.headings.length - 1].slug}>
-            All tutorials
-          </h2>
-          <ProductTutorialsSitemap collections={allCollections} />
-        </>
+        <div className={s.sitemap}>
+          <ProductTutorialsSitemap
+            collections={allCollections}
+            product={currentProduct.slug as ProductOption}
+          />
+        </div>
       ) : null}
     </SidebarSidecarLayout>
   )
