@@ -1,5 +1,4 @@
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
-import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
@@ -8,11 +7,9 @@ import {
   generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import TutorialsSidebar, {
-  HorizontalRule,
-  SectionList,
-  SectionTitle,
+  TutorialsSidebarContent,
 } from 'components/tutorials-sidebar'
-import { CollectionCategorySidebarSection, getTutorialSlug } from './helpers'
+import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
 import CollectionTutorialList from './components/collection-tutorial-list'
@@ -23,10 +20,8 @@ function CollectionView({
   layoutProps,
 }: CollectionPageProps): React.ReactElement {
   const currentProduct = useCurrentProduct()
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { name, slug, description, tutorials, ordered } = collection
 
-  // TODO: refactor, very long
   const sidebarNavDataLevels = [
     generateTopLevelSidebarNavData(currentProduct.name),
     generateProductLandingSidebarNavData(currentProduct),
@@ -40,46 +35,9 @@ function CollectionView({
         href: `/${currentProduct.slug}`,
       },
       title: 'Tutorials',
-      children: [
-        <>
-          <SectionList
-            items={[
-              {
-                text: 'Overview',
-                href: `/${currentProduct.slug}/tutorials`,
-                isActive: currentPath === `/${currentProduct.slug}/tutorials`,
-              },
-            ]}
-          />
-          {layoutProps.sidebarSections?.map(
-            (section: CollectionCategorySidebarSection) => {
-              return (
-                <>
-                  <HorizontalRule />
-                  <SectionTitle text={section.title} />
-                  <SectionList items={section.items} />
-                </>
-              )
-            }
-          )}
-          <HorizontalRule />
-          <SectionTitle text="Resources" />
-          <SectionList
-            items={[
-              {
-                text: 'All Tutorials',
-                href: 'https://learn.hashicorp.com',
-              },
-              {
-                text: 'Community Forum',
-                href: 'https://discuss.hashicorp.com',
-              },
-              { text: 'Support', href: 'https://support.hashicorp.com' },
-              { text: 'GitHub', href: 'http://github.com/hashicorp' },
-            ]}
-          />
-        </>,
-      ],
+      children: (
+        <TutorialsSidebarContent sections={layoutProps.sidebarSections} />
+      ),
     },
   ]
 
