@@ -105,6 +105,8 @@
   @media not (--dev-dot-desktop) {
     border: none;
     box-shadow: none;
+    max-height: none;
+    width: 100%;
   }
 }
 

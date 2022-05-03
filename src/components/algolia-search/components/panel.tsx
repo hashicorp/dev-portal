@@ -89,8 +89,6 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
     const positionStyle = {
       top: rect.bottom + window.scrollY,
       bottom: 0,
-      maxHeight: 'none',
-      width: '100%',
     }
 
     setPanelPositionStyle(positionStyle)
