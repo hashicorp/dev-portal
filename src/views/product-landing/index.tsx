@@ -27,7 +27,7 @@ function ProductLandingView({
         const { type } = block
         switch (type) {
           default:
-            // If we don't have a recognized card type,
+            // If we don't have a recognized block type,
             // return a dev-oriented debug view of the block data
             // TODO: remove this for production, this is here
             // TODO: temporarily as we work through demo-oriented implementation
