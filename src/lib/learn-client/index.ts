@@ -1,6 +1,6 @@
 function getFetch() {
   // Note: purposely doing a conditional require here so that `@vercel/fetch` is not included in the client bundle
-  if (typeof window === 'undefined' || typeof window.fetch !== 'function') {
+  if (typeof window === 'undefined') {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const createFetch = require('@vercel/fetch')
     return createFetch()
