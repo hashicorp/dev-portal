@@ -28,14 +28,7 @@ function CollectionView({
 
   // TODO: refactor, very long
   const sidebarNavDataLevels = [
-    {
-      levelButtonProps: {
-        levelDownButtonText: `${currentProduct.name} Home`,
-      },
-      menuItems: generateTopLevelSidebarNavData(),
-      showFilterInput: false,
-      title: 'Main Menu',
-    },
+    generateTopLevelSidebarNavData(currentProduct.name),
     {
       levelButtonProps: {
         levelUpButtonText: 'Main Menu',

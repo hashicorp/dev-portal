@@ -155,14 +155,7 @@ export function getStaticGenerationFunctions<
        * `DocsView` pages.
        */
       const sidebarNavDataLevels = [
-        {
-          levelButtonProps: {
-            levelDownButtonText: `${product.name} Home`,
-          },
-          menuItems: generateTopLevelSidebarNavData(),
-          showFilterInput: false,
-          title: 'Main Menu',
-        },
+        generateTopLevelSidebarNavData(product.name),
         {
           levelButtonProps: {
             levelUpButtonText: 'Main Menu',
