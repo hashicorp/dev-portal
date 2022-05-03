@@ -156,15 +156,7 @@ export function getStaticGenerationFunctions<
        */
       const sidebarNavDataLevels = [
         generateTopLevelSidebarNavData(product.name),
-        {
-          levelButtonProps: {
-            levelUpButtonText: 'Main Menu',
-            levelDownButtonText: 'Previous',
-          },
-          menuItems: generateProductLandingSidebarNavData(product),
-          showFilterInput: false,
-          title: product.name,
-        },
+        generateProductLandingSidebarNavData(product),
         {
           backToLinkProps: {
             text: `${product.name} Home`,

@@ -31,15 +31,7 @@ function ProductTutorialsView({
   // TODO: refactor, very long
   const sidebarNavDataLevels = [
     generateTopLevelSidebarNavData(currentProduct.name),
-    {
-      levelButtonProps: {
-        levelUpButtonText: 'Main Menu',
-        levelDownButtonText: 'Previous',
-      },
-      menuItems: generateProductLandingSidebarNavData(currentProduct),
-      showFilterInput: false,
-      title: currentProduct.name,
-    },
+    generateProductLandingSidebarNavData(currentProduct),
     {
       levelButtonProps: {
         levelUpButtonText: `${currentProduct.name} Home`,
