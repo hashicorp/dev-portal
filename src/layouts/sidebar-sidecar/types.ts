@@ -28,7 +28,7 @@ type PropsForSidebar =
     }
   | {
       sidebarProps?: never
-      // TODO: replace any
+      // TODO: determine the minimum set of props that all Sidebars should have?
       AlternateSidebar: (props: any) => ReactElement
     }
 
