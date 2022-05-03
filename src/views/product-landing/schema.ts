@@ -1,0 +1,154 @@
+import Joi from 'joi'
+
+/**
+ * This schema is used to validate the content for product landing pages.
+ * Validating our JSON content ensures that the content data type is accurate.
+ *
+ * The ProductLandingContent interface
+ * should match the Joi schema one-to-one.
+ * For this reason, the interface and schema are co-located here.
+ */
+
+/**
+ *
+ * Content Block Types & Schemas
+ * (full type & schema follows)
+ *
+ */
+
+/**
+ * Heading
+ */
+interface HeadingContentBlock {
+  type: 'heading'
+  heading: string
+  level: 2 /* todo, remove this from content authoring */
+  size: 400 /* todo, remove this from content authoring */
+}
+const HeadingContentBlockSchema = Joi.object({
+  type: Joi.string().required().valid('heading'),
+  heading: Joi.string().required(),
+  level: Joi.number().required().valid(2),
+  size: Joi.number().required().valid(400),
+})
+
+/**
+ * TutorialCards
+ */
+interface TutorialCardsContentBlock {
+  type: 'tutorial_cards'
+  tutorialSlugs: string[]
+}
+const TutorialCardsContentBlockSchema = Joi.object({
+  type: Joi.string().required().valid('tutorial_cards'),
+  tutorialSlugs: Joi.array().items(Joi.string()).required().min(1),
+})
+
+/**
+ * LinkedCards
+ */
+interface LinkedCardsContentBlock {
+  type: 'linked_cards'
+  cards: {
+    heading: string
+    body: string
+    url: string
+  }[]
+}
+const LinkedCardsContentBlockSchema = Joi.object({
+  type: Joi.string().required().valid('linked_cards'),
+  cards: Joi.array()
+    .items(
+      Joi.object({
+        heading: Joi.string().required(),
+        body: Joi.string().required(),
+        url: Joi.string().required(),
+      })
+    )
+    .required()
+    .min(1),
+})
+
+/**
+ * Roll up of all block types
+ */
+export type ProductLandingContentBlock =
+  | HeadingContentBlock
+  | TutorialCardsContentBlock
+  | LinkedCardsContentBlock
+const ProductLandingContentBlockSchema = Joi.object({
+  type: Joi.string()
+    .required()
+    .valid('heading', 'tutorial_cards', 'linked_cards'),
+})
+  .when(Joi.object({ type: 'heading' }).unknown(), {
+    then: HeadingContentBlockSchema,
+  })
+  .when(Joi.object({ type: 'tutorial_cards' }).unknown(), {
+    then: TutorialCardsContentBlockSchema,
+  })
+  .when(Joi.object({ type: 'linked_cards' }).unknown(), {
+    then: LinkedCardsContentBlockSchema,
+  })
+
+/**
+ *
+ * Full content type & schema
+ * (uses content block types & schemas above)
+ *
+ */
+
+export interface ProductLandingContent {
+  hero: {
+    heading: string
+    image: string
+  }
+  overview: {
+    heading: string
+    body: string
+    cta: {
+      text: string
+      url: string
+    }
+    image: string
+  }
+  get_started: {
+    heading: string
+    body: string
+    ctas: {
+      text: string
+      url: string
+    }[]
+  }
+  blocks: ProductLandingContentBlock[]
+}
+
+export const ProductLandingContentSchema = Joi.object({
+  hero: Joi.object({
+    heading: Joi.string().required(),
+    image: Joi.string().required(),
+  }).required(),
+  overview: Joi.object({
+    heading: Joi.string().required(),
+    body: Joi.string().required(),
+    cta: Joi.object({
+      text: Joi.string().required(),
+      url: Joi.string().required(),
+    }).required(),
+    image: Joi.string().required(),
+  }).required(),
+  get_started: Joi.object({
+    heading: Joi.string().required(),
+    body: Joi.string().required(),
+    ctas: Joi.array()
+      .items(
+        Joi.object({
+          text: Joi.string().required(),
+          url: Joi.string().required(),
+        })
+      )
+      .required()
+      .min(1),
+  }).required(),
+  blocks: Joi.array().items(ProductLandingContentBlockSchema),
+})

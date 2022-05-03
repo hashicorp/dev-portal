@@ -1,7 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import slugify from 'slugify'
 import { ProductData } from 'types/products'
+import { ProductLandingContent, ProductLandingContentSchema } from './schema'
+import { validateAgainstSchema } from './helpers'
 
 async function generateStaticProps({
   product,
@@ -9,92 +10,79 @@ async function generateStaticProps({
 }: {
   product: ProductData
   contentJsonFile: string
-}): Promise<$TSFixMe> {
-  // TODO: need to discuss from whence we should
-  // TODO: source content down the road. For now,
-  // TODO: sourcing from JSON for demo purposes.
-  // Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
+}): Promise<{
+  content: ProductLandingContent
+  layoutProps: {
+    headings: $TSFixMe
+    breadcrumbLinks: $TSFixMe
+    sidebarProps: $TSFixMe
+  }
+  product: ProductData
+}> {
+  /**
+   * Note: could consider other content sources. For now, JSON.
+   * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
+   */
   const jsonFilePath = path.join(process.cwd(), contentJsonFile)
-  const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8')) as $TSFixMe
+  const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
+  /**
+   * Validate that CONTENT matches our schema. This includes a type guard,
+   * to safely assert that CONTENT is ProductLandingContent.
+   */
+  validateAgainstSchema(CONTENT, ProductLandingContentSchema, jsonFilePath)
 
-  // TODO: Content blocks content should likely
-  // TODO: be fetched dynamically, currently things
-  // TODO: like the title and description of docs pages
-  // TODO: are hard-coded alongside the URL to link to.
-  // TODO: Should be possible to fetch the title and description
-  // TODO: at build time from said URL, to ensure the displayed
-  // TODO: content is accurate, while not needing to be
-  // TODO: manually kept up to date?
-  // Asana task: https://app.asana.com/0/1201010428539925/1201646299837754/f
-  const usedHeadings = []
-  CONTENT.blocks = CONTENT.blocks.map((block) => {
-    switch (block.type) {
-      case 'heading':
-        // augment heading blocks with a consistent slug,
-        // used for anchor linking
-        // if the resulting slug is not unique, append an
-        // integer suffix to make sure that it is
-        // eslint-disable-next-line no-case-declarations
-        const baseSlug = slugify(block.heading, { lower: true })
-        // eslint-disable-next-line no-case-declarations
-        let slug = baseSlug
-        // eslint-disable-next-line no-case-declarations
-        let slugMakeUniquePrefix = 0
-        while (usedHeadings.indexOf(slug) !== -1) {
-          slugMakeUniquePrefix++
-          slug = `${baseSlug}-${slugMakeUniquePrefix}`
-        }
-        usedHeadings.push(slug)
-        return { ...block, slug }
-      case 'cards':
-        // TODO: instead of the below, should likely use product context
-        // TODO: in IconTile for default brandColor (rather than current
-        // TODO: behavior of static default to "neutral"). Would eliminate
-        // TODO: the need to add iconBrandColor to cards (unless doing so
-        // TODO: as an explicit override).
-        // ensure cards with icons have an iconBrandColor,
-        // falling back to the current product if not set
-        /* eslint-disable-next-line no-case-declarations */
-        let defaultIconColor
-        if (product.slug === 'hcp' || product.slug === 'sentinel') {
-          defaultIconColor = 'neutral'
-        } else {
-          defaultIconColor = product.slug
-        }
-        return {
-          ...block,
-          cards: block.cards.map((card) => ({
-            ...card,
-            iconBrandColor: card.iconBrandColor || defaultIconColor,
-          })),
-        }
-      default:
-        return block
-    }
-  })
-
-  const navData = [
-    ...product.sidebar.landingPageNavData,
-    { divider: true },
-    ...product.sidebar.resourcesNavData,
+  /**
+   * TODO: content is raw placeholder for now
+   * - Need to add "headings" that aren't placeholders.
+   *   These will be derived from content blocks
+   *   (mainly heading blocks, but also others, based on design intent)
+   * - Need to augment things like tutorialSlugs to fill in that data
+   *   Will close: https://app.asana.com/0/1201010428539925/1201654639085764/f
+   * - Need to build out the client-side components, whose props APIs will
+   *   inform what content structure we'll want to return for use on the client.
+   *   Intent being to return the minimum data necessary to render
+   *   all content block components on the page.
+   */
+  const placeholderHeadings = [
+    {
+      title: `What is ${product.name}`,
+      slug: 'placeholder-slug-1',
+      level: 2,
+    },
+    {
+      title: 'Getting Started',
+      slug: 'placeholder-slug-2',
+      level: 2,
+    },
+    {
+      title: 'Use Cases',
+      slug: 'placeholder-slug-3',
+      level: 2,
+    },
+    {
+      title: 'Case Studies',
+      slug: 'placeholder-slug-4',
+      level: 2,
+    },
   ]
 
+  /**
+   * Gather up our static props package & return it
+   */
   return {
     content: CONTENT,
     layoutProps: {
-      headings: CONTENT.blocks
-        .filter((s) => s.type == 'heading')
-        .map(({ heading, slug, level }) => ({
-          title: heading,
-          slug: slug,
-          level,
-        })),
+      headings: placeholderHeadings,
       breadcrumbLinks: [
         { title: 'Developer', url: '/' },
         { title: product.name, url: `/${product.slug}` },
       ],
       sidebarProps: {
-        menuItems: navData,
+        menuItems: [
+          ...product.sidebar.landingPageNavData,
+          { divider: true },
+          ...product.sidebar.resourcesNavData,
+        ],
         showFilterInput: false,
         title: product.name,
       },

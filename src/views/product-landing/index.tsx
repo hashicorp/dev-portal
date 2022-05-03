@@ -1,17 +1,21 @@
 /* eslint-disable react/no-array-index-key */
 import React, { ReactElement } from 'react'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { ProductLandingContent, ProductLandingContentBlock } from './schema'
 import s from './product-landing.module.css'
-interface ProductLandingProps {
-  content: {
-    hero: $TSFixMe
-    overview: $TSFixMe
-    get_started: $TSFixMe
-    blocks: $TSFixMe[]
-  }
+
+/**
+ * TODO: make view-specific types as components are built out
+ * (authored content structure and content structure passed to the client
+ * will differ; eg tutorial card data will be filled in for client)
+ */
+interface ProductLandingViewProps {
+  content: ProductLandingContent
 }
 
-function ProductLandingView({ content }: ProductLandingProps): ReactElement {
+function ProductLandingView({
+  content,
+}: ProductLandingViewProps): ReactElement {
   return (
     <div>
       <pre className={s.placeholder}>
@@ -19,7 +23,7 @@ function ProductLandingView({ content }: ProductLandingProps): ReactElement {
           {JSON.stringify({ ...content, blocks: undefined }, null, 2)}
         </code>
       </pre>
-      {content.blocks.map((block, idx) => {
+      {content.blocks.map((block: ProductLandingContentBlock, idx: number) => {
         const { type } = block
         switch (type) {
           default:
