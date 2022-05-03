@@ -1,4 +1,4 @@
-import { ProductOption, ThemeOption } from 'lib/learn-client/types'
+import { isThemeOrProduct } from 'lib/learn-client/types'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import { rewriteTutorialsLink } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { getTutorialMap } from 'lib/remark-plugins/rewrite-tutorial-links/utils'
@@ -30,21 +30,6 @@ async function detectAndReformatLearnUrl(url: string): Promise<string> {
     // All other non-absolute URLs are returned unmodified
     return url
   }
-}
-
-/**
- * TYPE GUARDS ---------------------------------
- */
-function isThemeOrProduct(
-  string: string
-): string is ProductOption | ThemeOption {
-  return isThemeOption(string) || isProductOption(string)
-}
-function isThemeOption(string: string): string is ThemeOption {
-  return Object.values(ThemeOption).includes(string as ThemeOption)
-}
-function isProductOption(string: string): string is ProductOption {
-  return Object.values(ProductOption).includes(string as ProductOption)
 }
 
 export default detectAndReformatLearnUrl
