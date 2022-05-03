@@ -1,14 +1,7 @@
 import classNames from 'classnames'
 import { HeadingProps } from './types'
 
-const Heading: React.FC<HeadingProps> = ({
-  level,
-  size,
-  slug,
-  weight,
-  ...rest
-}) => {
-  const id = slug
+const Heading: React.FC<HeadingProps> = ({ level, size, weight, ...rest }) => {
   const className = classNames(
     `hds-typography-display-${size}`,
     `hds-font-weight-${weight}`,
@@ -17,7 +10,6 @@ const Heading: React.FC<HeadingProps> = ({
   const passableProps = {
     ...rest,
     className,
-    id,
   }
 
   const HeadingElement = `h${level}` as React.ElementType

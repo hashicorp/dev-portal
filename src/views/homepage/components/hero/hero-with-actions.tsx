@@ -45,7 +45,7 @@ function HeroWithActions({
                     level={2}
                     size={400}
                     weight="bold"
-                    slug={slug}
+                    id={slug}
                   >
                     {action.heading}
                   </Heading>

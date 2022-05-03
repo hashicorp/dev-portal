@@ -31,7 +31,9 @@ export async function serializeContent(tutorial: ClientTutorial): Promise<{
 
   const tutorialFilename = splitProductFromFilename(tutorial.slug)
   // @TODO ask EDU if thats a problem, removing the overview
-  const headings = [{ title: tutorial.name, slug: tutorialFilename, level: 1 }]
+  const headings: TableOfContentsHeading[] = [
+    { title: tutorial.name, slug: tutorialFilename, level: 1 },
+  ]
 
   const content = await serialize(tutorial.content, {
     scope,

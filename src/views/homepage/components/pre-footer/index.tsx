@@ -26,7 +26,7 @@ export default function PreFooter({
     <section className={s.preFooter}>
       <div className={s.container}>
         <div className={s.content}>
-          <Heading level={2} size={500} weight="bold" slug={heading}>
+          <Heading level={2} size={500} weight="bold" id={heading}>
             {heading}
           </Heading>
           <Text className={s.description}>{description}</Text>
@@ -44,7 +44,7 @@ export default function PreFooter({
                       level={2}
                       size={300}
                       weight="bold"
-                      slug={slug}
+                      id={slug}
                       className={s.actionsHeading}
                     >
                       {action.heading}
