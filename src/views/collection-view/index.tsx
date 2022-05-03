@@ -66,7 +66,7 @@ function CollectionView({
               },
             ]}
           />
-          {layoutProps.sidebarSections.map(
+          {layoutProps.sidebarSections?.map(
             (section: CollectionCategorySidebarSection) => {
               return (
                 <>

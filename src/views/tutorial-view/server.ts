@@ -61,7 +61,7 @@ export async function getTutorialPageProps(
     collection.data,
     fullTutorialData.collectionCtx
   )
-  const collectionViewSidebarSections = await getCollectionViewSidebarSections(
+  const sidebarSections = await getCollectionViewSidebarSections(
     product,
     collection.data
   )
@@ -78,7 +78,7 @@ export async function getTutorialPageProps(
         filename: tutorialReference.filename,
       },
     }),
-    collectionViewSidebarSections,
+    sidebarSections,
   }
   const lastTutorialIndex = collectionContext.current.tutorials.length - 1
   const isLastTutorial =

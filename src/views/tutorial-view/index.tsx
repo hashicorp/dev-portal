@@ -76,7 +76,7 @@ export type TutorialSidebarSidecarProps = Required<
   Pick<
     SidebarSidecarLayoutProps,
     'children' | 'headings' | 'breadcrumbLinks'
-  > & { collectionViewSidebarSections: CollectionCategorySidebarSection[] }
+  > & { sidebarSections: CollectionCategorySidebarSection[] }
 >
 
 export default function TutorialView({
@@ -142,7 +142,7 @@ export default function TutorialView({
               },
             ]}
           />
-          {layout.collectionViewSidebarSections.map(
+          {layout.sidebarSections.map(
             (section: CollectionCategorySidebarSection) => {
               return (
                 <>

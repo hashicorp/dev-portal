@@ -77,7 +77,7 @@ export async function getCollectionPageProps(
         filename: splitProductFromFilename(collection.slug),
       },
     }),
-    collectionViewSidebarSections: await getCollectionViewSidebarSections(
+    sidebarSections: await getCollectionViewSidebarSections(
       product,
       collection
     ),
