@@ -1,4 +1,6 @@
-import { ReactElement } from 'react'
+import { ReactElement, useRef } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
@@ -11,6 +13,7 @@ import {
   SidebarNavDataProvider,
   useSidebarNavData,
 } from './contexts/sidebar-nav-data'
+import useOnFocusOutside from 'hooks/use-on-focus-outside'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   /**
@@ -39,8 +42,19 @@ const SidebarSidecarLayoutContent = ({
   sidecarSlot,
   sidebarNavDataLevels,
 }: SidebarSidecarLayoutProps) => {
-  const { currentLevel } = useSidebarNavData()
+  const { isDesktop } = useDeviceSize()
+  const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
+  const shouldReduceMotion = useReducedMotion()
+  const sidebarRef = useRef<HTMLDivElement>()
   const sidebarProps = sidebarNavDataLevels[currentLevel]
+  const sidebarIsVisible = isDesktop || sidebarIsOpen
+
+  // Handles closing the sidebar if focus moves outside of it and it is open.
+  useOnFocusOutside(
+    [sidebarRef],
+    () => setSidebarIsOpen(false),
+    !isDesktop && sidebarIsVisible
+  )
 
   const SidebarContent = (): ReactElement => {
     if (AlternateSidebar && !sidebarProps?.menuItems) {
@@ -62,12 +76,31 @@ const SidebarSidecarLayoutContent = ({
     )
   }
 
+  const sidebarMotion = {
+    visible: {
+      left: 0,
+      display: 'block',
+    },
+    hidden: {
+      left: '-150vw',
+      transitionEnd: {
+        display: 'none',
+      },
+    },
+  }
+
   return (
     <BaseLayout showFooter={false}>
       <div className={s.contentWrapper}>
-        <div className={s.sidebar}>
+        <motion.div
+          animate={sidebarIsVisible ? 'visible' : 'hidden'}
+          className={s.sidebar}
+          ref={sidebarRef}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
+          variants={sidebarMotion}
+        >
           <SidebarContent />
-        </div>
+        </motion.div>
         <div className={s.mainArea}>
           <div className={s.main}>
             <main id="main">

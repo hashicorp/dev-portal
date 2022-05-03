@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { useRouter } from 'next/router'
 import { useDeviceSize } from 'contexts'
 import { SidebarProps } from 'components/sidebar'
 
@@ -16,7 +17,9 @@ interface State {
   isFirstLevel: boolean
   isLastLevel: boolean
   setCurrentLevel: Dispatch<SetStateAction<number>>
+  setSidebarIsOpen: Dispatch<SetStateAction<boolean>>
   shouldRenderMobileControls: boolean
+  sidebarIsOpen: boolean
 }
 
 const SidebarNavDataContext = createContext<State | undefined>(undefined)
@@ -30,14 +33,41 @@ const SidebarNavDataProvider = ({
   children,
   navDataLevels,
 }: SidebarNavDataProviderProps) => {
+  const router = useRouter()
   const { isDesktop } = useDeviceSize()
   const numberOfLevels = navDataLevels.length
-  const [currentLevel, setCurrentLevel] = useState<number | null>()
+  const [currentLevel, setCurrentLevel] = useState<number>()
+  const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>()
 
   // Reset the current level if the device size or props change
   useEffect(() => {
     setCurrentLevel(numberOfLevels - 1)
   }, [isDesktop, navDataLevels, numberOfLevels])
+
+  // Handles closing the Sidebar in some cases
+  useEffect(() => {
+    // Don't need to listen for router events on Desktop
+    if (isDesktop) {
+      // Close the Sidebar if the viewport size has crossed the breakpoint
+      setSidebarIsOpen(false)
+      return
+    }
+
+    // Close the Sidebar if it's open on route change start
+    const handleRouteChange = () => {
+      if (sidebarIsOpen) {
+        setSidebarIsOpen(false)
+      }
+    }
+
+    router.events.on('routeChangeComplete', handleRouteChange)
+    router.events.off('routeChangeError', handleRouteChange)
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+      router.events.off('routeChangeError', handleRouteChange)
+    }
+  }, [router.events, sidebarIsOpen, isDesktop])
 
   // Derive booleans based on main state
   const hasManyLevels = numberOfLevels > 1
@@ -52,7 +82,9 @@ const SidebarNavDataProvider = ({
     isFirstLevel,
     isLastLevel,
     setCurrentLevel,
+    setSidebarIsOpen,
     shouldRenderMobileControls,
+    sidebarIsOpen,
   }
 
   return (
