@@ -13,6 +13,7 @@ interface BaseProps {
   githubFileUrl?: string
   openConsentManager?: () => void
   sidebarNavDataLevels?: SidebarProps[]
+  optOutButtonSlot?: ReactElement
 }
 
 /**
