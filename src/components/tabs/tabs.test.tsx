@@ -332,8 +332,7 @@ describe('<Tabs />', () => {
       </Tabs>
     )
 
-    expect(screen.queryByRole('tablist').getAttribute('class')).toBe(
-      'tablistWithAnchorLine'
-    )
+    const targetElement = screen.queryByRole('tablist').parentElement
+    expect(targetElement).toHaveClass('showAnchorLine')
   })
 })

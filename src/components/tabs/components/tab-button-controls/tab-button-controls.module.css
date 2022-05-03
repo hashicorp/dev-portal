@@ -1,0 +1,39 @@
+/*
+NOTE: This file mainly uses selectors to apply styles because it ensures that
+the correct elements, roles, states, and properties are being set in the markup.
+*/
+
+.tabList[role='tablist'] {
+  align-items: center;
+  display: flex;
+  gap: 2px;
+}
+
+/*
+Styles for each tab button.
+*/
+.tabButton[role='tab'] {
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: var(--token-color-foreground-faint);
+  cursor: pointer;
+  flex-shrink: 0; /* Ensure items will trigger overflow */
+  font-weight: var(--token-typography-font-weight-medium);
+  padding: 7px 12px;
+
+  &[aria-selected='true'] {
+    color: var(--token-color-foreground-action);
+    background-color: var(--token-color-surface-action);
+    border-color: var(--token-color-foreground-action);
+  }
+
+  &:focus-visible {
+    z-index: 1;
+  }
+
+  &:hover {
+    color: var(--token-color-foreground-action);
+    border-color: var(--token-color-foreground-action);
+  }
+}

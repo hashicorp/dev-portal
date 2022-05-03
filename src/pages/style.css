@@ -125,6 +125,26 @@ Mobile & tablet visibility helpers, specific to dev-dot.
 }
 
 /*
+***
+* Screen reader only global helper
+***
+* Visually hides content so it is only available to screen readers. Sourced
+* Scott O'Hara's Inclusively Hidden article.
+*
+* https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
+***
+*/
+.g-screen-reader-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/*
 TODO: this will eventually replace the other focus helpers but they are heavily
 used at the moment and need to be refactored carefully. The places they are used
 do extra math to account for padding, which this helper now does with padding
@@ -181,5 +201,37 @@ and negative margin.
     border: 1px solid #107dff;
     box-shadow: 0 0 0 3px #5fbcff;
     outline: none;
+  }
+}
+
+/*
+***
+* Scroll offset global helper, which accounts for fixed headings
+* TODO: use this for docs and learn content as well. Will likely make sense
+* to make this shift when we move to shared MDX content components for
+* heading elements across both Docs and Learn.
+* CSS → MDX task: https://app.asana.com/0/1201987349274776/1201653123138729/f
+* "Reconcile" task: https://app.asana.com/0/1201987349274776/1202052090505082/f
+***
+*/
+.g-offset-scroll-margin-top {
+  --permalink-scroll-offset: 24px;
+  --full-header-height: calc(
+    var(--navigation-header-height) + var(--alert-bar-height)
+  );
+  --total-offset: calc(
+    var(--full-header-height) + var(--permalink-scroll-offset)
+  );
+
+  scroll-margin-top: var(--total-offset);
+
+  /*
+  Docs and Learn jump link headings have an anchor child with an `id`,
+  rather than an `id` on the element itself. These are added by our
+  anchor-links remark plugin.
+  https://github.com/hashicorp/web-platform-packages/tree/main/packages/remark-plugins/plugins/anchor-links
+  */
+  & a:global(.__target-h) {
+    scroll-margin-top: var(--total-offset);
   }
 }

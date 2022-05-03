@@ -1,31 +1,30 @@
 import { ReactElement } from 'react'
-import Image from 'next/image'
 import { productSlugs } from 'lib/products'
 import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
+import InlineSvg from '@hashicorp/react-inline-svg'
 import BaseNewLayout from 'layouts/base-new'
-import InlineLink from 'components/inline-link'
 import Text from 'components/text'
-import Hero from './components/hero'
+import { HeroWithVideo, HeroWithActions } from './components/hero'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
 import {
-  HcpVaultSlot,
-  WaypointSlot,
   HashiConfGlobalSlot,
   VaultSlot,
 } from './components/merchandising-slots/slots'
+import badge from './img/vault-certified-expert-badge.svg?include'
 import s from './homepage.module.css'
+import { ProductOption } from 'lib/learn-client/types'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
 function Homepage(): ReactElement {
   return (
     <div className={s.homepage}>
-      <Hero
+      {/* <HeroWithActions
         badgeText="Beta"
         heading="HashiCorp Developer"
         description={
@@ -53,6 +52,20 @@ function Homepage(): ReactElement {
             linkText: 'Get started',
           },
         ]}
+      /> */}
+      <HeroWithVideo
+        badgeText="Beta"
+        heading="HashiCorp Developer"
+        description={
+          <>
+            <Text>
+              Learn at your own pace in one place with reference docs, step by
+              step tutorials, videos, and real hands-on lab workstations to
+              automate your infrastructure, networking, and security workflows.
+            </Text>
+          </>
+        }
+        videoUrl="https://www.youtube.com/watch?v=Y7c_twmDxQ4"
       />
 
       <ProductNav
@@ -62,21 +75,12 @@ function Homepage(): ReactElement {
       />
 
       <MerchandisingSlots>
-        <HcpVaultSlot />
-        <WaypointSlot />
-        <HashiConfGlobalSlot />
         <VaultSlot />
+        <HashiConfGlobalSlot />
       </MerchandisingSlots>
 
       <LearnSection
-        media={
-          <Image
-            src="/img/homepage/vault-certified-expert-badge.svg"
-            width={397}
-            height={228}
-            alt="Vault certified expert badge"
-          />
-        }
+        media={<InlineSvg src={badge} />}
         heading="Become HashiCorp Vault Certified"
         description={
           <>
@@ -97,27 +101,33 @@ function Homepage(): ReactElement {
         }
         tutorials={[
           {
-            link: '/',
+            url: '/',
             duration: '10min',
             heading: 'Title Max 70 Characters',
             description: 'Body maximum 130 characters.',
-            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+            hasVideo: true,
+            hasInteractiveLab: false,
           },
           {
-            link: '/',
+            url: '/',
             duration: '10min',
             heading: 'Title Max 70 Characters',
             description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
-            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
+            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+            hasVideo: true,
+            hasInteractiveLab: false,
           },
           {
-            link: '/',
+            url: '/',
             duration: '10min',
             heading: 'Title Max 70 Characters',
             description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu v...',
-            badges: ['hcp', 'vault', 'boundary', 'nomad', 'video'],
+              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu video. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
+            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+            hasVideo: true,
+            hasInteractiveLab: false,
           },
         ]}
       />

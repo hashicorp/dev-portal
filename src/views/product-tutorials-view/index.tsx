@@ -1,33 +1,65 @@
-import Link from 'next/link'
-import React from 'react'
-import { getCollectionSlug } from 'views/collection-view/helpers'
-import { ProductTutorialsPageProps } from './server'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
+import ProductCollectionsSidebar, {
+  ProductCollectionsSidebarProps,
+} from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
+import { ProductTutorialsSitemap } from './components'
+import { ProductTutorialsViewProps } from './server'
+import ProductViewContent from './components/product-view-content'
+import { getOverviewHeading } from './helpers/heading-helpers'
+import s from './product-tutorials-view.module.css'
 
-export default function ProductTutorialsView({
-  collections,
+function ProductTutorialsView({
+  layoutProps,
+  data,
   product,
-}: ProductTutorialsPageProps): React.ReactElement {
+}: ProductTutorialsViewProps): React.ReactElement {
+  const { inlineCollections, inlineTutorials, pageData, allCollections } = data
+  const { showProductSitemap, blocks } = pageData
+  const sidebarProduct = {
+    name: product.name,
+    slug: product.slug,
+  } as ProductCollectionsSidebarProps['product']
+
+  const PageHeading = () => {
+    const { title, level, slug } = getOverviewHeading()
+    const HeadingElem = `h${level}` as React.ElementType
+    return (
+      <HeadingElem id={slug} className={s.heading}>
+        {title}
+      </HeadingElem>
+    )
+  }
+
   return (
-    <>
-      <h1>{product.name} Tutorials</h1>
-      <h2>All Collections</h2>
-      <AllProductCollections collections={collections} />
-    </>
+    <SidebarSidecarLayout
+      breadcrumbLinks={layoutProps.breadcrumbLinks}
+      headings={layoutProps.headings}
+      sidebarSlot={
+        <ProductCollectionsSidebar
+          isOverview={true}
+          product={sidebarProduct}
+          sections={layoutProps.sidebarSections}
+        />
+      }
+    >
+      <PageHeading />
+      <ProductViewContent
+        blocks={blocks}
+        inlineCollections={inlineCollections}
+        inlineTutorials={inlineTutorials}
+      />
+      {showProductSitemap ? (
+        <div className={s.sitemap}>
+          <ProductTutorialsSitemap
+            collections={allCollections}
+            product={product.slug}
+          />
+        </div>
+      ) : null}
+    </SidebarSidecarLayout>
   )
 }
 
-function AllProductCollections({
-  collections,
-}: Pick<ProductTutorialsPageProps, 'collections'>): React.ReactElement {
-  return (
-    <ul>
-      {collections.map((collection) => (
-        <li key={collection.id}>
-          <Link href={getCollectionSlug(collection.slug)}>
-            <a>{collection.shortName}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  )
-}
+ProductTutorialsView.layout = CoreDevDotLayout
+export default ProductTutorialsView

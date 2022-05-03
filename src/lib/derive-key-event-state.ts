@@ -18,6 +18,7 @@ function deriveKeyEventState(keyboardEvent: KeyboardEvent) {
   // Escape, Space, Enter
   const isEscapeKey = key === 'Escape'
   const isSpaceKey = key === ' '
+  const isEnterKey = key === 'Enter'
 
   // Home, End, PageUp, PageDown
   const isHomeKey = key === 'Home'
@@ -35,6 +36,7 @@ function deriveKeyEventState(keyboardEvent: KeyboardEvent) {
     isArrowRightKey,
     isArrowUpKey,
     isEndKey,
+    isEnterKey,
     isEscapeKey,
     isHomeKey,
     isPageDownKey,

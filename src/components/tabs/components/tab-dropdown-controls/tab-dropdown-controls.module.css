@@ -1,0 +1,41 @@
+.selectRoot {
+  position: relative;
+  width: 100%;
+}
+
+.selectTrailingIcon {
+  color: var(--token-color-palette-neutral-600);
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 12px;
+}
+
+.select {
+  /* composition */
+  composes: g-focus-ring-from-box-shadow from global;
+  composes: hds-typography-body-200 from global;
+
+  /* properties */
+  appearance: none;
+  background-color: var(--token-color-surface-action);
+  border-radius: 5px;
+  border: 1px solid var(--token-color-foreground-action);
+  color: var(--token-color-foreground-action);
+  cursor: pointer;
+  font-weight: var(--token-typography-font-weight-medium);
+  padding: 7px 40px 7px 12px;
+  width: 100%;
+}
+
+.option {
+  /* composition */
+  composes: hds-typography-body-200 from global;
+
+  /* properties */
+  color: var(--token-color-neutral-foreground-primary);
+  font-weight: var(--token-typography-font-weight-regular);
+}

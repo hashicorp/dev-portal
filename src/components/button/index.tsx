@@ -6,6 +6,7 @@ const Button = ({
   ariaDescribedBy,
   ariaLabel,
   ariaLabelledBy,
+  className,
   color = 'primary',
   disabled,
   icon,
@@ -18,9 +19,15 @@ const Button = ({
   text,
   type = 'button',
 }: ButtonProps) => {
-  const className = classNames(s.root, s[size], s[color], {
-    [s.fullWidth]: isFullWidth,
-  })
+  const classes = classNames(
+    s.root,
+    s[size],
+    s[color],
+    {
+      [s.fullWidth]: isFullWidth,
+    },
+    className
+  )
   const hasIcon = !!icon
   const hasText = !!text
   const hasLabel = !!ariaLabel || !!ariaLabelledBy || !!ariaDescribedBy
@@ -51,7 +58,7 @@ const Button = ({
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
       aria-describedby={ariaDescribedBy}
-      className={className}
+      className={classes}
       disabled={disabled}
       id={id}
       name={name}

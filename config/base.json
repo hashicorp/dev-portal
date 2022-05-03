@@ -15,6 +15,6 @@
   },
   "flags": {
     "enable_new_downloads_view": true,
-    "enable_new_homepage_view": true
+    "enable_product_docs_search": true
   }
 }

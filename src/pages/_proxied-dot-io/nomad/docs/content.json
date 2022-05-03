@@ -1,0 +1,122 @@
+{
+  "pageTitle": "Documentation",
+  "pageSubtitle": "Welcome to the Nomad documentation. Nomad is a scheduler and workload orchestrator. This documentation is a reference for all available features and options of Nomad.",
+  "featuredCard": {
+    "heading": "Get Started",
+    "body": "Learn how to use Nomad to schedule and orchestrate workloads.",
+    "links": [
+      {
+        "title": "CLI Quick Start",
+        "url": "https://learn.hashicorp.com/collections/nomad/get-started"
+      }
+    ],
+    "image": {
+      "src": "https://www.datocms-assets.com/2885/1649993001-nomad-featured-card-image.png",
+      "alt": ""
+    }
+  },
+  "useCaseCards": [
+    {
+      "heading": "Nomad Fundamentals",
+      "body": "Become familiar with the core concepts of Nomad.",
+      "links": [
+        {
+          "title": "Installing Nomad",
+          "url": "/docs/install"
+        },
+        {
+          "title": "Writing Job Specs",
+          "url": "/docs/job-specification"
+        },
+        {
+          "title": "Agent Configuration",
+          "url": "/docs/configuration"
+        },
+        {
+          "title": "Deploy Nomad Jobs",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/jobs?in=nomad/manage-jobs"
+        }
+      ]
+    },
+    {
+      "heading": "Nomad Pack",
+      "body": "Use Nomad Pack to deploy popular applications to Nomad.",
+      "links": [
+        {
+          "title": "Introduction to Nomad Pack",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/nomad-pack-intro?in=nomad/nomad-pack"
+        },
+        {
+          "title": "Write a custom Nomad Pack",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/nomad-pack-writing-packs?in=nomad/nomad-pack"
+        },
+        {
+          "title": "Community Repository",
+          "url": "https://github.com/hashicorp/nomad-pack-community-registry"
+        }
+      ]
+    },
+    {
+      "heading": "Autoscaling",
+      "body": "Automatically maintain your cluster and workload instance count to respond to demand while minimizing over-provisioning cost.",
+      "links": [
+        {
+          "title": "Introduction to Autoscaling",
+          "url": "/tools/autoscaling"
+        },
+        {
+          "title": "Enable Horizontal Cluster Autoscaling",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/horizontal-cluster-scaling?in=nomad/autoscaler"
+        },
+        {
+          "title": "Create On-demand Batch Jobs",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/horizontal-cluster-scaling-on-demand-batch?in=nomad/autoscaler"
+        },
+        {
+          "title": "Manage Job Placement and Affinities",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/affinity?in=nomad/advanced-scheduling"
+        }
+      ]
+    },
+    {
+      "heading": "Cluster Management",
+      "body": "Learn the features operators will need to build and maintain Nomad clusters.",
+      "links": [
+        {
+          "title": "Upgrade a Cluster",
+          "url": "/docs/upgrade"
+        },
+        {
+          "title": "Enable Multi-Region Federation",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/federation?in=nomad/manage-clusters"
+        },
+        {
+          "title": "Connect Nodes into a Cluster",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/clustering?in=nomad/manage-clusters"
+        },
+        {
+          "title": "Enable Autopilot",
+          "url": "https://learn.hashicorp.com/tutorials/nomad/autopilot"
+        }
+      ]
+    }
+  ],
+  "developerCards": [
+    {
+      "title": "Provision Nomad with Terraform",
+      "url": "https://github.com/hashicorp/nomad/tree/main/terraform"
+    },
+    {
+      "title": "API Reference",
+      "url": "/api-docs"
+    },
+    {
+      "title": "Nomad Ecosystem Tools",
+      "url": "/tools"
+    },
+    {
+      "title": "Community Task Drivers",
+      "url": "/plugins/drivers/community"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react'
+import { ReactElement } from 'react'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
@@ -7,34 +7,57 @@ import Footer from 'components/footer'
 import Sidebar from 'components/sidebar'
 import { SidebarSidecarLayoutProps } from './types'
 import s from './sidebar-sidecar-layout.module.css'
+import {
+  SidebarNavDataProvider,
+  useSidebarNavData,
+} from './contexts/sidebar-nav-data'
 
-const SidebarSidecarLayout: FC<SidebarSidecarLayoutProps> = ({
+const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
+  /**
+   * The goal is to replace `sidebarProps` with `sidebarNavDataLevels`, so this
+   * coercion is needed for uses of this layout that do not pass a value for the
+   * `sidebarNavDataLevels` prop.
+   */
+  const navDataLevels = props.sidebarNavDataLevels || [props.sidebarProps]
+  return (
+    <SidebarNavDataProvider navDataLevels={navDataLevels}>
+      <SidebarSidecarLayoutContent
+        {...props}
+        sidebarNavDataLevels={navDataLevels}
+      />
+    </SidebarNavDataProvider>
+  )
+}
+
+const SidebarSidecarLayoutContent = ({
   breadcrumbLinks,
   children,
   githubFileUrl,
   headings,
   openConsentManager,
-  sidebarProps,
   sidebarSlot,
   sidecarSlot,
-}) => {
+  sidebarNavDataLevels,
+}: SidebarSidecarLayoutProps) => {
+  const { currentLevel } = useSidebarNavData()
+  const sidebarProps = sidebarNavDataLevels[currentLevel]
+
+  /**
+   * @TODO the docs Sidebar can have props spread onto it but not all uses of
+   * sidebarSlot allow props spreading. The spreading may also become
+   * unnecessary once there is a Context that helps manage the current sidebar
+   * level and how to change it.
+   */
   const SidebarContent = (): ReactElement => {
     if (sidebarSlot) {
       return sidebarSlot
     }
 
-    return (
-      <Sidebar
-        backToLinkProps={sidebarProps.backToLinkProps}
-        menuItems={sidebarProps.menuItems}
-        showFilterInput={sidebarProps.showFilterInput}
-        title={sidebarProps.title}
-      />
-    )
+    return <Sidebar {...sidebarProps} />
   }
 
   const SidecarContent = (): ReactElement => {
-    if (sidecarSlot) {
+    if (typeof sidecarSlot !== 'undefined') {
       return sidecarSlot
     }
 

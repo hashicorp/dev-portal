@@ -1,4 +1,4 @@
-import { GetStaticPathsResult } from 'next'
+import { GetStaticPathsResult, GetStaticPropsResult } from 'next'
 import waypointData from 'data/waypoint.json'
 import { LearnProductData } from 'types/products'
 import { ProductOption } from 'lib/learn-client/types'
@@ -20,9 +20,16 @@ export function WaypointTutorialPage({
 
 export async function getStaticProps({
   params,
-}): Promise<{ props: TutorialPageProps }> {
+}): Promise<GetStaticPropsResult<TutorialPageProps>> {
   const product = waypointData as LearnProductData
-  return await getTutorialPageProps(product, params.tutorialSlug)
+  const props = await getTutorialPageProps(product, params.tutorialSlug)
+
+  // If the tutorial doesn't exist, hit the 404
+  if (!props) {
+    return { notFound: true }
+  }
+
+  return props
 }
 
 export async function getStaticPaths(): Promise<

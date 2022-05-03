@@ -1,0 +1,71 @@
+---
+componentName: CollectionCard
+---
+
+Displays a linked card to a collection.
+
+## Examples
+
+With text heading:
+
+<LiveComponent>{`
+<CollectionCard
+    tutorialCount={16}
+    heading='Write Terraform Configuration'
+    description={
+        'Learn Terraform configuration language by example. Write configurations to manage multiple pieces of infrastructure and iterate over structured data. Deploy and manage related infrastructure by referring to resources in other configurations.'
+    }
+    productsUsed={['terraform']}
+/>
+`}</LiveComponent>
+
+With logos as heading:
+
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 270px), 1fr))',
+    gap: '16px',
+  }}
+>
+  {Object.keys(CompanyLogoOption).map((logo, index) => {
+    return (
+      <CollectionCard
+        key={logo}
+        url="/"
+        tutorialCount={4 + index}
+        logo={logo}
+        heading="Title That Is Visually Hidden But Still Acts As The Card Title"
+        description={
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, dolor sit amet.'
+        }
+        productsUsed={[
+          'terraform',
+          'vault',
+          'consul',
+          'nomad',
+          'packer',
+          'vagrant',
+        ]}
+      />
+    )
+  })}
+</div>
+
+## Note on truncation
+
+`CollectionCard` uses CSS-based truncation to limit the number of `description` lines to `3`.
+
+<LiveComponent>{`
+<div style={{ maxWidth: '400px' }}>
+  <CollectionCard
+    url='/terraform/tutorials/oci-get-started'
+    tutorialCount={7}
+    heading='Get Started - OCI'
+    description={
+      'Build, change, and destroy a virtual cloud network and subnet on Oracle Cloud Infrastructure (OCI) using Terraform. Step-by-step, command-line tutorials will walk you through the Terraform basics for the first time. Sometimes this description will be long enough that it will definitely wrap to more than three lines, even if the viewport is very wide.'
+    }
+    productsUsed={['terraform']}
+/>
+</div>
+`}</LiveComponent>
