@@ -17,11 +17,13 @@ async function detectAndReformatLearnUrl(url: string): Promise<string> {
   if (isAbsoluteUrl(url)) {
     return url
   }
-  // Gather info on whether this is a collection or tutorial URL
-  const [, p2, p3] = url.split('/')
-  const isTutorialUrl = p2 === 'tutorials' && isThemeOrProduct(p3)
-  const isCollectionUrl = p2 === 'collections' && isThemeOrProduct(p3)
+  // Determine from path parts whether this is a collection or tutorial URL
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_beforeSlash, part1, part2] = url.split('/')
+  const isTutorialUrl = part1 === 'tutorials' && isThemeOrProduct(part2)
+  const isCollectionUrl = part1 === 'collections' && isThemeOrProduct(part2)
   if (isTutorialUrl || isCollectionUrl) {
+    // Tutorial and collection URLs need to be rewritten
     TUTORIAL_MAP = await getTutorialMap()
     return rewriteTutorialsLink(url, TUTORIAL_MAP)
   } else {
