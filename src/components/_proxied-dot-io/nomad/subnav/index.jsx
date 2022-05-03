@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Subnav from '@hashicorp/react-subnav'
 import { useRouter } from 'next/router'
+import s from './subnav.module.css'
 
 export default function NomadSubnav({ menuItems }) {
   const router = useRouter()
@@ -12,6 +13,7 @@ export default function NomadSubnav({ menuItems }) {
 
   return (
     <Subnav
+      className={s.subnav}
       titleLink={{
         text: 'HashiCorp Nomad',
         url: '/',
