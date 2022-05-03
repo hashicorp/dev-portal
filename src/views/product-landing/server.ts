@@ -86,7 +86,8 @@ async function generateStaticProps({
          * TODO: we may need to map MenuItem entries to
          * EnrichedNavItem entries? For now, I've casted them
          * to sidestep the issue, but this is likely not
-         * a good long-term solution.
+         * a good long-term solution. Related task:
+         * https://app.asana.com/0/1202022787106807/1201602267333015/f
          */
         menuItems: [
           ...(product.sidebar
