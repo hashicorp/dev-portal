@@ -131,7 +131,8 @@ interface SidebarBaseProps {
   backToLinkProps?: SidebarBackToLinkProps
 
   /**
-   * @TODO write description. optional, for now?
+   * Props to pass to `SidebarMobileControls`. See the referenced interface for
+   * full details.
    */
   levelButtonProps?: SidebarMobileControlsProps
 
