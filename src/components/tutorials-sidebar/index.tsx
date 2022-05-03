@@ -1,3 +1,5 @@
+import { useCurrentProduct } from 'contexts'
+import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import {
   SidebarHorizontalRule,
   SidebarSectionHeading,
@@ -11,9 +13,6 @@ import {
   TutorialSidebarProps,
 } from './types'
 import s from './tutorials-sidebar.module.css'
-import { useCurrentProduct } from 'contexts'
-import useCurrentPath from 'hooks/use-current-path'
-import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 
 function TutorialsSidebar({
   backToLinkProps,
@@ -22,10 +21,13 @@ function TutorialsSidebar({
   title,
   visuallyHideTitle,
 }: TutorialSidebarProps) {
+  const currentProduct = useCurrentProduct()
+
   return (
     <Sidebar
       backToLinkProps={backToLinkProps}
       levelButtonProps={levelButtonProps}
+      overviewItemHref={`/${currentProduct.slug}/tutorials`}
       showFilterInput={false}
       title={title}
       visuallyHideTitle={visuallyHideTitle}
@@ -40,20 +42,8 @@ function TutorialsSidebarContent({
 }: {
   sections: CollectionCategorySidebarSection[]
 }) {
-  const currentProduct = useCurrentProduct()
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-
   return (
     <>
-      <SectionList
-        items={[
-          {
-            text: 'Overview',
-            href: `/${currentProduct.slug}/tutorials`,
-            isActive: currentPath === `/${currentProduct.slug}/tutorials`,
-          },
-        ]}
-      />
       {sections?.map((section: CollectionCategorySidebarSection) => {
         return (
           <>
