@@ -1,141 +1,85 @@
 {
-  "heading": "Vault Overview",
-  "subheading": "Vault provides encryption services that are gated by authentication and authorization methods. Use Vault to securely store, access, and manage secrets and other sensitive data.",
+  "hero": {
+    "heading": "Manage Secrets & Protect Sensitive Data",
+    "image": "https://www.datocms-assets.com/2885/1651594483-dev-dot-product-landing-vault-hero-image.png"
+  },
+  "overview": {
+    "heading": "What is Vault?",
+    "body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+    "cta": {
+      "text": "Learn more about Vault features",
+      "url": "/vault/docs/what-is-vault"
+    },
+    "image": "https://www.datocms-assets.com/2885/1651594708-dev-dot-product-landing-what-is-vault-diagram.png"
+  },
+  "get_started": {
+    "heading": "Getting Started",
+    "body": "Use Vault to securely store, access, and manage secrets and other sensitive data.",
+    "ctas": [
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/getting-started"
+      },
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/cloud"
+      }
+    ]
+  },
   "blocks": [
     {
       "type": "heading",
+      "heading": "Use Cases",
       "level": 2,
-      "size": 400,
-      "heading": "Explore Vault Documentation"
+      "size": 400
     },
     {
-      "type": "get_started",
-      "product": "vault",
-      "heading": "Introduction to Vault",
-      "text": "Welcome to Vault! This introduction section gives an overview of what Vault is, what problems it can solve, how it compares to existing software, and contains a quick start for using Vault.",
-      "link": {
-        "text": "Get Started",
-        "url": "/vault/docs/what-is-vault"
-      }
+      "type": "tutorial_cards",
+      "tutorialSlugs": ["vault/transform", "vault/static-secrets"]
     },
     {
-      "type": "cards",
-      "columns": 2,
+      "type": "linked_cards",
       "cards": [
         {
-          "icon": "IconDocs",
-          "heading": "Vault Documentation",
-          "text": "Find user references for Vault concepts, server configuration, upgrade guides, release notes, FAQs, and more.",
-          "url": "/vault/docs"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.vaultproject.io"
         },
         {
-          "icon": "IconTerminal",
-          "heading": "Vault CLI",
-          "text": "Vault features a command-line interface (CLI) that wraps common functionality and formats output.",
-          "url": "/vault/docs/commands"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.vaultproject.io"
         },
         {
-          "icon": "IconServer",
-          "heading": "Vault API",
-          "text": "This is the Vault HTTP API reference. Find the API endpoints and available parameters.",
-          "url": "/vault/api-docs"
-        },
-        {
-          "icon": "IconDownload",
-          "heading": "Vault Install",
-          "text": "Download the proper package for your operating system and architecture to get started.",
-          "url": "/vault/downloads"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.vaultproject.io"
         }
       ]
     },
     {
       "type": "heading",
+      "heading": "Case Studies",
       "level": 2,
-      "heading": "Secrets Management & Data Protection",
-      "size": 300
+      "size": 400
     },
     {
-      "type": "cards",
-      "columns": 3,
+      "type": "linked_cards",
       "cards": [
         {
-          "heading": "Vault Secrets Engine",
-          "text": "Secrets engines are pluggable components which store, generate, or encrypt sensitive data.",
-          "url": "/vault/docs/secrets"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.vaultproject.io"
         },
         {
-          "heading": "Key/Value Secrets Engine",
-          "text": "Vault's key/value secrets engine encrypts and store arbitrary secrets.",
-          "url": "https://learn.hashicorp.com/tutorials/vault/versioned-kv"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.vaultproject.io"
         },
         {
-          "heading": "Database Secrets Engine",
-          "text": "Dynamically generates database credentials based on pre-configured roles.",
-          "url": "/vault/docs/secrets/databases"
-        },
-        {
-          "heading": "Transit Secrets Engine",
-          "text": "Encrypt data in-transit to provide encryption as a service.",
-          "url": "/vault/docs/secrets/transit"
-        },
-        {
-          "heading": "Transform Secrets Engine",
-          "text": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
-          "url": "/vault/docs/secrets/databases"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Automated PKI Infrastructure",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "PKI Secret Engine",
-          "text": "The PKI secrets engine generates dynamic X.509 certificates.",
-          "url": "/vault/docs/secrets/pki"
-        },
-        {
-          "heading": "TLS Certificates Auth Method",
-          "text": "Authenticate using SSL/TLS client certificates that are either signed by a CA or self-signed.",
-          "url": "/vault/docs/auth/cert"
-        },
-        {
-          "heading": "Build Your Own Certificate Authority (CA)",
-          "text": "Walkthrough the user of the PKI secrets engine to create X.509 certificates.",
-          "url": "https://learn.hashicorp.com/tutorials/vault/pki-engine"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Kubernetes",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Vault Helm Chart",
-          "text": "Use the Vault Helm chart to install and configure Vault on Kubernetes.",
-          "url": "/vault/docs/platform/k8s/helm"
-        },
-        {
-          "heading": "Agent Sidecar Injector",
-          "text": "Alters pod specifications to include Vault Agent containers that render secrets.",
-          "url": "/vault/docs/platform/k8s/injector"
-        },
-        {
-          "heading": "Vault on Kubernetes Deployment Guide",
-          "text": "Describes steps to install and configure a single Vault cluster on Kubernetes.",
-          "url": "https://learn.hashicorp.com/tutorials/vault/kubernetes-raft-deployment-guide"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.vaultproject.io"
         }
       ]
     }

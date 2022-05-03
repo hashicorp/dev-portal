@@ -1,13 +1,5 @@
-.pageHeading {
-  margin-bottom: 12px;
-}
-
-.pageSubheading {
-  color: var(--token-color-foreground-primary);
-  margin-bottom: 48px;
-}
-
-.h2 {
-  margin-top: 48px;
-  margin-bottom: 16px;
+.placeholder {
+  border: 1px solid magenta;
+  font-size: 12px;
+  white-space: pre-wrap;
 }
