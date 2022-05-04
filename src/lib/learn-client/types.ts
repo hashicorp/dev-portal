@@ -280,6 +280,6 @@ function isThemeOption(string: string): string is ThemeOption {
 /**
  * Type guard to determine if a string is a ProductOption
  */
-function isProductOption(string: string): string is ProductOption {
+export function isProductOption(string: string): string is ProductOption {
   return Object.values(ProductOption).includes(string as ProductOption)
 }

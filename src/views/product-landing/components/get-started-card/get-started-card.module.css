@@ -1,0 +1,9 @@
+.placeholder {
+  border: 1px solid magenta;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.heading {
+  composes: g-offset-scroll-margin-top from global;
+}
