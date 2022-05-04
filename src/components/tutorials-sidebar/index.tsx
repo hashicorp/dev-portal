@@ -73,6 +73,30 @@ function CollectionViewSidebarContent({
   )
 }
 
+function TutorialViewSidebarContent({ items }: SectionListProps) {
+  return (
+    <>
+      <SectionList items={items} />
+      <HorizontalRule />
+      <SectionTitle text="Resources" />
+      <SectionList
+        items={[
+          {
+            text: 'All Tutorials',
+            href: 'https://learn.hashicorp.com',
+          },
+          {
+            text: 'Community Forum',
+            href: 'https://discuss.hashicorp.com',
+          },
+          { text: 'Support', href: 'https://support.hashicorp.com' },
+          { text: 'GitHub', href: 'http://github.com/hashicorp' },
+        ]}
+      />
+    </>
+  )
+}
+
 function SectionList({ items }: SectionListProps) {
   return (
     <ul className={s.listRoot}>
@@ -108,5 +132,6 @@ export {
   ListItem,
   SectionList,
   SectionTitle,
+  TutorialViewSidebarContent,
 }
 export default TutorialsSidebar

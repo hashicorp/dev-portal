@@ -24,10 +24,8 @@ import {
   generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import TutorialsSidebar, {
-  HorizontalRule,
-  SectionList,
-  SectionTitle,
   CollectionViewSidebarContent,
+  TutorialViewSidebarContent,
 } from 'components/tutorials-sidebar'
 import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
@@ -129,35 +127,13 @@ export default function TutorialView({
         href: getCollectionSlug(collectionCtx.current.slug),
       },
       visuallyHideTitle: true,
-      children: [
-        <>
-          <SectionList
-            items={collectionCtx.current.tutorials.map((t) =>
-              formatTutorialToMenuItem(
-                t,
-                collectionCtx.current.slug,
-                currentPath
-              )
-            )}
-          />
-          <HorizontalRule />
-          <SectionTitle text="Resources" />
-          <SectionList
-            items={[
-              {
-                text: 'All Tutorials',
-                href: 'https://learn.hashicorp.com',
-              },
-              {
-                text: 'Community Forum',
-                href: 'https://discuss.hashicorp.com',
-              },
-              { text: 'Support', href: 'https://support.hashicorp.com' },
-              { text: 'GitHub', href: 'http://github.com/hashicorp' },
-            ]}
-          />
-        </>,
-      ],
+      children: (
+        <TutorialViewSidebarContent
+          items={collectionCtx.current.tutorials.map((t) =>
+            formatTutorialToMenuItem(t, collectionCtx.current.slug, currentPath)
+          )}
+        />
+      ),
     },
   ]
 
