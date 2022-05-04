@@ -27,6 +27,7 @@ import TutorialsSidebar, {
   HorizontalRule,
   SectionList,
   SectionTitle,
+  CollectionViewSidebarContent,
 } from 'components/tutorials-sidebar'
 import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
@@ -106,7 +107,6 @@ export default function TutorialView({
   })
   const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
 
-  // TODO: this is long, refactor
   const sidebarNavDataLevels = [
     generateTopLevelSidebarNavData(currentProduct.name),
     generateProductLandingSidebarNavData(currentProduct),
@@ -116,46 +116,9 @@ export default function TutorialView({
         levelDownButtonText: 'Previous',
       },
       title: 'Tutorials',
-      children: [
-        <>
-          <SectionList
-            items={[
-              {
-                text: 'Overview',
-                href: `/${currentProduct.slug}/tutorials`,
-                isActive: currentPath === `/${currentProduct.slug}/tutorials`,
-              },
-            ]}
-          />
-          {layout.sidebarSections.map(
-            (section: CollectionCategorySidebarSection) => {
-              return (
-                <>
-                  <HorizontalRule />
-                  <SectionTitle text={section.title} />
-                  <SectionList items={section.items} />
-                </>
-              )
-            }
-          )}
-          <HorizontalRule />
-          <SectionTitle text="Resources" />
-          <SectionList
-            items={[
-              {
-                text: 'All Tutorials',
-                href: 'https://learn.hashicorp.com',
-              },
-              {
-                text: 'Community Forum',
-                href: 'https://discuss.hashicorp.com',
-              },
-              { text: 'Support', href: 'https://support.hashicorp.com' },
-              { text: 'GitHub', href: 'http://github.com/hashicorp' },
-            ]}
-          />
-        </>,
-      ],
+      children: (
+        <CollectionViewSidebarContent sections={layout.sidebarSections} />
+      ),
     },
     {
       levelButtonProps: {

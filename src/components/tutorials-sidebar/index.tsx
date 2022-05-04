@@ -37,7 +37,7 @@ function TutorialsSidebar({
   )
 }
 
-function TutorialsSidebarContent({
+function CollectionViewSidebarContent({
   sections,
 }: {
   sections: CollectionCategorySidebarSection[]
@@ -103,10 +103,10 @@ function HorizontalRule() {
 }
 
 export {
+  CollectionViewSidebarContent,
   HorizontalRule,
   ListItem,
   SectionList,
   SectionTitle,
-  TutorialsSidebarContent,
 }
 export default TutorialsSidebar

@@ -7,7 +7,7 @@ import {
   generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import TutorialsSidebar, {
-  TutorialsSidebarContent,
+  CollectionViewSidebarContent,
 } from 'components/tutorials-sidebar'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
@@ -36,7 +36,7 @@ function CollectionView({
       },
       title: 'Tutorials',
       children: (
-        <TutorialsSidebarContent sections={layoutProps.sidebarSections} />
+        <CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
       ),
     },
   ]
