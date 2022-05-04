@@ -29,7 +29,7 @@ const PageHeader = (): ReactElement => {
           className={s.pageHeaderTitle}
           level={1}
           size={500}
-          slug={`install-${currentProduct.slug}`}
+          id={`install-${currentProduct.slug}`}
           weight="bold"
         >
           {pageTitle}

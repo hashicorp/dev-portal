@@ -50,7 +50,7 @@ export default function TutorialCard({
         level={3}
         size={200}
         weight="semibold"
-        slug={heading}
+        id={heading}
       >
         {heading}
       </Heading>
