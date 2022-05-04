@@ -151,6 +151,7 @@
     "next": "^12.1.0",
     "next-mdx-remote": "^3.0.8",
     "nuka-carousel": "^4.8.4",
+    "p-map": "^4.0.0",
     "promise-polyfill": "^8.2.1",
     "react": "^17.0.2",
     "react-device-detect": "^2.1.2",
