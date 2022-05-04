@@ -69,7 +69,7 @@ async function getUrlsToCache(product: string): Promise<string[]> {
     ).flat(1)
     console.log(`number of urls to cache: ${urls.length}`)
     await pMap(
-      ['https://httpbin.org/status/500', ...urls],
+      urls,
       async (url) => {
         const res = await fetch(url)
         // If a popular page is returning a 404, that's _probably_ okay, so it
