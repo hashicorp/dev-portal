@@ -20,13 +20,14 @@ interface StaticPathsResponse {
 const fetch = createFetch()
 
 /**
- * Returns a string representing a date that's `daysAgo` in the past.
+ * Returns a string representing a date that's `daysAgo` in the past, truncated
+ * to midnight to improve cache hit rates.
  * Format: YYYY-MM-DD HH:MM:SS
  */
 function getDateRange(daysAgo: number): string {
   const d = new Date()
   d.setTime(d.getTime() - 24 * 60 * 60 * 1000 * daysAgo)
-  return d.toISOString().substring(0, 19).split('T').join(' ')
+  return `${d.toISOString().substring(0, 10)} 00:00:00`
 }
 
 /**
