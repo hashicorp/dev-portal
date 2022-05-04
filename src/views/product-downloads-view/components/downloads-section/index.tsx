@@ -42,7 +42,7 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
     <>
       <Heading
         {...SHARED_HEADING_LEVEL_3_PROPS}
-        slug={`package-manager-for-${prettyOSName}`}
+        id={`package-manager-for-${prettyOSName}`}
       >
         Package manager for {prettyOSName}
       </Heading>
@@ -83,7 +83,7 @@ const BinaryDownloadsSection = ({
     <>
       <Heading
         {...SHARED_HEADING_LEVEL_3_PROPS}
-        slug={`binary-download-for-${prettyOSName}`}
+        id={`binary-download-for-${prettyOSName}`}
       >
         Binary download for {prettyOSName}
       </Heading>
@@ -119,7 +119,7 @@ const ChangelogSection = ({ selectedRelease }) => {
   const { name, version } = selectedRelease
   return (
     <>
-      <Heading {...SHARED_HEADING_LEVEL_3_PROPS} slug="release-information">
+      <Heading {...SHARED_HEADING_LEVEL_3_PROPS} id="release-information">
         Release information
       </Heading>
       <Card className={s.textAndLinkCard} elevation="base">
@@ -160,7 +160,7 @@ const NotesSection = ({ selectedRelease }) => {
           SHARED_HEADING_LEVEL_3_PROPS.className,
           s.specialSubHeading
         )}
-        slug="notes"
+        id="notes"
       >
         Notes
       </Heading>
@@ -212,7 +212,7 @@ const DownloadsSection = ({
             className={s.operatingSystemTitle}
             level={2}
             size={300}
-            slug="operating-system"
+            id="operating-system"
             weight="bold"
           >
             Operating System

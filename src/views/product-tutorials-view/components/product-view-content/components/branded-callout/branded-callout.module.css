@@ -1,5 +1,46 @@
-.placeholder {
-  font-size: 12px;
+.root {
+  composes: hds-surface-low from global;
+
+  /** Note: --gradient-start & --gradient-stop set in JS */
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--gradient-stop) 100%
+  );
+  border-radius: 6px;
+  display: flex;
+}
+
+.textContainer {
+  padding: 24px;
+}
+
+.heading {
+  composes: hds-typography-display-400 from global;
+  color: var(--token-color-foreground-strong);
+  font-weight: var(--token-typography-font-weight-semibold);
   margin: 0;
-  border: 1px solid magenta;
+}
+
+.subheading {
+  composes: hds-typography-body-200 from global;
+  color: var(--token-color-foreground-primary);
+  margin: 4px 0 0 0;
+}
+
+.cta {
+  margin: 12px 0 0 0;
+}
+
+.productPattern {
+  display: none;
+
+  @media (--dev-dot-tablet-up) {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin: 0 0 0 auto;
+    position: relative;
+    width: 138px;
+  }
 }

@@ -47,7 +47,7 @@ async function generateStaticProps({
    *   Intent being to return the minimum data necessary to render
    *   all content block components on the page.
    */
-  const placeholderHeadings = [
+  const placeholderHeadings: TableOfContentsHeading[] = [
     {
       title: `What is ${product.name}`,
       slug: 'placeholder-slug-1',
