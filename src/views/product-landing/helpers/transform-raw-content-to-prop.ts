@@ -2,7 +2,9 @@ import { ProductData } from 'types/products'
 // raw content types
 import { ProductLandingContent, ProductLandingContentBlock } from '../schema'
 // component prop utilities & types
-import { makeHeadingSlugScope } from './'
+import { formatTutorialCard } from 'components/tutorial-card/helpers'
+import { formatCollectionCard } from 'components/collection-card/helpers'
+import { makeHeadingSlugScope, getInlineContentMaps } from './'
 import { ProductLandingViewProps } from '../types'
 import { ProductLandingBlock } from '../components/product-landing-blocks/types'
 
@@ -39,12 +41,31 @@ export async function transformRawContentToProp(
   /**
    * Build ProductLandingBlock[]
    */
+  const INLINE_CONTENT = await getInlineContentMaps(blocks)
   const transformedBlocks: ProductLandingBlock[] = blocks.map(
     (block: ProductLandingContentBlock) => {
       const { type } = block
       switch (type) {
         case 'heading':
           return { ...block, headingSlug: makeHeadingSlug(block.heading) }
+        case 'tutorial_cards':
+          return {
+            type: block.type,
+            tutorialCards: block.tutorialSlugs.map((slug: string) => {
+              const tutorial = INLINE_CONTENT.inlineTutorials[slug]
+              const defaultContext = tutorial.collectionCtx.default
+              const tutorialLiteCompat = { ...tutorial, defaultContext }
+              return formatTutorialCard(tutorialLiteCompat)
+            }),
+          }
+        case 'collection_cards':
+          return {
+            type: block.type,
+            collectionCards: block.collectionSlugs.map((slug: string) => {
+              const collection = INLINE_CONTENT.inlineCollections[slug]
+              return formatCollectionCard(collection)
+            }),
+          }
         default:
           return block
       }

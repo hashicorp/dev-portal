@@ -1,6 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 import { ProductLandingBlocksProps, ProductLandingBlock } from './types'
-import { HeadingBlock, LinkedCards, TutorialCards } from './blocks'
+import {
+  CollectionCards,
+  HeadingBlock,
+  LinkedCards,
+  TutorialCards,
+} from './blocks'
 
 function ProductLandingBlocks({ blocks }: ProductLandingBlocksProps) {
   return (
@@ -18,7 +23,14 @@ function ProductLandingBlocks({ blocks }: ProductLandingBlocksProps) {
             )
           case 'tutorial_cards':
             return (
-              <TutorialCards key={idx} tutorialSlugs={block.tutorialSlugs} />
+              <TutorialCards key={idx} tutorialCards={block.tutorialCards} />
+            )
+          case 'collection_cards':
+            return (
+              <CollectionCards
+                key={idx}
+                collectionCards={block.collectionCards}
+              />
             )
           case 'linked_cards':
             return <LinkedCards key={idx} cards={block.cards} />
