@@ -20,7 +20,6 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
         level={1}
         size={500}
         weight="bold"
-        slug={heading.slug}
         id={heading.slug}
         className={s.heading}
       >

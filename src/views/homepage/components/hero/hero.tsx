@@ -31,7 +31,7 @@ export default function Hero({
             className={s.title}
             level={1}
             size={500}
-            slug="welcome-to-dev-portal"
+            id="welcome-to-dev-portal"
             weight="bold"
           >
             {heading}

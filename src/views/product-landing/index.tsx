@@ -10,7 +10,7 @@ import Cards, { CardProps } from './components/cards'
 import s from './product-landing.module.css'
 
 type Block =
-  | ({ type: 'heading' } & HeadingProps & { heading: string })
+  | ({ type: 'heading' } & HeadingProps & { heading: string; slug: string })
   | ({ type: 'get_started' } & GetStartedProps)
   | ({ type: 'cards' } & CardProps)
 
@@ -29,7 +29,7 @@ function ProductLandingView({ content }: ProductLandingProps): ReactElement {
         className={s.pageHeading}
         size={500}
         level={1}
-        slug={slugify(content.heading)}
+        id={slugify(content.heading)}
         weight="bold"
       >
         {content.heading}
@@ -46,7 +46,7 @@ function ProductLandingView({ content }: ProductLandingProps): ReactElement {
               className={s[`h${level}`]}
               key={idx}
               weight="bold"
-              {...{ slug, level, size }}
+              {...{ id: slug, level, size }}
             >
               {heading}
             </Heading>

@@ -1,5 +1,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import { SSRProvider } from '@react-aria/ssr'
 import '@hashicorp/platform-util/nprogress/style.css'
 import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
@@ -46,22 +47,27 @@ export default function App({ Component, pageProps, layoutProps }) {
   }
 
   return (
-    <SSRProvider>
-      <ErrorBoundary FallbackComponent={Error}>
-        <DeviceSizeProvider>
-          <AllProductDataProvider>
-            <CurrentProductProvider currentProduct={currentProduct}>
-              <CodeTabsProvider>
-                <Layout {...allLayoutProps} data={allLayoutProps}>
-                  <Component {...pageProps} />
-                </Layout>
-                {showProductSwitcher ? <PreviewProductSwitcher /> : null}
-              </CodeTabsProvider>
-            </CurrentProductProvider>
-          </AllProductDataProvider>
-        </DeviceSizeProvider>
-      </ErrorBoundary>
-    </SSRProvider>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+      <SSRProvider>
+        <ErrorBoundary FallbackComponent={Error}>
+          <DeviceSizeProvider>
+            <AllProductDataProvider>
+              <CurrentProductProvider currentProduct={currentProduct}>
+                <CodeTabsProvider>
+                  <Layout {...allLayoutProps} data={allLayoutProps}>
+                    <Component {...pageProps} />
+                  </Layout>
+                  {showProductSwitcher ? <PreviewProductSwitcher /> : null}
+                </CodeTabsProvider>
+              </CurrentProductProvider>
+            </AllProductDataProvider>
+          </DeviceSizeProvider>
+        </ErrorBoundary>
+      </SSRProvider>
+    </>
   )
 }
 
