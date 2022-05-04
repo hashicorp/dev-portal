@@ -61,6 +61,13 @@ export async function getTutorialPageProps(
     collection.data,
     fullTutorialData.collectionCtx
   )
+  /**
+   * @TODO this helper makes an API call to fetch all collections for the
+   * current product. We plan to refactor the code in such a way so that this
+   * API call is deferred to the client-side only when the data is needed to be
+   * viewed. In this view, that means: on mobile, after opening the Sidebar, and
+   * after clicking the level-up button at the top of the Sidebar.
+   */
   const sidebarSections = await getCollectionViewSidebarSections(
     product,
     collection.data
