@@ -32,15 +32,16 @@ function getLearnRedirectPath(currentPath: string) {
   const [, product, , collection, tutorial] = currentPath.split('/')
   let learnPath = product
   const params = new URLSearchParams('betaOptOut=true')
+
   if (tutorial) {
+    // /tutorials/{product}/{tutorial}?in={collection}
     learnPath = ['tutorials', product, tutorial].join('/')
     params.append('in', collection)
   } else if (collection) {
+    // /collections/{product}/{collection}
     learnPath = ['collections', product, collection].join('/')
   }
 
-  // if its a tutorial url, always send the query param
-  // if collection, easy
   const url = new URL(learnPath + `?${params.toString()}`, LEARN_BASE_URL)
   console.log(url.toString())
   return url.toString()
