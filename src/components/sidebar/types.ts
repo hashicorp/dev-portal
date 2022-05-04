@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
+import { SidebarMobileControlsProps } from './components/sidebar-mobile-controls'
 
 /**
  * Interfaces for each nav item in their raw form, before any enrichment or
@@ -128,6 +129,12 @@ interface SidebarBaseProps {
    * rendered.
    */
   backToLinkProps?: SidebarBackToLinkProps
+
+  /**
+   * Props to pass to `SidebarMobileControls`. See the referenced interface for
+   * full details.
+   */
+  levelButtonProps?: SidebarMobileControlsProps
 
   /**
    * Optional href for the Overview menu item that shows at the top of the

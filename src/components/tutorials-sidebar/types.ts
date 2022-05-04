@@ -18,6 +18,16 @@ export interface TutorialSidebarProps {
   children: SidebarProps['children']
 
   /**
+   * Passed directly to the inner rendered `Sidebar` component.
+   */
+  levelButtonProps?: SidebarProps['levelButtonProps']
+
+  /**
+   * Passed directly to the inner rendered `Sidebar` component.
+   */
+  overviewItemHref?: SidebarProps['overviewItemHref']
+
+  /**
    * Optional. If true, the title of the sidebar will be visually hidden.
    */
   visuallyHideTitle?: boolean

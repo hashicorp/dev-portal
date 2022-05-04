@@ -12,10 +12,13 @@ import {
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
 export function VaultTutorialPage({
-  tutorial,
   layoutProps,
+  tutorial,
+  product,
 }: TutorialPageProps): React.ReactElement {
-  return <TutorialView tutorial={tutorial} layout={layoutProps} />
+  return (
+    <TutorialView layout={layoutProps} tutorial={tutorial} product={product} />
+  )
 }
 
 export async function getStaticProps({
