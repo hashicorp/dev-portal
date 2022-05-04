@@ -1,4 +1,5 @@
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import Heading from 'components/heading'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductCollectionsSidebar, {
   ProductCollectionsSidebarProps,
@@ -23,11 +24,16 @@ function ProductTutorialsView({
 
   const PageHeading = () => {
     const { title, level, slug } = getOverviewHeading()
-    const HeadingElem = `h${level}` as React.ElementType
     return (
-      <HeadingElem id={slug} className={s.heading}>
+      <Heading
+        id={slug}
+        level={level}
+        size={500}
+        weight="bold"
+        className={s.heading}
+      >
         {title}
-      </HeadingElem>
+      </Heading>
     )
   }
 

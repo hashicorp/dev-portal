@@ -33,7 +33,7 @@ function GetStarted({
             className={s.heading}
             level={3}
             size={200}
-            slug={slugify(heading)}
+            id={slugify(heading)}
             weight="semibold"
           >
             {heading}

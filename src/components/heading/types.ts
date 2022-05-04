@@ -23,6 +23,5 @@ export interface HeadingProps extends HeadingElementProps {
    * the styles we have available from the design system.
    */
   size: 100 | 200 | 300 | 400 | 500
-  slug: string
   weight: 'regular' | 'medium' | 'semibold' | 'bold'
 }

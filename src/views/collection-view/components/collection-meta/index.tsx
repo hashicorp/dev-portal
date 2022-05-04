@@ -36,7 +36,7 @@ export default function CollectionMeta({
         level={1}
         size={500}
         weight="bold"
-        slug={heading.id}
+        id={heading.id}
         className={s.heading}
       >
         {heading.text}

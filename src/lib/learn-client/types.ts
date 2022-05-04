@@ -261,5 +261,25 @@ export enum CompanyLogoOption {
 export function themeIsProduct(
   theme: ThemeOption | ProductOption
 ): theme is ProductOption {
-  return Object.values(ProductOption).includes(theme as ProductOption)
+  return isProductOption(theme)
+}
+/**
+ * Type guard to determine if a string is a ThemeOption or ProductOption
+ */
+export function isThemeOrProduct(
+  string: string
+): string is ProductOption | ThemeOption {
+  return isThemeOption(string) || isProductOption(string)
+}
+/**
+ * Type guard to determine if a string is a ThemeOption
+ */
+function isThemeOption(string: string): string is ThemeOption {
+  return Object.values(ThemeOption).includes(string as ThemeOption)
+}
+/**
+ * Type guard to determine if a string is a ProductOption
+ */
+function isProductOption(string: string): string is ProductOption {
+  return Object.values(ProductOption).includes(string as ProductOption)
 }

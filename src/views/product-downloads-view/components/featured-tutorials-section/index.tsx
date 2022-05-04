@@ -24,7 +24,7 @@ const FeaturedTutorialsSection = ({
         className={s.sectionHeading}
         level={2}
         size={300}
-        slug="featured-tutorials"
+        id="featured-tutorials"
         weight="bold"
       >
         Featured Tutorials
