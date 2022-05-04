@@ -7,6 +7,8 @@ const basePath = 'docs'
 const baseName = 'Docs'
 const product = waypointData as ProductData
 
+// TODO: make sure this doesn't catch /waypoint/docs/index route
+
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
   product,
   basePath,

@@ -66,7 +66,8 @@ const WaypointDocsLanding = () => {
           ))}
         </ul>
       </div>
-      <div>TODO</div>
+      <div>TODO - MDX content</div>
+      <div>TODO - marketing slot</div>
     </>
   )
 }
