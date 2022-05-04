@@ -23,6 +23,20 @@ describe('detectAndReformatLearnUrl', () => {
       .reply(200, MOCK_TUTORIALS_MAP)
   })
 
+  it('returns absolute URLs back unmodified', async () => {
+    const absoluteUrls: string[] = [
+      'https://learn.hashicorp.com/vault',
+      'https://www.hashicorp.com',
+      'https://www.waypointproject.io',
+      'https://www.waypointproject.io/docs',
+    ]
+    for (let n = 0; n < absoluteUrls.length; n++) {
+      const url = absoluteUrls[n]
+      const result = await detectAndReformatLearnUrl(url)
+      expect(result).toBe(url)
+    }
+  })
+
   it('returns non-Learn URLs back unmodified', async () => {
     const nonLearnUrls: string[] = [
       '/vault/docs',
