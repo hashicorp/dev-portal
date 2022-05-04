@@ -15,11 +15,9 @@ import {
   InlineCollections,
   InlineTutorials,
 } from './helpers/get-inline-content'
-import {
-  addHeadingSlugsToBlocks,
-  buildLayoutHeadings,
-} from './helpers/heading-helpers'
 import { filterCollections, sortAlphabetically } from './helpers'
+import processPageData from './helpers/process-page-data'
+import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
 
 // Some of the product data is coming from the API client on this view
@@ -71,10 +69,6 @@ export async function getProductTutorialsViewProps(
     inlineTutorials,
   } = await getProductPageContent(productSlug)
   /**
-   * Add headings to raw page data, for use with the page's sidecar
-   */
-  const pageData = addHeadingSlugsToBlocks(rawPageData)
-  /**
    * Get the product data, and all collections,
    * both of which are needed for layoutProps
    */
@@ -86,6 +80,11 @@ export async function getProductTutorialsViewProps(
     allProductCollections,
     productSlug
   )
+  /**
+   * Process page data, reformatting as needed.
+   * Includes parsing headings, for use with the page's sidecar
+   */
+  const { pageData } = await processPageData(rawPageData)
   /**
    * Build & return layout props to pass to SidebarSidecarLayout
    */
