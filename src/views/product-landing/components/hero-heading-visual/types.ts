@@ -1,7 +1,7 @@
-import { ProductOption } from 'lib/learn-client/types'
+import { ProductSlug } from 'types/products'
 
 export interface HeroHeadingVisualProps {
   heading: string
   image: string
-  productTheme: ProductOption
+  productSlug: ProductSlug
 }

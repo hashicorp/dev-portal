@@ -16,7 +16,7 @@ function ProductLandingView({
       <HeroHeadingVisual
         heading={hero.heading}
         image={hero.image}
-        productTheme={hero.productTheme}
+        productSlug={hero.productSlug}
       />
       <OverviewCta
         heading={overview.heading}

@@ -1,4 +1,3 @@
-import { isProductOption } from 'lib/learn-client/types'
 import { ProductData } from 'types/products'
 // raw content types
 import { ProductLandingContent, ProductLandingContentBlock } from '../schema'
@@ -12,17 +11,6 @@ export async function transformRawContentToProp(
   product: ProductData
 ): Promise<ProductLandingViewProps['content']> {
   /**
-   * Handle "hcp" or "sentinel" product.slug cases
-   * (these options are valid from a type perspective,
-   * but are not yet supported by the UI)
-   */
-  if (!isProductOption(product.slug)) {
-    throw new Error(
-      `Product landing pages do not yet support all products. Product slug "${product.slug}" is not yet supported.`
-    )
-  }
-
-  /**
    * Set up a function to make heading slugs, while avoiding duplicates
    */
   const makeHeadingSlug = makeHeadingSlugScope()
@@ -30,7 +18,7 @@ export async function transformRawContentToProp(
   /**
    * Build HeroHeadingVisualProps
    */
-  const heroProps = { ...hero, productTheme: product.slug }
+  const heroProps = { ...hero, productSlug: product.slug }
 
   /**
    * Build OverviewCtaProps
