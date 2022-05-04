@@ -10,11 +10,10 @@ import {
   TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
 import { ProductPageData } from 'views/product-tutorials-view/server'
+import Heading from 'components/heading'
 import IconTile from 'components/icon-tile'
 import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
-import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { getSitemapHeading } from 'views/product-tutorials-view/helpers/heading-helpers'
-import StandaloneLink from 'components/standalone-link'
 import s from './sitemap.module.css'
 
 export function ProductTutorialsSitemap({
@@ -25,14 +24,19 @@ export function ProductTutorialsSitemap({
   product: ProductOption
 }): React.ReactElement {
   const { title, level, slug } = getSitemapHeading()
-  const HeadingElem = `h${level}` as React.ElementType
 
   return (
     <div className={s.root}>
       <div className={s.headingBar}>
-        <HeadingElem id={slug} className={s.heading}>
+        <Heading
+          id={slug}
+          size={300}
+          level={level}
+          weight="bold"
+          className={s.heading}
+        >
           {title}
-        </HeadingElem>
+        </Heading>
       </div>
       <ul className={s.collectionListRoot}>
         {collections.map((collection: ClientCollection) => (

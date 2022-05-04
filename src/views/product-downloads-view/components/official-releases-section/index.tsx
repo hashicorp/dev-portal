@@ -11,7 +11,7 @@ const OfficialReleasesSection = (): ReactElement => {
         className={s.sectionHeading}
         level={2}
         size={300}
-        slug="looking-for-more"
+        id="looking-for-more"
         weight="bold"
       >
         Looking for more?

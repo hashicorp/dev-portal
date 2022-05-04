@@ -1,7 +1,7 @@
 export interface TableOfContentsHeading {
   title: string
   slug: string
-  level: number
+  level: 1 | 2 | 3 | 4 | 5 | 6
 }
 
 export interface TableOfContentsProps {

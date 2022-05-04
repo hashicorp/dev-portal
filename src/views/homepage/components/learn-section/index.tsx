@@ -30,7 +30,7 @@ export default function LearnSection({
               level={2}
               size={500}
               weight="bold"
-              slug={slugify(heading, { lower: true })}
+              id={slugify(heading, { lower: true })}
             >
               {heading}
             </Heading>
