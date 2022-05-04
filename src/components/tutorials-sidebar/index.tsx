@@ -1,4 +1,3 @@
-import { useCurrentProduct } from 'contexts'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import {
   SidebarHorizontalRule,
@@ -18,16 +17,15 @@ function TutorialsSidebar({
   backToLinkProps,
   children,
   levelButtonProps,
+  overviewItemHref,
   title,
   visuallyHideTitle,
 }: TutorialSidebarProps) {
-  const currentProduct = useCurrentProduct()
-
   return (
     <Sidebar
       backToLinkProps={backToLinkProps}
       levelButtonProps={levelButtonProps}
-      overviewItemHref={`/${currentProduct.slug}/tutorials`}
+      overviewItemHref={overviewItemHref}
       showFilterInput={false}
       title={title}
       visuallyHideTitle={visuallyHideTitle}

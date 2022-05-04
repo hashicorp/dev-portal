@@ -35,6 +35,7 @@ function CollectionView({
         href: `/${currentProduct.slug}`,
       },
       title: 'Tutorials',
+      overviewItemHref: `/${currentProduct.slug}/tutorials`,
       children: (
         <CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
       ),

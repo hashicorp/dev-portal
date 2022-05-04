@@ -114,6 +114,7 @@ export default function TutorialView({
         levelDownButtonText: 'Previous',
       },
       title: 'Tutorials',
+      overviewItemHref: `/${currentProduct.slug}/tutorials`,
       children: (
         <CollectionViewSidebarContent sections={layout.sidebarSections} />
       ),
