@@ -155,20 +155,15 @@ export function getStaticGenerationFunctions<
        * `DocsView` pages.
        */
       const sidebarNavDataLevels = [
-        {
-          menuItems: generateTopLevelSidebarNavData(),
-          showFilterInput: false,
-          title: 'Main Menu',
-        },
-        {
-          menuItems: generateProductLandingSidebarNavData(product),
-          showFilterInput: false,
-          title: product.name,
-        },
+        generateTopLevelSidebarNavData(product.name),
+        generateProductLandingSidebarNavData(product),
         {
           backToLinkProps: {
             text: `${product.name} Home`,
             href: `/${product.slug}`,
+          },
+          levelButtonProps: {
+            levelUpButtonText: `${product.name} Home`,
           },
           menuItems: navDataWithFullPaths,
           // TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced

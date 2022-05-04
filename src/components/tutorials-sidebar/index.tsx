@@ -1,3 +1,4 @@
+import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import {
   SidebarHorizontalRule,
   SidebarSectionHeading,
@@ -15,18 +16,82 @@ import s from './tutorials-sidebar.module.css'
 function TutorialsSidebar({
   backToLinkProps,
   children,
+  levelButtonProps,
+  overviewItemHref,
   title,
   visuallyHideTitle,
 }: TutorialSidebarProps) {
   return (
     <Sidebar
       backToLinkProps={backToLinkProps}
+      levelButtonProps={levelButtonProps}
+      overviewItemHref={overviewItemHref}
       showFilterInput={false}
       title={title}
       visuallyHideTitle={visuallyHideTitle}
     >
       {children}
     </Sidebar>
+  )
+}
+
+function CollectionViewSidebarContent({
+  sections,
+}: {
+  sections: CollectionCategorySidebarSection[]
+}) {
+  return (
+    <>
+      {sections?.map((section: CollectionCategorySidebarSection) => {
+        return (
+          <>
+            <HorizontalRule />
+            <SectionTitle text={section.title} />
+            <SectionList items={section.items} />
+          </>
+        )
+      })}
+      <HorizontalRule />
+      <SectionTitle text="Resources" />
+      <SectionList
+        items={[
+          {
+            text: 'All Tutorials',
+            href: 'https://learn.hashicorp.com',
+          },
+          {
+            text: 'Community Forum',
+            href: 'https://discuss.hashicorp.com',
+          },
+          { text: 'Support', href: 'https://support.hashicorp.com' },
+          { text: 'GitHub', href: 'http://github.com/hashicorp' },
+        ]}
+      />
+    </>
+  )
+}
+
+function TutorialViewSidebarContent({ items }: SectionListProps) {
+  return (
+    <>
+      <SectionList items={items} />
+      <HorizontalRule />
+      <SectionTitle text="Resources" />
+      <SectionList
+        items={[
+          {
+            text: 'All Tutorials',
+            href: 'https://learn.hashicorp.com',
+          },
+          {
+            text: 'Community Forum',
+            href: 'https://discuss.hashicorp.com',
+          },
+          { text: 'Support', href: 'https://support.hashicorp.com' },
+          { text: 'GitHub', href: 'http://github.com/hashicorp' },
+        ]}
+      />
+    </>
   )
 }
 
@@ -59,5 +124,12 @@ function HorizontalRule() {
   return <SidebarHorizontalRule />
 }
 
-export { HorizontalRule, ListItem, SectionList, SectionTitle }
+export {
+  CollectionViewSidebarContent,
+  HorizontalRule,
+  ListItem,
+  SectionList,
+  SectionTitle,
+  TutorialViewSidebarContent,
+}
 export default TutorialsSidebar

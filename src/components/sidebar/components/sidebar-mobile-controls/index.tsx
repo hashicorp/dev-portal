@@ -70,24 +70,29 @@ const LevelDownButton = ({ onClick, text }: ButtonProps) => {
   )
 }
 
+interface SidebarMobileControlsProps {
+  levelUpButtonText: ButtonProps['text']
+  levelDownButtonText: ButtonProps['text']
+}
+
 /**
  * Handles rendering either one or both of `LevelUpButton` and
  * `LevelDownButton`. It determines what to render by consuming data from
  * `SidebarNavDataContext` using the `useSidebarNavData` hook.
  */
-const SidebarMobileControls = () => {
-  const currentProduct = useCurrentProduct()
+const SidebarMobileControls = ({
+  levelUpButtonText,
+  levelDownButtonText,
+}: SidebarMobileControlsProps) => {
   const { hasManyLevels, isFirstLevel, isLastLevel, setCurrentLevel } =
     useSidebarNavData()
-  const mainMenuText = 'Main Menu'
-  const productLandingText = `${currentProduct.name} Home`
 
   // Show `LevelUpButton` on all levels but the first one
   let levelUpButton
   if (hasManyLevels && !isFirstLevel) {
     levelUpButton = (
       <LevelUpButton
-        text={isLastLevel ? productLandingText : mainMenuText}
+        text={levelUpButtonText}
         onClick={() => setCurrentLevel((prevLevel: number) => prevLevel - 1)}
       />
     )
@@ -98,7 +103,7 @@ const SidebarMobileControls = () => {
   if (hasManyLevels && !isLastLevel) {
     levelDownButton = (
       <LevelDownButton
-        text={isFirstLevel ? productLandingText : 'Previous'}
+        text={levelDownButtonText}
         onClick={() => setCurrentLevel((prevLevel: number) => prevLevel + 1)}
       />
     )
@@ -112,4 +117,5 @@ const SidebarMobileControls = () => {
   )
 }
 
+export type { SidebarMobileControlsProps }
 export default SidebarMobileControls
