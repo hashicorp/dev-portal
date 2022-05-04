@@ -57,13 +57,15 @@ const ProductPageHeaderContent = () => {
   return (
     <div className={sharedNavStyles.leftSide}>
       <div className={sharedNavStyles.contentBeforeNav}>
-        <NavigationHeaderDropdownMenu
-          ariaLabel="Main menu"
-          buttonClassName={s.companyLogoMenuButton}
-          dropdownClassName={s.companyLogoMenuButtonDropdown}
-          itemGroups={allMainMenuItems}
-          leadingIcon={companyLogo}
-        />
+        <div className="g-hide-on-mobile g-hide-on-tablet">
+          <NavigationHeaderDropdownMenu
+            ariaLabel="Main menu"
+            buttonClassName={s.companyLogoMenuButton}
+            dropdownClassName={s.companyLogoMenuButtonDropdown}
+            itemGroups={allMainMenuItems}
+            leadingIcon={companyLogo}
+          />
+        </div>
         <Link href={`/${currentProduct.slug}`}>
           <a
             aria-current={isProductHomePage ? 'page' : undefined}
@@ -78,27 +80,29 @@ const ProductPageHeaderContent = () => {
         </Link>
       </div>
       {isBetaProduct && (
-        <nav className={sharedNavStyles.nav}>
-          <ul className={sharedNavStyles.navList}>
-            {PRODUCT_PAGE_NAV_ITEMS.map((navItem) => {
-              const { isSubmenu, label } = navItem
-              const ariaLabel = `${currentProduct.name} ${label}`
+        <div className="g-hide-on-mobile g-hide-on-tablet">
+          <nav className={sharedNavStyles.nav}>
+            <ul className={sharedNavStyles.navList}>
+              {PRODUCT_PAGE_NAV_ITEMS.map((navItem) => {
+                const { isSubmenu, label } = navItem
+                const ariaLabel = `${currentProduct.name} ${label}`
 
-              let ItemContent
-              if (isSubmenu) {
-                ItemContent = PrimaryNavSubmenu
-              } else {
-                ItemContent = PrimaryNavLink
-              }
+                let ItemContent
+                if (isSubmenu) {
+                  ItemContent = PrimaryNavSubmenu
+                } else {
+                  ItemContent = PrimaryNavLink
+                }
 
-              return (
-                <li key={label}>
-                  <ItemContent ariaLabel={ariaLabel} navItem={navItem} />
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
+                return (
+                  <li key={label}>
+                    <ItemContent ariaLabel={ariaLabel} navItem={navItem} />
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+        </div>
       )}
     </div>
   )

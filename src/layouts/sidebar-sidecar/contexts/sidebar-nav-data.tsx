@@ -7,18 +7,19 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { useRouter } from 'next/router'
 import { useDeviceSize } from 'contexts'
 import { SidebarProps } from 'components/sidebar'
 
 interface State {
   currentLevel: number
   hasManyLevels: boolean
-  hasMaxLevels: boolean
   isFirstLevel: boolean
   isLastLevel: boolean
-  isMiddleLevel: boolean
   setCurrentLevel: Dispatch<SetStateAction<number>>
+  setSidebarIsOpen: Dispatch<SetStateAction<boolean>>
   shouldRenderMobileControls: boolean
+  sidebarIsOpen: boolean
 }
 
 const SidebarNavDataContext = createContext<State | undefined>(undefined)
@@ -32,33 +33,58 @@ const SidebarNavDataProvider = ({
   children,
   navDataLevels,
 }: SidebarNavDataProviderProps) => {
+  const router = useRouter()
   const { isDesktop } = useDeviceSize()
   const numberOfLevels = navDataLevels.length
-  const [currentLevel, setCurrentLevel] = useState<number | null>()
+  const [currentLevel, setCurrentLevel] = useState<number>()
+  const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>()
 
   // Reset the current level if the device size or props change
   useEffect(() => {
     setCurrentLevel(numberOfLevels - 1)
   }, [isDesktop, navDataLevels, numberOfLevels])
 
+  // Handles closing the Sidebar in some cases
+  useEffect(() => {
+    // Don't need to listen for router events on Desktop
+    if (isDesktop) {
+      // Close the Sidebar if the viewport size has crossed the breakpoint
+      setSidebarIsOpen(false)
+      return
+    }
+
+    // Close the Sidebar if it's open on route change start
+    const handleRouteChange = () => {
+      if (sidebarIsOpen) {
+        setSidebarIsOpen(false)
+      }
+    }
+
+    router.events.on('routeChangeComplete', handleRouteChange)
+    router.events.off('routeChangeError', handleRouteChange)
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+      router.events.off('routeChangeError', handleRouteChange)
+    }
+  }, [router.events, sidebarIsOpen, isDesktop])
+
   // Derive booleans based on main state
   const hasManyLevels = numberOfLevels > 1
-  const hasMaxLevels = numberOfLevels === 3
   const isFirstLevel = currentLevel === 0
   const isLastLevel = currentLevel === numberOfLevels - 1
-  const isMiddleLevel = currentLevel === 1
   const shouldRenderMobileControls = hasManyLevels && !isDesktop
 
   // Create state object to pass to the Provider
   const state: State = {
     currentLevel,
     hasManyLevels,
-    hasMaxLevels,
     isFirstLevel,
     isLastLevel,
-    isMiddleLevel,
     setCurrentLevel,
+    setSidebarIsOpen,
     shouldRenderMobileControls,
+    sidebarIsOpen,
   }
 
   return (
