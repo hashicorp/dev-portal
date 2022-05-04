@@ -1,5 +1,3 @@
-import { ProductOption } from 'lib/learn-client/types'
-import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Heading from 'components/heading'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
@@ -17,26 +15,26 @@ import { getOverviewHeading } from './helpers/heading-helpers'
 import s from './product-tutorials-view.module.css'
 
 function ProductTutorialsView({
-  layoutProps,
   data,
+  layoutProps,
+  product,
 }: ProductTutorialsViewProps): React.ReactElement {
-  const currentProduct = useCurrentProduct()
   const { inlineCollections, inlineTutorials, pageData, allCollections } = data
   const { showProductSitemap, blocks } = pageData
 
   const sidebarNavDataLevels = [
-    generateTopLevelSidebarNavData(currentProduct.name),
-    generateProductLandingSidebarNavData(currentProduct),
+    generateTopLevelSidebarNavData(product.name),
+    generateProductLandingSidebarNavData(product),
     {
       levelButtonProps: {
-        levelUpButtonText: `${currentProduct.name} Home`,
+        levelUpButtonText: `${product.name} Home`,
         levelDownButtonText: 'Previous',
       },
       backToLinkProps: {
-        text: `${currentProduct.name} Home`,
-        href: `/${currentProduct.slug}`,
+        text: `${product.name} Home`,
+        href: `/${product.slug}`,
       },
-      overviewItemHref: `/${currentProduct.slug}/tutorials`,
+      overviewItemHref: `/${product.slug}/tutorials`,
       title: 'Tutorials',
       children: (
         <CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
@@ -76,7 +74,7 @@ function ProductTutorialsView({
         <div className={s.sitemap}>
           <ProductTutorialsSitemap
             collections={allCollections}
-            product={currentProduct.slug as ProductOption}
+            product={product.slug}
           />
         </div>
       ) : null}

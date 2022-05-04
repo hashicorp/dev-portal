@@ -1,9 +1,6 @@
-import { LearnProductData, ProductData } from 'types/products'
+import { LearnProductData } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import {
-  Product as ClientProduct,
-  Collection as ClientCollection,
-} from 'lib/learn-client/types'
+import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
@@ -20,14 +17,10 @@ import processPageData from './helpers/process-page-data'
 import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
 
-// Some of the product data is coming from the API client on this view
-type ProductTutorialsPageProduct = ClientProduct &
-  Omit<ProductData, 'name' | 'slug'>
-
 export interface ProductTutorialsViewProps {
-  layoutProps: ProductTutorialsLayout
   data: ProductPageData
-  product: ProductTutorialsPageProduct
+  layoutProps: ProductTutorialsLayout
+  product: LearnProductData
 }
 
 interface ProductTutorialsLayout {

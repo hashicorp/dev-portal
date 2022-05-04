@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 // Global imports
+import { LearnProductData } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import {
   Collection as ClientCollection,
@@ -31,7 +32,6 @@ import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import { useCurrentProduct } from 'contexts'
 
 // Local imports
 import MDX_COMPONENTS from './utils/mdx-components'
@@ -45,8 +45,9 @@ import getVideoUrl from './utils/get-video-url'
 import s from './tutorial-view.module.css'
 
 export interface TutorialViewProps {
-  tutorial: TutorialData
   layout: TutorialSidebarSidecarProps
+  product: LearnProductData
+  tutorial: TutorialData
 }
 
 export interface TutorialData
@@ -80,9 +81,9 @@ export type TutorialSidebarSidecarProps = Required<
 
 export default function TutorialView({
   layout,
+  product,
   tutorial,
 }: TutorialViewProps): React.ReactElement {
-  const currentProduct = useCurrentProduct()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const {
     name,
@@ -106,15 +107,15 @@ export default function TutorialView({
   const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
 
   const sidebarNavDataLevels = [
-    generateTopLevelSidebarNavData(currentProduct.name),
-    generateProductLandingSidebarNavData(currentProduct),
+    generateTopLevelSidebarNavData(product.name),
+    generateProductLandingSidebarNavData(product),
     {
       levelButtonProps: {
-        levelUpButtonText: `${currentProduct.name} Home`,
+        levelUpButtonText: `${product.name} Home`,
         levelDownButtonText: 'Previous',
       },
       title: 'Tutorials',
-      overviewItemHref: `/${currentProduct.slug}/tutorials`,
+      overviewItemHref: `/${product.slug}/tutorials`,
       children: (
         <CollectionViewSidebarContent sections={layout.sidebarSections} />
       ),

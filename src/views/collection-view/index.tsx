@@ -1,5 +1,4 @@
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
-import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import {
@@ -18,24 +17,24 @@ import { formatTutorialCard } from 'components/tutorial-card/helpers'
 function CollectionView({
   collection,
   layoutProps,
+  product,
 }: CollectionPageProps): React.ReactElement {
-  const currentProduct = useCurrentProduct()
   const { name, slug, description, tutorials, ordered } = collection
 
   const sidebarNavDataLevels = [
-    generateTopLevelSidebarNavData(currentProduct.name),
-    generateProductLandingSidebarNavData(currentProduct),
+    generateTopLevelSidebarNavData(product.name),
+    generateProductLandingSidebarNavData(product),
     {
       levelButtonProps: {
-        levelUpButtonText: `${currentProduct.name} Home`,
+        levelUpButtonText: `${product.name} Home`,
         levelDownButtonText: 'Previous',
       },
       backToLinkProps: {
-        text: `${currentProduct.name} Home`,
-        href: `/${currentProduct.slug}`,
+        text: `${product.name} Home`,
+        href: `/${product.slug}`,
       },
       title: 'Tutorials',
-      overviewItemHref: `/${currentProduct.slug}/tutorials`,
+      overviewItemHref: `/${product.slug}/tutorials`,
       children: (
         <CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
       ),
