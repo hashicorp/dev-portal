@@ -76,7 +76,7 @@ export function rewriteTutorialsLink(
   let newUrl = url
   try {
     // return early if non tutorial or collection link
-    if (!learnLink.test(newUrl) && !docsLink.test(newUrl)) {
+    if (!learnLink.test(url) && !docsLink.test(url)) {
       return newUrl
     }
 
@@ -95,11 +95,11 @@ export function rewriteTutorialsLink(
     // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/consul
     if (!isBetaProduct && !isExternalLearnLink && !isAnchorLink) {
       // If its an internal link, rewrite to an external learn link
-      newUrl = new URL(newUrl, 'https://learn.hashicorp.com/').toString()
+      newUrl = new URL(url, 'https://learn.hashicorp.com/').toString()
     }
 
     if (isBetaProduct) {
-      let nodePath = newUrl // the path to be formatted - assumes to be absolute as current Learn impl does
+      let nodePath = url // the path to be formatted - assumes to be absolute as current Learn impl does
       const isCollectionPath = nodePath.includes('collections')
       const isTutorialPath = nodePath.includes('tutorials')
       const learnProductHub = new RegExp(`/${product}$`)
