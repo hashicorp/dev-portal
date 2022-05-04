@@ -26,28 +26,30 @@ const HomePageHeaderContent = () => {
           src={require('../../img/logo-white.svg?include')}
         />
       </div>
-      <nav className={sharedNavStyles.nav}>
-        <ul className={sharedNavStyles.navList}>
-          {HOME_PAGE_NAV_ITEMS.map(
-            (navItem: { label: string; pathSuffix: string }) => {
-              const { label, pathSuffix } = navItem
-              const menuItems = betaProductSlugs.map((slug: ProductSlug) => ({
-                icon: slug,
-                label: productSlugsToNames[slug],
-                path: `/${slug}/${pathSuffix}`,
-              }))
-              return (
-                <li key={pathSuffix}>
-                  <NavigationHeaderDropdownMenu
-                    itemGroups={[menuItems]}
-                    label={label}
-                  />
-                </li>
-              )
-            }
-          )}
-        </ul>
-      </nav>
+      <div className="g-hide-on-mobile g-hide-on-tablet">
+        <nav className={sharedNavStyles.nav}>
+          <ul className={sharedNavStyles.navList}>
+            {HOME_PAGE_NAV_ITEMS.map(
+              (navItem: { label: string; pathSuffix: string }) => {
+                const { label, pathSuffix } = navItem
+                const menuItems = betaProductSlugs.map((slug: ProductSlug) => ({
+                  icon: slug,
+                  label: productSlugsToNames[slug],
+                  path: `/${slug}/${pathSuffix}`,
+                }))
+                return (
+                  <li key={pathSuffix}>
+                    <NavigationHeaderDropdownMenu
+                      itemGroups={[menuItems]}
+                      label={label}
+                    />
+                  </li>
+                )
+              }
+            )}
+          </ul>
+        </nav>
+      </div>
     </div>
   )
 }

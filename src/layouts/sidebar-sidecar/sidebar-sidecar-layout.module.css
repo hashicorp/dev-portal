@@ -40,6 +40,14 @@ for further details.
   positioned elements in the main area, namely the footer's
   top-border, from overlapping the sidebar */
   z-index: 1;
+
+  @media (--dev-dot-tablet-down) {
+    bottom: 0;
+    left: -150vw;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+  }
 }
 
 .mainArea {
