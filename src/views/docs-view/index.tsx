@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import dynamic from 'next/dynamic'
 import { MDXRemote } from 'next-mdx-remote'
 import { useCurrentProduct } from 'contexts'
@@ -56,31 +57,46 @@ const productsToPrimitives: ProductsToPrimitivesMap = {
   waypoint: { NestedNode, Placement },
 }
 
-const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
+function DocsViewMdxContent({ mdxSource, lazy }: DocsViewProps) {
   const currentProduct = useCurrentProduct()
   const { compiledSource, scope } = mdxSource
   const additionalComponents = productsToPrimitives[currentProduct.slug] || {}
   const components = defaultMdxComponents({ additionalComponents })
 
   return (
+    <DevDotContent>
+      <TabProvider>
+        <MDXRemote
+          compiledSource={compiledSource}
+          components={components}
+          lazy={lazy}
+          scope={scope}
+        />
+      </TabProvider>
+    </DevDotContent>
+  )
+}
+
+function DocsViewInner({ children }: { children: ReactNode }) {
+  return (
     <>
       {__config.flags.enable_product_docs_search ? <ProductDocsSearch /> : null}
-      <DevDotContent>
-        <NoIndexTagIfVersioned />
-        <TabProvider>
-          <MDXRemote
-            compiledSource={compiledSource}
-            components={components}
-            lazy={lazy}
-            scope={scope}
-          />
-        </TabProvider>
-      </DevDotContent>
+      <NoIndexTagIfVersioned />
+      {children}
     </>
+  )
+}
+
+const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
+  return (
+    <DocsViewInner>
+      <DocsViewMdxContent mdxSource={mdxSource} lazy={lazy} />
+    </DocsViewInner>
   )
 }
 
 DocsView.layout = SidebarSidecarLayout
 
 export type { DocsViewProps }
+export { DocsViewInner, DocsViewMdxContent }
 export default DocsView
