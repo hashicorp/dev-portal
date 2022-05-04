@@ -27,6 +27,7 @@ import TutorialsSidebar, {
   SectionList,
   SectionTitle,
 } from 'components/tutorials-sidebar'
+import { OptOutButton } from 'views/product-tutorials-view/components/learn-opt-out-button'
 import getVideoUrl from './utils/get-video-url'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
@@ -101,6 +102,7 @@ export default function TutorialView({
       >
         <SidebarSidecarLayout
           breadcrumbLinks={layout.breadcrumbLinks}
+          optOutButtonSlot={<OptOutButton />}
           sidebarSlot={
             <TutorialsSidebar
               backToLinkProps={{

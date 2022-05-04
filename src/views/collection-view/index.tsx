@@ -1,8 +1,8 @@
-import Link from 'next/link'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import ProductCollectionsSidebar from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
+import { OptOutButton } from 'views/product-tutorials-view/components/learn-opt-out-button'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
@@ -19,6 +19,7 @@ function CollectionView({
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
+      optOutButtonSlot={<OptOutButton />}
       sidecarSlot={null}
       sidebarSlot={
         <ProductCollectionsSidebar
