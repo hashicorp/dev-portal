@@ -1,5 +1,10 @@
 import slugify from 'slugify'
 
+/**
+ * Returns a function that generates slugs from heading strings,
+ * while ensuring those slugs are unique across calls of the returned function
+ * by suffixing with a `-{number}` where needed.
+ */
 export function makeHeadingSlugScope(): (string) => string {
   /**
    * Track which headings slugs have been used, to avoid potential duplicates
