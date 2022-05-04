@@ -66,32 +66,40 @@ export const rewriteTutorialLinksPlugin: Plugin = () => {
 }
 
 function handleRewriteTutorialsLink(node: Link | Definition) {
+  node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP)
+}
+
+export function rewriteTutorialsLink(
+  url: string,
+  tutorialMap: Record<string, string>
+): string {
+  let newUrl = url
   try {
     // return early if non tutorial or collection link
-    if (!learnLink.test(node.url) && !docsLink) {
-      return
+    if (!learnLink.test(url) && !docsLink.test(url)) {
+      return newUrl
     }
 
-    const match: RegExpMatchArray | null = node.url.match(
+    const match: RegExpMatchArray | null = url.match(
       new RegExp(`${learnProductOptions}|cloud`)
     )
     const product = match ? match[0] : null
-    const isExternalLearnLink = node.url.includes('learn.hashicorp.com')
+    const isExternalLearnLink = url.includes('learn.hashicorp.com')
     const isBetaProduct = product
       ? getIsBetaProduct(product as ProductSlug)
       : false
     // Anchor links for the current tutorial shouldn't be rewritten. i.e. #some-heading
-    const isAnchorLink = node.url.startsWith('#')
+    const isAnchorLink = url.startsWith('#')
 
     // if its not a beta product and also not an external link, rewrite
     // external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/consul
     if (!isBetaProduct && !isExternalLearnLink && !isAnchorLink) {
       // If its an internal link, rewrite to an external learn link
-      node.url = new URL(node.url, 'https://learn.hashicorp.com/').toString()
+      newUrl = new URL(url, 'https://learn.hashicorp.com/').toString()
     }
 
     if (isBetaProduct) {
-      let nodePath = node.url // the path to be formatted - assumes to be absolute as current Learn impl does
+      let nodePath = url // the path to be formatted - assumes to be absolute as current Learn impl does
       const isCollectionPath = nodePath.includes('collections')
       const isTutorialPath = nodePath.includes('tutorials')
       const learnProductHub = new RegExp(`/${product}$`)
@@ -108,19 +116,19 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
 
       // handle rewriting collection and tutorial dev portal paths
       if (isDocsPath) {
-        node.url = handleDocsLink(nodePath, product as ProductSlug)
+        newUrl = handleDocsLink(nodePath, product as ProductSlug)
       } else if (isCollectionPath) {
-        node.url = handleCollectionLink(nodePath)
+        newUrl = handleCollectionLink(nodePath)
       } else if (isTutorialPath) {
-        node.url = handleTutorialLink(nodePath, TUTORIAL_MAP)
+        newUrl = handleTutorialLink(nodePath, tutorialMap)
       } else if (isProductHubPath) {
-        node.url = `${nodePath}/tutorials`
+        newUrl = `${nodePath}/tutorials`
       }
 
-      if (!node.url) {
+      if (!newUrl) {
         // If the link wasn't found in the map, default to original link
         // Could be a typo, its up to the author to correct -- this feedback should help
-        node.url = nodePath
+        newUrl = nodePath
         throw new Error(
           `[MDX TUTORIAL]: internal link could not be rewritten: ${nodePath} \nPlease check all Learn links in that tutorial to ensure they are correct.`
         )
@@ -129,4 +137,7 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
   } catch (e) {
     console.error(e) // we don't want an incorrect link to break the build
   }
+
+  // Return the modified URL
+  return newUrl
 }
