@@ -102,7 +102,7 @@
   flex-direction: column;
   z-index: 2;
 
-  @media not (--dev-dot-desktop) {
+  @media (--dev-dot-tablet-down) {
     border: none;
     box-shadow: none;
     max-height: none;
@@ -119,6 +119,10 @@
   padding: 12px;
   list-style-type: none;
   margin: 0;
+
+  @media (--dev-dot-tablet-down) {
+    padding: 12px 24px;
+  }
 }
 
 .item {

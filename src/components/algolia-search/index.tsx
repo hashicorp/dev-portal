@@ -9,10 +9,7 @@ import { Hit } from '@algolia/client-search'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { IconSlashSquare16 } from '@hashicorp/flight-icons/svg-react/slash-square-16'
-import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 import useFocusOnKeyClick from 'hooks/use-focus-on-key-click'
-import SearchResultsLegend from './components/search-results-legend'
-import HitWrapper from './components/hit-wrapper'
 import { useAlgoliaNavigatorNext } from './lib/use-algolia-navigator-next'
 import { AutocompleteProps } from './types'
 
@@ -64,7 +61,6 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
         setAutocompleteState(state)
       },
       navigator,
-      debug: true,
       ...props,
     })
   }, [])
