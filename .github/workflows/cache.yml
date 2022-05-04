@@ -15,4 +15,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Cache .io sites
-        run: npx --package @hashicorp/platform-tools@0.5.0 hc-tools ./scripts/warm-dotio-cache.ts
+        run: npx hc-tools ./scripts/warm-dotio-cache.ts
