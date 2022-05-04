@@ -41,6 +41,7 @@ import {
   NextPrevious,
   getNextPrevious,
 } from './components'
+import { OptOutButton } from 'views/product-tutorials-view/components/learn-opt-out-button'
 import getVideoUrl from './utils/get-video-url'
 import s from './tutorial-view.module.css'
 
@@ -160,6 +161,7 @@ export default function TutorialView({
            */
           sidebarNavDataLevels={sidebarNavDataLevels as any}
           AlternateSidebar={TutorialsSidebar}
+          optOutButtonSlot={<OptOutButton />}
           headings={layout.headings}
         >
           <TutorialMeta
