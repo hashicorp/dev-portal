@@ -72,6 +72,7 @@ for further details.
   @media (--dev-dot-tablet-down) {
     padding-left: 0;
     padding-right: 0;
+    max-width: none;
   }
 }
 

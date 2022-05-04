@@ -107,7 +107,7 @@
     box-shadow: none;
     max-height: none;
     width: 100%;
-    height: fill-available;
+    height: stretch;
   }
 }
 
@@ -122,7 +122,8 @@
   margin: 0;
 
   @media (--dev-dot-tablet-down) {
-    padding: 12px 24px;
+    padding-left: 24px;
+    padding-right: 10px;
   }
 }
 
