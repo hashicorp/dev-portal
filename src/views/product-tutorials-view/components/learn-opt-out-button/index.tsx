@@ -29,6 +29,7 @@ export function OptOutButton() {
 
 function getLearnRedirectPath(currentPath: string) {
   // based on url structure /{product}/tutorials/{collection}/{tutorial}
+  // @TODO test with ANchor links
   const [, product, , collection, tutorial] = currentPath.split('/')
   let learnPath = product
   const params = new URLSearchParams('betaOptOut=true')
@@ -42,7 +43,9 @@ function getLearnRedirectPath(currentPath: string) {
     learnPath = ['collections', product, collection].join('/')
   }
 
-  const url = new URL(learnPath + `?${params.toString()}`, LEARN_BASE_URL)
+  params.append('path', learnPath)
+
+  const url = new URL(`?${params.toString()}`, LEARN_BASE_URL)
   console.log(url.toString())
   return url.toString()
 }
