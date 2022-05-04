@@ -40,7 +40,6 @@ describe('detectAndReformatLearnUrl', () => {
   it('returns non-Learn URLs back unmodified', async () => {
     const nonLearnUrls: string[] = [
       '/vault/docs',
-      '/vault',
       '/vault/tutorials',
       '/waypoint/tutorials',
     ]
@@ -48,6 +47,37 @@ describe('detectAndReformatLearnUrl', () => {
       const url = nonLearnUrls[n]
       const result = await detectAndReformatLearnUrl(url)
       expect(result).toBe(url)
+    }
+  })
+
+  it('reformats product hub URLs', async () => {
+    interface UrlTestCase {
+      input: string
+      expected: string
+    }
+    const hubPageUrls: UrlTestCase[] = [
+      {
+        input: '/waypoint',
+        expected: '/waypoint/tutorials',
+      },
+      {
+        input: '/vault',
+        expected: '/vault/tutorials',
+      },
+      // Note: underlying rewriteTutorialsLink() handles beta products
+      {
+        input: '/consul',
+        expected: 'https://learn.hashicorp.com/consul',
+      },
+      {
+        input: '/cloud',
+        expected: 'https://learn.hashicorp.com/cloud',
+      },
+    ]
+    for (let n = 0; n < hubPageUrls.length; n++) {
+      const { input, expected } = hubPageUrls[n]
+      const result = await detectAndReformatLearnUrl(input)
+      expect(result).toBe(expected)
     }
   })
 

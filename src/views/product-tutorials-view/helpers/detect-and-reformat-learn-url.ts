@@ -20,9 +20,10 @@ async function detectAndReformatLearnUrl(url: string): Promise<string> {
   // Determine from path parts whether this is a collection or tutorial URL
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_beforeSlash, part1, part2] = url.split('/')
+  const isHubPageUrl = isThemeOrProduct(part1)
   const isTutorialUrl = part1 === 'tutorials' && isThemeOrProduct(part2)
   const isCollectionUrl = part1 === 'collections' && isThemeOrProduct(part2)
-  if (isTutorialUrl || isCollectionUrl) {
+  if (isHubPageUrl || isTutorialUrl || isCollectionUrl) {
     // Tutorial and collection URLs need to be rewritten
     TUTORIAL_MAP = await getTutorialMap()
     return rewriteTutorialsLink(url, TUTORIAL_MAP)
