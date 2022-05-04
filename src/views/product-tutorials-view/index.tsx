@@ -1,3 +1,4 @@
+import { ProductOption } from 'lib/learn-client/types'
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
@@ -13,7 +14,6 @@ import { ProductTutorialsViewProps } from './server'
 import ProductViewContent from './components/product-view-content'
 import { getOverviewHeading } from './helpers/heading-helpers'
 import s from './product-tutorials-view.module.css'
-import { ProductOption } from 'lib/learn-client/types'
 
 function ProductTutorialsView({
   layoutProps,
