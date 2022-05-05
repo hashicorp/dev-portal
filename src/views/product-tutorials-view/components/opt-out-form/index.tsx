@@ -24,18 +24,17 @@ const optOutOptions = [
   'Something else?',
 ]
 
-/**
- *
- * TODO - make the buttons, submit / reset inputs?
- */
-
 export default function OptOutForm({
   redirectUrl,
   onDismiss,
   platform,
 }: OptOutFormProps) {
+  function handleOptOut() {
+    // TODO submit form data
+    window.location.assign(redirectUrl)
+  }
   return (
-    <form className={s.form}>
+    <form className={s.form} id="opt-out-form">
       <div className={s.header}>
         <label
           htmlFor="opt-out-form"
@@ -67,9 +66,11 @@ export default function OptOutForm({
       </div>
       <div className={s.ctaButtons}>
         <Button
+          form="opt-out-form"
+          type="submit"
           color="primary"
           text="Leave Beta"
-          onClick={() => window.location.assign(redirectUrl)}
+          onClick={handleOptOut}
         />
         <Button color="secondary" text="Cancel" onClick={onDismiss} />
       </div>
