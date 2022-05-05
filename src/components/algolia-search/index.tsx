@@ -11,7 +11,7 @@ import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { IconSlashSquare16 } from '@hashicorp/flight-icons/svg-react/slash-square-16'
 import useFocusOnKeyClick from 'hooks/use-focus-on-key-click'
 import { useAlgoliaNavigatorNext } from './lib/use-algolia-navigator-next'
-import { AutocompleteProps } from './types'
+import { AlgoliaSearchPops } from './types'
 
 import s from './algolia-search.module.css'
 import Panel from './components/panel'
@@ -27,7 +27,7 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
   getHitLinkProps,
   className,
   ...props
-}: AutocompleteProps<THit>) {
+}: AlgoliaSearchPops<THit>) {
   const inputRef = React.useRef<HTMLInputElement>(null)
   const formRef = React.useRef<HTMLFormElement>(null)
   const panelRef = React.useRef<HTMLDivElement>(null)

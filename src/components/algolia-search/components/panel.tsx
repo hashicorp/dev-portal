@@ -16,7 +16,7 @@ import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
 import HitWrapper from './hit-wrapper'
 import SearchResultsLegend from './search-results-legend'
 import s from '../algolia-search.module.css'
-import { AutocompleteProps } from '../types'
+import { AlgoliaSearchPops } from '../types'
 import { Hit } from '@algolia/client-search'
 import {
   AutocompleteApi,
@@ -42,12 +42,12 @@ type PanelProps<THit extends Hit<unknown>> = {
   /**
    * The component type used to render each individual search result
    */
-  ResultComponent: AutocompleteProps<THit>['ResultComponent']
+  ResultComponent: AlgoliaSearchPops<THit>['ResultComponent']
 
   /**
    * Getter function for the props to pass to each result's Link wrapper
    */
-  getHitLinkProps: AutocompleteProps<THit>['getHitLinkProps']
+  getHitLinkProps: AlgoliaSearchPops<THit>['getHitLinkProps']
 
   /**
    * Ref to the form element wrapping the search input. Used to determine position
