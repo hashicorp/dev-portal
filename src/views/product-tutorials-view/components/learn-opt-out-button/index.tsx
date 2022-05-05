@@ -27,6 +27,7 @@ export function OptOutButton() {
   )
 }
 
+// @TODO perhaps move this to learn and just pass the dev dot portal path.
 function getLearnRedirectPath(currentPath: string) {
   // based on url structure /{product}/tutorials/{collection}/{tutorial}
   // @TODO test with ANchor links
@@ -37,7 +38,7 @@ function getLearnRedirectPath(currentPath: string) {
   if (tutorial) {
     // /tutorials/{product}/{tutorial}?in={collection}
     learnPath = ['tutorials', product, tutorial].join('/')
-    params.append('in', collection)
+    params.append('in', `${product}/${collection}`)
   } else if (collection) {
     // /collections/{product}/{collection}
     learnPath = ['collections', product, collection].join('/')
@@ -46,6 +47,5 @@ function getLearnRedirectPath(currentPath: string) {
   params.append('path', learnPath)
 
   const url = new URL(`?${params.toString()}`, LEARN_BASE_URL)
-  console.log(url.toString())
   return url.toString()
 }
