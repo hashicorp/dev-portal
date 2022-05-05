@@ -1,3 +1,4 @@
+import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button from 'components/button'
 import Text from 'components/text'
 import s from './opt-out-form.module.css'
@@ -35,11 +36,16 @@ export default function OptOutForm({
 }: OptOutFormProps) {
   return (
     <form className={s.form}>
-      <label
-        htmlFor="opt-out-form"
-        className={s.heading}
-      >{`Why do you want to leave the ${platformOptions[platform]} Developer Beta?`}</label>
-      <Text className={s.subheading}>(optional)</Text>
+      <div className={s.header}>
+        <label
+          htmlFor="opt-out-form"
+          className={s.heading}
+        >{`Why do you want to leave the ${platformOptions[platform]} Developer Beta?`}</label>
+        <Text className={s.subheading}>(optional)</Text>
+        <button className={s.exitIcon} onClick={onDismiss} aria-label="Cancel">
+          <IconX16 />
+        </button>
+      </div>
       <div className={s.feedback}>
         <label htmlFor="opt-out-select" hidden>
           Please select a reason
