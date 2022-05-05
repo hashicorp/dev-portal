@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
 import { ProductData } from 'types/products'
+import { generateProductLandingSidebarMenuItems } from 'components/sidebar/helpers/generate-product-landing-nav-items'
 
 async function generateStaticProps({
   product,
@@ -73,11 +74,7 @@ async function generateStaticProps({
     }
   })
 
-  const navData = [
-    ...product.sidebar.landingPageNavData,
-    { divider: true },
-    ...product.sidebar.resourcesNavData,
-  ]
+  const menuItems = generateProductLandingSidebarMenuItems(product)
 
   return {
     content: CONTENT,
@@ -94,7 +91,7 @@ async function generateStaticProps({
         { title: product.name, url: `/${product.slug}` },
       ],
       sidebarProps: {
-        menuItems: navData,
+        menuItems,
         showFilterInput: false,
         title: product.name,
       },
