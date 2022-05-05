@@ -1,5 +1,44 @@
-.placeholder {
-  border: 1px solid magenta;
-  font-size: 12px;
-  white-space: pre-wrap;
+.root {
+  composes: hds-surface-low from global;
+  align-items: center;
+
+  /** Note: --gradient-start & --gradient-stop set in JS */
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--gradient-stop) 100%
+  );
+  border-radius: 6px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.heading {
+  composes: hds-typography-display-400 from global;
+  color: var(--token-color-foreground-strong);
+  flex: 1 1 0;
+  font-weight: var(--token-typography-font-weight-bold);
+  margin: 0;
+  max-width: 18em;
+  min-width: 10em;
+  padding: 32px;
+}
+
+.image {
+  display: none;
+
+  @media (--dev-dot-tablet-up) {
+    align-items: flex-end;
+    align-self: stretch;
+    display: flex;
+    flex: 0 1 300px;
+    justify-content: flex-end;
+    margin-left: auto;
+
+    & img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
 }
