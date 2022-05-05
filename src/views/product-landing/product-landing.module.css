@@ -1,15 +1,5 @@
-.heroMargin {
-  margin-bottom: 32px;
-}
-
-.iconCardsMargin {
-  margin: 32px 0;
-}
-
-.overviewCtaMargin {
-  margin: 56px 0;
-}
-
-.getStartedMargin {
-  margin: 48px 0;
+.placeholder {
+  border: 1px solid magenta;
+  font-size: 12px;
+  white-space: pre-wrap;
 }
