@@ -25,8 +25,37 @@
 }
 
 .select {
+  /** Reset styles **/
+  appearance: none;
+  margin: 0;
+  width: 100%;
+  cursor: inherit;
   margin-bottom: 16px;
+  color: var(--token-color-foreground-primary);
+  background-color: var(--token-color-surface-faint);
+  border: 1px solid var(--token-color-neutral-border-strong);
+  border-radius: 5px;
+  padding: 10px 16px;
+
+  /** Do we have a button / medium class? */
+  composes: hds-font-weight-medium from global;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  box-shadow: var(--token-elevation-low-box-shadow);
+  position: relative;
 }
+
+/** TODO, why isn't the arrow showing up */
+.select::after {
+  content: '';
+  width: 15px;
+  height: 15px;
+  background: url('~@hashicorp/flight-icons/svg/chevron-down-16.svg');
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .optionalText {
   composes: hds-typography-body-200 hds-font-weight-regular from global;
   width: 100%;
