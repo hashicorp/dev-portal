@@ -67,7 +67,6 @@ export default function OptOutForm({
       <div className={s.ctaButtons}>
         <Button
           form="opt-out-form"
-          type="submit"
           color="primary"
           text="Leave Beta"
           onClick={handleOptOut}

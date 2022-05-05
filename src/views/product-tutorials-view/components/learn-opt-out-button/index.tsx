@@ -35,7 +35,7 @@ export function OptOutButton() {
         iconPosition="trailing"
         onClick={openDialog}
       />
-      <Dialog onDismiss={closeDialog} isOpen={showDialog}>
+      <Dialog onDismiss={closeDialog} isOpen={showDialog} label="Opt out form">
         <OptOutForm
           redirectUrl={url}
           onDismiss={closeDialog}

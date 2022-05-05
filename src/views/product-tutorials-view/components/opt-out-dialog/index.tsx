@@ -5,6 +5,7 @@ interface DialogProps {
   isOpen: boolean
   onDismiss(): void
   children: ReactNode
+  label: string
 }
 
 const overlayStyles = {
@@ -20,10 +21,17 @@ const dialogStyles = {
   minWidth: '300px',
 }
 
-export default function Dialog({ children, isOpen, onDismiss }: DialogProps) {
+export default function Dialog({
+  children,
+  isOpen,
+  onDismiss,
+  label,
+}: DialogProps) {
   return (
     <DialogOverlay style={overlayStyles} isOpen={isOpen} onDismiss={onDismiss}>
-      <DialogContent style={dialogStyles}>{children}</DialogContent>
+      <DialogContent style={dialogStyles} aria-label={label}>
+        {children}
+      </DialogContent>
     </DialogOverlay>
   )
 }
