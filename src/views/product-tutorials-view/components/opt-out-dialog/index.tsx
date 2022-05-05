@@ -7,18 +7,21 @@ interface DialogProps {
   children: ReactNode
 }
 
+const overlayStyles = {
+  background: 'var(--token-color-border-strong',
+  zIndex: 100,
+}
+
+const dialogStyles = {
+  boxShadow: 'var(--token-surface-higher-box-shadow)',
+  borderRadius: '6px',
+  padding: '24px',
+}
+
 export default function Dialog({ children, isOpen, onDismiss }: DialogProps) {
   return (
-    <DialogOverlay
-      style={{ background: 'hsla(0, 100%, 100%, 0.9)', zIndex: 100 }}
-      isOpen={isOpen}
-      onDismiss={onDismiss}
-    >
-      <DialogContent
-        style={{ boxShadow: '0px 10px 50px hsla(0, 0%, 0%, 0.33)' }}
-      >
-        {children}
-      </DialogContent>
+    <DialogOverlay style={overlayStyles} isOpen={isOpen} onDismiss={onDismiss}>
+      <DialogContent style={dialogStyles}>{children}</DialogContent>
     </DialogOverlay>
   )
 }

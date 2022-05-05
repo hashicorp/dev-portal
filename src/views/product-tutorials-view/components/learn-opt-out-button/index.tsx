@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import '@reach/dialog/styles.css'
 import Button from 'components/button'
+import OptOutForm from '../opt-out-form'
 import Dialog from '../opt-out-dialog'
 
 // @TODO move this up a level? create an opt-out dir?
@@ -22,9 +23,9 @@ export function OptOutButton() {
   const router = useRouter()
   const url = getLearnRedirectPath(router.asPath)
   const [showDialog, setShowDialog] = useState(false)
-  const open = () => setShowDialog(true)
-  const close = () => setShowDialog(false)
-  // @TODO this should open a modal
+  const openDialog = () => setShowDialog(true)
+  const closeDialog = () => setShowDialog(false)
+
   return (
     <div>
       <Button
@@ -32,16 +33,14 @@ export function OptOutButton() {
         text="Leave Developer Beta"
         icon={<IconExternalLink16 />}
         iconPosition="trailing"
-        onClick={open}
+        onClick={openDialog}
       />
-      <Dialog onDismiss={close} isOpen={showDialog}>
-        <p>Opt out!</p>
-        <Button
-          color="primary"
-          text="Leave Beta"
-          onClick={() => window.location.assign(url)}
+      <Dialog onDismiss={closeDialog} isOpen={showDialog}>
+        <OptOutForm
+          redirectUrl={url}
+          onDismiss={closeDialog}
+          platform="learn"
         />
-        <Button color="tertiary" text="Cancel" onClick={close} />
       </Dialog>
     </div>
   )
