@@ -1,0 +1,46 @@
+.heading {
+  composes: hds-typography-body-300 hds-font-weight-semibold from global;
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 4px;
+  margin-top: 2px;
+}
+
+.subheading {
+  color: var(--token-color-foreground-primary);
+  margin-bottom: 16px;
+}
+
+.feedback {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ctaButtons {
+  display: flex;
+
+  & > :first-child {
+    margin-right: 16px;
+  }
+}
+
+.select {
+  margin-bottom: 16px;
+}
+.optionalText {
+  composes: hds-typography-body-200 hds-font-weight-regular from global;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  border-radius: 5px;
+  color: var(--token-color-foreground-primary);
+  padding: 12px;
+  box-shadow: var(--token-surface-base-box-shadow);
+  border: unset;
+  resize: none;
+
+  &::placeholder {
+    color: var(--token-color-foreground-faint);
+    opacity: 100%;
+  }
+}
