@@ -16,6 +16,8 @@ const dialogStyles = {
   boxShadow: 'var(--token-surface-higher-box-shadow)',
   borderRadius: '6px',
   padding: '24px',
+  maxWidth: '600px',
+  minWidth: '300px',
 }
 
 export default function Dialog({ children, isOpen, onDismiss }: DialogProps) {
