@@ -1,11 +1,17 @@
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import '@reach/dialog/styles.css'
 import Button from 'components/button'
+import Dialog from '../opt-out-dialog'
 
 // @TODO move this up a level? create an opt-out dir?
 // THIS SHOULD ONLY RENDER IF THE OPT IN COOKIE IS SET - true
 /**
  * maybe we retain the opt out button slot...
+ *
+ *
+ * ALSO, this should only render if the cookie is present
  */
 
 // const LEARN_BASE_URL = 'https://learn.hashicorp.com/'
@@ -15,19 +21,34 @@ const LEARN_BASE_URL =
 export function OptOutButton() {
   const router = useRouter()
   const url = getLearnRedirectPath(router.asPath)
+  const [showDialog, setShowDialog] = useState(false)
+  const open = () => setShowDialog(true)
+  const close = () => setShowDialog(false)
   // @TODO this should open a modal
   return (
-    <Button
-      color="tertiary"
-      text="Leave Developer Beta"
-      icon={<IconExternalLink16 />}
-      iconPosition="trailing"
-      onClick={() => window.location.assign(url)}
-    />
+    <div>
+      <Button
+        color="tertiary"
+        text="Leave Developer Beta"
+        icon={<IconExternalLink16 />}
+        iconPosition="trailing"
+        onClick={open}
+      />
+      <Dialog onDismiss={close} isOpen={showDialog}>
+        <p>Opt out!</p>
+        <Button
+          color="primary"
+          text="Leave Beta"
+          onClick={() => window.location.assign(url)}
+        />
+        <Button color="tertiary" text="Cancel" onClick={close} />
+      </Dialog>
+    </div>
   )
 }
 
 // @TODO perhaps move this to learn and just pass the dev dot portal path.
+// @TODO remove other extra query params...could be leftover from previous redirects
 function getLearnRedirectPath(currentPath: string) {
   // based on url structure /{product}/tutorials/{collection}/{tutorial}
   // @TODO test with ANchor links
