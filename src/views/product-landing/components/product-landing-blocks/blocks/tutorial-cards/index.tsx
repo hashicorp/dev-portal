@@ -1,13 +1,15 @@
 import { TutorialCardsProps } from './types'
-import s from './tutorial-cards.module.css'
+import CardsGridList from 'components/cards-grid-list'
+import TutorialCard, { TutorialCardPropsWithId } from 'components/tutorial-card'
 
 function TutorialCards({ tutorialCards }: TutorialCardsProps) {
   return (
-    <pre className={s.placeholder}>
-      <code>
-        {JSON.stringify({ component: 'TutorialCards', tutorialCards }, null, 2)}
-      </code>
-    </pre>
+    <CardsGridList>
+      {tutorialCards.map((cardPropsWithId: TutorialCardPropsWithId) => {
+        const { id, ...cardProps } = cardPropsWithId
+        return <TutorialCard key={id} {...cardProps} />
+      })}
+    </CardsGridList>
   )
 }
 
