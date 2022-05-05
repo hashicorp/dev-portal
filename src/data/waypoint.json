@@ -60,6 +60,24 @@
     }
   ],
   "basePaths": ["commands", "docs", "plugins"],
+  "rootDocsPaths": [
+    {
+      "iconName": "docs",
+      "name": "General Documentation",
+      "path": "docs",
+      "shortName": "Documentation"
+    },
+    {
+      "iconName": "terminal-screen",
+      "name": "CLI",
+      "path": "commands"
+    },
+    {
+      "iconName": "box",
+      "name": "Plugins",
+      "path": "plugins"
+    }
+  ],
   "sidebar": {
     "landingPageNavData": [
       { "title": "Introduction", "fullPath": "/waypoint/docs/intro" },
