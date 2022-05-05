@@ -1,13 +1,34 @@
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'heading icon'
+    'subheading icon';
+}
+
+.exitIcon {
+  grid-area: icon;
+  color: var(--token-color-neutral-foreground-faint);
+  margin: 4px 2px;
+  appearance: none;
+  background: unset;
+  border: unset;
+  padding: 0;
+  height: min-content;
+}
+
 .heading {
   composes: hds-typography-body-300 hds-font-weight-semibold from global;
   color: var(--token-color-foreground-strong);
   margin-bottom: 4px;
   margin-top: 2px;
+  grid-area: heading;
 }
 
 .subheading {
   color: var(--token-color-foreground-primary);
   margin-bottom: 16px;
+  grid-area: subheading;
 }
 
 .feedback {
