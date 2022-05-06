@@ -18,6 +18,7 @@ import {
   CollectionCategorySidebarSection,
   getCollectionSlug,
 } from 'views/collection-view/helpers'
+import { OptInOut } from 'views/product-tutorials-view/components/learn-opt-out-button'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 import DevDotContent from 'components/dev-dot-content'
 import {
@@ -41,7 +42,6 @@ import {
   NextPrevious,
   getNextPrevious,
 } from './components'
-import { OptOutButton } from 'views/product-tutorials-view/components/learn-opt-out-button'
 import getVideoUrl from './utils/get-video-url'
 import s from './tutorial-view.module.css'
 
@@ -161,7 +161,7 @@ export default function TutorialView({
            */
           sidebarNavDataLevels={sidebarNavDataLevels as any}
           AlternateSidebar={TutorialsSidebar}
-          optOutButtonSlot={<OptOutButton />}
+          optOutButtonSlot={<OptInOut platform="learn" />}
           headings={layout.headings}
         >
           <TutorialMeta

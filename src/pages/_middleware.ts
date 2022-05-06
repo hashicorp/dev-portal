@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
 
-type PlatformOption = 'vault' | 'waypoint' | 'learn'
+export type OptInPlatformOption = 'vault-io' | 'waypoint-io' | 'learn'
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 90 //90 days
 
 const HOSTNAME_MAP = {
@@ -78,7 +78,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   // Handle Opt-in cookies
   const response = NextResponse.next()
   const params = req.nextUrl.searchParams
-  const optInPlatform = params.get('optInFrom') as PlatformOption
+  const optInPlatform = params.get('optInFrom') as OptInPlatformOption
 
   if (optInPlatform) {
     response.cookie(`${optInPlatform}-beta-opt-in`, 'true', {

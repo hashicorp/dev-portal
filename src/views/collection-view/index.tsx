@@ -8,7 +8,7 @@ import {
 import TutorialsSidebar, {
   CollectionViewSidebarContent,
 } from 'components/tutorials-sidebar'
-import { OptOutButton } from 'views/product-tutorials-view/components/learn-opt-out-button'
+import { OptInOut } from 'views/product-tutorials-view/components/learn-opt-out-button'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
@@ -54,7 +54,7 @@ function CollectionView({
        * a follow-up PR since this is functional for the time being.
        */
       sidebarNavDataLevels={sidebarNavDataLevels as any}
-      optOutButtonSlot={<OptOutButton />}
+      optOutButtonSlot={<OptInOut platform="learn" />}
       sidecarSlot={null}
     >
       <CollectionMeta
