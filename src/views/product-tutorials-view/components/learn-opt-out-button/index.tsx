@@ -49,23 +49,26 @@ export function OptOutButton() {
 // @TODO perhaps move this to learn and just pass the dev dot portal path.
 // @TODO remove other extra query params...could be leftover from previous redirects
 function getLearnRedirectPath(currentPath: string) {
+  // ensures previous search params aren't passed with the redirect
+  const originalUrl = new URL(currentPath, LEARN_BASE_URL)
+  console.log({ originalUrl })
+  const finalUrl = new URL(LEARN_BASE_URL)
+  finalUrl.searchParams.set('betaOptOut', 'true')
+  finalUrl.searchParams.set('path', originalUrl.pathname)
+
   // based on url structure /{product}/tutorials/{collection}/{tutorial}
   // @TODO test with ANchor links
-  const [, product, , collection, tutorial] = currentPath.split('/')
-  let learnPath = product
-  const params = new URLSearchParams('betaOptOut=true')
+  // const [, product, , collection, tutorial] = originalUrl.pathname.split('/')
+  // let learnPath = product
 
-  if (tutorial) {
-    // /tutorials/{product}/{tutorial}?in={collection}
-    learnPath = ['tutorials', product, tutorial].join('/')
-    params.append('in', `${product}/${collection}`)
-  } else if (collection) {
-    // /collections/{product}/{collection}
-    learnPath = ['collections', product, collection].join('/')
-  }
+  // if (tutorial) {
+  //   // /tutorials/{product}/{tutorial}?in={collection}
+  //   learnPath = ['tutorials', product, tutorial].join('/')
+  //   finalUrl.searchParams.set('in', `${product}/${collection}`)
+  // } else if (collection) {
+  //   // /collections/{product}/{collection}
+  //   learnPath = ['collections', product, collection].join('/')
+  // }
 
-  params.append('path', learnPath)
-
-  const url = new URL(`?${params.toString()}`, LEARN_BASE_URL)
-  return url.toString()
+  return finalUrl.toString()
 }
