@@ -14,4 +14,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ github.event.pull_request.html_url }}
         run: |
-          gh pr comment $PR --body 'TEST\nTEST'
+          gh pr comment $PR --body "Some suggested prefixes and emojis that may help to write clear, actionable code review comments:
+          - **Praise** 🙌 - use to highlight something positive. It's nice to try to leave one per review, but don't leave false praise just to leave one of these comments.
+          - **Question** 🙋 - use to gain clarity from the code author. The conversation could evolve into any one of these other categories. Only the reviewer should resolve these comment threads.
+          - **Thought** 💭 - use to share context, leave a breadcrumb, or share an idea that came up while reviewing.
+          - **Blocker** 🚧 - use to request changes that block merging the current PR. Only the reviewer should resolve these comment threads.
+          - **Future** 📌 - use to request changes that the code author can choose to address in the current PR or a follow-up one.
+          - **Optional** 🎨 - use to suggest optional changes that you feel strongly about but ultimately defer to the code author to make a decision on. These can be comments that turn into valuable conversation starters for adopting new code styles, guidelines, or team practices.
+          - **Nitpick** ⛏️ - use to suggest changes based on loose opinions or personal preferences. The difference between this and **Optional** 🎨  is how strong the code reviewer's opinion is.
+          "
