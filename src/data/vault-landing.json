@@ -21,7 +21,7 @@
         "url": "/vault/tutorials/getting-started"
       },
       {
-        "text": "CLI Quick Start",
+        "text": "Developer Quick Start",
         "url": "/vault/tutorials/cloud"
       }
     ]
@@ -36,6 +36,14 @@
     {
       "type": "tutorial_cards",
       "tutorialSlugs": ["vault/transform", "vault/static-secrets"]
+    },
+    {
+      "type": "collection_cards",
+      "collectionSlugs": [
+        "vault/getting-started",
+        "vault/getting-started-ui",
+        "vault/encryption-as-a-service"
+      ]
     },
     {
       "type": "linked_cards",

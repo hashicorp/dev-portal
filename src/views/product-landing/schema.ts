@@ -45,6 +45,18 @@ const TutorialCardsContentBlockSchema = Joi.object({
 })
 
 /**
+ * CollectionCards
+ */
+interface CollectionCardsContentBlock {
+  type: 'collection_cards'
+  collectionSlugs: string[]
+}
+const CollectionCardsContentBlockSchema = Joi.object({
+  type: Joi.string().required().valid('collection_cards'),
+  collectionSlugs: Joi.array().items(Joi.string()).required().min(1),
+})
+
+/**
  * LinkedCards
  */
 interface LinkedCardsContentBlock {
@@ -75,6 +87,7 @@ const LinkedCardsContentBlockSchema = Joi.object({
 export type ProductLandingContentBlock =
   | HeadingContentBlock
   | TutorialCardsContentBlock
+  | CollectionCardsContentBlock
   | LinkedCardsContentBlock
 const ProductLandingContentBlockSchema = Joi.object({
   type: Joi.string()
@@ -86,6 +99,9 @@ const ProductLandingContentBlockSchema = Joi.object({
   })
   .when(Joi.object({ type: 'tutorial_cards' }).unknown(), {
     then: TutorialCardsContentBlockSchema,
+  })
+  .when(Joi.object({ type: 'collection_cards' }).unknown(), {
+    then: CollectionCardsContentBlockSchema,
   })
   .when(Joi.object({ type: 'linked_cards' }).unknown(), {
     then: LinkedCardsContentBlockSchema,
