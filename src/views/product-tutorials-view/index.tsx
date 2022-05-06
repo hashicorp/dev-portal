@@ -71,7 +71,7 @@ function ProductTutorialsView({
        * a follow-up PR since this is functional for the time being.
        */
       sidebarNavDataLevels={sidebarNavDataLevels as any}
-      optOutButtonSlot={<OptInOut platform="learn" />}
+      optInOutSlot={<OptInOut platform="learn" />}
     >
       <PageHeading />
       <ProductViewContent

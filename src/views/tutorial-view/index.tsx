@@ -19,7 +19,7 @@ import {
   CollectionCategorySidebarSection,
   getCollectionSlug,
 } from 'views/collection-view/helpers'
-import { OptInOut } from 'components/opt-in-out'
+import OptInOut from 'components/opt-in-out'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 import DevDotContent from 'components/dev-dot-content'
 import {
