@@ -13,11 +13,7 @@ export const generateProductLandingSidebarNavData = (product: ProductData) => {
     levelUpButtonText: 'Main Menu',
     levelDownButtonText: 'Previous',
   }
-  const menuItems = [
-    ...product.sidebar.landingPageNavData,
-    { divider: true },
-    ...product.sidebar.resourcesNavData,
-  ]
+  const menuItems = [...product.sidebar.landingPageNavData]
   const showFilterInput = false
   const title = product.name
 

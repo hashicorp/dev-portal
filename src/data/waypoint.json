@@ -67,25 +67,6 @@
         "title": "Getting Started",
         "fullPath": "/waypoint/docs/getting-started"
       }
-    ],
-    "resourcesNavData": [
-      { "heading": "Resources" },
-      {
-        "title": "Releases",
-        "href": "https://releases.hashicorp.com/waypoint/"
-      },
-      {
-        "title": "HashiCorp Learn",
-        "href": "https://learn.hashicorp.com/waypoint"
-      },
-      {
-        "title": "Community Forum",
-        "href": "https://discuss.hashicorp.com/c/waypoint/51"
-      },
-      {
-        "title": "Support",
-        "href": "https://support.hashicorp.com"
-      }
     ]
   },
   "navigationHeaderItems": {

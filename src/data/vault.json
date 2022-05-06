@@ -156,25 +156,6 @@
         "title": "Getting Started",
         "fullPath": "/vault/docs/install"
       }
-    ],
-    "resourcesNavData": [
-      { "heading": "Resources" },
-      {
-        "title": "Releases",
-        "href": "https://releases.hashicorp.com/vault/"
-      },
-      {
-        "title": "HashiCorp Learn",
-        "href": "https://learn.hashicorp.com/vault"
-      },
-      {
-        "title": "Community Forum",
-        "href": "https://discuss.hashicorp.com/c/vault/30"
-      },
-      {
-        "title": "Support",
-        "href": "https://support.hashicorp.com"
-      }
     ]
   },
   "navigationHeaderItems": {
