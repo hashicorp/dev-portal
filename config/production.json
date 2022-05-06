@@ -4,6 +4,6 @@
     "max_static_paths": 9999
   },
   "flags": {
-    "enable_product_docs_search": false
+    "enable_product_docs_search": true
   }
 }
