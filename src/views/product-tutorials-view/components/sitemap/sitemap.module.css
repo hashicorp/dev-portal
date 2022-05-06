@@ -3,9 +3,7 @@
 }
 
 .heading {
-  composes: hds-typography-display-300 from global;
   composes: g-offset-scroll-margin-top from global;
-  font-weight: var(--token-typography-font-weight-bold);
   margin: 0;
 }
 

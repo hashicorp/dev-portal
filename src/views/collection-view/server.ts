@@ -35,6 +35,21 @@ export interface CollectionPagePath {
   }
 }
 
+export async function getCollectionViewSidebarSections(
+  product: LearnProductData,
+  collection: ClientCollection
+) {
+  const allProductCollections = await getAllCollections({
+    product: { slug: product.slug, sidebarSort: true },
+  })
+  const filteredCollections = filterCollections(
+    allProductCollections,
+    product.slug
+  )
+
+  return formatSidebarCategorySections(filteredCollections, collection.slug)
+}
+
 /**
  * Given a ProductData object (imported from src/data JSON files) and a
  * Collection slug, fetches and returns the page props for
@@ -54,14 +69,6 @@ export async function getCollectionPageProps(
     return null
   }
 
-  // For sidebar data
-  const allProductCollections = await getAllCollections({
-    product: { slug: product.slug, sidebarSort: true },
-  })
-  const filteredCollections = filterCollections(
-    allProductCollections,
-    product.slug
-  )
   const layoutProps = {
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, filename: product.slug },
@@ -70,9 +77,9 @@ export async function getCollectionPageProps(
         filename: splitProductFromFilename(collection.slug),
       },
     }),
-    sidebarSections: formatSidebarCategorySections(
-      filteredCollections,
-      collection.slug
+    sidebarSections: await getCollectionViewSidebarSections(
+      product,
+      collection
     ),
   }
 

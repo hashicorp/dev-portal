@@ -1,8 +1,13 @@
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import Heading from 'components/heading'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
-import ProductCollectionsSidebar, {
-  ProductCollectionsSidebarProps,
-} from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
+import {
+  generateProductLandingSidebarNavData,
+  generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
+import TutorialsSidebar, {
+  CollectionViewSidebarContent,
+} from 'components/tutorials-sidebar'
 import { ProductTutorialsSitemap } from './components'
 import { ProductTutorialsViewProps } from './server'
 import ProductViewContent from './components/product-view-content'
@@ -10,24 +15,45 @@ import { getOverviewHeading } from './helpers/heading-helpers'
 import s from './product-tutorials-view.module.css'
 
 function ProductTutorialsView({
-  layoutProps,
   data,
+  layoutProps,
   product,
 }: ProductTutorialsViewProps): React.ReactElement {
   const { inlineCollections, inlineTutorials, pageData, allCollections } = data
   const { showProductSitemap, blocks } = pageData
-  const sidebarProduct = {
-    name: product.name,
-    slug: product.slug,
-  } as ProductCollectionsSidebarProps['product']
+
+  const sidebarNavDataLevels = [
+    generateTopLevelSidebarNavData(product.name),
+    generateProductLandingSidebarNavData(product),
+    {
+      levelButtonProps: {
+        levelUpButtonText: `${product.name} Home`,
+        levelDownButtonText: 'Previous',
+      },
+      backToLinkProps: {
+        text: `${product.name} Home`,
+        href: `/${product.slug}`,
+      },
+      overviewItemHref: `/${product.slug}/tutorials`,
+      title: 'Tutorials',
+      children: (
+        <CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
+      ),
+    },
+  ]
 
   const PageHeading = () => {
     const { title, level, slug } = getOverviewHeading()
-    const HeadingElem = `h${level}` as React.ElementType
     return (
-      <HeadingElem id={slug} className={s.heading}>
+      <Heading
+        id={slug}
+        level={level}
+        size={500}
+        weight="bold"
+        className={s.heading}
+      >
         {title}
-      </HeadingElem>
+      </Heading>
     )
   }
 
@@ -35,13 +61,15 @@ function ProductTutorialsView({
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
       headings={layoutProps.headings}
-      sidebarSlot={
-        <ProductCollectionsSidebar
-          isOverview={true}
-          product={sidebarProduct}
-          sections={layoutProps.sidebarSections}
-        />
-      }
+      AlternateSidebar={TutorialsSidebar}
+      /**
+       * @TODO remove casting to `any`. Will require refactoring both
+       * `generateTopLevelSidebarNavData` and
+       * `generateProductLandingSidebarNavData` to set up `menuItems` with the
+       * correct types. This will require chaning many files, so deferring for
+       * a follow-up PR since this is functional for the time being.
+       */
+      sidebarNavDataLevels={sidebarNavDataLevels as any}
     >
       <PageHeading />
       <ProductViewContent

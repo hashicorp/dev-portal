@@ -1,9 +1,6 @@
-import { LearnProductData, ProductData } from 'types/products'
+import { LearnProductData } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import {
-  Product as ClientProduct,
-  Collection as ClientCollection,
-} from 'lib/learn-client/types'
+import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
@@ -17,22 +14,20 @@ import {
 } from './helpers/get-inline-content'
 import { filterCollections, sortAlphabetically } from './helpers'
 import processPageData from './helpers/process-page-data'
+import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
 
-// Some of the product data is coming from the API client on this view
-type ProductTutorialsPageProduct = ClientProduct &
-  Omit<ProductData, 'name' | 'slug'>
-
 export interface ProductTutorialsViewProps {
-  layoutProps: ProductTutorialsLayout
   data: ProductPageData
-  product: ProductTutorialsPageProduct
+  layoutProps: ProductTutorialsLayout
+  product: LearnProductData
 }
 
-type ProductTutorialsLayout = Pick<
-  SidebarSidecarLayoutProps,
-  'headings' | 'breadcrumbLinks'
-> & { sidebarSections: CollectionCategorySidebarSection[] }
+interface ProductTutorialsLayout {
+  breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
+  headings: SidebarSidecarLayoutProps['headings']
+  sidebarSections: CollectionCategorySidebarSection[]
+}
 
 export interface ProductPageData {
   pageData: {
@@ -82,12 +77,12 @@ export async function getProductTutorialsViewProps(
    * Process page data, reformatting as needed.
    * Includes parsing headings, for use with the page's sidecar
    */
-  const { pageData, headings } = await processPageData(rawPageData)
+  const { pageData } = await processPageData(rawPageData)
   /**
    * Build & return layout props to pass to SidebarSidecarLayout
    */
-  const layoutProps = {
-    headings,
+  const layoutProps: ProductTutorialsLayout = {
+    headings: buildLayoutHeadings(pageData),
     breadcrumbLinks: getTutorialsBreadcrumb({
       product: { name: product.name, filename: product.slug },
     }),

@@ -16,18 +16,10 @@ import {
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
-  /**
-   * The goal is to replace `sidebarProps` with `sidebarNavDataLevels`, so this
-   * coercion is needed for uses of this layout that do not pass a value for the
-   * `sidebarNavDataLevels` prop.
-   */
-  const navDataLevels = props.sidebarNavDataLevels || [props.sidebarProps]
+  const navDataLevels = props.sidebarNavDataLevels
   return (
     <SidebarNavDataProvider navDataLevels={navDataLevels}>
-      <SidebarSidecarLayoutContent
-        {...props}
-        sidebarNavDataLevels={navDataLevels}
-      />
+      <SidebarSidecarLayoutContent {...props} />
     </SidebarNavDataProvider>
   )
 }
@@ -38,7 +30,7 @@ const SidebarSidecarLayoutContent = ({
   githubFileUrl,
   headings,
   openConsentManager,
-  sidebarSlot,
+  AlternateSidebar,
   sidecarSlot,
   sidebarNavDataLevels,
 }: SidebarSidecarLayoutProps) => {
@@ -56,15 +48,9 @@ const SidebarSidecarLayoutContent = ({
     !isDesktop && sidebarIsVisible
   )
 
-  /**
-   * @TODO the docs Sidebar can have props spread onto it but not all uses of
-   * sidebarSlot allow props spreading. The spreading may also become
-   * unnecessary once there is a Context that helps manage the current sidebar
-   * level and how to change it.
-   */
   const SidebarContent = (): ReactElement => {
-    if (sidebarSlot) {
-      return sidebarSlot
+    if (AlternateSidebar && !sidebarProps?.menuItems) {
+      return <AlternateSidebar {...sidebarProps} />
     }
 
     return <Sidebar {...sidebarProps} />
