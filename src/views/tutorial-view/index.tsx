@@ -5,6 +5,7 @@ import useCurrentPath from 'hooks/use-current-path'
 import {
   Collection as ClientCollection,
   CollectionLite as ClientCollectionLite,
+  ProductOption,
   TutorialFullCollectionCtx as ClientTutorial,
 } from 'lib/learn-client/types'
 import SidebarSidecarLayout, {
@@ -27,11 +28,12 @@ import TutorialsSidebar, {
   SectionList,
   SectionTitle,
 } from 'components/tutorials-sidebar'
-import { OptInOut } from 'views/product-tutorials-view/components/learn-opt-out-button'
+import OptInOut from 'components/opt-in-out'
 import getVideoUrl from './utils/get-video-url'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import s from './tutorial-view.module.css'
+import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
 
 export interface TutorialViewProps {
   tutorial: TutorialData
@@ -89,6 +91,10 @@ export default function TutorialView({
     nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
   const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
+  const redirectPath = getLearnRedirectPath(
+    currentPath,
+    slug.split('/')[0] as ProductOption
+  )
 
   return (
     <>
@@ -102,7 +108,9 @@ export default function TutorialView({
       >
         <SidebarSidecarLayout
           breadcrumbLinks={layout.breadcrumbLinks}
-          optOutButtonSlot={<OptInOut platform="learn" />}
+          optInOutSlot={
+            <OptInOut platform="learn" redirectPath={redirectPath} />
+          }
           sidebarSlot={
             <TutorialsSidebar
               backToLinkProps={{

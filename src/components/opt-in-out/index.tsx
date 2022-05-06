@@ -4,8 +4,9 @@ import Cookies from 'js-cookie'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import '@reach/dialog/styles.css'
 import Button from 'components/button'
-import OptOutForm from '../opt-out-form'
-import Dialog from '../opt-out-dialog'
+import OptOutForm from './components/opt-out-form'
+import Dialog from 'components/dialog'
+import { getLearnRedirectPath } from './helpers/get-learn-redirect-path'
 import { OptInPlatformOption } from 'pages/_middleware'
 
 // const LEARN_BASE_URL = 'https://learn.hashicorp.com/'
@@ -20,7 +21,7 @@ type PlatformOptionsType = Record<
 >
 
 // Could these go in the config? or I could source the base urls elsewhere
-const PLATFORM_OPTIONS: PlatformOptionsType = {
+export const PLATFORM_OPTIONS: PlatformOptionsType = {
   learn: {
     base_url: 'https://learn-git-ksspike-opt-in-redirects-hashicorp.vercel.app', // FOR TESTING PURPOSES NEED TO UPDATE for - 'https://learn.hashicorp.com/'
     getRedirectPath: getLearnRedirectPath,
@@ -44,33 +45,27 @@ const PLATFORM_OPTIONS: PlatformOptionsType = {
 
 interface OptInOutProps {
   platform: OptInPlatformOption
+  redirectPath?: string
 }
 
-export function OptInOut({ platform }: OptInOutProps) {
+// @TODO - check query, if 'optInFrom' is there, fire toast
+
+export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   // fire toast, render button, etc
   const router = useRouter()
+  const [showDialog, setShowDialog] = useState(false)
   const optedIn = Cookies.get(PLATFORM_OPTIONS[platform].cookieKey)
+
+  // Return early if not opted in
   if (optedIn !== 'true') {
     return null
   }
 
-  console.log({ router }, router.pathname)
-  const url = PLATFORM_OPTIONS[platform].getRedirectPath(router.asPath)
-  // @TODO - check query, if 'optInFrom' is there, fire toast
-
-  return <OptOutButtonWithDialog redirectUrl={url} />
-}
-
-interface OptOutButtonWithDialogProps {
-  redirectUrl: string
-}
-
-export function OptOutButtonWithDialog({
-  redirectUrl,
-}: OptOutButtonWithDialogProps) {
-  const [showDialog, setShowDialog] = useState(false)
   const openDialog = () => setShowDialog(true)
   const closeDialog = () => setShowDialog(false)
+  const url =
+    redirectPath || PLATFORM_OPTIONS[platform].getRedirectPath(router.asPath)
+
   return (
     <div>
       <Button
@@ -82,7 +77,7 @@ export function OptOutButtonWithDialog({
       />
       <Dialog onDismiss={closeDialog} isOpen={showDialog} label="Opt out form">
         <OptOutForm
-          redirectUrl={redirectUrl}
+          onSubmit={() => handleOptOut(url)}
           onDismiss={closeDialog}
           platform="learn"
         />
@@ -91,11 +86,7 @@ export function OptOutButtonWithDialog({
   )
 }
 
-function getLearnRedirectPath(currentPath: string) {
-  const originalUrl = new URL(currentPath, PLATFORM_OPTIONS['learn'].base_url)
-  const finalUrl = new URL(PLATFORM_OPTIONS['learn'].base_url)
-  finalUrl.searchParams.set('betaOptOut', 'true')
-  finalUrl.searchParams.set('path', originalUrl.pathname)
-
-  return finalUrl.toString()
+function handleOptOut(redirectUrl: string) {
+  // TODO - remove cookie, handle form submit
+  window.location.assign(redirectUrl)
 }
