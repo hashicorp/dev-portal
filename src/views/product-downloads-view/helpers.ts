@@ -2,7 +2,6 @@ import semverRSort from 'semver/functions/rsort'
 import { ProductData } from 'types/products'
 import { ReleasesAPIResponse, ReleaseVersion } from 'lib/fetch-release-data'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
-import { MenuItem, SidebarProps } from 'components/sidebar'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
 
@@ -114,15 +113,6 @@ export const getPageSubtitle = ({
   return `Install or update to ${versionText} of ${productName} to get started.`
 }
 
-export const initializeBackToLink = (
-  currentProduct: Pick<ProductData, 'name' | 'slug'>
-): SidebarProps['backToLinkProps'] => {
-  return {
-    text: `Back to ${currentProduct.name}`,
-    href: `/${currentProduct.slug}`,
-  }
-}
-
 export const initializeBreadcrumbLinks = (
   currentProduct: Pick<ProductData, 'name' | 'slug'>,
   selectedVersion: string
@@ -142,12 +132,6 @@ export const initializeBreadcrumbLinks = (
       url: `/${currentProduct.slug}/downloads`,
     },
   ]
-}
-
-export const initializeNavData = (
-  currentProduct: Pick<ProductData, 'sidebar'>
-): MenuItem[] => {
-  return [...currentProduct.sidebar.landingPageNavData]
 }
 
 export const initializeVersionSwitcherOptions = ({

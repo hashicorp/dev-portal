@@ -16,18 +16,10 @@ import {
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
-  /**
-   * The goal is to replace `sidebarProps` with `sidebarNavDataLevels`, so this
-   * coercion is needed for uses of this layout that do not pass a value for the
-   * `sidebarNavDataLevels` prop.
-   */
-  const navDataLevels = props.sidebarNavDataLevels || [props.sidebarProps]
+  const navDataLevels = props.sidebarNavDataLevels
   return (
     <SidebarNavDataProvider navDataLevels={navDataLevels}>
-      <SidebarSidecarLayoutContent
-        {...props}
-        sidebarNavDataLevels={navDataLevels}
-      />
+      <SidebarSidecarLayoutContent {...props} />
     </SidebarNavDataProvider>
   )
 }
