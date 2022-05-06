@@ -1,5 +1,5 @@
 .root {
-  composes: hds-surface-low from global;
+  composes: hds-elevation-low from global;
   align-items: center;
 
   /** Note: --gradient-start & --gradient-stop set in JS */
