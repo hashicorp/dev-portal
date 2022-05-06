@@ -6,7 +6,10 @@ import { useCurrentProduct } from 'contexts'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DevDotContent from 'components/dev-dot-content'
-import { EnrichedNavItem } from 'components/sidebar/types'
+import {
+  generateProductLandingSidebarNavData,
+  generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 
 // Local imports
 import {
@@ -16,9 +19,7 @@ import {
 import {
   generateDefaultPackageManagers,
   generatePackageManagers,
-  initializeBackToLink,
   initializeBreadcrumbLinks,
-  initializeNavData,
   initializeVersionSwitcherOptions,
 } from './helpers'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
@@ -48,18 +49,14 @@ const ProductDownloadsViewContent = ({
   } = pageContent
   const currentProduct = useCurrentProduct()
   const { currentVersion } = useCurrentVersion()
-  const backToLinkProps = useMemo(
-    () => initializeBackToLink(currentProduct),
-    [currentProduct]
-  )
   const breadcrumbLinks = useMemo(
     () => initializeBreadcrumbLinks(currentProduct, currentVersion),
     [currentProduct, currentVersion]
   )
-  const navData = useMemo(
-    () => initializeNavData(currentProduct),
-    [currentProduct]
-  )
+  const sidebarNavDataLevels = [
+    generateTopLevelSidebarNavData(currentProduct.name),
+    generateProductLandingSidebarNavData(currentProduct),
+  ]
   const packageManagers = useMemo(() => {
     if (doesNotHavePackageManagers) {
       return []
@@ -73,12 +70,14 @@ const ProductDownloadsViewContent = ({
 
   return (
     <SidebarSidecarLayout
-      sidebarProps={{
-        backToLinkProps,
-        menuItems: navData as EnrichedNavItem[],
-        showFilterInput: false,
-        title: currentProduct.name,
-      }}
+      /**
+       * @TODO remove casting to `any`. Will require refactoring both
+       * `generateTopLevelSidebarNavData` and
+       * `generateProductLandingSidebarNavData` to set up `menuItems` with the
+       * correct types. This will require chaning many files, so deferring for
+       * a follow-up PR since this is functional for the time being.
+       */
+      sidebarNavDataLevels={sidebarNavDataLevels as any}
       breadcrumbLinks={breadcrumbLinks}
       sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
     >
