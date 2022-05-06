@@ -9,7 +9,10 @@ import Dialog from 'components/dialog'
 import { getLearnRedirectPath } from './helpers/get-learn-redirect-path'
 import { OptInPlatformOption } from 'pages/_middleware'
 
-// const LEARN_BASE_URL = 'https://learn.hashicorp.com/'
+interface OptInOutProps {
+  platform: OptInPlatformOption
+  redirectPath?: string
+}
 
 type PlatformOptionsType = Record<
   OptInPlatformOption,
@@ -43,13 +46,7 @@ export const PLATFORM_OPTIONS: PlatformOptionsType = {
   },
 }
 
-interface OptInOutProps {
-  platform: OptInPlatformOption
-  redirectPath?: string
-}
-
 // @TODO - check query, if 'optInFrom' is there, fire toast
-
 export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   // fire toast, render button, etc
   const router = useRouter()
@@ -66,6 +63,12 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   const url =
     redirectPath || PLATFORM_OPTIONS[platform].getRedirectPath(router.asPath)
 
+  function handleOptOut() {
+    // @TODO -handle form submit
+    Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
+    window.location.assign(url)
+  }
+
   return (
     <div>
       <Button
@@ -77,16 +80,11 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
       />
       <Dialog onDismiss={closeDialog} isOpen={showDialog} label="Opt out form">
         <OptOutForm
-          onSubmit={() => handleOptOut(url)}
+          onSubmit={handleOptOut}
           onDismiss={closeDialog}
           platform="learn"
         />
       </Dialog>
     </div>
   )
-}
-
-function handleOptOut(redirectUrl: string) {
-  // TODO - remove cookie, handle form submit
-  window.location.assign(redirectUrl)
 }
