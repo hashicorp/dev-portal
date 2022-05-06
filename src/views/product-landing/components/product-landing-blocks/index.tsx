@@ -6,6 +6,7 @@ import {
   LinkedCards,
   TutorialCards,
 } from './blocks'
+import s from './product-landing-blocks.module.css'
 
 function ProductLandingBlocks({ blocks }: ProductLandingBlocksProps) {
   return (
@@ -15,25 +16,31 @@ function ProductLandingBlocks({ blocks }: ProductLandingBlocksProps) {
         switch (type) {
           case 'heading':
             return (
-              <HeadingBlock
-                key={idx}
-                heading={block.heading}
-                headingSlug={block.headingSlug}
-              />
+              <div key={idx} className={s.headingMargin}>
+                <HeadingBlock
+                  heading={block.heading}
+                  headingSlug={block.headingSlug}
+                />
+              </div>
             )
           case 'tutorial_cards':
             return (
-              <TutorialCards key={idx} tutorialCards={block.tutorialCards} />
+              <div key={idx} className={s.cardsMargin}>
+                <TutorialCards tutorialCards={block.tutorialCards} />
+              </div>
             )
           case 'collection_cards':
             return (
-              <CollectionCards
-                key={idx}
-                collectionCards={block.collectionCards}
-              />
+              <div key={idx} className={s.cardsMargin}>
+                <CollectionCards collectionCards={block.collectionCards} />
+              </div>
             )
           case 'linked_cards':
-            return <LinkedCards key={idx} cards={block.cards} />
+            return (
+              <div key={idx} className={s.cardsMargin}>
+                <LinkedCards cards={block.cards} />
+              </div>
+            )
           default:
             /**
              * Note: any invalid block types are expected to have been caught
