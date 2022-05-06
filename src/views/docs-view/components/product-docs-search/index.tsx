@@ -35,7 +35,6 @@ export default function ProductDocsSearch() {
 
   return (
     <AlgoliaSearch
-      debug
       className={s.root}
       openOnFocus={true}
       placeholder={`Search ${currentProduct.slug} documentation`}
