@@ -7,21 +7,7 @@ import Button from 'components/button'
 import OptOutForm from './components/opt-out-form'
 import Dialog from 'components/dialog'
 import { getLearnRedirectPath } from './helpers/get-learn-redirect-path'
-import { OptInPlatformOption } from 'pages/_middleware'
-
-interface OptInOutProps {
-  platform: OptInPlatformOption
-  redirectPath?: string
-}
-
-type PlatformOptionsType = Record<
-  OptInPlatformOption,
-  {
-    base_url: string
-    getRedirectPath: (currentPath?: string) => string
-    cookieKey: string
-  }
->
+import { PlatformOptionsType, OptInOutProps } from './types'
 
 // Could these go in the config? or I could source the base urls elsewhere
 export const PLATFORM_OPTIONS: PlatformOptionsType = {
@@ -46,7 +32,7 @@ export const PLATFORM_OPTIONS: PlatformOptionsType = {
   },
 }
 
-// @TODO - check query, if 'optInFrom' is there, fire toast
+// @TODO - check query, if 'optInFrom' is there, fire welcome toast
 export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   // fire toast, render button, etc
   const router = useRouter()
@@ -64,7 +50,7 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
     redirectPath || PLATFORM_OPTIONS[platform].getRedirectPath(router.asPath)
 
   function handleOptOut() {
-    // @TODO -handle form submit
+    // @TODO - handle form submit
     Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
     window.location.assign(url)
   }

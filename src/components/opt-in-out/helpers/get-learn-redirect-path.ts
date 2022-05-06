@@ -9,6 +9,7 @@ export function getLearnRedirectPath(
   const finalUrl = new URL(PLATFORM_OPTIONS['learn'].base_url)
   finalUrl.searchParams.set('betaOptOut', 'true')
   finalUrl.searchParams.set('path', originalUrl.pathname)
+
   if (product) {
     finalUrl.searchParams.set('product', product)
   }
