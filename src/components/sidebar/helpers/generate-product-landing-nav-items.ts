@@ -19,7 +19,7 @@ export const generateProductLandingSidebarMenuItems = (
   if (product.rootDocsPaths) {
     const rootDocsNavItems = product.rootDocsPaths.map((rootDocsPath) => {
       const { shortName, name, path } = rootDocsPath
-      return { title: shortName || name, fullPath: `${product.slug}/${path}` }
+      return { title: shortName || name, fullPath: `/${product.slug}/${path}` }
     })
     menuItems = [
       ...rootDocsNavItems,
