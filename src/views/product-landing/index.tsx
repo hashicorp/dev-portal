@@ -1,44 +1,38 @@
 /* eslint-disable react/no-array-index-key */
 import React, { ReactElement } from 'react'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { ProductLandingContent, ProductLandingContentBlock } from './schema'
-import s from './product-landing.module.css'
-
-/**
- * TODO: make view-specific types as components are built out
- * (authored content structure and content structure passed to the client
- * will differ; eg tutorial card data will be filled in for client)
- */
-interface ProductLandingViewProps {
-  content: ProductLandingContent
-}
+import { ProductLandingViewProps } from './types'
+import ProductLandingBlocks from './components/product-landing-blocks'
+import HeroHeadingVisual from './components/hero-heading-visual'
+import OverviewCta from './components/overview-cta'
+import GetStartedCard from './components/get-started-card'
 
 function ProductLandingView({
   content,
 }: ProductLandingViewProps): ReactElement {
+  const { hero, overview, get_started, blocks } = content
   return (
-    <div>
-      <pre className={s.placeholder}>
-        <code>
-          {JSON.stringify({ ...content, blocks: undefined }, null, 2)}
-        </code>
-      </pre>
-      {content.blocks.map((block: ProductLandingContentBlock, idx: number) => {
-        const { type } = block
-        switch (type) {
-          default:
-            // If we don't have a recognized block type,
-            // return a dev-oriented debug view of the block data
-            // TODO: remove this for production, this is here
-            // TODO: temporarily as we work through demo-oriented implementation
-            return (
-              <pre key={idx} className={s.placeholder}>
-                <code>{JSON.stringify({ block }, null, 2)}</code>
-              </pre>
-            )
-        }
-      })}
-    </div>
+    <>
+      <HeroHeadingVisual
+        heading={hero.heading}
+        image={hero.image}
+        productSlug={hero.productSlug}
+      />
+      <OverviewCta
+        heading={overview.heading}
+        headingSlug={overview.headingSlug}
+        body={overview.body}
+        cta={overview.cta}
+        image={overview.image}
+      />
+      <GetStartedCard
+        heading={get_started.heading}
+        headingSlug={get_started.headingSlug}
+        body={get_started.body}
+        ctas={get_started.ctas}
+      />
+      <ProductLandingBlocks blocks={blocks} />
+    </>
   )
 }
 

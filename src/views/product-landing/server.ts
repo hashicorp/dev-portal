@@ -5,8 +5,13 @@ import { SidebarProps } from 'components/sidebar'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { ProductLandingContent, ProductLandingContentSchema } from './schema'
-import { validateAgainstSchema } from './helpers'
+import {
+  validateAgainstSchema,
+  transformRawContentToProp,
+  extractHeadings,
+} from './helpers'
 import { EnrichedNavItem } from 'components/sidebar/types'
+import { ProductLandingViewProps } from './types'
 
 async function generateStaticProps({
   product,
@@ -15,7 +20,7 @@ async function generateStaticProps({
   product: ProductData
   contentJsonFile: string
 }): Promise<{
-  content: ProductLandingContent
+  content: ProductLandingViewProps['content']
   layoutProps: {
     headings: TableOfContentsHeading[]
     breadcrumbLinks: BreadcrumbLink[]
@@ -33,50 +38,28 @@ async function generateStaticProps({
    * Validate that CONTENT matches our schema. This includes a type guard,
    * to safely assert that CONTENT is ProductLandingContent.
    */
-  validateAgainstSchema(CONTENT, ProductLandingContentSchema, jsonFilePath)
+  const isValid = validateAgainstSchema<ProductLandingContent>(
+    CONTENT,
+    ProductLandingContentSchema,
+    jsonFilePath
+  )
+  if (!isValid) {
+    throw new Error('validateAgainstSchema should have thrown an error.')
+  }
 
   /**
-   * TODO: content is raw placeholder for now
-   * - Need to add "headings" that aren't placeholders.
-   *   These will be derived from content blocks
-   *   (mainly heading blocks, but also others, based on design intent)
-   * - Need to augment things like tutorialSlugs to fill in that data
-   *   Will close: https://app.asana.com/0/1201010428539925/1201654639085764/f
-   * - Need to build out the client-side components, whose props APIs will
-   *   inform what content structure we'll want to return for use on the client.
-   *   Intent being to return the minimum data necessary to render
-   *   all content block components on the page.
+   * Transform content to props.
+   * This includes filling in inline tutorials and collection content.
    */
-  const placeholderHeadings: TableOfContentsHeading[] = [
-    {
-      title: `What is ${product.name}`,
-      slug: 'placeholder-slug-1',
-      level: 2,
-    },
-    {
-      title: 'Getting Started',
-      slug: 'placeholder-slug-2',
-      level: 2,
-    },
-    {
-      title: 'Use Cases',
-      slug: 'placeholder-slug-3',
-      level: 2,
-    },
-    {
-      title: 'Case Studies',
-      slug: 'placeholder-slug-4',
-      level: 2,
-    },
-  ]
+  const content = await transformRawContentToProp(CONTENT, product)
 
   /**
    * Gather up our static props package & return it
    */
   return {
-    content: CONTENT,
+    content,
     layoutProps: {
-      headings: placeholderHeadings,
+      headings: extractHeadings(content),
       breadcrumbLinks: [
         { title: 'Developer', url: '/' },
         { title: product.name, url: `/${product.slug}` },
