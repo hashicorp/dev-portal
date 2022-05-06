@@ -19,15 +19,16 @@ async function generateStaticProps({
 }: {
   product: ProductData
   contentJsonFile: string
-}): Promise<{
-  content: ProductLandingViewProps['content']
-  layoutProps: {
-    headings: TableOfContentsHeading[]
-    breadcrumbLinks: BreadcrumbLink[]
-    sidebarProps: SidebarProps
+}): Promise<
+  ProductLandingViewProps & {
+    layoutProps: {
+      headings: TableOfContentsHeading[]
+      breadcrumbLinks: BreadcrumbLink[]
+      sidebarProps: SidebarProps
+    }
+    product: ProductData
   }
-  product: ProductData
-}> {
+> {
   /**
    * Note: could consider other content sources. For now, JSON.
    * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
@@ -58,6 +59,7 @@ async function generateStaticProps({
    */
   return {
     content,
+    product,
     layoutProps: {
       headings: extractHeadings(content),
       breadcrumbLinks: [
@@ -82,7 +84,6 @@ async function generateStaticProps({
         title: product.name,
       },
     },
-    product,
   }
 }
 
