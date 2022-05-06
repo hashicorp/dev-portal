@@ -12,25 +12,10 @@ interface BaseProps {
   children: React.ReactNode
   githubFileUrl?: string
   openConsentManager?: () => void
-  sidebarNavDataLevels?: SidebarProps[]
+  sidebarNavDataLevels: SidebarProps[]
+  /** @TODO determine the minimum set of props that all Sidebars should have */
+  AlternateSidebar?: (props: any) => ReactElement
 }
-
-/**
- * `PropsForSidebar` defines the properties that represent `Sidebar` behavior.
- * This approach allows us to require either (not both) `sidebarProps` and
- * `AlternateSidebar` since providing both of these props is not a case that this
- * component handles.
- */
-type PropsForSidebar =
-  | {
-      sidebarProps: SidebarProps
-      AlternateSidebar?: never
-    }
-  | {
-      sidebarProps?: never
-      // TODO: determine the minimum set of props that all Sidebars should have?
-      AlternateSidebar: (props: any) => ReactElement
-    }
 
 /**
  * `PropsForSidecar` defines the properties that represent `Sidecar` behavior.
@@ -51,6 +36,4 @@ type PropsForSidecar =
 /**
  * This is the final exported type, combining all types defined above into one.
  */
-export type SidebarSidecarLayoutProps = BaseProps &
-  PropsForSidebar &
-  PropsForSidecar
+export type SidebarSidecarLayoutProps = BaseProps & PropsForSidecar
