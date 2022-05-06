@@ -118,6 +118,4 @@ export interface ButtonProps {
   type?: NativeButtonProps['type']
 
   form?: NativeButtonProps['form']
-
-  formAction?: NativeButtonProps['formAction']
 }
