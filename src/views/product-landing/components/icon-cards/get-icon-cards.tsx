@@ -18,7 +18,7 @@ export function getIconCards(productSlug: ProductSlug) {
     {
       icon: <IconDownload16 />,
       text: 'Install',
-      url: `/${productSlug}/install`,
+      url: `/${productSlug}/downloads`,
     },
   ]
 }
