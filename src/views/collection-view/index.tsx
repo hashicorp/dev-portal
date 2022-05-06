@@ -8,7 +8,7 @@ import {
 import TutorialsSidebar, {
   CollectionViewSidebarContent,
 } from 'components/tutorials-sidebar'
-import { OptInOut } from 'views/product-tutorials-view/components/learn-opt-out-button'
+import OptInOut from 'components/opt-in-out'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'

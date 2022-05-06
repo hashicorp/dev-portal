@@ -4,7 +4,7 @@ import Text from 'components/text'
 import s from './opt-out-form.module.css'
 
 interface OptOutFormProps {
-  redirectUrl: string
+  onSubmit(): void
   onDismiss(): void
   platform: 'vault' | 'waypoint' | 'learn'
 }
@@ -25,14 +25,10 @@ const optOutOptions = [
 ]
 
 export default function OptOutForm({
-  redirectUrl,
+  onSubmit,
   onDismiss,
   platform,
 }: OptOutFormProps) {
-  function handleOptOut() {
-    // TODO submit form data
-    window.location.assign(redirectUrl)
-  }
   return (
     <form className={s.form} id="opt-out-form">
       <div className={s.header}>
@@ -69,7 +65,7 @@ export default function OptOutForm({
           form="opt-out-form"
           color="primary"
           text="Leave Beta"
-          onClick={handleOptOut}
+          onClick={onSubmit}
         />
         <Button color="secondary" text="Cancel" onClick={onDismiss} />
       </div>
