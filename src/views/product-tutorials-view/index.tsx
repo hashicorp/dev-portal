@@ -7,7 +7,7 @@ import ProductCollectionsSidebar, {
 import { ProductTutorialsSitemap } from './components'
 import { ProductTutorialsViewProps } from './server'
 import ProductViewContent from './components/product-view-content'
-import { OptOutButton } from './components/learn-opt-out-button'
+import { OptInOut } from './components/learn-opt-out-button'
 import { getOverviewHeading } from './helpers/heading-helpers'
 import s from './product-tutorials-view.module.css'
 
@@ -49,7 +49,7 @@ function ProductTutorialsView({
           sections={layoutProps.sidebarSections}
         />
       }
-      optOutButtonSlot={<OptOutButton />}
+      optOutButtonSlot={<OptInOut platform="learn" />}
     >
       <PageHeading />
       <ProductViewContent
