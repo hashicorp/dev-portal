@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
-import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import '@reach/dialog/styles.css'
 import Button from 'components/button'
 import OptOutForm from './components/opt-out-form'
@@ -73,8 +73,8 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
     <div>
       <Button
         color="tertiary"
-        text="Leave Developer Beta"
-        icon={<IconExternalLink16 />}
+        text="Leave Beta"
+        icon={<IconSignOut16 />}
         iconPosition="trailing"
         onClick={openDialog}
       />
