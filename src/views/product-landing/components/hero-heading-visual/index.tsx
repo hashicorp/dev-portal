@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react'
 import { HeroHeadingVisualProps } from './types'
 import s from './hero-heading-visual.module.css'
 
@@ -7,17 +8,20 @@ function HeroHeadingVisual({
   productSlug,
 }: HeroHeadingVisualProps) {
   return (
-    <>
-      <pre className={s.placeholder}>
-        <code>
-          {JSON.stringify(
-            { component: 'HeroHeadingVisual', heading, image, productSlug },
-            null,
-            2
-          )}
-        </code>
-      </pre>
-    </>
+    <div
+      className={s.root}
+      style={
+        {
+          '--gradient-start': `var(--token-color-${productSlug}-gradient-faint-start)`,
+          '--gradient-stop': `var(--token-color-${productSlug}-gradient-faint-stop)`,
+        } as CSSProperties
+      }
+    >
+      <h1 className={s.heading}>{heading}</h1>
+      <div className={s.image}>
+        <img src={image} alt="" />
+      </div>
+    </div>
   )
 }
 

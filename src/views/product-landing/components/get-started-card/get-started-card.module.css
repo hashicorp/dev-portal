@@ -1,9 +1,24 @@
-.placeholder {
-  border: 1px solid magenta;
-  font-size: 12px;
-  white-space: pre-wrap;
+.card {
+  padding: 24px;
 }
 
 .heading {
   composes: g-offset-scroll-margin-top from global;
+  composes: hds-typography-display-300 from global;
+  font-weight: var(--token-typography-font-weight-semibold);
+  color: var(--token-color-foreground-strong);
+}
+
+.body {
+  composes: hds-typography-body-100 from global;
+  color: var(--token-color-foreground-faint);
+  margin: 8px 0 0 0;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin: 16px 0 0 0;
 }
