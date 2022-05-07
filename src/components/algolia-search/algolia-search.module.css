@@ -83,6 +83,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-right: 4px;
 
   &[hidden] {
     display: none;
@@ -100,6 +101,13 @@
   display: flex;
   flex-direction: column;
   z-index: 2;
+
+  @media (--dev-dot-tablet-down) {
+    border: none;
+    box-shadow: none;
+    max-height: none;
+    width: 100%;
+  }
 }
 
 .panelLayout {
@@ -111,6 +119,11 @@
   padding: 12px;
   list-style-type: none;
   margin: 0;
+
+  @media (--dev-dot-tablet-down) {
+    padding-left: 24px;
+    padding-right: 10px;
+  }
 }
 
 .item {

@@ -1,8 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import { ProductData } from 'types/products'
-import { SidebarProps } from 'components/sidebar'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import { SidebarProps } from 'components/sidebar'
+// import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import {
+  generateProductLandingSidebarNavData,
+  generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { ProductLandingContent, ProductLandingContentSchema } from './schema'
 import {
@@ -10,7 +15,6 @@ import {
   transformRawContentToProp,
   extractHeadings,
 } from './helpers'
-import { EnrichedNavItem } from 'components/sidebar/types'
 import { ProductLandingViewProps } from './types'
 
 async function generateStaticProps({
@@ -24,7 +28,7 @@ async function generateStaticProps({
     layoutProps: {
       headings: TableOfContentsHeading[]
       breadcrumbLinks: BreadcrumbLink[]
-      sidebarProps: SidebarProps
+      sidebarNavDataLevels: SidebarProps[]
     }
     product: ProductData
   }
@@ -35,18 +39,16 @@ async function generateStaticProps({
    */
   const jsonFilePath = path.join(process.cwd(), contentJsonFile)
   const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
+
   /**
    * Validate that CONTENT matches our schema. This includes a type guard,
-   * to safely assert that CONTENT is ProductLandingContent.
+   * which asserts that CONTENT is ProductLandingContent.
    */
-  const isValid = validateAgainstSchema<ProductLandingContent>(
+  validateAgainstSchema<ProductLandingContent>(
     CONTENT,
     ProductLandingContentSchema,
     jsonFilePath
   )
-  if (!isValid) {
-    throw new Error('validateAgainstSchema should have thrown an error.')
-  }
 
   /**
    * Transform content to props.
@@ -66,23 +68,18 @@ async function generateStaticProps({
         { title: 'Developer', url: '/' },
         { title: product.name, url: `/${product.slug}` },
       ],
-      sidebarProps: {
-        /**
-         * TODO: we may need to map MenuItem entries to
-         * EnrichedNavItem entries? For now, I've casted them
-         * to sidestep the issue, but this is likely not
-         * a good long-term solution. Related task:
-         * https://app.asana.com/0/1202022787106807/1201602267333015/f
-         */
-        menuItems: [
-          ...(product.sidebar
-            .landingPageNavData as unknown as EnrichedNavItem[]),
-          { divider: true },
-          ...(product.sidebar.resourcesNavData as unknown as EnrichedNavItem[]),
-        ],
-        showFilterInput: false,
-        title: product.name,
-      },
+      /**
+       * @TODO remove casting to `any` (used $TSFixMe here for visibility).
+       * This requires refactoring both `generateTopLevelSidebarNavData` and
+       * `generateProductLandingSidebarNavData` to set up `menuItems` with the
+       * correct types.
+       * This is outside the scope of the product landing page content build,
+       * so deferring to a sidebar-focused follow-up PR.
+       */
+      sidebarNavDataLevels: [
+        generateTopLevelSidebarNavData(product.name),
+        generateProductLandingSidebarNavData(product),
+      ] as $TSFixMe,
     },
   }
 }

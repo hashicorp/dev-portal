@@ -9,9 +9,22 @@ import { ProductData } from 'types/products'
  * to be loaded into the `product` object passed.
  */
 export const generateProductLandingSidebarNavData = (product: ProductData) => {
-  return [
+  const levelButtonProps = {
+    levelUpButtonText: 'Main Menu',
+    levelDownButtonText: 'Previous',
+  }
+  const menuItems = [
     ...product.sidebar.landingPageNavData,
     { divider: true },
     ...product.sidebar.resourcesNavData,
   ]
+  const showFilterInput = false
+  const title = product.name
+
+  return {
+    levelButtonProps,
+    menuItems,
+    showFilterInput,
+    title,
+  }
 }

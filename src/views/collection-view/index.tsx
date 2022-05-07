@@ -1,8 +1,13 @@
-import Link from 'next/link'
+import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
-import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
-import ProductCollectionsSidebar from 'components/tutorials-sidebar/compositions/product-collections-sidebar'
+import {
+  generateProductLandingSidebarNavData,
+  generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
+import TutorialsSidebar, {
+  CollectionViewSidebarContent,
+} from 'components/tutorials-sidebar'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
@@ -11,21 +16,44 @@ import { formatTutorialCard } from 'components/tutorial-card/helpers'
 
 function CollectionView({
   collection,
-  product,
   layoutProps,
+  product,
 }: CollectionPageProps): React.ReactElement {
   const { name, slug, description, tutorials, ordered } = collection
+
+  const sidebarNavDataLevels = [
+    generateTopLevelSidebarNavData(product.name),
+    generateProductLandingSidebarNavData(product),
+    {
+      levelButtonProps: {
+        levelUpButtonText: `${product.name} Home`,
+        levelDownButtonText: 'Previous',
+      },
+      backToLinkProps: {
+        text: `${product.name} Home`,
+        href: `/${product.slug}`,
+      },
+      title: 'Tutorials',
+      overviewItemHref: `/${product.slug}/tutorials`,
+      children: (
+        <CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
+      ),
+    },
+  ]
 
   return (
     <SidebarSidecarLayout
       breadcrumbLinks={layoutProps.breadcrumbLinks}
+      AlternateSidebar={TutorialsSidebar}
+      /**
+       * @TODO remove casting to `any`. Will require refactoring both
+       * `generateTopLevelSidebarNavData` and
+       * `generateProductLandingSidebarNavData` to set up `menuItems` with the
+       * correct types. This will require chaning many files, so deferring for
+       * a follow-up PR since this is functional for the time being.
+       */
+      sidebarNavDataLevels={sidebarNavDataLevels as any}
       sidecarSlot={null}
-      sidebarSlot={
-        <ProductCollectionsSidebar
-          product={{ name: product.name, slug: product.slug }}
-          sections={layoutProps.sidebarSections}
-        />
-      }
     >
       <CollectionMeta
         // Note: id is passed here because it is required by <Heading />,

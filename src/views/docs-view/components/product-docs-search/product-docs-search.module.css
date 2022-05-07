@@ -4,7 +4,7 @@
 
 .itemTitle {
   font-size: 14px;
-  color: var(--token-color-foreground-strong);
+  color: var(--token-color-foreground-primary);
   font-weight: var(--font-weight-semi-bold);
 
   & mark {
