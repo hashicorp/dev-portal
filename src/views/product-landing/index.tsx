@@ -6,11 +6,16 @@ import ProductLandingBlocks from './components/product-landing-blocks'
 import HeroHeadingVisual from './components/hero-heading-visual'
 import OverviewCta from './components/overview-cta'
 import GetStartedCard from './components/get-started-card'
+import IconCards, { getIconCards } from './components/icon-cards'
 
 function ProductLandingView({
   content,
+  product,
 }: ProductLandingViewProps): ReactElement {
   const { hero, overview, get_started, blocks } = content
+
+  const iconCards = getIconCards(product.slug)
+
   return (
     <>
       <HeroHeadingVisual
@@ -18,6 +23,9 @@ function ProductLandingView({
         image={hero.image}
         productSlug={hero.productSlug}
       />
+      {iconCards ? (
+        <IconCards cards={iconCards} productSlug={product.slug} />
+      ) : null}
       <OverviewCta
         heading={overview.heading}
         headingSlug={overview.headingSlug}
