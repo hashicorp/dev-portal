@@ -1,7 +1,9 @@
+export interface LinkedCard {
+  heading: string
+  body: string
+  url: string
+}
+
 export interface LinkedCardsProps {
-  cards: {
-    heading: string
-    body: string
-    url: string
-  }[]
+  cards: LinkedCard[]
 }
