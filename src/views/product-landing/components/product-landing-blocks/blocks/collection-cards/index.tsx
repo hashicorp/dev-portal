@@ -1,17 +1,17 @@
 import { CollectionCardsProps } from './types'
-import s from './collection-cards.module.css'
+import CardsGridList from 'components/cards-grid-list'
+import CollectionCard, {
+  CollectionCardPropsWithId,
+} from 'components/collection-card'
 
 function CollectionCards({ collectionCards }: CollectionCardsProps) {
   return (
-    <pre className={s.placeholder}>
-      <code>
-        {JSON.stringify(
-          { component: 'CollectionCards', collectionCards },
-          null,
-          2
-        )}
-      </code>
-    </pre>
+    <CardsGridList>
+      {collectionCards.map((cardPropsWithId: CollectionCardPropsWithId) => {
+        const { id, ...cardProps } = cardPropsWithId
+        return <CollectionCard key={id} {...cardProps} />
+      })}
+    </CardsGridList>
   )
 }
 
