@@ -7,6 +7,7 @@ import HeroHeadingVisual from './components/hero-heading-visual'
 import OverviewCta from './components/overview-cta'
 import GetStartedCard from './components/get-started-card'
 import IconCards, { getIconCards } from './components/icon-cards'
+import s from './product-landing.module.css'
 
 function ProductLandingView({
   content,
@@ -18,27 +19,35 @@ function ProductLandingView({
 
   return (
     <>
-      <HeroHeadingVisual
-        heading={hero.heading}
-        image={hero.image}
-        productSlug={hero.productSlug}
-      />
+      <div className={s.heroMargin}>
+        <HeroHeadingVisual
+          heading={hero.heading}
+          image={hero.image}
+          productSlug={hero.productSlug}
+        />
+      </div>
       {iconCards ? (
-        <IconCards cards={iconCards} productSlug={product.slug} />
+        <div className={s.iconCardsMargin}>
+          <IconCards cards={iconCards} productSlug={product.slug} />
+        </div>
       ) : null}
-      <OverviewCta
-        heading={overview.heading}
-        headingSlug={overview.headingSlug}
-        body={overview.body}
-        cta={overview.cta}
-        image={overview.image}
-      />
-      <GetStartedCard
-        heading={get_started.heading}
-        headingSlug={get_started.headingSlug}
-        body={get_started.body}
-        ctas={get_started.ctas}
-      />
+      <div className={s.overviewCtaMargin}>
+        <OverviewCta
+          heading={overview.heading}
+          headingSlug={overview.headingSlug}
+          body={overview.body}
+          cta={overview.cta}
+          image={overview.image}
+        />
+      </div>
+      <div className={s.getStartedMargin}>
+        <GetStartedCard
+          heading={get_started.heading}
+          headingSlug={get_started.headingSlug}
+          body={get_started.body}
+          ctas={get_started.ctas}
+        />
+      </div>
       <ProductLandingBlocks blocks={blocks} />
     </>
   )
