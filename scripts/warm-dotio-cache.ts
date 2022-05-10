@@ -21,7 +21,9 @@ interface StaticPathsResponse {
   }
 }
 
-const DEV_PORTAL_URL = 'https://developer.hashi-mktg.com/'
+//const DEV_PORTAL_URL = 'https://developer.hashi-mktg.com/'
+const DEV_PORTAL_URL =
+  'https://dev-portal-git-kscache-tutorials-paths-hashicorp.vercel.app/'
 const BETA_PRODUCTS = config.dev_dot.beta_product_slugs
 
 const fetch = createFetch()
@@ -110,7 +112,7 @@ async function getTutorialUrlsToCache(
       )
     ).flat(1)
 
-    const urls = [...docsUrls, ...tutorialUrls]
+    const urls = [...tutorialUrls]
     console.log(`number of urls to cache: ${urls.length}`)
     await pMap(
       urls,
