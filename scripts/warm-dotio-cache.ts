@@ -88,7 +88,6 @@ async function getTutorialUrlsToCache(
       const tutorialSlug = splitProductFromFilename(tutorial.slug)
       const path = `${product}/tutorials/${collectionSlug}/${tutorialSlug}`
       const url = new URL(path, DEV_PORTAL_URL)
-      console.log(url.toString())
       return url.toString()
     })
   })
@@ -124,7 +123,8 @@ async function getTutorialUrlsToCache(
         if (res.status === 404) {
           console.log(`unexpected 404 for ${url}`)
         } else if (res.status !== 200) {
-          throw new Error(`unexpected ${res.status} for ${url}`)
+          // throw new Error(`unexpected ${res.status} for ${url}`)
+          console.error(`unexpected ${res.status} for ${url}`)
         } else {
           console.log(`cached ${url}`)
         }
