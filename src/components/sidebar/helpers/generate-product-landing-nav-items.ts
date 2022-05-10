@@ -35,6 +35,9 @@ export const generateProductLandingSidebarMenuItems = (
       ...product.sidebar.resourcesNavData,
     ]
   } else {
+    console.warn(
+      `Warning (generateProductLandingSidebarMenuItems): ${product.name} does not have a "rootDocsPaths" property. Please replace the "landingPageNavData" property with "rootDocsPaths" in "src/data/${product.slug}.json".`
+    )
     menuItems = [
       ...product.sidebar.landingPageNavData,
       { divider: true },
