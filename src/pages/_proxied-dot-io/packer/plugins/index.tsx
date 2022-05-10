@@ -62,6 +62,7 @@ async function getStaticProps(ctx) {
   return staticProps
 }
 
+// SOMETING TEST
 // Export getStatic functions
 export { getStaticProps }
 // Export view with layout
