@@ -23,7 +23,7 @@ interface StaticPathsResponse {
 
 //const DEV_PORTAL_URL = 'https://developer.hashi-mktg.com/'
 const DEV_PORTAL_URL =
-  'https://dev-portal-git-kstest-pass-build-hashicorp.vercel.app'
+  'https://dev-portal-git-kscache-tutorials-paths-hashicorp.vercel.app/'
 const BETA_PRODUCTS = config.dev_dot.beta_product_slugs
 
 const fetch = createFetch()
@@ -98,11 +98,11 @@ async function getTutorialUrlsToCache(
 
 ;(async () => {
   try {
-    // const docsUrls = (
-    //   await Promise.all(
-    //     Object.keys(proxyConfig).map((product) => getUrlsToCache(product))
-    //   )
-    // ).flat(1)
+    const docsUrls = (
+      await Promise.all(
+        Object.keys(proxyConfig).map((product) => getUrlsToCache(product))
+      )
+    ).flat(1)
 
     const tutorialUrls = (
       await Promise.all(
@@ -123,8 +123,7 @@ async function getTutorialUrlsToCache(
         if (res.status === 404) {
           console.log(`unexpected 404 for ${url}`)
         } else if (res.status !== 200) {
-          // throw new Error(`unexpected ${res.status} for ${url}`)
-          console.error(`unexpected ${res.status} for ${url}`)
+          throw new Error(`unexpected ${res.status} for ${url}`)
         } else {
           console.log(`cached ${url}`)
         }
