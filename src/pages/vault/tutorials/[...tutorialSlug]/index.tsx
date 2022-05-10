@@ -41,7 +41,7 @@ export async function getStaticPaths(): Promise<
   const paths = await getTutorialPagePaths(ProductOption['vault'])
 
   return {
-    paths: [],
+    paths,
     fallback: 'blocking',
   }
 }
