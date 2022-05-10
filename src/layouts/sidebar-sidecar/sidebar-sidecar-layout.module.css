@@ -68,6 +68,12 @@ for further details.
   max-width: calc(780px + (var(--main-area-padding-left-right) * 2));
   padding-left: var(--main-area-padding-left-right);
   padding-right: var(--main-area-padding-left-right);
+
+  @media (--dev-dot-tablet-down) {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+  }
 }
 
 .editOnGithubLink {
