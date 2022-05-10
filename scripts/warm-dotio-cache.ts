@@ -21,7 +21,9 @@ interface StaticPathsResponse {
   }
 }
 
-const DEV_PORTAL_URL = 'https://developer.hashi-mktg.com/'
+//const DEV_PORTAL_URL = 'https://developer.hashi-mktg.com/'
+const DEV_PORTAL_URL =
+  'https://dev-portal-git-kstest-pass-build-hashicorp.vercel.app'
 const BETA_PRODUCTS = config.dev_dot.beta_product_slugs
 
 const fetch = createFetch()
