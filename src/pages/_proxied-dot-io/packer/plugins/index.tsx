@@ -50,16 +50,16 @@ const { getStaticProps: baseGetStaticProps } = getStaticGenerationFunctions(
 )
 
 async function getStaticProps(ctx) {
-  // const staticProps = await baseGetStaticProps({ params: {}, ...ctx })
-  // if ('props' in staticProps) {
-  //   const navData = await appendRemotePluginsNavData(
-  //     remotePluginsFile,
-  //     staticProps.props.navData,
-  //     ''
-  //   )
-  //   staticProps.props.navData = navData
-  // }
-  // return staticProps
+  const staticProps = await baseGetStaticProps({ params: {}, ...ctx })
+  if ('props' in staticProps) {
+    const navData = await appendRemotePluginsNavData(
+      remotePluginsFile,
+      staticProps.props.navData,
+      ''
+    )
+    staticProps.props.navData = navData
+  }
+  return staticProps
 }
 
 // Export getStatic functions
