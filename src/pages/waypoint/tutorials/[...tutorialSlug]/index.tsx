@@ -40,7 +40,7 @@ export async function getStaticPaths(): Promise<
 > {
   const paths = await getTutorialPagePaths(ProductOption['waypoint'])
   return {
-    paths,
+    paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
     fallback: 'blocking',
   }
 }
