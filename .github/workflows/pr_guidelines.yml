@@ -1,7 +1,6 @@
 name: PR Guidelines Comment
 
 on:
-  push:
   pull_request:
     types:
       - opened
