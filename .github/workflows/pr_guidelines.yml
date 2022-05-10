@@ -10,6 +10,7 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: 'Comment about PR review guidelines'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
