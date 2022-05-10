@@ -3,7 +3,7 @@ name: Cache .io Sites
 on:
   push:
     branches:
-      - 'ks.cache-tutorials-path'
+      - 'ks.cache-tutorials-paths'
 jobs:
   cache:
     # if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'production' && github.event.sender.id == 35613825
