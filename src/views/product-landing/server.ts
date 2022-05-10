@@ -2,6 +2,10 @@ import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
 import { ProductData } from 'types/products'
+import {
+  generateProductLandingSidebarNavData,
+  generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 
 async function generateStaticProps({
   product,
@@ -73,10 +77,13 @@ async function generateStaticProps({
     }
   })
 
-  const navData = [
-    ...product.sidebar.landingPageNavData,
-    { divider: true },
-    ...product.sidebar.resourcesNavData,
+  /**
+   * Constructs the levels of nav data used in the `Sidebar` on all
+   * `ProductLandingView` pages.
+   */
+  const sidebarNavDataLevels = [
+    generateTopLevelSidebarNavData(product.name),
+    generateProductLandingSidebarNavData(product),
   ]
 
   return {
@@ -93,11 +100,7 @@ async function generateStaticProps({
         { title: 'Developer', url: '/' },
         { title: product.name, url: `/${product.slug}` },
       ],
-      sidebarProps: {
-        menuItems: navData,
-        showFilterInput: false,
-        title: product.name,
-      },
+      sidebarNavDataLevels,
     },
     product,
   }

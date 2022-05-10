@@ -20,6 +20,7 @@ const SIDEBAR_LABEL_ID = 'sidebar-label'
 const Sidebar = ({
   backToLinkProps,
   children,
+  levelButtonProps,
   menuItems,
   overviewItemHref,
   showFilterInput = true,
@@ -35,8 +36,13 @@ const Sidebar = ({
   )
 
   let backToElement
-  if (shouldRenderMobileControls) {
-    backToElement = <SidebarMobileControls />
+  if (shouldRenderMobileControls && levelButtonProps) {
+    backToElement = (
+      <SidebarMobileControls
+        levelUpButtonText={levelButtonProps.levelUpButtonText}
+        levelDownButtonText={levelButtonProps.levelDownButtonText}
+      />
+    )
   } else if (backToLinkProps) {
     const { text, href } = backToLinkProps
     backToElement = (
