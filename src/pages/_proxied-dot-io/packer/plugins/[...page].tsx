@@ -40,15 +40,15 @@ function DocsView(props: InferGetStaticPropsType<typeof getStaticProps>) {
 }
 
 export async function getStaticPaths() {
-  let paths = await generateStaticPaths({
-    navDataFile,
-    remotePluginsFile,
-  })
-  paths = paths
-    // remove index-ish pages from static paths
-    .filter((p) => p.params.page.filter(Boolean).length > 0)
-    // limit number of paths to max_static_paths
-    .slice(0, __config.io_sites.max_static_paths ?? 0)
+  // let paths = await generateStaticPaths({
+  //   navDataFile,
+  //   remotePluginsFile,
+  // })
+  // paths = paths
+  //   // remove index-ish pages from static paths
+  //   .filter((p) => p.params.page.filter(Boolean).length > 0)
+  //   // limit number of paths to max_static_paths
+  //   .slice(0, __config.io_sites.max_static_paths ?? 0)
   return {
     paths: [],
     fallback: 'blocking',
