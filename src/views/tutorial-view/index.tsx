@@ -151,7 +151,14 @@ export default function TutorialView({
       >
         <SidebarSidecarLayout
           breadcrumbLinks={layout.breadcrumbLinks}
-          sidebarNavDataLevels={sidebarNavDataLevels as any[]}
+          /**
+           * @TODO remove casting to `any`. Will require refactoring both
+           * `generateTopLevelSidebarNavData` and
+           * `generateProductLandingSidebarNavData` to set up `menuItems` with the
+           * correct types. This will require chaning many files, so deferring for
+           * a follow-up PR since this is functional for the time being.
+           */
+          sidebarNavDataLevels={sidebarNavDataLevels as any}
           AlternateSidebar={TutorialsSidebar}
           headings={layout.headings}
         >

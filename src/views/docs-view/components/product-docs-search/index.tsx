@@ -1,16 +1,21 @@
 import React from 'react'
 import algoliasearch from 'algoliasearch'
 import { getAlgoliaResults } from '@algolia/autocomplete-preset-algolia'
+import insightsClient from 'search-insights'
+import { createAlgoliaInsightsPlugin } from '@algolia/autocomplete-plugin-algolia-insights'
 import AlgoliaSearch, { Highlight } from 'components/algolia-search'
 import { useCurrentProduct } from 'contexts'
 import { getHitLink } from './lib/get-hit-link'
 import s from './product-docs-search.module.css'
 import { DocsSearchHit } from './types'
 
-// TODO(brkalow): We might consider lazy-loading the search client
+// TODO(brkalow): We might consider lazy-loading the search client & the insights library
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
 const searchClient = algoliasearch(appId, apiKey)
+
+insightsClient('init', { appId, apiKey })
+const algoliaInsightsPlugin = createAlgoliaInsightsPlugin({ insightsClient })
 
 function ProductSearchResult({ hit }: { hit: DocsSearchHit }) {
   return (
@@ -29,13 +34,13 @@ export default function ProductDocsSearch() {
   const currentProduct = useCurrentProduct()
 
   return (
-    // TODO(brkalow): setup analytics integration
     <AlgoliaSearch
       className={s.root}
       openOnFocus={true}
       placeholder={`Search ${currentProduct.slug} documentation`}
       ResultComponent={ProductSearchResult}
       getHitLinkProps={getHitLink}
+      plugins={[algoliaInsightsPlugin]}
       getSources={({ query }) => {
         // Prevent showing results on focus when no query has been entered
         if (!query) {
@@ -54,7 +59,7 @@ export default function ProductDocsSearch() {
                     query,
                     params: {
                       clickAnalytics: true,
-                      hitsPerPage: 25,
+                      hitsPerPage: 20,
                     },
                   },
                   // TODO(brkalow): add additional queries to support cross-product?
