@@ -50,7 +50,7 @@ export async function getStaticPaths() {
     // limit number of paths to max_static_paths
     .slice(0, __config.io_sites.max_static_paths ?? 0)
   return {
-    paths,
+    paths: [],
     fallback: 'blocking',
   }
 }
