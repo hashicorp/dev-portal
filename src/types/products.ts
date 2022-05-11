@@ -54,6 +54,12 @@ interface ProductData extends Product {
       label: NavigationHeaderItem['label']
     }[]
   }
+  rootDocsPaths?: {
+    iconName: string
+    name: string
+    path: string
+    shortName?: string
+  }[]
   sidebar: {
     landingPageNavData: MenuItem[]
     resourcesNavData: MenuItem[]
