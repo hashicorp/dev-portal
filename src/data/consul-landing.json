@@ -1,167 +1,85 @@
 {
-  "heading": "Consul Overview",
-  "subheading": "Use Consul to automate network configurations, discover services, and enable secure connectivity across any cloud or runtime.",
+  "hero": {
+    "heading": "Consul Placeholder Duplicate Of Vault Content",
+    "image": "https://place-hold.it/600x320"
+  },
+  "overview": {
+    "heading": "What is Consul?",
+    "body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+    "cta": {
+      "text": "Learn more about Consul features",
+      "url": "/vault/docs/what-is-vault"
+    },
+    "image": "https://place-hold.it/680x250"
+  },
+  "get_started": {
+    "heading": "Getting Started",
+    "body": "Use Consul to securely store, access, and manage secrets and other sensitive data.",
+    "ctas": [
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/getting-started"
+      },
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/cloud"
+      }
+    ]
+  },
   "blocks": [
     {
       "type": "heading",
+      "heading": "Use Cases",
       "level": 2,
-      "size": 400,
-      "heading": "Explore Consul Documentation"
+      "size": 400
     },
     {
-      "type": "get_started",
-      "product": "consul",
-      "heading": "Introduction to Consul",
-      "text": "In this guide we cover what Consul is, what problems it can solve, how it compares to existing software, and how you can get started using it.",
-      "link": {
-        "text": "Learn More",
-        "url": "/consul/docs/intro"
-      }
+      "type": "tutorial_cards",
+      "tutorialSlugs": ["vault/transform", "vault/static-secrets"]
     },
     {
-      "type": "cards",
-      "columns": 2,
+      "type": "linked_cards",
       "cards": [
         {
-          "icon": "IconDocs",
-          "heading": "Consul Reference Documentation",
-          "text": "The documentation is reference material for all available features and options of Consul",
-          "url": "/consul/docs"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.consul.io"
         },
         {
-          "icon": "IconTerminal",
-          "heading": "Consul CLI",
-          "text": "Consul is controlled via a very easy to use command-line interface (CLI).",
-          "url": "/consul/commands"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.consul.io"
         },
         {
-          "icon": "IconServer",
-          "heading": "Consul API",
-          "text": "The main interface to Consul is a RESTful HTTP API. The API can perform basic CRUD operations on nodes, services, checks, configuration, and more.",
-          "url": "/consul/api-docs"
-        },
-        {
-          "icon": "IconDownload",
-          "heading": "Consul Install",
-          "text": "Please download the proper package for your operating system and architecture.",
-          "url": "/consul/downloads"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.consul.io"
         }
       ]
     },
     {
       "type": "heading",
+      "heading": "Case Studies",
       "level": 2,
-      "heading": "Featured Consul Documentation",
-      "size": 300
+      "size": 400
     },
     {
-      "type": "cards",
-      "columns": 3,
+      "type": "linked_cards",
       "cards": [
         {
-          "heading": "Connect",
-          "text": "Consul Connect provides service-to-service connection authorization and encryption...",
-          "url": "/consul/docs/connect"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.consul.io"
         },
         {
-          "heading": "Services",
-          "text": "One of the main goals of service discovery is to provide a catalog of available services. ",
-          "url": "/consul/docs/discovery/services"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.consul.io"
         },
         {
-          "heading": "Configuration",
-          "text": "The agent has various configuration options that can be specified via the...",
-          "url": "/consul/docs/agent/options"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Lorem ipsum dolor sit amet",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Etiam quis in ac non quam.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
-          "url": "/consul/docs"
-        },
-        {
-          "heading": "Aliquet eu risus dis sed.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
-          "url": "/consul/docs"
-        },
-        {
-          "heading": "Ornare faucibus blandit id.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
-          "url": "/consul/docs"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Lorem ipsum dolor sit amet",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Interdum sollicitudin.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum lectus posuere.",
-          "url": "/consul/docs"
-        },
-        {
-          "heading": "Ornare nibh semper.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
-          "url": "/consul/docs"
-        },
-        {
-          "heading": "Fames nibh gravida.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "url": "/consul/docs"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Start Learning",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 2,
-      "cards": [
-        {
-          "heading": "Getting Started",
-          "text": "Consul is a networking tool that provides a fully featured service mesh and service discovery.",
-          "url": "https://learn.hashicorp.com/collections/consul/getting-started",
-          "tags": ["consul"]
-        },
-        {
-          "heading": "Get Started on Kubernetes",
-          "text": "Setup Consul service mesh to get experience deploying service sidecar proxies and...",
-          "url": "https://learn.hashicorp.com/collections/consul/gs-consul-service-mesh",
-          "tags": ["consul"]
-        },
-        {
-          "heading": "HCP Consul",
-          "text": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Consul using the HCP portal.",
-          "url": "https://learn.hashicorp.com/collections/consul/cloud-get-started",
-          "tags": ["consul"]
-        },
-        {
-          "heading": "Posuere sit sit mauris quam pharetra.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra a vel sit scelerisque ut orci phasellus.",
-          "url": "https://learn.hashicorp.com/consul",
-          "tags": ["consul"]
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.consul.io"
         }
       ]
     }
