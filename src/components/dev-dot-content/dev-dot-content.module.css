@@ -14,6 +14,31 @@
     & a.__permalink-h {
       display: none;
     }
+
+    & .alert.alert-info {
+      background-color: #f2f8ff;
+      border: 1px solid #cce3f3;
+      border-radius: 6px;
+      color: var(--token-color-palette-neutral-600);
+      padding: 16px;
+
+      & code {
+        background-color: white;
+        border: 1px solid #cce3fe;
+        border-radius: 5px;
+        color: inherit;
+      }
+
+      & p {
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 
   /* END move to <a /> MDX custom component */
