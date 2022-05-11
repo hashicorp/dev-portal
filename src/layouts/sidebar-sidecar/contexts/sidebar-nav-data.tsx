@@ -36,7 +36,7 @@ const SidebarNavDataProvider = ({
   const router = useRouter()
   const { isDesktop } = useDeviceSize()
   const numberOfLevels = navDataLevels.length
-  const [currentLevel, setCurrentLevel] = useState<number>()
+  const [currentLevel, setCurrentLevel] = useState<number>(numberOfLevels - 1)
   const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>()
 
   // Reset the current level if the device size or props change
