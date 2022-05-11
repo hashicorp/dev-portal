@@ -9,12 +9,16 @@
 .root {
   composes: hds-typography-body-300 from global;
 
-  /* BEGIN move to <a /> MDX custom component */
   & :global {
+    /* BEGIN move to <a /> MDX custom component */
     & a.__permalink-h {
       display: none;
     }
 
+    /* END move to <a /> MDX custom component */
+
+    /* BEGIN move "alert"
+        ... to separate CSS file for now, custom MDX component later */
     & .alert.alert-info {
       background-color: #f2f8ff;
       border: 1px solid #cce3f3;
@@ -39,9 +43,9 @@
         }
       }
     }
-  }
 
-  /* END move to <a /> MDX custom component */
+    /* END move "alert" */
+  }
 
   /* BEGIN move to Heading aka <h{n} />  MDX custom component */
   & h1,
