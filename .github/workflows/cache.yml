@@ -1,12 +1,9 @@
-name: Cache .io Sites
-# on: [deployment_status]
-on:
-  push:
-    branches:
-      - 'ks.cache-tutorials-paths'
+name: Cache .io & tutorial paths
+on: [deployment_status]
+
 jobs:
   cache:
-    # if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'production' && github.event.sender.id == 35613825
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'production' && github.event.sender.id == 35613825
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -18,5 +15,5 @@ jobs:
         run: npm install --global npm@8
       - name: Install dependencies
         run: npm ci
-      - name: Cache .io sites
+      - name: Cache .io sites and tutorial paths
         run: npx hc-tools ./scripts/warm-dotio-cache.ts

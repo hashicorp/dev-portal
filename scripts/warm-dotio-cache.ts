@@ -21,9 +21,7 @@ interface StaticPathsResponse {
   }
 }
 
-//const DEV_PORTAL_URL = 'https://developer.hashi-mktg.com/'
-const DEV_PORTAL_URL =
-  'https://dev-portal-git-kscache-tutorials-paths-hashicorp.vercel.app/'
+const DEV_PORTAL_URL = config.dev_dot.canonical_base_url
 const BETA_PRODUCTS = config.dev_dot.beta_product_slugs
 
 const fetch = createFetch()
@@ -70,6 +68,7 @@ async function getUrlsToCache(product: string): Promise<string[]> {
   })
 }
 
+// Fetch all tutorial paths per beta product
 async function getTutorialUrlsToCache(
   product: ProductOption
 ): Promise<string[]> {
@@ -86,13 +85,15 @@ async function getTutorialUrlsToCache(
     // go through the tutorials within this collection, create a path for each
     return collection.tutorials.map((tutorial: TutorialLite) => {
       const tutorialSlug = splitProductFromFilename(tutorial.slug)
-      const path = `${product}/tutorials/${collectionSlug}/${tutorialSlug}`
-      const url = new URL(path, DEV_PORTAL_URL)
+      const url = new URL(
+        `${product}/tutorials/${collectionSlug}/${tutorialSlug}`,
+        DEV_PORTAL_URL
+      )
       return url.toString()
     })
   })
 
-  // /{product}/tutorials/{collection}/{tutorial}
+  // Tutorial path format: /{product}/tutorials/{collection}/{tutorial}
   return paths
 }
 
@@ -112,7 +113,7 @@ async function getTutorialUrlsToCache(
       )
     ).flat(1)
 
-    const urls = [...tutorialUrls]
+    const urls = [...docsUrls, ...tutorialUrls]
     console.log(`number of urls to cache: ${urls.length}`)
     await pMap(
       urls,
