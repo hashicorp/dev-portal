@@ -1,5 +1,5 @@
 import { useId } from '@react-aria/utils'
-import { useEffect, useState, ReactElement, ReactNode } from 'react'
+import { useEffect, useState, ReactElement, ReactNode, Children } from 'react'
 import { RawTabItem, RawTabItemWithIds, TabItem } from '../types'
 
 /**
@@ -118,16 +118,20 @@ function validateTabChildren(
   initialActiveIndex: number
 ): RawTabItem[] {
   /**
-   * Disallow rendering a `Tabs` component with only one child.
+   * Warn if rendering a `Tabs` component with only one child.
    */
   if (!Array.isArray(children) || children.length === 1) {
-    throw new Error('children must be an array of multiple Tab components')
+    console.warn(
+      'Warning: Tabs children must be an array of multiple Tab components. In the future, use of a single Tab will throw an error.'
+    )
   }
+
+  const childrenArray = Children.toArray(children)
 
   /**
    * Disallow rendering children that are not a `Tab` component.
    */
-  children.forEach((tabsChild: JSX.Element) => {
+  childrenArray.forEach((tabsChild: JSX.Element) => {
     const isJSXPrimitive = typeof tabsChild.type === 'string'
     const isFunctionComponent = typeof tabsChild.type === 'function'
     const isMDXComponent = typeof tabsChild.props.mdxType === 'string'
@@ -150,7 +154,7 @@ function validateTabChildren(
    * Transform children into an array of { label, content, group } items,
    * each of which represent a valid tab item to render
    */
-  const tabItems = children.map((childTab: ReactElement) => {
+  const tabItems = childrenArray.map((childTab: ReactElement) => {
     const { heading, children, group } = childTab.props
     return { label: heading, content: children, group }
   })

@@ -51,48 +51,12 @@ function CollectionViewSidebarContent({
           </>
         )
       })}
-      <HorizontalRule />
-      <SectionTitle text="Resources" />
-      <SectionList
-        items={[
-          {
-            text: 'All Tutorials',
-            href: 'https://learn.hashicorp.com',
-          },
-          {
-            text: 'Community Forum',
-            href: 'https://discuss.hashicorp.com',
-          },
-          { text: 'Support', href: 'https://support.hashicorp.com' },
-          { text: 'GitHub', href: 'http://github.com/hashicorp' },
-        ]}
-      />
     </>
   )
 }
 
 function TutorialViewSidebarContent({ items }: SectionListProps) {
-  return (
-    <>
-      <SectionList items={items} />
-      <HorizontalRule />
-      <SectionTitle text="Resources" />
-      <SectionList
-        items={[
-          {
-            text: 'All Tutorials',
-            href: 'https://learn.hashicorp.com',
-          },
-          {
-            text: 'Community Forum',
-            href: 'https://discuss.hashicorp.com',
-          },
-          { text: 'Support', href: 'https://support.hashicorp.com' },
-          { text: 'GitHub', href: 'http://github.com/hashicorp' },
-        ]}
-      />
-    </>
-  )
+  return <SectionList items={items} />
 }
 
 function SectionList({ items }: SectionListProps) {
