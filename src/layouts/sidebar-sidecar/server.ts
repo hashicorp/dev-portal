@@ -138,11 +138,7 @@ export function getStaticGenerationFunctions<
         }
       })
 
-      const fullNavData = [
-        ...navData,
-        { divider: true },
-        ...product.sidebar.resourcesNavData,
-      ]
+      const fullNavData = [...navData]
 
       // Add fullPaths and ids to navData
       const navDataWithFullPaths = prepareNavDataForClient(fullNavData, [
