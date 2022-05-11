@@ -9,20 +9,30 @@ import {
   ProductOption,
   TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
-import { ProductPageData } from 'views/product-tutorials-view/server'
 import Heading from 'components/heading'
 import IconTile from 'components/icon-tile'
 import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import { getSitemapHeading } from 'views/product-tutorials-view/helpers/heading-helpers'
 import s from './sitemap.module.css'
 
+export interface ProductTutorialsSitemapProps {
+  collections: SitemapCollection[]
+  product: ProductOption
+}
+
+type SitemapItem = {
+  slug: string
+  name: string
+}
+
+interface SitemapCollection extends SitemapItem {
+  tutorials: SitemapItem[]
+}
+
 export function ProductTutorialsSitemap({
   collections,
   product,
-}: {
-  collections: ProductPageData['allCollections']
-  product: ProductOption
-}): React.ReactElement {
+}: ProductTutorialsSitemapProps): React.ReactElement {
   const { title, level, slug } = getSitemapHeading()
 
   return (
