@@ -47,8 +47,6 @@ export interface ProductPageData {
  * Merges the product object fetched from `/products/:identifier` with the given
  * ProductData object and returns the merged object under the `product` page
  * prop, which is needed for other areas of the app to function.
- *
- * @TODO add sidebar sort capability
  */
 export async function getProductTutorialsViewProps(
   productData: LearnProductData
