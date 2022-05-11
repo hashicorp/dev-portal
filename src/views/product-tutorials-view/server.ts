@@ -1,6 +1,5 @@
 import { LearnProductData } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
