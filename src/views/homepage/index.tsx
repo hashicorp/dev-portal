@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { productSlugs } from 'lib/products'
 import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
@@ -16,15 +16,19 @@ import {
   VaultSlot,
 } from './components/merchandising-slots/slots'
 import badge from './img/vault-certified-expert-badge.svg?include'
+import Button from 'components/button'
+import FeedbackDialog from './components/feedback-dialog'
 import s from './homepage.module.css'
 import { ProductOption } from 'lib/learn-client/types'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
 function Homepage(): ReactElement {
+  const [visible, setVisible] = useState(false)
   return (
-    <div className={s.homepage}>
-      {/* <HeroWithActions
+    <>
+      <div className={s.homepage}>
+        {/* <HeroWithActions
         badgeText="Beta"
         heading="HashiCorp Developer"
         description={
@@ -53,112 +57,120 @@ function Homepage(): ReactElement {
           },
         ]}
       /> */}
-      <HeroWithVideo
-        badgeText="Beta"
-        heading="HashiCorp Developer"
-        description={
-          <>
-            <Text>
-              Learn at your own pace in one place with reference docs, step by
-              step tutorials, videos, and real hands-on lab workstations to
-              automate your infrastructure, networking, and security workflows.
-            </Text>
-          </>
-        }
-        videoUrl="https://www.youtube.com/watch?v=Y7c_twmDxQ4"
-      />
+        <HeroWithVideo
+          badgeText="Beta"
+          heading="HashiCorp Developer"
+          description={
+            <>
+              <Text>
+                Learn at your own pace in one place with reference docs, step by
+                step tutorials, videos, and real hands-on lab workstations to
+                automate your infrastructure, networking, and security
+                workflows.
+              </Text>
+            </>
+          }
+          videoUrl="https://www.youtube.com/watch?v=Y7c_twmDxQ4"
+        />
 
-      <ProductNav
-        notice="All HashiCorp products are being added and will be available here in the
+        <ProductNav
+          notice="All HashiCorp products are being added and will be available here in the
         Developer Portal"
-        products={productNavSlugs}
-      />
+          products={productNavSlugs}
+        />
 
-      <MerchandisingSlots>
-        <VaultSlot />
-        <HashiConfGlobalSlot />
-      </MerchandisingSlots>
+        <MerchandisingSlots>
+          <VaultSlot />
+          <HashiConfGlobalSlot />
+        </MerchandisingSlots>
 
-      <LearnSection
-        media={<InlineSvg src={badge} />}
-        heading="Become HashiCorp Vault Certified"
-        description={
-          <>
-            <Text size={300}>
-              As a Cloud Engineer specializing in security, development, or
-              operations, you can take the Vault Associate exam to validate your
-              knowledge of the basic concepts, skills, and use cases associated
-              with open source HashiCorp Vault. Or take the Vault Operations
-              Professional exam to demonstrate your proficiency with deploying,
-              configuring, managing, and monitoring HashiCorp Vault in
-              production.
-            </Text>
-            <Text size={300}>
-              Upon passing either exam, you can easily communicate your
-              proficiency and employers can quickly verify your results.
-            </Text>
-          </>
-        }
-        tutorials={[
-          {
-            url: '/',
-            duration: '10min',
-            heading: 'Title Max 70 Characters',
-            description: 'Body maximum 130 characters.',
-            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
-            hasVideo: true,
-            hasInteractiveLab: false,
-          },
-          {
-            url: '/',
-            duration: '10min',
-            heading: 'Title Max 70 Characters',
-            description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
-            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
-            hasVideo: true,
-            hasInteractiveLab: false,
-          },
-          {
-            url: '/',
-            duration: '10min',
-            heading: 'Title Max 70 Characters',
-            description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu video. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
-            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
-            hasVideo: true,
-            hasInteractiveLab: false,
-          },
-        ]}
-      />
+        <LearnSection
+          media={<InlineSvg src={badge} />}
+          heading="Become HashiCorp Vault Certified"
+          description={
+            <>
+              <Text size={300}>
+                As a Cloud Engineer specializing in security, development, or
+                operations, you can take the Vault Associate exam to validate
+                your knowledge of the basic concepts, skills, and use cases
+                associated with open source HashiCorp Vault. Or take the Vault
+                Operations Professional exam to demonstrate your proficiency
+                with deploying, configuring, managing, and monitoring HashiCorp
+                Vault in production.
+              </Text>
+              <Text size={300}>
+                Upon passing either exam, you can easily communicate your
+                proficiency and employers can quickly verify your results.
+              </Text>
+            </>
+          }
+          tutorials={[
+            {
+              url: '/',
+              duration: '10min',
+              heading: 'Title Max 70 Characters',
+              description: 'Body maximum 130 characters.',
+              productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+              hasVideo: true,
+              hasInteractiveLab: false,
+            },
+            {
+              url: '/',
+              duration: '10min',
+              heading: 'Title Max 70 Characters',
+              description:
+                'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
+              productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+              hasVideo: true,
+              hasInteractiveLab: false,
+            },
+            {
+              url: '/',
+              duration: '10min',
+              heading: 'Title Max 70 Characters',
+              description:
+                'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu video. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
+              productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+              hasVideo: true,
+              hasInteractiveLab: false,
+            },
+          ]}
+        />
 
-      <PreFooter
-        heading="Looking for help?"
-        description="Aenean interdum pulvinar nunc et maximus. Etiam imperdiet mattis sapien id commodow Aenean interdum pulvinar nunc nean interdum pulvinar."
-        actions={[
-          {
-            icon: (
-              <IconSupport24 color="var(--token-color-highlight-foreground-primary)" />
-            ),
-            heading: 'Support',
-            description: 'Open a support ticket',
-            link: '/',
-          },
-          {
-            icon: <IconHelp24 color="var(--token-color-packer-brand)" />,
-            heading: 'Forum',
-            description: 'Find your answer on the forum',
-            link: '/',
-          },
-          {
-            icon: <IconUser24 color="var(--token-color-nomad-brand)" />,
-            heading: 'Community',
-            description: 'Join our community',
-            link: '/',
-          },
-        ]}
+        <PreFooter
+          heading="Looking for help?"
+          description="Aenean interdum pulvinar nunc et maximus. Etiam imperdiet mattis sapien id commodow Aenean interdum pulvinar nunc nean interdum pulvinar."
+          handleFeedbackClick={() => setVisible(true)}
+          actions={[
+            {
+              icon: (
+                <IconSupport24 color="var(--token-color-highlight-foreground-primary)" />
+              ),
+              heading: 'Support',
+              description: 'Open a support ticket',
+              link: '/',
+            },
+            {
+              icon: <IconHelp24 color="var(--token-color-packer-brand)" />,
+              heading: 'Forum',
+              description: 'Find your answer on the forum',
+              link: '/',
+            },
+            {
+              icon: <IconUser24 color="var(--token-color-nomad-brand)" />,
+              heading: 'Community',
+              description: 'Join our community',
+              link: '/',
+            },
+          ]}
+        />
+      </div>
+      <FeedbackDialog
+        isOpen={visible}
+        onDismiss={() => setVisible(false)}
+        onSuccess={() => setVisible(false)}
       />
-    </div>
+    </>
   )
 }
 

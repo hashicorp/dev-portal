@@ -1,0 +1,47 @@
+.dialogOverlay {
+  background-color: var(--token-color-border-strong);
+  height: 100%;
+  left: 0;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.dialogWrapper {
+  display: grid;
+  min-height: 100vh;
+  padding: 132px 24px 24px;
+  place-items: center;
+  align-items: flex-start;
+}
+
+.dialogContent {
+  background-color: var(--token-color-surface-primary);
+  max-width: 574px;
+  outline: none;
+  overflow-y: auto;
+  padding: 24px;
+  position: relative;
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 12px 24px 0 #3b3d4599;
+  box-shadow: 0 2px 3px 0 #3b3d4580;
+  box-shadow: 0 0 0 1px #3b3d4566;
+}
+
+.dialogClose {
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  display: grid;
+  place-items: center;
+  right: 24px;
+  top: 24px;
+  color: var(--token-color-foreground-faint);
+}

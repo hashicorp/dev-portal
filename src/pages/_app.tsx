@@ -14,6 +14,8 @@ import {
 import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
+import { Toaster } from 'react-hot-toast'
+
 import './style.css'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
@@ -63,6 +65,7 @@ export default function App({ Component, pageProps, layoutProps }) {
                   {showProductSwitcher ? <PreviewProductSwitcher /> : null}
                 </CodeTabsProvider>
               </CurrentProductProvider>
+              <Toaster />
             </AllProductDataProvider>
           </DeviceSizeProvider>
         </ErrorBoundary>

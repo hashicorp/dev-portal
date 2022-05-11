@@ -1,0 +1,38 @@
+.header {
+  padding-right: 72px;
+  padding-bottom: 16px;
+}
+
+.description {
+  padding-top: 4px;
+  color: var(--token-color-foreground-primary);
+}
+
+.content {
+  display: grid;
+  gap: 16px;
+}
+
+.select {
+  justify-self: flex-start;
+}
+
+.textArea {
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  max-height: 50vh;
+  border-radius: 5px;
+  padding: 12px;
+  border: 0;
+  font-size: 16px;
+  font-family: var(--font-body);
+  box-shadow: 0 0 0 1px #656a7633;
+  resize: vertical;
+}
+
+.footer {
+  display: flex;
+  padding-top: 24px;
+  gap: 16px;
+}

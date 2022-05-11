@@ -4,6 +4,7 @@ import slugify from 'slugify'
 import Heading from 'components/heading'
 import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
+import Button from 'components/button'
 import s from './pre-footer.module.css'
 
 interface PreFooterProps {
@@ -21,6 +22,7 @@ export default function PreFooter({
   heading,
   description,
   actions,
+  handleFeedbackClick,
 }: PreFooterProps) {
   return (
     <section className={s.preFooter}>
@@ -30,6 +32,8 @@ export default function PreFooter({
             {heading}
           </Heading>
           <Text className={s.description}>{description}</Text>
+          <br />
+          <Button text="Leave feedback" onClick={handleFeedbackClick} />
         </div>
 
         <div className={s.actions}>
