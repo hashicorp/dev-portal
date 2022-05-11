@@ -1,131 +1,85 @@
 {
-  "heading": "Sentinel Overview",
-  "subheading": "Sentinel is a language and framework for policy built to be embedded in existing software to enable fine-grained, logic-based policy decisions.",
+  "hero": {
+    "heading": "Sentinel Placeholder Duplicate Of Vault Content",
+    "image": "https://place-hold.it/600x320"
+  },
+  "overview": {
+    "heading": "What is Sentinel?",
+    "body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+    "cta": {
+      "text": "Learn more about Sentinel features",
+      "url": "/vault/docs/what-is-vault"
+    },
+    "image": "https://place-hold.it/680x250"
+  },
+  "get_started": {
+    "heading": "Getting Started",
+    "body": "Use Sentinel to securely store, access, and manage secrets and other sensitive data.",
+    "ctas": [
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/getting-started"
+      },
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/cloud"
+      }
+    ]
+  },
   "blocks": [
     {
       "type": "heading",
+      "heading": "Use Cases",
       "level": 2,
-      "size": 400,
-      "heading": "Explore Sentinel Documentation"
+      "size": 400
     },
     {
-      "type": "get_started",
-      "product": "sentinel",
-      "heading": "Lorem ipsum dolor sit amet",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, mattis facilisi aliquam elit velit. Consectetur sit ullamcorper pulvinar a lacus, diam, neque. Faucibus laoreet ipsum.",
-      "link": {
-        "text": "Get Started",
-        "url": "/sentinel/docs/concepts"
-      }
+      "type": "tutorial_cards",
+      "tutorialSlugs": ["vault/transform", "vault/static-secrets"]
     },
     {
-      "type": "cards",
-      "columns": 2,
+      "type": "linked_cards",
       "cards": [
         {
-          "icon": "IconDocs",
-          "heading": "Sentinel Reference Documentation",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet vestibulum lorem sapien ut magna ut.",
-          "url": "/sentinel/docs"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://docs.hashicorp.com/sentinel"
         },
         {
-          "icon": "IconTerminal",
-          "heading": "Sentinel CLI",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Senectus suspendisse tortor, sem dui. ",
-          "url": "/sentinel/docs/commands"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://docs.hashicorp.com/sentinel"
         },
         {
-          "icon": "IconServer",
-          "heading": "Sentinel",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec morbi sit posuere quam a, scelerisque amet. Et placerat commodo viverra sit viverra. Velit.",
-          "url": "/sentinel/docs"
-        },
-        {
-          "icon": "IconDownload",
-          "heading": "Sentinel",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elementum pretium porta blandit fusce at.",
-          "url": "/sentinel/docs/downloads"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://docs.hashicorp.com/sentinel"
         }
       ]
     },
     {
       "type": "heading",
+      "heading": "Case Studies",
       "level": 2,
-      "size": 300,
-      "heading": "Featured Sentinel Documentation"
+      "size": 400
     },
     {
-      "type": "cards",
-      "columns": 3,
+      "type": "linked_cards",
       "cards": [
         {
-          "heading": "Libero odio risus est.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fermentum facilisi nunc nec.",
-          "url": "/sentinel/docs"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://docs.hashicorp.com/sentinel"
         },
         {
-          "heading": "Pellentesque ac eget nulla.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam scelerisque placerat sed.",
-          "url": "/sentinel/docs"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://docs.hashicorp.com/sentinel"
         },
         {
-          "heading": "Morbi pellentesque sed.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem nibh fermentum.",
-          "url": "/sentinel/docs"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "size": 300,
-      "heading": "Lorem ipsum dolor sit amet"
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Etiam quis in ac non quam.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
-          "url": "/sentinel/docs"
-        },
-        {
-          "heading": "Aliquet eu risus dis sed.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
-          "url": "/sentinel/docs"
-        },
-        {
-          "heading": "Ornare faucibus blandit id.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
-          "url": "/sentinel/docs"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "size": 300,
-      "heading": "Lorem ipsum dolor sit amet"
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Interdum sollicitudin.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Porttitor facilisi dui pharetra.",
-          "url": "/sentinel/docs"
-        },
-        {
-          "heading": "Ornare nibh semper.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
-          "url": "/sentinel/docs"
-        },
-        {
-          "heading": "Fames nibh gravida.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "url": "/sentinel/docs"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://docs.hashicorp.com/sentinel"
         }
       ]
     }
