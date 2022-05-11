@@ -1,167 +1,85 @@
 {
-  "heading": "Terraform Overview",
-  "subheading": "Use Terraform to safely and efficiently build, change, and version infrastructure.",
+  "hero": {
+    "heading": "Terraform Placeholder Duplicate Of Vault Content",
+    "image": "https://place-hold.it/600x320"
+  },
+  "overview": {
+    "heading": "What is Terraform?",
+    "body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+    "cta": {
+      "text": "Learn more about Terraform features",
+      "url": "/vault/docs/what-is-vault"
+    },
+    "image": "https://place-hold.it/680x250"
+  },
+  "get_started": {
+    "heading": "Getting Started",
+    "body": "Use Terraform to securely store, access, and manage secrets and other sensitive data.",
+    "ctas": [
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/getting-started"
+      },
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/cloud"
+      }
+    ]
+  },
   "blocks": [
     {
       "type": "heading",
+      "heading": "Use Cases",
       "level": 2,
-      "size": 400,
-      "heading": "Explore Terraform Documentation"
+      "size": 400
     },
     {
-      "type": "get_started",
-      "product": "terraform",
-      "heading": "Introduction to Terraform",
-      "text": "Terraform is an infrastructure as code (IaC) tool that allows you to build, change, and version infrastructure safely and efficiently.",
-      "link": {
-        "text": "Learn more",
-        "url": "https://www.terraform.io/intro"
-      }
+      "type": "tutorial_cards",
+      "tutorialSlugs": ["vault/transform", "vault/static-secrets"]
     },
     {
-      "type": "cards",
-      "columns": 2,
+      "type": "linked_cards",
       "cards": [
         {
-          "icon": "IconDocs",
-          "heading": "Terraform Reference Documentation",
-          "text": "The documentation is reference material for all available features and options of Terraform",
-          "url": "https://www.terraform.io/docs"
-        },
-        {
-          "icon": "IconTerminal",
-          "heading": "Terraform CLI",
-          "text": "Relevant to anyone working with CLI-based workflows or those who use Terraform Cloud or Enterprise.",
-          "url": "https://www.terraform.io/cli"
-        },
-        {
-          "icon": "IconProvider",
-          "heading": "Provider Use",
-          "text": "Terraform relies on plugins called \"providers\" to interact with remote systems.",
-          "url": "https://www.terraform.io/language/providers"
-        },
-        {
-          "icon": "IconDownload",
-          "heading": "Terraform Install",
-          "text": "Please download the proper package for your operating system and architecture.",
-          "url": "https://www.terraform.io/downloads"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Featured Terraform Documentation",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Terraform vs. Alternatives",
-          "text": "Terraform provides a flexible abstraction of resources and providers.",
-          "url": "https://www.terraform.io/intro/vs"
-        },
-        {
-          "heading": "Input Variables",
-          "text": "Input variables serve as parameters for a Terraform module, allowing aspects...",
-          "url": "https://www.terraform.io/language/values/variables"
-        },
-        {
-          "heading": "Output Values",
-          "text": "Terraform output values allow you to export structured data about your resources.",
-          "url": "https://www.terraform.io/language/values/outputs"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Lorem ipsum dolor sit amet",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Etiam quis in ac non quam.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
           "url": "https://www.terraform.io"
         },
         {
-          "heading": "Aliquet eu risus dis sed.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
           "url": "https://www.terraform.io"
         },
         {
-          "heading": "Ornare faucibus blandit id.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
           "url": "https://www.terraform.io"
         }
       ]
     },
     {
       "type": "heading",
+      "heading": "Case Studies",
       "level": 2,
-      "heading": "Lorem ipsum dolor sit amet",
-      "size": 300
+      "size": 400
     },
     {
-      "type": "cards",
-      "columns": 3,
+      "type": "linked_cards",
       "cards": [
         {
-          "heading": "Interdum sollicitudin.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum lectus posuere.",
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
           "url": "https://www.terraform.io"
         },
         {
-          "heading": "Ornare nibh semper.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
           "url": "https://www.terraform.io"
         },
         {
-          "heading": "Fames nibh gravida.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
           "url": "https://www.terraform.io"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Start Learning",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 2,
-      "cards": [
-        {
-          "heading": "Get Started - AWS",
-          "text": "Build, change, and destroy AWS infrastructure using Terraform.",
-          "url": "https://learn.hashicorp.com/collections/terraform/aws-get-started",
-          "tags": ["terraform"]
-        },
-        {
-          "heading": "Get Started - Azure",
-          "text": "Build, change, and destroy Azure infrastructure using Terraform.",
-          "url": "https://learn.hashicorp.com/collections/terraform/azure-get-started",
-          "tags": ["terraform"]
-        },
-        {
-          "heading": "Get Started - Google Cloud",
-          "text": "Build, change, and destroy Google Cloud Platform using Terraform.",
-          "url": "https://learn.hashicorp.com/collections/terraform/gcp-get-started",
-          "tags": ["terraform"]
-        },
-        {
-          "heading": "Get Started - Terraform Cloud",
-          "text": "Collaborate on version-controlled config using Terraform Cloud.",
-          "url": "https://learn.hashicorp.com/collections/terraform/cloud-get-started",
-          "tags": ["terraform"]
         }
       ]
     }

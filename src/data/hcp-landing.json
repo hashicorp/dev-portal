@@ -1,170 +1,85 @@
 {
-  "heading": "HashiCorp Cloud Platform Overview",
-  "subheading": "Use HCP to fully automate your cloud infrastructure.",
+  "hero": {
+    "heading": "HCP Placeholder Duplicate Of Vault Content",
+    "image": "https://place-hold.it/600x320"
+  },
+  "overview": {
+    "heading": "What is HCP?",
+    "body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+    "cta": {
+      "text": "Learn more about HCP features",
+      "url": "/vault/docs/what-is-vault"
+    },
+    "image": "https://place-hold.it/680x250"
+  },
+  "get_started": {
+    "heading": "Getting Started",
+    "body": "Use HCP to securely store, access, and manage secrets and other sensitive data.",
+    "ctas": [
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/getting-started"
+      },
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/cloud"
+      }
+    ]
+  },
   "blocks": [
     {
       "type": "heading",
+      "heading": "Use Cases",
       "level": 2,
-      "size": 400,
-      "heading": "Explore HCP Documentation"
+      "size": 400
     },
     {
-      "type": "get_started",
-      "product": "hcp",
-      "heading": "Lorem ipsum dolor sit amet",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Arcu, mattis facilisi aliquam elit velit. Consectetur sit ullamcorper pulvinar a lacus, diam, neque. Faucibus laoreet ipsum.",
-      "link": {
-        "text": "Get Started",
-        "url": "https://cloud.hashicorp.com"
-      }
+      "type": "tutorial_cards",
+      "tutorialSlugs": ["vault/transform", "vault/static-secrets"]
     },
     {
-      "type": "cards",
-      "columns": 2,
+      "type": "linked_cards",
       "cards": [
         {
-          "icon": "IconTerraformColor",
-          "iconBrandColor": "terraform",
-          "heading": "Terraform Cloud",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ante potenti vulputate donec magnis sed. Urna.",
-          "url": "https://cloud.hashicorp.com/products/terraform"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://cloud.hashicorp.com"
         },
         {
-          "icon": "IconVaultColor",
-          "iconBrandColor": "vault",
-          "heading": "HCP Vault",
-          "text": "Use HCP Vault to securely store, access, and manage secrets and other sensitive data.",
-          "url": "https://cloud.hashicorp.com/products/vault"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://cloud.hashicorp.com"
         },
         {
-          "icon": "IconConsulColor",
-          "iconBrandColor": "consul",
-          "heading": "HCP Consul",
-          "text": "Use HCP Consul to automate network configurations across any cloud.",
-          "url": "https://cloud.hashicorp.com/products/consul"
-        },
-        {
-          "icon": "IconPackerColor",
-          "iconBrandColor": "packer",
-          "heading": "HCP Packer",
-          "text": "Use HCP Packer to automatically create machine images for multiple cloud platforms.",
-          "url": "https://cloud.hashicorp.com/products/packer"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://cloud.hashicorp.com"
         }
       ]
     },
     {
       "type": "heading",
+      "heading": "Case Studies",
       "level": 2,
-      "size": 300,
-      "heading": "Featured Reference Docs"
+      "size": 400
     },
     {
-      "type": "cards",
-      "columns": 3,
+      "type": "linked_cards",
       "cards": [
         {
-          "heading": "HCP Architecture",
-          "text": "HashiCorp Cloud Platform (HCP) has two main planes for interacting with the platform...",
-          "url": "https://cloud.hashicorp.com/docs/hcp/architecture"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://cloud.hashicorp.com"
         },
         {
-          "heading": "HashiCorp Virtual Network",
-          "text": "Quickly get hands-on with HCP Consul using the HCP portal quickstart deployment...",
-          "url": "https://learn.hashicorp.com/collections/cloud/networking"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://cloud.hashicorp.com"
         },
         {
-          "heading": "Get Started - HCP Packer",
-          "text": "Learn how to securely connect your HCP Consul or HCP Vault clusters by connecting your...",
-          "url": "https://learn.hashicorp.com/collections/packer/cloud-production"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "size": 300,
-      "heading": "Lorem ipsum dolor sit amet"
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Etiam quis in ac non quam.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
-          "url": "https://www.hashicorp.com"
-        },
-        {
-          "heading": "Aliquet eu risus dis sed.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
-          "url": "https://www.hashicorp.com"
-        },
-        {
-          "heading": "Ornare faucibus blandit id.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
-          "url": "https://www.hashicorp.com"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "size": 300,
-      "heading": "Lorem ipsum dolor sit amet"
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Interdum sollicitudin.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Porttitor facilisi dui pharetra.",
-          "url": "https://www.hashicorp.com"
-        },
-        {
-          "heading": "Ornare nibh semper.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
-          "url": "https://www.hashicorp.com"
-        },
-        {
-          "heading": "Fames nibh gravida.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-          "url": "https://www.hashicorp.com"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "size": 300,
-      "heading": "Start learning"
-    },
-    {
-      "type": "cards",
-      "columns": 2,
-      "cards": [
-        {
-          "heading": "Getting Started with HCP Vault",
-          "text": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Vault using the HCP portal and...",
-          "url": "https://learn.hashicorp.com/collections/vault/cloud",
-          "tags": ["vault"]
-        },
-        {
-          "heading": "Getting started with HCP Consul",
-          "text": "Learn the fundamentals of expressing your workload as Nomad jobs. Submit, inspect, and monitor a...",
-          "url": "https://learn.hashicorp.com/collections/consul/cloud-get-started",
-          "tags": ["consul"]
-        },
-        {
-          "heading": "Get Started with HCP Packer",
-          "text": "HCP Packer registry stores Packer image metadata, enabling you to track your image lifecycle.",
-          "url": "https://learn.hashicorp.com/collections/packer/cloud-production",
-          "tags": ["packer"]
-        },
-        {
-          "heading": "HashiCorp Virtual Network",
-          "text": "Learn how to securely connect your HCP Consul or HCP Vault clusters by connecting your VPC to ...",
-          "url": "https://learn.hashicorp.com/collections/cloud/networking"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://cloud.hashicorp.com"
         }
       ]
     }
