@@ -16,6 +16,7 @@ import { filterCollections, sortAlphabetically } from './helpers'
 import processPageData from './helpers/process-page-data'
 import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
+import { ProductTutorialsSitemapProps } from './components/sitemap'
 
 export interface ProductTutorialsViewProps {
   data: ProductPageData
@@ -34,7 +35,7 @@ export interface ProductPageData {
     blocks: ProductViewBlock[]
     showProductSitemap?: boolean
   }
-  allCollections: ClientCollection[]
+  allCollections: ProductTutorialsSitemapProps['collections']
   inlineCollections: InlineCollections
   inlineTutorials: InlineTutorials
 }
@@ -89,6 +90,13 @@ export async function getProductTutorialsViewProps(
     sidebarSections: formatSidebarCategorySections(filteredCollections),
   }
 
+  const sitemapCollections: ProductTutorialsSitemapProps['collections'] =
+    filteredCollections.sort(sortAlphabetically('name')).map((c) => ({
+      slug: c.slug,
+      name: c.name,
+      tutorials: c.tutorials.map((t) => ({ slug: t.slug, name: t.name })),
+    }))
+
   /**
    * Destructuring the Learn data for now so it can be treated as the source of
    * truth in this view.
@@ -102,7 +110,7 @@ export async function getProductTutorialsViewProps(
     props: stripUndefinedProperties({
       data: {
         pageData,
-        allCollections: filteredCollections.sort(sortAlphabetically('name')),
+        allCollections: sitemapCollections,
         inlineCollections,
         inlineTutorials,
       },
