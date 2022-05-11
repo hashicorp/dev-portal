@@ -6,21 +6,26 @@ import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-
 import { NavigationHeaderItem } from './types'
 import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
 import s from './navigation-header.module.css'
+import { useEffect } from 'react'
 
 /**
  * The header content displayed to the far right of the window. This content is
  * the same for every page in the app.
  */
-const RightSideHeaderContent = () => {
+const RightSideHeaderContent = ({ onNavMenuToggle }) => {
   const { sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
   const ariaLabel = `${sidebarIsOpen ? 'Close' : 'Open'} navigation menu`
+
+  useEffect(() => {
+    onNavMenuToggle(sidebarIsOpen)
+  }, [sidebarIsOpen, onNavMenuToggle])
 
   return (
     <div className={s.rightSide}>
       <button
         aria-label={ariaLabel}
         className={s.mobileMenuButton}
-        onClick={() => setSidebarIsOpen((prevState) => !prevState)}
+        onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
       >
         {sidebarIsOpen ? <IconX24 /> : <IconMenu24 />}
       </button>
@@ -33,7 +38,7 @@ const RightSideHeaderContent = () => {
  * styles: one for the main home page, and one for all routes under
  * `/{productSlug}.`
  */
-const NavigationHeader = () => {
+const NavigationHeader = ({ onNavMenuToggle }) => {
   const { isDesktop } = useDeviceSize()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const LeftSideHeaderContent =
@@ -45,7 +50,9 @@ const NavigationHeader = () => {
   return (
     <header className={s.root}>
       <LeftSideHeaderContent />
-      {shouldShowRightSide && <RightSideHeaderContent />}
+      {shouldShowRightSide && (
+        <RightSideHeaderContent onNavMenuToggle={onNavMenuToggle} />
+      )}
     </header>
   )
 }

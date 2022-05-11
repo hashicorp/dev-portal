@@ -8,6 +8,8 @@ import s from './base-new-layout.module.css'
 interface BaseNewLayoutProps {
   /** Defaults to true. If true, the global footer will be shown at the bottom of the page. */
   showFooter?: boolean
+  /** @TODO */
+  onNavMenuToggle?: any
 }
 
 const { ConsentManager, openConsentManager } = createConsentManager({
@@ -17,6 +19,7 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
   children,
   showFooter = true,
+  onNavMenuToggle,
 }) => {
   return (
     <>
@@ -24,7 +27,7 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
         <div className={s.root} data-layout="base-new">
           <div className={s.header}>
             <DevAlertBanner />
-            <NavigationHeader />
+            <NavigationHeader onNavMenuToggle={onNavMenuToggle} />
           </div>
           <div className={s.contentArea}>{children}</div>
           {showFooter && (

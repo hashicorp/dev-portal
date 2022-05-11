@@ -33,6 +33,7 @@ const SidebarSidecarLayoutContent = ({
   AlternateSidebar,
   sidecarSlot,
   sidebarNavDataLevels,
+  onNavMenuToggle,
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
@@ -82,7 +83,7 @@ const SidebarSidecarLayoutContent = ({
   }
 
   return (
-    <BaseLayout showFooter={false}>
+    <BaseLayout showFooter={false} onNavMenuToggle={onNavMenuToggle}>
       <div className={s.contentWrapper}>
         <motion.div
           animate={sidebarIsVisible ? 'visible' : 'hidden'}

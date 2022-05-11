@@ -1,5 +1,5 @@
 // Third-party imports
-import { Fragment } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 import Head from 'next/head'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 
@@ -18,6 +18,7 @@ import {
   CollectionCategorySidebarSection,
   getCollectionSlug,
 } from 'views/collection-view/helpers'
+import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 import DevDotContent from 'components/dev-dot-content'
 import {
@@ -105,6 +106,8 @@ export default function TutorialView({
     nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
   const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
+  const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
+    useState<CollectionCategorySidebarSection[]>()
 
   const sidebarNavDataLevels = [
     generateTopLevelSidebarNavData(product.name),
@@ -117,7 +120,9 @@ export default function TutorialView({
       title: 'Tutorials',
       overviewItemHref: `/${product.slug}/tutorials`,
       children: (
-        <CollectionViewSidebarContent sections={layout.sidebarSections} />
+        <CollectionViewSidebarContent
+          sections={collectionViewSidebarSections}
+        />
       ),
     },
     {
@@ -138,6 +143,19 @@ export default function TutorialView({
       ),
     },
   ]
+
+  const onNavMenuToggle = useCallback(
+    (sidebarIsOpen: boolean) => {
+      if (sidebarIsOpen) {
+        getCollectionViewSidebarSections(product, collectionCtx.current).then(
+          (res) => {
+            setCollectionViewSidebarSections(res)
+          }
+        )
+      }
+    },
+    [collectionCtx, product]
+  )
 
   return (
     <>
@@ -161,6 +179,7 @@ export default function TutorialView({
           sidebarNavDataLevels={sidebarNavDataLevels as any}
           AlternateSidebar={TutorialsSidebar}
           headings={layout.headings}
+          onNavMenuToggle={onNavMenuToggle}
         >
           <TutorialMeta
             heading={{ slug: layout.headings[0].slug, text: name }}
