@@ -62,7 +62,6 @@ interface ProductData extends Product {
   }[]
   sidebar: {
     landingPageNavData: MenuItem[]
-    resourcesNavData: MenuItem[]
   }
   algoliaConfig: {
     indexName: string

@@ -31,18 +31,12 @@ export const generateProductLandingSidebarMenuItems = (
         title: 'Install',
         fullPath: `/${product.slug}/downloads`,
       },
-      { divider: true },
-      ...product.sidebar.resourcesNavData,
     ]
   } else {
     console.warn(
       `Warning (generateProductLandingSidebarMenuItems): ${product.name} does not have a "rootDocsPaths" property. Please replace the "landingPageNavData" property with "rootDocsPaths" in "src/data/${product.slug}.json".`
     )
-    menuItems = [
-      ...product.sidebar.landingPageNavData,
-      { divider: true },
-      ...product.sidebar.resourcesNavData,
-    ]
+    menuItems = [...product.sidebar.landingPageNavData]
   }
 
   return menuItems
