@@ -14,23 +14,18 @@ import {
 } from 'lib/fetch-release-data'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductDownloadsView from 'views/product-downloads-view'
-import PlaceholderDownloadsView from 'views/placeholder-product-downloads-view'
 
 const VERSION_DOWNLOAD_CUTOFF = '>=1.0.11'
 
 const TerraformDownloadsPage = (props: GeneratedProps): ReactElement => {
-  if (__config.flags.enable_new_downloads_view) {
-    const { latestVersion, releases } = props
-    return (
-      <ProductDownloadsView
-        latestVersion={latestVersion}
-        pageContent={installData}
-        releases={releases}
-      />
-    )
-  } else {
-    return <PlaceholderDownloadsView />
-  }
+  const { latestVersion, releases } = props
+  return (
+    <ProductDownloadsView
+      latestVersion={latestVersion}
+      pageContent={installData}
+      releases={releases}
+    />
+  )
 }
 
 /**

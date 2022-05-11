@@ -19,13 +19,13 @@
       }
     ]
   },
-  "alertBannerActive": false,
+  "alertBannerActive": true,
   "alertBanner": {
-    "tag": "Blog post",
-    "url": "https://www.hashicorp.com/blog/a-new-chapter-for-hashicorp",
-    "text": "HashiCorp shares have begun trading on the Nasdaq. Read the blog from our founders, Mitchell Hashimoto and Armon Dadgar.",
-    "linkText": "Read the post",
-    "expirationDate": "2021-12-17T23:00:00-07:00"
+    "tag": "June 20-22",
+    "url": "https://hashiconf.com/europe?utm_source=Banner",
+    "text": "Announcing HashiConf Europe full schedule: keynotes, sessions, labs & more",
+    "linkText": "Register Now",
+    "expirationDate": ""
   },
   "version": "2.2.19",
   "vmwareUtilityVersion": "1.0.21",
@@ -53,25 +53,6 @@
       {
         "title": "Getting Started",
         "fullPath": "/vagrant/docs/installation"
-      }
-    ],
-    "resourcesNavData": [
-      { "heading": "Resources" },
-      {
-        "title": "Releases",
-        "href": "https://releases.hashicorp.com/vagrant/"
-      },
-      {
-        "title": "HashiCorp Learn",
-        "href": "https://learn.hashicorp.com/vagrant"
-      },
-      {
-        "title": "Community Forum",
-        "href": "https://discuss.hashicorp.com/c/vagrant/24"
-      },
-      {
-        "title": "Support",
-        "href": "https://support.hashicorp.com"
       }
     ]
   },

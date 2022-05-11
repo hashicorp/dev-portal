@@ -20,13 +20,13 @@
       }
     ]
   },
-  "alertBannerActive": false,
+  "alertBannerActive": true,
   "alertBanner": {
-    "tag": "Survey",
-    "url": "https://docs.google.com/forms/d/e/1FAIpQLSeyDEyQXzkijZnkXjj8qVb_5IydajRkFnOrPjDNoysFs-6jDQ/viewform",
-    "text": "Using Nomad for edge workloads? We want to hear about it!",
-    "linkText": "Fill out our user survey",
-    "expirationDate": "2022-02-08T23:00:00-07:00"
+    "tag": "June 20-22",
+    "url": "https://hashiconf.com/europe?utm_source=Banner",
+    "text": "Announcing HashiConf Europe full schedule: keynotes, sessions, labs & more",
+    "linkText": "Register Now",
+    "expirationDate": ""
   },
   "version": "1.2.5",
   "subnavItems": [
@@ -79,25 +79,6 @@
       {
         "title": "Getting Started",
         "fullPath": "/nomad/docs/install"
-      }
-    ],
-    "resourcesNavData": [
-      { "heading": "Resources" },
-      {
-        "title": "Releases",
-        "href": "https://releases.hashicorp.com/nomad/"
-      },
-      {
-        "title": "HashiCorp Learn",
-        "href": "https://learn.hashicorp.com/nomad"
-      },
-      {
-        "title": "Community Forum",
-        "href": "https://discuss.hashicorp.com/c/nomad"
-      },
-      {
-        "title": "Support",
-        "href": "https://support.hashicorp.com"
       }
     ]
   },

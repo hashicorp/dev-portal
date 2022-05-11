@@ -17,6 +17,7 @@
   border-width: var(--border-width);
   display: flex;
   font-size: var(--font-size);
+  isolation: isolate;
   justify-content: center;
   line-height: var(--line-height);
   padding: var(--padding-top-bottom) var(--padding-left-right);

@@ -1,7 +1,7 @@
 import { AutocompleteOptions } from '@algolia/autocomplete-core'
 import { Hit } from '@algolia/client-search'
 
-export type AutocompleteProps<THit extends Hit<unknown>> = Partial<
+export type AlgoliaSearchPops<THit extends Hit<unknown>> = Partial<
   AutocompleteOptions<THit>
 > & {
   /**

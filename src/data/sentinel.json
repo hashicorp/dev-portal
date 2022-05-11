@@ -32,13 +32,13 @@
       }
     ]
   },
-  "alertBannerActive": false,
+  "alertBannerActive": true,
   "alertBanner": {
-    "tag": "Thank you",
-    "url": "https://hashiconf.com/europe",
-    "text": "HashiConf Europe is a wrap. Watch this year’s sessions on-demand.",
-    "linkText": "Watch Now",
-    "expirationDate": "2021-06-20T12:00:00-07:00"
+    "tag": "June 20-22",
+    "url": "https://hashiconf.com/europe?utm_source=Banner",
+    "text": "Announcing HashiConf Europe full schedule: keynotes, sessions, labs & more",
+    "linkText": "Register Now",
+    "expirationDate": ""
   },
   "version": "0.18.6",
   "subnavItems": [
@@ -60,25 +60,6 @@
       {
         "title": "Getting Started",
         "fullPath": "/sentinel/intro/getting-started"
-      }
-    ],
-    "resourcesNavData": [
-      { "heading": "Resources" },
-      {
-        "title": "Releases",
-        "href": "https://releases.hashicorp.com/sentinel/"
-      },
-      {
-        "title": "HashiCorp Learn",
-        "href": "https://learn.hashicorp.com/sentinel"
-      },
-      {
-        "title": "Community Forum",
-        "href": "https://discuss.hashicorp.com/c/sentinel/25"
-      },
-      {
-        "title": "Support",
-        "href": "https://support.hashicorp.com"
       }
     ]
   },

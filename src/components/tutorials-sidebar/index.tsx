@@ -1,3 +1,4 @@
+import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import {
   SidebarHorizontalRule,
   SidebarSectionHeading,
@@ -15,12 +16,16 @@ import s from './tutorials-sidebar.module.css'
 function TutorialsSidebar({
   backToLinkProps,
   children,
+  levelButtonProps,
+  overviewItemHref,
   title,
   visuallyHideTitle,
 }: TutorialSidebarProps) {
   return (
     <Sidebar
       backToLinkProps={backToLinkProps}
+      levelButtonProps={levelButtonProps}
+      overviewItemHref={overviewItemHref}
       showFilterInput={false}
       title={title}
       visuallyHideTitle={visuallyHideTitle}
@@ -28,6 +33,30 @@ function TutorialsSidebar({
       {children}
     </Sidebar>
   )
+}
+
+function CollectionViewSidebarContent({
+  sections,
+}: {
+  sections: CollectionCategorySidebarSection[]
+}) {
+  return (
+    <>
+      {sections?.map((section: CollectionCategorySidebarSection) => {
+        return (
+          <>
+            <HorizontalRule />
+            <SectionTitle text={section.title} />
+            <SectionList items={section.items} />
+          </>
+        )
+      })}
+    </>
+  )
+}
+
+function TutorialViewSidebarContent({ items }: SectionListProps) {
+  return <SectionList items={items} />
 }
 
 function SectionList({ items }: SectionListProps) {
@@ -59,5 +88,12 @@ function HorizontalRule() {
   return <SidebarHorizontalRule />
 }
 
-export { HorizontalRule, ListItem, SectionList, SectionTitle }
+export {
+  CollectionViewSidebarContent,
+  HorizontalRule,
+  ListItem,
+  SectionList,
+  SectionTitle,
+  TutorialViewSidebarContent,
+}
 export default TutorialsSidebar

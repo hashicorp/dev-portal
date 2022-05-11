@@ -1,6 +1,10 @@
+// Third-party imports
 import { Fragment } from 'react'
 import Head from 'next/head'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+
+// Global imports
+import { LearnProductData } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import {
   Collection as ClientCollection,
@@ -10,9 +14,26 @@ import {
 import SidebarSidecarLayout, {
   SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
+import {
+  CollectionCategorySidebarSection,
+  getCollectionSlug,
+} from 'views/collection-view/helpers'
+import { CollectionCardPropsWithId } from 'components/collection-card'
 import DevDotContent from 'components/dev-dot-content'
-import InstruqtProvider from 'contexts/instruqt-lab'
+import {
+  generateProductLandingSidebarNavData,
+  generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
+import TutorialsSidebar, {
+  CollectionViewSidebarContent,
+  TutorialViewSidebarContent,
+} from 'components/tutorials-sidebar'
 import TabProvider from 'components/tabs/provider'
+import TutorialMeta from 'components/tutorial-meta'
+import VideoEmbed from 'components/video-embed'
+import InstruqtProvider from 'contexts/instruqt-lab'
+
+// Local imports
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import {
@@ -20,21 +41,13 @@ import {
   NextPrevious,
   getNextPrevious,
 } from './components'
-import { CollectionCardPropsWithId } from 'components/collection-card'
-import { getCollectionSlug } from 'views/collection-view/helpers'
-import TutorialsSidebar, {
-  HorizontalRule,
-  SectionList,
-  SectionTitle,
-} from 'components/tutorials-sidebar'
 import getVideoUrl from './utils/get-video-url'
-import TutorialMeta from 'components/tutorial-meta'
-import VideoEmbed from 'components/video-embed'
 import s from './tutorial-view.module.css'
 
 export interface TutorialViewProps {
-  tutorial: TutorialData
   layout: TutorialSidebarSidecarProps
+  product: LearnProductData
+  tutorial: TutorialData
 }
 
 export interface TutorialData
@@ -60,11 +73,15 @@ export type CollectionContext = {
 }
 
 export type TutorialSidebarSidecarProps = Required<
-  Pick<SidebarSidecarLayoutProps, 'children' | 'headings' | 'breadcrumbLinks'>
+  Pick<
+    SidebarSidecarLayoutProps,
+    'children' | 'headings' | 'breadcrumbLinks'
+  > & { sidebarSections: CollectionCategorySidebarSection[] }
 >
 
 export default function TutorialView({
   layout,
+  product,
   tutorial,
 }: TutorialViewProps): React.ReactElement {
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
@@ -89,6 +106,39 @@ export default function TutorialView({
   })
   const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
 
+  const sidebarNavDataLevels = [
+    generateTopLevelSidebarNavData(product.name),
+    generateProductLandingSidebarNavData(product),
+    {
+      levelButtonProps: {
+        levelUpButtonText: `${product.name} Home`,
+        levelDownButtonText: 'Previous',
+      },
+      title: 'Tutorials',
+      overviewItemHref: `/${product.slug}/tutorials`,
+      children: (
+        <CollectionViewSidebarContent sections={layout.sidebarSections} />
+      ),
+    },
+    {
+      levelButtonProps: {
+        levelUpButtonText: collectionCtx.current.shortName,
+      },
+      backToLinkProps: {
+        text: collectionCtx.current.shortName,
+        href: getCollectionSlug(collectionCtx.current.slug),
+      },
+      visuallyHideTitle: true,
+      children: (
+        <TutorialViewSidebarContent
+          items={collectionCtx.current.tutorials.map((t) =>
+            formatTutorialToMenuItem(t, collectionCtx.current.slug, currentPath)
+          )}
+        />
+      ),
+    },
+  ]
+
   return (
     <>
       <Head>
@@ -101,42 +151,15 @@ export default function TutorialView({
       >
         <SidebarSidecarLayout
           breadcrumbLinks={layout.breadcrumbLinks}
-          sidebarSlot={
-            <TutorialsSidebar
-              backToLinkProps={{
-                text: collectionCtx.current.shortName,
-                href: getCollectionSlug(collectionCtx.current.slug),
-              }}
-              title={`${collectionCtx.current.shortName} Collection`}
-              visuallyHideTitle={true}
-            >
-              <SectionList
-                items={collectionCtx.current.tutorials.map((t) =>
-                  formatTutorialToMenuItem(
-                    t,
-                    collectionCtx.current.slug,
-                    currentPath
-                  )
-                )}
-              />
-              <HorizontalRule />
-              <SectionTitle text="Resources" />
-              <SectionList
-                items={[
-                  {
-                    text: 'All Tutorials',
-                    href: 'https://learn.hashicorp.com',
-                  },
-                  {
-                    text: 'Community Forum',
-                    href: 'https://discuss.hashicorp.com',
-                  },
-                  { text: 'Support', href: 'https://support.hashicorp.com' },
-                  { text: 'GitHub', href: 'http://github.com/hashicorp' },
-                ]}
-              />
-            </TutorialsSidebar>
-          }
+          /**
+           * @TODO remove casting to `any`. Will require refactoring both
+           * `generateTopLevelSidebarNavData` and
+           * `generateProductLandingSidebarNavData` to set up `menuItems` with the
+           * correct types. This will require chaning many files, so deferring for
+           * a follow-up PR since this is functional for the time being.
+           */
+          sidebarNavDataLevels={sidebarNavDataLevels as any}
+          AlternateSidebar={TutorialsSidebar}
           headings={layout.headings}
         >
           <TutorialMeta
