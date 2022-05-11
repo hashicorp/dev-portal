@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import Button from 'components/button'
@@ -96,11 +97,7 @@ export default function FeedbackDialog({
             <option value="4">4</option>
             <option value="5">5</option>
           </select>
-          <textarea
-            name="feedback"
-            className={s.textArea}
-            placeholder="Your feedback (optional)..."
-          ></textarea>
+          <TextArea />
         </div>
         <footer className={s.footer}>
           <Button text="Submit feedback" type="submit" />
@@ -113,5 +110,20 @@ export default function FeedbackDialog({
         </footer>
       </form>
     </Dialog>
+  )
+}
+
+function TextArea() {
+  const [val, setVal] = useState('')
+  return (
+    <div className={s.autoGrow} data-replicated-value={val}>
+      <textarea
+        name="feedback"
+        className={s.textArea}
+        placeholder="Your feedback (optional)..."
+        onChange={(e) => setVal(e.target.value)}
+        value={val}
+      ></textarea>
+    </div>
   )
 }
