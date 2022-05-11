@@ -114,7 +114,7 @@
     "@hashicorp/react-search": "^6.4.0",
     "@hashicorp/react-section-header": "^5.0.4",
     "@hashicorp/react-sentinel-embedded": "^1.0.4",
-    "@hashicorp/react-subnav": "^9.3.5-canary-20220510154113",
+    "@hashicorp/react-subnav": "^9.3.5",
     "@hashicorp/react-tabs": "^7.1.2",
     "@hashicorp/react-text-input": "^5.0.1",
     "@hashicorp/react-text-split-with-image": "^4.3.0",
