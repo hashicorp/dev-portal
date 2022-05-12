@@ -93,9 +93,9 @@ const SidebarSidecarLayoutContent = ({
         >
           <SidebarContent />
         </motion.div>
-        <div className={s.mainArea}>
-          <div className={s.main}>
-            <main id="main">
+        <div className={s.mainAreaAndFooter}>
+          <div className={s.mainArea}>
+            <main id="main" className={s.mainContent}>
               {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
               {children}
               {githubFileUrl && (
@@ -106,13 +106,16 @@ const SidebarSidecarLayoutContent = ({
                 />
               )}
             </main>
+            <div className={s.sidecar}>
+              <SidecarContent />
+            </div>
+          </div>
+          <div className={s.footerArea}>
             <Footer
               className={s.footer}
               openConsentManager={openConsentManager}
             />
-          </div>
-          <div className={`${s.sidecar} g-hide-on-mobile g-hide-on-tablet`}>
-            <SidecarContent />
+            <div className={s.footerSpaceForSidecar}></div>
           </div>
         </div>
       </div>
