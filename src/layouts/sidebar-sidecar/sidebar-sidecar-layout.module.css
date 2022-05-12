@@ -107,7 +107,7 @@ for further details.
   padding-right: var(--main-area-padding-right);
 }
 
-.mainContent {
+.main {
   align-self: flex-start;
   flex-grow: 1;
   min-width: 0;

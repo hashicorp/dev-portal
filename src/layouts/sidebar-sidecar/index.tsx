@@ -95,7 +95,7 @@ const SidebarSidecarLayoutContent = ({
         </motion.div>
         <div className={s.mainAreaAndFooter}>
           <div className={s.mainArea}>
-            <main id="main" className={s.mainContent}>
+            <main id="main" className={s.main}>
               {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
               {children}
               {githubFileUrl && (
