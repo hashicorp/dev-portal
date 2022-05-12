@@ -66,25 +66,6 @@
         "title": "Getting Started",
         "fullPath": "/boundary/docs/getting-started"
       }
-    ],
-    "resourcesNavData": [
-      { "heading": "Resources" },
-      {
-        "title": "Releases",
-        "href": "https://releases.hashicorp.com/boundary/"
-      },
-      {
-        "title": "HashiCorp Learn",
-        "href": "https://learn.hashicorp.com/boundary"
-      },
-      {
-        "title": "Community Forum",
-        "href": "https://discuss.hashicorp.com/c/boundary"
-      },
-      {
-        "title": "Support",
-        "href": "https://support.hashicorp.com"
-      }
     ]
   },
   "navigationHeaderItems": {}

@@ -50,11 +50,23 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
     leadingIcon = <div className={s.leadingIcon}>{icon}</div>
   }
 
+  // Conditionally determining props for the <a>
+  const ariaCurrent = !isExternal && item.isActive ? 'page' : undefined
+  const ariaLabel = isExternal
+    ? `${item.title}. Opens in a new tab.`
+    : undefined
+  const className = s.sidebarNavMenuItem
+  const rel = isExternal ? 'noreferrer noopener' : undefined
+  const target = isExternal ? '_blank' : undefined
+
   return (
     <Link href={href}>
       <a
-        aria-current={item.isActive ? 'page' : undefined}
-        className={s.sidebarNavMenuItem}
+        aria-current={ariaCurrent}
+        aria-label={ariaLabel}
+        className={className}
+        rel={rel}
+        target={target}
       >
         {leadingIcon}
         <Text

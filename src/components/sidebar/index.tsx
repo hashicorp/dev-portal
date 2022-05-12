@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import useCurrentPath from 'hooks/use-current-path'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
+  SidebarHorizontalRule,
   SidebarNavLinkItem,
   SidebarNavMenuItem,
   SidebarSkipToMainContent,
@@ -16,6 +17,20 @@ import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
+
+const RESOURCES_NAV_ITEMS = [
+  { heading: 'Resources' },
+  { title: 'All Tutorials', href: 'https://learn.hashicorp.com/' },
+  {
+    title: 'Community Forum',
+    href: 'https://discuss.hashicorp.com/',
+  },
+  {
+    title: 'Support',
+    href: 'https://www.hashicorp.com/customer-success',
+  },
+  { title: 'GitHub', href: 'https://github.com/hashicorp/' },
+]
 
 const Sidebar = ({
   backToLinkProps,
@@ -106,6 +121,13 @@ const Sidebar = ({
         <SidebarSkipToMainContent />
         {overviewItem}
         {sidebarContent}
+        <SidebarHorizontalRule />
+        <ul className={s.navList}>
+          {RESOURCES_NAV_ITEMS.map((item, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <SidebarNavMenuItem item={item} key={index} />
+          ))}
+        </ul>
       </nav>
     </div>
   )
