@@ -130,7 +130,6 @@ for further details.
 
   @media (--dev-dot-desktop) {
     display: block;
-    border: 1px solid magenta;
     align-self: flex-start;
     flex-shrink: 0;
     margin-left: var(--sidecar-margin-left);
@@ -150,7 +149,7 @@ for further details.
   min-width: 0;
   justify-content: center;
   padding-left: var(--main-area-padding-left);
-  padding-right: var(--main-area-padding-left);
+  padding-right: var(--main-area-padding-right);
   overflow: hidden;
 }
 
