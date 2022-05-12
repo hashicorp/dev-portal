@@ -54,6 +54,7 @@ for both --navigation-header-height and --alert-bar-height.
 
 .footer {
   margin-top: auto;
+  overflow: hidden;
   padding-left: 24px;
   padding-right: 24px;
 }
