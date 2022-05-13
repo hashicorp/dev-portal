@@ -1,5 +1,5 @@
 // Third-party imports
-import { Fragment } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 import Head from 'next/head'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 
@@ -43,6 +43,7 @@ import {
 } from './components'
 import getVideoUrl from './utils/get-video-url'
 import s from './tutorial-view.module.css'
+import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 
 export interface TutorialViewProps {
   layout: TutorialSidebarSidecarProps
@@ -73,10 +74,7 @@ export type CollectionContext = {
 }
 
 export type TutorialSidebarSidecarProps = Required<
-  Pick<
-    SidebarSidecarLayoutProps,
-    'children' | 'headings' | 'breadcrumbLinks'
-  > & { sidebarSections: CollectionCategorySidebarSection[] }
+  Pick<SidebarSidecarLayoutProps, 'children' | 'headings' | 'breadcrumbLinks'>
 >
 
 export default function TutorialView({
@@ -105,6 +103,21 @@ export default function TutorialView({
     nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
   const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
+  const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
+    useState<CollectionCategorySidebarSection[]>()
+
+  const onMobileSidebarOpen = useCallback(() => {
+    // If data we need is already loaded, don't reload it
+    if (collectionViewSidebarSections) {
+      return null
+    }
+
+    getCollectionViewSidebarSections(product, collectionCtx.current).then(
+      (sidebarSections: CollectionCategorySidebarSection[]) => {
+        setCollectionViewSidebarSections(sidebarSections)
+      }
+    )
+  }, [collectionViewSidebarSections, collectionCtx, product])
 
   const sidebarNavDataLevels = [
     generateTopLevelSidebarNavData(product.name),
@@ -117,7 +130,9 @@ export default function TutorialView({
       title: 'Tutorials',
       overviewItemHref: `/${product.slug}/tutorials`,
       children: (
-        <CollectionViewSidebarContent sections={layout.sidebarSections} />
+        <CollectionViewSidebarContent
+          sections={collectionViewSidebarSections}
+        />
       ),
     },
     {
@@ -161,6 +176,7 @@ export default function TutorialView({
           sidebarNavDataLevels={sidebarNavDataLevels as any}
           AlternateSidebar={TutorialsSidebar}
           headings={layout.headings}
+          onMobileSidebarOpen={onMobileSidebarOpen}
         >
           <TutorialMeta
             heading={{ slug: layout.headings[0].slug, text: name }}

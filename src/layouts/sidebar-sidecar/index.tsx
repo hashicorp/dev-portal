@@ -1,4 +1,4 @@
-import { ReactElement, useRef, useState } from 'react'
+import { ReactElement, useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
@@ -12,14 +12,15 @@ import s from './sidebar-sidecar-layout.module.css'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 
 const SidebarSidecarLayout = ({
+  AlternateSidebar,
   breadcrumbLinks,
   children,
   githubFileUrl,
   headings,
+  onMobileSidebarOpen,
   openConsentManager,
-  AlternateSidebar,
-  sidecarSlot,
   sidebarNavDataLevels,
+  sidecarSlot,
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const shouldReduceMotion = useReducedMotion()
@@ -37,6 +38,13 @@ const SidebarSidecarLayout = ({
   const sidebarProps = sidebarNavDataLevels[currentSidebarLevel]
   const sidebarIsVisible = isDesktop || sidebarIsOpen
   const shouldRenderMobileControls = !isDesktop && hasManyLevels
+
+  // Invoke the `onMobileSidebarOpen` (if given) on open
+  useEffect(() => {
+    if (sidebarIsOpen && onMobileSidebarOpen) {
+      onMobileSidebarOpen()
+    }
+  }, [sidebarIsOpen, onMobileSidebarOpen])
 
   // Handles closing the sidebar if focus moves outside of it and it is open.
   useOnFocusOutside(
