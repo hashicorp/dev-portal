@@ -4,6 +4,9 @@
     "revalidate": 360
   },
   "dev_dot": {
+    "analytics": {
+      "included_domains": "developer.hashi-mktg.com"
+    },
     "canonical_base_url": "https://developer.hashi-mktg.com",
     "max_static_paths": 10,
     "revalidate": 360,
