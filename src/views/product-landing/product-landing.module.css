@@ -1,13 +1,15 @@
-.pageHeading {
-  margin-bottom: 12px;
+.heroMargin {
+  margin-bottom: 32px;
 }
 
-.pageSubheading {
-  color: var(--token-color-foreground-primary);
-  margin-bottom: 48px;
+.iconCardsMargin {
+  margin: 32px 0;
 }
 
-.h2 {
-  margin-top: 48px;
-  margin-bottom: 16px;
+.overviewCtaMargin {
+  margin: 56px 0;
+}
+
+.getStartedMargin {
+  margin: 48px 0;
 }

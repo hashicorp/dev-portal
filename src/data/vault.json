@@ -146,6 +146,19 @@
     }
   ],
   "basePaths": ["docs", "api-docs", "intro"],
+  "rootDocsPaths": [
+    {
+      "iconName": "docs",
+      "name": "General Documentation",
+      "path": "docs",
+      "shortName": "Documentation"
+    },
+    {
+      "iconName": "tools",
+      "name": "API",
+      "path": "api-docs"
+    }
+  ],
   "sidebar": {
     "landingPageNavData": [
       {
@@ -155,25 +168,6 @@
       {
         "title": "Getting Started",
         "fullPath": "/vault/docs/install"
-      }
-    ],
-    "resourcesNavData": [
-      { "heading": "Resources" },
-      {
-        "title": "Releases",
-        "href": "https://releases.hashicorp.com/vault/"
-      },
-      {
-        "title": "HashiCorp Learn",
-        "href": "https://learn.hashicorp.com/vault"
-      },
-      {
-        "title": "Community Forum",
-        "href": "https://discuss.hashicorp.com/c/vault/30"
-      },
-      {
-        "title": "Support",
-        "href": "https://support.hashicorp.com"
       }
     ]
   },

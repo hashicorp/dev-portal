@@ -1,5 +1,5 @@
 import { useId } from '@react-aria/utils'
-import { useEffect, useState, ReactElement, ReactNode } from 'react'
+import { useEffect, useState, ReactElement, ReactNode, Children } from 'react'
 import { RawTabItem, RawTabItemWithIds, TabItem } from '../types'
 
 /**
@@ -33,17 +33,21 @@ function useTabItems({
   // Unique ID used to construct `tabId` & `panelId`
   const uniqueId = useId()
   // Raw items, to be validated & updated when children change
-  const [rawTabItem, setRawTabItems] = useState<RawTabItem[]>([])
+  const [rawTabItems, setRawTabItems] = useState<RawTabItem[]>(
+    rawTabItemsFromChildren(children, initialActiveIndex, uniqueId)
+  )
   // Enriched items, with { tabId, panelId, isActive }
-  const [tabItems, setTabItems] = useState<TabItem[]>([])
+  const [tabItems, setTabItems] = useState<TabItem[]>(
+    tabItemsFromRaw(rawTabItems, initialActiveIndex)
+  )
 
   /**
    * When children are updated, re-validate and update tabItems
    */
   useEffect(() => {
-    const validItems = validateTabChildren(children, initialActiveIndex)
-    const validItemsWithIds = addTabItemIds(validItems, uniqueId)
-    setRawTabItems(validItemsWithIds)
+    setRawTabItems(
+      rawTabItemsFromChildren(children, initialActiveIndex, uniqueId)
+    )
   }, [children, uniqueId, initialActiveIndex])
 
   /**
@@ -51,20 +55,40 @@ function useTabItems({
    * update the isActive state for each tabItem.
    */
   useEffect(() => {
-    // clamp activeIndex to prevent out-of-bounds issues
-    const clampedActiveIndex = Math.max(
-      0,
-      Math.min(activeTabIndex, rawTabItem.length - 1)
-    )
-    // update isActive on each item
-    setTabItems(
-      rawTabItem.map((item: RawTabItemWithIds, index: number) => {
-        return { ...item, isActive: index == clampedActiveIndex }
-      })
-    )
-  }, [rawTabItem, activeTabIndex])
+    setTabItems(tabItemsFromRaw(rawTabItems, activeTabIndex))
+  }, [rawTabItems, activeTabIndex])
 
   return tabItems
+}
+
+/**
+ * Given an array of children of <Tabs />,
+ * return an array of tab items to be rendered.
+ */
+function rawTabItemsFromChildren(
+  children: ReactNode,
+  initialActiveIndex: number,
+  uniqueId: string
+) {
+  const validItems = validateTabChildren(children, initialActiveIndex)
+  const validItemsWithIds = addTabItemIds(validItems, uniqueId)
+  return validItemsWithIds
+}
+
+/**
+ * Given an array of tab items without active tab indices,
+ * return an array of tab items with { isActive } attributes.
+ */
+function tabItemsFromRaw(rawTabItems: RawTabItem[], activeTabIndex: number) {
+  // clamp activeIndex to prevent out-of-bounds issues
+  const clampedActiveIndex = Math.max(
+    0,
+    Math.min(activeTabIndex, rawTabItems.length - 1)
+  )
+  // update isActive on each item
+  return rawTabItems.map((item: RawTabItemWithIds, index: number) => {
+    return { ...item, isActive: index == clampedActiveIndex }
+  })
 }
 
 function addTabItemIds(
@@ -94,16 +118,20 @@ function validateTabChildren(
   initialActiveIndex: number
 ): RawTabItem[] {
   /**
-   * Disallow rendering a `Tabs` component with only one child.
+   * Warn if rendering a `Tabs` component with only one child.
    */
   if (!Array.isArray(children) || children.length === 1) {
-    throw new Error('children must be an array of multiple Tab components')
+    console.warn(
+      'Warning: Tabs children must be an array of multiple Tab components. In the future, use of a single Tab will throw an error.'
+    )
   }
+
+  const childrenArray = Children.toArray(children)
 
   /**
    * Disallow rendering children that are not a `Tab` component.
    */
-  children.forEach((tabsChild: JSX.Element) => {
+  childrenArray.forEach((tabsChild: JSX.Element) => {
     const isJSXPrimitive = typeof tabsChild.type === 'string'
     const isFunctionComponent = typeof tabsChild.type === 'function'
     const isMDXComponent = typeof tabsChild.props.mdxType === 'string'
@@ -126,7 +154,7 @@ function validateTabChildren(
    * Transform children into an array of { label, content, group } items,
    * each of which represent a valid tab item to render
    */
-  const tabItems = children.map((childTab: ReactElement) => {
+  const tabItems = childrenArray.map((childTab: ReactElement) => {
     const { heading, children, group } = childTab.props
     return { label: heading, content: children, group }
   })

@@ -1,167 +1,85 @@
 {
-  "heading": "Packer Overview",
-  "subheading": "Use Packer to automatically create machine images for multiple platforms.",
+  "hero": {
+    "heading": "Packer Placeholder Duplicate Of Vault Content",
+    "image": "https://place-hold.it/600x320"
+  },
+  "overview": {
+    "heading": "What is Packer?",
+    "body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+    "cta": {
+      "text": "Learn more about Packer features",
+      "url": "/vault/docs/what-is-vault"
+    },
+    "image": "https://place-hold.it/680x250"
+  },
+  "get_started": {
+    "heading": "Getting Started",
+    "body": "Use Packer to securely store, access, and manage secrets and other sensitive data.",
+    "ctas": [
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/getting-started"
+      },
+      {
+        "text": "CLI Quick Start",
+        "url": "/vault/tutorials/cloud"
+      }
+    ]
+  },
   "blocks": [
     {
       "type": "heading",
+      "heading": "Use Cases",
       "level": 2,
-      "size": 400,
-      "heading": "Explore Packer Documentation"
+      "size": 400
     },
     {
-      "type": "get_started",
-      "product": "packer",
-      "heading": "Introduction to Packer",
-      "text": "Packer is controlled using a command-line interface. All interaction with Packer is done via the packer tool.",
-      "link": {
-        "text": "Learn more",
-        "url": "https://learn.hashicorp.com/tutorials/packer/get-started-install-cli"
-      }
+      "type": "tutorial_cards",
+      "tutorialSlugs": ["vault/transform", "vault/static-secrets"]
     },
     {
-      "type": "cards",
-      "columns": 2,
+      "type": "linked_cards",
       "cards": [
         {
-          "icon": "IconDocs",
-          "heading": "Packer Reference Documentation",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui elementum sit at mauris. Integer diam vestibulum egestas diam euismod ornare auctor.",
-          "url": "/packer/docs"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.packer.io"
         },
         {
-          "icon": "IconTerminal",
-          "heading": "Packer CLI",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui elementum sit at mauris. Integer diam vestibulum egestas diam euismod ornare auctor.",
-          "url": "/packer/docs/commands"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.packer.io"
         },
         {
-          "icon": "IconServer",
-          "heading": "Packer API",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. At sit ultricies sed bibendum lectus montes.",
-          "url": "https://cloud.hashicorp.com/api-docs/packer"
-        },
-        {
-          "icon": "IconDownload",
-          "heading": "Packer Install",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus donec rutrum dignissim et in at mattis.",
-          "url": "/packer/downloads"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.packer.io"
         }
       ]
     },
     {
       "type": "heading",
+      "heading": "Case Studies",
       "level": 2,
-      "heading": "Featured Packer Documentation",
-      "size": 300
+      "size": 400
     },
     {
-      "type": "cards",
-      "columns": 3,
+      "type": "linked_cards",
       "cards": [
         {
-          "heading": "Morbi nam convallis.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisl in eu est ut vulputate neque.",
-          "url": "/packer"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.packer.io"
         },
         {
-          "heading": "Diam tellus egestas lacus.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Congue a ut a amet gravida.",
-          "url": "/packer"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.packer.io"
         },
         {
-          "heading": "Sed penatibus nulla.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Justo ipsum sagittis laoreet vel.",
-          "url": "/packer"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Lorem ipsum dolor sit amet",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Etiam quis in ac non quam.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies nisi interdum vitae id.",
-          "url": "/packer"
-        },
-        {
-          "heading": "Aliquet eu risus dis sed.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit neque mattis phasellus quam.",
-          "url": "/packer"
-        },
-        {
-          "heading": "Ornare faucibus blandit id.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Urna donec gravida viverra.",
-          "url": "/packer"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Lorem ipsum dolor sit amet",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Interdum sollicitudin.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum lectus posuere.",
-          "url": "/packer"
-        },
-        {
-          "heading": "Ornare nibh semper.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo facilisis diam.",
-          "url": "/packer"
-        },
-        {
-          "heading": "Fames nibh gravida.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "url": "/packer"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Start Learning",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 2,
-      "cards": [
-        {
-          "heading": "Vitae aliquam nisl ligula pharetra.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget eget velit nibh odio a blandit leo euismod.",
-          "url": "https://learn.hashicorp.com/packer",
-          "tags": ["packer"]
-        },
-        {
-          "heading": "Dapibus elementum pretium rutrum odio.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sit enim, risus duis. Lectus vitae.",
-          "url": "https://learn.hashicorp.com/packer",
-          "tags": ["packer"]
-        },
-        {
-          "heading": "Eu magna mattis ultricies aliquet gravida.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Egestas massa eget amet lectus turpis sapien.",
-          "url": "https://learn.hashicorp.com/packer",
-          "tags": ["packer"]
-        },
-        {
-          "heading": "Senectus rhoncus quam ullamcorper vel.",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec semper facilisis a ultrices turpis id proin.",
-          "url": "https://learn.hashicorp.com/packer",
-          "tags": ["packer"]
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.packer.io"
         }
       ]
     }
