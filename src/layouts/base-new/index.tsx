@@ -1,3 +1,4 @@
+import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import DevAlertBanner from 'components/dev-alert-banner'
 import Footer from 'components/footer'
@@ -18,6 +19,11 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
   children,
   showFooter = true,
 }) => {
+  usePageviewAnalytics({
+    siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
+    includedDomains: __config.dev_dot.analytics.included_domains,
+  })
+
   return (
     <>
       <CoreDevDotLayout>
