@@ -18,6 +18,8 @@ function TutorialsSidebar({
   children,
   levelButtonProps,
   overviewItemHref,
+  setCurrentSidebarLevel,
+  shouldRenderMobileControls,
   title,
   visuallyHideTitle,
 }: TutorialSidebarProps) {
@@ -26,6 +28,8 @@ function TutorialsSidebar({
       backToLinkProps={backToLinkProps}
       levelButtonProps={levelButtonProps}
       overviewItemHref={overviewItemHref}
+      setCurrentSidebarLevel={setCurrentSidebarLevel}
+      shouldRenderMobileControls={shouldRenderMobileControls}
       showFilterInput={false}
       title={title}
       visuallyHideTitle={visuallyHideTitle}

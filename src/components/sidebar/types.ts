@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 import { SidebarMobileControlsProps } from './components/sidebar-mobile-controls'
 
@@ -142,6 +142,16 @@ interface SidebarBaseProps {
    * provided.
    */
   overviewItemHref?: string
+
+  /**
+   * @TODO
+   */
+  setCurrentSidebarLevel?: Dispatch<SetStateAction<number>>
+
+  /**
+   * @TODO
+   */
+  shouldRenderMobileControls?: boolean
 
   /**
    * Whether or not the Sidebar should render the filter text input.

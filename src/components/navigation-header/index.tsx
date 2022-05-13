@@ -2,7 +2,6 @@ import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 import useCurrentPath from 'hooks/use-current-path'
 import { useDeviceSize } from 'contexts'
-import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import { NavigationHeaderItem } from './types'
 import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
 import s from './navigation-header.module.css'
@@ -11,8 +10,7 @@ import s from './navigation-header.module.css'
  * The header content displayed to the far right of the window. This content is
  * the same for every page in the app.
  */
-const RightSideHeaderContent = () => {
-  const { sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
+const RightSideHeaderContent = ({ sidebarIsOpen, setSidebarIsOpen }) => {
   const ariaLabel = `${sidebarIsOpen ? 'Close' : 'Open'} navigation menu`
 
   return (
@@ -20,7 +18,7 @@ const RightSideHeaderContent = () => {
       <button
         aria-label={ariaLabel}
         className={s.mobileMenuButton}
-        onClick={() => setSidebarIsOpen((prevState) => !prevState)}
+        onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
       >
         {sidebarIsOpen ? <IconX24 /> : <IconMenu24 />}
       </button>
@@ -33,7 +31,7 @@ const RightSideHeaderContent = () => {
  * styles: one for the main home page, and one for all routes under
  * `/{productSlug}.`
  */
-const NavigationHeader = () => {
+const NavigationHeader = ({ sidebarIsOpen, setSidebarIsOpen }) => {
   const { isDesktop } = useDeviceSize()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const LeftSideHeaderContent =
@@ -45,7 +43,12 @@ const NavigationHeader = () => {
   return (
     <header className={s.root}>
       <LeftSideHeaderContent />
-      {shouldShowRightSide && <RightSideHeaderContent />}
+      {shouldShowRightSide && (
+        <RightSideHeaderContent
+          sidebarIsOpen={sidebarIsOpen}
+          setSidebarIsOpen={setSidebarIsOpen}
+        />
+      )}
     </header>
   )
 }

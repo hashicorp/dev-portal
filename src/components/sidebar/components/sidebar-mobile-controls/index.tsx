@@ -1,8 +1,7 @@
 import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
-import { useCurrentProduct } from 'contexts'
-import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import Button, { ButtonProps } from 'components/button'
+import { SidebarProps } from 'components/sidebar/types'
 import s from './sidebar-mobile-controls.module.css'
 
 /**
@@ -73,6 +72,7 @@ const LevelDownButton = ({ onClick, text }: ButtonProps) => {
 interface SidebarMobileControlsProps {
   levelUpButtonText: ButtonProps['text']
   levelDownButtonText: ButtonProps['text']
+  setCurrentSidebarLevel: SidebarProps['setCurrentSidebarLevel']
 }
 
 /**
@@ -83,28 +83,28 @@ interface SidebarMobileControlsProps {
 const SidebarMobileControls = ({
   levelUpButtonText,
   levelDownButtonText,
+  setCurrentSidebarLevel,
 }: SidebarMobileControlsProps) => {
-  const { hasManyLevels, isFirstLevel, isLastLevel, setCurrentLevel } =
-    useSidebarNavData()
-
-  // Show `LevelUpButton` on all levels but the first one
   let levelUpButton
-  if (hasManyLevels && !isFirstLevel) {
+  if (levelUpButtonText) {
     levelUpButton = (
       <LevelUpButton
         text={levelUpButtonText}
-        onClick={() => setCurrentLevel((prevLevel: number) => prevLevel - 1)}
+        onClick={() =>
+          setCurrentSidebarLevel((prevLevel: number) => prevLevel - 1)
+        }
       />
     )
   }
 
-  // Show `LevelDownButton` on all levels but the last one
   let levelDownButton
-  if (hasManyLevels && !isLastLevel) {
+  if (levelDownButtonText) {
     levelDownButton = (
       <LevelDownButton
         text={levelDownButtonText}
-        onClick={() => setCurrentLevel((prevLevel: number) => prevLevel + 1)}
+        onClick={() =>
+          setCurrentSidebarLevel((prevLevel: number) => prevLevel + 1)
+        }
       />
     )
   }

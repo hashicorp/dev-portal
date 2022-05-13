@@ -1,4 +1,4 @@
-import { ReactElement, useRef } from 'react'
+import { ReactElement, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
@@ -9,22 +9,9 @@ import Footer from 'components/footer'
 import Sidebar from 'components/sidebar'
 import { SidebarSidecarLayoutProps } from './types'
 import s from './sidebar-sidecar-layout.module.css'
-import {
-  SidebarNavDataProvider,
-  useSidebarNavData,
-} from './contexts/sidebar-nav-data'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 
-const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
-  const navDataLevels = props.sidebarNavDataLevels
-  return (
-    <SidebarNavDataProvider navDataLevels={navDataLevels}>
-      <SidebarSidecarLayoutContent {...props} />
-    </SidebarNavDataProvider>
-  )
-}
-
-const SidebarSidecarLayoutContent = ({
+const SidebarSidecarLayout = ({
   breadcrumbLinks,
   children,
   githubFileUrl,
@@ -35,11 +22,21 @@ const SidebarSidecarLayoutContent = ({
   sidebarNavDataLevels,
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
-  const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
   const shouldReduceMotion = useReducedMotion()
   const sidebarRef = useRef<HTMLDivElement>()
-  const sidebarProps = sidebarNavDataLevels[currentLevel]
+
+  /**
+   * Sidebar variables.
+   */
+  const numSidebarLevels = sidebarNavDataLevels.length
+  const hasManyLevels = numSidebarLevels > 1
+  const [currentSidebarLevel, setCurrentSidebarLevel] = useState(
+    numSidebarLevels - 1
+  )
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
+  const sidebarProps = sidebarNavDataLevels[currentSidebarLevel]
   const sidebarIsVisible = isDesktop || sidebarIsOpen
+  const shouldRenderMobileControls = !isDesktop && hasManyLevels
 
   // Handles closing the sidebar if focus moves outside of it and it is open.
   useOnFocusOutside(
@@ -50,10 +47,22 @@ const SidebarSidecarLayoutContent = ({
 
   const SidebarContent = (): ReactElement => {
     if (AlternateSidebar && !sidebarProps?.menuItems) {
-      return <AlternateSidebar {...sidebarProps} />
+      return (
+        <AlternateSidebar
+          {...sidebarProps}
+          setCurrentSidebarLevel={setCurrentSidebarLevel}
+          shouldRenderMobileControls={shouldRenderMobileControls}
+        />
+      )
     }
 
-    return <Sidebar {...sidebarProps} />
+    return (
+      <Sidebar
+        {...sidebarProps}
+        setCurrentSidebarLevel={setCurrentSidebarLevel}
+        shouldRenderMobileControls={shouldRenderMobileControls}
+      />
+    )
   }
 
   const SidecarContent = (): ReactElement => {
@@ -82,7 +91,11 @@ const SidebarSidecarLayoutContent = ({
   }
 
   return (
-    <BaseLayout showFooter={false}>
+    <BaseLayout
+      showFooter={false}
+      sidebarIsOpen={sidebarIsOpen}
+      setSidebarIsOpen={setSidebarIsOpen}
+    >
       <div className={s.contentWrapper}>
         <motion.div
           animate={sidebarIsVisible ? 'visible' : 'hidden'}

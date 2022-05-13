@@ -1,7 +1,6 @@
 import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'
 import useCurrentPath from 'hooks/use-current-path'
-import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
   SidebarHorizontalRule,
   SidebarNavLinkItem,
@@ -38,11 +37,12 @@ const Sidebar = ({
   levelButtonProps,
   menuItems,
   overviewItemHref,
+  setCurrentSidebarLevel,
+  shouldRenderMobileControls = false,
   showFilterInput = true,
   title,
   visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
-  const { shouldRenderMobileControls } = useSidebarNavData()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const [filterValue, setFilterValue] = useState('')
   const { itemsWithMetadata } = useMemo(
@@ -56,6 +56,7 @@ const Sidebar = ({
       <SidebarMobileControls
         levelUpButtonText={levelButtonProps.levelUpButtonText}
         levelDownButtonText={levelButtonProps.levelDownButtonText}
+        setCurrentSidebarLevel={setCurrentSidebarLevel}
       />
     )
   } else if (backToLinkProps) {

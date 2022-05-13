@@ -31,6 +31,16 @@ export interface TutorialSidebarProps {
    * Optional. If true, the title of the sidebar will be visually hidden.
    */
   visuallyHideTitle?: boolean
+
+  /**
+   * @TODO
+   */
+  setCurrentSidebarLevel?: SidebarProps['setCurrentSidebarLevel']
+
+  /**
+   * @TODO
+   */
+  shouldRenderMobileControls?: SidebarProps['shouldRenderMobileControls']
 }
 
 export interface ListItemProps {
