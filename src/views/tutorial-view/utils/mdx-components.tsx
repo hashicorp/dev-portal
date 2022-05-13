@@ -1,10 +1,11 @@
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
-import Tabs, { Tab } from 'components/tabs' // @TODO note that this doesn't support groups yet
+import Tabs, { Tab } from 'components/tabs'
 import ImageConfig from 'components/image-config'
 import Image from 'components/image'
 import InteractiveLabCallout from 'components/interactive-lab-callout'
 import VideoEmbed from 'components/video-embed'
 import { ReactNode } from 'react'
+import s from './mdx-components.module.css'
 
 /**
  * @TODO move over these components from learn, update to new spec
@@ -24,7 +25,11 @@ const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
  * docs.
  */
 function TabsWrapper({ children }: { children: ReactNode }) {
-  return <Tabs>{children}</Tabs>
+  return (
+    <div className={s.tabsWrapper}>
+      <Tabs>{children}</Tabs>
+    </div>
+  )
 }
 
 //  these components are automatically imported into scope within MDX content
