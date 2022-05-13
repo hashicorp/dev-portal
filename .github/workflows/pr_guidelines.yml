@@ -1,4 +1,4 @@
-name: PR Guidelines Comment
+name: PR Commenting Guidelines
 
 on:
   pull_request:
@@ -6,15 +6,16 @@ on:
       - opened
 
 jobs:
-  comment:
+  update_description:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: 'Comment about PR review guidelines'
+      - name: 'Append commenting guidelines to PR description'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ github.event.pull_request.html_url }}
         run: |
           current_pr_body=$(gh pr view $PR --json body --template {{.body}})
-          new_pr_body="$current_pr_body\n\n---\n\n$(cat .github/workflows/pr_guidelines_comment_body.txt)"
-          gh pr edit $PR --body $new_pr_body
+          separating_text=$'\n'$'\n'"---"$'\n'$'\n'
+          text_to_append=$(cat .github/workflows/pr_guidelines_description.txt)
+          gh pr edit $PR --body "$current_pr_body""$separating_text""$text_to_append"
