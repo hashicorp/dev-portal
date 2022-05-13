@@ -42,7 +42,7 @@ function ConsulOnKubernetesPage() {
           },
         ]}
         video={{
-          src: 'https://www.youtube.com/watch?v=Eyszp_apaEU',
+          src: 'https://www.youtube.com/watch?v=C3N4i1cFIZ0',
           poster: require('./images/hero/poster.png'),
         }}
       />
