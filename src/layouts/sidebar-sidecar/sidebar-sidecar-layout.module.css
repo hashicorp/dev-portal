@@ -39,7 +39,7 @@ for further details.
   which serves as the border, and which overflows the footer on both sides.
   
   The footer container ensures this border overflow does not cause scroll
-  using overflow hidden. We place an empty sidecar placeholder element
+  using overflow hidden. We place an empty sidecar placeholder pseudo-element
   within this container, next to the footer, to ensure spacing is consistent.
 
   This method requires two separate "rows" for the main content + sidecar area,
@@ -49,7 +49,7 @@ for further details.
   */
   --main-area-max-width: 780px;
   --sidecar-width: 220px;
-  --sidecar-margin-left: 48px;
+  --sidecar-gap: 48px;
 }
 
 /**
@@ -99,6 +99,7 @@ for further details.
 .mainArea {
   display: flex;
   flex-grow: 1;
+  gap: var(--sidecar-gap);
   min-width: 0;
   justify-content: center;
   padding-bottom: 32px;
@@ -129,10 +130,9 @@ for further details.
   display: none;
 
   @media (--dev-dot-desktop) {
-    display: block;
     align-self: flex-start;
+    display: block;
     flex-shrink: 0;
-    margin-left: var(--sidecar-margin-left);
     position: sticky;
     top: calc(var(--sticky-bars-height) + var(--main-area-top-padding));
     width: var(--sidecar-width);
@@ -146,21 +146,22 @@ for further details.
 .footerArea {
   display: flex;
   flex-grow: 1;
+  gap: var(--sidecar-gap);
   min-width: 0;
   justify-content: center;
   padding-left: var(--main-area-padding-left);
   padding-right: var(--main-area-padding-right);
   overflow: hidden;
+
+  /* Acts as a sidecar placeholder to ensure spacing is consistent */
+  &::after {
+    content: '';
+    display: block;
+    width: var(--sidecar-width);
+  }
 }
 
 .footer {
   flex-grow: 1;
   max-width: var(--main-area-max-width);
-}
-
-/* Acts as a sidecar placeholder to ensure spacing is consistent */
-.footerSpaceForSidecar {
-  flex-shrink: 0;
-  margin-left: var(--sidecar-margin-left);
-  width: var(--sidecar-width);
 }

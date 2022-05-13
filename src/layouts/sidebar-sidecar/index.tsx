@@ -115,7 +115,6 @@ const SidebarSidecarLayoutContent = ({
               className={s.footer}
               openConsentManager={openConsentManager}
             />
-            <div className={s.footerSpaceForSidecar}></div>
           </div>
         </div>
       </div>
