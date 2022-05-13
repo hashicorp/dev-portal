@@ -15,4 +15,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR: ${{ github.event.pull_request.html_url }}
         run: |
-          gh pr comment $PR --body-file .github/workflows/pr_guidelines_comment_body.txt
+          current_pr_body=$(gh pr view $PR --json body --template {{.body}})
+          new_pr_body="$current_pr_body\n\n---\n\n$(cat .github/workflows/pr_guidelines_comment_body.txt)"
+          gh pr edit $PR --body $new_pr_body
