@@ -1,140 +1,89 @@
 {
-  "heading": "Waypoint Documentation",
-  "subheading": "Use Waypoint to deliver a PaaS-like experience for Kubernetes, and other platforms.",
+  "hero": {
+    "heading": "Easy Application Deployment for Kubernetes and Amazon ECS",
+    "image": "https://www.datocms-assets.com/2885/1651594465-dev-dot-product-landing-waypoint-hero-image.png"
+  },
+  "overview": {
+    "heading": "What is Waypoint?",
+    "body": "Waypoint allows developers to deploy, manage, and observe their applications through a consistent abstraction of underlying infrastructure. Waypoint works with Kubernetes, ECS and many other platforms.",
+    "cta": {
+      "text": "Learn more about Waypoint features",
+      "url": "/waypoint/docs/intro"
+    },
+    "image": "https://www.datocms-assets.com/2885/1651594712-dev-dot-product-landing-what-is-waypoint-diagram.png"
+  },
+  "get_started": {
+    "heading": "Getting Started",
+    "body": "It only takes a few minutes to get started with Waypoint on your local development environment.",
+    "ctas": [
+      {
+        "text": "CLI Quick Start",
+        "url": "/waypoint/tutorials/get-started-docker/get-started-intro"
+      }
+    ]
+  },
   "blocks": [
     {
       "type": "heading",
+      "heading": "Use Cases",
       "level": 2,
-      "size": 400,
-      "heading": "Explore Waypoint Documentation"
+      "size": 400
     },
     {
-      "type": "get_started",
-      "product": "waypoint",
-      "heading": "Introduction to Waypoint",
-      "text": "Welcome to Waypoint! This introduction section covers what Waypoint is, the problem Waypoint aims to solve, and how Waypoint compares to other software.",
-      "link": {
-        "text": "Get Started",
-        "url": "/waypoint/docs/intro"
-      }
+      "type": "tutorial_cards",
+      "tutorialSlugs": ["waypoint/get-started-install", "waypoint/aws-ecs"]
     },
     {
-      "type": "cards",
-      "columns": 2,
+      "type": "collection_cards",
+      "collectionSlugs": [
+        "waypoint/get-started-docker",
+        "waypoint/get-started-nomad",
+        "waypoint/configuration"
+      ]
+    },
+    {
+      "type": "linked_cards",
       "cards": [
         {
-          "icon": "IconDocs",
-          "heading": "Waypoint Reference Documentation",
-          "text": "Learn and develop your knowledge of Waypoint with these tutorials and code resources.",
-          "url": "/waypoint/docs"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.waypointproject.io"
         },
         {
-          "icon": "IconTerminal",
-          "heading": "Waypoint CLI",
-          "text": "Waypoint is controlled via a very easy to use command-line interface (CLI).",
-          "url": "/waypoint/commands"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.waypointproject.io"
         },
         {
-          "icon": "IconBox",
-          "heading": "Waypoint Plugins",
-          "text": "Waypoint uses a plugin architecture to provide its build, registry, deploy, and release abilities.",
-          "url": "/waypoint/plugins"
-        },
-        {
-          "icon": "IconDownload",
-          "heading": "Waypoint Downloads",
-          "text": "Please download the proper package for your operating system and architecture.",
-          "url": "/waypoint/downloads"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.waypointproject.io"
         }
       ]
     },
     {
       "type": "heading",
+      "heading": "Case Studies",
       "level": 2,
-      "heading": "Featured Reference Docs",
-      "size": 300
+      "size": 400
     },
     {
-      "type": "cards",
-      "columns": 3,
+      "type": "linked_cards",
       "cards": [
         {
-          "heading": "Projects",
-          "text": "A project in Waypoint is a 1:1 mapping to a VCS repository. A project can be comprised of...",
-          "url": "/waypoint/docs/projects"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.waypointproject.io"
         },
         {
-          "heading": "Plugins",
-          "text": "Waypoint supports custom builders, deployment platforms, registries, release managers...",
-          "url": "/waypoint/docs/plugins"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.waypointproject.io"
         },
         {
-          "heading": "Build",
-          "text": "A build takes application source and converts it to an artifact. An artifact is the packaged...",
-          "url": "/waypoint/docs/lifecycle/build"
-        },
-        {
-          "heading": "Deploy",
-          "text": "A deploy takes a previously built artifact and stages it onto the target deployment...",
-          "url": "/waypoint/docs/lifecycle/deploy"
-        },
-        {
-          "heading": "Waypoint URL Service",
-          "text": "When you deploy your app with Waypoint, you will receive a public waypoint.run URL with...",
-          "url": "/waypoint/docs/url"
-        },
-        {
-          "heading": "Waypoint Runners",
-          "text": "Waypoint utilizes \"runners\" to execute operations. Every build, deploy, or release operation...",
-          "url": "/waypoint/docs/runner"
-        }
-      ]
-    },
-    {
-      "type": "heading",
-      "level": 2,
-      "heading": "Featured Tutorials",
-      "size": 300
-    },
-    {
-      "type": "cards",
-      "columns": 3,
-      "cards": [
-        {
-          "heading": "Introduction to Waypoint",
-          "text": "Deploying applications in the DevOps landscape can be confusing with so many...",
-          "tags": ["video", "waypoint"],
-          "url": "https://learn.hashicorp.com/tutorials/waypoint/get-started-intro"
-        },
-        {
-          "heading": "Get Started - Kubernetes",
-          "text": "Build, deploy, and release applications to a Kubernetes cluster.",
-          "tags": ["video", "waypoint"],
-          "url": "https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes"
-        },
-        {
-          "heading": "Get Started - Nomad",
-          "text": "Build, deploy, and release applications to a Nomad cluster.",
-          "tags": ["video", "waypoint"],
-          "url": "https://learn.hashicorp.com/collections/waypoint/get-started-nomad"
-        },
-        {
-          "heading": "Deploy applications to AWS",
-          "text": "Use your existing AWS environment and leverage Waypoint to deploy applications to AWS ECS and AWS Lambda.",
-          "tags": ["video", "waypoint"],
-          "url": "https://learn.hashicorp.com/collections/waypoint/deploy-aws"
-        },
-        {
-          "heading": "Deploy applications to Azure",
-          "text": "Learn how to use Waypoint to deploy applications to Azure Container Instances.",
-          "tags": ["video", "waypoint"],
-          "url": "https://learn.hashicorp.com/collections/waypoint/deploy-azure"
-        },
-        {
-          "heading": "Deploy applications to Google Cloud",
-          "text": "Waypoint can deploy applications to Google Cloud Run. Learn how to deploy your applications through Waypoint.",
-          "tags": ["video", "waypoint"],
-          "url": "https://learn.hashicorp.com/collections/waypoint/deploy-google-cloud"
+          "heading": "Dolor sit amet",
+          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+          "url": "https://www.waypointproject.io"
         }
       ]
     }

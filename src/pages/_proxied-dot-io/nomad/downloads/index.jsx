@@ -39,17 +39,6 @@ function DownloadsPage({ product, releases, latestVersion }) {
         href: 'https://learn.hashicorp.com/nomad',
         label: 'View Tutorials at HashiCorp Learn',
       }}
-      merchandisingSlot={
-        <div className={s.releaseCandidate}>
-          <p>
-            A release candidate for Nomad v1.3.0 is available! The release can
-            be{' '}
-            <a href="https://releases.hashicorp.com/nomad/1.3.0-rc.1/">
-              downloaded here.
-            </a>
-          </p>
-        </div>
-      }
     />
   )
 }
