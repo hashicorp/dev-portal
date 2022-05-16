@@ -35,7 +35,7 @@ interface IoHomeIntroProps {
       link: string
     }
   }
-  callout?: Omit<IoHomeInlineCalloutProps, 'brand'>
+  callout?: IoHomeInlineCalloutProps
   video?: IoHomeVideoCalloutProps
 }
 
@@ -142,7 +142,6 @@ export default function IoHomeIntro({
       {callout ? (
         <div className={s.callout}>
           <IoHomeInlineCallout
-            brand={brand}
             link={callout.link}
             heading={callout.heading}
             description={callout.description}
