@@ -6,6 +6,9 @@ import Button from '@hashicorp/react-button'
 import IoVideoCallout, {
   IoHomeVideoCalloutProps,
 } from 'components/_proxied-dot-io/common/io-video-callout'
+import IoHomeInlineCallout, {
+  IoHomeInlineCalloutProps,
+} from '../io-home-inline-callout'
 import IoHomeFeature, {
   IoHomeFeatureProps,
 } from 'components/_proxied-dot-io/common/io-home-feature'
@@ -32,6 +35,7 @@ interface IoHomeIntroProps {
       link: string
     }
   }
+  callout?: Omit<IoHomeInlineCalloutProps, 'brand'>
   video?: IoHomeVideoCalloutProps
 }
 
@@ -41,6 +45,7 @@ export default function IoHomeIntro({
   description,
   features,
   offerings,
+  callout,
   video,
 }: IoHomeIntroProps) {
   return (
@@ -131,6 +136,19 @@ export default function IoHomeIntro({
               </div>
             ) : null}
           </div>
+        </div>
+      ) : null}
+
+      {callout ? (
+        <div className={s.callout}>
+          <IoHomeInlineCallout
+            brand={brand}
+            link={callout.link}
+            heading={callout.heading}
+            description={callout.description}
+            cta={callout.cta}
+            image={callout.image}
+          />
         </div>
       ) : null}
 
