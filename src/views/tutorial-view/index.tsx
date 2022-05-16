@@ -14,7 +14,6 @@ import {
 import SidebarSidecarLayout, {
   SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
-import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import {
   CollectionCategorySidebarSection,
   getCollectionSlug,
