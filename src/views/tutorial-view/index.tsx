@@ -14,6 +14,7 @@ import {
 import SidebarSidecarLayout, {
   SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
+import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import {
   CollectionCategorySidebarSection,
   getCollectionSlug,
@@ -84,6 +85,9 @@ export default function TutorialView({
   product,
   tutorial,
 }: TutorialViewProps): React.ReactElement {
+  const components = defaultMdxComponents({
+    additionalComponents: MDX_COMPONENTS,
+  })
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const {
     name,
@@ -182,7 +186,7 @@ export default function TutorialView({
           )}
           <TabProvider>
             <DevDotContent>
-              <MDXRemote {...content} components={MDX_COMPONENTS} />
+              <MDXRemote {...content} components={components} />
             </DevDotContent>
           </TabProvider>
           <NextPrevious {...nextPreviousData} />
