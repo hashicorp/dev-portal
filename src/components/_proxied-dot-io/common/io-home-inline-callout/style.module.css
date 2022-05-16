@@ -42,4 +42,8 @@
 
 .media {
   flex-shrink: 0;
+
+  @media (--medium-up) {
+    max-width: calc(100% * 1 / 3);
+  }
 }
