@@ -43,10 +43,24 @@ function determineProductSlug(req: NextRequest): string {
   return '*'
 }
 
+const PUBLIC_FILE = /\.(hcl|ico|jpg|jpeg|js|json|png|svg|webp|zip)$/
+function isStaticAsset(url: NextRequest['nextUrl']): boolean {
+  return (
+    // These two checks are to prevent /data and /files routes from skipping
+    // rewrites since *technically* they're static assets. Will be able to be
+    // removed once affectes .io sites are being served from Dev Portal and
+    // we can add redirects to append `/{productSlug}` to them.
+    !url.pathname.startsWith('/data') &&
+    !url.pathname.startsWith('/files') &&
+    PUBLIC_FILE.test(url.pathname)
+  )
+}
+
 /**
  * Root-level middleware that will process all middleware-capable requests.
  * Currently used to support:
  * - Handling simple one-to-one redirects
+ * - Rewriting .io routes
  */
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
   // Handle redirects
@@ -70,6 +84,24 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
     const url = req.nextUrl.clone()
     url.pathname = destination
     return NextResponse.redirect(url, permanent ? 308 : 307)
+  }
+
+  // Rewrite .io pages
+  if (product !== '*' && !isStaticAsset(req.nextUrl)) {
+    const url = req.nextUrl.clone()
+    // static assets aren't under the _proxied-dot-io path
+    if (url.pathname.startsWith('/data') || url.pathname.startsWith('/files')) {
+      url.pathname = `/${product}${url.pathname}`
+    } else {
+      url.pathname = `/_proxied-dot-io/${product}${url.pathname}`
+    }
+    if (process.env.DEBUG_REWRITES) {
+      console.log(
+        `[DEBUG_REWRITES] rewriting ${req.nextUrl.pathname} to ${url.pathname}`
+      )
+    }
+
+    return NextResponse.rewrite(url)
   }
 
   // Continue request processing

@@ -311,7 +311,10 @@ function splitRedirectsByType(redirects) {
       ['(', ')', '{', '}', ':', '*', '+', '?'].some((char) =>
         redirect.source.includes(char)
       ) ||
-      (redirect.has && redirect.has.some((has) => has.type !== 'host'))
+      (redirect.has &&
+        redirect.has.some(
+          (has) => has.type !== 'host' && has.type !== 'cookie'
+        ))
     ) {
       globRedirects.push(redirect)
     } else {
@@ -383,6 +386,12 @@ function groupSimpleRedirects(redirects) {
 
 async function redirectsConfig() {
   const dotIoRedirects = await buildDotIoRedirects()
+  if (process.env.DEBUG_REDIRECTS) {
+    console.log(
+      '[DEBUG_REDIRECTS]',
+      `Length of dotIoRedirects: ${dotIoRedirects.length}`
+    )
+  }
   const devPortalRedirects = await buildDevPortalRedirects()
   const { simpleRedirects, globRedirects } = splitRedirectsByType([
     ...dotIoRedirects,
@@ -392,7 +401,11 @@ async function redirectsConfig() {
   if (process.env.DEBUG_REDIRECTS) {
     console.log(
       '[DEBUG_REDIRECTS]',
-      JSON.stringify({ simpleRedirects, groupedSimpleRedirects, globRedirects })
+      JSON.stringify(
+        { simpleRedirects, groupedSimpleRedirects, globRedirects },
+        null,
+        2
+      )
     )
   }
   return {

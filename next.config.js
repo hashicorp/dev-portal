@@ -3,7 +3,6 @@ const path = require('path')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
 const { redirectsConfig } = require('./build-libs/redirects')
-const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
 
 // temporary: set all paths as noindex, until we're serving from this project
@@ -60,19 +59,6 @@ module.exports = withSwingset({
         'utf-8'
       )
       return globRedirects
-    },
-    async rewrites() {
-      const rewrites = await rewritesConfig()
-
-      if (process.env.DEBUG_REWRITES) {
-        await fs.promises.writeFile(
-          path.join('src', 'data', '_rewrites.generated.json'),
-          JSON.stringify(rewrites, null, 2),
-          'utf-8'
-        )
-      }
-
-      return rewrites
     },
     env: {
       AXE_ENABLED: process.env.AXE_ENABLED || false,
