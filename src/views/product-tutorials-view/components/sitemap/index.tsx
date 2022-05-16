@@ -6,28 +6,14 @@ import {
 } from 'views/collection-view/helpers'
 import {
   Collection as ClientCollection,
-  ProductOption,
   TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
 import Heading from 'components/heading'
 import IconTile from 'components/icon-tile'
 import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import { getSitemapHeading } from 'views/product-tutorials-view/helpers/heading-helpers'
+import { ProductTutorialsSitemapProps } from './types'
 import s from './sitemap.module.css'
-
-export interface ProductTutorialsSitemapProps {
-  collections: SitemapCollection[]
-  product: ProductOption
-}
-
-type SitemapItem = {
-  slug: string
-  name: string
-}
-
-interface SitemapCollection extends SitemapItem {
-  tutorials: SitemapItem[]
-}
 
 export function ProductTutorialsSitemap({
   collections,

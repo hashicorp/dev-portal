@@ -15,7 +15,7 @@ import { filterCollections, sortAlphabetically } from './helpers'
 import processPageData from './helpers/process-page-data'
 import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
-import { ProductTutorialsSitemapProps } from './components/sitemap'
+import { ProductTutorialsSitemapProps } from './components/sitemap/types'
 
 export interface ProductTutorialsViewProps {
   data: ProductPageData
