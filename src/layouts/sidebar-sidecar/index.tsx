@@ -101,6 +101,13 @@ const SidebarSidecarLayoutContent = ({
                 {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
                 {optInOutSlot && optInOutSlot}
               </span>
+        <div className={s.mainAreaAndFooter}>
+          <div className={s.mainArea}>
+            <main id="main" className={s.main}>
+              <span className={s.breadcrumbOptOutGroup}>
+                {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+                {optInOutSlot && optInOutSlot}
+              </span>
               {children}
               {githubFileUrl && (
                 <EditOnGithubLink
@@ -110,13 +117,15 @@ const SidebarSidecarLayoutContent = ({
                 />
               )}
             </main>
+            <div className={s.sidecar}>
+              <SidecarContent />
+            </div>
+          </div>
+          <div className={s.footerArea}>
             <Footer
               className={s.footer}
               openConsentManager={openConsentManager}
             />
-          </div>
-          <div className={`${s.sidecar} g-hide-on-mobile g-hide-on-tablet`}>
-            <SidecarContent />
           </div>
         </div>
       </div>
