@@ -110,8 +110,22 @@ export function getStaticGenerationFunctions<
         scope: await getScope(),
       })
 
+      /**
+       * Try to load the static props for the given context. If there is a
+       * ContentApiError with a 404 status, return a 404 status and page.
+       * https://nextjs.org/docs/api-reference/data-fetching/get-static-props#notfound
+       */
+      let loadStaticPropsResult
+      try {
+        loadStaticPropsResult = await loader.loadStaticProps(ctx)
+      } catch (error) {
+        if (error.status === 404) {
+          return { notFound: true }
+        }
+      }
+
       const { navData, mdxSource, githubFileUrl, versions } =
-        await loader.loadStaticProps(ctx)
+        loadStaticPropsResult
 
       /**
        * NOTE: we've encountered empty headings on at least one page:
