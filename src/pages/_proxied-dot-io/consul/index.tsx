@@ -91,12 +91,12 @@ function Homepage({ data }): React.ReactElement {
                 link: _introCallout.link,
                 heading: _introCallout.heading,
                 description: _introCallout.description,
-                cta: 'Learn more',
-                image: {
-                  src: 'https://www.datocms-assets.com/58478/1638904220-multiplatformconsul.svg',
-                  width: 489,
-                  height: 303,
-                  alt: 'Consul on Kubernetes logos',
+                cta: _introCallout.cta || 'Learn more',
+                thumbnail: {
+                  src: _introCallout.thumbnail.url,
+                  width: _introCallout.thumbnail.width,
+                  height: _introCallout.thumbnail.height,
+                  alt: _introCallout.thumbnail.alt,
                 },
               }
             : null
