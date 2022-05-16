@@ -2,6 +2,10 @@ import { URL, URLSearchParams } from 'url'
 import createFetch from '@vercel/fetch'
 import pMap from 'p-map'
 import proxyConfig from '../build-libs/proxy-config'
+import { Collection, ProductOption, TutorialLite } from 'lib/learn-client/types'
+import { getAllCollections } from 'lib/learn-client/api/collection'
+import { splitProductFromFilename } from 'views/tutorial-view/utils'
+import config from '../config/base.json'
 
 interface StaticPathsResponse {
   meta: {
@@ -16,6 +20,9 @@ interface StaticPathsResponse {
     }[]
   }
 }
+
+const DEV_PORTAL_URL = config.dev_dot.canonical_base_url
+const BETA_PRODUCTS = config.dev_dot.beta_product_slugs
 
 const fetch = createFetch()
 
@@ -61,13 +68,52 @@ async function getUrlsToCache(product: string): Promise<string[]> {
   })
 }
 
+// Fetch all tutorial paths per beta product
+async function getTutorialUrlsToCache(
+  product: ProductOption
+): Promise<string[]> {
+  const allProductCollections = await getAllCollections({
+    product: { slug: product },
+  })
+
+  const filteredCollections = allProductCollections.filter(
+    (c) => c.theme === product
+  )
+  // go through all collections, get the collection slug
+  const paths = filteredCollections.flatMap((collection: Collection) => {
+    const collectionSlug = splitProductFromFilename(collection.slug)
+    // go through the tutorials within this collection, create a path for each
+    return collection.tutorials.map((tutorial: TutorialLite) => {
+      const tutorialSlug = splitProductFromFilename(tutorial.slug)
+      const url = new URL(
+        `${product}/tutorials/${collectionSlug}/${tutorialSlug}`,
+        DEV_PORTAL_URL
+      )
+      return url.toString()
+    })
+  })
+
+  // Tutorial path format: /{product}/tutorials/{collection}/{tutorial}
+  return paths
+}
+
 ;(async () => {
   try {
-    const urls = (
+    const docsUrls = (
       await Promise.all(
         Object.keys(proxyConfig).map((product) => getUrlsToCache(product))
       )
     ).flat(1)
+
+    const tutorialUrls = (
+      await Promise.all(
+        BETA_PRODUCTS.map((product: ProductOption) =>
+          getTutorialUrlsToCache(product)
+        )
+      )
+    ).flat(1)
+
+    const urls = [...docsUrls, ...tutorialUrls]
     console.log(`number of urls to cache: ${urls.length}`)
     await pMap(
       urls,
