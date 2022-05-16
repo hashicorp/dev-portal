@@ -85,9 +85,6 @@ export default function TutorialView({
   product,
   tutorial,
 }: TutorialViewProps): React.ReactElement {
-  const components = defaultMdxComponents({
-    additionalComponents: MDX_COMPONENTS,
-  })
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const {
     name,
@@ -186,7 +183,7 @@ export default function TutorialView({
           )}
           <TabProvider>
             <DevDotContent>
-              <MDXRemote {...content} components={components} />
+              <MDXRemote {...content} components={MDX_COMPONENTS} />
             </DevDotContent>
           </TabProvider>
           <NextPrevious {...nextPreviousData} />
