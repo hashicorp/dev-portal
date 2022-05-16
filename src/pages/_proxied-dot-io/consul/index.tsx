@@ -50,8 +50,8 @@ function Homepage({ data }): React.ReactElement {
     preFooterDescription,
     preFooterCtas,
   } = data
+  const _introCallout = introCallout[0]
   const _introVideo = introVideo[0]
-  const _introOfferingsCta = introOfferingsCta[0]
 
   return (
     <>
@@ -83,32 +83,39 @@ function Homepage({ data }): React.ReactElement {
             alt: introOfferingsImage.alt,
           },
           list: introOfferings,
-          cta: _introOfferingsCta,
+          cta: introOfferingsCta[0],
         }}
-        callout={{
-          link: '/consul-on-kubernetes',
-          heading: 'Consul on Kubernetes',
-          description:
-            'A robust service mesh for discovering and securly connecting applications on Kubernetes',
-          cta: 'Learn more',
-          image: {
-            src: 'https://www.datocms-assets.com/2885/1652705904-consul-on-kubernetes-logos.svg',
-            width: 158,
-            height: 75,
-            alt: 'Consul on Kubernetes logos',
-          },
-        }}
-        video={{
-          youtubeId: _introVideo.youtubeId,
-          thumbnail: _introVideo.thumbnail.url,
-          heading: _introVideo.heading,
-          description: _introVideo.description,
-          person: {
-            name: _introVideo.personName,
-            description: _introVideo.personDescription,
-            avatar: _introVideo.personAvatar?.url,
-          },
-        }}
+        callout={
+          _introCallout
+            ? {
+                link: _introCallout.link,
+                heading: _introCallout.heading,
+                description: _introCallout.description,
+                cta: 'Learn more',
+                image: {
+                  src: 'https://www.datocms-assets.com/58478/1638904220-multiplatformconsul.svg',
+                  width: 489,
+                  height: 303,
+                  alt: 'Consul on Kubernetes logos',
+                },
+              }
+            : null
+        }
+        video={
+          _introVideo
+            ? {
+                youtubeId: _introVideo.youtubeId,
+                thumbnail: _introVideo.thumbnail.url,
+                heading: _introVideo.heading,
+                description: _introVideo.description,
+                person: {
+                  name: _introVideo.personName,
+                  description: _introVideo.personDescription,
+                  avatar: _introVideo.personAvatar?.url,
+                },
+              }
+            : null
+        }
       />
 
       <section className={s.useCases}>
