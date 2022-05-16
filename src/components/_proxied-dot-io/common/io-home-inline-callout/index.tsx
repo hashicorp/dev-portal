@@ -7,7 +7,6 @@ import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-
 import s from './style.module.css'
 
 export interface IoHomeInlineCalloutProps {
-  brand: Products
   link: string
   heading: string
   description: string
@@ -21,17 +20,15 @@ export interface IoHomeInlineCalloutProps {
 }
 
 export default function IoHomeInlineCallout({
-  brand,
   link,
   heading,
   description,
   cta = 'Learn more',
   thumbnail,
 }: IoHomeInlineCalloutProps) {
-  const { themeClass } = useProductMeta(brand)
   return (
     <Link href={link}>
-      <a className={classNames(s.inlineCallout, themeClass)}>
+      <a className={s.inlineCallout}>
         <div className={s.media}>
           <Image
             src={thumbnail.src}

@@ -5,9 +5,10 @@
   justify-content: space-between;
   padding: 32px;
   gap: 16px 32px;
-  background-color: var(--brand-secondary);
+  background-color: transparent;
   color: var(--gray-2);
   border-radius: 6px;
+  border: 1px solid var(--gray-5);
 
   @media (--medium-up) {
     flex-direction: row-reverse;
