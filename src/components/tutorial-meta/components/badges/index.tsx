@@ -1,7 +1,7 @@
 import { Product as ClientProduct } from 'lib/learn-client/types'
 import { TutorialData } from 'views/tutorial-view'
 import { renderProductBadges, ProductDisplayOption } from './components/badge'
-import { generateBadges } from './helpers'
+import getReadableTime, { generateBadges } from './helpers'
 import s from './badges.module.css'
 
 export interface BadgesProps {
@@ -31,7 +31,7 @@ export function Badges({ options }: BadgesProps): React.ReactElement {
 
   return (
     <ul className={s.list}>
-      <Badge type="readTime" />
+      <p className={s.readTime}>{getReadableTime(readTime)}</p>
       {isBeta ? <Badge className={s.beta} type="isBeta" /> : null}
       {showEditionBadge ? <Badge type="edition" /> : null}
       {showProductBadges ? renderProductBadges(productBadgeOptions) : null}
