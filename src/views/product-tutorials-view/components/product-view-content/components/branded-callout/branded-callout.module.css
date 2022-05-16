@@ -36,7 +36,7 @@
   display: none;
 
   /** Using a custom mq here: The pattern looked 'broken' with the sidebar / sidecar layout at sizes <1200px */
-  @media only screen and (min-width: 1280px) {
+  @media only screen and (min-width: 1150px) {
     display: block;
     flex-grow: 0;
     flex-shrink: 0;
