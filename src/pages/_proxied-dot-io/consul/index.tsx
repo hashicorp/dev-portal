@@ -25,6 +25,7 @@ function Homepage({ data }): React.ReactElement {
     introOfferingsImage,
     introOfferings,
     introOfferingsCta,
+    introCallout,
     introVideo,
     inPracticeHeading,
     inPracticeDescription,
@@ -83,6 +84,19 @@ function Homepage({ data }): React.ReactElement {
           },
           list: introOfferings,
           cta: _introOfferingsCta,
+        }}
+        callout={{
+          link: '/consul-on-kubernetes',
+          heading: 'Consul on Kubernetes',
+          description:
+            'A robust service mesh for discovering and securly connecting applications on Kubernetes',
+          cta: 'Learn more',
+          image: {
+            src: 'https://www.datocms-assets.com/2885/1652705904-consul-on-kubernetes-logos.svg',
+            width: 158,
+            height: 75,
+            alt: 'Consul on Kubernetes logos',
+          },
         }}
         video={{
           youtubeId: _introVideo.youtubeId,
