@@ -16,6 +16,7 @@ import processPageData from './helpers/process-page-data'
 import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
 import { ProductTutorialsSitemapProps } from './components/sitemap/types'
+import { formatSitemapCollection } from './components/sitemap/helpers'
 
 export interface ProductTutorialsViewProps {
   data: ProductPageData
@@ -88,11 +89,9 @@ export async function getProductTutorialsViewProps(
   }
 
   const sitemapCollections: ProductTutorialsSitemapProps['collections'] =
-    filteredCollections.sort(sortAlphabetically('name')).map((c) => ({
-      slug: c.slug,
-      name: c.name,
-      tutorials: c.tutorials.map((t) => ({ slug: t.slug, name: t.name })),
-    }))
+    filteredCollections
+      .sort(sortAlphabetically('name'))
+      .map(formatSitemapCollection)
 
   /**
    * Destructuring the Learn data for now so it can be treated as the source of

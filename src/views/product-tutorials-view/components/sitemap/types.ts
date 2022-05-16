@@ -10,6 +10,6 @@ type SitemapItem = {
   name: string
 }
 
-interface SitemapCollection extends SitemapItem {
+export interface SitemapCollection extends SitemapItem {
   tutorials: SitemapItem[]
 }
