@@ -29,7 +29,7 @@ export default function CollectionMeta({
   }`
   return (
     <>
-      <IconTile size="large">
+      <IconTile>
         <IconCollections24 className={s.icon} />
       </IconTile>
       <Heading
