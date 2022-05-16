@@ -94,13 +94,6 @@ const SidebarSidecarLayoutContent = ({
         >
           <SidebarContent />
         </motion.div>
-        <div className={s.mainArea}>
-          <div className={s.main}>
-            <main id="main">
-              <span className={s.breadcrumbOptOutGroup}>
-                {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-                {optInOutSlot && optInOutSlot}
-              </span>
         <div className={s.mainAreaAndFooter}>
           <div className={s.mainArea}>
             <main id="main" className={s.main}>
