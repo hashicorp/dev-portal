@@ -16,18 +16,10 @@ import {
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
-  /**
-   * The goal is to replace `sidebarProps` with `sidebarNavDataLevels`, so this
-   * coercion is needed for uses of this layout that do not pass a value for the
-   * `sidebarNavDataLevels` prop.
-   */
-  const navDataLevels = props.sidebarNavDataLevels || [props.sidebarProps]
+  const navDataLevels = props.sidebarNavDataLevels
   return (
     <SidebarNavDataProvider navDataLevels={navDataLevels}>
-      <SidebarSidecarLayoutContent
-        {...props}
-        sidebarNavDataLevels={navDataLevels}
-      />
+      <SidebarSidecarLayoutContent {...props} />
     </SidebarNavDataProvider>
   )
 }
@@ -101,9 +93,9 @@ const SidebarSidecarLayoutContent = ({
         >
           <SidebarContent />
         </motion.div>
-        <div className={s.mainArea}>
-          <div className={s.main}>
-            <main id="main">
+        <div className={s.mainAreaAndFooter}>
+          <div className={s.mainArea}>
+            <main id="main" className={s.main}>
               {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
               {children}
               {githubFileUrl && (
@@ -114,13 +106,15 @@ const SidebarSidecarLayoutContent = ({
                 />
               )}
             </main>
+            <div className={s.sidecar}>
+              <SidecarContent />
+            </div>
+          </div>
+          <div className={s.footerArea}>
             <Footer
               className={s.footer}
               openConsentManager={openConsentManager}
             />
-          </div>
-          <div className={`${s.sidecar} g-hide-on-mobile g-hide-on-tablet`}>
-            <SidecarContent />
           </div>
         </div>
       </div>

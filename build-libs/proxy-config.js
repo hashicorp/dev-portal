@@ -34,7 +34,7 @@ const proxyConfig = {
     ],
   },
   packer: {
-    domain: 'https:/www.packer.io',
+    domain: 'https://www.packer.io',
     host: '(www\\.packer\\.io|test-pk\\.hashi-mktg\\.com)',
     assets: ['/files/press-kit.zip'],
   },

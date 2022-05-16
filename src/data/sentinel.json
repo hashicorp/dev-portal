@@ -61,25 +61,6 @@
         "title": "Getting Started",
         "fullPath": "/sentinel/intro/getting-started"
       }
-    ],
-    "resourcesNavData": [
-      { "heading": "Resources" },
-      {
-        "title": "Releases",
-        "href": "https://releases.hashicorp.com/sentinel/"
-      },
-      {
-        "title": "HashiCorp Learn",
-        "href": "https://learn.hashicorp.com/sentinel"
-      },
-      {
-        "title": "Community Forum",
-        "href": "https://discuss.hashicorp.com/c/sentinel/25"
-      },
-      {
-        "title": "Support",
-        "href": "https://support.hashicorp.com"
-      }
     ]
   },
   "navigationHeaderItems": {}
