@@ -12,7 +12,7 @@ export interface IoHomeInlineCalloutProps {
   heading: string
   description: string
   cta: string
-  image: {
+  thumbnail: {
     src: string
     width: number
     height: number
@@ -26,7 +26,7 @@ export default function IoHomeInlineCallout({
   heading,
   description,
   cta = 'Learn more',
-  image,
+  thumbnail,
 }: IoHomeInlineCalloutProps) {
   const { themeClass } = useProductMeta(brand)
   return (
@@ -34,10 +34,10 @@ export default function IoHomeInlineCallout({
       <a className={classNames(s.inlineCallout, themeClass)}>
         <div className={s.media}>
           <Image
-            src={image.src}
-            width={image.width}
-            height={image.height}
-            alt={image.alt}
+            src={thumbnail.src}
+            width={thumbnail.width}
+            height={thumbnail.height}
+            alt={thumbnail.alt}
           />
         </div>
         <div className={s.content}>

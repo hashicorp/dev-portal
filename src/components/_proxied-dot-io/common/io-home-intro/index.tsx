@@ -147,7 +147,7 @@ export default function IoHomeIntro({
             heading={callout.heading}
             description={callout.description}
             cta={callout.cta}
-            image={callout.image}
+            thumbnail={callout.thumbnail}
           />
         </div>
       ) : null}
