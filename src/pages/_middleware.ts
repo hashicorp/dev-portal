@@ -79,9 +79,10 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   // Handle Opt-in cookies
   const params = req.nextUrl.searchParams
   const optInPlatform = params.get('optInFrom') as OptInPlatformOption
+  const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
   const response = NextResponse.next()
 
-  if (optInPlatform) {
+  if (optInPlatform && !hasOptedIn) {
     response.cookie(`${optInPlatform}-beta-opt-in`, 'true', {
       maxAge: OPT_IN_MAX_AGE,
     })
