@@ -1,11 +1,17 @@
-import { OptInPlatformOption } from 'pages/_middleware'
+export enum PlatformOptionTitles {
+  'vault-io' = 'Vault',
+  'waypoint-io' = 'Waypoint',
+  learn = 'Learn',
+}
+
+export type OptInPlatformOption = keyof typeof PlatformOptionTitles
 
 export interface OptInOutProps {
   platform: OptInPlatformOption
   redirectPath?: string
 }
 
-export type PlatformOptionsType = Record<
+export type PlatformOptionRedirectData = Record<
   OptInPlatformOption,
   {
     base_url: string

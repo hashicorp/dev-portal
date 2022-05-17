@@ -1,19 +1,9 @@
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button from 'components/button'
 import Text from 'components/text'
+import { PlatformOptionTitles } from 'components/opt-in-out/types'
+import { OptOutFormProps } from './types'
 import s from './opt-out-form.module.css'
-
-interface OptOutFormProps {
-  onSubmit(): void
-  onDismiss(): void
-  platform: 'vault-io' | 'waypoint-io' | 'learn'
-}
-
-enum platformOptions {
-  vault = 'Vault',
-  waypoint = 'Waypoint',
-  learn = 'Learn',
-}
 
 const optOutOptions = [
   'Missing Content',
@@ -35,7 +25,7 @@ export default function OptOutForm({
         <label
           htmlFor="opt-out-form"
           className={s.heading}
-        >{`Why do you want to leave the ${platformOptions[platform]} Developer Beta?`}</label>
+        >{`Why do you want to leave the ${PlatformOptionTitles[platform]} Developer Beta?`}</label>
         <Text className={s.subheading}>(optional)</Text>
         <button className={s.exitIcon} onClick={onDismiss} aria-label="Cancel">
           <IconX16 />

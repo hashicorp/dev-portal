@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
+import { OptInPlatformOption } from 'components/opt-in-out/types'
 
-export type OptInPlatformOption = 'vault-io' | 'waypoint-io' | 'learn'
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
 
 const HOSTNAME_MAP = {

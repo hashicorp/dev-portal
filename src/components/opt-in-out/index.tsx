@@ -7,10 +7,10 @@ import Button from 'components/button'
 import OptOutForm from './components/opt-out-form'
 import Dialog from 'components/dialog'
 import { getLearnRedirectPath } from './helpers/get-learn-redirect-path'
-import { PlatformOptionsType, OptInOutProps } from './types'
+import { PlatformOptionRedirectData, OptInOutProps } from './types'
 
 // Could these go in the config? or I could source the base urls elsewhere
-export const PLATFORM_OPTIONS: PlatformOptionsType = {
+export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
   learn: {
     base_url: 'https://learn-git-ksspike-opt-in-redirects-hashicorp.vercel.app', // FOR TESTING PURPOSES NEED TO UPDATE for - 'https://learn.hashicorp.com/'
     getRedirectPath: getLearnRedirectPath,
