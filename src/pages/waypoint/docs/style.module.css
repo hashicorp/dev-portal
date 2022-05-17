@@ -4,7 +4,7 @@
 }
 
 .pageHeroText {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   gap: 24px;
   margin-bottom: 32px;
@@ -37,4 +37,42 @@
 
 .heroCardLinkText {
   color: var(--token-color-foreground-primary);
+}
+
+/*
+***
+* Classes used in the "card-grid" block.
+***
+*/
+
+.cardGridCard {
+  height: 100%;
+}
+
+.cardGridCardTitle {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 4px;
+}
+
+.cardGridCardDescription {
+  color: var(--token-color-foreground-faint);
+}
+
+/*
+***
+* Used to hide some of the remote MDX content for /waypoint/docs.
+***
+*/
+.waypointMDXWrapper {
+  & h1:first-of-type {
+    display: none;
+
+    & + * {
+      display: none;
+    }
+  }
+
+  & h2:first-of-type {
+    margin-top: 0;
+  }
 }
