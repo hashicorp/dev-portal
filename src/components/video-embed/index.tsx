@@ -1,79 +1,72 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import { VideoEmbedProps } from './types'
-import { useWatchEvents } from './helpers/start-stop-event-utils'
-import { addPlayedTimeToSegments } from './helpers/collapse-played-times'
+import {
+  trackHeapStarted,
+  trackHeapEnded,
+  usePlayState,
+  useSegmentsPlayed,
+  useSecondsPlayed,
+  usePercentMilestones,
+} from './helpers'
 import s from './video-embed.module.css'
 
-function trackRealProgress(
-  duration: number,
-  millisecondsPlayed: number,
-  onWatchProgress: VideoEmbedProps['onWatchProgress']
-) {
-  if (!duration) {
-    return null
-  }
-  // console.log({ millisecondsPlayed, duration })
-  const secondsPlayed = millisecondsPlayed / 1000
-  // const rawPercent = secondsPlayed / duration
-  onWatchProgress(parseFloat(secondsPlayed.toFixed(2)))
-}
-
-//
-//
-//
+/**
+ * PERCENT_MILESTONES is specified in "analytics/spec/events/video_played.yml".
+ * MAX_PLAYBACK_SPEED is based on max speeds for YouTube & Wistia.
+ * PROGRESS_INTERVAL is react-player's default value, articulated for clarity
+ *   in its purpose in the useSegmentsPlayed hook.
+ */
+const PERCENT_MILESTONES = [1, 25, 50, 75, 90]
+const PROGRESS_INTERVAL = 1000
+const MAX_PLAYBACK_SPEED = 2.0
 
 export default function VideoEmbed({
   start,
   onWatchProgress = () => null,
-  onWatchProgressSimple = () => null,
   ...reactPlayerProps
 }: VideoEmbedProps) {
-  const video_url = String(reactPlayerProps.url)
-
-  // TODO: move segments stuff into separate hook
-  const [segmentsPlayed, setSegmentsPlayed] = useState<[number, number][]>([])
-  function collectMomentPlayed(playedTime: number) {
-    setSegmentsPlayed(addPlayedTimeToSegments(playedTime, segmentsPlayed))
+  /**
+   * We need our video_url to be a string for analytics purposes.
+   * react-player supports other types, but we can't use them as easily.
+   */
+  const video_url = reactPlayerProps.url
+  if (typeof video_url !== 'string') {
+    throw new Error(
+      `VideoEmbed URL must be a string. Found type "${typeof video_url}". While other formats for this prop may be supported by react-player, they are not supported by our VideoEmbed component. Please ensure the "url" prop is a string.`
+    )
   }
 
-  const [playerData, setPlayerData] = useState<{
-    played: number
-    playedSeconds: number
-  }>({ played: 0, playedSeconds: 0 })
-  const [duration, setDuration] = useState<number>()
-  const {
-    isPlaying,
-    startPlayTimer,
-    stopPlayTimer,
-    recalculateTimeSpentWatching,
-    secondsSpentWatching,
-  } = useWatchEvents()
-
-  // TODO: do we drop heap tracking in dev-dot considering we've
-  // got a unified analytics plan around Segment?
-  function trackHeap(event: string) {
-    window.heap?.track(event, {
-      url: reactPlayerProps.url,
-    })
-  }
-
-  // TODO: with percentage in place from segmentsPercent hook (once that's done)
-  // still need to useEffect from that percentage; when it hits our desired
-  // levels (1, 25, 50, 75, 90); THEN we record actual events.
-  useEffect(() => {
-    trackRealProgress(duration, secondsSpentWatching, onWatchProgress)
-  }, [video_url, duration, secondsSpentWatching, onWatchProgress])
-
-  // TODO: move this segment logic to a hook
-  const segmentSecondsPlayed = segmentsPlayed.reduce(
-    (totalSeconds, segment) => {
-      return totalSeconds + (segment[1] - segment[0])
-    },
-    0
+  /**
+   * Playback tracking is for analytics purposes.
+   *
+   * TODO: should only track (and only do calc maybe?) if user has opted in.
+   * TODO: is the above handled at the window.analytics level?
+   * TODO: regardless, make separate analytics.ts, rather than allowing
+   * TODO: onWatchProgress to be passed in.
+   */
+  const [playState, { setDuration, setPosition, setPlaying, setStopped }] =
+    usePlayState()
+  const secondsPlayed = useSecondsPlayed(playState)
+  const segmentsPlayed = useSegmentsPlayed(
+    playState,
+    PROGRESS_INTERVAL,
+    MAX_PLAYBACK_SPEED
   )
-  const segmentsPercent =
-    Math.round((segmentSecondsPlayed / duration) * 1000) / 10
+  const percentMilestoneReached = usePercentMilestones(
+    segmentsPlayed.percent,
+    PERCENT_MILESTONES
+  )
+
+  /**
+   * When we reach a new percent watched milestone,
+   * fire an analytics event to update on video progress.
+   */
+  useEffect(() => {
+    const video_progress = percentMilestoneReached
+    // TODO: fire analytics event here, not function passed as prop
+    onWatchProgress(video_url, video_progress)
+  }, [video_url, percentMilestoneReached, onWatchProgress])
 
   //  propagating aliased `start` prop down to the actual player config
   const config = start
@@ -95,52 +88,59 @@ export default function VideoEmbed({
         <ReactPlayer
           config={config}
           {...reactPlayerProps}
-          onDuration={(d: number) => setDuration(d)}
-          onStart={() => trackHeap('Video Started')}
-          onProgress={({ played, playedSeconds }) => {
-            if (isPlaying) {
-              collectMomentPlayed(playedSeconds)
+          onDuration={setDuration}
+          onStart={() => trackHeapStarted(video_url)}
+          progressInterval={PROGRESS_INTERVAL}
+          onProgress={({ playedSeconds }: { playedSeconds: number }) => {
+            setPosition(playedSeconds)
+            if (playState.isPlaying) {
+              segmentsPlayed.collectMoment(playedSeconds)
             }
-            setPlayerData({ played, playedSeconds })
-            onWatchProgressSimple(parseFloat(playedSeconds.toFixed(2)))
-            recalculateTimeSpentWatching()
+            secondsPlayed.recalculate()
           }}
-          onBuffer={stopPlayTimer}
           onEnded={() => {
-            trackHeap('Video Ended')
-            if (isPlaying && duration) {
-              collectMomentPlayed(duration)
+            /**
+             * onProgress timing varies; but it is unlikely to coincide exactly
+             * with the end of the video, so we collectMoment for the video end,
+             * to ensure % progress right up to the end of the video is tracked.
+             */
+            if (playState.isPlaying && playState.duration) {
+              segmentsPlayed.collectMoment(playState.duration)
             }
-            stopPlayTimer()
-            // TODO: combine collectMomentPlayed & stopPlayTimer into one hook
-            // (likely still make sense as separate fns, though!)
+            trackHeapEnded(video_url)
+            setStopped()
           }}
-          onPlay={startPlayTimer}
-          onPause={stopPlayTimer}
+          onPlay={setPlaying}
+          onPause={setStopped}
           className={s.reactPlayer}
           width="100%"
           height="100%"
           controls
         />
       </div>
-      {duration ? (
+      {/* TODO: remove below, for dev purposes only */}
+      {playState.duration ? (
         <div className={s.playedTimes}>
-          {segmentsPlayed.map((segment: [number, number]) => {
+          {segmentsPlayed.list.map((segment: [number, number]) => {
             return (
               <span
                 key={segment.join('-')}
                 style={{
                   top: 0,
-                  left: `${(segment[0] / duration) * 100}%`,
-                  width: `${((segment[1] - segment[0]) / duration) * 100}%`,
+                  left: `${(segment[0] / playState.duration) * 100}%`,
+                  width: `${
+                    ((segment[1] - segment[0]) / playState.duration) * 100
+                  }%`,
                 }}
               />
             )
           })}
           <span
             style={{
-              top: 0,
-              left: `${(playerData.playedSeconds / duration) * 100}%`,
+              top: '-4px',
+              bottom: '-4px',
+              height: 'auto',
+              left: `${(playState.position / playState.duration) * 100}%`,
               width: '1px',
               background: 'magenta',
             }}
@@ -152,18 +152,20 @@ export default function VideoEmbed({
           {JSON.stringify(
             {
               approachOne: {
-                playerData,
+                playState,
               },
               approachTwo: {
-                isPlaying,
-                secondsSpentWatching,
-                duration,
+                isPlaying: playState.isPlaying,
+                secondsPlayed: secondsPlayed.total,
+                duration: playState.duration,
                 timeSpentPercent:
-                  Math.round((secondsSpentWatching / duration) * 1000) / 10,
+                  Math.round(
+                    (secondsPlayed.total / playState.duration) * 1000
+                  ) / 10,
               },
               approachThree: {
-                segmentsPercent,
-                segmentsPlayed,
+                segmentsPercent: segmentsPlayed.percent,
+                segmentsPlayed: segmentsPlayed.list,
               },
             },
             null,

@@ -14,15 +14,32 @@ export interface VideoEmbedProps extends ReactPlayerProps {
    * based on absolute cumulative time between "play" and "stop" events.
    */
   onWatchProgress?: (
-    // video_url: string,
+    video_url: string,
     video_progress: number // 1 | 25 | 50 | 75 | 90
   ) => void
-  /**
-   * [Development] callback fired when the % watched of the video changes,
-   * based on the current timestamp in the video vs the duration
-   */
-  onWatchProgressSimple?: (
-    // video_url: string,
-    video_progress: number // 1 | 25 | 50 | 75 | 90
-  ) => void
+}
+
+/**
+ * A tuple representing the start and end times
+ * of an interval in the video
+ * TODO: make object?
+ */
+export type SegmentPlayed = [number, number]
+
+/**
+ * An event representing the starting or stopping
+ * of video playback
+ */
+export interface StartStopEvent {
+  type: 'start' | 'stop'
+  timestamp: number
+}
+
+/**
+ * An object representing the video state
+ */
+export interface PlayState {
+  position: number
+  isPlaying: boolean
+  duration?: number
 }
