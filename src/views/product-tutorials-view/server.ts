@@ -1,6 +1,5 @@
 import { LearnProductData } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
@@ -16,6 +15,8 @@ import { filterCollections, sortAlphabetically } from './helpers'
 import processPageData from './helpers/process-page-data'
 import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
+import { ProductTutorialsSitemapProps } from './components/sitemap/types'
+import { formatSitemapCollection } from './components/sitemap/helpers'
 
 export interface ProductTutorialsViewProps {
   data: ProductPageData
@@ -34,7 +35,7 @@ export interface ProductPageData {
     blocks: ProductViewBlock[]
     showProductSitemap?: boolean
   }
-  allCollections: ClientCollection[]
+  allCollections: ProductTutorialsSitemapProps['collections']
   inlineCollections: InlineCollections
   inlineTutorials: InlineTutorials
 }
@@ -46,8 +47,6 @@ export interface ProductPageData {
  * Merges the product object fetched from `/products/:identifier` with the given
  * ProductData object and returns the merged object under the `product` page
  * prop, which is needed for other areas of the app to function.
- *
- * @TODO add sidebar sort capability
  */
 export async function getProductTutorialsViewProps(
   productData: LearnProductData
@@ -89,6 +88,11 @@ export async function getProductTutorialsViewProps(
     sidebarSections: formatSidebarCategorySections(filteredCollections),
   }
 
+  const sitemapCollections: ProductTutorialsSitemapProps['collections'] =
+    filteredCollections
+      .sort(sortAlphabetically('name'))
+      .map(formatSitemapCollection)
+
   /**
    * Destructuring the Learn data for now so it can be treated as the source of
    * truth in this view.
@@ -102,7 +106,7 @@ export async function getProductTutorialsViewProps(
     props: stripUndefinedProperties({
       data: {
         pageData,
-        allCollections: filteredCollections.sort(sortAlphabetically('name')),
+        allCollections: sitemapCollections,
         inlineCollections,
         inlineTutorials,
       },
