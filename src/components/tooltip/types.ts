@@ -22,6 +22,12 @@ export interface TooltipProps {
    * Optionally specify the appearance of the component. Defaults to "dark".
    */
   theme?: 'light' | 'dark'
+
+  /**
+   * For dev use only, force the tooltip to be visible,
+   * even if it's not being hovered
+   */
+  forceVisible?: boolean
 }
 
 /**
