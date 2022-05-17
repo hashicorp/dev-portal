@@ -6,7 +6,7 @@ import s from './opt-out-form.module.css'
 interface OptOutFormProps {
   onSubmit(): void
   onDismiss(): void
-  platform: 'vaul-io' | 'waypoint-io' | 'learn'
+  platform: 'vault-io' | 'waypoint-io' | 'learn'
 }
 
 enum platformOptions {
