@@ -56,15 +56,17 @@ const productsToPrimitives: ProductsToPrimitivesMap = {
   waypoint: { NestedNode, Placement },
 }
 
-const DocsView = ({ mdxSource, lazy }: DocsViewProps) => {
+const DocsView = ({ mdxSource, lazy, hideSearch = false }: DocsViewProps) => {
   const currentProduct = useCurrentProduct()
   const { compiledSource, scope } = mdxSource
   const additionalComponents = productsToPrimitives[currentProduct.slug] || {}
   const components = defaultMdxComponents({ additionalComponents })
+  const shouldRenderSearch =
+    !hideSearch && __config.flags.enable_product_docs_search
 
   return (
     <>
-      {__config.flags.enable_product_docs_search ? <ProductDocsSearch /> : null}
+      {shouldRenderSearch ? <ProductDocsSearch /> : null}
       <DevDotContent>
         <NoIndexTagIfVersioned />
         <TabProvider>
