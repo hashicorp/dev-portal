@@ -15,6 +15,10 @@
   border: unset;
   padding: 0;
   height: min-content;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .heading {
