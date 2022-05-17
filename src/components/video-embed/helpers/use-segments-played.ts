@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { PlayState, SegmentPlayed } from '../types'
 
 /**
@@ -10,8 +10,8 @@ import { PlayState, SegmentPlayed } from '../types'
  * - A "moment of progress" is represented by a playState.position that is
  *   visited while playState.isPlaying is true.
  *
- * - PROGRESS_INTERVAL represents the time between these events being reported.
- *   It is needed to accurately report viewing progress.
+ * - PROGRESS_INTERVAL represents the time in milliseconds between these events
+ *   being reported. It is needed to accurately report viewing progress.
  *   When a "moment of progress" is reported, we assume that the
  *   previous PROGRESS_INTERVAL of video (usually 1 second) has been viewed.
  *
@@ -33,16 +33,42 @@ export function useSegmentsPlayed(
   collectMoment: (playTimeMoment: number) => void
 } {
   const [segmentsPlayed, setSegmentsPlayed] = useState<SegmentPlayed[]>([])
-  function collectMomentPlayed(playedTime: number) {
-    setSegmentsPlayed((prev: SegmentPlayed[]) =>
-      addMomentPlayedToSegments(
-        playedTime,
-        prev,
-        progressInterval,
-        maxPlaybackSpeed
+
+  /**
+   * Allows individual moments of playtime to be collected and
+   * consolidated into the array of segmentsPlayed
+   */
+  const collectMomentPlayed = useCallback(
+    (playedTime: number) => {
+      setSegmentsPlayed((prev: SegmentPlayed[]) =>
+        addMomentPlayedToSegments(
+          playedTime,
+          prev,
+          progressInterval,
+          maxPlaybackSpeed
+        )
       )
-    )
-  }
+    },
+    [maxPlaybackSpeed, progressInterval]
+  )
+
+  useEffect(() => {
+    /**
+     * If the video is playing, and a position (or duration) change comes in,
+     * we wanted to capture that moment of active playback
+     */
+    const isPlayingMoment = playState.isPlaying
+    /**
+     * We expect playState.position to be updated to the very end of the video
+     * when the video is complete, but at that point we also expect isPlaying
+     * to be false. So we have a special case to capture the moment the video
+     * has ended, to ensure % progress is tracked right up to the end.
+     */
+    const isEndedMoment = playState.position == playState.duration
+    if (isPlayingMoment || isEndedMoment) {
+      collectMomentPlayed(playState.position)
+    }
+  }, [playState, collectMomentPlayed])
 
   const segmentSecondsPlayed = segmentsPlayed.reduce(
     (totalSeconds: number, segment: [number, number]) => {

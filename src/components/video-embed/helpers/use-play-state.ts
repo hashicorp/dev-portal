@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import { PlayState } from '../types'
 
 export function usePlayState(): [
@@ -8,6 +8,7 @@ export function usePlayState(): [
     setPosition: (position: number) => void
     setPlaying: () => void
     setStopped: () => void
+    setEnded: () => void
   }
 ] {
   const [playState, setPlayState] = useState<PlayState>({
@@ -31,5 +32,16 @@ export function usePlayState(): [
     setPlayState((prev: PlayState) => ({ ...prev, isPlaying: false }))
   }
 
-  return [playState, { setDuration, setPosition, setPlaying, setStopped }]
+  function setEnded() {
+    setPlayState((prev: PlayState) => ({
+      ...prev,
+      position: prev.duration,
+      isPlaying: false,
+    }))
+  }
+
+  return [
+    playState,
+    { setEnded, setDuration, setPosition, setPlaying, setStopped },
+  ]
 }

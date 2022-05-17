@@ -1,5 +1,5 @@
 export * from './track-heap'
-export * from './use-percent-milestones'
+export * from './use-milestones'
 export * from './use-play-state'
-export * from './use-seconds-played'
+export * from './use-seconds-watched'
 export * from './use-segments-played'
