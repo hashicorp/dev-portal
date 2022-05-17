@@ -163,3 +163,50 @@ function VideoEmbed({
  * ("analytics/spec/events/video_played.yml" for details)
  */
 export default VideoEmbed
+
+/*
+
+CONTEXT still needs to be added.
+
+path: document.location.pathname
+referrer: document.referrer
+search: document.location.search
+url: document.location.href
+title: document.title
+userAgent: navigator.userAgent
+locale: function getClientLocale() {
+  try {
+    return Intl.NumberFormat().resolvedOptions().locale;
+  } catch (err) {
+    if (window.navigator.languages) {
+      return window.navigator.languages[0]
+    } else {
+      return window.navigator.userLanguage || window.navigator.language
+    }
+  }
+}
+DETAILS ON LOCALE:
+Intl.NumberFormat().resolvedOptions().locale
+(with caveats, must fallback, eg to window.navigator.languages[0],
+  window.navigator.userLanguage, or window.navigator.language;
+  see https://stackoverflow.com/a/42070353)
+
+{
+  context: {
+    page: {
+      path: "", //  Containing an initial '/' followed by the path of the URL
+      referrer: "", // Contains an absolute or partial address of the page that makes the request
+      search: "", // The URL parameters passed to the page
+      title: "", // The document's title that is shown in a browser's title bar or a page's tab
+      url: "", // The full URL of where the analytics request took place
+    },
+    userAgent: "", // A characteristic string that lets servers and network peers identify the application, operating system, vendor, and/or version of the requesting user agent.
+    locale: "", // Locale is a set of language - or country-based preferences for a user interface.
+  },
+  properties: {
+    video_url: "", // The URL of the video
+    video_progress: 0, // The percent of video content that has been played
+  }
+}
+
+*/
