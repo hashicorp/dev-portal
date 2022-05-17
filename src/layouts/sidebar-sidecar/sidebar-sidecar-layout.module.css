@@ -9,10 +9,6 @@ for further details.
 .contentWrapper {
   display: flex;
 
-  /* flex-grow ensures the content fills available
-  space in BaseNewLayout */
-  flex-grow: 1;
-
   /* For a coherent visual effect, the top padding value
   must be used for sticky positioning in addition to
   padding the content area. So, we create a CSS var
@@ -47,7 +43,7 @@ for further details.
   But, it sidesteps issues in mixing overflow: hidden with position: sticky.
   Details: https://css-tricks.com/dealing-with-overflow-and-position-sticky/
   */
-  --main-area-max-width: 780px;
+  --main-element-max-width: 804px;
   --sidecar-width: 220px;
   --sidecar-gap: 48px;
 }
@@ -87,9 +83,14 @@ for further details.
 }
 
 .mainAreaAndFooter {
-  display: flex;
-  flex-direction: column;
+  padding-top: 32px;
+  padding-right: 24px;
+  padding-left: 24px;
   width: 100%;
+
+  @media (--dev-dot-desktop) {
+    max-width: calc(100vw - var(--dev-dot-sidebar-width));
+  }
 }
 
 /**
@@ -98,27 +99,20 @@ for further details.
 
 .mainArea {
   display: flex;
-  flex-grow: 1;
-  gap: var(--sidecar-gap);
-  min-width: 0;
   justify-content: center;
-  padding-bottom: 32px;
-  padding-top: var(--main-area-top-padding);
-  padding-left: var(--main-area-padding-left);
-  padding-right: var(--main-area-padding-right);
 }
 
 .main {
-  align-self: flex-start;
-  flex-grow: 1;
-  min-width: 0;
+  /* Ensure all TableOfContents items have room to be jumped to */
 
-  /* 50vh padding-bottom ensures that all
-  jump-nav items have room to be jumped to */
-  padding-bottom: 50vh;
+  /* padding-bottom: 50vh; */
+}
 
+.main,
+.footerWrapper {
   @media (--dev-dot-desktop) {
-    max-width: var(--main-area-max-width);
+    max-width: var(--main-element-max-width);
+    min-width: 0;
   }
 }
 
@@ -139,29 +133,6 @@ for further details.
   }
 }
 
-/**
- * Footer area row
- */
-
-.footerArea {
-  display: flex;
-  flex-grow: 1;
-  gap: var(--sidecar-gap);
-  min-width: 0;
-  justify-content: center;
-  padding-left: var(--main-area-padding-left);
-  padding-right: var(--main-area-padding-right);
-  overflow: hidden;
-
-  /* Acts as a sidecar placeholder to ensure spacing is consistent */
-  &::after {
-    content: '';
-    display: block;
-    width: var(--sidecar-width);
-  }
-}
-
-.footer {
-  flex-grow: 1;
-  max-width: var(--main-area-max-width);
+.footerWrapper {
+  margin-top: 106px;
 }

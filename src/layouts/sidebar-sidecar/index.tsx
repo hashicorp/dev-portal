@@ -110,7 +110,7 @@ const SidebarSidecarLayoutContent = ({
               <SidecarContent />
             </div>
           </div>
-          <div className={s.footerArea}>
+          <div className={s.footerWrapper}>
             <Footer
               className={s.footer}
               openConsentManager={openConsentManager}
