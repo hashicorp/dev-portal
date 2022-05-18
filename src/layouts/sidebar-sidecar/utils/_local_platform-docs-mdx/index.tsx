@@ -52,7 +52,7 @@ export default function defaultMdxComponents({ additionalComponents = {} }) {
  * Returns the Heading element with its given props applied and custom props we
  * apply for styling these components in docs pages.
  */
-function makeHeadingElement(level, props) {
+export function makeHeadingElement(level, props) {
   const customProps = HEADING_LEVELS_TO_PROPS[level]
   const className = classNames(props.className, devDotStyles[`h${level}`])
   const passableProps = {
