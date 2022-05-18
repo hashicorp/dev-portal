@@ -116,4 +116,6 @@ export interface ButtonProps {
    * attribute for button elements.
    */
   type?: NativeButtonProps['type']
+
+  form?: NativeButtonProps['form']
 }
