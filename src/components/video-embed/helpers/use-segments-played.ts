@@ -28,7 +28,7 @@ type SegmentPlayed = {
  *   It is also needed to accurately report viewing progress in those cases
  *   where playback speed is faster than 1.0x. At 2.0x speed, for example,
  *   "moments of progress" will be reported every 1 second, but between each
- *   moment, 2 seconds of video will have been watched. So, when a
+ *   report, 2 seconds of video will have been watched. So, when a
  *   "moment of progress" is reported, we in fact need to assume that the
  *   previous PROGRESS_INTERVAL * MAX_PLAYBACK_SPEED has been viewed.
  */
