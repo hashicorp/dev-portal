@@ -24,15 +24,14 @@ import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 import pageContent from './content.json'
 import s from './style.module.css'
 
+// Constants
 const basePath = 'docs'
 const baseName = 'Docs'
 const product = waypointData as ProductData
-
 const iconMap = {
   box: <IconBox16 />,
   'terminal-screen': <IconTerminalScreen16 />,
 }
-
 const heroCards = [
   {
     iconName: 'terminal-screen',
@@ -50,6 +49,7 @@ interface WaypointDocsLandingProps {
   mdxSource: MDXRemoteSerializeResult
 }
 
+// TODO: abstract the markup to a new view, such as RootDocsPathLandingView
 const WaypointDocsLanding = ({ mdxSource }: WaypointDocsLandingProps) => {
   const { pageSubtitle } = pageContent
 
@@ -147,6 +147,13 @@ const { getStaticProps: generatedGetStaticProps } =
 
 WaypointDocsLanding.layout = SidebarSidecarLayout
 
+/**
+ * Wrapper for `generatedGetStaticProps`. Handles passing the correct `params`
+ * property to `generatedGetStaticProps`.
+ *
+ * Also handles clearing the following `layoutProps` returned in the `props`
+ * returned by `generatedGetStaticProps`: `githubFileUrl` and `sidecarSlot`.
+ */
 export async function getStaticProps({ context }) {
   // TODO: remove the any
   const generatedProps = (await generatedGetStaticProps({
