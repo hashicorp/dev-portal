@@ -101,7 +101,7 @@ for further details.
   margin-top: 64px;
 }
 
-.footerWrapper {
+.footerAreaWrapper {
   margin-top: 106px;
 }
 
@@ -113,7 +113,7 @@ for further details.
 */
 
 .mainAreaWrapper,
-.footerWrapper {
+.footerAreaWrapper {
   display: flex;
   justify-content: center;
 }
