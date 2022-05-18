@@ -1,8 +1,14 @@
+// Third-party imports
 import { ReactElement, useMemo } from 'react'
 import classNames from 'classnames'
+
+// HashiCorp imports
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
+
+// Global imports
+import { safeAnalyticsTrack } from 'lib/analytics'
 import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
 import { useCurrentVersion } from 'views/product-downloads-view/contexts'
@@ -14,6 +20,8 @@ import StandaloneLink from 'components/standalone-link'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import VersionContextSwitcher from 'components/version-context-switcher'
+
+// Local imports
 import { DownloadsSectionProps } from './types'
 import {
   generateCodePropFromCommands,
@@ -109,18 +117,12 @@ const BinaryDownloadsSection = ({
             ariaLabel={`download ${name} version ${version} for ${prettyOSName}, architecture ${arch}`}
             href={downloadsByOS[os][arch]}
             onClick={() => {
-              if (
-                typeof window !== 'undefined' &&
-                window.analytics &&
-                window.analytics.track
-              ) {
-                window.analytics.track('Product Downloaded', {
-                  product: name,
-                  version: version,
-                  operating_system: os,
-                  architecture: arch,
-                })
-              }
+              safeAnalyticsTrack('Product Downloaded', {
+                product: name,
+                version: version,
+                operating_system: os,
+                architecture: arch,
+              })
             }}
           />
         </Card>
