@@ -52,40 +52,4 @@ function checkAnalyticsConsent() {
   )
 }
 
-/**
- * Generic event context helper
- *
- * Spec: "analytics/spec/meta/context.yml"
- */
-function getAnalyticsContext() {
-  return {
-    page: {
-      path: document.location.pathname,
-      referrer: document.referrer,
-      search: document.location.search,
-      title: document.title,
-      url: document.location.href,
-    },
-    userAgent: navigator.userAgent,
-    locale: getClientLocale(),
-  }
-}
-/**
- * Get the current locale on the client.
- * For details, see:
- * MDN docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/resolvedOptions
- * StackOverflow answer: https://stackoverflow.com/a/42070353
- */
-function getClientLocale() {
-  try {
-    return Intl.NumberFormat().resolvedOptions().locale
-  } catch (err) {
-    if (window.navigator.languages) {
-      return window.navigator.languages[0]
-    } else {
-      return window.navigator['userLanguage'] || window.navigator.language
-    }
-  }
-}
-
 export { trackHeapEnded, trackHeapStarted, videoPlayedEvent }
