@@ -162,6 +162,8 @@ export async function getStaticProps({ context }) {
   })) as any
 
   generatedProps.props.layoutProps.githubFileUrl = null
+
+  // TODO handle rendering the sidecar in a follow-up PR
   generatedProps.props.layoutProps.sidecarSlot = null
 
   return generatedProps
