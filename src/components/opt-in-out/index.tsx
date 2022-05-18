@@ -52,6 +52,9 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   function handleOptOut() {
     // @TODO - handle form submit
     Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
+    window.analytics.track('Beta Opted Out', {
+      bucket: platform,
+    })
     window.location.assign(url)
   }
 
