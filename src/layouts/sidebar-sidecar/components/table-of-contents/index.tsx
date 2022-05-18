@@ -10,6 +10,11 @@ const TABLE_OF_CONTENTS_LABEL_ID = 'table-of-contents-label'
 
 const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
   const { isDesktop } = useDeviceSize()
+
+  /**
+   * @TODO (2022-5-17) update the second argument to useActiveSection. Sidecar
+   * now goes away at 1280px rather than the isDesktop width.
+   */
   const activeSection = useActiveSection(headings, isDesktop)
 
   return (
