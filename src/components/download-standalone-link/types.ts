@@ -11,4 +11,9 @@ export interface DownloadStandaloneLinkProps {
    * rendered `StandaloneLink`.
    */
   href: StandaloneLinkProps['href']
+
+  /**
+   * A callback function to invoke when the `<a>` element  clicked.
+   */
+  onClick?: StandaloneLinkProps['onClick']
 }
