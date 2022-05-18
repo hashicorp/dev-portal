@@ -2,6 +2,7 @@ import { ReactElement, useMemo } from 'react'
 import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
+import { toast } from '@hashicorp/react-toast'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
@@ -29,6 +30,31 @@ const SHARED_HEADING_LEVEL_3_PROPS = {
   weight: 'semibold' as HeadingProps['weight'],
 }
 
+function onCopyCallback(
+  copySuccess: boolean | null,
+  prettyOsName: string,
+  packageManagerLabel?: string
+) {
+  let fullLabel = prettyOsName
+  if (packageManagerLabel) {
+    fullLabel += ` (${packageManagerLabel})`
+  }
+  console.log('onCopyCallback', copySuccess)
+  if (copySuccess == true) {
+    toast({
+      appearance: 'light',
+      description: `${fullLabel}: Copied install command to clipboard.`,
+      cta: { title: 'No CTA', url: 'https://www.hashicorp.com' },
+    })
+  } else if (copySuccess == false) {
+    toast({
+      appearance: 'light',
+      description: `${fullLabel}: Failed to copy install command!`,
+      cta: { title: 'No CTA', url: 'https://www.hashicorp.com' },
+    })
+  }
+}
+
 const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
   const hasOnePackageManager = packageManagers?.length === 1
   const hasManyPackageManagers = packageManagers?.length > 1
@@ -51,6 +77,9 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
           code={generateCodePropFromCommands(packageManagers[0].commands)}
           language="shell-session"
           options={{ showClipboard: true }}
+          onCopyCallBack={(copySuccess: boolean | null) => {
+            onCopyCallback(copySuccess, prettyOSName)
+          }}
         />
       )}
       {hasManyPackageManagers && (
@@ -63,6 +92,9 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
                 code={generateCodePropFromCommands(commands)}
                 language="shell-session"
                 options={{ showClipboard: true }}
+                onCopyCallBack={(copySuccess: boolean | null) => {
+                  onCopyCallback(copySuccess, prettyOSName, label)
+                }}
               />
             )
           })}

@@ -1,5 +1,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
+import { Toaster } from '@hashicorp/react-toast'
 import Head from 'next/head'
 import { SSRProvider } from '@react-aria/ssr'
 import '@hashicorp/platform-util/nprogress/style.css'
@@ -60,6 +61,7 @@ export default function App({ Component, pageProps, layoutProps }) {
                   <Layout {...allLayoutProps} data={allLayoutProps}>
                     <Component {...pageProps} />
                   </Layout>
+                  <Toaster />
                   {showProductSwitcher ? <PreviewProductSwitcher /> : null}
                 </CodeTabsProvider>
               </CurrentProductProvider>
