@@ -6,7 +6,7 @@ import {
   trackHeapEnded,
   usePlayState,
   useSegmentsPlayed,
-  // useSecondsWatched, // Not used... yet!
+  useSecondsWatched, // Not used... yet!
   videoPlayedEvent,
   useMilestones,
 } from './helpers'
@@ -35,7 +35,7 @@ function VideoEmbed({
     { setEnded, setDuration, setPosition, setPlaying, setStopped },
   ] = usePlayState()
   // Note: not using secondsWatched for now, but it's ready for use.
-  // const secondsWatched = useSecondsWatched(playState)
+  const secondsWatched = useSecondsWatched(playState)
   const segmentsPlayed = useSegmentsPlayed(
     playState,
     PROGRESS_INTERVAL,
@@ -71,29 +71,84 @@ function VideoEmbed({
     : {}
 
   return (
-    <div className={s.playerWrapper}>
-      <ReactPlayer
-        {...reactPlayerProps}
-        config={config}
-        url={url}
-        onDuration={setDuration}
-        onStart={() => trackHeapStarted(url)}
-        progressInterval={PROGRESS_INTERVAL}
-        onProgress={({ playedSeconds }: { playedSeconds: number }) => {
-          setPosition(playedSeconds)
-        }}
-        onEnded={() => {
-          setEnded()
-          trackHeapEnded(url)
-        }}
-        onPlay={setPlaying}
-        onPause={setStopped}
-        className={s.reactPlayer}
-        width="100%"
-        height="100%"
-        controls
-      />
-    </div>
+    <>
+      <div className={s.playerWrapper}>
+        <ReactPlayer
+          {...reactPlayerProps}
+          config={config}
+          url={url}
+          onDuration={setDuration}
+          onStart={() => trackHeapStarted(url)}
+          progressInterval={PROGRESS_INTERVAL}
+          onProgress={({ playedSeconds }: { playedSeconds: number }) => {
+            setPosition(playedSeconds)
+          }}
+          onEnded={() => {
+            setEnded()
+            trackHeapEnded(url)
+          }}
+          onPlay={setPlaying}
+          onPause={setStopped}
+          className={s.reactPlayer}
+          width="100%"
+          height="100%"
+          controls
+        />
+      </div>
+      {/* TODO: remove below, for dev purposes only */}
+      {playState.duration ? (
+        <div className={s.playedTimes}>
+          {segmentsPlayed.list.map((segment: [number, number]) => {
+            return (
+              <span
+                key={segment.join('-')}
+                style={{
+                  top: 0,
+                  left: `${(segment[0] / playState.duration) * 100}%`,
+                  width: `${
+                    ((segment[1] - segment[0]) / playState.duration) * 100
+                  }%`,
+                }}
+              />
+            )
+          })}
+          <span
+            style={{
+              top: '-4px',
+              bottom: '-4px',
+              height: 'auto',
+              left: `${(playState.position / playState.duration) * 100}%`,
+              width: '1px',
+              background: 'magenta',
+            }}
+          />
+        </div>
+      ) : null}
+      <pre>
+        <code>
+          {JSON.stringify(
+            {
+              approachOne: {
+                playState,
+              },
+              approachTwo: {
+                isPlaying: playState.isPlaying,
+                secondsWatched: secondsWatched,
+                duration: playState.duration,
+                timeSpentPercent:
+                  Math.round((secondsWatched / playState.duration) * 1000) / 10,
+              },
+              approachThree: {
+                segmentsPercent: segmentsPlayed.percent,
+                segmentsPlayed: segmentsPlayed.list,
+              },
+            },
+            null,
+            2
+          )}
+        </code>
+      </pre>
+    </>
   )
 }
 

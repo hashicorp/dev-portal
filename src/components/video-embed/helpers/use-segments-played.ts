@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
-import { PlayState, SegmentPlayed } from '../types'
+import { PlayState } from '../types'
+
+/**
+ * A tuple representing the start and end times
+ * of an interval in the video, used for progress tracking
+ */
+type SegmentPlayed = [number, number]
 
 /**
  * Note that segmentsPlayed requires PROGRESS_INTERVAL and MAX_PLAYBACK_SPEED

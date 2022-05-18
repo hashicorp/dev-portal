@@ -42,18 +42,3 @@ export interface PlayState {
   isPlaying: boolean
   duration?: number
 }
-
-/**
- * A tuple representing the start and end times
- * of an interval in the video, used for progress tracking
- */
-export type SegmentPlayed = [number, number]
-
-/**
- * An event representing the starting or stopping
- * of video playback, used for progress tracking
- */
-export interface StartStopEvent {
-  type: 'start' | 'stop'
-  timestamp: number
-}
