@@ -21,8 +21,13 @@ const {
   baseName,
 })
 
+/**
+ * Wrapper for `generatedGetStaticProps` that first checks if the current page
+ * is `/waypoint/docs/index`. If that is the current page, then the user will be
+ * sent to the 404 page. Otherwise, `generatedGetStaticProps` will be invoked as
+ * usual.
+ */
 export async function getStaticProps(context: GetStaticPropsContext) {
-  // Make sure this doesn't catch /waypoint/docs/index route
   if (context.params.page[0] === 'index') {
     return {
       notFound: true,
@@ -32,6 +37,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   return await generatedGetStaticProps(context)
 }
 
+/**
+ * Wrapper for `generatedGetStaticPaths`. It handles removing the index path
+ * from the `paths` array returned by `generatedGetStaticPaths`.
+ */
 export async function getStaticPaths(
   context: GetStaticPathsContext
 ): Promise<GetStaticPathsResult> {
