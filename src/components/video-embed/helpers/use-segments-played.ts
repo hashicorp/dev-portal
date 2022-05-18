@@ -170,7 +170,7 @@ function addMomentPlayedToSegments(
       isUsed = true
       return segment
     }
-    // Note that we won't always be able to consolidate the new play position
+    // Note that we won't always be able to use the new play position
     // into existing segments (eg right after scrobbling).
     return segment
   })
