@@ -8,6 +8,7 @@
   height: 24px;
   display: flex;
   align-items: center;
+  color: var(--token-color-palette-neutral-600);
 }
 
 .icon {
