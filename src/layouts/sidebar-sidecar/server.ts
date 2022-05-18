@@ -119,9 +119,13 @@ export function getStaticGenerationFunctions<
       try {
         loadStaticPropsResult = await loader.loadStaticProps(ctx)
       } catch (error) {
+        // Catch 404 errors, return a 404 status page
         if (error.status === 404) {
           return { notFound: true }
         }
+
+        // Throw non-404 errors
+        throw error
       }
 
       const { navData, mdxSource, githubFileUrl, versions } =
