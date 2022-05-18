@@ -27,11 +27,9 @@ export function handleOptInAnalytics(platform: OptInPlatformOption) {
     Object.keys(PlatformOptionTitles).indexOf(platform) !== -1
 
   if (hasConsentedAnalyticsTracking && isValidPlatformOption) {
-    if (isValidPlatformOption && hasConsentedAnalyticsTracking) {
-      console.log({ platform }, 'opted in')
-      analytics.track('Beta Opted In', {
-        bucket: platform,
-      })
-    }
+    console.log({ platform }, 'opted in')
+    analytics.track('Beta Opted In', {
+      bucket: platform,
+    })
   }
 }
