@@ -4,6 +4,7 @@ import {
   PlatformOptionTitles,
 } from 'components/opt-in-out/types'
 import { useEffect } from 'react'
+import { safeAnalyticsTrack } from 'lib/analytics'
 
 export function useOptInAnalyticsTracking() {
   const { query } = useRouter()
@@ -19,25 +20,13 @@ export function useOptInAnalyticsTracking() {
  * query param is present.
  */
 export function handleOptInAnalytics(platform: OptInPlatformOption) {
-  // @TODO use zach's helper function for this from the video embed
-  // Ensures we don't send analytics data if the user hasn't consented
-  const hasConsentedAnalyticsTracking = Boolean(
-    window && window.analytics && typeof window.analytics.track == 'function'
-  )
   const isValidPlatformOption = Boolean(
     typeof platform === 'string' &&
       Object.keys(PlatformOptionTitles).indexOf(platform) !== -1
   )
-  console.log(window?.analytics)
-  console.log(
-    'handling opt in analytics!!!',
-    platform,
-    hasConsentedAnalyticsTracking,
-    isValidPlatformOption
-  )
-  if (hasConsentedAnalyticsTracking && isValidPlatformOption) {
-    console.log({ platform }, 'opted in')
-    analytics.track('Beta Opted In', {
+
+  if (isValidPlatformOption) {
+    safeAnalyticsTrack('Beta Opted In', {
       bucket: platform,
     })
   }
