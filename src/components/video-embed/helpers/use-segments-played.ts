@@ -133,22 +133,28 @@ function addMomentPlayedToSegments(
   progressInterval: number,
   maxPlaybackSpeed: number
 ): SegmentPlayed[] {
-  // maxVideoElapsed is the amount of video a viewer could have potentially
-  // watched since the last "moment of progress" was reported.
-  // This calculation handles faster playback speeds (usually up to 2.0x),
-  // which comes at the cost of compromising a second or two of precision.
-  // We also add 0.1 seconds of overlap to smooth calculations
-  // (sometimes progress reports lag just slightly in react-player))
+  /**
+   * maxVideoElapsed is the amount of video a viewer could have potentially
+   * watched since the last "moment of progress" was reported.
+   * This calculation handles faster playback speeds (usually up to 2.0x),
+   * which comes at the cost of compromising a second or two of precision.
+   * We also add 0.1 seconds of overlap to smooth calculations
+   * (sometimes progress reports lag just slightly in react-player))
+   */
   const maxVideoElapsed = (progressInterval / 1000) * maxPlaybackSpeed + 0.1
   const playedTimeEnd = Math.round(playPosition * 100) / 100
   const playedTimeStart = Math.max(0, playedTimeEnd - maxVideoElapsed)
-  // If there are no segments yet, make the first one
-  // with this playedTime interval
+  /**
+   * If there are no segments yet, make the first one
+   * with this playedTime interval
+   */
   if (segments.length == 0) {
     return [{ start: playedTimeStart, end: playedTimeEnd }]
   }
-  // If this playedTimeEnd is within or overlaps with the end of an existing
-  // segment, then roll it into that segment
+  /**
+   * If this playedTimeEnd is within or overlaps with the end of an existing
+   * segment, then roll it into that segment.
+   */
   let isUsed = false
   const updatedSegments = segments.map((segment: SegmentPlayed) => {
     if (isUsed) {
@@ -170,12 +176,16 @@ function addMomentPlayedToSegments(
       isUsed = true
       return segment
     }
-    // Note that we won't always be able to use the new play position
-    // in existing segments (eg right after scrobbling).
+    /**
+     * Note that we won't always be able to use the new play position
+     * in existing segments (eg right after scrobbling).
+     */
     return segment
   })
-  // If this playedTimeEnd was not used on an existing segment,
-  // then start a new segment for this playedTime
+  /**
+   * If this playedTimeEnd was not used on an existing segment,
+   * then start a new segment for this playedTime.
+   */
   if (!isUsed) {
     updatedSegments.push({ start: playedTimeStart, end: playedTimeEnd })
   }
@@ -189,13 +199,17 @@ function addMomentPlayedToSegments(
         acc.push(segment)
         return acc
       }
-      // Otherwise, determine if it overlaps with the previous segment
-      // (note we only need to check a single previous segment, thanks to sort)
+      /**
+       * Otherwise, determine if it overlaps with the previous segment
+       * (note we only need to check a single previous segment, thanks to sort)
+       */
       const prevSegment = acc[acc.length - 1]
       const isOverlapping = segment.start <= prevSegment.end
       if (isOverlapping) {
-        // If this segment start time overlaps with the
-        // previous segment end time, then combine the segments
+        /**
+         * If this segment start time overlaps with the
+         * previous segment end time, then combine the segments.
+         */
         const consolidatedSegment = {
           start: prevSegment.start,
           end: Math.max(prevSegment.end, segment.end),
