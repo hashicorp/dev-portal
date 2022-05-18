@@ -83,18 +83,18 @@ const SidebarSidecarLayoutContent = ({
 
   return (
     <BaseLayout showFooter={false}>
-      <div className={s.contentWrapper}>
+      <div className={s.root}>
         <motion.div
           animate={sidebarIsVisible ? 'visible' : 'hidden'}
-          className={s.sidebar}
+          className={s.sidebarWrapper}
           ref={sidebarRef}
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           variants={sidebarMotion}
         >
           <SidebarContent />
         </motion.div>
-        <div className={s.mainAreaAndFooter}>
-          <div className={s.mainArea}>
+        <div className={s.contentWrapper}>
+          <div className={s.mainAreaWrapper}>
             <main id="main" className={s.main}>
               {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
               {children}
@@ -106,7 +106,7 @@ const SidebarSidecarLayoutContent = ({
                 />
               )}
             </main>
-            <div className={s.sidecar}>
+            <div className={s.sidecarWrapper}>
               <SidecarContent />
             </div>
           </div>
@@ -115,6 +115,7 @@ const SidebarSidecarLayoutContent = ({
               className={s.footer}
               openConsentManager={openConsentManager}
             />
+            <div className={s.emptyDuplicateSidecarWrapper} />
           </div>
         </div>
       </div>

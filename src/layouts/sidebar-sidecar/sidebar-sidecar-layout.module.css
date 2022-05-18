@@ -6,7 +6,7 @@ See comment in src/layouts/base-new/base-new-layout.module.css
 for further details.
 */
 
-.contentWrapper {
+.root {
   display: flex;
 
   /* For a coherent visual effect, the top padding value
@@ -43,16 +43,15 @@ for further details.
   But, it sidesteps issues in mixing overflow: hidden with position: sticky.
   Details: https://css-tricks.com/dealing-with-overflow-and-position-sticky/
   */
-  --main-element-max-width: 804px;
+  --main-element-max-width: 780px;
   --sidecar-width: 220px;
-  --sidecar-gap: 48px;
 }
 
 /**
  * Sidebar + main containers
  */
 
-.sidebar {
+.sidebarWrapper {
   background-color: white;
   box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
     0 12px 28px rgba(101, 106, 118, 0.25);
@@ -82,10 +81,10 @@ for further details.
   }
 }
 
-.mainAreaAndFooter {
+.contentWrapper {
+  padding-left: var(--main-area-padding-left);
+  padding-right: var(--main-area-padding-right);
   padding-top: 32px;
-  padding-right: 24px;
-  padding-left: 24px;
   width: 100%;
 
   @media (--dev-dot-desktop) {
@@ -93,46 +92,52 @@ for further details.
   }
 }
 
-/**
- * Main area row
- */
-
-.mainArea {
-  display: flex;
-  justify-content: center;
-}
-
 .main {
   /* Ensure all TableOfContents items have room to be jumped to */
-
-  /* padding-bottom: 50vh; */
-}
-
-.main,
-.footerWrapper {
-  @media (--dev-dot-desktop) {
-    max-width: var(--main-element-max-width);
-    min-width: 0;
-  }
+  padding-bottom: 50vh;
 }
 
 .editOnGithubLink {
   margin-top: 64px;
 }
 
-.sidecar {
+.footerWrapper {
+  margin-top: 106px;
+}
+
+/*
+***
+* The following classes are grouped in a way that ensures the footer is always
+* left-aligned and the same width as the main content area.
+***
+*/
+
+.mainAreaWrapper,
+.footerWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.main,
+.footer {
+  width: 100%;
+
+  @media (--dev-dot-sidecar-up) {
+    max-width: var(--main-element-max-width);
+    min-width: 0;
+  }
+}
+
+.sidecarWrapper,
+.emptyDuplicateSidecarWrapper {
   display: none;
 
-  @media (--dev-dot-desktop) {
-    align-self: flex-start;
+  @media (--dev-dot-sidecar-up) {
     display: block;
     flex-shrink: 0;
     position: sticky;
     top: calc(var(--sticky-bars-height) + var(--main-area-top-padding));
     width: var(--sidecar-width);
+    margin-left: 48px;
   }
-}
-
-.footerWrapper {
-  margin-top: 106px;
 }
