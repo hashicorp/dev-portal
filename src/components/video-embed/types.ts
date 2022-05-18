@@ -6,40 +6,54 @@ import { ReactPlayerProps } from 'react-player'
  */
 export interface VideoEmbedProps extends ReactPlayerProps {
   /**
+   * URL for the video. Unlike in ReactPlayerProps, which has a flexible type,
+   * for our purposes, this must be a string
+   */
+  url: string
+  /**
    * Optional starting time for the video. Works with YouTube and Wistia video URLS.
    */
   start?: number
+}
+
+/**
+ * Inner component contains hooks for percent played,
+ * we wrap this inner component to implement the analytics we want.
+ */
+export interface VideoEmbedInnerProps extends VideoEmbedProps {
   /**
-   * [Development] callback fired when the % watched of the video changes,
-   * based on absolute cumulative time between "play" and "stop" events.
+   * Callback fired when the % watched of the video changes,
+   * based on what percentage of timestamps have been played.
    */
-  onWatchProgress?: (
-    video_url: string,
-    video_progress: number // 1 | 25 | 50 | 75 | 90
-  ) => void
+  percentPlayedCallback?: (percentPlayed: number) => void
+  /**
+   * Optionally only call percentPlayedCallback when specific
+   * percentage milestones are reached
+   */
+  percentPlayedMilestones?: number[]
 }
 
 /**
- * A tuple representing the start and end times
- * of an interval in the video
- * TODO: make object?
- */
-export type SegmentPlayed = [number, number]
-
-/**
- * An event representing the starting or stopping
- * of video playback
- */
-export interface StartStopEvent {
-  type: 'start' | 'stop'
-  timestamp: number
-}
-
-/**
- * An object representing the video state
+ * An object representing the video state,
+ * used for progress tracking callbacks
  */
 export interface PlayState {
   position: number
   isPlaying: boolean
   duration?: number
+}
+
+/**
+ * A tuple representing the start and end times
+ * of an interval in the video, used for progress tracking
+ */
+export type SegmentPlayed = [number, number]
+
+/**
+ * An event representing the starting or stopping
+ * of video playback, used for progress tracking
+ */
+export interface StartStopEvent {
+  type: 'start' | 'stop'
+  timestamp: number
 }

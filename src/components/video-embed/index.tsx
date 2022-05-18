@@ -1,49 +1,34 @@
 import { useEffect } from 'react'
 import ReactPlayer from 'react-player'
-import { VideoEmbedProps } from './types'
+import { VideoEmbedProps, VideoEmbedInnerProps } from './types'
 import {
   trackHeapStarted,
   trackHeapEnded,
   usePlayState,
   useSegmentsPlayed,
-  // useSecondsWatched,
+  // useSecondsWatched, // Not used... yet!
+  videoPlayedEvent,
   useMilestones,
 } from './helpers'
 import s from './video-embed.module.css'
 
 /**
- * PERCENT_MILESTONES is specified in "analytics/spec/events/video_played.yml".
  * MAX_PLAYBACK_SPEED is based on max speeds for YouTube & Wistia.
- * PROGRESS_INTERVAL is react-player's default value, articulated for clarity
- *   in its purpose in the useSegmentsPlayed hook.
+ * PROGRESS_INTERVAL is react-player's default value, declared again to make
+ *   its role in the useSegmentsPlayed hook more clear.
  */
-const PERCENT_MILESTONES = [1, 25, 50, 75, 90]
 const PROGRESS_INTERVAL = 1000
 const MAX_PLAYBACK_SPEED = 2.0
 
 function VideoEmbed({
   start,
-  onWatchProgress = () => null,
+  url,
+  percentPlayedCallback = () => null,
+  percentPlayedMilestones,
   ...reactPlayerProps
-}: VideoEmbedProps) {
-  /**
-   * We need our videoUrl to be a string for analytics purposes.
-   * react-player supports other types, but we can't use them as easily.
-   */
-  const videoUrl = reactPlayerProps.url
-  if (typeof videoUrl !== 'string') {
-    throw new Error(
-      `VideoEmbed URL must be a string. Found type "${typeof videoUrl}". While other formats for this prop may be supported by react-player, they are not supported by our VideoEmbed component. Please ensure the "url" prop is a string.`
-    )
-  }
-
+}: VideoEmbedInnerProps) {
   /**
    * Playback tracking is for analytics purposes.
-   *
-   * TODO: should only track (and only do calc maybe?) if user has opted in.
-   * TODO: is the above handled at the window.analytics level?
-   * TODO: regardless, make separate analytics.ts, rather than allowing
-   * TODO: onWatchProgress to be passed in.
    */
   const [
     playState,
@@ -58,7 +43,7 @@ function VideoEmbed({
   )
   const videoPercentMilestone = useMilestones(
     segmentsPlayed.percent,
-    PERCENT_MILESTONES
+    percentPlayedMilestones
   )
 
   /**
@@ -67,9 +52,9 @@ function VideoEmbed({
    */
   useEffect(() => {
     if (videoPercentMilestone !== null) {
-      onWatchProgress(videoUrl, videoPercentMilestone)
+      percentPlayedCallback(videoPercentMilestone)
     }
-  }, [videoUrl, videoPercentMilestone, onWatchProgress])
+  }, [videoPercentMilestone, percentPlayedCallback])
 
   //  propagating aliased `start` prop down to the actual player config
   const config = start
@@ -86,127 +71,59 @@ function VideoEmbed({
     : {}
 
   return (
-    <>
-      <div className={s.playerWrapper}>
-        <ReactPlayer
-          config={config}
-          {...reactPlayerProps}
-          onDuration={setDuration}
-          onStart={() => trackHeapStarted(videoUrl)}
-          progressInterval={PROGRESS_INTERVAL}
-          onProgress={({ playedSeconds }: { playedSeconds: number }) => {
-            setPosition(playedSeconds)
-          }}
-          onEnded={() => {
-            setEnded()
-            trackHeapEnded(videoUrl)
-          }}
-          onPlay={setPlaying}
-          onPause={setStopped}
-          className={s.reactPlayer}
-          width="100%"
-          height="100%"
-          controls
-        />
-      </div>
-      {/* TODO: remove below, for dev purposes only */}
-      {playState.duration ? (
-        <div className={s.playedTimes}>
-          {segmentsPlayed.list.map((segment: [number, number]) => {
-            return (
-              <span
-                key={segment.join('-')}
-                style={{
-                  top: 0,
-                  left: `${(segment[0] / playState.duration) * 100}%`,
-                  width: `${
-                    ((segment[1] - segment[0]) / playState.duration) * 100
-                  }%`,
-                }}
-              />
-            )
-          })}
-          <span
-            style={{
-              top: '-4px',
-              bottom: '-4px',
-              height: 'auto',
-              left: `${(playState.position / playState.duration) * 100}%`,
-              width: '1px',
-              background: 'magenta',
-            }}
-          />
-        </div>
-      ) : null}
-      <pre>
-        <code>
-          {JSON.stringify(
-            {
-              segmentsPercent: segmentsPlayed.percent,
-              duration: playState.duration,
-              segmentsPlayed: segmentsPlayed.list,
-            },
-            null,
-            2
-          )}
-        </code>
-      </pre>
-    </>
+    <div className={s.playerWrapper}>
+      <ReactPlayer
+        {...reactPlayerProps}
+        config={config}
+        url={url}
+        onDuration={setDuration}
+        onStart={() => trackHeapStarted(url)}
+        progressInterval={PROGRESS_INTERVAL}
+        onProgress={({ playedSeconds }: { playedSeconds: number }) => {
+          setPosition(playedSeconds)
+        }}
+        onEnded={() => {
+          setEnded()
+          trackHeapEnded(url)
+        }}
+        onPlay={setPlaying}
+        onPause={setStopped}
+        className={s.reactPlayer}
+        width="100%"
+        height="100%"
+        controls
+      />
+    </div>
   )
 }
 
 /**
- * TODO: add on proper analytics events.
- * Wrap VideoEmbed in a component that hooks into the incoming URL,
- * and also uses useRouter to get the rest of the data we need for the event.
- * Could also expose and pass in PERCENT_MILESTONES as a prop at that point.
- * ("analytics/spec/events/video_played.yml" for details)
+ * Wraps VideoEmbed with analytics, using the percentPlayedCallback.
+ * PERCENT_MILESTONES is specified in "analytics/spec/events/video_played.yml".
  */
-export default VideoEmbed
-
-/*
-
-CONTEXT still needs to be added.
-
-path: document.location.pathname
-referrer: document.referrer
-search: document.location.search
-url: document.location.href
-title: document.title
-userAgent: navigator.userAgent
-locale: function getClientLocale() {
-  try {
-    return Intl.NumberFormat().resolvedOptions().locale;
-  } catch (err) {
-    if (window.navigator.languages) {
-      return window.navigator.languages[0]
-    } else {
-      return window.navigator.userLanguage || window.navigator.language
-    }
+const PERCENT_MILESTONES = [1, 25, 50, 75, 90]
+function VideoEmbedWithAnalytics({ url, ...restProps }: VideoEmbedProps) {
+  /**
+   * We need our videoUrl to be a string for analytics purposes.
+   * react-player supports other types, but we can't use them as easily.
+   */
+  if (typeof url !== 'string') {
+    throw new Error(
+      `VideoEmbed URL must be a string. Found type "${typeof url}". While other formats for this prop may be supported by react-player, they are not supported by our VideoEmbed component. Please ensure the "url" prop is a string.`
+    )
   }
-}
-DETAILS ON LOCALE:
-Intl.NumberFormat().resolvedOptions().locale
-(with caveats, must fallback, eg to window.navigator.languages[0],
-  window.navigator.userLanguage, or window.navigator.language;
-  see https://stackoverflow.com/a/42070353)
 
-{
-  context: {
-    page: {
-      path: "", //  Containing an initial '/' followed by the path of the URL
-      referrer: "", // Contains an absolute or partial address of the page that makes the request
-      search: "", // The URL parameters passed to the page
-      title: "", // The document's title that is shown in a browser's title bar or a page's tab
-      url: "", // The full URL of where the analytics request took place
-    },
-    userAgent: "", // A characteristic string that lets servers and network peers identify the application, operating system, vendor, and/or version of the requesting user agent.
-    locale: "", // Locale is a set of language - or country-based preferences for a user interface.
-  },
-  properties: {
-    video_url: "", // The URL of the video
-    video_progress: 0, // The percent of video content that has been played
-  }
+  return (
+    <VideoEmbed
+      {...restProps}
+      url={url}
+      percentPlayedMilestones={PERCENT_MILESTONES}
+      percentPlayedCallback={(percentPlayed: number) => {
+        videoPlayedEvent({ video_url: url, video_progress: percentPlayed })
+      }}
+    />
+  )
 }
 
-*/
+// Export the component with analytics
+export default VideoEmbedWithAnalytics

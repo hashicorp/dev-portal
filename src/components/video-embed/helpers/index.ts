@@ -1,4 +1,4 @@
-export * from './track-heap'
+export * from './analytics'
 export * from './use-milestones'
 export * from './use-play-state'
 export * from './use-seconds-watched'
