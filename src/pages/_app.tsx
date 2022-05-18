@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { SSRProvider } from '@react-aria/ssr'
@@ -15,8 +15,7 @@ import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
-import { useRouter } from 'next/router'
-import { PlatformOptionTitles } from 'components/opt-in-out/types'
+import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -35,7 +34,8 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 
 export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()
-  const { query } = useRouter()
+  useOptInAnalyticsTracking()
+
   const Layout = Component.layout ?? BaseLayout
   const currentProduct = pageProps.product || null
 
@@ -47,31 +47,6 @@ export default function App({ Component, pageProps, layoutProps }) {
     ...pageProps.layoutProps,
     ...layoutProps,
   }
-
-  /**
-   * Fires beta opt in analytics event if the `optInFrom`
-   * query param is present.
-   */
-  useEffect(() => {
-    const optInPlatform = query['optInFrom'] as string
-
-    if (optInPlatform) {
-      // @TODO use zach's helper function for this from the video embed
-      // Ensures we don't send analytics data if the user hasn't consented
-      const hasConsentedAnalyticsTracking =
-        window &&
-        window.analytics &&
-        typeof window.analytics.track == 'function'
-      const isValidPlatformOption =
-        Object.keys(PlatformOptionTitles).indexOf(optInPlatform) !== -1
-
-      if (isValidPlatformOption && hasConsentedAnalyticsTracking) {
-        analytics.track('Beta Opted In', {
-          bucket: optInPlatform,
-        })
-      }
-    }
-  }, [query])
 
   return (
     <>

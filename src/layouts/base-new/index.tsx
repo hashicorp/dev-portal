@@ -3,7 +3,10 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import DevAlertBanner from 'components/dev-alert-banner'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
+import { OptInPlatformOption } from 'components/opt-in-out/types'
+import { handleOptInAnalytics } from 'hooks/use-opt-in-analytics-tracking'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
+import { useRouter } from 'next/router'
 import s from './base-new-layout.module.css'
 
 interface BaseNewLayoutProps {
@@ -23,6 +26,7 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
     siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
     includedDomains: __config.dev_dot.analytics.included_domains,
   })
+  const { query } = useRouter()
 
   return (
     <>
@@ -40,7 +44,12 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
           )}
         </div>
       </CoreDevDotLayout>
-      <ConsentManager />
+      <ConsentManager
+        onAcceptAll={() => {
+          handleOptInAnalytics(query['optInFrom'] as OptInPlatformOption)
+          console.log('accepted!!')
+        }}
+      />
     </>
   )
 }
