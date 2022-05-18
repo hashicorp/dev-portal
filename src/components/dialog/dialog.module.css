@@ -4,7 +4,7 @@
 }
 
 .content {
-  box-shadow: var(--token-surface-higher-box-shadow);
+  box-shadow: var(--token-surface-overlay-box-shadow);
   border-radius: 6px;
   padding: 24px;
   max-width: 600px;
