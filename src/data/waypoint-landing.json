@@ -30,40 +30,20 @@
       "size": 400
     },
     {
-      "type": "tutorial_cards",
-      "tutorialSlugs": ["waypoint/get-started-install", "waypoint/aws-ecs"]
-    },
-    {
       "type": "collection_cards",
       "collectionSlugs": [
         "waypoint/get-started-docker",
-        "waypoint/get-started-nomad",
-        "waypoint/configuration"
+        "waypoint/get-started-kubernetes",
+        "waypoint/get-started-nomad"
       ]
     },
     {
-      "type": "linked_cards",
-      "cards": [
-        {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.waypointproject.io"
-        },
-        {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.waypointproject.io"
-        },
-        {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.waypointproject.io"
-        }
-      ]
+      "type": "tutorial_cards",
+      "tutorialSlugs": ["waypoint/aws-ecs", "waypoint/azure-container-instance", "waypoint/google-cloud-run"]
     },
     {
       "type": "heading",
-      "heading": "Case Studies",
+      "heading": "Additional Reading",
       "level": 2,
       "size": 400
     },
@@ -71,19 +51,86 @@
       "type": "linked_cards",
       "cards": [
         {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.waypointproject.io"
+          "heading": "Application Lifecycle",
+          "body": "Learn about the build, deploy, and release stages of the Waypoint lifecycle.",
+          "url": "/waypoint/docs/lifecycle"
         },
         {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.waypointproject.io"
+          "heading": "URL Service",
+          "body": "Get a publicly accessible URL for your application with the Waypoint URL Service.",
+          "url": "/waypoint/docs/url"
         },
         {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.waypointproject.io"
+          "heading": "Dynamic Application Configuration",
+          "body": "Dynamically load configuration values from Kubernetes ConfigMaps, Vault, and more.",
+          "url": "/waypoint/docs/app-config/dynamic"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "heading": "Additional Features",
+      "level": 2,
+      "size": 400
+    },
+    {
+      "type": "linked_cards",
+      "cards": [
+        {
+          "heading": "Runners",
+          "body": "Learn more about the different runners available include remote runners.",
+          "url": "/waypoint/docs/runner"
+        },
+        {
+          "heading": "Triggers",
+          "body": "Trigger different Waypoint operations without the Waypoint CLI.",
+          "url": "/waypoint/docs/triggers"
+        },
+        {
+          "heading": "CI Automation",
+          "body": "Integrate Waypoint with your Git repository and automatically run workflows on repository changes.",
+          "url": "/waypoint/docs/automating-execution"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "heading": "Available Plugins",
+      "level": 2,
+      "size": 400
+    },
+    {
+      "type": "linked_cards",
+      "cards": [
+        {
+          "heading": "AWS Lambda",
+          "body": "Deploy your application as an AWS Lambda function.",
+          "url": "/waypoint/plugins/aws-lambda"
+        },
+        {
+          "heading": "Exec",
+          "body": "Execute any command to perform a deploy.",
+          "url": "/waypoint/plugins/exec"
+        },
+        {
+          "heading": "Helm",
+          "body": "Deploy your Helm-ified application.",
+          "url": "/waypoint/plugins/helm"
+        },
+        {
+          "heading": "Pack",
+          "body": "Build your application using CloudNative Buildpacks.",
+          "url": "/waypoint/plugins/pack"
+        },
+        {
+          "heading": "Terraform Cloud",
+          "body": "Read Terraform state outputs from Terraform Cloud.",
+          "url": "/waypoint/plugins/terraform-cloud"
+        },
+        {
+          "heading": "Vault",
+          "body": "Read configuration values from Vault.",
+          "url": "/waypoint/plugins/Vault"
         }
       ]
     }
