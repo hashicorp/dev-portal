@@ -61,6 +61,11 @@ export interface StandaloneLinkProps {
   iconPosition: 'leading' | 'trailing'
 
   /**
+   * A callback function to invoke when the `<a>` element  clicked.
+   */
+  onClick?: () => void
+
+  /**
    * Whether or not the link should open in a new tab. Affects the `target` and
    * `rel` props passed to the internally rendered `<a>` element.
    */
