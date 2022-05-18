@@ -165,3 +165,9 @@ for further details.
   flex-grow: 1;
   max-width: var(--main-area-max-width);
 }
+
+.breadcrumbOptOutGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}

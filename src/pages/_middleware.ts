@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
+import { OptInPlatformOption } from 'components/opt-in-out/types'
+
+const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
 
 const HOSTNAME_MAP = {
   'www.boundaryproject.io': 'boundary',
@@ -46,7 +49,8 @@ function determineProductSlug(req: NextRequest): string {
 /**
  * Root-level middleware that will process all middleware-capable requests.
  * Currently used to support:
- * - Handling simple one-to-one redirects
+ * - Handling simple one-to-one redirects for .io routes
+ * - Handling the opt in for cookie setting
  */
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
   // Handle redirects
@@ -72,6 +76,18 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
     return NextResponse.redirect(url, permanent ? 308 : 307)
   }
 
+  // Handle Opt-in cookies
+  const params = req.nextUrl.searchParams
+  const optInPlatform = params.get('optInFrom') as OptInPlatformOption
+  const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
+  const response = NextResponse.next()
+
+  if (optInPlatform && !hasOptedIn) {
+    response.cookie(`${optInPlatform}-beta-opt-in`, 'true', {
+      maxAge: OPT_IN_MAX_AGE,
+    })
+  }
+
   // Continue request processing
-  return NextResponse.next()
+  return response
 }
