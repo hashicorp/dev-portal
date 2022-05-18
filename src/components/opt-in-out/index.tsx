@@ -8,6 +8,7 @@ import OptOutForm from './components/opt-out-form'
 import Dialog from 'components/dialog'
 import { getLearnRedirectPath } from './helpers/get-learn-redirect-path'
 import { PlatformOptionRedirectData, OptInOutProps } from './types'
+import { safeAnalyticsTrack } from 'lib/analytics'
 
 // Could these go in the config? or I could source the base urls elsewhere
 export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
@@ -52,6 +53,9 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   function handleOptOut() {
     // @TODO - handle form submit
     Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
+    safeAnalyticsTrack('Beta Opted Out', {
+      bucket: platform,
+    })
     window.location.assign(url)
   }
 
