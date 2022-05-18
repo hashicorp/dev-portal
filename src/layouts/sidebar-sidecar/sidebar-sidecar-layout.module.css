@@ -13,7 +13,7 @@ for further details.
   must be used for sticky positioning in addition to
   padding the content area. So, we create a CSS var
   to make it reusable and express this intent. */
-  --main-area-top-padding: 32px;
+  --main-area-padding-top: 32px;
 
   /* When the sidecar is hidden, then --main-area-padding-right must adjust.
   Note that the "left" value, --main-area-padding-left, is declared in 
@@ -84,7 +84,7 @@ for further details.
 .contentWrapper {
   padding-left: var(--main-area-padding-left);
   padding-right: var(--main-area-padding-right);
-  padding-top: 32px;
+  padding-top: var(--main-area-padding-top);
   width: 100%;
 
   @media (--dev-dot-desktop) {
@@ -136,7 +136,7 @@ for further details.
     display: block;
     flex-shrink: 0;
     position: sticky;
-    top: calc(var(--sticky-bars-height) + var(--main-area-top-padding));
+    top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
     width: var(--sidecar-width);
     margin-left: 48px;
   }
