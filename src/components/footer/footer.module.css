@@ -7,15 +7,35 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding-bottom: 16px;
-  padding-top: 16px;
+  padding: 32px 0;
   position: relative;
+
+  /*
+  before element acts as full-width border, no matter the container size
+  */
+  &::before {
+    background: var(--token-color-border-primary);
+    content: '\200B';
+    height: 1px;
+    left: 0;
+    left: 50%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    width: 200vh;
+  }
 }
 
 .logo {
-  height: 28px;
+  margin: 8px 40px 8px 0;
+  position: relative;
 
   & svg {
+    /*
+    default inline display results in misalignment with footer links
+    */
+    display: block;
     height: 28px;
     width: auto;
   }
