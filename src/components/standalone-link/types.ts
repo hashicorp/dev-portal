@@ -1,5 +1,7 @@
 import { ReactElement } from 'react'
 
+type AnchorElementProps = JSX.IntrinsicElements['a']
+
 export interface StandaloneLinkProps {
   /**
    * A non-visible label presented by screen readers. Passed directly to the
@@ -7,13 +9,13 @@ export interface StandaloneLinkProps {
    *
    * ref: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label
    */
-  ariaLabel?: string
+  ariaLabel?: AnchorElementProps['aria-label']
 
   /**
    * A string of one or more class names. Applied last to the rendered `<a>`
    * element.
    */
-  className?: string
+  className?: AnchorElementProps['className']
 
   /**
    * Determines the set of colors to use for various states of the component.
@@ -26,12 +28,12 @@ export interface StandaloneLinkProps {
    *
    * ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-download
    */
-  download?: boolean | string
+  download?: AnchorElementProps['download']
 
   /**
    * The destination of the link.
    */
-  href: string
+  href: AnchorElementProps['href']
 
   /**
    * An icon from `@hashicorp/flight-icons` to render.
@@ -63,7 +65,7 @@ export interface StandaloneLinkProps {
   /**
    * A callback function to invoke when the `<a>` element  clicked.
    */
-  onClick?: () => void
+  onClick?: AnchorElementProps['onClick']
 
   /**
    * Whether or not the link should open in a new tab. Affects the `target` and
