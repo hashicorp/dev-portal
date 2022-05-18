@@ -8,7 +8,7 @@ import CodeBlock from '@hashicorp/react-code-block'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 
 // Global imports
-import { safeAnalyticsTrack } from 'lib/analytics'
+import { trackProductDownload } from 'lib/analytics'
 import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
 import { useCurrentVersion } from 'views/product-downloads-view/contexts'
@@ -117,10 +117,10 @@ const BinaryDownloadsSection = ({
             ariaLabel={`download ${name} version ${version} for ${prettyOSName}, architecture ${arch}`}
             href={downloadsByOS[os][arch]}
             onClick={() => {
-              safeAnalyticsTrack('Product Downloaded', {
-                product: name,
-                version: version,
-                operating_system: os,
+              trackProductDownload({
+                productSlug: name,
+                version,
+                prettyOSName,
                 architecture: arch,
               })
             }}
