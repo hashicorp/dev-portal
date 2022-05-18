@@ -14,10 +14,6 @@ interface BaseNewLayoutProps {
   showFooter?: boolean
 }
 
-const { ConsentManager, openConsentManager } = createConsentManager({
-  preset: 'oss',
-})
-
 const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
   children,
   showFooter = true,
@@ -27,6 +23,12 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
     includedDomains: __config.dev_dot.analytics.included_domains,
   })
   const { query } = useRouter()
+  const { ConsentManager, openConsentManager } = createConsentManager({
+    preset: 'oss',
+    onAcceptAll: () => {
+      handleOptInAnalytics(query['optInFrom'] as OptInPlatformOption)
+    },
+  })
 
   return (
     <>
@@ -44,12 +46,7 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
           )}
         </div>
       </CoreDevDotLayout>
-      <ConsentManager
-        onAcceptAll={() => {
-          handleOptInAnalytics(query['optInFrom'] as OptInPlatformOption)
-          console.log('accepted!!')
-        }}
-      />
+      <ConsentManager />
     </>
   )
 }

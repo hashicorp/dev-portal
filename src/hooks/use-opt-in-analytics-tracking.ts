@@ -9,8 +9,9 @@ export function useOptInAnalyticsTracking() {
   const { query } = useRouter()
 
   useEffect(() => {
-    handleOptInAnalytics(query['optInFrom'] as OptInPlatformOption)
-  }, [query])
+    query['optInFrom'] &&
+      handleOptInAnalytics(query['optInFrom'] as OptInPlatformOption)
+  }, [])
 }
 
 /**
@@ -20,12 +21,20 @@ export function useOptInAnalyticsTracking() {
 export function handleOptInAnalytics(platform: OptInPlatformOption) {
   // @TODO use zach's helper function for this from the video embed
   // Ensures we don't send analytics data if the user hasn't consented
-  const hasConsentedAnalyticsTracking =
+  const hasConsentedAnalyticsTracking = Boolean(
     window && window.analytics && typeof window.analytics.track == 'function'
-  const isValidPlatformOption =
+  )
+  const isValidPlatformOption = Boolean(
     typeof platform === 'string' &&
-    Object.keys(PlatformOptionTitles).indexOf(platform) !== -1
-
+      Object.keys(PlatformOptionTitles).indexOf(platform) !== -1
+  )
+  console.log(window?.analytics)
+  console.log(
+    'handling opt in analytics!!!',
+    platform,
+    hasConsentedAnalyticsTracking,
+    isValidPlatformOption
+  )
   if (hasConsentedAnalyticsTracking && isValidPlatformOption) {
     console.log({ platform }, 'opted in')
     analytics.track('Beta Opted In', {
