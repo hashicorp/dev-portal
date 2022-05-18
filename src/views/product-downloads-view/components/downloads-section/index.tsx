@@ -108,6 +108,20 @@ const BinaryDownloadsSection = ({
           <DownloadStandaloneLink
             ariaLabel={`download ${name} version ${version} for ${prettyOSName}, architecture ${arch}`}
             href={downloadsByOS[os][arch]}
+            onClick={() => {
+              if (
+                typeof window !== 'undefined' &&
+                window.analytics &&
+                window.analytics.track
+              ) {
+                window.analytics.track('Product Downloaded', {
+                  product: name,
+                  version: version,
+                  operating_system: os,
+                  architecture: arch,
+                })
+              }
+            }}
           />
         </Card>
       ))}
