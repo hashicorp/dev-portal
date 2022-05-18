@@ -184,24 +184,26 @@ function addMomentPlayedToSegments(
   // Consolidate back-to-back segments which overlap or nearly overlap
   const consolidatedSegments = sortedSegments.reduce(
     (acc: SegmentPlayed[], segment: SegmentPlayed) => {
+      // If this is the first segment, push it and move on
       if (acc.length == 0) {
-        // If this is the first segment, push it and move on
         acc.push(segment)
-      } else {
-        const prevSegment = acc[acc.length - 1]
-        const isOverlapping = segment.start <= prevSegment.end
-        if (isOverlapping) {
-          // If this segment start time overlaps with the
-          // previous segment end time, then combine the segments
-          const consolidatedSegment = {
-            start: prevSegment.start,
-            end: Math.max(prevSegment.end, segment.end),
-          }
-          acc[acc.length - 1] = consolidatedSegment
-        } else {
-          // Otherwise, push this segment, as it does not overlap with others
-          acc.push(segment)
+        return acc
+      }
+      // Otherwise, determine if it overlaps with the previous segment
+      // (note we only need to check a single previous segment, thanks to sort)
+      const prevSegment = acc[acc.length - 1]
+      const isOverlapping = segment.start <= prevSegment.end
+      if (isOverlapping) {
+        // If this segment start time overlaps with the
+        // previous segment end time, then combine the segments
+        const consolidatedSegment = {
+          start: prevSegment.start,
+          end: Math.max(prevSegment.end, segment.end),
         }
+        acc[acc.length - 1] = consolidatedSegment
+      } else {
+        // Otherwise, push this segment, as it does not overlap with others
+        acc.push(segment)
       }
       return acc
     },
