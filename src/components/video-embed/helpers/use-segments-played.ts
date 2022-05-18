@@ -39,20 +39,20 @@ export function useSegmentsPlayed(
 ): {
   list: SegmentPlayed[]
   percent: number
-  collectMoment: (playTimeMoment: number) => void
 } {
   const [segmentsPlayed, setSegmentsPlayed] = useState<SegmentPlayed[]>([])
 
   /**
    * Allows individual "moments of progress" to be collected and
    * consolidated into the array of segmentsPlayed.
+   * Note: in a callback to prevent useEffect() constantly firing
    */
   const collectMomentPlayed = useCallback(
-    (playedTime: number) => {
-      setSegmentsPlayed((prev: SegmentPlayed[]) =>
+    (playPosition: number) => {
+      setSegmentsPlayed((prevSegmentsPlayed: SegmentPlayed[]) =>
         addMomentPlayedToSegments(
-          playedTime,
-          prev,
+          playPosition,
+          prevSegmentsPlayed,
           progressInterval,
           maxPlaybackSpeed
         )
@@ -62,7 +62,7 @@ export function useSegmentsPlayed(
   )
 
   /**
-   * When the play state changes, if we're actively playing or at the end,
+   * When the play state changes, if we're actively playing, or at video end,
    * then collect that as a "moment of progress" (as described at top of file).
    */
   useEffect(() => {
@@ -109,10 +109,14 @@ export function useSegmentsPlayed(
     ? Math.round((segmentSecondsPlayed / playState.duration) * 1000) / 10
     : 0
 
+  /**
+   * Note: we return the list of segmentsPlayed here, but don't use it for now.
+   * During development it was used to build a visualization of play progress,
+   * and was useful for debugging.
+   */
   return {
     list: segmentsPlayed,
     percent: segmentsPercent,
-    collectMoment: collectMomentPlayed,
   }
 }
 
