@@ -1,6 +1,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import { Toaster } from '@hashicorp/react-toast'
+import { Toaster } from 'components/toast'
 import Head from 'next/head'
 import { SSRProvider } from '@react-aria/ssr'
 import '@hashicorp/platform-util/nprogress/style.css'

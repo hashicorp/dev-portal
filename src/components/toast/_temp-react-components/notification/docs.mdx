@@ -1,0 +1,77 @@
+---
+componentName: 'Notification'
+---
+
+Notification component to be used within our [Toaster](/components/toast) component.
+
+<LiveComponent>{`
+<Notification
+  description="lAliquet in lacus, scelerisque tristique purus. Lob ortis felis orci lacus egestas et turpis."
+  cta={{
+    title: 'Standalone link',
+    url: '/'
+  }}
+  onDismiss={() => {}}
+/>
+`}</LiveComponent>
+
+<PropsTable props={componentProps} />
+
+## With language
+
+<LiveComponent>{`
+<NotificationWithLanguage
+  language="en"
+  description="lAliquet in lacus, scelerisque tristique purus. Lob ortis felis orci lacus egestas et turpis."
+  cta={{
+    title: 'Standalone link',
+    url: '/'
+  }}
+  onDismiss={() => {}}
+/>
+`}</LiveComponent>
+
+## With product
+
+<LiveComponent>{`
+<NotificationWithProduct
+  product="vault"
+  description="lAliquet in lacus, scelerisque tristique purus. Lob ortis felis orci lacus egestas et turpis."
+  cta={{
+    title: 'Standalone link',
+    url: '/'
+  }}
+  onDismiss={() => {}}
+/>
+`}</LiveComponent>
+
+## With resource
+
+<LiveComponent>{`
+<NotificationWithResource
+  type="webinar"
+  description="lAliquet in lacus, scelerisque tristique purus. Lob ortis felis orci lacus egestas et turpis."
+  cta={{
+    title: 'Standalone link',
+    url: '/'
+  }}
+  onDismiss={() => {}}
+/>
+`}</LiveComponent>
+
+## With thumbnail
+
+<LiveComponent>{`
+<NotificationWithThumbnail
+  thumbnail={{
+    src: 'https://www.datocms-assets.com/2885/1651495958-infrastructure.png',
+    alt: 'HashiCorp Infrastructure'
+  }}
+  description="lAliquet in lacus, scelerisque tristique purus. Lob ortis felis orci lacus egestas et turpis."
+  cta={{
+    title: 'Standalone link',
+    url: '/'
+  }}
+  onDismiss={() => {}}
+/>
+`}</LiveComponent>
