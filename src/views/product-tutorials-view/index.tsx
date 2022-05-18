@@ -11,6 +11,7 @@ import TutorialsSidebar, {
 import { ProductTutorialsSitemap } from './components'
 import { ProductTutorialsViewProps } from './server'
 import ProductViewContent from './components/product-view-content'
+import OptInOut from 'components/opt-in-out'
 import { getOverviewHeading } from './helpers/heading-helpers'
 import s from './product-tutorials-view.module.css'
 
@@ -70,6 +71,7 @@ function ProductTutorialsView({
        * a follow-up PR since this is functional for the time being.
        */
       sidebarNavDataLevels={sidebarNavDataLevels as any}
+      optInOutSlot={<OptInOut platform="learn" />}
     >
       <PageHeading />
       <ProductViewContent

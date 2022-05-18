@@ -1,0 +1,12 @@
+.overlay {
+  background: var(--token-color-border-strong);
+  z-index: 100;
+}
+
+.content {
+  box-shadow: var(--token-surface-overlay-box-shadow);
+  border-radius: 6px;
+  padding: 24px;
+  max-width: 600px;
+  min-width: 300px;
+}

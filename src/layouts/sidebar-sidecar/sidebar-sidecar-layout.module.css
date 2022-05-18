@@ -141,3 +141,9 @@ for further details.
     margin-left: 48px;
   }
 }
+
+.breadcrumbOptOutGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
