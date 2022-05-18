@@ -168,7 +168,10 @@ function addMomentPlayedToSegments(
     if (isExtensionMatch) {
       segment.end = playedTimeEnd
       isUsed = true
+      return segment
     }
+    // Note that we won't always be able to consolidate the new play position
+    // into existing segments (eg right after scrobbling).
     return segment
   })
   // If this playedTimeEnd was not used on an existing segment,
