@@ -5,7 +5,10 @@ import { PlayState } from '../types'
  * A tuple representing the start and end times
  * of an interval in the video, used for progress tracking
  */
-type SegmentPlayed = [number, number]
+type SegmentPlayed = {
+  start: number
+  end: number
+}
 
 /**
  * Note that segmentsPlayed requires PROGRESS_INTERVAL and MAX_PLAYBACK_SPEED
@@ -41,8 +44,8 @@ export function useSegmentsPlayed(
   const [segmentsPlayed, setSegmentsPlayed] = useState<SegmentPlayed[]>([])
 
   /**
-   * Allows individual moments of playtime to be collected and
-   * consolidated into the array of segmentsPlayed
+   * Allows individual "moments of progress" to be collected and
+   * consolidated into the array of segmentsPlayed.
    */
   const collectMomentPlayed = useCallback(
     (playedTime: number) => {
@@ -58,6 +61,10 @@ export function useSegmentsPlayed(
     [maxPlaybackSpeed, progressInterval]
   )
 
+  /**
+   * When the play state changes, if we're actively playing or at the end,
+   * then collect that as a "moment of progress" (as described at top of file).
+   */
   useEffect(() => {
     /**
      * If the video is playing, and a position (or duration) change comes in,
@@ -76,15 +83,31 @@ export function useSegmentsPlayed(
     }
   }, [playState, collectMomentPlayed])
 
+  /**
+   * Add up the length of each segment viewed to get the total amount
+   * of content viewed, in seconds.
+   *
+   * Note that segmentsPlayed are consolidated to avoid overlap.
+   * This means we can run a relatively simple reduce to get the total.
+   */
   const segmentSecondsPlayed = segmentsPlayed.reduce(
-    (totalSeconds: number, segment: [number, number]) => {
-      return totalSeconds + (segment[1] - segment[0])
+    (totalSeconds: number, segment: SegmentPlayed) => {
+      return totalSeconds + (segment.end - segment.start)
     },
     0
   )
-  const segmentsPercent = !playState.duration
-    ? 0
-    : Math.round((segmentSecondsPlayed / playState.duration) * 1000) / 10
+
+  /**
+   * The percent of content viewed is the total across all segments viewed,
+   * divided by the total possible seconds of content to view, which is
+   * the video's full duration.
+   *
+   * Note that playState.duration _may_ not be defined,
+   * it's unlikely, but we double-check that it is to be safe.
+   */
+  const segmentsPercent = playState.duration
+    ? Math.round((segmentSecondsPlayed / playState.duration) * 1000) / 10
+    : 0
 
   return {
     list: segmentsPlayed,
@@ -93,8 +116,15 @@ export function useSegmentsPlayed(
   }
 }
 
+/**
+ * Given a currently playing playPosition, and a list of existing segments,
+ * as well as broader reporting interval and maxPlaybackSpeed settings,
+ *
+ * Return a new list of segments that includes the currently playing position.
+ * In this new list, overlapping segments are combined to avoid duplicates.
+ */
 function addMomentPlayedToSegments(
-  rawPlayedTimeEnd: number,
+  playPosition: number,
   segments: SegmentPlayed[],
   progressInterval: number,
   maxPlaybackSpeed: number
@@ -106,12 +136,12 @@ function addMomentPlayedToSegments(
   // We also add 0.1 seconds of overlap to smooth calculations
   // (sometimes progress reports lag just slightly in react-player))
   const maxVideoElapsed = (progressInterval / 1000) * maxPlaybackSpeed + 0.1
-  const playedTimeEnd = Math.round(rawPlayedTimeEnd * 100) / 100
+  const playedTimeEnd = Math.round(playPosition * 100) / 100
   const playedTimeStart = Math.max(0, playedTimeEnd - maxVideoElapsed)
   // If there are no segments yet, make the first one
   // with this playedTime interval
   if (segments.length == 0) {
-    return [[playedTimeStart, playedTimeEnd]]
+    return [{ start: playedTimeStart, end: playedTimeEnd }]
   }
   // If this playedTimeEnd is within or overlaps with the end of an existing
   // segment, then roll it into that segment
@@ -122,16 +152,17 @@ function addMomentPlayedToSegments(
     }
     // Match times which fall within a segment
     const isWithinMatch =
-      playedTimeEnd >= segment[0] && playedTimeEnd <= segment[1]
+      playedTimeEnd >= segment.start && playedTimeEnd <= segment.end
     if (isWithinMatch) {
       isUsed = true
+      return segment
     }
     // Match times which extend a segment
     const isExtensionMatch =
-      segment[1] < playedTimeEnd &&
-      segment[1] + maxVideoElapsed >= playedTimeEnd
+      segment.end < playedTimeEnd &&
+      segment.end + maxVideoElapsed >= playedTimeEnd
     if (isExtensionMatch) {
-      segment[1] = playedTimeEnd
+      segment.end = playedTimeEnd
       isUsed = true
     }
     return segment
@@ -139,33 +170,36 @@ function addMomentPlayedToSegments(
   // If this playedTimeEnd was not used on an existing segment,
   // then start a new segment for this playedTime
   if (!isUsed) {
-    updatedSegments.push([playedTimeStart, playedTimeEnd])
+    updatedSegments.push({ start: playedTimeStart, end: playedTimeEnd })
   }
   // Sort segments by start time, to prepare to consolidate them
   const sortedSegments = updatedSegments.sort((a, b) => a[0] - b[0])
   // Consolidate back-to-back segments which overlap or nearly overlap
-  const consolidatedSegments = sortedSegments.reduce((acc, segment) => {
-    if (acc.length == 0) {
-      // If this is the first segment, push it and move on
-      acc.push(segment)
-    } else {
-      const lastSegment = acc[acc.length - 1]
-      const isOverlapping = segment[0] <= lastSegment[1]
-      if (isOverlapping) {
-        // If this segment start time overlaps with the
-        // previous segment end time, then combine the segments
-        const consolidatedSegment = [
-          lastSegment[0],
-          Math.max(lastSegment[1], segment[1]),
-        ]
-        acc[acc.length - 1] = consolidatedSegment
-      } else {
-        // Otherwise, push this segment, as it does not overlap with others
+  const consolidatedSegments = sortedSegments.reduce(
+    (acc: SegmentPlayed[], segment: SegmentPlayed) => {
+      if (acc.length == 0) {
+        // If this is the first segment, push it and move on
         acc.push(segment)
+      } else {
+        const prevSegment = acc[acc.length - 1]
+        const isOverlapping = segment.start <= prevSegment.end
+        if (isOverlapping) {
+          // If this segment start time overlaps with the
+          // previous segment end time, then combine the segments
+          const consolidatedSegment = {
+            start: prevSegment.start,
+            end: Math.max(prevSegment.end, segment.end),
+          }
+          acc[acc.length - 1] = consolidatedSegment
+        } else {
+          // Otherwise, push this segment, as it does not overlap with others
+          acc.push(segment)
+        }
       }
-    }
-    return acc
-  }, [])
+      return acc
+    },
+    []
+  )
   // Return the sorted, consolidated segments
   return consolidatedSegments
 }
