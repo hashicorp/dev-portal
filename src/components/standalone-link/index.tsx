@@ -12,6 +12,7 @@ const StandaloneLink = ({
   href,
   icon,
   iconPosition,
+  onClick,
   openInNewTab = false,
   size = 'medium',
   text,
@@ -24,8 +25,9 @@ const StandaloneLink = ({
       className={classes}
       download={download}
       href={href}
-      target={openInNewTab ? '_blank' : '_self'}
+      onClick={onClick}
       rel={openInNewTab ? 'noreferrer noopener' : undefined}
+      target={openInNewTab ? '_blank' : '_self'}
     >
       {iconPosition === 'leading' && icon}
       <span className={s.text}>{text}</span>

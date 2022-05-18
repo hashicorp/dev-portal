@@ -1,4 +1,4 @@
-name: Product Downloaded
+name: Download
 description: User has downloaded a product
 rules:
   '$schema': http://json-schema.org/draft-04/schema#
