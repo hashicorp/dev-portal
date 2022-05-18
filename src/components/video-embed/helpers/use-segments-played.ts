@@ -191,7 +191,7 @@ function addMomentPlayedToSegments(
   }
   // Sort segments by start time, to prepare to consolidate them
   const sortedSegments = updatedSegments.sort((a, b) => a[0] - b[0])
-  // Consolidate back-to-back segments which overlap or nearly overlap
+  // Consolidate back-to-back and overlapping segments
   const consolidatedSegments = sortedSegments.reduce(
     (acc: SegmentPlayed[], segment: SegmentPlayed) => {
       // If this is the first segment, push it and move on
