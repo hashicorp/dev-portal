@@ -52,9 +52,18 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   function handleOptOut() {
     // @TODO - handle form submit
     Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
-    window.analytics.track('Beta Opted Out', {
-      bucket: platform,
-    })
+
+    // @TODO use zach's helper function for this from the video embed
+    // Ensures we don't send analytics data if the user hasn't consented
+    const hasConsentedAnalyticsTracking =
+      window && window.analytics && typeof window.analytics.track == 'function'
+
+    if (hasConsentedAnalyticsTracking) {
+      window.analytics.track('Beta Opted Out', {
+        bucket: platform,
+      })
+    }
+
     window.location.assign(url)
   }
 
