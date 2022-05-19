@@ -12,6 +12,7 @@ import { ProductTutorialsSitemap } from './components'
 import { ProductTutorialsViewProps } from './server'
 import ProductViewContent from './components/product-view-content'
 import OptInOut from 'components/opt-in-out'
+import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { getOverviewHeading } from './helpers/heading-helpers'
 import s from './product-tutorials-view.module.css'
 
@@ -20,6 +21,7 @@ function ProductTutorialsView({
   layoutProps,
   product,
 }: ProductTutorialsViewProps): React.ReactElement {
+  useOptInAnalyticsTracking('learn')
   const { inlineCollections, inlineTutorials, pageData, allCollections } = data
   const { showProductSitemap, blocks } = pageData
 

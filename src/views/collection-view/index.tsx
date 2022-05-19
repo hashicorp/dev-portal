@@ -1,4 +1,5 @@
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
+import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import {
@@ -20,6 +21,7 @@ function CollectionView({
   layoutProps,
   product,
 }: CollectionPageProps): React.ReactElement {
+  useOptInAnalyticsTracking('learn')
   const { name, slug, description, tutorials, ordered } = collection
 
   const sidebarNavDataLevels = [

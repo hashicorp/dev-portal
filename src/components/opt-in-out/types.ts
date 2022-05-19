@@ -17,5 +17,6 @@ export type PlatformOptionRedirectData = Record<
     base_url: string
     getRedirectPath: (currentPath?: string) => string
     cookieKey: string
+    cookieAnalyticsKey: string
   }
 >

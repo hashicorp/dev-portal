@@ -4,7 +4,7 @@ import { Version } from './fetch-release-data'
 /**
  * Determines whether or not `window.analytics.track` can be invokved.
  */
-const canTrackAnalytics = (): boolean => {
+export const canTrackAnalytics = (): boolean => {
   return (
     typeof window !== undefined &&
     window.analytics &&
