@@ -1,13 +1,9 @@
-import { ReactNode } from 'react'
+import { IconCardLinkProps } from 'components/icon-card-link'
 import { ProductSlug } from 'types/products'
 
-export interface IconCard {
-  icon: ReactNode
-  text: string
-  url: string
-  productSlug: ProductSlug
-}
+export type IconCard = Pick<IconCardLinkProps, 'icon' | 'text' | 'url'>
+
 export interface IconCardsProps {
-  cards: Omit<IconCard, 'productSlug'>[]
+  cards: IconCard[]
   productSlug: ProductSlug
 }
