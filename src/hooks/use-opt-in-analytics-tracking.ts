@@ -9,7 +9,7 @@ import { PLATFORM_OPTIONS } from 'components/opt-in-out'
  * platform is present. It creates a new 'tracked' cookie so that multiple
  * events aren't sent per user.
  */
-export const DAYS_UNTIL_OPT_IN_EXPIRE = 180
+const DAYS_UNTIL_OPT_IN_EXPIRE = 180
 
 export function useOptInAnalyticsTracking(platform: OptInPlatformOption) {
   useEffect(() => {
