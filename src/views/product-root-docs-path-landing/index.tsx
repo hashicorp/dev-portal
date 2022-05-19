@@ -8,18 +8,9 @@ import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
-import { ReactElement } from 'react'
+import { ProductRootDocsPathLandingProps } from './types'
 import ProductRootDocsPathLandingHero from './components/hero'
 import s from './product-root-docs-path-landing.module.css'
-
-interface ProductRootDocsPathLandingProps {
-  mdxSlot?: ReactElement
-  pageContent: {
-    pageSubtitle: string
-    // TODO create a block type
-    marketingContentBlocks: any[]
-  }
-}
 
 const ProductRootDocsPathLanding = ({
   mdxSlot,
@@ -106,4 +97,5 @@ const ProductRootDocsPathLanding = ({
   )
 }
 
+export type { ProductRootDocsPathLandingProps }
 export default ProductRootDocsPathLanding
