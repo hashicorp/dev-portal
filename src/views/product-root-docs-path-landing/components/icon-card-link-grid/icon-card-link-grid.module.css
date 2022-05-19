@@ -1,0 +1,10 @@
+/* @TODO make responsive */
+.root {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

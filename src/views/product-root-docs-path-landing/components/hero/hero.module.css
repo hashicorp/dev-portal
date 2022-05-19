@@ -1,0 +1,15 @@
+.root {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+}
+
+.iconAndTextWrapper {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.pageSubtitle {
+  color: var(--token-color-foreground-primary);
+}

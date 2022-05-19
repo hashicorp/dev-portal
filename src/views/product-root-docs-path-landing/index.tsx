@@ -2,28 +2,15 @@
  * @TODO organize imports
  */
 import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
-import IconTileLogo from 'components/icon-tile-logo'
 import Heading from 'components/heading'
 import Text from 'components/text'
-import s from './product-root-docs-path-landing.module.css'
-import { useCurrentProduct } from 'contexts'
-import useCurrentPath from 'hooks/use-current-path'
-import { IconBox16 } from '@hashicorp/flight-icons/svg-react/box-16'
-import IconCardLink from 'components/icon-card-link'
-import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
-import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
-import { ProductData } from 'types/products'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 import { ReactElement } from 'react'
-
-const SUPPORTED_ICONS = {
-  box: <IconBox16 />,
-  tools: <IconTools16 />,
-  'terminal-screen': <IconTerminalScreen16 />,
-}
+import ProductRootDocsPathLandingHero from './components/hero'
+import s from './product-root-docs-path-landing.module.css'
 
 interface ProductRootDocsPathLandingProps {
   mdxSlot?: ReactElement
@@ -34,69 +21,17 @@ interface ProductRootDocsPathLandingProps {
   }
 }
 
-/**
- * @TODO move to helpers file / create PageHeading component local to this view
- * @TODO write description
- */
-const generatePageHeading = (
-  currentProduct: ProductData,
-  currentPath: string
-) => {
-  const currentRootDocsPath = currentProduct.rootDocsPaths.find(
-    ({ path }) => `/${currentProduct.slug}/${path}` === currentPath
-  )
-  return `${currentProduct.name} ${currentRootDocsPath.shortName}`
-}
-
 const ProductRootDocsPathLanding = ({
   mdxSlot,
   pageContent,
 }: ProductRootDocsPathLandingProps) => {
-  const currentProduct = useCurrentProduct()
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { pageSubtitle, marketingContentBlocks } = pageContent
-
   const showProductDocsSearch = __config.flags.enable_product_docs_search
 
   return (
     <>
       {showProductDocsSearch && <ProductDocsSearch />}
-      <div className={s.pageHeroWrapper}>
-        <div className={s.pageHeroText}>
-          <IconTileLogo
-            productSlug={
-              currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
-            }
-          />
-          <div>
-            <Heading className={s.pageTitle} level={1} size={500} weight="bold">
-              {generatePageHeading(currentProduct, currentPath)}
-            </Heading>
-            <Text className={s.pageSubtitle}>{pageSubtitle}</Text>
-          </div>
-        </div>
-        <ul className={s.heroCardList}>
-          {currentProduct.rootDocsPaths.map(({ iconName, path, name }) => {
-            const fullPath = `/${currentProduct.slug}/${path}`
-            const matchesCurrentPath = fullPath === currentPath
-
-            if (matchesCurrentPath) {
-              return null
-            }
-
-            return (
-              <li key={path}>
-                <IconCardLink
-                  icon={SUPPORTED_ICONS[iconName]}
-                  productSlug={currentProduct.slug}
-                  text={name}
-                  url={path}
-                />
-              </li>
-            )
-          })}
-        </ul>
-      </div>
+      <ProductRootDocsPathLandingHero pageSubtitle={pageSubtitle} />
       {mdxSlot}
       <div>
         {marketingContentBlocks.map((block) => {
