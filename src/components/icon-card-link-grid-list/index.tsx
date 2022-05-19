@@ -1,7 +1,6 @@
 import CardsGridList from 'components/cards-grid-list'
 import IconCardLink from 'components/icon-card-link'
 import { IconCardLinkGridListProps, IconCard } from './types'
-import { getIconCards } from './get-icon-cards'
 
 function IconCardLinkGridList({
   cards,
@@ -27,5 +26,4 @@ function IconCardLinkGridList({
 }
 
 export type { IconCardLinkGridListProps }
-export { getIconCards }
 export default IconCardLinkGridList
