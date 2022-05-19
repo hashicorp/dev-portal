@@ -1,7 +1,7 @@
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import IconCardLink from 'components/icon-card-link'
-import { SUPPORTED_ICONS } from './supported-icons'
+import { SUPPORTED_ICONS } from '../supported-icons'
 import s from './icon-card-link-grid.module.css'
 
 const ProductRootDocsPathLandingIconCardLinkGrid = () => {
