@@ -22,4 +22,8 @@
 .productLogoLink {
   composes: g-focus-ring-from-box-shadow-dark from global;
   border-radius: 5px;
+
+  @media (--dev-dot-desktop) {
+    margin-left: 12px;
+  }
 }
