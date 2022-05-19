@@ -63,7 +63,11 @@ const ProductRootDocsPathLanding = ({
       {showProductDocsSearch && <ProductDocsSearch />}
       <div className={s.pageHeroWrapper}>
         <div className={s.pageHeroText}>
-          <IconTileLogo productSlug="vault" />
+          <IconTileLogo
+            productSlug={
+              currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
+            }
+          />
           <div>
             <Heading className={s.pageTitle} level={1} size={500} weight="bold">
               {generatePageHeading(currentProduct, currentPath)}
