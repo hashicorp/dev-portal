@@ -135,10 +135,11 @@ for further details.
   @media (--dev-dot-sidecar-up) {
     display: block;
     flex-shrink: 0;
+    height: fit-content;
+    margin-left: 48px;
     position: sticky;
     top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
     width: var(--sidecar-width);
-    margin-left: 48px;
   }
 }
 
