@@ -17,6 +17,7 @@ import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
+import { ReactElement } from 'react'
 
 const SUPPORTED_ICONS = {
   box: <IconBox16 />,
@@ -25,6 +26,7 @@ const SUPPORTED_ICONS = {
 }
 
 interface ProductRootDocsPathLandingProps {
+  mdxSlot?: ReactElement
   pageContent: {
     pageSubtitle: string
     // TODO create a block type
@@ -47,11 +49,13 @@ const generatePageHeading = (
 }
 
 const ProductRootDocsPathLanding = ({
+  mdxSlot,
   pageContent,
 }: ProductRootDocsPathLandingProps) => {
   const currentProduct = useCurrentProduct()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const { pageSubtitle, marketingContentBlocks } = pageContent
+
   const showProductDocsSearch = __config.flags.enable_product_docs_search
 
   return (
@@ -89,7 +93,7 @@ const ProductRootDocsPathLanding = ({
           })}
         </ul>
       </div>
-      {/* TODO move MDX content over */}
+      {mdxSlot}
       <div>
         {marketingContentBlocks.map((block) => {
           if (block.type === 'section-heading') {
