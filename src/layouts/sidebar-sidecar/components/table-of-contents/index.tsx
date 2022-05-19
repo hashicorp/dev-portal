@@ -10,15 +10,19 @@ const TABLE_OF_CONTENTS_LABEL_ID = 'table-of-contents-label'
 
 const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
   const { isDesktop } = useDeviceSize()
+  const hasOneHeading = headings.length === 1
 
   /**
    * @TODO (2022-5-17) update the second argument to useActiveSection. Sidecar
    * now goes away at 1280px rather than the isDesktop width.
    */
-  const activeSection = useActiveSection(headings, isDesktop)
+  const activeSection = useActiveSection(
+    headings,
+    hasOneHeading ? false : isDesktop
+  )
 
   // Don't render if only one item
-  if (headings.length === 1) {
+  if (hasOneHeading) {
     return null
   }
 
