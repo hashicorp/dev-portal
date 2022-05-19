@@ -17,6 +17,11 @@ const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
    */
   const activeSection = useActiveSection(headings, isDesktop)
 
+  // Don't render if only one item
+  if (headings.length === 1) {
+    return null
+  }
+
   return (
     <nav aria-labelledby={TABLE_OF_CONTENTS_LABEL_ID}>
       <p className={s.tableOfContentsLabel} id={TABLE_OF_CONTENTS_LABEL_ID}>
