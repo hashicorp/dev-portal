@@ -23,8 +23,7 @@
   composes: g-focus-ring-from-box-shadow-dark from global;
   border-radius: 5px;
 
-  /* On mobile/tablet, this element comes first */
-  &:not(:first-child) {
+  @media (--dev-dot-desktop) {
     margin-left: 12px;
   }
 }
