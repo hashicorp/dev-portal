@@ -1,19 +1,16 @@
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { useEffect } from 'react'
-import { safeAnalyticsTrack } from 'lib/analytics'
+import { canTrackAnalytics } from 'lib/analytics'
 import Cookies from 'js-cookie'
 import { PLATFORM_OPTIONS } from 'components/opt-in-out'
 
 /**
- * @TODO fire this opt in tracking once someone consents to tracking
- * and the analytics are made available.
- *
- * I tried to do this with `onAcceptAll` but we'll need to adjust the
- * consent manager itself to try and support this. Deferring for now.
- *
- * We could also set a cookie for whether the tracking has been fired.
- * And if not, make sure to do so.
+ * This hook sends a track event when the opt in cookie for a certain
+ * platform is present. It creates a new 'tracked' cookie so that multiple
+ * events aren't sent per user.
  */
+export const DAYS_UNTIL_OPT_IN_EXPIRE = 180
+
 export function useOptInAnalyticsTracking(platform: OptInPlatformOption) {
   useEffect(() => {
     const optInCookie = Cookies.get(PLATFORM_OPTIONS[platform].cookieKey)
@@ -22,11 +19,17 @@ export function useOptInAnalyticsTracking(platform: OptInPlatformOption) {
     )
 
     if (optInCookie && !hasTrackedOptIn) {
-      console.log('send data!')
-      safeAnalyticsTrack('Beta Opted In', {
-        bucket: platform,
-      })
-      Cookies.set(PLATFORM_OPTIONS[platform].cookieAnalyticsKey)
+      if (canTrackAnalytics()) {
+        analytics.track('Beta Opted In', {
+          bucket: platform,
+        })
+        Cookies.set(PLATFORM_OPTIONS[platform].cookieAnalyticsKey, 'true', {
+          expires: DAYS_UNTIL_OPT_IN_EXPIRE,
+        })
+      }
     }
-  }, [platform])
+  })
+  //^^^^ Note: we could update the deps here to limit the amount this runs
+  // Currently leaving this to run on every render so that we can capture
+  // accurate tracks between pages such as tutorial and docs views, feel free to update
 }

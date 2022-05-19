@@ -2,8 +2,9 @@ import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
+import { DAYS_UNTIL_OPT_IN_EXPIRE } from 'hooks/use-opt-in-analytics-tracking'
 
-const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
+const OPT_IN_MAX_AGE = 60 * 60 * 24 * DAYS_UNTIL_OPT_IN_EXPIRE // 180 days
 
 const HOSTNAME_MAP = {
   'www.boundaryproject.io': 'boundary',
