@@ -1,16 +1,9 @@
-import { CSSProperties, ReactNode } from 'react'
-import { ProductSlug } from 'types/products'
+import { CSSProperties } from 'react'
 import CardLink from 'components/card-link'
+import { IconCardLinkProps } from './types'
 import s from './icon-card-link.module.css'
 
-interface IconCardLinkProps {
-  icon: ReactNode
-  text: string
-  url: string
-  productSlug: ProductSlug
-}
-
-const IconCardLink = ({ icon, text, url, productSlug }: IconCardLinkProps) => {
+const IconCardLink = ({ icon, productSlug, text, url }: IconCardLinkProps) => {
   let colorToken: string
   if (productSlug === 'sentinel' || productSlug === 'hcp') {
     colorToken = '--token-color-hashicorp-brand'
@@ -31,4 +24,5 @@ const IconCardLink = ({ icon, text, url, productSlug }: IconCardLinkProps) => {
   )
 }
 
+export type { IconCardLinkProps }
 export default IconCardLink
