@@ -37,8 +37,6 @@ const { getStaticProps: generatedGetStaticProps } =
     baseName,
   })
 
-WaypointDocsLanding.layout = SidebarSidecarLayout
-
 /**
  * Wrapper for `generatedGetStaticProps`. Handles passing the correct `params`
  * property to `generatedGetStaticProps`.
@@ -46,7 +44,7 @@ WaypointDocsLanding.layout = SidebarSidecarLayout
  * Also handles clearing the following `layoutProps` returned in the `props`
  * returned by `generatedGetStaticProps`: `githubFileUrl` and `sidecarSlot`.
  */
-export async function getStaticProps({ context }) {
+async function getStaticProps({ context }) {
   // TODO: remove the any
   const generatedProps = (await generatedGetStaticProps({
     ...context,
@@ -61,4 +59,6 @@ export async function getStaticProps({ context }) {
   return generatedProps
 }
 
+WaypointDocsLanding.layout = SidebarSidecarLayout
+export { getStaticProps }
 export default WaypointDocsLanding
