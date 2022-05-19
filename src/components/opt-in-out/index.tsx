@@ -16,6 +16,7 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
     base_url: 'https://learn-git-ksspike-opt-in-redirects-hashicorp.vercel.app', // FOR TESTING PURPOSES NEED TO UPDATE for - 'https://learn.hashicorp.com/'
     getRedirectPath: getLearnRedirectPath,
     cookieKey: 'learn-beta-opt-in',
+    cookieAnalyticsKey: 'learn-beta-opt-in-tracked',
   },
   'waypoint-io': {
     base_url: 'https://www.waypointproject.io/',
@@ -23,6 +24,7 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
       return 'test'
     },
     cookieKey: 'waypoint-io-beta-opt-in',
+    cookieAnalyticsKey: 'waypoint-io-beta-opt-in-tracked',
   },
   'vault-io': {
     base_url: 'https://www.vaultproject.io/',
@@ -30,6 +32,7 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
       return 'test'
     },
     cookieKey: 'vault-io-beta-opt-in',
+    cookieAnalyticsKey: 'vault-io-beta-opt-in-tracked',
   },
 }
 
@@ -53,6 +56,7 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   function handleOptOut() {
     // @TODO - handle form submit
     Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
+    Cookies.remove(PLATFORM_OPTIONS[platform].cookieAnalyticsKey)
     safeAnalyticsTrack('Beta Opted Out', {
       bucket: platform,
     })

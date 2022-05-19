@@ -34,6 +34,8 @@ import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import InstruqtProvider from 'contexts/instruqt-lab'
+import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
+import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
 
 // Local imports
 import MDX_COMPONENTS from './utils/mdx-components'
@@ -45,7 +47,6 @@ import {
 } from './components'
 import getVideoUrl from './utils/get-video-url'
 import s from './tutorial-view.module.css'
-import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
 
 export interface TutorialViewProps {
   layout: TutorialSidebarSidecarProps
@@ -87,6 +88,7 @@ export default function TutorialView({
   product,
   tutorial,
 }: TutorialViewProps): React.ReactElement {
+  useOptInAnalyticsTracking('learn')
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const {
     name,
