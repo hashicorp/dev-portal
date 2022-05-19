@@ -15,7 +15,6 @@ import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
-import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -34,7 +33,6 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 
 export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()
-  useOptInAnalyticsTracking()
 
   const Layout = Component.layout ?? BaseLayout
   const currentProduct = pageProps.product || null
