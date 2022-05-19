@@ -1,12 +1,17 @@
+import { useCurrentProduct } from 'contexts'
 import Heading from 'components/heading'
 import Text from 'components/text'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
+import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 import s from './marketing-content.module.css'
+import { SUPPORTED_ICONS } from '../supported-icons'
 
 const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
+  const currentProduct = useCurrentProduct()
+
   return (
     <div>
       {blocks.map((block) => {
@@ -20,6 +25,19 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
             >
               {block.title}
             </Heading>
+          )
+        }
+
+        if (block.type === 'icon-card-grid') {
+          return (
+            <IconCardLinkGridList
+              cards={block.cards.map(({ iconName, text, url }) => ({
+                icon: SUPPORTED_ICONS[iconName],
+                text,
+                url,
+              }))}
+              productSlug={currentProduct.slug}
+            />
           )
         }
 
