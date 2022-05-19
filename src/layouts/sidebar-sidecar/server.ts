@@ -157,6 +157,7 @@ export function getStaticGenerationFunctions<
       })
 
       const fullNavData = [...navData]
+      console.log({ fullNavData })
 
       // Add fullPaths and ids to navData
       const navDataWithFullPaths = prepareNavDataForClient(fullNavData, [
