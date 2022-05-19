@@ -16,22 +16,3 @@
 .cardGridCardDescription {
   color: var(--token-color-foreground-faint);
 }
-
-/*
-***
-* Used to hide some of the remote MDX content for /waypoint/docs.
-***
-*/
-.waypointMDXWrapper {
-  & h1:first-of-type {
-    display: none;
-
-    & + * {
-      display: none;
-    }
-  }
-
-  & h2:first-of-type {
-    margin-top: 0;
-  }
-}
