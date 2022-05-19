@@ -1,7 +1,7 @@
-import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { useEffect } from 'react'
-import { canTrackAnalytics } from 'lib/analytics'
 import Cookies from 'js-cookie'
+import { canTrackAnalytics } from 'lib/analytics'
+import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { PLATFORM_OPTIONS } from 'components/opt-in-out'
 
 /**
