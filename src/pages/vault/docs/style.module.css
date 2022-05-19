@@ -1,0 +1,78 @@
+.pageHeroWrapper {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+}
+
+.pageHeroText {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.pageTitle {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 12px;
+}
+
+.pageSubtitle {
+  color: var(--token-color-foreground-primary);
+}
+
+.heroCardList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.heroCardLink {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.heroCardLinkText {
+  color: var(--token-color-foreground-primary);
+}
+
+/*
+***
+* Classes used in the "card-grid" block.
+***
+*/
+
+.cardGridCard {
+  height: 100%;
+}
+
+.cardGridCardTitle {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 4px;
+}
+
+.cardGridCardDescription {
+  color: var(--token-color-foreground-faint);
+}
+
+/*
+***
+* Used to hide some of the remote MDX content for /waypoint/docs.
+***
+*/
+.waypointMDXWrapper {
+  & h1:first-of-type {
+    display: none;
+
+    & + * {
+      display: none;
+    }
+  }
+
+  & h2:first-of-type {
+    margin-top: 0;
+  }
+}
