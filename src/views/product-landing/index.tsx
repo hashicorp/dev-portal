@@ -6,7 +6,7 @@ import ProductLandingBlocks from './components/product-landing-blocks'
 import HeroHeadingVisual from './components/hero-heading-visual'
 import OverviewCta from './components/overview-cta'
 import GetStartedCard from './components/get-started-card'
-import IconCards, { getIconCards } from './components/icon-cards'
+import IconCardLinkGridList, { getIconCards } from './components/icon-cards'
 import s from './product-landing.module.css'
 
 function ProductLandingView({
@@ -28,7 +28,7 @@ function ProductLandingView({
       </div>
       {iconCards ? (
         <div className={s.iconCardsMargin}>
-          <IconCards cards={iconCards} productSlug={product.slug} />
+          <IconCardLinkGridList cards={iconCards} productSlug={product.slug} />
         </div>
       ) : null}
       <div className={s.overviewCtaMargin}>

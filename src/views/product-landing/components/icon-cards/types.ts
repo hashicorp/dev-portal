@@ -3,7 +3,7 @@ import { ProductSlug } from 'types/products'
 
 export type IconCard = Pick<IconCardLinkProps, 'icon' | 'text' | 'url'>
 
-export interface IconCardsProps {
+export interface IconCardLinkGridListProps {
   cards: IconCard[]
   productSlug: ProductSlug
 }

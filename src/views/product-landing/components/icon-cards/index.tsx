@@ -1,27 +1,31 @@
 import CardsGridList from 'components/cards-grid-list'
 import IconCardLink from 'components/icon-card-link'
-import { IconCardsProps, IconCard } from './types'
+import { IconCardLinkGridListProps, IconCard } from './types'
 import { getIconCards } from './get-icon-cards'
 
-function IconCards({ cards, productSlug }: IconCardsProps) {
+function IconCardLinkGridList({
+  cards,
+  productSlug,
+}: IconCardLinkGridListProps) {
   return (
     <CardsGridList>
       {cards.map(({ icon, text, url }: IconCard, key: number) => {
         return (
-          <IconCardLink
-            // eslint-disable-next-line react/no-array-index-key
-            key={key}
-            icon={icon}
-            productSlug={productSlug}
-            text={text}
-            url={url}
-          />
+          // eslint-disable-next-line react/no-array-index-key
+          <li key={key}>
+            <IconCardLink
+              icon={icon}
+              productSlug={productSlug}
+              text={text}
+              url={url}
+            />
+          </li>
         )
       })}
     </CardsGridList>
   )
 }
 
-export type { IconCardsProps }
+export type { IconCardLinkGridListProps }
 export { getIconCards }
-export default IconCards
+export default IconCardLinkGridList
