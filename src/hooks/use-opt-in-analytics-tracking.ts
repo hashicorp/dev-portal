@@ -14,22 +14,23 @@ export const DAYS_UNTIL_OPT_IN_EXPIRE = 180
 export function useOptInAnalyticsTracking(platform: OptInPlatformOption) {
   useEffect(() => {
     const optInCookie = Cookies.get(PLATFORM_OPTIONS[platform].cookieKey)
-    const hasTrackedOptIn = Cookies.get(
-      PLATFORM_OPTIONS[platform].cookieAnalyticsKey
-    )
+    const trackedOptInKey = PLATFORM_OPTIONS[platform].cookieAnalyticsKey
+    const hasTrackedOptIn = Cookies.get(trackedOptInKey)
 
     if (optInCookie && !hasTrackedOptIn) {
       if (canTrackAnalytics()) {
         analytics.track('Beta Opted In', {
           bucket: platform,
         })
-        Cookies.set(PLATFORM_OPTIONS[platform].cookieAnalyticsKey, 'true', {
+        Cookies.set(trackedOptInKey, 'true', {
           expires: DAYS_UNTIL_OPT_IN_EXPIRE,
         })
       }
     }
   })
-  //^^^^ Note: we could update the deps here to limit the amount this runs
-  // Currently leaving this to run on every render so that we can capture
-  // accurate tracks between pages such as tutorial and docs views, feel free to update
+  /**
+   * ^^^^ Note: we could update the deps here to limit the amount this runs
+   * Currently leaving this to run on every render so that we can capture
+   * accurate tracks between pages such as tutorial and docs views, feel free to update
+   */
 }
