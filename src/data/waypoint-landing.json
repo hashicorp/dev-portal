@@ -130,7 +130,7 @@
         {
           "heading": "Vault",
           "body": "Read configuration values from Vault.",
-          "url": "/waypoint/plugins/Vault"
+          "url": "/waypoint/plugins/vault"
         }
       ]
     }
