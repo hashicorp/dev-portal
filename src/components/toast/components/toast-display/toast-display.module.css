@@ -1,0 +1,47 @@
+.root {
+  border: 1px solid magenta;
+
+  &.color-neutral {
+    background: gray;
+  }
+
+  &.color-highlight {
+    background: purple;
+  }
+
+  &.color-warning {
+    background: orange;
+  }
+
+  &.color-success {
+    background: green;
+  }
+
+  &.color-critical {
+    background: red;
+  }
+}
+
+.iconArea {
+  border: 1px solid magenta;
+}
+
+.icon {
+  border: 1px solid magenta;
+}
+
+.contentArea {
+  border: 1px solid magenta;
+}
+
+.title {
+  border: 1px solid magenta;
+}
+
+.description {
+  border: 1px solid magenta;
+}
+
+.closeArea {
+  border: 1px solid magenta;
+}

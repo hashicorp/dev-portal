@@ -42,15 +42,13 @@ function onCopyCallback(
   console.log('onCopyCallback', copySuccess)
   if (copySuccess == true) {
     toast({
-      appearance: 'light',
-      description: `${fullLabel}: Copied install command to clipboard.`,
-      cta: { title: 'No CTA', url: 'https://www.hashicorp.com' },
+      title: fullLabel,
+      description: `Copied install command to clipboard.`,
     })
   } else if (copySuccess == false) {
     toast({
-      appearance: 'light',
-      description: `${fullLabel}: Failed to copy install command!`,
-      cta: { title: 'No CTA', url: 'https://www.hashicorp.com' },
+      title: fullLabel,
+      description: `Failed to copy install command!`,
     })
   }
 }

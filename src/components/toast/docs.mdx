@@ -1,0 +1,39 @@
+---
+componentName: 'Toast'
+---
+
+A Toast is an element intended for messages that are the result of a user's actions. Typically it displays a brief, temporary notification and it disappears on its own (after a time interval) or as a result of a user interacting with it.
+
+See the [HashiCorp Design System Toast Reference](https://design-system-components-hashicorp.vercel.app/components/toast) for further details.
+
+## Playground
+
+<LiveComponent>{`
+<ToastDisplay
+  title="Title of the toast"
+  description="Lorem ipsum dolor sit amet, consectetur adipiscig elit. Nulla dignissim felis a lectus."
+/>
+`}</LiveComponent>
+
+## Colors
+
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 270px), 1fr))',
+    gap: '16px',
+  }}
+>
+  {Object.keys(ToastColor).map((color) => {
+    return (
+      <Toast
+        key={color}
+        color={color}
+        title="Title of the toast"
+        description={
+          'Lorem ipsum dolor sit amet, consectetur adipiscig elit. Nulla dignissim felis a lectus.'
+        }
+      />
+    )
+  })}
+</div>
