@@ -16,18 +16,16 @@ import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 // Local imports
 import pageContent from './content.json'
 import s from './style.module.css'
+import IconCardLink from 'components/icon-card-link'
 
 // Constants
 const basePath = 'docs'
 const baseName = 'Docs'
 const product = vaultData as ProductData
-const iconMap = {
-  tools: <IconTools16 />,
-}
 const heroCards = [
   {
-    iconName: 'tools',
-    link: '/vault/api-docs',
+    icon: <IconTools16 />,
+    url: '/vault/api-docs',
     text: 'API',
   },
 ]
@@ -49,19 +47,14 @@ const VaultDocsLanding = () => {
           </div>
         </div>
         <ul className={s.heroCardList}>
-          {heroCards.map(({ iconName, link, text }) => (
-            <li key={link}>
-              <CardLink className={s.heroCardLink} href={link}>
-                {iconMap[iconName]}
-                <Text
-                  asElement="span"
-                  className={s.heroCardLinkText}
-                  size={200}
-                  weight="semibold"
-                >
-                  {text}
-                </Text>
-              </CardLink>
+          {heroCards.map(({ icon, text, url }) => (
+            <li key={url}>
+              <IconCardLink
+                icon={icon}
+                productSlug="vault"
+                text={text}
+                url={url}
+              />
             </li>
           ))}
         </ul>
