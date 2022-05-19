@@ -2,8 +2,6 @@ import { useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import { VideoEmbedProps, VideoEmbedInnerProps } from './types'
 import {
-  trackHeapStarted,
-  trackHeapEnded,
   usePlayState,
   useSegmentsPlayed,
   // useSecondsWatched, // Not used... yet!
@@ -77,15 +75,11 @@ function VideoEmbed({
         config={config}
         url={url}
         onDuration={setDuration}
-        onStart={() => trackHeapStarted(url)}
         progressInterval={PROGRESS_INTERVAL}
         onProgress={({ playedSeconds }: { playedSeconds: number }) => {
           setPosition(playedSeconds)
         }}
-        onEnded={() => {
-          setEnded()
-          trackHeapEnded(url)
-        }}
+        onEnded={setEnded}
         onPlay={setPlaying}
         onPause={setStopped}
         className={s.reactPlayer}

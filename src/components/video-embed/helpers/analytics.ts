@@ -1,21 +1,4 @@
 /**
- * Heap analytics
- *
- * TODO: should we drop window.heap tracking in dev-dot,
- * considering we've got a unified analytics plan around
- * window.analytics?
- */
-function trackHeap(event: string, url: string) {
-  window.heap?.track(event, { url })
-}
-function trackHeapStarted(url: string) {
-  trackHeap('Video Started', url)
-}
-function trackHeapEnded(url: string) {
-  trackHeap('Video Ended', url)
-}
-
-/**
  * video_played event
  *
  * Spec: "analytics/spec/events/video_played.yml"
@@ -52,4 +35,4 @@ function checkAnalyticsConsent() {
   )
 }
 
-export { trackHeapEnded, trackHeapStarted, videoPlayedEvent }
+export { videoPlayedEvent }
