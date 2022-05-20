@@ -29,7 +29,7 @@ export default function CollectionMeta({
   }`
   return (
     <>
-      <IconTile size="large">
+      <IconTile>
         <IconCollections24 className={s.icon} />
       </IconTile>
       <Heading
@@ -50,7 +50,7 @@ export default function CollectionMeta({
         />
         <span className={s.ctaText}>
           <IconCollections16 className={s.ctaIcon} />
-          <Text>{ctaText}</Text>
+          <Text size={100}>{ctaText}</Text>
         </span>
       </div>
     </>

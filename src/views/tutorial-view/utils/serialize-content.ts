@@ -1,10 +1,6 @@
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import {
-  anchorLinks,
-  paragraphCustomAlerts,
-  typography,
-} from '@hashicorp/remark-plugins'
+import { anchorLinks, paragraphCustomAlerts } from '@hashicorp/remark-plugins'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import highlight from '@mapbox/rehype-prism'
 import getVideoUrl from './get-video-url'
@@ -41,7 +37,6 @@ export async function serializeContent(tutorial: ClientTutorial): Promise<{
       remarkPlugins: [
         [anchorLinks, { headings }],
         paragraphCustomAlerts,
-        typography,
         rewriteStaticAssetsPlugin,
         rewriteTutorialLinksPlugin,
       ],
