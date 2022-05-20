@@ -37,7 +37,7 @@ export default function ProductDocsSearch() {
     <AlgoliaSearch
       className={s.root}
       openOnFocus={true}
-      placeholder={`Search ${currentProduct.slug} documentation`}
+      placeholder={`Search ${currentProduct.name} documentation`}
       ResultComponent={ProductSearchResult}
       getHitLinkProps={getHitLink}
       plugins={[algoliaInsightsPlugin]}

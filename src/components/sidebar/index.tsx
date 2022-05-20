@@ -20,7 +20,7 @@ const SIDEBAR_LABEL_ID = 'sidebar-label'
 
 const RESOURCES_NAV_ITEMS = [
   { heading: 'Resources' },
-  { title: 'All Tutorials', href: 'https://learn.hashicorp.com/' },
+  { title: 'All Tutorials', href: 'https://learn.hashicorp.com/search' },
   {
     title: 'Community Forum',
     href: 'https://discuss.hashicorp.com/',

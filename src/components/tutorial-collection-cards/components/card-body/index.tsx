@@ -1,4 +1,4 @@
-import TruncateMaxLines from '../truncate-max-lines'
+import TruncateMaxLines from 'components/truncate-max-lines'
 import s from './card-body.module.css'
 
 function CardBody({ text }: { text: string }) {

@@ -1,0 +1,41 @@
+{
+  "pageSubtitle": "Learn and develop your knowledge of Waypoint with these tutorials and code resources.",
+  "marketingContentBlocks": [
+    {
+      "type": "card-grid",
+      "title": "Popular Documentation",
+      "cards": [
+        {
+          "title": "Projects",
+          "description": "A project in Waypoint is a 1:1 mapping to a VCS repository (if one exists). A project can be comprised of one or more applications. Each application in a project represents a single thing that can be deployed.",
+          "url": "/waypoint/docs/projects"
+        },
+        {
+          "title": "Plugins",
+          "description": "Waypoint can be extended using custom plugins. Waypoint supports custom builders, deployment platforms, registries, release managers, and more.",
+          "url": "/waypoint/docs/plugins"
+        },
+        {
+          "title": "Build",
+          "description": "A build takes application source and converts it to an artifact.",
+          "url": "/waypoint/docs/lifecycle/build"
+        },
+        {
+          "title": "Deploy",
+          "description": "A deploy takes a previously built artifact and stages it onto the target deployment platform. The target deployment platform is pluggable and can be Docker, Kubernetes, Nomad, EC2, and more.",
+          "url": "/waypoint/docs/lifecycle/deploy"
+        },
+        {
+          "title": "Waypoint URL Service",
+          "description": "Applications deployed with Waypoint will receive a public `waypoint.run` URL. This URL can be used to quickly view your deployed applications and share your applications with others.",
+          "url": "/waypoint/docs/url"
+        },
+        {
+          "title": "Waypoint Runners",
+          "description": "Waypoint utilizes \"runners\" to execute Waypoint operations remotely. Runners are responsible for performing builds and deploys, polling projects for changes, and more.",
+          "url": "/waypoint/docs/runner"
+        }
+      ]
+    }
+  ]
+}

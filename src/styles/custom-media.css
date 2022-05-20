@@ -11,3 +11,4 @@
 @custom-media --dev-dot-tablet-down only screen and (max-width: 1000px);
 @custom-media --dev-dot-tablet-up only screen and (min-width: 729px);
 @custom-media --dev-dot-desktop only screen and (min-width: 1001px);
+@custom-media --dev-dot-sidecar-up only screen and (min-width: 1280px);

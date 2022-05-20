@@ -1,74 +1,56 @@
 /* eslint-disable react/no-array-index-key */
 import React, { ReactElement } from 'react'
-import slugify from 'slugify'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import Heading, { HeadingProps } from 'components/heading'
-import Text from 'components/text'
-import DevDotContent from 'components/dev-dot-content'
-import GetStarted, { GetStartedProps } from './components/get-started'
-import Cards, { CardProps } from './components/cards'
+import IconCardLinkGridList from 'components/icon-card-link-grid-list'
+import { ProductLandingViewProps } from './types'
+import { getIconCards } from './helpers'
+import ProductLandingBlocks from './components/product-landing-blocks'
+import HeroHeadingVisual from './components/hero-heading-visual'
+import OverviewCta from './components/overview-cta'
+import GetStartedCard from './components/get-started-card'
 import s from './product-landing.module.css'
 
-type Block =
-  | ({ type: 'heading' } & HeadingProps & { heading: string; slug: string })
-  | ({ type: 'get_started' } & GetStartedProps)
-  | ({ type: 'cards' } & CardProps)
+function ProductLandingView({
+  content,
+  product,
+}: ProductLandingViewProps): ReactElement {
+  const { hero, overview, get_started, blocks } = content
 
-interface ProductLandingProps {
-  content: {
-    heading: string
-    subheading: string
-    blocks: Block[]
-  }
-}
+  const iconCards = getIconCards(product.slug)
 
-function ProductLandingView({ content }: ProductLandingProps): ReactElement {
   return (
-    <DevDotContent>
-      <Heading
-        className={s.pageHeading}
-        size={500}
-        level={1}
-        id={slugify(content.heading)}
-        weight="bold"
-      >
-        {content.heading}
-      </Heading>
-      {content.subheading && (
-        <Text className={s.pageSubheading}>{content.subheading}</Text>
-      )}
-      {content.blocks.map((block, idx) => {
-        const { type } = block
-        if (type === 'heading') {
-          const { heading, slug, level, size } = block
-          return (
-            <Heading
-              className={s[`h${level}`]}
-              key={idx}
-              weight="bold"
-              {...{ id: slug, level, size }}
-            >
-              {heading}
-            </Heading>
-          )
-        } else if (type === 'get_started') {
-          const { heading, product, text, link } = block
-          return <GetStarted key={idx} {...{ product, heading, text, link }} />
-        } else if (type === 'cards') {
-          const { columns, cards } = block
-          return <Cards key={idx} {...{ columns, cards }} />
-        }
-        // If we don't have a recognized card type,
-        // return a dev-oriented debug view of the block data
-        // TODO: remove this for production, this is here
-        // TODO: temporarily as we work through demo-oriented implementation
-        return (
-          <pre key={idx} style={{ border: '1px solid red' }}>
-            <code>{JSON.stringify({ type, block }, null, 2)}</code>
-          </pre>
-        )
-      })}
-    </DevDotContent>
+    <>
+      <div className={s.heroMargin}>
+        <HeroHeadingVisual
+          heading={hero.heading}
+          image={hero.image}
+          productSlug={hero.productSlug}
+        />
+      </div>
+      {iconCards ? (
+        <div className={s.iconCardsMargin}>
+          <IconCardLinkGridList cards={iconCards} productSlug={product.slug} />
+        </div>
+      ) : null}
+      <div className={s.overviewCtaMargin}>
+        <OverviewCta
+          heading={overview.heading}
+          headingSlug={overview.headingSlug}
+          body={overview.body}
+          cta={overview.cta}
+          image={overview.image}
+        />
+      </div>
+      <div className={s.getStartedMargin}>
+        <GetStartedCard
+          heading={get_started.heading}
+          headingSlug={get_started.headingSlug}
+          body={get_started.body}
+          ctas={get_started.ctas}
+        />
+      </div>
+      <ProductLandingBlocks blocks={blocks} />
+    </>
   )
 }
 
