@@ -1,4 +1,4 @@
-import { ReactElement, useRef, useEffect, useState } from 'react'
+import { ReactElement, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
@@ -15,7 +15,6 @@ import {
 } from './contexts/sidebar-nav-data'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
-import classNames from 'classnames'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
@@ -95,7 +94,7 @@ const SidebarSidecarLayoutContent = ({
       <div className={s.root}>
         <motion.div
           animate={sidebarIsVisible ? 'visible' : 'hidden'}
-          className={classNames(s.sidebarWrapper, sidebarIsOpen && s.fixed)}
+          className={s.sidebarWrapper}
           ref={sidebarRef}
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           variants={sidebarMotion}

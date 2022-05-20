@@ -77,11 +77,8 @@ for further details.
     width: 100vw;
     padding-bottom: 70px;
     height: 100%;
-
-    &.fixed {
-      position: fixed;
-      top: unset;
-    }
+    position: fixed;
+    top: unset; /** We want to pull the top relative to the parent on mobile */
   }
 }
 
