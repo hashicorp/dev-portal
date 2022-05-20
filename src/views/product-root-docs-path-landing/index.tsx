@@ -8,6 +8,7 @@ import {
 const ProductRootDocsPathLanding = ({
   mdxSlot,
   pageContent,
+  pageHeading,
 }: ProductRootDocsPathLandingProps) => {
   const { pageSubtitle, marketingContentBlocks } = pageContent
   const showProductDocsSearch = __config.flags.enable_product_docs_search
@@ -15,7 +16,10 @@ const ProductRootDocsPathLanding = ({
   return (
     <>
       {showProductDocsSearch && <ProductDocsSearch />}
-      <ProductRootDocsPathLandingHero pageSubtitle={pageSubtitle} />
+      <ProductRootDocsPathLandingHero
+        pageHeading={pageHeading}
+        pageSubtitle={pageSubtitle}
+      />
       {mdxSlot}
       <ProductRootDocsPathLandingMarketingContent
         blocks={marketingContentBlocks}

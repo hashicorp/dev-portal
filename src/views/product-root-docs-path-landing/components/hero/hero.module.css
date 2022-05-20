@@ -10,6 +10,11 @@
   margin-bottom: 32px;
 }
 
+.pageTitle {
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 12px;
+}
+
 .pageSubtitle {
   color: var(--token-color-foreground-primary);
 }

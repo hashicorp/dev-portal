@@ -5,13 +5,19 @@ import ProductRootDocsPathLanding from 'views/product-root-docs-path-landing'
 import { generateGetStaticProps } from 'views/product-root-docs-path-landing/server'
 import pageContent from './content.json'
 
-const VaultDocsLanding = () => {
-  return <ProductRootDocsPathLanding pageContent={pageContent} />
+const VaultDocsLanding = ({ pageHeading }) => {
+  return (
+    <ProductRootDocsPathLanding
+      pageContent={pageContent}
+      pageHeading={pageHeading}
+    />
+  )
 }
 
 const getStaticProps = generateGetStaticProps({
-  baseName: 'Docs',
+  baseName: 'Documentation',
   basePath: 'docs',
+  pageContent,
   product: vaultData as ProductData,
 })
 
