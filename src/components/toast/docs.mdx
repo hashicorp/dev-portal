@@ -23,18 +23,19 @@ See the [HashiCorp Design System Toast Reference](https://design-system-componen
 
 <LiveComponent>{`
 <ToastDisplay
-  title="Title of the toast"
-  description="Lorem ipsum dolor sit amet, consectetur adipiscig elit. Nulla dignissim felis a lectus."
+  color="highlight"
+  title="Welcome to the Waypoint Website Beta!"
+  description="You can leave the Beta at anytime by clicking the Leave Beta CTA near the top of the page."
   actions={
     <>
-      <Button color="secondary" text="Secondary Button" size="small" />
+      <Button color="secondary" text="Continue" size="small" />
       <StandaloneLink
-        color="secondary"
+        color="primary"
         size="small"
         href="/"
-        icon={<SwingsetTestIcon name="arrow-right" />}
+        icon={<SwingsetTestIcon name="arrow-up-right" />}
         iconPosition="trailing"
-        text="Standalone link"
+        text="Leave beta"
       />
     </>
   }
