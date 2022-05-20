@@ -1,5 +1,6 @@
 import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
+import { RootDocsPath } from 'types/products'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import { GenerateGetStaticPropsArguments } from './types'
 
@@ -66,11 +67,15 @@ const generateSidecarHeadings = ({
 }
 
 const generateGetStaticProps = ({
-  baseName,
-  basePath,
   pageContent,
   product,
 }: GenerateGetStaticPropsArguments) => {
+  const basePath = 'docs'
+  const currentRootDocsPath = product.rootDocsPaths.find(
+    (rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
+  )
+  const baseName = currentRootDocsPath.shortName
+
   return async (context: GetStaticPropsContext) => {
     const { getStaticProps: generatedGetStaticProps } =
       _getStaticGenerationFunctions({
@@ -91,21 +96,21 @@ const generateGetStaticProps = ({
       marketingContentBlocks: pageContent.marketingContentBlocks,
       pageTitle: `${product.name} ${baseName}`,
     })
-    generatedProps.props.layoutProps.headings = sidecarHeadings
 
-    // Clear out the `githubFileUrl`
-    generatedProps.props.layoutProps.githubFileUrl = null
-
-    /**
-     * @TODO also return currentRootDocsPath
-     *  - add it to product?
-     *  - return as separate prop?
-     */
     return {
       ...generatedProps,
       props: {
         ...generatedProps.props,
+        layoutProps: {
+          ...generatedProps.props.layoutProps,
+          githubFileUrl: null,
+          headings: sidecarHeadings,
+        },
         pageHeading: sidecarHeadings[0],
+        product: {
+          ...generatedProps.props.product,
+          currentRootDocsPath,
+        },
       },
     }
   }

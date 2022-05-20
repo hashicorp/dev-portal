@@ -34,8 +34,6 @@ const WaypointDocsLanding = ({
 }
 
 const getStaticProps = generateGetStaticProps({
-  baseName: 'Documentation',
-  basePath: 'docs',
   pageContent,
   product: waypointData as ProductData,
 })

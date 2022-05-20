@@ -8,11 +8,10 @@ interface PageContent {
 }
 
 interface GenerateGetStaticPropsArguments {
-  baseName: string
-  basePath: string
   pageContent: PageContent
   product: ProductData
 }
+
 interface ProductRootDocsPathLandingProps {
   mdxSlot?: ReactElement
   pageContent: PageContent

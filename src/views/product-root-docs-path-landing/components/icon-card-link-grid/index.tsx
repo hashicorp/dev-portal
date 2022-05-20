@@ -1,20 +1,21 @@
-import useCurrentPath from 'hooks/use-current-path'
+import { ProductData, RootDocsPath } from 'types/products'
 import { useCurrentProduct } from 'contexts'
 import IconCardLink from 'components/icon-card-link'
 import { SUPPORTED_ICONS } from '../supported-icons'
 import s from './icon-card-link-grid.module.css'
 
+interface ProductRootDocsPathLandingPageProduct extends ProductData {
+  currentRootDocsPath: RootDocsPath
+}
+
 const ProductRootDocsPathLandingIconCardLinkGrid = () => {
-  const currentPath = useCurrentPath()
-  const currentProduct = useCurrentProduct()
+  const currentProduct =
+    useCurrentProduct() as ProductRootDocsPathLandingPageProduct
 
   return (
     <ul className={s.root}>
       {currentProduct.rootDocsPaths.map(({ iconName, path, name }) => {
-        const fullPath = `/${currentProduct.slug}/${path}`
-        const matchesCurrentPath = fullPath === currentPath
-
-        if (matchesCurrentPath) {
+        if (currentProduct.currentRootDocsPath.path === path) {
           return null
         }
 

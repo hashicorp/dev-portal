@@ -15,8 +15,6 @@ const VaultDocsLanding = ({ pageHeading }) => {
 }
 
 const getStaticProps = generateGetStaticProps({
-  baseName: 'Documentation',
-  basePath: 'docs',
   pageContent,
   product: vaultData as ProductData,
 })
