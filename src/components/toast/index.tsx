@@ -22,21 +22,23 @@ function toast({
   title,
   autoDismiss = true,
 }: Omit<ToastDisplayProps, 'onDismiss'> & toastOptions) {
-  const toastFn = autoDismiss ? reactHotToast : reactHotToast.loading
-  return toastFn((t: Toast) => {
-    return (
-      <ToastDisplay
-        actions={actions}
-        color={color}
-        description={description}
-        icon={icon}
-        onDismiss={() => reactHotToast.remove(t.id)}
-        title={title}
-      >
-        {children}
-      </ToastDisplay>
-    )
-  })
+  return reactHotToast(
+    (t: Toast) => {
+      return (
+        <ToastDisplay
+          actions={actions}
+          color={color}
+          description={description}
+          icon={icon}
+          onDismiss={() => reactHotToast.remove(t.id)}
+          title={title}
+        >
+          {children}
+        </ToastDisplay>
+      )
+    },
+    { duration: autoDismiss ? Infinity : undefined }
+  )
 }
 
 export { reactHotToast, Toaster, ToastDisplay, toast, ToastColor }
