@@ -148,3 +148,7 @@ for further details.
   justify-content: space-between;
   align-items: baseline;
 }
+
+.fixed {
+  position: fixed;
+}

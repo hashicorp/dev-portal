@@ -14,6 +14,8 @@ import {
   useSidebarNavData,
 } from './contexts/sidebar-nav-data'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import { useNoScrollBody } from 'hooks/use-no-scroll-body'
+import classNames from 'classnames'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
@@ -37,7 +39,6 @@ const SidebarSidecarLayoutContent = ({
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
-  const [scrollDelta, setScrollDelta] = useState(0)
   const shouldReduceMotion = useReducedMotion()
   const sidebarRef = useRef<HTMLDivElement>()
   const sidebarProps = sidebarNavDataLevels[currentLevel]
@@ -87,22 +88,14 @@ const SidebarSidecarLayoutContent = ({
    * Handles the top positioning of the sidebar if a user has scrolled
    * and prevents scrolling on the rest of the page body
    */
-  useEffect(() => {
-    if (sidebarIsOpen) {
-      setScrollDelta(window.scrollY)
-      document.body.style.overflow = 'hidden'
-    } else if (document.body.style.overflow === 'hidden') {
-      document.body.style.overflow = 'auto'
-    }
-  }, [sidebarIsOpen])
+  useNoScrollBody(sidebarIsOpen)
 
   return (
     <BaseLayout showFooter={false}>
       <div className={s.root}>
         <motion.div
           animate={sidebarIsVisible ? 'visible' : 'hidden'}
-          className={s.sidebarWrapper}
-          style={{ top: `${scrollDelta}px` }}
+          className={classNames(s.sidebarWrapper, sidebarIsOpen && s.fixed)}
           ref={sidebarRef}
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           variants={sidebarMotion}
