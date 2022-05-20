@@ -1,4 +1,4 @@
-import { ReactElement, useRef } from 'react'
+import { ReactElement, useRef, useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
@@ -37,6 +37,7 @@ const SidebarSidecarLayoutContent = ({
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
+  const [deltaFromTop, setDeltaFromTop] = useState(0)
   const shouldReduceMotion = useReducedMotion()
   const sidebarRef = useRef<HTMLDivElement>()
   const sidebarProps = sidebarNavDataLevels[currentLevel]
@@ -82,12 +83,26 @@ const SidebarSidecarLayoutContent = ({
     },
   }
 
+  /**
+   * Handles the top positioning of the sidebar if a user has scrolled
+   * and prevents scrolling on the rest of the page body
+   */
+  useEffect(() => {
+    if (sidebarIsOpen) {
+      setDeltaFromTop(window.scrollY)
+      document.body.style.overflow = 'hidden'
+    } else if (document.body.style.overflow === 'hidden') {
+      document.body.style.overflow = 'auto'
+    }
+  }, [sidebarIsOpen])
+
   return (
     <BaseLayout showFooter={false}>
       <div className={s.root}>
         <motion.div
           animate={sidebarIsVisible ? 'visible' : 'hidden'}
           className={s.sidebarWrapper}
+          style={{ top: `${deltaFromTop}px` }}
           ref={sidebarRef}
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           variants={sidebarMotion}

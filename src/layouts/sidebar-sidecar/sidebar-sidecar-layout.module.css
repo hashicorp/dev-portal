@@ -75,9 +75,9 @@ for further details.
   @media (--dev-dot-tablet-down) {
     bottom: 0;
     left: -150vw;
-    position: absolute;
-    top: 0;
+    position: absolute; /** Top position set dynamically based on scroll pos in component */
     width: 100vw;
+    padding-bottom: 70px;
   }
 }
 
