@@ -51,39 +51,9 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
   const hasManyPackageManagers = packageManagers?.length > 1
   const hasPackageManagers = hasOnePackageManager || hasManyPackageManagers
   const buttonRef: MutableRefObject<HTMLButtonElement> = useRef()
-  const shouldFocusTrigger = useRef<boolean>(false)
-  const [isDismissed, setIsDismissed] = useState<boolean>(false)
-
-  function focusButton() {
-    buttonRef.current.focus()
-  }
-
-  useEffect(() => {
-    console.log({
-      ref: buttonRef?.current,
-      called: 'useEffect',
-      isDismissed,
-      shouldFocus: shouldFocusTrigger.current,
-    })
-    if (
-      isDismissed &&
-      shouldFocusTrigger.current &&
-      buttonRef &&
-      buttonRef.current
-    ) {
-      buttonRef.current.focus()
-      shouldFocusTrigger.current = false
-    }
-  }, [isDismissed])
 
   function onDismissCallback() {
-    console.log({
-      called: 'onDismissCallback',
-    })
-    if (shouldFocusTrigger) {
-      shouldFocusTrigger.current = true
-    }
-    setIsDismissed(true)
+    buttonRef?.current?.focus()
   }
 
   if (!hasPackageManagers) {
@@ -98,13 +68,7 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
       >
         Package manager for {prettyOSName}
       </Heading>
-      <button
-        ref={buttonRef}
-        onClick={() => toastOnCopy(true, prettyOSName, onDismissCallback)}
-      >
-        Manually open toast
-      </button>
-      <button onClick={() => focusButton()}>Focus button</button>
+
       {hasOnePackageManager && (
         <CodeBlock
           code={generateCodePropFromCommands(packageManagers[0].commands)}
