@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import classNames from 'classnames'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DocsView from 'views/docs-view'
 import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
@@ -20,8 +21,9 @@ const ProductRootDocsPathLanding = ({
 
   let mdxSlot: ReactElement
   if (mdxSource) {
+    const classes = classNames(s[`${product.slug}MDXWrapper`], s.mdxSlotWrapper)
     mdxSlot = (
-      <div className={s[`${product.slug}MDXWrapper`]}>
+      <div className={classes}>
         <DocsView mdxSource={mdxSource} hideSearch />
       </div>
     )

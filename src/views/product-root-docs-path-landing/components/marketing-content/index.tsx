@@ -1,30 +1,43 @@
+import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
-import Heading from 'components/heading'
+import Heading, { HeadingProps } from 'components/heading'
 import Text from 'components/text'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
-import s from './marketing-content.module.css'
 import { SUPPORTED_ICONS } from '../supported-icons'
+import s from './marketing-content.module.css'
 
 /**
  * @TODO move to a different folder/file & document
  * @TODO make Heading have default size instead of this abstraction?
  */
-const SmartHeading = ({ headingLevel, text }) => {
+const AutosizedHeading = ({
+  className,
+  headingLevel,
+  text,
+}: {
+  className?: string
+  headingLevel: 2 | 3
+  text: string
+}) => {
   const levelsToSize = {
-    1: 500,
     2: 400,
     3: 300,
   }
+  const classes = classNames(
+    devDotStyles[`h${headingLevel}`],
+    s[`h${headingLevel}`],
+    className
+  )
 
   return (
     <Heading
-      className={devDotStyles[`h${headingLevel}`]}
+      className={classes}
       level={headingLevel}
-      size={levelsToSize[headingLevel]}
+      size={levelsToSize[headingLevel] as HeadingProps['size']}
       weight="bold"
     >
       {text}
@@ -36,7 +49,13 @@ const SmartHeading = ({ headingLevel, text }) => {
  * @TODO move to a different folder/file & document
  */
 const SectionHeading = ({ headingLevel, text }) => {
-  return <SmartHeading headingLevel={headingLevel} text={text} />
+  return (
+    <AutosizedHeading
+      className={s.sectionHeading}
+      headingLevel={headingLevel}
+      text={text}
+    />
+  )
 }
 
 /**
@@ -63,10 +82,12 @@ const CardGrid = ({ cards, description, title, headingLevel }) => {
   const hasDescription = Boolean(description)
 
   return (
-    <div>
-      {hasTitle && <SmartHeading headingLevel={headingLevel} text={title} />}
+    <div className={s.cardGridWrapper}>
+      {hasTitle && (
+        <AutosizedHeading headingLevel={headingLevel} text={title} />
+      )}
       {hasDescription && (
-        <Text size={300} weight="regular">
+        <Text className={s.cardGridDescription} size={300} weight="regular">
           {description}
         </Text>
       )}
@@ -112,7 +133,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
   const currentProduct = useCurrentProduct()
 
   return (
-    <div>
+    <div className={s.root}>
       {blocks.map((block) => {
         if (block.type === 'section-heading') {
           return (
