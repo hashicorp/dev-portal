@@ -2,7 +2,7 @@ import { ReactElement, useMemo } from 'react'
 import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
-import { toast } from 'components/toast'
+import { toast, ToastColor } from 'components/toast'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
@@ -22,6 +22,8 @@ import {
   groupPackageManagersByOS,
 } from './helpers'
 import s from './downloads-section.module.css'
+import { IconCheckCircle24 } from '@hashicorp/flight-icons/svg-react/check-circle-24'
+import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
   className: s.subHeading,
@@ -42,13 +44,16 @@ function onCopyCallback(
   console.log('onCopyCallback', copySuccess)
   if (copySuccess == true) {
     toast({
-      title: fullLabel,
-      description: `Copied install command to clipboard.`,
+      icon: <IconCheckCircle24 />,
+      color: ToastColor.success,
+      title: 'Copied install command',
+      description: `Install command for ${fullLabel} was copied to the clipboard.`,
     })
   } else if (copySuccess == false) {
     toast({
-      title: fullLabel,
-      description: `Failed to copy install command!`,
+      icon: <IconAlertTriangle24 />,
+      color: ToastColor.warning,
+      title: 'Failed to copy install command!',
     })
   }
 }

@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 export enum ToastColor {
   neutral = 'neutral',
   highlight = 'highlight',
@@ -24,6 +26,15 @@ export interface ToastDisplayProps {
    */
   color?: ToastColor
   /**
-   * TODO: support actions via children (as in HDS spec)
+   * Optional icon
    */
+  icon?: ReactNode
+  /**
+   * Actions
+   */
+  actions?: ReactNode
+  /**
+   * Children (for arbitrary content)
+   */
+  children?: ReactNode
 }

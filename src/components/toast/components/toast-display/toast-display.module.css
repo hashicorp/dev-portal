@@ -1,47 +1,97 @@
 .root {
-  border: 1px solid magenta;
+  border: 1px solid;
+  display: flex;
+  padding: 16px;
+  border-radius: 6px;
 
   &.color-neutral {
-    background: gray;
+    background: var(--token-color-surface-faint);
+    border-color: var(--token-color-border-strong);
+
+    --title-and-icon-color: var(--token-color-foreground-strong);
   }
 
   &.color-highlight {
-    background: purple;
+    background: var(--token-color-surface-highlight);
+    border-color: var(--token-color-border-highlight);
+
+    --title-and-icon-color: var(--token-color-foreground-highlight-on-surface);
   }
 
   &.color-warning {
-    background: orange;
+    background: var(--token-color-surface-warning);
+    border-color: var(--token-color-border-warning);
+
+    --title-and-icon-color: var(--token-color-foreground-warning-on-surface);
   }
 
   &.color-success {
-    background: green;
+    background: var(--token-color-surface-success);
+    border-color: var(--token-color-border-success);
+
+    --title-and-icon-color: var(--token-color-foreground-success-on-surface);
   }
 
   &.color-critical {
-    background: red;
+    background: var(--token-color-surface-critical);
+    border-color: var(--token-color-border-critical);
+
+    --title-and-icon-color: var(--token-color-foreground-critical-on-surface);
   }
 }
 
 .iconArea {
-  border: 1px solid magenta;
-}
+  color: var(--title-and-icon-color);
+  flex-shrink: 0;
+  margin-right: 12px;
 
-.icon {
-  border: 1px solid magenta;
+  & svg {
+    display: block;
+  }
 }
 
 .contentArea {
-  border: 1px solid magenta;
+  flex-grow: 1;
+  padding-top: 2px;
 }
 
 .title {
-  border: 1px solid magenta;
+  composes: hds-typography-body-200 from global;
+  color: var(--title-and-icon-color);
+  font-weight: var(--font-weight-semibold);
 }
 
 .description {
+  composes: hds-typography-body-200 from global;
+
+  /* Note: we might prefer to compose hds-typography-body-200 here.
+     Unfortunately, in Swingset at least, CSS load order does not
+     seem to be guaranteed, so the later "margin-top: 4px" gets overridden
+     by the hds-typography-body-200 "margin: 0". */
+
+  /* font-family: var(--token-typography-body-200-font-family); */
+
+  /* font-size: var(--token-typography-body-200-font-size); */
+
+  /* line-height: var(--token-typography-body-200-line-height); */
+  color: var(--token-color-foreground-primary);
+
+  /* margin: 0; */
+
+  &:not(:first-child) {
+    margin-top: 4px;
+  }
+}
+
+.actions {
   border: 1px solid magenta;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
 }
 
 .closeArea {
-  border: 1px solid magenta;
+  flex-shrink: 0;
+  margin-left: 16px;
 }

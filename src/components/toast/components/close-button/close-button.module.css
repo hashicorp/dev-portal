@@ -1,0 +1,47 @@
+.closeButton {
+  composes: g-focus-ring-from-box-shadow from global;
+
+  --background-color: transparent;
+  --border-color: transparent;
+  --color: var(--token-color-foreground-faint);
+  --size: 24px;
+  --todo-token: rgba(222, 223, 227, 0.4); /* todo: token for this? */
+
+  appearance: none;
+  background: none;
+  border: none;
+  border-radius: 5px;
+  color: var(--color);
+  cursor: pointer;
+  isolation: isolate;
+  display: grid;
+  height: var(--size);
+  margin: 0;
+  padding: 0;
+  place-items: center;
+  position: relative;
+  width: var(--size);
+
+  &::before {
+    background-color: var(--background-color);
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+
+  &:hover {
+    --background-color: var(--todo-token);
+  }
+
+  &:active {
+    --background-color: var(--todo-token);
+    --border-color: var(--token-color-border-strong);
+    --color: var(--token-color-foreground-secondary);
+  }
+}

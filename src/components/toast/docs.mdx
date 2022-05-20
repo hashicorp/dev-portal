@@ -1,5 +1,8 @@
 ---
 componentName: 'Toast'
+peerComponents:
+  - Button
+  - StandaloneLink
 ---
 
 A Toast is an element intended for messages that are the result of a user's actions. Typically it displays a brief, temporary notification and it disappears on its own (after a time interval) or as a result of a user interacting with it.
@@ -10,9 +13,50 @@ See the [HashiCorp Design System Toast Reference](https://design-system-componen
 
 <LiveComponent>{`
 <ToastDisplay
+  icon={<SwingsetTestIcon name="info" size={24} />}
   title="Title of the toast"
   description="Lorem ipsum dolor sit amet, consectetur adipiscig elit. Nulla dignissim felis a lectus."
 />
+`}</LiveComponent>
+
+## With Custom Actions
+
+<LiveComponent>{`
+<ToastDisplay
+  title="Title of the toast"
+  description="Lorem ipsum dolor sit amet, consectetur adipiscig elit. Nulla dignissim felis a lectus."
+  actions={
+    <>
+      <Button color="secondary" text="Secondary Button" size="small" />
+      <StandaloneLink
+        color="secondary"
+        size="small"
+        href="/"
+        icon={<SwingsetTestIcon name="arrow-right" />}
+        iconPosition="trailing"
+        text="Standalone link"
+      />
+    </>
+  }
+/>
+`}</LiveComponent>
+
+## With Custom Content
+
+<LiveComponent>{`
+<ToastDisplay>
+  <div
+    style={{
+      border: '1px solid magenta',
+      color: 'magenta',
+      display: 'grid',
+      placeItems: 'center',
+      minHeight: '4rem ',
+    }}
+  >
+    content placeholder
+  </div>
+</ToastDisplay>
 `}</LiveComponent>
 
 ## Colors
@@ -25,10 +69,18 @@ See the [HashiCorp Design System Toast Reference](https://design-system-componen
   }}
 >
   {Object.keys(ToastColor).map((color) => {
+    const iconName = {
+      neutral: 'info',
+      highlight: 'info',
+      success: 'check-circle',
+      warning: 'alert-triangle',
+      critical: 'alert-octagon',
+    }[color]
     return (
       <Toast
         key={color}
         color={color}
+        icon={<SwingsetTestIcon name={iconName} size={24} />}
         title="Title of the toast"
         description={
           'Lorem ipsum dolor sit amet, consectetur adipiscig elit. Nulla dignissim felis a lectus.'
