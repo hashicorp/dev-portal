@@ -5,7 +5,6 @@ import classNames from 'classnames'
 // HashiCorp imports
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import CodeBlock from '@hashicorp/react-code-block'
-import { toast, ToastColor } from 'components/toast'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 
 // Global imports
@@ -29,41 +28,14 @@ import {
   groupDownloadsByOS,
   groupPackageManagersByOS,
 } from './helpers'
+import toastOnCopy from './toast-on-copy'
 import s from './downloads-section.module.css'
-import { IconCheckCircle24 } from '@hashicorp/flight-icons/svg-react/check-circle-24'
-import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
   className: s.subHeading,
   level: 3 as HeadingProps['level'],
   size: 200 as HeadingProps['size'],
   weight: 'semibold' as HeadingProps['weight'],
-}
-
-function onCopyCallback(
-  copySuccess: boolean | null,
-  prettyOsName: string,
-  packageManagerLabel?: string
-) {
-  let fullLabel = prettyOsName
-  if (packageManagerLabel) {
-    fullLabel += ` (${packageManagerLabel})`
-  }
-  console.log('onCopyCallback', copySuccess)
-  if (copySuccess == true) {
-    toast({
-      icon: <IconCheckCircle24 />,
-      color: ToastColor.success,
-      title: 'Copied install command',
-      description: `Install command for ${fullLabel} was copied to the clipboard.`,
-    })
-  } else if (copySuccess == false) {
-    toast({
-      icon: <IconAlertTriangle24 />,
-      color: ToastColor.warning,
-      title: 'Failed to copy install command!',
-    })
-  }
 }
 
 const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
@@ -89,7 +61,7 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
           language="shell-session"
           options={{ showClipboard: true }}
           onCopyCallBack={(copySuccess: boolean | null) => {
-            onCopyCallback(copySuccess, prettyOSName)
+            toastOnCopy(copySuccess, prettyOSName)
           }}
         />
       )}
@@ -104,7 +76,7 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
                 language="shell-session"
                 options={{ showClipboard: true }}
                 onCopyCallBack={(copySuccess: boolean | null) => {
-                  onCopyCallback(copySuccess, prettyOSName, label)
+                  toastOnCopy(copySuccess, prettyOSName, label)
                 }}
               />
             )
