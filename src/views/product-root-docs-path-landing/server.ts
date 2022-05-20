@@ -4,7 +4,10 @@ import { RootDocsPath } from 'types/products'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import { GenerateGetStaticPropsArguments } from './types'
 
-const generateHeadingLevels = ({
+/**
+ * @TODO add TS to function signature & document function purpose
+ */
+const generateHeadingLevelsAndSidecarHeadings = ({
   layoutHeadings,
   marketingContentBlocks,
   pageTitle,
@@ -98,7 +101,7 @@ const generateGetStaticProps = ({
 
     // Append headings found in marketing content
     const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
-      generateHeadingLevels({
+      generateHeadingLevelsAndSidecarHeadings({
         layoutHeadings: generatedProps.props.layoutProps.headings,
         marketingContentBlocks: pageContent.marketingContentBlocks,
         pageTitle: `${product.name} ${baseName}`,
