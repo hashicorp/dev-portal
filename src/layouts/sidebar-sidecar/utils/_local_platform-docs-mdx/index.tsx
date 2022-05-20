@@ -87,7 +87,7 @@ function makeImageElement({ noBorder }: { noBorder: ImageProps['noBorder'] }) {
  * so we need to override it here. https://github.com/hashicorp/web-platform-packages/blob/main/packages/remark-plugins/plugins/typography/index.js#L13
  *
  * @TODO cleanup use of remark plugins in @hashicorp/docs-page so these overrides aren't necessary.
- * Or decouple the dev portal docs page from this legacy component.
+ * Or decouple the dev portal docs page from this legacy component. https://app.asana.com/0/1202097197789424/1202310153805071
  */
 function ListItem({ children }: { children: React.ReactNode }) {
   return <li>{children}</li>
