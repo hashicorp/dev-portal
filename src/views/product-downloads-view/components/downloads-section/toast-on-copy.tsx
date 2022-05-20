@@ -29,12 +29,14 @@ export default function toastOnCopy(
       color: ToastColor.success,
       title: 'Copied install command',
       description: `Install command for ${fullLabel} was copied to the clipboard.`,
+      autoDismiss: false,
     })
   } else if (copiedState == false) {
     toast({
       icon: <IconAlertTriangle24 />,
       color: ToastColor.warning,
       title: 'Failed to copy install command!',
+      autoDismiss: false,
     })
   }
 }

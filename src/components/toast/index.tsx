@@ -3,6 +3,13 @@ import Toaster from './components/toaster'
 import ToastDisplay from './components/toast-display'
 import { ToastDisplayProps, ToastColor } from './components/toast-display/types'
 
+interface toastOptions {
+  /**
+   * Defaults to true. Set to false to prevent the toast from auto-dismissing.
+   */
+  autoDismiss?: boolean
+}
+
 /**
  * Wraps our ToastDisplay component in react-hot-toast.
  */
@@ -13,8 +20,10 @@ function toast({
   description,
   icon,
   title,
-}: Omit<ToastDisplayProps, 'onDismiss'>) {
-  return reactHotToast((t: Toast) => {
+  autoDismiss = true,
+}: Omit<ToastDisplayProps, 'onDismiss'> & toastOptions) {
+  const toastFn = autoDismiss ? reactHotToast : reactHotToast.loading
+  return toastFn((t: Toast) => {
     return (
       <ToastDisplay
         actions={actions}
