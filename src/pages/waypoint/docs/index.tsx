@@ -1,5 +1,6 @@
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import waypointData from 'data/waypoint.json'
+import { ProductData } from 'types/products'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DocsView from 'views/docs-view'
 import ProductRootDocsPathLanding from 'views/product-root-docs-path-landing'
@@ -11,7 +12,6 @@ interface WaypointDocsLandingProps {
   mdxSource: MDXRemoteSerializeResult
 }
 
-// TODO: abstract the markup to a new view, such as RootDocsPathLandingView
 const WaypointDocsLanding = ({ mdxSource }: WaypointDocsLandingProps) => {
   return (
     <ProductRootDocsPathLanding
@@ -28,7 +28,7 @@ const WaypointDocsLanding = ({ mdxSource }: WaypointDocsLandingProps) => {
 const getStaticProps = generateGetStaticProps({
   baseName: 'Docs',
   basePath: 'docs',
-  product: waypointData,
+  product: waypointData as ProductData,
 })
 
 WaypointDocsLanding.layout = SidebarSidecarLayout

@@ -1,6 +1,12 @@
 import { ReactElement } from 'react'
+import { ProductData } from 'types/products'
 
-export interface ProductRootDocsPathLandingProps {
+interface GenerateGetStaticPropsArguments {
+  baseName: string
+  basePath: string
+  product: ProductData
+}
+interface ProductRootDocsPathLandingProps {
   mdxSlot?: ReactElement
   pageContent: {
     pageSubtitle: string
@@ -8,3 +14,5 @@ export interface ProductRootDocsPathLandingProps {
     marketingContentBlocks: any[]
   }
 }
+
+export type { GenerateGetStaticPropsArguments, ProductRootDocsPathLandingProps }

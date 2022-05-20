@@ -1,4 +1,5 @@
 import vaultData from 'data/vault.json'
+import { ProductData } from 'types/products'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import ProductRootDocsPathLanding from 'views/product-root-docs-path-landing'
 import { generateGetStaticProps } from 'views/product-root-docs-path-landing/server'
@@ -11,7 +12,7 @@ const VaultDocsLanding = () => {
 const getStaticProps = generateGetStaticProps({
   baseName: 'Docs',
   basePath: 'docs',
-  product: vaultData,
+  product: vaultData as ProductData,
 })
 
 VaultDocsLanding.layout = SidebarSidecarLayout

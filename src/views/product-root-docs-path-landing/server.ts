@@ -1,9 +1,13 @@
+import { GetStaticPropsContext } from 'next'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
+import { GenerateGetStaticPropsArguments } from './types'
 
-// TODO fill in types of properties
-const generateGetStaticProps = ({ product, basePath, baseName }) => {
-  // TODO fill in type of context
-  return async (context) => {
+const generateGetStaticProps = ({
+  baseName,
+  basePath,
+  product,
+}: GenerateGetStaticPropsArguments) => {
+  return async (context: GetStaticPropsContext) => {
     const { getStaticProps: generatedGetStaticProps } =
       _getStaticGenerationFunctions({
         product,
@@ -11,7 +15,7 @@ const generateGetStaticProps = ({ product, basePath, baseName }) => {
         baseName,
       })
 
-    // TODO: replace any with accurate tpe
+    // TODO: replace any with accurate type
     const generatedProps = (await generatedGetStaticProps({
       ...context,
       params: { page: [] },
