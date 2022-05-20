@@ -129,7 +129,7 @@ const moizeOpts: Options = {
   maxSize: Infinity,
   isDeepEqual: true,
 }
-// limit the expensive call for collections who all have the same product
+// limit the expensive call for tutorials that have the same product
 const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
 export async function getTutorialPagePaths(
