@@ -105,7 +105,7 @@ export async function getCollectionPageProps(
 export async function getCollectionPaths(
   product: ProductOption
 ): Promise<CollectionPagePath[]> {
-  const collections = await getAllCollections({
+  const collections = await cachedGetAllCollections({
     product: { slug: product },
   })
   // Only build collections where this product is the main 'theme'
