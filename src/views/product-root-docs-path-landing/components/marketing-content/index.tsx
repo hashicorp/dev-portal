@@ -11,13 +11,32 @@ import { SUPPORTED_ICONS } from '../supported-icons'
 
 /**
  * @TODO move to a different folder/file & document
+ * @TODO make Heading have default size instead of this abstraction?
  */
-const SectionHeading = ({ text }) => {
+const SmartHeading = ({ headingLevel, text }) => {
+  const levelsToSize = {
+    1: 500,
+    2: 400,
+    3: 300,
+  }
+
   return (
-    <Heading className={devDotStyles.h2} level={2} size={400} weight="bold">
+    <Heading
+      className={devDotStyles[`h${headingLevel}`]}
+      level={headingLevel}
+      size={levelsToSize[headingLevel]}
+      weight="bold"
+    >
       {text}
     </Heading>
   )
+}
+
+/**
+ * @TODO move to a different folder/file & document
+ */
+const SectionHeading = ({ headingLevel, text }) => {
+  return <SmartHeading headingLevel={headingLevel} text={text} />
 }
 
 /**
@@ -39,17 +58,13 @@ const IconCardGrid = ({ cards, productSlug }) => {
 /**
  * @TODO move to a different folder/file & document
  */
-const CardGrid = ({ cards, description, title }) => {
+const CardGrid = ({ cards, description, title, headingLevel }) => {
   const hasTitle = Boolean(title)
   const hasDescription = Boolean(description)
 
   return (
     <div>
-      {hasTitle && (
-        <Heading className={devDotStyles.h3} level={3} size={300} weight="bold">
-          {title}
-        </Heading>
-      )}
+      {hasTitle && <SmartHeading headingLevel={headingLevel} text={title} />}
       {hasDescription && (
         <Text size={300} weight="regular">
           {description}
@@ -100,7 +115,12 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
     <div>
       {blocks.map((block) => {
         if (block.type === 'section-heading') {
-          return <SectionHeading text={block.title} />
+          return (
+            <SectionHeading
+              headingLevel={block.headingLevel}
+              text={block.title}
+            />
+          )
         }
 
         if (block.type === 'icon-card-grid') {
@@ -117,6 +137,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
             <CardGrid
               cards={block.cards}
               description={block.description}
+              headingLevel={block.headingLevel}
               title={block.title}
             />
           )
