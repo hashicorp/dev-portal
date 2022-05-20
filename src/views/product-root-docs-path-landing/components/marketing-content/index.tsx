@@ -126,13 +126,6 @@ const CardGrid = ({ cards, description, title, headingId, headingLevel }) => {
   )
 }
 
-/**
- * @TODO maybe - make this section "aware" (whether here or server-side) of all
- * the heading elements and auto-generate the heading levels? Goal is to make
- * sure anyone editing the content doesn't accidentally break the accessibilty
- * of this page.
- *  - Alternative idea: make a separate component for "nested" card-grid blocks
- */
 const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
   const currentProduct = useCurrentProduct()
 
