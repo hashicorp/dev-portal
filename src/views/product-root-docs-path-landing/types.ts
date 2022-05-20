@@ -4,7 +4,7 @@ import { ProductData } from 'types/products'
 interface PageContent {
   pageSubtitle: string
   // TODO create a block type
-  marketingContentBlocks: any[]
+  marketingContentBlocks: $TSFixMe[]
 }
 
 interface GenerateGetStaticPropsArguments {

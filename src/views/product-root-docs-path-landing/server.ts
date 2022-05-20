@@ -97,7 +97,7 @@ const generateGetStaticProps = ({
     const generatedProps = (await generatedGetStaticProps({
       ...context,
       params: { page: [] },
-    })) as any
+    })) as $TSFixMe
 
     // Append headings found in marketing content
     const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
