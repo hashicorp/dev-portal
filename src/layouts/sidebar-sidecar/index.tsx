@@ -37,7 +37,7 @@ const SidebarSidecarLayoutContent = ({
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
-  const [deltaFromTop, setDeltaFromTop] = useState(0)
+  const [scrollDelta, setScrollDelta] = useState(0)
   const shouldReduceMotion = useReducedMotion()
   const sidebarRef = useRef<HTMLDivElement>()
   const sidebarProps = sidebarNavDataLevels[currentLevel]
@@ -89,7 +89,7 @@ const SidebarSidecarLayoutContent = ({
    */
   useEffect(() => {
     if (sidebarIsOpen) {
-      setDeltaFromTop(window.scrollY)
+      setScrollDelta(window.scrollY)
       document.body.style.overflow = 'hidden'
     } else if (document.body.style.overflow === 'hidden') {
       document.body.style.overflow = 'auto'
@@ -102,7 +102,7 @@ const SidebarSidecarLayoutContent = ({
         <motion.div
           animate={sidebarIsVisible ? 'visible' : 'hidden'}
           className={s.sidebarWrapper}
-          style={{ top: `${deltaFromTop}px` }}
+          style={{ top: `${scrollDelta}px` }}
           ref={sidebarRef}
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           variants={sidebarMotion}
