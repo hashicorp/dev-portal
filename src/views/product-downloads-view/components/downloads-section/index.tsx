@@ -1,5 +1,13 @@
 // Third-party imports
-import { ReactElement, useMemo } from 'react'
+import {
+  ReactElement,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+  useRef,
+  MutableRefObject,
+} from 'react'
 import classNames from 'classnames'
 
 // HashiCorp imports
@@ -42,6 +50,41 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
   const hasOnePackageManager = packageManagers?.length === 1
   const hasManyPackageManagers = packageManagers?.length > 1
   const hasPackageManagers = hasOnePackageManager || hasManyPackageManagers
+  const buttonRef: MutableRefObject<HTMLButtonElement> = useRef()
+  const shouldFocusTrigger = useRef<boolean>(false)
+  const [isDismissed, setIsDismissed] = useState<boolean>(false)
+
+  function focusButton() {
+    buttonRef.current.focus()
+  }
+
+  useEffect(() => {
+    console.log({
+      ref: buttonRef?.current,
+      called: 'useEffect',
+      isDismissed,
+      shouldFocus: shouldFocusTrigger.current,
+    })
+    if (
+      isDismissed &&
+      shouldFocusTrigger.current &&
+      buttonRef &&
+      buttonRef.current
+    ) {
+      buttonRef.current.focus()
+      shouldFocusTrigger.current = false
+    }
+  }, [isDismissed])
+
+  function onDismissCallback() {
+    console.log({
+      called: 'onDismissCallback',
+    })
+    if (shouldFocusTrigger) {
+      shouldFocusTrigger.current = true
+    }
+    setIsDismissed(true)
+  }
 
   if (!hasPackageManagers) {
     return null
@@ -55,13 +98,20 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
       >
         Package manager for {prettyOSName}
       </Heading>
+      <button
+        ref={buttonRef}
+        onClick={() => toastOnCopy(true, prettyOSName, onDismissCallback)}
+      >
+        Manually open toast
+      </button>
+      <button onClick={() => focusButton()}>Focus button</button>
       {hasOnePackageManager && (
         <CodeBlock
           code={generateCodePropFromCommands(packageManagers[0].commands)}
           language="shell-session"
           options={{ showClipboard: true }}
           onCopyCallBack={(copiedState: boolean | null) => {
-            toastOnCopy(copiedState, prettyOSName)
+            toastOnCopy(copiedState, prettyOSName, onDismissCallback)
           }}
         />
       )}
@@ -76,7 +126,12 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
                 language="shell-session"
                 options={{ showClipboard: true }}
                 onCopyCallBack={(copiedState: boolean | null) => {
-                  toastOnCopy(copiedState, prettyOSName, label)
+                  toastOnCopy(
+                    copiedState,
+                    prettyOSName,
+                    onDismissCallback,
+                    label
+                  )
                 }}
               />
             )

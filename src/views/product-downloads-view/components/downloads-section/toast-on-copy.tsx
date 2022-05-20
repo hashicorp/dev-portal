@@ -15,6 +15,7 @@ import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-tri
 export default function toastOnCopy(
   copiedState: boolean | null,
   prettyOsName: string,
+  onDismissCallback: () => void,
   packageManagerLabel?: string
 ) {
   // Build a label like "Operating System (Package Manager)"
@@ -30,6 +31,8 @@ export default function toastOnCopy(
       title: 'Copied install command',
       description: `Install command for ${fullLabel} was copied to the clipboard.`,
       autoDismiss: false,
+      isInteractive: true,
+      onDismissCallback,
     })
   } else if (copiedState == false) {
     toast({
@@ -37,6 +40,8 @@ export default function toastOnCopy(
       color: ToastColor.warning,
       title: 'Failed to copy install command!',
       autoDismiss: false,
+      isInteractive: true,
+      onDismissCallback,
     })
   }
 }
