@@ -60,8 +60,8 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
           code={generateCodePropFromCommands(packageManagers[0].commands)}
           language="shell-session"
           options={{ showClipboard: true }}
-          onCopyCallBack={(copySuccess: boolean | null) => {
-            toastOnCopy(copySuccess, prettyOSName)
+          onCopyCallBack={(copiedState: boolean | null) => {
+            toastOnCopy(copiedState, prettyOSName)
           }}
         />
       )}
@@ -75,8 +75,8 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
                 code={generateCodePropFromCommands(commands)}
                 language="shell-session"
                 options={{ showClipboard: true }}
-                onCopyCallBack={(copySuccess: boolean | null) => {
-                  toastOnCopy(copySuccess, prettyOSName, label)
+                onCopyCallBack={(copiedState: boolean | null) => {
+                  toastOnCopy(copiedState, prettyOSName, label)
                 }}
               />
             )
