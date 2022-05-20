@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
 
 interface PageContent {
@@ -8,12 +8,13 @@ interface PageContent {
 }
 
 interface GenerateGetStaticPropsArguments {
+  includeMDXSource?: boolean
   pageContent: PageContent
   product: ProductData
 }
 
 interface ProductRootDocsPathLandingProps {
-  mdxSlot?: ReactElement
+  mdxSource?: MDXRemoteSerializeResult
   pageContent: PageContent
   pageHeading: {
     id: string
@@ -21,6 +22,7 @@ interface ProductRootDocsPathLandingProps {
     slug: string
     title: string
   }
+  product: ProductData
 }
 
 export type { GenerateGetStaticPropsArguments, ProductRootDocsPathLandingProps }

@@ -67,6 +67,7 @@ const generateSidecarHeadings = ({
 }
 
 const generateGetStaticProps = ({
+  includeMDXSource = false,
   pageContent,
   product,
 }: GenerateGetStaticPropsArguments) => {
@@ -97,15 +98,18 @@ const generateGetStaticProps = ({
       pageTitle: `${product.name} ${baseName}`,
     })
 
+    // TODO clean this up so it's easier to understand
     return {
       ...generatedProps,
       props: {
         ...generatedProps.props,
+        mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
         layoutProps: {
           ...generatedProps.props.layoutProps,
           githubFileUrl: null,
           headings: sidecarHeadings,
         },
+        pageContent,
         pageHeading: sidecarHeadings[0],
         product: {
           ...generatedProps.props.product,
