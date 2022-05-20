@@ -4,7 +4,6 @@ import { Toaster as ReactHotToaster } from 'react-hot-toast'
  * Toaster
  * @description toaster component with predefined settings for positioning and toast gutters. Removes default toast styling from react-hot-toast and manages styling within the Notification components.
  */
-
 export default function Toaster() {
   return (
     <ReactHotToaster
