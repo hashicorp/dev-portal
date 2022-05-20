@@ -16,11 +16,13 @@ import s from './marketing-content.module.css'
  */
 const AutosizedHeading = ({
   className,
-  headingLevel,
+  id,
+  level,
   text,
 }: {
   className?: string
-  headingLevel: 2 | 3
+  id: string
+  level: 2 | 3
   text: string
 }) => {
   const levelsToSize = {
@@ -28,16 +30,17 @@ const AutosizedHeading = ({
     3: 300,
   }
   const classes = classNames(
-    devDotStyles[`h${headingLevel}`],
-    s[`h${headingLevel}`],
+    devDotStyles[`h${level}`],
+    s[`h${level}`],
     className
   )
 
   return (
     <Heading
       className={classes}
-      level={headingLevel}
-      size={levelsToSize[headingLevel] as HeadingProps['size']}
+      id={id}
+      level={level}
+      size={levelsToSize[level] as HeadingProps['size']}
       weight="bold"
     >
       {text}
@@ -48,11 +51,12 @@ const AutosizedHeading = ({
 /**
  * @TODO move to a different folder/file & document
  */
-const SectionHeading = ({ headingLevel, text }) => {
+const SectionHeading = ({ level, id, text }) => {
   return (
     <AutosizedHeading
       className={s.sectionHeading}
-      headingLevel={headingLevel}
+      id={id}
+      level={level}
       text={text}
     />
   )
@@ -77,14 +81,14 @@ const IconCardGrid = ({ cards, productSlug }) => {
 /**
  * @TODO move to a different folder/file & document
  */
-const CardGrid = ({ cards, description, title, headingLevel }) => {
+const CardGrid = ({ cards, description, title, headingId, headingLevel }) => {
   const hasTitle = Boolean(title)
   const hasDescription = Boolean(description)
 
   return (
     <div className={s.cardGridWrapper}>
       {hasTitle && (
-        <AutosizedHeading headingLevel={headingLevel} text={title} />
+        <AutosizedHeading level={headingLevel} id={headingId} text={title} />
       )}
       {hasDescription && (
         <Text className={s.cardGridDescription} size={300} weight="regular">
@@ -138,7 +142,8 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
         if (block.type === 'section-heading') {
           return (
             <SectionHeading
-              headingLevel={block.headingLevel}
+              id={block.headingId}
+              level={block.headingLevel}
               text={block.title}
             />
           )
@@ -159,6 +164,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
               cards={block.cards}
               description={block.description}
               headingLevel={block.headingLevel}
+              headingId={block.headingId}
               title={block.title}
             />
           )

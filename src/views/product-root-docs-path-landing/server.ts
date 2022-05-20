@@ -49,6 +49,7 @@ const generateHeadingLevels = ({
       if (thisHeadingObject) {
         additionalHeadings.push(thisHeadingObject)
         blockCopy.headingLevel = thisHeadingObject.level
+        blockCopy.headingId = thisHeadingObject.id
       }
 
       return blockCopy
