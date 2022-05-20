@@ -46,8 +46,8 @@ function remarkRewriteImageUrls() {
           const params = new URLSearchParams()
           params.set('url', node.url)
           // next/image requires that we specify an allowed width. The Dev
-          // Portal docs page renders images at 780 pixels wide. To support high
-          // DPI displays, we double this value to 1560, and round up to the
+          // Portal docs page renders images at 896 pixels wide. To support high
+          // DPI displays, we double this value to 1792, and round up to the
           // nearest supported width of 1920.
           params.set('w', '1920')
           // By default, next/image uses a quality setting of 75.
