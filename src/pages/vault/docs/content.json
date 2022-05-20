@@ -1,0 +1,104 @@
+{
+  "pageSubtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+  "marketingContentBlocks": [
+    {
+      "type": "section-heading",
+      "title": "Use Cases"
+    },
+    {
+      "type": "card-grid",
+      "title": "Secrets Management",
+      "description": "Centrally store, access, and deploy secrets across applications, systems, and infrastructure.",
+      "cards": [
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "KV Secrets Engine",
+          "url": "/vault/docs/secrets/kv"
+        },
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "Database Credentials",
+          "url": "/vault/docs/secrets/databases"
+        },
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "Kubernetes Secrets",
+          "url": "/vault/tutorials/kubernetes"
+        }
+      ]
+    },
+    {
+      "type": "card-grid",
+      "title": "Encryption Services",
+      "description": "Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.",
+      "cards": [
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "Transit Secrets Engine",
+          "url": "/vault/docs/secrets/transit"
+        },
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "Transform Secrets Engine",
+          "url": "/vault/docs/secrets/transform"
+        },
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "Tokenization",
+          "url": "/vault/docs/secrets/transform/tokenization"
+        }
+      ]
+    },
+    {
+      "type": "card-grid",
+      "title": "Key Management",
+      "description": "Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.",
+      "cards": [
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "KMIP Secrets Engine",
+          "url": "/vault/docs/secrets/kmip"
+        },
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "Key Management Secrets Engine",
+          "url": "/vault/docs/secrets/key-management"
+        },
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "PKI",
+          "url": "/vault/docs/secrets/pki"
+        }
+      ]
+    },
+    {
+      "type": "section-heading",
+      "title": "Developers"
+    },
+    {
+      "type": "icon-card-grid",
+      "cards": [
+        {
+          "iconName": "guide",
+          "text": "Client Libraries",
+          "url": "/vault/api-docs/libraries"
+        },
+        {
+          "iconName": "tools",
+          "text": "API Reference",
+          "url": "/vault/api-docs"
+        },
+        {
+          "iconName": "connection",
+          "text": "Sample Integrations",
+          "url": "https://github.com/hashicorp/hello-vault-go"
+        },
+        {
+          "iconName": "terminal",
+          "text": "Code Samples",
+          "url": "https://github.com/hashicorp/vault-examples"
+        }
+      ]
+    }
+  ]
+}
