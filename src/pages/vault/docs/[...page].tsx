@@ -1,18 +1,20 @@
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
-import waypointData from 'data/waypoint.json'
+import vaultData from 'data/vault.json'
 import { ProductData } from 'types/products'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import DocsView from 'views/docs-view'
+import { vaultUrlAdjuster } from 'layouts/sidebar-sidecar/utils/product-url-adjusters'
 
 const basePath = 'docs'
 const baseName = 'Docs'
-const product = waypointData as ProductData
+const product = vaultData as ProductData
 
 const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
   getStaticGenerationFunctions({
     product,
     basePath,
     baseName,
+    additionalRemarkPlugins: [vaultUrlAdjuster],
   })
 
 /**
