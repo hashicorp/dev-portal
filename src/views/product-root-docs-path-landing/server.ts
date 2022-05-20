@@ -4,7 +4,7 @@ import { RootDocsPath } from 'types/products'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import { GenerateGetStaticPropsArguments } from './types'
 
-const generateSidecarHeadings = ({
+const generateHeadingLevels = ({
   layoutHeadings,
   marketingContentBlocks,
   pageTitle,
@@ -12,48 +12,50 @@ const generateSidecarHeadings = ({
   const additionalHeadings = []
 
   let currentSectionHeading
-  marketingContentBlocks.forEach((block) => {
-    let thisHeadingObject
+  const marketingContentBlocksWithHeadingLevels = marketingContentBlocks.map(
+    (block) => {
+      const blockCopy = { ...block }
 
-    // all section-heading block types are supposed to be h2's
-    if (block.type === 'section-heading') {
-      const headingSlug = slugify(block.title, { lower: true })
-      thisHeadingObject = {
-        level: 2,
-        title: block.title,
-        id: headingSlug,
-        slug: headingSlug,
+      let thisHeadingObject
+
+      if (block.type === 'section-heading') {
+        // all section-heading block types are supposed to be h2's
+        const headingSlug = slugify(block.title, { lower: true })
+        thisHeadingObject = {
+          level: 2,
+          title: block.title,
+          id: headingSlug,
+          slug: headingSlug,
+        }
+        currentSectionHeading = thisHeadingObject
+      } else if (block.type === 'card-grid') {
+        // all card-grid headings will be h3's unless a section-heading is before it
+        let cardGridHeadingLevel
+        if (currentSectionHeading) {
+          cardGridHeadingLevel = currentSectionHeading.level + 1
+        } else {
+          cardGridHeadingLevel = 2
+        }
+
+        const headingSlug = slugify(block.title, { lower: true })
+        thisHeadingObject = {
+          level: cardGridHeadingLevel,
+          title: block.title,
+          id: headingSlug,
+          slug: headingSlug,
+        }
       }
-      additionalHeadings.push(thisHeadingObject)
-      currentSectionHeading = thisHeadingObject
 
-      return
+      if (thisHeadingObject) {
+        additionalHeadings.push(thisHeadingObject)
+        blockCopy.headingLevel = thisHeadingObject.level
+      }
+
+      return blockCopy
     }
+  )
 
-    // all card-grid headings will be h3's unless a section-heading is before it
-    if (block.type === 'card-grid') {
-      let cardGridHeadingLevel
-      if (currentSectionHeading) {
-        cardGridHeadingLevel = currentSectionHeading.level + 1
-        currentSectionHeading = null
-      } else {
-        cardGridHeadingLevel = 2
-      }
-
-      const headingSlug = slugify(block.title, { lower: true })
-      const cardGridHeading = {
-        level: cardGridHeadingLevel,
-        title: block.title,
-        id: headingSlug,
-        slug: headingSlug,
-      }
-      additionalHeadings.push(cardGridHeading)
-
-      return
-    }
-  })
-
-  return [
+  const sidecarHeadings = [
     ...layoutHeadings.map((heading) => {
       if (heading.level === 1) {
         const slug = slugify(pageTitle, { lower: true })
@@ -64,6 +66,8 @@ const generateSidecarHeadings = ({
     }),
     ...additionalHeadings,
   ]
+
+  return { sidecarHeadings, marketingContentBlocksWithHeadingLevels }
 }
 
 const generateGetStaticProps = ({
@@ -92,11 +96,12 @@ const generateGetStaticProps = ({
     })) as any
 
     // Append headings found in marketing content
-    const sidecarHeadings = generateSidecarHeadings({
-      layoutHeadings: generatedProps.props.layoutProps.headings,
-      marketingContentBlocks: pageContent.marketingContentBlocks,
-      pageTitle: `${product.name} ${baseName}`,
-    })
+    const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
+      generateHeadingLevels({
+        layoutHeadings: generatedProps.props.layoutProps.headings,
+        marketingContentBlocks: pageContent.marketingContentBlocks,
+        pageTitle: `${product.name} ${baseName}`,
+      })
 
     // TODO clean this up so it's easier to understand
     return {
@@ -109,7 +114,10 @@ const generateGetStaticProps = ({
           githubFileUrl: null,
           headings: sidecarHeadings,
         },
-        pageContent,
+        pageContent: {
+          ...pageContent,
+          marketingContentBlocks: marketingContentBlocksWithHeadingLevels,
+        },
         pageHeading: sidecarHeadings[0],
         product: {
           ...generatedProps.props.product,
