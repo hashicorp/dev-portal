@@ -45,6 +45,13 @@ interface LearnProductData extends ProductData {
   slug: LearnProduct['slug']
 }
 
+interface RootDocsPath {
+  iconName: string
+  name: string
+  path: string
+  shortName?: string
+}
+
 interface ProductData extends Product {
   basePaths: string[]
   navigationHeaderItems: {
@@ -54,12 +61,7 @@ interface ProductData extends Product {
       label: NavigationHeaderItem['label']
     }[]
   }
-  rootDocsPaths?: {
-    iconName: string
-    name: string
-    path: string
-    shortName?: string
-  }[]
+  rootDocsPaths?: RootDocsPath[]
   sidebar: {
     landingPageNavData: MenuItem[]
   }
@@ -79,4 +81,5 @@ export type {
   ProductGroup,
   ProductName,
   ProductSlug,
+  RootDocsPath,
 }
