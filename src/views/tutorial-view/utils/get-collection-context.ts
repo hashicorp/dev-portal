@@ -26,12 +26,11 @@ interface CurrentCollectionTutorial {
   }
 }
 
-// Caching the return value in memory for static builds to limit api calls
 const moizeOpts: Options = {
   isPromise: true,
   maxSize: Infinity,
-  isDeepEqual: true,
 }
+// Memoizing because tutorials in the same collection have identical return data
 const cachedGetCollection = moize(getCollection, moizeOpts)
 
 export async function getCurrentCollectionTutorial(

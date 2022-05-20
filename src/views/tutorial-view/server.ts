@@ -124,12 +124,12 @@ export interface TutorialPagePaths {
   }
 }
 
-// Caching the return value in memory for static builds to limit api calls
 const moizeOpts: Options = {
   isPromise: true,
   maxSize: Infinity,
   isDeepEqual: true,
 }
+// limit the expensive call for collections who all have the same product
 const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
 export async function getTutorialPagePaths(
