@@ -1,3 +1,4 @@
+import moize, { Options } from 'moize'
 import { LearnProductData } from 'types/products'
 import {
   getAllCollections,
@@ -123,10 +124,20 @@ export interface TutorialPagePaths {
   }
 }
 
+// Caching the return value in memory for static builds to limit api calls
+const moizeOpts: Options = {
+  isPromise: true,
+  maxSize: Infinity,
+  isDeepEqual: true,
+}
+const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
+
 export async function getTutorialPagePaths(
   product: ProductOption
 ): Promise<TutorialPagePaths[]> {
-  const allCollections = await getAllCollections({ product: { slug: product } })
+  const allCollections = await cachedGetAllCollections({
+    product: { slug: product },
+  })
   // Only build collections where this product is the main 'theme'
   // @TODO once we implement the `theme` query option, remove the theme filtering
   // https://app.asana.com/0/1201903760348480/1201932088801131/f

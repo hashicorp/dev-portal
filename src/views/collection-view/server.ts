@@ -1,3 +1,4 @@
+import moize, { Options } from 'moize'
 import { LearnProductData } from 'types/products'
 import {
   Collection as ClientCollection,
@@ -35,11 +36,20 @@ export interface CollectionPagePath {
   }
 }
 
+// Caching the return value in memory for static builds to limit api calls
+const moizeOpts: Options = {
+  isPromise: true,
+  maxSize: Infinity,
+  isDeepEqual: true,
+}
+const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
+
 export async function getCollectionViewSidebarSections(
   product: LearnProductData,
   collection: ClientCollection
 ) {
-  const allProductCollections = await getAllCollections({
+  // use memo here
+  const allProductCollections = await cachedGetAllCollections({
     product: { slug: product.slug, sidebarSort: true },
   })
   const filteredCollections = filterCollections(
