@@ -25,10 +25,12 @@
 .waypointMDXWrapper {
   /* Remove the h1 coming from MDX */
   & h1:first-of-type {
+    display: none;
     visibility: hidden;
 
     /* Remove first element after the h1, which duplicates the description */
     & + * {
+      display: none;
       visibility: hidden;
     }
   }
