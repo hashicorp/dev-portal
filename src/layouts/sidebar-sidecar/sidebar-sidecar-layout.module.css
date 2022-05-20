@@ -73,11 +73,15 @@ for further details.
   z-index: 1;
 
   @media (--dev-dot-tablet-down) {
-    bottom: 0;
     left: -150vw;
-    position: absolute; /** Top position set dynamically based on scroll pos in component */
     width: 100vw;
     padding-bottom: 70px;
+    height: 100%;
+
+    &.fixed {
+      position: fixed;
+      top: unset;
+    }
   }
 }
 
@@ -147,8 +151,4 @@ for further details.
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-}
-
-.fixed {
-  position: fixed;
 }
