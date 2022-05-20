@@ -100,7 +100,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
     <div>
       {blocks.map((block) => {
         if (block.type === 'section-heading') {
-          return <SectionHeading text={block.text} />
+          return <SectionHeading text={block.title} />
         }
 
         if (block.type === 'icon-card-grid') {
