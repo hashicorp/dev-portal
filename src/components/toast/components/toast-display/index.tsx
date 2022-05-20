@@ -16,21 +16,24 @@ function ToastDisplay({
   actions,
   onDismiss,
 }: ToastDisplayProps) {
+  /**
+   * In development, throw an error if a toast has
+   * no title and no description (except when using custom content).
+   */
+  if (!title && !description && !children) {
+    throw new Error(
+      `Toast must be provided either a "title" or a "description", or you must use "children" to render custom content in the Toast. Please ensure toast has a non-empty string for its "title" or "description", or provide custom "children" content to render.`
+    )
+  }
+
   return (
     <div className={classNames(s.root, s[`color-${color}`])}>
       {icon ? <div className={s.iconArea}>{icon}</div> : null}
       <div className={s.contentArea}>
-        {children ? (
-          children
-        ) : (
-          <>
-            {title ? <p className={s.title}>{title}</p> : null}
-            {description ? (
-              <p className={s.description}>{description}</p>
-            ) : null}
-            {actions ? <div className={s.actions}>{actions}</div> : null}
-          </>
-        )}
+        {title ? <p className={s.title}>{title}</p> : null}
+        {description ? <p className={s.description}>{description}</p> : null}
+        {children ? children : null}
+        {actions ? <div className={s.actions}>{actions}</div> : null}
       </div>
       <div className={s.closeArea}>
         <CloseButton onClick={onDismiss} ariaLabel="Dismiss notification" />
