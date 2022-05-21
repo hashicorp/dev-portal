@@ -1,7 +1,10 @@
 import { toast, ToastColor } from 'components/toast'
 import { IconCheckCircle24 } from '@hashicorp/flight-icons/svg-react/check-circle-24'
 import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
-import { MutableRefObject } from 'react'
+import Button from 'components/button'
+import ButtonLink from 'components/button-link'
+import StandaloneLink from 'components/standalone-link'
+import { IconArrowUpRight16 } from '@hashicorp/flight-icons/svg-react/arrow-up-right-16'
 
 /**
  * Given a copiedState,
@@ -35,7 +38,31 @@ export default function toastOnCopy(
       icon: <IconCheckCircle24 />,
       color: ToastColor.success,
       title: 'Copied install command',
-      description: `Install command for ${fullLabel} was copied to the clipboard.`,
+      description: (
+        <p>
+          Install command for {fullLabel} was copied to the clipboard.
+          Here&apos;s{' '}
+          <a href="https://www.hashicorp.com">a docs link to click</a>.
+        </p>
+      ),
+      actions: (
+        <>
+          <ButtonLink
+            color="secondary"
+            text="Download Vault"
+            size="small"
+            href="/vault/downloads"
+          />
+          <StandaloneLink
+            color="primary"
+            size="small"
+            href="https://learn.hashicorp.com"
+            icon={<IconArrowUpRight16 />}
+            iconPosition="trailing"
+            text="Leave beta or whatnot"
+          />
+        </>
+      ),
       autoDismiss: false,
       isInteractive: true,
       onDismissCallback,
@@ -45,9 +72,6 @@ export default function toastOnCopy(
       icon: <IconAlertTriangle24 />,
       color: ToastColor.warning,
       title: 'Failed to copy install command!',
-      autoDismiss: false,
-      isInteractive: true,
-      onDismissCallback,
     })
   }
 }

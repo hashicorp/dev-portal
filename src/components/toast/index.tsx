@@ -1,10 +1,5 @@
-import {
-  Fragment,
-  MutableRefObject,
-  ReactNode,
-  useEffect,
-  useState,
-} from 'react'
+import { useRouter } from 'next/router'
+import { Fragment, ReactNode, useCallback, useEffect } from 'react'
 import { DialogOverlay, DialogContent } from './_temp-forked-reach-dialog'
 import { default as reactHotToast, Toast } from 'react-hot-toast'
 import Toaster from './components/toaster'
@@ -47,19 +42,31 @@ function toast({
   //
   return reactHotToast(
     (t: Toast) => {
-      function onDismiss() {
+      const router = useRouter()
+
+      const dismissSelf = useCallback(() => {
         onDismissCallback()
         reactHotToast.remove(t.id)
-      }
+      }, [t.id])
+
+      // When the route changes, we should dismiss the toast
+      useEffect(() => {
+        router.events.on('routeChangeComplete', dismissSelf)
+        // Clean up the effect
+        return () => {
+          router.events.off('routeChangeComplete', dismissSelf)
+        }
+      }, [router.events, dismissSelf])
 
       // TODO: reconsider what the dialog aria-label should be
-      const dialogAriaLabel = title || description || 'Notification'
+      const dialogAriaLabel =
+        title || (typeof description == 'string' ? description : 'Notification')
 
       // For interactive content, we wrap the toast display component
       // in a reach-ui dialog. This captures focus.
       const Wrapper = isInteractive
         ? ({ children }: { children: ReactNode }) => (
-            <DialogOverlay onDismiss={onDismiss} dangerouslyBypassScrollLock>
+            <DialogOverlay onDismiss={dismissSelf} dangerouslyBypassScrollLock>
               <DialogContent aria-label={dialogAriaLabel}>
                 {children}
               </DialogContent>
@@ -73,7 +80,7 @@ function toast({
             color={color}
             description={description}
             icon={icon}
-            onDismiss={onDismiss}
+            onDismiss={dismissSelf}
             title={title}
           >
             {children}
