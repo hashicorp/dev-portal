@@ -1,4 +1,5 @@
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
+import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import {
@@ -8,6 +9,7 @@ import {
 import TutorialsSidebar, {
   CollectionViewSidebarContent,
 } from 'components/tutorials-sidebar'
+import OptInOut from 'components/opt-in-out'
 import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
@@ -19,6 +21,7 @@ function CollectionView({
   layoutProps,
   product,
 }: CollectionPageProps): React.ReactElement {
+  useOptInAnalyticsTracking('learn')
   const { name, slug, description, tutorials, ordered } = collection
 
   const sidebarNavDataLevels = [
@@ -53,6 +56,7 @@ function CollectionView({
        * a follow-up PR since this is functional for the time being.
        */
       sidebarNavDataLevels={sidebarNavDataLevels as any}
+      optInOutSlot={<OptInOut platform="learn" />}
       sidecarSlot={null}
     >
       <CollectionMeta

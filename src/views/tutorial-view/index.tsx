@@ -9,6 +9,7 @@ import useCurrentPath from 'hooks/use-current-path'
 import {
   Collection as ClientCollection,
   CollectionLite as ClientCollectionLite,
+  ProductOption,
   TutorialFullCollectionCtx as ClientTutorial,
 } from 'lib/learn-client/types'
 import SidebarSidecarLayout, {
@@ -18,6 +19,7 @@ import {
   CollectionCategorySidebarSection,
   getCollectionSlug,
 } from 'views/collection-view/helpers'
+import OptInOut from 'components/opt-in-out'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 import DevDotContent from 'components/dev-dot-content'
 import {
@@ -32,6 +34,8 @@ import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import InstruqtProvider from 'contexts/instruqt-lab'
+import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
+import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
 
 // Local imports
 import MDX_COMPONENTS from './utils/mdx-components'
@@ -84,6 +88,7 @@ export default function TutorialView({
   product,
   tutorial,
 }: TutorialViewProps): React.ReactElement {
+  useOptInAnalyticsTracking('learn')
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const {
     name,
@@ -105,6 +110,10 @@ export default function TutorialView({
     nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
   const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
+  const redirectPath = getLearnRedirectPath(
+    currentPath,
+    slug.split('/')[0] as ProductOption
+  )
 
   const sidebarNavDataLevels = [
     generateTopLevelSidebarNavData(product.name),
@@ -160,6 +169,9 @@ export default function TutorialView({
            */
           sidebarNavDataLevels={sidebarNavDataLevels as any}
           AlternateSidebar={TutorialsSidebar}
+          optInOutSlot={
+            <OptInOut platform="learn" redirectPath={redirectPath} />
+          }
           headings={layout.headings}
         >
           <TutorialMeta

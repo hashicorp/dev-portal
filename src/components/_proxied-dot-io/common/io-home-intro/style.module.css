@@ -156,6 +156,19 @@
 }
 
 /*
+ * Callout
+ */
+
+.callout {
+  composes: g-grid-container from global;
+  margin-top: 60px;
+
+  @media (--medium-up) {
+    margin-top: 120px;
+  }
+}
+
+/*
  * Video
  */
 

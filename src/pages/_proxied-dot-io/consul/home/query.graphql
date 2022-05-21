@@ -36,6 +36,18 @@ query homepageQuery {
       title
       link
     }
+    introCallout {
+      link
+      heading
+      description
+      cta
+      thumbnail {
+        url
+        width
+        height
+        alt
+      }
+    }
     introVideo {
       youtubeId
       heading
