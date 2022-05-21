@@ -1,13 +1,5 @@
 // Third-party imports
-import {
-  ReactElement,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useState,
-  useRef,
-  MutableRefObject,
-} from 'react'
+import { ReactElement, useMemo, useRef, MutableRefObject } from 'react'
 import classNames from 'classnames'
 
 // HashiCorp imports
@@ -16,6 +8,7 @@ import CodeBlock from '@hashicorp/react-code-block'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 
 // Global imports
+import useRefocus from 'lib/hooks/use-refocus'
 import { trackProductDownload } from 'lib/analytics'
 import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
@@ -50,11 +43,8 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
   const hasOnePackageManager = packageManagers?.length === 1
   const hasManyPackageManagers = packageManagers?.length > 1
   const hasPackageManagers = hasOnePackageManager || hasManyPackageManagers
-  const buttonRef: MutableRefObject<HTMLButtonElement> = useRef()
-
-  function onDismissCallback() {
-    buttonRef?.current?.focus()
-  }
+  const activatorRef: MutableRefObject<HTMLButtonElement> = useRef()
+  const refocusActivator = useRefocus(activatorRef)
 
   if (!hasPackageManagers) {
     return null
@@ -68,14 +58,19 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
       >
         Package manager for {prettyOSName}
       </Heading>
-
+      <button
+        ref={activatorRef}
+        onClick={() => toastOnCopy(true, { prettyOSName }, refocusActivator)}
+      >
+        Toast activator placeholder
+      </button>
       {hasOnePackageManager && (
         <CodeBlock
           code={generateCodePropFromCommands(packageManagers[0].commands)}
           language="shell-session"
           options={{ showClipboard: true }}
           onCopyCallBack={(copiedState: boolean | null) => {
-            toastOnCopy(copiedState, prettyOSName, onDismissCallback)
+            toastOnCopy(copiedState, { prettyOSName }, refocusActivator)
           }}
         />
       )}
@@ -92,9 +87,8 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
                 onCopyCallBack={(copiedState: boolean | null) => {
                   toastOnCopy(
                     copiedState,
-                    prettyOSName,
-                    onDismissCallback,
-                    label
+                    { prettyOSName, packageManagerLabel: label },
+                    refocusActivator
                   )
                 }}
               />

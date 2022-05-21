@@ -1,6 +1,7 @@
 import { toast, ToastColor } from 'components/toast'
 import { IconCheckCircle24 } from '@hashicorp/flight-icons/svg-react/check-circle-24'
 import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
+import { MutableRefObject } from 'react'
 
 /**
  * Given a copiedState,
@@ -14,12 +15,17 @@ import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-tri
  */
 export default function toastOnCopy(
   copiedState: boolean | null,
-  prettyOsName: string,
-  onDismissCallback: () => void,
-  packageManagerLabel?: string
+  {
+    prettyOSName,
+    packageManagerLabel,
+  }: {
+    prettyOSName: string
+    packageManagerLabel?: string
+  },
+  onDismissCallback?: () => void
 ) {
   // Build a label like "Operating System (Package Manager)"
-  let fullLabel = prettyOsName
+  let fullLabel = prettyOSName
   if (packageManagerLabel) {
     fullLabel += ` (${packageManagerLabel})`
   }

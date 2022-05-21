@@ -1,27 +1,14 @@
-import { useEffect, useState, useRef, MutableRefObject } from 'react'
+import { useRef, MutableRefObject } from 'react'
+import useRefocus from 'lib/hooks/use-refocus'
 import toastOnCopy from 'views/product-downloads-view/components/downloads-section/toast-on-copy'
 
 function TestPage() {
-  const buttonRef: MutableRefObject<HTMLButtonElement> = useRef()
-  const [isDismissed, setIsDismissed] = useState<boolean>(false)
-
-  function onDismissCallback() {
-    console.log({ called: 'onDismissCallback' })
-    focusButton()
-    // setIsDismissed(true)
-  }
+  const activatorRef: MutableRefObject<HTMLButtonElement> = useRef()
+  const refocusActivator = useRefocus(activatorRef)
 
   function focusButton() {
-    console.log({ buttonRefToFocus: buttonRef.current })
-    console.log('Calling buttonRef.current.focus()...')
-    buttonRef.current.focus()
+    activatorRef?.current?.focus()
   }
-
-  useEffect(() => {
-    if (isDismissed) {
-      focusButton()
-    }
-  }, [isDismissed])
 
   console.log('Rendering the TestPage component...')
 
@@ -41,8 +28,10 @@ function TestPage() {
       </ul>
       <h2>What I&apos;ve Tried</h2>
       <button
-        ref={buttonRef}
-        onClick={() => toastOnCopy(true, 'macOS', onDismissCallback)}
+        ref={activatorRef}
+        onClick={() =>
+          toastOnCopy(true, { prettyOSName: 'macOS' }, refocusActivator)
+        }
       >
         Button that makes toast
       </button>
@@ -50,34 +39,14 @@ function TestPage() {
         <p>Manually focusing the button seems to work.</p>
         <button onClick={() => focusButton()}>Manually focus button</button>
       </div>
+      <h2>Update: might be working now?</h2>
       <div>
         <p>
-          Focusing the button in useEffect, when isDismissed changes to true,
-          seems to work too.
-        </p>
-        <pre>
-          <code>{JSON.stringify({ isDismissed }, null, 2)}</code>
-        </pre>
-        <button onClick={() => setIsDismissed(!isDismissed)}>
-          set isDismissed to {`"${String(!isDismissed)}"`}
-        </button>
-      </div>
-      <div>
-        <p>
-          But focusing the button in a callback after toast is dismissed does
-          not seem to work. I&apos;ve tried:
-        </p>
-        <ul>
-          <li>Focusing the button directly</li>
-          <li>
-            Setting isDismissed to true, which should trigger a focus change
-            through an effect
-          </li>
-        </ul>
-        <p>
-          Have seen some use of <code>shouldFocus</code> refs and{' '}
-          <code>useLayoutEffect</code> elsewhere, so I figure this is more of a
-          lack of React internals knowledge than anything else.
+          Update: previously did not have this working, now I think I&apos;ve
+          managed to get things working. Have created a <code>useRefocus</code>{' '}
+          hook that uses an internal refocus flag state, and a related effect,
+          to make this work (where calling <code>focus()</code> directly did not
+          seem to make things work)
         </p>
       </div>
     </>
