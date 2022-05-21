@@ -86,13 +86,14 @@ function toast({
       ariaProps: {
         'aria-live': isInteractive
           ? 'off' // Interactive content has a dialog role, so no announcing
-          : color == 'critical'
+          : color == 'critical' // Maybe there's some other heuristic here?
           ? 'assertive'
           : 'polite',
         role: isInteractive
-          ? // Note: we want role="dialog" here for interactive content,
+          ? // Note: we use role="dialog" in an enclosed ReachUI Dialog
+            //  for interactive content. So want no aria-role on this element,
             // but react-hot-toast's types don't allow it. So we force it.
-            ('dialog' as unknown as Toast['ariaProps']['role'])
+            (undefined as unknown as Toast['ariaProps']['role'])
           : 'status',
       },
     }

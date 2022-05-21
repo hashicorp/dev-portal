@@ -58,17 +58,12 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
       >
         Package manager for {prettyOSName}
       </Heading>
-      <button
-        ref={activatorRef}
-        onClick={() => toastOnCopy(true, { prettyOSName }, refocusActivator)}
-      >
-        Toast activator placeholder
-      </button>
       {hasOnePackageManager && (
         <CodeBlock
           code={generateCodePropFromCommands(packageManagers[0].commands)}
           language="shell-session"
           options={{ showClipboard: true }}
+          copyButtonRef={activatorRef}
           onCopyCallBack={(copiedState: boolean | null) => {
             toastOnCopy(copiedState, { prettyOSName }, refocusActivator)
           }}
