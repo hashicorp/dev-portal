@@ -14,6 +14,7 @@ import {
   useSidebarNavData,
 } from './contexts/sidebar-nav-data'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
@@ -31,6 +32,7 @@ const SidebarSidecarLayoutContent = ({
   headings,
   openConsentManager,
   AlternateSidebar,
+  optInOutSlot,
   sidecarSlot,
   sidebarNavDataLevels,
 }: SidebarSidecarLayoutProps) => {
@@ -81,22 +83,30 @@ const SidebarSidecarLayoutContent = ({
     },
   }
 
+  /**
+   * Prevents scrolling on the rest of the page body
+   */
+  useNoScrollBody(sidebarIsOpen)
+
   return (
     <BaseLayout showFooter={false}>
-      <div className={s.contentWrapper}>
+      <div className={s.root}>
         <motion.div
           animate={sidebarIsVisible ? 'visible' : 'hidden'}
-          className={s.sidebar}
+          className={s.sidebarWrapper}
           ref={sidebarRef}
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           variants={sidebarMotion}
         >
           <SidebarContent />
         </motion.div>
-        <div className={s.mainAreaAndFooter}>
-          <div className={s.mainArea}>
+        <div className={s.contentWrapper}>
+          <div className={s.mainAreaWrapper}>
             <main id="main" className={s.main}>
-              {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+              <span className={s.breadcrumbOptOutGroup}>
+                {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+                {optInOutSlot && optInOutSlot}
+              </span>
               {children}
               {githubFileUrl && (
                 <EditOnGithubLink
@@ -106,15 +116,16 @@ const SidebarSidecarLayoutContent = ({
                 />
               )}
             </main>
-            <div className={s.sidecar}>
+            <div className={s.sidecarWrapper}>
               <SidecarContent />
             </div>
           </div>
-          <div className={s.footerArea}>
+          <div className={s.footerAreaWrapper}>
             <Footer
               className={s.footer}
               openConsentManager={openConsentManager}
             />
+            <div className={s.emptyDuplicateSidecarWrapper} />
           </div>
         </div>
       </div>

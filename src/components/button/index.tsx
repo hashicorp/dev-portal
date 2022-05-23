@@ -18,6 +18,7 @@ const Button = ({
   size = 'medium',
   text,
   type = 'button',
+  form,
 }: ButtonProps) => {
   const classes = classNames(
     s.root,
@@ -64,6 +65,7 @@ const Button = ({
       name={name}
       onClick={onClick}
       type={type}
+      form={form}
     >
       {hasLeadingIcon && icon}
       {hasText && <span className={s.text}>{text}</span>}

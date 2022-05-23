@@ -1,5 +1,5 @@
 .root {
-  composes: hds-surface-low from global;
+  composes: hds-elevation-low from global;
 
   /** Note: --gradient-start & --gradient-stop set in JS */
   background: linear-gradient(
