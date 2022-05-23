@@ -3,6 +3,8 @@ import { ToastColor, ToastDisplayProps } from './types'
 import CloseButton from '../close-button'
 import s from './toast-display.module.css'
 
+const IS_DEV = process.env.NODE_ENV !== 'production'
+
 /**
  * Display component for use with a toast library,
  * such as react-hot-toast.
@@ -20,7 +22,7 @@ function ToastDisplay({
    * In development, throw an error if a toast has
    * no title and no description (except when using custom content).
    */
-  if (!title && !description && !children) {
+  if (IS_DEV && !title && !description && !children) {
     throw new Error(
       `Toast must be provided either a "title" or a "description", or you must use "children" to render custom content in the Toast. Please ensure toast has a non-empty string for its "title" or "description", or provide custom "children" content to render.`
     )
