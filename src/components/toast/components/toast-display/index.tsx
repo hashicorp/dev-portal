@@ -13,8 +13,8 @@ function ToastDisplay({
   color = ToastColor.neutral,
   icon,
   children,
-  actions,
-  onDismiss,
+  renderActions,
+  dismissSelf,
 }: ToastDisplayProps) {
   /**
    * In development, throw an error if a toast has
@@ -40,10 +40,12 @@ function ToastDisplay({
           </DescriptionElem>
         ) : null}
         {children ? children : null}
-        {actions ? <div className={s.actions}>{actions}</div> : null}
+        {typeof renderActions == 'function' ? (
+          <div className={s.actions}>{renderActions({ dismissSelf })}</div>
+        ) : null}
       </div>
       <div className={s.closeArea}>
-        <CloseButton onClick={onDismiss} ariaLabel="Dismiss notification" />
+        <CloseButton onClick={dismissSelf} ariaLabel="Dismiss notification" />
       </div>
     </div>
   )

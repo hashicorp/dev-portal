@@ -19,9 +19,9 @@ export interface ToastDisplayProps {
    */
   description?: string | ReactNode
   /**
-   * A function called when the close button is clicked.
+   * A function to dismiss the toast that wraps this display component.
    */
-  onDismiss: () => void
+  dismissSelf: () => void
   /**
    * Color theme for the toast. Defaults to "neutral".
    */
@@ -31,12 +31,12 @@ export interface ToastDisplayProps {
    */
   icon?: ReactNode
   /**
-   * Optional actions to render below the toast's title and description.
+   * Optional render prop for actions below the toast's title and description.
    * Expects one or many Button, ButtonLink, or StandaloneLink components.
-   * When passing multiple actions, wrapping them in a fragment is recommended
+   * When passing multiple actions, wrapping them in a fragment is required
    * to ensure correct spacing.
    */
-  actions?: ReactNode
+  renderActions?: (props: { dismissSelf: () => void }) => ReactNode
   /**
    * Option arbitrary content to render into the component.
    * Can be used alone, or in combination with other props. When used in

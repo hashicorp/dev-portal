@@ -31,14 +31,15 @@ interface toastOptions {
  * Wraps our ToastDisplay component in react-hot-toast.
  */
 function toast({
-  actions,
+  renderActions,
   children,
   color,
   description,
   icon,
   title,
+  onDismissCallback = () => null,
   autoDismiss = AUTO_DISMISS_DEFAULT,
-}: Omit<ToastDisplayProps, 'onDismiss'> & toastOptions) {
+}: Omit<ToastDisplayProps, 'dismissSelf'> & toastOptions) {
   //
   return reactHotToast(
     (t: Toast) => {
@@ -46,6 +47,7 @@ function toast({
 
       // Allows the toast to dismiss itself
       const dismissSelf = useCallback(() => {
+        onDismissCallback()
         reactHotToast.remove(t.id)
       }, [t.id])
 
@@ -60,11 +62,11 @@ function toast({
 
       return (
         <ToastDisplay
-          actions={actions}
+          renderActions={renderActions}
           color={color}
           description={description}
           icon={icon}
-          onDismiss={dismissSelf}
+          dismissSelf={dismissSelf}
           title={title}
         >
           {children}
