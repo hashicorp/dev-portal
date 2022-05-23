@@ -84,8 +84,7 @@ const SidebarSidecarLayoutContent = ({
   }
 
   /**
-   * Handles the top positioning of the sidebar if a user has scrolled
-   * and prevents scrolling on the rest of the page body
+   * Prevents scrolling on the rest of the page body
    */
   useNoScrollBody(sidebarIsOpen)
 
