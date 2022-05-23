@@ -22,7 +22,6 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
     getRedirectPath: getLearnRedirectPath,
     cookieKey: 'learn-beta-opt-in',
     cookieAnalyticsKey: 'learn-beta-opt-in-tracked',
-    cookieHasDismissedToastKey: 'learn-beta-opt-in-has-dismissed-toast',
   },
   'waypoint-io': {
     base_url: 'https://www.waypointproject.io/',
@@ -31,7 +30,6 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
     },
     cookieKey: 'waypoint-io-beta-opt-in',
     cookieAnalyticsKey: 'waypoint-io-beta-opt-in-tracked',
-    cookieHasDismissedToastKey: 'waypoint-io-beta-opt-in-has-dismissed-toast',
   },
   'vault-io': {
     base_url: 'https://www.vaultproject.io/',
@@ -40,7 +38,6 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
     },
     cookieKey: 'vault-io-beta-opt-in',
     cookieAnalyticsKey: 'vault-io-beta-opt-in-tracked',
-    cookieHasDismissedToastKey: 'vault-io-beta-opt-in-has-dismissed-toast',
   },
 }
 
@@ -49,9 +46,6 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   const router = useRouter()
   const [showDialog, setShowDialog] = useState(false)
   const optedIn = Cookies.get(PLATFORM_OPTIONS[platform].cookieKey)
-  const hasDismissedOptInToast = Cookies.get(
-    PLATFORM_OPTIONS[platform].cookieHasDismissedToastKey
-  )
 
   const openDialog = () => setShowDialog(true)
   const closeDialog = () => setShowDialog(false)
@@ -66,7 +60,6 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
     // @TODO - handle form submit
     Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
     Cookies.remove(PLATFORM_OPTIONS[platform].cookieAnalyticsKey)
-    Cookies.remove(PLATFORM_OPTIONS[platform].cookieHasDismissedToastKey)
     safeAnalyticsTrack('Beta Opted Out', {
       bucket: platform,
     })
@@ -78,18 +71,11 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
    * make some welcome toast, which includes an opt-out action
    */
   const optInFrom = router.query?.optInFrom
-  const handleDismiss = useCallback(() => {
-    Cookies.set(PLATFORM_OPTIONS[platform].cookieHasDismissedToastKey, 'true')
-  }, [platform])
   useEffect(() => {
-    if (
-      !hasDismissedOptInToast &&
-      typeof optInFrom == 'string' &&
-      isOptInPlatformOption(optInFrom)
-    ) {
-      makeBetaWelcomeToast(optInFrom, handleDismiss, handleOptOut)
+    if (typeof optInFrom == 'string' && isOptInPlatformOption(optInFrom)) {
+      makeBetaWelcomeToast(optInFrom, handleOptOut)
     }
-  }, [hasDismissedOptInToast, optInFrom, handleOptOut, handleDismiss])
+  }, [optInFrom, handleOptOut])
 
   // Return early if not opted in
   if (optedIn !== 'true') {

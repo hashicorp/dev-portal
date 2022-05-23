@@ -28,6 +28,5 @@ export type PlatformOptionRedirectData = Record<
     getRedirectPath: (currentPath?: string) => string
     cookieKey: string
     cookieAnalyticsKey: string
-    cookieHasDismissedToastKey: string
   }
 >

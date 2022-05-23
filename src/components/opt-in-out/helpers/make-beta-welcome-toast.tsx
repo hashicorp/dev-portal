@@ -6,7 +6,6 @@ import { OptInPlatformOption, PlatformOptionTitles } from '../types'
 
 export default function makeBetaWelcomeToast(
   optInPlatform: OptInPlatformOption,
-  handleDismiss: () => void,
   handleOptOut: () => void
 ) {
   // Get the product name
@@ -17,7 +16,6 @@ export default function makeBetaWelcomeToast(
     title: `Welcome to the ${platformName} Website Beta!`,
     description:
       'You can leave the Beta at anytime by clicking the Leave Beta button near the start of the main content area.',
-    onDismissCallback: handleDismiss,
     renderActions: ({
       dismissSelf,
     }: {
