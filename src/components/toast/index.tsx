@@ -25,6 +25,12 @@ interface toastOptions {
    * Intended to allow re-focusing of elements that trigger interactive toasts.
    */
   onDismissCallback?: () => void
+  /**
+   * Optionally auto-dismiss the toast during client-side navigation.
+   * Defaults to true. Set to false to persist toast across routes.
+   * For non-client-side navigation, toast is always dismissed.
+   */
+  dismissOnRouteChange?: boolean
 }
 
 /**
@@ -39,6 +45,7 @@ function toast({
   title,
   onDismissCallback = () => null,
   autoDismiss = AUTO_DISMISS_DEFAULT,
+  dismissOnRouteChange = true,
 }: Omit<ToastDisplayProps, 'dismissSelf'> & toastOptions) {
   //
   return reactHotToast(
@@ -51,10 +58,12 @@ function toast({
         reactHotToast.remove(t.id)
       }, [t.id])
 
-      // When the route changes, we should dismiss the toast
+      // If specified, when the route changes, we should dismiss the toast
       useEffect(() => {
-        router.events.on('routeChangeComplete', dismissSelf)
-        // Clean up the effect
+        if (dismissOnRouteChange) {
+          router.events.on('routeChangeComplete', dismissSelf)
+        }
+        // Clean up
         return () => {
           router.events.off('routeChangeComplete', dismissSelf)
         }
