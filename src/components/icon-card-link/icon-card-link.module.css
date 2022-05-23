@@ -1,4 +1,4 @@
-.linkedIconCard {
+.root {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -7,6 +7,7 @@
 .icon {
   /** Note: --icon-color is set in JS */
   color: var(--icon-color);
+
   & svg {
     display: block;
   }
@@ -14,6 +15,6 @@
 
 .text {
   composes: hds-typography-body-200 from global;
-  font-weight: var(--token-typography-font-weight-semibold);
   color: var(--token-color-foreground-primary);
+  font-weight: var(--token-typography-font-weight-semibold);
 }
