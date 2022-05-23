@@ -47,7 +47,15 @@ function toast({
   autoDismiss = AUTO_DISMISS_DEFAULT,
   dismissOnRouteChange = true,
 }: Omit<ToastDisplayProps, 'dismissSelf'> & toastOptions) {
-  //
+  // Determine the auto-dismiss duration
+  const duration =
+    autoDismiss == false
+      ? Infinity
+      : autoDismiss == true
+      ? AUTO_DISMISS_DEFAULT
+      : autoDismiss
+
+  // Return a react-hot-toast
   return reactHotToast(
     (t: Toast) => {
       const router = useRouter()
@@ -82,14 +90,7 @@ function toast({
         </ToastDisplay>
       )
     },
-    {
-      duration:
-        autoDismiss == false
-          ? Infinity
-          : autoDismiss == true
-          ? AUTO_DISMISS_DEFAULT
-          : autoDismiss,
-    }
+    { duration }
   )
 }
 
