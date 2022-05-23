@@ -49,7 +49,7 @@ export default function useScrollPercentageAnalytics() {
           while (percentageScrolled >= thresholdsRemaining[0]) {
             const percent = thresholdsRemaining.shift()
 
-            window.analytics.track('Percentage Scrolled', {
+            window.analytics.track('Page Scrolled', {
               percent,
             })
           }
