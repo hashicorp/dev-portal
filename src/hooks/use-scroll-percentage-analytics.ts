@@ -3,10 +3,7 @@ import { canTrackAnalytics } from 'lib/analytics'
 
 const SCROLL_PERCENTAGE_THRESHOLDS = [25, 50, 75, 90]
 
-// TODO: do we care about this potentially updating?
-const windowHeight = typeof window !== 'undefined' ? window.innerHeight : 0
-
-const getPercentageScrolled = (documentHeight) => {
+const getPercentageScrolled = (documentHeight, windowHeight) => {
   const scrollOffset = window.scrollY + windowHeight
 
   return Math.round(scrollOffset / documentHeight) * 100
@@ -26,6 +23,8 @@ export default function useScrollPercentageAnalytics() {
       // Only read this value once as it causes a synchronous style / layout calc
       // ref: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
       const documentHeight = document.documentElement.scrollHeight
+      const windowHeight =
+        typeof window !== 'undefined' ? window.innerHeight : 0
       let furthestPercentageScrolled = 0
 
       function scrollEventHandler() {
@@ -38,7 +37,10 @@ export default function useScrollPercentageAnalytics() {
         window.requestAnimationFrame(() => {
           // Calculating this in requestAnimationFrame as reading the window dimensions cause a synchronous style / layout calc
           // ref: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
-          const percentageScrolled = getPercentageScrolled(documentHeight)
+          const percentageScrolled = getPercentageScrolled(
+            documentHeight,
+            windowHeight
+          )
 
           if (percentageScrolled < furthestPercentageScrolled) {
             return
