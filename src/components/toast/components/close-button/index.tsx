@@ -8,15 +8,15 @@ import s from './close-button.module.css'
  * Mostly duplicative of @hashicorp/react-close-button.
  */
 export default function CloseButton({
+  ariaLabel,
   className,
   onClick,
-  ariaLabel,
 }: CloseButtonProps) {
   return (
     <button
-      onClick={onClick}
-      className={classNames(s.closeButton, className)}
       aria-label={ariaLabel}
+      className={classNames(s.closeButton, className)}
+      onClick={onClick}
     >
       <IconX16 />
     </button>
