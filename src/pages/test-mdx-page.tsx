@@ -1,16 +1,25 @@
 import productData from 'data/waypoint.json'
 import { LearnProductData } from 'types/products'
+import TabProvider from 'components/tabs/provider'
+import DevDotContent from 'components/dev-dot-content'
+import { MDXRemote } from 'next-mdx-remote'
+import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 
 import { getTutorialPageProps } from 'views/tutorial-view/server'
 
-function TestMdxPage(props) {
+function TestMdxPage({ layout, product, tutorial }) {
+  const { content } = tutorial
+
   return (
-    <div>
-      Hello test MDX page!
-      <pre>
-        <code>{JSON.stringify(props, null, 2)}</code>
-      </pre>
-    </div>
+    <>
+      <div style={{ maxWidth: '896px', margin: '2rem auto' }}>
+        <TabProvider>
+          <DevDotContent>
+            <MDXRemote {...content} components={MDX_COMPONENTS} />
+          </DevDotContent>
+        </TabProvider>
+      </div>
+    </>
   )
 }
 
