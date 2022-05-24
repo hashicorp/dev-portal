@@ -22,12 +22,14 @@ function toast({
   dismissOnRouteChange = true,
 }: Omit<ToastDisplayProps, 'dismissSelf'> & ToastOptions) {
   // Determine the auto-dismiss duration
-  const duration =
-    autoDismiss == false
-      ? Infinity
-      : autoDismiss == true
-      ? AUTO_DISMISS_DEFAULT
-      : autoDismiss
+  let duration: number
+  if (autoDismiss == false) {
+    duration = Infinity
+  } else if (typeof autoDismiss == 'number' && autoDismiss > 0) {
+    duration = autoDismiss
+  } else {
+    duration = AUTO_DISMISS_DEFAULT
+  }
 
   // Return a react-hot-toast
   return reactHotToast(
