@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useCurrentProduct } from 'contexts'
 import InlineLink from 'components/inline-link'
-import StyledAnchor from './components/styled-anchor'
+import MdxInlineLink from 'components/mdx-inline-link'
 
 const DocsAnchor = ({
   href,
@@ -11,7 +11,7 @@ const DocsAnchor = ({
   const currentProduct = useCurrentProduct()
 
   if (!href) {
-    return <StyledAnchor {...rest}>{children}</StyledAnchor>
+    return <MdxInlineLink {...rest}>{children}</MdxInlineLink>
   }
 
   // Authors write content as if it only exists for their product,
@@ -42,15 +42,15 @@ const DocsAnchor = ({
   if (adjustedHref !== href) {
     return (
       <Link href={adjustedHref}>
-        <StyledAnchor {...rest}> {children}</StyledAnchor>
+        <MdxInlineLink {...rest}>{children}</MdxInlineLink>
       </Link>
     )
   }
 
   return (
-    <StyledAnchor href={adjustedHref} {...rest}>
+    <MdxInlineLink href={adjustedHref} {...rest}>
       {children}
-    </StyledAnchor>
+    </MdxInlineLink>
   )
 }
 

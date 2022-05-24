@@ -1,8 +1,9 @@
 import classNames from 'classnames'
 import { AnchorHTMLAttributes } from 'react'
-import s from './styled-anchor.module.css'
+import s from './mdx-inline-link.module.css'
 
-export default function StyledAnchor(
+// styled anchor element for tutorial and docs content
+export default function MdxInlineLink(
   props: AnchorHTMLAttributes<HTMLAnchorElement>
 ) {
   const passableProps = {

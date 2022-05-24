@@ -8,7 +8,7 @@ import InteractiveLabCallout from 'components/interactive-lab-callout'
 import VideoEmbed from 'components/video-embed'
 import Text from 'components/text'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
-import StyledAnchor from 'components/docs-anchor/components/styled-anchor'
+import MdxInlineLink from 'components/mdx-inline-link'
 import s from './mdx-components.module.css'
 
 /**
@@ -47,7 +47,7 @@ const MDX_COMPONENTS = {
   InteractiveLabCallout,
   img: Image,
   VideoEmbed,
-  a: StyledAnchor,
+  a: MdxInlineLink,
   h1: (props) => makeHeadingElement(1, props),
   h2: (props) => makeHeadingElement(2, props),
   h3: (props) => makeHeadingElement(3, props),
