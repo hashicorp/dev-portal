@@ -11,6 +11,7 @@ import PAGE_CONTENT from './content.json'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticProps } from 'next'
+import DevDotOptIn from 'components/_proxied-dot-io/common/dev-dot-opt-in'
 
 const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'docs'
@@ -49,6 +50,7 @@ function VaultDocsLandingPage({
       baseRoute={basePath}
       versions={versions}
       algoliaConfig={productData.algoliaConfig}
+      optInBanner={<DevDotOptIn />}
     >
       <ProductDocsLanding content={PAGE_CONTENT} />
     </DocsPageInner>
