@@ -63,8 +63,6 @@ export default function useScrollPercentageAnalytics() {
 
     const cleanup = setupScrollPercentageTracking()
 
-    return () => {
-      cleanup()
-    }
+    return cleanup
   }, [])
 }
