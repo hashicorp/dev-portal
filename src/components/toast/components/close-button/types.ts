@@ -1,14 +1,16 @@
 export interface CloseButtonProps {
   /**
-   * A function that will be called when the button is clicked.
+   * A label that describes the buttons action. Applied as aria-label value.
    */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  ariaLabel: string
+
   /**
    * Optional class to be added to the button element.
    */
   className?: string
+
   /**
-   * A label that describes the buttons action. Applied as aria-label value.
+   * A function that will be called when the button is clicked.
    */
-  ariaLabel: string
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
