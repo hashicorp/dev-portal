@@ -9,6 +9,8 @@ import VideoEmbed from 'components/video-embed'
 import Text from 'components/text'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 import s from './mdx-components.module.css'
+import AccordionDisclosure from 'components/accordion-disclosure'
+import slugify from 'slugify'
 
 /**
  * @TODO move over these components from learn, update to new spec
@@ -35,8 +37,23 @@ function TabsWrapper({ children }: { children: ReactNode }) {
   )
 }
 
+/**
+ * @TODO
+ *   - deprecate string option for collapse
+ *   - warn that collapse is `true` by default now?
+ *   - pass classname with a margin-top setting for when there are multiple?
+ */
+const AccordionWrapper = ({ children, collapse, heading }) => {
+  return (
+    <AccordionDisclosure id={slugify(heading)} title={heading}>
+      {children}
+    </AccordionDisclosure>
+  )
+}
+
 //  these components are automatically imported into scope within MDX content
 const MDX_COMPONENTS = {
+  Accordion: AccordionWrapper,
   Tabs: TabsWrapper,
   Tab,
   pre,
