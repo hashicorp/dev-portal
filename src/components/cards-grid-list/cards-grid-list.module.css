@@ -19,6 +19,10 @@
   margin: 0;
   padding: 0;
 
+  & > * {
+    height: 100%;
+  }
+
   @media (--dev-dot-tablet-up) {
     /**
      * TLDR; allows two columns in our content area, but not three.
