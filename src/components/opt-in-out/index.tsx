@@ -73,7 +73,7 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   const optInFrom = router.query?.optInFrom
   useEffect(() => {
     if (typeof optInFrom == 'string' && isOptInPlatformOption(optInFrom)) {
-      makeBetaWelcomeToast(optInFrom, handleOptOut)
+      makeBetaWelcomeToast(optInFrom)
     }
   }, [optInFrom, handleOptOut])
 
