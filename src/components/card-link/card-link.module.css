@@ -4,7 +4,6 @@ style applied to anchor elements.
 */
 .root {
   color: black;
-  height: inherit;
 
   /* Only enable animation if query is supported and value is no-preference */
   @media (prefers-reduced-motion: no-preference) {
