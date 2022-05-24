@@ -6,7 +6,7 @@ import ToastDisplay from './components/toast-display'
 import { ToastDisplayProps, ToastColor } from './components/toast-display/types'
 import { ToastOptions } from './types'
 
-const AUTO_DISMISS_DEFAULT = 4000
+const AUTO_DISMISS_DEFAULT_MS = 4000
 
 /**
  * Wraps our ToastDisplay component in react-hot-toast.
@@ -18,7 +18,7 @@ function toast({
   icon,
   title,
   onDismissCallback = () => null,
-  autoDismiss = AUTO_DISMISS_DEFAULT,
+  autoDismiss = AUTO_DISMISS_DEFAULT_MS,
   dismissOnRouteChange = true,
 }: Omit<ToastDisplayProps, 'dismissSelf'> & ToastOptions) {
   // Determine the auto-dismiss duration
@@ -28,7 +28,7 @@ function toast({
   } else if (typeof autoDismiss == 'number' && autoDismiss > 0) {
     duration = autoDismiss
   } else {
-    duration = AUTO_DISMISS_DEFAULT
+    duration = AUTO_DISMISS_DEFAULT_MS
   }
 
   // Return a react-hot-toast
