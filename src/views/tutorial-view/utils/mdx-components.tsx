@@ -8,6 +8,7 @@ import InteractiveLabCallout from 'components/interactive-lab-callout'
 import VideoEmbed from 'components/video-embed'
 import Text from 'components/text'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
+import StyledAnchor from 'components/docs-anchor/components/styled-anchor'
 import s from './mdx-components.module.css'
 
 /**
@@ -32,14 +33,6 @@ function TabsWrapper({ children }: { children: ReactNode }) {
     <div className={s.tabsWrapper}>
       <Tabs>{children}</Tabs>
     </div>
-  )
-}
-
-function StyledAnchor(props) {
-  return (
-    <a className={s.anchor} {...props}>
-      {props.children}
-    </a>
   )
 }
 

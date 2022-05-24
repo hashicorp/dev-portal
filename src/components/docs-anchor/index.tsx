@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import InlineLink from 'components/inline-link'
-import s from './docs-anchor.module.css'
+import StyledAnchor from './components/styled-anchor'
 
 const DocsAnchor = ({
   href,
@@ -11,13 +10,8 @@ const DocsAnchor = ({
 }: JSX.IntrinsicElements['a']) => {
   const currentProduct = useCurrentProduct()
 
-  const passableProps = {
-    ...rest,
-    className: classNames(rest.className, s.anchor),
-  }
-
   if (!href) {
-    return <a {...passableProps}>{children}</a>
+    return <StyledAnchor {...rest}>{children}</StyledAnchor>
   }
 
   // Authors write content as if it only exists for their product,
@@ -48,15 +42,15 @@ const DocsAnchor = ({
   if (adjustedHref !== href) {
     return (
       <Link href={adjustedHref}>
-        <a {...passableProps}>{children}</a>
+        <StyledAnchor {...rest}> {children}</StyledAnchor>
       </Link>
     )
   }
 
   return (
-    <a href={adjustedHref} {...passableProps}>
+    <StyledAnchor href={adjustedHref} {...rest}>
       {children}
-    </a>
+    </StyledAnchor>
   )
 }
 
