@@ -67,7 +67,7 @@
     },
     {
       "type": "heading",
-      "heading": "Case Studies",
+      "heading": "Popular Features",
       "level": 2,
       "size": 400
     },
@@ -78,11 +78,6 @@
           "heading": "Vault Secrets Engine",
           "body": "Secrets engines are pluggable components which store, generate, or encrypt sensitive data.",
           "url": "/vault/docs/secrets"
-        },
-        {
-          "heading": "Key/Value Secrets Engine",
-          "body": "Vault's key/value secrets engine encrypts and store arbitrary secrets.",
-          "url": "/vault/tutorials/secrets-management/versioned-kv"
         },
         {
           "heading": "Database Secrets Engine",
