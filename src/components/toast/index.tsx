@@ -4,34 +4,9 @@ import { default as reactHotToast, Toast } from 'react-hot-toast'
 import Toaster from './components/toaster'
 import ToastDisplay from './components/toast-display'
 import { ToastDisplayProps, ToastColor } from './components/toast-display/types'
+import { ToastOptions } from './types'
 
 const AUTO_DISMISS_DEFAULT = 4000
-
-interface toastOptions {
-  /**
-   * Set the number of milliseconds after which to auto-dismiss.
-   * Defaults to 4000. Set to "false" for show-till-dismissed toast.
-   */
-  autoDismiss?: number | boolean
-  /**
-   * Flag that there is interactive content in the toast.
-   * If the toast contains interactive content,
-   * then we treat it with `role="dialog"`.
-   * Note this defaults to `true` if `actions` are provided, `false` otherwise.
-   */
-  isInteractive?: boolean
-  /**
-   * Option callback to fire after the toast is dismissed button is clicked.
-   * Intended to allow re-focusing of elements that trigger interactive toasts.
-   */
-  onDismissCallback?: () => void
-  /**
-   * Optionally auto-dismiss the toast during client-side navigation.
-   * Defaults to true. Set to false to persist toast across routes.
-   * For non-client-side navigation, toast is always dismissed.
-   */
-  dismissOnRouteChange?: boolean
-}
 
 /**
  * Wraps our ToastDisplay component in react-hot-toast.
@@ -46,7 +21,7 @@ function toast({
   onDismissCallback = () => null,
   autoDismiss = AUTO_DISMISS_DEFAULT,
   dismissOnRouteChange = true,
-}: Omit<ToastDisplayProps, 'dismissSelf'> & toastOptions) {
+}: Omit<ToastDisplayProps, 'dismissSelf'> & ToastOptions) {
   // Determine the auto-dismiss duration
   const duration =
     autoDismiss == false
