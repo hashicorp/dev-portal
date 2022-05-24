@@ -9,9 +9,5 @@ export default function StyledAnchor(
     ...props,
     className: classNames(props.className, s.anchor),
   }
-  return (
-    <a className={s.anchor} {...passableProps}>
-      {props.children}
-    </a>
-  )
+  return <a {...passableProps}>{props.children}</a>
 }
