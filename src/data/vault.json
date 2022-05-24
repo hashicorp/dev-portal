@@ -145,7 +145,7 @@
       "os": "linux"
     }
   ],
-  "basePaths": ["docs", "api-docs", "intro"],
+  "basePaths": ["docs", "api-docs", "intro", "tutorials"],
   "rootDocsPaths": [
     {
       "iconName": "docs",
