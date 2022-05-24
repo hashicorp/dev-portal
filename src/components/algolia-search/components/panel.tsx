@@ -3,7 +3,6 @@ import {
   BaseSyntheticEvent,
   MouseEvent,
   KeyboardEvent,
-  useEffect,
   useState,
   forwardRef,
   Fragment,
@@ -22,6 +21,7 @@ import {
   AutocompleteApi,
   AutocompleteCollection,
 } from '@algolia/autocomplete-core'
+import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 
 type PanelProps<THit extends Hit<unknown>> = {
   /**
@@ -97,16 +97,7 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
   /**
    * Ensures the body can't be scrolled while the search panel is open on mobile viewports.
    */
-  useEffect(() => {
-    const initialValue = document.body.style.overflow
-    if (!isDesktop) {
-      document.body.style.overflow = 'hidden'
-    }
-
-    return () => {
-      document.body.style.overflow = initialValue
-    }
-  }, [isDesktop])
+  useNoScrollBody(!isDesktop)
 
   const Wrapper = isDesktop ? Fragment : Portal
 
