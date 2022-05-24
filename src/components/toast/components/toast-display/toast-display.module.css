@@ -1,8 +1,9 @@
 .root {
+  border-radius: 6px;
   border: 1px solid;
+  box-shadow: var(--token-elevation-higher-box-shadow);
   display: flex;
   padding: 16px;
-  border-radius: 6px;
 
   &.color-neutral {
     background: var(--token-color-surface-faint);
