@@ -17,7 +17,7 @@ export interface ToastDisplayProps {
    * Description text. Note that HTML is not yet supported, but may be in the
    * future. When a title is present, the description is shown below the title.
    */
-  description?: string | ReactNode
+  description?: string
   /**
    * A function to dismiss the toast that wraps this display component.
    */

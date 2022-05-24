@@ -27,19 +27,12 @@ function ToastDisplay({
     )
   }
 
-  const DescriptionElem =
-    typeof description === 'string' ? 'p' : description ? 'div' : null
-
   return (
     <div className={classNames(s.root, s[`color-${color}`])}>
       {icon ? <div className={s.iconArea}>{icon}</div> : null}
       <div className={s.contentArea}>
         {title ? <p className={s.title}>{title}</p> : null}
-        {description ? (
-          <DescriptionElem className={s.description}>
-            {description}
-          </DescriptionElem>
-        ) : null}
+        {description ? <p className={s.description}>{description}</p> : null}
         {typeof renderActions == 'function' ? (
           <div className={s.actions}>{renderActions({ dismissSelf })}</div>
         ) : null}
