@@ -6,6 +6,16 @@ export enum PlatformOptionTitles {
 
 export type OptInPlatformOption = keyof typeof PlatformOptionTitles
 
+/**
+ * Type guard to determine if a string is an OptInPlatformOption
+ */
+export function isOptInPlatformOption(
+  string: string
+): string is OptInPlatformOption {
+  return Object.keys(PlatformOptionTitles).includes(
+    string as OptInPlatformOption
+  )
+}
 export interface OptInOutProps {
   platform: OptInPlatformOption
   redirectPath?: string
