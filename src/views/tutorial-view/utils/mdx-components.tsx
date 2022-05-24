@@ -35,6 +35,14 @@ function TabsWrapper({ children }: { children: ReactNode }) {
   )
 }
 
+function StyledAnchor(props) {
+  return (
+    <a className={s.anchor} {...props}>
+      {props.children}
+    </a>
+  )
+}
+
 //  these components are automatically imported into scope within MDX content
 const MDX_COMPONENTS = {
   Tabs: TabsWrapper,
@@ -46,6 +54,7 @@ const MDX_COMPONENTS = {
   InteractiveLabCallout,
   img: Image,
   VideoEmbed,
+  a: StyledAnchor,
   h1: (props) => makeHeadingElement(1, props),
   h2: (props) => makeHeadingElement(2, props),
   h3: (props) => makeHeadingElement(3, props),
