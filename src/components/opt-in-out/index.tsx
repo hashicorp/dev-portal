@@ -68,7 +68,7 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
 
   /**
    * If there's an 'optInFrom' query parameter,
-   * make some welcome toast, which includes an opt-out action
+   * make some welcome toast
    */
   const optInFrom = router.query?.optInFrom
   useEffect(() => {
