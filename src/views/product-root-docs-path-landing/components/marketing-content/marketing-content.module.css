@@ -4,6 +4,10 @@
 ***
 */
 
+.heading {
+  composes: g-offset-scroll-margin-top from global;
+}
+
 .h2 {
   margin-bottom: 24px;
   margin-top: 0;
