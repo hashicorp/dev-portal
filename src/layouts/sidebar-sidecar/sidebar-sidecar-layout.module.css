@@ -73,11 +73,12 @@ for further details.
   z-index: 1;
 
   @media (--dev-dot-tablet-down) {
-    bottom: 0;
     left: -150vw;
-    position: absolute;
-    top: 0;
     width: 100vw;
+    padding-bottom: 70px;
+    height: 100%;
+    position: fixed;
+    top: unset; /** We want to pull the top relative to the parent on mobile */
   }
 }
 

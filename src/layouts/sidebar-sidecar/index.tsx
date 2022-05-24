@@ -14,6 +14,7 @@ import {
   useSidebarNavData,
 } from './contexts/sidebar-nav-data'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
@@ -81,6 +82,11 @@ const SidebarSidecarLayoutContent = ({
       },
     },
   }
+
+  /**
+   * Prevents scrolling on the rest of the page body
+   */
+  useNoScrollBody(sidebarIsOpen)
 
   return (
     <BaseLayout showFooter={false}>

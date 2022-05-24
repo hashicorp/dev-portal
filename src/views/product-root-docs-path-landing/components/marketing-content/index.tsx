@@ -31,6 +31,7 @@ const AutosizedHeading = ({
   }
   const classes = classNames(
     devDotStyles[`h${level}`],
+    s.heading,
     s[`h${level}`],
     className
   )
