@@ -5,13 +5,6 @@ export interface ToastOptions {
    */
   autoDismiss?: number | boolean
   /**
-   * Flag that there is interactive content in the toast.
-   * If the toast contains interactive content,
-   * then we treat it with `role="dialog"`.
-   * Note this defaults to `true` if `actions` are provided, `false` otherwise.
-   */
-  isInteractive?: boolean
-  /**
    * Option callback to fire after the toast is dismissed button is clicked.
    * Intended to allow re-focusing of elements that trigger interactive toasts.
    */

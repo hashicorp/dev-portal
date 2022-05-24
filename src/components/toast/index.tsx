@@ -13,7 +13,6 @@ const AUTO_DISMISS_DEFAULT = 4000
  */
 function toast({
   renderActions,
-  children,
   color,
   description,
   icon,
@@ -60,9 +59,7 @@ function toast({
           icon={icon}
           dismissSelf={dismissSelf}
           title={title}
-        >
-          {children}
-        </ToastDisplay>
+        />
       )
     },
     { duration }

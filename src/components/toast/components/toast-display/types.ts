@@ -37,12 +37,4 @@ export interface ToastDisplayProps {
    * to ensure correct spacing.
    */
   renderActions?: (props: { dismissSelf: () => void }) => ReactNode
-  /**
-   * Option arbitrary content to render into the component.
-   * Can be used alone, or in combination with other props. When used in
-   * combination, children will be rendered after the description, and
-   * before any provided actions.
-   * Note that icon can also still be used with custom children content.
-   */
-  children?: ReactNode
 }
