@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
+import { Products } from '@hashicorp/platform-product-meta'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/vault.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
@@ -11,7 +12,7 @@ import PAGE_CONTENT from './content.json'
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticProps } from 'next'
 
-const product = { name: productData.name, slug: productData.slug }
+const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'docs'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`

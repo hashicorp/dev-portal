@@ -1,3 +1,4 @@
+import { Products } from '@hashicorp/platform-product-meta'
 import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import ConfigEntryReference from 'components/_proxied-dot-io/consul/config-entry-reference'
@@ -7,7 +8,7 @@ import { isVersionedDocsEnabled } from 'lib/env-checks'
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
 
-const product = { name: productData.name, slug: productData.slug }
+const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'docs'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`

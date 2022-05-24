@@ -1,3 +1,4 @@
+import { Products } from '@hashicorp/platform-product-meta'
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import Placement from 'components/_proxied-dot-io/waypoint/placement-table'
 import NestedNode from 'components/_proxied-dot-io/waypoint/nested-node'
@@ -6,8 +7,9 @@ import productData from 'data/waypoint.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
+import DevDotOptIn from 'components/_proxied-dot-io/common/dev-dot-opt-in'
 
-const product = { name: productData.name, slug: productData.slug }
+const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'docs'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
@@ -24,6 +26,7 @@ function DocsView(props) {
       additionalComponents={additionalComponents}
       showVersionSelect={enableVersionedDocs}
       algoliaConfig={productData.algoliaConfig}
+      optInBanner={<DevDotOptIn />}
     />
   )
 }
