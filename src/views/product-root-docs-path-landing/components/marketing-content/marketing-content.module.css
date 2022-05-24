@@ -47,9 +47,9 @@
 
 .cardGridCardTitle {
   color: var(--token-color-foreground-strong);
-  margin-top: 4px;
 }
 
 .cardGridCardDescription {
   color: var(--token-color-foreground-faint);
+  margin-top: 4px;
 }
