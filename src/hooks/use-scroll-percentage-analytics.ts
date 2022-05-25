@@ -6,7 +6,7 @@ const SCROLL_PERCENTAGE_THRESHOLDS = [25, 50, 75, 90]
 const getPercentageScrolled = (documentHeight, windowHeight) => {
   const scrollOffset = window.scrollY + windowHeight
 
-  return Math.round(scrollOffset / documentHeight) * 100
+  return Math.round((scrollOffset / documentHeight) * 100)
 }
 
 /**
