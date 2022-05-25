@@ -8,10 +8,13 @@ import s from './disclosure.module.css'
  * @TODO
  *  - add onOpen callback
  *  - add onClosed callback
+ *  - automatically close (if open) on routeChangeStart?
+ *      - would be useful for NavigationDisclosure to close on link click
  */
 const Disclosure = ({
   activatorClassName,
   activatorContent,
+  ariaLabel,
   children,
   containerClassName,
   containerCollapsedClassName,
@@ -33,6 +36,7 @@ const Disclosure = ({
       <button
         aria-controls={contentContainerId}
         aria-expanded={isOpen}
+        aria-label={ariaLabel}
         className={classNames(s.activator, activatorClassName)}
         onClick={() => setIsOpen(!isOpen)}
       >

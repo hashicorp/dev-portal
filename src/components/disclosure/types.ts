@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 interface DisclosureProps {
   activatorClassName?: string
   activatorContent: ReactNode
+  ariaLabel?: JSX.IntrinsicElements['button']['aria-label']
   children: ReactNode
   containerClassName?: string
   containerCollapsedClassName?: string
