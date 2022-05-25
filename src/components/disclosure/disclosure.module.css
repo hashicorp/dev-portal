@@ -1,0 +1,3 @@
+.activator[aria-expanded='false'] + .contentContainer {
+  display: none;
+}
