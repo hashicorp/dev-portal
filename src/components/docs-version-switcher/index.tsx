@@ -1,13 +1,16 @@
+import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { ProductWithCurrentRootDocsPath } from 'types/products'
 import { useCurrentProduct } from 'contexts'
 import useCurrentPath from 'hooks/use-current-path'
 import NavigationDisclosure from 'components/navigation-disclosure'
+import Text from 'components/text'
 import { DocsVersionSwitcherOption, DocsVersionSwitcherProps } from './types'
 import {
   getTargetPath,
   getVersionFromPath,
   removeVersionFromPath,
 } from './helpers'
+import s from './docs-version-switcher.module.css'
 
 const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
   const currentProduct = useCurrentProduct() as ProductWithCurrentRootDocsPath
@@ -48,9 +51,22 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
   )
 
   return (
-    <nav>
-      <NavigationDisclosure links={navigationDisclosureLinks}>
-        {selectedOption.label}
+    <nav className={s.root}>
+      <NavigationDisclosure
+        activatorClassName={s.button}
+        links={navigationDisclosureLinks}
+      >
+        <Text
+          asElement="span"
+          className={s.buttonText}
+          size={200}
+          weight="regular"
+        >
+          {selectedOption.label}
+        </Text>
+        <span className={s.buttonIcon}>
+          <IconCaret16 />
+        </span>
       </NavigationDisclosure>
     </nav>
   )
