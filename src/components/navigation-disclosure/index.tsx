@@ -1,5 +1,35 @@
-const NavigationDisclosure = () => {
-  return <h1>Hello from NavigationDisclosure!</h1>
+import Disclosure from 'components/disclosure'
+import Link from 'next/link'
+import { NavigationDisclosureLink, NavigationDisclosureProps } from './types'
+
+/**
+ * @TODO
+ *  - add use of useOnClickOutside ('hooks/use-on-click-outside')
+ *  - add use of useOnFocusOutside ('hooks/use-on-focus-outside')
+ *
+ * Notes for documentation:
+ *  - should be rendered inside of a <nav>
+ */
+const NavigationDisclosure = ({
+  children,
+  links,
+}: NavigationDisclosureProps) => {
+  return (
+    <Disclosure activatorContent={children}>
+      <ul>
+        {links.map(({ text, url }: NavigationDisclosureLink) => {
+          return (
+            <li key={url}>
+              <Link href={url}>
+                <a>{text}</a>
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
+    </Disclosure>
+  )
 }
 
+export type { NavigationDisclosureProps }
 export default NavigationDisclosure

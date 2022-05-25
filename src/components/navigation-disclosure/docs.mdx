@@ -5,5 +5,13 @@ componentName: NavigationDisclosure
 ## Playground
 
 <LiveComponent>{`
-<NavigationDisclosure />
+<NavigationDisclosure
+  links={[
+    { text: 'Home', url: '/' },
+    { text: 'Vault', url: '/vault' },
+    { text: 'Waypoint', url: '/waypoint' },
+  ]}
+>
+  Demonstration Navigation Disclosure
+</NavigationDisclosure>
 `}</LiveComponent>
