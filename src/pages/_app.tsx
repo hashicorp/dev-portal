@@ -16,6 +16,9 @@ import BaseLayout from 'layouts/base'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
+import { makeDevAnalyticsLogger } from 'lib/analytics'
+
+makeDevAnalyticsLogger()
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 

@@ -2,7 +2,44 @@ import { ProductSlug } from 'types/products'
 import { Version } from './fetch-release-data'
 
 /**
- * Determines whether or not `window.analytics.track` can be invokved.
+ * A segment analytics plugin to log out calls to track in a structured way. Includes the full event payload
+ * in a collapsed console group for further inspection, without interaction the event name and event properties
+ * are visible.
+ */
+const AnalyticsPluginEventLogger = {
+  name: 'Event Logger',
+  version: '0.1.0',
+  type: 'after',
+  track: (ctx) => {
+    console.groupCollapsed(
+      '%ctrack',
+      'color:white;background:green;border-radius:4px;padding:2px 4px;',
+      ctx.event.event,
+      ctx.event.properties
+    )
+    console.log(ctx.event)
+    console.groupEnd()
+
+    return ctx
+  },
+  load: () => Promise.resolve(),
+  isLoaded: () => true,
+}
+
+/**
+ * Register the event logger plugin for track event logging during development.
+ */
+export const makeDevAnalyticsLogger = () => {
+  if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined') {
+    window.analytics.ready(() => {
+      // @ts-expect-error - register doesn't exist on our current SegmentAnalytics.AnalyticsJS type
+      window.analytics.register(AnalyticsPluginEventLogger)
+    })
+  }
+}
+
+/**
+ * Determines whether or not `window.analytics.track` can be invoked.
  */
 export const canTrackAnalytics = (): boolean => {
   return (
@@ -14,7 +51,7 @@ export const canTrackAnalytics = (): boolean => {
 }
 
 /**
- * Invokes `window.analytics.track` if it is able to be invokved.
+ * Invokes `window.analytics.track` if it is able to be invoked.
  */
 const safeAnalyticsTrack = (
   eventName: string,
