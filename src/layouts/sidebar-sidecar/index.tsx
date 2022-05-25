@@ -1,7 +1,5 @@
 import { ReactElement, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import useOnFocusOutside from 'hooks/use-on-focus-outside'
-import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 import { useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
@@ -9,13 +7,14 @@ import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Footer from 'components/footer'
 import Sidebar from 'components/sidebar'
-import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { SidebarSidecarLayoutProps } from './types'
+import s from './sidebar-sidecar-layout.module.css'
 import {
   SidebarNavDataProvider,
   useSidebarNavData,
 } from './contexts/sidebar-nav-data'
-import s from './sidebar-sidecar-layout.module.css'
+import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
@@ -27,16 +26,15 @@ const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
 }
 
 const SidebarSidecarLayoutContent = ({
-  AlternateSidebar,
   breadcrumbLinks,
   children,
   githubFileUrl,
   headings,
   openConsentManager,
+  AlternateSidebar,
   optInOutSlot,
-  sidebarNavDataLevels,
   sidecarSlot,
-  versions,
+  sidebarNavDataLevels,
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
@@ -100,12 +98,7 @@ const SidebarSidecarLayoutContent = ({
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           variants={sidebarMotion}
         >
-          <div className={s.sidebarContentWrapper}>
-            <SidebarContent />
-          </div>
-          <div className={s.docsVersionSwitcherWrapper}>
-            <DocsVersionSwitcher options={versions} />
-          </div>
+          <SidebarContent />
         </motion.div>
         <div className={s.contentWrapper}>
           <div className={s.mainAreaWrapper}>

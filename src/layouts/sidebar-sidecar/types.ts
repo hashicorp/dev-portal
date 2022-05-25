@@ -1,8 +1,7 @@
 import { ReactElement } from 'react'
-import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { SidebarProps } from 'components/sidebar'
+import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 
 /**
  * `BaseProps` represents the props that are defined for every usage of
@@ -17,7 +16,6 @@ interface BaseProps {
   /** @TODO determine the minimum set of props that all Sidebars should have */
   AlternateSidebar?: (props: any) => ReactElement
   optInOutSlot?: ReactElement
-  versions?: VersionSelectItem[]
 }
 
 /**
