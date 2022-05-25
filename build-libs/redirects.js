@@ -310,7 +310,7 @@ function buildBetaProductOptInRedirects(product, basePaths) {
     has: [
       {
         type: 'cookie',
-        key: `${product}-beta-opt-in`,
+        key: `${product}-io-beta-opt-in`,
         value: 'true',
       },
       {
