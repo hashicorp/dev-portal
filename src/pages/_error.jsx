@@ -1,8 +1,10 @@
-import BaseLayout from 'layouts/base'
+import BaseLayout from 'layouts/base-new'
 import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
 import { getProxiedProductSlug } from 'lib/env-checks'
 import { VersionedErrorPage } from 'views/_proxied-dot-io/versioned-error'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
+// product data, needed to render top navigation
+import { isProductSlug, productSlugsToProductData } from 'lib/products'
 
 // resolve a default export
 function resolve(obj) {
@@ -95,8 +97,18 @@ export async function getServerSideProps(ctx) {
      */
   }
 
+  /**
+   * Determine the product context,
+   * in order to render the correct navigation header on the 404 page.
+   */
+  const pathParts = urlObj.pathname.split('/')
+  const maybeProductSlug = pathParts.length > 1 && pathParts[1]
+  const productSlug = isProductSlug(maybeProductSlug) ? maybeProductSlug : null
+  const product = productSlugsToProductData[productSlug] || null
+
   return {
     props: {
+      product,
       statusCode,
       proxiedProductSlug,
       hostname: urlObj.hostname,
