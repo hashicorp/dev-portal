@@ -19,11 +19,6 @@
   margin: 0;
   padding: 0;
 
-  /** Ensures the grid items fill the full row height */
-  & > * {
-    display: flex;
-  }
-
   @media (--dev-dot-tablet-up) {
     /**
      * TLDR; allows two columns in our content area, but not three.
