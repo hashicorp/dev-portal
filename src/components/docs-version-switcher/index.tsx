@@ -32,6 +32,8 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
 
   const navigationDisclosureLinks = options.map(
     (option: DocsVersionSwitcherOption) => {
+      const isCurrentVersion = option.version === selectedOption.version
+
       let url: string
       if (option.isLatest) {
         url = removeVersionFromPath(currentPath)
@@ -44,6 +46,7 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
       }
 
       return {
+        isActive: isCurrentVersion,
         text: option.label,
         url,
       }

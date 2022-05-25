@@ -1,5 +1,5 @@
-import Disclosure from 'components/disclosure'
 import Link from 'next/link'
+import Disclosure from 'components/disclosure'
 import { NavigationDisclosureLink, NavigationDisclosureProps } from './types'
 
 /**
@@ -23,11 +23,16 @@ const NavigationDisclosure = ({
       ariaLabel={ariaLabel}
     >
       <ul>
-        {links.map(({ text, url }: NavigationDisclosureLink) => {
+        {links.map(({ isActive, text, url }: NavigationDisclosureLink) => {
+          let ariaCurrent
+          if (isActive) {
+            ariaCurrent = 'page'
+          }
+
           return (
             <li key={url}>
               <Link href={url}>
-                <a>{text}</a>
+                <a aria-current={ariaCurrent}>{text}</a>
               </Link>
             </li>
           )
