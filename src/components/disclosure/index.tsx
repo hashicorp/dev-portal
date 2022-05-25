@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import { useId } from '@react-aria/utils'
 import { DisclosureProps } from './types'
@@ -22,9 +23,28 @@ const Disclosure = ({
   contentContainerClassName,
   open = false,
 }: DisclosureProps) => {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(open)
   const uniqueId = `disclosure-${useId()}`
   const contentContainerId = `${uniqueId}-content`
+
+  useEffect(() => {
+    if (!isOpen) {
+      return
+    }
+
+    const handleRouteChangeStart = () => {
+      setIsOpen(false)
+    }
+
+    router.events.on('routeChangeStart', handleRouteChangeStart)
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChangeStart)
+    }
+    // Only need to base this on `isOpen`
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen])
 
   const containerClasses = classNames(s.root, containerClassName, {
     [containerCollapsedClassName]: !isOpen,
