@@ -35,10 +35,14 @@ export const makeDevAnalyticsLogger = () => {
     typeof window !== 'undefined' &&
     process.env.NEXT_PUBLIC_ANALYTICS_LOG_LEVEL !== '0'
   ) {
-    window.analytics.ready(() => {
-      // @ts-expect-error - register doesn't exist on our current SegmentAnalytics.AnalyticsJS type
-      window.analytics.register(AnalyticsPluginEventLogger)
-    })
+    try {
+      window.analytics.ready(() => {
+        // @ts-expect-error - register doesn't exist on our current SegmentAnalytics.AnalyticsJS type
+        window.analytics.register(AnalyticsPluginEventLogger)
+      })
+    } catch {
+      // do nothing, not critical
+    }
   }
 }
 
