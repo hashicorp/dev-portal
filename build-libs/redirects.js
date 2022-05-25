@@ -297,6 +297,7 @@ async function buildDevPortalRedirects() {
 }
 
 /**
+ * Construct a redirect definition for beta product opt-in, based on cookies and host conditions
  *
  * @param {*} product  string
  * @param {*} basePaths string[]
