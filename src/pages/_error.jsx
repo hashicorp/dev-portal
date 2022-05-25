@@ -1,10 +1,12 @@
 import BaseLayout from 'layouts/base-new'
 import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
 import { getProxiedProductSlug } from 'lib/env-checks'
-import { VersionedErrorPage } from 'views/_proxied-dot-io/versioned-error'
+import { VersionedErrorPage as DotIoVersionedErrorPage } from 'views/_proxied-dot-io/versioned-error'
+import { VersionedErrorPage as DevDotVersionedErrorPage } from 'views/versioned-error'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 // product data, needed to render top navigation
-import { isProductSlug, productSlugsToProductData } from 'lib/products'
+import { productConfig } from 'lib/cms'
+import { isProductSlug } from 'lib/products'
 
 // resolve a default export
 function resolve(obj) {
@@ -50,6 +52,13 @@ function Error({ statusCode, proxiedProductSlug, layoutProps }) {
   // we would instead generate specific sets of redirects based on the
   // whether the current branch is a specific `proxied-{product}` branch.
   const Layout = proxiedLayouts[proxiedProductSlug] || BaseLayout
+
+  /**
+   * Note: error page appearance varies slightly between dot-io and dev-dot.
+   */
+  const VersionedErrorPage = proxiedProductSlug
+    ? DotIoVersionedErrorPage
+    : DevDotVersionedErrorPage
   return (
     <Layout data={{ ...layoutProps }}>
       <VersionedErrorPage statusCode={statusCode} />
@@ -104,7 +113,7 @@ export async function getServerSideProps(ctx) {
   const pathParts = urlObj.pathname.split('/')
   const maybeProductSlug = pathParts.length > 1 && pathParts[1]
   const productSlug = isProductSlug(maybeProductSlug) ? maybeProductSlug : null
-  const product = productSlugsToProductData[productSlug] || null
+  const product = productConfig[productSlug] || null
 
   return {
     props: {
