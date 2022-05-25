@@ -32,8 +32,7 @@ function ErrorView({
   const [isMounted, setIsMounted] = useState(false)
 
   /**
-   * TODO: check git blame of prev file for ???
-   * Note from ??? on this useEffect:
+   * Note from Bryce on this useEffect:
    *
    * Due to how we are rewriting routes on the io sites, the URLs rendered in
    * this component are incorrect during SSR, and for some reason are NOT
