@@ -1,6 +1,9 @@
+import { useErrorPageAnalytics } from '@hashicorp/react-error-view'
 import s from './dev-dot-fallback.module.css'
 
-export function DevDotFallback() {
+export function DevDotFallback({ statusCode }: { statusCode: $TSFixMe }) {
+  useErrorPageAnalytics(statusCode)
+
   return (
     <div className={s.root}>
       <h1 className={s.heading}>Something went wrong.</h1>

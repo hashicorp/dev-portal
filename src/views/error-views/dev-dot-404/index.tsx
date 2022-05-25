@@ -1,12 +1,12 @@
 import React, { ReactElement } from 'react'
 import CardsGridList from 'components/cards-grid-list'
 import IconCardLink, { IconCardLinkProps } from 'components/icon-card-link'
-// import useErrorPageAnalytics from '@hashicorp/react-error-view/use-error-page-analytics'
-// import use404Redirects from '@hashicorp/react-error-view/use-404-redirects'
-// import { ErrorPageProps } from './types'
+import { useErrorPageAnalytics } from '@hashicorp/react-error-view'
 import s from './dev-dot-404.module.css'
 
 export function DevDot404(): ReactElement {
+  useErrorPageAnalytics(404)
+
   return (
     <div className={s.root}>
       <h1 className={s.heading}>

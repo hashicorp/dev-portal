@@ -1,0 +1,99 @@
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import DotIoFallBackError from '@hashicorp/react-error-view'
+import { ErrorPageProps } from './types'
+import { DevDot404, DevDotFallback, DevDotVersioned404 } from '../error-views'
+import DotIoVersionedError from '../_proxied-dot-io/versioned-error'
+
+const VERSION_PATTERN = /\/(?<version>v\d+[.]\d+[.](\d+|x))/
+
+/**
+ * A display component that switches between:
+ * - Dot-io error views, if `isProxiedDotIo` prop is `true`
+ * - Dev-dot error views otherwise
+ *
+ * This switching isn't ideal; but feels somewhat logical since we are
+ * limited to having a single pages/_error.jsx page file in the project.
+ *
+ * This component also handles auto-selecting versioned 404 views,
+ * by matching VERSION_PATTERN in the page URL.
+ */
+function ErrorView({
+  statusCode,
+  isProxiedDotIo,
+}: ErrorPageProps): React.ReactElement {
+  /**
+   * Note: DotIoFallbackError calls useErrorPageAnalytics internally.
+   * If it didn't, we could call useErrorPageAnalytics once here, or in
+   * pages/_error.tsx, rather than in every error view component.
+   * useErrorPageAnalytics(statusCode)
+   */
+  const { asPath } = useRouter()
+  const [isMounted, setIsMounted] = useState(false)
+
+  /**
+   * TODO: check git blame of prev file for ???
+   * Note from ??? on this useEffect:
+   *
+   * Due to how we are rewriting routes on the io sites, the URLs rendered in
+   * this component are incorrect during SSR, and for some reason are NOT
+   * getting reconciled on the client even though all of the props and state
+   * values internal to Link are correct.
+   *
+   * I think it's because of some hydration mismatch, so I'm using the
+   * isMounted state value as a key here to force the error view to completely
+   * re-mount. I'm sorry, I tried everything else I could think of. :')
+   */
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  /**
+   * Determine if this is a 404 or versioned 404 view.
+   * For versioned views, determine the  path without version (aka latest)
+   */
+  const versionMatches = VERSION_PATTERN.exec(asPath)
+  const versionInPath = versionMatches?.groups?.version
+  const pathWithoutVersion = asPath.replace(VERSION_PATTERN, '')
+  const is404 = statusCode == 404
+  const isVersioned404 = versionInPath && is404
+
+  /**
+   * Switch between proxied dot-io and dev-dot error views
+   */
+  if (isProxiedDotIo) {
+    /**
+     * Proxied dot-io error views
+     */
+    if (isVersioned404) {
+      return (
+        <DotIoVersionedError
+          version={versionInPath}
+          pathWithoutVersion={pathWithoutVersion}
+          key={String(isMounted)}
+        />
+      )
+    } else {
+      return <DotIoFallBackError statusCode={statusCode} />
+    }
+  } else {
+    /**
+     * Dev dot error views
+     */
+    if (isVersioned404) {
+      return (
+        <DevDotVersioned404
+          version={versionInPath}
+          pathWithoutVersion={pathWithoutVersion}
+          key={String(isMounted)}
+        />
+      )
+    } else if (is404) {
+      return <DevDot404 />
+    } else {
+      return <DevDotFallback statusCode={statusCode} />
+    }
+  }
+}
+
+export default ErrorView

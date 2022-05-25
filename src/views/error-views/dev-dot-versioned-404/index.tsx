@@ -11,9 +11,9 @@ export function DevDotVersioned404({
   version: string
   pathWithoutVersion: string
 }): React.ReactElement {
-  const { asPath } = useRouter()
   useErrorPageAnalytics(404)
 
+  const { asPath } = useRouter()
   const basePath = asPath.split('/')[1]
 
   return (
