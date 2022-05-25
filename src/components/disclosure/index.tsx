@@ -7,6 +7,8 @@ import s from './disclosure.module.css'
 
 /**
  * @TODO
+ *  - expose a DisclosureActivator component
+ *  - expose a DisclosureContent component?
  *  - add onOpen callback
  *  - add onClosed callback
  *  - automatically close (if open) on routeChangeStart?

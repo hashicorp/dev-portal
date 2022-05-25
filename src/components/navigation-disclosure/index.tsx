@@ -4,6 +4,7 @@ import { NavigationDisclosureLink, NavigationDisclosureProps } from './types'
 
 /**
  * @TODO
+ *  - export a NavigationDisclosureListItem component
  *  - add use of useOnClickOutside ('hooks/use-on-click-outside')
  *  - add use of useOnFocusOutside ('hooks/use-on-focus-outside')
  *
