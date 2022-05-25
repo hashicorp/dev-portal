@@ -1,20 +1,8 @@
-import { ReactNode } from 'react'
-import { DisclosureActivatorProps } from 'components/disclosure'
-
-/**
- * @TODO add iconName prop? (need to look at designs first)
- */
-interface NavigationDisclosureLink {
-  isActive: boolean
-  text: string
-  url: string
-}
+import { DisclosureProps } from 'components/disclosure'
 
 interface NavigationDisclosureProps {
-  activatorClassName?: DisclosureActivatorProps['className']
-  ariaLabel?: DisclosureActivatorProps['ariaLabel']
-  children: ReactNode
-  links: NavigationDisclosureLink[]
+  children: DisclosureProps['children']
+  className?: DisclosureProps['containerClassName']
 }
 
-export type { NavigationDisclosureLink, NavigationDisclosureProps }
+export type { NavigationDisclosureProps }

@@ -1,13 +1,20 @@
-import Link from 'next/link'
-import Disclosure, {
-  DisclosureActivator,
-  DisclosureContent,
-} from 'components/disclosure'
-import { NavigationDisclosureLink, NavigationDisclosureProps } from './types'
+import Disclosure from 'components/disclosure'
+import { NavigationDisclosureProps } from './types'
+import {
+  NavigationDisclosureActivator,
+  NavigationDisclosureActivatorProps,
+  NavigationDisclosureContent,
+  NavigationDisclosureContentProps,
+  NavigationDisclosureLink,
+  NavigationDisclosureLinkProps,
+  NavigationDisclosureList,
+  NavigationDisclosureListItem,
+  NavigationDisclosureListItemProps,
+  NavigationDisclosureListProps,
+} from './components'
 
 /**
  * @TODO
- *  - export a NavigationDisclosureListItem component
  *  - add use of useOnClickOutside ('hooks/use-on-click-outside')
  *  - add use of useOnFocusOutside ('hooks/use-on-focus-outside')
  *
@@ -15,37 +22,25 @@ import { NavigationDisclosureLink, NavigationDisclosureProps } from './types'
  *  - should be rendered inside of a <nav>
  */
 const NavigationDisclosure = ({
-  activatorClassName,
-  ariaLabel,
   children,
-  links,
+  className,
 }: NavigationDisclosureProps) => {
-  return (
-    <Disclosure>
-      <DisclosureActivator ariaLabel={ariaLabel} className={activatorClassName}>
-        {children}
-      </DisclosureActivator>
-      <DisclosureContent>
-        <ul>
-          {links.map(({ isActive, text, url }: NavigationDisclosureLink) => {
-            let ariaCurrent
-            if (isActive) {
-              ariaCurrent = 'page'
-            }
-
-            return (
-              <li key={url}>
-                <Link href={url}>
-                  <a aria-current={ariaCurrent}>{text}</a>
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-      </DisclosureContent>
-    </Disclosure>
-  )
+  return <Disclosure containerClassName={className}>{children}</Disclosure>
 }
 
-export type { NavigationDisclosureProps }
+export type {
+  NavigationDisclosureActivatorProps,
+  NavigationDisclosureContentProps,
+  NavigationDisclosureLinkProps,
+  NavigationDisclosureListItemProps,
+  NavigationDisclosureListProps,
+  NavigationDisclosureProps,
+}
+export {
+  NavigationDisclosureActivator,
+  NavigationDisclosureContent,
+  NavigationDisclosureLink,
+  NavigationDisclosureList,
+  NavigationDisclosureListItem,
+}
 export default NavigationDisclosure
