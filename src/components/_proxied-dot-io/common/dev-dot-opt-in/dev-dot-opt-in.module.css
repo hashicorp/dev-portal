@@ -24,7 +24,7 @@
 
 .optInLink {
   composes: g-type-body-small from global;
-  color: var(--brand);
+  color: var(--token-color-palette-blue-200);
   text-decoration: underline;
   border: unset;
   background: unset;
