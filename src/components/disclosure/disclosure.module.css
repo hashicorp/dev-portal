@@ -1,3 +1,13 @@
+.root {
+  position: relative;
+}
+
+.root,
+.activator,
+.contentContainer {
+  width: 100%;
+}
+
 /*
 ***
 * Notes:
