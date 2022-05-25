@@ -1,5 +1,8 @@
 import Link from 'next/link'
-import Disclosure from 'components/disclosure'
+import Disclosure, {
+  DisclosureActivator,
+  DisclosureContent,
+} from 'components/disclosure'
 import { NavigationDisclosureLink, NavigationDisclosureProps } from './types'
 
 /**
@@ -18,27 +21,28 @@ const NavigationDisclosure = ({
   links,
 }: NavigationDisclosureProps) => {
   return (
-    <Disclosure
-      activatorClassName={activatorClassName}
-      activatorContent={children}
-      ariaLabel={ariaLabel}
-    >
-      <ul>
-        {links.map(({ isActive, text, url }: NavigationDisclosureLink) => {
-          let ariaCurrent
-          if (isActive) {
-            ariaCurrent = 'page'
-          }
+    <Disclosure>
+      <DisclosureActivator ariaLabel={ariaLabel} className={activatorClassName}>
+        {children}
+      </DisclosureActivator>
+      <DisclosureContent>
+        <ul>
+          {links.map(({ isActive, text, url }: NavigationDisclosureLink) => {
+            let ariaCurrent
+            if (isActive) {
+              ariaCurrent = 'page'
+            }
 
-          return (
-            <li key={url}>
-              <Link href={url}>
-                <a aria-current={ariaCurrent}>{text}</a>
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
+            return (
+              <li key={url}>
+                <Link href={url}>
+                  <a aria-current={ariaCurrent}>{text}</a>
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </DisclosureContent>
     </Disclosure>
   )
 }

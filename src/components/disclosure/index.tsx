@@ -3,32 +3,30 @@ import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import { useId } from '@react-aria/utils'
 import { DisclosureProps } from './types'
+import { DisclosureProvider } from './provider'
+import {
+  DisclosureActivator,
+  DisclosureActivatorProps,
+  DisclosureContent,
+  DisclosureContentProps,
+} from './components'
 import s from './disclosure.module.css'
 
 /**
  * @TODO
- *  - expose a DisclosureActivator component
- *  - expose a DisclosureContent component?
  *  - add onOpen callback
  *  - add onClosed callback
- *  - automatically close (if open) on routeChangeStart?
- *      - would be useful for NavigationDisclosure to close on link click
  */
 const Disclosure = ({
-  activatorClassName,
-  activatorContent,
-  ariaLabel,
   children,
   containerClassName,
   containerCollapsedClassName,
   containerExpandedClassName,
-  contentContainerClassName,
   open = false,
 }: DisclosureProps) => {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(open)
   const uniqueId = `disclosure-${useId()}`
-  const contentContainerId = `${uniqueId}-content`
 
   useEffect(() => {
     if (!isOpen) {
@@ -54,25 +52,16 @@ const Disclosure = ({
   })
 
   return (
-    <div className={containerClasses}>
-      <button
-        aria-controls={contentContainerId}
-        aria-expanded={isOpen}
-        aria-label={ariaLabel}
-        className={classNames(s.activator, activatorClassName)}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {activatorContent}
-      </button>
-      <div
-        className={classNames(s.contentContainer, contentContainerClassName)}
-        id={contentContainerId}
-      >
-        {children}
-      </div>
-    </div>
+    <DisclosureProvider value={{ id: uniqueId, isOpen, setIsOpen }}>
+      <div className={containerClasses}>{children}</div>
+    </DisclosureProvider>
   )
 }
 
-export type { DisclosureProps }
+export type {
+  DisclosureActivatorProps,
+  DisclosureContentProps,
+  DisclosureProps,
+}
+export { DisclosureActivator, DisclosureContent }
 export default Disclosure
