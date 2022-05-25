@@ -161,6 +161,14 @@ console.log(__config.my_config_value)
 
 Configuration files should be used for any non-sensitive configuration values needed throughout the application which might vary by environment. Consider API endpoints, constants, and flags in scope for the configuration files.
 
+### Analytics
+
+Calls to `window.analytics.track()` are logged in development for easy iteration while adding analytics code. If you would prefer to reduce the noise created by these logs, start the app with `NEXT_PUBLIC_ANALYTICS_LOG_LEVEL=0`:
+
+```
+$ NEXT_PUBLIC_ANALYTICS_LOG_LEVEL=0 npm start
+```
+
 ## Performance
 
 ### Next Bundle Analysis
