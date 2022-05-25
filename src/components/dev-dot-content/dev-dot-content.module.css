@@ -20,7 +20,7 @@
       border-radius: 6px;
       color: var(--token-color-palette-neutral-600);
       padding: 16px;
-      margin-bottom: 20px;
+      margin: 20px 0;
 
       & code {
         background-color: white;
