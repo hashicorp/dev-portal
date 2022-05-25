@@ -119,7 +119,6 @@ function HomePage() {
       </section>
       <section className={s.sectionGridContainer}>
         <SectionBreakCta
-          badge="Beta"
           heading="Automate build configuration across cloud providers."
           description="Set up HCP Packer in minutes to start tracking Packer images across your provisioning pipeline."
           link={{
