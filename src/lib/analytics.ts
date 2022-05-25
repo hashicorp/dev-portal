@@ -30,7 +30,11 @@ const AnalyticsPluginEventLogger = {
  * Register the event logger plugin for track event logging during development.
  */
 export const makeDevAnalyticsLogger = () => {
-  if (process.env.NODE_ENV !== 'production' && typeof window !== 'undefined') {
+  if (
+    process.env.NODE_ENV !== 'production' &&
+    typeof window !== 'undefined' &&
+    process.env.NEXT_PUBLIC_ANALYTICS_LOG_LEVEL !== '0'
+  ) {
     window.analytics.ready(() => {
       // @ts-expect-error - register doesn't exist on our current SegmentAnalytics.AnalyticsJS type
       window.analytics.register(AnalyticsPluginEventLogger)
