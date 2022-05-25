@@ -209,6 +209,9 @@ export function getStaticGenerationFunctions<
           menuItems: navDataWithFullPaths,
           // TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
           title: BASE_PATHS_TO_NAMES[basePath] || product.name,
+          /**
+           * @TODO overviewItemHref needs to include the version in the current path
+           */
           overviewItemHref: `/${product.slug}/${basePath}`,
         },
       ]
