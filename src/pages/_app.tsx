@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { Toaster } from 'components/toast'
 import Head from 'next/head'
@@ -18,8 +18,6 @@ import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 
-makeDevAnalyticsLogger()
-
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
 const PreviewProductSwitcher = dynamic(
@@ -37,6 +35,7 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 
 export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()
+  useEffect(() => makeDevAnalyticsLogger(), [])
 
   const Layout = Component.layout ?? BaseLayout
   const currentProduct = pageProps.product || null
