@@ -11,12 +11,17 @@ import { NavigationDisclosureLink, NavigationDisclosureProps } from './types'
  *  - should be rendered inside of a <nav>
  */
 const NavigationDisclosure = ({
+  activatorClassName,
   ariaLabel,
   children,
   links,
 }: NavigationDisclosureProps) => {
   return (
-    <Disclosure activatorContent={children} ariaLabel={ariaLabel}>
+    <Disclosure
+      activatorClassName={activatorClassName}
+      activatorContent={children}
+      ariaLabel={ariaLabel}
+    >
       <ul>
         {links.map(({ text, url }: NavigationDisclosureLink) => {
           return (

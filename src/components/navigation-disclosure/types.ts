@@ -10,6 +10,7 @@ interface NavigationDisclosureLink {
 }
 
 interface NavigationDisclosureProps {
+  activatorClassName?: DisclosureProps['activatorClassName']
   ariaLabel?: DisclosureProps['ariaLabel']
   children: ReactNode
   links: NavigationDisclosureLink[]
