@@ -100,9 +100,12 @@ const SidebarSidecarLayoutContent = ({
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           variants={sidebarMotion}
         >
-          {/* TODO move to below Sidebar content */}
-          <DocsVersionSwitcher options={versions} />
-          <SidebarContent />
+          <div className={s.sidebarContentWrapper}>
+            <SidebarContent />
+          </div>
+          <div className={s.docsVersionSwitcherWrapper}>
+            <DocsVersionSwitcher options={versions} />
+          </div>
         </motion.div>
         <div className={s.contentWrapper}>
           <div className={s.mainAreaWrapper}>
