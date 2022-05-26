@@ -72,6 +72,11 @@
     & li {
       color: var(--token-color-foreground-primary);
 
+      /* Fixes a visual bug in firefox where the p tag after our injected anchor is on a new line */
+      & a + p {
+        display: inline;
+      }
+
       &:not(:last-child) {
         margin-bottom: 16px;
       }
