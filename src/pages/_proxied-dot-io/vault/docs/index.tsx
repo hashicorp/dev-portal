@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
+import { Products } from '@hashicorp/platform-product-meta'
 import { DocsPageInner, DocsPageProps } from '@hashicorp/react-docs-page'
 import productData from 'data/vault.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
@@ -10,8 +11,9 @@ import PAGE_CONTENT from './content.json'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticProps } from 'next'
+import DevDotOptIn from 'components/_proxied-dot-io/common/dev-dot-opt-in'
 
-const product = { name: productData.name, slug: productData.slug }
+const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'docs'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
@@ -48,6 +50,7 @@ function VaultDocsLandingPage({
       baseRoute={basePath}
       versions={versions}
       algoliaConfig={productData.algoliaConfig}
+      optInBanner={__config.flags.enable_io_beta_cta ? <DevDotOptIn /> : null}
     >
       <ProductDocsLanding content={PAGE_CONTENT} />
     </DocsPageInner>

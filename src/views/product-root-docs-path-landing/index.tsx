@@ -36,10 +36,10 @@ const ProductRootDocsPathLanding = ({
         pageHeading={pageHeading}
         pageSubtitle={pageSubtitle}
       />
-      {mdxSlot}
       <ProductRootDocsPathLandingMarketingContent
         blocks={marketingContentBlocks}
       />
+      {mdxSlot}
     </>
   )
 }

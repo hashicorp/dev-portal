@@ -1,3 +1,4 @@
+import { Products } from '@hashicorp/platform-product-meta'
 import SentinelIoLayout from 'layouts/_proxied-dot-io/sentinel'
 import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import productData from 'data/sentinel.json'
@@ -5,7 +6,7 @@ import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 
-const product = { name: productData.name, slug: productData.slug }
+const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'sentinel/intro'
 const navDataFile = `../data/intro-nav-data.json`
 const localContentDir = `../content/${basePath}`
