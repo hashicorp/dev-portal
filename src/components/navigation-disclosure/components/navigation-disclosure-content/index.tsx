@@ -1,4 +1,5 @@
 import { DisclosureContent } from 'components/disclosure'
+import { validateNavigationDisclosureContentChildren } from 'components/navigation-disclosure/helpers'
 import { NavigationDisclosureContentProps } from './types'
 
 /**
@@ -10,6 +11,8 @@ const NavigationDisclosureContent = ({
   children,
   className,
 }: NavigationDisclosureContentProps) => {
+  validateNavigationDisclosureContentChildren(children)
+
   return <DisclosureContent className={className}>{children}</DisclosureContent>
 }
 

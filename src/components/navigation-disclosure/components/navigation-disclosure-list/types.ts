@@ -1,10 +1,12 @@
+import { ReactElement } from 'react'
+
 type NativeULProps = JSX.IntrinsicElements['ul']
 
 interface NavigationDisclosureListProps {
   /**
    * Content to render within the internally rendered `<ul>`.
    */
-  children: NativeULProps['children']
+  children: ReactElement[]
 
   /**
    * Optional classes to appendto the list of class names passed to the

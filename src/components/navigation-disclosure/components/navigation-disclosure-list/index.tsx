@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { validateNavigationDisclosureListChildren } from 'components/navigation-disclosure/helpers'
 import { NavigationDisclosureListProps } from './types'
 import s from './navigation-disclosure-list.module.css'
 
@@ -12,6 +13,8 @@ const NavigationDisclosureList = ({
   children,
   className,
 }: NavigationDisclosureListProps) => {
+  validateNavigationDisclosureListChildren(children)
+
   return <ul className={classNames(s.root, className)}>{children}</ul>
 }
 
