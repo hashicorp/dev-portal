@@ -12,8 +12,9 @@ const generateHeadingLevelsAndSidecarHeadings = ({
   marketingContentBlocks,
   pageTitle,
 }) => {
-  const additionalHeadings = []
+  const marketingContentHeadings = []
 
+  // gather headings from marketing content & auto determine their levels
   let currentSectionHeading
   const marketingContentBlocksWithHeadingLevels = marketingContentBlocks.map(
     (block) => {
@@ -50,7 +51,7 @@ const generateHeadingLevelsAndSidecarHeadings = ({
       }
 
       if (thisHeadingObject) {
-        additionalHeadings.push(thisHeadingObject)
+        marketingContentHeadings.push(thisHeadingObject)
         blockCopy.headingLevel = thisHeadingObject.level
         blockCopy.headingId = thisHeadingObject.id
       }
@@ -59,16 +60,20 @@ const generateHeadingLevelsAndSidecarHeadings = ({
     }
   )
 
+  // build page title heading element
+  const titleHeadingSlug = slugify(pageTitle, { lower: true })
+  const titleHeading = {
+    level: 1,
+    id: titleHeadingSlug,
+    slug: titleHeadingSlug,
+    title: pageTitle,
+  }
+
+  // piece together the different headings
   const sidecarHeadings = [
-    ...layoutHeadings.map((heading) => {
-      if (heading.level === 1) {
-        const slug = slugify(pageTitle, { lower: true })
-        return { level: 1, id: slug, slug, title: pageTitle }
-      } else {
-        return heading
-      }
-    }),
-    ...additionalHeadings,
+    titleHeading,
+    ...marketingContentHeadings,
+    ...layoutHeadings.filter((heading) => heading.level !== 1),
   ]
 
   return { sidecarHeadings, marketingContentBlocksWithHeadingLevels }

@@ -20,6 +20,7 @@
       border-radius: 6px;
       color: var(--token-color-palette-neutral-600);
       padding: 16px;
+      margin: 20px 0;
 
       & code {
         background-color: white;
@@ -143,7 +144,7 @@
 
     & > thead > tr > th {
       vertical-align: bottom;
-      border-bottom: 2px solid #ddd;
+      border-bottom: 1px solid #ddd;
     }
 
     & > caption + thead > tr:first-child > th,
@@ -157,7 +158,7 @@
     }
 
     & > tbody + tbody {
-      border-top: 2px solid #ddd;
+      border-top: 1px solid #ddd;
     }
 
     & table {
