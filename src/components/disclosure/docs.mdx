@@ -1,15 +1,92 @@
 ---
 componentName: Disclosure
+peerComponents:
+  - AccordionDisclosure
+  - Card
 ---
 
-🚨 `Disclosure` is for intended for internal use within DevDot components only.
+The `Disclosure` component handles showing and hiding content. It is mostly unstyled and all styles are customizable in code using `Disclosure`'s subcomponents.
+
+🚨 `Disclosure` is a utility component intended for internal DevDot use only.
+
+<AccordionDisclosure title="Provided Styling" description="The styling provided by `Disclosure` balances abstracting the most common CSS properties applied to the component and keeping the default styling to a minimum.">
+
+**What styles are provided?**
+
+- **Relative positioning:** the containing element for `Disclosure` has `position: relative` set. This is so the containing element for `DisclosureContent` can have `position: absolute` applied without having to remember to add `position: relative` to its parent element. This setting does not affect the default styling of `Disclosure`.
+- **Hiding content:** both `DisclosureActivator` and `DisclosureContent` have specific `className`s applied to them that automatically handle hiding `DisclosureContent` based on the `aria-expanded` property of `DisclosureActivator`'s `<button>` element. See [`disclosure.module.css`](https://github.com/hashicorp/dev-portal/blob/main/src/components/disclosure/disclosure.module.css) for more details.
+- **Full width:** the containing elements for `Disclosure`, `DisclosureActivator`, and `DisclosureContent` all have `width: 100%` set. This is so they take up the full-width of `Disclosure`'s parent container.
+- **Line height reset:** the containing elements for `Disclosure`, `DisclosureActivator`, and `DisclosureContent` all have `line-height: normal` set. This is so that the height of the `Disclosure` and its content is not affected by global styles (such as `line-height` being set on the `body` element).
+
+</AccordionDisclosure>
+
+<br />
+
+<AccordionDisclosure title="`DisclosureProvider` and `useDisclosure`" description="Each `Disclosure` uses React Context to manage its open/closed state and share that state with its subcomponents. This is primarily important so that `DisclosureActivator`'s `<button>` and `DisclosureContent`'s containing element can be programmatically connected using the `<button>`'s `aria-controls` property.">
+
+**What does `Disclosure` handle?**
+
+- generating its own unique ID
+- managing its open/closed state with a local `useState` hook
+- creating `openDisclosure` and `closeDisclosure` callbacks using the state setter returned from `useState`
+- rendering a `DisclosureProvider` and passes along its unique ID, open/closed state boolean, and open/close callbacks.
+
+**What does `DisclosureProvider` handle?**
+
+- creating an ID from `Disclosure`'s unique ID intended for `DisclosureContent`'s containing element
+- creating a `toggleDisclosure` callback that handles opening/closing `Disclosure` based on the open/closed state and using the open/close callbacks provided by `Disclosure`
+- exposing via the `useDisclosure` hook: `DisclosureContent`'s' containing element ID, `toggleDisclosure`, and the same properties that the `Provider` was hydrated with
+
+</AccordionDisclosure>
+
+<br />
+
+<AccordionDisclosure title="Subcomponents" description="`Disclosure` exposes some subcomponents that enable custom styling, React content, and consistent, accessible markup.">
+
+<Card elevation="base">
+
+**`DisclosureActivator`**
+
+This component renders a `<button>` element and handles applying the following ARIA properties:
+
+- `aria-controls`
+- `aria-expanded`
+- `aria-label`
+
+It also handles applying default styling (as detailed above in "Provided Styling") and toggling the open/closed state of the `Disclosure` using the toggle function exposed by `DisclosureProvider`'s `useDisclosure`.
+
+</Card>
+
+<br />
+
+<Card elevation="base">
+
+**`DisclosureContent`**
+
+This component handles applying default styling (as detailed above in "Provided Styling") to a `<div>` element and setting that element's `id` to the `contentContainerId` exposed by `DisclosureProvider`'s `useDisclosure`.
+
+</Card>
+
+</AccordionDisclosure>
 
 ## Playground
 
 <LiveComponent>{`
-<Disclosure
-  activatorContent="Disclosure"
->
-  Disclosed content
-</Disclosure>
+<div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+  <h2 style={{ margin: 0 }}>
+    Three evenly spaced <code>Disclosure</code>s with default settings
+  </h2>
+  <Disclosure>
+    <DisclosureActivator>Default Disclosure #1</DisclosureActivator>
+    <DisclosureContent>Disclosed Content #1</DisclosureContent>
+  </Disclosure>
+  <Disclosure>
+    <DisclosureActivator>Default Disclosure #2</DisclosureActivator>
+    <DisclosureContent>Disclosed Content #2</DisclosureContent>
+  </Disclosure>
+  <Disclosure>
+    <DisclosureActivator>Default Disclosure #3</DisclosureActivator>
+    <DisclosureContent>Disclosed Content #3</DisclosureContent>
+  </Disclosure>
+</div>
 `}</LiveComponent>
