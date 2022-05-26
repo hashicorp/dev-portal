@@ -21,6 +21,7 @@ export default function DocsPage({
 }: DocsPageProps) {
   const { slug: productSlug } = useProductMeta()
 
+  // Based on our config values, decide whether or not we should render the dev portal beta CTA.
   const shouldRenderOptInCTA =
     getIsBetaProduct(productSlug as ProductSlug) &&
     __config.flags.enable_io_beta_cta
