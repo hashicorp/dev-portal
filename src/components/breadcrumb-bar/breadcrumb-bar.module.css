@@ -18,6 +18,7 @@
 }
 
 .listItem {
+  border: 1px solid magenta;
   &:not(:last-child)::after {
     color: var(--token-color-palette-neutral-400);
     content: '/';
