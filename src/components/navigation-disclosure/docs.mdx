@@ -47,7 +47,7 @@ This is a wrapper around `DisclosureActivator`. Will soon additional props like 
 
 **`NavigationDisclosureContent`**
 
-This is a wrapper around `DisclosureContent`.
+This is a wrapper around `DisclosureContent`. It automatically validates that it receives a single `NavigationDisclosureList` child.
 
 </Card>
 
@@ -57,7 +57,7 @@ This is a wrapper around `DisclosureContent`.
 
 **`NavigationDisclosureList`**
 
-This component handles applying the default styling (as detailed above in "Provided Styling") of the rendered `<ul>` element. It also exposes a `className` prop to enable custom styling to be applied on top of the default styling.
+This component handles applying the default styling (as detailed above in "Provided Styling") of the rendered `<ul>` element. It also exposes a `className` prop to enable custom styling to be applied on top of the default styling. It automatically validates that it only receives `NavigationDisclosureListItem` children.
 
 </Card>
 
@@ -67,7 +67,7 @@ This component handles applying the default styling (as detailed above in "Provi
 
 **`NavigationDisclosureListItem`**
 
-This component handles applying the default styling (as detailed above in "Provided Styling") of the rendered `<li>` element. It also exposes a `className` prop to enable custom styling to be applied on top of the default styling.
+This component handles applying the default styling (as detailed above in "Provided Styling") of the rendered `<li>` element. It also exposes a `className` prop to enable custom styling to be applied on top of the default styling. It automatically validates that it receives a single `NavigationDisclosureLink` child.
 
 </Card>
 
