@@ -15,6 +15,7 @@ import {
 } from './contexts/sidebar-nav-data'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
+import DocsVersionSwitcher from 'components/docs-version-switcher'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
@@ -35,6 +36,7 @@ const SidebarSidecarLayoutContent = ({
   optInOutSlot,
   sidecarSlot,
   sidebarNavDataLevels,
+  versions,
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
@@ -98,7 +100,12 @@ const SidebarSidecarLayoutContent = ({
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           variants={sidebarMotion}
         >
-          <SidebarContent />
+          <div className={s.sidebarContentWrapper}>
+            <SidebarContent />
+          </div>
+          <div className={s.docsVersionSwitcherWrapper}>
+            <DocsVersionSwitcher options={versions} />
+          </div>
         </motion.div>
         <div className={s.contentWrapper}>
           <div className={s.mainAreaWrapper}>

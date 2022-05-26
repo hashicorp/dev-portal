@@ -82,6 +82,23 @@ for further details.
   }
 }
 
+.sidebarContentWrapper {
+  position: relative;
+  padding: 24px;
+}
+
+.docsVersionSwitcherWrapper {
+  bottom: 0;
+  position: sticky;
+  width: 100%;
+  z-index: 2;
+
+  @media (--dev-dot-tablet-down) {
+    /* manually calculated based on .sidebarWrapper's padding-bottom */
+    bottom: -18px;
+  }
+}
+
 .contentWrapper {
   padding-left: var(--main-area-padding-left);
   padding-right: var(--main-area-padding-right);
