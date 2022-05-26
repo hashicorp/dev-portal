@@ -106,7 +106,7 @@ export function getStaticGenerationFunctions<
    *
    * @TODO - set `baseName` using `rootDocsPath`
    */
-  const currentRootDocsPath = product.rootDocsPaths.find(
+  const currentRootDocsPath = product.rootDocsPaths?.find(
     (rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
   )
 
