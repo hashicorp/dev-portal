@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import InlineLinkButton from 'components/inline-link-button'
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
+import { useErrorPageAnalytics } from '@hashicorp/react-error-view'
+import InlineLinkButton from 'components/inline-link-button'
 import CardsGridList from 'components/cards-grid-list'
 import IconCardLink, { IconCardLinkProps } from 'components/icon-card-link'
 import {
@@ -11,7 +12,7 @@ import {
   ErrorViewH1,
   ErrorViewParagraph,
 } from '../components'
-import { useErrorPageAnalytics } from '@hashicorp/react-error-view'
+
 import s from './dev-dot-404.module.css'
 
 export function DevDot404(): ReactElement {

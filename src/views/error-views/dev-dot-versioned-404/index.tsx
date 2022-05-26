@@ -1,11 +1,11 @@
+import useErrorPageAnalytics from '@hashicorp/react-error-view/use-error-page-analytics'
+import ButtonLink from 'components/button-link'
+import InlineLink from 'components/inline-link'
 import {
   ErrorViewContainer,
   ErrorViewH1,
   ErrorViewParagraph,
 } from '../components'
-import ButtonLink from 'components/button-link'
-import InlineLink from 'components/inline-link'
-import useErrorPageAnalytics from '@hashicorp/react-error-view/use-error-page-analytics'
 import s from './dev-dot-versioned-404.module.css'
 
 export function DevDotVersioned404({
