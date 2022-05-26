@@ -117,6 +117,7 @@ export async function getServerSideProps(ctx) {
     const maybeProductSlug = pathParts.length > 1 && pathParts[1]
     productSlug = isProductSlug(maybeProductSlug) ? maybeProductSlug : null
   }
+  // We need the whole product data (eg for top nav), not just the slug
   const product = productConfig[productSlug] || null
 
   return {
