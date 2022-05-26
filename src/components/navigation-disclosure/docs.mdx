@@ -1,0 +1,26 @@
+---
+componentName: NavigationDisclosure
+---
+
+<LiveComponent>{`
+<NavigationDisclosure>
+  <NavigationDisclosureActivator>
+    This is an example NavigationDisclosure
+  </NavigationDisclosureActivator>
+  <NavigationDisclosureContent>
+    <NavigationDisclosureList>
+      {[
+        { text: 'Home', url: '/' },
+        { text: 'Vault', url: '/vault' },
+        { text: 'Waypoint', url: '/waypoint' },
+      ].map(({ text, url }) => (
+        <NavigationDisclosureListItem>
+          <NavigationDisclosureLink href={url} isActive={false}>
+            {text}
+          </NavigationDisclosureLink>
+        </NavigationDisclosureListItem>
+      ))}
+    </NavigationDisclosureList>
+  </NavigationDisclosureContent>
+</NavigationDisclosure>
+`}</LiveComponent>
