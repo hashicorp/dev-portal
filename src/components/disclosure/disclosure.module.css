@@ -1,3 +1,10 @@
+/*
+***
+* @TODO Common properties to potentially add in the future:
+*   - display: flex
+*   - align-items: center
+***
+*/
 .root {
   position: relative;
 }
@@ -5,6 +12,7 @@
 .root,
 .activator,
 .contentContainer {
+  line-height: normal;
   width: 100%;
 }
 
