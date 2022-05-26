@@ -9,6 +9,12 @@
 .root {
   composes: hds-typography-body-300 from global;
 
+  --permalink-scroll-offset: 24px;
+  --full-header-height: calc(
+    var(--navigation-header-height) + var(--alert-bar-height)
+  );
+  --height: calc(var(--full-header-height) + var(--permalink-scroll-offset));
+
   & :global {
     & a.__permalink-h {
       display: none;
@@ -47,12 +53,6 @@
   & h4,
   & h5,
   & h6 {
-    --permalink-scroll-offset: 24px;
-    --full-header-height: calc(
-      var(--navigation-header-height) + var(--alert-bar-height)
-    );
-    --height: calc(var(--full-header-height) + var(--permalink-scroll-offset));
-
     /*
     Because not all jump link headings have an anchor child, such as the ones on
     the product landing pages
@@ -73,8 +73,9 @@
       color: var(--token-color-foreground-primary);
 
       /* Fixes a visual bug in firefox where the p tag after our injected anchor is on a new line */
-      & a + p {
-        display: inline;
+      & a:global(.__target-lic) {
+        position: absolute;
+        scroll-margin-top: var(--height);
       }
 
       &:not(:last-child) {
