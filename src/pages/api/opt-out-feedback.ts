@@ -1,3 +1,4 @@
+import Cors from 'cors'
 import { NextApiRequest, NextApiResponse } from 'next'
 import {
   GoogleSpreadsheet,
@@ -5,10 +6,35 @@ import {
   GoogleSpreadsheetWorksheet,
 } from 'google-spreadsheet'
 
+const cors = Cors({
+  origin:
+    process.env.HASHI_ENV === 'production'
+      ? 'https://developer.hashicorp.com'
+      : '*',
+  methods: ['POST'],
+})
+
+// Helper method to wait for a middleware to execute before continuing
+// And to throw an error when an error happens in a middleware
+// https://nextjs.org/docs/api-routes/api-middlewares
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+      return resolve(result)
+    })
+  })
+}
+
 export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
+  // Run Cors middleware
+  await runMiddleware(request, response, cors)
+
   // Only allow POST for this endpoint
   if (request.method !== 'POST') {
     response.status(404).json({
