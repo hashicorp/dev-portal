@@ -26,7 +26,7 @@ const AccordionDisclosure = ({
           </Text>
           {description && (
             <Text asElement="span" className={s.description} size={200}>
-              {title}
+              {description}
             </Text>
           )}
         </span>
