@@ -6,6 +6,11 @@
       "title": "Fundamentals",
       "cards": [
         {
+          "title": "Quick Start",
+          "description": "It only takes a few minutes to get started with Waypoint on your local development environment.",
+          "url": "/waypoint/docs/getting-started"
+        },
+        {
           "title": "App Lifecycle",
           "description": "Waypoint has an opinionated view on the minimum application lifecycle: build, deploy, and release.",
           "url": "/waypoint/docs/lifecycle"
