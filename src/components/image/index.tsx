@@ -57,7 +57,7 @@ function Image({
   const style = generateStyleProp(width, height)
 
   return (
-    <div
+    <span
       className={classNames(s.root, {
         [s.noMargin]: noMargin,
         [s.noBorder]: noBorder,
@@ -66,7 +66,7 @@ function Image({
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt={alt} title={title} style={style} />
-    </div>
+    </span>
   )
 }
 
