@@ -2,34 +2,9 @@ import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
+import { HOSTNAME_MAP } from 'constants/hostname-map'
 
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
-
-const HOSTNAME_MAP = {
-  'www.boundaryproject.io': 'boundary',
-  'test-bd.hashi-mktg.com': 'boundary',
-
-  'www.consul.io': 'consul',
-  'test-cs.hashi-mktg.com': 'consul',
-
-  'www.nomadproject.io': 'nomad',
-  'test-nm.hashi-mktg.com': 'nomad',
-
-  'www.packer.io': 'packer',
-  'test-pk.hashi-mktg.com': 'packer',
-
-  'docs.hashicorp.com': 'sentinel',
-  'test-st.hashi-mktg.com': 'sentinel',
-
-  'www.vagrantup.com': 'vagrant',
-  'test-vg.hashi-mktg.com': 'vagrant',
-
-  'www.vaultproject.io': 'vault',
-  'test-vt.hashi-mktg.com': 'vault',
-
-  'www.waypointproject.io': 'waypoint',
-  'test-wp.hashi-mktg.com': 'waypoint',
-}
 
 function determineProductSlug(req: NextRequest): string {
   // .io preview on dev portal
@@ -76,8 +51,22 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
     return NextResponse.redirect(url, permanent ? 308 : 307)
   }
 
-  // Handle Opt-in cookies
   const params = req.nextUrl.searchParams
+
+  /**
+   * If we're serving a beta product's io site and the betaOptOut query param exists,
+   * clear it and redirect back to the current URL without the betaOptOut query param
+   */
+  if (
+    product in __config.dev_dot.beta_product_slugs &&
+    params.get('betaOptOut') === 'true'
+  ) {
+    const url = req.nextUrl.clone()
+    url.searchParams.delete('betaOptOut')
+    return NextResponse.redirect(url).clearCookie(`${product}-io-beta-opt-in`)
+  }
+
+  // Handle Opt-in cookies
   const optInPlatform = params.get('optInFrom') as OptInPlatformOption
   const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
   const response = NextResponse.next()

@@ -14,6 +14,7 @@ import {
 } from './types'
 import { safeAnalyticsTrack } from 'lib/analytics'
 import makeBetaWelcomeToast from './helpers/make-beta-welcome-toast'
+import { getIoRedirectPath } from './helpers/get-io-redirect-path'
 
 // Could these go in the config? or I could source the base urls elsewhere
 export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
@@ -25,16 +26,16 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
   },
   'waypoint-io': {
     base_url: 'https://www.waypointproject.io/',
-    getRedirectPath: function TODO() {
-      return 'test'
+    getRedirectPath(path) {
+      return this.base_url + getIoRedirectPath(path)
     },
     cookieKey: 'waypoint-io-beta-opt-in',
     cookieAnalyticsKey: 'waypoint-io-beta-opt-in-tracked',
   },
   'vault-io': {
     base_url: 'https://www.vaultproject.io/',
-    getRedirectPath: function TODO() {
-      return 'test'
+    getRedirectPath(path) {
+      return this.base_url + getIoRedirectPath(path)
     },
     cookieKey: 'vault-io-beta-opt-in',
     cookieAnalyticsKey: 'vault-io-beta-opt-in-tracked',

@@ -1,3 +1,4 @@
+import { Products } from '@hashicorp/platform-product-meta'
 import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
 import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import productData from 'data/packer.json'
@@ -7,7 +8,7 @@ import PluginBadge from 'components/_proxied-dot-io/packer/plugin-badge'
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
 
-const product = { name: productData.name, slug: productData.slug }
+const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'plugins'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
