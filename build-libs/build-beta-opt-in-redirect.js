@@ -1,6 +1,6 @@
 const { unflatten } = require('flat')
 const { loadHashiConfigForEnvironment } = require('../config')
-const proxySettings = require('./proxy-settings')
+// const proxySettings = require('./proxy-settings')
 
 const __config = unflatten(loadHashiConfigForEnvironment())
 
@@ -23,9 +23,14 @@ function buildBetaProductOptInRedirect(product, basePaths) {
         value: 'true',
       },
       {
-        type: 'host',
-        value: proxySettings[product].host,
+        type: 'cookie',
+        key: 'io_preview',
+        value: product,
       },
+      // {
+      //   type: 'host',
+      //   value: proxySettings[product].host,
+      // },
     ],
   }
 }
