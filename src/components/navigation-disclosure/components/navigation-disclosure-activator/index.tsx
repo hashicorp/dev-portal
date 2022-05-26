@@ -9,7 +9,7 @@ import { NavigationDisclosureActivatorProps } from './types'
  * Component for rendering the always-visible activator within a
  * `NavigationDisclosure`.
  *
- * @see https://developer.hashi-mktg.com/swingset/components/disclosure
+ * @see https://developer.hashi-mktg.com/swingset/components/navigationdisclosure
  *
  * @TODO
  *  - add onKeyDown listener (for `NavigationHeaderDropdownMenu`)
