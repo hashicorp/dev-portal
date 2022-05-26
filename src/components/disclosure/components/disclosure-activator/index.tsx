@@ -1,4 +1,5 @@
 // Third-party imports
+import { forwardRef, ForwardedRef } from 'react'
 import classNames from 'classnames'
 
 // Global imports
@@ -13,25 +14,29 @@ import { DisclosureActivatorProps } from './types'
  *
  * @see https://developer.hashi-mktg.com/swingset/components/disclosure
  */
-const DisclosureActivator = ({
-  ariaLabel,
-  children,
-  className,
-}: DisclosureActivatorProps) => {
-  const { contentContainerId, isOpen, toggleDisclosure } = useDisclosureState()
+// eslint-disable-next-line react/display-name
+const DisclosureActivator = forwardRef(
+  (
+    { ariaLabel, children, className }: DisclosureActivatorProps,
+    ref: ForwardedRef<HTMLButtonElement>
+  ) => {
+    const { contentContainerId, isOpen, toggleDisclosure } =
+      useDisclosureState()
 
-  return (
-    <button
-      aria-controls={contentContainerId}
-      aria-expanded={isOpen}
-      aria-label={ariaLabel}
-      className={classNames(disclosureStyles.activator, className)}
-      onClick={toggleDisclosure}
-    >
-      {children}
-    </button>
-  )
-}
+    return (
+      <button
+        aria-controls={contentContainerId}
+        aria-expanded={isOpen}
+        aria-label={ariaLabel}
+        className={classNames(disclosureStyles.activator, className)}
+        onClick={toggleDisclosure}
+        ref={ref}
+      >
+        {children}
+      </button>
+    )
+  }
+)
 
 export type { DisclosureActivatorProps }
 export default DisclosureActivator
