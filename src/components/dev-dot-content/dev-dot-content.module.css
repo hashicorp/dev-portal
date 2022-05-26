@@ -10,10 +10,7 @@
   composes: hds-typography-body-300 from global;
 
   --permalink-scroll-offset: 24px;
-  --full-header-height: calc(
-    var(--navigation-header-height) + var(--alert-bar-height)
-  );
-  --height: calc(var(--full-header-height) + var(--permalink-scroll-offset));
+  --height: calc(var(--sticky-bars-height) + var(--permalink-scroll-offset));
 
   & :global {
     & a.__permalink-h {
