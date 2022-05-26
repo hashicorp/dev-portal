@@ -5,10 +5,6 @@ import {
   GoogleSpreadsheetWorksheet,
 } from 'google-spreadsheet'
 
-const FEEDBACK_SHEET_ID = process.env.FEEDBACK_SHEET_ID
-const FEEDBACK_SERVICE_EMAIL = process.env.FEEDBACK_SERVICE_EMAIL
-const FEEDBACK_PRIVATE_KEY = process.env.FEEDBACK_PRIVATE_KEY
-
 export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
@@ -88,10 +84,10 @@ export default async function handler(
 
   try {
     // Load up the Google Spreadsheet
-    const doc = new GoogleSpreadsheet(FEEDBACK_SHEET_ID)
+    const doc = new GoogleSpreadsheet(process.env.FEEDBACK_SHEET_ID)
     await doc.useServiceAccountAuth({
-      client_email: FEEDBACK_SERVICE_EMAIL,
-      private_key: FEEDBACK_PRIVATE_KEY,
+      client_email: process.env.FEEDBACK_SERVICE_EMAIL,
+      private_key: process.env.FEEDBACK_PRIVATE_KEY,
     })
     await doc.loadInfo()
 
