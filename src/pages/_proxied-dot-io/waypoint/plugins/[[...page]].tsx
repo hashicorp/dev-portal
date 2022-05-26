@@ -1,3 +1,4 @@
+import { Products } from '@hashicorp/platform-product-meta'
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import productData from 'data/waypoint.json'
@@ -5,7 +6,7 @@ import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 
-const product = { name: productData.name, slug: productData.slug }
+const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'plugins'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
