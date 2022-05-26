@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 type NativeButtonProps = JSX.IntrinsicElements['button']
 
 export interface InlineLinkButtonProps {
@@ -8,9 +10,9 @@ export interface InlineLinkButtonProps {
   className?: NativeButtonProps['className']
 
   /**
-   * The text rendered within the `<button>` element.
+   * Children to render within the `<button>` element.
    */
-  text: string
+  children: ReactNode
 
   /**
    * The function invoked after the button is clicked. Passed directly to the

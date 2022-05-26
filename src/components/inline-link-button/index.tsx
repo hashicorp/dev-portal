@@ -5,12 +5,12 @@ import s from './inline-link-button.module.css'
 
 function InlineLinkButton({
   className,
-  text,
+  children,
   ...rest
 }: InlineLinkButtonProps): ReactElement {
   return (
     <button className={classNames(s.root, className)} {...rest}>
-      {text}
+      {children}
     </button>
   )
 }
