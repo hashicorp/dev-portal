@@ -4,7 +4,9 @@ import disclosureStyles from 'components/disclosure/disclosure.module.css'
 import { DisclosureContentProps } from './types'
 
 /**
- * @TODO document
+ * Component for rendering content within a `Disclosure`.
+ *
+ * @see https://developer.hashi-mktg.com/swingset/components/disclosure
  */
 const DisclosureContent = ({ children, className }: DisclosureContentProps) => {
   const { contentContainerId } = useDisclosure()

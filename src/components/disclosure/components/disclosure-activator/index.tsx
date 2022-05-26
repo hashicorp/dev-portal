@@ -1,10 +1,17 @@
+// Third-party imports
 import classNames from 'classnames'
+
+// Global imports
 import { useDisclosure } from 'components/disclosure/provider'
 import disclosureStyles from 'components/disclosure/disclosure.module.css'
+
+// Local imports
 import { DisclosureActivatorProps } from './types'
 
 /**
- * @TODO document
+ * Component for rendering the always-visible activator within a `Disclosure`.
+ *
+ * @see https://developer.hashi-mktg.com/swingset/components/disclosure
  */
 const DisclosureActivator = ({
   ariaLabel,
