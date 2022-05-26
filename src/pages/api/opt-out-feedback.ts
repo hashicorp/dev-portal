@@ -46,6 +46,21 @@ export default async function handler(
     return
   }
 
+  // Ensure that we're submitting only from developer.hashicorp
+  // as our origin on production.
+  if (
+    process.env.HASHI_ENV === 'production' &&
+    request.headers.origin !== 'https://developer.hashicorp.com'
+  ) {
+    response.status(401).json({
+      meta: {
+        status_code: 401,
+        status_text: 'Unauthorized',
+      },
+    })
+    return
+  }
+
   // Validate Request Headers
   if (request.headers['content-type'] !== 'application/json') {
     response.status(400).json({
