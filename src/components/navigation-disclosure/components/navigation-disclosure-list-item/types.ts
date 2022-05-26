@@ -4,7 +4,8 @@ type NativeLIProps = JSX.IntrinsicElements['li']
 
 interface NavigationDisclosureListItemProps {
   /**
-   * Content to render within the internally rendered `<li>`.
+   * Content to render within the internally rendered `<li>`. Expected to be a
+   * single `NavigationDisclosureLink`.
    */
   children: ReactElement
 
