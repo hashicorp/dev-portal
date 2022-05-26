@@ -11,7 +11,7 @@ import { isProductSlug } from 'lib/products'
 function resolve(obj) {
   return obj && obj.__esModule ? obj.default : obj
 }
-function Error({ statusCode, proxiedProductSlug, layoutProps, product }) {
+function Error({ statusCode, proxiedProductSlug, layoutProps }) {
   // Unlike other pages, we can't use redirects and rewrites
   // to display proxied .io domain 404 pages on specific hosts.
   // Instead, we must use getServerSideProps to determine which
@@ -59,7 +59,6 @@ function Error({ statusCode, proxiedProductSlug, layoutProps, product }) {
       <ErrorViewSwitcher
         statusCode={statusCode}
         isProxiedDotIo={isProxiedDotIo}
-        product={product}
       />
     </Layout>
   )

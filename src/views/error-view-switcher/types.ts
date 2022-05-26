@@ -1,5 +1,3 @@
-import { ProductData } from 'types/products'
-
 export interface ErrorPageProps {
   /**
    * Error code to be recorded via window.analytics.track
@@ -8,13 +6,7 @@ export interface ErrorPageProps {
 
   /**
    * If the error page is being server on a dot-io domain,
-   * then the corresponding product slug should be passed here.
+   * then isProxiedDotIo should be set to true.
    */
-  isProxiedDotIo?: boolean
-
-  /**
-   * Optional product
-   * TODO: does this need to be passed or no?
-   */
-  product?: ProductData
+  isProxiedDotIo: boolean
 }
