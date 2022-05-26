@@ -14,12 +14,16 @@ import {
 } from './components'
 
 /**
- * @TODO
- *  - add use of useOnClickOutside ('hooks/use-on-click-outside')
- *  - add use of useOnFocusOutside ('hooks/use-on-focus-outside')
+ * Abstraction on top of `Disclosure`. Intended to be used for disclosed content
+ * that contains `<a>` elements. When used alone, should be wrapped in a `<nav>`
+ * element. When used in a group of `NavigationDisclosure`s, the group should be
+ * wrapped in a `<nav>` element.
  *
- * Notes for documentation:
- *  - should be rendered inside of a <nav>
+ * @TODO
+ *  - wrap with forwardRef (for `NavigationHeaderDropdownMenu`)
+ *  - add use of useOnClickOutside (for `NavigationHeaderDropdownMenu`)
+ *  - add use of useOnFocusOutside (for `NavigationHeaderDropdownMenu`)
+ *  - add onMouseLeave listener (for `NavigationHeaderDropdownMenu`)
  */
 const NavigationDisclosure = ({
   children,

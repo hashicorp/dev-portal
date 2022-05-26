@@ -1,13 +1,20 @@
+import classNames from 'classnames'
 import Link from 'next/link'
 import { NavigationDisclosureLinkProps } from './types'
 import s from './navigation-disclosure-link.module.css'
-import classNames from 'classnames'
 
+/**
+ * Component for rendering the `<a>` elements within a
+ * `NavigationDisclosureListItem`. Uses `next/link` and handles setting
+ * `aria-current` based on the required `isActive` prop.
+ *
+ * @see https://developer.hashi-mktg.com/swingset/components/navigationdisclosure
+ */
 const NavigationDisclosureLink = ({
-  isActive,
   children,
   className,
   href,
+  isActive,
 }: NavigationDisclosureLinkProps) => {
   let ariaCurrent: JSX.IntrinsicElements['a']['aria-current']
   if (isActive) {
