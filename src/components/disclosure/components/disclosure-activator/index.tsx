@@ -1,5 +1,5 @@
 // Third-party imports
-import { forwardRef, ForwardedRef } from 'react'
+import { forwardRef } from 'react'
 import classNames from 'classnames'
 
 // Global imports
@@ -7,7 +7,10 @@ import { useDisclosureState } from 'components/disclosure'
 import disclosureStyles from 'components/disclosure/disclosure.module.css'
 
 // Local imports
-import { DisclosureActivatorProps } from './types'
+import {
+  DisclosureActivatorForwardedRef,
+  DisclosureActivatorProps,
+} from './types'
 
 /**
  * Component for rendering the always-visible activator within a `Disclosure`.
@@ -18,7 +21,7 @@ import { DisclosureActivatorProps } from './types'
 const DisclosureActivator = forwardRef(
   (
     { ariaLabel, children, className }: DisclosureActivatorProps,
-    ref: ForwardedRef<HTMLButtonElement>
+    ref: DisclosureActivatorForwardedRef
   ) => {
     const { contentContainerId, isOpen, toggleDisclosure } =
       useDisclosureState()
@@ -38,5 +41,5 @@ const DisclosureActivator = forwardRef(
   }
 )
 
-export type { DisclosureActivatorProps }
+export type { DisclosureActivatorForwardedRef, DisclosureActivatorProps }
 export default DisclosureActivator
