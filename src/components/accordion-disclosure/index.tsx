@@ -6,6 +6,7 @@ import Disclosure, {
 import Text from 'components/text'
 import { AccordionDisclosureProps } from './types'
 import s from './accordion-disclosure.module.css'
+import classNames from 'classnames'
 
 const AccordionDisclosure = ({
   children,
@@ -13,12 +14,14 @@ const AccordionDisclosure = ({
   open,
   title,
 }: AccordionDisclosureProps) => {
+  const generateContainerClassName = (isOpen: boolean) => {
+    return classNames(s.root, {
+      [s['root-expanded']]: isOpen,
+    })
+  }
+
   return (
-    <Disclosure
-      containerClassName={s.root}
-      containerExpandedClassName={s['root-expanded']}
-      open={open}
-    >
+    <Disclosure containerClassName={generateContainerClassName} open={open}>
       <DisclosureActivator className={s.button}>
         <span className={s.labelContainer}>
           <Text asElement="span" className={s.title} weight="semibold">

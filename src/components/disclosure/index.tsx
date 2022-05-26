@@ -34,8 +34,6 @@ import s from './disclosure.module.css'
 const Disclosure = ({
   children,
   containerClassName,
-  containerCollapsedClassName,
-  containerExpandedClassName,
   open = false,
 }: DisclosureProps) => {
   // check if the `children` are valid
@@ -76,10 +74,7 @@ const Disclosure = ({
   }, [isOpen])
 
   // build the className prop passed the `children` container
-  const containerClasses = classNames(s.root, containerClassName, {
-    [containerCollapsedClassName]: !isOpen,
-    [containerExpandedClassName]: isOpen,
-  })
+  const containerClasses = classNames(s.root, containerClassName(isOpen))
 
   return (
     <DisclosureProvider
