@@ -2,7 +2,7 @@
 import classNames from 'classnames'
 
 // Global imports
-import { useDisclosure } from 'components/disclosure/provider'
+import { useDisclosureState } from 'components/disclosure'
 import disclosureStyles from 'components/disclosure/disclosure.module.css'
 
 // Local imports
@@ -18,7 +18,7 @@ const DisclosureActivator = ({
   children,
   className,
 }: DisclosureActivatorProps) => {
-  const { contentContainerId, isOpen, toggleDisclosure } = useDisclosure()
+  const { contentContainerId, isOpen, toggleDisclosure } = useDisclosureState()
 
   return (
     <button

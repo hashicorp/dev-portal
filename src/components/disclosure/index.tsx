@@ -1,12 +1,17 @@
 // Third-party imports
-import { useCallback, useEffect, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import { useId } from '@react-aria/utils'
 
 // Local imports
-import { DisclosureProps } from './types'
-import { DisclosureProvider } from './provider'
+import { DisclosureContextState, DisclosureProps } from './types'
 import {
   DisclosureActivator,
   DisclosureActivatorProps,
@@ -15,6 +20,27 @@ import {
 } from './components'
 import { validateDisclosureChildren } from './helpers'
 import s from './disclosure.module.css'
+
+/**
+ * An internal `Context` used for storing state about a single `Disclosure`. Is
+ * not intended for use outside of this file.
+ */
+const DisclosureContext = createContext<DisclosureContextState>(undefined)
+
+/**
+ * A hook for exposing a `Disclosure`s state. Intended for use within the
+ * `Disclosure` subcomponents.
+ */
+const useDisclosureState = (): DisclosureContextState => {
+  const context = useContext(DisclosureContext)
+  if (context === undefined) {
+    throw new Error(
+      'useIsBetaProduct must be used within a CurrentProductProvider'
+    )
+  }
+
+  return context
+}
 
 /**
  * Intended to be used as an internal utility class. Maintains its open/closed
@@ -28,8 +54,6 @@ import s from './disclosure.module.css'
  * @TODO possible future additions
  *  - add and invoke an `onOpen` callback when `openDisclosure` is called
  *  - add and invoke an `onClose` callback when `closeDisclosure` is called
- *  - replace the container className props with a single object that has
- *    specifically named properties associated with the container's state
  */
 const Disclosure = ({
   children,
@@ -43,6 +67,7 @@ const Disclosure = ({
   const router = useRouter()
   const [isOpen, setIsOpen] = useState<boolean>(initialOpen)
   const uniqueId = `disclosure-${useId()}`
+  const contentContainerId = `${uniqueId}-content`
 
   // create a memoized function for opening the disclosure
   const openDisclosure = useCallback(() => {
@@ -53,6 +78,15 @@ const Disclosure = ({
   const closeDisclosure = useCallback(() => {
     setIsOpen(false)
   }, [setIsOpen])
+
+  // create a memoized function for toggling the disclosure
+  const toggleDisclosure = useCallback(() => {
+    if (isOpen) {
+      closeDisclosure()
+    } else {
+      openDisclosure()
+    }
+  }, [closeDisclosure, isOpen, openDisclosure])
 
   // if the disclosure is open, handle closing it on `routeChangeStart`
   useEffect(() => {
@@ -81,12 +115,19 @@ const Disclosure = ({
     containerClasses = s.root
   }
 
+  const providerState: DisclosureContextState = {
+    closeDisclosure,
+    contentContainerId,
+    uniqueId,
+    isOpen,
+    openDisclosure,
+    toggleDisclosure,
+  }
+
   return (
-    <DisclosureProvider
-      value={{ id: uniqueId, isOpen, openDisclosure, closeDisclosure }}
-    >
+    <DisclosureContext.Provider value={providerState}>
       <div className={containerClasses}>{children}</div>
-    </DisclosureProvider>
+    </DisclosureContext.Provider>
   )
 }
 
@@ -95,5 +136,5 @@ export type {
   DisclosureContentProps,
   DisclosureProps,
 }
-export { DisclosureActivator, DisclosureContent }
+export { DisclosureActivator, DisclosureContent, useDisclosureState }
 export default Disclosure

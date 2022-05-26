@@ -22,20 +22,22 @@ The `Disclosure` component handles showing and hiding content. It is mostly unst
 
 <br />
 
-<AccordionDisclosure title="`DisclosureProvider` and `useDisclosure`" description="Each `Disclosure` uses React Context to manage its open/closed state and share that state with its subcomponents. This is primarily important so that `DisclosureActivator`'s `<button>` and `DisclosureContent`'s containing element can be programmatically connected using the `<button>`'s `aria-controls` property.">
+<AccordionDisclosure
+  title="`DisclosureContext` and `useDisclosureState`"
+  description="Each `Disclosure` uses React Context to manage its open/closed state and share that state with its subcomponents."
+>
 
 **What does `Disclosure` handle?**
 
 - generating its own unique ID
+- generating an ID from `Disclosure`'s unique ID (intended for `DisclosureContent`'s containing element)
 - managing its open/closed state with a local `useState` hook
-- creating `openDisclosure` and `closeDisclosure` callbacks using the state setter returned from `useState`
-- rendering a `DisclosureProvider` and passes along its unique ID, open/closed state boolean, and open/close callbacks.
+- creating `openDisclosure`, `closeDisclosure`, and `togglgeDisclosure` callbacks using the state setter returned from `useState`
+- rendering a `DisclosureContext.Provider` and passing along all generated IDs, open/closed state, and all generated callbacks
 
-**What does `DisclosureProvider` handle?**
+**What does `useDisclosureState` do?**
 
-- creating an ID from `Disclosure`'s unique ID intended for `DisclosureContent`'s containing element
-- creating a `toggleDisclosure` callback that handles opening/closing `Disclosure` based on the open/closed state and using the open/close callbacks provided by `Disclosure`
-- exposing via the `useDisclosure` hook: `DisclosureContent`'s' containing element ID, `toggleDisclosure`, and the same properties that the `Provider` was hydrated with
+All `useDisclosureState` does is expose the state object passed to `DisclosureContext.Provider`. This is primarily important so that `DisclosureActivator`'s `<button>` and `DisclosureContent`'s containing element can be programmatically connected using the `<button>`'s `aria-controls` property.
 
 </AccordionDisclosure>
 
@@ -53,7 +55,7 @@ This component renders a `<button>` element and handles applying the following A
 - `aria-expanded`
 - `aria-label`
 
-It also handles applying default styling (as detailed above in "Provided Styling") and toggling the open/closed state of the `Disclosure` using the toggle function exposed by `DisclosureProvider`'s `useDisclosure`.
+It also handles applying default styling (as detailed above in "Provided Styling") and toggling the open/closed state of the `Disclosure` using the toggle function exposed by `DisclosureProvider`'s `useDisclosureState`.
 
 </Card>
 
@@ -63,7 +65,7 @@ It also handles applying default styling (as detailed above in "Provided Styling
 
 **`DisclosureContent`**
 
-This component handles applying default styling (as detailed above in "Provided Styling") to a `<div>` element and setting that element's `id` to the `contentContainerId` exposed by `DisclosureProvider`'s `useDisclosure`.
+This component handles applying default styling (as detailed above in "Provided Styling") to a `<div>` element and setting that element's `id` to the `contentContainerId` exposed by `DisclosureProvider`'s `useDisclosureState`.
 
 </Card>
 

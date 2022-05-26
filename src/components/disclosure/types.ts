@@ -23,4 +23,13 @@ interface DisclosureProps {
   initialOpen?: boolean
 }
 
-export type { DisclosureProps }
+interface DisclosureContextState {
+  closeDisclosure: () => void
+  contentContainerId: string
+  isOpen: boolean
+  openDisclosure: () => void
+  toggleDisclosure: () => void
+  uniqueId: string
+}
+
+export type { DisclosureContextState, DisclosureProps }
