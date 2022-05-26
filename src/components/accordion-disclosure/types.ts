@@ -16,13 +16,6 @@ export interface AccordionDisclosureProps {
   description?: string
 
   /**
-   * The `id` passed to the root container. Used to generate an `id` for the
-   * content container which is also passed to `aria-controls` on the
-   * `AccordionDisclosure` activator button.
-   */
-  id: string
-
-  /**
    * Optional prop that that enables a `AccordionDisclosure` to be open on
    * render.
    */
