@@ -2,6 +2,10 @@ import { ReactElement } from 'react'
 
 type NativeDivProps = JSX.IntrinsicElements['div']
 
+type GenerateContainerClassName = (
+  isOpen: boolean
+) => NativeDivProps['className']
+
 interface DisclosureProps {
   /**
    * The content of the Disclosure. Expects one `DisclosureActivator` and then
@@ -14,7 +18,7 @@ interface DisclosureProps {
    * element. Useful for specifying different class names based on the
    * open/closed state of the `Disclosure`.
    */
-  containerClassName?: (isOpen: boolean) => NativeDivProps['className']
+  containerClassName?: string | GenerateContainerClassName
 
   /**
    * Optional boolean that can be used to render the `Disclosure` in the open
