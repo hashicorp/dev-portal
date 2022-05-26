@@ -25,10 +25,8 @@ export function DevDot404(): ReactElement {
       </ErrorViewH1>
       <ErrorViewParagraph>
         Please check the url you entered for typos,{' '}
-        <InlineLinkButton onClick={() => router.back()}>
-          go back
-        </InlineLinkButton>{' '}
-        to the page you came from, or go to one of the pages below.
+        <InlineLinkButton onClick={router.back}>go back</InlineLinkButton> to
+        the page you came from, or go to one of the pages below.
       </ErrorViewParagraph>
       <div className={s.cards}>
         <CardsGridList>
