@@ -1,7 +1,7 @@
-import { ReactNode } from 'react'
+import { ReactElement } from 'react'
 
 interface DisclosureProps {
-  children: ReactNode
+  children: ReactElement[]
   containerClassName?: string
   containerCollapsedClassName?: string
   containerExpandedClassName?: string

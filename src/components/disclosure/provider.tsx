@@ -1,28 +1,20 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useCallback,
-  useContext,
-} from 'react'
+import { createContext, ReactNode, useCallback, useContext } from 'react'
 
-interface DisclosureContextState {
-  closeDisclosure: () => void
-  contentContainerId: string
+interface DisclosureProviderValueProp {
   id: string
   isOpen: boolean
   openDisclosure: () => void
-  toggleDisclosure: () => void
+  closeDisclosure: () => void
 }
 
 interface DisclosureProviderProps {
   children: ReactNode
-  value: {
-    id: string
-    isOpen: boolean
-    setIsOpen: Dispatch<SetStateAction<boolean>>
-  }
+  value: DisclosureProviderValueProp
+}
+
+interface DisclosureContextState extends DisclosureProviderValueProp {
+  contentContainerId: string
+  toggleDisclosure: () => void
 }
 
 const DisclosureContext = createContext<DisclosureContextState | undefined>(
@@ -33,20 +25,16 @@ const DisclosureContext = createContext<DisclosureContextState | undefined>(
  * @TODO document
  */
 const DisclosureProvider = ({ children, value }: DisclosureProviderProps) => {
-  const { id, isOpen, setIsOpen } = value
+  const { id, isOpen, openDisclosure, closeDisclosure } = value
   const contentContainerId = `${id}-content`
 
-  const openDisclosure = useCallback(() => {
-    setIsOpen(true)
-  }, [setIsOpen])
-
-  const closeDisclosure = useCallback(() => {
-    setIsOpen(false)
-  }, [setIsOpen])
-
   const toggleDisclosure = useCallback(() => {
-    setIsOpen(!isOpen)
-  }, [isOpen, setIsOpen])
+    if (isOpen) {
+      closeDisclosure()
+    } else {
+      openDisclosure()
+    }
+  }, [closeDisclosure, isOpen, openDisclosure])
 
   const state: DisclosureContextState = {
     closeDisclosure,
