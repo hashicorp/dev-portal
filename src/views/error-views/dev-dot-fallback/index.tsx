@@ -5,6 +5,10 @@ import {
   ErrorViewParagraph,
 } from '../components'
 
+/**
+ * Fallback error view content for use in dev-dot.
+ * Intended to handle any statusCode that is not 404.
+ */
 export function DevDotFallback({ statusCode }: { statusCode: $TSFixMe }) {
   useErrorPageAnalytics(statusCode)
 

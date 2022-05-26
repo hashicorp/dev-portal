@@ -3,6 +3,11 @@ import Link from 'next/link'
 import useErrorPageAnalytics from '@hashicorp/react-error-view/use-error-page-analytics'
 import s from '@hashicorp/react-error-view/style.module.css'
 
+/*
+ * Versioned 404 error view content for use in dot-io sites.
+ * Links back to the "most recent version" (pathWithoutVersion),
+ * as well as the documentation root (pathBeforeVersion).
+ */
 function VersionedError({
   version,
   pathWithoutVersion,

@@ -15,6 +15,9 @@ import {
 
 import s from './dev-dot-404.module.css'
 
+/**
+ * Generic 404 error view content for use in dev-dot.
+ */
 export function DevDot404(): ReactElement {
   const router = useRouter()
   useErrorPageAnalytics(404)

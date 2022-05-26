@@ -8,6 +8,11 @@ import {
 } from '../components'
 import s from './dev-dot-versioned-404.module.css'
 
+/**
+ * Versioned 404 error view content for use in dev-dot.
+ * Links back to the "most recent version" (pathWithoutVersion),
+ * as well as the documentation root (pathBeforeVersion).
+ */
 export function DevDotVersioned404({
   version,
   pathWithoutVersion,
