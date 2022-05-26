@@ -51,8 +51,22 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
     return NextResponse.redirect(url, permanent ? 308 : 307)
   }
 
-  // Handle Opt-in cookies
   const params = req.nextUrl.searchParams
+
+  /**
+   * If we're serving a beta product's io site and the betaOptOut query param exists,
+   * clear it and redirect back to the current URL without the betaOptOut query param
+   */
+  if (
+    product in __config.dev_dot.beta_product_slugs &&
+    params.get('betaOptOut') === 'true'
+  ) {
+    const url = req.nextUrl.clone()
+    url.searchParams.delete('betaOptOut')
+    return NextResponse.redirect(url).clearCookie(`${product}-io-beta-opt-in`)
+  }
+
+  // Handle Opt-in cookies
   const optInPlatform = params.get('optInFrom') as OptInPlatformOption
   const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
   const response = NextResponse.next()

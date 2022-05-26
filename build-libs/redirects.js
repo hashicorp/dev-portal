@@ -2,7 +2,6 @@
 
 const fs = require('fs')
 const path = require('path')
-const { unflatten } = require('flat')
 const proxySettings = require('./proxy-settings')
 const {
   getProxiedProductSlug,
@@ -11,9 +10,7 @@ const {
 } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
 const { isContentDeployPreview } = require('../src/lib/env-checks')
-const { loadHashiConfigForEnvironment } = require('../config')
-
-const __config = unflatten(loadHashiConfigForEnvironment())
+const buildBetaProductOptInRedirect = require('./build-beta-opt-in-redirect')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
@@ -297,32 +294,6 @@ async function buildDevPortalRedirects() {
 }
 
 /**
- * Construct a redirect definition for beta product opt-in, based on cookies and host conditions
- *
- * @param {*} product  string
- * @param {*} basePaths string[]
- * @returns {Redirect} redirect
- */
-function buildBetaProductOptInRedirects(product, basePaths) {
-  return {
-    source: `/:base(${basePaths.join('|')})/:path*`,
-    destination: `${__config.dev_dot.canonical_base_url}/${product}/:base/:path*`,
-    permanent: false,
-    has: [
-      {
-        type: 'cookie',
-        key: `${product}-io-beta-opt-in`,
-        value: 'true',
-      },
-      {
-        type: 'host',
-        value: proxySettings[product].host,
-      },
-    ],
-  }
-}
-
-/**
  * Splits an array of redirects into simple (one-to-one path matches without
  * regex matching) and glob-based (with regex matching). Enables processing
  * redirects via middleware instead of the built-in redirects handling.
@@ -415,8 +386,8 @@ async function redirectsConfig() {
   const dotIoRedirects = await buildDotIoRedirects()
   const devPortalRedirects = await buildDevPortalRedirects()
   const { simpleRedirects, globRedirects } = splitRedirectsByType([
-    buildBetaProductOptInRedirects('waypoint', ['docs', 'commands', 'plugins']),
-    buildBetaProductOptInRedirects('vault', ['docs', 'api-docs']),
+    buildBetaProductOptInRedirect('waypoint', ['docs', 'commands', 'plugins']),
+    buildBetaProductOptInRedirect('vault', ['docs', 'api-docs']),
     ...dotIoRedirects,
     ...devPortalRedirects,
   ])
