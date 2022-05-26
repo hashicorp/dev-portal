@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
@@ -7,8 +7,13 @@ import Button from 'components/button'
 import OptOutForm from './components/opt-out-form'
 import Dialog from 'components/dialog'
 import { getLearnRedirectPath } from './helpers/get-learn-redirect-path'
-import { PlatformOptionRedirectData, OptInOutProps } from './types'
+import {
+  PlatformOptionRedirectData,
+  OptInOutProps,
+  isOptInPlatformOption,
+} from './types'
 import { safeAnalyticsTrack } from 'lib/analytics'
+import makeBetaWelcomeToast from './helpers/make-beta-welcome-toast'
 
 // Could these go in the config? or I could source the base urls elsewhere
 export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
@@ -36,24 +41,22 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
   },
 }
 
-// @TODO - check query, if 'optInFrom' is there, fire welcome toast
 export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   // fire toast, render button, etc
   const router = useRouter()
   const [showDialog, setShowDialog] = useState(false)
   const optedIn = Cookies.get(PLATFORM_OPTIONS[platform].cookieKey)
 
-  // Return early if not opted in
-  if (optedIn !== 'true') {
-    return null
-  }
-
   const openDialog = () => setShowDialog(true)
   const closeDialog = () => setShowDialog(false)
   const url =
     redirectPath || PLATFORM_OPTIONS[platform].getRedirectPath(router.asPath)
 
-  function handleOptOut() {
+  /**
+   * Handle opt out, which is passed to our opt out form,
+   * and is also used in our welcome toast.
+   */
+  const handleOptOut = useCallback(() => {
     // @TODO - handle form submit
     Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
     Cookies.remove(PLATFORM_OPTIONS[platform].cookieAnalyticsKey)
@@ -61,6 +64,22 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
       bucket: platform,
     })
     window.location.assign(url)
+  }, [platform, url])
+
+  /**
+   * If there's an 'optInFrom' query parameter,
+   * make some welcome toast
+   */
+  const optInFrom = router.query?.optInFrom
+  useEffect(() => {
+    if (typeof optInFrom == 'string' && isOptInPlatformOption(optInFrom)) {
+      makeBetaWelcomeToast(optInFrom)
+    }
+  }, [optInFrom, handleOptOut])
+
+  // Return early if not opted in
+  if (optedIn !== 'true') {
+    return null
   }
 
   return (
