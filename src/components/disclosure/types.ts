@@ -2,6 +2,11 @@ import { ReactElement } from 'react'
 
 type NativeDivProps = JSX.IntrinsicElements['div']
 
+/**
+ * Callback function for generating the `className` prop of the containing
+ * element. Useful for specifying different class names based on the
+ * open/closed state of the `Disclosure`.
+ */
 type GenerateContainerClassName = (
   isOpen: boolean
 ) => NativeDivProps['className']
@@ -14,11 +19,9 @@ interface DisclosureProps {
   children: ReactElement[]
 
   /**
-   * Callback function for generating the `className` prop of the containing
-   * element. Useful for specifying different class names based on the
-   * open/closed state of the `Disclosure`.
+   * Optional className or callback function for generating a className.
    */
-  containerClassName?: string | GenerateContainerClassName
+  containerClassName?: NativeDivProps['className'] | GenerateContainerClassName
 
   /**
    * Optional boolean that can be used to render the `Disclosure` in the open
