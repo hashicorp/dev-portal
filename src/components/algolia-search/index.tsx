@@ -119,6 +119,7 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
         ref={formRef}
         className={s.form}
         {...autocomplete.getFormProps({ inputElement: inputRef.current })}
+        onSubmit={(e) => e.preventDefault()}
       >
         <div className={s.inputWrapperPrefix}>
           <label {...autocomplete.getLabelProps({})}>
