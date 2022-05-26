@@ -107,7 +107,7 @@ export default async function handler(
       },
     })
   } catch (err) {
-    // TODO, send the details to Sentry
+    console.error('Google Sheet Submission Error:', err)
     response.status(500).json({
       meta: {
         status_code: 500,
