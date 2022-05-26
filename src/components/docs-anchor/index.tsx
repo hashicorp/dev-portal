@@ -1,7 +1,10 @@
 import Link from 'next/link'
+import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import InlineLink from 'components/inline-link'
-import MdxInlineLink from 'components/mdx-inline-link'
+import s from './docs-anchor.module.css'
+
+/** TODO use MDXInlineLink here */
 
 const DocsAnchor = ({
   href,
@@ -9,9 +12,13 @@ const DocsAnchor = ({
   ...rest
 }: JSX.IntrinsicElements['a']) => {
   const currentProduct = useCurrentProduct()
+  const passableProps = {
+    ...rest,
+    className: classNames(rest.className, s.anchor),
+  }
 
   if (!href) {
-    return <MdxInlineLink {...rest}>{children}</MdxInlineLink>
+    return <a {...passableProps}>{children}</a>
   }
 
   // Authors write content as if it only exists for their product,
@@ -42,15 +49,15 @@ const DocsAnchor = ({
   if (adjustedHref !== href) {
     return (
       <Link href={adjustedHref}>
-        <MdxInlineLink {...rest}>{children}</MdxInlineLink>
+        <a {...passableProps}>{children}</a>
       </Link>
     )
   }
 
   return (
-    <MdxInlineLink href={adjustedHref} {...rest}>
+    <a href={adjustedHref} {...passableProps}>
       {children}
-    </MdxInlineLink>
+    </a>
   )
 }
 
