@@ -54,6 +54,7 @@ function ErrorView({
   const versionMatches = VERSION_PATTERN.exec(asPath)
   const versionInPath = versionMatches?.groups?.version
   const pathWithoutVersion = asPath.replace(VERSION_PATTERN, '')
+  const pathBeforeVersion = asPath.substring(0, asPath.indexOf(versionInPath))
   const is404 = statusCode == 404
   const isVersioned404 = versionInPath && is404
 
@@ -67,9 +68,10 @@ function ErrorView({
     if (isVersioned404) {
       return (
         <DotIoVersionedError
-          version={versionInPath}
-          pathWithoutVersion={pathWithoutVersion}
           key={String(isMounted)}
+          pathBeforeVersion={pathBeforeVersion}
+          pathWithoutVersion={pathWithoutVersion}
+          version={versionInPath}
         />
       )
     } else {
@@ -82,9 +84,10 @@ function ErrorView({
     if (isVersioned404) {
       return (
         <DevDotVersioned404
-          version={versionInPath}
-          pathWithoutVersion={pathWithoutVersion}
           key={String(isMounted)}
+          pathBeforeVersion={pathBeforeVersion}
+          pathWithoutVersion={pathWithoutVersion}
+          version={versionInPath}
         />
       )
     } else if (is404) {

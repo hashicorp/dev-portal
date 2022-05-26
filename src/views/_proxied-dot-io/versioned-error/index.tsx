@@ -1,5 +1,4 @@
 import React from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import useErrorPageAnalytics from '@hashicorp/react-error-view/use-error-page-analytics'
 import s from '@hashicorp/react-error-view/style.module.css'
@@ -7,14 +6,13 @@ import s from '@hashicorp/react-error-view/style.module.css'
 function VersionedError({
   version,
   pathWithoutVersion,
+  pathBeforeVersion,
 }: {
   version: string
   pathWithoutVersion: string
+  pathBeforeVersion: string
 }): React.ReactElement {
-  const { asPath } = useRouter()
   useErrorPageAnalytics(404)
-
-  const basePath = asPath.split('/')[1]
 
   return (
     <div className={s.root}>
@@ -27,7 +25,7 @@ function VersionedError({
         version that includes the page you are looking for.
       </p>
       <p>
-        <Link href={`/${basePath}`}>← Go back to Documentation</Link>
+        <Link href={pathBeforeVersion}>← Go back to Documentation</Link>
       </p>
     </div>
   )

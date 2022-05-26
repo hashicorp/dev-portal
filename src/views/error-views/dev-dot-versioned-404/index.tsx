@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import {
   ErrorViewContainer,
   ErrorViewH1,
@@ -12,24 +11,13 @@ import s from './dev-dot-versioned-404.module.css'
 export function DevDotVersioned404({
   version,
   pathWithoutVersion,
+  pathBeforeVersion,
 }: {
   version: string
   pathWithoutVersion: string
+  pathBeforeVersion: string
 }): React.ReactElement {
   useErrorPageAnalytics(404)
-
-  const { asPath } = useRouter()
-
-  /**
-   * Note: this way of determining the basePath isn't perfect,
-   * but it works for all Vault and Waypoint docs routes, at least.
-   *
-   * A more robust version would perhaps select the entire URL
-   * BEFORE the detected version string instead.
-   * Maybe that could be determined with a similar version regex,
-   * and passed into this component as pathBeforeVersion?
-   */
-  const basePath = asPath.split('/').slice(1, 3).join('/')
 
   return (
     <ErrorViewContainer>
@@ -40,7 +28,7 @@ export function DevDotVersioned404({
         valid version that includes the page you are&nbsp;looking&nbsp;for.
       </ErrorViewParagraph>
       <div className={s.cta}>
-        <ButtonLink text="Go back to Documentation" href={`/${basePath}`} />
+        <ButtonLink text="Go back to Documentation" href={pathBeforeVersion} />
       </div>
     </ErrorViewContainer>
   )
