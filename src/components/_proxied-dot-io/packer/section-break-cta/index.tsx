@@ -18,7 +18,7 @@ export default function SectionBreakCta({
             className={s.logo}
             src={require('./hcp-packer.svg?include')}
           />
-          <span className={s.badge}>{badge}</span>
+          {badge ? <span className={s.badge}>{badge}</span> : null}
         </div>
         <h2 className={s.heading}>{heading}</h2>
         <p className={s.description}>{description}</p>

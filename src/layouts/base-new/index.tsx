@@ -3,6 +3,7 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import DevAlertBanner from 'components/dev-alert-banner'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
+import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import s from './base-new-layout.module.css'
 
@@ -23,6 +24,7 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
     siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
     includedDomains: __config.dev_dot.analytics.included_domains,
   })
+  useScrollPercentageAnalytics()
 
   return (
     <>
