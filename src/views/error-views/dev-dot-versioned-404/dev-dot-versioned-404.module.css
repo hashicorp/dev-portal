@@ -1,23 +1,5 @@
-.root {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 64px auto;
-  min-height: 50vh;
-  padding-inline: 32px;
-  text-align: center;
-}
-
-.heading {
-  margin: 0;
-  color: magenta;
-}
-
-.body {
-  margin: 0;
-  color: magenta;
-}
-
 .cta {
-  border: 1px solid magenta;
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
 }
