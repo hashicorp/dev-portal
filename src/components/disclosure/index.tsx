@@ -35,7 +35,7 @@ const useDisclosureState = (): DisclosureContextState => {
   const context = useContext(DisclosureContext)
   if (context === undefined) {
     throw new Error(
-      'useIsBetaProduct must be used within a CurrentProductProvider'
+      'useDisclosureState must be used within a DisclosureContext.Provider'
     )
   }
 
