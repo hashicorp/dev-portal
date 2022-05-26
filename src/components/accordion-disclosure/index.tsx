@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { IconChevronRight24 } from '@hashicorp/flight-icons/svg-react/chevron-right-24'
 import Disclosure, {
   DisclosureActivator,
@@ -6,12 +7,11 @@ import Disclosure, {
 import Text from 'components/text'
 import { AccordionDisclosureProps } from './types'
 import s from './accordion-disclosure.module.css'
-import classNames from 'classnames'
 
 const AccordionDisclosure = ({
   children,
   description,
-  open,
+  initialOpen,
   title,
 }: AccordionDisclosureProps) => {
   const generateContainerClassName = (isOpen: boolean) => {
@@ -21,7 +21,10 @@ const AccordionDisclosure = ({
   }
 
   return (
-    <Disclosure containerClassName={generateContainerClassName} open={open}>
+    <Disclosure
+      containerClassName={generateContainerClassName}
+      initialOpen={initialOpen}
+    >
       <DisclosureActivator className={s.button}>
         <span className={s.labelContainer}>
           <Text asElement="span" className={s.title} weight="semibold">

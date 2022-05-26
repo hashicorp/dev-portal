@@ -20,7 +20,7 @@ interface DisclosureProps {
    * Optional boolean that can be used to render the `Disclosure` in the open
    * state on initial load.
    */
-  open?: boolean
+  initialOpen?: boolean
 }
 
 export type { DisclosureProps }

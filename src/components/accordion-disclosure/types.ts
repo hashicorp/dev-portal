@@ -1,5 +1,5 @@
-import { DisclosureProps } from 'components/disclosure'
 import { ReactNode } from 'react'
+import { DisclosureProps } from 'components/disclosure'
 
 export interface AccordionDisclosureProps {
   /**
@@ -16,10 +16,10 @@ export interface AccordionDisclosureProps {
   description?: string
 
   /**
-   * Optional prop that that enables a `AccordionDisclosure` to be open on
-   * render.
+   * Optional prop that that enables a `AccordionDisclosure` to be rendered open
+   * on initial load.
    */
-  open?: DisclosureProps['open']
+  initialOpen?: DisclosureProps['initialOpen']
 
   /**
    * The main text label that always shows regardless of the

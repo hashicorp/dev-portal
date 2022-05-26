@@ -34,14 +34,14 @@ import s from './disclosure.module.css'
 const Disclosure = ({
   children,
   containerClassName,
-  open = false,
+  initialOpen = false,
 }: DisclosureProps) => {
   // check if the `children` are valid
   validateDisclosureChildren(children)
 
   // continue rendering the component if `children` are valid
   const router = useRouter()
-  const [isOpen, setIsOpen] = useState<boolean>(open)
+  const [isOpen, setIsOpen] = useState<boolean>(initialOpen)
   const uniqueId = `disclosure-${useId()}`
 
   // create a memoized function for opening the disclosure
@@ -74,7 +74,12 @@ const Disclosure = ({
   }, [isOpen])
 
   // build the className prop passed the `children` container
-  const containerClasses = classNames(s.root, containerClassName(isOpen))
+  let containerClasses
+  if (typeof containerClassName === 'function') {
+    containerClasses = classNames(s.root, containerClassName(isOpen))
+  } else {
+    containerClasses = s.root
+  }
 
   return (
     <DisclosureProvider
