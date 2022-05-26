@@ -50,7 +50,7 @@ function VaultDocsLandingPage({
       baseRoute={basePath}
       versions={versions}
       algoliaConfig={productData.algoliaConfig}
-      optInBanner={<DevDotOptIn />}
+      optInBanner={__config.flags.enable_io_beta_cta ? <DevDotOptIn /> : null}
     >
       <ProductDocsLanding content={PAGE_CONTENT} />
     </DocsPageInner>

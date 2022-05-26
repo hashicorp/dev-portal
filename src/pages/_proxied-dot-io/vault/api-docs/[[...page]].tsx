@@ -24,7 +24,7 @@ function DocsView(props) {
       additionalComponents={additionalComponents}
       showVersionSelect={enableVersionedDocs}
       algoliaConfig={productData.algoliaConfig}
-      optInBanner={<DevDotOptIn />}
+      optInBanner={__config.flags.enable_io_beta_cta ? <DevDotOptIn /> : null}
     />
   )
 }
