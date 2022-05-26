@@ -8,7 +8,6 @@ import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
-import DevDotOptIn from 'components/_proxied-dot-io/common/dev-dot-opt-in'
 
 const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'docs'
@@ -28,7 +27,6 @@ function DocsView(props) {
       additionalComponents={additionalComponents}
       showVersionSelect={enableVersionedDocs}
       algoliaConfig={productData.algoliaConfig}
-      optInBanner={__config.flags.enable_io_beta_cta ? <DevDotOptIn /> : null}
     />
   )
 }
