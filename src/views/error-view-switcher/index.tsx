@@ -26,7 +26,11 @@ function ErrorView({
    * Note: DotIoFallbackError calls useErrorPageAnalytics internally.
    * If it didn't, we could call useErrorPageAnalytics once here, or in
    * pages/_error.tsx, rather than in every error view component.
-   * useErrorPageAnalytics(statusCode)
+   * useErrorPageAnalytics(statusCode).
+   *
+   * One solution might be localize `@hashicorp/react-error-view`
+   * in the dev-portal project. However, we may not be ready to do that,
+   * as the package may be used elsewhere?
    */
   const { asPath } = useRouter()
   const [isMounted, setIsMounted] = useState(false)
