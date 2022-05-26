@@ -77,22 +77,6 @@ export default async function handler(
     return
   }
 
-  // Ensure `primary_opt_out_reason` is specified
-  if (!request.body.primary_opt_out_reason) {
-    response.status(400).json({
-      meta: {
-        status_code: 400,
-        status_text: 'Bad Request',
-      },
-      errors: [
-        {
-          msg: 'Required body key `primary_opt_out_reason` is not provided',
-        },
-      ],
-    })
-    return
-  }
-
   // Ensure `opt_out_page_url` is specified
   if (!request.body.opt_out_page_url) {
     response.status(400).json({
