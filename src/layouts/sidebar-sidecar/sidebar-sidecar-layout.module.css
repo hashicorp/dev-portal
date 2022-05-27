@@ -165,3 +165,7 @@ for further details.
   justify-content: space-between;
   align-items: baseline;
 }
+
+.optInOutSlot {
+  flex-shrink: 0;
+}
