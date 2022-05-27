@@ -18,6 +18,11 @@
 }
 
 .listItem {
+  /**
+   * Note: display: flex is needed here to allow max-width to work 
+   * on .breadCrumbText, which would otherwise be inline, while
+   * keeping the ::after element for slash dividers working as well.
+   */
   display: flex;
 
   &:not(:last-child)::after {
