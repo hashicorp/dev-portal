@@ -39,7 +39,8 @@ function BreadcrumbBar({
       <ol className={s.listRoot}>
         {links.map(({ title, url, isCurrentPage }) => {
           const cleanTitle = title.replace(/<[^>]+>/g, '')
-          const Elem = url ? InternalLink : 'span'
+          const shouldLink = url && !isCurrentPage
+          const Elem = shouldLink ? InternalLink : 'span'
           return (
             <Text
               asElement="li"
@@ -50,7 +51,7 @@ function BreadcrumbBar({
             >
               <Elem
                 className={s.breadcrumbText}
-                href={url}
+                href={shouldLink ? url : undefined}
                 aria-current={isCurrentPage ? 'page' : undefined}
               >
                 {cleanTitle}
