@@ -1,10 +1,10 @@
 import { IconCardLinkProps } from 'components/icon-card-link'
 import { ProductSlug } from 'types/products'
 
-export interface IconCard
-  extends Pick<IconCardLinkProps, 'icon' | 'text' | 'url'> {
-  productSlug?: IconCardLinkProps['productSlug']
-}
+export type IconCard = Pick<
+  IconCardLinkProps,
+  'icon' | 'productSlug' | 'text' | 'url'
+>
 
 export interface IconCardLinkGridListProps {
   cards: IconCard[]
