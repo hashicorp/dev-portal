@@ -66,7 +66,7 @@ async function generateStaticProps({
       headings: extractHeadings(content),
       breadcrumbLinks: [
         { title: 'Developer', url: '/' },
-        { title: product.name, url: `/${product.slug}` },
+        { title: product.name, url: `/${product.slug}`, isCurrentPage: true },
       ],
       /**
        * @TODO remove casting to `any` (used $TSFixMe here for visibility).
