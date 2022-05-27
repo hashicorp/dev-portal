@@ -76,7 +76,6 @@ const Tabs = ({
       </div>
       {tabItems.map((tabItem: TabItem) => {
         const { content, tabId, panelId, isActive } = tabItem
-        const TabContent = () => <>{content}</>
         return (
           <div
             className={s.tabPanel}
@@ -87,7 +86,7 @@ const Tabs = ({
             role="tabpanel"
             tabIndex={0}
           >
-            <TabContent />
+            {content}
           </div>
         )
       })}
