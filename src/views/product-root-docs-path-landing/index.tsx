@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DocsView from 'views/docs-view'
 import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
 import { ProductRootDocsPathLandingProps } from './types'
@@ -9,6 +8,7 @@ import {
   ProductRootDocsPathLandingMarketingContent,
 } from './components'
 import s from './product-root-docs-path-landing.module.css'
+import DocsViewLayout from 'layouts/docs-view-layout'
 
 const ProductRootDocsPathLanding = ({
   mdxSource,
@@ -44,6 +44,6 @@ const ProductRootDocsPathLanding = ({
   )
 }
 
-ProductRootDocsPathLanding.layout = SidebarSidecarLayout
+ProductRootDocsPathLanding.layout = DocsViewLayout
 export type { ProductRootDocsPathLandingProps }
 export default ProductRootDocsPathLanding
