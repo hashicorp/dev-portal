@@ -4,8 +4,6 @@ import { useCurrentProduct } from 'contexts'
 import InlineLink from 'components/inline-link'
 import s from './docs-anchor.module.css'
 
-/** TODO use MDXInlineLink here */
-
 const DocsAnchor = ({
   href,
   children,
