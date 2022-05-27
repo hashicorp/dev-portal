@@ -84,11 +84,14 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
             </span>
           </span>
         </NavigationDisclosureActivator>
-        <NavigationDisclosureContent>
+        <NavigationDisclosureContent className={s.content}>
           <NavigationDisclosureList className={s.optionList}>
             {navigationDisclosureLinks.map(({ href, text }) => {
               return (
-                <NavigationDisclosureListItem key={href}>
+                <NavigationDisclosureListItem
+                  key={href}
+                  className={s.optionListItem}
+                >
                   {/* TODO calculate isActive when the link array is built */}
                   <NavigationDisclosureLink
                     className={s.optionLink}

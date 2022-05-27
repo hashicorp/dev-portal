@@ -1,4 +1,6 @@
 .root {
+  --padding-left-right: 24px;
+
   background-color: white;
   width: 100%;
 
@@ -7,12 +9,14 @@
     0 -8px 16px -10px rgba(101, 106, 118, 0.1);
 
   &:hover {
+    /* custom elevation; no HDS token at the time of building */
     box-shadow: 0 -2px 4px rgba(101, 106, 118, 0.15),
       0 -16px 18px -8px rgba(101, 106, 118, 0.1);
   }
 }
 
 .root-expanded {
+  /* custom elevation; no HDS token at the time of building */
   box-shadow: 0 -2px 4px rgba(101, 106, 118, 0.15),
     0 -16px 18px -8px rgba(101, 106, 118, 0.1);
 }
@@ -21,16 +25,17 @@
   background-color: white;
   border: none;
   padding-bottom: 12px;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: var(--padding-left-right);
+  padding-right: var(--padding-left-right);
   padding-top: 12px;
 
-  &:focus,
-  &:focus-visible {
+  &:focus {
     outline: transparent;
+  }
 
+  &:focus-visible {
     & .activatorTextWrapper {
-      /* box-shadow: var(--token-focus-ring-action-box-shadow); */
+      box-shadow: var(--token-focus-ring-action-box-shadow);
     }
   }
 }
@@ -61,27 +66,30 @@ TODO
   display: flex;
 }
 
-.optionList {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  list-style: none;
-  border-top: 1px solid var(--token-color-border-primary);
-  margin-top: 12px;
-  margin-left: 0;
-  margin-right: 0;
-  padding-top: 12px;
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: 0;
+.content {
+  padding-left: calc(var(--padding-left-right) - 3px);
+  padding-right: calc(var(--padding-left-right) - 3px);
+}
 
-  /* TODO - ul needs a max height of 188px? 270px overall for component? */
-  max-height: 188px;
+.optionList {
+  border-top: 1px solid var(--token-color-border-primary);
+  padding-top: 12px;
+  padding-bottom: 12px;
+  max-height: 200px;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
+.optionListItem {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
 .optionLink {
+  /* composition */
+  composes: g-focus-ring-from-box-shadow from global;
+
+  /* css properties */
   background-color: white;
   border-radius: 5px;
   color: var(--token-color-foreground-faint);
@@ -90,19 +98,22 @@ TODO
   font-size: var(--token-typography-body-200-font-size);
   line-height: var(--token-typography-body-200-line-height);
   padding: 8px;
+  position: relative;
+  text-decoration: none;
+
+  &[aria-current='page'] {
+    background-color: var(--token-color-palette-neutral-200);
+    color: var(--token-color-foreground-strong);
+  }
 
   &:hover {
     background-color: var(--token-color-palette-neutral-100);
     color: var(--token-color-foreground-strong);
+    text-decoration: none;
   }
 
-  /*
-  TODO
-    - also add :focus
-    - add focus ring
-  */
   &:focus-visible {
-    background-color: white;
     color: var(--token-color-foreground-strong);
+    z-index: 1;
   }
 }
