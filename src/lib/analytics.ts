@@ -74,8 +74,8 @@ export function safeGetSegmentId(): string | null {
   if (
     typeof window !== undefined &&
     window.analytics &&
-    window.analytics.track &&
-    typeof window.analytics.track === 'function'
+    window.analytics.user &&
+    typeof window.analytics.user === 'function'
   ) {
     return window.analytics.user().anonymousId()
   } else {
