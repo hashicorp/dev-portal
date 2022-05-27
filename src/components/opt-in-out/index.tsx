@@ -53,7 +53,7 @@ export default function OptInOutController({
     if (typeof optInFrom == 'string' && isOptInPlatformOption(optInFrom)) {
       makeBetaWelcomeToast(optInFrom)
     }
-  }, [optInFrom, handleOptOut])
+  }, [optInFrom])
 
   // Return early if not opted in
   if (optedIn !== 'true') {
