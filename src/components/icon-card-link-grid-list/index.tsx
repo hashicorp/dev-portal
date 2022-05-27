@@ -4,7 +4,7 @@ import { IconCardLinkGridListProps, IconCard } from './types'
 
 function IconCardLinkGridList({
   cards,
-  productSlug = 'hcp',
+  productSlug,
 }: IconCardLinkGridListProps) {
   return (
     <CardsGridList>
