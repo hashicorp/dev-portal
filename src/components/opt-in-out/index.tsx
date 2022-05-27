@@ -3,13 +3,13 @@ import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import '@reach/dialog/styles.css'
+import Button from 'components/button'
+import Dialog from 'components/dialog'
 import { safeAnalyticsTrack, safeGetSegmentId } from 'lib/analytics'
 import { OptInOutProps, isOptInPlatformOption } from './types'
 import { PLATFORM_OPTIONS, postFormData, makeBetaWelcomeToast } from './helpers'
 import OptOutForm from './components/opt-out-form'
 import { OptOutFormState } from './components/opt-out-form/types'
-import Button from 'components/button'
-import Dialog from 'components/dialog'
 
 export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   // fire toast, render button, etc

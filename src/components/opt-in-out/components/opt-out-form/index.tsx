@@ -1,4 +1,4 @@
-import { FormEvent, useState, ChangeEvent } from 'react'
+import { FormEvent, useState, ChangeEvent, useRef } from 'react'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button from 'components/button'
 import Text from 'components/text'
@@ -22,6 +22,7 @@ export default function OptOutForm({
 }: OptOutFormProps) {
   const [optOutReason, setOptOutReason] = useState(null)
   const [optOutDetails, setOptOutDetails] = useState(null)
+  const [hasSubmitted, setHasSubmitted] = useState(false)
 
   return (
     <form
@@ -29,6 +30,7 @@ export default function OptOutForm({
       id="opt-out-form"
       onSubmit={(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setHasSubmitted(true)
         onSubmit({ optOutReason, optOutDetails })
       }}
     >
@@ -76,6 +78,7 @@ export default function OptOutForm({
           color="primary"
           text="Leave Beta"
           type="submit"
+          disabled={hasSubmitted}
         />
         <Button color="secondary" text="Cancel" onClick={onDismiss} />
       </div>
