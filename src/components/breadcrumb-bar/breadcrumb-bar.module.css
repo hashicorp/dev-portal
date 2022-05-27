@@ -24,6 +24,8 @@
    * keeping the ::after element for slash dividers working as well.
    */
   display: flex;
+  padding-top: 4px;
+  padding-bottom: 4px;
 
   &:not(:last-child)::after {
     color: var(--token-color-palette-neutral-400);
