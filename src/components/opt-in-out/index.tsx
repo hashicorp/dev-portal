@@ -27,19 +27,15 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
    */
   const handleOptOut = useCallback(
     async (state: OptOutFormState) => {
-      try {
-        await postFormData({
-          segment_anonymous_id: safeGetSegmentId(),
-          primary_opt_out_reason: state.optOutReason,
-          details: state.optOutDetails,
-          opt_out_page_url: new URL(
-            router.asPath,
-            __config.dev_dot.canonical_base_url
-          ).toString(),
-        })
-      } catch (e) {
-        console.error(e)
-      }
+      await postFormData({
+        segment_anonymous_id: safeGetSegmentId(),
+        primary_opt_out_reason: state.optOutReason,
+        details: state.optOutDetails,
+        opt_out_page_url: new URL(
+          router.asPath,
+          __config.dev_dot.canonical_base_url
+        ).toString(),
+      })
       safeAnalyticsTrack('Beta Opted Out', {
         bucket: platform,
       })
