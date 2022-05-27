@@ -24,6 +24,7 @@
 .activator {
   background-color: white;
   border: none;
+  color: var(--token-color-foreground-faint);
   padding-bottom: 12px;
   padding-left: var(--padding-left-right);
   padding-right: var(--padding-left-right);
@@ -50,13 +51,7 @@
   position: relative;
 }
 
-/*
-TODO
-  - hover state
-  - focus state
-*/
 .activatorText {
-  color: var(--token-color-foreground-faint);
   flex-grow: 1;
   text-align: left;
 }
