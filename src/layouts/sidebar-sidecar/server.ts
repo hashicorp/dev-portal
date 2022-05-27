@@ -243,7 +243,7 @@ export function getStaticGenerationFunctions<
         product: {
           ...product,
           // needed for DocsVersionSwitcher
-          currentRootDocsPath,
+          currentRootDocsPath: currentRootDocsPath || null,
         },
         versions,
       }
