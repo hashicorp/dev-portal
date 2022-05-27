@@ -35,12 +35,9 @@ const DocsAnchor = ({
   // Render inline link if it's for sure a string and not a heading permalink
   if (typeof children === 'string' && children !== '»') {
     return (
-      <InlineLink
-        href={adjustedHref}
-        text={children}
-        textSize={300}
-        textWeight="medium"
-      />
+      <InlineLink href={adjustedHref} textWeight="medium">
+        {children}
+      </InlineLink>
     )
   }
 
