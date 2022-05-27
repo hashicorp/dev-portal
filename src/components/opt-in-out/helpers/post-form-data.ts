@@ -16,8 +16,8 @@ export async function postFormData(data: OptOutData) {
       body: JSON.stringify(data),
     })
 
-    if (res.status === 204) {
-      console.log('Feedback submitted')
+    if (res.status === 204 || res.status === 200) {
+      process.env.NODE_ENV !== 'production' && console.log('Feedback submitted')
     } else {
       console.warn(`${res.status}: Unexpected result from feedback api`)
     }
