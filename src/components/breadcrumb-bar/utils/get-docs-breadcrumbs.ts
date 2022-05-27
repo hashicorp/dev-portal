@@ -161,7 +161,11 @@ function getDocsBreadcrumbs({
   return [
     { title: 'Developer', url: '/' },
     { title: productName, url: `/${productPath}` },
-    { title: baseName, url: `/${productPath}/${basePath}` },
+    {
+      title: baseName,
+      url: `/${productPath}/${basePath}`,
+      isCurrentPage: pathParts.length == 0,
+    },
     ...getPathBreadcrumbs({
       basePath: `${productPath}/${basePath}`,
       navData,

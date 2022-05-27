@@ -19,6 +19,16 @@ const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
 }
 
 /**
+ * Type guard to determine if a string is a ProductSlug
+ *
+ * TODO: should we define ProductSlug as an enum,
+ * so that we can use its values directly here?
+ */
+function isProductSlug(string: string): string is ProductSlug {
+  return Object.keys(productSlugsToNames).includes(string as ProductSlug)
+}
+
+/**
  * An array of all Product slugs, generated from `productSlugsToNames`.
  */
 const productSlugs = Object.keys(productSlugsToNames) as ProductSlug[]
@@ -31,4 +41,4 @@ const products: Product[] = productSlugs.map((slug: ProductSlug) => {
   return { name, slug }
 })
 
-export { products, productSlugs, productSlugsToNames }
+export { isProductSlug, products, productSlugs, productSlugsToNames }
