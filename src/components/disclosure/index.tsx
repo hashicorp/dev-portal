@@ -108,13 +108,13 @@ const Disclosure = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
 
-  // build the className prop passed the `children` container
-  let containerClasses
-  if (typeof containerClassName === 'function') {
-    containerClasses = classNames(s.root, containerClassName(isOpen))
-  } else {
-    containerClasses = s.root
-  }
+  // build the className prop to pass the `children` container
+  const containerClasses = classNames(
+    s.root,
+    typeof containerClassName === 'function'
+      ? containerClassName(isOpen)
+      : containerClassName
+  )
 
   const providerState: DisclosureContextState = {
     closeDisclosure,
