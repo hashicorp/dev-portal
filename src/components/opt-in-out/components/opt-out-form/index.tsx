@@ -1,3 +1,4 @@
+import { FormEvent, useState, ChangeEvent } from 'react'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button from 'components/button'
 import Text from 'components/text'
@@ -5,22 +6,33 @@ import { PlatformOptionTitles } from 'components/opt-in-out/types'
 import { OptOutFormProps } from './types'
 import s from './opt-out-form.module.css'
 
-const optOutOptions = [
+export const optOutOptions = [
   'Missing Content',
   'Just checking it out',
   'Something broke',
   "I can't bookmark a tutorial",
   'No user progress on tutorials',
   'Something else?',
-]
+] as const
 
 export default function OptOutForm({
   onSubmit,
   onDismiss,
   platform,
 }: OptOutFormProps) {
+  // Form state
+  const [optOutReason, setOptOutReason] = useState(null)
+  const [optOutDetails, setOptOutDetails] = useState(null)
+
   return (
-    <form className={s.form} id="opt-out-form">
+    <form
+      className={s.form}
+      id="opt-out-form"
+      onSubmit={(e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        onSubmit({ optOutReason, optOutDetails })
+      }}
+    >
       <div className={s.header}>
         <label
           htmlFor="opt-out-form"
@@ -35,7 +47,13 @@ export default function OptOutForm({
         <label htmlFor="opt-out-select" hidden>
           Please select a reason
         </label>
-        <select id="opt-out-select" className={s.select}>
+        <select
+          id="opt-out-select"
+          className={s.select}
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            setOptOutReason(e.target.value)
+          }
+        >
           <option>Select a reason</option>
           {optOutOptions.map((reason: string) => (
             <option key={reason.replaceAll(' ', '-')}>{reason}</option>
@@ -48,6 +66,9 @@ export default function OptOutForm({
           id="optional-feedback-text"
           className={s.optionalText}
           placeholder=" More details (optional)..."
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+            setOptOutDetails(e.target.value)
+          }
         />
       </div>
       <div className={s.ctaButtons}>
@@ -55,7 +76,7 @@ export default function OptOutForm({
           form="opt-out-form"
           color="primary"
           text="Leave Beta"
-          onClick={onSubmit}
+          type="submit"
         />
         <Button color="secondary" text="Cancel" onClick={onDismiss} />
       </div>
