@@ -58,9 +58,9 @@
       margin: -5px;
       padding: 5px;
     }
-  }
 
-  &[aria-current='page'] {
-    color: var(--token-color-foreground-strong);
+    &[aria-current='page'] {
+      color: var(--token-color-foreground-strong);
+    }
   }
 }
