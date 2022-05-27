@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import {
   SidebarHorizontalRule,
@@ -42,13 +44,13 @@ function CollectionViewSidebarContent({
 }) {
   return (
     <>
-      {sections?.map((section: CollectionCategorySidebarSection) => {
+      {sections?.map(({ title, items }: CollectionCategorySidebarSection) => {
         return (
-          <>
+          <Fragment key={title}>
             <HorizontalRule />
-            <SectionTitle text={section.title} />
-            <SectionList items={section.items} />
-          </>
+            <SectionTitle text={title} />
+            <SectionList items={items} />
+          </Fragment>
         )
       })}
     </>
