@@ -1,14 +1,16 @@
-import BaseLayout from 'layouts/base'
+import BaseLayout from 'layouts/base-new'
 import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
 import { getProxiedProductSlug } from 'lib/env-checks'
-import { VersionedErrorPage } from 'views/_proxied-dot-io/versioned-error'
+import ErrorViewSwitcher from 'views/error-view-switcher'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
+// product data, needed to render top navigation
+import { productConfig } from 'lib/cms'
+import { isProductSlug } from 'lib/products'
 
 // resolve a default export
 function resolve(obj) {
   return obj && obj.__esModule ? obj.default : obj
 }
-
 function Error({ statusCode, proxiedProductSlug, layoutProps }) {
   // Unlike other pages, we can't use redirects and rewrites
   // to display proxied .io domain 404 pages on specific hosts.
@@ -47,10 +49,17 @@ function Error({ statusCode, proxiedProductSlug, layoutProps }) {
   // having a host-specific `has` condition on redirects and rewrites,
   // we would instead generate specific sets of redirects based on the
   // whether the current branch is a specific `proxied-{product}` branch.
-  const Layout = proxiedLayouts[proxiedProductSlug] || BaseLayout
+
+  const ProxiedLayout = proxiedLayouts[proxiedProductSlug]
+  const isProxiedDotIo = Boolean(ProxiedLayout)
+  const Layout = isProxiedDotIo ? ProxiedLayout : BaseLayout
+
   return (
     <Layout data={{ ...layoutProps }}>
-      <VersionedErrorPage statusCode={statusCode} />
+      <ErrorViewSwitcher
+        statusCode={statusCode}
+        isProxiedDotIo={isProxiedDotIo}
+      />
     </Layout>
   )
 }
@@ -95,8 +104,24 @@ export async function getServerSideProps(ctx) {
      */
   }
 
+  /**
+   * Determine the product context, in order to render the correct
+   * navigation header on the dev-dot 404 page.
+   */
+  let productSlug
+  if (proxiedProductSlug) {
+    productSlug = proxiedProductSlug
+  } else {
+    const pathParts = urlObj.pathname.split('/')
+    const maybeProductSlug = pathParts.length > 1 && pathParts[1]
+    productSlug = isProductSlug(maybeProductSlug) ? maybeProductSlug : null
+  }
+  // We need the whole product data (eg for top nav), not just the slug
+  const product = productConfig[productSlug] || null
+
   return {
     props: {
+      product,
       statusCode,
       proxiedProductSlug,
       hostname: urlObj.hostname,

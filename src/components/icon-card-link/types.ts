@@ -28,7 +28,7 @@ export interface IconCardLinkProps {
    * The slug of the product the IconCardLink should be branded to. Currently
    * used to determine the color of the icon rendered.
    */
-  productSlug: ProductSlug
+  productSlug?: ProductSlug
 
   /**
    * The text to display to the right of the icon.
