@@ -23,10 +23,22 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
   const currentProduct = useCurrentProduct() as ProductWithCurrentRootDocsPath
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 
+  // Don't do anything if there aren't any options
   if (!options || options.length === 0) {
+    console.warn('DocsVersionSwitcher has no `options` to render.')
     return null
   }
 
+  // Check if `currentRootDocsPath` is set
+  const currentRootDocsPath = currentProduct.currentRootDocsPath
+  if (!currentRootDocsPath) {
+    console.error(
+      `DocsVersionSwitcher requires 'currentRootDocsPath' to be set on 'currentProduct'. Make sure 'rootDocsPaths' is configured in 'src/data/${currentProduct.slug}.json'.`
+    )
+    return null
+  }
+
+  // Get the selected option
   const selectedVersion = getVersionFromPath(currentPath)
   let selectedOption: DocsVersionSwitcherOption
   if (selectedVersion) {
@@ -37,7 +49,7 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
     selectedOption = options[0]
   }
 
-  const currentRootDocsPath = currentProduct.currentRootDocsPath
+  // Build the `ariaLabel` that is announced when the activator is focused
   const currentRootDocsPathName =
     currentRootDocsPath.shortName || currentRootDocsPath.name
   const ariaLabel = `Choose a ${currentProduct.name} ${currentRootDocsPathName} version. Currently viewing ${selectedOption.label}.`
