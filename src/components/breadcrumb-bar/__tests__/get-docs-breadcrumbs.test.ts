@@ -25,6 +25,7 @@ describe('getDocsBreadcrumbs', () => {
       {
         title: 'Docs',
         url: '/waypoint/docs',
+        isCurrentPage: false,
       },
       {
         title: 'Getting Started',
