@@ -28,7 +28,7 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
   }
 
   const selectedVersion = getVersionFromPath(currentPath)
-  let selectedOption
+  let selectedOption: DocsVersionSwitcherOption
   if (selectedVersion) {
     selectedOption = options.find(
       (option: DocsVersionSwitcherOption) => option.version === selectedVersion
