@@ -96,7 +96,7 @@ const Disclosure = ({
     }
 
     const handleRouteChangeStart = () => {
-      closeDisclosure
+      closeDisclosure()
     }
 
     router.events.on('routeChangeStart', handleRouteChangeStart)
