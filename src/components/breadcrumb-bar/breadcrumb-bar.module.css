@@ -33,14 +33,32 @@
 }
 
 .breadcrumbText {
-  color: var(--token-color-palette-neutral-500);
+  composes: g-focus-ring-from-box-shadow from global;
+  border-radius: 5px;
+  color: var(--token-color-foreground-faint);
   max-width: 16em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  &[href]:hover {
-    color: var(--token-color-palette-neutral-600);
-    text-decoration: underline;
+  &[href] {
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:active {
+      color: var(--token-color-foreground-primary);
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      text-decoration: none;
+      margin: -5px;
+      padding: 5px;
+    }
+
+    &[aria-current='page'] {
+      color: var(--token-color-foreground-strong);
+    }
   }
 }
