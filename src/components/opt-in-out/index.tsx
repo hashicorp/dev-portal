@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
-import { v4 as uuid } from 'uuid'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import '@reach/dialog/styles.css'
-import { safeAnalyticsTrack } from 'lib/analytics'
+import { safeAnalyticsTrack, safeGetSegmentId } from 'lib/analytics'
 import { OptInOutProps, isOptInPlatformOption } from './types'
 import { PLATFORM_OPTIONS, postFormData, makeBetaWelcomeToast } from './helpers'
 import OptOutForm from './components/opt-out-form'
@@ -30,7 +29,7 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
     async (state: OptOutFormState) => {
       try {
         await postFormData({
-          segment_anonymous_id: uuid(),
+          segment_anonymous_id: safeGetSegmentId(),
           primary_opt_out_reason: state.optOutReason,
           details: state.optOutDetails,
           opt_out_page_url: new URL(
