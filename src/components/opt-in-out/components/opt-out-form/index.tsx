@@ -20,7 +20,6 @@ export default function OptOutForm({
   onDismiss,
   platform,
 }: OptOutFormProps) {
-  // Form state
   const [optOutReason, setOptOutReason] = useState(null)
   const [optOutDetails, setOptOutDetails] = useState(null)
 

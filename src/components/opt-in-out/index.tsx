@@ -1,20 +1,25 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
+import { v4 as uuid } from 'uuid'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import '@reach/dialog/styles.css'
+import { safeAnalyticsTrack } from 'lib/analytics'
 import Button from 'components/button'
-import OptOutForm from './components/opt-out-form'
 import Dialog from 'components/dialog'
-import { getLearnRedirectPath } from './helpers/get-learn-redirect-path'
+import OptOutForm from './components/opt-out-form'
 import {
   PlatformOptionRedirectData,
   OptInOutProps,
   isOptInPlatformOption,
 } from './types'
-import { safeAnalyticsTrack } from 'lib/analytics'
-import makeBetaWelcomeToast from './helpers/make-beta-welcome-toast'
-import { getIoRedirectPath } from './helpers/get-io-redirect-path'
+import {
+  getIoRedirectPath,
+  getLearnRedirectPath,
+  postFormData,
+  makeBetaWelcomeToast,
+} from './helpers'
+import { OptOutFormState } from './components/opt-out-form/types'
 
 // Could these go in the config? or I could source the base urls elsewhere
 export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
@@ -57,15 +62,23 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
    * Handle opt out, which is passed to our opt out form,
    * and is also used in our welcome toast.
    */
-  const handleOptOut = useCallback(() => {
-    // @TODO - handle form submit
-    Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
-    Cookies.remove(PLATFORM_OPTIONS[platform].cookieAnalyticsKey)
-    safeAnalyticsTrack('Beta Opted Out', {
-      bucket: platform,
-    })
-    window.location.assign(url)
-  }, [platform, url])
+  const handleOptOut = useCallback(
+    async (state: OptOutFormState) => {
+      await postFormData({
+        segment_anonymous_id: uuid(),
+        primary_opt_out_reason: state.optOutReason,
+        details: state.optOutDetails,
+        opt_out_page_url: router.asPath,
+      })
+      // Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
+      // Cookies.remove(PLATFORM_OPTIONS[platform].cookieAnalyticsKey)
+      // safeAnalyticsTrack('Beta Opted Out', {
+      //   bucket: platform,
+      // })
+      // window.location.assign(url)
+    },
+    [platform, url]
+  )
 
   /**
    * If there's an 'optInFrom' query parameter,
@@ -79,9 +92,9 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   }, [optInFrom, handleOptOut])
 
   // Return early if not opted in
-  if (optedIn !== 'true') {
-    return null
-  }
+  // if (optedIn !== 'true') {
+  //   return null
+  // }
 
   return (
     <div>
