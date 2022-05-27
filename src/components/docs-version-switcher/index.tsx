@@ -37,27 +37,6 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
     selectedOption = options[0]
   }
 
-  // TODO - do this "inline" so we're not iterating once for data and second for render
-  const navigationDisclosureLinks = options.map(
-    (option: DocsVersionSwitcherOption) => {
-      let href: string
-      if (option.isLatest) {
-        href = removeVersionFromPath(currentPath)
-      } else {
-        href = getTargetPath({
-          basePath: `${currentProduct.slug}/${currentProduct.currentRootDocsPath.path}`,
-          asPath: currentPath,
-          version: option.version,
-        })
-      }
-
-      return {
-        text: option.label,
-        href,
-      }
-    }
-  )
-
   // TODO style the pieces
   return (
     <nav>
@@ -86,19 +65,29 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
         </NavigationDisclosureActivator>
         <NavigationDisclosureContent className={s.content}>
           <NavigationDisclosureList className={s.optionList}>
-            {navigationDisclosureLinks.map(({ href, text }) => {
+            {options.map((option: DocsVersionSwitcherOption) => {
+              let href: string
+              if (option.isLatest) {
+                href = removeVersionFromPath(currentPath)
+              } else {
+                href = getTargetPath({
+                  basePath: `${currentProduct.slug}/${currentProduct.currentRootDocsPath.path}`,
+                  asPath: currentPath,
+                  version: option.version,
+                })
+              }
+
               return (
                 <NavigationDisclosureListItem
                   key={href}
                   className={s.optionListItem}
                 >
-                  {/* TODO calculate isActive when the link array is built */}
                   <NavigationDisclosureLink
                     className={s.optionLink}
                     href={href}
-                    isActive={false}
+                    isActive={currentPath === href}
                   >
-                    {text}
+                    {option.label}
                   </NavigationDisclosureLink>
                 </NavigationDisclosureListItem>
               )
