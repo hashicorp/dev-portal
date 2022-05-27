@@ -37,7 +37,11 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
     selectedOption = options[0]
   }
 
-  // TODO style the pieces
+  const currentRootDocsPath = currentProduct.currentRootDocsPath
+  const currentRootDocsPathName =
+    currentRootDocsPath.shortName || currentRootDocsPath.name
+  const ariaLabel = `Choose a ${currentProduct.name} ${currentRootDocsPathName} version. Currently viewing ${selectedOption.label}.`
+
   return (
     <nav>
       <NavigationDisclosure
@@ -47,8 +51,10 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
           })
         }}
       >
-        {/* TODO add aria label */}
-        <NavigationDisclosureActivator className={s.activator}>
+        <NavigationDisclosureActivator
+          ariaLabel={ariaLabel}
+          className={s.activator}
+        >
           <span className={s.activatorTextWrapper}>
             <Text
               asElement="span"
@@ -71,7 +77,7 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
                 href = removeVersionFromPath(currentPath)
               } else {
                 href = getTargetPath({
-                  basePath: `${currentProduct.slug}/${currentProduct.currentRootDocsPath.path}`,
+                  basePath: `${currentProduct.slug}/${currentRootDocsPath.path}`,
                   asPath: currentPath,
                   version: option.version,
                 })
