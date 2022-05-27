@@ -63,29 +63,36 @@ function ErrorView({
   const isVersioned404 = versionInPath && is404
 
   /**
-   * Switch between proxied dot-io and dev-dot error views
+   * Determine the error page type
    */
+  let type:
+    | 'dot-io-versioned-404'
+    | 'dot-io-fallback'
+    | 'dev-dot-versioned-404'
+    | 'dev-dot-standard-404'
+    | 'dev-dot-fallback'
   if (isProxiedDotIo) {
-    /**
-     * Proxied dot-io error views
-     */
     if (isVersioned404) {
-      return (
-        <DotIoVersionedError
-          key={String(isMounted)}
-          pathBeforeVersion={pathBeforeVersion}
-          pathWithoutVersion={pathWithoutVersion}
-          version={versionInPath}
-        />
-      )
+      type = 'dot-io-versioned-404'
     } else {
-      return <DotIoFallBackError statusCode={statusCode} />
+      type = 'dot-io-fallback'
     }
   } else {
-    /**
-     * Dev dot error views
-     */
     if (isVersioned404) {
+      type = 'dev-dot-versioned-404'
+    } else if (is404) {
+      type = 'dev-dot-standard-404'
+    } else {
+      type = 'dev-dot-fallback'
+    }
+  }
+
+  /**
+   * Switch between proxied dot-io and dev-dot error views
+   */
+  switch (type) {
+    /* Dev-dot */
+    case 'dev-dot-versioned-404':
       return (
         <DevDotVersioned404
           key={String(isMounted)}
@@ -94,11 +101,23 @@ function ErrorView({
           version={versionInPath}
         />
       )
-    } else if (is404) {
+    case 'dev-dot-standard-404':
       return <DevDot404 />
-    } else {
+    case 'dev-dot-fallback':
       return <DevDotFallback statusCode={statusCode} />
-    }
+    /* Dot-io */
+    case 'dot-io-versioned-404':
+      return (
+        <DotIoVersionedError
+          key={String(isMounted)}
+          pathBeforeVersion={pathBeforeVersion}
+          pathWithoutVersion={pathWithoutVersion}
+          version={versionInPath}
+        />
+      )
+    case 'dot-io-fallback':
+    default:
+      return <DotIoFallBackError statusCode={statusCode} />
   }
 }
 
