@@ -14,12 +14,13 @@ const usePreloadNextDynamic = (
   const [isPreloaded, setIsPreloaded] = useState(false)
 
   useEffect(() => {
-    if (isPreloaded) {
+    // @ts-expect-error - this does not exist on next/dynamic's type, but it is there!
+    if (isPreloaded || !dynamicDefinition?.render?.preload) {
       return
     }
 
     const load = () => {
-      // @ts-expect-error - this dose not exist on next/dynamic's type, but it is there!
+      // @ts-expect-error - this does not exist on next/dynamic's type, but it is there!
       dynamicDefinition.render
         .preload()
         .then(() => {
