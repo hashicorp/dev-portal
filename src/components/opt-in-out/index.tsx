@@ -34,12 +34,12 @@ export default function OptInOutController({
           __config.dev_dot.canonical_base_url
         ).toString(),
       })
-      // safeAnalyticsTrack('Beta Opted Out', {
-      //   bucket: platform,
-      // })
-      // Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
-      // Cookies.remove(PLATFORM_OPTIONS[platform].cookieAnalyticsKey)
-      // window.location.assign(url)
+      safeAnalyticsTrack('Beta Opted Out', {
+        bucket: platform,
+      })
+      Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
+      Cookies.remove(PLATFORM_OPTIONS[platform].cookieAnalyticsKey)
+      window.location.assign(url)
     },
     [platform, url, router.asPath]
   )
@@ -56,9 +56,9 @@ export default function OptInOutController({
   }, [optInFrom, handleOptOut])
 
   // Return early if not opted in
-  // if (optedIn !== 'true') {
-  //   return null
-  // }
+  if (optedIn !== 'true') {
+    return null
+  }
 
   return <OptOutButtonAndDialog handleOptOut={handleOptOut} />
 }
