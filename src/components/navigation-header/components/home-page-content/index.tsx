@@ -5,6 +5,10 @@ import { NavigationHeaderDropdownMenu } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './home-page-content.module.css'
 
+/**
+ * @TODO update content to also show products "coming soon"
+ * @see https://app.asana.com/0/1202110981600689/1202300536466714/f
+ */
 const HomePageHeaderContent = () => {
   const betaProductSlugs = __config.dev_dot.beta_product_slugs
   const menuItems = betaProductSlugs.map((slug: ProductSlug) => ({
