@@ -14,6 +14,7 @@ import { useId } from '@react-aria/utils'
 import { DisclosureContextState, DisclosureProps } from './types'
 import {
   DisclosureActivator,
+  DisclosureActivatorForwardedRef,
   DisclosureActivatorProps,
   DisclosureContent,
   DisclosureContentProps,
@@ -132,6 +133,7 @@ const Disclosure = ({
 }
 
 export type {
+  DisclosureActivatorForwardedRef,
   DisclosureActivatorProps,
   DisclosureContentProps,
   DisclosureProps,
