@@ -52,6 +52,10 @@
     color: var(--token-color-foreground-disabled);
     cursor: not-allowed;
   }
+
+  &:hover:not(:disabled) {
+    text-decoration: underline;
+  }
 }
 
 /*
