@@ -1,9 +1,5 @@
 .root {
   background-color: white;
-  padding-bottom: 12px;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 12px;
   width: 100%;
 
   /* custom elevation; no HDS token at the time of building */
@@ -14,69 +10,39 @@
     box-shadow: 0 -2px 4px rgba(101, 106, 118, 0.15),
       0 -16px 18px -8px rgba(101, 106, 118, 0.1);
   }
+}
 
-  /*
-  TODO box-shadow when open
-    - box-shadow: 0px -2px 4px rgba(101, 106, 118, 0.15), 0px -16px 18px -8px rgba(101, 106, 118, 0.1); 
-  */
+.root-expanded {
+  box-shadow: 0 -2px 4px rgba(101, 106, 118, 0.15),
+    0 -16px 18px -8px rgba(101, 106, 118, 0.1);
+}
 
-  & ul {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    list-style: none;
-    border-top: 1px solid var(--token-color-border-primary);
-    margin-top: 12px;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 12px;
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 0;
+.activator {
+  background-color: white;
+  border: none;
+  padding-bottom: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 12px;
 
-    /* TODO - ul needs a max height of 188px? 270px overall for component? */
-    max-height: 188px;
-    overflow-x: hidden;
-    overflow-y: auto;
+  &:focus,
+  &:focus-visible {
+    outline: transparent;
 
-    & li a {
-      background-color: white;
-      border-radius: 5px;
-      color: var(--token-color-foreground-faint);
-      display: block;
-      font-family: var(--token-typography-body-200-font-family);
-      font-size: var(--token-typography-body-200-font-size);
-      line-height: var(--token-typography-body-200-line-height);
-      padding: 8px;
-
-      &:hover {
-        background-color: var(--token-color-palette-neutral-100);
-        color: var(--token-color-foreground-strong);
-      }
-
-      /*
-      TODO
-        - also add :focus
-        - add focus ring
-      */
-      &:focus-visible {
-        background-color: white;
-        color: var(--token-color-foreground-strong);
-      }
+    & .activatorTextWrapper {
+      /* box-shadow: var(--token-focus-ring-action-box-shadow); */
     }
   }
 }
 
-.button {
+.activatorTextWrapper {
   align-items: center;
-  background-color: white;
-  border: none;
   border-radius: 5px;
   display: flex;
   gap: 6px;
   padding: 8px;
-  position: relative;
   width: 100%;
+  position: relative;
 }
 
 /*
@@ -84,13 +50,59 @@ TODO
   - hover state
   - focus state
 */
-.buttonText {
+.activatorText {
   color: var(--token-color-foreground-faint);
   flex-grow: 1;
   text-align: left;
 }
 
-.buttonIcon {
+.activatorIcon {
   flex-shrink: 0;
   display: flex;
+}
+
+.optionList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  list-style: none;
+  border-top: 1px solid var(--token-color-border-primary);
+  margin-top: 12px;
+  margin-left: 0;
+  margin-right: 0;
+  padding-top: 12px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+
+  /* TODO - ul needs a max height of 188px? 270px overall for component? */
+  max-height: 188px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.optionLink {
+  background-color: white;
+  border-radius: 5px;
+  color: var(--token-color-foreground-faint);
+  display: block;
+  font-family: var(--token-typography-body-200-font-family);
+  font-size: var(--token-typography-body-200-font-size);
+  line-height: var(--token-typography-body-200-line-height);
+  padding: 8px;
+
+  &:hover {
+    background-color: var(--token-color-palette-neutral-100);
+    color: var(--token-color-foreground-strong);
+  }
+
+  /*
+  TODO
+    - also add :focus
+    - add focus ring
+  */
+  &:focus-visible {
+    background-color: white;
+    color: var(--token-color-foreground-strong);
+  }
 }
