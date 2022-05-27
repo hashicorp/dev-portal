@@ -1,23 +1,26 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { v4 as uuid } from 'uuid'
+import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import '@reach/dialog/styles.css'
 import { safeAnalyticsTrack } from 'lib/analytics'
 import { OptInOutProps, isOptInPlatformOption } from './types'
 import { PLATFORM_OPTIONS, postFormData, makeBetaWelcomeToast } from './helpers'
+import OptOutForm from './components/opt-out-form'
 import { OptOutFormState } from './components/opt-out-form/types'
-import { OptOutButtonAndDialog } from './components/opt-out-button-and-dialog'
+import Button from 'components/button'
+import Dialog from 'components/dialog'
 
-export default function OptInOutController({
-  platform,
-  redirectPath,
-}: OptInOutProps) {
+export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   // fire toast, render button, etc
   const router = useRouter()
   const optedIn = Cookies.get(PLATFORM_OPTIONS[platform].cookieKey)
   const url =
     redirectPath || PLATFORM_OPTIONS[platform].getRedirectPath(router.asPath)
+  const [showDialog, setShowDialog] = useState(false)
+  const openDialog = () => setShowDialog(true)
+  const closeDialog = () => setShowDialog(false)
 
   /**
    * Handle opt out, which is passed to our opt out form,
@@ -25,15 +28,19 @@ export default function OptInOutController({
    */
   const handleOptOut = useCallback(
     async (state: OptOutFormState) => {
-      await postFormData({
-        segment_anonymous_id: uuid(),
-        primary_opt_out_reason: state.optOutReason,
-        details: state.optOutDetails,
-        opt_out_page_url: new URL(
-          router.asPath,
-          __config.dev_dot.canonical_base_url
-        ).toString(),
-      })
+      try {
+        await postFormData({
+          segment_anonymous_id: uuid(),
+          primary_opt_out_reason: state.optOutReason,
+          details: state.optOutDetails,
+          opt_out_page_url: new URL(
+            router.asPath,
+            __config.dev_dot.canonical_base_url
+          ).toString(),
+        })
+      } catch (e) {
+        console.error(e)
+      }
       safeAnalyticsTrack('Beta Opted Out', {
         bucket: platform,
       })
@@ -60,5 +67,22 @@ export default function OptInOutController({
     return null
   }
 
-  return <OptOutButtonAndDialog handleOptOut={handleOptOut} />
+  return (
+    <div>
+      <Button
+        color="tertiary"
+        text="Leave Beta"
+        icon={<IconSignOut16 />}
+        iconPosition="trailing"
+        onClick={openDialog}
+      />
+      <Dialog onDismiss={closeDialog} isOpen={showDialog} label="Opt out form">
+        <OptOutForm
+          onSubmit={handleOptOut}
+          onDismiss={closeDialog}
+          platform="learn"
+        />
+      </Dialog>
+    </div>
+  )
 }
