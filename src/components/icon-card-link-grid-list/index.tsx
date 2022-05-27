@@ -4,19 +4,19 @@ import { IconCardLinkGridListProps, IconCard } from './types'
 
 function IconCardLinkGridList({
   cards,
-  productSlug,
+  productSlug = 'hcp',
 }: IconCardLinkGridListProps) {
   return (
     <CardsGridList>
-      {cards.map(({ icon, text, url }: IconCard, key: number) => {
+      {cards.map((iconCard: IconCard, key: number) => {
         return (
           // eslint-disable-next-line react/no-array-index-key
           <li key={key}>
             <IconCardLink
-              icon={icon}
-              productSlug={productSlug}
-              text={text}
-              url={url}
+              icon={iconCard.icon}
+              productSlug={iconCard.productSlug || productSlug}
+              text={iconCard.text}
+              url={iconCard.url}
             />
           </li>
         )

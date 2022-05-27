@@ -12,6 +12,7 @@ import {
 } from '../components'
 
 import s from './dev-dot-404.module.css'
+import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 
 /**
  * Generic 404 error view content for use in dev-dot.
@@ -29,8 +30,8 @@ export function DevDot404(): ReactElement {
         from, or go to one of the pages below.
       </ErrorViewParagraph>
       <div className={s.cards}>
-        <CardsGridList>
-          {[
+        <IconCardLinkGridList
+          cards={[
             {
               url: '/vault',
               text: 'Vault',
@@ -46,28 +47,11 @@ export function DevDot404(): ReactElement {
             {
               url: '/',
               text: 'HashiCorp Developer',
-              productSlug: 'hashicorp',
+              productSlug: 'hcp',
               icon: <IconHome16 />,
             },
-          ].map(
-            (
-              { icon, text, url, productSlug }: IconCardLinkProps,
-              key: number
-            ) => {
-              return (
-                // eslint-disable-next-line react/no-array-index-key
-                <li key={key}>
-                  <IconCardLink
-                    icon={icon}
-                    productSlug={productSlug}
-                    text={text}
-                    url={url}
-                  />
-                </li>
-              )
-            }
-          )}
-        </CardsGridList>
+          ]}
+        />
       </div>
     </ErrorViewContainer>
   )
