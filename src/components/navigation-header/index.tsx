@@ -35,9 +35,9 @@ const RightSideHeaderContent = () => {
 const NavigationHeader = () => {
   const { isDesktop } = useDeviceSize()
   const currentProduct = useCurrentProduct()
-  const LeftSideHeaderContent = !currentProduct
-    ? HomePageHeaderContent
-    : ProductPageHeaderContent
+  const LeftSideHeaderContent = currentProduct
+    ? ProductPageHeaderContent
+    : HomePageHeaderContent
 
   // TODO: menu for the home page, which does not use SidebarSidecarLayout
   const shouldShowRightSide = !isDesktop && currentProduct
