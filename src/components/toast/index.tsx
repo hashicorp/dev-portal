@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { default as reactHotToast, Toast } from 'react-hot-toast'
 import Toaster from './components/toaster'
 import ToastDisplay from './components/toast-display'
@@ -34,6 +34,7 @@ function toast({
   // Return a react-hot-toast
   return reactHotToast(
     (t: Toast) => {
+      const [initialRoute, setInitialRoute] = useState(null)
       const router = useRouter()
 
       // Allows the toast to dismiss itself
@@ -44,14 +45,15 @@ function toast({
 
       // If specified, when the route changes, we should dismiss the toast
       useEffect(() => {
-        if (dismissOnRouteChange) {
-          router.events.on('routeChangeComplete', dismissSelf)
+        if (initialRoute == null) {
+          setInitialRoute(router.asPath)
+        } else {
+          const isRouteChanged = router.asPath !== initialRoute
+          if (isRouteChanged && dismissOnRouteChange) {
+            dismissSelf()
+          }
         }
-        // Clean up
-        return () => {
-          router.events.off('routeChangeComplete', dismissSelf)
-        }
-      }, [router.events, dismissSelf])
+      }, [router.asPath, initialRoute, setInitialRoute, dismissSelf])
 
       return (
         <ToastDisplay
