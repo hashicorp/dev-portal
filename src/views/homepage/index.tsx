@@ -138,7 +138,7 @@ function Homepage(): ReactElement {
         actions={[
           {
             icon: (
-              <IconSupport24 color="var(--token-color-highlight-foreground-primary)" />
+              <IconSupport24 color="var(--token-color-foreground-highlight)" />
             ),
             heading: 'Support',
             description: 'Open a support ticket',
