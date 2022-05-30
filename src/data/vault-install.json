@@ -1,34 +1,22 @@
 {
   "featuredTutorials": [
     {
-      "title": "Getting Started",
-      "description": "A quick tour of common Vault features to jump-start.",
-      "href": "https://learn.hashicorp.com/collections/vault/getting-started"
+      "collectionSlug": "vault/getting-started"
     },
     {
-      "title": "Getting Started with Vault UI",
-      "description": "Manage Vault environment as well as your secrets using Vault UI.",
-      "href": "https://learn.hashicorp.com/collections/vault/getting-started-ui"
+      "collectionSlug": "vault/getting-started-ui"
     },
     {
-      "title": "Getting Started with HCP Vault",
-      "description": "Quickly get hands-on with HashiCorp Cloud Platform (HCP) Vault.",
-      "href": "https://learn.hashicorp.com/collections/vault/cloud"
+      "collectionSlug": "vault/cloud"
     },
     {
-      "title": "Production Hardening",
-      "description": "Best practices for a production hardened deployment of Vault.",
-      "href": "https://learn.hashicorp.com/tutorials/vault/production-hardening"
+      "tutorialSlug": "vault/production-hardening"
     },
     {
-      "title": "Reference Architecture",
-      "description": "Architectural best practices for implementing Vault with Integrated Storage.",
-      "href": "https://learn.hashicorp.com/tutorials/vault/raft-reference-architecture"
+      "tutorialSlug": "vault/raft-reference-architecture"
     },
     {
-      "title": "Vault Deployment Guide",
-      "description": "Steps to install and configure a Vault according to the Reference Architecture.",
-      "href": "https://learn.hashicorp.com/tutorials/vault/raft-deployment-guide"
+      "tutorialSlug": "vault/raft-deployment-guide"
     }
   ],
   "sidecarMarketingCard": {

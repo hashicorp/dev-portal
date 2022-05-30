@@ -43,7 +43,7 @@ const ProductDownloadsViewContent = ({
 }: ProductDownloadsViewContentProps) => {
   const {
     doesNotHavePackageManagers,
-    featuredTutorials,
+    featuredTutorialCards,
     packageManagerOverrides,
     sidecarMarketingCard,
   } = pageContent
@@ -89,10 +89,12 @@ const ProductDownloadsViewContent = ({
           versionSwitcherOptions={versionSwitcherOptions}
         />
         <OfficialReleasesSection />
-        {featuredTutorials && (
-          <FeaturedTutorialsSection featuredTutorials={featuredTutorials} />
-        )}
       </DevDotContent>
+      {featuredTutorialCards ? (
+        <FeaturedTutorialsSection
+          featuredTutorialCards={featuredTutorialCards}
+        />
+      ) : null}
     </SidebarSidecarLayout>
   )
 }

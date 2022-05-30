@@ -3,25 +3,33 @@ import { GetStaticProps } from 'next'
 import waypointData from 'data/waypoint.json'
 import installData from 'data/waypoint-install.json'
 import { ProductData } from 'types/products'
-import { generateStaticProps, GeneratedProps } from 'lib/fetch-release-data'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductDownloadsView from 'views/product-downloads-view'
+import { generateStaticProps } from 'views/product-downloads-view/server'
+import {
+  ProductDownloadsViewStaticProps,
+  RawProductDownloadsViewContent,
+} from 'views/product-downloads-view/types'
 
-const WaypointDownloadsPage = (props: GeneratedProps): ReactElement => {
-  const { latestVersion, releases } = props
+const WaypointDownloadsPage = ({
+  latestVersion,
+  pageContent,
+  releases,
+}: ProductDownloadsViewStaticProps): ReactElement => {
   return (
     <ProductDownloadsView
       latestVersion={latestVersion}
-      pageContent={installData}
+      pageContent={pageContent}
       releases={releases}
     />
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const product = waypointData as ProductData
-
-  return generateStaticProps(product)
+  return await generateStaticProps(
+    waypointData as ProductData,
+    installData as unknown as RawProductDownloadsViewContent
+  )
 }
 
 WaypointDownloadsPage.layout = CoreDevDotLayout
