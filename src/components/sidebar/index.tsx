@@ -1,6 +1,12 @@
+// Third-party imports
 import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'
+
+// Global imports
+import { getVersionFromPath } from 'lib/get-version-from-path'
+import { getTargetPath } from 'lib/get-target-path'
 import useCurrentPath from 'hooks/use-current-path'
+import { useCurrentProduct } from 'contexts'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
   SidebarHorizontalRule,
@@ -9,12 +15,15 @@ import {
   SidebarSkipToMainContent,
   SidebarTitleHeading,
 } from 'components/sidebar/components'
+
+// Local imports
 import { FilteredNavItem, MenuItem, SidebarProps } from './types'
 import { addNavItemMetaData, getFilteredNavItems } from './helpers'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
+import { ProductWithCurrentRootDocsPath } from 'types/products'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 
@@ -45,6 +54,10 @@ const Sidebar = ({
   const { shouldRenderMobileControls } = useSidebarNavData()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const [filterValue, setFilterValue] = useState('')
+  const currentProduct = useCurrentProduct()
+  const currentlyViewedVersion = getVersionFromPath(currentPath)
+  const { currentRootDocsPath } =
+    currentProduct as ProductWithCurrentRootDocsPath
   const { itemsWithMetadata } = useMemo(
     () => addNavItemMetaData(currentPath, menuItems),
     [currentPath, menuItems]
@@ -82,12 +95,22 @@ const Sidebar = ({
 
   let overviewItem
   if (overviewItemHref) {
+    // Check if we're looking at a past version of docs
+    let generatedOverviewItemHref
+    if (currentRootDocsPath && currentlyViewedVersion) {
+      // Append the past viewed version if present
+      generatedOverviewItemHref = `/${currentProduct.slug}/${currentRootDocsPath.path}/${currentlyViewedVersion}`
+    } else {
+      // Just use `overviewItemHref` if not viewing a past version of docs
+      generatedOverviewItemHref = overviewItemHref
+    }
+
     overviewItem = (
       <SidebarNavLinkItem
         item={{
-          href: overviewItemHref,
+          href: generatedOverviewItemHref,
           title: 'Overview',
-          isActive: overviewItemHref === currentPath,
+          isActive: generatedOverviewItemHref === currentPath,
         }}
       />
     )
