@@ -10,11 +10,11 @@ import { TutorialCardPropsWithId } from 'components/tutorial-card'
 export type FeaturedTutorialContent =
   | {
       collectionSlug: string
-      tutorialSlug: never
+      tutorialSlug?: never
     }
   | {
+      collectionSlug?: never
       tutorialSlug: string
-      collectionSlug: never
     }
 
 export interface PackageManager {
