@@ -2,8 +2,8 @@
   "name": "Packer",
   "slug": "packer",
   "algoliaConfig": {
-    "indexName": "product_PACKER",
-    "searchOnlyApiKey": "4e1ea7f4bf4335ac43d9f28463e42148"
+    "indexName": "poc_DEVDOT",
+    "searchOnlyApiKey": "2cd9898a6c253bfa3965d2b62a4f7f3d"
   },
   "analyticsConfig": {
     "includedDomains": "packer.io www.packer.io",

@@ -2,8 +2,8 @@
   "name": "Nomad",
   "slug": "nomad",
   "algoliaConfig": {
-    "indexName": "product_NOMAD",
-    "searchOnlyApiKey": "9bfec34ea54e56a11bd50d6bfedc5e71"
+    "indexName": "poc_DEVDOT",
+    "searchOnlyApiKey": "2cd9898a6c253bfa3965d2b62a4f7f3d"
   },
   "analyticsConfig": {
     "includedDomains": "nomadproject.io www.nomadproject.io",

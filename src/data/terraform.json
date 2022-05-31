@@ -1,6 +1,10 @@
 {
-  "slug": "terraform",
   "name": "Terraform",
+  "slug": "terraform",
+  "algoliaConfig": {
+    "indexName": "poc_DEVDOT",
+    "searchOnlyApiKey": "2cd9898a6c253bfa3965d2b62a4f7f3d"
+  },
   "basePaths": [
     "cdktf",
     "cli",

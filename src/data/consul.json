@@ -2,8 +2,8 @@
   "name": "Consul",
   "slug": "consul",
   "algoliaConfig": {
-    "indexName": "product_CONSUL",
-    "searchOnlyApiKey": "fbd5dc1f0078d41509fcc560386fd534"
+    "indexName": "poc_DEVDOT",
+    "searchOnlyApiKey": "2cd9898a6c253bfa3965d2b62a4f7f3d"
   },
   "analyticsConfig": {
     "includedDomains": "consul.io www.consul.io",
