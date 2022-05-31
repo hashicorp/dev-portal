@@ -3,7 +3,10 @@ import { trackGoal as trackFathomGoal } from 'fathom-client'
 import HashiHead from '@hashicorp/react-head'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import Min100Layout from '@hashicorp/react-min-100-layout'
-import useProductMeta, { Products } from '@hashicorp/platform-product-meta'
+import useProductMeta, {
+  ProductMetaProvider,
+  Products,
+} from '@hashicorp/platform-product-meta'
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
@@ -40,39 +43,41 @@ function VaultIoLayout({ children, data }: Props): React.ReactElement {
       />
 
       <Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
-        {productData.alertBannerActive && (
-          <AlertBanner
-            {...productData.alertBanner}
-            product={productData.slug as Products}
-            hideOnMobile
+        <ProductMetaProvider product={productData.slug as Products}>
+          {productData.alertBannerActive && (
+            <AlertBanner
+              {...productData.alertBanner}
+              product={productData.slug as Products}
+              hideOnMobile
+            />
+          )}
+          <ProductSubnav
+            menuItems={[
+              { text: 'Overview', url: '/' },
+              {
+                text: 'Use Cases',
+                submenu: useCaseNavItems
+                  .sort((a, b) => a.text.localeCompare(b.text))
+                  .map((item) => {
+                    return {
+                      text: item.text,
+                      url: `/use-cases/${item.url}`,
+                    }
+                  }),
+              },
+              {
+                text: 'Enterprise',
+                url: 'https://www.hashicorp.com/products/vault/enterprise',
+              },
+              'divider',
+              { text: 'Tutorials', url: 'https://learn.hashicorp.com/vault' },
+              { text: 'Docs', url: '/docs' },
+              { text: 'API', url: '/api-docs' },
+              { text: 'Community', url: '/community' },
+            ]}
           />
-        )}
-        <ProductSubnav
-          menuItems={[
-            { text: 'Overview', url: '/' },
-            {
-              text: 'Use Cases',
-              submenu: useCaseNavItems
-                .sort((a, b) => a.text.localeCompare(b.text))
-                .map((item) => {
-                  return {
-                    text: item.text,
-                    url: `/use-cases/${item.url}`,
-                  }
-                }),
-            },
-            {
-              text: 'Enterprise',
-              url: 'https://www.hashicorp.com/products/vault/enterprise',
-            },
-            'divider',
-            { text: 'Tutorials', url: 'https://learn.hashicorp.com/vault' },
-            { text: 'Docs', url: '/docs' },
-            { text: 'API', url: '/api-docs' },
-            { text: 'Community', url: '/community' },
-          ]}
-        />
-        <div className={themeClass}>{children}</div>
+          <div className={themeClass}>{children}</div>
+        </ProductMetaProvider>
       </Min100Layout>
       <ConsentManager />
     </>

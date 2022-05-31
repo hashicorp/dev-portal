@@ -5,6 +5,7 @@ import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
 
 // HashiCorp imports
+import { IconBox16 } from '@hashicorp/flight-icons/svg-react/box-16'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
@@ -27,7 +28,6 @@ import {
 
 // Local imports
 import s from './dropdown-menu.module.css'
-import { IconBox16 } from '@hashicorp/flight-icons/svg-react/box-16'
 
 /**
  * The icons supported in this menu in addition to the Product logo icons.
@@ -43,6 +43,8 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
 /**
  * A dropdown navigation menu consisiting of an activator button and a dropdown
  * containing groups of menu item links.
+ *
+ * @TODO leverage NavigationDisclosure component
  */
 const NavigationHeaderDropdownMenu = ({
   ariaLabel,

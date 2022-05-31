@@ -22,6 +22,7 @@
   line-height: var(--line-height);
   padding: var(--padding-top-bottom) var(--padding-left-right);
   position: relative;
+  text-decoration: underline;
 
   &::before {
     border-radius: 8px;

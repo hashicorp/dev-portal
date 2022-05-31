@@ -15,7 +15,7 @@ The `AccordionDisclosure` is a component used for showing or hiding sections of 
 | `children`    | The content to render within the `AccordionDisclosure` container.                                                                                                                                                        | Yes       | N/A           | ReactNode |
 | `description` | Secondary label text that renders below the main `title` with less emphasis. Always shows regardless of the `AccordionDisclosure`'s open/closed state.                                                                   | No        | undefined     | string    |
 | `id`          | The `id` passed to the root container. Used to generate an `id` for the content container which is also passed to `aria-controls` on the `AccordionDisclosure` activator button.                                         | Yes       | undefined     | string    |
-| `open`        | Optional prop that that enables a `AccordionDisclosure` to be open on render.                                                                                                                                            | No        | false         | boolean   |
+| `initialOpen` | Optional prop that that enables a `AccordionDisclosure` to be open on render.                                                                                                                                            | No        | false         | boolean   |
 | `title`       | The main text label that always shows regardless of the `AccordionDisclosure`'s open/closed state. These should be descriptive of the disclosed content; labels like "Section 1" or "Section 2" is not very descriptive. | Yes       | N/A           | string    |
 
 ## Examples
@@ -50,7 +50,7 @@ The `AccordionDisclosure` is a component used for showing or hiding sections of 
   id="example-open"
   title="AccordionDisclosure with text content and a description"
   description="All officially supported HashiCorp release channels and their security guarantees."
-  open
+  initialOpen={true}
 >
   Content that might include a <a href="/">text link</a>.
 </AccordionDisclosure>
@@ -63,7 +63,7 @@ The `AccordionDisclosure` is a component used for showing or hiding sections of 
   id="example-card"
   title="AccordionDisclosure with text content and a description"
   description="All officially supported HashiCorp release channels and their security guarantees."
-  open
+  initialOpen={true}
 >
   <Card elevation="base">Content that might include a <a href="/">text link</a>.</Card>
 </AccordionDisclosure>

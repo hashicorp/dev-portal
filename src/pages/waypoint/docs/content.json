@@ -3,37 +3,90 @@
   "marketingContentBlocks": [
     {
       "type": "card-grid",
-      "title": "Popular Documentation",
+      "title": "Fundamentals",
       "cards": [
         {
+          "title": "Quick Start",
+          "description": "It only takes a few minutes to get started with Waypoint on your local development environment.",
+          "url": "/waypoint/docs/getting-started"
+        },
+        {
+          "title": "App Lifecycle",
+          "description": "Waypoint has an opinionated view on the minimum application lifecycle: build, deploy, and release.",
+          "url": "/waypoint/docs/lifecycle"
+        },
+        {
           "title": "Projects",
-          "description": "A project in Waypoint is a 1:1 mapping to a VCS repository (if one exists). A project can be comprised of one or more applications. Each application in a project represents a single thing that can be deployed.",
+          "description": "A project contains one or more applications and each one in a project represents a single deployable object.",
           "url": "/waypoint/docs/projects"
         },
         {
-          "title": "Plugins",
-          "description": "Waypoint can be extended using custom plugins. Waypoint supports custom builders, deployment platforms, registries, release managers, and more.",
-          "url": "/waypoint/docs/plugins"
+          "title": "waypoint.hcl",
+          "description": "The waypoint.hcl file configures each Waypoint project and defines how Waypoint builds, deploys, and releases it.",
+          "url": "/waypoint/docs/waypoint-hcl"
+        }
+      ]
+    },
+    {
+      "type": "card-grid",
+      "title": "Application Configuration",
+      "cards": [
+        {
+          "title": "Overview",
+          "description": "Waypoint can configure your application by setting environment variables and writing files.",
+          "url": "/waypoint/docs/app-config"
         },
         {
-          "title": "Build",
-          "description": "A build takes application source and converts it to an artifact.",
-          "url": "/waypoint/docs/lifecycle/build"
+          "title": "Dynamic Values",
+          "description": "Waypoint can sync app config values with external systems like Kubernetes ConfigMaps, HashiCorp Vault, and more.",
+          "url": "/waypoint/docs/app-config/dynamic"
         },
         {
-          "title": "Deploy",
-          "description": "A deploy takes a previously built artifact and stages it onto the target deployment platform. The target deployment platform is pluggable and can be Docker, Kubernetes, Nomad, EC2, and more.",
-          "url": "/waypoint/docs/lifecycle/deploy"
+          "title": "Files",
+          "description": "Waypoint can write configs to files for apps that expect configurations at a certain path or in a certain format.",
+          "url": "/waypoint/docs/waypoint-hcl"
+        }
+      ]
+    },
+    {
+      "type": "card-grid",
+      "title": "Debugging",
+      "cards": [
+        {
+          "title": "Tips and Troubleshooting",
+          "description": "Common tips and troubleshooting methods.",
+          "url": "/waypoint/docs/troubleshooting"
         },
+        {
+          "title": "Logs",
+          "description": "Waypoint app logs are aggregated and available to view via the CLI and UI.",
+          "url": "/waypoint/docs/logs"
+        },
+        {
+          "title": "Exec",
+          "description": "Waypoint enables you to execute commands in the context of a deployed application.",
+          "url": "/waypoint/docs/exec"
+        }
+      ]
+    },
+    {
+      "type": "card-grid",
+      "title": "Highlighted Features",
+      "cards": [
         {
           "title": "Waypoint URL Service",
-          "description": "Applications deployed with Waypoint will receive a public `waypoint.run` URL. This URL can be used to quickly view your deployed applications and share your applications with others.",
+          "description": "The Waypoint URL service is a free, public service hosted by HashiCorp to view your deployed app.",
           "url": "/waypoint/docs/url"
         },
         {
           "title": "Waypoint Runners",
-          "description": "Waypoint utilizes \"runners\" to execute Waypoint operations remotely. Runners are responsible for performing builds and deploys, polling projects for changes, and more.",
+          "description": "Waypoint has three types of runners to execute every operation: CLI, remote, and on-demand.",
           "url": "/waypoint/docs/runner"
+        },
+        {
+          "title": "Waypoint Triggers",
+          "description": "Trigger URLs are pre-configured Waypoint lifecycle operations for execution inside CI environments.",
+          "url": "/waypoint/docs/triggers"
         }
       ]
     }
