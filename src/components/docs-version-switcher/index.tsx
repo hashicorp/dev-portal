@@ -1,6 +1,9 @@
 import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { ProductWithCurrentRootDocsPath } from 'types/products'
+import { getTargetPath } from 'lib/get-target-path'
+import { getVersionFromPath } from 'lib/get-version-from-path'
+import { removeVersionFromPath } from 'lib/remove-version-from-path'
 import { useCurrentProduct } from 'contexts'
 import useCurrentPath from 'hooks/use-current-path'
 import NavigationDisclosure, {
@@ -12,11 +15,6 @@ import NavigationDisclosure, {
 } from 'components/navigation-disclosure'
 import Text from 'components/text'
 import { DocsVersionSwitcherOption, DocsVersionSwitcherProps } from './types'
-import {
-  getTargetPath,
-  getVersionFromPath,
-  removeVersionFromPath,
-} from './helpers'
 import s from './docs-version-switcher.module.css'
 
 const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
