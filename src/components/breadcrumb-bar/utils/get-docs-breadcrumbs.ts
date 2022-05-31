@@ -1,15 +1,32 @@
+import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { NavData } from '@hashicorp/react-docs-sidenav'
 import { BreadcrumbLink } from '..'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
 interface GetPathBreadcrumbsOpts {
-  /** The base path for the current route, if applicable. For example, "docs". Returned breadcrumb links will be prefixed with this path. */
+  /**
+   * The base path for the current route, if applicable. For example, "docs".
+   * Returned breadcrumb links will be prefixed with this path.
+   */
   basePath: string
-  /** An array of nav nodes, as defined by our sidenav component. */
+
+  /**
+   * An array of nav nodes, as defined by our sidenav component.
+   */
+
   navData: NavData
-  /** An array of parameters representing the path from the basePath to the current path.  */
+
+  /**
+   * An array of parameters representing the path from the basePath to the
+   * current path.
+   */
   pathParts: string[]
+
+  /**
+   * The currently viewed version, obtained by `getDocsBreadcrumbs`
+   */
+  version?: string
 }
 
 /**
@@ -25,6 +42,7 @@ function getPathBreadcrumbs({
   basePath,
   navData,
   pathParts,
+  version,
 }: GetPathBreadcrumbsOpts): BreadcrumbLink[] {
   // Create an array of all successive combinations
   // of the path parts leading to this page.
@@ -33,12 +51,22 @@ function getPathBreadcrumbs({
   for (let i = 0; i < pathParts.length; i++) {
     breadcrumbPaths.push(pathParts.slice(0, i + 1).join('/'))
   }
+
   // Map each each breadcrumb path to its
   // associated navData node. This gets slightly
   // complex due to index (aka "Overview") nodes.
-  const breadcrumbNodes = breadcrumbPaths.map((p) =>
-    getPathMatchedNode(navData, p, basePath)
-  )
+  // Automatically handles when a path contains
+  // a version.
+  const breadcrumbNodes = breadcrumbPaths.map((path) => {
+    let pathToMatch
+    if (version) {
+      pathToMatch = `${version}/${path}`
+    } else {
+      pathToMatch = path
+    }
+    return getPathMatchedNode(navData, pathToMatch, basePath)
+  })
+
   // Map the matched navData nodes into { title, url }
   // objects as needed for breadcrumb link rendering.
   return breadcrumbNodes.map(({ title, path }) => {
@@ -148,6 +176,7 @@ interface GetDocsBreadcrumbsOpts extends GetPathBreadcrumbsOpts {
   baseName: string
   productName: string
   productPath: string
+  versions?: VersionSelectItem[]
 }
 
 function getDocsBreadcrumbs({
@@ -157,20 +186,56 @@ function getDocsBreadcrumbs({
   pathParts,
   productName,
   productPath,
+  versions,
 }: GetDocsBreadcrumbsOpts): BreadcrumbLink[] {
+  // Figure out of a specific docs version is being viewed
+  let indexOfVersionPathPart
+  let versionPathPart
+  pathParts.find((pathPart, index) => {
+    const matchingVersion = versions.find(
+      (version) => pathPart === version.version
+    )
+    if (matchingVersion) {
+      versionPathPart = pathPart
+      indexOfVersionPathPart = index
+      return true
+    }
+  })
+
+  /**
+   * If needed, include version in root path item and build the options object
+   * sent to getPathBreadcrumbs.
+   */
+  let rootPathTitle: string
+  let getPathBreadcrumbsOptions: GetPathBreadcrumbsOpts
+  if (indexOfVersionPathPart >= 0) {
+    rootPathTitle = `${baseName} ${versionPathPart}`
+    getPathBreadcrumbsOptions = {
+      basePath: `${productPath}/${basePath}/${versionPathPart}`,
+      navData,
+      pathParts: pathParts.filter(
+        (_, index) => index !== indexOfVersionPathPart
+      ),
+      version: versionPathPart,
+    }
+  } else {
+    rootPathTitle = baseName
+    getPathBreadcrumbsOptions = {
+      basePath: `${productPath}/${basePath}`,
+      navData,
+      pathParts,
+    }
+  }
+
   return [
     { title: 'Developer', url: '/' },
     { title: productName, url: `/${productPath}` },
     {
-      title: baseName,
-      url: `/${productPath}/${basePath}`,
+      title: rootPathTitle,
+      url: `/${getPathBreadcrumbsOptions.basePath}`,
       isCurrentPage: pathParts.length == 0,
     },
-    ...getPathBreadcrumbs({
-      basePath: `${productPath}/${basePath}`,
-      navData,
-      pathParts,
-    }),
+    ...getPathBreadcrumbs(getPathBreadcrumbsOptions),
   ]
 }
 
