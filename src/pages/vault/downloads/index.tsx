@@ -1,29 +1,10 @@
-import { ReactElement } from 'react'
 import { GetStaticProps } from 'next'
 import vaultData from 'data/vault.json'
 import installData from 'data/vault-install.json'
 import { ProductData } from 'types/products'
-import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductDownloadsView from 'views/product-downloads-view'
 import { generateStaticProps } from 'views/product-downloads-view/server'
-import {
-  ProductDownloadsViewStaticProps,
-  RawProductDownloadsViewContent,
-} from 'views/product-downloads-view/types'
-
-const VaultDownloadsPage = ({
-  latestVersion,
-  releases,
-  pageContent,
-}: ProductDownloadsViewStaticProps): ReactElement => {
-  return (
-    <ProductDownloadsView
-      latestVersion={latestVersion}
-      pageContent={pageContent}
-      releases={releases}
-    />
-  )
-}
+import { RawProductDownloadsViewContent } from 'views/product-downloads-view/types'
 
 export const getStaticProps: GetStaticProps = async () => {
   return await generateStaticProps(
@@ -32,5 +13,4 @@ export const getStaticProps: GetStaticProps = async () => {
   )
 }
 
-VaultDownloadsPage.layout = CoreDevDotLayout
-export default VaultDownloadsPage
+export default ProductDownloadsView
