@@ -3,7 +3,7 @@
   "slug": "waypoint",
   "algoliaConfig": {
     "indexName": "product_WAYPOINT",
-    "searchOnlyApiKey": "2cd9898a6c253bfa3965d2b62a4f7f3d"
+    "searchOnlyApiKey": "5e4adfd8094367056501547d6fedb6c5"
   },
   "analyticsConfig": {
     "includedDomains": "waypointproject.io www.waypointproject.io",
