@@ -4,68 +4,47 @@ import Cookies from 'js-cookie'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import '@reach/dialog/styles.css'
 import Button from 'components/button'
-import OptOutForm from './components/opt-out-form'
 import Dialog from 'components/dialog'
-import { getLearnRedirectPath } from './helpers/get-learn-redirect-path'
-import {
-  PlatformOptionRedirectData,
-  OptInOutProps,
-  isOptInPlatformOption,
-} from './types'
-import { safeAnalyticsTrack } from 'lib/analytics'
-import makeBetaWelcomeToast from './helpers/make-beta-welcome-toast'
-import { getIoRedirectPath } from './helpers/get-io-redirect-path'
-
-// Could these go in the config? or I could source the base urls elsewhere
-export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
-  learn: {
-    base_url: 'https://learn-git-ksspike-opt-in-redirects-hashicorp.vercel.app', // FOR TESTING PURPOSES NEED TO UPDATE for - 'https://learn.hashicorp.com/'
-    getRedirectPath: getLearnRedirectPath,
-    cookieKey: 'learn-beta-opt-in',
-    cookieAnalyticsKey: 'learn-beta-opt-in-tracked',
-  },
-  'waypoint-io': {
-    base_url: 'https://www.waypointproject.io/',
-    getRedirectPath(path) {
-      return this.base_url + getIoRedirectPath(path)
-    },
-    cookieKey: 'waypoint-io-beta-opt-in',
-    cookieAnalyticsKey: 'waypoint-io-beta-opt-in-tracked',
-  },
-  'vault-io': {
-    base_url: 'https://www.vaultproject.io/',
-    getRedirectPath(path) {
-      return this.base_url + getIoRedirectPath(path)
-    },
-    cookieKey: 'vault-io-beta-opt-in',
-    cookieAnalyticsKey: 'vault-io-beta-opt-in-tracked',
-  },
-}
+import { safeAnalyticsTrack, safeGetSegmentId } from 'lib/analytics'
+import { OptInOutProps, isOptInPlatformOption } from './types'
+import { PLATFORM_OPTIONS, postFormData, makeBetaWelcomeToast } from './helpers'
+import OptOutForm from './components/opt-out-form'
+import { OptOutFormState } from './components/opt-out-form/types'
 
 export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   // fire toast, render button, etc
   const router = useRouter()
-  const [showDialog, setShowDialog] = useState(false)
   const optedIn = Cookies.get(PLATFORM_OPTIONS[platform].cookieKey)
-
-  const openDialog = () => setShowDialog(true)
-  const closeDialog = () => setShowDialog(false)
   const url =
     redirectPath || PLATFORM_OPTIONS[platform].getRedirectPath(router.asPath)
+  const [showDialog, setShowDialog] = useState(false)
+  const openDialog = () => setShowDialog(true)
+  const closeDialog = () => setShowDialog(false)
 
   /**
    * Handle opt out, which is passed to our opt out form,
    * and is also used in our welcome toast.
    */
-  const handleOptOut = useCallback(() => {
-    // @TODO - handle form submit
-    Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
-    Cookies.remove(PLATFORM_OPTIONS[platform].cookieAnalyticsKey)
-    safeAnalyticsTrack('Beta Opted Out', {
-      bucket: platform,
-    })
-    window.location.assign(url)
-  }, [platform, url])
+  const handleOptOut = useCallback(
+    async (state: OptOutFormState) => {
+      await postFormData({
+        segment_anonymous_id: safeGetSegmentId(),
+        primary_opt_out_reason: state.optOutReason,
+        details: state.optOutDetails,
+        opt_out_page_url: new URL(
+          router.asPath,
+          __config.dev_dot.canonical_base_url
+        ).toString(),
+      })
+      safeAnalyticsTrack('Beta Opted Out', {
+        bucket: platform,
+      })
+      Cookies.remove(PLATFORM_OPTIONS[platform].cookieKey)
+      Cookies.remove(PLATFORM_OPTIONS[platform].cookieAnalyticsKey)
+      window.location.assign(url)
+    },
+    [platform, url, router.asPath]
+  )
 
   /**
    * If there's an 'optInFrom' query parameter,
@@ -76,7 +55,7 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
     if (typeof optInFrom == 'string' && isOptInPlatformOption(optInFrom)) {
       makeBetaWelcomeToast(optInFrom)
     }
-  }, [optInFrom, handleOptOut])
+  }, [optInFrom])
 
   // Return early if not opted in
   if (optedIn !== 'true') {

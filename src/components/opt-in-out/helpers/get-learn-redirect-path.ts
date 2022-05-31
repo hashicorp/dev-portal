@@ -1,5 +1,5 @@
 import { ProductOption } from 'lib/learn-client/types'
-import { PLATFORM_OPTIONS } from '..'
+import { PLATFORM_OPTIONS } from '.'
 
 export function getLearnRedirectPath(
   currentPath: string,
