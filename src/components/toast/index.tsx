@@ -51,14 +51,14 @@ function toast({
        */
       useEffect(() => {
         if (initialRoute == null) {
-          setInitialRoute(router.asPath)
+          setInitialRoute(router.pathname)
         } else {
-          const isRouteChanged = router.asPath !== initialRoute
+          const isRouteChanged = router.pathname !== initialRoute
           if (isRouteChanged && dismissOnRouteChange) {
             dismissSelf()
           }
         }
-      }, [router.asPath, initialRoute, setInitialRoute, dismissSelf])
+      }, [router.pathname, initialRoute, setInitialRoute, dismissSelf])
 
       return (
         <ToastDisplay
