@@ -39,11 +39,15 @@
     },
     {
       "type": "tutorial_cards",
-      "tutorialSlugs": ["waypoint/aws-ecs", "waypoint/azure-container-instance", "waypoint/google-cloud-run"]
+      "tutorialSlugs": [
+        "waypoint/aws-ecs",
+        "waypoint/azure-container-instance",
+        "waypoint/google-cloud-run"
+      ]
     },
     {
       "type": "heading",
-      "heading": "Additional Reading",
+      "heading": "How Waypoint Works",
       "level": 2,
       "size": 400
     },
