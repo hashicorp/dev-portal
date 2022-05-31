@@ -91,11 +91,6 @@ for further details.
   position: sticky;
   width: 100%;
   z-index: 2;
-
-  @media (--dev-dot-tablet-down) {
-    /* manually calculated based on .sidebarWrapper's padding-bottom */
-    bottom: -18px;
-  }
 }
 
 .contentWrapper {
