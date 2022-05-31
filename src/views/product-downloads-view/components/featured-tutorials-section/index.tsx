@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { FeaturedTutorialCard } from 'views/product-downloads-view/types'
+import { FeaturedTutorialCard as FeaturedLearnCard } from 'views/product-downloads-view/types'
 import Heading from 'components/heading'
 import CardsGridList from 'components/cards-grid-list'
 import CollectionCard from 'components/collection-card'
@@ -7,11 +7,11 @@ import TutorialCard from 'components/tutorial-card'
 import s from './featured-tutorials-section.module.css'
 
 interface FeaturedTutorialsSectionProps {
-  featuredTutorialCards: FeaturedTutorialCard[]
+  featuredLearnCards: FeaturedLearnCard[]
 }
 
 const FeaturedTutorialsSection = ({
-  featuredTutorialCards,
+  featuredLearnCards,
 }: FeaturedTutorialsSectionProps): ReactElement => {
   return (
     <>
@@ -26,7 +26,7 @@ const FeaturedTutorialsSection = ({
       </Heading>
       <div className={s.cardGrid}>
         <CardsGridList>
-          {featuredTutorialCards.map((cardProps: FeaturedTutorialCard) => {
+          {featuredLearnCards.map((cardProps: FeaturedLearnCard) => {
             const { id, type } = cardProps
             if (type == 'collection') {
               return <CollectionCard key={id} {...cardProps} />

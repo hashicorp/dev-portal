@@ -42,7 +42,7 @@ export interface ProductDownloadsViewProps {
   latestVersion: string
   pageContent: {
     doesNotHavePackageManagers?: boolean
-    featuredTutorialCards?: FeaturedTutorialCard[]
+    featuredLearnCards?: FeaturedTutorialCard[]
     packageManagerOverrides?: PackageManager[]
     sidecarMarketingCard: SidecarMarketingCardProps
   }
