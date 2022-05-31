@@ -101,7 +101,7 @@
     "@hashicorp/react-consent-manager": "^7.2.0",
     "@hashicorp/react-docs-page": "^16.2.0",
     "@hashicorp/react-enterprise-alert": "^6.0.1",
-    "@hashicorp/react-error-view": "^0.0.1",
+    "@hashicorp/react-error-view": "^0.0.2",
     "@hashicorp/react-featured-slider": "^5.0.1",
     "@hashicorp/react-hashi-stack-menu": "^2.1.2",
     "@hashicorp/react-head": "^3.2.0",
