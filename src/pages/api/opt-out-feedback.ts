@@ -1,10 +1,14 @@
 import Cors from 'cors'
 import { NextApiRequest, NextApiResponse } from 'next'
-import {
-  GoogleSpreadsheet,
-  GoogleSpreadsheetRow,
-  GoogleSpreadsheetWorksheet,
-} from 'google-spreadsheet'
+import { GoogleSpreadsheet } from 'google-spreadsheet'
+
+// Filter the body for any keys that aren't included in this list
+export const allowedKeys = [
+  'segment_anonymous_id',
+  'primary_opt_out_reason',
+  'details',
+  'opt_out_page_url',
+] as const
 
 const cors = Cors({
   origin:
@@ -93,13 +97,6 @@ export default async function handler(
     return
   }
 
-  // Filter the body for any keys that aren't included in this list
-  const allowedKeys = [
-    'segment_anonymous_id',
-    'primary_opt_out_reason',
-    'details',
-    'opt_out_page_url',
-  ]
   const filteredBody = {}
   allowedKeys.forEach((key) => {
     if (typeof request.body[key] !== 'undefined') {
