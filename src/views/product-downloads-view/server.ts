@@ -9,7 +9,7 @@ import {
   FeaturedLearnContent,
   ProductDownloadsViewStaticProps,
   RawProductDownloadsViewContent,
-  FeaturedTutorialCard,
+  FeaturedLearnCard,
 } from './types'
 
 /**
@@ -40,7 +40,7 @@ async function generateStaticProps(
   // Gather tutorials and collections based on slugs used
   const inlineContent = await getInlineContentMaps(featuredLearnContent)
   // Transform feature tutorial and collection entries into card data
-  const featuredLearnCards: FeaturedTutorialCard[] = featuredLearnContent.map(
+  const featuredLearnCards: FeaturedLearnCard[] = featuredLearnContent.map(
     (entry: FeaturedLearnContent) => {
       const { collectionSlug, tutorialSlug } = entry
       if (typeof collectionSlug == 'string') {

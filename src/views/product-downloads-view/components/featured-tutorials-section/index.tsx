@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { FeaturedTutorialCard as FeaturedLearnCard } from 'views/product-downloads-view/types'
+import { FeaturedLearnCard } from 'views/product-downloads-view/types'
 import Heading from 'components/heading'
 import CardsGridList from 'components/cards-grid-list'
 import CollectionCard from 'components/collection-card'

@@ -34,7 +34,7 @@ export interface RawProductDownloadsViewContent {
  * View prop types
  */
 
-export type FeaturedTutorialCard =
+export type FeaturedLearnCard =
   | ({ type: 'collection' } & CollectionCardPropsWithId)
   | ({ type: 'tutorial' } & TutorialCardPropsWithId)
 
@@ -42,7 +42,7 @@ export interface ProductDownloadsViewProps {
   latestVersion: string
   pageContent: {
     doesNotHavePackageManagers?: boolean
-    featuredLearnCards?: FeaturedTutorialCard[]
+    featuredLearnCards?: FeaturedLearnCard[]
     packageManagerOverrides?: PackageManager[]
     sidecarMarketingCard: SidecarMarketingCardProps
   }
