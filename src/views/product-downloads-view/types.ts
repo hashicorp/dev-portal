@@ -7,7 +7,7 @@ import { TutorialCardPropsWithId } from 'components/tutorial-card'
 /**
  * Raw page content, as structured in .json files
  */
-export type FeaturedTutorialContent =
+export type FeaturedLearnContent =
   | {
       collectionSlug: string
       tutorialSlug?: never
@@ -25,7 +25,7 @@ export interface PackageManager {
 
 export interface RawProductDownloadsViewContent {
   doesNotHavePackageManagers?: boolean
-  featuredTutorials?: FeaturedTutorialContent[]
+  featuredLearnContent?: FeaturedLearnContent[]
   packageManagerOverrides?: PackageManager[]
   sidecarMarketingCard: SidecarMarketingCardProps
 }

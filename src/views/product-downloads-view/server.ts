@@ -6,7 +6,7 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { formatCollectionCard } from 'components/collection-card/helpers'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import {
-  FeaturedTutorialContent,
+  FeaturedLearnContent,
   ProductDownloadsViewStaticProps,
   RawProductDownloadsViewContent,
   FeaturedTutorialCard,
@@ -33,15 +33,15 @@ async function generateStaticProps(
    */
   const {
     doesNotHavePackageManagers,
-    featuredTutorials,
+    featuredLearnContent,
     packageManagerOverrides,
     sidecarMarketingCard,
   } = pageContent
   // Gather tutorials and collections based on slugs used
-  const inlineContent = await getInlineContentMaps(featuredTutorials)
+  const inlineContent = await getInlineContentMaps(featuredLearnContent)
   // Transform feature tutorial and collection entries into card data
-  const featuredTutorialCards: FeaturedTutorialCard[] = featuredTutorials.map(
-    (entry: FeaturedTutorialContent) => {
+  const featuredLearnCards: FeaturedTutorialCard[] = featuredLearnContent.map(
+    (entry: FeaturedLearnContent) => {
       const { collectionSlug, tutorialSlug } = entry
       if (typeof collectionSlug == 'string') {
         const collectionData = inlineContent.inlineCollections[collectionSlug]
@@ -65,7 +65,7 @@ async function generateStaticProps(
       latestVersion,
       pageContent: {
         doesNotHavePackageManagers,
-        featuredTutorialCards,
+        featuredLearnCards,
         packageManagerOverrides,
         sidecarMarketingCard,
       },
