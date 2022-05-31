@@ -67,7 +67,7 @@ function proxiedRivetClient(productSlug: ProductSlug) {
 }
 
 export default instance
-export { client, proxiedRivetClient }
+export { productConfig, client, proxiedRivetClient }
 
 /**
  *
