@@ -43,7 +43,12 @@ function toast({
         reactHotToast.remove(t.id)
       }, [t.id])
 
-      // If specified, when the route changes, we should dismiss the toast
+      /**
+       * If specified, when the route changes, we should dismiss the toast.
+       * Note: there is a long-standing bug that prevents us from using
+       * the more expected routeChangComplete event from NextJS:
+       * https://github.com/vercel/next.js/issues/11639
+       */
       useEffect(() => {
         if (initialRoute == null) {
           setInitialRoute(router.asPath)
