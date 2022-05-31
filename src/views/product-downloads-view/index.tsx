@@ -81,6 +81,12 @@ const ProductDownloadsViewContent = ({
       breadcrumbLinks={breadcrumbLinks}
       sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
     >
+      {/**
+       * @TODO remove DevDotContent here. It's used for scroll-margin-top
+       * on headings only. We should instead use g-offset-scroll-margin-top.
+       * Asana:
+       * https://app.asana.com/0/1202097197789424/1202370169937866/f
+       */}
       <DevDotContent>
         <PageHeader />
         <DownloadsSection
