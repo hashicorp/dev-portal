@@ -5,7 +5,7 @@
   },
   "overview": {
     "heading": "What is Vault?",
-    "body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+    "body": "Secure, store, and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets, and other sensitive data using a UI, CLI, or HTTP API.",
     "cta": {
       "text": "Learn more about Vault features",
       "url": "/vault/docs/what-is-vault"
@@ -22,7 +22,7 @@
       },
       {
         "text": "Developer Quick Start",
-        "url": "/vault/tutorials/cloud"
+        "url": "/vault/docs/get-started/developer-qs"
       }
     ]
   },
@@ -49,25 +49,25 @@
       "type": "linked_cards",
       "cards": [
         {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.vaultproject.io"
+          "heading": "Vault Documentation",
+          "body": "Find user references for Vault concepts, server configuration, upgrade guides, release notes, FAQs, and more.",
+          "url": "/vault/docs"
         },
         {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.vaultproject.io"
+          "heading": "Vault CLI",
+          "body": "Vault features a command-line interface (CLI) that wraps common functionality and formats output.",
+          "url": "/vault/docs/commands"
         },
         {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.vaultproject.io"
+          "heading": "Vault API",
+          "body": "This is the Vault HTTP API reference. Find the API endpoints and available parameters.",
+          "url": "/vault/api-docs"
         }
       ]
     },
     {
       "type": "heading",
-      "heading": "Case Studies",
+      "heading": "Popular Features",
       "level": 2,
       "size": 400
     },
@@ -75,19 +75,24 @@
       "type": "linked_cards",
       "cards": [
         {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.vaultproject.io"
+          "heading": "Vault Secrets Engine",
+          "body": "Secrets engines are pluggable components which store, generate, or encrypt sensitive data.",
+          "url": "/vault/docs/secrets"
         },
         {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.vaultproject.io"
+          "heading": "Database Secrets Engine",
+          "body": "Dynamically generates database credentials based on pre-configured roles.",
+          "url": "/vault/docs/secrets/databases"
         },
         {
-          "heading": "Dolor sit amet",
-          "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-          "url": "https://www.vaultproject.io"
+          "heading": "Transit Secrets Engine",
+          "body": "Encrypt data in-transit to provide encryption as a service.",
+          "url": "/vault/docs/secrets/transit"
+        },
+        {
+          "heading": "Transform Secrets Engine",
+          "body": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
+          "url": "/vault/docs/secrets/databases"
         }
       ]
     }
