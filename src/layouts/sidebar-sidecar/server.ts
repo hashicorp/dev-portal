@@ -248,23 +248,20 @@ export function getStaticGenerationFunctions<
        * not there is a version in the current path.
        */
       let generatedBaseName
-      let generatedBasePath
       let filteredPathParts
       if (indexOfVersionPathPart >= 0) {
         generatedBaseName = `${baseName} ${versionPathPart}`
-        generatedBasePath = `${basePath}/${versionPathPart}`
         filteredPathParts = pathParts.filter(
           (_, index) => index !== indexOfVersionPathPart
         )
       } else {
         generatedBaseName = baseName
-        generatedBasePath = basePath
         filteredPathParts = pathParts
       }
 
       const breadcrumbLinks = getDocsBreadcrumbs({
         baseName: generatedBaseName,
-        basePath: generatedBasePath,
+        basePath: basePath,
         navData: navDataWithFullPaths,
         pathParts: filteredPathParts,
         productName: product.name,
