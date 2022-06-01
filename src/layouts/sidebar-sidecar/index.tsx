@@ -7,8 +7,6 @@ import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Footer from 'components/footer'
 import Sidebar from 'components/sidebar'
-import { SidebarSidecarLayoutProps } from './types'
-import s from './sidebar-sidecar-layout.module.css'
 import {
   SidebarNavDataProvider,
   useSidebarNavData,
@@ -16,6 +14,15 @@ import {
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
+import { getVersionFromPath } from 'lib/get-version-from-path'
+import useCurrentPath from 'hooks/use-current-path'
+import PageAlert from 'components/page-alert'
+import { SidebarSidecarLayoutProps } from './types'
+import s from './sidebar-sidecar-layout.module.css'
+import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
+import Text from 'components/text'
+import InlineLink from 'components/inline-link'
+import Link from 'next/link'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
@@ -42,6 +49,8 @@ const SidebarSidecarLayoutContent = ({
   const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
   const shouldReduceMotion = useReducedMotion()
   const sidebarRef = useRef<HTMLDivElement>()
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const currentlyViewedVersion = getVersionFromPath(currentPath)
   const sidebarProps = sidebarNavDataLevels[currentLevel]
   const sidebarIsVisible = isDesktop || sidebarIsOpen
 
@@ -108,6 +117,27 @@ const SidebarSidecarLayoutContent = ({
           </div>
         </motion.div>
         <div className={s.contentWrapper}>
+          {currentlyViewedVersion && (
+            <PageAlert
+              className={s.versionAlert}
+              description={
+                <>
+                  You are viewing documentation for version{' '}
+                  {currentlyViewedVersion}.{' '}
+                  <InlineLink
+                    className={s.versionAlertLink}
+                    href={'/'}
+                    text="View latest version"
+                    textSize={200}
+                    textWeight="medium"
+                  />
+                  .
+                </>
+              }
+              icon={<IconInfo16 />}
+              type="highlight"
+            />
+          )}
           <div className={s.mainAreaWrapper}>
             <main id="main" className={s.main}>
               <span className={s.breadcrumbOptOutGroup}>
