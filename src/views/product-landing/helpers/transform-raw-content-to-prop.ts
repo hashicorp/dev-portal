@@ -4,7 +4,8 @@ import { ProductLandingContent, ProductLandingContentBlock } from '../schema'
 // component prop utilities & types
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { formatCollectionCard } from 'components/collection-card/helpers'
-import { makeHeadingSlugScope, getInlineContentMaps } from './'
+import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
+import { makeHeadingSlugScope } from './'
 import { ProductLandingViewProps } from '../types'
 import { ProductLandingBlock } from '../components/product-landing-blocks/types'
 
