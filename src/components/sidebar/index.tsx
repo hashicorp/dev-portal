@@ -3,8 +3,8 @@ import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'
 
 // Global imports
+import { ProductWithCurrentRootDocsPath } from 'types/products'
 import { getVersionFromPath } from 'lib/get-version-from-path'
-import { getTargetPath } from 'lib/get-target-path'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
@@ -23,7 +23,6 @@ import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
-import { ProductWithCurrentRootDocsPath } from 'types/products'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 
