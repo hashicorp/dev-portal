@@ -96,9 +96,6 @@ for further details.
 }
 
 .contentWrapper {
-  padding-left: var(--main-area-padding-left);
-  padding-right: var(--main-area-padding-right);
-  padding-top: var(--main-area-padding-top);
   width: 100%;
 
   @media (--dev-dot-desktop) {
@@ -117,6 +114,37 @@ for further details.
 
 .footerAreaWrapper {
   margin-top: 106px;
+}
+
+.mainAreaWrapper {
+  padding-left: var(--main-area-padding-left);
+  padding-right: var(--main-area-padding-right);
+  padding-top: var(--main-area-padding-top);
+}
+
+.breadcrumbOptOutGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.optInOutSlot {
+  flex-shrink: 0;
+}
+
+/*
+***
+* classes for the version PageAlert
+***
+*/
+
+.versionAlert {
+  padding-left: var(--main-area-padding-left);
+  padding-right: var(--main-area-padding-right);
+}
+
+.versionAlertLink {
+  color: var(--token-color-foreground-primary) !important;
 }
 
 /*
@@ -155,14 +183,4 @@ for further details.
     top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
     width: var(--sidecar-width);
   }
-}
-
-.breadcrumbOptOutGroup {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.optInOutSlot {
-  flex-shrink: 0;
 }
