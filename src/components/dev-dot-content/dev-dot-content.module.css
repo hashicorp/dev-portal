@@ -172,6 +172,14 @@
       background: #fcf8e3;
     }
   }
+
+  & blockquote {
+    margin: 32px 0;
+    padding-left: 14px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-left: 2px solid var(--token-color-border-primary);
+  }
 }
 
 /*
