@@ -1,5 +1,5 @@
 .root {
-  align-items: flex-start;
+  align-items: center;
   background-color: var(--background-color);
   border-bottom: 1px solid var(--border-color);
   display: flex;
@@ -11,6 +11,8 @@
   color: var(--title-color);
   display: flex;
   flex-shrink: 0;
+  padding-bottom: 2px;
+  padding-top: 2px;
 }
 
 .contentContainer {
