@@ -11,7 +11,7 @@
   flex-direction: row;
 
   &:focus-within {
-    outline: none;
+    outline: transparent;
     box-shadow: var(--token-focus-ring-action-box-shadow);
   }
 }
@@ -63,7 +63,7 @@
   appearance: none;
 
   &:focus {
-    outline: none;
+    outline: transparent;
   }
 
   /* Remove native appearence */

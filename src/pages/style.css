@@ -152,12 +152,12 @@ and negative margin.
 */
 .g-focus-ring-from-box-shadow {
   &:focus {
-    outline: none;
+    outline: transparent;
   }
 
   &:focus-visible {
     box-shadow: var(--token-focus-ring-action-box-shadow);
-    outline: none;
+    outline: transparent;
   }
 }
 
@@ -169,38 +169,38 @@ and negative margin.
 */
 .g-focus-ring-from-box-shadow-dark {
   &:focus {
-    outline: none;
+    outline: transparent;
   }
 
   &:focus-visible {
     box-shadow: var(--custom-token-focus-ring-action-box-shadow-dark);
-    outline: none;
+    outline: transparent;
   }
 }
 
 .g-focus-border-and-box-shadow-light {
   &:focus,
   &:focus-visible {
-    outline: none;
+    outline: transparent;
   }
 
   &:focus-visible {
     border: 1px solid var(--token-color-palette-blue-200);
     box-shadow: 0 0 0 3px var(--token-color-focus-action-external);
-    outline: none;
+    outline: transparent;
   }
 }
 
 .g-focus-border-and-box-shadow-dark {
   &:focus,
   &:focus-visible {
-    outline: none;
+    outline: transparent;
   }
 
   &:focus-visible {
     border: 1px solid #107dff;
     box-shadow: 0 0 0 3px #5fbcff;
-    outline: none;
+    outline: transparent;
   }
 }
 
