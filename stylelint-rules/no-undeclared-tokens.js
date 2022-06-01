@@ -7,7 +7,7 @@ const tokensFileName =
 const tokensFile = require.resolve(tokensFileName)
 const tokensFileContent = fs.readFileSync(tokensFile).toString()
 
-const ruleName = 'digital-plugin/no-undeclared-tokens'
+const ruleName = 'digital-plugin/no-undeclared-hds-color-tokens'
 const messages = ruleMessages(ruleName, {
   undeclared: (undeclared) =>
     `"${undeclared}" was not found in ${tokensFileName}`,
