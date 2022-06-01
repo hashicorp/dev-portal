@@ -186,7 +186,7 @@ const NotesSection = ({ selectedRelease }) => {
           href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
           textSize={200}
         >
-          {`SHA256 checksums for ${currentProduct.name} ${version}`}
+          SHA256 checksums for {currentProduct.name} {version}
         </InlineLink>{' '}
         online and you can{' '}
         <InlineLink
