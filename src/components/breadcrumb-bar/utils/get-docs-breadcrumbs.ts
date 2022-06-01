@@ -194,10 +194,15 @@ function getDocsBreadcrumbs({
     { title: productName, url: `/${productPath}` },
     {
       title: baseName,
-      url: `/${basePath}`,
+      url: `/${productPath}/${basePath}`,
       isCurrentPage: pathParts.length == 0,
     },
-    ...getPathBreadcrumbs({ basePath, navData, pathParts, version }),
+    ...getPathBreadcrumbs({
+      basePath: `${productPath}/${basePath}`,
+      navData,
+      pathParts,
+      version,
+    }),
   ]
 }
 
