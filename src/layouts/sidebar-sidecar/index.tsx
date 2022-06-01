@@ -1,28 +1,33 @@
+// Third-party imports
 import { ReactElement, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+
+// HashiCorp imports
+import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
+
+// Global imports
+import { getVersionFromPath } from 'lib/get-version-from-path'
+import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import { useNoScrollBody } from 'hooks/use-no-scroll-body'
+import useCurrentPath from 'hooks/use-current-path'
 import { useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
+import DocsVersionSwitcher from 'components/docs-version-switcher'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Footer from 'components/footer'
+import InlineLink from 'components/inline-link'
+import PageAlert from 'components/page-alert'
 import Sidebar from 'components/sidebar'
+
+// Local imports
+import { SidebarSidecarLayoutProps } from './types'
 import {
   SidebarNavDataProvider,
   useSidebarNavData,
 } from './contexts/sidebar-nav-data'
-import useOnFocusOutside from 'hooks/use-on-focus-outside'
-import { useNoScrollBody } from 'hooks/use-no-scroll-body'
-import DocsVersionSwitcher from 'components/docs-version-switcher'
-import { getVersionFromPath } from 'lib/get-version-from-path'
-import useCurrentPath from 'hooks/use-current-path'
-import PageAlert from 'components/page-alert'
-import { SidebarSidecarLayoutProps } from './types'
 import s from './sidebar-sidecar-layout.module.css'
-import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
-import Text from 'components/text'
-import InlineLink from 'components/inline-link'
-import Link from 'next/link'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
