@@ -1,8 +1,13 @@
 .listRoot {
-  --min-card-width: 270px;
-
   display: grid;
   gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.minWidthMode {
+  --min-card-width: 270px;
 
   /**
   * Details on use of grid-template-columns:
@@ -15,9 +20,6 @@
     auto-fit,
     minmax(min(100%, var(--min-card-width)), 1fr)
   );
-  list-style: none;
-  margin: 0;
-  padding: 0;
 
   @media (--dev-dot-tablet-up) {
     /**
@@ -46,9 +48,24 @@
       --min-card-width: 244px;
     }
   }
+}
 
-  &.isOrdered {
-    /* Force cards to one column */
-    --min-card-width: 1fr;
+.fixedColumnsMode {
+  grid-template-columns: 1fr;
+
+  &.columns2 {
+    @media (--dev-dot-tablet-up) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &.columns3 {
+    @media (--dev-dot-tablet-up) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (--dev-dot-desktop) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
   }
 }
