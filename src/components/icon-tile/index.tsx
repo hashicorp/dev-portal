@@ -24,7 +24,7 @@ function IconTile({
         s.root,
         s[`size-${size}`],
         s[`color-${brandColor}`],
-        className && className
+        className
       )}
     >
       {children}
