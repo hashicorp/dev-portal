@@ -15,7 +15,7 @@ const InlineLink = ({
   const classes = classNames(
     s.root,
     `hds-typography-body-${textSize}`,
-    `hds-font-weight-${textWeight}`
+    `hds-font-weight-${textWeight}`,
     className,
   )
 
