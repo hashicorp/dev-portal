@@ -3,7 +3,6 @@ import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'
 
 // Global imports
-import { getVersionFromPath } from 'lib/get-version-from-path'
 import useCurrentPath from 'hooks/use-current-path'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
@@ -49,9 +48,8 @@ const Sidebar = ({
   visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
   const { shouldRenderMobileControls } = useSidebarNavData()
-  const [filterValue, setFilterValue] = useState('')
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-  const currentlyViewedVersion = getVersionFromPath(currentPath)
+  const [filterValue, setFilterValue] = useState('')
   const { itemsWithMetadata } = useMemo(
     () => addNavItemMetaData(currentPath, menuItems),
     [currentPath, menuItems]
@@ -89,22 +87,12 @@ const Sidebar = ({
 
   let overviewItem
   if (overviewItemHref) {
-    // Check if we're looking at a past version of docs
-    let generatedOverviewItemHref
-    if (currentlyViewedVersion) {
-      // Append the past viewed version if present
-      generatedOverviewItemHref = `${overviewItemHref}/${currentlyViewedVersion}`
-    } else {
-      // Just use `overviewItemHref` if not viewing a past version of docs
-      generatedOverviewItemHref = overviewItemHref
-    }
-
     overviewItem = (
       <SidebarNavLinkItem
         item={{
-          href: generatedOverviewItemHref,
+          href: overviewItemHref,
           title: 'Overview',
-          isActive: generatedOverviewItemHref === currentPath,
+          isActive: overviewItemHref === currentPath,
         }}
       />
     )
