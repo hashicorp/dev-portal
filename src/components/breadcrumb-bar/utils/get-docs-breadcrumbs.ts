@@ -191,16 +191,18 @@ function getDocsBreadcrumbs({
   // Figure out of a specific docs version is being viewed
   let indexOfVersionPathPart
   let versionPathPart
-  pathParts.find((pathPart, index) => {
-    const matchingVersion = versions.find(
-      (version) => pathPart === version.version
-    )
-    if (matchingVersion) {
-      versionPathPart = pathPart
-      indexOfVersionPathPart = index
-      return true
-    }
-  })
+  if (versions) {
+    pathParts.find((pathPart, index) => {
+      const matchingVersion = versions.find(
+        (version) => pathPart === version.version
+      )
+      if (matchingVersion) {
+        versionPathPart = pathPart
+        indexOfVersionPathPart = index
+        return true
+      }
+    })
+  }
 
   /**
    * If needed, include version in root path item and build the options object
