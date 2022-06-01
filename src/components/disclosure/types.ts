@@ -19,6 +19,18 @@ interface DisclosureProps {
   children: ReactElement[]
 
   /**
+   * Whether or not the `useOnClickOutside` hook should be enabled. Is not
+   * enabled by default.
+   */
+  closeOnClickOutside?: boolean
+
+  /**
+   * Whether or not the `useOnFocusOutside` hook should be enabled. Is not
+   * enabled by default.
+   */
+  closeOnFocusOutside?: boolean
+
+  /**
    * Optional className or callback function for generating a className.
    */
   containerClassName?: NativeDivProps['className'] | GenerateContainerClassName
