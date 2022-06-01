@@ -243,6 +243,10 @@ export function getStaticGenerationFunctions<
         },
       ]
 
+      /**
+       * Generate the arguments sent to `getDocsBreadcrumbs` based on whether or
+       * not there is a version in the current path.
+       */
       let generatedBaseName
       let generatedBasePath
       let filteredPathParts
