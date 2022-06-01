@@ -3,10 +3,8 @@ import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'
 
 // Global imports
-import { ProductWithCurrentRootDocsPath } from 'types/products'
 import { getVersionFromPath } from 'lib/get-version-from-path'
 import useCurrentPath from 'hooks/use-current-path'
-import { useCurrentProduct } from 'contexts'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
   SidebarHorizontalRule,
@@ -51,12 +49,9 @@ const Sidebar = ({
   visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
   const { shouldRenderMobileControls } = useSidebarNavData()
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const [filterValue, setFilterValue] = useState('')
-  const currentProduct = useCurrentProduct()
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentlyViewedVersion = getVersionFromPath(currentPath)
-  const { currentRootDocsPath } =
-    currentProduct as ProductWithCurrentRootDocsPath
   const { itemsWithMetadata } = useMemo(
     () => addNavItemMetaData(currentPath, menuItems),
     [currentPath, menuItems]
@@ -96,9 +91,9 @@ const Sidebar = ({
   if (overviewItemHref) {
     // Check if we're looking at a past version of docs
     let generatedOverviewItemHref
-    if (currentRootDocsPath && currentlyViewedVersion) {
+    if (currentlyViewedVersion) {
       // Append the past viewed version if present
-      generatedOverviewItemHref = `/${currentProduct.slug}/${currentRootDocsPath.path}/${currentlyViewedVersion}`
+      generatedOverviewItemHref = `${overviewItemHref}/${currentlyViewedVersion}`
     } else {
       // Just use `overviewItemHref` if not viewing a past version of docs
       generatedOverviewItemHref = overviewItemHref
