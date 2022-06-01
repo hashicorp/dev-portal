@@ -18,8 +18,7 @@ import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 
-// TODO - UPDATE BEFORE MERGING
-const showProductSwitcher = false
+const showProductSwitcher = isPreview() && !isDeployPreview()
 
 const PreviewProductSwitcher = dynamic(
   () => import('components/_proxied-dot-io/common/preview-product-select'),

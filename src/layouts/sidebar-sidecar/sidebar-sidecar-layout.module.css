@@ -86,6 +86,7 @@ for further details.
   padding: 24px;
 }
 
+/* TODO: bottom positioning needs to be fixed once the header heights have been fixed */
 .docsVersionSwitcherWrapper {
   bottom: 0;
   position: sticky;
