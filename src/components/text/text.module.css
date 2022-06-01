@@ -1,5 +1,5 @@
 .root {
   & strong {
-    font-weight: var(--token-typography-font-weight-medium);
+    font-weight: var(--token-typography-font-weight-semibold);
   }
 }
