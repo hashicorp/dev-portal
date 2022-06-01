@@ -62,7 +62,6 @@ for further details.
   100vh minus the combined height of the sticky nav bars. */
   max-height: calc(100vh - var(--sticky-bars-height));
   overflow-y: auto;
-  padding: 24px;
   position: sticky;
   top: var(--sticky-bars-height);
   width: var(--dev-dot-sidebar-width);
@@ -80,6 +79,19 @@ for further details.
     position: fixed;
     top: unset; /** We want to pull the top relative to the parent on mobile */
   }
+}
+
+.sidebarContentWrapper {
+  position: relative;
+  padding: 24px;
+}
+
+/* TODO: bottom positioning needs to be fixed once the header heights have been fixed */
+.docsVersionSwitcherWrapper {
+  bottom: 0;
+  position: sticky;
+  width: 100%;
+  z-index: 2;
 }
 
 .contentWrapper {
