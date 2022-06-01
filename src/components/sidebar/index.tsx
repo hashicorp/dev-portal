@@ -1,5 +1,8 @@
+// Third-party imports
 import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'
+
+// Global imports
 import useCurrentPath from 'hooks/use-current-path'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
@@ -9,6 +12,8 @@ import {
   SidebarSkipToMainContent,
   SidebarTitleHeading,
 } from 'components/sidebar/components'
+
+// Local imports
 import { FilteredNavItem, MenuItem, SidebarProps } from './types'
 import { addNavItemMetaData, getFilteredNavItems } from './helpers'
 import SidebarBackToLink from './components/sidebar-back-to-link'
