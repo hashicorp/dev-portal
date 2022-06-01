@@ -203,8 +203,6 @@ export function getStaticGenerationFunctions<
 
       /**
        * Figure out of a specific docs version is being viewed
-       *
-       * @TODO `indexOfVersionPathPart` will be used in quick-follow PR
        */
       let indexOfVersionPathPart
       let versionPathPart
