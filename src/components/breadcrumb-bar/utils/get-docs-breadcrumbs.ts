@@ -136,6 +136,7 @@ function findPathMatchedNodes(navNode, pathString, depth) {
       const pathParts = r.path.split('/')
       return pathParts.length == depth + 1
     })
+
     // If we have a child route which serves as an index page,
     // then return the title of this "parent" navNode, rather
     // that the title of the index page (which is usually "Overview")
@@ -186,58 +187,17 @@ function getDocsBreadcrumbs({
   pathParts,
   productName,
   productPath,
-  versions,
+  version,
 }: GetDocsBreadcrumbsOpts): BreadcrumbLink[] {
-  // Figure out of a specific docs version is being viewed
-  let indexOfVersionPathPart
-  let versionPathPart
-  if (versions) {
-    pathParts.find((pathPart, index) => {
-      const matchingVersion = versions.find(
-        (version) => pathPart === version.version
-      )
-      if (matchingVersion) {
-        versionPathPart = pathPart
-        indexOfVersionPathPart = index
-        return true
-      }
-    })
-  }
-
-  /**
-   * If needed, include version in root path item and build the options object
-   * sent to getPathBreadcrumbs.
-   */
-  let rootPathTitle: string
-  let getPathBreadcrumbsOptions: GetPathBreadcrumbsOpts
-  if (indexOfVersionPathPart >= 0) {
-    rootPathTitle = `${baseName} ${versionPathPart}`
-    getPathBreadcrumbsOptions = {
-      basePath: `${productPath}/${basePath}/${versionPathPart}`,
-      navData,
-      pathParts: pathParts.filter(
-        (_, index) => index !== indexOfVersionPathPart
-      ),
-      version: versionPathPart,
-    }
-  } else {
-    rootPathTitle = baseName
-    getPathBreadcrumbsOptions = {
-      basePath: `${productPath}/${basePath}`,
-      navData,
-      pathParts,
-    }
-  }
-
   return [
     { title: 'Developer', url: '/' },
     { title: productName, url: `/${productPath}` },
     {
-      title: rootPathTitle,
-      url: `/${getPathBreadcrumbsOptions.basePath}`,
+      title: baseName,
+      url: `/${basePath}`,
       isCurrentPage: pathParts.length == 0,
     },
-    ...getPathBreadcrumbs(getPathBreadcrumbsOptions),
+    ...getPathBreadcrumbs({ basePath, navData, pathParts, version }),
   ]
 }
 

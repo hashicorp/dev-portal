@@ -134,6 +134,7 @@ export function getStaticGenerationFunctions<
       }
     },
     getStaticProps: async (ctx) => {
+      const pathParts = (ctx.params.page || []) as string[]
       const headings = [] // populated by loader.loadStaticProps()
 
       const loader = getLoader({
@@ -201,6 +202,26 @@ export function getStaticGenerationFunctions<
       ])
 
       /**
+       * Figure out of a specific docs version is being viewed
+       *
+       * @TODO `indexOfVersionPathPart` will be used in quick-follow PR
+       */
+      let indexOfVersionPathPart
+      let versionPathPart
+      if (versions) {
+        pathParts.find((pathPart, index) => {
+          const matchingVersion = versions.find(
+            (version) => pathPart === version.version
+          )
+          if (matchingVersion) {
+            versionPathPart = pathPart
+            indexOfVersionPathPart = index
+            return true
+          }
+        })
+      }
+
+      /**
        * Constructs the levels of nav data used in the `Sidebar` on all
        * `DocsView` pages.
        */
@@ -218,18 +239,35 @@ export function getStaticGenerationFunctions<
           menuItems: navDataWithFullPaths,
           // TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
           title: BASE_PATHS_TO_NAMES[basePath] || product.name,
-          overviewItemHref: `/${product.slug}/${basePath}`,
+          overviewItemHref: versionPathPart
+            ? `/${product.slug}/${basePath}/${versionPathPart}`
+            : `/${product.slug}/${basePath}`,
         },
       ]
 
+      let generatedBaseName
+      let generatedBasePath
+      let filteredPathParts
+      if (indexOfVersionPathPart >= 0) {
+        generatedBaseName = `${baseName} ${versionPathPart}`
+        generatedBasePath = `${basePath}/${versionPathPart}`
+        filteredPathParts = pathParts.filter(
+          (_, index) => index !== indexOfVersionPathPart
+        )
+      } else {
+        generatedBaseName = baseName
+        generatedBasePath = basePath
+        filteredPathParts = pathParts
+      }
+
       const breadcrumbLinks = getDocsBreadcrumbs({
-        baseName,
-        basePath,
+        baseName: generatedBaseName,
+        basePath: generatedBasePath,
         navData: navDataWithFullPaths,
-        pathParts: (ctx.params.page || []) as string[],
+        pathParts: filteredPathParts,
         productName: product.name,
         productPath: product.slug,
-        versions,
+        version: versionPathPart,
       })
 
       const finalProps = {
