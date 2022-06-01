@@ -1,5 +1,5 @@
+import { ReactNode } from 'react'
 import { TextProps } from 'components/text'
-import React from 'react'
 
 export interface InlineLinkProps {
   /**
