@@ -6,6 +6,7 @@
     "build:webpack-only": "hc-tools next-build-webpack-only",
     "build": "next build",
     "lint": "next-hashicorp lint",
+    "lint:stylelint": "npx stylelint '**/*.css'",
     "prebuild": "hc-tools ./scripts/remove-non-beta-product-pages.ts",
     "prepare": "simple-git-hooks",
     "postbuild": "hc-tools ./scripts/capture-build-metrics.ts dev-portal",
@@ -73,6 +74,7 @@
     "postcss-preset-env": "^6.7.0",
     "react-test-renderer": "^17.0.2",
     "simple-git-hooks": "^2.7.0",
+    "stylelint": "^13.8.0",
     "typescript": "^4.5.5"
   },
   "dependencies": {
