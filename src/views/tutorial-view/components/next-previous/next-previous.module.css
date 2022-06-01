@@ -11,7 +11,7 @@
 
   & > * {
     /* Items should grow and shrink, but should ideally take up their
-       "auto" width, which is theyr size without text wrapping. */
+       "auto" width, which is their size without text wrapping. */
     flex: 1 1 auto;
 
     /* With flex-basis: auto on both items, the one with longer text
