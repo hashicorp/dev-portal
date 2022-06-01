@@ -203,10 +203,8 @@ export function getStaticGenerationFunctions<
 
       /**
        * Figure out of a specific docs version is being viewed
-       *
-       * @TODO `indexOfVersionPathPart` will be used in quick-follow PR
        */
-      // let indexOfVersionPathPart
+      let indexOfVersionPathPart
       let versionPathPart
       if (versions) {
         pathParts.find((pathPart, index) => {
@@ -215,7 +213,7 @@ export function getStaticGenerationFunctions<
           )
           if (matchingVersion) {
             versionPathPart = pathPart
-            // indexOfVersionPathPart = index
+            indexOfVersionPathPart = index
             return true
           }
         })
@@ -246,12 +244,14 @@ export function getStaticGenerationFunctions<
       ]
 
       const breadcrumbLinks = getDocsBreadcrumbs({
-        productPath: product.slug,
-        productName: product.name,
-        basePath,
         baseName,
-        pathParts,
+        basePath: basePath,
+        indexOfVersionPathPart,
         navData: navDataWithFullPaths,
+        pathParts,
+        productName: product.name,
+        productPath: product.slug,
+        version: versionPathPart,
       })
 
       const finalProps = {
