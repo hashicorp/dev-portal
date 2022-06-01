@@ -82,6 +82,7 @@ for further details.
 }
 
 .sidebarContentWrapper {
+  height: 100%; /* for positioning the version switcher */
   position: relative;
   padding: 24px;
 }
