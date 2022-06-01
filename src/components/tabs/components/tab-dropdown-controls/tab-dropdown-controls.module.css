@@ -36,6 +36,6 @@
   composes: hds-typography-body-200 from global;
 
   /* properties */
-  color: var(--token-color-neutral-foreground-primary);
+  color: var(--token-color-foreground-strong);
   font-weight: var(--token-typography-font-weight-regular);
 }
