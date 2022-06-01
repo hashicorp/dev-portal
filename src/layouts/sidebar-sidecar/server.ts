@@ -243,27 +243,12 @@ export function getStaticGenerationFunctions<
         },
       ]
 
-      /**
-       * Generate the arguments sent to `getDocsBreadcrumbs` based on whether or
-       * not there is a version in the current path.
-       */
-      let generatedBaseName
-      let filteredPathParts
-      if (indexOfVersionPathPart >= 0) {
-        generatedBaseName = `${baseName} ${versionPathPart}`
-        filteredPathParts = pathParts.filter(
-          (_, index) => index !== indexOfVersionPathPart
-        )
-      } else {
-        generatedBaseName = baseName
-        filteredPathParts = pathParts
-      }
-
       const breadcrumbLinks = getDocsBreadcrumbs({
-        baseName: generatedBaseName,
+        baseName,
         basePath: basePath,
+        indexOfVersionPathPart,
         navData: navDataWithFullPaths,
-        pathParts: filteredPathParts,
+        pathParts,
         productName: product.name,
         productPath: product.slug,
         version: versionPathPart,

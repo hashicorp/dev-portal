@@ -178,29 +178,47 @@ interface GetDocsBreadcrumbsOpts extends GetPathBreadcrumbsOpts {
   productName: string
   productPath: string
   versions?: VersionSelectItem[]
+  indexOfVersionPathPart?: number
 }
 
 function getDocsBreadcrumbs({
-  basePath,
   baseName,
+  basePath,
+  indexOfVersionPathPart,
   navData,
   pathParts,
   productName,
   productPath,
   version,
 }: GetDocsBreadcrumbsOpts): BreadcrumbLink[] {
+  /**
+   * Generate the arguments sent to `getDocsBreadcrumbs` based on whether or
+   * not there is a version in the current path.
+   */
+  let generatedBaseName
+  let filteredPathParts
+  if (indexOfVersionPathPart >= 0) {
+    generatedBaseName = `${baseName} ${version}`
+    filteredPathParts = pathParts.filter(
+      (_, index) => index !== indexOfVersionPathPart
+    )
+  } else {
+    generatedBaseName = baseName
+    filteredPathParts = pathParts
+  }
+
   return [
     { title: 'Developer', url: '/' },
     { title: productName, url: `/${productPath}` },
     {
-      title: baseName,
+      title: generatedBaseName,
       url: `/${productPath}/${basePath}`,
       isCurrentPage: pathParts.length == 0,
     },
     ...getPathBreadcrumbs({
       basePath: `${productPath}/${basePath}`,
       navData,
-      pathParts,
+      pathParts: filteredPathParts,
       version,
     }),
   ]
