@@ -23,7 +23,7 @@ export interface InlineLinkProps {
   textWeight?: TextProps['weight']
 
   /**
-   * The text to render in the anchor
+   * The content to render within the `<a>` element.
    */
   children: React.ReactNode
 }
