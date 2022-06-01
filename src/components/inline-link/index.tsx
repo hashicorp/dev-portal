@@ -14,9 +14,9 @@ const InlineLink = ({
 }: InlineLinkProps): ReactElement => {
   const classes = classNames(
     s.root,
-    className,
     `hds-typography-body-${textSize}`,
     `hds-font-weight-${textWeight}`
+    className,
   )
 
   return (
