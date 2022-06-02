@@ -136,10 +136,11 @@ const SidebarSidecarLayoutContent = ({
                   <InlineLink
                     className={s.versionAlertLink}
                     href={removeVersionFromPath(currentPath)}
-                    text="View latest version"
                     textSize={200}
                     textWeight="medium"
-                  />
+                  >
+                    View latest version
+                  </InlineLink>
                   .
                 </>
               }
