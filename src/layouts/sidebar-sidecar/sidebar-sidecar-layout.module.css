@@ -62,7 +62,6 @@ for further details.
   100vh minus the combined height of the sticky nav bars. */
   max-height: calc(100vh - var(--sticky-bars-height));
   overflow-y: auto;
-  padding: 24px;
   position: sticky;
   top: var(--sticky-bars-height);
   width: var(--dev-dot-sidebar-width);
@@ -73,18 +72,30 @@ for further details.
   z-index: 1;
 
   @media (--dev-dot-tablet-down) {
-    bottom: 0;
     left: -150vw;
-    position: absolute;
-    top: 0;
     width: 100vw;
+    padding-bottom: 70px;
+    height: 100%;
+    position: fixed;
+    top: unset; /** We want to pull the top relative to the parent on mobile */
   }
 }
 
+.sidebarContentWrapper {
+  height: 100%; /* for positioning the version switcher */
+  position: relative;
+  padding: 24px;
+}
+
+/* TODO: bottom positioning needs to be fixed once the header heights have been fixed */
+.docsVersionSwitcherWrapper {
+  bottom: 0;
+  position: sticky;
+  width: 100%;
+  z-index: 2;
+}
+
 .contentWrapper {
-  padding-left: var(--main-area-padding-left);
-  padding-right: var(--main-area-padding-right);
-  padding-top: var(--main-area-padding-top);
   width: 100%;
 
   @media (--dev-dot-desktop) {
@@ -103,6 +114,37 @@ for further details.
 
 .footerAreaWrapper {
   margin-top: 106px;
+}
+
+.mainAreaWrapper {
+  padding-left: var(--main-area-padding-left);
+  padding-right: var(--main-area-padding-right);
+  padding-top: var(--main-area-padding-top);
+}
+
+.breadcrumbOptOutGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.optInOutSlot {
+  flex-shrink: 0;
+}
+
+/*
+***
+* classes for the version PageAlert
+***
+*/
+
+.versionAlert {
+  padding-left: var(--main-area-padding-left);
+  padding-right: var(--main-area-padding-right);
+}
+
+.versionAlertLink {
+  color: var(--token-color-foreground-primary) !important;
 }
 
 /*
@@ -141,10 +183,4 @@ for further details.
     top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
     width: var(--sidecar-width);
   }
-}
-
-.breadcrumbOptOutGroup {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
 }

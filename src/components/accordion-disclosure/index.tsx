@@ -1,6 +1,9 @@
-import { useState } from 'react'
 import classNames from 'classnames'
 import { IconChevronRight24 } from '@hashicorp/flight-icons/svg-react/chevron-right-24'
+import Disclosure, {
+  DisclosureActivator,
+  DisclosureContent,
+} from 'components/disclosure'
 import Text from 'components/text'
 import { AccordionDisclosureProps } from './types'
 import s from './accordion-disclosure.module.css'
@@ -8,42 +11,35 @@ import s from './accordion-disclosure.module.css'
 const AccordionDisclosure = ({
   children,
   description,
-  id,
-  open = false,
+  initialOpen,
   title,
 }: AccordionDisclosureProps) => {
-  const [isOpen, setIsOpen] = useState(open)
-  const containerId = `disclosure-${id}`
-  const contentContainerId = `${containerId}-content`
-  const rootClassnames = classNames(
-    s.root,
-    s[`root-${isOpen ? 'expanded' : 'collapsed'}`]
-  )
+  const generateContainerClassName = (isOpen: boolean) => {
+    return classNames(s.root, {
+      [s['root-expanded']]: isOpen,
+    })
+  }
 
   return (
-    <div className={rootClassnames} id={containerId}>
-      <button
-        aria-controls={contentContainerId}
-        aria-expanded={isOpen}
-        className={s.button}
-        onClick={() => setIsOpen((currentIsOpen: boolean) => !currentIsOpen)}
-      >
+    <Disclosure
+      containerClassName={generateContainerClassName}
+      initialOpen={initialOpen}
+    >
+      <DisclosureActivator className={s.button}>
         <span className={s.labelContainer}>
           <Text asElement="span" className={s.title} weight="semibold">
             {title}
           </Text>
           {description && (
             <Text asElement="span" className={s.description} size={200}>
-              {title}
+              {description}
             </Text>
           )}
         </span>
         <IconChevronRight24 />
-      </button>
-      <div className={s.content} id={contentContainerId}>
-        {children}
-      </div>
-    </div>
+      </DisclosureActivator>
+      <DisclosureContent className={s.content}>{children}</DisclosureContent>
+    </Disclosure>
   )
 }
 

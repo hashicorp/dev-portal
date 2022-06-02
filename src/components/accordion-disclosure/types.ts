@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { DisclosureProps } from 'components/disclosure'
 
 export interface AccordionDisclosureProps {
   /**
@@ -15,17 +16,10 @@ export interface AccordionDisclosureProps {
   description?: string
 
   /**
-   * The `id` passed to the root container. Used to generate an `id` for the
-   * content container which is also passed to `aria-controls` on the
-   * `AccordionDisclosure` activator button.
+   * Optional prop that that enables a `AccordionDisclosure` to be rendered open
+   * on initial load.
    */
-  id: string
-
-  /**
-   * Optional prop that that enables a `AccordionDisclosure` to be open on
-   * render.
-   */
-  open?: boolean
+  initialOpen?: DisclosureProps['initialOpen']
 
   /**
    * The main text label that always shows regardless of the

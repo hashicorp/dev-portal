@@ -9,7 +9,11 @@ function CollectionCards({ collectionCards }: CollectionCardsProps) {
     <CardsGridList>
       {collectionCards.map((cardPropsWithId: CollectionCardPropsWithId) => {
         const { id, ...cardProps } = cardPropsWithId
-        return <CollectionCard key={id} {...cardProps} />
+        return (
+          <li key={id}>
+            <CollectionCard {...cardProps} />
+          </li>
+        )
       })}
     </CardsGridList>
   )

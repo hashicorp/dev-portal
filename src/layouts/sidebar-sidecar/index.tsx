@@ -1,19 +1,37 @@
+// Third-party imports
 import { ReactElement, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useDeviceSize } from 'contexts'
+
+// HashiCorp imports
+import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
+
+// Global imports
+import { ProductWithCurrentRootDocsPath } from 'types/products'
+import { getVersionFromPath } from 'lib/get-version-from-path'
+import { removeVersionFromPath } from 'lib/remove-version-from-path'
+import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import { useNoScrollBody } from 'hooks/use-no-scroll-body'
+import useCurrentPath from 'hooks/use-current-path'
+import { useCurrentProduct, useDeviceSize } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
+import DocsVersionSwitcher from 'components/docs-version-switcher'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Footer from 'components/footer'
+import InlineLink from 'components/inline-link'
+import PageAlert from 'components/page-alert'
 import Sidebar from 'components/sidebar'
+
+// Local imports
 import { SidebarSidecarLayoutProps } from './types'
-import s from './sidebar-sidecar-layout.module.css'
 import {
   SidebarNavDataProvider,
   useSidebarNavData,
 } from './contexts/sidebar-nav-data'
-import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import s from './sidebar-sidecar-layout.module.css'
+
+const IS_DEV = process.env.NODE_ENV !== 'production'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
@@ -34,11 +52,14 @@ const SidebarSidecarLayoutContent = ({
   optInOutSlot,
   sidecarSlot,
   sidebarNavDataLevels,
+  versions,
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
   const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
   const shouldReduceMotion = useReducedMotion()
   const sidebarRef = useRef<HTMLDivElement>()
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const currentlyViewedVersion = getVersionFromPath(currentPath)
   const sidebarProps = sidebarNavDataLevels[currentLevel]
   const sidebarIsVisible = isDesktop || sidebarIsOpen
 
@@ -82,6 +103,11 @@ const SidebarSidecarLayoutContent = ({
     },
   }
 
+  /**
+   * Prevents scrolling on the rest of the page body
+   */
+  useNoScrollBody(sidebarIsOpen)
+
   return (
     <BaseLayout showFooter={false}>
       <div className={s.root}>
@@ -92,14 +118,42 @@ const SidebarSidecarLayoutContent = ({
           transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
           variants={sidebarMotion}
         >
-          <SidebarContent />
+          <div className={s.sidebarContentWrapper}>
+            <SidebarContent />
+          </div>
+          <div className={s.docsVersionSwitcherWrapper}>
+            <DocsVersionSwitcher options={versions} />
+          </div>
         </motion.div>
         <div className={s.contentWrapper}>
+          {currentlyViewedVersion && (
+            <PageAlert
+              className={s.versionAlert}
+              description={
+                <>
+                  You are viewing documentation for version{' '}
+                  {currentlyViewedVersion}.{' '}
+                  <InlineLink
+                    className={s.versionAlertLink}
+                    href={removeVersionFromPath(currentPath)}
+                    text="View latest version"
+                    textSize={200}
+                    textWeight="medium"
+                  />
+                  .
+                </>
+              }
+              icon={<IconInfo16 />}
+              type="highlight"
+            />
+          )}
           <div className={s.mainAreaWrapper}>
             <main id="main" className={s.main}>
               <span className={s.breadcrumbOptOutGroup}>
                 {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-                {optInOutSlot && optInOutSlot}
+                <span className={s.optInOutSlot}>
+                  {optInOutSlot && optInOutSlot}
+                </span>
               </span>
               {children}
               {githubFileUrl && (

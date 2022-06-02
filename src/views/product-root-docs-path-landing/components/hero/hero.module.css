@@ -1,0 +1,21 @@
+.root {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+}
+
+.iconAndTextWrapper {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.pageTitle {
+  composes: g-offset-scroll-margin-top from global;
+  color: var(--token-color-foreground-strong);
+  margin-bottom: 12px;
+}
+
+.pageSubtitle {
+  color: var(--token-color-foreground-primary);
+}

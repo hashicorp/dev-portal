@@ -2,12 +2,12 @@ import dynamic from 'next/dynamic'
 import { MDXRemote } from 'next-mdx-remote'
 import { useCurrentProduct } from 'contexts'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import TabProvider from 'components/tabs/provider'
 import DevDotContent from 'components/dev-dot-content'
 import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import ProductDocsSearch from './components/product-docs-search'
+import DocsViewLayout from 'layouts/docs-view-layout'
 
 // Author primitives
 const Badge = dynamic(() => import('components/author-primitives/packer/badge'))
@@ -82,7 +82,7 @@ const DocsView = ({ mdxSource, lazy, hideSearch = false }: DocsViewProps) => {
   )
 }
 
-DocsView.layout = SidebarSidecarLayout
+DocsView.layout = DocsViewLayout
 
 export type { DocsViewProps }
 export default DocsView

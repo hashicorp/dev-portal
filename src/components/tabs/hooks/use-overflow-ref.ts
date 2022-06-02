@@ -40,6 +40,14 @@ export default function useOverflowRef<T extends HTMLElement>(): [
         if (MutationObserver) {
           mutationObserver = new MutationObserver(requestOverflow)
           mutationObserver.observe(target, mutationOpts)
+          /**
+           * Handle when an overflow-ref-using element is rendered into tabs,
+           * observing the tab panel (which is expected to change visibility).
+           */
+          const targetParentNode = target.closest('[role="tabpanel"]')
+          if (targetParentNode) {
+            mutationObserver.observe(targetParentNode, mutationOpts)
+          }
         }
         requestOverflow()
         return cleanup

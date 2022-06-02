@@ -1,3 +1,4 @@
+import { Products } from '@hashicorp/platform-product-meta'
 import { InferGetStaticPropsType } from 'next'
 import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
 import DocsPage from 'components/_proxied-dot-io/common/docs-page'
@@ -18,7 +19,7 @@ import {
 // path relative to the `website` directory of the Packer GitHub repo
 const remotePluginsFile = 'data/plugins-manifest.json'
 
-const product = { name: productData.name, slug: productData.slug }
+const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'plugins'
 // path relative to the `website` directory of the Packer GitHub repo
 const navDataFile = `data/${basePath}-nav-data.json`

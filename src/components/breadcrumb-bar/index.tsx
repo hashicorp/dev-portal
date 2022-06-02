@@ -46,7 +46,7 @@ function BreadcrumbBar({
               className={s.listItem}
               key={`${cleanTitle}_${url}`}
               size={100}
-              weight="regular"
+              weight="medium"
             >
               <Elem
                 className={s.breadcrumbText}
