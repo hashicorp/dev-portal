@@ -14,7 +14,7 @@ import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
 import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import Card from 'components/card'
-import DownloadStandaloneLink from 'components/download-standalone-link'
+import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-link'
 import Heading, { HeadingProps } from 'components/heading'
 import InlineLink from 'components/inline-link'
 import MobileStandaloneLink from 'components/mobile-standalone-link'
@@ -114,7 +114,7 @@ const BinaryDownloadsSection = ({
               Version: {version}
             </Text>
           </div>
-          <DownloadStandaloneLink
+          <MobileDownloadStandaloneLink
             ariaLabel={`download ${name} version ${version} for ${prettyOSName}, architecture ${arch}`}
             href={downloadsByOS[os][arch]}
             onClick={() => {
