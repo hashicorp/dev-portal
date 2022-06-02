@@ -61,7 +61,6 @@ for further details.
   We have sticky nav bars, so the full height is equal to
   100vh minus the combined height of the sticky nav bars. */
   max-height: calc(100vh - var(--sticky-bars-height));
-  overflow-y: auto;
   position: sticky;
   top: var(--sticky-bars-height);
   width: var(--dev-dot-sidebar-width);
@@ -83,6 +82,7 @@ for further details.
 
 .sidebarContentWrapper {
   height: 100%; /* for positioning the version switcher */
+  overflow-y: auto;
   position: relative;
   padding: 24px;
 }
