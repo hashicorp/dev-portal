@@ -94,7 +94,7 @@
   width: 100%;
   max-height: 360px;
   position: absolute;
-  background: var(--token-color-neutral-background-base);
+  background: var(--token-color-surface-primary);
   border-radius: 5px;
   box-shadow: var(--token-surface-higher-box-shadow);
   margin-top: 4px;

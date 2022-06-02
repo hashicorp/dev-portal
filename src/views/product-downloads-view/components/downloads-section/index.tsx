@@ -184,21 +184,21 @@ const NotesSection = ({ selectedRelease }) => {
         You can find the{' '}
         <InlineLink
           href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
-          text={`SHA256 checksums for ${currentProduct.name} ${version}`}
           textSize={200}
-        />{' '}
+        >
+          SHA256 checksums for {currentProduct.name} {version}
+        </InlineLink>{' '}
         online and you can{' '}
         <InlineLink
           href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
-          text="verify the checksums signature file"
           textSize={200}
-        />{' '}
+        >
+          verify the checksums signature file
+        </InlineLink>{' '}
         which has been signed using{' '}
-        <InlineLink
-          href="https://www.hashicorp.com/security"
-          text="HashiCorp's GPG key"
-          textSize={200}
-        />
+        <InlineLink href="https://www.hashicorp.com/security" textSize={200}>
+          {"HashiCorp's GPG key"}
+        </InlineLink>
         .
       </Text>
     </>
