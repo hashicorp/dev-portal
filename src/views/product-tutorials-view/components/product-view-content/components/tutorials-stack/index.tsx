@@ -33,7 +33,11 @@ function TutorialsStack({
       <CardsGridList>
         {tutorialCards.map((cardPropsWithId: TutorialCardPropsWithId) => {
           const { id, ...cardProps } = cardPropsWithId
-          return <TutorialCard key={id} {...cardProps} />
+          return (
+            <li key={id}>
+              <TutorialCard {...cardProps} />
+            </li>
+          )
         })}
       </CardsGridList>
     </FeaturedStack>
