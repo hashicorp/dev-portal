@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { ReactElement, useMemo } from 'react'
 import classNames from 'classnames'
 import { useDeviceSize } from 'contexts'
 import getTruncatedTitle from './utils/get-truncated-title'
@@ -47,12 +47,16 @@ const TableOfContentsListItem = ({ isActive, slug, title }): ReactElement => {
   const className = classNames(s.tableOfContentsListItem, {
     [s.activeTableOfContentsListItem]: isActive,
   })
-  const truncatedTitle = getTruncatedTitle(title)
+  const generatedTitle = useMemo(() => {
+    const withoutBackticks = title.replaceAll(/`/g, '')
+    const truncatedWithoutBackticks = getTruncatedTitle(withoutBackticks)
+    return truncatedWithoutBackticks
+  }, [title])
 
   return (
     <li className={className} key={slug}>
       <a className={s.tableOfContentsListItemAnchor} href={`#${slug}`}>
-        {truncatedTitle}
+        {generatedTitle}
       </a>
       {isActive && <span aria-hidden className={s.activeIndicator} />}
     </li>
