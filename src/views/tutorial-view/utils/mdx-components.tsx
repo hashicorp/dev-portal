@@ -2,6 +2,11 @@ import { ReactNode } from 'react'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import { makeHeadingElement } from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import Tabs, { Tab } from 'components/tabs'
+import {
+  MdxOrderedList,
+  MdxUnorderedList,
+  MdxListItem,
+} from 'components/dev-dot-content/mdx-components/mdx-lists'
 import ImageConfig from 'components/image-config'
 import Image from 'components/image'
 import InteractiveLabCallout from 'components/interactive-lab-callout'
@@ -46,6 +51,9 @@ const MDX_COMPONENTS = {
   InteractiveLabCallout,
   img: Image,
   VideoEmbed,
+  ol: MdxOrderedList,
+  ul: MdxUnorderedList,
+  li: MdxListItem,
   h1: (props) => makeHeadingElement(1, props),
   h2: (props) => makeHeadingElement(2, props),
   h3: (props) => makeHeadingElement(3, props),

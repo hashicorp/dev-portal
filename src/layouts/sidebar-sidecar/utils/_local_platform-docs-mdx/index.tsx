@@ -3,6 +3,11 @@ import classNames from 'classnames'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import { useCurrentProduct } from 'contexts'
+import {
+  MdxOrderedList,
+  MdxUnorderedList,
+  MdxListItem,
+} from 'components/dev-dot-content/mdx-components/mdx-lists'
 import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
 import Tabs, { Tab } from 'components/tabs'
@@ -82,16 +87,15 @@ function makeImageElement({ noBorder }: { noBorder: ImageProps['noBorder'] }) {
 }
 
 /**
- * This component overrides the custom 'li' running in the @hashicorp/remark-plugins
- * "typography" plugin. This plugin is run via the DocsPage component in @hashicorp/docs-page
+ * Note: the MdxListItem component used below overrides the custom 'li'
+ * running in the @hashicorp/remark-plugins "typography" plugin.
+ *
+ * This plugin is run via the DocsPage component in @hashicorp/docs-page
  * so we need to override it here. https://github.com/hashicorp/web-platform-packages/blob/main/packages/remark-plugins/plugins/typography/index.js#L13
  *
  * @TODO cleanup use of remark plugins in @hashicorp/docs-page so these overrides aren't necessary.
  * Or decouple the dev portal docs page from this legacy component. https://app.asana.com/0/1202097197789424/1202310153805071
  */
-function ListItem({ children }: { children: React.ReactNode }) {
-  return <li>{children}</li>
-}
 
 // Purely for sharing between the two functions. Once `createMdxProvider` is
 // deprecated, this can be moved inline.
@@ -107,7 +111,9 @@ function _defaultComponents() {
     CodeTabs,
     pre,
     a: DocsAnchor,
-    li: ListItem,
+    ol: MdxOrderedList,
+    ul: MdxUnorderedList,
+    li: MdxListItem,
     img: makeImageElement({ noBorder: true }),
     h1: (props) => makeHeadingElement(1, props),
     h2: (props) => makeHeadingElement(2, props),
