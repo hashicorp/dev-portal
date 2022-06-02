@@ -197,7 +197,7 @@ const NotesSection = ({ selectedRelease }) => {
         </InlineLink>{' '}
         which has been signed using{' '}
         <InlineLink href="https://www.hashicorp.com/security" textSize={200}>
-          HashiCorp's GPG key
+          {"HashiCorp's GPG key"}
         </InlineLink>
         .
       </Text>
