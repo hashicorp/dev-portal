@@ -1,0 +1,154 @@
+---
+componentName: NavigationDisclosure
+peerComponents:
+  - AccordionDisclosure
+  - Card
+---
+
+<AccordionDisclosure
+  title="Provided Styling"
+  description="The styling provided by `NavigationDisclosure` balances abstracting the most common CSS properties applied to the component and keeping the default styling to a minimum."
+>
+
+**What styles are provided?**
+
+- `NavigationDisclosureList` is set up to:
+  - remove default `<ul>` `margin`, `padding`, and `list-style` values
+  - take up 100% of its parent container's width
+  - space its children with a gap commonly used in applications of `NavigationDisclosure`
+- `NavigationDisclosureListItem` is set up to take up 100% of its parent container's width
+- `NavigationDisclosureLink` is set up to:
+  - compose the `g-focus-ring-from-box-shadow` global helper class
+  - take up 100% of its parent container's width
+  - apply `border-radius`, `padding`, and `text-decoration` values commonly used in applications of `NavigationDisclosure`
+
+</AccordionDisclosure>
+
+<br />
+
+<AccordionDisclosure
+  title="Subcomponents" 
+  description="`NavigationDisclosure` exposes some subcomponents that enable custom styling, React content, and consistent, accessible markup."
+>
+
+Some of the subcomponents detailed below are plain wrappers around `Disclosure` components. The main rationale for this is to expose a components namespaced to `NavigationDisclosure`. The goal is to have components named in a way that makes their intended use clear.
+
+<Card elevation="base">
+
+**`NavigationDisclosureActivator`**
+
+This is a wrapper around `DisclosureActivator`. Will soon additional props like `onKeyDown` and `onMouseEnter` to aid in mouse and keyboard interactions.
+
+</Card>
+
+<br />
+
+<Card elevation="base">
+
+**`NavigationDisclosureContent`**
+
+This is a wrapper around `DisclosureContent`. It automatically validates that it receives a single `NavigationDisclosureList` child.
+
+</Card>
+
+<br />
+
+<Card elevation="base">
+
+**`NavigationDisclosureList`**
+
+This component handles applying the default styling (as detailed above in "Provided Styling") of the rendered `<ul>` element. It also exposes a `className` prop to enable custom styling to be applied on top of the default styling. It automatically validates that it only receives `NavigationDisclosureListItem` children.
+
+</Card>
+
+<br />
+
+<Card elevation="base">
+
+**`NavigationDisclosureListItem`**
+
+This component handles applying the default styling (as detailed above in "Provided Styling") of the rendered `<li>` element. It also exposes a `className` prop to enable custom styling to be applied on top of the default styling. It automatically validates that it receives a single `NavigationDisclosureLink` child.
+
+</Card>
+
+<br />
+
+<Card elevation="base">
+
+**`NavigationDisclosureLink`**
+
+This component handles applying the default styling (as detailed above in "Provided Styling") of the rendered `<a>` element. It also exposes a `className` prop to enable custom styling to be applied on top of the default styling. It also handles setting the `aria-current` property based on the required `isActive` prop.
+
+</Card>
+
+</AccordionDisclosure>
+
+## Playground
+
+<LiveComponent>{`
+<div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+  <h2 style={{ margin: 0 }}>
+    Three evenly spaced <code>NavigationDisclosure</code>s with default settings
+  </h2>
+  <NavigationDisclosure>
+    <NavigationDisclosureActivator>
+      Default NavigationDisclosure #1
+    </NavigationDisclosureActivator>
+    <NavigationDisclosureContent>
+      <NavigationDisclosureList>
+        {[
+          { text: 'Home', url: '/' },
+          { text: 'Vault', url: '/vault' },
+          { text: 'Waypoint', url: '/waypoint' },
+        ].map(({ text, url }) => (
+          <NavigationDisclosureListItem>
+            <NavigationDisclosureLink href={url} isActive={false}>
+              {text}
+            </NavigationDisclosureLink>
+          </NavigationDisclosureListItem>
+        ))}
+      </NavigationDisclosureList>
+    </NavigationDisclosureContent>
+  </NavigationDisclosure>
+  <NavigationDisclosure>
+    <NavigationDisclosureActivator>
+      Default NavigationDisclosure #2
+    </NavigationDisclosureActivator>
+    <NavigationDisclosureContent>
+      <NavigationDisclosureList>
+        {[
+          { text: 'Home', url: '/' },
+          { text: 'Vault', url: '/vault' },
+          { text: 'Waypoint', url: '/waypoint' },
+        ].map(({ text, url }) => (
+          <NavigationDisclosureListItem>
+            <NavigationDisclosureLink href={url} isActive={false}>
+              {text}
+            </NavigationDisclosureLink>
+          </NavigationDisclosureListItem>
+        ))}
+      </NavigationDisclosureList>
+    </NavigationDisclosureContent>
+  </NavigationDisclosure>
+  <NavigationDisclosure>
+    <NavigationDisclosureActivator>
+      Default NavigationDisclosure #3
+    </NavigationDisclosureActivator>
+    <NavigationDisclosureContent>
+      <NavigationDisclosureList>
+        {[
+          { text: 'Home', url: '/' },
+          { text: 'Vault', url: '/vault' },
+          { text: 'Waypoint', url: '/waypoint' },
+        ].map(({ text, url }) => (
+          <NavigationDisclosureListItem>
+            <NavigationDisclosureLink href={url} isActive={false}>
+              {text}
+            </NavigationDisclosureLink>
+          </NavigationDisclosureListItem>
+        ))}
+      </NavigationDisclosureList>
+    </NavigationDisclosureContent>
+  </NavigationDisclosure>
+</div>
+`}</LiveComponent>

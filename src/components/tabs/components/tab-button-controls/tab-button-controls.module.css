@@ -20,7 +20,7 @@ Styles for each tab button.
   cursor: pointer;
   flex-shrink: 0; /* Ensure items will trigger overflow */
   font-weight: var(--token-typography-font-weight-medium);
-  padding: 7px 12px;
+  padding: 7px 11px;
 
   &[aria-selected='true'] {
     color: var(--token-color-foreground-action);
