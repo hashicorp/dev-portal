@@ -60,7 +60,7 @@ const Tabs = ({
   const TabControls = hasOverflow ? TabDropdownControls : TabButtonControls
 
   return (
-    <div ref={overflowRef}>
+    <div className={s.root} ref={overflowRef}>
       <div
         className={classNames(s.tabControls, {
           [s.showAnchorLine]: showAnchorLine,
@@ -78,9 +78,9 @@ const Tabs = ({
         const { content, tabId, panelId, isActive } = tabItem
         return (
           <div
-            className={s.tabPanel}
             aria-hidden={!isActive}
             aria-labelledby={tabId}
+            className={s.tabPanel}
             id={panelId}
             key={panelId}
             role="tabpanel"
