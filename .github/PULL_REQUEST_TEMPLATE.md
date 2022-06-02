@@ -1,3 +1,14 @@
+## 🔗 Relevant links
+
+<!--
+Include links to the branch preview, Asana task, and Figma designs wherever possible to make reviewing your PR easier.
+When including the preview link, make sure to remove any '.' characters from the branch name:
+  - Example: ks.my-branch -> ksmy-branch
+-->
+
+- [Preview link](https://dev-portal-git-BRANCH_NAME-hashicorp.vercel.app/PATH_TO_VIEW) 🔎
+- [Asana task](url) 🎟️
+
 ## 🗒️ What
 
 <!--
