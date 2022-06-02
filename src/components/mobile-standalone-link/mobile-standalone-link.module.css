@@ -1,0 +1,23 @@
+.notMobileIcon {
+  display: none;
+
+  @media (--dev-dot-tablet-up) {
+    display: block;
+  }
+}
+
+.mobileIcon {
+  display: block;
+
+  @media (--dev-dot-tablet-up) {
+    display: none;
+  }
+}
+
+.text {
+  display: none;
+
+  @media (--dev-dot-tablet-up) {
+    display: block;
+  }
+}

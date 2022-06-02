@@ -5,13 +5,18 @@ import { ReactNode } from 'react'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 
 // Global imports
-import { makeHeadingElement } from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import AccordionDisclosure from 'components/accordion-disclosure'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 import Image from 'components/image'
 import ImageConfig from 'components/image-config'
 import InlineLink from 'components/inline-link'
 import InteractiveLabCallout from 'components/interactive-lab-callout'
+import { makeHeadingElement } from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
+import {
+  MdxOrderedList,
+  MdxUnorderedList,
+  MdxListItem,
+} from 'components/dev-dot-content/mdx-components/mdx-lists'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import VideoEmbed from 'components/video-embed'
@@ -60,6 +65,9 @@ const MDX_COMPONENTS = {
   InteractiveLabCallout,
   img: Image,
   VideoEmbed,
+  ol: MdxOrderedList,
+  ul: MdxUnorderedList,
+  li: MdxListItem,
   a: (props) => <InlineLink {...props} textWeight="medium" />,
   h1: (props) => makeHeadingElement(1, props),
   h2: (props) => makeHeadingElement(2, props),

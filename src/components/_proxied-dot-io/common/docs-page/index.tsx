@@ -2,6 +2,7 @@ import useProductMeta from '@hashicorp/platform-product-meta'
 import ReactDocsPage, { DocsPageProps } from '@hashicorp/react-docs-page'
 import ImageConfigBase from 'components/image-config'
 import { ImageConfigProps } from 'components/image-config/types'
+import { isContentDeployPreview } from 'lib/env-checks'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { ProductSlug } from 'types/products'
 import DevDotOptIn from '../dev-dot-opt-in'
@@ -23,6 +24,7 @@ export default function DocsPage({
 
   // Based on our config values, decide whether or not we should render the dev portal beta CTA.
   const shouldRenderOptInCTA =
+    !isContentDeployPreview(productSlug) &&
     getIsBetaProduct(productSlug as ProductSlug) &&
     __config.flags.enable_io_beta_cta
 
