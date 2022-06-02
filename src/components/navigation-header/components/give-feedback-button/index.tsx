@@ -1,21 +1,36 @@
 import { ReactElement } from 'react'
-import { IconMessageSquareFill16 } from '@hashicorp/flight-icons/svg-react/message-square-fill-16'
+import classNames from 'classnames'
+import { IconMessageSquareFill24 } from '@hashicorp/flight-icons/svg-react/message-square-fill-24'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import ButtonLink from 'components/button-link'
 import { useDeviceSize } from 'contexts'
+import s from './give-feedback-button.module.css'
+
+const FORM_URL = 'https://forms.gle/fnHLuNahLEhjuKvE6'
 
 function GiveFeedbackButton(): ReactElement {
   const { isMobile } = useDeviceSize()
 
-  return (
-    <ButtonLink
-      href="https://forms.gle/fnHLuNahLEhjuKvE6"
-      ariaLabel={'Give beta feedback'}
-      text={isMobile ? undefined : 'Give beta feedback'}
-      icon={isMobile ? <IconMessageSquareFill16 /> : <IconExternalLink16 />}
-      iconPosition="trailing"
-    />
-  )
+  if (isMobile) {
+    return (
+      <a
+        href={FORM_URL}
+        aria-label="Give beta feedback"
+        className={classNames(s.iconButton, s.primary)}
+      >
+        <IconMessageSquareFill24 />
+      </a>
+    )
+  } else {
+    return (
+      <ButtonLink
+        href={FORM_URL}
+        text="Give beta feedback"
+        icon={<IconExternalLink16 />}
+        iconPosition="trailing"
+      />
+    )
+  }
 }
 
 export default GiveFeedbackButton
