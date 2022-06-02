@@ -1,6 +1,6 @@
 import { StandaloneLinkProps } from 'components/standalone-link'
 
-export interface DownloadStandaloneLinkProps {
+export interface MobileDownloadStandaloneLinkProps {
   /**
    * A non-visual accessible and descriptive label for what's being downloaded.
    */

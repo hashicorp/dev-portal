@@ -21,9 +21,13 @@
   ],
   "sidecarMarketingCard": {
     "title": "About Waypoint",
-    "subtitle": "Use Waypoint to deliver a PaaS-like experience for Kubernetes, ECS, and other platforms.",
+    "subtitle": "Deploy, manage, and observe your applications through a consistent abstraction of underlying infrastructure. Waypoint works with Kubernetes, ECS and many other platforms.",
     "learnMoreLink": "https://www.waypointproject.io/",
     "featuredDocsLinks": [
+      {
+        "href": "/waypoint/tutorials",
+        "text": "Tutorials"
+      },
       {
         "href": "/waypoint/docs/projects",
         "text": "Projects"
