@@ -23,9 +23,20 @@ keeps us from having to set styles in the JSX.
 ref: https://twitter.com/heydonworks/status/408263890284191745
 ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
 */
-.tabPanel[role='tabpanel'] {
+.root [role='tabpanel'] {
   &[aria-hidden='true'] {
     display: none;
     visibility: hidden;
+  }
+}
+
+/*
+For showing a focus ring with a border radius when navigating via keyboard.
+*/
+.tabPanel {
+  composes: g-focus-ring-from-box-shadow from global;
+
+  &:focus-visible {
+    border-radius: 5px;
   }
 }
