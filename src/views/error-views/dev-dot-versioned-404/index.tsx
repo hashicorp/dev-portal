@@ -29,8 +29,8 @@ export function DevDotVersioned404({
       <ErrorViewH1>This page does not exist for version {version}.</ErrorViewH1>
       <ErrorViewParagraph>
         Please select either the{' '}
-        <InlineLink href={pathWithoutVersion} text="most recent version" /> or a
-        valid version that includes the page you are&nbsp;looking&nbsp;for.
+        <InlineLink href={pathWithoutVersion}>most recent version</InlineLink>{' '}
+        or a valid version that includes the page you are&nbsp;looking&nbsp;for.
       </ErrorViewParagraph>
       <div className={s.cta}>
         <ButtonLink text="Go back to Documentation" href={pathBeforeVersion} />
