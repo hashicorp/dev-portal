@@ -1,18 +1,20 @@
 import { ReactElement } from 'react'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
-import StandaloneLink from 'components/standalone-link'
+import { IconDownload24 } from '@hashicorp/flight-icons/svg-react/download-24'
 import { DownloadStandaloneLinkProps } from './types'
+import MobileStandaloneLink from 'components/mobile-standalone-link'
 
 const DownloadStandaloneLink = ({
   ariaLabel,
   href,
   onClick,
 }: DownloadStandaloneLinkProps): ReactElement => (
-  <StandaloneLink
+  <MobileStandaloneLink
     ariaLabel={ariaLabel}
     download
     href={href}
-    icon={<IconDownload16 />}
+    size16Icon={<IconDownload16 />}
+    size24Icon={<IconDownload24 />}
     iconPosition="trailing"
     onClick={onClick}
     text="Download"
