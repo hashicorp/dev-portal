@@ -8,6 +8,7 @@ import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 // Global imports
 import { ProductWithCurrentRootDocsPath } from 'types/products'
 import { getVersionFromPath } from 'lib/get-version-from-path'
+import { removeVersionFromPath } from 'lib/remove-version-from-path'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 import useCurrentPath from 'hooks/use-current-path'
@@ -57,7 +58,6 @@ const SidebarSidecarLayoutContent = ({
   const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
   const shouldReduceMotion = useReducedMotion()
   const sidebarRef = useRef<HTMLDivElement>()
-  const currentProduct = useCurrentProduct() as ProductWithCurrentRootDocsPath
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentlyViewedVersion = getVersionFromPath(currentPath)
   const sidebarProps = sidebarNavDataLevels[currentLevel]
@@ -108,16 +108,6 @@ const SidebarSidecarLayoutContent = ({
    */
   useNoScrollBody(sidebarIsOpen)
 
-  /**
-   * Check if `currentRootDocsPath` is on `currentProduct` before building the
-   * "View latest version" link that shows in the `PageAlert`.
-   */
-  if (!currentProduct.currentRootDocsPath && IS_DEV) {
-    console.error(
-      'The Version `PageAlert` requires `currentRootDocsPath` to be set on `currentProduct`'
-    )
-  }
-
   return (
     <BaseLayout showFooter={false}>
       <div className={s.root}>
@@ -136,7 +126,7 @@ const SidebarSidecarLayoutContent = ({
           </div>
         </motion.div>
         <div className={s.contentWrapper}>
-          {currentlyViewedVersion && currentProduct.currentRootDocsPath && (
+          {currentlyViewedVersion && (
             <PageAlert
               className={s.versionAlert}
               description={
@@ -145,11 +135,12 @@ const SidebarSidecarLayoutContent = ({
                   {currentlyViewedVersion}.{' '}
                   <InlineLink
                     className={s.versionAlertLink}
-                    href={`/${currentProduct.slug}/${currentProduct.currentRootDocsPath.path}`}
-                    text="View latest version"
+                    href={removeVersionFromPath(currentPath)}
                     textSize={200}
                     textWeight="medium"
-                  />
+                  >
+                    View latest version
+                  </InlineLink>
                   .
                 </>
               }
