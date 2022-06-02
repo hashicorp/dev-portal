@@ -60,7 +60,7 @@ const Tabs = ({
   const TabControls = hasOverflow ? TabDropdownControls : TabButtonControls
 
   return (
-    <div className={s.root} ref={overflowRef}>
+    <div ref={overflowRef}>
       <div
         className={classNames(s.tabControls, {
           [s.showAnchorLine]: showAnchorLine,
