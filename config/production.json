@@ -4,6 +4,7 @@
     "max_static_paths": 9999
   },
   "flags": {
-    "enable_product_docs_search": true
+    "enable_product_docs_search": true,
+    "enable_io_beta_cta": false
   }
 }

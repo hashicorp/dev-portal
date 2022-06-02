@@ -10,7 +10,7 @@ function CollectionTutorialList({
 }: CollectionTutorialListProps) {
   return (
     <div className={s.root}>
-      <CardsGridList isOrdered={isOrdered}>
+      <CardsGridList isOrdered={isOrdered} fixedColumns={isOrdered ? 1 : null}>
         {tutorials.map((tutorial: TutorialCardPropsWithId) => {
           const { id, ...cardProps } = tutorial
           return (

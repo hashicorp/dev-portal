@@ -3,7 +3,12 @@ import CardLink from 'components/card-link'
 import { IconCardLinkProps } from './types'
 import s from './icon-card-link.module.css'
 
-const IconCardLink = ({ icon, productSlug, text, url }: IconCardLinkProps) => {
+const IconCardLink = ({
+  icon,
+  productSlug = 'hcp',
+  text,
+  url,
+}: IconCardLinkProps) => {
   let colorToken: string
   if (productSlug === 'sentinel' || productSlug === 'hcp') {
     colorToken = '--token-color-hashicorp-brand'

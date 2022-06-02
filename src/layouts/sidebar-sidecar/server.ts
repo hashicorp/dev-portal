@@ -4,7 +4,7 @@ import { Image } from 'mdast'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
-import { ProductData } from 'types/products'
+import { ProductData, RootDocsPath } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
@@ -101,6 +101,15 @@ export function getStaticGenerationFunctions<
    */
   const isBetaProduct = getIsBetaProduct(product.slug)
 
+  /**
+   * Get the current `rootDocsPaths` object.
+   *
+   * @TODO - set `baseName` using `rootDocsPath`
+   */
+  const currentRootDocsPath = product.rootDocsPaths?.find(
+    (rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
+  )
+
   const loaderOptions: RemoteContentLoader['opts'] = {
     product: productSlugForLoader,
     basePath: basePathForLoader,
@@ -125,6 +134,7 @@ export function getStaticGenerationFunctions<
       }
     },
     getStaticProps: async (ctx) => {
+      const pathParts = (ctx.params.page || []) as string[]
       const headings = [] // populated by loader.loadStaticProps()
 
       const loader = getLoader({
@@ -192,6 +202,24 @@ export function getStaticGenerationFunctions<
       ])
 
       /**
+       * Figure out of a specific docs version is being viewed
+       */
+      let indexOfVersionPathPart
+      let versionPathPart
+      if (versions) {
+        pathParts.find((pathPart, index) => {
+          const matchingVersion = versions.find(
+            (version) => pathPart === version.version
+          )
+          if (matchingVersion) {
+            versionPathPart = pathPart
+            indexOfVersionPathPart = index
+            return true
+          }
+        })
+      }
+
+      /**
        * Constructs the levels of nav data used in the `Sidebar` on all
        * `DocsView` pages.
        */
@@ -209,17 +237,21 @@ export function getStaticGenerationFunctions<
           menuItems: navDataWithFullPaths,
           // TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
           title: BASE_PATHS_TO_NAMES[basePath] || product.name,
-          overviewItemHref: `/${product.slug}/${basePath}`,
+          overviewItemHref: versionPathPart
+            ? `/${product.slug}/${basePath}/${versionPathPart}`
+            : `/${product.slug}/${basePath}`,
         },
       ]
 
       const breadcrumbLinks = getDocsBreadcrumbs({
-        productPath: product.slug,
-        productName: product.name,
-        basePath,
         baseName,
-        pathParts: (ctx.params.page || []) as string[],
+        basePath: basePath,
+        indexOfVersionPathPart,
         navData: navDataWithFullPaths,
+        pathParts,
+        productName: product.name,
+        productPath: product.slug,
+        version: versionPathPart,
       })
 
       const finalProps = {
@@ -228,9 +260,14 @@ export function getStaticGenerationFunctions<
           githubFileUrl,
           headings: nonEmptyHeadings,
           sidebarNavDataLevels,
+          versions,
         },
         mdxSource,
-        product,
+        product: {
+          ...product,
+          // needed for DocsVersionSwitcher
+          currentRootDocsPath: currentRootDocsPath || null,
+        },
         versions,
       }
 

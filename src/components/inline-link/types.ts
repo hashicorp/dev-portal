@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { TextProps } from 'components/text'
 
 export interface InlineLinkProps {
@@ -12,11 +13,6 @@ export interface InlineLinkProps {
   href: string
 
   /**
-   * The text rendered within the `<a>` element.
-   */
-  text: string
-
-  /**
    * The `size` passed to the inner `Text` component.
    */
   textSize?: TextProps['size']
@@ -25,4 +21,9 @@ export interface InlineLinkProps {
    * The `weight` passed to the inner `Text` component.
    */
   textWeight?: TextProps['weight']
+
+  /**
+   * The content to render within the `<a>` element.
+   */
+  children: React.ReactNode
 }
