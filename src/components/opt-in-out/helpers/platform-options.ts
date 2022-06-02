@@ -12,7 +12,12 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
   'waypoint-io': {
     base_url: 'https://www.waypointproject.io/',
     getRedirectPath(path) {
-      return this.base_url + getIoRedirectPath(path)
+      const url = new URL(getIoRedirectPath(path), this.base_url)
+
+      // ensure we don't create a looping scenario if someone opts out immediately after opting-in
+      url.searchParams.delete('optInFrom')
+
+      return url.toString()
     },
     cookieKey: 'waypoint-io-beta-opt-in',
     cookieAnalyticsKey: 'waypoint-io-beta-opt-in-tracked',
@@ -20,7 +25,12 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
   'vault-io': {
     base_url: 'https://www.vaultproject.io/',
     getRedirectPath(path) {
-      return this.base_url + getIoRedirectPath(path)
+      const url = new URL(getIoRedirectPath(path), this.base_url)
+
+      // ensure we don't create a looping scenario if someone opts out immediately after opting-in
+      url.searchParams.delete('optInFrom')
+
+      return url.toString()
     },
     cookieKey: 'vault-io-beta-opt-in',
     cookieAnalyticsKey: 'vault-io-beta-opt-in-tracked',
