@@ -61,30 +61,10 @@
     }
   }
 
-  & ul,
-  & ol {
-    margin: 24px 0;
-    padding-left: 24px;
-
-    & li {
-      color: var(--token-color-foreground-primary);
-
-      /* Fixes a visual bug in firefox where the p tag after our injected anchor is on a new line */
-      & a:global(.__target-lic) {
-        position: absolute;
-        scroll-margin-top: var(--height);
-      }
-
-      &:not(:last-child) {
-        margin-bottom: 16px;
-      }
-
-      & ul,
-      & ol {
-        margin: 16px 0;
-      }
-    }
-  }
+  /**
+   * Note: <ol />, <ul />, & <li /> styles have been moved to
+   * ./mdx-components/list-ol-ul.
+   */
 
   /* inline code elements */
   & code {
