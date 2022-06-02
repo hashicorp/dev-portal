@@ -70,6 +70,10 @@ interface ProductData extends Product {
   }
 }
 
+interface ProductWithCurrentRootDocsPath extends ProductData {
+  currentRootDocsPath: RootDocsPath
+}
+
 type ProductGroup = Product[]
 
 export type {
@@ -81,5 +85,6 @@ export type {
   ProductGroup,
   ProductName,
   ProductSlug,
+  ProductWithCurrentRootDocsPath,
   RootDocsPath,
 }

@@ -21,15 +21,21 @@ import {
  *
  * @TODO
  *  - wrap with forwardRef (for `NavigationHeaderDropdownMenu`)
- *  - add use of useOnClickOutside (for `NavigationHeaderDropdownMenu`)
- *  - add use of useOnFocusOutside (for `NavigationHeaderDropdownMenu`)
  *  - add onMouseLeave listener (for `NavigationHeaderDropdownMenu`)
  */
 const NavigationDisclosure = ({
   children,
   className,
 }: NavigationDisclosureProps) => {
-  return <Disclosure containerClassName={className}>{children}</Disclosure>
+  return (
+    <Disclosure
+      closeOnClickOutside
+      closeOnFocusOutside
+      containerClassName={className}
+    >
+      {children}
+    </Disclosure>
+  )
 }
 
 export type {
