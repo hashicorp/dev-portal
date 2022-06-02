@@ -4,6 +4,7 @@ import classNames from 'classnames'
 
 // HashiCorp imports
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconExternalLink24 } from '@hashicorp/flight-icons/svg-react/external-link-24'
 import CodeBlock from '@hashicorp/react-code-block'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 
@@ -13,10 +14,10 @@ import { useCurrentProduct } from 'contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
 import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import Card from 'components/card'
-import DownloadStandaloneLink from 'components/download-standalone-link'
+import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-link'
 import Heading, { HeadingProps } from 'components/heading'
 import InlineLink from 'components/inline-link'
-import StandaloneLink from 'components/standalone-link'
+import MobileStandaloneLink from 'components/mobile-standalone-link'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import VersionContextSwitcher from 'components/version-context-switcher'
@@ -113,7 +114,7 @@ const BinaryDownloadsSection = ({
               Version: {version}
             </Text>
           </div>
-          <DownloadStandaloneLink
+          <MobileDownloadStandaloneLink
             ariaLabel={`download ${name} version ${version} for ${prettyOSName}, architecture ${arch}`}
             href={downloadsByOS[os][arch]}
             onClick={() => {
@@ -151,10 +152,11 @@ const ChangelogSection = ({ selectedRelease }) => {
             Version: {version}
           </Text>
         </div>
-        <StandaloneLink
+        <MobileStandaloneLink
           ariaLabel={`${name} version ${version} changelog`}
           href={`https://github.com/hashicorp/${name}/blob/v${version}/CHANGELOG.md`}
-          icon={<IconExternalLink16 />}
+          size16Icon={<IconExternalLink16 />}
+          size24Icon={<IconExternalLink24 />}
           iconPosition="trailing"
           openInNewTab
           text="GitHub"
