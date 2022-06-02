@@ -1,3 +1,4 @@
+import moize, { Options } from 'moize'
 import { LearnProductData } from 'types/products'
 import {
   Collection as ClientCollection,
@@ -35,11 +36,19 @@ export interface CollectionPagePath {
   }
 }
 
+const moizeOpts: Options = {
+  isPromise: true,
+  maxSize: Infinity,
+  isDeepEqual: true,
+}
+// limit the expensive call for collections who all have the same product
+const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
+
 export async function getCollectionViewSidebarSections(
   product: LearnProductData,
   collection: ClientCollection
 ) {
-  const allProductCollections = await getAllCollections({
+  const allProductCollections = await cachedGetAllCollections({
     product: { slug: product.slug, sidebarSort: true },
   })
   const filteredCollections = filterCollections(
@@ -95,7 +104,7 @@ export async function getCollectionPageProps(
 export async function getCollectionPaths(
   product: ProductOption
 ): Promise<CollectionPagePath[]> {
-  const collections = await getAllCollections({
+  const collections = await cachedGetAllCollections({
     product: { slug: product },
   })
   // Only build collections where this product is the main 'theme'
