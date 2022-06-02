@@ -79,6 +79,11 @@ export interface StandaloneLinkProps {
   text: string
 
   /**
+   * Optional className to apply to `text`'s wrapper element.
+   */
+  textClassName?: string
+
+  /**
    * The size of the rendered link, which mainly affects the font-size and
    * line-height CSS properties.
    */
