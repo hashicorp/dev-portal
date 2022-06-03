@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { MDXRemote } from 'next-mdx-remote'
 import { useCurrentProduct } from 'contexts'
@@ -66,18 +67,20 @@ const DocsView = ({ mdxSource, lazy, hideSearch = false }: DocsViewProps) => {
 
   return (
     <>
-      {shouldRenderSearch ? <ProductDocsSearch /> : null}
-      <DevDotContent>
-        <NoIndexTagIfVersioned />
-        <TabProvider>
-          <MDXRemote
-            compiledSource={compiledSource}
-            components={components}
-            lazy={lazy}
-            scope={scope}
-          />
-        </TabProvider>
-      </DevDotContent>
+      <Suspense fallback={null}>
+        {shouldRenderSearch ? <ProductDocsSearch /> : null}
+        <DevDotContent>
+          <NoIndexTagIfVersioned />
+          <TabProvider>
+            <MDXRemote
+              compiledSource={compiledSource}
+              components={components}
+              lazy={lazy}
+              scope={scope}
+            />
+          </TabProvider>
+        </DevDotContent>
+      </Suspense>
     </>
   )
 }

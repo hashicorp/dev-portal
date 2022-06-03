@@ -1,5 +1,4 @@
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import { NavData } from '@hashicorp/react-docs-sidenav'
 import { BreadcrumbLink } from '..'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
@@ -15,7 +14,7 @@ interface GetPathBreadcrumbsOpts {
    * An array of nav nodes, as defined by our sidenav component.
    */
 
-  navData: NavData
+  navData: any[]
 
   /**
    * An array of parameters representing the path from the basePath to the
