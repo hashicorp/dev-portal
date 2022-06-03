@@ -1,4 +1,5 @@
 import { CSSProperties, ReactElement } from 'react'
+import NextImage from 'next/image'
 import { ImageProps } from './types'
 import classNames from 'classnames'
 import s from './image.module.css'
@@ -21,6 +22,29 @@ function generateStyleProp(
   }
 
   return style
+}
+
+/**
+ * Returns the values of the width and height query params if present on url.
+ */
+function getContentApiDimensions(
+  url: string
+): { width: number; height: number } | null {
+  // We only care about Content API urls, which will always start with a protocol.
+  if (!url.startsWith('http')) {
+    return null
+  }
+  const urlParams = new URL(url).searchParams
+  const width = urlParams.get('width')
+  const height = urlParams.get('height')
+  if (width && height) {
+    return {
+      width: parseInt(width),
+      height: parseInt(height),
+    }
+  }
+
+  return null
 }
 
 /**
@@ -56,6 +80,8 @@ function Image({
    */
   const style = generateStyleProp(width, height)
 
+  const dimensions = getContentApiDimensions(src)
+
   return (
     <span
       className={classNames(s.root, {
@@ -64,8 +90,18 @@ function Image({
         [s.inline]: inline,
       })}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} title={title} style={style} />
+      {dimensions ? (
+        <NextImage
+          src={src}
+          alt={alt}
+          title={title}
+          width={dimensions.width}
+          height={dimensions.height}
+          layout="raw"
+        />
+      ) : (
+        <img src={src} alt={alt} title={title} style={style} />
+      )}
     </span>
   )
 }
