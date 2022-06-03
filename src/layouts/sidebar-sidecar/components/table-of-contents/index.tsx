@@ -48,7 +48,7 @@ const TableOfContentsListItem = ({ isActive, slug, title }): ReactElement => {
     [s.activeTableOfContentsListItem]: isActive,
   })
   const generatedTitle = useMemo(() => {
-    const withoutBackticks = title.replaceAll(/`/g, '')
+    const withoutBackticks = title.replaceAll('`', '')
     const truncatedWithoutBackticks = getTruncatedTitle(withoutBackticks)
     return truncatedWithoutBackticks
   }, [title])
