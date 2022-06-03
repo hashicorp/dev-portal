@@ -78,9 +78,9 @@ const Tabs = ({
         const { content, tabId, panelId, isActive } = tabItem
         return (
           <div
-            className={s.tabPanel}
             aria-hidden={!isActive}
             aria-labelledby={tabId}
+            className={s.tabPanel}
             id={panelId}
             key={panelId}
             role="tabpanel"
