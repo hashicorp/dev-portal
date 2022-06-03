@@ -16,13 +16,15 @@ function IconTile({
   children,
   size = 'medium',
   brandColor = 'neutral',
+  className,
 }: IconTileProps): React.ReactElement {
   return (
     <span
       className={classNames(
         s.root,
         s[`size-${size}`],
-        s[`color-${brandColor}`]
+        s[`color-${brandColor}`],
+        className
       )}
     >
       {children}
