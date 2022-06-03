@@ -19,6 +19,7 @@ const ProductRootDocsPathLandingHero = ({
           productSlug={
             currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
           }
+          className={s.icon}
         />
         <div>
           <Heading
