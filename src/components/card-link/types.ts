@@ -23,4 +23,6 @@ export interface CardLinkProps {
    * accurately describe the link.
    */
   ariaLabel?: MaybeInternalLinkProps['aria-label']
+
+  target?: HTMLAnchorElement['target']
 }
