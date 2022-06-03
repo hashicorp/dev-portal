@@ -6,6 +6,8 @@ import ButtonLink from 'components/button-link'
 import s from './give-feedback-button.module.css'
 
 const FORM_URL = 'https://forms.gle/fnHLuNahLEhjuKvE6'
+const LINK_TEXT = 'Give beta feedback'
+const LINK_ARIA_LABEL = 'Give beta feedback (opens in new tab)'
 
 function GiveFeedbackButton(): ReactElement {
   return (
@@ -13,7 +15,7 @@ function GiveFeedbackButton(): ReactElement {
       <span className={s.iconButtonContainer}>
         <a
           href={FORM_URL}
-          aria-label="Give beta feedback"
+          aria-label={LINK_ARIA_LABEL}
           className={classNames(s.iconButton, s.primary)}
           target="_blank"
           rel="noreferrer"
@@ -25,7 +27,8 @@ function GiveFeedbackButton(): ReactElement {
         <ButtonLink
           openInNewTab={true}
           href={FORM_URL}
-          text="Give beta feedback"
+          text={LINK_TEXT}
+          aria-label={LINK_ARIA_LABEL}
           icon={<IconExternalLink16 />}
           iconPosition="trailing"
         />
