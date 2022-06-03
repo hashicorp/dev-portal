@@ -1,5 +1,27 @@
+/*
+Control which button is shown at which viewport width.
+Note that useDeviceSize() has not been used here, as device
+size is not available on initial server-side render,
+which results in a flash of incorrect layout.
+*/
+.iconButtonContainer {
+  display: block;
+
+  @media (--dev-dot-tablet-up) {
+    display: none;
+  }
+}
+
+.textButtonContainer {
+  display: none;
+
+  @media (--dev-dot-tablet-up) {
+    display: block;
+  }
+}
+
 /* 
-* These styles were copied directly from 'components/button'.
+* The styles below were copied directly from 'components/button'.
 *
 * The reason for this divergence is that the HDS button spec does NOT
 * support 24px icons in small (36px tall) buttons,
