@@ -1,6 +1,4 @@
 import { Pluggable } from 'unified'
-import { visit } from 'unist-util-visit'
-import { Image } from 'mdast'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
@@ -34,30 +32,6 @@ const BASE_PATHS_TO_NAMES = {
   docs: 'Documentation',
   intro: 'Introduction',
   plugins: 'Plugins',
-}
-
-// This Remark plugin rewrites img URLs from our Marketing Content Server API
-// to Dev Portal's next/image optimization endpoint.
-function remarkRewriteImageUrls() {
-  return function plugin() {
-    return function transformTree(tree) {
-      visit<Image, string>(tree, 'image', (node) => {
-        if (node.url.includes(process.env.MKTG_CONTENT_API)) {
-          const params = new URLSearchParams()
-          params.set('url', node.url)
-          // next/image requires that we specify an allowed width. The Dev
-          // Portal docs page renders images at 896 pixels wide. To support high
-          // DPI displays, we double this value to 1792, and round up to the
-          // nearest supported width of 1920.
-          params.set('w', '1920')
-          // By default, next/image uses a quality setting of 75.
-          params.set('q', '75')
-
-          node.url = `/_next/image?${params.toString()}`
-        }
-      })
-    }
-  }
 }
 
 /**
@@ -141,7 +115,6 @@ export function getStaticGenerationFunctions<
         mainBranch,
         remarkPlugins: [
           [anchorLinks, { headings }],
-          remarkRewriteImageUrls(),
           ...additionalRemarkPlugins,
         ],
         scope: await getScope(),
