@@ -49,7 +49,7 @@
 }
 
 .success {
-  --background-color: var(--token-color-surface-sucess);
+  --background-color: var(--token-color-surface-success);
   --border-color: var(--token-color-border-success);
   --title-color: var(--token-color-foreground-success-on-surface);
 }
