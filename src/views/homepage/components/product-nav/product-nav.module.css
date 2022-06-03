@@ -94,7 +94,7 @@
   }
 
   &[href] {
-    color: var(--token-color-palette-neutral-800);
+    color: var(--token-color-foreground-strong);
 
     &::after {
       content: '';

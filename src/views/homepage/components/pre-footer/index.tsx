@@ -55,6 +55,7 @@ export default function PreFooter({
                       icon={<IconExternalLink16 />}
                       iconPosition="trailing"
                       text={action.description}
+                      openInNewTab
                     />
                   </div>
                 </li>
