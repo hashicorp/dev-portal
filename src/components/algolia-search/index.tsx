@@ -113,9 +113,6 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
   return (
     <div
       className={classNames(s.root, className)}
-      onBlur={() => {
-        autocomplete.setIsOpen(false)
-      }}
       {...autocomplete.getRootProps({})}
     >
       <form
@@ -135,6 +132,9 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
           className={s.input}
           ref={inputRef}
           {...autocomplete.getInputProps({ inputElement: inputRef.current })}
+          onBlur={() => {
+            autocomplete.setIsOpen(false)
+          }}
         />
         <div className={s.inputWrapperSuffix}>
           <button
