@@ -33,17 +33,17 @@
       "description": "Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.",
       "cards": [
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Apply cryptographic functions on data in-transit. Sign and verify data, generate hashes and HMACs of data, and act as a source of random bytes.",
           "title": "Transit Secrets Engine",
           "url": "/vault/docs/secrets/transit"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Handle secure data transformation and tokenization against a provided input value using NIST vetted cryptographic standards and other transformations such as masking.",
           "title": "Transform Secrets Engine",
           "url": "/vault/docs/secrets/transform"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Exchange a sensitive value for an unrelated value called a token. The original sensitive value cannot be recovered from a token alone but is irreversible.",
           "title": "Tokenization",
           "url": "/vault/docs/secrets/transform/tokenization"
         }
@@ -55,17 +55,17 @@
       "description": "Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.",
       "cards": [
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Act as a key management interoperability protocol server provider and handle the lifecycle of its KMIP managed objects.",
           "title": "KMIP Secrets Engine",
           "url": "/vault/docs/secrets/kmip"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "A consistent workflow for distribution and lifecycle management of cryptographic keys in key management service (KMS) providers.",
           "title": "Key Management Secrets Engine",
           "url": "/vault/docs/secrets/key-management"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Generate dynamic X.509 certificates without going through the manual process of generating a private key and CSR or submitting to a CA.",
           "title": "PKI",
           "url": "/vault/docs/secrets/pki"
         }
