@@ -20,6 +20,9 @@ for further details.
   core-dev-dot-layout.module.css, as the left value  must be shared with the
   navigation-header component, in order to match alignment in design specs. */
   --main-area-padding-right: 24px;
+  @media (--dev-dot-sidecar-up) {
+    --main-area-padding-right: 48px;
+  }
 
   /*
   We want our footer to have a top border which spans
