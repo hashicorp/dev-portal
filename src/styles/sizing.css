@@ -2,10 +2,8 @@
   --input-height: 38px;
   --input-icon-size: 16px;
 
-  /* NOTE: The --navigation-header-height
-    and --alert-bar-height may be brittle.
+  /* NOTE: The --navigation-header-height may be brittle & inaccurate.
     See layouts/base-new/base-new-layout.module.css
     comments for details */
   --navigation-header-height: 68px;
-  --alert-bar-height: 72px;
 }
