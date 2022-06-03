@@ -1,9 +1,0 @@
-.anchor {
-  color: var(--token-color-palette-blue-200);
-  font-weight: 500;
-  text-decoration: underline;
-
-  &:visited {
-    color: #a737ff;
-  }
-}
