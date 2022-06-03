@@ -1,6 +1,5 @@
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
-import DevAlertBanner from 'components/dev-alert-banner'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
@@ -31,7 +30,6 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
       <CoreDevDotLayout>
         <div className={s.root} data-layout="base-new">
           <div className={s.header}>
-            <DevAlertBanner />
             <NavigationHeader />
           </div>
           <div className={s.contentArea}>{children}</div>
