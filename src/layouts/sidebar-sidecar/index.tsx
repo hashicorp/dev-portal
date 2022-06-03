@@ -1,5 +1,5 @@
 // Third-party imports
-import { ReactElement, useRef } from 'react'
+import { ReactElement, Suspense, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 // HashiCorp imports
@@ -116,7 +116,9 @@ const SidebarSidecarLayoutContent = ({
           variants={sidebarMotion}
         >
           <div className={s.sidebarContentWrapper}>
-            <SidebarContent />
+            <Suspense fallback={null}>
+              <SidebarContent />
+            </Suspense>
           </div>
           <div className={s.docsVersionSwitcherWrapper}>
             <DocsVersionSwitcher options={versions} />

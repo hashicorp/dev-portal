@@ -21,6 +21,11 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   const openDialog = () => setShowDialog(true)
   const closeDialog = () => setShowDialog(false)
 
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   /**
    * Handle opt out, which is passed to our opt out form,
    * and is also used in our welcome toast.
@@ -58,7 +63,7 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   }, [optInFrom])
 
   // Return early if not opted in
-  if (optedIn !== 'true') {
+  if (optedIn !== 'true' || !isMounted) {
     return null
   }
 
