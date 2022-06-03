@@ -48,7 +48,7 @@ export default function UseCasePage({ data }) {
         eyebrow="Use case"
         heading={heroHeading}
         description={heroDescription}
-        pattern="/nomad/img/usecase-hero-pattern.svg"
+        pattern="/boundary/img/usecase-hero-pattern.svg"
       />
 
       <IoUsecaseSection
@@ -141,7 +141,7 @@ export default function UseCasePage({ data }) {
           cta={{
             url: tutorialsLink
               ? tutorialsLink
-              : 'https://learn.hashicorp.com/vault',
+              : 'https://learn.hashicorp.com/boundary',
             text: 'Explore all',
           }}
           cardsPerRow={3}
@@ -172,7 +172,7 @@ export default function UseCasePage({ data }) {
               url: link.link,
             }
           })}
-          pattern="/nomad/img/usecase-callout-pattern.svg"
+          pattern="/boundary/img/usecase-callout-pattern.svg"
         />
       </div>
 
