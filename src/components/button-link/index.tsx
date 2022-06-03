@@ -3,8 +3,6 @@ import s from './button-link.module.css'
 import { ButtonProps } from 'components/button/types'
 import classNames from 'classnames'
 
-type NativeLinkProps = JSX.IntrinsicElements['a']
-
 /**
  * _Note WIP Component_
  * this button link component should mimic the design system options

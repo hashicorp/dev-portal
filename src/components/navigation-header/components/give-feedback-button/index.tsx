@@ -25,7 +25,7 @@ function GiveFeedbackButton(): ReactElement {
       </span>
       <span className={s.textButtonContainer}>
         <ButtonLink
-          openInNewTab={true}
+          openInNewTab
           href={FORM_URL}
           text={LINK_TEXT}
           aria-label={LINK_ARIA_LABEL}
