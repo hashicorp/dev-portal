@@ -5,6 +5,10 @@
   margin-bottom: 12px;
 }
 
+.rightAlign {
+  justify-content: flex-end;
+}
+
 .levelUpButton {
   padding-bottom: 7px;
   padding-left: 3px;

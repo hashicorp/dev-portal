@@ -6,6 +6,7 @@
     "build:webpack-only": "hc-tools next-build-webpack-only",
     "build": "next build",
     "lint": "next-hashicorp lint",
+    "lint:stylelint": "npx stylelint '**/*.css'",
     "prebuild": "hc-tools ./scripts/remove-non-beta-product-pages.ts",
     "prepare": "simple-git-hooks",
     "postbuild": "hc-tools ./scripts/capture-build-metrics.ts dev-portal",
@@ -73,6 +74,7 @@
     "postcss-preset-env": "^6.7.0",
     "react-test-renderer": "^17.0.2",
     "simple-git-hooks": "^2.7.0",
+    "stylelint": "^13.8.0",
     "typescript": "^4.5.5"
   },
   "dependencies": {
@@ -96,7 +98,7 @@
     "@hashicorp/react-button": "^6.0.3",
     "@hashicorp/react-call-to-action": "^4.1.1",
     "@hashicorp/react-checkbox-input": "^5.0.1",
-    "@hashicorp/react-code-block": "^5.1.1",
+    "@hashicorp/react-code-block": "^5.2.0",
     "@hashicorp/react-command-line-terminal": "^2.0.4",
     "@hashicorp/react-consent-manager": "^7.2.0",
     "@hashicorp/react-docs-page": "^16.2.0",
@@ -155,7 +157,7 @@
     "klaw-sync": "^6.0.0",
     "mdast": "^3.0.0",
     "moize": "^6.1.0",
-    "next": "^12.1.0",
+    "next": "^12.1.1",
     "next-mdx-remote": "^3.0.8",
     "nuka-carousel": "^4.8.4",
     "p-map": "^4.0.0",

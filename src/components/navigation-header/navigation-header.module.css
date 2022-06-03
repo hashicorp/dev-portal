@@ -53,6 +53,7 @@
   align-items: center;
   display: flex;
   justify-content: right;
+  gap: 16px;
 }
 
 /*

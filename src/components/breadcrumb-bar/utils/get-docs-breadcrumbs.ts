@@ -207,12 +207,22 @@ function getDocsBreadcrumbs({
     filteredPathParts = pathParts
   }
 
+  /**
+   * Generate the root docs path item's url
+   */
+  let rootDocsPathUrl
+  if (version) {
+    rootDocsPathUrl = `/${productPath}/${basePath}/${version}`
+  } else {
+    rootDocsPathUrl = `/${productPath}/${basePath}`
+  }
+
   return [
     { title: 'Developer', url: '/' },
     { title: productName, url: `/${productPath}` },
     {
       title: generatedBaseName,
-      url: `/${productPath}/${basePath}`,
+      url: rootDocsPathUrl,
       isCurrentPage: pathParts.length == 0,
     },
     ...getPathBreadcrumbs({
