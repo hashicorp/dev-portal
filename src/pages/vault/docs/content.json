@@ -1,5 +1,5 @@
 {
-  "pageSubtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+  "pageSubtitle": "Vault is an identity-based secret and encryption management system. This documentation covers the main concepts of Vault, what problems it can solve, and contains a quick start for using Vault.",
   "marketingContentBlocks": [
     {
       "type": "section-heading",
@@ -11,19 +11,19 @@
       "description": "Centrally store, access, and deploy secrets across applications, systems, and infrastructure.",
       "cards": [
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "A generic Key-Value store used to store arbitrary secrets within the configured physical storage for Vault.",
           "title": "KV Secrets Engine",
           "url": "/vault/docs/secrets/kv"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Generate database credentials dynamically based on configured roles.",
           "title": "Database Credentials",
           "url": "/vault/docs/secrets/databases"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Deploy Vault into Kubernetes using the official HashiCorp Vault Helm chart.",
           "title": "Kubernetes Secrets",
-          "url": "/vault/tutorials/kubernetes"
+          "url": "/vault/docs/platform/k8s"
         }
       ]
     },
