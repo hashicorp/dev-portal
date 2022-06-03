@@ -12,4 +12,5 @@ export interface IconTileProps {
   size?: 'small' | 'medium' | 'large' | 'extra-large'
   /** Optional product slug to use for brand color theming. If not provided, defaults to "neutral". Note that "sentinel" and "hcp" are not supported. */
   brandColor?: ProductBrandColor
+  className?: string
 }
