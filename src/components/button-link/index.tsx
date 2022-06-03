@@ -40,13 +40,13 @@ export default function ButtonLink({
 
   if (!hasIcon && !hasText) {
     throw new Error(
-      '`Button` must have either `text` or an `icon` with accessible labels.'
+      '`ButtonLink` must have either `text` or an `icon` with accessible labels.'
     )
   }
 
   if (isIconOnly && !hasLabel) {
     throw new Error(
-      'Icon-only `Button`s require an accessible label. Either provide the `text` prop, or `ariaLabel`.'
+      'Icon-only `ButtonLink`s require an accessible label. Either provide the `text` prop, or `ariaLabel`.'
     )
   }
 
