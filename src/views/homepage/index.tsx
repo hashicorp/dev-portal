@@ -138,23 +138,23 @@ function Homepage(): ReactElement {
         actions={[
           {
             icon: (
-              <IconSupport24 color="var(--token-color-highlight-foreground-primary)" />
+              <IconSupport24 color="var(--token-color-foreground-highlight)" />
             ),
             heading: 'Support',
             description: 'Open a support ticket',
-            link: '/',
+            link: 'https://support.hashicorp.com/hc/en-us',
           },
           {
             icon: <IconHelp24 color="var(--token-color-packer-brand)" />,
             heading: 'Forum',
             description: 'Find your answer on the forum',
-            link: '/',
+            link: 'https://discuss.hashicorp.com/',
           },
           {
             icon: <IconUser24 color="var(--token-color-nomad-brand)" />,
             heading: 'Community',
             description: 'Join our community',
-            link: '/',
+            link: 'https://www.hashicorp.com/community',
           },
         ]}
       />

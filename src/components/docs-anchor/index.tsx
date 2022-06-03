@@ -2,7 +2,7 @@ import Link from 'next/link'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import InlineLink from 'components/inline-link'
-import s from './docs-anchor.module.css'
+import s from 'components/inline-link/inline-link.module.css'
 
 const DocsAnchor = ({
   href,
@@ -10,10 +10,10 @@ const DocsAnchor = ({
   ...rest
 }: JSX.IntrinsicElements['a']) => {
   const currentProduct = useCurrentProduct()
-
   const passableProps = {
     ...rest,
-    className: classNames(rest.className, s.anchor),
+    // TODO: we probably want to make use of the InlineLink component in the future instead of just adopting its styles here. Tackle that when we have bandwidth to VQA lots of links.
+    className: classNames(rest.className, s.root),
   }
 
   if (!href) {
@@ -34,12 +34,9 @@ const DocsAnchor = ({
   // Render inline link if it's for sure a string and not a heading permalink
   if (typeof children === 'string' && children !== '»') {
     return (
-      <InlineLink
-        href={adjustedHref}
-        text={children}
-        textSize={300}
-        textWeight="medium"
-      />
+      <InlineLink href={adjustedHref} textWeight="medium">
+        {children}
+      </InlineLink>
     )
   }
 

@@ -1,3 +1,7 @@
+import { ForwardedRef } from 'react'
+
+type DisclosureActivatorForwardedRef = ForwardedRef<HTMLButtonElement>
+
 type NativeButtonProps = JSX.IntrinsicElements['button']
 
 interface DisclosureActivatorProps {
@@ -20,4 +24,4 @@ interface DisclosureActivatorProps {
   className?: NativeButtonProps['className']
 }
 
-export type { DisclosureActivatorProps }
+export type { DisclosureActivatorForwardedRef, DisclosureActivatorProps }

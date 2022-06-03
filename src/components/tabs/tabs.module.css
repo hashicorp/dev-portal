@@ -29,3 +29,14 @@ ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
     visibility: hidden;
   }
 }
+
+/*
+For showing a focus ring with a border radius when navigating via keyboard.
+*/
+.tabPanel {
+  composes: g-focus-ring-from-box-shadow from global;
+
+  &:focus-visible {
+    border-radius: 5px;
+  }
+}

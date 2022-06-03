@@ -1,3 +1,4 @@
+import moize, { Options } from 'moize'
 import {
   Collection as ClientCollection,
   ProductOption,
@@ -25,6 +26,13 @@ interface CurrentCollectionTutorial {
   }
 }
 
+const moizeOpts: Options = {
+  isPromise: true,
+  maxSize: Infinity,
+}
+// Memoizing because tutorials in the same collection have identical return data
+const cachedGetCollection = moize(getCollection, moizeOpts)
+
 export async function getCurrentCollectionTutorial(
   productSlug: ProductOption,
   tutorialSlug: [string, string]
@@ -36,7 +44,7 @@ export async function getCurrentCollectionTutorial(
    * */
   const [collectionFilename, tutorialFilename] = tutorialSlug
   const collectionDbSlug = `${productSlug}/${collectionFilename}`
-  const collection = await getCollection(collectionDbSlug)
+  const collection = await cachedGetCollection(collectionDbSlug)
   /**
    * This type is only `TutorialLite` which doesn't have the tutorial content
    * so we only need the slug to make another request to get the full tutorial data in server.ts

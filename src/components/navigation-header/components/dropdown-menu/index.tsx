@@ -1,10 +1,19 @@
 // Third-party imports
-import { Fragment, KeyboardEvent, ReactElement, useRef, useState } from 'react'
+import {
+  Fragment,
+  KeyboardEvent,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
 
 // HashiCorp imports
+import { IconBox16 } from '@hashicorp/flight-icons/svg-react/box-16'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
@@ -27,7 +36,6 @@ import {
 
 // Local imports
 import s from './dropdown-menu.module.css'
-import { IconBox16 } from '@hashicorp/flight-icons/svg-react/box-16'
 
 /**
  * The icons supported in this menu in addition to the Product logo icons.
@@ -43,6 +51,8 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
 /**
  * A dropdown navigation menu consisiting of an activator button and a dropdown
  * containing groups of menu item links.
+ *
+ * @TODO leverage NavigationDisclosure component
  */
 const NavigationHeaderDropdownMenu = ({
   ariaLabel,
@@ -52,6 +62,7 @@ const NavigationHeaderDropdownMenu = ({
   label,
   leadingIcon,
 }: NavigationHeaderDropdownMenuProps) => {
+  const router = useRouter()
   const uniqueId = useId()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const menuRef = useRef<HTMLDivElement>()
@@ -73,6 +84,25 @@ const NavigationHeaderDropdownMenu = ({
       '`NavigationHeaderDropdownMenu` needs either the `label` or `leadingIcon` prop.'
     )
   }
+
+  // if the disclosure is open, handle closing it on `routeChangeStart`
+  useEffect(() => {
+    if (!isOpen) {
+      return
+    }
+
+    const handleRouteChangeStart = () => {
+      setIsOpen(false)
+    }
+
+    router.events.on('routeChangeStart', handleRouteChangeStart)
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChangeStart)
+    }
+    // Only need to base this on `isOpen`
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen])
 
   // Check for an accesible label if there is a leading icon
   const accessibleLabel = ariaLabel || label

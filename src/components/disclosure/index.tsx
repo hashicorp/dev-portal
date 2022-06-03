@@ -4,16 +4,22 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import { useId } from '@react-aria/utils'
 
+// Global imports
+import useOnClickOutside from 'hooks/use-on-click-outside'
+import useOnFocusOutside from 'hooks/use-on-focus-outside'
+
 // Local imports
 import { DisclosureContextState, DisclosureProps } from './types'
 import {
   DisclosureActivator,
+  DisclosureActivatorForwardedRef,
   DisclosureActivatorProps,
   DisclosureContent,
   DisclosureContentProps,
@@ -57,6 +63,8 @@ const useDisclosureState = (): DisclosureContextState => {
  */
 const Disclosure = ({
   children,
+  closeOnClickOutside = false,
+  closeOnFocusOutside = false,
   containerClassName,
   initialOpen = false,
 }: DisclosureProps) => {
@@ -65,6 +73,7 @@ const Disclosure = ({
 
   // continue rendering the component if `children` are valid
   const router = useRouter()
+  const disclosureRef = useRef<HTMLDivElement>()
   const [isOpen, setIsOpen] = useState<boolean>(initialOpen)
   const uniqueId = `disclosure-${useId()}`
   const contentContainerId = `${uniqueId}-content`
@@ -95,7 +104,7 @@ const Disclosure = ({
     }
 
     const handleRouteChangeStart = () => {
-      closeDisclosure
+      closeDisclosure()
     }
 
     router.events.on('routeChangeStart', handleRouteChangeStart)
@@ -107,13 +116,27 @@ const Disclosure = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
 
-  // build the className prop passed the `children` container
-  let containerClasses
-  if (typeof containerClassName === 'function') {
-    containerClasses = classNames(s.root, containerClassName(isOpen))
-  } else {
-    containerClasses = s.root
-  }
+  // if enabled, close the disclosure on click outside
+  useOnClickOutside(
+    [disclosureRef],
+    closeDisclosure,
+    closeOnClickOutside && isOpen
+  )
+
+  // if enabled, close the disclosure on focus outside
+  useOnFocusOutside(
+    [disclosureRef],
+    closeDisclosure,
+    closeOnFocusOutside && isOpen
+  )
+
+  // build the className prop to pass the `children` container
+  const containerClasses = classNames(
+    s.root,
+    typeof containerClassName === 'function'
+      ? containerClassName(isOpen)
+      : containerClassName
+  )
 
   const providerState: DisclosureContextState = {
     closeDisclosure,
@@ -126,12 +149,15 @@ const Disclosure = ({
 
   return (
     <DisclosureContext.Provider value={providerState}>
-      <div className={containerClasses}>{children}</div>
+      <div className={containerClasses} ref={disclosureRef}>
+        {children}
+      </div>
     </DisclosureContext.Provider>
   )
 }
 
 export type {
+  DisclosureActivatorForwardedRef,
   DisclosureActivatorProps,
   DisclosureContentProps,
   DisclosureProps,

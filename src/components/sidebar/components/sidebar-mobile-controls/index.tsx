@@ -1,6 +1,6 @@
+import classNames from 'classnames'
 import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
-import { useCurrentProduct } from 'contexts'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import Button, { ButtonProps } from 'components/button'
 import s from './sidebar-mobile-controls.module.css'
@@ -109,8 +109,9 @@ const SidebarMobileControls = ({
     )
   }
 
+  const atTopLevel = !levelUpButton && !!levelDownButton
   return (
-    <div className={s.root}>
+    <div className={classNames(s.root, { [s.rightAlign]: atTopLevel })}>
       {levelUpButton}
       {levelDownButton}
     </div>

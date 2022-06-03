@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { canTrackAnalytics } from 'lib/analytics'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
-import { PLATFORM_OPTIONS } from 'components/opt-in-out'
+import { PLATFORM_OPTIONS } from 'components/opt-in-out/helpers'
 
 /**
  * This hook sends a track event when the opt in cookie for a certain

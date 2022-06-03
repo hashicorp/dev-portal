@@ -9,6 +9,9 @@
 .root {
   composes: hds-typography-body-300 from global;
 
+  --permalink-scroll-offset: 24px;
+  --height: calc(var(--sticky-bars-height) + var(--permalink-scroll-offset));
+
   & :global {
     & a.__permalink-h {
       display: none;
@@ -26,7 +29,6 @@
         background-color: white;
         border: 1px solid #cce3fe;
         border-radius: 5px;
-        color: inherit;
       }
 
       & p {
@@ -47,12 +49,6 @@
   & h4,
   & h5,
   & h6 {
-    --permalink-scroll-offset: 24px;
-    --full-header-height: calc(
-      var(--navigation-header-height) + var(--alert-bar-height)
-    );
-    --height: calc(var(--full-header-height) + var(--permalink-scroll-offset));
-
     /*
     Because not all jump link headings have an anchor child, such as the ones on
     the product landing pages
@@ -64,24 +60,10 @@
     }
   }
 
-  & ul,
-  & ol {
-    margin: 24px 0;
-    padding-left: 24px;
-
-    & li {
-      color: var(--token-color-foreground-primary);
-
-      &:not(:last-child) {
-        margin-bottom: 16px;
-      }
-
-      & ul,
-      & ol {
-        margin: 16px 0;
-      }
-    }
-  }
+  /**
+   * Note: <ol />, <ul />, & <li /> styles have been moved to
+   * ./mdx-components/list-ol-ul.
+   */
 
   /* inline code elements */
   & code {
@@ -168,6 +150,14 @@
     & tr.warning td {
       background: #fcf8e3;
     }
+  }
+
+  & blockquote {
+    margin: 32px 0;
+    padding-left: 14px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-left: 2px solid var(--token-color-border-primary);
   }
 }
 
