@@ -59,11 +59,10 @@ export default function defaultMdxComponents({ additionalComponents = {} }) {
  */
 export function makeHeadingElement(level, props) {
   const customProps = HEADING_LEVELS_TO_PROPS[level]
-  const className = classNames(props.className, devDotStyles[`h${level}`])
   const passableProps = {
     ...customProps,
     ...props,
-    className,
+    className: devDotStyles[`h${level}`],
     level,
   }
 
