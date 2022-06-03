@@ -21,7 +21,7 @@ function GiveFeedbackButton(): ReactElement {
           <IconMessageSquareFill24 />
         </a>
       </span>
-      <span className={s.textButtonContainers}>
+      <span className={s.textButtonContainer}>
         <ButtonLink
           openInNewTab={true}
           href={FORM_URL}
