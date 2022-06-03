@@ -16,6 +16,7 @@ const StandaloneLink = ({
   openInNewTab = false,
   size = 'medium',
   text,
+  textClassName,
 }: StandaloneLinkProps): ReactElement => {
   const classes = classNames(s.root, s[`color-${color}`], s[size], className)
 
@@ -30,7 +31,7 @@ const StandaloneLink = ({
       target={openInNewTab ? '_blank' : '_self'}
     >
       {iconPosition === 'leading' && icon}
-      <span className={s.text}>{text}</span>
+      <span className={classNames(s.text, textClassName)}>{text}</span>
       {iconPosition === 'trailing' && icon}
     </MaybeInternalLink>
   )
