@@ -15,9 +15,9 @@ function GiveFeedbackButton(): ReactElement {
     return (
       <a
         href={FORM_URL}
-        target="_blank"
         aria-label="Give beta feedback"
         className={classNames(s.iconButton, s.primary)}
+        target="_blank"
         rel="noreferrer"
       >
         <IconMessageSquareFill24 />
@@ -26,7 +26,7 @@ function GiveFeedbackButton(): ReactElement {
   } else {
     return (
       <ButtonLink
-        target="_blank"
+        openInNewTab={true}
         href={FORM_URL}
         text="Give beta feedback"
         icon={<IconExternalLink16 />}

@@ -18,7 +18,7 @@ interface ButtonLinkProps
     'color' | 'size' | 'text' | 'ariaLabel' | 'icon' | 'iconPosition'
   > {
   href: string
-  target?: NativeLinkProps['target']
+  openInNewTab?: boolean
 }
 
 export default function ButtonLink({
@@ -29,6 +29,7 @@ export default function ButtonLink({
   ariaLabel,
   icon,
   iconPosition = 'leading',
+  openInNewTab = false,
 }: ButtonLinkProps) {
   const hasIcon = !!icon
   const hasText = !!text
@@ -54,6 +55,8 @@ export default function ButtonLink({
       <a
         className={classNames(s.root, s[size], s[color])}
         aria-label={ariaLabel}
+        rel={openInNewTab ? 'noreferrer noopener' : undefined}
+        target={openInNewTab ? '_blank' : '_self'}
       >
         {hasLeadingIcon && icon}
         {hasText ? text : null}
