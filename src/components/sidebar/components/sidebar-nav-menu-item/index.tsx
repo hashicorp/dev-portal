@@ -135,7 +135,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
       {isOpen && (
         <ul id={item.id} onKeyDown={handleKeyDown}>
           {item.routes.map((route: MenuItem) => (
-            <SidebarNavMenuItem key={item.id} item={route} />
+            <SidebarNavMenuItem key={route.id} item={route} />
           ))}
         </ul>
       )}
