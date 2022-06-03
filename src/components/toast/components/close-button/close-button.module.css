@@ -44,6 +44,6 @@
   &:active {
     --background-color: var(--token-color-palette-alpha-100);
     --border-color: var(--token-color-border-strong);
-    --color: var(--token-color-foreground-secondary);
+    --color: var(--token-color-foreground-faint);
   }
 }
