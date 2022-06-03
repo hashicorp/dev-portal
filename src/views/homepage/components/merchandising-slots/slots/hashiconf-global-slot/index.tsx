@@ -6,7 +6,11 @@ import s from './hashiconf-global-slot.module.css'
 
 function HashiConfGlobalSlot() {
   return (
-    <CardLink href="/" className={s.root}>
+    <CardLink
+      href="https://hashiconf.com/global/"
+      className={s.root}
+      target="_blank"
+    >
       <VisuallyHidden as="h2">HashiConf Global</VisuallyHidden>
       <Image
         src="/img/homepage/hashiconf-global-logo.svg"
