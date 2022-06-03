@@ -17,11 +17,8 @@ const getFullNavHeaderHeight = () => {
     '--navigation-header-height',
     { asNumber: true }
   ) as number
-  const alertBarHeight = getCSSVariableFromDocument('--alert-bar-height', {
-    asNumber: true,
-  }) as number
 
-  return navigationHeaderHeight + alertBarHeight
+  return navigationHeaderHeight
 }
 
 /**
