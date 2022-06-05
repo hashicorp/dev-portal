@@ -16,6 +16,7 @@ const devDotConsentManagerServices: ConsentManagerService[] = [
     description:
       'Datadog is an observability service. We use it to identify and fix issues with our client-side user experience.',
     category: 'Analytics',
+    async: true,
     /**
      * Note: `body` is from:
      * https://docs.datadoghq.com/real_user_monitoring/browser/#cdn-async
