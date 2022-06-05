@@ -1,5 +1,6 @@
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
+import { devDotConsentManagerServices } from 'lib/consent-manager-services/dev-dot'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
@@ -13,6 +14,7 @@ interface BaseNewLayoutProps {
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
+  otherServices: [...devDotConsentManagerServices],
 })
 
 const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
