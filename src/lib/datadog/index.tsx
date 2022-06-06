@@ -19,7 +19,7 @@ function DatadogHeadTags() {
   return (
     <>
       <link rel="prefetch" href={DATADOG_SCRIPT_URL} />
-      <Script id="Datadog" strategy="afterInteractive">
+      <Script id="Datadog" strategy="beforeInteractive">
         {`(function(h,o,u,n,d) {
    h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
    d=o.createElement(u);d.async=1;d.src=n

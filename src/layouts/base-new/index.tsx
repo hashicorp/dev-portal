@@ -1,7 +1,5 @@
-import Head from 'next/head'
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
-import { DatadogHeadTags } from 'lib/datadog'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
@@ -29,9 +27,6 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
 
   return (
     <>
-      <Head>
-        <DatadogHeadTags />
-      </Head>
       <CoreDevDotLayout>
         <div className={s.root} data-layout="base-new">
           <div className={s.header}>

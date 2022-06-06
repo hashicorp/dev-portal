@@ -1,3 +1,4 @@
+import { DatadogHeadTags } from 'lib/datadog'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import HashiHead from '@hashicorp/react-head'
 
@@ -12,6 +13,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <HashiHead />
+          <DatadogHeadTags />
         </Head>
         <body>
           <Main />
