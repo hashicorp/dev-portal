@@ -54,6 +54,13 @@
   &:hover {
     background-color: var(--token-color-palette-neutral-100);
   }
+
+  /*
+  Override default <code /> monospace font, per design specs
+  */
+  & code {
+    font-family: var(--font-body);
+  }
 }
 
 .navMenuItemLabel {
