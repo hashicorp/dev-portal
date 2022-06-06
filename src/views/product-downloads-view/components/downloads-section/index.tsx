@@ -1,5 +1,5 @@
 // Third-party imports
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'
 
 // HashiCorp imports
@@ -21,6 +21,10 @@ import MobileStandaloneLink from 'components/mobile-standalone-link'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import VersionContextSwitcher from 'components/version-context-switcher'
+
+import { toast, ToastColor } from 'components/toast'
+import StandaloneLink from 'components/standalone-link'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 
 // Local imports
 import { DownloadsSectionProps } from './types'
@@ -60,6 +64,22 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
           code={generateCodePropFromCommands(packageManagers[0].commands)}
           language="shell-session"
           options={{ showClipboard: true }}
+          onCopyCallBack={() => {
+            toast({
+              autoDismiss: 30000,
+              color: ToastColor.success,
+              title: 'Success!',
+              description: 'Get started with an install guide in documentation',
+              renderActions: () => (
+                <StandaloneLink
+                  href="/waypoint/docs/getting-started"
+                  icon={<IconArrowRight16 />}
+                  iconPosition="trailing"
+                  text="Read install guide"
+                />
+              ),
+            })
+          }}
         />
       )}
       {hasManyPackageManagers && (
