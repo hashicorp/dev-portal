@@ -65,6 +65,10 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
     })
   }, [])
 
+  const inputProps = autocomplete.getInputProps({
+    inputElement: inputRef.current,
+  })
+
   /**
    * Clear the query input on route change
    */
@@ -131,7 +135,11 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
         <input
           className={s.input}
           ref={inputRef}
-          {...autocomplete.getInputProps({ inputElement: inputRef.current })}
+          {...inputProps}
+          onBlur={() => {
+            autocomplete.setIsOpen(false)
+            inputProps.onBlur()
+          }}
         />
         <div className={s.inputWrapperSuffix}>
           <button
