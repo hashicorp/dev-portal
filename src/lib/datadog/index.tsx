@@ -12,9 +12,9 @@ const ENV = process.env.HASHI_ENV || 'development'
  */
 const DATADOG_SCRIPT_URL =
   'https://www.datadoghq-browser-agent.com/datadog-rum-v4.js'
-const DATADOG_CLIENT_TOKEN = 'TODO-need-access-to-datadog'
-const DATADOG_APP_ID = 'TODO-need-access-to-datadog'
-const DATADOG_SITE = 'TODO-need-access-to-datadog'
+const DATADOG_CLIENT_TOKEN = 'pub750ceadc5a9c79a6d3da59b534eb5108'
+const DATADOG_APP_ID = '4486817b-44b8-4e6c-b6a4-cef83e48cf46'
+const DATADOG_SITE = 'hashicorp.datadoghq.com'
 
 const dataDogService: ConsentManagerService = {
   name: 'DataDog',
