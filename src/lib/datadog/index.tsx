@@ -4,6 +4,9 @@ import Script from 'next/script'
  * Env used for configuration
  */
 const COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
+/**
+ * TODO: distinguish development environments by machine?
+ */
 const ENV = process.env.HASHI_ENV || 'development'
 
 /**
