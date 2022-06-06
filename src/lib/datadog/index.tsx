@@ -12,14 +12,13 @@ const ENV = process.env.HASHI_ENV || 'development'
 /**
  * Constants used for configuration
  */
-const DATADOG_SCRIPT_URL = __config.dev_dot.datadog_script_url
 const DATADOG_CONFIG = __config.dev_dot.datadog_config
 
 const datadogScriptBody = `(function(h,o,u,n,d) {
   h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
   d=o.createElement(u);d.async=1;d.src=n
   n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
-})(window,document,'script','${DATADOG_SCRIPT_URL}','DD_RUM')
+})(window,document,'script','${DATADOG_CONFIG.scriptUrl}','DD_RUM')
  DD_RUM.onReady(function() {
    DD_RUM.init({
      clientToken: '${DATADOG_CONFIG.clientToken}',
@@ -37,7 +36,7 @@ const datadogScriptBody = `(function(h,o,u,n,d) {
  })`
 
 function DatadogHeadTag() {
-  return <link rel="prefetch" href={DATADOG_SCRIPT_URL} />
+  return <link rel="prefetch" href={DATADOG_CONFIG.scriptUrl} />
 }
 
 function DatadogScriptTag() {

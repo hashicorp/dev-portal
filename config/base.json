@@ -12,8 +12,8 @@
     "revalidate": 360,
     "content_preview_branch": "dev-portal",
     "beta_product_slugs": ["waypoint", "vault"],
-    "datadog_script_url": "https://www.datadoghq-browser-agent.com/datadog-rum-v4.js",
     "datadog_config": {
+      "scriptUrl": "https://www.datadoghq-browser-agent.com/datadog-rum-v4.js",
       "applicationId": "40a2019f-88ad-4076-ab52-ffd074064eed",
       "clientToken": "pubd5cf774aa1cbbd001accd50cb463925b",
       "service": "non-prod.developer.hashicorp.com"
