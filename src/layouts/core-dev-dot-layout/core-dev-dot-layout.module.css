@@ -5,7 +5,7 @@
   /* Note: "right" value is not used in multiple stylesheets,
      so is declared in sidebar-sidecar-layout.module.css */
   --main-area-padding-left: 24px;
-  @media (--dev-dot-desktop) {
+  @media (--dev-dot-sidecar-up) {
     --main-area-padding-left: 48px;
   }
 
