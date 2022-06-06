@@ -1,12 +1,20 @@
 import Script from 'next/script'
 import { ConsentManagerService } from '@hashicorp/react-consent-manager/types'
 
+/**
+ * Env used for configuration
+ */
+const COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
+const ENV = process.env.HASHI_ENV || 'development'
+
+/**
+ * Constants used for configuration
+ */
 const DATADOG_SCRIPT_URL =
   'https://www.datadoghq-browser-agent.com/datadog-rum-v4.js'
 const DATADOG_CLIENT_TOKEN = 'TODO-need-access-to-datadog'
 const DATADOG_APP_ID = 'TODO-need-access-to-datadog'
 const DATADOG_SITE = 'TODO-need-access-to-datadog'
-const ENV = process.env.HASHI_ENV || 'development'
 
 const dataDogService: ConsentManagerService = {
   name: 'DataDog',
@@ -29,6 +37,7 @@ const dataDogService: ConsentManagerService = {
       applicationId: '${DATADOG_APP_ID}',
       site: '${DATADOG_SITE}',
       env: '${ENV}', 
+      version: '${COMMIT_SHA}',
       trackInteractions: false,
     })
   })`,
