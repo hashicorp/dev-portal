@@ -1,7 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import HashiHead from '@hashicorp/react-head'
-// import Script from 'next/script'
-// import { datadogScriptBody } from 'lib/datadog'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -18,13 +16,6 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          {/* <Script
-            id="datadog-script-id"
-            strategy="beforeInteractive"
-            dangerouslySetInnerHTML={{
-              __html: datadogScriptBody,
-            }}
-          /> */}
           <script
             noModule
             dangerouslySetInnerHTML={{
