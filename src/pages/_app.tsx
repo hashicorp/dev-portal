@@ -13,7 +13,6 @@ import {
   DeviceSizeProvider,
 } from 'contexts'
 import BaseLayout from 'layouts/base'
-import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
@@ -58,7 +57,6 @@ export default function App({ Component, pageProps, layoutProps }) {
           name="google-site-verification"
           content="zRQZqfAsOX-ypXfU0mzAIzb5rUvj5fA4Zw2jWJRN-JI"
         />
-        <DatadogHeadTag />
       </Head>
       <SSRProvider>
         <ErrorBoundary FallbackComponent={Error}>
@@ -77,7 +75,6 @@ export default function App({ Component, pageProps, layoutProps }) {
           </DeviceSizeProvider>
         </ErrorBoundary>
       </SSRProvider>
-      <DatadogScriptTag />
     </>
   )
 }
