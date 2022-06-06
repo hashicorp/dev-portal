@@ -29,7 +29,7 @@ const datadogScriptBody = `(function(h,o,u,n,d) {
      ${COMMIT_SHA ? `version: '${COMMIT_SHA}',` : ''}
      sampleRate: 100,
      premiumSampleRate: 100,
-     trackInteractions: false,
+     trackInteractions: true,
      defaultPrivacyLevel: 'mask-user-input'
    })
    DD_RUM.startSessionReplayRecording()
