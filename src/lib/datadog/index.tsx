@@ -13,7 +13,7 @@ const DATADOG_SCRIPT_URL =
   'https://www.datadoghq-browser-agent.com/datadog-rum-v4.js'
 const DATADOG_CLIENT_TOKEN = 'pub750ceadc5a9c79a6d3da59b534eb5108'
 const DATADOG_APP_ID = '4486817b-44b8-4e6c-b6a4-cef83e48cf46'
-const DATADOG_SITE = 'hashicorp.datadoghq.com'
+const DATADOG_SERVICE = 'developer.hashicorp.com'
 
 function DatadogHeadTags() {
   return (
@@ -29,11 +29,14 @@ function DatadogHeadTags() {
     DD_RUM.init({
       clientToken: '${DATADOG_CLIENT_TOKEN}',
       applicationId: '${DATADOG_APP_ID}',
-      site: '${DATADOG_SITE}',
+      site: 'datadoghq.com',
+      service: '${DATADOG_SERVICE}',
       env: '${ENV}', 
-      sampleRate: 100,
       version: '${COMMIT_SHA}',
+      sampleRate: 100,
+      premiumSampleRate: 100,
       trackInteractions: false,
+      defaultPrivacyLevel:'mask-user-input'
     })
   })`}
       </Script>
