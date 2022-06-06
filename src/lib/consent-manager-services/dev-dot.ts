@@ -20,14 +20,6 @@ const devDotConsentManagerServices: ConsentManagerService[] = [
     /**
      * Note: `body` is from:
      * https://docs.datadoghq.com/real_user_monitoring/browser/#cdn-async
-     *
-     * Note on trackInteractions: according to DataDog (at link above):
-     * "The trackInteractions parameter enables the automatic collection of
-     * user clicks in your application. Sensitive and private data contained
-     * on your pages may be included to identify the elements interacted with."
-     * Given this, I've set to "false" for now. I don't believe there is any
-     * sensitive or private data within the dev-portal experience at this time,
-     * but want to double-check on that.
      */
     body: `(function(h,o,u,n,d) {
    h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
