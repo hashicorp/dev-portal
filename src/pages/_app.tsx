@@ -3,8 +3,8 @@ import dynamic from 'next/dynamic'
 import { Toaster } from 'components/toast'
 import Head from 'next/head'
 import { SSRProvider } from '@react-aria/ssr'
+import { ErrorBoundary } from 'react-error-boundary'
 import '@hashicorp/platform-util/nprogress/style.css'
-import { ErrorBoundary } from '@hashicorp/platform-runtime-error-monitoring'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 import {
@@ -17,6 +17,7 @@ import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
+import { DevDotFallback } from 'views/error-views'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -59,7 +60,9 @@ export default function App({ Component, pageProps, layoutProps }) {
         />
       </Head>
       <SSRProvider>
-        <ErrorBoundary FallbackComponent={Error}>
+        <ErrorBoundary
+          FallbackComponent={() => <DevDotFallback statusCode={500} />}
+        >
           <DeviceSizeProvider>
             <AllProductDataProvider>
               <CurrentProductProvider currentProduct={currentProduct}>
