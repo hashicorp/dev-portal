@@ -1,3 +1,4 @@
+import { Products } from '@hashicorp/platform-product-meta'
 import VagrantIoLayout from 'layouts/_proxied-dot-io/vagrant'
 import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import productData from 'data/vagrant.json'
@@ -5,7 +6,7 @@ import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 
-const product = { name: productData.name, slug: productData.slug }
+const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'vmware'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`

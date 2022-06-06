@@ -53,6 +53,7 @@
   align-items: center;
   display: flex;
   justify-content: right;
+  gap: 16px;
 }
 
 /*
@@ -68,11 +69,14 @@
   align-items: center;
   display: flex;
   justify-content: left;
-  width: calc(
-    var(--dev-dot-sidebar-width) + var(--main-area-padding-left) -
-      var(--header-padding-left-right) -
-      var(--header-dropdown-menu-padding-left-right)
-  );
+
+  @media (--dev-dot-desktop) {
+    width: calc(
+      var(--dev-dot-sidebar-width) + var(--main-area-padding-left) -
+        var(--header-padding-left-right) -
+        var(--header-dropdown-menu-padding-left-right)
+    );
+  }
 }
 
 .navList {

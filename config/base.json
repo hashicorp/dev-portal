@@ -5,9 +5,9 @@
   },
   "dev_dot": {
     "analytics": {
-      "included_domains": "developer.hashi-mktg.com"
+      "included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
     },
-    "canonical_base_url": "https://developer.hashi-mktg.com",
+    "canonical_base_url": "https://developer.hashicorp.com",
     "max_static_paths": 10,
     "revalidate": 360,
     "content_preview_branch": "dev-portal",
@@ -17,6 +17,7 @@
     "max_static_paths": 10
   },
   "flags": {
-    "enable_product_docs_search": true
+    "enable_product_docs_search": true,
+    "enable_io_beta_cta": true
   }
 }

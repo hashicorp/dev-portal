@@ -1,3 +1,4 @@
+import { Products } from '@hashicorp/platform-product-meta'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import Columns from 'components/_proxied-dot-io/vault/columns'
 import Tag from 'components/_proxied-dot-io/vault/inline-tag'
@@ -8,7 +9,7 @@ import { isVersionedDocsEnabled } from 'lib/env-checks'
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
 
-const product = { name: productData.name, slug: productData.slug }
+const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'docs'
 const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`

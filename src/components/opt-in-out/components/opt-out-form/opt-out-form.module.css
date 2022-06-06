@@ -8,7 +8,7 @@
 
 .exitIcon {
   grid-area: icon;
-  color: var(--token-color-neutral-foreground-faint);
+  color: var(--token-color-foreground-faint);
   margin: 4px 2px;
   appearance: none;
   background: unset;
@@ -60,7 +60,7 @@
   background: url('~@hashicorp/flight-icons/svg/chevron-down-16.svg') no-repeat;
   background-position: calc(100% - 15px) center;
   background-color: var(--token-color-surface-faint);
-  border: 1px solid var(--token-color-neutral-border-strong);
+  border: 1px solid var(--token-color-border-strong);
   border-radius: 5px;
   padding: 10px 16px;
 

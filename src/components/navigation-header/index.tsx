@@ -1,22 +1,25 @@
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
-import useCurrentPath from 'hooks/use-current-path'
-import { useDeviceSize } from 'contexts'
+import { useCurrentProduct, useDeviceSize } from 'contexts'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import { NavigationHeaderItem } from './types'
-import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
+import {
+  GiveFeedbackButton,
+  HomePageHeaderContent,
+  ProductPageHeaderContent,
+} from './components'
 import s from './navigation-header.module.css'
 
 /**
  * The header content displayed to the far right of the window. This content is
  * the same for every page in the app.
  */
-const RightSideHeaderContent = () => {
+const SidebarMenuButton = () => {
   const { sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
   const ariaLabel = `${sidebarIsOpen ? 'Close' : 'Open'} navigation menu`
 
   return (
-    <div className={s.rightSide}>
+    <>
       <button
         aria-label={ariaLabel}
         className={s.mobileMenuButton}
@@ -24,7 +27,7 @@ const RightSideHeaderContent = () => {
       >
         {sidebarIsOpen ? <IconX24 /> : <IconMenu24 />}
       </button>
-    </div>
+    </>
   )
 }
 
@@ -35,17 +38,21 @@ const RightSideHeaderContent = () => {
  */
 const NavigationHeader = () => {
   const { isDesktop } = useDeviceSize()
-  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-  const LeftSideHeaderContent =
-    currentPath === '/' ? HomePageHeaderContent : ProductPageHeaderContent
+  const currentProduct = useCurrentProduct()
+  const LeftSideHeaderContent = currentProduct
+    ? ProductPageHeaderContent
+    : HomePageHeaderContent
 
   // TODO: menu for the home page, which does not use SidebarSidecarLayout
-  const shouldShowRightSide = !isDesktop && currentPath !== '/'
+  const shouldShowMenuButton = !isDesktop && currentProduct
 
   return (
     <header className={s.root}>
       <LeftSideHeaderContent />
-      {shouldShowRightSide && <RightSideHeaderContent />}
+      <div className={s.rightSide}>
+        <GiveFeedbackButton />
+        {shouldShowMenuButton && <SidebarMenuButton />}
+      </div>
     </header>
   )
 }

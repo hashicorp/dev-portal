@@ -2,21 +2,20 @@
 
 NOTE:
 
---navigation-header-height and --alert-bar-height are currently magicky numbers.
+--navigation-header-height is currently a magicky numbers.
 These are necessary for correct positioning in SidebarSidecarLayout.
 
 These values could change based on user preferences for font-size or zoom,
 but we won't know, and our design will break.
 
-To mitigate this, we observe the height of the .header element in this layout,
-and set --sticky-bars-height to match. This would eliminate the need
-for both --navigation-header-height and --alert-bar-height.
-     
+We may be able to mitigate this by refactoring --navigation-header-height
+to be in `rem`, and then setting that value as the explicit CSS height
+in the navigation bar component (with overflow visible perhaps).
+
+Asana task: https://app.asana.com/0/1202114367927919/1202316169578550/f
 */
 .root {
-  --sticky-bars-height: calc(
-    var(--navigation-header-height) + var(--alert-bar-height)
-  );
+  --sticky-bars-height: var(--navigation-header-height);
 
   display: flex;
   flex-direction: column;

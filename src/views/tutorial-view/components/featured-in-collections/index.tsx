@@ -3,6 +3,7 @@ import CollectionCard, {
 } from 'components/collection-card'
 import { FeaturedInCollectionsProps } from './types'
 import s from './featured-in-collections.module.css'
+import CardsGridList from 'components/cards-grid-list'
 
 // This should render the eventual `CollectionCard` component (doesn't exist yet)
 // which will be used on many other views
@@ -17,24 +18,18 @@ export function FeaturedInCollections({
   return (
     <div className={className}>
       <h2 className={s.heading}>This tutorial also appears in:</h2>
-      <ul className={s.listRoot}>
-        {collections.map((collection: CollectionCardPropsWithId) => {
-          const { description, heading, id, productsUsed, tutorialCount, url } =
-            collection
-
-          return (
-            <li key={id} className={s.listItem}>
-              <CollectionCard
-                description={description}
-                heading={heading}
-                productsUsed={productsUsed}
-                tutorialCount={tutorialCount}
-                url={url}
-              />
-            </li>
-          )
-        })}
-      </ul>
+      <div className={s.cards}>
+        <CardsGridList fixedColumns={collections.length == 1 ? 2 : null}>
+          {collections.map((collection: CollectionCardPropsWithId) => {
+            const { id, ...cardProps } = collection
+            return (
+              <li key={id} className={s.listItem}>
+                <CollectionCard {...cardProps} />
+              </li>
+            )
+          })}
+        </CardsGridList>
+      </div>
     </div>
   )
 }

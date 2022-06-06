@@ -70,6 +70,19 @@ const safeAnalyticsTrack = (
   }
 }
 
+export function safeGetSegmentId(): string | null {
+  if (
+    typeof window !== undefined &&
+    window.analytics &&
+    window.analytics.user &&
+    typeof window.analytics.user === 'function'
+  ) {
+    return window.analytics.user().anonymousId()
+  } else {
+    return null
+  }
+}
+
 /**
  * Handles tracking the Download event in the same format it was tracked
  * previously on .io sites (excluding the `category` and `label` properties).

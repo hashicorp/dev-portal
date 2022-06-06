@@ -1,22 +1,7 @@
-## ✅ "Ready for Review" checklist
-
-<!--
-Check these items off in the GitHub PR UI as you complete them. If one of these items is not relevant to your PR, e.g. you do not have Asana ticket to go with them, you can remove them from the list.
--->
-
-- [ ] The Vercel preview link has been added to this PR's description
-- [ ] The Asana task has been added to this PR's description
-- [ ] This PR's link has been added to the "📐 Pull Request" field on the Asana task
-- [ ] This Vercel preview link has been added to the "🔍 Preview" field on the Asana task
-- [ ] The description template has been filled in below
-
----
-
 ## 🔗 Relevant links
 
 <!--
 Include links to the branch preview, Asana task, and Figma designs wherever possible to make reviewing your PR easier.
-
 When including the preview link, make sure to remove any '.' characters from the branch name:
   - Example: ks.my-branch -> ksmy-branch
 -->
