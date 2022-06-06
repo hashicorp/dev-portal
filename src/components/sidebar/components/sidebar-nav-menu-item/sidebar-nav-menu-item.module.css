@@ -56,7 +56,8 @@
   }
 
   /*
-  Override default <code /> monospace font, per design specs
+  Override mktg-global-styles default <code /> monospace font, per design specs
+  https://github.com/hashicorp/mktg-global-styles/blob/5fbaecb1a6032e68713d1660937ab35de90eae65/global.css#L43
   */
   & code {
     font-family: var(--font-body);
