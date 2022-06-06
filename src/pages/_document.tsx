@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <HashiHead />
-          <DatadogHeadTags />
+          {__config.flags.enable_datadog ? <DatadogHeadTags /> : null}
         </Head>
         <body>
           <Main />
