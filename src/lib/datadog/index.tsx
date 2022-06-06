@@ -38,6 +38,7 @@ function DatadogHeadTags() {
       trackInteractions: false,
       defaultPrivacyLevel:'mask-user-input'
     })
+    DD_RUM.startSessionReplayRecording()
   })`}
       </Script>
     </>
