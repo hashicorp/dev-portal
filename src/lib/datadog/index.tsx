@@ -37,6 +37,7 @@ const dataDogService: ConsentManagerService = {
       applicationId: '${DATADOG_APP_ID}',
       site: '${DATADOG_SITE}',
       env: '${ENV}', 
+      sampleRate: 10,
       version: '${COMMIT_SHA}',
       trackInteractions: false,
     })
