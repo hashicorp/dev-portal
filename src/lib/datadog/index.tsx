@@ -12,11 +12,8 @@ const ENV = process.env.HASHI_ENV || 'development'
 /**
  * Constants used for configuration
  */
-const DATADOG_SCRIPT_URL =
-  'https://www.datadoghq-browser-agent.com/datadog-rum-v4.js'
-const DATADOG_CLIENT_TOKEN = 'pub750ceadc5a9c79a6d3da59b534eb5108'
-const DATADOG_APP_ID = '4486817b-44b8-4e6c-b6a4-cef83e48cf46'
-const DATADOG_SERVICE = 'developer.hashicorp.com'
+const DATADOG_SCRIPT_URL = __config.dev_dot.datadog_script_url
+const DATADOG_CONFIG = __config.dev_dot.datadog_config
 
 const datadogScriptBody = `(function(h,o,u,n,d) {
   h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
@@ -25,10 +22,10 @@ const datadogScriptBody = `(function(h,o,u,n,d) {
 })(window,document,'script','${DATADOG_SCRIPT_URL}','DD_RUM')
  DD_RUM.onReady(function() {
    DD_RUM.init({
-     clientToken: '${DATADOG_CLIENT_TOKEN}',
-     applicationId: '${DATADOG_APP_ID}',
+     clientToken: '${DATADOG_CONFIG.clientToken}',
+     applicationId: '${DATADOG_CONFIG.applicationId}',
      site: 'datadoghq.com',
-     service: '${DATADOG_SERVICE}',
+     service: '${DATADOG_CONFIG.service}',
      env: '${ENV}', 
      ${COMMIT_SHA ? `version: '${COMMIT_SHA}',` : ''}
      sampleRate: 100,
@@ -42,6 +39,7 @@ const datadogScriptBody = `(function(h,o,u,n,d) {
 function DatadogHeadTag() {
   return <link rel="prefetch" href={DATADOG_SCRIPT_URL} />
 }
+
 function DatadogScriptTag() {
   return (
     <Script
