@@ -1,3 +1,4 @@
+import Script from 'next/script'
 import { ConsentManagerService } from '@hashicorp/react-consent-manager/types'
 
 const DATADOG_SCRIPT_URL =
@@ -7,21 +8,17 @@ const DATADOG_APP_ID = 'TODO-need-access-to-datadog'
 const DATADOG_SITE = 'TODO-need-access-to-datadog'
 const ENV = process.env.HASHI_ENV || 'development'
 
-const devDotConsentManagerServices: ConsentManagerService[] = [
+const dataDogService: ConsentManagerService = {
+  name: 'DataDog',
+  description:
+    'Datadog is an observability service. We use it to identify and fix issues with our client-side user experience.',
+  category: 'Analytics',
+  async: true,
   /**
-   * DataDog
+   * Note: `body` is from:
+   * https://docs.datadoghq.com/real_user_monitoring/browser/#cdn-async
    */
-  {
-    name: 'DataDog',
-    description:
-      'Datadog is an observability service. We use it to identify and fix issues with our client-side user experience.',
-    category: 'Analytics',
-    async: true,
-    /**
-     * Note: `body` is from:
-     * https://docs.datadoghq.com/real_user_monitoring/browser/#cdn-async
-     */
-    body: `(function(h,o,u,n,d) {
+  body: `(function(h,o,u,n,d) {
    h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
    d=o.createElement(u);d.async=1;d.src=n
    n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
@@ -35,7 +32,14 @@ const devDotConsentManagerServices: ConsentManagerService[] = [
       trackInteractions: false,
     })
   })`,
-  },
-]
+}
 
-export { devDotConsentManagerServices, DATADOG_SCRIPT_URL }
+function DataDogScriptTag() {
+  return (
+    <Script id={dataDogService.name} strategy="afterInteractive">
+      {dataDogService.body}
+    </Script>
+  )
+}
+
+export { DataDogScriptTag, DATADOG_SCRIPT_URL, dataDogService }

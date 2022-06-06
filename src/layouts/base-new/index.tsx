@@ -1,10 +1,7 @@
 import Head from 'next/head'
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
-import {
-  devDotConsentManagerServices,
-  DATADOG_SCRIPT_URL,
-} from 'lib/consent-manager-services/dev-dot'
+import { DATADOG_SCRIPT_URL, DataDogScriptTag } from 'lib/datadog'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
@@ -18,7 +15,6 @@ interface BaseNewLayoutProps {
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
-  otherServices: [...devDotConsentManagerServices],
 })
 
 const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
@@ -35,6 +31,7 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
     <>
       <Head>
         <link rel="prefetch" href={DATADOG_SCRIPT_URL} />
+        <DataDogScriptTag />
       </Head>
       <CoreDevDotLayout>
         <div className={s.root} data-layout="base-new">
