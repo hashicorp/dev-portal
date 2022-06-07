@@ -4,6 +4,7 @@ import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import { useOverflowRef, useTabItems, useSyncedTabGroups } from './hooks'
 import { TabItem, TabsProps } from './types'
 import s from './tabs.module.css'
+import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
 
 const Tabs = ({
   ariaLabel,
@@ -22,6 +23,11 @@ const Tabs = ({
       'Both ariaLabel and ariaLabelledBy provided to Tabs component. Please only provide one.'
     )
   }
+
+  /**
+   * Track tab nesting level, for styling purposes
+   */
+  const isNested = useIsNested()
 
   /**
    * Track whether tabs are overflowing, so we can switch to a select.
@@ -60,37 +66,42 @@ const Tabs = ({
   const TabControls = hasOverflow ? TabDropdownControls : TabButtonControls
 
   return (
-    <div ref={overflowRef}>
+    <TabNestingProvider>
       <div
-        className={classNames(s.tabControls, {
-          [s.showAnchorLine]: showAnchorLine,
-        })}
+        ref={overflowRef}
+        className={classNames(s.root, { [s.isNested]: isNested })}
       >
-        <TabControls
-          ariaLabel={ariaLabel}
-          ariaLabelledBy={ariaLabelledBy}
-          tabItems={tabItems}
-          activeTabIndex={activeTabIndex}
-          setActiveTabIndex={setSyncedActiveTabIndex}
-        />
+        <div
+          className={classNames(s.tabControls, {
+            [s.showAnchorLine]: showAnchorLine,
+          })}
+        >
+          <TabControls
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            tabItems={tabItems}
+            activeTabIndex={activeTabIndex}
+            setActiveTabIndex={setSyncedActiveTabIndex}
+          />
+        </div>
+        {tabItems.map((tabItem: TabItem) => {
+          const { content, tabId, panelId, isActive } = tabItem
+          return (
+            <div
+              aria-hidden={!isActive}
+              aria-labelledby={tabId}
+              className={s.tabPanel}
+              id={panelId}
+              key={panelId}
+              role="tabpanel"
+              tabIndex={0}
+            >
+              {content}
+            </div>
+          )
+        })}
       </div>
-      {tabItems.map((tabItem: TabItem) => {
-        const { content, tabId, panelId, isActive } = tabItem
-        return (
-          <div
-            aria-hidden={!isActive}
-            aria-labelledby={tabId}
-            className={s.tabPanel}
-            id={panelId}
-            key={panelId}
-            role="tabpanel"
-            tabIndex={0}
-          >
-            {content}
-          </div>
-        )
-      })}
-    </div>
+    </TabNestingProvider>
   )
 }
 
