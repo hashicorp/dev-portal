@@ -1,7 +1,7 @@
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { NavData } from '@hashicorp/react-docs-sidenav'
 import { BreadcrumbLink } from '..'
-import findAllFallbackTitles from './find-all-fallback-titles'
+import getFallbackTitle from './get-fallback-title'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -112,15 +112,9 @@ function getPathMatchedNode(navNodes, pathString, basePath) {
       `Missing breadcrumb path under "${basePath}": Found zero matches for "${pathString}". Please ensure there is a node (or index-less category) with the path "${pathString}" in the provided navData.`
     )
   }
-  // To find some fallback title text, look in all NavData nodes,
-  // and try to find title text that, in slug form, matches the last path part.
-  const lastPathPart = pathString.split('/').pop()
-  const fallbackTitleMatches = findAllFallbackTitles(navNodes, lastPathPart)
-  // In the case that no title matches the last path part,
-  // then we render the snake-cased last path part (as a very last resort).
-  const fallbackTitle = fallbackTitleMatches.length
-    ? fallbackTitleMatches[0]
-    : lastPathPart
+  // Get a fallback title by searching all navNodes for title text that,
+  // in slug form, matches the last path part. At worst, path will be used.
+  const fallbackTitle = getFallbackTitle(pathString, navNodes)
   return { title: fallbackTitle }
 }
 
