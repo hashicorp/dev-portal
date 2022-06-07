@@ -61,7 +61,7 @@ export default function App({ Component, pageProps, layoutProps }) {
       </Head>
       <SSRProvider>
         <ErrorBoundary
-          FallbackComponent={() => <DevDotFallback statusCode={500} />}
+          FallbackComponent={() => <DevDotFallback statusCode="client" />}
         >
           <DeviceSizeProvider>
             <AllProductDataProvider>
