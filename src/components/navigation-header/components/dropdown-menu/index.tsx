@@ -37,6 +37,7 @@ import {
 
 // Local imports
 import s from './dropdown-menu.module.css'
+import Badge from 'components/badge'
 
 /**
  * The icons supported in this menu in addition to the Product logo icons.
@@ -266,18 +267,28 @@ const NavigationHeaderDropdownMenu = ({
                       const itemId = generateItemId(groupId, itemIndex)
                       const linkHref = item.path
                       const isCurrentPage = linkHref === currentPath
+                      const hasBadge = !!item.badgeProps
                       const anchorContent = (
-                        <>
-                          {icon}
-                          <Text
-                            asElement="span"
-                            className={s.itemText}
-                            size={100}
-                            weight="regular"
-                          >
-                            {item.label}
-                          </Text>
-                        </>
+                        <div className={s.itemLinkContent}>
+                          <div className={s.leftAlignedItemLinkContent}>
+                            {icon}
+                            <Text
+                              asElement="span"
+                              className={s.itemText}
+                              size={100}
+                              weight="regular"
+                            >
+                              {item.label}
+                            </Text>
+                          </div>
+                          {hasBadge && (
+                            <Badge
+                              color={item.badgeProps.color}
+                              size="small"
+                              text={item.badgeProps.text}
+                            />
+                          )}
+                        </div>
                       )
 
                       return (

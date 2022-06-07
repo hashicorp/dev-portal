@@ -1,3 +1,4 @@
+import { BadgeProps } from 'components/badge'
 import { ReactElement } from 'react'
 import { ProductSlug } from 'types/products'
 
@@ -6,6 +7,10 @@ type SupportedIcon = 'box' | 'docs' | 'home' | 'terminalScreen' | 'tools'
 type NavigationHeaderIcon = ProductSlug | SupportedIcon
 
 interface BaseNavigationHeaderItem {
+  badgeProps?: {
+    color?: BadgeProps['color']
+    text: BadgeProps['text']
+  }
   icon: NavigationHeaderIcon
   label: string
 }

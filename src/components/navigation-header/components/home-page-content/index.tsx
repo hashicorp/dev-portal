@@ -26,7 +26,15 @@ const HomePageHeaderContent = () => {
 
     // Push the menu item to the correct array
     if (getIsBetaProduct(productSlug)) {
-      betaProductItems.push({ icon, label, path })
+      betaProductItems.push({
+        badgeProps: {
+          text: 'Beta',
+          color: 'highlight',
+        },
+        icon,
+        label,
+        path,
+      })
     } else {
       comingSoonProductItems.push({
         ariaLabel: `Coming soon: ${label}`,
