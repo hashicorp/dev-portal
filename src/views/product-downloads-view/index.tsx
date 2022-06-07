@@ -46,6 +46,7 @@ const ProductDownloadsViewContent = ({
     featuredLearnCards,
     packageManagerOverrides,
     sidecarMarketingCard,
+    sidebarMenuItems,
   } = pageContent
   const currentProduct = useCurrentProduct()
   const { currentVersion } = useCurrentVersion()
@@ -55,7 +56,7 @@ const ProductDownloadsViewContent = ({
   )
   const sidebarNavDataLevels = [
     generateTopLevelSidebarNavData(currentProduct.name),
-    generateProductLandingSidebarNavData(currentProduct),
+    generateProductLandingSidebarNavData(currentProduct, sidebarMenuItems),
   ]
   const packageManagers = useMemo(() => {
     if (doesNotHavePackageManagers) {

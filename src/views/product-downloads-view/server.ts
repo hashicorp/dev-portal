@@ -36,6 +36,7 @@ async function generateStaticProps(
     featuredLearnContent,
     packageManagerOverrides,
     sidecarMarketingCard,
+    sidebarMenuItems,
   } = pageContent
   // Gather tutorials and collections based on slugs used
   const inlineContent = await getInlineContentMaps(featuredLearnContent)
@@ -68,6 +69,7 @@ async function generateStaticProps(
         featuredLearnCards,
         packageManagerOverrides,
         sidecarMarketingCard,
+        sidebarMenuItems,
       },
     }),
     revalidate,
