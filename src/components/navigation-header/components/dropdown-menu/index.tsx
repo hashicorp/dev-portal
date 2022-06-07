@@ -288,6 +288,7 @@ const NavigationHeaderDropdownMenu = ({
                                 aria-current={
                                   isCurrentPage ? 'page' : undefined
                                 }
+                                aria-label={item.ariaLabel}
                                 className={s.itemLink}
                                 onKeyDown={handleKeyDown}
                               >
@@ -297,6 +298,7 @@ const NavigationHeaderDropdownMenu = ({
                           ) : (
                             <a
                               aria-disabled
+                              aria-label={item.ariaLabel}
                               className={s.itemLink}
                               tabIndex={0}
                             >

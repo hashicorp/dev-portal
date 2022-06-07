@@ -5,11 +5,30 @@ type SupportedIcon = 'box' | 'docs' | 'home' | 'terminalScreen' | 'tools'
 
 type NavigationHeaderIcon = ProductSlug | SupportedIcon
 
-interface NavigationHeaderItem {
+interface BaseNavigationHeaderItem {
   icon: NavigationHeaderIcon
   label: string
-  path: string
 }
+
+type PossiblyDisabledNavigationHeaderItem =
+  | {
+      ariaLabel?: never
+      path: string
+    }
+  | {
+      ariaLabel: string
+      path?: never
+    }
+  | {
+      ariaLabel: string
+      path: string
+    }
+
+/**
+ * Always requires icon and label. Requires at least one of ariaLabel and path.
+ */
+type NavigationHeaderItem = BaseNavigationHeaderItem &
+  PossiblyDisabledNavigationHeaderItem
 
 interface NavigationHeaderItemGroup {
   label?: string

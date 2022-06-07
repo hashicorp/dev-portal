@@ -28,7 +28,11 @@ const HomePageHeaderContent = () => {
     if (getIsBetaProduct(productSlug)) {
       betaProductItems.push({ icon, label, path })
     } else {
-      comingSoonProductItems.push({ icon, label })
+      comingSoonProductItems.push({
+        ariaLabel: `Coming soon: ${label}`,
+        icon,
+        label,
+      })
     }
   })
 
