@@ -6,15 +6,11 @@ import { NavigationHeaderDropdownMenu } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './home-page-content.module.css'
 
-/**
- * @TODO update content to also show products "coming soon"
- * @see https://app.asana.com/0/1202110981600689/1202300536466714/f
- */
 const HomePageHeaderContent = () => {
   const betaProductItems = []
   const comingSoonProductItems = []
   Object.keys(productSlugsToNames).forEach((productSlug: ProductSlug) => {
-    // Ignore Sentinel for now
+    // Exclude Sentinel for now
     if (productSlug === 'sentinel') {
       return
     }
