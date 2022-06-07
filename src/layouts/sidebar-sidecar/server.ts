@@ -115,6 +115,20 @@ export function getStaticGenerationFunctions<
       const loader = getLoader({
         mainBranch,
         remarkPlugins: [
+          /**
+           * Note: our anchorLinks plugin is being applied in duplicate here,
+           * as RemoteContentLoader() already adds it via our defaults,
+           * via:
+           * - RemoteContentLoader() calls renderPageMdx() from docs-page
+           * - renderPageMdx() uses allPlugins from remark-plugins
+           *
+           * TODO this feels like an uncomfortably long and complicated
+           * dependency chain. Maybe there's a way to separate the pieces
+           * we need into more composable chunks? Eg rather than inheriting
+           * a default set of MDX plugins when constructing docs-page loaders,
+           * maybe we require a set of plugins to be provided, and put the
+           * responsibility on the consumer to set the plugins they need.
+           */
           [anchorLinks, { headings }],
           rewriteTutorialLinksPlugin,
           ...additionalRemarkPlugins,
