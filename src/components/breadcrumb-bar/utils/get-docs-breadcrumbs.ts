@@ -114,6 +114,8 @@ function getPathMatchedNode(navNodes, pathString, basePath) {
   }
   // Get a fallback title by searching all navNodes for title text that,
   // in slug form, matches the last path part. At worst, path will be used.
+  // Note: this is for a really edgy case related to misuse of { title, href }
+  // nodes for internal links. It may not come up in practice.
   const fallbackTitle = getFallbackTitle(pathString, navNodes)
   return { title: fallbackTitle }
 }
