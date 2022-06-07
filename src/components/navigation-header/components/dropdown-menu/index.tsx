@@ -26,6 +26,7 @@ import useCurrentPath from 'hooks/use-current-path'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import deriveKeyEventState from 'lib/derive-key-event-state'
+import Badge from 'components/badge'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import {
@@ -37,7 +38,6 @@ import {
 
 // Local imports
 import s from './dropdown-menu.module.css'
-import Badge from 'components/badge'
 
 /**
  * The icons supported in this menu in addition to the Product logo icons.
