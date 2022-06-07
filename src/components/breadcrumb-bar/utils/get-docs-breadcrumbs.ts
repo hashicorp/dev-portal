@@ -155,11 +155,14 @@ function findPathMatchedNodes(navNode, pathString, depth) {
         return Boolean(r.path)
       })
       if (routesWithPaths.length) {
-        const inferredPathParts = routesWithPaths[0].path.split('/')
-        inferredPathParts.pop()
-        const inferredPath = inferredPathParts.join('/')
-        if (inferredPath == pathString) {
-          return [{ title: navNode.title }]
+        // Iterate over all child nodes, match may not be in first node
+        for (let i = 0; i < routesWithPaths.length; i++) {
+          const inferredPathParts = routesWithPaths[i].path.split('/')
+          inferredPathParts.pop()
+          const inferredPath = inferredPathParts.join('/')
+          if (inferredPath == pathString) {
+            return [{ title: navNode.title }]
+          }
         }
       }
     }

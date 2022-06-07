@@ -8,8 +8,7 @@ import slugify from 'slugify'
  * In certain cases, this "title" text is useful as a fallback
  * when there is not navNode explicitly associated with the pathString
  * (such as for category nodes that do not have an index page,
- * and contain only a single leaf node such that the category's
- * index route cannot be inferred).
+ * and contain only external link leaf nodes).
  */
 function getFallbackTitle(pathString, navNodes) {
   const lastPathPart = pathString.split('/').pop()
