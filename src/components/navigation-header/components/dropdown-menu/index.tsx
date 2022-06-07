@@ -32,6 +32,7 @@ import {
   NavigationHeaderItem,
   NavigationHeaderDropdownMenuProps,
   SupportedIcon,
+  NavigationHeaderItemGroup,
 } from 'components/navigation-header/types'
 
 // Local imports
@@ -233,29 +234,40 @@ const NavigationHeaderDropdownMenu = ({
         id={menuId}
         style={{ display: isOpen ? 'block' : 'none' }}
       >
-        {itemGroups.map((items: NavigationHeaderItem[], groupIndex: number) => {
-          const groupId = generateItemGroupId(groupIndex)
-          const isLastItemGroup = groupIndex === numberOfItemGroups - 1
-          const showDivider = numberOfItemGroups > 1 && !isLastItemGroup
-          return (
-            <Fragment key={groupId}>
-              <ul className={s.itemGroup}>
-                {items.map((item: NavigationHeaderItem, itemIndex: number) => {
-                  const icon = supportedIcons[item.icon] || (
-                    <ProductIcon productSlug={item.icon as ProductSlug} />
-                  )
-                  const itemId = generateItemId(groupId, itemIndex)
-                  const linkHref = item.path
-                  const isCurrentPage = linkHref === currentPath
-
-                  return (
-                    <li className={s.itemContainer} key={itemId}>
-                      <Link href={linkHref}>
-                        <a
-                          aria-current={isCurrentPage ? 'page' : undefined}
-                          className={s.itemLink}
-                          onKeyDown={handleKeyDown}
-                        >
+        {itemGroups.map(
+          (itemGroup: NavigationHeaderItemGroup, groupIndex: number) => {
+            const { items, label } = itemGroup
+            const groupId = generateItemGroupId(groupIndex)
+            const isLastItemGroup = groupIndex === numberOfItemGroups - 1
+            const showDivider = numberOfItemGroups > 1 && !isLastItemGroup
+            const hasLabel = !!label
+            const itemGroupLabelId = hasLabel
+              ? `${groupId}-itemGroupLabel`
+              : undefined
+            return (
+              <Fragment key={groupId}>
+                {hasLabel && (
+                  <Text
+                    asElement="p"
+                    className={s.itemGroupLabel}
+                    id={itemGroupLabelId}
+                    size={100}
+                    weight="semibold"
+                  >
+                    {label}
+                  </Text>
+                )}
+                <ul aria-labelledby={itemGroupLabelId} className={s.itemGroup}>
+                  {items.map(
+                    (item: NavigationHeaderItem, itemIndex: number) => {
+                      const icon = supportedIcons[item.icon] || (
+                        <ProductIcon productSlug={item.icon as ProductSlug} />
+                      )
+                      const itemId = generateItemId(groupId, itemIndex)
+                      const linkHref = item.path
+                      const isCurrentPage = linkHref === currentPath
+                      const anchorContent = (
+                        <>
                           {icon}
                           <Text
                             asElement="span"
@@ -265,16 +277,42 @@ const NavigationHeaderDropdownMenu = ({
                           >
                             {item.label}
                           </Text>
-                        </a>
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-              {showDivider && <hr className={s.itemGroupDivider} />}
-            </Fragment>
-          )
-        })}
+                        </>
+                      )
+
+                      return (
+                        <li className={s.itemContainer} key={itemId}>
+                          {linkHref ? (
+                            <Link href={linkHref}>
+                              <a
+                                aria-current={
+                                  isCurrentPage ? 'page' : undefined
+                                }
+                                className={s.itemLink}
+                                onKeyDown={handleKeyDown}
+                              >
+                                {anchorContent}
+                              </a>
+                            </Link>
+                          ) : (
+                            <a
+                              aria-disabled
+                              className={s.itemLink}
+                              tabIndex={0}
+                            >
+                              {anchorContent}
+                            </a>
+                          )}
+                        </li>
+                      )
+                    }
+                  )}
+                </ul>
+                {showDivider && <hr className={s.itemGroupDivider} />}
+              </Fragment>
+            )
+          }
+        )}
       </div>
     </div>
   )

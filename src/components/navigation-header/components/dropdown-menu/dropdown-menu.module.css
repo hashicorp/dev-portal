@@ -74,6 +74,12 @@
   padding: 0;
 }
 
+.itemGroupLabel {
+  margin-bottom: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
 .itemLink {
   /* Composition */
   composes: g-focus-ring-from-box-shadow from global;
@@ -94,6 +100,21 @@
   &:hover {
     color: var(--token-color-foreground-strong);
     text-decoration: underline;
+  }
+}
+
+.itemLink[aria-disabled='true'] {
+  /* Overwrite hover state styles */
+  &:hover {
+    color: var(--token-color-foreground-disabled);
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+
+  /* Make sure everything has the disabled color */
+  & * {
+    color: var(--token-color-foreground-disabled);
+    fill: var(--token-color-foreground-disabled);
   }
 }
 

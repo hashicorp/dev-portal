@@ -11,11 +11,16 @@ interface NavigationHeaderItem {
   path: string
 }
 
+interface NavigationHeaderItemGroup {
+  label?: string
+  items: NavigationHeaderItem[]
+}
+
 interface NavigationHeaderDropdownMenuProps {
   ariaLabel?: string
   buttonClassName?: string
   dropdownClassName?: string
-  itemGroups: NavigationHeaderItem[][]
+  itemGroups: NavigationHeaderItemGroup[]
   label?: string
   leadingIcon?: ReactElement
 }
@@ -24,5 +29,6 @@ export type {
   NavigationHeaderDropdownMenuProps,
   NavigationHeaderIcon,
   NavigationHeaderItem,
+  NavigationHeaderItemGroup,
   SupportedIcon,
 }
