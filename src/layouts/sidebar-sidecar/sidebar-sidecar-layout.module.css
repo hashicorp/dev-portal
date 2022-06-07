@@ -20,6 +20,9 @@ for further details.
   core-dev-dot-layout.module.css, as the left value  must be shared with the
   navigation-header component, in order to match alignment in design specs. */
   --main-area-padding-right: 24px;
+  @media (--dev-dot-sidecar-up) {
+    --main-area-padding-right: 48px;
+  }
 
   /*
   We want our footer to have a top border which spans
@@ -73,7 +76,6 @@ for further details.
   @media (--dev-dot-tablet-down) {
     left: -150vw;
     width: 100vw;
-    padding-bottom: 70px;
     height: 100%;
     position: fixed;
     top: unset; /** We want to pull the top relative to the parent on mobile */
@@ -84,7 +86,10 @@ for further details.
   height: 100%; /* for positioning the version switcher */
   overflow-y: auto; /* for positioning the version switcher */
   position: relative;
-  padding: 24px;
+  padding-bottom: 150px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
 }
 
 .docsVersionSwitcherWrapper {

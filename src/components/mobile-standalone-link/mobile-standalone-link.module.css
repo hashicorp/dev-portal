@@ -7,7 +7,8 @@
 }
 
 .mobileIcon {
-  display: block;
+  align-items: center;
+  display: flex;
 
   @media (--dev-dot-tablet-up) {
     display: none;

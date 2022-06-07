@@ -4,6 +4,7 @@ import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remot
 import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData, RootDocsPath } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
+import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 import {
@@ -115,6 +116,7 @@ export function getStaticGenerationFunctions<
         mainBranch,
         remarkPlugins: [
           [anchorLinks, { headings }],
+          rewriteTutorialLinksPlugin,
           ...additionalRemarkPlugins,
         ],
         scope: await getScope(),
