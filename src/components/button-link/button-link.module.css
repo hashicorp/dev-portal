@@ -17,6 +17,7 @@
   border-width: var(--border-width);
   display: flex;
   font-size: var(--font-size);
+  gap: 6px;
   isolation: isolate;
   justify-content: center;
   line-height: var(--line-height);

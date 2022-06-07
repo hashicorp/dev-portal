@@ -8,10 +8,12 @@ function LinkedCards({ cards }: LinkedCardsProps) {
     <CardsGridList>
       {cards.map((card: LinkedCard, idx: number) => {
         return (
-          <CardLink key={idx} href={card.url}>
-            <CardHeading level={3} text={card.heading} />
-            <CardBody text={card.body} />
-          </CardLink>
+          <li key={idx}>
+            <CardLink href={card.url}>
+              <CardHeading level={3} text={card.heading} />
+              <CardBody text={card.body} />
+            </CardLink>
+          </li>
         )
       })}
     </CardsGridList>

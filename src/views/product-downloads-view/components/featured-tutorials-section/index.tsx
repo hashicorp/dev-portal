@@ -29,9 +29,17 @@ const FeaturedTutorialsSection = ({
           {featuredLearnCards.map((cardProps: FeaturedLearnCard) => {
             const { id, type } = cardProps
             if (type == 'collection') {
-              return <CollectionCard key={id} {...cardProps} />
+              return (
+                <li key={id}>
+                  <CollectionCard {...cardProps} />
+                </li>
+              )
             } else if (type == 'tutorial') {
-              return <TutorialCard key={id} {...cardProps} />
+              return (
+                <li key={id}>
+                  <TutorialCard {...cardProps} />
+                </li>
+              )
             }
           })}
         </CardsGridList>

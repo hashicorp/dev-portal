@@ -91,7 +91,7 @@ function getOverviewHeading(): TableOfContentsHeading {
  * on a product tutorials view
  */
 function getSitemapHeading(): TableOfContentsHeading {
-  return { title: 'All tutorials', slug: 'all-tutorials', level: 2 }
+  return { title: 'All Tutorials', slug: 'all-tutorials', level: 2 }
 }
 
 /**

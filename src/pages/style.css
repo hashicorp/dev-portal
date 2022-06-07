@@ -216,11 +216,8 @@ and negative margin.
 */
 .g-offset-scroll-margin-top {
   --permalink-scroll-offset: 24px;
-  --full-header-height: calc(
-    var(--navigation-header-height) + var(--alert-bar-height)
-  );
   --total-offset: calc(
-    var(--full-header-height) + var(--permalink-scroll-offset)
+    var(--sticky-bars-height) + var(--permalink-scroll-offset)
   );
 
   scroll-margin-top: var(--total-offset);

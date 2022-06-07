@@ -12,11 +12,12 @@ import { IconTileLogoProps } from './types'
  *
  * ref: https://www.figma.com/file/noyY6dUMDYjmySpHcMjhkN/HDS-Product---Components-%5BWIP%5D?node-id=1377%3A11992
  */
-function IconTileLogo({ productSlug }: IconTileLogoProps) {
+function IconTileLogo({ productSlug, className }: IconTileLogoProps) {
   return (
     <IconTile
       size="extra-large"
       brandColor={productSlug == 'hcp' ? 'neutral' : productSlug}
+      className={className}
     >
       <ProductIcon productSlug={productSlug} />
     </IconTile>
