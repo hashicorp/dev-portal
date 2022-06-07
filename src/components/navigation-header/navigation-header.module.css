@@ -22,8 +22,8 @@
   width: 100%;
 
   @media (--dev-dot-tablet-down) {
-    padding-bottom: 16px;
-    padding-top: 16px;
+    padding-bottom: 14px;
+    padding-top: 14px;
   }
 }
 
@@ -53,6 +53,7 @@
   align-items: center;
   display: flex;
   justify-content: right;
+  gap: 16px;
 }
 
 /*

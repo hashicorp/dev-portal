@@ -18,6 +18,15 @@
 }
 
 .listItem {
+  /**
+   * Note: display: flex is needed here to allow max-width to work 
+   * on .breadCrumbText, which would otherwise be inline, while
+   * keeping the ::after element for slash dividers working as well.
+   */
+  display: flex;
+  padding-top: 4px;
+  padding-bottom: 4px;
+
   &:not(:last-child)::after {
     color: var(--token-color-palette-neutral-400);
     content: '/';
@@ -26,10 +35,32 @@
 }
 
 .breadcrumbText {
-  color: var(--token-color-palette-neutral-500);
+  composes: g-focus-ring-from-box-shadow from global;
+  border-radius: 5px;
+  color: var(--token-color-foreground-faint);
+  max-width: 16em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
-  &[href]:hover {
-    color: var(--token-color-palette-neutral-600);
-    text-decoration: underline;
+  &[href] {
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:active {
+      color: var(--token-color-foreground-primary);
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      text-decoration: none;
+      margin: -5px;
+      padding: 5px;
+    }
+
+    &[aria-current='page'] {
+      color: var(--token-color-foreground-strong);
+    }
   }
 }

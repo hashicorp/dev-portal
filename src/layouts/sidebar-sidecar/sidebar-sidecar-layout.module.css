@@ -20,6 +20,9 @@ for further details.
   core-dev-dot-layout.module.css, as the left value  must be shared with the
   navigation-header component, in order to match alignment in design specs. */
   --main-area-padding-right: 24px;
+  @media (--dev-dot-sidecar-up) {
+    --main-area-padding-right: 48px;
+  }
 
   /*
   We want our footer to have a top border which spans
@@ -61,8 +64,6 @@ for further details.
   We have sticky nav bars, so the full height is equal to
   100vh minus the combined height of the sticky nav bars. */
   max-height: calc(100vh - var(--sticky-bars-height));
-  overflow-y: auto;
-  padding: 24px;
   position: sticky;
   top: var(--sticky-bars-height);
   width: var(--dev-dot-sidebar-width);
@@ -75,17 +76,30 @@ for further details.
   @media (--dev-dot-tablet-down) {
     left: -150vw;
     width: 100vw;
-    padding-bottom: 70px;
     height: 100%;
     position: fixed;
     top: unset; /** We want to pull the top relative to the parent on mobile */
   }
 }
 
+.sidebarContentWrapper {
+  height: 100%; /* for positioning the version switcher */
+  overflow-y: auto; /* for positioning the version switcher */
+  position: relative;
+  padding-bottom: 150px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+}
+
+.docsVersionSwitcherWrapper {
+  bottom: 0;
+  position: sticky;
+  width: 100%;
+  z-index: 2;
+}
+
 .contentWrapper {
-  padding-left: var(--main-area-padding-left);
-  padding-right: var(--main-area-padding-right);
-  padding-top: var(--main-area-padding-top);
   width: 100%;
 
   @media (--dev-dot-desktop) {
@@ -104,6 +118,37 @@ for further details.
 
 .footerAreaWrapper {
   margin-top: 106px;
+}
+
+.mainAreaWrapper {
+  padding-left: var(--main-area-padding-left);
+  padding-right: var(--main-area-padding-right);
+  padding-top: var(--main-area-padding-top);
+}
+
+.breadcrumbOptOutGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.optInOutSlot {
+  flex-shrink: 0;
+}
+
+/*
+***
+* classes for the version PageAlert
+***
+*/
+
+.versionAlert {
+  padding-left: var(--main-area-padding-left);
+  padding-right: var(--main-area-padding-right);
+}
+
+.versionAlertLink {
+  color: var(--token-color-foreground-primary) !important;
 }
 
 /*
@@ -142,10 +187,4 @@ for further details.
     top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
     width: var(--sidecar-width);
   }
-}
-
-.breadcrumbOptOutGroup {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
 }

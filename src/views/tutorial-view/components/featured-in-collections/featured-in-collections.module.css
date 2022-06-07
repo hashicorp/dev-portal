@@ -1,51 +1,9 @@
 .heading {
-  margin: 0;
-  padding: 0;
   composes: hds-typography-display-200 from global;
   font-weight: var(--token-typography-font-weight-semibold);
   color: var(--token-color-foreground-strong);
 }
 
-.listRoot {
-  --min-column-width: 240px;
-
-  align-items: stretch;
-  display: grid;
-  grid-gap: 24px;
-  list-style: none;
-
-  /**
-  * Automatically use more columns, as long as columns are >= min-column-width.
-  * Note: minimum size may be < min-column-width, if 100% < min-column-width.
-  * This ensures that on small viewports, content will never overflow.
-  */
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%, var(--min-column-width)), 1fr)
-  );
-
-  /**
-   * Note: !important is necessary here as we're within a content container
-   * that uses nested generic selectors to style <ul />.
-   * TODO: convert the nested generic selectors to MDX components.
-   * Asana task:
-   * https://app.asana.com/0/1201987349274776/1201653123138729/f
-   */
-  margin: 12px 0 0 0 !important;
-  padding: 0 !important;
-
-  @media (--dev-dot-tablet-up) {
-    margin: 16px 0 0 0 !important;
-  }
-}
-
-.listItem {
-  /**
-   * Note: !important is necessary here as we're within a content container
-   * that uses nested generic selectors to style <li />.
-   * TODO: convert the nested generic selectors to MDX components.
-   * Asana task:
-   * https://app.asana.com/0/1201987349274776/1201653123138729/f
-   */
-  margin-bottom: 0 !important;
+.cards {
+  margin-top: 16px;
 }

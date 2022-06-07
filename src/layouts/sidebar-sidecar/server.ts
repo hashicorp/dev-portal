@@ -1,11 +1,10 @@
 import { Pluggable } from 'unified'
-import { visit } from 'unist-util-visit'
-import { Image } from 'mdast'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
-import { ProductData } from 'types/products'
+import { ProductData, RootDocsPath } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
+import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 import {
@@ -34,30 +33,6 @@ const BASE_PATHS_TO_NAMES = {
   docs: 'Documentation',
   intro: 'Introduction',
   plugins: 'Plugins',
-}
-
-// This Remark plugin rewrites img URLs from our Marketing Content Server API
-// to Dev Portal's next/image optimization endpoint.
-function remarkRewriteImageUrls() {
-  return function plugin() {
-    return function transformTree(tree) {
-      visit<Image, string>(tree, 'image', (node) => {
-        if (node.url.includes(process.env.MKTG_CONTENT_API)) {
-          const params = new URLSearchParams()
-          params.set('url', node.url)
-          // next/image requires that we specify an allowed width. The Dev
-          // Portal docs page renders images at 896 pixels wide. To support high
-          // DPI displays, we double this value to 1792, and round up to the
-          // nearest supported width of 1920.
-          params.set('w', '1920')
-          // By default, next/image uses a quality setting of 75.
-          params.set('q', '75')
-
-          node.url = `/_next/image?${params.toString()}`
-        }
-      })
-    }
-  }
 }
 
 /**
@@ -101,6 +76,15 @@ export function getStaticGenerationFunctions<
    */
   const isBetaProduct = getIsBetaProduct(product.slug)
 
+  /**
+   * Get the current `rootDocsPaths` object.
+   *
+   * @TODO - set `baseName` using `rootDocsPath`
+   */
+  const currentRootDocsPath = product.rootDocsPaths?.find(
+    (rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
+  )
+
   const loaderOptions: RemoteContentLoader['opts'] = {
     product: productSlugForLoader,
     basePath: basePathForLoader,
@@ -125,13 +109,14 @@ export function getStaticGenerationFunctions<
       }
     },
     getStaticProps: async (ctx) => {
+      const pathParts = (ctx.params.page || []) as string[]
       const headings = [] // populated by loader.loadStaticProps()
 
       const loader = getLoader({
         mainBranch,
         remarkPlugins: [
           [anchorLinks, { headings }],
-          remarkRewriteImageUrls(),
+          rewriteTutorialLinksPlugin,
           ...additionalRemarkPlugins,
         ],
         scope: await getScope(),
@@ -192,6 +177,24 @@ export function getStaticGenerationFunctions<
       ])
 
       /**
+       * Figure out of a specific docs version is being viewed
+       */
+      let indexOfVersionPathPart
+      let versionPathPart
+      if (versions) {
+        pathParts.find((pathPart, index) => {
+          const matchingVersion = versions.find(
+            (version) => pathPart === version.version
+          )
+          if (matchingVersion) {
+            versionPathPart = pathPart
+            indexOfVersionPathPart = index
+            return true
+          }
+        })
+      }
+
+      /**
        * Constructs the levels of nav data used in the `Sidebar` on all
        * `DocsView` pages.
        */
@@ -209,17 +212,21 @@ export function getStaticGenerationFunctions<
           menuItems: navDataWithFullPaths,
           // TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
           title: BASE_PATHS_TO_NAMES[basePath] || product.name,
-          overviewItemHref: `/${product.slug}/${basePath}`,
+          overviewItemHref: versionPathPart
+            ? `/${product.slug}/${basePath}/${versionPathPart}`
+            : `/${product.slug}/${basePath}`,
         },
       ]
 
       const breadcrumbLinks = getDocsBreadcrumbs({
-        productPath: product.slug,
-        productName: product.name,
-        basePath,
         baseName,
-        pathParts: (ctx.params.page || []) as string[],
+        basePath: basePath,
+        indexOfVersionPathPart,
         navData: navDataWithFullPaths,
+        pathParts,
+        productName: product.name,
+        productPath: product.slug,
+        version: versionPathPart,
       })
 
       const finalProps = {
@@ -228,9 +235,14 @@ export function getStaticGenerationFunctions<
           githubFileUrl,
           headings: nonEmptyHeadings,
           sidebarNavDataLevels,
+          versions,
         },
         mdxSource,
-        product,
+        product: {
+          ...product,
+          // needed for DocsVersionSwitcher
+          currentRootDocsPath: currentRootDocsPath || null,
+        },
         versions,
       }
 

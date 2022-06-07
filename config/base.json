@@ -5,19 +5,26 @@
   },
   "dev_dot": {
     "analytics": {
-      "included_domains": "developer.hashi-mktg.com"
+      "included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
     },
-    "canonical_base_url": "https://developer.hashi-mktg.com",
+    "canonical_base_url": "https://developer.hashicorp.com",
     "max_static_paths": 10,
     "revalidate": 360,
     "content_preview_branch": "dev-portal",
-    "beta_product_slugs": ["waypoint", "vault"]
+    "beta_product_slugs": ["waypoint", "vault"],
+    "datadog_config": {
+      "scriptUrl": "https://www.datadoghq-browser-agent.com/datadog-rum-v4.js",
+      "applicationId": "40a2019f-88ad-4076-ab52-ffd074064eed",
+      "clientToken": "pubd5cf774aa1cbbd001accd50cb463925b",
+      "service": "non-prod.developer.hashicorp.com"
+    }
   },
   "learn": {
     "max_static_paths": 10
   },
   "flags": {
     "enable_product_docs_search": true,
-    "enable_io_beta_cta": true
+    "enable_io_beta_cta": true,
+    "enable_datadog": true
   }
 }

@@ -6,7 +6,7 @@ describe('buildBetaOptInRedirect', () => {
       buildBetaProductOptInRedirect('waypoint', ['docs', 'commands', 'plugins'])
     ).toMatchInlineSnapshot(`
       Object {
-        "destination": "https://developer.hashi-mktg.com/waypoint/:base/:path*",
+        "destination": "https://developer.hashicorp.com/waypoint/:base/:path*",
         "has": Array [
           Object {
             "key": "waypoint-io-beta-opt-in",

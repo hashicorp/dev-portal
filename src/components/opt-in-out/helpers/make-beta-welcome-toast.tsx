@@ -1,9 +1,7 @@
 import { toast, ToastColor } from 'components/toast'
 import { OptInPlatformOption, PlatformOptionTitles } from '../types'
 
-export default function makeBetaWelcomeToast(
-  optInPlatform: OptInPlatformOption
-) {
+export function makeBetaWelcomeToast(optInPlatform: OptInPlatformOption) {
   // Get the product name
   const platformName = PlatformOptionTitles[optInPlatform]
   // Make toast
