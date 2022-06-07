@@ -100,7 +100,7 @@
     "@hashicorp/react-code-block": "^5.2.0",
     "@hashicorp/react-command-line-terminal": "^2.0.4",
     "@hashicorp/react-consent-manager": "^7.2.0",
-    "@hashicorp/react-docs-page": "^16.2.0",
+    "@hashicorp/react-docs-page": "^16.2.1",
     "@hashicorp/react-enterprise-alert": "^6.0.1",
     "@hashicorp/react-error-view": "^0.0.2",
     "@hashicorp/react-featured-slider": "^5.0.1",

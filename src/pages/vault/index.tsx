@@ -9,7 +9,9 @@ export async function getStaticProps() {
 
   return {
     props: await generateStaticProps({ product, contentJsonFile }),
-    revalidate: 10,
+    // as this reads from the file system, we don't want to revalidate at all as the files
+    // will not be available at runtime
+    revalidate: false,
   }
 }
 
