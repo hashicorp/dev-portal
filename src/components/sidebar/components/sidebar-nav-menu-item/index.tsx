@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { ProductSlug } from 'types/products'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Badge from 'components/badge'
 import { MenuItem } from 'components/sidebar'
@@ -34,8 +35,6 @@ const SUPPORTED_LEADING_ICONS: {
   [key in SupportedIconName]: ReactElement
 } = {
   home: <IconHome16 name="home" />,
-  vault: <ProductIcon productSlug="vault" />,
-  waypoint: <ProductIcon productSlug="waypoint" />,
 }
 
 /**
@@ -62,6 +61,7 @@ const RightIconsContainer = ({ badge, icon }: RightIconsContainerProps) => {
 const SidebarNavMenuItemBadge = ({
   color,
   text,
+  type,
 }: SidebarNavMenuItemBadgeProps) => {
   if (color !== 'highlight' && color !== 'neutral') {
     throw new Error(
@@ -69,7 +69,7 @@ const SidebarNavMenuItemBadge = ({
     )
   }
 
-  return <Badge color={color} size="small" text={text} type="outlined" />
+  return <Badge color={color} size="small" text={text} type={type} />
 }
 
 /**
@@ -84,7 +84,9 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 
   let leadingIcon
   if (item.leadingIconName) {
-    const icon = SUPPORTED_LEADING_ICONS[item.leadingIconName]
+    const icon = SUPPORTED_LEADING_ICONS[item.leadingIconName] || (
+      <ProductIcon productSlug={item.leadingIconName as ProductSlug} />
+    )
     leadingIcon = <div className={s.leadingIcon}>{icon}</div>
   }
 
