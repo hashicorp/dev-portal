@@ -1,5 +1,5 @@
-import { ProductName, ProductSlug } from 'types/products'
-import { productSlugsToNames } from 'lib/products'
+import { ProductName } from 'types/products'
+import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 
 /**
  * Generates the top-level website nav data for rendering in `Sidebar` as the
@@ -15,27 +15,9 @@ export const generateTopLevelSidebarNavData = (productName: ProductName) => {
   const showFilterInput = false
   const title = 'Main Menu'
 
-  const menuItems = [
-    {
-      leadingIconName: 'home',
-      href: '/',
-      title: 'Developer Home',
-    },
-    {
-      divider: true,
-    },
-  ]
-  const betaProductSlugs = __config.dev_dot.beta_product_slugs
-  betaProductSlugs.forEach((productSlug: ProductSlug) => {
-    const title = productSlugsToNames[productSlug]
-    const leadingIconName = productSlug
-    const href = `/${productSlug}`
-    menuItems.push({ leadingIconName, href, title })
-  })
-
   return {
     levelButtonProps,
-    menuItems,
+    menuItems: generateTopLevelSubNavItems(),
     showFilterInput,
     title,
   }
