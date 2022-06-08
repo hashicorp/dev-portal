@@ -94,10 +94,6 @@ export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBa
 
     /**
      * Build the set of remark plugins to use.
-     *
-     * Note that in getStaticGenerationFunctionsBase(), we also apply
-     * markdownDefaults() from @hashicorp/platform-markdown-utils, which adds
-     * code highlighting, and has an unused option for math features.
      */
     const extraRemarkPlugins = Array.isArray(args[0].remarkPlugins)
       ? args[0].remarkPlugins
