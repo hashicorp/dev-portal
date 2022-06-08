@@ -80,7 +80,7 @@ const SidebarNavMenuItemBadge = ({
 const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
   const href = item.fullPath || item.href
   const isExternal = isAbsoluteUrl(href)
-  const hasBadge = !!(item as $TSFixMe).badgeProps
+  const hasBadge = !!(item as $TSFixMe).badge
 
   let leadingIcon
   if (item.leadingIconName) {
@@ -117,7 +117,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
         <RightIconsContainer
           badge={
             hasBadge ? (
-              <SidebarNavMenuItemBadge {...(item as $TSFixMe).badgeProps} />
+              <SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
             ) : undefined
           }
           icon={isExternal ? <IconExternalLink16 /> : undefined}
@@ -136,7 +136,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
   const [isOpen, setIsOpen] = useState(
     item.hasActiveChild || item.hasChildrenMatchingFilter || item.matchesFilter
   )
-  const hasBadge = !!(item as $TSFixMe).badgeProps
+  const hasBadge = !!(item as $TSFixMe).badge
 
   /**
    * Without this effect, the menu items aren't re-rerendered to be open. Seems
@@ -179,7 +179,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
         <RightIconsContainer
           badge={
             hasBadge ? (
-              <SidebarNavMenuItemBadge {...(item as $TSFixMe).badgeProps} />
+              <SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
             ) : undefined
           }
           icon={<IconChevronRight16 />}

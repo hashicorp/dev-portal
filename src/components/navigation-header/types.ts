@@ -7,7 +7,7 @@ type SupportedIcon = 'plug' | 'docs' | 'home' | 'terminalScreen' | 'tools'
 type NavigationHeaderIcon = ProductSlug | SupportedIcon
 
 interface BaseNavigationHeaderItem {
-  badgeProps?: {
+  badge?: {
     color?: BadgeProps['color']
     text: BadgeProps['text']
   }
