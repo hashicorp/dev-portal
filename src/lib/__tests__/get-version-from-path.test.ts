@@ -10,11 +10,12 @@ describe('getVersionFromPath', () => {
     }
 
     {
+      /** future case w/ TFE */
       const path =
-        'https://developer.hashicorp.com/waypoint/docs/v0.7.x/getting-started'
+        'https://developer.hashicorp.com/terraform/enterprise/v202205-1/reference-architecture'
 
       const version = getVersionFromPath(path)
-      expect(version).toEqual('v0.7.x')
+      expect(version).toEqual('v202205-1')
     }
   })
 
