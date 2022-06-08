@@ -10,11 +10,11 @@ import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { IconSlashSquare16 } from '@hashicorp/flight-icons/svg-react/slash-square-16'
 import useFocusOnKeyClick from 'hooks/use-focus-on-key-click'
+import Panel from './components/panel'
 import { useAlgoliaNavigatorNext } from './lib/use-algolia-navigator-next'
 import { AlgoliaSearchPops } from './types'
 
 import s from './algolia-search.module.css'
-import Panel from './components/panel'
 
 /**
  * Algolia search UI implementation, based on the utilities from @algolia/autocomplete-core
@@ -114,6 +114,8 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
    */
   useFocusOnKeyClick(inputRef, '/')
 
+  console.log({ autocompleteState }, autocompleteState.isOpen)
+
   return (
     <div
       className={classNames(s.root, className)}
@@ -158,7 +160,7 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
           />
         )}
       </form>
-      {autocompleteState.isOpen && (
+      {(autocompleteState.isOpen || autocompleteState.query) && (
         <Panel
           autocomplete={autocomplete}
           collections={autocompleteState.collections}

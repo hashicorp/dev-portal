@@ -115,7 +115,7 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
 
             return (
               <section key={`source-${index}`}>
-                {items.length > 0 && (
+                {items.length > 0 ? (
                   <ul className={s.list} {...autocomplete.getListProps()}>
                     {items.map((item) => {
                       return (
@@ -139,6 +139,8 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
                       )
                     })}
                   </ul>
+                ) : (
+                  <p>No Results</p>
                 )}
               </section>
             )
