@@ -9,9 +9,8 @@ import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 import { getVersionFromPath } from 'lib/get-version-from-path'
 import { removeVersionFromPath } from 'lib/remove-version-from-path'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
-import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 import useCurrentPath from 'hooks/use-current-path'
-import { useDeviceSize } from 'contexts'
+import { useDeviceSize, useMobileMenu } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
@@ -33,9 +32,11 @@ import s from './sidebar-sidecar-layout.module.css'
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
   return (
-    <SidebarNavDataProvider navDataLevels={navDataLevels}>
-      <SidebarSidecarLayoutContent {...props} />
-    </SidebarNavDataProvider>
+    <BaseLayout showFooter={false}>
+      <SidebarNavDataProvider navDataLevels={navDataLevels}>
+        <SidebarSidecarLayoutContent {...props} />
+      </SidebarNavDataProvider>
+    </BaseLayout>
   )
 }
 
@@ -52,18 +53,19 @@ const SidebarSidecarLayoutContent = ({
   versions,
 }: SidebarSidecarLayoutProps) => {
   const { isDesktop } = useDeviceSize()
-  const { currentLevel, sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
+  const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
+  const { currentLevel } = useSidebarNavData()
   const shouldReduceMotion = useReducedMotion()
   const sidebarRef = useRef<HTMLDivElement>()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentlyViewedVersion = getVersionFromPath(currentPath)
   const sidebarProps = sidebarNavDataLevels[currentLevel]
-  const sidebarIsVisible = isDesktop || sidebarIsOpen
+  const sidebarIsVisible = isDesktop || mobileMenuIsOpen
 
   // Handles closing the sidebar if focus moves outside of it and it is open.
   useOnFocusOutside(
     [sidebarRef],
-    () => setSidebarIsOpen(false),
+    () => setMobileMenuIsOpen(false),
     !isDesktop && sidebarIsVisible
   )
 
@@ -100,82 +102,75 @@ const SidebarSidecarLayoutContent = ({
     },
   }
 
-  /**
-   * Prevents scrolling on the rest of the page body
-   */
-  useNoScrollBody(sidebarIsOpen)
-
   return (
-    <BaseLayout showFooter={false}>
-      <div className={s.root}>
-        <motion.div
-          animate={sidebarIsVisible ? 'visible' : 'hidden'}
-          className={s.sidebarWrapper}
-          ref={sidebarRef}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
-          variants={sidebarMotion}
-        >
-          <div className={s.sidebarContentWrapper}>
-            <SidebarContent />
-          </div>
-          <div className={s.docsVersionSwitcherWrapper}>
-            <DocsVersionSwitcher options={versions} />
-          </div>
-        </motion.div>
-        <div className={s.contentWrapper}>
-          {currentlyViewedVersion && (
-            <PageAlert
-              className={s.versionAlert}
-              description={
-                <>
-                  You are viewing documentation for version{' '}
-                  {currentlyViewedVersion}.{' '}
-                  <InlineLink
-                    className={s.versionAlertLink}
-                    href={removeVersionFromPath(currentPath)}
-                    textSize={200}
-                    textWeight="medium"
-                  >
-                    View latest version
-                  </InlineLink>
-                  .
-                </>
-              }
-              icon={<IconInfo16 />}
-              type="highlight"
-            />
-          )}
-          <div className={s.mainAreaWrapper}>
-            <main id="main" className={s.main}>
-              <span className={s.breadcrumbOptOutGroup}>
-                {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-                <span className={s.optInOutSlot}>
-                  {optInOutSlot && optInOutSlot}
-                </span>
+    <div className={s.root}>
+      <motion.div
+        animate={sidebarIsVisible ? 'visible' : 'hidden'}
+        className={s.sidebarWrapper}
+        ref={sidebarRef}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
+        variants={sidebarMotion}
+      >
+        <div className={s.sidebarContentWrapper}>
+          <SidebarContent />
+        </div>
+        <div className={s.docsVersionSwitcherWrapper}>
+          <DocsVersionSwitcher options={versions} />
+        </div>
+      </motion.div>
+      <div className={s.contentWrapper}>
+        {currentlyViewedVersion && (
+          <PageAlert
+            className={s.versionAlert}
+            description={
+              <>
+                You are viewing documentation for version{' '}
+                {currentlyViewedVersion}.{' '}
+                <InlineLink
+                  className={s.versionAlertLink}
+                  href={removeVersionFromPath(currentPath)}
+                  textSize={200}
+                  textWeight="medium"
+                >
+                  View latest version
+                </InlineLink>
+                .
+              </>
+            }
+            icon={<IconInfo16 />}
+            type="highlight"
+          />
+        )}
+        <div className={s.mainAreaWrapper}>
+          <main id="main" className={s.main}>
+            <span className={s.breadcrumbOptOutGroup}>
+              {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+              <span className={s.optInOutSlot}>
+                {optInOutSlot && optInOutSlot}
               </span>
-              {children}
-              {githubFileUrl && (
-                <EditOnGithubLink
-                  className={s.editOnGithubLink}
-                  url={githubFileUrl}
-                  label="Edit this page on GitHub"
-                />
-              )}
-            </main>
-            <div className={s.sidecarWrapper}>
-              <SidecarContent />
-            </div>
-          </div>
-          <div className={s.footerAreaWrapper}>
-            <Footer
-              className={s.footer}
-              openConsentManager={openConsentManager}
-            />
-            <div className={s.emptyDuplicateSidecarWrapper} />
+            </span>
+            {children}
+            {githubFileUrl && (
+              <EditOnGithubLink
+                className={s.editOnGithubLink}
+                url={githubFileUrl}
+                label="Edit this page on GitHub"
+              />
+            )}
+          </main>
+          <div className={s.sidecarWrapper}>
+            <SidecarContent />
           </div>
         </div>
+        <div className={s.footerAreaWrapper}>
+          <Footer
+            className={s.footer}
+            openConsentManager={openConsentManager}
+          />
+          <div className={s.emptyDuplicateSidecarWrapper} />
+        </div>
       </div>
-    </BaseLayout>
+    </div>
   )
 }
 
