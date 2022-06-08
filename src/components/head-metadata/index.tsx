@@ -19,7 +19,7 @@ export default function HeadMetadata(props: HeadMetadataProps) {
     titleParts.unshift(props.title)
   }
 
-  // Ultimately we want to build up a title that looks like {specified page title} | {product} | {root title title}
+  // Ultimately we want to build up a title that looks like {specified page title} | {product} | {root title}
   const title = titleParts.join(' | ')
 
   return (
