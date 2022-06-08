@@ -79,14 +79,14 @@
       "type": "icon-card-grid",
       "cards": [
         {
+          "iconName": "terminal",
+          "text": "Developer Quick Start",
+          "url": "/vault/docs/get-started/developer-qs"
+        },
+        {
           "iconName": "guide",
           "text": "Client Libraries",
           "url": "/vault/api-docs/libraries"
-        },
-        {
-          "iconName": "tools",
-          "text": "API Reference",
-          "url": "/vault/api-docs"
         },
         {
           "iconName": "connection",
