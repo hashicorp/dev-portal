@@ -46,14 +46,14 @@ const BaseNewLayout = ({ children, showFooter = true }: BaseNewLayoutProps) => {
           <div className={s.contentArea}>
             {isHomePage && (
               <MobileMenuContainer className={s.mobileMenuContainer}>
-                {/* TODO move this into css class */}
-                {/* TODO use multiple lists? */}
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                <ul className={s.mobileMenuNavList}>
                   <SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
-                  {generateTopLevelSubNavItems().map((item, index) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <SidebarNavMenuItem item={item} key={index} />
-                  ))}
+                  {generateTopLevelSubNavItems().map(
+                    (item: $TSFixMe, index: number) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <SidebarNavMenuItem item={item} key={index} />
+                    )
+                  )}
                 </ul>
               </MobileMenuContainer>
             )}
