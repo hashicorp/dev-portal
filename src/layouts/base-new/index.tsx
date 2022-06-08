@@ -1,24 +1,17 @@
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
-import Footer from 'components/footer'
-import NavigationHeader from 'components/navigation-header'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
+import Footer from 'components/footer'
+import NavigationHeader from 'components/navigation-header'
+import { BaseNewLayoutProps } from './types'
 import s from './base-new-layout.module.css'
-
-interface BaseNewLayoutProps {
-  /** Defaults to true. If true, the global footer will be shown at the bottom of the page. */
-  showFooter?: boolean
-}
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
 })
 
-const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
-  children,
-  showFooter = true,
-}) => {
+const BaseNewLayout = ({ children, showFooter = true }: BaseNewLayoutProps) => {
   usePageviewAnalytics({
     siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
     includedDomains: __config.dev_dot.analytics.included_domains,
