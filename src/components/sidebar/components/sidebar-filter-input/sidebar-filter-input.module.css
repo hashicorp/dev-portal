@@ -45,12 +45,12 @@
 }
 
 .filterInput {
-  appearance: none;
-  border-radius: 5px;
-  box-shadow: var(--token-surface-inset-box-shadow);
   composes: g-focus-ring-from-box-shadow from global;
+  appearance: none;
   background-color: transparent;
   border: none;
+  border-radius: 5px;
+  box-shadow: var(--token-surface-inset-box-shadow);
   color: var(--token-color-palette-neutral-700);
   font-size: 16px;
   line-height: 18px;
