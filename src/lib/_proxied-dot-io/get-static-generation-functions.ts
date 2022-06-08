@@ -86,7 +86,7 @@ function getDotIoRemarkPlugins({
 }
 
 /**
- * TODO: can `...args` be replaced by `options`, and `args[0]` by `options`?
+ * Thought: can `...args` be replaced by `options`, and `args[0]` by `options`?
  */
 export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBase =
   (...args) => {
