@@ -16,6 +16,8 @@ const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
 })
 
+// To be consumed by Sidebar-Sidecar layout where the footer should be attached
+// to the same consent manager, but needs to render within the style of a different layout
 export function FooterWithCookieManager(props: FooterProps) {
   return <Footer openConsentManager={openConsentManager} {...props} />
 }
