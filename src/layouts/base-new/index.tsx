@@ -48,37 +48,37 @@ const HOME_PAGE_MOBILE_MENU_ITEMS = [
   {
     leadingIconName: 'hcp',
     title: 'HashiCorp Cloud Platform',
-    href: '/hcp',
+    ariaLabel: 'Coming soon: HashiCorp Cloud Platform',
   },
   {
     leadingIconName: 'terraform',
     title: 'Terraform',
-    href: '/terraform',
+    ariaLabel: 'Coming soon: Terraform',
   },
   {
     leadingIconName: 'packer',
     title: 'Packer',
-    href: '/packer',
+    ariaLabel: 'Coming soon: Packer',
   },
   {
     leadingIconName: 'consul',
     title: 'Consul',
-    href: '/consul',
+    ariaLabel: 'Coming soon: Consul',
   },
   {
     leadingIconName: 'boundary',
     title: 'Boundary',
-    href: '/boundary',
+    ariaLabel: 'Coming soon: Boundary',
   },
   {
     leadingIconName: 'nomad',
     title: 'Nomad',
-    href: '/nomad',
+    ariaLabel: 'Coming soon: Nomad',
   },
   {
     leadingIconName: 'vagrant',
     title: 'Vagrant',
-    href: '/vagrant',
+    ariaLabel: 'Coming soon: Vagrant',
   },
 ]
 
