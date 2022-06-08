@@ -47,7 +47,6 @@ function Footer({
   openConsentManager,
   className,
 }: FooterProps): React.ReactElement {
-  console.log({ openConsentManager })
   return (
     <footer className={classNames(s.root, className)}>
       <a
