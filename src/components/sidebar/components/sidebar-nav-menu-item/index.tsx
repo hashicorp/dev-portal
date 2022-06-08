@@ -99,34 +99,55 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
   const rel = isExternal ? 'noreferrer noopener' : undefined
   const target = isExternal ? '_blank' : undefined
 
-  return (
-    <Link href={href}>
-      <a
-        aria-current={ariaCurrent}
-        aria-label={ariaLabel}
-        className={className}
-        rel={rel}
-        target={target}
-      >
-        {leadingIcon}
-        <Text
-          asElement="span"
-          className={s.navMenuItemLabel}
-          dangerouslySetInnerHTML={{ __html: item.title }}
-          size={200}
-          weight="regular"
-        />
-        <RightIconsContainer
-          badge={
-            hasBadge ? (
-              <SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
-            ) : undefined
-          }
-          icon={isExternal ? <IconExternalLink16 /> : undefined}
-        />
-      </a>
-    </Link>
+  const anchorContent = (
+    <>
+      {leadingIcon}
+      <Text
+        asElement="span"
+        className={s.navMenuItemLabel}
+        dangerouslySetInnerHTML={{ __html: item.title }}
+        size={200}
+        weight="regular"
+      />
+      <RightIconsContainer
+        badge={
+          hasBadge ? (
+            <SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
+          ) : undefined
+        }
+        icon={isExternal ? <IconExternalLink16 /> : undefined}
+      />
+    </>
   )
+
+  if (href) {
+    // link is not "disabled"
+    return (
+      <Link href={href}>
+        <a
+          aria-current={ariaCurrent}
+          aria-label={ariaLabel}
+          className={className}
+          rel={rel}
+          target={target}
+        >
+          {anchorContent}
+        </a>
+      </Link>
+    )
+  } else {
+    // link is "disabled"
+    return (
+      <a
+        aria-disabled
+        aria-label={(item as $TSFixMe).ariaLabel}
+        className={className}
+        tabIndex={0}
+      >
+        {anchorContent}
+      </a>
+    )
+  }
 }
 
 /**
