@@ -4,6 +4,7 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 
 // Global imports
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
+import { useDeviceSize } from 'contexts'
 import useCurrentPath from 'hooks/use-current-path'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
@@ -27,6 +28,7 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 const BaseNewLayout = ({ children, showFooter = true }: BaseNewLayoutProps) => {
   // hooks
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const { isDesktop } = useDeviceSize()
   usePageviewAnalytics({
     siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
     includedDomains: __config.dev_dot.analytics.included_domains,
@@ -44,7 +46,7 @@ const BaseNewLayout = ({ children, showFooter = true }: BaseNewLayoutProps) => {
             <NavigationHeader />
           </div>
           <div className={s.contentArea}>
-            {isHomePage && (
+            {isHomePage && !isDesktop && (
               <MobileMenuContainer className={s.mobileMenuContainer}>
                 <ul className={s.mobileMenuNavList}>
                   <SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
