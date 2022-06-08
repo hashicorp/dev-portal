@@ -1,6 +1,5 @@
 // Third-party imports
 import { ReactElement, useRef } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
 
 // HashiCorp imports
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
@@ -18,6 +17,7 @@ import DocsVersionSwitcher from 'components/docs-version-switcher'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import Footer from 'components/footer'
 import InlineLink from 'components/inline-link'
+import MobileMenuContainer from 'components/mobile-menu-container'
 import PageAlert from 'components/page-alert'
 import Sidebar from 'components/sidebar'
 
@@ -55,7 +55,6 @@ const SidebarSidecarLayoutContent = ({
   const { isDesktop } = useDeviceSize()
   const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
   const { currentLevel } = useSidebarNavData()
-  const shouldReduceMotion = useReducedMotion()
   const sidebarRef = useRef<HTMLDivElement>()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const currentlyViewedVersion = getVersionFromPath(currentPath)
@@ -89,35 +88,16 @@ const SidebarSidecarLayoutContent = ({
     )
   }
 
-  const sidebarMotion = {
-    visible: {
-      left: 0,
-      display: 'block',
-    },
-    hidden: {
-      left: '-150vw',
-      transitionEnd: {
-        display: 'none',
-      },
-    },
-  }
-
   return (
     <div className={s.root}>
-      <motion.div
-        animate={sidebarIsVisible ? 'visible' : 'hidden'}
-        className={s.sidebarWrapper}
-        ref={sidebarRef}
-        transition={{ duration: shouldReduceMotion ? 0 : 0.6 }}
-        variants={sidebarMotion}
-      >
+      <MobileMenuContainer ref={sidebarRef}>
         <div className={s.sidebarContentWrapper}>
           <SidebarContent />
         </div>
         <div className={s.docsVersionSwitcherWrapper}>
           <DocsVersionSwitcher options={versions} />
         </div>
-      </motion.div>
+      </MobileMenuContainer>
       <div className={s.contentWrapper}>
         {currentlyViewedVersion && (
           <PageAlert
