@@ -6,7 +6,7 @@ import { HeadMetadataProps } from './types'
  * Builds up the the necessary meta tags for the site. Rendered in `_app`, where it receives `pageProps.metadata` as props
  */
 export default function HeadMetadata(props: HeadMetadataProps) {
-  const { name: productName } = useCurrentProduct()
+  const { name: productName } = useCurrentProduct() ?? {}
 
   const titleParts = [__config.dev_dot.meta.title]
   const description = props.description ?? __config.dev_dot.meta.description
