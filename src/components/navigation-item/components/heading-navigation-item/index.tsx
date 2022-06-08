@@ -1,8 +1,14 @@
-const HeadingNavigationItem = ({ level = 2, text }) => {
+import { HeadingNavigationItemProps } from './types'
+import s from './heading-navigation-item.module.css'
+
+const HeadingNavigationItem = ({
+  level = 2,
+  text,
+}: HeadingNavigationItemProps) => {
   const HeadingElement = `h${level}` as React.ElementType
 
-  // TODO apply styles. Same for both levels
-  return <HeadingElement>{text}</HeadingElement>
+  return <HeadingElement className={s.root}>{text}</HeadingElement>
 }
 
+export type { HeadingNavigationItemProps }
 export default HeadingNavigationItem

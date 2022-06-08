@@ -1,3 +1,5 @@
+import { HeadingNavigationItemProps } from './components'
+
 interface DividerNavigationItemShape {
   divider: true
 }
@@ -7,8 +9,8 @@ interface ExpandableNavigationItemShape {
 }
 
 interface HeadingNavigationItemShape {
-  heading: string
-  level?: 2 | 3
+  heading: HeadingNavigationItemProps['text']
+  level?: HeadingNavigationItemProps['level']
 }
 
 interface LinkNavigationItemShape {
