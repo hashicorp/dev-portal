@@ -21,6 +21,7 @@ import Text from 'components/text'
 import {
   RightIconsContainerProps,
   SidebarNavLinkItemProps,
+  SidebarNavMenuItemBadgeProps,
   SidebarNavMenuItemProps,
   SupportedIconName,
 } from './types'
@@ -53,6 +54,22 @@ const RightIconsContainer = ({ badge, icon }: RightIconsContainerProps) => {
       {icon}
     </div>
   )
+}
+
+/**
+ * A wrapper around Badge for rendering consistent Badges in SidebarNavMenuItem.
+ */
+const SidebarNavMenuItemBadge = ({
+  color,
+  text,
+}: SidebarNavMenuItemBadgeProps) => {
+  if (color !== 'highlight' && color !== 'neutral') {
+    throw new Error(
+      `[SidebarNavMenuItemBadge] Only the "highlight" and "neutral" colors are supported for Badges, but was given ${color}.`
+    )
+  }
+
+  return <Badge color={color} size="small" text={text} type="outlined" />
 }
 
 /**
@@ -100,12 +117,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
         <RightIconsContainer
           badge={
             hasBadge ? (
-              <Badge
-                color={(item as $TSFixMe).badgeProps.color}
-                size="small"
-                text={(item as $TSFixMe).badgeProps.text}
-                type="outlined"
-              />
+              <SidebarNavMenuItemBadge {...(item as $TSFixMe).badgeProps} />
             ) : undefined
           }
           icon={isExternal ? <IconExternalLink16 /> : undefined}
@@ -167,12 +179,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
         <RightIconsContainer
           badge={
             hasBadge ? (
-              <Badge
-                color={(item as $TSFixMe).badgeProps.color}
-                size="small"
-                text={(item as $TSFixMe).badgeProps.text}
-                type="outlined"
-              />
+              <SidebarNavMenuItemBadge {...(item as $TSFixMe).badgeProps} />
             ) : undefined
           }
           icon={<IconChevronRight16 />}
