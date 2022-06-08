@@ -85,37 +85,34 @@ function getDotIoRemarkPlugins({
   }
 }
 
-/**
- * Thought: can `...args` be replaced by `options`, and `args[0]` by `options`?
- */
 export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBase =
-  (...args) => {
-    if (!args[0].revalidate && args[0].strategy === 'remote') {
-      args[0].revalidate = __config.io_sites.revalidate
+  (opts) => {
+    if (!opts.revalidate && opts.strategy === 'remote') {
+      opts.revalidate = __config.io_sites.revalidate
     }
 
     /**
      * Build the set of remark plugins to use.
      */
-    const extraRemarkPlugins = Array.isArray(args[0].remarkPlugins)
-      ? args[0].remarkPlugins
+    const extraRemarkPlugins = Array.isArray(opts.remarkPlugins)
+      ? opts.remarkPlugins
       : []
     const defaultRemarkPlugins = getDotIoRemarkPlugins({
-      strategy: args[0].strategy,
-      localPartialsDir: args[0].strategy == 'fs' && args[0].localPartialsDir,
+      strategy: opts.strategy,
+      localPartialsDir: opts.strategy == 'fs' && opts.localPartialsDir,
     })
-    args[0].remarkPlugins = [...defaultRemarkPlugins, ...extraRemarkPlugins]
+    opts.remarkPlugins = [...defaultRemarkPlugins, ...extraRemarkPlugins]
 
     /**
      * Build the set of rehype plugins to use.
      */
-    args[0].rehypePlugins = [
+    opts.rehypePlugins = [
       [rehypePrism, { ignoreMissing: true }],
       rehypeSurfaceCodeNewlines,
     ]
 
     const { getStaticPaths: getStaticPathsBase, getStaticProps } =
-      getStaticGenerationFunctionsBase(...args)
+      getStaticGenerationFunctionsBase(opts)
 
     return {
       async getStaticPaths(ctx) {
