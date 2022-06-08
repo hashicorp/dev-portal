@@ -7,8 +7,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { useRouter } from 'next/router'
-import { useDeviceSize } from 'contexts'
+import { useDeviceSize, useMobileMenu } from 'contexts'
 import { SidebarProps } from 'components/sidebar'
 
 interface State {
@@ -16,10 +15,10 @@ interface State {
   hasManyLevels: boolean
   isFirstLevel: boolean
   isLastLevel: boolean
+  mobileMenuIsOpen: boolean
   setCurrentLevel: Dispatch<SetStateAction<number>>
-  setSidebarIsOpen: Dispatch<SetStateAction<boolean>>
+  setMobileMenuIsOpen: Dispatch<SetStateAction<boolean>>
   shouldRenderMobileControls: boolean
-  sidebarIsOpen: boolean
 }
 
 const SidebarNavDataContext = createContext<State | undefined>(undefined)
@@ -33,50 +32,24 @@ const SidebarNavDataProvider = ({
   children,
   navDataLevels,
 }: SidebarNavDataProviderProps) => {
-  const router = useRouter()
   const { isDesktop } = useDeviceSize()
+  const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
   const numberOfLevels = navDataLevels.length
   const [currentLevel, setCurrentLevel] = useState<number>(numberOfLevels - 1)
-  const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>()
 
-  // Reset the current level if the mobile nav has been closed
+  /**
+   * Reset if the current level once the mobile menu is closed and also if the
+   * `navDataLevels` prop has changed.
+   */
   useEffect(() => {
-    if (sidebarIsOpen) {
+    // Should not alter current level after opening the mobile menu
+    if (mobileMenuIsOpen) {
       return
     }
 
+    // Rest to the last/lowest level
     setCurrentLevel(numberOfLevels - 1)
-  }, [numberOfLevels, sidebarIsOpen])
-
-  // Reset the current level if the device size or props change
-  useEffect(() => {
-    setCurrentLevel(numberOfLevels - 1)
-  }, [isDesktop, navDataLevels, numberOfLevels])
-
-  // Handles closing the Sidebar in some cases
-  useEffect(() => {
-    // Don't need to listen for router events on Desktop
-    if (isDesktop) {
-      // Close the Sidebar if the viewport size has crossed the breakpoint
-      setSidebarIsOpen(false)
-      return
-    }
-
-    // Close the Sidebar if it's open on route change start
-    const handleRouteChange = () => {
-      if (sidebarIsOpen) {
-        setSidebarIsOpen(false)
-      }
-    }
-
-    router.events.on('routeChangeComplete', handleRouteChange)
-    router.events.on('routeChangeError', handleRouteChange)
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-      router.events.off('routeChangeError', handleRouteChange)
-    }
-  }, [router.events, sidebarIsOpen, isDesktop])
+  }, [mobileMenuIsOpen, navDataLevels, numberOfLevels])
 
   // Derive booleans based on main state
   const hasManyLevels = numberOfLevels > 1
@@ -90,10 +63,10 @@ const SidebarNavDataProvider = ({
     hasManyLevels,
     isFirstLevel,
     isLastLevel,
+    mobileMenuIsOpen,
     setCurrentLevel,
-    setSidebarIsOpen,
+    setMobileMenuIsOpen,
     shouldRenderMobileControls,
-    sidebarIsOpen,
   }
 
   return (
