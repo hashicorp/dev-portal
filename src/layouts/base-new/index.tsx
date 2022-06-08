@@ -20,6 +20,10 @@ const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
 })
 
+/**
+ * TODO (future enhancement): rename and abstract `SidebarNavDataProvider` for
+ * use here.
+ */
 const BaseNewLayout = ({ children, showFooter = true }: BaseNewLayoutProps) => {
   // hooks
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
