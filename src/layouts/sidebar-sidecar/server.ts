@@ -6,6 +6,8 @@ import {
   // includeMarkdown,
   // paragraphCustomAlerts,
 } from '@hashicorp/remark-plugins'
+import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
+import rehypePrism from '@mapbox/rehype-prism'
 import { ProductData, RootDocsPath } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
@@ -120,8 +122,7 @@ export function getStaticGenerationFunctions<
         mainBranch,
         remarkPlugins: [
           /**
-           * TODO
-           *
+           * Note on remark plugins for local vs remote loading:
            * includeMarkdown and paragraphCustomAlerts are already
            * expected to have been run for remote content.
            * However, we'll need to account for these plugins once
@@ -132,6 +133,10 @@ export function getStaticGenerationFunctions<
           [anchorLinks, { headings }],
           rewriteTutorialLinksPlugin,
           ...additionalRemarkPlugins,
+        ],
+        rehypePlugins: [
+          [rehypePrism, { ignoreMissing: true }],
+          rehypeSurfaceCodeNewlines,
         ],
         scope: await getScope(),
       })

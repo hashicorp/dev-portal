@@ -101,7 +101,7 @@
     "@hashicorp/react-command-line-terminal": "^2.0.4",
     "@hashicorp/react-consent-manager": "^7.2.0",
     "@hashicorp/react-content": "8.2.3-canary-20220608124347",
-    "@hashicorp/react-docs-page": "17.0.0-canary-20220608124347",
+    "@hashicorp/react-docs-page": "17.0.0-canary-20220608134652",
     "@hashicorp/react-enterprise-alert": "^6.0.1",
     "@hashicorp/react-error-view": "^0.0.2",
     "@hashicorp/react-featured-slider": "^5.0.1",
