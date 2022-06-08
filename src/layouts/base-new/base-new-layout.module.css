@@ -32,6 +32,10 @@ Asana task: https://app.asana.com/0/1202114367927919/1202316169578550/f
   z-index: 1;
 }
 
+.mobileMenuContainer {
+  padding: 24px;
+}
+
 .contentArea {
   /* flex column gives consumers 
   flexibility in making their content either
