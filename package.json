@@ -100,7 +100,8 @@
     "@hashicorp/react-code-block": "^5.2.0",
     "@hashicorp/react-command-line-terminal": "^2.0.4",
     "@hashicorp/react-consent-manager": "^7.2.0",
-    "@hashicorp/react-docs-page": "17.0.0-canary-20220607231611",
+    "@hashicorp/react-content": "8.2.3-canary-20220608124347",
+    "@hashicorp/react-docs-page": "17.0.0-canary-20220608124347",
     "@hashicorp/react-enterprise-alert": "^6.0.1",
     "@hashicorp/react-error-view": "^0.0.2",
     "@hashicorp/react-featured-slider": "^5.0.1",
@@ -173,7 +174,7 @@
     "semver": "^7.3.5",
     "slugify": "^1.6.4",
     "swingset": "^0.11.0",
-    "unified": "^9.2.0",
+    "unified": "^9.2.2",
     "unist-util-is": "^5.1.1",
     "unist-util-visit": "^4.1.0",
     "validator": "^13.7.0"
