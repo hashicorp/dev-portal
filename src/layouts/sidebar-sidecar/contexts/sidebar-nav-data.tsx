@@ -70,7 +70,7 @@ const SidebarNavDataProvider = ({
     }
 
     router.events.on('routeChangeComplete', handleRouteChange)
-    router.events.off('routeChangeError', handleRouteChange)
+    router.events.on('routeChangeError', handleRouteChange)
 
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
