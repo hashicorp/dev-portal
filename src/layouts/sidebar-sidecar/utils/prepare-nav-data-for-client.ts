@@ -63,20 +63,21 @@ function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
    *
    * ref: https://app.asana.com/0/1201010428539925/1201602267333015/f
    */
-  if ((node as any).hidden) {
+  if ((node as $TSFixMe).hidden) {
     return null
   }
 
+  let preparedNode: $TSFixMe = node
   if (isNavBranch(node)) {
     // For nodes with routes, add fullPaths to all routes, and `id`
-    return {
+    preparedNode = {
       ...node,
       routes: prepareNavDataForClient(node.routes, basePaths),
       id: slugify(`submenu-${node.title}`, { lower: true }),
     }
   } else if (isNavLeaf(node)) {
     // For nodes with paths, add fullPath to the node, and `id`
-    return {
+    preparedNode = {
       ...node,
       fullPath: `/${basePaths.join('/')}/${node.path}`,
       id: slugify(`menu-item-${node.path}`, { lower: true }),
@@ -98,15 +99,9 @@ function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
       // Note that the `fullPath` added here differs from typical
       // NavLeaf treatment, as we only use the first part of the `basePath`.
       // (We expect this to be the product slug, eg "consul").
-
-      // If the path already starts with the base path (i.e. /vault), don't add it
-      const fullPath = node.href.startsWith(`/${basePaths[0]}`)
-        ? node.href
-        : `/${basePaths[0]}${node.href}`
-
-      return {
+      preparedNode = {
         ...node,
-        fullPath,
+        fullPath: `/${basePaths[0]}${node.href}`,
         href: null,
         id,
         path: node.href,
@@ -114,12 +109,44 @@ function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
     } else {
       // Otherwise, this is a genuinely external NavDirectLink,
       // so we only need to add an `id` to it.
-      return { ...node, id }
+      preparedNode = { ...node, id }
     }
-  } else {
-    // Otherwise return the node unmodified
-    return node
   }
+
+  /**
+   * Handle striping the <sup> from titles and adding a `badge` property to the
+   * node that Sidebar will handle client-side.
+   */
+  const nodeTitle = (node as $TSFixMe).title
+  const indexOfSuperscript = nodeTitle?.indexOf('<sup>')
+  if (indexOfSuperscript >= 0) {
+    // Separate the <sup> portion of the string from the title
+    const superscriptPart = nodeTitle.slice(indexOfSuperscript).trim()
+
+    // Capture text within <sup> tags
+    const superscriptTextMatches = superscriptPart.match(/<sup>(.*)<\/sup>/)
+
+    // Throw an error if there are too many matches
+    if (superscriptTextMatches.length > 2) {
+      throw new Error(
+        `[prepareNavNodeForClient] Found multiple <sup> tags in node but only one is supported. Node: ${JSON.stringify(
+          node
+        )}`
+      )
+    }
+
+    // Reset the node title to the text before the <sup> tag
+    const textBeforeSuperscript = nodeTitle.slice(0, indexOfSuperscript).trim()
+    preparedNode.title = textBeforeSuperscript
+
+    // Generate the badge properties
+    preparedNode.badgeProps = {
+      text: superscriptTextMatches[1],
+      color: 'neutral',
+    }
+  }
+
+  return preparedNode
 }
 
 export default prepareNavDataForClient
