@@ -16,7 +16,7 @@ const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
 })
 
-export function FooterWithConsentMgr(props: FooterProps) {
+export function FooterWithCookieManager(props: FooterProps) {
   return <Footer openConsentManager={openConsentManager} {...props} />
 }
 
@@ -40,7 +40,7 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
           <div className={s.contentArea}>{children}</div>
           {showFooter && (
             <div className={s.footer}>
-              <FooterWithConsentMgr />
+              <FooterWithCookieManager />
             </div>
           )}
         </div>

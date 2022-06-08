@@ -12,7 +12,7 @@ import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 import useCurrentPath from 'hooks/use-current-path'
 import { useDeviceSize } from 'contexts'
-import BaseLayout, { FooterWithConsentMgr } from 'layouts/base-new'
+import BaseLayout, { FooterWithCookieManager } from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
@@ -165,7 +165,7 @@ const SidebarSidecarLayoutContent = ({
             </div>
           </div>
           <div className={s.footerAreaWrapper}>
-            <FooterWithConsentMgr className={s.footer} />
+            <FooterWithCookieManager className={s.footer} />
             <div className={s.emptyDuplicateSidecarWrapper} />
           </div>
         </div>
