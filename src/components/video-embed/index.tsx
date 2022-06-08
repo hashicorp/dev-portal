@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player/lazy'
 import { VideoEmbedProps, VideoEmbedInnerProps } from './types'
 import {
   usePlayState,
