@@ -31,6 +31,16 @@ const FOOTER_ITEMS: FooterItem[] = [
     href: 'https://www.hashicorp.com/privacy',
     text: 'Privacy',
   },
+  {
+    type: 'link',
+    href: 'https://www.hashicorp.com/trademark-policy',
+    text: 'Trademark Policy',
+  },
+  {
+    type: 'link',
+    href: 'https://www.hashicorp.com/trade-controls',
+    text: 'Trade Controls',
+  },
 ]
 
 function Footer({
