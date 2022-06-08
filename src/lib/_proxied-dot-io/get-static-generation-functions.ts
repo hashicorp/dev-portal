@@ -1,13 +1,15 @@
+import path from 'path'
+import { visit } from 'unist-util-visit'
+import { Image } from 'mdast'
+import { Pluggable } from 'unified'
 import {
   includeMarkdown,
   paragraphCustomAlerts,
   typography,
   anchorLinks,
 } from '@hashicorp/remark-plugins'
-import path from 'path'
-import { visit } from 'unist-util-visit'
-import { Image } from 'mdast'
-import { Pluggable } from 'unified'
+import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
+import rehypePrism from '@mapbox/rehype-prism'
 import { getStaticGenerationFunctions as getStaticGenerationFunctionsBase } from '@hashicorp/react-docs-page/server'
 
 // This Remark plugin rewrites img URLs from our Marketing Content Server API
@@ -103,6 +105,14 @@ export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBa
       localPartialsDir: args[0].strategy == 'fs' && args[0].localPartialsDir,
     })
     args[0].remarkPlugins = [...defaultRemarkPlugins, ...extraRemarkPlugins]
+
+    /**
+     * Build the set of rehype plugins to use.
+     */
+    args[0].rehypePlugins = [
+      [rehypePrism, { ignoreMissing: true }],
+      rehypeSurfaceCodeNewlines,
+    ]
 
     const { getStaticPaths: getStaticPathsBase, getStaticProps } =
       getStaticGenerationFunctionsBase(...args)
