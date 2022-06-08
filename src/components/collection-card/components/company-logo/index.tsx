@@ -14,7 +14,7 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
     case 'aws': {
       image = (
         <Image
-          src={require(`./img/aws.png`)}
+          src={require(`./img/aws.png?url`)}
           alt=""
           /**
            * Note: for use in CollectionCard, consumer should provide meaningful
@@ -30,7 +30,7 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
     case 'docker': {
       image = (
         <Image
-          src={require(`./img/docker.png`)}
+          src={require(`./img/docker.png?url`)}
           alt=""
           /**
            * Note: for use in CollectionCard, consumer should provide meaningful
@@ -46,7 +46,7 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
     case 'github': {
       image = (
         <Image
-          src={require(`./img/github.png`)}
+          src={require(`./img/github.png?url`)}
           alt=""
           /**
            * Note: for use in CollectionCard, consumer should provide meaningful
@@ -62,7 +62,7 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
     case 'google-cloud': {
       image = (
         <Image
-          src={require(`./img/google-cloud.png`)}
+          src={require(`./img/google-cloud.png?url`)}
           alt=""
           /**
            * Note: for use in CollectionCard, consumer should provide meaningful
@@ -78,7 +78,7 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
     case 'microsoft-azure': {
       image = (
         <Image
-          src={require(`./img/microsoft-azure.png`)}
+          src={require(`./img/microsoft-azure.png?url`)}
           alt=""
           /**
            * Note: for use in CollectionCard, consumer should provide meaningful
@@ -94,7 +94,7 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
     case 'oci': {
       image = (
         <Image
-          src={require(`./img/oci.png`)}
+          src={require(`./img/oci.png?url`)}
           alt=""
           /**
            * Note: for use in CollectionCard, consumer should provide meaningful
@@ -110,7 +110,7 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
     case 'terraform-cloud': {
       image = (
         <Image
-          src={require('@hashicorp/mktg-logos/product/terraform-cloud/primary/color.svg')}
+          src={require('@hashicorp/mktg-logos/product/terraform-cloud/primary/color.svg?url')}
           alt=""
           /**
            * Note: for use in CollectionCard, consumer should provide meaningful
