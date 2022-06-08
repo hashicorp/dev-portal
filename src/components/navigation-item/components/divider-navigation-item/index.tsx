@@ -1,6 +1,7 @@
+import s from './divider-navigation-item.module.css'
+
 const DividerNavigationItem = () => {
-  // TODO apply styles
-  return <hr />
+  return <hr className={s.root} />
 }
 
 export default DividerNavigationItem
