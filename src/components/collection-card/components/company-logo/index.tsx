@@ -14,11 +14,12 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
       ? require('@hashicorp/mktg-logos/product/terraform-cloud/primary/color.svg')
       : require(`./img/${name}.png`)
 
-  return (
-    <span className={s.root}>
-      <span className={classNames(s.inner, s[`logo-${name}`])}>
+  let image = null
+  switch (name) {
+    case 'aws': {
+      image = (
         <Image
-          src={src}
+          src={require(`./img/aws.png`)}
           alt=""
           /**
            * Note: for use in CollectionCard, consumer should provide meaningful
@@ -28,7 +29,110 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
           layout="fill"
           objectFit="contain"
         />
-      </span>
+      )
+      break
+    }
+    case 'docker': {
+      image = (
+        <Image
+          src={require(`./img/docker.png`)}
+          alt=""
+          /**
+           * Note: for use in CollectionCard, consumer should provide meaningful
+           * text using the card heading element.
+           */
+          objectPosition="left center"
+          layout="fill"
+          objectFit="contain"
+        />
+      )
+      break
+    }
+    case 'github': {
+      image = (
+        <Image
+          src={require(`./img/github.png`)}
+          alt=""
+          /**
+           * Note: for use in CollectionCard, consumer should provide meaningful
+           * text using the card heading element.
+           */
+          objectPosition="left center"
+          layout="fill"
+          objectFit="contain"
+        />
+      )
+      break
+    }
+    case 'google-cloud': {
+      image = (
+        <Image
+          src={require(`./img/google-cloud.png`)}
+          alt=""
+          /**
+           * Note: for use in CollectionCard, consumer should provide meaningful
+           * text using the card heading element.
+           */
+          objectPosition="left center"
+          layout="fill"
+          objectFit="contain"
+        />
+      )
+      break
+    }
+    case 'microsoft-azure': {
+      image = (
+        <Image
+          src={require(`./img/microsoft-azure.png`)}
+          alt=""
+          /**
+           * Note: for use in CollectionCard, consumer should provide meaningful
+           * text using the card heading element.
+           */
+          objectPosition="left center"
+          layout="fill"
+          objectFit="contain"
+        />
+      )
+      break
+    }
+    case 'oci': {
+      image = (
+        <Image
+          src={require(`./img/oci.png`)}
+          alt=""
+          /**
+           * Note: for use in CollectionCard, consumer should provide meaningful
+           * text using the card heading element.
+           */
+          objectPosition="left center"
+          layout="fill"
+          objectFit="contain"
+        />
+      )
+      break
+    }
+    case 'terraform-cloud': {
+      image = (
+        <Image
+          src={require('@hashicorp/mktg-logos/product/terraform-cloud/primary/color.svg')}
+          alt=""
+          /**
+           * Note: for use in CollectionCard, consumer should provide meaningful
+           * text using the card heading element.
+           */
+          objectPosition="left center"
+          layout="fill"
+          objectFit="contain"
+        />
+      )
+      break
+    }
+  }
+
+  return (
+    <span className={s.root}>
+      <span className={classNames(s.inner, s[`logo-${name}`])}>{image}</span>
     </span>
   )
 }
