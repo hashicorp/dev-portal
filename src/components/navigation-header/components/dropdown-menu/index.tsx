@@ -267,7 +267,7 @@ const NavigationHeaderDropdownMenu = ({
                       const itemId = generateItemId(groupId, itemIndex)
                       const linkHref = item.path
                       const isCurrentPage = linkHref === currentPath
-                      const hasBadge = !!item.badgeProps
+                      const hasBadge = !!item.badge
                       const anchorContent = (
                         <div className={s.itemLinkContent}>
                           <div className={s.leftAlignedItemLinkContent}>
@@ -283,9 +283,9 @@ const NavigationHeaderDropdownMenu = ({
                           </div>
                           {hasBadge && (
                             <Badge
-                              color={item.badgeProps.color}
+                              color={item.badge.color}
                               size="small"
-                              text={item.badgeProps.text}
+                              text={item.badge.text}
                             />
                           )}
                         </div>
