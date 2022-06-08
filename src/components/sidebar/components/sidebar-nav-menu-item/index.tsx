@@ -10,6 +10,7 @@ import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import Badge from 'components/badge'
 import { MenuItem } from 'components/sidebar'
 import ProductIcon from 'components/product-icon'
 import {
@@ -18,7 +19,9 @@ import {
 } from 'components/sidebar/components'
 import Text from 'components/text'
 import {
+  RightIconsContainerProps,
   SidebarNavLinkItemProps,
+  SidebarNavMenuItemBadgeProps,
   SidebarNavMenuItemProps,
   SupportedIconName,
 } from './types'
@@ -36,6 +39,40 @@ const SUPPORTED_LEADING_ICONS: {
 }
 
 /**
+ * Handles rendering the content of the right-side of a `SidebarNavMenuItem`.
+ * This content may include one `Badge`, one `Icon`, one of each, or neither.
+ * Returns `null` if neither are provided.
+ */
+const RightIconsContainer = ({ badge, icon }: RightIconsContainerProps) => {
+  if (!badge && !icon) {
+    return null
+  }
+
+  return (
+    <div className={s.rightIconsContainer}>
+      {badge}
+      {icon}
+    </div>
+  )
+}
+
+/**
+ * A wrapper around Badge for rendering consistent Badges in SidebarNavMenuItem.
+ */
+const SidebarNavMenuItemBadge = ({
+  color,
+  text,
+}: SidebarNavMenuItemBadgeProps) => {
+  if (color !== 'highlight' && color !== 'neutral') {
+    throw new Error(
+      `[SidebarNavMenuItemBadge] Only the "highlight" and "neutral" colors are supported for Badges, but was given ${color}.`
+    )
+  }
+
+  return <Badge color={color} size="small" text={text} type="outlined" />
+}
+
+/**
  * Handles rendering a link menu item in the Sidebar. Will automatically
  * determine whether or not the link is external to DevDot, and will render an
  * external link icon if the link is external.
@@ -43,6 +80,7 @@ const SUPPORTED_LEADING_ICONS: {
 const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
   const href = item.fullPath || item.href
   const isExternal = isAbsoluteUrl(href)
+  const hasBadge = !!(item as $TSFixMe).badge
 
   let leadingIcon
   if (item.leadingIconName) {
@@ -76,7 +114,14 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
           size={200}
           weight="regular"
         />
-        {isExternal && <IconExternalLink16 />}
+        <RightIconsContainer
+          badge={
+            hasBadge ? (
+              <SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
+            ) : undefined
+          }
+          icon={isExternal ? <IconExternalLink16 /> : undefined}
+        />
       </a>
     </Link>
   )
@@ -91,6 +136,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
   const [isOpen, setIsOpen] = useState(
     item.hasActiveChild || item.hasChildrenMatchingFilter || item.matchesFilter
   )
+  const hasBadge = !!(item as $TSFixMe).badge
 
   /**
    * Without this effect, the menu items aren't re-rerendered to be open. Seems
@@ -130,7 +176,14 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
           size={200}
           weight="regular"
         />
-        <IconChevronRight16 />
+        <RightIconsContainer
+          badge={
+            hasBadge ? (
+              <SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
+            ) : undefined
+          }
+          icon={<IconChevronRight16 />}
+        />
       </button>
       {isOpen && (
         <ul id={item.id} onKeyDown={handleKeyDown}>

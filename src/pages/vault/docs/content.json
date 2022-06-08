@@ -1,5 +1,5 @@
 {
-  "pageSubtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+  "pageSubtitle": "Vault is an identity-based secret and encryption management system. This documentation covers the main concepts of Vault, what problems it can solve, and contains a quick start for using Vault.",
   "marketingContentBlocks": [
     {
       "type": "section-heading",
@@ -11,19 +11,19 @@
       "description": "Centrally store, access, and deploy secrets across applications, systems, and infrastructure.",
       "cards": [
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "A generic Key-Value store used to store arbitrary secrets within the configured physical storage for Vault.",
           "title": "KV Secrets Engine",
           "url": "/vault/docs/secrets/kv"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Generate database credentials dynamically based on configured roles.",
           "title": "Database Credentials",
           "url": "/vault/docs/secrets/databases"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Deploy Vault into Kubernetes using the official HashiCorp Vault Helm chart.",
           "title": "Kubernetes Secrets",
-          "url": "/vault/tutorials/kubernetes"
+          "url": "/vault/docs/platform/k8s"
         }
       ]
     },
@@ -33,17 +33,17 @@
       "description": "Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.",
       "cards": [
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Apply cryptographic functions on data in-transit. Sign and verify data, generate hashes and HMACs of data, and act as a source of random bytes.",
           "title": "Transit Secrets Engine",
           "url": "/vault/docs/secrets/transit"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Handle secure data transformation and tokenization against a provided input value using NIST vetted cryptographic standards and other transformations such as masking.",
           "title": "Transform Secrets Engine",
           "url": "/vault/docs/secrets/transform"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Exchange a sensitive value for an unrelated value called a token. The original sensitive value cannot be recovered from a token alone but is irreversible.",
           "title": "Tokenization",
           "url": "/vault/docs/secrets/transform/tokenization"
         }
@@ -55,17 +55,17 @@
       "description": "Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.",
       "cards": [
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Act as a key management interoperability protocol server provider and handle the lifecycle of its KMIP managed objects.",
           "title": "KMIP Secrets Engine",
           "url": "/vault/docs/secrets/kmip"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "A consistent workflow for distribution and lifecycle management of cryptographic keys in key management service (KMS) providers.",
           "title": "Key Management Secrets Engine",
           "url": "/vault/docs/secrets/key-management"
         },
         {
-          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "description": "Generate dynamic X.509 certificates without going through the manual process of generating a private key and CSR or submitting to a CA.",
           "title": "PKI",
           "url": "/vault/docs/secrets/pki"
         }
@@ -79,14 +79,14 @@
       "type": "icon-card-grid",
       "cards": [
         {
+          "iconName": "terminal",
+          "text": "Developer Quick Start",
+          "url": "/vault/docs/get-started/developer-qs"
+        },
+        {
           "iconName": "guide",
           "text": "Client Libraries",
           "url": "/vault/api-docs/libraries"
-        },
-        {
-          "iconName": "tools",
-          "text": "API Reference",
-          "url": "/vault/api-docs"
         },
         {
           "iconName": "connection",
