@@ -73,7 +73,7 @@
       "path": "commands"
     },
     {
-      "iconName": "box",
+      "iconName": "plug",
       "name": "Plugins",
       "path": "plugins"
     }
@@ -101,7 +101,7 @@
       },
       {
         "label": "Plugins",
-        "icon": "box",
+        "icon": "plug",
         "pathSuffix": "plugins"
       }
     ]
