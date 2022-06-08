@@ -12,7 +12,7 @@ test('should render the proper page title and description', async ({
   )
   expect(
     await page.locator('head meta[name="description"]').getAttribute('content')
-  ).toEqual(__config.dev_dot.meta.description)
+  ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'HashiCorp'))
 })
 
 test('product landing page should render the metadata', async ({
@@ -24,6 +24,9 @@ test('product landing page should render the metadata', async ({
   await expect(page.locator('head title')).toContainText(
     `Waypoint | ${__config.dev_dot.meta.title}`
   )
+  expect(
+    await page.locator('head meta[name="description"]').getAttribute('content')
+  ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
 })
 
 test('install page should render the expected metadata', async ({

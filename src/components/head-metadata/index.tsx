@@ -22,13 +22,18 @@ export default function HeadMetadata(props: HeadMetadataProps) {
   // Ultimately we want to build up a title that looks like {specified page title} | {product} | {root title}
   const title = titleParts.join(' | ')
 
+  const finalDescription = description.replace(
+    '{product}',
+    productName ?? 'HashiCorp'
+  )
+
   return (
     // TODO: OpenGraph image to be passed as the image prop here
     <HashiHead
       title={title}
       siteName={title}
       pageName={title}
-      description={description}
+      description={finalDescription}
     >
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <link rel="icon" href="/icon.svg" type="image/svg+xml" />
