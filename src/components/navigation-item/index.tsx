@@ -1,34 +1,15 @@
 import {
+  ExpandableNavigationItemShape,
+  HeadingNavigationItemShape,
+  LinkNavigationItemShape,
+  NavigationItemProps,
+} from './types'
+import {
   DividerNavigationItem,
   ExpandableNavigationItem,
   HeadingNavigationItem,
   LinkNavigationItem,
 } from './components'
-
-interface DividerNavigationItemShape {
-  divider: true
-}
-
-interface HeadingNavigationItemShape {
-  heading: string
-  level?: 2 | 3
-}
-
-interface ExpandableNavigationItemShape {
-  routes: $TSFixMe
-}
-
-interface LinkNavigationItemShape {
-  href?: string
-}
-
-interface NavigationItemProps {
-  item:
-    | DividerNavigationItemShape
-    | HeadingNavigationItemShape
-    | ExpandableNavigationItemShape
-    | LinkNavigationItemShape
-}
 
 const NavigationItem = ({ item }: NavigationItemProps) => {
   if (item.hasOwnProperty('divider')) {
