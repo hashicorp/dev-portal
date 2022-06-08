@@ -18,8 +18,6 @@
   height: var(--input-height);
   margin-bottom: 16px;
   position: relative;
-  border-radius: 5px;
-  box-shadow: var(--token-surface-inset-box-shadow);
 }
 
 .filterIcon {
@@ -47,11 +45,14 @@
 }
 
 .filterInput {
+  appearance: none;
+  border-radius: 5px;
+  box-shadow: var(--token-surface-inset-box-shadow);
   composes: g-focus-ring-from-box-shadow from global;
   background-color: transparent;
   border: none;
   color: var(--token-color-palette-neutral-700);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
   padding-bottom: 9px;
   padding-left: calc(var(--input-padding) * 2 + var(--input-icon-size));
