@@ -94,6 +94,10 @@ export async function getCollectionPageProps(
 
   return {
     props: stripUndefinedProperties({
+      metadata: {
+        title: collection.shortName,
+        description: collection.description,
+      },
       collection: collection,
       product,
       layoutProps,

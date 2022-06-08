@@ -8,7 +8,12 @@ export async function getStaticProps() {
   const product = waypointData as ProductData
 
   return {
-    props: await generateStaticProps({ product, contentJsonFile }),
+    props: {
+      ...(await generateStaticProps({ product, contentJsonFile })),
+      metadata: {
+        title: 'Waypoint',
+      },
+    },
     // as this reads from the file system, we don't want to revalidate at all as the files
     // will not be available at runtime
     revalidate: false,

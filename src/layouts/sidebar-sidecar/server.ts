@@ -140,7 +140,7 @@ export function getStaticGenerationFunctions<
         throw error
       }
 
-      const { navData, mdxSource, githubFileUrl, versions } =
+      const { navData, mdxSource, githubFileUrl, versions, frontMatter } =
         loadStaticPropsResult
 
       /**
@@ -236,6 +236,10 @@ export function getStaticGenerationFunctions<
           headings: nonEmptyHeadings,
           sidebarNavDataLevels,
           versions,
+        },
+        metadata: {
+          title: frontMatter.page_title ?? null,
+          description: frontMatter.description ?? null,
         },
         mdxSource,
         product: {
