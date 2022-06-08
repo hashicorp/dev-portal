@@ -94,8 +94,7 @@ const HomePageContent = () => {
       />
 
       <ProductNav
-        notice="All HashiCorp products are being added and will be available here in the
-  Developer Portal"
+        notice="All HashiCorp products are being added and will be available here"
         products={productNavSlugs}
       />
 
