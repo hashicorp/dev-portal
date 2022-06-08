@@ -1,6 +1,7 @@
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import Footer from 'components/footer'
+import { FooterProps } from 'components/footer/types'
 import NavigationHeader from 'components/navigation-header'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
@@ -14,6 +15,10 @@ interface BaseNewLayoutProps {
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
 })
+
+export function FooterWithConsentMgr(props: FooterProps) {
+  return <Footer openConsentManager={openConsentManager} {...props} />
+}
 
 const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
   children,
@@ -35,7 +40,7 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
           <div className={s.contentArea}>{children}</div>
           {showFooter && (
             <div className={s.footer}>
-              <Footer openConsentManager={openConsentManager} />
+              <FooterWithConsentMgr />
             </div>
           )}
         </div>
