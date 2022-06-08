@@ -169,6 +169,23 @@ Calls to `window.analytics.track()` are logged in development for easy iteration
 $ NEXT_PUBLIC_ANALYTICS_LOG_LEVEL=0 npm start
 ```
 
+## SEO Metadata
+
+The meta tags for the site are rendered by the [`HeadMetadata`](./src/components/head-metadata/index.tsx) component. Each page which uses `getStaticProps` can return a `metadata` property in its prop object to control the metadata which is ultimately rendered. The root site title is defined in our base config under `dev_dot.meta.title`.
+
+```ts
+export async function getStaticProps() {
+  return {
+    props: {
+      metadata: {
+        title: 'My Page', // Will be joined with the root site title
+        description: 'This is a cool page',
+      },
+    },
+  }
+}
+```
+
 ## Performance
 
 ### Next Bundle Analysis
