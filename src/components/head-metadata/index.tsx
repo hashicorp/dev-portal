@@ -1,5 +1,6 @@
 import HashiHead from '@hashicorp/react-head'
 import { useCurrentProduct } from 'contexts'
+import getDeployedUrl from 'lib/get-deployed-url'
 import { HeadMetadataProps } from './types'
 
 /**
@@ -29,7 +30,7 @@ export default function HeadMetadata(props: HeadMetadataProps) {
     productName ?? 'HashiCorp'
   )
 
-  const ogImageUrl = `/og-image/${productSlug ?? 'base'}.jpg`
+  const ogImageUrl = `${getDeployedUrl()}/og-image/${productSlug ?? 'base'}.jpg`
 
   return (
     // TODO: OpenGraph image to be passed as the image prop here

@@ -23,13 +23,13 @@ test('should render the proper page title and description', async ({
 
   expect(
     await page.locator('head meta[property="og:image"]').getAttribute('content')
-  ).toEqual('/og-image/base.jpg')
+  ).toContain('/og-image/base.jpg')
 
   expect(
     await page
       .locator('head meta[name="twitter:image"]')
       .getAttribute('content')
-  ).toEqual('/og-image/base.jpg')
+  ).toContain('/og-image/base.jpg')
 })
 
 test('product landing page should render the metadata', async ({
@@ -52,12 +52,12 @@ test('product landing page should render the metadata', async ({
 
   expect(
     await page.locator('head meta[property="og:image"]').getAttribute('content')
-  ).toEqual('/og-image/waypoint.jpg')
+  ).toContain('/og-image/waypoint.jpg')
   expect(
     await page
       .locator('head meta[name="twitter:image"]')
       .getAttribute('content')
-  ).toEqual('/og-image/waypoint.jpg')
+  ).toContain('/og-image/waypoint.jpg')
 })
 
 test('install page should render the expected metadata', async ({
