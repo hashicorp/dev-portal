@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
-import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
 import Head from 'next/head'
+import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
 
 import s from './core-dev-dot-layout.module.css'
 

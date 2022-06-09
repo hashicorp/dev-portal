@@ -4,6 +4,8 @@ import { HeadMetadataProps } from './types'
 
 /**
  * Builds up the the necessary meta tags for the site. Rendered in `_app`, where it receives `pageProps.metadata` as props
+ *
+ * We build up a page title that looks like {props.title} | {currentProduct} | {root title}
  */
 export default function HeadMetadata(props: HeadMetadataProps) {
   const { name: productName } = useCurrentProduct() ?? {}
@@ -11,6 +13,7 @@ export default function HeadMetadata(props: HeadMetadataProps) {
   const titleParts = [__config.dev_dot.meta.title]
   const description = props.description ?? __config.dev_dot.meta.description
 
+  // We're using .unshift() to add the following elements to the beginning of the array
   if (productName) {
     titleParts.unshift(productName)
   }
@@ -19,7 +22,6 @@ export default function HeadMetadata(props: HeadMetadataProps) {
     titleParts.unshift(props.title)
   }
 
-  // Ultimately we want to build up a title that looks like {specified page title} | {product} | {root title}
   const title = titleParts.join(' | ')
 
   const finalDescription = description.replace(

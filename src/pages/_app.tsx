@@ -6,7 +6,6 @@ import { ErrorBoundary } from 'react-error-boundary'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
-import HashiHead from '@hashicorp/react-head'
 import {
   AllProductDataProvider,
   CurrentProductProvider,
