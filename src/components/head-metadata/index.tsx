@@ -8,7 +8,7 @@ import { HeadMetadataProps } from './types'
  * We build up a page title that looks like {props.title} | {currentProduct} | {root title}
  */
 export default function HeadMetadata(props: HeadMetadataProps) {
-  const { name: productName } = useCurrentProduct() ?? {}
+  const { name: productName, slug: productSlug } = useCurrentProduct() ?? {}
 
   const titleParts = [__config.dev_dot.meta.title]
   const description = props.description ?? __config.dev_dot.meta.description
@@ -29,6 +29,8 @@ export default function HeadMetadata(props: HeadMetadataProps) {
     productName ?? 'HashiCorp'
   )
 
+  const ogImageUrl = `/og-image/${productSlug ?? 'base'}.jpg`
+
   return (
     // TODO: OpenGraph image to be passed as the image prop here
     <HashiHead
@@ -36,6 +38,7 @@ export default function HeadMetadata(props: HeadMetadataProps) {
       siteName={title}
       pageName={title}
       description={finalDescription}
+      image={ogImageUrl}
     >
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <link rel="icon" href="/icon.svg" type="image/svg+xml" />
