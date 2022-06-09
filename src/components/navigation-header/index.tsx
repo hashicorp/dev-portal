@@ -13,7 +13,7 @@ import s from './navigation-header.module.css'
  * The header content displayed to the far right of the window. This content is
  * the same for every page in the app.
  */
-const SidebarMenuButton = () => {
+const MobileMenuButton = () => {
   const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
   const ariaLabel = `${mobileMenuIsOpen ? 'Close' : 'Open'} navigation menu`
 
@@ -46,7 +46,7 @@ const NavigationHeader = () => {
       <LeftSideHeaderContent />
       <div className={s.rightSide}>
         <GiveFeedbackButton />
-        <SidebarMenuButton />
+        <MobileMenuButton />
       </div>
     </header>
   )
