@@ -1,6 +1,6 @@
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
-import { useCurrentProduct, useDeviceSize, useMobileMenu } from 'contexts'
+import { useCurrentProduct, useMobileMenu } from 'contexts'
 import { NavigationHeaderItem } from './types'
 import {
   GiveFeedbackButton,
