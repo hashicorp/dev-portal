@@ -104,6 +104,10 @@ export async function getTutorialPageProps(
 
   return {
     props: stripUndefinedProperties({
+      metadata: {
+        title: fullTutorialData.name,
+        description: fullTutorialData.description,
+      },
       tutorial: {
         ...fullTutorialData,
         content: serializedContent,

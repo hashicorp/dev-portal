@@ -4,6 +4,10 @@
     "revalidate": 360
   },
   "dev_dot": {
+    "meta": {
+      "title": "HashiCorp Developer",
+      "description": "Explore {product} product documentation, tutorials, and examples."
+    },
     "analytics": {
       "included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
     },
