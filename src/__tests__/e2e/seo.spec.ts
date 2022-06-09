@@ -16,7 +16,19 @@ test('should render the proper page title and description', async ({
   ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'HashiCorp'))
 
   expect(
+    await page
+      .locator('head meta[name="twitter:description"]')
+      .getAttribute('content')
+  ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'HashiCorp'))
+
+  expect(
     await page.locator('head meta[property="og:image"]').getAttribute('content')
+  ).toEqual('/og-image/base.jpg')
+
+  expect(
+    await page
+      .locator('head meta[name="twitter:image"]')
+      .getAttribute('content')
   ).toEqual('/og-image/base.jpg')
 })
 
@@ -32,9 +44,19 @@ test('product landing page should render the metadata', async ({
   expect(
     await page.locator('head meta[name="description"]').getAttribute('content')
   ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
+  expect(
+    await page
+      .locator('head meta[name="twitter:description"]')
+      .getAttribute('content')
+  ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
 
   expect(
     await page.locator('head meta[property="og:image"]').getAttribute('content')
+  ).toEqual('/og-image/waypoint.jpg')
+  expect(
+    await page
+      .locator('head meta[name="twitter:image"]')
+      .getAttribute('content')
   ).toEqual('/og-image/waypoint.jpg')
 })
 
