@@ -2,7 +2,6 @@
 
 .root {
   align-items: center;
-  background: var(--token-color-palette-neutral-0);
   color: var(--token-color-palette-neutral-600);
   display: flex;
   flex-wrap: wrap;

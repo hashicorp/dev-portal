@@ -54,21 +54,20 @@ for further details.
  * Sidebar + main containers
  */
 
+/* Note: container is components/mobile-menu-container */
 .sidebarContentWrapper {
-  height: 100%; /* for positioning the version switcher */
-  overflow-y: auto; /* for positioning the version switcher */
-  position: relative;
-  padding-bottom: 150px;
+  flex-shrink: 1;
+  overflow-y: auto;
+  padding-bottom: 48px;
   padding-left: 24px;
   padding-right: 24px;
   padding-top: 24px;
+  position: relative;
 }
 
+/* Note: container is components/mobile-menu-container */
 .docsVersionSwitcherWrapper {
-  bottom: 0;
-  position: sticky;
-  width: 100%;
-  z-index: 2;
+  flex-shrink: 0;
 }
 
 .contentWrapper {
@@ -80,22 +79,25 @@ for further details.
 }
 
 .main {
-  /* Ensure all TableOfContents items have room to be jumped to */
-  padding-bottom: 50vh;
+  width: 100%;
+
+  @media (--dev-dot-sidecar-up) {
+    max-width: var(--main-element-max-width);
+    min-width: 0;
+  }
 }
 
 .editOnGithubLink {
   margin-top: 64px;
 }
 
-.footerAreaWrapper {
-  margin-top: 106px;
-}
-
 .mainAreaWrapper {
+  display: flex;
+  justify-content: center;
   padding-left: var(--main-area-padding-left);
   padding-right: var(--main-area-padding-right);
   padding-top: var(--main-area-padding-top);
+  padding-bottom: 128px;
 }
 
 .breadcrumbOptOutGroup {
@@ -106,6 +108,20 @@ for further details.
 
 .optInOutSlot {
   flex-shrink: 0;
+}
+
+.sidecarWrapper {
+  display: none;
+
+  @media (--dev-dot-sidecar-up) {
+    display: block;
+    flex-shrink: 0;
+    height: fit-content;
+    margin-left: 48px;
+    position: sticky;
+    top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
+    width: var(--sidecar-width);
+  }
 }
 
 /*
@@ -121,42 +137,4 @@ for further details.
 
 .versionAlertLink {
   color: var(--token-color-foreground-primary) !important;
-}
-
-/*
-***
-* The following classes are grouped in a way that ensures the footer is always
-* left-aligned and the same width as the main content area.
-***
-*/
-
-.mainAreaWrapper,
-.footerAreaWrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.main,
-.footer {
-  width: 100%;
-
-  @media (--dev-dot-sidecar-up) {
-    max-width: var(--main-element-max-width);
-    min-width: 0;
-  }
-}
-
-.sidecarWrapper,
-.emptyDuplicateSidecarWrapper {
-  display: none;
-
-  @media (--dev-dot-sidecar-up) {
-    display: block;
-    flex-shrink: 0;
-    height: fit-content;
-    margin-left: 48px;
-    position: sticky;
-    top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
-    width: var(--sidecar-width);
-  }
 }

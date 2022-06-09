@@ -11,6 +11,12 @@ interface BaseNewLayoutProps {
    * the page.
    */
   showFooter?: boolean
+
+  /**
+   * Defaults to false. If true, a border will be shown to separate
+   * the footer from the page contents above.
+   */
+  showFooterTopBorder?: boolean
 }
 
 export type { BaseNewLayoutProps }

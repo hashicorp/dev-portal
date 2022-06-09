@@ -15,7 +15,6 @@ import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-content
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import EditOnGithubLink from 'components/edit-on-github-link'
-import Footer from 'components/footer'
 import InlineLink from 'components/inline-link'
 import MobileMenuContainer from 'components/mobile-menu-container'
 import PageAlert from 'components/page-alert'
@@ -32,7 +31,7 @@ import s from './sidebar-sidecar-layout.module.css'
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
   return (
-    <BaseLayout showFooter={false}>
+    <BaseLayout showFooterTopBorder>
       <SidebarNavDataProvider navDataLevels={navDataLevels}>
         <SidebarSidecarLayoutContent {...props} />
       </SidebarNavDataProvider>
@@ -141,13 +140,6 @@ const SidebarSidecarLayoutContent = ({
           <div className={s.sidecarWrapper}>
             <SidecarContent />
           </div>
-        </div>
-        <div className={s.footerAreaWrapper}>
-          <Footer
-            className={s.footer}
-            openConsentManager={openConsentManager}
-          />
-          <div className={s.emptyDuplicateSidecarWrapper} />
         </div>
       </div>
     </div>
