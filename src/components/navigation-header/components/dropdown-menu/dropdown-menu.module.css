@@ -106,10 +106,13 @@
 
 .itemLink[aria-disabled='true'] {
   /* Overwrite hover state styles on the text */
-  &:hover .itemText {
-    color: var(--token-color-foreground-disabled);
+  &:hover {
     cursor: not-allowed;
-    text-decoration: none;
+
+    & .itemText {
+      color: var(--token-color-foreground-disabled);
+      text-decoration: none;
+    }
   }
 
   /* Make sure everything has the disabled color */
