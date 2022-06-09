@@ -10,9 +10,14 @@ test('should render the proper page title and description', async ({
   await expect(page.locator('head title')).toContainText(
     __config.dev_dot.meta.title
   )
+
   expect(
     await page.locator('head meta[name="description"]').getAttribute('content')
   ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'HashiCorp'))
+
+  expect(
+    await page.locator('head meta[property="og:image"]').getAttribute('content')
+  ).toEqual('/og-image/base.jpg')
 })
 
 test('product landing page should render the metadata', async ({
@@ -27,6 +32,10 @@ test('product landing page should render the metadata', async ({
   expect(
     await page.locator('head meta[name="description"]').getAttribute('content')
   ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
+
+  expect(
+    await page.locator('head meta[property="og:image"]').getAttribute('content')
+  ).toEqual('/og-image/waypoint.jpg')
 })
 
 test('install page should render the expected metadata', async ({
