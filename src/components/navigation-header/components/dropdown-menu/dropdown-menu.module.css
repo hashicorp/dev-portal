@@ -74,6 +74,12 @@
   padding: 0;
 }
 
+.itemGroupLabel {
+  margin-bottom: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
 .itemLink {
   /* Composition */
   composes: g-focus-ring-from-box-shadow from global;
@@ -91,12 +97,46 @@
     margin-bottom: 2px;
   }
 
-  &:hover {
+  /* Only apply hover styles to the text */
+  &:hover .itemText {
     color: var(--token-color-foreground-strong);
     text-decoration: underline;
   }
 }
 
-.itemText {
-  margin-left: 8px;
+.itemLink[aria-disabled='true'] {
+  /* Overwrite hover state styles on the text */
+  &:hover {
+    cursor: not-allowed;
+
+    & .itemText {
+      color: var(--token-color-foreground-disabled);
+      text-decoration: none;
+    }
+  }
+
+  /* Make sure everything has the disabled color */
+  & * {
+    color: var(--token-color-foreground-disabled);
+    fill: var(--token-color-foreground-disabled);
+  }
+}
+
+.itemLinkContent {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+
+  /* prevent children from shrinking */
+  & > * {
+    flex-shrink: 0;
+  }
+}
+
+.leftAlignedItemLinkContent {
+  align-items: center;
+  display: flex;
+  gap: 8px;
 }

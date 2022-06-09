@@ -59,7 +59,7 @@
       "type": "inbound"
     }
   ],
-  "basePaths": ["commands", "docs", "plugins"],
+  "basePaths": ["commands", "docs", "plugins", "tutorials", "downloads"],
   "rootDocsPaths": [
     {
       "iconName": "docs",
@@ -73,7 +73,7 @@
       "path": "commands"
     },
     {
-      "iconName": "box",
+      "iconName": "plug",
       "name": "Plugins",
       "path": "plugins"
     }
@@ -101,7 +101,7 @@
       },
       {
         "label": "Plugins",
-        "icon": "box",
+        "icon": "plug",
         "pathSuffix": "plugins"
       }
     ]

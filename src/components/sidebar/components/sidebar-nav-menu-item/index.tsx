@@ -9,7 +9,9 @@ import Link from 'next/link'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { ProductSlug } from 'types/products'
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import Badge from 'components/badge'
 import { MenuItem } from 'components/sidebar'
 import ProductIcon from 'components/product-icon'
 import {
@@ -18,7 +20,9 @@ import {
 } from 'components/sidebar/components'
 import Text from 'components/text'
 import {
+  RightIconsContainerProps,
   SidebarNavLinkItemProps,
+  SidebarNavMenuItemBadgeProps,
   SidebarNavMenuItemProps,
   SupportedIconName,
 } from './types'
@@ -31,8 +35,41 @@ const SUPPORTED_LEADING_ICONS: {
   [key in SupportedIconName]: ReactElement
 } = {
   home: <IconHome16 name="home" />,
-  vault: <ProductIcon productSlug="vault" />,
-  waypoint: <ProductIcon productSlug="waypoint" />,
+}
+
+/**
+ * Handles rendering the content of the right-side of a `SidebarNavMenuItem`.
+ * This content may include one `Badge`, one `Icon`, one of each, or neither.
+ * Returns `null` if neither are provided.
+ */
+const RightIconsContainer = ({ badge, icon }: RightIconsContainerProps) => {
+  if (!badge && !icon) {
+    return null
+  }
+
+  return (
+    <div className={s.rightIconsContainer}>
+      {badge}
+      {icon}
+    </div>
+  )
+}
+
+/**
+ * A wrapper around Badge for rendering consistent Badges in SidebarNavMenuItem.
+ */
+const SidebarNavMenuItemBadge = ({
+  color,
+  text,
+  type,
+}: SidebarNavMenuItemBadgeProps) => {
+  if (color !== 'highlight' && color !== 'neutral') {
+    throw new Error(
+      `[SidebarNavMenuItemBadge] Only the "highlight" and "neutral" colors are supported for Badges, but was given ${color}.`
+    )
+  }
+
+  return <Badge color={color} size="small" text={text} type={type} />
 }
 
 /**
@@ -43,10 +80,13 @@ const SUPPORTED_LEADING_ICONS: {
 const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
   const href = item.fullPath || item.href
   const isExternal = isAbsoluteUrl(href)
+  const hasBadge = !!(item as $TSFixMe).badge
 
   let leadingIcon
   if (item.leadingIconName) {
-    const icon = SUPPORTED_LEADING_ICONS[item.leadingIconName]
+    const icon = SUPPORTED_LEADING_ICONS[item.leadingIconName] || (
+      <ProductIcon productSlug={item.leadingIconName as ProductSlug} />
+    )
     leadingIcon = <div className={s.leadingIcon}>{icon}</div>
   }
 
@@ -59,27 +99,55 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
   const rel = isExternal ? 'noreferrer noopener' : undefined
   const target = isExternal ? '_blank' : undefined
 
-  return (
-    <Link href={href}>
-      <a
-        aria-current={ariaCurrent}
-        aria-label={ariaLabel}
-        className={className}
-        rel={rel}
-        target={target}
-      >
-        {leadingIcon}
-        <Text
-          asElement="span"
-          className={s.navMenuItemLabel}
-          dangerouslySetInnerHTML={{ __html: item.title }}
-          size={200}
-          weight="regular"
-        />
-        {isExternal && <IconExternalLink16 />}
-      </a>
-    </Link>
+  const anchorContent = (
+    <>
+      {leadingIcon}
+      <Text
+        asElement="span"
+        className={s.navMenuItemLabel}
+        dangerouslySetInnerHTML={{ __html: item.title }}
+        size={200}
+        weight="regular"
+      />
+      <RightIconsContainer
+        badge={
+          hasBadge ? (
+            <SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
+          ) : undefined
+        }
+        icon={isExternal ? <IconExternalLink16 /> : undefined}
+      />
+    </>
   )
+
+  if (href) {
+    // link is not "disabled"
+    return (
+      <Link href={href}>
+        <a
+          aria-current={ariaCurrent}
+          aria-label={ariaLabel}
+          className={className}
+          rel={rel}
+          target={target}
+        >
+          {anchorContent}
+        </a>
+      </Link>
+    )
+  } else {
+    // link is "disabled"
+    return (
+      <a
+        aria-disabled
+        aria-label={(item as $TSFixMe).ariaLabel}
+        className={className}
+        tabIndex={0}
+      >
+        {anchorContent}
+      </a>
+    )
+  }
 }
 
 /**
@@ -91,6 +159,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
   const [isOpen, setIsOpen] = useState(
     item.hasActiveChild || item.hasChildrenMatchingFilter || item.matchesFilter
   )
+  const hasBadge = !!(item as $TSFixMe).badge
 
   /**
    * Without this effect, the menu items aren't re-rerendered to be open. Seems
@@ -130,7 +199,14 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
           size={200}
           weight="regular"
         />
-        <IconChevronRight16 />
+        <RightIconsContainer
+          badge={
+            hasBadge ? (
+              <SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
+            ) : undefined
+          }
+          icon={<IconChevronRight16 />}
+        />
       </button>
       {isOpen && (
         <ul id={item.id} onKeyDown={handleKeyDown}>

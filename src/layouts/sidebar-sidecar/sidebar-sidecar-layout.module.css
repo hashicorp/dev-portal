@@ -20,6 +20,9 @@ for further details.
   core-dev-dot-layout.module.css, as the left value  must be shared with the
   navigation-header component, in order to match alignment in design specs. */
   --main-area-padding-right: 24px;
+  @media (--dev-dot-sidecar-up) {
+    --main-area-padding-right: 48px;
+  }
 
   /*
   We want our footer to have a top border which spans
@@ -50,34 +53,6 @@ for further details.
 /**
  * Sidebar + main containers
  */
-
-.sidebarWrapper {
-  background-color: white;
-  box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
-    0 12px 28px rgba(101, 106, 118, 0.25);
-  flex-shrink: 0;
-
-  /* Sidebar should occupy the full available screen height.
-  We have sticky nav bars, so the full height is equal to
-  100vh minus the combined height of the sticky nav bars. */
-  max-height: calc(100vh - var(--sticky-bars-height));
-  position: sticky;
-  top: var(--sticky-bars-height);
-  width: var(--dev-dot-sidebar-width);
-
-  /* z-index is necessary here to prevent any absolutely
-  positioned elements in the main area, namely the footer's
-  top-border, from overlapping the sidebar */
-  z-index: 1;
-
-  @media (--dev-dot-tablet-down) {
-    left: -150vw;
-    width: 100vw;
-    height: 100%;
-    position: fixed;
-    top: unset; /** We want to pull the top relative to the parent on mobile */
-  }
-}
 
 .sidebarContentWrapper {
   height: 100%; /* for positioning the version switcher */
