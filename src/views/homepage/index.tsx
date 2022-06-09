@@ -125,18 +125,19 @@ const HomePageContent = () => {
         }
         tutorials={[
           {
-            url: '/',
+            url: '/vault/tutorials/associate-cert',
             duration: '10min',
-            heading: 'Title Max 70 Characters',
-            description: 'Body maximum 130 characters.',
+            heading: 'Study for the Vault Associate Exam',
+            description:
+              'Demonstrate your knowledge of the basic concepts, skills, and use cases associated with open source HashiCorp Vault.',
             productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
             hasVideo: true,
             hasInteractiveLab: false,
           },
           {
-            url: '/',
+            url: '/vault/tutorials/ops-pro-cert',
             duration: '10min',
-            heading: 'Title Max 70 Characters',
+            heading: 'Study for the Vault Operatios Professional Exam',
             description:
               'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
             productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
