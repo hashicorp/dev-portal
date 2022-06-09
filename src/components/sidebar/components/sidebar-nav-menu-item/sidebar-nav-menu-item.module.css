@@ -64,6 +64,25 @@
   }
 }
 
+.sidebarNavMenuItem[aria-disabled='true'] {
+  /* Overwrite hover state styles on the text */
+  &:hover {
+    background-color: transparent;
+    cursor: not-allowed;
+
+    & .navMenuItemLabel {
+      color: var(--token-color-foreground-disabled);
+      text-decoration: none;
+    }
+  }
+
+  /* Make sure everything has the disabled color */
+  & * {
+    color: var(--token-color-foreground-disabled);
+    fill: var(--token-color-foreground-disabled);
+  }
+}
+
 .navMenuItemLabel {
   margin-right: 8px;
   width: 100%;

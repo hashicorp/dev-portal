@@ -1,29 +1,54 @@
+// Third-party imports
 import { ReactElement } from 'react'
-import { productSlugs } from 'lib/products'
+
+// HashiCorp imports
 import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import InlineSvg from '@hashicorp/react-inline-svg'
+
+// Global imports
+import { productSlugs } from 'lib/products'
+import { ProductOption } from 'lib/learn-client/types'
+import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
+import { useDeviceSize } from 'contexts'
 import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
-import { HeroWithVideo, HeroWithActions } from './components/hero'
+import MobileMenuContainer from 'components/mobile-menu-container'
+import { SidebarNavMenuItem } from 'components/sidebar/components'
+
+// Local imports
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
+import { HeroWithVideo, HeroWithActions } from './components/hero'
 import {
   HashiConfGlobalSlot,
   VaultSlot,
 } from './components/merchandising-slots/slots'
 import badge from './img/vault-certified-expert-badge.svg?include'
 import s from './homepage.module.css'
-import { ProductOption } from 'lib/learn-client/types'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
-function Homepage(): ReactElement {
+const HomePageMobileMenu = () => {
   return (
-    <div className={s.homepage}>
+    <MobileMenuContainer className={s.mobileMenuContainer}>
+      <ul className={s.mobileMenuNavList}>
+        <SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
+        {generateTopLevelSubNavItems().map((item: $TSFixMe, index: number) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <SidebarNavMenuItem item={item} key={index} />
+        ))}
+      </ul>
+    </MobileMenuContainer>
+  )
+}
+
+const HomePageContent = () => {
+  return (
+    <>
       {/* <HeroWithActions
         badgeText="Beta"
         heading="HashiCorp Developer"
@@ -70,7 +95,7 @@ function Homepage(): ReactElement {
 
       <ProductNav
         notice="All HashiCorp products are being added and will be available here in the
-        Developer Portal"
+  Developer Portal"
         products={productNavSlugs}
       />
 
@@ -158,9 +183,20 @@ function Homepage(): ReactElement {
           },
         ]}
       />
+    </>
+  )
+}
+
+function HomePageView(): ReactElement {
+  const { isDesktop } = useDeviceSize()
+
+  return (
+    <div className={s.homepage}>
+      {!isDesktop && <HomePageMobileMenu />}
+      <HomePageContent />
     </div>
   )
 }
 
-Homepage.layout = BaseNewLayout
-export default Homepage
+HomePageView.layout = BaseNewLayout
+export default HomePageView

@@ -1,0 +1,19 @@
+.root {
+  background-color: white;
+  box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
+    0 12px 28px rgba(101, 106, 118, 0.25);
+  flex-shrink: 0;
+  max-height: calc(100vh - var(--sticky-bars-height));
+  position: sticky;
+  top: var(--sticky-bars-height);
+  width: var(--dev-dot-sidebar-width);
+  z-index: 1;
+
+  @media (--dev-dot-tablet-down) {
+    height: 100%;
+    left: -150vw;
+    position: fixed;
+    top: unset; /* make top relative to the parent */
+    width: 100vw;
+  }
+}
