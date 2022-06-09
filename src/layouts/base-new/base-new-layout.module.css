@@ -28,8 +28,9 @@ Asana task: https://app.asana.com/0/1202114367927919/1202316169578550/f
 
   /* The contentArea comes later in the DOM, and
     may have sticky elements, eg sidebars. We need
-    the header to stay above other sticky elements. */
-  z-index: 2;
+    the header to stay above other sticky elements,
+    and to stay above the footer. */
+  z-index: 3;
 }
 
 .contentArea {
