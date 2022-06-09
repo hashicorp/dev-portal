@@ -71,7 +71,9 @@ function useAnchorLinkViz() {
         // const isFirstItem = idx === 0
         const isLastItem = idx === itemCount - 1
         const isLoneItem = itemCount == 0
-        const itemStart = acc.length == 0 ? 0 : acc[idx - 1].itemEnd + 4
+        const rawItemStart = acc.length == 0 ? 0 : acc[idx - 1].itemEnd + BUFFER
+        // Handle case where multiple headings are outside the scrollable area
+        const itemStart = Math.min(rawItemStart, maxScrollY - BUFFER)
         const itemEnd =
           isLoneItem || isLastItem
             ? maxScrollY
