@@ -5,9 +5,7 @@ interface DividerNavigationItemShape {
 }
 
 interface ExpandableNavigationItemShape {
-  id: string
-  routes: $TSFixMe[]
-  title: string
+  routes: $TSFixMe
 }
 
 interface HeadingNavigationItemShape {
@@ -17,8 +15,6 @@ interface HeadingNavigationItemShape {
 
 interface LinkNavigationItemShape {
   href?: string
-  isActive: boolean
-  title: string
 }
 
 interface NavigationItemProps {

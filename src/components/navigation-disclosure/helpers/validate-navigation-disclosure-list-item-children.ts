@@ -1,5 +1,4 @@
 import { Children, ReactElement } from 'react'
-import NavigationDisclosure from '..'
 import { NavigationDisclosureLink } from '../components'
 
 /**
@@ -22,12 +21,9 @@ const validateNavigationDisclosureListItemChildren = (
    * dependencies aren't aligned?
    */
   const child = Children.only(children) as ReactElement
-  if (
-    child.type !== NavigationDisclosureLink &&
-    child.type !== NavigationDisclosure
-  ) {
+  if (child.type !== NavigationDisclosureLink) {
     throw new Error(
-      `NavigationDisclosureListItem only accepts a child of type NavigationDisclosureLink or NavigationDisclosure. Was given: "${child.type.toString()}"`
+      `NavigationDisclosureListItem only a child of type NavigationDisclosureLink`
     )
   }
 }

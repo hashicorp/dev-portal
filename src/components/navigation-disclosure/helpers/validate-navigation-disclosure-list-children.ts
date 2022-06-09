@@ -1,16 +1,11 @@
 import { Children, ReactElement } from 'react'
-import {
-  NavigationDisclosureListItem,
-  NavigationDisclosureListProps,
-} from '../components'
+import { NavigationDisclosureListItem } from '../components'
 
 /**
  * Validates that the `children` passed to `NavigationDisclosureList` are
  * `NavigationDisclosureListItem`.
  */
-const validateNavigationDisclosureListChildren = (
-  children: NavigationDisclosureListProps['children']
-) => {
+const validateNavigationDisclosureListChildren = (children: ReactElement[]) => {
   Children.forEach(children, (child: ReactElement) => {
     if (child.type !== NavigationDisclosureListItem) {
       throw new Error(

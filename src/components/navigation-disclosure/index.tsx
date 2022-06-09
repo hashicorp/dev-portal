@@ -26,13 +26,11 @@ import {
 const NavigationDisclosure = ({
   children,
   className,
-  closeOnClickOutside = true,
-  closeOnFocusOutside = true,
 }: NavigationDisclosureProps) => {
   return (
     <Disclosure
-      closeOnClickOutside={closeOnClickOutside}
-      closeOnFocusOutside={closeOnFocusOutside}
+      closeOnClickOutside
+      closeOnFocusOutside
       containerClassName={className}
     >
       {children}
