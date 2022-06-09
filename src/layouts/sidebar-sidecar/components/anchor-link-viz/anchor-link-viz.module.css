@@ -1,0 +1,40 @@
+.meta {
+  position: fixed;
+  bottom: 1rem;
+  right: 0;
+  width: auto;
+  padding: 0.5rem;
+  font-size: 12px;
+  background: lightgray;
+  opacity: 0.6;
+}
+
+.viz {
+  position: static;
+  z-index: 999;
+}
+
+.anchorLinkMarker {
+  --color: magenta;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--color);
+  color: var(--color);
+  opacity: 0.8;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.anchorAreaMarker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: dodgerblue;
+  opacity: 0.3;
+  font-size: 12px;
+  pointer-events: none;
+}

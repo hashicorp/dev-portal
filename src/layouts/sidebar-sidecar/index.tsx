@@ -29,6 +29,7 @@ import {
   useSidebarNavData,
 } from './contexts/sidebar-nav-data'
 import s from './sidebar-sidecar-layout.module.css'
+import AnchorLinkViz from './components/anchor-link-viz'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
@@ -147,6 +148,7 @@ const SidebarSidecarLayoutContent = ({
           )}
           <div className={s.mainAreaWrapper}>
             <main id="main" className={s.main}>
+              <AnchorLinkViz />
               <span className={s.breadcrumbOptOutGroup}>
                 {breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
                 <span className={s.optInOutSlot}>

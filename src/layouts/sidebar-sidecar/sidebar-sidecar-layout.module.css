@@ -109,7 +109,9 @@ for further details.
 
 .main {
   /* Ensure all TableOfContents items have room to be jumped to */
-  padding-bottom: 50vh;
+
+  /* padding-bottom: 50vh; */
+  padding-bottom: 0;
 }
 
 .editOnGithubLink {
@@ -117,7 +119,8 @@ for further details.
 }
 
 .footerAreaWrapper {
-  margin-top: 106px;
+  /* margin-top: 106px; */
+  margin-top: 0;
 }
 
 .mainAreaWrapper {
