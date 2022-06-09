@@ -90,11 +90,11 @@ const HomePageContent = () => {
             </Text>
           </>
         }
-        videoUrl="https://www.youtube.com/watch?v=Y7c_twmDxQ4"
+        videoUrl="https://hashicorp.wistia.com/medias/031h9iogzx"
       />
 
       <ProductNav
-        notice="All HashiCorp products are being added and will be available here"
+        notice="All HashiCorp products are being added and will be available here."
         products={productNavSlugs}
       />
 
