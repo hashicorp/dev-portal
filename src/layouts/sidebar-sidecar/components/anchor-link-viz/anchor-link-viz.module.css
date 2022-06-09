@@ -33,11 +33,14 @@
 
 .anchorAreaMarker {
   position: absolute;
+  border-top: 1px solid green;
+  border-bottom: 1px solid green;
   left: 0;
   right: 0;
-  background: green;
-  opacity: 0.2;
-  font-size: 10px;
+  background: rgba(0, 255, 0, 0.2);
+  opacity: 1;
+  color: green;
+  font-size: 24px;
   line-height: 1.1;
   pointer-events: none;
 }

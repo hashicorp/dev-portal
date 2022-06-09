@@ -76,7 +76,9 @@ export default function AnchorLinkViz() {
                       top: `${heading.itemStart}px`,
                       height: `${heading.itemEnd - heading.itemStart}px`,
                     }}
-                  />
+                  >
+                    {heading.id}
+                  </div>
                 </>
               )
             })
