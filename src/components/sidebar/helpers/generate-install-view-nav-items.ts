@@ -1,6 +1,5 @@
 import { MenuItem } from '../types'
 import { ProductData } from 'types/products'
-import { generateProductLandingSidebarMenuItems } from './generate-product-landing-nav-items'
 
 /**
  * Given a `ProductData` object, generates the nav data for the `Sidebar` that
@@ -23,12 +22,10 @@ export const generateInstallViewNavItems = (
     href: `/${product.slug}`,
   }
   const levelButtonProps = {
-    levelUpButtonText: 'Main Menu',
+    levelUpButtonText: `${product.name} Home`,
     levelDownButtonText: 'Previous',
   }
-  const menuItemsWithFallback = menuItems
-    ? menuItems
-    : generateProductLandingSidebarMenuItems(product)
+  const menuItemsWithFallback = menuItems ? menuItems : []
   const showFilterInput = false
   const title = 'Install'
 

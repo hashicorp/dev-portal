@@ -8,6 +8,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DevDotContent from 'components/dev-dot-content'
 import {
   generateInstallViewNavItems,
+  generateProductLandingSidebarNavData,
   generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 
@@ -56,6 +57,7 @@ const ProductDownloadsViewContent = ({
   )
   const sidebarNavDataLevels = [
     generateTopLevelSidebarNavData(currentProduct.name),
+    generateProductLandingSidebarNavData(currentProduct),
     generateInstallViewNavItems(currentProduct, sidebarMenuItems),
   ]
   const packageManagers = useMemo(() => {
