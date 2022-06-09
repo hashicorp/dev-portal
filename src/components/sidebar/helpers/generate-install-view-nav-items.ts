@@ -25,7 +25,7 @@ export const generateInstallViewNavItems = (
     levelUpButtonText: `${product.name} Home`,
     levelDownButtonText: 'Previous',
   }
-  const menuItemsWithFallback = menuItems ? menuItems : []
+  const menuItemsWithFallback = menuItems || []
   const showFilterInput = false
   const title = 'Install'
 
