@@ -13,13 +13,17 @@ export default function AnchorLinkViz() {
           <code>
             Magenta line is where link jumps to.
             <br />
-            Blue area as intersection zone.
+            Green area as intersection zone.
             <br />
             Should work even if no bottom padding.
             <br />
             Edge case with two bottom headings:
             <br />
             we&apos;ll highlight both.
+            <br />
+            Issue: content may change height at any time,
+            <br />
+            not just viewport change, does not account for that yet.
             <br />
             {JSON.stringify(restData, null, 2)}
           </code>
