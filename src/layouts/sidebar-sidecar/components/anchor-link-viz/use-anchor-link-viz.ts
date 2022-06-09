@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import useWindowSize from 'hooks/use-window-size'
 import useScrollPosition from 'hooks/use-scroll-position'
+import useTimeCounter from './use-time-counter'
 
 function getCoords(elem) {
   // crossbrowser version
@@ -39,6 +40,7 @@ const BUFFER = 8
 const ANCHOR_LINK_OFFSET = 68 + 24
 
 function useAnchorLinkViz() {
+  const timedUpdateCounter = useTimeCounter(500)
   const [headingData, setHeadingData] = useState<$TSFixMe[]>([])
   const elemRef = useRef<HTMLDivElement>()
   const { height, width } = useWindowSize()
@@ -84,9 +86,9 @@ function useAnchorLinkViz() {
       }, [])
       setHeadingData(newHeadingData)
     }
-  }, [height, width])
+  }, [height, width, timedUpdateCounter])
 
-  return { height, width, scrollY, headingData, elemRef }
+  return { height, width, scrollY, headingData, elemRef, timedUpdateCounter }
 }
 
 export default useAnchorLinkViz
