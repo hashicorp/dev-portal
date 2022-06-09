@@ -1,6 +1,6 @@
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
-import { useCurrentProduct, useDeviceSize, useMobileMenu } from 'contexts'
+import { useCurrentProduct, useMobileMenu } from 'contexts'
 import { NavigationHeaderItem } from './types'
 import {
   GiveFeedbackButton,
@@ -13,7 +13,7 @@ import s from './navigation-header.module.css'
  * The header content displayed to the far right of the window. This content is
  * the same for every page in the app.
  */
-const SidebarMenuButton = () => {
+const MobileMenuButton = () => {
   const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
   const ariaLabel = `${mobileMenuIsOpen ? 'Close' : 'Open'} navigation menu`
 
@@ -36,8 +36,6 @@ const SidebarMenuButton = () => {
  * `/{productSlug}.`
  */
 const NavigationHeader = () => {
-  const { isDesktop } = useDeviceSize()
-  const shouldShowMenuButton = !isDesktop
   const currentProduct = useCurrentProduct()
   const LeftSideHeaderContent = currentProduct
     ? ProductPageHeaderContent
@@ -48,7 +46,7 @@ const NavigationHeader = () => {
       <LeftSideHeaderContent />
       <div className={s.rightSide}>
         <GiveFeedbackButton />
-        {shouldShowMenuButton && <SidebarMenuButton />}
+        <MobileMenuButton />
       </div>
     </header>
   )
