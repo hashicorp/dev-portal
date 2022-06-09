@@ -13,7 +13,7 @@ const NavigationDisclosureListItem = ({
   children,
   className,
 }: NavigationDisclosureListItemProps) => {
-  validateNavigationDisclosureListItemChildren(children)
+  // validateNavigationDisclosureListItemChildren(children)
 
   return <li className={classNames(s.root, className)}>{children}</li>
 }

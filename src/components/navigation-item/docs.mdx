@@ -16,12 +16,50 @@ componentName: 'NavigationItem'
   />
   <NavigationItem
     item={{
-      routes: []
+      id: "test-expandable-navigation-item",
+      title: "Test ExpandableNavigationItem",
+      routes: [
+        {
+          id: "expandable-nav-item-1",
+          title: "Expandable Nav Item 1",
+          routes: [
+            {
+              id: "expandable-nav-item-1-1",
+              title: "Expandable Nav Item 1-1",
+              href: '/',
+            }
+          ],
+        },
+        {
+          id: "expandable-nav-item-2",
+          title: "Expandable Nav Item 2",
+          routes: [
+            {
+              id: "expandable-nav-item-2-1",
+              title: "Expandable Nav Item 2-1",
+              href: '/',
+            }
+          ],
+        },
+        {
+          id: "expandable-nav-item-3",
+          title: "Expandable Nav Item 3",
+          routes: [
+            {
+              id: "expandable-nav-item-3-1",
+              title: "Expandable Nav Item 3-1",
+              href: '/',
+            }
+          ],
+        },
+      ]
     }}
   />
   <NavigationItem
     item={{
-      href: '/'
+      href: '/',
+      isActive: false,
+      title: 'Test link item',
     }}
   />
 </>
