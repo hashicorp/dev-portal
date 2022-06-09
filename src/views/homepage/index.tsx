@@ -91,7 +91,7 @@ const HomePageContent = () => {
           </>
         }
         videoUrl="https://hashicorp.wistia.com/medias/031h9iogzx"
-        videoImageUrl="https://embed-ssl.wistia.com/deliveries/2543468d26da1c564b6a761158fcb986a0197822.jpg?image_crop_resized=960x540"
+        videoImageUrl="https://embed-ssl.wistia.com/deliveries/00e2f4fb8395704c0438fa9eaef90754.jpg?image_crop_resized=960x540"
       />
 
       <ProductNav
