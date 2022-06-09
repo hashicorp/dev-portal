@@ -15,5 +15,5 @@ export default function getDeployedUrl() {
   }
 
   // use our canonical URL for production
-  return __config.dev_dot.canonical_url
+  return __config.dev_dot.canonical_base_url
 }
