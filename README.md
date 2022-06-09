@@ -186,6 +186,8 @@ export async function getStaticProps() {
 }
 ```
 
+Social card images / OpenGraph images live in [`/public/og-image/`](./public/og-image/). Each product should have a `{product}.jpg` file in that folder for its generic card image.
+
 ## Performance
 
 ### Next Bundle Analysis
