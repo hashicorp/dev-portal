@@ -36,8 +36,6 @@ const SidebarMenuButton = () => {
  * `/{productSlug}.`
  */
 const NavigationHeader = () => {
-  const { isDesktop } = useDeviceSize()
-  const shouldShowMenuButton = !isDesktop
   const currentProduct = useCurrentProduct()
   const LeftSideHeaderContent = currentProduct
     ? ProductPageHeaderContent
@@ -48,7 +46,7 @@ const NavigationHeader = () => {
       <LeftSideHeaderContent />
       <div className={s.rightSide}>
         <GiveFeedbackButton />
-        {shouldShowMenuButton && <SidebarMenuButton />}
+        <SidebarMenuButton />
       </div>
     </header>
   )
