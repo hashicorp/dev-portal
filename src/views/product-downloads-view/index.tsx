@@ -7,7 +7,7 @@ import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DevDotContent from 'components/dev-dot-content'
 import {
-  generateProductLandingSidebarNavData,
+  generateInstallViewNavItems,
   generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 
@@ -56,7 +56,7 @@ const ProductDownloadsViewContent = ({
   )
   const sidebarNavDataLevels = [
     generateTopLevelSidebarNavData(currentProduct.name),
-    generateProductLandingSidebarNavData(currentProduct, sidebarMenuItems),
+    generateInstallViewNavItems(currentProduct, sidebarMenuItems),
   ]
   const packageManagers = useMemo(() => {
     if (doesNotHavePackageManagers) {
@@ -74,7 +74,7 @@ const ProductDownloadsViewContent = ({
       /**
        * @TODO remove casting to `any`. Will require refactoring both
        * `generateTopLevelSidebarNavData` and
-       * `generateProductLandingSidebarNavData` to set up `menuItems` with the
+       * `generateInstallViewNavItems` to set up `menuItems` with the
        * correct types. This will require chaning many files, so deferring for
        * a follow-up PR since this is functional for the time being.
        */

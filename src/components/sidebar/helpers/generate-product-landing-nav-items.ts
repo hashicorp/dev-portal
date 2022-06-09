@@ -1,4 +1,3 @@
-import { MenuItem } from '../types'
 import { ProductData } from 'types/products'
 
 /**
@@ -50,32 +49,19 @@ export const generateProductLandingSidebarMenuItems = (
  *
  * Depends on the data located in the associated `src/data/${product.slug}.json`
  * to be loaded into the `product` object passed.
- *
- * Can optionally be passed menuItems, which determine sidebar content.
- * If menuItems are not provided, falls back to a default generated set.
  */
-export const generateProductLandingSidebarNavData = (
-  product: ProductData,
-  menuItems?: MenuItem[]
-) => {
-  const backToLinkProps = {
-    text: `${product.name} Home`,
-    href: `/${product.slug}`,
-  }
+export const generateProductLandingSidebarNavData = (product: ProductData) => {
   const levelButtonProps = {
     levelUpButtonText: 'Main Menu',
     levelDownButtonText: 'Previous',
   }
-  const menuItemsWithFallback = menuItems
-    ? menuItems
-    : generateProductLandingSidebarMenuItems(product)
+  const menuItems = generateProductLandingSidebarMenuItems(product)
   const showFilterInput = false
-  const title = 'Install'
+  const title = product.name
 
   return {
-    backToLinkProps,
     levelButtonProps,
-    menuItems: menuItemsWithFallback,
+    menuItems,
     showFilterInput,
     title,
   }
