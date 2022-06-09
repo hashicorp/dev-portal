@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 
 // HashiCorp imports
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
-import { open as openDialog } from '@hashicorp/react-consent-manager'
+import { open as openConsentManager } from '@hashicorp/react-consent-manager'
 
 // Global imports
 import { getVersionFromPath } from 'lib/get-version-from-path'
@@ -167,7 +167,10 @@ const SidebarSidecarLayoutContent = ({
             </div>
           </div>
           <div className={s.footerAreaWrapper}>
-            <Footer className={s.footer} openConsentManager={openDialog} />
+            <Footer
+              className={s.footer}
+              openConsentManager={openConsentManager}
+            />
             <div className={s.emptyDuplicateSidecarWrapper} />
           </div>
         </div>
