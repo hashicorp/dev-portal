@@ -25,6 +25,9 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
 
   // Don't do anything if there aren't any options
   if (!options || options.length === 0) {
+    if (IS_DEV) {
+      console.warn('DocsVersionSwitcher has no `options` to render.')
+    }
     return null
   }
 
