@@ -2,7 +2,7 @@ import { BadgeProps } from 'components/badge'
 import { ReactElement } from 'react'
 import { ProductSlug } from 'types/products'
 
-type SupportedIcon = 'plug' | 'docs' | 'home' | 'terminalScreen' | 'tools'
+type SupportedIcon = 'plug' | 'docs' | 'home' | 'terminalScreen' | 'api'
 
 type NavigationHeaderIcon = ProductSlug | SupportedIcon
 

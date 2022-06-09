@@ -154,7 +154,7 @@
       "shortName": "Documentation"
     },
     {
-      "iconName": "tools",
+      "iconName": "api",
       "name": "API",
       "path": "api-docs"
     }
@@ -180,7 +180,7 @@
       },
       {
         "label": "API",
-        "icon": "tools",
+        "icon": "api",
         "pathSuffix": "api-docs"
       }
     ]
