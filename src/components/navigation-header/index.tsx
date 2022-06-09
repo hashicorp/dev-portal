@@ -1,7 +1,6 @@
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
-import { useCurrentProduct, useDeviceSize } from 'contexts'
-import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
+import { useCurrentProduct, useDeviceSize, useMobileMenu } from 'contexts'
 import { NavigationHeaderItem } from './types'
 import {
   GiveFeedbackButton,
@@ -15,17 +14,17 @@ import s from './navigation-header.module.css'
  * the same for every page in the app.
  */
 const SidebarMenuButton = () => {
-  const { sidebarIsOpen, setSidebarIsOpen } = useSidebarNavData()
-  const ariaLabel = `${sidebarIsOpen ? 'Close' : 'Open'} navigation menu`
+  const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
+  const ariaLabel = `${mobileMenuIsOpen ? 'Close' : 'Open'} navigation menu`
 
   return (
     <>
       <button
         aria-label={ariaLabel}
         className={s.mobileMenuButton}
-        onClick={() => setSidebarIsOpen((prevState) => !prevState)}
+        onClick={() => setMobileMenuIsOpen((prevState) => !prevState)}
       >
-        {sidebarIsOpen ? <IconX24 /> : <IconMenu24 />}
+        {mobileMenuIsOpen ? <IconX24 /> : <IconMenu24 />}
       </button>
     </>
   )
@@ -38,13 +37,11 @@ const SidebarMenuButton = () => {
  */
 const NavigationHeader = () => {
   const { isDesktop } = useDeviceSize()
+  const shouldShowMenuButton = !isDesktop
   const currentProduct = useCurrentProduct()
   const LeftSideHeaderContent = currentProduct
     ? ProductPageHeaderContent
     : HomePageHeaderContent
-
-  // TODO: menu for the home page, which does not use SidebarSidecarLayout
-  const shouldShowMenuButton = !isDesktop && currentProduct
 
   return (
     <header className={s.root}>
