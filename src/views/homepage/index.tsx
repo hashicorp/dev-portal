@@ -126,7 +126,7 @@ const HomePageContent = () => {
         tutorials={[
           {
             url: '/vault/tutorials/associate-cert',
-            duration: '10min',
+            duration: '30min',
             heading: 'Study for the Vault Associate Exam',
             description:
               'Demonstrate your knowledge of the basic concepts, skills, and use cases associated with open source HashiCorp Vault. This is a multiple choice exam.',
@@ -136,7 +136,7 @@ const HomePageContent = () => {
           },
           {
             url: '/vault/tutorials/ops-pro-cert',
-            duration: '10min',
+            duration: '45min',
             heading: 'Study for the Vault Operations Professional Exam',
             description:
               'Demonstrate your ability to deploy, configure, manage, and monitor HashiCorp Vault in production. This is a hands-on exam.',
