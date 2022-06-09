@@ -22,7 +22,7 @@ const PrimaryNavSubmenu = ({ ariaLabel, navItem }: NavSubmenuProps) => {
       ariaLabel={ariaLabel}
       iconClassName={classNames(
         s.primarySubnavDropdownItemIcon,
-        s[currentProduct?.slug]
+        currentProduct?.slug
       )}
       itemGroups={[
         {

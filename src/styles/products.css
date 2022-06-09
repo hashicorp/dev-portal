@@ -1,0 +1,35 @@
+:root {
+  --product-color: var(--token-color-hashicorp-brand);
+
+  & .boundary {
+    --product-color: var(--token-color-boundary-brand);
+  }
+
+  & .consul {
+    --product-color: var(--token-color-consul-brand);
+  }
+
+  & .nomad {
+    --product-color: var(--token-color-nomad-brand);
+  }
+
+  & .packer {
+    --product-color: var(--token-color-packer-brand);
+  }
+
+  & .terraform {
+    --product-color: var(--token-color-terraform-brand);
+  }
+
+  & .vault {
+    --product-color: var(--token-color-vault-brand);
+  }
+
+  & .vagrant {
+    --product-color: var(--token-color-vagrant-brand);
+  }
+
+  & .waypoint {
+    --product-color: var(--token-color-waypoint-brand);
+  }
+}

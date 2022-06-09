@@ -13,6 +13,9 @@
 /* Sizing styles, used in DevDot */
 @import 'styles/sizing.css';
 
+/* Product color styles */
+@import 'styles/products.css';
+
 /* Proxied Boundary page styles */
 @import './_proxied-dot-io/boundary/home/style.css';
 @import '../components/_proxied-dot-io/boundary/footer/style.css';
