@@ -1,0 +1,37 @@
+.primarySubnavDropdownItemIcon {
+  --icon-color: var(--token-color-foreground-primary);
+
+  color: var(--icon-color);
+
+  &.boundary {
+    --icon-color: var(--token-color-boundary-brand);
+  }
+
+  &.consul {
+    --icon-color: var(--token-color-consul-brand);
+  }
+
+  &.nomad {
+    --icon-color: var(--token-color-nomad-brand);
+  }
+
+  &.packer {
+    --icon-color: var(--token-color-packer-brand);
+  }
+
+  &.terraform {
+    --icon-color: var(--token-color-terraform-brand);
+  }
+
+  &.vault {
+    --icon-color: var(--token-color-vault-brand);
+  }
+
+  &.vagrant {
+    --icon-color: var(--token-color-vagrant-brand);
+  }
+
+  &.waypoint {
+    --icon-color: var(--token-color-waypoint-brand);
+  }
+}

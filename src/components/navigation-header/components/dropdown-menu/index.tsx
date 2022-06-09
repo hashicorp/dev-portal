@@ -60,6 +60,7 @@ const NavigationHeaderDropdownMenu = ({
   ariaLabel,
   buttonClassName,
   dropdownClassName,
+  iconClassName,
   itemGroups,
   label,
   leadingIcon,
@@ -271,7 +272,14 @@ const NavigationHeaderDropdownMenu = ({
                       const anchorContent = (
                         <div className={s.itemLinkContent}>
                           <div className={s.leftAlignedItemLinkContent}>
-                            {icon}
+                            <span
+                              className={classNames(
+                                s.leftAlignedItemLinkContentIcon,
+                                iconClassName
+                              )}
+                            >
+                              {icon}
+                            </span>
                             <Text
                               asElement="span"
                               className={s.itemText}

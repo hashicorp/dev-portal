@@ -44,6 +44,7 @@ interface NavigationHeaderDropdownMenuProps {
   ariaLabel?: string
   buttonClassName?: string
   dropdownClassName?: string
+  iconClassName?: string
   itemGroups: NavigationHeaderItemGroup[]
   label?: string
   leadingIcon?: ReactElement
