@@ -3,6 +3,7 @@ import { ReactElement, useRef } from 'react'
 
 // HashiCorp imports
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
+import { open as openConsentManager } from '@hashicorp/react-consent-manager'
 
 // Global imports
 import { getVersionFromPath } from 'lib/get-version-from-path'
@@ -15,11 +16,11 @@ import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-content
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import EditOnGithubLink from 'components/edit-on-github-link'
-import Footer from 'components/footer'
 import InlineLink from 'components/inline-link'
 import MobileMenuContainer from 'components/mobile-menu-container'
 import PageAlert from 'components/page-alert'
 import Sidebar from 'components/sidebar'
+import Footer from 'components/footer'
 
 // Local imports
 import { SidebarSidecarLayoutProps } from './types'
@@ -45,7 +46,6 @@ const SidebarSidecarLayoutContent = ({
   children,
   githubFileUrl,
   headings,
-  openConsentManager,
   AlternateSidebar,
   optInOutSlot,
   sidecarSlot,
