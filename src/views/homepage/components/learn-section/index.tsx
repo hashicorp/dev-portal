@@ -36,7 +36,7 @@ export default function LearnSection({
             </Heading>
             <div className={s.introDescription}>{description}</div>
             <StandaloneLink
-              href="/"
+              href="/vault/tutorials/associate-cert"
               text="Start learning"
               iconPosition="trailing"
               icon={<IconArrowRight16 />}

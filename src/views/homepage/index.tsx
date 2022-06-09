@@ -129,28 +129,18 @@ const HomePageContent = () => {
             duration: '10min',
             heading: 'Study for the Vault Associate Exam',
             description:
-              'Demonstrate your knowledge of the basic concepts, skills, and use cases associated with open source HashiCorp Vault.',
-            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+              'Demonstrate your knowledge of the basic concepts, skills, and use cases associated with open source HashiCorp Vault. This is a multiple choice exam.',
+            productsUsed: ['vault'] as ProductOption[],
             hasVideo: true,
             hasInteractiveLab: false,
           },
           {
             url: '/vault/tutorials/ops-pro-cert',
             duration: '10min',
-            heading: 'Study for the Vault Operatios Professional Exam',
+            heading: 'Study for the Vault Operations Professional Exam',
             description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
-            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
-            hasVideo: true,
-            hasInteractiveLab: false,
-          },
-          {
-            url: '/',
-            duration: '10min',
-            heading: 'Title Max 70 Characters',
-            description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu video. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
-            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
+              'Demonstrate your ability to deploy, configure, manage, and monitor HashiCorp Vault in production. This is a hands-on exam.',
+            productsUsed: ['vault'] as ProductOption[],
             hasVideo: true,
             hasInteractiveLab: false,
           },
@@ -159,7 +149,7 @@ const HomePageContent = () => {
 
       <PreFooter
         heading="Looking for help?"
-        description="Aenean interdum pulvinar nunc et maximus. Etiam imperdiet mattis sapien id commodow Aenean interdum pulvinar nunc nean interdum pulvinar."
+        description="We offer paid support, a free forum, and other community resources."
         actions={[
           {
             icon: (
