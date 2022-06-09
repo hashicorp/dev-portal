@@ -23,8 +23,9 @@ export default function AnchorLinkViz() {
             <br />
             Issue: content may change height at any time,
             <br />
-            not just viewport change, does not account for that yet.
+            not just viewport change, eg route change,
             <br />
+            but this spike does not account for that (yet).
             {JSON.stringify(restData, null, 2)}
           </code>
         </pre>
