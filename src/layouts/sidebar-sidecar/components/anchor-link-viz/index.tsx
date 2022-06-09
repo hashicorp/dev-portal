@@ -34,6 +34,16 @@ export default function AnchorLinkViz() {
                     className={s.anchorLinkMarker}
                     style={
                       {
+                        top: `${heading.top}px`,
+                        height: '1px',
+                        '--color': 'dodgerblue',
+                      } as React.CSSProperties
+                    }
+                  />
+                  <div
+                    className={s.anchorLinkMarker}
+                    style={
+                      {
                         top: `${heading.rawPosnTop}px`,
                         '--color': 'blue',
                       } as React.CSSProperties

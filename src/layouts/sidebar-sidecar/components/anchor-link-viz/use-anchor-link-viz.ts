@@ -61,23 +61,25 @@ function useAnchorLinkViz() {
         const { top } = getCoords(heading)
         const rawPosnTop = Math.max(0, top - ANCHOR_LINK_OFFSET)
         const posnTop = Math.min(rawPosnTop, maxScrollY)
-        return { id, nodeName, level, rawPosnTop, posnTop }
+        // const posnTop = rawPosnTop
+        return { id, nodeName, level, top, rawPosnTop, posnTop }
       })
       // const newHeadingData = dataWithPosns
       const itemCount = dataWithPosns.length
-      const newHeadingData = dataWithPosns.map((heading, idx) => {
+      const newHeadingData = dataWithPosns.reduce((acc, heading, idx) => {
         // start & end
-        const isFirstItem = idx === 0
+        // const isFirstItem = idx === 0
         const isLastItem = idx === itemCount - 1
         const isLoneItem = itemCount == 0
-        const itemStart =
-          isLoneItem || isFirstItem ? 0 : heading.posnTop - BUFFER
+        const itemStart = acc.length == 0 ? 0 : acc[idx - 1].itemEnd + 4
         const itemEnd =
           isLoneItem || isLastItem
             ? maxScrollY
-            : dataWithPosns[idx + 1]?.posnTop - (BUFFER + 4)
-        return { ...heading, itemStart, itemEnd }
-      })
+            : heading.posnTop +
+              (dataWithPosns[idx + 1].posnTop - heading.posnTop) * 0.4
+        acc.push({ ...heading, itemStart, itemEnd })
+        return acc
+      }, [])
       setHeadingData(newHeadingData)
     }
   }, [height, width])
