@@ -16,6 +16,5 @@
     position: fixed;
     top: unset; /* make top relative to the parent */
     width: 100vw;
-    z-index: 1;
   }
 }
