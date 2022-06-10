@@ -77,7 +77,7 @@ const Sidebar = ({
     sidebarFilterInput = (
       <div
         className={classNames(s.filterInputWrapper, {
-          [s['filerInputWrapper--mobile']]: shouldRenderMobileControls,
+          [s['filterInputWrapper--mobile']]: shouldRenderMobileControls,
         })}
       >
         <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
@@ -86,7 +86,7 @@ const Sidebar = ({
   }
 
   let overviewItem
-  if (overviewItemHref) {
+  if (overviewItemHref && !filterValue) {
     overviewItem = (
       <SidebarNavLinkItem
         item={{
@@ -108,11 +108,8 @@ const Sidebar = ({
     )
     sidebarContent = (
       <ul className={s.navList}>
-        {filteredMenuItems.map((item: FilteredNavItem, index) => (
-          <SidebarNavMenuItem
-            item={item}
-            key={item.id ?? item.title ?? index}
-          />
+        {filteredMenuItems.map((item: FilteredNavItem) => (
+          <SidebarNavMenuItem item={item} key={item.id} />
         ))}
       </ul>
     )
