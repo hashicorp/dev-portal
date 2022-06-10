@@ -147,13 +147,15 @@
   top: calc(50% - 8px);
 }
 
-.itemLink {
+.itemLinkLayout {
   position: relative;
   display: block;
   padding: 8px;
   padding-right: 36px;
   border-radius: 5px;
+}
 
+.itemLinkHover {
   &:hover {
     background-color: var(--token-color-surface-interactive-hover);
   }
@@ -164,4 +166,15 @@
   font-size: 14px;
   padding: 12px 20px;
   border-top: 1px solid var(--token-color-border-primary);
+}
+
+.noResults {
+  padding: 12px;
+  margin: 0;
+  color: var(--token-color-foreground-primary);
+
+  @media (--dev-dot-tablet-down) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }

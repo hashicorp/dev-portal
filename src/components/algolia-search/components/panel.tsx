@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 import {
   BaseSyntheticEvent,
@@ -22,6 +23,7 @@ import {
   AutocompleteCollection,
 } from '@algolia/autocomplete-core'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
+import Text from 'components/text'
 
 type PanelProps<THit extends Hit<unknown>> = {
   /**
@@ -126,7 +128,10 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
                         >
                           <HitWrapper
                             hit={item}
-                            className={s.itemLink}
+                            className={classNames(
+                              s.itemLinkLayout,
+                              s.itemLinkHover
+                            )}
                             onHitClick={() => {
                               autocomplete.setQuery('')
                             }}
@@ -140,7 +145,15 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
                     })}
                   </ul>
                 ) : (
-                  <p>No Results</p>
+                  <div className={s.noResults}>
+                    <Text
+                      className={s.itemLinkLayout}
+                      weight="semibold"
+                      size={200}
+                    >
+                      No Results
+                    </Text>
+                  </div>
                 )}
               </section>
             )
