@@ -24,7 +24,6 @@ const { ConsentManager, openConsentManager } = createConsentManager({
  */
 const BaseNewLayout = ({
   children,
-  showFooter = true,
   showFooterTopBorder = false,
 }: BaseNewLayoutProps) => {
   // hooks
@@ -42,15 +41,13 @@ const BaseNewLayout = ({
             <NavigationHeader />
           </div>
           <div className={s.contentArea}>{children}</div>
-          {showFooter && (
-            <div
-              className={classNames(s.footer, {
-                [s.showFooterTopBorder]: showFooterTopBorder,
-              })}
-            >
-              <Footer openConsentManager={openConsentManager} />
-            </div>
-          )}
+          <div
+            className={classNames(s.footer, {
+              [s.showFooterTopBorder]: showFooterTopBorder,
+            })}
+          >
+            <Footer openConsentManager={openConsentManager} />
+          </div>
         </div>
       </CoreDevDotLayout>
       <ConsentManager />
