@@ -48,7 +48,7 @@ const HomePageMobileMenu = () => {
 
 const HomePageContent = () => {
   return (
-    <>
+    <div className={s.homepageContent}>
       {/* <HeroWithActions
         badgeText="Beta"
         heading="HashiCorp Developer"
@@ -183,7 +183,7 @@ const HomePageContent = () => {
           },
         ]}
       />
-    </>
+    </div>
   )
 }
 
