@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import HashiHead from '@hashicorp/react-head'
 import { useCurrentProduct } from 'contexts'
 import getDeployedUrl from 'lib/get-deployed-url'
@@ -10,6 +11,13 @@ import { HeadMetadataProps } from './types'
  */
 export default function HeadMetadata(props: HeadMetadataProps) {
   const { name: productName, slug: productSlug } = useCurrentProduct() ?? {}
+
+  const router = useRouter()
+
+  // do not render any meta tags if serving an io page
+  if (router.pathname.includes('_proxied-dot-io')) {
+    return null
+  }
 
   const titleParts = [__config.dev_dot.meta.title]
   const description = props.description ?? __config.dev_dot.meta.description
