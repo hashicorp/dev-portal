@@ -147,15 +147,13 @@
   top: calc(50% - 8px);
 }
 
-.itemLinkLayout {
+.itemLink {
   position: relative;
   display: block;
   padding: 8px;
   padding-right: 36px;
   border-radius: 5px;
-}
 
-.itemLinkHover {
   &:hover {
     background-color: var(--token-color-surface-interactive-hover);
   }
@@ -169,7 +167,7 @@
 }
 
 .noResults {
-  padding: 12px;
+  padding: 20px;
   margin: 0;
   color: var(--token-color-foreground-primary);
 
@@ -177,4 +175,8 @@
     padding-left: 24px;
     padding-right: 24px;
   }
+}
+
+.noResultsDescription {
+  color: var(--token-color-foreground-faint);
 }

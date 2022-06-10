@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 import {
   BaseSyntheticEvent,
@@ -128,10 +127,7 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
                         >
                           <HitWrapper
                             hit={item}
-                            className={classNames(
-                              s.itemLinkLayout,
-                              s.itemLinkHover
-                            )}
+                            className={s.itemLink}
                             onHitClick={() => {
                               autocomplete.setQuery('')
                             }}
@@ -146,12 +142,12 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
                   </ul>
                 ) : (
                   <div className={s.noResults}>
-                    <Text
-                      className={s.itemLinkLayout}
-                      weight="semibold"
-                      size={200}
-                    >
+                    <Text weight="semibold" size={200}>
                       No Results
+                    </Text>
+                    <Text className={s.noResultsDescription} size={200}>
+                      Search tips: some terms require an exact match. Try typing
+                      the entire term, or use a different word or phrase.
                     </Text>
                   </div>
                 )}
