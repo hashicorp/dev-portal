@@ -1,0 +1,24 @@
+.root {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.leftSide,
+.rightSide {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.leadingIcon {
+  display: flex;
+}
+
+.text {
+  margin-right: 8px;
+  width: 100%;
+}
