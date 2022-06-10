@@ -124,6 +124,12 @@ Mobile & tablet visibility helpers, specific to dev-dot.
   }
 }
 
+@media (--dev-dot-desktop) {
+  .g-hide-on-desktop {
+    display: none;
+  }
+}
+
 /*
 ***
 * Screen reader only global helper

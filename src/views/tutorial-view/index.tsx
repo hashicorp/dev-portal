@@ -151,7 +151,6 @@ export default function TutorialView({
   return (
     <>
       <Head>
-        <title>{name}</title>
         <link rel="canonical" href={canonicalUrl.toString()} />
       </Head>
       <InteractiveLabWrapper

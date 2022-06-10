@@ -61,6 +61,9 @@ async function generateStaticProps(
    */
   return {
     props: stripUndefinedProperties({
+      metadata: {
+        title: 'Install',
+      },
       releases,
       product,
       latestVersion,

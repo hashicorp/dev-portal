@@ -108,8 +108,11 @@ const Sidebar = ({
     )
     sidebarContent = (
       <ul className={s.navList}>
-        {filteredMenuItems.map((item: FilteredNavItem) => (
-          <SidebarNavMenuItem item={item} key={item.id} />
+        {filteredMenuItems.map((item: FilteredNavItem, index) => (
+          <SidebarNavMenuItem
+            item={item}
+            key={item.id ?? item.title ?? index}
+          />
         ))}
       </ul>
     )
