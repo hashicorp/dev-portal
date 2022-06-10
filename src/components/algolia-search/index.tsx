@@ -114,8 +114,6 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
    */
   useFocusOnKeyClick(inputRef, '/')
 
-  console.log({ autocompleteState }, autocompleteState.isOpen)
-
   return (
     <div
       className={classNames(s.root, className)}
