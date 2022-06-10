@@ -2,47 +2,70 @@
 componentName: 'Sidebar'
 ---
 
-These are the Sidebar docs!
+🚨 These docs are a work in progress 🚨
 
-<LiveComponent>{`<Sidebar
+## Default Sidebar with no props
+
+<LiveComponent>{`
+<Sidebar />
+`}</LiveComponent>
+
+## Sidebar with Badges
+
+At the current time of writing, only the "highlight" and "neutral" [`Badge`](/swingset/components/badge) colors are supported. This is because other `Badge` colors are for used for indicating a status, and so they must also have an icon. See [Understanding Success Criterion 1.4.1: Use of Color (Level A)](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html) for further reading on the topic. Supporting icons in Sidebar Badges has not been designed at this time.
+
+<LiveComponent>{`
+<Sidebar
   menuItems={[
     {
-      title: 'Introduction',
-      path: '',
+      title: 'Internal link item with a "highlight" Badge',
+      href: '/',
+      badge: {
+        text: 'Badge',
+        color: 'highlight',
+        type: 'filled'
+      }
     },
     {
-      title: 'Getting Started',
-      path: '',
+      title: 'Internal link item with a "neutral" Badge',
+      href: '/',
+      badge: {
+        text: 'Badge',
+        color: 'neutral',
+        type: 'outlined'
+      }
     },
     {
-      title: 'Upgrading',
-      path: '',
+      title: 'External link item with a Badge',
+      href: 'https://hashicorp.com',
+      badge: {
+        text: 'Badge',
+        color: 'highlight',
+        type: 'filled'
+      }
     },
     {
-      divider: true,
-    },
-    {
-      title: 'Kubernetes',
-      path: '',
-    },
-    {
-      divider: true,
-    },
-    {
-      title: 'Projects',
-      path: '',
-    },
-    {
-      title: 'Lifecycle',
-      path: '',
-    },
-    {
-      title: 'waypoint.hcl',
-      path: '',
-    },
-    {
-      title: 'URL Service',
-      path: '',
-    },
+      title: 'Submenu item with a Badge',
+      badge: {
+        text: 'Badge',
+        color: 'highlight',
+        type: 'filled'
+      },
+      routes: [
+        {
+          title: 'Child item 1',
+          href: '/'
+        },
+        {
+          title: 'Child item 2',
+          href: '/'
+        },
+        {
+          title: 'Child item 3',
+          href: '/'
+        },
+      ]
+    }
   ]}
-/>`}</LiveComponent>
+/>
+`}</LiveComponent>

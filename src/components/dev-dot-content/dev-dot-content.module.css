@@ -50,8 +50,10 @@
   & h5,
   & h6 {
     /*
-    Because not all jump link headings have an anchor child, such as the ones on
-    the product landing pages
+    Because most headings do not have an anchor child,
+    only ones that have "alias" or "compatibilitySlugs".
+    Details are in our remark anchor-links plugin:
+    https://github.com/hashicorp/web-platform-packages/tree/main/packages/remark-plugins/plugins/anchor-links
     */
     scroll-margin-top: var(--height);
 

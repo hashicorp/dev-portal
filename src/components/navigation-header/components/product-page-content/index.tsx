@@ -50,7 +50,10 @@ const ProductPageHeaderContent = () => {
     label: productSlugsToNames[slug],
     path: `/${slug}`,
   }))
-  const allMainMenuItems = [[homeMenuItem], betaProductMenuItems]
+  const allMainMenuItems = [
+    { items: [homeMenuItem] },
+    { items: betaProductMenuItems },
+  ]
   const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
   const isProductHomePage = currentPath === `/${currentProduct.slug}`
 

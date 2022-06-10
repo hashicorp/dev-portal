@@ -98,9 +98,15 @@ function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
       // Note that the `fullPath` added here differs from typical
       // NavLeaf treatment, as we only use the first part of the `basePath`.
       // (We expect this to be the product slug, eg "consul").
+
+      // If the path already starts with the base path (i.e. /vault), don't add it
+      const fullPath = node.href.startsWith(`/${basePaths[0]}`)
+        ? node.href
+        : `/${basePaths[0]}${node.href}`
+
       return {
         ...node,
-        fullPath: `/${basePaths[0]}${node.href}`,
+        fullPath,
         href: null,
         id,
         path: node.href,

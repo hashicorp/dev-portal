@@ -1,5 +1,5 @@
 import BaseNewLayout from 'layouts/base-new'
-import Homepage from 'views/homepage'
+import HomePageView from 'views/homepage'
 
-Homepage.layout = BaseNewLayout
-export default Homepage
+HomePageView.layout = BaseNewLayout
+export default HomePageView

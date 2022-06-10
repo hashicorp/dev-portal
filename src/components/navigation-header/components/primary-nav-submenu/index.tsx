@@ -19,13 +19,15 @@ const PrimaryNavSubmenu = ({ ariaLabel, navItem }: NavSubmenuProps) => {
     <NavigationHeaderDropdownMenu
       ariaLabel={ariaLabel}
       itemGroups={[
-        currentProduct.navigationHeaderItems[id].map(
-          ({ icon, label, pathSuffix }) => ({
-            icon,
-            label,
-            path: `/${currentProduct.slug}/${pathSuffix}`,
-          })
-        ),
+        {
+          items: currentProduct.navigationHeaderItems[id].map(
+            ({ icon, label, pathSuffix }) => ({
+              icon,
+              label,
+              path: `/${currentProduct.slug}/${pathSuffix}`,
+            })
+          ),
+        },
       ]}
       label={label}
     />

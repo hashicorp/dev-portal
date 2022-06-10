@@ -1,4 +1,7 @@
-import { VERSION_IN_PATH_REGEX } from 'constants/version-path'
+import {
+  VERSION_IN_PATH_REGEX,
+  TFE_VERSION_IN_PATH_REGEXP,
+} from 'constants/version-path'
 
 /**
  * Removes a version string from a path, and returns the new path.
@@ -7,7 +10,9 @@ import { VERSION_IN_PATH_REGEX } from 'constants/version-path'
 export function removeVersionFromPath(path: string): string {
   const pathSegments = path.split('/')
 
-  const i = pathSegments.findIndex((el) => VERSION_IN_PATH_REGEX.test(el))
+  const i = pathSegments.findIndex((el) => {
+    return VERSION_IN_PATH_REGEX.test(el) || TFE_VERSION_IN_PATH_REGEXP.test(el)
+  })
 
   if (i > -1) {
     return [...pathSegments.slice(0, i), ...pathSegments.slice(i + 1)].join('/')

@@ -1,21 +1,44 @@
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import { NavigationHeaderDropdownMenu } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './home-page-content.module.css'
 
-/**
- * @TODO update content to also show products "coming soon"
- * @see https://app.asana.com/0/1202110981600689/1202300536466714/f
- */
 const HomePageHeaderContent = () => {
-  const betaProductSlugs = __config.dev_dot.beta_product_slugs
-  const menuItems = betaProductSlugs.map((slug: ProductSlug) => ({
-    icon: slug,
-    label: productSlugsToNames[slug],
-    path: `/${slug}`,
-  }))
+  const betaProductItems = []
+  const comingSoonProductItems = []
+  Object.keys(productSlugsToNames).forEach((productSlug: ProductSlug) => {
+    // Exclude Sentinel for now
+    if (productSlug === 'sentinel') {
+      return
+    }
+
+    // Generate properties of each menu item
+    const icon = productSlug
+    const label = productSlugsToNames[productSlug]
+    const path = `/${productSlug}`
+
+    // Push the menu item to the correct array
+    if (getIsBetaProduct(productSlug)) {
+      betaProductItems.push({
+        badge: {
+          text: 'Beta',
+          color: 'highlight',
+        },
+        icon,
+        label,
+        path,
+      })
+    } else {
+      comingSoonProductItems.push({
+        ariaLabel: `Coming soon: ${label}`,
+        icon,
+        label,
+      })
+    }
+  })
 
   return (
     <div className={sharedNavStyles.leftSide}>
@@ -30,7 +53,15 @@ const HomePageHeaderContent = () => {
           <ul className={sharedNavStyles.navList}>
             <li>
               <NavigationHeaderDropdownMenu
-                itemGroups={[menuItems]}
+                itemGroups={[
+                  {
+                    items: betaProductItems,
+                  },
+                  {
+                    label: 'Coming Soon',
+                    items: comingSoonProductItems,
+                  },
+                ]}
                 label="Products"
               />
             </li>

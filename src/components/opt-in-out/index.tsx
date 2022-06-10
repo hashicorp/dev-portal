@@ -1,25 +1,32 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
 import Cookies from 'js-cookie'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import '@reach/dialog/styles.css'
 import Button from 'components/button'
-import Dialog from 'components/dialog'
+import usePreloadNextDynamic from 'hooks/use-preload-next-dynamic'
 import { safeAnalyticsTrack, safeGetSegmentId } from 'lib/analytics'
 import { OptInOutProps, isOptInPlatformOption } from './types'
 import { PLATFORM_OPTIONS, postFormData, makeBetaWelcomeToast } from './helpers'
 import OptOutForm from './components/opt-out-form'
 import { OptOutFormState } from './components/opt-out-form/types'
 
+const Dialog = dynamic(() => import('components/dialog'))
+
 export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
   // fire toast, render button, etc
   const router = useRouter()
-  const optedIn = Cookies.get(PLATFORM_OPTIONS[platform].cookieKey)
-  const url =
-    redirectPath || PLATFORM_OPTIONS[platform].getRedirectPath(router.asPath)
+
+  const isDialogPreloaded = usePreloadNextDynamic(Dialog)
+
   const [showDialog, setShowDialog] = useState(false)
   const openDialog = () => setShowDialog(true)
   const closeDialog = () => setShowDialog(false)
+
+  const optedIn = Cookies.get(PLATFORM_OPTIONS[platform].cookieKey)
+  const url =
+    redirectPath || PLATFORM_OPTIONS[platform].getRedirectPath(router.asPath)
 
   /**
    * Handle opt out, which is passed to our opt out form,
@@ -71,13 +78,19 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
         iconPosition="trailing"
         onClick={openDialog}
       />
-      <Dialog onDismiss={closeDialog} isOpen={showDialog} label="Opt out form">
-        <OptOutForm
-          onSubmit={handleOptOut}
+      {isDialogPreloaded || showDialog ? (
+        <Dialog
           onDismiss={closeDialog}
-          platform="learn"
-        />
-      </Dialog>
+          isOpen={showDialog}
+          label="Opt out form"
+        >
+          <OptOutForm
+            onSubmit={handleOptOut}
+            onDismiss={closeDialog}
+            platform="learn"
+          />
+        </Dialog>
+      ) : null}
     </div>
   )
 }

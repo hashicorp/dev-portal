@@ -55,9 +55,8 @@ export const addNavItemMetaData = (
 
       // Found an `EnrichedLinkNavItem` object
       if (item.hasOwnProperty('path')) {
-        const isActive =
-          !foundActiveItem &&
-          currentPath.endsWith((item as EnrichedLinkNavItem).path)
+        const itemPath = (item as EnrichedLinkNavItem).fullPath
+        const isActive = !foundActiveItem && itemPath === currentPath
 
         foundActiveItem = isActive || foundActiveItem
 
