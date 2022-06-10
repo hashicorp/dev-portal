@@ -9,7 +9,6 @@
   position: sticky;
   top: var(--sticky-bars-height);
   width: var(--dev-dot-sidebar-width);
-  z-index: 1;
 
   @media (--dev-dot-tablet-down) {
     height: 100%;
@@ -17,5 +16,6 @@
     position: fixed;
     top: unset; /* make top relative to the parent */
     width: 100vw;
+    z-index: 1;
   }
 }
