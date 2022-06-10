@@ -97,4 +97,5 @@ export interface TabControlsProps {
   setActiveTabIndex: (newActiveIndex: number) => void
   ariaLabel?: TabsProps['ariaLabel']
   ariaLabelledBy?: TabsProps['ariaLabelledBy']
+  styleNested?: boolean
 }

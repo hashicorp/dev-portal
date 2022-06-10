@@ -81,6 +81,7 @@ const Tabs = ({
             tabItems={tabItems}
             activeTabIndex={activeTabIndex}
             setActiveTabIndex={setSyncedActiveTabIndex}
+            styleNested={allowNestedStyles && isNested}
           />
         </div>
         {tabItems.map((tabItem: TabItem) => {

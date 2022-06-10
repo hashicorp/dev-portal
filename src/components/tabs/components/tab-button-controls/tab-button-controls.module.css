@@ -4,9 +4,21 @@ the correct elements, roles, states, and properties are being set in the markup.
 */
 
 .tabList[role='tablist'] {
+  position: relative;
   align-items: center;
   display: flex;
   gap: 2px;
+
+  &.styleNested::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--token-color-border-primary);
+    height: 1px;
+    z-index: -1;
+  }
 }
 
 /*
@@ -35,5 +47,23 @@ Styles for each tab button.
   &:hover {
     color: var(--token-color-foreground-action);
     border-color: var(--token-color-foreground-action);
+  }
+
+  &.styleNested {
+    background-color: transparent;
+    border: none;
+
+    /* TODO: sort out border + padding */
+    padding-top: 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid transparent;
+
+    &[aria-selected='true'] {
+      border-bottom-color: var(--token-color-foreground-action);
+    }
+
+    &:not(:focus-visible) {
+      border-radius: 0;
+    }
   }
 }

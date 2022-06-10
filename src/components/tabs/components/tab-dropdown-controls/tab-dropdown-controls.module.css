@@ -29,6 +29,10 @@
   font-weight: var(--token-typography-font-weight-medium);
   padding: 7px 40px 7px 12px;
   width: 100%;
+
+  &.styleNested {
+    border-color: magenta;
+  }
 }
 
 .option {

@@ -6,6 +6,7 @@ import newIndexFromKeypress from '../../helpers/new-index-from-keypress'
 import s from './tab-button-controls.module.css'
 
 function TabButtonControls({
+  styleNested,
   tabItems,
   activeTabIndex,
   setActiveTabIndex,
@@ -67,7 +68,7 @@ function TabButtonControls({
     <div
       aria-label={!ariaLabelledBy ? ariaLabel : undefined}
       aria-labelledby={ariaLabelledBy}
-      className={s.tabList}
+      className={classNames(s.tabList, { [s.styleNested]: styleNested })}
       role="tablist"
     >
       {tabItems.map((tabItem: TabItem, index: number) => {
@@ -76,6 +77,7 @@ function TabButtonControls({
           <button
             className={classNames(
               s.tabButton,
+              { [s.styleNested]: styleNested },
               'g-focus-ring-from-box-shadow',
               'hds-typography-body-200'
             )}
