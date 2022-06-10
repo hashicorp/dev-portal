@@ -17,7 +17,11 @@ function TabDropdownControls({
   setActiveTabIndex,
 }: TabControlsProps) {
   return (
-    <div className={s.selectRoot}>
+    <div
+      className={classNames(s.selectRoot, {
+        [s.styleNested]: styleNested,
+      })}
+    >
       <select
         aria-label={!ariaLabelledBy ? ariaLabel : undefined}
         aria-labelledby={ariaLabelledBy}

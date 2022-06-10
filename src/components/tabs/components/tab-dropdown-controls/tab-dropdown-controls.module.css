@@ -1,6 +1,19 @@
 .selectRoot {
   position: relative;
   width: 100%;
+
+  &.styleNested {
+    margin-bottom: 4px;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      background: var(--token-color-border-primary);
+      height: 1px;
+    }
+  }
 }
 
 .selectTrailingIcon {
@@ -31,7 +44,9 @@
   width: 100%;
 
   &.styleNested {
-    border-color: magenta;
+    border-color: transparent;
+    background-color: white;
+    padding-left: 8px;
   }
 }
 
