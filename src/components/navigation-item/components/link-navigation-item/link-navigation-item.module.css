@@ -74,28 +74,3 @@
     fill: var(--token-color-foreground-disabled);
   }
 }
-
-.leadingIcon {
-  display: flex;
-}
-
-.navigationItemText {
-  margin-right: 8px;
-  width: 100%;
-}
-
-.navigationItemContent {
-  align-items: center;
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.leftSideContent,
-.rightSideContent {
-  align-items: center;
-  display: flex;
-  flex-shrink: 0;
-  gap: 8px;
-}

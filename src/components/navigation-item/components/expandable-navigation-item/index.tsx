@@ -1,33 +1,20 @@
-import { KeyboardEventHandler, ReactElement, useRef, useState } from 'react'
+import { KeyboardEventHandler, useRef, useState } from 'react'
 import { useId } from '@react-aria/utils'
-import Text from 'components/text'
-import NavigationItem from 'components/navigation-item'
-import { ProductSlug } from 'types/products'
-import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
-import Badge from 'components/badge'
-import ProductIcon from 'components/product-icon'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
+import NavigationItem from 'components/navigation-item'
+import NavigationItemContent, {
+  NavigationItemContentProps,
+} from '../navigation-item-content'
 import s from './expandable-navigation-item.module.css'
-
-const SUPPORTED_LEADING_ICONS: {
-  [key in Exclude<SupportedIconName, ProductSlug>]: ReactElement
-} = {
-  home: <IconHome16 name="home" />,
-}
-
-type SupportedIconName = 'home' | ProductSlug
 
 interface ExpandableNavigationItemProps {
   badge?: $TSFixMe
   initialOpen?: boolean
-  leadingIconName?: SupportedIconName
+  leadingIconName?: NavigationItemContentProps['leadingIconName']
   routes: $TSFixMe[]
   title: string
 }
 
-// TODO use navigation disclosure component
-// TODO base off of SidebarNavSubmenuItem
-// TODO use as a container, create shared Content component
 const ExpandableNavigationItem = ({
   badge,
   initialOpen = false,
@@ -42,9 +29,6 @@ const ExpandableNavigationItem = ({
   // const [isOpen, setIsOpen] = useState(
   //   item.hasActiveChild || item.hasChildrenMatchingFilter || item.matchesFilter
   // )
-
-  const hasBadge = Boolean(badge)
-  // const hasBadge = !!(item as $TSFixMe).badge
 
   /**
    * Without this effect, the menu items aren't re-rerendered to be open. Seems
@@ -68,38 +52,13 @@ const ExpandableNavigationItem = ({
     }
   }
 
-  let leadingIcon
-  if (leadingIconName) {
-    const icon = SUPPORTED_LEADING_ICONS[leadingIconName] || (
-      <ProductIcon productSlug={leadingIconName as ProductSlug} />
-    )
-    leadingIcon = <div className={s.leadingIcon}>{icon}</div>
-  }
-
   const buttonContent = (
-    <div className={s.navigationItemContent}>
-      <div className={s.leftSideContent}>
-        {leadingIcon}
-        <Text
-          asElement="span"
-          className={s.navigationItemText}
-          dangerouslySetInnerHTML={{ __html: title }}
-          size={200}
-          weight="regular"
-        />
-      </div>
-      <div className={s.rightSideContent}>
-        {hasBadge && (
-          <Badge
-            color={badge.color}
-            size="small"
-            text={badge.text}
-            type={badge.type}
-          />
-        )}
-        {<IconChevronRight16 className={s.trailingIcon} />}
-      </div>
-    </div>
+    <NavigationItemContent
+      badge={badge}
+      leadingIconName={leadingIconName}
+      text={title}
+      trailingIcon={<IconChevronRight16 className={s.trailingIcon} />}
+    />
   )
 
   return (
