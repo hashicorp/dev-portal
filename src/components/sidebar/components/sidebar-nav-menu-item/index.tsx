@@ -183,12 +183,15 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
     }
   }
 
+  const buttonId = `${item.id}-button`
+  const listId = `${item.id}-list`
   return (
     <>
       <button
-        aria-controls={item.id}
+        aria-controls={listId}
         aria-expanded={isOpen}
         className={s.sidebarNavMenuItem}
+        id={buttonId}
         onClick={() => setIsOpen((prevState: boolean) => !prevState)}
         ref={buttonRef}
       >
@@ -209,7 +212,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
         />
       </button>
       {isOpen && (
-        <ul id={item.id} onKeyDown={handleKeyDown}>
+        <ul id={listId} onKeyDown={handleKeyDown}>
           {item.routes.map((route: MenuItem) => (
             <SidebarNavMenuItem key={route.id} item={route} />
           ))}

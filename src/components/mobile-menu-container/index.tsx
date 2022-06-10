@@ -8,7 +8,7 @@ import s from './mobile-menu-container.module.css'
 const MOBILE_MENU_MOTION = {
   visible: {
     left: 0,
-    display: 'block',
+    display: 'flex',
   },
   hidden: {
     left: '-150vw',

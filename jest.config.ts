@@ -1,7 +1,7 @@
 import { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
-  setupFilesAfterEnv: ['<rootDir>/.jest/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/.test/setup-jest.js'],
   roots: ['config', 'src', 'build-libs'],
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
@@ -15,12 +15,12 @@ const config: Config.InitialOptions = {
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
 
     // Handle CSS imports (without CSS modules)
-    '^.+\\.(css|sass|scss)$': '<rootDir>/.jest/__mocks__/styleMock.js',
+    '^.+\\.(css|sass|scss)$': '<rootDir>/.test/__mocks__/styleMock.js',
 
     /* Handle image imports
     https://jestjs.io/docs/webpack#handling-static-assets */
     '^.+\\.(jpg|jpeg|png|gif|webp|svg)$':
-      '<rootDir>/.jest/__mocks__/fileMock.js',
+      '<rootDir>/.test/__mocks__/fileMock.js',
   },
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',

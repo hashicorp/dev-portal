@@ -123,7 +123,7 @@ export function useActiveSection(
         }
       },
       {
-        rootMargin: `-${getFullNavHeaderHeight()}px 0% -60% 0%`,
+        rootMargin: `-${getFullNavHeaderHeight()}px 0% -40% 0%`,
         threshold: isProductLanding ? 0 : 1,
       }
     )
