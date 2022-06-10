@@ -11,7 +11,7 @@ import {
   CurrentProductProvider,
   DeviceSizeProvider,
 } from 'contexts'
-import BaseLayout from 'layouts/base'
+import EmptyLayout from 'layouts/empty'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
@@ -38,7 +38,7 @@ export default function App({ Component, pageProps, layoutProps }) {
   useAnchorLinkAnalytics()
   useEffect(() => makeDevAnalyticsLogger(), [])
 
-  const Layout = Component.layout ?? BaseLayout
+  const Layout = Component.layout ?? EmptyLayout
   const currentProduct = pageProps.product || null
 
   /**
