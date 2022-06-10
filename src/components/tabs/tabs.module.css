@@ -3,21 +3,16 @@ NOTE: This file uses `role` selectors to apply styles because it ensures that
 the correct elements, roles, states, and properties are being set in the markup.
 */
 
-.root {
-  border: 2px solid black;
-
-  &.isNested {
-    border-color: magenta;
-  }
-}
-
 .tabControls {
   /*
   Styles for showing a bottom border on the tab buttons container.
   */
   &.showAnchorLine {
-    border-bottom: 1px solid var(--token-color-palette-neutral-200);
     padding-bottom: 16px;
+
+    &:not(.allowNestedStyles) {
+      border-bottom: 1px solid var(--token-color-palette-neutral-200);
+    }
   }
 }
 
@@ -31,20 +26,28 @@ keeps us from having to set styles in the JSX.
 ref: https://twitter.com/heydonworks/status/408263890284191745
 ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
 */
-.tabPanel[role='tabpanel'] {
+.tabPanel {
+  /*
+  Show a focus ring with a border radius when navigating via keyboard.
+  */
+  composes: g-focus-ring-from-box-shadow from global;
+  border-radius: 6px;
+
   &[aria-hidden='true'] {
     display: none;
     visibility: hidden;
   }
-}
 
-/*
-For showing a focus ring with a border radius when navigating via keyboard.
-*/
-.tabPanel {
-  composes: g-focus-ring-from-box-shadow from global;
+  &.allowNestedStyles:not(.isNested) {
+    box-shadow: var(--token-surface-base-box-shadow);
+    padding: 16px;
+  }
 
-  &:focus-visible {
-    border-radius: 5px;
+  & > *:first-child {
+    margin-top: 0 !important;
+  }
+
+  & > *:last-child {
+    margin-bottom: 0 !important;
   }
 }

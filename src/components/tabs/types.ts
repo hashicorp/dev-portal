@@ -31,6 +31,12 @@ export interface TabsProps {
   initialActiveIndex?: number
 
   /**
+   * Set to true to  to turn on nested styles. Defaults to false.
+   * Note that allowing nested styles means showAnchorLine will be ignored.
+   */
+  allowNestedStyles?: boolean
+
+  /**
    * Whether or not a full-width border should be shown below the tab buttons
    */
   showAnchorLine?: boolean

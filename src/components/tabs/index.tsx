@@ -12,6 +12,7 @@ const Tabs = ({
   children,
   initialActiveIndex = 0,
   showAnchorLine = true,
+  allowNestedStyles = false,
 }: TabsProps): ReactElement => {
   /**
    * TODO: this is a temporary measure until we are able to start requiring
@@ -67,13 +68,11 @@ const Tabs = ({
 
   return (
     <TabNestingProvider>
-      <div
-        ref={overflowRef}
-        className={classNames(s.root, { [s.isNested]: isNested })}
-      >
+      <div ref={overflowRef}>
         <div
           className={classNames(s.tabControls, {
             [s.showAnchorLine]: showAnchorLine,
+            [s.allowNestedStyles]: allowNestedStyles,
           })}
         >
           <TabControls
@@ -90,7 +89,10 @@ const Tabs = ({
             <div
               aria-hidden={!isActive}
               aria-labelledby={tabId}
-              className={s.tabPanel}
+              className={classNames(s.tabPanel, {
+                [s.isNested]: isNested,
+                [s.allowNestedStyles]: allowNestedStyles,
+              })}
               id={panelId}
               key={panelId}
               role="tabpanel"

@@ -38,7 +38,7 @@ const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
 function TabsWrapper({ children }: { children: ReactNode }) {
   return (
     <div className={s.tabsWrapper}>
-      <Tabs>{children}</Tabs>
+      <Tabs allowNestedStyles>{children}</Tabs>
     </div>
   )
 }
