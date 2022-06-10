@@ -114,19 +114,19 @@ Mobile & tablet visibility helpers, specific to dev-dot.
 */
 @media (--dev-dot-mobile) {
   .g-hide-on-mobile {
-    display: none;
+    display: none !important;
   }
 }
 
 @media (--dev-dot-tablet) {
   .g-hide-on-tablet {
-    display: none;
+    display: none !important;
   }
 }
 
 @media (--dev-dot-desktop) {
   .g-hide-on-desktop {
-    display: none;
+    display: none !important;
   }
 }
 
