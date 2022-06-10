@@ -5,7 +5,7 @@ import NavigationItem from 'components/navigation-item'
 import NavigationItemContent, {
   NavigationItemContentProps,
 } from '../navigation-item-content'
-import s from './expandable-navigation-item.module.css'
+import navigationItemStyles from 'components/navigation-item/navigation-item.module.css'
 
 interface ExpandableNavigationItemProps {
   badge?: $TSFixMe
@@ -57,7 +57,9 @@ const ExpandableNavigationItem = ({
       badge={badge}
       leadingIconName={leadingIconName}
       text={title}
-      trailingIcon={<IconChevronRight16 className={s.trailingIcon} />}
+      trailingIcon={
+        <IconChevronRight16 className={navigationItemStyles.trailingIcon} />
+      }
     />
   )
 
@@ -67,7 +69,7 @@ const ExpandableNavigationItem = ({
         aria-controls={uniqueId}
         // aria-controls={item.id}
         aria-expanded={isOpen}
-        className={s.root}
+        className={navigationItemStyles.expandableNavigationItem}
         onClick={() => setIsOpen((prevState: boolean) => !prevState)}
         ref={buttonRef}
       >

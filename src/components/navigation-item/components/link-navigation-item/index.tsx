@@ -4,7 +4,7 @@ import isAbsoluteUrl from 'lib/is-absolute-url'
 import NavigationItemContent, {
   NavigationItemContentProps,
 } from '../navigation-item-content'
-import s from './link-navigation-item.module.css'
+import navigationItemStyles from 'components/navigation-item/navigation-item.module.css'
 
 interface LinkNavigationItemProps {
   ariaLabel?: string
@@ -25,7 +25,7 @@ const LinkNavigationItem = ({
   const isExternal = isAbsoluteUrl(href)
   const ariaCurrent = !isExternal && isActive ? 'page' : undefined
   const ariaLabel = isExternal ? `${title}. Opens in a new tab.` : undefined
-  const anchorClassName = s.root
+  const anchorClassName = navigationItemStyles.linkNavigationItem
   const rel = isExternal ? 'noreferrer noopener' : undefined
   const target = isExternal ? '_blank' : undefined
 

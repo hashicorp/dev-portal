@@ -1,16 +1,13 @@
-.root {
+.expandableNavigationItem,
+.linkNavigationItem {
   composes: g-focus-ring-from-box-shadow from global;
-  align-items: center;
   background-color: white;
   border-radius: 5px;
   border: none;
   color: var(--token-color-foreground-faint);
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2px;
+  display: block;
   padding: 8px;
   position: relative;
-  text-align: left;
   width: 100%;
   z-index: 0;
 
@@ -19,20 +16,6 @@
   &[aria-current='page'],
   &[aria-expanded='true'] {
     color: var(--token-color-foreground-strong);
-  }
-
-  /* AKA active */
-  &[aria-current='page'] {
-    background-color: var(--token-color-palette-neutral-200);
-  }
-
-  /* AKA open */
-  &[aria-expanded='true'] {
-    margin-bottom: 0;
-
-    & svg {
-      transform: rotate(90deg);
-    }
   }
 
   &:focus {
@@ -56,21 +39,36 @@
   }
 }
 
-.root[aria-disabled='true'] {
-  /* Overwrite hover state styles on the text */
-  &:hover {
-    background-color: transparent;
-    cursor: not-allowed;
+.expandableNavigationItem {
+  /* AKA open */
+  &[aria-expanded='true'] {
+    margin-bottom: 0;
 
-    & .linkNavigationItemText {
-      color: var(--token-color-foreground-disabled);
-      text-decoration: none;
+    & svg.trailingIcon {
+      transform: rotate(90deg);
     }
   }
+}
 
-  /* Make sure everything has the disabled color */
-  & * {
-    color: var(--token-color-foreground-disabled);
-    fill: var(--token-color-foreground-disabled);
+.linkNavigationItem {
+  /* AKA active */
+  &[aria-current='page'] {
+    background-color: var(--token-color-palette-neutral-200);
+  }
+
+  /* AKA disabled - no `href` provided */
+  &[aria-disabled='true'] {
+    /* Overwrite hover state styles on the text */
+    &:hover {
+      background-color: transparent;
+      cursor: not-allowed;
+    }
+
+    /* Make sure everything has the disabled color */
+    & * {
+      color: var(--token-color-foreground-disabled);
+      fill: var(--token-color-foreground-disabled);
+      text-decoration: none;
+    }
   }
 }
