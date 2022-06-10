@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
@@ -20,7 +22,10 @@ const { ConsentManager, openConsentManager } = createConsentManager({
  * TODO (future enhancement): rename and abstract `SidebarNavDataProvider` for
  * use here.
  */
-const BaseNewLayout = ({ children, showFooter = true }: BaseNewLayoutProps) => {
+const BaseNewLayout = ({
+  children,
+  showFooterTopBorder = false,
+}: BaseNewLayoutProps) => {
   // hooks
   usePageviewAnalytics({
     siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
@@ -36,11 +41,13 @@ const BaseNewLayout = ({ children, showFooter = true }: BaseNewLayoutProps) => {
             <NavigationHeader />
           </div>
           <div className={s.contentArea}>{children}</div>
-          {showFooter && (
-            <div className={s.footer}>
-              <Footer openConsentManager={openConsentManager} />
-            </div>
-          )}
+          <div
+            className={classNames(s.footer, {
+              [s.showFooterTopBorder]: showFooterTopBorder,
+            })}
+          >
+            <Footer openConsentManager={openConsentManager} />
+          </div>
         </div>
       </CoreDevDotLayout>
       <ConsentManager />
