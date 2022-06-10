@@ -10,7 +10,7 @@
 .rightSide {
   align-items: center;
   display: flex;
-  flex-shrink: 0;
+  flex-wrap: nowrap;
   gap: 8px;
 }
 
@@ -20,5 +20,6 @@
 
 .text {
   margin-right: 8px;
+  text-align: left;
   width: 100%;
 }

@@ -37,7 +37,7 @@ componentName: 'NavigationItem'
         text: 'Beta',
       },
       leadingIconName: 'waypoint',
-      title: 'Expandable item with leading icon and Badge',
+      title: 'Expandable item with leading icon and Badge and a whole lot of text in the title that is probably way too long',
       routes: []
     }}
   />
@@ -50,15 +50,20 @@ componentName: 'NavigationItem'
       href: '/waypoint',
       isActive: false,
       leadingIconName: 'waypoint',
-      title: 'New Waypoint',
+      title: 'Internal LinkNavigationItem',
     }}
   />
   <NavigationItem
     item={{
+      badge: {
+        color: 'neutral',
+        text: 'Deprecated',
+        type: 'outlined'
+      },
       href: 'https://www.waypointproject.io/',
       isActive: false,
       leadingIconName: 'waypoint',
-      title: 'Old Waypoint',
+      title: 'External LinkNavigationItem with a badge and a bunch of content and text in it',
     }}
   />
   <NavigationItem
