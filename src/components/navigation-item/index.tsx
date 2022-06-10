@@ -27,14 +27,27 @@ const NavigationItem = ({ item }: NavigationItemProps) => {
   }
 
   if (item.hasOwnProperty('routes')) {
-    // TODO pass to component
-    // const expandableItem = item as ExpandableNavigationItemShape
-    return <ExpandableNavigationItem />
+    const expandableItem = item as ExpandableNavigationItemShape
+    return (
+      <ExpandableNavigationItem
+        badge={expandableItem.badge}
+        leadingIconName={expandableItem.leadingIconName}
+        routes={expandableItem.routes}
+        title={expandableItem.title}
+      />
+    )
   }
 
-  // TODO pass to component
-  // const linkItem = item as LinkNavigationItemShape
-  return <LinkNavigationItem />
+  const linkItem = item as LinkNavigationItemShape
+  return (
+    <LinkNavigationItem
+      badge={linkItem.badge}
+      href={linkItem.fullPath || linkItem.href}
+      isActive={linkItem.isActive}
+      leadingIconName={linkItem.leadingIconName}
+      title={linkItem.title}
+    />
+  )
 }
 
 export default NavigationItem

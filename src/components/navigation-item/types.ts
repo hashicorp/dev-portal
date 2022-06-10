@@ -5,7 +5,10 @@ interface DividerNavigationItemShape {
 }
 
 interface ExpandableNavigationItemShape {
+  badge?: $TSFixMe
+  leadingIconName?: $TSFixMe
   routes: $TSFixMe
+  title: string
 }
 
 interface HeadingNavigationItemShape {
@@ -14,7 +17,12 @@ interface HeadingNavigationItemShape {
 }
 
 interface LinkNavigationItemShape {
+  badge?: $TSFixMe
+  fullPath?: string
   href?: string
+  isActive: boolean
+  leadingIconName?: $TSFixMe
+  title: string
 }
 
 interface NavigationItemProps {

@@ -16,12 +16,49 @@ componentName: 'NavigationItem'
   />
   <NavigationItem
     item={{
+      title: 'Basic expandable item',
       routes: []
     }}
   />
   <NavigationItem
     item={{
-      href: '/'
+      badge: {
+        color: 'highlight',
+        text: 'Beta',
+      },
+      title: 'Expandable item with Badge',
+      routes: []
+    }}
+  />
+  <NavigationItem
+    item={{
+      badge: {
+        color: 'highlight',
+        text: 'Beta',
+      },
+      leadingIconName: 'waypoint',
+      title: 'Expandable item with leading icon and Badge',
+      routes: []
+    }}
+  />
+  <NavigationItem
+    item={{
+      badge: {
+        color: 'highlight',
+        text: 'Beta',
+      },
+      href: '/waypoint',
+      isActive: false,
+      leadingIconName: 'waypoint',
+      title: 'New Waypoint',
+    }}
+  />
+  <NavigationItem
+    item={{
+      href: 'https://www.waypointproject.io/',
+      isActive: false,
+      leadingIconName: 'waypoint',
+      title: 'Old Waypoint',
     }}
   />
 </>

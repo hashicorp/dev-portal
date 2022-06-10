@@ -1,4 +1,5 @@
 .root {
+  composes: hds-font-weight-semibold from global;
   composes: hds-typography-body-100 from global;
   color: var(--token-color-foreground-primary);
 }
