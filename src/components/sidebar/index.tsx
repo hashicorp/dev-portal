@@ -86,7 +86,7 @@ const Sidebar = ({
   }
 
   let overviewItem
-  if (overviewItemHref) {
+  if (overviewItemHref && !filterValue) {
     overviewItem = (
       <SidebarNavLinkItem
         item={{
