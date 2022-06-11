@@ -65,7 +65,7 @@ Asana task: https://app.asana.com/0/1202114367927919/1202316169578550/f
   }
 
   /* On Desktop, footer should layer above sidebar */
-  @media (--dev-dot-tablet-up) {
+  @media (--dev-dot-desktop) {
     z-index: 2;
   }
 }
