@@ -9,7 +9,6 @@ import {
   TutorialPageProps,
   TutorialPagePaths,
 } from 'views/tutorial-view/server'
-import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
 export function VaultTutorialPage({
   layoutProps,
@@ -46,5 +45,4 @@ export async function getStaticPaths(): Promise<
   }
 }
 
-VaultTutorialPage.layout = CoreDevDotLayout
 export default VaultTutorialPage

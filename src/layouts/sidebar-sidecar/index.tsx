@@ -33,7 +33,7 @@ import s from './sidebar-sidecar-layout.module.css'
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
   const navDataLevels = props.sidebarNavDataLevels
   return (
-    <BaseLayout showFooter={false}>
+    <BaseLayout showFooterTopBorder>
       <SidebarNavDataProvider navDataLevels={navDataLevels}>
         <SidebarSidecarLayoutContent {...props} />
       </SidebarNavDataProvider>
@@ -95,7 +95,7 @@ const SidebarSidecarLayoutContent = ({
           <SidebarContent />
         </div>
         <div className={s.docsVersionSwitcherWrapper}>
-          <DocsVersionSwitcher options={versions} />
+          {versions ? <DocsVersionSwitcher options={versions} /> : null}
         </div>
       </MobileMenuContainer>
       <div className={s.contentWrapper}>
@@ -141,13 +141,6 @@ const SidebarSidecarLayoutContent = ({
           <div className={s.sidecarWrapper}>
             <SidecarContent />
           </div>
-        </div>
-        <div className={s.footerAreaWrapper}>
-          <Footer
-            className={s.footer}
-            openConsentManager={openConsentManager}
-          />
-          <div className={s.emptyDuplicateSidecarWrapper} />
         </div>
       </div>
     </div>

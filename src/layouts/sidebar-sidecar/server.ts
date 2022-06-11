@@ -159,7 +159,7 @@ export function getStaticGenerationFunctions<
         throw error
       }
 
-      const { navData, mdxSource, githubFileUrl, versions } =
+      const { navData, mdxSource, githubFileUrl, versions, frontMatter } =
         loadStaticPropsResult
 
       /**
@@ -187,13 +187,13 @@ export function getStaticGenerationFunctions<
         }
       })
 
-      const fullNavData = [...navData]
-
-      // Add fullPaths and ids to navData
-      const navDataWithFullPaths = prepareNavDataForClient(fullNavData, [
-        product.slug,
-        basePath,
-      ])
+      /**
+       * Add fullPaths and auto-generated ids to navData
+       */
+      const { preparedItems: navDataWithFullPaths } = prepareNavDataForClient({
+        basePaths: [product.slug, basePath],
+        nodes: navData,
+      })
 
       /**
        * Figure out of a specific docs version is being viewed
@@ -255,6 +255,10 @@ export function getStaticGenerationFunctions<
           headings: nonEmptyHeadings,
           sidebarNavDataLevels,
           versions,
+        },
+        metadata: {
+          title: frontMatter.page_title ?? null,
+          description: frontMatter.description ?? null,
         },
         mdxSource,
         product: {
