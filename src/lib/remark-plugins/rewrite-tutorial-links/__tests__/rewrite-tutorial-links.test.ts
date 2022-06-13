@@ -67,9 +67,11 @@ const TEST_MD_LINKS = {
   nonBetaProductDocsLink:
     '[non beta product docs link](https://www.terraform.io/docs/language/state/workspaces.html)',
   betaProductDocsLinkNonDoc:
-    '[link to vault api docs](https://www.vaultproject.io/trial)',
+    '[link to vault trial](https://www.vaultproject.io/trial)',
   betaProductDocsLinkUseCases:
-    '[link to vault api docs](https://www.vaultproject.io/use-cases)',
+    '[link to vault use cases](https://www.vaultproject.io/use-cases)',
+  nonBetaProductLinkWithBetaProductInTitle:
+    '[boundary link with vault in tutorial title](/tutorials/boundary/vault-cred-brokering-quickstart)',
 }
 
 /**
@@ -328,5 +330,18 @@ describe('rewriteTutorialLinks remark plugin', () => {
       .process(TEST_MD_LINKS.betaProductDocsLinkUseCases)
 
     expect(String(contents)).toMatch(TEST_MD_LINKS.betaProductDocsLinkUseCases)
+  })
+
+  test('Beta product base domain path rewritten', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.nonBetaProductLinkWithBetaProductInTitle)
+
+    const basePath = isolatePathFromMarkdown(
+      TEST_MD_LINKS.nonBetaProductLinkWithBetaProductInTitle
+    )
+    const finalPath = 'https://learn.hashicorp.com' + basePath
+
+    expect(String(contents)).toMatch(finalPath)
   })
 })
