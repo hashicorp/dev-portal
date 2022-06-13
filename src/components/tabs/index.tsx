@@ -3,8 +3,8 @@ import classNames from 'classnames'
 import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import { useOverflowRef, useTabItems, useSyncedTabGroups } from './hooks'
 import { TabItem, TabsProps } from './types'
-import s from './tabs.module.css'
 import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
+import s from './tabs.module.css'
 
 const Tabs = ({
   ariaLabel,
