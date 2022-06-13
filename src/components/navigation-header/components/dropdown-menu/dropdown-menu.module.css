@@ -140,3 +140,7 @@
   display: flex;
   gap: 8px;
 }
+
+.leftAlignedItemLinkContentIcon {
+  display: flex;
+}
