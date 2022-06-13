@@ -6,7 +6,7 @@ export function useIsNested(): NestedTabContextValue {
   return useContext(NestedTabContext)
 }
 
-const NestedTabContext = createContext(undefined)
+const NestedTabContext = createContext<NestedTabContextValue>(false)
 
 export default function TabNestingProvider({
   children,
