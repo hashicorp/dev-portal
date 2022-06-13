@@ -257,7 +257,7 @@ async function buildDotIoRedirects() {
         owner: 'hashicorp',
         repo: 'consul',
         path: 'website/redirects.js',
-        ref: 'main',
+        ref: 'stable-website',
       })
   const consulAuthorRedirects = eval(rawConsulRedirects)
   // TODO: split non-author redirects into dev-portal,
