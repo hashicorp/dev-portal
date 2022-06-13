@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import Tabs, { Tab  as MdxTab } from 'components/tabs'
+import Tabs, { Tab as MdxTab } from 'components/tabs'
 import s from './mdx-tabs.module.css'
 
 /**
