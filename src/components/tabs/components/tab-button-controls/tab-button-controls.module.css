@@ -10,7 +10,7 @@ the correct elements, roles, states, and properties are being set in the markup.
   gap: 2px;
 
   /* In nested tabs, include an underline-ish style under tab buttons */
-  &.styleNested::after {
+  &.isNested::after {
     background: var(--token-color-border-primary);
     bottom: 0;
     content: '';
@@ -51,7 +51,7 @@ Styles for each tab button.
   }
 
   /* In nested tabs, use a thick bottom border, visible when active */
-  &.styleNested {
+  &.isNested {
     background-color: transparent;
     border: none;
     border-bottom: 2px solid transparent;

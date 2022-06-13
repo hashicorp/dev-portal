@@ -3,7 +3,7 @@
   width: 100%;
 
   /* In nested tabs, include an underline-ish style under the select */
-  &.styleNested {
+  &.isNested {
     margin-bottom: 4px;
 
     &::after {
@@ -46,7 +46,7 @@
   width: 100%;
 
   /* In nested tabs, no background, no border */
-  &.styleNested {
+  &.isNested {
     border-color: transparent;
     background-color: white;
     padding-left: 8px;

@@ -11,7 +11,7 @@ import s from './tab-dropdown-controls.module.css'
 function TabDropdownControls({
   ariaLabel = 'Select a tab panel',
   ariaLabelledBy,
-  styleNested,
+  isNested,
   activeTabIndex,
   tabItems,
   setActiveTabIndex,
@@ -19,14 +19,14 @@ function TabDropdownControls({
   return (
     <div
       className={classNames(s.selectRoot, {
-        [s.styleNested]: styleNested,
+        [s.isNested]: isNested,
       })}
     >
       <select
         aria-label={!ariaLabelledBy ? ariaLabel : undefined}
         aria-labelledby={ariaLabelledBy}
         className={classNames(s.select, {
-          [s.styleNested]: styleNested,
+          [s.isNested]: isNested,
         })}
         onChange={(e) => setActiveTabIndex(parseInt(e.target.value))}
         value={activeTabIndex}
