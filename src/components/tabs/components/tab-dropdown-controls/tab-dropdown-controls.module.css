@@ -11,7 +11,7 @@
        Using padding to achieve this throws off the alignment 
        of .selectTrailingIcon */
     &::after {
-      background: var(--token-color-border-primary);
+      background: var(--token-color-foreground-action);
       bottom: -4px;
       content: '';
       height: 1px;
