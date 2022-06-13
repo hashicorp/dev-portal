@@ -1,8 +1,6 @@
 import { ReactNode } from 'react'
-import Tabs, { Tab } from 'components/tabs'
+import Tabs, { Tab  as MdxTab } from 'components/tabs'
 import s from './mdx-tabs.module.css'
-
-const MdxTab = Tab
 
 /**
  * Note: at one time, we supported a `defaultTabIdx` prop on `<Tabs />`.
