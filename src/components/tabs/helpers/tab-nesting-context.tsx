@@ -1,6 +1,6 @@
 import { createContext, useContext, ReactNode } from 'react'
 
-type NestedTabContextValue = false
+type NestedTabContextValue = boolean
 
 export function useIsNested(): NestedTabContextValue {
   return useContext(NestedTabContext)
