@@ -5,11 +5,9 @@ import s from './mdx-tabs.module.css'
 const MdxTab = Tab
 
 /**
- * In docs, we've renamed the `defaultTabIdx` prop to `initialActiveIndex`.
- * This option has no known current use in learn, so is being ignored for now.
- * If we were instead to pass Tabs directly, authors might start using
- * the renamed initialTabIndex prop, which would cause inconsistency with
- * docs.
+ * Note: at one time, we supported a `defaultTabIdx` prop on `<Tabs />`.
+ * However, this option had no known use in Docs or Tutorials content,
+ * so it has since been removed.
  */
 function MdxTabs({ children }: { children: ReactNode }) {
   return (
