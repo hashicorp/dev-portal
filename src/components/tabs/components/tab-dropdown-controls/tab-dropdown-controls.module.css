@@ -6,6 +6,10 @@
   &.isNested {
     margin-bottom: 4px;
 
+    /* Note: ::after + margin is used here to match design spec,
+       as border is spaced 4px from the bottom of the select...
+       Using padding to achieve this throws off the alignment 
+       of .selectTrailingIcon */
     &::after {
       background: var(--token-color-border-primary);
       bottom: -4px;

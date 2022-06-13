@@ -9,7 +9,9 @@ the correct elements, roles, states, and properties are being set in the markup.
   display: flex;
   gap: 2px;
 
-  /* In nested tabs, include an underline-ish style under tab buttons */
+  /* In nested tabs, include an underline-ish style under tab buttons.
+     Note that ::after seems needed here to position the border below
+     the button elements. Using bottom-border would not create overlap. */
   &.isNested::after {
     background: var(--token-color-border-primary);
     bottom: 0;
