@@ -2,16 +2,18 @@
   position: relative;
   width: 100%;
 
+  /* In nested tabs, include an underline-ish style under the select */
   &.styleNested {
     margin-bottom: 4px;
+
     &::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      right: 0;
       background: var(--token-color-border-primary);
+      bottom: -4px;
+      content: '';
       height: 1px;
+      left: 0;
+      position: absolute;
+      right: 0;
     }
   }
 }
@@ -43,6 +45,7 @@
   padding: 7px 40px 7px 12px;
   width: 100%;
 
+  /* In nested tabs, no background, no border */
   &.styleNested {
     border-color: transparent;
     background-color: white;
