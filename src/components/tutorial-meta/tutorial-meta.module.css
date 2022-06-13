@@ -6,6 +6,7 @@
 }
 
 .heading {
+  composes: g-offset-scroll-margin-top from global;
   margin-bottom: var(--spacing-med);
 
   @media (--dev-dot-tablet-up) {

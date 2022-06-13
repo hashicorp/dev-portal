@@ -3,7 +3,6 @@ import { ReactElement, useMemo } from 'react'
 
 // Global imports
 import { useCurrentProduct } from 'contexts'
-import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import DevDotContent from 'components/dev-dot-content'
 import {
@@ -133,5 +132,4 @@ const ProductDownloadsView = ({
   )
 }
 
-ProductDownloadsView.layout = CoreDevDotLayout
 export default ProductDownloadsView
