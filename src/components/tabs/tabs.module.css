@@ -8,10 +8,12 @@ the correct elements, roles, states, and properties are being set in the markup.
   Styles for showing a bottom border on the tab buttons container.
   */
   &.showAnchorLine {
+    border-bottom: 1px solid var(--token-color-palette-neutral-200);
     padding-bottom: 16px;
 
-    &:not(.allowNestedStyles) {
-      border-bottom: 1px solid var(--token-color-palette-neutral-200);
+    /* No border if allowNestedStyles for all tabs (whether nested or not) */
+    &.allowNestedStyles {
+      border-bottom: none;
     }
   }
 }
