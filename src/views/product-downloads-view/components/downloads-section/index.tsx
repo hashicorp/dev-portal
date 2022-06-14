@@ -226,15 +226,6 @@ const DownloadsSection = ({
     <div className={s.root}>
       <Card elevation="base">
         <div className={s.cardHeader}>
-          <Heading
-            className={s.operatingSystemTitle}
-            level={2}
-            size={300}
-            id="operating-system"
-            weight="bold"
-          >
-            Operating System
-          </Heading>
           {/*
           NOTE: This wrapper `<div>` shrinks `VersionContextSwitcher` to only
           take up as much space as needed for its content, an effect of using
@@ -247,6 +238,15 @@ const DownloadsSection = ({
               options={versionSwitcherOptions}
             />
           </div>
+          <Heading
+            className={s.operatingSystemTitle}
+            level={2}
+            size={300}
+            id="operating-system"
+            weight="bold"
+          >
+            Operating System
+          </Heading>
         </div>
         <Tabs showAnchorLine>
           {Object.keys(downloadsByOS).map((os) => {
