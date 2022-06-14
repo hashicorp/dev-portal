@@ -80,7 +80,12 @@ export default function OptOutForm({
           type="submit"
           disabled={hasSubmitted}
         />
-        <Button color="secondary" text="Cancel" onClick={onDismiss} />
+        <Button
+          type="button"
+          color="secondary"
+          text="Cancel"
+          onClick={onDismiss}
+        />
       </div>
     </form>
   )
