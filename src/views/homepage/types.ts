@@ -1,18 +1,15 @@
-import {
-  FeaturedLearnCard,
-  FeaturedLearnContent,
-} from 'views/product-downloads-view/types'
+import { CollectionCardPropsWithId } from 'components/collection-card'
 
 interface HomePageContentProps {
-  featuredLearnCards: FeaturedLearnCard[]
+  collectionCards: CollectionCardPropsWithId[]
 }
 
 interface HomePageViewProps {
-  featuredLearnCards: HomePageContentProps['featuredLearnCards']
+  collectionCards: HomePageContentProps['collectionCards']
 }
 
 interface GenerateStaticPropsOptions {
-  featuredLearnContent: FeaturedLearnContent[]
+  collectionSlugs: string[]
 }
 
 interface GenerateStaticPropsOptionsResult {

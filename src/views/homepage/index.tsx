@@ -45,7 +45,7 @@ const HomePageMobileMenu = () => {
   )
 }
 
-const HomePageContent = ({ featuredLearnCards }: HomePageContentProps) => {
+const HomePageContent = ({ collectionCards }: HomePageContentProps) => {
   return (
     <div className={s.homepageContent}>
       {/* <HeroWithActions
@@ -123,7 +123,7 @@ const HomePageContent = ({ featuredLearnCards }: HomePageContentProps) => {
             </Text>
           </>
         }
-        learnCards={featuredLearnCards}
+        collectionCards={collectionCards}
       />
 
       <PreFooter
@@ -156,11 +156,11 @@ const HomePageContent = ({ featuredLearnCards }: HomePageContentProps) => {
   )
 }
 
-function HomePageView({ featuredLearnCards }: HomePageViewProps): ReactElement {
+function HomePageView({ collectionCards }: HomePageViewProps): ReactElement {
   return (
     <div className={s.homepage}>
       <HomePageMobileMenu />
-      <HomePageContent featuredLearnCards={featuredLearnCards} />
+      <HomePageContent collectionCards={collectionCards} />
     </div>
   )
 }

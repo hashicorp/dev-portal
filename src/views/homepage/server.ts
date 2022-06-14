@@ -1,49 +1,40 @@
-import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
-import {
-  FeaturedLearnCard,
-  FeaturedLearnContent,
-} from 'views/product-downloads-view/types'
+import { Collection } from 'lib/learn-client/types'
+import { getCollections } from 'lib/learn-client/api/collection'
 import { formatCollectionCard } from 'components/collection-card/helpers'
-import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import {
   GenerateStaticPropsOptions,
   GenerateStaticPropsOptionsResult,
 } from './types'
 
-const generateStaticProps = async ({
-  featuredLearnContent = [],
-}: GenerateStaticPropsOptions): Promise<GenerateStaticPropsOptionsResult> => {
-  // Gather tutorials and collections based on slugs used
-  const { inlineCollections, inlineTutorials } = await getInlineContentMaps(
-    featuredLearnContent
-  )
+const generateStaticProps = async (
+  pageContent: GenerateStaticPropsOptions
+): Promise<GenerateStaticPropsOptionsResult> => {
+  // Destructure data needed from given `pageContent`
+  const { collectionSlugs } = pageContent
 
-  // Transform featured tutorial and collection entries into card data
-  const featuredLearnCards: FeaturedLearnCard[] = featuredLearnContent.map(
-    (entry: FeaturedLearnContent) => {
-      const { collectionSlug, tutorialSlug } = entry
+  // Check that `collectionSlugs` have been specified
+  if (!collectionSlugs || collectionSlugs.length <= 0) {
+    throw new Error(
+      '`HomePageView` requires `collectionSlugs` to be defined in `src/pages/content.json` but none were provided.'
+    )
+  }
 
-      // generate card for a collection
-      if (typeof collectionSlug == 'string') {
-        const collectionData = inlineCollections[collectionSlug]
-        return { type: 'collection', ...formatCollectionCard(collectionData) }
-      }
+  // Fetch the collections specified
+  const collections = await getCollections(collectionSlugs)
 
-      // generate card for a tutorial
-      if (typeof tutorialSlug == 'string') {
-        const tutorialData = inlineTutorials[tutorialSlug]
-        const defaultContext = tutorialData.collectionCtx.default
-        const tutorialLiteCompat = { ...tutorialData, defaultContext }
-        return { type: 'tutorial', ...formatTutorialCard(tutorialLiteCompat) }
-      }
-    }
-  )
+  // Transform collection entries into card data with `collectionSlugs` order
+  const collectionCards = collectionSlugs.map((collectionSlug: string) => {
+    const thisCollection = collections.find(
+      (collection: Collection) => collection.slug === collectionSlug
+    )
+    return formatCollectionCard(thisCollection)
+  })
 
+  // Return props for the view
   return {
-    props: stripUndefinedProperties({
-      featuredLearnCards,
-    }),
+    props: {
+      collectionCards,
+    },
   }
 }
 
