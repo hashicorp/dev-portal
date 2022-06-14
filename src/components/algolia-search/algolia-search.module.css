@@ -53,7 +53,6 @@
   position: relative;
   border: 0;
   padding: 0;
-  padding-right: 40px;
 
   /* TODO: token for font-size? */
   font-size: 16px;
@@ -91,7 +90,8 @@
   margin-right: 4px;
 
   &[hidden] {
-    display: none;
+    visibility: hidden; /* Retain space so the input doesn't overflow */
+    pointer-events: none;
   }
 }
 
