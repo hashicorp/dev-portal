@@ -55,6 +55,15 @@ for further details.
  * Sidebar + main containers
  */
 
+.mobileMenuContainer {
+  @media (--dev-dot-desktop) {
+    display: flex !important; /* always want this value on desktop here */
+    left: 0 !important; /* always want this value on desktop here */
+    position: sticky; /* fixed does not take up horiz. space the same */
+    width: var(--dev-dot-sidebar-width); /* custom width overwrite */
+  }
+}
+
 /* Note: container is components/mobile-menu-container */
 .sidebarContentWrapper {
   flex-shrink: 1;
@@ -65,11 +74,6 @@ for further details.
   padding-right: 24px;
   padding-top: 24px;
   position: relative;
-}
-
-/* Note: container is components/mobile-menu-container */
-.docsVersionSwitcherWrapper {
-  flex-shrink: 0;
 }
 
 .contentWrapper {

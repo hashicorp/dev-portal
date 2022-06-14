@@ -1,5 +1,4 @@
 import React from 'react'
-import classNames from 'classnames'
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import { useCurrentProduct } from 'contexts'
@@ -7,10 +6,11 @@ import {
   MdxOrderedList,
   MdxUnorderedList,
   MdxListItem,
-} from 'components/dev-dot-content/mdx-components/mdx-lists'
+  MdxTab,
+  MdxTabs,
+} from 'components/dev-dot-content/mdx-components'
 import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
-import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 import Image from 'components/image'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
@@ -103,8 +103,8 @@ function _defaultComponents() {
     theme: 'dark',
   })
   return {
-    Tabs: TabsWrapper,
-    Tab,
+    Tabs: MdxTabs,
+    Tab: MdxTab,
     EnterpriseAlert,
     CodeBlockConfig,
     CodeTabs,
@@ -131,13 +131,4 @@ function _defaultComponents() {
 function EnterpriseAlert(props) {
   const currentProduct = useCurrentProduct()
   return <EnterpriseAlertBase product={currentProduct?.slug} {...props} />
-}
-
-/**
- * Because the `defaultTabIdx` prop is being renamed to `initialActiveIndex`,
- * this wrapper ensures any use of `defaultTabIdx` is still supported in older
- * versions of docs.
- */
-function TabsWrapper({ defaultTabIdx, children }) {
-  return <Tabs initialActiveIndex={defaultTabIdx}>{children}</Tabs>
 }
