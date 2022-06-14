@@ -1,6 +1,6 @@
 import { ForwardedRef, forwardRef } from 'react'
 import classNames from 'classnames'
-import { motion, useReducedMotion } from 'framer-motion'
+import { m, useReducedMotion } from 'framer-motion'
 import { useMobileMenu } from 'contexts'
 import { MobileMenuContainerProps } from './types'
 import s from './mobile-menu-container.module.css'
@@ -28,7 +28,7 @@ const MobileMenuContainer = forwardRef(
     const shouldReduceMotion = useReducedMotion()
 
     return (
-      <motion.div
+      <m.div
         animate={mobileMenuIsOpen ? 'visible' : 'hidden'}
         className={classNames(s.root, className)}
         ref={ref}
@@ -36,7 +36,7 @@ const MobileMenuContainer = forwardRef(
         variants={MOBILE_MENU_MOTION}
       >
         {children}
-      </motion.div>
+      </m.div>
     )
   }
 )
