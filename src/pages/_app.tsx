@@ -62,7 +62,14 @@ export default function App({ Component, pageProps, layoutProps }) {
               <CurrentProductProvider currentProduct={currentProduct}>
                 <CodeTabsProvider>
                   <HeadMetadata {...pageProps.metadata} />
-                  <LazyMotion features={domAnimation}>
+                  <LazyMotion
+                    features={() =>
+                      import('lib/framer-motion-features').then(
+                        (mod) => mod.default
+                      )
+                    }
+                    strict={process.env.NODE_ENV === 'development'}
+                  >
                     <Layout {...allLayoutProps} data={allLayoutProps}>
                       <Component {...pageProps} />
                     </Layout>
