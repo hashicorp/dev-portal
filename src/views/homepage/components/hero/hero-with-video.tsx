@@ -22,7 +22,11 @@ function HeroWithVideo({
       heading={heading}
       description={description}
     >
-      <VideoEmbed url={videoUrl} light={videoImageUrl ?? true} />
+      <VideoEmbed
+        className={s.videoEmbed}
+        light={videoImageUrl ?? true}
+        url={videoUrl}
+      />
     </Hero>
   )
 }
