@@ -1,24 +1,25 @@
 import type { CSSProperties, ReactElement } from 'react'
 import slugify from 'slugify'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { FeaturedLearnCard } from 'views/product-downloads-view/types'
+import CollectionCard from 'components/collection-card'
 import Heading from 'components/heading'
 import StandaloneLink from 'components/standalone-link'
 import TutorialCard from 'components/tutorial-card'
-import { TutorialCardProps } from 'components/tutorial-card/types'
 import s from './learn-section.module.css'
 
 interface LearnSectionProps {
   media: ReactElement
   heading: string
   description: ReactElement
-  tutorials: Array<TutorialCardProps>
+  learnCards: FeaturedLearnCard[]
 }
 
 export default function LearnSection({
   media,
   heading,
   description,
-  tutorials,
+  learnCards,
 }: LearnSectionProps) {
   return (
     <section className={s.learnSection}>
@@ -51,17 +52,16 @@ export default function LearnSection({
           className={s.tutorialsList}
           style={
             {
-              '--tutorials-count': tutorials.length,
+              '--tutorials-count': learnCards.length,
             } as CSSProperties
           }
         >
-          {tutorials.map((tutorial: TutorialCardProps) => {
+          {learnCards.map((cardProps: FeaturedLearnCard) => {
+            const { id, type } = cardProps
             return (
-              <li
-                key={slugify(tutorial.heading, { lower: true })}
-                className={s.tutorialsListItem}
-              >
-                <TutorialCard {...tutorial} />
+              <li key={id} className={s.tutorialsListItem}>
+                {type === 'collection' && <CollectionCard {...cardProps} />}
+                {type === 'tutorial' && <TutorialCard {...cardProps} />}
               </li>
             )
           })}

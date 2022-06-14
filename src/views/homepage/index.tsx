@@ -9,7 +9,6 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
 import { productSlugs } from 'lib/products'
-import { ProductOption } from 'lib/learn-client/types'
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
@@ -17,6 +16,7 @@ import MobileMenuContainer from 'components/mobile-menu-container'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 
 // Local imports
+import { HomePageContentProps, HomePageViewProps } from './types'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
@@ -45,7 +45,7 @@ const HomePageMobileMenu = () => {
   )
 }
 
-const HomePageContent = () => {
+const HomePageContent = ({ featuredLearnCards }: HomePageContentProps) => {
   return (
     <div className={s.homepageContent}>
       {/* <HeroWithActions
@@ -123,28 +123,7 @@ const HomePageContent = () => {
             </Text>
           </>
         }
-        tutorials={[
-          {
-            url: '/vault/tutorials/associate-cert',
-            duration: '30min',
-            heading: 'Study for the Vault Associate Exam',
-            description:
-              'Demonstrate your knowledge of the basic concepts, skills, and use cases associated with open source HashiCorp Vault. This is a multiple choice exam.',
-            productsUsed: ['vault'] as ProductOption[],
-            hasVideo: true,
-            hasInteractiveLab: false,
-          },
-          {
-            url: '/vault/tutorials/ops-pro-cert',
-            duration: '45min',
-            heading: 'Study for the Vault Operations Professional Exam',
-            description:
-              'Demonstrate your ability to deploy, configure, manage, and monitor HashiCorp Vault in production. This is a hands-on exam.',
-            productsUsed: ['vault'] as ProductOption[],
-            hasVideo: true,
-            hasInteractiveLab: false,
-          },
-        ]}
+        learnCards={featuredLearnCards}
       />
 
       <PreFooter
@@ -177,11 +156,11 @@ const HomePageContent = () => {
   )
 }
 
-function HomePageView(): ReactElement {
+function HomePageView({ featuredLearnCards }: HomePageViewProps): ReactElement {
   return (
     <div className={s.homepage}>
       <HomePageMobileMenu />
-      <HomePageContent />
+      <HomePageContent featuredLearnCards={featuredLearnCards} />
     </div>
   )
 }
