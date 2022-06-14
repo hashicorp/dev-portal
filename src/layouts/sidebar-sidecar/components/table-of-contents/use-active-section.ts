@@ -15,26 +15,10 @@ const NAVIGATION_HEADER_HEIGHT_FALLBACK = 68
  * header height.
  */
 const getFullNavHeaderHeight = () => {
-  const navigationHeaderHeight = getCSSVariableFromDocument(
-    '--navigation-header-height',
-    { asNumber: true }
-  ) as number
-
-  /**
-   * We appear to be seeing intermittent errors from '--navigation-header-height' being resolved
-   * to an empty string on navigation. Adding a warning and a fallback
-   */
-  if (Number.isNaN(navigationHeaderHeight)) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(
-        'Unable to read --navigation-header-height, falling back to static value.'
-      )
-    }
-
-    return NAVIGATION_HEADER_HEIGHT_FALLBACK
-  }
-
-  return navigationHeaderHeight
+  return getCSSVariableFromDocument('--navigation-header-height', {
+    asNumber: true,
+    fallback: NAVIGATION_HEADER_HEIGHT_FALLBACK,
+  }) as number
 }
 
 /**
