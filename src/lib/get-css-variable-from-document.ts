@@ -17,12 +17,12 @@ export default function getCSSVariableFromDocument(
   variableName: string,
   options: GetCSSVariableFromDocumentOptions = {}
 ): string | number {
-  const value = getComputedStyle(document.documentElement).getPropertyValue(
-    variableName
-  )
+  let value: string | number = getComputedStyle(
+    document.documentElement
+  ).getPropertyValue(variableName)
 
   if (options.asNumber) {
-    return parseInt(value, 10)
+    value = parseInt(value, 10)
   }
 
   if (options.fallback && (value === '' || Number.isNaN(value))) {
