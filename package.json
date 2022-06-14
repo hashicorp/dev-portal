@@ -63,6 +63,7 @@
     "axe-core": "^4.4.1",
     "babel-jest": "^27.4.6",
     "cross-env": "^7.0.3",
+    "eslint-plugin-dev-dot": "file:eslint-rules",
     "flat": "^5.0.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
