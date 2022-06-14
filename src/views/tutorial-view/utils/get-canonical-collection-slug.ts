@@ -16,7 +16,7 @@ import { TutorialData } from '..'
  */
 export function getCanonicalCollectionSlug(
   tutorial: TutorialData,
-  currentProduct: LearnProductData['slug']
+  currentProductSlug: LearnProductData['slug']
 ): string {
   // check if default has a beta product
   const defaultCollectionProduct = splitProductFromFilename(
@@ -31,7 +31,7 @@ export function getCanonicalCollectionSlug(
     const firstInBetaFeaturedCollection =
       tutorial.collectionCtx.featuredIn?.find(
         (collection: CollectionCardPropsWithId) => {
-          return collection.dbSlug.startsWith(`/${currentProduct}`)
+          return collection.dbSlug.startsWith(currentProductSlug)
         }
       )
 

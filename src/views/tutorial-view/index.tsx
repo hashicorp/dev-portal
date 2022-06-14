@@ -102,6 +102,9 @@ export default function TutorialView({
     video,
     collectionCtx,
   } = tutorial
+  const featuredInWithoutCurrent = collectionCtx.featuredIn?.filter(
+    (c) => c.id !== collectionCtx.current.id
+  )
   const hasVideo = Boolean(video)
   const isInteractive = Boolean(handsOnLab)
   const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
@@ -204,7 +207,7 @@ export default function TutorialView({
           <NextPrevious {...nextPreviousData} />
           <FeaturedInCollections
             className={s.featuredInCollections}
-            collections={collectionCtx.featuredIn}
+            collections={featuredInWithoutCurrent}
           />
         </SidebarSidecarLayout>
       </InteractiveLabWrapper>
