@@ -52,7 +52,7 @@ export default function LearnSection({
           className={s.tutorialsList}
           style={
             {
-              '--tutorials-count': collectionCards.length,
+              '--collection-cards-count': collectionCards.length,
             } as CSSProperties
           }
         >
