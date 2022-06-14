@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { TabControlsProps, TabItem } from '../../types'
 import s from './tab-dropdown-controls.module.css'
@@ -10,16 +11,23 @@ import s from './tab-dropdown-controls.module.css'
 function TabDropdownControls({
   ariaLabel = 'Select a tab panel',
   ariaLabelledBy,
+  isNested,
   activeTabIndex,
   tabItems,
   setActiveTabIndex,
 }: TabControlsProps) {
   return (
-    <div className={s.selectRoot}>
+    <div
+      className={classNames(s.selectRoot, {
+        [s.isNested]: isNested,
+      })}
+    >
       <select
         aria-label={!ariaLabelledBy ? ariaLabel : undefined}
         aria-labelledby={ariaLabelledBy}
-        className={s.select}
+        className={classNames(s.select, {
+          [s.isNested]: isNested,
+        })}
         onChange={(e) => setActiveTabIndex(parseInt(e.target.value))}
         value={activeTabIndex}
       >

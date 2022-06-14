@@ -10,6 +10,11 @@ the correct elements, roles, states, and properties are being set in the markup.
   &.showAnchorLine {
     border-bottom: 1px solid var(--token-color-palette-neutral-200);
     padding-bottom: 16px;
+
+    /* No border if allowNestedStyles for all tabs (whether nested or not) */
+    &.allowNestedStyles {
+      border-bottom: none;
+    }
   }
 }
 
@@ -24,19 +29,27 @@ ref: https://twitter.com/heydonworks/status/408263890284191745
 ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
 */
 .tabPanel[role='tabpanel'] {
+  /* Note: g-focus-ring-from-box-shadow added in JSX */
+  border-radius: 6px;
+
   &[aria-hidden='true'] {
     display: none;
     visibility: hidden;
   }
-}
 
-/*
-For showing a focus ring with a border radius when navigating via keyboard.
-*/
-.tabPanel {
-  composes: g-focus-ring-from-box-shadow from global;
+  &.allowNestedStyles:not(.isNested) {
+    box-shadow: var(--token-surface-base-box-shadow);
+    padding: 16px;
+  }
 
-  &:focus-visible {
-    border-radius: 5px;
+  /* Note: !important necessary to override dev-dot-content styles.
+     Can be removed once all spacing styles are applied via MDX components.
+     Task: https://app.asana.com/0/1201987349274776/1201653123138729/f */
+  & > *:first-child {
+    margin-top: 0 !important;
+  }
+
+  & > *:last-child {
+    margin-bottom: 0 !important;
   }
 }
