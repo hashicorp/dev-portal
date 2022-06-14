@@ -14,45 +14,52 @@
   --container-max-width: 1600px;
   --grid-template-columns: 1;
 
-  padding-top: 16px;
-  padding-bottom: 16px;
-  margin-right: auto;
+  display: grid;
+  grid-gap: 32px 32px;
+  grid-template-columns: repeat(var(--grid-template-columns), 1fr);
   margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 20px;
+  padding-top: 16px;
   width: min(
     100% - calc(var(--homepage-container-padding-x) * 2),
     var(--container-max-width)
   );
-  display: grid;
-  grid-template-columns: repeat(var(--grid-template-columns), 1fr);
-  grid-gap: 64px 32px;
 
   @nest .withVideo & {
     align-items: center;
   }
 
-  @media (--dev-dot-tablet) {
-    padding-top: 48px;
-    padding-bottom: 56px;
-  }
-
   @media (--dev-dot-tablet-up) {
     --grid-template-columns: 12;
 
-    padding-top: 128px;
-    padding-bottom: 128px;
     background-image: url('/img/homepage/hero-accent.svg');
-    background-repeat: no-repeat;
-    background-position: right top;
     background-position: right 0 center;
+    background-position: right top;
+    background-repeat: no-repeat;
+    padding-bottom: 48px;
+    padding-top: 32px;
   }
 
   @media (--dev-dot-desktop) {
-    padding-top: 96px;
-    padding-bottom: 112px;
+    grid-gap: 64px 32px;
+    padding-bottom: 82px;
+    padding-top: 48px;
+
+    & .primary {
+      padding-bottom: 48px;
+    }
   }
 
   @media (min-width: 1400px) {
+    grid-gap: 64px 32px;
     background-position: right 250px center;
+    padding-bottom: 112px;
+    padding-top: 72px;
+
+    & .primary {
+      padding-bottom: 48px;
+    }
   }
 }
 
