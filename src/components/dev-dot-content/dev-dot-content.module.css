@@ -17,27 +17,38 @@
       display: none;
     }
 
-    & .alert.alert-info {
-      background-color: #f2f8ff;
-      border: 1px solid #cce3f3;
-      border-radius: 6px;
-      color: var(--token-color-palette-neutral-600);
-      padding: 16px;
-      margin: 20px 0;
-
-      & code {
-        background-color: white;
-        border: 1px solid #cce3fe;
-        border-radius: 5px;
+    /* Alert overrides. Note that alert classes are applied at content
+       extraction time, so it is currently difficult to remove or modify these
+       classes and their associated styles rather than override them */
+    & .alert {
+      /* Override letter-spacing, which in global styles is tracked out */
+      &.g-type-body {
+        letter-spacing: 0;
       }
 
-      & p {
-        &:first-child {
-          margin-top: 0;
+      /* Override default alert-info appearance, for dev-dot appearance */
+      &.alert-info {
+        background-color: #f2f8ff;
+        border: 1px solid #cce3f3;
+        border-radius: 6px;
+        color: var(--token-color-palette-neutral-600);
+        padding: 16px;
+        margin: 20px 0;
+
+        & code {
+          background-color: white;
+          border: 1px solid #cce3fe;
+          border-radius: 5px;
         }
 
-        &:last-child {
-          margin-bottom: 0;
+        & p {
+          &:first-child {
+            margin-top: 0;
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
       }
     }
