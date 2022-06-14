@@ -53,6 +53,7 @@
   position: relative;
   border: 0;
   padding: 0;
+  padding-right: 40px;
 
   /* TODO: token for font-size? */
   font-size: 16px;
@@ -64,6 +65,10 @@
 
   &:focus {
     outline: none;
+  }
+
+  &:placeholder-shown {
+    text-overflow: ellipsis;
   }
 
   /* Remove native appearence */
