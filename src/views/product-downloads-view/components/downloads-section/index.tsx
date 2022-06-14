@@ -241,7 +241,7 @@ const DownloadsSection = ({
           flexbox to render the `Heading` and `VersionContextSwitcher` in the
           same line.
           */}
-          <div>
+          <div className={s.versionSwitcherWrapper}>
             <VersionContextSwitcher
               onChange={(e) => setCurrentVersion(e.target.value)}
               options={versionSwitcherOptions}

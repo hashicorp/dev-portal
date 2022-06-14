@@ -5,7 +5,25 @@
 .cardHeader {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   justify-content: space-between;
+  padding-bottom: 12px;
+
+  & > h2 {
+    /* Flex-grow as much as possible to keep .versionSwitcherWrapper small */
+    flex-grow: 100;
+
+    /* Margin reset is necessary to override styles from dev-dot-content */
+    margin-bottom: 0;
+  }
+}
+
+.versionSwitcherWrapper {
+  /* Flex-grow to fill space when wrapped to new row */
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: max-content;
 }
 
 .operatingSystemTitle {
