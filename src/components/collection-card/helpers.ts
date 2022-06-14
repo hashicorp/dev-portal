@@ -11,6 +11,7 @@ export function formatCollectionCard(
 ): CollectionCardPropsWithId {
   return {
     id: collection.id,
+    dbSlug: collection.slug,
     description: collection.description,
     heading: collection.name,
     productsUsed: parseProductsUsed(collection),

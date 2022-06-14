@@ -46,6 +46,7 @@ import {
   getNextPrevious,
 } from './components'
 import getVideoUrl from './utils/get-video-url'
+import { getCanonicalCollectionSlug } from './utils/get-canonical-collection-slug'
 import s from './tutorial-view.module.css'
 
 export interface TutorialViewProps {
@@ -109,7 +110,11 @@ export default function TutorialView({
     currentTutorialSlug: slug,
     nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
-  const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
+  const canonicalCollectionSlug = getCanonicalCollectionSlug(
+    tutorial,
+    product.slug
+  )
+  const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
   const redirectPath = getLearnRedirectPath(
     currentPath,
     slug.split('/')[0] as ProductOption
