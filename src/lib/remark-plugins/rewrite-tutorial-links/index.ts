@@ -44,6 +44,13 @@ const PRODUCT_DOCS_PATHS = {
   vault: 'vaultproject.io',
   waypoint: 'waypointproject.io',
 }
+const ACCEPTED_DOCS_PATHNAMES = [
+  'docs',
+  'api',
+  'api-docs',
+  'commands',
+  'plugins',
+]
 const learnProductOptions = Object.keys(ProductOption).join('|')
 /**
  * Matches anything that
@@ -54,7 +61,11 @@ const learnProductOptions = Object.keys(ProductOption).join('|')
 const learnLink = new RegExp(
   `(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud)/)|^/(${learnProductOptions}|cloud)$`
 )
-const docsLink = new RegExp(`(${Object.values(PRODUCT_DOCS_PATHS).join('|')})`)
+const docsLink = new RegExp(
+  `(${Object.values(PRODUCT_DOCS_PATHS).join(
+    '|'
+  )})/(${ACCEPTED_DOCS_PATHNAMES.join('|')})`
+)
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
   return async function transformer(tree) {
