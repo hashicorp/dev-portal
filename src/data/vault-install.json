@@ -41,7 +41,7 @@
     "learnMoreLink": "https://www.vaultproject.io/",
     "featuredDocsLinks": [
       {
-        "href": "/tutorials",
+        "href": "/vault/tutorials",
         "text": "Tutorials"
       },
       {
