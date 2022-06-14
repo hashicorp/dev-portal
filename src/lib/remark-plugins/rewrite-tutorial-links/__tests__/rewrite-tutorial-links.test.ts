@@ -66,6 +66,12 @@ const TEST_MD_LINKS = {
     '[link to vault api docs](https://www.vaultproject.io/api/index.html#some-anchor)',
   nonBetaProductDocsLink:
     '[non beta product docs link](https://www.terraform.io/docs/language/state/workspaces.html)',
+  betaProductDocsLinkNonDoc:
+    '[link to vault trial](https://www.vaultproject.io/trial)',
+  betaProductDocsLinkUseCases:
+    '[link to vault use cases](https://www.vaultproject.io/use-cases)',
+  nonBetaProductLinkWithBetaProductInTitle:
+    '[boundary link with vault in tutorial title](/tutorials/boundary/vault-cred-brokering-quickstart)',
 }
 
 /**
@@ -308,5 +314,34 @@ describe('rewriteTutorialLinks remark plugin', () => {
       .process(TEST_MD_LINKS.nonBetaProductDocsLink)
 
     expect(String(contents)).toMatch(TEST_MD_LINKS.nonBetaProductDocsLink)
+  })
+
+  test('Beta product /trial path is not rewritten', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsLinkNonDoc)
+    console.log(String(contents))
+    expect(String(contents)).toMatch(TEST_MD_LINKS.betaProductDocsLinkNonDoc)
+  })
+
+  test('Beta product usecase path is not rewritten', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.betaProductDocsLinkUseCases)
+
+    expect(String(contents)).toMatch(TEST_MD_LINKS.betaProductDocsLinkUseCases)
+  })
+
+  test('Beta product should only be determined by product dir, not tutorial name', async () => {
+    const contents = await remark()
+      .use(rewriteTutorialLinksPlugin)
+      .process(TEST_MD_LINKS.nonBetaProductLinkWithBetaProductInTitle)
+
+    const basePath = isolatePathFromMarkdown(
+      TEST_MD_LINKS.nonBetaProductLinkWithBetaProductInTitle
+    )
+    const finalPath = 'https://learn.hashicorp.com' + basePath
+
+    expect(String(contents)).toMatch(finalPath)
   })
 })
