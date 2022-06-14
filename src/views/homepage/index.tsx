@@ -11,7 +11,6 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import { productSlugs } from 'lib/products'
 import { ProductOption } from 'lib/learn-client/types'
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
-import { useDeviceSize } from 'contexts'
 import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
 import MobileMenuContainer from 'components/mobile-menu-container'
@@ -179,11 +178,9 @@ const HomePageContent = () => {
 }
 
 function HomePageView(): ReactElement {
-  const { isDesktop } = useDeviceSize()
-
   return (
     <div className={s.homepage}>
-      {!isDesktop && <HomePageMobileMenu />}
+      <HomePageMobileMenu />
       <HomePageContent />
     </div>
   )
