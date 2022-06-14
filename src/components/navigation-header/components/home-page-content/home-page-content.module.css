@@ -1,13 +1,16 @@
 .siteLogo {
   display: flex;
 
-  /* Note: padding here necessary to match height of .productLogo
+  /* Note: min-height necessary to match height of .productLogo
      in navigation-header.module.css */
-  padding-top: 4px;
-  padding-bottom: 4px;
+  min-height: 40px;
 
   & svg {
-    height: 32px;
-    width: auto;
+    height: auto;
+    width: 162px;
+
+    @media (--dev-dot-tablet-up) {
+      width: 232px;
+    }
   }
 }
