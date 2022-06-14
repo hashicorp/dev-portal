@@ -11,4 +11,7 @@ export interface CollectionCardProps {
   logo?: CompanyLogoOption
 }
 
-export type CollectionCardPropsWithId = CollectionCardProps & { id: string }
+export type CollectionCardPropsWithId = CollectionCardProps & {
+  id: string
+  dbSlug: string
+}

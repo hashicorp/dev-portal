@@ -25,6 +25,7 @@ function HeroWithVideo({
       <VideoEmbed
         className={s.videoEmbed}
         light={videoImageUrl ?? true}
+        playing
         url={videoUrl}
       />
     </Hero>
