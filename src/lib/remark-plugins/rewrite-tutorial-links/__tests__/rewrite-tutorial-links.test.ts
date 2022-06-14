@@ -332,7 +332,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
     expect(String(contents)).toMatch(TEST_MD_LINKS.betaProductDocsLinkUseCases)
   })
 
-  test('Beta product base domain path rewritten', async () => {
+  test('Beta product should only be determined by product dir, not tutorial name', async () => {
     const contents = await remark()
       .use(rewriteTutorialLinksPlugin)
       .process(TEST_MD_LINKS.nonBetaProductLinkWithBetaProductInTitle)
