@@ -42,6 +42,9 @@ ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
     padding: 16px;
   }
 
+  /* Note: !important necessary to override dev-dot-content styles.
+     Can be removed once all spacing styles are applied via MDX components.
+     Task: https://app.asana.com/0/1201987349274776/1201653123138729/f */
   & > *:first-child {
     margin-top: 0 !important;
   }
