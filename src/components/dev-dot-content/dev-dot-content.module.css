@@ -17,38 +17,38 @@
       display: none;
     }
 
-    /* Alert overrides. Note that alert classes are applied at content
+    /* Note on alert overrides: alert classes are applied at content
        extraction time, so it is currently difficult to remove or modify these
-       classes and their associated styles rather than override them */
-    & .alert {
-      /* Override letter-spacing, which in global styles is tracked out */
-      &.g-type-body {
-        letter-spacing: 0;
+       classes and their associated styles rather than override them.
+       https://app.asana.com/0/1100423001970639/1202448738938137/f */
+
+    /* Alert override:  letter-spacing, which in global styles is tracked out */
+    & .alert.g-type-body {
+      letter-spacing: 0;
+    }
+
+    /* Alert override: blue info alert appearance */
+    & .alert.alert-info {
+      background-color: #f2f8ff;
+      border: 1px solid #cce3f3;
+      border-radius: 6px;
+      color: var(--token-color-palette-neutral-600);
+      padding: 16px;
+      margin: 20px 0;
+
+      & code {
+        background-color: white;
+        border: 1px solid #cce3fe;
+        border-radius: 5px;
       }
 
-      /* Override default alert-info appearance, for dev-dot appearance */
-      &.alert-info {
-        background-color: #f2f8ff;
-        border: 1px solid #cce3f3;
-        border-radius: 6px;
-        color: var(--token-color-palette-neutral-600);
-        padding: 16px;
-        margin: 20px 0;
-
-        & code {
-          background-color: white;
-          border: 1px solid #cce3fe;
-          border-radius: 5px;
+      & p {
+        &:first-child {
+          margin-top: 0;
         }
 
-        & p {
-          &:first-child {
-            margin-top: 0;
-          }
-
-          &:last-child {
-            margin-bottom: 0;
-          }
+        &:last-child {
+          margin-bottom: 0;
         }
       }
     }
@@ -102,14 +102,16 @@
   }
 
   & table {
+    background-color: transparent;
     border-collapse: collapse;
+    border-right: 0;
     border-spacing: 0;
     border: 1px solid #ddd;
-    border-right: 0;
-    background-color: transparent;
-    width: 100%;
-    max-width: 100%;
+    display: block;
     margin-bottom: 20px;
+    max-width: 100%;
+    overflow-x: auto; /* TODO: find alternative solution */
+    width: max-content;
 
     & th {
       text-align: left;
