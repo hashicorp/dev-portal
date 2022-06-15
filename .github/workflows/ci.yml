@@ -19,7 +19,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - run: npm ci
-      - run: npm test
+      - run: npm test -- -i
 
   lint:
     name: 'Lint'
