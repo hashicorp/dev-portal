@@ -14,8 +14,6 @@ const buildBetaProductOptInRedirect = require('./build-beta-opt-in-redirect')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
-const DEV_PORTAL_DOMAIN = 'https://hashi-dev-portal.vercel.app'
-
 const PROXIED_PRODUCT = getProxiedProductSlug()
 
 // Redirect all proxied product pages
@@ -45,37 +43,6 @@ const devPortalToDotIoRedirects = isPreview()
         })
       return acc.concat(toDotIoRedirects)
     }, [])
-
-// Redirect dev-portal routes to the dev-portal domain,
-// if we're on the proxied domain.
-//
-// (Note: without these redirects, dev-portal routes will be visible and
-// indexed by search engines on our proxied .io domains, which seems
-// like it could cause problems)
-// TODO: this is a simple single route, we'd probably want to redirect all dev-portal routes
-// We could likely come up with a way to determine a full list automatically:
-// 1. list all dev routes, ie everything except what's in /_proxied-dot-io/*
-// 2. for each product domain, build a redirect so that when /some-dev-portal-route
-//    is visited on that product domain, it redirects to dev-portal
-const devPortalRoutes = ['/some-dev-portal-route']
-/** @type {Redirect[]} */
-const dotIoToDevPortalRedirects = productsToProxy.reduce((acc, productSlug) => {
-  const productHost = proxySettings[productSlug].host
-  const toDevPortalRedirects = devPortalRoutes.map((devPortalRoute) => {
-    return {
-      source: devPortalRoute,
-      destination: DEV_PORTAL_DOMAIN + devPortalRoute,
-      permanent: false,
-      has: [
-        {
-          type: 'host',
-          value: productHost,
-        },
-      ],
-    }
-  })
-  return acc.concat(toDevPortalRedirects)
-}, [])
 
 /**
  *
@@ -267,7 +234,6 @@ async function buildDotIoRedirects() {
   // TODO ... consolidate redirects for other products
   return [
     ...devPortalToDotIoRedirects,
-    ...dotIoToDevPortalRedirects,
     ...addHostCondition(boundaryIoRedirects, 'boundary'),
     ...addHostCondition(nomadIoRedirects, 'nomad'),
     ...addHostCondition(sentinelIoRedirects, 'sentinel'),
