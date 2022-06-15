@@ -226,12 +226,6 @@ const DownloadsSection = ({
     <div className={s.root}>
       <Card elevation="base">
         <div className={s.cardHeader}>
-          {/*
-          NOTE: This wrapper `<div>` shrinks `VersionContextSwitcher` to only
-          take up as much space as needed for its content, an effect of using
-          flexbox to render the `Heading` and `VersionContextSwitcher` in the
-          same line.
-          */}
           <div className={s.versionSwitcherWrapper}>
             <VersionContextSwitcher
               onChange={(e) => setCurrentVersion(e.target.value)}
