@@ -108,7 +108,7 @@ function getDevPortalRoutesToProxy(product) {
     })
     .filter((ent) => ent.isDirectory() && ent.name !== '_proxied-dot-io')
     .map(({ name }) => ({
-      proxiedRoute: `/:path(${name}.*)`,
+      proxiedRoute: `/:path(${name}(?:\\/.*)?)`,
       localRoute: `/_proxied-dot-io/${product}/:path`,
       skipRedirect: true,
     }))
