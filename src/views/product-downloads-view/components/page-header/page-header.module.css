@@ -4,6 +4,14 @@
   margin-bottom: 48px;
 }
 
+.iconTileLogo {
+  display: none;
+
+  @media (--dev-dot-tablet-up) {
+    display: block;
+  }
+}
+
 .pageHeaderText {
   margin-left: 16px;
 }
