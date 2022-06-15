@@ -27,7 +27,7 @@ const generateCommunityForumNavItem = (productSlug?: ProductSlug) => {
 const generateResourcesNavItems = (productSlug?: ProductSlug) => {
   return [
     { heading: 'Resources' },
-    { title: 'All Tutorials', href: 'https://learn.hashicorp.com/search' },
+    { title: 'All Tutorials', href: 'https://learn.hashicorp.com/' },
     generateCommunityForumNavItem(productSlug),
     {
       title: 'Support',
