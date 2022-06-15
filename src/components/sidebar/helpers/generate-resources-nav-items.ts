@@ -33,7 +33,10 @@ const generateResourcesNavItems = (productSlug?: ProductSlug) => {
       title: 'Support',
       href: 'https://www.hashicorp.com/customer-success',
     },
-    { title: 'GitHub', href: 'https://github.com/hashicorp/' },
+    {
+      title: 'GitHub',
+      href: 'https://github.com/search?q=repo%3Ahashicorp%2Fvault+repo%3Ahashicorp%2Fwaypoint+repo%3Ahashicorp%2Fdev-portal&type=Repositories&ref=advsearch&l=&l=',
+    },
   ]
 }
 
