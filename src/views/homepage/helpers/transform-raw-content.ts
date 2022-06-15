@@ -25,7 +25,7 @@ async function transformRawContent(
   // Return props for the view
   return {
     hero,
-    navNotice: navNotice || null,
+    navNotice: navNotice || null, // Note: may be undefined, need null instead
     merchandising,
     learnSection: {
       collectionCards,
