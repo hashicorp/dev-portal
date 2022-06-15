@@ -19,7 +19,6 @@
 .versionSwitcherWrapper {
   /* Flex-grow to fill space when in separate row */
   flex-grow: 1;
-  flex-shrink: 1;
   width: max-content;
 }
 
