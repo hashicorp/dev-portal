@@ -17,6 +17,17 @@
       display: none;
     }
 
+    /* Note on alert overrides: alert classes are applied at content
+       extraction time, so it is currently difficult to remove or modify these
+       classes and their associated styles rather than override them.
+       https://app.asana.com/0/1100423001970639/1202448738938137/f */
+
+    /* Alert override:  letter-spacing, which in global styles is tracked out */
+    & .alert.g-type-body {
+      letter-spacing: 0;
+    }
+
+    /* Alert override: blue info alert appearance */
     & .alert.alert-info {
       background-color: #f2f8ff;
       border: 1px solid #cce3f3;
