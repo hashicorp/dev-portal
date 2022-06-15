@@ -66,7 +66,7 @@ const proxySettings = {
     host: proxyConfig.vault.host,
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/vault'),
-      ...buildAssetRoutesToProxy(proxyConfig.vault.assets, '/vault'),
+      ...buildAssetRoutesToProxy(proxyConfig.vault.assets, '/vault-public'),
       ...getDevPortalRoutesToProxy('vault'),
     ],
   },
@@ -75,7 +75,10 @@ const proxySettings = {
     host: proxyConfig.waypoint.host,
     routesToProxy: [
       ...gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
-      ...buildAssetRoutesToProxy(proxyConfig.waypoint.assets, '/waypoint'),
+      ...buildAssetRoutesToProxy(
+        proxyConfig.waypoint.assets,
+        '/waypoint-public'
+      ),
       ...getDevPortalRoutesToProxy('waypoint'),
     ],
   },
