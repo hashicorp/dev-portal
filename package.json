@@ -97,7 +97,7 @@
     "@hashicorp/react-button": "^6.0.3",
     "@hashicorp/react-call-to-action": "^4.1.1",
     "@hashicorp/react-checkbox-input": "^5.0.1",
-    "@hashicorp/react-code-block": "6.0.1-canary-20220614172337",
+    "@hashicorp/react-code-block": "^6.0.1",
     "@hashicorp/react-command-line-terminal": "^2.0.4",
     "@hashicorp/react-consent-manager": "^7.2.0",
     "@hashicorp/react-docs-page": "^17.0.0",
