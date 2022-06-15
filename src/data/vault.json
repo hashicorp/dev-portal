@@ -15,7 +15,7 @@
   "metadata": {
     "title": "Vault by HashiCorp",
     "description": "Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, auditing, and provides secrets as a service through a unified API.",
-    "image": "/vault/img/og-image.png",
+    "image": "/vault-public/img/og-image.png",
     "icon": [
       {
         "href": "https://www.datocms-assets.com/2885/1597163356-vault-favicon.png?h=16&w=16",
