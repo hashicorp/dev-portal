@@ -40,7 +40,12 @@ export default function OptOutForm({
           className={s.heading}
         >{`Why do you want to leave the ${PlatformOptionTitles[platform]} Developer Beta?`}</label>
         <Text className={s.subheading}>(optional)</Text>
-        <button className={s.exitIcon} onClick={onDismiss} aria-label="Cancel">
+        <button
+          className={s.exitIcon}
+          onClick={onDismiss}
+          aria-label="Cancel"
+          type="button"
+        >
           <IconX16 />
         </button>
       </div>
@@ -80,7 +85,12 @@ export default function OptOutForm({
           type="submit"
           disabled={hasSubmitted}
         />
-        <Button color="secondary" text="Cancel" onClick={onDismiss} />
+        <Button
+          type="button"
+          color="secondary"
+          text="Cancel"
+          onClick={onDismiss}
+        />
       </div>
     </form>
   )
