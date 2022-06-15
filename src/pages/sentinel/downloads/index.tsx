@@ -4,7 +4,6 @@ import sentinelData from 'data/sentinel.json'
 import installData from 'data/sentinel-install.json'
 import { ProductData } from 'types/products'
 import { generateStaticProps, GeneratedProps } from 'lib/fetch-release-data'
-import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductDownloadsView from 'views/product-downloads-view'
 
 const SentinelDownloadsPage = (props: GeneratedProps): ReactElement => {
@@ -23,7 +22,5 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return generateStaticProps(product)
 }
-
-SentinelDownloadsPage.layout = CoreDevDotLayout
 
 export default SentinelDownloadsPage

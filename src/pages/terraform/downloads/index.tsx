@@ -12,7 +12,6 @@ import {
   generateStaticProps,
   ReleasesAPIResponse,
 } from 'lib/fetch-release-data'
-import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import ProductDownloadsView from 'views/product-downloads-view'
 
 const VERSION_DOWNLOAD_CUTOFF = '>=1.0.11'
@@ -93,7 +92,5 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return generatedProps
 }
-
-TerraformDownloadsPage.layout = CoreDevDotLayout
 
 export default TerraformDownloadsPage
