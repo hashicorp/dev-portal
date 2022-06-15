@@ -17,8 +17,6 @@ export default function LearnSection({
   collectionCards,
   link,
 }: LearnSectionProps) {
-  const descriptionParagraphs =
-    typeof description == 'string' ? [description] : description
   return (
     <section className={s.learnSection}>
       <div className={s.intro}>
@@ -36,20 +34,18 @@ export default function LearnSection({
               {heading}
             </Heading>
             <div className={s.introDescription}>
-              {descriptionParagraphs.map(
-                (paragraphText: string, idx: number) => {
-                  return (
-                    /**
-                     * Content is stable & won't be re-ordered on client,
-                     * so should be fine to use index as key.
-                     */
-                    // eslint-disable-next-line react/no-array-index-key
-                    <Text key={idx} size={300}>
-                      {paragraphText}
-                    </Text>
-                  )
-                }
-              )}
+              {description.map((paragraphText: string, idx: number) => {
+                return (
+                  /**
+                   * Content is stable & won't be re-ordered on client,
+                   * so should be fine to use index as key.
+                   */
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Text key={idx} size={300}>
+                    {paragraphText}
+                  </Text>
+                )
+              })}
             </div>
             <StandaloneLink
               href={link.url}

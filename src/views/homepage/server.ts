@@ -1,36 +1,40 @@
-import { formatCollectionCard } from 'components/collection-card/helpers'
-import { HomePageAuthoredContent, HomePageProps } from './types'
-import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
+import fs from 'fs'
+import path from 'path'
+import { HomePageProps } from './types'
+import {
+  HomePageAuthoredContent,
+  HomePageAuthoredContentSchema,
+} from './content-schema'
+import { validateAgainstSchema } from 'lib/validate-against-schema'
+import { transformRawContent } from './helpers/transform-raw-content'
 
 const generateStaticProps = async (
-  authoredContent: HomePageAuthoredContent
+  contentJsonFile: string
 ): Promise<{ props: HomePageProps }> => {
-  // Destructure data needed from given `authoredContent`
-  const { hero, navNotice, merchandising, learnSection, preFooter } =
-    authoredContent
+  /**
+   * Note: could consider other content sources. For now, JSON.
+   * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
+   */
+  const jsonFilePath = path.join(process.cwd(), contentJsonFile)
+  const authoredContent = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 
-  // For the learnSection, transform collectionSlugs to card data
-  const { collectionSlugs, ...restLearnSection } = learnSection
-  const { inlineCollections } = await getInlineContentMaps(learnSection)
-  const collectionCards = collectionSlugs.map((slug: string) => {
-    const collectionData = inlineCollections[slug]
-    return formatCollectionCard(collectionData)
-  })
+  /**
+   * Validate that authored content is in the expected format.
+   * This includes a type guard for content structure.
+   */
+  validateAgainstSchema<HomePageAuthoredContent>(
+    authoredContent,
+    HomePageAuthoredContentSchema,
+    './src/pages/content.json'
+  )
 
-  // Return props for the view
+  /**
+   * Transform raw content into a content prop
+   */
+  const content = await transformRawContent(authoredContent)
+
   return {
-    props: {
-      content: {
-        hero,
-        navNotice,
-        merchandising,
-        learnSection: {
-          collectionCards,
-          ...restLearnSection,
-        },
-        preFooter,
-      },
-    },
+    props: { content },
   }
 }
 
