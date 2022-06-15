@@ -1,12 +1,11 @@
 import { GetStaticProps } from 'next'
-import BaseNewLayout from 'layouts/base-new'
 import HomePageView from 'views/homepage'
+import { HomePageAuthoredContent } from 'views/homepage/contentSchema'
 import { generateStaticProps } from 'views/homepage/server'
 import pageContent from './content.json'
 
 export const getStaticProps: GetStaticProps = async () => {
-  return generateStaticProps(pageContent)
+  return generateStaticProps(pageContent as HomePageAuthoredContent)
 }
 
-HomePageView.layout = BaseNewLayout
 export default HomePageView

@@ -1,31 +1,31 @@
-import type { CSSProperties, ReactElement } from 'react'
+import type { CSSProperties } from 'react'
 import slugify from 'slugify'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import CollectionCard, {
   CollectionCardPropsWithId,
 } from 'components/collection-card'
+import Text from 'components/text'
 import Heading from 'components/heading'
 import StandaloneLink from 'components/standalone-link'
+import { LearnSectionProps } from './types'
 import s from './learn-section.module.css'
 
-interface LearnSectionProps {
-  media: ReactElement
-  heading: string
-  description: ReactElement
-  collectionCards: CollectionCardPropsWithId[]
-}
-
 export default function LearnSection({
-  media,
+  imageSrc,
   heading,
   description,
   collectionCards,
+  link,
 }: LearnSectionProps) {
+  const descriptionParagraphs =
+    typeof description == 'string' ? [description] : description
   return (
     <section className={s.learnSection}>
       <div className={s.intro}>
         <div className={s.introInner}>
-          <div className={s.introMedia}>{media}</div>
+          <div className={s.introMedia}>
+            <img src={imageSrc} />
+          </div>
           <header className={s.introContent}>
             <Heading
               level={2}
@@ -35,10 +35,25 @@ export default function LearnSection({
             >
               {heading}
             </Heading>
-            <div className={s.introDescription}>{description}</div>
+            <div className={s.introDescription}>
+              {descriptionParagraphs.map(
+                (paragraphText: string, idx: number) => {
+                  return (
+                    /**
+                     * Content is stable & won't be re-ordered on client,
+                     * so should be fine to use index as key.
+                     */
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Text key={idx} size={300}>
+                      {paragraphText}
+                    </Text>
+                  )
+                }
+              )}
+            </div>
             <StandaloneLink
-              href="/vault/tutorials/associate-cert"
-              text="Start learning"
+              href={link.url}
+              text={link.text}
               iconPosition="trailing"
               icon={<IconArrowRight16 />}
               color="secondary"

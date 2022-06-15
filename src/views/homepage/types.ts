@@ -1,24 +1,18 @@
 import { CollectionCardPropsWithId } from 'components/collection-card'
+import { HomePageAuthoredContent } from './contentSchema'
 
 interface HomePageContentProps {
-  collectionCards: CollectionCardPropsWithId[]
+  hero: $TSFixMe
+  navNotice: string
+  learnSection: {
+    collectionCards: CollectionCardPropsWithId[]
+  } & $TSFixMe
+  merchandising: $TSFixMe
+  preFooter: $TSFixMe
 }
 
-interface HomePageViewProps {
-  collectionCards: HomePageContentProps['collectionCards']
+interface HomePageProps {
+  content: HomePageContentProps
 }
 
-interface GenerateStaticPropsOptions {
-  collectionSlugs: string[]
-}
-
-interface GenerateStaticPropsOptionsResult {
-  props: HomePageViewProps
-}
-
-export type {
-  GenerateStaticPropsOptions,
-  GenerateStaticPropsOptionsResult,
-  HomePageContentProps,
-  HomePageViewProps,
-}
+export type { HomePageAuthoredContent, HomePageContentProps, HomePageProps }

@@ -1,39 +1,35 @@
-import { Collection } from 'lib/learn-client/types'
-import { getCollections } from 'lib/learn-client/api/collection'
 import { formatCollectionCard } from 'components/collection-card/helpers'
-import {
-  GenerateStaticPropsOptions,
-  GenerateStaticPropsOptionsResult,
-} from './types'
+import { HomePageAuthoredContent, HomePageProps } from './types'
+import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
 
 const generateStaticProps = async (
-  pageContent: GenerateStaticPropsOptions
-): Promise<GenerateStaticPropsOptionsResult> => {
-  // Destructure data needed from given `pageContent`
-  const { collectionSlugs } = pageContent
+  authoredContent: HomePageAuthoredContent
+): Promise<{ props: HomePageProps }> => {
+  // Destructure data needed from given `authoredContent`
+  const { hero, navNotice, merchandising, learnSection, preFooter } =
+    authoredContent
 
-  // Check that `collectionSlugs` have been specified
-  if (!collectionSlugs || collectionSlugs.length <= 0) {
-    throw new Error(
-      '`HomePageView` requires `collectionSlugs` to be defined in `src/pages/content.json` but none were provided.'
-    )
-  }
-
-  // Fetch the collections specified
-  const collections = await getCollections(collectionSlugs)
-
-  // Transform collection entries into card data with `collectionSlugs` order
-  const collectionCards = collectionSlugs.map((collectionSlug: string) => {
-    const thisCollection = collections.find(
-      (collection: Collection) => collection.slug === collectionSlug
-    )
-    return formatCollectionCard(thisCollection)
+  // For the learnSection, transform collectionSlugs to card data
+  const { collectionSlugs, ...restLearnSection } = learnSection
+  const { inlineCollections } = await getInlineContentMaps(learnSection)
+  const collectionCards = collectionSlugs.map((slug: string) => {
+    const collectionData = inlineCollections[slug]
+    return formatCollectionCard(collectionData)
   })
 
   // Return props for the view
   return {
     props: {
-      collectionCards,
+      content: {
+        hero,
+        navNotice,
+        merchandising,
+        learnSection: {
+          collectionCards,
+          ...restLearnSection,
+        },
+        preFooter,
+      },
     },
   }
 }
