@@ -25,6 +25,7 @@
     "test:e2e": "playwright test",
     "test:watch": "jest --watch",
     "test": "jest",
+    "test:ci": "jest --runInBand",
     "typecheck": "tsc -p ."
   },
   "simple-git-hooks": {
