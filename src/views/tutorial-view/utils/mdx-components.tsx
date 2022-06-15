@@ -15,10 +15,10 @@ import {
   MdxListItem,
   MdxTabs,
   MdxTab,
+  MdxTable,
 } from 'components/dev-dot-content/mdx-components'
 import Text from 'components/text'
 import VideoEmbed from 'components/video-embed'
-import MDXTable from 'components/dev-dot-content/mdx-components/mdx-table'
 
 const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
   theme: 'dark',
@@ -57,7 +57,7 @@ const MDX_COMPONENTS = {
   h5: (props) => makeHeadingElement(5, props),
   h6: (props) => makeHeadingElement(6, props),
   p: (props) => <Text {...props} className={devDotStyles.p} />,
-  table: MDXTable,
+  table: MdxTable,
 }
 
 export default MDX_COMPONENTS
