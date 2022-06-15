@@ -1,7 +1,3 @@
-/* This custom-media is for .cardHeader contents only,
-   to wrap version-select at smaller viewport sizes */
-@custom-media --same-row-version-select only screen and (min-width: 400px);
-
 .root {
   margin-bottom: 48px;
 }
@@ -9,14 +5,15 @@
 .cardHeader {
   align-items: center;
   display: flex;
+
+  /* Note: logical order is Vault version, then OS.
+     But in flex layout, we want Vault version after OS heading,
+     so that it appears in the top left of the downloads section box */
+  flex-direction: row-reverse;
   flex-wrap: wrap;
   gap: 12px;
   justify-content: space-between;
   padding-bottom: 12px;
-
-  @media (--same-row-version-select) {
-    flex-wrap: nowrap;
-  }
 }
 
 .versionSwitcherWrapper {
@@ -24,25 +21,13 @@
   flex-grow: 1;
   flex-shrink: 1;
   width: max-content;
-
-  @media (--same-row-version-select) {
-    flex-grow: 0;
-
-    /* Note: logical order is Vault version, then OS.
-       But in flex layout, we want Vault version after OS heading,
-       so that it appears in the top left of the downloads section box */
-    order: 2;
-  }
 }
 
 .operatingSystemTitle {
   color: var(--token-color-foreground-strong);
-  width: 100%;
 
-  @media (--same-row-version-select) {
-    order: 1;
-    width: auto;
-  }
+  /* Flex-grow as much as possible to keep .versionSwitcherWrapper small */
+  flex-grow: 100;
 }
 
 .tabContent {
