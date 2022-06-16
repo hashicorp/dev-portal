@@ -8,6 +8,7 @@ import {
   MdxListItem,
   MdxTab,
   MdxTabs,
+  MdxTable,
 } from 'components/dev-dot-content/mdx-components'
 import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
@@ -121,6 +122,7 @@ function _defaultComponents() {
     h5: (props) => makeHeadingElement(5, props),
     h6: (props) => makeHeadingElement(6, props),
     p: (props) => <Text {...props} className={devDotStyles.p} />,
+    table: MdxTable,
   }
 }
 
