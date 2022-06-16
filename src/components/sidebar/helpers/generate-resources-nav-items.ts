@@ -20,6 +20,34 @@ const generateCommunityForumNavItem = (productSlug?: ProductSlug) => {
 }
 
 /**
+ * A dictionary of product slugs to GitHub links.
+ */
+const GITHUB_LINKS_BY_SLUG: { [K in ProductSlug]: string } = {
+  boundary: 'https://www.github.com/hashicorp/boundary',
+  consul: 'https://www.github.com/hashicorp/consul',
+  hcp: 'https://www.github.com/hashicorp', // No specific repo to link to
+  nomad: 'https://www.github.com/hashicorp/nomad',
+  packer: 'https://www.github.com/hashicorp/packer',
+  sentinel: 'https://www.github.com/hashicorp', // No specific repo to link to
+  terraform: 'https://www.github.com/hashicorp/terraform',
+  vagrant: 'https://www.github.com/hashicorp/vagrant',
+  vault: 'https://www.github.com/hashicorp/vault',
+  waypoint: 'https://www.github.com/hashicorp/waypoint',
+}
+
+/**
+ * Generates the sidebar nav item for the Community Forum link. If given a
+ * Product slug specified in `COMMUNITY_FORUM_LINKS_BY_SLUG`, that Product's
+ * link will be used. Otherwise, a general default link is used.
+ */
+function generateGitHubNavItem(productSlug?: ProductSlug) {
+  return {
+    title: 'GitHub',
+    href: GITHUB_LINKS_BY_SLUG[productSlug] || 'https://github.com/hashicorp',
+  }
+}
+
+/**
  * Generates the sidebar nav items for the Resources section of the sidebar.
  * Optionally accepts a Product slug for customization of links. Invokes
  * additional helper functions for each nav item as needed.
@@ -33,10 +61,7 @@ const generateResourcesNavItems = (productSlug?: ProductSlug) => {
       title: 'Support',
       href: 'https://www.hashicorp.com/customer-success',
     },
-    {
-      title: 'GitHub',
-      href: 'https://github.com/hashicorp',
-    },
+    generateGitHubNavItem(productSlug),
   ]
 }
 
