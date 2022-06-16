@@ -27,13 +27,16 @@ const generateCommunityForumNavItem = (productSlug?: ProductSlug) => {
 const generateResourcesNavItems = (productSlug?: ProductSlug) => {
   return [
     { heading: 'Resources' },
-    { title: 'All Tutorials', href: 'https://learn.hashicorp.com/search' },
+    { title: 'All Tutorials', href: 'https://learn.hashicorp.com/' },
     generateCommunityForumNavItem(productSlug),
     {
       title: 'Support',
       href: 'https://www.hashicorp.com/customer-success',
     },
-    { title: 'GitHub', href: 'https://github.com/hashicorp/' },
+    {
+      title: 'GitHub',
+      href: 'https://github.com/hashicorp',
+    },
   ]
 }
 
