@@ -14,30 +14,25 @@ export default function Dialog({
     <AnimatePresence>
       {isOpen && (
         <AnimatedDialogOverlay
-          className={s.animatedDialogOverlay}
-          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          className={s.animatedDialogOverlay}
           exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+          isOpen={isOpen}
           onDismiss={onDismiss}
         >
-          <DialogOverlay
-            className={s.dialogOverlay}
-            isOpen={isOpen}
-            onDismiss={onDismiss}
+          <m.div
+            animate={{ y: 0 }}
+            exit={{ y: 50 }}
+            initial={{ y: 50 }}
+            transition={{ min: 0, max: 100, bounceDamping: 8 }}
           >
-            <m.div
-              initial={{ y: 50 }}
-              animate={{ y: 0 }}
-              exit={{ y: 50 }}
-              transition={{ min: 0, max: 100, bounceDamping: 8 }}
-            >
-              <div className={s.contentWrapper}>
-                <DialogContent className={s.content} aria-label={label}>
-                  {children}
-                </DialogContent>
-              </div>
-            </m.div>
-          </DialogOverlay>
+            <div className={s.contentWrapper}>
+              <DialogContent className={s.content} aria-label={label}>
+                {children}
+              </DialogContent>
+            </div>
+          </m.div>
         </AnimatedDialogOverlay>
       )}
     </AnimatePresence>

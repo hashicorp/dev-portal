@@ -1,17 +1,4 @@
-/*
-***
-* This class is necessary so avoid issues with the layer behind the dialog
-* looking strange. Setting `background: none` on the `dialogOverlay` class does
-* not work.
-* 
-* ref: https://app.asana.com/0/1202114367927919/1202440311005416/f
-***
-*/
 .animatedDialogOverlay {
-  background: none;
-}
-
-.dialogOverlay {
   background: var(--token-color-border-strong);
   z-index: 100;
 }
