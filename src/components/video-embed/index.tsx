@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import ReactPlayer from 'react-player/lazy'
+import classNames from 'classnames'
 import { VideoEmbedProps, VideoEmbedInnerProps } from './types'
 import {
   usePlayState,
@@ -19,10 +20,11 @@ const PROGRESS_INTERVAL = 1000
 const MAX_PLAYBACK_SPEED = 2.0
 
 function VideoEmbed({
-  start,
-  url,
+  className,
   percentPlayedCallback = () => null,
   percentPlayedMilestones,
+  start,
+  url,
   ...reactPlayerProps
 }: VideoEmbedInnerProps) {
   /**
@@ -69,7 +71,7 @@ function VideoEmbed({
     : {}
 
   return (
-    <div className={s.playerWrapper}>
+    <div className={classNames(s.playerWrapper, className)}>
       <ReactPlayer
         {...reactPlayerProps}
         config={config}

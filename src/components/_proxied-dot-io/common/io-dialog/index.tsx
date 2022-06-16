@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { DialogOverlay, DialogContent, DialogOverlayProps } from '@reach/dialog'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import s from './style.module.css'
 
 export interface IoDialogProps extends DialogOverlayProps {
@@ -13,7 +13,7 @@ export default function IoDialog({
   children,
   label,
 }: IoDialogProps): React.ReactElement {
-  const AnimatedDialogOverlay = motion(DialogOverlay)
+  const AnimatedDialogOverlay = m(DialogOverlay)
   return (
     <AnimatePresence>
       {isOpen && (
@@ -25,7 +25,7 @@ export default function IoDialog({
           onDismiss={onDismiss}
         >
           <div className={s.dialogWrapper}>
-            <motion.div
+            <m.div
               initial={{ y: 50 }}
               animate={{ y: 0 }}
               exit={{ y: 50 }}
@@ -38,7 +38,7 @@ export default function IoDialog({
                 </button>
                 {children}
               </DialogContent>
-            </motion.div>
+            </m.div>
           </div>
         </AnimatedDialogOverlay>
       )}

@@ -90,7 +90,7 @@ const HomePageContent = ({ collectionCards }: HomePageContentProps) => {
           </>
         }
         videoUrl="https://hashicorp.wistia.com/medias/031h9iogzx"
-        videoImageUrl="https://embed-ssl.wistia.com/deliveries/00e2f4fb8395704c0438fa9eaef90754.jpg?image_crop_resized=960x540"
+        videoImageUrl="https://embed-ssl.wistia.com/deliveries/b65febe71ccfb5ded8d3958b1cf1ec61.jpg?image_crop_resized=960x540"
       />
 
       <ProductNav
