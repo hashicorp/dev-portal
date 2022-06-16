@@ -29,13 +29,19 @@
   "blocks": [
     {
       "type": "heading",
-      "heading": "Use Cases",
+      "heading": "Featured Tutorials",
       "level": 2,
       "size": 400
     },
     {
       "type": "tutorial_cards",
       "tutorialSlugs": ["vault/transform", "vault/static-secrets"]
+    },
+    {
+      "type": "heading",
+      "heading": "Featured Collections",
+      "level": 2,
+      "size": 400
     },
     {
       "type": "collection_cards",

@@ -13,7 +13,7 @@ function FooterWithProps({
       cards={[
         {
           link: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
-          img: '/waypoint/img/get-started-kubernetes.png',
+          img: '/waypoint-public/img/get-started-kubernetes.png',
           eyebrow: 'Tutorial',
           title: 'Get Started - Kubernetes',
           description:
@@ -21,7 +21,7 @@ function FooterWithProps({
         },
         {
           link: 'https://learn.hashicorp.com/tutorials/waypoint/get-started-intro',
-          img: '/waypoint/img/intro-to-waypoint.png',
+          img: '/waypoint-public/img/intro-to-waypoint.png',
           eyebrow: 'Tutorial',
           title: 'Introduction to Waypoint',
           description:
