@@ -74,6 +74,7 @@
 
 .optionalText {
   composes: hds-typography-body-200 hds-font-weight-regular from global;
+  appearance: none; /* resets iOS styles */
   border-radius: 5px;
   border: unset;
   box-shadow: var(--token-surface-base-box-shadow);
