@@ -15,6 +15,7 @@ import {
   MdxListItem,
   MdxTabs,
   MdxTab,
+  MdxTable,
 } from 'components/dev-dot-content/mdx-components'
 import Text from 'components/text'
 import VideoEmbed from 'components/video-embed'
@@ -56,6 +57,7 @@ const MDX_COMPONENTS = {
   h5: (props) => makeHeadingElement(5, props),
   h6: (props) => makeHeadingElement(6, props),
   p: (props) => <Text {...props} className={devDotStyles.p} />,
+  table: MdxTable,
 }
 
 export default MDX_COMPONENTS
