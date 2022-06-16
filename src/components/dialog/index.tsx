@@ -1,9 +1,13 @@
 import { DialogOverlay, DialogContent } from '@reach/dialog'
-import { AnimatePresence, m as motion, useReducedMotion } from 'framer-motion'
+import {
+  AnimatePresence,
+  m as slimMotion,
+  useReducedMotion,
+} from 'framer-motion'
 import { DialogProps } from './types'
 import s from './dialog.module.css'
 
-const AnimatedDialogOverlay = motion(DialogOverlay)
+const AnimatedDialogOverlay = slimMotion(DialogOverlay)
 
 export default function Dialog({
   children,
