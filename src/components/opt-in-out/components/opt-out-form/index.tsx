@@ -1,4 +1,4 @@
-import { FormEvent, useState, ChangeEvent, useRef } from 'react'
+import { FormEvent, useState, ChangeEvent } from 'react'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button from 'components/button'
 import Text from 'components/text'
