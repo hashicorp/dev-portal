@@ -3,10 +3,24 @@
   z-index: 100;
 }
 
-.content {
-  box-shadow: var(--token-surface-overlay-box-shadow);
-  border-radius: 6px;
+.contentWrapper {
+  align-items: flex-start;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
   padding: 24px;
+  width: 100vw;
+
+  @media (--dev-dot-tablet-up) {
+    padding-top: 10vh;
+  }
+}
+
+.content {
+  border-radius: 6px;
+  box-shadow: var(--token-surface-overlay-box-shadow);
+  margin: 0;
   max-width: 600px;
-  min-width: 300px;
+  padding: 24px;
+  width: 100%;
 }

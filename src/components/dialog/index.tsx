@@ -31,9 +31,11 @@ export default function Dialog({
               exit={{ y: 50 }}
               transition={{ min: 0, max: 100, bounceDamping: 8 }}
             >
-              <DialogContent className={s.content} aria-label={label}>
-                {children}
-              </DialogContent>
+              <div className={s.contentWrapper}>
+                <DialogContent className={s.content} aria-label={label}>
+                  {children}
+                </DialogContent>
+              </div>
             </m.div>
           </DialogOverlay>
         </AnimatedDialogOverlay>
