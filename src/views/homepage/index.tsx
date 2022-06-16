@@ -1,29 +1,53 @@
+// Third-party imports
 import { ReactElement } from 'react'
-import { productSlugs } from 'lib/products'
+
+// HashiCorp imports
 import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
 import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import InlineSvg from '@hashicorp/react-inline-svg'
+
+// Global imports
+import { productSlugs } from 'lib/products'
+import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
-import { HeroWithVideo, HeroWithActions } from './components/hero'
+import MobileMenuContainer from 'components/mobile-menu-container'
+import { SidebarNavMenuItem } from 'components/sidebar/components'
+
+// Local imports
+import { HomePageContentProps, HomePageViewProps } from './types'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
+import { HeroWithVideo, HeroWithActions } from './components/hero'
 import {
   HashiConfGlobalSlot,
   VaultSlot,
 } from './components/merchandising-slots/slots'
 import badge from './img/vault-certified-expert-badge.svg?include'
 import s from './homepage.module.css'
-import { ProductOption } from 'lib/learn-client/types'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
-function Homepage(): ReactElement {
+const HomePageMobileMenu = () => {
   return (
-    <div className={s.homepage}>
+    <MobileMenuContainer className={s.mobileMenuContainer}>
+      <ul className={s.mobileMenuNavList}>
+        <SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
+        {generateTopLevelSubNavItems().map((item: $TSFixMe, index: number) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <SidebarNavMenuItem item={item} key={index} />
+        ))}
+      </ul>
+    </MobileMenuContainer>
+  )
+}
+
+const HomePageContent = ({ collectionCards }: HomePageContentProps) => {
+  return (
+    <div className={s.homepageContent}>
       {/* <HeroWithActions
         badgeText="Beta"
         heading="HashiCorp Developer"
@@ -65,12 +89,12 @@ function Homepage(): ReactElement {
             </Text>
           </>
         }
-        videoUrl="https://www.youtube.com/watch?v=Y7c_twmDxQ4"
+        videoUrl="https://hashicorp.wistia.com/medias/031h9iogzx"
+        videoImageUrl="https://embed-ssl.wistia.com/deliveries/b65febe71ccfb5ded8d3958b1cf1ec61.jpg?image_crop_resized=960x540"
       />
 
       <ProductNav
-        notice="All HashiCorp products are being added and will be available here in the
-        Developer Portal"
+        notice="All HashiCorp products are being added and will be available here."
         products={productNavSlugs}
       />
 
@@ -99,42 +123,12 @@ function Homepage(): ReactElement {
             </Text>
           </>
         }
-        tutorials={[
-          {
-            url: '/',
-            duration: '10min',
-            heading: 'Title Max 70 Characters',
-            description: 'Body maximum 130 characters.',
-            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
-            hasVideo: true,
-            hasInteractiveLab: false,
-          },
-          {
-            url: '/',
-            duration: '10min',
-            heading: 'Title Max 70 Characters',
-            description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
-            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
-            hasVideo: true,
-            hasInteractiveLab: false,
-          },
-          {
-            url: '/',
-            duration: '10min',
-            heading: 'Title Max 70 Characters',
-            description:
-              'Body maximum 130 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu video. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor vitae pharetra accumsan risu, eu vitae.',
-            productsUsed: ['vault', 'boundary', 'nomad'] as ProductOption[],
-            hasVideo: true,
-            hasInteractiveLab: false,
-          },
-        ]}
+        collectionCards={collectionCards}
       />
 
       <PreFooter
         heading="Looking for help?"
-        description="Aenean interdum pulvinar nunc et maximus. Etiam imperdiet mattis sapien id commodow Aenean interdum pulvinar nunc nean interdum pulvinar."
+        description="We offer paid support, a free forum, and other community resources."
         actions={[
           {
             icon: (
@@ -162,5 +156,14 @@ function Homepage(): ReactElement {
   )
 }
 
-Homepage.layout = BaseNewLayout
-export default Homepage
+function HomePageView({ collectionCards }: HomePageViewProps): ReactElement {
+  return (
+    <div className={s.homepage}>
+      <HomePageMobileMenu />
+      <HomePageContent collectionCards={collectionCards} />
+    </div>
+  )
+}
+
+HomePageView.layout = BaseNewLayout
+export default HomePageView

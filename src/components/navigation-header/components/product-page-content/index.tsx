@@ -1,12 +1,20 @@
+// Third-party imports
 import Link from 'next/link'
+
+// HashiCorp Imports
 import InlineSvg from '@hashicorp/react-inline-svg'
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
 import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/colorwhite.svg?include'
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
+
+// Global imports
 import { ProductSlug } from 'types/products'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct, useIsBetaProduct } from 'contexts'
+
+// Local imports
 import {
   NavigationHeaderDropdownMenu,
   PrimaryNavLink,
@@ -40,19 +48,56 @@ const ProductPageHeaderContent = () => {
   const currentProduct = useCurrentProduct()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const isBetaProduct = useIsBetaProduct(currentProduct.slug)
-  const betaProductSlugs = __config.dev_dot.beta_product_slugs
+  const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
+  const isProductHomePage = currentPath === `/${currentProduct.slug}`
   const companyLogo = (
     <InlineSvg className={s.companyLogo} src={HashiCorpLogo} />
   )
-  const homeMenuItem = { icon: 'home', label: 'Developer Home', path: '/' }
-  const betaProductMenuItems = betaProductSlugs.map((slug: ProductSlug) => ({
-    icon: slug,
-    label: productSlugsToNames[slug],
-    path: `/${slug}`,
-  }))
-  const allMainMenuItems = [[homeMenuItem], betaProductMenuItems]
-  const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
-  const isProductHomePage = currentPath === `/${currentProduct.slug}`
+
+  // Build menu items
+  const betaProductItems = []
+  const comingSoonProductItems = []
+  Object.keys(productSlugsToNames).forEach((productSlug: ProductSlug) => {
+    // Exclude Sentinel for now
+    if (productSlug === 'sentinel') {
+      return
+    }
+
+    // Generate properties of each menu item
+    const icon = productSlug
+    const label = productSlugsToNames[productSlug]
+    const path = `/${productSlug}`
+
+    // Push the menu item to the correct array
+    if (getIsBetaProduct(productSlug)) {
+      betaProductItems.push({
+        badge: {
+          text: 'Beta',
+          color: 'highlight',
+        },
+        icon,
+        label,
+        path,
+      })
+    } else {
+      comingSoonProductItems.push({
+        ariaLabel: `Coming soon: ${label}`,
+        icon,
+        label,
+      })
+    }
+  })
+  const homeMenuItem = {
+    // TODO as string was not accepted
+    icon: 'home' as $TSFixMe,
+    label: 'HashiCorp Developer',
+    path: '/',
+  }
+  const allMainMenuItems = [
+    { items: [homeMenuItem] },
+    { items: betaProductItems, label: 'Products' },
+    { items: comingSoonProductItems, label: 'Coming Soon' },
+  ]
 
   return (
     <div className={sharedNavStyles.leftSide}>

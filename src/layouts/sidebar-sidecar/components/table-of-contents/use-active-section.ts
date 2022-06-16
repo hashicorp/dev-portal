@@ -4,21 +4,21 @@ import { useCurrentProduct } from 'contexts'
 import useCurrentPath from 'hooks/use-current-path'
 import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 
+const NAVIGATION_HEADER_HEIGHT_FALLBACK = 68
+
 /**
  * The sticky header has a specific height and we care about headings that are
  * visible below it. This function calculates the height of the header based on
- * two CSS variables.
+ * a CSS variable.
  *
  * TODO: this may need to be refactored when we address the brittleness of our
  * header height.
  */
 const getFullNavHeaderHeight = () => {
-  const navigationHeaderHeight = getCSSVariableFromDocument(
-    '--navigation-header-height',
-    { asNumber: true }
-  ) as number
-
-  return navigationHeaderHeight
+  return getCSSVariableFromDocument('--navigation-header-height', {
+    asNumber: true,
+    fallback: NAVIGATION_HEADER_HEIGHT_FALLBACK,
+  }) as number
 }
 
 /**
@@ -123,7 +123,7 @@ export function useActiveSection(
         }
       },
       {
-        rootMargin: `-${getFullNavHeaderHeight()}px 0% -60% 0%`,
+        rootMargin: `-${getFullNavHeaderHeight()}px 0% -40% 0%`,
         threshold: isProductLanding ? 0 : 1,
       }
     )
@@ -138,14 +138,7 @@ export function useActiveSection(
     })
 
     return () => {
-      headings.forEach((section) => {
-        const el = document
-          .getElementById('main')
-          ?.querySelector(`#${section.slug}`)
-        if (el) {
-          observer.unobserve(el)
-        }
-      })
+      observer.disconnect()
     }
   }, [headings, isEnabled, isProductLanding])
 

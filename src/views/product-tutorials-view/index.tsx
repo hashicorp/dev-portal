@@ -1,6 +1,5 @@
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Heading from 'components/heading'
-import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import {
   generateProductLandingSidebarNavData,
   generateTopLevelSidebarNavData,
@@ -93,5 +92,4 @@ function ProductTutorialsView({
   )
 }
 
-ProductTutorialsView.layout = CoreDevDotLayout
 export default ProductTutorialsView

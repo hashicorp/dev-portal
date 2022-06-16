@@ -1,24 +1,32 @@
+import classNames from 'classnames'
+
+// HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
-import Footer from 'components/footer'
-import NavigationHeader from 'components/navigation-header'
+
+// Global imports
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
-import s from './base-new-layout.module.css'
+import Footer from 'components/footer'
+import NavigationHeader from 'components/navigation-header'
 
-interface BaseNewLayoutProps {
-  /** Defaults to true. If true, the global footer will be shown at the bottom of the page. */
-  showFooter?: boolean
-}
+// Local imports
+import { BaseNewLayoutProps } from './types'
+import s from './base-new-layout.module.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
   preset: 'oss',
 })
 
-const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
+/**
+ * TODO (future enhancement): rename and abstract `SidebarNavDataProvider` for
+ * use here.
+ */
+const BaseNewLayout = ({
   children,
-  showFooter = true,
-}) => {
+  showFooterTopBorder = false,
+}: BaseNewLayoutProps) => {
+  // hooks
   usePageviewAnalytics({
     siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
     includedDomains: __config.dev_dot.analytics.included_domains,
@@ -33,11 +41,13 @@ const BaseNewLayout: React.FC<BaseNewLayoutProps> = ({
             <NavigationHeader />
           </div>
           <div className={s.contentArea}>{children}</div>
-          {showFooter && (
-            <div className={s.footer}>
-              <Footer openConsentManager={openConsentManager} />
-            </div>
-          )}
+          <div
+            className={classNames(s.footer, {
+              [s.showFooterTopBorder]: showFooterTopBorder,
+            })}
+          >
+            <Footer openConsentManager={openConsentManager} />
+          </div>
         </div>
       </CoreDevDotLayout>
       <ConsentManager />

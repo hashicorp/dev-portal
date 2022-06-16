@@ -66,6 +66,10 @@
     outline: transparent;
   }
 
+  &:placeholder-shown {
+    text-overflow: ellipsis;
+  }
+
   /* Remove native appearence */
   &::-webkit-search-decoration,
   &::-webkit-search-cancel-button,
@@ -86,7 +90,8 @@
   margin-right: 4px;
 
   &[hidden] {
-    display: none;
+    visibility: hidden; /* Retain space so the input doesn't overflow */
+    pointer-events: none;
   }
 }
 

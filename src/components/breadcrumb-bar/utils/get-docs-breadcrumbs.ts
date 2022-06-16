@@ -1,6 +1,7 @@
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { NavData } from '@hashicorp/react-docs-sidenav'
 import { BreadcrumbLink } from '..'
+import getFallbackTitle from './get-fallback-title'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -105,14 +106,18 @@ function getPathMatchedNode(navNodes, pathString, basePath) {
   // Otherwise, we have zero matches, which would mean a breadcrumb with missing parts.
   // We have no nav-data to render a nice "title" for the breadcrumb bar, and
   // there isn't a matched path to link to, but we can still render an
-  // unlinked breadcrumb item using the "pathString" as the title
+  // unlinked breadcrumb item using fallback title text
   if (IS_DEV) {
     console.warn(
       `Missing breadcrumb path under "${basePath}": Found zero matches for "${pathString}". Please ensure there is a node (or index-less category) with the path "${pathString}" in the provided navData.`
     )
   }
-  const lastPathPart = pathString.split('/').pop()
-  return { title: lastPathPart }
+  // Get a fallback title by searching all navNodes for title text that,
+  // in slug form, matches the last path part. At worst, path will be used.
+  // Note: this is for a really edgy case related to misuse of { title, href }
+  // nodes for internal links. It may not come up in practice.
+  const fallbackTitle = getFallbackTitle(pathString, navNodes)
+  return { title: fallbackTitle }
 }
 
 function findAllPathMatchedNodes(navNodes, pathString, depth = 0) {
@@ -152,11 +157,14 @@ function findPathMatchedNodes(navNode, pathString, depth) {
         return Boolean(r.path)
       })
       if (routesWithPaths.length) {
-        const inferredPathParts = routesWithPaths[0].path.split('/')
-        inferredPathParts.pop()
-        const inferredPath = inferredPathParts.join('/')
-        if (inferredPath == pathString) {
-          return [{ title: navNode.title }]
+        // Iterate over all child nodes, match may not be in first node
+        for (let i = 0; i < routesWithPaths.length; i++) {
+          const inferredPathParts = routesWithPaths[i].path.split('/')
+          inferredPathParts.pop()
+          const inferredPath = inferredPathParts.join('/')
+          if (inferredPath == pathString) {
+            return [{ title: navNode.title }]
+          }
         }
       }
     }

@@ -12,13 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm ci
-      - uses: mattallty/jest-github-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          coverage-comment: false
+          node-version-file: '.nvmrc'
+
+      - run: npm ci
+      - run: npm run test:ci
+
   lint:
+    name: 'Lint'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

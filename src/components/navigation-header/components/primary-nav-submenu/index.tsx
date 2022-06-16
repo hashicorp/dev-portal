@@ -1,5 +1,7 @@
+import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import { NavigationHeaderDropdownMenu } from '..'
+import s from './primary-nav-submenu.module.css'
 
 interface NavSubmenuProps {
   ariaLabel: string
@@ -18,14 +20,20 @@ const PrimaryNavSubmenu = ({ ariaLabel, navItem }: NavSubmenuProps) => {
   return (
     <NavigationHeaderDropdownMenu
       ariaLabel={ariaLabel}
+      iconClassName={classNames(
+        s.primarySubnavDropdownItemIcon,
+        currentProduct?.slug
+      )}
       itemGroups={[
-        currentProduct.navigationHeaderItems[id].map(
-          ({ icon, label, pathSuffix }) => ({
-            icon,
-            label,
-            path: `/${currentProduct.slug}/${pathSuffix}`,
-          })
-        ),
+        {
+          items: currentProduct.navigationHeaderItems[id].map(
+            ({ icon, label, pathSuffix }) => ({
+              icon,
+              label,
+              path: `/${currentProduct.slug}/${pathSuffix}`,
+            })
+          ),
+        },
       ]}
       label={label}
     />

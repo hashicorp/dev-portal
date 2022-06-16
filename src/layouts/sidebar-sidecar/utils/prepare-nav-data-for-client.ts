@@ -1,7 +1,6 @@
-import slugify from 'slugify'
 import { NavNode } from '@hashicorp/react-docs-sidenav/types'
-import { MenuItem } from 'components/sidebar'
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import { MenuItem } from 'components/sidebar'
 
 // TODO: export NavBranch and NavLeaf
 // TODO: types from react-docs-sidenav.
@@ -47,16 +46,66 @@ function isNavDirectLink(value: NavNode): value is NavDirectLink {
   return value.hasOwnProperty('href')
 }
 
-function prepareNavDataForClient(
-  nodes: NavNode[],
+/**
+ * Prepares all sidebar nav items for client-side rendering. Keeps track of the
+ * index of each node using `startingIndex` and the `traversedNodes` property
+ * returned from `prepareNavNodeForClient`. Also returns its own
+ * `traversedNodes` since it is recursively called in `prepareNavDataForClient`.
+ */
+function prepareNavDataForClient({
+  basePaths,
+  nodes,
+  startingIndex = 0,
+}: {
   basePaths: string[]
-): MenuItem[] {
-  return nodes
-    .map((n) => prepareNavNodeForClient(n, basePaths))
-    .filter((node) => node)
+  nodes: NavNode[]
+  startingIndex?: number
+}): { preparedItems: MenuItem[]; traversedNodes: number } {
+  const preparedNodes = []
+
+  let count = 0
+  nodes.forEach((node) => {
+    const result = prepareNavNodeForClient({
+      basePaths,
+      node,
+      nodeIndex: startingIndex + count,
+    })
+    if (result) {
+      const { preparedItem, traversedNodes } = result
+      preparedNodes.push(preparedItem)
+      count += traversedNodes
+    }
+  })
+
+  return { preparedItems: preparedNodes, traversedNodes: count }
 }
 
-function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
+/**
+ * Prepares a single sidebar nav item for client-side rendering. All items will
+ * have an auto-generated `id` added to them based on `nodeIndex` (which is the
+ * index of the current node being prepared) unless they have the "hidden"
+ * property set to TRUE. Returns the number of nodes it has traversed
+ * (`traversedNodes`) to help `prepareNavDataForClient` keep track of node
+ * indices.
+ *
+ * How different types of items are prepared:
+ *  - If the item is a submenu, its child items will be prepared as well.
+ *  - If the item is a link with the `path` property, then its `fullPath`
+ *    property will be generated from `basePaths` and `path`.
+ *  - If the item is a link with the `href` property and the `href` is an
+ *    internal path, then the object is "reset" to have the `path` and
+ *    `fullPath` properties.
+ *  - Otherwise, nothing is added to an item but a unique `id`.
+ */
+function prepareNavNodeForClient({
+  basePaths,
+  node,
+  nodeIndex,
+}: {
+  node: NavNode
+  basePaths: string[]
+  nodeIndex: number
+}): { preparedItem: MenuItem; traversedNodes: number } {
   /**
    * TODO: we need aligned types that will work here. NavNode (external import)
    * does not allow the `hidden` property.
@@ -67,22 +116,34 @@ function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
     return null
   }
 
+  // Generate a unique ID from `nodeIndex`
+  const id = `sidebar-nav-item-${nodeIndex}`
+
   if (isNavBranch(node)) {
     // For nodes with routes, add fullPaths to all routes, and `id`
-    return {
+    const { preparedItems, traversedNodes } = prepareNavDataForClient({
+      basePaths,
+      nodes: node.routes,
+      startingIndex: nodeIndex + 1,
+    })
+    const preparedItem = {
       ...node,
-      routes: prepareNavDataForClient(node.routes, basePaths),
-      id: slugify(`submenu-${node.title}`, { lower: true }),
+      id,
+      routes: preparedItems,
+    }
+    return {
+      preparedItem,
+      traversedNodes: traversedNodes + 1,
     }
   } else if (isNavLeaf(node)) {
     // For nodes with paths, add fullPath to the node, and `id`
-    return {
+    const preparedItem = {
       ...node,
       fullPath: `/${basePaths.join('/')}/${node.path}`,
-      id: slugify(`menu-item-${node.path}`, { lower: true }),
+      id,
     }
+    return { preparedItem, traversedNodes: 1 }
   } else if (isNavDirectLink(node)) {
-    const id = slugify(`external-url-${node.title}`, { lower: true })
     // Check if there is data that disagrees with DevDot's assumptions.
     // This can happen because in the context of dot-io domains,
     // authors may write NavDirectLinks with href values that are
@@ -98,21 +159,30 @@ function prepareNavNodeForClient(node: NavNode, basePaths: string[]): MenuItem {
       // Note that the `fullPath` added here differs from typical
       // NavLeaf treatment, as we only use the first part of the `basePath`.
       // (We expect this to be the product slug, eg "consul").
-      return {
+
+      // If the path already starts with the base path (i.e. /vault), don't add it
+      const fullPath = node.href.startsWith(`/${basePaths[0]}`)
+        ? node.href
+        : `/${basePaths[0]}${node.href}`
+
+      const preparedItem = {
         ...node,
-        fullPath: `/${basePaths[0]}${node.href}`,
+        fullPath,
         href: null,
         id,
         path: node.href,
       }
+      return { preparedItem, traversedNodes: 1 }
     } else {
       // Otherwise, this is a genuinely external NavDirectLink,
       // so we only need to add an `id` to it.
-      return { ...node, id }
+      const preparedItem = { ...node, id }
+      return { preparedItem, traversedNodes: 1 }
     }
   } else {
     // Otherwise return the node unmodified
-    return node
+    const preparedItem = { ...node, id }
+    return { preparedItem, traversedNodes: 1 }
   }
 }
 

@@ -1,6 +1,7 @@
 import { ReleasesAPIResponse, GeneratedProps } from 'lib/fetch-release-data'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
+import { MenuItem } from 'components/sidebar'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 import { TutorialCardPropsWithId } from 'components/tutorial-card'
 
@@ -28,6 +29,7 @@ export interface RawProductDownloadsViewContent {
   featuredLearnContent?: FeaturedLearnContent[]
   packageManagerOverrides?: PackageManager[]
   sidecarMarketingCard: SidecarMarketingCardProps
+  sidebarMenuItems?: MenuItem[]
 }
 
 /**
@@ -45,6 +47,7 @@ export interface ProductDownloadsViewProps {
     featuredLearnCards?: FeaturedLearnCard[]
     packageManagerOverrides?: PackageManager[]
     sidecarMarketingCard: SidecarMarketingCardProps
+    sidebarMenuItems?: MenuItem[]
   }
   releases: ReleasesAPIResponse
 }

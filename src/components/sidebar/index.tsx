@@ -4,6 +4,7 @@ import classNames from 'classnames'
 
 // Global imports
 import useCurrentPath from 'hooks/use-current-path'
+import { useCurrentProduct } from 'contexts'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
   SidebarHorizontalRule,
@@ -15,27 +16,17 @@ import {
 
 // Local imports
 import { FilteredNavItem, MenuItem, SidebarProps } from './types'
-import { addNavItemMetaData, getFilteredNavItems } from './helpers'
+import {
+  addNavItemMetaData,
+  getFilteredNavItems,
+  generateResourcesNavItems,
+} from './helpers'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarFilterInput from './components/sidebar-filter-input'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
-
-const RESOURCES_NAV_ITEMS = [
-  { heading: 'Resources' },
-  { title: 'All Tutorials', href: 'https://learn.hashicorp.com/search' },
-  {
-    title: 'Community Forum',
-    href: 'https://discuss.hashicorp.com/',
-  },
-  {
-    title: 'Support',
-    href: 'https://www.hashicorp.com/customer-success',
-  },
-  { title: 'GitHub', href: 'https://github.com/hashicorp/' },
-]
 
 const Sidebar = ({
   backToLinkProps,
@@ -47,6 +38,7 @@ const Sidebar = ({
   title,
   visuallyHideTitle = false,
 }: SidebarProps): ReactElement => {
+  const currentProduct = useCurrentProduct()
   const { shouldRenderMobileControls } = useSidebarNavData()
   const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
   const [filterValue, setFilterValue] = useState('')
@@ -77,7 +69,7 @@ const Sidebar = ({
     sidebarFilterInput = (
       <div
         className={classNames(s.filterInputWrapper, {
-          [s['filerInputWrapper--mobile']]: shouldRenderMobileControls,
+          [s['filterInputWrapper--mobile']]: shouldRenderMobileControls,
         })}
       >
         <SidebarFilterInput value={filterValue} onChange={setFilterValue} />
@@ -86,7 +78,7 @@ const Sidebar = ({
   }
 
   let overviewItem
-  if (overviewItemHref) {
+  if (overviewItemHref && !filterValue) {
     overviewItem = (
       <SidebarNavLinkItem
         item={{
@@ -128,7 +120,7 @@ const Sidebar = ({
         {sidebarContent}
         <SidebarHorizontalRule />
         <ul className={s.navList}>
-          {RESOURCES_NAV_ITEMS.map((item, index) => (
+          {generateResourcesNavItems(currentProduct.slug).map((item, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <SidebarNavMenuItem item={item} key={index} />
           ))}

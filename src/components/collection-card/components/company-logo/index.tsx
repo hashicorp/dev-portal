@@ -11,8 +11,8 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
 
   const src =
     name === 'terraform-cloud'
-      ? require('@hashicorp/mktg-logos/product/terraform-cloud/primary/color.svg')
-      : require(`./img/${name}.png`)
+      ? require('@hashicorp/mktg-logos/product/terraform-cloud/primary/color.svg?url')
+      : require(`./img/${name}.png?url`)
 
   return (
     <span className={s.root}>

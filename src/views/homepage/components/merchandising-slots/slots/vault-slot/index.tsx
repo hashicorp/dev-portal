@@ -8,7 +8,10 @@ import s from './vault-slot.module.css'
 
 function VaultSlot() {
   return (
-    <CardLink href="/" className={s.root}>
+    <CardLink
+      href="/vault/tutorials/cloud/vault-introduction"
+      className={s.root}
+    >
       <VisuallyHidden as="h2">Vault</VisuallyHidden>
       <div className={s.logo}>
         <Image src={logo} width={118} height={50} alt="" />

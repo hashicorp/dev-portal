@@ -5,12 +5,14 @@ import s from './hero.module.css'
 
 interface HeroWithVideoProps extends HeroProps {
   videoUrl: string
+  videoImageUrl?: string
 }
 
 function HeroWithVideo({
   badgeText,
   heading,
   description,
+  videoImageUrl,
   videoUrl,
 }: HeroWithVideoProps) {
   return (
@@ -20,7 +22,12 @@ function HeroWithVideo({
       heading={heading}
       description={description}
     >
-      <VideoEmbed url={videoUrl} />
+      <VideoEmbed
+        className={s.videoEmbed}
+        light={videoImageUrl ?? true}
+        playing
+        url={videoUrl}
+      />
     </Hero>
   )
 }
