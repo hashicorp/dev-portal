@@ -1,18 +1,12 @@
 module.exports = {
   extends: ['@hashicorp/platform-cli/config/stylelint.config'],
-  plugins: ['./stylelint-rules/no-undeclared-hds-color-tokens.js'],
+  plugins: [
+    './stylelint-rules/no-undeclared-hds-color-tokens.js',
+    './stylelint-rules/no-removed-outlines.js',
+  ],
   rules: {
     'digital-plugin/no-undeclared-hds-color-tokens': true,
-    'declaration-property-value-disallowed-list': [
-      {
-        outline: ['none', '/^0/'],
-      },
-      {
-        disableFix: true,
-        message:
-          'Do not remove outlines. Set them to be transparent instead. Removing outlines makes focus indicators inaccessible in high contrast modes.',
-        reportDisables: true,
-      },
-    ],
+    'digital-plugin/no-removed-outlines': [true, { reportDisables: true }],
+    'length-zero-no-unit': true /* needed by digital-plugin/no-removed-outlines */,
   },
 }
