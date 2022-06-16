@@ -3,6 +3,8 @@ import { AnimatePresence, m as motion, useReducedMotion } from 'framer-motion'
 import { DialogProps } from './types'
 import s from './dialog.module.css'
 
+const AnimatedDialogOverlay = motion(DialogOverlay)
+
 export default function Dialog({
   children,
   isOpen,
@@ -10,7 +12,6 @@ export default function Dialog({
   label,
 }: DialogProps) {
   const shouldReduceMotion = useReducedMotion()
-  const AnimatedDialogOverlay = motion(DialogOverlay)
 
   return (
     <AnimatePresence>
