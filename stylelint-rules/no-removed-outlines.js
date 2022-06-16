@@ -12,8 +12,6 @@ const messages = ruleMessages(ruleName, {
     'Do not remove outlines. Set them to be transparent instead. Removing outlines makes focus indicators inaccessible in high contrast modes.',
 })
 
-module.exports.ruleName = ruleName
-module.exports.messages = messages
 module.exports = stylelint.createPlugin(
   ruleName,
   function ruleFunction(primaryOption) {
@@ -40,27 +38,30 @@ module.exports = stylelint.createPlugin(
        * ref: https://postcss.org/api/#atrule-walkdecls
        */
       postcssRoot.walkDecls(
-        /^(outline|outline-width|outline-style)$/,
+        /^(outline|outline-style|outline-width)$/,
         (decl) => {
           const { prop, value } = decl
 
           // Split for `outline`, which can have many parts.
           const valueParts = value.split(' ')
 
-          // Validate each part in `value`. Usually just one part.
-          valueParts.forEach((valuePart) => {
-            if (valuePart === 'none' || valuePart === '0') {
-              report({
-                ruleName,
-                result: postcssResult,
-                message: messages.error,
-                node: decl,
-                word: prop,
-              })
-            }
-          })
+          // Check for an invalid part in `value`
+          const invalidPart = valueParts.find(
+            (valuePart) => valuePart === 'none' || valuePart === '0'
+          )
+          if (invalidPart) {
+            report({
+              ruleName,
+              result: postcssResult,
+              message: messages.error,
+              node: decl,
+              word: prop,
+            })
+          }
         }
       )
     }
   }
 )
+module.exports.ruleName = ruleName
+module.exports.messages = messages
