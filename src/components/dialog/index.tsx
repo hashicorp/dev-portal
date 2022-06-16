@@ -14,14 +14,14 @@ export default function Dialog({
     <AnimatePresence>
       {isOpen && (
         <AnimatedDialogOverlay
-          className={s.dialogOverlay}
+          className={s.animatedDialogOverlay}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onDismiss={onDismiss}
         >
           <DialogOverlay
-            className={s.overlay}
+            className={s.dialogOverlay}
             isOpen={isOpen}
             onDismiss={onDismiss}
           >
