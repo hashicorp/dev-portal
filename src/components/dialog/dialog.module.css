@@ -12,7 +12,7 @@
 }
 
 .dialogOverlay {
-  background-color: var(--token-color-border-strong);
+  background: var(--token-color-border-strong);
   z-index: 100;
 }
 
