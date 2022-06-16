@@ -1,5 +1,5 @@
 import { DialogOverlay, DialogContent } from '@reach/dialog'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { DialogProps } from './types'
 import s from './dialog.module.css'
 
@@ -9,7 +9,7 @@ export default function Dialog({
   onDismiss,
   label,
 }: DialogProps) {
-  const AnimatedDialogOverlay = motion(DialogOverlay)
+  const AnimatedDialogOverlay = m(DialogOverlay)
   return (
     <AnimatePresence>
       {isOpen && (
@@ -25,7 +25,7 @@ export default function Dialog({
             isOpen={isOpen}
             onDismiss={onDismiss}
           >
-            <motion.div
+            <m.div
               initial={{ y: 50 }}
               animate={{ y: 0 }}
               exit={{ y: 50 }}
@@ -34,7 +34,7 @@ export default function Dialog({
               <DialogContent className={s.content} aria-label={label}>
                 {children}
               </DialogContent>
-            </motion.div>
+            </m.div>
           </DialogOverlay>
         </AnimatedDialogOverlay>
       )}

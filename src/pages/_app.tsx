@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import { Toaster } from 'components/toast'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
+import { LazyMotion } from 'framer-motion'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
@@ -61,11 +62,20 @@ export default function App({ Component, pageProps, layoutProps }) {
               <CurrentProductProvider currentProduct={currentProduct}>
                 <CodeTabsProvider>
                   <HeadMetadata {...pageProps.metadata} />
-                  <Layout {...allLayoutProps} data={allLayoutProps}>
-                    <Component {...pageProps} />
-                  </Layout>
-                  <Toaster />
-                  {showProductSwitcher ? <PreviewProductSwitcher /> : null}
+                  <LazyMotion
+                    features={() =>
+                      import('lib/framer-motion-features').then(
+                        (mod) => mod.default
+                      )
+                    }
+                    strict={process.env.NODE_ENV === 'development'}
+                  >
+                    <Layout {...allLayoutProps} data={allLayoutProps}>
+                      <Component {...pageProps} />
+                    </Layout>
+                    <Toaster />
+                    {showProductSwitcher ? <PreviewProductSwitcher /> : null}
+                  </LazyMotion>
                 </CodeTabsProvider>
               </CurrentProductProvider>
             </AllProductDataProvider>
