@@ -1,15 +1,12 @@
-import { useEffect } from 'react'
-
 function TestErrorView() {
-  useEffect(() => {
-    setTimeout(() => {
-      throw new Error('This is a test error message.')
-    }, 3000)
-  }, [])
+  function throwError() {
+    throw new Error('This is a test error message.')
+  }
 
   return (
     <p style={{ color: 'red' }}>
-      This is a test error page. It will self-destruct soon. Sorry!
+      This is a test error page.{' '}
+      <button onClick={throwError}>Throw an error</button>
     </p>
   )
 }
