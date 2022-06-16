@@ -17,7 +17,7 @@ import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 import './style.css'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
-import { DevDotFallback } from 'views/error-views'
+import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
@@ -54,9 +54,7 @@ export default function App({ Component, pageProps, layoutProps }) {
   return (
     <>
       <SSRProvider>
-        <ErrorBoundary
-          FallbackComponent={() => <DevDotFallback statusCode="client" />}
-        >
+        <ErrorBoundary FallbackComponent={() => <DevDotClient />}>
           <DeviceSizeProvider>
             <AllProductDataProvider>
               <CurrentProductProvider currentProduct={currentProduct}>
