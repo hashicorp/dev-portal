@@ -1,24 +1,25 @@
 import type { CSSProperties, ReactElement } from 'react'
 import slugify from 'slugify'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import CollectionCard, {
+  CollectionCardPropsWithId,
+} from 'components/collection-card'
 import Heading from 'components/heading'
 import StandaloneLink from 'components/standalone-link'
-import TutorialCard from 'components/tutorial-card'
-import { TutorialCardProps } from 'components/tutorial-card/types'
 import s from './learn-section.module.css'
 
 interface LearnSectionProps {
   media: ReactElement
   heading: string
   description: ReactElement
-  tutorials: Array<TutorialCardProps>
+  collectionCards: CollectionCardPropsWithId[]
 }
 
 export default function LearnSection({
   media,
   heading,
   description,
-  tutorials,
+  collectionCards,
 }: LearnSectionProps) {
   return (
     <section className={s.learnSection}>
@@ -51,17 +52,15 @@ export default function LearnSection({
           className={s.tutorialsList}
           style={
             {
-              '--tutorials-count': tutorials.length,
+              '--collection-cards-count': collectionCards.length,
             } as CSSProperties
           }
         >
-          {tutorials.map((tutorial: TutorialCardProps) => {
+          {collectionCards.map((cardProps: CollectionCardPropsWithId) => {
+            const { id } = cardProps
             return (
-              <li
-                key={slugify(tutorial.heading, { lower: true })}
-                className={s.tutorialsListItem}
-              >
-                <TutorialCard {...tutorial} />
+              <li key={id} className={s.tutorialsListItem}>
+                <CollectionCard {...cardProps} />
               </li>
             )
           })}
