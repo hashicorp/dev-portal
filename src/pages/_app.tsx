@@ -6,7 +6,6 @@ import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 import { LazyMotion } from 'framer-motion'
-// import { Notifications } from '@hashicorp/react-notification'
 import {
   AllProductDataProvider,
   CurrentProductProvider,
@@ -73,7 +72,6 @@ export default function App({ Component, pageProps, layoutProps }) {
                     <Layout {...allLayoutProps} data={allLayoutProps}>
                       <Component {...pageProps} />
                     </Layout>
-                    {/* <Notifications anchor="right" /> */}
                     {showProductSwitcher ? <PreviewProductSwitcher /> : null}
                   </LazyMotion>
                 </CodeTabsProvider>
