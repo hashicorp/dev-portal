@@ -3,7 +3,6 @@ import classNames from 'classnames'
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
-import { Notifications } from '@hashicorp/react-notification'
 
 // Global imports
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
@@ -51,7 +50,6 @@ const BaseNewLayout = ({
           </div>
         </div>
       </CoreDevDotLayout>
-      <Notifications anchor="right" />
       <ConsentManager />
     </>
   )
