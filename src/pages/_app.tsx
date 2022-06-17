@@ -68,7 +68,7 @@ export default function App({ Component, pageProps, layoutProps }) {
                         (mod) => mod.default
                       )
                     }
-                    strict={process.env.NODE_ENV === 'development'}
+                    strict
                   >
                     <Layout {...allLayoutProps} data={allLayoutProps}>
                       <Component {...pageProps} />
