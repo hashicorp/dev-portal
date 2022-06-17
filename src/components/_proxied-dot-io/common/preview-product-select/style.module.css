@@ -88,14 +88,14 @@ Two items to note:
   width: 100%;
 
   &:focus {
-    outline: none;
+    outline: transparent;
   }
 
   &:focus-visible {
     & .focusContainer {
       border: 1px solid #107dff;
       box-shadow: 0 0 0 3px #5fbcff;
-      outline: none;
+      outline: transparent;
     }
   }
 }
