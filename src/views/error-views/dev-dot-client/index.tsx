@@ -11,6 +11,10 @@ import {
  */
 export function DevDotClient({ error }: { error: Error }) {
   useEffect(() => {
+    /**
+     * Note: window.DD_RUM is expected to be initialized by lib/datadog,
+     * via layouts/core-dev-dot.
+     */
     if (typeof window.DD_RUM !== 'undefined') {
       window.DD_RUM.addError(error)
     }
