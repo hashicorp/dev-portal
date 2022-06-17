@@ -69,7 +69,7 @@ which results in a flash of incorrect layout.
 
   &:focus,
   &:focus-visible {
-    outline: none;
+    outline: transparent;
   }
 
   &:not(:disabled) {
