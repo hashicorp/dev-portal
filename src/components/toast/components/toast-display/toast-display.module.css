@@ -4,6 +4,7 @@
   box-shadow: var(--token-elevation-higher-box-shadow);
   display: flex;
   padding: 16px;
+  max-width: 404px;
 
   &.color-neutral {
     background: var(--token-color-surface-faint);
