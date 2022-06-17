@@ -23,16 +23,16 @@ const generateCommunityForumNavItem = (productSlug?: ProductSlug) => {
  * A dictionary of product slugs to GitHub links.
  */
 const GITHUB_LINKS_BY_SLUG: { [K in ProductSlug]: string } = {
-  boundary: 'https://www.github.com/hashicorp/boundary',
-  consul: 'https://www.github.com/hashicorp/consul',
-  hcp: 'https://www.github.com/hashicorp', // No specific repo to link to
-  nomad: 'https://www.github.com/hashicorp/nomad',
-  packer: 'https://www.github.com/hashicorp/packer',
-  sentinel: 'https://www.github.com/hashicorp', // No specific repo to link to
-  terraform: 'https://www.github.com/hashicorp/terraform',
-  vagrant: 'https://www.github.com/hashicorp/vagrant',
-  vault: 'https://www.github.com/hashicorp/vault',
-  waypoint: 'https://www.github.com/hashicorp/waypoint',
+  boundary: 'https://github.com/hashicorp/boundary',
+  consul: 'https://github.com/hashicorp/consul',
+  hcp: 'https://github.com/hashicorp', // No specific repo to link to
+  nomad: 'https://github.com/hashicorp/nomad',
+  packer: 'https://github.com/hashicorp/packer',
+  sentinel: 'https://github.com/hashicorp', // No specific repo to link to
+  terraform: 'https://github.com/hashicorp/terraform',
+  vagrant: 'https://github.com/hashicorp/vagrant',
+  vault: 'https://github.com/hashicorp/vault',
+  waypoint: 'https://github.com/hashicorp/waypoint',
 }
 
 /**
