@@ -1,18 +1,18 @@
 import { useState } from 'react'
 
 function TestErrorView() {
-  const [errorProneIndex, setErrorProneIndex] = useState(0)
+  const [shouldThrowError, setShouldThrowError] = useState(false)
 
-  const messages = [{ text: 'This is a test error page.' }]
-
-  function throwError() {
-    setErrorProneIndex(10)
+  if (shouldThrowError) {
+    throw new Error(
+      'This is a test error page, to test if errors are handled and tracked as we want them.'
+    )
   }
 
   return (
     <p style={{ color: 'red' }}>
-      {messages[errorProneIndex].text}{' '}
-      <button onClick={throwError}>Throw an error</button>
+      This is a test error page.
+      <button onClick={() => setShouldThrowError(true)}>Throw an error</button>
     </p>
   )
 }

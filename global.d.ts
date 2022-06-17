@@ -21,3 +21,12 @@ declare module '@hashicorp/react-search'
 declare const __config: Record<string, any>
 
 declare module '*.png'
+
+/**
+ * Declare types for window.analytics from segment
+ * NOTE: intended to override declaration from @hashicorp/platform-types
+ */
+interface Window {
+  analytics: SegmentAnalytics.AnalyticsJS
+  DD_RUM: $TSFixMe
+}

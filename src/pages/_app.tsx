@@ -54,7 +54,7 @@ export default function App({ Component, pageProps, layoutProps }) {
   return (
     <>
       <SSRProvider>
-        <ErrorBoundary FallbackComponent={() => <DevDotClient />}>
+        <ErrorBoundary FallbackComponent={DevDotClient}>
           <DeviceSizeProvider>
             <AllProductDataProvider>
               <CurrentProductProvider currentProduct={currentProduct}>
