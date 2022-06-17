@@ -18,9 +18,7 @@ export function DevDotClient({ error }: { error: Error }) {
      * via layouts/core-dev-dot.
      */
     if (typeof window.DD_RUM !== 'undefined') {
-      console.log('Logging error with DataDog...')
       window.DD_RUM.onReady(function () {
-        console.log('DD_RUM ready, logging error...')
         window.DD_RUM.addError(error)
       })
     }
