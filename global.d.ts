@@ -28,5 +28,9 @@ declare module '*.png'
  */
 interface Window {
   analytics: SegmentAnalytics.AnalyticsJS
+  /**
+   * TODO: We could install @datadog/browser-rum to get types here, I think?
+   * https://www.npmjs.com/package/@datadog/browser-rum
+   */
   DD_RUM: $TSFixMe
 }
