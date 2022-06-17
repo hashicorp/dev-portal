@@ -2,11 +2,10 @@ import React, { useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
+import { LazyMotion } from 'framer-motion'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
-import MotionConfig from '@hashicorp/react-motion-config'
-import { Notifications } from '@hashicorp/react-notification'
 import {
   AllProductDataProvider,
   CurrentProductProvider,
@@ -26,6 +25,14 @@ const PreviewProductSwitcher = dynamic(
   () => import('components/_proxied-dot-io/common/preview-product-select'),
   { ssr: false }
 )
+
+const Notifications = dynamic(
+  () =>
+    import('@hashicorp/react-notification').then(
+      (mod) => mod.Notifications
+    ) as any,
+  { ssr: false }
+) as any
 
 if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -62,13 +69,20 @@ export default function App({ Component, pageProps, layoutProps }) {
               <CurrentProductProvider currentProduct={currentProduct}>
                 <CodeTabsProvider>
                   <HeadMetadata {...pageProps.metadata} />
-                  <MotionConfig>
+                  <LazyMotion
+                    features={() =>
+                      import('lib/framer-motion-features').then(
+                        (mod) => mod.default
+                      )
+                    }
+                    strict={process.env.NODE_ENV === 'development'}
+                  >
                     <Layout {...allLayoutProps} data={allLayoutProps}>
                       <Component {...pageProps} />
                     </Layout>
                     {showProductSwitcher ? <PreviewProductSwitcher /> : null}
                     <Notifications anchor="right" />
-                  </MotionConfig>
+                  </LazyMotion>
                 </CodeTabsProvider>
               </CurrentProductProvider>
             </AllProductDataProvider>
