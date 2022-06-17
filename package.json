@@ -113,7 +113,7 @@
     "@hashicorp/react-markdown-page": "^1.5.0",
     "@hashicorp/react-min-100-layout": "^2.0.1",
     "@hashicorp/react-motion-config": "^0.1.1",
-    "@hashicorp/react-notification": "^0.3.0-canary-20220617124643",
+    "@hashicorp/react-notification": "^0.3.0-canary-20220617155153",
     "@hashicorp/react-open-api-page": "^2.0.1",
     "@hashicorp/react-product-downloads-page": "^2.8.1",
     "@hashicorp/react-product-features-list": "^5.0.1",
