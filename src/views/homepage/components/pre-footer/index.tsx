@@ -1,20 +1,24 @@
-import { ReactElement } from 'react'
+import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
+import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
+import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import slugify from 'slugify'
 import Heading from 'components/heading'
 import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
+import { PreFooterIconSlug, PreFooterAction, PreFooterProps } from './types'
 import s from './pre-footer.module.css'
 
-interface PreFooterProps {
-  heading: string
-  description: string
-  actions: Array<{
-    icon: ReactElement
-    heading: string
-    description: string
-    link: string
-  }>
+export function PreFooterIcon({ slug }: { slug: PreFooterIconSlug }) {
+  switch (slug) {
+    case 'support':
+      return <IconSupport24 color="var(--token-color-foreground-highlight)" />
+    case 'user':
+      return <IconUser24 color="var(--token-color-nomad-brand)" />
+    case 'help':
+    default:
+      return <IconHelp24 color="var(--token-color-packer-brand)" />
+  }
 }
 
 export default function PreFooter({
@@ -31,20 +35,19 @@ export default function PreFooter({
           </Heading>
           <Text className={s.description}>{description}</Text>
         </div>
-
         <div className={s.actions}>
           <ul className={s.actionsList}>
-            {actions.map((action) => {
-              const slug = slugify(action.heading)
+            {actions.map((action: PreFooterAction) => {
               return (
-                <li className={s.actionsListItem} key={slug}>
-                  <span className={s.actionsIcon}>{action.icon}</span>
+                <li className={s.actionsListItem} key={slugify(action.heading)}>
+                  <span className={s.actionsIcon}>
+                    <PreFooterIcon slug={action.icon} />
+                  </span>
                   <div>
                     <Heading
                       level={2}
                       size={300}
                       weight="bold"
-                      id={slug}
                       className={s.actionsHeading}
                     >
                       {action.heading}

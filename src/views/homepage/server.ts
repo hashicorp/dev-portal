@@ -1,40 +1,40 @@
-import { Collection } from 'lib/learn-client/types'
-import { getCollections } from 'lib/learn-client/api/collection'
-import { formatCollectionCard } from 'components/collection-card/helpers'
+import fs from 'fs'
+import path from 'path'
+import { HomePageProps } from './types'
 import {
-  GenerateStaticPropsOptions,
-  GenerateStaticPropsOptionsResult,
-} from './types'
+  HomePageAuthoredContent,
+  HomePageAuthoredContentSchema,
+} from './content-schema'
+import { validateAgainstSchema } from 'lib/validate-against-schema'
+import { transformRawContent } from './helpers/transform-raw-content'
 
 const generateStaticProps = async (
-  pageContent: GenerateStaticPropsOptions
-): Promise<GenerateStaticPropsOptionsResult> => {
-  // Destructure data needed from given `pageContent`
-  const { collectionSlugs } = pageContent
+  contentJsonFile: string
+): Promise<{ props: HomePageProps }> => {
+  /**
+   * Note: could consider other content sources. For now, JSON.
+   * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
+   */
+  const jsonFilePath = path.join(process.cwd(), contentJsonFile)
+  const authoredContent = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 
-  // Check that `collectionSlugs` have been specified
-  if (!collectionSlugs || collectionSlugs.length <= 0) {
-    throw new Error(
-      '`HomePageView` requires `collectionSlugs` to be defined in `src/pages/content.json` but none were provided.'
-    )
-  }
+  /**
+   * Validate that authored content is in the expected format.
+   * This includes a type guard for content structure.
+   */
+  validateAgainstSchema<HomePageAuthoredContent>(
+    authoredContent,
+    HomePageAuthoredContentSchema,
+    './src/pages/content.json'
+  )
 
-  // Fetch the collections specified
-  const collections = await getCollections(collectionSlugs)
+  /**
+   * Transform raw content into a content prop
+   */
+  const content = await transformRawContent(authoredContent)
 
-  // Transform collection entries into card data with `collectionSlugs` order
-  const collectionCards = collectionSlugs.map((collectionSlug: string) => {
-    const thisCollection = collections.find(
-      (collection: Collection) => collection.slug === collectionSlug
-    )
-    return formatCollectionCard(thisCollection)
-  })
-
-  // Return props for the view
   return {
-    props: {
-      collectionCards,
-    },
+    props: { content },
   }
 }
 

@@ -2,9 +2,10 @@ import Image from 'next/image'
 import VisuallyHidden from '@reach/visually-hidden'
 import CardLink from 'components/card-link'
 import Text from 'components/text'
+import { HashiConfGlobalSlotProps } from './types'
 import s from './hashiconf-global-slot.module.css'
 
-function HashiConfGlobalSlot() {
+function HashiConfGlobalSlot({ description }: HashiConfGlobalSlotProps) {
   return (
     <CardLink
       href="https://hashiconf.com/global/"
@@ -19,12 +20,11 @@ function HashiConfGlobalSlot() {
         alt=""
       />
       <Text className={s.description} weight="bold">
-        Two days of inspirational speakers, community connection, and a
-        front-row seat to future of cloud.
+        {description}
       </Text>
       <footer className={s.footer}>
         <Text weight="medium">
-          October 4-6, 2O22 (PST) <br /> Los Angeles & Virtual
+          October 4-6, 2O22 (PST) <br /> Los Angeles &amp; Virtual
         </Text>
         <Text weight="medium">hashiconf.com</Text>
       </footer>
