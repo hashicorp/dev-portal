@@ -21,3 +21,16 @@ declare module '@hashicorp/react-search'
 declare const __config: Record<string, any>
 
 declare module '*.png'
+
+/**
+ * Declare types for window.analytics from segment
+ * NOTE: intended to override declaration from @hashicorp/platform-types
+ */
+interface Window {
+  analytics: SegmentAnalytics.AnalyticsJS
+  /**
+   * TODO: We could install @datadog/browser-rum to get types here, I think?
+   * https://www.npmjs.com/package/@datadog/browser-rum
+   */
+  DD_RUM: $TSFixMe
+}
