@@ -5,7 +5,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
-import { LazyMotion, m } from 'framer-motion'
+import { LazyMotion, m, AnimatePresence } from 'framer-motion'
 import {
   AllProductDataProvider,
   CurrentProductProvider,
@@ -69,12 +69,14 @@ export default function App({ Component, pageProps, layoutProps }) {
                     }
                     strict
                   >
-                    <m.div
-                      style={{
-                        width: 100,
-                        height: 100,
-                      }}
-                    />
+                    <AnimatePresence>
+                      <m.div
+                        style={{
+                          width: 100,
+                          height: 100,
+                        }}
+                      />
+                    </AnimatePresence>
                     <Layout {...allLayoutProps} data={allLayoutProps}>
                       <Component {...pageProps} />
                     </Layout>
