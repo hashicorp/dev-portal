@@ -1,12 +1,6 @@
 // Third-party imports
 import { ReactElement } from 'react'
 
-// HashiCorp imports
-import { IconSupport24 } from '@hashicorp/flight-icons/svg-react/support-24'
-import { IconHelp24 } from '@hashicorp/flight-icons/svg-react/help-24'
-import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
-import InlineSvg from '@hashicorp/react-inline-svg'
-
 // Global imports
 import { productSlugs } from 'lib/products'
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
@@ -16,17 +10,16 @@ import MobileMenuContainer from 'components/mobile-menu-container'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 
 // Local imports
-import { HomePageContentProps, HomePageViewProps } from './types'
+import { HomePageProps, HomePageContentProps } from './types'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
-import { HeroWithVideo, HeroWithActions } from './components/hero'
+import { HeroWithVideo } from './components/hero'
 import {
   HashiConfGlobalSlot,
   VaultSlot,
 } from './components/merchandising-slots/slots'
-import badge from './img/vault-certified-expert-badge.svg?include'
 import s from './homepage.module.css'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
@@ -45,122 +38,55 @@ const HomePageMobileMenu = () => {
   )
 }
 
-const HomePageContent = ({ collectionCards }: HomePageContentProps) => {
+const HomePageContent = ({
+  hero,
+  merchandising,
+  learnSection,
+  preFooter,
+  navNotice,
+}: HomePageContentProps) => {
   return (
     <div className={s.homepageContent}>
-      {/* <HeroWithActions
-        badgeText="Beta"
-        heading="HashiCorp Developer"
-        description={
-          <>
-            <Text>
-              Learn at your own pace in one place with reference docs, step by
-              step tutorials, videos, and real hands-on lab workstations to
-              automate your infrastructure, networking, and security workflows.
-            </Text>
-          </>
-        }
-        actions={[
-          {
-            heading: 'This is a pretty long  CTA headline for this area',
-            description:
-              'This is supporting docs or left cta copy for hero section. This is also a lot of supporting copy for such a small area.',
-            link: '/',
-            linkText: 'Get started',
-          },
-          {
-            heading: 'This headline could literally be anything',
-            description:
-              'This is supporting docs or left cta copy for hero section. This is also a lot of supporting copy for such a small area.',
-            link: '/',
-            linkText: 'Get started',
-          },
-        ]}
-      /> */}
       <HeroWithVideo
-        badgeText="Beta"
-        heading="HashiCorp Developer"
-        description={
-          <>
-            <Text>
-              Learn at your own pace in one place with reference docs, step by
-              step tutorials, videos, and real hands-on lab workstations to
-              automate your infrastructure, networking, and security workflows.
-            </Text>
-          </>
-        }
+        badgeText={hero.badgeText}
+        heading={hero.heading}
+        description={<Text>{hero.description}</Text>}
         videoUrl="https://hashicorp.wistia.com/medias/031h9iogzx"
         videoImageUrl="https://embed-ssl.wistia.com/deliveries/b65febe71ccfb5ded8d3958b1cf1ec61.jpg?image_crop_resized=960x540"
       />
-
-      <ProductNav
-        notice="All HashiCorp products are being added and will be available here."
-        products={productNavSlugs}
-      />
-
+      <ProductNav notice={navNotice} products={productNavSlugs} />
       <MerchandisingSlots>
-        <VaultSlot />
-        <HashiConfGlobalSlot />
+        <VaultSlot
+          url={merchandising.vault.url}
+          cardTitle={merchandising.vault.cardTitle}
+          description={merchandising.vault.description}
+          ctaText={merchandising.vault.ctaText}
+        />
+        <HashiConfGlobalSlot
+          description={merchandising.hashiconfGlobal.description}
+        />
       </MerchandisingSlots>
-
       <LearnSection
-        media={<InlineSvg src={badge} />}
-        heading="Become HashiCorp Vault Certified"
-        description={
-          <>
-            <Text size={300}>
-              As a Cloud Engineer specializing in security, development, or
-              operations, you can take the Vault Associate exam to validate your
-              knowledge of the basic concepts, skills, and use cases associated
-              with open source HashiCorp Vault. Or take the Vault Operations
-              Professional exam to demonstrate your proficiency with deploying,
-              configuring, managing, and monitoring HashiCorp Vault in
-              production.
-            </Text>
-            <Text size={300}>
-              Upon passing either exam, you can easily communicate your
-              proficiency and employers can quickly verify your results.
-            </Text>
-          </>
-        }
-        collectionCards={collectionCards}
+        imageSrc={learnSection.imageSrc}
+        heading={learnSection.heading}
+        description={learnSection.description}
+        collectionCards={learnSection.collectionCards}
+        link={learnSection.link}
       />
-
       <PreFooter
-        heading="Looking for help?"
-        description="We offer paid support, a free forum, and other community resources."
-        actions={[
-          {
-            icon: (
-              <IconSupport24 color="var(--token-color-foreground-highlight)" />
-            ),
-            heading: 'Support',
-            description: 'Open a support ticket',
-            link: 'https://support.hashicorp.com/hc/en-us',
-          },
-          {
-            icon: <IconHelp24 color="var(--token-color-packer-brand)" />,
-            heading: 'Forum',
-            description: 'Find your answer on the forum',
-            link: 'https://discuss.hashicorp.com/',
-          },
-          {
-            icon: <IconUser24 color="var(--token-color-nomad-brand)" />,
-            heading: 'Community',
-            description: 'Join our community',
-            link: 'https://www.hashicorp.com/community',
-          },
-        ]}
+        heading={preFooter.heading}
+        description={preFooter.description}
+        actions={preFooter.actions}
       />
     </div>
   )
 }
 
-function HomePageView({ collectionCards }: HomePageViewProps): ReactElement {
+function HomePageView({ content }: HomePageProps): ReactElement {
   return (
     <div className={s.homepage}>
       <HomePageMobileMenu />
-      <HomePageContent collectionCards={collectionCards} />
+      <HomePageContent {...content} />
     </div>
   )
 }

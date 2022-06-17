@@ -1,4 +1,4 @@
-import type { HeroProps } from './hero'
+import type { HeroProps } from './types'
 import classNames from 'classnames'
 import slugify from 'slugify'
 import Link from 'next/link'
