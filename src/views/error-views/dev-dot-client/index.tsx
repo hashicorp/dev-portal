@@ -1,3 +1,5 @@
+import Head from 'next/head'
+import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
 import { useEffect } from 'react'
 import {
   ErrorViewContainer,
@@ -16,18 +18,25 @@ export function DevDotClient({ error }: { error: Error }) {
      * via layouts/core-dev-dot.
      */
     if (typeof window.DD_RUM !== 'undefined') {
+      console.log('Logging error with DataDog...')
       window.DD_RUM.addError(error)
     }
   }, [error])
 
   return (
-    <ErrorViewContainer>
-      <ErrorViewH1>Something went wrong.</ErrorViewH1>
-      <ErrorViewParagraph>
-        We&apos;re sorry, but we&apos;ve run into an unexpected issue.
-        We&apos;ve logged this as an error, and will look into it. Please reload
-        the page, or check back later.
-      </ErrorViewParagraph>
-    </ErrorViewContainer>
+    <>
+      <Head>
+        <DatadogHeadTag />
+      </Head>
+      <ErrorViewContainer>
+        <ErrorViewH1>Something went wrong.</ErrorViewH1>
+        <ErrorViewParagraph>
+          We&apos;re sorry, but we&apos;ve run into an unexpected issue.
+          We&apos;ve logged this as an error, and will look into it. Please
+          reload the page, or check back later.
+        </ErrorViewParagraph>
+      </ErrorViewContainer>
+      <DatadogScriptTag />
+    </>
   )
 }
