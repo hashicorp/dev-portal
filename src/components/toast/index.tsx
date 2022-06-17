@@ -5,6 +5,7 @@ import Toaster from './components/toaster'
 import ToastDisplay from './components/toast-display'
 import { ToastDisplayProps, ToastColor } from './components/toast-display/types'
 import { ToastOptions } from './types'
+import s from './toast.module.css'
 
 const AUTO_DISMISS_DEFAULT_MS = 4000
 
@@ -71,7 +72,16 @@ function toast({
         />
       )
     },
-    { duration }
+    {
+      duration,
+      /**
+       * Note: in theory, style: { margin: 0 } should work here,
+       * and in fact should already be applied from ./components/toaster
+       * style settings, but in practice it does not seem to.
+       * We add a className that ensures margin actually gets set to 0.
+       */
+      className: s.removeMarginFix,
+    }
   )
 }
 
