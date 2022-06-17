@@ -52,7 +52,7 @@
     grid-column: 9 / -1;
   }
 
-  & svg {
+  & img {
     max-width: 100%;
   }
 }

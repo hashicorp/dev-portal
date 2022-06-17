@@ -2,14 +2,8 @@ import { ReactElement } from 'react'
 import classNames from 'classnames'
 import Badge from 'components/badge'
 import Heading from 'components/heading'
+import { HeroProps } from './types'
 import s from './hero.module.css'
-
-export interface HeroProps {
-  className?: string
-  badgeText?: string
-  heading: string
-  description: ReactElement
-}
 
 export default function Hero({
   className,
