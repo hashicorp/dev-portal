@@ -34,7 +34,7 @@
 
   &:focus,
   &:focus-visible {
-    outline: none;
+    outline: transparent;
   }
 
   &:not(:disabled) {
