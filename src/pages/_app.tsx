@@ -5,7 +5,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
-import { LazyMotion } from 'framer-motion'
+import MotionConfig from '@hashicorp/react-motion-config'
 import { Notifications } from '@hashicorp/react-notification'
 import {
   AllProductDataProvider,
@@ -62,20 +62,13 @@ export default function App({ Component, pageProps, layoutProps }) {
               <CurrentProductProvider currentProduct={currentProduct}>
                 <CodeTabsProvider>
                   <HeadMetadata {...pageProps.metadata} />
-                  <LazyMotion
-                    features={() =>
-                      import('lib/framer-motion-features').then(
-                        (mod) => mod.default
-                      )
-                    }
-                    strict
-                  >
+                  <MotionConfig>
                     <Layout {...allLayoutProps} data={allLayoutProps}>
                       <Component {...pageProps} />
                     </Layout>
                     {showProductSwitcher ? <PreviewProductSwitcher /> : null}
                     <Notifications anchor="right" />
-                  </LazyMotion>
+                  </MotionConfig>
                 </CodeTabsProvider>
               </CurrentProductProvider>
             </AllProductDataProvider>
