@@ -11,7 +11,6 @@
     }
   },
   "flags": {
-    "enable_product_docs_search": true,
-    "enable_io_beta_cta": false
+    "enable_product_docs_search": true
   }
 }
