@@ -1,3 +1,7 @@
-import { domMax } from 'framer-motion'
+import { domAnimation } from 'framer-motion'
+import { layoutFeatures } from 'framer-motion/dist/es/motion/features/layout'
 
-export default domMax
+export default {
+  ...domAnimation,
+  ...layoutFeatures,
+}
