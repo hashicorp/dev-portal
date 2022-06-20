@@ -13,18 +13,6 @@
   }
 }
 
-.mobileMenuContainer {
-  padding: 24px;
-  z-index: 2;
-}
-
-.mobileMenuNavList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
 .homepageContent {
   z-index: 1;
 }
