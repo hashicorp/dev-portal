@@ -70,6 +70,8 @@ const Tabs = ({
     <TabNestingProvider>
       <div ref={overflowRef}>
         <div
+          // TODO - move to a class if we keep it
+          style={{ opacity: hasOverflow === null ? 0 : 1 }}
           className={classNames(s.tabControls, {
             [s.showAnchorLine]: showAnchorLine,
             [s.allowNestedStyles]: allowNestedStyles,
