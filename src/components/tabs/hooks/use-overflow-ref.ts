@@ -23,10 +23,10 @@ MutationObserver Compatibility (https://developer.mozilla.org/en-US/docs/Web/API
 */
 
 export default function useOverflowRef<T extends HTMLElement>(): [
-  boolean,
+  null | boolean,
   Ref<T>
 ] {
-  const [[hasOverflow, scrollWidth], setState] = useState([false, 0])
+  const [[hasOverflow, scrollWidth], setState] = useState([null, 0])
 
   const overflowRef = useCallback(
     (target: T) => {
