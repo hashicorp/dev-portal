@@ -3,11 +3,8 @@ import { ReactElement } from 'react'
 
 // Global imports
 import { productSlugs } from 'lib/products'
-import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
-import MobileMenuContainer from 'components/mobile-menu-container'
-import { SidebarNavMenuItem } from 'components/sidebar/components'
 
 // Local imports
 import { HomePageProps, HomePageContentProps } from './types'
@@ -23,20 +20,6 @@ import {
 import s from './homepage.module.css'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
-
-const HomePageMobileMenu = () => {
-  return (
-    <MobileMenuContainer className={s.mobileMenuContainer}>
-      <ul className={s.mobileMenuNavList}>
-        <SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
-        {generateTopLevelSubNavItems().map((item: $TSFixMe, index: number) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <SidebarNavMenuItem item={item} key={index} />
-        ))}
-      </ul>
-    </MobileMenuContainer>
-  )
-}
 
 const HomePageContent = ({
   hero,
@@ -85,7 +68,6 @@ const HomePageContent = ({
 function HomePageView({ content }: HomePageProps): ReactElement {
   return (
     <div className={s.homepage}>
-      <HomePageMobileMenu />
       <HomePageContent {...content} />
     </div>
   )
