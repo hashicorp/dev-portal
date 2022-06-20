@@ -19,6 +19,7 @@ function getDomainFromProductSlug(productSlug: string) {
  * ```ts
  * getCanonicalUrlForDocsPage({ baseRoute: 'docs', currentPath: 'upgrade/compatibility', productSlug: 'waypoint' })
  * // returns https://www.waypointproject.io/docs/upgrade/compatibility
+ * ```
  */
 export function getCanonicalUrlForDocsPage({
   baseRoute,
