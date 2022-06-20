@@ -2,7 +2,7 @@ import { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
   setupFilesAfterEnv: ['<rootDir>/.test/setup-jest.js'],
-  roots: ['config', 'src', 'build-libs'],
+  roots: ['config', 'src', 'build-libs', 'stylelint-rules'],
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
