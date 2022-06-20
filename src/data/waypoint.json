@@ -15,7 +15,7 @@
     "image": "/waypoint-public/img/og-image.png",
     "icon": [
       {
-        "href": "/waypoint/_favicon.ico"
+        "href": "/waypoint-public/_favicon.ico"
       }
     ]
   },

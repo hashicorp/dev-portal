@@ -10,11 +10,8 @@ import {
 } from 'components/sidebar/helpers'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { ProductLandingContent, ProductLandingContentSchema } from './schema'
-import {
-  validateAgainstSchema,
-  transformRawContentToProp,
-  extractHeadings,
-} from './helpers'
+import { validateAgainstSchema } from 'lib/validate-against-schema'
+import { transformRawContentToProp, extractHeadings } from './helpers'
 import { ProductLandingViewProps } from './types'
 
 async function generateStaticProps({
