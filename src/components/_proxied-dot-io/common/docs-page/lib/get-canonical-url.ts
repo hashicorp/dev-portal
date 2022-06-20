@@ -30,17 +30,18 @@ export function getCanonicalUrlForDocsPage({
   currentPath: string
   productSlug: string
 }) {
-  const canonicalUrl = new URL(
-    [baseRoute, currentPath].filter(Boolean).join('/'),
-    // stub in a domain, we will replace it below
-    'https://hashicorp.com'
-  )
   const productDomain = getDomainFromProductSlug(productSlug)
 
   // ensure we don't serve an incorrect canonical URL
   if (!productDomain) {
     return
   }
+
+  const canonicalUrl = new URL(
+    [baseRoute, currentPath].filter(Boolean).join('/'),
+    // stub in a domain, we will replace it below
+    'https://hashicorp.com'
+  )
 
   canonicalUrl.hostname = productDomain
 
