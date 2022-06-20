@@ -16,7 +16,7 @@
     "image": "/consul/img/og-image.png",
     "icon": [
       {
-        "href": "/consul/_favicon.ico"
+        "href": "https://www.consulproject.io/consul/_favicon.ico"
       }
     ]
   },
