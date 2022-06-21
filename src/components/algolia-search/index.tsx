@@ -60,6 +60,23 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
       onStateChange({ state }) {
         setAutocompleteState(state)
       },
+      shouldPanelOpen({ state }) {
+        /**
+         * The default behavior only opens the panel when there are collection items[]
+         * this overrides to show when there's a query but no hits (iow 'no results')
+         *
+         * Note: this code assumes there is only one collection (current behavior)
+         *  */
+        const hasResults = state.collections[0]?.items.length > 0
+        const showNoResults =
+          Boolean(state.query) && state.collections[0]?.items.length === 0
+
+        if (hasResults || showNoResults) {
+          return true
+        } else {
+          return false
+        }
+      },
       navigator,
       ...props,
     })
@@ -158,7 +175,7 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
           />
         )}
       </form>
-      {(autocompleteState.isOpen || autocompleteState.query) && (
+      {autocompleteState.isOpen && (
         <Panel
           autocomplete={autocomplete}
           collections={autocompleteState.collections}
