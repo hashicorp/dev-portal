@@ -1,24 +1,23 @@
-import { CollectionCardPropsWithId } from 'components/collection-card'
+import { HeroProps } from './components/hero/types'
+import { LearnSectionProps } from './components/learn-section/types'
+import { HashiConfGlobalSlotProps } from './components/merchandising-slots/slots/hashiconf-global-slot/types'
+import { VaultSlotProps } from './components/merchandising-slots/slots/vault-slot/types'
+import { PreFooterProps } from './components/pre-footer/types'
+import { HomePageAuthoredContent } from './content-schema'
 
 interface HomePageContentProps {
-  collectionCards: CollectionCardPropsWithId[]
+  hero: Omit<HeroProps, 'description'> & { description: string }
+  navNotice: string
+  learnSection: LearnSectionProps
+  merchandising: {
+    vault: VaultSlotProps
+    hashiconfGlobal: HashiConfGlobalSlotProps
+  }
+  preFooter: PreFooterProps
 }
 
-interface HomePageViewProps {
-  collectionCards: HomePageContentProps['collectionCards']
+interface HomePageProps {
+  content: HomePageContentProps
 }
 
-interface GenerateStaticPropsOptions {
-  collectionSlugs: string[]
-}
-
-interface GenerateStaticPropsOptionsResult {
-  props: HomePageViewProps
-}
-
-export type {
-  GenerateStaticPropsOptions,
-  GenerateStaticPropsOptionsResult,
-  HomePageContentProps,
-  HomePageViewProps,
-}
+export type { HomePageAuthoredContent, HomePageContentProps, HomePageProps }

@@ -26,7 +26,6 @@ export const generateTopLevelSubNavItems = () => {
     const isBetaProduct = getIsBetaProduct(productSlug)
     if (isBetaProduct) {
       navItem.href = `/${productSlug}`
-      navItem.badge = { color: 'highlight', text: 'Beta' }
       betaProductItems.push(navItem)
     } else {
       navItem.ariaLabel = `Coming soon: ${title}`
@@ -39,6 +38,7 @@ export const generateTopLevelSubNavItems = () => {
       leadingIconName: 'home',
       title: 'HashiCorp Developer',
       href: '/',
+      badge: { color: 'highlight', text: 'Beta' },
     },
     { divider: true },
     { heading: 'Products' },

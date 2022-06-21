@@ -1,12 +1,10 @@
 import { GetStaticProps } from 'next'
-import BaseNewLayout from 'layouts/base-new'
 import HomePageView from 'views/homepage'
 import { generateStaticProps } from 'views/homepage/server'
-import pageContent from './content.json'
 
 export const getStaticProps: GetStaticProps = async () => {
-  return generateStaticProps(pageContent)
+  const contentJsonFile = 'src/pages/content.json'
+  return generateStaticProps(contentJsonFile)
 }
 
-HomePageView.layout = BaseNewLayout
 export default HomePageView

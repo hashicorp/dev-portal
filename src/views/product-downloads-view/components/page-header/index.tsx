@@ -25,7 +25,7 @@ const PageHeader = (): ReactElement => {
           currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
         }
       />
-      <div className={s.pageHeaderText}>
+      <div>
         <Heading
           className={s.pageHeaderTitle}
           level={1}
