@@ -1,4 +1,4 @@
-import TEST_CASES from './test-cases'
+import TEST_CASES from '../_test-cases'
 import isBoolean from '../is-boolean'
 
 describe('stylelint-rules/lib/isBoolean', () => {
