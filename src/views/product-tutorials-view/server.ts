@@ -104,6 +104,9 @@ export async function getProductTutorialsViewProps(
   const { description, docsUrl, id, name, slug } = product
   return {
     props: stripUndefinedProperties({
+      metadata: {
+        title: 'Tutorials',
+      },
       data: {
         pageData,
         allCollections: sitemapCollections,

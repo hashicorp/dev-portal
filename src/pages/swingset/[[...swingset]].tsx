@@ -25,9 +25,11 @@ const SwingsetPage = createPage({ components })
 const SwingsetLayout = ({ children }) => {
   return (
     // SidebarNavDataProvider is needed for the Sidebar docs to work
-    <SidebarNavDataProvider navDataLevels={[]}>
-      <CoreDevDotLayout>{children}</CoreDevDotLayout>
-    </SidebarNavDataProvider>
+    <CoreDevDotLayout>
+      <SidebarNavDataProvider navDataLevels={[]}>
+        {children}
+      </SidebarNavDataProvider>
+    </CoreDevDotLayout>
   )
 }
 

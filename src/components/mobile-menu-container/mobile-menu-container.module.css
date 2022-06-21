@@ -1,0 +1,22 @@
+/*
+***
+* Takes a strict mobile-first approach and hides this container by default. The
+* show/hide functionality is all handled by framer in the JSX. All CSS can be
+* overwritten using the `className` prop to `MobileMenuContainer`.
+***
+*/
+.root {
+  background-color: white;
+  box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
+    0 12px 28px rgba(101, 106, 118, 0.25);
+  display: none;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: calc(100vh - var(--sticky-bars-height));
+  left: -150vw;
+  overflow-y: auto;
+  position: fixed;
+  top: var(--sticky-bars-height);
+  width: 100%;
+  z-index: 1;
+}

@@ -1,0 +1,3 @@
+.primarySubnavDropdownItemIcon {
+  color: var(--product-color, --token-color-foreground-primary);
+}

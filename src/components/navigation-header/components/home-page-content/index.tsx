@@ -23,10 +23,6 @@ const HomePageHeaderContent = () => {
     // Push the menu item to the correct array
     if (getIsBetaProduct(productSlug)) {
       betaProductItems.push({
-        badge: {
-          text: 'Beta',
-          color: 'highlight',
-        },
         icon,
         label,
         path,

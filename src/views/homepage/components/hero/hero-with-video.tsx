@@ -1,16 +1,18 @@
-import type { HeroProps } from './hero'
+import type { HeroProps } from './types'
 import Hero from './hero'
 import VideoEmbed from 'components/video-embed'
 import s from './hero.module.css'
 
 interface HeroWithVideoProps extends HeroProps {
   videoUrl: string
+  videoImageUrl?: string
 }
 
 function HeroWithVideo({
   badgeText,
   heading,
   description,
+  videoImageUrl,
   videoUrl,
 }: HeroWithVideoProps) {
   return (
@@ -20,7 +22,12 @@ function HeroWithVideo({
       heading={heading}
       description={description}
     >
-      <VideoEmbed url={videoUrl} light />
+      <VideoEmbed
+        className={s.videoEmbed}
+        light={videoImageUrl ?? true}
+        playing
+        url={videoUrl}
+      />
     </Hero>
   )
 }

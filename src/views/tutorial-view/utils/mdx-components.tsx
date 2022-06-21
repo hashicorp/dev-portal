@@ -1,6 +1,3 @@
-// Third-party imports
-import { ReactNode } from 'react'
-
 // HashiCorp imports
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 
@@ -16,32 +13,16 @@ import {
   MdxOrderedList,
   MdxUnorderedList,
   MdxListItem,
-} from 'components/dev-dot-content/mdx-components/mdx-lists'
-import Tabs, { Tab } from 'components/tabs'
+  MdxTabs,
+  MdxTab,
+  MdxTable,
+} from 'components/dev-dot-content/mdx-components'
 import Text from 'components/text'
 import VideoEmbed from 'components/video-embed'
-
-// Local imports
-import s from './mdx-components.module.css'
 
 const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
   theme: 'dark',
 })
-
-/**
- * In docs, we've renamed the `defaultTabIdx` prop to `initialActiveIndex`.
- * This option has no known current use in learn, so is being ignored for now.
- * If we were instead to pass Tabs directly, authors might start using
- * the renamed initialTabIndex prop, which would cause inconsistency with
- * docs.
- */
-function TabsWrapper({ children }: { children: ReactNode }) {
-  return (
-    <div className={s.tabsWrapper}>
-      <Tabs>{children}</Tabs>
-    </div>
-  )
-}
 
 /**
  * @TODO
@@ -56,8 +37,8 @@ const AccordionWrapper = ({ children, collapse, heading }) => {
 //  these components are automatically imported into scope within MDX content
 const MDX_COMPONENTS = {
   Accordion: AccordionWrapper,
-  Tabs: TabsWrapper,
-  Tab,
+  Tabs: MdxTabs,
+  Tab: MdxTab,
   pre,
   CodeBlockConfig,
   CodeTabs,
@@ -76,6 +57,7 @@ const MDX_COMPONENTS = {
   h5: (props) => makeHeadingElement(5, props),
   h6: (props) => makeHeadingElement(6, props),
   p: (props) => <Text {...props} className={devDotStyles.p} />,
+  table: MdxTable,
 }
 
 export default MDX_COMPONENTS

@@ -32,7 +32,7 @@ usual since .dialogArrow is rendered into a Portal. */
 
   /* More right padding accounts for "close" button */
   padding: 20px 40px 20px 20px;
-  outline: none;
+  outline: transparent;
   box-shadow: var(--box-shadow);
 }
 

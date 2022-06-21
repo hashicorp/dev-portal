@@ -4,21 +4,21 @@ import logo from '@hashicorp/mktg-logos/product/vault/primary/color.svg'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import CardLink from 'components/card-link'
 import Text from 'components/text'
+import { VaultSlotProps } from './types'
 import s from './vault-slot.module.css'
 
-function VaultSlot() {
+function VaultSlot({ url, cardTitle, description, ctaText }: VaultSlotProps) {
   return (
-    <CardLink href="/" className={s.root}>
-      <VisuallyHidden as="h2">Vault</VisuallyHidden>
+    <CardLink href={url} className={s.root}>
+      <VisuallyHidden as="h2">{cardTitle}</VisuallyHidden>
       <div className={s.logo}>
         <Image src={logo} width={118} height={50} alt="" />
       </div>
       <Text className={s.description} weight="bold">
-        Access Vault’s secrets management and encryption capabilities instantly
-        using the HCP portal
+        {description}
       </Text>
       <p className={s.cta}>
-        Learn more <IconArrowRight16 />
+        {ctaText} <IconArrowRight16 />
       </p>
     </CardLink>
   )

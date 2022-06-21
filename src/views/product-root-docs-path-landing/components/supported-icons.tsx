@@ -3,7 +3,7 @@ import { IconConnection16 } from '@hashicorp/flight-icons/svg-react/connection-1
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { IconTerminal16 } from '@hashicorp/flight-icons/svg-react/terminal-16'
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
-import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
+import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
 
 /**
  * @TODO raise to a higher level in the project for reuse?
@@ -14,5 +14,5 @@ export const SUPPORTED_ICONS = {
   guide: <IconGuide16 />,
   terminal: <IconTerminal16 />,
   'terminal-screen': <IconTerminalScreen16 />,
-  tools: <IconTools16 />,
+  api: <IconApi16 />,
 }

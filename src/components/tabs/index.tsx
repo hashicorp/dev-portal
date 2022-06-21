@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import { useOverflowRef, useTabItems, useSyncedTabGroups } from './hooks'
 import { TabItem, TabsProps } from './types'
+import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
 import s from './tabs.module.css'
 
 const Tabs = ({
@@ -11,6 +12,7 @@ const Tabs = ({
   children,
   initialActiveIndex = 0,
   showAnchorLine = true,
+  allowNestedStyles = false,
 }: TabsProps): ReactElement => {
   /**
    * TODO: this is a temporary measure until we are able to start requiring
@@ -22,6 +24,11 @@ const Tabs = ({
       'Both ariaLabel and ariaLabelledBy provided to Tabs component. Please only provide one.'
     )
   }
+
+  /**
+   * Track tab nesting level, for styling purposes
+   */
+  const isNested = useIsNested()
 
   /**
    * Track whether tabs are overflowing, so we can switch to a select.
@@ -60,37 +67,48 @@ const Tabs = ({
   const TabControls = hasOverflow ? TabDropdownControls : TabButtonControls
 
   return (
-    <div ref={overflowRef}>
-      <div
-        className={classNames(s.tabControls, {
-          [s.showAnchorLine]: showAnchorLine,
+    <TabNestingProvider>
+      <div ref={overflowRef}>
+        <div
+          className={classNames(s.tabControls, {
+            [s.showAnchorLine]: showAnchorLine,
+            [s.allowNestedStyles]: allowNestedStyles,
+          })}
+        >
+          <TabControls
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            tabItems={tabItems}
+            activeTabIndex={activeTabIndex}
+            setActiveTabIndex={setSyncedActiveTabIndex}
+            isNested={allowNestedStyles && isNested}
+          />
+        </div>
+        {tabItems.map((tabItem: TabItem) => {
+          const { content, tabId, panelId, isActive } = tabItem
+          return (
+            <div
+              aria-hidden={!isActive}
+              aria-labelledby={tabId}
+              className={classNames(
+                s.tabPanel,
+                'g-focus-ring-from-box-shadow',
+                {
+                  [s.isNested]: isNested,
+                  [s.allowNestedStyles]: allowNestedStyles,
+                }
+              )}
+              id={panelId}
+              key={panelId}
+              role="tabpanel"
+              tabIndex={0}
+            >
+              {content}
+            </div>
+          )
         })}
-      >
-        <TabControls
-          ariaLabel={ariaLabel}
-          ariaLabelledBy={ariaLabelledBy}
-          tabItems={tabItems}
-          activeTabIndex={activeTabIndex}
-          setActiveTabIndex={setSyncedActiveTabIndex}
-        />
       </div>
-      {tabItems.map((tabItem: TabItem) => {
-        const { content, tabId, panelId, isActive } = tabItem
-        return (
-          <div
-            aria-hidden={!isActive}
-            aria-labelledby={tabId}
-            className={s.tabPanel}
-            id={panelId}
-            key={panelId}
-            role="tabpanel"
-            tabIndex={0}
-          >
-            {content}
-          </div>
-        )
-      })}
-    </div>
+    </TabNestingProvider>
   )
 }
 
