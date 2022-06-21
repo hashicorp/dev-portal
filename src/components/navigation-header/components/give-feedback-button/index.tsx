@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
-import { IconMessageSquareFill24 } from '@hashicorp/flight-icons/svg-react/message-square-fill-24'
+import Image from 'next/image'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import ButtonLink from 'components/button-link'
 import s from './give-feedback-button.module.css'
@@ -20,7 +20,12 @@ function GiveFeedbackButton(): ReactElement {
           target="_blank"
           rel="noreferrer"
         >
-          <IconMessageSquareFill24 />
+          <Image
+            alt=""
+            src={require('./img/feedback-icon.svg')}
+            width={24}
+            height={24}
+          />
         </a>
       </span>
       <span className={s.textButtonContainer}>

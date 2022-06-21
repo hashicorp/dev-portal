@@ -30,6 +30,7 @@ function determineProductSlug(req: NextRequest): string {
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
   // Handle redirects
   const product = determineProductSlug(req)
+
   if (process.env.DEBUG_REDIRECTS) {
     console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
   }
@@ -58,7 +59,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
    * clear it and redirect back to the current URL without the betaOptOut query param
    */
   if (
-    product in __config.dev_dot.beta_product_slugs &&
+    __config.dev_dot.beta_product_slugs.includes(product) &&
     params.get('betaOptOut') === 'true'
   ) {
     const url = req.nextUrl.clone()
