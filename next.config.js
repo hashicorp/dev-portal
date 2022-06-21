@@ -47,6 +47,7 @@ module.exports = withSwingset({
   })({
     webpack(config) {
       config.plugins.push(HashiConfigPlugin())
+      config.resolve.exportsFields = []
       return config
     },
     async headers() {
