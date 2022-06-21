@@ -4,7 +4,7 @@ import { getIoRedirectPath } from './get-io-redirect-path'
 
 export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
   learn: {
-    base_url: 'https://learn-git-ksspike-opt-in-redirects-hashicorp.vercel.app', // FOR TESTING PURPOSES NEED TO UPDATE for - 'https://learn.hashicorp.com/'
+    base_url: 'https://learn.hashicorp.com',
     getRedirectPath: getLearnRedirectPath,
     cookieKey: 'learn-beta-opt-in',
     cookieAnalyticsKey: 'learn-beta-opt-in-tracked',
