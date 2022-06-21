@@ -12,7 +12,7 @@
   "metadata": {
     "title": "Sentinel by HashiCorp",
     "description": "Sentinel is a language and framework for policy built to be embedded in existing software to enable fine-grained, logic-based policy decisions.",
-    "image": "/sentinel/img/og-image.png",
+    "image": "https://docs.hashicorp.com/sentinel/img/og-image.png",
     "icon": [
       {
         "href": "/sentinel/favicon.svg",
