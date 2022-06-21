@@ -1,4 +1,5 @@
-import { Ref, useCallback, useState } from 'react'
+import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
+import { Ref, useCallback, useRef, useState } from 'react'
 
 const MutationObserver =
   (typeof window !== 'undefined' && window.MutationObserver) || null
@@ -26,7 +27,23 @@ export default function useOverflowRef<T extends HTMLElement>(): [
   boolean,
   Ref<T>
 ] {
+  const targetRef = useRef(null)
   const [[hasOverflow, scrollWidth], setState] = useState([false, 0])
+
+  /**
+   * synchronously calculate overflow with a layout effect to ensure
+   * accurate state on initial call
+   */
+  useSafeLayoutEffect(() => {
+    if (targetRef.current) {
+      const nowScrollWidth = targetRef.current.scrollWidth
+      const nowOffsetWidth = targetRef.current.offsetWidth
+      const nowHasOverflow = (scrollWidth || nowScrollWidth) > nowOffsetWidth
+      if (hasOverflow !== nowHasOverflow) {
+        setState([nowHasOverflow, nowScrollWidth])
+      }
+    }
+  }, [])
 
   const overflowRef = useCallback(
     (target: T) => {
@@ -35,6 +52,7 @@ export default function useOverflowRef<T extends HTMLElement>(): [
       let mutationObserver
 
       if (target) {
+        targetRef.current = target
         viewport = target.ownerDocument.defaultView
         viewport.addEventListener('resize', requestOverflow)
         if (MutationObserver) {
