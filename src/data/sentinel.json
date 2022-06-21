@@ -34,10 +34,10 @@
   },
   "alertBannerActive": true,
   "alertBanner": {
-    "tag": "June 20-22",
+    "tag": "June 21-22",
     "url": "https://hashiconf.com/europe?utm_source=Banner",
-    "text": "Announcing HashiConf Europe full schedule: keynotes, sessions, labs & more",
-    "linkText": "Register Now",
+    "text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
+    "linkText": "Join Now",
     "expirationDate": ""
   },
   "version": "0.18.6",
