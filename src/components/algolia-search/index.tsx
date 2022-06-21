@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import {
   AutocompleteState,
@@ -12,6 +12,7 @@ import { IconSlashSquare16 } from '@hashicorp/flight-icons/svg-react/slash-squar
 import useFocusOnKeyClick from 'hooks/use-focus-on-key-click'
 import Panel from './components/panel'
 import { useAlgoliaNavigatorNext } from './lib/use-algolia-navigator-next'
+import { getItemsExist } from './lib/get-items-exist'
 import { AlgoliaSearchPops } from './types'
 
 import s from './algolia-search.module.css'
@@ -31,6 +32,7 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
   const inputRef = React.useRef<HTMLInputElement>(null)
   const formRef = React.useRef<HTMLFormElement>(null)
   const panelRef = React.useRef<HTMLDivElement>(null)
+  const [hasResults, setHasResults] = useState(false)
 
   const router = useRouter()
   const navigator = useAlgoliaNavigatorNext<THit>()
@@ -64,14 +66,8 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
         /**
          * The default behavior only opens the panel when there are collection items[]
          * this overrides to show when there's a query but no hits (iow 'no results')
-         *
-         * Note: this code assumes there is only one collection (current behavior)
          *  */
-        const hasResults = state.collections[0]?.items.length > 0
-        const showNoResults =
-          Boolean(state.query) && state.collections[0]?.items.length === 0
-
-        if (hasResults || showNoResults) {
+        if (hasResults || Boolean(state.query)) {
           return true
         } else {
           return false
@@ -85,6 +81,13 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
   const inputProps = autocomplete.getInputProps({
     inputElement: inputRef.current,
   })
+
+  useEffect(() => {
+    const itemsExist = getItemsExist(autocompleteState.collections)
+    if (itemsExist !== hasResults) {
+      setHasResults(itemsExist)
+    }
+  }, [autocompleteState.collections, hasResults])
 
   /**
    * Clear the query input on route change
@@ -182,6 +185,7 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
           ResultComponent={ResultComponent}
           getHitLinkProps={getHitLinkProps}
           formRef={formRef}
+          showResults={hasResults}
         />
       )}
     </div>

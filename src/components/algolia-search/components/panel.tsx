@@ -55,6 +55,11 @@ type PanelProps<THit extends Hit<unknown>> = {
    * of the panel element for mobile viewports.
    */
   formRef: MutableRefObject<HTMLFormElement>
+
+  /**
+   * Determines whether to show the 'no results' UI or the collection hits
+   */
+  showResults: boolean
 }
 
 /**
@@ -71,6 +76,7 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
     ResultComponent,
     getHitLinkProps,
     formRef,
+    showResults,
   }: PanelProps<THit>,
   ref: ForwardedRef<HTMLDivElement>
 ) {
@@ -111,12 +117,11 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
         style={panelPositionStyle}
       >
         <div className={s.panelLayout}>
-          {collections.map((collection, index) => {
-            const { source, items } = collection
-
-            return (
-              <section key={`source-${index}`}>
-                {items.length > 0 ? (
+          {showResults ? (
+            collections.map((collection, index) => {
+              const { source, items } = collection
+              return (
+                <section key={`source-${index}`}>
                   <ul className={s.list} {...autocomplete.getListProps()}>
                     {items.map((item) => {
                       return (
@@ -140,20 +145,20 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
                       )
                     })}
                   </ul>
-                ) : (
-                  <div className={s.noResults}>
-                    <Text weight="semibold" size={200}>
-                      No Results
-                    </Text>
-                    <Text className={s.noResultsDescription} size={200}>
-                      Search tips: some terms require an exact match. Try typing
-                      the entire term, or use a different word or phrase.
-                    </Text>
-                  </div>
-                )}
-              </section>
-            )
-          })}
+                </section>
+              )
+            })
+          ) : (
+            <div className={s.noResults}>
+              <Text weight="semibold" size={200}>
+                No Results
+              </Text>
+              <Text className={s.noResultsDescription} size={200}>
+                Search tips: some terms require an exact match. Try typing the
+                entire term, or use a different word or phrase.
+              </Text>
+            </div>
+          )}
         </div>
         {isDesktop && <SearchResultsLegend />}
       </div>
