@@ -21,10 +21,10 @@
   },
   "alertBannerActive": true,
   "alertBanner": {
-    "tag": "June 21-22",
-    "url": "https://hashiconf.com/europe?utm_source=Banner",
-    "text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
-    "linkText": "Join Now",
+    "tag": "NEW",
+    "url": "https://cloud.hashicorp.com/boundary",
+    "text": "Boundary on the HashiCorp Cloud Platform is now in public beta",
+    "linkText": "Learn more",
     "expirationDate": ""
   },
   "subnavItems": [
