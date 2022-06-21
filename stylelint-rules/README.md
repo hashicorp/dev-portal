@@ -9,7 +9,7 @@ HashiCorp Developer leverages some custom Stylelint rules for linting CSS. Each 
 
 ## `no-removed-outlines`
 
-The `no-removed-outlines` rule checks for outlines that have been removed using the `outline`, `outline-style`, or `outline-width` properties. Completely removing outlines can lead to no focus indicators in Window High Contrast Mode (WHMC). Setting `outline: transparent` is one easy way to visually remove the default `outline` but still have it present in WHMC.
+The `no-removed-outlines` rule checks for outlines that have been removed using the `outline`, `outline-style`, or `outline-width` properties. Completely removing outlines can lead to no focus indicators in Window High Contrast Mode (WHCM). Setting `outline: transparent` is one easy way to visually remove the default `outline` but still have it present in WHCM.
 
 To simplify its checks, it depends on the [`length-zero-no-unit`](https://stylelint.io/user-guide/rules/list/length-zero-no-unit/) rule to also be used.
 
