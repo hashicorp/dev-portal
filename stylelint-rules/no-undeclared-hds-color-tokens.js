@@ -1,6 +1,8 @@
 // imports
 const stylelint = require('stylelint')
 const { report, ruleMessages, validateOptions } = stylelint.utils
+const isBoolean = require('./lib/is-boolean')
+const isString = require('./lib/is-string')
 
 // meta
 const ruleName = 'digital-plugin/no-undeclared-hds-color-tokens'
@@ -9,18 +11,6 @@ const messages = ruleMessages(ruleName, {
     return `"${variableName}" was not found in provided \`tokensSource\``
   },
 })
-
-// TODO move to src/lib?
-const isBoolean = (value) => {
-  const result = typeof value === 'boolean' || value instanceof Boolean
-  return result
-}
-
-// TODO move to src/lib?
-const isString = (value) => {
-  const result = typeof value === 'string' || value instanceof String
-  return result
-}
 
 const plugin = stylelint.createPlugin(
   ruleName,
