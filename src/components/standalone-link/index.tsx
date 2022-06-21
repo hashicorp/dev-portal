@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
+import Link from 'next/link'
 import classNames from 'classnames'
-import MaybeInternalLink from 'components/maybe-internal-link'
 import { StandaloneLinkProps } from './types'
 import s from './standalone-link.module.css'
 
@@ -19,21 +19,26 @@ const StandaloneLink = ({
   textClassName,
 }: StandaloneLinkProps): ReactElement => {
   const classes = classNames(s.root, s[`color-${color}`], s[size], className)
+  const rel = openInNewTab ? 'noreferrer noopener' : undefined
+  const target = openInNewTab ? '_blank' : '_self'
 
   return (
-    <MaybeInternalLink
-      aria-label={ariaLabel}
-      className={classes}
-      download={download}
-      href={href}
-      onClick={onClick}
-      rel={openInNewTab ? 'noreferrer noopener' : undefined}
-      target={openInNewTab ? '_blank' : '_self'}
-    >
-      {iconPosition === 'leading' && icon}
-      <span className={classNames(s.text, textClassName)}>{text}</span>
-      {iconPosition === 'trailing' && icon}
-    </MaybeInternalLink>
+    <Link href={href}>
+      {/* TODO double check usage of the `onClick` prop */}
+      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+      <a
+        aria-label={ariaLabel}
+        className={classes}
+        download={download}
+        onClick={onClick}
+        rel={rel}
+        target={target}
+      >
+        {iconPosition === 'leading' && icon}
+        <span className={classNames(s.text, textClassName)}>{text}</span>
+        {iconPosition === 'trailing' && icon}
+      </a>
+    </Link>
   )
 }
 

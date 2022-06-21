@@ -1,10 +1,10 @@
 import { ReactElement } from 'react'
+import Link from 'next/link'
 import slugify from 'slugify'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import Card from 'components/card'
-import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
-import MaybeInternalLink from 'components/maybe-internal-link'
+import Text from 'components/text'
 import { SidecarMarketingCardProps } from './types'
 import s from './sidecar-marketing-card.module.css'
 
@@ -41,9 +41,9 @@ const SidecarMarketingCard = ({
           size={200}
           weight="regular"
         >
-          <MaybeInternalLink className={s.featuredDocsLink} href={href}>
-            {text}
-          </MaybeInternalLink>
+          <Link href={href}>
+            <a className={s.featuredDocsLink}>{text}</a>
+          </Link>
         </Text>
       ))}
     </ul>
