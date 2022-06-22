@@ -16,7 +16,7 @@ function HomePage() {
         links={[
           {
             title: 'Get Started',
-            url: 'https://learn.hashicorp.com/tutorials/boundary/oss-getting-started-intro',
+            url: 'https://learn.hashicorp.com/collections/boundary/hcp-getting-started',
             external: true,
           },
           {
