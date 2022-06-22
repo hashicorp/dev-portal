@@ -25,17 +25,17 @@ export default function useHasOverflow<T extends HTMLElement>(
       const actualWidth = element.scrollWidth
 
       // update `hasOverflow`
-      setHasOverflow(actualWidth > availableWidth)
+      setHasOverflow(actualWidth >= availableWidth)
     }
 
     // invoke the listener on first load
     resizeListener()
 
     // add the listener to the document
-    document.addEventListener('resize', resizeListener)
+    window.addEventListener('resize', resizeListener)
 
     // remove listener in cleanup phase
-    return () => document.removeEventListener('resize', resizeListener)
+    return () => window.removeEventListener('resize', resizeListener)
   }, [])
 
   return hasOverflow
