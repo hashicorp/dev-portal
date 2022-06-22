@@ -78,6 +78,7 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
   const { isDesktop } = useDeviceSize()
   const [panelPositionStyle, setPanelPositionStyle] = useState({})
   const hasResults = useHasResults(collections)
+
   /**
    * Compute styles for panel position on mobile viewports.
    */
