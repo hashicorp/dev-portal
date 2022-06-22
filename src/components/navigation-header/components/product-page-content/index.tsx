@@ -71,10 +71,6 @@ const ProductPageHeaderContent = () => {
     // Push the menu item to the correct array
     if (getIsBetaProduct(productSlug)) {
       betaProductItems.push({
-        badge: {
-          text: 'Beta',
-          color: 'highlight',
-        },
         icon,
         label,
         path,
@@ -92,6 +88,10 @@ const ProductPageHeaderContent = () => {
     icon: 'home' as $TSFixMe,
     label: 'HashiCorp Developer',
     path: '/',
+    badge: {
+      text: 'Beta',
+      color: 'highlight' as const,
+    },
   }
   const allMainMenuItems = [
     { items: [homeMenuItem] },
