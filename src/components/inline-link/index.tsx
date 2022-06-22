@@ -5,11 +5,11 @@ import { InlineLinkProps } from './types'
 import s from './inline-link.module.css'
 
 const InlineLink = ({
+  children,
   className,
   href,
   textSize = 300,
   textWeight = 'regular',
-  children,
   ...rest
 }: InlineLinkProps): ReactElement => {
   const classes = classNames(
