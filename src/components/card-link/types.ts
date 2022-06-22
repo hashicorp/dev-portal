@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { CardProps } from 'components/card/types'
 
 type NativeAnchorProps = JSX.IntrinsicElements['a']
 
@@ -11,9 +11,10 @@ export interface CardLinkProps {
   ariaLabel?: NativeAnchorProps['aria-label']
 
   /**
-   * The content to render within the `CardLink` body.
+   * The content to render within the `CardLink` body. Passed to the inner
+   * `Card` component.
    */
-  children: ReactNode
+  children: CardProps['children']
 
   /**
    * A string of one or more classnames passed to the inner `Card` component.
