@@ -1,6 +1,5 @@
 import React from 'react'
 import HashiHead from '@hashicorp/react-head'
-import HashiStackMenu from '@hashicorp/react-hashi-stack-menu'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import Min100Layout from '@hashicorp/react-min-100-layout'
 import useProductMeta, {
@@ -14,6 +13,18 @@ import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
 import Footer from 'components/_proxied-dot-io/packer/footer'
 import ProductSubnav from 'components/_proxied-dot-io/packer/subnav'
 import productData from 'data/packer.json'
+import query from './query.graphql'
+
+interface Props {
+	/**
+	 * Data from data which may contain nav items for the use cases nav
+	 */
+	data: {
+		useCaseNavItems: Array<{ url: string; text: string }>
+	}
+	/** Page contents to render in the layout */
+	children: React.ReactNode
+}
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
@@ -21,17 +32,13 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 	otherServices: [...localConsentManagerServices],
 })
 
-function PackerIoLayout({
-	children,
-}: {
-	/** Page contents to render in the layout */
-	children: React.ReactNode
-}): React.ReactElement {
+function PackerIoLayout({ children, data }: Props): React.ReactElement {
 	usePageviewAnalytics({
 		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID_PACKER,
 		includedDomains: productData.analyticsConfig.includedDomains,
 	})
 	const { themeClass } = useProductMeta(productData.name as Products)
+	const { useCaseNavItems } = data
 
 	return (
 		<>
@@ -45,22 +52,64 @@ function PackerIoLayout({
 			/>
 
 			<Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
-				<ProductMetaProvider product={productData.slug as Products}>
-					{productData.alertBannerActive && (
-						<AlertBanner
-							{...productData.alertBanner}
-							product={productData.slug as Products}
-							hideOnMobile
-						/>
-					)}
-					<HashiStackMenu onPanelChange={() => null} />
-					<ProductSubnav />
-					<div className={themeClass}>{children}</div>
-				</ProductMetaProvider>
+				{productData.alertBannerActive && (
+					<AlertBanner
+						{...productData.alertBanner}
+						product={productData.slug as Products}
+						hideOnMobile
+					/>
+				)}
+				<ProductSubnav
+					menuItems={[
+						{
+							text: 'Overview',
+							url: '/',
+							type: 'inbound',
+						},
+						'divider',
+						{
+							text: 'Use Cases',
+							submenu: [
+								...useCaseNavItems.map((item) => {
+									return {
+										text: item.text,
+										url: `/use-cases/${item.url}`,
+									}
+								}),
+							].sort((a, b) => a.text.localeCompare(b.text)),
+						},
+						{
+							text: 'Tutorials',
+							url: 'https://learn.hashicorp.com/packer',
+							type: 'inbound',
+						},
+						{
+							text: 'Docs',
+							url: '/docs',
+							type: 'inbound',
+						},
+						{
+							text: 'API',
+							url: '/api-docs',
+							type: 'inbound',
+						},
+						{
+							text: 'Community',
+							url: '/community',
+							type: 'inbound',
+						},
+					]}
+				/>
+				<div className={themeClass}>{children}</div>
 			</Min100Layout>
 			<ConsentManager />
 		</>
 	)
+}
+
+PackerIoLayout.rivetParams = {
+	query,
+	dependencies: [],
 }
 
 export default PackerIoLayout
