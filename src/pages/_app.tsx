@@ -59,7 +59,7 @@ export default function App({ Component, pageProps, layoutProps }) {
             <AllProductDataProvider>
               <CurrentProductProvider currentProduct={currentProduct}>
                 <CodeTabsProvider>
-                  <HeadMetadata {...pageProps.metadata} />
+                  {/* <HeadMetadata {...pageProps.metadata} /> */}
                   <LazyMotion
                     features={() =>
                       import('lib/framer-motion-features').then(
