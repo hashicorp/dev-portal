@@ -21,7 +21,7 @@ import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 import HitWrapper from './hit-wrapper'
 import { AlgoliaSearchPops } from '../types'
-import { useHasResults } from '../lib/use-has-results'
+import { hasResults } from '../lib/has-results'
 import SearchResultsLegend from './search-results-legend'
 import s from '../algolia-search.module.css'
 
@@ -77,7 +77,6 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
 ) {
   const { isDesktop } = useDeviceSize()
   const [panelPositionStyle, setPanelPositionStyle] = useState({})
-  const hasResults = useHasResults(collections)
 
   /**
    * Compute styles for panel position on mobile viewports.
@@ -113,7 +112,7 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
         style={panelPositionStyle}
       >
         <div className={s.panelLayout}>
-          {hasResults ? (
+          {hasResults(collections) ? (
             collections.map((collection, index) => {
               const { source, items } = collection
               return (
