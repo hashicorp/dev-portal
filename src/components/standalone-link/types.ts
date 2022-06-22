@@ -74,6 +74,12 @@ export interface StandaloneLinkProps {
   openInNewTab?: boolean
 
   /**
+   * The size of the rendered link, which mainly affects the font-size and
+   * line-height CSS properties.
+   */
+  size?: 'small' | 'medium' | 'large'
+
+  /**
    * The text rendered within the `<a>` element.
    */
   text: string
@@ -82,10 +88,4 @@ export interface StandaloneLinkProps {
    * Optional className to apply to `text`'s wrapper element.
    */
   textClassName?: string
-
-  /**
-   * The size of the rendered link, which mainly affects the font-size and
-   * line-height CSS properties.
-   */
-  size?: 'small' | 'medium' | 'large'
 }
