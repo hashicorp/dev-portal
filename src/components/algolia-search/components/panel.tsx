@@ -8,7 +8,6 @@ import {
   Fragment,
   MutableRefObject,
   ForwardedRef,
-  useEffect,
 } from 'react'
 import { Hit } from '@algolia/client-search'
 import {
@@ -22,7 +21,7 @@ import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 import HitWrapper from './hit-wrapper'
 import { AlgoliaSearchPops } from '../types'
-import { getHasResults } from '../lib/get-has-results'
+import { useHasResults } from '../lib/use-has-results'
 import SearchResultsLegend from './search-results-legend'
 import s from '../algolia-search.module.css'
 
@@ -78,15 +77,7 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
 ) {
   const { isDesktop } = useDeviceSize()
   const [panelPositionStyle, setPanelPositionStyle] = useState({})
-  const [hasResults, setHasResults] = useState(false)
-
-  useEffect(() => {
-    const resultsExist = getHasResults(collections)
-    if (resultsExist !== hasResults) {
-      setHasResults(resultsExist)
-    }
-  }, [collections, hasResults])
-
+  const hasResults = useHasResults(collections)
   /**
    * Compute styles for panel position on mobile viewports.
    */
