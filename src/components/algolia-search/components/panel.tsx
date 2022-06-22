@@ -8,21 +8,23 @@ import {
   Fragment,
   MutableRefObject,
   ForwardedRef,
+  useEffect,
 } from 'react'
-import { useDeviceSize } from 'contexts'
-import Portal from 'components/portal'
-import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
-import HitWrapper from './hit-wrapper'
-import SearchResultsLegend from './search-results-legend'
-import s from '../algolia-search.module.css'
-import { AlgoliaSearchPops } from '../types'
 import { Hit } from '@algolia/client-search'
 import {
   AutocompleteApi,
   AutocompleteCollection,
 } from '@algolia/autocomplete-core'
-import { useNoScrollBody } from 'hooks/use-no-scroll-body'
+import { useDeviceSize } from 'contexts'
+import Portal from 'components/portal'
 import Text from 'components/text'
+import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
+import { useNoScrollBody } from 'hooks/use-no-scroll-body'
+import HitWrapper from './hit-wrapper'
+import { AlgoliaSearchPops } from '../types'
+import { getHasResults } from '../lib/get-has-results'
+import SearchResultsLegend from './search-results-legend'
+import s from '../algolia-search.module.css'
 
 type PanelProps<THit extends Hit<unknown>> = {
   /**
@@ -55,11 +57,6 @@ type PanelProps<THit extends Hit<unknown>> = {
    * of the panel element for mobile viewports.
    */
   formRef: MutableRefObject<HTMLFormElement>
-
-  /**
-   * Determines whether to show the 'no results' UI or the collection hits
-   */
-  showResults: boolean
 }
 
 /**
@@ -76,12 +73,19 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
     ResultComponent,
     getHitLinkProps,
     formRef,
-    showResults,
   }: PanelProps<THit>,
   ref: ForwardedRef<HTMLDivElement>
 ) {
   const { isDesktop } = useDeviceSize()
   const [panelPositionStyle, setPanelPositionStyle] = useState({})
+  const [hasResults, setHasResults] = useState(false)
+
+  useEffect(() => {
+    const resultsExist = getHasResults(collections)
+    if (resultsExist !== hasResults) {
+      setHasResults(resultsExist)
+    }
+  }, [collections, hasResults])
 
   /**
    * Compute styles for panel position on mobile viewports.
@@ -117,7 +121,7 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
         style={panelPositionStyle}
       >
         <div className={s.panelLayout}>
-          {showResults ? (
+          {hasResults ? (
             collections.map((collection, index) => {
               const { source, items } = collection
               return (
