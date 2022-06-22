@@ -52,7 +52,7 @@ export default function PackerHomepage({ data }): React.ReactElement {
       <Head>{renderMetaTags(seo)}</Head>
 
       <IoHomeHero
-        pattern="/packer/img/home-hero-pattern.svg"
+        pattern={require('/public/packer/img/home-hero-pattern.svg')}
         brand="packer"
         heading={heroHeading}
         description={heroDescription}
@@ -107,7 +107,7 @@ export default function PackerHomepage({ data }): React.ReactElement {
 
       <IoHomeInPractice
         brand="packer"
-        pattern="/packer/img/practice-pattern.svg"
+        pattern={require('/public/packer/img/practice-pattern.svg')}
         heading={inPracticeHeading}
         description={inPracticeDescription}
         cards={inPracticeCards.map((card) => {
