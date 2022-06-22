@@ -1,7 +1,8 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useRef, useState } from 'react'
 import classNames from 'classnames'
+import useHasOverflow from 'hooks/use-has-overflow'
 import { Tab, TabButtonControls, TabDropdownControls } from './components'
-import { useOverflowRef, useTabItems, useSyncedTabGroups } from './hooks'
+import { useTabItems, useSyncedTabGroups } from './hooks'
 import { TabItem, TabsProps } from './types'
 import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
 import s from './tabs.module.css'
@@ -31,11 +32,6 @@ const Tabs = ({
   const isNested = useIsNested()
 
   /**
-   * Track whether tabs are overflowing, so we can switch to a select.
-   */
-  const [hasOverflow, overflowRef] = useOverflowRef<HTMLDivElement>()
-
-  /**
    * Track the active tab
    */
   const [activeTabIndex, setActiveTabIndex] =
@@ -59,19 +55,21 @@ const Tabs = ({
   })
 
   /**
-   * If there's overflow, show a dropdown. Otherwise show typical tabs.
+   * Track whether tab controls are overflowing. If there's overflow, show a
+   * dropdown. Otherwise show typical tabs.
+   *
    * TODO: current TabDropdownControls is temporary, and will be redone later.
-   * Task to replace TabDropdownControls:
    * https://app.asana.com/0/1202097197789424/1202133172981709/f
    */
+  const tabControlsRef = useRef<HTMLDivElement>()
+  const hasOverflow = useHasOverflow<HTMLDivElement>(tabControlsRef)
   const TabControls = hasOverflow ? TabDropdownControls : TabButtonControls
 
   return (
     <TabNestingProvider>
-      <div ref={overflowRef}>
+      <div>
         <div
-          // TODO - move to a class if we keep it
-          style={{ opacity: hasOverflow === null ? 0 : 1 }}
+          ref={tabControlsRef}
           className={classNames(s.tabControls, {
             [s.showAnchorLine]: showAnchorLine,
             [s.allowNestedStyles]: allowNestedStyles,
