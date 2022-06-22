@@ -39,7 +39,7 @@
       }
     ]
   },
-  "alertBannerActive": true,
+  "alertBannerActive": false,
   "alertBanner": {
     "tag": "June 21-22",
     "url": "https://hashiconf.com/europe?utm_source=Banner",
