@@ -12,6 +12,10 @@ function TestPageWithoutTwitterDescription() {
           property="og:description"
           content="This is the og:description for a test page without twitter description."
         />
+        <meta
+          property="og:image"
+          content="https://www.datocms-assets.com/2885/1655303762-16_9-social-image-homepage.jpg?fit=max&amp;fm=jpg&amp;w=1000"
+        ></meta>
       </Head>
       <p>
         Hello! This page only has an <code>og:description</code>.

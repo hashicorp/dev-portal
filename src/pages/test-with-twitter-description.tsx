@@ -16,6 +16,10 @@ function TestPageWithTwitterDescription() {
           name="twitter:description"
           content="This is the twitter:description for a test page with twitter description."
         />
+        <meta
+          property="og:image"
+          content="https://www.datocms-assets.com/2885/1655303762-16_9-social-image-homepage.jpg?fit=max&amp;fm=jpg&amp;w=1000"
+        ></meta>
       </Head>
       <p>
         Hello! This page has <code>twitter:description</code>, as well as an{' '}
