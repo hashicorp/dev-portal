@@ -22,10 +22,10 @@
   },
   "alertBannerActive": true,
   "alertBanner": {
-    "tag": "June 21-22",
-    "url": "https://hashiconf.com/europe?utm_source=Banner",
-    "text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
-    "linkText": "Join Now",
+    "tag": "Blog",
+    "url": "https://www.hashicorp.com/blog/hcp-consul-on-azure-to-go-ga-plus-more-consul-news",
+    "text": "HCP Consul on Azure goes GA, plus more Consul news from HashiConf EU",
+    "linkText": "Read more",
     "expirationDate": ""
   },
   "version": "1.11.3",
