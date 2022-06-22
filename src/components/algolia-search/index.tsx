@@ -62,9 +62,10 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
       },
       shouldPanelOpen({ state }) {
         /**
-         * The default behavior only opens the panel when there are collection items[]
-         * this overrides to show when there's a query
-         *  */
+         * Default behavior opens when there are collection items[]
+         * this overrides to show whenever there's a query to enable
+         * a 'no results state handled in the panel
+         */
         return Boolean(state.query)
       },
       navigator,
