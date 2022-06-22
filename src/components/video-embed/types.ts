@@ -6,14 +6,20 @@ import { ReactPlayerProps } from 'react-player'
  */
 export interface VideoEmbedProps extends ReactPlayerProps {
   /**
-   * URL for the video. Unlike in ReactPlayerProps, which has a flexible type,
-   * for our purposes, this must be a string
+   * Optional string of classnames applied to the containing element.
    */
-  url: string
+  className?: string
+
   /**
    * Optional starting time for the video. Works with YouTube and Wistia video URLS.
    */
   start?: number
+
+  /**
+   * URL for the video. Unlike in ReactPlayerProps, which has a flexible type,
+   * for our purposes, this must be a string
+   */
+  url: string
 }
 
 /**
@@ -25,6 +31,7 @@ export interface VideoEmbedInnerProps extends VideoEmbedProps {
    * Callback fired when the % watched of the video changes,
    * based on what percentage of timestamps have been played.
    */
+
   percentPlayedCallback?: (percentPlayed: number) => void
   /**
    * Optionally only call percentPlayedCallback when specific
@@ -38,7 +45,7 @@ export interface VideoEmbedInnerProps extends VideoEmbedProps {
  * used for progress tracking callbacks
  */
 export interface PlayState {
-  position: number
-  isPlaying: boolean
   duration?: number
+  isPlaying: boolean
+  position: number
 }

@@ -46,6 +46,7 @@ import {
   getNextPrevious,
 } from './components'
 import getVideoUrl from './utils/get-video-url'
+import { getCanonicalCollectionSlug } from './utils/get-canonical-collection-slug'
 import s from './tutorial-view.module.css'
 
 export interface TutorialViewProps {
@@ -101,6 +102,9 @@ export default function TutorialView({
     video,
     collectionCtx,
   } = tutorial
+  const featuredInWithoutCurrent = collectionCtx.featuredIn?.filter(
+    (c) => c.id !== collectionCtx.current.id
+  )
   const hasVideo = Boolean(video)
   const isInteractive = Boolean(handsOnLab)
   const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
@@ -109,7 +113,11 @@ export default function TutorialView({
     currentTutorialSlug: slug,
     nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
   })
-  const canonicalUrl = generateCanonicalUrl(collectionCtx.default.slug, slug)
+  const canonicalCollectionSlug = getCanonicalCollectionSlug(
+    tutorial,
+    product.slug
+  )
+  const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
   const redirectPath = getLearnRedirectPath(
     currentPath,
     slug.split('/')[0] as ProductOption
@@ -151,7 +159,6 @@ export default function TutorialView({
   return (
     <>
       <Head>
-        <title>{name}</title>
         <link rel="canonical" href={canonicalUrl.toString()} />
       </Head>
       <InteractiveLabWrapper
@@ -200,7 +207,7 @@ export default function TutorialView({
           <NextPrevious {...nextPreviousData} />
           <FeaturedInCollections
             className={s.featuredInCollections}
-            collections={collectionCtx.featuredIn}
+            collections={featuredInWithoutCurrent}
           />
         </SidebarSidecarLayout>
       </InteractiveLabWrapper>

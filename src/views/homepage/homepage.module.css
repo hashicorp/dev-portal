@@ -12,3 +12,7 @@
     --homepage-section-padding-y: 88px;
   }
 }
+
+.homepageContent {
+  z-index: 1;
+}

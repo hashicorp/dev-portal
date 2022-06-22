@@ -5,12 +5,28 @@
 .cardHeader {
   align-items: center;
   display: flex;
+
+  /* Note: logical order is Vault version, then OS.
+     But in flex layout, we want Vault version after OS heading,
+     so that it appears in the top left of the downloads section box */
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  gap: 12px;
   justify-content: space-between;
+  padding-bottom: 12px;
+}
+
+.versionSwitcherWrapper {
+  /* Flex-grow to fill space when in separate row */
+  flex-grow: 1;
+  width: max-content;
 }
 
 .operatingSystemTitle {
   color: var(--token-color-foreground-strong);
-  margin-bottom: 12px;
+
+  /* Flex-grow as much as possible to keep .versionSwitcherWrapper small */
+  flex-grow: 100;
 }
 
 .tabContent {

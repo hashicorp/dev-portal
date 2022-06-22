@@ -4,8 +4,13 @@
   margin-bottom: 48px;
 }
 
-.pageHeaderText {
-  margin-left: 16px;
+.iconTileLogo {
+  display: none;
+
+  @media (--dev-dot-tablet-up) {
+    display: block;
+    margin-right: 16px;
+  }
 }
 
 .pageHeaderTitle {

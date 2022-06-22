@@ -9,7 +9,6 @@ import {
   TutorialPageProps,
   TutorialPagePaths,
 } from 'views/tutorial-view/server'
-import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 
 export function WaypointTutorialPage({
   layoutProps,
@@ -45,5 +44,4 @@ export async function getStaticPaths(): Promise<
   }
 }
 
-WaypointTutorialPage.layout = CoreDevDotLayout
 export default WaypointTutorialPage

@@ -11,7 +11,7 @@
   flex-direction: row;
 
   &:focus-within {
-    outline: none;
+    outline: transparent;
     box-shadow: var(--token-focus-ring-action-box-shadow);
   }
 }
@@ -63,7 +63,11 @@
   appearance: none;
 
   &:focus {
-    outline: none;
+    outline: transparent;
+  }
+
+  &:placeholder-shown {
+    text-overflow: ellipsis;
   }
 
   /* Remove native appearence */
@@ -86,7 +90,8 @@
   margin-right: 4px;
 
   &[hidden] {
-    display: none;
+    visibility: hidden; /* Retain space so the input doesn't overflow */
+    pointer-events: none;
   }
 }
 

@@ -29,7 +29,7 @@
   "blocks": [
     {
       "type": "heading",
-      "heading": "Use Cases",
+      "heading": "Featured Tutorials",
       "level": 2,
       "size": 400
     },
@@ -38,31 +38,17 @@
       "tutorialSlugs": ["vault/transform", "vault/static-secrets"]
     },
     {
+      "type": "heading",
+      "heading": "Featured Collections",
+      "level": 2,
+      "size": 400
+    },
+    {
       "type": "collection_cards",
       "collectionSlugs": [
         "vault/getting-started",
         "vault/getting-started-ui",
         "vault/encryption-as-a-service"
-      ]
-    },
-    {
-      "type": "linked_cards",
-      "cards": [
-        {
-          "heading": "Vault Documentation",
-          "body": "Find user references for Vault concepts, server configuration, upgrade guides, release notes, FAQs, and more.",
-          "url": "/vault/docs"
-        },
-        {
-          "heading": "Vault CLI",
-          "body": "Vault features a command-line interface (CLI) that wraps common functionality and formats output.",
-          "url": "/vault/docs/commands"
-        },
-        {
-          "heading": "Vault API",
-          "body": "This is the Vault HTTP API reference. Find the API endpoints and available parameters.",
-          "url": "/vault/api-docs"
-        }
       ]
     },
     {

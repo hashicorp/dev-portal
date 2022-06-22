@@ -178,7 +178,7 @@ function HomePage(): JSX.Element {
         features={[
           {
             media: {
-              src: '/waypoint/img/prebuilt-binaries.svg',
+              src: '/waypoint-public/img/prebuilt-binaries.svg',
               alt: '',
               width: 189,
               height: 44,
@@ -192,7 +192,7 @@ function HomePage(): JSX.Element {
           },
           {
             media: {
-              src: '/waypoint/img/deploys-kubernetes-helm.svg',
+              src: '/waypoint-public/img/deploys-kubernetes-helm.svg',
               alt: '',
               width: 121,
               height: 44,
@@ -206,7 +206,7 @@ function HomePage(): JSX.Element {
           },
           {
             media: {
-              src: '/waypoint/img/first-party-aws-docker.svg',
+              src: '/waypoint-public/img/first-party-aws-docker.svg',
               alt: '',
               width: 122,
               height: 42,
@@ -220,7 +220,7 @@ function HomePage(): JSX.Element {
           },
           {
             media: {
-              src: '/waypoint/img/extensible-plugins.svg',
+              src: '/waypoint-public/img/extensible-plugins.svg',
               alt: '',
               width: 65,
               height: 42,

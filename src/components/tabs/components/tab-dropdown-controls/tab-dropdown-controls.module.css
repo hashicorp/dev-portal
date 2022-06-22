@@ -1,6 +1,25 @@
 .selectRoot {
   position: relative;
   width: 100%;
+
+  /* In nested tabs, include an underline-ish style under the select */
+  &.isNested {
+    margin-bottom: 4px;
+
+    /* Note: ::after + margin is used here to match design spec,
+       as border is spaced 4px from the bottom of the select...
+       Using padding to achieve this throws off the alignment 
+       of .selectTrailingIcon */
+    &::after {
+      background: var(--token-color-foreground-action);
+      bottom: -4px;
+      content: '';
+      height: 1px;
+      left: 0;
+      position: absolute;
+      right: 0;
+    }
+  }
 }
 
 .selectTrailingIcon {
@@ -29,6 +48,13 @@
   font-weight: var(--token-typography-font-weight-medium);
   padding: 7px 40px 7px 12px;
   width: 100%;
+
+  /* In nested tabs, no background, no border */
+  &.isNested {
+    border-color: transparent;
+    background-color: white;
+    padding-left: 8px;
+  }
 }
 
 .option {

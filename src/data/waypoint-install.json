@@ -19,6 +19,22 @@
       "collectionSlug": "waypoint/deploy-google-cloud"
     }
   ],
+  "sidebarMenuItems": [
+    {
+      "divider": true
+    },
+    {
+      "heading": "Getting Started"
+    },
+    {
+      "title": "Introduction to Waypoint",
+      "fullPath": "/waypoint/docs/intro"
+    },
+    {
+      "title": "Getting Started with Waypoint",
+      "fullPath": "/waypoint/docs/getting-started"
+    }
+  ],
   "sidecarMarketingCard": {
     "title": "About Waypoint",
     "subtitle": "Deploy, manage, and observe your applications through a consistent abstraction of underlying infrastructure. Waypoint works with Kubernetes, ECS and many other platforms.",

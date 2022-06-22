@@ -15,7 +15,7 @@
   "metadata": {
     "title": "Vault by HashiCorp",
     "description": "Vault secures, stores, and tightly controls access to tokens, passwords, certificates, API keys, and other secrets in modern computing. Vault handles leasing, key revocation, key rolling, auditing, and provides secrets as a service through a unified API.",
-    "image": "/vault/img/og-image.png",
+    "image": "/vault-public/img/og-image.png",
     "icon": [
       {
         "href": "https://www.datocms-assets.com/2885/1597163356-vault-favicon.png?h=16&w=16",
@@ -41,11 +41,11 @@
   },
   "alertBannerActive": true,
   "alertBanner": {
-    "tag": "New",
-    "url": "https://www.hashicorp.com/blog/login-mfa-support-added-to-vault-open-source-and-hcp-vault",
-    "text": "Vault OSS Now Includes Multi-factor Authentication!",
-    "linkText": "Learn more",
-    "expirationDate": "2022-05-31T23:00:00-07:00"
+    "tag": "June 21-22",
+    "url": "https://hashiconf.com/europe?utm_source=Banner",
+    "text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
+    "linkText": "Join Now",
+    "expirationDate": ""
   },
   "subnavItems": [
     {
@@ -154,7 +154,7 @@
       "shortName": "Documentation"
     },
     {
-      "iconName": "tools",
+      "iconName": "api",
       "name": "API",
       "path": "api-docs"
     }
@@ -180,7 +180,7 @@
       },
       {
         "label": "API",
-        "icon": "tools",
+        "icon": "api",
         "pathSuffix": "api-docs"
       }
     ]

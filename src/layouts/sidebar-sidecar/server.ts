@@ -1,7 +1,13 @@
 import { Pluggable } from 'unified'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import { anchorLinks } from '@hashicorp/remark-plugins'
+import {
+  anchorLinks,
+  // includeMarkdown,
+  // paragraphCustomAlerts,
+} from '@hashicorp/remark-plugins'
+import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
+import rehypePrism from '@mapbox/rehype-prism'
 import { ProductData, RootDocsPath } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
@@ -110,14 +116,27 @@ export function getStaticGenerationFunctions<
     },
     getStaticProps: async (ctx) => {
       const pathParts = (ctx.params.page || []) as string[]
-      const headings = [] // populated by loader.loadStaticProps()
+      const headings = [] // populated by anchorLinks plugin below
 
       const loader = getLoader({
         mainBranch,
         remarkPlugins: [
+          /**
+           * Note on remark plugins for local vs remote loading:
+           * includeMarkdown and paragraphCustomAlerts are already
+           * expected to have been run for remote content.
+           * However, we'll need to account for these plugins once
+           * we enable local content preview for new dev-dot docs views.
+           */
+          // includeMarkdown,
+          // paragraphCustomAlerts,
           [anchorLinks, { headings }],
           rewriteTutorialLinksPlugin,
           ...additionalRemarkPlugins,
+        ],
+        rehypePlugins: [
+          [rehypePrism, { ignoreMissing: true }],
+          rehypeSurfaceCodeNewlines,
         ],
         scope: await getScope(),
       })
@@ -140,7 +159,7 @@ export function getStaticGenerationFunctions<
         throw error
       }
 
-      const { navData, mdxSource, githubFileUrl, versions } =
+      const { navData, mdxSource, githubFileUrl, versions, frontMatter } =
         loadStaticPropsResult
 
       /**
@@ -168,13 +187,13 @@ export function getStaticGenerationFunctions<
         }
       })
 
-      const fullNavData = [...navData]
-
-      // Add fullPaths and ids to navData
-      const navDataWithFullPaths = prepareNavDataForClient(fullNavData, [
-        product.slug,
-        basePath,
-      ])
+      /**
+       * Add fullPaths and auto-generated ids to navData
+       */
+      const { preparedItems: navDataWithFullPaths } = prepareNavDataForClient({
+        basePaths: [product.slug, basePath],
+        nodes: navData,
+      })
 
       /**
        * Figure out of a specific docs version is being viewed
@@ -236,6 +255,10 @@ export function getStaticGenerationFunctions<
           headings: nonEmptyHeadings,
           sidebarNavDataLevels,
           versions,
+        },
+        metadata: {
+          title: frontMatter.page_title ?? null,
+          description: frontMatter.description ?? null,
         },
         mdxSource,
         product: {

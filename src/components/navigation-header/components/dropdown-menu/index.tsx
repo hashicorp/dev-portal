@@ -18,7 +18,7 @@ import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-dow
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
-import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
+import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
 
 // Global imports
 import { ProductSlug } from 'types/products'
@@ -47,7 +47,7 @@ const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
   docs: <IconDocs16 />,
   home: <IconHome16 />,
   terminalScreen: <IconTerminalScreen16 />,
-  tools: <IconTools16 />,
+  api: <IconApi16 />,
 }
 
 /**
@@ -60,6 +60,7 @@ const NavigationHeaderDropdownMenu = ({
   ariaLabel,
   buttonClassName,
   dropdownClassName,
+  iconClassName,
   itemGroups,
   label,
   leadingIcon,
@@ -271,7 +272,14 @@ const NavigationHeaderDropdownMenu = ({
                       const anchorContent = (
                         <div className={s.itemLinkContent}>
                           <div className={s.leftAlignedItemLinkContent}>
-                            {icon}
+                            <span
+                              className={classNames(
+                                s.leftAlignedItemLinkContentIcon,
+                                iconClassName
+                              )}
+                            >
+                              {icon}
+                            </span>
                             <Text
                               asElement="span"
                               className={s.itemText}
