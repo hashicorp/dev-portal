@@ -48,9 +48,11 @@ const plugin = stylelint.createPlugin(
       // https://postcss.org/api/#atrule-walkdecls
       postcssRoot.walkDecls((decl) => {
         // Only look at nodes with a value starting with a token reference
-        if (decl.value.startsWith('var(--token-color')) {
+        const matches = decl.value.match(/var\(--token-color-.*\)/g)
+        const usesHDSColorToken = matches?.length >= 1
+        if (usesHDSColorToken) {
           // Slice out the name of the token
-          const token = decl.value.slice('var('.length, -1)
+          const token = matches[0].slice('var('.length, -1)
 
           // Report an error if the token declaration isn't found
           // https://stylelint.io/developer-guide/plugins/#stylelintutilsreport
