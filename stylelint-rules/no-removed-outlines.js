@@ -1,18 +1,15 @@
-/**
- * More background behind this rule:
- * https://piccalil.li/quick-tip/use-transparent-borders-and-outlines-to-assist-with-high-contrast-mode/
- */
-
+// imports
 const stylelint = require('stylelint')
 const { report, ruleMessages, validateOptions } = stylelint.utils
 
+// meta
 const ruleName = 'digital-plugin/no-removed-outlines'
 const messages = ruleMessages(ruleName, {
   error:
     'Do not remove outlines. Set them to be transparent instead. Removing outlines makes focus indicators inaccessible in high contrast modes.',
 })
 
-module.exports = stylelint.createPlugin(
+const plugin = stylelint.createPlugin(
   ruleName,
   function ruleFunction(primaryOption) {
     return function lint(postcssRoot, postcssResult) {
@@ -63,5 +60,8 @@ module.exports = stylelint.createPlugin(
     }
   }
 )
+
+// exports
+module.exports = plugin
 module.exports.ruleName = ruleName
 module.exports.messages = messages
