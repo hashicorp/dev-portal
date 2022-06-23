@@ -47,25 +47,25 @@ const plugin = stylelint.createPlugin(
       // Traverse descendant nodes
       // https://postcss.org/api/#atrule-walkdecls
       postcssRoot.walkDecls((decl) => {
-        // Only look at nodes with a value starting with a token reference
-        const matches = decl.value.match(/var\(--token-color-.*\)/g)
-        const usesHDSColorToken = matches?.length >= 1
-        if (usesHDSColorToken) {
-          // Slice out the name of the token
-          const token = matches[0].slice('var('.length, -1)
+        // Only look at nodes with a value containing a token reference
+        const matches = decl.value.matchAll(/var\((--token-color-.*)\)/g)
+        Array.from(matches, (match) => {
+          const tokenName = match[1]
+          const isUndefined =
+            secondaryOption.tokensSource.indexOf(tokenName) === -1
 
           // Report an error if the token declaration isn't found
           // https://stylelint.io/developer-guide/plugins/#stylelintutilsreport
-          if (secondaryOption.tokensSource.indexOf(token) === -1) {
+          if (isUndefined) {
             report({
               ruleName,
               result: postcssResult,
-              message: messages.undeclared(token),
+              message: messages.undeclared(tokenName),
               node: decl,
-              word: token,
+              word: tokenName,
             })
           }
-        }
+        })
       })
     }
   }
