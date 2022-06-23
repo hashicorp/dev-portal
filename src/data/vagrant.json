@@ -12,14 +12,14 @@
   "metadata": {
     "title": "Vagrant by HashiCorp",
     "description": "Vagrant enables users to create and configure lightweight, reproducible, and portable development environments.",
-    "image": "/vagrant/img/og-image.png",
+    "image": "https://www.vagrantup.com/vagrant/img/og-image.png",
     "icon": [
       {
         "href": "/vagrant/favicon.ico"
       }
     ]
   },
-  "alertBannerActive": true,
+  "alertBannerActive": false,
   "alertBanner": {
     "tag": "June 21-22",
     "url": "https://hashiconf.com/europe?utm_source=Banner",
