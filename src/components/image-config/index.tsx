@@ -16,21 +16,6 @@ export default function ImageConfig({
   height,
   inline,
 }: ImageConfigProps): ReactElement {
-  //  emit a warning if no meaningful props are present
-  if (!hideBorder && !caption && !width && !height && !inline) {
-    console.warn(
-      `Warning: <ImageConfig /> was initialized with default props. Please remove <ImageConfig /> if configuration is not needed.`
-    )
-  }
-
-  // TODO: fully deprecate the `hideBorder` prop, then remove this warning
-  // Task: https://app.asana.com/0/0/1200167326263350/f
-  if (hideBorder) {
-    console.warn(
-      `Warning: <ImageConfig /> was initialized with a deprecated prop "hideBorder". This property will be deprecated in the near future. If you've provided an image caption, a border will be displayed even if "hideBorder" is set. If your image has a border built into it, please crop it to remove it.`
-    )
-  }
-
   const imgElement = getValidatedImgChild(children)
   // Validate that the { src, alt, title } props are present
   const { src, alt, title } = imgElement.props
