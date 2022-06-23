@@ -15,11 +15,11 @@ test('should render the proper page title and description', async ({
     await page.locator('head meta[name="description"]').getAttribute('content')
   ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'HashiCorp'))
 
-  expect(
-    await page
-      .locator('head meta[name="twitter:description"]')
-      .getAttribute('content')
-  ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'HashiCorp'))
+  // expect(
+  //   await page
+  //     .locator('head meta[name="twitter:description"]')
+  //     .getAttribute('content')
+  // ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'HashiCorp'))
 
   expect(
     await page.locator('head meta[property="og:image"]').getAttribute('content')
@@ -44,11 +44,12 @@ test('product landing page should render the metadata', async ({
   expect(
     await page.locator('head meta[name="description"]').getAttribute('content')
   ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
-  expect(
-    await page
-      .locator('head meta[name="twitter:description"]')
-      .getAttribute('content')
-  ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
+
+  // expect(
+  //   await page
+  //     .locator('head meta[name="twitter:description"]')
+  //     .getAttribute('content')
+  // ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
 
   expect(
     await page.locator('head meta[property="og:image"]').getAttribute('content')
