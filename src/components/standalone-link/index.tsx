@@ -24,7 +24,12 @@ const StandaloneLink = ({
 
   return (
     <Link href={href}>
-      {/* TODO double check usage of the `onClick` prop */}
+      {/**
+       * NOTE: this markup is valid. It's OK to have an `onClick` when there is
+       * also an `href` present. The `jsx-a11y/anchor-is-valid` rule is not
+       * seeing this though since the `href` attribute is being set on `Link`
+       * rather than the `<a>`.
+       */}
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <a
         aria-label={ariaLabel}
