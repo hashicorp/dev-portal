@@ -41,34 +41,6 @@ describe('basic functionality', () => {
   })
 })
 
-describe('warnings', () => {
-  //  mock console.warn so we can test it
-  let mockStdout: string[] = []
-  const mockConsoleWarn = (out: string) => mockStdout.push(out)
-
-  const consoleWarn = console.warn //  preserve real fn so we can reset it
-  beforeEach(() => (console.warn = mockConsoleWarn)) //  apply the mock
-  afterEach(() => {
-    //  reset once we're done
-    mockStdout = []
-    console.warn = consoleWarn
-  })
-
-  it('should emit a warning when using deprecated props', () => {
-    renderBasicMock()
-    expect(mockStdout).toEqual([
-      'Warning: <ImageConfig /> was initialized with a deprecated prop "hideBorder". This property will be deprecated in the near future. If you\'ve provided an image caption, a border will be displayed even if "hideBorder" is set. If your image has a border built into it, please crop it to remove it.',
-    ])
-  })
-
-  it('should emit a warning when instantiated with default props', () => {
-    render(<ImageConfig>{testImage}</ImageConfig>)
-    expect(mockStdout).toEqual([
-      'Warning: <ImageConfig /> was initialized with default props. Please remove <ImageConfig /> if configuration is not needed.',
-    ])
-  })
-})
-
 describe('errors', () => {
   //  silence console.error, otherwise the test will fail
   const mockConsoleError = jest.spyOn(console, 'error')

@@ -1,23 +1,20 @@
-const fs = require('fs')
+// imports
 const stylelint = require('stylelint')
 const { report, ruleMessages, validateOptions } = stylelint.utils
+const isBoolean = require('./lib/is-boolean')
+const isString = require('./lib/is-string')
 
-const tokensFileName =
-  '@hashicorp/design-system-tokens/dist/devdot/css/tokens.css'
-const tokensFile = require.resolve(tokensFileName)
-const tokensFileContent = fs.readFileSync(tokensFile).toString()
-
+// meta
 const ruleName = 'digital-plugin/no-undeclared-hds-color-tokens'
 const messages = ruleMessages(ruleName, {
-  undeclared: (undeclared) =>
-    `"${undeclared}" was not found in ${tokensFileName}`,
+  undeclared: (variableName) => {
+    return `"${variableName}" was not found in provided \`tokensSource\``
+  },
 })
 
-module.exports.ruleName = ruleName
-module.exports.messages = messages
-module.exports = stylelint.createPlugin(
+const plugin = stylelint.createPlugin(
   ruleName,
-  function ruleFunction(primaryOption) {
+  function ruleFunction(primaryOption, secondaryOption) {
     return function lint(postcssRoot, postcssResult) {
       // Don't lint if the rule isn't enabled
       if (primaryOption !== true) {
@@ -25,9 +22,22 @@ module.exports = stylelint.createPlugin(
       }
 
       // Check if the options are valid
-      const hasValidOptions = validateOptions(postcssResult, ruleName, {
-        //No options for now...
-      })
+      const hasValidOptions = validateOptions(
+        postcssResult,
+        ruleName,
+        {
+          actual: primaryOption,
+          possible: isBoolean,
+          optional: false,
+        },
+        {
+          actual: secondaryOption,
+          possible: {
+            tokensSource: isString,
+          },
+          optional: false,
+        }
+      )
 
       // Don't lint if the options aren't valid
       if (!hasValidOptions) {
@@ -44,7 +54,7 @@ module.exports = stylelint.createPlugin(
 
           // Report an error if the token declaration isn't found
           // https://stylelint.io/developer-guide/plugins/#stylelintutilsreport
-          if (tokensFileContent.indexOf(token) === -1) {
+          if (secondaryOption.tokensSource.indexOf(token) === -1) {
             report({
               ruleName,
               result: postcssResult,
@@ -58,3 +68,8 @@ module.exports = stylelint.createPlugin(
     }
   }
 )
+
+// exports
+module.exports = plugin
+module.exports.ruleName = ruleName
+module.exports.messages = messages
