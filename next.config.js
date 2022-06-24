@@ -98,6 +98,7 @@ module.exports = withSwingset({
       domains: [
         'www.datocms-assets.com',
         'mktg-content-api-hashicorp.vercel.app',
+        'content.hashicorp.com',
       ],
       dangerouslyAllowSVG: true,
       contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
