@@ -20,7 +20,14 @@ const ProductRootDocsPathLanding = ({
   const showProductDocsSearch = __config.flags.enable_product_docs_search
 
   let mdxSlot: ReactElement
-  if (mdxSource) {
+  /**
+   * TODO: cloud.hashicorp.com/docs redirects to cloud.hashicorp.com/docs/hcp,
+   * and the content for the former URL is empty (just a heading).
+   * This is a workaround to prevent the empty content from being rendered.
+   * https://github.com/hashicorp/cloud.hashicorp.com/blob/main/content/docs/index.mdx
+   */
+  const isNotHcpDocs = product.slug != 'hcp'
+  if (mdxSource && isNotHcpDocs) {
     const classes = classNames(s[`${product.slug}MDXWrapper`], s.mdxSlotWrapper)
     mdxSlot = (
       <div className={classes}>
