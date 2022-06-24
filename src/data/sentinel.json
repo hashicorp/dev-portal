@@ -12,7 +12,7 @@
   "metadata": {
     "title": "Sentinel by HashiCorp",
     "description": "Sentinel is a language and framework for policy built to be embedded in existing software to enable fine-grained, logic-based policy decisions.",
-    "image": "/sentinel/img/og-image.png",
+    "image": "https://docs.hashicorp.com/sentinel/img/og-image.png",
     "icon": [
       {
         "href": "/sentinel/favicon.svg",
@@ -32,12 +32,12 @@
       }
     ]
   },
-  "alertBannerActive": true,
+  "alertBannerActive": false,
   "alertBanner": {
-    "tag": "June 20-22",
+    "tag": "June 21-22",
     "url": "https://hashiconf.com/europe?utm_source=Banner",
-    "text": "Announcing HashiConf Europe full schedule: keynotes, sessions, labs & more",
-    "linkText": "Register Now",
+    "text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
+    "linkText": "Join Now",
     "expirationDate": ""
   },
   "version": "0.18.6",

@@ -4,7 +4,7 @@ import { getIoRedirectPath } from './get-io-redirect-path'
 
 export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
   learn: {
-    base_url: 'https://learn-git-ksspike-opt-in-redirects-hashicorp.vercel.app', // FOR TESTING PURPOSES NEED TO UPDATE for - 'https://learn.hashicorp.com/'
+    base_url: 'https://learn.hashicorp.com',
     getRedirectPath: getLearnRedirectPath,
     cookieKey: 'learn-beta-opt-in',
     cookieAnalyticsKey: 'learn-beta-opt-in-tracked',
@@ -13,6 +13,8 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
     base_url: 'https://www.waypointproject.io/',
     getRedirectPath(path) {
       const url = new URL(getIoRedirectPath(path), this.base_url)
+
+      url.searchParams.set('betaOptOut', 'true')
 
       // ensure we don't create a looping scenario if someone opts out immediately after opting-in
       url.searchParams.delete('optInFrom')
@@ -26,6 +28,8 @@ export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
     base_url: 'https://www.vaultproject.io/',
     getRedirectPath(path) {
       const url = new URL(getIoRedirectPath(path), this.base_url)
+
+      url.searchParams.set('betaOptOut', 'true')
 
       // ensure we don't create a looping scenario if someone opts out immediately after opting-in
       url.searchParams.delete('optInFrom')

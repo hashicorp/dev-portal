@@ -1,29 +1,32 @@
-import { ReactNode } from 'react'
+import { LinkProps } from 'next/link'
 import { TextProps } from 'components/text'
+
+type NativeAnchorProps = JSX.IntrinsicElements['a']
 
 export interface InlineLinkProps {
   /**
-   * A string of one or more class names. Applied last to the rendered `<a>` element.
+   * The content to render within the `<a>` element.
    */
-  className?: string
+  children: NativeAnchorProps['children']
+
+  /**
+   * A string of one or more class names. Applied last to the rendered `<a>`
+   * element.
+   */
+  className?: NativeAnchorProps['className']
 
   /**
    * The destination of the link.
    */
-  href: string
+  href: LinkProps['href']
 
   /**
-   * The `size` passed to the inner `Text` component.
+   * The `size` used to apply a `hds-typography-body-` CSS helper class.
    */
   textSize?: TextProps['size']
 
   /**
-   * The `weight` passed to the inner `Text` component.
+   * The `weight` used to apply a `hds-font-weight-` CSS helper class.
    */
   textWeight?: TextProps['weight']
-
-  /**
-   * The content to render within the `<a>` element.
-   */
-  children: React.ReactNode
 }

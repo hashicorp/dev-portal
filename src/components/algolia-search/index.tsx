@@ -10,11 +10,11 @@ import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { IconSlashSquare16 } from '@hashicorp/flight-icons/svg-react/slash-square-16'
 import useFocusOnKeyClick from 'hooks/use-focus-on-key-click'
+import Panel from './components/panel'
 import { useAlgoliaNavigatorNext } from './lib/use-algolia-navigator-next'
 import { AlgoliaSearchPops } from './types'
 
 import s from './algolia-search.module.css'
-import Panel from './components/panel'
 
 /**
  * Algolia search UI implementation, based on the utilities from @algolia/autocomplete-core
@@ -59,6 +59,14 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
     >({
       onStateChange({ state }) {
         setAutocompleteState(state)
+      },
+      shouldPanelOpen({ state }) {
+        /**
+         * Default behavior opens when there are collection items[]
+         * this overrides to show whenever there's a query to enable
+         * a 'no results state handled in the panel
+         */
+        return Boolean(state.query)
       },
       navigator,
       ...props,

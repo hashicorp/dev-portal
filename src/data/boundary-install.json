@@ -2,7 +2,7 @@
   "featuredTutorials": [
     {
       "description": "Quick start with a new identity-based access management tool.",
-      "href": "https://learn.hashicorp.com/collections/boundary/getting-started",
+      "href": "https://learn.hashicorp.com/tutorials/boundary/oss-getting-started-intro",
       "title": "Getting Started"
     },
     {
