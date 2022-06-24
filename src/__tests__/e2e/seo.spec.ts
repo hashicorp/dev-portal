@@ -44,6 +44,7 @@ test('product landing page should render the metadata', async ({
   expect(
     await page.locator('head meta[name="description"]').getAttribute('content')
   ).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
+
   expect(
     await page
       .locator('head meta[name="twitter:description"]')
