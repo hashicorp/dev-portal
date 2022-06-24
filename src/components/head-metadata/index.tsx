@@ -59,11 +59,6 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 
       {/* Some og tags do not get picked up for twitter's share cards, so we need these tags as well */}
       <meta name="twitter:image" key="twitter:image" content={ogImageUrl} />
-      <meta
-        name="twitter:description"
-        key="twitter:description"
-        content={finalDescription}
-      />
     </HashiHead>
   )
 }
