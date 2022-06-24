@@ -15,9 +15,9 @@ const config = {
 }
 
 const testCases = [
-  ['--token-color-this-is-made-up', 1, 0],
-  ['--token-color-this-is-also-made-up', 1, 0],
-  ['--token-color-this-is-yet-another-made-up', 1, 0],
+  ['--token-color-this-is-made-up', 2, 0],
+  ['--token-color-this-is-also-made-up', 2, 0],
+  ['--token-color-this-is-yet-another-made-up', 2, 0],
   ['--token-color-not-made-up', 0, 0],
   ['--token-color-should-be-found', 0, 0],
   ['--token-color-one-more', 0, 0],
@@ -27,7 +27,7 @@ describe(ruleName, () => {
   test.each(testCases)(
     '%p gives %p warnings and %p parseErrors',
     async (testCase, expectedWarningsCount, expectedParseErrorsCound) => {
-      const testCode = `.test { color: var(${testCase}); }`
+      const testCode = `.test { color: var(${testCase}); border: 1px solid var(${testCase}); }`
       const {
         results: [{ warnings, parseErrors }],
       } = await lint({
