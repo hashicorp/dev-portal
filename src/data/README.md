@@ -78,7 +78,7 @@ See the `RootDocsPath` interface for this property defined in [`types/products.t
 
 This is an object of one property presently. The lone property is `"documentation"` and is an array of objects. Each object represents a navigation header item that renders under a disclosure in the navigation header.
 
-See the `ProductData['navigationHeaderItems']` interface property defined in [`types/products.ts`](/src/types/products.ts) for details on the properties needed for each object in the array.
+See the `NavigationHeaderItem` interface property defined in [`types/products.ts`](/src/types/products.ts) for details on the properties needed for each object in the array.
 
 </details>
 
