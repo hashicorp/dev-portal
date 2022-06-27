@@ -2,7 +2,15 @@
 
 The `src/data/` directory contains all of the product data needed for various views in the app.
 
-## `<product slug>.json`
+Table of contents:
+
+1. [`<product slug>.json`](#1-product-slugjson)
+2. [`<product slug>-landing.json`](#2-product-slug-landingjson)
+3. [`<product slug>-install.json`](#3-product-slug-installjson)
+
+---
+
+## 1. `<product slug>.json`
 
 The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views, including their .io site and Dev Portal pages.
 
@@ -99,7 +107,7 @@ See the `NavigationHeaderItem` interface defined in [`components/navigation-head
 
 </details>
 
-## `<product slug>-landing.json`
+## 2. `<product slug>-landing.json`
 
 This file is only used in DevDot. It contains the data and content needed for each product's landing page (`/boundary`, `/consul`, etc.).
 
@@ -336,7 +344,7 @@ Example: 3-column cards with tags
 
 </details>
 
-## `<product slug>-install.json`
+## 3. `<product slug>-install.json`
 
 This file is only used in DevDot. It contains the data and content needed for each product's downloads page (`/boundary/downloads`, `/consul/downloads`, etc.). There are four possible data properties that can be provided at the highest level: `doesNotHavePackageManagers`, `featuredTutorials`, `packageManagerOverrides`, and `sidebarMarketingCard`.
 
