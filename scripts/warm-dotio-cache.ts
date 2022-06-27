@@ -42,7 +42,7 @@ function getDateRange(daysAgo: number): string {
  * past 28 days according to Fathom analytics.
  */
 async function getUrlsToCache(product: string): Promise<string[]> {
-  const url = new URL('https://mktg-content-api.vercel.app/api/static_paths')
+  const url = new URL('https://content.hashicorp.com/api/static_paths')
   const params = {
     product,
     limit: '200',
