@@ -4,6 +4,9 @@ the correct elements, roles, states, and properties are being set in the markup.
 */
 
 .tabControls {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
   /*
   Styles for showing a bottom border on the tab buttons container.
   */

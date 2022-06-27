@@ -70,6 +70,7 @@ const Tabs = ({
       <div>
         <div
           ref={tabControlsRef}
+          style={{ opacity: hasOverflow === null ? 0 : 1 }}
           className={classNames(s.tabControls, {
             [s.showAnchorLine]: showAnchorLine,
             [s.allowNestedStyles]: allowNestedStyles,
