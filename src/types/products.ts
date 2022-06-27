@@ -45,10 +45,37 @@ interface LearnProductData extends ProductData {
   slug: LearnProduct['slug']
 }
 
+/**
+ * Object representing the metadata for a product's "root docs path", or a
+ * section of documentation for a product.
+ *
+ * Examples of root docs paths:
+ *  - /waypoint/commands
+ *  - /waypoint/docs
+ *  - /waypoint/plugins
+ */
 interface RootDocsPath {
+  /**
+   * The name of an icon to associate with a root docs path.
+   */
   iconName: string
+
+  /**
+   * The proper noun name of a root docs path.
+   */
   name: string
+
+  /**
+   * The router path associated with a root docs path, excluding the slug of the
+   * associated product.
+   */
   path: string
+
+  /**
+   * An optional, shortened version of the `name` property. For example,
+   * "Documentation" may be shortened to "Docs" in some places using this
+   * property.
+   */
   shortName?: string
 }
 
