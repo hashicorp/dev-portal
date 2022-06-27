@@ -7,7 +7,8 @@ import useSafeLayoutEffect from './use-safe-layout-effect'
 export default function useHasOverflow<T extends HTMLElement>(
   ref: MutableRefObject<T>
 ) {
-  const [hasOverflow, setHasOverflow] = useState(false)
+  // Initialized to `null` to work like a "loading" state
+  const [hasOverflow, setHasOverflow] = useState(null)
 
   // `useLayoutEffect` blocks updates, to prevent flashing
   useSafeLayoutEffect(() => {
@@ -25,7 +26,7 @@ export default function useHasOverflow<T extends HTMLElement>(
       const actualWidth = element.scrollWidth
 
       // update `hasOverflow`
-      setHasOverflow(actualWidth >= availableWidth)
+      setHasOverflow(actualWidth > availableWidth)
     }
 
     // invoke the listener on first load
