@@ -12,15 +12,26 @@ import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/reh
 import rehypePrism from '@mapbox/rehype-prism'
 import { getStaticGenerationFunctions as getStaticGenerationFunctionsBase } from '@hashicorp/react-docs-page/server'
 
+const MKTG_CONTENT_API_OLD = 'https://mktg-content-api-hashicorp.vercel.app'
+
+const contentApi = new URL(process.env.MKTG_CONTENT_API)
+
 // This Remark plugin rewrites img URLs from our Marketing Content Server API
 // to Dev Portal's next/image optimization endpoint.
 function remarkRewriteImageUrls() {
   return function plugin() {
     return function transformTree(tree) {
       visit<Image, string>(tree, 'image', (node) => {
-        if (node.url.includes(process.env.MKTG_CONTENT_API)) {
+        if (
+          node.url.includes(process.env.MKTG_CONTENT_API) ||
+          node.url.includes(MKTG_CONTENT_API_OLD)
+        ) {
+          // Ensure we're serving assets from our content.hashicorp.com subdomain
+          const assetUrl = new URL(node.url)
+          assetUrl.host = contentApi.host
+
           const params = new URLSearchParams()
-          params.set('url', node.url)
+          params.set('url', assetUrl.toString())
           // next/image requires that we specify an allowed width. The .io docs
           // page renders images at 909 pixels wide. To support high DPI
           // displays, we double this value to 1818, and round up to the nearest
