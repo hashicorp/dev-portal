@@ -47,9 +47,18 @@ See the `ProductSlug` type defined in [`types/products.ts`](/src/types/products.
 <details>
 <summary><code>basePaths</code></summary>
 
-This is an array of strings representing all of the base documentation paths for a product. This array is used in when [preparing data for the sidebar](/src/layouts/sidebar-sidecar/utils/prepare-nav-data-for-client.ts), [adjusting `href`s client-size in `DocsAnchor`](/src/components/docs-anchor/index.tsx), and [adjusting URLs server-side with remark](/src/layouts/sidebar-sidecar/utils/product-url-adjusters.ts).
+🚧 DEPRECATED - this property is being replaced by the `rootDocsPaths` property. The new property is detailed in the next section. 🚧
 
-See the type for this property defined in [`types/products.ts`](/src/types/products.ts).
+</details>
+
+<!-- rootDocsPaths -->
+
+<details>
+<summary><code>rootDocsPaths</code></summary>
+
+This is an array of objects. Each object represents a "root docs path", or a section of documentation for a product. For example, Waypoint has 3 root docs paths: `/waypoint/commands`, `/waypoint/docs`, and `/waypoint/plugins`. Each object stores metadata for a root docs path.
+
+See the `RootDocsPath` interface for this property defined in [`types/products.ts`](/src/types/products.ts).
 
 </details>
 
@@ -58,41 +67,7 @@ See the type for this property defined in [`types/products.ts`](/src/types/produ
 <details>
 <summary><code>sidebar</code></summary>
 
-This is an object with two properties at the time of writing. Both of these arrays contain `MenuItem` objects (defined in [`components/sidebar/types.ts`](/src/components/sidebar/types.ts)).
-
-- `landingPageNavData`: this is an array of items to show in the top of the sidebar in a product's landing page (`/boundary`, `/consul`, etc.).
-
-How to add different types of items:
-
-- To insert an internal link item, provide an object with the `fullPath` and `title` properties. Example:
-
-  ```json
-  {
-    "title": "Introduction",
-    "fullPath": "/waypoint/docs/intro"
-  }
-  ```
-
-- To insert an external link item (an external link icon is rendered next to it), provide an object with the `href` and `title` properties. Example:
-
-  ```json
-  {
-    "title": "Releases",
-    "href": "https://releases.hashicorp.com/waypoint/"
-  }
-  ```
-
-- To insert a heading in one of these arrays, an object with only a `heading` property is required. Example:
-
-  ```json
-  { "heading": "Resources" }
-  ```
-
-- To insert a horizontal divider in one of these arrays, the following object should be used:
-
-  ```json
-  { "divider": true }
-  ```
+🚧 DEPRECATED - this property is being replaced by the `rootDocsPaths` property. The new property is detailed in the previous section. 🚧
 
 </details>
 
@@ -101,9 +76,9 @@ How to add different types of items:
 <details>
 <summary><code>navigationHeaderItems</code></summary>
 
-This is an array of objects used to populate the main navigation header at the top of every page for a product.
+This is an object of one property presently. The lone property is `"documentation"` and is an array of objects. Each object represents a navigation header item that renders under a disclosure in the navigation header.
 
-See the `NavigationHeaderItem` interface defined in [`components/navigation-header/types.ts`](/src/components/navigation-header/types.ts) for details on the properties needed for each object in the array.
+See the `ProductData['navigationHeaderItems']` interface property defined in [`types/products.ts`](/src/types/products.ts) for details on the properties needed for each object in the array.
 
 </details>
 
