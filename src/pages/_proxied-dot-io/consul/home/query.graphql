@@ -96,6 +96,11 @@ query homepageQuery {
 		}
 		useCasesHeading
 		useCasesDescription
+		useCases {
+			heroHeading
+			heroDescription
+			slug
+		}
 		useCasesCards {
 			eyebrow
 			heading

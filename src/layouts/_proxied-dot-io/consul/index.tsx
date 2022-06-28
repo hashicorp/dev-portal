@@ -27,7 +27,7 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 		includedDomains: productData.analyticsConfig.includedDomains,
 	})
 	const { themeClass } = useProductMeta(productData.name as Products)
-	const { useCaseNavItems = [] } = data ?? {}
+	const { consulNav } = data ?? {}
 
 	return (
 		<>
@@ -112,10 +112,14 @@ ConsulIoLayout.rivetParams = {
 	dependencies: [],
 }
 
+type UseCase = { url: string; text: string }
+
 interface Props {
 	children: React.ReactChildren
 	data: {
-		useCaseNavItems: Array<{ url: string; text: string }>
+		consulNav: {
+			useCases: Array<UseCase>
+		}
 	}
 }
 

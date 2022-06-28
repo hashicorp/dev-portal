@@ -36,6 +36,7 @@ function Homepage({ data }): React.ReactElement {
 		inPracticeCtaImage,
 		useCasesHeading,
 		useCasesDescription,
+		useCases,
 		useCasesCards,
 		tutorialsHeading,
 		tutorialCards,
@@ -52,7 +53,6 @@ function Homepage({ data }): React.ReactElement {
 	} = data
 	const _introCallout = introCallout[0]
 	const _introVideo = introVideo[0]
-
 	return (
 		<>
 			<Head>{renderMetaTags(seo)}</Head>
@@ -124,16 +124,14 @@ function Homepage({ data }): React.ReactElement {
 						heading={useCasesHeading}
 						description={useCasesDescription}
 						cardsPerRow={4}
-						cards={useCasesCards.map((card) => {
+						cards={useCases.map((usecase) => {
 							return {
-								eyebrow: card.eyebrow,
 								link: {
-									url: card.link,
+									url: `/use-cases/${usecase.slug}`,
 									type: 'inbound',
 								},
-								heading: card.heading,
-								description: card.description,
-								products: card.products,
+								heading: usecase.heroHeading,
+								description: usecase.heroDescription,
 							}
 						})}
 					/>
