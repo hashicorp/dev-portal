@@ -1,6 +1,8 @@
-query UseCasesQuery {
-	useCaseNavItems: allConsulUseCases {
-		url: slug
-		text: heroHeading
+query navQuery {
+	consulNav {
+		useCases {
+			text: heroHeading
+			slug
+		}
 	}
 }

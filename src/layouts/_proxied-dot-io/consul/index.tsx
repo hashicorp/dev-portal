@@ -24,7 +24,7 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 		includedDomains: productData.analyticsConfig.includedDomains,
 	})
 	const { themeClass } = useProductMeta(productData.name as Products)
-	const { useCaseNavItems = [] } = data ?? {}
+	const { consulNav } = data ?? {}
 
 	return (
 		<>
@@ -50,14 +50,13 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 						{
 							text: 'Use Cases',
 							submenu: [
-								{ text: 'Consul on Kubernetes', url: '/consul-on-kubernetes' },
-								...useCaseNavItems.map((item) => {
+								...consulNav.useCases.map((item: UseCase) => {
 									return {
 										text: item.text,
 										url: `/use-cases/${item.url}`,
 									}
 								}),
-							].sort((a, b) => a.text.localeCompare(b.text)),
+							],
 						},
 						{
 							text: 'Enterprise',
@@ -104,10 +103,14 @@ ConsulIoLayout.rivetParams = {
 	dependencies: [],
 }
 
+type UseCase = { url: string; text: string }
+
 interface Props {
 	children: React.ReactChildren
 	data: {
-		useCaseNavItems: Array<{ url: string; text: string }>
+		consulNav: {
+			useCases: Array<UseCase>
+		}
 	}
 }
 
