@@ -48,7 +48,10 @@ const proxySettings = {
 		host: proxyConfig.sentinel.host,
 		routesToProxy: [
 			...gatherRoutesToProxy('/_proxied-dot-io/sentinel'),
-			...buildAssetRoutesToProxy(proxyConfig.sentinel.assets, '/sentinel'),
+			...buildAssetRoutesToProxy(
+				proxyConfig.sentinel.assets,
+				'/sentinel-public'
+			),
 			...getDevPortalRoutesToProxy('sentinel'),
 		],
 	},
