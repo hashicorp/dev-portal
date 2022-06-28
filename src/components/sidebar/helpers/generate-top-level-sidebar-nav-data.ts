@@ -6,16 +6,16 @@ import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-item
  * top-level of the mobile navigation experience.
  */
 export const generateTopLevelSidebarNavData = (productName: ProductName) => {
-  const levelButtonProps = {
-    levelDownButtonText: `${productName} Home`,
-  }
-  const showFilterInput = false
-  const title = 'Main Menu'
+	const levelButtonProps = {
+		levelDownButtonText: `${productName} Home`,
+	}
+	const showFilterInput = false
+	const title = 'Main Menu'
 
-  return {
-    levelButtonProps,
-    menuItems: generateTopLevelSubNavItems(),
-    showFilterInput,
-    title,
-  }
+	return {
+		levelButtonProps,
+		menuItems: generateTopLevelSubNavItems(),
+		showFilterInput,
+		title,
+	}
 }

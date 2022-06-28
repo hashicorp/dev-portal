@@ -3,19 +3,19 @@ import Button from 'components/button'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 
 export default function InteractiveLabButton() {
-  const ctx = useInstruqtEmbed()
+	const ctx = useInstruqtEmbed()
 
-  if (!ctx.labId) {
-    return null
-  }
+	if (!ctx.labId) {
+		return null
+	}
 
-  const buttonText = `${ctx.active ? 'Hide' : 'Show'} Terminal`
+	const buttonText = `${ctx.active ? 'Hide' : 'Show'} Terminal`
 
-  return (
-    <Button
-      text={buttonText}
-      onClick={() => ctx.setActive(!ctx.active)}
-      icon={<IconTerminalScreen16 />}
-    />
-  )
+	return (
+		<Button
+			text={buttonText}
+			onClick={() => ctx.setActive(!ctx.active)}
+			icon={<IconTerminalScreen16 />}
+		/>
+	)
 }

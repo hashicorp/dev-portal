@@ -9,113 +9,113 @@ export type slug = string
 export type identifier = uuid | slug
 
 export interface Tutorial {
-  id?: identifier // uuid
-  slug: identifier
-  name: string
-  description: string
-  content: string // mdx content
-  collectionCtx: CollectionCtxLite
-  readTime: number
-  edition: EditionOption // defaults to open source
-  productsUsed?: ProductUsed[]
-  video?: TutorialVideo
-  handsOnLab?: TutorialHandsOnLab
-  repo?: string
+	id?: identifier // uuid
+	slug: identifier
+	name: string
+	description: string
+	content: string // mdx content
+	collectionCtx: CollectionCtxLite
+	readTime: number
+	edition: EditionOption // defaults to open source
+	productsUsed?: ProductUsed[]
+	video?: TutorialVideo
+	handsOnLab?: TutorialHandsOnLab
+	repo?: string
 }
 
 export interface CollectionCtxLite {
-  default: CollectionLite
-  featuredIn?: CollectionLite[]
+	default: CollectionLite
+	featuredIn?: CollectionLite[]
 }
 
 export interface CollectionCtxFull {
-  default: CollectionLite
-  featuredIn?: Collection[]
+	default: CollectionLite
+	featuredIn?: Collection[]
 }
 
 export interface TutorialFullCollectionCtx
-  extends Omit<Tutorial, 'collectionCtx'> {
-  collectionCtx: CollectionCtxFull
+	extends Omit<Tutorial, 'collectionCtx'> {
+	collectionCtx: CollectionCtxFull
 }
 
 export type TutorialVideo = {
-  id: string
-  videoHost: VideoHostOption
-  videoInline?: boolean
+	id: string
+	videoHost: VideoHostOption
+	videoInline?: boolean
 }
 
 export type TutorialHandsOnLab = {
-  id: string
-  provider: HandsOnLabProviderOption
+	id: string
+	provider: HandsOnLabProviderOption
 }
 
 // A _lite_ version of tutorial, with all the content for rendering cards, sidebar items etc.
 export interface TutorialLite
-  extends Pick<
-    Tutorial,
-    | 'id'
-    | 'name'
-    | 'slug'
-    | 'description'
-    | 'readTime'
-    | 'edition'
-    | 'productsUsed'
-    | 'video'
-    | 'handsOnLab'
-  > {
-  defaultContext: CollectionLite
+	extends Pick<
+		Tutorial,
+		| 'id'
+		| 'name'
+		| 'slug'
+		| 'description'
+		| 'readTime'
+		| 'edition'
+		| 'productsUsed'
+		| 'video'
+		| 'handsOnLab'
+	> {
+	defaultContext: CollectionLite
 }
 
 export type CollectionLite = Pick<
-  Collection,
-  'id' | 'name' | 'shortName' | 'slug' | 'theme' | 'level'
+	Collection,
+	'id' | 'name' | 'shortName' | 'slug' | 'theme' | 'level'
 >
 
 export interface Collection {
-  id?: uuid // uuid
-  slug: slug
-  name: string
-  shortName: string
-  description: string
-  icon: string // TODO define this in further detail
-  theme: ProductOption | ThemeOption
-  level: CollectionLevelOption
-  ordered: boolean
-  tutorials: TutorialLite[]
-  category?: CollectionCategoryOption
+	id?: uuid // uuid
+	slug: slug
+	name: string
+	shortName: string
+	description: string
+	icon: string // TODO define this in further detail
+	theme: ProductOption | ThemeOption
+	level: CollectionLevelOption
+	ordered: boolean
+	tutorials: TutorialLite[]
+	category?: CollectionCategoryOption
 }
 
 export interface Product {
-  id?: uuid
-  slug: ProductOption
-  name: string
-  docsUrl: string
-  description?: string
+	id?: uuid
+	slug: ProductOption
+	name: string
+	docsUrl: string
+	description?: string
 }
 
 export interface ProductUsed {
-  product: Product
-  tutorial: identifier
-  isBeta: boolean
-  isPrimary: boolean
-  minVersion?: string
-  maxVersion?: string
+	product: Product
+	tutorial: identifier
+	isBeta: boolean
+	isPrimary: boolean
+	minVersion?: string
+	maxVersion?: string
 }
 
 export interface getAllTutorialsOptions {
-  limit?: number
-  fullContent?: boolean
-  slugsOnly?: boolean
+	limit?: number
+	fullContent?: boolean
+	slugsOnly?: boolean
 }
 
 export interface getAllCollectionsOptions
-  extends Pick<getAllTutorialsOptions, 'limit'> {
-  product?: AllCollectionsProductOptions
+	extends Pick<getAllTutorialsOptions, 'limit'> {
+	product?: AllCollectionsProductOptions
 }
 
 export type AllCollectionsProductOptions = {
-  slug: ProductOption | ThemeOption // If theme option, empty array is returned
-  sidebarSort?: boolean
+	slug: ProductOption | ThemeOption // If theme option, empty array is returned
+	sidebarSort?: boolean
 }
 
 /**
@@ -123,63 +123,63 @@ export type AllCollectionsProductOptions = {
  */
 
 export interface ProductPageBlockBrandedCallout {
-  type: 'BrandedCallout'
-  heading: string
-  subheading?: string
-  cta: {
-    text: string
-    url: string
-  }
-  product: ProductOption
+	type: 'BrandedCallout'
+	heading: string
+	subheading?: string
+	cta: {
+		text: string
+		url: string
+	}
+	product: ProductOption
 }
 
 export interface ProductPageBlockLogoCard {
-  type: 'LogoCard'
-  logo: CompanyLogoOption
-  collectionSlug: string
+	type: 'LogoCard'
+	logo: CompanyLogoOption
+	collectionSlug: string
 }
 
 export interface ProductPageBlockCardList {
-  type: 'CardList'
-  items: ProductPageBlockLogoCard[]
+	type: 'CardList'
+	items: ProductPageBlockLogoCard[]
 }
 
 export interface ProductPageBlockTutorialsStack {
-  type: 'TutorialsStack'
-  product: ProductOption
-  heading?: string
-  subheading?: string
-  tutorialSlugs: string[]
+	type: 'TutorialsStack'
+	product: ProductOption
+	heading?: string
+	subheading?: string
+	tutorialSlugs: string[]
 }
 
 export interface ProductPageBlockCollectionsStack {
-  type: 'CollectionsStack'
-  product: ProductOption
-  heading?: string
-  subheading?: string
-  collectionSlugs: string[]
+	type: 'CollectionsStack'
+	product: ProductOption
+	heading?: string
+	subheading?: string
+	collectionSlugs: string[]
 }
 
 export interface ProductPageBlockFeaturedStack {
-  type: 'FeaturedStack'
-  heading: string
-  subheading?: string
-  blocks: ProductPageBlockCardList[]
+	type: 'FeaturedStack'
+	heading: string
+	subheading?: string
+	blocks: ProductPageBlockCardList[]
 }
 
 export type ProductPageBlock =
-  | ProductPageBlockFeaturedStack
-  | ProductPageBlockBrandedCallout
-  | ProductPageBlockCardList
-  | ProductPageBlockTutorialsStack
-  | ProductPageBlockCollectionsStack
+	| ProductPageBlockFeaturedStack
+	| ProductPageBlockBrandedCallout
+	| ProductPageBlockCardList
+	| ProductPageBlockTutorialsStack
+	| ProductPageBlockCollectionsStack
 
 export interface ProductPage {
-  slug: string
-  pageData: {
-    blocks: ProductPageBlock[]
-    showProductSitemap?: boolean
-  }
+	slug: string
+	pageData: {
+		blocks: ProductPageBlock[]
+		showProductSitemap?: boolean
+	}
 }
 
 /**
@@ -187,71 +187,71 @@ export interface ProductPage {
  */
 
 export enum ProductOption {
-  boundary = 'boundary',
-  consul = 'consul',
-  nomad = 'nomad',
-  packer = 'packer',
-  terraform = 'terraform',
-  vagrant = 'vagrant',
-  vault = 'vault',
-  waypoint = 'waypoint',
+	boundary = 'boundary',
+	consul = 'consul',
+	nomad = 'nomad',
+	packer = 'packer',
+	terraform = 'terraform',
+	vagrant = 'vagrant',
+	vault = 'vault',
+	waypoint = 'waypoint',
 }
 
 export enum EditionOption {
-  openSource = 'open_source',
-  enterprise = 'enterprise',
-  tfcFree = 'tfc:free',
-  tfcTeam = 'tfc:team',
-  tfcGov = 'tfc:team_governance',
-  tfcBiz = 'tfc:business',
-  hcp = 'hcp',
+	openSource = 'open_source',
+	enterprise = 'enterprise',
+	tfcFree = 'tfc:free',
+	tfcTeam = 'tfc:team',
+	tfcGov = 'tfc:team_governance',
+	tfcBiz = 'tfc:business',
+	hcp = 'hcp',
 }
 
 export type BadgeOption =
-  | Exclude<EditionOption, EditionOption.openSource> //  "openSource" is default (no badge)
-  | 'beta'
+	| Exclude<EditionOption, EditionOption.openSource> //  "openSource" is default (no badge)
+	| 'beta'
 
 export enum ThemeOption {
-  cloud = 'cloud',
-  hashicorp = 'hashicorp',
+	cloud = 'cloud',
+	hashicorp = 'hashicorp',
 }
 
 export enum CollectionCategoryOption {
-  get_started = 'Get Started',
-  fundamentals = 'Fundamentals',
-  use_cases = 'Use Cases',
-  certification = 'Certification Prep',
-  production = 'Production',
-  integrations = 'Integrations',
-  kubernetes = 'Kubernetes',
-  operations = 'Operations',
+	get_started = 'Get Started',
+	fundamentals = 'Fundamentals',
+	use_cases = 'Use Cases',
+	certification = 'Certification Prep',
+	production = 'Production',
+	integrations = 'Integrations',
+	kubernetes = 'Kubernetes',
+	operations = 'Operations',
 }
 
 export type CollectionLevelOption =
-  | 'advanced'
-  | 'beginner'
-  | 'get_started'
-  | 'intermediate'
+	| 'advanced'
+	| 'beginner'
+	| 'get_started'
+	| 'intermediate'
 
 export enum VideoHostOption {
-  youtube = 'youtube',
-  wistia = 'wistia',
+	youtube = 'youtube',
+	wistia = 'wistia',
 }
 
 // @TODO delete katacoda option once all removed
 export enum HandsOnLabProviderOption {
-  katacoda = 'katacoda',
-  instruqt = 'instruqt',
+	katacoda = 'katacoda',
+	instruqt = 'instruqt',
 }
 
 export enum CompanyLogoOption {
-  docker = 'docker',
-  github = 'github',
-  'microsoft-azure' = 'microsoft-azure',
-  oci = 'oci',
-  'google-cloud' = 'google-cloud',
-  'terraform-cloud' = 'terraform-cloud',
-  aws = 'aws',
+	docker = 'docker',
+	github = 'github',
+	'microsoft-azure' = 'microsoft-azure',
+	oci = 'oci',
+	'google-cloud' = 'google-cloud',
+	'terraform-cloud' = 'terraform-cloud',
+	aws = 'aws',
 }
 
 /**
@@ -259,27 +259,27 @@ export enum CompanyLogoOption {
  */
 //  type guard to distinguish products from themes
 export function themeIsProduct(
-  theme: ThemeOption | ProductOption
+	theme: ThemeOption | ProductOption
 ): theme is ProductOption {
-  return isProductOption(theme)
+	return isProductOption(theme)
 }
 /**
  * Type guard to determine if a string is a ThemeOption or ProductOption
  */
 export function isThemeOrProduct(
-  string: string
+	string: string
 ): string is ProductOption | ThemeOption {
-  return isThemeOption(string) || isProductOption(string)
+	return isThemeOption(string) || isProductOption(string)
 }
 /**
  * Type guard to determine if a string is a ThemeOption
  */
 function isThemeOption(string: string): string is ThemeOption {
-  return Object.values(ThemeOption).includes(string as ThemeOption)
+	return Object.values(ThemeOption).includes(string as ThemeOption)
 }
 /**
  * Type guard to determine if a string is a ProductOption
  */
 function isProductOption(string: string): string is ProductOption {
-  return Object.values(ProductOption).includes(string as ProductOption)
+	return Object.values(ProductOption).includes(string as ProductOption)
 }

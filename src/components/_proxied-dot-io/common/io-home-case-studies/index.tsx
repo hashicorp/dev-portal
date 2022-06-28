@@ -7,77 +7,77 @@ import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-
 import s from './style.module.css'
 
 interface IoHomeCaseStudiesProps {
-  heading: string
-  description: string
-  primary: Array<{
-    thumbnail: {
-      url: string
-      alt: string
-    }
-    link: string
-    heading: string
-  }>
-  secondary: Array<{
-    link: string
-    heading: string
-  }>
+	heading: string
+	description: string
+	primary: Array<{
+		thumbnail: {
+			url: string
+			alt: string
+		}
+		link: string
+		heading: string
+	}>
+	secondary: Array<{
+		link: string
+		heading: string
+	}>
 }
 
 export default function IoHomeCaseStudies({
-  heading,
-  description,
-  primary,
-  secondary,
+	heading,
+	description,
+	primary,
+	secondary,
 }: IoHomeCaseStudiesProps): React.ReactElement {
-  const { proxiedProduct } = useProxiedPath()
+	const { proxiedProduct } = useProxiedPath()
 
-  return (
-    <section className={s.root}>
-      <div className={s.container}>
-        <header className={s.header}>
-          <h2 className={s.heading}>{heading}</h2>
-          <p className={s.description}>{description}</p>
-        </header>
-        <div className={s.caseStudies}>
-          <ul className={s.primary}>
-            {primary.map((item, index) => {
-              return (
-                <li key={index} className={s.primaryItem}>
-                  <a className={s.card} href={item.link}>
-                    <h3 className={s.cardHeading}>{item.heading}</h3>
-                    <Image
-                      className={s.cardThumbnail}
-                      src={item.thumbnail.url}
-                      layout="fill"
-                      objectFit="cover"
-                      alt={item.thumbnail.alt}
-                    />
-                  </a>
-                </li>
-              )
-            })}
-          </ul>
+	return (
+		<section className={s.root}>
+			<div className={s.container}>
+				<header className={s.header}>
+					<h2 className={s.heading}>{heading}</h2>
+					<p className={s.description}>{description}</p>
+				</header>
+				<div className={s.caseStudies}>
+					<ul className={s.primary}>
+						{primary.map((item, index) => {
+							return (
+								<li key={index} className={s.primaryItem}>
+									<a className={s.card} href={item.link}>
+										<h3 className={s.cardHeading}>{item.heading}</h3>
+										<Image
+											className={s.cardThumbnail}
+											src={item.thumbnail.url}
+											layout="fill"
+											objectFit="cover"
+											alt={item.thumbnail.alt}
+										/>
+									</a>
+								</li>
+							)
+						})}
+					</ul>
 
-          <ul className={s.secondary}>
-            {secondary.map((item, index) => {
-              return (
-                <li key={index} className={s.secondaryItem}>
-                  <a className={s.link} href={item.link}>
-                    <span className={s.linkInner}>
-                      <h3 className={s.linkHeading}>{item.heading}</h3>
-                      {isInternalLink(item.link, proxiedProduct) ? (
-                        <IconArrowRight16 />
-                      ) : (
-                        <IconExternalLink16 />
-                      )}
-                    </span>
-                  </a>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-      </div>
-    </section>
-  )
+					<ul className={s.secondary}>
+						{secondary.map((item, index) => {
+							return (
+								<li key={index} className={s.secondaryItem}>
+									<a className={s.link} href={item.link}>
+										<span className={s.linkInner}>
+											<h3 className={s.linkHeading}>{item.heading}</h3>
+											{isInternalLink(item.link, proxiedProduct) ? (
+												<IconArrowRight16 />
+											) : (
+												<IconExternalLink16 />
+											)}
+										</span>
+									</a>
+								</li>
+							)
+						})}
+					</ul>
+				</div>
+			</div>
+		</section>
+	)
 }

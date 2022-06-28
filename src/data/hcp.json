@@ -1,13 +1,13 @@
 {
-  "slug": "hcp",
-  "name": "HashiCorp Cloud Platform",
-  "sidebar": {
-    "landingPageNavData": [
-      { "title": "Introduction", "fullPath": "/hcp" },
-      {
-        "title": "Getting Started",
-        "fullPath": "/hcp"
-      }
-    ]
-  }
+	"slug": "hcp",
+	"name": "HashiCorp Cloud Platform",
+	"sidebar": {
+		"landingPageNavData": [
+			{ "title": "Introduction", "fullPath": "/hcp" },
+			{
+				"title": "Getting Started",
+				"fullPath": "/hcp"
+			}
+		]
+	}
 }

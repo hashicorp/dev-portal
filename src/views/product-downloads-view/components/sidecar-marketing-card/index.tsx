@@ -9,45 +9,45 @@ import { SidecarMarketingCardProps } from './types'
 import s from './sidecar-marketing-card.module.css'
 
 const SidecarMarketingCard = ({
-  title,
-  subtitle,
-  learnMoreLink,
-  featuredDocsLinks,
+	title,
+	subtitle,
+	learnMoreLink,
+	featuredDocsLinks,
 }: SidecarMarketingCardProps): ReactElement => (
-  <Card elevation="base">
-    <Text className={s.cardTitle} size={300} weight="semibold">
-      {title}
-    </Text>
-    <Text className={s.cardSubtitle} size={200} weight="regular">
-      {subtitle}
-    </Text>
-    <StandaloneLink
-      color="secondary"
-      href={learnMoreLink}
-      icon={<IconExternalLink16 />}
-      iconPosition="trailing"
-      openInNewTab
-      text="Learn more"
-    />
-    <Text className={s.featuredDocsLabel} size={200} weight="semibold">
-      Featured docs
-    </Text>
-    <ul className={s.featuredDocsLinksList}>
-      {featuredDocsLinks.map(({ href, text }) => (
-        <Text
-          className={s.featuredDocsListItem}
-          asElement="li"
-          key={slugify(text)}
-          size={200}
-          weight="regular"
-        >
-          <Link href={href}>
-            <a className={s.featuredDocsLink}>{text}</a>
-          </Link>
-        </Text>
-      ))}
-    </ul>
-  </Card>
+	<Card elevation="base">
+		<Text className={s.cardTitle} size={300} weight="semibold">
+			{title}
+		</Text>
+		<Text className={s.cardSubtitle} size={200} weight="regular">
+			{subtitle}
+		</Text>
+		<StandaloneLink
+			color="secondary"
+			href={learnMoreLink}
+			icon={<IconExternalLink16 />}
+			iconPosition="trailing"
+			openInNewTab
+			text="Learn more"
+		/>
+		<Text className={s.featuredDocsLabel} size={200} weight="semibold">
+			Featured docs
+		</Text>
+		<ul className={s.featuredDocsLinksList}>
+			{featuredDocsLinks.map(({ href, text }) => (
+				<Text
+					className={s.featuredDocsListItem}
+					asElement="li"
+					key={slugify(text)}
+					size={200}
+					weight="regular"
+				>
+					<Link href={href}>
+						<a className={s.featuredDocsLink}>{text}</a>
+					</Link>
+				</Text>
+			))}
+		</ul>
+	</Card>
 )
 
 export type { SidecarMarketingCardProps }

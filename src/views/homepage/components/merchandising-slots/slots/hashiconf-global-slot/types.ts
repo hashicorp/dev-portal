@@ -1,3 +1,3 @@
 export interface HashiConfGlobalSlotProps {
-  description: string
+	description: string
 }

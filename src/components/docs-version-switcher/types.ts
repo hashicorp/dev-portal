@@ -3,7 +3,7 @@ import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/rem
 type DocsVersionSwitcherOption = VersionSelectItem
 
 interface DocsVersionSwitcherProps {
-  options?: DocsVersionSwitcherOption[]
+	options?: DocsVersionSwitcherOption[]
 }
 
 export type { DocsVersionSwitcherOption, DocsVersionSwitcherProps }

@@ -23,65 +23,65 @@ import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
 const ICON_MAP = {
-  'arrow-right': {
-    16: <IconArrowRight16 />,
-    24: <IconArrowRight24 />,
-  },
-  'arrow-up-right': {
-    16: <IconArrowUpRight16 />,
-    24: <IconArrowUpRight24 />,
-  },
-  'alert-octagon': {
-    16: <IconAlertOctagon16 />,
-    24: <IconAlertOctagon24 />,
-  },
-  'alert-triangle': {
-    16: <IconAlertTriangle16 />,
-    24: <IconAlertTriangle24 />,
-  },
-  check: {
-    16: <IconCheck16 />,
-    24: <IconCheck24 />,
-  },
-  'check-circle': {
-    16: <IconCheckCircle16 />,
-    24: <IconCheckCircle24 />,
-  },
-  copy: {
-    16: <IconClipboardCopy16 />,
-    24: <IconClipboardCopy24 />,
-  },
-  cross: {
-    16: <IconX16 />,
-    24: <IconX24 />,
-  },
-  github: {
-    16: <IconGithub16 />,
-    24: <IconGithub24 />,
-  },
-  info: {
-    16: <IconInfo16 />,
-    24: <IconInfo24 />,
-  },
-  plus: {
-    16: <IconPlus16 />,
-    24: <IconPlus24 />,
-  },
+	'arrow-right': {
+		16: <IconArrowRight16 />,
+		24: <IconArrowRight24 />,
+	},
+	'arrow-up-right': {
+		16: <IconArrowUpRight16 />,
+		24: <IconArrowUpRight24 />,
+	},
+	'alert-octagon': {
+		16: <IconAlertOctagon16 />,
+		24: <IconAlertOctagon24 />,
+	},
+	'alert-triangle': {
+		16: <IconAlertTriangle16 />,
+		24: <IconAlertTriangle24 />,
+	},
+	check: {
+		16: <IconCheck16 />,
+		24: <IconCheck24 />,
+	},
+	'check-circle': {
+		16: <IconCheckCircle16 />,
+		24: <IconCheckCircle24 />,
+	},
+	copy: {
+		16: <IconClipboardCopy16 />,
+		24: <IconClipboardCopy24 />,
+	},
+	cross: {
+		16: <IconX16 />,
+		24: <IconX24 />,
+	},
+	github: {
+		16: <IconGithub16 />,
+		24: <IconGithub24 />,
+	},
+	info: {
+		16: <IconInfo16 />,
+		24: <IconInfo24 />,
+	},
+	plus: {
+		16: <IconPlus16 />,
+		24: <IconPlus24 />,
+	},
 }
 
 interface SwingsetTestIconProps {
-  name: 'arrow-right' | 'github' | 'plus'
-  size: 16 | 24
+	name: 'arrow-right' | 'github' | 'plus'
+	size: 16 | 24
 }
 
 /**
  * 🚨 SwingsetTestIcons should only be used in Swingset pages 🚨
  */
 const SwingsetTestIcon = ({
-  name = 'plus',
-  size = 16,
+	name = 'plus',
+	size = 16,
 }: SwingsetTestIconProps): ReactElement => {
-  return ICON_MAP[name][size]
+	return ICON_MAP[name][size]
 }
 
 export default SwingsetTestIcon

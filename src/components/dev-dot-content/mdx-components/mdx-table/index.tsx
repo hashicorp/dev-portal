@@ -5,9 +5,9 @@ import s from './mdx-table.module.css'
  * along with full-width tables.
  */
 export function MdxTable(props) {
-  return (
-    <div className={s.tableWrapper}>
-      <table {...props} />
-    </div>
-  )
+	return (
+		<div className={s.tableWrapper}>
+			<table {...props} />
+		</div>
+	)
 }

@@ -63,30 +63,30 @@ See the [HashiCorp Design System Toast Reference](https://design-system-componen
 ## Colors
 
 <div
-  style={{
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 270px), 1fr))',
-    gap: '16px',
-  }}
+	style={{
+		display: 'grid',
+		gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 270px), 1fr))',
+		gap: '16px',
+	}}
 >
-  {Object.keys(ToastColor).map((color) => {
-    const iconName = {
-      neutral: 'info',
-      highlight: 'info',
-      success: 'check-circle',
-      warning: 'alert-triangle',
-      critical: 'alert-octagon',
-    }[color]
-    return (
-      <Toast
-        key={color}
-        color={color}
-        icon={<SwingsetTestIcon name={iconName} size={24} />}
-        title="Title of the toast"
-        description={
-          'Lorem ipsum dolor sit amet, consectetur adipiscig elit. Nulla dignissim felis a lectus.'
-        }
-      />
-    )
-  })}
+	{Object.keys(ToastColor).map((color) => {
+		const iconName = {
+			neutral: 'info',
+			highlight: 'info',
+			success: 'check-circle',
+			warning: 'alert-triangle',
+			critical: 'alert-octagon',
+		}[color]
+		return (
+			<Toast
+				key={color}
+				color={color}
+				icon={<SwingsetTestIcon name={iconName} size={24} />}
+				title="Title of the toast"
+				description={
+					'Lorem ipsum dolor sit amet, consectetur adipiscig elit. Nulla dignissim felis a lectus.'
+				}
+			/>
+		)
+	})}
 </div>

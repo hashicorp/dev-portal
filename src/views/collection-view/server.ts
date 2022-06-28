@@ -1,62 +1,62 @@
 import moize, { Options } from 'moize'
 import { LearnProductData } from 'types/products'
 import {
-  Collection as ClientCollection,
-  ProductOption,
+	Collection as ClientCollection,
+	ProductOption,
 } from 'lib/learn-client/types'
 import {
-  getAllCollections,
-  getCollection,
+	getAllCollections,
+	getCollection,
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import {
-  CollectionCategorySidebarSection,
-  formatSidebarCategorySections,
+	CollectionCategorySidebarSection,
+	formatSidebarCategorySections,
 } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
 
 export interface CollectionPageProps {
-  collection: ClientCollection
-  allProductCollections: ClientCollection[]
-  product: LearnProductData
-  layoutProps: CollectionLayout
+	collection: ClientCollection
+	allProductCollections: ClientCollection[]
+	product: LearnProductData
+	layoutProps: CollectionLayout
 }
 
 export type CollectionLayout = Pick<
-  SidebarSidecarLayoutProps,
-  'breadcrumbLinks'
+	SidebarSidecarLayoutProps,
+	'breadcrumbLinks'
 > & { sidebarSections: CollectionCategorySidebarSection[] }
 
 export interface CollectionPagePath {
-  params: {
-    collectionSlug: string
-  }
+	params: {
+		collectionSlug: string
+	}
 }
 
 const moizeOpts: Options = {
-  isPromise: true,
-  maxSize: Infinity,
-  isDeepEqual: true,
+	isPromise: true,
+	maxSize: Infinity,
+	isDeepEqual: true,
 }
 // limit the expensive call for collections who all have the same product
 const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
 export async function getCollectionViewSidebarSections(
-  product: LearnProductData,
-  collection: ClientCollection
+	product: LearnProductData,
+	collection: ClientCollection
 ) {
-  const allProductCollections = await cachedGetAllCollections({
-    product: { slug: product.slug, sidebarSort: true },
-  })
-  const filteredCollections = filterCollections(
-    allProductCollections,
-    product.slug
-  )
+	const allProductCollections = await cachedGetAllCollections({
+		product: { slug: product.slug, sidebarSort: true },
+	})
+	const filteredCollections = filterCollections(
+		allProductCollections,
+		product.slug
+	)
 
-  return formatSidebarCategorySections(filteredCollections, collection.slug)
+	return formatSidebarCategorySections(filteredCollections, collection.slug)
 }
 
 /**
@@ -68,58 +68,58 @@ export async function getCollectionViewSidebarSections(
  * which is needed for other areas of the app to function.
  */
 export async function getCollectionPageProps(
-  product: LearnProductData,
-  slug: string
+	product: LearnProductData,
+	slug: string
 ): Promise<{ props: CollectionPageProps } | null> {
-  const collection = await getCollection(`${product.slug}/${slug}`)
+	const collection = await getCollection(`${product.slug}/${slug}`)
 
-  // if null the api encountered a 404
-  if (collection === null) {
-    return null
-  }
+	// if null the api encountered a 404
+	if (collection === null) {
+		return null
+	}
 
-  const layoutProps = {
-    breadcrumbLinks: getTutorialsBreadcrumb({
-      product: { name: product.name, filename: product.slug },
-      collection: {
-        name: collection.shortName,
-        filename: splitProductFromFilename(collection.slug),
-      },
-    }),
-    sidebarSections: await getCollectionViewSidebarSections(
-      product,
-      collection
-    ),
-  }
+	const layoutProps = {
+		breadcrumbLinks: getTutorialsBreadcrumb({
+			product: { name: product.name, filename: product.slug },
+			collection: {
+				name: collection.shortName,
+				filename: splitProductFromFilename(collection.slug),
+			},
+		}),
+		sidebarSections: await getCollectionViewSidebarSections(
+			product,
+			collection
+		),
+	}
 
-  return {
-    props: stripUndefinedProperties({
-      metadata: {
-        title: collection.shortName,
-        description: collection.description,
-      },
-      collection: collection,
-      product,
-      layoutProps,
-    }),
-  }
+	return {
+		props: stripUndefinedProperties({
+			metadata: {
+				title: collection.shortName,
+				description: collection.description,
+			},
+			collection: collection,
+			product,
+			layoutProps,
+		}),
+	}
 }
 
 export async function getCollectionPaths(
-  product: ProductOption
+	product: ProductOption
 ): Promise<CollectionPagePath[]> {
-  const collections = await cachedGetAllCollections({
-    product: { slug: product },
-  })
-  // Only build collections where this product is the main 'theme'
-  // @TODO once we implement the `theme` query option, remove the theme filtering
-  // https://app.asana.com/0/1201903760348480/1201932088801131/f
-  const filteredCollections = collections.filter((c) => c.theme === product)
-  const paths = filteredCollections.map((collection) => ({
-    params: {
-      collectionSlug: splitProductFromFilename(collection.slug),
-    },
-  }))
+	const collections = await cachedGetAllCollections({
+		product: { slug: product },
+	})
+	// Only build collections where this product is the main 'theme'
+	// @TODO once we implement the `theme` query option, remove the theme filtering
+	// https://app.asana.com/0/1201903760348480/1201932088801131/f
+	const filteredCollections = collections.filter((c) => c.theme === product)
+	const paths = filteredCollections.map((collection) => ({
+		params: {
+			collectionSlug: splitProductFromFilename(collection.slug),
+		},
+	}))
 
-  return paths
+	return paths
 }

@@ -7,80 +7,80 @@ import { Version } from './fetch-release-data'
  * are visible.
  */
 const AnalyticsPluginEventLogger = {
-  name: 'Event Logger',
-  version: '0.1.0',
-  type: 'after',
-  track: (ctx) => {
-    console.groupCollapsed(
-      '%ctrack',
-      'color:white;background:green;border-radius:4px;padding:2px 4px;',
-      ctx.event.event,
-      ctx.event.properties
-    )
-    console.log(ctx.event)
-    console.groupEnd()
+	name: 'Event Logger',
+	version: '0.1.0',
+	type: 'after',
+	track: (ctx) => {
+		console.groupCollapsed(
+			'%ctrack',
+			'color:white;background:green;border-radius:4px;padding:2px 4px;',
+			ctx.event.event,
+			ctx.event.properties
+		)
+		console.log(ctx.event)
+		console.groupEnd()
 
-    return ctx
-  },
-  load: () => Promise.resolve(),
-  isLoaded: () => true,
+		return ctx
+	},
+	load: () => Promise.resolve(),
+	isLoaded: () => true,
 }
 
 /**
  * Register the event logger plugin for track event logging during development.
  */
 export const makeDevAnalyticsLogger = () => {
-  if (
-    process.env.NODE_ENV !== 'production' &&
-    typeof window !== 'undefined' &&
-    process.env.NEXT_PUBLIC_ANALYTICS_LOG_LEVEL !== '0'
-  ) {
-    try {
-      window.analytics.ready(() => {
-        // @ts-expect-error - register doesn't exist on our current SegmentAnalytics.AnalyticsJS type
-        window.analytics.register(AnalyticsPluginEventLogger)
-      })
-    } catch {
-      // do nothing, not critical
-    }
-  }
+	if (
+		process.env.NODE_ENV !== 'production' &&
+		typeof window !== 'undefined' &&
+		process.env.NEXT_PUBLIC_ANALYTICS_LOG_LEVEL !== '0'
+	) {
+		try {
+			window.analytics.ready(() => {
+				// @ts-expect-error - register doesn't exist on our current SegmentAnalytics.AnalyticsJS type
+				window.analytics.register(AnalyticsPluginEventLogger)
+			})
+		} catch {
+			// do nothing, not critical
+		}
+	}
 }
 
 /**
  * Determines whether or not `window.analytics.track` can be invoked.
  */
 export const canTrackAnalytics = (): boolean => {
-  return (
-    typeof window !== undefined &&
-    window.analytics &&
-    window.analytics.track &&
-    typeof window.analytics.track === 'function'
-  )
+	return (
+		typeof window !== undefined &&
+		window.analytics &&
+		window.analytics.track &&
+		typeof window.analytics.track === 'function'
+	)
 }
 
 /**
  * Invokes `window.analytics.track` if it is able to be invoked.
  */
 const safeAnalyticsTrack = (
-  eventName: string,
-  properties: Record<string, unknown>
+	eventName: string,
+	properties: Record<string, unknown>
 ): void => {
-  if (canTrackAnalytics()) {
-    window.analytics.track(eventName, properties)
-  }
+	if (canTrackAnalytics()) {
+		window.analytics.track(eventName, properties)
+	}
 }
 
 export function safeGetSegmentId(): string | null {
-  if (
-    typeof window !== undefined &&
-    window.analytics &&
-    window.analytics.user &&
-    typeof window.analytics.user === 'function'
-  ) {
-    return window.analytics.user().anonymousId()
-  } else {
-    return null
-  }
+	if (
+		typeof window !== undefined &&
+		window.analytics &&
+		window.analytics.user &&
+		typeof window.analytics.user === 'function'
+	) {
+		return window.analytics.user().anonymousId()
+	} else {
+		return null
+	}
 }
 
 /**
@@ -97,29 +97,29 @@ export function safeGetSegmentId(): string | null {
  * https://github.com/hashicorp/react-components/blob/d6eba7971bbbf7c58cf3cc110f5b7b423e3cd27c/packages/product-download-page/utils/downloader.ts#L115-L134
  */
 const trackProductDownload = ({
-  architecture,
-  prettyOSName,
-  productSlug,
-  version,
+	architecture,
+	prettyOSName,
+	productSlug,
+	version,
 }: {
-  architecture: string
-  prettyOSName: string
-  productSlug: Exclude<ProductSlug, 'hcp'>
-  version: Version
+	architecture: string
+	prettyOSName: string
+	productSlug: Exclude<ProductSlug, 'hcp'>
+	version: Version
 }) => {
-  // Ensure the `architecture` property has the correct casing
-  const lowercasedArchitectureName = architecture.toLowerCase()
-  const casedArchitectureName =
-    lowercasedArchitectureName.charAt(0).toUpperCase() +
-    lowercasedArchitectureName.slice(1)
+	// Ensure the `architecture` property has the correct casing
+	const lowercasedArchitectureName = architecture.toLowerCase()
+	const casedArchitectureName =
+		lowercasedArchitectureName.charAt(0).toUpperCase() +
+		lowercasedArchitectureName.slice(1)
 
-  // Track the Download event
-  safeAnalyticsTrack('Download', {
-    architecture: casedArchitectureName,
-    operating_system: prettyOSName,
-    product: productSlug,
-    version,
-  })
+	// Track the Download event
+	safeAnalyticsTrack('Download', {
+		architecture: casedArchitectureName,
+		operating_system: prettyOSName,
+		product: productSlug,
+		version,
+	})
 }
 
 export { safeAnalyticsTrack, trackProductDownload }
