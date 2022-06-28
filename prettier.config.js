@@ -1,3 +1,4 @@
 module.exports = {
-  ...require('@hashicorp/platform-cli/config/prettier.config'),
+	...require('@hashicorp/platform-cli/config/prettier.config'),
+	useTabs: true,
 }
