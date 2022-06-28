@@ -8,22 +8,22 @@
         {
           "title": "Quick Start",
           "description": "It only takes a few minutes to get started with HashiCorp Cloud Platform on your local development environment.",
-          "url": "/waypoint/docs/getting-started"
+          "url": "/hcp/docs"
         },
         {
           "title": "App Lifecycle",
           "description": "HashiCorp Cloud Platform has an opinionated view on the minimum application lifecycle: build, deploy, and release.",
-          "url": "/waypoint/docs/lifecycle"
+          "url": "/hcp/docs"
         },
         {
           "title": "Projects",
           "description": "A project contains one or more applications and each one in a project represents a single deployable object.",
-          "url": "/waypoint/docs/projects"
+          "url": "/hcp/docs"
         },
         {
           "title": "waypoint.hcl",
           "description": "The waypoint.hcl file configures each HashiCorp Cloud Platform project and defines how HashiCorp Cloud Platform builds, deploys, and releases it.",
-          "url": "/waypoint/docs/waypoint-hcl"
+          "url": "/hcp/docs"
         }
       ]
     },
@@ -34,17 +34,17 @@
         {
           "title": "Overview",
           "description": "HashiCorp Cloud Platform can configure your application by setting environment variables and writing files.",
-          "url": "/waypoint/docs/app-config"
+          "url": "/hcp/docs"
         },
         {
           "title": "Dynamic Values",
           "description": "HashiCorp Cloud Platform can sync app config values with external systems like Kubernetes ConfigMaps, HashiCorp Vault, and more.",
-          "url": "/waypoint/docs/app-config/dynamic"
+          "url": "/hcp/docs"
         },
         {
           "title": "Files",
           "description": "HashiCorp Cloud Platform can write configs to files for apps that expect configurations at a certain path or in a certain format.",
-          "url": "/waypoint/docs/waypoint-hcl"
+          "url": "/hcp/docs"
         }
       ]
     },
@@ -55,17 +55,17 @@
         {
           "title": "Tips and Troubleshooting",
           "description": "Common tips and troubleshooting methods.",
-          "url": "/waypoint/docs/troubleshooting"
+          "url": "/hcp/docs"
         },
         {
           "title": "Logs",
           "description": "HashiCorp Cloud Platform app logs are aggregated and available to view via the CLI and UI.",
-          "url": "/waypoint/docs/logs"
+          "url": "/hcp/docs"
         },
         {
           "title": "Exec",
           "description": "HashiCorp Cloud Platform enables you to execute commands in the context of a deployed application.",
-          "url": "/waypoint/docs/exec"
+          "url": "/hcp/docs"
         }
       ]
     },
@@ -76,17 +76,17 @@
         {
           "title": "HashiCorp Cloud Platform URL Service",
           "description": "The HashiCorp Cloud Platform URL service is a free, public service hosted by HashiCorp to view your deployed app.",
-          "url": "/waypoint/docs/url"
+          "url": "/hcp/docs"
         },
         {
           "title": "HashiCorp Cloud Platform Runners",
           "description": "HashiCorp Cloud Platform has three types of runners to execute every operation: CLI, remote, and on-demand.",
-          "url": "/waypoint/docs/runner"
+          "url": "/hcp/docs"
         },
         {
           "title": "HashiCorp Cloud Platform Triggers",
           "description": "Trigger URLs are pre-configured HashiCorp Cloud Platform lifecycle operations for execution inside CI environments.",
-          "url": "/waypoint/docs/triggers"
+          "url": "/hcp/docs"
         }
       ]
     }
