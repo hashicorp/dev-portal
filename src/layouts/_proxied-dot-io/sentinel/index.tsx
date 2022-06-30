@@ -3,7 +3,10 @@ import HashiHead from '@hashicorp/react-head'
 import HashiStackMenu from '@hashicorp/react-hashi-stack-menu'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import Min100Layout from '@hashicorp/react-min-100-layout'
-import useProductMeta, { Products } from '@hashicorp/platform-product-meta'
+import useProductMeta, {
+  ProductMetaProvider,
+  Products,
+} from '@hashicorp/platform-product-meta'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 // product-specific layout elements
@@ -40,16 +43,18 @@ function SentinelIoLayout({
       />
 
       <Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
-        {productData.alertBannerActive && (
-          <AlertBanner
-            {...productData.alertBanner}
-            product={productData.slug as Products}
-            hideOnMobile
-          />
-        )}
-        <HashiStackMenu onPanelChange={() => null} />
-        <ProductSubnav />
-        <div className={themeClass}>{children}</div>
+        <ProductMetaProvider product={productData.slug as Products}>
+          {productData.alertBannerActive && (
+            <AlertBanner
+              {...productData.alertBanner}
+              product={productData.slug as Products}
+              hideOnMobile
+            />
+          )}
+          <HashiStackMenu onPanelChange={() => null} />
+          <ProductSubnav />
+          <div className={themeClass}>{children}</div>
+        </ProductMetaProvider>
       </Min100Layout>
       <ConsentManager />
     </>
