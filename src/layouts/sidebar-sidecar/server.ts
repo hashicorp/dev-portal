@@ -18,6 +18,8 @@ import {
   generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 
+import { isInvalidURI } from './utils/is-invalid-uri'
+
 /**
  * @TODO update the basePaths inside of `src/data/${productSLug}.json` files to
  * be arrays of objects that look like:
@@ -117,6 +119,13 @@ export function getStaticGenerationFunctions<
     getStaticProps: async (ctx) => {
       const pathParts = (ctx.params.page || []) as string[]
       const headings = [] // populated by anchorLinks plugin below
+
+      // catch invalid URIs early
+      if (isInvalidURI(pathParts.join('/'))) {
+        return {
+          notFound: true,
+        }
+      }
 
       const loader = getLoader({
         mainBranch,
