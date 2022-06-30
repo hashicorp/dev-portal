@@ -25,6 +25,12 @@ const ProductRootDocsPathLanding = ({
    * and the content for the former URL is empty (just a heading).
    * This is a workaround to prevent the empty content from being rendered.
    * https://github.com/hashicorp/cloud.hashicorp.com/blob/main/content/docs/index.mdx
+   *
+   * Related redirects-in-dev-dot issues:
+   * - Load redirects from private repos:
+   *   https://app.asana.com/0/1202097197789424/1202532915796679/f
+   * - Get remotely sourced redirects working for dev-dot routes:
+   *   https://app.asana.com/0/1201987349274776/1201662082096106/f
    */
   const isNotHcpDocs = product.slug != 'hcp'
   if (mdxSource && isNotHcpDocs) {
