@@ -6,7 +6,6 @@ import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import TruncateMaxLines from 'components/truncate-max-lines'
-import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 import { SUPPORTED_ICONS } from '../supported-icons'
 import s from './marketing-content.module.css'
 
@@ -29,12 +28,7 @@ const AutosizedHeading = ({
     2: 400,
     3: 300,
   }
-  const classes = classNames(
-    devDotStyles[`h${level}`],
-    s.heading,
-    s[`h${level}`],
-    className
-  )
+  const classes = classNames(s.heading, s[`h${level}`], className)
 
   return (
     <Heading
