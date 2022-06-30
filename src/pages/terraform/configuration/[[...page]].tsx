@@ -8,7 +8,7 @@ const baseName = 'Configuration'
 const product = terraformData as ProductData
 /**
  * TODO: productSlug should possibly actually be `terraform`,
- * but https://mktg-content-api.vercel.app/api/content/terraform/version-metadata?partial=true
+ * but https://content.hashicorp.com/api/content/terraform/version-metadata?partial=true
  * does not return any version with "isLatest: true"
  */
 const productSlugForLoader = 'terraform-website'

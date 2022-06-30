@@ -131,7 +131,7 @@ export function useActiveSection(
     headings.forEach((section) => {
       const el = document
         .getElementById('main')
-        ?.querySelector(`#${section.slug}`)
+        ?.querySelector(`#${CSS.escape(section.slug)}`)
       if (el) {
         observer.observe(el)
       }

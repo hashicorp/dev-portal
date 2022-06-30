@@ -170,3 +170,18 @@
   padding: 12px 20px;
   border-top: 1px solid var(--token-color-border-primary);
 }
+
+.noResults {
+  padding: 20px;
+  margin: 0;
+  color: var(--token-color-foreground-primary);
+
+  @media (--dev-dot-tablet-down) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+.noResultsDescription {
+  color: var(--token-color-foreground-faint);
+}

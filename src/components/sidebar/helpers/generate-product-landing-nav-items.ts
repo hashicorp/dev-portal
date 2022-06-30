@@ -1,5 +1,7 @@
 import { ProductData } from 'types/products'
 
+const IS_DEV = process.env.NODE_ENV !== 'production'
+
 /**
  * Generates the Sidebar menuItems for product landing pages
  * (/waypoint, /vault, etc.).
@@ -33,9 +35,11 @@ export const generateProductLandingSidebarMenuItems = (
       },
     ]
   } else {
-    console.warn(
-      `Warning (generateProductLandingSidebarMenuItems): ${product.name} does not have a "rootDocsPaths" property. Please replace the "landingPageNavData" property with "rootDocsPaths" in "src/data/${product.slug}.json".`
-    )
+    if (IS_DEV) {
+      console.warn(
+        `Warning (generateProductLandingSidebarMenuItems): ${product.name} does not have a "rootDocsPaths" property. Please replace the "landingPageNavData" property with "rootDocsPaths" in "src/data/${product.slug}.json".`
+      )
+    }
     menuItems = [...product.sidebar.landingPageNavData]
   }
 

@@ -1,6 +1,6 @@
 const fetchFileString = require('./fetch-file-string')
 
-const API_URL = `https://mktg-content-api-hashicorp.vercel.app`
+const API_URL = process.env.MKTG_CONTENT_API || `https://content.hashicorp.com`
 const API_ASSETS = `/api/assets`
 async function fetchContentApiFileString({ product, filePath, version }) {
   const [p, v, fp] = [product, version, filePath].map(encodeURIComponent)

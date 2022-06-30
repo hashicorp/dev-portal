@@ -15,9 +15,7 @@ import { Plugin } from 'unified'
 import { Node } from 'unist'
 import { Image, Definition } from 'mdast'
 
-const ASSET_API_ENDPOINT =
-  process.env.ASSET_API_ENDPOINT ||
-  'https://mktg-content-api-hashicorp.vercel.app/api/assets'
+const ASSET_API_ENDPOINT = `${process.env.MKTG_CONTENT_API}/api/assets`
 
 export const rewriteStaticAssetsPlugin: Plugin = () => {
   return function transformer(tree) {

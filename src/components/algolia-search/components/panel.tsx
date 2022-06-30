@@ -9,19 +9,21 @@ import {
   MutableRefObject,
   ForwardedRef,
 } from 'react'
-import { useDeviceSize } from 'contexts'
-import Portal from 'components/portal'
-import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
-import HitWrapper from './hit-wrapper'
-import SearchResultsLegend from './search-results-legend'
-import s from '../algolia-search.module.css'
-import { AlgoliaSearchPops } from '../types'
 import { Hit } from '@algolia/client-search'
 import {
   AutocompleteApi,
   AutocompleteCollection,
 } from '@algolia/autocomplete-core'
+import { useDeviceSize } from 'contexts'
+import Portal from 'components/portal'
+import Text from 'components/text'
+import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
+import HitWrapper from './hit-wrapper'
+import { AlgoliaSearchPops } from '../types'
+import { hasResults } from '../lib/has-results'
+import SearchResultsLegend from './search-results-legend'
+import s from '../algolia-search.module.css'
 
 type PanelProps<THit extends Hit<unknown>> = {
   /**
@@ -110,12 +112,11 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
         style={panelPositionStyle}
       >
         <div className={s.panelLayout}>
-          {collections.map((collection, index) => {
-            const { source, items } = collection
-
-            return (
-              <section key={`source-${index}`}>
-                {items.length > 0 && (
+          {hasResults(collections) ? (
+            collections.map((collection, index) => {
+              const { source, items } = collection
+              return (
+                <section key={`source-${index}`}>
                   <ul className={s.list} {...autocomplete.getListProps()}>
                     {items.map((item) => {
                       return (
@@ -139,10 +140,20 @@ export default forwardRef(function Panel<THit extends Hit<unknown>>(
                       )
                     })}
                   </ul>
-                )}
-              </section>
-            )
-          })}
+                </section>
+              )
+            })
+          ) : (
+            <div className={s.noResults}>
+              <Text weight="semibold" size={200}>
+                No Results
+              </Text>
+              <Text className={s.noResultsDescription} size={200}>
+                Search tips: some terms require an exact match. Try typing the
+                entire term, or use a different word or phrase.
+              </Text>
+            </div>
+          )}
         </div>
         {isDesktop && <SearchResultsLegend />}
       </div>
