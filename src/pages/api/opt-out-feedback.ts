@@ -125,7 +125,7 @@ export default async function handler(
       },
     })
   } catch (err) {
-    console.error('Google Sheet Submission Error:', err)
+    console.error('Google Sheet Submission Error:', err.message)
     response.status(500).json({
       meta: {
         status_code: 500,
