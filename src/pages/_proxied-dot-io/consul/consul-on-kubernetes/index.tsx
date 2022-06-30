@@ -20,7 +20,7 @@ function ConsulOnKubernetesPage() {
         title={pageTitle}
         pageName={pageTitle}
         description={pageDescription}
-        image="/consul/img/consul-on-kubernetes-share-image.png"
+        image="https://consul.io/consul/img/consul-on-kubernetes-share-image.png"
         twitterCard="summary_large_image"
       >
         <meta name="twitter:title" content={pageTitle} />

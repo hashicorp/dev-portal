@@ -1,5 +1,5 @@
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import { NavData } from '@hashicorp/react-docs-sidenav'
+import { NavData } from '@hashicorp/react-docs-sidenav/types'
 import { BreadcrumbLink } from '..'
 import getFallbackTitle from './get-fallback-title'
 
