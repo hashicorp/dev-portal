@@ -2,8 +2,8 @@
   "name": "Sentinel",
   "slug": "sentinel",
   "algoliaConfig": {
-    "indexName": "product_SENTINEL",
-    "searchOnlyApiKey": "55606ae6b6c797d30a84aa0b509711ef"
+    "indexName": "poc_DEVDOT",
+    "searchOnlyApiKey": "2cd9898a6c253bfa3965d2b62a4f7f3d"
   },
   "analyticsConfig": {
     "includedDomains": "docs.hashicorp.com",

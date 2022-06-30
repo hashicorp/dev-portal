@@ -2,8 +2,8 @@
   "name": "Boundary",
   "slug": "boundary",
   "algoliaConfig": {
-    "indexName": "product_BOUNDARY",
-    "searchOnlyApiKey": "8308498decdf72e11590fc6356e5fdde"
+    "indexName": "poc_DEVDOT",
+    "searchOnlyApiKey": "2cd9898a6c253bfa3965d2b62a4f7f3d"
   },
   "analyticsConfig": {
     "includedDomains": "boundaryproject.io www.boundaryproject.io",

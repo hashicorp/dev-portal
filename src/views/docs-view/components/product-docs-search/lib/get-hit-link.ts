@@ -5,18 +5,8 @@ interface HitLink {
   href: { pathname: string; hash?: string }
 }
 
-/**
- * Converts an index in the form of product_PRODUCT_NAME to a product slug
- */
-function getProductFromIndex(index: string) {
-  return index.split('_')[1].toLowerCase()
-}
-
 export function getHitLink(hit: DocsSearchHit): HitLink {
-  // @ts-expect-error -- this attribute isn't listed on the type, but it exists
-  const product = getProductFromIndex(hit.__autocomplete_indexName)
-
-  const pathname = `/${product}/${hit.objectID.replace(/\/index$/, '')}`
+  const pathname = `/${hit.objectID.replace(/\/index$/, '')}`
 
   const hitLink: HitLink = {
     href: {
