@@ -8,7 +8,6 @@ import Image from 'components/image'
 import ImageConfig from 'components/image-config'
 import InlineLink from 'components/inline-link'
 import InteractiveLabCallout from 'components/interactive-lab-callout'
-import { makeHeadingElement } from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import {
   MdxOrderedList,
   MdxUnorderedList,
@@ -16,6 +15,12 @@ import {
   MdxTabs,
   MdxTab,
   MdxTable,
+  MdxH1,
+  MdxH2,
+  MdxH3,
+  MdxH4,
+  MdxH5,
+  MdxH6,
 } from 'components/dev-dot-content/mdx-components'
 import Text from 'components/text'
 import VideoEmbed from 'components/video-embed'
@@ -50,12 +55,12 @@ const MDX_COMPONENTS = {
   ul: MdxUnorderedList,
   li: MdxListItem,
   a: (props) => <InlineLink {...props} textWeight="medium" />,
-  h1: (props) => makeHeadingElement(1, props),
-  h2: (props) => makeHeadingElement(2, props),
-  h3: (props) => makeHeadingElement(3, props),
-  h4: (props) => makeHeadingElement(4, props),
-  h5: (props) => makeHeadingElement(5, props),
-  h6: (props) => makeHeadingElement(6, props),
+  h1: MdxH1,
+  h2: MdxH2,
+  h3: MdxH3,
+  h4: MdxH4,
+  h5: MdxH5,
+  h6: MdxH6,
   p: (props) => <Text {...props} className={devDotStyles.p} />,
   table: MdxTable,
 }
