@@ -31,9 +31,11 @@ function Tooltip({
   label,
   ariaLabel,
   theme = 'dark',
+  forceVisible,
 }: TooltipProps): ReactElement {
   const [trigger, tooltip] = useTooltip()
   const { isVisible, triggerRect } = tooltip
+  const isVisibleOrForced = isVisible || forceVisible
 
   const themeClass = s[`theme-${theme}`]
 
@@ -41,7 +43,7 @@ function Tooltip({
     <>
       {/* Wrapper span acts as trigger */}
       {React.createElement('span', trigger, children)}
-      {isVisible ? (
+      {isVisibleOrForced ? (
         <Portal>
           <TooltipArrow
             arrowWidth={ARROW_WIDTH}
@@ -53,7 +55,7 @@ function Tooltip({
       ) : null}
       <TooltipPopup
         {...tooltip}
-        isVisible={isVisible}
+        isVisible={isVisibleOrForced}
         className={classNames(s.tooltip, themeClass)}
         label={label}
         aria-label={ariaLabel}
