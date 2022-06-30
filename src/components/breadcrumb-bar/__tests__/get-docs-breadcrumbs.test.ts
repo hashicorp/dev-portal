@@ -1,7 +1,10 @@
+import { NavData } from '@hashicorp/react-docs-sidenav/types'
 import getDocsBreadcrumbs, {
   getPathBreadcrumbs,
 } from '../utils/get-docs-breadcrumbs'
 import waypointNavData from '../__fixtures__/waypoint-nav-data.json'
+
+const fixtureNavData = waypointNavData as NavData
 
 describe('getDocsBreadcrumbs', () => {
   it('prepends docs breadcrumbs for a basic example', () => {
@@ -11,7 +14,7 @@ describe('getDocsBreadcrumbs', () => {
       productPath: 'waypoint',
       productName: 'Waypoint',
       pathParts: ['getting-started'],
-      navData: waypointNavData,
+      navData: fixtureNavData,
     }
     const expected = [
       {
@@ -42,7 +45,7 @@ describe('getPathBreadcrumbs', () => {
     const args = {
       basePath: 'docs',
       pathParts: ['getting-started'],
-      navData: waypointNavData,
+      navData: fixtureNavData,
     }
     const expected = [
       {
@@ -58,7 +61,7 @@ describe('getPathBreadcrumbs', () => {
     const args = {
       basePath: 'docs',
       pathParts: ['intro', 'vs'],
-      navData: waypointNavData,
+      navData: fixtureNavData,
     }
     const expected = [
       {
@@ -78,7 +81,7 @@ describe('getPathBreadcrumbs', () => {
     const args = {
       basePath: 'docs',
       pathParts: ['kubernetes', 'install'],
-      navData: waypointNavData,
+      navData: fixtureNavData,
     }
     const expected = [
       {

@@ -1,4 +1,5 @@
 import { Pluggable } from 'unified'
+import { NavData } from '@hashicorp/react-docs-sidenav/types'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import {
@@ -241,7 +242,7 @@ export function getStaticGenerationFunctions<
         baseName,
         basePath: basePath,
         indexOfVersionPathPart,
-        navData: navDataWithFullPaths,
+        navData: navDataWithFullPaths as NavData,
         pathParts,
         productName: product.name,
         productPath: product.slug,
