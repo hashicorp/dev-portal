@@ -3,7 +3,7 @@ import { createContext, useContext, ReactNode } from 'react'
 type NestedTabContextValue = boolean
 
 export function useIsNested(): NestedTabContextValue {
-  return useContext(NestedTabContext)
+	return useContext(NestedTabContext)
 }
 
 const NestedTabContext = createContext<NestedTabContextValue>(false)
@@ -14,13 +14,13 @@ const NestedTabContext = createContext<NestedTabContextValue>(false)
  * within wrapping <Tabs />.
  */
 export default function TabNestingProvider({
-  children,
+	children,
 }: {
-  children: ReactNode
+	children: ReactNode
 }) {
-  return (
-    <NestedTabContext.Provider value={true}>
-      {children}
-    </NestedTabContext.Provider>
-  )
+	return (
+		<NestedTabContext.Provider value={true}>
+			{children}
+		</NestedTabContext.Provider>
+	)
 }

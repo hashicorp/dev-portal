@@ -7,20 +7,20 @@ import { generateStaticProps, GeneratedProps } from 'lib/fetch-release-data'
 import ProductDownloadsView from 'views/product-downloads-view'
 
 const BoundaryDownloadsPage = (props: GeneratedProps): ReactElement => {
-  const { latestVersion, releases } = props
-  return (
-    <ProductDownloadsView
-      latestVersion={latestVersion}
-      pageContent={installData}
-      releases={releases}
-    />
-  )
+	const { latestVersion, releases } = props
+	return (
+		<ProductDownloadsView
+			latestVersion={latestVersion}
+			pageContent={installData}
+			releases={releases}
+		/>
+	)
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const product = boundaryData as ProductData
+	const product = boundaryData as ProductData
 
-  return generateStaticProps(product)
+	return generateStaticProps(product)
 }
 
 export default BoundaryDownloadsPage

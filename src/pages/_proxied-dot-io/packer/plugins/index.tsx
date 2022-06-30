@@ -20,47 +20,47 @@ const additionalComponents = { PluginBadge }
 const remotePluginsFile = 'data/plugins-manifest.json'
 
 function DocsView(props) {
-  return (
-    <DocsPage
-      product={product}
-      baseRoute={basePath}
-      staticProps={props}
-      additionalComponents={additionalComponents}
-      showVersionSelect={false}
-      algoliaConfig={productData.algoliaConfig}
-    />
-  )
+	return (
+		<DocsPage
+			product={product}
+			baseRoute={basePath}
+			staticProps={props}
+			additionalComponents={additionalComponents}
+			showVersionSelect={false}
+			algoliaConfig={productData.algoliaConfig}
+		/>
+	)
 }
 
 const { getStaticProps: baseGetStaticProps } = getStaticGenerationFunctions(
-  enableVersionedDocs
-    ? {
-        strategy: 'remote',
-        basePath,
-        fallback: 'blocking',
-        revalidate: 360, // 1 hour
-        product: productData.slug,
-      }
-    : {
-        strategy: 'fs',
-        localContentDir,
-        navDataFile,
-        localPartialsDir,
-        product: productData.slug,
-      }
+	enableVersionedDocs
+		? {
+				strategy: 'remote',
+				basePath,
+				fallback: 'blocking',
+				revalidate: 360, // 1 hour
+				product: productData.slug,
+		  }
+		: {
+				strategy: 'fs',
+				localContentDir,
+				navDataFile,
+				localPartialsDir,
+				product: productData.slug,
+		  }
 )
 
 async function getStaticProps(ctx) {
-  const staticProps = await baseGetStaticProps({ params: {}, ...ctx })
-  if ('props' in staticProps) {
-    const navData = await appendRemotePluginsNavData(
-      remotePluginsFile,
-      staticProps.props.navData,
-      ''
-    )
-    staticProps.props.navData = navData
-  }
-  return staticProps
+	const staticProps = await baseGetStaticProps({ params: {}, ...ctx })
+	if ('props' in staticProps) {
+		const navData = await appendRemotePluginsNavData(
+			remotePluginsFile,
+			staticProps.props.navData,
+			''
+		)
+		staticProps.props.navData = navData
+	}
+	return staticProps
 }
 
 // Export getStatic functions

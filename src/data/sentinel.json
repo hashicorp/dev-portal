@@ -1,67 +1,67 @@
 {
-  "name": "Sentinel",
-  "slug": "sentinel",
-  "algoliaConfig": {
-    "indexName": "product_SENTINEL",
-    "searchOnlyApiKey": "55606ae6b6c797d30a84aa0b509711ef"
-  },
-  "analyticsConfig": {
-    "includedDomains": "docs.hashicorp.com",
-    "segmentWriteKey": "X4VJ1pUW2yM3NLldLbHF6337lbDLTQ5h"
-  },
-  "metadata": {
-    "title": "Sentinel by HashiCorp",
-    "description": "Sentinel is a language and framework for policy built to be embedded in existing software to enable fine-grained, logic-based policy decisions.",
-    "image": "https://docs.hashicorp.com/sentinel-public/img/og-image.png",
-    "icon": [
-      {
-        "href": "/sentinel-public/favicon.svg",
-        "sizes": "16x16"
-      },
-      {
-        "href": "/sentinel-public/favicon.svg",
-        "sizes": "32x32"
-      },
-      {
-        "href": "/sentinel-public/favicon.svg",
-        "sizes": "96x96"
-      },
-      {
-        "href": "/sentinel-public/favicon.svg",
-        "sizes": "192x192"
-      }
-    ]
-  },
-  "alertBannerActive": false,
-  "alertBanner": {
-    "tag": "June 21-22",
-    "url": "https://hashiconf.com/europe?utm_source=Banner",
-    "text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
-    "linkText": "Join Now",
-    "expirationDate": ""
-  },
-  "version": "0.18.6",
-  "subnavItems": [
-    {
-      "url": "/sentinel/intro",
-      "text": "Intro",
-      "type": "inbound"
-    },
-    {
-      "url": "/sentinel",
-      "text": "Docs",
-      "type": "inbound"
-    }
-  ],
-  "basePaths": ["docs", "intro"],
-  "sidebar": {
-    "landingPageNavData": [
-      { "title": "Introduction", "fullPath": "/sentinel/intro" },
-      {
-        "title": "Getting Started",
-        "fullPath": "/sentinel/intro/getting-started"
-      }
-    ]
-  },
-  "navigationHeaderItems": {}
+	"name": "Sentinel",
+	"slug": "sentinel",
+	"algoliaConfig": {
+		"indexName": "product_SENTINEL",
+		"searchOnlyApiKey": "55606ae6b6c797d30a84aa0b509711ef"
+	},
+	"analyticsConfig": {
+		"includedDomains": "docs.hashicorp.com",
+		"segmentWriteKey": "X4VJ1pUW2yM3NLldLbHF6337lbDLTQ5h"
+	},
+	"metadata": {
+		"title": "Sentinel by HashiCorp",
+		"description": "Sentinel is a language and framework for policy built to be embedded in existing software to enable fine-grained, logic-based policy decisions.",
+		"image": "https://docs.hashicorp.com/sentinel-public/img/og-image.png",
+		"icon": [
+			{
+				"href": "/sentinel-public/favicon.svg",
+				"sizes": "16x16"
+			},
+			{
+				"href": "/sentinel-public/favicon.svg",
+				"sizes": "32x32"
+			},
+			{
+				"href": "/sentinel-public/favicon.svg",
+				"sizes": "96x96"
+			},
+			{
+				"href": "/sentinel-public/favicon.svg",
+				"sizes": "192x192"
+			}
+		]
+	},
+	"alertBannerActive": false,
+	"alertBanner": {
+		"tag": "June 21-22",
+		"url": "https://hashiconf.com/europe?utm_source=Banner",
+		"text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
+		"linkText": "Join Now",
+		"expirationDate": ""
+	},
+	"version": "0.18.6",
+	"subnavItems": [
+		{
+			"url": "/sentinel/intro",
+			"text": "Intro",
+			"type": "inbound"
+		},
+		{
+			"url": "/sentinel",
+			"text": "Docs",
+			"type": "inbound"
+		}
+	],
+	"basePaths": ["docs", "intro"],
+	"sidebar": {
+		"landingPageNavData": [
+			{ "title": "Introduction", "fullPath": "/sentinel/intro" },
+			{
+				"title": "Getting Started",
+				"fullPath": "/sentinel/intro/getting-started"
+			}
+		]
+	},
+	"navigationHeaderItems": {}
 }

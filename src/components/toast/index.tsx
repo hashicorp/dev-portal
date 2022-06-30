@@ -13,76 +13,76 @@ const AUTO_DISMISS_DEFAULT_MS = 4000
  * Wraps our ToastDisplay component in react-hot-toast.
  */
 function toast({
-  renderActions,
-  color,
-  description,
-  icon,
-  title,
-  onDismissCallback = () => null,
-  autoDismiss = AUTO_DISMISS_DEFAULT_MS,
-  dismissOnRouteChange = true,
+	renderActions,
+	color,
+	description,
+	icon,
+	title,
+	onDismissCallback = () => null,
+	autoDismiss = AUTO_DISMISS_DEFAULT_MS,
+	dismissOnRouteChange = true,
 }: Omit<ToastDisplayProps, 'dismissSelf'> & ToastOptions) {
-  // Determine the auto-dismiss duration
-  let duration: number
-  if (autoDismiss == false) {
-    duration = Infinity
-  } else if (typeof autoDismiss == 'number' && autoDismiss > 0) {
-    duration = autoDismiss
-  } else {
-    duration = AUTO_DISMISS_DEFAULT_MS
-  }
+	// Determine the auto-dismiss duration
+	let duration: number
+	if (autoDismiss == false) {
+		duration = Infinity
+	} else if (typeof autoDismiss == 'number' && autoDismiss > 0) {
+		duration = autoDismiss
+	} else {
+		duration = AUTO_DISMISS_DEFAULT_MS
+	}
 
-  // Return a react-hot-toast
-  return reactHotToast(
-    (t: Toast) => {
-      const [initialRoute, setInitialRoute] = useState(null)
-      const router = useRouter()
+	// Return a react-hot-toast
+	return reactHotToast(
+		(t: Toast) => {
+			const [initialRoute, setInitialRoute] = useState(null)
+			const router = useRouter()
 
-      // Allows the toast to dismiss itself
-      const dismissSelf = useCallback(() => {
-        onDismissCallback()
-        reactHotToast.remove(t.id)
-      }, [t.id])
+			// Allows the toast to dismiss itself
+			const dismissSelf = useCallback(() => {
+				onDismissCallback()
+				reactHotToast.remove(t.id)
+			}, [t.id])
 
-      /**
-       * If specified, when the route changes, we should dismiss the toast.
-       * Note: there is a long-standing bug that prevents us from using
-       * the more expected routeChangComplete event from NextJS:
-       * https://github.com/vercel/next.js/issues/11639
-       */
-      useEffect(() => {
-        if (initialRoute == null) {
-          setInitialRoute(router.pathname)
-        } else {
-          const isRouteChanged = router.pathname !== initialRoute
-          if (isRouteChanged && dismissOnRouteChange) {
-            dismissSelf()
-          }
-        }
-      }, [router.pathname, initialRoute, setInitialRoute, dismissSelf])
+			/**
+			 * If specified, when the route changes, we should dismiss the toast.
+			 * Note: there is a long-standing bug that prevents us from using
+			 * the more expected routeChangComplete event from NextJS:
+			 * https://github.com/vercel/next.js/issues/11639
+			 */
+			useEffect(() => {
+				if (initialRoute == null) {
+					setInitialRoute(router.pathname)
+				} else {
+					const isRouteChanged = router.pathname !== initialRoute
+					if (isRouteChanged && dismissOnRouteChange) {
+						dismissSelf()
+					}
+				}
+			}, [router.pathname, initialRoute, setInitialRoute, dismissSelf])
 
-      return (
-        <ToastDisplay
-          renderActions={renderActions}
-          color={color}
-          description={description}
-          icon={icon}
-          dismissSelf={dismissSelf}
-          title={title}
-        />
-      )
-    },
-    {
-      duration,
-      /**
-       * Note: in theory, style: { margin: 0 } should work here,
-       * and in fact should already be applied from ./components/toaster
-       * style settings, but in practice it does not seem to.
-       * We add a className that ensures margin actually gets set to 0.
-       */
-      className: s.removeMarginFix,
-    }
-  )
+			return (
+				<ToastDisplay
+					renderActions={renderActions}
+					color={color}
+					description={description}
+					icon={icon}
+					dismissSelf={dismissSelf}
+					title={title}
+				/>
+			)
+		},
+		{
+			duration,
+			/**
+			 * Note: in theory, style: { margin: 0 } should work here,
+			 * and in fact should already be applied from ./components/toaster
+			 * style settings, but in practice it does not seem to.
+			 * We add a className that ensures margin actually gets set to 0.
+			 */
+			className: s.removeMarginFix,
+		}
+	)
 }
 
 export { reactHotToast, Toaster, ToastDisplay, toast, ToastColor }

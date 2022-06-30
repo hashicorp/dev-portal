@@ -5,21 +5,21 @@ import { ReactPlayerProps } from 'react-player'
  * https://github.com/CookPete/react-player#props
  */
 export interface VideoEmbedProps extends ReactPlayerProps {
-  /**
-   * Optional string of classnames applied to the containing element.
-   */
-  className?: string
+	/**
+	 * Optional string of classnames applied to the containing element.
+	 */
+	className?: string
 
-  /**
-   * Optional starting time for the video. Works with YouTube and Wistia video URLS.
-   */
-  start?: number
+	/**
+	 * Optional starting time for the video. Works with YouTube and Wistia video URLS.
+	 */
+	start?: number
 
-  /**
-   * URL for the video. Unlike in ReactPlayerProps, which has a flexible type,
-   * for our purposes, this must be a string
-   */
-  url: string
+	/**
+	 * URL for the video. Unlike in ReactPlayerProps, which has a flexible type,
+	 * for our purposes, this must be a string
+	 */
+	url: string
 }
 
 /**
@@ -27,17 +27,17 @@ export interface VideoEmbedProps extends ReactPlayerProps {
  * we wrap this inner component to implement the analytics we want.
  */
 export interface VideoEmbedInnerProps extends VideoEmbedProps {
-  /**
-   * Callback fired when the % watched of the video changes,
-   * based on what percentage of timestamps have been played.
-   */
+	/**
+	 * Callback fired when the % watched of the video changes,
+	 * based on what percentage of timestamps have been played.
+	 */
 
-  percentPlayedCallback?: (percentPlayed: number) => void
-  /**
-   * Optionally only call percentPlayedCallback when specific
-   * percentage milestones are reached
-   */
-  percentPlayedMilestones?: number[]
+	percentPlayedCallback?: (percentPlayed: number) => void
+	/**
+	 * Optionally only call percentPlayedCallback when specific
+	 * percentage milestones are reached
+	 */
+	percentPlayedMilestones?: number[]
 }
 
 /**
@@ -45,7 +45,7 @@ export interface VideoEmbedInnerProps extends VideoEmbedProps {
  * used for progress tracking callbacks
  */
 export interface PlayState {
-  duration?: number
-  isPlaying: boolean
-  position: number
+	duration?: number
+	isPlaying: boolean
+	position: number
 }

@@ -92,11 +92,11 @@ Our `<product slug>-landing.json` pages take a "block"-based authoring approach 
 
 ```json5
 {
-  heading: 'string',
-  subheading: 'string',
-  blocks: [
-    /* array of objects */
-  ],
+	heading: 'string',
+	subheading: 'string',
+	blocks: [
+		/* array of objects */
+	],
 }
 ```
 
@@ -113,11 +113,11 @@ Source:
 
 ```json5
 {
-  heading: 'Waypoint Documentation',
-  subheading: 'Use Waypoint to deliver a PaaS-like experience for Kubernetes, ECS, and other platforms.',
-  blocks: [
-    /* ... */
-  ],
+	heading: 'Waypoint Documentation',
+	subheading: 'Use Waypoint to deliver a PaaS-like experience for Kubernetes, ECS, and other platforms.',
+	blocks: [
+		/* ... */
+	],
 }
 ```
 
@@ -149,10 +149,10 @@ Example: `h2` with `300` size:
 
 ```json5
 {
-  type: 'heading',
-  heading: 'Featured Reference Docs',
-  level: 2,
-  size: 300,
+	type: 'heading',
+	heading: 'Featured Reference Docs',
+	level: 2,
+	size: 300,
 }
 ```
 
@@ -162,10 +162,10 @@ Example: `h2` with `400` size:
 
 ```json5
 {
-  type: 'heading',
-  heading: 'Explore Waypoint Documentation',
-  level: 2,
-  size: 400,
+	type: 'heading',
+	heading: 'Explore Waypoint Documentation',
+	level: 2,
+	size: 400,
 }
 ```
 
@@ -192,14 +192,14 @@ Example: Waypoint `"get_started"` block
 
 ```json5
 {
-  type: 'get_started',
-  product: 'waypoint',
-  heading: 'Introduction to Waypoint',
-  text: 'Welcome to Waypoint! This introduction section covers what Waypoint is, the problem Waypoint aims to solve, and how Waypoint compares to other software.',
-  link: {
-    text: 'Get Started',
-    url: '/waypoint/docs/intro',
-  },
+	type: 'get_started',
+	product: 'waypoint',
+	heading: 'Introduction to Waypoint',
+	text: 'Welcome to Waypoint! This introduction section covers what Waypoint is, the problem Waypoint aims to solve, and how Waypoint compares to other software.',
+	link: {
+		text: 'Get Started',
+		url: '/waypoint/docs/intro',
+	},
 }
 ```
 
@@ -235,34 +235,34 @@ Example: 2-column cards with icons
 
 ```json5
 {
-  type: 'cards',
-  columns: 2,
-  cards: [
-    {
-      icon: 'IconDocs',
-      heading: 'Waypoint Reference Documentation',
-      text: 'Learn and develop your knowledge of Waypoint with these tutorials and code resources.',
-      url: '/waypoint/docs',
-    },
-    {
-      icon: 'IconTerminal',
-      heading: 'Waypoint CLI',
-      text: 'Waypoint is controlled via a very easy to use command-line interface (CLI).',
-      url: '/waypoint/commands',
-    },
-    {
-      icon: 'IconBox',
-      heading: 'Waypoint Plugins',
-      text: 'Waypoint uses a plugin architecture to provide its build, registry, deploy, and release abilities.',
-      url: '/waypoint/plugins',
-    },
-    {
-      icon: 'IconDownload',
-      heading: 'Waypoint Downloads',
-      text: 'Please download the proper package for your operating system and architecture.',
-      url: '/waypoint/downloads',
-    },
-  ],
+	type: 'cards',
+	columns: 2,
+	cards: [
+		{
+			icon: 'IconDocs',
+			heading: 'Waypoint Reference Documentation',
+			text: 'Learn and develop your knowledge of Waypoint with these tutorials and code resources.',
+			url: '/waypoint/docs',
+		},
+		{
+			icon: 'IconTerminal',
+			heading: 'Waypoint CLI',
+			text: 'Waypoint is controlled via a very easy to use command-line interface (CLI).',
+			url: '/waypoint/commands',
+		},
+		{
+			icon: 'IconBox',
+			heading: 'Waypoint Plugins',
+			text: 'Waypoint uses a plugin architecture to provide its build, registry, deploy, and release abilities.',
+			url: '/waypoint/plugins',
+		},
+		{
+			icon: 'IconDownload',
+			heading: 'Waypoint Downloads',
+			text: 'Please download the proper package for your operating system and architecture.',
+			url: '/waypoint/downloads',
+		},
+	],
 }
 ```
 
@@ -272,46 +272,46 @@ Example: 3-column cards with tags
 
 ```json5
 {
-  type: 'cards',
-  columns: 3,
-  cards: [
-    {
-      heading: 'Introduction to Waypoint',
-      text: 'Deploying applications in the DevOps landscape can be confusing with so many...',
-      tags: ['video', 'waypoint'],
-      url: 'https://learn.hashicorp.com/tutorials/waypoint/get-started-intro',
-    },
-    {
-      heading: 'Get Started - Kubernetes',
-      text: 'Build, deploy, and release applications to a Kubernetes cluster.',
-      tags: ['video', 'waypoint'],
-      url: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
-    },
-    {
-      heading: 'Get Started - Nomad',
-      text: 'Build, deploy, and release applications to a Nomad cluster.',
-      tags: ['video', 'waypoint'],
-      url: 'https://learn.hashicorp.com/collections/waypoint/get-started-nomad',
-    },
-    {
-      heading: 'Get Started - Docker',
-      text: 'Start using Waypoint in only a few minutes on a local Docker instance.',
-      tags: ['video', 'waypoint'],
-      url: 'https://learn.hashicorp.com/tutorials/waypoint/get-started-docker',
-    },
-    {
-      heading: 'Deploy an Application to AWS Elastic Container',
-      text: 'Run a NodeJS application onto AWS elastic container Service...',
-      tags: ['video', 'waypoint'],
-      url: 'https://learn.hashicorp.com/tutorials/waypoint/aws-ecs',
-    },
-    {
-      heading: 'Deploy an Application to Google Cloud Run',
-      text: 'Run an application on Google Cloud Run with Waypoint',
-      tags: ['video', 'waypoint'],
-      url: 'https://learn.hashicorp.com/tutorials/waypoint/google-cloud-run',
-    },
-  ],
+	type: 'cards',
+	columns: 3,
+	cards: [
+		{
+			heading: 'Introduction to Waypoint',
+			text: 'Deploying applications in the DevOps landscape can be confusing with so many...',
+			tags: ['video', 'waypoint'],
+			url: 'https://learn.hashicorp.com/tutorials/waypoint/get-started-intro',
+		},
+		{
+			heading: 'Get Started - Kubernetes',
+			text: 'Build, deploy, and release applications to a Kubernetes cluster.',
+			tags: ['video', 'waypoint'],
+			url: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
+		},
+		{
+			heading: 'Get Started - Nomad',
+			text: 'Build, deploy, and release applications to a Nomad cluster.',
+			tags: ['video', 'waypoint'],
+			url: 'https://learn.hashicorp.com/collections/waypoint/get-started-nomad',
+		},
+		{
+			heading: 'Get Started - Docker',
+			text: 'Start using Waypoint in only a few minutes on a local Docker instance.',
+			tags: ['video', 'waypoint'],
+			url: 'https://learn.hashicorp.com/tutorials/waypoint/get-started-docker',
+		},
+		{
+			heading: 'Deploy an Application to AWS Elastic Container',
+			text: 'Run a NodeJS application onto AWS elastic container Service...',
+			tags: ['video', 'waypoint'],
+			url: 'https://learn.hashicorp.com/tutorials/waypoint/aws-ecs',
+		},
+		{
+			heading: 'Deploy an Application to Google Cloud Run',
+			text: 'Run an application on Google Cloud Run with Waypoint',
+			tags: ['video', 'waypoint'],
+			url: 'https://learn.hashicorp.com/tutorials/waypoint/google-cloud-run',
+		},
+	],
 }
 ```
 
@@ -334,7 +334,7 @@ Example usage:
 
 ```json
 {
-  "doesNotHavePackageManagers": true
+	"doesNotHavePackageManagers": true
 }
 ```
 
@@ -366,13 +366,13 @@ Example usage showing an override for macOS Homebrew:
 
 ```json
 {
-  "packageManagerOverrides": [
-    {
-      "label": "Homebrew",
-      "commands": ["brew install vagrant"],
-      "os": "darwin"
-    }
-  ]
+	"packageManagerOverrides": [
+		{
+			"label": "Homebrew",
+			"commands": ["brew install vagrant"],
+			"os": "darwin"
+		}
+	]
 }
 ```
 

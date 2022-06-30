@@ -1,15 +1,15 @@
 import {
-  EnrichedLinkNavItem,
-  EnrichedNavItem,
-  EnrichedSubmenuNavItem,
-  LinkNavItemWithMetaData,
-  NavItemWithMetaData,
-  SubmenuNavItemWithMetaData,
+	EnrichedLinkNavItem,
+	EnrichedNavItem,
+	EnrichedSubmenuNavItem,
+	LinkNavItemWithMetaData,
+	NavItemWithMetaData,
+	SubmenuNavItemWithMetaData,
 } from 'components/sidebar/types'
 
 interface AddNavItemMetaDataResult {
-  foundActiveItem: boolean
-  itemsWithMetadata: NavItemWithMetaData[]
+	foundActiveItem: boolean
+	itemsWithMetadata: NavItemWithMetaData[]
 }
 
 /**
@@ -25,51 +25,51 @@ interface AddNavItemMetaDataResult {
  * subsequent items will not be checked for whether or not they're active.
  */
 export const addNavItemMetaData = (
-  currentPath: string,
-  items: EnrichedNavItem[]
+	currentPath: string,
+	items: EnrichedNavItem[]
 ): AddNavItemMetaDataResult => {
-  // `menuItems` is an optional prop, so nothing to do if `items` is undefined
-  let foundActiveItem = false
-  if (!items) {
-    return { foundActiveItem, itemsWithMetadata: [] }
-  }
+	// `menuItems` is an optional prop, so nothing to do if `items` is undefined
+	let foundActiveItem = false
+	if (!items) {
+		return { foundActiveItem, itemsWithMetadata: [] }
+	}
 
-  const itemsWithMetadata = items.map(
-    (item: EnrichedNavItem): NavItemWithMetaData => {
-      // Found an `EnrichedSubmenuNavItem` object
-      if (item.hasOwnProperty('routes')) {
-        const result = addNavItemMetaData(
-          currentPath,
-          (item as EnrichedSubmenuNavItem).routes
-        )
-        const hasActiveChild = !foundActiveItem && result.foundActiveItem
+	const itemsWithMetadata = items.map(
+		(item: EnrichedNavItem): NavItemWithMetaData => {
+			// Found an `EnrichedSubmenuNavItem` object
+			if (item.hasOwnProperty('routes')) {
+				const result = addNavItemMetaData(
+					currentPath,
+					(item as EnrichedSubmenuNavItem).routes
+				)
+				const hasActiveChild = !foundActiveItem && result.foundActiveItem
 
-        foundActiveItem = hasActiveChild || foundActiveItem
+				foundActiveItem = hasActiveChild || foundActiveItem
 
-        return {
-          ...item,
-          routes: result.itemsWithMetadata,
-          hasActiveChild,
-        } as SubmenuNavItemWithMetaData
-      }
+				return {
+					...item,
+					routes: result.itemsWithMetadata,
+					hasActiveChild,
+				} as SubmenuNavItemWithMetaData
+			}
 
-      // Found an `EnrichedLinkNavItem` object
-      if (item.hasOwnProperty('path')) {
-        const itemPath = (item as EnrichedLinkNavItem).fullPath
-        const isActive = !foundActiveItem && itemPath === currentPath
+			// Found an `EnrichedLinkNavItem` object
+			if (item.hasOwnProperty('path')) {
+				const itemPath = (item as EnrichedLinkNavItem).fullPath
+				const isActive = !foundActiveItem && itemPath === currentPath
 
-        foundActiveItem = isActive || foundActiveItem
+				foundActiveItem = isActive || foundActiveItem
 
-        return {
-          ...item,
-          isActive,
-        } as LinkNavItemWithMetaData
-      }
+				return {
+					...item,
+					isActive,
+				} as LinkNavItemWithMetaData
+			}
 
-      // Found `DividerNavItem` or `HeadingNavItem` object, do not modify
-      return { ...item } as NavItemWithMetaData
-    }
-  )
+			// Found `DividerNavItem` or `HeadingNavItem` object, do not modify
+			return { ...item } as NavItemWithMetaData
+		}
+	)
 
-  return { foundActiveItem, itemsWithMetadata }
+	return { foundActiveItem, itemsWithMetadata }
 }

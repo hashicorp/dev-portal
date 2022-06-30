@@ -8,9 +8,9 @@ const baseName = 'Commands'
 const product = waypointData as ProductData
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-  product,
-  basePath,
-  baseName,
+	product,
+	basePath,
+	baseName,
 })
 
 export { getStaticPaths, getStaticProps }

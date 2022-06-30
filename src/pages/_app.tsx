@@ -8,9 +8,9 @@ import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 import {
-  AllProductDataProvider,
-  CurrentProductProvider,
-  DeviceSizeProvider,
+	AllProductDataProvider,
+	CurrentProductProvider,
+	DeviceSizeProvider,
 } from 'contexts'
 import EmptyLayout from 'layouts/empty'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
@@ -23,87 +23,87 @@ import HeadMetadata from 'components/head-metadata'
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
 const PreviewProductSwitcher = dynamic(
-  () => import('components/_proxied-dot-io/common/preview-product-select'),
-  { ssr: false }
+	() => import('components/_proxied-dot-io/common/preview-product-select'),
+	{ ssr: false }
 )
 
 if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const ReactDOM = require('react-dom')
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const axe = require('@axe-core/react')
-  axe(React, ReactDOM, 1000)
+	// eslint-disable-next-line @typescript-eslint/no-var-requires
+	const ReactDOM = require('react-dom')
+	// eslint-disable-next-line @typescript-eslint/no-var-requires
+	const axe = require('@axe-core/react')
+	axe(React, ReactDOM, 1000)
 }
 
 export default function App({ Component, pageProps, layoutProps }) {
-  useAnchorLinkAnalytics()
-  useEffect(() => makeDevAnalyticsLogger(), [])
+	useAnchorLinkAnalytics()
+	useEffect(() => makeDevAnalyticsLogger(), [])
 
-  const Layout = Component.layout ?? EmptyLayout
-  const currentProduct = pageProps.product || null
+	const Layout = Component.layout ?? EmptyLayout
+	const currentProduct = pageProps.product || null
 
-  /**
-   * TODO: refactor this so that pageProps.layoutProps is the only place where
-   * layoutProps come from.
-   */
-  const allLayoutProps = {
-    ...pageProps.layoutProps,
-    ...layoutProps,
-  }
+	/**
+	 * TODO: refactor this so that pageProps.layoutProps is the only place where
+	 * layoutProps come from.
+	 */
+	const allLayoutProps = {
+		...pageProps.layoutProps,
+		...layoutProps,
+	}
 
-  return (
-    <>
-      <SSRProvider>
-        <ErrorBoundary FallbackComponent={DevDotClient}>
-          <DeviceSizeProvider>
-            <AllProductDataProvider>
-              <CurrentProductProvider currentProduct={currentProduct}>
-                <CodeTabsProvider>
-                  <HeadMetadata {...pageProps.metadata} />
-                  <LazyMotion
-                    features={() =>
-                      import('lib/framer-motion-features').then(
-                        (mod) => mod.default
-                      )
-                    }
-                    strict={process.env.NODE_ENV === 'development'}
-                  >
-                    <Layout {...allLayoutProps} data={allLayoutProps}>
-                      <Component {...pageProps} />
-                    </Layout>
-                    <Toaster />
-                    {showProductSwitcher ? <PreviewProductSwitcher /> : null}
-                  </LazyMotion>
-                </CodeTabsProvider>
-              </CurrentProductProvider>
-            </AllProductDataProvider>
-          </DeviceSizeProvider>
-        </ErrorBoundary>
-      </SSRProvider>
-    </>
-  )
+	return (
+		<>
+			<SSRProvider>
+				<ErrorBoundary FallbackComponent={DevDotClient}>
+					<DeviceSizeProvider>
+						<AllProductDataProvider>
+							<CurrentProductProvider currentProduct={currentProduct}>
+								<CodeTabsProvider>
+									<HeadMetadata {...pageProps.metadata} />
+									<LazyMotion
+										features={() =>
+											import('lib/framer-motion-features').then(
+												(mod) => mod.default
+											)
+										}
+										strict={process.env.NODE_ENV === 'development'}
+									>
+										<Layout {...allLayoutProps} data={allLayoutProps}>
+											<Component {...pageProps} />
+										</Layout>
+										<Toaster />
+										{showProductSwitcher ? <PreviewProductSwitcher /> : null}
+									</LazyMotion>
+								</CodeTabsProvider>
+							</CurrentProductProvider>
+						</AllProductDataProvider>
+					</DeviceSizeProvider>
+				</ErrorBoundary>
+			</SSRProvider>
+		</>
+	)
 }
 
 App.getInitialProps = async ({ Component, ctx }) => {
-  // Determine the product being served through our rewrites so we can fetch the correct layout data
-  let proxiedProduct
-  if (ctx.pathname.includes('_proxied-dot-io/vault')) {
-    proxiedProduct = 'vault'
-  } else if (ctx.pathname.includes('_proxied-dot-io/consul')) {
-    proxiedProduct = 'consul'
-  } else if (ctx.pathname.includes('_proxied-dot-io/nomad')) {
-    proxiedProduct = 'nomad'
-  }
-  const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
+	// Determine the product being served through our rewrites so we can fetch the correct layout data
+	let proxiedProduct
+	if (ctx.pathname.includes('_proxied-dot-io/vault')) {
+		proxiedProduct = 'vault'
+	} else if (ctx.pathname.includes('_proxied-dot-io/consul')) {
+		proxiedProduct = 'consul'
+	} else if (ctx.pathname.includes('_proxied-dot-io/nomad')) {
+		proxiedProduct = 'nomad'
+	}
+	const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
 
-  let pageProps = {}
+	let pageProps = {}
 
-  if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx)
-  }
+	if (Component.getInitialProps) {
+		pageProps = await Component.getInitialProps(ctx)
+	}
 
-  return {
-    pageProps,
-    layoutProps,
-  }
+	return {
+		pageProps,
+		layoutProps,
+	}
 }

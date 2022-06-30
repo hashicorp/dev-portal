@@ -9,37 +9,37 @@ import { ReactNode } from 'react'
  * accomplish requiring either `aria-label` or `aria-labelledby`.
  */
 export interface TabsProps {
-  /**
-   * A non-visible label describing the purpose of the Tabs
-   */
-  ariaLabel?: string
+	/**
+	 * A non-visible label describing the purpose of the Tabs
+	 */
+	ariaLabel?: string
 
-  /**
-   * The `id` of an element containing a label describing the purpose of the
-   * Tabs
-   */
-  ariaLabelledBy?: string
+	/**
+	 * The `id` of an element containing a label describing the purpose of the
+	 * Tabs
+	 */
+	ariaLabelledBy?: string
 
-  /**
-   * At least two `Tab` components, one for each button and panel to render
-   */
-  children: ReactNode
+	/**
+	 * At least two `Tab` components, one for each button and panel to render
+	 */
+	children: ReactNode
 
-  /**
-   * The index of the tab to show as active on initial render
-   */
-  initialActiveIndex?: number
+	/**
+	 * The index of the tab to show as active on initial render
+	 */
+	initialActiveIndex?: number
 
-  /**
-   * Set to true to enable nested styles. Defaults to false.
-   * Note that allowing nested styles means showAnchorLine will be ignored.
-   */
-  allowNestedStyles?: boolean
+	/**
+	 * Set to true to enable nested styles. Defaults to false.
+	 * Note that allowing nested styles means showAnchorLine will be ignored.
+	 */
+	allowNestedStyles?: boolean
 
-  /**
-   * Whether or not a full-width border should be shown below the tab buttons
-   */
-  showAnchorLine?: boolean
+	/**
+	 * Whether or not a full-width border should be shown below the tab buttons
+	 */
+	showAnchorLine?: boolean
 }
 
 // interface BaseProps {
@@ -63,9 +63,9 @@ export interface TabsProps {
  * RawTabItem is used for items parsed directly from <Tab /> children
  */
 export interface RawTabItem {
-  label: string
-  content: ReactNode
-  group?: string
+	label: string
+	content: ReactNode
+	group?: string
 }
 
 /**
@@ -74,8 +74,8 @@ export interface RawTabItem {
  * so the separation here is for convenience and clarity.
  */
 export interface RawTabItemWithIds extends RawTabItem {
-  tabId: string
-  panelId: string
+	tabId: string
+	panelId: string
 }
 
 /**
@@ -83,7 +83,7 @@ export interface RawTabItemWithIds extends RawTabItem {
  * which includes active state.
  */
 export interface TabItem extends RawTabItemWithIds {
-  isActive: boolean
+	isActive: boolean
 }
 
 /**
@@ -92,15 +92,15 @@ export interface TabItem extends RawTabItemWithIds {
  * the same interface.
  */
 export interface TabControlsProps {
-  tabItems: TabItem[]
-  activeTabIndex: number
-  setActiveTabIndex: (newActiveIndex: number) => void
-  ariaLabel?: TabsProps['ariaLabel']
-  ariaLabelledBy?: TabsProps['ariaLabelledBy']
+	tabItems: TabItem[]
+	activeTabIndex: number
+	setActiveTabIndex: (newActiveIndex: number) => void
+	ariaLabel?: TabsProps['ariaLabel']
+	ariaLabelledBy?: TabsProps['ariaLabelledBy']
 
-  /**
-   * If true, nested tab styling will be applied to the component.
-   * Defaults to false.
-   */
-  isNested?: boolean
+	/**
+	 * If true, nested tab styling will be applied to the component.
+	 * Defaults to false.
+	 */
+	isNested?: boolean
 }

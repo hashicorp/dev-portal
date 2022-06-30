@@ -3,9 +3,9 @@ import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
 import { NavigationHeaderItem } from './types'
 import {
-  GiveFeedbackButton,
-  HomePageHeaderContent,
-  ProductPageHeaderContent,
+	GiveFeedbackButton,
+	HomePageHeaderContent,
+	ProductPageHeaderContent,
 } from './components'
 import s from './navigation-header.module.css'
 
@@ -14,20 +14,20 @@ import s from './navigation-header.module.css'
  * the same for every page in the app.
  */
 const MobileMenuButton = () => {
-  const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
-  const ariaLabel = `${mobileMenuIsOpen ? 'Close' : 'Open'} navigation menu`
+	const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
+	const ariaLabel = `${mobileMenuIsOpen ? 'Close' : 'Open'} navigation menu`
 
-  return (
-    <>
-      <button
-        aria-label={ariaLabel}
-        className={s.mobileMenuButton}
-        onClick={() => setMobileMenuIsOpen((prevState) => !prevState)}
-      >
-        {mobileMenuIsOpen ? <IconX24 /> : <IconMenu24 />}
-      </button>
-    </>
-  )
+	return (
+		<>
+			<button
+				aria-label={ariaLabel}
+				className={s.mobileMenuButton}
+				onClick={() => setMobileMenuIsOpen((prevState) => !prevState)}
+			>
+				{mobileMenuIsOpen ? <IconX24 /> : <IconMenu24 />}
+			</button>
+		</>
+	)
 }
 
 /**
@@ -36,20 +36,20 @@ const MobileMenuButton = () => {
  * `/{productSlug}.`
  */
 const NavigationHeader = () => {
-  const currentProduct = useCurrentProduct()
-  const LeftSideHeaderContent = currentProduct
-    ? ProductPageHeaderContent
-    : HomePageHeaderContent
+	const currentProduct = useCurrentProduct()
+	const LeftSideHeaderContent = currentProduct
+		? ProductPageHeaderContent
+		: HomePageHeaderContent
 
-  return (
-    <header className={s.root}>
-      <LeftSideHeaderContent />
-      <div className={s.rightSide}>
-        <GiveFeedbackButton />
-        <MobileMenuButton />
-      </div>
-    </header>
-  )
+	return (
+		<header className={s.root}>
+			<LeftSideHeaderContent />
+			<div className={s.rightSide}>
+				<GiveFeedbackButton />
+				<MobileMenuButton />
+			</div>
+		</header>
+	)
 }
 
 export type { NavigationHeaderItem }

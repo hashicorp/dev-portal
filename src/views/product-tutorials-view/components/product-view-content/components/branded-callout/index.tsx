@@ -17,57 +17,57 @@ import patternVault from './img/vault.png'
 import patternWaypoint from './img/waypoint.png'
 
 const PATTERN_IMG_MAP: Record<ProductOption, string> = {
-  boundary: patternBoundary,
-  consul: patternConsul,
-  nomad: patternNomad,
-  packer: patternPacker,
-  terraform: patternTerraform,
-  vagrant: patternVagrant,
-  vault: patternVault,
-  waypoint: patternWaypoint,
+	boundary: patternBoundary,
+	consul: patternConsul,
+	nomad: patternNomad,
+	packer: patternPacker,
+	terraform: patternTerraform,
+	vagrant: patternVagrant,
+	vault: patternVault,
+	waypoint: patternWaypoint,
 }
 
 function BrandedCallout({
-  heading,
-  subheading,
-  cta,
-  product,
+	heading,
+	subheading,
+	cta,
+	product,
 }: BrandedCalloutProps) {
-  return (
-    <div
-      className={s.root}
-      style={
-        {
-          '--gradient-start': `var(--token-color-${product}-gradient-faint-start)`,
-          '--gradient-stop': `var(--token-color-${product}-gradient-faint-stop)`,
-        } as CSSProperties
-      }
-    >
-      <div className={s.textContainer}>
-        <h2 className={s.heading}>{heading}</h2>
-        {subheading ? <p className={s.subheading}>{subheading}</p> : null}
-        <p className={s.cta}>
-          <StandaloneLink
-            text={cta.text}
-            href={cta.url}
-            icon={<IconArrowRight16 />}
-            iconPosition="trailing"
-            color="secondary"
-          />
-        </p>
-      </div>
-      <div className={s.productPattern}>
-        <Image
-          src={PATTERN_IMG_MAP[product]}
-          /** Note: pattern image is purely decorative */
-          alt=""
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
-        />
-      </div>
-    </div>
-  )
+	return (
+		<div
+			className={s.root}
+			style={
+				{
+					'--gradient-start': `var(--token-color-${product}-gradient-faint-start)`,
+					'--gradient-stop': `var(--token-color-${product}-gradient-faint-stop)`,
+				} as CSSProperties
+			}
+		>
+			<div className={s.textContainer}>
+				<h2 className={s.heading}>{heading}</h2>
+				{subheading ? <p className={s.subheading}>{subheading}</p> : null}
+				<p className={s.cta}>
+					<StandaloneLink
+						text={cta.text}
+						href={cta.url}
+						icon={<IconArrowRight16 />}
+						iconPosition="trailing"
+						color="secondary"
+					/>
+				</p>
+			</div>
+			<div className={s.productPattern}>
+				<Image
+					src={PATTERN_IMG_MAP[product]}
+					/** Note: pattern image is purely decorative */
+					alt=""
+					layout="fill"
+					objectFit="cover"
+					objectPosition="center"
+				/>
+			</div>
+		</div>
+	)
 }
 
 export type { BrandedCalloutProps }

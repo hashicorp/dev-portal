@@ -5,11 +5,11 @@ import { GetStartedCardProps } from './components/get-started-card/types'
 import { ProductData } from 'types/products'
 
 export interface ProductLandingViewProps {
-  product: ProductData
-  content: {
-    hero: HeroHeadingVisualProps
-    overview: OverviewCtaProps
-    get_started: GetStartedCardProps
-    blocks: ProductLandingBlock[]
-  }
+	product: ProductData
+	content: {
+		hero: HeroHeadingVisualProps
+		overview: OverviewCtaProps
+		get_started: GetStartedCardProps
+		blocks: ProductLandingBlock[]
+	}
 }

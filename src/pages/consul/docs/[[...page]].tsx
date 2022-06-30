@@ -9,10 +9,10 @@ const baseName = 'Docs'
 const product = consulData as ProductData
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-  product,
-  basePath,
-  baseName,
-  additionalRemarkPlugins: [consulUrlAdjuster],
+	product,
+	basePath,
+	baseName,
+	additionalRemarkPlugins: [consulUrlAdjuster],
 })
 
 export { getStaticPaths, getStaticProps }

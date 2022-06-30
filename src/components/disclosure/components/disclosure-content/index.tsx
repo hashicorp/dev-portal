@@ -9,16 +9,16 @@ import { DisclosureContentProps } from './types'
  * @see https://developer.hashi-mktg.com/swingset/components/disclosure
  */
 const DisclosureContent = ({ children, className }: DisclosureContentProps) => {
-  const { contentContainerId } = useDisclosureState()
+	const { contentContainerId } = useDisclosureState()
 
-  return (
-    <div
-      className={classNames(disclosureStyles.contentContainer, className)}
-      id={contentContainerId}
-    >
-      {children}
-    </div>
-  )
+	return (
+		<div
+			className={classNames(disclosureStyles.contentContainer, className)}
+			id={contentContainerId}
+		>
+			{children}
+		</div>
+	)
 }
 
 export type { DisclosureContentProps }

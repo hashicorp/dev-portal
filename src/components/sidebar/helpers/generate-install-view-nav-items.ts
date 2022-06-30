@@ -14,26 +14,26 @@ import { ProductData } from 'types/products'
  * identical to the items shown on product landing views.
  */
 export const generateInstallViewNavItems = (
-  product: ProductData,
-  menuItems?: MenuItem[]
+	product: ProductData,
+	menuItems?: MenuItem[]
 ) => {
-  const backToLinkProps = {
-    text: `${product.name} Home`,
-    href: `/${product.slug}`,
-  }
-  const levelButtonProps = {
-    levelUpButtonText: `${product.name} Home`,
-    levelDownButtonText: 'Previous',
-  }
-  const menuItemsWithFallback = menuItems || []
-  const showFilterInput = false
-  const title = 'Install'
+	const backToLinkProps = {
+		text: `${product.name} Home`,
+		href: `/${product.slug}`,
+	}
+	const levelButtonProps = {
+		levelUpButtonText: `${product.name} Home`,
+		levelDownButtonText: 'Previous',
+	}
+	const menuItemsWithFallback = menuItems || []
+	const showFilterInput = false
+	const title = 'Install'
 
-  return {
-    backToLinkProps,
-    levelButtonProps,
-    menuItems: menuItemsWithFallback,
-    showFilterInput,
-    title,
-  }
+	return {
+		backToLinkProps,
+		levelButtonProps,
+		menuItems: menuItemsWithFallback,
+		showFilterInput,
+		title,
+	}
 }

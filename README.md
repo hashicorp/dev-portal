@@ -175,14 +175,14 @@ The meta tags for the site are rendered by the [`HeadMetadata`](./src/components
 
 ```ts
 export async function getStaticProps() {
-  return {
-    props: {
-      metadata: {
-        title: 'My Page', // Will be joined with the root site title
-        description: 'This is a cool page',
-      },
-    },
-  }
+	return {
+		props: {
+			metadata: {
+				title: 'My Page', // Will be joined with the root site title
+				description: 'This is a cool page',
+			},
+		},
+	}
 }
 ```
 
