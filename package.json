@@ -112,7 +112,7 @@
     "@hashicorp/react-learn-callout": "^2.0.1",
     "@hashicorp/react-markdown-page": "^1.5.0",
     "@hashicorp/react-min-100-layout": "^2.0.1",
-    "@hashicorp/react-motion-config": "^0.1.1",
+    "@hashicorp/react-motion-config": "^0.2.0-canary-20220630232302",
     "@hashicorp/react-notification": "^0.3.0-canary-20220617195936",
     "@hashicorp/react-open-api-page": "^2.0.1",
     "@hashicorp/react-product-downloads-page": "^2.8.1",

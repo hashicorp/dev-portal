@@ -50,7 +50,11 @@ module.exports = withSwingset({
       // disable `exports` support for framer-motion. This will cause Webpack to
       // fall back to using `module`
       config.module.rules.push({
-        test: /framer-motion/,
+        test: (input) => {
+          return (
+            input.includes('framer-motion') || input.includes('motion-config')
+          )
+        },
         resolve: {
           exportsFields: [],
         },
