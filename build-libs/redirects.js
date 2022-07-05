@@ -118,23 +118,6 @@ async function buildDotIoRedirects() {
 	// TODO: rather than leaving all redirects in the nomad repo
 	// TODO: intent is to do this after all products have been migrated
 	const nomadIoRedirects = [...nomadAuthorRedirects]
-	// ... for Sentinel
-	// TODO: sentinel is a private repo.
-	// TODO: we need a solution to fetch specific, public-friendly
-	// TODO: assets from the repo. The content API will likely lead the
-	// TODO: way here - as this is needed to render images in Sentinel docs,
-	// TODO: see for example:
-	// TODO: https://sentinel-git-kevin-versioned-docs-hashicorp.vercel.app/sentinel/extending/internals
-	// const rawSentinelRedirects = isContentDeployPreview('sentinel')
-	//   ? fs.readFileSync(path.join(process.cwd(), '../redirects.next.js'), 'utf-8')
-	//   : isDeployPreview()
-	//   ? []
-	//   : await fetchGithubFile({
-	//       owner: 'hashicorp',
-	//       repo: 'sentinel',
-	//       path: 'website/redirects.next.js',
-	//       ref: 'stable-website',
-	//     })
 	// ... for Waypoint
 	const rawWaypointRedirects = isContentDeployPreview('waypoint')
 		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
@@ -151,7 +134,11 @@ async function buildDotIoRedirects() {
 	// TODO: rather than leaving all redirects in the Waypoint repo
 	// TODO: intent is to do this after all products have been migrated
 	const waypointIoRedirects = [...waypointAuthorRedirects]
-
+	/**
+	 * TODO
+	 * Figure out solution to load Sentinel redirects from the Sentinel repo:
+	 * https://app.asana.com/0/1202097197789424/1202532915796679/f
+	 */
 	const sentinelIoRedirects = [
 		{
 			source: '/',
