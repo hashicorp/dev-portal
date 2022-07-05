@@ -18,10 +18,10 @@ import pageContent from './content.json'
  */
 
 const getStaticProps = generateGetStaticProps({
-  includeMDXSource: false,
-  pageContent,
-  productSlugForLoader: 'cloud.hashicorp.com',
-  product: hcpData as ProductData,
+	includeMDXSource: false,
+	pageContent,
+	productSlugForLoader: 'cloud.hashicorp.com',
+	product: hcpData as ProductData,
 })
 
 export { getStaticProps }
