@@ -9,6 +9,7 @@
 		"includedDomains": "vagrantup.com www.vagrantup.com",
 		"segmentWriteKey": "qW11yxgipKMsKFKQUCpTVgQUYftYsJj0"
 	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
 		"title": "Vagrant by HashiCorp",
 		"description": "Vagrant enables users to create and configure lightweight, reproducible, and portable development environments.",
