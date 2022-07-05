@@ -11,7 +11,7 @@ export default function getDeployedUrl() {
   }
 
   if (process.env.HASHI_ENV === 'development') {
-    return 'http://localhost:3000'
+    return ''
   }
 
   // use our canonical URL for production
