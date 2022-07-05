@@ -17,11 +17,11 @@ Example usage:
 
 ```js
 module.exports = {
-  plugins: ['./stylelint-rules/no-removed-outlines.js'],
-  rules: {
-    'digital-plugin/no-removed-outlines': [true, { reportDisables: true }],
-    'length-zero-no-unit': true /* needed by digital-plugin/no-removed-outlines */,
-  },
+	plugins: ['./stylelint-rules/no-removed-outlines.js'],
+	rules: {
+		'digital-plugin/no-removed-outlines': [true, { reportDisables: true }],
+		'length-zero-no-unit': true /* needed by digital-plugin/no-removed-outlines */,
+	},
 }
 ```
 
@@ -47,17 +47,17 @@ Example usage:
 const fs = require('fs')
 
 const tokensFileName =
-  '@hashicorp/design-system-tokens/dist/devdot/css/tokens.css'
+	'@hashicorp/design-system-tokens/dist/devdot/css/tokens.css'
 const tokensFile = require.resolve(tokensFileName)
 const tokensFileContent = fs.readFileSync(tokensFile).toString()
 
 module.exports = {
-  plugins: ['./stylelint-rules/no-undeclared-hds-color-tokens.js'],
-  rules: {
-    'digital-plugin/no-undeclared-hds-color-tokens': [
-      true,
-      { tokensSource: tokensFileContent },
-    ],
-  },
+	plugins: ['./stylelint-rules/no-undeclared-hds-color-tokens.js'],
+	rules: {
+		'digital-plugin/no-undeclared-hds-color-tokens': [
+			true,
+			{ tokensSource: tokensFileContent },
+		],
+	},
 }
 ```

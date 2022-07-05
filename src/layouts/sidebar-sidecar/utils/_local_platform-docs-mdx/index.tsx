@@ -3,18 +3,18 @@ import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import { useCurrentProduct } from 'contexts'
 import {
-  MdxOrderedList,
-  MdxUnorderedList,
-  MdxListItem,
-  MdxTab,
-  MdxTabs,
-  MdxTable,
-  MdxH1,
-  MdxH2,
-  MdxH3,
-  MdxH4,
-  MdxH5,
-  MdxH6,
+	MdxOrderedList,
+	MdxUnorderedList,
+	MdxListItem,
+	MdxTab,
+	MdxTabs,
+	MdxTable,
+	MdxH1,
+	MdxH2,
+	MdxH3,
+	MdxH4,
+	MdxH5,
+	MdxH6,
 } from 'components/dev-dot-content/mdx-components'
 import DocsAnchor from 'components/docs-anchor'
 import Text from 'components/text'
@@ -26,7 +26,7 @@ import { ImageProps } from 'components/image/types'
 // The `additionalComponents` param is purely for convenience.
 // It is intended for use with `next-mdx-remote`.
 export default function defaultMdxComponents({ additionalComponents = {} }) {
-  return Object.assign(_defaultComponents(), additionalComponents)
+	return Object.assign(_defaultComponents(), additionalComponents)
 }
 
 /**
@@ -39,39 +39,39 @@ export default function defaultMdxComponents({ additionalComponents = {} }) {
  * to have the same default behaviour.
  */
 function makeImageElement({ noBorder }: { noBorder: ImageProps['noBorder'] }) {
-  // eslint-disable-next-line react/display-name
-  return ({ alt, src, title }: Pick<ImageProps, 'alt' | 'src' | 'title'>) => (
-    <Image alt={alt} src={src} title={title} noBorder={noBorder} />
-  )
+	// eslint-disable-next-line react/display-name
+	return ({ alt, src, title }: Pick<ImageProps, 'alt' | 'src' | 'title'>) => (
+		<Image alt={alt} src={src} title={title} noBorder={noBorder} />
+	)
 }
 
 // Purely for sharing between the two functions. Once `createMdxProvider` is
 // deprecated, this can be moved inline.
 function _defaultComponents() {
-  const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
-    theme: 'dark',
-  })
-  return {
-    Tabs: MdxTabs,
-    Tab: MdxTab,
-    EnterpriseAlert,
-    CodeBlockConfig,
-    CodeTabs,
-    pre,
-    a: DocsAnchor,
-    ol: MdxOrderedList,
-    ul: MdxUnorderedList,
-    li: MdxListItem,
-    img: makeImageElement({ noBorder: true }),
-    h1: MdxH1,
-    h2: MdxH2,
-    h3: MdxH3,
-    h4: MdxH4,
-    h5: MdxH5,
-    h6: MdxH6,
-    p: (props) => <Text {...props} className={devDotStyles.p} />,
-    table: MdxTable,
-  }
+	const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
+		theme: 'dark',
+	})
+	return {
+		Tabs: MdxTabs,
+		Tab: MdxTab,
+		EnterpriseAlert,
+		CodeBlockConfig,
+		CodeTabs,
+		pre,
+		a: DocsAnchor,
+		ol: MdxOrderedList,
+		ul: MdxUnorderedList,
+		li: MdxListItem,
+		img: makeImageElement({ noBorder: true }),
+		h1: MdxH1,
+		h2: MdxH2,
+		h3: MdxH3,
+		h4: MdxH4,
+		h5: MdxH5,
+		h6: MdxH6,
+		p: (props) => <Text {...props} className={devDotStyles.p} />,
+		table: MdxTable,
+	}
 }
 
 //
@@ -79,6 +79,6 @@ function _defaultComponents() {
 // to fit our use cases in dev-portal
 //
 function EnterpriseAlert(props) {
-  const currentProduct = useCurrentProduct()
-  return <EnterpriseAlertBase product={currentProduct?.slug} {...props} />
+	const currentProduct = useCurrentProduct()
+	return <EnterpriseAlertBase product={currentProduct?.slug} {...props} />
 }

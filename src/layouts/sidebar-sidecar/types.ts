@@ -9,14 +9,14 @@ import { SidebarProps } from 'components/sidebar'
  * `SidebarSidecarLayout`.
  */
 interface BaseProps {
-  breadcrumbLinks?: BreadcrumbLink[]
-  children: React.ReactNode
-  githubFileUrl?: string
-  sidebarNavDataLevels: SidebarProps[]
-  /** @TODO determine the minimum set of props that all Sidebars should have */
-  AlternateSidebar?: (props: any) => ReactElement
-  optInOutSlot?: ReactElement
-  versions?: VersionSelectItem[]
+	breadcrumbLinks?: BreadcrumbLink[]
+	children: React.ReactNode
+	githubFileUrl?: string
+	sidebarNavDataLevels: SidebarProps[]
+	/** @TODO determine the minimum set of props that all Sidebars should have */
+	AlternateSidebar?: (props: any) => ReactElement
+	optInOutSlot?: ReactElement
+	versions?: VersionSelectItem[]
 }
 
 /**
@@ -26,14 +26,14 @@ interface BaseProps {
  * component handles.
  */
 type PropsForSidecar =
-  | {
-      headings: TableOfContentsHeading[]
-      sidecarSlot?: never
-    }
-  | {
-      headings?: never
-      sidecarSlot: ReactElement
-    }
+	| {
+			headings: TableOfContentsHeading[]
+			sidecarSlot?: never
+	  }
+	| {
+			headings?: never
+			sidecarSlot: ReactElement
+	  }
 
 /**
  * This is the final exported type, combining all types defined above into one.

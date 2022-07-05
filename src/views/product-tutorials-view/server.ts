@@ -8,8 +8,8 @@ import getProductPageContent from './helpers/get-product-page-content'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import {
-  InlineCollections,
-  InlineTutorials,
+	InlineCollections,
+	InlineTutorials,
 } from './helpers/get-inline-content'
 import { filterCollections, sortAlphabetically } from './helpers'
 import processPageData from './helpers/process-page-data'
@@ -19,25 +19,25 @@ import { ProductTutorialsSitemapProps } from './components/sitemap/types'
 import { formatSitemapCollection } from './components/sitemap/helpers'
 
 export interface ProductTutorialsViewProps {
-  data: ProductPageData
-  layoutProps: ProductTutorialsLayout
-  product: LearnProductData
+	data: ProductPageData
+	layoutProps: ProductTutorialsLayout
+	product: LearnProductData
 }
 
 interface ProductTutorialsLayout {
-  breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
-  headings: SidebarSidecarLayoutProps['headings']
-  sidebarSections: CollectionCategorySidebarSection[]
+	breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
+	headings: SidebarSidecarLayoutProps['headings']
+	sidebarSections: CollectionCategorySidebarSection[]
 }
 
 export interface ProductPageData {
-  pageData: {
-    blocks: ProductViewBlock[]
-    showProductSitemap?: boolean
-  }
-  allCollections: ProductTutorialsSitemapProps['collections']
-  inlineCollections: InlineCollections
-  inlineTutorials: InlineTutorials
+	pageData: {
+		blocks: ProductViewBlock[]
+		showProductSitemap?: boolean
+	}
+	allCollections: ProductTutorialsSitemapProps['collections']
+	inlineCollections: InlineCollections
+	inlineTutorials: InlineTutorials
 }
 
 /**
@@ -49,79 +49,79 @@ export interface ProductPageData {
  * prop, which is needed for other areas of the app to function.
  */
 export async function getProductTutorialsViewProps(
-  productData: LearnProductData
+	productData: LearnProductData
 ): Promise<{ props: ProductTutorialsViewProps }> {
-  const productSlug = productData.slug
-  /**
-   * Get the raw page data
-   */
-  const {
-    pageData: rawPageData,
-    inlineCollections,
-    inlineTutorials,
-  } = await getProductPageContent(productSlug)
-  /**
-   * Get the product data, and all collections,
-   * both of which are needed for layoutProps
-   */
-  const product = await getProduct(productSlug)
-  const allProductCollections = await getAllCollections({
-    product: { slug: productSlug, sidebarSort: true },
-  })
-  const filteredCollections = filterCollections(
-    allProductCollections,
-    productSlug
-  )
-  /**
-   * Process page data, reformatting as needed.
-   * Includes parsing headings, for use with the page's sidecar
-   */
-  const { pageData } = await processPageData(rawPageData)
-  /**
-   * Build & return layout props to pass to SidebarSidecarLayout
-   */
-  const layoutProps: ProductTutorialsLayout = {
-    headings: buildLayoutHeadings(pageData),
-    breadcrumbLinks: getTutorialsBreadcrumb({
-      product: { name: product.name, filename: product.slug },
-    }),
-    sidebarSections: formatSidebarCategorySections(filteredCollections),
-  }
+	const productSlug = productData.slug
+	/**
+	 * Get the raw page data
+	 */
+	const {
+		pageData: rawPageData,
+		inlineCollections,
+		inlineTutorials,
+	} = await getProductPageContent(productSlug)
+	/**
+	 * Get the product data, and all collections,
+	 * both of which are needed for layoutProps
+	 */
+	const product = await getProduct(productSlug)
+	const allProductCollections = await getAllCollections({
+		product: { slug: productSlug, sidebarSort: true },
+	})
+	const filteredCollections = filterCollections(
+		allProductCollections,
+		productSlug
+	)
+	/**
+	 * Process page data, reformatting as needed.
+	 * Includes parsing headings, for use with the page's sidecar
+	 */
+	const { pageData } = await processPageData(rawPageData)
+	/**
+	 * Build & return layout props to pass to SidebarSidecarLayout
+	 */
+	const layoutProps: ProductTutorialsLayout = {
+		headings: buildLayoutHeadings(pageData),
+		breadcrumbLinks: getTutorialsBreadcrumb({
+			product: { name: product.name, filename: product.slug },
+		}),
+		sidebarSections: formatSidebarCategorySections(filteredCollections),
+	}
 
-  const sitemapCollections: ProductTutorialsSitemapProps['collections'] =
-    filteredCollections
-      .sort(sortAlphabetically('name'))
-      .map(formatSitemapCollection)
+	const sitemapCollections: ProductTutorialsSitemapProps['collections'] =
+		filteredCollections
+			.sort(sortAlphabetically('name'))
+			.map(formatSitemapCollection)
 
-  /**
-   * Destructuring the Learn data for now so it can be treated as the source of
-   * truth in this view.
-   *
-   * @TODO Determine which should be the source of truth in the long term since
-   * both Learn and existing Docs properties are both needed to be returned from
-   * here.
-   */
-  const { description, docsUrl, id, name, slug } = product
-  return {
-    props: stripUndefinedProperties({
-      metadata: {
-        title: 'Tutorials',
-      },
-      data: {
-        pageData,
-        allCollections: sitemapCollections,
-        inlineCollections,
-        inlineTutorials,
-      },
-      layoutProps,
-      product: {
-        ...productData,
-        description,
-        docsUrl,
-        id,
-        name,
-        slug,
-      },
-    }),
-  }
+	/**
+	 * Destructuring the Learn data for now so it can be treated as the source of
+	 * truth in this view.
+	 *
+	 * @TODO Determine which should be the source of truth in the long term since
+	 * both Learn and existing Docs properties are both needed to be returned from
+	 * here.
+	 */
+	const { description, docsUrl, id, name, slug } = product
+	return {
+		props: stripUndefinedProperties({
+			metadata: {
+				title: 'Tutorials',
+			},
+			data: {
+				pageData,
+				allCollections: sitemapCollections,
+				inlineCollections,
+				inlineTutorials,
+			},
+			layoutProps,
+			product: {
+				...productData,
+				description,
+				docsUrl,
+				id,
+				name,
+				slug,
+			},
+		}),
+	}
 }

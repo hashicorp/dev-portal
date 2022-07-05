@@ -18,73 +18,73 @@ insightsClient('init', { appId, apiKey })
 const algoliaInsightsPlugin = createAlgoliaInsightsPlugin({ insightsClient })
 
 function ProductSearchResult({ hit }: { hit: DocsSearchHit }) {
-  return (
-    <div className={s.itemContent}>
-      <div className={s.itemTitle}>
-        <Highlight hit={hit} attribute="page_title" />
-      </div>
-      <div className={s.itemDescription}>
-        <Highlight hit={hit} attribute="description" />
-      </div>
-    </div>
-  )
+	return (
+		<div className={s.itemContent}>
+			<div className={s.itemTitle}>
+				<Highlight hit={hit} attribute="page_title" />
+			</div>
+			<div className={s.itemDescription}>
+				<Highlight hit={hit} attribute="description" />
+			</div>
+		</div>
+	)
 }
 
 export default function ProductDocsSearch() {
-  const currentProduct = useCurrentProduct()
+	const currentProduct = useCurrentProduct()
 
-  return (
-    <AlgoliaSearch
-      className={s.root}
-      openOnFocus={true}
-      placeholder={`Search ${currentProduct.name} documentation`}
-      ResultComponent={ProductSearchResult}
-      getHitLinkProps={getHitLink}
-      plugins={[algoliaInsightsPlugin]}
-      getSources={({ query }) => {
-        // Prevent showing results on focus when no query has been entered
-        if (!query) {
-          return []
-        }
+	return (
+		<AlgoliaSearch
+			className={s.root}
+			openOnFocus={true}
+			placeholder={`Search ${currentProduct.name} documentation`}
+			ResultComponent={ProductSearchResult}
+			getHitLinkProps={getHitLink}
+			plugins={[algoliaInsightsPlugin]}
+			getSources={({ query }) => {
+				// Prevent showing results on focus when no query has been entered
+				if (!query) {
+					return []
+				}
 
-        return [
-          {
-            sourceId: 'products',
-            getItems() {
-              return getAlgoliaResults({
-                searchClient,
-                queries: [
-                  {
-                    indexName: currentProduct.algoliaConfig.indexName,
-                    query,
-                    params: {
-                      clickAnalytics: true,
-                      hitsPerPage: 20,
-                    },
-                  },
-                  // TODO(brkalow): add additional queries to support cross-product?
-                  // {
-                  //   indexName: 'product_VAULT',
-                  //   query,
-                  // },
-                ],
-              })
-            },
-            /**
-             * This enables press-enter-to-navigate while an item is active via keyboard navigation,
-             * it is passed along to algolia's autocomplete library which handles setting up the handler
-             * internally.
-             *
-             * ref: https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/keyboard-navigation
-             */
-            getItemUrl({ item }) {
-              const { href } = getHitLink(item)
+				return [
+					{
+						sourceId: 'products',
+						getItems() {
+							return getAlgoliaResults({
+								searchClient,
+								queries: [
+									{
+										indexName: currentProduct.algoliaConfig.indexName,
+										query,
+										params: {
+											clickAnalytics: true,
+											hitsPerPage: 20,
+										},
+									},
+									// TODO(brkalow): add additional queries to support cross-product?
+									// {
+									//   indexName: 'product_VAULT',
+									//   query,
+									// },
+								],
+							})
+						},
+						/**
+						 * This enables press-enter-to-navigate while an item is active via keyboard navigation,
+						 * it is passed along to algolia's autocomplete library which handles setting up the handler
+						 * internally.
+						 *
+						 * ref: https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/keyboard-navigation
+						 */
+						getItemUrl({ item }) {
+							const { href } = getHitLink(item)
 
-              return `${href.pathname}${href.hash ? `#${href.hash}` : ''}`
-            },
-          },
-        ]
-      }}
-    />
-  )
+							return `${href.pathname}${href.hash ? `#${href.hash}` : ''}`
+						},
+					},
+				]
+			}}
+		/>
+	)
 }

@@ -5,8 +5,8 @@ import { generateGetStaticProps } from 'views/product-root-docs-path-landing/ser
 import pageContent from './content.json'
 
 const getStaticProps = generateGetStaticProps({
-  pageContent,
-  product: vaultData as ProductData,
+	pageContent,
+	product: vaultData as ProductData,
 })
 
 export { getStaticProps }

@@ -6,40 +6,40 @@
 import { test, expect } from '@playwright/test'
 
 test('should opt-in based on optInFrom query parameter', async ({
-  page,
-  context,
-  baseURL,
+	page,
+	context,
+	baseURL,
 }) => {
-  await page.goto('/waypoint/docs?optInFrom=waypoint-io')
-  const betaOptInCookie = (await context.cookies(baseURL)).find(
-    (cookie) => cookie.name === 'waypoint-io-beta-opt-in'
-  )
-  expect(betaOptInCookie).not.toBeUndefined()
+	await page.goto('/waypoint/docs?optInFrom=waypoint-io')
+	const betaOptInCookie = (await context.cookies(baseURL)).find(
+		(cookie) => cookie.name === 'waypoint-io-beta-opt-in'
+	)
+	expect(betaOptInCookie).not.toBeUndefined()
 })
 
 test('should opt-out based on betaOptOut query parameter', async ({
-  page,
-  context,
-  baseURL,
+	page,
+	context,
+	baseURL,
 }) => {
-  await context.addCookies([
-    {
-      name: 'io_preview',
-      value: 'waypoint',
-      url: baseURL,
-    },
-  ])
-  await context.addCookies([
-    {
-      name: 'waypoint-io-beta-opt-in',
-      value: 'true',
-      url: baseURL,
-    },
-  ])
-  const response = await page.goto('/?betaOptOut=true')
-  const betaOptInCookie = (await context.cookies(baseURL)).find(
-    (cookie) => cookie.name === 'waypoint-io-beta-opt-in'
-  )
-  expect(betaOptInCookie).toBeUndefined()
-  expect(response.url()).not.toContain('?betaOptOut=true')
+	await context.addCookies([
+		{
+			name: 'io_preview',
+			value: 'waypoint',
+			url: baseURL,
+		},
+	])
+	await context.addCookies([
+		{
+			name: 'waypoint-io-beta-opt-in',
+			value: 'true',
+			url: baseURL,
+		},
+	])
+	const response = await page.goto('/?betaOptOut=true')
+	const betaOptInCookie = (await context.cookies(baseURL)).find(
+		(cookie) => cookie.name === 'waypoint-io-beta-opt-in'
+	)
+	expect(betaOptInCookie).toBeUndefined()
+	expect(response.url()).not.toContain('?betaOptOut=true')
 })

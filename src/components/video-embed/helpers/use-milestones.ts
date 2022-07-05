@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 
 export function useMilestones(
-  value: number,
-  milestones: number[]
+	value: number,
+	milestones: number[]
 ): number | null {
-  return useMemo(() => getMaxMilestone(value, milestones), [value, milestones])
+	return useMemo(() => getMaxMilestone(value, milestones), [value, milestones])
 }
 
 /**
@@ -14,11 +14,11 @@ export function useMilestones(
  * or return null if the all milestones are greater than the value.
  */
 export function getMaxMilestone(
-  value: number,
-  milestones: number[]
+	value: number,
+	milestones: number[]
 ): number | null {
-  return milestones.reduce(
-    (acc: number | null, m: number) => (value >= m ? m : acc),
-    null
-  )
+	return milestones.reduce(
+		(acc: number | null, m: number) => (value >= m ? m : acc),
+		null
+	)
 }

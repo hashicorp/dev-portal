@@ -11,55 +11,55 @@ import classNames from 'classnames'
  * copied from `Button`.
  **/
 interface ButtonLinkProps
-  extends Pick<
-    ButtonProps,
-    'color' | 'size' | 'text' | 'ariaLabel' | 'icon' | 'iconPosition'
-  > {
-  href: string
-  openInNewTab?: boolean
+	extends Pick<
+		ButtonProps,
+		'color' | 'size' | 'text' | 'ariaLabel' | 'icon' | 'iconPosition'
+	> {
+	href: string
+	openInNewTab?: boolean
 }
 
 export default function ButtonLink({
-  color = 'primary',
-  size = 'medium',
-  href,
-  text,
-  ariaLabel,
-  icon,
-  iconPosition = 'leading',
-  openInNewTab = false,
+	color = 'primary',
+	size = 'medium',
+	href,
+	text,
+	ariaLabel,
+	icon,
+	iconPosition = 'leading',
+	openInNewTab = false,
 }: ButtonLinkProps) {
-  const hasIcon = !!icon
-  const hasText = !!text
-  const hasLabel = !!ariaLabel
-  const hasLeadingIcon = hasIcon && iconPosition === 'leading'
-  const hasTrailingIcon = hasIcon && iconPosition === 'trailing'
-  const isIconOnly = hasIcon && !hasText
+	const hasIcon = !!icon
+	const hasText = !!text
+	const hasLabel = !!ariaLabel
+	const hasLeadingIcon = hasIcon && iconPosition === 'leading'
+	const hasTrailingIcon = hasIcon && iconPosition === 'trailing'
+	const isIconOnly = hasIcon && !hasText
 
-  if (!hasIcon && !hasText) {
-    throw new Error(
-      '`ButtonLink` must have either `text` or an `icon` with accessible labels.'
-    )
-  }
+	if (!hasIcon && !hasText) {
+		throw new Error(
+			'`ButtonLink` must have either `text` or an `icon` with accessible labels.'
+		)
+	}
 
-  if (isIconOnly && !hasLabel) {
-    throw new Error(
-      'Icon-only `ButtonLink`s require an accessible label. Either provide the `text` prop, or `ariaLabel`.'
-    )
-  }
+	if (isIconOnly && !hasLabel) {
+		throw new Error(
+			'Icon-only `ButtonLink`s require an accessible label. Either provide the `text` prop, or `ariaLabel`.'
+		)
+	}
 
-  return (
-    <Link href={href}>
-      <a
-        className={classNames(s.root, s[size], s[color])}
-        aria-label={ariaLabel}
-        rel={openInNewTab ? 'noreferrer noopener' : undefined}
-        target={openInNewTab ? '_blank' : '_self'}
-      >
-        {hasLeadingIcon && icon}
-        {hasText ? text : null}
-        {hasTrailingIcon && icon}
-      </a>
-    </Link>
-  )
+	return (
+		<Link href={href}>
+			<a
+				className={classNames(s.root, s[size], s[color])}
+				aria-label={ariaLabel}
+				rel={openInNewTab ? 'noreferrer noopener' : undefined}
+				target={openInNewTab ? '_blank' : '_self'}
+			>
+				{hasLeadingIcon && icon}
+				{hasText ? text : null}
+				{hasTrailingIcon && icon}
+			</a>
+		</Link>
+	)
 }

@@ -4,11 +4,11 @@ import Text from 'components/text'
 import s from './page-alert.module.css'
 
 interface PageAlertProps {
-  className?: string
-  description: ReactNode
-  type?: 'neutral' | 'highlight' | 'success' | 'warning' | 'critical'
-  icon: ReactElement
-  title?: string
+	className?: string
+	description: ReactNode
+	type?: 'neutral' | 'highlight' | 'success' | 'warning' | 'critical'
+	icon: ReactElement
+	title?: string
 }
 
 /**
@@ -21,39 +21,39 @@ interface PageAlertProps {
  *    - One "secondary" Button and one StandaloneLink
  */
 const PageAlert = ({
-  className,
-  type = 'neutral',
-  description,
-  icon,
-  title,
+	className,
+	type = 'neutral',
+	description,
+	icon,
+	title,
 }: PageAlertProps) => {
-  const classes = classNames(s.root, s[type], className)
+	const classes = classNames(s.root, s[type], className)
 
-  let titleElement
-  if (title) {
-    titleElement = (
-      <Text asElement="p" className={s.title} size={200} weight="semibold">
-        {title}
-      </Text>
-    )
-  }
+	let titleElement
+	if (title) {
+		titleElement = (
+			<Text asElement="p" className={s.title} size={200} weight="semibold">
+				{title}
+			</Text>
+		)
+	}
 
-  return (
-    <div className={classes}>
-      <div className={s.icon}>{icon}</div>
-      <div className={s.contentContainer}>
-        {titleElement}
-        <Text
-          asElement="p"
-          className={s.description}
-          size={200}
-          weight="regular"
-        >
-          {description}
-        </Text>
-      </div>
-    </div>
-  )
+	return (
+		<div className={classes}>
+			<div className={s.icon}>{icon}</div>
+			<div className={s.contentContainer}>
+				{titleElement}
+				<Text
+					asElement="p"
+					className={s.description}
+					size={200}
+					weight="regular"
+				>
+					{description}
+				</Text>
+			</div>
+		</div>
+	)
 }
 
 export default PageAlert

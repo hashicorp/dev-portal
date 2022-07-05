@@ -14,212 +14,212 @@ import IoHomePreFooter from 'components/_proxied-dot-io/common/io-home-pre-foote
 import s from './home/style.module.css'
 
 function Homepage({ data }): React.ReactElement {
-  const {
-    seo,
-    heroHeading,
-    heroDescription,
-    heroCtas,
-    heroCards,
-    introHeading,
-    introDescription,
-    introOfferingsImage,
-    introOfferings,
-    introOfferingsCta,
-    introCallout,
-    introVideo,
-    inPracticeHeading,
-    inPracticeDescription,
-    inPracticeCards,
-    inPracticeCtaHeading,
-    inPracticeCtaDescription,
-    inPracticeCtaLink,
-    inPracticeCtaImage,
-    useCasesHeading,
-    useCasesDescription,
-    useCasesCards,
-    tutorialsHeading,
-    tutorialCards,
-    caseStudiesHeading,
-    caseStudiesDescription,
-    caseStudiesFeatured,
-    caseStudiesLinks,
-    callToActionHeading,
-    callToActionDescription,
-    callToActionCtas,
-    preFooterHeading,
-    preFooterDescription,
-    preFooterCtas,
-  } = data
-  const _introCallout = introCallout[0]
-  const _introVideo = introVideo[0]
+	const {
+		seo,
+		heroHeading,
+		heroDescription,
+		heroCtas,
+		heroCards,
+		introHeading,
+		introDescription,
+		introOfferingsImage,
+		introOfferings,
+		introOfferingsCta,
+		introCallout,
+		introVideo,
+		inPracticeHeading,
+		inPracticeDescription,
+		inPracticeCards,
+		inPracticeCtaHeading,
+		inPracticeCtaDescription,
+		inPracticeCtaLink,
+		inPracticeCtaImage,
+		useCasesHeading,
+		useCasesDescription,
+		useCasesCards,
+		tutorialsHeading,
+		tutorialCards,
+		caseStudiesHeading,
+		caseStudiesDescription,
+		caseStudiesFeatured,
+		caseStudiesLinks,
+		callToActionHeading,
+		callToActionDescription,
+		callToActionCtas,
+		preFooterHeading,
+		preFooterDescription,
+		preFooterCtas,
+	} = data
+	const _introCallout = introCallout[0]
+	const _introVideo = introVideo[0]
 
-  return (
-    <>
-      <Head>{renderMetaTags(seo)}</Head>
+	return (
+		<>
+			<Head>{renderMetaTags(seo)}</Head>
 
-      <IoHomeHero
-        pattern="/consul/img/home-hero-pattern.svg"
-        brand="consul"
-        heading={heroHeading}
-        description={heroDescription}
-        ctas={heroCtas}
-        cards={heroCards.map((card) => {
-          return {
-            ...card,
-            cta: card.cta[0],
-          }
-        })}
-      />
+			<IoHomeHero
+				pattern="/consul/img/home-hero-pattern.svg"
+				brand="consul"
+				heading={heroHeading}
+				description={heroDescription}
+				ctas={heroCtas}
+				cards={heroCards.map((card) => {
+					return {
+						...card,
+						cta: card.cta[0],
+					}
+				})}
+			/>
 
-      <IoHomeIntro
-        brand="consul"
-        heading={introHeading}
-        description={introDescription}
-        offerings={{
-          image: {
-            src: introOfferingsImage.url,
-            width: introOfferingsImage.width,
-            height: introOfferingsImage.height,
-            alt: introOfferingsImage.alt,
-          },
-          list: introOfferings,
-          cta: introOfferingsCta[0],
-        }}
-        callout={
-          _introCallout
-            ? {
-                link: _introCallout.link,
-                heading: _introCallout.heading,
-                description: _introCallout.description,
-                cta: _introCallout.cta || 'Learn more',
-                thumbnail: {
-                  src: _introCallout.thumbnail.url,
-                  width: _introCallout.thumbnail.width,
-                  height: _introCallout.thumbnail.height,
-                  alt: _introCallout.thumbnail.alt,
-                },
-              }
-            : null
-        }
-        video={
-          _introVideo
-            ? {
-                youtubeId: _introVideo.youtubeId,
-                thumbnail: _introVideo.thumbnail.url,
-                heading: _introVideo.heading,
-                description: _introVideo.description,
-                person: {
-                  name: _introVideo.personName,
-                  description: _introVideo.personDescription,
-                  avatar: _introVideo.personAvatar?.url,
-                },
-              }
-            : null
-        }
-      />
+			<IoHomeIntro
+				brand="consul"
+				heading={introHeading}
+				description={introDescription}
+				offerings={{
+					image: {
+						src: introOfferingsImage.url,
+						width: introOfferingsImage.width,
+						height: introOfferingsImage.height,
+						alt: introOfferingsImage.alt,
+					},
+					list: introOfferings,
+					cta: introOfferingsCta[0],
+				}}
+				callout={
+					_introCallout
+						? {
+								link: _introCallout.link,
+								heading: _introCallout.heading,
+								description: _introCallout.description,
+								cta: _introCallout.cta || 'Learn more',
+								thumbnail: {
+									src: _introCallout.thumbnail.url,
+									width: _introCallout.thumbnail.width,
+									height: _introCallout.thumbnail.height,
+									alt: _introCallout.thumbnail.alt,
+								},
+						  }
+						: null
+				}
+				video={
+					_introVideo
+						? {
+								youtubeId: _introVideo.youtubeId,
+								thumbnail: _introVideo.thumbnail.url,
+								heading: _introVideo.heading,
+								description: _introVideo.description,
+								person: {
+									name: _introVideo.personName,
+									description: _introVideo.personDescription,
+									avatar: _introVideo.personAvatar?.url,
+								},
+						  }
+						: null
+				}
+			/>
 
-      <section className={s.useCases}>
-        <div className={s.container}>
-          <IoCardContainer
-            heading={useCasesHeading}
-            description={useCasesDescription}
-            cardsPerRow={4}
-            cards={useCasesCards.map((card) => {
-              return {
-                eyebrow: card.eyebrow,
-                link: {
-                  url: card.link,
-                  type: 'inbound',
-                },
-                heading: card.heading,
-                description: card.description,
-                products: card.products,
-              }
-            })}
-          />
-        </div>
-      </section>
+			<section className={s.useCases}>
+				<div className={s.container}>
+					<IoCardContainer
+						heading={useCasesHeading}
+						description={useCasesDescription}
+						cardsPerRow={4}
+						cards={useCasesCards.map((card) => {
+							return {
+								eyebrow: card.eyebrow,
+								link: {
+									url: card.link,
+									type: 'inbound',
+								},
+								heading: card.heading,
+								description: card.description,
+								products: card.products,
+							}
+						})}
+					/>
+				</div>
+			</section>
 
-      <section className={s.tutorials}>
-        <div className={s.container}>
-          <IoCardContainer
-            heading={tutorialsHeading}
-            cardsPerRow={3}
-            cards={tutorialCards.map((card) => {
-              return {
-                eyebrow: card.eyebrow,
-                link: {
-                  url: card.link,
-                  type: 'inbound',
-                },
-                heading: card.heading,
-                description: card.description,
-                products: card.products,
-              }
-            })}
-          />
-        </div>
-      </section>
+			<section className={s.tutorials}>
+				<div className={s.container}>
+					<IoCardContainer
+						heading={tutorialsHeading}
+						cardsPerRow={3}
+						cards={tutorialCards.map((card) => {
+							return {
+								eyebrow: card.eyebrow,
+								link: {
+									url: card.link,
+									type: 'inbound',
+								},
+								heading: card.heading,
+								description: card.description,
+								products: card.products,
+							}
+						})}
+					/>
+				</div>
+			</section>
 
-      <IoHomeInPractice
-        brand="consul"
-        pattern="/consul/img/practice-pattern.svg"
-        heading={inPracticeHeading}
-        description={inPracticeDescription}
-        cards={inPracticeCards.map((card) => {
-          return {
-            eyebrow: card.eyebrow,
-            link: {
-              url: card.link,
-              type: 'inbound',
-            },
-            heading: card.heading,
-            description: card.description,
-            products: card.products,
-          }
-        })}
-        cta={{
-          heading: inPracticeCtaHeading,
-          description: inPracticeCtaDescription,
-          link: inPracticeCtaLink,
-          image: inPracticeCtaImage,
-        }}
-      />
+			<IoHomeInPractice
+				brand="consul"
+				pattern="/consul/img/practice-pattern.svg"
+				heading={inPracticeHeading}
+				description={inPracticeDescription}
+				cards={inPracticeCards.map((card) => {
+					return {
+						eyebrow: card.eyebrow,
+						link: {
+							url: card.link,
+							type: 'inbound',
+						},
+						heading: card.heading,
+						description: card.description,
+						products: card.products,
+					}
+				})}
+				cta={{
+					heading: inPracticeCtaHeading,
+					description: inPracticeCtaDescription,
+					link: inPracticeCtaLink,
+					image: inPracticeCtaImage,
+				}}
+			/>
 
-      <IoHomeCaseStudies
-        heading={caseStudiesHeading}
-        description={caseStudiesDescription}
-        primary={caseStudiesFeatured}
-        secondary={caseStudiesLinks}
-      />
+			<IoHomeCaseStudies
+				heading={caseStudiesHeading}
+				description={caseStudiesDescription}
+				primary={caseStudiesFeatured}
+				secondary={caseStudiesLinks}
+			/>
 
-      <IoHomeCallToAction
-        brand="consul"
-        heading={callToActionHeading}
-        content={callToActionDescription}
-        links={callToActionCtas}
-      />
+			<IoHomeCallToAction
+				brand="consul"
+				heading={callToActionHeading}
+				content={callToActionDescription}
+				links={callToActionCtas}
+			/>
 
-      <IoHomePreFooter
-        brand="consul"
-        heading={preFooterHeading}
-        description={preFooterDescription}
-        ctas={preFooterCtas}
-      />
-    </>
-  )
+			<IoHomePreFooter
+				brand="consul"
+				heading={preFooterHeading}
+				description={preFooterDescription}
+				ctas={preFooterCtas}
+			/>
+		</>
+	)
 }
 
 export async function getStaticProps() {
-  const query = proxiedRivetClient('consul')
-  const { consulHomepage } = await query({
-    query: homepageQuery,
-  })
+	const query = proxiedRivetClient('consul')
+	const { consulHomepage } = await query({
+		query: homepageQuery,
+	})
 
-  return {
-    props: { data: consulHomepage },
-    revalidate: __config.io_sites.revalidate,
-  }
+	return {
+		props: { data: consulHomepage },
+		revalidate: __config.io_sites.revalidate,
+	}
 }
 
 Homepage.layout = ConsulIoLayout

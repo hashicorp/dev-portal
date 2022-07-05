@@ -6,33 +6,33 @@ import s from './mdx-headings.module.css'
  * Used by `makeHeadingElement`.
  */
 const HEADING_LEVELS_TO_PROPS: Record<
-  HeadingProps['level'],
-  { size: HeadingProps['size']; weight: HeadingProps['weight'] }
+	HeadingProps['level'],
+	{ size: HeadingProps['size']; weight: HeadingProps['weight'] }
 > = {
-  1: {
-    size: 500,
-    weight: 'bold',
-  },
-  2: {
-    size: 400,
-    weight: 'bold',
-  },
-  3: {
-    size: 300,
-    weight: 'bold',
-  },
-  4: {
-    size: 200,
-    weight: 'semibold',
-  },
-  5: {
-    size: 200,
-    weight: 'semibold',
-  },
-  6: {
-    size: 200,
-    weight: 'semibold',
-  },
+	1: {
+		size: 500,
+		weight: 'bold',
+	},
+	2: {
+		size: 400,
+		weight: 'bold',
+	},
+	3: {
+		size: 300,
+		weight: 'bold',
+	},
+	4: {
+		size: 200,
+		weight: 'semibold',
+	},
+	5: {
+		size: 200,
+		weight: 'semibold',
+	},
+	6: {
+		size: 200,
+		weight: 'semibold',
+	},
 }
 
 /**
@@ -44,20 +44,20 @@ const HEADING_LEVELS_TO_PROPS: Record<
  * the incoming props.className, props.level, props.size, and props.weight.
  */
 export function makeMdxHeadingElement(level: HeadingProps['level']) {
-  const fixedClassName = classNames(s.heading, s[`h${level}`])
-  const { size, weight } = HEADING_LEVELS_TO_PROPS[level]
+	const fixedClassName = classNames(s.heading, s[`h${level}`])
+	const { size, weight } = HEADING_LEVELS_TO_PROPS[level]
 
-  return function MdxHeading(props) {
-    return (
-      <Heading
-        {...props}
-        level={level}
-        className={fixedClassName}
-        size={size}
-        weight={weight}
-      />
-    )
-  }
+	return function MdxHeading(props) {
+		return (
+			<Heading
+				{...props}
+				level={level}
+				className={fixedClassName}
+				size={size}
+				weight={weight}
+			/>
+		)
+	}
 }
 
 const MdxH1 = makeMdxHeadingElement(1)

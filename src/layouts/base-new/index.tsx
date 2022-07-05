@@ -20,7 +20,7 @@ import { BaseNewLayoutProps } from './types'
 import s from './base-new-layout.module.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
-  preset: 'oss',
+	preset: 'oss',
 })
 
 /**
@@ -28,17 +28,17 @@ const { ConsentManager, openConsentManager } = createConsentManager({
  * SidebarSidecarLayout that usually handles the mobile menu.
  */
 const NonProductPageMobileMenu = () => {
-  return (
-    <MobileMenuContainer className={s.mobileMenuContainer}>
-      <ul className={s.mobileMenuNavList}>
-        <SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
-        {generateTopLevelSubNavItems().map((item: $TSFixMe, index: number) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <SidebarNavMenuItem item={item} key={index} />
-        ))}
-      </ul>
-    </MobileMenuContainer>
-  )
+	return (
+		<MobileMenuContainer className={s.mobileMenuContainer}>
+			<ul className={s.mobileMenuNavList}>
+				<SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
+				{generateTopLevelSubNavItems().map((item: $TSFixMe, index: number) => (
+					// eslint-disable-next-line react/no-array-index-key
+					<SidebarNavMenuItem item={item} key={index} />
+				))}
+			</ul>
+		</MobileMenuContainer>
+	)
 }
 
 /**
@@ -46,46 +46,46 @@ const NonProductPageMobileMenu = () => {
  * use here.
  */
 const BaseNewLayout = ({
-  children,
-  showFooterTopBorder = false,
+	children,
+	showFooterTopBorder = false,
 }: BaseNewLayoutProps) => {
-  const router = useRouter()
-  usePageviewAnalytics({
-    siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
-    includedDomains: __config.dev_dot.analytics.included_domains,
-  })
-  useScrollPercentageAnalytics()
+	const router = useRouter()
+	usePageviewAnalytics({
+		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
+		includedDomains: __config.dev_dot.analytics.included_domains,
+	})
+	useScrollPercentageAnalytics()
 
-  /**
-   * We only want to show this menu for certain routes. Other routes use
-   * SidebarSidecarLayout, which handles the mobile menu for those routes.
-   */
-  const shouldShowMobileMenu =
-    router.route === '/' || router.route === '/_error'
+	/**
+	 * We only want to show this menu for certain routes. Other routes use
+	 * SidebarSidecarLayout, which handles the mobile menu for those routes.
+	 */
+	const shouldShowMobileMenu =
+		router.route === '/' || router.route === '/_error'
 
-  return (
-    <>
-      <CoreDevDotLayout>
-        <div className={s.root} data-layout="base-new">
-          <div className={s.header}>
-            <NavigationHeader />
-          </div>
-          <div className={s.contentArea}>
-            {shouldShowMobileMenu ? <NonProductPageMobileMenu /> : null}
-            {children}
-          </div>
-          <div
-            className={classNames(s.footer, {
-              [s.showFooterTopBorder]: showFooterTopBorder,
-            })}
-          >
-            <Footer openConsentManager={openConsentManager} />
-          </div>
-        </div>
-      </CoreDevDotLayout>
-      <ConsentManager />
-    </>
-  )
+	return (
+		<>
+			<CoreDevDotLayout>
+				<div className={s.root} data-layout="base-new">
+					<div className={s.header}>
+						<NavigationHeader />
+					</div>
+					<div className={s.contentArea}>
+						{shouldShowMobileMenu ? <NonProductPageMobileMenu /> : null}
+						{children}
+					</div>
+					<div
+						className={classNames(s.footer, {
+							[s.showFooterTopBorder]: showFooterTopBorder,
+						})}
+					>
+						<Footer openConsentManager={openConsentManager} />
+					</div>
+				</div>
+			</CoreDevDotLayout>
+			<ConsentManager />
+		</>
+	)
 }
 
 export default BaseNewLayout

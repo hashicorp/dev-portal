@@ -10,12 +10,12 @@ import s from './navigation-disclosure-list.module.css'
  * @see https://developer.hashi-mktg.com/swingset/components/navigationdisclosure
  */
 const NavigationDisclosureList = ({
-  children,
-  className,
+	children,
+	className,
 }: NavigationDisclosureListProps) => {
-  validateNavigationDisclosureListChildren(children)
+	validateNavigationDisclosureListChildren(children)
 
-  return <ul className={classNames(s.root, className)}>{children}</ul>
+	return <ul className={classNames(s.root, className)}>{children}</ul>
 }
 
 export type { NavigationDisclosureListProps }

@@ -1,11 +1,16 @@
 export interface HeadMetadataProps {
-  /**
-   * The title of the current page, will be prepended to the global site title defined in config
-   */
-  title?: string
+	/**
+	 * The title of the current page, will be prepended to the global site title defined in config
+	 */
+	title?: string
 
-  /**
-   * Description of the current page, render in the meta description tag. Defaults to the value in config
-   */
-  description?: string
+	/**
+	 * Description of the current page, render in the meta description tag. Defaults to the value in config
+	 */
+	description?: string
+
+	/**
+	 * Optional host value, such as 'localhost:3000', used during development
+	 */
+	host?: string
 }

@@ -30,14 +30,14 @@ import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
  * - type <optional>: the type and default of this key, e.g. string: "default".
  */
 export default function ConfigEntryReference({ keys, topLevel = true }) {
-  // Kube needs to have its non-top-level keys nested under a "spec" key.
-  const kubeKeys = topLevel ? toKubeKeys(keys) : keys
-  return (
-    <Tabs>
-      <Tab heading="HCL">{renderKeys(keys, true)}</Tab>
-      <Tab heading="Kubernetes YAML">{renderKeys(kubeKeys, false)}</Tab>
-    </Tabs>
-  )
+	// Kube needs to have its non-top-level keys nested under a "spec" key.
+	const kubeKeys = topLevel ? toKubeKeys(keys) : keys
+	return (
+		<Tabs>
+			<Tab heading="HCL">{renderKeys(keys, true)}</Tab>
+			<Tab heading="Kubernetes YAML">{renderKeys(kubeKeys, false)}</Tab>
+		</Tabs>
+	)
 }
 
 /**
@@ -47,10 +47,10 @@ export default function ConfigEntryReference({ keys, topLevel = true }) {
  * @returns {JSX.Element|null}
  */
 function renderKeys(keys, isHCLTab) {
-  if (!keys) {
-    return null
-  }
-  return <ul>{keys.map((key) => renderKey(key, isHCLTab))}</ul>
+	if (!keys) {
+		return null
+	}
+	return <ul>{keys.map((key) => renderKey(key, isHCLTab))}</ul>
 }
 
 /**
@@ -61,55 +61,55 @@ function renderKeys(keys, isHCLTab) {
  * @returns {JSX.Element|null}
  */
 function renderKey(key, isHCLTab) {
-  if (!key.name) {
-    return null
-  }
-  if (isHCLTab && key.hcl === false) {
-    return null
-  }
-  if (!isHCLTab && key.yaml === false) {
-    return null
-  }
+	if (!key.name) {
+		return null
+	}
+	if (isHCLTab && key.hcl === false) {
+		return null
+	}
+	if (!isHCLTab && key.yaml === false) {
+		return null
+	}
 
-  const keyName = isHCLTab ? key.name : toYAMLKeyName(key.name)
+	const keyName = isHCLTab ? key.name : toYAMLKeyName(key.name)
 
-  let description = ''
-  if (key.description) {
-    if (typeof key.description === 'string') {
-      description = key.description
-    } else if (!isHCLTab && key.description.yaml) {
-      description = key.description.yaml
-    } else if (key.description.hcl) {
-      description = key.description.hcl
-    }
-  }
+	let description = ''
+	if (key.description) {
+		if (typeof key.description === 'string') {
+			description = key.description
+		} else if (!isHCLTab && key.description.yaml) {
+			description = key.description.yaml
+		} else if (key.description.hcl) {
+			description = key.description.hcl
+		}
+	}
 
-  const htmlDescription = description && markdownToHtml(' - ' + description)
-  const type = key.type && <code>{`(${key.type})`}</code>
-  const enterpriseAlert = key.enterprise && <EnterpriseAlert inline />
-  const keyLower = keyName.toLowerCase()
+	const htmlDescription = description && markdownToHtml(' - ' + description)
+	const type = key.type && <code>{`(${key.type})`}</code>
+	const enterpriseAlert = key.enterprise && <EnterpriseAlert inline />
+	const keyLower = keyName.toLowerCase()
 
-  // NOTE: This code copies from https://github.com/hashicorp/remark-plugins/blob/df606efc844319a2532ec54e4cf6ff2d575108ff/plugins/anchor-links/index.js
-  // to ensure the styling of each bullet is correct. The two locations should be kept
-  // in sync.
-  return (
-    <li key={keyLower} className="g-type-long-body">
-      <a id={keyLower} className="__target-lic" aria-hidden="" />
-      <p>
-        <a
-          href={'#' + keyLower}
-          aria-label={keyLower + ' permalink'}
-          className="__permalink-lic"
-        >
-          <code>{keyName}</code>
-        </a>{' '}
-        {type}
-        {enterpriseAlert}
-        <span dangerouslySetInnerHTML={{ __html: htmlDescription }} />
-      </p>
-      {renderKeys(key.children, isHCLTab)}
-    </li>
-  )
+	// NOTE: This code copies from https://github.com/hashicorp/remark-plugins/blob/df606efc844319a2532ec54e4cf6ff2d575108ff/plugins/anchor-links/index.js
+	// to ensure the styling of each bullet is correct. The two locations should be kept
+	// in sync.
+	return (
+		<li key={keyLower} className="g-type-long-body">
+			<a id={keyLower} className="__target-lic" aria-hidden="" />
+			<p>
+				<a
+					href={'#' + keyLower}
+					aria-label={keyLower + ' permalink'}
+					className="__permalink-lic"
+				>
+					<code>{keyName}</code>
+				</a>{' '}
+				{type}
+				{enterpriseAlert}
+				<span dangerouslySetInnerHTML={{ __html: htmlDescription }} />
+			</p>
+			{renderKeys(key.children, isHCLTab)}
+		</li>
+	)
 }
 
 /**
@@ -121,9 +121,9 @@ function renderKey(key, isHCLTab) {
  * @returns {array}
  */
 function toKubeKeys(keys) {
-  const topLevelKeys = keys.filter((key) => isTopLevelKubeKey(key.name))
-  const keysUnderSpec = keys.filter((key) => !isTopLevelKubeKey(key.name))
-  return topLevelKeys.concat([{ name: 'spec', children: keysUnderSpec }])
+	const topLevelKeys = keys.filter((key) => isTopLevelKubeKey(key.name))
+	const keysUnderSpec = keys.filter((key) => !isTopLevelKubeKey(key.name))
+	return topLevelKeys.concat([{ name: 'spec', children: keysUnderSpec }])
 }
 
 /**
@@ -139,26 +139,26 @@ function toKubeKeys(keys) {
  * @returns {string}
  */
 function toYAMLKeyName(hclKey) {
-  // Handle something like HTTP.
-  if (hclKey.toUpperCase() === hclKey) {
-    return hclKey.toLowerCase()
-  }
+	// Handle something like HTTP.
+	if (hclKey.toUpperCase() === hclKey) {
+		return hclKey.toLowerCase()
+	}
 
-  let indexFirstLowercaseChar = hclKey
-    .split('')
-    .findIndex((c) => c === c.toLowerCase())
-  // Special case to handle something like ACLToken => aclToken.
-  if (indexFirstLowercaseChar > 1) {
-    indexFirstLowercaseChar--
-  }
+	let indexFirstLowercaseChar = hclKey
+		.split('')
+		.findIndex((c) => c === c.toLowerCase())
+	// Special case to handle something like ACLToken => aclToken.
+	if (indexFirstLowercaseChar > 1) {
+		indexFirstLowercaseChar--
+	}
 
-  let lowercasePortion = ''
-  for (let i = 0; i < indexFirstLowercaseChar; i++) {
-    lowercasePortion += hclKey[i].toLowerCase()
-  }
-  return (
-    lowercasePortion + hclKey.split('').slice(indexFirstLowercaseChar).join('')
-  )
+	let lowercasePortion = ''
+	for (let i = 0; i < indexFirstLowercaseChar; i++) {
+		lowercasePortion += hclKey[i].toLowerCase()
+	}
+	return (
+		lowercasePortion + hclKey.split('').slice(indexFirstLowercaseChar).join('')
+	)
 }
 
 /**
@@ -171,20 +171,20 @@ function toYAMLKeyName(hclKey) {
  * @returns {string}
  */
 function markdownToHtml(markdown) {
-  let html = markdown
+	let html = markdown
 
-  // Replace inline code blocks defined by backticks with <code></code>.
-  while (html.indexOf('`') > 0) {
-    html = html.replace('`', '<code>')
-    if (html.indexOf('`') <= 0) {
-      throw new Error(`'${markdown} does not have matching '\`' characters`)
-    }
-    html = html.replace('`', '</code>')
-  }
+	// Replace inline code blocks defined by backticks with <code></code>.
+	while (html.indexOf('`') > 0) {
+		html = html.replace('`', '<code>')
+		if (html.indexOf('`') <= 0) {
+			throw new Error(`'${markdown} does not have matching '\`' characters`)
+		}
+		html = html.replace('`', '</code>')
+	}
 
-  // Replace links, e.g. [link text](http://link-url),
-  // with <a href="http://link-url">link text</a>.
-  return html.replace(/\[(.*?)]\((.*?)\)/g, '<a href="$2">$1</a>')
+	// Replace links, e.g. [link text](http://link-url),
+	// with <a href="http://link-url">link text</a>.
+	return html.replace(/\[(.*?)]\((.*?)\)/g, '<a href="$2">$1</a>')
 }
 
 /**
@@ -196,13 +196,13 @@ function markdownToHtml(markdown) {
  * @return {boolean}
  */
 function isTopLevelKubeKey(name) {
-  return (
-    name.toLowerCase() === 'metadata' ||
-    name.toLowerCase() === 'kind' ||
-    name.toLowerCase() === 'apiversion'
-  )
+	return (
+		name.toLowerCase() === 'metadata' ||
+		name.toLowerCase() === 'kind' ||
+		name.toLowerCase() === 'apiversion'
+	)
 }
 
 function EnterpriseAlert(props) {
-  return <EnterpriseAlertBase product={'consul'} {...props} />
+	return <EnterpriseAlertBase product={'consul'} {...props} />
 }

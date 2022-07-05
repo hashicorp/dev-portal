@@ -7,24 +7,24 @@ import s from './mobile-standalone-link.module.css'
  * viewport is at a mobile width.
  */
 const MobileStandaloneLink = ({
-  size16Icon,
-  size24Icon,
-  text,
-  ...rest
+	size16Icon,
+	size24Icon,
+	text,
+	...rest
 }: MobileStandaloneLinkProps) => {
-  return (
-    <StandaloneLink
-      {...rest}
-      icon={
-        <>
-          <span className={s.notMobileIcon}>{size16Icon}</span>
-          <span className={s.mobileIcon}>{size24Icon}</span>
-        </>
-      }
-      text={text}
-      textClassName={s.text}
-    />
-  )
+	return (
+		<StandaloneLink
+			{...rest}
+			icon={
+				<>
+					<span className={s.notMobileIcon}>{size16Icon}</span>
+					<span className={s.mobileIcon}>{size24Icon}</span>
+				</>
+			}
+			text={text}
+			textClassName={s.text}
+		/>
+	)
 }
 
 export type { MobileStandaloneLinkProps }

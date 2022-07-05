@@ -6,10 +6,10 @@ import { generateTopLevelSidebarNavData } from './generate-top-level-sidebar-nav
 import { getFilteredNavItems } from './get-filtered-nav-items'
 
 export {
-  addNavItemMetaData,
-  generateInstallViewNavItems,
-  generateProductLandingSidebarNavData,
-  generateResourcesNavItems,
-  generateTopLevelSidebarNavData,
-  getFilteredNavItems,
+	addNavItemMetaData,
+	generateInstallViewNavItems,
+	generateProductLandingSidebarNavData,
+	generateResourcesNavItems,
+	generateTopLevelSidebarNavData,
+	getFilteredNavItems,
 }
