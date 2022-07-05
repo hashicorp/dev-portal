@@ -78,7 +78,7 @@ function VagrantIoLayout({ children, data }: Props): React.ReactElement {
 						},
 						{
 							text: 'Tutorials',
-							url: 'https://learn.hashicorp.com/packer',
+							url: 'https://learn.hashicorp.com/vagrant',
 							type: 'inbound',
 						},
 						{
