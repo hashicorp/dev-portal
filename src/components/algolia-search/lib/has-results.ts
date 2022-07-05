@@ -6,12 +6,12 @@ import { AutocompleteCollection, BaseItem } from '@algolia/autocomplete-core'
  */
 
 export function hasResults(collections: AutocompleteCollection<BaseItem>[]) {
-  let itemsExist = false
-  for (const collection of collections) {
-    if (collection.items.length > 0) {
-      itemsExist = true
-      break
-    }
-  }
-  return itemsExist
+	let itemsExist = false
+	for (const collection of collections) {
+		if (collection.items.length > 0) {
+			itemsExist = true
+			break
+		}
+	}
+	return itemsExist
 }

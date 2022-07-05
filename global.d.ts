@@ -1,16 +1,16 @@
 /// <reference types="@hashicorp/platform-types" />
 
 declare module 'swingset/page' {
-  const createPage: (opts: $TSFixMe) => $TSFixMe
+	const createPage: (opts: $TSFixMe) => $TSFixMe
 
-  export default createPage
+	export default createPage
 }
 
 declare module 'swingset/server' {
-  const createStaticPaths: $TSFixMe
-  const createStaticProps: $TSFixMe
+	const createStaticPaths: $TSFixMe
+	const createStaticProps: $TSFixMe
 
-  export { createStaticPaths, createStaticProps }
+	export { createStaticPaths, createStaticProps }
 }
 
 declare module '@hashicorp/react-search'
@@ -27,10 +27,10 @@ declare module '*.png'
  * NOTE: intended to override declaration from @hashicorp/platform-types
  */
 interface Window {
-  analytics: SegmentAnalytics.AnalyticsJS
-  /**
-   * TODO: We could install @datadog/browser-rum to get types here, I think?
-   * https://www.npmjs.com/package/@datadog/browser-rum
-   */
-  DD_RUM: $TSFixMe
+	analytics: SegmentAnalytics.AnalyticsJS
+	/**
+	 * TODO: We could install @datadog/browser-rum to get types here, I think?
+	 * https://www.npmjs.com/package/@datadog/browser-rum
+	 */
+	DD_RUM: $TSFixMe
 }

@@ -6,18 +6,18 @@ import { PreFooterProps } from './components/pre-footer/types'
 import { HomePageAuthoredContent } from './content-schema'
 
 interface HomePageContentProps {
-  hero: Omit<HeroProps, 'description'> & { description: string }
-  navNotice: string
-  learnSection: LearnSectionProps
-  merchandising: {
-    vault: VaultSlotProps
-    hashiconfGlobal: HashiConfGlobalSlotProps
-  }
-  preFooter: PreFooterProps
+	hero: Omit<HeroProps, 'description'> & { description: string }
+	navNotice: string
+	learnSection: LearnSectionProps
+	merchandising: {
+		vault: VaultSlotProps
+		hashiconfGlobal: HashiConfGlobalSlotProps
+	}
+	preFooter: PreFooterProps
 }
 
 interface HomePageProps {
-  content: HomePageContentProps
+	content: HomePageContentProps
 }
 
 export type { HomePageAuthoredContent, HomePageContentProps, HomePageProps }

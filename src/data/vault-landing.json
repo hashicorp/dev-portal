@@ -1,86 +1,86 @@
 {
-  "hero": {
-    "heading": "Manage Secrets & Protect Sensitive Data",
-    "image": "https://www.datocms-assets.com/2885/1651594483-dev-dot-product-landing-vault-hero-image.png"
-  },
-  "overview": {
-    "heading": "What is Vault?",
-    "body": "Secure, store, and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets, and other sensitive data using a UI, CLI, or HTTP API.",
-    "cta": {
-      "text": "Learn more about Vault features",
-      "url": "/vault/docs/what-is-vault"
-    },
-    "image": "https://www.datocms-assets.com/2885/1651594708-dev-dot-product-landing-what-is-vault-diagram.png"
-  },
-  "get_started": {
-    "heading": "Getting Started",
-    "body": "Use Vault to securely store, access, and manage secrets and other sensitive data.",
-    "ctas": [
-      {
-        "text": "CLI Quick Start",
-        "url": "/vault/tutorials/getting-started"
-      },
-      {
-        "text": "Developer Quick Start",
-        "url": "/vault/docs/get-started/developer-qs"
-      }
-    ]
-  },
-  "blocks": [
-    {
-      "type": "heading",
-      "heading": "Featured Tutorials",
-      "level": 2,
-      "size": 400
-    },
-    {
-      "type": "tutorial_cards",
-      "tutorialSlugs": ["vault/transform", "vault/static-secrets"]
-    },
-    {
-      "type": "heading",
-      "heading": "Featured Collections",
-      "level": 2,
-      "size": 400
-    },
-    {
-      "type": "collection_cards",
-      "collectionSlugs": [
-        "vault/getting-started",
-        "vault/getting-started-ui",
-        "vault/encryption-as-a-service"
-      ]
-    },
-    {
-      "type": "heading",
-      "heading": "Popular Features",
-      "level": 2,
-      "size": 400
-    },
-    {
-      "type": "linked_cards",
-      "cards": [
-        {
-          "heading": "Vault Secrets Engine",
-          "body": "Secrets engines are pluggable components which store, generate, or encrypt sensitive data.",
-          "url": "/vault/docs/secrets"
-        },
-        {
-          "heading": "Database Secrets Engine",
-          "body": "Dynamically generates database credentials based on pre-configured roles.",
-          "url": "/vault/docs/secrets/databases"
-        },
-        {
-          "heading": "Transit Secrets Engine",
-          "body": "Encrypt data in-transit to provide encryption as a service.",
-          "url": "/vault/docs/secrets/transit"
-        },
-        {
-          "heading": "Transform Secrets Engine",
-          "body": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
-          "url": "/vault/docs/secrets/databases"
-        }
-      ]
-    }
-  ]
+	"hero": {
+		"heading": "Manage Secrets & Protect Sensitive Data",
+		"image": "https://www.datocms-assets.com/2885/1651594483-dev-dot-product-landing-vault-hero-image.png"
+	},
+	"overview": {
+		"heading": "What is Vault?",
+		"body": "Secure, store, and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets, and other sensitive data using a UI, CLI, or HTTP API.",
+		"cta": {
+			"text": "Learn more about Vault features",
+			"url": "/vault/docs/what-is-vault"
+		},
+		"image": "https://www.datocms-assets.com/2885/1651594708-dev-dot-product-landing-what-is-vault-diagram.png"
+	},
+	"get_started": {
+		"heading": "Getting Started",
+		"body": "Use Vault to securely store, access, and manage secrets and other sensitive data.",
+		"ctas": [
+			{
+				"text": "CLI Quick Start",
+				"url": "/vault/tutorials/getting-started"
+			},
+			{
+				"text": "Developer Quick Start",
+				"url": "/vault/docs/get-started/developer-qs"
+			}
+		]
+	},
+	"blocks": [
+		{
+			"type": "heading",
+			"heading": "Featured Tutorials",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
+		},
+		{
+			"type": "heading",
+			"heading": "Featured Collections",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": [
+				"vault/getting-started",
+				"vault/getting-started-ui",
+				"vault/encryption-as-a-service"
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Popular Features",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Vault Secrets Engine",
+					"body": "Secrets engines are pluggable components which store, generate, or encrypt sensitive data.",
+					"url": "/vault/docs/secrets"
+				},
+				{
+					"heading": "Database Secrets Engine",
+					"body": "Dynamically generates database credentials based on pre-configured roles.",
+					"url": "/vault/docs/secrets/databases"
+				},
+				{
+					"heading": "Transit Secrets Engine",
+					"body": "Encrypt data in-transit to provide encryption as a service.",
+					"url": "/vault/docs/secrets/transit"
+				},
+				{
+					"heading": "Transform Secrets Engine",
+					"body": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
+					"url": "/vault/docs/secrets/databases"
+				}
+			]
+		}
+	]
 }

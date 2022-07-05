@@ -9,10 +9,10 @@ const product = terraformData as ProductData
 const productSlugForLoader = 'terraform-cdk'
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-  product,
-  productSlugForLoader,
-  basePath,
-  baseName,
+	product,
+	productSlugForLoader,
+	basePath,
+	baseName,
 })
 
 export { getStaticPaths, getStaticProps }

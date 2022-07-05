@@ -6,25 +6,25 @@ import { ChangeEventHandler } from 'react'
  * still a WIP component on the design system side.
  */
 export interface ContextSwitcherOption {
-  label: string
-  value: string
+	label: string
+	value: string
 }
 
 export interface VersionContextSwitcherProps {
-  /**
-   * (optional) The initial value of the switcher when first rendered.
-   */
-  initialValue?: ContextSwitcherOption['value']
+	/**
+	 * (optional) The initial value of the switcher when first rendered.
+	 */
+	initialValue?: ContextSwitcherOption['value']
 
-  /**
-   * (optional) A function invoked when the value of the switcher has changed.
-   * It is invoked after the component has run its internal code for handling
-   * changes to the switcher.
-   */
-  onChange?: ChangeEventHandler<HTMLSelectElement>
+	/**
+	 * (optional) A function invoked when the value of the switcher has changed.
+	 * It is invoked after the component has run its internal code for handling
+	 * changes to the switcher.
+	 */
+	onChange?: ChangeEventHandler<HTMLSelectElement>
 
-  /**
-   * An array of the options to render in the switcher.
-   */
-  options: ContextSwitcherOption[]
+	/**
+	 * An array of the options to render in the switcher.
+	 */
+	options: ContextSwitcherOption[]
 }

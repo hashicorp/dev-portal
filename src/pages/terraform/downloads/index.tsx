@@ -8,23 +8,23 @@ import terraformData from 'data/terraform.json'
 import installData from 'data/terraform-install.json'
 import { ProductData } from 'types/products'
 import {
-  GeneratedProps,
-  generateStaticProps,
-  ReleasesAPIResponse,
+	GeneratedProps,
+	generateStaticProps,
+	ReleasesAPIResponse,
 } from 'lib/fetch-release-data'
 import ProductDownloadsView from 'views/product-downloads-view'
 
 const VERSION_DOWNLOAD_CUTOFF = '>=1.0.11'
 
 const TerraformDownloadsPage = (props: GeneratedProps): ReactElement => {
-  const { latestVersion, releases } = props
-  return (
-    <ProductDownloadsView
-      latestVersion={latestVersion}
-      pageContent={installData}
-      releases={releases}
-    />
-  )
+	const { latestVersion, releases } = props
+	return (
+		<ProductDownloadsView
+			latestVersion={latestVersion}
+			pageContent={installData}
+			releases={releases}
+		/>
+	)
 }
 
 /**
@@ -35,62 +35,62 @@ const TerraformDownloadsPage = (props: GeneratedProps): ReactElement => {
  * as the former seemed to return pre-releases, which is not what we want.
  */
 function filterVersions(
-  versions: ReleasesAPIResponse['versions'],
-  versionRange: string
+	versions: ReleasesAPIResponse['versions'],
+	versionRange: string
 ): ReleasesAPIResponse['versions'] {
-  // Filter by arbitrary & reasonable version cutoff
-  const filteredVersions = Object.keys(versions).filter(
-    (versionNumber: string) => {
-      return semverSatisfies(versionNumber, versionRange)
-    }
-  )
+	// Filter by arbitrary & reasonable version cutoff
+	const filteredVersions = Object.keys(versions).filter(
+		(versionNumber: string) => {
+			return semverSatisfies(versionNumber, versionRange)
+		}
+	)
 
-  /**
-   * Computes the latest patch versions for each major/minor
-   * e.g. given [1.1.2, 1.1.1, 1.1.0, 1.0.9, 1.0.8]
-   * return [1.1.2, 1.0.9]
-   */
-  const tree: { [x: number]: { [y: number]: number } } = {}
-  filteredVersions.forEach((v: string) => {
-    const x = semverMajor(v)
-    const y = semverMinor(v)
-    const z = semverPatch(v)
+	/**
+	 * Computes the latest patch versions for each major/minor
+	 * e.g. given [1.1.2, 1.1.1, 1.1.0, 1.0.9, 1.0.8]
+	 * return [1.1.2, 1.0.9]
+	 */
+	const tree: { [x: number]: { [y: number]: number } } = {}
+	filteredVersions.forEach((v: string) => {
+		const x = semverMajor(v)
+		const y = semverMinor(v)
+		const z = semverPatch(v)
 
-    if (!tree[x]) {
-      tree[x] = { [y]: z }
-    } else if (!tree[x][y]) {
-      tree[x][y] = z
-    } else {
-      tree[x][y] = Math.max(tree[x][y], z)
-    }
-  })
+		if (!tree[x]) {
+			tree[x] = { [y]: z }
+		} else if (!tree[x][y]) {
+			tree[x][y] = z
+		} else {
+			tree[x][y] = Math.max(tree[x][y], z)
+		}
+	})
 
-  // Turn the reduced tree of latest patches only into an array
-  const latestPatchesOnly = []
-  Object.entries(tree).forEach(([x, xObj]) => {
-    Object.entries(xObj).forEach(([y, z]) => {
-      latestPatchesOnly.push(`${x}.${y}.${z}`)
-    })
-  })
+	// Turn the reduced tree of latest patches only into an array
+	const latestPatchesOnly = []
+	Object.entries(tree).forEach(([x, xObj]) => {
+		Object.entries(xObj).forEach(([y, z]) => {
+			latestPatchesOnly.push(`${x}.${y}.${z}`)
+		})
+	})
 
-  // Turn the array of latest patches only into an object with release data
-  const filteredVersionsObj = {}
-  latestPatchesOnly.forEach((versionNumber: string) => {
-    filteredVersionsObj[versionNumber] = versions[versionNumber]
-  })
-  return filteredVersionsObj
+	// Turn the array of latest patches only into an object with release data
+	const filteredVersionsObj = {}
+	latestPatchesOnly.forEach((versionNumber: string) => {
+		filteredVersionsObj[versionNumber] = versions[versionNumber]
+	})
+	return filteredVersionsObj
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const product = terraformData as ProductData
-  const generatedProps = await generateStaticProps(product)
+	const product = terraformData as ProductData
+	const generatedProps = await generateStaticProps(product)
 
-  // Filter versions based on VERSION_DOWNLOAD_CUTOFF
-  const rawVersions = generatedProps.props?.releases?.versions
-  const filteredVersions = filterVersions(rawVersions, VERSION_DOWNLOAD_CUTOFF)
-  generatedProps.props.releases.versions = filteredVersions
+	// Filter versions based on VERSION_DOWNLOAD_CUTOFF
+	const rawVersions = generatedProps.props?.releases?.versions
+	const filteredVersions = filterVersions(rawVersions, VERSION_DOWNLOAD_CUTOFF)
+	generatedProps.props.releases.versions = filteredVersions
 
-  return generatedProps
+	return generatedProps
 }
 
 export default TerraformDownloadsPage

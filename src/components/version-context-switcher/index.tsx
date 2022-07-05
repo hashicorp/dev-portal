@@ -15,66 +15,66 @@ import s from './version-context-switcher.module.css'
  * design systems side.
  */
 const VersionContextSwitcher = ({
-  initialValue,
-  onChange,
-  options,
+	initialValue,
+	onChange,
+	options,
 }: VersionContextSwitcherProps): ReactElement => {
-  const currentProduct = useCurrentProduct()
-  const [selectedVersion, setSelectedVersion] = useState<
-    ContextSwitcherOption['value']
-  >(initialValue || options[0].value)
+	const currentProduct = useCurrentProduct()
+	const [selectedVersion, setSelectedVersion] = useState<
+		ContextSwitcherOption['value']
+	>(initialValue || options[0].value)
 
-  /**
-   * Handle change event for switcher, invoking the `onChange` function last if
-   * it has been passed in the `onChange` prop.
-   */
-  const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setSelectedVersion(e.target.value)
+	/**
+	 * Handle change event for switcher, invoking the `onChange` function last if
+	 * it has been passed in the `onChange` prop.
+	 */
+	const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
+		setSelectedVersion(e.target.value)
 
-    if (onChange) {
-      onChange(e)
-    }
-  }
+		if (onChange) {
+			onChange(e)
+		}
+	}
 
-  /**
-   * TODO: hopefully this is temporary. Because Sentinel does not have a
-   * `ProductIcon` and the component intentionally returns `null` for if the
-   * value for the `product` prop is `'sentinel'`, opting to pass a different
-   * value for Sentinel here rather than affect all current references to
-   * ProductIcon.
-   *  - `ProductSwitcher` is one example that would be imacted by adding a
-   *    ProductIcon for Sentinel. We currently do not want to render an icon
-   *    for Sentinel in `ProductSwitcher`.
-   */
-  const productIconSlug =
-    currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
-  return (
-    <div className={s.root}>
-      <span className={s.productIcon}>
-        <ProductIcon productSlug={productIconSlug} />
-      </span>
-      <select
-        aria-label="Choose a different version to install"
-        className={s.select}
-        onChange={handleChange}
-        value={selectedVersion}
-      >
-        {options.map((option) => (
-          <option
-            aria-label={`${currentProduct.name} ${option.label}`}
-            className={s.option}
-            key={option.value}
-            value={option.value}
-          >
-            {option.label}
-          </option>
-        ))}
-      </select>
-      <span className={s.trailingIcon}>
-        <IconCaret16 />
-      </span>
-    </div>
-  )
+	/**
+	 * TODO: hopefully this is temporary. Because Sentinel does not have a
+	 * `ProductIcon` and the component intentionally returns `null` for if the
+	 * value for the `product` prop is `'sentinel'`, opting to pass a different
+	 * value for Sentinel here rather than affect all current references to
+	 * ProductIcon.
+	 *  - `ProductSwitcher` is one example that would be imacted by adding a
+	 *    ProductIcon for Sentinel. We currently do not want to render an icon
+	 *    for Sentinel in `ProductSwitcher`.
+	 */
+	const productIconSlug =
+		currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
+	return (
+		<div className={s.root}>
+			<span className={s.productIcon}>
+				<ProductIcon productSlug={productIconSlug} />
+			</span>
+			<select
+				aria-label="Choose a different version to install"
+				className={s.select}
+				onChange={handleChange}
+				value={selectedVersion}
+			>
+				{options.map((option) => (
+					<option
+						aria-label={`${currentProduct.name} ${option.label}`}
+						className={s.option}
+						key={option.value}
+						value={option.value}
+					>
+						{option.label}
+					</option>
+				))}
+			</select>
+			<span className={s.trailingIcon}>
+				<IconCaret16 />
+			</span>
+		</div>
+	)
 }
 
 export type { ContextSwitcherOption, VersionContextSwitcherProps }

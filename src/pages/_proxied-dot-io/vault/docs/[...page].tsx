@@ -19,35 +19,35 @@ const additionalComponents = { Columns, Tag }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function DocsView(props) {
-  return (
-    <DocsPage
-      product={product}
-      baseRoute={basePath}
-      staticProps={props}
-      additionalComponents={additionalComponents}
-      showVersionSelect={enableVersionedDocs}
-      algoliaConfig={productData.algoliaConfig}
-    />
-  )
+	return (
+		<DocsPage
+			product={product}
+			baseRoute={basePath}
+			staticProps={props}
+			additionalComponents={additionalComponents}
+			showVersionSelect={enableVersionedDocs}
+			algoliaConfig={productData.algoliaConfig}
+		/>
+	)
 }
 
 const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
-  getStaticGenerationFunctions(
-    enableVersionedDocs
-      ? {
-          strategy: 'remote',
-          basePath,
-          fallback: 'blocking',
-          product: productData.slug,
-        }
-      : {
-          strategy: 'fs',
-          localContentDir,
-          navDataFile,
-          localPartialsDir,
-          product: productData.slug,
-        }
-  )
+	getStaticGenerationFunctions(
+		enableVersionedDocs
+			? {
+					strategy: 'remote',
+					basePath,
+					fallback: 'blocking',
+					product: productData.slug,
+			  }
+			: {
+					strategy: 'fs',
+					localContentDir,
+					navDataFile,
+					localPartialsDir,
+					product: productData.slug,
+			  }
+	)
 
 // Export getStaticPaths function
 /**
@@ -56,17 +56,17 @@ const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
  * (and NextJS will get mad since this is not an "optional catch-all" route).
  */
 export async function getStaticPaths(
-  context: GetStaticPathsContext
+	context: GetStaticPathsContext
 ): Promise<GetStaticPathsResult> {
-  const { paths, ...restReturn } = await generatedGetStaticPaths(context)
-  const pathsWithoutIndex = paths.filter((pathEntry) => {
-    const isIndexPath =
-      typeof pathEntry == 'string'
-        ? pathEntry == ''
-        : pathEntry.params.page.length == 0
-    return !isIndexPath
-  })
-  return { ...restReturn, paths: pathsWithoutIndex }
+	const { paths, ...restReturn } = await generatedGetStaticPaths(context)
+	const pathsWithoutIndex = paths.filter((pathEntry) => {
+		const isIndexPath =
+			typeof pathEntry == 'string'
+				? pathEntry == ''
+				: pathEntry.params.page.length == 0
+		return !isIndexPath
+	})
+	return { ...restReturn, paths: pathsWithoutIndex }
 }
 // Export getStaticProps function
 export { getStaticProps }

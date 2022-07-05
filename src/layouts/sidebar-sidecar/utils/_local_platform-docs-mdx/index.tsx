@@ -3,12 +3,12 @@ import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import { useCurrentProduct } from 'contexts'
 import {
-  MdxOrderedList,
-  MdxUnorderedList,
-  MdxListItem,
-  MdxTab,
-  MdxTabs,
-  MdxTable,
+	MdxOrderedList,
+	MdxUnorderedList,
+	MdxListItem,
+	MdxTab,
+	MdxTabs,
+	MdxTable,
 } from 'components/dev-dot-content/mdx-components'
 import DocsAnchor from 'components/docs-anchor'
 import Heading from 'components/heading'
@@ -21,37 +21,37 @@ import { ImageProps } from 'components/image/types'
  * Used by `makeHeadingElement`.
  */
 const HEADING_LEVELS_TO_PROPS = {
-  1: {
-    size: 500,
-    weight: 'bold',
-  },
-  2: {
-    size: 400,
-    weight: 'bold',
-  },
-  3: {
-    size: 300,
-    weight: 'bold',
-  },
-  4: {
-    size: 200,
-    weight: 'semibold',
-  },
-  5: {
-    size: 200,
-    weight: 'semibold',
-  },
-  6: {
-    size: 200,
-    weight: 'semibold',
-  },
+	1: {
+		size: 500,
+		weight: 'bold',
+	},
+	2: {
+		size: 400,
+		weight: 'bold',
+	},
+	3: {
+		size: 300,
+		weight: 'bold',
+	},
+	4: {
+		size: 200,
+		weight: 'semibold',
+	},
+	5: {
+		size: 200,
+		weight: 'semibold',
+	},
+	6: {
+		size: 200,
+		weight: 'semibold',
+	},
 }
 
 // This function returns a simple object containing the default components
 // The `additionalComponents` param is purely for convenience.
 // It is intended for use with `next-mdx-remote`.
 export default function defaultMdxComponents({ additionalComponents = {} }) {
-  return Object.assign(_defaultComponents(), additionalComponents)
+	return Object.assign(_defaultComponents(), additionalComponents)
 }
 
 /**
@@ -59,15 +59,15 @@ export default function defaultMdxComponents({ additionalComponents = {} }) {
  * apply for styling these components in docs pages.
  */
 export function makeHeadingElement(level, props) {
-  const customProps = HEADING_LEVELS_TO_PROPS[level]
-  const passableProps = {
-    ...customProps,
-    ...props,
-    className: devDotStyles[`h${level}`],
-    level,
-  }
+	const customProps = HEADING_LEVELS_TO_PROPS[level]
+	const passableProps = {
+		...customProps,
+		...props,
+		className: devDotStyles[`h${level}`],
+		level,
+	}
 
-  return <Heading {...passableProps} />
+	return <Heading {...passableProps} />
 }
 
 /**
@@ -80,10 +80,10 @@ export function makeHeadingElement(level, props) {
  * to have the same default behaviour.
  */
 function makeImageElement({ noBorder }: { noBorder: ImageProps['noBorder'] }) {
-  // eslint-disable-next-line react/display-name
-  return ({ alt, src, title }: Pick<ImageProps, 'alt' | 'src' | 'title'>) => (
-    <Image alt={alt} src={src} title={title} noBorder={noBorder} />
-  )
+	// eslint-disable-next-line react/display-name
+	return ({ alt, src, title }: Pick<ImageProps, 'alt' | 'src' | 'title'>) => (
+		<Image alt={alt} src={src} title={title} noBorder={noBorder} />
+	)
 }
 
 /**
@@ -100,30 +100,30 @@ function makeImageElement({ noBorder }: { noBorder: ImageProps['noBorder'] }) {
 // Purely for sharing between the two functions. Once `createMdxProvider` is
 // deprecated, this can be moved inline.
 function _defaultComponents() {
-  const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
-    theme: 'dark',
-  })
-  return {
-    Tabs: MdxTabs,
-    Tab: MdxTab,
-    EnterpriseAlert,
-    CodeBlockConfig,
-    CodeTabs,
-    pre,
-    a: DocsAnchor,
-    ol: MdxOrderedList,
-    ul: MdxUnorderedList,
-    li: MdxListItem,
-    img: makeImageElement({ noBorder: true }),
-    h1: (props) => makeHeadingElement(1, props),
-    h2: (props) => makeHeadingElement(2, props),
-    h3: (props) => makeHeadingElement(3, props),
-    h4: (props) => makeHeadingElement(4, props),
-    h5: (props) => makeHeadingElement(5, props),
-    h6: (props) => makeHeadingElement(6, props),
-    p: (props) => <Text {...props} className={devDotStyles.p} />,
-    table: MdxTable,
-  }
+	const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
+		theme: 'dark',
+	})
+	return {
+		Tabs: MdxTabs,
+		Tab: MdxTab,
+		EnterpriseAlert,
+		CodeBlockConfig,
+		CodeTabs,
+		pre,
+		a: DocsAnchor,
+		ol: MdxOrderedList,
+		ul: MdxUnorderedList,
+		li: MdxListItem,
+		img: makeImageElement({ noBorder: true }),
+		h1: (props) => makeHeadingElement(1, props),
+		h2: (props) => makeHeadingElement(2, props),
+		h3: (props) => makeHeadingElement(3, props),
+		h4: (props) => makeHeadingElement(4, props),
+		h5: (props) => makeHeadingElement(5, props),
+		h6: (props) => makeHeadingElement(6, props),
+		p: (props) => <Text {...props} className={devDotStyles.p} />,
+		table: MdxTable,
+	}
 }
 
 //
@@ -131,6 +131,6 @@ function _defaultComponents() {
 // to fit our use cases in dev-portal
 //
 function EnterpriseAlert(props) {
-  const currentProduct = useCurrentProduct()
-  return <EnterpriseAlertBase product={currentProduct?.slug} {...props} />
+	const currentProduct = useCurrentProduct()
+	return <EnterpriseAlertBase product={currentProduct?.slug} {...props} />
 }

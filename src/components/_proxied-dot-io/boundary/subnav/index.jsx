@@ -5,35 +5,35 @@ import productData from 'data/boundary'
 import Link from 'next/link'
 
 export default function ProductSubnav() {
-  const router = useRouter()
-  const [currentPath, setCurrentPath] = useState()
+	const router = useRouter()
+	const [currentPath, setCurrentPath] = useState()
 
-  useEffect(() => {
-    setCurrentPath(router.asPath)
-  }, [router.asPath])
+	useEffect(() => {
+		setCurrentPath(router.asPath)
+	}, [router.asPath])
 
-  return (
-    <Subnav
-      titleLink={{
-        text: 'Boundary',
-        url: '/',
-      }}
-      ctaLinks={[
-        {
-          text: 'GitHub',
-          url: `https://www.github.com/hashicorp/${productData.slug}`,
-        },
-        {
-          text: 'Download',
-          url: '/downloads',
-        },
-      ]}
-      currentPath={currentPath}
-      menuItemsAlign="right"
-      menuItems={productData.subnavItems}
-      constrainWidth
-      Link={Link}
-      matchOnBasePath
-    />
-  )
+	return (
+		<Subnav
+			titleLink={{
+				text: 'Boundary',
+				url: '/',
+			}}
+			ctaLinks={[
+				{
+					text: 'GitHub',
+					url: `https://www.github.com/hashicorp/${productData.slug}`,
+				},
+				{
+					text: 'Download',
+					url: '/downloads',
+				},
+			]}
+			currentPath={currentPath}
+			menuItemsAlign="right"
+			menuItems={productData.subnavItems}
+			constrainWidth
+			Link={Link}
+			matchOnBasePath
+		/>
+	)
 }

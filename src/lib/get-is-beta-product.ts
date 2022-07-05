@@ -7,8 +7,8 @@ import { ProductSlug } from 'types/products'
  * provided by `AllProductDataProvider`.
  */
 const getIsBetaProduct = (productSlug: ProductSlug): boolean => {
-  const betaProductSlugs = __config.dev_dot.beta_product_slugs
-  return betaProductSlugs.some((slug: ProductSlug) => productSlug === slug)
+	const betaProductSlugs = __config.dev_dot.beta_product_slugs
+	return betaProductSlugs.some((slug: ProductSlug) => productSlug === slug)
 }
 
 export default getIsBetaProduct

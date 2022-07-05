@@ -8,8 +8,8 @@ import disclosureStyles from 'components/disclosure/disclosure.module.css'
 
 // Local imports
 import {
-  DisclosureActivatorForwardedRef,
-  DisclosureActivatorProps,
+	DisclosureActivatorForwardedRef,
+	DisclosureActivatorProps,
 } from './types'
 
 /**
@@ -19,26 +19,26 @@ import {
  */
 // eslint-disable-next-line react/display-name
 const DisclosureActivator = forwardRef(
-  (
-    { ariaLabel, children, className }: DisclosureActivatorProps,
-    ref: DisclosureActivatorForwardedRef
-  ) => {
-    const { contentContainerId, isOpen, toggleDisclosure } =
-      useDisclosureState()
+	(
+		{ ariaLabel, children, className }: DisclosureActivatorProps,
+		ref: DisclosureActivatorForwardedRef
+	) => {
+		const { contentContainerId, isOpen, toggleDisclosure } =
+			useDisclosureState()
 
-    return (
-      <button
-        aria-controls={contentContainerId}
-        aria-expanded={isOpen}
-        aria-label={ariaLabel}
-        className={classNames(disclosureStyles.activator, className)}
-        onClick={toggleDisclosure}
-        ref={ref}
-      >
-        {children}
-      </button>
-    )
-  }
+		return (
+			<button
+				aria-controls={contentContainerId}
+				aria-expanded={isOpen}
+				aria-label={ariaLabel}
+				className={classNames(disclosureStyles.activator, className)}
+				onClick={toggleDisclosure}
+				ref={ref}
+			>
+				{children}
+			</button>
+		)
+	}
 )
 
 export type { DisclosureActivatorForwardedRef, DisclosureActivatorProps }

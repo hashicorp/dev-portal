@@ -7,44 +7,44 @@ import { KeyboardEvent } from 'react'
  * element within a `keydown` or `keypress` listener.
  */
 function deriveKeyEventState(keyboardEvent: KeyboardEvent) {
-  const { key, shiftKey } = keyboardEvent
+	const { key, shiftKey } = keyboardEvent
 
-  // Arrow keys
-  const isArrowDownKey = key === 'ArrowDown'
-  const isArrowLeftKey = key === 'ArrowLeft'
-  const isArrowRightKey = key === 'ArrowRight'
-  const isArrowUpKey = key === 'ArrowUp'
+	// Arrow keys
+	const isArrowDownKey = key === 'ArrowDown'
+	const isArrowLeftKey = key === 'ArrowLeft'
+	const isArrowRightKey = key === 'ArrowRight'
+	const isArrowUpKey = key === 'ArrowUp'
 
-  // Escape, Space, Enter
-  const isEscapeKey = key === 'Escape'
-  const isSpaceKey = key === ' '
-  const isEnterKey = key === 'Enter'
+	// Escape, Space, Enter
+	const isEscapeKey = key === 'Escape'
+	const isSpaceKey = key === ' '
+	const isEnterKey = key === 'Enter'
 
-  // Home, End, PageUp, PageDown
-  const isHomeKey = key === 'Home'
-  const isEndKey = key === 'End'
-  const isPageUpKey = key === 'PageUp'
-  const isPageDownKey = key === 'PageDown'
+	// Home, End, PageUp, PageDown
+	const isHomeKey = key === 'Home'
+	const isEndKey = key === 'End'
+	const isPageUpKey = key === 'PageUp'
+	const isPageDownKey = key === 'PageDown'
 
-  // Tab, Shift+Tab
-  const isShiftTabKey = shiftKey && key === 'Tab'
-  const isTabKey = !shiftKey && key === 'Tab'
+	// Tab, Shift+Tab
+	const isShiftTabKey = shiftKey && key === 'Tab'
+	const isTabKey = !shiftKey && key === 'Tab'
 
-  return {
-    isArrowDownKey,
-    isArrowLeftKey,
-    isArrowRightKey,
-    isArrowUpKey,
-    isEndKey,
-    isEnterKey,
-    isEscapeKey,
-    isHomeKey,
-    isPageDownKey,
-    isPageUpKey,
-    isShiftTabKey,
-    isSpaceKey,
-    isTabKey,
-  }
+	return {
+		isArrowDownKey,
+		isArrowLeftKey,
+		isArrowRightKey,
+		isArrowUpKey,
+		isEndKey,
+		isEnterKey,
+		isEscapeKey,
+		isHomeKey,
+		isPageDownKey,
+		isPageUpKey,
+		isShiftTabKey,
+		isSpaceKey,
+		isTabKey,
+	}
 }
 
 export default deriveKeyEventState

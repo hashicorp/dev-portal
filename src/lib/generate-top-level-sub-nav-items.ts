@@ -11,40 +11,40 @@ import { productSlugsToNames } from 'lib/products'
  * the current environment config.
  */
 export const generateTopLevelSubNavItems = () => {
-  const betaProductItems = []
-  const futureProductItems = []
+	const betaProductItems = []
+	const futureProductItems = []
 
-  Object.keys(productSlugsToNames).forEach((productSlug: ProductSlug) => {
-    // Exclude Sentinel for now
-    if (productSlug === 'sentinel') {
-      return
-    }
+	Object.keys(productSlugsToNames).forEach((productSlug: ProductSlug) => {
+		// Exclude Sentinel for now
+		if (productSlug === 'sentinel') {
+			return
+		}
 
-    const leadingIconName = productSlug
-    const title = productSlugsToNames[productSlug]
-    const navItem: $TSFixMe = { leadingIconName, title }
-    const isBetaProduct = getIsBetaProduct(productSlug)
-    if (isBetaProduct) {
-      navItem.href = `/${productSlug}`
-      betaProductItems.push(navItem)
-    } else {
-      navItem.ariaLabel = `Coming soon: ${title}`
-      futureProductItems.push(navItem)
-    }
-  })
+		const leadingIconName = productSlug
+		const title = productSlugsToNames[productSlug]
+		const navItem: $TSFixMe = { leadingIconName, title }
+		const isBetaProduct = getIsBetaProduct(productSlug)
+		if (isBetaProduct) {
+			navItem.href = `/${productSlug}`
+			betaProductItems.push(navItem)
+		} else {
+			navItem.ariaLabel = `Coming soon: ${title}`
+			futureProductItems.push(navItem)
+		}
+	})
 
-  return [
-    {
-      leadingIconName: 'home',
-      title: 'HashiCorp Developer',
-      href: '/',
-      badge: { color: 'highlight', text: 'Beta' },
-    },
-    { divider: true },
-    { heading: 'Products' },
-    ...betaProductItems,
-    { divider: true },
-    { heading: 'Coming Soon' },
-    ...futureProductItems,
-  ]
+	return [
+		{
+			leadingIconName: 'home',
+			title: 'HashiCorp Developer',
+			href: '/',
+			badge: { color: 'highlight', text: 'Beta' },
+		},
+		{ divider: true },
+		{ heading: 'Products' },
+		...betaProductItems,
+		{ divider: true },
+		{ heading: 'Coming Soon' },
+		...futureProductItems,
+	]
 }

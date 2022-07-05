@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
 import { Product } from 'types/products'
 import {
-  CurrentProductProvider,
-  useCurrentProduct,
+	CurrentProductProvider,
+	useCurrentProduct,
 } from 'contexts/current-product'
 
 /**
@@ -13,81 +13,81 @@ import {
  * result of `renderHook`.
  */
 const setup = (currentProduct: Product) => {
-  const wrapper = ({ children }: { children: ReactNode }) => (
-    <CurrentProductProvider
-      currentProduct={{
-        ...currentProduct,
-        basePaths: [],
-        navigationHeaderItems: {},
-        sidebar: {
-          landingPageNavData: [],
-        },
-        algoliaConfig: {
-          indexName: '',
-        },
-      }}
-    >
-      {children}
-    </CurrentProductProvider>
-  )
-  return renderHook(() => useCurrentProduct(), { wrapper })
+	const wrapper = ({ children }: { children: ReactNode }) => (
+		<CurrentProductProvider
+			currentProduct={{
+				...currentProduct,
+				basePaths: [],
+				navigationHeaderItems: {},
+				sidebar: {
+					landingPageNavData: [],
+				},
+				algoliaConfig: {
+					indexName: '',
+				},
+			}}
+		>
+			{children}
+		</CurrentProductProvider>
+	)
+	return renderHook(() => useCurrentProduct(), { wrapper })
 }
 
 describe('CurrentProductContext', () => {
-  let useRouter: jest.SpyInstance
-  beforeAll(() => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    useRouter = jest.spyOn(require('next/router'), 'useRouter')
-    useRouter.mockReturnValue({
-      events: {
-        off: jest.fn(),
-        on: jest.fn(),
-      },
-    })
-  })
+	let useRouter: jest.SpyInstance
+	beforeAll(() => {
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		useRouter = jest.spyOn(require('next/router'), 'useRouter')
+		useRouter.mockReturnValue({
+			events: {
+				off: jest.fn(),
+				on: jest.fn(),
+			},
+		})
+	})
 
-  afterAll(() => {
-    useRouter.mockRestore()
-  })
+	afterAll(() => {
+		useRouter.mockRestore()
+	})
 
-  test('useCurrentProduct throws an error if not used within CurrentProductProvider', () => {
-    const { result } = renderHook(() => useCurrentProduct())
+	test('useCurrentProduct throws an error if not used within CurrentProductProvider', () => {
+		const { result } = renderHook(() => useCurrentProduct())
 
-    expect(result.error.message).toBe(
-      'useCurrentProduct must be used within a CurrentProductProvider'
-    )
-  })
+		expect(result.error.message).toBe(
+			'useCurrentProduct must be used within a CurrentProductProvider'
+		)
+	})
 
-  test('CurrentProductProvider renders its children without changes', () => {
-    const testText = 'super special unique text for testing'
-    render(
-      <CurrentProductProvider currentProduct={undefined}>
-        {testText}
-      </CurrentProductProvider>
-    )
+	test('CurrentProductProvider renders its children without changes', () => {
+		const testText = 'super special unique text for testing'
+		render(
+			<CurrentProductProvider currentProduct={undefined}>
+				{testText}
+			</CurrentProductProvider>
+		)
 
-    expect(screen.getByText(testText)).toBeDefined()
-  })
+		expect(screen.getByText(testText)).toBeDefined()
+	})
 
-  describe('useCurrentProduct returns the value provided to CurrentProductProvider', () => {
-    test('when the path is "/", null is returned', () => {
-      useRouter.mockReturnValueOnce({
-        asPath: '/',
-        events: {
-          off: jest.fn(),
-          on: jest.fn(),
-        },
-      })
-      const { result } = setup({ slug: 'waypoint', name: 'Waypoint' })
+	describe('useCurrentProduct returns the value provided to CurrentProductProvider', () => {
+		test('when the path is "/", null is returned', () => {
+			useRouter.mockReturnValueOnce({
+				asPath: '/',
+				events: {
+					off: jest.fn(),
+					on: jest.fn(),
+				},
+			})
+			const { result } = setup({ slug: 'waypoint', name: 'Waypoint' })
 
-      expect(result.current).toBeNull()
-    })
+			expect(result.current).toBeNull()
+		})
 
-    test('when the path is not "/", the correct value is returned', () => {
-      const { result } = setup({ slug: 'waypoint', name: 'Waypoint' })
+		test('when the path is not "/", the correct value is returned', () => {
+			const { result } = setup({ slug: 'waypoint', name: 'Waypoint' })
 
-      expect(result.current.slug).toEqual('waypoint')
-      expect(result.current.name).toEqual('Waypoint')
-    })
-  })
+			expect(result.current.slug).toEqual('waypoint')
+			expect(result.current.name).toEqual('Waypoint')
+		})
+	})
 })

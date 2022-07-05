@@ -14,31 +14,31 @@ import { useRouter } from 'next/router'
  * used to determine which product we're currently rendering.
  */
 export default function useProxiedPath(): {
-  asPath: string
-  proxiedProduct: string | null
+	asPath: string
+	proxiedProduct: string | null
 } {
-  const router = useRouter()
+	const router = useRouter()
 
-  // eslint-disable-next-line no-useless-escape
-  const pattern = /\/\_proxied-dot-io\/(?<product>[a-z]*)(?:\/(?<path>.*))?/
+	// eslint-disable-next-line no-useless-escape
+	const pattern = /\/\_proxied-dot-io\/(?<product>[a-z]*)(?:\/(?<path>.*))?/
 
-  let asPath = router.asPath
-  const asPathMatches = pattern.exec(router.asPath)
-  if (asPathMatches?.groups?.path) {
-    // We add a `/` character here since our RegEx group doesn't capture
-    // leading slashes
-    asPath = `/${asPathMatches.groups.path}`
-  } else if (asPathMatches !== null) {
-    // If exec returns a match that doesn't have a value for the named capture
-    // group `path`, we're on the index route.
-    asPath = '/'
-  }
+	let asPath = router.asPath
+	const asPathMatches = pattern.exec(router.asPath)
+	if (asPathMatches?.groups?.path) {
+		// We add a `/` character here since our RegEx group doesn't capture
+		// leading slashes
+		asPath = `/${asPathMatches.groups.path}`
+	} else if (asPathMatches !== null) {
+		// If exec returns a match that doesn't have a value for the named capture
+		// group `path`, we're on the index route.
+		asPath = '/'
+	}
 
-  let proxiedProduct: string | null = null
-  const pathnameMatches = pattern.exec(router.pathname)
-  if (pathnameMatches?.groups?.product) {
-    proxiedProduct = pathnameMatches.groups.product
-  }
+	let proxiedProduct: string | null = null
+	const pathnameMatches = pattern.exec(router.pathname)
+	if (pathnameMatches?.groups?.product) {
+		proxiedProduct = pathnameMatches.groups.product
+	}
 
-  return { asPath, proxiedProduct }
+	return { asPath, proxiedProduct }
 }
