@@ -6,12 +6,11 @@
 import { useEffect, useState } from 'react'
 import Subnav from '@hashicorp/react-subnav'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
-import productData from 'data/waypoint'
+import s from './style.module.css'
 
-export default function ProductSubnav() {
+export default function WaypointSubnav({ menuItems }) {
 	const router = useRouter()
-	const [currentPath, setCurrentPath] = useState()
+	const [currentPath, setCurrentPath] = useState('')
 
 	useEffect(() => {
 		setCurrentPath(router.asPath)
@@ -19,6 +18,7 @@ export default function ProductSubnav() {
 
 	return (
 		<Subnav
+			className={s.subnav}
 			titleLink={{
 				text: 'Waypoint',
 				url: '/',
@@ -26,19 +26,18 @@ export default function ProductSubnav() {
 			ctaLinks={[
 				{
 					text: 'GitHub',
-					url: `https://www.github.com/hashicorp/${productData.slug}`,
+					url: `https://www.github.com/hashicorp/waypoint`,
 				},
 				{
-					text: 'Download',
-					url: 'https://developer.hashicorp.com/waypoint/downloads',
+					text: 'Install Waypoint',
+					url: '/downloads',
 				},
 			]}
 			hideGithubStars={true}
 			currentPath={currentPath}
-			menuItemsAlign="center"
-			menuItems={productData.subnavItems}
+			menuItemsAlign="right"
+			menuItems={menuItems}
 			constrainWidth
-			Link={Link}
 			matchOnBasePath
 		/>
 	)
