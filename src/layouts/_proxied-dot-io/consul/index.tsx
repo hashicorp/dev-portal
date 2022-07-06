@@ -47,7 +47,7 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 				<ProductSubnav
 					menuItems={[
 						{ text: 'Overview', url: '/' },
-						consulNav.useCases.length < 0
+						consulNav.useCases.length > 0
 							? {
 									text: 'Use Cases',
 									submenu: [
