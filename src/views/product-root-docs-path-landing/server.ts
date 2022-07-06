@@ -83,6 +83,7 @@ const generateGetStaticProps = ({
 	includeMDXSource = false,
 	pageContent,
 	product,
+	productSlugForLoader,
 }: GenerateGetStaticPropsArguments) => {
 	const basePath = 'docs'
 	const currentRootDocsPath = product.rootDocsPaths.find(
@@ -94,6 +95,7 @@ const generateGetStaticProps = ({
 		const { getStaticProps: generatedGetStaticProps } =
 			_getStaticGenerationFunctions({
 				product,
+				productSlugForLoader,
 				basePath,
 				baseName,
 			})
