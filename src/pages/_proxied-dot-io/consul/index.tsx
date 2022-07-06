@@ -118,25 +118,27 @@ function Homepage({ data }): React.ReactElement {
 				}
 			/>
 
-			<section className={s.useCases}>
-				<div className={s.container}>
-					<IoCardContainer
-						heading={useCasesHeading}
-						description={useCasesDescription}
-						cardsPerRow={4}
-						cards={useCases.map((usecase) => {
-							return {
-								link: {
-									url: `/use-cases/${usecase.slug}`,
-									type: 'inbound',
-								},
-								heading: usecase.heroHeading,
-								description: usecase.heroDescription,
-							}
-						})}
-					/>
-				</div>
-			</section>
+			{useCases.length > 0 ? (
+				<section className={s.useCases}>
+					<div className={s.container}>
+						<IoCardContainer
+							heading={useCasesHeading}
+							description={useCasesDescription}
+							cardsPerRow={4}
+							cards={useCases.map((usecase) => {
+								return {
+									link: {
+										url: `/use-cases/${usecase.slug}`,
+										type: 'inbound',
+									},
+									heading: usecase.heroHeading,
+									description: usecase.heroDescription,
+								}
+							})}
+						/>
+					</div>
+				</section>
+			) : null}
 
 			<section className={s.tutorials}>
 				<div className={s.container}>

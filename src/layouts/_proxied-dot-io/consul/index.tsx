@@ -47,17 +47,19 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 				<ProductSubnav
 					menuItems={[
 						{ text: 'Overview', url: '/' },
-						{
-							text: 'Use Cases',
-							submenu: [
-								...consulNav.useCases.map((item: UseCase) => {
-									return {
-										text: item.text,
-										url: `/use-cases/${item.url}`,
-									}
-								}),
-							],
-						},
+						consulNav.useCases.length < 0
+							? {
+									text: 'Use Cases',
+									submenu: [
+										...consulNav.useCases.map((item: UseCase) => {
+											return {
+												text: item.text,
+												url: `/use-cases/${item.url}`,
+											}
+										}),
+									],
+							  }
+							: undefined,
 						{
 							text: 'Enterprise',
 							url: 'https://www.hashicorp.com/products/consul/?utm_source=oss&utm_medium=header-nav&utm_campaign=consul',
@@ -89,7 +91,7 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 							url: '/community',
 							type: 'inbound',
 						},
-					]}
+					].filter(Boolean)}
 				/>
 				<div className={themeClass}>{children}</div>
 			</Min100Layout>
