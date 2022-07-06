@@ -9,6 +9,7 @@
 		"includedDomains": "waypointproject.io www.waypointproject.io",
 		"segmentWriteKey": "9mlIVayJbNtJW2EOdAFKHNKcdLAgEDlV"
 	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
 		"title": "Waypoint by HashiCorp",
 		"description": "Waypoint is an open source solution that provides a modern workflow for build, deploy, and release across platforms.",

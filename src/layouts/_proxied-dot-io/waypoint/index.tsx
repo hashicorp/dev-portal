@@ -19,6 +19,7 @@ import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
 import Footer from 'components/_proxied-dot-io/waypoint/footer-with-props'
 import ProductSubnav from 'components/_proxied-dot-io/waypoint/subnav'
 import productData from 'data/waypoint.json'
+import query from './query.graphql'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
@@ -65,7 +66,7 @@ function WaypointIoLayout({ children, data }: Props): React.ReactElement {
 											...waypointNav.useCases.map((item: UseCase) => {
 												return {
 													text: item.text,
-													url: `/use-cases/${item.url}`,
+													url: `/use-cases/${item.slug}`,
 												}
 											}),
 										],
@@ -112,9 +113,14 @@ function WaypointIoLayout({ children, data }: Props): React.ReactElement {
 	)
 }
 
+WaypointIoLayout.rivetParams = {
+	query,
+	dependencies: [],
+}
+
 export default WaypointIoLayout
 
-type UseCase = { url: string; text: string }
+type UseCase = { slug: string; text: string }
 
 interface Props {
 	children: React.ReactChildren

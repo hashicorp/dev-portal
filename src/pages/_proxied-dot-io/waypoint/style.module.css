@@ -19,3 +19,7 @@
 		}
 	}
 }
+
+.useCases {
+	composes: g-grid-container from global;
+}
