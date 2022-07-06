@@ -1,0 +1,8 @@
+query navQuery {
+	waypointNav {
+		useCases {
+			text: heroHeading
+			slug
+		}
+	}
+}
