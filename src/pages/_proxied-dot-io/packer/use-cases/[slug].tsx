@@ -197,7 +197,7 @@ export default function UseCasePage({ data }) {
 UseCasePage.layout = PackerIoLayout
 
 export async function getStaticPaths() {
-	const query = proxiedRivetClient('nomad')
+	const query = proxiedRivetClient('packer')
 	const { allPackerUseCases } = await query({
 		query: useCasesQuery,
 	})
