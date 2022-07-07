@@ -246,7 +246,7 @@ function HomePage() {
 							link: {
 								type: 'inbound',
 								text: 'Learn more',
-								url: 'https://learn.hashicorp.com/tutorials/boundary/hcp-manage-sessions',
+								url: 'https://learn.hashicorp.com/tutorials/boundary/event-logging',
 							},
 						},
 						{
