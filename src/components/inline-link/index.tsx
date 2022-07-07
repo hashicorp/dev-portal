@@ -22,24 +22,21 @@ const InlineLink = ({
 	)
 
 	/**
-	 * This case is possible for some of the extra <a> elements that are added by
-	 * our `anchor-links` remark plugin.
+	 * An undefined "href" is possible for some of the extra "target" <a> elements
+	 * that are added by our `anchor-links` remark plugin. These elements have
+	 * an "id", and act as a target for anchor links, but do not have an href.
+	 *
+	 * For now, we still want to render these elements, as they're needed
+	 * for some anchor links to function.
 	 *
 	 * FUTURE TODOs
 	 *   - update the plugin to no longer add empty <a> elements
-	 *   - update this to throw an error
+	 *   - update this to throw an error if href is falsy
 	 */
-	const hasHref = Boolean(href)
-	if (!hasHref) {
-		if (IS_DEV) {
-			console.error('[InlineLink] a falsy `href` was given. Returning `null`.')
-		}
-
-		return null
-	}
+	const safeHref = href || '#'
 
 	return (
-		<Link href={href}>
+		<Link href={safeHref}>
 			<a {...rest} className={classes}>
 				{children}
 			</a>
