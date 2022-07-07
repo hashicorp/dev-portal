@@ -1,0 +1,39 @@
+.footer {
+	flex-shrink: 0;
+	display: flex;
+
+	& a {
+		color: black;
+		opacity: 0.5;
+		transition: opacity 0.25s ease;
+		cursor: pointer;
+		display: inline-block;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+}
+
+.inner {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	composes: g-grid-container from global;
+}
+
+.content {
+	border-top: 1px solid var(--gray-5);
+	padding-top: 25px;
+	padding-bottom: 25px;
+	width: 100%;
+}
+
+.left > a {
+	margin-right: 20px;
+	margin-bottom: 8px;
+
+	&:last-child {
+		margin-right: 0;
+	}
+}

@@ -15,7 +15,7 @@ import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
 // product-specific layout elements
-import Footer from 'components/_proxied-dot-io/waypoint/footer-with-props'
+import BasicFooter from 'components/_proxied-dot-io/waypoint/basic-footer'
 import ProductSubnav from 'components/_proxied-dot-io/waypoint/subnav'
 import productData from 'data/waypoint.json'
 import query from './query.graphql'
@@ -45,7 +45,9 @@ function WaypointIoLayout({ children, data }: Props): React.ReactElement {
 				icon={productData.metadata.icon}
 			/>
 
-			<Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
+			<Min100Layout
+				footer={<BasicFooter openConsentManager={openConsentManager} />}
+			>
 				<ProductMetaProvider product={productData.slug as Products}>
 					{productData.alertBannerActive && (
 						<AlertBanner
