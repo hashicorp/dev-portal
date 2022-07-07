@@ -4,8 +4,6 @@ import classNames from 'classnames'
 import { InlineLinkProps } from './types'
 import s from './inline-link.module.css'
 
-const IS_DEV = process.env.NODE_ENV !== 'production'
-
 const InlineLink = ({
 	children,
 	className,
