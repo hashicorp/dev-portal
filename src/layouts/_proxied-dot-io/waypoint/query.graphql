@@ -2,7 +2,7 @@ query navQuery {
 	waypointNav {
 		useCases {
 			text: heroHeading
-			slug
+			url: slug
 		}
 	}
 }

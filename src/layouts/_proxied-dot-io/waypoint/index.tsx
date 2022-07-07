@@ -26,6 +26,17 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 	otherServices: [...localConsentManagerServices],
 })
 
+type UseCase = { url: string; text: string }
+
+interface Props {
+	children: React.ReactChildren
+	data: {
+		waypointNav: {
+			useCases: Array<UseCase>
+		}
+	}
+}
+
 function WaypointIoLayout({ children, data }: Props): React.ReactElement {
 	usePageviewAnalytics({
 		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID_WAYPOINT,
@@ -66,7 +77,7 @@ function WaypointIoLayout({ children, data }: Props): React.ReactElement {
 											...waypointNav.useCases.map((item: UseCase) => {
 												return {
 													text: item.text,
-													url: `/use-cases/${item.slug}`,
+													url: `/use-cases/${item.url}`,
 												}
 											}),
 										],
@@ -119,14 +130,3 @@ WaypointIoLayout.rivetParams = {
 }
 
 export default WaypointIoLayout
-
-type UseCase = { slug: string; text: string }
-
-interface Props {
-	children: React.ReactChildren
-	data: {
-		waypointNav: {
-			useCases: Array<UseCase>
-		}
-	}
-}
