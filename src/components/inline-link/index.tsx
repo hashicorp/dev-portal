@@ -36,10 +36,10 @@ const InlineLink = ({
 	 * Asana task:
 	 * https://app.asana.com/0/1100423001970639/1202488740132127/f
 	 */
-	const safeHref = href || '#'
+	const hrefWithFallback = href || '#'
 
 	return (
-		<Link href={safeHref}>
+		<Link href={hrefWithFallback}>
 			<a {...rest} className={classes}>
 				{children}
 			</a>
