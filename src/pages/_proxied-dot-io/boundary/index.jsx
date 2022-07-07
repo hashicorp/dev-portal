@@ -280,7 +280,7 @@ function HomePage() {
 						{
 							title: 'Infrastructure as code',
 							content:
-								'Define policies and manage Boundary with an Infrastructure as Code approach. Terraform provider supports the full breadth of Boundary configurations.',
+								"Define policies and manage Boundary with an Infrastructure as Code approach. Boundary's Terraform provider supports the full breadth of available configurations.",
 							icon: require('./home/img/icons/terminal.svg?url'),
 							link: {
 								type: 'inbound',
