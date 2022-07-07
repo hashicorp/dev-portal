@@ -235,7 +235,7 @@ function HomePage() {
 							link: {
 								type: 'inbound',
 								text: 'Learn more',
-								url: 'https://learn.hashicorp.com/tutorials/boundary/getting-started-intro',
+								url: 'https://learn.hashicorp.com/tutorials/boundary/hcp-getting-started-intro',
 							},
 						},
 						{
@@ -246,7 +246,7 @@ function HomePage() {
 							link: {
 								type: 'inbound',
 								text: 'Learn more',
-								url: 'https://learn.hashicorp.com/tutorials/boundary/manage-sessions?in=boundary/common-workflows',
+								url: 'https://learn.hashicorp.com/tutorials/boundary/event-logging',
 							},
 						},
 						{
@@ -280,12 +280,12 @@ function HomePage() {
 						{
 							title: 'Infrastructure as code',
 							content:
-								'Define policies and manage Boundary with an Infrastructure as Code approach. Terraform provider supports the full breadth of Boundary configurations.',
+								"Define policies and manage Boundary with an Infrastructure as Code approach. Boundary's Terraform provider supports the full breadth of available configurations.",
 							icon: require('./home/img/icons/terminal.svg?url'),
 							link: {
 								type: 'inbound',
 								text: 'Learn more',
-								url: 'https://learn.hashicorp.com/tutorials/boundary/getting-started-config',
+								url: 'https://registry.terraform.io/providers/hashicorp/boundary/',
 							},
 						},
 					]}
@@ -318,7 +318,7 @@ function HomePage() {
 								},
 								link: {
 									title: 'Learn more',
-									url: 'https://learn.hashicorp.com/tutorials/boundary/manage-sessions',
+									url: 'https://learn.hashicorp.com/tutorials/boundary/hcp-manage-sessions',
 								},
 							},
 							{
