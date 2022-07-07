@@ -95,13 +95,5 @@ query homepageQuery {
 			text: title
 			url: link
 		}
-		preFooterHeading
-		preFooterDescription
-		preFooterCtas {
-			link
-			heading
-			description
-			cta
-		}
 	}
 }
