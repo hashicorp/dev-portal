@@ -42,6 +42,9 @@ export default function WaypointHomepage({ data }): React.ReactElement {
 		callToActionHeading,
 		callToActionDescription,
 		callToActionCtas,
+		preFooterHeading,
+		preFooterDescription,
+		preFooterCtas,
 	} = data
 	const _introVideo = introVideo[0]
 
@@ -120,12 +123,6 @@ export default function WaypointHomepage({ data }): React.ReactElement {
 						products: card.products,
 					}
 				})}
-				cta={{
-					heading: null,
-					description: null,
-					link: null,
-					image: null,
-				}}
 			/>
 
 			<IoHomeCaseStudies
@@ -140,6 +137,13 @@ export default function WaypointHomepage({ data }): React.ReactElement {
 				heading={callToActionHeading}
 				content={callToActionDescription}
 				links={callToActionCtas}
+			/>
+
+			<IoHomePreFooter
+				brand="waypoint"
+				heading={preFooterHeading}
+				description={preFooterDescription}
+				ctas={preFooterCtas}
 			/>
 		</>
 	)
