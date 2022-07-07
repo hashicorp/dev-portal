@@ -57,14 +57,10 @@ query homepageQuery {
 		}
 		useCasesHeading
 		useCasesDescription
-		useCasesCards {
-			eyebrow
-			heading
-			description
-			link
-			products {
-				name
-			}
+		useCases {
+			heroHeading
+			heroDescription
+			slug
 		}
 		caseStudiesHeading
 		caseStudiesDescription
