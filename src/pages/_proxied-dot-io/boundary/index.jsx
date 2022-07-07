@@ -235,7 +235,7 @@ function HomePage() {
 							link: {
 								type: 'inbound',
 								text: 'Learn more',
-								url: 'https://learn.hashicorp.com/tutorials/boundary/getting-started-intro',
+								url: 'https://learn.hashicorp.com/tutorials/boundary/hcp-getting-started-intro',
 							},
 						},
 						{
@@ -246,7 +246,7 @@ function HomePage() {
 							link: {
 								type: 'inbound',
 								text: 'Learn more',
-								url: 'https://learn.hashicorp.com/tutorials/boundary/manage-sessions?in=boundary/common-workflows',
+								url: 'https://learn.hashicorp.com/tutorials/boundary/hcp-manage-sessions',
 							},
 						},
 						{
@@ -285,7 +285,7 @@ function HomePage() {
 							link: {
 								type: 'inbound',
 								text: 'Learn more',
-								url: 'https://learn.hashicorp.com/tutorials/boundary/getting-started-config',
+								url: 'https://registry.terraform.io/providers/hashicorp/boundary/',
 							},
 						},
 					]}
