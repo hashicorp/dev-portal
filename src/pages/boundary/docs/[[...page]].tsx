@@ -8,9 +8,9 @@ const baseName = 'Docs'
 const product = boundaryData as ProductData
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-  product,
-  basePath,
-  baseName,
+	product,
+	basePath,
+	baseName,
 })
 
 export { getStaticPaths, getStaticProps }

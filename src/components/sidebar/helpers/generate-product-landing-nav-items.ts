@@ -14,36 +14,36 @@ const IS_DEV = process.env.NODE_ENV !== 'production'
  * defined in their `src/data/${productSlug}.json` files.
  */
 export const generateProductLandingSidebarMenuItems = (
-  product: ProductData
+	product: ProductData
 ) => {
-  let menuItems
+	let menuItems
 
-  if (product.rootDocsPaths) {
-    const rootDocsNavItems = product.rootDocsPaths.map((rootDocsPath) => {
-      const { shortName, name, path } = rootDocsPath
-      return { title: shortName || name, fullPath: `/${product.slug}/${path}` }
-    })
-    menuItems = [
-      ...rootDocsNavItems,
-      {
-        title: 'Tutorials',
-        fullPath: `/${product.slug}/tutorials`,
-      },
-      {
-        title: 'Install',
-        fullPath: `/${product.slug}/downloads`,
-      },
-    ]
-  } else {
-    if (IS_DEV) {
-      console.warn(
-        `Warning (generateProductLandingSidebarMenuItems): ${product.name} does not have a "rootDocsPaths" property. Please replace the "landingPageNavData" property with "rootDocsPaths" in "src/data/${product.slug}.json".`
-      )
-    }
-    menuItems = [...product.sidebar.landingPageNavData]
-  }
+	if (product.rootDocsPaths) {
+		const rootDocsNavItems = product.rootDocsPaths.map((rootDocsPath) => {
+			const { shortName, name, path } = rootDocsPath
+			return { title: shortName || name, fullPath: `/${product.slug}/${path}` }
+		})
+		menuItems = [
+			...rootDocsNavItems,
+			{
+				title: 'Tutorials',
+				fullPath: `/${product.slug}/tutorials`,
+			},
+			{
+				title: 'Install',
+				fullPath: `/${product.slug}/downloads`,
+			},
+		]
+	} else {
+		if (IS_DEV) {
+			console.warn(
+				`Warning (generateProductLandingSidebarMenuItems): ${product.name} does not have a "rootDocsPaths" property. Please replace the "landingPageNavData" property with "rootDocsPaths" in "src/data/${product.slug}.json".`
+			)
+		}
+		menuItems = [...product.sidebar.landingPageNavData]
+	}
 
-  return menuItems
+	return menuItems
 }
 
 /**
@@ -55,18 +55,18 @@ export const generateProductLandingSidebarMenuItems = (
  * to be loaded into the `product` object passed.
  */
 export const generateProductLandingSidebarNavData = (product: ProductData) => {
-  const levelButtonProps = {
-    levelUpButtonText: 'Main Menu',
-    levelDownButtonText: 'Previous',
-  }
-  const menuItems = generateProductLandingSidebarMenuItems(product)
-  const showFilterInput = false
-  const title = product.name
+	const levelButtonProps = {
+		levelUpButtonText: 'Main Menu',
+		levelDownButtonText: 'Previous',
+	}
+	const menuItems = generateProductLandingSidebarMenuItems(product)
+	const showFilterInput = false
+	const title = product.name
 
-  return {
-    levelButtonProps,
-    menuItems,
-    showFilterInput,
-    title,
-  }
+	return {
+		levelButtonProps,
+		menuItems,
+		showFilterInput,
+		title,
+	}
 }

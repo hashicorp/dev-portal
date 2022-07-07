@@ -14,63 +14,63 @@ import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
 import { HeroWithVideo } from './components/hero'
 import {
-  HashiConfGlobalSlot,
-  VaultSlot,
+	HashiConfGlobalSlot,
+	VaultSlot,
 } from './components/merchandising-slots/slots'
 import s from './homepage.module.css'
 
 const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
 
 const HomePageContent = ({
-  hero,
-  merchandising,
-  learnSection,
-  preFooter,
-  navNotice,
+	hero,
+	merchandising,
+	learnSection,
+	preFooter,
+	navNotice,
 }: HomePageContentProps) => {
-  return (
-    <div className={s.homepageContent}>
-      <HeroWithVideo
-        badgeText={hero.badgeText}
-        heading={hero.heading}
-        description={<Text>{hero.description}</Text>}
-        videoUrl="https://hashicorp.wistia.com/medias/031h9iogzx"
-        videoImageUrl="https://embed-ssl.wistia.com/deliveries/b65febe71ccfb5ded8d3958b1cf1ec61.jpg?image_crop_resized=960x540"
-      />
-      <ProductNav notice={navNotice} products={productNavSlugs} />
-      <MerchandisingSlots>
-        <VaultSlot
-          url={merchandising.vault.url}
-          cardTitle={merchandising.vault.cardTitle}
-          description={merchandising.vault.description}
-          ctaText={merchandising.vault.ctaText}
-        />
-        <HashiConfGlobalSlot
-          description={merchandising.hashiconfGlobal.description}
-        />
-      </MerchandisingSlots>
-      <LearnSection
-        imageSrc={learnSection.imageSrc}
-        heading={learnSection.heading}
-        description={learnSection.description}
-        collectionCards={learnSection.collectionCards}
-        link={learnSection.link}
-      />
-      <PreFooter
-        heading={preFooter.heading}
-        description={preFooter.description}
-        actions={preFooter.actions}
-      />
-    </div>
-  )
+	return (
+		<div className={s.homepageContent}>
+			<HeroWithVideo
+				badgeText={hero.badgeText}
+				heading={hero.heading}
+				description={<Text>{hero.description}</Text>}
+				videoUrl="https://hashicorp.wistia.com/medias/031h9iogzx"
+				videoImageUrl="https://embed-ssl.wistia.com/deliveries/b65febe71ccfb5ded8d3958b1cf1ec61.jpg?image_crop_resized=960x540"
+			/>
+			<ProductNav notice={navNotice} products={productNavSlugs} />
+			<MerchandisingSlots>
+				<VaultSlot
+					url={merchandising.vault.url}
+					cardTitle={merchandising.vault.cardTitle}
+					description={merchandising.vault.description}
+					ctaText={merchandising.vault.ctaText}
+				/>
+				<HashiConfGlobalSlot
+					description={merchandising.hashiconfGlobal.description}
+				/>
+			</MerchandisingSlots>
+			<LearnSection
+				imageSrc={learnSection.imageSrc}
+				heading={learnSection.heading}
+				description={learnSection.description}
+				collectionCards={learnSection.collectionCards}
+				link={learnSection.link}
+			/>
+			<PreFooter
+				heading={preFooter.heading}
+				description={preFooter.description}
+				actions={preFooter.actions}
+			/>
+		</div>
+	)
 }
 
 function HomePageView({ content }: HomePageProps): ReactElement {
-  return (
-    <div className={s.homepage}>
-      <HomePageContent {...content} />
-    </div>
-  )
+	return (
+		<div className={s.homepage}>
+			<HomePageContent {...content} />
+		</div>
+	)
 }
 
 HomePageView.layout = BaseNewLayout

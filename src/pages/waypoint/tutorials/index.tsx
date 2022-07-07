@@ -1,19 +1,19 @@
 import productData from 'data/waypoint.json'
 import { LearnProductData } from 'types/products'
 import {
-  getProductTutorialsViewProps,
-  ProductTutorialsViewProps,
+	getProductTutorialsViewProps,
+	ProductTutorialsViewProps,
 } from 'views/product-tutorials-view/server'
 import ProductTutorialsView from 'views/product-tutorials-view'
 
 export async function getStaticProps(): Promise<{
-  props: ProductTutorialsViewProps
+	props: ProductTutorialsViewProps
 }> {
-  const props = await getProductTutorialsViewProps(
-    productData as LearnProductData
-  )
+	const props = await getProductTutorialsViewProps(
+		productData as LearnProductData
+	)
 
-  return props
+	return props
 }
 
 export default ProductTutorialsView

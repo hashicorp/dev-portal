@@ -7,169 +7,93 @@
 ***
 */
 .root {
-  composes: hds-typography-body-300 from global;
+	composes: hds-typography-body-300 from global;
 
-  --permalink-scroll-offset: 24px;
-  --height: calc(var(--sticky-bars-height) + var(--permalink-scroll-offset));
+	& :global {
+		& a.__permalink-h {
+			display: none;
+		}
 
-  & :global {
-    & a.__permalink-h {
-      display: none;
-    }
-
-    /* Note on alert overrides: alert classes are applied at content
+		/* Note on alert overrides: alert classes are applied at content
        extraction time, so it is currently difficult to remove or modify these
        classes and their associated styles rather than override them.
        https://app.asana.com/0/1100423001970639/1202448738938137/f */
 
-    /* Alert override:  letter-spacing, which in global styles is tracked out */
-    & .alert.g-type-body {
-      letter-spacing: 0;
-    }
+		/* Alert override:  letter-spacing, which in global styles is tracked out */
+		& .alert.g-type-body {
+			letter-spacing: 0;
+		}
 
-    /* Alert override: blue info alert appearance */
-    & .alert.alert-info {
-      background-color: #f2f8ff;
-      border: 1px solid #cce3f3;
-      border-radius: 6px;
-      color: var(--token-color-palette-neutral-600);
-      padding: 16px;
-      margin: 20px 0;
+		/* Alert override: blue info alert appearance */
+		& .alert.alert-info {
+			background-color: #f2f8ff;
+			border: 1px solid #cce3f3;
+			border-radius: 6px;
+			color: var(--token-color-palette-neutral-600);
+			padding: 16px;
+			margin: 20px 0;
 
-      & code {
-        background-color: white;
-        border: 1px solid #cce3fe;
-        border-radius: 5px;
-      }
+			& code {
+				background-color: white;
+				border: 1px solid #cce3fe;
+				border-radius: 5px;
+			}
 
-      & p {
-        &:first-child {
-          margin-top: 0;
-        }
+			& p {
+				&:first-child {
+					margin-top: 0;
+				}
 
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
 
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5,
-  & h6 {
-    /*
-    Because most headings do not have an anchor child,
-    only ones that have "alias" or "compatibilitySlugs".
-    Details are in our remark anchor-links plugin:
-    https://github.com/hashicorp/web-platform-packages/tree/main/packages/remark-plugins/plugins/anchor-links
-    */
-    scroll-margin-top: var(--height);
-
-    & a:global(.__target-h) {
-      scroll-margin-top: var(--height);
-    }
-  }
-
-  /**
-   * Note: <ol />, <ul />, & <li /> styles have been moved to
-   * ./mdx-components/list-ol-ul.
+	/**
+   * Note: <h{n} /> styles have been moved to
+   * ./mdx-components/mdx-headings.
    */
 
-  /* inline code elements */
-  & code {
-    background-color: var(--token-color-palette-neutral-50);
-    border-radius: 5px;
-    border: 1px solid rgba(101, 106, 118, 0.2);
-    font-size: 0.8125rem;
-    font-weight: 400;
-    line-height: 16px;
-    padding: 2px 4px;
-  }
+	/**
+   * Note: <ol />, <ul />, & <li /> styles have been moved to
+   * ./mdx-components/mdx-lists.
+   */
 
-  /* code blocks */
-  & pre {
-    border-radius: 5px;
+	/* inline code elements */
+	& code {
+		background-color: var(--token-color-palette-neutral-50);
+		border-radius: 5px;
+		border: 1px solid rgba(101, 106, 118, 0.2);
+		font-size: 0.8125rem;
+		font-weight: 400;
+		line-height: 16px;
+		padding: 2px 4px;
+	}
 
-    & code {
-      background-color: transparent;
-      border: none;
-      border-radius: 0;
-      padding: 0;
-    }
-  }
+	/* code blocks */
+	& pre {
+		border-radius: 5px;
 
-  & blockquote {
-    margin: 32px 0;
-    padding-left: 14px;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-    border-left: 2px solid var(--token-color-border-primary);
-  }
-}
+		& code {
+			background-color: transparent;
+			border: none;
+			border-radius: 0;
+			padding: 0;
+		}
+	}
 
-/*
-***
-* The following classes are for handling color and margin styles for heading and
-* paragraph elements in DevDot. Note that they are made available for use
-* outside of DevDotContent because not every page with DevDotContent uses these
-* styles (e.g., product landing pages).
-***
-*/
-.h1 {
-  color: var(--token-color-foreground-strong);
-  margin-bottom: 12px;
-}
-
-.h2 {
-  color: var(--token-color-foreground-strong);
-  margin-bottom: 12px;
-  margin-top: 48px;
-}
-
-.h3 {
-  color: var(--token-color-foreground-strong);
-  margin-bottom: 8px;
-  margin-top: 32px;
-}
-
-.h4,
-.h5,
-.h6 {
-  color: var(--token-color-foreground-primary);
-  margin-bottom: 8px;
-  margin-top: 24px;
-}
-
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-  & + ul,
-  & + ol {
-    margin-top: 12px;
-  }
-
-  & + p {
-    margin-top: 0;
-  }
-
-  /*
-  TODO: these values are a special request from design for the purposes of the
-  inital preview. They make <code> elements within heading elements a little
-  less jarring.
-  */
-  & code {
-    font-size: 0.8em;
-    font-weight: 500;
-  }
+	& blockquote {
+		margin: 32px 0;
+		padding-left: 14px;
+		border-top-left-radius: 2px;
+		border-bottom-left-radius: 2px;
+		border-left: 2px solid var(--token-color-border-primary);
+	}
 }
 
 .p {
-  color: var(--token-color-foreground-primary);
-  margin: 16px 0;
+	color: var(--token-color-foreground-primary);
+	margin: 16px 0;
 }

@@ -11,11 +11,11 @@ const baseName = 'Docs'
 const product = sentinelData as ProductData
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-  product,
-  basePath,
-  basePathForLoader,
-  baseName,
-  additionalRemarkPlugins: [sentinelUrlAdjuster, remarkSentinel],
+	product,
+	basePath,
+	basePathForLoader,
+	baseName,
+	additionalRemarkPlugins: [sentinelUrlAdjuster, remarkSentinel],
 })
 
 export { getStaticPaths, getStaticProps }

@@ -13,102 +13,102 @@ import productData from 'data/consul.json'
 import query from './query.graphql'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
-  segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
-  preset: 'oss',
-  otherServices: [...localConsentManagerServices],
+	segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
+	preset: 'oss',
+	otherServices: [...localConsentManagerServices],
 })
 
 function ConsulIoLayout({ children, data }: Props): React.ReactElement {
-  usePageviewAnalytics({
-    siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID_CONSUL,
-    includedDomains: productData.analyticsConfig.includedDomains,
-  })
-  const { themeClass } = useProductMeta(productData.name as Products)
-  const { useCaseNavItems = [] } = data ?? {}
+	usePageviewAnalytics({
+		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID_CONSUL,
+		includedDomains: productData.analyticsConfig.includedDomains,
+	})
+	const { themeClass } = useProductMeta(productData.name as Products)
+	const { useCaseNavItems = [] } = data ?? {}
 
-  return (
-    <>
-      <HashiHead
-        title={productData.metadata.title}
-        siteName={productData.metadata.title}
-        description={productData.metadata.description}
-        image={productData.metadata.image}
-        icon={productData.metadata.icon}
-      />
+	return (
+		<>
+			<HashiHead
+				title={productData.metadata.title}
+				siteName={productData.metadata.title}
+				description={productData.metadata.description}
+				image={productData.metadata.image}
+				icon={productData.metadata.icon}
+			/>
 
-      <Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
-        {productData.alertBannerActive && (
-          <AlertBanner
-            {...productData.alertBanner}
-            product={productData.slug as Products}
-            hideOnMobile
-          />
-        )}
-        <ProductSubnav
-          menuItems={[
-            { text: 'Overview', url: '/' },
-            {
-              text: 'Use Cases',
-              submenu: [
-                { text: 'Consul on Kubernetes', url: '/consul-on-kubernetes' },
-                ...useCaseNavItems.map((item) => {
-                  return {
-                    text: item.text,
-                    url: `/use-cases/${item.url}`,
-                  }
-                }),
-              ].sort((a, b) => a.text.localeCompare(b.text)),
-            },
-            {
-              text: 'Enterprise',
-              url: 'https://www.hashicorp.com/products/consul/?utm_source=oss&utm_medium=header-nav&utm_campaign=consul',
-              type: 'outbound',
-            },
-            'divider',
-            {
-              text: 'Tutorials',
-              url: 'https://learn.hashicorp.com/consul',
-              type: 'outbound',
-            },
-            {
-              text: 'Docs',
-              url: '/docs',
-              type: 'inbound',
-            },
-            {
-              text: 'API',
-              url: '/api-docs',
-              type: 'inbound',
-            },
-            {
-              text: 'CLI',
-              url: '/commands',
-              type: 'inbound,',
-            },
-            {
-              text: 'Community',
-              url: '/community',
-              type: 'inbound',
-            },
-          ]}
-        />
-        <div className={themeClass}>{children}</div>
-      </Min100Layout>
-      <ConsentManager />
-    </>
-  )
+			<Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
+				{productData.alertBannerActive && (
+					<AlertBanner
+						{...productData.alertBanner}
+						product={productData.slug as Products}
+						hideOnMobile
+					/>
+				)}
+				<ProductSubnav
+					menuItems={[
+						{ text: 'Overview', url: '/' },
+						{
+							text: 'Use Cases',
+							submenu: [
+								{ text: 'Consul on Kubernetes', url: '/consul-on-kubernetes' },
+								...useCaseNavItems.map((item) => {
+									return {
+										text: item.text,
+										url: `/use-cases/${item.url}`,
+									}
+								}),
+							].sort((a, b) => a.text.localeCompare(b.text)),
+						},
+						{
+							text: 'Enterprise',
+							url: 'https://www.hashicorp.com/products/consul/?utm_source=oss&utm_medium=header-nav&utm_campaign=consul',
+							type: 'outbound',
+						},
+						'divider',
+						{
+							text: 'Tutorials',
+							url: 'https://learn.hashicorp.com/consul',
+							type: 'outbound',
+						},
+						{
+							text: 'Docs',
+							url: '/docs',
+							type: 'inbound',
+						},
+						{
+							text: 'API',
+							url: '/api-docs',
+							type: 'inbound',
+						},
+						{
+							text: 'CLI',
+							url: '/commands',
+							type: 'inbound,',
+						},
+						{
+							text: 'Community',
+							url: '/community',
+							type: 'inbound',
+						},
+					]}
+				/>
+				<div className={themeClass}>{children}</div>
+			</Min100Layout>
+			<ConsentManager />
+		</>
+	)
 }
 
 ConsulIoLayout.rivetParams = {
-  query,
-  dependencies: [],
+	query,
+	dependencies: [],
 }
 
 interface Props {
-  children: React.ReactChildren
-  data: {
-    useCaseNavItems: Array<{ url: string; text: string }>
-  }
+	children: React.ReactChildren
+	data: {
+		useCaseNavItems: Array<{ url: string; text: string }>
+	}
 }
 
 export default ConsulIoLayout

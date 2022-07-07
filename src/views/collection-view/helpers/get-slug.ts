@@ -12,23 +12,23 @@ import { splitProductFromFilename } from 'views/tutorial-view/utils'
  */
 
 export function getTutorialSlug(
-  tutorialDbSlug: string,
-  collectionDbSlug: string
+	tutorialDbSlug: string,
+	collectionDbSlug: string
 ): string {
-  const [product, collectionFilename] = collectionDbSlug.split('/')
-  const tutorialFilename = splitProductFromFilename(tutorialDbSlug)
-  return `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
+	const [product, collectionFilename] = collectionDbSlug.split('/')
+	const tutorialFilename = splitProductFromFilename(tutorialDbSlug)
+	return `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
 }
 
 export function getCollectionSlug(collectionDbSlug: string): string {
-  const [product, collectionFilename] = collectionDbSlug.split('/')
-  const isBetaProduct = getIsBetaProduct(product as LearnProductSlug)
+	const [product, collectionFilename] = collectionDbSlug.split('/')
+	const isBetaProduct = getIsBetaProduct(product as LearnProductSlug)
 
-  // if not a 'sanctioned product', link externally to Learn
-  // interim solution for BETA where not all products are onboarded
-  if (!isBetaProduct) {
-    return `https://learn.hashicorp.com/collections/${collectionDbSlug}`
-  }
+	// if not a 'sanctioned product', link externally to Learn
+	// interim solution for BETA where not all products are onboarded
+	if (!isBetaProduct) {
+		return `https://learn.hashicorp.com/collections/${collectionDbSlug}`
+	}
 
-  return `/${product}/tutorials/${collectionFilename}`
+	return `/${product}/tutorials/${collectionFilename}`
 }

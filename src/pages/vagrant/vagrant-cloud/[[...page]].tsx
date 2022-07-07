@@ -8,9 +8,9 @@ const baseName = 'Vagrant Cloud'
 const product = vagrantData as ProductData
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-  product,
-  basePath,
-  baseName,
+	product,
+	basePath,
+	baseName,
 })
 
 export { getStaticPaths, getStaticProps }

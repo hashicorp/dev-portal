@@ -9,10 +9,10 @@ const baseName = 'API'
 const product = vaultData as ProductData
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-  product,
-  basePath,
-  baseName,
-  additionalRemarkPlugins: [vaultUrlAdjuster],
+	product,
+	basePath,
+	baseName,
+	additionalRemarkPlugins: [vaultUrlAdjuster],
 })
 
 export { getStaticPaths, getStaticProps }

@@ -18,36 +18,36 @@ const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 const additionalComponents = { SentinelEmbedded }
 
 function DocsView(props) {
-  return (
-    <DocsPage
-      product={product}
-      baseRoute={basePath}
-      staticProps={props}
-      additionalComponents={additionalComponents}
-      showVersionSelect={enableVersionedDocs}
-      algoliaConfig={productData.algoliaConfig}
-      showEditPage={false}
-    />
-  )
+	return (
+		<DocsPage
+			product={product}
+			baseRoute={basePath}
+			staticProps={props}
+			additionalComponents={additionalComponents}
+			showVersionSelect={enableVersionedDocs}
+			algoliaConfig={productData.algoliaConfig}
+			showEditPage={false}
+		/>
+	)
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
-  enableVersionedDocs
-    ? {
-        strategy: 'remote',
-        basePath,
-        fallback: 'blocking',
-        product: productData.slug,
-        remarkPlugins: [remarkSentinel],
-      }
-    : {
-        strategy: 'fs',
-        localContentDir,
-        navDataFile,
-        localPartialsDir,
-        product: productData.slug,
-        remarkPlugins: [remarkSentinel],
-      }
+	enableVersionedDocs
+		? {
+				strategy: 'remote',
+				basePath,
+				fallback: 'blocking',
+				product: productData.slug,
+				remarkPlugins: [remarkSentinel],
+		  }
+		: {
+				strategy: 'fs',
+				localContentDir,
+				navDataFile,
+				localPartialsDir,
+				product: productData.slug,
+				remarkPlugins: [remarkSentinel],
+		  }
 )
 
 // Export getStatic functions

@@ -15,14 +15,14 @@ import { ProductSlug } from 'types/products'
  */
 
 export function handleDocsLink(nodePath: string, product: ProductSlug) {
-  let finalPath = path
-    .join(`/${product}`, nodePath)
-    .replace(/(\/index)?.html/, '')
-  const isApiDocsPath = finalPath.includes('/api/')
+	let finalPath = path
+		.join(`/${product}`, nodePath)
+		.replace(/(\/index)?.html/, '')
+	const isApiDocsPath = finalPath.includes('/api/')
 
-  if (isApiDocsPath) {
-    finalPath = finalPath.replace('/api/', '/api-docs/')
-  }
+	if (isApiDocsPath) {
+		finalPath = finalPath.replace('/api/', '/api-docs/')
+	}
 
-  return finalPath
+	return finalPath
 }

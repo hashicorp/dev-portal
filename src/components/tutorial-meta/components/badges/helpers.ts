@@ -6,81 +6,81 @@ import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal
 import { EditionOption } from 'lib/learn-client/types'
 import { ProductUsed as ClientProductUsed } from 'lib/learn-client/types'
 import {
-  getBadgeComponent,
-  ProductDisplayOption,
-  BadgeComponentProps,
+	getBadgeComponent,
+	ProductDisplayOption,
+	BadgeComponentProps,
 } from './components/badge'
 import { BadgeOptions } from '.'
 
 type DisplayOptions = {
-  [K in keyof BadgeOptions]: DisplayOption | ProductDisplayOption[]
+	[K in keyof BadgeOptions]: DisplayOption | ProductDisplayOption[]
 }
 
 type DisplayOption = {
-  label: string
-  icon?: ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>
+	label: string
+	icon?: ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>
 }
 
 const editionDisplayOptions: { [K in EditionOption]: string } = {
-  [EditionOption.tfcFree]: 'Terraform Cloud',
-  [EditionOption.tfcTeam]: 'Team',
-  [EditionOption.tfcGov]: 'Team & Governance',
-  [EditionOption.enterprise]: 'Enterprise',
-  [EditionOption.tfcBiz]: 'Business',
-  [EditionOption.hcp]: 'HCP',
-  [EditionOption.openSource]: 'Open Source',
+	[EditionOption.tfcFree]: 'Terraform Cloud',
+	[EditionOption.tfcTeam]: 'Team',
+	[EditionOption.tfcGov]: 'Team & Governance',
+	[EditionOption.enterprise]: 'Enterprise',
+	[EditionOption.tfcBiz]: 'Business',
+	[EditionOption.hcp]: 'HCP',
+	[EditionOption.openSource]: 'Open Source',
 }
 
 // Returns a map of badge display options and a Default Badge component to render
 export function generateBadges(
-  readTime,
-  products,
-  edition
+	readTime,
+	products,
+	edition
 ): [DisplayOptions, React.FC<BadgeComponentProps>] {
-  const displayOptions = {
-    readTime: {
-      label: getReadableTime(readTime),
-      icon: IconClock16,
-    },
-    isBeta: { label: 'Beta' },
-    edition: { label: editionDisplayOptions[edition] },
-    products: products.map((p) => ({
-      label: p.name,
-      slug: p.slug,
-    })) as ProductDisplayOption[], // There can be many products associated with a single tutorial
-    hasVideo: { label: 'Video', icon: IconPlay16 },
-    isInteractive: { label: 'Interactive', icon: IconTerminalScreen16 },
-  }
-  const DefaultBadgeComponent = getBadgeComponent(displayOptions)
+	const displayOptions = {
+		readTime: {
+			label: getReadableTime(readTime),
+			icon: IconClock16,
+		},
+		isBeta: { label: 'Beta' },
+		edition: { label: editionDisplayOptions[edition] },
+		products: products.map((p) => ({
+			label: p.name,
+			slug: p.slug,
+		})) as ProductDisplayOption[], // There can be many products associated with a single tutorial
+		hasVideo: { label: 'Video', icon: IconPlay16 },
+		isInteractive: { label: 'Interactive', icon: IconTerminalScreen16 },
+	}
+	const DefaultBadgeComponent = getBadgeComponent(displayOptions)
 
-  return [displayOptions, DefaultBadgeComponent]
+	return [displayOptions, DefaultBadgeComponent]
 }
 
 // calculates whether a tutorial is 'beta' based on productsUsed data
 export function getIsBeta(productsUsed: ClientProductUsed[]): boolean {
-  let isBeta = false
+	let isBeta = false
 
-  for (let i; i < productsUsed.length; i++) {
-    if (productsUsed[i].isBeta) {
-      isBeta = true
-      break
-    }
-  }
+	for (let i; i < productsUsed.length; i++) {
+		if (productsUsed[i].isBeta) {
+			isBeta = true
+			break
+		}
+	}
 
-  return isBeta
+	return isBeta
 }
 
 // This utility function creates a readable string for presentation only
 // based on the number of minutes provided
 // For example: 831 => 13 HR 51 MIN
 export default function getReadableTime(minutes: number): string {
-  const hours = Math.floor(minutes / 60)
-  const min = minutes % 60
-  if (hours && min > 0) {
-    return `${hours}hr ${min}min`
-  }
-  if (hours) {
-    return `${hours}hr`
-  }
-  return `${minutes}min`
+	const hours = Math.floor(minutes / 60)
+	const min = minutes % 60
+	if (hours && min > 0) {
+		return `${hours}hr ${min}min`
+	}
+	if (hours) {
+		return `${hours}hr`
+	}
+	return `${minutes}min`
 }

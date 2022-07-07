@@ -1,72 +1,72 @@
 {
-  "name": "Boundary",
-  "slug": "boundary",
-  "algoliaConfig": {
-    "indexName": "product_BOUNDARY",
-    "searchOnlyApiKey": "8308498decdf72e11590fc6356e5fdde"
-  },
-  "analyticsConfig": {
-    "includedDomains": "boundaryproject.io www.boundaryproject.io",
-    "segmentWriteKey": "JkNZiSgwVRAAFrkqqdHLxf0xfcZuhYYc"
-  },
-  "metadata": {
-    "title": "Boundary by HashiCorp",
-    "description": "Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.",
-    "image": "https://www.boundaryproject.io/boundary/img/og-image.png",
-    "icon": [
-      {
-        "href": "/boundary/_favicon.ico"
-      }
-    ]
-  },
-  "alertBannerActive": true,
-  "alertBanner": {
-    "tag": "NEW",
-    "url": "https://cloud.hashicorp.com/boundary",
-    "text": "Boundary on the HashiCorp Cloud Platform is now in public beta",
-    "linkText": "Learn more",
-    "expirationDate": ""
-  },
-  "subnavItems": [
-    {
-      "text": "Overview",
-      "url": "/",
-      "type": "inbound"
-    },
-    "divider",
-    {
-      "text": "Tutorials",
-      "url": "https://learn.hashicorp.com/boundary",
-      "type": "inbound"
-    },
-    {
-      "text": "Docs",
-      "url": "/docs",
-      "type": "inbound"
-    },
-    {
-      "text": "API",
-      "url": "/api-docs",
-      "type": "inbound"
-    },
-    {
-      "text": "Community",
-      "url": "/community",
-      "type": "inbound"
-    }
-  ],
-  "basePaths": ["docs", "api-docs"],
-  "sidebar": {
-    "landingPageNavData": [
-      {
-        "title": "Introduction",
-        "fullPath": "/boundary/docs/what-is-boundary"
-      },
-      {
-        "title": "Getting Started",
-        "fullPath": "/boundary/docs/getting-started"
-      }
-    ]
-  },
-  "navigationHeaderItems": {}
+	"name": "Boundary",
+	"slug": "boundary",
+	"algoliaConfig": {
+		"indexName": "product_BOUNDARY",
+		"searchOnlyApiKey": "8308498decdf72e11590fc6356e5fdde"
+	},
+	"analyticsConfig": {
+		"includedDomains": "boundaryproject.io www.boundaryproject.io",
+		"segmentWriteKey": "JkNZiSgwVRAAFrkqqdHLxf0xfcZuhYYc"
+	},
+	"metadata": {
+		"title": "Boundary by HashiCorp",
+		"description": "Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.",
+		"image": "https://www.boundaryproject.io/boundary/img/og-image.png",
+		"icon": [
+			{
+				"href": "/boundary/_favicon.ico"
+			}
+		]
+	},
+	"alertBannerActive": true,
+	"alertBanner": {
+		"tag": "NEW",
+		"url": "https://cloud.hashicorp.com/boundary",
+		"text": "Boundary on the HashiCorp Cloud Platform is now in public beta",
+		"linkText": "Learn more",
+		"expirationDate": ""
+	},
+	"subnavItems": [
+		{
+			"text": "Overview",
+			"url": "/",
+			"type": "inbound"
+		},
+		"divider",
+		{
+			"text": "Tutorials",
+			"url": "https://learn.hashicorp.com/boundary",
+			"type": "inbound"
+		},
+		{
+			"text": "Docs",
+			"url": "/docs",
+			"type": "inbound"
+		},
+		{
+			"text": "API",
+			"url": "/api-docs",
+			"type": "inbound"
+		},
+		{
+			"text": "Community",
+			"url": "/community",
+			"type": "inbound"
+		}
+	],
+	"basePaths": ["docs", "api-docs"],
+	"sidebar": {
+		"landingPageNavData": [
+			{
+				"title": "Introduction",
+				"fullPath": "/boundary/docs/what-is-boundary"
+			},
+			{
+				"title": "Getting Started",
+				"fullPath": "/boundary/docs/getting-started"
+			}
+		]
+	},
+	"navigationHeaderItems": {}
 }

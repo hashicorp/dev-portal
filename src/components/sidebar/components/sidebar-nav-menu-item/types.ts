@@ -4,36 +4,36 @@ import { MenuItem } from 'components/sidebar'
 import { ProductSlug } from 'types/products'
 
 interface RightIconsContainerProps {
-  badge?: ReturnType<typeof Badge>
-  icon?: ReturnType<typeof IconChevronRight16>
+	badge?: ReturnType<typeof Badge>
+	icon?: ReturnType<typeof IconChevronRight16>
 }
 
 interface SidebarNavMenuItemBadgeProps {
-  color?: Exclude<
-    BadgeProps['color'],
-    'error' | 'neutral-dark-mode' | 'success' | 'warning'
-  >
-  text: BadgeProps['text']
-  type?: BadgeProps['type']
+	color?: Exclude<
+		BadgeProps['color'],
+		'error' | 'neutral-dark-mode' | 'success' | 'warning'
+	>
+	text: BadgeProps['text']
+	type?: BadgeProps['type']
 }
 
 interface SidebarNavMenuItemProps {
-  item: MenuItem
+	item: MenuItem
 }
 
 type SupportedIconName = 'home' & ProductSlug
 interface SidebarNavLinkItem extends MenuItem {
-  leadingIconName?: SupportedIconName
+	leadingIconName?: SupportedIconName
 }
 
 interface SidebarNavLinkItemProps {
-  item: SidebarNavLinkItem
+	item: SidebarNavLinkItem
 }
 
 export type {
-  RightIconsContainerProps,
-  SidebarNavLinkItemProps,
-  SidebarNavMenuItemBadgeProps,
-  SidebarNavMenuItemProps,
-  SupportedIconName,
+	RightIconsContainerProps,
+	SidebarNavLinkItemProps,
+	SidebarNavMenuItemBadgeProps,
+	SidebarNavMenuItemProps,
+	SupportedIconName,
 }
