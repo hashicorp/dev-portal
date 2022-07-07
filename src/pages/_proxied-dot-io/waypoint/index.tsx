@@ -32,10 +32,6 @@ export default function WaypointHomepage({ data }): React.ReactElement {
 		inPracticeHeading,
 		inPracticeDescription,
 		inPracticeCards,
-		inPracticeCtaHeading,
-		inPracticeCtaDescription,
-		inPracticeCtaLink,
-		inPracticeCtaImage,
 		useCasesHeading,
 		useCasesDescription,
 		useCases,
@@ -125,10 +121,10 @@ export default function WaypointHomepage({ data }): React.ReactElement {
 					}
 				})}
 				cta={{
-					heading: inPracticeCtaHeading,
-					description: inPracticeCtaDescription,
-					link: inPracticeCtaLink,
-					image: inPracticeCtaImage,
+					heading: null,
+					description: null,
+					link: null,
+					image: null,
 				}}
 			/>
 
