@@ -20,7 +20,9 @@ interface Props {
 	 * Data from data which may contain nav items for the use cases nav
 	 */
 	data: {
-		useCaseNavItems: Array<{ url: string; text: string }>
+		packerNav: {
+			useCases: Array<{ url: string; text: string }>
+		}
 	}
 	/** Page contents to render in the layout */
 	children: React.ReactNode
@@ -38,7 +40,7 @@ function PackerIoLayout({ children, data }: Props): React.ReactElement {
 		includedDomains: productData.analyticsConfig.includedDomains,
 	})
 	const { themeClass } = useProductMeta(productData.name as Products)
-	const { useCaseNavItems } = data
+	const { packerNav } = data ?? {}
 
 	return (
 		<>
@@ -67,17 +69,19 @@ function PackerIoLayout({ children, data }: Props): React.ReactElement {
 							type: 'inbound',
 						},
 						'divider',
-						{
-							text: 'Use Cases',
-							submenu: [
-								...useCaseNavItems.map((item) => {
-									return {
-										text: item.text,
-										url: `/use-cases/${item.url}`,
-									}
-								}),
-							].sort((a, b) => a.text.localeCompare(b.text)),
-						},
+						packerNav.useCases.length > 0
+							? {
+									text: 'Use Cases',
+									submenu: [
+										...packerNav.useCases.map((item) => {
+											return {
+												text: item.text,
+												url: `/use-cases/${item.url}`,
+											}
+										}),
+									].sort((a, b) => a.text.localeCompare(b.text)),
+							  }
+							: undefined,
 						{
 							text: 'Tutorials',
 							url: 'https://learn.hashicorp.com/packer',

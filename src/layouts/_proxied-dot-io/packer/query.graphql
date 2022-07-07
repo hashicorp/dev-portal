@@ -1,6 +1,8 @@
 query UseCasesQuery {
-  useCaseNavItems: allPackerUseCases {
-    url: slug
-    text: heroHeading
-  }
+	packerNav {
+		useCases {
+			url: slug
+			text: heroHeading
+		}
+	}
 }
