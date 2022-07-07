@@ -6,9 +6,9 @@ import AccordionDisclosure from 'components/accordion-disclosure'
 import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 import Image from 'components/image'
 import ImageConfig from 'components/image-config'
-import InlineLink from 'components/inline-link'
 import InteractiveLabCallout from 'components/interactive-lab-callout'
 import {
+	MdxA,
 	MdxOrderedList,
 	MdxUnorderedList,
 	MdxListItem,
@@ -54,7 +54,7 @@ const MDX_COMPONENTS = {
 	ol: MdxOrderedList,
 	ul: MdxUnorderedList,
 	li: MdxListItem,
-	a: (props) => <InlineLink {...props} textWeight="medium" />,
+	a: MdxA,
 	h1: MdxH1,
 	h2: MdxH2,
 	h3: MdxH3,
