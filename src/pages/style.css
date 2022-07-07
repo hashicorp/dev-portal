@@ -236,6 +236,9 @@ and negative margin.
   rather than an `id` on the element itself. These are added by our
   anchor-links remark plugin.
   https://github.com/hashicorp/web-platform-packages/tree/main/packages/remark-plugins/plugins/anchor-links
+  We can likely remove this issue by refactoring our anchor-links plugin
+  to avoid adding these extra elements:
+  https://app.asana.com/0/1202097197789424/1201532549545236/f
   */
   & a:global(.__target-h) {
     scroll-margin-top: var(--total-offset);
