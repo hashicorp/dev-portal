@@ -3,7 +3,6 @@ import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 
 // Global imports
 import AccordionDisclosure from 'components/accordion-disclosure'
-import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 import Image from 'components/image'
 import ImageConfig from 'components/image-config'
 import InlineLink from 'components/inline-link'
@@ -21,8 +20,8 @@ import {
 	MdxH4,
 	MdxH5,
 	MdxH6,
+	MdxP,
 } from 'components/dev-dot-content/mdx-components'
-import Text from 'components/text'
 import VideoEmbed from 'components/video-embed'
 
 const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
@@ -61,7 +60,7 @@ const MDX_COMPONENTS = {
 	h4: MdxH4,
 	h5: MdxH5,
 	h6: MdxH6,
-	p: (props) => <Text {...props} className={devDotStyles.p} />,
+	p: MdxP,
 	table: MdxTable,
 }
 

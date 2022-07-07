@@ -15,11 +15,10 @@ import {
 	MdxH4,
 	MdxH5,
 	MdxH6,
+	MdxP,
 } from 'components/dev-dot-content/mdx-components'
 import DocsAnchor from 'components/docs-anchor'
-import Text from 'components/text'
 import Image from 'components/image'
-import devDotStyles from 'components/dev-dot-content/dev-dot-content.module.css'
 import { ImageProps } from 'components/image/types'
 
 // This function returns a simple object containing the default components
@@ -69,7 +68,7 @@ function _defaultComponents() {
 		h4: MdxH4,
 		h5: MdxH5,
 		h6: MdxH6,
-		p: (props) => <Text {...props} className={devDotStyles.p} />,
+		p: MdxP,
 		table: MdxTable,
 	}
 }
