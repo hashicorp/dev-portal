@@ -122,12 +122,6 @@ export default function PackerHomepage({ data }): React.ReactElement {
 						products: card.products,
 					}
 				})}
-				cta={{
-					heading: inPracticeCtaHeading,
-					description: inPracticeCtaDescription,
-					link: inPracticeCtaLink,
-					image: inPracticeCtaImage,
-				}}
 			/>
 
 			<IoHomeCaseStudies
