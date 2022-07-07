@@ -318,7 +318,7 @@ function HomePage() {
 								},
 								link: {
 									title: 'Learn more',
-									url: 'https://learn.hashicorp.com/tutorials/boundary/manage-sessions',
+									url: 'https://learn.hashicorp.com/tutorials/boundary/hcp-manage-sessions',
 								},
 							},
 							{
