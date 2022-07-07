@@ -32,6 +32,9 @@ const InlineLink = ({
 	 * FUTURE TODOs
 	 *   - update the plugin to no longer add empty <a> elements
 	 *   - update this to throw an error if href is falsy
+	 *
+	 * Asana task:
+	 * https://app.asana.com/0/1100423001970639/1202488740132127/f
 	 */
 	const safeHref = href || '#'
 
