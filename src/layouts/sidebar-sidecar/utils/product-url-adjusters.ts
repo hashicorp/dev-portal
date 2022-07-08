@@ -1,53 +1,54 @@
 import isAbsoluteUrl from 'lib/is-absolute-url'
-import { ProductData, ProductSlug } from 'types/products'
-// product data
-import boundaryData from 'data/boundary.json'
-import consulData from 'data/consul.json'
-import hcpData from 'data/hcp.json'
-import nomadData from 'data/nomad.json'
-import packerData from 'data/packer.json'
-import sentinelData from 'data/sentinel.json'
-import terraformData from 'data/terraform.json'
-import vagrantData from 'data/vagrant.json'
-import vaultData from 'data/vault.json'
-import waypointData from 'data/waypoint.json'
+import { ProductData } from 'types/products'
 
 /**
- * Dictionary of product slugs,
- * to (url) => adjustedUrl functions.
+ * Given some product data,
+ * Return a (url) => adjustedUrl function,
+ * intended for use in fixing up links in docs content.
  *
  * Note that these URL adjustments are expected to be necessary for
  * every product during initial migration to HashiCorp Developer.
  *
- * If we want to remove the need for these URL adjustmenets, then
+ * If we want to remove the need for these URL adjustments, then
  * at some point in the future, we could apply these as remark transforms
  * using "remarkPluginAdjustLinkUrls" to the original source content
  * (across ALL versions!), and ask authors to use the adjusted URL format
  * going forward. Asana task:
  * https://app.asana.com/0/1202097197789424/1202569127502507/f
  */
-const productUrlAdjusters: Record<ProductSlug, (url: string) => string> = {
-	boundary: (url) => rewriteDocsUrl(url, boundaryData as ProductData),
-	consul: (url) => {
-		const withApiDocsFix = rewriteApiToApiDocs(url)
-		const withPrefix = rewriteDocsUrl(withApiDocsFix, consulData as ProductData)
-		return withPrefix
-	},
-	hcp: (url) => rewriteDocsUrl(url, hcpData as ProductData),
-	nomad: (url) => rewriteDocsUrl(url, nomadData as ProductData),
-	packer: (url) => rewriteDocsUrl(url, packerData as ProductData),
-	sentinel: rewriteSentinelDocsUrls,
-	terraform: (url) => rewriteDocsUrl(url, terraformData as ProductData),
-	vagrant: (url) => rewriteDocsUrl(url, vagrantData as ProductData),
-	vault: (url) => {
-		const withApiDocsFix = rewriteApiToApiDocs(url)
-		const withPrefix = rewriteDocsUrl(withApiDocsFix, vaultData as ProductData)
-		return withPrefix
-	},
-	waypoint: (url) => rewriteDocsUrl(url, waypointData as ProductData),
+export function getProductUrlAdjuster(
+	productData: ProductData
+): (url: string) => string {
+	switch (productData.slug) {
+		/**
+		 * Sentinel is a bit of a special case,
+		 * since it did not have a dedicated dot-io domain
+		 */
+		case 'sentinel':
+			return (url: string) => rewriteSentinelDocsUrls(url, productData)
+		/**
+		 * Vault and Consul (and possibly others?)
+		 * have authored "/api" links which used to be redirected to "/api-docs",
+		 * but which we're now preferring to handle by rewriting here.
+		 */
+		case 'vault':
+		case 'consul':
+			return (url: string) => {
+				const withApiDocsFix = rewriteApiToApiDocs(url)
+				const withProductPrefix = rewriteDocsUrl(withApiDocsFix, productData)
+				return withProductPrefix
+			}
+		/**
+		 * All other products need their docs routes prefixed, as within docs
+		 * content, authors write links as if URLs are on the dot-io sites.
+		 * For example, in Waypoint content, authors write URLs like
+		 * "/docs/some-waypoint-page", which need to be adjusted to be
+		 * "/waypoint/docs/some-waypoint-page".
+		 */
+		default:
+			return (url: string) => rewriteDocsUrl(url, productData)
+	}
 }
-
-export default productUrlAdjusters
 
 /**
  * NOTE on rewriteDocsUrls:
@@ -127,7 +128,10 @@ function rewriteDocsUrl(inputUrl: string, currentProduct: ProductData): string {
 /**
  * Rewrite URLs in Sentinel docs content
  */
-function rewriteSentinelDocsUrls(inputUrl: string): string {
+function rewriteSentinelDocsUrls(
+	inputUrl: string,
+	sentinelData: ProductData
+): string {
 	// We only want to adjust internal URLs, so we return absolute URLs as-is
 	if (isAbsoluteUrl(inputUrl)) {
 		return inputUrl
