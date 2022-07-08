@@ -10,9 +10,10 @@ const CardLink = ({
 	children,
 	className,
 	href,
-	target,
+	openInNewTab,
 }: CardLinkProps): ReactElement => {
 	const classes = classNames(s.root, className)
+	const target = openInNewTab ? '_blank' : undefined
 
 	return (
 		<Link href={href}>
