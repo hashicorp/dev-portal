@@ -19,49 +19,36 @@ import { ProductData } from 'types/products'
 export function getProductUrlAdjuster(
 	productData: ProductData
 ): (url: string) => string {
-	switch (productData.slug) {
-		/**
-		 * Sentinel is a bit of a special case,
-		 * since it did not have a dedicated dot-io domain
-		 */
-		case 'sentinel':
-			return (url: string) => rewriteSentinelDocsUrls(url, productData)
-		/**
-		 * Vault and Consul (and possibly others?)
-		 * have authored "/api" links which used to be redirected to "/api-docs",
-		 * but which we're now preferring to handle by rewriting here.
-		 */
-		case 'vault':
-		case 'consul':
-			return (url: string) => {
-				const withApiDocsFix = rewriteApiToApiDocs(url)
-				const withProductPrefix = rewriteDocsUrl(withApiDocsFix, productData)
-				return withProductPrefix
-			}
-		/**
-		 * All other products need their docs routes prefixed, as within docs
-		 * content, authors write links as if URLs are on the dot-io sites.
-		 * For example, in Waypoint content, authors write URLs like
-		 * "/docs/some-waypoint-page", which need to be adjusted to be
-		 * "/waypoint/docs/some-waypoint-page".
-		 */
-		default:
-			return (url: string) => rewriteDocsUrl(url, productData)
+	/**
+	 * Sentinel is a bit of a special case,
+	 * since it did not have a dedicated dot-io domain
+	 */
+	if (productData.slug === 'sentinel') {
+		return (url: string) => rewriteSentinelDocsUrls(url, productData)
 	}
-}
 
-/**
- * NOTE on rewriteDocsUrls:
- * Authors write content as if it only exists for their product.
- * For example, Waypoint content contains links that start with "/docs",
- * but we need to be adjust these links to start with "/waypoint/docs".
- *
- * NOTE on /api to /api-docs:
- * We must fix /api URLs, which should really be /api-docs. This would ideally
- * be done in the source MDX. However, we need to support all past versions, so
- * even if we corrected the latest source, we'd likely still want to run this on
- * older content.
- */
+	/**
+	 * Vault and Consul (and possibly others?)
+	 * have authored "/api" links which used to be redirected to "/api-docs",
+	 * but which we're now preferring to handle by rewriting here.
+	 */
+	if (productData.slug === 'consul' || productData.slug === 'vault') {
+		return (url: string) => {
+			const withApiDocsFix = rewriteApiToApiDocs(url)
+			const withProductPrefix = rewriteDocsUrl(withApiDocsFix, productData)
+			return withProductPrefix
+		}
+	}
+
+	/**
+	 * All other products need their docs routes prefixed, as within docs
+	 * content, authors write links as if URLs are on the dot-io sites.
+	 * For example, in Waypoint content, authors write URLs like
+	 * "/docs/some-waypoint-page", which need to be adjusted to be
+	 * "/waypoint/docs/some-waypoint-page".
+	 */
+	return (url: string) => rewriteDocsUrl(url, productData)
+}
 
 /**
  *
@@ -75,6 +62,17 @@ export function getProductUrlAdjuster(
  * Given an inputUrl, which may start with /api/,
  * Return a modified URL, which replaces any /api/ links
  * with /api-docs/ links (for compatibility with NextJS).
+ *
+ * For context:
+ * Links were are sometimes authored as "/api", rather than "/api-docs",
+ * which dates back to a time where "/api" did not conflict with NextJS routes.
+ * We must fix /api URLs, which are really /api-docs (for compat with NextJS)
+ * This would ideally be done in the source MDX.
+ *
+ * To fully deprecate the need for this rewriting of URLs, we'd need to fix
+ * all "/api" links in both the current and all past versions of docs.
+ * This may be feasible if we had a mechanism to apply remark transforms
+ * across all versions of a product's documentation
  */
 function rewriteApiToApiDocs(inputUrl: string): string {
 	const isBadApiUrl = inputUrl == '/api' || inputUrl.startsWith('/api/')
@@ -96,7 +94,7 @@ function rewriteApiToApiDocs(inputUrl: string): string {
  *
  * For context:
  * Authors write content as if it only exists for their product.
- * 	 For example, Waypoint content contains links that start with "/docs",
+ * For example, Waypoint content contains links that start with "/docs",
  * but we need to be adjust these links to start with "/waypoint/docs".
  */
 function rewriteDocsUrl(inputUrl: string, currentProduct: ProductData): string {
