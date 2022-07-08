@@ -151,8 +151,13 @@ function rewriteSentinelDocsUrls(
 	 * - "/downloads" is rendered at "/sentinel/downloads" (same as before!)
 	 *
 	 * Note that:
-	 * - Any "sentinel/<basePath>/:slug" URLs do not need to be modified
+	 * - Any "/sentinel/<basePath>/:slug" URLs do not need to be modified
+	 *   - This excludes the case where "basePath" is "docs"
+	 *   - This really just applies to "/sentinel/intro", but in theory could
+	 *     apply to other Sentinel "basePaths" if they get added
 	 * - The "/sentinel/downloads" URL does not need to be modified
+	 * - Any other "/sentinel/:slug" URL is expected to be a "/docs" URL
+	 *   - We need to adjust these urls to be "/sentinel/docs/:slug"
 	 */
 	const isBasePathExceptDocs = sentinelData.basePaths
 		.filter((p: string) => p !== 'docs')
