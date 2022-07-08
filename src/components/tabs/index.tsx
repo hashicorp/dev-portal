@@ -1,7 +1,7 @@
 import { ReactElement, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { Tab, TabButtonControls, TabDropdownControls } from './components'
-import { useOverflowRef, useTabItems, useSyncedTabGroups } from './hooks'
+import { useHasOverflow, useTabItems, useSyncedTabGroups } from './hooks'
 import { TabItem, TabsProps } from './types'
 import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
 import s from './tabs.module.css'
@@ -34,7 +34,7 @@ const Tabs = ({
 	 * Track whether tabs are overflowing, so we can switch to a select.
 	 */
 	const ref = useRef<HTMLDivElement>()
-	const hasOverflow = useOverflowRef<HTMLDivElement>(ref)
+	const hasOverflow = useHasOverflow<HTMLDivElement>(ref)
 
 	/**
 	 * Track the active tab

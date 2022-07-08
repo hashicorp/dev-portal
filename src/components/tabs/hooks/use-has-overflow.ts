@@ -19,7 +19,7 @@ const MUTATION_OPTS = { attributes: true, childList: true, subtree: true }
  *
  * https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
  */
-export default function useOverflowRef<T extends HTMLElement>(
+export default function useHasOverflow<T extends HTMLElement>(
 	ref: MutableRefObject<T>
 ): boolean {
 	const smallestWidthBeforeOverflow = useRef<number>(null)
