@@ -32,7 +32,7 @@ const InlineLink = ({
 	 *   - update this to throw an error if href is falsy
 	 *
 	 * Asana task:
-	 * https://app.asana.com/0/1100423001970639/1202488740132127/f
+	 * https://app.asana.com/0/1100423001970639/1202560954440296/f
 	 */
 	const hrefWithFallback = href || '#'
 
