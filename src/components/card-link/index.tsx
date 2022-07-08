@@ -6,10 +6,10 @@ import { CardLinkProps } from './types'
 import s from './card-link.module.css'
 
 const CardLink = ({
+	ariaLabel,
 	children,
 	className,
 	href,
-	ariaLabel,
 	target,
 }: CardLinkProps): ReactElement => {
 	const classes = classNames(s.root, className)
