@@ -33,7 +33,7 @@ export default function Homepage({ data }): React.ReactElement {
 		inPracticeCtaImage,
 		useCasesHeading,
 		useCasesDescription,
-		useCasesCards,
+		useCases,
 		caseStudiesHeading,
 		caseStudiesDescription,
 		caseStudiesFeatured,
@@ -52,7 +52,7 @@ export default function Homepage({ data }): React.ReactElement {
 			<Head>{renderMetaTags(seo)}</Head>
 
 			<IoHomeHero
-				pattern="/vagrant/img/home-hero-pattern.svg"
+				pattern={require('/public/vagrant/img/home-hero-pattern.svg')}
 				brand="vagrant"
 				heading={heroHeading}
 				description={heroDescription}
@@ -82,32 +82,30 @@ export default function Homepage({ data }): React.ReactElement {
 					},
 				}}
 			/>
-
-			<section className={s.useCases}>
-				<div className={s.container}>
-					<IoCardContainer
-						heading={useCasesHeading}
-						description={useCasesDescription}
-						cardsPerRow={4}
-						cards={useCasesCards.map((card) => {
-							return {
-								eyebrow: card.eyebrow,
-								link: {
-									url: card.link,
-									type: 'inbound',
-								},
-								heading: card.heading,
-								description: card.description,
-								products: card.products,
-							}
-						})}
-					/>
-				</div>
-			</section>
-
+			{useCases.length > 0 ? (
+				<section className={s.useCases}>
+					<div className={s.container}>
+						<IoCardContainer
+							heading={useCasesHeading}
+							description={useCasesDescription}
+							cardsPerRow={4}
+							cards={useCases.map((useCase) => {
+								return {
+									link: {
+										url: `/use-cases/${useCase.slug}`,
+										type: 'inbound',
+									},
+									heading: useCase.heroHeading,
+									description: useCase.heroDescription,
+								}
+							})}
+						/>
+					</div>
+				</section>
+			) : null}
 			<IoHomeInPractice
 				brand="vagrant"
-				pattern="/vagrant/img/practice-pattern.svg"
+				pattern={require('/public/vagrant/img/practice-pattern.svg')}
 				heading={inPracticeHeading}
 				description={inPracticeDescription}
 				cards={inPracticeCards.map((card) => {
@@ -153,6 +151,7 @@ export default function Homepage({ data }): React.ReactElement {
 		</>
 	)
 }
+
 Homepage.layout = VagrantIoLayout
 
 export async function getStaticProps() {

@@ -3,11 +3,7 @@ import Subnav from '@hashicorp/react-subnav'
 import { useRouter } from 'next/router'
 import s from './style.module.css'
 
-interface VagrantSubnavProps {
-	menuItems: Array<any>
-}
-
-export default function VagrantSubnav({ menuItems }: VagrantSubnavProps) {
+export default function VagrantSubnav({ menuItems }) {
 	const router = useRouter()
 	const [, setCurrentPath] = useState('')
 

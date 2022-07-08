@@ -1,6 +1,8 @@
-query UseCasesQuery {
-	useCaseNavItems: allVagrantUseCases {
-		url: slug
-		text: heroHeading
+query navQuery {
+	vagrantNav {
+		useCases {
+			text: heroHeading
+			slug
+		}
 	}
 }
