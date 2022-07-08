@@ -169,7 +169,7 @@ function rewriteSentinelDocsUrls(
 	const isDownloadsUrl = inputUrl == '/sentinel/downloads'
 	/**
 	 * We assume all other "/sentinel/*" URLs are intended to be docs routes,
-	 * which on the previous site were rendered to "sentinel/:slug".
+	 * which on the previous site were rendered to "/sentinel/:slug".
 	 * We need to correct these URLs to be "/sentinel/docs/:slug".
 	 */
 	const isKnownUrl = isBasePathExceptDocs || isDownloadsUrl
