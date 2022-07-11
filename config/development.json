@@ -4,7 +4,8 @@
 		"max_static_paths": 0
 	},
 	"dev_dot": {
-		"max_static_paths": 0
+		"max_static_paths": 0,
+		"beta_product_slugs": ["waypoint", "vault", "terraform"]
 	},
 	"learn": {
 		"max_static_paths": 0

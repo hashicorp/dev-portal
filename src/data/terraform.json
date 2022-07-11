@@ -1,6 +1,10 @@
 {
 	"slug": "terraform",
 	"name": "Terraform",
+	"algoliaConfig": {
+		"indexName": "product_TERRAFORM",
+		"searchOnlyApiKey": "12345todo"
+	},
 	"basePaths": [
 		"cdktf",
 		"cli",
@@ -24,5 +28,13 @@
 			}
 		]
 	},
-	"navigationHeaderItems": {}
+	"navigationHeaderItems": {
+		"documentation": [
+			{
+				"label": "General Documentation",
+				"icon": "docs",
+				"pathSuffix": "docs"
+			}
+		]
+	}
 }
