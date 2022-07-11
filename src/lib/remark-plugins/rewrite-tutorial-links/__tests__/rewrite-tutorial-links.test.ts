@@ -47,9 +47,9 @@ const TEST_MD_LINKS = {
 	betaProductHubLink: '[link to product hub page](/vault)',
 	betaProductHubExternalLink:
 		'[External link to product hub page](https://learn.hashicorp.com/vault)',
-	nonBetaProductHubLink: '[non beta product hub link](/terraform)',
+	nonBetaProductHubLink: '[non beta product hub link](/consul)',
 	nonBetaProductHubExternalLink:
-		'[non beta product hub link](https://learn.hashicorp.com/terraform)',
+		'[non beta product hub link](https://learn.hashicorp.com/consul)',
 	errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
 	searchPage: '[link to search page on Learn](/search)',
 	betaProductPluginsLink:
@@ -65,7 +65,7 @@ const TEST_MD_LINKS = {
 	betaProductDocsLinkAnchorWithHtml:
 		'[link to vault api docs](https://www.vaultproject.io/api/index.html#some-anchor)',
 	nonBetaProductDocsLink:
-		'[non beta product docs link](https://www.terraform.io/docs/language/state/workspaces.html)',
+		'[non beta product docs link](https://www.consulproject.io/docs/language/state/workspaces)',
 	betaProductDocsLinkNonDoc:
 		'[link to vault trial](https://www.vaultproject.io/trial)',
 	betaProductDocsLinkUseCases:
