@@ -16,6 +16,7 @@ import {
 	MdxH5,
 	MdxH6,
 	MdxP,
+	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
 import DocsAnchor from 'components/docs-anchor'
 import Image from 'components/image'
@@ -58,6 +59,7 @@ function _defaultComponents() {
 		CodeTabs,
 		pre,
 		a: DocsAnchor,
+		blockquote: MdxBlockquote,
 		ol: MdxOrderedList,
 		ul: MdxUnorderedList,
 		li: MdxListItem,
