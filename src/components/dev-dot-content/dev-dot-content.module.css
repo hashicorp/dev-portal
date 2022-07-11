@@ -10,10 +10,6 @@
 	composes: hds-typography-body-300 from global;
 
 	& :global {
-		& a.__permalink-h {
-			display: none;
-		}
-
 		/* Note on alert overrides: alert classes are applied at content
        extraction time, so it is currently difficult to remove or modify these
        classes and their associated styles rather than override them.

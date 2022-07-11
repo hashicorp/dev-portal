@@ -3,6 +3,7 @@ import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import { useCurrentProduct } from 'contexts'
 import {
+	MdxA,
 	MdxOrderedList,
 	MdxUnorderedList,
 	MdxListItem,
@@ -17,7 +18,6 @@ import {
 	MdxH6,
 	MdxP,
 } from 'components/dev-dot-content/mdx-components'
-import DocsAnchor from 'components/docs-anchor'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
 
@@ -57,7 +57,7 @@ function _defaultComponents() {
 		CodeBlockConfig,
 		CodeTabs,
 		pre,
-		a: DocsAnchor,
+		a: MdxA,
 		ol: MdxOrderedList,
 		ul: MdxUnorderedList,
 		li: MdxListItem,

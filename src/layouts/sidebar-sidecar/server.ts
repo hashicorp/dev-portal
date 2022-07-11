@@ -8,6 +8,8 @@ import {
 } from '@hashicorp/remark-plugins'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import rehypePrism from '@mapbox/rehype-prism'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
+import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { ProductData, RootDocsPath } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
@@ -132,6 +134,15 @@ export function getStaticGenerationFunctions<
 					// paragraphCustomAlerts,
 					[anchorLinks, { headings }],
 					rewriteTutorialLinksPlugin,
+					/**
+					 * Rewrite docs content links, which are authored without prefix.
+					 * For example, in Waypoint docs authors write "/docs/some-thing",
+					 * we need this to be "/waypoint/docs/some-thing" for Dev Dot.
+					 */
+					[
+						remarkPluginAdjustLinkUrls,
+						{ urlAdjustFn: getProductUrlAdjuster(product) },
+					],
 					...additionalRemarkPlugins,
 				],
 				rehypePlugins: [
