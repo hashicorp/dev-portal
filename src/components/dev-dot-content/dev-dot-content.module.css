@@ -57,29 +57,6 @@
    * ./mdx-components/mdx-lists.
    */
 
-	/* inline code elements */
-	& code {
-		background-color: var(--token-color-palette-neutral-50);
-		border-radius: 5px;
-		border: 1px solid rgba(101, 106, 118, 0.2);
-		font-size: 0.8125rem;
-		font-weight: 400;
-		line-height: 16px;
-		padding: 2px 4px;
-	}
-
-	/* code blocks */
-	& pre {
-		border-radius: 5px;
-
-		& code {
-			background-color: transparent;
-			border: none;
-			border-radius: 0;
-			padding: 0;
-		}
-	}
-
 	& blockquote {
 		margin: 32px 0;
 		padding-left: 14px;

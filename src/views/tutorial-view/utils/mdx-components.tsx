@@ -21,6 +21,7 @@ import {
 	MdxH5,
 	MdxH6,
 	MdxP,
+	MdxInlineCode,
 } from 'components/dev-dot-content/mdx-components'
 import VideoEmbed from 'components/video-embed'
 
@@ -44,6 +45,7 @@ const MDX_COMPONENTS = {
 	Tabs: MdxTabs,
 	Tab: MdxTab,
 	pre,
+	inlineCode: MdxInlineCode,
 	CodeBlockConfig,
 	CodeTabs,
 	ImageConfig,
