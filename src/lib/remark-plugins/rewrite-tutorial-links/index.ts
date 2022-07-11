@@ -50,6 +50,18 @@ const ACCEPTED_DOCS_PATHNAMES = [
 	'api-docs',
 	'commands',
 	'plugins',
+	'cdktf',
+	'cli',
+	'cloud-docs',
+	'configuration',
+	'downloads',
+	'enterprise',
+	'guides',
+	'internals',
+	'intro',
+	'language',
+	'plugin',
+	'registry',
 ]
 const learnProductOptions = Object.keys(ProductOption).join('|')
 /**
