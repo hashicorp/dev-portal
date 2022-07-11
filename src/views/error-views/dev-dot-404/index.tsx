@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
-import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
-import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
+import { ProductSlug } from 'types/products'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { useErrorPageAnalytics } from '@hashicorp/react-error-view'
+import ProductIcon from 'components/product-icon'
+import { productSlugs, productSlugsToNames } from 'lib/products'
 import {
 	ErrorViewContainer,
 	ErrorViewH1,
@@ -11,6 +12,25 @@ import {
 
 import s from './dev-dot-404.module.css'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
+import getIsBetaProduct from 'lib/get-is-beta-product'
+
+/**
+ * Build an array of link cards for each beta product
+ */
+const PRODUCT_LINK_CARDS = productSlugs
+	// We only want to show beta product links on the 404 view
+	.filter(getIsBetaProduct)
+	// Even once Sentinel is in beta, we won't show it, since it has no icon
+	.filter((productSlug: ProductSlug) => productSlug !== 'sentinel')
+	// Map remaining products
+	.map((productSlug: ProductSlug) => {
+		return {
+			url: `/${productSlug}/`,
+			text: productSlugsToNames[productSlug],
+			productSlug: productSlug,
+			icon: <ProductIcon productSlug={productSlug} />,
+		}
+	})
 
 /**
  * Generic 404 error view content for use in dev-dot.
@@ -30,18 +50,7 @@ export function DevDot404(): ReactElement {
 			<div className={s.cards}>
 				<IconCardLinkGridList
 					cards={[
-						{
-							url: '/vault',
-							text: 'Vault',
-							productSlug: 'vault',
-							icon: <IconVaultColor16 />,
-						},
-						{
-							url: '/waypoint',
-							text: 'Waypoint',
-							productSlug: 'waypoint',
-							icon: <IconWaypointColor16 />,
-						},
+						...PRODUCT_LINK_CARDS,
 						{
 							url: '/',
 							text: 'HashiCorp Developer',
