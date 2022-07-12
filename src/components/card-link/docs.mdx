@@ -1,5 +1,7 @@
 ---
 componentName: CardLink
+peerComponents:
+  - AccordionDisclosure
 ---
 
 See `CardLink`'s <a href="https://github.com/hashicorp/dev-portal/blob/main/src/components/card-link/types.ts" target="_blank" rel="noreferrer noopener">types.ts file (opens in new tab)</a> for more details on the props this component exposes.
@@ -11,3 +13,65 @@ See `CardLink`'s <a href="https://github.com/hashicorp/dev-portal/blob/main/src/
   I am a CardLink that goes to the home page
 </CardLink>
 `}</LiveComponent>
+
+## Examples
+
+<AccordionDisclosure
+  title="The `ariaLabel` prop"
+  description="The `ariaLabel` prop is useful when there is a lot of content in a `CardLink`. When the `CardLink` comes into focus, and a screen reader is being used, the screen reader will present just the content of `ariaLabel`."
+>
+
+Start up a screen reader and listen to how the following two `CardLink`s are presented. One is very verbose, and the other is much more concise. Remember that screen reader users don't just use the <kbd>Tab</kbd> key to navigate web pages. They can also use arrow keys to navigate between non-focusable elements in a page.
+
+**_Without_ the `ariaLabel` prop**
+
+<CardLink href="/waypoint/docs/url">
+	<p style={{ margin: 0 }}>
+		<strong>Waypoint URL Service</strong>
+	</p>
+	<p style={{ marginBottom: 0, marginTop: 4 }}>
+		The Waypoint URL service is a free, public service hosted by HashiCorp to
+		view your deployed app.
+	</p>
+</CardLink>
+
+**_With_ the `ariaLabel` prop**
+
+<CardLink ariaLabel="Waypoint URL service" href="/waypoint/docs/url">
+	<p style={{ margin: 0 }}>
+		<strong>Waypoint URL Service</strong>
+	</p>
+	<p style={{ marginBottom: 0, marginTop: 4 }}>
+		The Waypoint URL service is a free, public service hosted by HashiCorp to
+		view your deployed app.
+	</p>
+</CardLink>
+
+</AccordionDisclosure>
+
+<br />
+
+<AccordionDisclosure
+  title="The `openInNewTab` prop"
+  description="The `openInNewTab` prop is useful when a `CardLink` should be opened in a new browser tab."
+>
+
+By default, `CardLink`s will not open their `href` in a new browser tab. The `openInNewTab` prop is required to change the default functionality of `CardLink`.
+
+Click the following `CardLink` to open it in a new browser tab.
+
+<CardLink
+	ariaLabel="Waypoint URL service"
+	href="/waypoint/docs/url"
+	openInNewTab
+>
+	<p style={{ margin: 0 }}>
+		<strong>Waypoint URL Service</strong>
+	</p>
+	<p style={{ marginBottom: 0, marginTop: 4 }}>
+		The Waypoint URL service is a free, public service hosted by HashiCorp to
+		view your deployed app.
+	</p>
+</CardLink>
+
+</AccordionDisclosure>
