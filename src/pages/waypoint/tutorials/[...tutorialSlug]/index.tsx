@@ -10,16 +10,6 @@ import {
 	TutorialPagePaths,
 } from 'views/tutorial-view/server'
 
-export function WaypointTutorialPage({
-	layoutProps,
-	product,
-	tutorial,
-}: TutorialPageProps): React.ReactElement {
-	return (
-		<TutorialView layout={layoutProps} product={product} tutorial={tutorial} />
-	)
-}
-
 export async function getStaticProps({
 	params,
 }): Promise<GetStaticPropsResult<TutorialPageProps>> {
@@ -44,4 +34,4 @@ export async function getStaticPaths(): Promise<
 	}
 }
 
-export default WaypointTutorialPage
+export default TutorialView

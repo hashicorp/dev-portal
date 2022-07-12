@@ -10,16 +10,6 @@ import {
 	TutorialPagePaths,
 } from 'views/tutorial-view/server'
 
-export function VaultTutorialPage({
-	layoutProps,
-	tutorial,
-	product,
-}: TutorialPageProps): React.ReactElement {
-	return (
-		<TutorialView layout={layoutProps} tutorial={tutorial} product={product} />
-	)
-}
-
 export async function getStaticProps({
 	params,
 }): Promise<GetStaticPropsResult<TutorialPageProps>> {
@@ -45,4 +35,4 @@ export async function getStaticPaths(): Promise<
 	}
 }
 
-export default VaultTutorialPage
+export default TutorialView
