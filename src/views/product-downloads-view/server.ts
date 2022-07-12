@@ -26,7 +26,7 @@ async function generateStaticProps(productData: ProductData): Promise<{
 	 */
 	const jsonFilePath = path.join(
 		process.cwd(),
-		`src/content/${productData.slug}/install.json`
+		`src/content/${productData.slug}/install-landing.json`
 	)
 	const pageContent: RawProductDownloadsViewContent = JSON.parse(
 		fs.readFileSync(jsonFilePath, 'utf8')
