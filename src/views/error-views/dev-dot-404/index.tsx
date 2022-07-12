@@ -1,42 +1,44 @@
-import React, { ReactElement } from 'react'
-import { ProductSlug } from 'types/products'
+import React, { ReactElement, useMemo } from 'react'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { useErrorPageAnalytics } from '@hashicorp/react-error-view'
+import { ProductSlug } from 'types/products'
+import { productSlugsToNames } from 'lib/products'
+import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import ProductIcon from 'components/product-icon'
-import { productSlugs, productSlugsToNames } from 'lib/products'
 import {
 	ErrorViewContainer,
 	ErrorViewH1,
 	ErrorViewParagraph,
 } from '../components'
-
 import s from './dev-dot-404.module.css'
-import IconCardLinkGridList from 'components/icon-card-link-grid-list'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 
 /**
- * Build an array of link cards for each beta product
+ * Build an array of link cards representing each beta product.
  */
-const PRODUCT_LINK_CARDS = productSlugs
-	// We only want to show beta product links on the 404 view
-	.filter(getIsBetaProduct)
-	// Even once Sentinel is in beta, we won't show it, since it has no icon
-	.filter((productSlug: ProductSlug) => productSlug !== 'sentinel')
-	// Map remaining products
-	.map((productSlug: ProductSlug) => {
-		return {
-			url: `/${productSlug}/`,
-			text: productSlugsToNames[productSlug],
-			productSlug: productSlug,
-			icon: <ProductIcon productSlug={productSlug} />,
+const generateLinkCards = () => {
+	const linkCards = []
+
+	__config.dev_dot.beta_product_slugs.forEach((productSlug: ProductSlug) => {
+		if (productSlug !== 'sentinel') {
+			linkCards.push({
+				url: `/${productSlug}/`,
+				text: productSlugsToNames[productSlug],
+				productSlug: productSlug,
+				icon: <ProductIcon productSlug={productSlug} />,
+			})
 		}
 	})
+
+	return linkCards
+}
 
 /**
  * Generic 404 error view content for use in dev-dot.
  */
 export function DevDot404(): ReactElement {
 	useErrorPageAnalytics(404)
+
+	const productLinkCards = useMemo(generateLinkCards, [])
 
 	return (
 		<ErrorViewContainer>
@@ -50,7 +52,7 @@ export function DevDot404(): ReactElement {
 			<div className={s.cards}>
 				<IconCardLinkGridList
 					cards={[
-						...PRODUCT_LINK_CARDS,
+						...productLinkCards,
 						{
 							url: '/',
 							text: 'HashiCorp Developer',
