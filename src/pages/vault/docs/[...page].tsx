@@ -3,7 +3,6 @@ import vaultData from 'data/vault.json'
 import { ProductData } from 'types/products'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import DocsView from 'views/docs-view'
-import { vaultUrlAdjuster } from 'layouts/sidebar-sidecar/utils/product-url-adjusters'
 
 const basePath = 'docs'
 const baseName = 'Docs'
@@ -14,7 +13,6 @@ const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
 		product,
 		basePath,
 		baseName,
-		additionalRemarkPlugins: [vaultUrlAdjuster],
 	})
 
 /**

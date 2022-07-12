@@ -5,9 +5,9 @@ import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import AccordionDisclosure from 'components/accordion-disclosure'
 import Image from 'components/image'
 import ImageConfig from 'components/image-config'
-import InlineLink from 'components/inline-link'
 import InteractiveLabCallout from 'components/interactive-lab-callout'
 import {
+	MdxA,
 	MdxOrderedList,
 	MdxUnorderedList,
 	MdxListItem,
@@ -21,6 +21,7 @@ import {
 	MdxH5,
 	MdxH6,
 	MdxP,
+	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
 import VideoEmbed from 'components/video-embed'
 
@@ -53,7 +54,7 @@ const MDX_COMPONENTS = {
 	ol: MdxOrderedList,
 	ul: MdxUnorderedList,
 	li: MdxListItem,
-	a: (props) => <InlineLink {...props} textWeight="medium" />,
+	a: MdxA,
 	h1: MdxH1,
 	h2: MdxH2,
 	h3: MdxH3,
@@ -62,6 +63,7 @@ const MDX_COMPONENTS = {
 	h6: MdxH6,
 	p: MdxP,
 	table: MdxTable,
+	blockquote: MdxBlockquote,
 }
 
 export default MDX_COMPONENTS
