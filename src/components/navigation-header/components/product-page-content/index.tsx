@@ -4,6 +4,7 @@ import Link from 'next/link'
 // HashiCorp Imports
 import InlineSvg from '@hashicorp/react-inline-svg'
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
+import TerraformLogo from '@hashicorp/mktg-logos/product/terraform/primary-padding/colorwhite.svg?include'
 import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/colorwhite.svg?include'
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 
@@ -40,6 +41,7 @@ const PRODUCT_PAGE_NAV_ITEMS = [
  * the headers under `/{productSlug}` pages.
  */
 const PRODUCT_SLUGS_TO_LOGOS = {
+	terraform: TerraformLogo,
 	vault: VaultLogo,
 	waypoint: WaypointLogo,
 }
