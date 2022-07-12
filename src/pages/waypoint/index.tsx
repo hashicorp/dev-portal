@@ -1,17 +1,9 @@
 import waypointData from 'data/waypoint.json'
 import ProductLandingView from 'views/product-landing'
-import { generateStaticProps } from 'views/product-landing/server'
+import { generateGetStaticProps } from 'views/product-landing/server'
 import { ProductData } from 'types/products'
 
-export async function getStaticProps() {
-	const product = waypointData as ProductData
+const { getStaticProps } = generateGetStaticProps(waypointData as ProductData)
 
-	return {
-		props: await generateStaticProps({ product }),
-		// as this reads from the file system, we don't want to revalidate at all as the files
-		// will not be available at runtime
-		revalidate: false,
-	}
-}
-
+export { getStaticProps }
 export default ProductLandingView
