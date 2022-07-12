@@ -17,6 +17,7 @@ import {
 	MdxH5,
 	MdxH6,
 	MdxP,
+	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
@@ -58,6 +59,7 @@ function _defaultComponents() {
 		CodeTabs,
 		pre,
 		a: MdxA,
+		blockquote: MdxBlockquote,
 		ol: MdxOrderedList,
 		ul: MdxUnorderedList,
 		li: MdxListItem,
