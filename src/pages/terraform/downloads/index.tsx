@@ -1,31 +1,15 @@
-import { ReactElement } from 'react'
 import { GetStaticProps } from 'next'
 import semverSatisfies from 'semver/functions/satisfies'
 import semverMajor from 'semver/functions/major'
 import semverMinor from 'semver/functions/minor'
 import semverPatch from 'semver/functions/patch'
 import terraformData from 'data/terraform.json'
-import installData from 'data/terraform-install.json'
 import { ProductData } from 'types/products'
-import {
-	GeneratedProps,
-	generateStaticProps,
-	ReleasesAPIResponse,
-} from 'lib/fetch-release-data'
+import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 import ProductDownloadsView from 'views/product-downloads-view'
+import { generateStaticProps } from 'views/product-downloads-view/server'
 
 const VERSION_DOWNLOAD_CUTOFF = '>=1.0.11'
-
-const TerraformDownloadsPage = (props: GeneratedProps): ReactElement => {
-	const { latestVersion, releases } = props
-	return (
-		<ProductDownloadsView
-			latestVersion={latestVersion}
-			pageContent={installData}
-			releases={releases}
-		/>
-	)
-}
 
 /**
  * Pulled from terraform-website/pages/downloads/index.jsx on 2022-03-09:
@@ -82,8 +66,7 @@ function filterVersions(
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-	const product = terraformData as ProductData
-	const generatedProps = await generateStaticProps(product)
+	const generatedProps = await generateStaticProps(terraformData as ProductData)
 
 	// Filter versions based on VERSION_DOWNLOAD_CUTOFF
 	const rawVersions = generatedProps.props?.releases?.versions
@@ -93,4 +76,4 @@ export const getStaticProps: GetStaticProps = async () => {
 	return generatedProps
 }
 
-export default TerraformDownloadsPage
+export default ProductDownloadsView

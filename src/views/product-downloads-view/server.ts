@@ -1,4 +1,5 @@
-import { GetStaticPropsResult } from 'next'
+import fs from 'fs'
+import path from 'path'
 import { ProductData } from 'types/products'
 import { generateStaticProps as generateReleaseStaticProps } from 'lib/fetch-release-data'
 import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
@@ -15,10 +16,22 @@ import {
 /**
  * Prepares static props for downloads views
  */
-async function generateStaticProps(
-	productData: ProductData,
-	pageContent: RawProductDownloadsViewContent
-): Promise<GetStaticPropsResult<ProductDownloadsViewStaticProps>> {
+async function generateStaticProps(productData: ProductData): Promise<{
+	props: ProductDownloadsViewStaticProps
+	revalidate: number
+}> {
+	/**
+	 * Note: could consider other content sources. For now, JSON.
+	 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
+	 */
+	const jsonFilePath = path.join(
+		process.cwd(),
+		`src/content/${productData.slug}/install.json`
+	)
+	const pageContent: RawProductDownloadsViewContent = JSON.parse(
+		fs.readFileSync(jsonFilePath, 'utf8')
+	)
+
 	/**
 	 * Fetch the release data static props
 	 */
