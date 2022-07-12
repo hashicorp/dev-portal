@@ -3,7 +3,6 @@ import path from 'path'
 import { ProductData } from 'types/products'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { SidebarProps } from 'components/sidebar'
-// import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -16,10 +15,8 @@ import { ProductLandingViewProps } from './types'
 
 async function generateStaticProps({
 	product,
-	contentJsonFile,
 }: {
 	product: ProductData
-	contentJsonFile: string
 }): Promise<
 	ProductLandingViewProps & {
 		layoutProps: {
@@ -34,7 +31,10 @@ async function generateStaticProps({
 	 * Note: could consider other content sources. For now, JSON.
 	 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
 	 */
-	const jsonFilePath = path.join(process.cwd(), contentJsonFile)
+	const jsonFilePath = path.join(
+		process.cwd(),
+		`src/content/${product.slug}/product-landing.json`
+	)
 	const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 
 	/**
