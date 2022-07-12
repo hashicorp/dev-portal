@@ -32,13 +32,13 @@ const generateLinkCards = () => {
 	return linkCards
 }
 
+const PRODUCT_LINK_CARDS = generateLinkCards()
+
 /**
  * Generic 404 error view content for use in dev-dot.
  */
 export function DevDot404(): ReactElement {
 	useErrorPageAnalytics(404)
-
-	const productLinkCards = useMemo(generateLinkCards, [])
 
 	return (
 		<ErrorViewContainer>
@@ -52,7 +52,7 @@ export function DevDot404(): ReactElement {
 			<div className={s.cards}>
 				<IconCardLinkGridList
 					cards={[
-						...productLinkCards,
+						...PRODUCT_LINK_CARDS,
 						{
 							url: '/',
 							text: 'HashiCorp Developer',
