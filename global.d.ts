@@ -21,3 +21,6 @@ declare module '@hashicorp/react-search'
 declare const __config: Record<string, any>
 
 declare module '*.png'
+
+declare module 'framer-motion/dist/es/motion/features/layout'
+declare module 'framer-motion/dist/es/projection/node/HTMLProjectionNode'

@@ -47,6 +47,18 @@ module.exports = withSwingset({
   })({
     webpack(config) {
       config.plugins.push(HashiConfigPlugin())
+      // disable `exports` support for framer-motion. This will cause Webpack to
+      // fall back to using `module`
+      config.module.rules.push({
+        test: (input) => {
+          return (
+            input.includes('framer-motion') || input.includes('motion-config')
+          )
+        },
+        resolve: {
+          exportsFields: [],
+        },
+      })
       return config
     },
     async headers() {
