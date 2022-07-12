@@ -6,13 +6,14 @@ import { CardLinkProps } from './types'
 import s from './card-link.module.css'
 
 const CardLink = ({
+	ariaLabel,
 	children,
 	className,
 	href,
-	ariaLabel,
-	target,
+	openInNewTab,
 }: CardLinkProps): ReactElement => {
 	const classes = classNames(s.root, className)
+	const target = openInNewTab ? '_blank' : undefined
 
 	return (
 		<Link href={href}>
