@@ -8,7 +8,7 @@ const remarkPluginAdjustLinkUrls: Plugin = ({
 	urlAdjustFn: (url: string) => string
 }): Transformer => {
 	return function transformer(tree) {
-		visit(tree, 'link', (node: Link) => {
+		visit(tree, ['link', 'definition'], (node: Link) => {
 			node.url = urlAdjustFn(node.url)
 		})
 	}
