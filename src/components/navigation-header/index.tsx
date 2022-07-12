@@ -41,7 +41,7 @@ const NavigationHeader = () => {
 	const currentProduct = useCurrentProduct()
 
 	const shouldRenderGenericHeaderContent =
-		currentProduct === undefined || router.route === '/_error'
+		!currentProduct || router.route === '/_error'
 	const LeftSideHeaderContent = shouldRenderGenericHeaderContent
 		? HomePageHeaderContent
 		: ProductPageHeaderContent
