@@ -2,14 +2,32 @@
 componentName: StandaloneLink
 ---
 
-The `StandaloneLink` component should be used when a link is needed outside of a body of text. It is based on the <a href="https://design-system-components-hashicorp.vercel.app/components/link/standalone" target="_blank" rel="noreferrer noopener">HashiCorp Design System (HDS) Link::Standalone component (opens in new tab)</a>.
+The `StandaloneLink` component should be used when a link is needed outside of a body of text. See more documentation [the HDS Product Figma](https://www.figma.com/file/noyY6dUMDYjmySpHcMjhkN/?node-id=2365%3A21590).
+
+Internally, this component uses two other components:
+
+- `MaybeInternalLink`: to automatically determine whether or not `next/link` should be used
+- `Text`: to ensure conformance font size and weight with the design system
+
+## Props
 
 🚨 Guidance on icon sizes to pass into the `icon` prop:
 
 - If `size` set to "small" or "medium", then size 16 icons are recommended
 - If `size` set to "large", then size 24 icons are recommended
 
-See `StandaloneLink`'s <a href="https://github.com/hashicorp/dev-portal/blob/main/src/components/standalone-link/types.ts" target="_blank" rel="noreferrer noopener">types.ts file (opens in new tab)</a> for more details on the props this component exposes.
+| Prop name      | Description                                                                                                                             | Required? | Default value | Type                                   |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- | -------------------------------------- |
+| `ariaLabel`    | A non-visible label presented by screen readers. Passed directly to the internal link element as the `aria-label` prop.                 | No        | undefined     | string                                 |
+| `className`    | A string of one or more class names. Applied last to the rendered `<a>` element.                                                        | No        | undefined     | string                                 |
+| `color`        | Determines the set of colors to use for various states of the component.                                                                | No        | 'primary'     | Either: 'primary' or 'secondary'       |
+| `download`     | Same as the `<a>` element's download prop. Passed directly to the internal link element.                                                | No        | undefined     | Either as boolean or with string value |
+| `href`         | The destination of the link.                                                                                                            | Yes       | N/A           | string                                 |
+| `icon`         | An icon from `@hashicorp/flight-icons` to render.                                                                                       | Yes       | N/A           | ReactElement                           |
+| `iconPosition` | Where the icon should be rendered within the link. See examples below.                                                                  | Yes       | N/A           | Either: 'leading' or 'trailing'        |
+| `openInNewTab` | Whether or not the link should open in a new tab. Affects the `target` and `rel` props passed to the internally rendered `<a>` element. | No        | false         | boolean                                |
+| `size`         | The size of the rendered link, which mainly affects the `font-size` and `line-height` CSS properties.                                   | No        | undefined     | One of: 'small', 'medium', 'large'     |
+| `text`         | The text rendered within the `<a>` element.                                                                                             | Yes       | N/A           | string                                 |
 
 ## Examples
 
@@ -19,14 +37,14 @@ These examples show a `SwingsetTestIcon` that is used for the purpose of renderi
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 
 const MyComponent = () => {
-	return (
-		<StandaloneLink
-			href="/"
-			icon={<IconArrowRight16 />}
-			iconPosition="trailing"
-			text="Get Started"
-		/>
-	)
+  return (
+    <StandaloneLink
+      href="/"
+      icon={<IconArrowRight16 />}
+      iconPosition="trailing"
+      text="Get Started"
+    />
+  )
 }
 ```
 

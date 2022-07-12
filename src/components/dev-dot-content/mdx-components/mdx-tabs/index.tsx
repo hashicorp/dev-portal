@@ -8,11 +8,11 @@ import s from './mdx-tabs.module.css'
  * so it has since been removed.
  */
 function MdxTabs({ children }: { children: ReactNode }) {
-	return (
-		<div className={s.tabsWrapper}>
-			<Tabs allowNestedStyles>{children}</Tabs>
-		</div>
-	)
+  return (
+    <div className={s.tabsWrapper}>
+      <Tabs allowNestedStyles>{children}</Tabs>
+    </div>
+  )
 }
 
 export { MdxTabs, MdxTab }

@@ -10,24 +10,24 @@ import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-
 import { ProductIconProps } from './types'
 
 const productSlugsToIcons = {
-	boundary: IconBoundaryColor16,
-	consul: IconConsulColor16,
-	hcp: IconHashicorpColor16,
-	nomad: IconNomadColor16,
-	packer: IconPackerColor16,
-	sentinel: null,
-	terraform: IconTerraformColor16,
-	vagrant: IconVagrantColor16,
-	vault: IconVaultColor16,
-	waypoint: IconWaypointColor16,
+  boundary: IconBoundaryColor16,
+  consul: IconConsulColor16,
+  hcp: IconHashicorpColor16,
+  nomad: IconNomadColor16,
+  packer: IconPackerColor16,
+  sentinel: null,
+  terraform: IconTerraformColor16,
+  vagrant: IconVagrantColor16,
+  vault: IconVaultColor16,
+  waypoint: IconWaypointColor16,
 }
 
 const ProductIcon = ({ productSlug, ...rest }: ProductIconProps) => {
-	const Icon = productSlugsToIcons[productSlug]
-	if (!Icon) {
-		return null
-	}
-	return <Icon {...rest} />
+  const Icon = productSlugsToIcons[productSlug]
+  if (!Icon) {
+    return null
+  }
+  return <Icon {...rest} />
 }
 
 export type { ProductIconProps }

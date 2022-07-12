@@ -6,77 +6,77 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { formatCollectionCard } from 'components/collection-card/helpers'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import {
-	FeaturedLearnContent,
-	ProductDownloadsViewStaticProps,
-	RawProductDownloadsViewContent,
-	FeaturedLearnCard,
+  FeaturedLearnContent,
+  ProductDownloadsViewStaticProps,
+  RawProductDownloadsViewContent,
+  FeaturedLearnCard,
 } from './types'
 
 /**
  * Prepares static props for downloads views
  */
 async function generateStaticProps(
-	productData: ProductData,
-	pageContent: RawProductDownloadsViewContent
+  productData: ProductData,
+  pageContent: RawProductDownloadsViewContent
 ): Promise<GetStaticPropsResult<ProductDownloadsViewStaticProps>> {
-	/**
-	 * Fetch the release data static props
-	 */
-	const { props: releaseProps, revalidate } = await generateReleaseStaticProps(
-		productData
-	)
-	const { releases, product, latestVersion } = releaseProps
+  /**
+   * Fetch the release data static props
+   */
+  const { props: releaseProps, revalidate } = await generateReleaseStaticProps(
+    productData
+  )
+  const { releases, product, latestVersion } = releaseProps
 
-	/**
-	 * Fetch page content
-	 * (loaded from .json, then tutorial data is fetched)
-	 */
-	const {
-		doesNotHavePackageManagers,
-		featuredLearnContent,
-		packageManagerOverrides,
-		sidecarMarketingCard,
-		sidebarMenuItems,
-	} = pageContent
-	// Gather tutorials and collections based on slugs used
-	const inlineContent = await getInlineContentMaps(featuredLearnContent)
-	// Transform feature tutorial and collection entries into card data
-	const featuredLearnCards: FeaturedLearnCard[] = featuredLearnContent.map(
-		(entry: FeaturedLearnContent) => {
-			const { collectionSlug, tutorialSlug } = entry
-			if (typeof collectionSlug == 'string') {
-				const collectionData = inlineContent.inlineCollections[collectionSlug]
-				return { type: 'collection', ...formatCollectionCard(collectionData) }
-			} else if (typeof tutorialSlug == 'string') {
-				const tutorialData = inlineContent.inlineTutorials[tutorialSlug]
-				const defaultContext = tutorialData.collectionCtx.default
-				const tutorialLiteCompat = { ...tutorialData, defaultContext }
-				return { type: 'tutorial', ...formatTutorialCard(tutorialLiteCompat) }
-			}
-		}
-	)
+  /**
+   * Fetch page content
+   * (loaded from .json, then tutorial data is fetched)
+   */
+  const {
+    doesNotHavePackageManagers,
+    featuredLearnContent,
+    packageManagerOverrides,
+    sidecarMarketingCard,
+    sidebarMenuItems,
+  } = pageContent
+  // Gather tutorials and collections based on slugs used
+  const inlineContent = await getInlineContentMaps(featuredLearnContent)
+  // Transform feature tutorial and collection entries into card data
+  const featuredLearnCards: FeaturedLearnCard[] = featuredLearnContent.map(
+    (entry: FeaturedLearnContent) => {
+      const { collectionSlug, tutorialSlug } = entry
+      if (typeof collectionSlug == 'string') {
+        const collectionData = inlineContent.inlineCollections[collectionSlug]
+        return { type: 'collection', ...formatCollectionCard(collectionData) }
+      } else if (typeof tutorialSlug == 'string') {
+        const tutorialData = inlineContent.inlineTutorials[tutorialSlug]
+        const defaultContext = tutorialData.collectionCtx.default
+        const tutorialLiteCompat = { ...tutorialData, defaultContext }
+        return { type: 'tutorial', ...formatTutorialCard(tutorialLiteCompat) }
+      }
+    }
+  )
 
-	/**
-	 * Combine release data and page content
-	 */
-	return {
-		props: stripUndefinedProperties({
-			metadata: {
-				title: 'Install',
-			},
-			releases,
-			product,
-			latestVersion,
-			pageContent: {
-				doesNotHavePackageManagers,
-				featuredLearnCards,
-				packageManagerOverrides,
-				sidecarMarketingCard,
-				sidebarMenuItems,
-			},
-		}),
-		revalidate,
-	}
+  /**
+   * Combine release data and page content
+   */
+  return {
+    props: stripUndefinedProperties({
+      metadata: {
+        title: 'Install',
+      },
+      releases,
+      product,
+      latestVersion,
+      pageContent: {
+        doesNotHavePackageManagers,
+        featuredLearnCards,
+        packageManagerOverrides,
+        sidecarMarketingCard,
+        sidebarMenuItems,
+      },
+    }),
+    revalidate,
+  }
 }
 
 export { generateStaticProps }

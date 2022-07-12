@@ -161,12 +161,12 @@ and negative margin.
 */
 .g-focus-ring-from-box-shadow {
   &:focus {
-    outline: transparent;
+    outline: none;
   }
 
   &:focus-visible {
     box-shadow: var(--token-focus-ring-action-box-shadow);
-    outline: transparent;
+    outline: none;
   }
 }
 
@@ -178,38 +178,38 @@ and negative margin.
 */
 .g-focus-ring-from-box-shadow-dark {
   &:focus {
-    outline: transparent;
+    outline: none;
   }
 
   &:focus-visible {
     box-shadow: var(--custom-token-focus-ring-action-box-shadow-dark);
-    outline: transparent;
+    outline: none;
   }
 }
 
 .g-focus-border-and-box-shadow-light {
   &:focus,
   &:focus-visible {
-    outline: transparent;
+    outline: none;
   }
 
   &:focus-visible {
     border: 1px solid var(--token-color-palette-blue-200);
     box-shadow: 0 0 0 3px var(--token-color-focus-action-external);
-    outline: transparent;
+    outline: none;
   }
 }
 
 .g-focus-border-and-box-shadow-dark {
   &:focus,
   &:focus-visible {
-    outline: transparent;
+    outline: none;
   }
 
   &:focus-visible {
     border: 1px solid #107dff;
     box-shadow: 0 0 0 3px #5fbcff;
-    outline: transparent;
+    outline: none;
   }
 }
 
@@ -236,9 +236,6 @@ and negative margin.
   rather than an `id` on the element itself. These are added by our
   anchor-links remark plugin.
   https://github.com/hashicorp/web-platform-packages/tree/main/packages/remark-plugins/plugins/anchor-links
-  We can likely remove this issue by refactoring our anchor-links plugin
-  to avoid adding these extra elements:
-  https://app.asana.com/0/1202097197789424/1201532549545236/f
   */
   & a:global(.__target-h) {
     scroll-margin-top: var(--total-offset);

@@ -8,36 +8,36 @@ const PRODUCT_API_ROUTE = '/products'
 
 // getProduct
 export async function getProduct(idOrSlug: identifier): Promise<Product> {
-	const identifier = formatIdentifier(idOrSlug)
+  const identifier = formatIdentifier(idOrSlug)
 
-	// /products/:identifier
-	const route = path.join(PRODUCT_API_ROUTE, identifier)
-	const getProductRes = await get(route)
+  // /products/:identifier
+  const route = path.join(PRODUCT_API_ROUTE, identifier)
+  const getProductRes = await get(route)
 
-	if (getProductRes.ok) {
-		const res = await getProductRes.json()
-		return formatProduct(res.result)
-	}
+  if (getProductRes.ok) {
+    const res = await getProductRes.json()
+    return formatProduct(res.result)
+  }
 
-	const error = await toError(getProductRes)
-	throw error
+  const error = await toError(getProductRes)
+  throw error
 }
 
 // getProducts
 export async function getProducts(
-	idsOrSlugs: identifier[]
+  idsOrSlugs: identifier[]
 ): Promise<Product[]> {
-	const queryStr = formatBatchQueryStr(idsOrSlugs)
+  const queryStr = formatBatchQueryStr(idsOrSlugs)
 
-	// /products?slugs=option,option or /products?ids=option,option
-	const route = PRODUCT_API_ROUTE + queryStr
-	const getProductsRes = await get(route)
+  // /products?slugs=option,option or /products?ids=option,option
+  const route = PRODUCT_API_ROUTE + queryStr
+  const getProductsRes = await get(route)
 
-	if (getProductsRes.ok) {
-		const res = await getProductsRes.json()
-		return res.result.map(formatProduct)
-	}
+  if (getProductsRes.ok) {
+    const res = await getProductsRes.json()
+    return res.result.map(formatProduct)
+  }
 
-	const error = await toError(getProductsRes)
-	throw error
+  const error = await toError(getProductsRes)
+  throw error
 }

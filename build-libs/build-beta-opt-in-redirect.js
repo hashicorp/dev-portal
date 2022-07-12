@@ -12,22 +12,22 @@ const __config = unflatten(loadHashiConfigForEnvironment())
  * @returns {Redirect} redirect
  */
 function buildBetaProductOptInRedirect(product, basePaths) {
-	return {
-		source: `/:base(${basePaths.join('|')})/:path*`,
-		destination: `${__config.dev_dot.canonical_base_url}/${product}/:base/:path*`,
-		permanent: false,
-		has: [
-			{
-				type: 'cookie',
-				key: `${product}-io-beta-opt-in`,
-				value: 'true',
-			},
-			{
-				type: 'host',
-				value: proxySettings[product].host,
-			},
-		],
-	}
+  return {
+    source: `/:base(${basePaths.join('|')})/:path*`,
+    destination: `${__config.dev_dot.canonical_base_url}/${product}/:base/:path*`,
+    permanent: false,
+    has: [
+      {
+        type: 'cookie',
+        key: `${product}-io-beta-opt-in`,
+        value: 'true',
+      },
+      {
+        type: 'host',
+        value: proxySettings[product].host,
+      },
+    ],
+  }
 }
 
 module.exports = buildBetaProductOptInRedirect

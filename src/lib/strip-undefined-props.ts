@@ -2,5 +2,5 @@
 // >>> Reason: `undefined` cannot be serialized as JSON. Please use `null` or omit this value all together.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function stripUndefinedProperties(obj: any) {
-	return JSON.parse(JSON.stringify(obj))
+  return JSON.parse(JSON.stringify(obj))
 }

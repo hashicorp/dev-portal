@@ -54,7 +54,7 @@
   */
   &:focus,
   &:focus-visible {
-    outline: transparent;
+    outline: none;
   }
 
   &:focus-visible::before {

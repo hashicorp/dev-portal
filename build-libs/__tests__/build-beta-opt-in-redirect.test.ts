@@ -1,10 +1,10 @@
 import buildBetaProductOptInRedirect from '../build-beta-opt-in-redirect'
 
 describe('buildBetaOptInRedirect', () => {
-	test('builds a redirect definition for beta opt-in', () => {
-		expect(
-			buildBetaProductOptInRedirect('waypoint', ['docs', 'commands', 'plugins'])
-		).toMatchInlineSnapshot(`
+  test('builds a redirect definition for beta opt-in', () => {
+    expect(
+      buildBetaProductOptInRedirect('waypoint', ['docs', 'commands', 'plugins'])
+    ).toMatchInlineSnapshot(`
       Object {
         "destination": "https://developer.hashicorp.com/waypoint/:base/:path*",
         "has": Array [
@@ -22,5 +22,5 @@ describe('buildBetaOptInRedirect', () => {
         "source": "/:base(docs|commands|plugins)/:path*",
       }
     `)
-	})
+  })
 })

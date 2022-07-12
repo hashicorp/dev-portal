@@ -15,34 +15,34 @@ const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 const additionalComponents = {}
 
 function DocsView(props) {
-	return (
-		<DocsPage
-			product={product}
-			baseRoute={basePath}
-			staticProps={props}
-			additionalComponents={additionalComponents}
-			showVersionSelect={enableVersionedDocs}
-			algoliaConfig={productData.algoliaConfig}
-		/>
-	)
+  return (
+    <DocsPage
+      product={product}
+      baseRoute={basePath}
+      staticProps={props}
+      additionalComponents={additionalComponents}
+      showVersionSelect={enableVersionedDocs}
+      algoliaConfig={productData.algoliaConfig}
+    />
+  )
 }
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
-	enableVersionedDocs
-		? {
-				strategy: 'remote',
-				basePath,
-				fallback: 'blocking',
-				revalidate: 360, // 1 hour
-				product: productData.slug,
-		  }
-		: {
-				strategy: 'fs',
-				localContentDir,
-				navDataFile,
-				localPartialsDir,
-				product: productData.slug,
-		  }
+  enableVersionedDocs
+    ? {
+        strategy: 'remote',
+        basePath,
+        fallback: 'blocking',
+        revalidate: 360, // 1 hour
+        product: productData.slug,
+      }
+    : {
+        strategy: 'fs',
+        localContentDir,
+        navDataFile,
+        localPartialsDir,
+        product: productData.slug,
+      }
 )
 
 // Export getStatic functions

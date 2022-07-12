@@ -5,19 +5,19 @@ import { SidebarBackToLinkProps } from './types'
 import s from './sidebar-back-to-link.module.css'
 
 const SidebarBackToLink = ({
-	text,
-	href,
+  text,
+  href,
 }: SidebarBackToLinkProps): ReactElement => {
-	return (
-		<div className={s.root}>
-			<StandaloneLink
-				href={href}
-				icon={<IconChevronLeft16 className={s.icon} />}
-				iconPosition="leading"
-				text={text}
-			/>
-		</div>
-	)
+  return (
+    <div className={s.root}>
+      <StandaloneLink
+        href={href}
+        icon={<IconChevronLeft16 className={s.icon} />}
+        iconPosition="leading"
+        text={text}
+      />
+    </div>
+  )
 }
 
 export type { SidebarBackToLinkProps }

@@ -9,27 +9,27 @@ import { TutorialCardPropsWithId } from 'components/tutorial-card'
  * Raw page content, as structured in .json files
  */
 export type FeaturedLearnContent =
-	| {
-			collectionSlug: string
-			tutorialSlug?: never
-	  }
-	| {
-			collectionSlug?: never
-			tutorialSlug: string
-	  }
+  | {
+      collectionSlug: string
+      tutorialSlug?: never
+    }
+  | {
+      collectionSlug?: never
+      tutorialSlug: string
+    }
 
 export interface PackageManager {
-	label: string
-	commands: string[]
-	os: string
+  label: string
+  commands: string[]
+  os: string
 }
 
 export interface RawProductDownloadsViewContent {
-	doesNotHavePackageManagers?: boolean
-	featuredLearnContent?: FeaturedLearnContent[]
-	packageManagerOverrides?: PackageManager[]
-	sidecarMarketingCard: SidecarMarketingCardProps
-	sidebarMenuItems?: MenuItem[]
+  doesNotHavePackageManagers?: boolean
+  featuredLearnContent?: FeaturedLearnContent[]
+  packageManagerOverrides?: PackageManager[]
+  sidecarMarketingCard: SidecarMarketingCardProps
+  sidebarMenuItems?: MenuItem[]
 }
 
 /**
@@ -37,35 +37,35 @@ export interface RawProductDownloadsViewContent {
  */
 
 export type FeaturedLearnCard =
-	| ({ type: 'collection' } & CollectionCardPropsWithId)
-	| ({ type: 'tutorial' } & TutorialCardPropsWithId)
+  | ({ type: 'collection' } & CollectionCardPropsWithId)
+  | ({ type: 'tutorial' } & TutorialCardPropsWithId)
 
 export interface ProductDownloadsViewProps {
-	latestVersion: string
-	pageContent: {
-		doesNotHavePackageManagers?: boolean
-		featuredLearnCards?: FeaturedLearnCard[]
-		packageManagerOverrides?: PackageManager[]
-		sidecarMarketingCard: SidecarMarketingCardProps
-		sidebarMenuItems?: MenuItem[]
-	}
-	releases: ReleasesAPIResponse
+  latestVersion: string
+  pageContent: {
+    doesNotHavePackageManagers?: boolean
+    featuredLearnCards?: FeaturedLearnCard[]
+    packageManagerOverrides?: PackageManager[]
+    sidecarMarketingCard: SidecarMarketingCardProps
+    sidebarMenuItems?: MenuItem[]
+  }
+  releases: ReleasesAPIResponse
 }
 
 /**
  * Type for inner content component, with version switcher options
  */
 export interface ProductDownloadsViewContentProps {
-	pageContent: ProductDownloadsViewProps['pageContent']
-	releases: ProductDownloadsViewProps['releases']
-	versionSwitcherOptions: VersionContextSwitcherProps['options']
+  pageContent: ProductDownloadsViewProps['pageContent']
+  releases: ProductDownloadsViewProps['releases']
+  versionSwitcherOptions: VersionContextSwitcherProps['options']
 }
 
 /**
  * Type for static props returned from generateStaticProps
  */
 export interface ProductDownloadsViewStaticProps extends GeneratedProps {
-	pageContent: ProductDownloadsViewProps['pageContent']
+  pageContent: ProductDownloadsViewProps['pageContent']
 }
 
 /**
@@ -73,10 +73,10 @@ export interface ProductDownloadsViewStaticProps extends GeneratedProps {
  */
 
 export interface GroupedPackageManagers {
-	[os: string]: PackageManager[]
+  [os: string]: PackageManager[]
 }
 export interface SortedReleases {
-	[os: string]: {
-		[arch: string]: string
-	}
+  [os: string]: {
+    [arch: string]: string
+  }
 }

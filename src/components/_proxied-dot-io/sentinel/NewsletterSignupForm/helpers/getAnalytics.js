@@ -14,35 +14,35 @@ import cookie from 'js-cookie'
  */
 
 function getAnalytics() {
-	if (typeof window === 'undefined') {
-		return {}
-	}
-	const qs = queryString.parse(window.location.search)
-	return {
-		utm_medium: qs.utm_medium || '',
-		utm_campaign: qs.utm_campaign || '',
-		utm_source: qs.utm_source || '',
-		utm_term: qs.utm_term || '',
-		utm_content: qs.utm_content || '',
-		ga_campaign_id: '',
-		leadSource: standardizeSource(qs.source),
-		ga_client_id: getGAClientId(),
-		munchkinCookie: cookie.get('_mkto_trk'),
-		form_page_url: window.location.toString(),
-	}
+  if (typeof window === 'undefined') {
+    return {}
+  }
+  const qs = queryString.parse(window.location.search)
+  return {
+    utm_medium: qs.utm_medium || '',
+    utm_campaign: qs.utm_campaign || '',
+    utm_source: qs.utm_source || '',
+    utm_term: qs.utm_term || '',
+    utm_content: qs.utm_content || '',
+    ga_campaign_id: '',
+    leadSource: standardizeSource(qs.source),
+    ga_client_id: getGAClientId(),
+    munchkinCookie: cookie.get('_mkto_trk'),
+    form_page_url: window.location.toString(),
+  }
 }
 
 function getGAClientId() {
-	return (cookie.get('_ga') || '').replace(/GA\d\.\d\./, '')
+  return (cookie.get('_ga') || '').replace(/GA\d\.\d\./, '')
 }
 
 function standardizeSource(sourceValue) {
-	switch (sourceValue) {
-		case 'linkedin':
-			return 'LinkedIn Paid'
-		default:
-			return 'Website'
-	}
+  switch (sourceValue) {
+    case 'linkedin':
+      return 'LinkedIn Paid'
+    default:
+      return 'Website'
+  }
 }
 
 export default getAnalytics

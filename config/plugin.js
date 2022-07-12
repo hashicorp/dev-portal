@@ -32,27 +32,27 @@ const { getHashiConfig } = require('./index')
  * See the test file at `./config/__tests__/index.test.js` for a more thorough example.
  */
 module.exports = function HashiConfigPlugin() {
-	const env = process.env.HASHI_ENV || 'development'
-	const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
-	const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
+  const env = process.env.HASHI_ENV || 'development'
+  const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
+  const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
 
-	return new webpack.DefinePlugin({
-		...Object.fromEntries(
-			Object.entries(getHashiConfig(envConfigPath)).map(([key]) => {
-				return [
-					`__config.${key}`,
-					webpack.DefinePlugin.runtimeValue(
-						() => {
-							return JSON.stringify(getHashiConfig(envConfigPath)[key])
-						},
-						/**
-						 * version is set to env here to ensure that webpack's persistent cache
-						 * does not cache the wrong config values across builds with different HASHI_ENV values
-						 */
-						{ fileDependencies: [envConfigPath, baseConfigPath], version: env }
-					),
-				]
-			})
-		),
-	})
+  return new webpack.DefinePlugin({
+    ...Object.fromEntries(
+      Object.entries(getHashiConfig(envConfigPath)).map(([key]) => {
+        return [
+          `__config.${key}`,
+          webpack.DefinePlugin.runtimeValue(
+            () => {
+              return JSON.stringify(getHashiConfig(envConfigPath)[key])
+            },
+            /**
+             * version is set to env here to ensure that webpack's persistent cache
+             * does not cache the wrong config values across builds with different HASHI_ENV values
+             */
+            { fileDependencies: [envConfigPath, baseConfigPath], version: env }
+          ),
+        ]
+      })
+    ),
+  })
 }

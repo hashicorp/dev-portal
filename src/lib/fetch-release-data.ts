@@ -4,41 +4,41 @@ import { ProductData } from 'types/products'
 import { makeFetchWithRetry } from './fetch-with-retry'
 
 export type OperatingSystem =
-	| 'darwin'
-	| 'freebsd'
-	| 'openbsd'
-	| 'netbsd'
-	| 'archlinux'
-	| 'linux'
-	| 'windows'
+  | 'darwin'
+  | 'freebsd'
+  | 'openbsd'
+  | 'netbsd'
+  | 'archlinux'
+  | 'linux'
+  | 'windows'
 
 export type Version = string
 
 export interface ReleaseVersion {
-	name: HashiCorpProduct
-	version: Version
-	shasums: string
-	shasums_signature: string
-	builds: {
-		name: HashiCorpProduct
-		version: Version
-		os: OperatingSystem
-		arch: string
-		filename: string
-		url: string
-	}[]
+  name: HashiCorpProduct
+  version: Version
+  shasums: string
+  shasums_signature: string
+  builds: {
+    name: HashiCorpProduct
+    version: Version
+    os: OperatingSystem
+    arch: string
+    filename: string
+    url: string
+  }[]
 }
 export interface ReleasesAPIResponse {
-	name: HashiCorpProduct
-	versions: {
-		[versionNumber: string]: ReleaseVersion
-	}
+  name: HashiCorpProduct
+  versions: {
+    [versionNumber: string]: ReleaseVersion
+  }
 }
 
 export interface GeneratedProps {
-	latestVersion: Version
-	product: ProductData | string
-	releases: ReleasesAPIResponse
+  latestVersion: Version
+  product: ProductData | string
+  releases: ReleasesAPIResponse
 }
 
 /**
@@ -54,15 +54,15 @@ const fetchWithRetry = makeFetchWithRetry(fetch, { retries: 3, delay: 1000 })
 const validSemverRegex = /^\d+\.\d+\.\d+$/
 
 export function getLatestVersionFromVersions(versions: string[]): string {
-	// exclude pre-releases and/or versions with tags or extra metadata
-	const validVersions = versions.filter((version) =>
-		version.match(validSemverRegex)
-	)
+  // exclude pre-releases and/or versions with tags or extra metadata
+  const validVersions = versions.filter((version) =>
+    version.match(validSemverRegex)
+  )
 
-	// using the reverse sort here to get the latest version first
-	const [latestVersion] = semverSort(validVersions)
+  // using the reverse sort here to get the latest version first
+  const [latestVersion] = semverSort(validVersions)
 
-	return latestVersion
+  return latestVersion
 }
 
 /**
@@ -72,45 +72,45 @@ export function getLatestVersionFromVersions(versions: string[]): string {
  * either will make merging the `assembly-ui-v1` branch into `main` easier.
  */
 export function generateStaticProps(
-	product: ProductData | string
+  product: ProductData | string
 ): Promise<{ props: GeneratedProps; revalidate: number }> {
-	let productSlug: string
-	if (typeof product === 'string') {
-		productSlug = product
-	} else if (typeof product === 'object') {
-		productSlug = product.slug
-	}
+  let productSlug: string
+  if (typeof product === 'string') {
+    productSlug = product
+  } else if (typeof product === 'object') {
+    productSlug = product.slug
+  }
 
-	return fetchWithRetry(
-		`https://releases.hashicorp.com/${productSlug}/index.json`,
-		{
-			headers: {
-				'Cache-Control': 'no-cache',
-			},
-		}
-	)
-		.then((res) => res.json())
-		.then((result) => {
-			const latestVersion = getLatestVersionFromVersions(
-				Object.keys(result.versions)
-			)
+  return fetchWithRetry(
+    `https://releases.hashicorp.com/${productSlug}/index.json`,
+    {
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    }
+  )
+    .then((res) => res.json())
+    .then((result) => {
+      const latestVersion = getLatestVersionFromVersions(
+        Object.keys(result.versions)
+      )
 
-			return {
-				// 5 minutes
-				revalidate: 300,
-				props: {
-					releases: result,
-					product,
-					latestVersion,
-				},
-			}
-		})
-		.catch(() => {
-			throw new Error(
-				`--------------------------------------------------------
+      return {
+        // 5 minutes
+        revalidate: 300,
+        props: {
+          releases: result,
+          product,
+          latestVersion,
+        },
+      }
+    })
+    .catch(() => {
+      throw new Error(
+        `--------------------------------------------------------
         Unable to resolve release data on releases.hashicorp.com from link
         <https://releases.hashicorp.com/${productSlug}/index.json>.
         ----------------------------------------------------------`
-			)
-		})
+      )
+    })
 }

@@ -9,17 +9,17 @@
  * will throw an error.
  */
 export default function clamp(
-	/** The number to clamp. */
-	num: number,
-	/** The minimum allowable value. */
-	min: number,
-	/** The maximum allowable value. */
-	max: number
+  /** The number to clamp. */
+  num: number,
+  /** The minimum allowable value. */
+  min: number,
+  /** The maximum allowable value. */
+  max: number
 ): number {
-	if (min > max) {
-		throw new Error(
-			'clamp was provided a min value greater than its max value. Please ensure the min value is less than or equal to the max value.'
-		)
-	}
-	return Math.min(Math.max(num, min), max)
+  if (min > max) {
+    throw new Error(
+      'clamp was provided a min value greater than its max value. Please ensure the min value is less than or equal to the max value.'
+    )
+  }
+  return Math.min(Math.max(num, min), max)
 }

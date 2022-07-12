@@ -10,8 +10,8 @@
  * @returns
  */
 function isAbsoluteUrl(string: string): boolean {
-	const regex = /^[a-zA-Z][a-zA-Z\d+\-.]*:/
-	return regex.test(string)
+  const regex = /^[a-zA-Z][a-zA-Z\d+\-.]*:/
+  return regex.test(string)
 }
 
 export default isAbsoluteUrl

@@ -8,16 +8,16 @@ const baseName = 'Intro'
 const product = terraformData as ProductData
 /**
  * TODO: productSlug should possibly actually be `terraform`,
- * but https://content.hashicorp.com/api/content/terraform/version-metadata?partial=true
+ * but https://mktg-content-api.vercel.app/api/content/terraform/version-metadata?partial=true
  * does not return any version with "isLatest: true"
  */
 const productSlugForLoader = 'terraform-website'
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-	product,
-	productSlugForLoader,
-	basePath,
-	baseName,
+  product,
+  productSlugForLoader,
+  basePath,
+  baseName,
 })
 
 export { getStaticPaths, getStaticProps }

@@ -11,41 +11,41 @@ import { splitProductFromFilename } from '.'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 
 export async function serializeContent(tutorial: ClientTutorial): Promise<{
-	content: MDXRemoteSerializeResult
-	headings: TableOfContentsHeading[]
+  content: MDXRemoteSerializeResult
+  headings: TableOfContentsHeading[]
 }> {
-	const video = tutorial?.video
-	//  add `video` to MDX scope if the video is being displayed inline
-	const scope = video?.videoInline
-		? {
-				video: getVideoUrl({
-					videoId: video.id,
-					videoHost: video.videoHost,
-				}),
-		  }
-		: {}
+  const video = tutorial?.video
+  //  add `video` to MDX scope if the video is being displayed inline
+  const scope = video?.videoInline
+    ? {
+        video: getVideoUrl({
+          videoId: video.id,
+          videoHost: video.videoHost,
+        }),
+      }
+    : {}
 
-	const tutorialFilename = splitProductFromFilename(tutorial.slug)
-	// @TODO ask EDU if thats a problem, removing the overview
-	const headings: TableOfContentsHeading[] = [
-		{ title: tutorial.name, slug: tutorialFilename, level: 1 },
-	]
+  const tutorialFilename = splitProductFromFilename(tutorial.slug)
+  // @TODO ask EDU if thats a problem, removing the overview
+  const headings: TableOfContentsHeading[] = [
+    { title: tutorial.name, slug: tutorialFilename, level: 1 },
+  ]
 
-	const content = await serialize(tutorial.content, {
-		scope,
-		mdxOptions: {
-			remarkPlugins: [
-				[anchorLinks, { headings }],
-				paragraphCustomAlerts,
-				rewriteStaticAssetsPlugin,
-				rewriteTutorialLinksPlugin,
-			],
-			rehypePlugins: [
-				[rehypePrism, { ignoreMissing: true }],
-				rehypeSurfaceCodeNewlines,
-			],
-		},
-	})
+  const content = await serialize(tutorial.content, {
+    scope,
+    mdxOptions: {
+      remarkPlugins: [
+        [anchorLinks, { headings }],
+        paragraphCustomAlerts,
+        rewriteStaticAssetsPlugin,
+        rewriteTutorialLinksPlugin,
+      ],
+      rehypePlugins: [
+        [rehypePrism, { ignoreMissing: true }],
+        rehypeSurfaceCodeNewlines,
+      ],
+    },
+  })
 
-	return { content, headings }
+  return { content, headings }
 }

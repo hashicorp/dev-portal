@@ -5,19 +5,19 @@ import OpenApiPage from '@hashicorp/react-open-api-page'
 import { isDeployPreview } from 'lib/env-checks'
 import fetchGithubFile from 'lib/fetch-github-file'
 import {
-	getPathsFromSchema,
-	getPropsForPage,
+  getPathsFromSchema,
+  getPropsForPage,
 } from '@hashicorp/react-open-api-page/server'
 import {
-	processSchemaString,
-	processSchemaFile,
+  processSchemaString,
+  processSchemaFile,
 } from '@hashicorp/react-open-api-page/process-schema'
 
 const targetFile = {
-	owner: 'hashicorp',
-	repo: 'boundary',
-	path: 'internal/gen/controller.swagger.json',
-	ref: 'stable-website',
+  owner: 'hashicorp',
+  repo: 'boundary',
+  path: 'internal/gen/controller.swagger.json',
+  ref: 'stable-website',
 }
 // The path to read from when running local preview in the context of the boundary repository
 const targetLocalFile = '../../internal/gen/controller.swagger.json'
@@ -25,38 +25,38 @@ const targetLocalFile = '../../internal/gen/controller.swagger.json'
 const pathFromRoot = 'api-docs'
 
 function OpenApiDocsPage(props) {
-	return (
-		<OpenApiPage
-			{...props}
-			productName={productData.name}
-			productSlug={productData.slug}
-			baseRoute={pathFromRoot}
-		/>
-	)
+  return (
+    <OpenApiPage
+      {...props}
+      productName={productData.name}
+      productSlug={productData.slug}
+      baseRoute={pathFromRoot}
+    />
+  )
 }
 
 export async function getStaticPaths() {
-	let schema
-	if (isDeployPreview()) {
-		schema = await processSchemaFile(targetLocalFile)
-	} else {
-		const swaggerFile = await fetchGithubFile(targetFile)
-		schema = await processSchemaString(swaggerFile)
-	}
-	const paths = getPathsFromSchema(schema)
-	return { paths, fallback: false }
+  let schema
+  if (isDeployPreview()) {
+    schema = await processSchemaFile(targetLocalFile)
+  } else {
+    const swaggerFile = await fetchGithubFile(targetFile)
+    schema = await processSchemaString(swaggerFile)
+  }
+  const paths = getPathsFromSchema(schema)
+  return { paths, fallback: false }
 }
 
 export async function getStaticProps({ params }) {
-	let schema
-	if (isDeployPreview()) {
-		schema = await processSchemaFile(targetLocalFile)
-	} else {
-		const swaggerFile = await fetchGithubFile(targetFile)
-		schema = await processSchemaString(swaggerFile)
-	}
-	const props = getPropsForPage(schema, params)
-	return { props }
+  let schema
+  if (isDeployPreview()) {
+    schema = await processSchemaFile(targetLocalFile)
+  } else {
+    const swaggerFile = await fetchGithubFile(targetFile)
+    schema = await processSchemaString(swaggerFile)
+  }
+  const props = getPropsForPage(schema, params)
+  return { props }
 }
 
 OpenApiDocsPage.layout = BoundaryIoLayout

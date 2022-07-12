@@ -1,8 +1,8 @@
 import { useErrorPageAnalytics } from '@hashicorp/react-error-view'
 import {
-	ErrorViewContainer,
-	ErrorViewH1,
-	ErrorViewParagraph,
+  ErrorViewContainer,
+  ErrorViewH1,
+  ErrorViewParagraph,
 } from '../components'
 
 /**
@@ -10,16 +10,16 @@ import {
  * Intended to handle any statusCode that is not 404.
  */
 export function DevDotFallback({ statusCode }: { statusCode: $TSFixMe }) {
-	useErrorPageAnalytics(statusCode)
+  useErrorPageAnalytics(statusCode)
 
-	return (
-		<ErrorViewContainer>
-			<ErrorViewH1>Something went wrong.</ErrorViewH1>
-			<ErrorViewParagraph>
-				We&apos;re sorry, but the requested page isn&apos;t available right now.
-				We&apos;ve logged this as an error, and will look into it. Please check
-				back soon.
-			</ErrorViewParagraph>
-		</ErrorViewContainer>
-	)
+  return (
+    <ErrorViewContainer>
+      <ErrorViewH1>Something went wrong.</ErrorViewH1>
+      <ErrorViewParagraph>
+        We&apos;re sorry, but the requested page isn&apos;t available right now.
+        We&apos;ve logged this as an error, and will look into it. Please check
+        back soon.
+      </ErrorViewParagraph>
+    </ErrorViewContainer>
+  )
 }

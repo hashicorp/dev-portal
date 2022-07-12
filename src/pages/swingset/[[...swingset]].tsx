@@ -12,25 +12,25 @@ import SwingsetColorToken from '__swingset-components/swingset-color-token'
 import SwingsetTestIcon from '__swingset-components/swingset-test-icon'
 
 const components = {
-	InstruqtProvider,
-	Search,
-	SearchProvider,
-	TabProvider,
-	SwingsetColorToken,
-	SwingsetTestIcon,
+  InstruqtProvider,
+  Search,
+  SearchProvider,
+  TabProvider,
+  SwingsetColorToken,
+  SwingsetTestIcon,
 }
 
 const SwingsetPage = createPage({ components })
 
 const SwingsetLayout = ({ children }) => {
-	return (
-		// SidebarNavDataProvider is needed for the Sidebar docs to work
-		<CoreDevDotLayout>
-			<SidebarNavDataProvider navDataLevels={[]}>
-				{children}
-			</SidebarNavDataProvider>
-		</CoreDevDotLayout>
-	)
+  return (
+    // SidebarNavDataProvider is needed for the Sidebar docs to work
+    <CoreDevDotLayout>
+      <SidebarNavDataProvider navDataLevels={[]}>
+        {children}
+      </SidebarNavDataProvider>
+    </CoreDevDotLayout>
+  )
 }
 
 SwingsetPage.layout = SwingsetLayout

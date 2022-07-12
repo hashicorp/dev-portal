@@ -11,23 +11,23 @@ import s from './navigation-disclosure-link.module.css'
  * @see https://developer.hashi-mktg.com/swingset/components/navigationdisclosure
  */
 const NavigationDisclosureLink = ({
-	children,
-	className,
-	href,
-	isActive,
+  children,
+  className,
+  href,
+  isActive,
 }: NavigationDisclosureLinkProps) => {
-	let ariaCurrent: JSX.IntrinsicElements['a']['aria-current']
-	if (isActive) {
-		ariaCurrent = 'page'
-	}
+  let ariaCurrent: JSX.IntrinsicElements['a']['aria-current']
+  if (isActive) {
+    ariaCurrent = 'page'
+  }
 
-	return (
-		<Link href={href}>
-			<a aria-current={ariaCurrent} className={classNames(s.root, className)}>
-				{children}
-			</a>
-		</Link>
-	)
+  return (
+    <Link href={href}>
+      <a aria-current={ariaCurrent} className={classNames(s.root, className)}>
+        {children}
+      </a>
+    </Link>
+  )
 }
 
 export type { NavigationDisclosureLinkProps }

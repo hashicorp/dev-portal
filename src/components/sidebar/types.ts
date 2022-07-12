@@ -11,91 +11,91 @@ import { SidebarMobileControlsProps } from './components/sidebar-mobile-controls
  */
 
 interface DividerNavItem {
-	divider: boolean
+  divider: boolean
 }
 
 interface HeadingNavItem {
-	heading: string
+  heading: string
 }
 
 interface BaseNavItem {
-	hidden?: boolean
-	title: string
+  hidden?: boolean
+  title: string
 }
 
 interface RawSubmenuNavItem extends BaseNavItem {
-	routes: RawSidebarNavItem[]
+  routes: RawSidebarNavItem[]
 }
 
 interface RawInternalLinkNavItem extends BaseNavItem {
-	path: string
+  path: string
 }
 
 interface RawExternalLinkNavItem extends BaseNavItem {
-	href: string
+  href: string
 }
 
 // LinkNavItems should have either path or href, but not both
 interface RawLinkNavItem
-	extends RawInternalLinkNavItem,
-		RawExternalLinkNavItem {}
+  extends RawInternalLinkNavItem,
+    RawExternalLinkNavItem {}
 
 // The main, general nav item type
 type RawSidebarNavItem =
-	| DividerNavItem
-	| HeadingNavItem
-	| RawSubmenuNavItem
-	| RawLinkNavItem
+  | DividerNavItem
+  | HeadingNavItem
+  | RawSubmenuNavItem
+  | RawLinkNavItem
 
 /**
  * Interfaces for enriched nav items without filtering via the filter input
  */
 
 interface EnrichedSubmenuNavItem extends RawSubmenuNavItem {
-	id: string
-	routes: EnrichedNavItem[]
+  id: string
+  routes: EnrichedNavItem[]
 }
 
 interface EnrichedLinkNavItem extends RawLinkNavItem {
-	fullPath: string
-	isActive: boolean
-	id: string
+  fullPath: string
+  isActive: boolean
+  id: string
 }
 
 type EnrichedNavItem =
-	| DividerNavItem
-	| HeadingNavItem
-	| EnrichedSubmenuNavItem
-	| EnrichedLinkNavItem
+  | DividerNavItem
+  | HeadingNavItem
+  | EnrichedSubmenuNavItem
+  | EnrichedLinkNavItem
 
 /**
  * Interfaces for nav items that have had meta data added to them by Sidebar
  */
 interface SubmenuNavItemWithMetaData extends EnrichedSubmenuNavItem {
-	hasActiveChild: boolean
-	routes: NavItemWithMetaData[]
+  hasActiveChild: boolean
+  routes: NavItemWithMetaData[]
 }
 
 interface LinkNavItemWithMetaData extends EnrichedLinkNavItem {
-	isActive: boolean
+  isActive: boolean
 }
 
 type NavItemWithMetaData =
-	| DividerNavItem
-	| HeadingNavItem
-	| SubmenuNavItemWithMetaData
-	| LinkNavItemWithMetaData
+  | DividerNavItem
+  | HeadingNavItem
+  | SubmenuNavItemWithMetaData
+  | LinkNavItemWithMetaData
 
 /**
  * Interfaces for nav items that have been filtered via the filter input
  */
 interface FilteredSubmenuNavItem extends EnrichedSubmenuNavItem {
-	hasChildrenMatchingFilter: boolean
-	routes: FilteredNavItem[]
+  hasChildrenMatchingFilter: boolean
+  routes: FilteredNavItem[]
 }
 
 interface FilteredLinkNavItem extends EnrichedLinkNavItem {
-	matchesFilter: boolean
+  matchesFilter: boolean
 }
 
 type FilteredNavItem = FilteredSubmenuNavItem | FilteredLinkNavItem
@@ -107,57 +107,57 @@ type FilteredNavItem = FilteredSubmenuNavItem | FilteredLinkNavItem
  *
  */
 interface MenuItem {
-	divider?: boolean
-	fullPath?: string
-	hasActiveChild?: boolean
-	hasChildrenMatchingFilter?: boolean
-	href?: string
-	id?: string
-	isActive?: boolean
-	matchesFilter?: boolean
-	path?: string
-	routes?: MenuItem[]
-	title?: string
-	/* Temporary solution to allow rendering of unlinked headings, as in designs */
-	heading?: string
+  divider?: boolean
+  fullPath?: string
+  hasActiveChild?: boolean
+  hasChildrenMatchingFilter?: boolean
+  href?: string
+  id?: string
+  isActive?: boolean
+  matchesFilter?: boolean
+  path?: string
+  routes?: MenuItem[]
+  title?: string
+  /* Temporary solution to allow rendering of unlinked headings, as in designs */
+  heading?: string
 }
 
 interface SidebarBaseProps {
-	/**
-	 * Optional props to send to `SidebarBackToLink` which is displayed at the top
-	 * of the sidebar. If this prop is omitted, `SidebarBackToLink` will not be
-	 * rendered.
-	 */
-	backToLinkProps?: SidebarBackToLinkProps
+  /**
+   * Optional props to send to `SidebarBackToLink` which is displayed at the top
+   * of the sidebar. If this prop is omitted, `SidebarBackToLink` will not be
+   * rendered.
+   */
+  backToLinkProps?: SidebarBackToLinkProps
 
-	/**
-	 * Props to pass to `SidebarMobileControls`. See the referenced interface for
-	 * full details.
-	 */
-	levelButtonProps?: SidebarMobileControlsProps
+  /**
+   * Props to pass to `SidebarMobileControls`. See the referenced interface for
+   * full details.
+   */
+  levelButtonProps?: SidebarMobileControlsProps
 
-	/**
-	 * Optional href for the Overview menu item that shows at the top of the
-	 * Sidebar <nav>. Sidebar will only show this menu item if this prop is
-	 * provided.
-	 */
-	overviewItemHref?: string
+  /**
+   * Optional href for the Overview menu item that shows at the top of the
+   * Sidebar <nav>. Sidebar will only show this menu item if this prop is
+   * provided.
+   */
+  overviewItemHref?: string
 
-	/**
-	 * Whether or not the Sidebar should render the filter text input.
-	 */
-	showFilterInput?: boolean
+  /**
+   * Whether or not the Sidebar should render the filter text input.
+   */
+  showFilterInput?: boolean
 
-	/**
-	 * Text to be shown as the title of the sidebar.
-	 */
-	title: string
+  /**
+   * Text to be shown as the title of the sidebar.
+   */
+  title: string
 
-	/**
-	 * Optional. If true, the title of the sidebar will be visually hidden using
-	 * the `.g-screen-reader-only` global CSS helper class.
-	 */
-	visuallyHideTitle?: boolean
+  /**
+   * Optional. If true, the title of the sidebar will be visually hidden using
+   * the `.g-screen-reader-only` global CSS helper class.
+   */
+  visuallyHideTitle?: boolean
 }
 
 /**
@@ -174,25 +174,25 @@ interface SidebarBaseProps {
  * support either prop.
  */
 type SidebarContentProps =
-	| {
-			children: ReactNode
-			menuItems?: never
-	  }
-	| {
-			children?: never
-			menuItems: EnrichedNavItem[]
-	  }
+  | {
+      children: ReactNode
+      menuItems?: never
+    }
+  | {
+      children?: never
+      menuItems: EnrichedNavItem[]
+    }
 
 type SidebarProps = SidebarBaseProps & SidebarContentProps
 
 export type {
-	EnrichedLinkNavItem,
-	EnrichedNavItem,
-	EnrichedSubmenuNavItem,
-	FilteredNavItem,
-	LinkNavItemWithMetaData,
-	MenuItem,
-	NavItemWithMetaData,
-	SidebarProps,
-	SubmenuNavItemWithMetaData,
+  EnrichedLinkNavItem,
+  EnrichedNavItem,
+  EnrichedSubmenuNavItem,
+  FilteredNavItem,
+  LinkNavItemWithMetaData,
+  MenuItem,
+  NavItemWithMetaData,
+  SidebarProps,
+  SubmenuNavItemWithMetaData,
 }

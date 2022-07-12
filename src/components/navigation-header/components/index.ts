@@ -6,10 +6,10 @@ import PrimaryNavSubmenu from './primary-nav-submenu'
 import ProductPageHeaderContent from './product-page-content'
 
 export {
-	GiveFeedbackButton,
-	HomePageHeaderContent,
-	NavigationHeaderDropdownMenu,
-	PrimaryNavLink,
-	PrimaryNavSubmenu,
-	ProductPageHeaderContent,
+  GiveFeedbackButton,
+  HomePageHeaderContent,
+  NavigationHeaderDropdownMenu,
+  PrimaryNavLink,
+  PrimaryNavSubmenu,
+  ProductPageHeaderContent,
 }

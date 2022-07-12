@@ -15,30 +15,30 @@ import { TutorialData } from '..'
  * isn't in beta yet.
  */
 export function getCanonicalCollectionSlug(
-	tutorial: TutorialData,
-	currentProductSlug: LearnProductData['slug']
+  tutorial: TutorialData,
+  currentProductSlug: LearnProductData['slug']
 ): string {
-	// check if default has a beta product
-	const defaultCollectionProduct = splitProductFromFilename(
-		tutorial.collectionCtx.default.slug
-	) as ProductSlug
-	const defaultIsInBeta = getIsBetaProduct(defaultCollectionProduct)
+  // check if default has a beta product
+  const defaultCollectionProduct = splitProductFromFilename(
+    tutorial.collectionCtx.default.slug
+  ) as ProductSlug
+  const defaultIsInBeta = getIsBetaProduct(defaultCollectionProduct)
 
-	if (defaultIsInBeta) {
-		return tutorial.collectionCtx.default.slug
-	} else {
-		// find the first collection that is in beta within 'featured collections'
-		const firstInBetaFeaturedCollection =
-			tutorial.collectionCtx.featuredIn?.find(
-				(collection: CollectionCardPropsWithId) => {
-					return collection.dbSlug.startsWith(currentProductSlug)
-				}
-			)
+  if (defaultIsInBeta) {
+    return tutorial.collectionCtx.default.slug
+  } else {
+    // find the first collection that is in beta within 'featured collections'
+    const firstInBetaFeaturedCollection =
+      tutorial.collectionCtx.featuredIn?.find(
+        (collection: CollectionCardPropsWithId) => {
+          return collection.dbSlug.startsWith(currentProductSlug)
+        }
+      )
 
-		// fallback to the current collection if the featured collections aren't defined
-		return (
-			firstInBetaFeaturedCollection?.dbSlug ||
-			tutorial.collectionCtx.current.slug
-		)
-	}
+    // fallback to the current collection if the featured collections aren't defined
+    return (
+      firstInBetaFeaturedCollection?.dbSlug ||
+      tutorial.collectionCtx.current.slug
+    )
+  }
 }

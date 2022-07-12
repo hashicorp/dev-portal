@@ -8,13 +8,13 @@ import { TabProps } from './types'
  * for the component via TypeScript.
  */
 const Tab = (props: TabProps): ReactElement => {
-	console.error(
-		`It looks like you are trying to render a \`Tab\` without placing it in a \`Tabs\` component. The \`Tab\` component does not render anything on its own. It must be used within \`Tabs\`. See \`Tab\` with props: ${JSON.stringify(
-			props
-		)}.`
-	)
+  console.error(
+    `It looks like you are trying to render a \`Tab\` without placing it in a \`Tabs\` component. The \`Tab\` component does not render anything on its own. It must be used within \`Tabs\`. See \`Tab\` with props: ${JSON.stringify(
+      props
+    )}.`
+  )
 
-	return null
+  return null
 }
 
 export type { TabProps }

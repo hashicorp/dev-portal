@@ -4,13 +4,13 @@ import { generateStaticProps } from 'views/product-landing/server'
 import { ProductData } from 'types/products'
 
 export async function getStaticProps() {
-	const contentJsonFile = 'src/data/packer-landing.json'
-	const product = packerData as ProductData
+  const contentJsonFile = 'src/data/packer-landing.json'
+  const product = packerData as ProductData
 
-	return {
-		props: await generateStaticProps({ product, contentJsonFile }),
-		revalidate: 10,
-	}
+  return {
+    props: await generateStaticProps({ product, contentJsonFile }),
+    revalidate: 10,
+  }
 }
 
 export default ProductLandingView

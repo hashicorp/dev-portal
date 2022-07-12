@@ -2,17 +2,17 @@ import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
 import SecurityView from 'views/_proxied-dot-io/security'
 
 function SecurityPage(): React.ReactElement {
-	return (
-		<SecurityView
-			productName="Boundary"
-			githubUrl="https://www.github.com/hashicorp/boundary"
-		/>
-	)
+  return (
+    <SecurityView
+      productName="Boundary"
+      githubUrl="https://www.github.com/hashicorp/boundary"
+    />
+  )
 }
 
 export function getStaticProps() {
-	// This function intentionally left blank to allow Next to use SSG.
-	return { props: {} }
+  // This function intentionally left blank to allow Next to use SSG.
+  return { props: {} }
 }
 
 SecurityPage.layout = BoundaryIoLayout

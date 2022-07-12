@@ -26,122 +26,122 @@ import Text from 'components/text'
 import s from './product-nav.module.css'
 
 const productIcons: {
-	[key in ProductSlug]: {
-		neutral: ReactElement
-		color: ReactElement
-	}
+  [key in ProductSlug]: {
+    neutral: ReactElement
+    color: ReactElement
+  }
 } = {
-	hcp: {
-		neutral: <IconHashicorp24 />,
-		color: <IconHashicorpColor24 />,
-	},
-	sentinel: {
-		neutral: <IconHashicorp24 />,
-		color: <IconHashicorpColor24 />,
-	},
-	terraform: {
-		neutral: <IconTerraform24 />,
-		color: <IconTerraformColor24 />,
-	},
-	packer: {
-		neutral: <IconPacker24 />,
-		color: <IconPackerColor24 />,
-	},
-	consul: {
-		neutral: <IconConsul24 />,
-		color: <IconConsulColor24 />,
-	},
-	vault: {
-		neutral: <IconVault24 />,
-		color: <IconVaultColor24 />,
-	},
-	boundary: {
-		neutral: <IconBoundary24 />,
-		color: <IconBoundaryColor24 />,
-	},
-	nomad: {
-		neutral: <IconNomad24 />,
-		color: <IconNomadColor24 />,
-	},
-	waypoint: {
-		neutral: <IconWaypoint24 />,
-		color: <IconWaypointColor24 />,
-	},
-	vagrant: {
-		neutral: <IconVagrant24 />,
-		color: <IconVagrantColor24 />,
-	},
+  hcp: {
+    neutral: <IconHashicorp24 />,
+    color: <IconHashicorpColor24 />,
+  },
+  sentinel: {
+    neutral: <IconHashicorp24 />,
+    color: <IconHashicorpColor24 />,
+  },
+  terraform: {
+    neutral: <IconTerraform24 />,
+    color: <IconTerraformColor24 />,
+  },
+  packer: {
+    neutral: <IconPacker24 />,
+    color: <IconPackerColor24 />,
+  },
+  consul: {
+    neutral: <IconConsul24 />,
+    color: <IconConsulColor24 />,
+  },
+  vault: {
+    neutral: <IconVault24 />,
+    color: <IconVaultColor24 />,
+  },
+  boundary: {
+    neutral: <IconBoundary24 />,
+    color: <IconBoundaryColor24 />,
+  },
+  nomad: {
+    neutral: <IconNomad24 />,
+    color: <IconNomadColor24 />,
+  },
+  waypoint: {
+    neutral: <IconWaypoint24 />,
+    color: <IconWaypointColor24 />,
+  },
+  vagrant: {
+    neutral: <IconVagrant24 />,
+    color: <IconVagrantColor24 />,
+  },
 }
 
 interface ProductNavProps {
-	notice?: string
-	products: Array<ProductSlug>
+  notice?: string
+  products: Array<ProductSlug>
 }
 
 export default function ProductNav({ notice, products }: ProductNavProps) {
-	return (
-		<div className={s.productNav}>
-			{notice ? (
-				<div className={s.notice}>
-					<Text size={200} className={s.noticeText}>
-						{notice}
-					</Text>
-				</div>
-			) : null}
-			<nav className={s.nav}>
-				<ul className={s.list}>
-					{products.map((product, index) => {
-						const isBetaProduct = getIsBetaProduct(product)
-						const productName =
-							product === 'hcp' ? 'HCP' : productSlugsToNames[product]
-						const productBorderColor =
-							product === 'hcp' ? 'var(--black)' : `var(--${product})`
-						const productClassName = classNames(s.product, {
-							[s.isFirstChild]: index == 0,
-							[s.isLastChild]: index == products.length - 1,
-						})
-						return (
-							<li
-								className={s.listItem}
-								key={product}
-								style={
-									{
-										'--border-color': productBorderColor,
-									} as CSSProperties
-								}
-							>
-								{isBetaProduct ? (
-									<Link href={`/${product}/`}>
-										<a className={productClassName}>
-											{productIcons[product].color}
-											<Text
-												weight="semibold"
-												size={200}
-												className={s.productName}
-												asElement="span"
-											>
-												{productName}
-											</Text>
-										</a>
-									</Link>
-								) : (
-									<span className={productClassName}>
-										{productIcons[product].neutral}
-										<Text
-											weight="semibold"
-											size={200}
-											className={s.productName}
-											asElement="span"
-										>
-											{productName}
-										</Text>
-									</span>
-								)}
-							</li>
-						)
-					})}
-				</ul>
-			</nav>
-		</div>
-	)
+  return (
+    <div className={s.productNav}>
+      {notice ? (
+        <div className={s.notice}>
+          <Text size={200} className={s.noticeText}>
+            {notice}
+          </Text>
+        </div>
+      ) : null}
+      <nav className={s.nav}>
+        <ul className={s.list}>
+          {products.map((product, index) => {
+            const isBetaProduct = getIsBetaProduct(product)
+            const productName =
+              product === 'hcp' ? 'HCP' : productSlugsToNames[product]
+            const productBorderColor =
+              product === 'hcp' ? 'var(--black)' : `var(--${product})`
+            const productClassName = classNames(s.product, {
+              [s.isFirstChild]: index == 0,
+              [s.isLastChild]: index == products.length - 1,
+            })
+            return (
+              <li
+                className={s.listItem}
+                key={product}
+                style={
+                  {
+                    '--border-color': productBorderColor,
+                  } as CSSProperties
+                }
+              >
+                {isBetaProduct ? (
+                  <Link href={`/${product}/`}>
+                    <a className={productClassName}>
+                      {productIcons[product].color}
+                      <Text
+                        weight="semibold"
+                        size={200}
+                        className={s.productName}
+                        asElement="span"
+                      >
+                        {productName}
+                      </Text>
+                    </a>
+                  </Link>
+                ) : (
+                  <span className={productClassName}>
+                    {productIcons[product].neutral}
+                    <Text
+                      weight="semibold"
+                      size={200}
+                      className={s.productName}
+                      asElement="span"
+                    >
+                      {productName}
+                    </Text>
+                  </span>
+                )}
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
+    </div>
+  )
 }

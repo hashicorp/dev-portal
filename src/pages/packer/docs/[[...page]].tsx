@@ -9,10 +9,10 @@ const product = packerData as ProductData
 const mainBranch = 'master'
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-	product,
-	basePath,
-	baseName,
-	mainBranch,
+  product,
+  basePath,
+  baseName,
+  mainBranch,
 })
 
 export { getStaticProps, getStaticPaths }

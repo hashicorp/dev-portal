@@ -6,39 +6,39 @@ import { get, toError } from '../../index'
 import { TUTORIAL_API_ROUTE } from '.'
 
 export interface ApiTutorialFullCollectionCtx
-	extends Omit<ApiTutorial, 'featured_collections'> {
-	featured_collections: ApiCollection[]
+  extends Omit<ApiTutorial, 'featured_collections'> {
+  featured_collections: ApiCollection[]
 }
 
 // Featured Collections are augmented to the base tutorial
 export async function augmentTutorial(
-	tutorial: ApiTutorial
+  tutorial: ApiTutorial
 ): Promise<ApiTutorialFullCollectionCtx> {
-	const featured_collections = await getFeaturedCollections(tutorial.id)
-	const tutorialClone = Object.assign({}, tutorial)
-	delete tutorialClone.featured_collections
+  const featured_collections = await getFeaturedCollections(tutorial.id)
+  const tutorialClone = Object.assign({}, tutorial)
+  delete tutorialClone.featured_collections
 
-	return {
-		...tutorialClone,
-		featured_collections,
-	}
+  return {
+    ...tutorialClone,
+    featured_collections,
+  }
 }
 
 // featured collections are accessed via another route
 async function getFeaturedCollections(
-	idOrSlug: identifier
+  idOrSlug: identifier
 ): Promise<ApiCollection[]> {
-	const identifier = formatIdentifier(idOrSlug)
+  const identifier = formatIdentifier(idOrSlug)
 
-	// /tutorials/:id/collections
-	const route = path.join(TUTORIAL_API_ROUTE, `${identifier}/collections`)
-	const featuredCollectionsRes = await get(route)
+  // /tutorials/:id/collections
+  const route = path.join(TUTORIAL_API_ROUTE, `${identifier}/collections`)
+  const featuredCollectionsRes = await get(route)
 
-	if (featuredCollectionsRes.ok) {
-		const res = await featuredCollectionsRes.json()
-		return res.result
-	}
+  if (featuredCollectionsRes.ok) {
+    const res = await featuredCollectionsRes.json()
+    return res.result
+  }
 
-	const error = await toError(featuredCollectionsRes)
-	throw error
+  const error = await toError(featuredCollectionsRes)
+  throw error
 }

@@ -43,43 +43,43 @@ const PROXIED_PRODUCT = getProxiedProductSlug()
 const productsToProxy = Object.keys(proxySettings)
 /** @type {Redirect[]} */
 const dotIoRewrites = productsToProxy.reduce((acc, slug) => {
-	const routesToProxy = proxySettings[slug].routesToProxy
-	// If we're trying to test this product in dev,
-	// then we'll apply the rewrites without a host condition
-	const proxyRewrites = routesToProxy.map(({ proxiedRoute, localRoute }) => {
-		const rewrite = {
-			source: proxiedRoute,
-			destination: localRoute,
-		}
-		if (slug !== PROXIED_PRODUCT) {
-			rewrite.has = [
-				{
-					type: 'host',
-					value: proxySettings[slug].host,
-				},
-			]
-		}
+  const routesToProxy = proxySettings[slug].routesToProxy
+  // If we're trying to test this product in dev,
+  // then we'll apply the rewrites without a host condition
+  const proxyRewrites = routesToProxy.map(({ proxiedRoute, localRoute }) => {
+    const rewrite = {
+      source: proxiedRoute,
+      destination: localRoute,
+    }
+    if (slug !== PROXIED_PRODUCT) {
+      rewrite.has = [
+        {
+          type: 'host',
+          value: proxySettings[slug].host,
+        },
+      ]
+    }
 
-		// To enable previewing of .io sites, we accept an io_preview cookie which must have a value matching a product slug
-		if (isPreview()) {
-			rewrite.has = [
-				{
-					type: 'cookie',
-					key: 'io_preview',
-					value: slug,
-				},
-			]
-		}
+    // To enable previewing of .io sites, we accept an io_preview cookie which must have a value matching a product slug
+    if (isPreview()) {
+      rewrite.has = [
+        {
+          type: 'cookie',
+          key: 'io_preview',
+          value: slug,
+        },
+      ]
+    }
 
-		return rewrite
-	})
-	return acc.concat(proxyRewrites)
+    return rewrite
+  })
+  return acc.concat(proxyRewrites)
 }, [])
 
 async function rewritesConfig() {
-	return {
-		beforeFiles: [...dotIoRewrites],
-	}
+  return {
+    beforeFiles: [...dotIoRewrites],
+  }
 }
 
 module.exports = rewritesConfig

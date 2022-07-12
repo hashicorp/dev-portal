@@ -16,9 +16,9 @@ import { useCurrentProduct, useIsBetaProduct } from 'contexts'
 
 // Local imports
 import {
-	NavigationHeaderDropdownMenu,
-	PrimaryNavLink,
-	PrimaryNavSubmenu,
+  NavigationHeaderDropdownMenu,
+  PrimaryNavLink,
+  PrimaryNavSubmenu,
 } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './product-page-content.module.css'
@@ -29,10 +29,10 @@ import s from './product-page-content.module.css'
  * codebase.
  */
 const PRODUCT_PAGE_NAV_ITEMS = [
-	{ label: 'Home', pathSuffix: '' },
-	{ label: 'Documentation', id: 'documentation', isSubmenu: true },
-	{ label: 'Tutorials', pathSuffix: 'tutorials' },
-	{ label: 'Install', pathSuffix: 'downloads' },
+  { label: 'Home', pathSuffix: '' },
+  { label: 'Documentation', id: 'documentation', isSubmenu: true },
+  { label: 'Tutorials', pathSuffix: 'tutorials' },
+  { label: 'Install', pathSuffix: 'downloads' },
 ]
 
 /**
@@ -40,117 +40,117 @@ const PRODUCT_PAGE_NAV_ITEMS = [
  * the headers under `/{productSlug}` pages.
  */
 const PRODUCT_SLUGS_TO_LOGOS = {
-	vault: VaultLogo,
-	waypoint: WaypointLogo,
+  vault: VaultLogo,
+  waypoint: WaypointLogo,
 }
 
 const ProductPageHeaderContent = () => {
-	const currentProduct = useCurrentProduct()
-	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const isBetaProduct = useIsBetaProduct(currentProduct.slug)
-	const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
-	const isProductHomePage = currentPath === `/${currentProduct.slug}`
-	const companyLogo = (
-		<InlineSvg className={s.companyLogo} src={HashiCorpLogo} />
-	)
+  const currentProduct = useCurrentProduct()
+  const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+  const isBetaProduct = useIsBetaProduct(currentProduct.slug)
+  const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
+  const isProductHomePage = currentPath === `/${currentProduct.slug}`
+  const companyLogo = (
+    <InlineSvg className={s.companyLogo} src={HashiCorpLogo} />
+  )
 
-	// Build menu items
-	const betaProductItems = []
-	const comingSoonProductItems = []
-	Object.keys(productSlugsToNames).forEach((productSlug: ProductSlug) => {
-		// Exclude Sentinel for now
-		if (productSlug === 'sentinel') {
-			return
-		}
+  // Build menu items
+  const betaProductItems = []
+  const comingSoonProductItems = []
+  Object.keys(productSlugsToNames).forEach((productSlug: ProductSlug) => {
+    // Exclude Sentinel for now
+    if (productSlug === 'sentinel') {
+      return
+    }
 
-		// Generate properties of each menu item
-		const icon = productSlug
-		const label = productSlugsToNames[productSlug]
-		const path = `/${productSlug}`
+    // Generate properties of each menu item
+    const icon = productSlug
+    const label = productSlugsToNames[productSlug]
+    const path = `/${productSlug}`
 
-		// Push the menu item to the correct array
-		if (getIsBetaProduct(productSlug)) {
-			betaProductItems.push({
-				icon,
-				label,
-				path,
-			})
-		} else {
-			comingSoonProductItems.push({
-				ariaLabel: `Coming soon: ${label}`,
-				icon,
-				label,
-			})
-		}
-	})
-	const homeMenuItem = {
-		// TODO as string was not accepted
-		icon: 'home' as $TSFixMe,
-		label: 'HashiCorp Developer',
-		path: '/',
-		badge: {
-			text: 'Beta',
-			color: 'highlight' as const,
-		},
-	}
-	const allMainMenuItems = [
-		{ items: [homeMenuItem] },
-		{ items: betaProductItems, label: 'Products' },
-		{ items: comingSoonProductItems, label: 'Coming Soon' },
-	]
+    // Push the menu item to the correct array
+    if (getIsBetaProduct(productSlug)) {
+      betaProductItems.push({
+        badge: {
+          text: 'Beta',
+          color: 'highlight',
+        },
+        icon,
+        label,
+        path,
+      })
+    } else {
+      comingSoonProductItems.push({
+        ariaLabel: `Coming soon: ${label}`,
+        icon,
+        label,
+      })
+    }
+  })
+  const homeMenuItem = {
+    // TODO as string was not accepted
+    icon: 'home' as $TSFixMe,
+    label: 'HashiCorp Developer',
+    path: '/',
+  }
+  const allMainMenuItems = [
+    { items: [homeMenuItem] },
+    { items: betaProductItems, label: 'Products' },
+    { items: comingSoonProductItems, label: 'Coming Soon' },
+  ]
 
-	return (
-		<div className={sharedNavStyles.leftSide}>
-			<div className={sharedNavStyles.contentBeforeNav}>
-				<div className="g-hide-on-mobile g-hide-on-tablet">
-					<NavigationHeaderDropdownMenu
-						ariaLabel="Main menu"
-						buttonClassName={s.companyLogoMenuButton}
-						dropdownClassName={s.companyLogoMenuButtonDropdown}
-						itemGroups={allMainMenuItems}
-						leadingIcon={companyLogo}
-					/>
-				</div>
-				<Link href={`/${currentProduct.slug}`}>
-					<a
-						aria-current={isProductHomePage ? 'page' : undefined}
-						aria-label={`${currentProduct.name} home`}
-						className={s.productLogoLink}
-					>
-						<InlineSvg
-							className={sharedNavStyles.productLogo}
-							src={productLogo}
-						/>
-					</a>
-				</Link>
-			</div>
-			{isBetaProduct && (
-				<div className="g-hide-on-mobile g-hide-on-tablet">
-					<nav className={sharedNavStyles.nav}>
-						<ul className={sharedNavStyles.navList}>
-							{PRODUCT_PAGE_NAV_ITEMS.map((navItem) => {
-								const { isSubmenu, label } = navItem
-								const ariaLabel = `${currentProduct.name} ${label}`
+  return (
+    <div className={sharedNavStyles.leftSide}>
+      <div className={sharedNavStyles.contentBeforeNav}>
+        <div className="g-hide-on-mobile g-hide-on-tablet">
+          <NavigationHeaderDropdownMenu
+            ariaLabel="Main menu"
+            buttonClassName={s.companyLogoMenuButton}
+            dropdownClassName={s.companyLogoMenuButtonDropdown}
+            itemGroups={allMainMenuItems}
+            leadingIcon={companyLogo}
+          />
+        </div>
+        <Link href={`/${currentProduct.slug}`}>
+          <a
+            aria-current={isProductHomePage ? 'page' : undefined}
+            aria-label={`${currentProduct.name} home`}
+            className={s.productLogoLink}
+          >
+            <InlineSvg
+              className={sharedNavStyles.productLogo}
+              src={productLogo}
+            />
+          </a>
+        </Link>
+      </div>
+      {isBetaProduct && (
+        <div className="g-hide-on-mobile g-hide-on-tablet">
+          <nav className={sharedNavStyles.nav}>
+            <ul className={sharedNavStyles.navList}>
+              {PRODUCT_PAGE_NAV_ITEMS.map((navItem) => {
+                const { isSubmenu, label } = navItem
+                const ariaLabel = `${currentProduct.name} ${label}`
 
-								let ItemContent
-								if (isSubmenu) {
-									ItemContent = PrimaryNavSubmenu
-								} else {
-									ItemContent = PrimaryNavLink
-								}
+                let ItemContent
+                if (isSubmenu) {
+                  ItemContent = PrimaryNavSubmenu
+                } else {
+                  ItemContent = PrimaryNavLink
+                }
 
-								return (
-									<li key={label}>
-										<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
-									</li>
-								)
-							})}
-						</ul>
-					</nav>
-				</div>
-			)}
-		</div>
-	)
+                return (
+                  <li key={label}>
+                    <ItemContent ariaLabel={ariaLabel} navItem={navItem} />
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default ProductPageHeaderContent

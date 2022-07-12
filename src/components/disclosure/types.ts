@@ -8,47 +8,47 @@ type NativeDivProps = JSX.IntrinsicElements['div']
  * open/closed state of the `Disclosure`.
  */
 type GenerateContainerClassName = (
-	isOpen: boolean
+  isOpen: boolean
 ) => NativeDivProps['className']
 
 interface DisclosureProps {
-	/**
-	 * The content of the Disclosure. Expects one `DisclosureActivator` and then
-	 * one `DisclosureContent`.
-	 */
-	children: ReactElement[]
+  /**
+   * The content of the Disclosure. Expects one `DisclosureActivator` and then
+   * one `DisclosureContent`.
+   */
+  children: ReactElement[]
 
-	/**
-	 * Whether or not the `useOnClickOutside` hook should be enabled. Is not
-	 * enabled by default.
-	 */
-	closeOnClickOutside?: boolean
+  /**
+   * Whether or not the `useOnClickOutside` hook should be enabled. Is not
+   * enabled by default.
+   */
+  closeOnClickOutside?: boolean
 
-	/**
-	 * Whether or not the `useOnFocusOutside` hook should be enabled. Is not
-	 * enabled by default.
-	 */
-	closeOnFocusOutside?: boolean
+  /**
+   * Whether or not the `useOnFocusOutside` hook should be enabled. Is not
+   * enabled by default.
+   */
+  closeOnFocusOutside?: boolean
 
-	/**
-	 * Optional className or callback function for generating a className.
-	 */
-	containerClassName?: NativeDivProps['className'] | GenerateContainerClassName
+  /**
+   * Optional className or callback function for generating a className.
+   */
+  containerClassName?: NativeDivProps['className'] | GenerateContainerClassName
 
-	/**
-	 * Optional boolean that can be used to render the `Disclosure` in the open
-	 * state on initial load.
-	 */
-	initialOpen?: boolean
+  /**
+   * Optional boolean that can be used to render the `Disclosure` in the open
+   * state on initial load.
+   */
+  initialOpen?: boolean
 }
 
 interface DisclosureContextState {
-	closeDisclosure: () => void
-	contentContainerId: string
-	isOpen: boolean
-	openDisclosure: () => void
-	toggleDisclosure: () => void
-	uniqueId: string
+  closeDisclosure: () => void
+  contentContainerId: string
+  isOpen: boolean
+  openDisclosure: () => void
+  toggleDisclosure: () => void
+  uniqueId: string
 }
 
 export type { DisclosureContextState, DisclosureProps }

@@ -1,6 +1,6 @@
 import {
-	Collection as ClientCollection,
-	ProductOption,
+  Collection as ClientCollection,
+  ProductOption,
 } from 'lib/learn-client/types'
 
 /**
@@ -11,27 +11,27 @@ import {
  */
 
 export function filterCollections(
-	collections: ClientCollection[],
-	theme: ProductOption
+  collections: ClientCollection[],
+  theme: ProductOption
 ) {
-	return collections.filter(
-		(c: ClientCollection) => c.theme === theme && !c.slug.includes('onboarding')
-	)
+  return collections.filter(
+    (c: ClientCollection) => c.theme === theme && !c.slug.includes('onboarding')
+  )
 }
 
 export function sortAlphabetically(
-	property: keyof Pick<ClientCollection, 'shortName' | 'name'>
+  property: keyof Pick<ClientCollection, 'shortName' | 'name'>
 ) {
-	return (a: ClientCollection, b: ClientCollection) => {
-		const A = a[property].toUpperCase()
-		const B = b[property].toUpperCase()
+  return (a: ClientCollection, b: ClientCollection) => {
+    const A = a[property].toUpperCase()
+    const B = b[property].toUpperCase()
 
-		if (A < B) {
-			return -1
-		}
-		if (A > B) {
-			return 1
-		}
-		return 0
-	}
+    if (A < B) {
+      return -1
+    }
+    if (A > B) {
+      return 1
+    }
+    return 0
+  }
 }

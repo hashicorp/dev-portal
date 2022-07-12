@@ -1,5 +1,5 @@
 {
-	"devDependencies": {
-		"json-refs": "^2.1.6"
-	}
+  "devDependencies": {
+    "json-refs": "^2.1.6"
+  }
 }

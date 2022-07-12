@@ -16,11 +16,11 @@ import s from './sidebar-headings.module.css'
  * See example 2 here: https://www.w3.org/WAI/tutorials/page-structure/headings/
  */
 const SidebarTitleHeading = ({ id, text }: SidebarTitleHeadingProps) => {
-	return (
-		<h2 className={s.root} id={id}>
-			{text}
-		</h2>
-	)
+  return (
+    <h2 className={s.root} id={id}>
+      {text}
+    </h2>
+  )
 }
 
 /**
@@ -31,7 +31,7 @@ const SidebarTitleHeading = ({ id, text }: SidebarTitleHeadingProps) => {
  * entire Sidebar.
  */
 const SidebarSectionHeading = ({ text }: SidebarSectionHeadingProps) => {
-	return <h3 className={s.root}>{text}</h3>
+  return <h3 className={s.root}>{text}</h3>
 }
 
 export { SidebarSectionHeading, SidebarTitleHeading }

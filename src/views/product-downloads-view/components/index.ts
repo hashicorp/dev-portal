@@ -13,9 +13,9 @@ import PageHeader from './page-header'
 import SidecarMarketingCard from './sidecar-marketing-card'
 
 export {
-	DownloadsSection,
-	FeaturedTutorialsSection,
-	OfficialReleasesSection,
-	PageHeader,
-	SidecarMarketingCard,
+  DownloadsSection,
+  FeaturedTutorialsSection,
+  OfficialReleasesSection,
+  PageHeader,
+  SidecarMarketingCard,
 }

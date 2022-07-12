@@ -11,72 +11,72 @@ This is a rough cut at a Popover component. This implementation is largely dupli
 `theme="light"`
 
 <>
-	{(() => {
-		const [showDialog, setShowDialog] = React.useState(false)
-		const triggerRef = React.useRef(null)
-		return (
-			<>
-				<button ref={triggerRef} onClick={() => setShowDialog(!showDialog)}>
-					Show an example popover
-				</button>
-				<Popover
-					theme="light"
-					triggerRef={triggerRef}
-					shown={showDialog}
-					setIsShown={setShowDialog}
-				>
-					Hello popover content.
-				</Popover>
-			</>
-		)
-	})()}
+  {(() => {
+    const [showDialog, setShowDialog] = React.useState(false)
+    const triggerRef = React.useRef(null)
+    return (
+      <>
+        <button ref={triggerRef} onClick={() => setShowDialog(!showDialog)}>
+          Show an example popover
+        </button>
+        <Popover
+          theme="light"
+          triggerRef={triggerRef}
+          shown={showDialog}
+          setIsShown={setShowDialog}
+        >
+          Hello popover content.
+        </Popover>
+      </>
+    )
+  })()}
 </>
 
 `theme="dark"`
 
 <>
-	{(() => {
-		const [showDialog, setShowDialog] = React.useState(false)
-		const triggerRef = React.useRef(null)
-		return (
-			<>
-				<button ref={triggerRef} onClick={() => setShowDialog(!showDialog)}>
-					Show an example popover
-				</button>
-				<Popover
-					theme="dark"
-					triggerRef={triggerRef}
-					shown={showDialog}
-					setIsShown={setShowDialog}
-				>
-					<span style={{ color: 'white' }}>Hello popover content.</span>
-				</Popover>
-			</>
-		)
-	})()}
+  {(() => {
+    const [showDialog, setShowDialog] = React.useState(false)
+    const triggerRef = React.useRef(null)
+    return (
+      <>
+        <button ref={triggerRef} onClick={() => setShowDialog(!showDialog)}>
+          Show an example popover
+        </button>
+        <Popover
+          theme="dark"
+          triggerRef={triggerRef}
+          shown={showDialog}
+          setIsShown={setShowDialog}
+        >
+          <span style={{ color: 'white' }}>Hello popover content.</span>
+        </Popover>
+      </>
+    )
+  })()}
 </>
 
 Custom background color
 
 <>
-	{(() => {
-		const [showDialog, setShowDialog] = React.useState(false)
-		const triggerRef = React.useRef(null)
-		return (
-			<>
-				<button ref={triggerRef} onClick={() => setShowDialog(!showDialog)}>
-					Show an example popover
-				</button>
-				<Popover
-					theme="light"
-					themeBackground="#F7D5FF"
-					triggerRef={triggerRef}
-					shown={showDialog}
-					setIsShown={setShowDialog}
-				>
-					<span style={{ color: '#6B0F81' }}>Hello popover content.</span>
-				</Popover>
-			</>
-		)
-	})()}
+  {(() => {
+    const [showDialog, setShowDialog] = React.useState(false)
+    const triggerRef = React.useRef(null)
+    return (
+      <>
+        <button ref={triggerRef} onClick={() => setShowDialog(!showDialog)}>
+          Show an example popover
+        </button>
+        <Popover
+          theme="light"
+          themeBackground="#F7D5FF"
+          triggerRef={triggerRef}
+          shown={showDialog}
+          setIsShown={setShowDialog}
+        >
+          <span style={{ color: '#6B0F81' }}>Hello popover content.</span>
+        </Popover>
+      </>
+    )
+  })()}
 </>

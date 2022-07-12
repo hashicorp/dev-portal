@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import {
-	DisclosureActivator,
-	DisclosureActivatorForwardedRef,
+  DisclosureActivator,
+  DisclosureActivatorForwardedRef,
 } from 'components/disclosure'
 import { NavigationDisclosureActivatorProps } from './types'
 
@@ -17,20 +17,20 @@ import { NavigationDisclosureActivatorProps } from './types'
  */
 // eslint-disable-next-line react/display-name
 const NavigationDisclosureActivator = forwardRef(
-	(
-		{ ariaLabel, children, className }: NavigationDisclosureActivatorProps,
-		ref: DisclosureActivatorForwardedRef
-	) => {
-		return (
-			<DisclosureActivator
-				ariaLabel={ariaLabel}
-				className={className}
-				ref={ref}
-			>
-				{children}
-			</DisclosureActivator>
-		)
-	}
+  (
+    { ariaLabel, children, className }: NavigationDisclosureActivatorProps,
+    ref: DisclosureActivatorForwardedRef
+  ) => {
+    return (
+      <DisclosureActivator
+        ariaLabel={ariaLabel}
+        className={className}
+        ref={ref}
+      >
+        {children}
+      </DisclosureActivator>
+    )
+  }
 )
 
 export type { NavigationDisclosureActivatorProps }

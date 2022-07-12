@@ -2,10 +2,10 @@ import { render } from '@testing-library/react'
 import VideoEmbed from '../'
 
 it('should render a root element with a `playerWrapper` class', () => {
-	const { container } = render(
-		<VideoEmbed url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
-	)
-	expect(container.firstChild).toHaveClass('playerWrapper')
+  const { container } = render(
+    <VideoEmbed url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
+  )
+  expect(container.firstChild).toHaveClass('playerWrapper')
 })
 
 /**

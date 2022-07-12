@@ -1,35 +1,13 @@
 {
-	"slug": "hcp",
-	"name": "HashiCorp Cloud Platform",
-	"algoliaConfig": {
-		"indexName": "product_HCP",
-		"searchOnlyApiKey": "1162c7d22059acafddb62badfdf68f35"
-	},
-	"basePaths": ["docs"],
-	"rootDocsPaths": [
-		{
-			"iconName": "docs",
-			"name": "General Documentation",
-			"path": "docs",
-			"shortName": "Documentation"
-		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/hcp" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/hcp"
-			}
-		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"label": "General Documentation",
-				"icon": "docs",
-				"pathSuffix": "docs"
-			}
-		]
-	}
+  "slug": "hcp",
+  "name": "HashiCorp Cloud Platform",
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/hcp" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/hcp"
+      }
+    ]
+  }
 }

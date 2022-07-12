@@ -5,20 +5,20 @@ import { MobileDownloadStandaloneLinkProps } from './types'
 import MobileStandaloneLink from 'components/mobile-standalone-link'
 
 const MobileDownloadStandaloneLink = ({
-	ariaLabel,
-	href,
-	onClick,
+  ariaLabel,
+  href,
+  onClick,
 }: MobileDownloadStandaloneLinkProps): ReactElement => (
-	<MobileStandaloneLink
-		ariaLabel={ariaLabel}
-		download
-		href={href}
-		size16Icon={<IconDownload16 />}
-		size24Icon={<IconDownload24 />}
-		iconPosition="trailing"
-		onClick={onClick}
-		text="Download"
-	/>
+  <MobileStandaloneLink
+    ariaLabel={ariaLabel}
+    download
+    href={href}
+    size16Icon={<IconDownload16 />}
+    size24Icon={<IconDownload24 />}
+    iconPosition="trailing"
+    onClick={onClick}
+    text="Download"
+  />
 )
 
 export default MobileDownloadStandaloneLink

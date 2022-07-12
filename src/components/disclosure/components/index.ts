@@ -1,12 +1,12 @@
 import DisclosureActivator, {
-	DisclosureActivatorForwardedRef,
-	DisclosureActivatorProps,
+  DisclosureActivatorForwardedRef,
+  DisclosureActivatorProps,
 } from './disclosure-activator'
 import DisclosureContent, { DisclosureContentProps } from './disclosure-content'
 
 export type {
-	DisclosureActivatorForwardedRef,
-	DisclosureActivatorProps,
-	DisclosureContentProps,
+  DisclosureActivatorForwardedRef,
+  DisclosureActivatorProps,
+  DisclosureContentProps,
 }
 export { DisclosureActivator, DisclosureContent }

@@ -7,13 +7,13 @@ import { useRouter } from 'next/router'
  * instance for use in a Next.js application. Leverages Next's router.
  */
 export const useAlgoliaNavigatorNext: <
-	THit extends Hit<unknown>
+  THit extends Hit<unknown>
 >() => AutocompleteOptions<THit>['navigator'] = () => {
-	const router = useRouter()
+  const router = useRouter()
 
-	return {
-		navigate({ itemUrl }) {
-			router.push(itemUrl)
-		},
-	}
+  return {
+    navigate({ itemUrl }) {
+      router.push(itemUrl)
+    },
+  }
 }

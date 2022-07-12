@@ -9,8 +9,11 @@
 
   @media (--dev-dot-tablet-up) {
     display: block;
-    margin-right: 16px;
   }
+}
+
+.pageHeaderText {
+  margin-left: 16px;
 }
 
 .pageHeaderTitle {

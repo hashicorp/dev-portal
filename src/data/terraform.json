@@ -1,28 +1,28 @@
 {
-	"slug": "terraform",
-	"name": "Terraform",
-	"basePaths": [
-		"cdktf",
-		"cli",
-		"cloud-docs",
-		"configuration",
-		"docs",
-		"enterprise",
-		"guides",
-		"internals",
-		"intro",
-		"language",
-		"plugin",
-		"registry"
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/terraform" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/terraform"
-			}
-		]
-	},
-	"navigationHeaderItems": {}
+  "slug": "terraform",
+  "name": "Terraform",
+  "basePaths": [
+    "cdktf",
+    "cli",
+    "cloud-docs",
+    "configuration",
+    "docs",
+    "enterprise",
+    "guides",
+    "internals",
+    "intro",
+    "language",
+    "plugin",
+    "registry"
+  ],
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/terraform" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/terraform"
+      }
+    ]
+  },
+  "navigationHeaderItems": {}
 }

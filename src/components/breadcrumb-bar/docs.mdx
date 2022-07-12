@@ -20,12 +20,12 @@ At present, we have a single helper function, which accepts Docs page props as a
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 
 const breadcrumbLinks = getDocsBreadcrumbs({
-	productPath: 'waypoint' /* product landing path, often the product slug */,
-	productName: 'Waypoint' /* link text to show for the productPath link */,
-	basePath /* basePath, eg "docs", as set in the page file */,
-	baseName: 'Docs' /* link text to be shown for the basePath link */,
-	pathParts: params.page || [] /* params from getStaticProps */,
-	navData: props.navData /* as returned by docs-page server utils */,
+  productPath: 'waypoint' /* product landing path, often the product slug */,
+  productName: 'Waypoint' /* link text to show for the productPath link */,
+  basePath /* basePath, eg "docs", as set in the page file */,
+  baseName: 'Docs' /* link text to be shown for the basePath link */,
+  pathParts: params.page || [] /* params from getStaticProps */,
+  navData: props.navData /* as returned by docs-page server utils */,
 })
 ```
 

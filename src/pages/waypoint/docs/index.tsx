@@ -5,9 +5,9 @@ import { generateGetStaticProps } from 'views/product-root-docs-path-landing/ser
 import pageContent from './content.json'
 
 const getStaticProps = generateGetStaticProps({
-	includeMDXSource: true,
-	pageContent,
-	product: waypointData as ProductData,
+  includeMDXSource: true,
+  pageContent,
+  product: waypointData as ProductData,
 })
 
 export { getStaticProps }

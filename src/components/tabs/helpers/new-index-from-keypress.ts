@@ -24,36 +24,36 @@ import deriveKeyEventState from 'lib/derive-key-event-state'
  * implementation is to retain the scrolling functionality of those keys.
  */
 function newIndexFromKeypress(
-	e: KeyboardEvent,
-	currentIndex: number,
-	tabsCount: number
+  e: KeyboardEvent,
+  currentIndex: number,
+  tabsCount: number
 ): number {
-	const { isArrowRightKey, isArrowLeftKey } = deriveKeyEventState(e)
-	const isFirstTab = currentIndex === 0
-	const isLastTab = currentIndex === tabsCount - 1
+  const { isArrowRightKey, isArrowLeftKey } = deriveKeyEventState(e)
+  const isFirstTab = currentIndex === 0
+  const isLastTab = currentIndex === tabsCount - 1
 
-	// Move focus to first tab
-	if (isArrowRightKey && isLastTab) {
-		return 0
-	}
+  // Move focus to first tab
+  if (isArrowRightKey && isLastTab) {
+    return 0
+  }
 
-	// Move focus to next tab
-	if (isArrowRightKey && !isLastTab) {
-		return currentIndex + 1
-	}
+  // Move focus to next tab
+  if (isArrowRightKey && !isLastTab) {
+    return currentIndex + 1
+  }
 
-	// Move focus to last tab
-	if (isArrowLeftKey && isFirstTab) {
-		return tabsCount - 1
-	}
+  // Move focus to last tab
+  if (isArrowLeftKey && isFirstTab) {
+    return tabsCount - 1
+  }
 
-	// Move focus to previous tab
-	if (isArrowLeftKey && !isFirstTab) {
-		return currentIndex - 1
-	}
+  // Move focus to previous tab
+  if (isArrowLeftKey && !isFirstTab) {
+    return currentIndex - 1
+  }
 
-	// Do not move focus
-	return currentIndex
+  // Do not move focus
+  return currentIndex
 }
 
 export default newIndexFromKeypress

@@ -1,4 +1,4 @@
 export interface HeadingBlockProps {
-	heading: string
-	headingSlug: string
+  heading: string
+  headingSlug: string
 }

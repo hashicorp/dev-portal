@@ -1,13 +1,13 @@
 fragment beforeAfterDiagramFields on SbcBeforeAfterDiagramRecord {
-	theme
-	beforeHeadline
-	beforeContent
-	beforeImage {
-		...imageFields
-	}
-	afterHeadline
-	afterContent
-	afterImage {
-		...imageFields
-	}
+  theme
+  beforeHeadline
+  beforeContent
+  beforeImage {
+    ...imageFields
+  }
+  afterHeadline
+  afterContent
+  afterImage {
+    ...imageFields
+  }
 }

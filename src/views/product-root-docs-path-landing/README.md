@@ -28,7 +28,7 @@ The following configuration:
 
 ```json
 {
-	"pageSubtitle": "Learn and develop your knowledge of Waypoint with these tutorials and code resources."
+  "pageSubtitle": "Learn and develop your knowledge of Waypoint with these tutorials and code resources."
 }
 ```
 
@@ -65,30 +65,30 @@ The following configuration:
 
 ```json
 {
-	"marketingContentBlocks": [
-		{
-			"type": "card-grid",
-			"title": "Secrets Management",
-			"description": "Centrally store, access, and deploy secrets across applications, systems, and infrastructure.",
-			"cards": [
-				{
-					"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-					"title": "KV Secrets Engine",
-					"url": "/vault/docs/secrets/kv"
-				},
-				{
-					"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-					"title": "Database Credentials",
-					"url": "/vault/docs/secrets/databases"
-				},
-				{
-					"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-					"title": "Kubernetes Secrets",
-					"url": "/vault/tutorials/kubernetes"
-				}
-			]
-		}
-	]
+  "marketingContentBlocks": [
+    {
+      "type": "card-grid",
+      "title": "Secrets Management",
+      "description": "Centrally store, access, and deploy secrets across applications, systems, and infrastructure.",
+      "cards": [
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "KV Secrets Engine",
+          "url": "/vault/docs/secrets/kv"
+        },
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "Database Credentials",
+          "url": "/vault/docs/secrets/databases"
+        },
+        {
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "title": "Kubernetes Secrets",
+          "url": "/vault/tutorials/kubernetes"
+        }
+      ]
+    }
+  ]
 }
 ```
 
@@ -174,8 +174,8 @@ Example usage:
 
 ```json
 {
-	"type": "section-heading",
-	"title": "Developers"
+  "type": "section-heading",
+  "title": "Developers"
 }
 ```
 

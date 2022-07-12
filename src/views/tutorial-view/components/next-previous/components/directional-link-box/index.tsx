@@ -9,31 +9,31 @@ import { DirectionalLinkBoxProps, DirectionOption } from './types'
 import s from './directional-link-box.module.css'
 
 const IconDict: { [k in DirectionOption]: typeof IconArrowRight16 } = {
-	next: IconArrowRight16,
-	previous: IconArrowLeft16,
-	final: IconSliders16,
+  next: IconArrowRight16,
+  previous: IconArrowLeft16,
+  final: IconSliders16,
 }
 
 function DirectionalLinkBox({
-	href,
-	label,
-	ariaLabel,
-	direction,
+  href,
+  label,
+  ariaLabel,
+  direction,
 }: DirectionalLinkBoxProps) {
-	const Icon = IconDict[direction]
+  const Icon = IconDict[direction]
 
-	return (
-		<CardLink
-			className={classNames(s.linkbox, s[`direction-${direction}`])}
-			href={href}
-			ariaLabel={ariaLabel}
-		>
-			<Icon className={classNames(s.icon, s[`direction-${direction}`])} />
-			<Text className={s.text} asElement="span" size={200} weight="medium">
-				{label}
-			</Text>
-		</CardLink>
-	)
+  return (
+    <CardLink
+      className={classNames(s.linkbox, s[`direction-${direction}`])}
+      href={href}
+      ariaLabel={ariaLabel}
+    >
+      <Icon className={classNames(s.icon, s[`direction-${direction}`])} />
+      <Text className={s.text} asElement="span" size={200} weight="medium">
+        {label}
+      </Text>
+    </CardLink>
+  )
 }
 
 export default DirectionalLinkBox

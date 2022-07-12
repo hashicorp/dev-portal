@@ -4,14 +4,14 @@ import { generateStaticProps } from 'lib/fetch-release-data'
 import baseProps from 'components/_proxied-dot-io/consul/downloads-props'
 
 function DownloadsPage({ product, releases, latestVersion }) {
-	return (
-		<ProductDownloadsPage
-			{...baseProps()}
-			product={product}
-			releases={releases}
-			latestVersion={latestVersion}
-		/>
-	)
+  return (
+    <ProductDownloadsPage
+      {...baseProps()}
+      product={product}
+      releases={releases}
+      latestVersion={latestVersion}
+    />
+  )
 }
 
 export const getStaticProps = () => generateStaticProps('consul')

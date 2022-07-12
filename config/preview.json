@@ -1,7 +1,7 @@
 {
-	"extends": "base",
-	"io_sites": {
-		"max_static_paths": 10
-	},
-	"flags": {}
+  "extends": "base",
+  "io_sites": {
+    "max_static_paths": 10
+  },
+  "flags": {}
 }

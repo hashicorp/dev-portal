@@ -30,56 +30,56 @@ const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
  * ref: https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes
  */
 function VaultDocsLandingPage({
-	frontMatter,
-	currentPath,
-	navData,
-	githubFileUrl,
-	versions,
+  frontMatter,
+  currentPath,
+  navData,
+  githubFileUrl,
+  versions,
 }: DocsPageProps['staticProps']): ReactElement {
-	return (
-		<DocsPageInner
-			canonicalUrl={frontMatter.canonical_url}
-			description={frontMatter.description}
-			githubFileUrl={githubFileUrl}
-			navData={navData}
-			currentPath={currentPath}
-			pageTitle={frontMatter.page_title}
-			product={product}
-			showEditPage={false}
-			showVersionSelect={enableVersionedDocs}
-			baseRoute={basePath}
-			versions={versions}
-			algoliaConfig={productData.algoliaConfig}
-			optInBanner={__config.flags.enable_io_beta_cta ? <DevDotOptIn /> : null}
-		>
-			<ProductDocsLanding content={PAGE_CONTENT} />
-		</DocsPageInner>
-	)
+  return (
+    <DocsPageInner
+      canonicalUrl={frontMatter.canonical_url}
+      description={frontMatter.description}
+      githubFileUrl={githubFileUrl}
+      navData={navData}
+      currentPath={currentPath}
+      pageTitle={frontMatter.page_title}
+      product={product}
+      showEditPage={false}
+      showVersionSelect={enableVersionedDocs}
+      baseRoute={basePath}
+      versions={versions}
+      algoliaConfig={productData.algoliaConfig}
+      optInBanner={__config.flags.enable_io_beta_cta ? <DevDotOptIn /> : null}
+    >
+      <ProductDocsLanding content={PAGE_CONTENT} />
+    </DocsPageInner>
+  )
 }
 
 const { getStaticProps: generatedGetStaticProps } =
-	getStaticGenerationFunctions(
-		enableVersionedDocs
-			? {
-					strategy: 'remote',
-					basePath,
-					fallback: 'blocking',
-					product: productData.slug,
-			  }
-			: {
-					strategy: 'fs',
-					localContentDir,
-					navDataFile,
-					localPartialsDir,
-					product: productData.slug,
-			  }
-	)
+  getStaticGenerationFunctions(
+    enableVersionedDocs
+      ? {
+          strategy: 'remote',
+          basePath,
+          fallback: 'blocking',
+          product: productData.slug,
+        }
+      : {
+          strategy: 'fs',
+          localContentDir,
+          navDataFile,
+          localPartialsDir,
+          product: productData.slug,
+        }
+  )
 
 // Export getStaticProps function
 const getStaticProps: GetStaticProps = async (context) => {
-	// Our generatedGetStaticProps expects params, so we gotta pass em,
-	// even though in this context we're not getting them from NextJS
-	return await generatedGetStaticProps({ ...context, params: { page: [] } })
+  // Our generatedGetStaticProps expects params, so we gotta pass em,
+  // even though in this context we're not getting them from NextJS
+  return await generatedGetStaticProps({ ...context, params: { page: [] } })
 }
 export { getStaticProps }
 

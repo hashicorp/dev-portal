@@ -2,15 +2,7 @@
 
 The `src/data/` directory contains all of the product data needed for various views in the app.
 
-Table of contents:
-
-1. [`<product slug>.json`](#1-product-slugjson)
-2. [`<product slug>-landing.json`](#2-product-slug-landingjson)
-3. [`<product slug>-install.json`](#3-product-slug-installjson)
-
----
-
-## 1. `<product slug>.json`
+## `<product slug>.json`
 
 The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views, including their .io site and Dev Portal pages.
 
@@ -47,18 +39,9 @@ See the `ProductSlug` type defined in [`types/products.ts`](/src/types/products.
 <details>
 <summary><code>basePaths</code></summary>
 
-🚧 DEPRECATED - this property is being replaced by the `rootDocsPaths` property. The new property is detailed in the next section. 🚧
+This is an array of strings representing all of the base documentation paths for a product. This array is used in when [preparing data for the sidebar](/src/layouts/sidebar-sidecar/utils/prepare-nav-data-for-client.ts), [adjusting `href`s client-size in `DocsAnchor`](/src/components/docs-anchor/index.tsx), and [adjusting URLs server-side with remark](/src/layouts/sidebar-sidecar/utils/product-url-adjusters.ts).
 
-</details>
-
-<!-- rootDocsPaths -->
-
-<details>
-<summary><code>rootDocsPaths</code></summary>
-
-This is an array of objects. Each object represents a "root docs path", or a section of documentation for a product. For example, Waypoint has 3 root docs paths: `/waypoint/commands`, `/waypoint/docs`, and `/waypoint/plugins`. Each object stores metadata for a root docs path.
-
-See the `RootDocsPath` interface for this property defined in [`types/products.ts`](/src/types/products.ts).
+See the type for this property defined in [`types/products.ts`](/src/types/products.ts).
 
 </details>
 
@@ -67,7 +50,41 @@ See the `RootDocsPath` interface for this property defined in [`types/products.t
 <details>
 <summary><code>sidebar</code></summary>
 
-🚧 DEPRECATED - this property is being replaced by the `rootDocsPaths` property. The new property is detailed in the previous section. 🚧
+This is an object with two properties at the time of writing. Both of these arrays contain `MenuItem` objects (defined in [`components/sidebar/types.ts`](/src/components/sidebar/types.ts)).
+
+- `landingPageNavData`: this is an array of items to show in the top of the sidebar in a product's landing page (`/boundary`, `/consul`, etc.).
+
+How to add different types of items:
+
+- To insert an internal link item, provide an object with the `fullPath` and `title` properties. Example:
+
+  ```json
+  {
+    "title": "Introduction",
+    "fullPath": "/waypoint/docs/intro"
+  }
+  ```
+
+- To insert an external link item (an external link icon is rendered next to it), provide an object with the `href` and `title` properties. Example:
+
+  ```json
+  {
+    "title": "Releases",
+    "href": "https://releases.hashicorp.com/waypoint/"
+  }
+  ```
+
+- To insert a heading in one of these arrays, an object with only a `heading` property is required. Example:
+
+  ```json
+  { "heading": "Resources" }
+  ```
+
+- To insert a horizontal divider in one of these arrays, the following object should be used:
+
+  ```json
+  { "divider": true }
+  ```
 
 </details>
 
@@ -76,13 +93,13 @@ See the `RootDocsPath` interface for this property defined in [`types/products.t
 <details>
 <summary><code>navigationHeaderItems</code></summary>
 
-This is an object of one property presently. The lone property is `"documentation"` and is an array of objects. Each object represents a navigation header item that renders under a disclosure in the navigation header.
+This is an array of objects used to populate the main navigation header at the top of every page for a product.
 
-See the `NavigationHeaderItem` interface property defined in [`types/products.ts`](/src/types/products.ts) for details on the properties needed for each object in the array.
+See the `NavigationHeaderItem` interface defined in [`components/navigation-header/types.ts`](/src/components/navigation-header/types.ts) for details on the properties needed for each object in the array.
 
 </details>
 
-## 2. `<product slug>-landing.json`
+## `<product slug>-landing.json`
 
 This file is only used in DevDot. It contains the data and content needed for each product's landing page (`/boundary`, `/consul`, etc.).
 
@@ -92,11 +109,11 @@ Our `<product slug>-landing.json` pages take a "block"-based authoring approach 
 
 ```json5
 {
-	heading: 'string',
-	subheading: 'string',
-	blocks: [
-		/* array of objects */
-	],
+  heading: 'string',
+  subheading: 'string',
+  blocks: [
+    /* array of objects */
+  ],
 }
 ```
 
@@ -113,11 +130,11 @@ Source:
 
 ```json5
 {
-	heading: 'Waypoint Documentation',
-	subheading: 'Use Waypoint to deliver a PaaS-like experience for Kubernetes, ECS, and other platforms.',
-	blocks: [
-		/* ... */
-	],
+  heading: 'Waypoint Documentation',
+  subheading: 'Use Waypoint to deliver a PaaS-like experience for Kubernetes, ECS, and other platforms.',
+  blocks: [
+    /* ... */
+  ],
 }
 ```
 
@@ -149,10 +166,10 @@ Example: `h2` with `300` size:
 
 ```json5
 {
-	type: 'heading',
-	heading: 'Featured Reference Docs',
-	level: 2,
-	size: 300,
+  type: 'heading',
+  heading: 'Featured Reference Docs',
+  level: 2,
+  size: 300,
 }
 ```
 
@@ -162,10 +179,10 @@ Example: `h2` with `400` size:
 
 ```json5
 {
-	type: 'heading',
-	heading: 'Explore Waypoint Documentation',
-	level: 2,
-	size: 400,
+  type: 'heading',
+  heading: 'Explore Waypoint Documentation',
+  level: 2,
+  size: 400,
 }
 ```
 
@@ -192,14 +209,14 @@ Example: Waypoint `"get_started"` block
 
 ```json5
 {
-	type: 'get_started',
-	product: 'waypoint',
-	heading: 'Introduction to Waypoint',
-	text: 'Welcome to Waypoint! This introduction section covers what Waypoint is, the problem Waypoint aims to solve, and how Waypoint compares to other software.',
-	link: {
-		text: 'Get Started',
-		url: '/waypoint/docs/intro',
-	},
+  type: 'get_started',
+  product: 'waypoint',
+  heading: 'Introduction to Waypoint',
+  text: 'Welcome to Waypoint! This introduction section covers what Waypoint is, the problem Waypoint aims to solve, and how Waypoint compares to other software.',
+  link: {
+    text: 'Get Started',
+    url: '/waypoint/docs/intro',
+  },
 }
 ```
 
@@ -235,34 +252,34 @@ Example: 2-column cards with icons
 
 ```json5
 {
-	type: 'cards',
-	columns: 2,
-	cards: [
-		{
-			icon: 'IconDocs',
-			heading: 'Waypoint Reference Documentation',
-			text: 'Learn and develop your knowledge of Waypoint with these tutorials and code resources.',
-			url: '/waypoint/docs',
-		},
-		{
-			icon: 'IconTerminal',
-			heading: 'Waypoint CLI',
-			text: 'Waypoint is controlled via a very easy to use command-line interface (CLI).',
-			url: '/waypoint/commands',
-		},
-		{
-			icon: 'IconBox',
-			heading: 'Waypoint Plugins',
-			text: 'Waypoint uses a plugin architecture to provide its build, registry, deploy, and release abilities.',
-			url: '/waypoint/plugins',
-		},
-		{
-			icon: 'IconDownload',
-			heading: 'Waypoint Downloads',
-			text: 'Please download the proper package for your operating system and architecture.',
-			url: '/waypoint/downloads',
-		},
-	],
+  type: 'cards',
+  columns: 2,
+  cards: [
+    {
+      icon: 'IconDocs',
+      heading: 'Waypoint Reference Documentation',
+      text: 'Learn and develop your knowledge of Waypoint with these tutorials and code resources.',
+      url: '/waypoint/docs',
+    },
+    {
+      icon: 'IconTerminal',
+      heading: 'Waypoint CLI',
+      text: 'Waypoint is controlled via a very easy to use command-line interface (CLI).',
+      url: '/waypoint/commands',
+    },
+    {
+      icon: 'IconBox',
+      heading: 'Waypoint Plugins',
+      text: 'Waypoint uses a plugin architecture to provide its build, registry, deploy, and release abilities.',
+      url: '/waypoint/plugins',
+    },
+    {
+      icon: 'IconDownload',
+      heading: 'Waypoint Downloads',
+      text: 'Please download the proper package for your operating system and architecture.',
+      url: '/waypoint/downloads',
+    },
+  ],
 }
 ```
 
@@ -272,46 +289,46 @@ Example: 3-column cards with tags
 
 ```json5
 {
-	type: 'cards',
-	columns: 3,
-	cards: [
-		{
-			heading: 'Introduction to Waypoint',
-			text: 'Deploying applications in the DevOps landscape can be confusing with so many...',
-			tags: ['video', 'waypoint'],
-			url: 'https://learn.hashicorp.com/tutorials/waypoint/get-started-intro',
-		},
-		{
-			heading: 'Get Started - Kubernetes',
-			text: 'Build, deploy, and release applications to a Kubernetes cluster.',
-			tags: ['video', 'waypoint'],
-			url: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
-		},
-		{
-			heading: 'Get Started - Nomad',
-			text: 'Build, deploy, and release applications to a Nomad cluster.',
-			tags: ['video', 'waypoint'],
-			url: 'https://learn.hashicorp.com/collections/waypoint/get-started-nomad',
-		},
-		{
-			heading: 'Get Started - Docker',
-			text: 'Start using Waypoint in only a few minutes on a local Docker instance.',
-			tags: ['video', 'waypoint'],
-			url: 'https://learn.hashicorp.com/tutorials/waypoint/get-started-docker',
-		},
-		{
-			heading: 'Deploy an Application to AWS Elastic Container',
-			text: 'Run a NodeJS application onto AWS elastic container Service...',
-			tags: ['video', 'waypoint'],
-			url: 'https://learn.hashicorp.com/tutorials/waypoint/aws-ecs',
-		},
-		{
-			heading: 'Deploy an Application to Google Cloud Run',
-			text: 'Run an application on Google Cloud Run with Waypoint',
-			tags: ['video', 'waypoint'],
-			url: 'https://learn.hashicorp.com/tutorials/waypoint/google-cloud-run',
-		},
-	],
+  type: 'cards',
+  columns: 3,
+  cards: [
+    {
+      heading: 'Introduction to Waypoint',
+      text: 'Deploying applications in the DevOps landscape can be confusing with so many...',
+      tags: ['video', 'waypoint'],
+      url: 'https://learn.hashicorp.com/tutorials/waypoint/get-started-intro',
+    },
+    {
+      heading: 'Get Started - Kubernetes',
+      text: 'Build, deploy, and release applications to a Kubernetes cluster.',
+      tags: ['video', 'waypoint'],
+      url: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
+    },
+    {
+      heading: 'Get Started - Nomad',
+      text: 'Build, deploy, and release applications to a Nomad cluster.',
+      tags: ['video', 'waypoint'],
+      url: 'https://learn.hashicorp.com/collections/waypoint/get-started-nomad',
+    },
+    {
+      heading: 'Get Started - Docker',
+      text: 'Start using Waypoint in only a few minutes on a local Docker instance.',
+      tags: ['video', 'waypoint'],
+      url: 'https://learn.hashicorp.com/tutorials/waypoint/get-started-docker',
+    },
+    {
+      heading: 'Deploy an Application to AWS Elastic Container',
+      text: 'Run a NodeJS application onto AWS elastic container Service...',
+      tags: ['video', 'waypoint'],
+      url: 'https://learn.hashicorp.com/tutorials/waypoint/aws-ecs',
+    },
+    {
+      heading: 'Deploy an Application to Google Cloud Run',
+      text: 'Run an application on Google Cloud Run with Waypoint',
+      tags: ['video', 'waypoint'],
+      url: 'https://learn.hashicorp.com/tutorials/waypoint/google-cloud-run',
+    },
+  ],
 }
 ```
 
@@ -319,7 +336,7 @@ Example: 3-column cards with tags
 
 </details>
 
-## 3. `<product slug>-install.json`
+## `<product slug>-install.json`
 
 This file is only used in DevDot. It contains the data and content needed for each product's downloads page (`/boundary/downloads`, `/consul/downloads`, etc.). There are four possible data properties that can be provided at the highest level: `doesNotHavePackageManagers`, `featuredTutorials`, `packageManagerOverrides`, and `sidebarMarketingCard`.
 
@@ -334,7 +351,7 @@ Example usage:
 
 ```json
 {
-	"doesNotHavePackageManagers": true
+  "doesNotHavePackageManagers": true
 }
 ```
 
@@ -366,13 +383,13 @@ Example usage showing an override for macOS Homebrew:
 
 ```json
 {
-	"packageManagerOverrides": [
-		{
-			"label": "Homebrew",
-			"commands": ["brew install vagrant"],
-			"os": "darwin"
-		}
-	]
+  "packageManagerOverrides": [
+    {
+      "label": "Homebrew",
+      "commands": ["brew install vagrant"],
+      "os": "darwin"
+    }
+  ]
 }
 ```
 

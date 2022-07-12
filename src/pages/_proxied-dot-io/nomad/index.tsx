@@ -14,160 +14,160 @@ import s from './home/home.module.css'
 import NomadIoLayout from 'layouts/_proxied-dot-io/nomad'
 
 export default function Homepage({ data }): React.ReactElement {
-	const {
-		seo,
-		heroHeading,
-		heroDescription,
-		heroCtas,
-		heroCards,
-		introHeading,
-		introDescription,
-		introFeatures,
-		introVideo,
-		inPracticeHeading,
-		inPracticeDescription,
-		inPracticeCards,
-		inPracticeCtaHeading,
-		inPracticeCtaDescription,
-		inPracticeCtaLink,
-		inPracticeCtaImage,
-		useCasesHeading,
-		useCasesDescription,
-		useCasesCards,
-		caseStudiesHeading,
-		caseStudiesDescription,
-		caseStudiesFeatured,
-		caseStudiesLinks,
-		callToActionHeading,
-		callToActionDescription,
-		callToActionCtas,
-		preFooterHeading,
-		preFooterDescription,
-		preFooterCtas,
-	} = data
-	const _introVideo = introVideo[0]
+  const {
+    seo,
+    heroHeading,
+    heroDescription,
+    heroCtas,
+    heroCards,
+    introHeading,
+    introDescription,
+    introFeatures,
+    introVideo,
+    inPracticeHeading,
+    inPracticeDescription,
+    inPracticeCards,
+    inPracticeCtaHeading,
+    inPracticeCtaDescription,
+    inPracticeCtaLink,
+    inPracticeCtaImage,
+    useCasesHeading,
+    useCasesDescription,
+    useCasesCards,
+    caseStudiesHeading,
+    caseStudiesDescription,
+    caseStudiesFeatured,
+    caseStudiesLinks,
+    callToActionHeading,
+    callToActionDescription,
+    callToActionCtas,
+    preFooterHeading,
+    preFooterDescription,
+    preFooterCtas,
+  } = data
+  const _introVideo = introVideo[0]
 
-	return (
-		<>
-			<Head>{renderMetaTags(seo)}</Head>
+  return (
+    <>
+      <Head>{renderMetaTags(seo)}</Head>
 
-			<IoHomeHero
-				pattern="/nomad/img/home-hero-pattern.svg"
-				brand="nomad"
-				heading={heroHeading}
-				description={heroDescription}
-				ctas={heroCtas}
-				cards={heroCards.map((card) => {
-					return {
-						...card,
-						cta: card.cta[0],
-					}
-				})}
-			/>
+      <IoHomeHero
+        pattern="/nomad/img/home-hero-pattern.svg"
+        brand="nomad"
+        heading={heroHeading}
+        description={heroDescription}
+        ctas={heroCtas}
+        cards={heroCards.map((card) => {
+          return {
+            ...card,
+            cta: card.cta[0],
+          }
+        })}
+      />
 
-			<IoHomeIntro
-				brand="nomad"
-				heading={introHeading}
-				description={introDescription}
-				features={introFeatures}
-				video={{
-					youtubeId: _introVideo?.youtubeId,
-					thumbnail: _introVideo?.thumbnail?.url,
-					heading: _introVideo?.heading,
-					description: _introVideo?.description,
-					person: {
-						name: _introVideo?.personName,
-						description: _introVideo?.personDescription,
-						avatar: _introVideo?.personAvatar?.url,
-					},
-				}}
-			/>
+      <IoHomeIntro
+        brand="nomad"
+        heading={introHeading}
+        description={introDescription}
+        features={introFeatures}
+        video={{
+          youtubeId: _introVideo?.youtubeId,
+          thumbnail: _introVideo?.thumbnail?.url,
+          heading: _introVideo?.heading,
+          description: _introVideo?.description,
+          person: {
+            name: _introVideo?.personName,
+            description: _introVideo?.personDescription,
+            avatar: _introVideo?.personAvatar?.url,
+          },
+        }}
+      />
 
-			<section className={s.useCases}>
-				<div className={s.container}>
-					<IoCardContainer
-						heading={useCasesHeading}
-						description={useCasesDescription}
-						cardsPerRow={4}
-						cards={useCasesCards.map((card) => {
-							return {
-								eyebrow: card.eyebrow,
-								link: {
-									url: card.link,
-									type: 'inbound',
-								},
-								heading: card.heading,
-								description: card.description,
-								products: card.products,
-							}
-						})}
-					/>
-				</div>
-			</section>
+      <section className={s.useCases}>
+        <div className={s.container}>
+          <IoCardContainer
+            heading={useCasesHeading}
+            description={useCasesDescription}
+            cardsPerRow={4}
+            cards={useCasesCards.map((card) => {
+              return {
+                eyebrow: card.eyebrow,
+                link: {
+                  url: card.link,
+                  type: 'inbound',
+                },
+                heading: card.heading,
+                description: card.description,
+                products: card.products,
+              }
+            })}
+          />
+        </div>
+      </section>
 
-			<IoHomeInPractice
-				brand="nomad"
-				pattern="/nomad/img/practice-pattern.svg"
-				heading={inPracticeHeading}
-				description={inPracticeDescription}
-				cards={inPracticeCards.map((card) => {
-					return {
-						eyebrow: card.eyebrow,
-						link: {
-							url: card.link,
-							type: 'inbound',
-						},
-						heading: card.heading,
-						description: card.description,
-						products: card.products,
-					}
-				})}
-				cta={{
-					heading: inPracticeCtaHeading,
-					description: inPracticeCtaDescription,
-					link: inPracticeCtaLink,
-					image: inPracticeCtaImage,
-				}}
-			/>
+      <IoHomeInPractice
+        brand="nomad"
+        pattern="/nomad/img/practice-pattern.svg"
+        heading={inPracticeHeading}
+        description={inPracticeDescription}
+        cards={inPracticeCards.map((card) => {
+          return {
+            eyebrow: card.eyebrow,
+            link: {
+              url: card.link,
+              type: 'inbound',
+            },
+            heading: card.heading,
+            description: card.description,
+            products: card.products,
+          }
+        })}
+        cta={{
+          heading: inPracticeCtaHeading,
+          description: inPracticeCtaDescription,
+          link: inPracticeCtaLink,
+          image: inPracticeCtaImage,
+        }}
+      />
 
-			<IoHomeCaseStudies
-				heading={caseStudiesHeading}
-				description={caseStudiesDescription}
-				primary={caseStudiesFeatured}
-				secondary={caseStudiesLinks}
-			/>
+      <IoHomeCaseStudies
+        heading={caseStudiesHeading}
+        description={caseStudiesDescription}
+        primary={caseStudiesFeatured}
+        secondary={caseStudiesLinks}
+      />
 
-			<IoHomeCallToAction
-				brand="nomad"
-				heading={callToActionHeading}
-				content={callToActionDescription}
-				links={callToActionCtas}
-			/>
+      <IoHomeCallToAction
+        brand="nomad"
+        heading={callToActionHeading}
+        content={callToActionDescription}
+        links={callToActionCtas}
+      />
 
-			<IoHomePreFooter
-				brand="nomad"
-				heading={preFooterHeading}
-				description={preFooterDescription}
-				ctas={preFooterCtas}
-			/>
-		</>
-	)
+      <IoHomePreFooter
+        brand="nomad"
+        heading={preFooterHeading}
+        description={preFooterDescription}
+        ctas={preFooterCtas}
+      />
+    </>
+  )
 }
 Homepage.layout = NomadIoLayout
 
 export async function getStaticProps() {
-	const query = proxiedRivetClient('nomad')
-	const { nomadHomepage } = await query({
-		query: homepageQuery,
-	})
+  const query = proxiedRivetClient('nomad')
+  const { nomadHomepage } = await query({
+    query: homepageQuery,
+  })
 
-	return {
-		props: {
-			data: nomadHomepage,
-		},
-		revalidate:
-			process.env.HASHI_ENV === 'production'
-				? process.env.GLOBAL_REVALIDATE
-				: 10,
-	}
+  return {
+    props: {
+      data: nomadHomepage,
+    },
+    revalidate:
+      process.env.HASHI_ENV === 'production'
+        ? process.env.GLOBAL_REVALIDATE
+        : 10,
+  }
 }

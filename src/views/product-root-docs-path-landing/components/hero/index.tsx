@@ -7,36 +7,36 @@ import { ProductRootDocsPathLandingHeroProps } from './types'
 import s from './hero.module.css'
 
 const ProductRootDocsPathLandingHero = ({
-	pageHeading,
-	pageSubtitle,
+  pageHeading,
+  pageSubtitle,
 }: ProductRootDocsPathLandingHeroProps) => {
-	const currentProduct = useCurrentProduct()
+  const currentProduct = useCurrentProduct()
 
-	return (
-		<div className={s.root}>
-			<div className={s.iconAndTextWrapper}>
-				<IconTileLogo
-					productSlug={
-						currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
-					}
-					className={s.icon}
-				/>
-				<div>
-					<Heading
-						className={s.pageTitle}
-						id={pageHeading.id}
-						level={1}
-						size={500}
-						weight="bold"
-					>
-						{pageHeading.title}
-					</Heading>
-					<Text className={s.pageSubtitle}>{pageSubtitle}</Text>
-				</div>
-			</div>
-			<ProductRootDocsPathLandingIconCardLinkGrid />
-		</div>
-	)
+  return (
+    <div className={s.root}>
+      <div className={s.iconAndTextWrapper}>
+        <IconTileLogo
+          productSlug={
+            currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
+          }
+          className={s.icon}
+        />
+        <div>
+          <Heading
+            className={s.pageTitle}
+            id={pageHeading.id}
+            level={1}
+            size={500}
+            weight="bold"
+          >
+            {pageHeading.title}
+          </Heading>
+          <Text className={s.pageSubtitle}>{pageSubtitle}</Text>
+        </div>
+      </div>
+      <ProductRootDocsPathLandingIconCardLinkGrid />
+    </div>
+  )
 }
 
 export default ProductRootDocsPathLandingHero

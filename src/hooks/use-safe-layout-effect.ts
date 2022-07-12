@@ -5,6 +5,6 @@ import { useEffect, useLayoutEffect } from 'react'
  * SSR'd throws a warning.
  */
 const useSafeLayoutEffect =
-	typeof window === 'undefined' ? useEffect : useLayoutEffect
+  typeof window === 'undefined' ? useEffect : useLayoutEffect
 
 export default useSafeLayoutEffect

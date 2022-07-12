@@ -2,8 +2,8 @@ import { ComponentType } from 'react'
 import { Products } from '@hashicorp/platform-product-meta'
 
 interface RivetParams {
-	query: string
-	dependencies: ComponentMaybeWithQuery
+  query: string
+  dependencies: ComponentMaybeWithQuery
 }
 
 type ComponentMaybeWithQuery = ComponentType & { rivetParams?: RivetParams }
@@ -27,18 +27,18 @@ type ComponentMaybeWithQuery = ComponentType & { rivetParams?: RivetParams }
  * @returns The data from our CMS, if any
  */
 export default async function fetchLayoutProps(
-	Layout: ComponentMaybeWithQuery,
-	product: Exclude<Products, 'hashicorp'>
+  Layout: ComponentMaybeWithQuery,
+  product: Exclude<Products, 'hashicorp'>
 ): Promise<unknown | null> {
-	const layoutQuery = Layout?.rivetParams ?? null
+  const layoutQuery = Layout?.rivetParams ?? null
 
-	const { default: rivetQuery, proxiedRivetClient } = await import('lib/cms')
-	let query = rivetQuery
-	if (product) {
-		query = proxiedRivetClient(product)
-	}
+  const { default: rivetQuery, proxiedRivetClient } = await import('lib/cms')
+  let query = rivetQuery
+  if (product) {
+    query = proxiedRivetClient(product)
+  }
 
-	const layoutProps = layoutQuery ? await query(layoutQuery) : null
+  const layoutProps = layoutQuery ? await query(layoutQuery) : null
 
-	return layoutProps
+  return layoutProps
 }

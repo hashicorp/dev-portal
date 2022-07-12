@@ -33,24 +33,24 @@ Note that **touch events are not supported**. This is a somewhat intentional lim
 ### `label="Plain text"`
 
 <Tooltip
-	theme="light"
-	label="Hi there! I'm a tooltip, and this is some long plain text, which should wrap nicely based on some collision calculations we're doing behind the scenes."
+  theme="light"
+  label="Hi there! I'm a tooltip, and this is some long plain text, which should wrap nicely based on some collision calculations we're doing behind the scenes."
 >
-	<button>I'm a React node with a tooltip.</button>
+  <button>I'm a React node with a tooltip.</button>
 </Tooltip>
 
 ### `theme="light" vs theme="dark"`
 
 <Tooltip label="Light theme tooltip contents." theme="light">
-	<button style={{ marginRight: '8px' }}>
-		<code>theme="light"</code>
-	</button>
+  <button style={{ marginRight: '8px' }}>
+    <code>theme="light"</code>
+  </button>
 </Tooltip>
 
 <Tooltip label="Dark theme tooltip contents." theme="dark">
-	<button>
-		<code>theme="dark"</code>
-	</button>
+  <button>
+    <code>theme="dark"</code>
+  </button>
 </Tooltip>
 
 ### `label={<Slot />}`
@@ -58,22 +58,22 @@ Note that **touch events are not supported**. This is a somewhat intentional lim
 Note: with the guidelines for tooltips in mind, the React element support of the `label` prop should be used only after very careful consideration.
 
 <Tooltip
-	theme="light"
-	forceVisible
-	label={
-		<div
-			style={{
-				display: 'inline-block',
-				border: '1px solid magenta',
-				borderRadius: '4px',
-			}}
-		>
-			Hi there! This is a React node rendered within a tooltip.
-		</div>
-	}
+  theme="light"
+  forceVisible
+  label={
+    <div
+      style={{
+        display: 'inline-block',
+        border: '1px solid magenta',
+        borderRadius: '4px',
+      }}
+    >
+      Hi there! This is a React node rendered within a tooltip.
+    </div>
+  }
 >
-	<button>
-		This tooltip wraps a text node, and renders a React node as the tooltip
-		contents.
-	</button>
+  <button>
+    This tooltip wraps a text node, and renders a React node as the tooltip
+    contents.
+  </button>
 </Tooltip>

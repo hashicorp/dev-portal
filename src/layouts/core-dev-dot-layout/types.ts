@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 interface CoreDevDotLayoutProps {
-	children: ReactNode
+  children: ReactNode
 }
 
 export type { CoreDevDotLayoutProps }

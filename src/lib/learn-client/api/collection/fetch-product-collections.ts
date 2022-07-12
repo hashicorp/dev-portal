@@ -1,14 +1,14 @@
 import {
-	Collection,
-	uuid,
-	ProductOption,
-	AllCollectionsProductOptions,
+  Collection,
+  uuid,
+  ProductOption,
+  AllCollectionsProductOptions,
 } from 'lib/learn-client/types'
 import { get, toError } from '../../index'
 
 // /products/:identifier/collections
 export const PRODUCT_COLLECTION_API_ROUTE = (
-	identifier: ProductOption | uuid
+  identifier: ProductOption | uuid
 ) => `/products/${identifier}/collections`
 
 /**
@@ -22,27 +22,27 @@ export const PRODUCT_COLLECTION_API_ROUTE = (
  * includes filtering for theme
  */
 export async function fetchAllCollectionsByProduct(
-	product: AllCollectionsProductOptions
+  product: AllCollectionsProductOptions
 ): Promise<Collection[]> {
-	const baseUrl = PRODUCT_COLLECTION_API_ROUTE(product.slug)
-	let route = baseUrl
+  const baseUrl = PRODUCT_COLLECTION_API_ROUTE(product.slug)
+  let route = baseUrl
 
-	if (product.sidebarSort) {
-		const params = new URLSearchParams([
-			['topLevelCategorySort', 'true'],
-			['theme', product.slug],
-		])
+  if (product.sidebarSort) {
+    const params = new URLSearchParams([
+      ['topLevelCategorySort', 'true'],
+      ['theme', product.slug],
+    ])
 
-		route = baseUrl + `?${params.toString()}`
-	}
+    route = baseUrl + `?${params.toString()}`
+  }
 
-	const getProductCollectionsRes = await get(route)
+  const getProductCollectionsRes = await get(route)
 
-	if (getProductCollectionsRes.ok) {
-		const res = await getProductCollectionsRes.json()
-		return res.result
-	}
+  if (getProductCollectionsRes.ok) {
+    const res = await getProductCollectionsRes.json()
+    return res.result
+  }
 
-	const error = toError(getProductCollectionsRes)
-	throw error
+  const error = toError(getProductCollectionsRes)
+  throw error
 }

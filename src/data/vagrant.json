@@ -1,60 +1,60 @@
 {
-	"name": "Vagrant",
-	"slug": "vagrant",
-	"algoliaConfig": {
-		"indexName": "product_VAGRANT",
-		"searchOnlyApiKey": "c4c3e690f46940fa3ba9624da4d7fc0c"
-	},
-	"analyticsConfig": {
-		"includedDomains": "vagrantup.com www.vagrantup.com",
-		"segmentWriteKey": "qW11yxgipKMsKFKQUCpTVgQUYftYsJj0"
-	},
-	"metadata": {
-		"title": "Vagrant by HashiCorp",
-		"description": "Vagrant enables users to create and configure lightweight, reproducible, and portable development environments.",
-		"image": "https://www.vagrantup.com/vagrant/img/og-image.png",
-		"icon": [
-			{
-				"href": "/vagrant/favicon.ico"
-			}
-		]
-	},
-	"alertBannerActive": false,
-	"alertBanner": {
-		"tag": "June 21-22",
-		"url": "https://hashiconf.com/europe?utm_source=Banner",
-		"text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
-		"linkText": "Join Now",
-		"expirationDate": ""
-	},
-	"version": "2.2.19",
-	"vmwareUtilityVersion": "1.0.21",
-	"subnavItems": [
-		{
-			"text": "Intro",
-			"url": "/intro",
-			"type": "inbound"
-		},
-		{
-			"text": "Docs",
-			"url": "/docs",
-			"type": "inbound"
-		},
-		{
-			"text": "Community",
-			"url": "/community",
-			"type": "inbound"
-		}
-	],
-	"basePaths": ["docs", "intro", "vagrant-cloud", "vmware"],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/vagrant/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/vagrant/docs/installation"
-			}
-		]
-	},
-	"navigationHeaderItems": {}
+  "name": "Vagrant",
+  "slug": "vagrant",
+  "algoliaConfig": {
+    "indexName": "product_VAGRANT",
+    "searchOnlyApiKey": "c4c3e690f46940fa3ba9624da4d7fc0c"
+  },
+  "analyticsConfig": {
+    "includedDomains": "vagrantup.com www.vagrantup.com",
+    "segmentWriteKey": "qW11yxgipKMsKFKQUCpTVgQUYftYsJj0"
+  },
+  "metadata": {
+    "title": "Vagrant by HashiCorp",
+    "description": "Vagrant enables users to create and configure lightweight, reproducible, and portable development environments.",
+    "image": "/vagrant/img/og-image.png",
+    "icon": [
+      {
+        "href": "/vagrant/favicon.ico"
+      }
+    ]
+  },
+  "alertBannerActive": true,
+  "alertBanner": {
+    "tag": "June 20-22",
+    "url": "https://hashiconf.com/europe?utm_source=Banner",
+    "text": "Announcing HashiConf Europe full schedule: keynotes, sessions, labs & more",
+    "linkText": "Register Now",
+    "expirationDate": ""
+  },
+  "version": "2.2.19",
+  "vmwareUtilityVersion": "1.0.21",
+  "subnavItems": [
+    {
+      "text": "Intro",
+      "url": "/intro",
+      "type": "inbound"
+    },
+    {
+      "text": "Docs",
+      "url": "/docs",
+      "type": "inbound"
+    },
+    {
+      "text": "Community",
+      "url": "/community",
+      "type": "inbound"
+    }
+  ],
+  "basePaths": ["docs", "intro", "vagrant-cloud", "vmware"],
+  "sidebar": {
+    "landingPageNavData": [
+      { "title": "Introduction", "fullPath": "/vagrant/intro" },
+      {
+        "title": "Getting Started",
+        "fullPath": "/vagrant/docs/installation"
+      }
+    ]
+  },
+  "navigationHeaderItems": {}
 }

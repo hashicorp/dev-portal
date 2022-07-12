@@ -8,12 +8,12 @@ import { NavigationDisclosureContentProps } from './types'
  * @see https://developer.hashi-mktg.com/swingset/components/navigationdisclosure
  */
 const NavigationDisclosureContent = ({
-	children,
-	className,
+  children,
+  className,
 }: NavigationDisclosureContentProps) => {
-	validateNavigationDisclosureContentChildren(children)
+  validateNavigationDisclosureContentChildren(children)
 
-	return <DisclosureContent className={className}>{children}</DisclosureContent>
+  return <DisclosureContent className={className}>{children}</DisclosureContent>
 }
 
 export type { NavigationDisclosureContentProps }

@@ -8,9 +8,9 @@ const baseName = 'API'
 const product = nomadData as ProductData
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-	product,
-	basePath,
-	baseName,
+  product,
+  basePath,
+  baseName,
 })
 
 export { getStaticPaths, getStaticProps }
