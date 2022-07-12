@@ -44,14 +44,18 @@ const PRODUCT_PAGE_NAV_ITEMS = [
 /**
  * A mapping of Product slugs to their imported SVG colorwhite logos. Used for
  * the headers under `/{productSlug}` pages.
+ *
+ * Note: Sentinel and HCP are excluded here,
+ * as we do not yet have a confirmed design treatment.
  */
-const PRODUCT_SLUGS_TO_LOGOS: Record<ProductSlug, string> = {
+const PRODUCT_SLUGS_TO_LOGOS: Record<
+	Exclude<ProductSlug, 'sentinel' | 'hcp'>,
+	string
+> = {
 	boundary: BoundaryLogo,
 	consul: ConsulLogo,
 	nomad: NomadLogo,
-	hcp: HashiCorpLogo,
 	packer: PackerLogo,
-	sentinel: HashiCorpLogo,
 	terraform: TerraformLogo,
 	vagrant: VagrantLogo,
 	vault: VaultLogo,
