@@ -18,6 +18,7 @@ import {
 	MdxH6,
 	MdxP,
 	MdxInlineCode,
+	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
@@ -60,6 +61,7 @@ function _defaultComponents() {
 		pre,
 		inlineCode: MdxInlineCode,
 		a: MdxA,
+		blockquote: MdxBlockquote,
 		ol: MdxOrderedList,
 		ul: MdxUnorderedList,
 		li: MdxListItem,
