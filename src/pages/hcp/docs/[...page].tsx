@@ -1,16 +1,17 @@
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
-import vaultData from 'data/vault.json'
+import hcpData from 'data/hcp.json'
 import { ProductData } from 'types/products'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import DocsView from 'views/docs-view'
 
 const basePath = 'docs'
 const baseName = 'Docs'
-const product = vaultData as ProductData
+const product = hcpData as ProductData
 
 const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
 	getStaticGenerationFunctions({
 		product,
+		productSlugForLoader: 'cloud.hashicorp.com',
 		basePath,
 		baseName,
 	})

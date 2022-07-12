@@ -20,6 +20,7 @@ const ProductRootDocsPathLanding = ({
 	const showProductDocsSearch = __config.flags.enable_product_docs_search
 
 	let mdxSlot: ReactElement
+
 	if (mdxSource) {
 		const classes = classNames(s[`${product.slug}MDXWrapper`], s.mdxSlotWrapper)
 		mdxSlot = (

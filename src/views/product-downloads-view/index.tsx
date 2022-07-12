@@ -4,7 +4,6 @@ import { ReactElement, useMemo } from 'react'
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import DevDotContent from 'components/dev-dot-content'
 import {
 	generateInstallViewNavItems,
 	generateProductLandingSidebarNavData,
@@ -83,21 +82,13 @@ const ProductDownloadsViewContent = ({
 			breadcrumbLinks={breadcrumbLinks}
 			sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
 		>
-			{/**
-			 * @TODO remove DevDotContent here. It's used for scroll-margin-top
-			 * on headings only. We should instead use g-offset-scroll-margin-top.
-			 * Asana:
-			 * https://app.asana.com/0/1202097197789424/1202370169937866/f
-			 */}
-			<DevDotContent>
-				<PageHeader />
-				<DownloadsSection
-					packageManagers={packageManagers}
-					selectedRelease={releases.versions[currentVersion]}
-					versionSwitcherOptions={versionSwitcherOptions}
-				/>
-				<OfficialReleasesSection />
-			</DevDotContent>
+			<PageHeader />
+			<DownloadsSection
+				packageManagers={packageManagers}
+				selectedRelease={releases.versions[currentVersion]}
+				versionSwitcherOptions={versionSwitcherOptions}
+			/>
+			<OfficialReleasesSection />
 			{featuredLearnCards ? (
 				<FeaturedTutorialsSection featuredLearnCards={featuredLearnCards} />
 			) : null}

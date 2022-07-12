@@ -19,7 +19,7 @@
 			}
 		]
 	},
-	"alertBannerActive": true,
+	"alertBannerActive": false,
 	"alertBanner": {
 		"tag": "New",
 		"url": "https://hashi.co/waypoint-beta",

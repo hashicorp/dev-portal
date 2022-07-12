@@ -35,7 +35,7 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 	axe(React, ReactDOM, 1000)
 }
 
-export default function App({ Component, pageProps, layoutProps }) {
+export default function App({ Component, pageProps, layoutProps, host }) {
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
@@ -59,7 +59,7 @@ export default function App({ Component, pageProps, layoutProps }) {
 						<AllProductDataProvider>
 							<CurrentProductProvider currentProduct={currentProduct}>
 								<CodeTabsProvider>
-									<HeadMetadata {...pageProps.metadata} />
+									<HeadMetadata {...pageProps.metadata} host={host} />
 									<LazyMotion
 										features={() =>
 											import('lib/framer-motion-features').then(
@@ -102,8 +102,14 @@ App.getInitialProps = async ({ Component, ctx }) => {
 		pageProps = await Component.getInitialProps(ctx)
 	}
 
+	let host
+	if (ctx.req) {
+		host = ctx.req.headers.host
+	}
+
 	return {
 		pageProps,
 		layoutProps,
+		host,
 	}
 }
