@@ -72,6 +72,7 @@ const Tabs = ({
 			<div ref={ref}>
 				<div
 					className={classNames(s.tabControls, {
+						[s.isCheckingOverflow]: hasOverflow === null,
 						[s.showAnchorLine]: showAnchorLine,
 						[s.allowNestedStyles]: allowNestedStyles,
 					})}
