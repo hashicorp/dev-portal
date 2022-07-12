@@ -3,7 +3,13 @@ import Link from 'next/link'
 
 // HashiCorp Imports
 import InlineSvg from '@hashicorp/react-inline-svg'
+import BoundaryLogo from '@hashicorp/mktg-logos/product/boundary/primary-padding/colorwhite.svg?include'
+import ConsulLogo from '@hashicorp/mktg-logos/product/consul/primary-padding/colorwhite.svg?include'
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
+import NomadLogo from '@hashicorp/mktg-logos/product/nomad/primary-padding/colorwhite.svg?include'
+import PackerLogo from '@hashicorp/mktg-logos/product/packer/primary-padding/colorwhite.svg?include'
+import TerraformLogo from '@hashicorp/mktg-logos/product/terraform/primary-padding/colorwhite.svg?include'
+import VagrantLogo from '@hashicorp/mktg-logos/product/vagrant/primary-padding/colorwhite.svg?include'
 import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/colorwhite.svg?include'
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 
@@ -39,7 +45,15 @@ const PRODUCT_PAGE_NAV_ITEMS = [
  * A mapping of Product slugs to their imported SVG colorwhite logos. Used for
  * the headers under `/{productSlug}` pages.
  */
-const PRODUCT_SLUGS_TO_LOGOS = {
+const PRODUCT_SLUGS_TO_LOGOS: Record<ProductSlug, string> = {
+	boundary: BoundaryLogo,
+	consul: ConsulLogo,
+	nomad: NomadLogo,
+	hcp: HashiCorpLogo,
+	packer: PackerLogo,
+	sentinel: HashiCorpLogo,
+	terraform: TerraformLogo,
+	vagrant: VagrantLogo,
 	vault: VaultLogo,
 	waypoint: WaypointLogo,
 }
