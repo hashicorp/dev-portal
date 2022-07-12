@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
@@ -36,10 +37,14 @@ const MobileMenuButton = () => {
  * `/{productSlug}.`
  */
 const NavigationHeader = () => {
+	const router = useRouter()
 	const currentProduct = useCurrentProduct()
-	const LeftSideHeaderContent = currentProduct
-		? ProductPageHeaderContent
-		: HomePageHeaderContent
+
+	const shouldRenderGenericHeaderContent =
+		currentProduct === undefined || router.route === '/_error'
+	const LeftSideHeaderContent = shouldRenderGenericHeaderContent
+		? HomePageHeaderContent
+		: ProductPageHeaderContent
 
 	return (
 		<header className={s.root}>
