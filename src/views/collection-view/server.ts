@@ -136,23 +136,14 @@ export async function getCollectionPaths(
  * Return { getStaticPaths, getStaticProps } functions
  * needed to set up a [collectionSlug] route.
  */
-export function generateStaticFunctions(productData: LearnProductData) {
-	// getStaticPaths
-	async function getStaticPaths(): Promise<{
-		paths: CollectionPagePaths[]
-		fallback: boolean
-	}> {
-		const paths = await getCollectionPaths(ProductOption[productData.slug])
-		return {
-			paths,
-			fallback: false,
-		}
-	}
+export function generateStaticFunctions() {
 	// getStaticProps
 	async function getStaticProps({
 		params,
 	}): Promise<GetStaticPropsResult<CollectionPageProps>> {
-		const { collectionSlug } = params
+		const { collectionSlug, product } = params
+		const productData = await import(`data/${product}.json`) // @TODO use fs.readFileSync here?
+
 		const props = await getCollectionPageProps(productData, collectionSlug)
 		// If the collection doesn't exist, hit the 404
 		if (!props) {
@@ -161,5 +152,5 @@ export function generateStaticFunctions(productData: LearnProductData) {
 		return props
 	}
 	// return both
-	return { getStaticPaths, getStaticProps }
+	return { getStaticProps }
 }
