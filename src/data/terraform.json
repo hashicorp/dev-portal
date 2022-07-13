@@ -1,10 +1,14 @@
 {
 	"slug": "terraform",
 	"name": "Terraform",
+	"algoliaConfig": {
+		"indexName": "product_TERRAFORM"
+	},
 	"basePaths": [
 		"cdktf",
 		"cli",
 		"cloud-docs",
+		"cloud-docs/agents",
 		"configuration",
 		"docs",
 		"enterprise",
@@ -13,6 +17,10 @@
 		"intro",
 		"language",
 		"plugin",
+		"plugin/framework",
+		"plugin/log",
+		"plugin/mux",
+		"plugin/sdkv2",
 		"registry"
 	],
 	"sidebar": {
@@ -24,5 +32,167 @@
 			}
 		]
 	},
-	"navigationHeaderItems": {}
+	"navigationHeaderItems": {
+		"documentation": [
+			{
+				"label": "About the Docs",
+				"pathSuffix": "docs",
+				"icon": "docs"
+			},
+			{
+				"label": "Intro to Terraform",
+				"pathSuffix": "intro",
+				"icon": "docs"
+			},
+			{
+				"label": "Configuration Language",
+				"pathSuffix": "language",
+				"icon": "docs"
+			},
+			{
+				"label": "Terraform CLI",
+				"pathSuffix": "cli",
+				"icon": "docs"
+			},
+			{
+				"label": "Terraform Cloud",
+				"pathSuffix": "cloud-docs",
+				"icon": "docs"
+			},
+			{
+				"label": "Terraform Enterprise",
+				"pathSuffix": "enterprise",
+				"icon": "docs"
+			},
+			{
+				"label": "Provider Use",
+				"pathSuffix": "language/providers",
+				"icon": "docs"
+			},
+			{
+				"label": "Plugin Development",
+				"pathSuffix": "plugin",
+				"icon": "docs"
+			},
+			{
+				"label": "Registry Publishing",
+				"pathSuffix": "registry",
+				"icon": "docs"
+			},
+			{
+				"label": "Integration Platform",
+				"pathSuffix": "docs/partnerships",
+				"icon": "docs"
+			},
+			{
+				"label": "Terraform Tools",
+				"pathSuffix": "docs/terraform-tools",
+				"icon": "docs"
+			},
+			{
+				"label": "CDK for Terraform",
+				"pathSuffix": "cdktf",
+				"icon": "docs"
+			},
+			{
+				"label": "Glossary",
+				"pathSuffix": "docs/glossary",
+				"icon": "docs"
+			}
+		]
+	},
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "cdktf",
+			"shortName": "cdktf",
+			"path": "cdktf"
+		},
+		{ "iconName": "docs", "name": "cli", "shortName": "cli", "path": "cli" },
+		{
+			"iconName": "docs",
+			"name": "cloud-docs",
+			"shortName": "cloud-docs",
+			"path": "cloud-docs"
+		},
+		{
+			"iconName": "docs",
+			"name": "cloud-docs/agents",
+			"shortName": "cloud-docs/agents",
+			"path": "cloud-docs/agents"
+		},
+		{
+			"iconName": "docs",
+			"name": "configuration",
+			"shortName": "configuration",
+			"path": "configuration"
+		},
+		{ "iconName": "docs", "name": "docs", "shortName": "docs", "path": "docs" },
+		{
+			"iconName": "docs",
+			"name": "enterprise",
+			"shortName": "enterprise",
+			"path": "enterprise"
+		},
+		{
+			"iconName": "docs",
+			"name": "guides",
+			"shortName": "guides",
+			"path": "guides"
+		},
+		{
+			"iconName": "docs",
+			"name": "internals",
+			"shortName": "internals",
+			"path": "internals"
+		},
+		{
+			"iconName": "docs",
+			"name": "intro",
+			"shortName": "intro",
+			"path": "intro"
+		},
+		{
+			"iconName": "docs",
+			"name": "language",
+			"shortName": "language",
+			"path": "language"
+		},
+		{
+			"iconName": "docs",
+			"name": "plugin",
+			"shortName": "plugin",
+			"path": "plugin"
+		},
+		{
+			"iconName": "docs",
+			"name": "plugin/framework",
+			"shortName": "plugin/framework",
+			"path": "plugin/framework"
+		},
+		{
+			"iconName": "docs",
+			"name": "plugin/log",
+			"shortName": "plugin/log",
+			"path": "plugin/log"
+		},
+		{
+			"iconName": "docs",
+			"name": "plugin/mux",
+			"shortName": "plugin/mux",
+			"path": "plugin/mux"
+		},
+		{
+			"iconName": "docs",
+			"name": "plugin/sdkv2",
+			"shortName": "plugin/sdkv2",
+			"path": "plugin/sdkv2"
+		},
+		{
+			"iconName": "docs",
+			"name": "registry",
+			"shortName": "registry",
+			"path": "registry"
+		}
+	]
 }

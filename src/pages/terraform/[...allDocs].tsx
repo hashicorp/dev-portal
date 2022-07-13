@@ -57,6 +57,62 @@ const TERRAFORM_DOCS_SUBPATHS = {
 		productSlugForLoader: 'terraform-docs-agents',
 		navDataPrefix: 'cloud-docs-agents',
 	},
+	configuration: {
+		baseName: 'Configuration',
+		productSlugForLoader: 'terraform',
+	},
+	docs: {
+		baseName: 'Docs',
+		productSlugForLoader: 'terraform',
+	},
+	enterprise: {
+		baseName: 'Enterprise',
+		productSlugForLoader: 'ptfe-releases',
+	},
+	guides: {
+		baseName: 'Guides',
+		productSlugForLoader: 'terraform',
+	},
+	internals: {
+		baseName: 'Internals',
+		productSlugForLoader: 'terraform',
+	},
+	intro: {
+		baseName: 'Intro',
+		productSlugForLoader: 'terraform',
+	},
+	language: {
+		baseName: 'Language',
+		productSlugForLoader: 'terraform',
+	},
+	plugin: {
+		baseName: 'Plugin',
+		productSlugForLoader: 'terraform-docs-common',
+	},
+	'plugin/framework': {
+		baseName: 'Plugin Framework',
+		productSlugForLoader: 'terraform-plugin-framework',
+		navDataPrefix: 'plugin-framework',
+	},
+	'plugin/log': {
+		baseName: 'Plugin Log',
+		productSlugForLoader: 'terraform-plugin-log',
+		navDataPrefix: 'plugin-log',
+	},
+	'plugin/mux': {
+		baseName: 'Plugin mux',
+		productSlugForLoader: 'terraform-plugin-mux',
+		navDataPrefix: 'plugin-mux',
+	},
+	'plugin/sdkv2': {
+		baseName: 'Plugin sdkv2',
+		productSlugForLoader: 'terraform-plugin-sdk',
+		navDataPrefix: 'plugin-sdk',
+	},
+	registry: {
+		baseName: 'Registry',
+		productSlugForLoader: 'terraform-docs-common',
+	},
 }
 
 async function getSubpathStaticPaths({
@@ -95,6 +151,10 @@ async function getSubpathStaticPaths({
 		//
 		acc.push({
 			params: {
+				// TODO: basePath might have a slash in it.
+				// TODO: this might not matter, not sure... ... but might be nice to
+				// TODO: explicitly make sure that each param entry string
+				// TODO: does NOT have slashes in it?
 				allDocs: [basePath, ...pageParams],
 			},
 			locale: entry.locale,
@@ -126,10 +186,11 @@ export async function getStaticProps({ params }) {
 	let basePath
 	let pageParams
 	// Note that some basePaths are nested, such as "cloud-docs/agents"
-	// TODO: should have more generic solution for isNestedBasePath,
-	// TODO: eg could run based on TERRAFORM_DOCS_SUBPATHS keys
+	// For these paths, we need to massage params even further to get the
+	// pageParams we can pass to the usual docs getStaticProps loader
 	const maybeNestedBasePath = [targetBasePath, maybeTargetBasePath].join('/')
-	const isNestedBasePath = maybeNestedBasePath == 'cloud-docs/agents'
+	const allBasePaths = Object.keys(TERRAFORM_DOCS_SUBPATHS)
+	const isNestedBasePath = allBasePaths.indexOf(maybeNestedBasePath) !== -1
 	if (isNestedBasePath) {
 		basePath = maybeNestedBasePath
 		pageParams = [...restParams]
