@@ -1,5 +1,6 @@
 import moize, { Options } from 'moize'
 import { LearnProductData } from 'types/products'
+import { GetStaticPropsResult, GetStaticPathsResult } from 'next'
 import {
 	getAllCollections,
 	getNextCollectionInSidebar,
@@ -161,4 +162,38 @@ export async function getTutorialPagePaths(
 		})
 	})
 	return paths
+}
+
+/**
+ * Given productData,
+ * Return the { getStaticPaths, getStaticProps } functions
+ * needed to set up a [...tutorialSlug] route
+ */
+export function generateStaticFunctions(productData: LearnProductData) {
+	// getStaticPaths
+	async function getStaticPaths(): Promise<
+		GetStaticPathsResult<TutorialPagePaths['params']>
+	> {
+		const paths = await getTutorialPagePaths(ProductOption[productData.slug])
+		return {
+			paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
+			fallback: 'blocking',
+		}
+	}
+	// getStaticProps
+	async function getStaticProps({
+		params,
+	}): Promise<GetStaticPropsResult<TutorialPageProps>> {
+		const props = await getTutorialPageProps(productData, params.tutorialSlug)
+		// If the tutorial doesn't exist, hit the 404
+		if (!props) {
+			return { notFound: true }
+		}
+		return props
+	}
+	// return both
+	return {
+		getStaticPaths,
+		getStaticProps,
+	}
 }

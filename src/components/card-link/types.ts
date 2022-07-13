@@ -26,5 +26,8 @@ export interface CardLinkProps {
 	 */
 	href: NativeAnchorProps['href']
 
-	target?: NativeAnchorProps['target']
+	/**
+	 * Whether or not the given link should open in a new tab.
+	 */
+	openInNewTab?: boolean
 }

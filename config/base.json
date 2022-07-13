@@ -14,7 +14,6 @@
 		"canonical_base_url": "https://developer.hashicorp.com",
 		"max_static_paths": 10,
 		"revalidate": 360,
-		"content_preview_branch": "dev-portal",
 		"beta_product_slugs": ["waypoint", "vault"],
 		"datadog_config": {
 			"scriptUrl": "https://www.datadoghq-browser-agent.com/datadog-rum-v4.js",

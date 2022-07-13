@@ -1,4 +1,5 @@
 import moize, { Options } from 'moize'
+import { GetStaticPropsResult } from 'next'
 import { LearnProductData } from 'types/products'
 import {
 	Collection as ClientCollection,
@@ -23,6 +24,12 @@ export interface CollectionPageProps {
 	allProductCollections: ClientCollection[]
 	product: LearnProductData
 	layoutProps: CollectionLayout
+}
+
+interface CollectionPagePaths {
+	params: {
+		collectionSlug: string
+	}
 }
 
 export type CollectionLayout = Pick<
@@ -122,4 +129,37 @@ export async function getCollectionPaths(
 	}))
 
 	return paths
+}
+
+/**
+ * Given some productData,
+ * Return { getStaticPaths, getStaticProps } functions
+ * needed to set up a [collectionSlug] route.
+ */
+export function generateStaticFunctions(productData: LearnProductData) {
+	// getStaticPaths
+	async function getStaticPaths(): Promise<{
+		paths: CollectionPagePaths[]
+		fallback: boolean
+	}> {
+		const paths = await getCollectionPaths(ProductOption[productData.slug])
+		return {
+			paths,
+			fallback: false,
+		}
+	}
+	// getStaticProps
+	async function getStaticProps({
+		params,
+	}): Promise<GetStaticPropsResult<CollectionPageProps>> {
+		const { collectionSlug } = params
+		const props = await getCollectionPageProps(productData, collectionSlug)
+		// If the collection doesn't exist, hit the 404
+		if (!props) {
+			return { notFound: true }
+		}
+		return props
+	}
+	// return both
+	return { getStaticPaths, getStaticProps }
 }
