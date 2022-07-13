@@ -50,7 +50,7 @@ import { getCanonicalCollectionSlug } from './utils/get-canonical-collection-slu
 import s from './tutorial-view.module.css'
 
 export interface TutorialViewProps {
-	layout: TutorialSidebarSidecarProps
+	layoutProps: TutorialSidebarSidecarProps
 	product: LearnProductData
 	tutorial: TutorialData
 }
@@ -85,7 +85,7 @@ export type TutorialSidebarSidecarProps = Required<
 >
 
 export default function TutorialView({
-	layout,
+	layoutProps,
 	product,
 	tutorial,
 }: TutorialViewProps): React.ReactElement {
@@ -134,7 +134,7 @@ export default function TutorialView({
 			title: 'Tutorials',
 			overviewItemHref: `/${product.slug}/tutorials`,
 			children: (
-				<CollectionViewSidebarContent sections={layout.sidebarSections} />
+				<CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
 			),
 		},
 		{
@@ -166,7 +166,7 @@ export default function TutorialView({
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
 				<SidebarSidecarLayout
-					breadcrumbLinks={layout.breadcrumbLinks}
+					breadcrumbLinks={layoutProps.breadcrumbLinks}
 					/**
 					 * @TODO remove casting to `any`. Will require refactoring both
 					 * `generateTopLevelSidebarNavData` and
@@ -179,10 +179,10 @@ export default function TutorialView({
 					optInOutSlot={
 						<OptInOut platform="learn" redirectPath={redirectPath} />
 					}
-					headings={layout.headings}
+					headings={layoutProps.headings}
 				>
 					<TutorialMeta
-						heading={{ slug: layout.headings[0].slug, text: name }}
+						heading={{ slug: layoutProps.headings[0].slug, text: name }}
 						meta={{
 							readTime,
 							edition,

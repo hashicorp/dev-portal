@@ -17,6 +17,7 @@ import {
 	MdxH5,
 	MdxH6,
 	MdxP,
+	MdxInlineCode,
 	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
 import Image from 'components/image'
@@ -58,6 +59,7 @@ function _defaultComponents() {
 		CodeBlockConfig,
 		CodeTabs,
 		pre,
+		inlineCode: MdxInlineCode,
 		a: MdxA,
 		blockquote: MdxBlockquote,
 		ol: MdxOrderedList,
