@@ -13,7 +13,7 @@ import {
 	FeaturedLearnCard,
 } from './types'
 
-const generateGetStaticProps = (productData: ProductData) => {
+const generateGetStaticProps = (product: ProductData) => {
 	return async (): Promise<{
 		props: ProductDownloadsViewStaticProps
 		revalidate: number
@@ -26,7 +26,7 @@ const generateGetStaticProps = (productData: ProductData) => {
 		 */
 		const jsonFilePath = path.join(
 			process.cwd(),
-			`src/data/${productData.slug}-install.json`
+			`src/data/${product.slug}-install.json`
 		)
 		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
 			fs.readFileSync(jsonFilePath, 'utf8')
@@ -43,8 +43,8 @@ const generateGetStaticProps = (productData: ProductData) => {
 		 * Fetch the release data static props
 		 */
 		const { props: releaseProps, revalidate } =
-			await generateReleaseStaticProps(productData)
-		const { releases, product, latestVersion } = releaseProps
+			await generateReleaseStaticProps(product)
+		const { releases, latestVersion } = releaseProps
 
 		/**
 		 * Gather tutorials and collections based on slugs used
