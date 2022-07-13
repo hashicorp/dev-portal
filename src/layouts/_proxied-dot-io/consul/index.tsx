@@ -105,7 +105,10 @@ ConsulIoLayout.rivetParams = {
 	dependencies: [],
 }
 
-type UseCase = { url: string; text: string }
+interface UseCase {
+	url: string;
+	text: string
+}
 
 interface Props {
 	children: React.ReactChildren
