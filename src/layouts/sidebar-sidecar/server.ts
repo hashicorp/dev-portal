@@ -271,6 +271,8 @@ export function getStaticGenerationFunctions<
 					menuItems: navDataWithFullPaths,
 					// TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
 					title: BASE_PATHS_TO_NAMES[basePath] || product.name,
+					// TODO: do we want "overview" items for all routes?
+					// TODO: seems that in some instances, these are duplicative
 					overviewItemHref: versionPathPart
 						? `/${product.slug}/${basePath}/${versionPathPart}`
 						: `/${product.slug}/${basePath}`,
