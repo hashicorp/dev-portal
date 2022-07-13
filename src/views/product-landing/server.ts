@@ -54,7 +54,7 @@ const generateGetStaticProps = (product: ProductData) => {
 		const content = await transformRawContentToProp(CONTENT, product)
 
 		/**
-		 * Gather up our static props package & return it
+		 * Gather up our static props
 		 */
 		const props = {
 			content,
