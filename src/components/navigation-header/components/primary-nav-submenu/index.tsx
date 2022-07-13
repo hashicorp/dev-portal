@@ -16,6 +16,9 @@ interface NavSubmenuProps {
 const PrimaryNavSubmenu = ({ ariaLabel, navItem }: NavSubmenuProps) => {
 	const { id, label } = navItem
 	const currentProduct = useCurrentProduct()
+	const navHeaderItems = currentProduct.navigationHeaderItems
+		? currentProduct.navigationHeaderItems[id] || []
+		: []
 
 	return (
 		<NavigationHeaderDropdownMenu
@@ -26,13 +29,11 @@ const PrimaryNavSubmenu = ({ ariaLabel, navItem }: NavSubmenuProps) => {
 			)}
 			itemGroups={[
 				{
-					items: currentProduct.navigationHeaderItems[id].map(
-						({ icon, label, pathSuffix }) => ({
-							icon,
-							label,
-							path: `/${currentProduct.slug}/${pathSuffix}`,
-						})
-					),
+					items: navHeaderItems.map(({ icon, label, pathSuffix }) => ({
+						icon,
+						label,
+						path: `/${currentProduct.slug}/${pathSuffix}`,
+					})),
 				},
 			]}
 			label={label}
