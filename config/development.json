@@ -1,11 +1,10 @@
 {
-	"extends": "base",
+	"extends": "preview",
 	"io_sites": {
 		"max_static_paths": 0
 	},
 	"dev_dot": {
-		"max_static_paths": 0,
-		"beta_product_slugs": ["waypoint", "vault", "terraform"]
+		"max_static_paths": 0
 	},
 	"learn": {
 		"max_static_paths": 0
