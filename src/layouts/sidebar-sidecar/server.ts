@@ -21,6 +21,27 @@ import {
 } from 'components/sidebar/helpers'
 
 /**
+ * Given a productSlugForLoader (which generally corresponds to a repo name),
+ * Return the ref to use for remote content when the product is marked "beta".
+ *
+ * Note: for products where we intend to use the latest ref according
+ * to the marketing content API, we return undefined.
+ *
+ * TODO: this is not intended as a permanent solution.
+ * At present, it seems likely we'll transition away from using "dev-portal"
+ * branches, and instead focus on backwards-compatible content changes
+ * until each product is generally available on developer.hashicorp.com.
+ *
+ * Once we've moved away from "dev-portal" branches, this function
+ * will no longer be necessary, and we will no longer pass the
+ * "latestVersionRef" to the remote content loader config.
+ */
+function getBetaLatestVersionRef(slug: string): string | undefined {
+	const hasDevPortalBranch = slug == 'vault' || slug == 'waypoint'
+	return hasDevPortalBranch ? 'dev-portal' : undefined
+}
+
+/**
  * @TODO update the basePaths inside of `src/data/${productSLug}.json` files to
  * be arrays of objects that look like:
  *
@@ -97,8 +118,13 @@ export function getStaticGenerationFunctions<
 		product: productSlugForLoader,
 		basePath: basePathForLoader,
 		enabledVersionedDocs: true,
+		/**
+		 * Note: not all products in "beta" are expected to have a specific
+		 * "content_preview_branch", so even for products marked "beta",
+		 * "latestVersionRef" may end up being undefined.
+		 */
 		latestVersionRef: isBetaProduct
-			? __config.dev_dot.content_preview_branch
+			? getBetaLatestVersionRef(productSlugForLoader)
 			: undefined,
 	}
 
