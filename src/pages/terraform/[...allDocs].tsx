@@ -9,12 +9,13 @@ import DocsView from 'views/docs-view'
 // 			<pre>
 // 				<code>{JSON.stringify(props, null, 2)}</code>
 // 			</pre>
-// 			<pre>
-// 				<code>{JSON.stringify({ propKeys: Object.keys(props) }, null, 2)}</code>
-// 			</pre>
 // 		</>
 // 	)
 // }
+
+const PRODUCT_DATA = terraformData as ProductData
+
+const CUSTOM_DOCS_LANDING_PATHS = ['docs']
 
 /*
 Subpath				      Repository
@@ -37,8 +38,6 @@ Subpath				      Repository
 /plugin/sdkv2   		terraform-plugin-sdk
 /registry			      terraform-docs-common
 */
-
-const PRODUCT_DATA = terraformData as ProductData
 const TERRAFORM_DOCS_SUBPATHS = {
 	cdktf: {
 		baseName: 'CDKTF',
@@ -168,14 +167,26 @@ async function getSubpathStaticPaths({
 
 export async function getStaticPaths() {
 	// Gather all paths from all possible subpaths
-	let paths = []
+	let allPaths = []
 	for (const [basePath, config] of Object.entries(TERRAFORM_DOCS_SUBPATHS)) {
 		const subpathPaths = await getSubpathStaticPaths({ basePath, ...config })
-		paths = paths.concat(subpathPaths)
+		allPaths = allPaths.concat(subpathPaths)
 	}
 	// Return all generated paths
-	// TODO: for "custom" docs landing pages, we'll need to exclude some routes
-	// TODO: fallback: "blocking" inferred from lower level generated fns (?)
+	// Filter out paths used for "custom" docs landing pages
+
+	const paths = allPaths.filter((entry) => {
+		const params = entry.params.allDocs
+		const fullPath = params.join('/')
+		const isDocsCustomLanding = CUSTOM_DOCS_LANDING_PATHS.reduce(
+			(acc, landingPath) => {
+				return acc || fullPath == landingPath || fullPath == `${landingPath}/`
+			},
+			false
+		)
+		//
+		return !isDocsCustomLanding
+	})
 	// Add some paths for dev
 	return { paths, fallback: 'blocking' }
 }

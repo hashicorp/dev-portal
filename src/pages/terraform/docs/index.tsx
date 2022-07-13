@@ -18,9 +18,6 @@ function DocsView(props) {
 			<pre>
 				<code>{JSON.stringify(props, null, 2)}</code>
 			</pre>
-			<pre>
-				<code>{JSON.stringify({ propKeys: Object.keys(props) }, null, 2)}</code>
-			</pre>
 		</>
 	)
 }
