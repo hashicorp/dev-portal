@@ -89,6 +89,7 @@ export function getStaticGenerationFunctions<
 	additionalRemarkPlugins = [],
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
+	navDataPrefix,
 }: {
 	product: ProductData
 	basePath: string
@@ -98,6 +99,7 @@ export function getStaticGenerationFunctions<
 	additionalRemarkPlugins?: Pluggable[]
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
+	navDataPrefix?: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -118,6 +120,7 @@ export function getStaticGenerationFunctions<
 		product: productSlugForLoader,
 		basePath: basePathForLoader,
 		enabledVersionedDocs: true,
+		navDataPrefix,
 		/**
 		 * Note: not all products in "beta" are expected to have a specific
 		 * "content_preview_branch", so even for products marked "beta",
