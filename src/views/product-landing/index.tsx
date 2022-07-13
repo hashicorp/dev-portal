@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React, { ReactElement } from 'react'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
