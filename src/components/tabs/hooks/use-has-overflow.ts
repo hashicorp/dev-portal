@@ -19,14 +19,16 @@ const MUTATION_OPTS = { attributes: true, childList: true, subtree: true }
  *
  * https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
  */
-export default function useHasOverflow<T extends HTMLElement>(
-	ref: MutableRefObject<T>
-): boolean {
+export default function useHasOverflow<T extends HTMLElement>(): [
+	boolean,
+	MutableRefObject<T>
+] {
+	const overflowTargetRef = useRef<T>(null)
 	const smallestWidthBeforeOverflow = useRef<number>(null)
 	const [hasOverflow, setHasOverflow] = useState<boolean>(null)
 
 	useSafeLayoutEffect(() => {
-		const target = ref.current
+		const target = overflowTargetRef.current
 		const viewport = target.ownerDocument.defaultView
 
 		let requestId
@@ -135,5 +137,5 @@ export default function useHasOverflow<T extends HTMLElement>(
 		}
 	}, [])
 
-	return hasOverflow
+	return [hasOverflow, overflowTargetRef]
 }

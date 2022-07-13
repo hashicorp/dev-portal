@@ -33,8 +33,7 @@ const Tabs = ({
 	/**
 	 * Track whether tabs are overflowing, so we can switch to a select.
 	 */
-	const ref = useRef<HTMLDivElement>()
-	const hasOverflow = useHasOverflow<HTMLDivElement>(ref)
+	const [hasOverflow, overflowTargetRef] = useHasOverflow<HTMLDivElement>()
 
 	/**
 	 * Track the active tab
@@ -69,7 +68,7 @@ const Tabs = ({
 
 	return (
 		<TabNestingProvider>
-			<div ref={ref}>
+			<div ref={overflowTargetRef}>
 				<div
 					className={classNames(s.tabControls, {
 						[s.isCheckingOverflow]: hasOverflow === null,
