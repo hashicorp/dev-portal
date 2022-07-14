@@ -5,6 +5,7 @@ import {
 	ProductTutorialsViewProps,
 } from 'views/product-tutorials-view/server'
 import ProductTutorialsView from 'views/product-tutorials-view'
+import { cachedGetProductData } from 'views/tutorial-view/utils/get-product-data'
 
 /**
  * Based on the array of beta product slugs,
@@ -25,7 +26,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ product: LearnProductSlug }>): Promise<{
 	props: ProductTutorialsViewProps
 }> {
-	const productData = await import(`data/${params.product}.json`)
+	const productData = cachedGetProductData(params.product)
 	const props = await getProductTutorialsViewProps(
 		productData as LearnProductData
 	)
