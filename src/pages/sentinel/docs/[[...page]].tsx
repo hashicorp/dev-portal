@@ -1,7 +1,7 @@
 import sentinelData from 'data/sentinel.json'
 import { ProductData } from 'types/products'
 import remarkSentinel from 'lib/remark-sentinel'
-import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
+import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
 
 const basePath = 'docs'
