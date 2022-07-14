@@ -1,16 +1,16 @@
+// Third-party imports
 import { Pluggable } from 'unified'
+import rehypePrism from '@mapbox/rehype-prism'
+
+// HashiCorp Imports
+import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import {
-	anchorLinks,
-	// includeMarkdown,
-	// paragraphCustomAlerts,
-} from '@hashicorp/remark-plugins'
-import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
-import rehypePrism from '@mapbox/rehype-prism'
-import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
-import { getProductUrlAdjuster } from './utils/product-url-adjusters'
+import { anchorLinks } from '@hashicorp/remark-plugins'
+
+// Global imports
 import { ProductData, RootDocsPath } from 'types/products'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
@@ -19,6 +19,9 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+
+// Local imports
+import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
