@@ -9,7 +9,7 @@ import {
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import rehypePrism from '@mapbox/rehype-prism'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
-import { getProductUrlAdjuster } from '../../layouts/sidebar-sidecar/utils/product-url-adjusters'
+import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { ProductData, RootDocsPath } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
