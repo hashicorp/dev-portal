@@ -137,30 +137,36 @@ const moizeOpts: Options = {
 // limit the expensive call for tutorials that have the same product
 const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
-export async function getTutorialPagePaths(
-	product: ProductOption
-): Promise<TutorialPagePaths[]> {
-	const allCollections = await cachedGetAllCollections({
-		product: { slug: product },
-	})
-	// Only build collections where this product is the main 'theme'
-	// @TODO once we implement the `theme` query option, remove the theme filtering
-	// https://app.asana.com/0/1201903760348480/1201932088801131/f
-	const filteredCollections = allCollections.filter((c) => c.theme === product)
-	// go through all collections, get the collection slug
-	const paths = filteredCollections.flatMap((collection) => {
-		const collectionSlug = splitProductFromFilename(collection.slug)
-		// go through the tutorials within this collection, create a path for each
-		return collection.tutorials.map((tutorial) => {
-			const tutorialSlug = splitProductFromFilename(tutorial.slug)
+export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
+	const allCollections = await cachedGetAllCollections()
+	let paths = []
+	// eventually this will be the whole product list? we need to build from
+	// a product-first standpoint here to ensure the routing is correct as each
+	// page needs to be build from its product-parent
+	__config.dev_dot.beta_product_slugs.map((product) => {
+		// Only build collections where this product is the main 'theme'
+		// @TODO once we implement the `theme` query option, remove the theme filtering
+		// https://app.asana.com/0/1201903760348480/1201932088801131/f
+		const filteredCollections = allCollections.filter(
+			(c) => c.theme === product
+		)
+		// go through all collections, get the collection slug
+		const currentProductPaths = filteredCollections.flatMap((collection) => {
+			const collectionSlug = splitProductFromFilename(collection.slug)
+			// go through the tutorials within this collection, create a path for each
+			return collection.tutorials.map((tutorial) => {
+				const tutorialSlug = splitProductFromFilename(tutorial.slug)
 
-			return {
-				params: {
-					tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
-				},
-			}
+				return {
+					params: {
+						tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
+					},
+				}
+			})
 		})
+		paths = [...paths, currentProductPaths]
 	})
+
 	return paths
 }
 
@@ -169,12 +175,12 @@ export async function getTutorialPagePaths(
  * Return the { getStaticPaths, getStaticProps } functions
  * needed to set up a [...tutorialSlug] route
  */
-export function generateStaticFunctions(productData: LearnProductData) {
+export function generateStaticFunctions() {
 	// getStaticPaths
 	async function getStaticPaths(): Promise<
 		GetStaticPathsResult<TutorialPagePaths['params']>
 	> {
-		const paths = await getTutorialPagePaths(ProductOption[productData.slug])
+		const paths = await getTutorialPagePaths()
 		return {
 			paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
 			fallback: 'blocking',
@@ -184,6 +190,7 @@ export function generateStaticFunctions(productData: LearnProductData) {
 	async function getStaticProps({
 		params,
 	}): Promise<GetStaticPropsResult<TutorialPageProps>> {
+		const productData = await import(`data/${params.product}.json`)
 		const props = await getTutorialPageProps(productData, params.tutorialSlug)
 		// If the tutorial doesn't exist, hit the 404
 		if (!props) {
