@@ -1,5 +1,3 @@
-import fs from 'fs'
-import path from 'path'
 import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
 import { RootDocsPath } from 'types/products'
