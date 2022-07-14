@@ -1,0 +1,11 @@
+query WaypointHomepage {
+	waypointHomepageCurrent {
+		seo: seoMeta {
+			title
+			description
+			image {
+				url
+			}
+		}
+	}
+}

@@ -167,6 +167,8 @@ App.getInitialProps = async ({
 		proxiedProduct = 'packer'
 	} else if (ctx.pathname.includes('_proxied-dot-io/vagrant')) {
 		proxiedProduct = 'vagrant'
+	} else if (ctx.pathname.includes('_proxied-dot-io/waypoint')) {
+		proxiedProduct = 'waypoint'
 	}
 	const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
 
