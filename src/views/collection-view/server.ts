@@ -1,15 +1,14 @@
 import moize, { Options } from 'moize'
-import { GetStaticPropsResult } from 'next'
+import { GetStaticPropsResult, GetStaticPathsResult } from 'next'
 import { LearnProductData } from 'types/products'
-import {
-	Collection as ClientCollection,
-	ProductOption,
-} from 'lib/learn-client/types'
+import { Collection as ClientCollection } from 'lib/learn-client/types'
+import { ProductSlug } from 'types/products'
 import {
 	getAllCollections,
 	getCollection,
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
@@ -24,12 +23,6 @@ export interface CollectionPageProps {
 	allProductCollections: ClientCollection[]
 	product: LearnProductData
 	layoutProps: CollectionLayout
-}
-
-interface CollectionPagePaths {
-	params: {
-		collectionSlug: string
-	}
 }
 
 export type CollectionLayout = Pick<
@@ -112,21 +105,23 @@ export async function getCollectionPageProps(
 	}
 }
 
-export async function getCollectionPaths(
-	product: ProductOption
-): Promise<CollectionPagePath[]> {
-	const collections = await cachedGetAllCollections({
-		product: { slug: product },
+async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
+	const collections = await cachedGetAllCollections()
+
+	// @TODO only build collections that are in beta
+	const filteredCollections = collections.filter((c) =>
+		getIsBetaProduct(c.theme as ProductSlug)
+	)
+	const paths = filteredCollections.map((collection) => {
+		// assuming slug structure of :product/:filename
+		const [product, filename] = collection.slug.split('/')
+		return {
+			params: {
+				product,
+				collectionSlug: filename,
+			},
+		}
 	})
-	// Only build collections where this product is the main 'theme'
-	// @TODO once we implement the `theme` query option, remove the theme filtering
-	// https://app.asana.com/0/1201903760348480/1201932088801131/f
-	const filteredCollections = collections.filter((c) => c.theme === product)
-	const paths = filteredCollections.map((collection) => ({
-		params: {
-			collectionSlug: splitProductFromFilename(collection.slug),
-		},
-	}))
 
 	return paths
 }
@@ -137,6 +132,16 @@ export async function getCollectionPaths(
  * needed to set up a [collectionSlug] route.
  */
 export function generateStaticFunctions() {
+	async function getStaticPaths(): Promise<
+		GetStaticPathsResult<CollectionPagePath['params']>
+	> {
+		const paths = await getCollectionPagePaths()
+
+		return {
+			paths,
+			fallback: false,
+		}
+	}
 	// getStaticProps
 	async function getStaticProps({
 		params,
@@ -152,5 +157,5 @@ export function generateStaticFunctions() {
 		return props
 	}
 	// return both
-	return { getStaticProps }
+	return { getStaticProps, getStaticPaths }
 }

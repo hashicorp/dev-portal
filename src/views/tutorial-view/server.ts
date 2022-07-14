@@ -147,6 +147,7 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		// Only build collections where this product is the main 'theme'
 		// @TODO once we implement the `theme` query option, remove the theme filtering
 		// https://app.asana.com/0/1201903760348480/1201932088801131/f
+		// @TODO we may want to adjust this to build based on the collection slug instead of the theme?
 		const filteredCollections = allCollections.filter(
 			(c) => c.theme === product
 		)
