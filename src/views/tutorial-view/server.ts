@@ -173,7 +173,7 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 }
 
 /**
- * Given productData,
+ * For all beta products,
  * Return the { getStaticPaths, getStaticProps } functions
  * needed to set up a [...tutorialSlug] route
  */

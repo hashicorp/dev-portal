@@ -127,7 +127,7 @@ async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 }
 
 /**
- * Given some productData,
+ * For all beta products,
  * Return { getStaticPaths, getStaticProps } functions
  * needed to set up a [collectionSlug] route.
  */
