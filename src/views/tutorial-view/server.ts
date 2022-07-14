@@ -1,5 +1,3 @@
-import fs from 'fs'
-import path from 'path'
 import moize, { Options } from 'moize'
 import { LearnProductData, LearnProductSlug } from 'types/products'
 import {
@@ -26,6 +24,7 @@ import {
 } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
+import { cachedGetProductData } from './utils/get-product-data'
 
 export interface TutorialPageProps {
 	tutorial: TutorialData
@@ -201,15 +200,9 @@ export function generateStaticFunctions() {
 		product: LearnProductSlug
 		tutorialSlug: [string, string]
 	}>): Promise<GetStaticPropsResult<TutorialPageProps>> {
-		// @TODO Cache this?
-		const productData = JSON.parse(
-			fs.readFileSync(
-				path.join(process.cwd(), `src/data/${params.product}.json`),
-				'utf-8'
-			)
-		)
-
-		const props = await getTutorialPageProps(productData, params.tutorialSlug)
+		const { product, tutorialSlug } = params
+		const productData = cachedGetProductData(product)
+		const props = await getTutorialPageProps(productData, tutorialSlug)
 		// If the tutorial doesn't exist, hit the 404
 		if (!props) {
 			return { notFound: true }

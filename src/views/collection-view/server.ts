@@ -1,5 +1,3 @@
-import fs from 'fs'
-import path from 'path'
 import moize, { Options } from 'moize'
 import {
 	GetStaticPropsResult,
@@ -18,6 +16,7 @@ import getIsBetaProduct from 'lib/get-is-beta-product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
+import { cachedGetProductData } from 'views/tutorial-view/utils/get-product-data'
 import {
 	CollectionCategorySidebarSection,
 	formatSidebarCategorySections,
@@ -157,12 +156,7 @@ export function generateStaticFunctions() {
 		collectionSlug: string
 	}>): Promise<GetStaticPropsResult<CollectionPageProps>> {
 		const { collectionSlug, product } = params
-		const productData: LearnProductData = JSON.parse(
-			fs.readFileSync(
-				path.join(process.cwd(), `src/data/${product}.json`),
-				'utf-8'
-			)
-		)
+		const productData = cachedGetProductData(product)
 
 		const props = await getCollectionPageProps(productData, collectionSlug)
 		// If the collection doesn't exist, hit the 404
