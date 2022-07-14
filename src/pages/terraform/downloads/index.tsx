@@ -7,7 +7,7 @@ import terraformData from 'data/terraform.json'
 import { ProductData } from 'types/products'
 import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 import ProductDownloadsView from 'views/product-downloads-view'
-import { generateStaticProps } from 'views/product-downloads-view/server'
+import { generateGetStaticProps } from 'views/product-downloads-view/server'
 
 const VERSION_DOWNLOAD_CUTOFF = '>=1.0.11'
 
@@ -65,8 +65,11 @@ function filterVersions(
 	return filteredVersionsObj
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-	const generatedProps = await generateStaticProps(terraformData as ProductData)
+const getStaticProps: GetStaticProps = async () => {
+	const generatedGetStaticProps = generateGetStaticProps(
+		terraformData as ProductData
+	)
+	const generatedProps = await generatedGetStaticProps()
 
 	// Filter versions based on VERSION_DOWNLOAD_CUTOFF
 	const rawVersions = generatedProps.props?.releases?.versions
@@ -76,4 +79,5 @@ export const getStaticProps: GetStaticProps = async () => {
 	return generatedProps
 }
 
+export { getStaticProps }
 export default ProductDownloadsView

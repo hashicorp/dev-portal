@@ -1,11 +1,9 @@
-import { GetStaticProps } from 'next'
 import consulData from 'data/consul.json'
 import { ProductData } from 'types/products'
 import ProductDownloadsView from 'views/product-downloads-view'
-import { generateStaticProps } from 'views/product-downloads-view/server'
+import { generateGetStaticProps } from 'views/product-downloads-view/server'
 
-export const getStaticProps: GetStaticProps = async () => {
-	return await generateStaticProps(consulData as ProductData)
-}
+const getStaticProps = generateGetStaticProps(consulData as ProductData)
 
+export { getStaticProps }
 export default ProductDownloadsView
