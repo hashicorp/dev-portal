@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import moize, { Options } from 'moize'
 import { LearnProductData, LearnProductSlug } from 'types/products'
 import {
@@ -199,7 +201,14 @@ export function generateStaticFunctions() {
 		product: LearnProductSlug
 		tutorialSlug: [string, string]
 	}>): Promise<GetStaticPropsResult<TutorialPageProps>> {
-		const productData = await import(`data/${params.product}.json`)
+		// @TODO Cache this?
+		const productData = JSON.parse(
+			fs.readFileSync(
+				path.join(process.cwd(), `src/data/${params.product}.json`),
+				'utf-8'
+			)
+		)
+
 		const props = await getTutorialPageProps(productData, params.tutorialSlug)
 		// If the tutorial doesn't exist, hit the 404
 		if (!props) {

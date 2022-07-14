@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import moize, { Options } from 'moize'
 import {
 	GetStaticPropsResult,
@@ -155,7 +157,12 @@ export function generateStaticFunctions() {
 		collectionSlug: string
 	}>): Promise<GetStaticPropsResult<CollectionPageProps>> {
 		const { collectionSlug, product } = params
-		const productData = await import(`data/${product}.json`) // @TODO use fs.readFileSync here?
+		const productData: LearnProductData = JSON.parse(
+			fs.readFileSync(
+				path.join(process.cwd(), `src/data/${product}.json`),
+				'utf-8'
+			)
+		)
 
 		const props = await getCollectionPageProps(productData, collectionSlug)
 		// If the collection doesn't exist, hit the 404
