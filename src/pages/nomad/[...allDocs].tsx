@@ -15,7 +15,7 @@ function DocsView(props) {
 
 const PRODUCT_DATA = nomadData as ProductData
 
-const CUSTOM_DOCS_LANDING_PATHS = ['api-docs', 'docs']
+const CUSTOM_DOCS_LANDING_PATHS = ['api-docs', 'docs', 'plugins', 'tools']
 
 /**
  * TODO: 🚨 wasn't there some proxy slash redirect stuff
