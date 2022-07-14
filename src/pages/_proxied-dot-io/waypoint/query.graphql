@@ -7,5 +7,89 @@ query WaypointHomepage {
 				url
 			}
 		}
+
+		# Hero section
+		heroHeading
+		heroDescription
+		heroCta {
+			title
+			url: link
+		}
+
+		# Intro section Left Column
+		introLeftColumnHeading
+		introLeftColumnDescription
+		introLeftColumnFeatures {
+			...featureFields
+		}
+
+		# Intro section Right Column
+		introRightColumnHeading
+		introRightColumnDescription
+		introRightColumnFeatures {
+			...featureFields
+		}
+
+		# Configure Your App section
+		configureYourAppHeading
+		configureYourAppCodeNote
+		configureYourAppFeatures {
+			...featureFields
+		}
+
+		# Build and Deploy section
+		buildAndDeployHeading
+		buildAndDeployFeatures {
+			...featureFields
+		}
+
+		# Monitor Your App section
+		monitorYourAppHeading
+		monitorYourAppFeatures {
+			...featureFields
+		}
+
+		# Monitor App Health section
+		monitorAppHealthHeading
+		monitorAppHealthDescription
+		monitorAppHealthFeatures {
+			...featureFields
+		}
+
+		# Extend Plugins section
+		extendPluginsHeading
+		extendPluginsDescription
+		extendPluginsFeatures {
+			...featureFields
+		}
+
+		# Call To Action section
+		callToActionHeading
+		callToActionContent
+		callToActionFeatures {
+			media: image {
+				src: url
+				alt
+				width
+				height
+			}
+			text
+		}
+		callToActionLinks {
+			text: title
+			url: link
+		}
+	}
+}
+
+fragment featureFields on FeatureWithIconAndLinkRecord {
+	icon {
+		url
+	}
+	heading
+	description
+	link {
+		text: title
+		url: link
 	}
 }

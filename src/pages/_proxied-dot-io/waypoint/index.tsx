@@ -19,7 +19,17 @@ import SectionCallToAction from 'components/_proxied-dot-io/waypoint/homepage/se
 import s from './home/style.module.css'
 
 function HomePage({ data }): JSX.Element {
-	const { seo } = data
+	const {
+		seo,
+		hero,
+		intro,
+		configureYourAppSection,
+		buildAndDeploySection,
+		monitorYourAppSection,
+		monitorAppHealthSection,
+		extendPluginsSection,
+		callToActionSection,
+	} = data
 
 	return (
 		<>
@@ -31,91 +41,18 @@ function HomePage({ data }): JSX.Element {
 
 			<div className={s.homePage}>
 				<Hero
-					heading={
-						<>
-							Easy application deployment for <em>Kubernetes</em> and{' '}
-							<em>Amazon ECS</em>
-						</>
-					}
-					description="Waypoint allows developers to deploy, manage, and observe their applications through a consistent abstraction of underlying infrastructure. Waypoint works with Kubernetes, ECS and many other platforms."
-					link={{
-						title: 'Get Started',
-						url: 'https://developer.hashicorp.com/waypoint/tutorials/get-started-kubernetes',
-					}}
+					heading={hero.heading}
+					description={hero.description}
+					link={hero.cta}
 				/>
 				<SectionIntro
-					columnLeft={{
-						heading: (
-							<>
-								Simple <em>developer experience</em>
-							</>
-						),
-						description:
-							'Waypoint provides a simple and consistent abstraction for developers to easily build, deploy, and release applications.',
-						features: [
-							{
-								icon: require('components/_proxied-dot-io/waypoint/homepage/icons/layers.svg?include'),
-								heading: 'Application-centric abstraction',
-								description:
-									'Specify the deployment needs with a simple and consistent abstraction without the underlying complexity.',
-							},
-							{
-								icon: require('components/_proxied-dot-io/waypoint/homepage/icons/link.svg?include'),
-								heading: 'End-to-end deployment workflow',
-								description:
-									'Move and manage resources efficiently with distinct build, deploy, release steps.',
-								link: {
-									text: 'Learn more',
-									url: 'https://www.waypointproject.io/docs/lifecycle',
-								},
-							},
-						],
-					}}
-					columnRight={{
-						heading: (
-							<>
-								Powerful for <em>operators</em>
-							</>
-						),
-						description:
-							'Waypoint enables operators to create PaaS workflows of Kubernetes, ECS, serverless applications.',
-						features: [
-							{
-								icon: require('components/_proxied-dot-io/waypoint/homepage/icons/maximize.svg?include'),
-								heading: 'Build-deploy-release extensibility',
-								description:
-									'Enable a pluggable framework, integrated with CI/CD pipelines, monitoring tools, and any other ecosystem tools.',
-								link: {
-									text: 'Learn more',
-									url: 'https://www.waypointproject.io/docs/extending-waypoint',
-								},
-							},
-							{
-								icon: require('components/_proxied-dot-io/waypoint/homepage/icons/sidebar.svg?include'),
-								heading: 'PaaS experience for developers',
-								description:
-									'Provide a consistent abstraction and unified workflow for any major platforms.',
-							},
-						],
-					}}
+					columnLeft={intro.leftColumn}
+					columnRight={intro.rightColumn}
 				/>
 				<SectionHowItWorks>
 					<ConfigureYourApp
-						heading="Configure your app for Waypoint"
-						features={[
-							{
-								icon: require('components/_proxied-dot-io/waypoint/homepage/icons/edit-pencil.svg?include'),
-								heading: 'Writing waypoint.hcl files',
-								description:
-									'Your waypoint.hcl file defines how Waypoint builds, deploys, and releases a project.',
-							},
-							{
-								icon: require('components/_proxied-dot-io/waypoint/homepage/icons/layout.svg?include'),
-								heading: 'Sample Waypoint files',
-								description:
-									'View sample waypoint.hcl files to see how straight-forward it is to configure your deployments',
-							},
-						]}
+						heading={configureYourAppSection.heading}
+						features={configureYourAppSection.features}
 						code={`<span class="token keyword">build</span> {
   use <span class="token string">"pack"</span> {}
   <span class="token keyword">registry</span> {
@@ -135,125 +72,35 @@ function HomePage({ data }): JSX.Element {
     }
   }
 }`}
-						codeNote="Configure your app for Waypoint in just a few lines"
+						codeNote={configureYourAppSection.codeNote}
 					/>
+
 					<BuildAndDeploy
-						heading="Build and deploy"
-						features={[
-							{
-								icon: require('components/_proxied-dot-io/waypoint/homepage/icons/file-plus.svg?include'),
-								heading: 'Manage all steps within Waypoint',
-								description:
-									'Perform the build, deploy, and release steps for the app within waypoint. Or instrument your Waypoint deployments through Remote or Git operations.',
-							},
-						]}
+						heading={buildAndDeploySection.heading}
+						features={buildAndDeploySection.features}
 					/>
+
 					<MonitorAndManage
-						heading="Manage your apps in one place"
-						features={[
-							{
-								icon: require('components/_proxied-dot-io/waypoint/homepage/icons/sliders.svg?include'),
-								heading: 'Rich GUI for Waypoint',
-								description:
-									'No matter where your developers are deploying to, view logs, builds, releases and even run exec commands from the Waypoint UI.',
-							},
-						]}
+						heading={monitorYourAppSection.heading}
+						features={monitorYourAppSection.features}
 					/>
 				</SectionHowItWorks>
 				<SectionMonitorAppHealth
-					heading="Monitor app health on any cloud"
-					description="Waypoint provides real time status updates and monitoring for the entire lifecycle of your applications, no matter where you deploy to."
-					features={[]}
+					heading={monitorAppHealthSection.heading}
+					description={monitorAppHealthSection.description}
+					features={monitorAppHealthSection.features}
 				/>
 				<SectionExtendPlugins
-					heading="Extend Waypoint with plugins"
-					description="Extend workflows via built-in plugins and an extensible interface. Supports custom builders, deployment platforms, registries, release managers, and more."
-					features={[
-						{
-							icon: require('components/_proxied-dot-io/waypoint/homepage/icons/box.svg?include'),
-							heading: 'Available plugins',
-							description:
-								'View a list of existing HashiCorp maintained plugins',
-							link: {
-								url: '/plugins',
-								text: 'Plugins',
-							},
-						},
-						{
-							icon: require('components/_proxied-dot-io/waypoint/homepage/icons/code-union.svg?include'),
-							heading: 'Creating Waypoint plugins',
-							description: 'Learn to extend Waypoint for your project’s needs',
-							link: {
-								url: '/docs/extending-waypoint/creating-plugins',
-								text: 'Create',
-							},
-						},
-					]}
+					heading={extendPluginsSection.heading}
+					description={extendPluginsSection.description}
+					features={extendPluginsSection.features}
 				/>
 				{/* <SectionWorkflowThatScales /> */}
 				<SectionCallToAction
-					features={[
-						{
-							media: {
-								src: '/waypoint-public/img/prebuilt-binaries.svg',
-								alt: '',
-								width: 189,
-								height: 44,
-							},
-							text: (
-								<>
-									Pre-built binaries available for{' '}
-									<strong>macOS, Windows &amp; Linux</strong>
-								</>
-							),
-						},
-						{
-							media: {
-								src: '/waypoint-public/img/deploys-kubernetes-helm.svg',
-								alt: '',
-								width: 121,
-								height: 44,
-							},
-							text: (
-								<>
-									Deploys to <strong>Kubernetes</strong> in seconds with&#160;
-									<strong>Helm</strong>
-								</>
-							),
-						},
-						{
-							media: {
-								src: '/waypoint-public/img/first-party-aws-docker.svg',
-								alt: '',
-								width: 122,
-								height: 42,
-							},
-							text: (
-								<>
-									First party support for{' '}
-									<strong>AWS ECS, Docker, AWS Lambda</strong> and&#160;more
-								</>
-							),
-						},
-						{
-							media: {
-								src: '/waypoint-public/img/extensible-plugins.svg',
-								alt: '',
-								width: 65,
-								height: 42,
-							},
-							text: <>Infinitely extensible with Waypoint&#160;plugins</>,
-						},
-					]}
-					heading="Ready to get started?"
-					content="Start by following a tutorial to deploy a simple application with Waypoint or learn about how the project works by exploring the documentation."
-					links={[
-						{
-							text: 'Get Started',
-							url: 'https://developer.hashicorp.com/waypoint/tutorials/get-started-kubernetes',
-						},
-						{ text: 'Explore Documentation', url: '/docs' },
-					]}
+					heading={callToActionSection.heading}
+					content={callToActionSection.content}
+					features={callToActionSection.features}
+					links={callToActionSection.links}
 				/>
 			</div>
 		</>
@@ -266,8 +113,108 @@ export async function getStaticProps() {
 		query: homepageQuery,
 	})
 
-	return { props: { data: waypointHomepageCurrent } }
+	const {
+		seo,
+		heroHeading,
+		heroDescription,
+		heroCta,
+		introLeftColumnHeading,
+		introLeftColumnDescription,
+		introLeftColumnFeatures,
+		introRightColumnHeading,
+		introRightColumnDescription,
+		introRightColumnFeatures,
+		configureYourAppHeading,
+		configureYourAppCodeNote,
+		configureYourAppFeatures,
+		buildAndDeployHeading,
+		buildAndDeployFeatures,
+		monitorYourAppHeading,
+		monitorYourAppFeatures,
+		monitorAppHealthHeading,
+		monitorAppHealthDescription,
+		monitorAppHealthFeatures,
+		extendPluginsHeading,
+		extendPluginsDescription,
+		extendPluginsFeatures,
+		callToActionHeading,
+		callToActionContent,
+		callToActionFeatures,
+		callToActionLinks,
+	} = waypointHomepageCurrent
+
+	const pageData = {
+		seo,
+		hero: {
+			hero: heroHeading,
+			description: heroDescription,
+			cta: heroCta[0],
+		},
+		intro: {
+			leftColumn: {
+				heading: introLeftColumnHeading,
+				description: introLeftColumnDescription,
+				features: formatFeatures(introLeftColumnFeatures),
+			},
+			rightColumn: {
+				heading: introRightColumnHeading,
+				description: introRightColumnDescription,
+				features: formatFeatures(introRightColumnFeatures),
+			},
+		},
+		configureYourAppSection: {
+			heading: configureYourAppHeading,
+			codeNote: configureYourAppCodeNote,
+			features: formatFeatures(configureYourAppFeatures),
+		},
+		buildAndDeploySection: {
+			heading: buildAndDeployHeading,
+			features: formatFeatures(buildAndDeployFeatures),
+		},
+		monitorYourAppSection: {
+			heading: monitorYourAppHeading,
+			features: formatFeatures(monitorYourAppFeatures),
+		},
+		monitorAppHealthSection: {
+			heading: monitorAppHealthHeading,
+			description: monitorAppHealthDescription,
+			features: formatFeatures(monitorAppHealthFeatures),
+		},
+		extendPluginsSection: {
+			heading: extendPluginsHeading,
+			description: extendPluginsDescription,
+			features: formatFeatures(extendPluginsFeatures),
+		},
+		callToActionSection: {
+			heading: callToActionHeading,
+			content: callToActionContent,
+			features: callToActionFeatures,
+			links: callToActionLinks,
+		},
+	}
+
+	return {
+		props: {
+			data: pageData,
+		},
+	}
 }
 
 HomePage.layout = WaypointIoLayout
 export default HomePage
+
+function formatFeatures(features) {
+	const formattedFeatures = features.map((feature) => {
+		return {
+			icon: feature.icon.url,
+			heading: feature.heading,
+			description: feature.description,
+			...(feature.link.length > 0
+				? {
+						link: feature.link[0],
+				  }
+				: {}),
+		}
+	})
+	return formattedFeatures
+}
