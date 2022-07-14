@@ -1,8 +1,5 @@
 {
 	"extends": "base",
-	"dev_dot": {
-		"beta_product_slugs": ["nomad", "vault", "waypoint"]
-	},
 	"io_sites": {
 		"max_static_paths": 10
 	},
