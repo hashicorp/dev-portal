@@ -24,6 +24,7 @@ const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
 async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	const collections = await cachedGetAllCollections()
+
 	// @TODO only build collections that are in beta
 	const filteredCollections = collections.filter((c) =>
 		getIsBetaProduct(c.theme as ProductSlug)
