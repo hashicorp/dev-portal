@@ -2,20 +2,20 @@ import { GetStaticPropsResult } from 'next'
 import fs from 'fs'
 import path from 'path'
 import { ProductData } from 'types/products'
+import { validateAgainstSchema } from 'lib/validate-against-schema'
+import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { SidebarProps } from 'components/sidebar'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
-import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { ProductLandingContent, ProductLandingContentSchema } from './schema'
-import { validateAgainstSchema } from 'lib/validate-against-schema'
 import { transformRawContentToProp, extractHeadings } from './helpers'
 import { ProductLandingViewProps } from './types'
 
 const generateGetStaticProps = (product: ProductData) => {
-	const getStaticProps = async (): Promise<
+	return async (): Promise<
 		GetStaticPropsResult<
 			ProductLandingViewProps & {
 				layoutProps: {
@@ -54,7 +54,7 @@ const generateGetStaticProps = (product: ProductData) => {
 		const content = await transformRawContentToProp(CONTENT, product)
 
 		/**
-		 * Gather up our static props package & return it
+		 * Gather up our static props
 		 */
 		const props = {
 			content,
@@ -82,11 +82,9 @@ const generateGetStaticProps = (product: ProductData) => {
 
 		return {
 			props,
-			revalidate: 10,
+			revalidate: false,
 		}
 	}
-
-	return { getStaticProps }
 }
 
 export { generateGetStaticProps }
