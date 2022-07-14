@@ -1,30 +1,21 @@
 // Third-party imports
 import { Fragment, useRef, useState } from 'react'
 import Head from 'next/head'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
-import { LearnProductData } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import {
-	Collection as ClientCollection,
-	CollectionLite as ClientCollectionLite,
-	ProductOption,
-	TutorialFullCollectionCtx as ClientTutorial,
-} from 'lib/learn-client/types'
-import SidebarSidecarLayout, {
-	SidebarSidecarLayoutProps,
-} from 'layouts/sidebar-sidecar'
+import { ProductOption } from 'lib/learn-client/types'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
 } from 'views/collection-view/helpers'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import OptInOut from 'components/opt-in-out'
-import { CollectionCardPropsWithId } from 'components/collection-card'
 import DevDotContent from 'components/dev-dot-content'
 import {
 	generateProductLandingSidebarNavData,
@@ -40,51 +31,22 @@ import VideoEmbed from 'components/video-embed'
 import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
 
 // Local imports
+import {
+	TutorialViewProps,
+	TutorialData,
+	CollectionContext,
+	TutorialSidebarSidecarProps,
+} from './types'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
+import getVideoUrl from './utils/get-video-url'
+import { getCanonicalCollectionSlug } from './utils/get-canonical-collection-slug'
 import {
 	FeaturedInCollections,
 	NextPrevious,
 	getNextPrevious,
 } from './components'
-import getVideoUrl from './utils/get-video-url'
-import { getCanonicalCollectionSlug } from './utils/get-canonical-collection-slug'
 import s from './tutorial-view.module.css'
-
-export interface TutorialViewProps {
-	layoutProps: TutorialSidebarSidecarProps
-	product: LearnProductData
-	tutorial: TutorialData
-}
-
-export interface TutorialData
-	extends Pick<
-		ClientTutorial,
-		| 'name'
-		| 'slug'
-		| 'readTime'
-		| 'productsUsed'
-		| 'edition'
-		| 'handsOnLab'
-		| 'video'
-	> {
-	collectionCtx: CollectionContext
-	content: MDXRemoteSerializeResult
-	nextCollectionInSidebar?: ClientCollectionLite
-}
-
-export type CollectionContext = {
-	default: Pick<ClientCollection, 'slug' | 'id'>
-	current: ClientCollection
-	featuredIn?: CollectionCardPropsWithId[]
-}
-
-export type TutorialSidebarSidecarProps = Required<
-	Pick<
-		SidebarSidecarLayoutProps,
-		'children' | 'headings' | 'breadcrumbLinks'
-	> & { sidebarSections: CollectionCategorySidebarSection[] }
->
 
 const LayoutContentWrapper = ({
 	children,
@@ -107,7 +69,7 @@ const LayoutContentWrapper = ({
 	return children
 }
 
-export default function TutorialView({
+function TutorialView({
 	layoutProps,
 	product,
 	tutorial,
@@ -250,3 +212,11 @@ export default function TutorialView({
 		</>
 	)
 }
+
+export type {
+	TutorialViewProps,
+	TutorialData,
+	CollectionContext,
+	TutorialSidebarSidecarProps,
+}
+export default TutorialView
