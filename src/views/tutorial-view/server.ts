@@ -159,6 +159,7 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 
 				return {
 					params: {
+						product,
 						tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
 					},
 				}
