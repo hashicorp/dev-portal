@@ -112,6 +112,64 @@ peerComponents:
 </Tabs>
 `}</LiveComponent>
 
+### With `Tabs` that oveflow their container
+
+There are times when a row of `Tab`s is too wide to fit inside of its containing element. In these cases, a single `select` element is rendered rather than many `Tab` buttons. For each `Tab`, the `select` will have an `option` for it.
+
+<LiveComponent>{`
+<Tabs>
+  {Array.from(new Array(10)).map((_, index) => {
+    return (
+      <Tab heading={"Tab #" + (index+1)}>
+        <p>Tab {index+1} content: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium viverra suspendisse potenti nullam ac tortor. Laoreet id donec ultrices tincidunt arcu non sodales neque. Risus at ultrices mi tempus imperdiet. Morbi tristique senectus et netus et malesuada fames.</p>
+      </Tab>
+    )
+  })}
+</Tabs>
+`}</LiveComponent>
+
+### With `Tabs` nested within a `Tab`
+
+It is possible for `Tabs` to be nested within a `Tab`. The `allowNestedStyles` prop should be used on the parent `Tabs` in this case. This prop ensures that nested `Tabs` will be styled in a way that more clearly displays the nested hierarchy.
+
+<LiveComponent>{`
+<Tabs allowNestedStyles>
+  <Tab heading="Tab 1">
+    <Tabs>
+      {Array.from(new Array(5)).map((_, index) => {
+        return (
+          <Tab heading={"Nested Tab 1-" + (index+1)}>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium viverra suspendisse potenti nullam ac tortor. Laoreet id donec ultrices tincidunt arcu non sodales neque. Risus at ultrices mi tempus imperdiet. Morbi tristique senectus et netus et malesuada fames.</p>
+          </Tab>
+        )
+      })}
+    </Tabs>
+  </Tab>
+  <Tab heading="Tab 2">
+    <Tabs>
+      {Array.from(new Array(5)).map((_, index) => {
+        return (
+          <Tab heading={"Nested Tab 2-" + (index+1)}>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium viverra suspendisse potenti nullam ac tortor. Laoreet id donec ultrices tincidunt arcu non sodales neque. Risus at ultrices mi tempus imperdiet. Morbi tristique senectus et netus et malesuada fames.</p>
+          </Tab>
+        )
+      })}
+    </Tabs>
+  </Tab>
+  <Tab heading="Tab 3">
+    <Tabs>
+      {Array.from(new Array(5)).map((_, index) => {
+        return (
+          <Tab heading={"Nested Tab 3-" + (index+1)}>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium viverra suspendisse potenti nullam ac tortor. Laoreet id donec ultrices tincidunt arcu non sodales neque. Risus at ultrices mi tempus imperdiet. Morbi tristique senectus et netus et malesuada fames.</p>
+          </Tab>
+        )
+      })}
+    </Tabs>
+  </Tab>
+</Tabs>
+`}</LiveComponent>
+
 ### With group syncing from `TabProvider`
 
 First, second and third tabs should be actively synced based on their matching `group` property.
