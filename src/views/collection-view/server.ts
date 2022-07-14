@@ -1,8 +1,12 @@
 import moize, { Options } from 'moize'
-import { GetStaticPropsResult, GetStaticPathsResult } from 'next'
+import {
+	GetStaticPropsResult,
+	GetStaticPathsResult,
+	GetStaticPropsContext,
+} from 'next'
 import { LearnProductData } from 'types/products'
 import { Collection as ClientCollection } from 'lib/learn-client/types'
-import { ProductSlug } from 'types/products'
+import { LearnProductSlug } from 'types/products'
 import {
 	getAllCollections,
 	getCollection,
@@ -110,7 +114,7 @@ async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 
 	// @TODO only build collections that are in beta
 	const filteredCollections = collections.filter((c) =>
-		getIsBetaProduct(c.theme as ProductSlug)
+		getIsBetaProduct(c.theme as LearnProductSlug)
 	)
 	const paths = filteredCollections.map((collection) => {
 		// assuming slug structure of :product/:filename
@@ -146,7 +150,10 @@ export function generateStaticFunctions() {
 	// getStaticProps
 	async function getStaticProps({
 		params,
-	}): Promise<GetStaticPropsResult<CollectionPageProps>> {
+	}: GetStaticPropsContext<{
+		product: LearnProductSlug
+		collectionSlug: string
+	}>): Promise<GetStaticPropsResult<CollectionPageProps>> {
 		const { collectionSlug, product } = params
 		const productData = await import(`data/${product}.json`) // @TODO use fs.readFileSync here?
 

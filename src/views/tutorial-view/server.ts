@@ -1,6 +1,10 @@
 import moize, { Options } from 'moize'
-import { LearnProductData } from 'types/products'
-import { GetStaticPropsResult, GetStaticPathsResult } from 'next'
+import { LearnProductData, LearnProductSlug } from 'types/products'
+import {
+	GetStaticPropsResult,
+	GetStaticPathsResult,
+	GetStaticPropsContext,
+} from 'next'
 import {
 	getAllCollections,
 	getNextCollectionInSidebar,
@@ -191,7 +195,10 @@ export function generateStaticFunctions() {
 	// getStaticProps
 	async function getStaticProps({
 		params,
-	}): Promise<GetStaticPropsResult<TutorialPageProps>> {
+	}: GetStaticPropsContext<{
+		product: LearnProductSlug
+		tutorialSlug: [string, string]
+	}>): Promise<GetStaticPropsResult<TutorialPageProps>> {
 		const productData = await import(`data/${params.product}.json`)
 		const props = await getTutorialPageProps(productData, params.tutorialSlug)
 		// If the tutorial doesn't exist, hit the 404

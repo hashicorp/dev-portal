@@ -1,13 +1,28 @@
-import { LearnProductData, ProductSlug } from 'types/products'
+import { GetStaticPropsContext } from 'next'
+import { LearnProductData, LearnProductSlug } from 'types/products'
 import {
 	getProductTutorialsViewProps,
 	ProductTutorialsViewProps,
 } from 'views/product-tutorials-view/server'
 import ProductTutorialsView from 'views/product-tutorials-view'
 
-export default ProductTutorialsView
+/**
+ * Based on the array of beta product slugs,
+ * generate each product tutorials route
+ * i.e. /vault/tutorials
+ */
+function generateProductTutorialHomePaths() {
+	return Array.from(
+		__config.dev_dot.beta_product_slugs,
+		(productSlug: LearnProductSlug) => ({
+			params: { product: productSlug },
+		})
+	)
+}
 
-export async function getStaticProps({ params }): Promise<{
+export async function getStaticProps({
+	params,
+}: GetStaticPropsContext<{ product: LearnProductSlug }>): Promise<{
 	props: ProductTutorialsViewProps
 }> {
 	const productData = await import(`data/${params.product}.json`)
@@ -18,18 +33,11 @@ export async function getStaticProps({ params }): Promise<{
 	return props
 }
 
-function generateProductTutorialHomePaths() {
-	return Array.from(
-		__config.dev_dot.beta_product_slugs,
-		(productSlug: ProductSlug) => ({
-			params: { product: productSlug },
-		})
-	)
-}
-
 export async function getStaticPaths() {
 	return {
 		paths: generateProductTutorialHomePaths(),
 		fallback: false,
 	}
 }
+
+export default ProductTutorialsView
