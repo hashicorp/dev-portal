@@ -132,6 +132,7 @@ async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
  * needed to set up a [collectionSlug] route.
  */
 export function generateStaticFunctions() {
+	// getStaticPaths
 	async function getStaticPaths(): Promise<
 		GetStaticPathsResult<CollectionPagePath['params']>
 	> {
