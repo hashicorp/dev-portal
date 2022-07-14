@@ -1,11 +1,14 @@
 // Third-party imports
-import { Fragment } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import Head from 'next/head'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 // Global imports
 import { LearnProductData } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
+import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
+import { useMobileMenu } from 'contexts'
+import InstruqtProvider from 'contexts/instruqt-lab'
 import {
 	Collection as ClientCollection,
 	CollectionLite as ClientCollectionLite,
@@ -19,6 +22,7 @@ import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
 } from 'views/collection-view/helpers'
+import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import OptInOut from 'components/opt-in-out'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 import DevDotContent from 'components/dev-dot-content'
@@ -33,8 +37,6 @@ import TutorialsSidebar, {
 import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
-import InstruqtProvider from 'contexts/instruqt-lab'
-import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
 
 // Local imports
@@ -84,13 +86,39 @@ export type TutorialSidebarSidecarProps = Required<
 	> & { sidebarSections: CollectionCategorySidebarSection[] }
 >
 
+const LayoutContentWrapper = ({
+	children,
+	collectionCtx,
+	product,
+	setCollectionViewSidebarSections,
+}) => {
+	const { mobileMenuIsOpen } = useMobileMenu()
+	const haveLoadedData = useRef(false)
+
+	if (mobileMenuIsOpen && haveLoadedData.current === false) {
+		getCollectionViewSidebarSections(product, collectionCtx.current).then(
+			(result) => {
+				haveLoadedData.current = true
+				setCollectionViewSidebarSections(result)
+			}
+		)
+	}
+
+	return children
+}
+
 export default function TutorialView({
 	layoutProps,
 	product,
 	tutorial,
 }: TutorialViewProps): React.ReactElement {
+	// hooks
 	useOptInAnalyticsTracking('learn')
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
+		useState<CollectionCategorySidebarSection[]>(null)
+
+	// variables
 	const {
 		name,
 		slug,
@@ -134,7 +162,9 @@ export default function TutorialView({
 			title: 'Tutorials',
 			overviewItemHref: `/${product.slug}/tutorials`,
 			children: (
-				<CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
+				<CollectionViewSidebarContent
+					sections={collectionViewSidebarSections}
+				/>
 			),
 		},
 		{
@@ -181,34 +211,40 @@ export default function TutorialView({
 					}
 					headings={layoutProps.headings}
 				>
-					<TutorialMeta
-						heading={{ slug: layoutProps.headings[0].slug, text: name }}
-						meta={{
-							readTime,
-							edition,
-							productsUsed,
-							isInteractive,
-							hasVideo,
-						}}
-					/>
-					{hasVideo && video.id && !video.videoInline && (
-						<VideoEmbed
-							url={getVideoUrl({
-								videoId: video.id,
-								videoHost: video.videoHost,
-							})}
+					<LayoutContentWrapper
+						collectionCtx={collectionCtx}
+						product={product}
+						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
+					>
+						<TutorialMeta
+							heading={{ slug: layoutProps.headings[0].slug, text: name }}
+							meta={{
+								readTime,
+								edition,
+								productsUsed,
+								isInteractive,
+								hasVideo,
+							}}
 						/>
-					)}
-					<TabProvider>
-						<DevDotContent>
-							<MDXRemote {...content} components={MDX_COMPONENTS} />
-						</DevDotContent>
-					</TabProvider>
-					<NextPrevious {...nextPreviousData} />
-					<FeaturedInCollections
-						className={s.featuredInCollections}
-						collections={featuredInWithoutCurrent}
-					/>
+						{hasVideo && video.id && !video.videoInline && (
+							<VideoEmbed
+								url={getVideoUrl({
+									videoId: video.id,
+									videoHost: video.videoHost,
+								})}
+							/>
+						)}
+						<TabProvider>
+							<DevDotContent>
+								<MDXRemote {...content} components={MDX_COMPONENTS} />
+							</DevDotContent>
+						</TabProvider>
+						<NextPrevious {...nextPreviousData} />
+						<FeaturedInCollections
+							className={s.featuredInCollections}
+							collections={featuredInWithoutCurrent}
+						/>
+					</LayoutContentWrapper>
 				</SidebarSidecarLayout>
 			</InteractiveLabWrapper>
 		</>
