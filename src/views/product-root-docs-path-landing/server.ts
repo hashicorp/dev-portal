@@ -83,19 +83,10 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 
 const generateGetStaticProps = ({
 	includeMDXSource = false,
+	pageContent,
 	product,
 	productSlugForLoader,
 }: GenerateGetStaticPropsArguments) => {
-	/**
-	 * Note: could consider other content sources. For now, JSON.
-	 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
-	 */
-	const jsonFilePath = path.join(
-		process.cwd(),
-		`src/content/${product.slug}/docs-landing.json`
-	)
-	const pageContent = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
-
 	const basePath = 'docs'
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath

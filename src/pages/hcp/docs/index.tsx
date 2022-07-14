@@ -1,4 +1,5 @@
 import hcpData from 'data/hcp.json'
+import pageContent from 'content/hcp/docs-landing.json'
 import { ProductData } from 'types/products'
 import ProductRootDocsPathLanding from 'views/product-root-docs-path-landing'
 import { generateGetStaticProps } from 'views/product-root-docs-path-landing/server'
@@ -18,6 +19,7 @@ import { generateGetStaticProps } from 'views/product-root-docs-path-landing/ser
 
 const getStaticProps = generateGetStaticProps({
 	includeMDXSource: false,
+	pageContent,
 	productSlugForLoader: 'cloud.hashicorp.com',
 	product: hcpData as ProductData,
 })
