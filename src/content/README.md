@@ -1,3 +1,3 @@
 # HashiCorp Developer: Authorable Content
 
-TODO
+TODO(ashleemboyer): Fill in instructions in fast-follow PR
