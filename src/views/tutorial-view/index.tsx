@@ -32,10 +32,11 @@ import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-re
 
 // Local imports
 import {
-	TutorialViewProps,
-	TutorialData,
 	CollectionContext,
+	LayoutContentWrapperProps,
+	TutorialData,
 	TutorialSidebarSidecarProps,
+	TutorialViewProps,
 } from './types'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
@@ -48,27 +49,48 @@ import {
 } from './components'
 import s from './tutorial-view.module.css'
 
+/**
+ * The purpose of this wrapper component is to make it possible to invoke the
+ * `useMobileMenu` hook. It cannot be invoked in `TutorialView`. This is because
+ * it requires being invoked within a `MobileMenuProvider`.
+ *
+ * `MobileMenuProvider` is rendered by `CoreDevDotLayout`, which is indirectly
+ * rendered by `SidebarSidecarLayout`. This means the `useMobileMenu` hook can
+ * only be invoked here by a component rendered within `SidebarSidecarLayout`.
+ */
 const LayoutContentWrapper = ({
 	children,
 	collectionCtx,
 	product,
 	setCollectionViewSidebarSections,
-}) => {
+}: LayoutContentWrapperProps) => {
 	const { mobileMenuIsOpen } = useMobileMenu()
 	const haveLoadedData = useRef(false)
 
-	if (mobileMenuIsOpen && haveLoadedData.current === false) {
+	/**
+	 * Only need to load the data once, on the first open of the mobile menu
+	 */
+	if (haveLoadedData.current === false && mobileMenuIsOpen) {
 		getCollectionViewSidebarSections(product, collectionCtx.current).then(
-			(result) => {
+			(result: CollectionCategorySidebarSection[]) => {
 				haveLoadedData.current = true
 				setCollectionViewSidebarSections(result)
 			}
 		)
 	}
 
-	return children
+	/**
+	 * Wrapping in a fragment to prevent a "return type 'ReactNode' is not a valid
+	 * JSX element" error
+	 */
+	return <>{children}</>
 }
 
+/**
+ * Renders content for tutorial routes.
+ *
+ * /:productSlug/tutorials/:collectionSlug/:tutorialSlug
+ */
 function TutorialView({
 	layoutProps,
 	product,
@@ -162,9 +184,9 @@ function TutorialView({
 					/**
 					 * @TODO remove casting to `any`. Will require refactoring both
 					 * `generateTopLevelSidebarNavData` and
-					 * `generateProductLandingSidebarNavData` to set up `menuItems` with the
-					 * correct types. This will require chaning many files, so deferring for
-					 * a follow-up PR since this is functional for the time being.
+					 * `generateProductLandingSidebarNavData` to set up `menuItems` with
+					 * the correct types. This will require chaning many files, so
+					 * deferring for a follow-up PR since this is functional for the time being.
 					 */
 					sidebarNavDataLevels={sidebarNavDataLevels as any}
 					AlternateSidebar={TutorialsSidebar}
