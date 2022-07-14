@@ -164,7 +164,7 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 				}
 			})
 		})
-		paths = [...paths, currentProductPaths]
+		paths = [...paths, ...currentProductPaths]
 	})
 
 	return paths
