@@ -157,16 +157,15 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		)
 		// go through all collections, get the collection slug
 		const currentProductPaths = filteredCollections.flatMap((collection) => {
-			const collectionSlug = splitProductFromFilename(collection.slug)
+			// assuming slug structure of :product/:filename
+			const [productFromCollection, collectionSlug] = collection.slug.split('/')
 			// go through the tutorials within this collection, create a path for each
 			return collection.tutorials.map((tutorial) => {
 				const tutorialSlug = splitProductFromFilename(tutorial.slug)
-				// assuming slug structure of :product/:filename
-				const [productFromCollectionSlug] = collection.slug.split('/')
 
 				return {
 					params: {
-						product: productFromCollectionSlug,
+						product: productFromCollection,
 						tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
 					},
 				}
