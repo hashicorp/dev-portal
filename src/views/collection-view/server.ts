@@ -112,8 +112,9 @@ export async function getCollectionPageProps(
 
 async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	const collections = await cachedGetAllCollections()
-
-	// @TODO only build collections that are in beta
+	// Only build collections where this product is the main 'theme'
+	// @TODO once we implement the `theme` query option, remove the theme filtering
+	// https://app.asana.com/0/1201903760348480/1201932088801131/f
 	const filteredCollections = collections.filter((c) =>
 		getIsBetaProduct(c.theme as LearnProductSlug)
 	)
