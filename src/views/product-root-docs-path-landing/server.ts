@@ -84,12 +84,17 @@ const generateGetStaticProps = ({
 	pageContent,
 	product,
 	productSlugForLoader,
+	basePath = 'docs',
 }: GenerateGetStaticPropsArguments) => {
-	const basePath = 'docs'
+	/**
+	 * TODO: feels like a possible code smell of needing to
+	 * consolidate src/pages-level { basePath, baseName } config
+	 * with src/data-level { rootDocsPaths } config
+	 */
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
-	const baseName = currentRootDocsPath.shortName
+	const baseName = currentRootDocsPath.shortName || currentRootDocsPath.name
 
 	return async (context: GetStaticPropsContext) => {
 		const { getStaticProps: generatedGetStaticProps } =
