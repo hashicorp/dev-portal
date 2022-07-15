@@ -1,10 +1,6 @@
 import moize, { Options } from 'moize'
 import { LearnProductData, LearnProductSlug } from 'types/products'
-import {
-	GetStaticPropsResult,
-	GetStaticPathsResult,
-	GetStaticPropsContext,
-} from 'next'
+
 import {
 	getAllCollections,
 	getNextCollectionInSidebar,
@@ -25,7 +21,6 @@ import {
 } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
-import { cachedGetProductData } from './utils/get-product-data'
 
 export interface TutorialPageProps {
 	tutorial: TutorialData
@@ -172,43 +167,4 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 	paths = [...paths, ...currentProductPaths]
 
 	return paths
-}
-
-/**
- * For all beta products,
- * Return the { getStaticPaths, getStaticProps } functions
- * needed to set up a [...tutorialSlug] route
- */
-export function generateStaticFunctions() {
-	// getStaticPaths
-	async function getStaticPaths(): Promise<
-		GetStaticPathsResult<TutorialPagePaths['params']>
-	> {
-		const paths = await getTutorialPagePaths()
-		return {
-			paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
-			fallback: 'blocking',
-		}
-	}
-	// getStaticProps
-	async function getStaticProps({
-		params,
-	}: GetStaticPropsContext<{
-		productSlug: LearnProductSlug
-		tutorialSlug: [string, string]
-	}>): Promise<GetStaticPropsResult<TutorialPageProps>> {
-		const { productSlug, tutorialSlug } = params
-		const productData = cachedGetProductData(productSlug)
-		const props = await getTutorialPageProps(productData, tutorialSlug)
-		// If the tutorial doesn't exist, hit the 404
-		if (!props) {
-			return { notFound: true }
-		}
-		return props
-	}
-	// return both
-	return {
-		getStaticPaths,
-		getStaticProps,
-	}
 }

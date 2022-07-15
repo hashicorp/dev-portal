@@ -1,7 +1,43 @@
+import {
+	GetStaticPropsResult,
+	GetStaticPathsResult,
+	GetStaticPropsContext,
+} from 'next'
+import { LearnProductSlug } from 'types/products'
+import { cachedGetProductData } from 'views/tutorial-view/utils/get-product-data'
 import TutorialView from 'views/tutorial-view'
-import { generateStaticFunctions } from 'views/tutorial-view/server'
+import {
+	TutorialPageProps,
+	TutorialPagePaths,
+	getTutorialPagePaths,
+	getTutorialPageProps,
+} from 'views/tutorial-view/server'
 
-const { getStaticPaths, getStaticProps } = generateStaticFunctions()
+async function getStaticPaths(): Promise<
+	GetStaticPathsResult<TutorialPagePaths['params']>
+> {
+	const paths = await getTutorialPagePaths()
+	return {
+		paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
+		fallback: 'blocking',
+	}
+}
+
+async function getStaticProps({
+	params,
+}: GetStaticPropsContext<{
+	productSlug: LearnProductSlug
+	tutorialSlug: [string, string]
+}>): Promise<GetStaticPropsResult<TutorialPageProps>> {
+	const { productSlug, tutorialSlug } = params
+	const productData = cachedGetProductData(productSlug)
+	const props = await getTutorialPageProps(productData, tutorialSlug)
+	// If the tutorial doesn't exist, hit the 404
+	if (!props) {
+		return { notFound: true }
+	}
+	return props
+}
 
 export { getStaticPaths, getStaticProps }
 export default TutorialView

@@ -1,9 +1,5 @@
 import moize, { Options } from 'moize'
-import {
-	GetStaticPropsResult,
-	GetStaticPathsResult,
-	GetStaticPropsContext,
-} from 'next'
+
 import { LearnProductData } from 'types/products'
 import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { LearnProductSlug } from 'types/products'
@@ -16,7 +12,7 @@ import getIsBetaProduct from 'lib/get-is-beta-product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
-import { cachedGetProductData } from 'views/tutorial-view/utils/get-product-data'
+
 import {
 	CollectionCategorySidebarSection,
 	formatSidebarCategorySections,
@@ -110,7 +106,7 @@ export async function getCollectionPageProps(
 	}
 }
 
-async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
+export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	const collections = await cachedGetAllCollections()
 	// Only build collections where this product is the main 'theme'
 	// @TODO once we implement the `theme` query option, remove the theme filtering
@@ -130,42 +126,4 @@ async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	})
 
 	return paths
-}
-
-/**
- * For all beta products,
- * Return { getStaticPaths, getStaticProps } functions
- * needed to set up a [collectionSlug] route.
- */
-export function generateStaticFunctions() {
-	// getStaticPaths
-	async function getStaticPaths(): Promise<
-		GetStaticPathsResult<CollectionPagePath['params']>
-	> {
-		const paths = await getCollectionPagePaths()
-
-		return {
-			paths,
-			fallback: false,
-		}
-	}
-	// getStaticProps
-	async function getStaticProps({
-		params,
-	}: GetStaticPropsContext<{
-		productSlug: LearnProductSlug
-		collectionSlug: string
-	}>): Promise<GetStaticPropsResult<CollectionPageProps>> {
-		const { collectionSlug, productSlug } = params
-		const productData = cachedGetProductData(productSlug)
-
-		const props = await getCollectionPageProps(productData, collectionSlug)
-		// If the collection doesn't exist, hit the 404
-		if (!props) {
-			return { notFound: true }
-		}
-		return props
-	}
-	// return both
-	return { getStaticProps, getStaticPaths }
 }
