@@ -170,7 +170,7 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 			getIsBetaProduct(productSlugFromCollection as LearnProductSlug) &&
 			productSlugFromCollection === collection.theme
 		) {
-			collection.tutorials.map((tutorial: ClientTutorialLite) => {
+			collection.tutorials.forEach((tutorial: ClientTutorialLite) => {
 				const tutorialSlug = splitProductFromFilename(tutorial.slug)
 
 				paths.push({
