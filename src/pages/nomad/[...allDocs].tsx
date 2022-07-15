@@ -2,7 +2,7 @@ import nomadData from 'data/nomad.json'
 import { ProductData } from 'types/products'
 import DocsView from 'views/docs-view'
 // server
-import rehypePluginInjectMdx from 'lib/rehype-plugin-inject-mdx'
+// import rehypePluginInjectMdx from 'lib/rehype-plugin-inject-mdx'
 import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 
 // function DocsView(props) {
@@ -17,7 +17,7 @@ import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 
 const PRODUCT_DATA = nomadData as ProductData
 
-const CUSTOM_DOCS_LANDING_PATHS = ['docs', 'plugins', 'tools']
+const CUSTOM_DOCS_LANDING_PATHS = ['api-docs', 'docs', 'plugins', 'tools']
 
 /**
  * TODO: 🚨 wasn't there some proxy slash redirect stuff
@@ -151,7 +151,7 @@ export async function getStaticProps({ params }) {
 			product: PRODUCT_DATA,
 			basePath,
 			...subpathConfig,
-			additionalRehypePlugins: [rehypePluginInjectMdx],
+			// additionalRehypePlugins: [rehypePluginInjectMdx],
 		})
 	// Note that the context { params } are constructed here, not passed directly.
 	const staticProps = await generatedGetStaticProps({

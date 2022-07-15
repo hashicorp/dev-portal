@@ -1,6 +1,13 @@
 // import { visit } from 'unist-util-visit'
 import { Plugin, Transformer } from 'unified'
 
+/**
+ * TODO: this is spiked in as a way to add some content nodes via remark,
+ * cause there isn't an easy way to inject a string of MDX.
+ *
+ * Also, this doesn't really work yet, just leaving it in for now
+ * it case it becomes useful in the near future.
+ */
 const rehypePluginInjectMdx: Plugin = (): Transformer => {
 	return function transformer(tree) {
 		const nodesToAdd = [
