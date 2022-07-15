@@ -4,7 +4,7 @@ import {
 	GetStaticPropsContext,
 } from 'next'
 import { LearnProductSlug } from 'types/products'
-import { cachedGetProductData } from 'views/tutorial-view/utils/get-product-data'
+import { cachedGetProductData } from 'lib/get-product-data'
 import TutorialView from 'views/tutorial-view'
 import {
 	TutorialPageProps,

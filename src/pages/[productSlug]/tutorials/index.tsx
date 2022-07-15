@@ -5,7 +5,7 @@ import {
 	ProductTutorialsViewProps,
 } from 'views/product-tutorials-view/server'
 import ProductTutorialsView from 'views/product-tutorials-view'
-import { cachedGetProductData } from 'views/tutorial-view/utils/get-product-data'
+import { cachedGetProductData } from 'lib/get-product-data'
 
 /**
  * Based on the array of beta product slugs,
