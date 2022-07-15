@@ -19,20 +19,17 @@ const OPTION_OVERWRITES_BY_PRODUCT: {
 	},
 }
 
-/**
- * @TODO add TS to function signature & document function purpose
- */
 const generateHeadingLevelsAndSidecarHeadings = ({
 	layoutHeadings,
 	marketingContentBlocks = [],
 	pageTitle,
-}) => {
+}: $TSFixMe) => {
 	const marketingContentHeadings = []
 
 	// gather headings from marketing content & auto determine their levels
 	let currentSectionHeading
 	const marketingContentBlocksWithHeadingLevels = marketingContentBlocks.map(
-		(block) => {
+		(block: $TSFixMe) => {
 			const blockCopy = { ...block }
 
 			let thisHeadingObject
@@ -88,7 +85,7 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 	const sidecarHeadings = [
 		titleHeading,
 		...marketingContentHeadings,
-		...layoutHeadings.filter((heading) => heading.level !== 1),
+		...layoutHeadings.filter((heading: $TSFixMe) => heading.level !== 1),
 	]
 
 	return { sidecarHeadings, marketingContentBlocksWithHeadingLevels }
