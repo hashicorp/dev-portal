@@ -8,6 +8,9 @@ import { GenerateGetStaticPropsOptions } from './types'
 
 const BASE_PATH = 'docs'
 
+/**
+ * Mapping of product slugs to objects of options that need to be overwritten.
+ */
 const OPTION_OVERWRITES_BY_PRODUCT: {
 	[key in ProductSlug]?: GenerateGetStaticPropsOptions
 } = {
