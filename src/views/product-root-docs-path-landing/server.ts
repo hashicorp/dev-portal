@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
 import { RootDocsPath } from 'types/products'
@@ -81,7 +83,6 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 
 const generateGetStaticProps = ({
 	includeMDXSource = false,
-	pageContent,
 	product,
 	productSlugForLoader,
 }: GenerateGetStaticPropsArguments) => {
@@ -90,6 +91,18 @@ const generateGetStaticProps = ({
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
 	const baseName = currentRootDocsPath.shortName
+
+	/**
+	 * Fetch page content
+	 *
+	 * Note: could consider other content sources. For now, JSON.
+	 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
+	 */
+	const jsonFilePath = path.join(
+		process.cwd(),
+		`src/content/${product.slug}/docs-landing.json`
+	)
+	const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 
 	return async (context: GetStaticPropsContext) => {
 		const { getStaticProps: generatedGetStaticProps } =
@@ -110,7 +123,7 @@ const generateGetStaticProps = ({
 		const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
 			generateHeadingLevelsAndSidecarHeadings({
 				layoutHeadings: generatedProps.props.layoutProps.headings,
-				marketingContentBlocks: pageContent.marketingContentBlocks,
+				marketingContentBlocks: CONTENT.marketingContentBlocks,
 				pageTitle: `${product.name} ${baseName}`,
 			})
 
@@ -126,7 +139,7 @@ const generateGetStaticProps = ({
 					headings: sidecarHeadings,
 				},
 				pageContent: {
-					...pageContent,
+					...CONTENT,
 					marketingContentBlocks: marketingContentBlocksWithHeadingLevels,
 				},
 				pageHeading: sidecarHeadings[0],

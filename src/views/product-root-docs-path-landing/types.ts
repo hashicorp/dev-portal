@@ -9,7 +9,6 @@ interface PageContent {
 
 interface GenerateGetStaticPropsArguments {
 	includeMDXSource?: boolean
-	pageContent: PageContent
 	product: ProductData
 	/**
 	 * Optional product slug for our content API.
