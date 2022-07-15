@@ -1,26 +1,9 @@
-import { ReactElement } from 'react'
-import { GetStaticProps } from 'next'
 import nomadData from 'data/nomad.json'
-import installData from 'data/nomad-install.json'
 import { ProductData } from 'types/products'
-import { generateStaticProps, GeneratedProps } from 'lib/fetch-release-data'
 import ProductDownloadsView from 'views/product-downloads-view'
+import { generateGetStaticProps } from 'views/product-downloads-view/server'
 
-const NomadDownloadsPage = (props: GeneratedProps): ReactElement => {
-	const { latestVersion, releases } = props
-	return (
-		<ProductDownloadsView
-			latestVersion={latestVersion}
-			pageContent={installData}
-			releases={releases}
-		/>
-	)
-}
+const getStaticProps = generateGetStaticProps(nomadData as ProductData)
 
-export const getStaticProps: GetStaticProps = async () => {
-	const product = nomadData as ProductData
-
-	return generateStaticProps(product)
-}
-
-export default NomadDownloadsPage
+export { getStaticProps }
+export default ProductDownloadsView
