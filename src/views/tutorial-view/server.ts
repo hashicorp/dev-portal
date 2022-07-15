@@ -140,31 +140,28 @@ const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
 export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 	const allCollections = await cachedGetAllCollections()
-	let paths = []
-	// Only build collections where the `theme` is a valid beta product
-	// @TODO once we implement the `theme` query option, remove the theme filtering
-	// https://app.asana.com/0/1201903760348480/1201932088801131/f
-	const filteredCollections = allCollections.filter((c) =>
-		getIsBetaProduct(c.theme as LearnProductSlug)
-	)
-	// go through all collections, get the collection slug
-	const currentProductPaths = filteredCollections.flatMap((collection) => {
-		// assuming slug structure of :product/:filename
-		const [productSlugFromCollection, collectionSlug] =
-			collection.slug.split('/')
-		// go through the tutorials within this collection, create a path for each
-		return collection.tutorials.map((tutorial) => {
-			const tutorialSlug = splitProductFromFilename(tutorial.slug)
+	const paths = []
+	allCollections.forEach((collection) => {
+		// Only build collections where the `theme` is a valid beta product
+		// @TODO once we implement the `theme` query option, remove the theme filtering
+		// https://app.asana.com/0/1201903760348480/1201932088801131/f
+		if (getIsBetaProduct(collection.theme as LearnProductSlug)) {
+			// assuming slug structure of :product/:filename
+			const [productSlugFromCollection, collectionSlug] =
+				collection.slug.split('/')
 
-			return {
-				params: {
-					productSlug: productSlugFromCollection,
-					tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
-				},
-			}
-		})
+			collection.tutorials.map((tutorial) => {
+				const tutorialSlug = splitProductFromFilename(tutorial.slug)
+
+				paths.push({
+					params: {
+						productSlug: productSlugFromCollection,
+						tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
+					},
+				})
+			})
+		}
 	})
-	paths = [...paths, ...currentProductPaths]
 
 	return paths
 }

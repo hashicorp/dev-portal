@@ -108,20 +108,20 @@ export async function getCollectionPageProps(
 
 export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	const collections = await cachedGetAllCollections()
-	// Only build collections where this product is the main 'theme'
-	// @TODO once we implement the `theme` query option, remove the theme filtering
-	// https://app.asana.com/0/1201903760348480/1201932088801131/f
-	const filteredCollections = collections.filter((c) =>
-		getIsBetaProduct(c.theme as LearnProductSlug)
-	)
-	const paths = filteredCollections.map((collection) => {
-		// assuming slug structure of :product/:filename
-		const [productSlug, filename] = collection.slug.split('/')
-		return {
-			params: {
-				productSlug,
-				collectionSlug: filename,
-			},
+	const paths = []
+	collections.forEach((collection) => {
+		// Only build collections where this product is the main 'theme'
+		// @TODO once we implement the `theme` query option, remove the theme filtering
+		// https://app.asana.com/0/1201903760348480/1201932088801131/f
+		if (getIsBetaProduct(collection.theme as LearnProductSlug)) {
+			// assuming slug structure of :product/:filename
+			const [productSlug, filename] = collection.slug.split('/')
+			paths.push({
+				params: {
+					productSlug,
+					collectionSlug: filename,
+				},
+			})
 		}
 	})
 
