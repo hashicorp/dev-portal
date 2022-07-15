@@ -3,5 +3,8 @@
 	"io_sites": {
 		"max_static_paths": 10
 	},
+	"dev_dot": {
+		"beta_product_slugs": ["hcp", "nomad", "vault", "waypoint"]
+	},
 	"flags": {}
 }
