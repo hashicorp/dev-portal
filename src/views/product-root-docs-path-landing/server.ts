@@ -1,8 +1,8 @@
+import { GetStaticPropsContext } from 'next'
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
-import { GetStaticPropsContext } from 'next'
-import { ProductSlug, RootDocsPath } from 'types/products'
+import { ProductData, ProductSlug, RootDocsPath } from 'types/products'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
 import { GenerateGetStaticPropsOptions } from './types'
 
@@ -94,98 +94,96 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 	return { sidecarHeadings, marketingContentBlocksWithHeadingLevels }
 }
 
-const generateGetStaticProps = () => {
-	return async (context: GetStaticPropsContext) => {
-		/**
-		 * Pull product slug from context params
-		 */
-		const productSlug = context.params.productSlug as string
+const generateRootDocsLandingPaths = () => {
+	return __config.dev_dot.beta_product_slugs.map(
+		(productSlug: ProductSlug) => ({
+			params: { productSlug },
+		})
+	)
+}
 
-		/**
-		 * Gather config variables
-		 */
-		const optionOverwrites = OPTION_OVERWRITES_BY_PRODUCT[productSlug]
-		const includeMDXSource = optionOverwrites
-			? optionOverwrites.includeMDXSource
-			: false
-		const productSlugForLoader = optionOverwrites
-			? optionOverwrites.productSlugForLoader
-			: undefined
+const generateRootDocsLandingProps = async ({
+	context,
+	product,
+}: {
+	context: GetStaticPropsContext
+	product: ProductData
+}) => {
+	/**
+	 * Gather config variables
+	 */
+	const optionOverwrites = OPTION_OVERWRITES_BY_PRODUCT[product.slug]
+	const includeMDXSource = optionOverwrites
+		? optionOverwrites.includeMDXSource
+		: false
+	const productSlugForLoader = optionOverwrites
+		? optionOverwrites.productSlugForLoader
+		: undefined
 
-		/**
-		 * Fetch product data
-		 */
-		const productDataJsonFilePath = path.join(
-			process.cwd(),
-			`src/data/${productSlug}.json`
-		)
-		const product = JSON.parse(fs.readFileSync(productDataJsonFilePath, 'utf8'))
+	/**
+	 * Pull data from product object
+	 */
+	const currentRootDocsPath = product.rootDocsPaths.find(
+		(rootDocsPath: RootDocsPath) => rootDocsPath.path === BASE_PATH
+	)
+	const baseName = currentRootDocsPath.shortName
 
-		/**
-		 * Pull data from product object
-		 */
-		const currentRootDocsPath = product.rootDocsPaths.find(
-			(rootDocsPath: RootDocsPath) => rootDocsPath.path === BASE_PATH
-		)
-		const baseName = currentRootDocsPath.shortName
+	/**
+	 * Fetch page content
+	 *
+	 * Note: could consider other content sources. For now, JSON.
+	 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
+	 */
+	const jsonFilePath = path.join(
+		process.cwd(),
+		`src/content/${product.slug}/docs-landing.json`
+	)
+	const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 
-		/**
-		 * Fetch page content
-		 *
-		 * Note: could consider other content sources. For now, JSON.
-		 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
-		 */
-		const jsonFilePath = path.join(
-			process.cwd(),
-			`src/content/${product.slug}/docs-landing.json`
-		)
-		const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
+	const { getStaticProps: generatedGetStaticProps } =
+		_getStaticGenerationFunctions({
+			product,
+			productSlugForLoader,
+			basePath: BASE_PATH,
+			baseName,
+		})
 
-		const { getStaticProps: generatedGetStaticProps } =
-			_getStaticGenerationFunctions({
-				product,
-				productSlugForLoader,
-				basePath: BASE_PATH,
-				baseName,
-			})
+	// TODO: replace any with accurate type
+	const generatedProps = (await generatedGetStaticProps({
+		...context,
+		params: { page: [] },
+	})) as $TSFixMe
 
-		// TODO: replace any with accurate type
-		const generatedProps = (await generatedGetStaticProps({
-			...context,
-			params: { page: [] },
-		})) as $TSFixMe
+	// Append headings found in marketing content
+	const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
+		generateHeadingLevelsAndSidecarHeadings({
+			layoutHeadings: generatedProps.props.layoutProps.headings,
+			marketingContentBlocks: CONTENT.marketingContentBlocks,
+			pageTitle: `${product.name} ${baseName}`,
+		})
 
-		// Append headings found in marketing content
-		const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
-			generateHeadingLevelsAndSidecarHeadings({
-				layoutHeadings: generatedProps.props.layoutProps.headings,
-				marketingContentBlocks: CONTENT.marketingContentBlocks,
-				pageTitle: `${product.name} ${baseName}`,
-			})
-
-		// TODO clean this up so it's easier to understand
-		return {
-			...generatedProps,
-			props: {
-				...generatedProps.props,
-				mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
-				layoutProps: {
-					...generatedProps.props.layoutProps,
-					githubFileUrl: null,
-					headings: sidecarHeadings,
-				},
-				pageContent: {
-					...CONTENT,
-					marketingContentBlocks: marketingContentBlocksWithHeadingLevels,
-				},
-				pageHeading: sidecarHeadings[0],
-				product: {
-					...generatedProps.props.product,
-					currentRootDocsPath,
-				},
+	// TODO clean this up so it's easier to understand
+	return {
+		...generatedProps,
+		props: {
+			...generatedProps.props,
+			mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
+			layoutProps: {
+				...generatedProps.props.layoutProps,
+				githubFileUrl: null,
+				headings: sidecarHeadings,
 			},
-		}
+			pageContent: {
+				...CONTENT,
+				marketingContentBlocks: marketingContentBlocksWithHeadingLevels,
+			},
+			pageHeading: sidecarHeadings[0],
+			product: {
+				...generatedProps.props.product,
+				currentRootDocsPath,
+			},
+		},
 	}
 }
 
-export { generateGetStaticProps }
+export { generateRootDocsLandingPaths, generateRootDocsLandingProps }
