@@ -13,8 +13,7 @@ import { cachedGetProductData } from 'views/tutorial-view/utils/get-product-data
  * i.e. /vault/tutorials
  */
 function generateProductTutorialHomePaths() {
-	return Array.from(
-		__config.dev_dot.beta_product_slugs,
+	return __config.dev_dot.beta_product_slugs.map(
 		(productSlug: LearnProductSlug) => ({
 			params: { product: productSlug },
 		})
