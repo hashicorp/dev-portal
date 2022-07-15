@@ -78,11 +78,15 @@ const LayoutContentWrapper = ({
 					setCollectionViewSidebarSections(result)
 				})
 				.catch((error) => {
-					throw new Error(
-						`[TutorialView] error calling \`getCollectionViewSidebarSections\`: ${JSON.stringify(
-							error
-						)}`
-					)
+					/**
+					 * TODO: revist how we're handling this error
+					 * https://app.asana.com/0/1202097197789424/1202599138117878/f
+					 */
+					const errorMessage = `[TutorialView] error calling \`getCollectionViewSidebarSections\`: ${JSON.stringify(
+						error
+					)}`
+					console.error(errorMessage)
+					throw new Error(errorMessage)
 				})
 		}
 	}, [
