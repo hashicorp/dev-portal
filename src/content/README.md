@@ -4,7 +4,7 @@ This folder contains the authorable, marketing-style content for various landing
 
 - [Home Page](#home-page)
 - [Product landing pages](#product-landing-pages)
-- [Product Docs landing pages](#product-tutorials-landing-pages)
+- [Product Docs landing pages](#product-docs-landing-pages)
 - [Product Install landing pages](#product-install-landing-pages)
 
 ## Home Page
@@ -42,12 +42,8 @@ These pages take a "block"-based authoring approach for the main content area. T
 
 Each of these top-level properties is addressed in more detail below.
 
-#### `heading` and `subheading`
-
-Set the heading and subheading shown on the page.
-
 <details>
-<summary>Example</summary>
+<summary><code>heading</code> and <code>subheading</code></summary>
 
 Source:
 
@@ -67,7 +63,8 @@ Result:
 
 </details>
 
-#### `blocks`
+<details>
+<summary><code>blocks</code></summary>
 
 Each item in the `blocks` array represents a component on the page. Each of these items must have a `type` property, which can be one of the types listed below.
 
@@ -259,6 +256,8 @@ Example: 3-column cards with tags
 
 </details>
 
+</details>
+
 ## Product Docs landing pages
 
 To change the content for Product Tutorials landing pages (e.g. [/vault/docs](https://developer.hashicorp.com/vault/docs), [/waypoint/docs](https://developer.hashicorp.com/waypoint/docs)):
@@ -276,15 +275,13 @@ These files allow the following properties at the top-level: `pageSubtitle` and 
 - For example, Waypoint's MDX content for this page can be edited at: [`hashicorp/waypoint`](hashicorp/waypoint) GitHub repository in the [`website/content/docs/index.mdx` file](https://github.com/hashicorp/waypoint/blob/main/website/content/docs/index.mdx).
 - It is also important to note that to enable rendering MDX content in this view, `includeMDXSource: true` must be passed as an option to the `generateGetStaticProps` function exported from [`src/views/product-root-docs-path-landing/server`](/src/views/product-root-docs-path-landing/server.ts). See [`src/pages/waypoint/docs/index`](/src/pages/waypoint/docs/index.tsx) for example of how this is done.
 
-#### `pageSubtitle`
+<details>
+<summary><code>pageSubtitle</code></summary>
 
 The `pageSubtitle` property is used to customize the text beneath the page title.
 
 - The page title is automatically generated and reads "${ProductName} Documentation", for example: "Waypoint Documentation".
 - The page title and subtitle are both placed to the right of an [`IconTileLogo`](https://developer.hashicorp.com/swingset/components/icontilelogo). This is something to be mindful of when determining the character length of the subtitle.
-
-<details>
-<summary>Example</summary>
 
 The following configuration:
 
@@ -300,7 +297,8 @@ Outputs the following:
 
 </details>
 
-#### `marketingContentBlocks`
+<details>
+<summary><code>marketingContentBlocks</code><summary>
 
 This property is an array of objects. Each object has properties that express what type of content block should be rendered. There are currently three types of blocks for this view. Listed in alphabetical order:
 
@@ -444,6 +442,8 @@ Example usage:
 </details>
 
 <!-- END OF section-heading DESCRIPTION -->
+
+</details>
 
 ## Product Install landing pages
 
