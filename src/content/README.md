@@ -298,7 +298,7 @@ Outputs the following:
 </details>
 
 <details>
-<summary><code>marketingContentBlocks</code><summary>
+<summary><code>marketingContentBlocks</code></summary>
 
 This property is an array of objects. Each object has properties that express what type of content block should be rendered. There are currently three types of blocks for this view. Listed in alphabetical order:
 
