@@ -1,5 +1,5 @@
 // Third-party imports
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
 
@@ -70,14 +70,27 @@ const LayoutContentWrapper = ({
 	/**
 	 * Only need to load the data once, on the first open of the mobile menu
 	 */
-	if (hasLoadedData.current === false && mobileMenuIsOpen) {
-		getCollectionViewSidebarSections(product, collectionCtx.current).then(
-			(result: CollectionCategorySidebarSection[]) => {
-				hasLoadedData.current = true
-				setCollectionViewSidebarSections(result)
-			}
-		)
-	}
+	useEffect(() => {
+		if (hasLoadedData.current === false && mobileMenuIsOpen) {
+			getCollectionViewSidebarSections(product, collectionCtx.current)
+				.then((result: CollectionCategorySidebarSection[]) => {
+					hasLoadedData.current = true
+					setCollectionViewSidebarSections(result)
+				})
+				.catch((error) => {
+					throw new Error(
+						`[TutorialView] error calling \`getCollectionViewSidebarSections\`: ${JSON.stringify(
+							error
+						)}`
+					)
+				})
+		}
+	}, [
+		collectionCtx,
+		mobileMenuIsOpen,
+		product,
+		setCollectionViewSidebarSections,
+	])
 
 	/**
 	 * Wrapping in a fragment to prevent a "return type 'ReactNode' is not a valid
