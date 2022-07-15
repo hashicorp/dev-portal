@@ -84,7 +84,10 @@ query WaypointHomepage {
 
 fragment featureFields on FeatureWithIconAndLinkRecord {
 	icon {
-		url
+		src: url
+		alt
+		width
+		height
 	}
 	heading
 	description
