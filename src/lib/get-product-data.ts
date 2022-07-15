@@ -1,9 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 import moize from 'moize'
-import { LearnProductData, LearnProductSlug } from 'types/products'
+import { ProductData, ProductSlug } from 'types/products'
 
-function getProductData(product: LearnProductSlug): LearnProductData {
+function getProductData(product: ProductSlug): ProductData {
 	try {
 		const productData = JSON.parse(
 			fs.readFileSync(

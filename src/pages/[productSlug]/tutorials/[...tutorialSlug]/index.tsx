@@ -3,7 +3,7 @@ import {
 	GetStaticPathsResult,
 	GetStaticPropsContext,
 } from 'next'
-import { LearnProductSlug } from 'types/products'
+import { LearnProductData, LearnProductSlug } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import TutorialView from 'views/tutorial-view'
 import {
@@ -30,7 +30,7 @@ async function getStaticProps({
 	tutorialSlug: [string, string]
 }>): Promise<GetStaticPropsResult<TutorialPageProps>> {
 	const { productSlug, tutorialSlug } = params
-	const productData = cachedGetProductData(productSlug)
+	const productData = cachedGetProductData(productSlug) as LearnProductData
 	const props = await getTutorialPageProps(productData, tutorialSlug)
 	// If the tutorial doesn't exist, hit the 404
 	if (!props) {

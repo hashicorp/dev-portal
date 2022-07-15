@@ -3,7 +3,7 @@ import {
 	GetStaticPathsResult,
 	GetStaticPropsContext,
 } from 'next'
-import { LearnProductSlug } from 'types/products'
+import { LearnProductData, LearnProductSlug } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import CollectionView from 'views/collection-view'
 import {
@@ -31,7 +31,7 @@ async function getStaticProps({
 	collectionSlug: string
 }>): Promise<GetStaticPropsResult<CollectionPageProps>> {
 	const { collectionSlug, productSlug } = params
-	const productData = cachedGetProductData(productSlug)
+	const productData = cachedGetProductData(productSlug) as LearnProductData
 
 	const props = await getCollectionPageProps(productData, collectionSlug)
 	// If the collection doesn't exist, hit the 404
