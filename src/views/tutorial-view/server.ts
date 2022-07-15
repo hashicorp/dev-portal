@@ -151,6 +151,7 @@ const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 	const allCollections = await cachedGetAllCollections()
 	const paths = []
+
 	allCollections.forEach((collection: ClientCollection) => {
 		// assuming slug structure of :product/:filename
 		const [productSlugFromCollection, collectionSlug] =
@@ -170,6 +171,7 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 			getIsBetaProduct(productSlugFromCollection as LearnProductSlug) &&
 			productSlugFromCollection === collection.theme
 		) {
+			// go through the tutorials within the collection, create a path for each
 			collection.tutorials.forEach((tutorial: ClientTutorialLite) => {
 				const tutorialSlug = splitProductFromFilename(tutorial.slug)
 
