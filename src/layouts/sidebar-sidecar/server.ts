@@ -88,7 +88,7 @@ export function getStaticGenerationFunctions<
 	basePathForLoader = basePath,
 	baseName,
 	additionalRemarkPlugins = [],
-	additionalRehypePlugins = [],
+	// additionalRehypePlugins = [],
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	showVersionSelect = true,
@@ -99,7 +99,7 @@ export function getStaticGenerationFunctions<
 	basePathForLoader?: string
 	baseName: string
 	additionalRemarkPlugins?: Pluggable[]
-	additionalRehypePlugins?: Pluggable[]
+	// additionalRehypePlugins?: Pluggable[]
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
 	showVersionSelect?: boolean
@@ -179,7 +179,7 @@ export function getStaticGenerationFunctions<
 				rehypePlugins: [
 					[rehypePrism, { ignoreMissing: true }],
 					rehypeSurfaceCodeNewlines,
-					...additionalRehypePlugins,
+					// ...additionalRehypePlugins,
 				],
 				scope: await getScope(),
 			})
