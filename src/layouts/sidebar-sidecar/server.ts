@@ -19,6 +19,7 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+import { SidebarSidecarLayoutProps } from './types'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -89,6 +90,7 @@ export function getStaticGenerationFunctions<
 	additionalRemarkPlugins = [],
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
+	showVersionSelect = true,
 }: {
 	product: ProductData
 	basePath: string
@@ -98,6 +100,7 @@ export function getStaticGenerationFunctions<
 	additionalRemarkPlugins?: Pluggable[]
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
+	showVersionSelect?: boolean
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -285,14 +288,22 @@ export function getStaticGenerationFunctions<
 				version: versionPathPart,
 			})
 
+			/**
+			 * Construct layoutProps for the DocsView.
+			 */
+			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
+				breadcrumbLinks,
+				githubFileUrl,
+				headings: nonEmptyHeadings,
+				// TODO: need to adjust type for sidebarNavDataLevels here
+				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
+			}
+			if (showVersionSelect) {
+				layoutProps.versions = versions
+			}
+
 			const finalProps = {
-				layoutProps: {
-					breadcrumbLinks,
-					githubFileUrl,
-					headings: nonEmptyHeadings,
-					sidebarNavDataLevels,
-					versions,
-				},
+				layoutProps,
 				metadata: {
 					title: frontMatter.page_title ?? null,
 					description: frontMatter.description ?? null,

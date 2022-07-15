@@ -11,6 +11,7 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
 	product,
 	basePath,
 	baseName,
+	showVersionSelect: false,
 })
 
 export { getStaticPaths, getStaticProps }
