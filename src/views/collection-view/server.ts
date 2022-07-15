@@ -106,16 +106,34 @@ export async function getCollectionPageProps(
 	}
 }
 
+/**
+ * These paths are built with the collection slug as context for truth.
+ * We build the path using the collection's product association for the proper slug context.
+ * Original Collection Slug — :productSlug/:collectionFilename
+ * Final route — :productSlug/tutorials/:collectionFilename
+ */
+
 export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	const collections = await cachedGetAllCollections()
 	const paths = []
-	collections.forEach((collection) => {
-		// Only build collections where this product is the main 'theme'
-		// @TODO once we implement the `theme` query option, remove the theme filtering
-		// https://app.asana.com/0/1201903760348480/1201932088801131/f
-		if (getIsBetaProduct(collection.theme as LearnProductSlug)) {
-			// assuming slug structure of :product/:filename
-			const [productSlug, filename] = collection.slug.split('/')
+	collections.forEach((collection: ClientCollection) => {
+		// assuming slug structure of :product/:filename
+		const [productSlug, filename] = collection.slug.split('/')
+
+		/**
+		 * Only build collections where the `productSlug` is a valid beta
+		 * product and the`theme` matches the `productSlug`
+		 *
+		 * Once all products are 'onboarded' we can remove this filtering layer
+		 * for the beta products.
+		 *
+		 * @TODO once we implement the `theme` query option, remove the theme filtering
+		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
+		 */
+		if (
+			getIsBetaProduct(productSlug as LearnProductSlug) &&
+			productSlug === collection.theme
+		) {
 			paths.push({
 				params: {
 					productSlug,

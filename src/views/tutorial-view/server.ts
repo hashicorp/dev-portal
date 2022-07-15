@@ -8,7 +8,9 @@ import {
 import { getTutorial } from 'lib/learn-client/api/tutorial'
 import {
 	CollectionLite as ClientCollectionLite,
+	Collection as ClientCollection,
 	ProductOption,
+	TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import getIsBetaProduct from 'lib/get-is-beta-product'
@@ -138,19 +140,37 @@ const moizeOpts: Options = {
 // limit the expensive call for tutorials that have the same product
 const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
+/**
+ * These paths are built with the collection slug as context for truth.
+ * A tutorial may belong to many different collections and be housed in a different
+ * product context. We build the path using the collection's product association
+ * for the proper slug context.
+ * Final route — :productSlug/tutorials/:collectionFilename/:tutorialFilename
+ */
+
 export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 	const allCollections = await cachedGetAllCollections()
 	const paths = []
-	allCollections.forEach((collection) => {
-		// Only build collections where the `theme` is a valid beta product
-		// @TODO once we implement the `theme` query option, remove the theme filtering
-		// https://app.asana.com/0/1201903760348480/1201932088801131/f
-		if (getIsBetaProduct(collection.theme as LearnProductSlug)) {
-			// assuming slug structure of :product/:filename
-			const [productSlugFromCollection, collectionSlug] =
-				collection.slug.split('/')
+	allCollections.forEach((collection: ClientCollection) => {
+		// assuming slug structure of :product/:filename
+		const [productSlugFromCollection, collectionSlug] =
+			collection.slug.split('/')
 
-			collection.tutorials.map((tutorial) => {
+		/**
+		 * Only build collections where the `productSlug` is a valid beta
+		 * product and the`theme` matches the `productSlug`
+		 *
+		 * Once all products are 'onboarded' we can remove this filtering layer
+		 * for the beta products.
+		 *
+		 * @TODO once we implement the `theme` query option, remove the theme filtering
+		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
+		 */
+		if (
+			getIsBetaProduct(productSlugFromCollection as LearnProductSlug) &&
+			productSlugFromCollection === collection.theme
+		) {
+			collection.tutorials.map((tutorial: ClientTutorialLite) => {
 				const tutorialSlug = splitProductFromFilename(tutorial.slug)
 
 				paths.push({
