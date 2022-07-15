@@ -15,6 +15,7 @@ import {
 	ProductOption,
 } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
 import { TutorialSidebarSidecarProps, TutorialData } from '.'
@@ -145,34 +146,29 @@ const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 	const allCollections = await cachedGetAllCollections()
 	let paths = []
-	// eventually this will be the whole product list? we need to build from
-	// a product-first standpoint here to ensure the routing is correct as each
-	// page needs to be build from its product-parent
-	__config.dev_dot.beta_product_slugs.map((product) => {
-		// Only build collections where this product is the main 'theme'
-		// @TODO once we implement the `theme` query option, remove the theme filtering
-		// https://app.asana.com/0/1201903760348480/1201932088801131/f
-		const filteredCollections = allCollections.filter(
-			(c) => c.theme === product
-		)
-		// go through all collections, get the collection slug
-		const currentProductPaths = filteredCollections.flatMap((collection) => {
-			// assuming slug structure of :product/:filename
-			const [productFromCollection, collectionSlug] = collection.slug.split('/')
-			// go through the tutorials within this collection, create a path for each
-			return collection.tutorials.map((tutorial) => {
-				const tutorialSlug = splitProductFromFilename(tutorial.slug)
+	// Only build collections where the `theme` is a valid beta product
+	// @TODO once we implement the `theme` query option, remove the theme filtering
+	// https://app.asana.com/0/1201903760348480/1201932088801131/f
+	const filteredCollections = allCollections.filter((c) =>
+		getIsBetaProduct(c.theme as LearnProductSlug)
+	)
+	// go through all collections, get the collection slug
+	const currentProductPaths = filteredCollections.flatMap((collection) => {
+		// assuming slug structure of :product/:filename
+		const [productFromCollection, collectionSlug] = collection.slug.split('/')
+		// go through the tutorials within this collection, create a path for each
+		return collection.tutorials.map((tutorial) => {
+			const tutorialSlug = splitProductFromFilename(tutorial.slug)
 
-				return {
-					params: {
-						product: productFromCollection,
-						tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
-					},
-				}
-			})
+			return {
+				params: {
+					product: productFromCollection,
+					tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
+				},
+			}
 		})
-		paths = [...paths, ...currentProductPaths]
 	})
+	paths = [...paths, ...currentProductPaths]
 
 	return paths
 }
