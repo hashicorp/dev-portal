@@ -22,13 +22,16 @@ async function getStaticPaths(): Promise<
 		fallback: 'blocking',
 	}
 }
+type TutorialPageStaticPropsCtx = GetStaticPropsContext<{
+	productSlug: LearnProductSlug
+	tutorialSlug: [string, string]
+}>
 
 async function getStaticProps({
 	params,
-}: GetStaticPropsContext<{
-	productSlug: LearnProductSlug
-	tutorialSlug: [string, string]
-}>): Promise<GetStaticPropsResult<TutorialPageProps>> {
+}: TutorialPageStaticPropsCtx): Promise<
+	GetStaticPropsResult<TutorialPageProps>
+> {
 	const { productSlug, tutorialSlug } = params
 	const productData = cachedGetProductData(productSlug) as LearnProductData
 	const props = await getTutorialPageProps(productData, tutorialSlug)

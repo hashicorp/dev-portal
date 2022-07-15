@@ -24,12 +24,16 @@ async function getStaticPaths(): Promise<
 	}
 }
 
-async function getStaticProps({
-	params,
-}: GetStaticPropsContext<{
+type CollectionPageStaticPropsCtx = GetStaticPropsContext<{
 	productSlug: LearnProductSlug
 	collectionSlug: string
-}>): Promise<GetStaticPropsResult<CollectionPageProps>> {
+}>
+
+async function getStaticProps({
+	params,
+}: CollectionPageStaticPropsCtx): Promise<
+	GetStaticPropsResult<CollectionPageProps>
+> {
 	const { collectionSlug, productSlug } = params
 	const productData = cachedGetProductData(productSlug) as LearnProductData
 
