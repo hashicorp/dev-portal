@@ -15,7 +15,6 @@ const DocsViewLayout = (props: SidebarSidecarLayoutProps) => {
 	const isBetaProduct = useIsBetaProduct(currentProduct.slug)
 
 	const optInOutSlot = isBetaProduct ? (
-		// @ts-expect-error - the isBetaProduct check guarantees the platform property here will be valid
 		<OptInOut platform={`${currentProduct.slug}-io`} />
 	) : null
 
