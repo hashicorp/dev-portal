@@ -129,7 +129,8 @@ const generateRootDocsLandingProps = async ({
 	const baseName = currentRootDocsPath.shortName
 
 	/**
-	 * Fetch page content
+	 * Fetch page marketing content. Falls back to empty object if
+	 * `src/content/${product.slug}/docs-landing.json` file is not present.
 	 *
 	 * Note: could consider other content sources. For now, JSON.
 	 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
