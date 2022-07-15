@@ -1,16 +1,9 @@
-import { GetStaticProps } from 'next'
 import vaultData from 'data/vault.json'
-import installData from 'data/vault-install.json'
 import { ProductData } from 'types/products'
 import ProductDownloadsView from 'views/product-downloads-view'
-import { generateStaticProps } from 'views/product-downloads-view/server'
-import { RawProductDownloadsViewContent } from 'views/product-downloads-view/types'
+import { generateGetStaticProps } from 'views/product-downloads-view/server'
 
-export const getStaticProps: GetStaticProps = async () => {
-	return await generateStaticProps(
-		vaultData as ProductData,
-		installData as RawProductDownloadsViewContent
-	)
-}
+const getStaticProps = generateGetStaticProps(vaultData as ProductData)
 
+export { getStaticProps }
 export default ProductDownloadsView
