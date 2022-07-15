@@ -28,19 +28,7 @@ To change the content for Product landing pages (e.g. [/vault](https://developer
 
 ### Editing Product landing content
 
-These pages take a "block"-based authoring approach for the main content area. This approach allows authors to write content in JSON instead of JSX. As an overview, each file has three properties, all are required:
-
-```json5
-{
-	heading: 'string',
-	subheading: 'string',
-	blocks: [
-		/* array of objects */
-	],
-}
-```
-
-Each of these top-level properties is addressed in more detail below.
+These pages take a "block"-based authoring approach for the main content area. This approach allows authors to write content in JSON instead of JSX. As an overview, each file has three properties, all are required : `heading`, `subheading`, `blocks`. Each of these top-level properties is addressed in more detail below.
 
 <details>
 <summary><code>heading</code> and <code>subheading</code></summary>
