@@ -1,7 +1,7 @@
 import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
 import { RootDocsPath } from 'types/products'
-import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
+import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
 import { GenerateGetStaticPropsArguments } from './types'
 
 /**

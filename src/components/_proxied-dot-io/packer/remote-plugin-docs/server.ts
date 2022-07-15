@@ -1,16 +1,29 @@
 import fs from 'fs'
 import path from 'path'
 import grayMatter from 'gray-matter'
+import { Pluggable } from 'unified'
 import {
 	getNodeFromPath,
 	getPathsFromNavData,
 } from '@hashicorp/react-docs-page/server'
 import renderPageMdx from '@hashicorp/react-docs-page/render-page-mdx'
-import shimRemoteIncludes from 'lib/shim-remote-includes'
 import resolveNavDataWithRemotePlugins, {
 	appendRemotePluginsNavData,
 } from './utils/resolve-nav-data'
 import fetchLatestReleaseTag from './utils/fetch-latest-release-tag'
+// remark plugins
+import {
+	// includeMarkdown,
+	paragraphCustomAlerts,
+	typography,
+	anchorLinks,
+} from '@hashicorp/remark-plugins'
+// rehype plugins
+import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
+import rehypePrism from '@mapbox/rehype-prism'
+// alternative to the includeMarkdown plugin,
+// which we need to shim cause of how we're fetching remote content here
+import shimRemoteIncludes from 'lib/shim-remote-includes'
 
 async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
 	const navData = await resolveNavDataWithRemotePlugins(navDataFile, {
@@ -114,7 +127,17 @@ async function generateStaticProps({
 		page_title: data.page_title,
 	}
 	const content = await mdxContentHook(rawContent)
-	const { mdxSource } = await renderPageMdx(content)
+
+	// Render MDX source, with options
+	const mdxOptions: { remarkPlugins: Pluggable[]; rehypePlugins: Pluggable[] } =
+		{
+			remarkPlugins: [typography, anchorLinks, paragraphCustomAlerts],
+			rehypePlugins: [
+				[rehypePrism, { ignoreMissing: true }],
+				rehypeSurfaceCodeNewlines,
+			],
+		}
+	const { mdxSource } = await renderPageMdx(content, mdxOptions)
 
 	return {
 		currentPath,

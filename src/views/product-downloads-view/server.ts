@@ -26,7 +26,7 @@ const generateGetStaticProps = (product: ProductData) => {
 		 */
 		const jsonFilePath = path.join(
 			process.cwd(),
-			`src/data/${product.slug}-install.json`
+			`src/content/${product.slug}/install-landing.json`
 		)
 		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
 			fs.readFileSync(jsonFilePath, 'utf8')

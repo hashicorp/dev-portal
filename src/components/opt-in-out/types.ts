@@ -1,5 +1,13 @@
 export enum PlatformOptionTitles {
+	'boundary-io' = 'Boundary',
+	'consul-io' = 'Consul',
+	'hcp-io' = 'HashiCorp Cloud Platform',
+	'nomad-io' = 'Nomad',
+	'packer-io' = 'Packer',
+	'sentinel-io' = 'Sentinel',
+	'terraform-io' = 'Terraform',
 	'vault-io' = 'Vault',
+	'vagrant-io' = 'Vagrant',
 	'waypoint-io' = 'Waypoint',
 	learn = 'Learn',
 }
@@ -21,12 +29,14 @@ export interface OptInOutProps {
 	redirectPath?: string
 }
 
+export interface RedirectData {
+	base_url: string
+	getRedirectPath: (currentPath?: string) => string
+	cookieKey: string
+	cookieAnalyticsKey: string
+}
+
 export type PlatformOptionRedirectData = Record<
 	OptInPlatformOption,
-	{
-		base_url: string
-		getRedirectPath: (currentPath?: string) => string
-		cookieKey: string
-		cookieAnalyticsKey: string
-	}
+	RedirectData
 >

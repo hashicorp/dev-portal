@@ -1,8 +1,8 @@
 import hcpData from 'data/hcp.json'
+import pageContent from 'content/hcp/docs-landing.json'
 import { ProductData } from 'types/products'
 import ProductRootDocsPathLanding from 'views/product-root-docs-path-landing'
 import { generateGetStaticProps } from 'views/product-root-docs-path-landing/server'
-import pageContent from './content.json'
 
 /**
  * TODO: cloud.hashicorp.com/docs redirects to cloud.hashicorp.com/docs/hcp,
