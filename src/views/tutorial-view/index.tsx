@@ -72,22 +72,16 @@ const LayoutContentWrapper = ({
 	 */
 	useEffect(() => {
 		if (hasLoadedData.current === false && mobileMenuIsOpen) {
-			getCollectionViewSidebarSections(product, collectionCtx.current)
-				.then((result: CollectionCategorySidebarSection[]) => {
+			/**
+			 * TODO: What should we do if this errors?
+			 * https://app.asana.com/0/1202097197789424/1202599138117878/f
+			 */
+			getCollectionViewSidebarSections(product, collectionCtx.current).then(
+				(result: CollectionCategorySidebarSection[]) => {
 					hasLoadedData.current = true
 					setCollectionViewSidebarSections(result)
-				})
-				.catch((error) => {
-					/**
-					 * TODO: revist how we're handling this error
-					 * https://app.asana.com/0/1202097197789424/1202599138117878/f
-					 */
-					const errorMessage = `[TutorialView] error calling \`getCollectionViewSidebarSections\`: ${JSON.stringify(
-						error
-					)}`
-					console.error(errorMessage)
-					throw new Error(errorMessage)
-				})
+				}
+			)
 		}
 	}, [
 		collectionCtx,
