@@ -2,12 +2,12 @@
 
 This folder contains the authorable, marketing-style content for various landing pages in HashiCorp Developer:
 
-- [Home Page](#home-page)
-- [Product landing pages](#product-landing-pages)
-- [Product Docs landing pages](#product-docs-landing-pages)
-- [Product Install landing pages](#product-install-landing-pages)
+- [Home Page](#1-home-page)
+- [Product landing pages](#2-product-landing-pages)
+- [Product Docs landing pages](#3-product-docs-landing-pages)
+- [Product Install landing pages](#4-product-install-landing-pages)
 
-## Home Page
+## 1. Home Page
 
 To change the content for [the Home page](https://developer.hashicorp.com/):
 
@@ -18,7 +18,7 @@ To change the content for [the Home page](https://developer.hashicorp.com/):
 
 TODO
 
-## Product landing pages
+## 2. Product landing pages
 
 To change the content for Product landing pages (e.g. [/vault](https://developer.hashicorp.com/vault), [/waypoint](https://developer.hashicorp.com/waypoint)):
 
@@ -246,7 +246,7 @@ Example: 3-column cards with tags
 
 </details>
 
-## Product Docs landing pages
+## 3. Product Docs landing pages
 
 To change the content for Product Tutorials landing pages (e.g. [/vault/docs](https://developer.hashicorp.com/vault/docs), [/waypoint/docs](https://developer.hashicorp.com/waypoint/docs)):
 
@@ -438,7 +438,7 @@ Example usage:
 
 </details>
 
-## Product Install landing pages
+## 4. Product Install landing pages
 
 To change the content for Product Install landing pages (e.g. [/vault/downloads](https://developer.hashicorp.com/vault/downloads), [/waypoint/downloads](https://developer.hashicorp.com/waypoint/downloads)):
 
