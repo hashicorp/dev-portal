@@ -15,17 +15,17 @@ import { cachedGetProductData } from 'views/tutorial-view/utils/get-product-data
 function generateProductTutorialHomePaths() {
 	return __config.dev_dot.beta_product_slugs.map(
 		(productSlug: LearnProductSlug) => ({
-			params: { product: productSlug },
+			params: { productSlug },
 		})
 	)
 }
 
 export async function getStaticProps({
 	params,
-}: GetStaticPropsContext<{ product: LearnProductSlug }>): Promise<{
+}: GetStaticPropsContext<{ productSlug: LearnProductSlug }>): Promise<{
 	props: ProductTutorialsViewProps
 }> {
-	const productData = cachedGetProductData(params.product)
+	const productData = cachedGetProductData(params.productSlug)
 	const props = await getProductTutorialsViewProps(
 		productData as LearnProductData
 	)

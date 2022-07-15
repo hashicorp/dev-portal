@@ -155,14 +155,15 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 	// go through all collections, get the collection slug
 	const currentProductPaths = filteredCollections.flatMap((collection) => {
 		// assuming slug structure of :product/:filename
-		const [productFromCollection, collectionSlug] = collection.slug.split('/')
+		const [productSlugFromCollection, collectionSlug] =
+			collection.slug.split('/')
 		// go through the tutorials within this collection, create a path for each
 		return collection.tutorials.map((tutorial) => {
 			const tutorialSlug = splitProductFromFilename(tutorial.slug)
 
 			return {
 				params: {
-					product: productFromCollection,
+					productSlug: productSlugFromCollection,
 					tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
 				},
 			}
@@ -193,11 +194,11 @@ export function generateStaticFunctions() {
 	async function getStaticProps({
 		params,
 	}: GetStaticPropsContext<{
-		product: LearnProductSlug
+		productSlug: LearnProductSlug
 		tutorialSlug: [string, string]
 	}>): Promise<GetStaticPropsResult<TutorialPageProps>> {
-		const { product, tutorialSlug } = params
-		const productData = cachedGetProductData(product)
+		const { productSlug, tutorialSlug } = params
+		const productData = cachedGetProductData(productSlug)
 		const props = await getTutorialPageProps(productData, tutorialSlug)
 		// If the tutorial doesn't exist, hit the 404
 		if (!props) {

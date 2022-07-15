@@ -120,10 +120,10 @@ async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	)
 	const paths = filteredCollections.map((collection) => {
 		// assuming slug structure of :product/:filename
-		const [product, filename] = collection.slug.split('/')
+		const [productSlug, filename] = collection.slug.split('/')
 		return {
 			params: {
-				product,
+				productSlug,
 				collectionSlug: filename,
 			},
 		}
@@ -153,11 +153,11 @@ export function generateStaticFunctions() {
 	async function getStaticProps({
 		params,
 	}: GetStaticPropsContext<{
-		product: LearnProductSlug
+		productSlug: LearnProductSlug
 		collectionSlug: string
 	}>): Promise<GetStaticPropsResult<CollectionPageProps>> {
-		const { collectionSlug, product } = params
-		const productData = cachedGetProductData(product)
+		const { collectionSlug, productSlug } = params
+		const productData = cachedGetProductData(productSlug)
 
 		const props = await getCollectionPageProps(productData, collectionSlug)
 		// If the collection doesn't exist, hit the 404
