@@ -2,9 +2,22 @@ import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
-import { RootDocsPath } from 'types/products'
+import { ProductSlug, RootDocsPath } from 'types/products'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
-import { GenerateGetStaticPropsArguments } from './types'
+import { GenerateGetStaticPropsOptions } from './types'
+
+const BASE_PATH = 'docs'
+
+const OPTION_OVERWRITES_BY_PRODUCT: {
+	[key in ProductSlug]?: GenerateGetStaticPropsOptions
+} = {
+	hcp: {
+		productSlugForLoader: 'cloud.hashicorp.com',
+	},
+	waypoint: {
+		includeMDXSource: true,
+	},
+}
 
 /**
  * @TODO add TS to function signature & document function purpose
@@ -81,35 +94,58 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 	return { sidecarHeadings, marketingContentBlocksWithHeadingLevels }
 }
 
-const generateGetStaticProps = ({
-	includeMDXSource = false,
-	product,
-	productSlugForLoader,
-}: GenerateGetStaticPropsArguments) => {
-	const basePath = 'docs'
-	const currentRootDocsPath = product.rootDocsPaths.find(
-		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
-	)
-	const baseName = currentRootDocsPath.shortName
-
-	/**
-	 * Fetch page content
-	 *
-	 * Note: could consider other content sources. For now, JSON.
-	 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
-	 */
-	const jsonFilePath = path.join(
-		process.cwd(),
-		`src/content/${product.slug}/docs-landing.json`
-	)
-	const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
-
+const generateGetStaticProps = () => {
 	return async (context: GetStaticPropsContext) => {
+		/**
+		 * Pull product slug from context params
+		 */
+		const productSlug = context.params.productSlug as string
+
+		/**
+		 * Gather config variables
+		 */
+		const optionOverwrites = OPTION_OVERWRITES_BY_PRODUCT[productSlug]
+		const includeMDXSource = optionOverwrites
+			? optionOverwrites.includeMDXSource
+			: false
+		const productSlugForLoader = optionOverwrites
+			? optionOverwrites.productSlugForLoader
+			: undefined
+
+		/**
+		 * Fetch product data
+		 */
+		const productDataJsonFilePath = path.join(
+			process.cwd(),
+			`src/data/${productSlug}.json`
+		)
+		const product = JSON.parse(fs.readFileSync(productDataJsonFilePath, 'utf8'))
+
+		/**
+		 * Pull data from product object
+		 */
+		const currentRootDocsPath = product.rootDocsPaths.find(
+			(rootDocsPath: RootDocsPath) => rootDocsPath.path === BASE_PATH
+		)
+		const baseName = currentRootDocsPath.shortName
+
+		/**
+		 * Fetch page content
+		 *
+		 * Note: could consider other content sources. For now, JSON.
+		 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
+		 */
+		const jsonFilePath = path.join(
+			process.cwd(),
+			`src/content/${product.slug}/docs-landing.json`
+		)
+		const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
+
 		const { getStaticProps: generatedGetStaticProps } =
 			_getStaticGenerationFunctions({
 				product,
 				productSlugForLoader,
-				basePath,
+				basePath: BASE_PATH,
 				baseName,
 			})
 

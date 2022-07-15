@@ -7,9 +7,8 @@ interface PageContent {
 	marketingContentBlocks: $TSFixMe[]
 }
 
-interface GenerateGetStaticPropsArguments {
+interface GenerateGetStaticPropsOptions {
 	includeMDXSource?: boolean
-	product: ProductData
 	/**
 	 * Optional product slug for our content API.
 	 * For some products, this differs from the product slug used on the client.
@@ -30,4 +29,4 @@ interface ProductRootDocsPathLandingProps {
 	product: ProductData
 }
 
-export type { GenerateGetStaticPropsArguments, ProductRootDocsPathLandingProps }
+export type { GenerateGetStaticPropsOptions, ProductRootDocsPathLandingProps }
