@@ -2,7 +2,7 @@ import vagrantData from 'data/vagrant.json'
 import { ProductData } from 'types/products'
 import DocsView from 'views/docs-view'
 // imports below are used on server
-import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
+import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import { getLatestVersionFromVersions } from 'lib/fetch-release-data'
 import { makeFetchWithRetry } from 'lib/fetch-with-retry'
 
