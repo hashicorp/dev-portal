@@ -156,7 +156,6 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		// assuming slug structure of :product/:filename
 		const [productSlugFromCollection, collectionSlug] =
 			collection.slug.split('/')
-
 		/**
 		 * Only build collections where the `productSlug` is a valid beta
 		 * product and the`theme` matches the `productSlug`
@@ -167,10 +166,11 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		if (
+		const shouldBuildTutorialPath =
 			getIsBetaProduct(productSlugFromCollection as LearnProductSlug) &&
 			productSlugFromCollection === collection.theme
-		) {
+
+		if (shouldBuildTutorialPath) {
 			// go through the tutorials within the collection, create a path for each
 			collection.tutorials.forEach((tutorial: ClientTutorialLite) => {
 				const tutorialSlug = splitProductFromFilename(tutorial.slug)

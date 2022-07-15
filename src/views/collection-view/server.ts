@@ -119,7 +119,6 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	collections.forEach((collection: ClientCollection) => {
 		// assuming slug structure of :product/:filename
 		const [productSlug, filename] = collection.slug.split('/')
-
 		/**
 		 * Only build collections where the `productSlug` is a valid beta
 		 * product and the`theme` matches the `productSlug`
@@ -130,10 +129,11 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		if (
+		const shouldBuildCollectionPath =
 			getIsBetaProduct(productSlug as LearnProductSlug) &&
 			productSlug === collection.theme
-		) {
+
+		if (shouldBuildCollectionPath) {
 			paths.push({
 				params: {
 					productSlug,
