@@ -88,7 +88,7 @@ function HomePage({ data }): JSX.Element {
 				<SectionMonitorAppHealth
 					heading={monitorAppHealthSection.heading}
 					description={monitorAppHealthSection.description}
-					features={monitorAppHealthSection.features}
+					features={[]}
 				/>
 				<SectionExtendPlugins
 					heading={extendPluginsSection.heading}
@@ -133,7 +133,6 @@ export async function getStaticProps() {
 		monitorYourAppFeatures,
 		monitorAppHealthHeading,
 		monitorAppHealthDescription,
-		monitorAppHealthFeatures,
 		extendPluginsHeading,
 		extendPluginsDescription,
 		extendPluginsFeatures,
@@ -178,7 +177,6 @@ export async function getStaticProps() {
 		monitorAppHealthSection: {
 			heading: monitorAppHealthHeading,
 			description: monitorAppHealthDescription,
-			features: formatFeatures(monitorAppHealthFeatures),
 		},
 		extendPluginsSection: {
 			heading: extendPluginsHeading,

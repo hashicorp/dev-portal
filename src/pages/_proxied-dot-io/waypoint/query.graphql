@@ -52,9 +52,6 @@ query WaypointHomepage {
 		# Monitor App Health section
 		monitorAppHealthHeading
 		monitorAppHealthDescription
-		monitorAppHealthFeatures {
-			...featureFields
-		}
 
 		# Extend Plugins section
 		extendPluginsHeading
