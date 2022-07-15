@@ -24,7 +24,7 @@ const OPTION_OVERWRITES_BY_PRODUCT: {
  */
 const generateHeadingLevelsAndSidecarHeadings = ({
 	layoutHeadings,
-	marketingContentBlocks,
+	marketingContentBlocks = [],
 	pageTitle,
 }) => {
 	const marketingContentHeadings = []
@@ -134,11 +134,16 @@ const generateRootDocsLandingProps = async ({
 	 * Note: could consider other content sources. For now, JSON.
 	 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
 	 */
-	const jsonFilePath = path.join(
-		process.cwd(),
-		`src/content/${product.slug}/docs-landing.json`
-	)
-	const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
+	let CONTENT
+	try {
+		const jsonFilePath = path.join(
+			process.cwd(),
+			`src/content/${product.slug}/docs-landing.json`
+		)
+		CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
+	} catch {
+		CONTENT = {}
+	}
 
 	const { getStaticProps: generatedGetStaticProps } =
 		_getStaticGenerationFunctions({
