@@ -65,15 +65,15 @@ const LayoutContentWrapper = ({
 	setCollectionViewSidebarSections,
 }: LayoutContentWrapperProps) => {
 	const { mobileMenuIsOpen } = useMobileMenu()
-	const haveLoadedData = useRef(false)
+	const hasLoadedData = useRef(false)
 
 	/**
 	 * Only need to load the data once, on the first open of the mobile menu
 	 */
-	if (haveLoadedData.current === false && mobileMenuIsOpen) {
+	if (hasLoadedData.current === false && mobileMenuIsOpen) {
 		getCollectionViewSidebarSections(product, collectionCtx.current).then(
 			(result: CollectionCategorySidebarSection[]) => {
-				haveLoadedData.current = true
+				hasLoadedData.current = true
 				setCollectionViewSidebarSections(result)
 			}
 		)
