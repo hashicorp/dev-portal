@@ -27,6 +27,7 @@ export async function getStaticProps(context) {
 
 	/**
 	 * TODO: would be nice to validate our docs landing content here.
+	 * https://app.asana.com/0/1202097197789424/1202623957639540/f
 	 */
 	const pageContent = JSON.parse(fs.readFileSync(contentFile, 'utf8'))
 
