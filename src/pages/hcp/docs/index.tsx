@@ -22,6 +22,7 @@ const getStaticProps = generateGetStaticProps({
 	pageContent,
 	productSlugForLoader: 'cloud.hashicorp.com',
 	product: hcpData as ProductData,
+	basePath: 'docs',
 })
 
 export { getStaticProps }
