@@ -4,7 +4,8 @@ import { URLSearchParams } from 'url'
 async function refreshAccessToken(token) {
 	try {
 		const url =
-			'https://auth.idp.hcp.dev/oauth2/token?' +
+			__config.dev_dot.auth.idp_url +
+			'/oauth2/token?' +
 			new URLSearchParams({
 				client_id: process.env.AUTH_CLIENT_ID,
 				client_secret: process.env.AUTH_CLIENT_SECRET,
@@ -50,15 +51,15 @@ export default NextAuth({
 			id: 'cloud-idp',
 			name: 'Cloud IDP',
 			type: 'oauth',
-			wellKnown: 'https://auth.idp.hcp.dev/.well-known/openid-configuration',
+			wellKnown:
+				__config.dev_dot.auth.idp_url + '/.well-known/openid-configuration',
 			authorization: { params: { scope: 'openid' } },
 			idToken: true,
 			checks: ['pkce', 'state'],
 			clientId: process.env.AUTH_CLIENT_ID,
 			clientSecret: process.env.AUTH_CLIENT_SECRET,
 			client: {
-				audiences: ['http://localhost:3000', 'https://developer.hashicorp.com'],
-				name: 'HashiCorp Developer (Production)',
+				name: 'HashiCorp Developer',
 				response_types: ['RESPONSE_TYPE_CODE', 'RESPONSE_TYPE_TOKEN'],
 				token_endpoint_auth_method: 'client_secret_post',
 			},

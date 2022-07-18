@@ -11,6 +11,9 @@
 		"analytics": {
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
 		},
+		"auth": {
+			"idp_url": "https://auth.idp.hcp.dev"
+		},
 		"canonical_base_url": "https://developer.hashicorp.com",
 		"max_static_paths": 10,
 		"revalidate": 360,
