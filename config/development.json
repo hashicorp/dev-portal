@@ -4,7 +4,6 @@
 		"max_static_paths": 0
 	},
 	"dev_dot": {
-		"beta_product_slugs": ["hcp", "nomad", "vault", "waypoint"],
 		"max_static_paths": 0
 	},
 	"learn": {
