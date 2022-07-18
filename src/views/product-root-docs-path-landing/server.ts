@@ -84,13 +84,8 @@ const generateGetStaticProps = ({
 	pageContent,
 	product,
 	productSlugForLoader,
-	basePath = 'docs',
+	basePath,
 }: GenerateGetStaticPropsArguments) => {
-	/**
-	 * TODO: feels like a possible code smell of needing to
-	 * consolidate src/pages-level { basePath, baseName } config
-	 * with src/data-level { rootDocsPaths } config
-	 */
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
