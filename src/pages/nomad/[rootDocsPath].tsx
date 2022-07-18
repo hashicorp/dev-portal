@@ -10,14 +10,14 @@ import path from 'path'
 export async function getStaticPaths() {
 	// Custom docs landing pages are generated for all <product>.basePaths
 	const paths = nomadData.basePaths.map((slug) => {
-		return { params: { customDocsLanding: slug } }
+		return { params: { rootDocsPath: slug } }
 	})
 	return { paths, fallback: false }
 }
 
 export async function getStaticProps(context) {
 	// Determine base path from params
-	const basePath = context.params.customDocsLanding
+	const basePath = context.params.rootDocsPath
 
 	// Read in authored page content
 	const contentFile = path.join(
