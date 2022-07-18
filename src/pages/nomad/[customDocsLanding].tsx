@@ -22,7 +22,7 @@ export async function getStaticProps(context) {
 	// Read in authored page content
 	const contentFile = path.join(
 		process.cwd(),
-		`src/content/${nomadData.slug}/docs/${basePath}.json`
+		`src/content/${nomadData.slug}/docs-landing/${basePath}.json`
 	)
 
 	/**
