@@ -4,7 +4,7 @@ import DocsView from 'views/docs-view'
 // product data
 import nomadData from 'data/nomad.json'
 // server
-import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
+import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import { removeIndexPath } from 'lib/remove-index-path'
 
 const basePath = 'tools'

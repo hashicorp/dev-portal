@@ -1,7 +1,7 @@
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
 import waypointData from 'data/waypoint.json'
 import { ProductData } from 'types/products'
-import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
+import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
 import { removeIndexPath } from 'lib/remove-index-path'
 

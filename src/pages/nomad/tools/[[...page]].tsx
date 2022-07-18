@@ -1,18 +1,17 @@
-import terraformData from 'data/terraform.json'
+import nomadData from 'data/nomad.json'
 import { ProductData } from 'types/products'
 import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
 
-const basePath = 'cloud-docs'
-const baseName = 'Cloud Docs'
-const product = terraformData as ProductData
-const productSlugForLoader = 'terraform-website'
+const basePath = 'tools'
+const baseName = 'Tools'
+const product = nomadData as ProductData
 
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
 	product,
-	productSlugForLoader,
 	basePath,
 	baseName,
+	showVersionSelect: false,
 })
 
 export { getStaticPaths, getStaticProps }
