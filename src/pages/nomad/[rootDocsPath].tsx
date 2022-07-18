@@ -8,9 +8,9 @@ import fs from 'fs'
 import path from 'path'
 
 export async function getStaticPaths() {
-	// Custom docs landing pages are generated for all <product>.basePaths
-	const paths = nomadData.basePaths.map((slug) => {
-		return { params: { rootDocsPath: slug } }
+	// Custom docs landing pages are generated for all <product>.rootDocsPaths
+	const paths = nomadData.rootDocsPaths.map(({ path }) => {
+		return { params: { rootDocsPath: path } }
 	})
 	return { paths, fallback: false }
 }
