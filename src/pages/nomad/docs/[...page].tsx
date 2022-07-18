@@ -1,13 +1,15 @@
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
-import waypointData from 'data/waypoint.json'
 import { ProductData } from 'types/products'
-import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import DocsView from 'views/docs-view'
+// product data
+import nomadData from 'data/nomad.json'
+// server
+import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
 import { removeIndexPath } from 'lib/remove-index-path'
 
 const basePath = 'docs'
 const baseName = 'Docs'
-const product = waypointData as ProductData
+const product = nomadData as ProductData
 
 const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
 	getStaticGenerationFunctions({

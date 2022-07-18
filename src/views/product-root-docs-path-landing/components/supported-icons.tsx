@@ -1,3 +1,4 @@
+import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconPlug16 } from '@hashicorp/flight-icons/svg-react/plug-16'
 import { IconConnection16 } from '@hashicorp/flight-icons/svg-react/connection-16'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
@@ -9,6 +10,7 @@ import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
  * @TODO raise to a higher level in the project for reuse?
  */
 export const SUPPORTED_ICONS = {
+	docs: <IconDocs16 />,
 	plug: <IconPlug16 />,
 	connection: <IconConnection16 />,
 	guide: <IconGuide16 />,
