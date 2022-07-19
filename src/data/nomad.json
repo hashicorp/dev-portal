@@ -121,7 +121,7 @@
 		{
 			"iconName": "docs",
 			"name": "Intro",
-			"path": "intro",
+			"path": "intro"
 		},
 		{
 			"iconName": "api",
