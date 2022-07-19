@@ -38,9 +38,11 @@ async function main() {
 			dir.name !== '[productSlug]'
 		) {
 			console.log(`🧹 removing pages at /${dir.name}`)
-			await fs.promises.rm(path.join(pagesDir, dir.name), {
-				recursive: true,
-			})
+			if (!process.env.DRY_RUN) {
+				await fs.promises.rm(path.join(pagesDir, dir.name), {
+					recursive: true,
+				})
+			}
 		}
 	}
 }
