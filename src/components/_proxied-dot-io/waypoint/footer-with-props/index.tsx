@@ -11,11 +11,16 @@ function FooterWithProps({
 	heading,
 	description,
 	cards,
+	ctaLinks,
 }: {
 	openConsentManager: () => void
 	heading: string
 	description: string
 	cards: [CardProps, CardProps]
+	ctaLinks: Array<{
+		text: string
+		url: string
+	}>
 }): React.ReactElement {
 	return (
 		<Footer
@@ -23,16 +28,7 @@ function FooterWithProps({
 			heading={heading}
 			description={description}
 			cards={cards}
-			ctaLinks={[
-				{
-					text: 'Waypoint tutorials',
-					url: 'https://developer.hashicorp.com/waypoint/tutorials',
-				},
-				{
-					text: 'Waypoint documentation',
-					url: '/docs',
-				},
-			]}
+			ctaLinks={ctaLinks}
 			navLinks={[
 				{
 					text: 'Documentation',

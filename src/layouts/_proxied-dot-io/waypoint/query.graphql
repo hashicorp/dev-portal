@@ -11,5 +11,9 @@ query WaypointLayout {
 			title
 			description
 		}
+		ctaLinks: footerCtaLinks {
+			text: title
+			url: link
+		}
 	}
 }
