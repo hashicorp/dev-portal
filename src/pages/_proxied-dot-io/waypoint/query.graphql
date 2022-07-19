@@ -75,25 +75,6 @@ query WaypointHomepage {
 		callToActionLinks {
 			...ctaFields
 		}
-
-		# Footer
-		footerHeading
-		footerDescription
-		footerCards {
-			image {
-				url
-			}
-			link
-			eyebrow
-			title
-			description
-		}
-		footerCtaLinks {
-			...ctaFields
-		}
-		footerNavLinks {
-			...ctaFields
-		}
 	}
 }
 
