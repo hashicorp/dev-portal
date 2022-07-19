@@ -3,18 +3,18 @@ import path from 'path'
 import moize from 'moize'
 import { ProductData, ProductSlug } from 'types/products'
 
-function getProductData(product: ProductSlug): ProductData {
+function getProductData(productSlug: ProductSlug): ProductData {
 	try {
 		const productData = JSON.parse(
 			fs.readFileSync(
-				path.join(process.cwd(), `src/data/${product}.json`),
+				path.join(process.cwd(), `src/data/${productSlug}.json`),
 				'utf-8'
 			)
 		)
 		return productData
 	} catch (e) {
 		console.error(
-			`[Error]: unable to fetch product data for ${product} — ${e.message}`
+			`[Error]: unable to fetch product data for ${productSlug} — ${e.message}`
 		)
 		throw e
 	}
