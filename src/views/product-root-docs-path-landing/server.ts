@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
 import { ProductData, ProductSlug, RootDocsPath } from 'types/products'
+import { cachedGetProductData } from 'lib/get-product-data'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
 import { GenerateGetStaticPropsOptions } from './types'
 
@@ -92,17 +93,21 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 	return { sidecarHeadings, marketingContentBlocksWithHeadingLevels }
 }
 
+/**
+ * Generates all /:productSlug/:rootDocsPath paths from the current config's
+ * beta_product_slugs array.
+ *
+ * For each beta product slug, first the product's data is loaded from its
+ * associated src/data JSON file. Then, for each object in the product's
+ * `rootDocsPath` array, a path with two params is added to the result array
+ * (`productSlug` and `rootDocsPath`).
+ */
 const generateRootDocsLandingPaths = () => {
 	const paths = []
 
-	__config.dev_dot.beta_product_slugs.forEach((productSlug: ProductSlug) => {
-		const productJsonFilePath = path.join(
-			process.cwd(),
-			`src/data/${productSlug}.json`
-		)
-		const productData: ProductData = JSON.parse(
-			fs.readFileSync(productJsonFilePath, 'utf8')
-		)
+	const betaProductSlugs = __config.dev_dot.beta_product_slugs
+	betaProductSlugs.forEach((productSlug: ProductSlug) => {
+		const productData = cachedGetProductData(productSlug as ProductSlug)
 		productData.rootDocsPaths.forEach((rootDocsPath: RootDocsPath) => {
 			paths.push({
 				params: { productSlug, rootDocsPath: rootDocsPath.path },
