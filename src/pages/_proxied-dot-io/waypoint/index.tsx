@@ -29,11 +29,10 @@ function HomePage({ data }): JSX.Element {
 		monitorAppHealthSection,
 		extendPluginsSection,
 		callToActionSection,
-		footer,
 	} = data
 
 	return (
-		<WaypointIoLayout footer={footer}>
+		<>
 			<HashiHead
 				title={seo.title}
 				description={seo.description}
@@ -103,7 +102,7 @@ function HomePage({ data }): JSX.Element {
 					links={callToActionSection.links}
 				/>
 			</div>
-		</WaypointIoLayout>
+		</>
 	)
 }
 
@@ -140,11 +139,6 @@ export async function getStaticProps() {
 		callToActionContent,
 		callToActionFeatures,
 		callToActionLinks,
-		footerHeading,
-		footerDescription,
-		footerCards,
-		footerCtaLinks,
-		footerNavLinks,
 	} = waypointHomepageCurrent
 
 	const pageData = {
@@ -194,15 +188,6 @@ export async function getStaticProps() {
 			features: callToActionFeatures,
 			links: callToActionLinks,
 		},
-		footer: {
-			heading: footerHeading,
-			description: footerDescription,
-			cards: footerCards.map((card) => {
-				return { ...card, img: card.image.url }
-			}),
-			ctaLinks: footerCtaLinks,
-			navLinks: footerNavLinks,
-		},
 	}
 
 	return {
@@ -211,6 +196,8 @@ export async function getStaticProps() {
 		},
 	}
 }
+
+HomePage.layout = WaypointIoLayout
 
 export default HomePage
 

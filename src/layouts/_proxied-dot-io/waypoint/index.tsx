@@ -16,10 +16,10 @@ import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
 // product-specific layout elements
-import Footer from 'components/_proxied-dot-io/waypoint/footer'
+import FooterWithProps from 'components/_proxied-dot-io/waypoint/footer-with-props'
 import ProductSubnav from 'components/_proxied-dot-io/waypoint/subnav'
 import productData from 'data/waypoint.json'
-import { CardProps } from 'components/_proxied-dot-io/waypoint/card'
+import query from './query.graphql'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
@@ -34,7 +34,7 @@ function WaypointIoLayout({
 	footer: {
 		heading: string
 		description: string
-		cards: [CardProps, CardProps]
+		cards: $TSFixMe
 		ctaLinks: Array<{
 			text: string
 			url: string
@@ -53,6 +53,10 @@ function WaypointIoLayout({
 	})
 	const { themeClass } = useProductMeta(productData.name as Products)
 
+	const formattedFooterCards = footer.cards.map((card) => {
+		return { ...card, img: card.image.url }
+	})
+
 	return (
 		<>
 			<HashiHead
@@ -66,13 +70,11 @@ function WaypointIoLayout({
 
 			<Min100Layout
 				footer={
-					<Footer
+					<FooterWithProps
 						openConsentManager={openConsentManager}
 						heading={footer.heading}
 						description={footer.description}
-						cards={footer.cards}
-						ctaLinks={footer.ctaLinks}
-						navLinks={footer.navLinks}
+						cards={formattedFooterCards}
 					/>
 				}
 			>
@@ -92,6 +94,11 @@ function WaypointIoLayout({
 			<ConsentManager />
 		</>
 	)
+}
+
+WaypointIoLayout.rivetParams = {
+	query,
+	dependencies: [],
 }
 
 export default WaypointIoLayout

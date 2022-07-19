@@ -1,0 +1,15 @@
+query WaypointLayout {
+	footer: waypointHomepageCurrent {
+		heading: footerHeading
+		description: footerDescription
+		cards: footerCards {
+			image {
+				url
+			}
+			link
+			eyebrow
+			title
+			description
+		}
+	}
+}
