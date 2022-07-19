@@ -13,7 +13,6 @@ import {
 import BaseNewLayout from 'layouts/base-new'
 
 export default function TopicsCollectionPage(props) {
-	console.log({ props })
 	const {
 		name,
 		id,
@@ -26,8 +25,6 @@ export default function TopicsCollectionPage(props) {
 	return (
 		<>
 			<CollectionMeta
-				// Note: id is passed here because it is required by <Heading />,
-				// it's not used for #anchor linking since there is no sidecar.
 				heading={{ text: name, id }}
 				description={description}
 				cta={{ href: tutorials[0].slug }}
