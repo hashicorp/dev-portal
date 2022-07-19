@@ -8,7 +8,7 @@ import {
 } from 'views/product-root-docs-path-landing/server'
 
 /**
- * Generates all of the /:productSlug/docs paths.
+ * Generates all of the /:productSlug/:rootDocsPath page paths.
  */
 const getStaticPaths = async () => {
 	return {
@@ -18,7 +18,7 @@ const getStaticPaths = async () => {
 }
 
 /**
- * Generates the props for each /:productSlug/docs page.
+ * Generates the props for each /:productSlug/:rootDocsPath page.
  */
 const getStaticProps = async (context: GetStaticPropsContext) => {
 	/**
