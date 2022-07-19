@@ -1,13 +1,15 @@
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
-import vaultData from 'data/vault.json'
 import { ProductData } from 'types/products'
-import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
+// product data
+import nomadData from 'data/nomad.json'
+// server
+import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import { removeIndexPath } from 'lib/remove-index-path'
 
-const basePath = 'docs'
-const baseName = 'Docs'
-const product = vaultData as ProductData
+const basePath = 'tools'
+const baseName = 'Tools'
+const product = nomadData as ProductData
 
 const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
 	getStaticGenerationFunctions({
