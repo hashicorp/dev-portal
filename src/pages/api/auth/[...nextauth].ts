@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth'
 import { URLSearchParams } from 'url'
+import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 
 async function refreshAccessToken(token) {
 	try {
@@ -46,28 +47,7 @@ export default NextAuth({
 	session: {
 		maxAge: 3600,
 	},
-	providers: [
-		{
-			id: 'cloud-idp',
-			name: 'Cloud IDP',
-			type: 'oauth',
-			wellKnown:
-				__config.dev_dot.auth.idp_url + '/.well-known/openid-configuration',
-			authorization: { params: { scope: 'openid' } },
-			idToken: true,
-			checks: ['pkce', 'state'],
-			clientId: process.env.AUTH_CLIENT_ID,
-			clientSecret: process.env.AUTH_CLIENT_SECRET,
-			client: {
-				name: 'HashiCorp Developer',
-				response_types: ['RESPONSE_TYPE_CODE', 'RESPONSE_TYPE_TOKEN'],
-				token_endpoint_auth_method: 'client_secret_post',
-			},
-			profile(profile) {
-				return { id: profile.sub, ...profile }
-			},
-		},
-	],
+	providers: [CloudIdpProvider],
 	callbacks: {
 		async jwt({ token, user, account, profile, isNewUser }) {
 			if (user && account) {
@@ -88,7 +68,8 @@ export default NextAuth({
 			return { ...token, error: 'RefreshTokenError' }
 		},
 		async session({ session, token, user }) {
-			return session
+			console.log({ session, token, user })
+			return { ...session, id: token.sub }
 		},
 	},
 })

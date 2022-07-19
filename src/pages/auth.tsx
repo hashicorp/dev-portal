@@ -1,5 +1,9 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
 
+// 1. useAuthentication hook?
+// exposes pre-configured signIn method
+// exposes
+
 export default function AuthPage() {
 	const { data: session } = useSession()
 	if (session) {
@@ -14,7 +18,7 @@ export default function AuthPage() {
 	return (
 		<>
 			Not signed in <br />
-			<button onClick={() => signIn()}>Sign in</button>
+			<button onClick={() => signIn('cloud-idp')}>Sign in</button>
 		</>
 	)
 }
