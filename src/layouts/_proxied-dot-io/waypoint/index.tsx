@@ -16,9 +16,10 @@ import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
 // product-specific layout elements
-import Footer from 'components/_proxied-dot-io/waypoint/footer-with-props'
+import Footer from 'components/_proxied-dot-io/waypoint/footer'
 import ProductSubnav from 'components/_proxied-dot-io/waypoint/subnav'
 import productData from 'data/waypoint.json'
+import { CardProps } from 'components/_proxied-dot-io/waypoint/card'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
@@ -27,8 +28,22 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 })
 
 function WaypointIoLayout({
+	footer,
 	children,
 }: {
+	footer: {
+		heading: string
+		description: string
+		cards: [CardProps, CardProps]
+		ctaLinks: Array<{
+			text: string
+			url: string
+		}>
+		navLinks: Array<{
+			text: string
+			url: string
+		}>
+	}
 	/** Page contents to render in the layout */
 	children: React.ReactNode
 }): React.ReactElement {
@@ -49,7 +64,18 @@ function WaypointIoLayout({
 				icon={productData.metadata.icon}
 			/>
 
-			<Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
+			<Min100Layout
+				footer={
+					<Footer
+						openConsentManager={openConsentManager}
+						heading={footer.heading}
+						description={footer.description}
+						cards={footer.cards}
+						ctaLinks={footer.ctaLinks}
+						navLinks={footer.navLinks}
+					/>
+				}
+			>
 				<ProductMetaProvider product={productData.slug as Products}>
 					{productData.alertBannerActive && (
 						<AlertBanner

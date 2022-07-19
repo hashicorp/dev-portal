@@ -73,8 +73,26 @@ query WaypointHomepage {
 			text
 		}
 		callToActionLinks {
-			text: title
-			url: link
+			...ctaFields
+		}
+
+		# Footer
+		footerHeading
+		footerDescription
+		footerCards {
+			image {
+				url
+			}
+			link
+			eyebrow
+			title
+			description
+		}
+		footerCtaLinks {
+			...ctaFields
+		}
+		footerNavLinks {
+			...ctaFields
 		}
 	}
 }
@@ -89,7 +107,11 @@ fragment featureFields on FeatureWithIconAndLinkRecord {
 	heading
 	description
 	link {
-		text: title
-		url: link
+		...ctaFields
 	}
+}
+
+fragment ctaFields on CtaRecord {
+	text: title
+	url: link
 }
