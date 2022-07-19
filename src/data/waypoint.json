@@ -63,6 +63,7 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
+			"includeMDXSource": true,
 			"name": "General Documentation",
 			"path": "docs",
 			"shortName": "Documentation"

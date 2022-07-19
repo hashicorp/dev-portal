@@ -7,16 +7,6 @@ interface PageContent {
 	marketingContentBlocks: $TSFixMe[]
 }
 
-interface GenerateGetStaticPropsOptions {
-	includeMDXSource?: boolean
-	/**
-	 * Optional product slug for our content API.
-	 * For some products, this differs from the product slug used on the client.
-	 * For example, "hcp" is "cloud.hashicorp.com" in the content API.
-	 */
-	productSlugForLoader?: string
-}
-
 interface ProductRootDocsPathLandingProps {
 	mdxSource?: MDXRemoteSerializeResult
 	pageContent: PageContent
@@ -29,4 +19,4 @@ interface ProductRootDocsPathLandingProps {
 	product: ProductData
 }
 
-export type { GenerateGetStaticPropsOptions, ProductRootDocsPathLandingProps }
+export type { ProductRootDocsPathLandingProps }

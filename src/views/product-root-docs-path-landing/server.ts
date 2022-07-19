@@ -5,21 +5,6 @@ import slugify from 'slugify'
 import { ProductData, ProductSlug, RootDocsPath } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
-import { GenerateGetStaticPropsOptions } from './types'
-
-/**
- * Mapping of product slugs to objects of options that need to be overwritten.
- */
-const OPTION_OVERWRITES_BY_PRODUCT: {
-	[key in ProductSlug]?: GenerateGetStaticPropsOptions
-} = {
-	hcp: {
-		productSlugForLoader: 'cloud.hashicorp.com',
-	},
-	waypoint: {
-		includeMDXSource: true,
-	},
-}
 
 const generateHeadingLevelsAndSidecarHeadings = ({
 	layoutHeadings,
@@ -128,23 +113,18 @@ const generateRootDocsLandingProps = async ({
 	rootDocsPathSlug: string
 }) => {
 	/**
-	 * Gather config variables
-	 */
-	const optionOverwrites = OPTION_OVERWRITES_BY_PRODUCT[product.slug]
-	const includeMDXSource = optionOverwrites
-		? optionOverwrites.includeMDXSource
-		: false
-	const productSlugForLoader = optionOverwrites
-		? optionOverwrites.productSlugForLoader
-		: undefined
-
-	/**
 	 * Pull data from product object
 	 */
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === rootDocsPathSlug
 	)
-	const baseName = currentRootDocsPath.shortName || currentRootDocsPath.name
+	const {
+		shortName,
+		name,
+		productSlugForLoader,
+		includeMDXSource = false,
+	} = currentRootDocsPath
+	const baseName = shortName || name
 
 	/**
 	 * Fetch page marketing content. Falls back to empty object if
