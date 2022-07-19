@@ -152,7 +152,7 @@ const generateRootDocsLandingProps = async ({
 	try {
 		const jsonFilePath = path.join(
 			process.cwd(),
-			`src/content/${product.slug}/docs-landing.json`
+			`src/content/${product.slug}/docs-landing/${rootDocsPathSlug}.json`
 		)
 		CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 	} catch {
