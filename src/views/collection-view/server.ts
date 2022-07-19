@@ -128,8 +128,13 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 *
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
+		 *
+		 * @TODO ignoring `hcp` product slug for now until we know whether or not
+		 * we're using "hcp" or "cloud".
+		 * https://app.asana.com/0/1202097197789424/1202618936981037/f
 		 */
 		const shouldBuildCollectionPath =
+			productSlug !== 'hcp' &&
 			getIsBetaProduct(productSlug as LearnProductSlug) &&
 			productSlug === collection.theme
 

@@ -1,5 +1,5 @@
 import { GetStaticPropsContext } from 'next'
-import { LearnProductData, LearnProductSlug } from 'types/products'
+import { LearnProductData, LearnProductSlug, ProductSlug } from 'types/products'
 import {
 	getProductTutorialsViewProps,
 	ProductTutorialsViewProps,
@@ -13,11 +13,22 @@ import { cachedGetProductData } from 'lib/get-product-data'
  * i.e. /vault/tutorials
  */
 function generateProductTutorialHomePaths() {
-	return __config.dev_dot.beta_product_slugs.map(
-		(productSlug: LearnProductSlug) => ({
-			params: { productSlug },
-		})
-	)
+	const paths = []
+
+	__config.dev_dot.beta_product_slugs.forEach((productSlug: ProductSlug) => {
+		/**
+		 * @TODO ignoring `hcp` product slug for now until we know whether or not
+		 * we're using "hcp" or "cloud".
+		 * https://app.asana.com/0/1202097197789424/1202618936981037/f
+		 */
+		if (productSlug !== 'hcp') {
+			paths.push({
+				params: { productSlug },
+			})
+		}
+	})
+
+	return paths
 }
 
 export async function getStaticProps({
