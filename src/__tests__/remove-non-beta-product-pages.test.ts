@@ -17,6 +17,7 @@ describe('remove-non-beta-product-pages', () => {
 			)
 		)
 
+		// Ignore output that contains a machine-specific path
 		stdout = stdout.split('\n').slice(1).join('\n')
 
 		expect(stdout).toMatchInlineSnapshot(`
