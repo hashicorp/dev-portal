@@ -6,8 +6,6 @@ import { ProductData, ProductSlug, RootDocsPath } from 'types/products'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
 import { GenerateGetStaticPropsOptions } from './types'
 
-const BASE_PATH = 'docs'
-
 /**
  * Mapping of product slugs to objects of options that need to be overwritten.
  */
@@ -95,19 +93,34 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 }
 
 const generateRootDocsLandingPaths = () => {
-	return __config.dev_dot.beta_product_slugs.map(
-		(productSlug: ProductSlug) => ({
-			params: { productSlug },
+	const paths = []
+
+	__config.dev_dot.beta_product_slugs.forEach((productSlug: ProductSlug) => {
+		const productJsonFilePath = path.join(
+			process.cwd(),
+			`src/data/${productSlug}.json`
+		)
+		const productData: ProductData = JSON.parse(
+			fs.readFileSync(productJsonFilePath, 'utf8')
+		)
+		productData.rootDocsPaths.forEach((rootDocsPath: RootDocsPath) => {
+			paths.push({
+				params: { productSlug, rootDocsPath: rootDocsPath.path },
+			})
 		})
-	)
+	})
+
+	return paths
 }
 
 const generateRootDocsLandingProps = async ({
 	context,
 	product,
+	rootDocsPathSlug,
 }: {
 	context: GetStaticPropsContext
 	product: ProductData
+	rootDocsPathSlug: string
 }) => {
 	/**
 	 * Gather config variables
@@ -124,9 +137,9 @@ const generateRootDocsLandingProps = async ({
 	 * Pull data from product object
 	 */
 	const currentRootDocsPath = product.rootDocsPaths.find(
-		(rootDocsPath: RootDocsPath) => rootDocsPath.path === BASE_PATH
+		(rootDocsPath: RootDocsPath) => rootDocsPath.path === rootDocsPathSlug
 	)
-	const baseName = currentRootDocsPath.shortName
+	const baseName = currentRootDocsPath.shortName || currentRootDocsPath.name
 
 	/**
 	 * Fetch page marketing content. Falls back to empty object if
@@ -150,7 +163,7 @@ const generateRootDocsLandingProps = async ({
 		_getStaticGenerationFunctions({
 			product,
 			productSlugForLoader,
-			basePath: BASE_PATH,
+			basePath: rootDocsPathSlug,
 			baseName,
 		})
 

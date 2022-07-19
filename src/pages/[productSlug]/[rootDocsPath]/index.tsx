@@ -22,9 +22,10 @@ const getStaticPaths = async () => {
  */
 const getStaticProps = async (context: GetStaticPropsContext) => {
 	/**
-	 * Pull product slug from context params
+	 * Pull product slug and root docs path from context params
 	 */
 	const productSlug = context.params.productSlug as string
+	const rootDocsPathSlug = context.params.rootDocsPath as string
 
 	/**
 	 * Fetch product data
@@ -38,7 +39,7 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 	/**
 	 * Fetch and return the page props
 	 */
-	return generateRootDocsLandingProps({ context, product })
+	return generateRootDocsLandingProps({ context, product, rootDocsPathSlug })
 }
 
 export { getStaticPaths, getStaticProps }
