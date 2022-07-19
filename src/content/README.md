@@ -248,11 +248,12 @@ Example: 3-column cards with tags
 
 ## 3. Product Docs landing pages
 
-To change the content for Product Tutorials landing pages (e.g. [/vault/docs](https://developer.hashicorp.com/vault/docs), [/waypoint/docs](https://developer.hashicorp.com/waypoint/docs)):
+To change the content for Product Tutorials landing pages (e.g. [/vault/docs](https://developer.hashicorp.com/vault/docs), [/vault/api-docs](https://developer.hashicorp.com/vault/docs), [/waypoint/docs](https://developer.hashicorp.com/waypoint/docs), [/waypoint/commands](https://developer.hashicorp.com/waypoint/commands), [/waypoint/plugins](https://developer.hashicorp.com/waypoint/plugins)):
 
 1. Open the folder of the Product you'd like to make changes for
-2. Open the `docs-landing.json` file
-3. Reference the next subsection for details on what is authorable
+2. Open the `docs-landing` folder
+3. Open the JSON file with the name that matches the docs landing you'd like to make changes for (e.g. `docs.json` for the `${productSlug}/docs` path)
+4. Reference the next subsection for details on what is authorable
 
 ### Editing Docs landing content
 
