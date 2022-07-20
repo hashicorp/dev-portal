@@ -50,6 +50,9 @@ const NavigationHeader = () => {
 		<header className={s.root}>
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
+				<div className="g-type-body" style={{ color: 'white' }}>
+					Hi, <span data-dd-privacy="mask">Manish</span>
+				</div>
 				<GiveFeedbackButton />
 				<MobileMenuButton />
 			</div>
