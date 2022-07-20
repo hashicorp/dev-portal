@@ -4,19 +4,15 @@ import DocsView from 'views/docs-view'
 // product data
 import nomadData from 'data/nomad.json'
 // server
-import { getStaticGenerationFunctions } from 'views/docs-view/server'
+import {
+	generateGetStaticPaths,
+	generateGetStaticProps,
+} from 'views/docs-view/server'
 import { removeIndexPath } from 'lib/remove-index-path'
 
 const basePath = 'docs'
 const baseName = 'Docs'
 const product = nomadData as ProductData
-
-const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
-	getStaticGenerationFunctions({
-		product,
-		basePath,
-		baseName,
-	})
 
 /**
  * Wrapper for `generatedGetStaticPaths`. It handles removing the index path
@@ -25,9 +21,24 @@ const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
 async function getStaticPaths(
 	context: GetStaticPathsContext
 ): Promise<GetStaticPathsResult> {
+	const generatedGetStaticPaths = generateGetStaticPaths({
+		product,
+		basePath,
+		baseName,
+	})
 	const { paths, ...restReturn } = await generatedGetStaticPaths(context)
 	const pathsWithoutIndex = removeIndexPath(paths)
 	return { ...restReturn, paths: pathsWithoutIndex }
+}
+
+const getStaticProps = async (context) => {
+	const generatedGetStaticProps = generateGetStaticProps({
+		product,
+		basePath,
+		baseName,
+	})
+	const generatedProps = await generatedGetStaticProps(context)
+	return generatedProps
 }
 
 export { getStaticPaths, getStaticProps }

@@ -68,8 +68,56 @@ const BASE_PATHS_TO_NAMES = {
 	plugins: 'Plugins',
 }
 
-const generateGetStaticPaths = ({ getLoader }: $TSFixMe): $TSFixMe => {
+const getLoaderOptions = ({
+	basePathForLoader,
+	product,
+	productSlugForLoader,
+}: $TSFixMe) => {
+	/**
+	 * Beta products, defined in our config files, will source content from a
+	 * long-lived branch named 'dev-portal'
+	 */
+	const isBetaProduct = getIsBetaProduct(product.slug)
+
+	const loaderOptions: RemoteContentLoader['opts'] = {
+		product: productSlugForLoader,
+		basePath: basePathForLoader,
+		enabledVersionedDocs: true,
+		/**
+		 * Note: not all products in "beta" are expected to have a specific
+		 * "content_preview_branch", so even for products marked "beta",
+		 * "latestVersionRef" may end up being undefined.
+		 */
+		latestVersionRef: isBetaProduct
+			? getBetaLatestVersionRef(productSlugForLoader)
+			: undefined,
+	}
+
+	return loaderOptions
+}
+
+const generateGetStaticPaths = ({
+	product,
+	basePath,
+	basePathForLoader = basePath,
+	productSlugForLoader = product.slug,
+}: $TSFixMe): $TSFixMe => {
 	return async () => {
+		// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
+		const getLoader = (
+			extraOptions?: Partial<
+				ConstructorParameters<typeof RemoteContentLoader>[0]
+			>
+		) =>
+			new RemoteContentLoader({
+				...getLoaderOptions({
+					basePathForLoader,
+					product,
+					productSlugForLoader,
+				}),
+				...extraOptions,
+			})
+
 		const paths = await getLoader().loadStaticPaths()
 
 		return {
@@ -79,20 +127,36 @@ const generateGetStaticPaths = ({ getLoader }: $TSFixMe): $TSFixMe => {
 	}
 }
 
-const generateGetStaticProps = ({
-	additionalRemarkPlugins,
+const generateGetStaticProps = <MdxScope = Record<string, unknown>>({
+	additionalRemarkPlugins = [],
 	baseName,
 	basePath,
 	currentRootDocsPath,
-	getLoader,
-	getScope,
+	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	product,
 	showVersionSelect,
+	basePathForLoader = basePath,
+	productSlugForLoader = product.slug,
 }: $TSFixMe): $TSFixMe => {
 	return async (ctx) => {
 		const pathParts = (ctx.params.page || []) as string[]
 		const headings = [] // populated by anchorLinks plugin below
+
+		// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
+		const getLoader = (
+			extraOptions?: Partial<
+				ConstructorParameters<typeof RemoteContentLoader>[0]
+			>
+		) =>
+			new RemoteContentLoader({
+				...getLoaderOptions({
+					basePathForLoader,
+					product,
+					productSlugForLoader,
+				}),
+				...extraOptions,
+			})
 
 		const loader = getLoader({
 			mainBranch,
@@ -305,12 +369,6 @@ function getStaticGenerationFunctions<MdxScope = Record<string, unknown>>({
 	showVersionSelect?: boolean
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
-	 * Beta products, defined in our config files, will source content from a
-	 * long-lived branch named 'dev-portal'
-	 */
-	const isBetaProduct = getIsBetaProduct(product.slug)
-
-	/**
 	 * Get the current `rootDocsPaths` object.
 	 *
 	 * @TODO - set `baseName` using `rootDocsPath`
@@ -319,30 +377,10 @@ function getStaticGenerationFunctions<MdxScope = Record<string, unknown>>({
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
 
-	const loaderOptions: RemoteContentLoader['opts'] = {
-		product: productSlugForLoader,
-		basePath: basePathForLoader,
-		enabledVersionedDocs: true,
-		/**
-		 * Note: not all products in "beta" are expected to have a specific
-		 * "content_preview_branch", so even for products marked "beta",
-		 * "latestVersionRef" may end up being undefined.
-		 */
-		latestVersionRef: isBetaProduct
-			? getBetaLatestVersionRef(productSlugForLoader)
-			: undefined,
-	}
-
-	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
-	const getLoader = (
-		extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
-	) => new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
-
 	return {
 		getStaticPaths: generateGetStaticPaths({
 			basePath,
 			basePathForLoader,
-			getLoader,
 			product,
 			productSlugForLoader,
 		}),
@@ -351,7 +389,6 @@ function getStaticGenerationFunctions<MdxScope = Record<string, unknown>>({
 			baseName,
 			basePath,
 			currentRootDocsPath,
-			getLoader,
 			getScope,
 			mainBranch,
 			product,
