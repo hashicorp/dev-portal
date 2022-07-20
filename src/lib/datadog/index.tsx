@@ -30,7 +30,7 @@ const datadogScriptBody = `(function(h,o,u,n,d) {
      sampleRate: 100,
      premiumSampleRate: 100,
      trackInteractions: true,
-     defaultPrivacyLevel: 'mask-user-input'
+     defaultPrivacyLevel: 'mask'
    })
    DD_RUM.startSessionReplayRecording()
  })`
