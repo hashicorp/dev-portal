@@ -40,5 +40,23 @@
 			}
 		]
 	},
-	"navigationHeaderItems": {}
+	"navigationHeaderItems": {
+		"documentation": [
+			{
+				"icon": "docs",
+				"label": "General Documentation",
+				"pathSuffix": "docs"
+			},
+			{
+				"icon": "api",
+				"label": "API",
+				"pathSuffix": "api-docs"
+			},
+			{
+				"icon": "terminalScreen",
+				"label": "CLI",
+				"pathSuffix": "commands"
+			}
+		]
+	}
 }
