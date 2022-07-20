@@ -80,7 +80,6 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 }
 
 const generateGetStaticProps = ({
-	includeMDXSource = false,
 	pageContent,
 	product,
 	basePath,
@@ -88,9 +87,13 @@ const generateGetStaticProps = ({
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
-	const productSlugForLoader =
-		currentRootDocsPath.productSlugForLoader || basePath
-	const baseName = currentRootDocsPath.shortName || currentRootDocsPath.name
+	const {
+		includeMDXSource = false,
+		name,
+		productSlugForLoader = product.slug,
+		shortName,
+	} = currentRootDocsPath
+	const baseName = shortName || name
 
 	return async (context: GetStaticPropsContext) => {
 		const { getStaticProps: generatedGetStaticProps } =
