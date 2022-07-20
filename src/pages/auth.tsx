@@ -2,7 +2,6 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 
 // 1. useAuthentication hook?
 // exposes pre-configured signIn method
-// exposes
 
 export default function AuthPage() {
 	const { data: session } = useSession()
