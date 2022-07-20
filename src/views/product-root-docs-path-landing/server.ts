@@ -2,9 +2,9 @@ import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
-import { RootDocsPath } from 'types/products'
+import { ProductSlug, RootDocsPath } from 'types/products'
+import { cachedGetProductData } from 'lib/get-product-data'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
-import { GenerateGetStaticPropsArguments } from './types'
 
 /**
  * @TODO add TS to function signature & document function purpose
@@ -81,29 +81,35 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 	return { sidecarHeadings, marketingContentBlocksWithHeadingLevels }
 }
 
-const generateGetStaticProps = ({
-	product,
-}: GenerateGetStaticPropsArguments) => {
-	const basePath = 'docs'
-	const currentRootDocsPath = product.rootDocsPaths.find(
-		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
-	)
-	const {
-		includeMDXSource = false,
-		name,
-		productSlugForLoader = product.slug,
-		shortName,
-	} = currentRootDocsPath
-	const baseName = shortName || name
-
-	// Fetch page content
-	const jsonFilePath = path.join(
-		process.cwd(),
-		`src/content/${product.slug}/docs-landing.json`
-	)
-	const pageContent = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
-
+const generateGetStaticProps = () => {
 	return async (context: GetStaticPropsContext) => {
+		// Constants
+		const basePath = 'docs'
+
+		// Fetch product data
+		const productSlug = context.params.productSlug as string
+		const product = cachedGetProductData(productSlug as ProductSlug)
+
+		// Pull properties from product data
+		const currentRootDocsPath = product.rootDocsPaths.find(
+			(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
+		)
+		const {
+			includeMDXSource = false,
+			name,
+			productSlugForLoader = product.slug,
+			shortName,
+		} = currentRootDocsPath
+		const baseName = shortName || name
+
+		// Fetch page content
+		const jsonFilePath = path.join(
+			process.cwd(),
+			`src/content/${product.slug}/docs-landing.json`
+		)
+		const pageContent = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
+
+		// Generate getStaticProps from DocsView helper
 		const { getStaticProps: generatedGetStaticProps } =
 			_getStaticGenerationFunctions({
 				product,
