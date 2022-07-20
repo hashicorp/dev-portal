@@ -15,6 +15,11 @@ import { cachedGetProductData } from 'lib/get-product-data'
 function generateProductTutorialHomePaths() {
 	const paths = []
 
+	/**
+	 * @TODO ignoring `hcp` product slug for now until we know whether or not
+	 * we're using "hcp" or "cloud".
+	 * https://app.asana.com/0/1202097197789424/1202618936981037/f
+	 */
 	__config.dev_dot.beta_product_slugs.forEach((productSlug: ProductSlug) => {
 		if (productSlug !== 'hcp') {
 			paths.push({
