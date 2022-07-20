@@ -5,6 +5,7 @@ import {
 	generateGetStaticProps,
 } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
+import { removeIndexPath } from 'lib/remove-index-path'
 
 const getStaticPaths = async () => {
 	let paths = []
@@ -27,6 +28,9 @@ const getStaticPaths = async () => {
 	values.forEach((value) => {
 		paths = [...paths, ...value.paths]
 	})
+
+	// TODO fixing duplicate routes?
+	paths = removeIndexPath(paths)
 
 	return {
 		paths,
