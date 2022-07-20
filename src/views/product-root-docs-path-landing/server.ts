@@ -127,7 +127,9 @@ const generateGetStaticProps = () => {
 		// Append headings found in marketing content
 		const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
 			generateHeadingLevelsAndSidecarHeadings({
-				layoutHeadings: generatedProps.props.layoutProps.headings,
+				layoutHeadings: includeMDXSource
+					? generatedProps.props.layoutProps.headings
+					: [],
 				marketingContentBlocks: pageContent.marketingContentBlocks,
 				pageTitle: `${product.name} ${baseName}`,
 			})
