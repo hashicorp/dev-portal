@@ -8,6 +8,7 @@ const getStaticProps = generateGetStaticProps({
 	includeMDXSource: true,
 	pageContent,
 	product: waypointData as ProductData,
+	basePath: 'docs',
 })
 
 export { getStaticProps }
