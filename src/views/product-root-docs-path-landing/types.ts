@@ -9,12 +9,6 @@ interface PageContent {
 
 interface GenerateGetStaticPropsArguments {
 	product: ProductData
-
-	/**
-	 * Determines which basePath will be used for the page.
-	 * This affects MDX content, as well as elements such as the breadcrumb bar.
-	 */
-	basePath: string
 }
 
 interface ProductRootDocsPathLandingProps {

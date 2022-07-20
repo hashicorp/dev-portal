@@ -42,7 +42,6 @@ const getStaticProps = async (context) => {
 
 	// Generate static props
 	const generatedGetStaticProps = generateGetStaticProps({
-		basePath: 'docs',
 		product,
 	})
 	const generatedStaticProps = await generatedGetStaticProps(context)

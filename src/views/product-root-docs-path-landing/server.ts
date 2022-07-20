@@ -83,8 +83,8 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 
 const generateGetStaticProps = ({
 	product,
-	basePath,
 }: GenerateGetStaticPropsArguments) => {
+	const basePath = 'docs'
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
