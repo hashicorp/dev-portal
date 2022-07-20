@@ -194,6 +194,7 @@ export async function getStaticProps() {
 		props: {
 			data: pageData,
 		},
+		revalidate: __config.io_sites.revalidate,
 	}
 }
 
