@@ -283,9 +283,7 @@ const generateGetStaticProps = ({
  * export { getStaticPaths, getStaticProps }
  * ```
  */
-export function getStaticGenerationFunctions<
-	MdxScope = Record<string, unknown>
->({
+function getStaticGenerationFunctions<MdxScope = Record<string, unknown>>({
 	additionalRemarkPlugins = [],
 	baseName,
 	basePath,
@@ -360,4 +358,10 @@ export function getStaticGenerationFunctions<
 			showVersionSelect,
 		}),
 	}
+}
+
+export {
+	generateGetStaticPaths,
+	generateGetStaticProps,
+	getStaticGenerationFunctions,
 }
