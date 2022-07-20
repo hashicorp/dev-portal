@@ -1,7 +1,7 @@
 import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
 import { RootDocsPath } from 'types/products'
-import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
+import { generateGetStaticProps as _generateGetStaticProps } from 'views/docs-view/server'
 import { GenerateGetStaticPropsArguments } from './types'
 
 /**
@@ -92,13 +92,12 @@ const generateGetStaticProps = ({
 	const baseName = currentRootDocsPath.shortName || currentRootDocsPath.name
 
 	return async (context: GetStaticPropsContext) => {
-		const { getStaticProps: generatedGetStaticProps } =
-			_getStaticGenerationFunctions({
-				product,
-				productSlugForLoader,
-				basePath,
-				baseName,
-			})
+		const generatedGetStaticProps = _generateGetStaticProps({
+			product,
+			productSlugForLoader,
+			basePath,
+			baseName,
+		})
 
 		// TODO: replace any with accurate type
 		const generatedProps = (await generatedGetStaticProps({

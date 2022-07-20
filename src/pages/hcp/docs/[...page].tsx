@@ -1,20 +1,16 @@
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
 import hcpData from 'data/hcp.json'
 import { ProductData } from 'types/products'
-import { getStaticGenerationFunctions } from 'views/docs-view/server'
+import {
+	generateGetStaticProps,
+	generateGetStaticPaths,
+} from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
+import { cachedGetProductData } from 'lib/get-product-data'
 
 const basePath = 'docs'
 const baseName = 'Docs'
 const product = hcpData as ProductData
-
-const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
-	getStaticGenerationFunctions({
-		product,
-		productSlugForLoader: 'cloud.hashicorp.com',
-		basePath,
-		baseName,
-	})
 
 /**
  * Wrapper for `generatedGetStaticPaths`. It handles removing the index path
@@ -23,6 +19,12 @@ const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
 async function getStaticPaths(
 	context: GetStaticPathsContext
 ): Promise<GetStaticPathsResult> {
+	const generatedGetStaticPaths = generateGetStaticPaths({
+		product,
+		productSlugForLoader: 'cloud.hashicorp.com',
+		basePath,
+		baseName,
+	})
 	const { paths, ...restReturn } = await generatedGetStaticPaths(context)
 	// eslint-disable-next-line @typescript-eslint/typedef
 	const pathsWithoutIndex = paths.filter((pathEntry) => {
@@ -33,6 +35,21 @@ async function getStaticPaths(
 		return !isIndexPath
 	})
 	return { ...restReturn, paths: pathsWithoutIndex }
+}
+
+const getStaticProps = async (context) => {
+	const productData = cachedGetProductData('hcp')
+	const rootDocsPath = productData.rootDocsPaths.find(({ path }) => {
+		return path === basePath
+	})
+	const generatedGetStaticProps = generateGetStaticProps({
+		product: productData,
+		basePath: rootDocsPath.path,
+		baseName: rootDocsPath.shortName || rootDocsPath.name,
+		productSlugForLoader: 'cloud.hashicorp.com',
+	})
+	const generatedProps = await generatedGetStaticProps(context)
+	return generatedProps
 }
 
 export { getStaticPaths, getStaticProps }
