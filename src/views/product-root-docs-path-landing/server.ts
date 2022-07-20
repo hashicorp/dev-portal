@@ -83,12 +83,13 @@ const generateGetStaticProps = ({
 	includeMDXSource = false,
 	pageContent,
 	product,
-	productSlugForLoader,
 	basePath,
 }: GenerateGetStaticPropsArguments) => {
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
+	const productSlugForLoader =
+		currentRootDocsPath.productSlugForLoader || basePath
 	const baseName = currentRootDocsPath.shortName || currentRootDocsPath.name
 
 	return async (context: GetStaticPropsContext) => {
