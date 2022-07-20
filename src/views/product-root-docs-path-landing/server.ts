@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
 import { RootDocsPath } from 'types/products'
@@ -80,7 +82,6 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 }
 
 const generateGetStaticProps = ({
-	pageContent,
 	product,
 	basePath,
 }: GenerateGetStaticPropsArguments) => {
@@ -94,6 +95,13 @@ const generateGetStaticProps = ({
 		shortName,
 	} = currentRootDocsPath
 	const baseName = shortName || name
+
+	// Fetch page content
+	const jsonFilePath = path.join(
+		process.cwd(),
+		`src/content/${product.slug}/docs-landing.json`
+	)
+	const pageContent = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 
 	return async (context: GetStaticPropsContext) => {
 		const { getStaticProps: generatedGetStaticProps } =

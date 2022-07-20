@@ -8,7 +8,6 @@ interface PageContent {
 }
 
 interface GenerateGetStaticPropsArguments {
-	pageContent: PageContent
 	product: ProductData
 
 	/**

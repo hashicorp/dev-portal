@@ -1,5 +1,3 @@
-import fs from 'fs'
-import path from 'path'
 import { ProductSlug } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { generateGetStaticProps } from 'views/product-root-docs-path-landing/server'
@@ -42,17 +40,9 @@ const getStaticProps = async (context) => {
 	const productSlug = context.params.productSlug
 	const product = cachedGetProductData(productSlug)
 
-	// Fetch page content
-	const jsonFilePath = path.join(
-		process.cwd(),
-		`src/content/${productSlug}/docs-landing.json`
-	)
-	const pageContent = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
-
 	// Generate static props
 	const generatedGetStaticProps = generateGetStaticProps({
 		basePath: 'docs',
-		pageContent,
 		product,
 	})
 	const generatedStaticProps = await generatedGetStaticProps(context)
