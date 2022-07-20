@@ -122,7 +122,18 @@ const generateGetStaticPaths = ({
 
 		return {
 			fallback: 'blocking',
-			paths: paths.slice(0, __config.dev_dot.max_static_paths ?? 0),
+			paths: paths
+				.slice(0, __config.dev_dot.max_static_paths ?? 0)
+				.map((path) => {
+					return {
+						...path,
+						params: {
+							...path.params,
+							// injecting new param
+							rootDocsPath: basePath,
+						},
+					}
+				}),
 		}
 	}
 }
