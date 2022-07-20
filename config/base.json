@@ -12,7 +12,8 @@
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
 		},
 		"auth": {
-			"idp_url": "https://auth.idp.hcp.dev"
+			"idp_url": "https://auth.idp.hcp.dev",
+			"session_max_age": 3600
 		},
 		"canonical_base_url": "https://developer.hashicorp.com",
 		"max_static_paths": 10,

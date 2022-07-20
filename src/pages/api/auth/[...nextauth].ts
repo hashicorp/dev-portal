@@ -1,61 +1,25 @@
 import NextAuth from 'next-auth'
-import { URLSearchParams } from 'url'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
-
-async function refreshAccessToken(token) {
-	try {
-		const url =
-			__config.dev_dot.auth.idp_url +
-			'/oauth2/token?' +
-			new URLSearchParams({
-				client_id: process.env.AUTH_CLIENT_ID,
-				client_secret: process.env.AUTH_CLIENT_SECRET,
-				grant_type: 'refresh_token',
-				refresh_token: token.refreshToken,
-			})
-
-		const response = await fetch(url, {
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			method: 'POST',
-		})
-
-		const refreshedTokens = await response.json()
-
-		if (!response.ok) {
-			throw refreshedTokens
-		}
-
-		return {
-			...token,
-			accessToken: refreshedTokens.access_token,
-			accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
-			refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
-		}
-	} catch (error) {
-		console.log(error)
-
-		return {
-			...token,
-			error: 'RefreshAccessTokenError',
-		}
-	}
-}
 
 export default NextAuth({
 	session: {
-		maxAge: 3600,
+		maxAge: __config.dev_dot.auth.session_max_age,
 	},
 	providers: [CloudIdpProvider],
 	callbacks: {
-		async jwt({ token, user, account, profile, isNewUser }) {
+		/**
+		 * This callback is called whenever a JSON Web Token is created (i.e. at sign in) or updated (i.e whenever a session is accessed in the client).
+		 *
+		 * ref: https://next-auth.js.org/configuration/callbacks#jwt-callback
+		 */
+		async jwt({ token, user, account, profile }) {
 			if (user && account) {
 				token['https://auth.hashicorp.com/auth0/connection/id'] =
 					user['https://auth.hashicorp.com/auth0/connection/id']
 
 				token.cloud_idp_access_token = account.access_token
 				token.picture = profile.picture as string
+				token.nickname = profile.nickname
 
 				token.exp = user.exp
 			}
@@ -64,12 +28,22 @@ export default NextAuth({
 				return token
 			}
 
-			// return refreshAccessToken(token);
+			// TODO: validate that the refresh token flow works as implemented
+			// return refreshAccessToken(token)
+
 			return { ...token, error: 'RefreshTokenError' }
 		},
-		async session({ session, token, user }) {
-			console.log({ session, token, user })
-			return { ...session, id: token.sub }
+		/**
+		 * The session callback is called whenever a session is checked. By default, only a subset of the token is returned for increased security.
+		 *
+		 * ref: https://next-auth.js.org/configuration/callbacks#session-callback
+		 */
+		async session({ session, token }) {
+			return {
+				...session,
+				user: { ...session.user, nickname: token.nickname },
+				id: token.sub,
+			}
 		},
 	},
 })
