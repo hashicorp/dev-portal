@@ -61,6 +61,12 @@ interface RootDocsPath {
 	iconName: string
 
 	/**
+	 * Whether or not the remote MDX content for a path should be included in the
+	 * rendered page content.
+	 */
+	includeMDXSource?: boolean
+
+	/**
 	 * The proper noun name of a root docs path.
 	 */
 	name: string
