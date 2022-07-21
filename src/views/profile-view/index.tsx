@@ -1,15 +1,27 @@
+import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import Heading from 'components/heading'
-import useAuthentication from 'hooks/use-authentication'
 import BaseNewLayout from 'layouts/base-new'
-import { UserData } from 'types/auth'
+import AuthenticatedView from 'views/authenticated-view'
+import { ProfileViewProps } from './types'
 import s from './profile-view.module.css'
 
-interface ProfileViewProps {
-	user: UserData
+/**
+ * The exported view component that handles wrapping the view content in
+ * `AuthenticatedView`, which automatically handles rendering gated content.
+ */
+const ProfileView = ({ user }: ProfileViewProps) => {
+	return (
+		<AuthenticatedView>
+			<ProfileViewContent user={user} />
+		</AuthenticatedView>
+	)
 }
 
-const ProfileView = ({ user }: ProfileViewProps) => {
+/**
+ * The content of the ProfileView that is gated behind authentication.
+ */
+const ProfileViewContent = ({ user }: ProfileViewProps) => {
 	const { image, ...restProperties } = user
 
 	/**
@@ -42,4 +54,5 @@ const ProfileView = ({ user }: ProfileViewProps) => {
 }
 
 ProfileView.layout = BaseNewLayout
+export type { ProfileViewProps }
 export default ProfileView
