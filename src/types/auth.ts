@@ -17,9 +17,10 @@ type UserData = Session['user'] & {
 /**
  * Enumeration of supported auth provider IDs.
  */
-const ValidAuthProviderId = {
-	CloudIdp: 'cloud-idp',
-} as const
+enum ValidAuthProviderId {
+	CloudIdp = 'cloud-idp',
+	Test = 'test-123',
+}
 
 export type { SessionData, UserData }
 export { ValidAuthProviderId }
