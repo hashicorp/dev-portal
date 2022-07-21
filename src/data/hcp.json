@@ -11,7 +11,8 @@
 			"iconName": "docs",
 			"name": "General Documentation",
 			"path": "docs",
-			"shortName": "Documentation"
+			"shortName": "Documentation",
+			"productSlugForLoader": "cloud.hashicorp.com"
 		}
 	],
 	"sidebar": {
