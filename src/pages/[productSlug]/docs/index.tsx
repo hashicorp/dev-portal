@@ -1,5 +1,5 @@
 import { ProductSlug } from 'types/products'
-import { generateGetStaticProps } from 'views/product-root-docs-path-landing/server'
+import { getStaticProps } from 'views/product-root-docs-path-landing/server'
 import ProductRootDocsPathLanding from 'views/product-root-docs-path-landing'
 
 /**
@@ -17,11 +17,6 @@ const getStaticPaths = async () => {
 		fallback: false,
 	}
 }
-
-/**
- * Generates the page props for all /:productSlug/docs routes.
- */
-const getStaticProps = generateGetStaticProps()
 
 export { getStaticPaths, getStaticProps }
 export default ProductRootDocsPathLanding
