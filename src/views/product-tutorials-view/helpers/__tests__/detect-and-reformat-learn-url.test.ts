@@ -97,8 +97,8 @@ describe('detectAndReformatLearnUrl', () => {
 			},
 			// Note: underlying rewriteTutorialsLink() handles beta products
 			{
-				input: '/collections/consul/kubernetes',
-				expected: '/consul/tutorials/kubernetes',
+				input: '/collections/packer/kubernetes',
+				expected: 'https://learn.hashicorp.com/collections/packer/kubernetes',
 			},
 		]
 		for (let n = 0; n < collectionUrls.length; n++) {
