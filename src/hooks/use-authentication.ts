@@ -6,7 +6,7 @@ import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
  * handle invoking the wrapped function with a default value.
  */
 const signInWrapper = (
-	provider: ValueOf<typeof ValidAuthProviderId> = ValidAuthProviderId.CloudIdp
+	provider: ValidAuthProviderId = ValidAuthProviderId.CloudIdp
 ) => {
 	return signIn(provider)
 }
