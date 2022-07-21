@@ -11,13 +11,25 @@ const signInWrapper = (
 	return signIn(provider)
 }
 
+interface UseAuthenticationOptions {
+	/**
+	 * If `true`, next-auth will automatically redirect to the sign-in page
+	 */
+	isRequired?: boolean
+}
+
 /**
  * Hook for consuming user, session, and authentication state. Sources all data
  * from next-auth/react's `useSession` hook.
  */
-const useAuthentication = () => {
-	// Pull data and status from next-auth's hook
-	const { data, status } = useSession()
+const useAuthentication = (options: UseAuthenticationOptions = {}) => {
+	// Get option properties from `options` parameter
+	const { isRequired = false } = options
+
+	// Pull data and status from next-auth's hook, and pass options
+	const { data, status } = useSession({
+		required: isRequired,
+	})
 
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
