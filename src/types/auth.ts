@@ -19,7 +19,6 @@ type UserData = Session['user'] & {
  */
 enum ValidAuthProviderId {
 	CloudIdp = 'cloud-idp',
-	Test = 'test-123',
 }
 
 export type { SessionData, UserData }
