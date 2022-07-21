@@ -10,7 +10,7 @@ const AuthPage = () => {
 
 	// Redirect to the /profile page if the user is already authenticated
 	useEffect(() => {
-		if (!isLoading && isAuthenticated) {
+		if (isAuthenticated) {
 			router.push('/profile')
 		}
 	}, [isAuthenticated, isLoading, router])
