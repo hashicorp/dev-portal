@@ -25,7 +25,7 @@ const ProductRootDocsPathLandingIconCardLinkGrid = () => {
 							icon={SUPPORTED_ICONS[iconName]}
 							productSlug={currentProduct.slug}
 							text={name}
-							url={path}
+							url={`/${currentProduct.slug}/${path}`}
 						/>
 					</li>
 				)
