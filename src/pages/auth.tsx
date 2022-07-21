@@ -1,20 +1,32 @@
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import useAuthentication from 'hooks/use-authentication'
+import BaseNewLayout from 'layouts/base-new'
+import Button from 'components/button'
 
-export default function AuthPage() {
-	const { isAuthenticated, signIn, signOut, user } = useAuthentication()
-	if (isAuthenticated) {
-		return (
-			<>
-				Signed in as {user.email} <br />
-				<img src={user.image} alt={`${user.name} picture`} />
-				<button onClick={() => signOut()}>Sign out</button>
-			</>
-		)
+const AuthPage = () => {
+	const router = useRouter()
+	const { isAuthenticated, isLoading, signIn } = useAuthentication()
+
+	// Redirect to the /profile page if the user is already authenticated
+	useEffect(() => {
+		if (!isLoading && isAuthenticated) {
+			router.push('/profile')
+		}
+	}, [isAuthenticated, isLoading, router])
+
+	// Show loading message while data is loading
+	if (isLoading) {
+		return <h1>Loading...</h1>
 	}
+
+	// Show Sign In button after loading authentication data
 	return (
-		<>
-			Not signed in <br />
-			<button onClick={() => signIn()}>Sign in</button>
-		</>
+		<div style={{ padding: 32, margin: '0 auto' }}>
+			<Button onClick={() => signIn()} text="Sign In" />
+		</div>
 	)
 }
+
+AuthPage.layout = BaseNewLayout
+export default AuthPage
