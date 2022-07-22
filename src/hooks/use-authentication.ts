@@ -41,6 +41,8 @@ interface UseAuthenticationOptions {
 /**
  * Hook for consuming user, session, and authentication state. Sources all data
  * from next-auth/react's `useSession` hook.
+ *
+ * https://next-auth.js.org/getting-started/client#usesession
  */
 const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 	// Get option properties from `options` parameter
