@@ -8,10 +8,10 @@ const ProductRootDocsPathLandingHero = ({
 	pageSubtitle,
 }: ProductRootDocsPathLandingHeroProps) => {
 	return (
-		<div className={s.root}>
+		<header className={s.root}>
 			<LandingHero pageHeading={pageHeading} pageSubtitle={pageSubtitle} />
 			<ProductRootDocsPathLandingIconCardLinkGrid />
-		</div>
+		</header>
 	)
 }
 

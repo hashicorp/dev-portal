@@ -1,7 +1,7 @@
 .root {
 	align-items: flex-start;
 	display: flex;
-	gap: 24px;
+	gap: 16px;
 	margin-bottom: 32px;
 }
 
@@ -16,7 +16,7 @@
 .pageTitle {
 	composes: g-offset-scroll-margin-top from global;
 	color: var(--token-color-foreground-strong);
-	margin-bottom: 12px;
+	margin-bottom: 8px;
 }
 
 .pageSubtitle {
