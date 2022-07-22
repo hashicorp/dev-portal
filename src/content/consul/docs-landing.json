@@ -1,0 +1,136 @@
+{
+	"pageSubtitle": "Lorem ipsum dolor sit amet.",
+	"marketingContentBlocks": [
+		{
+			"type": "section-heading",
+			"title": "Use Cases"
+		},
+		{
+			"type": "card-grid",
+			"title": "Service Mesh",
+			"description": "Consul Service Mesh provides service-to-service connection authorization and encryption using mutual Transport Layer Security (TLS).",
+			"cards": [
+				{
+					"title": "Register mesh services",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/discovery/services"
+				},
+				{
+					"title": "Configure mesh behavior",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/connect/config-entries"
+				},
+				{
+					"title": "Manage mesh traffic",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/connect/gateways"
+				},
+				{
+					"title": "Setup API Gateway",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/api-gateway"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Kubernetes",
+			"description": "Consul has many integrations with Kubernetes. You can deploy Consul to Kubernetes using the Helm chart or Consul K8s CLI, sync services between Consul and Kubernetes, run Consul Service Mesh, and more.",
+			"cards": [
+				{
+					"title": "Install Consul on Kubernetes",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/k8s/installation/install"
+				},
+				{
+					"title": "Consul Service Mesh on Kubernetes",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/k8s/connect"
+				},
+				{
+					"title": "Multi-Cluster",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/k8s/installation/multi-cluster"
+				},
+				{
+					"title": "Syncing Kubernetes and Consul Services",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/k8s/service-sync"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Network Infrastructure Automation",
+			"description": "Consul-Terraform-Sync (CTS) enables dynamic updates to network infrastructure devices triggered by service changes.",
+			"cards": [
+				{
+					"title": "Install and Configure CTS",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/nia/installation/install"
+				},
+				{
+					"title": "Define Dynamic Updates",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/nia/tasks"
+				},
+				{
+					"title": "Create a Terraform Module",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/nia/terraform-modules"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Platforms",
+			"description": "Consul can be integrated with several other platforms and products. Learn more about Consul integrations and how to enable them.",
+			"cards": [
+				{
+					"title": "Nomad",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/connect/nomad"
+				},
+				{
+					"title": "Vault",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/connect/ca/vault"
+				},
+				{
+					"title": "AWS ECS",
+					"description": "Lorem ipsum dolor sit amet.",
+					"url": "/consul/docs/ecs"
+				}
+			]
+		},
+		{
+			"type": "section-heading",
+			"title": "Developers"
+		},
+		{
+			"type": "icon-card-grid",
+			"cards": [
+				{
+					"iconName": "connection",
+					"text": "Envoy Integration",
+					"url": "/consul/docs/connect/proxies/envoy"
+				},
+				{
+					"iconName": "api",
+					"text": "HTTP API Structure",
+					"url": "/consul/api-docs"
+				},
+				{
+					"iconName": "download",
+					"text": "Download Consul Tools",
+					"url": "/consul/docs/download-tools"
+				},
+				{
+					"iconName": "terminal",
+					"text": "GitHub Samples",
+					"url": "https://github.com/hashicorp?q=learn-consul&type=public&language=&sort=stargazers"
+				}
+			]
+		}
+	]
+}
