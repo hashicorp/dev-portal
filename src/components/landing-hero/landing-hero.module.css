@@ -1,8 +1,4 @@
 .root {
-	margin-bottom: 32px;
-}
-
-.iconAndTextWrapper {
 	align-items: flex-start;
 	display: flex;
 	gap: 24px;
