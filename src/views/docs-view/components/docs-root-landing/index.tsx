@@ -40,7 +40,7 @@ export default function DocsRootLanding({
 			return null
 		}
 		if (!subtitle && child.props.originalType === 'p') {
-			subtitle = child
+			subtitle = child.props.children
 			return null
 		}
 		return child

@@ -312,6 +312,7 @@ export function getStaticGenerationFunctions<
 				metadata: {
 					title: frontMatter.page_title ?? null,
 					description: frontMatter.description ?? null,
+					// TODO: this logic is temporary to showcase how layouts can work. Going forward this would be defined in frontmatter.
 					layout: {
 						name: pathParts.length === 0 ? 'docs-root-landing' : null,
 					},
