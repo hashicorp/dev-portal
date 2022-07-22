@@ -25,7 +25,7 @@ export default function DocsRootLanding({ children, heading, subtitle }) {
 			return null
 		}
 		if (!firstP && child.props.originalType === 'p') {
-			firstP = getElementTextContent(child)
+			firstP = child
 			return null
 		}
 		return child
