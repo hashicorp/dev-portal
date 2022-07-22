@@ -66,8 +66,8 @@ describe('detectAndReformatLearnUrl', () => {
 			},
 			// Note: underlying rewriteTutorialsLink() handles beta products
 			{
-				input: '/consul',
-				expected: '/consul/tutorials',
+				input: '/packer',
+				expected: 'https://learn.hashicorp.com/packer',
 			},
 			{
 				input: '/cloud',
