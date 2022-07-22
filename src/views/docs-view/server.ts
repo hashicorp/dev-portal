@@ -305,11 +305,16 @@ export function getStaticGenerationFunctions<
 				layoutProps.versions = versions
 			}
 
+			console.log(pathParts)
+
 			const finalProps = {
 				layoutProps,
 				metadata: {
 					title: frontMatter.page_title ?? null,
 					description: frontMatter.description ?? null,
+					layout: {
+						name: pathParts.length === 0 ? 'docs-root-landing' : null,
+					},
 				},
 				mdxSource,
 				product: {

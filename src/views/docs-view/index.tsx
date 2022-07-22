@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import dynamic from 'next/dynamic'
 import { MDXRemote } from 'next-mdx-remote'
 import { useCurrentProduct } from 'contexts'
@@ -56,13 +57,24 @@ const productsToPrimitives: ProductsToPrimitivesMap = {
 	waypoint: { NestedNode, Placement },
 }
 
-const DocsView = ({ mdxSource, lazy, hideSearch = false }: DocsViewProps) => {
+const layouts = {
+	'docs-root-landing': dynamic(() => import('./components/docs-root-landing')),
+}
+
+const DocsView = ({
+	metadata,
+	mdxSource,
+	lazy,
+	hideSearch = false,
+}: DocsViewProps) => {
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
 	const additionalComponents = productsToPrimitives[currentProduct.slug] || {}
 	const components = defaultMdxComponents({ additionalComponents })
 	const shouldRenderSearch =
 		!hideSearch && __config.flags.enable_product_docs_search
+
+	const Layout = layouts[metadata?.layout?.name] ?? Fragment
 
 	return (
 		<>
@@ -72,7 +84,10 @@ const DocsView = ({ mdxSource, lazy, hideSearch = false }: DocsViewProps) => {
 				<TabProvider>
 					<MDXRemote
 						compiledSource={compiledSource}
-						components={components}
+						components={{
+							...components,
+							wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
+						}}
 						lazy={lazy}
 						scope={scope}
 					/>
