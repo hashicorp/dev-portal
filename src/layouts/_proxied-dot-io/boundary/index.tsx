@@ -64,17 +64,19 @@ function BoundaryIoLayout({ children, data }: Props): React.ReactElement {
 							type: 'inbound',
 						},
 						'divider',
-						{
-							text: 'Use Cases',
-							submenu: [
-								...useCaseNavItems.map((item) => {
-									return {
-										text: item.text,
-										url: `/use-cases/${item.url}`,
-									}
-								}),
-							].sort((a, b) => a.text.localeCompare(b.text)),
-						},
+						useCaseNavItems.length > 0
+							? {
+									text: 'Use Cases',
+									submenu: [
+										...useCaseNavItems.map((item) => {
+											return {
+												text: item.text,
+												url: `/use-cases/${item.url}`,
+											}
+										}),
+									].sort((a, b) => a.text.localeCompare(b.text)),
+							  }
+							: undefined,
 						{
 							text: 'Tutorials',
 							url: 'https://learn.hashicorp.com/boundary',
@@ -95,7 +97,7 @@ function BoundaryIoLayout({ children, data }: Props): React.ReactElement {
 							url: '/community',
 							type: 'inbound',
 						},
-					]}
+					].filter(Boolean)}
 				/>
 				<div className={themeClass}>{children}</div>
 			</Min100Layout>
