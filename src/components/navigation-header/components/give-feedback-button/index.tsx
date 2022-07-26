@@ -30,12 +30,12 @@ function GiveFeedbackButton(): ReactElement {
 			</span>
 			<span className={s.textButtonContainer}>
 				<ButtonLink
-					openInNewTab
-					href={FORM_URL}
-					text={LINK_TEXT}
 					aria-label={LINK_ARIA_LABEL}
+					href={FORM_URL}
 					icon={<IconExternalLink16 />}
 					iconPosition="trailing"
+					openInNewTab
+					text={LINK_TEXT}
 				/>
 			</span>
 		</>
