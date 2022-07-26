@@ -41,10 +41,6 @@
 		"learnMoreLink": "https://www.waypointproject.io/",
 		"featuredDocsLinks": [
 			{
-				"href": "/waypoint/tutorials",
-				"text": "Tutorials"
-			},
-			{
 				"href": "/waypoint/docs/projects",
 				"text": "Projects"
 			},
