@@ -3,22 +3,24 @@ import s from './button.module.css'
 import classNames from 'classnames'
 
 const Button = ({
-	ariaDescribedBy,
-	ariaLabel,
-	ariaLabelledBy,
+	'aria-controls': ariaControls,
+	'aria-describedby': ariaDescribedBy,
+	'aria-expanded': ariaExpanded,
+	'aria-label': ariaLabel,
+	'aria-labelledby': ariaLabelledBy,
 	className,
 	color = 'primary',
 	disabled,
+	form,
 	icon,
-	id,
 	iconPosition = 'leading',
+	id,
 	isFullWidth,
 	name,
 	onClick,
 	size = 'medium',
 	text,
 	type = 'button',
-	form,
 }: ButtonProps) => {
 	const classes = classNames(
 		s.root,
@@ -56,16 +58,18 @@ const Button = ({
 
 	return (
 		<button
+			aria-controls={ariaControls}
+			aria-describedby={ariaDescribedBy}
+			aria-expanded={ariaExpanded}
 			aria-label={ariaLabel}
 			aria-labelledby={ariaLabelledBy}
-			aria-describedby={ariaDescribedBy}
 			className={classes}
 			disabled={disabled}
+			form={form}
 			id={id}
 			name={name}
 			onClick={onClick}
 			type={type}
-			form={form}
 		>
 			{hasLeadingIcon && icon}
 			{hasText && <span className={s.text}>{text}</span>}
