@@ -12,6 +12,7 @@ import classNames from 'classnames'
 import { useId } from '@react-aria/utils'
 
 // Global imports
+import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 
@@ -64,6 +65,7 @@ const useDisclosureState = (): DisclosureContextState => {
 const Disclosure = ({
 	children,
 	closeOnClickOutside = false,
+	closeOnEscapeKey = false,
 	closeOnFocusOutside = false,
 	containerClassName,
 	initialOpen = false,
@@ -128,6 +130,13 @@ const Disclosure = ({
 		[disclosureRef],
 		closeDisclosure,
 		closeOnFocusOutside && isOpen
+	)
+
+	// if enabled, close the disclosure on ESCAPE keydown
+	useOnEscapeKeyDown(
+		[disclosureRef],
+		closeDisclosure,
+		closeOnEscapeKey && isOpen
 	)
 
 	// build the className prop to pass the `children` container
