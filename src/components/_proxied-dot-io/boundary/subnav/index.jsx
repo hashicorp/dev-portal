@@ -15,7 +15,7 @@ export default function BoundarySubnav({ menuItems }) {
 		<Subnav
 			className={s.subnav}
 			titleLink={{
-				text: 'Boundary',
+				text: 'HashiCorp Boundary',
 				url: '/',
 			}}
 			ctaLinks={[
