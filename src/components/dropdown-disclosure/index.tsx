@@ -22,6 +22,7 @@ const DropdownDisclosure = ({
 }: $TSFixMe) => {
 	return (
 		<Disclosure
+			closeOnEscapeKey
 			closeOnClickOutside
 			closeOnFocusOutside
 			containerClassName={classNames(
