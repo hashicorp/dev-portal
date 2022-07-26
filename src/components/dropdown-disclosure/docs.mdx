@@ -1,0 +1,38 @@
+---
+componentName: DropdownDisclosure
+peerComponents:
+  - AccordionDisclosure
+  - Card
+---
+
+## Playground
+
+<LiveComponent>{`
+<DropdownDisclosure listPosition="left" label="click to open">
+  <DropdownDisclosureLabelItem>
+    Signed in with email
+  </DropdownDisclosureLabelItem>
+  <DropdownDisclosureDescriptionItem>
+    salty@thehound.design
+  </DropdownDisclosureDescriptionItem>
+  <DropdownDisclosureSeparatorItem />
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="bookmark" />}
+  >
+    Bookmarks
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="external-link" />}
+  >
+    Account Settings
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="sign-out" />}
+  >
+    Sign Out
+  </DropdownDisclosureLinkItem>
+</DropdownDisclosure>
+`}</LiveComponent>
