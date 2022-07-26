@@ -7,7 +7,7 @@ componentName: DropdownDisclosure
 <LiveComponent>{`
 <DropdownDisclosure
   color="primary"
-  label="Click to open"
+  text="Click to open"
 >
   <DropdownDisclosureButtonItem
     onClick={() => console.log('clicked option 1')}
@@ -35,7 +35,7 @@ componentName: DropdownDisclosure
 <LiveComponent>{`
 <DropdownDisclosure
   color="secondary"
-  label="Click to open"
+  text="Click to open"
 >
   <DropdownDisclosureLinkItem
     href="#"
@@ -63,7 +63,7 @@ componentName: DropdownDisclosure
 <LiveComponent>{`
 <DropdownDisclosure
   color="primary"
-  label="Click to open"
+  text="Click to open"
   listPosition="right"
 >
   <DropdownDisclosureLinkItem
@@ -89,8 +89,11 @@ componentName: DropdownDisclosure
 
 ## With an icon and the chevron
 
+Note: this `aria-label` is not descriptive. Make sure to use something more descriptive in practice.
+
 <LiveComponent>{`
 <DropdownDisclosure
+  aria-label="Add something"
   icon={<SwingsetTestIcon name="plus" size={24} />}
 >
   <DropdownDisclosureLinkItem
@@ -116,8 +119,11 @@ componentName: DropdownDisclosure
 
 ## With an icon and no chevron
 
+Note: this `aria-label` is not descriptive. Make sure to use something more descriptive in practice.
+
 <LiveComponent>{`
 <DropdownDisclosure
+  aria-label="Add something"
   hideChevron
   icon={<SwingsetTestIcon name="plus" size={24} />}
 >
@@ -146,6 +152,7 @@ componentName: DropdownDisclosure
 
 <LiveComponent>{`
 <DropdownDisclosure
+  aria-label="User menu"
   icon={<img src="https://placekitten.com/100/100" />}
 >
   <DropdownDisclosureLabelItem>

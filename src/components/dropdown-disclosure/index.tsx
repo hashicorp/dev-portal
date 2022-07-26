@@ -18,9 +18,33 @@ const DropdownDisclosure = ({
 	color = 'primary',
 	hideChevron = false,
 	icon,
-	label,
+	text,
 	listPosition = 'left',
 }: DropdownDisclosureProps) => {
+	const hasIcon = !!icon
+	const hasText = !!text
+	const hasLabel = !!ariaLabel
+	const isIconOnly = hasIcon && !hasText
+	const isTextOnly = !hasIcon && hasText
+
+	if (hasIcon && hasText) {
+		throw new Error(
+			'`DropdownDisclosure` does not accept both `icon` and `label`. Only provide one or the other.'
+		)
+	}
+
+	if (isIconOnly && !hasLabel) {
+		throw new Error(
+			'Icon-only `DropdownDisclosure`s require an accessible label. Provide an `aria-label` or replace the `icon` prop with the `text` prop.'
+		)
+	}
+
+	if (isTextOnly && hideChevron) {
+		throw new Error(
+			'`DropdownDisclosure`s with the `text` prop require `hideChevron` to be `false`.'
+		)
+	}
+
 	return (
 		<Disclosure
 			closeOnEscapeKey
@@ -38,7 +62,7 @@ const DropdownDisclosure = ({
 				color={color}
 				hideChevron={hideChevron}
 			>
-				{label || icon}
+				{icon || text}
 			</DropdownDisclosureActivator>
 			<DisclosureContent className={s.content}>
 				<ul className={s.list}>{children}</ul>

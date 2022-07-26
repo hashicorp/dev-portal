@@ -46,7 +46,7 @@ interface DropdownDisclosureProps
 	 * The text to render within the activator `<button>`. Should only be provided
 	 * if no `icon` is provided.
 	 */
-	label?: string
+	text?: string
 
 	/**
 	 * Whether or not the component should be left- or right-aligned in its
