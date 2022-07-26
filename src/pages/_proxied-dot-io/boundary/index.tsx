@@ -130,12 +130,14 @@ export default function Homepage({ data }): React.ReactElement {
         }}
       />
 
-      <IoHomeCaseStudies
-        heading={caseStudiesHeading}
-        description={caseStudiesDescription}
-        primary={caseStudiesFeatured}
-        secondary={caseStudiesLinks}
-      />
+      {caseStudiesFeatured.length === 2 && caseStudiesLinks.length > 0 ? (
+        <IoHomeCaseStudies
+          heading={caseStudiesHeading}
+          description={caseStudiesDescription}
+          primary={caseStudiesFeatured}
+          secondary={caseStudiesLinks}
+        />
+      ) : null}
 
       <IoHomeCallToAction
         brand="boundary"
