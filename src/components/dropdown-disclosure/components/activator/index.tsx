@@ -3,6 +3,7 @@ import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-dow
 import Button from 'components/button'
 import { useDisclosureState } from 'components/disclosure'
 import disclosureStyles from 'components/disclosure/disclosure.module.css'
+import { DropdownDisclosureActivatorProps } from './types'
 import s from './activator.module.css'
 
 const DropdownDisclosureActivator = ({
@@ -11,7 +12,7 @@ const DropdownDisclosureActivator = ({
 	className,
 	color = 'primary',
 	hideChevron = false,
-}: $TSFixMe) => {
+}: DropdownDisclosureActivatorProps) => {
 	const { contentContainerId, isOpen, toggleDisclosure } = useDisclosureState()
 
 	const hasIcon = typeof children !== 'string'
@@ -51,4 +52,5 @@ const DropdownDisclosureActivator = ({
 	}
 }
 
+export type { DropdownDisclosureActivatorProps }
 export default DropdownDisclosureActivator

@@ -8,10 +8,11 @@ import {
 	DropdownDisclosureLinkItem,
 	DropdownDisclosureSeparatorItem,
 } from './components'
+import { DropdownDisclosureProps } from './types'
 import s from './dropdown-disclosure.module.css'
 
 const DropdownDisclosure = ({
-	ariaLabel,
+	'aria-label': ariaLabel,
 	children,
 	className,
 	color = 'primary',
@@ -19,7 +20,7 @@ const DropdownDisclosure = ({
 	icon,
 	label,
 	listPosition = 'left',
-}: $TSFixMe) => {
+}: DropdownDisclosureProps) => {
 	return (
 		<Disclosure
 			closeOnEscapeKey
@@ -32,7 +33,7 @@ const DropdownDisclosure = ({
 			)}
 		>
 			<DropdownDisclosureActivator
-				ariaLabel={ariaLabel}
+				aria-label={ariaLabel}
 				className={s.activator}
 				color={color}
 				hideChevron={hideChevron}
@@ -46,6 +47,7 @@ const DropdownDisclosure = ({
 	)
 }
 
+export type { DropdownDisclosureProps }
 export {
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
