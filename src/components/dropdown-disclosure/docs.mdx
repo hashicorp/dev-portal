@@ -9,23 +9,23 @@ componentName: DropdownDisclosure
   color="primary"
   label="Click to open"
 >
+  <DropdownDisclosureButtonItem
+    onClick={() => console.log('clicked option 1')}
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 1 (button)
+  </DropdownDisclosureButtonItem>
   <DropdownDisclosureLinkItem
     href="#"
     icon={<SwingsetTestIcon name="plus" />}
   >
-    Option 1
+    Option 2 (link)
   </DropdownDisclosureLinkItem>
   <DropdownDisclosureLinkItem
     href="#"
     icon={<SwingsetTestIcon name="plus" />}
   >
-    Option 2
-  </DropdownDisclosureLinkItem>
-  <DropdownDisclosureLinkItem
-    href="#"
-    icon={<SwingsetTestIcon name="plus" />}
-  >
-    Option 3
+    Option 3 (link)
   </DropdownDisclosureLinkItem>
 </DropdownDisclosure>
 `}</LiveComponent>
