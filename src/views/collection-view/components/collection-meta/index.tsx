@@ -44,9 +44,9 @@ export default function CollectionMeta({
 			<Text className={s.description}>{description}</Text>
 			<div className={s.cta}>
 				<ButtonLink
+					aria-label="Start first tutorial"
 					href={cta.href}
 					text="Start"
-					ariaLabel="Start first tutorial"
 				/>
 				<span className={s.ctaText}>
 					<IconCollections16 className={s.ctaIcon} />
