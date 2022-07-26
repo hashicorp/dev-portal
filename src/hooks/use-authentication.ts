@@ -2,6 +2,7 @@ import { useSession, signIn, signOut, SignOutParams } from 'next-auth/react'
 import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
 
 const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
+const AUTH_ENABLED = __config.flags.enable_auth
 
 /**
  * A minimal wrapper around next-auth/react's `signIn` function. Purpose is to
@@ -51,7 +52,7 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 
 	// Pull data and status from next-auth's hook, and pass options
 	const { data, status } = useSession({
-		required: isRequired,
+		required: AUTH_ENABLED && isRequired,
 		onUnauthenticated,
 	})
 
@@ -70,6 +71,7 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 	// Return everything packaged up in an object
 	return {
 		isAuthenticated,
+		isEnabled: AUTH_ENABLED,
 		isLoading,
 		session,
 		signIn: signInWrapper,
