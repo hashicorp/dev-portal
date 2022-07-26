@@ -9,6 +9,7 @@ import {
 	DropdownDisclosureSeparatorItem,
 } from './components'
 import { DropdownDisclosureProps } from './types'
+import { validateDropdownDisclosureChildren } from './helpers'
 import s from './dropdown-disclosure.module.css'
 
 const DropdownDisclosure = ({
@@ -21,6 +22,10 @@ const DropdownDisclosure = ({
 	text,
 	listPosition = 'left',
 }: DropdownDisclosureProps) => {
+	// Check if `children` are valid
+	validateDropdownDisclosureChildren(children)
+
+	// Check for invalid props
 	const hasIcon = !!icon
 	const hasText = !!text
 	const hasLabel = !!ariaLabel
