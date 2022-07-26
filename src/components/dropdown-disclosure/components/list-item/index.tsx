@@ -1,3 +1,4 @@
+import { useDisclosureState } from 'components/disclosure'
 import Text from 'components/text'
 import Link from 'next/link'
 import s from './list-item.module.css'
@@ -11,9 +12,17 @@ const DropdownDisclosureButtonItem = ({
 	icon,
 	onClick,
 }: $TSFixMe) => {
+	const { toggleDisclosure } = useDisclosureState()
+
 	return (
 		<DropdownDisclosureListItem>
-			<button className={s.button} onClick={onClick}>
+			<button
+				className={s.button}
+				onClick={() => {
+					onClick()
+					toggleDisclosure()
+				}}
+			>
 				{icon}
 				<Text asElement="span" size={200} weight="medium">
 					{children}
