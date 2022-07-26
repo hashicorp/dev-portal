@@ -9,6 +9,7 @@ const DropdownDisclosureActivator = ({
 	'aria-label': ariaLabel,
 	children,
 	className,
+	color = 'primary',
 	hideChevron = false,
 }: $TSFixMe) => {
 	const { contentContainerId, isOpen, toggleDisclosure } = useDisclosureState()
@@ -30,6 +31,7 @@ const DropdownDisclosureActivator = ({
 		return (
 			<Button
 				{...buttonProps}
+				color={color}
 				icon={hideChevron ? null : <IconChevronDown16 />}
 				iconPosition={hideChevron ? undefined : 'trailing'}
 				text={children}

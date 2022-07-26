@@ -14,6 +14,7 @@ const DropdownDisclosure = ({
 	ariaLabel,
 	children,
 	className,
+	color = 'primary',
 	hideChevron = false,
 	icon,
 	label,
@@ -32,6 +33,7 @@ const DropdownDisclosure = ({
 			<DropdownDisclosureActivator
 				ariaLabel={ariaLabel}
 				className={s.activator}
+				color={color}
 				hideChevron={hideChevron}
 			>
 				{label || icon}
