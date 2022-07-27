@@ -1,4 +1,5 @@
 import useAuthentication from 'hooks/use-authentication'
+import ErrorView from 'views/error-view-switcher'
 import { AuthenticatedViewProps } from './types'
 
 /**
@@ -7,9 +8,14 @@ import { AuthenticatedViewProps } from './types'
  * authenticated.
  */
 const AuthenticatedView = ({ children }: AuthenticatedViewProps) => {
-	const { isAuthenticated } = useAuthentication({
+	const { isAuthenticated, isEnabled } = useAuthentication({
 		isRequired: true,
 	})
+
+	// Show the 404 error view if auth is not enabled
+	if (!isEnabled) {
+		return <ErrorView statusCode={404} isProxiedDotIo={false} />
+	}
 
 	// TODO - add a loading indicator?
 	if (!isAuthenticated) {
