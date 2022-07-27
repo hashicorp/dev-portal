@@ -13,7 +13,7 @@ const ProductRootDocsPathLandingHero = ({
 	const currentProduct = useCurrentProduct()
 
 	return (
-		<div className={s.root}>
+		<header className={s.root}>
 			<div className={s.iconAndTextWrapper}>
 				<IconTileLogo
 					productSlug={
@@ -35,7 +35,7 @@ const ProductRootDocsPathLandingHero = ({
 				</div>
 			</div>
 			<ProductRootDocsPathLandingIconCardLinkGrid />
-		</div>
+		</header>
 	)
 }
 

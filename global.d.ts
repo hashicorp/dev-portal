@@ -34,3 +34,10 @@ interface Window {
 	 */
 	DD_RUM: $TSFixMe
 }
+
+/**
+ * Custom utility that constructs a union of all possible property value types.
+ *
+ * ref: https://stackoverflow.com/a/49286056
+ */
+type ValueOf<T> = T[keyof T]

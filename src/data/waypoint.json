@@ -65,7 +65,8 @@
 			"iconName": "docs",
 			"name": "General Documentation",
 			"path": "docs",
-			"shortName": "Documentation"
+			"shortName": "Documentation",
+			"includeMDXSource": true
 		},
 		{
 			"iconName": "terminal-screen",

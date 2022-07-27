@@ -66,8 +66,8 @@ describe('detectAndReformatLearnUrl', () => {
 			},
 			// Note: underlying rewriteTutorialsLink() handles beta products
 			{
-				input: '/consul',
-				expected: 'https://learn.hashicorp.com/consul',
+				input: '/packer',
+				expected: 'https://learn.hashicorp.com/packer',
 			},
 			{
 				input: '/cloud',
@@ -97,8 +97,8 @@ describe('detectAndReformatLearnUrl', () => {
 			},
 			// Note: underlying rewriteTutorialsLink() handles beta products
 			{
-				input: '/collections/consul/kubernetes',
-				expected: 'https://learn.hashicorp.com/collections/consul/kubernetes',
+				input: '/collections/packer/kubernetes',
+				expected: 'https://learn.hashicorp.com/collections/packer/kubernetes',
 			},
 		]
 		for (let n = 0; n < collectionUrls.length; n++) {

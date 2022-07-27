@@ -1,10 +1,11 @@
 import { Provider } from 'next-auth/providers'
+import { ValidAuthProviderId } from 'types/auth'
 
 /**
  * A custom next-auth provider to authenticate via HashiCorp's Cloud IDP service
  */
 const CloudIdpProvider: Provider = {
-	id: 'cloud-idp',
+	id: ValidAuthProviderId.CloudIdp,
 	name: 'Cloud IDP',
 	type: 'oauth',
 	wellKnown:

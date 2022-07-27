@@ -61,6 +61,12 @@ interface RootDocsPath {
 	iconName: string
 
 	/**
+	 * Whether or not the remote MDX content for a path should be included in the
+	 * rendered page content.
+	 */
+	includeMDXSource?: boolean
+
+	/**
 	 * The proper noun name of a root docs path.
 	 */
 	name: string
@@ -70,6 +76,13 @@ interface RootDocsPath {
 	 * associated product.
 	 */
 	path: string
+
+	/**
+	 * Optional product slug for our content API. For some products, this differs
+	 * from the product slug used on the client. For example, "hcp" is
+	 * "cloud.hashicorp.com" in the content API.
+	 */
+	productSlugForLoader?: string
 
 	/**
 	 * An optional, shortened version of the `name` property. For example,
