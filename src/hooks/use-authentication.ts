@@ -70,8 +70,8 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 
 	// Return everything packaged up in an object
 	return {
-		isAuthenticated,
 		isAuthEnabled: AUTH_ENABLED,
+		isAuthenticated,
 		isLoading,
 		session,
 		signIn: signInWrapper,
