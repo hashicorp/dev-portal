@@ -15,7 +15,6 @@
 		}
 	},
 	"flags": {
-		"enable_auth": false,
 		"enable_product_docs_search": true
 	}
 }
