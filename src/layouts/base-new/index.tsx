@@ -11,7 +11,9 @@ import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-item
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import Footer from 'components/footer'
-import MobileMenuContainer from 'components/mobile-menu-container'
+import MobileMenuContainer, {
+	MobileAuthenticationControls,
+} from 'components/mobile-menu-container'
 import NavigationHeader from 'components/navigation-header'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 
@@ -30,6 +32,7 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 const NonProductPageMobileMenu = () => {
 	return (
 		<MobileMenuContainer className={s.mobileMenuContainer}>
+			<MobileAuthenticationControls />
 			<ul className={s.mobileMenuNavList}>
 				<SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
 				{generateTopLevelSubNavItems().map((item: $TSFixMe, index: number) => (
