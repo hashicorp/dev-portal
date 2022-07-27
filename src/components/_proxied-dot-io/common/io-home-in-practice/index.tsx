@@ -12,7 +12,7 @@ interface IoHomeInPracticeProps {
 	heading: string
 	description: string
 	cards: Array<IoCardProps>
-	cta: {
+	cta?: {
 		heading: string
 		description: string
 		link: string
@@ -51,7 +51,7 @@ export default function IoHomeInPractice({
 					cards={cards}
 				/>
 
-				{cta.heading ? (
+				{cta ? (
 					<div className={s.inPracticeCta}>
 						<div className={s.inPracticeCtaContent}>
 							<h3 className={s.inPracticeCtaHeading}>{cta.heading}</h3>
