@@ -1,10 +1,13 @@
-import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
-import Heading from 'components/heading'
-import Text from 'components/text'
-import IconTile from 'components/icon-tile'
-import s from './collection-meta.module.css'
+import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import ButtonLink from 'components/button-link'
+import Heading from 'components/heading'
+import IconTile from 'components/icon-tile'
+import InlineLink from 'components/inline-link'
+import Text from 'components/text'
+import s from './collection-meta.module.css'
+
+const AUTH_ENABLED = __config.flags.enable_auth
 
 interface CollectionMetaProps {
 	heading: {
@@ -42,6 +45,12 @@ export default function CollectionMeta({
 				{heading.text}
 			</Heading>
 			<Text className={s.description}>{description}</Text>
+			{AUTH_ENABLED ? (
+				<Text className={s.createAccountCta}>
+					<InlineLink href="/sign-up">Create an account</InlineLink> to track
+					your progress.
+				</Text>
+			) : null}
 			<div className={s.cta}>
 				<ButtonLink
 					aria-label="Start first tutorial"
