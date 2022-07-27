@@ -26,6 +26,9 @@ export default function BoundarySubnav({ menuItems }) {
 				{
 					text: 'Download',
 					url: '/downloads',
+					theme: {
+						brand: 'boundary',
+					},
 				},
 			]}
 			currentPath={currentPath}
