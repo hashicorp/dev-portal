@@ -35,7 +35,7 @@ export default function CollectionMeta({
 	 * not already a user authenticated.
 	 */
 	const { isAuthenticated, isAuthEnabled } = useAuthentication()
-	const showCreateAccountCta = isAuthEnabled && isAuthenticated
+	const showCreateAccountCta = isAuthEnabled && !isAuthenticated
 
 	return (
 		<>

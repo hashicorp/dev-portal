@@ -23,7 +23,7 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 	 * not already a user authenticated.
 	 */
 	const { isAuthenticated, isAuthEnabled } = useAuthentication()
-	const showCreateAccountCta = isAuthEnabled && isAuthenticated
+	const showCreateAccountCta = isAuthEnabled && !isAuthenticated
 
 	return (
 		<header className={s.header}>
