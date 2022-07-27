@@ -16,7 +16,9 @@ import BreadcrumbBar from 'components/breadcrumb-bar'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import InlineLink from 'components/inline-link'
-import MobileMenuContainer from 'components/mobile-menu-container'
+import MobileMenuContainer, {
+	MobileAuthenticationControls,
+} from 'components/mobile-menu-container'
 import PageAlert from 'components/page-alert'
 import Sidebar from 'components/sidebar'
 
@@ -90,6 +92,7 @@ const SidebarSidecarLayoutContent = ({
 		<div className={s.root}>
 			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
+					<MobileAuthenticationControls />
 					<SidebarContent />
 				</div>
 				{versions ? <DocsVersionSwitcher options={versions} /> : null}
