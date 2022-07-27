@@ -6,17 +6,29 @@
 ***
 */
 .root {
-  background-color: white;
-  box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
-    0 12px 28px rgba(101, 106, 118, 0.25);
-  display: none;
-  flex-direction: column;
-  flex-shrink: 0;
-  height: calc(100vh - var(--sticky-bars-height));
-  left: -150vw;
-  overflow-y: auto;
-  position: fixed;
-  top: var(--sticky-bars-height);
-  width: 100%;
-  z-index: 1;
+	background-color: white;
+	box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
+		0 12px 28px rgba(101, 106, 118, 0.25);
+	display: none;
+	flex-direction: column;
+	flex-shrink: 0;
+	height: calc(100vh - var(--sticky-bars-height));
+	left: -150vw;
+	overflow-y: auto;
+	position: fixed;
+	top: var(--sticky-bars-height);
+	width: 100%;
+	z-index: 1;
+}
+
+.mobileAuthenticationControls {
+	align-items: center;
+	display: flex;
+	gap: 24px;
+	justify-content: space-between;
+	margin-bottom: 24px;
+
+	& > * {
+		width: 100%;
+	}
 }
