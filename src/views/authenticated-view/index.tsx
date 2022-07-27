@@ -8,12 +8,12 @@ import { AuthenticatedViewProps } from './types'
  * authenticated.
  */
 const AuthenticatedView = ({ children }: AuthenticatedViewProps) => {
-	const { isAuthenticated, isEnabled } = useAuthentication({
+	const { isAuthenticated, isAuthEnabled } = useAuthentication({
 		isRequired: true,
 	})
 
 	// Show the 404 error view if auth is not enabled
-	if (!isEnabled) {
+	if (!isAuthEnabled) {
 		return <ErrorView statusCode={404} isProxiedDotIo={false} />
 	}
 
