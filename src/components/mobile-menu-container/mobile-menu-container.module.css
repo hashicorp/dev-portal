@@ -22,6 +22,10 @@
 }
 
 .mobileAuthenticationControls {
+	/* composition */
+	composes: g-hide-on-desktop from global;
+
+	/* properties */
 	align-items: center;
 	display: flex;
 	gap: 24px;
