@@ -1,9 +1,9 @@
 import { GetStaticPathsContext, GetStaticPathsResult } from 'next'
 import vaultData from 'data/vault.json'
 import { ProductData } from 'types/products'
-import { getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
+import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
-import { vaultUrlAdjuster } from 'layouts/sidebar-sidecar/utils/product-url-adjusters'
+import { removeIndexPath } from 'lib/remove-index-path'
 
 const basePath = 'docs'
 const baseName = 'Docs'
@@ -14,7 +14,6 @@ const { getStaticPaths: generatedGetStaticPaths, getStaticProps } =
 		product,
 		basePath,
 		baseName,
-		additionalRemarkPlugins: [vaultUrlAdjuster],
 	})
 
 /**
@@ -25,14 +24,7 @@ async function getStaticPaths(
 	context: GetStaticPathsContext
 ): Promise<GetStaticPathsResult> {
 	const { paths, ...restReturn } = await generatedGetStaticPaths(context)
-	// eslint-disable-next-line @typescript-eslint/typedef
-	const pathsWithoutIndex = paths.filter((pathEntry) => {
-		const isIndexPath =
-			typeof pathEntry == 'string'
-				? pathEntry == ''
-				: pathEntry.params.page.length == 0
-		return !isIndexPath
-	})
+	const pathsWithoutIndex = removeIndexPath(paths)
 	return { ...restReturn, paths: pathsWithoutIndex }
 }
 

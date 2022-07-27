@@ -1,17 +1,18 @@
 import moize, { Options } from 'moize'
+
 import { LearnProductData } from 'types/products'
-import {
-	Collection as ClientCollection,
-	ProductOption,
-} from 'lib/learn-client/types'
+import { Collection as ClientCollection } from 'lib/learn-client/types'
+import { LearnProductSlug } from 'types/products'
 import {
 	getAllCollections,
 	getCollection,
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
+
 import {
 	CollectionCategorySidebarSection,
 	formatSidebarCategorySections,
@@ -105,21 +106,42 @@ export async function getCollectionPageProps(
 	}
 }
 
-export async function getCollectionPaths(
-	product: ProductOption
-): Promise<CollectionPagePath[]> {
-	const collections = await cachedGetAllCollections({
-		product: { slug: product },
+/**
+ * These paths are built with the collection slug as context for truth.
+ * We build the path using the collection's product association for the proper slug context.
+ * Original Collection Slug — :productSlug/:collectionFilename
+ * Final route — :productSlug/tutorials/:collectionFilename
+ */
+
+export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
+	const collections = await cachedGetAllCollections()
+	const paths = []
+	collections.forEach((collection: ClientCollection) => {
+		// assuming slug structure of :product/:filename
+		const [productSlug, filename] = collection.slug.split('/')
+		/**
+		 * Only build collections where the `productSlug` is a valid beta
+		 * product and the`theme` matches the `productSlug`
+		 *
+		 * Once all products are 'onboarded' we can remove this filtering layer
+		 * for the beta products.
+		 *
+		 * @TODO once we implement the `theme` query option, remove the theme filtering
+		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
+		 */
+		const shouldBuildCollectionPath =
+			getIsBetaProduct(productSlug as LearnProductSlug) &&
+			productSlug === collection.theme
+
+		if (shouldBuildCollectionPath) {
+			paths.push({
+				params: {
+					productSlug,
+					collectionSlug: filename,
+				},
+			})
+		}
 	})
-	// Only build collections where this product is the main 'theme'
-	// @TODO once we implement the `theme` query option, remove the theme filtering
-	// https://app.asana.com/0/1201903760348480/1201932088801131/f
-	const filteredCollections = collections.filter((c) => c.theme === product)
-	const paths = filteredCollections.map((collection) => ({
-		params: {
-			collectionSlug: splitProductFromFilename(collection.slug),
-		},
-	}))
 
 	return paths
 }

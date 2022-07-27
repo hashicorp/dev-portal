@@ -1,0 +1,61 @@
+{
+	"featuredLearnContent": [
+		{
+			"tutorialSlug": "waypoint/get-started-intro"
+		},
+		{
+			"collectionSlug": "waypoint/get-started-kubernetes"
+		},
+		{
+			"collectionSlug": "waypoint/get-started-nomad"
+		},
+		{
+			"collectionSlug": "waypoint/deploy-aws"
+		},
+		{
+			"collectionSlug": "waypoint/deploy-azure"
+		},
+		{
+			"collectionSlug": "waypoint/deploy-google-cloud"
+		}
+	],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "Introduction to Waypoint",
+			"fullPath": "/waypoint/docs/intro"
+		},
+		{
+			"title": "Getting Started with Waypoint",
+			"fullPath": "/waypoint/docs/getting-started"
+		}
+	],
+	"sidecarMarketingCard": {
+		"title": "About Waypoint",
+		"subtitle": "Deploy, manage, and observe your applications through a consistent abstraction of underlying infrastructure. Waypoint works with Kubernetes, ECS and many other platforms.",
+		"learnMoreLink": "https://www.waypointproject.io/",
+		"featuredDocsLinks": [
+			{
+				"href": "/waypoint/docs/projects",
+				"text": "Projects"
+			},
+			{
+				"href": "/waypoint/docs/plugins",
+				"text": "Plugins"
+			},
+			{
+				"href": "/waypoint/docs/lifecycle/build",
+				"text": "Build"
+			},
+			{
+				"href": "/waypoint/docs/lifecycle/deploy",
+				"text": "Deploy"
+			}
+		]
+	}
+}

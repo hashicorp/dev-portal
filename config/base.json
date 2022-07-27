@@ -11,11 +11,14 @@
 		"analytics": {
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
 		},
+		"auth": {
+			"idp_url": "https://auth.idp.hcp.dev",
+			"session_max_age": 3600
+		},
 		"canonical_base_url": "https://developer.hashicorp.com",
 		"max_static_paths": 10,
 		"revalidate": 360,
-		"content_preview_branch": "dev-portal",
-		"beta_product_slugs": ["waypoint", "vault"],
+		"beta_product_slugs": ["consul", "hcp", "nomad", "vault", "waypoint"],
 		"datadog_config": {
 			"scriptUrl": "https://www.datadoghq-browser-agent.com/datadog-rum-v4.js",
 			"applicationId": "40a2019f-88ad-4076-ab52-ffd074064eed",
@@ -27,8 +30,9 @@
 		"max_static_paths": 10
 	},
 	"flags": {
-		"enable_product_docs_search": true,
+		"enable_auth": false,
+		"enable_datadog": true,
 		"enable_io_beta_cta": true,
-		"enable_datadog": true
+		"enable_product_docs_search": true
 	}
 }

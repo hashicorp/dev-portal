@@ -1,13 +1,12 @@
-/* eslint-disable react/no-array-index-key */
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import { ProductLandingViewProps } from './types'
 import { getIconCards } from './helpers'
-import ProductLandingBlocks from './components/product-landing-blocks'
+import GetStartedCard from './components/get-started-card'
 import HeroHeadingVisual from './components/hero-heading-visual'
 import OverviewCta from './components/overview-cta'
-import GetStartedCard from './components/get-started-card'
+import ProductLandingBlocks from './components/product-landing-blocks'
 import s from './product-landing.module.css'
 
 function ProductLandingView({

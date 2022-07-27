@@ -10,7 +10,7 @@ function HashiConfGlobalSlot({ description }: HashiConfGlobalSlotProps) {
 		<CardLink
 			href="https://hashiconf.com/global/"
 			className={s.root}
-			target="_blank"
+			openInNewTab
 		>
 			<VisuallyHidden as="h2">HashiConf Global</VisuallyHidden>
 			<Image

@@ -1,8 +1,10 @@
+import fs from 'fs'
+import path from 'path'
 import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
-import { RootDocsPath } from 'types/products'
-import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'layouts/sidebar-sidecar/server'
-import { GenerateGetStaticPropsArguments } from './types'
+import { ProductSlug, RootDocsPath } from 'types/products'
+import { cachedGetProductData } from 'lib/get-product-data'
+import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
 
 /**
  * @TODO add TS to function signature & document function purpose
@@ -79,64 +81,80 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 	return { sidecarHeadings, marketingContentBlocksWithHeadingLevels }
 }
 
-const generateGetStaticProps = ({
-	includeMDXSource = false,
-	pageContent,
-	product,
-	productSlugForLoader,
-}: GenerateGetStaticPropsArguments) => {
+const getStaticProps = async (context: GetStaticPropsContext) => {
+	// Constants
 	const basePath = 'docs'
+
+	// Fetch product data
+	const productSlug = context.params.productSlug as string
+	const product = cachedGetProductData(productSlug as ProductSlug)
+
+	// Pull properties from product data
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
-	const baseName = currentRootDocsPath.shortName
+	const {
+		includeMDXSource = false,
+		name,
+		productSlugForLoader = product.slug,
+		shortName,
+	} = currentRootDocsPath
+	const baseName = shortName || name
 
-	return async (context: GetStaticPropsContext) => {
-		const { getStaticProps: generatedGetStaticProps } =
-			_getStaticGenerationFunctions({
-				product,
-				productSlugForLoader,
-				basePath,
-				baseName,
-			})
+	// Fetch page content
+	const jsonFilePath = path.join(
+		process.cwd(),
+		`src/content/${product.slug}/docs-landing.json`
+	)
+	const pageContent = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 
-		// TODO: replace any with accurate type
-		const generatedProps = (await generatedGetStaticProps({
-			...context,
-			params: { page: [] },
-		})) as $TSFixMe
+	// Generate getStaticProps from DocsView helper
+	const { getStaticProps: generatedGetStaticProps } =
+		_getStaticGenerationFunctions({
+			product,
+			productSlugForLoader,
+			basePath,
+			baseName,
+		})
 
-		// Append headings found in marketing content
-		const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
-			generateHeadingLevelsAndSidecarHeadings({
-				layoutHeadings: generatedProps.props.layoutProps.headings,
-				marketingContentBlocks: pageContent.marketingContentBlocks,
-				pageTitle: `${product.name} ${baseName}`,
-			})
+	// TODO: replace any with accurate type
+	const generatedProps = (await generatedGetStaticProps({
+		...context,
+		params: { page: [] },
+	})) as $TSFixMe
 
-		// TODO clean this up so it's easier to understand
-		return {
-			...generatedProps,
-			props: {
-				...generatedProps.props,
-				mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
-				layoutProps: {
-					...generatedProps.props.layoutProps,
-					githubFileUrl: null,
-					headings: sidecarHeadings,
-				},
-				pageContent: {
-					...pageContent,
-					marketingContentBlocks: marketingContentBlocksWithHeadingLevels,
-				},
-				pageHeading: sidecarHeadings[0],
-				product: {
-					...generatedProps.props.product,
-					currentRootDocsPath,
-				},
+	// Append headings found in marketing content
+	const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
+		generateHeadingLevelsAndSidecarHeadings({
+			layoutHeadings: includeMDXSource
+				? generatedProps.props.layoutProps.headings
+				: [],
+			marketingContentBlocks: pageContent.marketingContentBlocks,
+			pageTitle: `${product.name} ${baseName}`,
+		})
+
+	// TODO clean this up so it's easier to understand
+	return {
+		...generatedProps,
+		props: {
+			...generatedProps.props,
+			mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
+			layoutProps: {
+				...generatedProps.props.layoutProps,
+				githubFileUrl: null,
+				headings: sidecarHeadings,
 			},
-		}
+			pageContent: {
+				...pageContent,
+				marketingContentBlocks: marketingContentBlocksWithHeadingLevels,
+			},
+			pageHeading: sidecarHeadings[0],
+			product: {
+				...generatedProps.props.product,
+				currentRootDocsPath,
+			},
+		},
 	}
 }
 
-export { generateGetStaticProps }
+export { getStaticProps }
