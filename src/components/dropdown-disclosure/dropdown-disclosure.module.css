@@ -4,18 +4,12 @@
 }
 
 .list-position--left {
-	margin-left: 0;
-	margin-right: auto;
-
 	& .content {
 		left: 0;
 	}
 }
 
 .list-position--right {
-	margin-left: auto;
-	margin-right: 0;
-
 	& .content {
 		right: 0;
 	}
