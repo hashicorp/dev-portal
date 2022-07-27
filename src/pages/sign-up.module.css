@@ -1,6 +1,12 @@
 .root {
 	display: flex;
+	flex-direction: row;
 	height: 100vh;
+
+	@media (--dev-dot-tablet-down) {
+		flex-direction: column;
+		height: auto;
+	}
 }
 
 .left {
@@ -9,6 +15,21 @@
 	justify-content: center;
 	padding-top: 25vh;
 	width: 45vw;
+
+	@media (--dev-dot-tablet-down) {
+		align-items: center;
+		min-height: 58vh;
+		padding-left: 24px;
+		padding-right: 24px;
+		padding-bottom: 120px;
+		padding-top: 100px;
+		width: 100%;
+	}
+
+	@media (--dev-dot-mobile) {
+		padding-top: 50px;
+		padding-bottom: 75px;
+	}
 }
 
 .right {
@@ -17,6 +38,15 @@
 	display: flex;
 	position: relative;
 	width: 55vw;
+
+	/**
+	 * TODO
+	 *  - continue adjusting for tablet viewport
+	 *  - add handling for mobile viewport
+	 */
+	@media (--dev-dot-tablet-down) {
+		width: 100%;
+	}
 }
 
 .rightGradient {
@@ -39,6 +69,17 @@
 		transform: rotate(-90deg);
 		width: 100vh;
 	}
+
+	@media (--dev-dot-tablet-down) {
+		height: 75vh;
+		width: 100vw;
+
+		&::before {
+			height: 100vw;
+			top: 75vh;
+			width: 75vh;
+		}
+	}
 }
 
 /*
@@ -53,11 +94,25 @@
 	top: 0;
 	width: 55vw;
 	height: 100vh;
+	max-width: 100%;
+	overflow: hidden;
+
+	@media (--dev-dot-tablet-down) {
+		padding-left: calc((100% - 610px) / 2);
+		padding-bottom: 100px;
+		padding-top: 100px;
+		height: 500px;
+		width: 100%;
+
+		& svg {
+			max-height: calc(500px - 100px);
+			max-width: 100vw;
+		}
+	}
 }
 
-/* TODO need to figure out the "centering" */
-.graphic svg {
-	max-width: 100%;
+.graphic {
+	display: flex;
 }
 
 .logo {
