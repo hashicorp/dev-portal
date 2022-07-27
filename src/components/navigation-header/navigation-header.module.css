@@ -10,27 +10,27 @@
 ***
 */
 .root {
-  --header-padding-left-right: 24px;
-  --header-dropdown-menu-padding-left-right: 12px;
+	--header-padding-left-right: 24px;
+	--header-dropdown-menu-padding-left-right: 12px;
 
-  background-color: var(--token-color-palette-neutral-700);
-  display: flex;
-  justify-content: space-between;
-  padding-left: var(--header-padding-left-right);
-  padding-right: var(--header-padding-left-right);
-  position: relative;
-  width: 100%;
+	background-color: var(--token-color-palette-neutral-700);
+	display: flex;
+	justify-content: space-between;
+	padding-left: var(--header-padding-left-right);
+	padding-right: var(--header-padding-left-right);
+	position: relative;
+	width: 100%;
 
-  @media (--dev-dot-tablet-down) {
-    padding-bottom: 14px;
-    padding-top: 14px;
-  }
+	@media (--dev-dot-tablet-down) {
+		padding-bottom: 14px;
+		padding-top: 14px;
+	}
 }
 
 .leftSide {
-  align-items: center;
-  display: flex;
-  justify-content: left;
+	align-items: center;
+	display: flex;
+	justify-content: left;
 }
 
 /*
@@ -41,19 +41,19 @@
 ***
 */
 .productLogo {
-  display: flex;
+	display: flex;
 
-  & svg {
-    height: 40px;
-    width: auto;
-  }
+	& svg {
+		height: 40px;
+		width: auto;
+	}
 }
 
 .rightSide {
-  align-items: center;
-  display: flex;
-  justify-content: right;
-  gap: 16px;
+	align-items: center;
+	display: flex;
+	justify-content: right;
+	gap: 16px;
 }
 
 /*
@@ -66,39 +66,58 @@
 ***
 */
 .contentBeforeNav {
-  align-items: center;
-  display: flex;
-  justify-content: left;
+	align-items: center;
+	display: flex;
+	justify-content: left;
 
-  @media (--dev-dot-desktop) {
-    width: calc(
-      var(--dev-dot-sidebar-width) + var(--main-area-padding-left) -
-        var(--header-padding-left-right) -
-        var(--header-dropdown-menu-padding-left-right)
-    );
-  }
+	@media (--dev-dot-desktop) {
+		width: calc(
+			var(--dev-dot-sidebar-width) + var(--main-area-padding-left) -
+				var(--header-padding-left-right) -
+				var(--header-dropdown-menu-padding-left-right)
+		);
+	}
 }
 
 .navList {
-  align-items: center;
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	align-items: center;
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .mobileMenuButton {
-  composes: g-hide-on-desktop from global;
-  align-items: center;
-  background-color: transparent;
-  border-radius: 5px;
-  border: 1px solid transparent;
-  color: var(--token-color-foreground-high-contrast);
-  display: flex;
-  justify-content: center;
-  padding: 5px;
+	composes: g-hide-on-desktop from global;
+	align-items: center;
+	background-color: transparent;
+	border-radius: 5px;
+	border: 1px solid transparent;
+	color: var(--token-color-foreground-high-contrast);
+	display: flex;
+	justify-content: center;
+	padding: 5px;
 
-  &:hover {
-    border: 1px solid var(--token-color-palette-neutral-200);
-  }
+	&:hover {
+		border: 1px solid var(--token-color-palette-neutral-200);
+	}
+}
+
+.authenticationControls {
+	/* composition */
+	composes: g-hide-on-tablet from global;
+	composes: g-hide-on-mobile from global;
+
+	/* properties */
+	align-items: center;
+	display: flex;
+	gap: 16px;
+}
+
+.signUpLink {
+	color: var(--token-color-foreground-high-contrast);
+
+	&:hover {
+		color: var(--token-color-foreground-high-contrast);
+	}
 }

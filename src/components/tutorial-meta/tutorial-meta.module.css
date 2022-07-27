@@ -1,27 +1,32 @@
 .header {
-  --spacing-sml: 18px;
-  --spacing-med: 20px;
-  --spacing-lrg: 24px;
-  --spacing-xl: 32px;
+	--spacing-sml: 18px;
+	--spacing-med: 20px;
+	--spacing-lrg: 24px;
+	--spacing-xl: 32px;
 }
 
 .heading {
-  composes: g-offset-scroll-margin-top from global;
-  margin-bottom: var(--spacing-med);
+	composes: g-offset-scroll-margin-top from global;
+	margin-bottom: var(--spacing-med);
 
-  @media (--dev-dot-tablet-up) {
-    margin-bottom: var(--spacing-sml);
-  }
+	@media (--dev-dot-tablet-up) {
+		margin-bottom: var(--spacing-sml);
+	}
 
-  @media (--dev-dot-desktop) {
-    margin-bottom: var(--spacing-lrg);
-  }
+	@media (--dev-dot-desktop) {
+		margin-bottom: var(--spacing-lrg);
+	}
 }
 
 .meta {
-  margin-bottom: var(--spacing-lrg);
+	margin-bottom: var(--spacing-lrg);
 
-  @media (--dev-dot-tablet-up) {
-    margin-bottom: var(--spacing-xl);
-  }
+	@media (--dev-dot-tablet-up) {
+		margin-bottom: var(--spacing-xl);
+	}
+}
+
+.createAccountCta {
+	color: var(--token-color-foreground-primary);
+	margin-top: 32px;
 }
