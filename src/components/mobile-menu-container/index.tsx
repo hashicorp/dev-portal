@@ -41,20 +41,20 @@ const MobileAuthenticationControls = () => {
 
 	return (
 		<div className={s.mobileAuthenticationControls}>
-			<Button
-				icon={<IconArrowRight16 />}
-				iconPosition="trailing"
-				onClick={() => signIn()}
-				size="small"
-				text="Sign In"
-			/>
 			<ButtonLink
-				color="secondary"
 				href="/sign-up"
 				icon={<IconUserPlus16 />}
 				iconPosition="trailing"
 				size="small"
 				text="Sign Up"
+			/>
+			<Button
+				color="secondary"
+				icon={<IconArrowRight16 />}
+				iconPosition="trailing"
+				onClick={() => signIn()}
+				size="small"
+				text="Sign In"
 			/>
 		</div>
 	)
