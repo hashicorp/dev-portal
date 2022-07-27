@@ -26,18 +26,17 @@
 
 	&::before {
 		background: radial-gradient(
-				42.35% 104.19% at 1.3% 0%,
-				rgba(0, 125, 180, 0.65) 0%,
-				rgba(128, 64, 201, 0) 76.4%
-			)
-			/* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+			42.35% 104.19% at 1.3% 0%,
+			rgba(0, 125, 180, 0.65) 0%,
+			rgba(128, 64, 201, 0) 76.4%
+		);
 		content: '';
+		height: 55vw;
 		opacity: 0.8;
-		transform: rotate(-90deg);
 		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
+		top: 100vh;
+		transform-origin: top left;
+		transform: rotate(-90deg);
 		width: 100vh;
 	}
 }
@@ -54,6 +53,11 @@
 	top: 0;
 	width: 55vw;
 	height: 100vh;
+}
+
+/* TODO need to figure out the "centering" */
+.graphic svg {
+	max-width: 100%;
 }
 
 .logo {

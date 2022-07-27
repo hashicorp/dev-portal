@@ -9,8 +9,6 @@ import Text from 'components/text'
 import s from './sign-up.module.css'
 import Button from 'components/button'
 import { signIn } from 'next-auth/react'
-import InlineLink from 'components/inline-link'
-import StandaloneLink from 'components/standalone-link'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 
 const SignUpPage = () => {
