@@ -22,8 +22,8 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 	 * We only need to show the Create Account CTA if auth is enabled and there is
 	 * not already a user authenticated.
 	 */
-	const { isAuthenticated, isEnabled } = useAuthentication()
-	const showCreateAccountCta = isEnabled && isAuthenticated
+	const { isAuthenticated, isAuthEnabled } = useAuthentication()
+	const showCreateAccountCta = isAuthEnabled && isAuthenticated
 
 	return (
 		<header className={s.header}>

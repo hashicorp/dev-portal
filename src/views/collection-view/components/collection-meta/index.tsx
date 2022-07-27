@@ -34,8 +34,8 @@ export default function CollectionMeta({
 	 * We only need to show the Create Account CTA if auth is enabled and there is
 	 * not already a user authenticated.
 	 */
-	const { isAuthenticated, isEnabled } = useAuthentication()
-	const showCreateAccountCta = isEnabled && isAuthenticated
+	const { isAuthenticated, isAuthEnabled } = useAuthentication()
+	const showCreateAccountCta = isAuthEnabled && isAuthenticated
 
 	return (
 		<>
