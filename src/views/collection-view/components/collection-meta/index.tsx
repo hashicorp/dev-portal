@@ -1,13 +1,12 @@
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
+import useAuthentication from 'hooks/use-authentication'
 import ButtonLink from 'components/button-link'
 import Heading from 'components/heading'
 import IconTile from 'components/icon-tile'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import s from './collection-meta.module.css'
-
-const AUTH_ENABLED = __config.flags.enable_auth
 
 interface CollectionMetaProps {
 	heading: {
@@ -30,6 +29,14 @@ export default function CollectionMeta({
 	const ctaText = `${numTutorials} ${
 		numTutorials > 1 ? `tutorials` : `tutorial`
 	}`
+
+	/**
+	 * We only need to show the Create Account CTA if auth is enabled and there is
+	 * not already a user authenticated.
+	 */
+	const { isAuthenticated, isEnabled } = useAuthentication()
+	const showCreateAccountCta = isEnabled && isAuthenticated
+
 	return (
 		<>
 			<IconTile>
@@ -45,7 +52,7 @@ export default function CollectionMeta({
 				{heading.text}
 			</Heading>
 			<Text className={s.description}>{description}</Text>
-			{AUTH_ENABLED ? (
+			{showCreateAccountCta ? (
 				<Text className={s.createAccountCta}>
 					<InlineLink href="/sign-up">Create an account</InlineLink> to track
 					your progress.
