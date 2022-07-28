@@ -1,14 +1,22 @@
+// Third-party imports
+import Link from 'next/link'
 import { signIn } from 'next-auth/react'
+
+// HashiCorp imports
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconCheckCircle16 } from '@hashicorp/flight-icons/svg-react/check-circle-16'
 import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import InlineSvg from '@hashicorp/react-inline-svg'
+
+// Global imports
 import useAuthentication from 'hooks/use-authentication'
 import BaseNewLayout from 'layouts/base-new'
 import ErrorView from 'views/error-view-switcher'
 import Button from 'components/button'
 import Heading from 'components/heading'
 import Text from 'components/text'
+
+// Local imports
 import s from './sign-up.module.css'
 
 const details = [
@@ -42,10 +50,14 @@ const SignUpView = () => {
 		<div className={s.root}>
 			<main className={s.main}>
 				<div>
-					<InlineSvg
-						className={s.logo}
-						src={require('./img/logo-black.svg?include')}
-					/>
+					<Link href="/">
+						<a aria-label="HashiCorp Developer">
+							<InlineSvg
+								className={s.logo}
+								src={require('./img/logo-black.svg?include')}
+							/>
+						</a>
+					</Link>
 					<Heading className={s.heading} level={1} size={500} weight="bold">
 						Create Your Account
 					</Heading>
