@@ -49,9 +49,6 @@ const MobileMenuButton = () => {
 /**
  * Handles rendering the Sign In and Sign Up UI elements. Automatically hides
  * the elements with CSS on tablet and smaller viewports.
- *
- * @TODO Render user dropdown disclosure for authenticated users
- * ref: https://app.asana.com/0/1202097197789424/1202665629707458/f
  */
 const AuthenticationControls = () => {
 	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
