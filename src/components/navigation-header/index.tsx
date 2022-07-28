@@ -1,11 +1,22 @@
+// Third-party imports
 import { useRouter } from 'next/router'
+
+// HashiCorp imports
+import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
+import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
-import { useCurrentProduct, useMobileMenu } from 'contexts'
+
+// Global imports
 import useAuthentication from 'hooks/use-authentication'
+import { useCurrentProduct, useMobileMenu } from 'contexts'
 import Button from 'components/button'
 import StandaloneLink from 'components/standalone-link'
+import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
+
+// Local imports
 import { NavigationHeaderItem } from './types'
 import {
 	GiveFeedbackButton,
@@ -43,27 +54,55 @@ const MobileMenuButton = () => {
  * ref: https://app.asana.com/0/1202097197789424/1202665629707458/f
  */
 const AuthenticationControls = () => {
-	const { isAuthEnabled, isAuthenticated, isLoading, signIn } =
+	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
 		useAuthentication()
-	const shouldShowAuthButtons = isAuthEnabled && !isLoading && !isAuthenticated
 
-	if (!shouldShowAuthButtons) {
+	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
 		return null
 	}
 
-	return (
-		<div className={s.authenticationControls}>
-			<Button onClick={() => signIn()} text="Sign In" />
-			<StandaloneLink
-				className={s.signUpLink}
-				textClassName={s.signUpLinkText}
-				href="/sign-up"
-				icon={<IconUserPlus16 />}
-				iconPosition="trailing"
-				text="Sign Up"
+	let content
+	if (showUnauthenticatedUI) {
+		content = (
+			<>
+				<Button onClick={() => signIn()} text="Sign In" />
+				<StandaloneLink
+					className={s.signUpLink}
+					textClassName={s.signUpLinkText}
+					href="/sign-up"
+					icon={<IconUserPlus16 />}
+					iconPosition="trailing"
+					text="Sign Up"
+				/>
+			</>
+		)
+	} else if (showAuthenticatedUI) {
+		content = (
+			<UserDropdownDisclosure
+				listPosition="right"
+				items={[
+					{
+						href: '/bookmarks',
+						icon: <IconBookmark16 />,
+						label: 'Bookmarks',
+					},
+					{
+						href: 'https://portal.cloud.hashicorp.com/account-settings',
+						icon: <IconExternalLink16 />,
+						label: 'Account Settings',
+					},
+					{
+						icon: <IconSignOut16 />,
+						label: 'Sign Out',
+						onClick: () => signOut(),
+					},
+				]}
+				user={user}
 			/>
-		</div>
-	)
+		)
+	}
+
+	return <div className={s.authenticationControls}>{content}</div>
 }
 
 /**
