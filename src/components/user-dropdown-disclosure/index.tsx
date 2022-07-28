@@ -1,8 +1,5 @@
-import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
-import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
-import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
+/* eslint-disable @next/next/no-img-element */
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
-import useAuthentication from 'hooks/use-authentication'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
@@ -10,77 +7,59 @@ import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 	DropdownDisclosureSeparatorItem,
 } from 'components/dropdown-disclosure'
-import { developmentToast, ToastColor } from 'components/toast'
-import Button from 'components/button'
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import {
+	UserDropdownDisclosureItem,
+	UserDropdownDisclosureProps,
+} from './types'
 
 /**
- * Renders a development toast when UserDropdownDisclosure is being rendered but
- * there is no authenticated user to render the component for.
+ * Handles rendering either a link item or a button item based on whether the
+ * `href` or `onClick` property is given.
  */
-const handleUnauthenticated = (action: ReturnType<typeof Button>) => {
-	developmentToast({
-		color: ToastColor.warning,
-		title: 'Warning in UserDropdownDisclosure',
-		description:
-			'No user is currently signed in, so `UserDropdownDisclosure` is returning `null`.',
-		renderActions: () => action,
-	})
+const renderItem = ({
+	href,
+	icon,
+	label,
+	onClick,
+}: UserDropdownDisclosureItem) => {
+	if (href) {
+		return (
+			<DropdownDisclosureLinkItem href={href} icon={icon}>
+				{label}
+			</DropdownDisclosureLinkItem>
+		)
+	}
+
+	if (onClick) {
+		return (
+			<DropdownDisclosureButtonItem icon={icon} onClick={onClick}>
+				{label}
+			</DropdownDisclosureButtonItem>
+		)
+	}
 }
 
-const UserDropdownDisclosure = () => {
-	const { currentProvider, isAuthenticated, isLoading, signIn, signOut, user } =
-		useAuthentication()
-
-	// TODO determine loading state?
-	if (isLoading) {
-		return null
-	}
-
-	if (!isAuthenticated) {
-		handleUnauthenticated(
-			<Button
-				color="secondary"
-				onClick={() => signIn()}
-				icon={<IconArrowRight16 />}
-				iconPosition="trailing"
-				text="Sign In"
-			/>
-		)
-		return null
-	}
-
-	// TODO - is this the right way?
-	const isSignedInWithGitHub = user.image?.includes('github')
-	// eslint-disable-next-line @next/next/no-img-element
+/**
+ * A DropdownDisclosure intended to be used as a menu with actions/links for
+ * authenticated users.
+ */
+const UserDropdownDisclosure = ({
+	items,
+	user,
+}: UserDropdownDisclosureProps) => {
 	const icon = user.image ? <img alt="" src={user.image} /> : <IconUser24 />
-	const labelText = `Signed in with ${
-		isSignedInWithGitHub ? 'GitHub' : 'Email'
-	}`
-	const descriptionText = isSignedInWithGitHub ? user.nickname : user.email
+	const isSignedInWithGitHub = user.image?.includes('github')
+	const description = isSignedInWithGitHub ? user.nickname : user.email
+	const label = `Signed in with ${isSignedInWithGitHub ? 'GitHub' : 'Email'}`
 
 	return (
 		<DropdownDisclosure aria-label="User menu" icon={icon}>
-			<DropdownDisclosureLabelItem>{labelText}</DropdownDisclosureLabelItem>
+			<DropdownDisclosureLabelItem>{label}</DropdownDisclosureLabelItem>
 			<DropdownDisclosureDescriptionItem>
-				{descriptionText}
+				{description}
 			</DropdownDisclosureDescriptionItem>
 			<DropdownDisclosureSeparatorItem />
-			<DropdownDisclosureLinkItem href="/bookmarks" icon={<IconBookmark16 />}>
-				Bookmarks
-			</DropdownDisclosureLinkItem>
-			<DropdownDisclosureLinkItem
-				href={currentProvider.accountSettingsUrl}
-				icon={<IconExternalLink16 />}
-			>
-				Account Settings
-			</DropdownDisclosureLinkItem>
-			<DropdownDisclosureButtonItem
-				icon={<IconSignOut16 />}
-				onClick={() => signOut()}
-			>
-				Sign Out
-			</DropdownDisclosureButtonItem>
+			{items.map(renderItem)}
 		</DropdownDisclosure>
 	)
 }
