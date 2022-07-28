@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { IconChevronDown24 } from '@hashicorp/flight-icons/svg-react/chevron-down-24'
-import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
+import { getUserMeta } from 'lib/auth/user'
 import Disclosure, {
 	DisclosureActivator,
 	DisclosureContent,
@@ -9,8 +9,7 @@ import Text from 'components/text'
 import s from './mobile-user-disclosure.module.css'
 
 const MobileUserDisclosure = ({ items, user }: $TSFixMe) => {
-	// eslint-disable-next-line @next/next/no-img-element
-	const icon = user.image ? <img alt="" src={user.image} /> : <IconUser16 />
+	const { icon, description } = getUserMeta(user)
 
 	return (
 		<Disclosure containerClassName={s.root}>
@@ -18,8 +17,7 @@ const MobileUserDisclosure = ({ items, user }: $TSFixMe) => {
 				<span className={s.iconAndTextWrapper}>
 					<span className={s.icon}>{icon}</span>
 					<Text asElement="span" className={s.text} size={200} weight="regular">
-						{/* TODO show nickname if github, email otherwise */}
-						{user.nickname}
+						{description}
 					</Text>
 				</span>
 				<span className={s.chevron}>

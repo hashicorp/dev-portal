@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
@@ -7,6 +5,7 @@ import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 	DropdownDisclosureSeparatorItem,
 } from 'components/dropdown-disclosure'
+import { getUserMeta } from 'lib/auth/user'
 import {
 	UserDropdownDisclosureItem,
 	UserDropdownDisclosureProps,
@@ -48,10 +47,7 @@ const UserDropdownDisclosure = ({
 	listPosition,
 	user,
 }: UserDropdownDisclosureProps) => {
-	const icon = user.image ? <img alt="" src={user.image} /> : <IconUser24 />
-	const isSignedInWithGitHub = user.image?.includes('github')
-	const description = isSignedInWithGitHub ? user.nickname : user.email
-	const label = `Signed in with ${isSignedInWithGitHub ? 'GitHub' : 'Email'}`
+	const { icon, label, description } = getUserMeta(user)
 
 	return (
 		<DropdownDisclosure
