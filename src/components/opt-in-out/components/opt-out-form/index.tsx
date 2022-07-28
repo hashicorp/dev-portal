@@ -12,7 +12,7 @@ export const optOutOptions = [
 	'Something broke',
 	"I can't bookmark a tutorial",
 	'No user progress on tutorials',
-	'Something else?',
+	'Something else? Please explain',
 ] as const
 
 export default function OptOutForm({
