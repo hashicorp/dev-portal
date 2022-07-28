@@ -3,6 +3,7 @@ import {
 	DropdownDisclosureButtonItemProps,
 	DropdownDisclosureLinkItemProps,
 } from 'components/dropdown-disclosure/components/list-item'
+import { DropdownDisclosureProps } from 'components/dropdown-disclosure'
 
 type UserDropdownDisclosureItem =
 	| {
@@ -20,6 +21,7 @@ type UserDropdownDisclosureItem =
 
 interface UserDropdownDisclosureProps {
 	items: UserDropdownDisclosureItem[]
+	listPosition?: DropdownDisclosureProps['listPosition']
 	user: UserData
 }
 

@@ -96,6 +96,36 @@ When no `image` is specified for a user, the `16px` `user` Flight Icon is render
 	]}
 />
 
+### With `listPosition="right"`
+
+When no `listPosition` value is given, the default of `"left"` is used.
+
+<UserDropdownDisclosure
+	listPosition="right"
+	user={{
+		email: 'salty@thehound.design',
+		image: 'https://placekitten.com/g/100/100',
+		nickname: 'salty-the-hound',
+	}}
+	items={[
+		{
+			href: '#',
+			icon: <SwingsetTestIcon name="bookmark" />,
+			label: 'Bookmarks',
+		},
+		{
+			href: '#',
+			icon: <SwingsetTestIcon name="external-link" />,
+			label: 'Account Settings',
+		},
+		{
+			icon: <SwingsetTestIcon name="sign-out" />,
+			label: 'Sign Out',
+			onClick: () => window.alert('You clicked "Sign Out"'),
+		},
+	]}
+/>
+
 ## Playground
 
 <LiveComponent>{`

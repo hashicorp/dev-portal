@@ -45,6 +45,7 @@ const renderItem = ({
  */
 const UserDropdownDisclosure = ({
 	items,
+	listPosition,
 	user,
 }: UserDropdownDisclosureProps) => {
 	const icon = user.image ? <img alt="" src={user.image} /> : <IconUser24 />
@@ -53,7 +54,11 @@ const UserDropdownDisclosure = ({
 	const label = `Signed in with ${isSignedInWithGitHub ? 'GitHub' : 'Email'}`
 
 	return (
-		<DropdownDisclosure aria-label="User menu" icon={icon}>
+		<DropdownDisclosure
+			aria-label="User menu"
+			icon={icon}
+			listPosition={listPosition}
+		>
 			<DropdownDisclosureLabelItem>{label}</DropdownDisclosureLabelItem>
 			<DropdownDisclosureDescriptionItem>
 				{description}
