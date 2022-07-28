@@ -1,5 +1,5 @@
 import { getStaticGenerationFunctions as getStaticGenerationFunctionsBase } from 'views/docs-view/server'
-import { ProductData, RootDocsPath } from 'types/products'
+import { ProductData, ProductSlug, RootDocsPath } from 'types/products'
 import {
 	GetStaticPaths,
 	GetStaticPathsResult,
@@ -7,6 +7,7 @@ import {
 	GetStaticPropsContext,
 	GetStaticPropsResult,
 } from 'next'
+import { cachedGetProductData } from 'lib/get-product-data'
 
 /**
  *
@@ -222,17 +223,12 @@ export function parseRootDocsPath(params, rootDocsPaths) {
 
 /**
  * Generates static functions for use in an [...allDocs].tsx DocsView page file.
- *
- * TODO: switch to accept a product slug, rather than productData?
  */
-export function getStaticGenerationFunctions({
-	productData,
-}: {
-	productData: ProductData
-}): {
+export function getStaticGenerationFunctions(productSlug: ProductSlug): {
 	getStaticPaths: GetStaticPaths
 	getStaticProps: GetStaticProps
 } {
+	const productData = cachedGetProductData(productSlug)
 	return {
 		getStaticPaths: async () => {
 			return await getStaticPaths(productData)
