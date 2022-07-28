@@ -1,5 +1,4 @@
 export enum PlatformOptionTitles {
-	learn = 'Learn',
 	'boundary-io' = 'Boundary',
 	'consul-io' = 'Consul',
 	'hcp-io' = 'HashiCorp Cloud Platform',
@@ -10,6 +9,7 @@ export enum PlatformOptionTitles {
 	'vault-io' = 'Vault',
 	'vagrant-io' = 'Vagrant',
 	'waypoint-io' = 'Waypoint',
+	learn = 'Learn',
 }
 
 export type OptInPlatformOption = keyof typeof PlatformOptionTitles
