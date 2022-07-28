@@ -10,10 +10,10 @@ import s from './profile-view.module.css'
  * The exported view component that handles wrapping the view content in
  * `AuthenticatedView`, which automatically handles rendering gated content.
  */
-const ProfileView = ({ user }: ProfileViewProps) => {
+const ProfileView = ({ user, bookmarks }: ProfileViewProps) => {
 	return (
 		<AuthenticatedView>
-			<ProfileViewContent user={user} />
+			<ProfileViewContent user={user} bookmarks={bookmarks} />
 		</AuthenticatedView>
 	)
 }
@@ -21,7 +21,7 @@ const ProfileView = ({ user }: ProfileViewProps) => {
 /**
  * The content of the ProfileView that is gated behind authentication.
  */
-const ProfileViewContent = ({ user }: ProfileViewProps) => {
+const ProfileViewContent = ({ user, bookmarks }: ProfileViewProps) => {
 	const { image, ...restProperties } = user
 
 	/**
@@ -48,6 +48,19 @@ const ProfileViewContent = ({ user }: ProfileViewProps) => {
 					})}
 				</ul>
 				<Button color="secondary" onClick={() => signOut()} text="Sign Out" />
+
+				<Heading level={1} size={500} weight="bold">
+					Bookmarks
+				</Heading>
+				<ul>
+					{bookmarks && bookmarks.map((bookmark) => {
+						return (
+							<li>
+								{bookmark.tutorial.name}
+							</li>
+						)
+					})}
+				</ul>
 			</div>
 		</div>
 	)
