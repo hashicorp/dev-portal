@@ -13,6 +13,8 @@ import DocsView from 'views/docs-view'
  *
  * Need to investigate further, outside the scope of initial Terraform spike
  * work, as custom docs page work is on hold while we finalize our approach.
+ *
+ * Asana task: https://app.asana.com/0/1202097197789424/1202685617704813/f
  */
 const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
 	productData: terraformData as ProductData,
