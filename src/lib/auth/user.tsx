@@ -1,3 +1,6 @@
+import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import { UserData } from 'types/auth'
 
@@ -18,6 +21,26 @@ const getDescription = (user: UserData, isSignedInWithGitHub: boolean) => {
 	return isSignedInWithGitHub ? user.nickname : user.email
 }
 
+const getUserMenuItems = ({ signOut }) => {
+	return [
+		{
+			icon: <IconBookmark16 />,
+			label: 'Bookmarks',
+			href: '/bookmarks',
+		},
+		{
+			icon: <IconExternalLink16 />,
+			label: 'Account Settings',
+			href: 'https://portal.cloud.hashicorp.com/account-settings',
+		},
+		{
+			icon: <IconSignOut16 />,
+			label: 'Sign Out',
+			onClick: () => signOut(),
+		},
+	]
+}
+
 const getUserMeta = (user: UserData) => {
 	const icon = getIcon(user)
 	const isSignedInWithGitHub = getIsSignedInWithGitHub(user)
@@ -32,4 +55,4 @@ const getUserMeta = (user: UserData) => {
 	}
 }
 
-export { getUserMeta }
+export { getUserMenuItems, getUserMeta }

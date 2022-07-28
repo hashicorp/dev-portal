@@ -5,12 +5,10 @@ import { m, useReducedMotion } from 'framer-motion'
 
 // HashiCorp imports
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
-import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
-import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 
 // Global imports
+import { getUserMenuItems } from 'lib/auth/user'
 import { useMobileMenu } from 'contexts'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
@@ -71,26 +69,7 @@ const MobileAuthenticationControls = () => {
 
 	if (showAuthenticatedUI) {
 		return (
-			<MobileUserDisclosure
-				items={[
-					{
-						icon: <IconBookmark16 />,
-						label: 'Bookmarks',
-						href: '/bookmarks',
-					},
-					{
-						icon: <IconExternalLink16 />,
-						label: 'Account Settings',
-						href: 'https://portal.cloud.hashicorp.com/account-settings',
-					},
-					{
-						icon: <IconSignOut16 />,
-						label: 'Sign Out',
-						onClick: () => signOut(),
-					},
-				]}
-				user={user}
-			/>
+			<MobileUserDisclosure items={getUserMenuItems({ signOut })} user={user} />
 		)
 	}
 
