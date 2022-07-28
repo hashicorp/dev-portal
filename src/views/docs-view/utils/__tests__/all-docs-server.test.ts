@@ -15,7 +15,7 @@ describe('prefixAllDocsSubpaths', () => {
 			},
 		]
 		const basePath = 'my-basepath'
-		// Output
+		// Expected output
 		const expected = [
 			{
 				params: {
@@ -23,15 +23,68 @@ describe('prefixAllDocsSubpaths', () => {
 				},
 			},
 		]
-		// Expect
 		expect(prefixAllDocsSubpaths(paths, basePath)).toEqual(expected)
 	})
-
-	it.todo('has more tests')
 })
 
 describe('removeCustomLandingPaths', () => {
-	it.todo('has more tests')
+	it('removes custom landing paths in a basic example', () => {
+		// Input
+		const paths = [
+			{
+				params: {
+					allDocs: ['my-basepath'],
+				},
+			},
+			{
+				params: {
+					allDocs: ['my-basepath', 'foo'],
+				},
+			},
+			{
+				params: {
+					allDocs: ['my-basepath', 'foo', 'bar'],
+				},
+			},
+			{
+				params: {
+					allDocs: ['another-basepath'],
+				},
+			},
+			{
+				params: {
+					allDocs: ['another-basepath', 'fizz'],
+				},
+			},
+		]
+		const customLandingPaths = ['my-basepath']
+		// Expected output
+		const expected = [
+			{
+				params: {
+					allDocs: ['my-basepath', 'foo'],
+				},
+			},
+			{
+				params: {
+					allDocs: ['my-basepath', 'foo', 'bar'],
+				},
+			},
+			{
+				params: {
+					allDocs: ['another-basepath'],
+				},
+			},
+			{
+				params: {
+					allDocs: ['another-basepath', 'fizz'],
+				},
+			},
+		]
+		expect(removeCustomLandingPaths(paths, customLandingPaths)).toEqual(
+			expected
+		)
+	})
 })
 
 describe('parseRootDocsPath', () => {
