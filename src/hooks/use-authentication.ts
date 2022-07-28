@@ -1,8 +1,8 @@
 import { useSession, signIn, signOut, SignOutParams } from 'next-auth/react'
 import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
 
-const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 const AUTH_ENABLED = __config.flags.enable_auth
+const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
 /**
  * A minimal wrapper around next-auth/react's `signIn` function. Purpose is to
@@ -23,6 +23,22 @@ const signInWrapper = (provider: ValidAuthProviderId = DEFAULT_PROVIDER_ID) => {
 const signOutWrapper = (options: SignOutParams = {}) => {
 	const { callbackUrl = '/', redirect = true } = options
 	return signOut({ callbackUrl, redirect })
+}
+
+interface SignUpOptions extends Record<string, string> {
+	callbackUrl?: string
+	screen_hint?: string
+}
+
+/**
+ * A function for invoking the sign up flow for an auth provider.
+ */
+const signUp = (
+	provider: ValidAuthProviderId = DEFAULT_PROVIDER_ID,
+	options: SignUpOptions = {}
+) => {
+	const { callbackUrl = '/', screen_hint = 'signup', ...restOptions } = options
+	return signIn(provider, null, { callbackUrl, screen_hint, ...restOptions })
 }
 
 interface UseAuthenticationOptions {
@@ -76,6 +92,7 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 		session,
 		signIn: signInWrapper,
 		signOut: signOutWrapper,
+		signUp,
 		status,
 		user,
 	}
