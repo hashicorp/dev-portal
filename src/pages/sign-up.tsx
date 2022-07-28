@@ -34,7 +34,7 @@ const SignUpPage = () => {
 
 	return (
 		<div className={s.root}>
-			<div className={s.left}>
+			<main className={s.main}>
 				<div>
 					<InlineSvg
 						className={s.logo}
@@ -75,11 +75,10 @@ const SignUpPage = () => {
 						}
 					/>
 					<div className={s.signInContainer}>
-						<Text size={300} weight="regular">
+						<Text size={200} weight="regular">
 							Already have an account?
 						</Text>
 						<Button
-							className={s.signInButton}
 							color="tertiary"
 							icon={<IconArrowRight16 />}
 							iconPosition="trailing"
@@ -89,16 +88,16 @@ const SignUpPage = () => {
 						/>
 					</div>
 				</div>
-			</div>
-			<div className={s.right}>
-				<div className={s.rightGradient} />
-				<div className={s.graphicContainer}>
+			</main>
+			<aside className={s.aside}>
+				<div className={s.asideGradient} />
+				<div className={s.asideGraphicContainer}>
 					<InlineSvg
-						className={s.graphic}
+						className={s.asideGraphic}
 						src={require('./temp-graphic.svg?include')}
 					/>
 				</div>
-			</div>
+			</aside>
 		</div>
 	)
 }
