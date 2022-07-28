@@ -81,12 +81,6 @@ interface RootDocsPath {
 	 * Optional product slug for our content API. For some products, this differs
 	 * from the product slug used on the client. For example, "hcp" is
 	 * "cloud.hashicorp.com" in the content API.
-	 *
-	 * An optional property to specify the product slug for our docs
-	 * content loader. Note that typically, this "product slug" corresponds
-	 * to a repo name (such as `terraform-cdk`).
-	 *
-	 * If omitted, defaults to the product slug (such as `terraform`).
 	 */
 	productSlugForLoader?: string
 
