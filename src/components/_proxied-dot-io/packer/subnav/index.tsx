@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import Subnav from '@hashicorp/react-subnav'
-import productData from 'data/packer'
 import { useRouter } from 'next/router'
+import s from './style.module.css'
 
-export default function PackerSubnav() {
+export default function PackerSubnav({ menuItems }) {
 	const router = useRouter()
-	const [currentPath, setCurrentPath] = useState()
+	const [currentPath, setCurrentPath] = useState('')
 
 	useEffect(() => {
 		setCurrentPath(router.asPath)
@@ -13,13 +13,20 @@ export default function PackerSubnav() {
 
 	return (
 		<Subnav
+			className={s.subnav}
 			titleLink={{
-				text: 'packer',
+				text: 'Packer',
 				url: '/',
 			}}
 			ctaLinks={[
-				{ text: 'GitHub', url: 'https://www.github.com/hashicorp/packer' },
-				{ text: 'Install Packer', url: '/downloads' },
+				{
+					text: 'GitHub',
+					url: `https://www.github.com/hashicorp/packer`,
+				},
+				{
+					text: 'Install Packer',
+					url: '/downloads',
+				},
 				{
 					text: 'Try HCP Packer',
 					url: 'https://cloud.hashicorp.com/products/packer?utm_source=packer_io&utm_content=top_nav_packer',
@@ -28,7 +35,7 @@ export default function PackerSubnav() {
 			hideGithubStars={true}
 			currentPath={currentPath}
 			menuItemsAlign="right"
-			menuItems={productData.subnavItems}
+			menuItems={menuItems}
 			constrainWidth
 			matchOnBasePath
 		/>
