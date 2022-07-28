@@ -9,6 +9,7 @@ import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
 
 const AUTH_ENABLED = __config.flags.enable_auth
 const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
+const DEFAULT_SIGN_IN_CALLBACK_URL = '/profile'
 
 /**
  * A minimal wrapper around next-auth/react's `signIn` function. Purpose is to
@@ -20,7 +21,12 @@ const signInWrapper = (
 	provider: ValidAuthProviderId = DEFAULT_PROVIDER_ID,
 	options: SignInOptions = {}
 ) => {
-	const { callbackUrl = '/', redirect = true, ...restOptions } = options
+	const {
+		callbackUrl = DEFAULT_SIGN_IN_CALLBACK_URL,
+		redirect = true,
+		...restOptions
+	} = options
+
 	return signIn(provider, { callbackUrl, redirect, ...restOptions })
 }
 
@@ -32,11 +38,11 @@ const signInWrapper = (
  */
 const signOutWrapper = (options: SignOutParams = {}) => {
 	const { callbackUrl = '/', redirect = true, ...restOptions } = options
+
 	return signOut({ callbackUrl, redirect, ...restOptions })
 }
 
-interface SignUpOptions extends Record<string, string> {
-	callbackUrl?: string
+interface SignUpAuthParams extends Record<string, string> {
 	screen_hint?: string
 }
 
@@ -45,10 +51,17 @@ interface SignUpOptions extends Record<string, string> {
  */
 const signUp = (
 	provider: ValidAuthProviderId = DEFAULT_PROVIDER_ID,
-	options: SignUpOptions = {}
+	options: SignInOptions = {},
+	authParams: SignUpAuthParams = {}
 ) => {
-	const { callbackUrl = '/', screen_hint = 'signup', ...restOptions } = options
-	return signIn(provider, null, { callbackUrl, screen_hint, ...restOptions })
+	const { callbackUrl = DEFAULT_SIGN_IN_CALLBACK_URL, ...restOptions } = options
+	const { screen_hint = 'signup', ...restParams } = authParams
+
+	return signIn(
+		provider,
+		{ callbackUrl, ...restOptions },
+		{ screen_hint, ...restParams }
+	)
 }
 
 interface UseAuthenticationOptions {
