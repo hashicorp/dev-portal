@@ -79,6 +79,7 @@ const AuthenticationControls = () => {
 	} else if (showAuthenticatedUI) {
 		content = (
 			<UserDropdownDisclosure
+				className={s.userDropdownDisclosure}
 				listPosition="right"
 				items={[
 					{

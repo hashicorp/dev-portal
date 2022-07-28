@@ -121,3 +121,12 @@
 		color: var(--token-color-foreground-high-contrast);
 	}
 }
+
+.userDropdownDisclosure button[aria-expanded] {
+	background-color: transparent;
+	color: var(--token-color-foreground-high-contrast);
+
+	&:hover {
+		border-color: var(--token-color-palette-neutral-200);
+	}
+}
