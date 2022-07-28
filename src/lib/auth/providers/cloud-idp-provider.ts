@@ -1,10 +1,9 @@
-import { Provider } from 'next-auth/providers'
-import { ValidAuthProviderId } from 'types/auth'
+import { AuthProvider, ValidAuthProviderId } from 'types/auth'
 
 /**
  * A custom next-auth provider to authenticate via HashiCorp's Cloud IDP service
  */
-const CloudIdpProvider: Provider = {
+const CloudIdpProvider: AuthProvider = {
 	id: ValidAuthProviderId.CloudIdp,
 	name: 'Cloud IDP',
 	type: 'oauth',
@@ -22,6 +21,7 @@ const CloudIdpProvider: Provider = {
 	profile(profile) {
 		return { id: profile.sub, ...profile }
 	},
+	accountSettingsUrl: 'https://portal.cloud.hashicorp.com/account-settings',
 }
 
 export default CloudIdpProvider
