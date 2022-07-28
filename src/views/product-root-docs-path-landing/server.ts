@@ -93,7 +93,6 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
-
 	const {
 		includeMDXSource = false,
 		name,
