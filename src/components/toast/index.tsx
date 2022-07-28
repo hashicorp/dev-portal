@@ -90,8 +90,7 @@ function toast({
  */
 const developmentToast = (...args: Parameters<typeof toast>) => {
 	if (process.env.NODE_ENV !== 'production') {
-		const [options, ...restArgs] = args
-		return toast({ ...options, autoDismiss: false }, ...restArgs)
+		return toast(...args)
 	}
 }
 

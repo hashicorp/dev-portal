@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth'
-import CloudIdpProvider from 'lib/auth/providers/cloud-idp-provider'
+import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 
 export default NextAuth({
 	session: {
