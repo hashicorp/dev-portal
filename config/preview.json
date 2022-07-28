@@ -3,5 +3,7 @@
 	"io_sites": {
 		"max_static_paths": 10
 	},
-	"flags": {}
+	"flags": {
+		"enable_auth": true
+	}
 }

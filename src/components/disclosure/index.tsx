@@ -12,6 +12,7 @@ import classNames from 'classnames'
 import { useId } from '@react-aria/utils'
 
 // Global imports
+import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 
@@ -64,6 +65,7 @@ const useDisclosureState = (): DisclosureContextState => {
 const Disclosure = ({
 	children,
 	closeOnClickOutside = false,
+	closeOnEscapeKey = false,
 	closeOnFocusOutside = false,
 	containerClassName,
 	initialOpen = false,
@@ -97,6 +99,20 @@ const Disclosure = ({
 		}
 	}, [closeDisclosure, isOpen, openDisclosure])
 
+	// create a memoized function for closing the disclosure on ESCAPE key down
+	const handleOnEscapeKeyDown = useCallback(() => {
+		// Close the disclosure
+		closeDisclosure()
+
+		// Find the associated disclosure's activator button
+		const activatorButton = disclosureRef.current.querySelector(
+			`button[aria-controls="${contentContainerId}"]`
+		) as HTMLButtonElement
+
+		// Re-focus the activator
+		activatorButton.focus()
+	}, [closeDisclosure, contentContainerId])
+
 	// if the disclosure is open, handle closing it on `routeChangeStart`
 	useEffect(() => {
 		if (!isOpen) {
@@ -128,6 +144,13 @@ const Disclosure = ({
 		[disclosureRef],
 		closeDisclosure,
 		closeOnFocusOutside && isOpen
+	)
+
+	// if enabled, close the disclosure on ESCAPE keydown
+	useOnEscapeKeyDown(
+		[disclosureRef],
+		handleOnEscapeKeyDown,
+		closeOnEscapeKey && isOpen
 	)
 
 	// build the className prop to pass the `children` container

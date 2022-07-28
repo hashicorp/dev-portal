@@ -20,7 +20,7 @@ function ConsulOnKubernetesPage() {
 				title={pageTitle}
 				pageName={pageTitle}
 				description={pageDescription}
-				image="/consul/img/consul-on-kubernetes-share-image.png"
+				image="https://www.datocms-assets.com/2885/1657059570-consul-on-kubernetes-share-image.png"
 				twitterCard="summary_large_image"
 			>
 				<meta name="twitter:title" content={pageTitle} />
