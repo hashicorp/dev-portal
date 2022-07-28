@@ -1,3 +1,4 @@
+import { RootDocsPath } from 'types/products'
 import {
 	prefixAllDocsSubpaths,
 	removeCustomLandingPaths,
@@ -5,7 +6,7 @@ import {
 } from '../all-docs-server'
 
 describe('prefixAllDocsSubpaths', () => {
-	it('prefixes paths in a basic example', () => {
+	it('prefixes params with a provided basePath, and renames param to allDocs', () => {
 		// Input
 		const paths = [
 			{
@@ -14,12 +15,12 @@ describe('prefixAllDocsSubpaths', () => {
 				},
 			},
 		]
-		const basePath = 'my-basepath'
+		const basePath = 'some-base-path'
 		// Expected output
 		const expected = [
 			{
 				params: {
-					allDocs: ['my-basepath', 'foo', 'bar'],
+					allDocs: ['some-base-path', 'foo', 'bar'],
 				},
 			},
 		]
@@ -28,59 +29,27 @@ describe('prefixAllDocsSubpaths', () => {
 })
 
 describe('removeCustomLandingPaths', () => {
-	it('removes custom landing paths in a basic example', () => {
+	it('removes custom landing paths', () => {
 		// Input
 		const paths = [
-			{
-				params: {
-					allDocs: ['my-basepath'],
-				},
-			},
-			{
-				params: {
-					allDocs: ['my-basepath', 'foo'],
-				},
-			},
-			{
-				params: {
-					allDocs: ['my-basepath', 'foo', 'bar'],
-				},
-			},
-			{
-				params: {
-					allDocs: ['another-basepath'],
-				},
-			},
-			{
-				params: {
-					allDocs: ['another-basepath', 'fizz'],
-				},
-			},
-		]
-		const customLandingPaths = ['my-basepath']
+			['some-base-path'],
+			['some-base-path', 'foo'],
+			['some-base-path', 'foo', 'bar'],
+			['another-base-path'],
+			['another-base-path', 'fizz'],
+		].map((params) => {
+			return { params: { allDocs: params } }
+		})
+		const customLandingPaths = ['some-base-path']
 		// Expected output
 		const expected = [
-			{
-				params: {
-					allDocs: ['my-basepath', 'foo'],
-				},
-			},
-			{
-				params: {
-					allDocs: ['my-basepath', 'foo', 'bar'],
-				},
-			},
-			{
-				params: {
-					allDocs: ['another-basepath'],
-				},
-			},
-			{
-				params: {
-					allDocs: ['another-basepath', 'fizz'],
-				},
-			},
-		]
+			['some-base-path', 'foo'],
+			['some-base-path', 'foo', 'bar'],
+			['another-base-path'],
+			['another-base-path', 'fizz'],
+		].map((params) => {
+			return { params: { allDocs: params } }
+		})
 		expect(removeCustomLandingPaths(paths, customLandingPaths)).toEqual(
 			expected
 		)
@@ -88,5 +57,40 @@ describe('removeCustomLandingPaths', () => {
 })
 
 describe('parseRootDocsPath', () => {
-	it.todo('has more tests')
+	it('parses the correct rootDocsPath config and pageParams from allDocs params', () => {
+		// Input
+		const params = {
+			allDocs: ['cdktf', 'fizz', 'buzz'],
+		}
+		const rootDocsPaths: RootDocsPath[] = [
+			{
+				iconName: 'docs',
+				name: 'CDKTF',
+				path: 'cdktf',
+				productSlugForLoader: 'terraform-cdk',
+			},
+			{
+				iconName: 'docs',
+				name: 'CLI',
+				path: 'cli',
+			},
+			{
+				iconName: 'docs',
+				name: 'Cloud Docs',
+				path: 'cloud-docs',
+				productSlugForLoader: 'terraform-docs-common',
+			},
+		]
+		// Expected output
+		const expected = {
+			rootDocsPath: {
+				iconName: 'docs',
+				name: 'CDKTF',
+				path: 'cdktf',
+				productSlugForLoader: 'terraform-cdk',
+			},
+			pageParams: ['fizz', 'buzz'],
+		}
+		expect(parseRootDocsPath(params, rootDocsPaths)).toEqual(expected)
+	})
 })
