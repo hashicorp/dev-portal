@@ -19,11 +19,16 @@ import Text from 'components/text'
 // Local imports
 import s from './sign-up.module.css'
 
-const details = [
+// Text content
+const TITLE = 'Create Your Account'
+const DETAILS = [
 	'Use your account across HashiCorp products',
 	'Track your progress in longer tutorials',
 	'Bookmark tutorials you need to reference regularly',
 ]
+const SIGN_UP_BUTTON_TEXT = 'Sign Up'
+const SIGN_IN_HINT_TEXT = 'Already have an account?'
+const SIGN_IN_BUTTON_TEXT = 'Sign In'
 
 const SignUpView = () => {
 	const { isAuthEnabled, isAuthenticated, isLoading } = useAuthentication()
@@ -59,10 +64,10 @@ const SignUpView = () => {
 						</a>
 					</Link>
 					<Heading className={s.heading} level={1} size={500} weight="bold">
-						Create Your Account
+						{TITLE}
 					</Heading>
 					<ul className={s.list}>
-						{details.map((detail: string, index: number) => {
+						{DETAILS.map((detail: string, index: number) => {
 							return (
 								// eslint-disable-next-line react/no-array-index-key
 								<li key={index} className={s.listItem}>
@@ -77,7 +82,7 @@ const SignUpView = () => {
 					<Button
 						icon={<IconUserPlus16 />}
 						iconPosition="trailing"
-						text="Sign Up"
+						text={SIGN_UP_BUTTON_TEXT}
 						onClick={() =>
 							signIn('cloud-idp', null, {
 								callbackUrl: '/',
@@ -87,7 +92,7 @@ const SignUpView = () => {
 					/>
 					<div className={s.signInContainer}>
 						<Text size={200} weight="regular">
-							Already have an account?
+							{SIGN_IN_HINT_TEXT}
 						</Text>
 						<Button
 							color="tertiary"
@@ -95,7 +100,7 @@ const SignUpView = () => {
 							iconPosition="trailing"
 							onClick={() => signIn('cloud-idp')}
 							size="large"
-							text="Sign In"
+							text={SIGN_IN_BUTTON_TEXT}
 						/>
 					</div>
 				</div>
