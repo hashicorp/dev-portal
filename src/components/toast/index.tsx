@@ -85,7 +85,23 @@ function toast({
 	)
 }
 
-export { reactHotToast, Toaster, ToastDisplay, toast, ToastColor }
+/**
+ * A toast that only renders in non 'production' environments.
+ */
+const developmentToast = (...args: Parameters<typeof toast>) => {
+	if (process.env.NODE_ENV !== 'production') {
+		return toast(...args)
+	}
+}
+
+export {
+	developmentToast,
+	reactHotToast,
+	toast,
+	ToastColor,
+	ToastDisplay,
+	Toaster,
+}
 /**
  * Note: default export is used in Swingset.
  * ToastDisplay should generally NOT be used directly.
