@@ -56,5 +56,27 @@
 			}
 		]
 	},
-	"navigationHeaderItems": {}
+	"navigationHeaderItems": {
+		"documentation": [
+			{
+				"icon": "docs",
+				"label": "General Documentation",
+				"pathSuffix": "docs"
+			}
+		]
+	},
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "General Documentation",
+			"path": "docs",
+			"shortName": "Documentation"
+		},
+		{
+			"iconName": "vagrant-cloud",
+			"name": "Vagrant Cloud",
+			"path": "vagrant-cloud",
+			"shortName": "Cloud"
+		}
+	]
 }
