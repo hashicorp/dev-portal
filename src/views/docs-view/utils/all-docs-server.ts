@@ -81,7 +81,9 @@ async function getStaticPathsInner({
 		allPaths = allPaths.concat(subpathPaths)
 	}
 	// Set up an array of basePaths with "custom" docs landing pages
-	const customLandingPaths = rootDocsPaths.filter((r) => r.hasCustomLanding)
+	const customLandingPaths = rootDocsPaths
+		.filter((r) => r.hasCustomLanding)
+		.map((r) => r.path)
 	// Filter out paths used for "custom" docs landing pages
 
 	const paths = allPaths.filter((entry) => {
