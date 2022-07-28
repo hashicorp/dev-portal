@@ -9,6 +9,10 @@
 }
 
 .activator {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
 	align-items: center;
 	background-color: transparent;
 	border-radius: 6px;
@@ -21,8 +25,6 @@
 
 	/* aka disclosure is open */
 	&[aria-expanded='true'] {
-		padding-bottom: 12px;
-
 		& .chevron svg {
 			transform: rotate(-180deg);
 		}
@@ -78,9 +80,14 @@
 
 .button,
 .link {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
 	align-items: center;
 	background-color: transparent;
 	border: none;
+	border-radius: 5px;
 	color: var(--token-color-foreground-primary);
 	display: flex;
 	gap: 8px;
