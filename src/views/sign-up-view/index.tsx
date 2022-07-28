@@ -1,6 +1,5 @@
 // Third-party imports
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
 
 // HashiCorp imports
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
@@ -31,7 +30,8 @@ const SIGN_IN_HINT_TEXT = 'Already have an account?'
 const SIGN_IN_BUTTON_TEXT = 'Sign In'
 
 const SignUpView = () => {
-	const { isAuthEnabled, isAuthenticated, isLoading } = useAuthentication()
+	const { isAuthEnabled, isAuthenticated, isLoading, signIn, signUp } =
+		useAuthentication()
 
 	/**
 	 * @TODO determine loading state UI
@@ -83,12 +83,7 @@ const SignUpView = () => {
 						icon={<IconUserPlus16 />}
 						iconPosition="trailing"
 						text={SIGN_UP_BUTTON_TEXT}
-						onClick={() =>
-							signIn('cloud-idp', null, {
-								callbackUrl: '/',
-								screen_hint: 'signup',
-							})
-						}
+						onClick={() => signUp()}
 					/>
 					<div className={s.signInContainer}>
 						<Text size={200} weight="regular">
@@ -98,7 +93,7 @@ const SignUpView = () => {
 							color="tertiary"
 							icon={<IconArrowRight16 />}
 							iconPosition="trailing"
-							onClick={() => signIn('cloud-idp')}
+							onClick={() => signIn()}
 							size="large"
 							text={SIGN_IN_BUTTON_TEXT}
 						/>
