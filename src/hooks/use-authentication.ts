@@ -1,3 +1,4 @@
+import providers from 'lib/auth/providers'
 import { useSession, signIn, signOut, SignOutParams } from 'next-auth/react'
 import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
 
@@ -5,13 +6,14 @@ const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 const AUTH_ENABLED = __config.flags.enable_auth
 
 /**
- * A minimal wrapper around next-auth/react's `signIn` function. Purpose is to
- * handle invoking the wrapped function with a default value.
+ * Creates a minimal wrapper around next-auth/react's `signIn` function. Purpose
+ * is to handle invoking the wrapped function with a default value that can be
+ * overwritten.
  *
  * https://next-auth.js.org/getting-started/client#signin
  */
-const signInWrapper = (provider: ValidAuthProviderId = DEFAULT_PROVIDER_ID) => {
-	return signIn(provider)
+const makeSignInWrapper = (providerId: ValidAuthProviderId) => {
+	return () => signIn(providerId)
 }
 
 /**
@@ -37,6 +39,13 @@ interface UseAuthenticationOptions {
 	 * By default, we invoke `signInWrapper` with no parameters.
 	 */
 	onUnauthenticated?: () => void
+
+	/**
+	 * Optional providerId to set as the current auth provider. Used to configure
+	 * exposed callback functions and return a currentProvider object. When
+	 * omitted, a default ID is used.
+	 */
+	providerId?: ValidAuthProviderId
 }
 
 /**
@@ -46,7 +55,16 @@ interface UseAuthenticationOptions {
  * https://next-auth.js.org/getting-started/client#usesession
  */
 const useAuthentication = (options: UseAuthenticationOptions = {}) => {
-	// Get option properties from `options` parameter
+	// Get `providerId` from `options` parameter, use the default if not given
+	const { providerId = DEFAULT_PROVIDER_ID } = options
+
+	// Set `currentProvider` based on the obtained `providerId`
+	const currentProvider = providers[DEFAULT_PROVIDER_ID]
+
+	// Create the `signInWrapper` using the obtained `providerId`
+	const signInWrapper = makeSignInWrapper(providerId)
+
+	// Get other option properties from `options` parameter
 	const { isRequired = false, onUnauthenticated = () => signInWrapper() } =
 		options
 
@@ -70,6 +88,7 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 
 	// Return everything packaged up in an object
 	return {
+		currentProvider,
 		isAuthEnabled: AUTH_ENABLED,
 		isAuthenticated,
 		isLoading,

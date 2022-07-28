@@ -14,6 +14,10 @@ import { developmentToast, ToastColor } from 'components/toast'
 import Button from 'components/button'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 
+/**
+ * Renders a development toast when UserDropdownDisclosure is being rendered but
+ * there is no authenticated user to render the component for.
+ */
 const handleUnauthenticated = (action: ReturnType<typeof Button>) => {
 	developmentToast({
 		color: ToastColor.warning,
@@ -25,9 +29,10 @@ const handleUnauthenticated = (action: ReturnType<typeof Button>) => {
 }
 
 const UserDropdownDisclosure = () => {
-	const { isAuthenticated, isLoading, signIn, signOut, user } =
+	const { isAuthenticated, isLoading, currentProvider, signIn, signOut, user } =
 		useAuthentication()
 
+	// TODO determine loading state?
 	if (isLoading) {
 		return null
 	}
@@ -65,8 +70,7 @@ const UserDropdownDisclosure = () => {
 				Bookmarks
 			</DropdownDisclosureLinkItem>
 			<DropdownDisclosureLinkItem
-				// TODO - put this in the provider? return it from useAuthentication?
-				href="https://portal.cloud.hashicorp.com/account-settings"
+				href={currentProvider.accountSettingsUrl}
 				icon={<IconExternalLink16 />}
 			>
 				Account Settings
