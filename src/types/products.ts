@@ -128,7 +128,7 @@ interface RootDocsPath {
 	 * and this may be a temporary stopgap for spiking in routes, rather than
 	 * a permanent solution.
 	 */
-	hasCustomLanding?: boolean
+	hasCustomLandingPage?: boolean
 }
 
 /**

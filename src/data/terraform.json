@@ -132,7 +132,7 @@
 			"path": "configuration"
 		},
 		{
-			"hasCustomLanding": true,
+			"hasCustomLandingPage": true,
 			"iconName": "docs",
 			"name": "Docs",
 			"path": "docs"
