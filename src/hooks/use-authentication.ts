@@ -59,6 +59,8 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
 	const isAuthenticated = status === 'authenticated'
+	const showAuthenticatedUI = isAuthenticated
+	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 
 	// Separating user and session data
 	let session: SessionData, user: UserData
@@ -74,6 +76,8 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 		isAuthenticated,
 		isLoading,
 		session,
+		showAuthenticatedUI,
+		showUnauthenticatedUI,
 		signIn: signInWrapper,
 		signOut: signOutWrapper,
 		status,
