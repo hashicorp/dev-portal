@@ -1,51 +1,59 @@
 import Link from 'next/link'
-import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
+import { IconChevronDown24 } from '@hashicorp/flight-icons/svg-react/chevron-down-24'
 import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
 import Disclosure, {
 	DisclosureActivator,
 	DisclosureContent,
 } from 'components/disclosure'
 import Text from 'components/text'
+import s from './mobile-user-disclosure.module.css'
 
 const MobileUserDisclosure = ({ items, user }: $TSFixMe) => {
 	// eslint-disable-next-line @next/next/no-img-element
 	const icon = user.image ? <img alt="" src={user.image} /> : <IconUser16 />
 
 	return (
-		<Disclosure>
-			<DisclosureActivator>
-				<div>
-					{icon}
-					<Text size={200} weight="regular">
+		<Disclosure containerClassName={s.root}>
+			<DisclosureActivator className={s.activator}>
+				<span className={s.iconAndTextWrapper}>
+					<span className={s.icon}>{icon}</span>
+					<Text asElement="span" className={s.text} size={200} weight="regular">
 						{/* TODO show nickname if github, email otherwise */}
 						{user.nickname}
 					</Text>
-				</div>
-				{/* TODO rotate 180deg when open */}
-				<IconChevronDown16 />
+				</span>
+				<span className={s.chevron}>
+					<IconChevronDown24 />
+				</span>
 			</DisclosureActivator>
-			<DisclosureContent>
-				<ul>
+			<DisclosureContent className={s.content}>
+				<ul className={s.list}>
 					{items.map(({ icon, label, href, onClick }, index) => {
 						if (!href && !onClick) {
 							return null
 						}
 
+						const labelElement = (
+							<Text asElement="span" size={200} weight="medium">
+								{label}
+							</Text>
+						)
+
 						let content
 						if (href) {
 							content = (
 								<Link href={href}>
-									<a>
+									<a className={s.link}>
 										{icon}
-										{label}
+										{labelElement}
 									</a>
 								</Link>
 							)
 						} else if (onClick) {
 							content = (
-								<button onClick={onClick}>
+								<button className={s.button} onClick={onClick}>
 									{icon}
-									{label}
+									{labelElement}
 								</button>
 							)
 						}
