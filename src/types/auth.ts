@@ -1,4 +1,5 @@
 import { Session } from 'next-auth'
+import { Provider } from 'next-auth/providers'
 
 /**
  * Object representing an authentication session.
@@ -21,5 +22,12 @@ enum ValidAuthProviderId {
 	CloudIdp = 'cloud-idp',
 }
 
-export type { SessionData, UserData }
+/**
+ * The next-auth Provider type with some additional custom properties.
+ */
+type AuthProvider = Provider & {
+	accountSettingsUrl: string
+}
+
+export type { AuthProvider, SessionData, UserData }
 export { ValidAuthProviderId }
