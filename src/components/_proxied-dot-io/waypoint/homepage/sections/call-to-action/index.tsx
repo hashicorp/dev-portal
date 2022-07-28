@@ -5,7 +5,7 @@ import s from './style.module.css'
 interface SectionCallToActionProps {
 	features: Array<{
 		media: ImageProps
-		text: string | React.ReactNode
+		text: string
 	}>
 	heading: string
 	content: string
@@ -33,7 +33,10 @@ export default function SectionCallToAction({
 							<div className={s.featureMedia}>
 								{media && <Image {...media} />}
 							</div>
-							<p className={s.featureText}>{text}</p>
+							<div
+								className={s.featureText}
+								dangerouslySetInnerHTML={{ __html: text }}
+							/>
 						</li>
 					)
 				})}

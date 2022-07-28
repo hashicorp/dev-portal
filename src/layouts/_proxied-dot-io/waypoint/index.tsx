@@ -11,9 +11,10 @@ import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
 // product-specific layout elements
-import Footer from 'components/_proxied-dot-io/waypoint/footer-with-props'
+import FooterWithProps from 'components/_proxied-dot-io/waypoint/footer-with-props'
 import ProductSubnav from 'components/_proxied-dot-io/waypoint/subnav'
 import productData from 'data/waypoint.json'
+import query from './query.graphql'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	segmentWriteKey: productData.analyticsConfig.segmentWriteKey,
@@ -22,8 +23,18 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 })
 
 function WaypointIoLayout({
+	footer,
 	children,
 }: {
+	footer: {
+		heading: string
+		description: string
+		cards: $TSFixMe
+		ctaLinks: Array<{
+			text: string
+			url: string
+		}>
+	}
 	/** Page contents to render in the layout */
 	children: React.ReactNode
 }): React.ReactElement {
@@ -32,6 +43,10 @@ function WaypointIoLayout({
 		includedDomains: productData.analyticsConfig.includedDomains,
 	})
 	const { themeClass } = useProductMeta(productData.name as Products)
+
+	const formattedFooterCards = footer.cards.map((card) => {
+		return { ...card, img: card.image.url }
+	})
 
 	return (
 		<>
@@ -44,7 +59,17 @@ function WaypointIoLayout({
 				icon={productData.metadata.icon}
 			/>
 
-			<Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
+			<Min100Layout
+				footer={
+					<FooterWithProps
+						openConsentManager={openConsentManager}
+						heading={footer.heading}
+						description={footer.description}
+						cards={formattedFooterCards}
+						ctaLinks={footer.ctaLinks}
+					/>
+				}
+			>
 				<ProductMetaProvider product={productData.slug as Products}>
 					{productData.alertBannerActive && (
 						<AlertBanner
@@ -61,6 +86,11 @@ function WaypointIoLayout({
 			<ConsentManager />
 		</>
 	)
+}
+
+WaypointIoLayout.rivetParams = {
+	query,
+	dependencies: [],
 }
 
 export default WaypointIoLayout

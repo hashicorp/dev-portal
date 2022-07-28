@@ -7,7 +7,7 @@ import usePrefersReducedMotion from 'lib/hooks/usePrefersReducedMotion'
 import s from './style.module.css'
 
 interface HeroProps {
-	heading: React.ReactNode
+	heading: string
 	description: string
 	link: {
 		title: string
@@ -34,7 +34,12 @@ export default function Hero({
 	return (
 		<header className={s.hero}>
 			<div className={s.heroInner}>
-				<h1 className={s.heroHeading}>{heading}</h1>
+				<div
+					role="heading"
+					aria-level={1}
+					className={s.heroHeading}
+					dangerouslySetInnerHTML={{ __html: heading }}
+				/>
 				<p className={s.heroDescription}>{description}</p>
 				<div className={s.heroButton}>
 					<Button

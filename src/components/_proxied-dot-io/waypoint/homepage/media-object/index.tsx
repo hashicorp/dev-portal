@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 import Button from '@hashicorp/react-button'
-import InlineSvg from '@hashicorp/react-inline-svg'
+import Image, { ImageProps } from 'next/image'
 import s from './style.module.css'
 
 export interface MediaObjectProps {
-	icon: string
+	icon: ImageProps
 	heading: string
 	description: string | React.ReactNode
 	link?: {
@@ -28,7 +28,14 @@ export default function MediaObject({
 			})}
 		>
 			{icon && (
-				<div className={s.mediaObjectIcon}>{<InlineSvg src={icon} />}</div>
+				<div className={s.mediaObjectIcon}>
+					<Image
+						src={icon.src}
+						alt={icon.alt}
+						width={icon.width}
+						height={icon.height}
+					/>
+				</div>
 			)}
 			<div className={s.mediaObjectBody}>
 				<h3 className={s.mediaObjectHeading}>{heading}</h3>

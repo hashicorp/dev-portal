@@ -8,7 +8,7 @@ import Terminal, {
 import s from './style.module.css'
 
 interface ColumnProps {
-	heading: React.ReactNode
+	heading: string
 	description: string
 	features: FeaturesProps
 }
@@ -23,7 +23,12 @@ export default function SectionIntro({
 	return (
 		<div className={s.intro}>
 			<div className={s.column}>
-				<h2 className={s.heading}>{columnLeft.heading}</h2>
+				<div
+					role="heading"
+					aria-level={2}
+					className={s.heading}
+					dangerouslySetInnerHTML={{ __html: columnLeft.heading }}
+				/>
 				<p className={s.description}>{columnLeft.description}</p>
 				<div className={s.terminal}>
 					<Terminal>
@@ -58,7 +63,12 @@ export default function SectionIntro({
 				<Features items={columnLeft.features} />
 			</div>
 			<div className={s.column}>
-				<h2 className={s.heading}>{columnRight.heading}</h2>
+				<div
+					role="heading"
+					aria-level={2}
+					className={s.heading}
+					dangerouslySetInnerHTML={{ __html: columnRight.heading }}
+				/>
 				<p className={s.description}>{columnRight.description}</p>
 				<div className={s.terminal}>
 					<Terminal

@@ -5,22 +5,17 @@ import Section, {
 	SectionDescription,
 } from 'components/_proxied-dot-io/waypoint/homepage/section'
 import GraphicSvg from './graphic'
-import Features, {
-	FeaturesProps,
-} from 'components/_proxied-dot-io/waypoint/homepage/features'
 import usePrefersReducedMotion from 'lib/hooks/usePrefersReducedMotion'
 import s from './style.module.css'
 
 interface SectionMonitorAppHealthProps {
 	heading: string
 	description: string
-	features: FeaturesProps
 }
 
 export default function SectionMonitorAppHealth({
 	heading,
 	description,
-	features,
 }: SectionMonitorAppHealthProps): JSX.Element {
 	const prefersReducedMotion = usePrefersReducedMotion()
 	const { ref, inView } = useInView({
@@ -40,9 +35,6 @@ export default function SectionMonitorAppHealth({
 			<div className={s.content}>
 				<SectionHeading>{heading}</SectionHeading>
 				<SectionDescription>{description}</SectionDescription>
-				<div className={s.contentMediaObject}>
-					<Features items={features} />
-				</div>
 			</div>
 		</Section>
 	)
