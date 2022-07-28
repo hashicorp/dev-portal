@@ -108,19 +108,16 @@ interface RootDocsPath {
 	 * to render a "custom" landing page.
 	 *
 	 * These "custom" landing pages are, for now, intended to be rendered using
-	 * a separate page file. The  main purpose of this property is to ensure the
-	 * correct static `paths` are returned from `getStaticPaths` in the
-	 * `[...allDocs].tsx` and `[customDocsLanding].tsx` page files for a product.
+	 * a separate page file. Specifically:
+	 * - Terraform standard docs views are meant to be rendered with the
+	 *   `pages/terraform/[...allDocs].tsx` page file
+	 * - Terraform "custom" docs landing pages are meant to be rendered with the
+	 *   `pages/[productSlug]/docs/index.tsx` page file
 	 *
-	 * If true, and if the product in question is set up with the page files
-	 * as above, the root page for this base path will be rendered using the
-	 * `[customDocsLanding].tsx` page file rather than the `[...allDocs].tsx`
-	 * page file.
+	 * TODO: this approach currently does not seem to work reliably,
+	 * likely due to routing quirks and conflicts between those two page files.
 	 *
-	 * Note that not all products use the `[...allDocs]` & `[customDocsLanding]`
-	 * approach. Currently Terraform is the only product which uses this approach,
-	 * and this may be a temporary stopgap for spiking in routes, rather than
-	 * a permanent solution.
+	 * Asana task: https://app.asana.com/0/1202097197789424/1202685617704813/f
 	 */
 	hasCustomLandingPage?: boolean
 }
