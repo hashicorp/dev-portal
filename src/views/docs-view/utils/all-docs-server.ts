@@ -6,26 +6,22 @@ import { ProductData } from 'types/products'
  */
 function prefixSubpaths(rawPaths, basePath) {
 	return rawPaths.reduce((acc, entry) => {
-		//
+		// We leave string entries untouched, as it's unclear how we'd handle them
 		if (typeof entry === 'string') {
 			return acc
 		}
-		//
+		// params.page is intended for use with a <basePath>/[[...page]].tsx file.
+		// We prefix these params with the basePath we're using.
 		const { page } = entry.params
 		const pageParams = typeof page == 'string' ? [page] : page
-		//
-		acc.push({
-			params: {
-				// TODO: basePath might have a slash in it.
-				// TODO: this might not matter, not sure... ... but might be nice to
-				// TODO: explicitly make sure that each param entry string
-				// TODO: does NOT have slashes in it?
-				allDocs: [basePath, ...pageParams],
+		return acc.concat([
+			{
+				...entry,
+				params: {
+					allDocs: [basePath, ...pageParams],
+				},
 			},
-			locale: entry.locale,
-		})
-		//
-		return acc
+		])
 	}, [])
 }
 
