@@ -34,12 +34,15 @@ async function main() {
 			!betaProducts.includes(dir.name) &&
 			dir.name !== '_proxied-dot-io' &&
 			dir.name !== 'api' &&
-			dir.name !== 'swingset'
+			dir.name !== 'swingset' &&
+			dir.name !== '[productSlug]'
 		) {
 			console.log(`🧹 removing pages at /${dir.name}`)
-			await fs.promises.rm(path.join(pagesDir, dir.name), {
-				recursive: true,
-			})
+			if (!process.env.DRY_RUN) {
+				await fs.promises.rm(path.join(pagesDir, dir.name), {
+					recursive: true,
+				})
+			}
 		}
 	}
 }

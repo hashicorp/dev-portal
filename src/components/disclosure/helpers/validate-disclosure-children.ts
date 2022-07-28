@@ -8,6 +8,7 @@ import {
 	NavigationDisclosureActivator,
 	NavigationDisclosureContent,
 } from 'components/navigation-disclosure'
+import { DropdownDisclosureActivator } from 'components/dropdown-disclosure/components'
 
 /**
  * Determines if a child of `Disclosure` is a valid `Activator` component that
@@ -17,7 +18,8 @@ import {
 const childIsAValidActivatorComponent = (child: ReactElement): boolean => {
 	return (
 		child.type === DisclosureActivator ||
-		child.type === NavigationDisclosureActivator
+		child.type === NavigationDisclosureActivator ||
+		child.type === DropdownDisclosureActivator
 	)
 }
 

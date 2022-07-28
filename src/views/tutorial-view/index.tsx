@@ -1,26 +1,21 @@
 // Third-party imports
-import { Fragment } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
-import { LearnProductData } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
-import {
-	Collection as ClientCollection,
-	CollectionLite as ClientCollectionLite,
-	ProductOption,
-	TutorialFullCollectionCtx as ClientTutorial,
-} from 'lib/learn-client/types'
-import SidebarSidecarLayout, {
-	SidebarSidecarLayoutProps,
-} from 'layouts/sidebar-sidecar'
+import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
+import { useMobileMenu } from 'contexts'
+import InstruqtProvider from 'contexts/instruqt-lab'
+import { ProductOption } from 'lib/learn-client/types'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
 } from 'views/collection-view/helpers'
+import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import OptInOut from 'components/opt-in-out'
-import { CollectionCardPropsWithId } from 'components/collection-card'
 import DevDotContent from 'components/dev-dot-content'
 import {
 	generateProductLandingSidebarNavData,
@@ -33,64 +28,92 @@ import TutorialsSidebar, {
 import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
-import InstruqtProvider from 'contexts/instruqt-lab'
-import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
 
 // Local imports
+import {
+	CollectionContext,
+	LayoutContentWrapperProps,
+	TutorialData,
+	TutorialSidebarSidecarProps,
+	TutorialViewProps,
+} from './types'
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
+import getVideoUrl from './utils/get-video-url'
+import { getCanonicalCollectionSlug } from './utils/get-canonical-collection-slug'
 import {
 	FeaturedInCollections,
 	NextPrevious,
 	getNextPrevious,
 } from './components'
-import getVideoUrl from './utils/get-video-url'
-import { getCanonicalCollectionSlug } from './utils/get-canonical-collection-slug'
 import s from './tutorial-view.module.css'
 
-export interface TutorialViewProps {
-	layoutProps: TutorialSidebarSidecarProps
-	product: LearnProductData
-	tutorial: TutorialData
+/**
+ * The purpose of this wrapper component is to make it possible to invoke the
+ * `useMobileMenu` hook. It cannot be invoked in `TutorialView`. This is because
+ * it requires being invoked within a `MobileMenuProvider`.
+ *
+ * `MobileMenuProvider` is rendered by `CoreDevDotLayout`, which is indirectly
+ * rendered by `SidebarSidecarLayout`. This means the `useMobileMenu` hook can
+ * only be invoked here by a component rendered within `SidebarSidecarLayout`.
+ */
+const LayoutContentWrapper = ({
+	children,
+	collectionCtx,
+	product,
+	setCollectionViewSidebarSections,
+}: LayoutContentWrapperProps) => {
+	const { mobileMenuIsOpen } = useMobileMenu()
+	const hasLoadedData = useRef(false)
+
+	/**
+	 * Only need to load the data once, on the first open of the mobile menu
+	 */
+	useEffect(() => {
+		if (hasLoadedData.current === false && mobileMenuIsOpen) {
+			/**
+			 * TODO: What should we do if this errors?
+			 * https://app.asana.com/0/1202097197789424/1202599138117878/f
+			 */
+			getCollectionViewSidebarSections(product, collectionCtx.current).then(
+				(result: CollectionCategorySidebarSection[]) => {
+					hasLoadedData.current = true
+					setCollectionViewSidebarSections(result)
+				}
+			)
+		}
+	}, [
+		collectionCtx,
+		mobileMenuIsOpen,
+		product,
+		setCollectionViewSidebarSections,
+	])
+
+	/**
+	 * Wrapping in a fragment to prevent a "return type 'ReactNode' is not a valid
+	 * JSX element" error
+	 */
+	return <>{children}</>
 }
 
-export interface TutorialData
-	extends Pick<
-		ClientTutorial,
-		| 'name'
-		| 'slug'
-		| 'readTime'
-		| 'productsUsed'
-		| 'edition'
-		| 'handsOnLab'
-		| 'video'
-	> {
-	collectionCtx: CollectionContext
-	content: MDXRemoteSerializeResult
-	nextCollectionInSidebar?: ClientCollectionLite
-}
-
-export type CollectionContext = {
-	default: Pick<ClientCollection, 'slug' | 'id'>
-	current: ClientCollection
-	featuredIn?: CollectionCardPropsWithId[]
-}
-
-export type TutorialSidebarSidecarProps = Required<
-	Pick<
-		SidebarSidecarLayoutProps,
-		'children' | 'headings' | 'breadcrumbLinks'
-	> & { sidebarSections: CollectionCategorySidebarSection[] }
->
-
-export default function TutorialView({
+/**
+ * Renders content for tutorial routes.
+ *
+ * /:productSlug/tutorials/:collectionSlug/:tutorialSlug
+ */
+function TutorialView({
 	layoutProps,
 	product,
 	tutorial,
 }: TutorialViewProps): React.ReactElement {
+	// hooks
 	useOptInAnalyticsTracking('learn')
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
+		useState<CollectionCategorySidebarSection[]>(null)
+
+	// variables
 	const {
 		name,
 		slug,
@@ -134,7 +157,9 @@ export default function TutorialView({
 			title: 'Tutorials',
 			overviewItemHref: `/${product.slug}/tutorials`,
 			children: (
-				<CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
+				<CollectionViewSidebarContent
+					sections={collectionViewSidebarSections}
+				/>
 			),
 		},
 		{
@@ -170,9 +195,9 @@ export default function TutorialView({
 					/**
 					 * @TODO remove casting to `any`. Will require refactoring both
 					 * `generateTopLevelSidebarNavData` and
-					 * `generateProductLandingSidebarNavData` to set up `menuItems` with the
-					 * correct types. This will require chaning many files, so deferring for
-					 * a follow-up PR since this is functional for the time being.
+					 * `generateProductLandingSidebarNavData` to set up `menuItems` with
+					 * the correct types. This will require chaning many files, so
+					 * deferring for a follow-up PR since this is functional for the time being.
 					 */
 					sidebarNavDataLevels={sidebarNavDataLevels as any}
 					AlternateSidebar={TutorialsSidebar}
@@ -181,36 +206,50 @@ export default function TutorialView({
 					}
 					headings={layoutProps.headings}
 				>
-					<TutorialMeta
-						heading={{ slug: layoutProps.headings[0].slug, text: name }}
-						meta={{
-							readTime,
-							edition,
-							productsUsed,
-							isInteractive,
-							hasVideo,
-						}}
-					/>
-					{hasVideo && video.id && !video.videoInline && (
-						<VideoEmbed
-							url={getVideoUrl({
-								videoId: video.id,
-								videoHost: video.videoHost,
-							})}
+					<LayoutContentWrapper
+						collectionCtx={collectionCtx}
+						product={product}
+						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
+					>
+						<TutorialMeta
+							heading={{ slug: layoutProps.headings[0].slug, text: name }}
+							meta={{
+								readTime,
+								edition,
+								productsUsed,
+								isInteractive,
+								hasVideo,
+							}}
 						/>
-					)}
-					<TabProvider>
-						<DevDotContent>
-							<MDXRemote {...content} components={MDX_COMPONENTS} />
-						</DevDotContent>
-					</TabProvider>
-					<NextPrevious {...nextPreviousData} />
-					<FeaturedInCollections
-						className={s.featuredInCollections}
-						collections={featuredInWithoutCurrent}
-					/>
+						{hasVideo && video.id && !video.videoInline && (
+							<VideoEmbed
+								url={getVideoUrl({
+									videoId: video.id,
+									videoHost: video.videoHost,
+								})}
+							/>
+						)}
+						<TabProvider>
+							<DevDotContent>
+								<MDXRemote {...content} components={MDX_COMPONENTS} />
+							</DevDotContent>
+						</TabProvider>
+						<NextPrevious {...nextPreviousData} />
+						<FeaturedInCollections
+							className={s.featuredInCollections}
+							collections={featuredInWithoutCurrent}
+						/>
+					</LayoutContentWrapper>
 				</SidebarSidecarLayout>
 			</InteractiveLabWrapper>
 		</>
 	)
 }
+
+export type {
+	TutorialViewProps,
+	TutorialData,
+	CollectionContext,
+	TutorialSidebarSidecarProps,
+}
+export default TutorialView

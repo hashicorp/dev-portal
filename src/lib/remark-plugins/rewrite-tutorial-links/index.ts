@@ -50,6 +50,7 @@ const ACCEPTED_DOCS_PATHNAMES = [
 	'api-docs',
 	'commands',
 	'plugins',
+	'tools',
 ]
 const learnProductOptions = Object.keys(ProductOption).join('|')
 /**

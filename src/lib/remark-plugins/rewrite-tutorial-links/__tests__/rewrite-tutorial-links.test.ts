@@ -26,9 +26,9 @@ const TEST_MD_LINKS = {
 		'[link to external docs](https://docs.microsoft.com/en-us/azure)',
 	plainAnchor: '[plain anchor link to current tutorial](#some-heading)',
 	nonBetaProductExternalUrl:
-		'[link to external learn path](https://learn.hashicorp.com/tutorials/consul/get-started)',
+		'[link to external learn path](https://learn.hashicorp.com/tutorials/packer/kubernetes)',
 	nonBetaProductTutorial:
-		'[link to non-beta product tutorial](/tutorials/consul/get-started)',
+		'[link to non-beta product tutorial](/tutorials/packer/kubernetes)',
 	betaProductTutorial:
 		'[link to beta product tutorial](/tutorials/waypoint/get-started-ui)',
 	betaProductCollection:

@@ -1,4 +1,4 @@
-import { getStaticGenerationFunctions as getStaticGenerationFunctionsBase } from 'layouts/sidebar-sidecar/server'
+import { getStaticGenerationFunctions as getStaticGenerationFunctionsBase } from 'views/docs-view/server'
 import { ProductData } from 'types/products'
 
 /**

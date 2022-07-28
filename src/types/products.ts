@@ -61,6 +61,12 @@ interface RootDocsPath {
 	iconName: string
 
 	/**
+	 * Whether or not the remote MDX content for a path should be included in the
+	 * rendered page content.
+	 */
+	includeMDXSource?: boolean
+
+	/**
 	 * The proper noun name of a root docs path.
 	 */
 	name: string
@@ -72,13 +78,10 @@ interface RootDocsPath {
 	path: string
 
 	/**
-	 * An optional, shortened version of the `name` property. For example,
-	 * "Documentation" may be shortened to "Docs" in some places using this
-	 * property.
-	 */
-	shortName?: string
-
-	/**
+	 * Optional product slug for our content API. For some products, this differs
+	 * from the product slug used on the client. For example, "hcp" is
+	 * "cloud.hashicorp.com" in the content API.
+	 *
 	 * An optional property to specify the product slug for our docs
 	 * content loader. Note that typically, this "product slug" corresponds
 	 * to a repo name (such as `terraform-cdk`).
@@ -86,6 +89,13 @@ interface RootDocsPath {
 	 * If omitted, defaults to the product slug (such as `terraform`).
 	 */
 	productSlugForLoader?: string
+
+	/**
+	 * An optional, shortened version of the `name` property. For example,
+	 * "Documentation" may be shortened to "Docs" in some places using this
+	 * property.
+	 */
+	shortName?: string
 
 	/**
 	 * An optional property to specify the nav-data file name prefix for our

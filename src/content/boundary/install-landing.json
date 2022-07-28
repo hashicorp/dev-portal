@@ -1,0 +1,26 @@
+{
+	"featuredLearnContent": [],
+	"sidecarMarketingCard": {
+		"title": "About Boundary",
+		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+		"learnMoreLink": "https://www.boundaryproject.io/",
+		"featuredDocsLinks": [
+			{
+				"href": "boundary/docs/getting-started",
+				"text": "Getting Started"
+			},
+			{
+				"href": "/boundary/docs/concepts",
+				"text": "Concepts"
+			},
+			{
+				"href": "/boundary/docs/configuration",
+				"text": "Configuration"
+			},
+			{
+				"href": "/boundary/docs/common-workflows",
+				"text": "Common Workflows"
+			}
+		]
+	}
+}

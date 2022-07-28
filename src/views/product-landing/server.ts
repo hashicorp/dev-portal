@@ -33,7 +33,7 @@ const generateGetStaticProps = (product: ProductData) => {
 		 */
 		const jsonFilePath = path.join(
 			process.cwd(),
-			`src/data/${product.slug}-landing.json`
+			`src/content/${product.slug}/product-landing.json`
 		)
 		const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 
