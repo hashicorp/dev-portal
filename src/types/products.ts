@@ -77,6 +77,48 @@ interface RootDocsPath {
 	 * property.
 	 */
 	shortName?: string
+
+	/**
+	 * An optional property to specify the product slug for our docs
+	 * content loader. Note that typically, this "product slug" corresponds
+	 * to a repo name (such as `terraform-cdk`).
+	 *
+	 * If omitted, defaults to the product slug (such as `terraform`).
+	 */
+	productSlugForLoader?: string
+
+	/**
+	 * An optional property to specify the nav-data file name prefix for our
+	 * docs content loader.
+	 *
+	 * For example, the Terraform  base path `plugin/log`
+	 * contains a slash, so we must provide the `navDataPrefix` as `plugin-log`
+	 * to successfully load nav data from `plugin-log-nav-data.json`.
+	 *
+	 * If omitted, defaults to the basePath (`docs` → `docs-nav-data.json`).
+	 */
+	navDataPrefix?: string
+
+	/**
+	 * An optional property to signal that this root docs path is meant
+	 * to render a "custom" landing page.
+	 *
+	 * These "custom" landing pages are, for now, intended to be rendered using
+	 * a separate page file. The  main purpose of this property is to ensure the
+	 * correct static `paths` are returned from `getStaticPaths` in the
+	 * `[...allDocs].tsx` and `[customDocsLanding].tsx` page files for a product.
+	 *
+	 * If true, and if the product in question is set up with the page files
+	 * as above, the root page for this base path will be rendered using the
+	 * `[customDocsLanding].tsx` page file rather than the `[...allDocs].tsx`
+	 * page file.
+	 *
+	 * Note that not all products use the `[...allDocs]` & `[customDocsLanding]`
+	 * approach. Currently Terraform is the only product which uses this approach,
+	 * and this may be a temporary stopgap for spiking in routes, rather than
+	 * a permanent solution.
+	 */
+	hasCustomLanding?: boolean
 }
 
 /**

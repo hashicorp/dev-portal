@@ -30,6 +30,7 @@ async function getSubpathStaticPaths({
 	// Call the generated, base-path-specific getStaticPaths.
 	// Note that the context argument is not used, but must be provided.
 	const { paths: rawPaths } = await generatedGetStaticPaths({})
+
 	// Map the rawPaths to prefix them with the current docs subpath
 	const paths = rawPaths.reduce((acc, entry) => {
 		//
@@ -62,41 +63,38 @@ async function getSubpathStaticPaths({
  */
 async function getStaticPathsInner({
 	productData,
-	basePathsConfig,
 }: {
 	productData: ProductData
-	basePathsConfig: Record<string, $TSFixMe>
 }) {
+	const { rootDocsPaths } = productData
 	// Gather all paths from all possible subpaths
 	let allPaths = []
-	for (const [basePath, config] of Object.entries(basePathsConfig)) {
+	for (let i = 0; i < rootDocsPaths.length; i++) {
+		const { path, name, productSlugForLoader, navDataPrefix } = rootDocsPaths[i]
 		const subpathPaths = await getSubpathStaticPaths({
-			...config,
-			basePath,
+			basePath: path,
+			baseName: name,
+			productSlugForLoader,
+			navDataPrefix,
 			productData,
 		})
 		allPaths = allPaths.concat(subpathPaths)
 	}
-
 	// Set up an array of basePaths with "custom" docs landing pages
-	const customDocsLandingPaths = Object.keys(basePathsConfig).filter(
-		(basePath) => {
-			return basePathsConfig[basePath].hasCustomLanding
-		}
-	)
+	const customLandingPaths = rootDocsPaths.filter((r) => r.hasCustomLanding)
 	// Filter out paths used for "custom" docs landing pages
 
 	const paths = allPaths.filter((entry) => {
 		const params = entry.params.allDocs
 		const fullPath = params.join('/')
-		const isDocsCustomLanding = customDocsLandingPaths.reduce(
+		const isCustomLandingPath = customLandingPaths.reduce(
 			(acc, landingPath) => {
 				return acc || fullPath == landingPath || fullPath == `${landingPath}/`
 			},
 			false
 		)
 		//
-		return !isDocsCustomLanding
+		return !isCustomLandingPath
 	})
 	// Return all generated paths
 	return { paths, fallback: 'blocking' }
@@ -105,11 +103,8 @@ async function getStaticPathsInner({
 /**
  * TODO: document this function
  */
-async function getStaticPropsInner({
-	params,
-	basePathsConfig,
-	productData,
-}: $TSFixMe) {
+async function getStaticPropsInner({ params, productData }: $TSFixMe) {
+	const { rootDocsPaths } = productData
 	// Determine which basePath we're working with, from incoming params
 	const [targetBasePath, maybeTargetBasePath, ...restParams] = params.allDocs
 	let basePath
@@ -118,7 +113,7 @@ async function getStaticPropsInner({
 	// For these paths, we need to massage params even further to get the
 	// pageParams we can pass to the usual docs getStaticProps loader
 	const maybeNestedBasePath = [targetBasePath, maybeTargetBasePath].join('/')
-	const allBasePaths = Object.keys(basePathsConfig)
+	const allBasePaths = rootDocsPaths.map(({ path }) => path)
 	const isNestedBasePath = allBasePaths.indexOf(maybeNestedBasePath) !== -1
 	if (isNestedBasePath) {
 		basePath = maybeNestedBasePath
@@ -131,8 +126,11 @@ async function getStaticPropsInner({
 				: [...restParams]
 	}
 	// Get the config for the target basePath
-	const { baseName, productSlugForLoader, navDataPrefix } =
-		basePathsConfig[basePath]
+	// TODO: guard against targetRootDocsPathConfig not being found
+	const targetRootDocsPathConfig = rootDocsPaths.filter(({ path }) => {
+		return path == basePath
+	})[0]
+	const { name, productSlugForLoader, navDataPrefix } = targetRootDocsPathConfig
 	// Call getStaticProps using configuration for the target basePath
 	// TODO: feels weird invoking this within getStaticPaths.
 	// TODO: maybe there's another way?
@@ -141,7 +139,7 @@ async function getStaticPropsInner({
 			product: productData,
 			productSlugForLoader,
 			basePath,
-			baseName,
+			baseName: name,
 			navDataPrefix,
 		})
 	// Note that the context { params } are constructed here, not passed directly.
@@ -157,23 +155,19 @@ async function getStaticPropsInner({
  * TODO: document this function
  */
 export function getStaticGenerationFunctions({
-	basePathsConfig,
 	productData,
 }: {
-	basePathsConfig: $TSFixMe
 	productData: ProductData
 }) {
 	return {
 		getStaticPaths: async () => {
 			return await getStaticPathsInner({
 				productData,
-				basePathsConfig,
 			})
 		},
 		getStaticProps: async ({ params }: { params: $TSFixMe }) => {
 			return await getStaticPropsInner({
 				params,
-				basePathsConfig,
 				productData,
 			})
 		},

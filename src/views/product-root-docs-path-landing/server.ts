@@ -89,7 +89,7 @@ const generateGetStaticProps = ({
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
-	const baseName = currentRootDocsPath.shortName
+	const baseName = currentRootDocsPath.name || currentRootDocsPath.shortName
 
 	return async (context: GetStaticPropsContext) => {
 		const { getStaticProps: generatedGetStaticProps } =
