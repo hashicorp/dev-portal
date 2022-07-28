@@ -29,7 +29,7 @@ const handleUnauthenticated = (action: ReturnType<typeof Button>) => {
 }
 
 const UserDropdownDisclosure = () => {
-	const { isAuthenticated, isLoading, currentProvider, signIn, signOut, user } =
+	const { currentProvider, isAuthenticated, isLoading, signIn, signOut, user } =
 		useAuthentication()
 
 	// TODO determine loading state?
