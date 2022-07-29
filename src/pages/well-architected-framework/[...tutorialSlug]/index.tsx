@@ -1,4 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote'
+import Link from 'next/link'
 import { serializeContent } from 'views/tutorial-view/utils/serialize-content'
 import BaseNewLayout from 'layouts/base-new'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
@@ -16,22 +17,55 @@ import {
 	getCurrentCollectionTutorial,
 	getCollectionContext,
 } from 'views/tutorial-view/utils/get-collection-context'
+import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
+import { FeaturedInCollections } from 'views/tutorial-view/components'
 
-export default function TopicsTutorialPage(props) {
-	console.log({ props })
-	const { readTime, edition, productsUsed, title, content, slug, name, video } =
-		props.content
+import { _tempCollectionSidebarPlaceholder } from '..'
+
+export default function TopicsTutorialPage({
+	tutorial,
+	metadata,
+	layoutProps,
+}) {
+	console.log({ tutorial }, { metadata }, { layoutProps })
+	const {
+		slug,
+		name,
+		readTime,
+		edition,
+		productsUsed,
+		video,
+		handsOnLab,
+		content,
+		collectionCtx,
+	} = tutorial
+	const hasVideo = Boolean(video)
+	const isInteractive = Boolean(handsOnLab)
+	const featuredInWithoutCurrent = collectionCtx.featuredIn?.filter(
+		(c) => c.id !== collectionCtx.current.id
+	)
 
 	return (
 		<>
+			<h1>{collectionCtx.current.name}</h1>
+			<ul>
+				{collectionCtx.current.tutorials.map((t) => (
+					<li key={tutorial.id}>
+						<Link href={`/${tutorial.slug}`}>
+							<a>{tutorial.name}</a>
+						</Link>
+					</li>
+				))}
+			</ul>
+
 			<TutorialMeta
 				heading={{ slug: slug, text: name }}
 				meta={{
 					readTime,
 					edition,
 					productsUsed,
-					isInteractive: false,
-					hasVideo: false,
+					isInteractive,
+					hasVideo,
 				}}
 			/>
 			{video?.id && !video.videoInline && (
@@ -43,15 +77,12 @@ export default function TopicsTutorialPage(props) {
 				/>
 			)}
 			<TabProvider>
-				{/* <DevDotContent>
+				<DevDotContent>
 					<MDXRemote {...content} components={MDX_COMPONENTS} />
-				</DevDotContent> */}
+				</DevDotContent>
 			</TabProvider>
-			{/* <NextPrevious {...nextPreviousData} />
-			<FeaturedInCollections
-				className={s.featuredInCollections}
-				collections={featuredInWithoutCurrent}
-			/> */}
+			{/* <NextPrevious {...nextPreviousData} /> */}
+			<FeaturedInCollections collections={featuredInWithoutCurrent} />
 		</>
 	)
 }
@@ -82,6 +113,58 @@ export async function getStaticProps({ params }) {
 		collection.data,
 		fullTutorialData.collectionCtx
 	)
+
+	const layoutProps = {
+		headings,
+		breadcrumbLinks: getTutorialsBreadcrumb({
+			product: {
+				name: 'Well Architected Framework',
+				filename: 'well-architected-framework',
+			},
+			collection: {
+				name: collection.data.shortName,
+				filename: collection.filename,
+			},
+			tutorial: {
+				name: fullTutorialData.name,
+				filename: tutorialReference.filename,
+			},
+		}),
+		//sidebarSections,
+	}
+	const lastTutorialIndex = collectionContext.current.tutorials.length - 1
+	const isLastTutorial =
+		collectionContext.current.tutorials[lastTutorialIndex].id ===
+		fullTutorialData.id
+
+	const nextCollection = undefined
+
+	/**TODO get the next collection from the sidebar data... */
+
+	// if (isLastTutorial) {
+	// 	nextCollection = await getNextCollectionInSidebar({
+	// 		product: product.slug as ProductOption,
+	// 		after: collectionContext.current.slug,
+	// 	})
+	// }
+
+	return {
+		props: stripUndefinedProperties({
+			metadata: {
+				title: fullTutorialData.name,
+				description: fullTutorialData.description,
+			},
+			tutorial: {
+				...fullTutorialData,
+				content: serializedContent,
+				collectionCtx: collectionContext,
+				headings,
+				nextCollectionInSidebar: nextCollection,
+			},
+			layoutProps,
+			nextCollection,
+		}),
+	}
 
 	return {
 		props: stripUndefinedProperties({
