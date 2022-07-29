@@ -56,6 +56,14 @@
 		}
 	],
 	"basePaths": ["docs", "api-docs"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "General Documentation",
+			"path": "docs",
+			"shortName": "Documentation"
+		}
+	],
 	"sidebar": {
 		"landingPageNavData": [
 			{

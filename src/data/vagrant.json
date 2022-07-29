@@ -47,6 +47,24 @@
 		}
 	],
 	"basePaths": ["docs", "intro", "vagrant-cloud", "vmware"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "General Documentation",
+			"path": "docs",
+			"shortName": "Documentation"
+		},
+		{
+			"iconName": "docs",
+			"name": "Intro",
+			"path": "intro"
+		},
+		{
+			"iconName": "docs",
+			"name": "Vagrant Cloud",
+			"path": "vagrant-cloud"
+		}
+	],
 	"sidebar": {
 		"landingPageNavData": [
 			{ "title": "Introduction", "fullPath": "/vagrant/intro" },

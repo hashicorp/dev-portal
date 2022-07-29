@@ -1,19 +1,10 @@
-import sentinelData from 'data/sentinel.json'
-import { ProductData } from 'types/products'
-import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
+import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
 
-const basePath = 'intro'
-const basePathForLoader = 'sentinel/intro'
-const baseName = 'Intro'
-const product = sentinelData as ProductData
+const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
+	'sentinel',
+	'intro'
+)
 
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-	product,
-	basePath,
-	basePathForLoader,
-	baseName,
-})
-
-export { getStaticPaths, getStaticProps }
+export { getStaticProps, getStaticPaths }
 export default DocsView
