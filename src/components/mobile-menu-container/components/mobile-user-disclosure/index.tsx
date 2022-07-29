@@ -6,12 +6,17 @@ import Disclosure, {
 	DisclosureContent,
 } from 'components/disclosure'
 import Text from 'components/text'
+import { UserDropdownDisclosureItem } from 'components/user-dropdown-disclosure'
+import { MobileUserDisclosureProps } from './types'
 import s from './mobile-user-disclosure.module.css'
 
 /**
  * Handles rendering a list item for `MobileUserDisclosure`.
  */
-const renderItem = ({ icon, label, href, onClick }, index) => {
+const renderItem = (
+	{ icon, label, href, onClick }: UserDropdownDisclosureItem,
+	index: number
+) => {
 	if (!href && !onClick) {
 		return null
 	}
@@ -45,7 +50,7 @@ const renderItem = ({ icon, label, href, onClick }, index) => {
 	return <li key={index}>{content}</li>
 }
 
-const MobileUserDisclosure = ({ items, user }: $TSFixMe) => {
+const MobileUserDisclosure = ({ items, user }: MobileUserDisclosureProps) => {
 	const { icon, description } = getUserMeta(user)
 
 	return (
@@ -68,4 +73,5 @@ const MobileUserDisclosure = ({ items, user }: $TSFixMe) => {
 	)
 }
 
+export type { MobileUserDisclosureProps }
 export default MobileUserDisclosure

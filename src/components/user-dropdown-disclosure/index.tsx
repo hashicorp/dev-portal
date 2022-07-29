@@ -67,5 +67,5 @@ const UserDropdownDisclosure = ({
 	)
 }
 
-export type { UserDropdownDisclosureProps }
+export type { UserDropdownDisclosureItem, UserDropdownDisclosureProps }
 export default UserDropdownDisclosure
