@@ -320,7 +320,8 @@ export function getRootDocsPathStaticGenFunctions(productSlug: ProductSlug): {
 			return { paths, fallback: false }
 		},
 		getStaticProps: async ({ params }) => {
-			return await getStaticProps({ params }, productData)
+			const staticProps = await getStaticProps({ params }, productData)
+			return { ...staticProps, revalidate: false }
 		},
 	}
 }
