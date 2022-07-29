@@ -176,7 +176,9 @@ export function removeLandingPaths(paths) {
 		let entryPath
 		if (typeof entry == 'string') {
 			entryPath = entry
-		} else if (typeof entry.params.allDocs == 'string') {
+		} else if (typeof entry.params.docsSlug == 'string') {
+			entryPath = entry.params.docsSlug
+		} else {
 			entryPath = entry.params.docsSlug.join('/')
 		}
 		/**
