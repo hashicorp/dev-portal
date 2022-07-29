@@ -1,5 +1,6 @@
 // Third-party imports
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
@@ -30,6 +31,7 @@ const SIGN_IN_HINT_TEXT = 'Already have an account?'
 const SIGN_IN_BUTTON_TEXT = 'Sign In'
 
 const SignUpView = () => {
+	const router = useRouter()
 	const { isAuthEnabled, isAuthenticated, isLoading, signIn, signUp } =
 		useAuthentication()
 
@@ -41,14 +43,22 @@ const SignUpView = () => {
 	}
 
 	/**
-	 * Show 404 error if enable_auth is false or the user is already authenticated
+	 * Show 404 error if auth is not enabled
 	 */
-	if (!isAuthEnabled || isAuthenticated) {
+	if (!isAuthEnabled) {
 		return (
 			<BaseNewLayout>
 				<ErrorView statusCode={404} isProxiedDotIo={false} />
 			</BaseNewLayout>
 		)
+	}
+
+	/**
+	 * Redirect to profile page if user is already authenticated
+	 */
+	if (isAuthenticated) {
+		router.replace('/profile')
+		return null
 	}
 
 	return (
