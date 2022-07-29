@@ -1,17 +1,10 @@
-import boundaryData from 'data/boundary.json'
-import { ProductData } from 'types/products'
-import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
+import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
 
-const basePath = 'docs'
-const baseName = 'Docs'
-const product = boundaryData as ProductData
+const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
+	'consul',
+	'docs'
+)
 
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-	product,
-	basePath,
-	baseName,
-})
-
-export { getStaticPaths, getStaticProps }
+export { getStaticProps, getStaticPaths }
 export default DocsView
