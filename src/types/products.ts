@@ -90,6 +90,18 @@ interface RootDocsPath {
 	 * property.
 	 */
 	shortName?: string
+
+	/**
+	 * An optional property to specify the nav-data file name prefix for our
+	 * docs content loader.
+	 *
+	 * For example, the Terraform  base path `plugin/log`
+	 * contains a slash, so we must provide the `navDataPrefix` as `plugin-log`
+	 * to successfully load nav data from `plugin-log-nav-data.json`.
+	 *
+	 * If omitted, defaults to the basePath (`docs` → `docs-nav-data.json`).
+	 */
+	navDataPrefix?: string
 }
 
 /**
