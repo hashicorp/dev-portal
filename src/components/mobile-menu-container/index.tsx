@@ -38,12 +38,8 @@ const MOBILE_MENU_MOTION = {
  * Intended to be used alongside `MobileMenuContainer`.
  */
 const MobileAuthenticationControls = () => {
-	const { isAuthEnabled, isAuthenticated, isLoading, signIn, signOut, user } =
+	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
 		useAuthentication()
-
-	// TODO these will come from PR #746
-	const showAuthenticatedUI = isAuthenticated
-	const showUnauthenticatedUI = isAuthEnabled && !isLoading && !isAuthenticated
 
 	if (showUnauthenticatedUI) {
 		return (
