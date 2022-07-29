@@ -12,6 +12,12 @@ interface GenerateGetStaticPropsArguments {
 }
 
 interface ProductRootDocsPathLandingProps {
+	/**
+	 * TODO: see note in ./server.ts, we likely want to avoid passing this
+	 * to the client, but for now, needed to prevent client-side error due
+	 * to some apparent quirks in NextJS routing.
+	 */
+	includeMdxSource?: boolean
 	mdxSource?: MDXRemoteSerializeResult
 	pageContent: PageContent
 	pageHeading: {

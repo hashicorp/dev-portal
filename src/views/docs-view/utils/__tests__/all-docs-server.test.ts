@@ -1,11 +1,11 @@
 import { RootDocsPath } from 'types/products'
 import {
-	prefixAllDocsSubpaths,
+	configureRootDocsPathParams,
 	removeCustomLandingPaths,
 	parseRootDocsPath,
 } from '../all-docs-server'
 
-describe('prefixAllDocsSubpaths', () => {
+describe('configureRootDocsPathParams', () => {
 	it('prefixes params with a provided basePath, and renames param to allDocs', () => {
 		// Input
 		const paths = [
@@ -20,11 +20,12 @@ describe('prefixAllDocsSubpaths', () => {
 		const expected = [
 			{
 				params: {
-					allDocs: ['some-base-path', 'foo', 'bar'],
+					rootDocsPath: 'some-base-path',
+					docsSlug: ['foo', 'bar'],
 				},
 			},
 		]
-		expect(prefixAllDocsSubpaths(paths, basePath)).toEqual(expected)
+		expect(configureRootDocsPathParams(paths, basePath)).toEqual(expected)
 	})
 })
 
@@ -57,10 +58,11 @@ describe('removeCustomLandingPaths', () => {
 })
 
 describe('parseRootDocsPath', () => {
-	it('parses the correct rootDocsPath config and pageParams from allDocs params', () => {
+	it('parses the correct rootDocsPath config and pageParams from docsSlug params', () => {
 		// Input
 		const params = {
-			allDocs: ['cdktf', 'fizz', 'buzz'],
+			rootDocsPath: 'cloud-docs',
+			docsSlug: ['agent', 'fizz', 'buzz'],
 		}
 		const rootDocsPaths: RootDocsPath[] = [
 			{
@@ -80,14 +82,20 @@ describe('parseRootDocsPath', () => {
 				path: 'cloud-docs',
 				productSlugForLoader: 'terraform-docs-common',
 			},
+			{
+				iconName: 'docs',
+				name: 'Cloud Docs Agent',
+				path: 'cloud-docs/agent',
+				productSlugForLoader: 'terraform-docs-agents',
+			},
 		]
 		// Expected output
 		const expected = {
 			rootDocsPath: {
 				iconName: 'docs',
-				name: 'CDKTF',
-				path: 'cdktf',
-				productSlugForLoader: 'terraform-cdk',
+				name: 'Cloud Docs Agent',
+				path: 'cloud-docs/agent',
+				productSlugForLoader: 'terraform-docs-agents',
 			},
 			pageParams: ['fizz', 'buzz'],
 		}

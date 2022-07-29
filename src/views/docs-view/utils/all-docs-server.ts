@@ -29,10 +29,7 @@ async function getStaticPaths(
 		allPaths = allPaths.concat(subpaths)
 	}
 	// Filter out paths used for "custom" docs landing pages
-	const customLandingPaths = rootDocsPaths
-		.filter((rootDocsPath) => rootDocsPath.hasCustomLandingPage)
-		.map((rootDocsPath) => rootDocsPath.path)
-	const paths = removeCustomLandingPaths(allPaths, customLandingPaths)
+	const paths = removeLandingPaths(allPaths)
 	// Return all generated paths
 	return { paths, fallback: 'blocking' }
 }
@@ -72,37 +69,43 @@ async function getSubpaths(
 	// (Note that the context argument is not used, but must be provided)
 	const { paths: rawPaths } = await generatedGetStaticPaths({})
 	// Map the rawPaths to prefix them with the current docs subpath
-	const subpaths = prefixAllDocsSubpaths(rawPaths, basePath)
+	const subpaths = configureRootDocsPathParams(rawPaths, basePath)
 	// Return the subpaths
 	return subpaths
 }
 
 /**
- * Given an array of path entries, and a specific basePath prefix,
- * Return an array of path entries prefixed with the basePath string
- * under an "allDocs" param.
+ * Given an array of path entries, and a specific rootDocsPath prefix,
+ * Return an array of { rootDocsPath, docsSlug } path entries,
+ * where docsSlug is the `page` params from the provided paths entries.
  *
- * This enables path entries to be used with an [...allDocs].tsx page file.
+ * This enables path entries fetched using our standard docs-page loader
+ * to be used with a `[rootDocsPath]/[...docsSlug].tsx` page file.
  */
-export function prefixAllDocsSubpaths(
+export function configureRootDocsPathParams(
 	paths: GetStaticPathsResult['paths'],
-	basePath: string
+	rootDocsPath: string
 ): GetStaticPathsResult['paths'] {
 	return paths.reduce((acc, entry) => {
-		// We leave string entries untouched, as it's unclear how we'd handle them
+		/**
+		 * We leave string entries untouched, as it's unclear how we'd handle them.
+		 * This is mostly a type guard of sorts.
+		 */
 		if (typeof entry === 'string') {
 			return acc
 		}
-		// params.page is intended for use with a <basePath>/[[...page]].tsx file.
-		// We prefix these params with the basePath we're using.
+		/**
+		 * params.page is intended for use with a <rootDocsPath>/[[...page]].tsx file.
+		 * We prefix these params with the [rootDocsPath] setup we're using.
+		 */
 		const { page } = entry.params
 		const pageParams = typeof page == 'string' ? [page] : page
 		return acc.concat([
 			{
 				...entry,
 				params: {
-					// Note: param name is hard-coded to allDocs.
-					allDocs: [basePath, ...pageParams],
+					rootDocsPath: rootDocsPath,
+					docsSlug: pageParams,
 				},
 			},
 		])
@@ -119,6 +122,9 @@ export function prefixAllDocsSubpaths(
  *
  * Note that this will most likely need adjustment once we finalize our
  * approach to custom docs path page files.
+ *
+ * TODO: remove this function once approach is finalized,
+ * may not be needed.
  */
 export function removeCustomLandingPaths(
 	paths: GetStaticPathsResult['paths'],
@@ -152,6 +158,35 @@ export function removeCustomLandingPaths(
 }
 
 /**
+ * Given an array of path entries from the `[rootDocsPath]/[...docsSlug].tsx`
+ * route, remove entries where the `[...docsSlug]` resolves to an empty path.
+ *
+ * This avoids conflicts between the following getStaticPaths:
+ * - `[rootDocsPath]/[...docsSlug].tsx` (where this filter function is used)
+ * - `[rootDocsPath]/index.tsx` (will render landing paths)
+ */
+export function removeLandingPaths(paths) {
+	// Filter out entries that have empty [...docsSlug] params
+	return paths.filter((entry) => {
+		/**
+		 * Parse the full path from the entry.
+		 * Note: We most often expect the last else case, but we have to handle
+		 * other cases to account for all possible types.
+		 */
+		let entryPath
+		if (typeof entry == 'string') {
+			entryPath = entry
+		} else if (typeof entry.params.allDocs == 'string') {
+			entryPath = entry.params.docsSlug.join('/')
+		}
+		/**
+		 * Filter out entries where the entryPath is empty
+		 */
+		return entryPath !== ''
+	})
+}
+
+/**
  *
  * getStaticProps
  *
@@ -164,8 +199,10 @@ async function getStaticProps(
 	{ params }: GetStaticPropsContext,
 	productData: ProductData
 ): Promise<GetStaticPropsResult<Record<string, unknown>>> {
-	// Determine which basePath we're working with from incoming params,
-	// and determine the pageParams within that basePath
+	/**
+	 * Determine which basePath we're working with from incoming params,
+	 * and determine the pageParams within that basePath.
+	 */
 	const { rootDocsPath, pageParams } = parseRootDocsPath(
 		params,
 		productData.rootDocsPaths
@@ -196,13 +233,21 @@ async function getStaticProps(
  * which do _not_ include the matched `rootDocsPath`.
  */
 export function parseRootDocsPath(params, rootDocsPaths) {
-	// Determine which basePath we're working with, from incoming params
-	const [targetBasePath, maybeTargetBasePath, ...restParams] = params.allDocs
+	/**
+	 * Determine which basePath we're working with, from incoming params
+	 *
+	 * Note: When used with the `[rootDocsPath]/index.tsx` page file,
+	 * params.docsSlug will be undefined, so we fall back to an empty array.
+	 */
+	const targetBasePath = params.rootDocsPath
+	const [maybeTargetBasePath, ...restParams] = params.docsSlug || []
 	let basePath
 	let pageParams
-	// Note that some basePaths are nested, such as "cloud-docs/agents"
-	// For these paths, we need to massage params even further to get the
-	// pageParams we can pass to the usual docs getStaticProps loader
+	/**
+	 * Note that some basePaths are nested, such as "cloud-docs/agents".
+	 * For these paths, we need to massage params even further to get the
+	 * pageParams we can pass to the usual docs getStaticProps loader.
+	 */
 	const maybeNestedBasePath = [targetBasePath, maybeTargetBasePath].join('/')
 	const allBasePaths = rootDocsPaths.map(({ path }) => path)
 	const isNestedBasePath = allBasePaths.indexOf(maybeNestedBasePath) !== -1
@@ -222,9 +267,10 @@ export function parseRootDocsPath(params, rootDocsPaths) {
 }
 
 /**
- * Generates static functions for use in an [...allDocs].tsx DocsView page file.
+ * Generates static functions for use in a
+ * `[rootDocsPath]/[...docsSlug].tsx` DocsView page file.
  */
-export function getStaticGenerationFunctions(productSlug: ProductSlug): {
+export function getDocsSlugStaticGenFunctions(productSlug: ProductSlug): {
 	getStaticPaths: GetStaticPaths
 	getStaticProps: GetStaticProps
 } {
@@ -232,6 +278,44 @@ export function getStaticGenerationFunctions(productSlug: ProductSlug): {
 	return {
 		getStaticPaths: async () => {
 			return await getStaticPaths(productData)
+		},
+		getStaticProps: async ({ params }) => {
+			return await getStaticProps({ params }, productData)
+		},
+	}
+}
+
+/**
+ * Generates static functions for use in a
+ * `[rootDocsPath]/index.tsx` DocsView page file.
+ */
+export function getRootDocsPathStaticGenFunctions(productSlug: ProductSlug): {
+	getStaticPaths: GetStaticPaths
+	getStaticProps: GetStaticProps
+} {
+	const productData = cachedGetProductData(productSlug)
+	return {
+		getStaticPaths: async () => {
+			/**
+			 * Grab all rootDocsPaths form product data,
+			 * except those with custom landing pages
+			 */
+			const paths = productData.rootDocsPaths
+				.filter((rootDocsPath) => !rootDocsPath.hasCustomLandingPage)
+				.map((rootDocsPath) => {
+					return {
+						params: {
+							rootDocsPath: rootDocsPath.path,
+						},
+					}
+				})
+			/**
+			 * Return the paths. Note that { fallback: false } is necessary here,
+			 * as we need to ensure we do not try to fallback for routes such
+			 * as /terraform/install, /terraform/tutorials, etc etc.
+			 * We want to restrict paths to rootDocsPaths only.
+			 */
+			return { paths, fallback: false }
 		},
 		getStaticProps: async ({ params }) => {
 			return await getStaticProps({ params }, productData)

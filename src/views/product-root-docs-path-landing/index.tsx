@@ -11,6 +11,7 @@ import s from './product-root-docs-path-landing.module.css'
 import DocsViewLayout from 'layouts/docs-view-layout'
 
 const ProductRootDocsPathLanding = ({
+	includeMdxSource,
 	mdxSource,
 	pageContent,
 	pageHeading,
@@ -21,7 +22,7 @@ const ProductRootDocsPathLanding = ({
 
 	let mdxSlot: ReactElement
 
-	if (mdxSource) {
+	if (includeMdxSource && mdxSource) {
 		const classes = classNames(s[`${product.slug}MDXWrapper`], s.mdxSlotWrapper)
 		mdxSlot = (
 			<div className={classes}>
