@@ -1,17 +1,10 @@
-import vagrantData from 'data/vagrant.json'
-import { ProductData } from 'types/products'
-import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
+import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
 
-const basePath = 'intro'
-const baseName = 'Intro'
-const product = vagrantData as ProductData
+const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
+	'vagrant',
+	'intro'
+)
 
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-	product,
-	basePath,
-	baseName,
-})
-
-export { getStaticPaths, getStaticProps }
+export { getStaticProps, getStaticPaths }
 export default DocsView
