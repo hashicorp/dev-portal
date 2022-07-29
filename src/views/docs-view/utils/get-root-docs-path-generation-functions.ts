@@ -25,6 +25,7 @@ export function getRootDocsPathGenerationFunctions(
 		navDataPrefix: rootDocsPath.navDataPrefix,
 		product: productData,
 		productSlugForLoader: rootDocsPath.productSlugForLoader,
+		mainBranch: rootDocsPath.mainBranch,
 	}
 	return {
 		getStaticPaths: async (context) => {
