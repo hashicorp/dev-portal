@@ -30,6 +30,7 @@ export function getRootDocsPathGenerationFunctions(
 		navDataPrefix: rootDocsPath.navDataPrefix,
 		product: productData,
 		productSlugForLoader: rootDocsPath.productSlugForLoader,
+		basePathForLoader: rootDocsPath.basePathForLoader,
 		mainBranch: rootDocsPath.mainBranch,
 		additionalRemarkPlugins: getAdditionalRemarkPlugins(
 			productData,
