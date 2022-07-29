@@ -3,6 +3,8 @@ import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-l
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import { UserData } from 'types/auth'
+import useAuthentication from 'hooks/use-authentication'
+import { UserDropdownDisclosureProps } from 'components/user-dropdown-disclosure'
 
 const getIcon = (user: UserData) => {
 	// eslint-disable-next-line @next/next/no-img-element
@@ -21,7 +23,11 @@ const getDescription = (user: UserData, isSignedInWithGitHub: boolean) => {
 	return isSignedInWithGitHub ? user.nickname : user.email
 }
 
-const getUserMenuItems = ({ signOut }) => {
+const getUserMenuItems = ({
+	signOut,
+}: {
+	signOut: ReturnType<typeof useAuthentication>['signOut']
+}): UserDropdownDisclosureProps['items'] => {
 	return [
 		{
 			icon: <IconBookmark16 />,
