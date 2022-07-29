@@ -81,7 +81,7 @@ const SignUpView = () => {
 							return (
 								// eslint-disable-next-line react/no-array-index-key
 								<li key={index} className={s.listItem}>
-									<IconCheckCircle16 />
+									<IconCheckCircle16 className={s.detailIcon} />
 									<Text asElement="span" size={200} weight="regular">
 										{detail}
 									</Text>
@@ -96,7 +96,7 @@ const SignUpView = () => {
 						onClick={() => signUp()}
 					/>
 					<div className={s.signInContainer}>
-						<Text size={200} weight="regular">
+						<Text className={s.signInText} size={200} weight="regular">
 							{SIGN_IN_HINT_TEXT}
 						</Text>
 						<Button
