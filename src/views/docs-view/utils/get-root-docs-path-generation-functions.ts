@@ -8,6 +8,7 @@ import {
 	GetStaticPropsResult,
 } from 'next'
 import { cachedGetProductData } from 'lib/get-product-data'
+import { removeIndexPath } from 'lib/remove-index-path'
 
 /**
  * Generates static functions for use in a
@@ -73,41 +74,9 @@ async function getStaticPaths(
 	 * may change this in the future.)
 	 */
 	const hasCustomLandingPage = rootDocsPath.path == 'docs'
-	const paths = hasCustomLandingPage ? removeLandingPath(rawPaths) : rawPaths
+	const paths = hasCustomLandingPage ? removeIndexPath(rawPaths) : rawPaths
 	// Return all generated paths
 	return { paths, ...restStaticPaths }
-}
-
-/**
- * Given an array of path entries,
- * Return a filtered array of path entries, removing the entries where
- * the params are empty.
- *
- * This is useful for [...page] files being used with out docs-page content
- * loader, where we get the landing page params back from our loader,
- * but we don't actually want to use them.
- */
-export function removeLandingPath(paths, paramId = 'page') {
-	// Filter out entries that have empty [...docsSlug] params
-	return paths.filter((entry) => {
-		/**
-		 * Parse the full path from the entry.
-		 * Note: We most often expect the last else case, but we have to handle
-		 * other cases to account for all possible types.
-		 */
-		let entryPath
-		if (typeof entry == 'string') {
-			entryPath = entry
-		} else if (typeof entry.params[paramId] == 'string') {
-			entryPath = entry.params[paramId]
-		} else {
-			entryPath = entry.params[paramId].join('/')
-		}
-		/**
-		 * Filter out entries where the entryPath is empty
-		 */
-		return entryPath !== ''
-	})
 }
 
 /**
