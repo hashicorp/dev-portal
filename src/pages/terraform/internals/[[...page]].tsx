@@ -1,7 +1,7 @@
 import DocsView from 'views/docs-view'
-import { getStaticGenFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
+import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
 
-const { getStaticPaths, getStaticProps } = getStaticGenFunctions(
+const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
 	'terraform',
 	'internals'
 )
