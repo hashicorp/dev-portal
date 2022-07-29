@@ -1,15 +1,14 @@
-import { getCollection } from 'lib/learn-client/api/collection'
+import {
+	getCollection,
+	getCollectionsBySection,
+} from 'lib/learn-client/api/collection'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import CollectionMeta from 'views/collection-view/components/collection-meta'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import CollectionTutorialList from 'views/collection-view/components/collection-tutorial-list'
-import {
-	WAF_SLUG,
-	_tempGetCollectionsForDir,
-	_tempCollectionSidebarPlaceholder,
-} from '.'
+import { WAF_SLUG, _tempCollectionSidebarPlaceholder } from '.'
 import BaseNewLayout from 'layouts/base-new'
 
 export default function TopicsCollectionPage(props) {
@@ -39,7 +38,7 @@ export default function TopicsCollectionPage(props) {
 					hasInteractiveLab: Boolean(t.handsOnLab),
 					hasVideo: Boolean(t.video),
 					heading: t.name,
-					url: `/topics/${slug}/${splitProductFromFilename(t.slug)}`,
+					url: `/${slug}/${splitProductFromFilename(t.slug)}`,
 					productsUsed: t.productsUsed.map((p) => p.product.slug),
 				}))}
 			/>
@@ -50,7 +49,7 @@ export default function TopicsCollectionPage(props) {
 
 export async function getStaticProps({ params }) {
 	const { collectionSlug } = params
-	const sidebarCollections = await _tempGetCollectionsForDir(WAF_SLUG)
+	const sidebarCollections = await getCollectionsBySection(WAF_SLUG)
 	const collectionData = await getCollection(`${WAF_SLUG}/${collectionSlug}`)
 
 	return {
@@ -61,7 +60,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-	const allCollections = await _tempGetCollectionsForDir(WAF_SLUG)
+	const allCollections = await getCollectionsBySection(WAF_SLUG)
 	const paths = allCollections.map((c) => ({
 		params: { collectionSlug: splitProductFromFilename(c.slug) },
 	}))

@@ -2,6 +2,7 @@ import { MDXRemote } from 'next-mdx-remote'
 import { serializeContent } from 'views/tutorial-view/utils/serialize-content'
 import BaseNewLayout from 'layouts/base-new'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
+import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import TabProvider from 'components/tabs/provider'
@@ -10,7 +11,11 @@ import VideoEmbed from 'components/video-embed'
 import getVideoUrl from 'views/tutorial-view/utils/get-video-url'
 import DevDotContent from 'components/dev-dot-content'
 import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
-import { WAF_SLUG, _tempGetCollectionsForDir } from '..'
+import { WAF_SLUG } from '..'
+import {
+	getCurrentCollectionTutorial,
+	getCollectionContext,
+} from 'views/tutorial-view/utils/get-collection-context'
 
 export default function TopicsTutorialPage(props) {
 	console.log({ props })
@@ -38,9 +43,9 @@ export default function TopicsTutorialPage(props) {
 				/>
 			)}
 			<TabProvider>
-				<DevDotContent>
+				{/* <DevDotContent>
 					<MDXRemote {...content} components={MDX_COMPONENTS} />
-				</DevDotContent>
+				</DevDotContent> */}
 			</TabProvider>
 			{/* <NextPrevious {...nextPreviousData} />
 			<FeaturedInCollections
@@ -53,30 +58,52 @@ export default function TopicsTutorialPage(props) {
 
 export async function getStaticProps({ params }) {
 	const { tutorialSlug } = params
-	const dbSlug = `${WAF_SLUG}/${tutorialSlug[1]}`
-	const tutorialData = await getTutorial(dbSlug)
-	const { content: serializedContent, headings } = await serializeContent(
-		tutorialData
+
+	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
+		WAF_SLUG,
+		tutorialSlug
 	)
-	const formattedData = {
-		...tutorialData,
-		content: serializedContent,
+
+	// the tutorial doesn't exist in collection - return 404
+	if (tutorialReference.dbSlug === null || collection.data === null) {
+		return null
 	}
 
+	const fullTutorialData = await getTutorial(tutorialReference.dbSlug)
+	// double guard if tutorial doesn't exist after call - return 404
+	if (fullTutorialData === null) {
+		return null
+	}
+
+	const { content: serializedContent, headings } = await serializeContent(
+		fullTutorialData
+	)
+	const collectionContext = getCollectionContext(
+		collection.data,
+		fullTutorialData.collectionCtx
+	)
+
 	return {
-		props: stripUndefinedProperties({ content: formattedData }),
+		props: stripUndefinedProperties({
+			content: serializedContent,
+			collectionContext,
+			...fullTutorialData,
+		}),
 	}
 }
 
 export async function getStaticPaths() {
-	const allCollections = await _tempGetCollectionsForDir(WAF_SLUG)
+	const allCollections = await getCollectionsBySection(WAF_SLUG)
 	const paths = []
 	allCollections.forEach((c) => {
 		const collectionSlug = splitProductFromFilename(c.slug)
-		c.tutorials.forEach((t) =>
+		c.tutorials.forEach(({ tutorial }) =>
 			paths.push({
 				params: {
-					tutorialSlug: [collectionSlug, splitProductFromFilename(t.slug)],
+					tutorialSlug: [
+						collectionSlug,
+						splitProductFromFilename(tutorial.slug),
+					],
 				},
 			})
 		)
