@@ -3,7 +3,7 @@ import { getStaticGenFunctions } from 'views/docs-view/utils/get-root-docs-path-
 
 const { getStaticPaths, getStaticProps } = getStaticGenFunctions(
 	'terraform',
-	'registry'
+	'plugin/sdkv2'
 )
 
 export { getStaticProps, getStaticPaths }
