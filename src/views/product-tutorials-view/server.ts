@@ -18,6 +18,10 @@ import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
 import { ProductTutorialsSitemapProps } from './components/sitemap/types'
 import { formatSitemapCollection } from './components/sitemap/helpers'
+import { ThemeOption } from 'lib/learn-client/types'
+import fs from 'fs'
+import path from 'path'
+import { cachedGetProductData } from 'lib/get-product-data'
 
 export interface ProductTutorialsViewProps {
 	data: ProductPageData
@@ -36,9 +40,96 @@ export interface ProductPageData {
 		blocks: ProductViewBlock[]
 		showProductSitemap?: boolean
 	}
-	allCollections: ProductTutorialsSitemapProps['collections']
+	/**
+	 * Collections to render in the product sitemap.
+	 * Required if pageData.showProductSitemap is set to true,
+	 * Can safely be omitted if showProductSitemap is false or not provided.
+	 *
+	 * TODO: should we refactor slightly to avoid this type interdependency?
+	 * Specifically: in server-side getStaticProps, we could only pass
+	 * allCollections to the view IF showProductSitemap is set to true,
+	 * We'd no longer pass pageData.showProductSitemap, and instead render
+	 * the sitemap conditionally based on the presence of allCollections
+	 * (which we could also rename to sitemapCollections for clarity).
+	 *
+	 * (Note: I'm avoiding this for now, since possible redesign
+	 * of /hcp/tutorials may make this refactor irrelevant).
+	 */
+	allCollections?: ProductTutorialsSitemapProps['collections']
 	inlineCollections: InlineCollections
 	inlineTutorials: InlineTutorials
+}
+
+/**
+ * Note: this is a temporary spike to get the /hcp/tutorials rendering.
+ * It relies on fallback content from Waypoint.
+ *
+ * TODO: figure out what to do with the /hcp/tutorials view (design dependent).
+ * Taking this temporary approach for now while awaiting final designs.
+ */
+export async function getCloudTutorialsViewProps() {
+	const productData = cachedGetProductData('hcp')
+	/**
+	 * Grab fallback props (Waypoint's), so that the view can render
+	 * even if there are gaps in what HCP content we can provide
+	 */
+	const tempFallbackProps = JSON.parse(
+		fs.readFileSync(
+			path.join(
+				process.cwd(),
+				'src/views/product-tutorials-view/server-temp-hcp-fallback-content.json'
+			),
+			'utf8'
+		)
+	)
+	/**
+	 * Get the raw page data
+	 */
+	const {
+		pageData: rawPageData,
+		inlineCollections,
+		inlineTutorials,
+	} = await getProductPageContent(ThemeOption.cloud)
+	/**
+	 * Process page data, reformatting as needed.
+	 * Includes parsing headings, for use with the page's sidecar
+	 */
+	const { pageData, headings } = await processPageData(rawPageData)
+
+	return {
+		props: stripUndefinedProperties({
+			metadata: {
+				title: 'Tutorials',
+			},
+			data: {
+				pageData,
+				inlineCollections,
+				inlineTutorials,
+			},
+			layoutProps: {
+				headings,
+				breadcrumbLinks: getTutorialsBreadcrumb({
+					product: { name: productData.name, filename: productData.slug },
+				}),
+				sidebarSections: tempFallbackProps.layoutProps.sidebarSections, // TODO: stop using Waypoint props as temp fallback
+			},
+			product: {
+				/**
+				 * See note on product in getProductTutorialsViewProps below
+				 * (repeating in this comment as well just in case)
+				 *
+				 * @TODO Determine which should be the source of truth in the long term since
+				 * both Learn and existing Docs properties are both needed to be returned from
+				 * here.
+				 */
+				...productData,
+				description:
+					'HashiCorp Cloud Platform (HCP) is a fully managed platform offering HashiCorp products as a service to automate infrastructure on any cloud.',
+				docsUrl: 'https://cloud.hashicorp.com/',
+				id: tempFallbackProps.product.id, // TODO: stop using Waypoint props as temp fallback. Also,need to confirm where ID is used on ProductTutorialsView (mobile sidebar lazy fetching of Learn content? That's a guess.)
+			},
+		}),
+	}
 }
 
 /**

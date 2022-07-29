@@ -1,0 +1,1168 @@
+{
+	"metadata": {
+		"title": "Tutorials"
+	},
+	"data": {
+		"pageData": {
+			"blocks": [
+				{
+					"cta": {
+						"url": "/waypoint/tutorials/get-started-docker/get-started-intro",
+						"text": "Get started in just a few minutes"
+					},
+					"type": "BrandedCallout",
+					"heading": "New to Waypoint?",
+					"product": "waypoint"
+				},
+				{
+					"type": "TutorialsStack",
+					"heading": "Get Started",
+					"subheading": "Install and deploy a local application with Waypoint.",
+					"tutorialSlugs": [
+						"waypoint/get-started-intro",
+						"waypoint/get-started-install",
+						"waypoint/get-started-docker",
+						"waypoint/aws-lambda"
+					],
+					"headingSlug": "get-started"
+				},
+				{
+					"type": "FeaturedStack",
+					"blocks": [
+						{
+							"type": "CardList",
+							"items": [
+								{
+									"logo": "aws",
+									"type": "LogoCard",
+									"collectionSlug": "waypoint/deploy-aws"
+								},
+								{
+									"logo": "microsoft-azure",
+									"type": "LogoCard",
+									"collectionSlug": "waypoint/deploy-azure"
+								},
+								{
+									"logo": "google-cloud",
+									"type": "LogoCard",
+									"collectionSlug": "waypoint/deploy-google-cloud"
+								}
+							]
+						}
+					],
+					"heading": "Deploy to the Cloud",
+					"subheading": "Build, deploy, and release applications on your preferred cloud provider.",
+					"headingSlug": "deploy-to-the-cloud"
+				},
+				{
+					"type": "CollectionsStack",
+					"heading": "Featured Content",
+					"product": "waypoint",
+					"subheading": "Use Waypoint on application schedulers.",
+					"collectionSlugs": [
+						"waypoint/get-started-kubernetes",
+						"waypoint/get-started-nomad"
+					],
+					"headingSlug": "featured-content"
+				}
+			],
+			"docsCta": {
+				"links": [
+					{
+						"url": "https://waypointproject.io/docs",
+						"title": "Docs"
+					},
+					{
+						"url": "https://waypointproject.io/commands",
+						"title": "Commands"
+					},
+					{
+						"url": "https://waypointproject.io/plugins",
+						"title": "Plugins"
+					},
+					{
+						"url": "https://waypointproject.io/community",
+						"title": "Community"
+					}
+				],
+				"heading": "Looking for docs?",
+				"subheading": "The <a href=\"https://www.waypointproject.io/docs\">Waypoint documentation</a> provides reference material and in-depth details on all of Waypoint&apos;s available features and options."
+			},
+			"showProductSitemap": true
+		},
+		"allCollections": [
+			{
+				"slug": "waypoint/application-deployment",
+				"name": "Application Deployment",
+				"tutorials": [
+					{
+						"slug": "waypoint/gitops-helm-deployment",
+						"name": "Deploy a Helm-based application automatically with GitOps"
+					}
+				]
+			},
+			{
+				"slug": "waypoint/deploy-aws",
+				"name": "AWS",
+				"tutorials": [
+					{
+						"slug": "waypoint/aws-ecs",
+						"name": "Deploy an Application to AWS Elastic Container Service"
+					},
+					{
+						"slug": "waypoint/aws-lambda",
+						"name": "Deploy an Application onto AWS Lambda"
+					}
+				]
+			},
+			{
+				"slug": "waypoint/deploy-azure",
+				"name": "Azure",
+				"tutorials": [
+					{
+						"slug": "waypoint/azure-container-instance",
+						"name": "Deploy an application onto an Azure Container Instance"
+					}
+				]
+			},
+			{
+				"slug": "waypoint/configuration",
+				"name": "Configuration",
+				"tutorials": [
+					{
+						"slug": "waypoint/static-application-configuration",
+						"name": "Static Application Configuration"
+					},
+					{
+						"slug": "waypoint/input-variables",
+						"name": "Input Variables"
+					}
+				]
+			},
+			{
+				"slug": "waypoint/get-started-docker",
+				"name": "Get Started - Docker",
+				"tutorials": [
+					{
+						"slug": "waypoint/get-started-intro",
+						"name": "Introduction to Waypoint"
+					},
+					{
+						"slug": "waypoint/get-started-install",
+						"name": "Install Waypoint"
+					},
+					{
+						"slug": "waypoint/get-started-docker",
+						"name": "Use Waypoint with Docker"
+					},
+					{
+						"slug": "waypoint/get-started-ui",
+						"name": "Debugging and UI"
+					},
+					{
+						"slug": "waypoint/get-started-destroy",
+						"name": "Destroy the Deployment"
+					}
+				]
+			},
+			{
+				"slug": "waypoint/get-started-kubernetes",
+				"name": "Get Started - Kubernetes",
+				"tutorials": [
+					{
+						"slug": "waypoint/get-started-intro",
+						"name": "Introduction to Waypoint"
+					},
+					{
+						"slug": "waypoint/get-started-install",
+						"name": "Install Waypoint"
+					},
+					{
+						"slug": "waypoint/get-started-kubernetes",
+						"name": "Deploy an Application to Kubernetes"
+					},
+					{
+						"slug": "waypoint/get-started-ui",
+						"name": "Debugging and UI"
+					},
+					{
+						"slug": "waypoint/get-started-kubernetes-destroy",
+						"name": "Destroy the Deployment from Kubernetes"
+					}
+				]
+			},
+			{
+				"slug": "waypoint/get-started-nomad",
+				"name": "Get Started - Nomad",
+				"tutorials": [
+					{
+						"slug": "waypoint/get-started-intro",
+						"name": "Introduction to Waypoint"
+					},
+					{
+						"slug": "waypoint/get-started-install",
+						"name": "Install Waypoint"
+					},
+					{
+						"slug": "waypoint/get-started-nomad",
+						"name": "Deploy an Application to Nomad"
+					},
+					{
+						"slug": "waypoint/get-started-ui",
+						"name": "Debugging and UI"
+					},
+					{
+						"slug": "waypoint/get-started-destroy",
+						"name": "Destroy the Deployment"
+					}
+				]
+			},
+			{
+				"slug": "waypoint/deploy-google-cloud",
+				"name": "Google Cloud",
+				"tutorials": [
+					{
+						"slug": "waypoint/google-cloud-run",
+						"name": "Deploy an Application to Google Cloud Run"
+					}
+				]
+			}
+		],
+		"inlineCollections": {
+			"waypoint/get-started-nomad": {
+				"id": "28311b00-8cea-4b0f-becd-96aa0914f07b",
+				"slug": "waypoint/get-started-nomad",
+				"name": "Get Started - Nomad",
+				"shortName": "Nomad",
+				"description": "Build, deploy, and release applications to a Nomad cluster.",
+				"icon": "grad_hat",
+				"theme": "waypoint",
+				"ordered": true,
+				"level": "beginner",
+				"category": "get_started",
+				"tutorials": [
+					{
+						"id": "db8b417e-a5db-4fff-a3e4-d2f02c026907",
+						"name": "Introduction to Waypoint",
+						"slug": "waypoint/get-started-intro",
+						"description": "Waypoint enables you to publish any application to any platform with a single file and a single command. Build, deploy, and release applications programmatically using HashiCorp Configuration Language.",
+						"readTime": 5,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "db8b417e-a5db-4fff-a3e4-d2f02c026907",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"video": {
+							"id": "ejrddijc23",
+							"videoHost": "wistia",
+							"videoInline": false
+						},
+						"defaultContext": {
+							"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+							"name": "Get Started - Docker",
+							"slug": "waypoint/get-started-docker",
+							"shortName": "Docker",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					},
+					{
+						"id": "ce4cbb9b-294b-4e4c-aac7-a94b1806ac95",
+						"name": "Install Waypoint",
+						"slug": "waypoint/get-started-install",
+						"description": "Install the Waypoint binary locally on Mac, Linux, or Windows, manually or using a package manager (Homebrew).",
+						"readTime": 5,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "ce4cbb9b-294b-4e4c-aac7-a94b1806ac95",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+							"name": "Get Started - Docker",
+							"slug": "waypoint/get-started-docker",
+							"shortName": "Docker",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					},
+					{
+						"id": "1abdf820-8771-4b51-b8db-803f7b1c5ee9",
+						"name": "Deploy an Application to Nomad",
+						"slug": "waypoint/get-started-nomad",
+						"description": "Release applications to a local or cloud hosted Nomad cluster.",
+						"readTime": 10,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "1abdf820-8771-4b51-b8db-803f7b1c5ee9",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "28311b00-8cea-4b0f-becd-96aa0914f07b",
+							"name": "Get Started - Nomad",
+							"slug": "waypoint/get-started-nomad",
+							"shortName": "Nomad",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					},
+					{
+						"id": "1c307f3e-1bef-4bb1-a67f-d0d006f01677",
+						"name": "Debugging and UI",
+						"slug": "waypoint/get-started-ui",
+						"description": "Exec into a container, view logs, and use the web UI.",
+						"readTime": 10,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "1c307f3e-1bef-4bb1-a67f-d0d006f01677",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+							"name": "Get Started - Docker",
+							"slug": "waypoint/get-started-docker",
+							"shortName": "Docker",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					},
+					{
+						"id": "e5026645-f0f4-442f-ae26-7a8b8ec55e2e",
+						"name": "Destroy the Deployment",
+						"slug": "waypoint/get-started-destroy",
+						"description": "Remove your application deployment.",
+						"readTime": 3,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "e5026645-f0f4-442f-ae26-7a8b8ec55e2e",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+							"name": "Get Started - Docker",
+							"slug": "waypoint/get-started-docker",
+							"shortName": "Docker",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					}
+				]
+			},
+			"waypoint/get-started-kubernetes": {
+				"id": "bc1d4764-274a-4e78-94e7-5c5cc2bbf400",
+				"slug": "waypoint/get-started-kubernetes",
+				"name": "Get Started - Kubernetes",
+				"shortName": "Kubernetes",
+				"description": "Build, deploy, and release applications to a Kubernetes cluster.",
+				"icon": "grad_hat",
+				"theme": "waypoint",
+				"ordered": true,
+				"level": "beginner",
+				"category": "get_started",
+				"tutorials": [
+					{
+						"id": "db8b417e-a5db-4fff-a3e4-d2f02c026907",
+						"name": "Introduction to Waypoint",
+						"slug": "waypoint/get-started-intro",
+						"description": "Waypoint enables you to publish any application to any platform with a single file and a single command. Build, deploy, and release applications programmatically using HashiCorp Configuration Language.",
+						"readTime": 5,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "db8b417e-a5db-4fff-a3e4-d2f02c026907",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"video": {
+							"id": "ejrddijc23",
+							"videoHost": "wistia",
+							"videoInline": false
+						},
+						"defaultContext": {
+							"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+							"name": "Get Started - Docker",
+							"slug": "waypoint/get-started-docker",
+							"shortName": "Docker",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					},
+					{
+						"id": "ce4cbb9b-294b-4e4c-aac7-a94b1806ac95",
+						"name": "Install Waypoint",
+						"slug": "waypoint/get-started-install",
+						"description": "Install the Waypoint binary locally on Mac, Linux, or Windows, manually or using a package manager (Homebrew).",
+						"readTime": 5,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "ce4cbb9b-294b-4e4c-aac7-a94b1806ac95",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+							"name": "Get Started - Docker",
+							"slug": "waypoint/get-started-docker",
+							"shortName": "Docker",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					},
+					{
+						"id": "8a01063a-0365-4c81-be10-85acf1a66be5",
+						"name": "Deploy an Application to Kubernetes",
+						"slug": "waypoint/get-started-kubernetes",
+						"description": "Release applications to a local or cloud hosted Kubernetes cluster.",
+						"readTime": 30,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "8a01063a-0365-4c81-be10-85acf1a66be5",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "bc1d4764-274a-4e78-94e7-5c5cc2bbf400",
+							"name": "Get Started - Kubernetes",
+							"slug": "waypoint/get-started-kubernetes",
+							"shortName": "Kubernetes",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					},
+					{
+						"id": "1c307f3e-1bef-4bb1-a67f-d0d006f01677",
+						"name": "Debugging and UI",
+						"slug": "waypoint/get-started-ui",
+						"description": "Exec into a container, view logs, and use the web UI.",
+						"readTime": 10,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "1c307f3e-1bef-4bb1-a67f-d0d006f01677",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+							"name": "Get Started - Docker",
+							"slug": "waypoint/get-started-docker",
+							"shortName": "Docker",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					},
+					{
+						"id": "9df50ade-cfa4-48a4-a942-229ce812914d",
+						"name": "Destroy the Deployment from Kubernetes",
+						"slug": "waypoint/get-started-kubernetes-destroy",
+						"description": "Remove your application from the cluster.",
+						"readTime": 5,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "9df50ade-cfa4-48a4-a942-229ce812914d",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "bc1d4764-274a-4e78-94e7-5c5cc2bbf400",
+							"name": "Get Started - Kubernetes",
+							"slug": "waypoint/get-started-kubernetes",
+							"shortName": "Kubernetes",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					}
+				]
+			},
+			"waypoint/deploy-google-cloud": {
+				"id": "9ce0b931-b51b-464c-83c5-b8c3c3acac5e",
+				"slug": "waypoint/deploy-google-cloud",
+				"name": "Google Cloud",
+				"shortName": "Google Cloud",
+				"description": "Use Waypoint with Google Cloud services.",
+				"icon": "grad_hat",
+				"theme": "waypoint",
+				"ordered": false,
+				"level": "intermediate",
+				"category": "integrations",
+				"tutorials": [
+					{
+						"id": "39614c9f-2ebf-42d5-99a6-7550c8e7935a",
+						"name": "Deploy an Application to Google Cloud Run",
+						"slug": "waypoint/google-cloud-run",
+						"description": "Run an application on Google Cloud Run with Waypoint",
+						"readTime": 20,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "39614c9f-2ebf-42d5-99a6-7550c8e7935a",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "9ce0b931-b51b-464c-83c5-b8c3c3acac5e",
+							"name": "Google Cloud",
+							"slug": "waypoint/deploy-google-cloud",
+							"shortName": "Google Cloud",
+							"level": "intermediate",
+							"theme": "waypoint"
+						}
+					}
+				]
+			},
+			"waypoint/deploy-azure": {
+				"id": "0f987749-5650-47b6-8909-6fdabec2c00a",
+				"slug": "waypoint/deploy-azure",
+				"name": "Azure",
+				"shortName": "Azure",
+				"description": "Use Waypoint with Azure services.",
+				"icon": "grad_hat",
+				"theme": "waypoint",
+				"ordered": false,
+				"level": "intermediate",
+				"category": "integrations",
+				"tutorials": [
+					{
+						"id": "d0ea9b5f-6918-4e18-a28b-89f0adb2ee68",
+						"name": "Deploy an application onto an Azure Container Instance",
+						"slug": "waypoint/azure-container-instance",
+						"description": "Deploy an application onto an Azure Container Instance with Waypoint",
+						"readTime": 30,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "d0ea9b5f-6918-4e18-a28b-89f0adb2ee68",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "0f987749-5650-47b6-8909-6fdabec2c00a",
+							"name": "Azure",
+							"slug": "waypoint/deploy-azure",
+							"shortName": "Azure",
+							"level": "intermediate",
+							"theme": "waypoint"
+						}
+					}
+				]
+			},
+			"waypoint/deploy-aws": {
+				"id": "4c513e77-391c-4fa3-9e98-38071ebf0159",
+				"slug": "waypoint/deploy-aws",
+				"name": "AWS",
+				"shortName": "AWS",
+				"description": "Use Waypoint with AWS services.",
+				"icon": "grad_hat",
+				"theme": "waypoint",
+				"ordered": false,
+				"level": "intermediate",
+				"category": "integrations",
+				"tutorials": [
+					{
+						"id": "0f50f38f-2285-4d4f-b0d7-82a5fd7a4597",
+						"name": "Deploy an Application to AWS Elastic Container Service",
+						"slug": "waypoint/aws-ecs",
+						"description": "Run a NodeJS application onto AWS Elastic Container Service (ECS) with Waypoint",
+						"readTime": 20,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "0f50f38f-2285-4d4f-b0d7-82a5fd7a4597",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "4c513e77-391c-4fa3-9e98-38071ebf0159",
+							"name": "AWS",
+							"slug": "waypoint/deploy-aws",
+							"shortName": "AWS",
+							"level": "intermediate",
+							"theme": "waypoint"
+						}
+					},
+					{
+						"id": "524bf622-374c-4804-9097-ef4dd84ad9ab",
+						"name": "Deploy an Application onto AWS Lambda",
+						"slug": "waypoint/aws-lambda",
+						"description": "Deploy a Ruby application onto AWS Lambda with Waypoint",
+						"readTime": 20,
+						"edition": "open_source",
+						"productsUsed": [
+							{
+								"product": {
+									"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+									"slug": "waypoint",
+									"name": "Waypoint",
+									"docsUrl": "https://www.waypointproject.io",
+									"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+								},
+								"tutorial": "524bf622-374c-4804-9097-ef4dd84ad9ab",
+								"isPrimary": true,
+								"isBeta": false
+							}
+						],
+						"defaultContext": {
+							"id": "4c513e77-391c-4fa3-9e98-38071ebf0159",
+							"name": "AWS",
+							"slug": "waypoint/deploy-aws",
+							"shortName": "AWS",
+							"level": "intermediate",
+							"theme": "waypoint"
+						}
+					}
+				]
+			}
+		},
+		"inlineTutorials": {
+			"waypoint/get-started-intro": {
+				"id": "db8b417e-a5db-4fff-a3e4-d2f02c026907",
+				"slug": "waypoint/get-started-intro",
+				"name": "Introduction to Waypoint",
+				"description": "Waypoint enables you to publish any application to any platform with a single file and a single command. Build, deploy, and release applications programmatically using HashiCorp Configuration Language.",
+				"collectionCtx": {
+					"default": {
+						"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+						"name": "Get Started - Docker",
+						"slug": "waypoint/get-started-docker",
+						"shortName": "Docker",
+						"level": "beginner",
+						"theme": "waypoint"
+					},
+					"featuredIn": [
+						{
+							"id": "28311b00-8cea-4b0f-becd-96aa0914f07b",
+							"name": "Get Started - Nomad",
+							"slug": "waypoint/get-started-nomad",
+							"shortName": "Nomad",
+							"level": "beginner",
+							"theme": "waypoint"
+						},
+						{
+							"id": "bc1d4764-274a-4e78-94e7-5c5cc2bbf400",
+							"name": "Get Started - Kubernetes",
+							"slug": "waypoint/get-started-kubernetes",
+							"shortName": "Kubernetes",
+							"level": "beginner",
+							"theme": "waypoint"
+						},
+						{
+							"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+							"name": "Get Started - Docker",
+							"slug": "waypoint/get-started-docker",
+							"shortName": "Docker",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					]
+				},
+				"productsUsed": [
+					{
+						"product": {
+							"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+							"slug": "waypoint",
+							"name": "Waypoint",
+							"docsUrl": "https://www.waypointproject.io",
+							"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+						},
+						"tutorial": "db8b417e-a5db-4fff-a3e4-d2f02c026907",
+						"isPrimary": true,
+						"isBeta": false
+					}
+				],
+				"readTime": 5,
+				"video": {
+					"id": "ejrddijc23",
+					"videoHost": "wistia",
+					"videoInline": false
+				},
+				"edition": "open_source"
+			},
+			"waypoint/get-started-install": {
+				"id": "ce4cbb9b-294b-4e4c-aac7-a94b1806ac95",
+				"slug": "waypoint/get-started-install",
+				"name": "Install Waypoint",
+				"description": "Install the Waypoint binary locally on Mac, Linux, or Windows, manually or using a package manager (Homebrew).",
+				"collectionCtx": {
+					"default": {
+						"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+						"name": "Get Started - Docker",
+						"slug": "waypoint/get-started-docker",
+						"shortName": "Docker",
+						"level": "beginner",
+						"theme": "waypoint"
+					},
+					"featuredIn": [
+						{
+							"id": "28311b00-8cea-4b0f-becd-96aa0914f07b",
+							"name": "Get Started - Nomad",
+							"slug": "waypoint/get-started-nomad",
+							"shortName": "Nomad",
+							"level": "beginner",
+							"theme": "waypoint"
+						},
+						{
+							"id": "bc1d4764-274a-4e78-94e7-5c5cc2bbf400",
+							"name": "Get Started - Kubernetes",
+							"slug": "waypoint/get-started-kubernetes",
+							"shortName": "Kubernetes",
+							"level": "beginner",
+							"theme": "waypoint"
+						},
+						{
+							"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+							"name": "Get Started - Docker",
+							"slug": "waypoint/get-started-docker",
+							"shortName": "Docker",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					]
+				},
+				"productsUsed": [
+					{
+						"product": {
+							"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+							"slug": "waypoint",
+							"name": "Waypoint",
+							"docsUrl": "https://www.waypointproject.io",
+							"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+						},
+						"tutorial": "ce4cbb9b-294b-4e4c-aac7-a94b1806ac95",
+						"isPrimary": true,
+						"isBeta": false
+					}
+				],
+				"readTime": 5,
+				"edition": "open_source"
+			},
+			"waypoint/get-started-docker": {
+				"id": "22478bdf-6ee3-4c63-9f93-3fe7e2c58ffa",
+				"slug": "waypoint/get-started-docker",
+				"name": "Use Waypoint with Docker",
+				"description": "Deploy a Waypoint application locally to Docker.",
+				"collectionCtx": {
+					"default": {
+						"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+						"name": "Get Started - Docker",
+						"slug": "waypoint/get-started-docker",
+						"shortName": "Docker",
+						"level": "beginner",
+						"theme": "waypoint"
+					},
+					"featuredIn": [
+						{
+							"id": "cd3f054b-d125-47b6-a651-74065aa4c1cd",
+							"name": "Get Started - Docker",
+							"slug": "waypoint/get-started-docker",
+							"shortName": "Docker",
+							"level": "beginner",
+							"theme": "waypoint"
+						}
+					]
+				},
+				"productsUsed": [
+					{
+						"product": {
+							"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+							"slug": "waypoint",
+							"name": "Waypoint",
+							"docsUrl": "https://www.waypointproject.io",
+							"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+						},
+						"tutorial": "22478bdf-6ee3-4c63-9f93-3fe7e2c58ffa",
+						"isPrimary": true,
+						"isBeta": false,
+						"minVersion": "0.5.1"
+					}
+				],
+				"readTime": 10,
+				"handsOnLab": {
+					"id": "hashicorp-learn/tracks/use-waypoint-with-docker?token=em_2mo15v6dv8nu6eQQ",
+					"provider": "instruqt"
+				},
+				"edition": "open_source"
+			},
+			"waypoint/aws-lambda": {
+				"id": "524bf622-374c-4804-9097-ef4dd84ad9ab",
+				"slug": "waypoint/aws-lambda",
+				"name": "Deploy an Application onto AWS Lambda",
+				"description": "Deploy a Ruby application onto AWS Lambda with Waypoint",
+				"collectionCtx": {
+					"default": {
+						"id": "4c513e77-391c-4fa3-9e98-38071ebf0159",
+						"name": "AWS",
+						"slug": "waypoint/deploy-aws",
+						"shortName": "AWS",
+						"level": "intermediate",
+						"theme": "waypoint"
+					},
+					"featuredIn": [
+						{
+							"id": "4c513e77-391c-4fa3-9e98-38071ebf0159",
+							"name": "AWS",
+							"slug": "waypoint/deploy-aws",
+							"shortName": "AWS",
+							"level": "intermediate",
+							"theme": "waypoint"
+						}
+					]
+				},
+				"productsUsed": [
+					{
+						"product": {
+							"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee",
+							"slug": "waypoint",
+							"name": "Waypoint",
+							"docsUrl": "https://www.waypointproject.io",
+							"description": "Learn to define your build, deploy, and release lifecycle with Waypoint."
+						},
+						"tutorial": "524bf622-374c-4804-9097-ef4dd84ad9ab",
+						"isPrimary": true,
+						"isBeta": false
+					}
+				],
+				"readTime": 20,
+				"edition": "open_source"
+			}
+		}
+	},
+	"layoutProps": {
+		"headings": [
+			{
+				"title": "Overview",
+				"slug": "overview",
+				"level": 1
+			},
+			{
+				"title": "Get Started",
+				"slug": "get-started",
+				"level": 2
+			},
+			{
+				"title": "Deploy to the Cloud",
+				"slug": "deploy-to-the-cloud",
+				"level": 2
+			},
+			{
+				"title": "Featured Content",
+				"slug": "featured-content",
+				"level": 2
+			},
+			{
+				"title": "All Tutorials",
+				"slug": "all-tutorials",
+				"level": 2
+			}
+		],
+		"breadcrumbLinks": [
+			{
+				"title": "Developer",
+				"url": "/"
+			},
+			{
+				"title": "Waypoint",
+				"url": "/waypoint"
+			},
+			{
+				"title": "Tutorials",
+				"url": "/waypoint/tutorials",
+				"isCurrentPage": true
+			}
+		],
+		"sidebarSections": [
+			{
+				"title": "Get Started",
+				"items": [
+					{
+						"text": "Docker",
+						"href": "/waypoint/tutorials/get-started-docker",
+						"isActive": false
+					},
+					{
+						"text": "Kubernetes",
+						"href": "/waypoint/tutorials/get-started-kubernetes",
+						"isActive": false
+					},
+					{
+						"text": "Nomad",
+						"href": "/waypoint/tutorials/get-started-nomad",
+						"isActive": false
+					}
+				]
+			},
+			{
+				"title": "Fundamentals",
+				"items": [
+					{
+						"text": "Configuration",
+						"href": "/waypoint/tutorials/configuration",
+						"isActive": false
+					}
+				]
+			},
+			{
+				"title": "Integrations",
+				"items": [
+					{
+						"text": "AWS",
+						"href": "/waypoint/tutorials/deploy-aws",
+						"isActive": false
+					},
+					{
+						"text": "Azure",
+						"href": "/waypoint/tutorials/deploy-azure",
+						"isActive": false
+					},
+					{
+						"text": "Google Cloud",
+						"href": "/waypoint/tutorials/deploy-google-cloud",
+						"isActive": false
+					}
+				]
+			},
+			{
+				"title": "Kubernetes",
+				"items": [
+					{
+						"text": "Application Deployment",
+						"href": "/waypoint/tutorials/application-deployment",
+						"isActive": false
+					}
+				]
+			}
+		]
+	},
+	"product": {
+		"name": "Waypoint",
+		"slug": "waypoint",
+		"algoliaConfig": {
+			"indexName": "product_WAYPOINT",
+			"searchOnlyApiKey": "5e4adfd8094367056501547d6fedb6c5"
+		},
+		"analyticsConfig": {
+			"includedDomains": "waypointproject.io www.waypointproject.io",
+			"segmentWriteKey": "9mlIVayJbNtJW2EOdAFKHNKcdLAgEDlV"
+		},
+		"metadata": {
+			"title": "Waypoint by HashiCorp",
+			"description": "Waypoint is an open source solution that provides a modern workflow for build, deploy, and release across platforms.",
+			"image": "https://www.waypointproject.io/waypoint-public/img/og-image.png",
+			"icon": [
+				{
+					"href": "/waypoint-public/_favicon.ico"
+				}
+			]
+		},
+		"alertBannerActive": false,
+		"alertBanner": {
+			"tag": "New",
+			"url": "https://hashi.co/waypoint-beta",
+			"text": "Interested in participating in the HCP Waypoint Private Beta Program?",
+			"linkText": "Apply here",
+			"expirationDate": ""
+		},
+		"subnavItems": [
+			{
+				"text": "Overview",
+				"url": "/",
+				"type": "inbound"
+			},
+			{
+				"text": "Tutorials",
+				"url": "https://learn.hashicorp.com/waypoint",
+				"type": "inbound"
+			},
+			{
+				"text": "Docs",
+				"url": "/docs",
+				"type": "inbound"
+			},
+			{
+				"text": "CLI",
+				"url": "/commands",
+				"type": "inbound"
+			},
+			{
+				"text": "Plugins",
+				"url": "/plugins",
+				"type": "inbound"
+			},
+			{
+				"text": "Community",
+				"url": "/community",
+				"type": "inbound"
+			}
+		],
+		"basePaths": ["commands", "docs", "plugins", "tutorials", "downloads"],
+		"rootDocsPaths": [
+			{
+				"iconName": "docs",
+				"name": "General Documentation",
+				"path": "docs",
+				"shortName": "Documentation",
+				"includeMDXSource": true
+			},
+			{
+				"iconName": "terminal-screen",
+				"name": "CLI",
+				"path": "commands"
+			},
+			{
+				"iconName": "plug",
+				"name": "Plugins",
+				"path": "plugins"
+			}
+		],
+		"sidebar": {
+			"landingPageNavData": [
+				{
+					"title": "Introduction",
+					"fullPath": "/waypoint/docs/intro"
+				},
+				{
+					"title": "Getting Started",
+					"fullPath": "/waypoint/docs/getting-started"
+				}
+			]
+		},
+		"navigationHeaderItems": {
+			"documentation": [
+				{
+					"label": "General Documentation",
+					"icon": "docs",
+					"pathSuffix": "docs"
+				},
+				{
+					"label": "CLI",
+					"icon": "terminalScreen",
+					"pathSuffix": "commands"
+				},
+				{
+					"label": "Plugins",
+					"icon": "plug",
+					"pathSuffix": "plugins"
+				}
+			]
+		},
+		"description": "Learn to define your build, deploy, and release lifecycle with Waypoint.",
+		"docsUrl": "https://www.waypointproject.io",
+		"id": "68c85272-e2bf-4330-aa43-4ce4e6d899ee"
+	}
+}
