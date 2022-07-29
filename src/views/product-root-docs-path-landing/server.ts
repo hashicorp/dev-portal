@@ -138,36 +138,7 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 		...generatedProps,
 		props: {
 			...generatedProps.props,
-			/**
-			 * TODO: when running locally, quirky behaviour with Terraform docs.
-			 * Details on a temporary workaround to stop things from breaking below.
-			 *
-			 * NextJS seems to initially load `/terraform/docs` using the page file
-			 * `src/pages/[productSlug]/docs/index.tsx` as expected. However,
-			 * after a short time, and on client-side navigation to `terraform/docs`,
-			 * NextJS seems to switch to loading the same page using the page file
-			 * `src/pages/terraform/[rootDocsPath]/index.tsx`, even though this
-			 * latter page file explicitly does not list "docs" in getStaticPaths.
-			 *
-			 * As a result, if `mdxSource` is undefined, when rendering with the
-			 * latter page file we see a critical client-side error. By ensuring
-			 * `mdxSource` is always defined, we sidestep this issue somewhat.
-			 *
-			 * TODO: this a temporary solution while I figure out how to work
-			 * around this properly. I'm curious whether I'll see this same behaviour
-			 * in deploy previews, not just local development. This also feels like
-			 * a bit of a bug in NextJS - it seems like NextJS should either be able
-			 * to distinguish which page file to use in an unambiguous, consistent
-			 * way, or should be able to warn me if it can't do that rather than
-			 * switching up the page file depending on client-side vs hard reload
-			 * rendering (and even switching it up in dev after zero user input).
-			 *
-			 * For posterity, previously we did not pass `includeMDXSource` to the
-			 * client, and instead did the following:
-			 * mdxSource: includeMdxSource ? generatedProps.props.mdxSource : null,
-			 */
-			includeMDXSource,
-			mdxSource: generatedProps.props.mdxSource,
+			mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
 			layoutProps: {
 				...generatedProps.props.layoutProps,
 				githubFileUrl: null,
