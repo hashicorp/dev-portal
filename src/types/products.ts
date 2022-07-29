@@ -102,6 +102,12 @@ interface RootDocsPath {
 	 * If omitted, defaults to the basePath (`docs` → `docs-nav-data.json`).
 	 */
 	navDataPrefix?: string
+
+	/**
+	 * An optional property to specify which branch our
+	 * content API should pull from. Defaults to `main`.
+	 */
+	mainBranch?: string
 }
 
 /**
