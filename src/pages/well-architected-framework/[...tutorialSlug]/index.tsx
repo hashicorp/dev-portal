@@ -22,7 +22,7 @@ import { FeaturedInCollections } from 'views/tutorial-view/components'
 
 import { _tempCollectionSidebarPlaceholder } from '..'
 
-export default function TopicsTutorialPage({
+export default function GenericTutorialPage({
 	tutorial,
 	metadata,
 	layoutProps,
@@ -165,14 +165,6 @@ export async function getStaticProps({ params }) {
 			nextCollection,
 		}),
 	}
-
-	return {
-		props: stripUndefinedProperties({
-			content: serializedContent,
-			collectionContext,
-			...fullTutorialData,
-		}),
-	}
 }
 
 export async function getStaticPaths() {
@@ -195,4 +187,4 @@ export async function getStaticPaths() {
 	return { paths, fallback: false }
 }
 
-TopicsTutorialPage.layout = BaseNewLayout
+GenericTutorialPage.layout = BaseNewLayout
