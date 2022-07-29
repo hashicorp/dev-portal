@@ -34,7 +34,7 @@ const moizeOpts: Options = {
 const cachedGetCollection = moize(getCollection, moizeOpts)
 
 export async function getCurrentCollectionTutorial(
-	productSlug: ProductOption,
+	productSlug: ProductOption | 'well-architected-framework',
 	tutorialSlug: [string, string]
 ): Promise<CurrentCollectionTutorial> {
 	/**
