@@ -1,21 +1,10 @@
-import sentinelData from 'data/sentinel.json'
-import { ProductData } from 'types/products'
-import remarkSentinel from 'lib/remark-sentinel'
-import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
+import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
 
-const basePath = 'docs'
-const basePathForLoader = 'sentinel'
-const baseName = 'Docs'
-const product = sentinelData as ProductData
+const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
+	'sentinel',
+	'docs'
+)
 
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-	product,
-	basePath,
-	basePathForLoader,
-	baseName,
-	additionalRemarkPlugins: [remarkSentinel],
-})
-
-export { getStaticPaths, getStaticProps }
+export { getStaticProps, getStaticPaths }
 export default DocsView

@@ -1,8 +1,13 @@
 import { getStaticGenerationFunctions } from 'views/docs-view/server'
-import { ProductSlug } from 'types/products'
-import { GetStaticPaths, GetStaticProps } from 'next'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { removeIndexPath } from 'lib/remove-index-path'
+// types
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { ProductSlug, ProductData, RootDocsPath } from 'types/products'
+import { Pluggable } from 'unified'
+// product-specific
+import remarkSentinel from 'lib/remark-sentinel'
+import { getLatestVagrantVmwareVersion } from './get-latest-vagrant-vmware-version'
 
 /**
  * Generates static functions for use in a
@@ -26,6 +31,11 @@ export function getRootDocsPathGenerationFunctions(
 		product: productData,
 		productSlugForLoader: rootDocsPath.productSlugForLoader,
 		mainBranch: rootDocsPath.mainBranch,
+		additionalRemarkPlugins: getAdditionalRemarkPlugins(
+			productData,
+			rootDocsPath
+		),
+		getScope: generateGetScope(productData, rootDocsPath),
 	}
 	return {
 		getStaticPaths: async (context) => {
@@ -51,5 +61,44 @@ export function getRootDocsPathGenerationFunctions(
 				getStaticGenerationFunctions(staticFunctionConfig)
 			return await getStaticProps(context)
 		},
+	}
+}
+
+/**
+ * TODO: write function description
+ * Certain products, like Sentinel, require additional remark plugins.
+ * TODO: weren't we adding remark plugins elsewhere too? Should consolidate.
+ */
+function getAdditionalRemarkPlugins(
+	productData: ProductData,
+	rootDocsPath: RootDocsPath
+): Pluggable[] {
+	if (productData.slug == 'sentinel' && rootDocsPath.path == 'docs') {
+		return [remarkSentinel]
+	} else {
+		return []
+	}
+}
+
+/**
+ * TODO: write function description
+ * Certain products, like Vagrant, require specific MDX scope.
+ */
+type MdxScope = Record<string, unknown>
+
+/**
+ * TODO: write function description
+ * Certain products, like Vagrant, require specific MDX scope.
+ */
+function generateGetScope(
+	productData: ProductData,
+	rootDocsPath: RootDocsPath
+): () => Promise<MdxScope> {
+	if (productData.slug == 'sentinel' && rootDocsPath.path == 'docs') {
+		return async () => ({
+			VMWARE_UTILITY_VERSION: await getLatestVagrantVmwareVersion(),
+		})
+	} else {
+		return undefined
 	}
 }
