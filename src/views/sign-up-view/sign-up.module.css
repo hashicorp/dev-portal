@@ -14,11 +14,11 @@
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 55px;
+	display: flex;
+	justify-content: center;
 
 	@media (--dev-dot-tablet-up) {
-		display: flex;
 		align-items: center;
-		justify-content: center;
 		padding: 0;
 		flex-grow: 1;
 	}
@@ -84,6 +84,7 @@
 	/* properties */
 	background-color: var(--token-color-foreground-strong);
 	height: 60vh;
+	overflow: hidden;
 	position: relative;
 
 	@media (--dev-dot-tablet-up) {
