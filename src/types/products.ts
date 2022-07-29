@@ -102,24 +102,6 @@ interface RootDocsPath {
 	 * If omitted, defaults to the basePath (`docs` → `docs-nav-data.json`).
 	 */
 	navDataPrefix?: string
-
-	/**
-	 * An optional property to signal that this root docs path is meant
-	 * to render a "custom" landing page.
-	 *
-	 * These "custom" landing pages are, for now, intended to be rendered using
-	 * a separate page file. Specifically:
-	 * - Terraform standard docs views are meant to be rendered with the
-	 *   `pages/terraform/[...allDocs].tsx` page file
-	 * - Terraform "custom" docs landing pages are meant to be rendered with the
-	 *   `pages/[productSlug]/docs/index.tsx` page file
-	 *
-	 * TODO: this approach currently does not seem to work reliably,
-	 * likely due to routing quirks and conflicts between those two page files.
-	 *
-	 * Asana task: https://app.asana.com/0/1202097197789424/1202685617704813/f
-	 */
-	hasCustomLandingPage?: boolean
 }
 
 /**
