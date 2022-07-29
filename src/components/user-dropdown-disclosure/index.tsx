@@ -43,6 +43,7 @@ const renderItem = ({
  * authenticated users.
  */
 const UserDropdownDisclosure = ({
+	className,
 	items,
 	listPosition,
 	user,
@@ -52,6 +53,7 @@ const UserDropdownDisclosure = ({
 	return (
 		<DropdownDisclosure
 			aria-label="User menu"
+			className={className}
 			icon={icon}
 			listPosition={listPosition}
 		>
