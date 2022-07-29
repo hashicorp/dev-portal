@@ -1,15 +1,25 @@
+// Third-party imports
 import { ForwardedRef, forwardRef } from 'react'
 import classNames from 'classnames'
 import { m, useReducedMotion } from 'framer-motion'
-import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
+
+// HashiCorp imports
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
+
+// Global imports
+import { getUserMenuItems } from 'lib/auth/user'
 import { useMobileMenu } from 'contexts'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import ButtonLink from 'components/button-link'
+
+// Local imports
 import { MobileMenuContainerProps } from './types'
+import { MobileUserDisclosure } from './components'
 import s from './mobile-menu-container.module.css'
 
+// Constants
 const MOBILE_MENU_MOTION = {
 	visible: {
 		left: 0,
@@ -26,38 +36,43 @@ const MOBILE_MENU_MOTION = {
 /**
  * Handles rendering the Sign In and Sign Up UI elements in mobile viewports.
  * Intended to be used alongside `MobileMenuContainer`.
- *
- * @TODO Render user dropdown disclosure for authenticated users
- * ref: https://app.asana.com/0/1202097197789424/1202665629707469/f
  */
 const MobileAuthenticationControls = () => {
-	const { isAuthEnabled, isAuthenticated, isLoading, signIn } =
+	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
 		useAuthentication()
-	const shouldShowAuthButtons = isAuthEnabled && !isLoading && !isAuthenticated
 
-	if (!shouldShowAuthButtons) {
+	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
 		return null
 	}
 
-	return (
-		<div className={s.mobileAuthenticationControls}>
-			<ButtonLink
-				href="/sign-up"
-				icon={<IconUserPlus16 />}
-				iconPosition="trailing"
-				size="small"
-				text="Sign Up"
-			/>
-			<Button
-				color="secondary"
-				icon={<IconArrowRight16 />}
-				iconPosition="trailing"
-				onClick={() => signIn()}
-				size="small"
-				text="Sign In"
-			/>
-		</div>
-	)
+	let content
+	if (showUnauthenticatedUI) {
+		content = (
+			<>
+				<ButtonLink
+					href="/sign-up"
+					icon={<IconUserPlus16 />}
+					iconPosition="trailing"
+					size="small"
+					text="Sign Up"
+				/>
+				<Button
+					color="secondary"
+					icon={<IconArrowRight16 />}
+					iconPosition="trailing"
+					onClick={() => signIn()}
+					size="small"
+					text="Sign In"
+				/>
+			</>
+		)
+	} else if (showAuthenticatedUI) {
+		content = (
+			<MobileUserDisclosure items={getUserMenuItems({ signOut })} user={user} />
+		)
+	}
+
+	return <div className={s.mobileAuthenticationControls}>{content}</div>
 }
 
 // eslint-disable-next-line react/display-name

@@ -2,14 +2,12 @@
 import { useRouter } from 'next/router'
 
 // HashiCorp imports
-import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
-import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
-import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
 // Global imports
+import { getUserMenuItems } from 'lib/auth/user'
 import useAuthentication from 'hooks/use-authentication'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
 import Button from 'components/button'
@@ -78,23 +76,7 @@ const AuthenticationControls = () => {
 			<UserDropdownDisclosure
 				className={s.userDropdownDisclosure}
 				listPosition="right"
-				items={[
-					{
-						href: '/bookmarks',
-						icon: <IconBookmark16 />,
-						label: 'Bookmarks',
-					},
-					{
-						href: 'https://portal.cloud.hashicorp.com/account-settings',
-						icon: <IconExternalLink16 />,
-						label: 'Account Settings',
-					},
-					{
-						icon: <IconSignOut16 />,
-						label: 'Sign Out',
-						onClick: () => signOut(),
-					},
-				]}
+				items={getUserMenuItems({ signOut })}
 				user={user}
 			/>
 		)
