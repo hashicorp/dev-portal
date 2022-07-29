@@ -20,6 +20,7 @@ type UserDropdownDisclosureItem =
 	  }
 
 interface UserDropdownDisclosureProps {
+	className?: DropdownDisclosureProps['className']
 	items: UserDropdownDisclosureItem[]
 	listPosition?: DropdownDisclosureProps['listPosition']
 	user: UserData

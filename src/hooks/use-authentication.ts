@@ -57,8 +57,11 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 	})
 
 	// Deriving booleans about auth state
+	const isAuthEnabled = AUTH_ENABLED
 	const isLoading = status === 'loading'
 	const isAuthenticated = status === 'authenticated'
+	const showAuthenticatedUI = isAuthenticated
+	const showUnauthenticatedUI = isAuthEnabled && !isLoading && !isAuthenticated
 
 	// Separating user and session data
 	let session: SessionData, user: UserData
@@ -70,10 +73,12 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 
 	// Return everything packaged up in an object
 	return {
-		isAuthEnabled: AUTH_ENABLED,
+		isAuthEnabled,
 		isAuthenticated,
 		isLoading,
 		session,
+		showAuthenticatedUI,
+		showUnauthenticatedUI,
 		signIn: signInWrapper,
 		signOut: signOutWrapper,
 		status,
