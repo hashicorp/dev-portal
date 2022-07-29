@@ -321,6 +321,11 @@ export function getRootDocsPathStaticGenFunctions(productSlug: ProductSlug): {
 		},
 		getStaticProps: async ({ params }) => {
 			const staticProps = await getStaticProps({ params }, productData)
+			/**
+			 * Note that { revalidate: false } is necessary here,
+			 * as we need to ensure we do not try to revalidate routes such
+			 * as /terraform/install, /terraform/tutorials, etc etc.
+			 */
 			return { ...staticProps, revalidate: false }
 		},
 	}
