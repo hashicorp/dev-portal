@@ -41,9 +41,14 @@ const MobileAuthenticationControls = () => {
 	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
 		useAuthentication()
 
+	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
+		return null
+	}
+
+	let content
 	if (showUnauthenticatedUI) {
-		return (
-			<div className={s.mobileAuthenticationControls}>
+		content = (
+			<>
 				<ButtonLink
 					href="/sign-up"
 					icon={<IconUserPlus16 />}
@@ -59,17 +64,15 @@ const MobileAuthenticationControls = () => {
 					size="small"
 					text="Sign In"
 				/>
-			</div>
+			</>
 		)
-	}
-
-	if (showAuthenticatedUI) {
-		return (
+	} else if (showAuthenticatedUI) {
+		content = (
 			<MobileUserDisclosure items={getUserMenuItems({ signOut })} user={user} />
 		)
 	}
 
-	return null
+	return <div className={s.mobileAuthenticationControls}>{content}</div>
 }
 
 // eslint-disable-next-line react/display-name
