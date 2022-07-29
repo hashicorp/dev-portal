@@ -78,6 +78,10 @@
 }
 
 .aside {
+	/* composition */
+	composes: g-hide-on-mobile from global;
+
+	/* properties */
 	background-color: var(--token-color-foreground-strong);
 	height: 60vh;
 	position: relative;
