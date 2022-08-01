@@ -1,0 +1,46 @@
+on:
+  workflow_call:
+    inputs:
+      repository:
+        required: true
+        type: string
+      source_branch:
+        required: true
+        type: string
+      target_branch:
+        required: true
+        type: string
+    secrets:
+      GH_TOKEN_SYNC_DEV_PORTAL_BRANCH:
+        required: true
+
+jobs:
+  merge-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_TOKEN_SYNC_DEV_PORTAL_BRANCH }}
+          repository: hashicorp/${{ inputs.repository }}
+
+      - name: 'Merge ${{ inputs.source_branch }} into ${{ inputs.target_branch }}'
+        uses: actions/github-script@v6
+        env:
+          REPOSITORY: '${{ inputs.repository }}'
+          SOURCE_BRANCH: '${{ inputs.source_branch }}'
+          TARGET_BRANCH: '${{ inputs.target_branch }}'
+        with:
+          github-token: ${{ secrets.GH_TOKEN_SYNC_DEV_PORTAL_BRANCH }}
+          script: |
+            const { REPOSITORY, SOURCE_BRANCH, TARGET_BRANCH } = process.env
+            const commitMessage = `[Automated] Merged ${SOURCE_BRANCH} into target: ${TARGET_BRANCH}`
+
+            // https://octokit.github.io/rest.js/v18#repos-merge
+            await github.rest.repos.merge({
+              owner: 'hashicorp',
+              repo: REPOSITORY,
+              base: TARGET_BRANCH,
+              head: SOURCE_BRANCH,
+              commit_message: commitMessage
+            })
