@@ -30,7 +30,7 @@ export default function DevDotOptIn() {
 		const newURL = getDevDotLink(slug, asPath)
 
 		// Set a cookie to ensure any future navigation will send them to dev dot
-		Cookies.set('waypoint-io-beta-opt-in', true, {
+		Cookies.set(`${slug}-io-beta-opt-in`, true, {
 			expires: DAYS_UNTIL_EXPIRE,
 		})
 
@@ -43,9 +43,9 @@ export default function DevDotOptIn() {
 			<p className={s.alert}>
 				The {name} website is being redesigned to help you find what you are
 				looking for more effectively.
-				<button className={s.optInLink} onClick={handleOptIn}>
+				<a className={s.optInLink} onClick={handleOptIn}>
 					Join the Beta
-				</button>
+				</a>
 			</p>
 		</div>
 	)
