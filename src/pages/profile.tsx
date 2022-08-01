@@ -3,7 +3,7 @@ import BaseNewLayout from 'layouts/base-new'
 import ProfileView from 'views/profile-view'
 
 const ProfilePage = () => {
-	const { user, session } = useAuthentication()
+	const { user } = useAuthentication()
 
 	return <ProfileView user={user} />
 }
