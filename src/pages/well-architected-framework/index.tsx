@@ -12,9 +12,12 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import processPageData from 'views/product-tutorials-view/helpers/process-page-data'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import { SidebarProps } from 'components/sidebar'
+import { PageSlugOption } from 'lib/learn-client/api/page'
 
-export const WAF_SLUG = 'well-architected-framework'
-export const WAF_NAME = 'Well Architected Framework'
+export const wafData = {
+	slug: 'well-architected-framework',
+	name: 'Well Architected Framework',
+}
 
 export default function WellArchitectedFrameworkLanding(props) {
 	const { data, layoutProps } = props
@@ -34,9 +37,9 @@ export default function WellArchitectedFrameworkLanding(props) {
 		<SidebarSidecarLayout
 			headings={layoutProps.headings}
 			sidebarNavDataLevels={[
-				generateTopLevelSidebarNavData(WAF_NAME) as SidebarProps,
+				generateTopLevelSidebarNavData(wafData.name) as SidebarProps,
 				{
-					title: WAF_NAME,
+					title: wafData.name,
 					levelButtonProps: {
 						levelUpButtonText: 'Main Menu',
 						levelDownButtonText: 'Previous',
@@ -64,13 +67,13 @@ export async function getStaticProps() {
 		pageData: rawPageData,
 		inlineCollections,
 		inlineTutorials,
-	} = await getProductPageContent(WAF_SLUG)
+	} = await getProductPageContent(wafData.slug as PageSlugOption)
 	const { pageData } = await processPageData(rawPageData)
-	const wafCollections = await getCollectionsBySection(WAF_SLUG)
+	const wafCollections = await getCollectionsBySection(wafData.slug)
 	const layoutProps = {
 		headings: buildLayoutHeadings(pageData),
 		breadcrumbLinks: getTutorialsBreadcrumb({
-			product: { name: WAF_NAME, filename: WAF_SLUG },
+			product: { name: wafData.name, filename: wafData.slug },
 		}),
 		sidebarSections: wafCollections,
 	}
