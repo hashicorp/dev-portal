@@ -24,13 +24,18 @@ import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import processPageData from 'views/product-tutorials-view/helpers/process-page-data'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
+import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
+import { SidebarMobileControlsProps } from 'components/sidebar/components/sidebar-mobile-controls'
+import { SidebarProps } from 'components/sidebar'
 
 export const WAF_SLUG = 'well-architected-framework'
 
 // TODO - figure out betta API solution to serve sidebar data
 // right now its fetching ALL collections and filtering based on the slug
 export default function WellArchitectedFrameworkLanding(props) {
-	const { pageData, layoutProps } = props
+	const { data, layoutProps } = props
+	const { pageData, inlineCollections, inlineTutorials } = data
+	console.log({ props })
 
 	const PageHeading = () => {
 		const { title, level, slug } = getOverviewHeading()
@@ -42,33 +47,33 @@ export default function WellArchitectedFrameworkLanding(props) {
 	}
 
 	return (
-		<>
+		<SidebarSidecarLayout
+			headings={layoutProps.headings}
+			sidebarNavDataLevels={[
+				generateTopLevelSidebarNavData(
+					'Well Architected Framework'
+				) as SidebarProps,
+				{
+					title: 'Well Architected Framework',
+					levelButtonProps: {
+						levelUpButtonText: 'Main Menu',
+						levelDownButtonText: 'Previous',
+					},
+					menuItems: layoutProps.sidebarSections.map((section) => ({
+						title: section.name,
+						fullPath: section.slug,
+					})),
+					showFilterInput: false,
+				},
+			]}
+		>
 			<PageHeading />
 			<ProductViewContent
 				blocks={pageData.blocks}
-				inlineCollections={pageData.inlineCollections}
-				inlineTutorials={pageData.inlineTutorials}
+				inlineCollections={inlineCollections}
+				inlineTutorials={inlineTutorials}
 			/>
-		</>
-	)
-}
-
-export function _tempCollectionSidebarPlaceholder({ collections }) {
-	return (
-		<>
-			<Heading level={1} size={500} weight="bold">
-				All Collections
-			</Heading>
-			<ul>
-				{collections.map((collection) => (
-					<li key={collection.id}>
-						<Link href={`/${collection.slug}`}>
-							<a>{collection.name}</a>
-						</Link>
-					</li>
-				))}
-			</ul>
-		</>
+		</SidebarSidecarLayout>
 	)
 }
 
@@ -102,5 +107,3 @@ export async function getStaticProps() {
 		}),
 	}
 }
-
-WellArchitectedFrameworkLanding.layout = BaseNewLayout
