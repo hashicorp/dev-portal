@@ -22,7 +22,8 @@ export const wafData = {
 	 * TODO: figure out where this data should live. It could be here for now as a workaround
 	 * Problem: we don't have a way to generate these sidebar categories currently
 	 * via the tutorials repo data. We could add these to the generic waf page data, or create a new
-	 * data file in dev dot to store this data for now.
+	 * data file in dev dot to store this data for now. We could also generate based on the page block
+	 * organization.
 	 */
 	sidebarCategories: [
 		{
@@ -49,15 +50,6 @@ export default function WellArchitectedFrameworkLanding(props) {
 	const { data, layoutProps } = props
 	const { pageData, inlineCollections, inlineTutorials } = data
 	console.log({ props })
-
-	const PageHeading = () => {
-		const { title, level, slug } = getOverviewHeading()
-		return (
-			<Heading id={slug} level={level} size={500} weight="bold">
-				{title}
-			</Heading>
-		)
-	}
 
 	return (
 		<SidebarSidecarLayout
@@ -86,7 +78,12 @@ export default function WellArchitectedFrameworkLanding(props) {
 				},
 			]}
 		>
-			<PageHeading />
+			<h1>WAF Callout here</h1>
+			<div>
+				<h3>What is the Well Architected Framework?</h3>
+				<p>{pageData.description}</p>
+				<p>image here</p>
+			</div>
 			<ProductViewContent
 				blocks={pageData.blocks}
 				inlineCollections={inlineCollections}

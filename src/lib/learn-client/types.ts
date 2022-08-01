@@ -197,6 +197,8 @@ export enum ProductOption {
 	waypoint = 'waypoint',
 }
 
+export type GenericPageOption = 'well-architected-framework'
+
 export enum EditionOption {
 	openSource = 'open_source',
 	enterprise = 'enterprise',
@@ -225,6 +227,11 @@ export enum CollectionCategoryOption {
 	integrations = 'Integrations',
 	kubernetes = 'Kubernetes',
 	operations = 'Operations',
+}
+
+export enum WafCollectionCategoryOption {
+	framework_pillar = 'Framework Pillars',
+	reference_architecture = 'Reference Architectures',
 }
 
 export type CollectionLevelOption =
