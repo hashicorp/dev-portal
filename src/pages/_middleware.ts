@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
+import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 
@@ -30,6 +31,8 @@ function determineProductSlug(req: NextRequest): string {
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// Handle redirects
 	const product = determineProductSlug(req)
+	// Set's a cookie named hc_geo on the response
+	let response = setGeoCookie(req)
 
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
@@ -70,7 +73,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// Handle Opt-in cookies
 	const optInPlatform = params.get('optInFrom') as OptInPlatformOption
 	const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
-	const response = NextResponse.next()
+	response = NextResponse.next()
 
 	if (optInPlatform && !hasOptedIn) {
 		response.cookie(`${optInPlatform}-beta-opt-in`, 'true', {
