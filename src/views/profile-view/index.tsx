@@ -4,16 +4,17 @@ import Heading from 'components/heading'
 import BaseNewLayout from 'layouts/base-new'
 import AuthenticatedView from 'views/authenticated-view'
 import { ProfileViewProps } from './types'
+import DynamicBookmarksList from './components/dynamic-bookmarks-list'
 import s from './profile-view.module.css'
 
 /**
  * The exported view component that handles wrapping the view content in
  * `AuthenticatedView`, which automatically handles rendering gated content.
  */
-const ProfileView = ({ user, bookmarks }: ProfileViewProps) => {
+const ProfileView = ({ user }: ProfileViewProps) => {
 	return (
 		<AuthenticatedView>
-			<ProfileViewContent user={user} bookmarks={bookmarks} />
+			<ProfileViewContent user={user} />
 		</AuthenticatedView>
 	)
 }
@@ -21,7 +22,7 @@ const ProfileView = ({ user, bookmarks }: ProfileViewProps) => {
 /**
  * The content of the ProfileView that is gated behind authentication.
  */
-const ProfileViewContent = ({ user, bookmarks }: ProfileViewProps) => {
+const ProfileViewContent = ({ user }: ProfileViewProps) => {
 	const { image, ...restProperties } = user
 
 	/**
@@ -49,18 +50,7 @@ const ProfileViewContent = ({ user, bookmarks }: ProfileViewProps) => {
 				</ul>
 				<Button color="secondary" onClick={() => signOut()} text="Sign Out" />
 
-				<Heading level={1} size={500} weight="bold">
-					Bookmarks
-				</Heading>
-				<ul>
-					{bookmarks && bookmarks.map((bookmark) => {
-						return (
-							<li>
-								{bookmark.tutorial.name}
-							</li>
-						)
-					})}
-				</ul>
+				<DynamicBookmarksList />
 			</div>
 		</div>
 	)
