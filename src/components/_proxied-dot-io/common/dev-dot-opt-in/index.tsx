@@ -1,10 +1,10 @@
+import { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
 import { IconAlertCircleFill16 } from '@hashicorp/flight-icons/svg-react/alert-circle-fill-16'
 import useProductMeta from '@hashicorp/platform-product-meta'
-import Cookies from 'js-cookie'
+import { ProductData, ProductSlug } from 'types/products'
 import { isContentDeployPreview } from 'lib/env-checks'
 import getIsBetaProduct from 'lib/get-is-beta-product'
-import { useRouter } from 'next/router'
-import { ProductData, ProductSlug } from 'types/products'
 import s from './dev-dot-opt-in.module.css'
 
 const DAYS_UNTIL_EXPIRE = 180
