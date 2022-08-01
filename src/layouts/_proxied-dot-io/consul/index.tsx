@@ -24,7 +24,7 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 		includedDomains: productData.analyticsConfig.includedDomains,
 	})
 	const { themeClass } = useProductMeta(productData.name as Products)
-	const { useCaseNavItems = [] } = data ?? {}
+	const { consulNav } = data ?? {}
 
 	return (
 		<>
@@ -47,18 +47,19 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 				<ProductSubnav
 					menuItems={[
 						{ text: 'Overview', url: '/' },
-						{
-							text: 'Use Cases',
-							submenu: [
-								{ text: 'Consul on Kubernetes', url: '/consul-on-kubernetes' },
-								...useCaseNavItems.map((item) => {
-									return {
-										text: item.text,
-										url: `/use-cases/${item.url}`,
-									}
-								}),
-							].sort((a, b) => a.text.localeCompare(b.text)),
-						},
+						consulNav.useCases.length > 0
+							? {
+									text: 'Use Cases',
+									submenu: [
+										...consulNav.useCases.map((item: UseCase) => {
+											return {
+												text: item.text,
+												url: `/use-cases/${item.url}`,
+											}
+										}),
+									],
+							  }
+							: undefined,
 						{
 							text: 'Enterprise',
 							url: 'https://www.hashicorp.com/products/consul/?utm_source=oss&utm_medium=header-nav&utm_campaign=consul',
@@ -90,7 +91,7 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 							url: '/community',
 							type: 'inbound',
 						},
-					]}
+					].filter(Boolean)}
 				/>
 				<div className={themeClass}>{children}</div>
 			</Min100Layout>
@@ -104,10 +105,17 @@ ConsulIoLayout.rivetParams = {
 	dependencies: [],
 }
 
+interface UseCase {
+	url: string;
+	text: string
+}
+
 interface Props {
 	children: React.ReactChildren
 	data: {
-		useCaseNavItems: Array<{ url: string; text: string }>
+		consulNav: {
+			useCases: Array<UseCase>
+		}
 	}
 }
 
