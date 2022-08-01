@@ -137,6 +137,10 @@ export async function getCollectionsBySection(section: string) {
 
 	if (getSectionCollections.ok) {
 		const res = await getSectionCollections.json()
+		if (res.result.length === 0) {
+			console.warn(`No collections found for section query: ${section}`)
+		}
+
 		return res.result
 	}
 
