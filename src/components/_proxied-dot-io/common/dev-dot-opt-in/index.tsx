@@ -1,8 +1,10 @@
 import { IconAlertCircleFill16 } from '@hashicorp/flight-icons/svg-react/alert-circle-fill-16'
 import useProductMeta from '@hashicorp/platform-product-meta'
 import Cookies from 'js-cookie'
+import { isContentDeployPreview } from 'lib/env-checks'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import { useRouter } from 'next/router'
-import { ProductData } from 'types/products'
+import { ProductData, ProductSlug } from 'types/products'
 import s from './dev-dot-opt-in.module.css'
 
 const DAYS_UNTIL_EXPIRE = 180
@@ -30,6 +32,17 @@ export default function DevDotOptIn({ product }: { product?: ProductData }) {
 	// Prefer `product` prop over `productMeta`
 	const productName = product?.name || productMeta.name
 	const productSlug = product?.slug || productMeta.slug
+
+	// Based on our config values, decide whether or not we should render the CTA
+	const shouldRenderOptInCTA =
+		!isContentDeployPreview(productSlug) &&
+		getIsBetaProduct(productSlug as ProductSlug) &&
+		__config.flags.enable_io_beta_cta
+
+	// Return `null` if the CTA should not be rendered
+	if (!shouldRenderOptInCTA) {
+		return null
+	}
 
 	function handleOptIn() {
 		// Set a cookie to ensure any future navigation will send them to dev dot
