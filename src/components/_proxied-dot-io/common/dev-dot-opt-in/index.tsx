@@ -1,7 +1,10 @@
+import { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
 import { IconAlertCircleFill16 } from '@hashicorp/flight-icons/svg-react/alert-circle-fill-16'
 import useProductMeta from '@hashicorp/platform-product-meta'
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/router'
+import { ProductSlug } from 'types/products'
+import { isContentDeployPreview } from 'lib/env-checks'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import s from './dev-dot-opt-in.module.css'
 
 const DAYS_UNTIL_EXPIRE = 180
@@ -23,18 +26,25 @@ const getDevDotLink = (product, path) => {
  * Largely copied from: https://github.com/hashicorp/learn/pull/4480
  */
 export default function DevDotOptIn() {
-	const { name, slug } = useProductMeta()
 	const { asPath } = useRouter()
+	const { name, slug } = useProductMeta()
+
+	// Based on our config values, decide whether or not we should render the CTA
+	const shouldRenderOptInCTA =
+		!isContentDeployPreview(slug) &&
+		getIsBetaProduct(slug as ProductSlug) &&
+		__config.flags.enable_io_beta_cta
+
+	// Return `null` if the CTA should not be rendered
+	if (!shouldRenderOptInCTA) {
+		return null
+	}
 
 	function handleOptIn() {
-		const newURL = getDevDotLink(slug, asPath)
-
 		// Set a cookie to ensure any future navigation will send them to dev dot
-		Cookies.set('waypoint-io-beta-opt-in', true, {
+		Cookies.set(`${slug}-io-beta-opt-in`, true, {
 			expires: DAYS_UNTIL_EXPIRE,
 		})
-
-		window.location.assign(newURL)
 	}
 
 	return (
@@ -43,9 +53,13 @@ export default function DevDotOptIn() {
 			<p className={s.alert}>
 				The {name} website is being redesigned to help you find what you are
 				looking for more effectively.
-				<button className={s.optInLink} onClick={handleOptIn}>
+				<a
+					className={s.optInLink}
+					href={getDevDotLink(slug, asPath)}
+					onClick={handleOptIn}
+				>
 					Join the Beta
-				</button>
+				</a>
 			</p>
 		</div>
 	)
