@@ -1,0 +1,77 @@
+---
+componentName: 'NavigationItem'
+---
+
+<LiveComponent>{`
+<>
+  <NavigationItem
+    item={{
+      heading: "Test Heading"
+    }}
+  />
+  <NavigationItem
+    item={{
+      divider: true
+    }}
+  />
+  <NavigationItem
+    item={{
+      title: 'Basic expandable item',
+      routes: []
+    }}
+  />
+  <NavigationItem
+    item={{
+      badge: {
+        color: 'highlight',
+        text: 'Beta',
+      },
+      title: 'Expandable item with Badge',
+      routes: []
+    }}
+  />
+  <NavigationItem
+    item={{
+      badge: {
+        color: 'highlight',
+        text: 'Beta',
+      },
+      leadingIconName: 'waypoint',
+      title: 'Expandable item with leading icon and Badge and a whole lot of text in the title that is probably way too long',
+      routes: []
+    }}
+  />
+  <NavigationItem
+    item={{
+      badge: {
+        color: 'highlight',
+        text: 'Beta',
+      },
+      href: '/waypoint',
+      isActive: false,
+      leadingIconName: 'waypoint',
+      title: 'Internal LinkNavigationItem',
+    }}
+  />
+  <NavigationItem
+    item={{
+      badge: {
+        color: 'neutral',
+        text: 'Deprecated',
+        type: 'outlined'
+      },
+      href: 'https://www.waypointproject.io/',
+      isActive: false,
+      leadingIconName: 'waypoint',
+      title: 'External LinkNavigationItem with a badge and a bunch of content and text in it',
+    }}
+  />
+  <NavigationItem
+    item={{
+      isActive: false,
+      leadingIconName: 'waypoint',
+      title: 'Disabled Link Nav Item',
+    }}
+  />
+</>
+`}</LiveComponent>

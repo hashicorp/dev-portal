@@ -1,0 +1,7 @@
+.root {
+  composes: hds-font-weight-semibold from global;
+  composes: hds-typography-body-100 from global;
+  color: var(--token-color-foreground-primary);
+  padding-left: 8px;
+  padding-right: 8px;
+}
