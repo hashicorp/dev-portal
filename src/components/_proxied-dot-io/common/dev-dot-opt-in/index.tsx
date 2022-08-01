@@ -27,14 +27,10 @@ export default function DevDotOptIn() {
 	const { asPath } = useRouter()
 
 	function handleOptIn() {
-		const newURL = getDevDotLink(slug, asPath)
-
 		// Set a cookie to ensure any future navigation will send them to dev dot
 		Cookies.set(`${slug}-io-beta-opt-in`, true, {
 			expires: DAYS_UNTIL_EXPIRE,
 		})
-
-		window.location.assign(newURL)
 	}
 
 	return (
@@ -43,7 +39,11 @@ export default function DevDotOptIn() {
 			<p className={s.alert}>
 				The {name} website is being redesigned to help you find what you are
 				looking for more effectively.
-				<a className={s.optInLink} onClick={handleOptIn}>
+				<a
+					className={s.optInLink}
+					href={getDevDotLink(slug, asPath)}
+					onClick={handleOptIn}
+				>
 					Join the Beta
 				</a>
 			</p>
