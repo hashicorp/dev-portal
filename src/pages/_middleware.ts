@@ -31,8 +31,8 @@ function determineProductSlug(req: NextRequest): string {
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// Handle redirects
 	const product = determineProductSlug(req)
-	// Set's a cookie named hc_geo on the response
-	let response = setGeoCookie(req)
+	// Sets a cookie named hc_geo on the response
+	const response = setGeoCookie(req)
 
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
@@ -73,7 +73,6 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// Handle Opt-in cookies
 	const optInPlatform = params.get('optInFrom') as OptInPlatformOption
 	const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
-	response = NextResponse.next()
 
 	if (optInPlatform && !hasOptedIn) {
 		response.cookie(`${optInPlatform}-beta-opt-in`, 'true', {
