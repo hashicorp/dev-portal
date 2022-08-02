@@ -32,7 +32,7 @@ export default function WellArchitectedFrameworkLandingView(props) {
 						{
 							title: 'Overview',
 							isActive: true,
-							fullPath: `/${metadata.slug}`,
+							href: `/${metadata.slug}`,
 						},
 						...layoutProps.sidebarSections,
 					],

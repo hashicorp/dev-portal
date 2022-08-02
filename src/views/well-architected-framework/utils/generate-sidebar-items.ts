@@ -21,32 +21,36 @@ export function buildCategorizedWafSidebar(
 			.sort(sortAlphabetically('name'))
 			.map((collection: ApiCollection) => [
 				collection.slug,
-				{ title: collection.name, fullPath: collection.slug, isActive: false },
+				{ title: collection.name, href: collection.slug, isActive: false },
 			])
 	)
 	const categorizedItems = []
 
-	// go into the categories, build a section
+	// build a sidebar section per category
 	sidebarCategories.map((category: SidebarCategory) => {
-		const items = category.collections
+		const sectionHeading = [{ divider: true }, { heading: category.name }]
+		const sectionItems = category.collections
 			.map((collectionSlug: string) => {
+				// find the categorized collection based on its slug
 				const item = collections.find(
 					(collection: ApiCollection) => collection.slug === collectionSlug
 				)
-				// if it exists in the category, remove it from 'uncategorized'list
-				if (item) {
-					uncategorizedItems.delete(collectionSlug)
+				if (!item) {
+					return
 				}
+
+				// remove categozied item from 'uncategorized'list
+				uncategorizedItems.delete(collectionSlug)
 				return item
 			})
 			.sort(sortAlphabetically('name'))
+
 		categorizedItems.push(
-			{ divider: true },
-			{ heading: category.name },
-			...items.map((item: ApiCollection) => ({
+			...sectionHeading,
+			...sectionItems.map((item: ApiCollection) => ({
 				title: item.name,
 				isActive: false,
-				fullPath: item.slug,
+				href: item.slug,
 			}))
 		)
 	})
