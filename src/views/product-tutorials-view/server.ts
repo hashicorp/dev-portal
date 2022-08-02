@@ -1,6 +1,9 @@
 import { LearnProductData } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import { getAllCollections } from 'lib/learn-client/api/collection'
+import {
+	getAllCollections,
+	getCollectionsBySection,
+} from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { sortAlphabetically } from 'lib/sort-alphabetically'
@@ -19,9 +22,8 @@ import { ProductViewBlock } from './components/product-view-content'
 import { ProductTutorialsSitemapProps } from './components/sitemap/types'
 import { formatSitemapCollection } from './components/sitemap/helpers'
 import { ThemeOption } from 'lib/learn-client/types'
-import fs from 'fs'
-import path from 'path'
 import { cachedGetProductData } from 'lib/get-product-data'
+import { generateHcpSidebarSections } from './helpers/generate-hcp-sidebar-sections'
 
 export interface ProductTutorialsViewProps {
 	data: ProductPageData
@@ -70,18 +72,12 @@ export interface ProductPageData {
 export async function getCloudTutorialsViewProps() {
 	const productData = cachedGetProductData('hcp')
 	/**
-	 * Grab fallback props (Waypoint's), so that the view can render
-	 * even if there are gaps in what HCP content we can provide
+	 * Build the sidebar, which for now is some stubbed in 'cloud' collections.
+	 * TODO: once /hcp/tutorials page designs are ready, revise this to match.
 	 */
-	const tempFallbackProps = JSON.parse(
-		fs.readFileSync(
-			path.join(
-				process.cwd(),
-				'src/views/product-tutorials-view/server-temp-hcp-fallback-content.json'
-			),
-			'utf8'
-		)
-	)
+	const hcpCollections = await getCollectionsBySection('cloud')
+	const sidebarSections = generateHcpSidebarSections(hcpCollections)
+
 	/**
 	 * Get the raw page data
 	 */
@@ -111,7 +107,7 @@ export async function getCloudTutorialsViewProps() {
 				breadcrumbLinks: getTutorialsBreadcrumb({
 					product: { name: productData.name, filename: productData.slug },
 				}),
-				sidebarSections: tempFallbackProps.layoutProps.sidebarSections, // TODO: stop using Waypoint props as temp fallback
+				sidebarSections,
 			},
 			product: {
 				/**
@@ -126,7 +122,11 @@ export async function getCloudTutorialsViewProps() {
 				description:
 					'HashiCorp Cloud Platform (HCP) is a fully managed platform offering HashiCorp products as a service to automate infrastructure on any cloud.',
 				docsUrl: 'https://cloud.hashicorp.com/',
-				id: tempFallbackProps.product.id, // TODO: stop using Waypoint props as temp fallback. Also,need to confirm where ID is used on ProductTutorialsView (mobile sidebar lazy fetching of Learn content? That's a guess.)
+				/**
+				 * TODO: this isn't right, need to confirm how this is used
+				 * on the client side, to figure out what to do here.
+				 */
+				id: 'fake-hcp-learn-product-id',
 			},
 		}),
 	}
