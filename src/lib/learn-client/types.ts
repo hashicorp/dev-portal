@@ -197,7 +197,6 @@ export enum ProductOption {
 	waypoint = 'waypoint',
 }
 
-
 export enum EditionOption {
 	openSource = 'open_source',
 	enterprise = 'enterprise',
