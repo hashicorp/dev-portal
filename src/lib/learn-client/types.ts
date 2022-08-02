@@ -197,7 +197,6 @@ export enum ProductOption {
 	waypoint = 'waypoint',
 }
 
-export type GenericPageOption = 'well-architected-framework'
 
 export enum EditionOption {
 	openSource = 'open_source',
