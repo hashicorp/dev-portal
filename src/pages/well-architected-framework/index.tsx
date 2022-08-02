@@ -1,11 +1,12 @@
-import { buildLayoutHeadings as buildLayoutHeadingsFromBlocks } from 'views/product-tutorials-view/helpers/heading-helpers'
-import getProductPageContent from 'views/product-tutorials-view/helpers/get-product-page-content'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import processPageData from 'views/product-tutorials-view/helpers/process-page-data'
 import { PageSlugOption } from 'lib/learn-client/api/page'
-import WellArchitectedFrameworkLandingView from 'views/well-architected-framework'
-import { wafData } from 'views/well-architected-framework'
+import { buildLayoutHeadings as buildLayoutHeadingsFromBlocks } from 'views/product-tutorials-view/helpers/heading-helpers'
+import WellArchitectedFrameworkLandingView, {
+	wafData,
+} from 'views/well-architected-framework'
+import getProductPageContent from 'views/product-tutorials-view/helpers/get-product-page-content'
+import processPageData from 'views/product-tutorials-view/helpers/process-page-data'
 import wafContent from 'content/well-architected-framework/index.json'
 
 export async function getStaticProps() {
