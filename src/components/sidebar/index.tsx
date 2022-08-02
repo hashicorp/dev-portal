@@ -120,10 +120,12 @@ const Sidebar = ({
 				{sidebarContent}
 				<SidebarHorizontalRule />
 				<ul className={s.navList}>
-					{generateResourcesNavItems(currentProduct.slug).map((item, index) => (
-						// eslint-disable-next-line react/no-array-index-key
-						<SidebarNavMenuItem item={item} key={index} />
-					))}
+					{generateResourcesNavItems(currentProduct?.slug).map(
+						(item, index) => (
+							// eslint-disable-next-line react/no-array-index-key
+							<SidebarNavMenuItem item={item} key={index} />
+						)
+					)}
 				</ul>
 			</nav>
 		</div>

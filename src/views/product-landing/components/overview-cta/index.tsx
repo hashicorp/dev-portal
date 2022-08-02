@@ -19,20 +19,22 @@ function OverviewCta({
 					{heading}
 				</h2>
 				<p className={s.body}>{body}</p>
-				<StandaloneLink
-					className={s.cta}
-					text={cta.text}
-					href={cta.url}
-					color="secondary"
-					icon={
-						isAbsoluteUrl(cta.url) ? (
-							<IconExternalLink16 />
-						) : (
-							<IconArrowRight16 />
-						)
-					}
-					iconPosition="trailing"
-				/>
+				{cta ? (
+					<StandaloneLink
+						className={s.cta}
+						text={cta.text}
+						href={cta.url}
+						color="secondary"
+						icon={
+							isAbsoluteUrl(cta.url) ? (
+								<IconExternalLink16 />
+							) : (
+								<IconArrowRight16 />
+							)
+						}
+						iconPosition="trailing"
+					/>
+				) : null}
 			</div>
 			<div className={s.imagePart}>
 				<img src={image} alt="" />

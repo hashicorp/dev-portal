@@ -1,0 +1,31 @@
+{
+	"sidebarCategories": [
+		{
+			"name": "Framework Pillars",
+			"collections": [
+				"well-architected-framework/operational-excellence",
+				"well-architected-framework/reliability"
+			]
+		},
+		{
+			"name": "Reference Architecture",
+			"collections": [
+				"well-architected-framework/nomad",
+				"well-architected-framework/terraform",
+				"well-architected-framework/zero-trust-networking",
+				"well-architected-framework/zero-trust-security"
+			]
+		}
+	],
+	"landingPage": {
+		"hero": {
+			"heading": "Well Architected Framework",
+			"image": "https://place-hold.it/600x320"
+		},
+		"overview": {
+			"heading": "What is Well Architected Framework?",
+			"body": "HashiCorp's well architected framework provides best practice guidance for organizations. Specifically, it aims to help practitioners optimize their production HashiCorp deployments while also meeting their organization's specific architectural needs. The well architected framework starts at the cloud operating model, it sets the overarching goal of the framework, cloud migration enablement.",
+			"image": "https://place-hold.it/680x270"
+		}
+	}
+}
