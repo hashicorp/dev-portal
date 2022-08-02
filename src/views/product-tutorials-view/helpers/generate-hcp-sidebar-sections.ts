@@ -25,7 +25,7 @@ export function generateHcpSidebarSections(apiCollections: ApiCollection[]) {
 			return {
 				text: item.name,
 				isActive: false,
-				href: item.slug,
+				href: item.slug.replace('cloud', '/hcp/tutorials'),
 			}
 		})
 		// return the section
