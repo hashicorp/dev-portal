@@ -9,8 +9,11 @@ import getProductPageContent from 'views/product-tutorials-view/helpers/get-prod
 import processPageData from 'views/product-tutorials-view/helpers/process-page-data'
 import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
 import wafContent from 'content/well-architected-framework/index.json'
+import { WellArchitectedFrameworkLandingProps } from 'views/well-architected-framework/types'
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<{
+	props: WellArchitectedFrameworkLandingProps
+}> {
 	const {
 		pageData: rawPageData,
 		inlineCollections,

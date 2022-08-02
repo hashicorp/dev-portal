@@ -5,14 +5,18 @@ import ProductViewContent from 'views/product-tutorials-view/components/product-
 import HeroHeadingVisual from 'views/product-landing/components/hero-heading-visual'
 import { SidebarProps } from 'components/sidebar'
 import OverviewCta from 'views/product-landing/components/overview-cta'
+import { WellArchitectedFrameworkLandingProps } from './types'
 import s from './well-architected-framework-landing.module.css'
+import { EnrichedLinkNavItem } from 'components/sidebar/types'
 
 export const wafData = {
 	slug: 'well-architected-framework',
 	name: 'Well Architected Framework',
 }
 
-export default function WellArchitectedFrameworkLandingView(props) {
+export default function WellArchitectedFrameworkLandingView(
+	props: WellArchitectedFrameworkLandingProps
+) {
 	const { data, layoutProps, metadata } = props
 	const { hero, overview, blocks } = data.pageData
 
@@ -32,8 +36,9 @@ export default function WellArchitectedFrameworkLandingView(props) {
 						{
 							title: 'Overview',
 							isActive: true,
-							href: `/${metadata.slug}`,
-						},
+							fullPath: `/${metadata.slug}`,
+							id: metadata.slug,
+						} as EnrichedLinkNavItem,
 						...layoutProps.sidebarSections,
 					],
 					showFilterInput: false,

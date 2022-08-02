@@ -1,4 +1,5 @@
 import { MenuItem } from 'components/sidebar'
+import { EnrichedNavItem } from 'components/sidebar/types'
 import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { sortAlphabetically } from 'views/product-tutorials-view/helpers'
 
@@ -15,7 +16,7 @@ interface SidebarCategory {
 export function buildCategorizedWafSidebar(
 	collections: ApiCollection[],
 	sidebarCategories: SidebarCategory[]
-): MenuItem[] {
+): EnrichedNavItem[] {
 	/**
 	 * Create a map of all the collections. As they are added to
 	 * categorized sections, they will be deleted from this map.
@@ -27,7 +28,12 @@ export function buildCategorizedWafSidebar(
 			.sort(sortAlphabetically('name'))
 			.map((collection: ApiCollection) => [
 				collection.slug,
-				{ title: collection.name, href: collection.slug, isActive: false },
+				{
+					title: collection.name,
+					fullPath: collection.slug,
+					isActive: false,
+					id: collection.id,
+				},
 			])
 	)
 	const categorizedItems = []
@@ -38,19 +44,20 @@ export function buildCategorizedWafSidebar(
 		const sectionItems: MenuItem[] = category.collections
 			.map((collectionSlug: string) => {
 				// find the categorized collection based on its slug
-				const item = collections.find(
+				const collection = collections.find(
 					(collection: ApiCollection) => collection.slug === collectionSlug
 				)
-				if (!item) {
+				if (!collection) {
 					return
 				}
 
 				// remove item from 'uncategorized'list
 				uncategorizedItems.delete(collectionSlug)
 				return {
-					title: item.name,
+					title: collection.name,
 					isActive: false,
-					href: item.slug,
+					fullPath: collection.slug,
+					id: collection.id,
 				}
 			})
 			.sort(sortAlphabetically('title'))
