@@ -175,3 +175,9 @@ type ApiCollectionsStackBlock = {
 	 * using fetched inlineCollections data */
 	collection_slugs: string[]
 }
+
+export interface ApiBookmark extends BaseModel {
+	tutorial: ApiTutorial
+	tutorial_id: string
+	user_id: string
+}

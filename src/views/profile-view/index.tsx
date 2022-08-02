@@ -4,6 +4,7 @@ import Heading from 'components/heading'
 import BaseNewLayout from 'layouts/base-new'
 import AuthenticatedView from 'views/authenticated-view'
 import { ProfileViewProps } from './types'
+import DynamicBookmarksList from './components/dynamic-bookmarks-list'
 import s from './profile-view.module.css'
 
 /**
@@ -48,6 +49,8 @@ const ProfileViewContent = ({ user }: ProfileViewProps) => {
 					})}
 				</ul>
 				<Button color="secondary" onClick={() => signOut()} text="Sign Out" />
+
+				<DynamicBookmarksList />
 			</div>
 		</div>
 	)
