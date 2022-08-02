@@ -74,7 +74,7 @@ export async function getTutorialPageProps(
 	 * after clicking the level-up button at the top of the Sidebar.
 	 */
 	const sidebarSections = await getCollectionViewSidebarSections(
-		product,
+		product.slug,
 		collection.data
 	)
 	const layoutProps = {

@@ -1,11 +1,18 @@
 import moize, { Options } from 'moize'
 
-import { LearnProductData } from 'types/products'
-import { Collection as ClientCollection } from 'lib/learn-client/types'
-import { LearnProductSlug } from 'types/products'
+import {
+	Collection as ClientCollection,
+	ProductOption,
+} from 'lib/learn-client/types'
+import {
+	LearnProductData,
+	LearnProductName,
+	LearnProductSlug,
+} from 'types/products'
 import {
 	getAllCollections,
 	getCollection,
+	getCollectionsBySection,
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import getIsBetaProduct from 'lib/get-is-beta-product'
@@ -46,16 +53,24 @@ const moizeOpts: Options = {
 const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
 export async function getCollectionViewSidebarSections(
-	product: LearnProductData,
+	productSlug: LearnProductSlug | 'hcp',
 	collection: ClientCollection
 ) {
-	const allProductCollections = await cachedGetAllCollections({
-		product: { slug: product.slug, sidebarSort: true },
-	})
-	const filteredCollections = filterCollections(
-		allProductCollections,
-		product.slug
-	)
+	let filteredCollections
+
+	// TODO: not sure if branching here makes the best sense,
+	// or if a separate getHcpCollectionViewSidebarSections might be better
+	if (productSlug == 'hcp') {
+		filteredCollections = await getCollectionsBySection('cloud')
+	} else {
+		const allProductCollections = await cachedGetAllCollections({
+			product: { slug: productSlug as ProductOption, sidebarSort: true },
+		})
+		filteredCollections = filterCollections(
+			allProductCollections,
+			productSlug as ProductOption
+		)
+	}
 
 	return formatSidebarCategorySections(filteredCollections, collection.slug)
 }
@@ -69,10 +84,14 @@ export async function getCollectionViewSidebarSections(
  * which is needed for other areas of the app to function.
  */
 export async function getCollectionPageProps(
-	product: LearnProductData,
+	product: {
+		name: LearnProductName
+		slug: LearnProductSlug | 'hcp'
+	},
 	slug: string
 ): Promise<{ props: CollectionPageProps } | null> {
-	const collection = await getCollection(`${product.slug}/${slug}`)
+	const learnProductSlug = product.slug == 'hcp' ? 'cloud' : product.slug
+	const collection = await getCollection(`${learnProductSlug}/${slug}`)
 
 	// if null the api encountered a 404
 	if (collection === null) {
@@ -88,7 +107,7 @@ export async function getCollectionPageProps(
 			},
 		}),
 		sidebarSections: await getCollectionViewSidebarSections(
-			product,
+			product.slug,
 			collection
 		),
 	}
@@ -129,14 +148,36 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const shouldBuildCollectionPath =
-			getIsBetaProduct(productSlug as LearnProductSlug) &&
-			productSlug === collection.theme
+		const compatSlug = productSlug === 'cloud' ? 'hcp' : productSlug
+		const isBetaProduct = getIsBetaProduct(compatSlug as LearnProductSlug)
+		/**
+		 * TODO: not actually sure this is correct, just trying to get cloud
+		 * collections to render
+		 */
+		const hasMatchingTheme =
+			productSlug == 'cloud' || productSlug === collection.theme
+		const shouldBuildCollectionPath = isBetaProduct && hasMatchingTheme
+
+		if (productSlug == 'cloud') {
+			console.log({
+				shouldBuildCollectionPath,
+				collectionSlug: filename,
+				isBetaProduct,
+				hasMatchingTheme,
+				theme: collection.theme,
+			})
+			console.log({
+				params: {
+					productSlug: compatSlug,
+					collectionSlug: filename,
+				},
+			})
+		}
 
 		if (shouldBuildCollectionPath) {
 			paths.push({
 				params: {
-					productSlug,
+					productSlug: compatSlug,
 					collectionSlug: filename,
 				},
 			})

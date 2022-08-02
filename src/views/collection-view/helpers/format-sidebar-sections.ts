@@ -6,7 +6,7 @@ import { ListItemProps } from 'components/tutorials-sidebar/types'
 import { getCollectionSlug } from './get-slug'
 
 export interface CollectionCategorySidebarSection {
-	title: CollectionCategoryOption
+	title?: CollectionCategoryOption
 	items: ListItemProps[]
 }
 
@@ -22,12 +22,18 @@ export function formatSidebarCategorySections(
 ): CollectionCategorySidebarSection[] {
 	const categorySlugs = Object.keys(CollectionCategoryOption)
 
+	const usedCollections = []
+
 	const sidebarSectionsByCategory = categorySlugs.map(
 		(category: CollectionCategoryOption) => {
 			// get collections associated with that category
-			const items = collections.filter(
-				(c: ClientCollection) => c.category === category
-			)
+			const items = collections.filter((c: ClientCollection) => {
+				const isMatch = c.category === category
+				if (isMatch) {
+					usedCollections.push(c.slug)
+				}
+				return isMatch
+			})
 
 			return {
 				title: CollectionCategoryOption[category],
@@ -38,7 +44,22 @@ export function formatSidebarCategorySections(
 		}
 	)
 
-	return filterEmptySections(sidebarSectionsByCategory)
+	// Add "unused" section, to capture any missing collections
+	// TODO: this is to get /hcp content to render for now, maybe not final?
+	const unusedCollections = collections.filter((c: ClientCollection) => {
+		const isUnused = usedCollections.indexOf(c.slug) == -1
+		return isUnused
+	})
+	const unusedSection = {
+		// Note: title omitted for now, to avoid naming "Collections"
+		items: unusedCollections.map((collection: ClientCollection) =>
+			formatCollectionToListItem(collection, currentSlug)
+		),
+	}
+
+	// Gather, filter, and return all sections
+	const allSections = [...sidebarSectionsByCategory, unusedSection]
+	return filterEmptySections(allSections)
 }
 
 function filterEmptySections(
@@ -53,7 +74,7 @@ function formatCollectionToListItem(
 ): ListItemProps {
 	const path = getCollectionSlug(collection.slug)
 	return {
-		text: collection.shortName,
+		text: collection.shortName || collection.name,
 		href: path,
 		isActive: collection.slug === currentSlug,
 	}

@@ -25,7 +25,7 @@ async function getStaticPaths(): Promise<
 }
 
 type CollectionPageStaticPropsCtx = GetStaticPropsContext<{
-	productSlug: LearnProductSlug
+	productSlug: LearnProductSlug | 'hcp'
 	collectionSlug: string
 }>
 
