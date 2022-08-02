@@ -1,6 +1,12 @@
+import { SidebarProps } from 'components/sidebar'
 import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { sortAlphabetically } from 'views/product-tutorials-view/helpers'
 import { wafData } from '..'
+
+interface SidebarCategory {
+	name: string
+	collections: string[]
+}
 
 /**
  * The sidebar consists first of a list of uncategorized collections, sorted
@@ -8,13 +14,13 @@ import { wafData } from '..'
  * in the `sidebarCategories` data above.
  */
 export function generateWafSidebarData(
-	sidebarSections: ApiCollection[],
-	sidebarCategories
-) {
+	collections: ApiCollection[],
+	sidebarCategories: SidebarCategory[]
+): SidebarProps {
 	const uncategorizedItems = new Map(
-		sidebarSections
+		collections
 			.sort(sortAlphabetically('name'))
-			.map((collection) => [
+			.map((collection: ApiCollection) => [
 				collection.slug,
 				{ title: collection.name, fullPath: collection.slug, isActive: false },
 			])
@@ -22,11 +28,11 @@ export function generateWafSidebarData(
 	const categorizedItems = []
 
 	// go into the categories, build a section
-	sidebarCategories.map((category) => {
+	sidebarCategories.map((category: SidebarCategory) => {
 		const items = category.collections
-			.map((collectionSlug) => {
-				const item = sidebarSections.find(
-					(section) => section.slug === collectionSlug
+			.map((collectionSlug: string) => {
+				const item = collections.find(
+					(collection: ApiCollection) => collection.slug === collectionSlug
 				)
 				// if it exists in the category, remove it from 'uncategorized'list
 				if (item) {
@@ -38,7 +44,7 @@ export function generateWafSidebarData(
 		categorizedItems.push(
 			{ divider: true },
 			{ heading: category.name },
-			...items.map((item) => ({
+			...items.map((item: ApiCollection) => ({
 				title: item.name,
 				isActive: false,
 				fullPath: item.slug,

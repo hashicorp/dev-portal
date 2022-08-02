@@ -5,7 +5,6 @@ import ProductViewContent from 'views/product-tutorials-view/components/product-
 import HeroHeadingVisual from 'views/product-landing/components/hero-heading-visual'
 import { SidebarProps } from 'components/sidebar'
 import OverviewCta from 'views/product-landing/components/overview-cta'
-import { generateWafSidebarData } from './utils/generate-sidebar-items'
 import wafContent from 'content/well-architected-framework/index.json'
 import s from './well-architected-framework-landing.module.css'
 
@@ -24,10 +23,7 @@ export default function WellArchitectedFrameworkLandingView(props) {
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			sidebarNavDataLevels={[
 				generateTopLevelSidebarNavData(wafData.name) as SidebarProps,
-				generateWafSidebarData(
-					layoutProps.sidebarSections,
-					wafContent.sidebarCategories
-				), // TODO move to a server file?
+				layoutProps.sidebarSections,
 			]}
 		>
 			<div className={s.hero}>

@@ -7,6 +7,7 @@ import WellArchitectedFrameworkLandingView, {
 } from 'views/well-architected-framework'
 import getProductPageContent from 'views/product-tutorials-view/helpers/get-product-page-content'
 import processPageData from 'views/product-tutorials-view/helpers/process-page-data'
+import { generateWafSidebarData } from 'views/well-architected-framework/utils/generate-sidebar-items'
 import wafContent from 'content/well-architected-framework/index.json'
 
 export async function getStaticProps() {
@@ -45,7 +46,10 @@ export async function getStaticProps() {
 			layoutProps: {
 				headings,
 				breadcrumbLinks,
-				sidebarSections: wafCollections,
+				sidebarSections: generateWafSidebarData(
+					wafCollections,
+					wafContent.sidebarCategories
+				),
 			},
 		}),
 	}
