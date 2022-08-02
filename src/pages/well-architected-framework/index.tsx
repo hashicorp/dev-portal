@@ -29,11 +29,8 @@ export async function getStaticProps(): Promise<{
 		}),
 	]
 	const breadcrumbLinks = [
-		{ title: wafContent.landingPage.overview.heading, level: 2 },
-		...buildLayoutHeadingsFromBlocks({
-			...pageData,
-			showOverviewHeading: false,
-		}),
+		{ title: 'Developer', url: '/' },
+		{ title: wafData.name, url: `/${wafData.slug}`, isCurrentPage: true },
 	]
 
 	return {
