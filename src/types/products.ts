@@ -35,10 +35,6 @@ type LearnProductName = Exclude<
 	'HashiCorp Cloud Platform' | 'Sentinel'
 >
 
-export enum Topics {
-	'well-architected-framework' = 'Well Architected Framework',
-}
-
 /**
  * Learn does not support all of the products in `ProductSlug`, so this is the
  * interface almost the same as `ProductData`, just with a limited set of

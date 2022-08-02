@@ -197,6 +197,10 @@ export enum ProductOption {
 	waypoint = 'waypoint',
 }
 
+export enum SectionOption {
+	'well-architected-framework' = 'well-architected-framework',
+}
+
 export enum EditionOption {
 	openSource = 'open_source',
 	enterprise = 'enterprise',
