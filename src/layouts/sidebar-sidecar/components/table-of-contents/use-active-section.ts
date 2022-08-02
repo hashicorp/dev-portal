@@ -40,7 +40,8 @@ export function useActiveSection(
 	// pages
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const currentProduct = useCurrentProduct()
-	const isProductLanding = currentPath === `/${currentProduct?.slug}`
+	const isProductLanding =
+		currentProduct && currentPath === `/${currentProduct.slug}`
 
 	useEffect(() => {
 		// Need to clear this when all headings change
