@@ -1,3 +1,4 @@
+import slugify from 'slugify'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { buildLayoutHeadings } from 'views/product-tutorials-view/helpers/heading-helpers'
@@ -6,11 +7,13 @@ import ProductViewContent from 'views/product-tutorials-view/components/product-
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import processPageData from 'views/product-tutorials-view/helpers/process-page-data'
+import HeroHeadingVisual from 'views/product-landing/components/hero-heading-visual'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import { SidebarProps } from 'components/sidebar'
 import { PageSlugOption } from 'lib/learn-client/api/page'
 import { sortAlphabetically } from 'views/product-tutorials-view/helpers'
 import { Collection as ApiCollection } from 'lib/learn-client/types'
+import OverviewCta from 'views/product-landing/components/overview-cta'
 
 /**
  * TODO: figure out where this data should live. Potentially in the /content folder
@@ -50,11 +53,7 @@ const wafLandingPageData = {
 	overview: {
 		heading: 'What is Well Architected Framework?',
 		body: "HashiCorp's well architected framework provides best practice guidance for organizations. Specifically, it aims to help practitioners optimize their production HashiCorp deployments while also meeting their organization's specific architectural needs. The well architected framework starts at the cloud operating model, it sets the overarching goal of the framework, cloud migration enablement.",
-		cta: {
-			text: 'Learn more about Well Architected Framework',
-			url: '/vault/docs/what-is-vault',
-		},
-		image: 'https://place-hold.it/680x250',
+		image: 'https://place-hold.it/680x270',
 	},
 }
 
@@ -114,11 +113,10 @@ function generateWafSidebarData(sidebarSections: ApiCollection[]) {
 	}
 }
 
-// @TODO - add the heading 'callout' and the description section with picture...
+// @TODO - layout the page
 export default function WellArchitectedFrameworkLanding(props) {
 	const { data, layoutProps } = props
 	const { pageData, inlineCollections, inlineTutorials } = data
-	console.log({ props })
 
 	return (
 		<SidebarSidecarLayout
@@ -129,14 +127,11 @@ export default function WellArchitectedFrameworkLanding(props) {
 				generateWafSidebarData(layoutProps.sidebarSections),
 			]}
 		>
-			{/** @TODO - swap this placeholder data with
-			 * the hero and overview components
-			 */}
-			<h1>{wafLandingPageData.hero.heading}</h1>
-			<div>
-				<h3>What is the Well Architected Framework?</h3>
-				<p>{pageData.description}</p>
-			</div>
+			<HeroHeadingVisual {...wafLandingPageData.hero} />
+			<OverviewCta
+				{...wafLandingPageData.overview}
+				headingSlug={slugify(wafLandingPageData.overview.heading)}
+			/>
 			<ProductViewContent
 				blocks={pageData.blocks}
 				inlineCollections={inlineCollections}
