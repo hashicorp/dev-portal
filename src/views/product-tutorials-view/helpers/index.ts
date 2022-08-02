@@ -19,10 +19,8 @@ export function filterCollections(
 	)
 }
 
-export function sortAlphabetically(
-	property: keyof Pick<ClientCollection, 'shortName' | 'name'>
-) {
-	return (a: ClientCollection, b: ClientCollection) => {
+export function sortAlphabetically<A, B>(property: string) {
+	return (a: A, b: B) => {
 		const A = a[property].toUpperCase()
 		const B = b[property].toUpperCase()
 

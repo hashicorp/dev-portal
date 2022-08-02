@@ -16,6 +16,12 @@ export function buildCategorizedWafSidebar(
 	collections: ApiCollection[],
 	sidebarCategories: SidebarCategory[]
 ): MenuItem[] {
+	/**
+	 * Create a map of all the collections. As they are added to
+	 * categorized sections, they will be deleted from this map.
+	 * This ensures all collections will render in the sidebar even
+	 * if they don't have a category
+	 *  */
 	const uncategorizedItems = new Map(
 		collections
 			.sort(sortAlphabetically('name'))
@@ -27,9 +33,9 @@ export function buildCategorizedWafSidebar(
 	const categorizedItems = []
 
 	// build a sidebar section per category
-	sidebarCategories.map((category: SidebarCategory) => {
+	sidebarCategories.forEach((category: SidebarCategory) => {
 		const sectionHeading = [{ divider: true }, { heading: category.name }]
-		const sectionItems = category.collections
+		const sectionItems: MenuItem[] = category.collections
 			.map((collectionSlug: string) => {
 				// find the categorized collection based on its slug
 				const item = collections.find(
@@ -39,20 +45,17 @@ export function buildCategorizedWafSidebar(
 					return
 				}
 
-				// remove categozied item from 'uncategorized'list
+				// remove item from 'uncategorized'list
 				uncategorizedItems.delete(collectionSlug)
-				return item
+				return {
+					title: item.name,
+					isActive: false,
+					href: item.slug,
+				}
 			})
-			.sort(sortAlphabetically('name'))
+			.sort(sortAlphabetically('title'))
 
-		categorizedItems.push(
-			...sectionHeading,
-			...sectionItems.map((item: ApiCollection) => ({
-				title: item.name,
-				isActive: false,
-				href: item.slug,
-			}))
-		)
+		categorizedItems.push(...sectionHeading, ...sectionItems)
 	})
 
 	return [...Array.from(uncategorizedItems.values()), ...categorizedItems]
