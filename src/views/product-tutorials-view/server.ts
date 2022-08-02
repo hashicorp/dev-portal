@@ -1,6 +1,9 @@
 import { LearnProductData } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import { getAllCollections } from 'lib/learn-client/api/collection'
+import {
+	getAllCollections,
+	getCollectionsBySection,
+} from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { formatSidebarCategorySections } from 'views/collection-view/helpers'
@@ -17,6 +20,9 @@ import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
 import { ProductTutorialsSitemapProps } from './components/sitemap/types'
 import { formatSitemapCollection } from './components/sitemap/helpers'
+import { ThemeOption } from 'lib/learn-client/types'
+import { cachedGetProductData } from 'lib/get-product-data'
+import { generateHcpSidebarSections } from './helpers/generate-hcp-sidebar-sections'
 
 export interface ProductTutorialsViewProps {
 	data: ProductPageData
@@ -35,9 +41,94 @@ export interface ProductPageData {
 		blocks: ProductViewBlock[]
 		showProductSitemap?: boolean
 	}
-	allCollections: ProductTutorialsSitemapProps['collections']
+	/**
+	 * Collections to render in the product sitemap.
+	 * Required if pageData.showProductSitemap is set to true,
+	 * Can safely be omitted if showProductSitemap is false or not provided.
+	 *
+	 * TODO: should we refactor slightly to avoid this type interdependency?
+	 * Specifically: in server-side getStaticProps, we could only pass
+	 * allCollections to the view IF showProductSitemap is set to true,
+	 * We'd no longer pass pageData.showProductSitemap, and instead render
+	 * the sitemap conditionally based on the presence of allCollections
+	 * (which we could also rename to sitemapCollections for clarity).
+	 *
+	 * (Note: I'm avoiding this for now, since possible redesign
+	 * of /hcp/tutorials may make this refactor irrelevant).
+	 */
+	allCollections?: ProductTutorialsSitemapProps['collections']
 	inlineCollections: InlineCollections
 	inlineTutorials: InlineTutorials
+}
+
+/**
+ * Note: this is a temporary spike to get the /hcp/tutorials rendering.
+ * It relies on fallback content from Waypoint.
+ *
+ * TODO: figure out what to do with the /hcp/tutorials view (design dependent).
+ * Taking this temporary approach for now while awaiting final designs.
+ */
+export async function getCloudTutorialsViewProps() {
+	const productData = cachedGetProductData('hcp')
+	/**
+	 * Build the sidebar, which for now is some stubbed in 'cloud' collections.
+	 * TODO: once /hcp/tutorials page designs are ready, revise this to match.
+	 */
+	const hcpCollections = await getCollectionsBySection('cloud')
+	const sidebarSections = generateHcpSidebarSections(hcpCollections)
+
+	/**
+	 * Get the raw page data
+	 */
+	const {
+		pageData: rawPageData,
+		inlineCollections,
+		inlineTutorials,
+	} = await getProductPageContent(ThemeOption.cloud)
+	/**
+	 * Process page data, reformatting as needed.
+	 * Includes parsing headings, for use with the page's sidecar
+	 */
+	const { pageData, headings } = await processPageData(rawPageData)
+
+	return {
+		props: stripUndefinedProperties({
+			metadata: {
+				title: 'Tutorials',
+			},
+			data: {
+				pageData,
+				inlineCollections,
+				inlineTutorials,
+			},
+			layoutProps: {
+				headings,
+				breadcrumbLinks: getTutorialsBreadcrumb({
+					product: { name: productData.name, filename: productData.slug },
+				}),
+				sidebarSections,
+			},
+			product: {
+				/**
+				 * See note on product in getProductTutorialsViewProps below
+				 * (repeating in this comment as well just in case)
+				 *
+				 * @TODO Determine which should be the source of truth in the long term since
+				 * both Learn and existing Docs properties are both needed to be returned from
+				 * here.
+				 */
+				...productData,
+				description:
+					'HashiCorp Cloud Platform (HCP) is a fully managed platform offering HashiCorp products as a service to automate infrastructure on any cloud.',
+				docsUrl: 'https://cloud.hashicorp.com/',
+				/**
+				 * TODO: this isn't right, need to confirm how this is used
+				 * on the client side, to figure out what to do here.
+				 */
+				id: 'fake-hcp-learn-product-id',
+			},
+		}),
+	}
 }
 
 /**
