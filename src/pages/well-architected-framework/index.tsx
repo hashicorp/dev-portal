@@ -17,20 +17,20 @@ export async function getStaticProps() {
 	} = await getProductPageContent(wafData.slug as PageSlugOption)
 	const { pageData } = await processPageData(rawPageData)
 	const wafCollections = await getCollectionsBySection(wafData.slug)
-	const layoutProps = {
-		headings: [
-			{ title: wafContent.landingPage.overview.heading, level: 2 },
-			...buildLayoutHeadingsFromBlocks({
-				...pageData,
-				showOverviewHeading: false,
-			}),
-		],
-		breadcrumbLinks: [
-			{ title: 'Developer', url: '/' },
-			{ title: wafData.name, url: `/${wafData.slug}`, isCurrentPage: true },
-		],
-		sidebarSections: wafCollections,
-	}
+	const headings = [
+		{ title: wafContent.landingPage.overview.heading, level: 2 },
+		...buildLayoutHeadingsFromBlocks({
+			...pageData,
+			showOverviewHeading: false,
+		}),
+	]
+	const breadcrumbLinks = [
+		{ title: wafContent.landingPage.overview.heading, level: 2 },
+		...buildLayoutHeadingsFromBlocks({
+			...pageData,
+			showOverviewHeading: false,
+		}),
+	]
 
 	return {
 		props: stripUndefinedProperties({
@@ -42,7 +42,11 @@ export async function getStaticProps() {
 				inlineCollections,
 				inlineTutorials,
 			},
-			layoutProps,
+			layoutProps: {
+				headings,
+				breadcrumbLinks,
+				sidebarSections: wafCollections,
+			},
 		}),
 	}
 }
