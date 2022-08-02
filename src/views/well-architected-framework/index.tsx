@@ -5,7 +5,6 @@ import ProductViewContent from 'views/product-tutorials-view/components/product-
 import HeroHeadingVisual from 'views/product-landing/components/hero-heading-visual'
 import { SidebarProps } from 'components/sidebar'
 import OverviewCta from 'views/product-landing/components/overview-cta'
-import wafContent from 'content/well-architected-framework/index.json'
 import s from './well-architected-framework-landing.module.css'
 
 export const wafData = {
@@ -14,31 +13,43 @@ export const wafData = {
 }
 
 export default function WellArchitectedFrameworkLandingView(props) {
-	const { data, layoutProps } = props
-	const { pageData, inlineCollections, inlineTutorials } = data
+	const { data, layoutProps, metadata } = props
+	const { hero, overview, blocks } = data.pageData
 
 	return (
 		<SidebarSidecarLayout
 			headings={layoutProps.headings}
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			sidebarNavDataLevels={[
-				generateTopLevelSidebarNavData(wafData.name) as SidebarProps,
-				layoutProps.sidebarSections,
+				generateTopLevelSidebarNavData(metadata.name) as SidebarProps,
+				{
+					title: metadata.name,
+					levelButtonProps: {
+						levelUpButtonText: 'Main Menu',
+						levelDownButtonText: 'Previous',
+					},
+					menuItems: [
+						{
+							title: 'Overview',
+							isActive: true,
+							fullPath: `/${metadata.slug}`,
+						},
+						...layoutProps.sidebarSections,
+					],
+					showFilterInput: false,
+				},
 			]}
 		>
 			<div className={s.hero}>
-				<HeroHeadingVisual {...wafContent.landingPage.hero} />
+				<HeroHeadingVisual {...hero} />
 			</div>
 			<div className={s.overview}>
-				<OverviewCta
-					{...wafContent.landingPage.overview}
-					headingSlug={slugify(wafContent.landingPage.overview.heading)}
-				/>
+				<OverviewCta {...overview} headingSlug={slugify(overview.heading)} />
 			</div>
 			<ProductViewContent
-				blocks={pageData.blocks}
-				inlineCollections={inlineCollections}
-				inlineTutorials={inlineTutorials}
+				blocks={blocks}
+				inlineCollections={data.inlineCollections}
+				inlineTutorials={data.inlineTutorials}
 			/>
 		</SidebarSidecarLayout>
 	)

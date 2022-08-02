@@ -1,7 +1,6 @@
-import { SidebarProps } from 'components/sidebar'
+import { MenuItem } from 'components/sidebar'
 import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { sortAlphabetically } from 'views/product-tutorials-view/helpers'
-import { wafData } from '..'
 
 interface SidebarCategory {
 	name: string
@@ -13,10 +12,10 @@ interface SidebarCategory {
  * alphabetically. Then follows with the categorized collections defined
  * in the `sidebarCategories` data above.
  */
-export function generateWafSidebarData(
+export function buildCategorizedWafSidebar(
 	collections: ApiCollection[],
 	sidebarCategories: SidebarCategory[]
-): SidebarProps {
+): MenuItem[] {
 	const uncategorizedItems = new Map(
 		collections
 			.sort(sortAlphabetically('name'))
@@ -52,17 +51,5 @@ export function generateWafSidebarData(
 		)
 	})
 
-	return {
-		title: wafData.name,
-		levelButtonProps: {
-			levelUpButtonText: 'Main Menu',
-			levelDownButtonText: 'Previous',
-		},
-		menuItems: [
-			{ title: 'Overview', isActive: true, fullPath: `/${wafData.slug}` },
-			...Array.from(uncategorizedItems.values()),
-			...categorizedItems,
-		],
-		showFilterInput: false,
-	}
+	return [...Array.from(uncategorizedItems.values()), ...categorizedItems]
 }

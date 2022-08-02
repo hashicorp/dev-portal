@@ -7,7 +7,7 @@ import WellArchitectedFrameworkLandingView, {
 } from 'views/well-architected-framework'
 import getProductPageContent from 'views/product-tutorials-view/helpers/get-product-page-content'
 import processPageData from 'views/product-tutorials-view/helpers/process-page-data'
-import { generateWafSidebarData } from 'views/well-architected-framework/utils/generate-sidebar-items'
+import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
 import wafContent from 'content/well-architected-framework/index.json'
 
 export async function getStaticProps() {
@@ -36,17 +36,19 @@ export async function getStaticProps() {
 	return {
 		props: stripUndefinedProperties({
 			metadata: {
-				title: 'Tutorials',
+				title: wafData.name,
+				name: wafData.name,
+				slug: wafData.slug,
 			},
 			data: {
-				pageData,
+				pageData: { ...wafContent.landingPage, ...pageData },
 				inlineCollections,
 				inlineTutorials,
 			},
 			layoutProps: {
 				headings,
 				breadcrumbLinks,
-				sidebarSections: generateWafSidebarData(
+				sidebarSections: buildCategorizedWafSidebar(
 					wafCollections,
 					wafContent.sidebarCategories
 				),
