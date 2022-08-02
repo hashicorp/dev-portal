@@ -228,11 +228,6 @@ export enum CollectionCategoryOption {
 	operations = 'Operations',
 }
 
-export enum WafCollectionCategoryOption {
-	framework_pillar = 'Framework Pillars',
-	reference_architecture = 'Reference Architectures',
-}
-
 export type CollectionLevelOption =
 	| 'advanced'
 	| 'beginner'
