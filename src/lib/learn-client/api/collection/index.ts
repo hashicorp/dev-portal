@@ -143,7 +143,6 @@ export async function getCollectionsBySection(
 			console.warn(`No collections found for section query: ${section}`)
 		}
 
-		/** Format and return collections */
 		return res.result.map(formatCollection)
 	}
 
