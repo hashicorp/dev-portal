@@ -1,7 +1,7 @@
 import { MenuItem } from 'components/sidebar'
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { Collection as ApiCollection } from 'lib/learn-client/types'
-import { sortAlphabetically } from 'views/product-tutorials-view/helpers'
+import { sortAlphabetically } from 'lib/sort-alphabetically'
 
 interface SidebarCategory {
 	name: string
