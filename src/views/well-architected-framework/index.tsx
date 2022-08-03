@@ -4,7 +4,6 @@ import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import ProductViewContent from 'views/product-tutorials-view/components/product-view-content'
 import HeroHeadingVisual from 'views/product-landing/components/hero-heading-visual'
 import { SidebarProps } from 'components/sidebar'
-import { EnrichedLinkNavItem } from 'components/sidebar/types'
 import OverviewCta from 'views/product-landing/components/overview-cta'
 import { WellArchitectedFrameworkLandingProps } from './types'
 import s from './well-architected-framework-landing.module.css'
@@ -27,15 +26,8 @@ export default function WellArchitectedFrameworkLandingView(
 						levelUpButtonText: 'Main Menu',
 						levelDownButtonText: 'Previous',
 					},
-					menuItems: [
-						{
-							title: 'Overview',
-							isActive: true,
-							fullPath: `/${metadata.slug}`,
-							id: metadata.slug,
-						} as EnrichedLinkNavItem,
-						...layoutProps.sidebarSections,
-					],
+					overviewItemHref: `/${metadata.slug}`,
+					menuItems: layoutProps.sidebarSections,
 					showFilterInput: false,
 				},
 			]}
