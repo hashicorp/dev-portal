@@ -42,30 +42,13 @@ export interface ProductPageData {
 		blocks: ProductViewBlock[]
 		showProductSitemap?: boolean
 	}
-	/**
-	 * Collections to render in the product sitemap.
-	 * Required if pageData.showProductSitemap is set to true,
-	 * Can safely be omitted if showProductSitemap is false or not provided.
-	 *
-	 * TODO: should we refactor slightly to avoid this type interdependency?
-	 * Specifically: in server-side getStaticProps, we could only pass
-	 * allCollections to the view IF showProductSitemap is set to true,
-	 * We'd no longer pass pageData.showProductSitemap, and instead render
-	 * the sitemap conditionally based on the presence of allCollections
-	 * (which we could also rename to sitemapCollections for clarity).
-	 *
-	 * (Note: I'm avoiding this for now, since possible redesign
-	 * of /hcp/tutorials may make this refactor irrelevant).
-	 */
-	allCollections?: ProductTutorialsSitemapProps['collections']
+	allCollections: ProductTutorialsSitemapProps['collections']
 	inlineCollections: InlineCollections
 	inlineTutorials: InlineTutorials
 }
 
 /**
- * Note: this is a temporary spike to get the /hcp/tutorials rendering.
- * It relies on fallback content from Waypoint.
- *
+ * Note: this is a stub to get the /hcp/tutorials rendering.
  * TODO: figure out what to do with the /hcp/tutorials view (design dependent).
  * Taking this temporary approach for now while awaiting final designs.
  */
@@ -73,7 +56,6 @@ export async function getCloudTutorialsViewProps() {
 	const productData = cachedGetProductData('hcp')
 	/**
 	 * Build the sidebar, which for now is some stubbed in 'cloud' collections.
-	 * TODO: once /hcp/tutorials page designs are ready, revise this to match.
 	 */
 	const hcpCollections = await getCollectionsBySection('cloud')
 	const sidebarSections = generateHcpSidebarSections(hcpCollections)
@@ -101,6 +83,7 @@ export async function getCloudTutorialsViewProps() {
 				pageData,
 				inlineCollections,
 				inlineTutorials,
+				allCollections: hcpCollections,
 			},
 			layoutProps: {
 				headings,

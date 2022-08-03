@@ -26,17 +26,16 @@ export async function getStaticProps({
 	props: ProductTutorialsViewProps
 }> {
 	const productData = cachedGetProductData(params.productSlug)
+
 	/**
-	 * TODO: figure out approach to HCP. Dependent on design.
-	 * For now, this is a spiked approach to get current content rendering.
-	 * Likely makes sense to wait to finalize this until we have final designs.
+	 * Note: `hcp` is a "product" in Dev Dot but not in Learn,
+	 * so we have to treat it slightly differently.
 	 */
-	let props
-	if (productData.slug == 'hcp') {
-		props = await getCloudTutorialsViewProps()
-	} else {
-		props = await getProductTutorialsViewProps(productData as LearnProductData)
-	}
+	const props =
+		productData.slug == 'hcp'
+			? await getCloudTutorialsViewProps()
+			: await getProductTutorialsViewProps(productData as LearnProductData)
+
 	return props
 }
 

@@ -58,8 +58,11 @@ export async function getCollectionViewSidebarSections(
 ) {
 	let filteredCollections
 
-	// TODO: not sure if branching here makes the best sense,
-	// or if a separate getHcpCollectionViewSidebarSections might be better
+	/**
+	 * Get a filtered set of collections for the current product.
+	 * Note that `hcp` is a "product" in Dev Dot but not in Learn,
+	 * so we do some branching.
+	 */
 	if (productSlug == 'hcp') {
 		filteredCollections = await getCollectionsBySection('cloud')
 	} else {
