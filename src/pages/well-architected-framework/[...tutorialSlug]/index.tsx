@@ -20,7 +20,11 @@ import { SectionOption } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { SidebarProps } from 'components/sidebar'
-
+import useCurrentPath from 'hooks/use-current-path'
+import { TutorialViewSidebarContent } from 'components/tutorials-sidebar'
+import { formatTutorialToMenuItem } from 'views/tutorial-view/utils'
+import wafContent from 'content/well-architected-framework/index.json'
+import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
 /**
  * TODO
  * - get sidebar / sidecar layout working
@@ -34,6 +38,7 @@ export default function GenericTutorialPage({
 	metadata,
 	layoutProps,
 }) {
+	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const {
 		slug,
 		name,
@@ -54,10 +59,44 @@ export default function GenericTutorialPage({
 
 	return (
 		<SidebarSidecarLayout
-			sidecarSlot={null}
+			headings={layoutProps.headings}
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			sidebarNavDataLevels={[
 				generateTopLevelSidebarNavData(metadata.wafName) as SidebarProps,
+				{
+					title: metadata.wafName,
+					levelButtonProps: {
+						levelUpButtonText: `Main Menu`,
+						levelDownButtonText: 'Previous',
+					},
+					overviewItemHref: `/${metadata.wafSlug}`,
+					menuItems: layoutProps.allWafCollectionSidebarSections,
+					showFilterInput: false,
+				},
+				{
+					title: metadata.wafName,
+					visuallyHideTitle: true,
+					showFilterInput: false,
+					levelButtonProps: {
+						levelUpButtonText: collectionCtx.current.shortName,
+						levelDownButtonText: name,
+					},
+					backToLinkProps: {
+						text: collectionCtx.current.shortName,
+						href: `/${collectionCtx.current.slug}`,
+					},
+					children: (
+						<TutorialViewSidebarContent
+							items={collectionCtx.current.tutorials.map((t) =>
+								formatTutorialToMenuItem(
+									t,
+									collectionCtx.current.slug,
+									currentPath
+								)
+							)}
+						/>
+					),
+				},
 			]}
 		>
 			<TutorialMeta
@@ -120,6 +159,13 @@ export async function getStaticProps({ params }) {
 		fullTutorialData.collectionCtx
 	)
 
+	const allWafCollections = await getCollectionsBySection(wafData.slug)
+	const allWafCollectionSidebarSections = buildCategorizedWafSidebar(
+		allWafCollections,
+		wafContent.sidebarCategories,
+		collectionContext.current.slug
+	)
+
 	const layoutProps = {
 		headings,
 		breadcrumbLinks: [
@@ -137,6 +183,7 @@ export async function getStaticProps({ params }) {
 				isCurrentPage: true,
 			},
 		],
+		allWafCollectionSidebarSections,
 
 		//sidebarSections,
 	}
