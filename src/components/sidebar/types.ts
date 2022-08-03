@@ -118,8 +118,8 @@ interface MenuItem {
 	path?: string
 	routes?: MenuItem[]
 	title?: string
-	/* Temporary solution to allow rendering of unlinked headings, as in designs */
 	heading?: string
+	isOpen?: boolean
 }
 
 interface SidebarBaseProps {
