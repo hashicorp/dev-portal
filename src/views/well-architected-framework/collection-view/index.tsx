@@ -23,7 +23,7 @@ export default function WellArchitectedFrameworkCollectionView({
 			sidebarNavDataLevels={[
 				generateTopLevelSidebarNavData(metadata.wafName) as SidebarProps,
 				{
-					title: name,
+					title: metadata.wafName,
 					levelButtonProps: {
 						levelUpButtonText: `Main Menu`,
 						levelDownButtonText: 'Previous',
