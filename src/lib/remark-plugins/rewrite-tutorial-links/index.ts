@@ -23,6 +23,7 @@ import { visit } from 'unist-util-visit'
 import { ProductSlug } from 'types/products'
 import { ProductOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
+import { productSlugsToHostNames } from 'lib/products'
 import {
 	getTutorialMap,
 	handleCollectionLink,
@@ -32,18 +33,6 @@ import {
 
 let TUTORIAL_MAP
 
-// @TODO - lift this into a shared place. e.g. `src/constants`
-const PRODUCT_DOCS_PATHS = {
-	boundary: 'boundaryproject.io',
-	consul: 'consul.io',
-	nomad: 'nomadproject.io',
-	packer: 'packer.io',
-	sentinel: 'docs.hashicorp.com',
-	terraform: 'terraform.io',
-	vagrant: 'vagrantup.com',
-	vault: 'vaultproject.io',
-	waypoint: 'waypointproject.io',
-}
 const ACCEPTED_DOCS_PATHNAMES = [
 	'docs',
 	'api',
@@ -63,7 +52,7 @@ const learnLink = new RegExp(
 	`(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud)/)|^/(${learnProductOptions}|cloud)$`
 )
 const docsLink = new RegExp(
-	`(${Object.values(PRODUCT_DOCS_PATHS).join(
+	`(${Object.values(productSlugsToHostNames).join(
 		'|'
 	)})/(${ACCEPTED_DOCS_PATHNAMES.join('|')})`
 )
@@ -116,7 +105,7 @@ export function rewriteTutorialsLink(
 			const isTutorialPath = nodePath.includes('tutorials')
 			const learnProductHub = new RegExp(`/${product}$`)
 			const isProductHubPath = learnProductHub.test(nodePath)
-			const isDocsPath = nodePath.includes(PRODUCT_DOCS_PATHS[product])
+			const isDocsPath = nodePath.includes(productSlugsToHostNames[product])
 
 			// if its an external link, isolate the pathname
 			if (isExternalLearnLink || isDocsPath) {
