@@ -24,14 +24,14 @@ export async function getStaticProps({
 	props: WellArchitectedFrameworkCollectionViewProps
 }> {
 	const allWafCollections = await getCollectionsBySection(wafData.slug)
-	const sidebarSections = buildCategorizedWafSidebar(
-		allWafCollections,
-		wafContent.sidebarCategories,
-		params.collectionSlug
-	)
 	const currentCollection = allWafCollections.find(
 		(collection: ApiCollection) =>
 			collection.slug === `${wafData.slug}/${params.collectionSlug}`
+	)
+	const sidebarSections = buildCategorizedWafSidebar(
+		allWafCollections,
+		wafContent.sidebarCategories,
+		currentCollection.slug
 	)
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
