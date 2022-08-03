@@ -22,7 +22,7 @@ export function normalizeSlugForDevDot(productSlug: string): ProductSlug {
 		return productSlug
 	} else {
 		throw new Error(
-			`Error: unrecognized incoming Tutorials productOption "${productSlug}" in normalizeSlugForDevDot.`
+			`Error: unrecognized incoming Tutorials slug "${productSlug}" in normalizeSlugForDevDot.`
 		)
 	}
 }

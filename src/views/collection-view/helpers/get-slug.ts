@@ -18,6 +18,7 @@ export function getTutorialSlug(
 	const [rawProductSlug, collectionFilename] = collectionDbSlug.split('/')
 	const tutorialFilename = splitProductFromFilename(tutorialDbSlug)
 
+	// @TODO genericize this to use 'topic' or 'section' instead of 'product'
 	if (rawProductSlug === 'well-architected-framework') {
 		return `/${collectionDbSlug}/${tutorialFilename}`
 	}
