@@ -1,132 +1,17 @@
-import { MDXRemote } from 'next-mdx-remote'
 import { serializeContent } from 'views/tutorial-view/utils/serialize-content'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import TabProvider from 'components/tabs/provider'
-import TutorialMeta from 'components/tutorial-meta'
-import VideoEmbed from 'components/video-embed'
-import getVideoUrl from 'views/tutorial-view/utils/get-video-url'
-import DevDotContent from 'components/dev-dot-content'
-import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 import {
 	getCurrentCollectionTutorial,
 	getCollectionContext,
 } from 'views/tutorial-view/utils/get-collection-context'
-import { FeaturedInCollections } from 'views/tutorial-view/components'
 import wafData from 'data/well-architected-framework.json'
 import { SectionOption } from 'lib/learn-client/types'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
-import { SidebarProps } from 'components/sidebar'
-import useCurrentPath from 'hooks/use-current-path'
-import { TutorialViewSidebarContent } from 'components/tutorials-sidebar'
-import { formatTutorialToMenuItem } from 'views/tutorial-view/utils'
 import wafContent from 'content/well-architected-framework/index.json'
 import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
-/**
- * TODO
- * - get sidebar / sidecar layout working
- * - get next / prevous data working
- * - make view file
- * - separate out data gen with view logic
- */
-
-export default function GenericTutorialPage({
-	tutorial,
-	metadata,
-	layoutProps,
-}) {
-	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const {
-		slug,
-		name,
-		readTime,
-		edition,
-		productsUsed,
-		video,
-		handsOnLab,
-		content,
-		collectionCtx,
-	} = tutorial
-	const hasVideo = Boolean(video)
-	const isInteractive = Boolean(handsOnLab)
-	const featuredInWithoutCurrent = collectionCtx.featuredIn?.filter(
-		(c) => c.id !== collectionCtx.current.id
-	)
-	console.log({ collectionCtx })
-
-	return (
-		<SidebarSidecarLayout
-			headings={layoutProps.headings}
-			breadcrumbLinks={layoutProps.breadcrumbLinks}
-			sidebarNavDataLevels={[
-				generateTopLevelSidebarNavData(metadata.wafName) as SidebarProps,
-				{
-					title: metadata.wafName,
-					levelButtonProps: {
-						levelUpButtonText: `Main Menu`,
-						levelDownButtonText: 'Previous',
-					},
-					overviewItemHref: `/${metadata.wafSlug}`,
-					menuItems: layoutProps.allWafCollectionSidebarSections,
-					showFilterInput: false,
-				},
-				{
-					title: metadata.wafName,
-					visuallyHideTitle: true,
-					showFilterInput: false,
-					levelButtonProps: {
-						levelUpButtonText: collectionCtx.current.shortName,
-						levelDownButtonText: name,
-					},
-					backToLinkProps: {
-						text: collectionCtx.current.shortName,
-						href: `/${collectionCtx.current.slug}`,
-					},
-					children: (
-						<TutorialViewSidebarContent
-							items={collectionCtx.current.tutorials.map((t) =>
-								formatTutorialToMenuItem(
-									t,
-									collectionCtx.current.slug,
-									currentPath
-								)
-							)}
-						/>
-					),
-				},
-			]}
-		>
-			<TutorialMeta
-				heading={{ slug: slug, text: name }}
-				meta={{
-					readTime,
-					edition,
-					productsUsed,
-					isInteractive,
-					hasVideo,
-				}}
-			/>
-			{video?.id && !video.videoInline && (
-				<VideoEmbed
-					url={getVideoUrl({
-						videoId: video.id,
-						videoHost: video.videoHost,
-					})}
-				/>
-			)}
-			<TabProvider>
-				<DevDotContent>
-					<MDXRemote {...content} components={MDX_COMPONENTS} />
-				</DevDotContent>
-			</TabProvider>
-			{/* <NextPrevious {...nextPreviousData} /> */}
-			<FeaturedInCollections collections={featuredInWithoutCurrent} />
-		</SidebarSidecarLayout>
-	)
-}
+import WellArchitectedFrameworkTutorialView from 'views/well-architected-framework/tutorial-view'
 
 export async function getStaticProps({ params }) {
 	const { tutorialSlug } = params
@@ -240,3 +125,5 @@ export async function getStaticPaths() {
 
 	return { paths, fallback: false }
 }
+
+export default WellArchitectedFrameworkTutorialView
