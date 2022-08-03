@@ -30,7 +30,7 @@ export function buildCategorizedWafSidebar(
 				collection.slug,
 				{
 					title: collection.name,
-					fullPath: collection.slug,
+					fullPath: `/${collection.slug}`,
 					isActive: false,
 					id: collection.id,
 				},
@@ -56,7 +56,7 @@ export function buildCategorizedWafSidebar(
 				return {
 					title: collection.name,
 					isActive: false,
-					fullPath: collection.slug,
+					fullPath: `/${collection.slug}`,
 					id: collection.id,
 				}
 			})

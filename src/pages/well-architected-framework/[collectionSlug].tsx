@@ -39,7 +39,7 @@ export default function TopicsCollectionPage(props) {
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
 		{ title: wafData.name, url: `/${wafData.slug}` },
-		{ title: name, url: `/${slug}` },
+		{ title: name, url: `/${slug}`, isCurrentPage: true },
 	]
 	return (
 		<SidebarSidecarLayout
