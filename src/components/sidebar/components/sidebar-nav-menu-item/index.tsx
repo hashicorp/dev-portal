@@ -157,7 +157,10 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	const buttonRef = useRef<HTMLButtonElement>()
 	const [isOpen, setIsOpen] = useState(
-		item.hasActiveChild || item.hasChildrenMatchingFilter || item.matchesFilter
+		item.isOpen ||
+			item.hasActiveChild ||
+			item.hasChildrenMatchingFilter ||
+			item.matchesFilter
 	)
 	const hasBadge = !!(item as $TSFixMe).badge
 
@@ -168,11 +171,17 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	 */
 	useEffect(() => {
 		setIsOpen(
-			item.hasActiveChild ||
+			item.isOpen ||
+				item.hasActiveChild ||
 				item.hasChildrenMatchingFilter ||
 				item.matchesFilter
 		)
-	}, [item.hasActiveChild, item.hasChildrenMatchingFilter, item.matchesFilter])
+	}, [
+		item.isOpen,
+		item.hasActiveChild,
+		item.hasChildrenMatchingFilter,
+		item.matchesFilter,
+	])
 
 	const handleKeyDown: KeyboardEventHandler<HTMLUListElement> = (e) => {
 		if (e.key === 'Escape') {
