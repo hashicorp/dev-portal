@@ -20,11 +20,15 @@ export const generateProductLandingSidebarMenuItems = (
 
 	if (product.rootDocsPaths) {
 		const rootDocsNavItems = product.rootDocsPaths.map((rootDocsPath) => {
-			const { shortName, name, path } = rootDocsPath
-			return { title: shortName || name, fullPath: `/${product.slug}/${path}` }
+			const { name, path } = rootDocsPath
+			return { title: name, fullPath: `/${product.slug}/${path}` }
 		})
+		const documentationSubmenu = {
+			title: 'Documentation',
+			routes: [...rootDocsNavItems],
+		}
 		menuItems = [
-			...rootDocsNavItems,
+			documentationSubmenu,
 			{
 				title: 'Tutorials',
 				fullPath: `/${product.slug}/tutorials`,
