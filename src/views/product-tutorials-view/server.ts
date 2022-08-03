@@ -110,23 +110,8 @@ export async function getCloudTutorialsViewProps() {
 				sidebarSections,
 			},
 			product: {
-				/**
-				 * See note on product in getProductTutorialsViewProps below
-				 * (repeating in this comment as well just in case)
-				 *
-				 * @TODO Determine which should be the source of truth in the long term since
-				 * both Learn and existing Docs properties are both needed to be returned from
-				 * here.
-				 */
-				...productData,
-				description:
-					'HashiCorp Cloud Platform (HCP) is a fully managed platform offering HashiCorp products as a service to automate infrastructure on any cloud.',
-				docsUrl: 'https://cloud.hashicorp.com/',
-				/**
-				 * TODO: this isn't right, need to confirm how this is used
-				 * on the client side, to figure out what to do here.
-				 */
-				id: 'fake-hcp-learn-product-id',
+				slug: productData.slug,
+				name: productData.name,
 			},
 		}),
 	}
