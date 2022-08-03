@@ -1,5 +1,9 @@
 import moize, { Options } from 'moize'
-import { LearnProductData, LearnProductSlug } from 'types/products'
+import {
+	LearnProductData,
+	LearnProductName,
+	LearnProductSlug,
+} from 'types/products'
 
 import {
 	getAllCollections,
@@ -40,11 +44,16 @@ export interface TutorialPageProps {
  * which is needed for other areas of the app to function.
  */
 export async function getTutorialPageProps(
-	product: LearnProductData,
+	product: {
+		name: LearnProductName
+		slug: LearnProductSlug | 'hcp'
+	},
 	slug: [string, string]
 ): Promise<{ props: TutorialPageProps } | null> {
+	//
+	const compatProductSlug = product.slug == 'hcp' ? 'cloud' : product.slug
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
-		product.slug as ProductOption,
+		compatProductSlug as ProductOption,
 		slug
 	)
 
@@ -166,9 +175,18 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const shouldBuildTutorialPath =
-			getIsBetaProduct(productSlugFromCollection as LearnProductSlug) &&
+		const compatSlug =
+			productSlugFromCollection === 'cloud' ? 'hcp' : productSlugFromCollection
+		const isBetaProduct = getIsBetaProduct(compatSlug as LearnProductSlug)
+
+		/**
+		 * TODO: not actually sure this is correct, just trying to get cloud
+		 * collections to render
+		 */
+		const hasMatchingTheme =
+			productSlugFromCollection == 'cloud' ||
 			productSlugFromCollection === collection.theme
+		const shouldBuildTutorialPath = isBetaProduct && hasMatchingTheme
 
 		if (shouldBuildTutorialPath) {
 			// go through the tutorials within the collection, create a path for each

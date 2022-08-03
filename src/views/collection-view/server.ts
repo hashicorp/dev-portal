@@ -158,22 +158,6 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 			productSlug == 'cloud' || productSlug === collection.theme
 		const shouldBuildCollectionPath = isBetaProduct && hasMatchingTheme
 
-		if (productSlug == 'cloud') {
-			console.log({
-				shouldBuildCollectionPath,
-				collectionSlug: filename,
-				isBetaProduct,
-				hasMatchingTheme,
-				theme: collection.theme,
-			})
-			console.log({
-				params: {
-					productSlug: compatSlug,
-					collectionSlug: filename,
-				},
-			})
-		}
-
 		if (shouldBuildCollectionPath) {
 			paths.push({
 				params: {
