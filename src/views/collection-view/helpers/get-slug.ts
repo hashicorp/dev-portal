@@ -1,6 +1,27 @@
-import { LearnProductSlug } from 'types/products'
+import { ProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
+import { isProductSlug } from 'lib/products'
+
+/**
+ * Given a "product" slug from a Tutorials context,
+ * such as in part of a collection or tutorial slug,
+ * Return a "product" slug compatible with Dev Dot's ProductSlug type.
+ *
+ * This is very specifically targeted at normalizing "cloud" to "hcp".
+ * In Tutorials contexts, we use "cloud"; in Dev Dot we use "hcp".
+ */
+function normalizeTutorialProductSectionSlug(productSlug: string): ProductSlug {
+	if (productSlug == 'cloud') {
+		return 'hcp'
+	} else if (isProductSlug(productSlug)) {
+		return productSlug
+	} else {
+		throw new Error(
+			`Error: unrecognized product or section slug "${productSlug}" in normalizeTutorialProductSectionSlug.`
+		)
+	}
+}
 
 /**
  * takes db slug format --> waypoint/intro
@@ -15,32 +36,33 @@ export function getTutorialSlug(
 	tutorialDbSlug: string,
 	collectionDbSlug: string
 ): string {
-	const [rawProduct, collectionFilename] = collectionDbSlug.split('/')
-	const product = rawProduct == 'cloud' ? 'hcp' : rawProduct
+	const [rawProductSlug, collectionFilename] = collectionDbSlug.split('/')
 	const tutorialFilename = splitProductFromFilename(tutorialDbSlug)
 
-	if (product === 'well-architected-framework') {
+	if (rawProductSlug === 'well-architected-framework') {
 		return `/${collectionDbSlug}/${tutorialFilename}`
 	}
 
-	return `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
+	const productSlug = normalizeTutorialProductSectionSlug(rawProductSlug)
+	return `/${productSlug}/tutorials/${collectionFilename}/${tutorialFilename}`
 }
 
 export function getCollectionSlug(collectionDbSlug: string): string {
-	const [rawProduct, collectionFilename] = collectionDbSlug.split('/')
-	const product = rawProduct == 'cloud' ? 'hcp' : rawProduct
-	const isBetaProduct = getIsBetaProduct(product as LearnProductSlug | 'hcp')
+	const [rawProductSlug, collectionFilename] = collectionDbSlug.split('/')
 
 	// @TODO genericize this to use 'topic' or 'section' instead of 'product'
-	if (product === 'well-architected-framework') {
+	if (rawProductSlug === 'well-architected-framework') {
 		return `/${collectionDbSlug}`
 	}
 
+	const productSlug = normalizeTutorialProductSectionSlug(rawProductSlug)
+	const isBetaProduct = getIsBetaProduct(productSlug)
+
 	// if not a 'sanctioned product', link externally to Learn
 	// interim solution for BETA where not all products are onboarded
-	if (!isBetaProduct) {
+	if (isBetaProduct) {
+		return `/${productSlug}/tutorials/${collectionFilename}`
+	} else {
 		return `https://learn.hashicorp.com/collections/${collectionDbSlug}`
 	}
-
-	return `/${product}/tutorials/${collectionFilename}`
 }
