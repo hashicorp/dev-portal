@@ -1,7 +1,5 @@
-# Install dependencies, if needed
-if [ ! -d "node_modules" ]; then
-    npm i --production=false
-fi
+# Install dependencies
+npm i --production=false
 # TODO set up watcher to sync all files
 # TODO under website/public into website/website-preview/public
 cp -R ../public/** ./public/
