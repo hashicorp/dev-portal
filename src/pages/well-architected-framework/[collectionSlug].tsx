@@ -1,101 +1,71 @@
+import { GetStaticPropsContext } from 'next'
 import {
 	getCollection,
 	getCollectionsBySection,
 } from 'lib/learn-client/api/collection'
-import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
+import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
-import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
-import { SidebarProps } from 'components/sidebar'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import CollectionMeta from 'views/collection-view/components/collection-meta'
-import CollectionTutorialList from 'views/collection-view/components/collection-tutorial-list'
 import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
+import WellArchitectedFrameworkCollectionView from 'views/well-architected-framework/collection-view'
+import { WellArchitectedFrameworkCollectionViewProps } from 'views/well-architected-framework/types'
 import wafContent from 'content/well-architected-framework/index.json'
 import wafData from 'data/well-architected-framework.json'
 
-export default function TopicsCollectionPage(props) {
-	const {
-		name,
-		id,
-		description,
-		tutorials,
-		ordered,
-		slug,
-		sidebarCollections,
-	} = props.content
-	const breadcrumbLinks = [
-		{ title: 'Developer', url: '/' },
-		{ title: wafData.name, url: `/${wafData.slug}` },
-		{ title: name, url: `/${slug}`, isCurrentPage: true },
-	]
-	return (
-		<SidebarSidecarLayout
-			sidecarSlot={null}
-			breadcrumbLinks={breadcrumbLinks}
-			sidebarNavDataLevels={[
-				generateTopLevelSidebarNavData(wafData.name) as SidebarProps,
-				{
-					title: name,
-					levelButtonProps: {
-						levelUpButtonText: `Main Menu`,
-						levelDownButtonText: 'Previous',
-					},
-					overviewItemHref: `/${wafData.slug}`,
-					menuItems: buildCategorizedWafSidebar(
-						sidebarCollections,
-						wafContent.sidebarCategories,
-						slug
-					),
-					showFilterInput: false,
-				},
-			]}
-		>
-			<CollectionMeta
-				heading={{ text: name, id }}
-				description={description}
-				cta={{ href: tutorials[0].slug }}
-				numTutorials={tutorials.length}
-			/>
-			<CollectionTutorialList
-				isOrdered={ordered}
-				tutorials={tutorials.map((t: ClientTutorialLite) => ({
-					id: t.id,
-					description: t.description,
-					duration: getReadableTime(t.readTime),
-					hasInteractiveLab: Boolean(t.handsOnLab),
-					hasVideo: Boolean(t.video),
-					heading: t.name,
-					url: `/${slug}/${splitProductFromFilename(t.slug)}`,
-					productsUsed: t.productsUsed.map((p) => p.product.slug),
-				}))}
-			/>
-		</SidebarSidecarLayout>
-	)
-}
+/**
+ * - make a view file
+ * - keep the prop gen logic in here
+ * - build the sidebar data & layoutdata in the server
+ * - add props
+ * - double check design
+ * - add comments / cleanup
+ */
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({
+	params,
+}: GetStaticPropsContext<{ collectionSlug: string }>): Promise<{
+	props: WellArchitectedFrameworkCollectionViewProps
+}> {
 	const { collectionSlug } = params
-	// TODO use the function from the landing page
-	const sidebarCollections = await getCollectionsBySection(wafData.slug)
-	// TODO find the collection based on the slug in the `sidebarCollections` list
+	const allWafCollections = await getCollectionsBySection(wafData.slug)
+	const sidebarSections = buildCategorizedWafSidebar(
+		allWafCollections,
+		wafContent.sidebarCategories,
+		collectionSlug
+	)
+	// TODO check data to see if I can use the collection from sidebar sections data
 	const collectionData = await getCollection(
 		`${wafData.slug}/${collectionSlug}`
 	)
+	const breadcrumbLinks = [
+		{ title: 'Developer', url: '/' },
+		{ title: wafData.name, url: `/${wafData.slug}` },
+		{
+			title: collectionData.name,
+			url: `/${collectionData.slug}`,
+			isCurrentPage: true,
+		},
+	]
 
 	return {
 		props: stripUndefinedProperties({
-			content: { sidebarCollections, ...collectionData },
+			metadata: { wafName: wafData.name, wafSlug: wafData.slug },
+			collection: collectionData,
+			layoutProps: {
+				sidebarSections,
+				breadcrumbLinks,
+			},
 		}),
 	}
 }
 
 export async function getStaticPaths() {
 	const allCollections = await getCollectionsBySection(wafData.slug)
-	const paths = allCollections.map((c) => ({
+	const paths = allCollections.map((c: ApiCollection) => ({
 		params: { collectionSlug: splitProductFromFilename(c.slug) },
 	}))
 
 	return { paths, fallback: false }
 }
+
+export default WellArchitectedFrameworkCollectionView
