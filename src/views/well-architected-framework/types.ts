@@ -1,0 +1,31 @@
+import { EnrichedNavItem } from 'components/sidebar/types'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import { HeroHeadingVisualProps } from 'views/product-landing/components/hero-heading-visual/types'
+import { OverviewCtaProps } from 'views/product-landing/components/overview-cta/types'
+import { ProductViewBlock } from 'views/product-tutorials-view/components/product-view-content'
+import {
+	InlineCollections,
+	InlineTutorials,
+} from 'views/product-tutorials-view/helpers/get-inline-content'
+
+export interface WellArchitectedFrameworkLandingProps {
+	metadata: {
+		title: string
+		name: string
+		slug: string
+	}
+	data: {
+		pageData: {
+			hero: HeroHeadingVisualProps
+			overview: OverviewCtaProps
+			blocks: ProductViewBlock[]
+		}
+		inlineCollections: InlineCollections
+		inlineTutorials: InlineTutorials
+	}
+	layoutProps: {
+		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
+		headings: SidebarSidecarLayoutProps['headings']
+		sidebarSections: EnrichedNavItem[]
+	}
+}

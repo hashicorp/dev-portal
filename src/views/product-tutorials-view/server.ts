@@ -3,6 +3,7 @@ import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import { sortAlphabetically } from 'lib/sort-alphabetically'
 import { formatSidebarCategorySections } from 'views/collection-view/helpers'
 import getProductPageContent from './helpers/get-product-page-content'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
@@ -11,7 +12,7 @@ import {
 	InlineCollections,
 	InlineTutorials,
 } from './helpers/get-inline-content'
-import { filterCollections, sortAlphabetically } from './helpers'
+import { filterCollections } from './helpers'
 import processPageData from './helpers/process-page-data'
 import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'

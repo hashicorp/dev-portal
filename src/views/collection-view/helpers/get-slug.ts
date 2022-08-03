@@ -17,12 +17,22 @@ export function getTutorialSlug(
 ): string {
 	const [product, collectionFilename] = collectionDbSlug.split('/')
 	const tutorialFilename = splitProductFromFilename(tutorialDbSlug)
+
+	if (product === 'well-architected-framework') {
+		return `/${collectionDbSlug}/${tutorialFilename}`
+	}
+
 	return `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
 }
 
 export function getCollectionSlug(collectionDbSlug: string): string {
 	const [product, collectionFilename] = collectionDbSlug.split('/')
 	const isBetaProduct = getIsBetaProduct(product as LearnProductSlug)
+
+	// @TODO genericize this to use 'topic' or 'section' instead of 'product'
+	if (product === 'well-architected-framework') {
+		return `/${collectionDbSlug}`
+	}
 
 	// if not a 'sanctioned product', link externally to Learn
 	// interim solution for BETA where not all products are onboarded
