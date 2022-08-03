@@ -8,3 +8,5 @@ updates:
     allow:
       # Allow updates for HashiCorp packages
       - dependency-name: '@hashicorp/*'
+    reviewers:
+      - 'hashicorp/web-platform'
