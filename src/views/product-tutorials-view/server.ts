@@ -23,7 +23,6 @@ import { ProductTutorialsSitemapProps } from './components/sitemap/types'
 import { formatSitemapCollection } from './components/sitemap/helpers'
 import { ThemeOption } from 'lib/learn-client/types'
 import { cachedGetProductData } from 'lib/get-product-data'
-import { generateHcpSidebarSections } from './helpers/generate-hcp-sidebar-sections'
 
 export interface ProductTutorialsViewProps {
 	data: ProductPageData
@@ -54,11 +53,12 @@ export interface ProductPageData {
  */
 export async function getCloudTutorialsViewProps() {
 	const productData = cachedGetProductData('hcp')
+
 	/**
-	 * Build the sidebar, which for now is some stubbed in 'cloud' collections.
+	 * Build the sidebar
 	 */
 	const hcpCollections = await getCollectionsBySection('cloud')
-	const sidebarSections = generateHcpSidebarSections(hcpCollections)
+	const sidebarSections = formatSidebarCategorySections(hcpCollections)
 
 	/**
 	 * Get the raw page data
@@ -68,6 +68,7 @@ export async function getCloudTutorialsViewProps() {
 		inlineCollections,
 		inlineTutorials,
 	} = await getProductPageContent(ThemeOption.cloud)
+
 	/**
 	 * Process page data, reformatting as needed.
 	 * Includes parsing headings, for use with the page's sidecar
