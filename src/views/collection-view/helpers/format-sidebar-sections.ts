@@ -49,7 +49,7 @@ export function formatSidebarCategorySections(
 	)
 
 	/**
-	 * Add and "unused" section, to capture any missing collections
+	 * Add an "unused" section, to capture any missing collections
 	 * Note: this will be filtered out if it's empty.
 	 *
 	 * TODO: this is to get /hcp content stubbed, may not be correct,
