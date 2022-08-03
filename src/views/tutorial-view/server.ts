@@ -27,6 +27,10 @@ import {
 } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
+import {
+	normalizeProductSlugForDevDot,
+	normalizeProductSlugForTutorials,
+} from 'lib/tutorials/normalize-product-slug'
 
 export interface TutorialPageProps {
 	tutorial: TutorialData
@@ -51,9 +55,9 @@ export async function getTutorialPageProps(
 	slug: [string, string]
 ): Promise<{ props: TutorialPageProps } | null> {
 	//
-	const compatProductSlug = product.slug == 'hcp' ? 'cloud' : product.slug
+	const learnProductSlug = normalizeProductSlugForTutorials(product.slug)
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
-		compatProductSlug as ProductOption,
+		learnProductSlug as ProductOption,
 		slug
 	)
 
@@ -175,18 +179,11 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const compatSlug =
-			productSlugFromCollection === 'cloud' ? 'hcp' : productSlugFromCollection
-		const isBetaProduct = getIsBetaProduct(compatSlug as LearnProductSlug)
-
-		/**
-		 * TODO: not actually sure this is correct, just trying to get cloud
-		 * collections to render
-		 */
-		const hasMatchingTheme =
-			productSlugFromCollection == 'cloud' ||
-			productSlugFromCollection === collection.theme
-		const shouldBuildTutorialPath = isBetaProduct && hasMatchingTheme
+		const productSlug = normalizeProductSlugForDevDot(productSlugFromCollection)
+		const isBetaProduct = getIsBetaProduct(productSlug)
+		const isCloud = productSlugFromCollection == 'cloud'
+		const themeMatches = productSlug === collection.theme
+		const shouldBuildTutorialPath = isBetaProduct && (isCloud || themeMatches)
 
 		if (shouldBuildTutorialPath) {
 			// go through the tutorials within the collection, create a path for each
