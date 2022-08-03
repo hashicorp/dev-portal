@@ -13,10 +13,7 @@ import wafContent from 'content/well-architected-framework/index.json'
 import wafData from 'data/well-architected-framework.json'
 
 /**
- * - make a view file
- * - keep the prop gen logic in here
- * - build the sidebar data & layoutdata in the server
- * - add props
+ * TODO
  * - double check design
  * - add comments / cleanup
  */
@@ -26,23 +23,22 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ collectionSlug: string }>): Promise<{
 	props: WellArchitectedFrameworkCollectionViewProps
 }> {
-	const { collectionSlug } = params
 	const allWafCollections = await getCollectionsBySection(wafData.slug)
 	const sidebarSections = buildCategorizedWafSidebar(
 		allWafCollections,
 		wafContent.sidebarCategories,
-		collectionSlug
+		params.collectionSlug
 	)
-	// TODO check data to see if I can use the collection from sidebar sections data
-	const collectionData = await getCollection(
-		`${wafData.slug}/${collectionSlug}`
+	const currentCollection = allWafCollections.find(
+		(collection: ApiCollection) =>
+			collection.slug === `${wafData.slug}/${params.collectionSlug}`
 	)
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
 		{ title: wafData.name, url: `/${wafData.slug}` },
 		{
-			title: collectionData.name,
-			url: `/${collectionData.slug}`,
+			title: currentCollection.name,
+			url: `/${currentCollection.slug}`,
 			isCurrentPage: true,
 		},
 	]
@@ -50,7 +46,7 @@ export async function getStaticProps({
 	return {
 		props: stripUndefinedProperties({
 			metadata: { wafName: wafData.name, wafSlug: wafData.slug },
-			collection: collectionData,
+			collection: currentCollection,
 			layoutProps: {
 				sidebarSections,
 				breadcrumbLinks,
