@@ -23,6 +23,7 @@ export function getTutorialSlug(
 		return `/${collectionDbSlug}/${tutorialFilename}`
 	}
 
+	// rawProductSlug may be "cloud", needs to be "hcp" for Dev Dot purposes
 	const productSlug = normalizeSlugForDevDot(rawProductSlug)
 	return `/${productSlug}/tutorials/${collectionFilename}/${tutorialFilename}`
 }
@@ -35,6 +36,7 @@ export function getCollectionSlug(collectionDbSlug: string): string {
 		return `/${collectionDbSlug}`
 	}
 
+	// rawProductSlug may be "cloud", needs to be "hcp" for Dev Dot purposes
 	const productSlug = normalizeSlugForDevDot(rawProductSlug)
 	const isBetaProduct = getIsBetaProduct(productSlug)
 

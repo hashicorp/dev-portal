@@ -95,6 +95,7 @@ export async function getCollectionPageProps(
 	},
 	slug: string
 ): Promise<{ props: CollectionPageProps } | null> {
+	// product.slug may be "hcp", needs to be "cloud" for Learn API use
 	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const collection = await getCollection(`${learnProductSlug}/${slug}`)
 

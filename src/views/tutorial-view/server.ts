@@ -52,7 +52,7 @@ export async function getTutorialPageProps(
 	},
 	slug: [string, string]
 ): Promise<{ props: TutorialPageProps } | null> {
-	//
+	// product.slug may be "hcp", needs to be "cloud" for Learn API use
 	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
 		learnProductSlug as ProductOption,
