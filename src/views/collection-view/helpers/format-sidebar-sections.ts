@@ -49,29 +49,35 @@ export function formatSidebarCategorySections(
 	)
 
 	/**
-	 * Add an "unused" section, to capture any missing collections
+	 * If we have category sections with content, use those.
+	 */
+	const nonEmptySections = filterEmptySections(sidebarSectionsByCategory)
+	if (nonEmptySections.length > 0) {
+		return nonEmptySections
+	}
+
+	/**
+	 * Otherwise, since there are no other sidebar sections, then
+	 * add an "unused" section, to capture any missing collections
 	 * Note: this will be filtered out if it's empty.
 	 *
 	 * TODO: this is to get /hcp content stubbed, may not be correct,
 	 * and may need adjustment once we have finalized designs.
 	 */
-	const unusedCollections = collections.filter((c: ClientCollection) => {
+	const remainderCollections = collections.filter((c: ClientCollection) => {
 		return usedCollections.indexOf(c.slug) == -1
 	})
-	const unusedSection = {
+	const remainderSection = {
 		/**
 		 * Note: section title is not included, only option I can think of
 		 * is "Collections", which I think we want to avoid naming explicitly?
 		 * And would look weird next to other more specifically named sections.
 		 */
-		items: unusedCollections.map((collection: ClientCollection) =>
+		items: remainderCollections.map((collection: ClientCollection) =>
 			formatCollectionToListItem(collection, currentSlug)
 		),
 	}
-
-	// Gather, filter, and return all sections
-	const allSections = [...sidebarSectionsByCategory, unusedSection]
-	return filterEmptySections(allSections)
+	return filterEmptySections([remainderSection])
 }
 
 function filterEmptySections(
