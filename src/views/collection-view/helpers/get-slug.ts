@@ -1,27 +1,6 @@
-import { ProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import { isProductSlug } from 'lib/products'
-
-/**
- * Given a "product" slug from a Tutorials context,
- * such as in part of a collection or tutorial slug,
- * Return a "product" slug compatible with Dev Dot's ProductSlug type.
- *
- * This is very specifically targeted at normalizing "cloud" to "hcp".
- * In Tutorials contexts, we use "cloud"; in Dev Dot we use "hcp".
- */
-function normalizeTutorialProductSectionSlug(productSlug: string): ProductSlug {
-	if (productSlug == 'cloud') {
-		return 'hcp'
-	} else if (isProductSlug(productSlug)) {
-		return productSlug
-	} else {
-		throw new Error(
-			`Error: unrecognized product or section slug "${productSlug}" in normalizeTutorialProductSectionSlug.`
-		)
-	}
-}
+import { normalizeProductSlugForDevDot } from 'lib/tutorials/normalize-product-slug'
 
 /**
  * takes db slug format --> waypoint/intro
@@ -43,7 +22,7 @@ export function getTutorialSlug(
 		return `/${collectionDbSlug}/${tutorialFilename}`
 	}
 
-	const productSlug = normalizeTutorialProductSectionSlug(rawProductSlug)
+	const productSlug = normalizeProductSlugForDevDot(rawProductSlug)
 	return `/${productSlug}/tutorials/${collectionFilename}/${tutorialFilename}`
 }
 
@@ -55,7 +34,7 @@ export function getCollectionSlug(collectionDbSlug: string): string {
 		return `/${collectionDbSlug}`
 	}
 
-	const productSlug = normalizeTutorialProductSectionSlug(rawProductSlug)
+	const productSlug = normalizeProductSlugForDevDot(rawProductSlug)
 	const isBetaProduct = getIsBetaProduct(productSlug)
 
 	// if not a 'sanctioned product', link externally to Learn

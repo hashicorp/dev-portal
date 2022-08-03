@@ -25,6 +25,7 @@ import {
 	formatSidebarCategorySections,
 } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
+import { normalizeProductSlugForTutorials } from 'lib/tutorials/normalize-product-slug'
 
 export interface CollectionPageProps {
 	collection: ClientCollection
@@ -93,7 +94,7 @@ export async function getCollectionPageProps(
 	},
 	slug: string
 ): Promise<{ props: CollectionPageProps } | null> {
-	const learnProductSlug = product.slug == 'hcp' ? 'cloud' : product.slug
+	const learnProductSlug = normalizeProductSlugForTutorials(product.slug)
 	const collection = await getCollection(`${learnProductSlug}/${slug}`)
 
 	// if null the api encountered a 404
@@ -142,8 +143,9 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		// assuming slug structure of :product/:filename
 		const [productSlug, filename] = collection.slug.split('/')
 		/**
-		 * Only build collections where the `productSlug` is a valid beta
-		 * product and the`theme` matches the `productSlug`
+		 * Only build collections where the `productSlug` is a valid beta product.
+		 * As well, for all non-HCP products, only build collections where
+		 * `theme` matches the `productSlug`.
 		 *
 		 * Once all products are 'onboarded' we can remove this filtering layer
 		 * for the beta products.
@@ -151,20 +153,16 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const compatSlug = productSlug === 'cloud' ? 'hcp' : productSlug
-		const isBetaProduct = getIsBetaProduct(compatSlug as LearnProductSlug)
-		/**
-		 * TODO: not actually sure this is correct, just trying to get cloud
-		 * collections to render
-		 */
-		const hasMatchingTheme =
-			productSlug == 'cloud' || productSlug === collection.theme
-		const shouldBuildCollectionPath = isBetaProduct && hasMatchingTheme
+		const learnProductSlug = normalizeProductSlugForTutorials(productSlug)
+		const isBetaProduct = getIsBetaProduct(learnProductSlug as LearnProductSlug)
+		const isCloud = productSlug == 'cloud'
+		const themeMatches = productSlug === collection.theme
+		const shouldBuildCollectionPath = isBetaProduct && (isCloud || themeMatches)
 
 		if (shouldBuildCollectionPath) {
 			paths.push({
 				params: {
-					productSlug: compatSlug,
+					productSlug: learnProductSlug,
 					collectionSlug: filename,
 				},
 			})
