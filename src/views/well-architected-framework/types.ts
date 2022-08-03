@@ -1,3 +1,4 @@
+import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { HeroHeadingVisualProps } from 'views/product-landing/components/hero-heading-visual/types'
@@ -26,6 +27,18 @@ export interface WellArchitectedFrameworkLandingProps {
 	layoutProps: {
 		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
 		headings: SidebarSidecarLayoutProps['headings']
+		sidebarSections: EnrichedNavItem[]
+	}
+}
+
+export interface WellArchitectedFrameworkCollectionViewProps {
+	metadata: {
+		wafName: string
+		wafSlug: string
+	}
+	collection: ApiCollection
+	layoutProps: {
+		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
 		sidebarSections: EnrichedNavItem[]
 	}
 }

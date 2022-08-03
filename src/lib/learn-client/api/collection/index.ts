@@ -130,7 +130,9 @@ export async function getNextCollectionInSidebar({
  * would have a section of 'waypoint'. This allows us to fetch non-product
  * associated content such as 'onboarding' and 'well-architected-framework'
  */
-export async function getCollectionsBySection(section: string) {
+export async function getCollectionsBySection(
+	section: string
+): Promise<Collection[]> {
 	const route = COLLECTION_API_ROUTE + `?section=${section}`
 
 	const getSectionCollections = await get(route)
@@ -141,7 +143,7 @@ export async function getCollectionsBySection(section: string) {
 			console.warn(`No collections found for section query: ${section}`)
 		}
 
-		return res.result
+		return res.result.map(formatCollection)
 	}
 
 	const error = toError(getSectionCollections)
