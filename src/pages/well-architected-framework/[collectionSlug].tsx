@@ -12,10 +12,19 @@ import CollectionTutorialList from 'views/collection-view/components/collection-
 import Heading from 'components/heading'
 import wafData from 'data/well-architected-framework.json'
 import BaseNewLayout from 'layouts/base-new'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
+import { SidebarProps } from 'components/sidebar'
+import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
+import wafContent from 'content/well-architected-framework/index.json'
 
 /**
  * TODO
  * - get sidebar sidecar layout working
+ * - layout props
+ *      - headings
+ *      - breadcrumb links
+ *      - sidebar nav data levels (will be v similar to landing page)
  */
 export default function TopicsCollectionPage(props) {
 	const {
@@ -27,8 +36,32 @@ export default function TopicsCollectionPage(props) {
 		slug,
 		sidebarCollections,
 	} = props.content
+	const breadcrumbLinks = [
+		{ title: 'Developer', url: '/' },
+		{ title: wafData.name, url: `/${wafData.slug}` },
+		{ title: name, url: `/${slug}` },
+	]
 	return (
-		<>
+		<SidebarSidecarLayout
+			sidecarSlot={null}
+			breadcrumbLinks={breadcrumbLinks}
+			sidebarNavDataLevels={[
+				generateTopLevelSidebarNavData(wafData.name) as SidebarProps,
+				{
+					title: name,
+					levelButtonProps: {
+						levelUpButtonText: `Main Menu`,
+						levelDownButtonText: 'Previous',
+					},
+					overviewItemHref: `/${slug}`,
+					menuItems: buildCategorizedWafSidebar(
+						sidebarCollections,
+						wafContent.sidebarCategories
+					),
+					showFilterInput: false,
+				},
+			]}
+		>
 			<CollectionMeta
 				heading={{ text: name, id }}
 				description={description}
@@ -48,26 +81,7 @@ export default function TopicsCollectionPage(props) {
 					productsUsed: t.productsUsed.map((p) => p.product.slug),
 				}))}
 			/>
-		</>
-	)
-}
-
-export function _tempCollectionSidebarPlaceholder({ collections }) {
-	return (
-		<>
-			<Heading level={1} size={500} weight="bold">
-				All Collections
-			</Heading>
-			<ul>
-				{collections.map((collection) => (
-					<li key={collection.id}>
-						<Link href={`/${collection.slug}`}>
-							<a>{collection.name}</a>
-						</Link>
-					</li>
-				))}
-			</ul>
-		</>
+		</SidebarSidecarLayout>
 	)
 }
 
@@ -95,5 +109,3 @@ export async function getStaticPaths() {
 
 	return { paths, fallback: false }
 }
-
-TopicsCollectionPage.layout = BaseNewLayout
