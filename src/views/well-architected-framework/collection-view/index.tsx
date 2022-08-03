@@ -15,6 +15,9 @@ export default function WellArchitectedFrameworkCollectionView({
 }: WellArchitectedFrameworkCollectionViewProps) {
 	const { name, id, description, tutorials, ordered, slug } = collection
 	const { sidebarSections, breadcrumbLinks } = layoutProps
+	const startTutorialSlug = `/${slug}/${splitProductFromFilename(
+		tutorials[0].slug
+	)}`
 
 	return (
 		<SidebarSidecarLayout
@@ -37,7 +40,7 @@ export default function WellArchitectedFrameworkCollectionView({
 			<CollectionMeta
 				heading={{ text: name, id }}
 				description={description}
-				cta={{ href: tutorials[0].slug }}
+				cta={{ href: startTutorialSlug }}
 				numTutorials={tutorials.length}
 			/>
 			<CollectionTutorialList
