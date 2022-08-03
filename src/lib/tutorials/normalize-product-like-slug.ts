@@ -15,14 +15,14 @@ import {
  * This is very specifically targeted at normalizing "cloud" to "hcp".
  * In Tutorials contexts, we use "cloud"; in Dev Dot we use "hcp".
  */
-export function normalizeSlugForDevDot(slug: string): ProductSlug {
-	if (slug == 'cloud') {
+export function normalizeSlugForDevDot(productSlug: string): ProductSlug {
+	if (productSlug == 'cloud') {
 		return 'hcp'
-	} else if (isProductSlug(slug)) {
-		return slug
+	} else if (isProductSlug(productSlug)) {
+		return productSlug
 	} else {
 		throw new Error(
-			`Error: unrecognized incoming Tutorials productOption "${slug}" in normalizeSlugForDevDot.`
+			`Error: unrecognized incoming Tutorials productOption "${productSlug}" in normalizeSlugForDevDot.`
 		)
 	}
 }
