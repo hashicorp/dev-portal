@@ -74,7 +74,7 @@ function formatCollectionToListItem(
 ): ListItemProps {
 	const path = getCollectionSlug(collection.slug)
 	return {
-		text: collection.shortName || collection.name,
+		text: collection.shortName,
 		href: path,
 		isActive: collection.slug === currentSlug,
 	}
