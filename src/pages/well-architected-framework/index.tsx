@@ -2,14 +2,13 @@ import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { PageSlugOption } from 'lib/learn-client/api/page'
 import { buildLayoutHeadings as buildLayoutHeadingsFromBlocks } from 'views/product-tutorials-view/helpers/heading-helpers'
-import WellArchitectedFrameworkLandingView, {
-	wafData,
-} from 'views/well-architected-framework'
+import WellArchitectedFrameworkLandingView from 'views/well-architected-framework'
 import getProductPageContent from 'views/product-tutorials-view/helpers/get-product-page-content'
 import processPageData from 'views/product-tutorials-view/helpers/process-page-data'
 import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
-import wafContent from 'content/well-architected-framework/index.json'
 import { WellArchitectedFrameworkLandingProps } from 'views/well-architected-framework/types'
+import wafContent from 'content/well-architected-framework/index.json'
+import wafData from 'data/well-architected-framework.json'
 
 export async function getStaticProps(): Promise<{
 	props: WellArchitectedFrameworkLandingProps
