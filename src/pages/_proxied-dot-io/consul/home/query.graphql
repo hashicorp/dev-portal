@@ -97,6 +97,8 @@ query homepageQuery {
 		useCasesHeading
 		useCasesDescription
 		useCases {
+			shortHeading
+			shortDescription
 			heroHeading
 			heroDescription
 			slug

@@ -37,7 +37,6 @@ function Homepage({ data }): React.ReactElement {
 		useCasesHeading,
 		useCasesDescription,
 		useCases,
-		useCasesCards,
 		tutorialsHeading,
 		tutorialCards,
 		caseStudiesHeading,
@@ -131,8 +130,9 @@ function Homepage({ data }): React.ReactElement {
 										url: `/use-cases/${usecase.slug}`,
 										type: 'inbound',
 									},
-									heading: usecase.heroHeading,
-									description: usecase.heroDescription,
+									heading: usecase.shortHeading || usecase.heroHeading,
+									description:
+										usecase.shortDescription || usecase.heroDescription,
 								}
 							})}
 						/>
