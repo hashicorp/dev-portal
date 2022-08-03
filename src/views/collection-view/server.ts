@@ -26,6 +26,7 @@ import {
 } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
+import { isProductSlug } from 'lib/products'
 
 export interface CollectionPageProps {
 	collection: ClientCollection
@@ -141,7 +142,7 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	const paths = []
 	collections.forEach((collection: ClientCollection) => {
 		// assuming slug structure of :product/:filename
-		const [productSlug, filename] = collection.slug.split('/')
+		const [collectionProductSlug, filename] = collection.slug.split('/')
 		/**
 		 * Only build collections where the `productSlug` is a valid beta product.
 		 * As well, for all non-HCP products, only build collections where
@@ -153,16 +154,17 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const learnProductSlug = normalizeSlugForTutorials(productSlug)
-		const isBetaProduct = getIsBetaProduct(learnProductSlug as LearnProductSlug)
-		const isCloud = productSlug == 'cloud'
-		const themeMatches = productSlug === collection.theme
+		const isBetaProduct =
+			isProductSlug(collectionProductSlug) &&
+			getIsBetaProduct(collectionProductSlug)
+		const isCloud = collectionProductSlug == 'cloud'
+		const themeMatches = collectionProductSlug === collection.theme
 		const shouldBuildCollectionPath = isBetaProduct && (isCloud || themeMatches)
 
 		if (shouldBuildCollectionPath) {
 			paths.push({
 				params: {
-					productSlug: learnProductSlug,
+					productSlug: collectionProductSlug,
 					collectionSlug: filename,
 				},
 			})
