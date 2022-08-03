@@ -1,8 +1,5 @@
 import { GetStaticPropsContext } from 'next'
-import {
-	getCollection,
-	getCollectionsBySection,
-} from 'lib/learn-client/api/collection'
+import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
@@ -11,12 +8,6 @@ import WellArchitectedFrameworkCollectionView from 'views/well-architected-frame
 import { WellArchitectedFrameworkCollectionViewProps } from 'views/well-architected-framework/types'
 import wafContent from 'content/well-architected-framework/index.json'
 import wafData from 'data/well-architected-framework.json'
-
-/**
- * TODO
- * - double check design
- * - add comments / cleanup
- */
 
 export async function getStaticProps({
 	params,
