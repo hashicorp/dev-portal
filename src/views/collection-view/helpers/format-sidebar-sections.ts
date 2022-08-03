@@ -22,6 +22,10 @@ export function formatSidebarCategorySections(
 ): CollectionCategorySidebarSection[] {
 	const categorySlugs = Object.keys(CollectionCategoryOption)
 
+	/**
+	 * Track which collections have been used in sidebar categories,
+	 * so that we can ensure any non-categorized collections are still displayed.
+	 */
 	const usedCollections = []
 
 	const sidebarSectionsByCategory = categorySlugs.map(
@@ -44,14 +48,23 @@ export function formatSidebarCategorySections(
 		}
 	)
 
-	// Add "unused" section, to capture any missing collections
-	// TODO: this is to get /hcp content to render for now, maybe not final?
+	/**
+	 * Add and "unused" section, to capture any missing collections
+	 * Note: this will be filtered out if it's empty.
+	 *
+	 * TODO: this is to get /hcp content stubbed, may not be correct,
+	 * and may need adjustment once we have finalized designs.
+	 */
 	const unusedCollections = collections.filter((c: ClientCollection) => {
 		const isUnused = usedCollections.indexOf(c.slug) == -1
 		return isUnused
 	})
 	const unusedSection = {
-		// Note: title omitted for now, to avoid naming "Collections"
+		/**
+		 * Note: section title is not included, only option I can think of
+		 * is "Collections", which I think we want to avoid naming explicitly?
+		 * And would look weird next to other more specifically named sections.
+		 */
 		items: unusedCollections.map((collection: ClientCollection) =>
 			formatCollectionToListItem(collection, currentSlug)
 		),
