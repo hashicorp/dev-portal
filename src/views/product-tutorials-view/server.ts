@@ -109,10 +109,7 @@ export async function getCloudTutorialsViewProps() {
 				}),
 				sidebarSections,
 			},
-			product: {
-				slug: productData.slug,
-				name: productData.name,
-			},
+			product: productData,
 		}),
 	}
 }
