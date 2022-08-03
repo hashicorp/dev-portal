@@ -53,10 +53,11 @@ export default function TopicsCollectionPage(props) {
 						levelUpButtonText: `Main Menu`,
 						levelDownButtonText: 'Previous',
 					},
-					overviewItemHref: `/${slug}`,
+					overviewItemHref: `/${wafData.slug}`,
 					menuItems: buildCategorizedWafSidebar(
 						sidebarCollections,
-						wafContent.sidebarCategories
+						wafContent.sidebarCategories,
+						slug
 					),
 					showFilterInput: false,
 				},

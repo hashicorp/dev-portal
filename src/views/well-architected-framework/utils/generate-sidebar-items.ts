@@ -15,7 +15,8 @@ interface SidebarCategory {
  */
 export function buildCategorizedWafSidebar(
 	collections: ApiCollection[],
-	sidebarCategories: SidebarCategory[]
+	sidebarCategories: SidebarCategory[],
+	currentSlug?: string
 ): EnrichedNavItem[] {
 	/**
 	 * Create a map of all the collections. As they are added to
@@ -31,7 +32,7 @@ export function buildCategorizedWafSidebar(
 				{
 					title: collection.name,
 					fullPath: `/${collection.slug}`,
-					isActive: false,
+					isActive: collection.slug === currentSlug,
 					id: collection.id,
 				},
 			])
@@ -55,7 +56,7 @@ export function buildCategorizedWafSidebar(
 				uncategorizedItems.delete(collectionSlug)
 				return {
 					title: collection.name,
-					isActive: false,
+					isActive: collection.slug === currentSlug,
 					fullPath: `/${collection.slug}`,
 					id: collection.id,
 				}
