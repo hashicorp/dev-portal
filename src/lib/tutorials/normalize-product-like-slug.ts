@@ -38,7 +38,7 @@ export function normalizeSlugForDevDot(productSlug: string): ProductSlug {
 export function normalizeSlugForTutorials(
 	slug: string
 ): LearnProductSlug | ThemeOption.cloud | SectionOption {
-	if (slug == 'hcp') {
+	if (slug == 'hcp' || slug == 'cloud') {
 		return ThemeOption.cloud
 	} else if (isProductOption(slug)) {
 		return slug
