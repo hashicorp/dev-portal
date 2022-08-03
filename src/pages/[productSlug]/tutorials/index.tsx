@@ -5,28 +5,8 @@ import {
 	getProductTutorialsViewProps,
 	ProductTutorialsViewProps,
 } from 'views/product-tutorials-view/server'
-import ProductTutorialsViewActual from 'views/product-tutorials-view'
+import ProductTutorialsView from 'views/product-tutorials-view'
 import { cachedGetProductData } from 'lib/get-product-data'
-
-/**
- * Note: this is a spiked approach to get HCP content rendering.
- * Perhaps we'd want a separate view component, as design on current
- * learn.hashicorp.com site for HCP vs other product landing pages
- * differs pretty significantly (for example, no sidebar).
- */
-function ProductTutorialsView(props) {
-	return (
-		<>
-			{/* <pre>
-				<code>{JSON.stringify(props.metadata, null, 2)}</code>
-			</pre>
-			<pre>
-				<code>{JSON.stringify(Object.keys(props), null, 2)}</code>
-			</pre> */}
-			<ProductTutorialsViewActual {...props} />
-		</>
-	)
-}
 
 /**
  * Based on the array of beta product slugs,
