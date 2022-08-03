@@ -1,31 +1,20 @@
-import Link from 'next/link'
 import {
 	getCollection,
 	getCollectionsBySection,
 } from 'lib/learn-client/api/collection'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import CollectionMeta from 'views/collection-view/components/collection-meta'
-import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
-import CollectionTutorialList from 'views/collection-view/components/collection-tutorial-list'
-import Heading from 'components/heading'
-import wafData from 'data/well-architected-framework.json'
-import BaseNewLayout from 'layouts/base-new'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { SidebarProps } from 'components/sidebar'
+import { splitProductFromFilename } from 'views/tutorial-view/utils'
+import CollectionMeta from 'views/collection-view/components/collection-meta'
+import CollectionTutorialList from 'views/collection-view/components/collection-tutorial-list'
 import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
 import wafContent from 'content/well-architected-framework/index.json'
+import wafData from 'data/well-architected-framework.json'
 
-/**
- * TODO
- * - get sidebar sidecar layout working
- * - layout props
- *      - headings
- *      - breadcrumb links
- *      - sidebar nav data levels (will be v similar to landing page)
- */
 export default function TopicsCollectionPage(props) {
 	const {
 		name,
