@@ -9,10 +9,8 @@
 		"cli",
 		"cloud-docs",
 		"cloud-docs/agents",
-		"configuration",
 		"docs",
 		"enterprise",
-		"guides",
 		"internals",
 		"intro",
 		"language",
@@ -128,24 +126,15 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "Configuration",
-			"path": "configuration"
-		},
-		{
-			"iconName": "docs",
 			"name": "Docs",
-			"path": "docs"
+			"path": "docs",
+			"productSlugForLoader": "terraform-docs-common"
 		},
 		{
 			"iconName": "docs",
 			"name": "Enterprise",
 			"path": "enterprise",
 			"productSlugForLoader": "ptfe-releases"
-		},
-		{
-			"iconName": "docs",
-			"name": "Guides",
-			"path": "guides"
 		},
 		{
 			"iconName": "docs",
