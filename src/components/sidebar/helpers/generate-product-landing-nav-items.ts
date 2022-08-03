@@ -25,6 +25,7 @@ export const generateProductLandingSidebarMenuItems = (
 		})
 		const documentationSubmenu = {
 			title: 'Documentation',
+			isOpen: true,
 			routes: [...rootDocsNavItems],
 		}
 		menuItems = [
