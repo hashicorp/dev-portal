@@ -28,9 +28,9 @@ import {
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import {
-	normalizeProductSlugForDevDot,
-	normalizeProductSlugForTutorials,
-} from 'lib/tutorials/normalize-product-slug'
+	normalizeSlugForDevDot,
+	normalizeSlugForTutorials,
+} from 'lib/tutorials/normalize-product-like-slug'
 
 export interface TutorialPageProps {
 	tutorial: TutorialData
@@ -55,7 +55,7 @@ export async function getTutorialPageProps(
 	slug: [string, string]
 ): Promise<{ props: TutorialPageProps } | null> {
 	//
-	const learnProductSlug = normalizeProductSlugForTutorials(product.slug)
+	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
 		learnProductSlug as ProductOption,
 		slug
@@ -179,7 +179,7 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const productSlug = normalizeProductSlugForDevDot(productSlugFromCollection)
+		const productSlug = normalizeSlugForDevDot(productSlugFromCollection)
 		const isBetaProduct = getIsBetaProduct(productSlug)
 		const isCloud = productSlugFromCollection == 'cloud'
 		const themeMatches = productSlug === collection.theme

@@ -1,6 +1,11 @@
 import { LearnProductSlug, ProductSlug } from 'types/products'
 import { isProductSlug } from 'lib/products'
-import { isProductOption, ThemeOption } from 'lib/learn-client/types'
+import {
+	isProductOption,
+	isSectionOption,
+	SectionOption,
+	ThemeOption,
+} from 'lib/learn-client/types'
 
 /**
  * Given a "product" slug from a Tutorials context,
@@ -10,14 +15,14 @@ import { isProductOption, ThemeOption } from 'lib/learn-client/types'
  * This is very specifically targeted at normalizing "cloud" to "hcp".
  * In Tutorials contexts, we use "cloud"; in Dev Dot we use "hcp".
  */
-export function normalizeProductSlugForDevDot(slug: string): ProductSlug {
+export function normalizeSlugForDevDot(slug: string): ProductSlug {
 	if (slug == 'cloud') {
 		return 'hcp'
 	} else if (isProductSlug(slug)) {
 		return slug
 	} else {
 		throw new Error(
-			`Error: unrecognized incoming Tutorials productOption "${slug}" in normalizeProductSlugForDevDot.`
+			`Error: unrecognized incoming Tutorials productOption "${slug}" in normalizeSlugForDevDot.`
 		)
 	}
 }
@@ -30,16 +35,18 @@ export function normalizeProductSlugForDevDot(slug: string): ProductSlug {
  * This is very specifically targeted at normalizing "hcp" to "cloud".
  * In Tutorials contexts, we use "cloud"; in Dev Dot we use "hcp".
  */
-export function normalizeProductSlugForTutorials(
-	productSlug: string
-): LearnProductSlug | ThemeOption.cloud {
-	if (productSlug == 'hcp') {
+export function normalizeSlugForTutorials(
+	slug: string
+): LearnProductSlug | ThemeOption.cloud | SectionOption {
+	if (slug == 'hcp') {
 		return ThemeOption.cloud
-	} else if (isProductOption(productSlug)) {
-		return productSlug
+	} else if (isProductOption(slug)) {
+		return slug
+	} else if (isSectionOption(slug)) {
+		return slug
 	} else {
 		throw new Error(
-			`Error: unrecognized incoming productSlug "${productSlug}" in normalizeProductSlugForTutorials.`
+			`Error: unrecognized incoming productSlug "${slug}" in normalizeSlugForTutorials.`
 		)
 	}
 }

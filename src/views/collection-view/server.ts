@@ -25,7 +25,7 @@ import {
 	formatSidebarCategorySections,
 } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
-import { normalizeProductSlugForTutorials } from 'lib/tutorials/normalize-product-slug'
+import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
 
 export interface CollectionPageProps {
 	collection: ClientCollection
@@ -94,7 +94,7 @@ export async function getCollectionPageProps(
 	},
 	slug: string
 ): Promise<{ props: CollectionPageProps } | null> {
-	const learnProductSlug = normalizeProductSlugForTutorials(product.slug)
+	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const collection = await getCollection(`${learnProductSlug}/${slug}`)
 
 	// if null the api encountered a 404
@@ -153,7 +153,7 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const learnProductSlug = normalizeProductSlugForTutorials(productSlug)
+		const learnProductSlug = normalizeSlugForTutorials(productSlug)
 		const isBetaProduct = getIsBetaProduct(learnProductSlug as LearnProductSlug)
 		const isCloud = productSlug == 'cloud'
 		const themeMatches = productSlug === collection.theme

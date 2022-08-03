@@ -1,6 +1,6 @@
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import { normalizeProductSlugForDevDot } from 'lib/tutorials/normalize-product-slug'
+import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 
 /**
  * takes db slug format --> waypoint/intro
@@ -22,7 +22,7 @@ export function getTutorialSlug(
 		return `/${collectionDbSlug}/${tutorialFilename}`
 	}
 
-	const productSlug = normalizeProductSlugForDevDot(rawProductSlug)
+	const productSlug = normalizeSlugForDevDot(rawProductSlug)
 	return `/${productSlug}/tutorials/${collectionFilename}/${tutorialFilename}`
 }
 
@@ -34,7 +34,7 @@ export function getCollectionSlug(collectionDbSlug: string): string {
 		return `/${collectionDbSlug}`
 	}
 
-	const productSlug = normalizeProductSlugForDevDot(rawProductSlug)
+	const productSlug = normalizeSlugForDevDot(rawProductSlug)
 	const isBetaProduct = getIsBetaProduct(productSlug)
 
 	// if not a 'sanctioned product', link externally to Learn
