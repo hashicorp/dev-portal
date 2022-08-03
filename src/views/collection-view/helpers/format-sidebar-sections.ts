@@ -32,11 +32,11 @@ export function formatSidebarCategorySections(
 		(category: CollectionCategoryOption) => {
 			// get collections associated with that category
 			const items = collections.filter((c: ClientCollection) => {
-				const isMatch = c.category === category
-				if (isMatch) {
+				const isInCategory = c.category === category
+				if (isInCategory) {
 					usedCollections.push(c.slug)
 				}
-				return isMatch
+				return isInCategory
 			})
 
 			return {
@@ -56,8 +56,7 @@ export function formatSidebarCategorySections(
 	 * and may need adjustment once we have finalized designs.
 	 */
 	const unusedCollections = collections.filter((c: ClientCollection) => {
-		const isUnused = usedCollections.indexOf(c.slug) == -1
-		return isUnused
+		return usedCollections.indexOf(c.slug) == -1
 	})
 	const unusedSection = {
 		/**
