@@ -2,6 +2,16 @@ import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 
+/**
+ * As we onboard more products into internal beta, we lose the ability
+ * to test "beta" functionality using real config. So, we mock
+ * get-is-beta-product in order to provide a consistent testing config.
+ */
+jest.mock('../../../get-is-beta-product', () => (productSlug) => {
+	const nonBetaProductsForTesting = ['boundary', 'packer', 'vagrant']
+	return nonBetaProductsForTesting.indexOf(productSlug) === -1
+})
+
 // HELPERS ------------------------------------------------------
 
 const slug = '[a-z0-9]+(?:[-][a-z0-9]+)*' // matches lower case letters, numbers and hyphens
