@@ -8,12 +8,12 @@ import wafData from 'data/well-architected-framework.json'
 import wafContent from 'content/well-architected-framework/index.json'
 import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
 import WellArchitectedFrameworkTutorialView from 'views/well-architected-framework/tutorial-view'
-import { TutorialViewSidebarContent } from 'components/tutorials-sidebar'
-import { formatTutorialToMenuItem } from 'views/tutorial-view/utils'
 import {
 	Collection as ApiCollection,
 	TutorialLite as ApiTutorialLite,
 } from 'lib/learn-client/types'
+import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
+import { SidebarProps } from 'components/sidebar'
 import { generateWafCollectionSidebar } from 'views/well-architected-framework/utils/generate-collection-sidebar'
 
 export async function getStaticProps({ params }) {
@@ -49,38 +49,20 @@ export async function getStaticProps({ params }) {
 		currentCollection,
 		fullTutorialData.collectionCtx
 	)
-	const collectionNavLevel = generateWafCollectionSidebar(
-		wafData,
-		buildCategorizedWafSidebar(
-			allWafCollections,
-			wafContent.sidebarCategories,
-			collectionContext.current.slug
-		)
+	const tutorialNavLevelMenuItems = collectionContext.current.tutorials.map(
+		(t: ApiTutorialLite) => {
+			const fullTutorialPath = `/${
+				collectionContext.current.slug
+			}/${splitProductFromFilename(t.slug)}`
+
+			return {
+				title: t.name,
+				id: t.id,
+				fullPath: fullTutorialPath,
+				isActive: currentPath === fullTutorialPath,
+			}
+		}
 	)
-	const tutorialNavLevel = {
-		title: wafData.name,
-		visuallyHideTitle: true,
-		showFilterInput: false,
-		levelButtonProps: {
-			levelUpButtonText: collectionContext.current.shortName,
-			levelDownButtonText: fullTutorialData.name,
-		},
-		backToLinkProps: {
-			text: collectionContext.current.shortName,
-			href: `/${collectionContext.current.slug}`,
-		},
-		children: (
-			<TutorialViewSidebarContent
-				items={collectionContext.current.tutorials.map((t) =>
-					formatTutorialToMenuItem(
-						t,
-						collectionContext.current.slug,
-						currentPath
-					)
-				)}
-			/>
-		),
-	}
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
 		{ title: wafData.name, url: `/${wafData.slug}` },
@@ -116,8 +98,6 @@ export async function getStaticProps({ params }) {
 	return {
 		props: stripUndefinedProperties({
 			metadata: {
-				wafName: wafData.name,
-				wafSlug: wafData.slug,
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
 			},
@@ -131,7 +111,31 @@ export async function getStaticProps({ params }) {
 			layoutProps: {
 				headings,
 				breadcrumbLinks,
-				navLevels: [collectionNavLevel, tutorialNavLevel],
+				navLevels: [
+					generateTopLevelSidebarNavData(wafData.name) as SidebarProps,
+					generateWafCollectionSidebar(
+						wafData,
+						buildCategorizedWafSidebar(
+							allWafCollections,
+							wafContent.sidebarCategories,
+							collectionContext.current.slug
+						)
+					),
+					{
+						title: wafData.name,
+						visuallyHideTitle: true,
+						showFilterInput: false,
+						levelButtonProps: {
+							levelUpButtonText: collectionContext.current.shortName,
+							levelDownButtonText: fullTutorialData.name,
+						},
+						backToLinkProps: {
+							text: collectionContext.current.shortName,
+							href: `/${collectionContext.current.slug}`,
+						},
+						menuItems: tutorialNavLevelMenuItems,
+					},
+				],
 			},
 			nextCollection,
 		}),

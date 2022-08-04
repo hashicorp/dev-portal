@@ -9,7 +9,6 @@ import { FeaturedInCollections } from 'views/tutorial-view/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { SidebarProps } from 'components/sidebar'
-import useCurrentPath from 'hooks/use-current-path'
 /**
  * TODO
  * - get sidebar / sidecar layout working ✅
@@ -26,8 +25,6 @@ export default function WellArchitectedFrameworkTutorialView({
 	metadata,
 	layoutProps,
 }) {
-	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-
 	const {
 		slug,
 		name,
@@ -49,10 +46,7 @@ export default function WellArchitectedFrameworkTutorialView({
 		<SidebarSidecarLayout
 			headings={layoutProps.headings}
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
-			sidebarNavDataLevels={[
-				generateTopLevelSidebarNavData(metadata.wafName) as SidebarProps,
-				...layoutProps.navLevels,
-			]}
+			sidebarNavDataLevels={layoutProps.navLevels}
 		>
 			<TutorialMeta
 				heading={{ slug: slug, text: name }}
