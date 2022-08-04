@@ -10,12 +10,6 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { NextPrevious } from 'views/tutorial-view/components'
 import s from 'views/tutorial-view/tutorial-view.module.css'
 import { WafTutorialViewProps } from '../types'
-/**
- * TODO
- * - check design spec for any inconsistencies
- * - vet the links
- * - check on the tutorial rewrite plugin, to accept waf links
- */
 
 export default function WellArchitectedFrameworkTutorialView({
 	tutorial,
