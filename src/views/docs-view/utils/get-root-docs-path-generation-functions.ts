@@ -66,9 +66,7 @@ export function getRootDocsPathGenerationFunctions(
 }
 
 /**
- * TODO: write function description
  * Certain products, like Sentinel, require additional remark plugins.
- * TODO: weren't we adding remark plugins elsewhere too? Should consolidate.
  */
 function getAdditionalRemarkPlugins(
 	productData: ProductData,
@@ -82,20 +80,18 @@ function getAdditionalRemarkPlugins(
 }
 
 /**
- * TODO: write function description
  * Certain products, like Vagrant, require specific MDX scope.
  */
 type MdxScope = Record<string, unknown>
 
 /**
- * TODO: write function description
  * Certain products, like Vagrant, require specific MDX scope.
  */
 function generateGetScope(
 	productData: ProductData,
 	rootDocsPath: RootDocsPath
 ): () => Promise<MdxScope> {
-	if (productData.slug == 'sentinel' && rootDocsPath.path == 'docs') {
+	if (productData.slug == 'vagrant' && rootDocsPath.path == 'docs') {
 		return async () => ({
 			VMWARE_UTILITY_VERSION: await getLatestVagrantVmwareVersion(),
 		})
