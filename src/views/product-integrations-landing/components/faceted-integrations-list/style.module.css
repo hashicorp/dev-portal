@@ -1,0 +1,67 @@
+.facetedIntegrationList {
+	display: flex;
+	flex-direction: row;
+
+	& .facetsSidebar {
+		min-width: 220px;
+		margin-right: 32px;
+
+		& .facetCategoryTitle {
+			color: var(--gray-3);
+			font-size: 12px;
+			margin-top: 28px;
+			text-transform: uppercase;
+			font-weight: 600;
+			margin-bottom: 8px;
+
+			&:first-of-type {
+				margin-top: 0;
+			}
+		}
+
+		& .resetFilters {
+			margin-top: 20px;
+		}
+	}
+
+	& .searchList {
+		flex-grow: 1;
+	}
+}
+
+.facetCheckbox {
+	display: flex;
+	align-items: center;
+	margin-bottom: 6px;
+
+	& > input {
+		width: 16px;
+		height: 16px;
+	}
+
+	& label {
+		margin-left: 8px;
+		color: var(--token-color-foreground-strong);
+		font-family: var(--token-typography-body-200-font-family);
+		font-size: var(--token-typography-body-200-font-size);
+		font-weight: var(--token-typography-font-weight-medium);
+		display: flex;
+		align-items: center;
+		& > svg {
+			margin-right: 3px;
+			&.checkIcon {
+				color: var(--token-color-nomad-brand);
+			}
+			&.awardIcon {
+				color: var(--token-color-vault-foreground);
+			}
+		}
+		& .matching {
+			margin-left: 4px;
+			color: var(--token-color-foreground-faint);
+			font-weight: var(--token-typography-font-weight-medium);
+			font-family: var(--token-typography-body-100-font-family);
+			font-size: var(--token-typography-body-100-font-size);
+		}
+	}
+}

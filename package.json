@@ -188,6 +188,7 @@
 		"react-hot-toast": "^2.2.0",
 		"react-instantsearch-hooks-web": "^6.33.0",
 		"react-intersection-observer": "^8.33.1",
+		"react-markdown": "^8.0.3",
 		"react-player": "^2.9.0",
 		"rivet-graphql": "^0.3.1",
 		"search-insights": "^1.8.0",
