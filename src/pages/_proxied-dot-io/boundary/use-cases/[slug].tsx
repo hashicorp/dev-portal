@@ -8,7 +8,7 @@ import IoUsecaseCustomer from 'components/_proxied-dot-io/common/io-usecase-cust
 import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container'
 import IoVideoCallout from 'components/_proxied-dot-io/common/io-video-callout'
 import IoUsecaseCallToAction from 'components/_proxied-dot-io/common/io-usecase-call-to-action'
-import NomadIoLayout from 'layouts/_proxied-dot-io/nomad'
+import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
 import useCasesQuery from './query.graphql'
 import s from './use-cases.module.css'
 
@@ -48,11 +48,11 @@ export default function UseCasePage({ data }) {
 				eyebrow="Use case"
 				heading={heroHeading}
 				description={heroDescription}
-				pattern="/nomad/img/usecase-hero-pattern.svg"
+				pattern="/boundary-public/img/usecase-hero-pattern.svg"
 			/>
 
 			<IoUsecaseSection
-				brand="nomad"
+				brand="boundary"
 				eyebrow="Challenge"
 				heading={challengeHeading}
 				description={challengeDescription}
@@ -69,7 +69,7 @@ export default function UseCasePage({ data }) {
 			/>
 
 			<IoUsecaseSection
-				brand="nomad"
+				brand="boundary"
 				bottomIsFlush={_customerCaseStudy}
 				eyebrow="Solution"
 				heading={solutionHeading}
@@ -141,7 +141,7 @@ export default function UseCasePage({ data }) {
 					cta={{
 						url: tutorialsLink
 							? tutorialsLink
-							: 'https://learn.hashicorp.com/nomad',
+							: 'https://learn.hashicorp.com/boundary',
 						text: 'Explore all',
 					}}
 					cardsPerRow={3}
@@ -163,7 +163,7 @@ export default function UseCasePage({ data }) {
 			<div className={s.callToAction}>
 				<IoUsecaseCallToAction
 					theme="light"
-					brand="nomad"
+					brand="boundary"
 					heading={callToActionHeading}
 					description={callToActionDescription}
 					links={callToActionLinks.map((link) => {
@@ -172,7 +172,7 @@ export default function UseCasePage({ data }) {
 							url: link.link,
 						}
 					})}
-					pattern="/nomad/img/usecase-callout-pattern.svg"
+					pattern="/boundary-public/img/usecase-callout-pattern.svg"
 				/>
 			</div>
 
@@ -194,16 +194,16 @@ export default function UseCasePage({ data }) {
 		</>
 	)
 }
-UseCasePage.layout = NomadIoLayout
+UseCasePage.layout = BoundaryIoLayout
 
 export async function getStaticPaths() {
 	const query = proxiedRivetClient('nomad')
-	const { allNomadUseCases } = await query({
+	const { allBoundaryUseCases } = await query({
 		query: useCasesQuery,
 	})
 
 	return {
-		paths: allNomadUseCases.map((page) => {
+		paths: allBoundaryUseCases.map((page) => {
 			return {
 				params: {
 					slug: page.slug,
@@ -217,12 +217,12 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
 	const { slug } = params
 
-	const query = proxiedRivetClient('nomad')
-	const { allNomadUseCases } = await query({
+	const query = proxiedRivetClient('boundary')
+	const { allBoundaryUseCases } = await query({
 		query: useCasesQuery,
 	})
 
-	const page = allNomadUseCases.find((page) => page.slug === slug)
+	const page = allBoundaryUseCases.find((page) => page.slug === slug)
 
 	if (!page) {
 		return { notFound: true }
