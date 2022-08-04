@@ -14,7 +14,7 @@ import query from './query.graphql'
 
 interface Props {
 	/**
-	 * Data from data which may contain nav items for the use cases nav
+	 * Data from Dato which may contain nav items for the use cases nav
 	 */
 	data: {
 		useCaseNavItems: Array<{ url: string; text: string }>
