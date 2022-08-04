@@ -2,6 +2,14 @@
 	"pageSubtitle": "Nomad Docs. Nomad is a highly available, distributed, data-center aware cluster and application scheduler designed to support the modern datacenter with support for long-running services, batch jobs, and much more.",
 	"marketingContentBlocks": [
 		{
+			"type": "getting-started-card",
+			"description": "Learn how to use Nomad to schedule and orchestrate workloads.",
+			"callToAction": {
+				"text": "CLI Quick Start",
+				"url": "/nomad/tutorials/get-started"
+			}
+		},
+		{
 			"type": "section-heading",
 			"title": "Use Cases"
 		},
