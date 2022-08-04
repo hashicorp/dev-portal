@@ -3,35 +3,36 @@ import { getTutorial } from 'lib/learn-client/api/tutorial'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import {
-	getCurrentCollectionTutorial,
-	getCollectionContext,
-} from 'views/tutorial-view/utils/get-collection-context'
+import { getCollectionContext } from 'views/tutorial-view/utils/get-collection-context'
 import wafData from 'data/well-architected-framework.json'
-import { SectionOption } from 'lib/learn-client/types'
 import wafContent from 'content/well-architected-framework/index.json'
 import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
 import WellArchitectedFrameworkTutorialView from 'views/well-architected-framework/tutorial-view'
+import { TutorialViewSidebarContent } from 'components/tutorials-sidebar'
+import { formatTutorialToMenuItem } from 'views/tutorial-view/utils'
 
 export async function getStaticProps({ params }) {
-	const { tutorialSlug } = params
+	const [collectionFilename, tutorialFilename] = params.tutorialSlug
+	const currentPath = `/${wafData.slug}/${params.tutorialSlug.join('/')}`
 
-	// get all waf collections
-	// pick this tutorial out from that collections list
-	// get the secondary sidebar level
-
-	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
-		wafData.slug as SectionOption,
-		tutorialSlug
+	// get all the waf collections to generate the collection level sidebar
+	const allWafCollections = await getCollectionsBySection(wafData.slug)
+	const currentCollection = allWafCollections.find(
+		(collection) => collection.slug === `${wafData.slug}/${collectionFilename}`
+	)
+	const currentTutorialReference = currentCollection?.tutorials.find((t) =>
+		t.slug.endsWith(tutorialFilename)
 	)
 
-	// the tutorial doesn't exist in collection - return 404
-	if (tutorialReference.dbSlug === null || collection.data === null) {
+	// The tutorial doesn't exist in collection - return 404
+	if (!currentCollection || !currentTutorialReference) {
 		return null
 	}
 
-	const fullTutorialData = await getTutorial(tutorialReference.dbSlug)
-	// double guard if tutorial doesn't exist after call - return 404
+	// Need to get tutorial data with full mdx content
+	const fullTutorialData = await getTutorial(currentTutorialReference.slug)
+
+	// Double guard if tutorial doesn't exist after call - return 404
 	if (fullTutorialData === null) {
 		return null
 	}
@@ -40,16 +41,47 @@ export async function getStaticProps({ params }) {
 		fullTutorialData
 	)
 	const collectionContext = getCollectionContext(
-		collection.data,
+		currentCollection,
 		fullTutorialData.collectionCtx
 	)
-
-	const allWafCollections = await getCollectionsBySection(wafData.slug)
-	const allWafCollectionSidebarSections = buildCategorizedWafSidebar(
-		allWafCollections,
-		wafContent.sidebarCategories,
-		collectionContext.current.slug
-	)
+	const collectionNavLevel = {
+		title: wafData.name,
+		levelButtonProps: {
+			levelUpButtonText: `Main Menu`,
+			levelDownButtonText: 'Previous',
+		},
+		overviewItemHref: `/${wafData.slug}`,
+		menuItems: buildCategorizedWafSidebar(
+			allWafCollections,
+			wafContent.sidebarCategories,
+			collectionContext.current.slug
+		),
+		showFilterInput: false,
+	}
+	const tutorialNavLevel = {
+		title: wafData.name,
+		visuallyHideTitle: true,
+		showFilterInput: false,
+		levelButtonProps: {
+			levelUpButtonText: collectionContext.current.shortName,
+			levelDownButtonText: fullTutorialData.name,
+		},
+		backToLinkProps: {
+			text: collectionContext.current.shortName,
+			href: `/${collectionContext.current.slug}`,
+		},
+		children: (
+			<TutorialViewSidebarContent
+				items={collectionContext.current.tutorials.map((t) =>
+					formatTutorialToMenuItem(
+						t,
+						collectionContext.current.slug,
+						currentPath
+					)
+				)}
+			/>
+		),
+	}
 
 	const layoutProps = {
 		headings,
@@ -68,9 +100,7 @@ export async function getStaticProps({ params }) {
 				isCurrentPage: true,
 			},
 		],
-		allWafCollectionSidebarSections,
-
-		//sidebarSections,
+		navLevels: [collectionNavLevel, tutorialNavLevel],
 	}
 	const lastTutorialIndex = collectionContext.current.tutorials.length - 1
 	const isLastTutorial =

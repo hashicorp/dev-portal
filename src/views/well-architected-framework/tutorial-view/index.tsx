@@ -10,13 +10,11 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { SidebarProps } from 'components/sidebar'
 import useCurrentPath from 'hooks/use-current-path'
-import { TutorialViewSidebarContent } from 'components/tutorials-sidebar'
-import { formatTutorialToMenuItem } from 'views/tutorial-view/utils'
 /**
  * TODO
  * - get sidebar / sidecar layout working ✅
  * - get next / prevous data working
- * - make view file
+ * - make view file ✅
  * - separate out data gen with view logic
  * - check design spec for any inconsistencies
  * - vet the links
@@ -29,6 +27,7 @@ export default function WellArchitectedFrameworkTutorialView({
 	layoutProps,
 }) {
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
+	console.log({ currentPath })
 	const {
 		slug,
 		name,
@@ -52,40 +51,7 @@ export default function WellArchitectedFrameworkTutorialView({
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			sidebarNavDataLevels={[
 				generateTopLevelSidebarNavData(metadata.wafName) as SidebarProps,
-				{
-					title: metadata.wafName,
-					levelButtonProps: {
-						levelUpButtonText: `Main Menu`,
-						levelDownButtonText: 'Previous',
-					},
-					overviewItemHref: `/${metadata.wafSlug}`,
-					menuItems: layoutProps.allWafCollectionSidebarSections,
-					showFilterInput: false,
-				},
-				{
-					title: metadata.wafName,
-					visuallyHideTitle: true,
-					showFilterInput: false,
-					levelButtonProps: {
-						levelUpButtonText: collectionCtx.current.shortName,
-						levelDownButtonText: name,
-					},
-					backToLinkProps: {
-						text: collectionCtx.current.shortName,
-						href: `/${collectionCtx.current.slug}`,
-					},
-					children: (
-						<TutorialViewSidebarContent
-							items={collectionCtx.current.tutorials.map((t) =>
-								formatTutorialToMenuItem(
-									t,
-									collectionCtx.current.slug,
-									currentPath
-								)
-							)}
-						/>
-					),
-				},
+				...layoutProps.navLevels,
 			]}
 		>
 			<TutorialMeta
