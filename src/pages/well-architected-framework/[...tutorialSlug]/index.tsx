@@ -10,6 +10,11 @@ import { buildCategorizedWafSidebar } from 'views/well-architected-framework/uti
 import WellArchitectedFrameworkTutorialView from 'views/well-architected-framework/tutorial-view'
 import { TutorialViewSidebarContent } from 'components/tutorials-sidebar'
 import { formatTutorialToMenuItem } from 'views/tutorial-view/utils'
+import {
+	Collection as ApiCollection,
+	TutorialLite as ApiTutorialLite,
+} from 'lib/learn-client/types'
+import { generateWafCollectionSidebar } from 'views/well-architected-framework/utils/generate-collection-sidebar'
 
 export async function getStaticProps({ params }) {
 	const [collectionFilename, tutorialFilename] = params.tutorialSlug
@@ -44,20 +49,14 @@ export async function getStaticProps({ params }) {
 		currentCollection,
 		fullTutorialData.collectionCtx
 	)
-	const collectionNavLevel = {
-		title: wafData.name,
-		levelButtonProps: {
-			levelUpButtonText: `Main Menu`,
-			levelDownButtonText: 'Previous',
-		},
-		overviewItemHref: `/${wafData.slug}`,
-		menuItems: buildCategorizedWafSidebar(
+	const collectionNavLevel = generateWafCollectionSidebar(
+		wafData,
+		buildCategorizedWafSidebar(
 			allWafCollections,
 			wafContent.sidebarCategories,
 			collectionContext.current.slug
-		),
-		showFilterInput: false,
-	}
+		)
+	)
 	const tutorialNavLevel = {
 		title: wafData.name,
 		visuallyHideTitle: true,
@@ -82,26 +81,22 @@ export async function getStaticProps({ params }) {
 			/>
 		),
 	}
+	const breadcrumbLinks = [
+		{ title: 'Developer', url: '/' },
+		{ title: wafData.name, url: `/${wafData.slug}` },
+		{
+			title: collectionContext.current.name,
+			url: `/${collectionContext.current.slug}`,
+		},
+		{
+			title: fullTutorialData.name,
+			url: `/${collectionContext.current.slug}/${splitProductFromFilename(
+				fullTutorialData.slug
+			)}`,
+			isCurrentPage: true,
+		},
+	]
 
-	const layoutProps = {
-		headings,
-		breadcrumbLinks: [
-			{ title: 'Developer', url: '/' },
-			{ title: wafData.name, url: `/${wafData.slug}` },
-			{
-				title: collectionContext.current.name,
-				url: `/${collectionContext.current.slug}`,
-			},
-			{
-				title: fullTutorialData.name,
-				url: `/${collectionContext.current.slug}/${splitProductFromFilename(
-					fullTutorialData.slug
-				)}`,
-				isCurrentPage: true,
-			},
-		],
-		navLevels: [collectionNavLevel, tutorialNavLevel],
-	}
 	const lastTutorialIndex = collectionContext.current.tutorials.length - 1
 	const isLastTutorial =
 		collectionContext.current.tutorials[lastTutorialIndex].id ===
@@ -133,7 +128,11 @@ export async function getStaticProps({ params }) {
 				headings,
 				nextCollectionInSidebar: nextCollection,
 			},
-			layoutProps,
+			layoutProps: {
+				headings,
+				breadcrumbLinks,
+				navLevels: [collectionNavLevel, tutorialNavLevel],
+			},
 			nextCollection,
 		}),
 	}
@@ -142,9 +141,9 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
 	const allCollections = await getCollectionsBySection(wafData.slug)
 	const paths = []
-	allCollections.forEach((c) => {
+	allCollections.forEach((c: ApiCollection) => {
 		const collectionSlug = splitProductFromFilename(c.slug)
-		c.tutorials.forEach(({ slug }) =>
+		c.tutorials.forEach(({ slug }: { slug: ApiTutorialLite['slug'] }) =>
 			paths.push({
 				params: {
 					tutorialSlug: [collectionSlug, splitProductFromFilename(slug)],

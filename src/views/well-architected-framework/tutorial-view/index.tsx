@@ -27,7 +27,7 @@ export default function WellArchitectedFrameworkTutorialView({
 	layoutProps,
 }) {
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	console.log({ currentPath })
+
 	const {
 		slug,
 		name,
