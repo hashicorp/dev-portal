@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import BaseLayout from 'layouts/base-new'
-
 import BreadcrumbBar from 'components/breadcrumb-bar'
+import IntegrationsList from './components/integrations-list'
 
 // TODO, hardcoding this for now but will need to adjust later
 const INTEGRATIONS_API_BASE_URL = 'http://localhost:5000'
@@ -46,8 +46,9 @@ export default function ProductIntegrationsLanding({ product }) {
 					},
 				]}
 			/>
-			<h1>Hello from Integrations</h1>
-			<code>{JSON.stringify(integrations)}</code>
+
+			<h1>{product.name} Integrations</h1>
+			{integrations && <IntegrationsList integrations={integrations} />}
 		</BaseLayout>
 	)
 }
