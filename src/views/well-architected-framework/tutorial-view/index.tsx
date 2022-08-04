@@ -7,8 +7,7 @@ import DevDotContent from 'components/dev-dot-content'
 import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 import { FeaturedInCollections } from 'views/tutorial-view/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
-import { SidebarProps } from 'components/sidebar'
+import { NextPrevious } from 'views/tutorial-view/components'
 /**
  * TODO
  * - get sidebar / sidecar layout working ✅
@@ -35,6 +34,7 @@ export default function WellArchitectedFrameworkTutorialView({
 		handsOnLab,
 		content,
 		collectionCtx,
+		nextPreviousData,
 	} = tutorial
 	const hasVideo = Boolean(video)
 	const isInteractive = Boolean(handsOnLab)
@@ -71,7 +71,7 @@ export default function WellArchitectedFrameworkTutorialView({
 					<MDXRemote {...content} components={MDX_COMPONENTS} />
 				</DevDotContent>
 			</TabProvider>
-			{/* <NextPrevious {...nextPreviousData} /> */}
+			<NextPrevious {...nextPreviousData} />
 			<FeaturedInCollections collections={featuredInWithoutCurrent} />
 		</SidebarSidecarLayout>
 	)

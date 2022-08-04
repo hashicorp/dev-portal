@@ -13,8 +13,9 @@ import {
 	TutorialLite as ApiTutorialLite,
 } from 'lib/learn-client/types'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
-import { SidebarProps } from 'components/sidebar'
+import { MenuItem, SidebarProps } from 'components/sidebar'
 import { generateWafCollectionSidebar } from 'views/well-architected-framework/utils/generate-collection-sidebar'
+import { getNextPrevious } from 'views/tutorial-view/components'
 
 export async function getStaticProps({ params }) {
 	const [collectionFilename, tutorialFilename] = params.tutorialSlug
@@ -48,6 +49,11 @@ export async function getStaticProps({ params }) {
 	const collectionContext = getCollectionContext(
 		currentCollection,
 		fullTutorialData.collectionCtx
+	)
+	const categorizedWafCollectionSidebarItems = buildCategorizedWafSidebar(
+		allWafCollections,
+		wafContent.sidebarCategories,
+		collectionContext.current.slug
 	)
 	const tutorialNavLevelMenuItems = collectionContext.current.tutorials.map(
 		(t: ApiTutorialLite) => {
@@ -83,17 +89,29 @@ export async function getStaticProps({ params }) {
 	const isLastTutorial =
 		collectionContext.current.tutorials[lastTutorialIndex].id ===
 		fullTutorialData.id
+	let nextCollection
 
-	const nextCollection = undefined
+	if (isLastTutorial) {
+		const filteredSidebarItems = categorizedWafCollectionSidebarItems.filter(
+			(item: MenuItem) => !item.divider && !item.heading
+		)
+		const currentIndex = filteredSidebarItems.findIndex(
+			(item: MenuItem) => item.fullPath === `/${currentCollection.slug}`
+		)
+		const nextSidebarItem: MenuItem = filteredSidebarItems[currentIndex + 1]
+		nextCollection = allWafCollections.find((c) => nextSidebarItem?.id === c.id)
+	}
 
-	/**TODO get the next collection from the sidebar data... */
-
-	// if (isLastTutorial) {
-	// 	nextCollection = await getNextCollectionInSidebar({
-	// 		product: product.slug as ProductOption,
-	// 		after: collectionContext.current.slug,
-	// 	})
-	// }
+	const nextPreviousData = getNextPrevious({
+		currentCollection: collectionContext.current,
+		currentTutorialSlug: fullTutorialData.slug,
+		nextCollectionInSidebar: nextCollection,
+		formatting: {
+			getCollectionSlug: (collectionSlug: string) => `/${collectionSlug}`,
+			getTutorialSlug: (tutorialSlug: string, collectionSlug: string) =>
+				`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
+		},
+	})
 
 	return {
 		props: stripUndefinedProperties({
@@ -106,7 +124,7 @@ export async function getStaticProps({ params }) {
 				content: serializedContent,
 				collectionCtx: collectionContext,
 				headings,
-				nextCollectionInSidebar: nextCollection,
+				nextPreviousData,
 			},
 			layoutProps: {
 				headings,
@@ -115,11 +133,7 @@ export async function getStaticProps({ params }) {
 					generateTopLevelSidebarNavData(wafData.name) as SidebarProps,
 					generateWafCollectionSidebar(
 						wafData,
-						buildCategorizedWafSidebar(
-							allWafCollections,
-							wafContent.sidebarCategories,
-							collectionContext.current.slug
-						)
+						categorizedWafCollectionSidebarItems
 					),
 					{
 						title: wafData.name,
@@ -137,7 +151,6 @@ export async function getStaticProps({ params }) {
 					},
 				],
 			},
-			nextCollection,
 		}),
 	}
 }
