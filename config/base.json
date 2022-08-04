@@ -19,6 +19,7 @@
 		"max_static_paths": 10,
 		"revalidate": 360,
 		"beta_product_slugs": [
+			"boundary",
 			"consul",
 			"hcp",
 			"nomad",
