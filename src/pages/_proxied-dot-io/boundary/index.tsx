@@ -52,7 +52,7 @@ export default function Homepage({ data }): React.ReactElement {
 			<Head>{renderMetaTags(seo)}</Head>
 
 			<IoHomeHero
-				pattern="/boundary/img/home-hero-pattern.svg"
+				pattern="/boundary-public/img/home-hero-pattern.svg"
 				brand="boundary"
 				heading={heroHeading}
 				description={heroDescription}
@@ -107,7 +107,7 @@ export default function Homepage({ data }): React.ReactElement {
 
 			<IoHomeInPractice
 				brand="boundary"
-				pattern="/boundary/img/practice-pattern.svg"
+				pattern="/boundary-public/img/practice-pattern.svg"
 				heading={inPracticeHeading}
 				description={inPracticeDescription}
 				cards={inPracticeCards.map((card) => {
