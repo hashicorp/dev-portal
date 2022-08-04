@@ -93,7 +93,7 @@ const proxySettings = {
 		host: proxyConfig.consul.host,
 		routesToProxy: [
 			...gatherRoutesToProxy('/_proxied-dot-io/consul'),
-			...buildAssetRoutesToProxy(proxyConfig.consul.assets, '/consul'),
+			...buildAssetRoutesToProxy(proxyConfig.consul.assets, '/consul-public'),
 			...getDevPortalRoutesToProxy('consul'),
 		],
 	},
