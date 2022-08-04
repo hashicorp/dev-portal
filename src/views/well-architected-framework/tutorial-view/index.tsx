@@ -8,9 +8,9 @@ import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 import { FeaturedInCollections } from 'views/tutorial-view/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { NextPrevious } from 'views/tutorial-view/components'
+import { WafTutorialViewProps } from '../types'
 /**
  * TODO
- * - clean up server file (so large)
  * - check design spec for any inconsistencies
  * - vet the links
  * - check on the tutorial rewrite plugin, to accept waf links
@@ -18,9 +18,8 @@ import { NextPrevious } from 'views/tutorial-view/components'
 
 export default function WellArchitectedFrameworkTutorialView({
 	tutorial,
-	metadata,
 	layoutProps,
-}) {
+}: WafTutorialViewProps) {
 	const {
 		slug,
 		name,
