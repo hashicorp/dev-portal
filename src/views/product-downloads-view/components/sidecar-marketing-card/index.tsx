@@ -16,7 +16,7 @@ const SidecarMarketingCard = ({
 	featuredDocsLinks,
 }: SidecarMarketingCardProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
-	const learnMoreLink = `https://${
+	const learnMoreLink = `https://www.${
 		productSlugsToHostNames[currentProduct.slug]
 	}`
 
