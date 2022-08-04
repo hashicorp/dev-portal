@@ -1,0 +1,20 @@
+{
+	"items": [
+		{
+			"title": "All Tutorials",
+			"href": "https://learn.hashicorp.com/"
+		},
+		{
+			"title": "Community Forum",
+			"href": "https://discuss.hashicorp.com/c/vault/30"
+		},
+		{
+			"title": "Support",
+			"href": "https://www.hashicorp.com/customer-success"
+		},
+		{
+			"title": "GitHub",
+			"href": "https://github.com/hashicorp/vault"
+		}
+	]
+}
