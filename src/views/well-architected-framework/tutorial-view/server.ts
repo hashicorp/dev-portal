@@ -15,12 +15,11 @@ import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { MenuItem, SidebarProps } from 'components/sidebar'
 import { generateWafCollectionSidebar } from 'views/well-architected-framework/utils/generate-collection-sidebar'
 import { getNextPrevious } from 'views/tutorial-view/components'
+import { WafTutorialViewProps } from '../types'
 
-export async function getWafTutorialPageProps({
-	tutorialSlug,
-}: {
+export async function getWafTutorialViewProps(
 	tutorialSlug: [string, string]
-}) {
+): Promise<{ props: WafTutorialViewProps }> {
 	const [collectionFilename, tutorialFilename] = tutorialSlug
 	const currentPath = `/${wafData.slug}/${tutorialSlug.join('/')}`
 
@@ -92,15 +91,10 @@ export async function getWafTutorialPageProps({
 
 	return {
 		props: stripUndefinedProperties({
-			metadata: {
-				title: fullTutorialData.name,
-				description: fullTutorialData.description,
-			},
 			tutorial: {
 				...fullTutorialData,
 				content: serializedContent,
 				collectionCtx: collectionContext,
-				headings,
 				nextPreviousData: getNextPrevious({
 					currentCollection: collectionContext.current,
 					currentTutorialSlug: fullTutorialData.slug,

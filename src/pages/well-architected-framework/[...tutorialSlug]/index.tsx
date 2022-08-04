@@ -5,11 +5,17 @@ import {
 } from 'lib/learn-client/types'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import WellArchitectedFrameworkTutorialView from 'views/well-architected-framework/tutorial-view'
-import { getWafTutorialPageProps } from 'views/well-architected-framework/tutorial-view/server'
+import { getWafTutorialViewProps } from 'views/well-architected-framework/tutorial-view/server'
 import wafData from 'data/well-architected-framework.json'
+import { WafTutorialViewProps } from 'views/well-architected-framework/types'
+import { GetStaticPropsContext } from 'next'
 
-export async function getStaticProps({ params }) {
-	const props = await getWafTutorialPageProps(params.tutorialSlug)
+export async function getStaticProps({
+	params,
+}: GetStaticPropsContext<{ tutorialSlug: [string, string] }>): Promise<
+	{ props: WafTutorialViewProps } | { notFound: boolean }
+> {
+	const props = await getWafTutorialViewProps(params.tutorialSlug)
 
 	// If the tutorial doesn't exist, hit the 404
 	if (!props) {
