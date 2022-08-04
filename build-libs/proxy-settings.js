@@ -21,7 +21,10 @@ const proxySettings = {
 		host: proxyConfig.boundary.host,
 		routesToProxy: [
 			...gatherRoutesToProxy('/_proxied-dot-io/boundary'),
-			...buildAssetRoutesToProxy(proxyConfig.boundary.assets, '/boundary'),
+			...buildAssetRoutesToProxy(
+				proxyConfig.boundary.assets,
+				'/boundary-public'
+			),
 			...getDevPortalRoutesToProxy('boundary'),
 		],
 	},
