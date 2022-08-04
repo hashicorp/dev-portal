@@ -8,6 +8,7 @@ import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 import { FeaturedInCollections } from 'views/tutorial-view/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { NextPrevious } from 'views/tutorial-view/components'
+import s from 'views/tutorial-view/tutorial-view.module.css'
 import { WafTutorialViewProps } from '../types'
 /**
  * TODO
@@ -68,7 +69,10 @@ export default function WellArchitectedFrameworkTutorialView({
 				</DevDotContent>
 			</TabProvider>
 			<NextPrevious {...nextPreviousData} />
-			<FeaturedInCollections collections={featuredInWithoutCurrent} />
+			<FeaturedInCollections
+				className={s.featuredInCollections}
+				collections={featuredInWithoutCurrent}
+			/>
 		</SidebarSidecarLayout>
 	)
 }
