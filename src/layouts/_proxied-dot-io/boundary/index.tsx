@@ -67,14 +67,14 @@ function BoundaryIoLayout({ children, data }: Props): React.ReactElement {
 						useCaseNavItems.length > 0
 							? {
 									text: 'Use Cases',
-									submenu: [
-										...useCaseNavItems.map((item) => {
+									submenu: useCaseNavItems
+										.map((item) => {
 											return {
 												text: item.text,
 												url: `/use-cases/${item.url}`,
 											}
-										}),
-									].sort((a, b) => a.text.localeCompare(b.text)),
+										})
+										.sort((a, b) => a.text.localeCompare(b.text)),
 							  }
 							: undefined,
 						{
