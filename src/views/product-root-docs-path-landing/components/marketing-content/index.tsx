@@ -4,6 +4,7 @@ import Heading, { HeadingProps } from 'components/heading'
 import Text from 'components/text'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
+import GetStartedCard from 'components/get-started-card'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import { SUPPORTED_ICONS } from '../supported-icons'
@@ -154,6 +155,17 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 							headingLevel={block.headingLevel}
 							headingId={block.headingId}
 							title={block.title}
+						/>
+					)
+				}
+
+				if (block.type === 'getting-started-card') {
+					return (
+						<GetStartedCard
+							heading="Getting Started"
+							headingSlug="getting-started"
+							body={block.description}
+							ctas={[block.callToAction]}
 						/>
 					)
 				}
