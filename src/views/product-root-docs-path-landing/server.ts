@@ -5,6 +5,10 @@ import { GetStaticPropsContext } from 'next'
 import { ProductSlug, RootDocsPath } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
+import {
+	GETTING_STARTED_CARD_HEADING,
+	GETTING_STARTED_CARD_HEADING_SLUG,
+} from './components/marketing-content'
 
 /**
  * @TODO add TS to function signature & document function purpose
@@ -47,6 +51,14 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 				thisHeadingObject = {
 					level: cardGridHeadingLevel,
 					title: block.title,
+					id: headingSlug,
+					slug: headingSlug,
+				}
+			} else if (block.type === 'getting-started-card') {
+				const headingSlug = GETTING_STARTED_CARD_HEADING_SLUG
+				thisHeadingObject = {
+					level: 2,
+					title: GETTING_STARTED_CARD_HEADING,
 					id: headingSlug,
 					slug: headingSlug,
 				}
