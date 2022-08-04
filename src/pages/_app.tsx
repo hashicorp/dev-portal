@@ -101,6 +101,8 @@ App.getInitialProps = async ({ Component, ctx }) => {
 		proxiedProduct = 'consul'
 	} else if (ctx.pathname.includes('_proxied-dot-io/nomad')) {
 		proxiedProduct = 'nomad'
+	} else if (ctx.pathname.includes('_proxied-dot-io/boundary')) {
+		proxiedProduct = 'boundary'
 	}
 	const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
 
