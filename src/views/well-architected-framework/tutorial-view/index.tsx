@@ -10,10 +10,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { NextPrevious } from 'views/tutorial-view/components'
 /**
  * TODO
- * - get sidebar / sidecar layout working ✅
- * - get next / prevous data working
- * - make view file ✅
- * - separate out data gen with view logic
+ * - clean up server file (so large)
  * - check design spec for any inconsistencies
  * - vet the links
  * - check on the tutorial rewrite plugin, to accept waf links
