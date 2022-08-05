@@ -3,16 +3,43 @@ NOTE: `color: black` is needed because the color is otherwise set by a global
 style applied to anchor elements.
 */
 .root {
-  color: black;
-  height: 100%;
+	color: black;
+	height: 100%;
+	position: relative;
 
-  /* Only enable animation if query is supported and value is no-preference */
-  @media (prefers-reduced-motion: no-preference) {
-    transition: background-color 0.2s, box-shadow 0.2s;
-  }
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: background-color 0.2s, box-shadow 0.2s;
+	}
 
-  &:hover {
-    box-shadow: var(--token-surface-high-box-shadow);
-    cursor: pointer;
-  }
+	&:hover {
+		box-shadow: var(--token-surface-high-box-shadow);
+		cursor: pointer;
+	}
+}
+
+.anchor {
+	/* makes the whole card clickable */
+	&::before {
+		background-color: transparent;
+		border-radius: var(--card-border-radius);
+		bottom: 0;
+		content: '';
+		display: block;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	/* only styling the ::before element on focus */
+	&:focus::before {
+		outline: transparent;
+	}
+
+	/* only styling the ::before element on focus-visible */
+	&:focus-visible::before {
+		box-shadow: var(--token-focus-ring-action-box-shadow);
+		outline: transparent;
+	}
 }

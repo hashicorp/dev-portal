@@ -9,7 +9,7 @@ function LinkedCards({ cards }: LinkedCardsProps) {
 			{cards.map((card: LinkedCard, idx: number) => {
 				return (
 					<li key={idx}>
-						<CardLink href={card.url}>
+						<CardLink ariaLabel={card.heading} href={card.url}>
 							<CardHeading level={3} text={card.heading} />
 							<CardBody text={card.body} />
 						</CardLink>
