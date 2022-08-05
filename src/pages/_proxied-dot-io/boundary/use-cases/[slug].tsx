@@ -1,18 +1,18 @@
-import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import * as React from 'react'
 import Head from 'next/head'
-import { proxiedRivetClient } from 'lib/cms'
-import useCasesQuery from './query.graphql'
 import { renderMetaTags } from '@hashicorp/react-head'
+import { proxiedRivetClient } from 'lib/cms'
 import IoUsecaseHero from 'components/_proxied-dot-io/common/io-usecase-hero'
 import IoUsecaseSection from 'components/_proxied-dot-io/common/io-usecase-section'
 import IoUsecaseCustomer from 'components/_proxied-dot-io/common/io-usecase-customer'
 import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container'
 import IoVideoCallout from 'components/_proxied-dot-io/common/io-video-callout'
 import IoUsecaseCallToAction from 'components/_proxied-dot-io/common/io-usecase-call-to-action'
-import s from './style.module.css'
+import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
+import useCasesQuery from './query.graphql'
+import s from './use-cases.module.css'
 
-function UseCasePage({ data }) {
+export default function UseCasePage({ data }) {
 	const {
 		seo,
 		heroHeading,
@@ -48,11 +48,11 @@ function UseCasePage({ data }) {
 				eyebrow="Use case"
 				heading={heroHeading}
 				description={heroDescription}
-				pattern="/consul-public/img/usecase-hero-pattern.svg"
+				pattern="/boundary-public/img/usecase-hero-pattern.svg"
 			/>
 
 			<IoUsecaseSection
-				brand="consul"
+				brand="boundary"
 				eyebrow="Challenge"
 				heading={challengeHeading}
 				description={challengeDescription}
@@ -69,7 +69,7 @@ function UseCasePage({ data }) {
 			/>
 
 			<IoUsecaseSection
-				brand="consul"
+				brand="boundary"
 				bottomIsFlush={_customerCaseStudy}
 				eyebrow="Solution"
 				heading={solutionHeading}
@@ -116,29 +116,6 @@ function UseCasePage({ data }) {
 				<IoCardContainer
 					heading={cardsHeading}
 					description={cardsDescription}
-					label="Tutorials"
-					cta={{
-						url: tutorialsLink
-							? tutorialsLink
-							: 'https://learn.hashicorp.com/consul',
-						text: 'Explore all',
-					}}
-					cardsPerRow={3}
-					cards={tutorialCards.map((card) => {
-						return {
-							eyebrow: card.eyebrow,
-							link: {
-								url: card.link,
-								type: 'inbound',
-							},
-							heading: card.heading,
-							description: card.description,
-							products: card.products,
-						}
-					})}
-				/>
-
-				<IoCardContainer
 					label="Docs"
 					cta={{
 						url: documentationLink ? documentationLink : '/docs',
@@ -158,12 +135,35 @@ function UseCasePage({ data }) {
 						}
 					})}
 				/>
+
+				<IoCardContainer
+					label="Tutorials"
+					cta={{
+						url: tutorialsLink
+							? tutorialsLink
+							: 'https://learn.hashicorp.com/boundary',
+						text: 'Explore all',
+					}}
+					cardsPerRow={3}
+					cards={tutorialCards.map((card) => {
+						return {
+							eyebrow: card.eyebrow,
+							link: {
+								url: card.link,
+								type: 'inbound',
+							},
+							heading: card.heading,
+							description: card.description,
+							products: card.products,
+						}
+					})}
+				/>
 			</div>
 
 			<div className={s.callToAction}>
 				<IoUsecaseCallToAction
-					theme="dark"
-					brand="consul"
+					theme="light"
+					brand="boundary"
 					heading={callToActionHeading}
 					description={callToActionDescription}
 					links={callToActionLinks.map((link) => {
@@ -172,7 +172,7 @@ function UseCasePage({ data }) {
 							url: link.link,
 						}
 					})}
-					pattern="/consul-public/img/usecase-callout-pattern.svg"
+					pattern="/boundary-public/img/usecase-callout-pattern.svg"
 				/>
 			</div>
 
@@ -194,15 +194,16 @@ function UseCasePage({ data }) {
 		</>
 	)
 }
+UseCasePage.layout = BoundaryIoLayout
 
 export async function getStaticPaths() {
-	const query = proxiedRivetClient('consul')
-	const { allConsulUseCases } = await query({
+	const query = proxiedRivetClient('nomad')
+	const { allBoundaryUseCases } = await query({
 		query: useCasesQuery,
 	})
 
 	return {
-		paths: allConsulUseCases.map((page) => {
+		paths: allBoundaryUseCases.map((page) => {
 			return {
 				params: {
 					slug: page.slug,
@@ -216,12 +217,12 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
 	const { slug } = params
 
-	const query = proxiedRivetClient('consul')
-	const { allConsulUseCases } = await query({
+	const query = proxiedRivetClient('boundary')
+	const { allBoundaryUseCases } = await query({
 		query: useCasesQuery,
 	})
 
-	const page = allConsulUseCases.find((page) => page.slug === slug)
+	const page = allBoundaryUseCases.find((page) => page.slug === slug)
 
 	if (!page) {
 		return { notFound: true }
@@ -231,9 +232,9 @@ export async function getStaticProps({ params }) {
 		props: {
 			data: page,
 		},
-		revalidate: __config.io_sites.revalidate,
+		revalidate:
+			process.env.HASHI_ENV === 'production'
+				? process.env.GLOBAL_REVALIDATE
+				: 10,
 	}
 }
-
-UseCasePage.layout = ConsulIoLayout
-export default UseCasePage

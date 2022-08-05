@@ -514,7 +514,6 @@ This is an object for the marketing content located in a `Card` in the Sidecar o
 
 - `title`: The title of the card, shown in a heavier weight font
 - `subtitle`: The subtitle of the card, shown in a normal weight font
-- `learnMoreLink`: The URL that the "Learn more" `StandaloneLink` points to
 - `featuredDocsLinks`: An array of objects with the following properties:
   - `href`: The internal path to a documentation page
   - `label`: The text to show for the link

@@ -3,7 +3,6 @@
 	"sidecarMarketingCard": {
 		"title": "About Boundary",
 		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
-		"learnMoreLink": "https://www.boundaryproject.io/",
 		"featuredDocsLinks": [
 			{
 				"href": "boundary/docs/getting-started",
