@@ -18,11 +18,8 @@ export default async function tutorialsMapHandler(
 	res: NextApiResponse
 ) {
 	try {
-		console.log('generating tutorial map')
 		const mapData = await generateTutorialMap()
-		console.log({ mapData })
 
-		fs.writeFileSync('tutorial-map.json', mapData)
 		if (Object.keys(mapData).length > 0) {
 			res.setHeader('cache-control', `s-maxage=${MAP_MAX_AGE_IN_SECONDS}`)
 			res.status(StatusCodes.OK).json(mapData)
@@ -51,10 +48,6 @@ export async function generateTutorialMap() {
 		const oldPath = t.slug
 		// need to fix this for waf
 		const newPath = getTutorialSlug(t.slug, t.collection_slug)
-		console.log(
-			oldPath.includes('well-architected-framework') && oldPath,
-			newPath.includes('well-architected-framework') && newPath
-		)
 		return [oldPath, newPath]
 	})
 
