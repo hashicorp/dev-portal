@@ -16,7 +16,10 @@ const OfficialReleasesSection = (): ReactElement => {
 			>
 				Looking for more?
 			</Heading>
-			<CardLink href="https://www.hashicorp.com/official-release-channels">
+			<CardLink
+				ariaLabel="Official releases"
+				href="https://www.hashicorp.com/official-release-channels"
+			>
 				<Text className={s.cardTitle} size={300} weight="semibold">
 					Official releases
 				</Text>
