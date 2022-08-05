@@ -1,5 +1,7 @@
 import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { EnrichedNavItem } from 'components/sidebar/types'
+import { NextPreviousProps } from 'views/tutorial-view/components'
+import { SidebarProps } from 'components/sidebar/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { HeroHeadingVisualProps } from 'views/product-landing/components/hero-heading-visual/types'
 import { OverviewCtaProps } from 'views/product-landing/components/overview-cta/types'
@@ -8,6 +10,7 @@ import {
 	InlineCollections,
 	InlineTutorials,
 } from 'views/product-tutorials-view/helpers/get-inline-content'
+import { TutorialData } from 'views/tutorial-view'
 
 export interface WellArchitectedFrameworkLandingProps {
 	metadata: {
@@ -40,5 +43,16 @@ export interface WellArchitectedFrameworkCollectionViewProps {
 	layoutProps: {
 		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
 		sidebarSections: EnrichedNavItem[]
+	}
+}
+
+export interface WafTutorialViewProps {
+	tutorial: TutorialData & {
+		nextPreviousData: NextPreviousProps
+	}
+	layoutProps: {
+		headings: SidebarSidecarLayoutProps['headings']
+		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
+		navLevels: SidebarProps[]
 	}
 }
