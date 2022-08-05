@@ -135,7 +135,6 @@ export function rewriteTutorialsLink(
 			if (!newUrl) {
 				// If the link wasn't found in the map, default to original link
 				// Could be a typo, its up to the author to correct -- this feedback should help
-				console.log('wasn" found')
 				newUrl = nodePath
 				throw new Error(
 					`[MDX TUTORIAL]: internal link could not be rewritten: ${nodePath} \nPlease check all Learn links in that tutorial to ensure they are correct.`
