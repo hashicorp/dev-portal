@@ -1,25 +1,37 @@
-import React, { useEffect } from 'react'
+// Third-party imports
+import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { Toaster } from 'components/toast'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LazyMotion } from 'framer-motion'
 import { SessionProvider } from 'next-auth/react'
+import {
+	Hydrate,
+	QueryClient,
+	QueryClientProvider,
+} from '@tanstack/react-query'
+
+// HashiCorp imports
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
+
+// Global imports
+import { isDeployPreview, isPreview } from 'lib/env-checks'
+import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
+import { makeDevAnalyticsLogger } from 'lib/analytics'
 import {
 	AllProductDataProvider,
 	CurrentProductProvider,
 	DeviceSizeProvider,
 } from 'contexts'
 import EmptyLayout from 'layouts/empty'
-import { isDeployPreview, isPreview } from 'lib/env-checks'
-import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
-import './style.css'
-import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
+import { Toaster } from 'components/toast'
 import HeadMetadata from 'components/head-metadata'
+
+// Local imports
+import './style.css'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -44,9 +56,11 @@ export default function App({
 }) {
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
+	const [queryClient] = useState(() => new QueryClient())
 
 	const Layout = Component.layout ?? EmptyLayout
 	const currentProduct = pageProps.product || null
+	const dehydratedState = pageProps.dehydratedState
 
 	/**
 	 * TODO: refactor this so that pageProps.layoutProps is the only place where
@@ -60,33 +74,39 @@ export default function App({
 	return (
 		<>
 			<SSRProvider>
-				<ErrorBoundary FallbackComponent={DevDotClient}>
-					<SessionProvider session={session}>
-						<DeviceSizeProvider>
-							<AllProductDataProvider>
-								<CurrentProductProvider currentProduct={currentProduct}>
-									<CodeTabsProvider>
-										<HeadMetadata {...pageProps.metadata} host={host} />
-										<LazyMotion
-											features={() =>
-												import('lib/framer-motion-features').then(
-													(mod) => mod.default
-												)
-											}
-											strict={process.env.NODE_ENV === 'development'}
-										>
-											<Layout {...allLayoutProps} data={allLayoutProps}>
-												<Component {...pageProps} />
-											</Layout>
-											<Toaster />
-											{showProductSwitcher ? <PreviewProductSwitcher /> : null}
-										</LazyMotion>
-									</CodeTabsProvider>
-								</CurrentProductProvider>
-							</AllProductDataProvider>
-						</DeviceSizeProvider>
-					</SessionProvider>
-				</ErrorBoundary>
+				<QueryClientProvider client={queryClient}>
+					<Hydrate state={dehydratedState}>
+						<ErrorBoundary FallbackComponent={DevDotClient}>
+							<SessionProvider session={session}>
+								<DeviceSizeProvider>
+									<AllProductDataProvider>
+										<CurrentProductProvider currentProduct={currentProduct}>
+											<CodeTabsProvider>
+												<HeadMetadata {...pageProps.metadata} host={host} />
+												<LazyMotion
+													features={() =>
+														import('lib/framer-motion-features').then(
+															(mod) => mod.default
+														)
+													}
+													strict={process.env.NODE_ENV === 'development'}
+												>
+													<Layout {...allLayoutProps} data={allLayoutProps}>
+														<Component {...pageProps} />
+													</Layout>
+													<Toaster />
+													{showProductSwitcher ? (
+														<PreviewProductSwitcher />
+													) : null}
+												</LazyMotion>
+											</CodeTabsProvider>
+										</CurrentProductProvider>
+									</AllProductDataProvider>
+								</DeviceSizeProvider>
+							</SessionProvider>
+						</ErrorBoundary>
+					</Hydrate>
+				</QueryClientProvider>
 			</SSRProvider>
 		</>
 	)
