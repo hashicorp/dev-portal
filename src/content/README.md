@@ -2,12 +2,28 @@
 
 This folder contains the authorable, marketing-style content for various landing pages in HashiCorp Developer:
 
-- [Home Page](#1-home-page)
-- [Product landing pages](#2-product-landing-pages)
-- [Product Docs landing pages](#3-product-docs-landing-pages)
-- [Product Install landing pages](#4-product-install-landing-pages)
+- [Sidebar "Resources" section](#1-additional-sidebar-resources-section-navigation-items)
+- [Home Page](#2-home-page)
+- [Product landing pages](#3-product-landing-pages)
+- [Product Docs landing pages](#4-product-docs-landing-pages)
+- [Product Install landing pages](#5-product-install-landing-pages)
 
-## 1. Home Page
+## 1. Additional Sidebar "Resources" section navigation items
+
+The Sidebar "Resources" section has a number of navigation items automatically generated for each product ([see the `generateResourcesNavItems` Sidebar helper](/src/components/sidebar/helpers/generate-resources-nav-items.ts)). To add _additional_ navigation items to the "Resources" section of the Sidebar:
+
+1. Open the folder of the Product you'd like to make changes for
+2. Open (or create) the `additional-sidebar-resources.json` file
+3. Reference the next subsection for details on what is authorable
+
+### Editing additional "Resources" navigation items
+
+The `additional-sidebar-resources.json` file should contain a single array. Each item in the array should be an object. Each object should have two properties:
+
+1. `title` (string): This is the text shown for the navigation item.
+2. `href` (string): This is the destination of the navigation item. If it is an external link, the Sidebar will automatically render an external link icon to the right of the `title` text.
+
+## 2. Home Page
 
 To change the content for [the Home page](https://developer.hashicorp.com/):
 
@@ -18,7 +34,7 @@ To change the content for [the Home page](https://developer.hashicorp.com/):
 
 TODO
 
-## 2. Product landing pages
+## 3. Product landing pages
 
 To change the content for Product landing pages (e.g. [/vault](https://developer.hashicorp.com/vault), [/waypoint](https://developer.hashicorp.com/waypoint)):
 
@@ -246,7 +262,7 @@ Example: 3-column cards with tags
 
 </details>
 
-## 3. Product Docs landing pages
+## 4. Product Docs landing pages
 
 To change the content for Product Tutorials landing pages (e.g. [/vault/docs](https://developer.hashicorp.com/vault/docs), [/waypoint/docs](https://developer.hashicorp.com/waypoint/docs)):
 
@@ -438,7 +454,7 @@ Example usage:
 
 </details>
 
-## 4. Product Install landing pages
+## 5. Product Install landing pages
 
 To change the content for Product Install landing pages (e.g. [/vault/downloads](https://developer.hashicorp.com/vault/downloads), [/waypoint/downloads](https://developer.hashicorp.com/waypoint/downloads)):
 
