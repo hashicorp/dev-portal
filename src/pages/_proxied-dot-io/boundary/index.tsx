@@ -1,8 +1,6 @@
-import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import * as React from 'react'
-import Head from 'next/head'
 import { proxiedRivetClient } from 'lib/cms'
-import homepageQuery from './home/query.graphql'
+import Head from 'next/head'
 import { renderMetaTags } from '@hashicorp/react-head'
 import IoHomeHero from 'components/_proxied-dot-io/common/io-home-hero'
 import IoHomeIntro from 'components/_proxied-dot-io/common/io-home-intro'
@@ -11,9 +9,11 @@ import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container
 import IoHomeCaseStudies from 'components/_proxied-dot-io/common/io-home-case-studies'
 import IoHomeCallToAction from 'components/_proxied-dot-io/common/io-home-call-to-action'
 import IoHomePreFooter from 'components/_proxied-dot-io/common/io-home-pre-footer'
-import s from './home/style.module.css'
+import homepageQuery from './home/query.graphql'
+import s from './home/home.module.css'
+import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
 
-function Homepage({ data }): React.ReactElement {
+export default function Homepage({ data }): React.ReactElement {
 	const {
 		seo,
 		heroHeading,
@@ -22,10 +22,7 @@ function Homepage({ data }): React.ReactElement {
 		heroCards,
 		introHeading,
 		introDescription,
-		introOfferingsImage,
-		introOfferings,
-		introOfferingsCta,
-		introCallout,
+		introFeatures,
 		introVideo,
 		inPracticeHeading,
 		inPracticeDescription,
@@ -37,8 +34,6 @@ function Homepage({ data }): React.ReactElement {
 		useCasesHeading,
 		useCasesDescription,
 		useCasesCards,
-		tutorialsHeading,
-		tutorialCards,
 		caseStudiesHeading,
 		caseStudiesDescription,
 		caseStudiesFeatured,
@@ -50,7 +45,6 @@ function Homepage({ data }): React.ReactElement {
 		preFooterDescription,
 		preFooterCtas,
 	} = data
-	const _introCallout = introCallout[0]
 	const _introVideo = introVideo[0]
 
 	return (
@@ -58,8 +52,8 @@ function Homepage({ data }): React.ReactElement {
 			<Head>{renderMetaTags(seo)}</Head>
 
 			<IoHomeHero
-				pattern="/consul-public/img/home-hero-pattern.svg"
-				brand="consul"
+				pattern="/boundary-public/img/home-hero-pattern.svg"
+				brand="boundary"
 				heading={heroHeading}
 				description={heroDescription}
 				ctas={heroCtas}
@@ -72,50 +66,21 @@ function Homepage({ data }): React.ReactElement {
 			/>
 
 			<IoHomeIntro
-				brand="consul"
+				brand="boundary"
 				heading={introHeading}
 				description={introDescription}
-				offerings={{
-					image: {
-						src: introOfferingsImage.url,
-						width: introOfferingsImage.width,
-						height: introOfferingsImage.height,
-						alt: introOfferingsImage.alt,
+				features={introFeatures}
+				video={{
+					youtubeId: _introVideo?.youtubeId,
+					thumbnail: _introVideo?.thumbnail?.url,
+					heading: _introVideo?.heading,
+					description: _introVideo?.description,
+					person: {
+						name: _introVideo?.personName,
+						description: _introVideo?.personDescription,
+						avatar: _introVideo?.personAvatar?.url,
 					},
-					list: introOfferings,
-					cta: introOfferingsCta[0],
 				}}
-				callout={
-					_introCallout
-						? {
-								link: _introCallout.link,
-								heading: _introCallout.heading,
-								description: _introCallout.description,
-								cta: _introCallout.cta || 'Learn more',
-								thumbnail: {
-									src: _introCallout.thumbnail.url,
-									width: _introCallout.thumbnail.width,
-									height: _introCallout.thumbnail.height,
-									alt: _introCallout.thumbnail.alt,
-								},
-						  }
-						: null
-				}
-				video={
-					_introVideo
-						? {
-								youtubeId: _introVideo.youtubeId,
-								thumbnail: _introVideo.thumbnail.url,
-								heading: _introVideo.heading,
-								description: _introVideo.description,
-								person: {
-									name: _introVideo.personName,
-									description: _introVideo.personDescription,
-									avatar: _introVideo.personAvatar?.url,
-								},
-						  }
-						: null
-				}
 			/>
 
 			<section className={s.useCases}>
@@ -140,30 +105,9 @@ function Homepage({ data }): React.ReactElement {
 				</div>
 			</section>
 
-			<section className={s.tutorials}>
-				<div className={s.container}>
-					<IoCardContainer
-						heading={tutorialsHeading}
-						cardsPerRow={3}
-						cards={tutorialCards.map((card) => {
-							return {
-								eyebrow: card.eyebrow,
-								link: {
-									url: card.link,
-									type: 'inbound',
-								},
-								heading: card.heading,
-								description: card.description,
-								products: card.products,
-							}
-						})}
-					/>
-				</div>
-			</section>
-
 			<IoHomeInPractice
-				brand="consul"
-				pattern="/consul/img/practice-pattern.svg"
+				brand="boundary"
+				pattern="/boundary-public/img/practice-pattern.svg"
 				heading={inPracticeHeading}
 				description={inPracticeDescription}
 				cards={inPracticeCards.map((card) => {
@@ -186,22 +130,24 @@ function Homepage({ data }): React.ReactElement {
 				}}
 			/>
 
-			<IoHomeCaseStudies
-				heading={caseStudiesHeading}
-				description={caseStudiesDescription}
-				primary={caseStudiesFeatured}
-				secondary={caseStudiesLinks}
-			/>
+			{caseStudiesFeatured.length === 2 && caseStudiesLinks.length > 0 ? (
+				<IoHomeCaseStudies
+					heading={caseStudiesHeading}
+					description={caseStudiesDescription}
+					primary={caseStudiesFeatured}
+					secondary={caseStudiesLinks}
+				/>
+			) : null}
 
 			<IoHomeCallToAction
-				brand="consul"
+				brand="boundary"
 				heading={callToActionHeading}
 				content={callToActionDescription}
 				links={callToActionCtas}
 			/>
 
 			<IoHomePreFooter
-				brand="consul"
+				brand="boundary"
 				heading={preFooterHeading}
 				description={preFooterDescription}
 				ctas={preFooterCtas}
@@ -209,18 +155,21 @@ function Homepage({ data }): React.ReactElement {
 		</>
 	)
 }
+Homepage.layout = BoundaryIoLayout
 
 export async function getStaticProps() {
-	const query = proxiedRivetClient('consul')
-	const { consulHomepage } = await query({
+	const query = proxiedRivetClient('boundary')
+	const { boundaryHomepage } = await query({
 		query: homepageQuery,
 	})
 
 	return {
-		props: { data: consulHomepage },
-		revalidate: __config.io_sites.revalidate,
+		props: {
+			data: boundaryHomepage,
+		},
+		revalidate:
+			process.env.HASHI_ENV === 'production'
+				? process.env.GLOBAL_REVALIDATE
+				: 10,
 	}
 }
-
-Homepage.layout = ConsulIoLayout
-export default Homepage
