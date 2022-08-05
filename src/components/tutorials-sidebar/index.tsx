@@ -48,7 +48,7 @@ function CollectionViewSidebarContent({
 				return (
 					<Fragment key={title}>
 						<HorizontalRule />
-						<SectionTitle text={title} />
+						{title ? <SectionTitle text={title} /> : null}
 						<SectionList items={items} />
 					</Fragment>
 				)

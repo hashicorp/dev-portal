@@ -4,10 +4,15 @@ import Heading, { HeadingProps } from 'components/heading'
 import Text from 'components/text'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
+import GetStartedCard from 'components/get-started-card'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import { SUPPORTED_ICONS } from '../supported-icons'
 import s from './marketing-content.module.css'
+import slugify from 'slugify'
+
+const GETTING_STARTED_CARD_HEADING = 'Getting Started'
+const GETTING_STARTED_CARD_HEADING_SLUG = slugify(GETTING_STARTED_CARD_HEADING)
 
 /**
  * @TODO move to a different folder/file & document
@@ -93,7 +98,7 @@ const CardGrid = ({ cards, description, title, headingId, headingLevel }) => {
 			<CardsGridList>
 				{cards.map(({ description, title, url }) => (
 					<li key={url}>
-						<CardLink className={s.cardGridCard} href={url}>
+						<CardLink ariaLabel={title} className={s.cardGridCard} href={url}>
 							<Text
 								className={s.cardGridCardTitle}
 								size={200}
@@ -157,9 +162,21 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 						/>
 					)
 				}
+
+				if (block.type === 'getting-started-card') {
+					return (
+						<GetStartedCard
+							heading={GETTING_STARTED_CARD_HEADING}
+							headingSlug={GETTING_STARTED_CARD_HEADING_SLUG}
+							body={block.description}
+							ctas={[block.callToAction]}
+						/>
+					)
+				}
 			})}
 		</div>
 	)
 }
 
+export { GETTING_STARTED_CARD_HEADING, GETTING_STARTED_CARD_HEADING_SLUG }
 export default ProductRootDocsPathLandingMarketingContent

@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import VisuallyHidden from '@reach/visually-hidden'
 import CardLink from 'components/card-link'
 import Text from 'components/text'
 import { HashiConfGlobalSlotProps } from './types'
@@ -8,11 +7,11 @@ import s from './hashiconf-global-slot.module.css'
 function HashiConfGlobalSlot({ description }: HashiConfGlobalSlotProps) {
 	return (
 		<CardLink
+			ariaLabel="HashiConf Global"
 			href="https://hashiconf.com/global/"
 			className={s.root}
 			openInNewTab
 		>
-			<VisuallyHidden as="h2">HashiConf Global</VisuallyHidden>
 			<Image
 				src="/img/homepage/hashiconf-global-logo.svg"
 				width="232"
