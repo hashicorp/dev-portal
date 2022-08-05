@@ -13,7 +13,7 @@
 
 	/* TODO, hardcoded to vault's color, should be
 	 * based off of product color */
-	background: var(--token-color-vault-surface);
+	background: var(--badge-color);
 	padding: 2px 8px;
 	border-radius: 30px;
 	display: flex;

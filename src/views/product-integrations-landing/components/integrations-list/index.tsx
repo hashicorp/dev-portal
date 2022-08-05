@@ -14,6 +14,7 @@ export default function IntegrationsList({ integrations }) {
 						title={integration.name}
 						description={integration.description}
 						organization={integration.organization.slug}
+						productSlug={integration.product.slug}
 						tier={integration.tier}
 						repoUrl={integration.repo_url}
 					/>
@@ -23,12 +24,19 @@ export default function IntegrationsList({ integrations }) {
 	)
 }
 
-function IntegrationCard({ title, description, organization, tier, repoUrl }) {
+function IntegrationCard({
+	title,
+	description,
+	organization,
+	tier,
+	repoUrl,
+	productSlug,
+}) {
 	return (
 		<CardLink className={s.integrationCard} href={repoUrl} openInNewTab={true}>
 			<div className={s.header}>
 				<h3 className={s.heading}>{title}</h3>
-				<TierBadge tier={tier} />
+				<TierBadge tier={tier} productSlug={productSlug} />
 			</div>
 
 			<span className={s.organization}>{`@${organization}`}</span>
@@ -37,9 +45,14 @@ function IntegrationCard({ title, description, organization, tier, repoUrl }) {
 	)
 }
 
-function TierBadge({ tier }) {
+function TierBadge({ tier, productSlug }) {
 	return (
-		<span className={s.badge}>
+		<span
+			className={s.badge}
+			style={{
+				'--badge-color': `var(--token-color-${productSlug}-surface)`,
+			}}
+		>
 			{tier === 'official' && (
 				<>
 					<IconAward16 /> Official

@@ -28,10 +28,9 @@ export default function ProductIntegrationsLanding({ product }) {
 	}, [])
 
 	return (
-		<BaseLayout showFooterTopBorder className={s.integrationsLandingPage}>
+		<BaseLayout showFooterTopBorder>
 			<div className={s.integrationsLandingPage}>
-				<div className={s.sidebar}>
-				</div>
+				<div className={s.sidebar}></div>
 				<div className={s.mainArea}>
 					<div className={s.contentWrapper}>
 						<BreadcrumbBar
@@ -53,7 +52,9 @@ export default function ProductIntegrationsLanding({ product }) {
 								},
 							]}
 						/>
-						{integrations && <FacetedIntegrationList integrations={integrations} />}
+						{integrations && (
+							<FacetedIntegrationList integrations={integrations} />
+						)}
 					</div>
 				</div>
 			</div>
