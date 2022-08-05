@@ -2,28 +2,22 @@ import { ProductSlug } from 'types/products'
 
 const DEFAULT_COMMUNITY_FORUM_LINK = 'https://discuss.hashicorp.com/'
 const DEFAULT_GITHUB_LINK = 'https://github.com/hashicorp'
+const DEFAULT_SUPPORT_LINK = 'https://www.hashicorp.com/customer-success'
 
-const COMMUNITY_FORUM_LINKS_BY_SLUG = {
+const COMMUNITY_LINKS_BY_PRODUCT: { [key in ProductSlug]: string } = {
+	boundary: 'https://discuss.hashicorp.com/c/boundary/50',
+	consul: 'https://discuss.hashicorp.com/c/consul/29',
+	hcp: 'https://discuss.hashicorp.com/c/hcp/54',
+	nomad: 'https://discuss.hashicorp.com/c/nomad/28',
+	packer: 'https://discuss.hashicorp.com/c/packer/23',
+	sentinel: 'https://discuss.hashicorp.com/c/sentinel/25',
+	terraform: 'https://discuss.hashicorp.com/c/terraform-core/27',
+	vagrant: 'https://discuss.hashicorp.com/c/vagrant/24',
 	vault: 'https://discuss.hashicorp.com/c/vault/30',
 	waypoint: 'https://discuss.hashicorp.com/c/waypoint/51',
 }
 
-/**
- * Generates the sidebar nav item for the Community Forum link. If given a
- * Product slug specified in `COMMUNITY_FORUM_LINKS_BY_SLUG`, that Product's
- * link will be used. Otherwise, a general default link is used.
- */
-const generateCommunityForumNavItem = (productSlug?: ProductSlug) => {
-	const title = 'Community Forum'
-	const href =
-		COMMUNITY_FORUM_LINKS_BY_SLUG[productSlug] || DEFAULT_COMMUNITY_FORUM_LINK
-	return { href, title }
-}
-
-/**
- * A dictionary of product slugs to GitHub links.
- */
-const GITHUB_LINKS_BY_SLUG: { [K in ProductSlug]: string } = {
+const GITHUB_LINKS_BY_PRODUCT_SLUG: { [key in ProductSlug]: string } = {
 	boundary: 'https://github.com/hashicorp/boundary',
 	consul: 'https://github.com/hashicorp/consul',
 	hcp: DEFAULT_GITHUB_LINK,
@@ -37,33 +31,50 @@ const GITHUB_LINKS_BY_SLUG: { [K in ProductSlug]: string } = {
 }
 
 /**
- * Generates the sidebar nav item for the Community Forum link. If given a
- * Product slug specified in `COMMUNITY_FORUM_LINKS_BY_SLUG`, that Product's
- * link will be used. Otherwise, a general default link is used.
+ * Generates additional sidebar nav items for the Resources section. If an
+ * `additional-sidebar-resources.json` file exists for a product in the
+ * `src/content` directory, and it has the correct data structure, the specified
+ * nav items will be appended to the Resources section.
  */
-
-function generateGitHubNavItem(productSlug?: ProductSlug) {
-	return {
-		title: 'GitHub',
-		href: GITHUB_LINKS_BY_SLUG[productSlug] || DEFAULT_GITHUB_LINK,
+const generateAdditionalResources = (productSlug?: ProductSlug) => {
+	if (productSlug) {
+		try {
+			// eslint-disable-next-line @typescript-eslint/no-var-requires
+			return require(`content/${productSlug}/additional-sidebar-resources.json`)
+		} catch {
+			return []
+		}
 	}
+
+	return []
 }
 
 /**
  * Generates the sidebar nav items for the Resources section of the sidebar.
- * Optionally accepts a Product slug for customization of links. Invokes
- * additional helper functions for each nav item as needed.
+ * Optionally accepts a Product slug for customization of links.
  */
 const generateResourcesNavItems = (productSlug?: ProductSlug) => {
+	const additionalResources = generateAdditionalResources(productSlug)
+
 	return [
 		{ heading: 'Resources' },
-		{ title: 'All Tutorials', href: 'https://learn.hashicorp.com/' },
-		generateCommunityForumNavItem(productSlug),
+		{
+			title: 'Community Forum',
+			href: productSlug
+				? COMMUNITY_LINKS_BY_PRODUCT[productSlug]
+				: DEFAULT_COMMUNITY_FORUM_LINK,
+		},
 		{
 			title: 'Support',
-			href: 'https://www.hashicorp.com/customer-success',
+			href: DEFAULT_SUPPORT_LINK,
 		},
-		generateGitHubNavItem(productSlug),
+		{
+			title: 'GitHub',
+			href: productSlug
+				? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
+				: DEFAULT_GITHUB_LINK,
+		},
+		...additionalResources,
 	]
 }
 
