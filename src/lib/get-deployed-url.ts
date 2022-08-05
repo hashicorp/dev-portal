@@ -1,8 +1,7 @@
 /**
- * Returns a fully qualified URL to the deployed app for preview deployments and the production deployment. Useful
- * if you need to build a full URL in the context of the app.
- *
- * Returns an empty string in development.
+ * Returns a fully qualified URL to the deployed app for preview deployments and
+ * the production deployment. Useful if you need to build a full URL in the
+ * context of the app.
  */
 export default function getDeployedUrl(host?: string) {
 	// preview deployments should derive the url from Vercel's env var
@@ -11,7 +10,7 @@ export default function getDeployedUrl(host?: string) {
 	}
 
 	if (process.env.HASHI_ENV === 'development') {
-		return host ? `http://${host}` : ''
+		return host ? `http://${host}` : 'http://localhost:3000'
 	}
 
 	// use our canonical URL for production
