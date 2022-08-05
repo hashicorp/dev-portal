@@ -20,8 +20,8 @@ waypointData.rootDocsPaths.forEach(({ path, name }) => {
 		// Load the /waypoint/docs landing page before each test
 		await page.goto(`${baseURL}/waypoint/docs`)
 
-		// Click the `IconCardLink`'s anchor element
-		await page.click(`main header a[href="/waypoint/${path}"]`)
+		// Click the `IconCardLink`'s list item element
+		await page.locator('main header li', { hasText: name }).click()
 
 		// Wait for the expected page URL to load
 		await page.waitForURL(expectedPageUrl)

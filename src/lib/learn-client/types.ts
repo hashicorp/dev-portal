@@ -282,8 +282,14 @@ function isThemeOption(string: string): string is ThemeOption {
 	return Object.values(ThemeOption).includes(string as ThemeOption)
 }
 /**
+ * Type guard to determine if a string is a SectionOption
+ */
+export function isSectionOption(string: string): string is SectionOption {
+	return Object.values(SectionOption).includes(string as SectionOption)
+}
+/**
  * Type guard to determine if a string is a ProductOption
  */
-function isProductOption(string: string): string is ProductOption {
+export function isProductOption(string: string): string is ProductOption {
 	return Object.values(ProductOption).includes(string as ProductOption)
 }

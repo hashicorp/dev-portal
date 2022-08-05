@@ -4,11 +4,10 @@ type NativeAnchorProps = JSX.IntrinsicElements['a']
 
 export interface CardLinkProps {
 	/**
-	 * An optional string value that labels the link. For use when content visible
-	 * in the DOM meant to give the link meaning is either missing, or does not
-	 * accurately describe the link.
+	 * The text used as the `CardLink`'s accessible label. Required so the element
+	 * is announced by screen readers.
 	 */
-	ariaLabel?: NativeAnchorProps['aria-label']
+	ariaLabel: NativeAnchorProps['aria-label']
 
 	/**
 	 * The content to render within the `CardLink` body. Passed to the inner
