@@ -2,7 +2,7 @@
 
 This folder contains the authorable, marketing-style content for various landing pages in HashiCorp Developer:
 
-- [Sidebar "Resources" section](#1-sidebar-resources-section)
+- [Sidebar "Resources" section](#1-additional-sidebar-resources-section-navigation-items)
 - [Home Page](#2-home-page)
 - [Product landing pages](#3-product-landing-pages)
 - [Product Docs landing pages](#4-product-docs-landing-pages)
