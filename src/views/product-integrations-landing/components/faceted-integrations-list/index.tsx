@@ -43,6 +43,36 @@ export default function FacetedIntegrationList({ integrations }) {
 		new Array(sortedCategories.length).fill(false)
 	);
 
+	// Now actually filter our integrations if facets are selected
+	var filteredIntegrations = integrations
+	const atLeastOneFacetSelected = officialChecked || verifiedChecked || communityChecked || categoryCheckedArray.includes(true)
+	if(atLeastOneFacetSelected) {
+		filteredIntegrations = integrations.filter((integration) => {
+			// Default tierMatch to true if nothing is checked, false otherwise
+			var tierMatch = !officialChecked && !verifiedChecked && !communityChecked
+			if(officialChecked && integration.tier === 'official') tierMatch = true
+			if(verifiedChecked && integration.tier === 'verified') tierMatch = true
+			if(communityChecked && integration.tier === 'community') tierMatch = true
+
+			// Loop over each category to see if they match any checked categories
+			// If there are no categories selected, default this to true
+			var categoryMatch = !categoryCheckedArray.includes(true)
+			categoryCheckedArray.forEach((checked, index) => {
+				if(checked) {
+					var checkedCategory = sortedCategories[index]
+					// Check each integration category
+					for(var category of integration.categories) {
+						if(category.slug === checkedCategory.slug) {
+							categoryMatch = true;
+							console.log(categoryMatch)
+						}
+					}
+				}
+			})
+			return tierMatch && categoryMatch
+		})
+	}
+
 	return (
 		<div className={s.facetedIntegrationList}>
 			<div className={s.facetsSidebar}>
@@ -94,7 +124,7 @@ export default function FacetedIntegrationList({ integrations }) {
 			</div>
 			<SearchableIntegrationsList
 				className={s.searchList}
-				integrations={integrations}
+				integrations={filteredIntegrations}
 			/>
 		</div>
 	)
