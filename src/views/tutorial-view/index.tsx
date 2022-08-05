@@ -76,12 +76,13 @@ const LayoutContentWrapper = ({
 			 * TODO: What should we do if this errors?
 			 * https://app.asana.com/0/1202097197789424/1202599138117878/f
 			 */
-			getCollectionViewSidebarSections(product, collectionCtx.current).then(
-				(result: CollectionCategorySidebarSection[]) => {
-					hasLoadedData.current = true
-					setCollectionViewSidebarSections(result)
-				}
-			)
+			getCollectionViewSidebarSections(
+				product.slug,
+				collectionCtx.current
+			).then((result: CollectionCategorySidebarSection[]) => {
+				hasLoadedData.current = true
+				setCollectionViewSidebarSections(result)
+			})
 		}
 	}, [
 		collectionCtx,
