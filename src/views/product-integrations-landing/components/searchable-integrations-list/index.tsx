@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import classNames from 'classnames'
 import s from './style.module.css'
 import CategorizedIntegrationsList from '../categorized-integrations-list'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 
-export default function SearchableIntegrationsList({ integrations }) {
+export default function SearchableIntegrationsList({ integrations, className }) {
   const [searchQuery, setSearchQuery] = useState('');
 	const filteredIntegrations = integrations.filter((integration) => {
 		return integration.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -12,7 +13,7 @@ export default function SearchableIntegrationsList({ integrations }) {
 	})
 
 	return (
-		<div className={s.searchableIntegrationsList}>
+		<div className={classNames(s.searchableIntegrationsList, className)}>
 			<SearchBar
 				searchQuery={searchQuery}
 				onChange={(e) => setSearchQuery(e.target.value)}
