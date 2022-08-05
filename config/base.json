@@ -20,6 +20,7 @@
 		"revalidate": 360,
 		"beta_product_slugs": [
 			"consul",
+			"packer",
 			"hcp",
 			"nomad",
 			"terraform",
