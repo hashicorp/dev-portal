@@ -6,7 +6,7 @@ import { ListItemProps } from 'components/tutorials-sidebar/types'
 import { getCollectionSlug } from './get-slug'
 
 export interface CollectionCategorySidebarSection {
-	title: CollectionCategoryOption
+	title?: CollectionCategoryOption
 	items: ListItemProps[]
 }
 
@@ -22,12 +22,22 @@ export function formatSidebarCategorySections(
 ): CollectionCategorySidebarSection[] {
 	const categorySlugs = Object.keys(CollectionCategoryOption)
 
+	/**
+	 * Track which collections have been used in sidebar categories,
+	 * so that we can ensure any non-categorized collections are still displayed.
+	 */
+	const usedCollections = []
+
 	const sidebarSectionsByCategory = categorySlugs.map(
 		(category: CollectionCategoryOption) => {
 			// get collections associated with that category
-			const items = collections.filter(
-				(c: ClientCollection) => c.category === category
-			)
+			const items = collections.filter((c: ClientCollection) => {
+				const isInCategory = c.category === category
+				if (isInCategory) {
+					usedCollections.push(c.slug)
+				}
+				return isInCategory
+			})
 
 			return {
 				title: CollectionCategoryOption[category],
@@ -38,7 +48,36 @@ export function formatSidebarCategorySections(
 		}
 	)
 
-	return filterEmptySections(sidebarSectionsByCategory)
+	/**
+	 * If we have category sections with content, use those.
+	 */
+	const nonEmptySections = filterEmptySections(sidebarSectionsByCategory)
+	if (nonEmptySections.length > 0) {
+		return nonEmptySections
+	}
+
+	/**
+	 * Otherwise, since there are no other sidebar sections, then
+	 * add an "unused" section, to capture any missing collections
+	 * Note: this will be filtered out if it's empty.
+	 *
+	 * TODO: this is to get /hcp content stubbed, may not be correct,
+	 * and may need adjustment once we have finalized designs.
+	 */
+	const remainderCollections = collections.filter((c: ClientCollection) => {
+		return usedCollections.indexOf(c.slug) == -1
+	})
+	const remainderSection = {
+		/**
+		 * Note: section title is not included, only option I can think of
+		 * is "Collections", which I think we want to avoid naming explicitly?
+		 * And would look weird next to other more specifically named sections.
+		 */
+		items: remainderCollections.map((collection: ClientCollection) =>
+			formatCollectionToListItem(collection, currentSlug)
+		),
+	}
+	return filterEmptySections([remainderSection])
 }
 
 function filterEmptySections(
