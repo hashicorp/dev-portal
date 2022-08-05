@@ -18,6 +18,10 @@
 				margin-top: 0;
 			}
 		}
+
+		& .resetFilters {
+			margin-top: 20px;
+		}
 	}
 
 	& .searchList {

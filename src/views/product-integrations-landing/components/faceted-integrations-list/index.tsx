@@ -2,6 +2,7 @@ import s from './style.module.css'
 import { useState } from 'react'
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
 import { IconCheckCircle16 } from '@hashicorp/flight-icons/svg-react/check-circle-16'
+import Button from '@hashicorp/react-button'
 import SearchableIntegrationsList from '../searchable-integrations-list'
 
 export default function FacetedIntegrationList({ integrations }) {
@@ -64,7 +65,6 @@ export default function FacetedIntegrationList({ integrations }) {
 					for(var category of integration.categories) {
 						if(category.slug === checkedCategory.slug) {
 							categoryMatch = true;
-							console.log(categoryMatch)
 						}
 					}
 				}
@@ -76,14 +76,13 @@ export default function FacetedIntegrationList({ integrations }) {
 	return (
 		<div className={s.facetedIntegrationList}>
 			<div className={s.facetsSidebar}>
-
 				<h5 className={s.facetCategoryTitle}>Tier</h5>
 				{tierOptions.includes('official') && (
 					<FacetCheckbox
 						label="Official"
 						icon={<IconAward16 className={s.awardIcon} />}
 						matching={matchingOfficial}
-						checked={officialChecked}
+						isChecked={officialChecked}
 						onChange={(e) => setOfficialChecked(!officialChecked)}
 					/>
 				)}
@@ -92,7 +91,7 @@ export default function FacetedIntegrationList({ integrations }) {
 						label="Verified"
 						icon={<IconCheckCircle16 className={s.checkIcon }/>}
 						matching={matchingVerified}
-						checked={verifiedChecked}
+						isChecked={verifiedChecked}
 						onChange={(e) => setVerifiedChecked(!verifiedChecked)}
 					/>
 				)}
@@ -100,7 +99,7 @@ export default function FacetedIntegrationList({ integrations }) {
 					<FacetCheckbox
 						label="Community"
 						matching={matchingCommunity}
-						checked={communityChecked}
+						isChecked={communityChecked}
 						onChange={(e) => setCommunityChecked(!communityChecked)}
 					/>
 				)}
@@ -112,7 +111,7 @@ export default function FacetedIntegrationList({ integrations }) {
 							key={category.id}
 							label={category.name}
 							matching={category.occurances}
-							checked={categoryCheckedArray[index]}
+							isChecked={categoryCheckedArray[index]}
 							onChange={(e) => setCategoryCheckedArray(
 								categoryCheckedArray.map((v, i) => {
 									return i === index ? !v : v
@@ -121,6 +120,25 @@ export default function FacetedIntegrationList({ integrations }) {
 						/>
 					)
 				})}
+
+				{atLeastOneFacetSelected && (
+					<Button
+						className={s.resetFilters}
+						title="Reset filters"
+						size="small"
+						onClick={(e) => {
+							setOfficialChecked(false)
+							setVerifiedChecked(false)
+							setCommunityChecked(false)
+							setCategoryCheckedArray(
+								categoryCheckedArray.map((v, i) => {
+									return false
+								})
+							)
+						}}
+					/>
+				)}
+
 			</div>
 			<SearchableIntegrationsList
 				className={s.searchList}
