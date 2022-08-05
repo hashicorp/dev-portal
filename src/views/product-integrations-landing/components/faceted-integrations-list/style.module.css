@@ -1,0 +1,41 @@
+.facetedIntegrationList {
+	display: flex;
+	flex-direction: row;
+
+	& .facetsSidebar {
+		min-width: 220px;
+		margin-right: 32px;
+	}
+
+	& .facetCategoryTitle {
+		color: var(--gray-3);
+		font-size: 12px;
+		margin-top: 28px;
+		text-transform: uppercase;
+		font-weight: 600;
+		margin-bottom: 8px;
+
+		&:first-of-type {
+			margin-top: 0;
+		}
+	}
+}
+
+.facetCheckbox {
+	display: flex;
+	align-items: center;
+	margin-bottom: 6px;
+
+	& > input {
+		width: 16px;
+		height: 16px;
+	}
+
+	& label {
+		margin-left: 8px;
+		color: var(--token-color-foreground-strong);
+		font-family: var(--token-typography-body-200-font-family);
+		font-size: var(--token-typography-body-200-font-size);
+		font-weight: var(--token-typography-font-weight-medium);
+	}
+}

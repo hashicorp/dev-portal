@@ -2,7 +2,7 @@ import s from './style.module.css'
 import CardsGridList from 'components/cards-grid-list'
 import CardLink from 'components/card-link'
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
-import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
+import { IconCheckCircle16 } from '@hashicorp/flight-icons/svg-react/check-circle-16'
 
 export default function IntegrationsList({ integrations }) {
 	return (
@@ -47,7 +47,7 @@ function TierBadge({ tier }) {
 			)}
 			{tier === 'verified' && (
 				<>
-					<IconHandshake16 /> Verified
+					<IconCheckCircle16 /> Verified
 				</>
 			)}
 			{tier === 'community' && <>Community</>}
