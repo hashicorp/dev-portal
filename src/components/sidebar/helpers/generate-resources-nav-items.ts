@@ -1,6 +1,6 @@
 import { ProductSlug } from 'types/products'
 
-const DEFAULT_COMMUNITIY_FORUM_LINK = 'https://discuss.hashicorp.com/'
+const DEFAULT_COMMUNITY_FORUM_LINK = 'https://discuss.hashicorp.com/'
 const DEFAULT_GITHUB_LINK = 'https://github.com/hashicorp'
 const DEFAULT_SUPPORT_LINK = 'https://www.hashicorp.com/customer-success'
 
@@ -62,7 +62,7 @@ const generateResourcesNavItems = (productSlug?: ProductSlug) => {
 			title: 'Community Forum',
 			href: productSlug
 				? COMMUNITY_LINKS_BY_PRODUCT[productSlug]
-				: DEFAULT_COMMUNITIY_FORUM_LINK,
+				: DEFAULT_COMMUNITY_FORUM_LINK,
 		},
 		{
 			title: 'Support',
