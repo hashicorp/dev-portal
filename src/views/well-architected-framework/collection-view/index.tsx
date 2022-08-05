@@ -7,6 +7,7 @@ import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import CollectionMeta from 'views/collection-view/components/collection-meta'
 import CollectionTutorialList from 'views/collection-view/components/collection-tutorial-list'
 import { WellArchitectedFrameworkCollectionViewProps } from '../types'
+import { generateWafCollectionSidebar } from '../utils/generate-collection-sidebar'
 
 export default function WellArchitectedFrameworkCollectionView({
 	collection,
@@ -25,16 +26,10 @@ export default function WellArchitectedFrameworkCollectionView({
 			breadcrumbLinks={breadcrumbLinks}
 			sidebarNavDataLevels={[
 				generateTopLevelSidebarNavData(metadata.wafName) as SidebarProps,
-				{
-					title: metadata.wafName,
-					levelButtonProps: {
-						levelUpButtonText: `Main Menu`,
-						levelDownButtonText: 'Previous',
-					},
-					overviewItemHref: `/${metadata.wafSlug}`,
-					menuItems: sidebarSections,
-					showFilterInput: false,
-				},
+				generateWafCollectionSidebar(
+					{ name: metadata.wafName, slug: metadata.wafSlug },
+					sidebarSections
+				),
 			]}
 		>
 			<CollectionMeta

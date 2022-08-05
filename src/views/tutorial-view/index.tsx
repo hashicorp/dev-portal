@@ -13,6 +13,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
+	getTutorialSlug,
 } from 'views/collection-view/helpers'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import OptInOut from 'components/opt-in-out'
@@ -136,6 +137,10 @@ function TutorialView({
 		currentCollection: collectionCtx.current,
 		currentTutorialSlug: slug,
 		nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
+		formatting: {
+			getTutorialSlug,
+			getCollectionSlug,
+		},
 	})
 	const canonicalCollectionSlug = getCanonicalCollectionSlug(
 		tutorial,
