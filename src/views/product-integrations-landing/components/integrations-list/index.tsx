@@ -1,10 +1,8 @@
+import s from './style.module.css'
 import CardsGridList from 'components/cards-grid-list'
 import CardLink from 'components/card-link'
-import {
-	CardEyebrow,
-	CardHeading,
-	CardBody,
-} from 'components/tutorial-collection-cards'
+import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
+import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 
 export default function IntegrationsList({ integrations }) {
 	return (
@@ -16,6 +14,7 @@ export default function IntegrationsList({ integrations }) {
 						title={integration.name}
 						description={integration.description}
 						organization={integration.organization.slug}
+						tier={integration.tier}
 						repoUrl={integration.repo_url}
 					/>
 				)
@@ -24,12 +23,34 @@ export default function IntegrationsList({ integrations }) {
 	)
 }
 
-function IntegrationCard({ title, description, organization, repoUrl }) {
+function IntegrationCard({ title, description, organization, tier, repoUrl }) {
 	return (
-		<CardLink href={repoUrl} openInNewTab={true}>
-			<CardHeading level={3} text={title} />
-			<CardEyebrow text={`@${organization}`} />
-			<CardBody text={description} />
+		<CardLink className={s.integrationCard} href={repoUrl} openInNewTab={true}>
+			<div className={s.header}>
+				<h3 className={s.heading}>{title}</h3>
+				<TierBadge tier={tier} />
+			</div>
+
+			<span className={s.organization}>{`@${organization}`}</span>
+			<p className={s.body}>{description}</p>
 		</CardLink>
+	)
+}
+
+function TierBadge({ tier }) {
+	return (
+		<span className={s.badge}>
+			{tier === 'official' && (
+				<>
+					<IconAward16 /> Official
+				</>
+			)}
+			{tier === 'verified' && (
+				<>
+					<IconHandshake16 /> Verified
+				</>
+			)}
+			{tier === 'community' && <>Community</>}
+		</span>
 	)
 }
