@@ -31,10 +31,31 @@ const GITHUB_LINKS_BY_PRODUCT_SLUG: { [key in ProductSlug]: string } = {
 }
 
 /**
+ * Generates additional sidebar nav items for the Resources section. If an
+ * `additional-sidebar-resources.json` file exists for a product in the
+ * `src/content` directory, and it has the correct data structure, the specified
+ * nav items will be appended to the Resources section.
+ */
+const generateAdditionalResources = (productSlug?: ProductSlug) => {
+	if (productSlug) {
+		try {
+			// eslint-disable-next-line @typescript-eslint/no-var-requires
+			return require(`content/${productSlug}/additional-sidebar-resources.json`)
+		} catch {
+			return []
+		}
+	}
+
+	return []
+}
+
+/**
  * Generates the sidebar nav items for the Resources section of the sidebar.
  * Optionally accepts a Product slug for customization of links.
  */
 const generateResourcesNavItems = (productSlug?: ProductSlug) => {
+	const additionalResources = generateAdditionalResources(productSlug)
+
 	return [
 		{ heading: 'Resources' },
 		{
@@ -53,6 +74,7 @@ const generateResourcesNavItems = (productSlug?: ProductSlug) => {
 				? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
 				: DEFAULT_GITHUB_LINK,
 		},
+		...additionalResources,
 	]
 }
 
