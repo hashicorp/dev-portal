@@ -30,7 +30,6 @@ import {
 	handleTutorialLink,
 	handleDocsLink,
 } from './utils'
-import { getCollectionSlug } from 'views/collection-view/helpers'
 
 let TUTORIAL_MAP
 
@@ -90,6 +89,7 @@ export function rewriteTutorialsLink(
 		)
 		const product = match ? match[0] : null
 		const isExternalLearnLink = url.includes('learn.hashicorp.com')
+		console.log({ isExternalLearnLink }, { url })
 		const isBetaProduct = product
 			? getIsBetaProduct(product as ProductSlug)
 			: false
@@ -133,9 +133,9 @@ export function rewriteTutorialsLink(
 			}
 
 			if (!newUrl) {
+				console.log('wasntfound')
 				// If the link wasn't found in the map, default to original link
 				// Could be a typo, its up to the author to correct -- this feedback should help
-				console.log('wasn" found')
 				newUrl = nodePath
 				throw new Error(
 					`[MDX TUTORIAL]: internal link could not be rewritten: ${nodePath} \nPlease check all Learn links in that tutorial to ensure they are correct.`
