@@ -65,6 +65,9 @@ export async function getStaticProps({ params }) {
 		product,
 		remotePluginsFile,
 	})
+	if (!props) {
+		return { notFound: true }
+	}
 	return { props, revalidate: __config.io_sites.revalidate }
 }
 
