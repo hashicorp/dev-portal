@@ -68,7 +68,7 @@ async function generateStaticProps({
 	try {
 		navNode = getNodeFromPath(currentPath, navData, localContentDir)
 	} catch (e) {
-		const isNotFound = e.indexOf('Missing resource') !== -1
+		const isNotFound = String(e).indexOf('Missing resource') !== -1
 		if (isNotFound) {
 			return null
 		} else {
