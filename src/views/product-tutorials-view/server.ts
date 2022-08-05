@@ -1,6 +1,9 @@
 import { LearnProductData } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import { getAllCollections } from 'lib/learn-client/api/collection'
+import {
+	getAllCollections,
+	getCollectionsBySection,
+} from 'lib/learn-client/api/collection'
 import { getProduct } from 'lib/learn-client/api/product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { sortAlphabetically } from 'lib/sort-alphabetically'
@@ -18,6 +21,8 @@ import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
 import { ProductTutorialsSitemapProps } from './components/sitemap/types'
 import { formatSitemapCollection } from './components/sitemap/helpers'
+import { ThemeOption } from 'lib/learn-client/types'
+import { cachedGetProductData } from 'lib/get-product-data'
 
 export interface ProductTutorialsViewProps {
 	data: ProductPageData
@@ -39,6 +44,58 @@ export interface ProductPageData {
 	allCollections: ProductTutorialsSitemapProps['collections']
 	inlineCollections: InlineCollections
 	inlineTutorials: InlineTutorials
+}
+
+/**
+ * Note: this is a stub to get the /hcp/tutorials rendering.
+ * TODO: figure out what to do with the /hcp/tutorials view (design dependent).
+ * Taking this temporary approach for now while awaiting final designs.
+ */
+export async function getCloudTutorialsViewProps() {
+	const productData = cachedGetProductData('hcp')
+
+	/**
+	 * Build the sidebar
+	 */
+	const hcpCollections = await getCollectionsBySection('cloud')
+	const sidebarSections = formatSidebarCategorySections(hcpCollections)
+
+	/**
+	 * Get the raw page data
+	 */
+	const {
+		pageData: rawPageData,
+		inlineCollections,
+		inlineTutorials,
+	} = await getProductPageContent(ThemeOption.cloud)
+
+	/**
+	 * Process page data, reformatting as needed.
+	 * Includes parsing headings, for use with the page's sidecar
+	 */
+	const { pageData, headings } = await processPageData(rawPageData)
+
+	return {
+		props: stripUndefinedProperties({
+			metadata: {
+				title: 'Tutorials',
+			},
+			data: {
+				pageData,
+				inlineCollections,
+				inlineTutorials,
+				allCollections: hcpCollections,
+			},
+			layoutProps: {
+				headings,
+				breadcrumbLinks: getTutorialsBreadcrumb({
+					product: { name: productData.name, filename: productData.slug },
+				}),
+				sidebarSections,
+			},
+			product: productData,
+		}),
+	}
 }
 
 /**

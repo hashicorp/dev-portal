@@ -38,6 +38,7 @@
 
   @nest .withFeatures & {
     background-color: var(--brand);
+    color: var(--brand-text-on-primary);
   }
 
   @nest .withFeatures.consul & {
