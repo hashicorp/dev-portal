@@ -10,7 +10,7 @@ This folder contains the authorable, marketing-style content for various landing
 
 ## 1. Additional Sidebar "Resources" section navigation items
 
-To add _additional_ navigation items to the "Resources" section of the Sidebar:
+The Sidebar "Resources" section has a number of navigation items automatically generated for each product ([see the `generateResourcesNavItems` Sidebar helper](/src/components/sidebar/helpers/generate-resources-nav-items.ts)). To add _additional_ navigation items to the "Resources" section of the Sidebar:
 
 1. Open the folder of the Product you'd like to make changes for
 2. Open (or create) the `additional-sidebar-resources.json` file
