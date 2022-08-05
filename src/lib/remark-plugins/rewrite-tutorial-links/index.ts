@@ -21,7 +21,7 @@ import { Link, Definition } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { ProductSlug } from 'types/products'
-import { ProductOption } from 'lib/learn-client/types'
+import { ProductOption, SectionOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToHostNames } from 'lib/products'
 import {
@@ -30,6 +30,7 @@ import {
 	handleTutorialLink,
 	handleDocsLink,
 } from './utils'
+import { getCollectionSlug } from 'views/collection-view/helpers'
 
 let TUTORIAL_MAP
 
@@ -42,14 +43,16 @@ const ACCEPTED_DOCS_PATHNAMES = [
 	'tools',
 ]
 const learnProductOptions = Object.keys(ProductOption).join('|')
+const learnSectionOptions = Object.keys(SectionOption).join('|')
 /**
  * Matches anything that
  * - contains learn.hashicorp.com
  * - collection & tutorial routes: /collections/waypoint/some-slug or /tutorials/terraform/another-slug
  * - product hub pages i.e. /boundary /waypoint
+ * - section routes i.e. /well-architected-framework
  */
 const learnLink = new RegExp(
-	`(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud)/)|^/(${learnProductOptions}|cloud)$`
+	`(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud|${learnSectionOptions})/)|^/(${learnProductOptions}|cloud)$`
 )
 const docsLink = new RegExp(
 	`(${Object.values(productSlugsToHostNames).join(
@@ -75,6 +78,7 @@ export function rewriteTutorialsLink(
 	tutorialMap: Record<string, string>
 ): string {
 	let newUrl = url
+
 	try {
 		// return early if non tutorial or collection link
 		if (!learnLink.test(url) && !docsLink.test(url)) {
@@ -82,13 +86,14 @@ export function rewriteTutorialsLink(
 		}
 
 		const match: RegExpMatchArray | null = url.match(
-			new RegExp(`${learnProductOptions}|cloud`)
+			new RegExp(`${learnProductOptions}|cloud|${learnSectionOptions}`)
 		)
 		const product = match ? match[0] : null
 		const isExternalLearnLink = url.includes('learn.hashicorp.com')
 		const isBetaProduct = product
 			? getIsBetaProduct(product as ProductSlug)
 			: false
+		const isValidSection = Boolean(SectionOption[product])
 		// Anchor links for the current tutorial shouldn't be rewritten. i.e. #some-heading
 		const isAnchorLink = url.startsWith('#')
 
@@ -99,7 +104,8 @@ export function rewriteTutorialsLink(
 			newUrl = new URL(url, 'https://learn.hashicorp.com/').toString()
 		}
 
-		if (isBetaProduct) {
+		if (isBetaProduct || isValidSection) {
+			console.log('time to REWRITE')
 			let nodePath = url // the path to be formatted - assumes to be absolute as current Learn impl does
 			const isCollectionPath = nodePath.includes('collections')
 			const isTutorialPath = nodePath.includes('tutorials')
@@ -129,6 +135,7 @@ export function rewriteTutorialsLink(
 			if (!newUrl) {
 				// If the link wasn't found in the map, default to original link
 				// Could be a typo, its up to the author to correct -- this feedback should help
+				console.log('wasn" found')
 				newUrl = nodePath
 				throw new Error(
 					`[MDX TUTORIAL]: internal link could not be rewritten: ${nodePath} \nPlease check all Learn links in that tutorial to ensure they are correct.`
