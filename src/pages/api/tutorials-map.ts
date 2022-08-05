@@ -1,4 +1,3 @@
-import fs from 'fs'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { StatusCodes } from 'http-status-codes'
 import { getTutorialSlug } from 'views/collection-view/helpers'
@@ -19,7 +18,6 @@ export default async function tutorialsMapHandler(
 ) {
 	try {
 		const mapData = await generateTutorialMap()
-
 		if (Object.keys(mapData).length > 0) {
 			res.setHeader('cache-control', `s-maxage=${MAP_MAX_AGE_IN_SECONDS}`)
 			res.status(StatusCodes.OK).json(mapData)
@@ -46,7 +44,6 @@ export async function generateTutorialMap() {
 
 	const mapItems = allTutorials.map((t) => {
 		const oldPath = t.slug
-		// need to fix this for waf
 		const newPath = getTutorialSlug(t.slug, t.collection_slug)
 		return [oldPath, newPath]
 	})
