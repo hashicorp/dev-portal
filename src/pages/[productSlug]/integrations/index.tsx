@@ -3,11 +3,9 @@ import { cachedGetProductData } from 'lib/get-product-data'
 import ProductIntegrationsLanding from 'views/product-integrations-landing'
 
 export async function getStaticPaths() {
-	const paths = __config.dev_dot.beta_product_slugs.map(
-		(productSlug: ProductSlug) => ({
-			params: { productSlug },
-		})
-	)
+	const paths = ['vault', 'packer'].map((productSlug: ProductSlug) => ({
+		params: { productSlug },
+	}))
 	return {
 		paths,
 		fallback: true,
