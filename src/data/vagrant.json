@@ -86,12 +86,18 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
+			"name": "Introduction",
+			"path": "intro",
+			"shortName": "Intro"
+		},
+		{
+			"iconName": "docs",
 			"name": "General Documentation",
 			"path": "docs",
 			"shortName": "Documentation"
 		},
 		{
-			"iconName": "vagrant-cloud",
+			"iconName": "docs",
 			"name": "Vagrant Cloud",
 			"path": "vagrant-cloud",
 			"shortName": "Cloud"
