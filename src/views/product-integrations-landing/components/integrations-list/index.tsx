@@ -33,7 +33,12 @@ function IntegrationCard({
 	productSlug,
 }) {
 	return (
-		<CardLink className={s.integrationCard} href={repoUrl} openInNewTab={true}>
+		<CardLink
+			ariaLabel="TODO"
+			className={s.integrationCard}
+			href={repoUrl}
+			openInNewTab={true}
+		>
 			<div className={s.header}>
 				<h3 className={s.heading}>{title}</h3>
 				<TierBadge tier={tier} productSlug={productSlug} />
@@ -45,15 +50,16 @@ function IntegrationCard({
 	)
 }
 
+interface TierBadgeStyles extends React.CSSProperties {
+	'--badge-color': string
+}
+
 function TierBadge({ tier, productSlug }) {
+	const styles: TierBadgeStyles = {
+		'--badge-color': `var(--token-color-${productSlug}-surface)`,
+	}
 	return (
-		<span
-			className={s.badge}
-			style={{
-				// @ts-ignore
-				'--badge-color': `var(--token-color-${productSlug}-surface)`,
-			}}
-		>
+		<span className={s.badge} style={styles}>
 			{tier === 'official' && (
 				<>
 					<IconAward16 /> Official
