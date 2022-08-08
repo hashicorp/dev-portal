@@ -10,6 +10,7 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 // HashiCorp imports
 import '@hashicorp/platform-util/nprogress/style.css'
@@ -98,6 +99,7 @@ export default function App({
 													{showProductSwitcher ? (
 														<PreviewProductSwitcher />
 													) : null}
+													<ReactQueryDevtools initialIsOpen />
 												</LazyMotion>
 											</CodeTabsProvider>
 										</CurrentProductProvider>
