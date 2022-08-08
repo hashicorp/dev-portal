@@ -89,7 +89,6 @@ export function rewriteTutorialsLink(
 		)
 		const product = match ? match[0] : null
 		const isExternalLearnLink = url.includes('learn.hashicorp.com')
-		console.log({ isExternalLearnLink }, { url })
 		const isBetaProduct = product
 			? getIsBetaProduct(product as ProductSlug)
 			: false
