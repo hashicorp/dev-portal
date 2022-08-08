@@ -72,6 +72,8 @@ const TEST_MD_LINKS = {
 		'[link to vault use cases](https://www.vaultproject.io/use-cases)',
 	nonBetaProductLinkWithBetaProductInTitle:
 		'[boundary link with vault in tutorial title](/tutorials/boundary/vault-cred-brokering-quickstart)',
+	wafTutorialLink:
+		'[waf link](/tutorials/well-architected-framework/cloud-operating-model)',
 }
 
 /**
@@ -87,6 +89,8 @@ const MOCK_TUTORIALS_MAP = {
 		'/waypoint/tutorials/getting-started/getting-started-ui',
 	'vault/consul-deploy': '/vault/tutorials/consul-integration/consul-deploy',
 	'waypoint/get-started': '/waypoint/tutorials/get-started-docker/get-started',
+	'well-architected-framework/cloud-operating-model':
+		'/well-architected-framework/com/cloud-operating-model',
 }
 
 // TESTS -----------------------------------------------------------------
@@ -343,5 +347,16 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		const finalPath = 'https://learn.hashicorp.com' + basePath
 
 		expect(String(contents)).toMatch(finalPath)
+	})
+
+	test('Waf link should be rewritten properly', async () => {
+		const contents = await remark()
+			.use(rewriteTutorialLinksPlugin)
+			.process(TEST_MD_LINKS.wafTutorialLink)
+		const newPath = isolatePathFromMarkdown(String(contents))
+
+		expect(newPath).toMatch(
+			'/well-architected-framework/com/cloud-operating-model'
+		)
 	})
 })
