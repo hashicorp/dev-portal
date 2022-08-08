@@ -1,5 +1,40 @@
 {
-	"featuredLearnContent": [],
+	"featuredLearnContent": [
+		{
+			"collectionSlug": "consul/cloud-get-started"
+		},
+		{
+			"collectionSlug": "consul/gs-consul-service-mesh"
+		},
+		{
+			"collectionSlug": "consul/getting-started"
+		},
+		{
+			"tutorialSlug": "consul/consul-terraform-sync-intro"
+		},
+		{
+			"tutorialSlug": "consul/consul-terraform-sync-module"
+		},
+		{
+			"tutorialSlug": "consul/consul-terraform-sync-terraform-enterprise"
+		}
+	],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "What is Consul?",
+			"fullPath": "/consul/docs/intro"
+		},
+		{
+			"title": "Install Consul",
+			"fullPath": "/consul/docs/install"
+		}
+	],
 	"sidecarMarketingCard": {
 		"title": "About Consul",
 		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
