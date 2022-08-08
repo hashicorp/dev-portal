@@ -23,7 +23,7 @@ export default function CategorizedIntegrationsList({ integrations }) {
 	)
 }
 
-function IntegrationCategory({ category, integrations}) {
+function IntegrationCategory({ category, integrations }) {
 	return (
 		<div className={s.integrationCategory}>
 			<h3>{category} Integrations</h3>

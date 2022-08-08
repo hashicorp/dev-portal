@@ -50,6 +50,7 @@ function TierBadge({ tier, productSlug }) {
 		<span
 			className={s.badge}
 			style={{
+				// @ts-ignore
 				'--badge-color': `var(--token-color-${productSlug}-surface)`,
 			}}
 		>
