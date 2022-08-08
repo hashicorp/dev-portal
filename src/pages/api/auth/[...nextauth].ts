@@ -43,6 +43,7 @@ export default NextAuth({
 				...session,
 				user: { ...session.user, nickname: token.nickname },
 				id: token.sub,
+				accessToken: token.cloud_idp_access_token,
 			}
 		},
 	},
