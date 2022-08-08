@@ -22,6 +22,7 @@ export default function ProductIntegrationsLanding({ product }) {
 			`${INTEGRATIONS_API_BASE_URL}/products/${product.slug}/integrations`,
 			{
 				method: 'GET',
+				mode: 'cors',
 				headers: {
 					'Content-Type': 'application/json',
 				},
