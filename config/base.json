@@ -23,7 +23,7 @@
 			"hcp",
 			"nomad",
 			"terraform",
-      "vagrant",
+			"vagrant",
 			"vault",
 			"waypoint"
 		],
