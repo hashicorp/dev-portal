@@ -13,11 +13,14 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+	const productData = cachedGetProductData(params.productSlug)
+	console.log('ProductData from getStaticProps', productData)
+
 	return {
 		props: {
 			productSlug: params.productSlug,
 			product: {
-				...cachedGetProductData(params.productSlug),
+				...productData,
 			},
 		},
 	}
