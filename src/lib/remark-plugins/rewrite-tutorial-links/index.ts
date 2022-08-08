@@ -132,7 +132,6 @@ export function rewriteTutorialsLink(
 			}
 
 			if (!newUrl) {
-				console.log('wasntfound')
 				// If the link wasn't found in the map, default to original link
 				// Could be a typo, its up to the author to correct -- this feedback should help
 				newUrl = nodePath
