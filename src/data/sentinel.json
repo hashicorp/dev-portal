@@ -54,6 +54,21 @@
 		}
 	],
 	"basePaths": ["docs", "intro"],
+	"rootDocsPaths": [
+		{
+			"basePathForLoader": "sentinel",
+			"iconName": "docs",
+			"name": "General Documentation",
+			"path": "docs",
+			"shortName": "Documentation"
+		},
+		{
+			"basePathForLoader": "sentinel/intro",
+			"iconName": "docs",
+			"name": "Intro",
+			"path": "intro"
+		}
+	],
 	"sidebar": {
 		"landingPageNavData": [
 			{ "title": "Introduction", "fullPath": "/sentinel/intro" },

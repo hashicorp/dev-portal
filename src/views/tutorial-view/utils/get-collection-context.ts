@@ -2,6 +2,7 @@ import moize, { Options } from 'moize'
 import {
 	Collection as ClientCollection,
 	ProductOption,
+	SectionOption,
 	TutorialFullCollectionCtx as ClientTutorialFullCollectionCtx,
 } from 'lib/learn-client/types'
 import { getCollection } from 'lib/learn-client/api/collection'
@@ -34,7 +35,7 @@ const moizeOpts: Options = {
 const cachedGetCollection = moize(getCollection, moizeOpts)
 
 export async function getCurrentCollectionTutorial(
-	productSlug: ProductOption,
+	sectionSlug: ProductOption | SectionOption,
 	tutorialSlug: [string, string]
 ): Promise<CurrentCollectionTutorial> {
 	/**
@@ -43,7 +44,7 @@ export async function getCurrentCollectionTutorial(
 	 * from the params. So we can assume `slug` index 1 is always the tutorial name
 	 * */
 	const [collectionFilename, tutorialFilename] = tutorialSlug
-	const collectionDbSlug = `${productSlug}/${collectionFilename}`
+	const collectionDbSlug = `${sectionSlug}/${collectionFilename}`
 	const collection = await cachedGetCollection(collectionDbSlug)
 	/**
 	 * This type is only `TutorialLite` which doesn't have the tutorial content

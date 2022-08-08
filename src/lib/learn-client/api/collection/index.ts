@@ -94,7 +94,6 @@ export async function getAllCollections(
 
 	return collections.map(formatCollection)
 }
-
 export async function getNextCollectionInSidebar({
 	product,
 	after,
@@ -122,4 +121,31 @@ export async function getNextCollectionInSidebar({
 		const formattedCollection = formatToCollectionLite(res.result[0])
 		return formattedCollection
 	}
+}
+
+/**
+ * Returns all collections within a particular 'section'
+ * The sections map from the parent folder in the
+ * tutorials repository. `/content/collections/waypoint/some-collection`
+ * would have a section of 'waypoint'. This allows us to fetch non-product
+ * associated content such as 'onboarding' and 'well-architected-framework'
+ */
+export async function getCollectionsBySection(
+	section: string
+): Promise<Collection[]> {
+	const route = COLLECTION_API_ROUTE + `?section=${section}`
+
+	const getSectionCollections = await get(route)
+
+	if (getSectionCollections.ok) {
+		const res = await getSectionCollections.json()
+		if (res.result.length === 0) {
+			console.warn(`No collections found for section query: ${section}`)
+		}
+
+		return res.result.map(formatCollection)
+	}
+
+	const error = toError(getSectionCollections)
+	throw error
 }

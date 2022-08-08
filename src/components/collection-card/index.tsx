@@ -27,7 +27,7 @@ function CollectionCard({
 }: CollectionCardProps) {
 	const hasLogo = Boolean(logo)
 	return (
-		<CardLink href={url} className={s.root}>
+		<CardLink ariaLabel={heading} href={url} className={s.root}>
 			<CardEyebrow
 				icon={<IconCollections16 />}
 				text={`${tutorialCount} tutorial${tutorialCount !== 1 ? 's' : ''}`}

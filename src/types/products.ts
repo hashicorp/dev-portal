@@ -85,11 +85,36 @@ interface RootDocsPath {
 	productSlugForLoader?: string
 
 	/**
+	 * Optional basePath for our content API. For "sentinel", this differs
+	 * from the basePath used on the client, as sentinel content is served
+	 * on docs.hashicorp.com/sentinel.
+	 */
+	basePathForLoader?: string
+
+	/**
 	 * An optional, shortened version of the `name` property. For example,
 	 * "Documentation" may be shortened to "Docs" in some places using this
 	 * property.
 	 */
 	shortName?: string
+
+	/**
+	 * An optional property to specify the nav-data file name prefix for our
+	 * docs content loader.
+	 *
+	 * For example, the Terraform  base path `plugin/log`
+	 * contains a slash, so we must provide the `navDataPrefix` as `plugin-log`
+	 * to successfully load nav data from `plugin-log-nav-data.json`.
+	 *
+	 * If omitted, defaults to the basePath (`docs` → `docs-nav-data.json`).
+	 */
+	navDataPrefix?: string
+
+	/**
+	 * An optional property to specify which branch our
+	 * content API should pull from. Defaults to `main`.
+	 */
+	mainBranch?: string
 }
 
 /**

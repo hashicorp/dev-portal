@@ -13,6 +13,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
+	getTutorialSlug,
 } from 'views/collection-view/helpers'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import OptInOut from 'components/opt-in-out'
@@ -76,12 +77,13 @@ const LayoutContentWrapper = ({
 			 * TODO: What should we do if this errors?
 			 * https://app.asana.com/0/1202097197789424/1202599138117878/f
 			 */
-			getCollectionViewSidebarSections(product, collectionCtx.current).then(
-				(result: CollectionCategorySidebarSection[]) => {
-					hasLoadedData.current = true
-					setCollectionViewSidebarSections(result)
-				}
-			)
+			getCollectionViewSidebarSections(
+				product.slug,
+				collectionCtx.current
+			).then((result: CollectionCategorySidebarSection[]) => {
+				hasLoadedData.current = true
+				setCollectionViewSidebarSections(result)
+			})
 		}
 	}, [
 		collectionCtx,
@@ -135,6 +137,10 @@ function TutorialView({
 		currentCollection: collectionCtx.current,
 		currentTutorialSlug: slug,
 		nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
+		formatting: {
+			getTutorialSlug,
+			getCollectionSlug,
+		},
 	})
 	const canonicalCollectionSlug = getCanonicalCollectionSlug(
 		tutorial,

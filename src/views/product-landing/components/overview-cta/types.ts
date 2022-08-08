@@ -2,7 +2,7 @@ export interface OverviewCtaProps {
 	heading: string
 	headingSlug: string
 	body: string
-	cta: {
+	cta?: {
 		text: string
 		url: string
 	}

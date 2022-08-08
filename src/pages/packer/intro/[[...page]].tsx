@@ -1,19 +1,10 @@
-import packerData from 'data/packer.json'
-import { ProductData } from 'types/products'
 import DocsView from 'views/docs-view'
-import { getStaticGenerationFunctions } from 'views/docs-view/server'
+import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
 
-const basePath = 'intro'
-const baseName = 'Intro'
-const product = packerData as ProductData
-const mainBranch = 'master'
-
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-	product,
-	basePath,
-	baseName,
-	mainBranch,
-})
+const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
+	'packer',
+	'intro'
+)
 
 export { getStaticProps, getStaticPaths }
 export default DocsView

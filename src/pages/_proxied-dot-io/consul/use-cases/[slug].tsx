@@ -48,7 +48,7 @@ function UseCasePage({ data }) {
 				eyebrow="Use case"
 				heading={heroHeading}
 				description={heroDescription}
-				pattern="/consul/img/usecase-hero-pattern.svg"
+				pattern="/consul-public/img/usecase-hero-pattern.svg"
 			/>
 
 			<IoUsecaseSection
@@ -172,7 +172,7 @@ function UseCasePage({ data }) {
 							url: link.link,
 						}
 					})}
-					pattern="/consul/img/usecase-callout-pattern.svg"
+					pattern="/consul-public/img/usecase-callout-pattern.svg"
 				/>
 			</div>
 

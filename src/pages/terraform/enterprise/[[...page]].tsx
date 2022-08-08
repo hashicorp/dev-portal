@@ -1,19 +1,10 @@
-import terraformData from 'data/terraform.json'
-import { ProductData } from 'types/products'
-import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
+import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
 
-const basePath = 'enterprise'
-const baseName = 'Enterprise'
-const product = terraformData as ProductData
-const productSlugForLoader = 'terraform-website'
+const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
+	'terraform',
+	'enterprise'
+)
 
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-	product,
-	productSlugForLoader,
-	basePath,
-	baseName,
-})
-
-export { getStaticPaths, getStaticProps }
+export { getStaticProps, getStaticPaths }
 export default DocsView

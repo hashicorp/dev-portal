@@ -47,9 +47,9 @@ const TEST_MD_LINKS = {
 	betaProductHubLink: '[link to product hub page](/vault)',
 	betaProductHubExternalLink:
 		'[External link to product hub page](https://learn.hashicorp.com/vault)',
-	nonBetaProductHubLink: '[non beta product hub link](/terraform)',
+	nonBetaProductHubLink: '[non beta product hub link](/vagrant)',
 	nonBetaProductHubExternalLink:
-		'[non beta product hub link](https://learn.hashicorp.com/terraform)',
+		'[non beta product hub link](https://learn.hashicorp.com/vagrant)',
 	errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
 	searchPage: '[link to search page on Learn](/search)',
 	betaProductPluginsLink:
@@ -65,13 +65,15 @@ const TEST_MD_LINKS = {
 	betaProductDocsLinkAnchorWithHtml:
 		'[link to vault api docs](https://www.vaultproject.io/api/index.html#some-anchor)',
 	nonBetaProductDocsLink:
-		'[non beta product docs link](https://www.terraform.io/docs/language/state/workspaces.html)',
+		'[non beta product docs link](https://www.vagrantup.com/docs/installation/backwards-compatibility)',
 	betaProductDocsLinkNonDoc:
 		'[link to vault trial](https://www.vaultproject.io/trial)',
 	betaProductDocsLinkUseCases:
 		'[link to vault use cases](https://www.vaultproject.io/use-cases)',
 	nonBetaProductLinkWithBetaProductInTitle:
 		'[boundary link with vault in tutorial title](/tutorials/boundary/vault-cred-brokering-quickstart)',
+	wafTutorialLink:
+		'[waf link](/tutorials/well-architected-framework/cloud-operating-model)',
 }
 
 /**
@@ -87,6 +89,8 @@ const MOCK_TUTORIALS_MAP = {
 		'/waypoint/tutorials/getting-started/getting-started-ui',
 	'vault/consul-deploy': '/vault/tutorials/consul-integration/consul-deploy',
 	'waypoint/get-started': '/waypoint/tutorials/get-started-docker/get-started',
+	'well-architected-framework/cloud-operating-model':
+		'/well-architected-framework/com/cloud-operating-model',
 }
 
 // TESTS -----------------------------------------------------------------
@@ -343,5 +347,16 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		const finalPath = 'https://learn.hashicorp.com' + basePath
 
 		expect(String(contents)).toMatch(finalPath)
+	})
+
+	test('Waf link should be rewritten properly', async () => {
+		const contents = await remark()
+			.use(rewriteTutorialLinksPlugin)
+			.process(TEST_MD_LINKS.wafTutorialLink)
+		const newPath = isolatePathFromMarkdown(String(contents))
+
+		expect(newPath).toMatch(
+			'/well-architected-framework/com/cloud-operating-model'
+		)
 	})
 })

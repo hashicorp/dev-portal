@@ -14,13 +14,14 @@ import { ProductViewBlock } from '../components/product-view-content'
 function buildLayoutHeadings(pageData: {
 	blocks: ProductViewBlock[]
 	showProductSitemap?: boolean
+	showOverviewHeading?: boolean
 }): TableOfContentsHeading[] {
-	const { blocks, showProductSitemap } = pageData
+	const { blocks, showProductSitemap, showOverviewHeading } = pageData
 
 	/**
 	 * Build an <h1> overview heading
 	 */
-	const overviewHeading = [getOverviewHeading()]
+	const overviewHeading = showOverviewHeading ? [getOverviewHeading()] : []
 
 	/**
 	 * Extract headings from each block
