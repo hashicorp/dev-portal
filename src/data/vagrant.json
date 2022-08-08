@@ -78,8 +78,18 @@
 		"documentation": [
 			{
 				"icon": "docs",
+				"label": "Introduction",
+				"pathSuffix": "docs"
+			},
+			{
+				"icon": "docs",
 				"label": "General Documentation",
 				"pathSuffix": "docs"
+			},
+			{
+				"icon": "docs",
+				"label": "Vagrant Cloud",
+				"pathSuffix": "cloud"
 			}
 		]
 	},
