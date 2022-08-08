@@ -1,8 +1,15 @@
-import { useSession, signIn, signOut, SignOutParams } from 'next-auth/react'
+import {
+	signIn,
+	SignInOptions,
+	signOut,
+	SignOutParams,
+	useSession,
+} from 'next-auth/react'
 import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
 
-const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 const AUTH_ENABLED = __config.flags.enable_auth
+const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
+const DEFAULT_SIGN_IN_CALLBACK_URL = '/profile'
 
 /**
  * A minimal wrapper around next-auth/react's `signIn` function. Purpose is to
@@ -10,8 +17,17 @@ const AUTH_ENABLED = __config.flags.enable_auth
  *
  * https://next-auth.js.org/getting-started/client#signin
  */
-const signInWrapper = (provider: ValidAuthProviderId = DEFAULT_PROVIDER_ID) => {
-	return signIn(provider)
+const signInWrapper = (
+	provider: ValidAuthProviderId = DEFAULT_PROVIDER_ID,
+	options: SignInOptions = {}
+) => {
+	const {
+		callbackUrl = DEFAULT_SIGN_IN_CALLBACK_URL,
+		redirect = true,
+		...restOptions
+	} = options
+
+	return signIn(provider, { callbackUrl, redirect, ...restOptions })
 }
 
 /**
@@ -21,8 +37,31 @@ const signInWrapper = (provider: ValidAuthProviderId = DEFAULT_PROVIDER_ID) => {
  * https://next-auth.js.org/getting-started/client#signout
  */
 const signOutWrapper = (options: SignOutParams = {}) => {
-	const { callbackUrl = '/', redirect = true } = options
-	return signOut({ callbackUrl, redirect })
+	const { callbackUrl = '/', redirect = true, ...restOptions } = options
+
+	return signOut({ callbackUrl, redirect, ...restOptions })
+}
+
+interface SignUpAuthParams extends Record<string, string> {
+	screen_hint?: string
+}
+
+/**
+ * A function for invoking the sign up flow for an auth provider.
+ */
+const signUp = (
+	provider: ValidAuthProviderId = DEFAULT_PROVIDER_ID,
+	options: SignInOptions = {},
+	authParams: SignUpAuthParams = {}
+) => {
+	const { callbackUrl = DEFAULT_SIGN_IN_CALLBACK_URL, ...restOptions } = options
+	const { screen_hint = 'signup', ...restParams } = authParams
+
+	return signIn(
+		provider,
+		{ callbackUrl, ...restOptions },
+		{ screen_hint, ...restParams }
+	)
 }
 
 interface UseAuthenticationOptions {
@@ -57,8 +96,11 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 	})
 
 	// Deriving booleans about auth state
+	const isAuthEnabled = AUTH_ENABLED
 	const isLoading = status === 'loading'
 	const isAuthenticated = status === 'authenticated'
+	const showAuthenticatedUI = isAuthenticated
+	const showUnauthenticatedUI = isAuthEnabled && !isLoading && !isAuthenticated
 
 	// Separating user and session data
 	let session: SessionData, user: UserData
@@ -70,12 +112,15 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 
 	// Return everything packaged up in an object
 	return {
-		isAuthEnabled: AUTH_ENABLED,
+		isAuthEnabled,
 		isAuthenticated,
 		isLoading,
 		session,
+		showAuthenticatedUI,
+		showUnauthenticatedUI,
 		signIn: signInWrapper,
 		signOut: signOutWrapper,
+		signUp,
 		status,
 		user,
 	}

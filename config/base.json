@@ -22,7 +22,8 @@
 			"consul",
 			"hcp",
 			"nomad",
-			"vagrant",
+			"terraform",
+      "vagrant",
 			"vault",
 			"waypoint"
 		],

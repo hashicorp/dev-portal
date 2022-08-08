@@ -97,12 +97,16 @@ export default async function handler(
 		return
 	}
 
-	const filteredBody = {}
+	// Filter out any keys that aren't sanctioned
+	const filteredBody: any = {}
 	allowedKeys.forEach((key) => {
 		if (typeof request.body[key] !== 'undefined') {
 			filteredBody[key] = request.body[key]
 		}
 	})
+
+	// Add the timestamp
+	filteredBody.submission_timestamp = new Date().toString()
 
 	try {
 		// Load up the Google Spreadsheet

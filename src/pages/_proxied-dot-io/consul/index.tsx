@@ -58,7 +58,7 @@ function Homepage({ data }): React.ReactElement {
 			<Head>{renderMetaTags(seo)}</Head>
 
 			<IoHomeHero
-				pattern="/consul/img/home-hero-pattern.svg"
+				pattern="/consul-public/img/home-hero-pattern.svg"
 				brand="consul"
 				heading={heroHeading}
 				description={heroDescription}

@@ -56,6 +56,27 @@
 		}
 	],
 	"basePaths": ["docs", "guides", "intro", "plugins"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "General Documentation",
+			"mainBranch": "master",
+			"path": "docs",
+			"shortName": "Documentation"
+		},
+		{
+			"iconName": "docs",
+			"mainBranch": "master",
+			"name": "Guides",
+			"path": "guides"
+		},
+		{
+			"iconName": "docs",
+			"mainBranch": "master",
+			"name": "Intro",
+			"path": "intro"
+		}
+	],
 	"sidebar": {
 		"landingPageNavData": [
 			{ "title": "Introduction", "fullPath": "/packer/intro" },
