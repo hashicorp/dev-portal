@@ -14,7 +14,17 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const productData = cachedGetProductData(params.productSlug)
-	console.log('ProductData from getStaticProps', productData)
+	console.log(
+		'ProductData from getStaticProps',
+		params.productSlug,
+		productData
+	)
+
+	if (!productData) {
+		return {
+			notFound: true,
+		}
+	}
 
 	return {
 		props: {
