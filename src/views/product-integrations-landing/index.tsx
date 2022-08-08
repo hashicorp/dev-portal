@@ -6,7 +6,7 @@ import IntegrationsList from './components/integrations-list'
 import FacetedIntegrationList from './components/faceted-integrations-list'
 
 // TODO, hardcoding this for now but will need to adjust later
-const INTEGRATIONS_API_BASE_URL = 'http://localhost:5000'
+const INTEGRATIONS_API_BASE_URL = 'http://54.83.90.208:5000'
 
 export default function ProductIntegrationsLanding({ product }) {
 	// Fetch integrations
