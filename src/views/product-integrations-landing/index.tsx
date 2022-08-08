@@ -9,6 +9,8 @@ import FacetedIntegrationList from './components/faceted-integrations-list'
 const INTEGRATIONS_API_BASE_URL = 'http://54.83.90.208:5000'
 
 export default function ProductIntegrationsLanding({ product }) {
+	console.log('Product from Integrations', product)
+
 	// Fetch integrations
 	const [integrations, setIntegrations] = useState(null)
 	useEffect(() => {
