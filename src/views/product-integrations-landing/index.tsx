@@ -6,12 +6,13 @@ import IntegrationsList from './components/integrations-list'
 import FacetedIntegrationList from './components/faceted-integrations-list'
 
 // TODO, hardcoding this for now but will need to adjust later
-const INTEGRATIONS_API_BASE_URL = 'http://54.83.90.208:5000'
+const INTEGRATIONS_API_BASE_URL = 'https://thingproxy.freeboard.io/fetch/http://54.83.90.208:5000'
 
-export default function ProductIntegrationsLanding(props) {
-	console.log('Product from Integrations', props)
-	const product = props.product
-
+export default function ProductIntegrationsLanding({ product }) {
+	// Not sure why I have to add this here, this page gets rendered
+	// with a third page which does not pass an object.  getStaticPaths
+	// only returns two pages.  This is OK for now as this is just a POC
+	// but we should probably sort this out later.
 	if(!product) return null
 
 	// Fetch integrations
