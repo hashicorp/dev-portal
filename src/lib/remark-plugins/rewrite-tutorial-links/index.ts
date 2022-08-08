@@ -105,7 +105,6 @@ export function rewriteTutorialsLink(
 		}
 
 		if (isBetaProduct || isValidSection) {
-			console.log('time to REWRITE')
 			let nodePath = url // the path to be formatted - assumes to be absolute as current Learn impl does
 			const isCollectionPath = nodePath.includes('collections')
 			const isTutorialPath = nodePath.includes('tutorials')
