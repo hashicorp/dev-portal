@@ -4,6 +4,7 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import Collapsible from '../collapsible'
 import svgChevronDown from '@hashicorp/flight-icons/svg/chevron-down-16.svg?include'
 import s from './style.module.css'
+import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 
 function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
 	const [isCollapsed, setIsCollapsed] = useState(true)
@@ -25,7 +26,7 @@ function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
 	const typeString = `${data.type}${typeArraySuffix}`
 	return (
 		<div className={s.root}>
-			<code className={s.name}>{name}</code>{' '}
+			<MdxInlineCode className={s.name}>{name}</MdxInlineCode>{' '}
 			<code className={`${s.typeString} g-type-code`}>{typeString}</code>{' '}
 			{data.required ? (
 				<span className={`${s.requiredFlag} g-type-label-strong`}>

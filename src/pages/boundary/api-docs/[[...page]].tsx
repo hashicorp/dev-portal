@@ -5,11 +5,11 @@ import fetchGithubFile from 'lib/fetch-github-file'
 import {
 	getPathsFromSchema,
 	getPropsForPage,
-} from '@hashicorp/react-open-api-page/server'
+} from 'components/open-api-page/server'
 import {
 	processSchemaString,
 	processSchemaFile,
-} from '@hashicorp/react-open-api-page/process-schema'
+} from 'components/open-api-page/process-schema'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { OpenApiPageContents } from 'components/open-api-page'
 
@@ -23,11 +23,10 @@ const targetFile = {
 // The path to read from when running local preview in the context of the boundary repository
 const targetLocalFile = '../../internal/gen/controller.swagger.json'
 
-function ApiDocsView({ layoutProps, product, apiPageProps }) {
+function ApiDocsView({ layoutProps, apiPageProps }) {
 	return (
 		<SidebarSidecarLayout {...layoutProps} sidecarSlot={null}>
 			<OpenApiPageContents
-				productSlug={product.slug}
 				info={apiPageProps.info}
 				operationCategory={apiPageProps.operationCategory}
 				renderOperationIntro={apiPageProps.renderOperationIntro}

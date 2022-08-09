@@ -12,7 +12,6 @@ function OpenApiPageContents({
 	operationCategory,
 	massageOperationPathFn = (path) => path,
 	renderOperationIntro,
-	productSlug,
 }) {
 	const operationsRef = useRef(null)
 	const [expandedOperations, setExpandedOperations] = useState([])
@@ -32,12 +31,7 @@ function OpenApiPageContents({
 
 	if (operationCategory) {
 		return (
-			<div
-				style={{
-					'--brand': `var(--${productSlug})`,
-					'--brand-link': `var(--${productSlug}-link)`,
-				}}
-			>
+			<div>
 				<p className={s.pageHeading}>{info.title}</p>
 				<h1 className={s.categoryHeading}>{operationCategory.name}</h1>
 				<div ref={operationsRef}>
@@ -103,7 +97,6 @@ function OpenApiPage({
 				product={productSlug}
 				content={
 					<OpenApiPageContents
-						productSlug={productSlug}
 						info={info}
 						operationCategory={operationCategory}
 						massageOperationPathFn={massageOperationPathFn}

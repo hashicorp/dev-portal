@@ -11,6 +11,7 @@ import classNames from 'classnames'
 import s from './style.module.css'
 import { OperationObjectType } from '../../types'
 import { LegacyRef } from 'react'
+import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 
 function Parameters({ title, params }) {
 	return (
@@ -82,8 +83,10 @@ function OperationObject({
 				<span className={s.meta}>
 					<span className={s.title}>{title}</span>
 					<span className={s.endpoint}>
-						<span className={s.method}>{type.toUpperCase()} </span>
-						<span className={s.path}>{path}</span>
+						<MdxInlineCode className={s.method}>
+							{type.toUpperCase()}
+						</MdxInlineCode>
+						<MdxInlineCode className={s.path}>{path}</MdxInlineCode>
 					</span>
 				</span>
 				<span className={s.toggleText}>
