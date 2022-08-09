@@ -1,8 +1,6 @@
-import useAuthentication from 'hooks/use-authentication'
-import Button from 'components/button'
-import Heading from 'components/heading'
 import BaseNewLayout from 'layouts/base-new'
 import AuthenticatedView from 'views/authenticated-view'
+import Heading from 'components/heading'
 import { ProfileViewProps } from './types'
 import s from './profile-view.module.css'
 
@@ -24,12 +22,6 @@ const ProfileView = ({ user }: ProfileViewProps) => {
 const ProfileViewContent = ({ user }: ProfileViewProps) => {
 	const { image, ...restProperties } = user
 
-	/**
-	 * @TODO this is only temporary until the Sign Out button is placed in its
-	 * permanent location. This view should not need to use this hook.
-	 */
-	const { signOut } = useAuthentication()
-
 	return (
 		<div className={s.root}>
 			{/* eslint-disable-next-line @next/next/no-img-element */}
@@ -47,7 +39,6 @@ const ProfileViewContent = ({ user }: ProfileViewProps) => {
 						)
 					})}
 				</ul>
-				<Button color="secondary" onClick={() => signOut()} text="Sign Out" />
 			</div>
 		</div>
 	)
