@@ -21,7 +21,7 @@ export function normalizeSlugForDevDot(productSlug: string): ProductSlug {
 	} else if (isProductSlug(productSlug)) {
 		return productSlug
 	} else {
-		throw new Error(
+		console.warn(
 			`Error: unrecognized incoming Tutorials slug "${productSlug}" in normalizeSlugForDevDot.`
 		)
 	}
@@ -45,7 +45,7 @@ export function normalizeSlugForTutorials(
 	} else if (isSectionOption(slug)) {
 		return slug
 	} else {
-		throw new Error(
+		console.warn(
 			`Error: unrecognized incoming productSlug "${slug}" in normalizeSlugForTutorials.`
 		)
 	}

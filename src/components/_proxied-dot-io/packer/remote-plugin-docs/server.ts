@@ -33,6 +33,11 @@ async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
 	return paths
 }
 
+/**
+ * Given page params for a Packer plugins URL,
+ * Return static props for the plugin document in question,
+ * or `null` if a document cannot be found.
+ */
 async function generateStaticProps({
 	localContentDir,
 	mainBranch = 'main',
@@ -57,7 +62,19 @@ async function generateStaticProps({
 		remotePluginsFile,
 		currentPath,
 	})
-	const navNode = getNodeFromPath(currentPath, navData, localContentDir)
+	// Attempt to match a navNode for this path.
+	// Note that we may not be able to find a match, in which case we 404.
+	let navNode
+	try {
+		navNode = getNodeFromPath(currentPath, navData, localContentDir)
+	} catch (e) {
+		const isNotFound = String(e).includes('Missing resource')
+		if (isNotFound) {
+			return null
+		} else {
+			throw e
+		}
+	}
 	const { filePath, remoteFile, pluginData } = navNode
 	//  Fetch the MDX file content
 	const mdxString = remoteFile
