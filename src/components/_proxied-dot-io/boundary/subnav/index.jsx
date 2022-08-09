@@ -26,6 +26,10 @@ export default function BoundarySubnav({ menuItems }) {
 				{
 					text: 'Download',
 					url: '/downloads',
+				},
+				{
+					text: 'Try HCP Boundary',
+					url: 'https://cloud.hashicorp.com/?utm_source=boundary_io&utm_content=top_nav_boundary',
 					theme: {
 						brand: 'boundary',
 					},
