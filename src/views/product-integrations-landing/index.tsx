@@ -5,15 +5,10 @@ import BreadcrumbBar from 'components/breadcrumb-bar'
 import FacetedIntegrationList from './components/faceted-integrations-list'
 
 // TODO, hardcoding this for now but will need to adjust later
-const INTEGRATIONS_API_BASE_URL = 'https://5nw9rm117f.execute-api.us-east-1.amazonaws.com'
+const INTEGRATIONS_API_BASE_URL =
+	'https://5nw9rm117f.execute-api.us-east-1.amazonaws.com'
 
 export default function ProductIntegrationsLanding({ product }) {
-	// Not sure why I have to add this here, this page gets rendered
-	// with a third page which does not pass an object.  getStaticPaths
-	// only returns two pages.  This is OK for now as this is just a POC
-	// but we should probably sort this out later.
-	if(!product) return null
-
 	// Fetch integrations
 	const [integrations, setIntegrations] = useState(null)
 	useEffect(() => {
