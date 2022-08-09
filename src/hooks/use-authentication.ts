@@ -1,3 +1,4 @@
+import { Session } from 'next-auth'
 import {
 	signIn,
 	SignInOptions,
@@ -78,13 +79,29 @@ interface UseAuthenticationOptions {
 	onUnauthenticated?: () => void
 }
 
+interface UseAuthenticationResult {
+	isAuthEnabled: boolean
+	isAuthenticated: boolean
+	isLoading: boolean
+	session: null | SessionData
+	showAuthenticatedUI: boolean
+	showUnauthenticatedUI: boolean
+	signIn: typeof signInWrapper
+	signOut: typeof signOutWrapper
+	signUp: typeof signUp
+	status: Session['status']
+	user: null | UserData
+}
+
 /**
  * Hook for consuming user, session, and authentication state. Sources all data
  * from next-auth/react's `useSession` hook.
  *
  * https://next-auth.js.org/getting-started/client#usesession
  */
-const useAuthentication = (options: UseAuthenticationOptions = {}) => {
+const useAuthentication = (
+	options: UseAuthenticationOptions = {}
+): UseAuthenticationResult => {
 	// Get option properties from `options` parameter
 	const { isRequired = false, onUnauthenticated = () => signInWrapper() } =
 		options
@@ -103,7 +120,8 @@ const useAuthentication = (options: UseAuthenticationOptions = {}) => {
 	const showUnauthenticatedUI = isAuthEnabled && !isLoading && !isAuthenticated
 
 	// Separating user and session data
-	let session: SessionData, user: UserData
+	let session: SessionData = null,
+		user: UserData = null
 	if (isAuthenticated) {
 		session = { ...data }
 		user = data.user
