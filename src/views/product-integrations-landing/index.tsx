@@ -2,11 +2,10 @@ import s from './style.module.css'
 import { useState, useEffect } from 'react'
 import BaseLayout from 'layouts/base-new'
 import BreadcrumbBar from 'components/breadcrumb-bar'
-import IntegrationsList from './components/integrations-list'
 import FacetedIntegrationList from './components/faceted-integrations-list'
 
 // TODO, hardcoding this for now but will need to adjust later
-const INTEGRATIONS_API_BASE_URL = 'https://thingproxy.freeboard.io/fetch/http://54.83.90.208:5000'
+const INTEGRATIONS_API_BASE_URL = 'https://5nw9rm117f.execute-api.us-east-1.amazonaws.com'
 
 export default function ProductIntegrationsLanding({ product }) {
 	// Not sure why I have to add this here, this page gets rendered
