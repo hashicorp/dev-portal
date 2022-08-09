@@ -78,39 +78,19 @@
 		"documentation": [
 			{
 				"icon": "docs",
-				"label": "Introduction",
-				"pathSuffix": "docs"
-			},
-			{
-				"icon": "docs",
 				"label": "General Documentation",
 				"pathSuffix": "docs"
 			},
 			{
 				"icon": "docs",
+				"label": "Introduction",
+				"pathSuffix": "intro"
+			},
+			{
+				"icon": "docs",
 				"label": "Vagrant Cloud",
-				"pathSuffix": "cloud"
+				"pathSuffix": "vagrant-cloud"
 			}
 		]
-	},
-	"rootDocsPaths": [
-		{
-			"iconName": "docs",
-			"name": "Introduction",
-			"path": "intro",
-			"shortName": "Intro"
-		},
-		{
-			"iconName": "docs",
-			"name": "General Documentation",
-			"path": "docs",
-			"shortName": "Documentation"
-		},
-		{
-			"iconName": "docs",
-			"name": "Vagrant Cloud",
-			"path": "vagrant-cloud",
-			"shortName": "Cloud"
-		}
-	]
+	}
 }
