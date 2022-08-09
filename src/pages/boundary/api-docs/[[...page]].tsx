@@ -1,3 +1,5 @@
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { OpenApiPageContents } from 'components/open-api-page'
 /* Used server-side only */
 import { cachedGetProductData } from 'lib/get-product-data'
 import { isDeployPreview } from 'lib/env-checks'
@@ -5,13 +7,9 @@ import fetchGithubFile from 'lib/fetch-github-file'
 import {
 	getPathsFromSchema,
 	getPropsForPage,
-} from 'components/open-api-page/server'
-import {
 	processSchemaString,
 	processSchemaFile,
-} from 'components/open-api-page/process-schema'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { OpenApiPageContents } from 'components/open-api-page'
+} from 'components/open-api-page/server'
 
 const productSlug = 'boundary'
 const targetFile = {
@@ -69,6 +67,7 @@ export async function getStaticProps({ params }) {
 		{ title: 'Boundary', url: `/boundary` },
 		{ title: 'API', url: `/boundary/api-docs` },
 	]
+
 	// Menu items for the sidebar, from the existing dot-io-oriented navData
 	const apiSidebarMenuItems = apiPageProps.navData.map((menuItem) => {
 		if (menuItem.hasOwnProperty('path')) {
@@ -81,6 +80,7 @@ export async function getStaticProps({ params }) {
 			return menuItem
 		}
 	})
+
 	// Construct sidebar nav data levels
 	const sidebarNavDataLevels = [
 		{
@@ -96,11 +96,7 @@ export async function getStaticProps({ params }) {
 	// Return props for the page
 	return {
 		props: {
-			apiPageProps: {
-				info: apiPageProps.info || null,
-				operationCategory: apiPageProps.operationCategory || null,
-				renderOperationIntro: apiPageProps.renderOperationIntro || null,
-			},
+			apiPageProps,
 			layoutProps: {
 				headings,
 				breadcrumbLinks,

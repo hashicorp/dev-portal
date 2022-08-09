@@ -4,7 +4,12 @@ import {
 	getOperationObjects,
 	getServiceId,
 	getServiceIds,
-} from './utils'
+} from '../utils'
+import {
+	processSchema,
+	processSchemaFile,
+	processSchemaString,
+} from './process-schema'
 
 /**
  * Given a schema, current service slug, and parentPath,
@@ -85,6 +90,11 @@ function getPathsFromSchema(schema) {
 	return paths
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { getPropsForPage, getPathsFromSchema, getServiceIds }
-export { getPropsForPage, getPathsFromSchema, getServiceIds }
+export {
+	processSchema,
+	processSchemaFile,
+	processSchemaString,
+	getPropsForPage,
+	getPathsFromSchema,
+	getServiceIds,
+}

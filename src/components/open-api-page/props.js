@@ -1,6 +1,24 @@
-const baseProps = require('../../props.js')
 const boundaryPageProps = require('./fixtures/generated/boundary-page-props.json')
 const packerPageProps = require('./fixtures/generated/packer-page-props.json')
+const baseProps = {
+	description:
+		'A lower-case product identifier to pull in respective theme colors. The default is hashicorp blue.',
+	type: 'string',
+	control: { type: 'select' },
+	options: [
+		'hashicorp',
+		'boundary',
+		'consul',
+		'nomad',
+		'packer',
+		'terraform',
+		'vault',
+		'vagrant',
+		'waypoint',
+	],
+	testValue: 'terraform',
+	required: false,
+}
 
 module.exports = {
 	siteName: {

@@ -1,6 +1,6 @@
 import fs from 'fs'
 import RefParser from '@apidevtools/json-schema-ref-parser'
-import traverse from './utils/traverse'
+import traverse from '../utils/traverse'
 import markdownToHtml from '@hashicorp/platform-markdown-utils/markdown-to-html'
 
 async function processMarkdownProperties(object) {
@@ -36,5 +36,4 @@ async function processSchemaFile(filePath) {
 	return await processSchemaString(fs.readFileSync(filePath))
 }
 
-export default processSchema
-export { processSchemaFile, processSchemaString }
+export { processSchema, processSchemaFile, processSchemaString }
