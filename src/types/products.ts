@@ -85,6 +85,13 @@ interface RootDocsPath {
 	productSlugForLoader?: string
 
 	/**
+	 * Optional basePath for our content API. For "sentinel", this differs
+	 * from the basePath used on the client, as sentinel content is served
+	 * on docs.hashicorp.com/sentinel.
+	 */
+	basePathForLoader?: string
+
+	/**
 	 * An optional, shortened version of the `name` property. For example,
 	 * "Documentation" may be shortened to "Docs" in some places using this
 	 * property.
@@ -102,6 +109,12 @@ interface RootDocsPath {
 	 * If omitted, defaults to the basePath (`docs` → `docs-nav-data.json`).
 	 */
 	navDataPrefix?: string
+
+	/**
+	 * An optional property to specify which branch our
+	 * content API should pull from. Defaults to `main`.
+	 */
+	mainBranch?: string
 }
 
 /**

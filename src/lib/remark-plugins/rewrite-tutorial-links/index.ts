@@ -21,8 +21,9 @@ import { Link, Definition } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { ProductSlug } from 'types/products'
-import { ProductOption } from 'lib/learn-client/types'
+import { ProductOption, SectionOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
+import { productSlugsToHostNames } from 'lib/products'
 import {
 	getTutorialMap,
 	handleCollectionLink,
@@ -32,18 +33,6 @@ import {
 
 let TUTORIAL_MAP
 
-// @TODO - lift this into a shared place. e.g. `src/constants`
-const PRODUCT_DOCS_PATHS = {
-	boundary: 'boundaryproject.io',
-	consul: 'consul.io',
-	nomad: 'nomadproject.io',
-	packer: 'packer.io',
-	sentinel: 'docs.hashicorp.com',
-	terraform: 'terraform.io',
-	vagrant: 'vagrantup.com',
-	vault: 'vaultproject.io',
-	waypoint: 'waypointproject.io',
-}
 const ACCEPTED_DOCS_PATHNAMES = [
 	'docs',
 	'api',
@@ -53,17 +42,19 @@ const ACCEPTED_DOCS_PATHNAMES = [
 	'tools',
 ]
 const learnProductOptions = Object.keys(ProductOption).join('|')
+const learnSectionOptions = Object.keys(SectionOption).join('|')
 /**
  * Matches anything that
  * - contains learn.hashicorp.com
  * - collection & tutorial routes: /collections/waypoint/some-slug or /tutorials/terraform/another-slug
  * - product hub pages i.e. /boundary /waypoint
+ * - section routes i.e. /well-architected-framework
  */
 const learnLink = new RegExp(
-	`(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud)/)|^/(${learnProductOptions}|cloud)$`
+	`(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud|${learnSectionOptions})/)|^/(${learnProductOptions}|cloud)$`
 )
 const docsLink = new RegExp(
-	`(${Object.values(PRODUCT_DOCS_PATHS).join(
+	`(${Object.values(productSlugsToHostNames).join(
 		'|'
 	)})/(${ACCEPTED_DOCS_PATHNAMES.join('|')})`
 )
@@ -86,6 +77,7 @@ export function rewriteTutorialsLink(
 	tutorialMap: Record<string, string>
 ): string {
 	let newUrl = url
+
 	try {
 		// return early if non tutorial or collection link
 		if (!learnLink.test(url) && !docsLink.test(url)) {
@@ -93,13 +85,14 @@ export function rewriteTutorialsLink(
 		}
 
 		const match: RegExpMatchArray | null = url.match(
-			new RegExp(`${learnProductOptions}|cloud`)
+			new RegExp(`${learnProductOptions}|cloud|${learnSectionOptions}`)
 		)
 		const product = match ? match[0] : null
 		const isExternalLearnLink = url.includes('learn.hashicorp.com')
 		const isBetaProduct = product
 			? getIsBetaProduct(product as ProductSlug)
 			: false
+		const isValidSection = Boolean(SectionOption[product])
 		// Anchor links for the current tutorial shouldn't be rewritten. i.e. #some-heading
 		const isAnchorLink = url.startsWith('#')
 
@@ -110,13 +103,13 @@ export function rewriteTutorialsLink(
 			newUrl = new URL(url, 'https://learn.hashicorp.com/').toString()
 		}
 
-		if (isBetaProduct) {
+		if (isBetaProduct || isValidSection) {
 			let nodePath = url // the path to be formatted - assumes to be absolute as current Learn impl does
 			const isCollectionPath = nodePath.includes('collections')
 			const isTutorialPath = nodePath.includes('tutorials')
 			const learnProductHub = new RegExp(`/${product}$`)
 			const isProductHubPath = learnProductHub.test(nodePath)
-			const isDocsPath = nodePath.includes(PRODUCT_DOCS_PATHS[product])
+			const isDocsPath = nodePath.includes(productSlugsToHostNames[product])
 
 			// if its an external link, isolate the pathname
 			if (isExternalLearnLink || isDocsPath) {

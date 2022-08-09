@@ -20,7 +20,7 @@
 	"landingPage": {
 		"hero": {
 			"heading": "Well Architected Framework",
-			"image": "https://place-hold.it/600x320"
+			"image": "/img/well-architected-framework/landing-hero-graphic.png"
 		},
 		"overview": {
 			"heading": "What is Well Architected Framework?",
