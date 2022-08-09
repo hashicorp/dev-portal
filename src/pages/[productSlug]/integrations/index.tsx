@@ -6,6 +6,7 @@ export async function getStaticPaths() {
 	const paths = ['vault', 'packer'].map((productSlug: ProductSlug) => ({
 		params: { productSlug },
 	}))
+	console.log('getStaticPaths', paths)
 	return {
 		paths,
 		fallback: true,
@@ -14,6 +15,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const productData = cachedGetProductData(params.productSlug)
+	console.log('getStaticProps', params.productSlug, productData)
 	return {
 		props: {
 			productSlug: params.productSlug,
