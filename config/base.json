@@ -24,6 +24,7 @@
 			"hcp",
 			"nomad",
 			"terraform",
+			"vagrant",
 			"vault",
 			"waypoint"
 		],

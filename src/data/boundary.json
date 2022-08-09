@@ -63,6 +63,11 @@
 			"name": "General Documentation",
 			"path": "docs",
 			"shortName": "Documentation"
+		},
+		{
+			"iconName": "api",
+			"name": "API",
+			"path": "api-docs"
 		}
 	],
 	"sidebar": {
