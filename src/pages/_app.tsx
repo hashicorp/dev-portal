@@ -9,6 +9,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 // HashiCorp imports
+import {
+	initializeUTMParamsCapture,
+	addCloudLinkHandler,
+} from '@hashicorp/platform-analytics'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
@@ -51,6 +55,8 @@ export default function App({
 	layoutProps,
 	host,
 }) {
+	initializeUTMParamsCapture()
+	addCloudLinkHandler()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
