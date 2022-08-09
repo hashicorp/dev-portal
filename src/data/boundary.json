@@ -63,6 +63,11 @@
 			"name": "General Documentation",
 			"path": "docs",
 			"shortName": "Documentation"
+		},
+		{
+			"iconName": "api",
+			"name": "API",
+			"path": "api-docs"
 		}
 	],
 	"sidebar": {
@@ -77,5 +82,18 @@
 			}
 		]
 	},
-	"navigationHeaderItems": {}
+	"navigationHeaderItems": {
+		"documentation": [
+			{
+				"label": "General Documentation",
+				"icon": "docs",
+				"pathSuffix": "docs"
+			},
+			{
+				"label": "API",
+				"icon": "api",
+				"pathSuffix": "api-docs"
+			}
+		]
+	}
 }

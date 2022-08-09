@@ -40,6 +40,8 @@ const ACCEPTED_DOCS_PATHNAMES = [
 	'commands',
 	'plugins',
 	'tools',
+	'vagrant-cloud',
+	'intro',
 ]
 const learnProductOptions = Object.keys(ProductOption).join('|')
 const learnSectionOptions = Object.keys(SectionOption).join('|')
