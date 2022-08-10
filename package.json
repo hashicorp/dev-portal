@@ -116,7 +116,7 @@
 		"@hashicorp/react-learn-callout": "^2.0.1",
 		"@hashicorp/react-markdown-page": "^1.5.0",
 		"@hashicorp/react-min-100-layout": "^2.0.1",
-		"@hashicorp/react-open-api-page": "^2.0.4-canary-20220810183525",
+		"@hashicorp/react-open-api-page": "^2.1.0",
 		"@hashicorp/react-product-downloads-page": "^2.9.0",
 		"@hashicorp/react-product-features-list": "^5.0.1",
 		"@hashicorp/react-search": "^6.4.0",
