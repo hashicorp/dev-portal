@@ -111,11 +111,16 @@ const ProductPageHeaderContent = () => {
 			color: 'highlight' as const,
 		},
 	}
-	const allMainMenuItems = [
-		{ items: [homeMenuItem] },
-		{ items: betaProductItems, label: 'Products' },
-		{ items: comingSoonProductItems, label: 'Coming Soon' },
-	]
+
+	// Construct item groups for the dropdown, avoid adding empty groups
+	const allMainMenuItems = []
+	allMainMenuItems.push({ items: [homeMenuItem] })
+	if (betaProductItems.length) {
+		allMainMenuItems.push({ label: 'Products', items: betaProductItems })
+	}
+	if (comingSoonProductItems.length) {
+		allMainMenuItems.push({ label: 'Coming Soon', comingSoonProductItems })
+	}
 
 	return (
 		<div className={sharedNavStyles.leftSide}>

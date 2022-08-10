@@ -36,6 +36,15 @@ const HomePageHeaderContent = () => {
 		}
 	})
 
+	// Construct item groups for the dropdown, avoid adding empty groups
+	const itemGroups = []
+	if (betaProductItems.length) {
+		itemGroups.push({ items: betaProductItems })
+	}
+	if (comingSoonProductItems.length) {
+		itemGroups.push({ label: 'Coming Soon', comingSoonProductItems })
+	}
+
 	return (
 		<div className={sharedNavStyles.leftSide}>
 			<div className={sharedNavStyles.contentBeforeNav}>
@@ -49,15 +58,7 @@ const HomePageHeaderContent = () => {
 					<ul className={sharedNavStyles.navList}>
 						<li>
 							<NavigationHeaderDropdownMenu
-								itemGroups={[
-									{
-										items: betaProductItems,
-									},
-									{
-										label: 'Coming Soon',
-										items: comingSoonProductItems,
-									},
-								]}
+								itemGroups={itemGroups}
 								label="Products"
 							/>
 						</li>
