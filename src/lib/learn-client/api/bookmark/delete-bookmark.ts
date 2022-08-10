@@ -2,27 +2,29 @@ import { ApiTutorial } from 'lib/learn-client/api/api-types'
 import { destroy, toError } from 'lib/learn-client'
 import { errorDevelopmentToast } from 'components/toast'
 import { BOOKMARK_API_ROUTE } from '.'
+import { SessionData } from 'types/auth'
+
+interface DeleteBookmarkArguments {
+	tutorialId: ApiTutorial['id']
+	accessToken: SessionData['accessToken']
+}
 
 /**
  * Removes a bookmark using the /bookmarks/:tutorialId DELETE endpoint.
  */
 const deleteBookmark = async ({
 	tutorialId,
-	token,
-}: {
-	tutorialId: ApiTutorial['id']
-	token: string
-}) => {
+	accessToken,
+}: DeleteBookmarkArguments) => {
 	// Make the DELETE request
 	const requestResult = await destroy(
 		`${BOOKMARK_API_ROUTE}/${tutorialId}`,
-		token
+		accessToken
 	)
 
-	// Return the result as JSON if the request status is OK
+	// Return if the request status is OK
 	if (requestResult.ok) {
-		const { result } = await requestResult.json()
-		return result
+		return
 	}
 
 	// Render an error development toast request status is not OK

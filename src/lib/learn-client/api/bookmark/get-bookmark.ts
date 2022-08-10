@@ -4,6 +4,11 @@ import { get, toError } from 'lib/learn-client'
 import { errorDevelopmentToast } from 'components/toast'
 import { BOOKMARK_API_ROUTE } from '.'
 
+interface GetBookmarkArguments {
+	tutorialId: ApiTutorial['id']
+	accessToken: SessionData['accessToken']
+}
+
 type GetBookmarkResult = null | ApiBookmark
 
 /**
@@ -13,10 +18,7 @@ type GetBookmarkResult = null | ApiBookmark
 const getBookmark = async ({
 	tutorialId,
 	accessToken,
-}: {
-	tutorialId: ApiTutorial['id']
-	accessToken: SessionData['accessToken']
-}): Promise<GetBookmarkResult> => {
+}: GetBookmarkArguments): Promise<GetBookmarkResult> => {
 	// Make the GET request
 	const requestResult = await get(
 		`${BOOKMARK_API_ROUTE}/${tutorialId}`,
