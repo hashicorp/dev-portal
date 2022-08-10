@@ -86,5 +86,23 @@
 			}
 		]
 	},
-	"navigationHeaderItems": {}
+	"navigationHeaderItems": {
+		"documentation": [
+			{
+				"icon": "docs",
+				"label": "General Documentation",
+				"pathSuffix": "docs"
+			},
+			{
+				"icon": "docs",
+				"label": "Guides",
+				"pathSuffix": "guides"
+			},
+			{
+				"icon": "docs",
+				"label": "Introduction",
+				"pathSuffix": "intro"
+			}
+		]
+	}
 }
