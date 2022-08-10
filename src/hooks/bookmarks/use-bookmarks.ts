@@ -21,7 +21,7 @@ const useBookmarks = () => {
 		}
 	)
 
-	// Prime each individual bookmark queries, both by id and slug
+	// Prime each individual bookmark queries, by tutorial id
 	const followUpQueries = []
 	bookmarks?.forEach((bookmark) => {
 		const { tutorial_id } = bookmark
