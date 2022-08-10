@@ -49,6 +49,12 @@ export interface ApiTutorial extends ContentBaseModel, DefaultCollection {
 	products_used: ApiProductsUsed[] // Returns empty array if no products used
 }
 
+export interface ApiBookmark extends BaseModel {
+	tutorial_id: ApiTutorial['id']
+	tutorial: ApiTutorial
+	user_id: string
+}
+
 // Everything in base ApiTutorial, except content
 // used as reference in Collection Tutorials
 export type ApiTutorialLite = Omit<ApiTutorial, 'content'>
