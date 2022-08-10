@@ -86,16 +86,30 @@ function toast({
 }
 
 /**
- * A toast that only renders in non 'production' environments.
+ * A toast that only renders in non 'production' environments. Disables
+ * `autoDismiss` by default, but that can be overwritten.
  */
-const developmentToast = (...args: Parameters<typeof toast>) => {
+const developmentToast = (options: Parameters<typeof toast>[0]) => {
 	if (process.env.NODE_ENV !== 'production') {
-		return toast(...args)
+		return toast({ autoDismiss: false, ...options })
 	}
+}
+
+/**
+ * An toast of the `critical` color variant that only renders in `non`
+ * production environments. Uses `developmentToast` under the hood.
+ */
+const errorDevelopmentToast = (title: string, description: string) => {
+	return developmentToast({
+		color: ToastColor.critical,
+		description,
+		title,
+	})
 }
 
 export {
 	developmentToast,
+	errorDevelopmentToast,
 	reactHotToast,
 	toast,
 	ToastColor,
