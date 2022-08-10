@@ -2,7 +2,6 @@ import DocsView from 'views/docs-view'
 // Imports below are used server-side
 import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
-import { isObject, traverse } from 'lib/traverse'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 
 /**
@@ -25,7 +24,10 @@ const { getStaticProps: baseGetStaticProps } =
  */
 async function getStaticProps(ctx) {
 	const staticProps = await baseGetStaticProps({ params: {}, ...ctx })
-	// Merge in remote plugin data sidebar items
+
+	/**
+	 * Merge in remote plugin data sidebar items
+	 */
 	if ('props' in staticProps) {
 		// Partial nav data is provided from base getStaticProps
 		const partialNavData =
