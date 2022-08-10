@@ -6,12 +6,7 @@ const useBookmarks = () => {
 	const { session } = useAuthentication()
 	const token = session?.accessToken
 
-	/**
-	 * Fetch all bookmarks.
-	 *
-	 * https://tanstack.com/query/v4/docs/guides/dependent-queries
-	 * https://tanstack.com/query/v4/docs/guides/initial-query-data#staletime-and-initialdataupdatedat
-	 */
+	// Fetch all bookmarks
 	const { data: bookmarks, ...restQueryResult } = useQuery(
 		['bookmarks'],
 		() => getBookmarks(token),
