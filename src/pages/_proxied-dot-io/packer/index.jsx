@@ -26,7 +26,7 @@ function HomePage() {
 							url: 'https://cloud.hashicorp.com/products/packer?utm_source=packer_io&utm_content=homepage_hero_packer',
 						},
 						{
-							text: 'Install Packer',
+							text: 'Download',
 							url: '/downloads',
 						},
 					]}
