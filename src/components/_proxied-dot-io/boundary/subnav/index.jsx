@@ -29,7 +29,7 @@ export default function BoundarySubnav({ menuItems }) {
 				},
 				{
 					text: 'Try HCP Boundary',
-					url: 'https://cloud.hashicorp.com/?utm_source=boundary_io&utm_content=top_nav_boundary',
+					url: 'https://portal.cloud.hashicorp.com/sign-up?utm_source=cloud_landing&utm_content=offers_boundary',
 					theme: {
 						brand: 'boundary',
 					},
