@@ -10,7 +10,6 @@ export async function getStaticPaths() {
 	const paths = enabledProducts.map((productSlug: ProductSlug) => ({
 		params: { productSlug },
 	}))
-	console.log(paths)
 	return {
 		paths,
 		fallback: false,
