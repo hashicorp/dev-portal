@@ -45,6 +45,7 @@ module.exports = withSwingset({
 			'unist-util-visit',
 		],
 	})({
+		swcMinify: true,
 		webpack(config) {
 			config.plugins.push(HashiConfigPlugin())
 			return config
