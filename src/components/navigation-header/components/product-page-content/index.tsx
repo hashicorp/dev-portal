@@ -28,6 +28,7 @@ import {
 } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './product-page-content.module.css'
+import { NavigationHeaderItemGroup } from 'components/navigation-header/types'
 
 /**
  * Defined the navigation items for all pages that live under `/{productSlug}`
@@ -113,13 +114,17 @@ const ProductPageHeaderContent = () => {
 	}
 
 	// Construct item groups for the dropdown, avoid adding empty groups
-	const allMainMenuItems = []
-	allMainMenuItems.push({ items: [homeMenuItem] })
+	const allMainMenuItems: NavigationHeaderItemGroup[] = [
+		{ items: [homeMenuItem] },
+	]
 	if (betaProductItems.length) {
 		allMainMenuItems.push({ label: 'Products', items: betaProductItems })
 	}
 	if (comingSoonProductItems.length) {
-		allMainMenuItems.push({ label: 'Coming Soon', comingSoonProductItems })
+		allMainMenuItems.push({
+			label: 'Coming Soon',
+			items: comingSoonProductItems,
+		})
 	}
 
 	return (
