@@ -4,16 +4,12 @@ import BaseLayout from 'layouts/base-new'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import FacetedIntegrationList from './components/faceted-integrations-list'
 
-// TODO, hardcoding this for now but will need to adjust later
-const INTEGRATIONS_API_BASE_URL =
-	'https://5nw9rm117f.execute-api.us-east-1.amazonaws.com'
-
 export default function ProductIntegrationsLanding({ product }) {
 	// Fetch integrations
 	const [integrations, setIntegrations] = useState(null)
 	useEffect(() => {
 		fetch(
-			`${INTEGRATIONS_API_BASE_URL}/products/${product.slug}/integrations`,
+			`${process.env.NEXT_PUBLIC_INTEGRATIONS_API_BASE_URL}/products/${product.slug}/integrations`,
 			{
 				method: 'GET',
 				mode: 'cors',
