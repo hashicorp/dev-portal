@@ -64,6 +64,7 @@ export async function appendRemotePluginsNavData(
 	}
 
 	const pluginEntries = JSON.parse(remotePluginsContent)
+	console.log(JSON.stringify(pluginEntries, null, 2))
 	// Add navData for each plugin's component.
 	// Note that leaf nodes include a remoteFile property object with the full MDX fileString
 	const pluginEntriesWithFiles = await resolvePluginDocs(pluginEntries)

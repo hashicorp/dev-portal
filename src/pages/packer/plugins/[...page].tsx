@@ -6,23 +6,21 @@ import DocsViewActual from 'views/docs-view'
 // import PluginBadge from 'components/_proxied-dot-io/packer/plugin-badge'
 // import Checklist from 'components/_proxied-dot-io/packer/checklist'
 // Imports below are only used server-side
+import {
+	generateProductLandingSidebarNavData,
+	generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 import { getPathBreadcrumbs } from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 import { cachedGetProductData } from 'lib/get-product-data'
 import {
 	generateStaticPaths,
 	generateStaticProps,
 } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
-import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
-import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 
 //  Configure the docs path and remote plugin docs loading
 // path relative to the `website` directory of the Packer GitHub repo
 const remotePluginsFile = 'data/plugins-manifest.json'
-
-// We use the same getStaticProps function as all other Dev Dot docs routes
-const { getStaticProps: baseGetStaticProps } =
-	getRootDocsPathGenerationFunctions('packer', 'plugins')
 
 // const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'plugins'
@@ -69,15 +67,10 @@ export async function getStaticProps({ params, ...ctx }) {
 	const productData = cachedGetProductData('packer')
 
 	/**
-	 * TODO - these are arbitrary props that work with dev dot,
-	 * these are a placeholder while I adapt the dot-io props below.
-	 * Should eliminate this entirely, I think.
-	 */
-	const staticProps = await baseGetStaticProps({ params: {}, ...ctx })
-
-	/**
-	 * TODO - these are the props we really want to use,
-	 * but they're designed for use with dot-io layout, and need to be adapted
+	 * Get static props for the page.
+	 * Note that this function is intended for use with dot-io layouts,
+	 * so we need to massage the data further before returning it
+	 * for use on this Dev Dot view.
 	 */
 	const props = await generateStaticProps({
 		localContentDir,
@@ -92,32 +85,35 @@ export async function getStaticProps({ params, ...ctx }) {
 	}
 
 	/**
-	 * Merge in remote plugin data sidebar items
+	 * Prepare nav data for client, eg adding `fullPath`
 	 */
-	let navData
-	if ('props' in staticProps) {
-		// Partial nav data is provided from base getStaticProps
-		const partialNavData =
-			staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems
-		// We fetch and merge in remote plugins nav data
-		const rawNavData = await appendRemotePluginsNavData(
-			remotePluginsFile,
-			partialNavData,
-			''
-		)
-		// Prepare nav data for client, eg adding `fullPath`
-		const { preparedItems } = prepareNavDataForClient({
-			basePaths: ['packer', 'plugins'],
-			nodes: rawNavData,
-		})
-		navData = preparedItems
-
-		// Replace our original navData with our prepared navData
-		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems = navData
-	}
+	const { preparedItems: navData } = prepareNavDataForClient({
+		basePaths: ['packer', 'plugins'],
+		nodes: props.navData,
+	})
 
 	/**
-	 * Layout props
+	 * Constructs the levels of nav data.
+	 */
+	const sidebarNavDataLevels = [
+		generateTopLevelSidebarNavData(productData.name),
+		generateProductLandingSidebarNavData(productData),
+		{
+			backToLinkProps: {
+				text: `${productData.name} Home`,
+				href: `/${productData.slug}`,
+			},
+			levelButtonProps: {
+				levelUpButtonText: `${productData.name} Home`,
+			},
+			menuItems: navData,
+			title: 'Plugins',
+			overviewItemHref: `/${productData.slug}/plugins`,
+		},
+	]
+
+	/**
+	 * Assemble layout props
 	 */
 	const pathParts = (params.page || []) as string[]
 	const pathBreadcrumbs = getPathBreadcrumbs({
@@ -151,24 +147,9 @@ export async function getStaticProps({ params, ...ctx }) {
 	//
 	const githubFileUrl = props.githubFileUrl
 	const headings = props.headings
-	/**
-	 * TODO: replace use of these layout props with non-placeholder
-	 */
-	const { sidebarNavDataLevels } =
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		/* @ts-ignore */
-		staticProps.props.layoutProps
-
-	/**
-	 * TODO: replace use of these props with non-placeholder
-	 */
-	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	/* @ts-ignore */
-	// const { product } = staticProps.props
 
 	return {
 		props: {
-			// _actualProps: props,
 			layoutProps: {
 				breadcrumbLinks,
 				githubFileUrl,
