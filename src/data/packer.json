@@ -75,6 +75,12 @@
 			"mainBranch": "master",
 			"name": "Intro",
 			"path": "intro"
+		},
+		{
+			"iconName": "docs",
+			"mainBranch": "master",
+			"name": "Plugins",
+			"path": "plugins"
 		}
 	],
 	"sidebar": {
@@ -86,5 +92,28 @@
 			}
 		]
 	},
-	"navigationHeaderItems": {}
+	"navigationHeaderItems": {
+		"documentation": [
+			{
+				"icon": "docs",
+				"label": "General Documentation",
+				"pathSuffix": "docs"
+			},
+			{
+				"icon": "docs",
+				"label": "Guides",
+				"pathSuffix": "guides"
+			},
+			{
+				"icon": "docs",
+				"label": "Introduction",
+				"pathSuffix": "intro"
+			},
+			{
+				"icon": "docs",
+				"label": "Plugins",
+				"pathSuffix": "plugins"
+			}
+		]
+	}
 }
