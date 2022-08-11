@@ -28,7 +28,6 @@ async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {
 			owner: 'hashicorp',
 			repo: 'packer',
 			path: path.join('website', navDataFile),
-			// TODO: should this be master instead?
 			ref: 'stable-website',
 		})
 	}
@@ -58,7 +57,6 @@ export async function appendRemotePluginsNavData(
 			owner: 'hashicorp',
 			repo: 'packer',
 			path: path.join('website', remotePluginsFile),
-			// TODO: should this be master instead?
 			ref: 'stable-website',
 		})
 	}
