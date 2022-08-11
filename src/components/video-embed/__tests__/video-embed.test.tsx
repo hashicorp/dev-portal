@@ -1,12 +1,19 @@
 import { render } from '@testing-library/react'
 import VideoEmbed from '../'
 
-it('should render a root element with a `playerWrapper` class', () => {
-	const { container } = render(
-		<VideoEmbed url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
-	)
-	expect(container.firstChild).toHaveClass('playerWrapper')
-})
+/**
+ * @TODO rewrite this to be an integration test. This test causes segmentation
+ * faults both locally and in PR checks.
+ *
+ * https://app.asana.com/0/1202097197789424/1202765914032430/f
+ */
+
+// it('should render a root element with a `playerWrapper` class', () => {
+// 	const { container } = render(
+// 		<VideoEmbed url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
+// 	)
+// 	expect(container.firstChild).toHaveClass('playerWrapper')
+// })
 
 /**
  * TODO: I'm not sure how we can implement video analytics testing in Jest.
