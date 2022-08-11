@@ -60,6 +60,12 @@ export async function getStaticProps({ params, ...ctx }) {
 		product: { name: productData.name, slug: productData.slug },
 		remotePluginsFile,
 	})
+
+	/**
+	 * If the params don't match an existing plugin, generateStaticProps
+	 * above will return null. If a URL that doesn't match a plugin is
+	 * visited, we want to ensure it returns a 404.
+	 */
 	if (!props) {
 		return { notFound: true }
 	}
@@ -136,6 +142,9 @@ export async function getStaticProps({ params, ...ctx }) {
 		...pathBreadcrumbs,
 	]
 
+	/**
+	 * Assemble and return static  props for the view
+	 */
 	return {
 		props: {
 			layoutProps: {
