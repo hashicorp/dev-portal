@@ -1,48 +1,28 @@
-import { Products } from '@hashicorp/platform-product-meta'
-import DocsViewActual from 'views/docs-view'
-// import { InferGetStaticPropsType } from 'next'
-// import Badge from 'components/_proxied-dot-io/packer/badge'
-// import BadgesHeader from 'components/_proxied-dot-io/packer/badges-header'
-// import PluginBadge from 'components/_proxied-dot-io/packer/plugin-badge'
-// import Checklist from 'components/_proxied-dot-io/packer/checklist'
+import DocsView from 'views/docs-view'
 // Imports below are only used server-side
-import {
-	generateProductLandingSidebarNavData,
-	generateTopLevelSidebarNavData,
-} from 'components/sidebar/helpers'
-import { getPathBreadcrumbs } from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 import { cachedGetProductData } from 'lib/get-product-data'
 import {
 	generateStaticPaths,
 	generateStaticProps,
 } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
+import { getPathBreadcrumbs } from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
+import {
+	generateProductLandingSidebarNavData,
+	generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 
-//  Configure the docs path and remote plugin docs loading
-// path relative to the `website` directory of the Packer GitHub repo
-const remotePluginsFile = 'data/plugins-manifest.json'
-
-// const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'plugins'
-// path relative to the `website` directory of the Packer GitHub repo
+const baseName = 'Plugins'
+/**
+ * Paths relative to the `website` directory of the Packer GitHub repo.
+ * Note that these are not currently used, as we don't yet support local
+ * preview for the dev dot UI. They've been retained to avoid too
+ * broad of a refactor to utilities shared with dot-io (where local
+ * preview is actively supported).
+ */
+const remotePluginsFile = 'data/plugins-manifest.json'
 const navDataFile = `data/${basePath}-nav-data.json`
-const localContentDir = `../content/${basePath}`
-// const additionalComponents = { Badge, BadgesHeader, PluginBadge, Checklist }
-const mainBranch = 'master'
-
-function DocsView(props) {
-	return (
-		<>
-			{/* <pre>
-				<code>/packer/plugins/{props.currentPath}</code>
-			</pre>
-			<pre>
-				<code>{JSON.stringify(props._actualProps, null, 2)}</code>
-			</pre> */}
-			<DocsViewActual {...props} />
-		</>
-	)
-}
 
 export async function getStaticPaths() {
 	let paths = await generateStaticPaths({
@@ -73,11 +53,11 @@ export async function getStaticProps({ params, ...ctx }) {
 	 * for use on this Dev Dot view.
 	 */
 	const props = await generateStaticProps({
-		localContentDir,
-		mainBranch,
+		localContentDir: `../content/${basePath}`,
+		mainBranch: 'master',
 		navDataFile,
 		params,
-		product: { name: productData.name, slug: productData.slug as Products },
+		product: { name: productData.name, slug: productData.slug },
 		remotePluginsFile,
 	})
 	if (!props) {
@@ -88,7 +68,7 @@ export async function getStaticProps({ params, ...ctx }) {
 	 * Prepare nav data for client, eg adding `fullPath`
 	 */
 	const { preparedItems: navData } = prepareNavDataForClient({
-		basePaths: ['packer', 'plugins'],
+		basePaths: [productData.slug, basePath],
 		nodes: props.navData,
 	})
 
@@ -107,26 +87,37 @@ export async function getStaticProps({ params, ...ctx }) {
 				levelUpButtonText: `${productData.name} Home`,
 			},
 			menuItems: navData,
-			title: 'Plugins',
-			overviewItemHref: `/${productData.slug}/plugins`,
+			title: baseName,
+			overviewItemHref: `/${productData.slug}/${basePath}`,
 		},
 	]
 
 	/**
-	 * Assemble layout props
+	 * Construct breadcrumbs
 	 */
-	const pathParts = (params.page || []) as string[]
-	const pathBreadcrumbs = getPathBreadcrumbs({
-		basePath: `packer/plugins`,
+	const rawPathBreadcrumbs = getPathBreadcrumbs({
+		basePath: `${productData.slug}/${basePath}`,
 		navData,
-		pathParts,
-	}).map((item, idx) => {
-		/**
-		 * TODO: explain this better, we need to manually sub in a breadcrumb here
-		 * because normally breadcrumb construction relies on sidebar navData,
-		 * but the way the plugins sidebar is organized and constructed is
-		 * very different than on other pages.
-		 */
+		pathParts: (params.page || []) as string[],
+	})
+	/**
+	 * Breadcrumb construction is based on the path parts in our URL.
+	 * We are typically able to assume that the navData structure reflects
+	 * URL structure, as this was an explicit goal when the current format
+	 * of navData was introduced. However, for plugins this assumption
+	 * does not hold - the sidebar is organized at the top level by
+	 * plugin name (such as "AWS"), while our URL structure is organized
+	 * at the top level by plugin type (such as "Builder").
+	 *
+	 * To account for this, we need to manually modify the breadcrumbs
+	 * we generate using our shared method.
+	 *
+	 * Specifically, the second item in the array of path-based breadcrumbs
+	 * should be the name of the plugin, NOT the name of the plugin type
+	 * (which is what we'd get otherwise due to nav data structure).
+	 * We make this modification below.
+	 */
+	const pathBreadcrumbs = rawPathBreadcrumbs.map((item, idx) => {
 		if (idx == 1) {
 			return {
 				title: props.navNode.pluginData.title,
@@ -139,21 +130,18 @@ export async function getStaticProps({ params, ...ctx }) {
 		{ title: 'Developer', url: '/' },
 		{ title: productData.name, url: `/${productData.slug}` },
 		{
-			title: 'Plugins',
-			url: '/packer/plugins',
+			title: baseName,
+			url: `/${productData.slug}/${basePath}`,
 		},
 		...pathBreadcrumbs,
 	]
-	//
-	const githubFileUrl = props.githubFileUrl
-	const headings = props.headings
 
 	return {
 		props: {
 			layoutProps: {
 				breadcrumbLinks,
-				githubFileUrl,
-				headings,
+				githubFileUrl: props.githubFileUrl,
+				headings: props.headings,
 				sidebarNavDataLevels,
 			},
 			metadata: {
@@ -167,5 +155,4 @@ export async function getStaticProps({ params, ...ctx }) {
 	}
 }
 
-DocsView.layout = DocsViewActual.layout
 export default DocsView
