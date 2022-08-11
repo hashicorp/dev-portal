@@ -1,12 +1,11 @@
 import s from './style.module.css'
 import BaseLayout from 'layouts/base-new'
 import BreadcrumbBar from 'components/breadcrumb-bar'
-import FacetedIntegrationList from './components/faceted-integrations-list'
 
-export default function ProductIntegrationsLanding({ product, integrations }) {
+export default function ProductIntegrationLanding({ integration, product }) {
 	return (
 		<BaseLayout showFooterTopBorder>
-			<div className={s.integrationsLandingPage}>
+			<div className={s.integrationPage}>
 				<div className={s.sidebar}></div>
 				<div className={s.mainArea}>
 					<div className={s.contentWrapper}>
@@ -25,11 +24,15 @@ export default function ProductIntegrationsLanding({ product, integrations }) {
 								{
 									title: 'Integrations',
 									url: `/${product.slug}/integrations`,
+									isCurrentPage: false,
+								},
+								{
+									title: integration.name,
+									url: `/${product.slug}/integrations/${integration.slug}`,
 									isCurrentPage: true,
 								},
 							]}
 						/>
-						<FacetedIntegrationList integrations={integrations} />
 					</div>
 				</div>
 			</div>

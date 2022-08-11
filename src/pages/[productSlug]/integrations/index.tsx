@@ -1,11 +1,16 @@
 import { ProductSlug } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
+import { fetchProductIntegrations } from 'lib/integrations-api-client'
 import ProductIntegrationsLanding from 'views/product-integrations-landing'
 
+// The products that we are enabling for this Integrations POC
+export const enabledProducts: Array<ProductSlug> = ['vault', 'packer']
+
 export async function getStaticPaths() {
-	const paths = ['vault', 'packer'].map((productSlug: ProductSlug) => ({
+	const paths = enabledProducts.map((productSlug: ProductSlug) => ({
 		params: { productSlug },
 	}))
+	console.log(paths)
 	return {
 		paths,
 		fallback: false,
@@ -13,10 +18,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-	const productData = cachedGetProductData(params.productSlug)
+	const integrations = await fetchProductIntegrations(params.productSlug)
 	return {
 		props: {
-			productSlug: params.productSlug,
+			integrations,
 			product: {
 				...cachedGetProductData(params.productSlug),
 			},

@@ -16,7 +16,7 @@ export default function IntegrationsList({ integrations }) {
 						organization={integration.organization.slug}
 						productSlug={integration.product.slug}
 						tier={integration.tier}
-						repoUrl={integration.repo_url}
+						integrationSlug={integration.slug}
 					/>
 				)
 			})}
@@ -29,15 +29,14 @@ function IntegrationCard({
 	description,
 	organization,
 	tier,
-	repoUrl,
+	integrationSlug,
 	productSlug,
 }) {
 	return (
 		<CardLink
 			ariaLabel="TODO"
 			className={s.integrationCard}
-			href={repoUrl}
-			openInNewTab={true}
+			href={`/${productSlug}/integrations/${integrationSlug}`}
 		>
 			<div className={s.header}>
 				<h3 className={s.heading}>{title}</h3>
