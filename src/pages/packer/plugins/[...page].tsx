@@ -150,10 +150,11 @@ export async function getStaticProps({ params, ...ctx }) {
 	]
 	//
 	const githubFileUrl = props.githubFileUrl
+	const headings = props.headings
 	/**
 	 * TODO: replace use of these layout props with non-placeholder
 	 */
-	const { headings, sidebarNavDataLevels } =
+	const { sidebarNavDataLevels } =
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		/* @ts-ignore */
 		staticProps.props.layoutProps
