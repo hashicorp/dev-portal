@@ -43,3 +43,44 @@
 		}
 	}
 }
+
+.content {
+	& .topLine {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		& .headingWrapper {
+			display: flex;
+
+			& h1 {
+				margin: 0;
+			}
+
+			& > span {
+				margin-left: 24px;
+				align-self: center;
+			}
+		}
+
+		& .viewInGithub {
+			display: flex;
+			align-items: center;
+			color: var(--gray-3);
+
+			& > svg {
+				width: 26px;
+				height: 26px;
+				margin-right: 5px;
+			}
+		}
+	}
+
+	& .org {
+		color: var(--token-color-foreground-faint);
+		font-weight: var(--token-typography-font-weight-medium);
+		font-family: var(--token-typography-body-100-font-family);
+		font-size: 22px;
+		line-height: var(--token-typography-body-100-line-height);
+	}
+}

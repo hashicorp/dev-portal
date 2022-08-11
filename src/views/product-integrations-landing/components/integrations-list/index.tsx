@@ -1,8 +1,7 @@
 import s from './style.module.css'
 import CardsGridList from 'components/cards-grid-list'
 import CardLink from 'components/card-link'
-import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
-import { IconCheckCircle16 } from '@hashicorp/flight-icons/svg-react/check-circle-16'
+import TierBadge from '../tier-badge'
 
 export default function IntegrationsList({ integrations }) {
 	return (
@@ -40,36 +39,11 @@ function IntegrationCard({
 		>
 			<div className={s.header}>
 				<h3 className={s.heading}>{title}</h3>
-				<TierBadge tier={tier} productSlug={productSlug} />
+				<TierBadge tier={tier} productSlug={productSlug} size="small" />
 			</div>
 
 			<span className={s.organization}>{`@${organization}`}</span>
 			<p className={s.body}>{description}</p>
 		</CardLink>
-	)
-}
-
-interface TierBadgeStyles extends React.CSSProperties {
-	'--badge-color': string
-}
-
-function TierBadge({ tier, productSlug }) {
-	const styles: TierBadgeStyles = {
-		'--badge-color': `var(--token-color-${productSlug}-surface)`,
-	}
-	return (
-		<span className={s.badge} style={styles}>
-			{tier === 'official' && (
-				<>
-					<IconAward16 /> Official
-				</>
-			)}
-			{tier === 'verified' && (
-				<>
-					<IconCheckCircle16 /> Verified
-				</>
-			)}
-			{tier === 'community' && <>Community</>}
-		</span>
 	)
 }
