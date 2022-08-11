@@ -5,16 +5,20 @@ import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/re
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 
 /**
- * Path to the plugins manifest relative to the `website` directory
- * of the `hashicorp/packer` GitHub repo.
+ * Path relative to the `website` directory of the Packer GitHub repo.
  *
- * Note: local preview is not yet supported for the Dev Dot UI,
- * we pass remotePluginsFile to avoid having to refactor
- * appendRemotePluginsNavData (for now).
+ * Note that these are not currently used, as we don't yet support local
+ * preview for the dev dot UI. They've been retained to avoid too
+ * broad of a refactor to utilities shared with dot-io (where local
+ * preview is actively supported).
  */
 const remotePluginsFile = 'data/plugins-manifest.json'
 
-// We use the same getStaticProps function as all other Dev Dot docs routes
+/**
+ * Since this /plugins landing page does use content from our API,
+ * we can use the same getStaticProps function as all other Dev Dot docs routes,
+ * with some modifications for the sidebar data.
+ */
 const { getStaticProps: baseGetStaticProps } =
 	getRootDocsPathGenerationFunctions('packer', 'plugins')
 
@@ -29,16 +33,16 @@ async function getStaticProps(ctx) {
 	 * Merge in remote plugin data sidebar items
 	 */
 	if ('props' in staticProps) {
-		// Partial nav data is provided from base getStaticProps
+		// Partial nav data is provided from base getStaticProps, in menuItems
 		const partialNavData =
 			staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems
-		// We fetch and merge in remote plugins nav data
+		// Fetch and merge in remote plugins nav data with the partialNavData
 		const rawNavData = await appendRemotePluginsNavData(
 			remotePluginsFile,
 			partialNavData,
 			''
 		)
-		// Prepare nav data for client, eg adding `fullPath`
+		// Prepare nav data for client (such as adding `fullPath`)
 		const { preparedItems: navData } = prepareNavDataForClient({
 			basePaths: ['packer', 'plugins'],
 			nodes: rawNavData,
@@ -47,7 +51,10 @@ async function getStaticProps(ctx) {
 		// Replace our original navData with our prepared navData
 		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems = navData
 	}
-	// Return the modified static props
+
+	/**
+	 * Return the modified static props
+	 */
 	return staticProps
 }
 

@@ -16,6 +16,7 @@ const basePath = 'plugins'
 const baseName = 'Plugins'
 /**
  * Paths relative to the `website` directory of the Packer GitHub repo.
+ *
  * Note that these are not currently used, as we don't yet support local
  * preview for the dev dot UI. They've been retained to avoid too
  * broad of a refactor to utilities shared with dot-io (where local
