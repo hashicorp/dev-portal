@@ -4,7 +4,11 @@ import { fetchProductIntegrations } from 'lib/integrations-api-client'
 import ProductIntegrationsLanding from 'views/product-integrations-landing'
 
 // The products that we are enabling for this Integrations POC
-export const enabledProducts: Array<ProductSlug> = ['vault', 'packer']
+export const enabledProducts: Array<ProductSlug> = [
+	'vault',
+	'packer',
+	'waypoint',
+]
 
 export async function getStaticPaths() {
 	const paths = enabledProducts.map((productSlug: ProductSlug) => ({
