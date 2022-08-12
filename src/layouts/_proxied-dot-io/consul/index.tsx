@@ -51,6 +51,10 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 							? {
 									text: 'Use Cases',
 									submenu: [
+										{
+											text: 'Consul on Kubernetes',
+											url: '/consul-on-kubernetes',
+										},
 										...consulNav.useCases.map((item: UseCase) => {
 											return {
 												text: item.text,
