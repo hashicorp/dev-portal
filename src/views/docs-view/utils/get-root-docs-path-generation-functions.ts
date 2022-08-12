@@ -32,6 +32,7 @@ export function getRootDocsPathGenerationFunctions(
 		productSlugForLoader: rootDocsPath.productSlugForLoader,
 		basePathForLoader: rootDocsPath.basePathForLoader,
 		mainBranch: rootDocsPath.mainBranch,
+		showVersionSelect: getShowVersionSelect(productData, rootDocsPath),
 		additionalRemarkPlugins: getAdditionalRemarkPlugins(
 			productData,
 			rootDocsPath
@@ -98,4 +99,16 @@ function generateGetScope(
 	} else {
 		return undefined
 	}
+}
+
+/**
+ * On certain product paths, we do not want to show the version select.
+ */
+function getShowVersionSelect(
+	productData: ProductData,
+	rootDocsPath: RootDocsPath
+): boolean {
+	const isPackerPlugins =
+		productData.slug == 'packer' && rootDocsPath.path == 'plugins'
+	return !isPackerPlugins
 }
