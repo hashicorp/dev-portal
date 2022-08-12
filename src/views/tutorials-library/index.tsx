@@ -56,19 +56,20 @@ function Results() {
  * Refinements
  */
 export function ProductFilter() {
-	const { items, refine } = useRefinementList({
+	const { refine } = useRefinementList({
 		attribute: 'products',
 		operator: 'and',
 	})
+
+	const { indexUiState } = useInstantSearch()
+	const selectedProducts = indexUiState?.refinementList?.products ?? []
 
 	return (
 		<section>
 			<span>Product</span>
 			<ul>
 				{Object.keys(productSlugsToNames).map((slug) => {
-					const isProductSelected = items.find(
-						({ value }) => value === slug
-					)?.isRefined
+					const isProductSelected = selectedProducts.includes(slug)
 
 					const productName = productSlugsToNames[slug]
 
@@ -104,9 +105,12 @@ const EDITIONS = [
  * @TODO refinements are getting filtered as others are applied, so the selected logic breaks down
  */
 export function EditionFilter() {
-	const { items, refine } = useMenu({ attribute: 'edition' })
+	const { refine } = useMenu({ attribute: 'edition' })
 
-	const isAnyEditionSelected = items.some(({ isRefined }) => isRefined)
+	const { indexUiState } = useInstantSearch()
+	const selectedAddition = indexUiState?.menu?.edition
+
+	const isAnyEditionSelected = selectedAddition !== undefined
 
 	return (
 		<section>
@@ -125,9 +129,7 @@ export function EditionFilter() {
 					</label>
 				</li>
 				{EDITIONS.map(({ value, label }) => {
-					const isEditionSelected = items.find(
-						({ value: val }) => val === value
-					)?.isRefined
+					const isEditionSelected = value === selectedAddition
 
 					return (
 						<li key={value}>
@@ -237,7 +239,6 @@ export function CurrentFilters() {
  */
 export default function TutorialsLibraryView() {
 	const [query, setQuery] = useState<string>()
-	const searchState = useInstantSearch()
 	const { refine } = useSearchBox()
 
 	return (
