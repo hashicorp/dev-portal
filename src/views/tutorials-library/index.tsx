@@ -33,6 +33,10 @@ function getTutorialCardPropsFromHit(hit): TutorialCardProps {
 	}
 }
 
+/**
+ *
+ * @TODO fix URL to be correct for devdot
+ */
 function Results() {
 	const { hits } = useHits()
 
@@ -97,6 +101,7 @@ const EDITIONS = [
 
 /**
  * @TODO abstract the radio input to reduce duplication here
+ * @TODO refinements are getting filtered as others are applied, so the selected logic breaks down
  */
 export function EditionFilter() {
 	const { items, refine } = useMenu({ attribute: 'edition' })
@@ -195,18 +200,29 @@ export function CurrentFilters() {
 		return null
 	}
 
-	const { refine, refinements } = items[0]
-
 	return (
 		<ul>
-			{refinements.map((refinement) => {
-				const { label } = refinement
+			{items.flatMap((item) => {
+				return item.refinements.map((refinement) => {
+					const { label, type, attribute } = refinement
 
-				return (
-					<li key={label}>
-						<button onClick={() => refine(refinement)}>{label} x</button>
-					</li>
-				)
+					let labelText = label
+					// This is a "Resource" filter
+					if (type === 'disjunctive') {
+						const resource = RESOURCES.find(
+							(resource) => resource.attribute === attribute
+						)
+						labelText = resource.label
+					}
+
+					return (
+						<li key={labelText}>
+							<button onClick={() => item.refine(refinement)}>
+								{labelText} x
+							</button>
+						</li>
+					)
+				})
 			})}
 		</ul>
 	)
@@ -217,6 +233,7 @@ export function CurrentFilters() {
  * @TODO debounce querying
  * @TODO generate proper tutorial link
  * @TODO persist state to URL
+ * @TODO no results state
  */
 export default function TutorialsLibraryView() {
 	const [query, setQuery] = useState<string>()
