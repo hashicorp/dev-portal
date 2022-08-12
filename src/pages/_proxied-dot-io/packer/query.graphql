@@ -22,13 +22,43 @@ query homepageQuery {
 		}
 		introHeading
 		introDescription
-		introFeatures {
+		introOfferingsImage {
+			url
+			width
+			height
+			alt
+		}
+		introOfferings {
 			heading
 			description
+		}
+		introOfferingsCta {
+			title
 			link
-			image {
+		}
+		introCallout {
+			link
+			heading
+			description
+			cta
+			thumbnail {
 				url
+				width
+				height
 				alt
+			}
+		}
+		introVideo {
+			youtubeId
+			heading
+			description
+			thumbnail {
+				url
+			}
+			personName
+			personDescription
+			personAvatar {
+				url
 			}
 		}
 		introVideo {
