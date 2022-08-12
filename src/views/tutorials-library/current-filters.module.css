@@ -1,0 +1,43 @@
+.root {
+	visibility: hidden;
+	display: flex;
+	gap: 12px;
+	margin-bottom: 16px;
+
+	&.hasFilters {
+		visibility: visible;
+	}
+
+	& ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+
+		& li {
+			display: inline-block;
+
+		&:not(:last-of-type) {
+			margin-right: 12px;
+		}
+		}
+	}
+}
+
+.label {
+	composes: hds-typography-300-medium from global;
+	composes: hds-font-weight-medium from global;
+}
+
+.filterButton {
+	display: flex;
+	background: #f1f2f3;
+	color: #656a76;
+	font-weight: var(--font-weight-bold);
+	border-radius: 14px;
+	border: none;
+	padding: 6px 8px 6px 10px;
+
+	& svg {
+		margin-left: 8px;
+	}
+}

@@ -8,6 +8,9 @@ import {
 	useMenu,
 	useCurrentRefinements,
 } from 'react-instantsearch-hooks-web'
+import classNames from 'classnames'
+
+import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 
 import { productSlugsToNames } from 'lib/products'
 
@@ -17,6 +20,9 @@ import TutorialCard, { TutorialCardProps } from 'components/tutorial-card'
 import FilterInput from 'components/filter-input'
 import ProductIcon from 'components/product-icon'
 import { ProductSlug } from 'types/products'
+
+import filterSectionStyle from './filter-section.module.css'
+import currentFiltersStyle from './current-filters.module.css'
 
 /**
  * Results
@@ -65,31 +71,28 @@ export function ProductFilter() {
 	const selectedProducts = indexUiState?.refinementList?.products ?? []
 
 	return (
-		<section>
-			<span>Product</span>
-			<ul>
-				{Object.keys(productSlugsToNames).map((slug) => {
-					const isProductSelected = selectedProducts.includes(slug)
+		<FilterSection heading="Product">
+			{Object.keys(productSlugsToNames).map((slug) => {
+				const isProductSelected = selectedProducts.includes(slug)
 
-					const productName = productSlugsToNames[slug]
+				const productName = productSlugsToNames[slug]
 
-					return (
-						<li key={slug}>
-							<input
-								type="checkbox"
-								name={slug}
-								checked={isProductSelected}
-								onChange={() => {
-									refine(slug)
-								}}
-							/>
-							<ProductIcon productSlug={slug as ProductSlug} />
-							{productName}
-						</li>
-					)
-				})}
-			</ul>
-		</section>
+				return (
+					<li key={slug}>
+						<input
+							type="checkbox"
+							name={slug}
+							checked={isProductSelected}
+							onChange={() => {
+								refine(slug)
+							}}
+						/>
+						<ProductIcon productSlug={slug as ProductSlug} />
+						{productName}
+					</li>
+				)
+			})}
+		</FilterSection>
 	)
 }
 
@@ -102,7 +105,6 @@ const EDITIONS = [
 
 /**
  * @TODO abstract the radio input to reduce duplication here
- * @TODO refinements are getting filtered as others are applied, so the selected logic breaks down
  */
 export function EditionFilter() {
 	const { refine } = useMenu({ attribute: 'edition' })
@@ -113,41 +115,38 @@ export function EditionFilter() {
 	const isAnyEditionSelected = selectedAddition !== undefined
 
 	return (
-		<section>
-			<span>Edition</span>
-			<ul>
-				<li>
-					<label htmlFor="all">
-						<input
-							type="radio"
-							radioGroup="edition"
-							name={'All'}
-							checked={!isAnyEditionSelected}
-							onChange={() => refine(null)}
-						/>
-						<span>All</span>
-					</label>
-				</li>
-				{EDITIONS.map(({ value, label }) => {
-					const isEditionSelected = value === selectedAddition
+		<FilterSection heading="Edition">
+			<li>
+				<label htmlFor="all">
+					<input
+						type="radio"
+						radioGroup="edition"
+						name={'All'}
+						checked={!isAnyEditionSelected}
+						onChange={() => refine(null)}
+					/>
+					<span>All</span>
+				</label>
+			</li>
+			{EDITIONS.map(({ value, label }) => {
+				const isEditionSelected = value === selectedAddition
 
-					return (
-						<li key={value}>
-							<label htmlFor={value}>
-								<input
-									type="radio"
-									radioGroup="edition"
-									name={value}
-									checked={isEditionSelected}
-									onChange={() => refine(value)}
-								/>
-								<span>{label}</span>
-							</label>
-						</li>
-					)
-				})}
-			</ul>
-		</section>
+				return (
+					<li key={value}>
+						<label htmlFor={value}>
+							<input
+								type="radio"
+								radioGroup="edition"
+								name={value}
+								checked={isEditionSelected}
+								onChange={() => refine(value)}
+							/>
+							<span>{label}</span>
+						</label>
+					</li>
+				)
+			})}
+		</FilterSection>
 	)
 }
 
@@ -179,16 +178,13 @@ const RESOURCES = [
 
 export function ResourcesFilter() {
 	return (
-		<section>
-			<span>Resources</span>
-			<ul>
-				{RESOURCES.map((attribute) => (
-					<li key={attribute.attribute}>
-						<ToggleRefinement {...attribute} />
-					</li>
-				))}
-			</ul>
-		</section>
+		<FilterSection heading="Resources">
+			{RESOURCES.map((attribute) => (
+				<li key={attribute.attribute}>
+					<ToggleRefinement {...attribute} />
+				</li>
+			))}
+		</FilterSection>
 	)
 }
 
@@ -198,35 +194,53 @@ export function ResourcesFilter() {
 export function CurrentFilters() {
 	const { items } = useCurrentRefinements()
 
-	if (!items || items.length === 0) {
-		return null
-	}
+	const hasAppliedFilters = items && items.length > 0
 
 	return (
-		<ul>
-			{items.flatMap((item) => {
-				return item.refinements.map((refinement) => {
-					const { label, type, attribute } = refinement
+		<div
+			className={classNames(
+				currentFiltersStyle.root,
+				hasAppliedFilters && currentFiltersStyle.hasFilters
+			)}
+		>
+			<span className={currentFiltersStyle.label}>Filters:</span>
+			<ul>
+				{items.flatMap((item) => {
+					return item.refinements.map((refinement) => {
+						const { label, type, attribute } = refinement
 
-					let labelText = label
-					// This is a "Resource" filter
-					if (type === 'disjunctive') {
-						const resource = RESOURCES.find(
-							(resource) => resource.attribute === attribute
+						let labelText = label
+						// This is a "Resource" filter
+						if (type === 'disjunctive') {
+							const resource = RESOURCES.find(
+								(resource) => resource.attribute === attribute
+							)
+							labelText = resource.label
+						}
+
+						return (
+							<li key={labelText}>
+								<button
+									onClick={() => item.refine(refinement)}
+									className={currentFiltersStyle.filterButton}
+								>
+									{labelText} <IconX16 />
+								</button>
+							</li>
 						)
-						labelText = resource.label
-					}
+					})
+				})}
+			</ul>
+		</div>
+	)
+}
 
-					return (
-						<li key={labelText}>
-							<button onClick={() => item.refine(refinement)}>
-								{labelText} x
-							</button>
-						</li>
-					)
-				})
-			})}
-		</ul>
+function FilterSection({ heading, children }) {
+	return (
+		<section className={filterSectionStyle.root}>
+			<span className={filterSectionStyle.heading}>{heading}</span>
+			<ul className={filterSectionStyle.filterList}>{children}</ul>
+		</section>
 	)
 }
 
@@ -236,6 +250,7 @@ export function CurrentFilters() {
  * @TODO generate proper tutorial link
  * @TODO persist state to URL
  * @TODO no results state
+ * @TODO filter styling
  */
 export default function TutorialsLibraryView() {
 	const [query, setQuery] = useState<string>()

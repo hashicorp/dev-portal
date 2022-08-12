@@ -1,0 +1,26 @@
+.root {
+	color: var(--token-color-foreground-primary);
+}
+
+.heading {
+	composes: hds-typography-body-300 from global;
+	display: block;
+	font-weight: var(--token-typography-font-weight-semibold);
+	margin-bottom: 12px;
+}
+
+.filterList {
+	composes: hds-typography-body-300 from global;
+	list-style-type: none;
+	padding-left: 0;
+	margin: 0;
+
+	& li {
+		padding: 8px 0;
+		vertical-align: middle;
+
+		& input {
+			margin-right: 6px;
+		}
+	}
+}

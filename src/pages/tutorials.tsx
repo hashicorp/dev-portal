@@ -7,6 +7,7 @@ import TutorialsLibraryView, {
 	ProductFilter,
 	ResourcesFilter,
 } from 'views/tutorials-library'
+import { SidebarHorizontalRule } from 'components/sidebar/components'
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 
@@ -16,7 +17,9 @@ function FilterSidebar() {
 	return (
 		<div>
 			<ProductFilter />
+			<SidebarHorizontalRule />
 			<EditionFilter />
+			<SidebarHorizontalRule />
 			<ResourcesFilter />
 		</div>
 	)
