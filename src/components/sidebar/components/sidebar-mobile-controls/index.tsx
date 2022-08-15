@@ -71,8 +71,8 @@ const LevelDownButton = ({ onClick, text }: ButtonProps) => {
 }
 
 interface SidebarMobileControlsProps {
-	levelUpButtonText: ButtonProps['text']
-	levelDownButtonText: ButtonProps['text']
+	levelUpButtonText?: ButtonProps['text']
+	levelDownButtonText?: ButtonProps['text']
 }
 
 /**
