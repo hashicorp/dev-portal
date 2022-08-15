@@ -1,6 +1,7 @@
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import { get } from 'lib/learn-client'
 import { getBookmark } from '../get-bookmark'
+import { BOOKMARK_API_ROUTE } from '..'
 
 const mockBookmark: ApiBookmark = {
 	tutorial_id: 'test-tutorial-1',
@@ -19,13 +20,14 @@ jest.mock('lib/learn-client', () => {
 
 describe('getBookmark', () => {
 	const mockedGet = get as jest.Mock
-	const wrappedGetBookmark = async () =>
-		getBookmark({
-			accessToken: 'test-token',
-			tutorialId: '123',
-		})
+	const testAccessToken = 'test-token'
+	const testTutorialId = mockBookmark.tutorial_id
 
-	afterAll(() => {
+	beforeEach(() => {
+		mockedGet.mockClear()
+	})
+
+	afterAll(async () => {
 		jest.mock('lib/learn-client', () => {
 			const originalModule = jest.requireActual('lib/learn-client')
 			return originalModule
@@ -37,8 +39,15 @@ describe('getBookmark', () => {
 			status: 404,
 		})
 
-		const result = await wrappedGetBookmark()
+		const result = await getBookmark({
+			accessToken: testAccessToken,
+			tutorialId: testTutorialId,
+		})
 
+		expect(mockedGet).toHaveBeenCalledWith(
+			`${BOOKMARK_API_ROUTE}/${testTutorialId}`,
+			testAccessToken
+		)
 		expect(result).toBeNull()
 	})
 
@@ -50,8 +59,15 @@ describe('getBookmark', () => {
 			}),
 		})
 
-		const result = await wrappedGetBookmark()
+		const result = await getBookmark({
+			accessToken: testAccessToken,
+			tutorialId: testTutorialId,
+		})
 
+		expect(mockedGet).toHaveBeenCalledWith(
+			`${BOOKMARK_API_ROUTE}/${testTutorialId}`,
+			testAccessToken
+		)
 		expect(result).toBe(mockBookmark)
 	})
 
@@ -60,6 +76,16 @@ describe('getBookmark', () => {
 			ok: false,
 		})
 
-		expect(wrappedGetBookmark()).rejects.toThrowError()
+		expect(
+			async () =>
+				await getBookmark({
+					accessToken: testAccessToken,
+					tutorialId: testTutorialId,
+				})
+		).rejects.toThrowError()
+		expect(mockedGet).toHaveBeenCalledWith(
+			`${BOOKMARK_API_ROUTE}/${testTutorialId}`,
+			testAccessToken
+		)
 	})
 })
