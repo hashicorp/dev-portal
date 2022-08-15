@@ -8,10 +8,14 @@ interface GetBookmarkOptions {
 	tutorialId: ApiTutorial['id']
 }
 
-type GetBookmarkResult = ApiBookmark[]
+type GetBookmarkResult = null | ApiBookmark
 
 /**
- * @TODO document
+ * Fetches a bookmark for the given `tutorialId`. If a bookmark is found, then
+ * it is returned. If no bookmark is found, then `null` is returned. Otherwise
+ * throws an error.
+ *
+ * https://digital-api-specs.vercel.app/learn#tag/Bookmarks/paths/~1bookmarks~1{tutorial_id}/get
  */
 const getBookmark = async ({
 	accessToken,

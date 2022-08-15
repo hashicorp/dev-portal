@@ -11,7 +11,10 @@ interface DeleteBookmarkOptions {
 type DeleteBookmarkResult = void
 
 /**
- * @TODO document
+ * Deletes the bookmark for the given `tutorialId`. If successful, returns
+ * nothing. Otherwise throws an error.
+ *
+ * https://digital-api-specs.vercel.app/learn#tag/Bookmarks/paths/~1bookmarks~1{tutorial_id}/delete
  */
 const deleteBookmark = async ({
 	accessToken,

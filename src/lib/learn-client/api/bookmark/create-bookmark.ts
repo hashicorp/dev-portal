@@ -11,7 +11,10 @@ interface CreateBookmarkOptions {
 type CreateBookmarkResult = ApiBookmark
 
 /**
- * @TODO document
+ * Adds a new bookmark for the given `tutorialId`. If successful, returns the
+ * newly created bookmark. Otherwise throws an error.
+ *
+ * https://digital-api-specs.vercel.app/learn#tag/Bookmarks/paths/~1bookmarks~1{tutorial_id}/post
  */
 const createBookmark = async ({
 	accessToken,

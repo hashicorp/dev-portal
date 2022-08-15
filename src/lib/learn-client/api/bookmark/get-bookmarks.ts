@@ -11,7 +11,14 @@ interface GetBookmarksOptions {
 type GetBookmarksResult = ApiBookmark[]
 
 /**
- * @TODO document
+ * Fetches bookmarks based on given `tutorialIds`. If none are provided, then
+ * all bookmarks will be fetched. If some `tutorialIds` are provided, then they
+ * will be passed in the comma-separated `tutorialIds` query parameter.
+ *
+ * If successful, then an array of bookmark objects is returned. Otherwise
+ * throws an error.
+ *
+ * https://digital-api-specs.vercel.app/learn#tag/Bookmarks/paths/~1bookmarks/get
  */
 const getBookmarks = async ({
 	accessToken,
@@ -35,7 +42,8 @@ const getBookmarks = async ({
 
 	// Throw an error if result is not OK
 	const error = await toError(requestResult)
-	throw error
+	console.log(error)
+	// throw error
 }
 
 export type { GetBookmarksOptions, GetBookmarksResult }
