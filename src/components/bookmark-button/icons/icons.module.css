@@ -1,0 +1,27 @@
+.icon {
+	--color: var(--token-color-foreground-faint);
+	--symbolOpacity: 0;
+
+	fill: var(--color);
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	transition: fill 0.15s ease;
+
+	&:hover {
+		--color: var(--token-color-foreground-strong);
+		--symbolOpacity: 1;
+	}
+}
+
+#addSymbol {
+	opacity: var(--symbolOpacity);
+	transition: opacity 0.15s ease, fill 0.1s ease;
+}
+
+#removeSymbol {
+	fill: var(--token-color-palette-neutral-0);
+	opacity: var(--symbolOpacity);
+	transition: opacity 0.15s ease;
+}

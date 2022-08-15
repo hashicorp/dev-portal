@@ -1,11 +1,5 @@
-import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
-import { IconBookmarkFill16 } from '@hashicorp/flight-icons/svg-react/bookmark-fill-16'
+import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import s from './bookmark-button.module.css'
-
-/**
- *
- * TODO- handle hover states
- */
 
 interface BookmarkButtonProps {
 	isBookmarked: boolean
@@ -13,8 +7,8 @@ interface BookmarkButtonProps {
 
 export default function BookmarkButton({ isBookmarked }: BookmarkButtonProps) {
 	return (
-		<span className={s.bookmarkButton}>
-			{isBookmarked ? <IconBookmarkFill16 /> : <IconBookmark16 />}
+		<span className={s.bookmarkIconWrap}>
+			{isBookmarked ? <RemoveBookmarkIcon /> : <AddBookmarkIcon />}
 		</span>
 	)
 }

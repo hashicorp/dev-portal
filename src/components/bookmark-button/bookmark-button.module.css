@@ -1,5 +1,7 @@
-.bookmarkButton {
-	&:hover {
-		color: var(--token-color-foreground-strong);
-	}
+.bookmarkIconWrap {
+	--icon-height-width: 16px;
+
+	position: relative;
+	width: var(--icon-height-width);
+	height: var(--icon-height-width);
 }
