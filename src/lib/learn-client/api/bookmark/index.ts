@@ -9,15 +9,20 @@ import {
 	DeleteBookmarkResult,
 } from './delete-bookmark'
 import {
+	getAllBookmarks,
+	GetAllBookmarksOptions,
+	GetAllBookmarksResult,
+} from './get-all-bookmarks'
+import {
 	getBookmark,
 	GetBookmarkOptions,
 	GetBookmarkResult,
 } from './get-bookmark'
 import {
-	getBookmarks,
-	GetBookmarksOptions,
-	GetBookmarksResult,
-} from './get-bookmarks'
+	getBookmarksByTutorialIds,
+	GetBookmarksByTutorialIdsOptions,
+	GetBookmarksByTutorialIdsResult,
+} from './get-bookmarks-by-tutorial-ids'
 
 export const BOOKMARK_API_ROUTE = '/bookmarks'
 
@@ -26,9 +31,17 @@ export type {
 	CreateBookmarkResult,
 	DeleteBookmarkOptions,
 	DeleteBookmarkResult,
+	GetAllBookmarksOptions,
+	GetAllBookmarksResult,
 	GetBookmarkOptions,
 	GetBookmarkResult,
-	GetBookmarksOptions,
-	GetBookmarksResult,
+	GetBookmarksByTutorialIdsOptions,
+	GetBookmarksByTutorialIdsResult,
 }
-export { createBookmark, deleteBookmark, getBookmark, getBookmarks }
+export {
+	createBookmark,
+	deleteBookmark,
+	getAllBookmarks,
+	getBookmark,
+	getBookmarksByTutorialIds,
+}

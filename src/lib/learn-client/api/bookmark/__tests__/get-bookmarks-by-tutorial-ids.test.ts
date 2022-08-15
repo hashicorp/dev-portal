@@ -1,6 +1,6 @@
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import * as learnApi from 'lib/learn-client'
-import { getBookmarks } from '../get-bookmarks'
+import { getBookmarksByTutorialIds } from '../get-bookmarks-by-tutorial-ids'
 import { BOOKMARK_API_ROUTE } from '..'
 
 const mockBookmarks: ApiBookmark[] = [
@@ -22,11 +22,12 @@ const mockBookmarks: ApiBookmark[] = [
 	},
 ]
 
-describe('getBookmarks', () => {
+describe('getBookmarksByTutorialIds', () => {
 	jest.spyOn(learnApi, 'get')
 
 	const mockedGet = learnApi.get as jest.Mock
 	const testAccessToken = 'test-token'
+	const testTutorialIds = ['1', '2', '3']
 
 	afterAll(() => {
 		jest.restoreAllMocks()
@@ -40,11 +41,15 @@ describe('getBookmarks', () => {
 			}),
 		})
 
-		const result = await getBookmarks({
+		const result = await getBookmarksByTutorialIds({
 			accessToken: testAccessToken,
+			tutorialIds: testTutorialIds,
 		})
 
-		expect(mockedGet).lastCalledWith(BOOKMARK_API_ROUTE, testAccessToken)
+		expect(mockedGet).lastCalledWith(
+			`${BOOKMARK_API_ROUTE}?tutorialIds=${testTutorialIds.join(',')}`,
+			testAccessToken
+		)
 		expect(result).toBe(mockBookmarks)
 	})
 
@@ -53,29 +58,15 @@ describe('getBookmarks', () => {
 			ok: false,
 		})
 
-		expect(mockedGet).lastCalledWith(BOOKMARK_API_ROUTE, testAccessToken)
-		expect(async () =>
-			getBookmarks({
-				accessToken: testAccessToken,
-			})
-		).rejects.toThrowError()
-	})
-
-	test('appends `tutorialIds` query parameter when given `tutorialIds`', async () => {
-		mockedGet.mockResolvedValueOnce({
-			ok: true,
-			json: () => ({ result: [] }),
-		})
-
-		const testIds = ['1', '2', '3']
-		await getBookmarks({
-			accessToken: testAccessToken,
-			tutorialIds: testIds,
-		})
-
 		expect(mockedGet).lastCalledWith(
-			`${BOOKMARK_API_ROUTE}?tutorialIds=${testIds.join(',')}`,
+			`${BOOKMARK_API_ROUTE}?tutorialIds=${testTutorialIds.join(',')}`,
 			testAccessToken
 		)
+		expect(async () =>
+			getBookmarksByTutorialIds({
+				accessToken: testAccessToken,
+				tutorialIds: testTutorialIds,
+			})
+		).rejects.toThrowError()
 	})
 })
