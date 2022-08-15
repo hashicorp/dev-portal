@@ -1,25 +1,32 @@
+// Third-party imports
 import React, { useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import { Toaster } from 'components/toast'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LazyMotion } from 'framer-motion'
 import { SessionProvider } from 'next-auth/react'
+
+// HashiCorp imports
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
+
+// Global imports
 import {
 	AllProductDataProvider,
 	CurrentProductProvider,
 	DeviceSizeProvider,
 } from 'contexts'
-import EmptyLayout from 'layouts/empty'
-import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
-import './style.css'
+import { isDeployPreview, isPreview } from 'lib/env-checks'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
+import EmptyLayout from 'layouts/empty'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
+import { Toaster } from 'components/toast'
+
+// Local imports
+import './style.css'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
