@@ -42,8 +42,7 @@ const getBookmarks = async ({
 
 	// Throw an error if result is not OK
 	const error = await toError(requestResult)
-	console.log(error)
-	// throw error
+	throw error
 }
 
 export type { GetBookmarksOptions, GetBookmarksResult }
