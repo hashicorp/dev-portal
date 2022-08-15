@@ -21,7 +21,7 @@ describe('getBookmark', () => {
 	const mockedGet = get as jest.Mock
 	const wrappedGetBookmark = async () =>
 		getBookmark({
-			accessToken: 'stuff',
+			accessToken: 'test-token',
 			tutorialId: '123',
 		})
 
@@ -42,7 +42,7 @@ describe('getBookmark', () => {
 		expect(result).toBeNull()
 	})
 
-	test('returns boomkmark object if `ok`', async () => {
+	test('returns bookmark object if `ok`', async () => {
 		mockedGet.mockResolvedValueOnce({
 			ok: true,
 			json: () => ({
