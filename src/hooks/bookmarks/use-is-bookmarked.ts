@@ -34,4 +34,5 @@ const useIsBookmarked = ({
 	}
 }
 
+export type { UseIsBookmarkedOptions, UseIsBookmarkedResult }
 export { useIsBookmarked }
