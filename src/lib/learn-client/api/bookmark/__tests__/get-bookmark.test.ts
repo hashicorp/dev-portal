@@ -23,10 +23,6 @@ describe('getBookmark', () => {
 	const testAccessToken = 'test-token'
 	const testTutorialId = mockBookmark.tutorial_id
 
-	beforeEach(() => {
-		mockedGet.mockClear()
-	})
-
 	afterAll(async () => {
 		jest.mock('lib/learn-client', () => {
 			const originalModule = jest.requireActual('lib/learn-client')
@@ -44,7 +40,7 @@ describe('getBookmark', () => {
 			tutorialId: testTutorialId,
 		})
 
-		expect(mockedGet).toHaveBeenCalledWith(
+		expect(mockedGet).lastCalledWith(
 			`${BOOKMARK_API_ROUTE}/${testTutorialId}`,
 			testAccessToken
 		)
@@ -64,7 +60,7 @@ describe('getBookmark', () => {
 			tutorialId: testTutorialId,
 		})
 
-		expect(mockedGet).toHaveBeenCalledWith(
+		expect(mockedGet).lastCalledWith(
 			`${BOOKMARK_API_ROUTE}/${testTutorialId}`,
 			testAccessToken
 		)
@@ -83,7 +79,7 @@ describe('getBookmark', () => {
 					tutorialId: testTutorialId,
 				})
 		).rejects.toThrowError()
-		expect(mockedGet).toHaveBeenCalledWith(
+		expect(mockedGet).lastCalledWith(
 			`${BOOKMARK_API_ROUTE}/${testTutorialId}`,
 			testAccessToken
 		)

@@ -48,7 +48,7 @@ describe('getBookmarks', () => {
 			accessToken: testAccessToken,
 		})
 
-		expect(get).toHaveBeenCalledWith(BOOKMARK_API_ROUTE, testAccessToken)
+		expect(mockedGet).lastCalledWith(BOOKMARK_API_ROUTE, testAccessToken)
 		expect(result).toBe(mockBookmarks)
 	})
 
@@ -57,7 +57,7 @@ describe('getBookmarks', () => {
 			ok: false,
 		})
 
-		expect(get).toHaveBeenCalledWith(BOOKMARK_API_ROUTE, testAccessToken)
+		expect(mockedGet).lastCalledWith(BOOKMARK_API_ROUTE, testAccessToken)
 		expect(async () =>
 			getBookmarks({
 				accessToken: testAccessToken,
@@ -77,7 +77,7 @@ describe('getBookmarks', () => {
 			tutorialIds: testIds,
 		})
 
-		expect(get).toHaveBeenCalledWith(
+		expect(mockedGet).lastCalledWith(
 			`${BOOKMARK_API_ROUTE}?tutorialIds=${testIds.join(',')}`,
 			testAccessToken
 		)
