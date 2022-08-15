@@ -273,7 +273,7 @@ export function getStaticGenerationFunctions<
 					levelUpButtonText: `${product.name} Home`,
 				},
 				menuItems: navDataWithFullPaths as EnrichedNavItem[],
-				// If the title is not hidden for this rootDocsPath, include it
+				// TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
 				title: BASE_PATHS_TO_NAMES[basePath] || product.name,
 			}
 			// If the title is not hidden for this rootDocsPath, include it
