@@ -115,6 +115,20 @@ interface RootDocsPath {
 	 * content API should pull from. Defaults to `main`.
 	 */
 	mainBranch?: string
+
+	/**
+	 * An optional property to hide the title of this rootDocsPath
+	 * in the sidebar. Used for Terraform routes where sidebar titles
+	 * are present in nav-data.json.
+	 */
+	hideSidebarTitle?: boolean
+
+	/**
+	 * An optional property to add an "overview" item to the sidebar.
+	 * The `href` for this item will lead to the root docs path,
+	 * and will dynamically account for version context.
+	 */
+	addOverviewItem?: boolean
 }
 
 /**
