@@ -27,7 +27,7 @@ const getBookmarks = async ({
 	// Build the API route to make a request to
 	let requestRoute = BOOKMARK_API_ROUTE
 	if (tutorialIds && tutorialIds.length > 0) {
-		const commaSeparatedIds = tutorialIds?.join(',')
+		const commaSeparatedIds = tutorialIds.join(',')
 		requestRoute = `${requestRoute}?tutorialIds=${commaSeparatedIds}`
 	}
 
