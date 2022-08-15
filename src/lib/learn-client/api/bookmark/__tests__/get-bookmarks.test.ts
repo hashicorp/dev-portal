@@ -5,13 +5,19 @@ import { BOOKMARK_API_ROUTE } from '..'
 
 const mockBookmarks: ApiBookmark[] = [
 	{
+		created_at: null,
+		id: 'test-bookmark-1',
 		tutorial_id: 'test-tutorial-1',
 		tutorial: {} as $TSFixMe,
+		updated_at: null,
 		user_id: 'test-user',
 	},
 	{
+		created_at: null,
+		id: 'test-bookmark-2',
 		tutorial_id: 'test-tutorial-2',
 		tutorial: {} as $TSFixMe,
+		updated_at: null,
 		user_id: 'test-user',
 	},
 ]

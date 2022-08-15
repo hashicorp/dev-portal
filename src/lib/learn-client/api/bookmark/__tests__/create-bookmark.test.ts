@@ -4,8 +4,11 @@ import { createBookmark } from '../create-bookmark'
 import { BOOKMARK_API_ROUTE } from '..'
 
 const mockBookmark: ApiBookmark = {
+	created_at: null,
+	id: 'test-bookmark-1',
 	tutorial_id: 'test-tutorial-1',
 	tutorial: {} as $TSFixMe,
+	updated_at: null,
 	user_id: 'test-user',
 }
 

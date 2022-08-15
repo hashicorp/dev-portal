@@ -75,7 +75,7 @@ export interface ApiCollectionTutorial
 	tutorial: ApiTutorial
 }
 
-export interface ApiBookmark {
+export interface ApiBookmark extends BaseModel {
 	tutorial_id: ApiTutorial['id']
 	tutorial: ApiTutorial
 	user_id: string
