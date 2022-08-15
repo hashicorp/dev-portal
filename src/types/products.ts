@@ -121,7 +121,7 @@ interface RootDocsPath {
 	 * in the sidebar. Used for Terraform routes where sidebar titles
 	 * are present in nav-data.json.
 	 */
-	hideSidebarTitle?: boolean
+	visuallyHideSidebarTitle?: boolean
 
 	/**
 	 * An optional property to add an "overview" item to the sidebar.

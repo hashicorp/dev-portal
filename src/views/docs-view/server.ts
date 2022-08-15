@@ -277,7 +277,7 @@ export function getStaticGenerationFunctions<
 				title: BASE_PATHS_TO_NAMES[basePath] || product.name,
 			}
 			// If the title is not hidden for this rootDocsPath, include it
-			if (currentRootDocsPath.hideSidebarTitle) {
+			if (currentRootDocsPath.visuallyHideSidebarTitle) {
 				docsSidebarLevel.visuallyHideTitle = true
 			}
 			// If we want to add an "overview" item, add one
