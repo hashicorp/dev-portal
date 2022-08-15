@@ -59,7 +59,17 @@ export default function App({
 	 * between different users and requests, and that only one is created per
 	 * component lifecycle.
 	 */
-	const [queryClient] = useState(() => new QueryClient())
+	const [queryClient] = useState(
+		() =>
+			new QueryClient({
+				defaultOptions: {
+					queries: {
+						// TODO: refine this value or set by HASHI_ENV
+						staleTime: Infinity,
+					},
+				},
+			})
+	)
 
 	const Layout = Component.layout ?? EmptyLayout
 	const currentProduct = pageProps.product || null
