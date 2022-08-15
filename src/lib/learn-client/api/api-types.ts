@@ -75,6 +75,12 @@ export interface ApiCollectionTutorial
 	tutorial: ApiTutorial
 }
 
+export interface ApiBookmark {
+	tutorial_id: ApiTutorial['id']
+	tutorial: ApiTutorial
+	user_id: string
+}
+
 export interface ApiProduct extends Omit<ContentBaseModel, 'slug'> {
 	slug: ProductOption
 	docs_url: string
