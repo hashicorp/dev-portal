@@ -23,7 +23,7 @@ const deleteBookmark = async ({
 	// Build the API route to make a request to
 	const requestRoute = `${BOOKMARK_API_ROUTE}/${tutorialId}`
 
-	// Make the GET request
+	// Make the DELETE request
 	const requestResult = await destroy(requestRoute, accessToken)
 
 	// Return if result is OK
