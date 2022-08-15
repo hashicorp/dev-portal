@@ -1,10 +1,12 @@
 // Third-party imports
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LazyMotion } from 'framer-motion'
 import { SessionProvider } from 'next-auth/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 // HashiCorp imports
 import '@hashicorp/platform-util/nprogress/style.css'
@@ -52,6 +54,13 @@ export default function App({
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
+	/**
+	 * Initalize QueryClient with `useState` to ensure that data is not shared
+	 * between different users and requests, and that only one is created per
+	 * component lifecycle.
+	 */
+	const [queryClient] = useState(() => new QueryClient())
+
 	const Layout = Component.layout ?? EmptyLayout
 	const currentProduct = pageProps.product || null
 
@@ -65,7 +74,7 @@ export default function App({
 	}
 
 	return (
-		<>
+		<QueryClientProvider client={queryClient}>
 			<SSRProvider>
 				<ErrorBoundary FallbackComponent={DevDotClient}>
 					<SessionProvider session={session}>
@@ -87,6 +96,7 @@ export default function App({
 											</Layout>
 											<Toaster />
 											{showProductSwitcher ? <PreviewProductSwitcher /> : null}
+											<ReactQueryDevtools />
 										</LazyMotion>
 									</CodeTabsProvider>
 								</CurrentProductProvider>
@@ -95,7 +105,7 @@ export default function App({
 					</SessionProvider>
 				</ErrorBoundary>
 			</SSRProvider>
-		</>
+		</QueryClientProvider>
 	)
 }
 
