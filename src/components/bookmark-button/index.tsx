@@ -3,9 +3,8 @@ import s from './bookmark-button.module.css'
 
 /**
  * TODO
- * - add button markup
- * - add prop for link handling
  * - create a 'plugged' in HOC that can render modals, update bookmark state etc.
+ * This HOC will be used by this button and the one in tutorial meta
  */
 
 interface BookmarkButtonProps {
@@ -17,9 +16,20 @@ export default function BookmarkButton({ isBookmarked }: BookmarkButtonProps) {
 	if (!__config.flags.enable_auth) {
 		return null
 	}
+	const helpText = isBookmarked ? `Remove bookmark` : `Add bookmark`
 	return (
-		<span className={s.bookmarkIconWrap}>
+		<button
+			aria-pressed={!!isBookmarked}
+			onClick={() => {
+				// TODO use the create / destroy methods in the client
+				// or render dialog to prompt auth if not auth'd
+				console.log('Bookmark clicked!')
+			}}
+			aria-label={helpText}
+			title={helpText}
+			className={s.button}
+		>
 			{isBookmarked ? <RemoveBookmarkIcon /> : <AddBookmarkIcon />}
-		</span>
+		</button>
 	)
 }

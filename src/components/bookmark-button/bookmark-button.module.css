@@ -1,7 +1,23 @@
-.bookmarkIconWrap {
-	--icon-height-width: 16px;
+.button {
+	--buttonSize: 16px;
+	--bookmarkIconFillColor: var(--token-color-foreground-faint);
+	--addRemoveSymbolOpacity: 0;
 
+	fill: var(--color);
 	position: relative;
-	width: var(--icon-height-width);
-	height: var(--icon-height-width);
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	z-index: 1;
+	background: none;
+	border: none;
+	padding: 0;
+	width: var(--buttonSize);
+	height: var(--buttonSize);
+
+	&:hover,
+	&:focus {
+		--bookmarkIconFillColor: var(--token-color-foreground-strong);
+		--addRemoveSymbolOpacity: 1;
+	}
 }
