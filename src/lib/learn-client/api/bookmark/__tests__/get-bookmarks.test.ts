@@ -1,5 +1,5 @@
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
-import { get } from 'lib/learn-client'
+import * as learnApi from 'lib/learn-client'
 import { getBookmarks } from '../get-bookmarks'
 import { BOOKMARK_API_ROUTE } from '..'
 
@@ -22,24 +22,14 @@ const mockBookmarks: ApiBookmark[] = [
 	},
 ]
 
-jest.mock('lib/learn-client', () => {
-	const originalModule = jest.requireActual('lib/learn-client')
-	return {
-		__esModule: true,
-		...originalModule,
-		get: jest.fn(),
-	}
-})
-
 describe('getBookmarks', () => {
-	const mockedGet = get as jest.Mock
+	jest.spyOn(learnApi, 'get')
+
+	const mockedGet = learnApi.get as jest.Mock
 	const testAccessToken = 'test-token'
 
 	afterAll(() => {
-		jest.mock('lib/learn-client', () => {
-			const originalModule = jest.requireActual('lib/learn-client')
-			return originalModule
-		})
+		jest.restoreAllMocks()
 	})
 
 	test('returns array of all bookmark objects if `ok`', async () => {

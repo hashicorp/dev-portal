@@ -1,5 +1,5 @@
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
-import { destroy } from 'lib/learn-client'
+import * as learnApi from 'lib/learn-client'
 import { deleteBookmark } from '../delete-bookmark'
 import { BOOKMARK_API_ROUTE } from '..'
 
@@ -12,25 +12,15 @@ const mockBookmark: ApiBookmark = {
 	user_id: 'test-user',
 }
 
-jest.mock('lib/learn-client', () => {
-	const originalModule = jest.requireActual('lib/learn-client')
-	return {
-		__esModule: true,
-		...originalModule,
-		destroy: jest.fn(),
-	}
-})
-
 describe('deleteBookmark', () => {
-	const mockedDestroy = destroy as jest.Mock
+	jest.spyOn(learnApi, 'destroy')
+
+	const mockedDestroy = learnApi.destroy as jest.Mock
 	const testAccessToken = 'test-token'
 	const testTutorialId = mockBookmark.tutorial_id
 
 	afterAll(() => {
-		jest.mock('lib/learn-client', () => {
-			const originalModule = jest.requireActual('lib/learn-client')
-			return originalModule
-		})
+		jest.restoreAllMocks()
 	})
 
 	test('returns if `ok`', async () => {
