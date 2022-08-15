@@ -1,0 +1,5 @@
+.bookmarkButton {
+	&:hover {
+		color: var(--token-color-foreground-strong);
+	}
+}

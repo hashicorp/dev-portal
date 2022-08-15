@@ -9,6 +9,7 @@ import {
 } from 'components/tutorial-collection-cards'
 import s from './tutorial-card.module.css'
 import { buildAriaLabel } from './helpers'
+import BookmarkButton from 'components/bookmark-button'
 
 /**
  * Render a card that links to a tutorial.
@@ -21,6 +22,7 @@ function TutorialCard({
 	productsUsed,
 	hasVideo,
 	hasInteractiveLab,
+	isBookmarked = false,
 }: TutorialCardProps) {
 	/**
 	 * Build the array of badges to show at the bottom of the card.
@@ -44,7 +46,10 @@ function TutorialCard({
 
 	return (
 		<CardLink href={url} className={s.root} ariaLabel={ariaLabel}>
-			<CardEyebrow text={duration} />
+			<CardEyebrow className={s.eyebrow}>
+				<span>{duration}</span>
+				<BookmarkButton isBookmarked={isBookmarked} />
+			</CardEyebrow>
 			<CardHeading level={3} text={heading} />
 			<CardBody text={description} />
 			<CardBadges badges={badges} />

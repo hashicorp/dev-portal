@@ -28,10 +28,10 @@ function CollectionCard({
 	const hasLogo = Boolean(logo)
 	return (
 		<CardLink ariaLabel={heading} href={url} className={s.root}>
-			<CardEyebrow
-				icon={<IconCollections16 />}
-				text={`${tutorialCount} tutorial${tutorialCount !== 1 ? 's' : ''}`}
-			/>
+			<CardEyebrow>
+				<IconCollections16 />
+				{`${tutorialCount} tutorial${tutorialCount !== 1 ? 's' : ''}`}
+			</CardEyebrow>
 			{hasLogo && (
 				<span className={s.logoContainer}>
 					<CompanyLogo name={logo} />
