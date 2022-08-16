@@ -17,17 +17,21 @@ const useIsBookmarked = ({
 	tutorialId,
 }: UseIsBookmarkedOptions): UseIsBookmarkedResult => {
 	// Load up all bookmarks, since we know it primes queries & handles auth
-	const { isFetched: bookmarksAreFetched } = useAllBookmarks()
+	const { bookmarks, isFetched: bookmarksAreFetched } = useAllBookmarks()
 
-	// After bookmarks are fetched, query for bookmark for the given `tutorialId`
-	// Disable query until bookmarks have finished fetching
-	const { data: bookmark, ...restQueryResult } = useQuery(
-		['bookmark', tutorialId],
+	/**
+	 * After bookmarks are fetched, query for bookmark for the given `tutorialId`.
+	 * Query is disabled until bookmarks have finished fetching.
+	 *
+	 * @TODO Optimize. Iterating over all bookmarks for every `tutorialId` is not
+	 * efficient.
+	 */
+	const { data: isBookmarked, ...restQueryResult } = useQuery(
+		['isBookmarked', tutorialId],
+		() => !!bookmarks.find((bookmark) => bookmark.tutorial_id === tutorialId),
 		{ enabled: bookmarksAreFetched }
 	)
 
-	// If `bookmark` is `undefined`, then it is still loading
-	const isBookmarked = bookmark === undefined ? null : !!bookmark
 	return {
 		isBookmarked,
 		...restQueryResult,
