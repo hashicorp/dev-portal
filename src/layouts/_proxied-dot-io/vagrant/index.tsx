@@ -49,55 +49,59 @@ function VagrantIoLayout({ children, data }: Props): React.ReactElement {
 				icon={productData.metadata.icon}
 			/>
 
-			<Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
-				{productData.alertBannerActive && (
-					<AlertBanner
-						{...productData.alertBanner}
-						product={productData.slug as Products}
-						hideOnMobile
+			<ProductMetaProvider product={productData.slug as Products}>
+				<Min100Layout
+					footer={<Footer openConsentManager={openConsentManager} />}
+				>
+					{productData.alertBannerActive && (
+						<AlertBanner
+							{...productData.alertBanner}
+							product={productData.slug as Products}
+							hideOnMobile
+						/>
+					)}
+					<ProductSubnav
+						menuItems={[
+							{
+								text: 'Overview',
+								url: '/',
+								type: 'inbound',
+							},
+							'divider',
+							vagrantNav.useCases.length > 0
+								? {
+										text: 'Use Cases',
+										submenu: [
+											...vagrantNav.useCases.map((item: UseCase) => {
+												return {
+													text: item.text,
+													url: `/use-cases/${item.url}`,
+												}
+											}),
+										],
+								  }
+								: undefined,
+							{
+								text: 'Intro',
+								url: '/intro',
+								type: 'inbound',
+							},
+							{
+								text: 'Docs',
+								url: '/docs',
+								type: 'inbound',
+							},
+							{
+								text: 'Community',
+								url: '/community',
+								type: 'inbound',
+							},
+						].filter(Boolean)}
 					/>
-				)}
-				<ProductSubnav
-					menuItems={[
-						{
-							text: 'Overview',
-							url: '/',
-							type: 'inbound',
-						},
-						'divider',
-						vagrantNav.useCases.length > 0
-							? {
-									text: 'Use Cases',
-									submenu: [
-										...vagrantNav.useCases.map((item: UseCase) => {
-											return {
-												text: item.text,
-												url: `/use-cases/${item.url}`,
-											}
-										}),
-									],
-							  }
-							: undefined,
-						{
-							text: 'Intro',
-							url: '/intro',
-							type: 'inbound',
-						},
-						{
-							text: 'Docs',
-							url: '/docs',
-							type: 'inbound',
-						},
-						{
-							text: 'Community',
-							url: '/community',
-							type: 'inbound',
-						},
-					].filter(Boolean)}
-				/>
-				<div className={themeClass}>{children}</div>
-			</Min100Layout>
-			<ConsentManager />
+					<div className={themeClass}>{children}</div>
+				</Min100Layout>
+				<ConsentManager />
+			</ProductMetaProvider>
 		</>
 	)
 }

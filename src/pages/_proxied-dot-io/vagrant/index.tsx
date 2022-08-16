@@ -22,7 +22,10 @@ export default function Homepage({ data }): React.ReactElement {
 		heroCards,
 		introHeading,
 		introDescription,
-		introFeatures,
+		introOfferingsImage,
+		introOfferings,
+		introOfferingsCta,
+		introCallout,
 		introVideo,
 		inPracticeHeading,
 		inPracticeDescription,
@@ -45,6 +48,7 @@ export default function Homepage({ data }): React.ReactElement {
 		preFooterDescription,
 		preFooterCtas,
 	} = data
+	const _introCallout = introCallout[0]
 	const _introVideo = introVideo[0]
 
 	return (
@@ -69,19 +73,49 @@ export default function Homepage({ data }): React.ReactElement {
 				brand="vagrant"
 				heading={introHeading}
 				description={introDescription}
-				features={introFeatures}
-				video={{
-					youtubeId: _introVideo?.youtubeId,
-					thumbnail: _introVideo?.thumbnail?.url,
-					heading: _introVideo?.heading,
-					description: _introVideo?.description,
-					person: {
-						name: _introVideo?.personName,
-						description: _introVideo?.personDescription,
-						avatar: _introVideo?.personAvatar?.url,
+				offerings={{
+					image: {
+						src: introOfferingsImage.url,
+						width: introOfferingsImage.width,
+						height: introOfferingsImage.height,
+						alt: introOfferingsImage.alt,
 					},
+					list: introOfferings,
+					cta: introOfferingsCta[0],
 				}}
+				callout={
+					_introCallout
+						? {
+								link: _introCallout.link,
+								heading: _introCallout.heading,
+								description: _introCallout.description,
+								cta: _introCallout.cta || 'Learn more',
+								thumbnail: {
+									src: _introCallout.thumbnail.url,
+									width: _introCallout.thumbnail.width,
+									height: _introCallout.thumbnail.height,
+									alt: _introCallout.thumbnail.alt,
+								},
+						  }
+						: null
+				}
+				video={
+					_introVideo
+						? {
+								youtubeId: _introVideo.youtubeId,
+								thumbnail: _introVideo.thumbnail.url,
+								heading: _introVideo.heading,
+								description: _introVideo.description,
+								person: {
+									name: _introVideo.personName,
+									description: _introVideo.personDescription,
+									avatar: _introVideo.personAvatar?.url,
+								},
+						  }
+						: null
+				}
 			/>
+
 			{useCases.length > 0 ? (
 				<section className={s.useCases}>
 					<div className={s.container}>
