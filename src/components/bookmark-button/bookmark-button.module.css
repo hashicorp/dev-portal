@@ -42,3 +42,7 @@
 		outline: transparent;
 	}
 }
+
+.toastIcon {
+	color: var(--token-color-foreground-faint);
+}
