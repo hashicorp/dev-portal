@@ -27,11 +27,11 @@
 	}
 
 	&:focus-visible::before {
-		border-radius: 2px;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		left: 0;
+		border-radius: 5px;
+		right: -1px;
+		top: -1px;
+		bottom: -1px;
+		left: -1px;
 		box-shadow: var(--token-focus-ring-action-box-shadow);
 		content: '';
 		position: absolute;
