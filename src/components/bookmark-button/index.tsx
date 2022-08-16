@@ -21,7 +21,7 @@ export default function BookmarkButton({ isBookmarked }: BookmarkButtonProps) {
 	const helpText = isBookmarked ? `Remove bookmark` : `Add bookmark`
 	return (
 		<button
-			aria-pressed={!!isBookmarked}
+			aria-pressed={isBookmarked}
 			onClick={() => {
 				// TODO use the create / destroy methods in the client
 				// or render dialog to prompt auth if not auth'd
