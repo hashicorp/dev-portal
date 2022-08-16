@@ -95,7 +95,7 @@
 				"pathSuffix": "api-docs"
 			},
 			{
-				"label": "Intro",
+				"label": "Introduction",
 				"icon": "entry-point",
 				"pathSuffix": "intro"
 			},
@@ -120,7 +120,7 @@
 		},
 		{
 			"iconName": "entry-point",
-			"name": "Intro",
+			"name": "Introduction",
 			"path": "intro"
 		},
 		{
