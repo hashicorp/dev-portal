@@ -1,5 +1,6 @@
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import s from './bookmark-button.module.css'
+import useAuthentication from 'hooks/use-authentication'
 
 /**
  * TODO
@@ -12,8 +13,9 @@ interface BookmarkButtonProps {
 }
 
 export default function BookmarkButton({ isBookmarked }: BookmarkButtonProps) {
+	const { isAuthEnabled } = useAuthentication()
 	// NOTE! - hiding this component from prod until auth is enabled
-	if (!__config.flags.enable_auth) {
+	if (!isAuthEnabled) {
 		return null
 	}
 	const helpText = isBookmarked ? `Remove bookmark` : `Add bookmark`
@@ -26,7 +28,6 @@ export default function BookmarkButton({ isBookmarked }: BookmarkButtonProps) {
 				console.log('Bookmark clicked!')
 			}}
 			aria-label={helpText}
-			title={helpText}
 			className={s.button}
 		>
 			{isBookmarked ? <RemoveBookmarkIcon /> : <AddBookmarkIcon />}

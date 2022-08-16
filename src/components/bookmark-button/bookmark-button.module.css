@@ -14,7 +14,10 @@
 	padding: 0;
 	width: var(--buttonSize);
 	height: var(--buttonSize);
-	transition: color 0.175s ease;
+
+	@media (prefers-reduced-motion: no-preference) {
+		transition: color 0.175s ease;
+	}
 
 	&:hover,
 	&:focus {

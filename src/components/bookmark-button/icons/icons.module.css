@@ -4,22 +4,18 @@
 
 .position {
 	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 10;
 }
 
 .base {
 	opacity: var(--baseIconOpacity);
-	transition: opacity 0.175s ease;
-}
-
-.baseHover {
-	opacity: var(--baseIconOpacity);
-	transition: opacity 0.175s ease;
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity 0.175s ease;
+	}
 }
 
 .hover {
 	opacity: var(--hoverIconOpacity);
-	transition: opacity 0.175s ease;
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity 0.175s ease;
+	}
 }
