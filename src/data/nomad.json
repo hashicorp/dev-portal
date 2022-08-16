@@ -73,15 +73,6 @@
 		}
 	],
 	"basePaths": ["docs", "api-docs", "plugins", "tools", "intro"],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/nomad/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/nomad/docs/install"
-			}
-		]
-	},
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",

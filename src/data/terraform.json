@@ -21,15 +21,6 @@
 		"plugin/sdkv2",
 		"registry"
 	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/terraform" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/terraform"
-			}
-		]
-	},
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",

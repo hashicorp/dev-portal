@@ -82,14 +82,5 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/packer/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/packer/docs/install"
-			}
-		]
-	}
+	]
 }

@@ -69,17 +69,5 @@
 			"name": "API",
 			"path": "api-docs"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{
-				"title": "Introduction",
-				"fullPath": "/boundary/docs/what-is-boundary"
-			},
-			{
-				"title": "Getting Started",
-				"fullPath": "/boundary/docs/getting-started"
-			}
-		]
-	}
+	]
 }

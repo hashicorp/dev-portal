@@ -78,14 +78,5 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/waypoint/docs/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/waypoint/docs/getting-started"
-			}
-		]
-	}
+	]
 }

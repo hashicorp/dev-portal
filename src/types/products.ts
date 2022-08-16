@@ -122,10 +122,7 @@ interface ProductData extends Product {
 		indexName: string
 	}
 	basePaths: string[]
-	rootDocsPaths?: RootDocsPath[]
-	sidebar: {
-		landingPageNavData: MenuItem[]
-	}
+	rootDocsPaths: RootDocsPath[]
 }
 
 interface ProductWithCurrentRootDocsPath extends ProductData {

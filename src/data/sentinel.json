@@ -68,14 +68,5 @@
 			"name": "Intro",
 			"path": "intro"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/sentinel/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/sentinel/intro/getting-started"
-			}
-		]
-	}
+	]
 }

@@ -158,17 +158,5 @@
 			"name": "API",
 			"path": "api-docs"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{
-				"title": "Introduction",
-				"fullPath": "/vault/docs/what-is-vault"
-			},
-			{
-				"title": "Getting Started",
-				"fullPath": "/vault/docs/install"
-			}
-		]
-	}
+	]
 }
