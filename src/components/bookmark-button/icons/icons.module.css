@@ -3,21 +3,25 @@
 */
 
 .icon {
-	fill: var(--bookmarkIconFillColor);
+	color: var(--bookmarkIconFillColor);
 	position: absolute;
 	top: 0;
 	left: 0;
 	z-index: 10;
-	transition: fill 0.15s ease;
+	transition: color 0.175s ease;
 }
 
-#addSymbol {
-	opacity: var(--addRemoveSymbolOpacity);
-	transition: opacity 0.15s ease, fill 0.1s ease;
+.base {
+	opacity: var(--baseIconOpacity);
+	transition: opacity 0.175s ease;
 }
 
-#removeSymbol {
-	fill: var(--token-color-palette-neutral-0);
-	opacity: var(--addRemoveSymbolOpacity);
-	transition: opacity 0.15s ease;
+.baseHover {
+	opacity: var(--baseIconOpacity);
+	transition: opacity 0.175s ease;
+}
+
+.hover {
+	opacity: var(--hoverIconOpacity);
+	transition: opacity 0.175s ease;
 }

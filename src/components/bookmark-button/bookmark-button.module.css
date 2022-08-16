@@ -1,7 +1,8 @@
 .button {
 	--buttonSize: 16px;
 	--bookmarkIconFillColor: var(--token-color-foreground-faint);
-	--addRemoveSymbolOpacity: 0;
+	--hoverIconOpacity: 0;
+	--baseIconOpacity: 1;
 
 	fill: var(--color);
 	position: relative;
@@ -18,6 +19,7 @@
 	&:hover,
 	&:focus {
 		--bookmarkIconFillColor: var(--token-color-foreground-strong);
-		--addRemoveSymbolOpacity: 1;
+		--hoverIconOpacity: 1;
+		--baseIconOpacity: 0;
 	}
 }
