@@ -160,7 +160,7 @@ function prepareNavNodeForClient({
 			 * convert it to a NavLeaf node, and treat it similarly.
 			 */
 			let fullPath
-			if (node.href.startsWith(`/${basePaths[0]}`)) {
+			if (node.href.startsWith(`/${basePaths[0]}/`)) {
 				/**
 				 * If the path already starts with the basePaths[0], the product slug,
 				 * we use the href as the fullPath directly.
