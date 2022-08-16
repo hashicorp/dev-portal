@@ -96,7 +96,7 @@
 			},
 			{
 				"label": "Intro",
-				"icon": "docs",
+				"icon": "entry-point",
 				"pathSuffix": "intro"
 			},
 			{
@@ -119,7 +119,7 @@
 			"shortName": "Documentation"
 		},
 		{
-			"iconName": "docs",
+			"iconName": "entry-point",
 			"name": "Intro",
 			"path": "intro"
 		},

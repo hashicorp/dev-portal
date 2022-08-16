@@ -13,12 +13,13 @@ import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
 
 // HashiCorp imports
-import { IconPlug16 } from '@hashicorp/flight-icons/svg-react/plug-16'
+import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
+import { IconEntryPoint16 } from '@hashicorp/flight-icons/svg-react/entry-point-16'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
+import { IconPlug16 } from '@hashicorp/flight-icons/svg-react/plug-16'
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
-import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
 
 // Global imports
 import { ProductSlug } from 'types/products'
@@ -43,11 +44,12 @@ import s from './dropdown-menu.module.css'
  * The icons supported in this menu in addition to the Product logo icons.
  */
 const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
-	plug: <IconPlug16 />,
-	docs: <IconDocs16 />,
-	home: <IconHome16 />,
-	terminalScreen: <IconTerminalScreen16 />,
 	api: <IconApi16 />,
+	docs: <IconDocs16 />,
+	'entry-point': <IconEntryPoint16 />,
+	home: <IconHome16 />,
+	plug: <IconPlug16 />,
+	terminalScreen: <IconTerminalScreen16 />,
 }
 
 /**
