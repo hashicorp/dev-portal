@@ -1,0 +1,13 @@
+.option {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.icon {
+	filter: grayscale(100%) opacity(0.5) contrast(0);
+
+	&.active {
+		filter: none;
+	}
+}

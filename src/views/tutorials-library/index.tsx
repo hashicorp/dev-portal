@@ -21,8 +21,13 @@ import FilterInput from 'components/filter-input'
 import ProductIcon from 'components/product-icon'
 import { ProductSlug } from 'types/products'
 
+import productFilterStyle from './product-filter.module.css'
 import filterSectionStyle from './filter-section.module.css'
 import currentFiltersStyle from './current-filters.module.css'
+
+const validProductSlugs = Object.keys(productSlugsToNames).filter(
+	(slug) => !['hcp', 'sentinel'].includes(slug)
+)
 
 /**
  * Results
@@ -72,23 +77,33 @@ export function ProductFilter() {
 
 	return (
 		<FilterSection heading="Product">
-			{Object.keys(productSlugsToNames).map((slug) => {
+			{validProductSlugs.map((slug) => {
 				const isProductSelected = selectedProducts.includes(slug)
 
 				const productName = productSlugsToNames[slug]
 
+				const inputId = `filter-${slug}`
+
 				return (
 					<li key={slug}>
-						<input
-							type="checkbox"
-							name={slug}
-							checked={isProductSelected}
-							onChange={() => {
-								refine(slug)
-							}}
-						/>
-						<ProductIcon productSlug={slug as ProductSlug} />
-						{productName}
+						<label htmlFor={inputId} className={productFilterStyle.option}>
+							<input
+								type="checkbox"
+								id={inputId}
+								checked={isProductSelected}
+								onChange={() => {
+									refine(slug)
+								}}
+							/>
+							<ProductIcon
+								productSlug={slug as ProductSlug}
+								className={classNames(
+									productFilterStyle.icon,
+									isProductSelected && productFilterStyle.active
+								)}
+							/>
+							{productName}
+						</label>
 					</li>
 				)
 			})}
@@ -121,7 +136,7 @@ export function EditionFilter() {
 					<input
 						type="radio"
 						radioGroup="edition"
-						name={'All'}
+						id={'all'}
 						checked={!isAnyEditionSelected}
 						onChange={() => refine(null)}
 					/>
@@ -131,13 +146,15 @@ export function EditionFilter() {
 			{EDITIONS.map(({ value, label }) => {
 				const isEditionSelected = value === selectedAddition
 
+				const inputId = `filter-${value}`
+
 				return (
 					<li key={value}>
-						<label htmlFor={value}>
+						<label htmlFor={inputId}>
 							<input
 								type="radio"
 								radioGroup="edition"
-								name={value}
+								id={inputId}
 								checked={isEditionSelected}
 								onChange={() => refine(value)}
 							/>
@@ -153,11 +170,13 @@ export function EditionFilter() {
 function ToggleRefinement({ attribute, label }) {
 	const { value, refine } = useToggleRefinement({ attribute })
 
+	const inputId = `filter-${label}`
+
 	return (
-		<label htmlFor={label}>
+		<label htmlFor={inputId}>
 			<input
 				type="checkbox"
-				name={label}
+				id={inputId}
 				checked={value.isRefined}
 				onChange={() => {
 					refine({ isRefined: value.isRefined })
@@ -218,6 +237,17 @@ export function CurrentFilters() {
 							labelText = resource.label
 						}
 
+						if (attribute === 'edition') {
+							const edition = EDITIONS.find(
+								(edition) => edition.value === label
+							)
+							labelText = edition.label
+						}
+
+						if (attribute === 'products') {
+							labelText = productSlugsToNames[label]
+						}
+
 						return (
 							<li key={labelText}>
 								<button
@@ -248,9 +278,9 @@ function FilterSection({ heading, children }) {
  *
  * @TODO debounce querying
  * @TODO generate proper tutorial link
- * @TODO persist state to URL
  * @TODO no results state
  * @TODO filter styling
+ * @TODO pagination
  */
 export default function TutorialsLibraryView() {
 	const [query, setQuery] = useState<string>()

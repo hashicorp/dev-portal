@@ -68,12 +68,11 @@ const SidebarSidecarLayoutContent = ({
 		!isDesktop && sidebarIsVisible
 	)
 
-	const SidebarContent = (): ReactElement => {
-		if (AlternateSidebar && !sidebarProps?.menuItems) {
-			return <AlternateSidebar {...sidebarProps} />
-		}
-
-		return <Sidebar {...sidebarProps} />
+	let sidebarContent = null
+	if (AlternateSidebar && !sidebarProps?.menuItems) {
+		sidebarContent = <AlternateSidebar {...sidebarProps} />
+	} else {
+		sidebarContent = <Sidebar {...sidebarProps} />
 	}
 
 	const SidecarContent = (): ReactElement => {
@@ -93,7 +92,7 @@ const SidebarSidecarLayoutContent = ({
 			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
 					<MobileAuthenticationControls />
-					<SidebarContent />
+					{sidebarContent}
 				</div>
 				{versions ? <DocsVersionSwitcher options={versions} /> : null}
 			</MobileMenuContainer>
