@@ -309,6 +309,9 @@ export function getStaticGenerationFunctions<
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.
 			 * Currently, HCP and Sentinel docs are stored in private repositories.
+			 *
+			 * Note: If we need more granularity here, we could change this to be
+			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
 			 */
 			const isHcp = product.slug == 'hcp'
 			const isSentinel = product.slug == 'sentinel'
