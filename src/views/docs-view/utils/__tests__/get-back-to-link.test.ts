@@ -32,10 +32,7 @@ describe('fullPathFromRelativeHref', () => {
 		expect(getBackToLink(currentRootDocsPath, productData)).toEqual(expected)
 	})
 
-	/**
-	 * TODO: implement so that this doesn't fail when not skipped.
-	 */
-	it.skip('generates a level-up backToLink for a nested currentRootDocsPath', () => {
+	it('generates a level-up backToLink for a nested currentRootDocsPath', () => {
 		// Construct arguments for this test case
 		const currentRootDocsPath = {
 			name: 'Plugin Framework',
@@ -70,10 +67,7 @@ describe('fullPathFromRelativeHref', () => {
 		expect(getBackToLink(currentRootDocsPath, productData)).toEqual(expected)
 	})
 
-	/**
-	 * TODO: implement so that this doesn't fail when not skipped.
-	 */
-	it.skip('generates a generic backToLink for a nested currentRootDocsPath without a parent rootDocsPath', () => {
+	it('generates a generic backToLink for a nested currentRootDocsPath without a parent rootDocsPath', () => {
 		// Construct arguments for this test case
 		const currentRootDocsPath = {
 			name: 'Plugin Framework',
