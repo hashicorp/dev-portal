@@ -19,12 +19,12 @@
 			}
 		]
 	},
-	"alertBannerActive": false,
+	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "June 21-22",
-		"url": "https://hashiconf.com/europe?utm_source=Banner",
-		"text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
-		"linkText": "Join Now",
+		"tag": "HashiConf Global",
+		"url": "https://hashiconf.com/global/?_gl=1*u898mc*_ga*Nzg2MzExNjMwLjE2NDQ5NDYzMDU.*_ga_P7S46ZYEKW*MTY1OTk4NjE2NC4xMjIuMS4xNjU5OTg5MjIxLjA.",
+		"text": "Join our HashiCorp community October 4-6 in Los Angeles, CA & virtual.",
+		"linkText": "Register Now",
 		"expirationDate": ""
 	},
 	"version": "2.2.19",
