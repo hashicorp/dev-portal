@@ -94,7 +94,6 @@ export function getStaticGenerationFunctions<
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	navDataPrefix,
-	showVersionSelect,
 }: {
 	product: ProductData
 	basePath: string
@@ -105,7 +104,6 @@ export function getStaticGenerationFunctions<
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
 	navDataPrefix?: string
-	showVersionSelect?: boolean
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -307,15 +305,21 @@ export function getStaticGenerationFunctions<
 
 			/**
 			 * Determine whether to show the version selector
+			 *
+			 * In most docs categories, we want to show the version selector if there
+			 * are multiple versions, or if the single version is not `v0.0.x`.
+			 * (We use `v0.0.x` as a placeholder version for un-versioned documentation)
 			 */
-			const shouldShowVersions = showVersionSelect === true
-			const shouldHideVersions = showVersionSelect === false
 			const hasMeaningfulVersions =
 				versions && (versions.length > 1 || versions[0].version !== 'v0.0.x')
-			if (
-				!shouldHideVersions &&
-				(shouldShowVersions || hasMeaningfulVersions)
-			) {
+			/**
+			 * For the /packer/plugins landing page, we want to hide the version selector,
+			 * even though we do have meaningful versions available
+			 */
+			const isPackerPlugins =
+				product.slug == 'packer' && currentRootDocsPath.path == 'plugins'
+
+			if (!isPackerPlugins && hasMeaningfulVersions) {
 				layoutProps.versions = versions
 			}
 
