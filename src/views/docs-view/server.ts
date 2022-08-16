@@ -299,13 +299,22 @@ export function getStaticGenerationFunctions<
 			 */
 			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
 				breadcrumbLinks,
-				githubFileUrl,
 				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here
 				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
 			}
 			if (showVersionSelect) {
 				layoutProps.versions = versions
+			}
+			/**
+			 * We want to show "Edit on GitHub" links for public content repos only.
+			 * Currently, HCP and Sentinel docs are stored in private repositories.
+			 */
+			const isHcp = product.slug == 'hcp'
+			const isSentinel = product.slug == 'sentinel'
+			const isPublicContentRepo = !isHcp && !isSentinel
+			if (isPublicContentRepo) {
+				layoutProps.githubFileUrl = githubFileUrl
 			}
 
 			const finalProps = {
