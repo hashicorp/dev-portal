@@ -1,6 +1,7 @@
 import { NavNode } from '@hashicorp/react-docs-sidenav/types'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import { MenuItem } from 'components/sidebar'
+import path from 'path'
 
 // TODO: export NavBranch and NavLeaf
 // TODO: types from react-docs-sidenav.
@@ -161,9 +162,9 @@ function prepareNavNodeForClient({
 			// (We expect this to be the product slug, eg "consul").
 
 			// If the path already starts with the base path (i.e. /vault), don't add it
-			const fullPath = node.href.startsWith(`/${basePaths[0]}`)
+			const fullPath = node.href.startsWith(`/${basePaths.join('/')}`)
 				? node.href
-				: `/${basePaths[0]}${node.href}`
+				: `/${path.join(basePaths.join('/'), node.href)}`
 
 			const preparedItem = {
 				...node,
