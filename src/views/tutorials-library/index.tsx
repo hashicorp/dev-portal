@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
 	useInstantSearch,
 	useSearchBox,
@@ -20,6 +20,7 @@ import TutorialCard, { TutorialCardProps } from 'components/tutorial-card'
 import FilterInput from 'components/filter-input'
 import ProductIcon from 'components/product-icon'
 import { ProductSlug } from 'types/products'
+import { getTutorialSlug } from 'views/collection-view/helpers'
 
 import productFilterStyle from './product-filter.module.css'
 import filterSectionStyle from './filter-section.module.css'
@@ -31,10 +32,13 @@ const validProductSlugs = Object.keys(productSlugsToNames).filter(
 
 /**
  * Results
+ *
+ * @TODO can we de-dupe with formatTutorialCard from 'components/tutorial-card/helpers'? The search result has `.products`, where
+ * as the helper expects `.productsUsed`
  */
 function getTutorialCardPropsFromHit(hit): TutorialCardProps {
 	return {
-		url: hit.slug,
+		url: getTutorialSlug(hit.slug, hit.defaultContext.slug),
 		duration: getReadableTime(hit.readTime),
 		heading: hit.name,
 		description: hit.description,
@@ -44,10 +48,6 @@ function getTutorialCardPropsFromHit(hit): TutorialCardProps {
 	}
 }
 
-/**
- *
- * @TODO fix URL to be correct for devdot
- */
 function Results() {
 	const { hits } = useHits()
 
@@ -287,7 +287,6 @@ function queryHook(query, search) {
 
 /**
  *
- * @TODO generate proper tutorial link
  * @TODO no results state
  * @TODO filter styling
  * @TODO pagination
