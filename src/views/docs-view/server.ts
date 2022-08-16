@@ -23,6 +23,7 @@ import {
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
+import { getBackToLink } from './utils/get-back-to-link'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -266,21 +267,8 @@ export function getStaticGenerationFunctions<
 			const sidebarNavDataLevels = [
 				generateTopLevelSidebarNavData(product.name),
 				generateProductLandingSidebarNavData(product),
-				/**
-				 * TODO: for nested rootDocsPaths, the backToLink props should
-				 * lead the previous rootDocsPath.
-				 *
-				 * A rootDocsPath is considered "nested" if its path contains a slash.
-				 * If we have a "nested" rootDocsPath, we should try to find the parent
-				 * rootDocsPath. If we can't find a "parent" rootDocsPath,
-				 * or if this is not a "nested" rootDocsPath, then we should use
-				 * a back-to "<product> Home" link.
-				 */
 				{
-					backToLinkProps: {
-						text: `${product.name} Home`,
-						href: `/${product.slug}`,
-					},
+					backToLinkProps: getBackToLink(currentRootDocsPath, product),
 					levelButtonProps: {
 						levelUpButtonText: `${product.name} Home`,
 					},
