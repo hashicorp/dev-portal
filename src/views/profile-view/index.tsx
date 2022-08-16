@@ -1,4 +1,4 @@
-import { useAllBookmarks } from 'hooks/bookmarks'
+import { useAllBookmarks, useBookmarkMutations } from 'hooks/bookmarks'
 import BaseNewLayout from 'layouts/base-new'
 import AuthenticatedView from 'views/authenticated-view'
 import Heading from 'components/heading'
@@ -16,6 +16,7 @@ const ProfileView = () => {
  */
 const ProfileViewContent = () => {
 	const { bookmarks, isLoading } = useAllBookmarks()
+	const { removeBookmark } = useBookmarkMutations()
 
 	if (isLoading) {
 		return <p>loading...</p>
@@ -28,7 +29,14 @@ const ProfileViewContent = () => {
 			</Heading>
 			<ul>
 				{bookmarks?.map((bookmark) => {
-					return <li key={bookmark.id}>{bookmark.tutorial.name}</li>
+					return (
+						<li key={bookmark.id}>
+							{bookmark.tutorial.name}
+							<button onClick={() => removeBookmark(bookmark.tutorial_id)}>
+								remove
+							</button>
+						</li>
+					)
 				})}
 			</ul>
 		</>
