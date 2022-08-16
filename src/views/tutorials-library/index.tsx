@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
 	useInstantSearch,
 	useSearchBox,
@@ -274,17 +274,26 @@ function FilterSection({ heading, children }) {
 	)
 }
 
+const SEARCH_TIMEOUT_MS = 200
+let timerId = undefined
+function queryHook(query, search) {
+	if (timerId) {
+		clearTimeout(timerId)
+	}
+
+	timerId = setTimeout(() => search(query), SEARCH_TIMEOUT_MS)
+}
+
 /**
  *
- * @TODO debounce querying
  * @TODO generate proper tutorial link
  * @TODO no results state
  * @TODO filter styling
  * @TODO pagination
  */
 export default function TutorialsLibraryView() {
-	const [query, setQuery] = useState<string>()
-	const { refine } = useSearchBox()
+	const { query: searchQuery, refine } = useSearchBox({ queryHook })
+	const [query, setQuery] = useState<string>(searchQuery)
 
 	return (
 		<div>
