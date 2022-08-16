@@ -61,7 +61,7 @@ describe('fullPathFromRelativeHref', () => {
 		}
 		// Assert the expected result
 		const expected = {
-			text: 'Terraform Plugin',
+			text: 'Plugin',
 			href: '/terraform/plugin',
 		}
 		expect(getBackToLink(currentRootDocsPath, productData)).toEqual(expected)

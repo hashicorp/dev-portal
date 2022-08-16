@@ -37,7 +37,7 @@ export function getBackToLink(
 		if (parentMatches.length > 0) {
 			const parentDocsPath = parentMatches[0]
 			return {
-				text: `${product.name} ${parentDocsPath.name}`,
+				text: parentDocsPath.name,
 				href: `/${product.slug}/${parentDocsPath.path}`,
 			}
 		}
