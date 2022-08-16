@@ -155,16 +155,31 @@ function prepareNavNodeForClient({
 		// and we want to use an internal rather than external link.
 		const hrefIsNotAbsolute = !isAbsoluteUrl(node.href)
 		if (hrefIsNotAbsolute) {
-			// If we have a non-absolute NavDirectLink,
-			// convert it to a NavLeaf node, and treat it similarly.
-			// Note that the `fullPath` added here differs from typical
-			// NavLeaf treatment, as we only use the first part of the `basePath`.
-			// (We expect this to be the product slug, eg "consul").
-
-			// If the path already starts with the base path (i.e. /vault), don't add it
-			const fullPath = node.href.startsWith(`/${basePaths.join('/')}`)
-				? node.href
-				: `/${path.join(basePaths.join('/'), node.href)}`
+			/**
+			 * If we have a non-absolute NavDirectLink,
+			 * convert it to a NavLeaf node, and treat it similarly.
+			 */
+			let fullPath
+			if (node.href.startsWith(`/${basePaths[0]}`)) {
+				/**
+				 * If the path already starts with the basePaths[0], the product slug,
+				 * we use the href as the fullPath directly.
+				 */
+				fullPath = node.href
+			} else if (node.href.startsWith('/')) {
+				/**
+				 * If the path starts with a slash, we treat it as relative
+				 * to the previous dot-io setup. We prefix it with basePaths[0],
+				 * which should be the product slug.
+				 */
+				fullPath = `/${path.join(basePaths[0], node.href)}`
+			} else {
+				/**
+				 * If the path does not start with a slash, we treat it as relative
+				 * to the combined current basePath.
+				 */
+				fullPath = `/${path.join(basePaths.join('/'), node.href)}`
+			}
 
 			const preparedItem = {
 				...node,
