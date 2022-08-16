@@ -37,7 +37,7 @@ export function put(path, token, bodyJson) {
 	})
 }
 
-export function post(path, token, bodyJson) {
+export function post(path, token, bodyJson = {}) {
 	return fetch(`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`, {
 		method: 'POST',
 		headers: {
