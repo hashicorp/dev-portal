@@ -88,7 +88,8 @@ const SidebarSidecarLayoutContent = ({
 		)
 	}
 
-	const hasMeaningfulVersions = versions && versions.length > 1
+	const hasMeaningfulVersions =
+		versions && (versions.length > 1 || versions[0].version !== 'v0.0.x')
 
 	return (
 		<div className={s.root}>
