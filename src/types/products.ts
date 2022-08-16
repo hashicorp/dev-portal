@@ -117,37 +117,11 @@ interface RootDocsPath {
 	mainBranch?: string
 }
 
-/**
- * A navigation item that is rendered within a disclosure in the main navigation
- * header.
- */
-interface NavigationHeaderItem {
-	/**
-	 * The name of an icon to render on the left-hand side of the text for the
-	 * navigation item.
-	 */
-	icon: NavHeaderItem['icon']
-
-	/**
-	 * The suffix of the full path of the navigation header item. This suffix is
-	 * automatically concatenated with the currently viewed product slug.
-	 */
-	pathSuffix: string
-
-	/**
-	 * The visible text to render for the navigation item.
-	 */
-	label: NavHeaderItem['label']
-}
-
 interface ProductData extends Product {
 	algoliaConfig: {
 		indexName: string
 	}
 	basePaths: string[]
-	navigationHeaderItems: {
-		[key: string]: NavigationHeaderItem[]
-	}
 	rootDocsPaths?: RootDocsPath[]
 	sidebar: {
 		landingPageNavData: MenuItem[]

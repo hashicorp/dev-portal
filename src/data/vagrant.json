@@ -73,24 +73,5 @@
 				"fullPath": "/vagrant/docs/installation"
 			}
 		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"icon": "docs",
-				"label": "General Documentation",
-				"pathSuffix": "docs"
-			},
-			{
-				"icon": "docs",
-				"label": "Introduction",
-				"pathSuffix": "intro"
-			},
-			{
-				"icon": "docs",
-				"label": "Vagrant Cloud",
-				"pathSuffix": "vagrant-cloud"
-			}
-		]
 	}
 }

@@ -18,7 +18,6 @@ const setup = (currentProduct: Product) => {
 			currentProduct={{
 				...currentProduct,
 				basePaths: [],
-				navigationHeaderItems: {},
 				sidebar: {
 					landingPageNavData: [],
 				},

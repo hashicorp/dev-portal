@@ -87,24 +87,5 @@
 				"fullPath": "/waypoint/docs/getting-started"
 			}
 		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"label": "General Documentation",
-				"icon": "docs",
-				"pathSuffix": "docs"
-			},
-			{
-				"label": "CLI",
-				"icon": "terminalScreen",
-				"pathSuffix": "commands"
-			},
-			{
-				"label": "Plugins",
-				"icon": "plug",
-				"pathSuffix": "plugins"
-			}
-		]
 	}
 }

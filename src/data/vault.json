@@ -170,19 +170,5 @@
 				"fullPath": "/vault/docs/install"
 			}
 		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"label": "General Documentation",
-				"icon": "docs",
-				"pathSuffix": "docs"
-			},
-			{
-				"label": "API",
-				"icon": "api",
-				"pathSuffix": "api-docs"
-			}
-		]
 	}
 }

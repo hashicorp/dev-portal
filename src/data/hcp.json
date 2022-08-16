@@ -23,14 +23,5 @@
 				"fullPath": "/hcp"
 			}
 		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"label": "General Documentation",
-				"icon": "docs",
-				"pathSuffix": "docs"
-			}
-		]
 	}
 }
