@@ -1,6 +1,6 @@
+import { AUTH_ENABLED } from 'hooks/use-authentication'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import s from './bookmark-button.module.css'
-import useAuthentication from 'hooks/use-authentication'
 
 /**
  * TODO
@@ -13,9 +13,8 @@ interface BookmarkButtonProps {
 }
 
 export default function BookmarkButton({ isBookmarked }: BookmarkButtonProps) {
-	const { isAuthEnabled } = useAuthentication()
 	// NOTE! - hiding this component from prod until auth is enabled
-	if (!isAuthEnabled) {
+	if (!AUTH_ENABLED) {
 		return null
 	}
 	const helpText = isBookmarked ? `Remove bookmark` : `Add bookmark`
