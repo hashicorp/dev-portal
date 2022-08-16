@@ -28,16 +28,6 @@ const useBookmarksByTutorialIds = ({
 		{ enabled: !!accessToken }
 	)
 
-	// Prime a query for each bookmark fetched
-	useQueries({
-		queries: bookmarks
-			? bookmarks.map((bookmark: ApiBookmark) => ({
-					queryKey: ['bookmark', bookmark.tutorial_id],
-					queryFn: () => bookmark,
-			  }))
-			: [],
-	})
-
 	return {
 		bookmarks,
 		...restQueryResult,
