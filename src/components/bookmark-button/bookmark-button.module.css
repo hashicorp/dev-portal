@@ -20,10 +20,27 @@
 	}
 
 	&:hover,
-	&:focus {
+	&:focus-visible {
 		--hoverIconOpacity: 1;
 		--baseIconOpacity: 0;
 
 		color: var(--token-color-foreground-strong);
+	}
+
+	&:focus-visible::before {
+		border-radius: 2px;
+		bottom: 0;
+		box-shadow: var(--token-focus-ring-action-box-shadow);
+		content: '';
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: -1;
+	}
+
+	&:focus,
+	&:focus-visible {
+		outline: transparent;
 	}
 }
