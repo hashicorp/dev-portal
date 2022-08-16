@@ -22,23 +22,14 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 	 * Set up `onSuccess` callback for mutations.
 	 */
 	const onMutationSuccess = (_, variables) => {
-		queryClient.invalidateQueries({
-			predicate: ({ queryKey }) => {
-				if (queryKey.length === 1 && queryKey[0] === 'bookmarks') {
-					return true
-				}
+		// If flip the `isBookmarked` value for this `tutorialId`
+		queryClient.setQueryData(
+			['isBookmarked', variables.tutorialId],
+			(previousValue: boolean) => !previousValue
+		)
 
-				if (
-					queryKey.length === 2 &&
-					queryKey[0] === 'bookmark' &&
-					queryKey[1] === variables.tutorialId
-				) {
-					return true
-				}
-
-				return false
-			},
-		})
+		// Invalidate `bookmarks` so they're refetched in the background
+		queryClient.invalidateQueries(['bookmarks'])
 	}
 
 	// TODO expose an new error object in the bookmark API functions
