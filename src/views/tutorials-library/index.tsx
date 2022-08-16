@@ -253,6 +253,7 @@ export function CurrentFilters() {
 								<button
 									onClick={() => item.refine(refinement)}
 									className={currentFiltersStyle.filterButton}
+									aria-label={`Remove filter ${labelText}`}
 								>
 									{labelText} <IconX16 />
 								</button>

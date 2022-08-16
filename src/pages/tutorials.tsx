@@ -86,8 +86,6 @@ export default function TutorialsLibraryPage({ layoutProps }) {
 	)
 }
 
-TutorialsLibraryPage
-
 export function getStaticProps() {
 	return {
 		props: {
