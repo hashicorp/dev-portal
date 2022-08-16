@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { useCurrentProduct } from 'contexts'
 import Heading, { HeadingProps } from 'components/heading'
 import Text from 'components/text'
@@ -7,7 +8,6 @@ import CardsGridList from 'components/cards-grid-list'
 import GetStartedCard from 'components/get-started-card'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import TruncateMaxLines from 'components/truncate-max-lines'
-import { SUPPORTED_ICONS } from '../supported-icons'
 import s from './marketing-content.module.css'
 import slugify from 'slugify'
 
