@@ -2,7 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { developmentToast, ToastColor } from 'components/toast'
 import useAuthentication from 'hooks/use-authentication'
 import { ApiTutorial } from 'lib/learn-client/api/api-types'
-import { createBookmark, deleteBookmark } from 'lib/learn-client/api/bookmark'
+import {
+	createBookmark,
+	CreateBookmarkOptions,
+	CreateBookmarkResult,
+	deleteBookmark,
+	DeleteBookmarkOptions,
+	DeleteBookmarkResult,
+} from 'lib/learn-client/api/bookmark'
 import { useCallback } from 'react'
 
 interface UseBookmarkMutationsResult {
@@ -19,13 +26,23 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 	const accessToken = session?.accessToken
 
 	/**
-	 * Set up `onSuccess` callback for mutations.
+	 * Set up `onSuccess` callback for the create/delete mutations.
 	 */
-	const onMutationSuccess = (_, variables) => {
+	const onMutationSuccess = (
+		mutationResult: CreateBookmarkResult | DeleteBookmarkResult,
+		mutationVariables: CreateBookmarkOptions | DeleteBookmarkOptions
+	) => {
+		// Pull the modified bookmark's `tutorialId`
+		const mutatedTutorialId = mutationVariables.tutorialId
+
+		// `removeBookmark` returns `undefined`; we can tell which mutation occurred
+		const wasRemoveMutation = mutationResult === undefined
+		const isNowBookmarked = wasRemoveMutation ? false : true
+
 		// If flip the `isBookmarked` value for this `tutorialId`
 		queryClient.setQueryData(
-			['isBookmarked', variables.tutorialId],
-			(previousValue: boolean) => !previousValue
+			['isBookmarked', mutatedTutorialId],
+			isNowBookmarked
 		)
 
 		// Invalidate `bookmarks` so they're refetched in the background
