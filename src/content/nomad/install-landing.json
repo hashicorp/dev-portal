@@ -1,5 +1,40 @@
 {
-	"featuredLearnContent": [],
+	"featuredLearnContent": [
+		{
+			"collectionSlug": "nomad/get-started"
+		},
+		{
+			"tutorialSlug": "nomad/cluster-setup-aws"
+		},
+		{
+			"collectionSlug": "nomad/manage-jobs"
+		},
+		{
+			"tutorialSlug": "nomad/job-spec-java-linux"
+		},
+		{
+			"tutorialSlug": "nomad/task-dependencies-interjob"
+		},
+		{
+			"collectionSlug": "nomad/stateful-workloads"
+		}
+	],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "Introduction to Nomad",
+			"fullPath": "/nomad/intro"
+		},
+		{
+			"title": "Nomad Vocabulary",
+			"fullPath": "/nomad/tutorials/get-started/get-started-vocab"
+		}
+	],
 	"sidecarMarketingCard": {
 		"title": "About Nomad",
 		"subtitle": "Orchestrate, deploy, and manage containers, binaries, and batch jobs in the cloud or on-prem.",
