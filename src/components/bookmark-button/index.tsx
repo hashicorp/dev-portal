@@ -1,12 +1,9 @@
 import { AUTH_ENABLED } from 'hooks/use-authentication'
+import React, { useState } from 'react'
+import Dialog from 'components/dialog'
+import BookmarkSignInPrompt from './sign-in-dialog'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import s from './bookmark-button.module.css'
-import BookmarkSignInDialog from './sign-in-dialog'
-import { useState } from 'react'
-import Dialog from 'components/dialog'
-import Heading from 'components/heading'
-import OptOutForm from 'components/opt-in-out/components/opt-out-form'
-import BookmarkSignInPrompt from './sign-in-dialog'
 
 /**
  * TODO
@@ -43,7 +40,8 @@ function BookmarkButton({ isBookmarked, openDialog }: BookmarkButtonProps) {
 	)
 }
 
-function withDialog(BookmarkComponent) {
+// TODO - use with the tutorial meta component also
+function withDialog(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 	return function BookmarkWithDialog({
 		isBookmarked,
 	}: Pick<BookmarkButtonProps, 'isBookmarked'>) {
@@ -51,13 +49,12 @@ function withDialog(BookmarkComponent) {
 		const openDialog = () => setShowDialog(true)
 		const closeDialog = () => setShowDialog(false)
 
-		function handleOptOut() {
-			console.log('opt ou')
-		}
-
 		return (
 			<>
-				<BookmarkComponent openDialog={openDialog} />
+				<BookmarkComponent
+					isBookmarked={isBookmarked}
+					openDialog={openDialog}
+				/>
 				{showDialog ? (
 					<Dialog
 						onDismiss={closeDialog}
