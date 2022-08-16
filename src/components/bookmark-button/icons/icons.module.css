@@ -2,13 +2,11 @@
 * The css variables used here are defined in `../bookmark-button.module.css`
 */
 
-.icon {
-	color: var(--bookmarkIconFillColor);
+.position {
 	position: absolute;
 	top: 0;
 	left: 0;
 	z-index: 10;
-	transition: color 0.175s ease;
 }
 
 .base {
