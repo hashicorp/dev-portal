@@ -23,6 +23,7 @@ import {
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
+import { getBackToLink } from './utils/get-back-to-link'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -265,10 +266,7 @@ export function getStaticGenerationFunctions<
 				generateTopLevelSidebarNavData(product.name),
 				generateProductLandingSidebarNavData(product),
 				{
-					backToLinkProps: {
-						text: `${product.name} Home`,
-						href: `/${product.slug}`,
-					},
+					backToLinkProps: getBackToLink(currentRootDocsPath, product),
 					levelButtonProps: {
 						levelUpButtonText: `${product.name} Home`,
 					},
