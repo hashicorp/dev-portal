@@ -94,7 +94,7 @@ export function getStaticGenerationFunctions<
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	navDataPrefix,
-	showVersionSelect = true,
+	showVersionSelect,
 }: {
 	product: ProductData
 	basePath: string
@@ -304,7 +304,18 @@ export function getStaticGenerationFunctions<
 				// TODO: need to adjust type for sidebarNavDataLevels here
 				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
 			}
-			if (showVersionSelect) {
+
+			/**
+			 * Determine whether to show the version selector
+			 */
+			const shouldShowVersions = showVersionSelect === true
+			const shouldHideVersions = showVersionSelect === false
+			const hasMeaningfulVersions =
+				versions && (versions.length > 1 || versions[0].version !== 'v0.0.x')
+			if (
+				!shouldHideVersions &&
+				(shouldShowVersions || hasMeaningfulVersions)
+			) {
 				layoutProps.versions = versions
 			}
 

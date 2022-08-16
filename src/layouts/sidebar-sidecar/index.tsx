@@ -88,9 +88,6 @@ const SidebarSidecarLayoutContent = ({
 		)
 	}
 
-	const hasMeaningfulVersions =
-		versions && (versions.length > 1 || versions[0].version !== 'v0.0.x')
-
 	return (
 		<div className={s.root}>
 			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
@@ -98,9 +95,7 @@ const SidebarSidecarLayoutContent = ({
 					<MobileAuthenticationControls />
 					<SidebarContent />
 				</div>
-				{hasMeaningfulVersions ? (
-					<DocsVersionSwitcher options={versions} />
-				) : null}
+				{versions ? <DocsVersionSwitcher options={versions} /> : null}
 			</MobileMenuContainer>
 			<div className={s.contentWrapper}>
 				{currentlyViewedVersion && (

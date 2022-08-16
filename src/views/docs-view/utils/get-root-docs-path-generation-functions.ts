@@ -102,13 +102,20 @@ function generateGetScope(
 }
 
 /**
- * On certain product paths, we do not want to show the version select.
+ * On certain product paths, we want to hide the version selector.
  */
 function getShowVersionSelect(
 	productData: ProductData,
 	rootDocsPath: RootDocsPath
 ): boolean {
+	// For the /packer/plugins landing page, we want to hide the version selector,
+	// even though we do have meaningful versions available
 	const isPackerPlugins =
 		productData.slug == 'packer' && rootDocsPath.path == 'plugins'
-	return !isPackerPlugins
+	if (isPackerPlugins) {
+		return false
+	}
+	// For all other routes, return undefined so that we rely on logic
+	// within docs-view/server to only show meaningful versions.
+	return undefined
 }
