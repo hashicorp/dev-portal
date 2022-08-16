@@ -6,10 +6,9 @@ function TutorialCards({ tutorialCards }: TutorialCardsProps) {
 	return (
 		<CardsGridList>
 			{tutorialCards.map((cardPropsWithId: TutorialCardPropsWithId) => {
-				const { id, ...cardProps } = cardPropsWithId
 				return (
-					<li key={id}>
-						<TutorialCard {...cardProps} />
+					<li key={cardPropsWithId.id}>
+						<TutorialCard {...cardPropsWithId} />
 					</li>
 				)
 			})}

@@ -1,6 +1,12 @@
+import { ApiTutorial } from 'lib/learn-client/api/api-types'
 import { ProductOption } from 'lib/learn-client/types'
 
 export interface TutorialCardProps {
+	/**
+	 * @TODO document
+	 */
+	id: ApiTutorial['id']
+
 	/**
 	 * A short description of the tutorial.
 	 */

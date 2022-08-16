@@ -12,10 +12,9 @@ function CollectionTutorialList({
 		<div className={s.root}>
 			<CardsGridList isOrdered={isOrdered} fixedColumns={isOrdered ? 1 : null}>
 				{tutorials.map((tutorial: TutorialCardPropsWithId) => {
-					const { id, ...cardProps } = tutorial
 					return (
 						<li key={tutorial.id}>
-							<TutorialCard {...cardProps} />
+							<TutorialCard {...tutorial} />
 						</li>
 					)
 				})}

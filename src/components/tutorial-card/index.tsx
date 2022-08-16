@@ -1,5 +1,4 @@
 import CardLink from 'components/card-link'
-import { TutorialCardProps, TutorialCardPropsWithId } from './types'
 import {
 	CardEyebrow,
 	CardHeading,
@@ -7,13 +6,15 @@ import {
 	CardBadges,
 	CardBadgeOption,
 } from 'components/tutorial-collection-cards'
-import s from './tutorial-card.module.css'
+import { TutorialCardProps, TutorialCardPropsWithId } from './types'
 import { buildAriaLabel } from './helpers'
+import s from './tutorial-card.module.css'
 
 /**
  * Render a card that links to a tutorial.
  */
 function TutorialCard({
+	id,
 	url,
 	duration,
 	heading,
@@ -44,7 +45,7 @@ function TutorialCard({
 
 	return (
 		<CardLink href={url} className={s.root} ariaLabel={ariaLabel}>
-			<CardEyebrow text={duration} />
+			<CardEyebrow text={duration} tutorialId={id} />
 			<CardHeading level={3} text={heading} />
 			<CardBody text={description} />
 			<CardBadges badges={badges} />
