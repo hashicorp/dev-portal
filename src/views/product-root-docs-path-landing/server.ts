@@ -2,6 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import { GetStaticPropsContext } from 'next'
 import slugify from 'slugify'
+import rehypePrism from '@mapbox/rehype-prism'
+import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductSlug, RootDocsPath } from 'types/products'
@@ -130,7 +132,14 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 			`src/content/${product.slug}/docs-landing.mdx`
 		)
 		const mdxFileContent = fs.readFileSync(mdxFilePath).toString()
-		mdxSource = await serialize(mdxFileContent)
+		mdxSource = await serialize(mdxFileContent, {
+			mdxOptions: {
+				rehypePlugins: [
+					[rehypePrism, { ignoreMissing: true }],
+					rehypeSurfaceCodeNewlines,
+				],
+			},
+		})
 	} catch (error) {
 		// Nothing to do here
 	}
