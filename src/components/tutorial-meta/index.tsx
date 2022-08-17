@@ -58,7 +58,10 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 				/>
 				<span className={s.buttonGroup}>
 					<InteractiveLabButton />
-					<TutorialMetaBookmarkButton isBookmarked={isBookmarked} />
+					{/** // NOTE! - hiding this component from prod until auth is enabled  */}
+					{isAuthEnabled ? (
+						<TutorialMetaBookmarkButton isBookmarked={isBookmarked} />
+					) : null}
 				</span>
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta}>
