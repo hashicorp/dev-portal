@@ -16,7 +16,7 @@ export function withState(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 	return function BookmarkComponentWithState({
 		isBookmarked,
 	}: Pick<BookmarkButtonProps, 'isBookmarked'>) {
-		const { isAuthenticated } = useAuthentication()
+		const { isAuthenticated, signIn } = useAuthentication()
 		const [showDialog, setShowDialog] = useState(false)
 		const openDialog = () => setShowDialog(true)
 		const closeDialog = () => setShowDialog(false)
@@ -51,7 +51,7 @@ export function withState(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 						isOpen={showDialog}
 						label="Opt out form"
 					>
-						<BookmarkSignInPrompt onDismiss={closeDialog} />
+						<BookmarkSignInPrompt onDismiss={closeDialog} signIn={signIn} />
 					</Dialog>
 				) : null}
 			</>

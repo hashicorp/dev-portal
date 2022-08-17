@@ -2,15 +2,17 @@ import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button from 'components/button'
 import Heading from 'components/heading'
 import Text from 'components/text'
-import useAuthentication from 'hooks/use-authentication'
 import s from './sign-in-dialog.module.css'
+
+interface BookmarkSignInPromptProps {
+	onDismiss(): void
+	signIn(): void
+}
 
 export default function BookmarkSignInPrompt({
 	onDismiss,
-}: {
-	onDismiss(): void
-}) {
-	const { signIn } = useAuthentication()
+	signIn,
+}: BookmarkSignInPromptProps) {
 	return (
 		<>
 			<div className={s.header}>
