@@ -18,7 +18,8 @@ interface UseBookmarkMutationsResult {
 }
 
 /**
- * @TODO document
+ * Handles creating the mutations methods for adding and removing bookmarks with
+ * React Query. Returns one callback for each mutation.
  */
 const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 	const queryClient = useQueryClient()

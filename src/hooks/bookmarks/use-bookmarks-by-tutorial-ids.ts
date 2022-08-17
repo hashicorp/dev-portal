@@ -1,4 +1,4 @@
-import { useQueries, useQuery, UseQueryResult } from '@tanstack/react-query'
+import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { ApiBookmark, ApiTutorial } from 'lib/learn-client/api/api-types'
 import { getBookmarksByTutorialIds } from 'lib/learn-client/api/bookmark'
 import useAuthentication from 'hooks/use-authentication'
@@ -12,7 +12,8 @@ interface UseBookmarksByTutorialIdsResult extends Omit<UseQueryResult, 'data'> {
 }
 
 /**
- * @TODO document
+ * Handles fetching and storing bookmarks with React Query for the given
+ * `tutorialIds`.
  */
 const useBookmarksByTutorialIds = ({
 	tutorialIds,

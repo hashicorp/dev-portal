@@ -11,7 +11,7 @@ interface UseIsBookmarkedResult extends Omit<UseQueryResult, 'data'> {
 }
 
 /**
- * @TODO document
+ * Handles checking if there is a bookmark for the given `tutorialId`.
  */
 const useIsBookmarked = ({
 	tutorialId,

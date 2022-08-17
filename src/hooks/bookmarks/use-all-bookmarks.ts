@@ -1,4 +1,4 @@
-import { useQueries, useQuery, UseQueryResult } from '@tanstack/react-query'
+import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import { getAllBookmarks } from 'lib/learn-client/api/bookmark'
 import useAuthentication from 'hooks/use-authentication'
@@ -8,7 +8,7 @@ interface UseAllBookmarksResult extends Omit<UseQueryResult, 'data'> {
 }
 
 /**
- * @TODO document
+ * Handles fetching and storing all bookmarks with React Query.
  */
 const useAllBookmarks = (): UseAllBookmarksResult => {
 	// Get the current user's access token
