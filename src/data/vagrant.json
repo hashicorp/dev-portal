@@ -64,33 +64,5 @@
 			"name": "Vagrant Cloud",
 			"path": "vagrant-cloud"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/vagrant/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/vagrant/docs/installation"
-			}
-		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"icon": "docs",
-				"label": "General Documentation",
-				"pathSuffix": "docs"
-			},
-			{
-				"icon": "docs",
-				"label": "Introduction",
-				"pathSuffix": "intro"
-			},
-			{
-				"icon": "docs",
-				"label": "Vagrant Cloud",
-				"pathSuffix": "vagrant-cloud"
-			}
-		]
-	}
+	]
 }
