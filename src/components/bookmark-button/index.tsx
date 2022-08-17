@@ -1,7 +1,6 @@
-import { IconBookmarkAdd24 } from '@hashicorp/flight-icons/svg-react/bookmark-add-24'
-import { toast } from 'components/toast'
 import { AUTH_ENABLED } from 'hooks/use-authentication'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
+import makeBookmarkToast from './toast/make-bookmark-toast'
 import s from './bookmark-button.module.css'
 
 /**
@@ -26,12 +25,9 @@ export default function BookmarkButton({ isBookmarked }: BookmarkButtonProps) {
 			onClick={() => {
 				// TODO use the create / destroy methods in the client
 				// or render dialog to prompt auth if not auth'd
-				toast({
-					title: `Bookmark Added`,
-					description: 'This tutorial has been added to your bookmarks.', // TODO update to use the tutorial name here
-					autoDismiss: 15000,
-					icon: <IconBookmarkAdd24 className={s.toastIcon} />,
-				})
+				// also, link the toast notification with the successful API post/ delete response
+				const toastAction = isBookmarked ? 'remove' : 'add'
+				makeBookmarkToast(toastAction) // TODO, pass tutorialName as second arg
 			}}
 			aria-label={helpText}
 			className={s.button}
