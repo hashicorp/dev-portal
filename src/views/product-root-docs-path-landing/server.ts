@@ -9,19 +9,7 @@ import {
 	GETTING_STARTED_CARD_HEADING,
 	GETTING_STARTED_CARD_HEADING_SLUG,
 } from './components/marketing-content'
-import { serialize } from 'next-mdx-remote/serialize'
-
-async function prepareMarketingBlocks(blocks) {
-	return await Promise.all(
-		blocks.map(async (block) => {
-			if (block.type === 'paragraph') {
-				return { type: block.type, mdxSource: await serialize(block.text) }
-			} else {
-				return block
-			}
-		})
-	)
-}
+import { prepareMarketingBlocks } from './utils/prepare-marketing-blocks'
 
 /**
  * @TODO add TS to function signature & document function purpose
