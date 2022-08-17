@@ -39,7 +39,7 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 		const wasRemoveMutation = mutationResult === undefined
 		const isNowBookmarked = wasRemoveMutation ? false : true
 
-		// If flip the `isBookmarked` value for this `tutorialId`
+		// Flip the `isBookmarked` value for this `tutorialId`
 		queryClient.setQueryData(
 			['isBookmarked', mutatedTutorialId],
 			isNowBookmarked

@@ -3,7 +3,7 @@ import { ProductOption } from 'lib/learn-client/types'
 
 export interface TutorialCardProps {
 	/**
-	 * @TODO document
+	 * The `id` of the Tutorial relevant to the card.
 	 */
 	id: ApiTutorial['id']
 
@@ -41,8 +41,6 @@ export interface TutorialCardProps {
 	 * A list of product slugs, representing products used in the tutorial.
 	 */
 	productsUsed: ProductOption[]
-
-	isBookmarked?: boolean
 }
 
 export interface TutorialCardPropsWithId extends TutorialCardProps {
