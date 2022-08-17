@@ -273,12 +273,11 @@ To change the content for Product Tutorials landing pages (e.g. [/vault/docs](ht
 ### Editing Docs landing content
 
 <details>
-<summary>🚨 Important Note about <code>mdxSlot</code></summary>
+<summary>🚨 Important Note about MDX content</summary>
 
-Some products also render MDX content in addition to the content specified in `marketingContentBlocks`. MDX content shows up very last in the page content. It can be authored in the product's repository, in the same file that was previously used to populate the content of these pages.
+Some products also render MDX content in addition to the content specified in `marketingContentBlocks`. MDX content shows up very last in the page content. It can be authored in the `docs-landing.mdx` file, which is in the same folder as `docs-landing.json`.
 
-- For example, Waypoint's MDX content for this page can be edited at: [`hashicorp/waypoint`](hashicorp/waypoint) GitHub repository in the [`website/content/docs/index.mdx` file](https://github.com/hashicorp/waypoint/blob/main/website/content/docs/index.mdx).
-- It is also important to note that to enable rendering MDX content in this view, `includeMDXSource: true` must be passed as an option to the `generateGetStaticProps` function exported from [`src/views/product-root-docs-path-landing/server`](/src/views/product-root-docs-path-landing/server.ts). See [`src/pages/waypoint/docs/index`](/src/pages/waypoint/docs/index.tsx) for example of how this is done.
+- For example, Waypoint's MDX content for this page can be edited at: [`src/content/waypoint/docs-landing.mdx`](/src/content/waypoint/docs-landing.mdx).
 
 </details>
 
