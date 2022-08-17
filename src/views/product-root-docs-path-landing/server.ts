@@ -1,7 +1,9 @@
 import fs from 'fs'
 import path from 'path'
-import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
+import slugify from 'slugify'
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductSlug, RootDocsPath } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
@@ -120,6 +122,19 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 	)
 	const pageContent = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 
+	// Fetch MDX content if it's present
+	let mdxSource: null | MDXRemoteSerializeResult = null
+	try {
+		const mdxFilePath = path.join(
+			process.cwd(),
+			`src/content/${product.slug}/docs-landing.mdx`
+		)
+		const mdxFileContent = fs.readFileSync(mdxFilePath).toString()
+		mdxSource = await serialize(mdxFileContent)
+	} catch (error) {
+		// Nothing to do here
+	}
+
 	// Generate getStaticProps from DocsView helper
 	const { getStaticProps: generatedGetStaticProps } =
 		_getStaticGenerationFunctions({
@@ -150,7 +165,7 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 		...generatedProps,
 		props: {
 			...generatedProps.props,
-			mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
+			mdxSource,
 			layoutProps: {
 				...generatedProps.props.layoutProps,
 				githubFileUrl: null,
