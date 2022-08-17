@@ -1,14 +1,21 @@
+// Third-party imports
+import { GetStaticPropsContext } from 'next'
 import fs from 'fs'
 import path from 'path'
-import { GetStaticPropsContext } from 'next'
 import slugify from 'slugify'
 import rehypePrism from '@mapbox/rehype-prism'
-import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+
+// HashiCorp imports
+import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
+
+// Global imports
 import { ProductSlug, RootDocsPath } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
+
+// Local imports
 import {
 	GETTING_STARTED_CARD_HEADING,
 	GETTING_STARTED_CARD_HEADING_SLUG,
