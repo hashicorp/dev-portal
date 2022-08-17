@@ -1,9 +1,9 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import { ApiTutorial } from 'lib/learn-client/api/api-types'
+import { Tutorial } from 'lib/learn-client/types'
 import { useAllBookmarks } from './use-all-bookmarks'
 
 interface UseIsBookmarkedOptions {
-	tutorialId: ApiTutorial['id']
+	tutorialId: Tutorial['id']
 }
 
 interface UseIsBookmarkedResult extends Omit<UseQueryResult, 'data'> {

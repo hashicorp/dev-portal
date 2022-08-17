@@ -1,5 +1,7 @@
 import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
 import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
+import { useBookmarkMutations, useIsBookmarked } from 'hooks/bookmarks'
+import { Tutorial } from 'lib/learn-client/types'
 import useAuthentication from 'hooks/use-authentication'
 import { TutorialData } from 'views/tutorial-view'
 import Heading from 'components/heading'
@@ -9,8 +11,6 @@ import Button from 'components/button'
 import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
-import { useBookmarkMutations, useIsBookmarked } from 'hooks/bookmarks'
-import { ApiTutorial } from 'lib/learn-client/api/api-types'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -18,7 +18,7 @@ interface TutorialMetaProps {
 		isInteractive: boolean
 		hasVideo: boolean
 	}
-	tutorialId: ApiTutorial['id']
+	tutorialId: Tutorial['id']
 }
 
 export default function TutorialMeta({

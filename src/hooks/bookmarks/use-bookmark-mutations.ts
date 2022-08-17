@@ -1,7 +1,8 @@
+import { useCallback } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { developmentToast, ToastColor } from 'components/toast'
+import { Tutorial } from 'lib/learn-client/types'
 import useAuthentication from 'hooks/use-authentication'
-import { ApiTutorial } from 'lib/learn-client/api/api-types'
 import {
 	createBookmark,
 	CreateBookmarkOptions,
@@ -10,11 +11,10 @@ import {
 	DeleteBookmarkOptions,
 	DeleteBookmarkResult,
 } from 'lib/learn-client/api/bookmark'
-import { useCallback } from 'react'
 
 interface UseBookmarkMutationsResult {
-	addBookmark: (tutorialId: ApiTutorial['id']) => void
-	removeBookmark: (tutorialId: ApiTutorial['id']) => void
+	addBookmark: (tutorialId: Tutorial['id']) => void
+	removeBookmark: (tutorialId: Tutorial['id']) => void
 }
 
 /**
@@ -71,7 +71,7 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 		onError: makeOnError('addBookmark'),
 	})
 	const addBookmark = useCallback(
-		(tutorialId: ApiTutorial['id']) => {
+		(tutorialId: Tutorial['id']) => {
 			addBookmarkMutation.mutate({
 				accessToken,
 				tutorialId,
@@ -88,7 +88,7 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 		onError: makeOnError('removeBookmark'),
 	})
 	const removeBookmark = useCallback(
-		(tutorialId: ApiTutorial['id']) => {
+		(tutorialId: Tutorial['id']) => {
 			removeBookmarkMutation.mutate({ accessToken, tutorialId })
 		},
 		[accessToken, removeBookmarkMutation]

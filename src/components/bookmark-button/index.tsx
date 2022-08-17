@@ -1,11 +1,11 @@
+import { Tutorial } from 'lib/learn-client/types'
 import { useBookmarkMutations, useIsBookmarked } from 'hooks/bookmarks'
 import { AUTH_ENABLED } from 'hooks/use-authentication'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import s from './bookmark-button.module.css'
-import { ApiTutorial } from 'lib/learn-client/api/api-types'
 
 interface BookmarkButtonProps {
-	tutorialId: ApiTutorial['id']
+	tutorialId: Tutorial['id']
 }
 
 export default function BookmarkButton({ tutorialId }: BookmarkButtonProps) {
