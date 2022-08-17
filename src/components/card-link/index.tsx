@@ -27,7 +27,6 @@ const CardLink = ({
 
 	return (
 		<Card className={classes}>
-			{children}
 			{/**
 			 * "Perhaps the worst thing you can do for a block link is to wrap
 			 * everything in the <a href>"
@@ -38,6 +37,7 @@ const CardLink = ({
 				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
 				<a aria-label={ariaLabel} className={s.anchor} target={target} />
 			</Link>
+			{children}
 		</Card>
 	)
 }
