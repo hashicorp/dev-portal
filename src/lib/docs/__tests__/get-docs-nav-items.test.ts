@@ -3,7 +3,7 @@ import { getDocsNavItems } from '../get-docs-nav-items'
 
 describe('getDocsNavItems', () => {
 	it('uses docsNavItems if present, combining rootDocsPaths and custom items', () => {
-		//
+		// Set up arguments
 		const productData: Pick<
 			ProductData,
 			'slug' | 'rootDocsPaths' | 'docsNavItems'
@@ -37,7 +37,7 @@ describe('getDocsNavItems', () => {
 				},
 			],
 		}
-		//
+		// Set expected value
 		const expected = [
 			{
 				icon: 'docs',
@@ -60,13 +60,13 @@ describe('getDocsNavItems', () => {
 				fullPath: '/terraform/plugin',
 			},
 		]
-		//
+		// Assert expectations
 		const result = getDocsNavItems(productData)
 		expect(result).toEqual(expected)
 	})
 
 	it('uses rootDocsPaths if docsNavItems are not present', () => {
-		//
+		// Set up arguments
 		const productData: Pick<ProductData, 'slug' | 'rootDocsPaths'> = {
 			slug: 'vault',
 			rootDocsPaths: [
@@ -82,7 +82,7 @@ describe('getDocsNavItems', () => {
 				},
 			],
 		}
-		//
+		// Set expected value
 		const expected = [
 			{
 				icon: 'docs',
@@ -95,7 +95,7 @@ describe('getDocsNavItems', () => {
 				fullPath: '/vault/api-docs',
 			},
 		]
-		//
+		// Assert expectations
 		const result = getDocsNavItems(productData)
 		expect(result).toEqual(expected)
 	})
