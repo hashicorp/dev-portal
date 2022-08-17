@@ -1,7 +1,7 @@
+import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { ProductData, RootDocsPath } from 'types/products'
 import { useCurrentProduct } from 'contexts'
 import IconCardLink from 'components/icon-card-link'
-import { SUPPORTED_ICONS } from '../supported-icons'
 import s from './icon-card-link-grid.module.css'
 
 interface ProductRootDocsPathLandingPageProduct extends ProductData {
