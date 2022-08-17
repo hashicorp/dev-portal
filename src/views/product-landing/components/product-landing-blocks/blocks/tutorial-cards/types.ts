@@ -1,5 +1,5 @@
-import { TutorialCardPropsWithId } from 'components/tutorial-card'
+import { TutorialCardProps } from 'components/tutorial-card'
 
 export interface TutorialCardsProps {
-	tutorialCards: TutorialCardPropsWithId[]
+	tutorialCards: TutorialCardProps[]
 }

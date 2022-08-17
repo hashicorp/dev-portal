@@ -1,11 +1,11 @@
-import { ApiTutorial } from 'lib/learn-client/api/api-types'
+import { Tutorial } from 'lib/learn-client/types'
 import { ProductOption } from 'lib/learn-client/types'
 
 export interface TutorialCardProps {
 	/**
-	 * The `id` of the Tutorial relevant to the card.
+	 * The tutorial's unique identifier.
 	 */
-	id: ApiTutorial['id']
+	id: Tutorial['id']
 
 	/**
 	 * A short description of the tutorial.
@@ -41,11 +41,4 @@ export interface TutorialCardProps {
 	 * A list of product slugs, representing products used in the tutorial.
 	 */
 	productsUsed: ProductOption[]
-}
-
-export interface TutorialCardPropsWithId extends TutorialCardProps {
-	/**
-	 * The tutorial's unique identifier
-	 */
-	id: string
 }

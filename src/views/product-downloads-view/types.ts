@@ -3,7 +3,7 @@ import { VersionContextSwitcherProps } from 'components/version-context-switcher
 import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 import { MenuItem } from 'components/sidebar'
 import { CollectionCardPropsWithId } from 'components/collection-card'
-import { TutorialCardPropsWithId } from 'components/tutorial-card'
+import { TutorialCardProps } from 'components/tutorial-card'
 
 /**
  * Raw page content, as structured in .json files
@@ -38,7 +38,7 @@ export interface RawProductDownloadsViewContent {
 
 export type FeaturedLearnCard =
 	| ({ type: 'collection' } & CollectionCardPropsWithId)
-	| ({ type: 'tutorial' } & TutorialCardPropsWithId)
+	| ({ type: 'tutorial' } & TutorialCardProps)
 
 export interface ProductDownloadsViewProps {
 	latestVersion: string
