@@ -52,8 +52,6 @@ const generateGetStaticProps = (product: ProductData) => {
 		 */
 		const inlineTutorials = await getInlineTutorials(featuredTutorialsSlugs)
 
-		console.log(inlineTutorials)
-
 		/**
 		 * Transform feature tutorial and collection entries into card data
 		 */
