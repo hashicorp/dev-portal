@@ -117,7 +117,6 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
 	const {
-		includeMDXSource = false,
 		name,
 		productSlugForLoader = product.slug,
 		shortName,
@@ -169,9 +168,8 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 	// Append headings found in marketing content
 	const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
 		generateHeadingLevelsAndSidecarHeadings({
-			layoutHeadings: includeMDXSource
-				? generatedProps.props.layoutProps.headings
-				: [],
+			layoutHeadings:
+				mdxSource !== null ? generatedProps.props.layoutProps.headings : [],
 			marketingContentBlocks: pageContent.marketingContentBlocks,
 			pageTitle: `${product.name} ${baseName}`,
 		})
