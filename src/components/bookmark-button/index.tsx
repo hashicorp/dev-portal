@@ -1,7 +1,6 @@
 import { AUTH_ENABLED } from 'hooks/use-authentication'
-import React, { useState } from 'react'
-import Dialog from 'components/dialog'
-import BookmarkSignInPrompt from './sign-in-dialog'
+import React from 'react'
+import { withDialog } from './sign-in-dialog/with-dialog'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import s from './bookmark-button.module.css'
 
@@ -11,7 +10,7 @@ import s from './bookmark-button.module.css'
  * This HOC will be used by this button and the one in tutorial meta
  */
 
-interface BookmarkButtonProps {
+export interface BookmarkButtonProps {
 	isBookmarked: boolean
 	openDialog(): void
 }
@@ -38,35 +37,6 @@ function BookmarkButton({ isBookmarked, openDialog }: BookmarkButtonProps) {
 			{isBookmarked ? <RemoveBookmarkIcon /> : <AddBookmarkIcon />}
 		</button>
 	)
-}
-
-// TODO - use with the tutorial meta component also
-function withDialog(BookmarkComponent: React.FC<BookmarkButtonProps>) {
-	return function BookmarkWithDialog({
-		isBookmarked,
-	}: Pick<BookmarkButtonProps, 'isBookmarked'>) {
-		const [showDialog, setShowDialog] = useState(false)
-		const openDialog = () => setShowDialog(true)
-		const closeDialog = () => setShowDialog(false)
-
-		return (
-			<>
-				<BookmarkComponent
-					isBookmarked={isBookmarked}
-					openDialog={openDialog}
-				/>
-				{showDialog ? (
-					<Dialog
-						onDismiss={closeDialog}
-						isOpen={showDialog}
-						label="Opt out form"
-					>
-						<BookmarkSignInPrompt onDismiss={closeDialog} />
-					</Dialog>
-				) : null}
-			</>
-		)
-	}
 }
 
 export default withDialog(BookmarkButton)
