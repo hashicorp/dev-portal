@@ -1,25 +1,30 @@
 import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
 import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
-import { AUTH_ENABLED } from 'hooks/use-authentication'
 import Button from 'components/button'
 import { withState } from './with-state'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
+import { BookmarkButtonConfigType, BookmarkButtonProps } from './types'
 import s from './bookmark-button.module.css'
 
-export interface BookmarkButtonProps {
-	isBookmarked: boolean
-	handleOnClick(): void
+const bookmarkButtonConfig: BookmarkButtonConfigType = {
+	add: {
+		text: 'Add bookmark',
+		baseIcon: <IconBookmarkAdd16 />,
+		iconWithHover: <AddBookmarkIcon />,
+	},
+	remove: {
+		text: 'Remove bookmark',
+		baseIcon: <IconBookmarkRemove16 />,
+		iconWithHover: <RemoveBookmarkIcon />,
+	},
 }
 
 function BookmarkButtonIconOnly({
 	isBookmarked,
-	handleOnClick,
+	handleOnClick, // this is configured by the `withState` hoc
 }: BookmarkButtonProps) {
-	// NOTE! - hiding this component from prod until auth is enabled
-	if (!AUTH_ENABLED) {
-		return null
-	}
-	const helpText = isBookmarked ? `Remove bookmark` : `Add bookmark`
+	const { add, remove } = bookmarkButtonConfig
+	const helpText = isBookmarked ? remove.text : add.text
 	return (
 		<button
 			aria-pressed={isBookmarked}
@@ -27,27 +32,20 @@ function BookmarkButtonIconOnly({
 			aria-label={helpText}
 			className={s.button}
 		>
-			{isBookmarked ? <RemoveBookmarkIcon /> : <AddBookmarkIcon />}
+			{isBookmarked ? remove.iconWithHover : add.iconWithHover}
 		</button>
 	)
 }
 
 function BookmarkButtonTextAndIcon({
 	isBookmarked,
-	handleOnClick,
+	handleOnClick, // this is configured by the `withState` hoc
 }: BookmarkButtonProps) {
-	// NOTE! - hiding this component from prod until auth is enabled
-	if (!AUTH_ENABLED) {
-		return null
-	}
-	return (
-		<Button
-			color="secondary"
-			text={isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
-			icon={isBookmarked ? <IconBookmarkRemove16 /> : <IconBookmarkAdd16 />}
-			onClick={handleOnClick}
-		/>
-	)
+	const { add, remove } = bookmarkButtonConfig
+	const props = isBookmarked
+		? { text: remove.text, icon: remove.baseIcon }
+		: { text: add.text, icon: add.baseIcon }
+	return <Button color="secondary" onClick={handleOnClick} {...props} />
 }
 
 export const TutorialCardBookmarkButton = withState(BookmarkButtonIconOnly)

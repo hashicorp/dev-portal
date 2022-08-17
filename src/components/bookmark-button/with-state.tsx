@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react'
 import Dialog from 'components/dialog'
-import { BookmarkButtonProps } from './index'
-import BookmarkSignInPrompt from './sign-in-dialog'
 import useAuthentication from 'hooks/use-authentication'
+import { BookmarkButtonProps } from './types'
+import BookmarkSignInPrompt from './sign-in-dialog'
 
 /**
  * This HOC serves as a 'controller'
