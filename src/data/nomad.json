@@ -73,44 +73,6 @@
 		}
 	],
 	"basePaths": ["docs", "api-docs", "plugins", "tools", "intro"],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/nomad/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/nomad/docs/install"
-			}
-		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"label": "General Documentation",
-				"icon": "docs",
-				"pathSuffix": "docs"
-			},
-			{
-				"label": "API",
-				"icon": "api",
-				"pathSuffix": "api-docs"
-			},
-			{
-				"label": "Intro",
-				"icon": "docs",
-				"pathSuffix": "intro"
-			},
-			{
-				"label": "Tools",
-				"icon": "terminalScreen",
-				"pathSuffix": "tools"
-			},
-			{
-				"label": "Plugins",
-				"icon": "plug",
-				"pathSuffix": "plugins"
-			}
-		]
-	},
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",

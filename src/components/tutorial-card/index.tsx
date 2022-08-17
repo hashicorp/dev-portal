@@ -1,3 +1,4 @@
+import BookmarkButton from 'components/bookmark-button'
 import CardLink from 'components/card-link'
 import {
 	CardEyebrow,
@@ -45,7 +46,10 @@ function TutorialCard({
 
 	return (
 		<CardLink href={url} className={s.root} ariaLabel={ariaLabel}>
-			<CardEyebrow text={duration} tutorialId={id} />
+			<CardEyebrow className={s.eyebrow}>
+				<span>{duration}</span>
+				<BookmarkButton tutorialId={id} />
+			</CardEyebrow>
 			<CardHeading level={3} text={heading} />
 			<CardBody text={description} />
 			<CardBadges badges={badges} />

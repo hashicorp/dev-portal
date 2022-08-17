@@ -41,6 +41,8 @@ export interface TutorialCardProps {
 	 * A list of product slugs, representing products used in the tutorial.
 	 */
 	productsUsed: ProductOption[]
+
+	isBookmarked?: boolean
 }
 
 export interface TutorialCardPropsWithId extends TutorialCardProps {
