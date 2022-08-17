@@ -136,8 +136,7 @@
 			"iconName": "docs",
 			"name": "Docs",
 			"path": "docs",
-			"productSlugForLoader": "terraform-docs-common",
-			"addOverviewItem": false
+			"productSlugForLoader": "terraform-docs-common"
 		},
 		{
 			"iconName": "docs",
