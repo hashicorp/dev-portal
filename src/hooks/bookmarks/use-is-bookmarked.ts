@@ -16,7 +16,7 @@ interface UseIsBookmarkedResult extends Omit<UseQueryResult, 'data'> {
 const useIsBookmarked = ({
 	tutorialId,
 }: UseIsBookmarkedOptions): UseIsBookmarkedResult => {
-	// Load up all bookmarks, since we know it primes queries & handles auth
+	// Load up all bookmarks
 	const { bookmarks, isFetched: bookmarksAreFetched } = useAllBookmarks()
 
 	/**
