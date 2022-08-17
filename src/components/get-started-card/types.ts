@@ -1,3 +1,4 @@
+import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { IconCardLinkProps } from 'components/icon-card-link'
 
 export interface GetStartedCardProps {
@@ -9,8 +10,7 @@ export interface GetStartedCardProps {
 		url: string
 	}[]
 	iconCardLinks?: {
-		// TODO reference SUPPORTED_ICONS
-		icon: string
+		icon: keyof typeof SUPPORTED_ICONS
 		text: IconCardLinkProps['text']
 		url: IconCardLinkProps['url']
 	}[]

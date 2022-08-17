@@ -1,13 +1,5 @@
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import { IconHcp16 } from '@hashicorp/flight-icons/svg-react/hcp-16'
-import { IconVmware16 } from '@hashicorp/flight-icons/svg-react/vmware-16'
-import { IconKubernetesColor16 } from '@hashicorp/flight-icons/svg-react/kubernetes-color-16'
-import { IconAwsColor16 } from '@hashicorp/flight-icons/svg-react/aws-color-16'
-import { IconDockerColor16 } from '@hashicorp/flight-icons/svg-react/docker-color-16'
-import { IconGcpColor16 } from '@hashicorp/flight-icons/svg-react/gcp-color-16'
-import { IconMicrosoftColor16 } from '@hashicorp/flight-icons/svg-react/microsoft-color-16'
-import { IconOracleColor16 } from '@hashicorp/flight-icons/svg-react/oracle-color-16'
-import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
+import { SUPPORTED_ICONS } from 'content/supported-icons'
 import ButtonLink from 'components/button-link'
 import Card from 'components/card'
 import { developmentToast, ToastColor } from 'components/toast'
@@ -15,19 +7,6 @@ import IconCardLink from 'components/icon-card-link'
 import StandaloneLink from 'components/standalone-link'
 import { GetStartedCardProps } from './types'
 import s from './get-started-card.module.css'
-
-// TODO use shared map after other PR is merged
-const SUPPORTED_ICONS = {
-	'aws-color': <IconAwsColor16 />,
-	'docker-color': <IconDockerColor16 />,
-	'gcp-color': <IconGcpColor16 />,
-	hcp: <IconHcp16 />,
-	'kubernetes-color': <IconKubernetesColor16 />,
-	'microsoft-color': <IconMicrosoftColor16 />,
-	'oracle-color': <IconOracleColor16 />,
-	'terraform-color': <IconTerraformColor16 />,
-	vmware: <IconVmware16 />,
-}
 
 function GetStartedCard({
 	heading,
