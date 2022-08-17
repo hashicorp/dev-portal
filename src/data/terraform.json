@@ -21,21 +21,42 @@
 		"plugin/sdkv2",
 		"registry"
 	],
+	"docsNavItems": [
+		"docs",
+		"language",
+		"cdktf",
+		"cli",
+		"cloud-docs",
+		"enterprise",
+		{
+			"icon": "docs",
+			"label": "Provider Use",
+			"fullPath": "language/providers"
+		},
+		"internals",
+		"plugin",
+		"registry",
+		{
+			"icon": "docs",
+			"label": "Integration Program",
+			"fullPath": "docs/partnerships"
+		}
+	],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "CDKTF",
+			"name": "CDK for Terraform",
 			"path": "cdktf",
 			"productSlugForLoader": "terraform-cdk"
 		},
 		{
 			"iconName": "docs",
-			"name": "CLI",
+			"name": "Terraform CLI",
 			"path": "cli"
 		},
 		{
 			"iconName": "docs",
-			"name": "Cloud Docs",
+			"name": "Terraform Cloud",
 			"path": "cloud-docs",
 			"productSlugForLoader": "terraform-docs-common"
 		},
@@ -48,13 +69,13 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "Docs",
+			"name": "General Documentation",
 			"path": "docs",
 			"productSlugForLoader": "terraform-docs-common"
 		},
 		{
 			"iconName": "docs",
-			"name": "Enterprise",
+			"name": "Terraform Enterprise",
 			"path": "enterprise",
 			"productSlugForLoader": "ptfe-releases"
 		},
@@ -70,7 +91,7 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "Language",
+			"name": "Configuration Language",
 			"path": "language"
 		},
 		{

@@ -1,3 +1,4 @@
+import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { ProductData, RootDocsPath } from 'types/products'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
@@ -16,16 +17,13 @@ const IS_DEV = process.env.NODE_ENV !== 'production'
 export const generateProductLandingSidebarMenuItems = (
 	product: ProductData
 ) => {
-	const rootDocsNavItems = product.rootDocsPaths.map(
-		(rootDocsPath: RootDocsPath) => {
-			const { name, path } = rootDocsPath
-			return { title: name, fullPath: `/${product.slug}/${path}` }
-		}
-	)
 	const documentationSubmenu = {
 		title: 'Documentation',
 		isOpen: true,
-		routes: [...rootDocsNavItems],
+		routes: getDocsNavItems(product).map(({ label, fullPath }) => ({
+			title: label,
+			fullPath,
+		})),
 	}
 	const menuItems = [
 		documentationSubmenu,

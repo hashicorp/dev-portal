@@ -117,12 +117,19 @@ interface RootDocsPath {
 	mainBranch?: string
 }
 
+export type DocsNavItem = {
+	icon: string
+	label: string
+	fullPath: string
+}
+
 interface ProductData extends Product {
 	algoliaConfig: {
 		indexName: string
 	}
 	basePaths: string[]
 	rootDocsPaths: RootDocsPath[]
+	docsNavItems?: (DocsNavItem | string)[]
 }
 
 interface ProductWithCurrentRootDocsPath extends ProductData {
