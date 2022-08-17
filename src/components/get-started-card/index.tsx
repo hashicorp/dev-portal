@@ -36,7 +36,7 @@ function GetStartedCard({
 	}
 
 	return (
-		<Card className={s.card}>
+		<Card className={s.card} elevation="base">
 			<h2 id={headingSlug} className={s.heading}>
 				{heading}
 			</h2>
