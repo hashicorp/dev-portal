@@ -23,6 +23,7 @@ import {
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
+import { getBackToLink } from './utils/get-back-to-link'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -94,7 +95,6 @@ export function getStaticGenerationFunctions<
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	navDataPrefix,
-	showVersionSelect = true,
 }: {
 	product: ProductData
 	basePath: string
@@ -105,7 +105,6 @@ export function getStaticGenerationFunctions<
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
 	navDataPrefix?: string
-	showVersionSelect?: boolean
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -267,10 +266,7 @@ export function getStaticGenerationFunctions<
 				generateTopLevelSidebarNavData(product.name),
 				generateProductLandingSidebarNavData(product),
 				{
-					backToLinkProps: {
-						text: `${product.name} Home`,
-						href: `/${product.slug}`,
-					},
+					backToLinkProps: getBackToLink(currentRootDocsPath, product),
 					levelButtonProps: {
 						levelUpButtonText: `${product.name} Home`,
 					},
@@ -299,13 +295,42 @@ export function getStaticGenerationFunctions<
 			 */
 			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
 				breadcrumbLinks,
-				githubFileUrl,
 				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here
 				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
 			}
-			if (showVersionSelect) {
+
+			/**
+			 * Determine whether to show the version selector
+			 *
+			 * In most docs categories, we want to show the version selector if there
+			 * are multiple versions, or if the single version is not `v0.0.x`.
+			 * (We use `v0.0.x` as a placeholder version for un-versioned documentation)
+			 */
+			const hasMeaningfulVersions =
+				versions && (versions.length > 1 || versions[0].version !== 'v0.0.x')
+			/**
+			 * For the /packer/plugins landing page, we want to hide the version selector,
+			 * even though we do have meaningful versions available
+			 */
+			const isPackerPlugins =
+				product.slug == 'packer' && currentRootDocsPath.path == 'plugins'
+
+			if (!isPackerPlugins && hasMeaningfulVersions) {
 				layoutProps.versions = versions
+			}
+			/**
+			 * We want to show "Edit on GitHub" links for public content repos only.
+			 * Currently, HCP and Sentinel docs are stored in private repositories.
+			 *
+			 * Note: If we need more granularity here, we could change this to be
+			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
+			 */
+			const isHcp = product.slug == 'hcp'
+			const isSentinel = product.slug == 'sentinel'
+			const isPublicContentRepo = !isHcp && !isSentinel
+			if (isPublicContentRepo) {
+				layoutProps.githubFileUrl = githubFileUrl
 			}
 
 			const finalProps = {

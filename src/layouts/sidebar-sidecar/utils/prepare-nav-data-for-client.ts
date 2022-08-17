@@ -1,6 +1,7 @@
 import { NavNode } from '@hashicorp/react-docs-sidenav/types'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import { MenuItem } from 'components/sidebar'
+import path from 'path'
 
 // TODO: export NavBranch and NavLeaf
 // TODO: types from react-docs-sidenav.
@@ -154,17 +155,11 @@ function prepareNavNodeForClient({
 		// and we want to use an internal rather than external link.
 		const hrefIsNotAbsolute = !isAbsoluteUrl(node.href)
 		if (hrefIsNotAbsolute) {
-			// If we have a non-absolute NavDirectLink,
-			// convert it to a NavLeaf node, and treat it similarly.
-			// Note that the `fullPath` added here differs from typical
-			// NavLeaf treatment, as we only use the first part of the `basePath`.
-			// (We expect this to be the product slug, eg "consul").
-
-			// If the path already starts with the base path (i.e. /vault), don't add it
-			const fullPath = node.href.startsWith(`/${basePaths[0]}`)
-				? node.href
-				: `/${basePaths[0]}${node.href}`
-
+			/**
+			 * If we have a non-absolute NavDirectLink,
+			 * convert it to a NavLeaf node, and treat it similarly.
+			 */
+			const fullPath = fullPathFromRelativeHref(node.href, basePaths)
 			const preparedItem = {
 				...node,
 				fullPath,
@@ -186,4 +181,38 @@ function prepareNavNodeForClient({
 	}
 }
 
+/**
+ * Given a relative `href`, expected to be constructed for dot-io contexts,
+ * as well as the current `basePaths`,
+ * Return a `fullPath` for use with the Dev Dot URL structure.
+ *
+ * @param href A relative URL
+ * @param basePaths The current set of basePaths
+ */
+function fullPathFromRelativeHref(href: string, basePaths: string[]): string {
+	let fullPath
+	if (href.startsWith(`/${basePaths[0]}/`)) {
+		/**
+		 * If the path already starts with the basePaths[0], the product slug,
+		 * we use the href as the fullPath directly.
+		 */
+		fullPath = href
+	} else if (href.startsWith('/')) {
+		/**
+		 * If the path starts with a slash, we treat it as relative
+		 * to the previous dot-io setup. We prefix it with basePaths[0],
+		 * which should be the product slug.
+		 */
+		fullPath = `/${path.join(basePaths[0], href)}`
+	} else {
+		/**
+		 * If the path does not start with a slash, we treat it as relative
+		 * to the combined current basePath.
+		 */
+		fullPath = `/${path.join(basePaths.join('/'), href)}`
+	}
+	return fullPath
+}
+
+export { fullPathFromRelativeHref }
 export default prepareNavDataForClient

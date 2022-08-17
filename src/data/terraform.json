@@ -21,84 +21,6 @@
 		"plugin/sdkv2",
 		"registry"
 	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/terraform" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/terraform"
-			}
-		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"label": "About the Docs",
-				"pathSuffix": "docs",
-				"icon": "docs"
-			},
-			{
-				"label": "Intro to Terraform",
-				"pathSuffix": "intro",
-				"icon": "docs"
-			},
-			{
-				"label": "Configuration Language",
-				"pathSuffix": "language",
-				"icon": "docs"
-			},
-			{
-				"label": "Terraform CLI",
-				"pathSuffix": "cli",
-				"icon": "docs"
-			},
-			{
-				"label": "Terraform Cloud",
-				"pathSuffix": "cloud-docs",
-				"icon": "docs"
-			},
-			{
-				"label": "Terraform Enterprise",
-				"pathSuffix": "enterprise",
-				"icon": "docs"
-			},
-			{
-				"label": "Provider Use",
-				"pathSuffix": "language/providers",
-				"icon": "docs"
-			},
-			{
-				"label": "Plugin Development",
-				"pathSuffix": "plugin",
-				"icon": "docs"
-			},
-			{
-				"label": "Registry Publishing",
-				"pathSuffix": "registry",
-				"icon": "docs"
-			},
-			{
-				"label": "Integration Platform",
-				"pathSuffix": "docs/partnerships",
-				"icon": "docs"
-			},
-			{
-				"label": "Terraform Tools",
-				"pathSuffix": "docs/terraform-tools",
-				"icon": "docs"
-			},
-			{
-				"label": "CDK for Terraform",
-				"pathSuffix": "cdktf",
-				"icon": "docs"
-			},
-			{
-				"label": "Glossary",
-				"pathSuffix": "docs/glossary",
-				"icon": "docs"
-			}
-		]
-	},
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -153,7 +75,7 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "Plugin",
+			"name": "Plugin Development",
 			"path": "plugin",
 			"productSlugForLoader": "terraform-docs-common"
 		},
