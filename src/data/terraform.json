@@ -105,7 +105,7 @@
 		{
 			"iconName": "file-source",
 			"name": "Configuration Language",
-			"path": "language"
+			"path": "language",
 			"visuallyHideSidebarTitle": true,
 			"addOverviewItem": false
 		},
