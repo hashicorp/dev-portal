@@ -327,7 +327,8 @@ export function getStaticGenerationFunctions<
 			 * (We use `v0.0.x` as a placeholder version for un-versioned documentation)
 			 */
 			const hasMeaningfulVersions =
-				versions && (versions.length > 1 || versions[0].version !== 'v0.0.x')
+				versions.length > 0 &&
+				(versions.length > 1 || versions[0].version !== 'v0.0.x')
 			/**
 			 * For the /packer/plugins landing page, we want to hide the version selector,
 			 * even though we do have meaningful versions available
