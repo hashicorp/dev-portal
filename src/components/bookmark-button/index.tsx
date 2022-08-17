@@ -19,17 +19,23 @@ const bookmarkButtonConfig: BookmarkButtonConfigType = {
 	},
 }
 
+/**
+ * This bookmark icon for now is used in tutorial cards
+ * only. The hover icon state for this is unique, see
+ * the /icons file for more context.
+ */
+
 function BookmarkButtonIconOnly({
 	isBookmarked,
-	handleOnClick, // this is configured by the `withState` hoc
+	handleOnClick,
 }: BookmarkButtonProps) {
 	const { add, remove } = bookmarkButtonConfig
-	const helpText = isBookmarked ? remove.text : add.text
+	const ariaLabel = isBookmarked ? remove.text : add.text
 	return (
 		<button
 			aria-pressed={isBookmarked}
 			onClick={handleOnClick}
-			aria-label={helpText}
+			aria-label={ariaLabel}
 			className={s.button}
 		>
 			{isBookmarked ? remove.iconWithHover : add.iconWithHover}
@@ -37,16 +43,27 @@ function BookmarkButtonIconOnly({
 	)
 }
 
+/**
+ * This component is a regular button, currently used
+ * only in the tutorial meta component.
+ */
+
 function BookmarkButtonTextAndIcon({
 	isBookmarked,
-	handleOnClick, // this is configured by the `withState` hoc
+	handleOnClick,
 }: BookmarkButtonProps) {
 	const { add, remove } = bookmarkButtonConfig
-	const props = isBookmarked
+	const buttonProps = isBookmarked
 		? { text: remove.text, icon: remove.baseIcon }
 		: { text: add.text, icon: add.baseIcon }
-	return <Button color="secondary" onClick={handleOnClick} {...props} />
+	return <Button color="secondary" onClick={handleOnClick} {...buttonProps} />
 }
 
+/**
+ * The above components are only responsible for rendering the bookmark UI
+ * The below components are hooked up to data / interaction state
+ * via an HOC - `withState`, which passes the `handleOnClick` logic,
+ * checks for authentication, triggers a toast notification etc.
+ */
 export const TutorialCardBookmarkButton = withState(BookmarkButtonIconOnly)
 export const TutorialMetaBookmarkButton = withState(BookmarkButtonTextAndIcon)

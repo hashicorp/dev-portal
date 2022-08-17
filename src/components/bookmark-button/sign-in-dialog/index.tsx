@@ -33,7 +33,7 @@ export default function BookmarkSignInPrompt({
 				try again.
 			</Text>
 			<div className={s.buttonGroup}>
-				<Button text="Sign in" onClick={() => signIn()} />
+				<Button text="Sign in" onClick={signIn} />
 				<Button text="Cancel" color="secondary" onClick={onDismiss} />
 			</div>
 		</>

@@ -51,7 +51,10 @@ export function withState(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 						isOpen={showDialog}
 						label="Opt out form"
 					>
-						<BookmarkSignInPrompt onDismiss={closeDialog} signIn={signIn} />
+						<BookmarkSignInPrompt
+							onDismiss={closeDialog}
+							signIn={() => signIn()}
+						/>
 					</Dialog>
 				) : null}
 			</>
