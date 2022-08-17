@@ -1,13 +1,6 @@
 import { MDXRemote } from 'next-mdx-remote'
-import s from './paragraph-block.module.css'
+import { MdxA, MdxP } from 'components/dev-dot-content/mdx-components'
 
 export function ParagraphBlock(props) {
-	return (
-		<div className={s.root}>
-			<pre>
-				<code>{JSON.stringify(props, null, 2)}</code>
-			</pre>
-			<MDXRemote {...props.mdxSource} />
-		</div>
-	)
+	return <MDXRemote {...props.mdxSource} components={{ a: MdxA, p: MdxP }} />
 }
