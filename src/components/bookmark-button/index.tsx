@@ -1,5 +1,7 @@
+import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
+import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
 import { AUTH_ENABLED } from 'hooks/use-authentication'
-import React from 'react'
+import Button from 'components/button'
 import { withDialog } from './sign-in-dialog/with-dialog'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import s from './bookmark-button.module.css'
@@ -15,7 +17,10 @@ export interface BookmarkButtonProps {
 	openDialog(): void
 }
 
-function BookmarkButton({ isBookmarked, openDialog }: BookmarkButtonProps) {
+function BookmarkButtonIconOnly({
+	isBookmarked,
+	openDialog,
+}: BookmarkButtonProps) {
 	// NOTE! - hiding this component from prod until auth is enabled
 	if (!AUTH_ENABLED) {
 		return null
@@ -27,7 +32,6 @@ function BookmarkButton({ isBookmarked, openDialog }: BookmarkButtonProps) {
 			onClick={() => {
 				// TODO use the create / destroy methods in the client
 				// or render dialog to prompt auth if not auth'd
-				console.log('Bookmark clicked!')
 				// if not auth'd, show dialog
 				openDialog()
 			}}
@@ -39,4 +43,21 @@ function BookmarkButton({ isBookmarked, openDialog }: BookmarkButtonProps) {
 	)
 }
 
-export default withDialog(BookmarkButton)
+function BookmarkButtonWithText({
+	isBookmarked,
+	openDialog,
+}: BookmarkButtonProps) {
+	return (
+		<Button
+			color="secondary"
+			text={isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
+			icon={isBookmarked ? <IconBookmarkRemove16 /> : <IconBookmarkAdd16 />}
+			onClick={() => {
+				openDialog()
+			}} // TODO hook up to real state mgmt, show dialog etc.
+		/>
+	)
+}
+
+export const TutorialCardBookmarkButton = withDialog(BookmarkButtonIconOnly)
+export const TutorialMetaBookmarkButton = withDialog(BookmarkButtonWithText)
