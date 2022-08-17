@@ -14,23 +14,5 @@
 			"shortName": "Documentation",
 			"productSlugForLoader": "cloud.hashicorp.com"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/hcp" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/hcp"
-			}
-		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"label": "General Documentation",
-				"icon": "docs",
-				"pathSuffix": "docs"
-			}
-		]
-	}
+	]
 }
