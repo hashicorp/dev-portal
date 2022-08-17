@@ -161,7 +161,7 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "Plugin",
+			"name": "Plugin Development",
 			"path": "plugin",
 			"productSlugForLoader": "terraform-docs-common",
 			"visuallyHideSidebarTitle": true
