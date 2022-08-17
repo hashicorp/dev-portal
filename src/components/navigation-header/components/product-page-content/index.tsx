@@ -154,7 +154,7 @@ const ProductPageHeaderContent = () => {
 											return {
 												icon: rootDocsPath.iconName,
 												label: rootDocsPath.name,
-												path: `/${currentProduct}/${rootDocsPath.path}`,
+												path: `/${currentProduct.slug}/${rootDocsPath.path}`,
 											}
 										}
 									),
