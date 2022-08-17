@@ -1,23 +1,8 @@
 {
-	"featuredLearnContent": [
-		{
-			"collectionSlug": "vault/getting-started"
-		},
-		{
-			"collectionSlug": "vault/getting-started-ui"
-		},
-		{
-			"collectionSlug": "vault/cloud"
-		},
-		{
-			"tutorialSlug": "vault/production-hardening"
-		},
-		{
-			"tutorialSlug": "vault/raft-reference-architecture"
-		},
-		{
-			"tutorialSlug": "vault/raft-deployment-guide"
-		}
+	"featuredTutorialsSlugs": [
+		"vault/production-hardening",
+		"vault/raft-reference-architecture",
+		"vault/raft-deployment-guide"
 	],
 	"sidebarMenuItems": [
 		{

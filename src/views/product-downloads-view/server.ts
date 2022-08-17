@@ -12,6 +12,7 @@ import {
 	RawProductDownloadsViewContent,
 	FeaturedLearnCard,
 } from './types'
+import { getInlineTutorials } from 'views/product-tutorials-view/helpers/get-inline-content'
 
 const generateGetStaticProps = (product: ProductData) => {
 	return async (): Promise<{
@@ -33,7 +34,7 @@ const generateGetStaticProps = (product: ProductData) => {
 		)
 		const {
 			doesNotHavePackageManagers,
-			featuredLearnContent,
+			featuredTutorialsSlugs,
 			packageManagerOverrides,
 			sidecarMarketingCard,
 			sidebarMenuItems,
@@ -49,23 +50,20 @@ const generateGetStaticProps = (product: ProductData) => {
 		/**
 		 * Gather tutorials and collections based on slugs used
 		 */
-		const inlineContent = await getInlineContentMaps(featuredLearnContent)
+		const inlineTutorials = await getInlineTutorials(featuredTutorialsSlugs)
+
+		console.log(inlineTutorials)
 
 		/**
 		 * Transform feature tutorial and collection entries into card data
 		 */
-		const featuredLearnCards: FeaturedLearnCard[] = featuredLearnContent.map(
-			(entry: FeaturedLearnContent) => {
-				const { collectionSlug, tutorialSlug } = entry
-				if (typeof collectionSlug == 'string') {
-					const collectionData = inlineContent.inlineCollections[collectionSlug]
-					return { type: 'collection', ...formatCollectionCard(collectionData) }
-				} else if (typeof tutorialSlug == 'string') {
-					const tutorialData = inlineContent.inlineTutorials[tutorialSlug]
-					const defaultContext = tutorialData.collectionCtx.default
-					const tutorialLiteCompat = { ...tutorialData, defaultContext }
-					return { type: 'tutorial', ...formatTutorialCard(tutorialLiteCompat) }
-				}
+		const featuredLearnCards: FeaturedLearnCard[] = featuredTutorialsSlugs.map(
+			(tutorialSlug: string) => {
+				const tutorialData = inlineTutorials[tutorialSlug]
+				const defaultContext = tutorialData.collectionCtx.default
+				const tutorialLiteCompat = { ...tutorialData, defaultContext }
+
+				return { type: 'tutorial', ...formatTutorialCard(tutorialLiteCompat) }
 			}
 		)
 

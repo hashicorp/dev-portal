@@ -1,24 +1,5 @@
 {
-	"featuredLearnContent": [
-		{
-			"tutorialSlug": "waypoint/get-started-intro"
-		},
-		{
-			"collectionSlug": "waypoint/get-started-kubernetes"
-		},
-		{
-			"collectionSlug": "waypoint/get-started-nomad"
-		},
-		{
-			"collectionSlug": "waypoint/deploy-aws"
-		},
-		{
-			"collectionSlug": "waypoint/deploy-azure"
-		},
-		{
-			"collectionSlug": "waypoint/deploy-google-cloud"
-		}
-	],
+	"featuredTutorialsSlugs": ["waypoint/get-started-intro"],
 	"sidebarMenuItems": [
 		{
 			"divider": true
