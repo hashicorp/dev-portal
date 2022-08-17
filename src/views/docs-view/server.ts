@@ -6,6 +6,7 @@ import rehypePrism from '@mapbox/rehype-prism'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import FileSystemLoader from '@hashicorp/react-docs-page/server/loaders/file-system'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports
@@ -139,7 +140,25 @@ export function getStaticGenerationFunctions<
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
 	const getLoader = (
 		extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
-	) => new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
+	) => {
+		if (process.env.PREVIEW_FROM_REPO === productSlugForLoader) {
+			// options needed to read content from the file system when running in preview mode
+			const fsOptions = {
+				localContentDir: `../content/${basePath}`,
+				navDataFile: `../data/${
+					currentRootDocsPath.navDataPrefix ?? currentRootDocsPath.path
+				}-nav-data.json`,
+			}
+
+			return new FileSystemLoader({
+				...loaderOptions,
+				...fsOptions,
+				...extraOptions,
+			})
+		} else {
+			return new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
+		}
+	}
 
 	return {
 		getStaticPaths: async () => {

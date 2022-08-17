@@ -6,6 +6,11 @@ const { redirectsConfig } = require('./build-libs/redirects')
 const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
 
+console.log({
+	DEV_IO: process.env.DEV_IO,
+	PREVIEW_FROM_REPO: process.env.PREVIEW_FROM_REPO,
+})
+
 // temporary: set all paths as noindex, until we're serving from this project
 // Update the excluded domains to ensure we are indexing content as the io sites get migrated
 const temporary_hideDocsPaths = {
@@ -79,6 +84,7 @@ module.exports = withSwingset({
 			BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',
 			BUGSNAG_SERVER_KEY: 'b32b4487b5dc72b32f51c8fe33641a43',
 			DEV_IO: process.env.DEV_IO,
+			PREVIEW_FROM_REPO: process.env.PREVIEW_FROM_REPO,
 			ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
 			HASHI_ENV: process.env.HASHI_ENV || 'development',
 			IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
