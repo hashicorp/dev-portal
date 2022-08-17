@@ -47,6 +47,10 @@ function BookmarkButtonWithText({
 	isBookmarked,
 	openDialog,
 }: BookmarkButtonProps) {
+	// NOTE! - hiding this component from prod until auth is enabled
+	if (!AUTH_ENABLED) {
+		return null
+	}
 	return (
 		<Button
 			color="secondary"

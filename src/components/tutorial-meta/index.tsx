@@ -58,9 +58,7 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 				/>
 				<span className={s.buttonGroup}>
 					<InteractiveLabButton />
-					{isAuthEnabled ? (
-						<TutorialMetaBookmarkButton isBookmarked={isBookmarked} />
-					) : null}
+					<TutorialMetaBookmarkButton isBookmarked={isBookmarked} />
 				</span>
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta}>
