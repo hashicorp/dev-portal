@@ -276,8 +276,8 @@ export function getStaticGenerationFunctions<
 			if (currentRootDocsPath.visuallyHideSidebarTitle) {
 				docsSidebarLevel.visuallyHideTitle = true
 			}
-			// If we want to add an "overview" item, add one
-			if (currentRootDocsPath.addOverviewItem) {
+			// Add "Overview" item, unless explicitly disabled
+			if (currentRootDocsPath.addOverviewItem !== false) {
 				docsSidebarLevel.overviewItemHref = versionPathPart
 					? `/${product.slug}/${basePath}/${versionPathPart}`
 					: `/${product.slug}/${basePath}`

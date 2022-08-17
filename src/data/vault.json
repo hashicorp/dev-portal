@@ -151,14 +151,12 @@
 			"iconName": "docs",
 			"name": "General Documentation",
 			"path": "docs",
-			"shortName": "Documentation",
-			"addOverviewItem": true
+			"shortName": "Documentation"
 		},
 		{
 			"iconName": "api",
 			"name": "API",
-			"path": "api-docs",
-			"addOverviewItem": true
+			"path": "api-docs"
 		}
 	],
 	"sidebar": {

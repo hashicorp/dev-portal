@@ -125,6 +125,8 @@ interface RootDocsPath {
 
 	/**
 	 * An optional property to add an "overview" item to the sidebar.
+	 * By default, an overview item will be added. This property must be
+	 * explicitly set to `false` to prevent an overview item from being added.
 	 * The `href` for this item will lead to the root docs path,
 	 * and will dynamically account for version context.
 	 */

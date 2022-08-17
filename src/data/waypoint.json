@@ -66,20 +66,17 @@
 			"name": "General Documentation",
 			"path": "docs",
 			"shortName": "Documentation",
-			"addOverviewItem": true,
 			"includeMDXSource": true
 		},
 		{
 			"iconName": "terminal-screen",
 			"name": "CLI",
-			"path": "commands",
-			"addOverviewItem": true
+			"path": "commands"
 		},
 		{
 			"iconName": "plug",
 			"name": "Plugins",
-			"path": "plugins",
-			"addOverviewItem": true
+			"path": "plugins"
 		}
 	],
 	"sidebar": {
