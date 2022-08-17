@@ -9,6 +9,8 @@ import Button from 'components/button'
 import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
+import { useBookmarkMutations, useIsBookmarked } from 'hooks/bookmarks'
+import { ApiTutorial } from 'lib/learn-client/api/api-types'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -16,9 +18,14 @@ interface TutorialMetaProps {
 		isInteractive: boolean
 		hasVideo: boolean
 	}
+	tutorialId: ApiTutorial['id']
 }
 
-export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
+export default function TutorialMeta({
+	heading,
+	meta,
+	tutorialId,
+}: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 
 	/**
@@ -27,11 +34,8 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 	 */
 	const { isAuthenticated, isAuthEnabled, isLoading } = useAuthentication()
 	const showCreateAccountCta = isAuthEnabled && !isLoading && !isAuthenticated
-	/**
-	 * TODO - This state will likely be passed down from the tutorial level.
-	 * hook up to real data
-	 */
-	const isBookmarked = false
+	const { isBookmarked } = useIsBookmarked({ tutorialId })
+	const { addBookmark, removeBookmark } = useBookmarkMutations()
 
 	return (
 		<header className={s.header}>
@@ -67,7 +71,13 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 							icon={
 								isBookmarked ? <IconBookmarkRemove16 /> : <IconBookmarkAdd16 />
 							}
-							onClick={() => console.log('Bookmark button clicked!')} // TODO hook up to real state mgmt, show dialog etc.
+							onClick={() => {
+								if (isBookmarked) {
+									removeBookmark(tutorialId)
+								} else {
+									addBookmark(tutorialId)
+								}
+							}}
 						/>
 					) : null}
 				</span>
