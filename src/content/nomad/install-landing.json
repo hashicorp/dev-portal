@@ -1,13 +1,13 @@
 {
 	"featuredLearnContent": [
 		{
-			"collectionSlug": "nomad/get-started"
+			"tutorialSlug": "nomad/get-started-install"
 		},
 		{
 			"tutorialSlug": "nomad/cluster-setup-aws"
 		},
 		{
-			"collectionSlug": "nomad/manage-jobs"
+			"tutorialSlug": "nomad/jobs-configuring"
 		},
 		{
 			"tutorialSlug": "nomad/job-spec-java-linux"
@@ -16,7 +16,7 @@
 			"tutorialSlug": "nomad/task-dependencies-interjob"
 		},
 		{
-			"collectionSlug": "nomad/stateful-workloads"
+			"tutorialSlug": "nomad/stateful-workloads-host-volumes"
 		}
 	],
 	"sidebarMenuItems": [
