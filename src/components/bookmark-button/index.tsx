@@ -1,7 +1,7 @@
 import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
 import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
 import Button from 'components/button'
-import { withState } from './with-state'
+import { withDialog } from './with-dialog'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import { BookmarkButtonConfigType, BookmarkButtonProps } from './types'
 import s from './bookmark-button.module.css'
@@ -65,5 +65,5 @@ function BookmarkButtonTextAndIcon({
  * via an HOC - `withState`, which passes the `handleOnClick` logic,
  * checks for authentication, triggers a toast notification etc.
  */
-export const TutorialCardBookmarkButton = withState(BookmarkButtonIconOnly)
-export const TutorialMetaBookmarkButton = withState(BookmarkButtonTextAndIcon)
+export const TutorialCardBookmarkButton = withDialog(BookmarkButtonIconOnly)
+export const TutorialMetaBookmarkButton = withDialog(BookmarkButtonTextAndIcon)

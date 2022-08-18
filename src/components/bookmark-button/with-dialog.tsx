@@ -12,8 +12,8 @@ import BookmarkSignInPrompt from './sign-in-dialog'
  * handle the dialog if unauthenticed & toast notifications
  */
 
-export function withState(BookmarkComponent: React.FC<BookmarkButtonProps>) {
-	return function BookmarkComponentWithState({
+export function withDialog(BookmarkComponent: React.FC<BookmarkButtonProps>) {
+	return function BookmarkComponentWithDialog({
 		isBookmarked,
 	}: Pick<BookmarkButtonProps, 'isBookmarked'>) {
 		const { isAuthenticated, signIn } = useAuthentication()
@@ -26,7 +26,8 @@ export function withState(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 				openDialog()
 			} else {
 				/**
-				 * TODO: hook up data state
+				 * TODO: hook up data state here
+				 * or via a passed handler
 				 * 	if (isBookmarked) {
 				 * 	//remove the bookmark
 				 * } else {
