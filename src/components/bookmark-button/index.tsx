@@ -1,6 +1,5 @@
 import { AUTH_ENABLED } from 'hooks/use-authentication'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
-import makeBookmarkToast from './toast/make-bookmark-toast'
 import s from './bookmark-button.module.css'
 
 /**
@@ -25,9 +24,7 @@ export default function BookmarkButton({ isBookmarked }: BookmarkButtonProps) {
 			onClick={() => {
 				// TODO use the create / destroy methods in the client
 				// or render dialog to prompt auth if not auth'd
-				// also, link the toast notification with the successful API post/ delete response
-				const toastAction = isBookmarked ? 'remove' : 'add'
-				makeBookmarkToast(toastAction) // TODO, pass tutorialName as second arg
+				console.log('Bookmark clicked!')
 			}}
 			aria-label={helpText}
 			className={s.button}
