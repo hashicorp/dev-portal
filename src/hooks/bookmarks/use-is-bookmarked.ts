@@ -1,13 +1,17 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
+import useAuthentication from 'hooks/use-authentication'
+import { getBookmark } from 'lib/learn-client/api/bookmark'
 import { Tutorial } from 'lib/learn-client/types'
-import { useAllBookmarks } from './use-all-bookmarks'
+
+type QueryDataType = boolean
 
 interface UseIsBookmarkedOptions {
 	tutorialId: Tutorial['id']
 }
 
-interface UseIsBookmarkedResult extends Omit<UseQueryResult, 'data'> {
-	isBookmarked: null | boolean
+interface UseIsBookmarkedResult
+	extends Omit<UseQueryResult<QueryDataType>, 'data'> {
+	isBookmarked: UseQueryResult<QueryDataType>['data']
 }
 
 /**
@@ -16,20 +20,16 @@ interface UseIsBookmarkedResult extends Omit<UseQueryResult, 'data'> {
 const useIsBookmarked = ({
 	tutorialId,
 }: UseIsBookmarkedOptions): UseIsBookmarkedResult => {
-	// Load up all bookmarks
-	const { bookmarks, isFetched: bookmarksAreFetched } = useAllBookmarks()
+	// Get the current user's access token
+	const { session } = useAuthentication()
+	const accessToken = session?.accessToken
 
-	/**
-	 * After bookmarks are fetched, query for bookmark for the given `tutorialId`.
-	 * Query is disabled until bookmarks have finished fetching.
-	 *
-	 * @TODO Optimize. Iterating over all bookmarks for every `tutorialId` is not
-	 * efficient.
-	 */
-	const { data: isBookmarked, ...restQueryResult } = useQuery(
+	// Fetch a single bookmark by tutorial id
+	const { data: isBookmarked, ...restQueryResult } = useQuery<QueryDataType>(
 		['isBookmarked', tutorialId],
-		() => !!bookmarks.find((bookmark) => bookmark.tutorial_id === tutorialId),
-		{ enabled: bookmarksAreFetched }
+		() =>
+			getBookmark({ accessToken, tutorialId }).then((bookmark) => !!bookmark),
+		{ enabled: !!accessToken }
 	)
 
 	return {
