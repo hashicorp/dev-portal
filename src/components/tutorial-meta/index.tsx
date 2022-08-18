@@ -7,17 +7,18 @@ import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
+import { handleAddOrRemoveBookmark } from 'components/tutorial-card/helpers/handle-add-or-remove-bookmark'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
-	meta: Pick<TutorialData, 'readTime' | 'edition' | 'productsUsed'> & {
+	meta: Pick<TutorialData, 'readTime' | 'edition' | 'productsUsed' | 'id'> & {
 		isInteractive: boolean
 		hasVideo: boolean
 	}
 }
 
 export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
-	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
+	const { id, isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 
 	/**
 	 * We only need to show the Create Account CTA if auth is enabled and there is
@@ -60,7 +61,12 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 					<InteractiveLabButton />
 					{/** // NOTE! - hiding this component from prod until auth is enabled  */}
 					{isAuthEnabled ? (
-						<TutorialMetaBookmarkButton isBookmarked={isBookmarked} />
+						<TutorialMetaBookmarkButton
+							isBookmarked={isBookmarked}
+							handleAddOrRemoveBookmark={() =>
+								handleAddOrRemoveBookmark(isBookmarked, id)
+							}
+						/>
 					) : null}
 				</span>
 				{showCreateAccountCta ? (

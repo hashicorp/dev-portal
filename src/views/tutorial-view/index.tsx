@@ -117,6 +117,7 @@ function TutorialView({
 
 	// variables
 	const {
+		id,
 		name,
 		slug,
 		content,
@@ -220,6 +221,7 @@ function TutorialView({
 						<TutorialMeta
 							heading={{ slug: layoutProps.headings[0].slug, text: name }}
 							meta={{
+								id,
 								readTime,
 								edition,
 								productsUsed,

@@ -16,6 +16,7 @@ export default function WellArchitectedFrameworkTutorialView({
 	layoutProps,
 }: WafTutorialViewProps) {
 	const {
+		id,
 		slug,
 		name,
 		readTime,
@@ -42,6 +43,7 @@ export default function WellArchitectedFrameworkTutorialView({
 			<TutorialMeta
 				heading={{ slug: slug, text: name }}
 				meta={{
+					id,
 					readTime,
 					edition,
 					productsUsed,

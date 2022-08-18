@@ -15,10 +15,16 @@ import BookmarkSignInPrompt from '../sign-in-dialog'
  * trigger toast notifications based on the result.
  */
 
+interface BookmarkComponentWithDialogProps
+	extends Pick<BookmarkButtonProps, 'isBookmarked'> {
+	handleAddOrRemoveBookmark(): void
+}
+
 export function withDialog(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 	return function BookmarkComponentWithDialog({
 		isBookmarked,
-	}: Pick<BookmarkButtonProps, 'isBookmarked'>) {
+		handleAddOrRemoveBookmark,
+	}: BookmarkComponentWithDialogProps) {
 		const { isAuthenticated, signIn } = useAuthentication()
 		const [showDialog, setShowDialog] = useState(false)
 		const openDialog = () => setShowDialog(true)
@@ -28,20 +34,9 @@ export function withDialog(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 				// prompt login if not authenticated
 				openDialog()
 			} else {
-				/**
-				 * TODO: hook up data state here
-				 * or via a passed handler
-				 * 	if (isBookmarked) {
-				 * 	//remove the bookmark
-				 * } else {
-				 *	//create the bookmark
-				 * }
-				 *
-				 * And upon success creating or deleting,
-				 * make toast!
-				 */
+				handleAddOrRemoveBookmark()
 			}
-		}, [isAuthenticated])
+		}, [isAuthenticated, handleAddOrRemoveBookmark])
 
 		return (
 			<>
