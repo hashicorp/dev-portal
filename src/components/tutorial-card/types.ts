@@ -38,8 +38,6 @@ export interface TutorialCardProps {
 	productsUsed: ProductOption[]
 
 	eyebrowSlot?: ReactNode // TODO figure out best type
-
-	isBookmarked?: boolean
 }
 
 export interface TutorialCardPropsWithId extends TutorialCardProps {

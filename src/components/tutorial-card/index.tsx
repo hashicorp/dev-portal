@@ -1,5 +1,3 @@
-import { AUTH_ENABLED } from 'hooks/use-authentication'
-import { TutorialCardBookmarkButton } from 'components/bookmark-button'
 import CardLink from 'components/card-link'
 import {
 	CardEyebrow,
