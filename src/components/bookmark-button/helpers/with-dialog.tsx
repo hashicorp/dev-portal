@@ -1,15 +1,18 @@
 import React, { useCallback, useState } from 'react'
 import Dialog from 'components/dialog'
 import useAuthentication from 'hooks/use-authentication'
-import { BookmarkButtonProps } from './types'
-import BookmarkSignInPrompt from './sign-in-dialog'
+import { BookmarkButtonProps } from '../types'
+import BookmarkSignInPrompt from '../sign-in-dialog'
 
 /**
  * This HOC serves as a 'controller'
  * for rendering the various state of bookmark
  * interaction. It accepts a UI component to render,
- * will post / delete based on interactions and
- * handle the dialog if unauthenticed & toast notifications
+ * and renders a dialog if unauthenticed
+ *
+ * Eventually this could be extended to
+ * post / delete based on interactions and
+ * trigger toast notifications based on the result.
  */
 
 export function withDialog(BookmarkComponent: React.FC<BookmarkButtonProps>) {

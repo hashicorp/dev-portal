@@ -1,7 +1,7 @@
 import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
 import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
 import Button from 'components/button'
-import { withDialog } from './with-dialog'
+import { withDialog } from './helpers/with-dialog'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import { BookmarkButtonConfigType, BookmarkButtonProps } from './types'
 import s from './bookmark-button.module.css'
@@ -61,9 +61,12 @@ function BookmarkButtonTextAndIcon({
 
 /**
  * The above components are only responsible for rendering the bookmark UI
- * The below components are hooked up to data / interaction state
- * via an HOC - `withState`, which passes the `handleOnClick` logic,
- * checks for authentication, triggers a toast notification etc.
+ * The below components are wrapped with an HOC - `withDialog`,
+ * which passes the `handleOnClick` logic, checks for authentication,
+ * and opens a dialog to prompt authentication.
+ *
+ * Eventually this HOC may also handle the API requests to manage data.
+ * and trigger toasts based on the result.
  */
 export const TutorialCardBookmarkButton = withDialog(BookmarkButtonIconOnly)
 export const TutorialMetaBookmarkButton = withDialog(BookmarkButtonTextAndIcon)
