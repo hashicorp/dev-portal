@@ -49,15 +49,44 @@ const generateAdditionalResources = (productSlug?: ProductSlug) => {
 	return []
 }
 
+type ResourceNavItem = { heading: string } | { title: string; href: string }
+
 /**
  * Generates the sidebar nav items for the Resources section of the sidebar.
  * Optionally accepts a Product slug for customization of links.
+ *
+ * TODO: should we potentially fully load these from JSON, rather than mix
+ * generated links with appended / pre-pended links?
+ * In other words we'd basically eliminate everything except the
+ * "additionalResources" part. All resource links for a particular product
+ * would be defined in JSON.
+ *
+ * Alternately, given that Terraform is the only current use case,
+ * maybe we load from a `content/<productSlug>/sidebar-resources` if present,
+ * or default to a generated set? (But avoid combining the two).
  */
-const generateResourcesNavItems = (productSlug?: ProductSlug) => {
-	const additionalResources = generateAdditionalResources(productSlug)
+const generateResourcesNavItems = (
+	productSlug?: ProductSlug
+): ResourceNavItem[] => {
+	/**
+	 * No matter the product, we definitely want a consistent heading
+	 */
+	let items: ResourceNavItem[] = [{ heading: 'Resources' }]
 
-	return [
-		{ heading: 'Resources' },
+	/**
+	 * For Terraform, add in a Registry link
+	 */
+	if (productSlug === 'terraform') {
+		items.push({
+			title: 'Terraform Registry',
+			href: 'https://registry.terraform.io/',
+		})
+	}
+
+	/**
+	 * Add remaining links, which are consistent across products
+	 */
+	items = items.concat([
 		{
 			title: 'Community Forum',
 			href: productSlug
@@ -74,8 +103,19 @@ const generateResourcesNavItems = (productSlug?: ProductSlug) => {
 				? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
 				: DEFAULT_GITHUB_LINK,
 		},
-		...additionalResources,
-	]
+	])
+
+	/**
+	 * Allow products to add resource links on a case-by-case basis,
+	 * via JSON files in the content directory
+	 */
+	const additionalResources = generateAdditionalResources(productSlug)
+	items = items.concat(additionalResources)
+
+	/**
+	 * Return the items
+	 */
+	return items
 }
 
 export { generateResourcesNavItems }
