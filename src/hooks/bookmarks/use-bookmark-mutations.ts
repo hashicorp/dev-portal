@@ -6,10 +6,8 @@ import useAuthentication from 'hooks/use-authentication'
 import {
 	createBookmark,
 	CreateBookmarkOptions,
-	CreateBookmarkResult,
 	deleteBookmark,
 	DeleteBookmarkOptions,
-	DeleteBookmarkResult,
 } from 'lib/learn-client/api/bookmark'
 
 interface UseBookmarkMutationsResult {
@@ -29,25 +27,29 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 	/**
 	 * Set up `onSuccess` callback for the create/delete mutations.
 	 */
-	const onMutationSuccess = (
-		mutationResult: CreateBookmarkResult | DeleteBookmarkResult,
-		mutationVariables: CreateBookmarkOptions | DeleteBookmarkOptions
-	) => {
-		// Pull the modified bookmark's `tutorialId`
-		const mutatedTutorialId = mutationVariables.tutorialId
+	const makeOnMutationSuccess = (mutationType: 'add' | 'remove') => {
+		return (
+			_,
+			mutationVariables: CreateBookmarkOptions | DeleteBookmarkOptions
+		) => {
+			// Pull the modified bookmark's `tutorialId`
+			const mutatedTutorialId = mutationVariables.tutorialId
 
-		// `removeBookmark` returns `undefined`; we can tell which mutation occurred
-		const wasRemoveMutation = mutationResult === undefined
-		const isNowBookmarked = wasRemoveMutation ? false : true
+			// Determine if the tutorial is now bookmarked
+			let isNowBookmarked = false
+			if (mutationType === 'add') {
+				isNowBookmarked = true
+			}
 
-		// Flip the `isBookmarked` value for this `tutorialId`
-		queryClient.setQueryData(
-			['isBookmarked', mutatedTutorialId],
-			isNowBookmarked
-		)
+			// Update/create the `isBookmarked` cache entry for this tutorial id
+			queryClient.setQueryData(
+				['isBookmarked', mutatedTutorialId],
+				isNowBookmarked
+			)
 
-		// Invalidate `bookmarks` so they're refetched in the background
-		queryClient.invalidateQueries(['bookmarks'])
+			// Invalidate `bookmarks` so they're refetched in the background
+			queryClient.invalidateQueries(['bookmarks'])
+		}
 	}
 
 	// TODO expose an new error object in the bookmark API functions
@@ -67,7 +69,7 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 	 * Set up `addBookmark` callback.
 	 */
 	const addBookmarkMutation = useMutation(createBookmark, {
-		onSuccess: onMutationSuccess,
+		onSuccess: makeOnMutationSuccess('add'),
 		onError: makeOnError('addBookmark'),
 	})
 	const addBookmark = useCallback(
@@ -84,7 +86,7 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 	 * Set up `removeBookmark` callback.
 	 */
 	const removeBookmarkMutation = useMutation(deleteBookmark, {
-		onSuccess: onMutationSuccess,
+		onSuccess: makeOnMutationSuccess('remove'),
 		onError: makeOnError('removeBookmark'),
 	})
 	const removeBookmark = useCallback(
