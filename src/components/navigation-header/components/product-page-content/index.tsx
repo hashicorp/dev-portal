@@ -29,6 +29,7 @@ import {
 } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './product-page-content.module.css'
+import { getNavItems } from './utils/get-nav-items'
 
 /**
  * A mapping of Product slugs to their imported SVG colorwhite logos. Used for
@@ -144,31 +145,14 @@ const ProductPageHeaderContent = () => {
 				<div className="g-hide-on-mobile g-hide-on-tablet">
 					<nav className={sharedNavStyles.nav}>
 						<ul className={sharedNavStyles.navList}>
-							{[
-								{ label: 'Home', pathSuffix: '' },
-								{
-									label: 'Documentation',
-									iconColorTheme: currentProduct.slug,
-									items: currentProduct.rootDocsPaths.map(
-										(rootDocsPath: RootDocsPath) => {
-											return {
-												icon: rootDocsPath.iconName,
-												label: rootDocsPath.name,
-												path: `/${currentProduct.slug}/${rootDocsPath.path}`,
-											}
-										}
-									),
-								},
-								{ label: 'Tutorials', pathSuffix: 'tutorials' },
-								{ label: 'Install', pathSuffix: 'downloads' },
-							].map((navItem) => {
-								const { items, label } = navItem
+							{getNavItems(currentProduct).map((navItem) => {
+								const { type, label } = navItem
 								const ariaLabel = `${currentProduct.name} ${label}`
 
 								let ItemContent
-								if (items) {
+								if (type == 'submenu') {
 									ItemContent = PrimaryNavSubmenu
-								} else {
+								} else if (type == 'link') {
 									ItemContent = PrimaryNavLink
 								}
 
