@@ -4,7 +4,7 @@ import {
 	ProductUsed,
 	TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
-import { TutorialCardProps } from '../types'
+import { TutorialCardPropsWithId } from '../types'
 
 export function formatTutorialCard(
 	tutorial: ClientTutorialLite,
@@ -17,7 +17,7 @@ export function formatTutorialCard(
 	 * please ensure it corresponds to a valid collection.
 	 */
 	collectionSlug?: string
-): TutorialCardProps {
+): TutorialCardPropsWithId {
 	const safeCollectionSlug = collectionSlug || tutorial.defaultContext.slug
 	return {
 		id: tutorial.id,

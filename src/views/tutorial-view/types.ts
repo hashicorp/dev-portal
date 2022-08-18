@@ -26,7 +26,6 @@ type CollectionContext = {
 interface TutorialData
 	extends Pick<
 		ClientTutorial,
-		| 'id'
 		| 'name'
 		| 'slug'
 		| 'readTime'

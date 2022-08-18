@@ -7,15 +7,14 @@ import {
 	CardBadges,
 	CardBadgeOption,
 } from 'components/tutorial-collection-cards'
-import { TutorialCardProps } from './types'
 import { buildAriaLabel } from './helpers'
+import { TutorialCardProps, TutorialCardPropsWithId } from './types'
 import s from './tutorial-card.module.css'
 
 /**
  * Render a card that links to a tutorial.
  */
 function TutorialCard({
-	id,
 	url,
 	duration,
 	heading,
@@ -23,6 +22,7 @@ function TutorialCard({
 	productsUsed,
 	hasVideo,
 	hasInteractiveLab,
+	isBookmarked = false,
 }: TutorialCardProps) {
 	/**
 	 * Build the array of badges to show at the bottom of the card.
@@ -48,7 +48,7 @@ function TutorialCard({
 		<CardLink href={url} className={s.root} ariaLabel={ariaLabel}>
 			<CardEyebrow className={s.eyebrow}>
 				<span>{duration}</span>
-				<BookmarkButton tutorialId={id} />
+				<BookmarkButton isBookmarked={isBookmarked} />
 			</CardEyebrow>
 			<CardHeading level={3} text={heading} />
 			<CardBody text={description} />
@@ -57,5 +57,5 @@ function TutorialCard({
 	)
 }
 
-export type { TutorialCardProps }
+export type { TutorialCardProps, TutorialCardPropsWithId }
 export default TutorialCard

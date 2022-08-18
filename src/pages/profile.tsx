@@ -1,8 +1,11 @@
+import useAuthentication from 'hooks/use-authentication'
 import BaseNewLayout from 'layouts/base-new'
 import ProfileView from 'views/profile-view'
 
 const ProfilePage = () => {
-	return <ProfileView />
+	const { user } = useAuthentication()
+
+	return <ProfileView user={user} />
 }
 
 ProfilePage.layout = BaseNewLayout

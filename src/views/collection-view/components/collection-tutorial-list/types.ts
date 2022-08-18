@@ -1,6 +1,6 @@
-import { TutorialCardProps } from 'components/tutorial-card/types'
+import { TutorialCardPropsWithId } from 'components/tutorial-card/types'
 
 export interface CollectionTutorialListProps {
-	tutorials: TutorialCardProps[]
+	tutorials: TutorialCardPropsWithId[]
 	isOrdered: boolean
 }

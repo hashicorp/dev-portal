@@ -1,12 +1,6 @@
-import { Tutorial } from 'lib/learn-client/types'
 import { ProductOption } from 'lib/learn-client/types'
 
 export interface TutorialCardProps {
-	/**
-	 * The tutorial's unique identifier.
-	 */
-	id: Tutorial['id']
-
 	/**
 	 * A short description of the tutorial.
 	 */
@@ -41,4 +35,13 @@ export interface TutorialCardProps {
 	 * A list of product slugs, representing products used in the tutorial.
 	 */
 	productsUsed: ProductOption[]
+
+	isBookmarked?: boolean
+}
+
+export interface TutorialCardPropsWithId extends TutorialCardProps {
+	/**
+	 * The tutorial's unique identifier
+	 */
+	id: string
 }

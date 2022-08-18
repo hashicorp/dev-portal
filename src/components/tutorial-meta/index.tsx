@@ -1,7 +1,5 @@
 import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
 import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
-import { useBookmarkMutations, useIsBookmarked } from 'hooks/bookmarks'
-import { Tutorial } from 'lib/learn-client/types'
 import useAuthentication from 'hooks/use-authentication'
 import { TutorialData } from 'views/tutorial-view'
 import Heading from 'components/heading'
@@ -18,14 +16,9 @@ interface TutorialMetaProps {
 		isInteractive: boolean
 		hasVideo: boolean
 	}
-	tutorialId: Tutorial['id']
 }
 
-export default function TutorialMeta({
-	heading,
-	meta,
-	tutorialId,
-}: TutorialMetaProps) {
+export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 
 	/**
@@ -34,8 +27,11 @@ export default function TutorialMeta({
 	 */
 	const { isAuthenticated, isAuthEnabled, isLoading } = useAuthentication()
 	const showCreateAccountCta = isAuthEnabled && !isLoading && !isAuthenticated
-	const { isBookmarked } = useIsBookmarked({ tutorialId })
-	const { addBookmark, removeBookmark } = useBookmarkMutations()
+	/**
+	 * TODO - This state will likely be passed down from the tutorial level.
+	 * hook up to real data
+	 */
+	const isBookmarked = false
 
 	return (
 		<header className={s.header}>
@@ -71,13 +67,7 @@ export default function TutorialMeta({
 							icon={
 								isBookmarked ? <IconBookmarkRemove16 /> : <IconBookmarkAdd16 />
 							}
-							onClick={() => {
-								if (isBookmarked) {
-									removeBookmark(tutorialId)
-								} else {
-									addBookmark(tutorialId)
-								}
-							}}
+							onClick={() => console.log('Bookmark button clicked!')} // TODO hook up to real state mgmt, show dialog etc.
 						/>
 					) : null}
 				</span>
