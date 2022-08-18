@@ -74,7 +74,7 @@
 			"cards": [
 				{
 					"heading": "Integrate Consul",
-					"body": "Secure Nomad jobs and learn more about Consul health checking, service discovery, and service mesh capabilities.",
+					"body": "Learn to secure jobs and add Consul health checking, service discovery, and service mesh capabilities.",
 					"url": "nomad/tutorials/integrate-consul"
 				},
 				{
@@ -105,7 +105,7 @@
 				},
 				{
 					"heading": "Secure Nomad with Access Control",
-					"body": "Configure a Nomad cluster for ACLs, bootstrap the ACL system, author your first policy, and grant a token based on it.",
+					"body": "Learn to configure a Nomad cluster for ACLs, author your first policy, and grant a token based on it.",
 					"url": "nomad/tutorials/access-control"
 				},
 				{
@@ -115,17 +115,17 @@
 				},
 				{
 					"heading": "Job Resiliency",
-					"body": "Learn how Nomad attempts to keep jobs running in the event of the unexpected with local retries and node rescheduling.",
+					"body": "Learn to keep jobs running in the event of the unexpected with local retries and node rescheduling.",
 					"url": "nomad/tutorials/job-failure-handling"
 				},
 				{
 					"heading": "Governance and Policy",
-					"body": "Operate Nomad securely in a multi-team environment with features such as resource quotas and Sentinel integration.",
+					"body": "Operate Nomad securely in a multi-team environment with resource quotas and Sentinel integration.",
 					"url": "nomad/tutorials/governance-and-policy"
 				},
 				{
 					"heading": "Advanced Application Scheduling",
-					"body": "Express placement preferences for job allocations using affinities and prevent priority inversion with preemption.",
+					"body": "Learn to express placement preferences for job allocations using affinities and preemption.",
 					"url": "waypoint/tutorials/advanced-scheduling"
 				}
 			]
