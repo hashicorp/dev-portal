@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { ProductOption } from 'lib/learn-client/types'
 
 export interface TutorialCardProps {
@@ -35,6 +36,8 @@ export interface TutorialCardProps {
 	 * A list of product slugs, representing products used in the tutorial.
 	 */
 	productsUsed: ProductOption[]
+
+	eyebrowSlot?: ReactNode // TODO figure out best type
 
 	isBookmarked?: boolean
 }
