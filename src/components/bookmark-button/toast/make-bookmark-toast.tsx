@@ -1,11 +1,11 @@
 import { IconBookmarkAdd24 } from '@hashicorp/flight-icons/svg-react/bookmark-add-24'
 import { IconBookmarkRemove24 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-24'
 import { toast } from 'components/toast'
+import { BookmarkAction } from '../types'
 import s from './bookmark-toast.module.css'
 
-type ToastAction = 'add' | 'remove'
 type ToastActionConfig = Record<
-	ToastAction,
+	BookmarkAction,
 	{
 		title: string
 		descriptionSuffix: string
@@ -26,7 +26,10 @@ const toastActionConfig: ToastActionConfig = {
 	},
 }
 
-function generateToastMessage(actionType: ToastAction, tutorialName?: string) {
+function generateToastMessage(
+	actionType: BookmarkAction,
+	tutorialName?: string
+) {
 	const tutorialNameDefault = 'This tutorial'
 
 	return {
@@ -39,7 +42,7 @@ function generateToastMessage(actionType: ToastAction, tutorialName?: string) {
 }
 
 export default function makeBookmarkToast(
-	action: ToastAction,
+	action: BookmarkAction,
 	tutorialName?: string
 ) {
 	toast({

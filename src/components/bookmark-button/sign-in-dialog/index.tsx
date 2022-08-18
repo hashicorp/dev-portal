@@ -4,7 +4,7 @@ import Heading from 'components/heading'
 import Text from 'components/text'
 import s from './sign-in-dialog.module.css'
 
-interface BookmarkSignInPromptProps {
+export interface BookmarkSignInPromptProps {
 	onDismiss(): void
 	signIn(): void
 }

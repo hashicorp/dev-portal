@@ -3,7 +3,7 @@ export interface BookmarkButtonProps {
 	handleOnClick(): void
 }
 
-type BookmarkAction = 'add' | 'remove'
+export type BookmarkAction = 'add' | 'remove'
 
 export type BookmarkButtonConfigType = Record<
 	BookmarkAction,
