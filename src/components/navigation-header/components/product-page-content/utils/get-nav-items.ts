@@ -1,30 +1,16 @@
-import {
-	NavigationHeaderIcon,
-	NavigationHeaderItem,
-} from 'components/navigation-header/types'
-import { ProductData, ProductSlug, RootDocsPath } from 'types/products'
+import { NavigationHeaderIcon } from 'components/navigation-header/types'
+import { NavItem } from './types'
+import { ProductData, RootDocsPath } from 'types/products'
 
 /**
- * TODO: move these to an adjacent types.ts file,
- * better yet merge with broader navigation-header/types.ts,
- * though not sure whether that will end up ballooning scope a bit.
+ * Given current product data,
+ * Return an array of NavItems to render in the top navigation bar.
+ *
+ * Note that these items are only shown on larger viewports.
+ * On smaller viewports, a separate mobile menu is shown, which
+ * does not use this exact function to generate nav items,
+ * so may not show the same set of items.
  */
-
-interface NavItemLink {
-	type: 'link'
-	label: string
-	url: string
-}
-
-interface NavItemSubmenu {
-	type: 'submenu'
-	label: string
-	iconColorTheme: ProductSlug
-	items: NavigationHeaderItem[]
-}
-
-type NavItem = NavItemLink | NavItemSubmenu
-
 export function getNavItems(currentProduct: ProductData): NavItem[] {
 	/**
 	 * Define a common set of base nav items
