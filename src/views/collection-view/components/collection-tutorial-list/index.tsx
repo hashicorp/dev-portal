@@ -1,6 +1,6 @@
 import CardsGridList from 'components/cards-grid-list'
-import TutorialCard from 'components/tutorial-card'
 import { TutorialCardPropsWithId } from 'components/tutorial-card/types'
+import { TutorialCardWithBookmark } from 'components/tutorial-card/helpers/with-bookmark'
 import { CollectionTutorialListProps } from './types'
 import s from './collection-tutorial-list.module.css'
 
@@ -15,7 +15,7 @@ function CollectionTutorialList({
 					const { id, ...cardProps } = tutorial
 					return (
 						<li key={tutorial.id}>
-							<TutorialCard {...cardProps} />
+							<TutorialCardWithBookmark isBookmarked={false} {...cardProps} />
 						</li>
 					)
 				})}
