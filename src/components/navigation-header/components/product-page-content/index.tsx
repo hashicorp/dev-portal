@@ -119,7 +119,7 @@ const ProductPageHeaderContent = () => {
 	return (
 		<div className={sharedNavStyles.leftSide}>
 			<div className={sharedNavStyles.contentBeforeNav}>
-				<div className="g-hide-on-mobile g-hide-on-tablet">
+				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 					<NavigationHeaderDropdownMenu
 						ariaLabel="Main menu"
 						buttonClassName={s.companyLogoMenuButton}
@@ -142,7 +142,7 @@ const ProductPageHeaderContent = () => {
 				</Link>
 			</div>
 			{isBetaProduct && (
-				<div className="g-hide-on-mobile g-hide-on-tablet">
+				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 					<nav className={sharedNavStyles.nav}>
 						<ul className={sharedNavStyles.navList}>
 							{getNavItems(currentProduct).map((navItem) => {
