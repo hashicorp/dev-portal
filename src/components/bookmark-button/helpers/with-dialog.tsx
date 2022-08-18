@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import Dialog from 'components/dialog'
 import useAuthentication from 'hooks/use-authentication'
 import { BookmarkButtonProps } from '../types'
