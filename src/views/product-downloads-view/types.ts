@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import { ReleasesAPIResponse, GeneratedProps } from 'lib/fetch-release-data'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
@@ -42,6 +43,7 @@ export type FeaturedLearnCard =
 
 export interface ProductDownloadsViewProps {
 	latestVersion: string
+	merchandisingSlot?: ReactElement
 	pageContent: {
 		doesNotHavePackageManagers?: boolean
 		featuredLearnCards?: FeaturedLearnCard[]
@@ -56,6 +58,7 @@ export interface ProductDownloadsViewProps {
  * Type for inner content component, with version switcher options
  */
 export interface ProductDownloadsViewContentProps {
+	merchandisingSlot?: ProductDownloadsViewProps['merchandisingSlot']
 	pageContent: ProductDownloadsViewProps['pageContent']
 	releases: ProductDownloadsViewProps['releases']
 	versionSwitcherOptions: VersionContextSwitcherProps['options']
