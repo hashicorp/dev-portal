@@ -1,6 +1,7 @@
 import { NavigationHeaderIcon } from 'components/navigation-header/types'
+import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { NavItem } from './types'
-import { ProductData, RootDocsPath } from 'types/products'
+import { ProductData } from 'types/products'
 
 /**
  * Given current product data,
@@ -20,11 +21,11 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		{
 			label: 'Documentation',
 			iconColorTheme: currentProduct.slug,
-			items: currentProduct.rootDocsPaths.map((rootDocsPath: RootDocsPath) => {
+			items: getDocsNavItems(currentProduct).map((navItem) => {
 				return {
-					icon: rootDocsPath.iconName as NavigationHeaderIcon,
-					label: rootDocsPath.name,
-					path: `/${currentProduct.slug}/${rootDocsPath.path}`,
+					icon: navItem.icon as NavigationHeaderIcon,
+					label: navItem.label,
+					path: navItem.fullPath,
 				}
 			}),
 		},
