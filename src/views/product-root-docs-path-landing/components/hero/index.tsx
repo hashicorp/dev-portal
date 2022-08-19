@@ -34,7 +34,11 @@ const ProductRootDocsPathLandingHero = ({
 					<Text className={s.pageSubtitle}>{pageSubtitle}</Text>
 				</div>
 			</div>
-			<ProductRootDocsPathLandingIconCardLinkGrid />
+			{currentProduct.slug !== 'terraform' ? (
+				<div className={s.iconCardGridLink}>
+					<ProductRootDocsPathLandingIconCardLinkGrid />
+				</div>
+			) : null}
 		</header>
 	)
 }

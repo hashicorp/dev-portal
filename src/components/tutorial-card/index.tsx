@@ -1,4 +1,3 @@
-import BookmarkButton from 'components/bookmark-button'
 import CardLink from 'components/card-link'
 import {
 	CardEyebrow,
@@ -9,6 +8,7 @@ import {
 } from 'components/tutorial-collection-cards'
 import { buildAriaLabel } from './helpers'
 import { TutorialCardProps, TutorialCardPropsWithId } from './types'
+import { ConnectedTutorialCard } from './connected-tutorial-card'
 import s from './tutorial-card.module.css'
 
 /**
@@ -22,7 +22,7 @@ function TutorialCard({
 	productsUsed,
 	hasVideo,
 	hasInteractiveLab,
-	isBookmarked = false,
+	eyebrowSlot,
 }: TutorialCardProps) {
 	/**
 	 * Build the array of badges to show at the bottom of the card.
@@ -46,10 +46,7 @@ function TutorialCard({
 
 	return (
 		<CardLink href={url} className={s.root} ariaLabel={ariaLabel}>
-			<CardEyebrow className={s.eyebrow}>
-				<span>{duration}</span>
-				<BookmarkButton isBookmarked={isBookmarked} />
-			</CardEyebrow>
+			<CardEyebrow className={s.eyebrow}>{eyebrowSlot || duration}</CardEyebrow>
 			<CardHeading level={3} text={heading} />
 			<CardBody text={description} />
 			<CardBadges badges={badges} />
@@ -58,4 +55,5 @@ function TutorialCard({
 }
 
 export type { TutorialCardProps, TutorialCardPropsWithId }
+export { ConnectedTutorialCard }
 export default TutorialCard

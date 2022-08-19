@@ -1,14 +1,12 @@
-import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
-import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
 import useAuthentication from 'hooks/use-authentication'
 import { TutorialData } from 'views/tutorial-view'
 import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
-import Button from 'components/button'
 import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
+import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -60,15 +58,9 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 				/>
 				<span className={s.buttonGroup}>
 					<InteractiveLabButton />
+					{/** // NOTE! - hiding this component from prod until auth is enabled  */}
 					{isAuthEnabled ? (
-						<Button
-							color="secondary"
-							text={isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
-							icon={
-								isBookmarked ? <IconBookmarkRemove16 /> : <IconBookmarkAdd16 />
-							}
-							onClick={() => console.log('Bookmark button clicked!')} // TODO hook up to real state mgmt, show dialog etc.
-						/>
+						<TutorialMetaBookmarkButton isBookmarked={isBookmarked} />
 					) : null}
 				</span>
 				{showCreateAccountCta ? (
