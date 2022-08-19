@@ -1,11 +1,12 @@
-import { ApiBookmark, ApiTutorial } from 'lib/learn-client/api/api-types'
+import { ApiBookmark } from 'lib/learn-client/api/api-types'
+import { Tutorial } from 'lib/learn-client/types'
 import { post, toError } from 'lib/learn-client'
 import { BOOKMARK_API_ROUTE } from '.'
 import { SessionData } from 'types/auth'
 
 interface CreateBookmarkOptions {
 	accessToken: SessionData['accessToken']
-	tutorialId: ApiTutorial['id']
+	tutorialId: Tutorial['id']
 }
 
 type CreateBookmarkResult = ApiBookmark
