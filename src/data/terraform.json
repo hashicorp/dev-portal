@@ -33,7 +33,6 @@
 			"label": "Provider Use",
 			"fullPath": "/terraform/language/providers"
 		},
-		"internals",
 		"plugin",
 		"registry",
 		{
