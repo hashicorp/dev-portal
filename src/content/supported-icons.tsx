@@ -4,6 +4,7 @@ import { IconConnection16 } from '@hashicorp/flight-icons/svg-react/connection-1
 import { IconDockerColor16 } from '@hashicorp/flight-icons/svg-react/docker-color-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
+import { IconEntryPoint16 } from '@hashicorp/flight-icons/svg-react/entry-point-16'
 import { IconGcpColor16 } from '@hashicorp/flight-icons/svg-react/gcp-color-16'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { IconHcp16 } from '@hashicorp/flight-icons/svg-react/hcp-16'
@@ -24,6 +25,7 @@ export const SUPPORTED_ICONS = {
 	'docker-color': <IconDockerColor16 />,
 	docs: <IconDocs16 />,
 	download: <IconDownload16 />,
+	'entry-point': <IconEntryPoint16 />,
 	'gcp-color': <IconGcpColor16 />,
 	guide: <IconGuide16 />,
 	hcp: <IconHcp16 />,
