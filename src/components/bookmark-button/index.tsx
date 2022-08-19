@@ -1,7 +1,7 @@
 import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
 import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
 import Button from 'components/button'
-import { withDialog } from './helpers/with-dialog'
+import { Connected } from './helpers/connected-bookmark-button'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import { BookmarkButtonConfigType, BookmarkButtonProps } from './types'
 import s from './bookmark-button.module.css'
@@ -70,5 +70,5 @@ function BookmarkButtonTextAndIcon({
  * Eventually this HOC may also handle the API requests to manage data.
  * and trigger toasts based on the result.
  */
-export const TutorialCardBookmarkButton = withDialog(BookmarkButtonIconOnly)
-export const TutorialMetaBookmarkButton = withDialog(BookmarkButtonTextAndIcon)
+export const TutorialCardBookmarkButton = Connected(BookmarkButtonIconOnly)
+export const TutorialMetaBookmarkButton = Connected(BookmarkButtonTextAndIcon)

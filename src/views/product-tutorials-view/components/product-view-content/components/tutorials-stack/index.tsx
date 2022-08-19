@@ -1,7 +1,7 @@
 import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
 import CardsGridList from 'components/cards-grid-list'
 import {
-	ConnectedTutorialCard,
+	TutorialCardWithBookmark,
 	TutorialCardPropsWithId,
 } from 'components/tutorial-card'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
@@ -37,7 +37,7 @@ function TutorialsStack({
 				{tutorialCards.map((cardPropsWithId: TutorialCardPropsWithId) => {
 					return (
 						<li key={cardPropsWithId.id}>
-							<ConnectedTutorialCard {...cardPropsWithId} />
+							<TutorialCardWithBookmark {...cardPropsWithId} />
 						</li>
 					)
 				})}

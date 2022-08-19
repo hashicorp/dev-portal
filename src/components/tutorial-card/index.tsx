@@ -8,7 +8,7 @@ import {
 } from 'components/tutorial-collection-cards'
 import { buildAriaLabel } from './helpers'
 import { TutorialCardProps, TutorialCardPropsWithId } from './types'
-import { ConnectedTutorialCard } from './connected-tutorial-card'
+import { TutorialCardWithBookmark } from './helpers'
 import s from './tutorial-card.module.css'
 
 /**
@@ -55,5 +55,5 @@ function TutorialCard({
 }
 
 export type { TutorialCardProps, TutorialCardPropsWithId }
-export { ConnectedTutorialCard }
+export { TutorialCardWithBookmark }
 export default TutorialCard
