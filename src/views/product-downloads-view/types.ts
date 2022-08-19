@@ -27,10 +27,10 @@ export interface PackageManager {
 
 export interface RawProductDownloadsViewContent {
 	doesNotHavePackageManagers?: boolean
-	featuredLearnContent?: FeaturedLearnContent[]
+	featuredTutorialsSlugs: string[]
 	packageManagerOverrides?: PackageManager[]
-	sidecarMarketingCard: SidecarMarketingCardProps
 	sidebarMenuItems?: MenuItem[]
+	sidecarMarketingCard: SidecarMarketingCardProps
 }
 
 /**

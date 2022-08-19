@@ -3,7 +3,7 @@ import { FeaturedLearnCard } from 'views/product-downloads-view/types'
 import Heading from 'components/heading'
 import CardsGridList from 'components/cards-grid-list'
 import CollectionCard from 'components/collection-card'
-import TutorialCard from 'components/tutorial-card'
+import { ConnectedTutorialCard } from 'components/tutorial-card'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 
 interface FeaturedTutorialsSectionProps {
@@ -36,7 +36,7 @@ const FeaturedTutorialsSection = ({
 					} else if (type == 'tutorial') {
 						return (
 							<li key={id}>
-								<TutorialCard {...cardProps} />
+								<ConnectedTutorialCard {...cardProps} />
 							</li>
 						)
 					}
