@@ -118,7 +118,7 @@
 		},
 		{
 			"iconName": "plug",
-			"name": "Plugin Framework",
+			"name": "Framework",
 			"navDataPrefix": "plugin-framework",
 			"path": "plugin/framework",
 			"productSlugForLoader": "terraform-plugin-framework",
@@ -127,7 +127,7 @@
 		},
 		{
 			"iconName": "plug",
-			"name": "Plugin Log",
+			"name": "Log",
 			"navDataPrefix": "plugin-log",
 			"path": "plugin/log",
 			"productSlugForLoader": "terraform-plugin-log",
@@ -136,7 +136,7 @@
 		},
 		{
 			"iconName": "plug",
-			"name": "Plugin mux",
+			"name": "mux",
 			"navDataPrefix": "plugin-mux",
 			"path": "plugin/mux",
 			"productSlugForLoader": "terraform-plugin-mux",
@@ -145,7 +145,7 @@
 		},
 		{
 			"iconName": "plug",
-			"name": "Plugin sdkv2",
+			"name": "SDKv2",
 			"path": "plugin/sdkv2",
 			"productSlugForLoader": "terraform-plugin-sdk",
 			"navDataPrefix": "plugin-sdk",
