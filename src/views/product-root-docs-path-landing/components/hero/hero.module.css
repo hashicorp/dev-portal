@@ -1,13 +1,11 @@
 .root {
-	margin-bottom: 24px;
-	padding-bottom: 24px;
+	padding-bottom: 48px;
 }
 
 .iconAndTextWrapper {
 	align-items: flex-start;
 	display: flex;
 	gap: 16px;
-	margin-bottom: 32px;
 }
 
 .icon {
@@ -26,4 +24,9 @@
 
 .pageSubtitle {
 	color: var(--token-color-foreground-primary);
+}
+
+.iconCardGridLink {
+	margin-top: 32px;
+	border: 1px solid magenta;
 }
