@@ -18,7 +18,7 @@
 		"iconCardLinks": [
 			{
 				"icon": "hcp",
-				"text": "hcp",
+				"text": "HCP",
 				"url": "/consul/tutorials/cloud-get-started"
 			},
 			{
@@ -28,7 +28,7 @@
 			},
 			{
 				"icon": "vmware",
-				"text": "vm",
+				"text": "VM",
 				"url": "/consul/tutorials/getting-started"
 			}
 		]
