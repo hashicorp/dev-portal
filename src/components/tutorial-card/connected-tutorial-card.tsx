@@ -4,11 +4,11 @@ import TutorialCard from '.'
 import { TutorialCardPropsWithId } from '.'
 
 export function ConnectedTutorialCard(props: TutorialCardPropsWithId) {
-	const { id: tutorialId } = props
+	const { id: tutorialId, ...rest } = props
 
 	return (
 		<TutorialCard
-			{...props}
+			{...rest}
 			eyebrowSlot={
 				<>
 					<span>{props.duration}</span>
