@@ -9,6 +9,7 @@ import {
 	GETTING_STARTED_CARD_HEADING,
 	GETTING_STARTED_CARD_HEADING_SLUG,
 } from './components/marketing-content'
+import { prepareMarketingBlocks } from './utils/prepare-marketing-blocks'
 
 /**
  * @TODO add TS to function signature & document function purpose
@@ -145,6 +146,13 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 			pageTitle: `${product.name} ${baseName}`,
 		})
 
+	/**
+	 * Prepare marketing content blocks for client use
+	 */
+	const preparedMarketingBlocks = await prepareMarketingBlocks(
+		marketingContentBlocksWithHeadingLevels
+	)
+
 	// TODO clean this up so it's easier to understand
 	return {
 		...generatedProps,
@@ -158,7 +166,7 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 			},
 			pageContent: {
 				...pageContent,
-				marketingContentBlocks: marketingContentBlocksWithHeadingLevels,
+				marketingContentBlocks: preparedMarketingBlocks,
 			},
 			pageHeading: sidecarHeadings[0],
 			product: {
