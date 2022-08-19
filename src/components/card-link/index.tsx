@@ -25,8 +25,12 @@ const CardLink = ({
 		})
 	}
 
+	// TODO fix tab order. Link should come before anything focusable in children.
+	// ref: https://app.asana.com/0/1202097197789424/1202822098515463/f
+
 	return (
 		<Card className={classes}>
+			{children}
 			{/**
 			 * "Perhaps the worst thing you can do for a block link is to wrap
 			 * everything in the <a href>"
@@ -37,7 +41,6 @@ const CardLink = ({
 				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
 				<a aria-label={ariaLabel} className={s.anchor} target={target} />
 			</Link>
-			{children}
 		</Card>
 	)
 }
