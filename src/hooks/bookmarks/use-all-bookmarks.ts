@@ -20,7 +20,7 @@ interface UseAllBookmarksResult
  * Handles fetching and storing all bookmarks with React Query.
  */
 const useAllBookmarks = ({
-	enabled,
+	enabled = true,
 }: UseAllBookmarksOptions): UseAllBookmarksResult => {
 	// Get the current Query Client
 	const queryClient = useQueryClient()
