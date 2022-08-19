@@ -1,6 +1,9 @@
 import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
 import CardsGridList from 'components/cards-grid-list'
-import TutorialCard, { TutorialCardPropsWithId } from 'components/tutorial-card'
+import {
+	ConnectedTutorialCard,
+	TutorialCardPropsWithId,
+} from 'components/tutorial-card'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { FeaturedStack } from '../featured-stack'
 import { TutorialsStackProps } from './types'
@@ -32,10 +35,9 @@ function TutorialsStack({
 		>
 			<CardsGridList>
 				{tutorialCards.map((cardPropsWithId: TutorialCardPropsWithId) => {
-					const { id, ...cardProps } = cardPropsWithId
 					return (
-						<li key={id}>
-							<TutorialCard {...cardProps} id={id} />
+						<li key={cardPropsWithId.id}>
+							<ConnectedTutorialCard {...cardPropsWithId} />
 						</li>
 					)
 				})}

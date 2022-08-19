@@ -89,7 +89,7 @@ const ProductDownloadsViewContent = ({
 				versionSwitcherOptions={versionSwitcherOptions}
 			/>
 			<OfficialReleasesSection />
-			{featuredLearnCards ? (
+			{featuredLearnCards?.length > 0 ? (
 				<FeaturedTutorialsSection featuredLearnCards={featuredLearnCards} />
 			) : null}
 		</SidebarSidecarLayout>

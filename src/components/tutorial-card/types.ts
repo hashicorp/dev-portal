@@ -1,4 +1,5 @@
-import { ProductOption, Tutorial } from 'lib/learn-client/types'
+import { ReactNode } from 'react'
+import { ProductOption } from 'lib/learn-client/types'
 
 export interface TutorialCardProps {
 	/**
@@ -26,8 +27,6 @@ export interface TutorialCardProps {
 	 */
 	heading: string
 
-	id: Tutorial['id']
-
 	/**
 	 * A URL that links to the tutorial.
 	 */
@@ -37,6 +36,8 @@ export interface TutorialCardProps {
 	 * A list of product slugs, representing products used in the tutorial.
 	 */
 	productsUsed: ProductOption[]
+
+	eyebrowSlot?: ReactNode
 }
 
 export interface TutorialCardPropsWithId extends TutorialCardProps {
