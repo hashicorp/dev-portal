@@ -15,14 +15,21 @@
 	"get_started": {
 		"heading": "Getting Started",
 		"body": "Use Consul to securely store, access, and manage secrets and other sensitive data.",
-		"ctas": [
+		"iconCardLinks": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
+				"icon": "hcp",
+				"text": "HCP",
+				"url": "/consul/tutorials/cloud-get-started"
 			},
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"icon": "kubernetes-color",
+				"text": "Kubernetes",
+				"url": "/consul/tutorials/gs-consul-service-mesh"
+			},
+			{
+				"icon": "vmware",
+				"text": "VM",
+				"url": "/consul/tutorials/getting-started"
 			}
 		]
 	},

@@ -52,7 +52,7 @@ interface ButtonProps extends PickedNativeButtonProps {
 	 * }
 	 * ```
 	 */
-	icon?: ReactElement
+	icon?: JSX.IntrinsicElements['svg']
 
 	/**
 	 * Where the icon should be rendered within the button. 'leading' will render
