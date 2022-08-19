@@ -6,9 +6,8 @@ import {
 	CardBadges,
 	CardBadgeOption,
 } from 'components/tutorial-collection-cards'
-import { buildAriaLabel } from './helpers'
+import { buildAriaLabel, TutorialCardWithBookmark } from './helpers'
 import { TutorialCardProps, TutorialCardPropsWithId } from './types'
-import { TutorialCardWithBookmark } from './helpers'
 import s from './tutorial-card.module.css'
 
 /**
