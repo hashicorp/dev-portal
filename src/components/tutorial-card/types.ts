@@ -37,7 +37,7 @@ export interface TutorialCardProps {
 	 */
 	productsUsed: ProductOption[]
 
-	eyebrowSlot?: ReactNode // TODO figure out best type
+	eyebrowSlot?: ReactNode 
 }
 
 export interface TutorialCardPropsWithId extends TutorialCardProps {
