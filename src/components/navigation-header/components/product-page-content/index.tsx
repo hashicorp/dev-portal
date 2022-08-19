@@ -14,7 +14,7 @@ import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/color
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 
 // Global imports
-import { ProductSlug, RootDocsPath } from 'types/products'
+import { DocsNavItem, ProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'

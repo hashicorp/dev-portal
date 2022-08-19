@@ -36,6 +36,7 @@ import {
  * and passes this component as the child.
  */
 const ProductDownloadsViewContent = ({
+	merchandisingSlot,
 	pageContent,
 	releases,
 	versionSwitcherOptions,
@@ -88,8 +89,9 @@ const ProductDownloadsViewContent = ({
 				selectedRelease={releases.versions[currentVersion]}
 				versionSwitcherOptions={versionSwitcherOptions}
 			/>
+			{merchandisingSlot}
 			<OfficialReleasesSection />
-			{featuredLearnCards ? (
+			{featuredLearnCards?.length > 0 ? (
 				<FeaturedTutorialsSection featuredLearnCards={featuredLearnCards} />
 			) : null}
 		</SidebarSidecarLayout>
@@ -101,6 +103,7 @@ const ProductDownloadsViewContent = ({
  */
 const ProductDownloadsView = ({
 	latestVersion,
+	merchandisingSlot,
 	pageContent,
 	releases,
 }: ProductDownloadsViewProps): ReactElement => {
@@ -115,6 +118,7 @@ const ProductDownloadsView = ({
 			latestVersion={latestVersion}
 		>
 			<ProductDownloadsViewContent
+				merchandisingSlot={merchandisingSlot}
 				pageContent={pageContent}
 				releases={releases}
 				versionSwitcherOptions={versionSwitcherOptions}

@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { ProductOption } from 'lib/learn-client/types'
 
 export interface TutorialCardProps {
@@ -36,7 +37,7 @@ export interface TutorialCardProps {
 	 */
 	productsUsed: ProductOption[]
 
-	isBookmarked?: boolean
+	eyebrowSlot?: ReactNode
 }
 
 export interface TutorialCardPropsWithId extends TutorialCardProps {

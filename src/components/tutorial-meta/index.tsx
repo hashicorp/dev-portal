@@ -14,9 +14,14 @@ interface TutorialMetaProps {
 		isInteractive: boolean
 		hasVideo: boolean
 	}
+	tutorialId: TutorialData['id']
 }
 
-export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
+export default function TutorialMeta({
+	heading,
+	meta,
+	tutorialId,
+}: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 
 	/**
@@ -25,11 +30,6 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 	 */
 	const { isAuthenticated, isAuthEnabled, isLoading } = useAuthentication()
 	const showCreateAccountCta = isAuthEnabled && !isLoading && !isAuthenticated
-	/**
-	 * TODO - This state will likely be passed down from the tutorial level.
-	 * hook up to real data
-	 */
-	const isBookmarked = false
 
 	return (
 		<header className={s.header}>
@@ -60,7 +60,7 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 					<InteractiveLabButton />
 					{/** // NOTE! - hiding this component from prod until auth is enabled  */}
 					{isAuthEnabled ? (
-						<TutorialMetaBookmarkButton isBookmarked={isBookmarked} />
+						<TutorialMetaBookmarkButton tutorialId={tutorialId} />
 					) : null}
 				</span>
 				{showCreateAccountCta ? (
