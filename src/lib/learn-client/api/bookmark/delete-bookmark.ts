@@ -1,11 +1,11 @@
-import { ApiTutorial } from 'lib/learn-client/api/api-types'
+import { Tutorial } from 'lib/learn-client/types'
 import { destroy, toError } from 'lib/learn-client'
 import { BOOKMARK_API_ROUTE } from '.'
 import { SessionData } from 'types/auth'
 
 interface DeleteBookmarkOptions {
 	accessToken: SessionData['accessToken']
-	tutorialId: ApiTutorial['id']
+	tutorialId: Tutorial['id']
 }
 
 type DeleteBookmarkResult = void
