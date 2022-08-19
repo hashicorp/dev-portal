@@ -46,6 +46,7 @@ function ProductLandingView({
 					headingSlug={get_started.headingSlug}
 					body={get_started.body}
 					ctas={get_started.ctas}
+					iconCardLinks={get_started.iconCardLinks}
 				/>
 			</div>
 			<ProductLandingBlocks blocks={blocks} />
