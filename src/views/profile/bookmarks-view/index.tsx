@@ -10,13 +10,20 @@ import AuthenticatedView from 'views/authenticated-view'
 import Card from 'components/card'
 
 /**
+ * get all bookmarks,
+ * that will have the tutorial data
+ * format the tutorial data to render the cards
+ * fetch batch tutorials to render card data
+ */
+
+/**
  * The exported view component that handles wrapping the view content in
  * `AuthenticatedView`, which automatically handles rendering gated content.
  */
-const ProfileView = () => {
+const ProfileBookmarksView = () => {
 	return (
 		<AuthenticatedView>
-			<ProfileViewContent />
+			<ProfileBookmarksViewContent />
 		</AuthenticatedView>
 	)
 }
@@ -49,7 +56,7 @@ const TestTutorialCard = ({ id, name }) => {
 /**
  * The content of the ProfileView that is gated behind authentication.
  */
-const ProfileViewContent = () => {
+const ProfileBookmarksViewContent = () => {
 	const { data: tutorials, isLoading: tutorialsAreLoading } = useQuery(
 		['tutorials'],
 		() => getAllTutorials({ limit: 20 })
@@ -63,6 +70,7 @@ const ProfileViewContent = () => {
 	if (tutorialsAreLoading || bookmarksAreLoading) {
 		return null
 	}
+	console.log(bookmarks)
 
 	return (
 		<div style={{ padding: 24 }}>
@@ -94,5 +102,5 @@ const ProfileViewContent = () => {
 	)
 }
 
-ProfileView.layout = BaseNewLayout
-export default ProfileView
+ProfileBookmarksView.layout = BaseNewLayout
+export default ProfileBookmarksView

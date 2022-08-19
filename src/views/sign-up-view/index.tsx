@@ -57,7 +57,7 @@ const SignUpView = () => {
 	 * Redirect to profile page if user is already authenticated
 	 */
 	if (isAuthenticated) {
-		router.replace('/profile')
+		router.replace('/profile/bookmarks')
 		return null
 	}
 
