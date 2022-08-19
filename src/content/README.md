@@ -486,15 +486,14 @@ Example usage:
 <!-- featuredTutorials -->
 
 <details>
-<summary><code>featuredTutorials</code></summary>
+<summary><code>featuredTutorialsSlugs</code></summary>
 
-🚧 The Featured Tutorials section will see update soon with the Learn integration
+This property is an array of strings. It is used to render many `TutorialCard` elements under a "Featured Tutorials" heading.
 
-This is an array of objects. For every object, a `LearnTutorialCard` component (coming soon) will be rendered in a grid of 3 columns or less, depending on the width of the viewport. Each object in the array has three properties:
+There are two accepted formats for the slugs:
 
-- `description`: The description of the Tutorial or Collection
-- `href`: The URL to the Tutorial or Collection
-- `title`: The title of the Tutorial or Collection
+- `:productSlug/:tutorialSlug`: If you'd like to link to the tutorial's default collection, use this shorter slug format.
+- `:productSlug/:collectionSlug/:tutorialSlug`: If you'd like to link to the tutorial in a collection that is not its default, use this longer slug format. **The order of the slugs matters.**
 
 </details>
 

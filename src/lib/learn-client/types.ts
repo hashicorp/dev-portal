@@ -1,3 +1,5 @@
+import { ApiTutorial } from './api/api-types'
+
 /**
  * These types reflect data shapes returned from client methods
  */
@@ -9,7 +11,7 @@ export type slug = string
 export type identifier = uuid | slug
 
 export interface Tutorial {
-	id?: identifier // uuid
+	id?: ApiTutorial['id'] // uuid
 	slug: identifier
 	name: string
 	description: string
