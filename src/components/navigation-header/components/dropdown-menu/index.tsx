@@ -246,7 +246,7 @@ const NavigationHeaderDropdownMenu = ({
 								<ul
 									aria-labelledby={itemGroupLabelId}
 									className={classNames(s.itemGroup, {
-										[s.twoColumns]: items.length > 10,
+										[s.twoColumns]: items.length >= 10,
 									})}
 								>
 									{items.map(
