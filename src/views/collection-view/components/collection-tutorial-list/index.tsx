@@ -1,6 +1,6 @@
 import CardsGridList from 'components/cards-grid-list'
 import { TutorialCardPropsWithId } from 'components/tutorial-card/types'
-import { ConnectedTutorialCard } from 'components/tutorial-card/connected-tutorial-card'
+import { TutorialCardWithBookmark } from 'components/tutorial-card'
 import { CollectionTutorialListProps } from './types'
 import s from './collection-tutorial-list.module.css'
 
@@ -14,7 +14,7 @@ function CollectionTutorialList({
 				{tutorials.map((tutorial: TutorialCardPropsWithId) => {
 					return (
 						<li key={tutorial.id}>
-							<ConnectedTutorialCard {...tutorial} />
+							<TutorialCardWithBookmark {...tutorial} />
 						</li>
 					)
 				})}
