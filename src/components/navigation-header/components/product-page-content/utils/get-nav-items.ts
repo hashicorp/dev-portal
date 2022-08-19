@@ -37,7 +37,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		{
 			type: 'link',
 			label: 'Install',
-			url: `/${currentProduct.slug}/tutorials`,
+			url: `/${currentProduct.slug}/downloads`,
 		},
 	]
 	/**

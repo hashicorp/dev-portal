@@ -43,7 +43,7 @@ describe('getNavItems', () => {
 		  Object {
 		    "label": "Install",
 		    "type": "link",
-		    "url": "/waypoint/tutorials",
+		    "url": "/waypoint/downloads",
 		  },
 		]
 	`)
@@ -148,7 +148,7 @@ describe('getNavItems', () => {
 		  Object {
 		    "label": "Install",
 		    "type": "link",
-		    "url": "/terraform/tutorials",
+		    "url": "/terraform/downloads",
 		  },
 		  Object {
 		    "label": "Registry",
