@@ -1,17 +1,6 @@
-import { ProductSlug } from 'types/products'
-import { NavigationHeaderItem } from 'components/navigation-header/types'
+import { PrimaryNavLinkProps } from '../../primary-nav-link'
+import { PrimaryNavSubmenuProps } from '../../primary-nav-submenu'
 
-export interface NavItemLink {
-	type: 'link'
-	label: string
-	url: string
-}
-
-export interface NavItemSubmenu {
-	type: 'submenu'
-	label: string
-	iconColorTheme: ProductSlug
-	items: NavigationHeaderItem[]
-}
-
-export type NavItem = NavItemLink | NavItemSubmenu
+export type NavItem =
+	| PrimaryNavLinkProps['navItem']
+	| PrimaryNavSubmenuProps['navItem']

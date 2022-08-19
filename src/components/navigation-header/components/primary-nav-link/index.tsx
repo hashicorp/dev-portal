@@ -3,7 +3,7 @@ import useCurrentPath from 'hooks/use-current-path'
 import Text from 'components/text'
 import s from './primary-nav-link.module.css'
 
-interface PrimaryNavLinkProps {
+export interface PrimaryNavLinkProps {
 	ariaLabel: string
 	navItem: {
 		label: string

@@ -146,18 +146,17 @@ const ProductPageHeaderContent = () => {
 					<nav className={sharedNavStyles.nav}>
 						<ul className={sharedNavStyles.navList}>
 							{getNavItems(currentProduct).map((navItem) => {
-								const { type, label } = navItem
-								const ariaLabel = `${currentProduct.name} ${label}`
+								const ariaLabel = `${currentProduct.name} ${navItem.label}`
 
 								let ItemContent
-								if (type == 'submenu') {
+								if (navItem.hasOwnProperty('items')) {
 									ItemContent = PrimaryNavSubmenu
-								} else if (type == 'link') {
+								} else {
 									ItemContent = PrimaryNavLink
 								}
 
 								return (
-									<li key={label}>
+									<li key={navItem.label}>
 										<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
 									</li>
 								)

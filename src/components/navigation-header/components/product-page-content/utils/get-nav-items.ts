@@ -16,9 +16,8 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 * Define a common set of base nav items
 	 */
 	const items: NavItem[] = [
-		{ type: 'link', label: 'Home', url: `/${currentProduct.slug}` },
+		{ label: 'Home', url: `/${currentProduct.slug}` },
 		{
-			type: 'submenu',
 			label: 'Documentation',
 			iconColorTheme: currentProduct.slug,
 			items: currentProduct.rootDocsPaths.map((rootDocsPath: RootDocsPath) => {
@@ -30,12 +29,10 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 			}),
 		},
 		{
-			type: 'link',
 			label: 'Tutorials',
 			url: `/${currentProduct.slug}/tutorials`,
 		},
 		{
-			type: 'link',
 			label: 'Install',
 			url: `/${currentProduct.slug}/downloads`,
 		},
@@ -45,7 +42,6 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 */
 	if (currentProduct.slug == 'terraform') {
 		items.push({
-			type: 'link',
 			label: 'Registry',
 			url: 'https://registry.terraform.io/',
 		})
