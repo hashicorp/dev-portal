@@ -124,22 +124,22 @@
 			"type": "icon-card-grid",
 			"cards": [
 				{
-					"iconName": "docs",
+					"iconName": "guide",
 					"text": "Provision Nomad with Terraform",
 					"url": "https://github.com/hashicorp/nomad/tree/main/terraform"
 				},
 				{
-					"iconName": "docs",
+					"iconName": "api",
 					"text": "API Reference",
 					"url": "/nomad/api-docs"
 				},
 				{
-					"iconName": "docs",
+					"iconName": "terminal",
 					"text": "Nomad Ecosystem Tools",
 					"url": "/nomad/tools"
 				},
 				{
-					"iconName": "docs",
+					"iconName": "plug",
 					"text": "Community Task Drivers",
 					"url": "/nomad/plugins/drivers/community"
 				}
