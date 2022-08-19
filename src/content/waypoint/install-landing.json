@@ -1,7 +1,7 @@
 {
 	"featuredTutorialsSlugs": [
 		"waypoint/get-started-intro",
-		"waypoint/get-started-install",
+		"waypoint/get-started-kubernetes/get-started-install",
 		"waypoint/get-started-nomad",
 		"waypoint/aws-ecs",
 		"waypoint/azure-container-instance",

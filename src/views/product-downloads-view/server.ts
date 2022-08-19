@@ -48,22 +48,62 @@ const generateGetStaticProps = (product: ProductData) => {
 		const { releases, latestVersion } = releaseProps
 
 		/**
+		 * The `featuredTutorialsSlugs` array allows two formats of slugs:
+		 *   - <product slug>/<collection slug>/<tutorial slug>
+		 *   - <product slug>/<tutorial slug>
+		 */
+		const splitSlugs = (slug) => {
+			const slugParts = slug.split('/')
+			if (slugParts.length === 3) {
+				// Slug format is: <product slug>/<collection slug>/<tutorial slug>
+				return {
+					productSlug: slugParts[0],
+					collectionSlug: slugParts[1],
+					tutorialSlug: slugParts[2],
+				}
+			} else if (slugParts.length === 2) {
+				// Slug format is: <product slug>/<tutorial slug>
+				return { productSlug: slugParts[0], tutorialSlug: slugParts[1] }
+			} else {
+				console.error(
+					'Found string `featuredTutorialsSlugs` width incorrect number of slash-separated parts:',
+					slug
+				)
+			}
+		}
+
+		/**
 		 * Gather tutorials and collections based on slugs used
 		 */
-		const inlineTutorials = await getInlineTutorials(featuredTutorialsSlugs)
+		const tutorialSlugs = featuredTutorialsSlugs.map((slug) => {
+			const { productSlug, tutorialSlug } = splitSlugs(slug)
+			return `${productSlug}/${tutorialSlug}`
+		})
+		const inlineTutorials = await getInlineTutorials(tutorialSlugs)
 
 		/**
 		 * Transform feature tutorial and collection entries into card data
 		 */
 		const featuredLearnCards: FeaturedLearnCard[] = featuredTutorialsSlugs.map(
-			(tutorialSlug: string) => {
-				const tutorialData = inlineTutorials[tutorialSlug]
+			(slug: string) => {
+				const { productSlug, collectionSlug, tutorialSlug } = splitSlugs(slug)
+				const tutorialData = inlineTutorials[`${productSlug}/${tutorialSlug}`]
 				const defaultContext = tutorialData.collectionCtx.default
 				const tutorialLiteCompat = { ...tutorialData, defaultContext }
 
-				return { type: 'tutorial', ...formatTutorialCard(tutorialLiteCompat) }
+				const formattedTutorialCard = formatTutorialCard(tutorialLiteCompat)
+				if (collectionSlug) {
+					formattedTutorialCard.url = `/${productSlug}/tutorials/${collectionSlug}/${tutorialSlug}`
+				}
+
+				return {
+					type: 'tutorial',
+					...formattedTutorialCard,
+				}
 			}
 		)
+
+		console.log(featuredLearnCards)
 
 		/**
 		 * Combine release data and page content
