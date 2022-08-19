@@ -57,17 +57,17 @@
 		}
 	],
 	"basePaths": ["docs", "api-docs"],
-	"sidebar": {
-		"landingPageNavData": [
-			{
-				"title": "Introduction",
-				"fullPath": "/boundary/docs/what-is-boundary"
-			},
-			{
-				"title": "Getting Started",
-				"fullPath": "/boundary/docs/getting-started"
-			}
-		]
-	},
-	"navigationHeaderItems": {}
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "General Documentation",
+			"path": "docs",
+			"shortName": "Documentation"
+		},
+		{
+			"iconName": "api",
+			"name": "API",
+			"path": "api-docs"
+		}
+	]
 }

@@ -17,7 +17,7 @@ const IconCardLink = ({
 	}
 
 	return (
-		<CardLink className={s.root} href={url}>
+		<CardLink ariaLabel={text} className={s.root} href={url}>
 			<span
 				className={s.icon}
 				style={{ '--icon-color': `var(${colorToken})` } as CSSProperties}

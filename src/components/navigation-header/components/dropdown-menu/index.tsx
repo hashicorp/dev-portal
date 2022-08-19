@@ -13,15 +13,10 @@ import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
 
 // HashiCorp imports
-import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
-import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconEntryPoint16 } from '@hashicorp/flight-icons/svg-react/entry-point-16'
-import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
-import { IconPlug16 } from '@hashicorp/flight-icons/svg-react/plug-16'
-import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
 
 // Global imports
+import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { ProductSlug } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import useOnClickOutside from 'hooks/use-on-click-outside'
@@ -33,24 +28,11 @@ import Text from 'components/text'
 import {
 	NavigationHeaderItem,
 	NavigationHeaderDropdownMenuProps,
-	SupportedIcon,
 	NavigationHeaderItemGroup,
 } from 'components/navigation-header/types'
 
 // Local imports
 import s from './dropdown-menu.module.css'
-
-/**
- * The icons supported in this menu in addition to the Product logo icons.
- */
-const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
-	api: <IconApi16 />,
-	docs: <IconDocs16 />,
-	'entry-point': <IconEntryPoint16 />,
-	home: <IconHome16 />,
-	plug: <IconPlug16 />,
-	terminalScreen: <IconTerminalScreen16 />,
-}
 
 /**
  * A dropdown navigation menu consisiting of an activator button and a dropdown
@@ -264,7 +246,7 @@ const NavigationHeaderDropdownMenu = ({
 								<ul aria-labelledby={itemGroupLabelId} className={s.itemGroup}>
 									{items.map(
 										(item: NavigationHeaderItem, itemIndex: number) => {
-											const icon = supportedIcons[item.icon] || (
+											const icon = SUPPORTED_ICONS[item.icon] || (
 												<ProductIcon productSlug={item.icon as ProductSlug} />
 											)
 											const itemId = generateItemId(groupId, itemIndex)

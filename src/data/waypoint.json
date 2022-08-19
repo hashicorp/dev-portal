@@ -19,12 +19,12 @@
 			}
 		]
 	},
-	"alertBannerActive": false,
+	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "New",
-		"url": "https://hashi.co/waypoint-beta",
-		"text": "Interested in participating in the HCP Waypoint Private Beta Program?",
-		"linkText": "Apply here",
+		"tag": "HashiConf Global",
+		"url": "https://hashiconf.com/global/?_gl=1*u898mc*_ga*Nzg2MzExNjMwLjE2NDQ5NDYzMDU.*_ga_P7S46ZYEKW*MTY1OTk4NjE2NC4xMjIuMS4xNjU5OTg5MjIxLjA.",
+		"text": "Join us for HashiConf Global October 4-6 in Los Angeles & online.",
+		"linkText": "Register Now",
 		"expirationDate": ""
 	},
 	"subnavItems": [
@@ -78,33 +78,5 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/waypoint/docs/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/waypoint/docs/getting-started"
-			}
-		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"label": "General Documentation",
-				"icon": "docs",
-				"pathSuffix": "docs"
-			},
-			{
-				"label": "CLI",
-				"icon": "terminalScreen",
-				"pathSuffix": "commands"
-			},
-			{
-				"label": "Plugins",
-				"icon": "plug",
-				"pathSuffix": "plugins"
-			}
-		]
-	}
+	]
 }

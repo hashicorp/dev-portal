@@ -5,6 +5,7 @@ import getIsBetaProduct from 'lib/get-is-beta-product'
 import { NavigationHeaderDropdownMenu } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './home-page-content.module.css'
+import { NavigationHeaderItemGroup } from 'components/navigation-header/types'
 
 const HomePageHeaderContent = () => {
 	const betaProductItems = []
@@ -36,6 +37,15 @@ const HomePageHeaderContent = () => {
 		}
 	})
 
+	// Construct item groups for the dropdown, avoid adding empty groups
+	const itemGroups: NavigationHeaderItemGroup[] = []
+	if (betaProductItems.length) {
+		itemGroups.push({ items: betaProductItems })
+	}
+	if (comingSoonProductItems.length) {
+		itemGroups.push({ label: 'Coming Soon', items: comingSoonProductItems })
+	}
+
 	return (
 		<div className={sharedNavStyles.leftSide}>
 			<div className={sharedNavStyles.contentBeforeNav}>
@@ -49,15 +59,7 @@ const HomePageHeaderContent = () => {
 					<ul className={sharedNavStyles.navList}>
 						<li>
 							<NavigationHeaderDropdownMenu
-								itemGroups={[
-									{
-										items: betaProductItems,
-									},
-									{
-										label: 'Coming Soon',
-										items: comingSoonProductItems,
-									},
-								]}
+								itemGroups={itemGroups}
 								label="Products"
 							/>
 						</li>

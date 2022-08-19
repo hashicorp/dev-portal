@@ -4,7 +4,8 @@ import { Session } from 'next-auth'
  * Object representing an authentication session.
  */
 type SessionData = Omit<Session, 'user'> & {
-	id?: 'string'
+	accessToken?: string
+	id?: string
 }
 
 /**

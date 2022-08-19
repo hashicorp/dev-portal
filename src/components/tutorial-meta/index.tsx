@@ -6,6 +6,7 @@ import Text from 'components/text'
 import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
+import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -24,6 +25,11 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 	 */
 	const { isAuthenticated, isAuthEnabled, isLoading } = useAuthentication()
 	const showCreateAccountCta = isAuthEnabled && !isLoading && !isAuthenticated
+	/**
+	 * TODO - This state will likely be passed down from the tutorial level.
+	 * hook up to real data
+	 */
+	const isBookmarked = false
 
 	return (
 		<header className={s.header}>
@@ -50,7 +56,13 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 						isInteractive,
 					}}
 				/>
-				<InteractiveLabButton />
+				<span className={s.buttonGroup}>
+					<InteractiveLabButton />
+					{/** // NOTE! - hiding this component from prod until auth is enabled  */}
+					{isAuthEnabled ? (
+						<TutorialMetaBookmarkButton isBookmarked={isBookmarked} />
+					) : null}
+				</span>
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta}>
 						Reference this often?{' '}

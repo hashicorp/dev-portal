@@ -26,12 +26,15 @@ function CollectionCard({
 	productsUsed,
 }: CollectionCardProps) {
 	const hasLogo = Boolean(logo)
+	const eyebrowText = `${tutorialCount} tutorial${
+		tutorialCount !== 1 ? 's' : ''
+	}`
 	return (
-		<CardLink href={url} className={s.root}>
-			<CardEyebrow
-				icon={<IconCollections16 />}
-				text={`${tutorialCount} tutorial${tutorialCount !== 1 ? 's' : ''}`}
-			/>
+		<CardLink ariaLabel={heading} href={url} className={s.root}>
+			<CardEyebrow>
+				<IconCollections16 />
+				<span>{eyebrowText}</span>
+			</CardEyebrow>
 			{hasLogo && (
 				<span className={s.logoContainer}>
 					<CompanyLogo name={logo} />

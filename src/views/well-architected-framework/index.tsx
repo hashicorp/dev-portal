@@ -7,6 +7,7 @@ import { SidebarProps } from 'components/sidebar'
 import OverviewCta from 'views/product-landing/components/overview-cta'
 import { WellArchitectedFrameworkLandingProps } from './types'
 import s from './well-architected-framework-landing.module.css'
+import { generateWafCollectionSidebar } from './utils/generate-collection-sidebar'
 
 export default function WellArchitectedFrameworkLandingView(
 	props: WellArchitectedFrameworkLandingProps
@@ -20,16 +21,7 @@ export default function WellArchitectedFrameworkLandingView(
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			sidebarNavDataLevels={[
 				generateTopLevelSidebarNavData(metadata.name) as SidebarProps,
-				{
-					title: metadata.name,
-					levelButtonProps: {
-						levelUpButtonText: 'Main Menu',
-						levelDownButtonText: 'Previous',
-					},
-					overviewItemHref: `/${metadata.slug}`,
-					menuItems: layoutProps.sidebarSections,
-					showFilterInput: false,
-				},
+				generateWafCollectionSidebar(metadata, layoutProps.sidebarSections),
 			]}
 		>
 			<div className={s.hero}>
