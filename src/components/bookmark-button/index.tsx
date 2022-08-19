@@ -1,6 +1,5 @@
 import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
 import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
-import { useIsBookmarked } from 'hooks/bookmarks'
 import Button from 'components/button'
 import { withDialog } from './helpers/with-dialog'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
@@ -28,10 +27,8 @@ const bookmarkButtonConfig: BookmarkButtonConfigType = {
 
 function BookmarkButtonIconOnly({
 	handleOnClick,
-	tutorialId,
+	isBookmarked,
 }: BookmarkButtonProps) {
-	const { isBookmarked } = useIsBookmarked({ tutorialId })
-
 	const { add, remove } = bookmarkButtonConfig
 	const ariaLabel = isBookmarked ? remove.text : add.text
 
@@ -54,10 +51,8 @@ function BookmarkButtonIconOnly({
 
 function BookmarkButtonTextAndIcon({
 	handleOnClick,
-	tutorialId,
+	isBookmarked,
 }: BookmarkButtonProps) {
-	const { isBookmarked } = useIsBookmarked({ tutorialId })
-
 	const { add, remove } = bookmarkButtonConfig
 	const buttonProps = isBookmarked
 		? { text: remove.text, icon: remove.baseIcon }

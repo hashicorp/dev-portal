@@ -1,8 +1,6 @@
-import { Tutorial } from 'lib/learn-client/types'
-
 export interface BookmarkButtonProps {
-	tutorialId: Tutorial['id']
 	handleOnClick(): void
+	isBookmarked: boolean
 }
 
 export type BookmarkAction = 'add' | 'remove'

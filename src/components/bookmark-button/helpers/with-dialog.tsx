@@ -1,10 +1,11 @@
 import { useCallback, useState } from 'react'
-import Dialog from 'components/dialog'
+import { Tutorial } from 'lib/learn-client/types'
 import useAuthentication from 'hooks/use-authentication'
+import { useBookmarkMutations, useIsBookmarked } from 'hooks/bookmarks'
+import Dialog from 'components/dialog'
 import { BookmarkButtonProps } from '../types'
 import BookmarkSignInPrompt from '../sign-in-dialog'
-import { useBookmarkMutations, useIsBookmarked } from 'hooks/bookmarks'
-import makeBookmarkToast from 'components/bookmark-button/toast/make-bookmark-toast'
+import makeBookmarkToast from '../toast/make-bookmark-toast'
 
 /**
  * This HOC serves as a 'controller'
@@ -17,7 +18,7 @@ export function withDialog(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 	return function BookmarkComponentWithDialog({
 		tutorialId,
 	}: {
-		tutorialId: BookmarkButtonProps['tutorialId']
+		tutorialId: Tutorial['id']
 	}) {
 		const { isAuthenticated, signIn } = useAuthentication()
 		const { isBookmarked } = useIsBookmarked({ tutorialId })
@@ -47,7 +48,7 @@ export function withDialog(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 			<>
 				<BookmarkComponent
 					handleOnClick={handleOnClick}
-					tutorialId={tutorialId}
+					isBookmarked={isBookmarked}
 				/>
 				<Dialog
 					onDismiss={closeDialog}
