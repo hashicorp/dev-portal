@@ -243,7 +243,12 @@ const NavigationHeaderDropdownMenu = ({
 										{label}
 									</Text>
 								)}
-								<ul aria-labelledby={itemGroupLabelId} className={s.itemGroup}>
+								<ul
+									aria-labelledby={itemGroupLabelId}
+									className={classNames(s.itemGroup, {
+										[s.twoColumns]: items.length > 10,
+									})}
+								>
 									{items.map(
 										(item: NavigationHeaderItem, itemIndex: number) => {
 											const icon = SUPPORTED_ICONS[item.icon] || (
