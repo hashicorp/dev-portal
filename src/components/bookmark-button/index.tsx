@@ -67,8 +67,8 @@ function BookmarkButtonTextAndIcon({
  * which passes the `handleOnClick` logic, checks for authentication,
  * and opens a dialog to prompt authentication.
  *
- * Eventually this HOC may also handle the API requests to manage data.
- * and trigger toasts based on the result.
+ * It also fetches the bookmark state and updates the API
+ * upon user interaction, if authenticated.
  */
 export const TutorialCardBookmarkButton = Connected(BookmarkButtonIconOnly)
 export const TutorialMetaBookmarkButton = Connected(BookmarkButtonTextAndIcon)
