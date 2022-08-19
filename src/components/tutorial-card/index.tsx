@@ -1,4 +1,5 @@
-import BookmarkButton from 'components/bookmark-button'
+import { AUTH_ENABLED } from 'hooks/use-authentication'
+import { TutorialCardBookmarkButton } from 'components/bookmark-button'
 import CardLink from 'components/card-link'
 import {
 	CardEyebrow,
@@ -48,7 +49,10 @@ function TutorialCard({
 		<CardLink href={url} className={s.root} ariaLabel={ariaLabel}>
 			<CardEyebrow className={s.eyebrow}>
 				<span>{duration}</span>
-				<BookmarkButton isBookmarked={isBookmarked} />
+				{/** // NOTE! - hiding this component from prod until auth is enabled  */}
+				{AUTH_ENABLED ? (
+					<TutorialCardBookmarkButton isBookmarked={isBookmarked} />
+				) : null}
 			</CardEyebrow>
 			<CardHeading level={3} text={heading} />
 			<CardBody text={description} />
