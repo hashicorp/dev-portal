@@ -16,6 +16,7 @@ import s from './tutorial-card.module.css'
  * Render a card that links to a tutorial.
  */
 function TutorialCard({
+	id,
 	url,
 	duration,
 	heading,
@@ -23,7 +24,6 @@ function TutorialCard({
 	productsUsed,
 	hasVideo,
 	hasInteractiveLab,
-	isBookmarked = false,
 }: TutorialCardProps) {
 	/**
 	 * Build the array of badges to show at the bottom of the card.
@@ -50,9 +50,7 @@ function TutorialCard({
 			<CardEyebrow className={s.eyebrow}>
 				<span>{duration}</span>
 				{/** // NOTE! - hiding this component from prod until auth is enabled  */}
-				{AUTH_ENABLED ? (
-					<TutorialCardBookmarkButton isBookmarked={isBookmarked} />
-				) : null}
+				{AUTH_ENABLED ? <TutorialCardBookmarkButton tutorialId={id} /> : null}
 			</CardEyebrow>
 			<CardHeading level={3} text={heading} />
 			<CardBody text={description} />

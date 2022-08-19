@@ -9,7 +9,7 @@ function TutorialCards({ tutorialCards }: TutorialCardsProps) {
 				const { id, ...cardProps } = cardPropsWithId
 				return (
 					<li key={id}>
-						<TutorialCard {...cardProps} />
+						<TutorialCard {...cardProps} id={id} />
 					</li>
 				)
 			})}

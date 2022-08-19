@@ -1,5 +1,7 @@
+import { Tutorial } from 'lib/learn-client/types'
+
 export interface BookmarkButtonProps {
-	isBookmarked: boolean
+	tutorialId: Tutorial['id']
 	handleOnClick(): void
 }
 

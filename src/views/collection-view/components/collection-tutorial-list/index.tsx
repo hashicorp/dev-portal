@@ -15,7 +15,7 @@ function CollectionTutorialList({
 					const { id, ...cardProps } = tutorial
 					return (
 						<li key={tutorial.id}>
-							<TutorialCard {...cardProps} />
+							<TutorialCard {...cardProps} id={id} />
 						</li>
 					)
 				})}
