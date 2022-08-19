@@ -145,6 +145,12 @@ interface ProductData extends Product {
 	}
 	basePaths: string[]
 	rootDocsPaths: RootDocsPath[]
+	/**
+	 * When configuring docsNavItems, authors have the option to specify
+	 * the full data structure, or use a string that matches a rootDocsPath.path
+	 * as a shorthand, in which case a DocsNavItem will be parsed from
+	 * the matching rootDocsPath.
+	 */
 	docsNavItems?: (DocsNavItem | string)[]
 }
 
