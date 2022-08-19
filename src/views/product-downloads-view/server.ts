@@ -103,8 +103,6 @@ const generateGetStaticProps = (product: ProductData) => {
 			}
 		)
 
-		console.log(featuredLearnCards)
-
 		/**
 		 * Combine release data and page content
 		 */
