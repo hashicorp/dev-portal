@@ -15,15 +15,41 @@ import {
 	DeleteBookmarkOptions,
 } from 'lib/learn-client/api/bookmark'
 
+/**
+ * Mutation function for adding a bookmark for a given `tutorialId`. The
+ * `options` object is passed directly to the underlying `mutate` function. This
+ * object should be used to trigger component-specific side effects.
+ *
+ * Note: if a mutation callback like `onSuccess` is passed in the `options`
+ * object, React Query triggers it _after_ the "global" one passed to
+ * `useMutation` in `useBookmarkMutations`.
+ *
+ * ref: https://tanstack.com/query/v4/docs/guides/mutations
+ */
+type AddBookmark = (
+	tutorialId: Tutorial['id'],
+	options?: MutationOptions<ApiBookmark>
+) => void
+
+/**
+ * Mutation function for removing a bookmark for a given `tutorialId`. The
+ * `options` object is passed directly to the underlying `mutate` function. This
+ * object should be used to trigger component-specific side effects.
+ *
+ * Note: if a mutation callback like `onSuccess` is passed in the `options`
+ * object, React Query triggers it _after_ the "global" one passed to
+ * `useMutation` in `useBookmarkMutations`.
+ *
+ * ref: https://tanstack.com/query/v4/docs/guides/mutations
+ */
+type RemoveBookmark = (
+	tutorialId: Tutorial['id'],
+	options?: MutationOptions<ApiBookmark>
+) => void
+
 interface UseBookmarkMutationsResult {
-	addBookmark: (
-		tutorialId: Tutorial['id'],
-		options?: MutationOptions<ApiBookmark>
-	) => void
-	removeBookmark: (
-		tutorialId: Tutorial['id'],
-		options?: MutationOptions<ApiBookmark>
-	) => void
+	addBookmark: AddBookmark
+	removeBookmark: RemoveBookmark
 }
 
 /**
