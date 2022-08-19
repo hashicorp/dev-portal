@@ -1,7 +1,12 @@
 import { useCallback } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import {
+	MutationOptions,
+	useMutation,
+	useQueryClient,
+} from '@tanstack/react-query'
 import { developmentToast, ToastColor } from 'components/toast'
 import { Tutorial } from 'lib/learn-client/types'
+import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import useAuthentication from 'hooks/use-authentication'
 import {
 	createBookmark,
@@ -10,9 +15,41 @@ import {
 	DeleteBookmarkOptions,
 } from 'lib/learn-client/api/bookmark'
 
+/**
+ * Mutation function for adding a bookmark for a given `tutorialId`. The
+ * `options` object is passed directly to the underlying `mutate` function. This
+ * object should be used to trigger component-specific side effects.
+ *
+ * Note: if a mutation callback like `onSuccess` is passed in the `options`
+ * object, React Query triggers it _after_ the "global" one passed to
+ * `useMutation` in `useBookmarkMutations`.
+ *
+ * ref: https://tanstack.com/query/v4/docs/guides/mutations
+ */
+type AddBookmark = (
+	tutorialId: Tutorial['id'],
+	options?: MutationOptions<ApiBookmark>
+) => void
+
+/**
+ * Mutation function for removing a bookmark for a given `tutorialId`. The
+ * `options` object is passed directly to the underlying `mutate` function. This
+ * object should be used to trigger component-specific side effects.
+ *
+ * Note: if a mutation callback like `onSuccess` is passed in the `options`
+ * object, React Query triggers it _after_ the "global" one passed to
+ * `useMutation` in `useBookmarkMutations`.
+ *
+ * ref: https://tanstack.com/query/v4/docs/guides/mutations
+ */
+type RemoveBookmark = (
+	tutorialId: Tutorial['id'],
+	options?: MutationOptions<ApiBookmark>
+) => void
+
 interface UseBookmarkMutationsResult {
-	addBookmark: (tutorialId: Tutorial['id']) => void
-	removeBookmark: (tutorialId: Tutorial['id']) => void
+	addBookmark: AddBookmark
+	removeBookmark: RemoveBookmark
 }
 
 /**
@@ -73,11 +110,8 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 		onError: makeOnError('addBookmark'),
 	})
 	const addBookmark = useCallback(
-		(tutorialId: Tutorial['id']) => {
-			addBookmarkMutation.mutate({
-				accessToken,
-				tutorialId,
-			})
+		(tutorialId, options = {}) => {
+			addBookmarkMutation.mutate({ accessToken, tutorialId }, options)
 		},
 		[addBookmarkMutation, accessToken]
 	)
@@ -90,8 +124,8 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 		onError: makeOnError('removeBookmark'),
 	})
 	const removeBookmark = useCallback(
-		(tutorialId: Tutorial['id']) => {
-			removeBookmarkMutation.mutate({ accessToken, tutorialId })
+		(tutorialId, options = {}) => {
+			removeBookmarkMutation.mutate({ accessToken, tutorialId }, options)
 		},
 		[accessToken, removeBookmarkMutation]
 	)

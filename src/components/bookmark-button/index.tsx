@@ -26,11 +26,12 @@ const bookmarkButtonConfig: BookmarkButtonConfigType = {
  */
 
 function BookmarkButtonIconOnly({
-	isBookmarked,
 	handleOnClick,
+	isBookmarked,
 }: BookmarkButtonProps) {
 	const { add, remove } = bookmarkButtonConfig
 	const ariaLabel = isBookmarked ? remove.text : add.text
+
 	return (
 		<button
 			aria-pressed={isBookmarked}
@@ -49,13 +50,14 @@ function BookmarkButtonIconOnly({
  */
 
 function BookmarkButtonTextAndIcon({
-	isBookmarked,
 	handleOnClick,
+	isBookmarked,
 }: BookmarkButtonProps) {
 	const { add, remove } = bookmarkButtonConfig
 	const buttonProps = isBookmarked
 		? { text: remove.text, icon: remove.baseIcon }
 		: { text: add.text, icon: add.baseIcon }
+
 	return <Button color="secondary" onClick={handleOnClick} {...buttonProps} />
 }
 

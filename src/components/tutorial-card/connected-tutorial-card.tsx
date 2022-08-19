@@ -4,18 +4,17 @@ import TutorialCard from '.'
 import { TutorialCardPropsWithId } from '.'
 
 export function ConnectedTutorialCard(props: TutorialCardPropsWithId) {
-	/**
-	 * const isBookmarked = useIsBookmarked(props.id)
-	 */
+	const { id: tutorialId, ...rest } = props
+
 	return (
 		<TutorialCard
-			{...props}
+			{...rest}
 			eyebrowSlot={
 				<>
 					<span>{props.duration}</span>
 					{/** Hide from prod until auth is enabled */}
 					{AUTH_ENABLED ? (
-						<TutorialCardBookmarkButton isBookmarked={false} />
+						<TutorialCardBookmarkButton tutorialId={tutorialId} />
 					) : null}
 				</>
 			}
