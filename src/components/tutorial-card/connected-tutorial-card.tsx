@@ -1,13 +1,12 @@
 import { AUTH_ENABLED } from 'hooks/use-authentication'
 import { TutorialCardBookmarkButton } from 'components/bookmark-button'
-import TutorialCard from '..'
-import { TutorialCardProps } from '..'
+import TutorialCard from '.'
+import { TutorialCardPropsWithId } from '.'
 
-interface TutorialCardWithBookmarkProps extends TutorialCardProps {
-	isBookmarked: boolean
-}
-
-export function TutorialCardWithBookmark(props: TutorialCardWithBookmarkProps) {
+export function ConnectedTutorialCard(props: TutorialCardPropsWithId) {
+	/**
+	 * const isBookmarked = useIsBookmarked(props.id)
+	 */
 	return (
 		<TutorialCard
 			{...props}
@@ -16,7 +15,7 @@ export function TutorialCardWithBookmark(props: TutorialCardWithBookmarkProps) {
 					<span>{props.duration}</span>
 					{/** Hide from prod until auth is enabled */}
 					{AUTH_ENABLED ? (
-						<TutorialCardBookmarkButton isBookmarked={props.isBookmarked} />
+						<TutorialCardBookmarkButton isBookmarked={false} />
 					) : null}
 				</>
 			}
