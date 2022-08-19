@@ -8,11 +8,12 @@ export interface PrimaryNavLinkProps {
 	navItem: {
 		label: string
 		url: string
+		openInNewTab?: boolean
 	}
 }
 
 const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
-	const { label, url } = navItem
+	const { label, url, openInNewTab } = navItem
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const isCurrentPage = url === currentPath || url === `${currentPath}/`
 
@@ -22,6 +23,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 				aria-current={isCurrentPage ? 'page' : undefined}
 				aria-label={ariaLabel}
 				className={s.root}
+				target={openInNewTab ? '_blank' : undefined}
 			>
 				<Text
 					asElement="span"

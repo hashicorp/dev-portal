@@ -10,7 +10,6 @@ describe('getNavItems', () => {
 		Array [
 		  Object {
 		    "label": "Home",
-		    "type": "link",
 		    "url": "/waypoint",
 		  },
 		  Object {
@@ -33,16 +32,13 @@ describe('getNavItems', () => {
 		      },
 		    ],
 		    "label": "Documentation",
-		    "type": "submenu",
 		  },
 		  Object {
 		    "label": "Tutorials",
-		    "type": "link",
 		    "url": "/waypoint/tutorials",
 		  },
 		  Object {
 		    "label": "Install",
-		    "type": "link",
 		    "url": "/waypoint/downloads",
 		  },
 		]
@@ -55,7 +51,6 @@ describe('getNavItems', () => {
 		Array [
 		  Object {
 		    "label": "Home",
-		    "type": "link",
 		    "url": "/terraform",
 		  },
 		  Object {
@@ -138,21 +133,18 @@ describe('getNavItems', () => {
 		      },
 		    ],
 		    "label": "Documentation",
-		    "type": "submenu",
 		  },
 		  Object {
 		    "label": "Tutorials",
-		    "type": "link",
 		    "url": "/terraform/tutorials",
 		  },
 		  Object {
 		    "label": "Install",
-		    "type": "link",
 		    "url": "/terraform/downloads",
 		  },
 		  Object {
 		    "label": "Registry",
-		    "type": "link",
+		    "openInNewTab": true,
 		    "url": "https://registry.terraform.io/",
 		  },
 		]
