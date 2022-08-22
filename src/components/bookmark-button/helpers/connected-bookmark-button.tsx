@@ -10,12 +10,15 @@ import makeBookmarkToast from '../toast/make-bookmark-toast'
 /**
  * This HOC serves as a 'controller'
  * for rendering the various state of bookmark
- * interaction. It accepts a UI component to render,
- * and renders a dialog if unauthenticated.
+ * interaction. It accepts a UI component to render and
+ * fetches the tutorial bookmark state.
+ *
+ * When clicked, it renders a dialog if unauthenticated,
+ * and updates data when authenticated.
  */
 
-export function withDialog(BookmarkComponent: React.FC<BookmarkButtonProps>) {
-	return function BookmarkComponentWithDialog({
+export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
+	return function ConnectedBookmarkComponent({
 		tutorialId,
 	}: {
 		tutorialId: Tutorial['id']

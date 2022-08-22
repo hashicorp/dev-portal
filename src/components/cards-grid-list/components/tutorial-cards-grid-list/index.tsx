@@ -2,7 +2,7 @@ import { useBookmarksByTutorialIds } from 'hooks/bookmarks'
 import CardsGridList, { CardsGridListProps } from 'components/cards-grid-list'
 import {
 	TutorialCardPropsWithId,
-	ConnectedTutorialCard,
+	TutorialCardWithBookmark,
 } from 'components/tutorial-card'
 
 interface TutorialCardsGridListProps extends CardsGridListProps {
@@ -24,7 +24,7 @@ const TutorialCardsGridList = ({ tutorials, ...restProps }) => {
 		tutorialIds.push(tutorial.id)
 		cardsGridListItems.push(
 			<li key={tutorial.id}>
-				<ConnectedTutorialCard {...tutorial} />
+				<TutorialCardWithBookmark {...tutorial} />
 			</li>
 		)
 	})
