@@ -1,0 +1,27 @@
+.root {
+	align-items: center;
+	display: flex;
+	gap: 8px;
+}
+
+/* TODO update the tokens package to get the new ones */
+.input {
+	/* appearance: none;
+  background-color: var(--token-form-control-base-surface-color-default);
+  background-position: center center;
+  background-size: var(--token-form-checkbox-background-image-size) var(--token-form-checkbox-background-image-size);
+  border-color: var(--token-form-control-base-border-color-default);
+  border-radius: var(--token-form-checkbox-border-radius);
+  border-style: solid;
+  border-width: var(--token-form-checkbox-border-width);
+  box-shadow: var(--hds-elevation-inset-box-shadow);
+  cursor: pointer;
+  height: var(--token-form-checkbox-size);
+  margin: 0;
+  padding: 0;
+  width: var(--token-form-checkbox-size); */
+}
+
+.label {
+	composes: hds-typography-body-200 from global;
+}
