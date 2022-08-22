@@ -1,23 +1,17 @@
 import { useAllBookmarks } from 'hooks/bookmarks'
 import BaseNewLayout from 'layouts/base-new'
 import AuthenticatedView from 'views/authenticated-view'
+import { getTutorialSlug } from 'views/collection-view/helpers'
 import { formatTutorialData } from 'lib/learn-client/api/tutorial/formatting'
 import { ProductUsed } from 'lib/learn-client/types'
-import TutorialCard from 'components/tutorial-card'
-import { getTutorialSlug } from 'views/collection-view/helpers'
-import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
+import TutorialCard from 'components/tutorial-card'
+import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import CardsGridList from 'components/cards-grid-list'
 import Text from 'components/text'
 import Heading from 'components/heading'
 import { BookmarkButtonIconOnly } from 'components/bookmark-button'
 import s from './bookmarks-view.module.css'
-
-/**
- * get all bookmarks,
- * that will have the tutorial data
- * format the tutorial data to render the cards
- */
 
 /**
  * The exported view component that handles wrapping the view content in
