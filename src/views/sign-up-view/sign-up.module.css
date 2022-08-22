@@ -83,7 +83,7 @@
 
 	/* properties */
 	background-color: var(--token-color-foreground-strong);
-	height: 40vh;
+	height: 50vh;
 	overflow: hidden;
 	position: relative;
 
@@ -104,10 +104,10 @@
 		height: 100vw;
 		opacity: 0.8;
 		position: absolute;
-		top: 40vh;
+		top: 50vh;
 		transform-origin: top left;
 		transform: rotate(-90deg);
-		width: 40vh;
+		width: 50vh;
 
 		@media (--dev-dot-desktop) {
 			top: 100vh;
@@ -128,7 +128,17 @@
 	overflow: hidden;
 	padding-top: 60px;
 
+	& svg {
+		height: 421px;
+		width: auto;
+	}
+
 	@media (--dev-dot-desktop) {
 		padding: 0;
+
+		& svg {
+			height: auto;
+			width: auto;
+		}
 	}
 }
