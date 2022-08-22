@@ -1,6 +1,9 @@
 import { useCallback, useState } from 'react'
+import { useRouter } from 'next/router'
 import { Tutorial } from 'lib/learn-client/types'
-import useAuthentication from 'hooks/use-authentication'
+import useAuthentication, {
+	DEFAULT_PROVIDER_ID,
+} from 'hooks/use-authentication'
 import { useBookmarkMutations, useIsBookmarked } from 'hooks/bookmarks'
 import Dialog from 'components/dialog'
 import { BookmarkButtonProps } from '../types'
@@ -23,6 +26,7 @@ export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 	}: {
 		tutorialId: Tutorial['id']
 	}) {
+		const { asPath } = useRouter()
 		const { isAuthenticated, signIn } = useAuthentication()
 		const { isBookmarked } = useIsBookmarked({ tutorialId })
 		const { addBookmark, removeBookmark } = useBookmarkMutations()
@@ -60,7 +64,7 @@ export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 				>
 					<BookmarkSignInPrompt
 						onDismiss={closeDialog}
-						signIn={() => signIn()}
+						signIn={() => signIn(DEFAULT_PROVIDER_ID, { callbackUrl: asPath })}
 					/>
 				</Dialog>
 			</>

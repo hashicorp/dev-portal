@@ -28,7 +28,7 @@ export default function BookmarkSignInPrompt({
 					<IconX16 />
 				</button>
 			</div>
-			<Text>
+			<Text className={s.subheading}>
 				In order to add this bookmark, you must be signed in. Please sign in and
 				try again.
 			</Text>
