@@ -1,19 +1,18 @@
-import { useQuery } from '@tanstack/react-query'
-import { getAllTutorials } from 'lib/learn-client/api/tutorial'
-import {
-	useBookmarkMutations,
-	useBookmarksByTutorialIds,
-	useIsBookmarked,
-} from 'hooks/bookmarks'
+import { useAllBookmarks } from 'hooks/bookmarks'
 import BaseNewLayout from 'layouts/base-new'
 import AuthenticatedView from 'views/authenticated-view'
-import Card from 'components/card'
+import { formatTutorialData } from 'lib/learn-client/api/tutorial/formatting'
+import { ProductUsed } from 'lib/learn-client/types'
+import { TutorialCardWithBookmark } from 'components/tutorial-card'
+import { getTutorialSlug } from 'views/collection-view/helpers'
+import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
+import { ApiBookmark } from 'lib/learn-client/api/api-types'
+import CardsGridList from 'components/cards-grid-list'
 
 /**
  * get all bookmarks,
  * that will have the tutorial data
  * format the tutorial data to render the cards
- * fetch batch tutorials to render card data
  */
 
 /**
@@ -28,76 +27,50 @@ const ProfileBookmarksView = () => {
 	)
 }
 
-const TestTutorialCard = ({ id, name }) => {
-	const { isBookmarked } = useIsBookmarked({
-		tutorialId: id,
-	})
-	const { addBookmark, removeBookmark } = useBookmarkMutations()
-
-	return (
-		<Card>
-			<div>{name}</div>
-			<br />
-			<button
-				onClick={() => {
-					if (isBookmarked) {
-						removeBookmark(id)
-					} else {
-						addBookmark(id)
-					}
-				}}
-			>
-				{isBookmarked ? '- Remove bookmark' : '+ Add bookmark'}
-			</button>
-		</Card>
-	)
-}
-
 /**
  * The content of the ProfileView that is gated behind authentication.
  */
 const ProfileBookmarksViewContent = () => {
-	const { data: tutorials, isLoading: tutorialsAreLoading } = useQuery(
-		['tutorials'],
-		() => getAllTutorials({ limit: 20 })
-	)
-	const { bookmarks, isLoading: bookmarksAreLoading } =
-		useBookmarksByTutorialIds({
-			enabled: !tutorialsAreLoading,
-			tutorialIds: tutorials?.map((tutorial) => tutorial.id),
-		})
+	const { bookmarks, isLoading } = useAllBookmarks({ enabled: true })
 
-	if (tutorialsAreLoading || bookmarksAreLoading) {
-		return null
+	if (isLoading) {
+		return null // TODO return loading skeleton
 	}
-	console.log(bookmarks)
 
 	return (
 		<div style={{ padding: 24 }}>
 			<h2>Bookmarks</h2>
-			<ul>
-				{bookmarks?.map((bookmark) => (
-					<li key={bookmark.id}>{bookmark.tutorial.name}</li>
-				))}
-			</ul>
-			<br />
-			<h2>Tutorials</h2>
-			<ul
-				style={{
-					display: 'grid',
-					gridGap: 24,
-					gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-					padding: 0,
-				}}
-			>
-				{tutorials?.map((tutorial) => (
-					<TestTutorialCard
-						key={tutorial.id}
-						id={tutorial.id}
-						name={tutorial.name}
-					/>
-				))}
-			</ul>
+			<CardsGridList isOrdered={false}>
+				{bookmarks?.map((bookmark: ApiBookmark) => {
+					const {
+						id,
+						slug,
+						description,
+						readTime,
+						handsOnLab,
+						video,
+						name,
+						collectionCtx,
+						productsUsed,
+					} = formatTutorialData(bookmark.tutorial)
+					return (
+						<li key={id}>
+							<TutorialCardWithBookmark
+								id={id}
+								heading={name}
+								description={description}
+								url={getTutorialSlug(slug, collectionCtx.default.slug)}
+								duration={getReadableTime(readTime)}
+								hasInteractiveLab={Boolean(handsOnLab)}
+								hasVideo={Boolean(video)}
+								productsUsed={productsUsed.map(
+									(p: ProductUsed) => p.product.slug
+								)}
+							/>
+						</li>
+					)
+				})}
+			</CardsGridList>
 		</div>
 	)
 }
