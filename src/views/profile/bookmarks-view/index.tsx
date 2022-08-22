@@ -4,6 +4,7 @@ import AuthenticatedView from 'views/authenticated-view'
 import CardsGridList from 'components/cards-grid-list'
 import Text from 'components/text'
 import Heading from 'components/heading'
+import BookmarksEmptyState from './components/empty-state'
 import renderBookmarkCard from './helpers/render-bookmark-cards'
 import s from './bookmarks-view.module.css'
 
@@ -50,7 +51,11 @@ const ProfileBookmarksViewContent = () => {
 				Your Bookmarks
 			</Heading>
 			<CardsGridList>
-				{bookmarks?.map(renderBookmarkCard) || 'No bookmarks'}
+				{bookmarks?.length > 0 ? (
+					bookmarks.map(renderBookmarkCard)
+				) : (
+					<BookmarksEmptyState />
+				)}
 			</CardsGridList>
 		</div>
 	)
