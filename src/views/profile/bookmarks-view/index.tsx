@@ -8,6 +8,9 @@ import { getTutorialSlug } from 'views/collection-view/helpers'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import CardsGridList from 'components/cards-grid-list'
+import Text from 'components/text'
+import Heading from 'components/heading'
+import s from './bookmarks-view.module.css'
 
 /**
  * get all bookmarks,
@@ -38,8 +41,22 @@ const ProfileBookmarksViewContent = () => {
 	}
 
 	return (
-		<div style={{ padding: 24 }}>
-			<h2>Bookmarks</h2>
+		<div>
+			<Heading level={1} weight="bold" size={500}>
+				Bookmarks
+			</Heading>
+			<Text className={s.subheading}>
+				View and manage your personal bookmarks. Select the bookmark icon in
+				each card below to remove the bookmark.
+			</Text>
+			<Heading
+				level={2}
+				weight="semibold"
+				size={300}
+				className={s.cardListHeading}
+			>
+				Your Bookmarks
+			</Heading>
 			<CardsGridList isOrdered={false}>
 				{bookmarks?.map((bookmark: ApiBookmark) => {
 					const {
