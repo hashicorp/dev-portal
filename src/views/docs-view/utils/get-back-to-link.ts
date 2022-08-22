@@ -1,4 +1,5 @@
 import { SidebarBackToLinkProps } from 'components/sidebar/components/sidebar-back-to-link'
+import { getParentRootDocsPath } from 'lib/docs/get-parent-root-docs-path'
 import { ProductData, RootDocsPath } from 'types/products'
 
 /**
@@ -21,27 +22,21 @@ export function getBackToLink(
 	product: Pick<ProductData, 'name' | 'slug' | 'rootDocsPaths'>
 ): SidebarBackToLinkProps {
 	/**
-	 * A rootDocsPath is considered "nested" if it has multiple path parts.
+	 * Handle "nested" rootDocsPaths, for which we want to link back
+	 * to the parent rootDocsPath. For example, "/terraform/plugin/framework"
+	 * links back to "/terraform/plugin".
 	 */
-	const pathParts = currentRootDocsPath.path.split('/')
-	const isNestedPath = pathParts.length > 1
-	/**
-	 * If we have a nested path, we try to find the parent rootDocsPath.
-	 * Note that we may not find a match.
-	 */
-	if (isNestedPath) {
-		const parentPath = pathParts.slice(0, pathParts.length - 1).join('/')
-		const parentMatches = product.rootDocsPaths.filter((rootDocsPath) => {
-			return rootDocsPath.path == parentPath
-		})
-		if (parentMatches.length > 0) {
-			const parentDocsPath = parentMatches[0]
-			return {
-				text: parentDocsPath.name,
-				href: `/${product.slug}/${parentDocsPath.path}`,
-			}
+	const parentRootDocsPath = getParentRootDocsPath(
+		currentRootDocsPath.path,
+		product.rootDocsPaths
+	)
+	if (parentRootDocsPath) {
+		return {
+			text: parentRootDocsPath.name,
+			href: `/${product.slug}/${parentRootDocsPath.path}`,
 		}
 	}
+
 	/**
 	 * If we can't find a "parent" rootDocsPath,
 	 * or if this is not a "nested" rootDocsPath, then we should use

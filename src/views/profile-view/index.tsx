@@ -1,58 +1,98 @@
-import useAuthentication from 'hooks/use-authentication'
-import Button from 'components/button'
-import Heading from 'components/heading'
+import { useQuery } from '@tanstack/react-query'
+import { getAllTutorials } from 'lib/learn-client/api/tutorial'
+import {
+	useBookmarkMutations,
+	useBookmarksByTutorialIds,
+	useIsBookmarked,
+} from 'hooks/bookmarks'
 import BaseNewLayout from 'layouts/base-new'
 import AuthenticatedView from 'views/authenticated-view'
-import { ProfileViewProps } from './types'
-import s from './profile-view.module.css'
+import Card from 'components/card'
 
 /**
  * The exported view component that handles wrapping the view content in
  * `AuthenticatedView`, which automatically handles rendering gated content.
  */
-const ProfileView = ({ user }: ProfileViewProps) => {
+const ProfileView = () => {
 	return (
 		<AuthenticatedView>
-			<ProfileViewContent user={user} />
+			<ProfileViewContent />
 		</AuthenticatedView>
+	)
+}
+
+const TestTutorialCard = ({ id, name }) => {
+	const { isBookmarked } = useIsBookmarked({
+		tutorialId: id,
+	})
+	const { addBookmark, removeBookmark } = useBookmarkMutations()
+
+	return (
+		<Card>
+			<div>{name}</div>
+			<br />
+			<button
+				onClick={() => {
+					if (isBookmarked) {
+						removeBookmark(id)
+					} else {
+						addBookmark(id)
+					}
+				}}
+			>
+				{isBookmarked ? '- Remove bookmark' : '+ Add bookmark'}
+			</button>
+		</Card>
 	)
 }
 
 /**
  * The content of the ProfileView that is gated behind authentication.
  */
-const ProfileViewContent = ({ user }: ProfileViewProps) => {
-	const { image, ...restProperties } = user
+const ProfileViewContent = () => {
+	const { data: tutorials, isLoading: tutorialsAreLoading } = useQuery(
+		['tutorials'],
+		() => getAllTutorials({ limit: 20 })
+	)
+	const { bookmarks, isLoading: bookmarksAreLoading } =
+		useBookmarksByTutorialIds({
+			enabled: !tutorialsAreLoading,
+			tutorialIds: tutorials?.map((tutorial) => tutorial.id),
+		})
 
-	/**
-	 * @TODO this is only temporary until the Sign Out button is placed in its
-	 * permanent location. This view should not need to use this hook.
-	 */
-	const { signOut } = useAuthentication()
+	if (tutorialsAreLoading || bookmarksAreLoading) {
+		return null
+	}
 
 	return (
-		<div className={s.root}>
-			{/* eslint-disable-next-line @next/next/no-img-element */}
-			<img alt="profile avatar" className={s.avatar} src={image} />
-			<div>
-				<Heading level={1} size={500} weight="bold">
-					User Profile
-				</Heading>
-				<ul>
-					{Object.keys(restProperties).map((property) => {
-						return (
-							<li key={property}>
-								{property}: {user[property]}
-							</li>
-						)
-					})}
-				</ul>
-				<Button color="secondary" onClick={() => signOut()} text="Sign Out" />
-			</div>
+		<div style={{ padding: 24 }}>
+			<h2>Bookmarks</h2>
+			<ul>
+				{bookmarks?.map((bookmark) => (
+					<li key={bookmark.id}>{bookmark.tutorial.name}</li>
+				))}
+			</ul>
+			<br />
+			<h2>Tutorials</h2>
+			<ul
+				style={{
+					display: 'grid',
+					gridGap: 24,
+					gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+					padding: 0,
+				}}
+			>
+				{tutorials?.map((tutorial) => (
+					<TestTutorialCard
+						key={tutorial.id}
+						id={tutorial.id}
+						name={tutorial.name}
+					/>
+				))}
+			</ul>
 		</div>
 	)
 }
 
 ProfileView.layout = BaseNewLayout
-export type { ProfileViewProps }
 export default ProfileView

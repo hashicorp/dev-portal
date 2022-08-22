@@ -1,8 +1,0 @@
-.sectionHeading {
-  composes: g-offset-scroll-margin-top from global;
-  color: var(--token-color-foreground-strong);
-}
-
-.cardGrid {
-  margin-top: 12px;
-}
