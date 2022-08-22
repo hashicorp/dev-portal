@@ -4,7 +4,7 @@ import { ProductSlug } from 'types/products'
 import { NavigationHeaderDropdownMenu } from '..'
 import s from './primary-nav-submenu.module.css'
 
-interface PrimaryNavSubmenuProps {
+export interface PrimaryNavSubmenuProps {
 	ariaLabel: string
 	navItem: {
 		iconColorTheme: ProductSlug

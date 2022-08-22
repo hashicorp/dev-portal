@@ -1,3 +1,6 @@
+@custom-media --nav-header-is-mobile (max-width: 1200px);
+@custom-media --nav-header-is-desktop (min-width: 1201px);
+
 /*
 ***
 * Class for the main container.
@@ -15,13 +18,15 @@
 
 	background-color: var(--token-color-palette-neutral-700);
 	display: flex;
+	padding-top: 0;
+	padding-bottom: 0;
 	justify-content: space-between;
 	padding-left: var(--header-padding-left-right);
 	padding-right: var(--header-padding-left-right);
 	position: relative;
 	width: 100%;
 
-	@media (--dev-dot-tablet-down) {
+	@media (--nav-header-is-mobile) {
 		padding-bottom: 14px;
 		padding-top: 14px;
 	}
@@ -31,6 +36,12 @@
 	align-items: center;
 	display: flex;
 	justify-content: left;
+}
+
+.leftSideDesktopOnlyContent {
+	@media (--nav-header-is-mobile) {
+		display: none;
+	}
 }
 
 /*
@@ -70,7 +81,7 @@
 	display: flex;
 	justify-content: left;
 
-	@media (--dev-dot-desktop) {
+	@media (--nav-header-is-desktop) {
 		width: calc(
 			var(--dev-dot-sidebar-width) + var(--main-area-padding-left) -
 				var(--header-padding-left-right) -
@@ -88,7 +99,6 @@
 }
 
 .mobileMenuButton {
-	composes: g-hide-on-desktop from global;
 	align-items: center;
 	background-color: transparent;
 	border-radius: 5px;
@@ -101,17 +111,21 @@
 	&:hover {
 		border: 1px solid var(--token-color-palette-neutral-200);
 	}
+
+	@media (--nav-header-is-desktop) {
+		display: none;
+	}
 }
 
 .authenticationControls {
-	/* composition */
-	composes: g-hide-on-tablet from global;
-	composes: g-hide-on-mobile from global;
-
 	/* properties */
 	align-items: center;
 	display: flex;
 	gap: 16px;
+
+	@media (--nav-header-is-mobile) {
+		display: none;
+	}
 }
 
 .signUpLink {
