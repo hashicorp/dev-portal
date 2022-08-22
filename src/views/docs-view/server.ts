@@ -294,12 +294,11 @@ export function getStaticGenerationFunctions<
 
 			const breadcrumbLinks = getDocsBreadcrumbs({
 				baseName,
-				basePath: basePath,
+				basePath,
 				indexOfVersionPathPart,
 				navData: navDataWithFullPaths,
 				pathParts,
-				productName: product.name,
-				productPath: product.slug,
+				product,
 				version: versionPathPart,
 			})
 

@@ -16,6 +16,7 @@ export default function WellArchitectedFrameworkTutorialView({
 	layoutProps,
 }: WafTutorialViewProps) {
 	const {
+		id,
 		slug,
 		name,
 		readTime,
@@ -48,6 +49,7 @@ export default function WellArchitectedFrameworkTutorialView({
 					isInteractive,
 					hasVideo,
 				}}
+				tutorialId={id}
 			/>
 			{video?.id && !video.videoInline && (
 				<VideoEmbed

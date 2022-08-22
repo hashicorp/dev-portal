@@ -14,7 +14,7 @@ import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/color
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 
 // Global imports
-import { ProductSlug, RootDocsPath } from 'types/products'
+import { DocsNavItem, ProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'
@@ -29,6 +29,7 @@ import {
 } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './product-page-content.module.css'
+import { getDocsNavItems } from '../../../../lib/docs/get-docs-nav-items'
 
 /**
  * A mapping of Product slugs to their imported SVG colorwhite logos. Used for
@@ -149,14 +150,12 @@ const ProductPageHeaderContent = () => {
 								{
 									label: 'Documentation',
 									iconColorTheme: currentProduct.slug,
-									items: currentProduct.rootDocsPaths.map(
-										(rootDocsPath: RootDocsPath) => {
-											return {
-												icon: rootDocsPath.iconName,
-												label: rootDocsPath.name,
-												path: `/${currentProduct.slug}/${rootDocsPath.path}`,
-											}
-										}
+									items: getDocsNavItems(currentProduct).map(
+										(item: DocsNavItem) => ({
+											icon: item.icon,
+											label: item.label,
+											path: item.fullPath,
+										})
 									),
 								},
 								{ label: 'Tutorials', pathSuffix: 'tutorials' },

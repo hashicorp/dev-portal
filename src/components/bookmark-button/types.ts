@@ -1,6 +1,6 @@
 export interface BookmarkButtonProps {
-	isBookmarked: boolean
 	handleOnClick(): void
+	isBookmarked: boolean
 }
 
 export type BookmarkAction = 'add' | 'remove'
