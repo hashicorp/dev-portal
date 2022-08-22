@@ -60,7 +60,7 @@ export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 				<Dialog
 					onDismiss={closeDialog}
 					isOpen={showDialog}
-					label="Opt out form"
+					label="Sign in to bookmark"
 				>
 					<BookmarkSignInPrompt
 						onDismiss={closeDialog}
