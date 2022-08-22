@@ -50,15 +50,13 @@ const ProfileBookmarksViewContent = () => {
 			>
 				Your Bookmarks
 			</Heading>
-			<CardsGridList>
-				{bookmarks?.length > 0 ? (
-					bookmarks.map(renderBookmarkCard)
-				) : (
-					<BookmarksEmptyState />
-				)}
+			{bookmarks?.length > 0 ? (
+				<CardsGridList>{bookmarks.map(renderBookmarkCard)}</CardsGridList>
+			) : (
 				<BookmarksEmptyState />
-				{/** Just for testing purposes, will refactor */}
-			</CardsGridList>
+			)}
+			<BookmarksEmptyState />
+			{/** Just for testing purposes, will refactor */}
 		</div>
 	)
 }
