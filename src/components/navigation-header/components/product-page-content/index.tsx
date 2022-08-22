@@ -29,7 +29,7 @@ import {
 } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './product-page-content.module.css'
-import { getDocsNavItems } from '../../../../lib/docs/get-docs-nav-items'
+import { getNavItems } from './utils/get-nav-items'
 
 /**
  * A mapping of Product slugs to their imported SVG colorwhite logos. Used for
@@ -119,7 +119,7 @@ const ProductPageHeaderContent = () => {
 	return (
 		<div className={sharedNavStyles.leftSide}>
 			<div className={sharedNavStyles.contentBeforeNav}>
-				<div className="g-hide-on-mobile g-hide-on-tablet">
+				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 					<NavigationHeaderDropdownMenu
 						ariaLabel="Main menu"
 						buttonClassName={s.companyLogoMenuButton}
@@ -142,37 +142,21 @@ const ProductPageHeaderContent = () => {
 				</Link>
 			</div>
 			{isBetaProduct && (
-				<div className="g-hide-on-mobile g-hide-on-tablet">
+				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 					<nav className={sharedNavStyles.nav}>
 						<ul className={sharedNavStyles.navList}>
-							{[
-								{ label: 'Home', pathSuffix: '' },
-								{
-									label: 'Documentation',
-									iconColorTheme: currentProduct.slug,
-									items: getDocsNavItems(currentProduct).map(
-										(item: DocsNavItem) => ({
-											icon: item.icon,
-											label: item.label,
-											path: item.fullPath,
-										})
-									),
-								},
-								{ label: 'Tutorials', pathSuffix: 'tutorials' },
-								{ label: 'Install', pathSuffix: 'downloads' },
-							].map((navItem) => {
-								const { items, label } = navItem
-								const ariaLabel = `${currentProduct.name} ${label}`
+							{getNavItems(currentProduct).map((navItem) => {
+								const ariaLabel = `${currentProduct.name} ${navItem.label}`
 
 								let ItemContent
-								if (items) {
+								if (navItem.hasOwnProperty('items')) {
 									ItemContent = PrimaryNavSubmenu
 								} else {
 									ItemContent = PrimaryNavLink
 								}
 
 								return (
-									<li key={label}>
+									<li key={navItem.label}>
 										<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
 									</li>
 								)
