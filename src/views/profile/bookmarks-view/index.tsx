@@ -49,7 +49,9 @@ const ProfileBookmarksViewContent = () => {
 			>
 				Your Bookmarks
 			</Heading>
-			<CardsGridList>{bookmarks?.map(renderBookmarkCard)}</CardsGridList>
+			<CardsGridList>
+				{bookmarks?.map(renderBookmarkCard) || 'No bookmarks'}
+			</CardsGridList>
 		</div>
 	)
 }
