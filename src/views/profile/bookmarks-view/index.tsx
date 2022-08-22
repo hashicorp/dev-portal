@@ -3,13 +3,14 @@ import BaseNewLayout from 'layouts/base-new'
 import AuthenticatedView from 'views/authenticated-view'
 import { formatTutorialData } from 'lib/learn-client/api/tutorial/formatting'
 import { ProductUsed } from 'lib/learn-client/types'
-import { TutorialCardWithBookmark } from 'components/tutorial-card'
+import TutorialCard from 'components/tutorial-card'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import CardsGridList from 'components/cards-grid-list'
 import Text from 'components/text'
 import Heading from 'components/heading'
+import { BookmarkButtonIconOnly } from 'components/bookmark-button'
 import s from './bookmarks-view.module.css'
 
 /**
@@ -70,19 +71,30 @@ const ProfileBookmarksViewContent = () => {
 						collectionCtx,
 						productsUsed,
 					} = formatTutorialData(bookmark.tutorial)
+					const duration = getReadableTime(readTime)
 					return (
 						<li key={id}>
-							<TutorialCardWithBookmark
-								id={id}
+							<TutorialCard
 								heading={name}
 								description={description}
 								url={getTutorialSlug(slug, collectionCtx.default.slug)}
-								duration={getReadableTime(readTime)}
+								duration={duration}
 								hasInteractiveLab={Boolean(handsOnLab)}
 								hasVideo={Boolean(video)}
 								productsUsed={productsUsed.map(
 									(p: ProductUsed) => p.product.slug
 								)}
+								eyebrowSlot={
+									<>
+										<span>{duration}</span>
+										<BookmarkButtonIconOnly
+											isBookmarked={true}
+											handleOnClick={() =>
+												console.log('Trigger confirmation dialog!')
+											}
+										/>
+									</>
+								}
 							/>
 						</li>
 					)
