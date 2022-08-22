@@ -115,29 +115,28 @@ interface RootDocsPath {
 	 * content API should pull from. Defaults to `main`.
 	 */
 	mainBranch?: string
+
+	/**
+	 * An optional property to hide the title of this rootDocsPath
+	 * in the sidebar. Used for Terraform routes where sidebar titles
+	 * are present in nav-data.json.
+	 */
+	visuallyHideSidebarTitle?: boolean
+
+	/**
+	 * An optional property to add an "overview" item to the sidebar.
+	 * By default, an overview item will be added. This property must be
+	 * explicitly set to `false` to prevent an overview item from being added.
+	 * The `href` for this item will lead to the root docs path,
+	 * and will dynamically account for version context.
+	 */
+	addOverviewItem?: boolean
 }
 
-/**
- * A navigation item that is rendered within a disclosure in the main navigation
- * header.
- */
-interface NavigationHeaderItem {
-	/**
-	 * The name of an icon to render on the left-hand side of the text for the
-	 * navigation item.
-	 */
-	icon: NavHeaderItem['icon']
-
-	/**
-	 * The suffix of the full path of the navigation header item. This suffix is
-	 * automatically concatenated with the currently viewed product slug.
-	 */
-	pathSuffix: string
-
-	/**
-	 * The visible text to render for the navigation item.
-	 */
-	label: NavHeaderItem['label']
+export type DocsNavItem = {
+	icon: string
+	label: string
+	fullPath: string
 }
 
 interface ProductData extends Product {
@@ -145,13 +144,14 @@ interface ProductData extends Product {
 		indexName: string
 	}
 	basePaths: string[]
-	navigationHeaderItems: {
-		[key: string]: NavigationHeaderItem[]
-	}
-	rootDocsPaths?: RootDocsPath[]
-	sidebar: {
-		landingPageNavData: MenuItem[]
-	}
+	rootDocsPaths: RootDocsPath[]
+	/**
+	 * When configuring docsNavItems, authors have the option to specify
+	 * the full data structure, or use a string that matches a rootDocsPath.path
+	 * as a shorthand, in which case a DocsNavItem will be parsed from
+	 * the matching rootDocsPath.
+	 */
+	docsNavItems?: (DocsNavItem | string)[]
 }
 
 interface ProductWithCurrentRootDocsPath extends ProductData {

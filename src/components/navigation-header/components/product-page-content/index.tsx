@@ -14,11 +14,12 @@ import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/color
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 
 // Global imports
-import { ProductSlug } from 'types/products'
+import { DocsNavItem, ProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct, useIsBetaProduct } from 'contexts'
+import { NavigationHeaderItemGroup } from 'components/navigation-header/types'
 
 // Local imports
 import {
@@ -28,18 +29,7 @@ import {
 } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './product-page-content.module.css'
-
-/**
- * Defined the navigation items for all pages that live under `/{productSlug}`
- * routes. If this becomes authorable, it can be lifted into another area of the
- * codebase.
- */
-const PRODUCT_PAGE_NAV_ITEMS = [
-	{ label: 'Home', pathSuffix: '' },
-	{ label: 'Documentation', id: 'documentation', isSubmenu: true },
-	{ label: 'Tutorials', pathSuffix: 'tutorials' },
-	{ label: 'Install', pathSuffix: 'downloads' },
-]
+import { getDocsNavItems } from '../../../../lib/docs/get-docs-nav-items'
 
 /**
  * A mapping of Product slugs to their imported SVG colorwhite logos. Used for
@@ -111,11 +101,20 @@ const ProductPageHeaderContent = () => {
 			color: 'highlight' as const,
 		},
 	}
-	const allMainMenuItems = [
+
+	// Construct item groups for the dropdown, avoid adding empty groups
+	const allMainMenuItems: NavigationHeaderItemGroup[] = [
 		{ items: [homeMenuItem] },
-		{ items: betaProductItems, label: 'Products' },
-		{ items: comingSoonProductItems, label: 'Coming Soon' },
 	]
+	if (betaProductItems.length) {
+		allMainMenuItems.push({ label: 'Products', items: betaProductItems })
+	}
+	if (comingSoonProductItems.length) {
+		allMainMenuItems.push({
+			label: 'Coming Soon',
+			items: comingSoonProductItems,
+		})
+	}
 
 	return (
 		<div className={sharedNavStyles.leftSide}>
@@ -146,12 +145,27 @@ const ProductPageHeaderContent = () => {
 				<div className="g-hide-on-mobile g-hide-on-tablet">
 					<nav className={sharedNavStyles.nav}>
 						<ul className={sharedNavStyles.navList}>
-							{PRODUCT_PAGE_NAV_ITEMS.map((navItem) => {
-								const { isSubmenu, label } = navItem
+							{[
+								{ label: 'Home', pathSuffix: '' },
+								{
+									label: 'Documentation',
+									iconColorTheme: currentProduct.slug,
+									items: getDocsNavItems(currentProduct).map(
+										(item: DocsNavItem) => ({
+											icon: item.icon,
+											label: item.label,
+											path: item.fullPath,
+										})
+									),
+								},
+								{ label: 'Tutorials', pathSuffix: 'tutorials' },
+								{ label: 'Install', pathSuffix: 'downloads' },
+							].map((navItem) => {
+								const { items, label } = navItem
 								const ariaLabel = `${currentProduct.name} ${label}`
 
 								let ItemContent
-								if (isSubmenu) {
+								if (items) {
 									ItemContent = PrimaryNavSubmenu
 								} else {
 									ItemContent = PrimaryNavLink

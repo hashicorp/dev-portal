@@ -1,26 +1,27 @@
 .animatedDialogOverlay {
-  background: var(--token-color-border-strong);
-  z-index: 100;
+	background: var(--token-color-border-strong);
+	z-index: 100;
 }
 
 .contentWrapper {
-  align-items: flex-start;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
-  padding: 24px;
-  width: 100vw;
+	align-items: flex-start;
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	padding: 24px;
+	width: 100vw;
 
-  @media (--dev-dot-tablet-up) {
-    padding-top: 10vh;
-  }
+	@media (--dev-dot-tablet-up) {
+		padding-top: 10vh;
+	}
 }
 
 .content {
-  border-radius: 6px;
-  box-shadow: var(--token-surface-overlay-box-shadow);
-  margin: 0;
-  max-width: 600px;
-  padding: 24px;
-  width: 100%;
+	border-radius: 6px;
+	box-shadow: var(--token-surface-overlay-box-shadow);
+	margin: 0;
+	max-width: 600px;
+	min-width: 300px;
+	padding: 24px;
+	width: 100%;
 }

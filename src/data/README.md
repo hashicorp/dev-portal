@@ -49,23 +49,3 @@ This is an array of objects. Each object represents a "root docs path", or a sec
 See the `RootDocsPath` interface for this property defined in [`types/products.ts`](/src/types/products.ts).
 
 </details>
-
-<!-- sidebar -->
-
-<details>
-<summary><code>sidebar</code></summary>
-
-🚧 DEPRECATED - this property is being replaced by the `rootDocsPaths` property. The new property is detailed in the previous section. 🚧
-
-</details>
-
-<!-- navigationHeaderItems -->
-
-<details>
-<summary><code>navigationHeaderItems</code></summary>
-
-This is an object of one property presently. The lone property is `"documentation"` and is an array of objects. Each object represents a navigation header item that renders under a disclosure in the navigation header.
-
-See the `NavigationHeaderItem` interface property defined in [`types/products.ts`](/src/types/products.ts) for details on the properties needed for each object in the array.
-
-</details>

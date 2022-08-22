@@ -117,6 +117,7 @@ function TutorialView({
 
 	// variables
 	const {
+		id,
 		name,
 		slug,
 		content,
@@ -226,6 +227,7 @@ function TutorialView({
 								isInteractive,
 								hasVideo,
 							}}
+							tutorialId={id}
 						/>
 						{hasVideo && video.id && !video.videoInline && (
 							<VideoEmbed
