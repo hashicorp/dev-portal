@@ -1,10 +1,8 @@
 import { ReactElement } from 'react'
 import { FeaturedLearnCard } from 'views/product-downloads-view/types'
-import Heading from 'components/heading'
-import CardsGridList from 'components/cards-grid-list'
-import CollectionCard from 'components/collection-card'
-import { TutorialCardWithBookmark } from 'components/tutorial-card'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import { TutorialCardsGridList } from 'components/cards-grid-list'
+import Heading from 'components/heading'
 
 interface FeaturedTutorialsSectionProps {
 	featuredLearnCards: FeaturedLearnCard[]
@@ -24,24 +22,7 @@ const FeaturedTutorialsSection = ({
 			>
 				Featured Tutorials
 			</Heading>
-			<CardsGridList>
-				{featuredLearnCards.map((cardProps: FeaturedLearnCard) => {
-					const { id, type } = cardProps
-					if (type == 'collection') {
-						return (
-							<li key={id}>
-								<CollectionCard {...cardProps} />
-							</li>
-						)
-					} else if (type == 'tutorial') {
-						return (
-							<li key={id}>
-								<TutorialCardWithBookmark {...cardProps} />
-							</li>
-						)
-					}
-				})}
-			</CardsGridList>
+			<TutorialCardsGridList tutorials={featuredLearnCards} />
 		</>
 	)
 }
