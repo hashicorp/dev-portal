@@ -11,6 +11,10 @@
 	margin-bottom: 4px;
 }
 
+.subheading {
+	margin-right: 56px;
+}
+
 .exitIcon {
 	color: var(--token-color-foreground-faint);
 	margin: 4px 2px;
