@@ -42,9 +42,16 @@ export default function DocsRootLanding({
 		return child
 	})
 
+	/**
+	 * MDX content should contain an <h1/>, but this is not guaranteed.
+	 * Our <LandingHero /> requires a heading, so we avoid rendering it
+	 * if we have not found an <h1> in the MDX content.
+	 */
+	const hasHeading = !!heading
+
 	return (
 		<>
-			{heading ? (
+			{hasHeading ? (
 				<LandingHero pageHeading={heading} pageSubtitle={subtitle} />
 			) : null}
 			<div className={s.mdxContent}>{childrenToRender}</div>
