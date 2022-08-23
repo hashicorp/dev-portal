@@ -35,13 +35,21 @@ function ApiDocsView({ layoutProps, apiPageProps }) {
 
 export async function getStaticPaths() {
 	let schema
+	let paths
 	if (isDeployPreview(productSlug)) {
 		schema = await processSchemaFile(targetLocalFile)
+	} else if (isDeployPreview()) {
+		// If we are in a deploy preview that isn't in the boundary repository, don't pre-render any paths
+		paths = []
 	} else {
 		const swaggerFile = await fetchGithubFile(targetFile)
 		schema = await processSchemaString(swaggerFile)
 	}
-	const paths = getPathsFromSchema(schema)
+
+	if (schema) {
+		paths = getPathsFromSchema(schema)
+	}
+
 	return { paths, fallback: false }
 }
 
