@@ -1,10 +1,25 @@
+// Third-party imports
 import { ForwardedRef, forwardRef } from 'react'
 import classNames from 'classnames'
 import { m, useReducedMotion } from 'framer-motion'
+
+// HashiCorp imports
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
+
+// Global imports
+import { getUserMenuItems } from 'lib/auth/user'
 import { useMobileMenu } from 'contexts'
+import useAuthentication from 'hooks/use-authentication'
+import Button from 'components/button'
+import ButtonLink from 'components/button-link'
+
+// Local imports
 import { MobileMenuContainerProps } from './types'
+import { MobileUserDisclosure } from './components'
 import s from './mobile-menu-container.module.css'
 
+// Constants
 const MOBILE_MENU_MOTION = {
 	visible: {
 		left: 0,
@@ -16,6 +31,48 @@ const MOBILE_MENU_MOTION = {
 			display: 'none',
 		},
 	},
+}
+
+/**
+ * Handles rendering the Sign In and Sign Up UI elements in mobile viewports.
+ * Intended to be used alongside `MobileMenuContainer`.
+ */
+const MobileAuthenticationControls = () => {
+	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
+		useAuthentication()
+
+	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
+		return null
+	}
+
+	let content
+	if (showUnauthenticatedUI) {
+		content = (
+			<>
+				<ButtonLink
+					href="/sign-up"
+					icon={<IconUserPlus16 />}
+					iconPosition="trailing"
+					size="small"
+					text="Sign Up"
+				/>
+				<Button
+					color="secondary"
+					icon={<IconArrowRight16 />}
+					iconPosition="trailing"
+					onClick={() => signIn()}
+					size="small"
+					text="Sign In"
+				/>
+			</>
+		)
+	} else if (showAuthenticatedUI) {
+		content = (
+			<MobileUserDisclosure items={getUserMenuItems({ signOut })} user={user} />
+		)
+	}
+
+	return <div className={s.mobileAuthenticationControls}>{content}</div>
 }
 
 // eslint-disable-next-line react/display-name
@@ -42,4 +99,5 @@ const MobileMenuContainer = forwardRef(
 )
 
 export type { MobileMenuContainerProps }
+export { MobileAuthenticationControls }
 export default MobileMenuContainer

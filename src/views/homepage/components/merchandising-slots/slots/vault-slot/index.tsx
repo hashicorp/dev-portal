@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import VisuallyHidden from '@reach/visually-hidden'
 import logo from '@hashicorp/mktg-logos/product/vault/primary/color.svg'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import CardLink from 'components/card-link'
@@ -9,8 +8,7 @@ import s from './vault-slot.module.css'
 
 function VaultSlot({ url, cardTitle, description, ctaText }: VaultSlotProps) {
 	return (
-		<CardLink href={url} className={s.root}>
-			<VisuallyHidden as="h2">{cardTitle}</VisuallyHidden>
+		<CardLink ariaLabel={cardTitle} href={url} className={s.root}>
 			<div className={s.logo}>
 				<Image src={logo} width={118} height={50} alt="" />
 			</div>

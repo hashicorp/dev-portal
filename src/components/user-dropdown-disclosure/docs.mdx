@@ -1,0 +1,156 @@
+---
+componentName: 'UserDropdownDisclosure'
+---
+
+## Examples
+
+### User with an `image` referencing "github" in the text
+
+The label and description of the dropdown list are determined by the `image` property on the given `user` object. When the `image` property contains the text `"github"`:
+
+- The label reads: "Signed in with GitHub"
+- The description contains: the user's `nickname`
+
+<UserDropdownDisclosure
+	user={{
+		image: 'https://avatars.githubusercontent.com/u/761456?s=200&v=4',
+		email: 'salty@thehound.design',
+		nickname: 'salty-the-hound',
+	}}
+	items={[
+		{
+			href: '#',
+			icon: <SwingsetTestIcon name="bookmark" />,
+			label: 'Bookmarks',
+		},
+		{
+			href: '#',
+			icon: <SwingsetTestIcon name="external-link" />,
+			label: 'Account Settings',
+		},
+		{
+			icon: <SwingsetTestIcon name="sign-out" />,
+			label: 'Sign Out',
+			onClick: () => window.alert('You clicked "Sign Out"'),
+		},
+	]}
+/>
+
+### User with an `image` not referencing "github" in the text
+
+The label and description of the dropdown list are determined by the `image` property on the given `user` object. When the `image` property **does not** contain the text `"github"`:
+
+- The label reads: "Signed in with Email"
+- The description contains: the user's `email`
+
+<UserDropdownDisclosure
+	user={{
+		image: 'https://placekitten.com/g/100/100',
+		email: 'salty@thehound.design',
+		nickname: 'salty-the-hound',
+	}}
+	items={[
+		{
+			href: '#',
+			icon: <SwingsetTestIcon name="bookmark" />,
+			label: 'Bookmarks',
+		},
+		{
+			href: '#',
+			icon: <SwingsetTestIcon name="external-link" />,
+			label: 'Account Settings',
+		},
+		{
+			icon: <SwingsetTestIcon name="sign-out" />,
+			label: 'Sign Out',
+			onClick: () => window.alert('You clicked "Sign Out"'),
+		},
+	]}
+/>
+
+### User with no `image`
+
+When no `image` is specified for a user, the `16px` `user` Flight Icon is rendered as the default icon.
+
+<UserDropdownDisclosure
+	user={{
+		email: 'salty@thehound.design',
+		nickname: 'salty-the-hound',
+	}}
+	items={[
+		{
+			href: '#',
+			icon: <SwingsetTestIcon name="bookmark" />,
+			label: 'Bookmarks',
+		},
+		{
+			href: '#',
+			icon: <SwingsetTestIcon name="external-link" />,
+			label: 'Account Settings',
+		},
+		{
+			icon: <SwingsetTestIcon name="sign-out" />,
+			label: 'Sign Out',
+			onClick: () => window.alert('You clicked "Sign Out"'),
+		},
+	]}
+/>
+
+### With `listPosition="right"`
+
+When no `listPosition` value is given, the default of `"left"` is used.
+
+<UserDropdownDisclosure
+	listPosition="right"
+	user={{
+		email: 'salty@thehound.design',
+		image: 'https://placekitten.com/g/100/100',
+		nickname: 'salty-the-hound',
+	}}
+	items={[
+		{
+			href: '#',
+			icon: <SwingsetTestIcon name="bookmark" />,
+			label: 'Bookmarks',
+		},
+		{
+			href: '#',
+			icon: <SwingsetTestIcon name="external-link" />,
+			label: 'Account Settings',
+		},
+		{
+			icon: <SwingsetTestIcon name="sign-out" />,
+			label: 'Sign Out',
+			onClick: () => window.alert('You clicked "Sign Out"'),
+		},
+	]}
+/>
+
+## Playground
+
+<LiveComponent>{`
+<UserDropdownDisclosure
+  user={{
+    image: 'https://placekitten.com/g/100/100',
+    email: 'salty@thehound.design',
+    nickname: 'salty-the-hound',
+  }}
+  items={[
+    {
+      href: '#',
+      icon: <SwingsetTestIcon name="bookmark" />,
+      label: 'Bookmarks',
+    },
+    {
+      href: '#',
+      icon: <SwingsetTestIcon name="external-link" />,
+      label: 'Account Settings',
+    },
+    {
+      icon: <SwingsetTestIcon name="sign-out" />,
+      label: 'Sign Out',
+      onClick: () => window.alert('You clicked "Sign Out"'),
+    },
+  ]}
+/>
+`}</LiveComponent>

@@ -1,8 +1,8 @@
+import { ReactElement } from 'react'
 import { ReleasesAPIResponse, GeneratedProps } from 'lib/fetch-release-data'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 import { MenuItem } from 'components/sidebar'
-import { CollectionCardPropsWithId } from 'components/collection-card'
 import { TutorialCardPropsWithId } from 'components/tutorial-card'
 
 /**
@@ -26,22 +26,17 @@ export interface PackageManager {
 
 export interface RawProductDownloadsViewContent {
 	doesNotHavePackageManagers?: boolean
-	featuredLearnContent?: FeaturedLearnContent[]
+	featuredTutorialsSlugs: string[]
 	packageManagerOverrides?: PackageManager[]
-	sidecarMarketingCard: SidecarMarketingCardProps
 	sidebarMenuItems?: MenuItem[]
+	sidecarMarketingCard: SidecarMarketingCardProps
 }
 
-/**
- * View prop types
- */
-
-export type FeaturedLearnCard =
-	| ({ type: 'collection' } & CollectionCardPropsWithId)
-	| ({ type: 'tutorial' } & TutorialCardPropsWithId)
+export type FeaturedLearnCard = TutorialCardPropsWithId
 
 export interface ProductDownloadsViewProps {
 	latestVersion: string
+	merchandisingSlot?: ReactElement
 	pageContent: {
 		doesNotHavePackageManagers?: boolean
 		featuredLearnCards?: FeaturedLearnCard[]
@@ -56,6 +51,7 @@ export interface ProductDownloadsViewProps {
  * Type for inner content component, with version switcher options
  */
 export interface ProductDownloadsViewContentProps {
+	merchandisingSlot?: ProductDownloadsViewProps['merchandisingSlot']
 	pageContent: ProductDownloadsViewProps['pageContent']
 	releases: ProductDownloadsViewProps['releases']
 	versionSwitcherOptions: VersionContextSwitcherProps['options']

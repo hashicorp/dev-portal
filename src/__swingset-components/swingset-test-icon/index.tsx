@@ -1,26 +1,32 @@
 import { ReactElement } from 'react'
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
-import { IconArrowUpRight16 } from '@hashicorp/flight-icons/svg-react/arrow-up-right-16'
-import { IconArrowUpRight24 } from '@hashicorp/flight-icons/svg-react/arrow-up-right-24'
-import { IconClipboardCopy16 } from '@hashicorp/flight-icons/svg-react/clipboard-copy-16'
-import { IconClipboardCopy24 } from '@hashicorp/flight-icons/svg-react/clipboard-copy-24'
-import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
-import { IconPlus24 } from '@hashicorp/flight-icons/svg-react/plus-24'
-import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
-import { IconGithub24 } from '@hashicorp/flight-icons/svg-react/github-24'
-import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
-import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
-import { IconCheck16 } from '@hashicorp/flight-icons/svg-react/check-16'
-import { IconCheck24 } from '@hashicorp/flight-icons/svg-react/check-24'
-import { IconCheckCircle16 } from '@hashicorp/flight-icons/svg-react/check-circle-16'
-import { IconCheckCircle24 } from '@hashicorp/flight-icons/svg-react/check-circle-24'
 import { IconAlertOctagon16 } from '@hashicorp/flight-icons/svg-react/alert-octagon-16'
 import { IconAlertOctagon24 } from '@hashicorp/flight-icons/svg-react/alert-octagon-24'
 import { IconAlertTriangle16 } from '@hashicorp/flight-icons/svg-react/alert-triangle-16'
 import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
+import { IconArrowUpRight16 } from '@hashicorp/flight-icons/svg-react/arrow-up-right-16'
+import { IconArrowUpRight24 } from '@hashicorp/flight-icons/svg-react/arrow-up-right-24'
+import { IconCheck16 } from '@hashicorp/flight-icons/svg-react/check-16'
+import { IconCheck24 } from '@hashicorp/flight-icons/svg-react/check-24'
+import { IconCheckCircle16 } from '@hashicorp/flight-icons/svg-react/check-circle-16'
+import { IconCheckCircle24 } from '@hashicorp/flight-icons/svg-react/check-circle-24'
+import { IconClipboardCopy16 } from '@hashicorp/flight-icons/svg-react/clipboard-copy-16'
+import { IconClipboardCopy24 } from '@hashicorp/flight-icons/svg-react/clipboard-copy-24'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconExternalLink24 } from '@hashicorp/flight-icons/svg-react/external-link-24'
+import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
+import { IconGithub24 } from '@hashicorp/flight-icons/svg-react/github-24'
+import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
+import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
+import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
+import { IconPlus24 } from '@hashicorp/flight-icons/svg-react/plus-24'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
+import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
+import { IconBookmark24 } from '@hashicorp/flight-icons/svg-react/bookmark-24'
+import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
+import { IconSignOut24 } from '@hashicorp/flight-icons/svg-react/sign-out-24'
 
 const ICON_MAP = {
 	'arrow-right': {
@@ -39,6 +45,10 @@ const ICON_MAP = {
 		16: <IconAlertTriangle16 />,
 		24: <IconAlertTriangle24 />,
 	},
+	bookmark: {
+		16: <IconBookmark16 />,
+		24: <IconBookmark24 />,
+	},
 	check: {
 		16: <IconCheck16 />,
 		24: <IconCheck24 />,
@@ -55,6 +65,10 @@ const ICON_MAP = {
 		16: <IconX16 />,
 		24: <IconX24 />,
 	},
+	'external-link': {
+		16: <IconExternalLink16 />,
+		24: <IconExternalLink24 />,
+	},
 	github: {
 		16: <IconGithub16 />,
 		24: <IconGithub24 />,
@@ -62,6 +76,10 @@ const ICON_MAP = {
 	info: {
 		16: <IconInfo16 />,
 		24: <IconInfo24 />,
+	},
+	'sign-out': {
+		16: <IconSignOut16 />,
+		24: <IconSignOut24 />,
 	},
 	plus: {
 		16: <IconPlus16 />,

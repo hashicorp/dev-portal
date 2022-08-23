@@ -1,9 +1,24 @@
 {
-	"featuredLearnContent": [],
+	"featuredTutorialsSlugs": [],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "Introduction to Terraform",
+			"fullPath": "/terraform/intro"
+		},
+		{
+			"title": "Get Started with Terraform Cloud",
+			"fullPath": "/terraform/tutorials/cloud-get-started/cloud-sign-up"
+		}
+	],
 	"sidecarMarketingCard": {
 		"title": "About Terraform",
 		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
-		"learnMoreLink": "https://www.terraform.io/",
 		"featuredDocsLinks": [
 			{
 				"href": "/terraform/internals",

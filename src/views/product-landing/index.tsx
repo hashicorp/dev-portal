@@ -1,9 +1,9 @@
 import { ReactElement } from 'react'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import GetStartedCard from 'components/get-started-card'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import { ProductLandingViewProps } from './types'
 import { getIconCards } from './helpers'
-import GetStartedCard from './components/get-started-card'
 import HeroHeadingVisual from './components/hero-heading-visual'
 import OverviewCta from './components/overview-cta'
 import ProductLandingBlocks from './components/product-landing-blocks'
@@ -46,6 +46,7 @@ function ProductLandingView({
 					headingSlug={get_started.headingSlug}
 					body={get_started.body}
 					ctas={get_started.ctas}
+					iconCardLinks={get_started.iconCardLinks}
 				/>
 			</div>
 			<ProductLandingBlocks blocks={blocks} />

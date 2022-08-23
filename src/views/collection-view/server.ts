@@ -1,11 +1,18 @@
 import moize, { Options } from 'moize'
 
-import { LearnProductData } from 'types/products'
-import { Collection as ClientCollection } from 'lib/learn-client/types'
-import { LearnProductSlug } from 'types/products'
+import {
+	Collection as ClientCollection,
+	ProductOption,
+} from 'lib/learn-client/types'
+import {
+	LearnProductData,
+	LearnProductName,
+	LearnProductSlug,
+} from 'types/products'
 import {
 	getAllCollections,
 	getCollection,
+	getCollectionsBySection,
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import getIsBetaProduct from 'lib/get-is-beta-product'
@@ -18,6 +25,8 @@ import {
 	formatSidebarCategorySections,
 } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
+import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
+import { isProductSlug } from 'lib/products'
 
 export interface CollectionPageProps {
 	collection: ClientCollection
@@ -46,16 +55,27 @@ const moizeOpts: Options = {
 const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
 export async function getCollectionViewSidebarSections(
-	product: LearnProductData,
+	productSlug: LearnProductSlug | 'hcp',
 	collection: ClientCollection
 ) {
-	const allProductCollections = await cachedGetAllCollections({
-		product: { slug: product.slug, sidebarSort: true },
-	})
-	const filteredCollections = filterCollections(
-		allProductCollections,
-		product.slug
-	)
+	let filteredCollections
+
+	/**
+	 * Get a filtered set of collections for the current product.
+	 * Note that `hcp` is a "product" in Dev Dot but not in Learn,
+	 * so we do some branching.
+	 */
+	if (productSlug == 'hcp') {
+		filteredCollections = await getCollectionsBySection('cloud')
+	} else {
+		const allProductCollections = await cachedGetAllCollections({
+			product: { slug: productSlug as ProductOption, sidebarSort: true },
+		})
+		filteredCollections = filterCollections(
+			allProductCollections,
+			productSlug as ProductOption
+		)
+	}
 
 	return formatSidebarCategorySections(filteredCollections, collection.slug)
 }
@@ -69,10 +89,15 @@ export async function getCollectionViewSidebarSections(
  * which is needed for other areas of the app to function.
  */
 export async function getCollectionPageProps(
-	product: LearnProductData,
+	product: {
+		name: LearnProductName
+		slug: LearnProductSlug | 'hcp'
+	},
 	slug: string
 ): Promise<{ props: CollectionPageProps } | null> {
-	const collection = await getCollection(`${product.slug}/${slug}`)
+	// product.slug may be "hcp", needs to be "cloud" for Learn API use
+	const learnProductSlug = normalizeSlugForTutorials(product.slug)
+	const collection = await getCollection(`${learnProductSlug}/${slug}`)
 
 	// if null the api encountered a 404
 	if (collection === null) {
@@ -88,7 +113,7 @@ export async function getCollectionPageProps(
 			},
 		}),
 		sidebarSections: await getCollectionViewSidebarSections(
-			product,
+			product.slug,
 			collection
 		),
 	}
@@ -118,10 +143,11 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	const paths = []
 	collections.forEach((collection: ClientCollection) => {
 		// assuming slug structure of :product/:filename
-		const [productSlug, filename] = collection.slug.split('/')
+		const [collectionProductSlug, filename] = collection.slug.split('/')
 		/**
-		 * Only build collections where the `productSlug` is a valid beta
-		 * product and the`theme` matches the `productSlug`
+		 * Only build collections where the `productSlug` is a valid beta product.
+		 * As well, for all non-HCP products, only build collections where
+		 * `theme` matches the `productSlug`.
 		 *
 		 * Once all products are 'onboarded' we can remove this filtering layer
 		 * for the beta products.
@@ -129,14 +155,17 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const shouldBuildCollectionPath =
-			getIsBetaProduct(productSlug as LearnProductSlug) &&
-			productSlug === collection.theme
+		const isBetaProduct =
+			isProductSlug(collectionProductSlug) &&
+			getIsBetaProduct(collectionProductSlug)
+		const isCloud = collectionProductSlug == 'cloud'
+		const themeMatches = collectionProductSlug === collection.theme
+		const shouldBuildCollectionPath = isBetaProduct && (isCloud || themeMatches)
 
 		if (shouldBuildCollectionPath) {
 			paths.push({
 				params: {
-					productSlug,
+					productSlug: collectionProductSlug,
 					collectionSlug: filename,
 				},
 			})

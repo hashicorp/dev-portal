@@ -1,4 +1,5 @@
 import { ProductOption } from 'lib/learn-client/types'
+import { getCollectionSlug } from 'views/collection-view/helpers'
 
 /**
  * TUTORIAL PATH MAPPING:
@@ -69,5 +70,5 @@ export function handleTutorialLink(
 export function handleCollectionLink(nodePath: string) {
 	const [, , product, filename] = nodePath.split('/') as SplitLearnPath
 
-	return `/${product}/tutorials/${filename}`
+	return getCollectionSlug(`${product}/${filename}`)
 }

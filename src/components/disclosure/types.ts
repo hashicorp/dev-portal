@@ -19,6 +19,12 @@ interface DisclosureProps {
 	children: ReactElement[]
 
 	/**
+	 * Whether or not the `useOnEscapeKeyDown` hook should be enabled. Is not
+	 * enabled by default.
+	 */
+	closeOnEscapeKey?: boolean
+
+	/**
 	 * Whether or not the `useOnClickOutside` hook should be enabled. Is not
 	 * enabled by default.
 	 */

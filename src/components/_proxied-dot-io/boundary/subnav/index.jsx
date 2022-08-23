@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import Subnav from '@hashicorp/react-subnav'
 import { useRouter } from 'next/router'
-import productData from 'data/boundary'
-import Link from 'next/link'
+import s from './subnav.module.css'
 
-export default function ProductSubnav() {
+export default function BoundarySubnav({ menuItems }) {
 	const router = useRouter()
 	const [currentPath, setCurrentPath] = useState()
 
@@ -14,25 +13,32 @@ export default function ProductSubnav() {
 
 	return (
 		<Subnav
+			className={s.subnav}
 			titleLink={{
-				text: 'Boundary',
+				text: 'HashiCorp Boundary',
 				url: '/',
 			}}
 			ctaLinks={[
 				{
 					text: 'GitHub',
-					url: `https://www.github.com/hashicorp/${productData.slug}`,
+					url: `https://www.github.com/hashicorp/boundary`,
 				},
 				{
 					text: 'Download',
 					url: '/downloads',
 				},
+				{
+					text: 'Try HCP Boundary',
+					url: 'https://portal.cloud.hashicorp.com/sign-up?utm_source=cloud_landing&utm_content=offers_boundary',
+					theme: {
+						brand: 'boundary',
+					},
+				},
 			]}
 			currentPath={currentPath}
 			menuItemsAlign="right"
-			menuItems={productData.subnavItems}
+			menuItems={menuItems}
 			constrainWidth
-			Link={Link}
 			matchOnBasePath
 		/>
 	)

@@ -23,6 +23,9 @@ import {
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
+import { SidebarProps } from 'components/sidebar'
+import { EnrichedNavItem } from 'components/sidebar/types'
+import { getBackToLink } from './utils/get-back-to-link'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -93,7 +96,7 @@ export function getStaticGenerationFunctions<
 	additionalRemarkPlugins = [],
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
-	showVersionSelect = true,
+	navDataPrefix,
 }: {
 	product: ProductData
 	basePath: string
@@ -103,7 +106,7 @@ export function getStaticGenerationFunctions<
 	additionalRemarkPlugins?: Pluggable[]
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
-	showVersionSelect?: boolean
+	navDataPrefix?: string
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -124,6 +127,7 @@ export function getStaticGenerationFunctions<
 		product: productSlugForLoader,
 		basePath: basePathForLoader,
 		enabledVersionedDocs: true,
+		navDataPrefix,
 		/**
 		 * Note: not all products in "beta" are expected to have a specific
 		 * "content_preview_branch", so even for products marked "beta",
@@ -257,37 +261,44 @@ export function getStaticGenerationFunctions<
 			}
 
 			/**
-			 * Constructs the levels of nav data used in the `Sidebar` on all
-			 * `DocsView` pages.
+			 * Constructs the base sidebar level for `DocsView`.
+			 */
+			const docsSidebarLevel: SidebarProps = {
+				backToLinkProps: getBackToLink(currentRootDocsPath, product),
+				levelButtonProps: {
+					levelUpButtonText: `${product.name} Home`,
+				},
+				menuItems: navDataWithFullPaths as EnrichedNavItem[],
+				// TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
+				title: BASE_PATHS_TO_NAMES[basePath] || product.name,
+			}
+			// If the title is not hidden for this rootDocsPath, include it
+			if (currentRootDocsPath.visuallyHideSidebarTitle) {
+				docsSidebarLevel.visuallyHideTitle = true
+			}
+			// Add "Overview" item, unless explicitly disabled
+			if (currentRootDocsPath.addOverviewItem !== false) {
+				docsSidebarLevel.overviewItemHref = versionPathPart
+					? `/${product.slug}/${basePath}/${versionPathPart}`
+					: `/${product.slug}/${basePath}`
+			}
+
+			/**
+			 * Assembles all levels of sidebar nav data for `DocsView`.
 			 */
 			const sidebarNavDataLevels = [
 				generateTopLevelSidebarNavData(product.name),
 				generateProductLandingSidebarNavData(product),
-				{
-					backToLinkProps: {
-						text: `${product.name} Home`,
-						href: `/${product.slug}`,
-					},
-					levelButtonProps: {
-						levelUpButtonText: `${product.name} Home`,
-					},
-					menuItems: navDataWithFullPaths,
-					// TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
-					title: BASE_PATHS_TO_NAMES[basePath] || product.name,
-					overviewItemHref: versionPathPart
-						? `/${product.slug}/${basePath}/${versionPathPart}`
-						: `/${product.slug}/${basePath}`,
-				},
+				docsSidebarLevel,
 			]
 
 			const breadcrumbLinks = getDocsBreadcrumbs({
 				baseName,
-				basePath: basePath,
+				basePath,
 				indexOfVersionPathPart,
 				navData: navDataWithFullPaths,
 				pathParts,
-				productName: product.name,
-				productPath: product.slug,
+				product,
 				version: versionPathPart,
 			})
 
@@ -296,13 +307,42 @@ export function getStaticGenerationFunctions<
 			 */
 			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
 				breadcrumbLinks,
-				githubFileUrl,
 				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here
 				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
 			}
-			if (showVersionSelect) {
+
+			/**
+			 * Determine whether to show the version selector
+			 *
+			 * In most docs categories, we want to show the version selector if there
+			 * are multiple versions, or if the single version is not `v0.0.x`.
+			 * (We use `v0.0.x` as a placeholder version for un-versioned documentation)
+			 */
+			const hasMeaningfulVersions =
+				versions && (versions.length > 1 || versions[0].version !== 'v0.0.x')
+			/**
+			 * For the /packer/plugins landing page, we want to hide the version selector,
+			 * even though we do have meaningful versions available
+			 */
+			const isPackerPlugins =
+				product.slug == 'packer' && currentRootDocsPath.path == 'plugins'
+
+			if (!isPackerPlugins && hasMeaningfulVersions) {
 				layoutProps.versions = versions
+			}
+			/**
+			 * We want to show "Edit on GitHub" links for public content repos only.
+			 * Currently, HCP and Sentinel docs are stored in private repositories.
+			 *
+			 * Note: If we need more granularity here, we could change this to be
+			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
+			 */
+			const isHcp = product.slug == 'hcp'
+			const isSentinel = product.slug == 'sentinel'
+			const isPublicContentRepo = !isHcp && !isSentinel
+			if (isPublicContentRepo) {
+				layoutProps.githubFileUrl = githubFileUrl
 			}
 
 			console.log(pathParts)

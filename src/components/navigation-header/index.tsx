@@ -1,7 +1,20 @@
+// Third-party imports
 import { useRouter } from 'next/router'
+
+// HashiCorp imports
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
+import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
+
+// Global imports
+import { getUserMenuItems } from 'lib/auth/user'
+import useAuthentication from 'hooks/use-authentication'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
+import Button from 'components/button'
+import StandaloneLink from 'components/standalone-link'
+import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
+
+// Local imports
 import { NavigationHeaderItem } from './types'
 import {
 	GiveFeedbackButton,
@@ -32,6 +45,47 @@ const MobileMenuButton = () => {
 }
 
 /**
+ * Handles rendering the Sign In and Sign Up UI elements. Automatically hides
+ * the elements with CSS on tablet and smaller viewports.
+ */
+const AuthenticationControls = () => {
+	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
+		useAuthentication()
+
+	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
+		return null
+	}
+
+	let content
+	if (showUnauthenticatedUI) {
+		content = (
+			<>
+				<Button onClick={() => signIn()} text="Sign In" />
+				<StandaloneLink
+					className={s.signUpLink}
+					textClassName={s.signUpLinkText}
+					href="/sign-up"
+					icon={<IconUserPlus16 />}
+					iconPosition="trailing"
+					text="Sign Up"
+				/>
+			</>
+		)
+	} else if (showAuthenticatedUI) {
+		content = (
+			<UserDropdownDisclosure
+				className={s.userDropdownDisclosure}
+				listPosition="right"
+				items={getUserMenuItems({ signOut })}
+				user={user}
+			/>
+		)
+	}
+
+	return <div className={s.authenticationControls}>{content}</div>
+}
+
+/**
  * The main navigation header for all DevDot pages. Renders two different
  * styles: one for the main home page, and one for all routes under
  * `/{productSlug}.`
@@ -51,6 +105,7 @@ const NavigationHeader = () => {
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
 				<GiveFeedbackButton />
+				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>
 		</header>
