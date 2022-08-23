@@ -1,4 +1,5 @@
 // Third-party imports
+import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
 
@@ -7,7 +8,11 @@ import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/reh
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import FileSystemLoader from '@hashicorp/react-docs-page/server/loaders/file-system'
-import { anchorLinks } from '@hashicorp/remark-plugins'
+import {
+	includeMarkdown,
+	paragraphCustomAlerts,
+	anchorLinks,
+} from '@hashicorp/remark-plugins'
 
 // Global imports
 import { ProductData, RootDocsPath } from 'types/products'
@@ -151,10 +156,36 @@ export function getStaticGenerationFunctions<
 				}-nav-data.json`,
 			}
 
+			/**
+			 * These plugins are run during our content ETL process for remote content, but we need to run
+			 * them when loading content directly from the filesystem.
+			 */
+			const remarkPluginsForFileSystemContent = [
+				[
+					includeMarkdown,
+					{
+						resolveMdx: true,
+						resolveFrom: path.join(process.cwd(), 'content', 'partials'),
+					},
+				],
+				paragraphCustomAlerts,
+			]
+
 			return new FileSystemLoader({
 				...loaderOptions,
 				...fsOptions,
 				...extraOptions,
+				remarkPlugins(params) {
+					const remarkPluginsFromExtraOptions =
+						typeof extraOptions.remarkPlugins === 'function'
+							? extraOptions.remarkPlugins(params)
+							: extraOptions.remarkPlugins
+
+					return [
+						...remarkPluginsFromExtraOptions,
+						...remarkPluginsForFileSystemContent,
+					]
+				},
 			})
 		} else {
 			return new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
@@ -186,11 +217,7 @@ export function getStaticGenerationFunctions<
 					 * Note on remark plugins for local vs remote loading:
 					 * includeMarkdown and paragraphCustomAlerts are already
 					 * expected to have been run for remote content.
-					 * However, we'll need to account for these plugins once
-					 * we enable local content preview for new dev-dot docs views.
 					 */
-					// includeMarkdown,
-					// paragraphCustomAlerts,
 					[anchorLinks, { headings }],
 					rewriteTutorialLinksPlugin,
 					/**
