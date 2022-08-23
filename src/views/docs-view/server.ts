@@ -13,6 +13,7 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
 import getIsBetaProduct from 'lib/get-is-beta-product'
+import { isDeployPreview } from 'lib/env-checks'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
@@ -141,7 +142,7 @@ export function getStaticGenerationFunctions<
 	const getLoader = (
 		extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
 	) => {
-		if (process.env.PREVIEW_FROM_REPO === productSlugForLoader) {
+		if (isDeployPreview(productSlugForLoader)) {
 			// options needed to read content from the file system when running in preview mode
 			const fsOptions = {
 				localContentDir: `../content/${basePath}`,

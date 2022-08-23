@@ -35,7 +35,7 @@ function ApiDocsView({ layoutProps, apiPageProps }) {
 
 export async function getStaticPaths() {
 	let schema
-	if (isDeployPreview()) {
+	if (isDeployPreview(productSlug)) {
 		schema = await processSchemaFile(targetLocalFile)
 	} else {
 		const swaggerFile = await fetchGithubFile(targetFile)
@@ -47,7 +47,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	let schema
-	if (isDeployPreview()) {
+	if (isDeployPreview(productSlug)) {
 		schema = await processSchemaFile(targetLocalFile)
 	} else {
 		const swaggerFile = await fetchGithubFile(targetFile)
