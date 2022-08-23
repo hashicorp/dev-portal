@@ -2,7 +2,7 @@
 	margin: 12px 0 24px 0;
 	color: var(--token-color-foreground-primary);
 
-	@media (--dev-dot-tablet-up) {
+	@media (--dev-dot-tablet) {
 		margin-bottom: 38px;
 	}
 
