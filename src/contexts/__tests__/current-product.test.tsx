@@ -17,14 +17,11 @@ const setup = (currentProduct: Product) => {
 		<CurrentProductProvider
 			currentProduct={{
 				...currentProduct,
-				basePaths: [],
-				navigationHeaderItems: {},
-				sidebar: {
-					landingPageNavData: [],
-				},
 				algoliaConfig: {
 					indexName: '',
 				},
+				basePaths: [],
+				rootDocsPaths: [],
 			}}
 		>
 			{children}

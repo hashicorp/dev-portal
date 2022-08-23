@@ -25,6 +25,9 @@ const CardLink = ({
 		})
 	}
 
+	// TODO fix tab order. Link should come before anything focusable in children.
+	// ref: https://app.asana.com/0/1202097197789424/1202822098515463/f
+
 	return (
 		<Card className={classes}>
 			{children}

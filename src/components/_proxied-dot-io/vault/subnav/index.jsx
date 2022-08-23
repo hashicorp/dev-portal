@@ -21,12 +21,12 @@ export default function ProductSubnav({ menuItems }) {
 					url: 'https://www.github.com/hashicorp/vault',
 				},
 				{
-					text: 'Try Cloud',
-					url: 'https://portal.cloud.hashicorp.com/sign-up?utm_source=vault_io&utm_content=top_nav_vault',
-				},
-				{
 					text: 'Download',
 					url: '/downloads',
+				},
+				{
+					text: 'Try HCP Vault',
+					url: 'https://portal.cloud.hashicorp.com/sign-up?utm_source=vault_io&utm_content=top_nav_vault',
 					theme: {
 						brand: 'vault',
 					},

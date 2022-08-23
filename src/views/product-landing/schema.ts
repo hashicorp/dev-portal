@@ -139,21 +139,24 @@ export interface ProductLandingContent {
 	blocks: ProductLandingContentBlock[]
 }
 
-export const ProductLandingContentSchema = Joi.object({
-	hero: Joi.object({
-		heading: Joi.string().required(),
-		image: Joi.string().required(),
+const ProductLandingHeroSchema = Joi.object({
+	heading: Joi.string().required(),
+	image: Joi.string().required(),
+}).required()
+
+const ProductLandingOverviewSchema = Joi.object({
+	heading: Joi.string().required(),
+	body: Joi.string().required(),
+	cta: Joi.object({
+		text: Joi.string().required(),
+		url: Joi.string().required(),
 	}).required(),
-	overview: Joi.object({
-		heading: Joi.string().required(),
-		body: Joi.string().required(),
-		cta: Joi.object({
-			text: Joi.string().required(),
-			url: Joi.string().required(),
-		}).required(),
-		image: Joi.string().required(),
-	}).required(),
-	get_started: Joi.object({
+	image: Joi.string().required(),
+}).required()
+
+// Require either `ctas` or `iconCardLinks`
+const ProductLandingGetStartedSchema = Joi.alternatives().try(
+	Joi.object({
 		heading: Joi.string().required(),
 		body: Joi.string().required(),
 		ctas: Joi.array()
@@ -165,6 +168,25 @@ export const ProductLandingContentSchema = Joi.object({
 			)
 			.required()
 			.min(1),
-	}).required(),
+	}),
+	Joi.object({
+		heading: Joi.string().required(),
+		body: Joi.string().required(),
+		iconCardLinks: Joi.array()
+			.items(
+				Joi.object({
+					icon: Joi.string().required(),
+					text: Joi.string().required(),
+					url: Joi.string().required(),
+				})
+			)
+			.required(),
+	})
+)
+
+export const ProductLandingContentSchema = Joi.object({
+	hero: ProductLandingHeroSchema,
+	overview: ProductLandingOverviewSchema,
+	get_started: ProductLandingGetStartedSchema,
 	blocks: Joi.array().items(ProductLandingContentBlockSchema),
 })
