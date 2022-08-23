@@ -6,16 +6,13 @@ cp -R ../public/** ./public/
 # REPO is set in each product repository's
 # call to this start script
 
-echo $REPO
-echo $PREVIEW_MODE
-
 # If PREVIEW_FROM_REPO is specified, run with the developer UI, else trigger the .io site UI
-if [ "$PREVIEW_MODE" == "developer" ]; then
-  echo "running in developer preview mode"
+if [ $PREVIEW_MODE == 'developer' ]; then
+  echo "⚙️ running in developer preview mode"
   DEV_IO=""
   PREVIEW_FROM_REPO="$REPO"
 else
-  echo "running in io site preview mode"
+  echo "⚙️ running in io site preview mode"
   DEV_IO="$REPO"
 fi
 
