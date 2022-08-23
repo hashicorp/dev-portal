@@ -6,11 +6,6 @@ const { redirectsConfig } = require('./build-libs/redirects')
 const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
 
-console.log({
-	DEV_IO: process.env.DEV_IO,
-	PREVIEW_FROM_REPO: process.env.PREVIEW_FROM_REPO,
-})
-
 // temporary: set all paths as noindex, until we're serving from this project
 // Update the excluded domains to ensure we are indexing content as the io sites get migrated
 const temporary_hideDocsPaths = {
