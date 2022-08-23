@@ -165,7 +165,7 @@ export function getStaticGenerationFunctions<
 					includeMarkdown,
 					{
 						resolveMdx: true,
-						resolveFrom: path.join(process.cwd(), 'content', 'partials'),
+						resolveFrom: path.join(process.cwd(), '..', 'content', 'partials'),
 					},
 				],
 				paragraphCustomAlerts,
