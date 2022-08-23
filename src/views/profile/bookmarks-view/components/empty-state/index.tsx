@@ -11,7 +11,7 @@ export default function BookmarksEmptyState() {
 			<IconTile size="small">
 				<IconBookmarkAdd16 />
 			</IconTile>
-			<Heading level={2} size={400} weight="semibold" className={s.heading}>
+			<Heading level={2} size={300} weight="semibold" className={s.heading}>
 				You have no saved bookmarks.
 			</Heading>
 			<Text className={s.subheading}>
