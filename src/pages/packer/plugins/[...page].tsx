@@ -29,6 +29,7 @@ const navDataFile = `data/${basePath}-nav-data.json`
 export async function getStaticPaths() {
 	let paths = []
 
+	// Only generate static paths if we are not in a content deploy preview, or if we are in packer's content deploy preview
 	if (!isDeployPreview() || isDeployPreview('packer')) {
 		paths = await generateStaticPaths({
 			navDataFile,
