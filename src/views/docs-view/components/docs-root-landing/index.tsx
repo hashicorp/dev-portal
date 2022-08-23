@@ -44,7 +44,9 @@ export default function DocsRootLanding({
 
 	return (
 		<>
-			<LandingHero pageHeading={heading} pageSubtitle={subtitle} />
+			{heading ? (
+				<LandingHero pageHeading={heading} pageSubtitle={subtitle} />
+			) : null}
 			<div className={s.mdxContent}>{childrenToRender}</div>
 		</>
 	)
