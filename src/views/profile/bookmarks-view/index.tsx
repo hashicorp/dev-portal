@@ -46,7 +46,7 @@ const ProfileBookmarksViewContent = () => {
 			>
 				Your Bookmarks
 			</Heading>
-			<CardsGridList isOrdered={false}>
+			<CardsGridList>
 				{bookmarks?.map(renderBookmarkCard)}
 			</CardsGridList>
 		</div>
