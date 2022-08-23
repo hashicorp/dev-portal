@@ -350,8 +350,7 @@ export function getStaticGenerationFunctions<
 			 * Going forward this would be defined in frontmatter,
 			 * we'd pass frontmatter.layout directly rather than constructing this.
 			 *
-			 * TODO: add task link here to eventually support
-			 * custom layouts in frontmatter.
+			 * Task: https://app.asana.com/0/1202097197789424/1202850056121889/f
 			 */
 			const isLanding = pathParts.length === 0
 			const customLayout = isLanding
