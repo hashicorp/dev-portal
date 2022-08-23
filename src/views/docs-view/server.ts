@@ -345,17 +345,31 @@ export function getStaticGenerationFunctions<
 				layoutProps.githubFileUrl = githubFileUrl
 			}
 
-			console.log(pathParts)
+			/**
+			 * TODO: this logic is temporary to showcase how layouts can work.
+			 * Going forward this would be defined in frontmatter,
+			 * we'd pass frontmatter.layout directly rather than constructing this.
+			 *
+			 * TODO: add task link here to eventually support
+			 * custom layouts in frontmatter.
+			 */
+			const isLanding = pathParts.length === 0
+			const customLayout = isLanding
+				? {
+						name: 'docs-root-landing',
+						subtitle:
+							currentRootDocsPath.description ??
+							frontMatter.description ??
+							null,
+				  }
+				: null
 
 			const finalProps = {
 				layoutProps,
 				metadata: {
 					title: frontMatter.page_title ?? null,
 					description: frontMatter.description ?? null,
-					// TODO: this logic is temporary to showcase how layouts can work. Going forward this would be defined in frontmatter.
-					layout: {
-						name: pathParts.length === 0 ? 'docs-root-landing' : null,
-					},
+					layout: customLayout,
 				},
 				mdxSource,
 				product: {

@@ -106,7 +106,8 @@
 			"name": "Configuration Language",
 			"path": "language",
 			"visuallyHideSidebarTitle": true,
-			"addOverviewItem": false
+			"addOverviewItem": false,
+			"description": "This a custom description of the Terraform Language page that is written in src/data/terraform.json. If this weren't here, we'd fall back to the frontmatter description."
 		},
 		{
 			"iconName": "plug",

@@ -1,48 +1,48 @@
 import { Children, ReactChild } from 'react'
 import LandingHero from 'components/landing-hero'
-
-function getElementTextContent(child) {
-	let textContent = ''
-
-	Children.forEach(child.props.children, (child) => {
-		if (typeof child === 'string') {
-			textContent += child
-		}
-	})
-
-	return textContent
-}
+import { getElementTextContent } from './utils/get-element-text-content'
 
 /**
- * TEMPORARY
+ * A structured page view that wraps rendered MDX content,
+ * extracts the first rendered <h1>, and renders a landing hero in its place.
  *
- * A structured page view that wraps rendered MDX content, extracts the first rendered H1 and p tags and renders a
- * landing hero in their place. Used to demonstrate structured page views pattern driven by frontmatter
+ * Used to meet our current design specs for docs landing pages, and to
+ * demonstrate structured page views pattern driven by frontmatter.
  */
 export default function DocsRootLanding({
 	children,
+	subtitle,
 }: {
 	children: ReactChild[]
+	subtitle: string
 }) {
+	/**
+	 * Iterate over the content children,
+	 * extracting <h1> text to use as the `heading` for our `LandingHero`,
+	 * and avoiding duplicative rendering of the <h1>.
+	 *
+	 * TODO: we could consider using a server-side remark plugin for this.
+	 * However, this might not align as well with `layout` usage, I think?
+	 * Or perhaps it would, we could have specific server-side behaviour
+	 * for specific layouts; not only a client-side `wrapper` component?
+	 */
 	let heading
-	let subtitle
-
-	const childrenToRender = Children.map(children, (child) => {
+	const childrenToRender = Children.map(children, (child: ReactChild) => {
+		// Skip over string and number literals (we can't access props on these)
 		if (typeof child === 'string' || typeof child === 'number') {
 			return child
 		}
 
-		if (!heading && child.props.originalType === 'h1') {
+		// Access props to find the <h1> element on the page
+		if (child.props.originalType === 'h1') {
 			heading = {
 				title: getElementTextContent(child),
 				id: child.props.id,
 			}
 			return null
 		}
-		if (!subtitle && child.props.originalType === 'p') {
-			subtitle = child.props.children
-			return null
-		}
+
+		// Return non-<h1> elements unmodified
 		return child
 	})
 
