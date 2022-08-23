@@ -38,7 +38,7 @@ export function DeveloperPreviewBuilder(product) {
 			 * - Remove /src/pages/_proxied-dot-io
 			 */
 			const pagesDir = path.join(cwd, 'src', 'pages')
-			const pagesDirsToRemove = ['_proxied-dot-io']
+			const pagesDirsToRemove = ['_proxied-dot-io', 'swingset']
 
 			const rootPagesDirs = (
 				await fs.promises.readdir(pagesDir, { withFileTypes: true })
