@@ -23,9 +23,12 @@ const ProfileBookmarksView = () => {
  * The content of the ProfileView that is gated behind authentication.
  */
 const ProfileBookmarksViewContent = () => {
-	const { bookmarks, isLoading } = useAllBookmarks({ enabled: true })
+	const { bookmarks, isFetching, isRefetching } = useAllBookmarks({
+		enabled: true,
+	})
+	const isFirstLoad = isFetching && !isRefetching
 
-	if (isLoading) {
+	if (isFirstLoad) {
 		return null // TODO return loading skeleton
 	}
 
@@ -46,9 +49,7 @@ const ProfileBookmarksViewContent = () => {
 			>
 				Your Bookmarks
 			</Heading>
-			<CardsGridList>
-				{bookmarks?.map(renderBookmarkCard)}
-			</CardsGridList>
+			<CardsGridList>{bookmarks?.map(renderBookmarkCard)}</CardsGridList>
 		</div>
 	)
 }
