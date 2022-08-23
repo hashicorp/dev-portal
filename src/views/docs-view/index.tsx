@@ -9,6 +9,7 @@ import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import ProductDocsSearch from './components/product-docs-search'
 import DocsViewLayout from 'layouts/docs-view-layout'
+import s from './docs-view.module.css'
 
 // Author primitives
 const Badge = dynamic(() => import('components/author-primitives/packer/badge'))
@@ -74,7 +75,9 @@ const DocsView = ({
 	const shouldRenderSearch =
 		!hideSearch && __config.flags.enable_product_docs_search
 
-	const Layout = layouts[metadata?.layout?.name] ?? Fragment
+	const Layout =
+		layouts[metadata?.layout?.name] ??
+		(({ children }) => <div className={s.mdxContent}>{children}</div>)
 
 	return (
 		<>

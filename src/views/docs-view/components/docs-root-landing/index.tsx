@@ -1,6 +1,7 @@
 import { Children, ReactChild } from 'react'
 import LandingHero from 'components/landing-hero'
 import { getElementTextContent } from './utils/get-element-text-content'
+import s from '../../docs-view.module.css'
 
 /**
  * A structured page view that wraps rendered MDX content,
@@ -20,11 +21,6 @@ export default function DocsRootLanding({
 	 * Iterate over the content children,
 	 * extracting <h1> text to use as the `heading` for our `LandingHero`,
 	 * and avoiding duplicative rendering of the <h1>.
-	 *
-	 * TODO: we could consider using a server-side remark plugin for this.
-	 * However, this might not align as well with `layout` usage, I think?
-	 * Or perhaps it would, we could have specific server-side behaviour
-	 * for specific layouts; not only a client-side `wrapper` component?
 	 */
 	let heading
 	const childrenToRender = Children.map(children, (child: ReactChild) => {
@@ -49,7 +45,7 @@ export default function DocsRootLanding({
 	return (
 		<>
 			<LandingHero pageHeading={heading} pageSubtitle={subtitle} />
-			{childrenToRender}
+			<div className={s.mdxContent}>{childrenToRender}</div>
 		</>
 	)
 }
