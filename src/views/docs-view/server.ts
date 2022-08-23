@@ -31,6 +31,7 @@ import {
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { getBackToLink } from './utils/get-back-to-link'
+import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -148,43 +149,12 @@ export function getStaticGenerationFunctions<
 		extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
 	) => {
 		if (isDeployPreview(productSlugForLoader)) {
-			// options needed to read content from the file system when running in preview mode
-			const fsOptions = {
-				localContentDir: `../content/${basePath}`,
-				navDataFile: `../data/${
-					currentRootDocsPath.navDataPrefix ?? currentRootDocsPath.path
-				}-nav-data.json`,
-			}
-
-			/**
-			 * These plugins are run during our content ETL process for remote content, but we need to run
-			 * them when loading content directly from the filesystem.
-			 */
-			const remarkPluginsForFileSystemContent = [
-				[
-					includeMarkdown,
-					{
-						resolveMdx: true,
-						resolveFrom: path.join(process.cwd(), '..', 'content', 'partials'),
-					},
-				],
-				paragraphCustomAlerts,
-			]
-
-			return new FileSystemLoader({
-				...loaderOptions,
-				...fsOptions,
-				...extraOptions,
-				remarkPlugins(params) {
-					const remarkPluginsFromExtraOptions =
-						typeof extraOptions.remarkPlugins === 'function'
-							? extraOptions.remarkPlugins(params)
-							: extraOptions.remarkPlugins
-
-					return [
-						...remarkPluginsFromExtraOptions,
-						...remarkPluginsForFileSystemContent,
-					]
+			return getDeployPreviewLoader({
+				basePath,
+				currentRootDocsPath,
+				loaderOptions: {
+					...loaderOptions,
+					...extraOptions,
 				},
 			})
 		} else {

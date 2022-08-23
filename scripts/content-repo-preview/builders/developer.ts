@@ -6,6 +6,9 @@ import { execFileSync } from 'child_process'
 const cwd = process.cwd()
 const globalCSSFile = path.join(cwd, 'src', 'pages', 'style.css')
 
+/**
+ * Handles building deploy previews for content repositories within the context of the Developer site.
+ */
 export function DeveloperPreviewBuilder(product) {
 	return {
 		async prebuild() {
