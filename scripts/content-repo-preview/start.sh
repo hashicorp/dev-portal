@@ -7,7 +7,7 @@ cp -R ../public/** ./public/
 # call to this start script
 
 # If PREVIEW_FROM_REPO is specified, run with the developer UI, else trigger the .io site UI
-if [ -n "$PREVIEW_FROM_REPO" ]; then
+if [ "$PREVIEW_MODE" == 'developer' ]; then
   DEV_IO=""
   PREVIEW_FROM_REPO="$REPO"
 else

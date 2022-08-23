@@ -36,7 +36,7 @@ async function main() {
 	process.env.IS_CONTENT_PREVIEW = 'true'
 
 	const previewMode: PreviewMode =
-		(process.env.MODE as PreviewMode | undefined) || 'io'
+		(process.env.PREVIEW_MODE as PreviewMode | undefined) || 'io'
 
 	const repo = process.env.REPO
 
