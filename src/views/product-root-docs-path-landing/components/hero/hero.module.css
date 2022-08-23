@@ -26,3 +26,7 @@
 .pageSubtitle {
 	color: var(--token-color-foreground-primary);
 }
+
+.iconCardGridLink {
+	margin-top: 32px;
+}
