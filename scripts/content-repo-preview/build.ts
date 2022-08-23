@@ -45,6 +45,8 @@ async function main() {
 			? DeveloperPreviewBuilder(repo)
 			: IoPreviewBuilder(repo)
 
+	console.log(`🏗 building deploy preview with mode: ${previewMode}`)
+
 	/**
 	 * Check for a cached node_modules folder folder, if found copy it back into our website-preview dir
 	 * This should allow us to take advantage of Vercel's build cache
@@ -66,6 +68,7 @@ async function main() {
 	/**
 	 * Execute any prebuild steps from the builder
 	 */
+	console.log('⚙️ executing prebuild step')
 	await builder.prebuild()
 
 	/** Install deps */
