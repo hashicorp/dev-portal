@@ -3,11 +3,10 @@ import Link from 'next/link'
 import Button from '@hashicorp/react-button'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from 'lib/fetch-release-data'
-import productData from 'data/vault'
 import s from './style.module.css'
 
 function DownloadsPage({ product, releases, latestVersion }) {
-	const changelogUrl = `https://github.com/hashicorp/vault/blob/v${productData.version}/CHANGELOG.md`
+	const changelogUrl = `https://github.com/hashicorp/vault/blob/main/CHANGELOG.md`
 
 	return (
 		<ProductDownloadsPage
