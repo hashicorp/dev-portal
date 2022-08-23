@@ -1,9 +1,13 @@
 .subheading {
-	margin: 12px 0 30px 0;
+	margin: 12px 0 24px 0;
 	color: var(--token-color-foreground-primary);
 
-	@media (--medium-up) {
+	@media (--dev-dot-tablet-up) {
 		margin-bottom: 38px;
+	}
+
+	@media (--dev-dot-desktop) {
+		margin-bottom: 32px;
 	}
 }
 
