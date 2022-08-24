@@ -72,7 +72,11 @@ const Sidebar = ({
 					[s['filterInputWrapper--mobile']]: shouldRenderMobileControls,
 				})}
 			>
-				<FilterInput value={filterValue} onChange={setFilterValue} />
+				<FilterInput
+					value={filterValue}
+					onChange={setFilterValue}
+					placeholder="Filter sidebar"
+				/>
 			</div>
 		)
 	}
