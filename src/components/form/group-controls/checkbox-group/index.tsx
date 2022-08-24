@@ -16,6 +16,7 @@ const CheckboxGroup = ({
 }: CheckboxGroupProps) => {
 	const hasLegend = !!legend
 	const hasHelperText = !!helperText
+	const isVerticalLayout = layout === 'vertical'
 
 	let legendElement
 	if (hasLegend) {
@@ -49,7 +50,7 @@ const CheckboxGroup = ({
 						<CheckboxField
 							// eslint-disable-next-line react/no-array-index-key
 							key={index}
-							helperText={option.helperText}
+							helperText={isVerticalLayout ? option.helperText : undefined}
 							label={option.label}
 							labelFontWeight={hasLegend ? 'regular' : 'semibold'}
 							name={name}
