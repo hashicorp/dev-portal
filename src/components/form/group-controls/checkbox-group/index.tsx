@@ -1,10 +1,10 @@
+import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
 import Badge from 'components/badge'
-import { Errors, HelperText } from 'components/form/components'
+import { Errors, HelperText, Legend } from 'components/form/components'
 import { CheckboxField } from 'components/form/field-controls'
 import { CheckboxGroupOption, CheckboxGroupProps } from './types'
 import s from './checkbox-group.module.css'
-import { useId } from '@react-aria/utils'
 
 const CheckboxGroup = ({
 	errors,
@@ -33,10 +33,10 @@ const CheckboxGroup = ({
 		}
 
 		legendElement = (
-			<legend className={s.legend}>
+			<Legend>
 				{legend}
 				{indicatorElement}
-			</legend>
+			</Legend>
 		)
 	}
 
@@ -68,9 +68,9 @@ const CheckboxGroup = ({
 				{options.map((option: CheckboxGroupOption, index: number) => {
 					return (
 						<CheckboxField
+							helperText={isVerticalLayout ? option.helperText : undefined}
 							// eslint-disable-next-line react/no-array-index-key
 							key={index}
-							helperText={isVerticalLayout ? option.helperText : undefined}
 							label={option.label}
 							labelFontWeight={hasLegend ? 'regular' : 'semibold'}
 							name={name}
