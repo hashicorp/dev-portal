@@ -121,7 +121,7 @@ const SignUpView = () => {
 						 * Replace with real graphic when it's available
 						 * ref: https://app.asana.com/0/1202097197789424/1202683836858983/f
 						 */
-						src={require('./img/temp-graphic.svg?include')}
+						src={require('./img/aside-graphic.svg?include')}
 					/>
 				</div>
 			</aside>

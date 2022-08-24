@@ -23,7 +23,7 @@ interface UseBookmarksByTutorialIdsResult
  * `tutorialIds`.
  */
 const useBookmarksByTutorialIds = ({
-	enabled,
+	enabled = true,
 	tutorialIds,
 }: UseBookmarksByTutorialIdsOptions): UseBookmarksByTutorialIdsResult => {
 	// Get the current Query Client
