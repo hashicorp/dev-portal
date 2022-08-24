@@ -54,6 +54,7 @@
 			"iconName": "terminal-screen",
 			"name": "Terraform CLI",
 			"path": "cli",
+			"visuallyHideSidebarTitle": true,
 			"addOverviewItem": false
 		},
 		{
