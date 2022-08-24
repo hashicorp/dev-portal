@@ -2,9 +2,47 @@
 componentName: CheckboxGroup
 ---
 
-## Vertical layout
+## `isRequired` and `isOptional`
 
-### With legend
+### With `legend` and `isRequired`
+
+<CheckboxGroup
+	isRequired
+	legend="Legend of the group"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+/>
+
+### With `legend` and `isOptional`
+
+<CheckboxGroup
+	isOptional
+	legend="Legend of the group"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+/>
+
+## Vertical `layout` (default `layout`)
+
+### With `legend`
 
 <CheckboxGroup
 	legend="Legend of the group"
@@ -21,7 +59,7 @@ componentName: CheckboxGroup
 	]}
 />
 
-### With legend / With helper text
+### With `legend` / With `helperText`
 
 <CheckboxGroup
 	legend="Legend of the group"
@@ -41,7 +79,7 @@ componentName: CheckboxGroup
 	]}
 />
 
-### Without legend
+### Without `legend`
 
 <CheckboxGroup
 	options={[
@@ -57,7 +95,7 @@ componentName: CheckboxGroup
 	]}
 />
 
-### Without legend / With helper text
+### Without `legend` / With `helperText`
 
 <CheckboxGroup
 	options={[
@@ -76,7 +114,7 @@ componentName: CheckboxGroup
 	]}
 />
 
-### With helper text at the group level
+### With `helperText` at the group level
 
 <CheckboxGroup
 	legend="Legend of the group"
@@ -112,9 +150,9 @@ componentName: CheckboxGroup
 	errors={['Error for the entire group']}
 />
 
-## Horizontal layout
+## Horizontal `layout`
 
-### With legend
+### With `legend`
 
 <CheckboxGroup
 	layout="horizontal"
@@ -132,7 +170,7 @@ componentName: CheckboxGroup
 	]}
 />
 
-### Without legend
+### Without `legend`
 
 <CheckboxGroup
 	layout="horizontal"
@@ -149,7 +187,7 @@ componentName: CheckboxGroup
 	]}
 />
 
-### With helper text at the group level
+### With `helperText` at the group level
 
 <CheckboxGroup
 	layout="horizontal"
@@ -203,41 +241,3 @@ componentName: CheckboxGroup
 		]}
 	/>
 </div>
-
-## isRequired and isOptional
-
-### With legend and isRequired
-
-<CheckboxGroup
-	isRequired
-	legend="Legend of the group"
-	options={[
-		{
-			label: 'Label of control #1',
-		},
-		{
-			label: 'Label of control #2',
-		},
-		{
-			label: 'Label of control #3',
-		},
-	]}
-/>
-
-### With legend and isOptional
-
-<CheckboxGroup
-	isOptional
-	legend="Legend of the group"
-	options={[
-		{
-			label: 'Label of control #1',
-		},
-		{
-			label: 'Label of control #2',
-		},
-		{
-			label: 'Label of control #3',
-		},
-	]}
-/>
