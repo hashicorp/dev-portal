@@ -1,0 +1,55 @@
+.fieldset {
+	border: none;
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+.legend {
+	/* composition */
+	composes: hds-typography-body-200 from global;
+	composes: hds-font-weight-semibold from global;
+
+	/* properties */
+	align-items: center;
+	color: var(--token-form-legend-color);
+	display: flex;
+	gap: 4px;
+	margin: 0;
+	margin-bottom: 4px;
+	padding: 0;
+}
+
+.optionalIndicator {
+	/* composition */
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-regular from global;
+
+	/* properties */
+	color: var(--token-form-indicator-optional-color);
+}
+
+.helperText {
+	/* composition */
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-regular from global;
+
+	/* properties */
+	color: var(--token-form-helper-text-color);
+	display: block;
+	margin-bottom: 8px;
+}
+
+.options--horizontal {
+	column-gap: 16px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	row-gap: 4px;
+}
+
+.options--vertical {
+	display: flex;
+	flex-direction: column;
+	row-gap: 12px;
+}
