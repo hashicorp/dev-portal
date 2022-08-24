@@ -11,6 +11,7 @@ interface CheckboxGroupOption {
 }
 
 interface CheckboxGroupProps extends InheritedFieldSetProps {
+	errors?: string[]
 	helperText?: string
 	isOptional?: boolean
 	isRequired?: boolean

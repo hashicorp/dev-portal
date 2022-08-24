@@ -1,10 +1,12 @@
 import classNames from 'classnames'
 import Badge from 'components/badge'
+import { Errors } from 'components/form/components'
 import { CheckboxField } from 'components/form/field-controls'
 import { CheckboxGroupOption, CheckboxGroupProps } from './types'
 import s from './checkbox-group.module.css'
 
 const CheckboxGroup = ({
+	errors,
 	helperText,
 	isOptional = false,
 	isRequired = false,
@@ -14,8 +16,9 @@ const CheckboxGroup = ({
 	options,
 	...nativeProps
 }: CheckboxGroupProps) => {
-	const hasLegend = !!legend
+	const hasErrors = errors && errors.length > 0
 	const hasHelperText = !!helperText
+	const hasLegend = !!legend
 	const isVerticalLayout = layout === 'vertical'
 
 	let legendElement
@@ -40,6 +43,11 @@ const CheckboxGroup = ({
 		helperTextElement = <span className={s.helperText}>{helperText}</span>
 	}
 
+	let errorsElement
+	if (hasErrors) {
+		errorsElement = <Errors className={s.errors} messages={errors} />
+	}
+
 	return (
 		<fieldset name={name} {...nativeProps} className={classNames(s.fieldset)}>
 			{legendElement}
@@ -58,6 +66,7 @@ const CheckboxGroup = ({
 					)
 				})}
 			</div>
+			{errorsElement}
 		</fieldset>
 	)
 }
