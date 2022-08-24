@@ -1,9 +1,10 @@
 import classNames from 'classnames'
 import Badge from 'components/badge'
-import { Errors } from 'components/form/components'
+import { Errors, HelperText } from 'components/form/components'
 import { CheckboxField } from 'components/form/field-controls'
 import { CheckboxGroupOption, CheckboxGroupProps } from './types'
 import s from './checkbox-group.module.css'
+import { useId } from '@react-aria/utils'
 
 const CheckboxGroup = ({
 	errors,
@@ -16,6 +17,7 @@ const CheckboxGroup = ({
 	options,
 	...nativeProps
 }: CheckboxGroupProps) => {
+	const id = useId()
 	const hasErrors = errors && errors.length > 0
 	const hasHelperText = !!helperText
 	const hasLegend = !!legend
@@ -38,9 +40,14 @@ const CheckboxGroup = ({
 		)
 	}
 
-	let helperTextElement
+	let helperTextElement, helperTextElementId
 	if (hasHelperText) {
-		helperTextElement = <span className={s.helperText}>{helperText}</span>
+		helperTextElementId = `checkbox-group-${id}-helper-text`
+		helperTextElement = (
+			<HelperText className={s.helperText} id={helperTextElementId}>
+				{helperText}
+			</HelperText>
+		)
 	}
 
 	let errorsElement
@@ -49,7 +56,12 @@ const CheckboxGroup = ({
 	}
 
 	return (
-		<fieldset name={name} {...nativeProps} className={classNames(s.fieldset)}>
+		<fieldset
+			aria-describedby={helperTextElementId}
+			name={name}
+			{...nativeProps}
+			className={classNames(s.fieldset)}
+		>
 			{legendElement}
 			{helperTextElement}
 			<div className={s[`options--${layout}`]}>
