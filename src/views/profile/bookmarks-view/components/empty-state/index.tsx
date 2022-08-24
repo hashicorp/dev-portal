@@ -19,7 +19,7 @@ export default function BookmarksEmptyState() {
 				future reference.
 			</Text>
 			<ButtonLink
-				href="/library"
+				href="/tutorials/library"
 				text="Tutorial library"
 				className={s.buttonLink}
 			/>

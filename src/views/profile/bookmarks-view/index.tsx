@@ -42,16 +42,18 @@ const ProfileBookmarksViewContent = () => {
 				View and manage your personal bookmarks. Select the bookmark icon in
 				each card below to remove the bookmark.
 			</Text>
-			<Heading
-				level={2}
-				weight="semibold"
-				size={300}
-				className={s.cardListHeading}
-			>
-				Your Bookmarks
-			</Heading>
-			{bookmarks?.length > 0 ? (
-				<CardsGridList>{bookmarks.map(renderBookmarkCard)}</CardsGridList>
+			{bookmarks?.length === 0 ? (
+				<>
+					<Heading
+						level={2}
+						weight="semibold"
+						size={300}
+						className={s.cardListHeading}
+					>
+						Your Bookmarks
+					</Heading>
+					<CardsGridList>{bookmarks.map(renderBookmarkCard)}</CardsGridList>
+				</>
 			) : (
 				<BookmarksEmptyState />
 			)}
