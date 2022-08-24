@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import IconTileLogo from 'components/icon-tile-logo'
 import Heading from 'components/heading'
@@ -8,8 +9,10 @@ import s from './landing-hero.module.css'
 const LandingHero = ({ pageHeading, pageSubtitle }: LandingHeroProps) => {
 	const currentProduct = useCurrentProduct()
 
+	const hasSubtitle = !!pageSubtitle
+
 	return (
-		<div className={s.root}>
+		<div className={classNames(s.root, { [s.hasSubtitle]: hasSubtitle })}>
 			<IconTileLogo
 				productSlug={
 					currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
@@ -26,7 +29,9 @@ const LandingHero = ({ pageHeading, pageSubtitle }: LandingHeroProps) => {
 				>
 					{pageHeading.title}
 				</Heading>
-				<Text className={s.pageSubtitle}>{pageSubtitle}</Text>
+				{hasSubtitle ? (
+					<Text className={s.pageSubtitle}>{pageSubtitle}</Text>
+				) : null}
 			</div>
 		</div>
 	)

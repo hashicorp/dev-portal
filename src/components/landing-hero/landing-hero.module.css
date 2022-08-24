@@ -1,7 +1,11 @@
 .root {
-	align-items: flex-start;
+	align-items: center;
 	display: flex;
 	gap: 16px;
+
+	&.hasSubtitle {
+		align-items: flex-start;
+	}
 }
 
 .icon {

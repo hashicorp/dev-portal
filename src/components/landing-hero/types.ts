@@ -2,5 +2,5 @@ import { ProductRootDocsPathLandingProps } from 'views/product-root-docs-path-la
 
 export interface LandingHeroProps {
 	pageHeading: ProductRootDocsPathLandingProps['pageHeading']
-	pageSubtitle: string
+	pageSubtitle?: string
 }
