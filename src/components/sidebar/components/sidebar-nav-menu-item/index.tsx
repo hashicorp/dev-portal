@@ -22,12 +22,12 @@ import Text from 'components/text'
 import {
 	RightIconsContainerProps,
 	SidebarNavLinkItemProps,
+	SidebarNavMenuButtonProps,
 	SidebarNavMenuItemBadgeProps,
 	SidebarNavMenuItemProps,
 	SupportedIconName,
 } from './types'
 import s from './sidebar-nav-menu-item.module.css'
-import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 
 /**
  * Used for leading icon in `SidebarNavLinkItem`.
@@ -151,11 +151,11 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	}
 }
 
-export function SidebarNavMenuButton({
-	item,
-}: {
-	item: { title: string; onClick(): void; icon }
-}) {
+/**
+ * Handles rendering a button and icon for the sidebar.
+ * Currently used for a 'sign out' action on the profile page
+ */
+export function SidebarNavMenuButton({ item }: SidebarNavMenuButtonProps) {
 	return (
 		<button className={s.sidebarNavMenuItem} onClick={item.onClick}>
 			<Text
