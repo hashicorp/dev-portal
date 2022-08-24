@@ -4,6 +4,7 @@ import AuthenticatedView from 'views/authenticated-view'
 import CardsGridList from 'components/cards-grid-list'
 import Text from 'components/text'
 import Heading from 'components/heading'
+import BookmarksEmptyState from './components/empty-state'
 import renderBookmarkCard from './helpers/render-bookmark-cards'
 import s from './bookmarks-view.module.css'
 
@@ -41,15 +42,21 @@ const ProfileBookmarksViewContent = () => {
 				View and manage your personal bookmarks. Select the bookmark icon in
 				each card below to remove the bookmark.
 			</Text>
-			<Heading
-				level={2}
-				weight="semibold"
-				size={300}
-				className={s.cardListHeading}
-			>
-				Your Bookmarks
-			</Heading>
-			<CardsGridList>{bookmarks?.map(renderBookmarkCard)}</CardsGridList>
+			{bookmarks?.length > 0 ? (
+				<>
+					<Heading
+						level={2}
+						weight="semibold"
+						size={300}
+						className={s.cardListHeading}
+					>
+						Your Bookmarks
+					</Heading>
+					<CardsGridList>{bookmarks.map(renderBookmarkCard)}</CardsGridList>
+				</>
+			) : (
+				<BookmarksEmptyState />
+			)}
 		</div>
 	)
 }
