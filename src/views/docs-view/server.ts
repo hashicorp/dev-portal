@@ -30,8 +30,11 @@ import {
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
+import { SidebarProps } from 'components/sidebar'
+import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
+import { getCustomLayout } from './utils/get-custom-layout'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -281,34 +284,44 @@ export function getStaticGenerationFunctions<
 			}
 
 			/**
-			 * Constructs the levels of nav data used in the `Sidebar` on all
-			 * `DocsView` pages.
+			 * Constructs the base sidebar level for `DocsView`.
+			 */
+			const docsSidebarLevel: SidebarProps = {
+				backToLinkProps: getBackToLink(currentRootDocsPath, product),
+				levelButtonProps: {
+					levelUpButtonText: `${product.name} Home`,
+				},
+				menuItems: navDataWithFullPaths as EnrichedNavItem[],
+				// TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
+				title: BASE_PATHS_TO_NAMES[basePath] || product.name,
+			}
+			// If the title is not hidden for this rootDocsPath, include it
+			if (currentRootDocsPath.visuallyHideSidebarTitle) {
+				docsSidebarLevel.visuallyHideTitle = true
+			}
+			// Add "Overview" item, unless explicitly disabled
+			if (currentRootDocsPath.addOverviewItem !== false) {
+				docsSidebarLevel.overviewItemHref = versionPathPart
+					? `/${product.slug}/${basePath}/${versionPathPart}`
+					: `/${product.slug}/${basePath}`
+			}
+
+			/**
+			 * Assembles all levels of sidebar nav data for `DocsView`.
 			 */
 			const sidebarNavDataLevels = [
 				generateTopLevelSidebarNavData(product.name),
 				generateProductLandingSidebarNavData(product),
-				{
-					backToLinkProps: getBackToLink(currentRootDocsPath, product),
-					levelButtonProps: {
-						levelUpButtonText: `${product.name} Home`,
-					},
-					menuItems: navDataWithFullPaths,
-					// TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
-					title: BASE_PATHS_TO_NAMES[basePath] || product.name,
-					overviewItemHref: versionPathPart
-						? `/${product.slug}/${basePath}/${versionPathPart}`
-						: `/${product.slug}/${basePath}`,
-				},
+				docsSidebarLevel,
 			]
 
 			const breadcrumbLinks = getDocsBreadcrumbs({
 				baseName,
-				basePath: basePath,
+				basePath,
 				indexOfVersionPathPart,
 				navData: navDataWithFullPaths,
 				pathParts,
-				productName: product.name,
-				productPath: product.slug,
+				product,
 				version: versionPathPart,
 			})
 
@@ -361,6 +374,11 @@ export function getStaticGenerationFunctions<
 				metadata: {
 					title: frontMatter.page_title ?? null,
 					description: frontMatter.description ?? null,
+					layout: getCustomLayout({
+						currentRootDocsPath,
+						frontMatter,
+						pathParts,
+					}),
 				},
 				mdxSource,
 				product: {
