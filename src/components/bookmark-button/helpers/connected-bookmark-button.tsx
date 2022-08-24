@@ -39,11 +39,11 @@ export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 
 			if (isBookmarked) {
 				removeBookmark(tutorial.id, {
-					onSuccess: () => makeBookmarkToast('remove'),
+					onSuccess: () => makeBookmarkToast('remove', tutorial.name),
 				})
 			} else {
 				addBookmark(tutorial.id, {
-					onSuccess: () => makeBookmarkToast('add'),
+					onSuccess: () => makeBookmarkToast('add', tutorial.name),
 				})
 			}
 		}, [
@@ -52,6 +52,7 @@ export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 			isBookmarked,
 			removeBookmark,
 			tutorial.id,
+			tutorial.name,
 		])
 
 		return (
