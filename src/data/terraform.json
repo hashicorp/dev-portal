@@ -54,6 +54,7 @@
 			"iconName": "terminal-screen",
 			"name": "Terraform CLI",
 			"path": "cli",
+			"visuallyHideSidebarTitle": true,
 			"addOverviewItem": false
 		},
 		{
@@ -77,7 +78,8 @@
 			"iconName": "docs",
 			"name": "General Documentation",
 			"path": "docs",
-			"productSlugForLoader": "terraform-docs-common"
+			"productSlugForLoader": "terraform-docs-common",
+			"shortName": "Documentation"
 		},
 		{
 			"iconName": "enterprise",
@@ -128,7 +130,7 @@
 		},
 		{
 			"iconName": "plug",
-			"name": "Log",
+			"name": "Logging",
 			"navDataPrefix": "plugin-log",
 			"path": "plugin/log",
 			"productSlugForLoader": "terraform-plugin-log",
@@ -137,7 +139,7 @@
 		},
 		{
 			"iconName": "plug",
-			"name": "mux",
+			"name": "Combining and Translating",
 			"navDataPrefix": "plugin-mux",
 			"path": "plugin/mux",
 			"productSlugForLoader": "terraform-plugin-mux",
