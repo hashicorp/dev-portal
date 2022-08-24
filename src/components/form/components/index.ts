@@ -1,4 +1,5 @@
+import HelperText, { HelperTextProps } from './helper-text'
 import Label, { LabelProps } from './label'
 
-export type { LabelProps }
-export { Label }
+export type { HelperTextProps, LabelProps }
+export { HelperText, Label }
