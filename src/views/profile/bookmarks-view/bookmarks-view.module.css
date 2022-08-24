@@ -1,0 +1,12 @@
+.subheading {
+	margin: 12px 0 30px 0;
+	color: var(--token-color-foreground-primary);
+
+	@media (--dev-dot-tablet-up) {
+		margin-bottom: 38px;
+	}
+}
+
+.cardListHeading {
+	margin-bottom: 20px;
+}

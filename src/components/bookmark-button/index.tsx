@@ -25,7 +25,7 @@ const bookmarkButtonConfig: BookmarkButtonConfigType = {
  * the /icons file for more context.
  */
 
-function BookmarkButtonIconOnly({
+export function BookmarkButtonIconOnly({
 	handleOnClick,
 	isBookmarked,
 }: BookmarkButtonProps) {
