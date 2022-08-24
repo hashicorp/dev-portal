@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useId } from '@react-aria/utils'
-import { IconAlertDiamondFill16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-16'
-import { HelperText, Label } from 'components/form/components'
+import { Errors, HelperText, Label } from 'components/form/components'
 import { CheckboxControl } from 'components/form/base-controls'
 import { CheckboxFieldProps } from './types'
 import s from './checkbox-field.module.css'
@@ -29,17 +28,7 @@ const CheckboxField = ({
 
 	let errorsElement
 	if (errors && errors.length > 0) {
-		errorsElement = (
-			<div className={s.errorsContainer}>
-				<IconAlertDiamondFill16 className={s.errorIcon} />
-				<ul className={s.errorsList}>
-					{errors.map((error: string) => (
-						// eslint-disable-next-line react/jsx-key
-						<li className={s.errorMessage}>{error}</li>
-					))}
-				</ul>
-			</div>
-		)
+		errorsElement = <Errors className={s.errors} messages={errors} />
 	}
 
 	return (
