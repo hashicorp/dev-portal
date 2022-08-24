@@ -2,34 +2,30 @@
 componentName: Checkbox
 ---
 
-## Playground
+## Only label
 
-<LiveComponent>{`
-<>
-  <p>Are you a fan of any of these Golden Girls?</p>
-  <Checkbox
-    id="blanche-devereaux"
-    initialIsChecked
-    label="Blanche Devereaux"
-    name="blanche-devereaux"
-  />
-  <Checkbox
-    id="rose-nylund"
-    initialIsChecked
-    label="Rose Nylund"
-    name="rose-nylund"
-  />
-  <Checkbox
-    id="sophia-petrillo"
-    initialIsChecked
-    label="Sophia Petrillo"
-    name="sophia-petrillo"
-  />
-  <Checkbox
-    id="dorothy-zbornak"
-    initialIsChecked
-    label="Dorothy Zbornak"
-    name="dorothy-zbornak"
-  />
-</>
-`}</LiveComponent>
+<Checkbox label="This is the label text" />
+
+## Label + error
+
+<Checkbox errors={['This is the error']} label="This is the label text" />
+
+## Label + helper text
+
+<Checkbox helperText="This is the helper text" label="This is the label" />
+
+## Label + helper text + error
+
+<Checkbox
+	errors={['This is the error']}
+	helperText="This is the helper text"
+	label="This is the label"
+/>
+
+## Label + helper text + error
+
+<Checkbox
+	errors={['First error message', 'Second error message']}
+	helperText="This is the helper text"
+	label="This is the label"
+/>
