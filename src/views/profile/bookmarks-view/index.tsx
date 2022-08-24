@@ -42,7 +42,7 @@ const ProfileBookmarksViewContent = () => {
 				View and manage your personal bookmarks. Select the bookmark icon in
 				each card below to remove the bookmark.
 			</Text>
-			{bookmarks?.length === 0 ? (
+			{bookmarks?.length > 0 ? (
 				<>
 					<Heading
 						level={2}
