@@ -26,7 +26,7 @@ const temporary_hideDocsPaths = {
 }
 
 module.exports = withSwingset({
-	componentsRoot: 'src/components/*',
+	componentsRoot: 'src/components/**/*',
 	docsRoot: 'src/swingset-docs/*',
 })(
 	withHashicorp({
