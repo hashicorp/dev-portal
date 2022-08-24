@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useId } from '@react-aria/utils'
 import { IconAlertDiamondFill16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-16'
-import { Label } from 'components/form/components'
+import { HelperText, Label } from 'components/form/components'
 import { CheckboxControl } from 'components/form/base-controls'
 import { CheckboxFieldProps } from './types'
 import s from './checkbox-field.module.css'
@@ -21,9 +21,9 @@ const CheckboxField = ({
 	if (helperText) {
 		helperTextElementId = `checkbox-${inputId}-helper-text`
 		helperTextElement = (
-			<span className={s.helperText} id={helperTextElementId}>
+			<HelperText className={s.helperText} id={helperTextElementId}>
 				{helperText}
-			</span>
+			</HelperText>
 		)
 	}
 
