@@ -37,7 +37,11 @@ const MOBILE_MENU_MOTION = {
  * Handles rendering the Sign In and Sign Up UI elements in mobile viewports.
  * Intended to be used alongside `MobileMenuContainer`.
  */
-const MobileAuthenticationControls = () => {
+const MobileAuthenticationControls = ({
+	initialOpen,
+}: {
+	initialOpen?: boolean
+}) => {
 	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
 		useAuthentication()
 
@@ -68,7 +72,11 @@ const MobileAuthenticationControls = () => {
 		)
 	} else if (showAuthenticatedUI) {
 		content = (
-			<MobileUserDisclosure items={getUserMenuItems({ signOut })} user={user} />
+			<MobileUserDisclosure
+				items={getUserMenuItems({ signOut })}
+				user={user}
+				initialOpen={initialOpen}
+			/>
 		)
 	}
 

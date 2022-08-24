@@ -23,9 +23,14 @@ const ProfileBookmarksView = () => {
 	return (
 		<AuthenticatedView>
 			<SidebarSidecarLayout
+				initialOpenMobileAuthControls={true}
 				breadcrumbLinks={[
 					{ title: 'Developer', url: '/' },
-					{ title: 'Bookmarks', url: '/profile/bookmarks' },
+					{
+						title: 'Bookmarks',
+						url: '/profile/bookmarks',
+						isCurrentPage: true,
+					},
 				]}
 				AlternateSidebar={ProfileBookmarksSidebar}
 				sidebarNavDataLevels={[]}
