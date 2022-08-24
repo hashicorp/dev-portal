@@ -1,17 +1,10 @@
-import { useState } from 'react'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import { formatTutorialData } from 'lib/learn-client/api/tutorial/formatting'
 import { ProductUsed } from 'lib/learn-client/types'
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import TutorialCard from 'components/tutorial-card'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
-import { BookmarkButtonIconOnly } from 'components/bookmark-button'
-import Dialog from 'components/dialog'
-
-/**
- * TODO: the bookmark button `handleClick` should
- * render a confirmation dialog that can update data
- */
+import { BookmarkButtonWithRemoveDialog } from '../components/bookmark-button-with-remove-dialog'
 
 export default function renderBookmarkCard(bookmark: ApiBookmark) {
 	const {
@@ -40,29 +33,10 @@ export default function renderBookmarkCard(bookmark: ApiBookmark) {
 				eyebrowSlot={
 					<>
 						<span>{duration}</span>
-						<BookmarkButtonWithRemoveDialog />
+						<BookmarkButtonWithRemoveDialog tutorial={{ id, name }} />
 					</>
 				}
 			/>
 		</li>
-	)
-}
-
-function BookmarkButtonWithRemoveDialog() {
-	const [showDialog, setShowDialog] = useState(false)
-	const openDialog = () => setShowDialog(true)
-	const closeDialog = () => setShowDialog(false)
-
-	return (
-		<>
-			<BookmarkButtonIconOnly isBookmarked={true} handleOnClick={openDialog} />
-			<Dialog
-				onDismiss={closeDialog}
-				isOpen={showDialog}
-				label="Confirm remove bookmark"
-			>
-				<h1>hello! do you really want to unbookmark?</h1>
-			</Dialog>
-		</>
 	)
 }
