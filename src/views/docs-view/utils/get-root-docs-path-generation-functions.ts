@@ -25,7 +25,7 @@ export function getRootDocsPathGenerationFunctions(
 		return rootDocsPath.path == targetRootDocsPath
 	})
 	const staticFunctionConfig = {
-		baseName: rootDocsPath.name,
+		baseName: rootDocsPath.shortName || rootDocsPath.name,
 		basePath: rootDocsPath.path,
 		navDataPrefix: rootDocsPath.navDataPrefix,
 		product: productData,
