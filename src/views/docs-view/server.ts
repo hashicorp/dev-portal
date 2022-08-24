@@ -26,6 +26,7 @@ import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { SidebarProps } from 'components/sidebar'
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
+import { getCustomLayout } from './utils/get-custom-layout'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -350,6 +351,11 @@ export function getStaticGenerationFunctions<
 				metadata: {
 					title: frontMatter.page_title ?? null,
 					description: frontMatter.description ?? null,
+					layout: getCustomLayout({
+						currentRootDocsPath,
+						frontMatter,
+						pathParts,
+					}),
 				},
 				mdxSource,
 				product: {
