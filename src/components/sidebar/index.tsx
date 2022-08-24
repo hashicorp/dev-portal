@@ -22,9 +22,9 @@ import {
 	generateResourcesNavItems,
 } from './helpers'
 import SidebarBackToLink from './components/sidebar-back-to-link'
-import SidebarFilterInput from './components/sidebar-filter-input'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
+import FilterInput from 'components/filter-input'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 
@@ -72,7 +72,7 @@ const Sidebar = ({
 					[s['filterInputWrapper--mobile']]: shouldRenderMobileControls,
 				})}
 			>
-				<SidebarFilterInput value={filterValue} onChange={setFilterValue} />
+				<FilterInput value={filterValue} onChange={setFilterValue} />
 			</div>
 		)
 	}
