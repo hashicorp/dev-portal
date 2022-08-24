@@ -11,6 +11,19 @@ import ProductDocsSearch from './components/product-docs-search'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import s from './docs-view.module.css'
 
+/**
+ * Layouts
+ *
+ * note: layout in frontmatter is not supported yet, this is early stage work.
+ * Asana task: https://app.asana.com/0/1202097197789424/1202850056121889/f
+ */
+const layouts = {
+	'docs-root-landing': dynamic(() => import('./components/docs-root-landing')),
+}
+const DefaultLayout = ({ children }) => (
+	<div className={s.mdxContent}>{children}</div>
+)
+
 // Author primitives
 const Badge = dynamic(() => import('components/author-primitives/packer/badge'))
 const BadgesHeader = dynamic(
@@ -58,10 +71,6 @@ const productsToPrimitives: ProductsToPrimitivesMap = {
 	waypoint: { NestedNode, Placement },
 }
 
-const layouts = {
-	'docs-root-landing': dynamic(() => import('./components/docs-root-landing')),
-}
-
 const DocsView = ({
 	metadata,
 	mdxSource,
@@ -75,9 +84,7 @@ const DocsView = ({
 	const shouldRenderSearch =
 		!hideSearch && __config.flags.enable_product_docs_search
 
-	const Layout =
-		layouts[metadata?.layout?.name] ??
-		(({ children }) => <div className={s.mdxContent}>{children}</div>)
+	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
 	return (
 		<>
