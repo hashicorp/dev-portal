@@ -169,7 +169,7 @@ export function getStaticGenerationFunctions<
 		getStaticPaths: async () => {
 			let paths = await getLoader().loadStaticPaths()
 
-			if (!isDeployPreview(productSlugForLoader)) {
+			if (isDeployPreview() && !isDeployPreview(productSlugForLoader)) {
 				// do not statically render any other products if we are in a deploy preview for another product
 				paths = []
 			}
