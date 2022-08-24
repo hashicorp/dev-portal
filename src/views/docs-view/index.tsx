@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import dynamic from 'next/dynamic'
 import { MDXRemote } from 'next-mdx-remote'
 import { useCurrentProduct } from 'contexts'
