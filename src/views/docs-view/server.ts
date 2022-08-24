@@ -49,29 +49,6 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 }
 
 /**
- * @TODO update the basePaths inside of `src/data/${productSLug}.json` files to
- * be arrays of objects that look like:
- *
- *   ```
- *   {
- *     path: string
- *     name: string
- *   }
- *   ```
- *
- * This will require a decent amount of refactoring code that uses
- * `ProductData['basePaths']`, so this is the temporary stopgap until we can do
- * the refactor. Or decide on another approach. :)
- */
-const BASE_PATHS_TO_NAMES = {
-	'api-docs': 'API Documentation',
-	commands: 'CLI',
-	docs: 'Documentation',
-	intro: 'Introduction',
-	plugins: 'Plugins',
-}
-
-/**
  * Returns static generation functions which can be exported from a page to fetch docs data
  *
  * Example usage:
@@ -269,8 +246,7 @@ export function getStaticGenerationFunctions<
 					levelUpButtonText: `${product.name} Home`,
 				},
 				menuItems: navDataWithFullPaths as EnrichedNavItem[],
-				// TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
-				title: BASE_PATHS_TO_NAMES[basePath] || product.name,
+				title: currentRootDocsPath.shortName || currentRootDocsPath.name,
 			}
 			// If the title is not hidden for this rootDocsPath, include it
 			if (currentRootDocsPath.visuallyHideSidebarTitle) {
