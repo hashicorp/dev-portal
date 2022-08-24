@@ -27,6 +27,7 @@ import {
 	SupportedIconName,
 } from './types'
 import s from './sidebar-nav-menu-item.module.css'
+import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 
 /**
  * Used for leading icon in `SidebarNavLinkItem`.
@@ -148,6 +149,26 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 			</a>
 		)
 	}
+}
+
+export function SidebarNavMenuButton({
+	item,
+}: {
+	item: { title: string; onClick(): void; icon }
+}) {
+	return (
+		<button className={s.sidebarNavMenuItem} onClick={item.onClick}>
+			<Text
+				size={200}
+				weight="regular"
+				asElement="span"
+				className={s.navMenuItemLabel}
+			>
+				{item.title}
+			</Text>
+			<RightIconsContainer icon={item.icon} />
+		</button>
+	)
 }
 
 /**
