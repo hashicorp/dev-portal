@@ -1,40 +1,29 @@
 import classNames from 'classnames'
-import { useCurrentProduct } from 'contexts'
+import { NavigationHeaderItem } from 'components/navigation-header/types'
+import { ProductSlug } from 'types/products'
 import { NavigationHeaderDropdownMenu } from '..'
 import s from './primary-nav-submenu.module.css'
 
-interface NavSubmenuProps {
+export interface PrimaryNavSubmenuProps {
 	ariaLabel: string
 	navItem: {
-		id?: string
-		isSubmenu?: boolean
+		iconColorTheme: ProductSlug
+		items: NavigationHeaderItem[]
 		label: string
-		pathSuffix?: string
 	}
 }
 
-const PrimaryNavSubmenu = ({ ariaLabel, navItem }: NavSubmenuProps) => {
-	const { id, label } = navItem
-	const currentProduct = useCurrentProduct()
+const PrimaryNavSubmenu = ({ ariaLabel, navItem }: PrimaryNavSubmenuProps) => {
+	const { iconColorTheme, items, label } = navItem
 
 	return (
 		<NavigationHeaderDropdownMenu
 			ariaLabel={ariaLabel}
 			iconClassName={classNames(
 				s.primarySubnavDropdownItemIcon,
-				currentProduct?.slug
+				iconColorTheme
 			)}
-			itemGroups={[
-				{
-					items: currentProduct.navigationHeaderItems[id].map(
-						({ icon, label, pathSuffix }) => ({
-							icon,
-							label,
-							path: `/${currentProduct.slug}/${pathSuffix}`,
-						})
-					),
-				},
-			]}
+			itemGroups={[{ items }]}
 			label={label}
 		/>
 	)

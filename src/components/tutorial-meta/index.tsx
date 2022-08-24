@@ -6,6 +6,7 @@ import Text from 'components/text'
 import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
+import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -13,9 +14,14 @@ interface TutorialMetaProps {
 		isInteractive: boolean
 		hasVideo: boolean
 	}
+	tutorialId: TutorialData['id']
 }
 
-export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
+export default function TutorialMeta({
+	heading,
+	meta,
+	tutorialId,
+}: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 
 	/**
@@ -50,7 +56,13 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 						isInteractive,
 					}}
 				/>
-				<InteractiveLabButton />
+				<span className={s.buttonGroup}>
+					<InteractiveLabButton />
+					{/** // NOTE! - hiding this component from prod until auth is enabled  */}
+					{isAuthEnabled ? (
+						<TutorialMetaBookmarkButton tutorialId={tutorialId} />
+					) : null}
+				</span>
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta}>
 						Reference this often?{' '}
