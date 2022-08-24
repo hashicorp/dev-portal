@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import { useId } from '@react-aria/utils'
 import { IconAlertDiamondFill16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-16'
-import { CheckboxProps } from './types'
+import { CheckboxFieldProps } from './types'
 import s from './checkbox.module.css'
 
-const Checkbox = ({
+const CheckboxField = ({
 	errors,
 	helperText,
 	id,
 	initialIsChecked = false,
 	label,
 	name,
-}: CheckboxProps) => {
+}: CheckboxFieldProps) => {
 	const inputId = useId(id)
 	const [isChecked, setIsChecked] = useState<boolean>(initialIsChecked)
 
@@ -63,5 +63,5 @@ const Checkbox = ({
 	)
 }
 
-export type { CheckboxProps }
-export default Checkbox
+export type { CheckboxFieldProps }
+export default CheckboxField

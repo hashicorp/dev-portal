@@ -1,22 +1,22 @@
 ---
-componentName: Checkbox
+componentName: CheckboxField
 ---
 
 ## Only label
 
-<Checkbox label="This is the label text" />
+<CheckboxField label="This is the label text" />
 
 ## Label + error
 
-<Checkbox errors={['This is the error']} label="This is the label text" />
+<CheckboxField errors={['This is the error']} label="This is the label text" />
 
 ## Label + helper text
 
-<Checkbox helperText="This is the helper text" label="This is the label" />
+<CheckboxField helperText="This is the helper text" label="This is the label" />
 
 ## Label + helper text + error
 
-<Checkbox
+<CheckboxField
 	errors={['This is the error']}
 	helperText="This is the helper text"
 	label="This is the label"
@@ -24,7 +24,7 @@ componentName: Checkbox
 
 ## Label + helper text + error
 
-<Checkbox
+<CheckboxField
 	errors={['First error message', 'Second error message']}
 	helperText="This is the helper text"
 	label="This is the label"

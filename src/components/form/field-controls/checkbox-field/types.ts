@@ -1,4 +1,4 @@
-interface CheckboxProps {
+interface CheckboxFieldProps {
 	errors?: string[]
 	helperText?: string
 	id?: string
@@ -7,4 +7,4 @@ interface CheckboxProps {
 	name?: string
 }
 
-export type { CheckboxProps }
+export type { CheckboxFieldProps }
