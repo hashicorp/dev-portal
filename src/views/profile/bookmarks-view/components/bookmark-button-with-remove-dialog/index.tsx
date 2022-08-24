@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { BookmarkButtonIconOnly } from 'components/bookmark-button'
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
@@ -19,6 +19,13 @@ export function BookmarkButtonWithRemoveDialog({
 	const openDialog = () => setShowDialog(true)
 	const closeDialog = () => setShowDialog(false)
 	const { removeBookmark } = useBookmarkMutations()
+	const handleOnClick = useCallback(
+		() =>
+			removeBookmark(tutorial.id, {
+				onSuccess: () => makeBookmarkToast('remove', tutorial.name),
+			}),
+		[tutorial.id, tutorial.name, removeBookmark]
+	)
 
 	return (
 		<>
@@ -52,15 +59,7 @@ export function BookmarkButtonWithRemoveDialog({
 						manually re-add it.`}
 					</Text>
 					<div className={s.buttonGroup}>
-						<Button
-							text="Remove"
-							color="critical"
-							onClick={() =>
-								removeBookmark(tutorial.id, {
-									onSuccess: () => makeBookmarkToast('remove', tutorial.name),
-								})
-							}
-						/>
+						<Button text="Remove" color="critical" onClick={handleOnClick} />
 						<Button text="Cancel" color="secondary" onClick={closeDialog} />
 					</div>
 				</>
