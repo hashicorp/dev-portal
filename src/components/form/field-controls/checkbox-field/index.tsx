@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useId } from '@react-aria/utils'
+import classNames from 'classnames'
 import { IconAlertDiamondFill16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-16'
 import { CheckboxControl } from 'components/form/base-controls'
 import { CheckboxFieldProps } from './types'
@@ -11,6 +12,7 @@ const CheckboxField = ({
 	id,
 	initialIsChecked = false,
 	label,
+	labelFontWeight = 'semibold',
 	name,
 }: CheckboxFieldProps) => {
 	const inputId = useId(id)
@@ -52,7 +54,10 @@ const CheckboxField = ({
 					setIsChecked((previouslyIsChecked: boolean) => !previouslyIsChecked)
 				}}
 			/>
-			<label className={s.label} htmlFor={inputId}>
+			<label
+				className={classNames(`hds-font-weight-${labelFontWeight}`, s.label)}
+				htmlFor={inputId}
+			>
 				{label}
 			</label>
 			{helperTextElement}

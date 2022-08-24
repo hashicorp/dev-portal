@@ -4,6 +4,7 @@ interface CheckboxFieldProps {
 	id?: string
 	initialIsChecked?: boolean
 	label: string
+	labelFontWeight?: 'regular' | 'semibold'
 	name?: string
 }
 
