@@ -4,7 +4,7 @@ import TutorialCard from '..'
 import { TutorialCardPropsWithId } from '..'
 
 export function TutorialCardWithBookmark(props: TutorialCardPropsWithId) {
-	const { id: tutorialId, ...rest } = props
+	const { id, ...rest } = props
 
 	return (
 		<TutorialCard
@@ -14,7 +14,9 @@ export function TutorialCardWithBookmark(props: TutorialCardPropsWithId) {
 					<span>{props.duration}</span>
 					{/** Hide from prod until auth is enabled */}
 					{AUTH_ENABLED ? (
-						<TutorialCardBookmarkButton tutorialId={tutorialId} />
+						<TutorialCardBookmarkButton
+							tutorial={{ id, name: props.heading }}
+						/>
 					) : null}
 				</>
 			}

@@ -22,13 +22,13 @@ import makeBookmarkToast from '../toast/make-bookmark-toast'
 
 export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 	return function ConnectedBookmarkComponent({
-		tutorialId,
+		tutorial,
 	}: {
-		tutorialId: Tutorial['id']
+		tutorial: { id: Tutorial['id']; name: Tutorial['name'] }
 	}) {
 		const { asPath } = useRouter()
 		const { isAuthenticated, signIn } = useAuthentication()
-		const { isBookmarked } = useIsBookmarked({ tutorialId })
+		const { isBookmarked } = useIsBookmarked({ tutorialId: tutorial.id })
 		const { addBookmark, removeBookmark } = useBookmarkMutations()
 		const [showDialog, setShowDialog] = useState(false)
 		const openDialog = () => setShowDialog(true)
@@ -41,15 +41,21 @@ export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 			}
 
 			if (isBookmarked) {
-				removeBookmark(tutorialId, {
+				removeBookmark(tutorial.id, {
 					onSuccess: () => makeBookmarkToast('remove'),
 				})
 			} else {
-				addBookmark(tutorialId, {
+				addBookmark(tutorial.id, {
 					onSuccess: () => makeBookmarkToast('add'),
 				})
 			}
-		}, [addBookmark, isAuthenticated, isBookmarked, removeBookmark, tutorialId])
+		}, [
+			addBookmark,
+			isAuthenticated,
+			isBookmarked,
+			removeBookmark,
+			tutorial.id,
+		])
 
 		return (
 			<>

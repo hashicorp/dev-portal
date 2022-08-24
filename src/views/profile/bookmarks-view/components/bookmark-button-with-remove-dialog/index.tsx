@@ -1,12 +1,14 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { BookmarkButtonIconOnly } from 'components/bookmark-button'
+import { ApiBookmark } from 'lib/learn-client/api/api-types'
+import { useBookmarkMutations } from 'hooks/bookmarks'
+import makeBookmarkToast from 'components/bookmark-button/toast/make-bookmark-toast'
 import Dialog from 'components/dialog'
 import Heading from 'components/heading'
 import Text from 'components/text'
 import Button from 'components/button'
 import s from './bookmark-button-with-remove-dialog.module.css'
-import { ApiBookmark } from 'lib/learn-client/api/api-types'
 
 export function BookmarkButtonWithRemoveDialog({
 	tutorial,
@@ -16,10 +18,7 @@ export function BookmarkButtonWithRemoveDialog({
 	const [showDialog, setShowDialog] = useState(false)
 	const openDialog = () => setShowDialog(true)
 	const closeDialog = () => setShowDialog(false)
-
-	const removeBookmark = useCallback(() => {
-		console.log('remove ', tutorial.id)
-	}, [])
+	const { removeBookmark } = useBookmarkMutations()
 
 	return (
 		<>
@@ -53,7 +52,15 @@ export function BookmarkButtonWithRemoveDialog({
 						manually re-add it.`}
 					</Text>
 					<div className={s.buttonGroup}>
-						<Button text="Remove" color="critical" onClick={removeBookmark} />
+						<Button
+							text="Remove"
+							color="critical"
+							onClick={() =>
+								removeBookmark(tutorial.id, {
+									onSuccess: () => makeBookmarkToast('remove', tutorial.name),
+								})
+							}
+						/>
 						<Button text="Cancel" color="secondary" onClick={closeDialog} />
 					</div>
 				</>
