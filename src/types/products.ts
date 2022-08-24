@@ -131,6 +131,14 @@ interface RootDocsPath {
 	 * and will dynamically account for version context.
 	 */
 	addOverviewItem?: boolean
+
+	/**
+	 * An optional description for this category of documentation.
+	 * Shown as the subtitle of the docs landing hero element.
+	 * If omitted, falls back to the page's authored frontMatter.description,
+	 * or falls back to an empty string.
+	 */
+	description?: string
 }
 
 export type DocsNavItem = {

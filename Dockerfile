@@ -23,6 +23,9 @@ RUN npm install -g npm@latest
 RUN CPPFLAGS="-DPNG_ARM_NEON_OPT=0" npm install
 
 FROM docker.mirror.hashicorp.services/node:14.17.0-alpine AS builder
+
+RUN npm install -g npm@latest
+
 WORKDIR /app
 COPY . ./website-preview
 COPY --from=deps /app/node_modules ./website-preview/node_modules
