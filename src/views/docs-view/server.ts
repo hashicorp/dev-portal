@@ -1,5 +1,4 @@
 // Third-party imports
-import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
 
@@ -7,12 +6,7 @@ import rehypePrism from '@mapbox/rehype-prism'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
 import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import FileSystemLoader from '@hashicorp/react-docs-page/server/loaders/file-system'
-import {
-	includeMarkdown,
-	paragraphCustomAlerts,
-	anchorLinks,
-} from '@hashicorp/remark-plugins'
+import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports
 import { ProductData, RootDocsPath } from 'types/products'
