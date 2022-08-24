@@ -11,6 +11,7 @@ const CheckboxField = ({
 	id,
 	initialIsChecked = false,
 	label,
+	labelFontWeight,
 	name,
 }: CheckboxFieldProps) => {
 	const inputId = useId(id)
@@ -42,7 +43,7 @@ const CheckboxField = ({
 					setIsChecked((previouslyIsChecked: boolean) => !previouslyIsChecked)
 				}}
 			/>
-			<Label className={s.label} htmlFor={inputId}>
+			<Label className={s.label} fontWeight={labelFontWeight} htmlFor={inputId}>
 				{label}
 			</Label>
 			{helperTextElement}
