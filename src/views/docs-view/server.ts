@@ -26,6 +26,7 @@ import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { SidebarProps } from 'components/sidebar'
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
+import { getCustomLayout } from './utils/get-custom-layout'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -345,30 +346,16 @@ export function getStaticGenerationFunctions<
 				layoutProps.githubFileUrl = githubFileUrl
 			}
 
-			/**
-			 * TODO: this logic is temporary to showcase how layouts can work.
-			 * Going forward this would be defined in frontmatter,
-			 * we'd pass frontmatter.layout directly rather than constructing this.
-			 *
-			 * Task: https://app.asana.com/0/1202097197789424/1202850056121889/f
-			 */
-			const isLanding = pathParts.length === 0
-			const customLayout = isLanding
-				? {
-						name: 'docs-root-landing',
-						subtitle:
-							currentRootDocsPath.description ??
-							frontMatter.description ??
-							null,
-				  }
-				: null
-
 			const finalProps = {
 				layoutProps,
 				metadata: {
 					title: frontMatter.page_title ?? null,
 					description: frontMatter.description ?? null,
-					layout: customLayout,
+					layout: getCustomLayout({
+						currentRootDocsPath,
+						frontMatter,
+						pathParts,
+					}),
 				},
 				mdxSource,
 				product: {
