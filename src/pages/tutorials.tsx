@@ -3,7 +3,9 @@ import { InstantSearch } from 'react-instantsearch-hooks-web'
 import { history } from 'instantsearch.js/es/lib/routers'
 import { useRouter } from 'next/router'
 
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidebarSidecarLayout, {
+	SidebarSidecarLayoutProps,
+} from 'layouts/sidebar-sidecar'
 import TutorialsLibraryView from 'views/tutorial-library'
 import { TutorialLibraryFilters } from 'views/tutorial-library/components/filters'
 import { INDEX_NAME } from 'views/tutorial-library/constants'
@@ -13,10 +15,15 @@ import {
 } from 'views/tutorial-library/utils/router-state'
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
-
 const searchClient = algoliasearch(appId, 'bf27a047ba263cba01ee9b4081965a1a')
 
-export default function TutorialsLibraryPage({ layoutProps }) {
+interface TutorialsLibraryPageProps {
+	layoutProps: Omit<SidebarSidecarLayoutProps, 'sidecarSlot' | 'headings'>
+}
+
+export default function TutorialsLibraryPage({
+	layoutProps,
+}: TutorialsLibraryPageProps) {
 	const router = useRouter()
 
 	return (
@@ -47,7 +54,6 @@ export function getStaticProps() {
 	return {
 		props: {
 			layoutProps: {
-				headings: [],
 				sidebarNavDataLevels: [],
 				breadcrumbLinks: [
 					{ title: 'Developer', url: '/' },
