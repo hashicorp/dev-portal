@@ -9,13 +9,7 @@
 }
 
 .label {
-	/* composition */
-	composes: hds-typography-body-200 from global;
-
-	/* properties */
-	color: var(--token-form-label-color);
 	grid-area: label;
-	width: fit-content;
 }
 
 .helperText {
