@@ -55,8 +55,6 @@ const ProfileBookmarksViewContent = () => {
 			) : (
 				<BookmarksEmptyState />
 			)}
-			<BookmarksEmptyState />
-			{/** Just for testing purposes, will refactor */}
 		</div>
 	)
 }
