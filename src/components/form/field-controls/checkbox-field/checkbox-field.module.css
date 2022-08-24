@@ -6,7 +6,6 @@
 	grid-template-columns: auto 1fr;
 	grid-template-rows: auto auto auto;
 	justify-items: start;
-	row-gap: 4px;
 }
 
 .label {
@@ -28,6 +27,7 @@
 	/* properties */
 	color: var(--token-form-helper-text-color);
 	grid-area: helperText;
+	margin-top: 4px;
 }
 
 .errorsContainer {
@@ -36,6 +36,7 @@
 	display: flex;
 	gap: 8px;
 	grid-area: errors;
+	margin-top: 4px;
 }
 
 .errorIcon {
