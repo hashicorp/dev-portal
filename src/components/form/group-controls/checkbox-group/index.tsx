@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import Badge from 'components/badge'
 import { CheckboxField } from 'components/form/field-controls'
 import { CheckboxGroupOption, CheckboxGroupProps } from './types'
@@ -13,14 +14,18 @@ const CheckboxGroup = ({
 	options,
 	...nativeProps
 }: CheckboxGroupProps) => {
+	const hasLegend = !!legend
+	const hasHelperText = !!helperText
+
 	let legendElement
-	if (legend) {
+	if (hasLegend) {
 		let indicatorElement
 		if (isRequired) {
 			indicatorElement = <Badge size="small" text="Required" />
 		} else if (isOptional) {
 			indicatorElement = <span className={s.optionalIndicator}>(Optional)</span>
 		}
+
 		legendElement = (
 			<legend className={s.legend}>
 				{legend}
@@ -30,12 +35,12 @@ const CheckboxGroup = ({
 	}
 
 	let helperTextElement
-	if (helperText) {
+	if (hasHelperText) {
 		helperTextElement = <span className={s.helperText}>{helperText}</span>
 	}
 
 	return (
-		<fieldset name={name} {...nativeProps} className={s.fieldset}>
+		<fieldset name={name} {...nativeProps} className={classNames(s.fieldset)}>
 			{legendElement}
 			{helperTextElement}
 			<div className={s[`options--${layout}`]}>
@@ -46,6 +51,7 @@ const CheckboxGroup = ({
 							key={index}
 							helperText={option.helperText}
 							label={option.label}
+							labelFontWeight={hasLegend ? 'regular' : 'semibold'}
 							name={name}
 						/>
 					)
