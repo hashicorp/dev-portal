@@ -54,7 +54,7 @@ const HomePageHeaderContent = () => {
 					src={require('../../img/logo-white.svg?include')}
 				/>
 			</div>
-			<div className="g-hide-on-mobile g-hide-on-tablet">
+			<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 				<nav className={sharedNavStyles.nav}>
 					<ul className={sharedNavStyles.navList}>
 						<li>

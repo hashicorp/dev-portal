@@ -15,6 +15,7 @@ import TruncateMaxLines from 'components/truncate-max-lines'
 
 // Local imports
 import s from './marketing-content.module.css'
+import { ParagraphBlock } from '../paragraph-block'
 
 const GETTING_STARTED_CARD_HEADING = 'Getting Started'
 const GETTING_STARTED_CARD_HEADING_SLUG = slugify(GETTING_STARTED_CARD_HEADING)
@@ -137,6 +138,10 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 	return (
 		<div className={s.root}>
 			{blocks.map((block) => {
+				if (block.type === 'paragraph') {
+					return <ParagraphBlock {...block} />
+				}
+
 				if (block.type === 'section-heading') {
 					return (
 						<SectionHeading

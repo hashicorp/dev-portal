@@ -115,6 +115,36 @@ interface RootDocsPath {
 	 * content API should pull from. Defaults to `main`.
 	 */
 	mainBranch?: string
+
+	/**
+	 * An optional property to hide the title of this rootDocsPath
+	 * in the sidebar. Used for Terraform routes where sidebar titles
+	 * are present in nav-data.json.
+	 */
+	visuallyHideSidebarTitle?: boolean
+
+	/**
+	 * An optional property to add an "overview" item to the sidebar.
+	 * By default, an overview item will be added. This property must be
+	 * explicitly set to `false` to prevent an overview item from being added.
+	 * The `href` for this item will lead to the root docs path,
+	 * and will dynamically account for version context.
+	 */
+	addOverviewItem?: boolean
+
+	/**
+	 * An optional description for this category of documentation.
+	 * Shown as the subtitle of the docs landing hero element.
+	 * If omitted, falls back to the page's authored frontMatter.description,
+	 * or falls back to an empty string.
+	 */
+	description?: string
+}
+
+export type DocsNavItem = {
+	icon: string
+	label: string
+	fullPath: string
 }
 
 interface ProductData extends Product {
@@ -123,6 +153,13 @@ interface ProductData extends Product {
 	}
 	basePaths: string[]
 	rootDocsPaths: RootDocsPath[]
+	/**
+	 * When configuring docsNavItems, authors have the option to specify
+	 * the full data structure, or use a string that matches a rootDocsPath.path
+	 * as a shorthand, in which case a DocsNavItem will be parsed from
+	 * the matching rootDocsPath.
+	 */
+	docsNavItems?: (DocsNavItem | string)[]
 }
 
 interface ProductWithCurrentRootDocsPath extends ProductData {

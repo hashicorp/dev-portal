@@ -1,25 +1,34 @@
-import React, { useEffect } from 'react'
+// Third-party imports
+import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { Toaster } from 'components/toast'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LazyMotion } from 'framer-motion'
 import { SessionProvider } from 'next-auth/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+// HashiCorp imports
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
+
+// Global imports
 import {
 	AllProductDataProvider,
 	CurrentProductProvider,
 	DeviceSizeProvider,
 } from 'contexts'
-import EmptyLayout from 'layouts/empty'
-import { isDeployPreview, isPreview } from 'lib/env-checks'
 import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
-import './style.css'
+import { isDeployPreview, isPreview } from 'lib/env-checks'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
+import EmptyLayout from 'layouts/empty'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
+import { Toaster } from 'components/toast'
+
+// Local imports
+import './style.css'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -45,6 +54,23 @@ export default function App({
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
+	/**
+	 * Initalize QueryClient with `useState` to ensure that data is not shared
+	 * between different users and requests, and that only one is created per
+	 * component lifecycle.
+	 */
+	const [queryClient] = useState(
+		() =>
+			new QueryClient({
+				defaultOptions: {
+					queries: {
+						// TODO: refine this value or set by HASHI_ENV
+						staleTime: Infinity,
+					},
+				},
+			})
+	)
+
 	const Layout = Component.layout ?? EmptyLayout
 	const currentProduct = pageProps.product || null
 
@@ -58,7 +84,7 @@ export default function App({
 	}
 
 	return (
-		<>
+		<QueryClientProvider client={queryClient}>
 			<SSRProvider>
 				<ErrorBoundary FallbackComponent={DevDotClient}>
 					<SessionProvider session={session}>
@@ -80,6 +106,7 @@ export default function App({
 											</Layout>
 											<Toaster />
 											{showProductSwitcher ? <PreviewProductSwitcher /> : null}
+											<ReactQueryDevtools />
 										</LazyMotion>
 									</CodeTabsProvider>
 								</CurrentProductProvider>
@@ -88,7 +115,7 @@ export default function App({
 					</SessionProvider>
 				</ErrorBoundary>
 			</SSRProvider>
-		</>
+		</QueryClientProvider>
 	)
 }
 

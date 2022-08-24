@@ -1,5 +1,7 @@
-import { ReactNode, Children } from 'react'
+import { Children } from 'react'
 import classNames from 'classnames'
+import { CardsGridListProps } from './types'
+import { TutorialCardsGridList, TutorialCardsGridListProps } from './components'
 import s from './cards-grid-list.module.css'
 
 /**
@@ -29,11 +31,7 @@ function CardsGridList({
 	children,
 	isOrdered = false,
 	fixedColumns,
-}: {
-	children: ReactNode
-	isOrdered?: boolean
-	fixedColumns?: number
-}) {
+}: CardsGridListProps) {
 	const ListRoot = isOrdered ? 'ol' : 'ul'
 
 	/**
@@ -65,4 +63,6 @@ function CardsGridList({
 	)
 }
 
+export type { CardsGridListProps, TutorialCardsGridListProps }
+export { TutorialCardsGridList }
 export default CardsGridList
