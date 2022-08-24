@@ -10,11 +10,20 @@ import Text from 'components/text'
 import Button from 'components/button'
 import s from './bookmark-button-with-remove-dialog.module.css'
 
+/**
+ * ✨ Future abstraction ✨
+ * There's room to abstract these general dialog styles into
+ * a shared component. This dialog content and layout shares
+ * styles almost exactly with the 'BookmarkSignInPrompt' dialog
+ */
+
+interface BookmarkButtonRemoveDialogProps {
+	tutorial: Pick<ApiBookmark['tutorial'], 'name' | 'id'>
+}
+
 export function BookmarkButtonWithRemoveDialog({
 	tutorial,
-}: {
-	tutorial: Pick<ApiBookmark['tutorial'], 'name' | 'id'>
-}) {
+}: BookmarkButtonRemoveDialogProps) {
 	const [showDialog, setShowDialog] = useState(false)
 	const openDialog = () => setShowDialog(true)
 	const closeDialog = () => setShowDialog(false)
