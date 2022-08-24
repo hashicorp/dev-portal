@@ -16,9 +16,9 @@
 		& li {
 			display: inline-block;
 
-		&:not(:last-of-type) {
-			margin-right: 12px;
-		}
+			&:not(:last-of-type) {
+				margin-right: 12px;
+			}
 		}
 	}
 }
