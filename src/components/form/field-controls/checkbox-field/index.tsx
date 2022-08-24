@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useId } from '@react-aria/utils'
 import { IconAlertDiamondFill16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-16'
+import { CheckboxControl } from 'components/form/base-controls'
 import { CheckboxFieldProps } from './types'
-import s from './checkbox.module.css'
+import s from './checkbox-field.module.css'
 
 const CheckboxField = ({
 	errors,
@@ -42,17 +43,14 @@ const CheckboxField = ({
 
 	return (
 		<div className={s.root}>
-			<input
+			<CheckboxControl
 				aria-describedby={helperTextElementId}
 				checked={isChecked}
-				className={s.input}
 				id={inputId}
 				name={name}
 				onChange={() => {
 					setIsChecked((previouslyIsChecked: boolean) => !previouslyIsChecked)
 				}}
-				type="checkbox"
-				value={inputId}
 			/>
 			<label className={s.label} htmlFor={inputId}>
 				{label}
