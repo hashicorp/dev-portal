@@ -15,7 +15,7 @@ const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 1201
 
 interface MobileMenuContextState {
 	/**
-	 * Indicates whether or not the screen size indicates that we should be rendering the mobile menu
+	 * Whether or not the screen size indicates that we should be rendering the mobile menu
 	 */
 	isMobileMenuRendered: boolean
 	mobileMenuIsOpen: boolean
