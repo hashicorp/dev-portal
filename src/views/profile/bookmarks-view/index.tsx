@@ -2,17 +2,17 @@ import { useState } from 'react'
 import { useAllBookmarks } from 'hooks/bookmarks'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import AuthenticatedView from 'views/authenticated-view'
-import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import CardsGridList from 'components/cards-grid-list'
 import Text from 'components/text'
 import Heading from 'components/heading'
-import BookmarksEmptyState from './components/empty-state'
-import { ProfileBookmarksSidebar } from './components/sidebar'
-import renderBookmarkCard from './helpers/render-bookmark-cards'
-import s from './bookmarks-view.module.css'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 } from 'components/dropdown-disclosure'
+import BookmarksEmptyState from './components/empty-state'
+import { ProfileBookmarksSidebar } from './components/sidebar'
+import renderBookmarkCard from './helpers/render-bookmark-cards'
+import { SortData } from './helpers/card-sort-data'
+import s from './bookmarks-view.module.css'
 
 /**
  * The exported view component that handles wrapping the view content in
@@ -38,21 +38,6 @@ const ProfileBookmarksView = () => {
 			</SidebarSidecarLayout>
 		</AuthenticatedView>
 	)
-}
-
-const SortData = {
-	newest: {
-		text: 'Newest',
-		sort: (a: ApiBookmark, b: ApiBookmark) => {
-			return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-		},
-	},
-	oldest: {
-		text: 'Oldest',
-		sort: (a: ApiBookmark, b: ApiBookmark) => {
-			return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-		},
-	},
 }
 
 /**
