@@ -66,7 +66,9 @@ const ProfileBookmarksViewContent = () => {
 					>
 						Your Bookmarks
 					</Heading>
-					<CardsGridList>{bookmarks.map(renderBookmarkCard)}</CardsGridList>
+					<CardsGridList fixedColumns={2}>
+						{bookmarks.map(renderBookmarkCard)}
+					</CardsGridList>
 				</>
 			) : (
 				<BookmarksEmptyState />
