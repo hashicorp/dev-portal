@@ -1,5 +1,7 @@
 ---
 componentName: CheckboxField
+peerComponents:
+	- ProductIcon
 ---
 
 ## Only label
@@ -29,3 +31,30 @@ componentName: CheckboxField
 	helperText="This is the helper text"
 	label="This is the label"
 />
+
+## Labels that are `ReactNode`s
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+	{[
+		{ name: 'Terraform', slug: 'terraform' },
+		{ name: 'Packer', slug: 'packer' },
+		{ name: 'Vault', slug: 'vault' },
+		{ name: 'Boundary', slug: 'boundary' },
+		{ name: 'Consul', slug: 'consul' },
+		{ name: 'Nomad', slug: 'nomad' },
+		{ name: 'Waypoint', slug: 'waypoint' },
+		{ name: 'Vagrant', slug: 'vagrant' },
+	].map(({ name, slug }, index) => {
+		return (
+			<CheckboxField
+				labelFontWeight="regular"
+				label={
+					<>
+						<ProductIcon productSlug={slug} />
+						<span style={{ marginLeft: 4 }}>{name}</span>
+					</>
+				}
+			/>
+		)
+	})}
+</div>
