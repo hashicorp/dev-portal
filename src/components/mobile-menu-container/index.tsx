@@ -73,7 +73,7 @@ const MobileAuthenticationControls = () => {
 			<MobileUserDisclosure
 				items={getUserMenuItems({ signOut })}
 				user={user}
-				initialOpen={asPath === '/profile/bookmarks' ? true : false}
+				initialOpen={asPath.includes('/profile') ? true : false}
 			/>
 		)
 	}
