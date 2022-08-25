@@ -14,6 +14,10 @@ import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 1201
 
 interface MobileMenuContextState {
+	/**
+	 * Indicates whether or not the screen size indicates that we should be rendering the mobile menu
+	 */
+	isMobileMenuRendered: boolean
 	mobileMenuIsOpen: boolean
 	setMobileMenuIsOpen: Dispatch<SetStateAction<boolean>>
 }
@@ -31,7 +35,8 @@ const MobileMenuContext = createContext<MobileMenuContextState | undefined>(
  */
 const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	const router = useRouter()
-	const [isDesktop, setIsDesktop] = useState<boolean>(false)
+	const [isMobileMenuRendered, setIsMobileMenuRendered] =
+		useState<boolean>(false)
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState<boolean>()
 
 	/**
@@ -45,7 +50,7 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 
 		// Get the breakpoint value
 		const desktopWidthBreakpoint =
-			(getCSSVariableFromDocument('--nav-header-mobile-width-breakpoint', {
+			(getCSSVariableFromDocument('--mobile-menu-breakpoint', {
 				asNumber: true,
 			}) as number) || DEFAULT_NAV_HEADER_DESKTOP_WIDTH
 
@@ -57,9 +62,12 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 		// Create a change listener for the media query list object
 		// Called when the breakpoint is crossed over in either direction
 		const handleChange = () => {
-			const isDesktop = mediaQueryListObject.matches
-			setIsDesktop(isDesktop)
+			const shouldRenderMobileMenu = !mediaQueryListObject.matches
+			setIsMobileMenuRendered(shouldRenderMobileMenu)
 		}
+
+		// Set the initial state based on the mediaQuery
+		handleChange()
 
 		// Add change listener
 		mediaQueryListObject.addEventListener('change', handleChange)
@@ -80,13 +88,13 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	 */
 	useEffect(() => {
 		// Don't need to listen for router events on Desktop
-		if (isDesktop) {
+		if (!isMobileMenuRendered) {
 			// Close the mobile menu if the viewport size has crossed the breakpoint
 			setMobileMenuIsOpen(false)
 			return
 		}
 
-		// Close the mobile meun if it's open on route change start
+		// Close the mobile menu if it's open on route change start
 		const handleRouteChange = () => {
 			if (mobileMenuIsOpen) {
 				setMobileMenuIsOpen(false)
@@ -100,9 +108,10 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 			router.events.off('routeChangeComplete', handleRouteChange)
 			router.events.off('routeChangeError', handleRouteChange)
 		}
-	}, [isDesktop, mobileMenuIsOpen, router.events])
+	}, [isMobileMenuRendered, mobileMenuIsOpen, router.events])
 
 	const state: MobileMenuContextState = {
+		isMobileMenuRendered,
 		mobileMenuIsOpen,
 		setMobileMenuIsOpen,
 	}
