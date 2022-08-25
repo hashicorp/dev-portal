@@ -79,31 +79,27 @@ const ProfileBookmarksViewContent = () => {
 			</Text>
 			{bookmarks?.length > 0 ? (
 				<>
-					<Heading
-						level={2}
-						weight="semibold"
-						size={300}
-						className={s.cardListHeading}
-					>
-						Your Bookmarks
-					</Heading>
-					<DropdownDisclosure color="secondary" text={sortBy.text}>
-						<DropdownDisclosureButtonItem
-							onClick={() => {
-								setSortBy(SortData.newest)
-							}}
-						>
-							Newest
-						</DropdownDisclosureButtonItem>
-						<DropdownDisclosureButtonItem
-							onClick={() => {
-								setSortBy(SortData.oldest)
-							}}
-						>
-							Oldest
-						</DropdownDisclosureButtonItem>
-					</DropdownDisclosure>
-
+					<span className={s.cardListHeading}>
+						<Heading level={2} weight="semibold" size={300}>
+							Your Bookmarks
+						</Heading>
+						<DropdownDisclosure color="secondary" text={sortBy.text}>
+							<DropdownDisclosureButtonItem
+								onClick={() => {
+									setSortBy(SortData.newest)
+								}}
+							>
+								Newest
+							</DropdownDisclosureButtonItem>
+							<DropdownDisclosureButtonItem
+								onClick={() => {
+									setSortBy(SortData.oldest)
+								}}
+							>
+								Oldest
+							</DropdownDisclosureButtonItem>
+						</DropdownDisclosure>
+					</span>
 					<CardsGridList fixedColumns={2}>
 						{bookmarks.sort(sortBy.sort).map(renderBookmarkCard)}
 					</CardsGridList>
