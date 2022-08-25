@@ -68,7 +68,11 @@ const ProfileBookmarksViewContent = () => {
 						<Heading level={2} weight="semibold" size={300}>
 							Your Bookmarks
 						</Heading>
-						<DropdownDisclosure color="secondary" text={sortBy.text}>
+						<DropdownDisclosure
+							color="secondary"
+							text={sortBy.text}
+							aria-label={`Sort by ${sortBy.text}`}
+						>
 							<DropdownDisclosureButtonItem
 								onClick={() => setSortBy(SortData.newest)}
 							>
