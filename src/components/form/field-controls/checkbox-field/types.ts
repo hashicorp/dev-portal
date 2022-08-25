@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { LabelProps } from 'components/form/components'
 
 interface CheckboxFieldProps {
@@ -5,7 +6,7 @@ interface CheckboxFieldProps {
 	helperText?: string
 	id?: string
 	initialIsChecked?: boolean
-	label: string
+	label: ReactNode
 	labelFontWeight?: LabelProps['fontWeight']
 	name?: string
 }
