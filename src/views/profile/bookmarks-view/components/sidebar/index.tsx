@@ -5,7 +5,7 @@ import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import { SidebarNavMenuButton } from 'components/sidebar/components/sidebar-nav-menu-item'
 import useAuthentication from 'hooks/use-authentication'
 import { useDeviceSize } from 'contexts'
-import NavList from 'components/sidebar/components/nav-list'
+import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
 
 export function ProfileBookmarksSidebar() {
 	const { signOut } = useAuthentication()
@@ -16,7 +16,7 @@ export function ProfileBookmarksSidebar() {
 			title={isDesktop ? 'Profile' : 'Main Menu'}
 			showFilterInput={false}
 		>
-			<NavList>
+			<SidebarNavList>
 				{isDesktop ? (
 					<>
 						<SidebarNavMenuItem
@@ -47,7 +47,7 @@ export function ProfileBookmarksSidebar() {
 						<SidebarNavMenuItem item={item} key={index} />
 					))
 				)}
-			</NavList>
+			</SidebarNavList>
 		</Sidebar>
 	)
 }
