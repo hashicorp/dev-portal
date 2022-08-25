@@ -72,6 +72,7 @@ const ProfileBookmarksViewContent = () => {
 							color="secondary"
 							text={sortBy.text}
 							aria-label={`Sort by ${sortBy.text}`}
+							listPosition="right"
 						>
 							<DropdownDisclosureButtonItem
 								onClick={() => setSortBy(SortData.newest)}
