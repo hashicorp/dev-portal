@@ -60,7 +60,9 @@ export default function TutorialMeta({
 					<InteractiveLabButton />
 					{/** // NOTE! - hiding this component from prod until auth is enabled  */}
 					{isAuthEnabled ? (
-						<TutorialMetaBookmarkButton tutorialId={tutorialId} />
+						<TutorialMetaBookmarkButton
+							tutorial={{ id: tutorialId, name: heading.text }}
+						/>
 					) : null}
 				</span>
 				{showCreateAccountCta ? (

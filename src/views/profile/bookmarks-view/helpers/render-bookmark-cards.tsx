@@ -4,12 +4,7 @@ import { ProductUsed } from 'lib/learn-client/types'
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import TutorialCard from 'components/tutorial-card'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
-import { BookmarkButtonIconOnly } from 'components/bookmark-button'
-
-/**
- * TODO: the bookmark button `handleClick` should
- * render a confirmation dialog that can update data
- */
+import { BookmarkButtonWithRemoveDialog } from '../components/bookmark-button-with-remove-dialog'
 
 export default function renderBookmarkCard(bookmark: ApiBookmark) {
 	const {
@@ -24,6 +19,7 @@ export default function renderBookmarkCard(bookmark: ApiBookmark) {
 		productsUsed,
 	} = formatTutorialData(bookmark.tutorial)
 	const duration = getReadableTime(readTime)
+
 	return (
 		<li key={id}>
 			<TutorialCard
@@ -37,10 +33,7 @@ export default function renderBookmarkCard(bookmark: ApiBookmark) {
 				eyebrowSlot={
 					<>
 						<span>{duration}</span>
-						<BookmarkButtonIconOnly
-							isBookmarked={true}
-							handleOnClick={() => console.log('Trigger confirmation dialog!')}
-						/>
+						<BookmarkButtonWithRemoveDialog tutorial={{ id, name }} />
 					</>
 				}
 			/>

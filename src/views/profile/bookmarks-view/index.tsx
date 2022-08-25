@@ -24,12 +24,11 @@ const ProfileBookmarksView = () => {
  * The content of the ProfileView that is gated behind authentication.
  */
 const ProfileBookmarksViewContent = () => {
-	const { bookmarks, isFetching, isRefetching } = useAllBookmarks({
+	const { bookmarks, isLoading } = useAllBookmarks({
 		enabled: true,
 	})
-	const isFirstLoad = isFetching && !isRefetching
 
-	if (isFirstLoad) {
+	if (isLoading) {
 		return null // TODO return loading skeleton
 	}
 
