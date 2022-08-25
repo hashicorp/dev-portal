@@ -2,6 +2,7 @@
 import { ForwardedRef, forwardRef } from 'react'
 import classNames from 'classnames'
 import { m, useReducedMotion } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
@@ -37,11 +38,8 @@ const MOBILE_MENU_MOTION = {
  * Handles rendering the Sign In and Sign Up UI elements in mobile viewports.
  * Intended to be used alongside `MobileMenuContainer`.
  */
-const MobileAuthenticationControls = ({
-	initialOpen,
-}: {
-	initialOpen?: boolean
-}) => {
+const MobileAuthenticationControls = () => {
+	const { asPath } = useRouter()
 	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
 		useAuthentication()
 
@@ -75,7 +73,7 @@ const MobileAuthenticationControls = ({
 			<MobileUserDisclosure
 				items={getUserMenuItems({ signOut })}
 				user={user}
-				initialOpen={initialOpen}
+				initialOpen={asPath === '/profile/bookmarks' ? true : false}
 			/>
 		)
 	}

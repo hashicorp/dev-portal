@@ -17,7 +17,6 @@ const ProfileBookmarksView = () => {
 	return (
 		<AuthenticatedView>
 			<SidebarSidecarLayout
-				initialOpenMobileAuthControls={true}
 				breadcrumbLinks={[
 					{ title: 'Developer', url: '/' },
 					{

@@ -51,7 +51,6 @@ const SidebarSidecarLayoutContent = ({
 	sidecarSlot,
 	sidebarNavDataLevels,
 	versions,
-	initialOpenMobileAuthControls,
 }: SidebarSidecarLayoutProps) => {
 	const { isMobileMenuRendered, mobileMenuIsOpen, setMobileMenuIsOpen } =
 		useMobileMenu()
@@ -93,9 +92,7 @@ const SidebarSidecarLayoutContent = ({
 		<div className={s.root}>
 			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
-					<MobileAuthenticationControls
-						initialOpen={initialOpenMobileAuthControls}
-					/>
+					<MobileAuthenticationControls />
 					<SidebarContent />
 				</div>
 				{versions ? <DocsVersionSwitcher options={versions} /> : null}
