@@ -17,5 +17,5 @@ export type BookmarkButtonConfigType = Record<
 >
 
 export interface ConnectedBookmarkComponentProps {
-	tutorial: { id: ClientTutorial['id']; name: ClientTutorial['name'] }
+	tutorial: Pick<ClientTutorial, 'id' | 'name'>
 }
