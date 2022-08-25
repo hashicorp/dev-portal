@@ -10,9 +10,11 @@ const Errors = ({ className, messages = [] }: ErrorsProps) => {
 		<div className={classes}>
 			<IconAlertDiamondFill16 className={s.icon} />
 			<ul className={s.list}>
-				{messages.map((error: string) => (
-					// eslint-disable-next-line react/jsx-key
-					<li className={s.message}>{error}</li>
+				{messages.map((error: string, index: number) => (
+					// eslint-disable-next-line react/no-array-index-key
+					<li className={s.message} key={index}>
+						{error}
+					</li>
 				))}
 			</ul>
 		</div>
