@@ -8,8 +8,10 @@ import {
 	useState,
 } from 'react'
 import { useRouter } from 'next/router'
-import { useDeviceSize } from 'contexts'
+import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
+
+const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 1201
 
 interface MobileMenuContextState {
 	mobileMenuIsOpen: boolean
@@ -29,8 +31,44 @@ const MobileMenuContext = createContext<MobileMenuContextState | undefined>(
  */
 const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	const router = useRouter()
-	const { isDesktop } = useDeviceSize()
+	const [isDesktop, setIsDesktop] = useState<boolean>(false)
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState<boolean>()
+
+	/**
+	 * NOTE: We cannot use `useDeviceSize` here because the nav header
+	 * breakpoints are different than the breakpoints used elsewhere in the app.
+	 */
+	useEffect(() => {
+		if (typeof window === 'undefined') {
+			return
+		}
+
+		// Get the breakpoint value
+		const desktopWidthBreakpoint =
+			(getCSSVariableFromDocument('--nav-header-mobile-width-breakpoint', {
+				asNumber: true,
+			}) as number) || DEFAULT_NAV_HEADER_DESKTOP_WIDTH
+
+		// Create a media query list object with the obtained breakpoint
+		const mediaQueryListObject = window.matchMedia(
+			`(min-width: ${desktopWidthBreakpoint}px)`
+		)
+
+		// Create a change listener for the media query list object
+		// Called when the breakpoint is crossed over in either direction
+		const handleChange = () => {
+			const isDesktop = mediaQueryListObject.matches
+			setIsDesktop(isDesktop)
+		}
+
+		// Add change listener
+		mediaQueryListObject.addEventListener('change', handleChange)
+
+		// Clean up; remove change listener
+		return () => {
+			mediaQueryListObject.removeEventListener('change', handleChange)
+		}
+	}, [])
 
 	/**
 	 * Prevents scrolling on the rest of the page body
