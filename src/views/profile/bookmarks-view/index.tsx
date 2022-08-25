@@ -70,18 +70,14 @@ const ProfileBookmarksViewContent = () => {
 						</Heading>
 						<DropdownDisclosure color="secondary" text={sortBy.text}>
 							<DropdownDisclosureButtonItem
-								onClick={() => {
-									setSortBy(SortData.newest)
-								}}
+								onClick={() => setSortBy(SortData.newest)}
 							>
-								Newest
+								{SortData.newest.text}
 							</DropdownDisclosureButtonItem>
 							<DropdownDisclosureButtonItem
-								onClick={() => {
-									setSortBy(SortData.oldest)
-								}}
+								onClick={() => setSortBy(SortData.oldest)}
 							>
-								Oldest
+								{SortData.oldest.text}
 							</DropdownDisclosureButtonItem>
 						</DropdownDisclosure>
 					</span>
