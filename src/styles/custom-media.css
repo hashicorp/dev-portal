@@ -12,3 +12,7 @@
 @custom-media --dev-dot-tablet-up only screen and (min-width: 729px);
 @custom-media --dev-dot-desktop only screen and (min-width: 1001px);
 @custom-media --dev-dot-sidecar-up only screen and (min-width: 1280px);
+
+/* See --nav-header-mobile-width-breakpoint */
+@custom-media --nav-header-is-mobile (max-width: 1200px);
+@custom-media --nav-header-is-desktop (min-width: 1201px);

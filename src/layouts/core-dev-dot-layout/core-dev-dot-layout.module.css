@@ -12,11 +12,7 @@
 	/* General mobile and tablet breakpoints */
 	--mobile-width-breakpoint: 728px;
 	--tablet-width-breakpoint: 1000px;
-
-	/* Nav header moblie breakpoint */
 	--nav-header-mobile-width-breakpoint: 1200px;
-	@custom-media --nav-header-is-mobile (max-width: 1200px);
-	@custom-media --nav-header-is-desktop (min-width: 1201px);
 
 	/* Font overwrites */
 	--font-body: var(--token-typography-font-stack-text);
