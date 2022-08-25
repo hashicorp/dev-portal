@@ -7,7 +7,7 @@ import {
 	useEffect,
 	useState,
 } from 'react'
-import { useDeviceSize, useMobileMenu } from 'contexts'
+import { useMobileMenu } from 'contexts'
 import { SidebarProps } from 'components/sidebar'
 
 interface State {
