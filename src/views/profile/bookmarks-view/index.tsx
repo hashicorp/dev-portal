@@ -1,10 +1,11 @@
 import { useAllBookmarks } from 'hooks/bookmarks'
-import BaseNewLayout from 'layouts/base-new'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import AuthenticatedView from 'views/authenticated-view'
 import CardsGridList from 'components/cards-grid-list'
 import Text from 'components/text'
 import Heading from 'components/heading'
 import BookmarksEmptyState from './components/empty-state'
+import { ProfileBookmarksSidebar } from './components/sidebar'
 import renderBookmarkCard from './helpers/render-bookmark-cards'
 import s from './bookmarks-view.module.css'
 
@@ -15,7 +16,21 @@ import s from './bookmarks-view.module.css'
 const ProfileBookmarksView = () => {
 	return (
 		<AuthenticatedView>
-			<ProfileBookmarksViewContent />
+			<SidebarSidecarLayout
+				breadcrumbLinks={[
+					{ title: 'Developer', url: '/' },
+					{
+						title: 'Bookmarks',
+						url: '/profile/bookmarks',
+						isCurrentPage: true,
+					},
+				]}
+				AlternateSidebar={ProfileBookmarksSidebar}
+				sidebarNavDataLevels={[]}
+				sidecarSlot={null}
+			>
+				<ProfileBookmarksViewContent />
+			</SidebarSidecarLayout>
 		</AuthenticatedView>
 	)
 }
@@ -51,7 +66,9 @@ const ProfileBookmarksViewContent = () => {
 					>
 						Your Bookmarks
 					</Heading>
-					<CardsGridList>{bookmarks.map(renderBookmarkCard)}</CardsGridList>
+					<CardsGridList fixedColumns={2}>
+						{bookmarks.map(renderBookmarkCard)}
+					</CardsGridList>
 				</>
 			) : (
 				<BookmarksEmptyState />
@@ -60,5 +77,4 @@ const ProfileBookmarksViewContent = () => {
 	)
 }
 
-ProfileBookmarksView.layout = BaseNewLayout
 export default ProfileBookmarksView
