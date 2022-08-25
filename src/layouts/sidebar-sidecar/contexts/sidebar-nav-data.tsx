@@ -7,7 +7,7 @@ import {
 	useEffect,
 	useState,
 } from 'react'
-import { useDeviceSize, useMobileMenu } from 'contexts'
+import { useMobileMenu } from 'contexts'
 import { SidebarProps } from 'components/sidebar'
 
 interface State {
@@ -32,8 +32,8 @@ const SidebarNavDataProvider = ({
 	children,
 	navDataLevels,
 }: SidebarNavDataProviderProps) => {
-	const { isDesktop } = useDeviceSize()
-	const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
+	const { mobileMenuIsOpen, setMobileMenuIsOpen, isMobileMenuRendered } =
+		useMobileMenu()
 	const numberOfLevels = navDataLevels.length
 	const [currentLevel, setCurrentLevel] = useState<number>(numberOfLevels - 1)
 
@@ -55,7 +55,7 @@ const SidebarNavDataProvider = ({
 	const hasManyLevels = numberOfLevels > 1
 	const isFirstLevel = currentLevel === 0
 	const isLastLevel = currentLevel === numberOfLevels - 1
-	const shouldRenderMobileControls = hasManyLevels && !isDesktop
+	const shouldRenderMobileControls = hasManyLevels && isMobileMenuRendered
 
 	// Create state object to pass to the Provider
 	const state: State = {

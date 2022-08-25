@@ -12,6 +12,7 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
 import getIsBetaProduct from 'lib/get-is-beta-product'
+import { isDeployPreview } from 'lib/env-checks'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
@@ -26,6 +27,7 @@ import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { SidebarProps } from 'components/sidebar'
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
+import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 
 /**
@@ -119,11 +121,29 @@ export function getStaticGenerationFunctions<
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
 	const getLoader = (
 		extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
-	) => new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
+	) => {
+		if (isDeployPreview(productSlugForLoader)) {
+			return getDeployPreviewLoader({
+				basePath,
+				currentRootDocsPath,
+				loaderOptions: {
+					...loaderOptions,
+					...extraOptions,
+				},
+			})
+		} else {
+			return new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
+		}
+	}
 
 	return {
 		getStaticPaths: async () => {
-			const paths = await getLoader().loadStaticPaths()
+			let paths = await getLoader().loadStaticPaths()
+
+			if (isDeployPreview() && !isDeployPreview(productSlugForLoader)) {
+				// do not statically render any other products if we are in a deploy preview for another product
+				paths = []
+			}
 
 			return {
 				fallback: 'blocking',
@@ -141,11 +161,7 @@ export function getStaticGenerationFunctions<
 					 * Note on remark plugins for local vs remote loading:
 					 * includeMarkdown and paragraphCustomAlerts are already
 					 * expected to have been run for remote content.
-					 * However, we'll need to account for these plugins once
-					 * we enable local content preview for new dev-dot docs views.
 					 */
-					// includeMarkdown,
-					// paragraphCustomAlerts,
 					[anchorLinks, { headings }],
 					rewriteTutorialLinksPlugin,
 					/**
@@ -297,7 +313,8 @@ export function getStaticGenerationFunctions<
 			 * (We use `v0.0.x` as a placeholder version for un-versioned documentation)
 			 */
 			const hasMeaningfulVersions =
-				versions && (versions.length > 1 || versions[0].version !== 'v0.0.x')
+				versions.length > 0 &&
+				(versions.length > 1 || versions[0].version !== 'v0.0.x')
 			/**
 			 * For the /packer/plugins landing page, we want to hide the version selector,
 			 * even though we do have meaningful versions available

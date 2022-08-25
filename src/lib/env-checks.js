@@ -89,8 +89,11 @@ function isContentDeployPreview(productSlug) {
 	return isDeployPreview() && isProxiedProduct(productSlug)
 }
 
-function isDeployPreview() {
-	return process.env.IS_CONTENT_PREVIEW
+function isDeployPreview(productSlug) {
+	const isProductSlugMatching =
+		!productSlug || productSlug === process.env.PREVIEW_FROM_REPO
+
+	return process.env.IS_CONTENT_PREVIEW && isProductSlugMatching
 }
 
 /**
