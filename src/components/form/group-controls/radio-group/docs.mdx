@@ -1,0 +1,243 @@
+---
+componentName: RadioGroup
+---
+
+## `isRequired` and `isOptional`
+
+### With `legend` and `isRequired`
+
+<RadioGroup
+	isRequired
+	legend="Legend of the group"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+/>
+
+### With `legend` and `isOptional`
+
+<RadioGroup
+	isOptional
+	legend="Legend of the group"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+/>
+
+## Vertical `layout` (default `layout`)
+
+### With `legend`
+
+<RadioGroup
+	legend="Legend of the group"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+/>
+
+### With `legend` / With `helperText`
+
+<RadioGroup
+	legend="Legend of the group"
+	options={[
+		{
+			label: 'Label of control #1',
+			helperText: 'Helper text for control #1',
+		},
+		{
+			label: 'Label of control #2',
+			helperText: 'Helper text for control #2',
+		},
+		{
+			label: 'Label of control #3',
+			helperText: 'Helper text for control #3',
+		},
+	]}
+/>
+
+### Without `legend`
+
+<RadioGroup
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+/>
+
+### Without `legend` / With `helperText`
+
+<RadioGroup
+	options={[
+		{
+			label: 'Label of control #1',
+			helperText: 'Helper text for control #1',
+		},
+		{
+			label: 'Label of control #2',
+			helperText: 'Helper text for control #2',
+		},
+		{
+			label: 'Label of control #3',
+			helperText: 'Helper text for control #3',
+		},
+	]}
+/>
+
+### With `helperText` at the group level
+
+<RadioGroup
+	legend="Legend of the group"
+	helperText="Helper text for the entire group"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+/>
+
+### With error at the group level
+
+<RadioGroup
+	legend="Legend of the group"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+	errors={['Error for the entire group']}
+/>
+
+## Horizontal `layout`
+
+### With `legend`
+
+<RadioGroup
+	layout="horizontal"
+	legend="Legend of the group"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+/>
+
+### Without `legend`
+
+<RadioGroup
+	layout="horizontal"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+/>
+
+### With `helperText` at the group level
+
+<RadioGroup
+	layout="horizontal"
+	legend="Legend of the group"
+	helperText="Helper text for the entire group"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+/>
+
+### With error at the group level
+
+<RadioGroup
+	layout="horizontal"
+	legend="Legend of the group"
+	options={[
+		{
+			label: 'Label of control #1',
+		},
+		{
+			label: 'Label of control #2',
+		},
+		{
+			label: 'Label of control #3',
+		},
+	]}
+	errors={['Error for the entire group']}
+/>
+
+### With controls on multiple lines
+
+<div style={{ maxWidth: 450 }}>
+	<RadioGroup
+		layout="horizontal"
+		legend="Legend of the group"
+		options={[
+			{ label: 'Sit amet' },
+			{ label: 'Consectetur adipiscing' },
+			{ label: 'Elit' },
+			{ label: 'Pellentesque erat' },
+			{ label: 'Lacinia' },
+			{ label: 'At magna' },
+		]}
+	/>
+</div>
