@@ -6,16 +6,18 @@ import { CheckboxFieldProps } from './types'
 import s from './checkbox-field.module.css'
 
 const CheckboxField = ({
+	checked,
 	errors,
 	helperText,
 	id,
-	initialIsChecked = false,
 	label,
 	labelFontWeight,
 	name,
+	onChange = () => null, // Default value makes this easier to invoke w/o extra logic
+	onClick,
 }: CheckboxFieldProps) => {
 	const inputId = useId(id)
-	const [isChecked, setIsChecked] = useState<boolean>(initialIsChecked)
+	const [isChecked, setIsChecked] = useState<boolean>(checked)
 
 	let helperTextElement, helperTextElementId
 	if (helperText) {
@@ -39,9 +41,11 @@ const CheckboxField = ({
 				checked={isChecked}
 				id={inputId}
 				name={name}
-				onChange={() => {
-					setIsChecked((previouslyIsChecked: boolean) => !previouslyIsChecked)
+				onChange={(e) => {
+					setIsChecked((previousIsChecked: boolean) => !previousIsChecked)
+					onChange(e)
 				}}
+				onClick={onClick}
 			/>
 			<Label className={s.label} fontWeight={labelFontWeight} htmlFor={inputId}>
 				{label}
