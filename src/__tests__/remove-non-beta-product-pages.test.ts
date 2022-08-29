@@ -32,6 +32,7 @@ describe('remove-non-beta-product-pages', () => {
 		🧹 removing pages at /terraform
 		🧹 removing pages at /vagrant
 		🧹 removing pages at /well-architected-framework
+		🧹 removing pages at /onboarding
 		"
 	`)
 	})
