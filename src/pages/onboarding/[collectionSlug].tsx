@@ -31,6 +31,10 @@ export async function getStaticProps({
 		props: stripUndefinedProperties({
 			collection: currentCollection,
 			layoutProps: { breadcrumbLinks },
+			metadata: {
+				onboardingName: onboardingData.name,
+				onboardingSlug: onboardingData.slug,
+			},
 		}),
 	}
 }

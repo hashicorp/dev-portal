@@ -4,8 +4,14 @@ import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import CollectionMeta from 'views/collection-view/components/collection-meta'
 import CollectionTutorialList from 'views/collection-view/components/collection-tutorial-list'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
+import { SidebarProps } from 'components/sidebar'
 
-export default function OnboardingCollectionView({ collection, layoutProps }) {
+export default function OnboardingCollectionView({
+	collection,
+	layoutProps,
+	metadata,
+}) {
 	const { name, id, description, tutorials, ordered, slug } = collection
 	const startTutorialSlug = `/${slug}/${splitProductFromFilename(
 		tutorials[0].slug
@@ -15,7 +21,26 @@ export default function OnboardingCollectionView({ collection, layoutProps }) {
 		<SidebarSidecarLayout
 			sidecarSlot={null}
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
-			sidebarNavDataLevels={[]}
+			sidebarNavDataLevels={[
+				generateTopLevelSidebarNavData(metadata.onboardingName) as SidebarProps,
+				{
+					title: metadata.onboardingName,
+					levelButtonProps: {
+						levelUpButtonText: `Main Menu`,
+						levelDownButtonText: 'Previous',
+					},
+					showFilterInput: false,
+
+					menuItems: tutorials.map((tutorial) => ({
+						title: tutorial.name,
+						isActive: false,
+						fullPath: `/${collection.slug}/${splitProductFromFilename(
+							tutorial.slug
+						)}`,
+						id: tutorial.id,
+					})),
+				},
+			]}
 		>
 			<CollectionMeta
 				heading={{ text: name, id }}
