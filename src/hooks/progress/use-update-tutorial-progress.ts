@@ -53,7 +53,7 @@ export function useUpdateTutorialProgress({
 	const [isRunningMutation, setIsRunningMutation] = useState<boolean>(false)
 
 	// We pass these progress-tracking refs to the consumer
-	const [startRef, startInView] = useInView()
+	const [startRef, startInView] = useInView({ initialInView: true })
 	const [endRef, endInView] = useInView()
 
 	/**
@@ -67,8 +67,9 @@ export function useUpdateTutorialProgress({
 		 * or if we already in the middle of a mutation,
 		 * then bail early
 		 */
+		const isLoading = typeof tutorialProgressLabel == 'undefined'
 		const hasIds = tutorialId && collectionId
-		if (!hasIds || !isAuthenticated || isRunningMutation) {
+		if (!hasIds || !isAuthenticated || isRunningMutation || isLoading) {
 			return
 		}
 		/**
