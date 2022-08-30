@@ -65,7 +65,7 @@ const CheckboxGroup = ({
 			{legendElement}
 			{helperTextElement}
 			<div className={s[`options--${layout}`]}>
-				{options.map((option: CheckboxGroupOption, index: number) => {
+				{options.map((option: CheckboxGroupOption) => {
 					return (
 						<CheckboxField
 							helperText={isVerticalLayout ? option.helperText : undefined}
