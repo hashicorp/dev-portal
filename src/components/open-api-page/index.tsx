@@ -32,7 +32,6 @@ function OpenApiPageContents({
 	if (operationCategory) {
 		return (
 			<div>
-				<h1>TEST TEST TEST</h1>
 				<p className={s.pageHeading}>{info.title}</p>
 				<h1 className={s.categoryHeading}>{operationCategory.name}</h1>
 				<div ref={operationsRef}>
