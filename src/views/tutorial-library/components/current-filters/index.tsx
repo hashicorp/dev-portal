@@ -1,7 +1,7 @@
-import classNames from 'classnames'
 import { useCurrentRefinements } from 'react-instantsearch-hooks-web'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 
+import Text from 'components/text'
 import { productSlugsToNames } from 'lib/products'
 import currentFiltersStyle from './current-filters.module.css'
 import { EDITIONS, RESOURCES } from '../../constants'
@@ -15,13 +15,10 @@ export function CurrentFilters() {
 	const hasAppliedFilters = items && items.length > 0
 
 	return (
-		<div
-			className={classNames(
-				currentFiltersStyle.root,
-				hasAppliedFilters && currentFiltersStyle.hasFilters
-			)}
-		>
-			<span className={currentFiltersStyle.label}>Filters:</span>
+		<div className={currentFiltersStyle.root}>
+			<Text asElement="span" size={200}>
+				{hasAppliedFilters ? 'Your selected filters:' : 'No filters selected'}
+			</Text>
 			<ul>
 				{items.flatMap((item) => {
 					return item.refinements.map((refinement) => {

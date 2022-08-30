@@ -1,10 +1,8 @@
+import { RadioField } from 'components/form/field-controls'
 import { useInstantSearch, useMenu } from 'react-instantsearch-hooks-web'
 import { EDITIONS } from '../../constants'
 import { FilterSection } from '../filter-section'
 
-/**
- * @TODO abstract the radio input to reduce duplication here
- */
 export function EditionFilter() {
 	const { refine } = useMenu({ attribute: 'edition' })
 
@@ -16,16 +14,15 @@ export function EditionFilter() {
 	return (
 		<FilterSection heading="Edition">
 			<li>
-				<label htmlFor="all">
-					<input
-						type="radio"
-						radioGroup="edition"
-						id={'all'}
-						checked={!isAnyEditionSelected}
-						onChange={() => refine(null)}
-					/>
-					<span>All</span>
-				</label>
+				<RadioField
+					labelFontWeight="regular"
+					label="All"
+					value="all"
+					name="edition"
+					id="all"
+					checked={!isAnyEditionSelected}
+					onChange={() => refine(null)}
+				/>
 			</li>
 			{EDITIONS.map(({ value, label }) => {
 				const isEditionSelected = value === selectedAddition
@@ -34,16 +31,15 @@ export function EditionFilter() {
 
 				return (
 					<li key={value}>
-						<label htmlFor={inputId}>
-							<input
-								type="radio"
-								radioGroup="edition"
-								id={inputId}
-								checked={isEditionSelected}
-								onChange={() => refine(value)}
-							/>
-							<span>{label}</span>
-						</label>
+						<RadioField
+							labelFontWeight="regular"
+							label={label}
+							value={value}
+							name="edition"
+							id={inputId}
+							checked={isEditionSelected}
+							onChange={() => refine(value)}
+						/>
 					</li>
 				)
 			})}
