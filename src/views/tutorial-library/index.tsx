@@ -21,8 +21,6 @@ const queryHook: UseSearchBoxProps['queryHook'] = (query, search) => {
 
 /**
  *
- * @TODO no results state
- * @TODO filter styling
  * @TODO pagination
  */
 export default function TutorialLibraryView() {

@@ -20,6 +20,7 @@ const ButtonLink = ({
 	size = 'medium',
 	text,
 	className,
+	onClick,
 }: ButtonLinkProps) => {
 	const hasIcon = !!icon
 	const hasText = !!text
@@ -47,6 +48,7 @@ const ButtonLink = ({
 				className={classNames(s.root, s[size], s[color], className)}
 				rel={openInNewTab ? 'noreferrer noopener' : undefined}
 				target={openInNewTab ? '_blank' : '_self'}
+				onClick={onClick}
 			>
 				{hasLeadingIcon && icon}
 				{hasText ? text : null}

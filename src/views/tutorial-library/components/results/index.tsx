@@ -1,18 +1,20 @@
-import { useHits } from 'react-instantsearch-hooks-web'
+import { useHits, useInstantSearch } from 'react-instantsearch-hooks-web'
 
 import CardsGridList from 'components/cards-grid-list'
 import { TutorialCardWithBookmark } from 'components/tutorial-card'
 import { getTutorialCardPropsFromHit } from '../../utils/get-tutorial-card-props-from-hit'
 import EmptyState from 'components/empty-state'
 import { ClearFilters } from '../clear-filters'
+import { Pagination } from '../pagination'
 
 /**
  * Renders tutorial search results as a card grid
  */
 export function TutorialLibraryResults() {
+	const { results } = useInstantSearch()
 	const { hits } = useHits()
 
-	if (hits.length === 0) {
+	if (!results?.__isArtificial && hits.length === 0) {
 		return (
 			<EmptyState
 				heading="No results"
@@ -23,13 +25,16 @@ export function TutorialLibraryResults() {
 	}
 
 	return (
-		<CardsGridList fixedColumns={3}>
-			{hits.map((hit) => (
-				<TutorialCardWithBookmark
-					key={hit.objectID}
-					{...getTutorialCardPropsFromHit(hit)}
-				/>
-			))}
-		</CardsGridList>
+		<>
+			<CardsGridList fixedColumns={3}>
+				{hits.map((hit) => (
+					<TutorialCardWithBookmark
+						key={hit.objectID}
+						{...getTutorialCardPropsFromHit(hit)}
+					/>
+				))}
+			</CardsGridList>
+			<Pagination />
+		</>
 	)
 }

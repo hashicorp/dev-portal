@@ -11,6 +11,7 @@ export function routerStateToSearchState(
 ): InstantSearchProps['initialUiState'] {
 	return {
 		[INDEX_NAME]: {
+			page: Number.parseInt(routeState.page as string, 10),
 			query: routeState.query as string,
 			refinementList: {
 				products: (routeState?.product as string)?.split?.(',') ?? [],
@@ -40,6 +41,7 @@ export function searchStateToRouteState(
 ) {
 	const state = searchState[INDEX_NAME]
 	const result = {
+		page: state.page || undefined,
 		query: state.query,
 		product: state.refinementList?.products?.join(',') || undefined,
 		edition: state?.menu?.edition,
