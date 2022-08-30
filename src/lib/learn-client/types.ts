@@ -260,6 +260,15 @@ export enum CompanyLogoOption {
 	aws = 'aws',
 }
 
+export enum TutorialProgressPercent {
+	Zero = '0',
+	TwentyFive = '25',
+	Fifty = '50',
+	SeventyFive = '75',
+	Ninety = '90',
+	OneHundred = '100',
+}
+
 /**
  * TYPE GUARDS ---------------------------------
  */
