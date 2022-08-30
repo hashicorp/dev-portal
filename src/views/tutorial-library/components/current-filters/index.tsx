@@ -20,43 +20,58 @@ export function CurrentFilters() {
 				{hasAppliedFilters ? 'Your selected filters:' : 'No filters selected'}
 			</Text>
 			<ul>
-				{items.flatMap((item) => {
-					return item.refinements.map((refinement) => {
-						const { label, type, attribute } = refinement
-
-						let labelText = label
-						// This is a "Resource" filter
-						if (type === 'disjunctive') {
-							const resource = RESOURCES.find(
-								(resource) => resource.attribute === attribute
-							)
-							labelText = resource.label
+				{items
+					// Sort filters in the order they appear in the sidebar: [products] [edition] [resources]
+					.sort((a, b) => {
+						if (a.attribute === 'products') {
+							return -1
 						}
 
-						if (attribute === 'edition') {
-							const edition = EDITIONS.find(
-								(edition) => edition.value === label
-							)
-							labelText = edition.label
+						if (b.attribute === 'products') {
+							return 1
 						}
 
-						if (attribute === 'products') {
-							labelText = productSlugsToNames[label]
+						if (a.attribute === 'edition') {
+							return -1
 						}
-
-						return (
-							<li key={labelText}>
-								<button
-									onClick={() => item.refine(refinement)}
-									className={currentFiltersStyle.filterButton}
-									aria-label={`Remove filter ${labelText}`}
-								>
-									{labelText} <IconX16 />
-								</button>
-							</li>
-						)
 					})
-				})}
+					.flatMap((item) => {
+						return item.refinements.map((refinement) => {
+							const { label, type, attribute } = refinement
+
+							let labelText = label
+							// This is a "Resource" filter
+							if (type === 'disjunctive') {
+								const resource = RESOURCES.find(
+									(resource) => resource.attribute === attribute
+								)
+								labelText = resource.label
+							}
+
+							if (attribute === 'edition') {
+								const edition = EDITIONS.find(
+									(edition) => edition.value === label
+								)
+								labelText = edition.label
+							}
+
+							if (attribute === 'products') {
+								labelText = productSlugsToNames[label]
+							}
+
+							return (
+								<li key={labelText}>
+									<button
+										onClick={() => item.refine(refinement)}
+										className={currentFiltersStyle.filterButton}
+										aria-label={`Remove filter ${labelText}`}
+									>
+										{labelText} <IconX16 />
+									</button>
+								</li>
+							)
+						})
+					})}
 			</ul>
 		</div>
 	)
