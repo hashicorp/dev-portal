@@ -32,9 +32,9 @@ export function progressLabelToPercent(
 ): TutorialProgressPercent {
 	if (progressState === TutorialProgressLabel.complete) {
 		return TutorialProgressPercent.OneHundred
-	} else if (progressState === TutorialProgressLabel.visited) {
-		return TutorialProgressPercent.Zero
-	} else {
+	} else if (progressState === TutorialProgressLabel.in_progress) {
 		return TutorialProgressPercent.Fifty
+	} else {
+		return TutorialProgressPercent.Zero
 	}
 }
