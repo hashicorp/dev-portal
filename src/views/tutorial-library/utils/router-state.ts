@@ -19,8 +19,14 @@ export function routerStateToSearchState(
 				edition: routeState.edition as string,
 			},
 			toggle: {
-				hasVideo: routeState.hasVideo === 'true',
-				isInteractive: routeState.isInteractive === 'true',
+				hasVideo:
+					typeof routeState.hasVideo !== 'undefined'
+						? routeState.hasVideo === 'true'
+						: undefined,
+				isInteractive:
+					typeof routeState.hasInteractive !== 'undefined'
+						? routeState.isInteractive === 'true'
+						: undefined,
 			},
 		},
 	}
