@@ -20,7 +20,6 @@ export async function getStaticProps({
 
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
-		{ title: onboardingData.name },
 		{
 			title: currentCollection.name,
 			url: `/${currentCollection.slug}`,
