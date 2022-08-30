@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { LabelProps } from 'components/form/components'
-
 import { CheckboxControlProps } from 'components/form/base-controls'
 
 type InheritedCheckboxControlProps = Pick<
@@ -13,7 +12,6 @@ interface CheckboxFieldProps extends InheritedCheckboxControlProps {
 	helperText?: string
 	label: ReactNode
 	labelFontWeight?: LabelProps['fontWeight']
-	name?: string
 }
 
 export type { CheckboxFieldProps }
