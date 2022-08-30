@@ -1,0 +1,41 @@
+.root {
+	appearance: none;
+	background-color: var(--token-form-control-base-surface-color-default);
+	background-position: center center;
+	background-size: var(--token-form-checkbox-background-image-size)
+		var(--token-form-checkbox-background-image-size);
+	border-color: var(--token-form-control-base-border-color-default);
+	border-radius: var(--token-form-checkbox-border-radius);
+	border-style: solid;
+	border-width: var(--token-form-checkbox-border-width);
+	box-shadow: var(--hds-elevation-inset-box-shadow);
+	cursor: pointer;
+	grid-area: input;
+	height: var(--token-form-checkbox-size);
+	margin: 0;
+	margin-bottom: 2px;
+	margin-top: 2px;
+	padding: 0;
+	width: var(--token-form-checkbox-size);
+
+	&:checked {
+		background-color: var(--token-form-control-checked-surface-color-default);
+		background-image: var(--token-form-checkbox-background-image-data-url);
+		border-color: var(--token-form-control-checked-border-color-default);
+	}
+
+	&:focus {
+		outline: var(--token-color-focus-action-external) solid 3px;
+		outline-offset: 1px;
+	}
+
+	&:hover:checked {
+		background-color: var(--token-form-control-checked-border-color-default);
+		border-color: var(--token-form-control-checked-border-color-hover);
+	}
+
+	&:hover:not(:checked) {
+		background-color: var(--token-form-control-base-surface-color-hover);
+		border-color: var(--token-form-control-base-border-color-hover);
+	}
+}

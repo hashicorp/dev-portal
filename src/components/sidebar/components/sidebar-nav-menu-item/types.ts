@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import Badge, { BadgeProps } from 'components/badge'
 import { MenuItem } from 'components/sidebar'
@@ -30,8 +31,13 @@ interface SidebarNavLinkItemProps {
 	item: SidebarNavLinkItem
 }
 
+interface SidebarNavMenuButtonProps {
+	item: { title: string; onClick(): void; icon: ReactElement }
+}
+
 export type {
 	RightIconsContainerProps,
+	SidebarNavMenuButtonProps,
 	SidebarNavLinkItemProps,
 	SidebarNavMenuItemBadgeProps,
 	SidebarNavMenuItemProps,

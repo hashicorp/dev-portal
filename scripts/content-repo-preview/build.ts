@@ -1,12 +1,20 @@
 import { execFileSync } from 'child_process'
 import path from 'path'
 import fs from 'fs'
+import { IoPreviewBuilder } from './builders/io-sites'
+import { DeveloperPreviewBuilder } from './builders/developer'
+
+/**
+ * Controls how the application is built, using either the `IoPreviewBuilder` or `DeveloperPreviewBuilder`
+ */
+type PreviewMode = 'io' | 'developer'
+
+// our CWD
+const cwd = process.cwd()
 
 function checkEnvVars() {
 	// Filter out defined env vars, leaving only the missing ones
-	const missingEnvVars = ['REPO', 'DEV_IO', 'IS_CONTENT_PREVIEW'].filter(
-		(key) => !process.env[key]
-	)
+	const missingEnvVars = ['REPO'].filter((key) => !process.env[key])
 
 	if (missingEnvVars.length > 0) {
 		console.error(
@@ -23,14 +31,21 @@ function checkEnvVars() {
 async function main() {
 	if (!checkEnvVars()) {
 		process.exit(1)
-		return
 	}
+
+	process.env.IS_CONTENT_PREVIEW = 'true'
+
+	const previewMode: PreviewMode =
+		(process.env.PREVIEW_MODE as PreviewMode | undefined) || 'io'
 
 	const repo = process.env.REPO
 
-	// our CWD
-	const cwd = process.cwd()
-	const globalCSSFile = path.join(cwd, 'src', 'pages', 'style.css')
+	const builder =
+		previewMode === 'developer'
+			? DeveloperPreviewBuilder(repo)
+			: IoPreviewBuilder(repo)
+
+	console.log(`🏗 building deploy preview with mode: ${previewMode}`)
 
 	/**
 	 * Check for a cached node_modules folder folder, if found copy it back into our website-preview dir
@@ -51,68 +66,17 @@ async function main() {
 	execFileSync('cp', ['-R', './public', `../`])
 
 	/**
-	 * exclude any imports in the global CSS file which rely on other products
+	 * Execute any prebuild steps from the builder
 	 */
-	const globalCSSFileContents = await fs.promises.readFile(
-		globalCSSFile,
-		'utf-8'
-	)
-
-	const newContents = globalCSSFileContents
-		.split('\n')
-		.map((line) => {
-			// comment out lines which references paths we will be removing
-			if (
-				!line.startsWith('/*') &&
-				line.includes('_proxied-dot-io') &&
-				!line.includes(repo)
-			) {
-				return `/* ${line} */`
-			}
-			return line
-		})
-		.join('\n')
-
-	console.log(`🧹 removing global CSS references for other products`)
-	await fs.promises.writeFile(globalCSSFile, newContents)
-
-	/**
-	 * Remove dirs in `src/pages` which are not associated with the product
-	 */
-	const pagesDir = path.join(cwd, 'src', 'pages')
-	const proxiedIoPagesDir = path.join(pagesDir, '_proxied-dot-io')
-
-	const rootPagesDirs = (
-		await fs.promises.readdir(pagesDir, { withFileTypes: true })
-	).filter((ent) => ent.isDirectory())
-	const proxiedIoDirs = (
-		await fs.promises.readdir(proxiedIoPagesDir, { withFileTypes: true })
-	).filter((ent) => ent.isDirectory())
-
-	for (const dir of rootPagesDirs) {
-		if (dir.name !== '_proxied-dot-io' && dir.name !== 'api') {
-			console.log(`🧹 removing pages at /${dir.name}`)
-			await fs.promises.rm(path.join(pagesDir, dir.name), {
-				recursive: true,
-			})
-		}
-	}
-
-	for (const dir of proxiedIoDirs) {
-		if (!dir.name.includes(repo)) {
-			console.log(`🧹 removing pages for ${dir.name}`)
-			await fs.promises.rm(path.join(proxiedIoPagesDir, dir.name), {
-				recursive: true,
-			})
-		}
-	}
+	console.log('⚙️ executing prebuild step')
+	await builder.prebuild()
 
 	/** Install deps */
 	console.log('📦 Installing dependencies')
 	execFileSync('npm', ['install', '--production=false'], { stdio: 'inherit' })
 
 	/** Build */
-	execFileSync('npm', ['run', 'build'], { stdio: 'inherit' })
+	await builder.build()
 
 	// Put node_modules into .next/cache so we can retrieve them on subsequent builds
 	execFileSync('cp', ['-R', 'node_modules', '.next/cache'], {
