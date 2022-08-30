@@ -1,11 +1,17 @@
+import { useState } from 'react'
 import { useAllBookmarks } from 'hooks/bookmarks'
-import BaseNewLayout from 'layouts/base-new'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import AuthenticatedView from 'views/authenticated-view'
 import CardsGridList from 'components/cards-grid-list'
 import Text from 'components/text'
 import Heading from 'components/heading'
+import DropdownDisclosure, {
+	DropdownDisclosureButtonItem,
+} from 'components/dropdown-disclosure'
 import BookmarksEmptyState from './components/empty-state'
+import { ProfileBookmarksSidebar } from './components/sidebar'
 import renderBookmarkCard from './helpers/render-bookmark-cards'
+import { SortData } from './helpers/card-sort-data'
 import s from './bookmarks-view.module.css'
 
 /**
@@ -15,7 +21,21 @@ import s from './bookmarks-view.module.css'
 const ProfileBookmarksView = () => {
 	return (
 		<AuthenticatedView>
-			<ProfileBookmarksViewContent />
+			<SidebarSidecarLayout
+				breadcrumbLinks={[
+					{ title: 'Developer', url: '/' },
+					{
+						title: 'Bookmarks',
+						url: '/profile/bookmarks',
+						isCurrentPage: true,
+					},
+				]}
+				AlternateSidebar={ProfileBookmarksSidebar}
+				sidebarNavDataLevels={[]}
+				sidecarSlot={null}
+			>
+				<ProfileBookmarksViewContent />
+			</SidebarSidecarLayout>
 		</AuthenticatedView>
 	)
 }
@@ -24,12 +44,12 @@ const ProfileBookmarksView = () => {
  * The content of the ProfileView that is gated behind authentication.
  */
 const ProfileBookmarksViewContent = () => {
-	const { bookmarks, isFetching, isRefetching } = useAllBookmarks({
+	const { bookmarks, isLoading } = useAllBookmarks({
 		enabled: true,
 	})
-	const isFirstLoad = isFetching && !isRefetching
+	const [sortBy, setSortBy] = useState(SortData.newest)
 
-	if (isFirstLoad) {
+	if (isLoading) {
 		return null // TODO return loading skeleton
 	}
 
@@ -44,15 +64,31 @@ const ProfileBookmarksViewContent = () => {
 			</Text>
 			{bookmarks?.length > 0 ? (
 				<>
-					<Heading
-						level={2}
-						weight="semibold"
-						size={300}
-						className={s.cardListHeading}
-					>
-						Your Bookmarks
-					</Heading>
-					<CardsGridList>{bookmarks.map(renderBookmarkCard)}</CardsGridList>
+					<span className={s.cardListHeading}>
+						<Heading level={2} weight="semibold" size={300}>
+							Your Bookmarks
+						</Heading>
+						<DropdownDisclosure
+							color="secondary"
+							text={sortBy.text}
+							aria-label={`Sort by ${sortBy.text}`}
+							listPosition="right"
+						>
+							<DropdownDisclosureButtonItem
+								onClick={() => setSortBy(SortData.newest)}
+							>
+								{SortData.newest.text}
+							</DropdownDisclosureButtonItem>
+							<DropdownDisclosureButtonItem
+								onClick={() => setSortBy(SortData.oldest)}
+							>
+								{SortData.oldest.text}
+							</DropdownDisclosureButtonItem>
+						</DropdownDisclosure>
+					</span>
+					<CardsGridList fixedColumns={2}>
+						{bookmarks.sort(sortBy.sort).map(renderBookmarkCard)}
+					</CardsGridList>
 				</>
 			) : (
 				<BookmarksEmptyState />
@@ -61,5 +97,4 @@ const ProfileBookmarksViewContent = () => {
 	)
 }
 
-ProfileBookmarksView.layout = BaseNewLayout
 export default ProfileBookmarksView

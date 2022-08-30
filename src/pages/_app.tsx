@@ -142,6 +142,8 @@ App.getInitialProps = async ({ Component, ctx }) => {
 	let host
 	if (ctx.req) {
 		host = ctx.req.headers.host
+	} else {
+		host = window.location.host
 	}
 
 	return {

@@ -22,6 +22,7 @@ import Text from 'components/text'
 import {
 	RightIconsContainerProps,
 	SidebarNavLinkItemProps,
+	SidebarNavMenuButtonProps,
 	SidebarNavMenuItemBadgeProps,
 	SidebarNavMenuItemProps,
 	SupportedIconName,
@@ -148,6 +149,26 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 			</a>
 		)
 	}
+}
+
+/**
+ * Handles rendering a button and icon for the sidebar.
+ * Currently used for a 'sign out' action on the profile page
+ */
+export function SidebarNavMenuButton({ item }: SidebarNavMenuButtonProps) {
+	return (
+		<button className={s.sidebarNavMenuItem} onClick={item.onClick}>
+			<Text
+				size={200}
+				weight="regular"
+				asElement="span"
+				className={s.navMenuItemLabel}
+			>
+				{item.title}
+			</Text>
+			<RightIconsContainer icon={item.icon} />
+		</button>
+	)
 }
 
 /**

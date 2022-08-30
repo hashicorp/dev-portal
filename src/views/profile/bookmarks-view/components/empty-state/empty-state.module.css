@@ -3,7 +3,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border: 1px dashed var(--token-color-neutral-border-strong);
+	border: 1px dashed var(--token-color-border-strong);
 	padding: 24px;
 	text-align: center;
 }

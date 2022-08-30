@@ -1,12 +1,11 @@
 import { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Tutorial } from 'lib/learn-client/types'
 import useAuthentication, {
 	DEFAULT_PROVIDER_ID,
 } from 'hooks/use-authentication'
 import { useBookmarkMutations, useIsBookmarked } from 'hooks/bookmarks'
 import Dialog from 'components/dialog'
-import { BookmarkButtonProps } from '../types'
+import { BookmarkButtonProps, ConnectedBookmarkComponentProps } from '../types'
 import BookmarkSignInPrompt from '../sign-in-dialog'
 import makeBookmarkToast from '../toast/make-bookmark-toast'
 
@@ -22,13 +21,11 @@ import makeBookmarkToast from '../toast/make-bookmark-toast'
 
 export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 	return function ConnectedBookmarkComponent({
-		tutorialId,
-	}: {
-		tutorialId: Tutorial['id']
-	}) {
+		tutorial,
+	}: ConnectedBookmarkComponentProps) {
 		const { asPath } = useRouter()
 		const { isAuthenticated, signIn } = useAuthentication()
-		const { isBookmarked } = useIsBookmarked({ tutorialId })
+		const { isBookmarked } = useIsBookmarked({ tutorialId: tutorial.id })
 		const { addBookmark, removeBookmark } = useBookmarkMutations()
 		const [showDialog, setShowDialog] = useState(false)
 		const openDialog = () => setShowDialog(true)
@@ -41,15 +38,22 @@ export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 			}
 
 			if (isBookmarked) {
-				removeBookmark(tutorialId, {
-					onSuccess: () => makeBookmarkToast('remove'),
+				removeBookmark(tutorial.id, {
+					onSuccess: () => makeBookmarkToast('remove', tutorial.name),
 				})
 			} else {
-				addBookmark(tutorialId, {
-					onSuccess: () => makeBookmarkToast('add'),
+				addBookmark(tutorial.id, {
+					onSuccess: () => makeBookmarkToast('add', tutorial.name),
 				})
 			}
-		}, [addBookmark, isAuthenticated, isBookmarked, removeBookmark, tutorialId])
+		}, [
+			addBookmark,
+			isAuthenticated,
+			isBookmarked,
+			removeBookmark,
+			tutorial.id,
+			tutorial.name,
+		])
 
 		return (
 			<>
@@ -60,7 +64,7 @@ export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 				<Dialog
 					onDismiss={closeDialog}
 					isOpen={showDialog}
-					label="Opt out form"
+					label="Sign in to bookmark"
 				>
 					<BookmarkSignInPrompt
 						onDismiss={closeDialog}
