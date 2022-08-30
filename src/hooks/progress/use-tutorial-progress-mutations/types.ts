@@ -21,7 +21,7 @@ export type TutorialProgressMutationVariables =
  * The arguments object accepted by either of the
  * `createTutorialProgress` & `updateTutorialProgress` mutations
  */
-export interface TutorialProgressArgs {
+export interface TutorialProgressMutationArgs {
 	tutorialId: Tutorial['id']
 	collectionId: Collection['id']
 	completePercent: TutorialProgressPercent
@@ -37,6 +37,6 @@ export interface TutorialProgressArgs {
  * useTutorialProgressMutations().
  */
 export interface UseTutorialProgressMutationsResult {
-	createTutorialProgress: (args: TutorialProgressArgs) => void
-	updateTutorialProgress: (args: TutorialProgressArgs) => void
+	createTutorialProgress: (args: TutorialProgressMutationArgs) => void
+	updateTutorialProgress: (args: TutorialProgressMutationArgs) => void
 }

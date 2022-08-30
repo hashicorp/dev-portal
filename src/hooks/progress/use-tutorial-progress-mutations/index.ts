@@ -8,7 +8,7 @@ import {
 import { progressPercentToLabel } from 'lib/learn-client/api/progress/formatting'
 import {
 	TutorialProgressMutationVariables,
-	TutorialProgressArgs,
+	TutorialProgressMutationArgs,
 	UseTutorialProgressMutationsResult,
 } from './types'
 import { ApiCollectionTutorialProgress } from 'lib/learn-client/api/api-types'
@@ -64,7 +64,7 @@ const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 	 * We wrap this in useCallback to prevent more updates than necessary.
 	 */
 	const createTutorialProgress = useCallback(
-		(args: TutorialProgressArgs) => {
+		(args: TutorialProgressMutationArgs) => {
 			const { tutorialId, collectionId, completePercent, options } = args
 			createTutorialProgressMutation.mutate(
 				{ accessToken, tutorialId, collectionId, completePercent },
@@ -90,7 +90,7 @@ const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 	 * we wrap this in useCallback to prevent more updates than necessary.
 	 */
 	const updateTutorialProgress = useCallback(
-		(args: TutorialProgressArgs) => {
+		(args: TutorialProgressMutationArgs) => {
 			const { tutorialId, collectionId, completePercent, options } = args
 			updateTutorialProgressMutation.mutate(
 				{ accessToken, tutorialId, collectionId, completePercent },
@@ -103,5 +103,5 @@ const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 	return { createTutorialProgress, updateTutorialProgress }
 }
 
-export type { UseTutorialProgressMutationsResult }
+export type { TutorialProgressMutationArgs, UseTutorialProgressMutationsResult }
 export { useTutorialProgressMutations }

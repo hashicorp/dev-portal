@@ -6,13 +6,13 @@ import { progressLabelToPercent } from 'lib/learn-client/api/progress/formatting
 import {
 	useTutorialProgress,
 	useTutorialProgressMutations,
+	TutorialProgressMutationArgs,
 } from 'hooks/progress'
 // Types
 import {
 	TutorialIdCollectionId,
 	TutorialProgressLabel,
 } from 'lib/learn-client/types'
-import { TutorialProgressArgs } from './use-tutorial-progress-mutations/types'
 
 type IntersectionRef = (node?: Element) => void
 
@@ -107,7 +107,7 @@ export function useUpdateTutorialProgress({
 			 * as this can cause an infinite loop of retries.
 			 */
 			setIsRunningMutation(true)
-			const mutationArgs: TutorialProgressArgs = {
+			const mutationArgs: TutorialProgressMutationArgs = {
 				tutorialId,
 				collectionId,
 				completePercent: newPercent,
