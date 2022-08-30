@@ -9,13 +9,14 @@ const CheckboxField = ({
 	errors,
 	helperText,
 	id,
-	initialIsChecked = false,
+	checked = false,
 	label,
 	labelFontWeight,
 	name,
+	onChange = () => void 0,
 }: CheckboxFieldProps) => {
 	const inputId = useId(id)
-	const [isChecked, setIsChecked] = useState<boolean>(initialIsChecked)
+	const [isChecked, setIsChecked] = useState<boolean>(checked)
 
 	let helperTextElement, helperTextElementId
 	if (helperText) {
@@ -39,8 +40,9 @@ const CheckboxField = ({
 				checked={isChecked}
 				id={inputId}
 				name={name}
-				onChange={() => {
+				onChange={(event) => {
 					setIsChecked((previouslyIsChecked: boolean) => !previouslyIsChecked)
+					onChange(event)
 				}}
 			/>
 			<Label className={s.label} fontWeight={labelFontWeight} htmlFor={inputId}>

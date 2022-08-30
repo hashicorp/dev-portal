@@ -2,7 +2,6 @@ import {
 	useInstantSearch,
 	useRefinementList,
 } from 'react-instantsearch-hooks-web'
-import classNames from 'classnames'
 
 import { productSlugsToNames } from 'lib/products'
 
@@ -12,6 +11,7 @@ import { ProductSlug } from 'types/products'
 import productFilterStyle from './product-filter.module.css'
 import { FilterSection } from '../filter-section'
 import { VALID_PRODUCT_SLUGS_FOR_FILTERING } from 'views/tutorial-library/constants'
+import { CheckboxField } from 'components/form/field-controls'
 
 export function ProductFilter() {
 	const { refine } = useRefinementList({
@@ -33,24 +33,23 @@ export function ProductFilter() {
 
 				return (
 					<li key={slug}>
-						<label htmlFor={inputId} className={productFilterStyle.option}>
-							<input
-								type="checkbox"
-								id={inputId}
-								checked={isProductSelected}
-								onChange={() => {
-									refine(slug)
-								}}
-							/>
-							<ProductIcon
-								productSlug={slug as ProductSlug}
-								className={classNames(
-									productFilterStyle.icon,
-									isProductSelected && productFilterStyle.active
-								)}
-							/>
-							{productName}
-						</label>
+						<CheckboxField
+							id={inputId}
+							checked={isProductSelected}
+							onChange={() => {
+								refine(slug)
+							}}
+							labelFontWeight="regular"
+							label={
+								<>
+									<ProductIcon
+										productSlug={slug as ProductSlug}
+										className={productFilterStyle.icon}
+									/>
+									{productName}
+								</>
+							}
+						/>
 					</li>
 				)
 			})}
