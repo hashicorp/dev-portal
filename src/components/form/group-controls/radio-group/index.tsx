@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
-import deriveKeyEventState from 'lib/derive-key-event-state'
 import Badge from 'components/badge'
 import { Legend, HelperText, Errors } from 'components/form/components'
 import RadioField from 'components/form/field-controls/radio-field'
@@ -60,23 +59,6 @@ const RadioGroup = ({
 		errorsElement = <Errors className={s.errors} messages={errors} />
 	}
 
-	// TODO handle wrapping through the options w/ arrow keys
-	const handleKeyDown = (e, index) => {
-		const { isArrowDownKey, isArrowLeftKey, isArrowRightKey, isArrowUpKey } =
-			deriveKeyEventState(e)
-		const lastIndex = options.length - 1
-		const isFirstOption = index === 0
-		const isLastOption = index === lastIndex
-
-		if (isFirstOption && (isArrowUpKey || isArrowLeftKey)) {
-			// e.preventDefault()
-			// Focus and/or select the last option (probably need ref on the fieldset)
-		} else if (isLastOption && (isArrowDownKey || isArrowRightKey)) {
-			// e.preventDefault()
-			// Focus and/or select the first option (probably need ref on the fieldset)
-		}
-	}
-
 	return (
 		<fieldset
 			aria-describedby={helperTextElementId}
@@ -90,15 +72,14 @@ const RadioGroup = ({
 				{options.map((option: RadioGroupOption, index: number) => {
 					return (
 						<RadioField
-							// eslint-disable-next-line react/no-array-index-key
-							key={index}
+							key={option.value}
 							checked={index === indexOfSelectedOption}
 							helperText={isVerticalLayout ? option.helperText : undefined}
 							label={option.label}
+							value={option.value}
 							labelFontWeight={hasLegend ? 'regular' : 'semibold'}
 							name={name}
 							onChange={() => setIndexOfSelectedOption(index)}
-							onKeyDown={(e) => handleKeyDown(e, index)}
 						/>
 					)
 				})}

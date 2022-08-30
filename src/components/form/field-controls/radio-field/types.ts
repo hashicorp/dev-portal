@@ -14,6 +14,7 @@ interface RadioFieldProps extends InheritedRadioControlProps {
 	initialIsChecked?: boolean
 	label: ReactNode
 	labelFontWeight?: LabelProps['fontWeight']
+	value: string
 }
 
 export type { RadioFieldProps }

@@ -1,16 +1,15 @@
 type NativeFieldSetProps = JSX.IntrinsicElements['fieldset']
 
-type InheritedFieldSetProps = Pick<
-	NativeFieldSetProps,
-	'disabled' | 'form' | 'name'
->
+type InheritedFieldSetProps = Pick<NativeFieldSetProps, 'disabled' | 'form'>
 
 interface RadioGroupOption {
 	helperText?: string
 	label: string
+	value: string
 }
 
 interface RadioGroupProps extends InheritedFieldSetProps {
+	name: NativeFieldSetProps['name']
 	errors?: string[]
 	helperText?: string
 	isOptional?: boolean

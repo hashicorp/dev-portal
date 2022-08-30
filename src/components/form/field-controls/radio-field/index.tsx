@@ -16,6 +16,7 @@ const RadioField = ({
 	id,
 	label,
 	labelFontWeight,
+	value,
 	name,
 	onChange,
 	onClick,
@@ -45,6 +46,7 @@ const RadioField = ({
 				checked={checked}
 				id={inputId}
 				name={name}
+				value={value}
 				onChange={onChange}
 				onClick={onClick}
 				onKeyDown={onKeyDown}
