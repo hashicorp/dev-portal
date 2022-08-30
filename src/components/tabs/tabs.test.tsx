@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
 import Tabs, { Tab } from '.'
@@ -112,7 +112,7 @@ describe('<Tabs />', () => {
 					selected: false,
 				})
 
-				await userEvent.click(secondTabButton)
+				await act(() => userEvent.click(secondTabButton))
 
 				/**
 				 * Checks that the first tab panel is no longer active and visible in the
@@ -163,7 +163,7 @@ describe('<Tabs />', () => {
 					name: testData[0].heading,
 				})
 				firstTabButton.focus()
-				await userEvent.tab()
+				await act(() => userEvent.tab())
 
 				await waitFor(() => {
 					const firstTabPanel = screen.queryByRole('tabpanel', {
