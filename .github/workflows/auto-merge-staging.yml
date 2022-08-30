@@ -1,4 +1,4 @@
-name: 'Auto Merge Main Branch'
+name: 'Sync `staging` Branch'
 
 # This workflow attempts to merge updates from `main` into the long-standing staging branch.
 
