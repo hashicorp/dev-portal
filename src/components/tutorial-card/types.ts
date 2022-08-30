@@ -37,6 +37,9 @@ export interface TutorialCardProps {
 	 */
 	productsUsed: ProductOption[]
 
+	/**
+	 * TODO: add description
+	 */
 	eyebrowSlot?: ReactNode
 }
 
@@ -45,4 +48,14 @@ export interface TutorialCardPropsWithId extends TutorialCardProps {
 	 * The tutorial's unique identifier
 	 */
 	id: string
+	/**
+	 * The collection context's unique identifier
+	 * TODO: this is required for collection-context-specific progress display.
+	 * I think we collection-specific progress display in most uses of this card.
+	 * So, may need to ensure this prop gets passed in, via formatTutorialCard.
+	 *
+	 * TLDR:
+	 * TODO: make this not optional, should always be passed in.
+	 */
+	collectionId?: string
 }

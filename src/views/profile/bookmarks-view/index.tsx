@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import { ApiBookmark } from 'lib/learn-client/api/api-types'
+import { TutorialCardsGridList } from 'components/cards-grid-list'
+import { formatTutorialCard } from 'components/tutorial-card/helpers'
+import { formatTutorialData } from 'lib/learn-client/api/tutorial/formatting'
 import { useAllBookmarks } from 'hooks/bookmarks'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import AuthenticatedView from 'views/authenticated-view'
-import CardsGridList from 'components/cards-grid-list'
 import Text from 'components/text'
 import Heading from 'components/heading'
 import DropdownDisclosure, {
@@ -10,7 +13,6 @@ import DropdownDisclosure, {
 } from 'components/dropdown-disclosure'
 import BookmarksEmptyState from './components/empty-state'
 import { ProfileBookmarksSidebar } from './components/sidebar'
-import renderBookmarkCard from './helpers/render-bookmark-cards'
 import { SortData } from './helpers/card-sort-data'
 import s from './bookmarks-view.module.css'
 
@@ -86,9 +88,20 @@ const ProfileBookmarksViewContent = () => {
 							</DropdownDisclosureButtonItem>
 						</DropdownDisclosure>
 					</span>
-					<CardsGridList fixedColumns={2}>
-						{bookmarks.sort(sortBy.sort).map(renderBookmarkCard)}
-					</CardsGridList>
+					<TutorialCardsGridList
+						tutorials={bookmarks
+							.sort(sortBy.sort)
+							.map((bookmark: ApiBookmark) => {
+								const formattedTutorial = formatTutorialData(bookmark.tutorial)
+								const defaultCollection =
+									formattedTutorial.collectionCtx.default
+								const tutorialForCard = {
+									...formattedTutorial,
+									defaultContext: defaultCollection,
+								}
+								return formatTutorialCard(tutorialForCard)
+							})}
+					/>
 				</>
 			) : (
 				<BookmarksEmptyState />

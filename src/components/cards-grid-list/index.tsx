@@ -1,7 +1,11 @@
 import { Children } from 'react'
 import classNames from 'classnames'
 import { CardsGridListProps } from './types'
-import { TutorialCardsGridList, TutorialCardsGridListProps } from './components'
+import {
+	TutorialCardsGridList,
+	TutorialCardsGridListWithProgress,
+	TutorialCardsGridListProps,
+} from './components'
 import s from './cards-grid-list.module.css'
 
 /**
@@ -64,5 +68,5 @@ function CardsGridList({
 }
 
 export type { CardsGridListProps, TutorialCardsGridListProps }
-export { TutorialCardsGridList }
+export { TutorialCardsGridList, TutorialCardsGridListWithProgress }
 export default CardsGridList

@@ -6,6 +6,7 @@ import {
 	uuid,
 	CollectionLevelOption,
 	CollectionCategoryOption,
+	TutorialProgressPercent,
 	ThemeOption,
 	EditionOption,
 	HandsOnLabProviderOption,
@@ -73,6 +74,16 @@ export interface ApiCollectionTutorial
 	tutorial_id: string
 	display_order: number
 	tutorial: ApiTutorial
+}
+
+export interface ApiCollectionTutorialProgress
+	extends Pick<BaseModel, 'id' | 'created_at' | 'updated_at'> {
+	user_id: string
+	collection_id: uuid
+	tutorial_id: uuid
+	complete_percent: TutorialProgressPercent
+	tutorial: ApiTutorialLite
+	collection: ApiCollectionLite
 }
 
 export interface ApiBookmark extends BaseModel {

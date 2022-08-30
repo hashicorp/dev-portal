@@ -6,6 +6,10 @@ import TutorialCard from 'components/tutorial-card'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import { BookmarkButtonWithRemoveDialog } from '../components/bookmark-button-with-remove-dialog'
 
+/**
+ * TODO: this should also show progress, I think?
+ */
+
 export default function renderBookmarkCard(bookmark: ApiBookmark) {
 	const {
 		id,

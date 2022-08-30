@@ -6,7 +6,11 @@ import {
 	CardBadges,
 	CardBadgeOption,
 } from 'components/tutorial-collection-cards'
-import { buildAriaLabel, TutorialCardWithBookmark } from './helpers'
+import {
+	buildAriaLabel,
+	TutorialCardWithBookmark,
+	TutorialCardWithAuthElements,
+} from './helpers'
 import { TutorialCardProps, TutorialCardPropsWithId } from './types'
 import s from './tutorial-card.module.css'
 
@@ -54,5 +58,5 @@ function TutorialCard({
 }
 
 export type { TutorialCardProps, TutorialCardPropsWithId }
-export { TutorialCardWithBookmark }
+export { TutorialCardWithBookmark, TutorialCardWithAuthElements }
 export default TutorialCard
