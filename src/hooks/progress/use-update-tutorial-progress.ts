@@ -3,8 +3,10 @@ import { useInView } from 'react-intersection-observer'
 import useAuthentication from 'hooks/use-authentication'
 // Tutorial progress utilities
 import { progressLabelToPercent } from 'lib/learn-client/api/progress/formatting'
-import { useTutorialProgress } from './use-tutorial-progress'
-import { useTutorialProgressMutations } from './use-tutorial-progress-mutations'
+import {
+	useTutorialProgress,
+	useTutorialProgressMutations,
+} from 'hooks/progress'
 // Types
 import {
 	TutorialIdCollectionId,

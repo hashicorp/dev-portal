@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
+import { useUpdateTutorialProgress } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
@@ -49,7 +50,6 @@ import {
 	getNextPrevious,
 } from './components'
 import s from './tutorial-view.module.css'
-import { useUpdateTutorialProgress } from 'hooks/progress/use-update-tutorial-progress'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
