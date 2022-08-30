@@ -21,6 +21,7 @@ import {
 	getFilteredNavItems,
 	generateResourcesNavItems,
 } from './helpers'
+import SidebarNavList from './components/sidebar-nav-list'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
@@ -103,11 +104,11 @@ const Sidebar = ({
 			filterValue
 		)
 		sidebarContent = (
-			<ul className={s.navList}>
+			<SidebarNavList>
 				{filteredMenuItems.map((item: FilteredNavItem) => (
 					<SidebarNavMenuItem item={item} key={item.id} />
 				))}
-			</ul>
+			</SidebarNavList>
 		)
 	}
 
@@ -123,14 +124,14 @@ const Sidebar = ({
 				{overviewItem}
 				{sidebarContent}
 				<SidebarHorizontalRule />
-				<ul className={s.navList}>
+				<SidebarNavList>
 					{generateResourcesNavItems(currentProduct?.slug).map(
 						(item, index) => (
 							// eslint-disable-next-line react/no-array-index-key
 							<SidebarNavMenuItem item={item} key={index} />
 						)
 					)}
-				</ul>
+				</SidebarNavList>
 			</nav>
 		</div>
 	)

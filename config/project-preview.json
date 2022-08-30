@@ -2,5 +2,8 @@
 	"extends": "base",
 	"io_sites": {
 		"max_static_paths": 9999
+	},
+	"learn": {
+		"max_static_paths": 0
 	}
 }

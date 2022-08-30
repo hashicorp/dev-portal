@@ -5,7 +5,13 @@ import { ButtonProps } from 'components/button'
  */
 type PickedButtonProps = Pick<
 	ButtonProps,
-	'aria-label' | 'color' | 'icon' | 'iconPosition' | 'size' | 'text'
+	| 'aria-label'
+	| 'color'
+	| 'icon'
+	| 'iconPosition'
+	| 'size'
+	| 'text'
+	| 'className'
 >
 
 /**
