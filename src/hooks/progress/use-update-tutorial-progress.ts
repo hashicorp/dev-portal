@@ -89,10 +89,10 @@ export function useUpdateTutorialProgress({
 		 *
 		 * Note that we don't ever downgrade the percent value of progress.
 		 */
-		const needsInitialProgress = tutorialProgressLabel === null
 		const existingPercent = progressLabelToPercent(tutorialProgressLabel)
 		const newPercent = progressLabelToPercent(newProgressLabel)
 		const hasPositiveProgress = parseInt(newPercent) > parseInt(existingPercent)
+		const needsInitialProgress = tutorialProgressLabel === null
 		if (needsInitialProgress || hasPositiveProgress) {
 			/**
 			 * We'll use the same mutation arguments for "create" or "update".
@@ -124,13 +124,13 @@ export function useUpdateTutorialProgress({
 				},
 			}
 			/**
-			 * If a progress state already exists, we'll "update" the existing record.
-			 * Otherwise, we'll "create" a new record.
+			 * If we need an initial progress record, we create a new record.
+			 * Otherwise, we'll update the existing record.
 			 */
-			if (tutorialProgressLabel !== null) {
-				tutorialProgressMutations.updateTutorialProgress(mutationArgs)
-			} else {
+			if (needsInitialProgress) {
 				tutorialProgressMutations.createTutorialProgress(mutationArgs)
+			} else {
+				tutorialProgressMutations.updateTutorialProgress(mutationArgs)
 			}
 		}
 	}, [
