@@ -112,14 +112,6 @@ export function useUpdateTutorialProgress({
 				collectionId,
 				completePercent: newPercent,
 				options: {
-					onError: (error) => {
-						/**
-						 * TODO: we could improve error handling here.
-						 * Maybe with window.DD_RUM.addError(error)?
-						 */
-						console.error(`Failed to update progress. Error:`)
-						console.error(error)
-					},
 					onSuccess: () => {
 						setIsRunningMutation(false)
 					},
