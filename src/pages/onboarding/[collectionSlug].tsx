@@ -5,11 +5,12 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import OnboardingCollectionView from 'views/onboarding/collection-view'
 import onboardingData from 'data/onboarding.json'
+import { OnboardingCollectionViewProps } from 'views/onboarding/types'
 
 export async function getStaticProps({
 	params,
 }: GetStaticPropsContext<{ collectionSlug: string }>): Promise<{
-	props: any
+	props: OnboardingCollectionViewProps
 }> {
 	const allWafCollections = await getCollectionsBySection(onboardingData.slug)
 	const currentCollection = allWafCollections.find(
@@ -26,11 +27,19 @@ export async function getStaticProps({
 			isCurrentPage: true,
 		},
 	]
+	const sidebarSections = currentCollection.tutorials.map((tutorial) => ({
+		title: tutorial.name,
+		isActive: false,
+		fullPath: `/${currentCollection.slug}/${splitProductFromFilename(
+			tutorial.slug
+		)}`,
+		id: tutorial.id,
+	}))
 
 	return {
 		props: stripUndefinedProperties({
 			collection: currentCollection,
-			layoutProps: { breadcrumbLinks },
+			layoutProps: { breadcrumbLinks, sidebarSections },
 			metadata: {
 				onboardingName: onboardingData.name,
 				onboardingSlug: onboardingData.slug,
@@ -42,7 +51,6 @@ export async function getStaticProps({
 export async function getStaticPaths() {
 	const allCollections = await getCollectionsBySection(onboardingData.slug)
 	const paths = allCollections.map((c: ApiCollection) => {
-		console.log('collection slug', c.slug)
 		return {
 			params: { collectionSlug: splitProductFromFilename(c.slug) },
 		}
