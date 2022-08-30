@@ -22,7 +22,7 @@
 	"alertBannerActive": true,
 	"alertBanner": {
 		"tag": "HashiConf Global",
-		"url": "hhttps://hashiconf.com/global",
+		"url": "https://hashiconf.com/global",
 		"text": "Full schedule now available: keynotes, sessions, labs & more.",
 		"linkText": "Register Now",
 		"expirationDate": ""
