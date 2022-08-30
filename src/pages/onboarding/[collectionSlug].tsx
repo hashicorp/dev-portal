@@ -12,8 +12,8 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ collectionSlug: string }>): Promise<{
 	props: OnboardingCollectionViewProps
 }> {
-	const allWafCollections = await getCollectionsBySection(onboardingData.slug)
-	const currentCollection = allWafCollections.find(
+	const allOnboardingCollections = await getCollectionsBySection(onboardingData.slug)
+	const currentCollection = allOnboardingCollections.find(
 		(collection: ApiCollection) =>
 			collection.slug === `${onboardingData.slug}/${params.collectionSlug}`
 	)
