@@ -16,6 +16,7 @@ const RadioGroup = ({
 	legend,
 	name,
 	options,
+	onChange = () => void 0,
 	...nativeProps
 }: RadioGroupProps) => {
 	const id = useId()
@@ -79,7 +80,10 @@ const RadioGroup = ({
 							value={option.value}
 							labelFontWeight={hasLegend ? 'regular' : 'semibold'}
 							name={name}
-							onChange={() => setIndexOfSelectedOption(index)}
+							onChange={() => {
+								setIndexOfSelectedOption(index)
+								onChange(option.value)
+							}}
 						/>
 					)
 				})}

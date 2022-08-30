@@ -50,6 +50,30 @@ Composes multiple `<RadioField>` components into a radio group. Can be used to s
 	]}
 />
 
+## onChange
+
+_Check the console to see the value on change._
+
+<RadioGroup
+	name="group-onchange"
+	onChange={val => console.log('Changed to: ' + val)}
+	legend="Legend of the group"
+	options={[
+		{
+			label: 'Label of control #1',
+			value: '1',
+		},
+		{
+			label: 'Label of control #2',
+			value: '2',
+		},
+		{
+			label: 'Label of control #3',
+			value: '3',
+		},
+	]}
+/>
+
 ## Vertical `layout` (default `layout`)
 
 ### With `legend`

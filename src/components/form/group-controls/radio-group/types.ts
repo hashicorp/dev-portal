@@ -16,6 +16,7 @@ interface RadioGroupProps extends InheritedFieldSetProps {
 	isRequired?: boolean
 	layout?: 'vertical' | 'horizontal'
 	legend?: string
+	onChange?: (value: string) => void
 	options: RadioGroupOption[]
 }
 
