@@ -49,6 +49,7 @@ import {
 	getNextPrevious,
 } from './components'
 import s from './tutorial-view.module.css'
+import { useUpdateTutorialProgress } from 'hooks/progress/use-update-tutorial-progress'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -188,6 +189,14 @@ function TutorialView({
 		},
 	]
 
+	/**
+	 * Keep track of authenticated users' progress
+	 */
+	const { progress, refs } = useUpdateTutorialProgress({
+		tutorialId: id,
+		collectionId: collectionCtx.current.id,
+	})
+
 	return (
 		<>
 			<Head>
@@ -213,6 +222,19 @@ function TutorialView({
 					}
 					headings={layoutProps.headings}
 				>
+					<pre>
+						<code>
+							{JSON.stringify(
+								{
+									tutorialId: id,
+									collectionId: collectionCtx.current.id,
+									progress,
+								},
+								null,
+								2
+							)}
+						</code>
+					</pre>
 					<LayoutContentWrapper
 						collectionCtx={collectionCtx}
 						product={product}
@@ -229,6 +251,7 @@ function TutorialView({
 							}}
 							tutorialId={id}
 						/>
+						<span ref={refs.startRef} />
 						{hasVideo && video.id && !video.videoInline && (
 							<VideoEmbed
 								url={getVideoUrl({
@@ -242,6 +265,7 @@ function TutorialView({
 								<MDXRemote {...content} components={MDX_COMPONENTS} />
 							</DevDotContent>
 						</TabProvider>
+						<span ref={refs.endRef} />
 						<NextPrevious {...nextPreviousData} />
 						<FeaturedInCollections
 							className={s.featuredInCollections}
