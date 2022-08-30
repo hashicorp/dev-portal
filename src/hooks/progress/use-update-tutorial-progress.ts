@@ -15,11 +15,8 @@ import { TutorialProgressArgs } from './use-tutorial-progress-mutations/types'
 type IntersectionRef = (node?: Element) => void
 
 interface UpdateProgressReturnInterface {
-	progress: TutorialProgressLabel | null
-	refs: {
-		startRef: IntersectionRef
-		endRef: IntersectionRef
-	}
+	startRef: IntersectionRef
+	endRef: IntersectionRef
 }
 
 /**
@@ -147,8 +144,5 @@ export function useUpdateTutorialProgress({
 		tutorialProgressMutations,
 	])
 
-	return {
-		progress: tutorialProgressLabel,
-		refs: { startRef, endRef },
-	}
+	return { startRef, endRef }
 }

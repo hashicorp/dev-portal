@@ -190,9 +190,9 @@ function TutorialView({
 	]
 
 	/**
-	 * Keep track of authenticated users' progress
+	 * Keep track of progress for authenticated users
 	 */
-	const { progress, refs } = useUpdateTutorialProgress({
+	const progressRefs = useUpdateTutorialProgress({
 		tutorialId: id,
 		collectionId: collectionCtx.current.id,
 	})
@@ -222,19 +222,6 @@ function TutorialView({
 					}
 					headings={layoutProps.headings}
 				>
-					<pre>
-						<code>
-							{JSON.stringify(
-								{
-									tutorialId: id,
-									collectionId: collectionCtx.current.id,
-									progress,
-								},
-								null,
-								2
-							)}
-						</code>
-					</pre>
 					<LayoutContentWrapper
 						collectionCtx={collectionCtx}
 						product={product}
@@ -251,7 +238,7 @@ function TutorialView({
 							}}
 							tutorialId={id}
 						/>
-						<span ref={refs.startRef} />
+						<span ref={progressRefs.startRef} />
 						{hasVideo && video.id && !video.videoInline && (
 							<VideoEmbed
 								url={getVideoUrl({
@@ -265,7 +252,7 @@ function TutorialView({
 								<MDXRemote {...content} components={MDX_COMPONENTS} />
 							</DevDotContent>
 						</TabProvider>
-						<span ref={refs.endRef} />
+						<span ref={progressRefs.endRef} />
 						<NextPrevious {...nextPreviousData} />
 						<FeaturedInCollections
 							className={s.featuredInCollections}
