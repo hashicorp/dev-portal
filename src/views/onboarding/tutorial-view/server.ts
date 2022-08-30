@@ -21,7 +21,7 @@ export async function getOnboardingTutorialProps(
 	const [collectionFilename, tutorialFilename] = tutorialSlug
 	const currentPath = `/${onboardingData.slug}/${tutorialSlug.join('/')}`
 
-	// get all the waf collections to generate the collection level sidebar
+	// get all the onboarding collections to generate the collection level sidebar
 	const allOnboardingCollections = await getCollectionsBySection(
 		onboardingData.slug
 	)
