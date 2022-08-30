@@ -8,11 +8,13 @@ import Heading from 'components/heading'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 } from 'components/dropdown-disclosure'
-import BookmarksEmptyState from './components/empty-state'
 import { ProfileBookmarksSidebar } from './components/sidebar'
 import renderBookmarkCard from './helpers/render-bookmark-cards'
 import { SortData } from './helpers/card-sort-data'
 import s from './bookmarks-view.module.css'
+import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
+import ButtonLink from 'components/button-link'
+import EmptyState from 'components/empty-state'
 
 /**
  * The exported view component that handles wrapping the view content in
@@ -91,7 +93,14 @@ const ProfileBookmarksViewContent = () => {
 					</CardsGridList>
 				</>
 			) : (
-				<BookmarksEmptyState />
+				<EmptyState
+					icon={<IconBookmarkAdd16 />}
+					heading="You have no saved bookmarks"
+					subheading="You can select the bookmark icon on any tutorial card to save it for future reference"
+					callToAction={
+						<ButtonLink href="/tutorials/library" text="Tutorial library" />
+					}
+				/>
 			)}
 		</div>
 	)

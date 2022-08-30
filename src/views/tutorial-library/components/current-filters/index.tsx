@@ -5,6 +5,7 @@ import Text from 'components/text'
 import { productSlugsToNames } from 'lib/products'
 import currentFiltersStyle from './current-filters.module.css'
 import { EDITIONS, RESOURCES } from '../../constants'
+import { ClearFilters } from '../clear-filters'
 
 /**
  * List all active filters, removes any given filter on click
@@ -73,6 +74,7 @@ export function CurrentFilters() {
 						})
 					})}
 			</ul>
+			<ClearFilters />
 		</div>
 	)
 }
