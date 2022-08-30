@@ -1,6 +1,9 @@
 import { GetStaticPropsContext } from 'next'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
-import { Collection as ApiCollection } from 'lib/learn-client/types'
+import {
+	Collection as ClientCollection,
+	TutorialLite as ClientTutorialLite,
+} from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import OnboardingCollectionView from 'views/onboarding/collection-view'
@@ -12,9 +15,11 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ collectionSlug: string }>): Promise<{
 	props: OnboardingCollectionViewProps
 }> {
-	const allOnboardingCollections = await getCollectionsBySection(onboardingData.slug)
+	const allOnboardingCollections = await getCollectionsBySection(
+		onboardingData.slug
+	)
 	const currentCollection = allOnboardingCollections.find(
-		(collection: ApiCollection) =>
+		(collection: ClientCollection) =>
 			collection.slug === `${onboardingData.slug}/${params.collectionSlug}`
 	)
 
@@ -26,14 +31,16 @@ export async function getStaticProps({
 			isCurrentPage: true,
 		},
 	]
-	const sidebarSections = currentCollection.tutorials.map((tutorial) => ({
-		title: tutorial.name,
-		isActive: false,
-		fullPath: `/${currentCollection.slug}/${splitProductFromFilename(
-			tutorial.slug
-		)}`,
-		id: tutorial.id,
-	}))
+	const sidebarSections = currentCollection.tutorials.map(
+		(tutorial: ClientTutorialLite) => ({
+			title: tutorial.name,
+			isActive: false,
+			fullPath: `/${currentCollection.slug}/${splitProductFromFilename(
+				tutorial.slug
+			)}`,
+			id: tutorial.id,
+		})
+	)
 
 	return {
 		props: stripUndefinedProperties({
@@ -49,7 +56,7 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
 	const allCollections = await getCollectionsBySection(onboardingData.slug)
-	const paths = allCollections.map((c: ApiCollection) => {
+	const paths = allCollections.map((c: ClientCollection) => {
 		return {
 			params: { collectionSlug: splitProductFromFilename(c.slug) },
 		}
