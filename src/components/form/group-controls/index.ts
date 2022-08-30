@@ -3,5 +3,12 @@ import CheckboxGroup, {
 	CheckboxGroupProps,
 } from './checkbox-group'
 
-export type { CheckboxGroupOption, CheckboxGroupProps }
-export { CheckboxGroup }
+import RadioGroup, { RadioGroupOption, RadioGroupProps } from './radio-group'
+
+export type {
+	CheckboxGroupOption,
+	CheckboxGroupProps,
+	RadioGroupOption,
+	RadioGroupProps,
+}
+export { CheckboxGroup, RadioGroup }

@@ -1,23 +1,28 @@
-import { useState } from 'react'
 import { useId } from '@react-aria/utils'
 import { Errors, HelperText, Label } from 'components/form/components'
-import { CheckboxControl } from 'components/form/base-controls'
-import { CheckboxFieldProps } from './types'
-import s from './checkbox-field.module.css'
+import RadioControl from 'components/form/base-controls/radio-control'
+import { RadioFieldProps } from './types'
+import s from './radio-field.module.css'
 
-const CheckboxField = ({
+/**
+ * NOTE: unlike CheckboxField, does not manage its own "checked" state. We want
+ * to manage this at the RadioGroup level so that we can leverage the built-in
+ * browser functionality for free.
+ */
+const RadioField = ({
 	checked,
 	errors,
 	helperText,
 	id,
 	label,
 	labelFontWeight,
+	value,
 	name,
-	onChange = () => null, // Default value makes this easier to invoke w/o extra logic
+	onChange,
 	onClick,
-}: CheckboxFieldProps) => {
+	onKeyDown,
+}: RadioFieldProps) => {
 	const inputId = useId(id)
-	const [isChecked, setIsChecked] = useState<boolean>(checked)
 
 	let helperTextElement, helperTextElementId
 	if (helperText) {
@@ -36,16 +41,15 @@ const CheckboxField = ({
 
 	return (
 		<div className={s.root}>
-			<CheckboxControl
+			<RadioControl
 				aria-describedby={helperTextElementId}
-				checked={isChecked}
+				checked={checked}
 				id={inputId}
 				name={name}
-				onChange={(e) => {
-					setIsChecked((previousIsChecked: boolean) => !previousIsChecked)
-					onChange(e)
-				}}
+				value={value}
+				onChange={onChange}
 				onClick={onClick}
+				onKeyDown={onKeyDown}
 			/>
 			<Label className={s.label} fontWeight={labelFontWeight} htmlFor={inputId}>
 				{label}
@@ -56,5 +60,5 @@ const CheckboxField = ({
 	)
 }
 
-export type { CheckboxFieldProps }
-export default CheckboxField
+export type { RadioFieldProps }
+export default RadioField
