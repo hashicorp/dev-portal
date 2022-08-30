@@ -260,6 +260,12 @@ export enum CompanyLogoOption {
 	aws = 'aws',
 }
 
+export enum TutorialProgressLabel {
+	visited = 'visited',
+	in_progress = 'in_progress',
+	complete = 'complete',
+}
+
 export enum TutorialProgressPercent {
 	Zero = '0',
 	TwentyFive = '25',
