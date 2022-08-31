@@ -35,7 +35,7 @@ export default function OnboardingTutorialView({
 	return (
 		<>
 			<HashiHead>
-				<meta name="robots" content="noindex" />
+				<meta name="robots" content="noindex, nofollow" />
 			</HashiHead>
 			<InteractiveLabWrapper
 				key={slug}
