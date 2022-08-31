@@ -15,6 +15,14 @@ import { MenuItem, SidebarProps } from 'components/sidebar'
 import { getNextPrevious } from 'views/tutorial-view/components'
 import { OnboardingTutorialViewProps } from '../types'
 
+/**
+ * TODO - there is a lot of shared logic
+ * between this file and the well-architected-framework
+ * tutorial prop generation function. In the future, we
+ * should create a shared abstraction for these generic
+ * tutorial views - https://app.asana.com/0/1202097197789424/1202900693486009
+ */
+
 export async function getOnboardingTutorialProps(
 	tutorialSlug: [string, string]
 ): Promise<{ props: OnboardingTutorialViewProps }> {
