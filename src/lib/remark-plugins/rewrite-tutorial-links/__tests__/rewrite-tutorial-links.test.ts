@@ -366,7 +366,6 @@ describe('rewriteTutorialLinks remark plugin', () => {
 			.use(rewriteTutorialLinksPlugin)
 			.process(TEST_MD_LINKS.wafTutorialLink)
 		const newPath = isolatePathFromMarkdown(String(contents))
-		console.log({ newPath })
 
 		expect(newPath).toBe(
 			'/well-architected-framework/com/cloud-operating-model'
@@ -378,10 +377,6 @@ describe('rewriteTutorialLinks remark plugin', () => {
 			.use(rewriteTutorialLinksPlugin)
 			.process(TEST_MD_LINKS.onboardingCollectionLink)
 		const newPath = isolatePathFromMarkdown(String(contents))
-		console.log(
-			{ newPath },
-			expect(newPath).toMatch('/onboarding/hcp-vault-week-1')
-		)
 
 		expect(newPath).toBe('/onboarding/hcp-vault-week-1')
 	})
