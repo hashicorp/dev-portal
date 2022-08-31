@@ -1,22 +1,12 @@
-import Collapsible from '../collapsible'
 import Tabs, { Tab } from 'components/tabs'
 import AccordionDisclosure from 'components/accordion-disclosure'
-import Disclosure, {
-	DisclosureActivator,
-	DisclosureContent,
-} from 'components/disclosure'
 import ResponseObject from '../response-object'
 import Parameter from '../parameter'
 import { capitalCase } from 'change-case'
-import useHover from '../../hooks/use-hover'
-import InlineSvg from '@hashicorp/react-inline-svg'
-import svgChevronDown from '@hashicorp/flight-icons/svg/chevron-down-16.svg?include'
-import TwoColumnLayout from '../two-column-layout'
 import getBodyParamProps from './get-body-param-props'
 import classNames from 'classnames'
 import s from './style.module.css'
 import { OperationObjectType } from '../../types'
-import { LegacyRef } from 'react'
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import Card from 'components/card'
 
@@ -47,10 +37,6 @@ export interface OperationObjectProps {
 	type: 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch'
 	/** A subset of [Operation Object](https://swagger.io/specification/v2/#operation-object) relevant to the UI */
 	data: OperationObjectType
-	/** Whether the operation is collapsed or not */
-	isCollapsed: boolean
-	/** Function that accepts a single argument, true or false, and updates the isCollapsed prop accordingly*/
-	setIsCollapsed: (isCollapsed: boolean) => void
 	/** React node to render at the top of the collapsible area of the operation object */
 	renderOperationIntro?: (
 		props: Record<'data', OperationObjectType>
@@ -61,11 +47,8 @@ function OperationObject({
 	data,
 	path,
 	type,
-	isCollapsed,
-	setIsCollapsed,
 	renderOperationIntro,
 }: OperationObjectProps): React.ReactElement {
-	const [headerRef, isHeaderHovered] = useHover()
 	const { operationId, parameters, responses, summary } = data
 	const successResponse = responses['200']
 	const title = capitalCase(operationId.split('_').pop()!)
@@ -92,7 +75,7 @@ function OperationObject({
 				}
 			>
 				<hr />
-				<div className={s.details}>
+				<div>
 					{renderOperationIntro ? renderOperationIntro({ data }) : null}
 					<div
 						className={s.summary}

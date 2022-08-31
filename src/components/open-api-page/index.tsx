@@ -45,10 +45,6 @@ function OpenApiPageContents({
 								type={op.__type}
 								data={op}
 								renderOperationIntro={renderOperationIntro}
-								isCollapsed={!isExpanded}
-								setIsCollapsed={(isCollapsed) =>
-									setOperationState(op.operationId, !isCollapsed)
-								}
 							/>
 						)
 					})}
