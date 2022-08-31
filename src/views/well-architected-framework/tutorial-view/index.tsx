@@ -1,4 +1,6 @@
+import { Fragment } from 'react'
 import { MDXRemote } from 'next-mdx-remote'
+import InstruqtProvider from 'contexts/instruqt-lab'
 import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
@@ -34,43 +36,49 @@ export default function WellArchitectedFrameworkTutorialView({
 	const featuredInWithoutCurrent = collectionCtx.featuredIn?.filter(
 		(c) => c.id !== collectionCtx.current.id
 	)
+	const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
 
 	return (
-		<SidebarSidecarLayout
-			headings={layoutProps.headings}
-			breadcrumbLinks={layoutProps.breadcrumbLinks}
-			sidebarNavDataLevels={layoutProps.navLevels}
-			optInOutSlot={<OptInOut platform="learn" />}
+		<InteractiveLabWrapper
+			key={slug}
+			{...(isInteractive && { labId: handsOnLab.id })}
 		>
-			<TutorialMeta
-				heading={{ slug: slug, text: name }}
-				meta={{
-					readTime,
-					edition,
-					productsUsed,
-					isInteractive,
-					hasVideo,
-				}}
-				tutorialId={id}
-			/>
-			{video?.id && !video.videoInline && (
-				<VideoEmbed
-					url={getVideoUrl({
-						videoId: video.id,
-						videoHost: video.videoHost,
-					})}
+			<SidebarSidecarLayout
+				headings={layoutProps.headings}
+				breadcrumbLinks={layoutProps.breadcrumbLinks}
+				sidebarNavDataLevels={layoutProps.navLevels}
+				optInOutSlot={<OptInOut platform="learn" />}
+			>
+				<TutorialMeta
+					heading={{ slug: slug, text: name }}
+					meta={{
+						readTime,
+						edition,
+						productsUsed,
+						isInteractive,
+						hasVideo,
+					}}
+					tutorialId={id}
 				/>
-			)}
-			<TabProvider>
-				<DevDotContent>
-					<MDXRemote {...content} components={MDX_COMPONENTS} />
-				</DevDotContent>
-			</TabProvider>
-			<NextPrevious {...nextPreviousData} />
-			<FeaturedInCollections
-				className={s.featuredInCollections}
-				collections={featuredInWithoutCurrent}
-			/>
-		</SidebarSidecarLayout>
+				{video?.id && !video.videoInline && (
+					<VideoEmbed
+						url={getVideoUrl({
+							videoId: video.id,
+							videoHost: video.videoHost,
+						})}
+					/>
+				)}
+				<TabProvider>
+					<DevDotContent>
+						<MDXRemote {...content} components={MDX_COMPONENTS} />
+					</DevDotContent>
+				</TabProvider>
+				<NextPrevious {...nextPreviousData} />
+				<FeaturedInCollections
+					className={s.featuredInCollections}
+					collections={featuredInWithoutCurrent}
+				/>
+			</SidebarSidecarLayout>
+		</InteractiveLabWrapper>
 	)
 }
