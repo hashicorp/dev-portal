@@ -140,6 +140,27 @@
 					"url": "/vagrant/docs/share"
 				}
 			]
+		},
+		{
+			"type": "heading",
+			"heading": "Use Cases with Vagrant",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "The Nomad Autoscaler",
+					"body": "Try out the autoscaling feature of HashiCorp Nomad in a Vagrant environment.",
+					"url": "/nomad/autoscaler-vagrant-demo"
+				},
+				{
+					"heading": "Data Encryption in Vault",
+					"body": "Try out data encryption in a Java application with HashiCorp Vault in a Vagrant environment.",
+					"url": "/vault/eaas-spring-demo"
+				}
+			]
 		}
 	]
 }
