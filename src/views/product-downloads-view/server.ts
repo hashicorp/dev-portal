@@ -2,12 +2,9 @@ import fs from 'fs'
 import path from 'path'
 import { ProductData } from 'types/products'
 import { generateStaticProps as generateReleaseStaticProps } from 'lib/fetch-release-data'
-import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { formatCollectionCard } from 'components/collection-card/helpers'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import {
-	FeaturedLearnContent,
 	ProductDownloadsViewStaticProps,
 	RawProductDownloadsViewContent,
 	FeaturedLearnCard,
