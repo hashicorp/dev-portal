@@ -34,23 +34,23 @@ const useTutorialProgress = ({
 	const { data: tutorialProgressLabel, ...restQueryResult } =
 		useQuery<QueryDataType>(
 			[TUTORIAL_PROGRESS_QUERY_ID, tutorialId, collectionId],
-			() =>
-				getTutorialProgress({ accessToken, tutorialId, collectionId }).then(
-					(data: GetTutorialProgressResult) => {
-						/**
-						 * Data may be null, if a progress record does not exist
-						 * for this tutorialId + collectionId combination.
-						 *
-						 * We pass this on to the query consumer, as they may need
-						 * to know whether the record exists or not.
-						 */
-						if (data == null) {
-							return null
-						}
-						return progressPercentToLabel(data.complete_percent)
-					}
-				),
-			{ enabled: !!accessToken }
+			() => getTutorialProgress({ accessToken, tutorialId, collectionId }),
+			{
+				enabled: !!accessToken,
+				select: data => {
+					  /**
+					  * Data may be null, if a progress record does not exist
+					  * for this tutorialId + collectionId combination.
+					  *
+					  * We pass this on to the query consumer, as they may need
+					  * to know whether the record exists or not.
+					  */
+				        if (data == null) {
+					        return null
+				        }
+					return progressPercentToLabel(data.complete_percent)
+				}
+			}
 		)
 
 	return {
