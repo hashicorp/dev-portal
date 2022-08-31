@@ -97,11 +97,13 @@
 }
 
 .nested {
-	box-shadow: var(--token-surface-base-box-shadow) !important;
+	box-shadow: var(--token-surface-base-box-shadow);
+
 	& .root-expanded {
-		box-shadow: var(--token-surface-base-box-shadow) !important;
+		box-shadow: var(--token-surface-base-box-shadow);
 	}
+
 	& .button {
-		box-shadow: none !important;
+		box-shadow: none;
 	}
 }
