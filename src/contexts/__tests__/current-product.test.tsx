@@ -1,6 +1,6 @@
 import { ReactNode, Component } from 'react'
 import { render, screen } from '@testing-library/react'
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 import { Product } from 'types/products'
 import {
 	CurrentProductProvider,
