@@ -15,25 +15,25 @@
 			"heading": "Getting Started"
 		},
 		{
-			"title": "Introduction to Terraform",
+			"title": "What is Terraform?",
 			"fullPath": "/terraform/intro"
 		},
+	        {
+			"href": "/terraform/tutorials#get-started",
+	                "text": "Terraform Tutorials"
+		},
 		{
-			"title": "Get Started with Terraform Cloud",
+			"title": "Terraform Cloud Tutorials",
 			"fullPath": "/terraform/tutorials/cloud-get-started/cloud-sign-up"
 		}
 	],
 	"sidecarMarketingCard": {
 		"title": "About Terraform",
-		"subtitle": "Terraform is an infrastructure as code tool that lets you define both cloud and on-prem resources in human-readable configuration files that you can version, reuse, and share.",
+		"subtitle": "Define cloud and on-prem resources in human-readable configuration files that you can version, reuse, and share.",
 		"featuredDocsLinks": [
 			{
 				"href": "/terraform/intro",
 				"text": "Introduction to Terraform"
-			},
-			{
-			        "href": "/terraform/tutorials#get-started",
-				"text": "Get Started Tutorials"
 			},
 			{
 				"href": "/terraform/language",
