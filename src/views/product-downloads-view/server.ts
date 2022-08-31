@@ -10,8 +10,18 @@ import {
 	FeaturedLearnCard,
 } from './types'
 import { getInlineTutorials } from 'views/product-tutorials-view/helpers/get-inline-content'
+import { sortAndFilterReleaseVersions } from './helpers'
 
-const generateGetStaticProps = (product: ProductData) => {
+interface GenerateStaticPropsOptions {
+	isEnterpriseMode?: boolean
+}
+
+const generateGetStaticProps = (
+	product: ProductData,
+	options: GenerateStaticPropsOptions = {}
+) => {
+	const { isEnterpriseMode = false } = options
+
 	return async (): Promise<{
 		props: ProductDownloadsViewStaticProps
 		revalidate: number
@@ -43,6 +53,10 @@ const generateGetStaticProps = (product: ProductData) => {
 		const { props: releaseProps, revalidate } =
 			await generateReleaseStaticProps(product)
 		const { releases, latestVersion } = releaseProps
+		const sortedAndFilteredVersions = sortAndFilterReleaseVersions({
+			releaseVersions: releases.versions,
+			isEnterpriseMode,
+		})
 
 		/**
 		 * The `featuredTutorialsSlugs` array allows two formats of slugs:
@@ -104,12 +118,11 @@ const generateGetStaticProps = (product: ProductData) => {
 		 * Combine release data and page content
 		 */
 		const props = stripUndefinedProperties({
+			isEnterpriseMode,
+			latestVersion: isEnterpriseMode ? `${latestVersion}+ent` : latestVersion,
 			metadata: {
 				title: 'Install',
 			},
-			releases,
-			product,
-			latestVersion,
 			pageContent: {
 				doesNotHavePackageManagers,
 				featuredLearnCards,
@@ -117,6 +130,9 @@ const generateGetStaticProps = (product: ProductData) => {
 				sidecarMarketingCard,
 				sidebarMenuItems,
 			},
+			product,
+			releases,
+			sortedAndFilteredVersions,
 		})
 
 		return {

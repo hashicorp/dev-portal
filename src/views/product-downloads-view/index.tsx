@@ -36,6 +36,7 @@ import {
  * and passes this component as the child.
  */
 const ProductDownloadsViewContent = ({
+	isEnterpriseMode = false,
 	merchandisingSlot,
 	pageContent,
 	releases,
@@ -51,8 +52,13 @@ const ProductDownloadsViewContent = ({
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
 	const breadcrumbLinks = useMemo(
-		() => initializeBreadcrumbLinks(currentProduct, currentVersion),
-		[currentProduct, currentVersion]
+		() =>
+			initializeBreadcrumbLinks(
+				currentProduct,
+				currentVersion,
+				isEnterpriseMode
+			),
+		[currentProduct, currentVersion, isEnterpriseMode]
 	)
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
@@ -83,7 +89,7 @@ const ProductDownloadsViewContent = ({
 			breadcrumbLinks={breadcrumbLinks}
 			sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
 		>
-			<PageHeader />
+			<PageHeader isEnterpriseMode={isEnterpriseMode} />
 			<DownloadsSection
 				packageManagers={packageManagers}
 				selectedRelease={releases.versions[currentVersion]}
@@ -102,14 +108,20 @@ const ProductDownloadsViewContent = ({
  * Handles rendering and initializing `CurrentVersionProvider`.
  */
 const ProductDownloadsView = ({
+	isEnterpriseMode = false,
 	latestVersion,
 	merchandisingSlot,
 	pageContent,
 	releases,
+	sortedAndFilteredVersions,
 }: ProductDownloadsViewProps): ReactElement => {
 	const versionSwitcherOptions = useMemo(
-		() => initializeVersionSwitcherOptions({ latestVersion, releases }),
-		[latestVersion, releases]
+		() =>
+			initializeVersionSwitcherOptions({
+				latestVersion,
+				releaseVersions: sortedAndFilteredVersions,
+			}),
+		[latestVersion, sortedAndFilteredVersions]
 	)
 
 	return (
@@ -118,6 +130,7 @@ const ProductDownloadsView = ({
 			latestVersion={latestVersion}
 		>
 			<ProductDownloadsViewContent
+				isEnterpriseMode={isEnterpriseMode}
 				merchandisingSlot={merchandisingSlot}
 				pageContent={pageContent}
 				releases={releases}

@@ -1,6 +1,8 @@
 import semverRSort from 'semver/functions/rsort'
+import semverPrerelease from 'semver/functions/prerelease'
+import semverValid from 'semver/functions/valid'
 import { ProductData } from 'types/products'
-import { ReleasesAPIResponse, ReleaseVersion } from 'lib/fetch-release-data'
+import { ReleaseVersion } from 'lib/fetch-release-data'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
@@ -10,9 +12,6 @@ const PLATFORM_MAP = {
 	Win: 'windows',
 	Linux: 'linux',
 }
-
-// exclude pre-releases and such
-const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
 
 export const generateDefaultPackageManagers = (
 	product: Pick<ProductData, 'slug'>
@@ -115,7 +114,8 @@ export const getPageSubtitle = ({
 
 export const initializeBreadcrumbLinks = (
 	currentProduct: Pick<ProductData, 'name' | 'slug'>,
-	selectedVersion: string
+	selectedVersion: string,
+	isEnterpriseMode: boolean
 ): BreadcrumbLink[] => {
 	return [
 		{
@@ -128,25 +128,25 @@ export const initializeBreadcrumbLinks = (
 		},
 		{
 			isCurrentPage: true,
-			title: `Install v${selectedVersion}`,
-			url: `/${currentProduct.slug}/downloads`,
+			title: isEnterpriseMode
+				? `Install ${currentProduct.name} Enterprise`
+				: `Install v${selectedVersion}`,
+			url: isEnterpriseMode
+				? `/${currentProduct.slug}/downloads/enterprise`
+				: `/${currentProduct.slug}/downloads`,
 		},
 	]
 }
 
 export const initializeVersionSwitcherOptions = ({
 	latestVersion,
-	releases,
+	releaseVersions,
 }: {
 	latestVersion: ReleaseVersion['version']
-	releases: ReleasesAPIResponse
+	releaseVersions: ReleaseVersion[]
 }): VersionContextSwitcherProps['options'] => {
-	return semverRSort(
-		Object.keys(releases.versions).filter((version) => {
-			const isValidRegex = !!version.match(VALID_SEMVER_REGEX)
-			return isValidRegex
-		})
-	).map((version) => {
+	return releaseVersions.map((releaseVersion: ReleaseVersion) => {
+		const version = releaseVersion.version
 		const isLatest = version === latestVersion
 		return {
 			label: `${version}${isLatest ? ' (latest)' : ''}`,
@@ -211,4 +211,43 @@ export function prettyOs(os: string): string {
 		default:
 			return os.charAt(0).toUpperCase() + os.slice(1)
 	}
+}
+
+export const sortAndFilterReleaseVersions = ({
+	releaseVersions,
+	isEnterpriseMode = false,
+}: {
+	releaseVersions: Record<string, ReleaseVersion>
+	isEnterpriseMode: boolean
+}): ReleaseVersion[] => {
+	const filteredVersionStrings = semverRSort(
+		Object.keys(releaseVersions)
+	).filter((version: string) => {
+		// Filter out invalid semver
+		const isInvalidSemver = semverValid(version) == null
+		if (isInvalidSemver) {
+			return false
+		}
+
+		// Filter out prereleases
+		const isPrelease = semverPrerelease(version) !== null
+		if (isPrelease) {
+			return false
+		}
+
+		// Filter in enterprise versions if enterprise mode
+		const isEnterpriseVersion = !!version.match(/\+ent(?:.*?)*$/)
+		if (isEnterpriseMode) {
+			return isEnterpriseVersion
+		}
+
+		// Filter out enterprise versions if not enterprise mode
+		return !isEnterpriseVersion
+	})
+	const sortedVersionStrings = semverRSort(filteredVersionStrings)
+	const sortedAndFilteredVersions = sortedVersionStrings.map(
+		(version: string) => releaseVersions[version]
+	)
+
+	return sortedAndFilteredVersions
 }
