@@ -11,9 +11,9 @@ export type FilterSectionProps = PropsWithChildren<{
 
 export function FilterSection({ heading, children }: FilterSectionProps) {
 	return (
-		<section className={filterSectionStyle.root}>
-			<span className={filterSectionStyle.heading}>{heading}</span>
+		<fieldset className={filterSectionStyle.root}>
+			<legend className={filterSectionStyle.heading}>{heading}</legend>
 			<ul className={filterSectionStyle.filterList}>{children}</ul>
-		</section>
+		</fieldset>
 	)
 }
