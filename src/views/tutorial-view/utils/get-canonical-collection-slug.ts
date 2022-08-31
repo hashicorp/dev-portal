@@ -1,4 +1,4 @@
-import { LearnProductData, ProductSlug } from 'types/products'
+import { ProductOption, SectionOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 
@@ -16,12 +16,12 @@ import { TutorialData } from '..'
  */
 export function getCanonicalCollectionSlug(
 	tutorial: TutorialData,
-	currentProductSlug: LearnProductData['slug']
+	currentProductSlug: ProductOption | SectionOption
 ): string {
 	// check if default has a beta product
 	const defaultCollectionProduct = splitProductFromFilename(
 		tutorial.collectionCtx.default.slug
-	) as ProductSlug
+	) as ProductOption | SectionOption
 	const defaultIsInBeta = getIsBetaProduct(defaultCollectionProduct)
 
 	if (defaultIsInBeta) {

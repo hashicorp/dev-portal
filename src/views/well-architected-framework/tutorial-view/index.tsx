@@ -13,6 +13,10 @@ import { NextPrevious } from 'views/tutorial-view/components'
 import OptInOut from 'components/opt-in-out'
 import s from 'views/tutorial-view/tutorial-view.module.css'
 import { WafTutorialViewProps } from '../types'
+import HashiHead from '@hashicorp/react-head'
+import { getCanonicalCollectionSlug } from 'views/tutorial-view/utils/get-canonical-collection-slug'
+import { SectionOption } from 'lib/learn-client/types'
+import { generateCanonicalUrl } from 'views/tutorial-view/utils'
 
 export default function WellArchitectedFrameworkTutorialView({
 	tutorial,
@@ -37,48 +41,58 @@ export default function WellArchitectedFrameworkTutorialView({
 		(c) => c.id !== collectionCtx.current.id
 	)
 	const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
+	const canonicalCollectionSlug = getCanonicalCollectionSlug(
+		tutorial,
+		SectionOption['well-architected-framework']
+	)
+	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
 
 	return (
-		<InteractiveLabWrapper
-			key={slug}
-			{...(isInteractive && { labId: handsOnLab.id })}
-		>
-			<SidebarSidecarLayout
-				headings={layoutProps.headings}
-				breadcrumbLinks={layoutProps.breadcrumbLinks}
-				sidebarNavDataLevels={layoutProps.navLevels}
-				optInOutSlot={<OptInOut platform="learn" />}
+		<>
+			<HashiHead>
+				<link rel="canonical" href={canonicalUrl.toString()} />
+			</HashiHead>
+			<InteractiveLabWrapper
+				key={slug}
+				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<TutorialMeta
-					heading={{ slug: slug, text: name }}
-					meta={{
-						readTime,
-						edition,
-						productsUsed,
-						isInteractive,
-						hasVideo,
-					}}
-					tutorialId={id}
-				/>
-				{video?.id && !video.videoInline && (
-					<VideoEmbed
-						url={getVideoUrl({
-							videoId: video.id,
-							videoHost: video.videoHost,
-						})}
+				<SidebarSidecarLayout
+					headings={layoutProps.headings}
+					breadcrumbLinks={layoutProps.breadcrumbLinks}
+					sidebarNavDataLevels={layoutProps.navLevels}
+					optInOutSlot={<OptInOut platform="learn" />}
+				>
+					<TutorialMeta
+						heading={{ slug: slug, text: name }}
+						meta={{
+							readTime,
+							edition,
+							productsUsed,
+							isInteractive,
+							hasVideo,
+						}}
+						tutorialId={id}
 					/>
-				)}
-				<TabProvider>
-					<DevDotContent>
-						<MDXRemote {...content} components={MDX_COMPONENTS} />
-					</DevDotContent>
-				</TabProvider>
-				<NextPrevious {...nextPreviousData} />
-				<FeaturedInCollections
-					className={s.featuredInCollections}
-					collections={featuredInWithoutCurrent}
-				/>
-			</SidebarSidecarLayout>
-		</InteractiveLabWrapper>
+					{video?.id && !video.videoInline && (
+						<VideoEmbed
+							url={getVideoUrl({
+								videoId: video.id,
+								videoHost: video.videoHost,
+							})}
+						/>
+					)}
+					<TabProvider>
+						<DevDotContent>
+							<MDXRemote {...content} components={MDX_COMPONENTS} />
+						</DevDotContent>
+					</TabProvider>
+					<NextPrevious {...nextPreviousData} />
+					<FeaturedInCollections
+						className={s.featuredInCollections}
+						collections={featuredInWithoutCurrent}
+					/>
+				</SidebarSidecarLayout>
+			</InteractiveLabWrapper>
+		</>
 	)
 }
