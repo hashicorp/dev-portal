@@ -13,7 +13,7 @@ export interface AccordionDisclosureProps {
 	 * emphasis. Always shows regardless of the `AccordionDisclosure`'s
 	 * open/closed state.
 	 */
-	description?: string | ReactNode
+	description?: ReactNode
 
 	/**
 	 * Optional prop that that enables a `AccordionDisclosure` to be rendered open
