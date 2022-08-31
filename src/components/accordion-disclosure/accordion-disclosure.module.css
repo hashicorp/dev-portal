@@ -1,28 +1,15 @@
 .root {
-	composes: hds-surface-mid from global;
 	background-color: white;
 	border-radius: 6px;
 	width: 100%;
+}
 
-	&:hover {
-		box-shadow: var(--token-surface-high-box-shadow);
-	}
-
-	/*
-		Nested .root show have no elevation. Ensure this is later than the hover
-		style to maintain precedence.
-	*/
-	& .root {
-		box-shadow: var(--token-surface-base-box-shadow);
-	}
-
-	/* Only enable animation if query is supported and value is no-preference */
-	@media (prefers-reduced-motion: no-preference) {
-		transition: box-shadow 0.2s;
-	}
+.root-expanded {
+	composes: hds-surface-mid from global;
 }
 
 .button {
+	composes: hds-surface-mid from global;
 	align-items: center;
 	background-color: transparent;
 	border-radius: 6px;
@@ -46,15 +33,25 @@
 
 	/* aka AccordionDisclosure is open */
 	&[aria-expanded='true'] {
+		box-shadow: none;
+
 		& svg {
 			transform: rotate(90deg);
 		}
 	}
 
+	/* aka AccordionDisclosure is closed */
+	&[aria-expanded='false'] {
+		&:hover {
+			box-shadow: var(--token-surface-high-box-shadow);
+			cursor: pointer;
+		}
+	}
+
 	/*
-  TODO: not composing focus styles here because they use a border. Long term
-  goal is to refactor those to use a box-shadow only like in this situation.
-  */
+	TODO: not composing focus styles here because they use a border. Long term
+	goal is to refactor those to use a box-shadow only like in this situation.
+	*/
 	&:focus,
 	&:focus-visible {
 		outline: transparent;
@@ -70,6 +67,11 @@
 		right: 0;
 		top: 0;
 		z-index: -1;
+	}
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: box-shadow 0.2s;
 	}
 }
 
@@ -92,4 +94,14 @@
 .content {
 	padding: 16px;
 	padding-top: 0;
+}
+
+.nested {
+	box-shadow: var(--token-surface-base-box-shadow) !important;
+	& .root-expanded {
+		box-shadow: var(--token-surface-base-box-shadow) !important;
+	}
+	& .button {
+		box-shadow: none !important;
+	}
 }
