@@ -1,6 +1,9 @@
 // Third-party imports
 import { ReactElement, useMemo } from 'react'
 
+// HashiCorp imports
+import HashiHead from '@hashicorp/react-head'
+
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
@@ -17,6 +20,7 @@ import {
 } from './types'
 import {
 	generateDefaultPackageManagers,
+	generateEnterprisePackageManagers,
 	generatePackageManagers,
 	initializeBreadcrumbLinks,
 	initializeVersionSwitcherOptions,
@@ -71,10 +75,17 @@ const ProductDownloadsViewContent = ({
 		}
 
 		return generatePackageManagers({
-			defaultPackageManagers: generateDefaultPackageManagers(currentProduct),
+			defaultPackageManagers: isEnterpriseMode
+				? generateEnterprisePackageManagers(currentProduct)
+				: generateDefaultPackageManagers(currentProduct),
 			packageManagerOverrides: packageManagerOverrides,
 		})
-	}, [currentProduct, doesNotHavePackageManagers, packageManagerOverrides])
+	}, [
+		currentProduct,
+		doesNotHavePackageManagers,
+		isEnterpriseMode,
+		packageManagerOverrides,
+	])
 
 	return (
 		<SidebarSidecarLayout
@@ -89,6 +100,15 @@ const ProductDownloadsViewContent = ({
 			breadcrumbLinks={breadcrumbLinks}
 			sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
 		>
+			{/**
+			 * Legal has requested that we make the enterprise downloads page public
+			 * but not search engine indexable
+			 */}
+			{isEnterpriseMode ? (
+				<HashiHead>
+					<meta name="robots" key="robots" content="noindex, nofollow" />
+				</HashiHead>
+			) : null}
 			<PageHeader isEnterpriseMode={isEnterpriseMode} />
 			<DownloadsSection
 				packageManagers={packageManagers}
