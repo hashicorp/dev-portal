@@ -5,7 +5,7 @@
 	},
 	"overview": {
 		"heading": "What is Vagrant?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+		"body": "Vagrant is the command line utility for managing the lifecycle of virtual machines. Isolate dependencies and their configuration within a single disposable and consistent environment.",
 		"cta": {
 			"text": "Learn more about Vagrant features",
 			"url": "/vault/docs/what-is-vault"
@@ -14,15 +14,11 @@
 	},
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "Use Vagrant to securely store, access, and manage secrets and other sensitive data.",
+		"body": "Use Vagrant to create and configure a reproducible and portable work environment.",
 		"ctas": [
 			{
 				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
-			},
-			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"url": "/vagrant/tutorials/getting-started"
 			}
 		]
 	},
