@@ -210,6 +210,7 @@ const NotesSection = ({ selectedRelease }) => {
 
 /**
  * @TODO replace with InlineAlert
+ * ref: https://design-system-components-hashicorp.vercel.app/components/alert
  */
 const EnterpriseLegalNotice = () => {
 	return (
