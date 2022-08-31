@@ -359,8 +359,14 @@ export function getStaticGenerationFunctions<
 				versions,
 			}
 
+			// Deploy previews should not revalidate, as we read from the filesystem
+			let revalidate = __config.dev_dot.revalidate
+			if (isDeployPreview(productSlugForLoader)) {
+				revalidate = false
+			}
+
 			return {
-				revalidate: __config.dev_dot.revalidate,
+				revalidate,
 				props: finalProps,
 			}
 		},

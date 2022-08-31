@@ -1,5 +1,8 @@
 {
 	"extends": "base",
+	"dev_dot": {
+		"max_static_paths": 9999
+	},
 	"io_sites": {
 		"max_static_paths": 9999
 	},
