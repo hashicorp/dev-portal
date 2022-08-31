@@ -1,4 +1,6 @@
+import { Fragment } from 'react'
 import HashiHead from '@hashicorp/react-head'
+import InstruqtProvider from 'contexts/instruqt-lab'
 import { MDXRemote } from 'next-mdx-remote'
 import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
@@ -28,43 +30,49 @@ export default function OnboardingTutorialView({
 	} = tutorial
 	const hasVideo = Boolean(video)
 	const isInteractive = Boolean(handsOnLab)
+	const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
 
 	return (
 		<>
 			<HashiHead>
 				<meta name="robots" content="noindex" />
 			</HashiHead>
-			<SidebarSidecarLayout
-				headings={layoutProps.headings}
-				breadcrumbLinks={layoutProps.breadcrumbLinks}
-				sidebarNavDataLevels={layoutProps.navLevels}
+			<InteractiveLabWrapper
+				key={slug}
+				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<TutorialMeta
-					heading={{ slug: slug, text: name }}
-					meta={{
-						readTime,
-						edition,
-						productsUsed,
-						isInteractive,
-						hasVideo,
-					}}
-					tutorialId={id}
-				/>
-				{video?.id && !video.videoInline && (
-					<VideoEmbed
-						url={getVideoUrl({
-							videoId: video.id,
-							videoHost: video.videoHost,
-						})}
+				<SidebarSidecarLayout
+					headings={layoutProps.headings}
+					breadcrumbLinks={layoutProps.breadcrumbLinks}
+					sidebarNavDataLevels={layoutProps.navLevels}
+				>
+					<TutorialMeta
+						heading={{ slug: slug, text: name }}
+						meta={{
+							readTime,
+							edition,
+							productsUsed,
+							isInteractive,
+							hasVideo,
+						}}
+						tutorialId={id}
 					/>
-				)}
-				<TabProvider>
-					<DevDotContent>
-						<MDXRemote {...content} components={MDX_COMPONENTS} />
-					</DevDotContent>
-				</TabProvider>
-				<NextPrevious {...nextPreviousData} />
-			</SidebarSidecarLayout>
+					{video?.id && !video.videoInline && (
+						<VideoEmbed
+							url={getVideoUrl({
+								videoId: video.id,
+								videoHost: video.videoHost,
+							})}
+						/>
+					)}
+					<TabProvider>
+						<DevDotContent>
+							<MDXRemote {...content} components={MDX_COMPONENTS} />
+						</DevDotContent>
+					</TabProvider>
+					<NextPrevious {...nextPreviousData} />
+				</SidebarSidecarLayout>
+			</InteractiveLabWrapper>
 		</>
 	)
 }
