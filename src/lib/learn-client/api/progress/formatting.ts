@@ -14,10 +14,10 @@ export function progressPercentToLabel(
 ): TutorialProgressLabel {
 	if (percent === '100') {
 		return TutorialProgressLabel.complete
-	} else if (percent === '50') {
-		return TutorialProgressLabel.in_progress
-	} else {
+	} else if (percent === '0') {
 		return TutorialProgressLabel.visited
+	} else {
+		return TutorialProgressLabel.in_progress
 	}
 }
 
