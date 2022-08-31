@@ -5,6 +5,7 @@ import classNames from 'classnames'
 // HashiCorp imports
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconExternalLink24 } from '@hashicorp/flight-icons/svg-react/external-link-24'
+import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
 import CodeBlock from '@hashicorp/react-code-block'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 
@@ -207,7 +208,44 @@ const NotesSection = ({ selectedRelease }) => {
 	)
 }
 
+/**
+ * @TODO replace with InlineAlert
+ * ref: https://design-system-components-hashicorp.vercel.app/components/alert
+ */
+const EnterpriseLegalNotice = () => {
+	return (
+		<div className={s.enterpriseLegalNotice}>
+			<IconInfo24 className={s.enterpriseLegalNoticeIcon} />
+			<div>
+				<Text
+					asElement="p"
+					className={s.enterpriseLegalNoticeTitle}
+					size={200}
+					weight="semibold"
+				>
+					Terms of use
+				</Text>
+				<Text
+					asElement="p"
+					className={s.enterpriseLegalNoticeText}
+					size={200}
+					weight="regular"
+				>
+					The following shall apply unless your organization has a separately
+					signed Enterprise License Agreement or Evaluation Agreement governing
+					your use of the package: Enterprise packages in this repository are
+					subject to the license terms located in the package. Please read the
+					license terms prior to using the package. Your installation and use of
+					the package constitutes your acceptance of these terms. If you do not
+					accept the terms, do not use the package.
+				</Text>
+			</div>
+		</div>
+	)
+}
+
 const DownloadsSection = ({
+	isEnterpriseMode = false,
 	packageManagers,
 	selectedRelease,
 	versionSwitcherOptions,
@@ -270,6 +308,7 @@ const DownloadsSection = ({
 									/>
 									<ChangelogSection selectedRelease={selectedRelease} />
 									<NotesSection selectedRelease={selectedRelease} />
+									{isEnterpriseMode ? <EnterpriseLegalNotice /> : null}
 								</div>
 							</Tab>
 						)
