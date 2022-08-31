@@ -106,7 +106,7 @@ export async function getStaticProps({ params }) {
 	// Construct sidebar nav data levels
 	const sidebarNavDataLevels = [
 		{
-			backToLinkProps: { text: 'Boundary Documentation', href: '/boundary/' },
+			backToLinkProps: { text: 'Boundary Home', href: '/boundary/' },
 			menuItems: [
 				{
 					heading: 'API',
