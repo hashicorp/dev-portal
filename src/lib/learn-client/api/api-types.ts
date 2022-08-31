@@ -76,8 +76,7 @@ export interface ApiCollectionTutorial
 	tutorial: ApiTutorial
 }
 
-export interface ApiCollectionTutorialProgress
-	extends Pick<BaseModel, 'id' | 'created_at' | 'updated_at'> {
+export interface ApiCollectionTutorialProgress extends BaseModel {
 	user_id: string
 	collection_id: uuid
 	tutorial_id: uuid
