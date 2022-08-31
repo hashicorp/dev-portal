@@ -7,6 +7,10 @@ import { usePagination } from 'react-instantsearch-hooks-web'
 import paginationStyle from './pagination.module.css'
 import { ButtonLinkProps } from 'components/button-link/types'
 
+/**
+ * @TODO de-duplicate some of the link generation, especially on either side of the pages array
+ * @TODO scroll to top of page after paging
+ */
 export function Pagination() {
 	const {
 		pages,
