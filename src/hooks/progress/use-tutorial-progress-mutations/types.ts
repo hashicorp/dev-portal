@@ -39,4 +39,5 @@ export interface TutorialProgressMutationArgs {
 export interface UseTutorialProgressMutationsResult {
 	createTutorialProgress: (args: TutorialProgressMutationArgs) => void
 	updateTutorialProgress: (args: TutorialProgressMutationArgs) => void
+	isReady: boolean
 }

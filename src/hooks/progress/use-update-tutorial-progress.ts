@@ -49,8 +49,6 @@ export function useUpdateTutorialProgress({
 	})
 	// `react-query` mutations are what we'll use to "create" or "update" progress
 	const tutorialProgressMutations = useTutorialProgressMutations()
-	// We don't want to run multiple mutations at once
-	const [isRunningMutation, setIsRunningMutation] = useState<boolean>(false)
 
 	// We pass these progress-tracking refs to the consumer
 	const [startRef, startInView] = useInView({ initialInView: true })
@@ -64,12 +62,13 @@ export function useUpdateTutorialProgress({
 		/**
 		 * If we don't have the tutorial and collection ids we need,
 		 * or if we're not authenticated,
-		 * or if we already in the middle of a mutation,
+		 * or if we're not ready to run a mutation (may be in progress, or failed),
 		 * then bail early
 		 */
 		const isLoading = typeof tutorialProgressLabel == 'undefined'
 		const hasIds = tutorialId && collectionId
-		if (!hasIds || !isAuthenticated || isRunningMutation || isLoading) {
+		const isReadyToRunMutation = tutorialProgressMutations.isReady
+		if (!hasIds || !isAuthenticated || !isReadyToRunMutation || isLoading) {
 			return
 		}
 		/**
@@ -99,24 +98,11 @@ export function useUpdateTutorialProgress({
 		if (needsInitialProgress || hasPositiveProgress) {
 			/**
 			 * We'll use the same mutation arguments for "create" or "update".
-			 *
-			 * Note: We need to ensure we don't fire off multiple updates at once,
-			 * so we setIsRunningMutation(true) as we start the mutation, and once
-			 * the mutation has settled successfully, we setIsRunningMutation(false).
-			 *
-			 * Note that we do not setIsRunningMutation(true) if the mutation failed,
-			 * as this can cause an infinite loop of retries.
 			 */
-			setIsRunningMutation(true)
 			const mutationArgs: TutorialProgressMutationArgs = {
 				tutorialId,
 				collectionId,
 				completePercent: newPercent,
-				options: {
-					onSuccess: () => {
-						setIsRunningMutation(false)
-					},
-				},
 			}
 			/**
 			 * If we need an initial progress record, we create a new record.
@@ -133,7 +119,6 @@ export function useUpdateTutorialProgress({
 		tutorialId,
 		collectionId,
 		isAuthenticated,
-		isRunningMutation,
 		startInView,
 		tutorialProgressLabel,
 		tutorialProgressMutations,

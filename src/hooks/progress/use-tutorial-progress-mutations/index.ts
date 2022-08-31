@@ -92,6 +92,7 @@ const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 	const updateTutorialProgress = useCallback(
 		(args: TutorialProgressMutationArgs) => {
 			const { tutorialId, collectionId, completePercent, options } = args
+
 			updateTutorialProgressMutation.mutate(
 				{ accessToken, tutorialId, collectionId, completePercent },
 				options
@@ -100,7 +101,22 @@ const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 		[updateTutorialProgressMutation, accessToken]
 	)
 
-	return { createTutorialProgress, updateTutorialProgress }
+	/**
+	 * Consumers likely only want to perform calculations in preparation to
+	 * run these mutations if status is "idle" or "success". Otherwise,
+	 * attempt to run the mutation may result in a continuous loop.
+	 */
+	const { status: createStatus } = createTutorialProgressMutation
+	const { status: updateStatus } = updateTutorialProgressMutation
+	const readyStatuses = ['idle', 'success']
+	const isReady =
+		readyStatuses.includes(createStatus) && readyStatuses.includes(updateStatus)
+
+	return {
+		createTutorialProgress,
+		updateTutorialProgress,
+		isReady,
+	}
 }
 
 export type { TutorialProgressMutationArgs, UseTutorialProgressMutationsResult }
