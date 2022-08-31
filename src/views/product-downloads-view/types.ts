@@ -1,5 +1,9 @@
 import { ReactElement } from 'react'
-import { ReleasesAPIResponse, GeneratedProps } from 'lib/fetch-release-data'
+import {
+	ReleasesAPIResponse,
+	GeneratedProps,
+	ReleaseVersion,
+} from 'lib/fetch-release-data'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 import { MenuItem } from 'components/sidebar'
@@ -35,6 +39,7 @@ export interface RawProductDownloadsViewContent {
 export type FeaturedLearnCard = TutorialCardPropsWithId
 
 export interface ProductDownloadsViewProps {
+	isEnterpriseMode: boolean
 	latestVersion: string
 	merchandisingSlot?: ReactElement
 	pageContent: {
@@ -45,12 +50,14 @@ export interface ProductDownloadsViewProps {
 		sidebarMenuItems?: MenuItem[]
 	}
 	releases: ReleasesAPIResponse
+	sortedAndFilteredVersions: ReleaseVersion[]
 }
 
 /**
  * Type for inner content component, with version switcher options
  */
 export interface ProductDownloadsViewContentProps {
+	isEnterpriseMode: ProductDownloadsViewProps['isEnterpriseMode']
 	merchandisingSlot?: ProductDownloadsViewProps['merchandisingSlot']
 	pageContent: ProductDownloadsViewProps['pageContent']
 	releases: ProductDownloadsViewProps['releases']
