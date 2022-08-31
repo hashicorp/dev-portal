@@ -107,14 +107,10 @@ export async function getStaticProps({ params }) {
 	const sidebarNavDataLevels = [
 		{
 			backToLinkProps: { text: 'Boundary Home', href: '/boundary/' },
+			title: 'API',
 			menuItems: [
 				{
-					heading: 'API',
-				},
-				{
 					title: 'Overview',
-					indexData: true,
-					path: '',
 					fullPath: '/boundary/api-docs/',
 				},
 				{
