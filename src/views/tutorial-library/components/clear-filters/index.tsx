@@ -4,7 +4,7 @@ import { useClearRefinements } from 'react-instantsearch-hooks-web'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 
 interface ClearFiltersProps {
-	color: ButtonProps['color']
+	color?: ButtonProps['color']
 }
 
 export function ClearFilters({ color = 'tertiary' }: ClearFiltersProps) {

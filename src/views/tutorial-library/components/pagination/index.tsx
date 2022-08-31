@@ -18,7 +18,7 @@ export function Pagination() {
 		createURL,
 	} = usePagination({ padding: 2 })
 
-	const previousButtonProps: ButtonLinkProps = {
+	const previousButtonProps: Omit<ButtonLinkProps, 'onClick'> = {
 		'aria-label': 'Go to previous page',
 		icon: <IconArrowLeft16 />,
 		color: 'secondary',
@@ -27,7 +27,7 @@ export function Pagination() {
 		href: createURL(currentPage - 1),
 	}
 
-	const nextButtonProps: ButtonLinkProps = {
+	const nextButtonProps: Omit<ButtonLinkProps, 'onClick'> = {
 		'aria-label': 'Go to next page',
 		icon: <IconArrowRight16 />,
 		color: 'secondary',
