@@ -36,6 +36,10 @@ const FilterInput: React.FC<FilterInputProps> = ({
 				placeholder={placeholder ?? 'Filter'}
 				ref={inputRef}
 				value={value}
+				autoComplete="off"
+				autoCorrect="off"
+				autoCapitalize="none"
+				spellCheck="false"
 			/>
 			{showClearButton && (
 				<button
