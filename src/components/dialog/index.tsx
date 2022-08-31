@@ -7,11 +7,13 @@ import {
 } from 'framer-motion'
 import { DialogProps } from './types'
 import s from './dialog.module.css'
+import classNames from 'classnames'
 
 const AnimatedDialogOverlay = slimMotion(DialogOverlay)
 
 export default function Dialog({
 	children,
+	contentClassName,
 	isOpen,
 	onDismiss,
 	label,
@@ -31,7 +33,10 @@ export default function Dialog({
 					transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
 				>
 					<div className={s.contentWrapper}>
-						<DialogContent className={s.content} aria-label={label}>
+						<DialogContent
+							className={classNames(s.content, contentClassName)}
+							aria-label={label}
+						>
 							{children}
 						</DialogContent>
 					</div>

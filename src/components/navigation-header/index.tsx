@@ -11,7 +11,7 @@ import { getUserMenuItems } from 'lib/auth/user'
 import useAuthentication from 'hooks/use-authentication'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
 import Button from 'components/button'
-import { GlobalSearchInput } from 'components/global-search'
+import { GlobalSearchButton } from 'components/global-search'
 import StandaloneLink from 'components/standalone-link'
 import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
 
@@ -101,7 +101,7 @@ const NavigationHeader = () => {
 		<header className={s.root}>
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
-				<GlobalSearchInput />
+				<GlobalSearchButton />
 				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>

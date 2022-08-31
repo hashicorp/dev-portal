@@ -119,6 +119,7 @@
 	align-items: center;
 	display: flex;
 	gap: 16px;
+	flex-shrink: 0;
 
 	@media (--dev-dot-show-mobile-menu) {
 		display: none;

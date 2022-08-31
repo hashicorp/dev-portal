@@ -8,9 +8,11 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 
 // Global imports
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
+import { GlobalSearchProvider } from 'contexts'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import Footer from 'components/footer'
+import { GlobalSearchDialog } from 'components/global-search'
 import MobileMenuContainer, {
 	MobileAuthenticationControls,
 } from 'components/mobile-menu-container'
@@ -69,22 +71,25 @@ const BaseNewLayout = ({
 	return (
 		<>
 			<CoreDevDotLayout>
-				<div className={s.root} data-layout="base-new">
-					<div className={s.header}>
-						<NavigationHeader />
+				<GlobalSearchProvider>
+					<div className={s.root} data-layout="base-new">
+						<div className={s.header}>
+							<NavigationHeader />
+						</div>
+						<div className={s.contentArea}>
+							{shouldShowMobileMenu ? <NonProductPageMobileMenu /> : null}
+							{children}
+						</div>
+						<div
+							className={classNames(s.footer, {
+								[s.showFooterTopBorder]: showFooterTopBorder,
+							})}
+						>
+							<Footer openConsentManager={openConsentManager} />
+						</div>
+						<GlobalSearchDialog />
 					</div>
-					<div className={s.contentArea}>
-						{shouldShowMobileMenu ? <NonProductPageMobileMenu /> : null}
-						{children}
-					</div>
-					<div
-						className={classNames(s.footer, {
-							[s.showFooterTopBorder]: showFooterTopBorder,
-						})}
-					>
-						<Footer openConsentManager={openConsentManager} />
-					</div>
-				</div>
+				</GlobalSearchProvider>
 			</CoreDevDotLayout>
 			<ConsentManager />
 		</>
