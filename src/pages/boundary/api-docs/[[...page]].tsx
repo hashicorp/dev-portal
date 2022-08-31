@@ -70,11 +70,25 @@ export async function getStaticProps({ params }) {
 
 	// Layout props
 	const headings = []
+
+	// Breadcrumbs
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
 		{ title: 'Boundary', url: `/boundary` },
 		{ title: 'API', url: `/boundary/api-docs` },
 	]
+
+	// Breadcrumbs - Render conditional category
+	if ('operationCategory' in apiPageProps) {
+		breadcrumbLinks.push({
+			title: apiPageProps.operationCategory.name,
+			url: `/boundary/api-docs/${apiPageProps.operationCategory.slug}`,
+		})
+	}
+
+	// Breadcrumbs - Make final element dark-text
+	// @ts-expect-error `isCurrentPage` is an expected optional field
+	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
 
 	// Menu items for the sidebar, from the existing dot-io-oriented navData
 	const apiSidebarMenuItems = apiPageProps.navData.map((menuItem) => {
@@ -92,9 +106,15 @@ export async function getStaticProps({ params }) {
 	// Construct sidebar nav data levels
 	const sidebarNavDataLevels = [
 		{
+			backToLinkProps: { text: 'Boundary Home', href: '/boundary/' },
+			title: 'API',
 			menuItems: [
 				{
-					heading: apiPageProps.info.title,
+					title: 'Overview',
+					fullPath: '/boundary/api-docs/',
+				},
+				{
+					divider: true,
 				},
 				...apiSidebarMenuItems,
 			],
