@@ -45,7 +45,13 @@ export function Pagination() {
 				{isFirstPage ? (
 					<Button disabled {...previousButtonProps} />
 				) : (
-					<ButtonLink href="#" {...previousButtonProps} />
+					<ButtonLink
+						{...previousButtonProps}
+						onClick={(e) => {
+							e.preventDefault()
+							refine(currentPage - 1)
+						}}
+					/>
 				)}
 			</li>
 			{showRestFirstPage ? (
@@ -113,7 +119,13 @@ export function Pagination() {
 				{isLastPage ? (
 					<Button disabled {...nextButtonProps} />
 				) : (
-					<ButtonLink href="#" {...nextButtonProps} />
+					<ButtonLink
+						{...nextButtonProps}
+						onClick={(e) => {
+							e.preventDefault()
+							refine(currentPage + 1)
+						}}
+					/>
 				)}
 			</li>
 		</ul>
