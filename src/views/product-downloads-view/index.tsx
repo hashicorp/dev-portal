@@ -67,7 +67,11 @@ const ProductDownloadsViewContent = ({
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
 		generateProductLandingSidebarNavData(currentProduct),
-		generateInstallViewNavItems(currentProduct, sidebarMenuItems),
+		generateInstallViewNavItems(
+			currentProduct,
+			sidebarMenuItems,
+			isEnterpriseMode
+		),
 	]
 	const packageManagers = useMemo(() => {
 		if (doesNotHavePackageManagers) {
