@@ -1,8 +1,8 @@
 import classNames from 'classnames'
-import { CheckboxControlProps } from './types'
-import s from './checkbox-control.module.css'
+import { RadioControlProps } from './types'
+import s from './radio-control.module.css'
 
-const CheckboxControl = ({
+const RadioControl = ({
 	'aria-describedby': ariaDescribedBy,
 	checked = false,
 	className,
@@ -10,8 +10,9 @@ const CheckboxControl = ({
 	name,
 	onChange,
 	onClick,
+	onKeyDown,
 	value,
-}: CheckboxControlProps) => {
+}: RadioControlProps) => {
 	const classes = classNames(s.root, className)
 
 	return (
@@ -23,11 +24,12 @@ const CheckboxControl = ({
 			name={name}
 			onChange={onChange}
 			onClick={onClick}
-			type="checkbox"
+			onKeyDown={onKeyDown}
+			type="radio"
 			value={value || id}
 		/>
 	)
 }
 
-export type { CheckboxControlProps }
-export default CheckboxControl
+export type { RadioControlProps }
+export default RadioControl

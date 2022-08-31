@@ -163,7 +163,7 @@ function Homepage({ data }): React.ReactElement {
 
 			<IoHomeInPractice
 				brand="consul"
-				pattern="/consul/img/practice-pattern.svg"
+				pattern="/consul-public/img/practice-pattern.svg"
 				heading={inPracticeHeading}
 				description={inPracticeDescription}
 				cards={inPracticeCards.map((card) => {
