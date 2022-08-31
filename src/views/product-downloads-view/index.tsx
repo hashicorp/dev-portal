@@ -111,6 +111,7 @@ const ProductDownloadsViewContent = ({
 			) : null}
 			<PageHeader isEnterpriseMode={isEnterpriseMode} />
 			<DownloadsSection
+				isEnterpriseMode={isEnterpriseMode}
 				packageManagers={packageManagers}
 				selectedRelease={releases.versions[currentVersion]}
 				versionSwitcherOptions={versionSwitcherOptions}
