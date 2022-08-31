@@ -1,6 +1,9 @@
 .root {
-	padding: 8px 0;
 	margin: 0;
+
+	&:not(:last-child) {
+		margin-bottom: 25px;
+	}
 
 	& .typeString {
 		color: var(--gray-2);
@@ -61,7 +64,6 @@
 	composes: hds-typography-body-200 from global;
 	color: var(--gray-3);
 	margin: 8px 0 0 0;
-	padding-left: 8px;
 
 	/* Remove the top margin from any first item */
 	& > *:first-child {
