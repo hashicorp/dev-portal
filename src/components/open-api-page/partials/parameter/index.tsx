@@ -81,8 +81,8 @@ function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
 }
 
 function arrayFrom(length, value = null) {
-	let array = []
-	for (var i = 0; i < length; i++) {
+	const array = []
+	for (let i = 0; i < length; i++) {
 		array.push(value)
 	}
 	return array
