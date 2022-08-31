@@ -8,11 +8,12 @@ type InheritedInputProps = Pick<
 	| 'name'
 	| 'onChange'
 	| 'onClick'
+	| 'onKeyDown'
 	| 'value'
 >
 
-interface CheckboxControlProps extends InheritedInputProps {
+interface RadioControlProps extends InheritedInputProps {
 	id: NativeInputProps['id']
 }
 
-export type { CheckboxControlProps }
+export type { RadioControlProps }
