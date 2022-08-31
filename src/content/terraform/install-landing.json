@@ -1,5 +1,12 @@
 {
-	"featuredTutorialsSlugs": [],
+	"featuredTutorialsSlugs": [
+            "terraform/tutorials/aws-get-started",
+	    "terraform/tutorials/azure-get-started",
+	    "terraform/tutorials/docker-get-started",
+	    "terraform/tutorials/gcp-get-started",
+	    "terraform/tutorials/oci-get-started",
+	    "terraform/tutorials/cloud-get-started"
+	],
 	"sidebarMenuItems": [
 		{
 			"divider": true
