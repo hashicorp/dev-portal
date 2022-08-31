@@ -2,7 +2,7 @@ query navQuery {
 	consulNav {
 		useCases {
 			text: heroHeading
-			slug
+			url: slug
 		}
 	}
 }
