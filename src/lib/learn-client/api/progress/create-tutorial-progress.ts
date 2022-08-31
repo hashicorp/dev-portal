@@ -36,11 +36,6 @@ const createTutorialProgress = async ({
 		complete_percent: completePercent,
 	})
 
-	// Return null if the request status is 404
-	if (requestResult.status === 404) {
-		return null
-	}
-
 	// Return data as JSON if result is OK
 	if (requestResult.ok) {
 		const { result } = await requestResult.json()
