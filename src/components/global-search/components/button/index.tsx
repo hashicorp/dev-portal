@@ -11,9 +11,13 @@ import s from './global-search-button.module.css'
 const VISUAL_LABEL = 'Search'
 
 const GlobalSearchButton = () => {
-	const { toggleSearchIsOpen } = useGlobalSearch()
+	const { isGlobalSearchEnabled, toggleSearchIsOpen } = useGlobalSearch()
 
 	useEffect(() => {
+		if (!isGlobalSearchEnabled) {
+			return
+		}
+
 		const handleKeyDown = (e) => {
 			const { ctrlKey, metaKey, key } = e
 			if (key === 'k' && (ctrlKey || metaKey)) {
@@ -26,7 +30,11 @@ const GlobalSearchButton = () => {
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown)
 		}
-	}, [toggleSearchIsOpen])
+	}, [isGlobalSearchEnabled, toggleSearchIsOpen])
+
+	if (!isGlobalSearchEnabled) {
+		return null
+	}
 
 	return (
 		<button

@@ -6,7 +6,10 @@ import {
 	useState,
 } from 'react'
 
+const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
+
 interface GlobalSearchContextValue {
+	isGlobalSearchEnabled: boolean
 	searchIsOpen: boolean
 	toggleSearchIsOpen: () => void
 }
@@ -18,6 +21,7 @@ interface GlobalSearchProviderProps {
 const GlobalSearchContext = createContext<GlobalSearchContextValue>(undefined)
 
 const GlobalSearchProvider = ({ children }: GlobalSearchProviderProps) => {
+	const isGlobalSearchEnabled = GLOBAL_SEARCH_ENABLED
 	const [searchIsOpen, setSearchIsOpen] = useState<boolean>(false)
 	const toggleSearchIsOpen = useCallback(() => {
 		setSearchIsOpen((prevIsOpen: boolean) => !prevIsOpen)
@@ -26,6 +30,7 @@ const GlobalSearchProvider = ({ children }: GlobalSearchProviderProps) => {
 	return (
 		<GlobalSearchContext.Provider
 			value={{
+				isGlobalSearchEnabled,
 				searchIsOpen,
 				toggleSearchIsOpen,
 			}}

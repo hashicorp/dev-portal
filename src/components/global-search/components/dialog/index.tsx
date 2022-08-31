@@ -3,7 +3,12 @@ import Dialog from 'components/dialog'
 import s from './global-search-dialog.module.css'
 
 const GlobalSearchDialog = () => {
-	const { searchIsOpen, toggleSearchIsOpen } = useGlobalSearch()
+	const { isGlobalSearchEnabled, searchIsOpen, toggleSearchIsOpen } =
+		useGlobalSearch()
+
+	if (!isGlobalSearchEnabled) {
+		return null
+	}
 
 	return (
 		<Dialog
