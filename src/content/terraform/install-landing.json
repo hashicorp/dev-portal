@@ -25,6 +25,10 @@
 				"text": "Introduction to Terraform"
 			},
 			{
+			        "href": "/terraform/tutorials#get-started",
+				"text": "Get Started Tutorials"
+			},
+			{
 				"href": "/terraform/language",
 				"text": "Configuration Language"
 			},
