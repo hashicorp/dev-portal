@@ -265,30 +265,30 @@ export const sortAndFilterReleaseVersions = ({
 	releaseVersions: Record<string, ReleaseVersion>
 	isEnterpriseMode: boolean
 }): ReleaseVersion[] => {
-	const filteredVersionStrings = semverRSort(
-		Object.keys(releaseVersions)
-	).filter((version: string) => {
-		// Filter out invalid semver
-		const isInvalidSemver = semverValid(version) == null
-		if (isInvalidSemver) {
-			return false
-		}
+	const filteredVersionStrings = Object.keys(releaseVersions).filter(
+		(version: string) => {
+			// Filter out invalid semver
+			const isInvalidSemver = semverValid(version) == null
+			if (isInvalidSemver) {
+				return false
+			}
 
-		// Filter out prereleases
-		const isPrelease = semverPrerelease(version) !== null
-		if (isPrelease) {
-			return false
-		}
+			// Filter out prereleases
+			const isPrelease = semverPrerelease(version) !== null
+			if (isPrelease) {
+				return false
+			}
 
-		// Filter in enterprise versions if enterprise mode
-		const isEnterpriseVersion = !!version.match(/\+ent(?:.*?)*$/)
-		if (isEnterpriseMode) {
-			return isEnterpriseVersion
-		}
+			// Filter in enterprise versions if enterprise mode
+			const isEnterpriseVersion = !!version.match(/\+ent(?:.*?)*$/)
+			if (isEnterpriseMode) {
+				return isEnterpriseVersion
+			}
 
-		// Filter out enterprise versions if not enterprise mode
-		return !isEnterpriseVersion
-	})
+			// Filter out enterprise versions if not enterprise mode
+			return !isEnterpriseVersion
+		}
+	)
 	const sortedVersionStrings = semverRSort(filteredVersionStrings)
 	const sortedAndFilteredVersions = sortedVersionStrings.map(
 		(version: string) => releaseVersions[version]
