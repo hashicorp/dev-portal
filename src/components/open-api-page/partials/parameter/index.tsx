@@ -1,15 +1,9 @@
-import { useState } from 'react'
-import classNames from 'classnames'
-import InlineSvg from '@hashicorp/react-inline-svg'
-import Collapsible from '../collapsible'
-import svgChevronDown from '@hashicorp/flight-icons/svg/chevron-down-16.svg?include'
 import s from './style.module.css'
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import AccordionDisclosure from 'components/accordion-disclosure'
 import Badge from 'components/badge'
 
 function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
-	const [isCollapsed, setIsCollapsed] = useState(true)
 	if (data.type === 'array') {
 		return (
 			<Parameter
