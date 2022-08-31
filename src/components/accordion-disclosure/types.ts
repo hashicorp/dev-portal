@@ -27,5 +27,5 @@ export interface AccordionDisclosureProps {
 	 * the disclosed content; labels like "Section 1" or "Section 2" is not very
 	 * descriptive.
 	 */
-	title: string | ReactNode
+	title: ReactNode
 }
