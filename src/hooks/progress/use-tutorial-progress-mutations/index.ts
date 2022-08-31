@@ -35,16 +35,14 @@ const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 	 */
 	const makeOnMutationSuccess = () => {
 		return (
-			_result: ApiCollectionTutorialProgress,
+			data: ApiCollectionTutorialProgress,
 			mutationVariables: TutorialProgressMutationVariables
 		) => {
 			// Destructure the variables we need to update related queries
-			const { tutorialId, collectionId, completePercent } = mutationVariables
-			// Update query data for this specific tutorial-in-collection progress
-			const progressLabel = progressPercentToLabel(completePercent)
+			const { tutorialId, collectionId } = mutationVariables
 			queryClient.setQueryData(
 				[TUTORIAL_PROGRESS_QUERY_ID, tutorialId, collectionId],
-				progressLabel
+				data
 			)
 		}
 	}

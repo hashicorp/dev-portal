@@ -1,5 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import useAuthentication from 'hooks/use-authentication'
+import { ApiCollectionTutorialProgress } from 'lib/learn-client/api/api-types'
 import {
 	getTutorialProgress,
 	GetTutorialProgressResult,
@@ -11,11 +12,9 @@ import {
 } from 'lib/learn-client/types'
 import { TUTORIAL_PROGRESS_QUERY_ID } from './'
 
-type QueryDataType = TutorialProgressLabel | null
-
 interface UseTutorialProgressResult
-	extends Omit<UseQueryResult<QueryDataType>, 'data'> {
-	tutorialProgressLabel: UseQueryResult<QueryDataType>['data']
+	extends Omit<UseQueryResult<TutorialProgressLabel>, 'data'> {
+	tutorialProgressLabel: UseQueryResult<TutorialProgressLabel>['data']
 }
 
 /**
@@ -31,27 +30,30 @@ const useTutorialProgress = ({
 	const accessToken = session?.accessToken
 
 	// Fetch a progress records by `tutorialId`, then filter by `collectionId`
-	const { data: tutorialProgressLabel, ...restQueryResult } =
-		useQuery<QueryDataType>(
-			[TUTORIAL_PROGRESS_QUERY_ID, tutorialId, collectionId],
-			() => getTutorialProgress({ accessToken, tutorialId, collectionId }),
-			{
-				enabled: !!accessToken,
-				select: data => {
-					  /**
-					  * Data may be null, if a progress record does not exist
-					  * for this tutorialId + collectionId combination.
-					  *
-					  * We pass this on to the query consumer, as they may need
-					  * to know whether the record exists or not.
-					  */
-				        if (data == null) {
-					        return null
-				        }
-					return progressPercentToLabel(data.complete_percent)
+	const { data: tutorialProgressLabel, ...restQueryResult } = useQuery<
+		GetTutorialProgressResult,
+		unknown,
+		TutorialProgressLabel
+	>(
+		[TUTORIAL_PROGRESS_QUERY_ID, tutorialId, collectionId],
+		() => getTutorialProgress({ accessToken, tutorialId, collectionId }),
+		{
+			enabled: !!accessToken,
+			select: (data: ApiCollectionTutorialProgress) => {
+				/**
+				 * Data may be null, if a progress record does not exist
+				 * for this tutorialId + collectionId combination.
+				 *
+				 * We pass this on to the query consumer, as they may need
+				 * to know whether the record exists or not.
+				 */
+				if (data == null) {
+					return null
 				}
-			}
-		)
+				return progressPercentToLabel(data.complete_percent)
+			},
+		}
+	)
 
 	return {
 		tutorialProgressLabel,
