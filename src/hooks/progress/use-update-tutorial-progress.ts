@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import useAuthentication from 'hooks/use-authentication'
 // Tutorial progress utilities
-import { progressLabelToPercent } from 'lib/learn-client/api/progress/formatting'
+import { progressStatusToPercent } from 'lib/learn-client/api/progress/formatting'
 import {
 	useTutorialProgress,
 	useTutorialProgressMutations,
@@ -11,7 +11,7 @@ import {
 // Types
 import {
 	TutorialIdCollectionId,
-	TutorialProgressLabel,
+	TutorialProgressStatus,
 } from 'lib/learn-client/types'
 
 type IntersectionRef = (node?: Element) => void
@@ -43,7 +43,7 @@ export function useUpdateTutorialProgress({
 	// We shouldn't try to update progress unless we're authenticated
 	const { isAuthenticated } = useAuthentication()
 	// We need to know if progress exists, to know whether to "create" or "update"
-	const { tutorialProgressLabel } = useTutorialProgress({
+	const { tutorialProgressStatus } = useTutorialProgress({
 		tutorialId,
 		collectionId,
 	})
@@ -101,7 +101,7 @@ export function useUpdateTutorialProgress({
 		 * yet from querying this tutorial's status, we also bail early.
 		 * We need that result to know whether to "create" or "update".
 		 */
-		if (typeof tutorialProgressLabel == 'undefined') {
+		if (typeof tutorialProgressStatus == 'undefined') {
 			return
 		}
 
@@ -121,13 +121,13 @@ export function useUpdateTutorialProgress({
 		 * - 'in_progress' (50%) if the start ref is no longer visible
 		 * - 'visited' (0%) in all other cases
 		 */
-		let newProgressStatus: TutorialProgressLabel
+		let newProgressStatus: TutorialProgressStatus
 		if (endInView) {
-			newProgressStatus = TutorialProgressLabel.complete
+			newProgressStatus = TutorialProgressStatus.complete
 		} else if (!startInView) {
-			newProgressStatus = TutorialProgressLabel.in_progress
+			newProgressStatus = TutorialProgressStatus.in_progress
 		} else {
-			newProgressStatus = TutorialProgressLabel.visited
+			newProgressStatus = TutorialProgressStatus.visited
 		}
 
 		/**
@@ -136,11 +136,11 @@ export function useUpdateTutorialProgress({
 		 *
 		 * Note that we don't ever downgrade the percent value of progress.
 		 */
-		const existingPercent = progressLabelToPercent(tutorialProgressLabel)
-		const newPercent = progressLabelToPercent(newProgressStatus)
+		const existingPercent = progressStatusToPercent(tutorialProgressStatus)
+		const newPercent = progressStatusToPercent(newProgressStatus)
 		const hasPositiveProgress = parseInt(newPercent) > parseInt(existingPercent)
 		// We won't see positive progress initially (0 > 0 == false)
-		const needsInitialProgress = tutorialProgressLabel === null
+		const needsInitialProgress = tutorialProgressStatus === null
 		if (needsInitialProgress || hasPositiveProgress) {
 			/**
 			 * We'll use the same mutation arguments for "create" or "update".
@@ -177,7 +177,7 @@ export function useUpdateTutorialProgress({
 		// Authentication
 		isAuthenticated,
 		// Queried status for this tutorial, informs "create" vs "update"
-		tutorialProgressLabel,
+		tutorialProgressStatus,
 		// Result of useTutorialProgressMutations
 		tutorialProgressMutations,
 	])
