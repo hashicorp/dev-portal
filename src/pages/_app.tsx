@@ -9,6 +9,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 // HashiCorp imports
+import {
+	initializeUTMParamsCapture,
+	addCloudLinkHandler,
+} from '@hashicorp/platform-analytics'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
@@ -44,6 +48,9 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 	const axe = require('@axe-core/react')
 	axe(React, ReactDOM, 1000)
 }
+
+initializeUTMParamsCapture()
+addCloudLinkHandler()
 
 export default function App({
 	Component,
