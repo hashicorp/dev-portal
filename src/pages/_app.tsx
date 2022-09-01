@@ -29,6 +29,8 @@ import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
 
+import type { CustomAppProps, CustomAppContext } from 'types/_app'
+
 // Local imports
 import './style.css'
 
@@ -52,7 +54,7 @@ export default function App({
 	pageProps: { session, ...pageProps },
 	layoutProps,
 	host,
-}: CustomAppProps) {
+}: CustomAppProps & Awaited<ReturnType<typeof App['getInitialProps']>>) {
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
@@ -124,7 +126,10 @@ export default function App({
 	)
 }
 
-App.getInitialProps = async ({ Component, ctx }: GetInitialPropsParams) => {
+App.getInitialProps = async ({
+	Component,
+	ctx,
+}: CustomAppContext<{ Component: ComponentMaybeWithQuery }>) => {
 	// Determine the product being served through our rewrites so we can fetch the correct layout data
 	let proxiedProduct
 	if (ctx.pathname.includes('_proxied-dot-io/vault')) {
@@ -157,47 +162,3 @@ App.getInitialProps = async ({ Component, ctx }: GetInitialPropsParams) => {
 		host,
 	}
 }
-
-// ------------------------------------------------------------
-// TypeScript helpers for PageComponents' `layout` property
-// @see https://nextjs.org/docs/basic-features/layouts#with-typescript
-// ------------------------------------------------------------
-import type { NextPage } from 'next'
-import type { AppProps, AppContext } from 'next/app'
-
-/**
- * @usage
- *
- * ```typescript
- * // ./src/page/my-page.tsx
- * import type { NextPageWithLayout } from "_app"
- *
- * const Page: NextPageWithLayout = (props) => {
- *   // ...
- * }
- *
- * // Page.layout <-- will be typed
- * ```
- */
-export type PageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
-	P,
-	IP
-> & {
-	layout?: React.FC
-}
-
-type ComponentWithLayout = {
-	Component: PageWithLayout & ComponentMaybeWithQuery
-}
-type AppPropsWithLayout = AppProps & ComponentWithLayout
-
-/**
- * This is our custom param type for `App.getInitialProps`
- */
-type GetInitialPropsParams = Omit<AppContext, 'Component'> & ComponentWithLayout
-
-/**
- * This is our custom type for our Next.js `App` component
- */
-type CustomAppProps = AppPropsWithLayout &
-	Awaited<ReturnType<typeof App['getInitialProps']>>

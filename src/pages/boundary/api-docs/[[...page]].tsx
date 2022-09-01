@@ -23,12 +23,7 @@ const targetFile = {
 // The path to read from when running local preview in the context of the boundary repository
 const targetLocalFile = '../../internal/gen/controller.swagger.json'
 
-import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import type { PageWithLayout } from 'pages/_app'
-
-function ApiDocsLayout(props: SidebarSidecarLayoutProps) {
-	return <SidebarSidecarLayout {...props} />
-}
+import type { PageWithLayout } from 'types/layouts'
 
 type ApiDocsViewProps = InferGetStaticPropsType<typeof getStaticProps>
 const ApiDocsView: PageWithLayout<ApiDocsViewProps> = ({ apiPageProps }) => {
@@ -143,5 +138,5 @@ export async function getStaticProps({ params }) {
 	}
 }
 
-ApiDocsView.layout = ApiDocsLayout
+ApiDocsView.layout = SidebarSidecarLayout
 export default ApiDocsView
