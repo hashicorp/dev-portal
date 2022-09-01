@@ -6,6 +6,7 @@ import {
 	uuid,
 	CollectionLevelOption,
 	CollectionCategoryOption,
+	TutorialProgressPercent,
 	ThemeOption,
 	EditionOption,
 	HandsOnLabProviderOption,
@@ -73,6 +74,23 @@ export interface ApiCollectionTutorial
 	tutorial_id: string
 	display_order: number
 	tutorial: ApiTutorial
+}
+
+export interface ApiCollectionTutorialProgress extends BaseModel {
+	user_id: string
+	collection_id: uuid
+	tutorial_id: uuid
+	complete_percent: TutorialProgressPercent
+	/**
+	 * Note: so far, we've only needed the tutorial_id from this record type.
+	 * Perhaps we could not include detailed tutorial data in the API response?
+	 */
+	tutorial: ApiTutorialLite
+	/**
+	 * Note: so far, we've only needed the collection_id from this record type.
+	 * Perhaps we could not include detailed collection data in the API response?
+	 */
+	collection: ApiCollectionLite
 }
 
 export interface ApiBookmark extends BaseModel {

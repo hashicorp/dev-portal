@@ -1,10 +1,9 @@
-import { useCallback, useState, useRef } from 'react'
+import { useRef } from 'react'
 import Link from 'next/link'
 import OperationObject from './partials/operation-object'
 import HashiHead from '@hashicorp/react-head'
 import DocsSidenav from '@hashicorp/react-docs-sidenav'
 import Content from '@hashicorp/react-content'
-import useOnClickOutside from './hooks/use-on-click-outside'
 import s from './style.module.css'
 
 function OpenApiPageContents({
@@ -14,20 +13,6 @@ function OpenApiPageContents({
 	renderOperationIntro,
 }) {
 	const operationsRef = useRef(null)
-	const [expandedOperations, setExpandedOperations] = useState([])
-
-	useOnClickOutside(
-		operationsRef,
-		useCallback(() => setExpandedOperations([]), [])
-	)
-
-	function setOperationState(slug, isExpanded) {
-		const newStates = expandedOperations.filter((s) => s !== slug)
-		if (isExpanded) {
-			newStates.push(slug)
-		}
-		setExpandedOperations(newStates)
-	}
 
 	if (operationCategory) {
 		return (
@@ -36,8 +21,6 @@ function OpenApiPageContents({
 				<h1 className={s.categoryHeading}>{operationCategory.name}</h1>
 				<div ref={operationsRef}>
 					{operationCategory.operations.map((op) => {
-						const isExpanded = expandedOperations.indexOf(op.operationId) !== -1
-
 						return (
 							<OperationObject
 								key={op.__type + op.__path}
@@ -45,10 +28,6 @@ function OpenApiPageContents({
 								type={op.__type}
 								data={op}
 								renderOperationIntro={renderOperationIntro}
-								isCollapsed={!isExpanded}
-								setIsCollapsed={(isCollapsed) =>
-									setOperationState(op.operationId, !isCollapsed)
-								}
 							/>
 						)
 					})}

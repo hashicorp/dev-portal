@@ -1,7 +1,7 @@
 import fs from 'fs'
 import packerRawSwagger from './raw-schemas/packer.swagger.json'
 import boundaryRawSwagger from './raw-schemas/boundary.swagger.json'
-import processSchema from '../process-schema'
+import { processSchema } from '../server/process-schema'
 import { getPropsForPage } from '../server'
 
 main()
