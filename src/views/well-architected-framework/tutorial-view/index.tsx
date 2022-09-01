@@ -1,3 +1,4 @@
+import HashiHead from '@hashicorp/react-head'
 import { Fragment } from 'react'
 import { MDXRemote } from 'next-mdx-remote'
 import InstruqtProvider from 'contexts/instruqt-lab'
@@ -10,13 +11,12 @@ import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 import { FeaturedInCollections } from 'views/tutorial-view/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { NextPrevious } from 'views/tutorial-view/components'
-import OptInOut from 'components/opt-in-out'
-import s from 'views/tutorial-view/tutorial-view.module.css'
-import { WafTutorialViewProps } from '../types'
-import HashiHead from '@hashicorp/react-head'
 import { getCanonicalCollectionSlug } from 'views/tutorial-view/utils/get-canonical-collection-slug'
 import { SectionOption } from 'lib/learn-client/types'
 import { generateCanonicalUrl } from 'views/tutorial-view/utils'
+import OptInOut from 'components/opt-in-out'
+import s from 'views/tutorial-view/tutorial-view.module.css'
+import { WafTutorialViewProps } from '../types'
 
 export default function WellArchitectedFrameworkTutorialView({
 	tutorial,
@@ -46,6 +46,7 @@ export default function WellArchitectedFrameworkTutorialView({
 		SectionOption['well-architected-framework']
 	)
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
+	console.log(canonicalUrl)
 
 	return (
 		<>
