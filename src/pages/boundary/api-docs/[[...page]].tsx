@@ -12,6 +12,10 @@ import {
 	processSchemaString,
 	processSchemaFile,
 } from 'components/open-api-page/server'
+import {
+	generateProductLandingSidebarNavData,
+	generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 
 const productSlug = 'boundary'
 const targetFile = {
@@ -108,9 +112,14 @@ export async function getStaticProps({ params }) {
 
 	// Construct sidebar nav data levels
 	const sidebarNavDataLevels = [
+		generateTopLevelSidebarNavData(productData.name),
+		generateProductLandingSidebarNavData(productData),
 		{
 			backToLinkProps: { text: 'Boundary Home', href: '/boundary/' },
 			title: 'API',
+			levelButtonProps: {
+				levelUpButtonText: `${productData.name} Home`,
+			},
 			menuItems: [
 				{
 					title: 'Overview',
@@ -132,6 +141,7 @@ export async function getStaticProps({ params }) {
 				headings,
 				breadcrumbLinks,
 				sidebarNavDataLevels,
+				sidecarSlot: null,
 			},
 			product: productData,
 		},
