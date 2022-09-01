@@ -21,7 +21,7 @@ export default function ConsulSubnav({ menuItems }) {
 				{ text: 'Download', url: '/downloads' },
 				{
 					text: 'Try HCP Consul',
-					url: 'https://portal.cloud.hashicorp.com/sign-up?utm_source=docs&utm_content=top_nav_consul',
+					url: 'https://portal.cloud.hashicorp.com/sign-up',
 					theme: {
 						brand: 'consul',
 					},
