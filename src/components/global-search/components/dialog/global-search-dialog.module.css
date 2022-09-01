@@ -14,9 +14,13 @@
 }
 
 .header {
+	align-items: center;
+	display: flex;
 	flex-grow: 0;
 	flex-shrink: 0;
+	gap: 8px;
 	height: 56px;
+	padding: 16px;
 }
 
 .body {
