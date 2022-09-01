@@ -6,6 +6,7 @@ import { NavigationHeaderDropdownMenu } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './home-page-content.module.css'
 import { NavigationHeaderItemGroup } from 'components/navigation-header/types'
+import Link from 'next/link'
 
 const HomePageHeaderContent = () => {
 	const betaProductItems = []
@@ -48,12 +49,17 @@ const HomePageHeaderContent = () => {
 
 	return (
 		<div className={sharedNavStyles.leftSide}>
-			<div className={sharedNavStyles.contentBeforeNav}>
-				<InlineSvg
-					className={s.siteLogo}
-					src={require('../../img/logo-white.svg?include')}
-				/>
-			</div>
+			<Link href="/">
+				<a
+					aria-label="HashiCorp Developer Home"
+					className={sharedNavStyles.contentBeforeNav}
+				>
+					<InlineSvg
+						className={s.siteLogo}
+						src={require('../../img/logo-white.svg?include')}
+					/>
+				</a>
+			</Link>
 			<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 				<nav className={sharedNavStyles.nav}>
 					<ul className={sharedNavStyles.navList}>
