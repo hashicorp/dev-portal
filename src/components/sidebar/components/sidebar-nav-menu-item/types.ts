@@ -25,6 +25,12 @@ interface SidebarNavMenuItemProps {
 type SupportedIconName = 'home' & ProductSlug
 interface SidebarNavLinkItem extends MenuItem {
 	leadingIconName?: SupportedIconName
+	/**
+	 * Optional icon to display at right of the menu item.
+	 * Note that if this menu item is an external link,
+	 * the `rightIcon` will be ignored and an external link
+	 * icon will be shown instead.
+	 */
 	rightIcon?: ReactElement
 }
 
