@@ -141,6 +141,7 @@ export async function getStaticProps({ params }) {
 				headings,
 				breadcrumbLinks,
 				sidebarNavDataLevels,
+				sidecarSlot: null,
 			},
 			product: productData,
 		},
