@@ -192,7 +192,7 @@ function TutorialView({
 	/**
 	 * Keep track of progress for authenticated users
 	 *
-	 * Note that we attach data-ref-identifier to avoid some
+	 * Note that we attach data-ref-id to avoid some
 	 * client-side-navigation-related progress tracking quirks.
 	 */
 	const progressRefsId = `${id}_${collectionCtx.current.id}`
