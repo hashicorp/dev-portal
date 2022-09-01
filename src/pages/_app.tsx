@@ -49,14 +49,15 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 	axe(React, ReactDOM, 1000)
 }
 
+initializeUTMParamsCapture()
+addCloudLinkHandler()
+
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
 	layoutProps,
 	host,
 }) {
-	initializeUTMParamsCapture()
-	addCloudLinkHandler()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
