@@ -1,4 +1,4 @@
-import { ApiTutorial } from './api/api-types'
+import { ApiCollection, ApiTutorial } from './api/api-types'
 
 /**
  * These types reflect data shapes returned from client methods
@@ -9,6 +9,11 @@ import { ApiTutorial } from './api/api-types'
 export type uuid = string
 export type slug = string
 export type identifier = uuid | slug
+
+export interface TutorialIdCollectionId {
+	tutorialId: ApiTutorial['id']
+	collectionId: ApiCollection['id']
+}
 
 export interface Tutorial {
 	id?: ApiTutorial['id'] // uuid
@@ -259,6 +264,21 @@ export enum CompanyLogoOption {
 	'google-cloud' = 'google-cloud',
 	'terraform-cloud' = 'terraform-cloud',
 	aws = 'aws',
+}
+
+export enum TutorialProgressLabel {
+	visited = 'visited',
+	in_progress = 'in_progress',
+	complete = 'complete',
+}
+
+export enum TutorialProgressPercent {
+	Zero = '0',
+	TwentyFive = '25',
+	Fifty = '50',
+	SeventyFive = '75',
+	Ninety = '90',
+	OneHundred = '100',
 }
 
 /**
