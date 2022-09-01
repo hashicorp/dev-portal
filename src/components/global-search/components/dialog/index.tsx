@@ -1,12 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { IconSearch24 } from '@hashicorp/flight-icons/svg-react/search-24'
+import { ProductData } from 'types/products'
 import { useCurrentProduct, useGlobalSearch } from 'contexts'
 import Dialog from 'components/dialog'
+import Tag from 'components/tag'
 import SuggestedPagesList from '../suggested-pages-list'
 import { getSuggestedPages } from './helpers/get-suggested-pages'
 import s from './global-search-dialog.module.css'
-import Tag from 'components/tag'
-import { ProductData } from 'types/products'
 
 const GlobalSearchDialog = () => {
 	const currentProduct = useCurrentProduct()
@@ -24,6 +24,15 @@ const GlobalSearchDialog = () => {
 		[productFilter]
 	)
 
+	/**
+	 * Set the product filter if:
+	 * - currentProduct changes
+	 * - on open/close of dialog
+	 */
+	useEffect(() => {
+		setProductFilter(currentProduct)
+	}, [currentProduct, searchIsOpen])
+
 	if (!isGlobalSearchEnabled) {
 		return null
 	}
@@ -32,10 +41,7 @@ const GlobalSearchDialog = () => {
 		<Dialog
 			contentClassName={s.content}
 			isOpen={searchIsOpen}
-			onDismiss={() => {
-				toggleSearchIsOpen()
-				setProductFilter(currentProduct)
-			}}
+			onDismiss={() => toggleSearchIsOpen()}
 		>
 			<div className={s.contentInner}>
 				<div className={s.header}>
