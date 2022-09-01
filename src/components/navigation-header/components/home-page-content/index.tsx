@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
@@ -6,7 +7,6 @@ import { NavigationHeaderDropdownMenu } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './home-page-content.module.css'
 import { NavigationHeaderItemGroup } from 'components/navigation-header/types'
-import Link from 'next/link'
 
 const HomePageHeaderContent = () => {
 	const betaProductItems = []
