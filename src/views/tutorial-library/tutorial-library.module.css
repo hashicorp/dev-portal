@@ -1,0 +1,15 @@
+.inputFilterSection {
+	display: flex;
+	flex-direction: row;
+	gap: 16px;
+	margin-bottom: 16px;
+
+	& .input {
+		flex-grow: 1;
+		margin-bottom: 0;
+	}
+
+	@media (--dev-dot-tablet-down) {
+		flex-direction: column;
+	}
+}

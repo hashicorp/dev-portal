@@ -5,6 +5,9 @@ import FilterInput from 'components/filter-input'
 import { CurrentFilters } from './components/current-filters'
 import { TutorialLibraryResults } from './components/results'
 import { SEARCH_TIMEOUT_MS } from './constants'
+import { MobileFiltersButton } from './components/mobile-filters-button'
+
+import s from './tutorial-library.module.css'
 
 let timerId = undefined
 /**
@@ -30,14 +33,18 @@ export default function TutorialLibraryView() {
 	return (
 		<div>
 			<h1>Tutorial Library</h1>
-			<FilterInput
-				placeholder="Filter results"
-				value={query}
-				onChange={(value) => {
-					setQuery(value)
-					refine(value)
-				}}
-			/>
+			<div className={s.inputFilterSection}>
+				<FilterInput
+					className={s.input}
+					placeholder="Filter results"
+					value={query}
+					onChange={(value) => {
+						setQuery(value)
+						refine(value)
+					}}
+				/>
+				<MobileFiltersButton />
+			</div>
 			<CurrentFilters />
 			<TutorialLibraryResults />
 		</div>
