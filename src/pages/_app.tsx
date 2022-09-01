@@ -19,7 +19,9 @@ import {
 	CurrentProductProvider,
 	DeviceSizeProvider,
 } from 'contexts'
-import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
+import fetchLayoutProps, {
+	ComponentMaybeWithQuery,
+} from 'lib/_proxied-dot-io/fetch-layout-props'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 import EmptyLayout from 'layouts/empty'
@@ -50,7 +52,7 @@ export default function App({
 	pageProps: { session, ...pageProps },
 	layoutProps,
 	host,
-}) {
+}: CustomAppProps) {
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
@@ -80,6 +82,9 @@ export default function App({
 	 */
 	const allLayoutProps = {
 		...pageProps.layoutProps,
+		// @ts-expect-error - layoutProps is inferred from `fetchLayoutProps`,
+		// which current resolves to `unknown | null`.
+		// Spread types may only be created from object types.
 		...layoutProps,
 	}
 
@@ -119,7 +124,7 @@ export default function App({
 	)
 }
 
-App.getInitialProps = async ({ Component, ctx }) => {
+App.getInitialProps = async ({ Component, ctx }: GetInitialPropsParams) => {
 	// Determine the product being served through our rewrites so we can fetch the correct layout data
 	let proxiedProduct
 	if (ctx.pathname.includes('_proxied-dot-io/vault')) {
@@ -152,3 +157,47 @@ App.getInitialProps = async ({ Component, ctx }) => {
 		host,
 	}
 }
+
+// ------------------------------------------------------------
+// TypeScript helpers for PageComponents' `layout` property
+// @see https://nextjs.org/docs/basic-features/layouts#with-typescript
+// ------------------------------------------------------------
+import type { NextPage } from 'next'
+import type { AppProps, AppContext } from 'next/app'
+
+/**
+ * @usage
+ *
+ * ```typescript
+ * // ./src/page/my-page.tsx
+ * import type { NextPageWithLayout } from "_app"
+ *
+ * const Page: NextPageWithLayout = (props) => {
+ *   // ...
+ * }
+ *
+ * // Page.layout <-- will be typed
+ * ```
+ */
+export type PageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
+	P,
+	IP
+> & {
+	layout?: React.FC
+}
+
+type ComponentWithLayout = {
+	Component: PageWithLayout & ComponentMaybeWithQuery
+}
+type AppPropsWithLayout = AppProps & ComponentWithLayout
+
+/**
+ * This is our custom param type for `App.getInitialProps`
+ */
+type GetInitialPropsParams = Omit<AppContext, 'Component'> & ComponentWithLayout
+
+/**
+ * This is our custom type for our Next.js `App` component
+ */
+type CustomAppProps = AppPropsWithLayout &
+	Awaited<ReturnType<typeof App['getInitialProps']>>

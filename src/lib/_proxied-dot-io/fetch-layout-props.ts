@@ -6,7 +6,9 @@ interface RivetParams {
 	dependencies: ComponentMaybeWithQuery
 }
 
-type ComponentMaybeWithQuery = ComponentType & { rivetParams?: RivetParams }
+export type ComponentMaybeWithQuery = ComponentType & {
+	rivetParams?: RivetParams
+}
 
 /**
  * Detects rivetParams hanging off of a component and attempts to fetch with the
@@ -27,7 +29,7 @@ type ComponentMaybeWithQuery = ComponentType & { rivetParams?: RivetParams }
  * @returns The data from our CMS, if any
  */
 export default async function fetchLayoutProps(
-	Layout: ComponentMaybeWithQuery,
+	Layout: ComponentMaybeWithQuery | undefined,
 	product: Exclude<Products, 'hashicorp'>
 ): Promise<unknown | null> {
 	const layoutQuery = Layout?.rivetParams ?? null
