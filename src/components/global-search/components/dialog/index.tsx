@@ -16,6 +16,7 @@ const GlobalSearchDialog = () => {
 	// TODO put in a Context
 	const [productFilter, setProductFilter] =
 		useState<ProductData>(currentProduct)
+	const [searchQuery, setSearchQuery] = useState<string>('')
 
 	// variables based on state
 	const suggestedPages = useMemo(
@@ -45,6 +46,17 @@ const GlobalSearchDialog = () => {
 							text={productFilter.name}
 						/>
 					) : null}
+					<input
+						autoFocus
+						className={s.searchInput}
+						// TODO figure out style for type="search"
+						// type="search"
+						placeholder="Search..."
+						value={searchQuery}
+						onChange={(e) => {
+							setSearchQuery(e.target.value)
+						}}
+					/>
 				</div>
 				<div className={s.body}>
 					<SuggestedPagesList suggestedPages={suggestedPages} />
