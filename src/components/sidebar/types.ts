@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactElement, ReactNode } from 'react'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 import { SidebarMobileControlsProps } from './components/sidebar-mobile-controls'
 
@@ -120,6 +120,7 @@ interface MenuItem {
 	title?: string
 	heading?: string
 	isOpen?: boolean
+	rightIcon?: ReactElement
 }
 
 interface SidebarBaseProps {

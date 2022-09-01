@@ -182,7 +182,7 @@ function TutorialView({
 			children: (
 				<TutorialViewSidebarContent
 					items={collectionCtx.current.tutorials.map((t) =>
-						formatTutorialToMenuItem(t, collectionCtx.current.slug, currentPath)
+						formatTutorialToMenuItem(t, collectionCtx.current, currentPath)
 					)}
 				/>
 			),

@@ -116,7 +116,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 						<SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
 					) : undefined
 				}
-				icon={isExternal ? <IconExternalLink16 /> : undefined}
+				icon={isExternal ? <IconExternalLink16 /> : item.rightIcon ?? null}
 			/>
 		</>
 	)
