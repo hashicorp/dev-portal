@@ -47,7 +47,7 @@ import { getCustomLayout } from './utils/get-custom-layout'
  * "latestVersionRef" to the remote content loader config.
  */
 function getBetaLatestVersionRef(slug: string): string | undefined {
-	const hasDevPortalBranch = slug == 'vault' || slug == 'waypoint'
+	const hasDevPortalBranch = ['vault', 'waypoint', 'consul'].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }
 
