@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { IconSearch24 } from '@hashicorp/flight-icons/svg-react/search-24'
 import { ProductData } from 'types/products'
 import { useCurrentProduct, useGlobalSearch } from 'contexts'
 import Dialog from 'components/dialog'
 import Tag from 'components/tag'
+import QueryResultsList from '../query-results-list'
 import SuggestedPagesList from '../suggested-pages-list'
+import mockSearchResults from './data/mock-search-results'
 import { getSuggestedPages } from './helpers/get-suggested-pages'
 import s from './global-search-dialog.module.css'
 
@@ -17,6 +20,13 @@ const GlobalSearchDialog = () => {
 	const [productFilter, setProductFilter] =
 		useState<ProductData>(currentProduct)
 	const [searchQuery, setSearchQuery] = useState<string>('')
+	const { data, isLoading } = useQuery(
+		['global-search', searchQuery],
+		() => mockSearchResults[searchQuery],
+		{
+			enabled: searchIsOpen && searchQuery.length > 0,
+		}
+	)
 
 	// variables based on state
 	const suggestedPages = useMemo(
@@ -72,6 +82,7 @@ const GlobalSearchDialog = () => {
 					/>
 				</div>
 				<div className={s.body}>
+					<QueryResultsList data={data} isLoading={isLoading} />
 					<SuggestedPagesList suggestedPages={suggestedPages} />
 				</div>
 				<div className={s.footer}>footer</div>
