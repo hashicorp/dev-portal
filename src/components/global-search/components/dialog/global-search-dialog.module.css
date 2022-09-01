@@ -14,20 +14,22 @@
 }
 
 .header {
-	background-color: pink;
 	flex-grow: 0;
 	flex-shrink: 0;
+	height: 56px;
 }
 
 .body {
-	background-color: lightsalmon;
+	border-bottom: 1px solid var(--token-color-border-primary);
+	border-top: 1px solid var(--token-color-border-primary);
 	flex-grow: 1;
 	flex-shrink: 1;
 	overflow-y: auto;
+	padding: 16px;
 }
 
 .footer {
-	background-color: purple;
 	flex-grow: 0;
 	flex-shrink: 0;
+	height: 52px;
 }

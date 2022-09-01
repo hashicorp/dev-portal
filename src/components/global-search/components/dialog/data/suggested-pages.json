@@ -1,0 +1,11 @@
+{
+	"boundary": [],
+	"consul": [],
+	"hcp": [],
+	"nomad": [],
+	"packer": [],
+	"terraform": [],
+	"vagrant": [],
+	"vault": [],
+	"waypoint": []
+}
