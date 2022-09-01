@@ -1,3 +1,5 @@
+import { InferGetStaticPropsType } from 'next'
+
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { OpenApiPageContents } from 'components/open-api-page'
 /* Used server-side only */
@@ -21,15 +23,16 @@ const targetFile = {
 // The path to read from when running local preview in the context of the boundary repository
 const targetLocalFile = '../../internal/gen/controller.swagger.json'
 
-function ApiDocsView({ layoutProps, apiPageProps }) {
+import type { PageWithLayout } from 'types/layouts'
+
+type ApiDocsViewProps = InferGetStaticPropsType<typeof getStaticProps>
+const ApiDocsView: PageWithLayout<ApiDocsViewProps> = ({ apiPageProps }) => {
 	return (
-		<SidebarSidecarLayout {...layoutProps} sidecarSlot={null}>
-			<OpenApiPageContents
-				info={apiPageProps.info}
-				operationCategory={apiPageProps.operationCategory}
-				renderOperationIntro={apiPageProps.renderOperationIntro}
-			/>
-		</SidebarSidecarLayout>
+		<OpenApiPageContents
+			info={apiPageProps.info}
+			operationCategory={apiPageProps.operationCategory}
+			renderOperationIntro={null}
+		/>
 	)
 }
 
@@ -135,4 +138,5 @@ export async function getStaticProps({ params }) {
 	}
 }
 
+ApiDocsView.layout = SidebarSidecarLayout
 export default ApiDocsView
