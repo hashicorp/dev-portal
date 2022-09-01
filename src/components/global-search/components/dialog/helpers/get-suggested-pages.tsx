@@ -2,7 +2,7 @@ import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { Product, ProductData } from 'types/products'
 import { products } from 'lib/products'
 import { SuggestedPage } from '../../suggested-pages-list'
-import suggestedPages from '../data/suggested-pages.json'
+import suggestedPages from '../data/suggested-pages'
 import ProductIcon from 'components/product-icon'
 
 const getSuggestedPages = (product?: ProductData): SuggestedPage[] => {
