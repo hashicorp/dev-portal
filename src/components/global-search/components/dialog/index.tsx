@@ -53,9 +53,16 @@ const GlobalSearchDialog = () => {
 						// type="search"
 						placeholder="Search..."
 						value={searchQuery}
-						onChange={(e) => {
-							setSearchQuery(e.target.value)
-						}}
+						onChange={(e) => setSearchQuery(e.target.value)}
+						onKeyDown={
+							productFilter
+								? (e) => {
+										if (e.key === 'Backspace' && !searchQuery) {
+											setProductFilter(null)
+										}
+								  }
+								: undefined
+						}
 					/>
 				</div>
 				<div className={s.body}>
