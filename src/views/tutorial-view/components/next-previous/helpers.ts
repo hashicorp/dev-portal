@@ -63,7 +63,10 @@ export function getNextPrevious({
 	 * Since don't have an advanced search page for beta,
 	 * were linking folks back to the baseproduct tutorials page.
 	 */
-	const finalLink = `/${currentCollection.theme}/tutorials`
+	const finalLink =
+		currentCollection.theme === 'hashicorp'
+			? `/${currentCollection.theme}`
+			: `/${currentCollection.theme}/tutorials`
 
 	const tutorial = {
 		previous: previousTutorial,
