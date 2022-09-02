@@ -1,11 +1,11 @@
 {
 	"featuredTutorialsSlugs": [
-            "terraform/tutorials/aws-get-started/install-cli",
-	    "terraform/tutorials/azure-get-started/install-cli",
-	    "terraform/tutorials/docker-get-started/install-cli",
-	    "terraform/tutorials/gcp-get-started/install-cli",
-	    "terraform/tutorials/oci-get-started/install-cli",
-	    "terraform/tutorials/cloud-get-started/cloud-login"
+		"terraform/tutorials/aws-get-started/install-cli",
+		"terraform/tutorials/azure-get-started/install-cli",
+		"terraform/tutorials/docker-get-started/install-cli",
+		"terraform/tutorials/gcp-get-started/install-cli",
+		"terraform/tutorials/oci-get-started/install-cli",
+		"terraform/tutorials/cloud-get-started/cloud-login"
 	],
 	"sidebarMenuItems": [
 		{
@@ -18,9 +18,9 @@
 			"title": "What is Terraform?",
 			"fullPath": "/terraform/intro"
 		},
-	        {
+		{
 			"href": "/terraform/tutorials#get-started",
-	                "text": "Terraform Tutorials"
+			"text": "Terraform Tutorials"
 		},
 		{
 			"title": "Terraform Cloud Tutorials",
