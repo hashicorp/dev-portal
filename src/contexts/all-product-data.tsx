@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
+import { SectionOption } from 'lib/learn-client/types'
 
 /**
  * Describes the shape of each product's state manged by this Context.
@@ -18,14 +19,16 @@ interface ProductState {
  * see: https://www.typescriptlang.org/docs/handbook/2/mapped-types.html
  */
 type ContextState = {
-	[key in ProductSlug]?: ProductState
+	[key in ProductSlug | SectionOption]?: ProductState
 }
 
 /**
  * Returns an array of all product slugs.
  */
 const initializeAllProductSlugs = () => {
-	return Object.keys(productSlugsToNames) as ProductSlug[]
+	const baseProducts = Object.keys(productSlugsToNames) as ProductSlug[]
+	const sections = Object.keys(SectionOption)
+	return [...baseProducts, ...sections] as ProductSlug[] | SectionOption[]
 }
 
 /**
@@ -33,19 +36,21 @@ const initializeAllProductSlugs = () => {
  * `isBetaProduct` boolean for each product, and can be extended here to derive
  * more booleans in the future.
  */
-const initalizeState = (allProductSlugs: ProductSlug[]): ContextState => {
+const initalizeState = (
+	allProductSlugs: ProductSlug[] | SectionOption[]
+): ContextState => {
 	const result = {}
 
 	// initalize the state object for each product
 	const defaultProductState: ProductState = { isBetaProduct: false }
-	allProductSlugs.forEach((slug: ProductSlug) => {
+	allProductSlugs.forEach((slug: ProductSlug | SectionOption) => {
 		// This needs to be a copy since we modify the object while deriving state
 		result[slug] = { ...defaultProductState }
 	})
 
 	// derive `isBetaProduct` state booleans from config
 	const betaProductSlugs = __config.dev_dot.beta_product_slugs
-	betaProductSlugs.forEach((slug: ProductSlug) => {
+	betaProductSlugs.forEach((slug: ProductSlug | SectionOption) => {
 		result[slug].isBetaProduct = true
 	})
 
@@ -84,7 +89,9 @@ const AllProductDataProvider = ({ children }: AllProductDataProviderProps) => {
  * Given a `ProductSlug`, returns `true` if the associated Product is a beta
  * product and `false` otherwise.
  */
-const useIsBetaProduct = (productSlug: ProductSlug): boolean => {
+const useIsBetaProduct = (
+	productSlug: ProductSlug | SectionOption
+): boolean => {
 	const context = useContext(AllProductDataContext)
 	if (context === undefined) {
 		throw new Error(
