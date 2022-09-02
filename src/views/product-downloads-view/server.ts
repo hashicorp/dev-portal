@@ -62,8 +62,12 @@ const generateGetStaticProps = (
 		/**
 		 * Transform feature tutorial and collection entries into card data
 		 */
-		const featuredLearnCards: FeaturedLearnCard[] =
-			await generateFeaturedTutorialsCards(featuredTutorialsSlugs)
+		let featuredLearnCards: FeaturedLearnCard[]
+		if (featuredTutorialsSlugs && featuredTutorialsSlugs.length > 0) {
+			featuredLearnCards = await generateFeaturedTutorialsCards(
+				featuredTutorialsSlugs
+			)
+		}
 
 		/**
 		 * Combine release data and page content
