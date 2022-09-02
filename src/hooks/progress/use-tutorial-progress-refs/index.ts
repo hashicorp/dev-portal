@@ -26,15 +26,19 @@ interface UpdateProgressReturnInterface {
  * Return two refs in an object, { startRef, endRef },
  * which can be placed on elements to track tutorial progress.
  *
- * On initial load, regardless of startRef or endRef visibility,
- * if the tutorial does not yet have recorded progress,
- * the tutorial will be marked as `visited` (0 percent).
+ * On initial load, and when visibility of these refs changes,
+ * we recalculate progress, and update with any forward progress.
  *
- * When the startRef element moves out of the viewport,
+ * If the endRef element is within the viewport,
+ * which means we're close to the bottom of the page,
+ * the tutorial will be marked as `complete` (100 percent).
+ *
+ * If the startRef element is not within the viewport,
+ * which means we've scrolled at least partway down the page,
  * the tutorial will be marked as `in_progress` (50 percent).
  *
- * When the endRef element moves into the viewport,
- * the tutorial will be marked as `complete` (100 percent).
+ * Otherwise, the tutorial will be marked as `visited` (0 percent).
+ *
  */
 export function useTutorialProgressRefs({
 	tutorialId,
