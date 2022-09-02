@@ -6,7 +6,7 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import {
 	ProductDownloadsViewStaticProps,
 	RawProductDownloadsViewContent,
-	FeaturedLearnCard,
+	FeaturedTutorialCard,
 } from './types'
 import {
 	generateFeaturedTutorialsCards,
@@ -60,11 +60,11 @@ const generateGetStaticProps = (
 		})
 
 		/**
-		 * Transform feature tutorial and collection entries into card data
+		 * Transform featured tutorial entries into card data
 		 */
-		let featuredLearnCards: FeaturedLearnCard[]
+		let featuredTutorialCards: FeaturedTutorialCard[]
 		if (featuredTutorialsSlugs && featuredTutorialsSlugs.length > 0) {
-			featuredLearnCards = await generateFeaturedTutorialsCards(
+			featuredTutorialCards = await generateFeaturedTutorialsCards(
 				featuredTutorialsSlugs
 			)
 		}
@@ -80,7 +80,7 @@ const generateGetStaticProps = (
 			},
 			pageContent: {
 				doesNotHavePackageManagers,
-				featuredLearnCards,
+				featuredTutorialCards,
 				packageManagerOverrides,
 				sidecarMarketingCard,
 				sidebarMenuItems,

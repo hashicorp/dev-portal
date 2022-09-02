@@ -28,7 +28,7 @@ import {
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
 	DownloadsSection,
-	FeaturedTutorialsSection,
+	FeaturedLearnCardsSection,
 	OfficialReleasesSection,
 	PageHeader,
 	SidecarMarketingCard,
@@ -48,7 +48,7 @@ const ProductDownloadsViewContent = ({
 }: ProductDownloadsViewContentProps) => {
 	const {
 		doesNotHavePackageManagers,
-		featuredLearnCards,
+		featuredTutorialCards,
 		packageManagerOverrides,
 		sidecarMarketingCard,
 		sidebarMenuItems,
@@ -122,8 +122,11 @@ const ProductDownloadsViewContent = ({
 			/>
 			{merchandisingSlot}
 			<OfficialReleasesSection />
-			{featuredLearnCards?.length > 0 ? (
-				<FeaturedTutorialsSection featuredLearnCards={featuredLearnCards} />
+			{featuredTutorialCards?.length > 0 ? (
+				<FeaturedLearnCardsSection
+					cards={featuredTutorialCards}
+					cardType="tutorial"
+				/>
 			) : null}
 		</SidebarSidecarLayout>
 	)
