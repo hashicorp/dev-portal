@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
@@ -49,10 +50,14 @@ const HomePageHeaderContent = () => {
 	return (
 		<div className={sharedNavStyles.leftSide}>
 			<div className={sharedNavStyles.contentBeforeNav}>
-				<InlineSvg
-					className={s.siteLogo}
-					src={require('../../img/logo-white.svg?include')}
-				/>
+				<Link href="/">
+					<a aria-label="HashiCorp Developer Home">
+						<InlineSvg
+							className={s.siteLogo}
+							src={require('../../img/logo-white.svg?include')}
+						/>
+					</a>
+				</Link>
 			</div>
 			<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 				<nav className={sharedNavStyles.nav}>
