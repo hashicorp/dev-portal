@@ -26,7 +26,7 @@ export default function ProductSubnav({ menuItems }) {
 				},
 				{
 					text: 'Try HCP Vault',
-					url: 'https://portal.cloud.hashicorp.com',
+					url: 'https://portal.cloud.hashicorp.com/sign-up',
 					theme: {
 						brand: 'vault',
 					},
