@@ -3,7 +3,7 @@
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
-			"title": "Introduction To Terraform",
+			"title": "Introduction to Terraform",
 			"cards": [
 				{
 					"description": "Terraform creates and manages resources on cloud platforms and other services through their application programming interfaces (APIs).",
