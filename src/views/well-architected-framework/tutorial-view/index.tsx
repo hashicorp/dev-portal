@@ -46,7 +46,6 @@ export default function WellArchitectedFrameworkTutorialView({
 		SectionOption['well-architected-framework']
 	)
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
-	console.log(canonicalUrl)
 
 	return (
 		<>
