@@ -3,7 +3,9 @@ import semverPrerelease from 'semver/functions/prerelease'
 import semverValid from 'semver/functions/valid'
 import { ProductData } from 'types/products'
 import { ReleaseVersion } from 'lib/fetch-release-data'
+import { getInlineTutorials } from 'views/product-tutorials-view/helpers/get-inline-content'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
 
@@ -295,4 +297,60 @@ export const sortAndFilterReleaseVersions = ({
 	)
 
 	return sortedAndFilteredVersions
+}
+
+/**
+ * The `featuredTutorialsSlugs` array allows two formats of slugs:
+ *   - <product slug>/<collection slug>/<tutorial slug>
+ *   - <product slug>/<tutorial slug>
+ */
+export const generateFeaturedTutorialsCards = async (
+	featuredTutorialsSlugs: string[]
+) => {
+	const splitTutorialSlug = (slug: string) => {
+		const slugParts = slug.split('/')
+		if (slugParts.length === 3) {
+			// Slug format is: <product slug>/<collection slug>/<tutorial slug>
+			return {
+				productSlug: slugParts[0],
+				collectionSlug: slugParts[1],
+				tutorialSlug: slugParts[2],
+			}
+		} else if (slugParts.length === 2) {
+			// Slug format is: <product slug>/<tutorial slug>
+			return { productSlug: slugParts[0], tutorialSlug: slugParts[1] }
+		} else {
+			console.error(
+				'Found string `featuredTutorialsSlugs` width incorrect number of slash-separated parts:',
+				slug
+			)
+		}
+	}
+
+	/**
+	 * Gather tutorials and collections based on slugs used
+	 */
+	const tutorialSlugs = featuredTutorialsSlugs.map((slug: string) => {
+		const { productSlug, tutorialSlug } = splitTutorialSlug(slug)
+		return `${productSlug}/${tutorialSlug}`
+	})
+	const inlineTutorials = await getInlineTutorials(tutorialSlugs)
+
+	return featuredTutorialsSlugs.map((slug: string) => {
+		const { productSlug, collectionSlug, tutorialSlug } =
+			splitTutorialSlug(slug)
+		const tutorialData = inlineTutorials[`${productSlug}/${tutorialSlug}`]
+		const defaultContext = tutorialData.collectionCtx.default
+		const tutorialLiteCompat = { ...tutorialData, defaultContext }
+
+		const formattedTutorialCard = formatTutorialCard(tutorialLiteCompat)
+		if (collectionSlug) {
+			formattedTutorialCard.url = `/${productSlug}/tutorials/${collectionSlug}/${tutorialSlug}`
+		}
+
+		return {
+			type: 'tutorial',
+			...formattedTutorialCard,
+		}
+	})
 }
