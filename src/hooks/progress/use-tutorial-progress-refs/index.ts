@@ -37,7 +37,7 @@ interface UpdateProgressReturnInterface {
  * When the endRef element moves into the viewport,
  * the tutorial will be marked as `complete` (100 percent).
  */
-export function useUpdateTutorialProgress({
+export function useTutorialProgressRefs({
 	tutorialId,
 	collectionId,
 }: TutorialIdCollectionId): UpdateProgressReturnInterface {

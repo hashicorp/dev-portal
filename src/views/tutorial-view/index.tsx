@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
-import { useUpdateTutorialProgress } from 'hooks/progress'
+import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
@@ -196,7 +196,7 @@ function TutorialView({
 	 * client-side-navigation-related progress tracking quirks.
 	 */
 	const progressRefsId = `${id}_${collectionCtx.current.id}`
-	const progressRefs = useUpdateTutorialProgress({
+	const progressRefs = useTutorialProgressRefs({
 		tutorialId: id,
 		collectionId: collectionCtx.current.id,
 	})
