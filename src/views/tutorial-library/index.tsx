@@ -2,12 +2,16 @@ import { useState } from 'react'
 import { useSearchBox, UseSearchBoxProps } from 'react-instantsearch-hooks-web'
 
 import FilterInput from 'components/filter-input'
+import Dialog from 'components/dialog'
 import { CurrentFilters } from './components/current-filters'
 import { TutorialLibraryResults } from './components/results'
 import { SEARCH_TIMEOUT_MS } from './constants'
 import { MobileFiltersButton } from './components/mobile-filters-button'
 
 import s from './tutorial-library.module.css'
+import { TutorialLibraryFilters } from './components/filters'
+import Button from 'components/button'
+import { ClearFilters } from './components/clear-filters'
 
 let timerId = undefined
 /**
@@ -29,6 +33,7 @@ const queryHook: UseSearchBoxProps['queryHook'] = (query, search) => {
 export default function TutorialLibraryView() {
 	const { query: searchQuery, refine } = useSearchBox({ queryHook })
 	const [query, setQuery] = useState<string>(searchQuery)
+	const [showMobileFilters, setShowMobileFilters] = useState(false)
 
 	return (
 		<div>
@@ -43,7 +48,19 @@ export default function TutorialLibraryView() {
 						refine(value)
 					}}
 				/>
-				<MobileFiltersButton />
+				<MobileFiltersButton onClick={() => setShowMobileFilters(true)} />
+				<Dialog
+					isOpen={showMobileFilters}
+					label="Tutorial filters"
+					onDismiss={() => setShowMobileFilters(false)}
+					variant="bottom"
+				>
+					<div className={s.mobileFiltersControls}>
+						<Button text="Done" onClick={() => setShowMobileFilters(false)} />
+						<ClearFilters />
+					</div>
+					<TutorialLibraryFilters />
+				</Dialog>
 			</div>
 			<CurrentFilters />
 			<TutorialLibraryResults />
