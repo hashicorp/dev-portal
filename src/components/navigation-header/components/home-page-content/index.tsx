@@ -49,17 +49,16 @@ const HomePageHeaderContent = () => {
 
 	return (
 		<div className={sharedNavStyles.leftSide}>
-			<Link href="/">
-				<a
-					aria-label="HashiCorp Developer Home"
-					className={sharedNavStyles.contentBeforeNav}
-				>
-					<InlineSvg
-						className={s.siteLogo}
-						src={require('../../img/logo-white.svg?include')}
-					/>
-				</a>
-			</Link>
+			<div className={sharedNavStyles.contentBeforeNav}>
+				<Link href="/">
+					<a aria-label="HashiCorp Developer Home">
+						<InlineSvg
+							className={s.siteLogo}
+							src={require('../../img/logo-white.svg?include')}
+						/>
+					</a>
+				</Link>
+			</div>
 			<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 				<nav className={sharedNavStyles.nav}>
 					<ul className={sharedNavStyles.navList}>
