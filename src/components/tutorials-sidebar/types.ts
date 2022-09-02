@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react'
 import { SidebarProps } from 'components/sidebar'
-import { uuid } from 'lib/learn-client/types'
+import { Collection, Tutorial, uuid } from 'lib/learn-client/types'
 
 export interface TutorialSidebarProps {
 	/**
@@ -42,8 +42,8 @@ export interface ListItemProps {
 }
 
 export interface TutorialListItemProps extends ListItemProps {
-	tutorialId: uuid
-	collectionId: uuid
+	tutorialId: Tutorial['id']
+	collectionId: Collection['id']
 }
 
 export interface SectionListProps {
