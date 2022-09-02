@@ -5,6 +5,18 @@ import {
 	TutorialProgressStatus,
 } from 'lib/learn-client/types'
 
+/**
+ * Determines whether conditions are right for updating tutorial progress.
+ *
+ * We need to account for a variety of factors in the useEffect that triggers
+ * tutorial progress updates, such as authenticated status, and client-side
+ * navigation which updates tutorialId and collectionId before query data
+ * or refs are updated (since ids are part of static props).
+ *
+ * As a result, the useEffect is triggered very often, but it's only
+ * under particular conditions that running the progress update
+ * will  have the intended effect.
+ */
 function canUpdateTutorialProgress({
 	startEntry,
 	endEntry,

@@ -8,6 +8,9 @@ import {
 	TutorialProgressPercent,
 } from 'lib/learn-client/types'
 
+/**
+ * Fires off either a create or update mutation to record tutorial progress.
+ */
 function updateTutorialProgress({
 	tutorialId,
 	collectionId,
