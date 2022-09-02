@@ -8,6 +8,7 @@ import {
 	useTutorialProgressMutations,
 	TutorialProgressMutationArgs,
 } from 'hooks/progress'
+import { canUpdateTutorialProgress, updateTutorialProgress } from './utils'
 // Types
 import {
 	TutorialIdCollectionId,
@@ -65,53 +66,20 @@ export function useUpdateTutorialProgress({
 	 */
 	useEffect(() => {
 		/**
-		 * On initial client-side navigation, this effect may be called
-		 * before startRefs and endRefs are updated. We can detect this
-		 * by comparing data-ref-id attributes we've added to the
-		 * elements startRef and endRef are attached to.
+		 * Exit early if any conditions exist which would make it a bad idea to
+		 * try to update progress. See canUpdateTutorialProgress for details.
 		 */
-		const startRefId = startEntry?.target.getAttribute('data-ref-id')
-		const endRefId = endEntry?.target.getAttribute('data-ref-id')
-		const compareId = `${tutorialId}_${collectionId}`
-		const isStaticIdsMismatch =
-			startRefId !== compareId || endRefId !== compareId
-
-		console.log({
-			isStaticIdsMismatch,
-			startInView,
-			endInView,
-			startRefId,
-			endRefId,
-			compareId,
-		})
-		if (isStaticIdsMismatch) {
-			return
-		}
-
-		/**
-		 * If we're not authenticated, we bail early, there's no
-		 * point in trying to make a mutation.
-		 */
-		if (!isAuthenticated) {
-			return
-		}
-
-		/**
-		 * If we are authenticated but we don't have a result
-		 * yet from querying this tutorial's status, we also bail early.
-		 * We need that result to know whether to "create" or "update".
-		 */
-		if (typeof tutorialProgressStatus == 'undefined') {
-			return
-		}
-
-		/**
-		 * We don't want to run multiple mutations at once.
-		 * To avoid this, tutorialProgressMutations provided `isReady`,
-		 * which we respect here.
-		 */
-		const isReadyToRunMutation = tutorialProgressMutations.isReady
-		if (!isReadyToRunMutation) {
+		if (
+			!canUpdateTutorialProgress({
+				startEntry,
+				endEntry,
+				tutorialId,
+				collectionId,
+				isAuthenticated,
+				tutorialProgressStatus,
+				tutorialProgressMutations,
+			})
+		) {
 			return
 		}
 
@@ -142,28 +110,14 @@ export function useUpdateTutorialProgress({
 		// We won't see positive progress initially (0 > 0 == false)
 		const needsInitialProgress = tutorialProgressStatus === null
 		if (needsInitialProgress || hasPositiveProgress) {
-			/**
-			 * We'll use the same mutation arguments for "create" or "update".
-			 */
-			const mutationArgs: TutorialProgressMutationArgs = {
+			// Update progress, either with a "create" or "update" mutation
+			updateTutorialProgress({
 				tutorialId,
 				collectionId,
+				tutorialProgressMutations,
+				needsInitialProgress,
 				completePercent: newPercent,
-			}
-			/**
-			 * If we need an initial progress record, we create a new record.
-			 * Otherwise, we'll update the existing record.
-			 */
-			let requestType: string
-			if (needsInitialProgress) {
-				requestType = 'CREATED'
-				tutorialProgressMutations.createTutorialProgress(mutationArgs)
-			} else {
-				requestType = 'UPDATED'
-				tutorialProgressMutations.updateTutorialProgress(mutationArgs)
-			}
-
-			console.log(`${requestType} progress: ${newProgressStatus}`)
+			})
 		}
 	}, [
 		// Tutorial and collection IDs, these change on client-side navigation
