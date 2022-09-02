@@ -2,7 +2,12 @@ import { RadioField } from 'components/form/field-controls'
 import { EDITIONS } from '../../constants'
 import { FilterSection } from '../filter-section'
 
-export function EditionFilter({ refine, selectedEdition }) {
+export interface EditionFilterProps {
+	refine: (value: string | null) => void
+	selectedEdition: string
+}
+
+export function EditionFilter({ refine, selectedEdition }: EditionFilterProps) {
 	const isAnyEditionSelected = selectedEdition !== undefined
 
 	return (

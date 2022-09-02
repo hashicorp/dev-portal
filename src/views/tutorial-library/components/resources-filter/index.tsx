@@ -1,6 +1,19 @@
 import { CheckboxField } from 'components/form/field-controls'
 import { FilterSection } from '../filter-section'
 
+interface ResourceFilter {
+	attribute: string
+	refine: (value: { isRefined?: boolean }) => void
+	value: {
+		isRefined: boolean
+	}
+	label: string
+}
+
+export interface ResourcesFilterProps {
+	resources: ResourceFilter[]
+}
+
 function ToggleRefinement({ refine, value, label }) {
 	const inputId = `filter-${label}`
 
@@ -17,7 +30,7 @@ function ToggleRefinement({ refine, value, label }) {
 	)
 }
 
-export function ResourcesFilter({ resources }) {
+export function ResourcesFilter({ resources }: ResourcesFilterProps) {
 	return (
 		<FilterSection heading="Resources">
 			{resources.map((attribute) => (

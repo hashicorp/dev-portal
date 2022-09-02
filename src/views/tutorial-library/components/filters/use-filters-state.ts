@@ -51,6 +51,6 @@ export function useFiltersState() {
 			refine: refineEdition,
 			selectedEdition,
 		},
-		resources,
+		resources: { resources },
 	}
 }

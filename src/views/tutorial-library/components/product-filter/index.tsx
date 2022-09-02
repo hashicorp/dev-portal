@@ -1,8 +1,3 @@
-import {
-	useInstantSearch,
-	useRefinementList,
-} from 'react-instantsearch-hooks-web'
-
 import { productSlugsToNames } from 'lib/products'
 
 import ProductIcon from 'components/product-icon'
@@ -13,7 +8,15 @@ import { FilterSection } from '../filter-section'
 import { VALID_PRODUCT_SLUGS_FOR_FILTERING } from 'views/tutorial-library/constants'
 import { CheckboxField } from 'components/form/field-controls'
 
-export function ProductFilter({ refine, selectedProducts }) {
+export interface ProductFilterProps {
+	refine: (value: string) => void
+	selectedProducts: string[]
+}
+
+export function ProductFilter({
+	refine,
+	selectedProducts,
+}: ProductFilterProps) {
 	return (
 		<FilterSection heading="Product">
 			{VALID_PRODUCT_SLUGS_FOR_FILTERING.map((slug) => {
