@@ -14,6 +14,13 @@
 	@media (--dev-dot-tablet-up) {
 		padding-top: 10vh;
 	}
+
+	&.bottom {
+		padding: 0;
+		padding-top: 10vh;
+		width: 100%;
+		position: absolute;
+	}
 }
 
 .content {
@@ -24,4 +31,12 @@
 	min-width: 300px;
 	padding: 24px;
 	width: 100%;
+
+	&.bottom {
+		height: 100%;
+		max-width: none;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		box-shadow: none;
+	}
 }

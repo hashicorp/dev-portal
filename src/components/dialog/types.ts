@@ -3,4 +3,5 @@ export interface DialogProps {
 	onDismiss(): void
 	children: React.ReactNode
 	label: string
+	variant?: 'modal' | 'bottom'
 }
