@@ -20,7 +20,7 @@ function getDotIoRedirectData(productSlug: ProductSlug): RedirectData {
 
 export const PLATFORM_OPTIONS: PlatformOptionRedirectData = {
 	learn: {
-		base_url: 'https://learn-git-ksstage-waf-opt-in-hashicorp.vercel.app/',
+		base_url: 'https://learn-git-kswaf-opt-in-hashicorp.vercel.app/',
 		getRedirectPath: getLearnRedirectPath,
 		cookieKey: 'learn-beta-opt-in',
 		cookieAnalyticsKey: 'learn-beta-opt-in-tracked',
