@@ -23,24 +23,18 @@ function canUpdateTutorialProgress({
 	tutorialProgressMutations: UseTutorialProgressMutationsResult
 }): boolean {
 	/**
-	 * On initial client-side navigation, this effect may be called
-	 * before startRefs and endRefs are updated. We can detect this
-	 * by comparing data-ref-id attributes we've added to the
-	 * elements startRef and endRef are attached to.
-	 */
-	const startRefId = startEntry?.target.getAttribute('data-ref-id')
-	const endRefId = endEntry?.target.getAttribute('data-ref-id')
-	const compareId = `${tutorialId}_${collectionId}`
-	const isStaticIdsMismatch = startRefId !== compareId || endRefId !== compareId
-	if (isStaticIdsMismatch) {
-		return false
-	}
-
-	/**
 	 * If we're not authenticated, we bail early, there's no
 	 * point in trying to make a mutation.
 	 */
 	if (!isAuthenticated) {
+		return false
+	}
+
+	/**
+	 * If this tutorial is already "complete", we know we won't
+	 * want to change that progress, so we can bail early.
+	 */
+	if (tutorialProgressStatus == 'complete') {
 		return false
 	}
 
@@ -60,6 +54,20 @@ function canUpdateTutorialProgress({
 	 */
 	const isReadyToRunMutation = tutorialProgressMutations.isReady
 	if (!isReadyToRunMutation) {
+		return false
+	}
+
+	/**
+	 * On initial client-side navigation, this effect may be called
+	 * before startRefs and endRefs are updated. We can detect this
+	 * by comparing data-ref-id attributes we've added to the
+	 * elements startRef and endRef are attached to.
+	 */
+	const startRefId = startEntry?.target.getAttribute('data-ref-id')
+	const endRefId = endEntry?.target.getAttribute('data-ref-id')
+	const compareId = `${tutorialId}_${collectionId}`
+	const isStaticIdsMismatch = startRefId !== compareId || endRefId !== compareId
+	if (isStaticIdsMismatch) {
 		return false
 	}
 
