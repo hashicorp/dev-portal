@@ -73,7 +73,7 @@ function MerchandisingSlot() {
 				<Button
 					title="Sign up for HCP Vault"
 					linkType="inbound"
-					url="https://portal.cloud.hashicorp.com/sign-up?utm_source=vault_io&utm_content=download_cta"
+					url="https://portal.cloud.hashicorp.com/sign-up"
 					theme={{
 						variant: 'tertiary',
 						brand: 'vault',
