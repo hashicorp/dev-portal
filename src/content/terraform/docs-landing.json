@@ -45,7 +45,7 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Collaborate",
+			"title": "Develop and Share",
 			"cards": [
 				{
 					"description": "Terraform Cloud helps teams use Terraform together, with version control, state sharing, governance, and more.",
