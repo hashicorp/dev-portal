@@ -26,7 +26,7 @@ type ContextState = {
  * Returns an array of all product slugs.
  */
 const initializeAllProductSlugs = () => {
-	const baseProducts = Object.keys(productSlugsToNames) as ProductSlug[]
+	const baseProducts = Object.keys(productSlugsToNames)
 	const sections = Object.keys(SectionOption)
 	return [...baseProducts, ...sections] as ProductSlug[] | SectionOption[]
 }
