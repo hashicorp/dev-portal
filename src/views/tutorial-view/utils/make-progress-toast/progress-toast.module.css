@@ -1,0 +1,14 @@
+.progressToastIcon {
+	width: 20px;
+	height: 20px;
+}
+
+.collectionCompleteIcon {
+	composes: progressToastIcon;
+	color: green;
+}
+
+.tutorialCompleteIcon {
+	composes: progressToastIcon;
+	color: gray;
+}
