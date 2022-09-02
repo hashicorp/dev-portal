@@ -1,7 +1,6 @@
 import ReactDocsPage, { DocsPageProps } from '@hashicorp/react-docs-page'
 import ImageConfigBase from 'components/image-config'
 import { ImageConfigProps } from 'components/image-config/types'
-import DevDotOptIn from '../dev-dot-opt-in'
 
 const ioComponents = {
 	ImageConfig: (props: ImageConfigProps) => (
@@ -14,12 +13,13 @@ const ioComponents = {
  */
 export default function DocsPage({
 	additionalComponents,
+	devDotCutoverInfo,
 	...props
 }: DocsPageProps) {
 	return (
 		<ReactDocsPage
 			additionalComponents={{ ...ioComponents, ...additionalComponents }}
-			optInBanner={<DevDotOptIn />}
+			devDotCutoverInfo={devDotCutoverInfo}
 			{...props}
 		/>
 	)
