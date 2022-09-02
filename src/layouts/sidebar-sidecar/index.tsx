@@ -9,7 +9,7 @@ import { getVersionFromPath } from 'lib/get-version-from-path'
 import { removeVersionFromPath } from 'lib/remove-version-from-path'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import useCurrentPath from 'hooks/use-current-path'
-import { useDeviceSize, useMobileMenu } from 'contexts'
+import { useMobileMenu } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
@@ -52,20 +52,20 @@ const SidebarSidecarLayoutContent = ({
 	sidebarNavDataLevels,
 	versions,
 }: SidebarSidecarLayoutProps) => {
-	const { isDesktop } = useDeviceSize()
-	const { mobileMenuIsOpen, setMobileMenuIsOpen } = useMobileMenu()
+	const { isMobileMenuRendered, mobileMenuIsOpen, setMobileMenuIsOpen } =
+		useMobileMenu()
 	const { currentLevel } = useSidebarNavData()
 	const sidebarRef = useRef<HTMLDivElement>()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const currentlyViewedVersion = getVersionFromPath(currentPath)
 	const sidebarProps = sidebarNavDataLevels[currentLevel]
-	const sidebarIsVisible = isDesktop || mobileMenuIsOpen
+	const sidebarIsVisible = !isMobileMenuRendered || mobileMenuIsOpen
 
 	// Handles closing the sidebar if focus moves outside of it and it is open.
 	useOnFocusOutside(
 		[sidebarRef],
 		() => setMobileMenuIsOpen(false),
-		!isDesktop && sidebarIsVisible
+		isMobileMenuRendered && sidebarIsVisible
 	)
 
 	const SidebarContent = (): ReactElement => {

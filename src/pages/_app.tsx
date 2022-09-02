@@ -9,6 +9,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 // HashiCorp imports
+import {
+	initializeUTMParamsCapture,
+	addCloudLinkHandler,
+} from '@hashicorp/platform-analytics'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
@@ -19,13 +23,17 @@ import {
 	CurrentProductProvider,
 	DeviceSizeProvider,
 } from 'contexts'
-import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
+import fetchLayoutProps, {
+	ComponentMaybeWithQuery,
+} from 'lib/_proxied-dot-io/fetch-layout-props'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 import EmptyLayout from 'layouts/empty'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
+
+import type { CustomAppProps, CustomAppContext } from 'types/_app'
 
 // Local imports
 import './style.css'
@@ -45,12 +53,15 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 	axe(React, ReactDOM, 1000)
 }
 
+initializeUTMParamsCapture()
+addCloudLinkHandler()
+
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
 	layoutProps,
 	host,
-}) {
+}: CustomAppProps & Awaited<ReturnType<typeof App['getInitialProps']>>) {
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
@@ -80,6 +91,9 @@ export default function App({
 	 */
 	const allLayoutProps = {
 		...pageProps.layoutProps,
+		// @ts-expect-error - layoutProps is inferred from `fetchLayoutProps`,
+		// which current resolves to `unknown | null`.
+		// Spread types may only be created from object types.
 		...layoutProps,
 	}
 
@@ -119,7 +133,10 @@ export default function App({
 	)
 }
 
-App.getInitialProps = async ({ Component, ctx }) => {
+App.getInitialProps = async ({
+	Component,
+	ctx,
+}: CustomAppContext<{ Component: ComponentMaybeWithQuery }>) => {
 	// Determine the product being served through our rewrites so we can fetch the correct layout data
 	let proxiedProduct
 	if (ctx.pathname.includes('_proxied-dot-io/vault')) {
@@ -142,6 +159,8 @@ App.getInitialProps = async ({ Component, ctx }) => {
 	let host
 	if (ctx.req) {
 		host = ctx.req.headers.host
+	} else {
+		host = window.location.host
 	}
 
 	return {

@@ -1,6 +1,9 @@
 // Third-party imports
 import { ReactElement, useMemo } from 'react'
 
+// HashiCorp imports
+import HashiHead from '@hashicorp/react-head'
+
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
@@ -17,6 +20,7 @@ import {
 } from './types'
 import {
 	generateDefaultPackageManagers,
+	generateEnterprisePackageManagers,
 	generatePackageManagers,
 	initializeBreadcrumbLinks,
 	initializeVersionSwitcherOptions,
@@ -36,6 +40,7 @@ import {
  * and passes this component as the child.
  */
 const ProductDownloadsViewContent = ({
+	isEnterpriseMode = false,
 	merchandisingSlot,
 	pageContent,
 	releases,
@@ -51,13 +56,22 @@ const ProductDownloadsViewContent = ({
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
 	const breadcrumbLinks = useMemo(
-		() => initializeBreadcrumbLinks(currentProduct, currentVersion),
-		[currentProduct, currentVersion]
+		() =>
+			initializeBreadcrumbLinks(
+				currentProduct,
+				currentVersion,
+				isEnterpriseMode
+			),
+		[currentProduct, currentVersion, isEnterpriseMode]
 	)
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
 		generateProductLandingSidebarNavData(currentProduct),
-		generateInstallViewNavItems(currentProduct, sidebarMenuItems),
+		generateInstallViewNavItems(
+			currentProduct,
+			sidebarMenuItems,
+			isEnterpriseMode
+		),
 	]
 	const packageManagers = useMemo(() => {
 		if (doesNotHavePackageManagers) {
@@ -65,10 +79,17 @@ const ProductDownloadsViewContent = ({
 		}
 
 		return generatePackageManagers({
-			defaultPackageManagers: generateDefaultPackageManagers(currentProduct),
+			defaultPackageManagers: isEnterpriseMode
+				? generateEnterprisePackageManagers(currentProduct)
+				: generateDefaultPackageManagers(currentProduct),
 			packageManagerOverrides: packageManagerOverrides,
 		})
-	}, [currentProduct, doesNotHavePackageManagers, packageManagerOverrides])
+	}, [
+		currentProduct,
+		doesNotHavePackageManagers,
+		isEnterpriseMode,
+		packageManagerOverrides,
+	])
 
 	return (
 		<SidebarSidecarLayout
@@ -83,8 +104,18 @@ const ProductDownloadsViewContent = ({
 			breadcrumbLinks={breadcrumbLinks}
 			sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
 		>
-			<PageHeader />
+			{/**
+			 * Legal has requested that we make the enterprise downloads page public
+			 * but not search engine indexable
+			 */}
+			{isEnterpriseMode ? (
+				<HashiHead>
+					<meta name="robots" key="robots" content="noindex, nofollow" />
+				</HashiHead>
+			) : null}
+			<PageHeader isEnterpriseMode={isEnterpriseMode} />
 			<DownloadsSection
+				isEnterpriseMode={isEnterpriseMode}
 				packageManagers={packageManagers}
 				selectedRelease={releases.versions[currentVersion]}
 				versionSwitcherOptions={versionSwitcherOptions}
@@ -102,14 +133,20 @@ const ProductDownloadsViewContent = ({
  * Handles rendering and initializing `CurrentVersionProvider`.
  */
 const ProductDownloadsView = ({
+	isEnterpriseMode = false,
 	latestVersion,
 	merchandisingSlot,
 	pageContent,
 	releases,
+	sortedAndFilteredVersions,
 }: ProductDownloadsViewProps): ReactElement => {
 	const versionSwitcherOptions = useMemo(
-		() => initializeVersionSwitcherOptions({ latestVersion, releases }),
-		[latestVersion, releases]
+		() =>
+			initializeVersionSwitcherOptions({
+				latestVersion,
+				releaseVersions: sortedAndFilteredVersions,
+			}),
+		[latestVersion, sortedAndFilteredVersions]
 	)
 
 	return (
@@ -118,6 +155,7 @@ const ProductDownloadsView = ({
 			latestVersion={latestVersion}
 		>
 			<ProductDownloadsViewContent
+				isEnterpriseMode={isEnterpriseMode}
 				merchandisingSlot={merchandisingSlot}
 				pageContent={pageContent}
 				releases={releases}

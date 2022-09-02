@@ -1,3 +1,5 @@
+import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
+
 export interface BookmarkButtonProps {
 	handleOnClick(): void
 	isBookmarked: boolean
@@ -13,3 +15,7 @@ export type BookmarkButtonConfigType = Record<
 		iconWithHover: JSX.IntrinsicElements['svg']
 	}
 >
+
+export interface ConnectedBookmarkComponentProps {
+	tutorial: Pick<ClientTutorial, 'id' | 'name'>
+}
