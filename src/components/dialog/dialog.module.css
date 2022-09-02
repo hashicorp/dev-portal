@@ -24,6 +24,9 @@
 }
 
 .content {
+	/** dev dot styles are currently scoped to the layout, but dialogs render in a portal so we aren't inheriting the correct body font */
+	--font-body: var(--token-typography-font-stack-text);
+
 	border-radius: 6px;
 	box-shadow: var(--token-surface-overlay-box-shadow);
 	margin: 0;

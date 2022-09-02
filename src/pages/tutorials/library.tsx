@@ -13,12 +13,36 @@ import {
 	routerStateToSearchState,
 	searchStateToRouteState,
 } from 'views/tutorial-library/utils/router-state'
+import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
+import { SidebarNavMenuItem } from 'components/sidebar/components'
+import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const searchClient = algoliasearch(appId, 'bf27a047ba263cba01ee9b4081965a1a')
 
 interface TutorialsLibraryPageProps {
 	layoutProps: Omit<SidebarSidecarLayoutProps, 'sidecarSlot' | 'headings'>
+}
+
+function TutorialLibrarySidebar() {
+	return (
+		<>
+			<div className="g-hide-with-mobile-menu">
+				<ConnectedTutorialLibraryFilters />
+			</div>
+			<div className="g-show-with-mobile-menu">
+				<SidebarNavList>
+					<SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
+					{generateTopLevelSubNavItems().map(
+						(item: $TSFixMe, index: number) => (
+							// eslint-disable-next-line react/no-array-index-key
+							<SidebarNavMenuItem item={item} key={index} />
+						)
+					)}
+				</SidebarNavList>
+			</div>
+		</>
+	)
 }
 
 export default function TutorialsLibraryPage({
@@ -41,7 +65,7 @@ export default function TutorialsLibraryPage({
 		>
 			<SidebarSidecarLayout
 				{...layoutProps}
-				AlternateSidebar={ConnectedTutorialLibraryFilters}
+				AlternateSidebar={TutorialLibrarySidebar}
 				sidecarSlot={null}
 			>
 				<TutorialsLibraryView />
