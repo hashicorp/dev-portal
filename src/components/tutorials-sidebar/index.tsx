@@ -120,10 +120,10 @@ function TutorialListItem({
 		tutorialId,
 		collectionId,
 	})
-	const rightIcon = <TutorialProgressIcon status={tutorialProgressStatus} />
+	const trailingIcon = <TutorialProgressIcon status={tutorialProgressStatus} />
 
 	return (
-		<SidebarNavMenuItem item={{ isActive, title: text, href, rightIcon }} />
+		<SidebarNavMenuItem item={{ isActive, title: text, href, trailingIcon }} />
 	)
 }
 
