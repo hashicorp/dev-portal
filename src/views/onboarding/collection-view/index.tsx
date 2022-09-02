@@ -22,7 +22,7 @@ export default function OnboardingCollectionView({
 	return (
 		<>
 			<HashiHead>
-				<meta name="robots" content="noindex" />
+				<meta name="robots" content="noindex, nofollow" />
 			</HashiHead>
 			<SidebarSidecarLayout
 				sidecarSlot={null}

@@ -7,15 +7,25 @@ import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import { getPageSubtitle } from 'views/product-downloads-view/helpers'
 import s from './page-header.module.css'
 
-const PageHeader = (): ReactElement => {
+interface PageHeaderProps {
+	isEnterpriseMode: boolean
+}
+
+const PageHeader = ({
+	isEnterpriseMode = false,
+}: PageHeaderProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	const { currentVersion, isLatestVersion } = useCurrentVersion()
-	const pageTitle = `Install ${currentProduct.name}`
-	const pageSubtitle = getPageSubtitle({
-		productName: currentProduct.name,
-		version: currentVersion,
-		isLatestVersion,
-	})
+	const pageTitle = isEnterpriseMode
+		? `${currentProduct.name} Enterprise Installation`
+		: `Install ${currentProduct.name}`
+	const pageSubtitle = isEnterpriseMode
+		? ''
+		: getPageSubtitle({
+				productName: currentProduct.name,
+				version: currentVersion,
+				isLatestVersion,
+		  })
 
 	return (
 		<div className={s.root}>

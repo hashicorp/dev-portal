@@ -1,3 +1,5 @@
+import { InferGetStaticPropsType } from 'next'
+
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { OpenApiPageContents } from 'components/open-api-page'
 /* Used server-side only */
@@ -10,6 +12,10 @@ import {
 	processSchemaString,
 	processSchemaFile,
 } from 'components/open-api-page/server'
+import {
+	generateProductLandingSidebarNavData,
+	generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 
 const productSlug = 'boundary'
 const targetFile = {
@@ -21,15 +27,16 @@ const targetFile = {
 // The path to read from when running local preview in the context of the boundary repository
 const targetLocalFile = '../../internal/gen/controller.swagger.json'
 
-function ApiDocsView({ layoutProps, apiPageProps }) {
+import type { PageWithLayout } from 'types/layouts'
+
+type ApiDocsViewProps = InferGetStaticPropsType<typeof getStaticProps>
+const ApiDocsView: PageWithLayout<ApiDocsViewProps> = ({ apiPageProps }) => {
 	return (
-		<SidebarSidecarLayout {...layoutProps} sidecarSlot={null}>
-			<OpenApiPageContents
-				info={apiPageProps.info}
-				operationCategory={apiPageProps.operationCategory}
-				renderOperationIntro={apiPageProps.renderOperationIntro}
-			/>
-		</SidebarSidecarLayout>
+		<OpenApiPageContents
+			info={apiPageProps.info}
+			operationCategory={apiPageProps.operationCategory}
+			renderOperationIntro={null}
+		/>
 	)
 }
 
@@ -70,11 +77,25 @@ export async function getStaticProps({ params }) {
 
 	// Layout props
 	const headings = []
+
+	// Breadcrumbs
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
 		{ title: 'Boundary', url: `/boundary` },
 		{ title: 'API', url: `/boundary/api-docs` },
 	]
+
+	// Breadcrumbs - Render conditional category
+	if ('operationCategory' in apiPageProps) {
+		breadcrumbLinks.push({
+			title: apiPageProps.operationCategory.name,
+			url: `/boundary/api-docs/${apiPageProps.operationCategory.slug}`,
+		})
+	}
+
+	// Breadcrumbs - Make final element dark-text
+	// @ts-expect-error `isCurrentPage` is an expected optional field
+	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
 
 	// Menu items for the sidebar, from the existing dot-io-oriented navData
 	const apiSidebarMenuItems = apiPageProps.navData.map((menuItem) => {
@@ -91,10 +112,21 @@ export async function getStaticProps({ params }) {
 
 	// Construct sidebar nav data levels
 	const sidebarNavDataLevels = [
+		generateTopLevelSidebarNavData(productData.name),
+		generateProductLandingSidebarNavData(productData),
 		{
+			backToLinkProps: { text: 'Boundary Home', href: '/boundary/' },
+			title: 'API',
+			levelButtonProps: {
+				levelUpButtonText: `${productData.name} Home`,
+			},
 			menuItems: [
 				{
-					heading: apiPageProps.info.title,
+					title: 'Overview',
+					fullPath: '/boundary/api-docs/',
+				},
+				{
+					divider: true,
 				},
 				...apiSidebarMenuItems,
 			],
@@ -109,10 +141,12 @@ export async function getStaticProps({ params }) {
 				headings,
 				breadcrumbLinks,
 				sidebarNavDataLevels,
+				sidecarSlot: null,
 			},
 			product: productData,
 		},
 	}
 }
 
+ApiDocsView.layout = SidebarSidecarLayout
 export default ApiDocsView

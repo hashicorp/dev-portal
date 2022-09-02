@@ -1,11 +1,11 @@
 {
-	"featuredTutorialsSlugs": [
-		"terraform/aws-get-started/install-cli",
-		"terraform/azure-get-started/install-cli",
-		"terraform/docker-get-started/install-cli",
-		"terraform/gcp-get-started/install-cli",
-		"terraform/oci-get-started/install-cli",
-		"terraform/cloud-get-started/cloud-login"
+	"featuredCollectionsSlugs": [
+		"terraform/aws-get-started",
+		"terraform/azure-get-started",
+		"terraform/docker-get-started",
+		"terraform/gcp-get-started",
+		"terraform/oci-get-started",
+		"terraform/cloud-get-started"
 	],
 	"sidebarMenuItems": [
 		{
