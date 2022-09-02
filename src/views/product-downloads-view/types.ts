@@ -31,6 +31,7 @@ export interface PackageManager {
 
 export interface RawProductDownloadsViewContent {
 	doesNotHavePackageManagers?: boolean
+	featuredCollectionsSlugs?: string[]
 	featuredTutorialsSlugs?: string[]
 	packageManagerOverrides?: PackageManager[]
 	sidebarMenuItems?: MenuItem[]
@@ -47,6 +48,7 @@ export interface ProductDownloadsViewProps {
 	merchandisingSlot?: ReactElement
 	pageContent: {
 		doesNotHavePackageManagers?: boolean
+		featuredCollectionCards?: FeaturedCollectionCard[]
 		featuredTutorialCards?: FeaturedTutorialCard[]
 		packageManagerOverrides?: PackageManager[]
 		sidecarMarketingCard: SidecarMarketingCardProps

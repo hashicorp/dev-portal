@@ -7,8 +7,10 @@ import {
 	ProductDownloadsViewStaticProps,
 	RawProductDownloadsViewContent,
 	FeaturedTutorialCard,
+	FeaturedCollectionCard,
 } from './types'
 import {
+	generateFeaturedCollectionsCards,
 	generateFeaturedTutorialsCards,
 	sortAndFilterReleaseVersions,
 } from './helpers'
@@ -42,10 +44,11 @@ const generateGetStaticProps = (
 		)
 		const {
 			doesNotHavePackageManagers,
+			featuredCollectionsSlugs,
 			featuredTutorialsSlugs,
 			packageManagerOverrides,
-			sidecarMarketingCard,
 			sidebarMenuItems,
+			sidecarMarketingCard,
 		} = CONTENT
 
 		/**
@@ -58,6 +61,16 @@ const generateGetStaticProps = (
 			releaseVersions: releases.versions,
 			isEnterpriseMode,
 		})
+
+		/**
+		 * Transform featured collection entries into card data
+		 */
+		let featuredCollectionCards: FeaturedCollectionCard[]
+		if (featuredCollectionsSlugs && featuredCollectionsSlugs.length > 0) {
+			featuredCollectionCards = await generateFeaturedCollectionsCards(
+				featuredCollectionsSlugs
+			)
+		}
 
 		/**
 		 * Transform featured tutorial entries into card data
@@ -80,10 +93,11 @@ const generateGetStaticProps = (
 			},
 			pageContent: {
 				doesNotHavePackageManagers,
+				featuredCollectionCards,
 				featuredTutorialCards,
 				packageManagerOverrides,
-				sidecarMarketingCard,
 				sidebarMenuItems,
+				sidecarMarketingCard,
 			},
 			product,
 			releases,

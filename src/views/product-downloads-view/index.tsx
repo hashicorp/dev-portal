@@ -48,6 +48,7 @@ const ProductDownloadsViewContent = ({
 }: ProductDownloadsViewContentProps) => {
 	const {
 		doesNotHavePackageManagers,
+		featuredCollectionCards,
 		featuredTutorialCards,
 		packageManagerOverrides,
 		sidecarMarketingCard,
@@ -122,12 +123,14 @@ const ProductDownloadsViewContent = ({
 			/>
 			{merchandisingSlot}
 			<OfficialReleasesSection />
-			{featuredTutorialCards?.length > 0 ? (
-				<FeaturedLearnCardsSection
-					cards={featuredTutorialCards}
-					cardType="tutorial"
-				/>
-			) : null}
+			<FeaturedLearnCardsSection
+				cards={featuredCollectionCards}
+				cardType="collection"
+			/>
+			<FeaturedLearnCardsSection
+				cards={featuredTutorialCards}
+				cardType="tutorial"
+			/>
 		</SidebarSidecarLayout>
 	)
 }

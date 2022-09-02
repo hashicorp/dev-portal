@@ -3,8 +3,12 @@ import semverPrerelease from 'semver/functions/prerelease'
 import semverValid from 'semver/functions/valid'
 import { ProductData } from 'types/products'
 import { ReleaseVersion } from 'lib/fetch-release-data'
-import { getInlineTutorials } from 'views/product-tutorials-view/helpers/get-inline-content'
+import {
+	getInlineCollections,
+	getInlineTutorials,
+} from 'views/product-tutorials-view/helpers/get-inline-content'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import { formatCollectionCard } from 'components/collection-card/helpers'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
@@ -297,6 +301,21 @@ export const sortAndFilterReleaseVersions = ({
 	)
 
 	return sortedAndFilteredVersions
+}
+
+export const generateFeaturedCollectionsCards = async (
+	featuredCollectionsSlugs: string[]
+) => {
+	// Gather collections based on slugs used
+	const inlineCollections = await getInlineCollections(featuredCollectionsSlugs)
+
+	// Format the data into collection card props objects
+	return featuredCollectionsSlugs.map((slug: string) => {
+		const formattedCollectionCard = formatCollectionCard(
+			inlineCollections[slug]
+		)
+		return formattedCollectionCard
+	})
 }
 
 /**
