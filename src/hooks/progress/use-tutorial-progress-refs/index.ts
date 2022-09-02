@@ -6,7 +6,6 @@ import { progressStatusToPercent } from 'lib/learn-client/api/progress/formattin
 import {
 	useTutorialProgress,
 	useTutorialProgressMutations,
-	TutorialProgressMutationArgs,
 } from 'hooks/progress'
 import { canUpdateTutorialProgress, updateTutorialProgress } from './utils'
 // Types
