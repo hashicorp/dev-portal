@@ -13,15 +13,7 @@ import { FilterSection } from '../filter-section'
 import { VALID_PRODUCT_SLUGS_FOR_FILTERING } from 'views/tutorial-library/constants'
 import { CheckboxField } from 'components/form/field-controls'
 
-export function ProductFilter() {
-	const { refine } = useRefinementList({
-		attribute: 'products',
-		operator: 'and',
-	})
-
-	const { indexUiState } = useInstantSearch()
-	const selectedProducts = indexUiState?.refinementList?.products ?? []
-
+export function ProductFilter({ refine, selectedProducts }) {
 	return (
 		<FilterSection heading="Product">
 			{VALID_PRODUCT_SLUGS_FOR_FILTERING.map((slug) => {

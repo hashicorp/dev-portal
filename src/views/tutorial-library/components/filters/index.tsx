@@ -3,18 +3,25 @@ import { SidebarHorizontalRule } from 'components/sidebar/components'
 import { EditionFilter } from '../edition-filter'
 import { ProductFilter } from '../product-filter'
 import { ResourcesFilter } from '../resources-filter'
+import { useFiltersState } from './use-filters-state'
 
 /**
  * Renders all of the filters for the tutorial library
  */
-export function TutorialLibraryFilters() {
+export function TutorialLibraryFilters({ products, edition, resources }) {
 	return (
 		<div>
-			<ProductFilter />
+			<ProductFilter {...products} />
 			<SidebarHorizontalRule />
-			<EditionFilter />
+			<EditionFilter {...edition} />
 			<SidebarHorizontalRule />
-			<ResourcesFilter />
+			<ResourcesFilter resources={resources} />
 		</div>
 	)
+}
+
+export function ConnectedTutorialLibraryFilters() {
+	const filtersState = useFiltersState()
+
+	return <TutorialLibraryFilters {...filtersState} />
 }

@@ -12,6 +12,7 @@ import s from './tutorial-library.module.css'
 import { TutorialLibraryFilters } from './components/filters'
 import Button from 'components/button'
 import { ClearFilters } from './components/clear-filters'
+import { useFiltersState } from './components/filters/use-filters-state'
 
 let timerId = undefined
 /**
@@ -34,6 +35,7 @@ export default function TutorialLibraryView() {
 	const { query: searchQuery, refine } = useSearchBox({ queryHook })
 	const [query, setQuery] = useState<string>(searchQuery)
 	const [showMobileFilters, setShowMobileFilters] = useState(false)
+	const filtersState = useFiltersState()
 
 	return (
 		<div>
@@ -59,7 +61,7 @@ export default function TutorialLibraryView() {
 						<Button text="Done" onClick={() => setShowMobileFilters(false)} />
 						<ClearFilters />
 					</div>
-					<TutorialLibraryFilters />
+					<TutorialLibraryFilters {...filtersState} />
 				</Dialog>
 			</div>
 			<CurrentFilters />

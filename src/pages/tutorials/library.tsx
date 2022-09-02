@@ -7,7 +7,7 @@ import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
 import TutorialsLibraryView from 'views/tutorial-library'
-import { TutorialLibraryFilters } from 'views/tutorial-library/components/filters'
+import { ConnectedTutorialLibraryFilters } from 'views/tutorial-library/components/filters'
 import { INDEX_NAME } from 'views/tutorial-library/constants'
 import {
 	routerStateToSearchState,
@@ -41,7 +41,7 @@ export default function TutorialsLibraryPage({
 		>
 			<SidebarSidecarLayout
 				{...layoutProps}
-				AlternateSidebar={TutorialLibraryFilters}
+				AlternateSidebar={ConnectedTutorialLibraryFilters}
 				sidecarSlot={null}
 			>
 				<TutorialsLibraryView />

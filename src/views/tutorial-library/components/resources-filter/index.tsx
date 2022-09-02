@@ -1,11 +1,7 @@
 import { CheckboxField } from 'components/form/field-controls'
-import { useToggleRefinement } from 'react-instantsearch-hooks-web'
-import { RESOURCES } from '../../constants'
 import { FilterSection } from '../filter-section'
 
-function ToggleRefinement({ attribute, label }) {
-	const { value, refine } = useToggleRefinement({ attribute })
-
+function ToggleRefinement({ refine, value, label }) {
 	const inputId = `filter-${label}`
 
 	return (
@@ -21,10 +17,10 @@ function ToggleRefinement({ attribute, label }) {
 	)
 }
 
-export function ResourcesFilter() {
+export function ResourcesFilter({ resources }) {
 	return (
 		<FilterSection heading="Resources">
-			{RESOURCES.map((attribute) => (
+			{resources.map((attribute) => (
 				<li key={attribute.attribute}>
 					<ToggleRefinement {...attribute} />
 				</li>
