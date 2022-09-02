@@ -1,6 +1,6 @@
-import { ReactElement, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { SidebarProps } from 'components/sidebar'
-import { Collection, Tutorial, uuid } from 'lib/learn-client/types'
+import { Collection, Tutorial } from 'lib/learn-client/types'
 
 export interface TutorialSidebarProps {
 	/**
