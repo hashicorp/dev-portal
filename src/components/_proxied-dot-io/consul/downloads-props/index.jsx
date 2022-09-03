@@ -50,7 +50,7 @@ export default function DownloadsProps(preMerchandisingSlot) {
 						<Button
 							title="Try HCP Consul"
 							linkType="inbound"
-							url="https://portal.cloud.hashicorp.com/sign-up?utm_source=consul_io&utm_content=download_cta"
+							url="https://portal.cloud.hashicorp.com/sign-up"
 							theme={{
 								variant: 'tertiary',
 								brand: 'consul',

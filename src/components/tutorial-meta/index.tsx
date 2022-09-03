@@ -56,15 +56,23 @@ export default function TutorialMeta({
 						isInteractive,
 					}}
 				/>
-				<span className={s.buttonGroup}>
-					<InteractiveLabButton />
-					{/** // NOTE! - hiding this component from prod until auth is enabled  */}
-					{isAuthEnabled ? (
-						<TutorialMetaBookmarkButton
-							tutorial={{ id: tutorialId, name: heading.text }}
-						/>
-					) : null}
-				</span>
+				{/**
+				 * TODO: remove this conditional once auth is released to prod,
+				 * since the bookmark button will always render. If we don't
+				 * conditionally render this and there is no interactive lab button,
+				 * a margin stacking occurs that disrupts the layout
+				 */}
+				{isInteractive || isAuthEnabled ? (
+					<span className={s.buttonGroup}>
+						<InteractiveLabButton />
+						{/*// NOTE! - hiding this component from prod until auth is enabled */}
+						{isAuthEnabled ? (
+							<TutorialMetaBookmarkButton
+								tutorial={{ id: tutorialId, name: heading.text }}
+							/>
+						) : null}
+					</span>
+				) : null}
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta}>
 						Reference this often?{' '}
