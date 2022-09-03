@@ -22,7 +22,7 @@ export default function PackerSubnav() {
 				{ text: 'Download', url: '/downloads' },
 				{
 					text: 'Try HCP Packer',
-					url: 'https://portal.cloud.hashicorp.com/sign-up?utm_source=hcp_packer_landing&utm_content=top_nav_packer',
+					url: 'https://portal.cloud.hashicorp.com/sign-up',
 					theme: {
 						brand: 'packer',
 					},

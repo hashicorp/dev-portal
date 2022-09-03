@@ -9,6 +9,7 @@ const CheckboxControl = ({
 	id,
 	name,
 	onChange,
+	onClick,
 	value,
 }: CheckboxControlProps) => {
 	const classes = classNames(s.root, className)
@@ -21,6 +22,7 @@ const CheckboxControl = ({
 			id={id}
 			name={name}
 			onChange={onChange}
+			onClick={onClick}
 			type="checkbox"
 			value={value || id}
 		/>

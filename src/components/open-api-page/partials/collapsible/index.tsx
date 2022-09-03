@@ -10,8 +10,14 @@ import s from './style.module.css'
  * @param {*} props.children React children to render in the collapsible area
  * @returns
  */
-function Collapsible({ isCollapsed, children }) {
-	const parentElem = useRef(null)
+function Collapsible({
+	isCollapsed,
+	children,
+}: {
+	isCollapsed?: boolean
+	children?: React.ReactNode
+}) {
+	const parentElem = useRef<HTMLDivElement | null>(null)
 
 	useEffect(() => {
 		cleanupTransition(parentElem.current)
@@ -30,22 +36,25 @@ function Collapsible({ isCollapsed, children }) {
 	)
 }
 
-function adjustHeight(isCollapsed, parentElemRef) {
+function adjustHeight(
+	isCollapsed: boolean | undefined,
+	parentElemRef: React.MutableRefObject<HTMLDivElement | null>
+) {
 	const elem = parentElemRef.current
 	if (!elem || !(elem instanceof Element)) {
 		return
 	}
-	const innerElem = elem.firstChild
+	const innerElem = elem.firstChild as HTMLElement
 	const computedStyle = getComputedStyle(elem)
 	if (isCollapsed) {
 		//  Transition from auto to 0
-		innerElem.style.opacity = 0
+		innerElem.style.opacity = '0'
 		elem.style.height = computedStyle.height // set to px height, not auto
 		elem.offsetHeight // force repaint
 		elem.style.height = '0px' // trigger the current px height >> 0px transition
 	} else {
 		//  Transition from 0 to auto
-		innerElem.style.opacity = 1
+		innerElem.style.opacity = '1'
 		innerElem.style.display = 'block'
 		const currentHeight = computedStyle.height // save current height
 		elem.style.height = 'auto' // briefly set auto height to calc end height
@@ -63,7 +72,8 @@ function adjustHeight(isCollapsed, parentElemRef) {
 	elem.addEventListener('transitionend', handleTransitionEnd, false)
 }
 
-function handleTransitionEnd(event) {
+type TransitionHandler = (this: HTMLDivElement, ev: TransitionEvent) => any
+const handleTransitionEnd: TransitionHandler = function (event) {
 	if (event.propertyName !== 'height') {
 		return
 	}
@@ -72,12 +82,12 @@ function handleTransitionEnd(event) {
 	elem.removeEventListener('transitionend', handleTransitionEnd, false)
 }
 
-function cleanupTransition(elem) {
+function cleanupTransition(elem: EventTarget) {
 	if (!elem || !(elem instanceof Element)) {
 		return
 	}
 	const computedStyle = getComputedStyle(elem)
-	const innerElem = elem.firstChild
+	const innerElem = elem.firstChild as HTMLElement
 	const innerElemStyle = getComputedStyle(innerElem)
 	const isCollapsed = computedStyle.height === '0px'
 	if (isCollapsed) {
@@ -89,7 +99,7 @@ function cleanupTransition(elem) {
 			innerElem.style.transitionDelay = `${heightDuration - opacityDuration}s`
 		}
 	} else {
-		elem.style.height = 'auto'
+		;(elem as HTMLElement).style.height = 'auto'
 		innerElem.style.transitionDelay = '0s'
 	}
 }

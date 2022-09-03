@@ -2,19 +2,29 @@ import fs from 'fs'
 import path from 'path'
 import { ProductData } from 'types/products'
 import { generateStaticProps as generateReleaseStaticProps } from 'lib/fetch-release-data'
-import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { formatCollectionCard } from 'components/collection-card/helpers'
-import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import {
-	FeaturedLearnContent,
 	ProductDownloadsViewStaticProps,
 	RawProductDownloadsViewContent,
-	FeaturedLearnCard,
+	FeaturedTutorialCard,
+	FeaturedCollectionCard,
 } from './types'
-import { getInlineTutorials } from 'views/product-tutorials-view/helpers/get-inline-content'
+import {
+	generateFeaturedCollectionsCards,
+	generateFeaturedTutorialsCards,
+	sortAndFilterReleaseVersions,
+} from './helpers'
 
-const generateGetStaticProps = (product: ProductData) => {
+interface GenerateStaticPropsOptions {
+	isEnterpriseMode?: boolean
+}
+
+const generateGetStaticProps = (
+	product: ProductData,
+	options: GenerateStaticPropsOptions = {}
+) => {
+	const { isEnterpriseMode = false } = options
+
 	return async (): Promise<{
 		props: ProductDownloadsViewStaticProps
 		revalidate: number
@@ -34,10 +44,11 @@ const generateGetStaticProps = (product: ProductData) => {
 		)
 		const {
 			doesNotHavePackageManagers,
+			featuredCollectionsSlugs,
 			featuredTutorialsSlugs,
 			packageManagerOverrides,
-			sidecarMarketingCard,
 			sidebarMenuItems,
+			sidecarMarketingCard,
 		} = CONTENT
 
 		/**
@@ -46,80 +57,51 @@ const generateGetStaticProps = (product: ProductData) => {
 		const { props: releaseProps, revalidate } =
 			await generateReleaseStaticProps(product)
 		const { releases, latestVersion } = releaseProps
+		const sortedAndFilteredVersions = sortAndFilterReleaseVersions({
+			releaseVersions: releases.versions,
+			isEnterpriseMode,
+		})
 
 		/**
-		 * The `featuredTutorialsSlugs` array allows two formats of slugs:
-		 *   - <product slug>/<collection slug>/<tutorial slug>
-		 *   - <product slug>/<tutorial slug>
+		 * Transform featured collection entries into card data
 		 */
-		const splitSlugs = (slug) => {
-			const slugParts = slug.split('/')
-			if (slugParts.length === 3) {
-				// Slug format is: <product slug>/<collection slug>/<tutorial slug>
-				return {
-					productSlug: slugParts[0],
-					collectionSlug: slugParts[1],
-					tutorialSlug: slugParts[2],
-				}
-			} else if (slugParts.length === 2) {
-				// Slug format is: <product slug>/<tutorial slug>
-				return { productSlug: slugParts[0], tutorialSlug: slugParts[1] }
-			} else {
-				console.error(
-					'Found string `featuredTutorialsSlugs` width incorrect number of slash-separated parts:',
-					slug
-				)
-			}
+		let featuredCollectionCards: FeaturedCollectionCard[]
+		if (featuredCollectionsSlugs && featuredCollectionsSlugs.length > 0) {
+			featuredCollectionCards = await generateFeaturedCollectionsCards(
+				featuredCollectionsSlugs
+			)
 		}
 
 		/**
-		 * Gather tutorials and collections based on slugs used
+		 * Transform featured tutorial entries into card data
 		 */
-		const tutorialSlugs = featuredTutorialsSlugs.map((slug) => {
-			const { productSlug, tutorialSlug } = splitSlugs(slug)
-			return `${productSlug}/${tutorialSlug}`
-		})
-		const inlineTutorials = await getInlineTutorials(tutorialSlugs)
-
-		/**
-		 * Transform feature tutorial and collection entries into card data
-		 */
-		const featuredLearnCards: FeaturedLearnCard[] = featuredTutorialsSlugs.map(
-			(slug: string) => {
-				const { productSlug, collectionSlug, tutorialSlug } = splitSlugs(slug)
-				const tutorialData = inlineTutorials[`${productSlug}/${tutorialSlug}`]
-				const defaultContext = tutorialData.collectionCtx.default
-				const tutorialLiteCompat = { ...tutorialData, defaultContext }
-
-				const formattedTutorialCard = formatTutorialCard(tutorialLiteCompat)
-				if (collectionSlug) {
-					formattedTutorialCard.url = `/${productSlug}/tutorials/${collectionSlug}/${tutorialSlug}`
-				}
-
-				return {
-					type: 'tutorial',
-					...formattedTutorialCard,
-				}
-			}
-		)
+		let featuredTutorialCards: FeaturedTutorialCard[]
+		if (featuredTutorialsSlugs && featuredTutorialsSlugs.length > 0) {
+			featuredTutorialCards = await generateFeaturedTutorialsCards(
+				featuredTutorialsSlugs
+			)
+		}
 
 		/**
 		 * Combine release data and page content
 		 */
 		const props = stripUndefinedProperties({
+			isEnterpriseMode,
+			latestVersion: isEnterpriseMode ? `${latestVersion}+ent` : latestVersion,
 			metadata: {
 				title: 'Install',
 			},
-			releases,
-			product,
-			latestVersion,
 			pageContent: {
 				doesNotHavePackageManagers,
-				featuredLearnCards,
+				featuredCollectionCards,
+				featuredTutorialCards,
 				packageManagerOverrides,
-				sidecarMarketingCard,
 				sidebarMenuItems,
+				sidecarMarketingCard,
 			},
+			product,
+			releases,
+			sortedAndFilteredVersions,
 		})
 
 		return {

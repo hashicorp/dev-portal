@@ -1,6 +1,9 @@
 .root {
-	padding: 8px 0;
 	margin: 0;
+
+	&:not(:last-child) {
+		margin-bottom: 25px;
+	}
 
 	& .typeString {
 		color: var(--gray-2);
@@ -8,52 +11,10 @@
 		padding: 0;
 		margin-left: 2px;
 	}
-
-	& .requiredFlag {
-		color: var(--danger-d1);
-		margin-left: 4px;
-	}
-
-	& .toggleButton {
-		border: none;
-		color: var(--brand-link);
-		background: none;
-		display: flex;
-		align-items: center;
-		margin: 4px 0 0 0;
-		padding: 0;
-
-		& .toggleIcon {
-			position: relative;
-			top: 1px;
-			width: 16px;
-			height: 16px;
-			margin-right: 8px;
-			transition: transform 0.3s;
-			transform: rotate(-180deg);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-
-			&.isCollapsed {
-				transform: rotate(0deg);
-			}
-		}
-
-		&:hover {
-			cursor: pointer;
-		}
-	}
 }
 
 .nestedProperties {
 	padding-left: 4px;
-}
-
-.propertiesContainer {
-	margin: 8px 0 0 8px;
-	padding-left: 16px;
-	border-left: 1px solid var(--gray-5);
 }
 
 .descriptiveText {
@@ -61,7 +22,6 @@
 	composes: hds-typography-body-200 from global;
 	color: var(--gray-3);
 	margin: 8px 0 0 0;
-	padding-left: 8px;
 
 	/* Remove the top margin from any first item */
 	& > *:first-child {

@@ -35,7 +35,8 @@ async function main() {
 			dir.name !== '_proxied-dot-io' &&
 			dir.name !== 'api' &&
 			dir.name !== 'swingset' &&
-			dir.name !== '[productSlug]'
+			dir.name !== '[productSlug]' &&
+			dir.name !== 'well-architected-framework'
 		) {
 			console.log(`🧹 removing pages at /${dir.name}`)
 			if (!process.env.DRY_RUN) {

@@ -1,0 +1,47 @@
+.root {
+	border: 1px solid var(--token-color-border-strong);
+	border-radius: 50px;
+	display: flex;
+	align-items: center;
+	width: fit-content;
+}
+
+.removeButton {
+	background-color: transparent;
+	border: none;
+	border-radius: inherit;
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	padding-bottom: 6px;
+	padding-left: 8px;
+	padding-right: 2px;
+	padding-top: 6px;
+	height: fit-content;
+	width: fit-content;
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.removeIcon {
+	display: flex;
+	height: 12px;
+	width: 12px;
+}
+
+.text {
+	/* composition */
+	composes: hds-font-weight-medium from global;
+
+	/* properties */
+	display: block;
+	color: var(--token-color-foreground-primary);
+	font-family: var(--token-typography-body-100-font-family);
+	font-size: var(--token-typography-body-100-font-size);
+	line-height: 1rem;
+	padding-bottom: 5px;
+	padding-left: 6px;
+	padding-right: 8px;
+	padding-top: 3px;
+}
