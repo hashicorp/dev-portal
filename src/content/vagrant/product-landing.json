@@ -40,7 +40,7 @@
 				{
 					"heading": "Install and Specify a Box",
 					"body": "Use a base image to quickly clone a virtual machine.",
-					"url": "/vagrant/getting-started-boxes"
+					"url": "/vagrant/tutorials/getting-started/getting-started-boxes"
 				}
 			]
 		},
@@ -55,7 +55,7 @@
 				{
 					"heading": "Create a Vagrantfile",
 					"body": "Begin your Vagrant project by creating a Vagrantfile.",
-					"url": "/vagrant/getting-started-project-setup"
+					"url": "/vagrant/tutorials/getting-started/getting-started-project-setup"
 				}
 			]
 		},
@@ -70,7 +70,7 @@
 				{
 					"heading": "Boot an Environment",
 					"body": "Start your virtual machine with vagrant up.",
-					"url": "/vagrant/getting-started-up"
+					"url": "/vagrant/tutorials/getting-started/getting-started-up"
 				}
 			]
 		},
@@ -91,7 +91,7 @@
 				{
 					"heading": "Synchronize Your Files",
 					"body": "Vagrant automatically syncs files to and from the guest machine allowing you to edits files locally and run them in your virtual machine.",
-					"url": "/vagrant/getting-started-synced-folders"
+					"url": "/vagrant/tutorials/getting-started/getting-started-synced-folders"
 				}
 			]
 		},
@@ -106,7 +106,7 @@
 				{
 					"heading": "Configure Your Network",
 					"body": "Forward network traffic from your local machine to your virtual guest machine running on Vagrant.",
-					"url": "/vagrant/getting-started-networking"
+					"url": "/vagrant/tutorials/networking-provisioning-operations/getting-started-networking"
 				}
 			]
 		},
