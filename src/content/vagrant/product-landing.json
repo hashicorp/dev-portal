@@ -153,12 +153,12 @@
 				{
 					"heading": "The Nomad Autoscaler",
 					"body": "Try out the autoscaling feature of HashiCorp Nomad in a Vagrant environment.",
-					"url": "/nomad/autoscaler-vagrant-demo"
+					"url": "/nomad/tutorials/autoscaler/autoscaler-vagrant-demo"
 				},
 				{
 					"heading": "Data Encryption in Vault",
 					"body": "Try out data encryption in a Java application with HashiCorp Vault in a Vagrant environment.",
-					"url": "/vault/eaas-spring-demo"
+					"url": "/vault/tutorials/app-integration/eaas-spring-demo"
 				}
 			]
 		}
