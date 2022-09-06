@@ -39,18 +39,3 @@ export function progressStatusToPercent(
 		return TutorialProgressPercent.Zero
 	}
 }
-
-/**
- * Given an array of progress records,
- * Return the best progress found for that tutorialId in any collection context.
- */
-export function parseCollectionProgress(
-	data: ApiCollectionTutorialProgress[]
-): number {
-	// Filter for records associated with this collection
-	const completedTutorials = data.filter(
-		(record: ApiCollectionTutorialProgress) => record.complete_percent == '100'
-	)
-	// Return the count of completed tutorials
-	return completedTutorials.length
-}
