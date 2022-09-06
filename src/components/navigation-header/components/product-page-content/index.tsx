@@ -14,7 +14,7 @@ import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/color
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 
 // Global imports
-import { ProductSlug, RootDocsPath } from 'types/products'
+import { DocsNavItem, ProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'
@@ -29,6 +29,7 @@ import {
 } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './product-page-content.module.css'
+import { getNavItems } from './utils/get-nav-items'
 
 /**
  * A mapping of Product slugs to their imported SVG colorwhite logos. Used for
@@ -118,7 +119,7 @@ const ProductPageHeaderContent = () => {
 	return (
 		<div className={sharedNavStyles.leftSide}>
 			<div className={sharedNavStyles.contentBeforeNav}>
-				<div className="g-hide-on-mobile g-hide-on-tablet">
+				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 					<NavigationHeaderDropdownMenu
 						ariaLabel="Main menu"
 						buttonClassName={s.companyLogoMenuButton}
@@ -141,39 +142,21 @@ const ProductPageHeaderContent = () => {
 				</Link>
 			</div>
 			{isBetaProduct && (
-				<div className="g-hide-on-mobile g-hide-on-tablet">
+				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 					<nav className={sharedNavStyles.nav}>
 						<ul className={sharedNavStyles.navList}>
-							{[
-								{ label: 'Home', pathSuffix: '' },
-								{
-									label: 'Documentation',
-									iconColorTheme: currentProduct.slug,
-									items: currentProduct.rootDocsPaths.map(
-										(rootDocsPath: RootDocsPath) => {
-											return {
-												icon: rootDocsPath.iconName,
-												label: rootDocsPath.name,
-												path: `/${currentProduct.slug}/${rootDocsPath.path}`,
-											}
-										}
-									),
-								},
-								{ label: 'Tutorials', pathSuffix: 'tutorials' },
-								{ label: 'Install', pathSuffix: 'downloads' },
-							].map((navItem) => {
-								const { items, label } = navItem
-								const ariaLabel = `${currentProduct.name} ${label}`
+							{getNavItems(currentProduct).map((navItem) => {
+								const ariaLabel = `${currentProduct.name} ${navItem.label}`
 
 								let ItemContent
-								if (items) {
+								if (navItem.hasOwnProperty('items')) {
 									ItemContent = PrimaryNavSubmenu
 								} else {
 									ItemContent = PrimaryNavLink
 								}
 
 								return (
-									<li key={label}>
+									<li key={navItem.label}>
 										<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
 									</li>
 								)

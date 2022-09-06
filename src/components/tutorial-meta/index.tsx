@@ -14,9 +14,14 @@ interface TutorialMetaProps {
 		isInteractive: boolean
 		hasVideo: boolean
 	}
+	tutorialId: TutorialData['id']
 }
 
-export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
+export default function TutorialMeta({
+	heading,
+	meta,
+	tutorialId,
+}: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 
 	/**
@@ -25,11 +30,6 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 	 */
 	const { isAuthenticated, isAuthEnabled, isLoading } = useAuthentication()
 	const showCreateAccountCta = isAuthEnabled && !isLoading && !isAuthenticated
-	/**
-	 * TODO - This state will likely be passed down from the tutorial level.
-	 * hook up to real data
-	 */
-	const isBookmarked = false
 
 	return (
 		<header className={s.header}>
@@ -56,13 +56,23 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 						isInteractive,
 					}}
 				/>
-				<span className={s.buttonGroup}>
-					<InteractiveLabButton />
-					{/** // NOTE! - hiding this component from prod until auth is enabled  */}
-					{isAuthEnabled ? (
-						<TutorialMetaBookmarkButton isBookmarked={isBookmarked} />
-					) : null}
-				</span>
+				{/**
+				 * TODO: remove this conditional once auth is released to prod,
+				 * since the bookmark button will always render. If we don't
+				 * conditionally render this and there is no interactive lab button,
+				 * a margin stacking occurs that disrupts the layout
+				 */}
+				{isInteractive || isAuthEnabled ? (
+					<span className={s.buttonGroup}>
+						<InteractiveLabButton />
+						{/*// NOTE! - hiding this component from prod until auth is enabled */}
+						{isAuthEnabled ? (
+							<TutorialMetaBookmarkButton
+								tutorial={{ id: tutorialId, name: heading.text }}
+							/>
+						) : null}
+					</span>
+				) : null}
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta}>
 						Reference this often?{' '}

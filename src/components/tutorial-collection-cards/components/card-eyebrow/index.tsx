@@ -1,12 +1,12 @@
 import classNames from 'classnames'
-import { ReactElement } from 'react'
+import { ReactNode } from 'react'
 import s from './card-eyebrow.module.css'
 
 function CardEyebrow({
 	children,
 	className,
 }: {
-	children: ReactElement[] | ReactElement
+	children: ReactNode
 	className?: string
 }) {
 	return <span className={classNames(s.eyebrow, className)}>{children}</span>

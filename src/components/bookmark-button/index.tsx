@@ -1,7 +1,7 @@
 import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
 import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
 import Button from 'components/button'
-import { withDialog } from './helpers/with-dialog'
+import { Connected } from './helpers/connected-bookmark-button'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
 import { BookmarkButtonConfigType, BookmarkButtonProps } from './types'
 import s from './bookmark-button.module.css'
@@ -25,12 +25,13 @@ const bookmarkButtonConfig: BookmarkButtonConfigType = {
  * the /icons file for more context.
  */
 
-function BookmarkButtonIconOnly({
-	isBookmarked,
+export function BookmarkButtonIconOnly({
 	handleOnClick,
+	isBookmarked,
 }: BookmarkButtonProps) {
 	const { add, remove } = bookmarkButtonConfig
 	const ariaLabel = isBookmarked ? remove.text : add.text
+
 	return (
 		<button
 			aria-pressed={isBookmarked}
@@ -49,13 +50,14 @@ function BookmarkButtonIconOnly({
  */
 
 function BookmarkButtonTextAndIcon({
-	isBookmarked,
 	handleOnClick,
+	isBookmarked,
 }: BookmarkButtonProps) {
 	const { add, remove } = bookmarkButtonConfig
 	const buttonProps = isBookmarked
 		? { text: remove.text, icon: remove.baseIcon }
 		: { text: add.text, icon: add.baseIcon }
+
 	return <Button color="secondary" onClick={handleOnClick} {...buttonProps} />
 }
 
@@ -65,8 +67,8 @@ function BookmarkButtonTextAndIcon({
  * which passes the `handleOnClick` logic, checks for authentication,
  * and opens a dialog to prompt authentication.
  *
- * Eventually this HOC may also handle the API requests to manage data.
- * and trigger toasts based on the result.
+ * It also fetches the bookmark state and updates the API
+ * upon user interaction, if authenticated.
  */
-export const TutorialCardBookmarkButton = withDialog(BookmarkButtonIconOnly)
-export const TutorialMetaBookmarkButton = withDialog(BookmarkButtonTextAndIcon)
+export const TutorialCardBookmarkButton = Connected(BookmarkButtonIconOnly)
+export const TutorialMetaBookmarkButton = Connected(BookmarkButtonTextAndIcon)

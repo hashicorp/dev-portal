@@ -19,6 +19,7 @@ const ButtonLink = ({
 	openInNewTab = false,
 	size = 'medium',
 	text,
+	className,
 }: ButtonLinkProps) => {
 	const hasIcon = !!icon
 	const hasText = !!text
@@ -43,7 +44,7 @@ const ButtonLink = ({
 		<Link href={href}>
 			<a
 				aria-label={ariaLabel}
-				className={classNames(s.root, s[size], s[color])}
+				className={classNames(s.root, s[size], s[color], className)}
 				rel={openInNewTab ? 'noreferrer noopener' : undefined}
 				target={openInNewTab ? '_blank' : '_self'}
 			>

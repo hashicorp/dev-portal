@@ -16,7 +16,7 @@ export default function BookmarkSignInPrompt({
 	return (
 		<>
 			<div className={s.header}>
-				<Heading level={1} size={300} weight="medium" className={s.heading}>
+				<Heading level={1} size={300} weight="semibold" className={s.heading}>
 					Please sign in to bookmark this tutorial.
 				</Heading>
 				<button
@@ -28,7 +28,7 @@ export default function BookmarkSignInPrompt({
 					<IconX16 />
 				</button>
 			</div>
-			<Text>
+			<Text className={s.subheading}>
 				In order to add this bookmark, you must be signed in. Please sign in and
 				try again.
 			</Text>

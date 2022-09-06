@@ -1,24 +1,4 @@
 {
-	"featuredLearnContent": [
-		{
-			"tutorialSlug": "nomad/get-started-install"
-		},
-		{
-			"tutorialSlug": "nomad/cluster-setup-aws"
-		},
-		{
-			"tutorialSlug": "nomad/jobs-configuring"
-		},
-		{
-			"tutorialSlug": "nomad/job-spec-java-linux"
-		},
-		{
-			"tutorialSlug": "nomad/task-dependencies-interjob"
-		},
-		{
-			"tutorialSlug": "nomad/stateful-workloads-host-volumes"
-		}
-	],
 	"sidebarMenuItems": [
 		{
 			"divider": true
@@ -34,6 +14,14 @@
 			"title": "Nomad Vocabulary",
 			"fullPath": "/nomad/tutorials/get-started/get-started-vocab"
 		}
+	],
+	"featuredTutorialsSlugs": [
+		"nomad/get-started-install",
+		"nomad/cluster-setup-aws",
+		"nomad/jobs-configuring",
+		"nomad/job-spec-java-linux",
+		"nomad/task-dependencies-interjob",
+		"nomad/stateful-workloads-host-volumes"
 	],
 	"sidecarMarketingCard": {
 		"title": "About Nomad",
