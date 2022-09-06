@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
+import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
@@ -188,6 +189,18 @@ function TutorialView({
 		},
 	]
 
+	/**
+	 * Keep track of progress for authenticated users
+	 *
+	 * Note that we attach data-ref-id to avoid some
+	 * client-side-navigation-related progress tracking quirks.
+	 */
+	const progressRefsId = `${id}_${collectionCtx.current.id}`
+	const progressRefs = useTutorialProgressRefs({
+		tutorialId: id,
+		collectionId: collectionCtx.current.id,
+	})
+
 	return (
 		<>
 			<Head>
@@ -229,6 +242,7 @@ function TutorialView({
 							}}
 							tutorialId={id}
 						/>
+						<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
 						{hasVideo && video.id && !video.videoInline && (
 							<VideoEmbed
 								url={getVideoUrl({
@@ -242,6 +256,7 @@ function TutorialView({
 								<MDXRemote {...content} components={MDX_COMPONENTS} />
 							</DevDotContent>
 						</TabProvider>
+						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
 						<NextPrevious {...nextPreviousData} />
 						<FeaturedInCollections
 							className={s.featuredInCollections}

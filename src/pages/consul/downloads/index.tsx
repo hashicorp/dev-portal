@@ -100,4 +100,5 @@ const ConsulDownloadsPage = (props) => {
 const getStaticProps = generateGetStaticProps(consulData as ProductData)
 
 export { getStaticProps }
+export { ConsulDownloadsMerchandisingSlot }
 export default ConsulDownloadsPage
