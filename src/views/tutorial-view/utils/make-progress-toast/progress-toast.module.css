@@ -5,10 +5,10 @@
 
 .collectionCompleteIcon {
 	composes: progressToastIcon;
-	color: green;
+	color: var(--token-color-foreground-success-on-surface);
 }
 
 .tutorialCompleteIcon {
 	composes: progressToastIcon;
-	color: gray;
+	color: var(--token-color-foreground-faint);
 }
