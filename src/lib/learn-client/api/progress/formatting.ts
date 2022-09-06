@@ -2,7 +2,6 @@ import {
 	TutorialProgressStatus,
 	TutorialProgressPercent,
 } from 'lib/learn-client/types'
-import { ApiCollectionTutorialProgress } from '../api-types'
 
 /**
  * Convert from API's complete_percent to the TutorialProgressStatus enum.

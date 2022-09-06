@@ -1,13 +1,13 @@
 import { get, toError } from 'lib/learn-client'
-import { uuid } from 'lib/learn-client/types'
+import { Collection, Tutorial } from 'lib/learn-client/types'
 import { SessionData } from 'types/auth'
 import { PROGRESS_API_ROUTE } from '.'
 import { ApiCollectionTutorialProgress } from '../api-types'
 
 interface GetAllProgressOptions {
 	accessToken: SessionData['accessToken']
-	tutorialIds?: uuid[]
-	collectionIds?: uuid[]
+	tutorialIds?: Tutorial['id'][]
+	collectionIds?: Collection['id'][]
 }
 
 type GetAllProgressResult = ApiCollectionTutorialProgress[]
