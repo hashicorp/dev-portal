@@ -1,4 +1,6 @@
 import { get, toError } from 'lib/learn-client'
+// TODO: use queryString for addQueryParams
+// import queryString from 'query-string'
 import { Collection, Tutorial } from 'lib/learn-client/types'
 import { SessionData } from 'types/auth'
 import { PROGRESS_API_ROUTE } from '.'
@@ -27,7 +29,6 @@ const getAllProgress = async ({
 	let url = PROGRESS_API_ROUTE
 	const addQueryParams = tutorialIds || collectionIds
 	if (addQueryParams) {
-		url += '?'
 		const params = []
 		if (tutorialIds) {
 			params.push(`tutorialIds=${tutorialIds.join(',')}`)
