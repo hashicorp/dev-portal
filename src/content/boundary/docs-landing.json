@@ -18,7 +18,7 @@
 				{
 					"title": "Boundary Domain Model",
 					"description": "Understand the Boundary's domain model that allows administrators to organize IAM (Identity and Access Management) and target resources.",
-					"url": "/bounary/docs/concepts/domain-model"
+					"url": "/boundary/docs/concepts/domain-model"
 				},
 				{
 					"title": "Boundary Configuration",
