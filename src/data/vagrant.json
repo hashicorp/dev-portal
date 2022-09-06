@@ -64,5 +64,9 @@
 			"name": "Vagrant Cloud",
 			"path": "vagrant-cloud"
 		}
-	]
+	],
+	"devDotCutoverMessage": {
+		"showCutoverDate": false,
+		"cutoverDate": "Oct 18, 2022"
+	}
 }

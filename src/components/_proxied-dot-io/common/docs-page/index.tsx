@@ -10,7 +10,10 @@ const ioComponents = {
 }
 
 interface ProxiedDocsPageProps extends DocsPageProps {
-	devDotCutoverDate?: string | undefined
+	devDotCutoverMessage?: {
+		cutoverDate: string
+		showCutoverDate: boolean
+	}
 }
 
 /**
@@ -18,13 +21,15 @@ interface ProxiedDocsPageProps extends DocsPageProps {
  */
 export default function DocsPage({
 	additionalComponents,
-	devDotCutoverDate,
+	devDotCutoverMessage,
 	...props
 }: ProxiedDocsPageProps) {
 	return (
 		<ReactDocsPage
 			additionalComponents={{ ...ioComponents, ...additionalComponents }}
-			optInBanner={<DevDotOptIn cutoverDate={devDotCutoverDate} />}
+			optInBanner={
+				<DevDotOptIn {...(devDotCutoverMessage ? devDotCutoverMessage : {})} />
+			}
 			{...props}
 		/>
 	)

@@ -25,10 +25,18 @@ const getDevDotLink = (product, path) => {
 	return url.toString()
 }
 
+interface DevDotOptInProps {
+	cutoverDate?: string
+	showCutoverDate?: boolean
+}
+
 /**
  * Largely copied from: https://github.com/hashicorp/learn/pull/4480
  */
-export default function DevDotOptIn({ cutoverDate }: { cutoverDate?: string }) {
+export default function DevDotOptIn({
+	cutoverDate,
+	showCutoverDate,
+}: DevDotOptInProps) {
 	const { asPath } = useRouter()
 	const { name, slug } = useProductMeta()
 
@@ -63,7 +71,7 @@ export default function DevDotOptIn({ cutoverDate }: { cutoverDate?: string }) {
 					</p>
 					<p className={s.description}>
 						{`${name} Docs content is being improved and migrated into our new developer experience.${
-							cutoverDate
+							cutoverDate && showCutoverDate
 								? ` The migration will take place on ${cutoverDate}`
 								: ''
 						}`}

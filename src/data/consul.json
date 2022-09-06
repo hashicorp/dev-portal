@@ -48,5 +48,9 @@
 			"name": "CLI",
 			"path": "commands"
 		}
-	]
+	],
+	"devDotCutoverMessage": {
+		"showCutoverDate": false,
+		"cutoverDate": "Oct 13, 2022"
+	}
 }
