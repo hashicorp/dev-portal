@@ -49,7 +49,7 @@
 					"url": "/boundary/docs/concepts/service-discovery"
 				},
 				{
-					"heading": "Infrastructures as Code with Terraform",
+					"heading": "Infrastructure as Code with Terraform",
 					"body": "Define policies and manage Boundary with Terraform provider that supports the full breadth of Boundary configurations.",
 					"url": "https://registry.terraform.io/providers/hashicorp/boundary"
 				},
