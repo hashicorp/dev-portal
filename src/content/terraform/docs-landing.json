@@ -3,7 +3,7 @@
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
-			"title": "Introduction to Terraform",
+			"title": "Introduction",
 			"cards": [
 				{
 					"description": "How Terraform solves infrastructure challenges.",
