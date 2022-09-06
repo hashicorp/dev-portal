@@ -13,13 +13,11 @@ const ioComponents = {
  */
 export default function DocsPage({
 	additionalComponents,
-	devDotCutoverInfo,
 	...props
 }: DocsPageProps) {
 	return (
 		<ReactDocsPage
 			additionalComponents={{ ...ioComponents, ...additionalComponents }}
-			devDotCutoverInfo={devDotCutoverInfo}
 			{...props}
 		/>
 	)

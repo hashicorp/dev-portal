@@ -26,9 +26,8 @@ function DocsView(props) {
 			additionalComponents={additionalComponents}
 			showVersionSelect={enableVersionedDocs}
 			algoliaConfig={productData.algoliaConfig}
-			devDotCutoverInfo={{
-				cutoverDate: productData.devDotCutoverDate,
-			}}
+			// eslint-disable-next-line react/jsx-no-undef
+			optInBanner={<DevDotOptIn cutoverDate={productData.devDotCutoverDate} />}
 		/>
 	)
 }

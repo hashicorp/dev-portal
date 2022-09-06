@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
-import { IconAlertCircleFill16 } from '@hashicorp/flight-icons/svg-react/alert-circle-fill-16'
+import { IconAlertCircle16 } from '@hashicorp/flight-icons/svg-react/alert-circle-16'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import ButtonLink from 'components/button-link'
+import StandaloneLink from 'components/standalone-link'
 import useProductMeta from '@hashicorp/platform-product-meta'
 import { ProductSlug } from 'types/products'
 import { isContentDeployPreview } from 'lib/env-checks'
@@ -25,7 +28,7 @@ const getDevDotLink = (product, path) => {
 /**
  * Largely copied from: https://github.com/hashicorp/learn/pull/4480
  */
-export default function DevDotOptIn() {
+export default function DevDotOptIn({ cutoverDate }: { cutoverDate: string }) {
 	const { asPath } = useRouter()
 	const { name, slug } = useProductMeta()
 
@@ -48,19 +51,38 @@ export default function DevDotOptIn() {
 	}
 
 	return (
-		<div className={s.container}>
-			<IconAlertCircleFill16 className={s.icon} />
-			<p className={s.alert}>
-				The {name} website is being redesigned to help you find what you are
-				looking for more effectively.
-				<a
-					className={s.optInLink}
-					href={getDevDotLink(slug, asPath)}
-					onClick={handleOptIn}
-				>
-					Join the Beta
-				</a>
-			</p>
+		<div className={s.root}>
+			<div className={s.alertContainer}>
+				<div className={s.icon}>
+					<IconAlertCircle16 />
+				</div>
+				<div className={s.contentContainer}>
+					<p className={s.title}>
+						HashiCorp Developer, a unified practitioner experience is launching
+						soon!
+					</p>
+					<p className={s.description}>
+						{`${name} Docs content is being improved and migrated into our new developer experience. The migration will take place on ${cutoverDate}`}
+					</p>
+					<div className={s.actions}>
+						<ButtonLink
+							text="Migrate Now"
+							href={getDevDotLink(slug, asPath)}
+							onClick={handleOptIn}
+							color="secondary"
+							size="small"
+						/>
+						<StandaloneLink
+							icon={<IconArrowRight16 />}
+							iconPosition="trailing"
+							text="Learn More"
+							href=""
+							color="secondary"
+							size="small"
+						/>
+					</div>
+				</div>
+			</div>
 		</div>
 	)
 }

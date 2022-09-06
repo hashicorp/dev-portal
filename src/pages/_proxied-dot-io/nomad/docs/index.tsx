@@ -51,10 +51,7 @@ function NomadDocsLandingPage({
 			baseRoute={basePath}
 			versions={versions}
 			algoliaConfig={productData.algoliaConfig}
-			devDotCutoverInfo={{
-				cutoverDate: productData.devDotCutoverDate,
-				baseUrl: __config.dev_dot.canonical_base_url,
-			}}
+			optInBanner={<DevDotOptIn cutoverDate={productData.devDotCutoverDate} />}
 		>
 			<ProductDocsLanding content={PAGE_CONTENT} />
 		</DocsPageInner>

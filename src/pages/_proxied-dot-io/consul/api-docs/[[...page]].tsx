@@ -5,6 +5,7 @@ import productData from 'data/consul.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
+import DevDotOptIn from 'components/_proxied-dot-io/common/dev-dot-opt-in'
 
 const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'api-docs'
@@ -23,10 +24,7 @@ function DocsView(props) {
 			additionalComponents={additionalComponents}
 			showVersionSelect={enableVersionedDocs}
 			algoliaConfig={productData.algoliaConfig}
-			devDotCutoverInfo={{
-				cutoverDate: productData.devDotCutoverDate,
-				baseUrl: __config.dev_dot.canonical_base_url,
-			}}
+			optInBanner={<DevDotOptIn cutoverDate={productData.devDotCutoverDate} />}
 		/>
 	)
 }
