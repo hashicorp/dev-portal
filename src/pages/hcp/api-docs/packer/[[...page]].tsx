@@ -25,7 +25,9 @@ const targetFile = {
 	repo: 'cloud-api',
 	path: 'specs/cloud-packer-service/stable/2021-04-30/hcp.swagger.json',
 }
+
 // The path to read from when running local preview in the context of the cloud.hashicorp.com repository
+// - This is unused as cloud.hashicorp.com does not use the dev-portal website shell yet
 const targetLocalFile = '../TODO'
 
 type ApiDocsPageProps = InferGetStaticPropsType<typeof getStaticProps>
@@ -61,6 +63,8 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
 	let schema
 	if (isDeployPreview(productSlug)) {
+		// we wont realistically reach this branch,
+		// but it's here to mirror /src/pages/boundary/api-docs/[[...page]].tsx
 		schema = await processSchemaFile(targetLocalFile)
 	} else {
 		const swaggerFile = await fetchGithubFile(targetFile)
