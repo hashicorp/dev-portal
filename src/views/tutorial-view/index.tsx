@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
-import { useCollectionProgress, useTutorialProgressRefs } from 'hooks/progress'
+import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
