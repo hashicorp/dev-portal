@@ -33,7 +33,10 @@ const getAllProgress = async ({
 }: GetAllProgressOptions): Promise<GetAllProgressResult> => {
 	// Add query params to the URL, if applicable
 	let url = PROGRESS_API_ROUTE
-	const qs = queryString.stringify({ tutorialIds, collectionIds })
+	const qs = queryString.stringify(
+		{ tutorialIds, collectionIds },
+		{ arrayFormat: 'comma' }
+	)
 	if (qs !== '') {
 		url += `?${qs}`
 	}
