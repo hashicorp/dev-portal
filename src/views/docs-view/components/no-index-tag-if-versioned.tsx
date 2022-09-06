@@ -9,7 +9,7 @@ export function NoIndexTagIfVersioned() {
 	if (versionInPath) {
 		return (
 			<Head>
-				<meta name="robots" content="noindex" key="robots" />
+				<meta name="robots" content="noindex, nofollow" key="robots" />
 			</Head>
 		)
 	}
