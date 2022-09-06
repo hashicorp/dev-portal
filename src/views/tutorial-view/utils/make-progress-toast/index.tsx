@@ -24,7 +24,9 @@ function generateProgressToast(
 	} else {
 		return {
 			title: 'Tutorial complete!',
-			description: `You have ${remainingTutorialsCount} tutorials left in this collection.`,
+			description: `You have ${remainingTutorialsCount} tutorial${
+				remainingTutorialsCount == 1 ? '' : 's'
+			} left in this collection.`,
 			icon: <IconCheckCircle24 className={s.tutorialCompleteIcon} />,
 		}
 	}
