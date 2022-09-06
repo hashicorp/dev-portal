@@ -1,73 +1,61 @@
 {
-	"pageSubtitle": "Vagrant is like Vault, but different. Vault is an identity-based secret and encryption management system. This documentation covers the main concepts of Vault, what problems it can solve, and contains a quick start for using Vault.",
+	"pageSubtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",
 	"marketingContentBlocks": [
 		{
-			"type": "section-heading",
-			"title": "Use Cases"
-		},
-		{
 			"type": "card-grid",
-			"title": "Secrets Management",
-			"description": "Centrally store, access, and deploy secrets across applications, systems, and infrastructure.",
+			"title": "Fundamentals",
 			"cards": [
 				{
-					"description": "A generic Key-Value store used to store arbitrary secrets within the configured physical storage for Vault.",
-					"title": "KV Secrets Engine",
-					"url": "/vault/docs/secrets/kv"
+					"description": "The package format for Vagrant environments - create your own or use one from the public catalog.",
+					"title": "Boxes",
+					"url": "/vagrant/docs/boxes"
 				},
 				{
-					"description": "Generate database credentials dynamically based on configured roles.",
-					"title": "Database Credentials",
-					"url": "/vault/docs/secrets/databases"
+					"description": "Describe your virtual machine's configuration and how to provision it.",
+					"title": "Vagrantfile",
+					"url": "/vagrant/docs/vagrantfile"
 				},
 				{
-					"description": "Deploy Vault into Kubernetes using the official HashiCorp Vault Helm chart.",
-					"title": "Kubernetes Secrets",
-					"url": "/vault/docs/platform/k8s"
+					"description": "Provisioners allow you to automatically install software, alter configurations, and more.",
+					"title": "Provisioning",
+					"url": "/vagrant/docs/provisioning"
+				},
+				{
+					"description": "Create and configure your virtual machine with the single most important Vagrant CLI command.",
+					"title": "The 'up' command",
+					"url": "/vagrant/docs/cli/up"
+				},
+				{
+					"description": "Sync files from your host machine to the guest machine.",
+					"title": "Synced Folders",
+					"url": "/vagrant/docs/synced-folders"
+				},
+				{
+					"description": "Access your virtual machines through the high-level networking set up by Vagrant.",
+					"title": "Networking",
+					"url": "/vagrant/docs/networking"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Encryption Services",
-			"description": "Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.",
+			"title": "Vagrant Cloud",
+			"description": "Vagrant Cloud serves a public, searchable index of Vagrant boxes.",
 			"cards": [
 				{
-					"description": "Apply cryptographic functions on data in-transit. Sign and verify data, generate hashes and HMACs of data, and act as a source of random bytes.",
-					"title": "Transit Secrets Engine",
-					"url": "/vault/docs/secrets/transit"
+					"description": "Use the public catalog to find boxes that contain the technologies you need for your Vagrant environment.",
+					"title": "Catalog",
+					"url": "/vagrant/vagrant-cloud/boxes/catalog"
 				},
 				{
-					"description": "Handle secure data transformation and tokenization against a provided input value using NIST vetted cryptographic standards and other transformations such as masking.",
-					"title": "Transform Secrets Engine",
-					"url": "/vault/docs/secrets/transform"
+					"description": "Create your boxes with Packer, the Vagrant Cloud web interface, or the API.",
+					"title": "Creation",
+					"url": "/vagrant/vagrant-cloud/boxes/create"
 				},
 				{
-					"description": "Exchange a sensitive value for an unrelated value called a token. The original sensitive value cannot be recovered from a token alone but is irreversible.",
-					"title": "Tokenization",
-					"url": "/vault/docs/secrets/transform/tokenization"
-				}
-			]
-		},
-		{
-			"type": "card-grid",
-			"title": "Key Management",
-			"description": "Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.",
-			"cards": [
-				{
-					"description": "Act as a key management interoperability protocol server provider and handle the lifecycle of its KMIP managed objects.",
-					"title": "KMIP Secrets Engine",
-					"url": "/vault/docs/secrets/kmip"
-				},
-				{
-					"description": "A consistent workflow for distribution and lifecycle management of cryptographic keys in key management service (KMS) providers.",
-					"title": "Key Management Secrets Engine",
-					"url": "/vault/docs/secrets/key-management"
-				},
-				{
-					"description": "Generate dynamic X.509 certificates without going through the manual process of generating a private key and CSR or submitting to a CA.",
-					"title": "PKI",
-					"url": "/vault/docs/secrets/pki"
+					"description": "Version and track the lifecycle of your boxes to make updates and fixes more efficiently.",
+					"title": "Lifecycle",
+					"url": "/vagrant/vagrant-cloud/boxes/lifecycle"
 				}
 			]
 		},
@@ -80,23 +68,23 @@
 			"cards": [
 				{
 					"iconName": "terminal",
-					"text": "Developer Quick Start",
-					"url": "/vault/docs/get-started/developer-qs"
+					"text": "CLI Commands",
+					"url": "/vagrant/docs/cli"
+				},
+				{
+					"iconName": "api",
+					"text": "Vagrant Cloud API",
+					"url": "/vagrant/docs/vagrant-cloud/api"
+				},
+				{
+					"iconName": "plug",
+					"text": "Plugins",
+					"url": "/vagrant/docs/plugins"
 				},
 				{
 					"iconName": "guide",
-					"text": "Client Libraries",
-					"url": "/vault/api-docs/libraries"
-				},
-				{
-					"iconName": "connection",
-					"text": "Sample Integrations",
-					"url": "https://github.com/hashicorp/hello-vault-go"
-				},
-				{
-					"iconName": "terminal",
-					"text": "Code Samples",
-					"url": "https://github.com/hashicorp/vault-examples"
+					"text": "Providers",
+					"url": "/vagrant/docs/providers"
 				}
 			]
 		}

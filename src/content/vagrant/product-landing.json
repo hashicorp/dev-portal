@@ -1,11 +1,11 @@
 {
 	"hero": {
-		"heading": "Vagrant Placeholder Duplicate Of Vault Content",
+		"heading": "Development Environments Made Easy",
 		"image": "https://place-hold.it/600x320"
 	},
 	"overview": {
 		"heading": "What is Vagrant?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+		"body": "Vagrant is the command line utility for managing the lifecycle of virtual machines. Isolate dependencies and their configuration within a single disposable and consistent environment.",
 		"cta": {
 			"text": "Learn more about Vagrant features",
 			"url": "/vault/docs/what-is-vault"
@@ -14,52 +14,69 @@
 	},
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "Use Vagrant to securely store, access, and manage secrets and other sensitive data.",
+		"body": "Use Vagrant to create and configure a reproducible and portable work environment.",
 		"ctas": [
 			{
 				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
-			},
-			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"url": "/vagrant/tutorials/getting-started"
 			}
 		]
 	},
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Use Cases",
+			"heading": "Fundamentals",
 			"level": 2,
 			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
 		},
 		{
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.vagrantup.com"
+					"heading": "Boxes",
+					"body": "The package format for Vagrant environments - create your own or use one from the public catalog.",
+					"url": "/vagrant/docs/boxes"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.vagrantup.com"
+					"heading": "Install and Specify a Box",
+					"body": "Use a base image to quickly clone a virtual machine.",
+					"url": "/vagrant/tutorials/getting-started/getting-started-boxes"
+				}
+			]
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Vagrantfile",
+					"body": "Describe your virtual machine's configuration and how to provision it.",
+					"url": "/vagrant/docs/vagrantfile"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.vagrantup.com"
+					"heading": "Create a Vagrantfile",
+					"body": "Begin your Vagrant project by creating a Vagrantfile.",
+					"url": "/vagrant/tutorials/getting-started/getting-started-project-setup"
+				}
+			]
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "vagrant up",
+					"body": "Create and configure your virtual machine with the single most important Vagrant CLI command.",
+					"url": "/vagrant/docs/cli/up"
+				},
+				{
+					"heading": "Boot an Environment",
+					"body": "Start your virtual machine with vagrant up.",
+					"url": "/vagrant/tutorials/getting-started/getting-started-up"
 				}
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Case Studies",
+			"heading": "Important Concepts",
 			"level": 2,
 			"size": 400
 		},
@@ -67,19 +84,81 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.vagrantup.com"
+					"heading": "Synced Folders",
+					"body": "Sync files from your host machine to the guest machine.",
+					"url": "/vagrant/docs/synced-folders"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.vagrantup.com"
+					"heading": "Synchronize Your Files",
+					"body": "Vagrant automatically syncs files to and from the guest machine allowing you to edits files locally and run them in your virtual machine.",
+					"url": "/vagrant/tutorials/getting-started/getting-started-synced-folders"
+				}
+			]
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Networking",
+					"body": "Access your virtual machines through the high-level networking set up by Vagrant.",
+					"url": "/vagrant/docs/networking"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.vagrantup.com"
+					"heading": "Configure Your Network",
+					"body": "Forward network traffic from your local machine to your virtual guest machine running on Vagrant.",
+					"url": "/vagrant/tutorials/networking-provisioning-operations/getting-started-networking"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Additional Reading",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Plugins",
+					"body": "Add additional functionality to Vagrant via plugins.",
+					"url": "/vagrant/docs/plugins"
+				},
+				{
+					"heading": "Providers",
+					"body": "Manage other types of machines via providers.",
+					"url": "/vagrant/docs/providers"
+				},
+				{
+					"heading": "Triggers",
+					"body": "Execute commands on your system before or after Vagrant operations.",
+					"url": "/vagrant/triggers"
+				},
+				{
+					"heading": "Vagrant Share",
+					"body": "Share your Vagrant environment with anyone via a single command.",
+					"url": "/vagrant/docs/share"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Use Cases with Vagrant",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "The Nomad Autoscaler",
+					"body": "Try out the autoscaling feature of HashiCorp Nomad in a Vagrant environment.",
+					"url": "/nomad/tutorials/autoscaler/autoscaler-vagrant-demo"
+				},
+				{
+					"heading": "Data Encryption in Vault",
+					"body": "Try out data encryption in a Java application with HashiCorp Vault in a Vagrant environment.",
+					"url": "/vault/tutorials/app-integration/eaas-spring-demo"
 				}
 			]
 		}
