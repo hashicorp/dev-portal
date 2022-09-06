@@ -7,7 +7,11 @@ import { IconCheck24 } from '@hashicorp/flight-icons/svg-react/check-24'
 import { toast } from 'components/toast'
 import s from './progress-toast.module.css'
 
-function generateToastMessage(
+/**
+ * Given the count of remaining tutorials in the current collection context,
+ * Return props for a congratulatory progress toast.
+ */
+function generateProgressToast(
 	remainingTutorialsCount: number
 ): Omit<ToastDisplayProps, 'dismissSelf'> {
 	if (remainingTutorialsCount == 0) {
@@ -26,9 +30,9 @@ function generateToastMessage(
 	}
 }
 
-export default function makeProgressToast(remainingTutorialsCount) {
+export default function makeProgressToast(remainingTutorialsCount: number) {
 	toast({
-		...generateToastMessage(remainingTutorialsCount),
+		...generateProgressToast(remainingTutorialsCount),
 		autoDismiss: 15000,
 	})
 }
