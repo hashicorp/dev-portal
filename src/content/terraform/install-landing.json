@@ -15,37 +15,41 @@
 			"heading": "Getting Started"
 		},
 		{
-			"title": "Introduction to Terraform",
+			"title": "What is Terraform?",
 			"fullPath": "/terraform/intro"
 		},
 		{
-			"title": "Get Started with Terraform Cloud",
+			"href": "/terraform/tutorials#get-started",
+			"text": "Terraform Tutorials"
+		},
+		{
+			"title": "Terraform Cloud Tutorials",
 			"fullPath": "/terraform/tutorials/cloud-get-started/cloud-sign-up"
 		}
 	],
 	"sidecarMarketingCard": {
 		"title": "About Terraform",
-		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+		"subtitle": "Define cloud and on-prem resources in human-readable configuration files that you can version, reuse, and share.",
 		"featuredDocsLinks": [
 			{
-				"href": "/terraform/internals",
-				"text": "Internals"
+				"href": "/terraform/intro",
+				"text": "Introduction to Terraform"
 			},
 			{
 				"href": "/terraform/language",
-				"text": "Configuration"
+				"text": "Configuration Language"
 			},
 			{
 				"href": "/terraform/cli/commands",
-				"text": "CLI"
+				"text": "Terraform CLI"
+			},
+			{
+				"href": "/terraform/cloud-docs",
+				"text": "Terraform Cloud"
 			},
 			{
 				"href": "/terraform/language/providers",
-				"text": "Providers"
-			},
-			{
-				"href": "/terraform/language/resources/provisioners/syntax",
-				"text": "Provisioners"
+				"text": "Provider Use"
 			}
 		]
 	}
