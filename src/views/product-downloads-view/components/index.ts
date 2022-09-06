@@ -7,14 +7,14 @@
  */
 
 import DownloadsSection from './downloads-section'
-import FeaturedTutorialsSection from './featured-tutorials-section'
+import FeaturedLearnCardsSection from './featured-learn-cards-section'
 import OfficialReleasesSection from './official-releases-section'
 import PageHeader from './page-header'
 import SidecarMarketingCard from './sidecar-marketing-card'
 
 export {
 	DownloadsSection,
-	FeaturedTutorialsSection,
+	FeaturedLearnCardsSection,
 	OfficialReleasesSection,
 	PageHeader,
 	SidecarMarketingCard,
