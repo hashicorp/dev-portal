@@ -37,6 +37,7 @@
 
 	&.bottom {
 		height: 100%;
+		overflow-y: scroll;
 		max-width: none;
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
