@@ -32,6 +32,7 @@ function TutorialLibrarySidebar() {
 			</div>
 			<div className="g-show-with-mobile-menu">
 				<SidebarNavList>
+					{/* copied from: src/layouts/base-new/index.tsx */}
 					<SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
 					{generateTopLevelSubNavItems().map(
 						(item: $TSFixMe, index: number) => (

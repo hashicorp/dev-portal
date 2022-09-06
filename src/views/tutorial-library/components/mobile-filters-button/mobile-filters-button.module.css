@@ -1,5 +1,0 @@
-.root {
-	@media (--dev-dot-hide-mobile-menu) {
-		display: none;
-	}
-}
