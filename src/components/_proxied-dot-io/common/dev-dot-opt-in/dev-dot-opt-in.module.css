@@ -35,7 +35,7 @@
 }
 
 .title {
-	composes: hds-typography-body-200 from gloabl;
+	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-highlight-on-surface);
 	font-weight: var(--token-typography-font-weight-semibold);
 
