@@ -34,6 +34,7 @@ export default function DevDotOptIn({ cutoverDate }: { cutoverDate: string }) {
 
 	// Based on our config values, decide whether or not we should render the CTA
 	const shouldRenderOptInCTA =
+		!!cutoverDate &&
 		!isContentDeployPreview(slug) &&
 		getIsBetaProduct(slug as ProductSlug) &&
 		__config.flags.enable_io_beta_cta

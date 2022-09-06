@@ -1,4 +1,5 @@
 {
 	"slug": "well-architected-framework",
-	"name": "Well Architected Framework"
+	"name": "Well Architected Framework",
+	"devDotCutoverDate": "Oct 26, 2022"
 }
