@@ -61,7 +61,7 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Collaborate",
+			"title": "Develop and Share",
 			"cards": [
 				{
 					"description": "Create a provider to allow Terraform to interact with a service.",
