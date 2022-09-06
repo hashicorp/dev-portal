@@ -25,7 +25,7 @@
 		"overview": {
 			"heading": "What is Well Architected Framework?",
 			"body": "HashiCorp's well architected framework provides best practice guidance for organizations. Specifically, it aims to help practitioners optimize their production HashiCorp deployments while also meeting their organization's specific architectural needs. The well architected framework starts at the cloud operating model, it sets the overarching goal of the framework, cloud migration enablement.",
-			"image": "https://place-hold.it/680x270"
+			"image": "https://www.datocms-assets.com/2885/1661989746-dev-dot-product-landing-what-is-waf-diagram.svg"
 		}
 	}
 }
