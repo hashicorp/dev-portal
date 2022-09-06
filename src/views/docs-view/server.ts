@@ -50,6 +50,7 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 	const hasDevPortalBranch = [
 		'vault',
 		'waypoint',
+		'boundary',
 		'consul',
 		'nomad',
 		'terraform-docs-common',
