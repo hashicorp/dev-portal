@@ -158,6 +158,5 @@
 			"name": "API",
 			"path": "api-docs"
 		}
-	],
-	"devDotCutoverDate": "Oct 5, 2022"
+	]
 }

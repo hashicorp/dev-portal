@@ -24,7 +24,6 @@ function DocsView(props) {
 			additionalComponents={additionalComponents}
 			showVersionSelect={false}
 			algoliaConfig={productData.algoliaConfig}
-			devDotCutoverDate={productData.devDotCutoverDate}
 		/>
 	)
 }

@@ -82,6 +82,5 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	],
-	"devDotCutoverDate": "Oct 18, 2022"
+	]
 }

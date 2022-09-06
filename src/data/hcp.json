@@ -14,6 +14,5 @@
 			"shortName": "Documentation",
 			"productSlugForLoader": "cloud.hashicorp.com"
 		}
-	],
-	"devDotCutoverDate": "Oct 18, 2022"
+	]
 }

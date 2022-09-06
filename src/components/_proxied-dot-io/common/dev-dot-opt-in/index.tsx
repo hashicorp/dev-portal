@@ -28,13 +28,12 @@ const getDevDotLink = (product, path) => {
 /**
  * Largely copied from: https://github.com/hashicorp/learn/pull/4480
  */
-export default function DevDotOptIn({ cutoverDate }: { cutoverDate: string }) {
+export default function DevDotOptIn({ cutoverDate }: { cutoverDate?: string }) {
 	const { asPath } = useRouter()
 	const { name, slug } = useProductMeta()
 
 	// Based on our config values, decide whether or not we should render the CTA
 	const shouldRenderOptInCTA =
-		!!cutoverDate &&
 		!isContentDeployPreview(slug) &&
 		getIsBetaProduct(slug as ProductSlug) &&
 		__config.flags.enable_io_beta_cta
@@ -63,7 +62,11 @@ export default function DevDotOptIn({ cutoverDate }: { cutoverDate: string }) {
 						soon!
 					</p>
 					<p className={s.description}>
-						{`${name} Docs content is being improved and migrated into our new developer experience. The migration will take place on ${cutoverDate}`}
+						{`${name} Docs content is being improved and migrated into our new developer experience.${
+							cutoverDate
+								? ` The migration will take place on ${cutoverDate}`
+								: ''
+						}`}
 					</p>
 					<div className={s.actions}>
 						<ButtonLink

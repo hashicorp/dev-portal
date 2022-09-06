@@ -50,7 +50,7 @@ function ConsulDocsLandingPage({
 			baseRoute={basePath}
 			versions={versions}
 			algoliaConfig={productData.algoliaConfig}
-			optInBanner={<DevDotOptIn cutoverDate={productData.devDotCutoverDate} />}
+			optInBanner={<DevDotOptIn />}
 		>
 			<ProductDocsLanding content={PAGE_CONTENT} />
 		</DocsPageInner>
