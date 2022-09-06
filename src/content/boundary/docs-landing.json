@@ -61,7 +61,7 @@
 				},
 				{
 					"description": "Use filters to list resources to further narrow down the list operation.",
-					"title": "Resourc Listing",
+					"title": "Resource Listing",
 					"url": "/boundary/docs/concepts/filtering/resource-listing"
 				},
 				{
