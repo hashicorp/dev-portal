@@ -47,7 +47,20 @@ import { getCustomLayout } from './utils/get-custom-layout'
  * "latestVersionRef" to the remote content loader config.
  */
 function getBetaLatestVersionRef(slug: string): string | undefined {
-	const hasDevPortalBranch = slug == 'vault' || slug == 'waypoint'
+	const hasDevPortalBranch = [
+		'vault',
+		'waypoint',
+		'boundary',
+		'consul',
+		'nomad',
+		'terraform-docs-common',
+		'ptfe-releases',
+		'terraform-cdk',
+		'terraform',
+		'terraform-plugin-sdk',
+		'terraform-plugin-framework',
+		'terraform-docs-agents',
+	].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }
 
