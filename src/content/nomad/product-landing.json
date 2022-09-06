@@ -1,65 +1,45 @@
 {
 	"hero": {
-		"heading": "Nomad Placeholder Duplicate Of Vault Content",
+		"heading": "Orchestrate, deploy, and manage containers, binaries, and batch jobs in the cloud or on-prem",
 		"image": "https://place-hold.it/600x320"
 	},
 	"overview": {
 		"heading": "What is Nomad?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+		"body": "A simple and flexible scheduler and orchestrator to deploy and manage containers and non-containerized applications across on-prem and clouds at scale",
 		"cta": {
 			"text": "Learn more about Nomad features",
-			"url": "/vault/docs/what-is-vault"
+			"url": "/nomad/intro"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662053778-dev-dot-product-landing-what-is-nomad-diagram.png"
+		"image": "https://www.datocms-assets.com/58478/1649878860-nomad-kubernetes-2.png"
 	},
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "Use Nomad to securely store, access, and manage secrets and other sensitive data.",
+		"body": "Learn how to use Nomad to schedule and orchestrate workloads.",
 		"ctas": [
 			{
 				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
-			},
-			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"url": "nomad/tutorials/get-started"
 			}
 		]
 	},
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Use Cases",
+			"heading": "Featured Tutorials",
 			"level": 2,
 			"size": 400
 		},
 		{
 			"type": "tutorial_cards",
-			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
-		},
-		{
-			"type": "linked_cards",
-			"cards": [
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.nomadproject.io"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.nomadproject.io"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.nomadproject.io"
-				}
+			"tutorialSlugs": [
+				"nomad/multiregion-deployments",
+				"nomad/schedule-edge-services",
+				"nomad/external-application-load-balancing"
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Case Studies",
+			"heading": "Nomad Jobs",
 			"level": 2,
 			"size": 400
 		},
@@ -67,19 +47,128 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.nomadproject.io"
+					"heading": "Deploy and Manage Jobs",
+					"body": "Learn the fundamentals of expressing your workload as Nomad jobs.",
+					"url": "nomad/tutorials/manage-jobs"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.nomadproject.io"
+					"heading": "Parameterized Jobs",
+					"body": "Nomad parameterized jobs enable dynamic runtime behaviors from a single job specification.",
+					"url": "nomad/tutorials/job-spec-parameterized"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.nomadproject.io"
+					"heading": "Nomad Pack",
+					"body": "Create and re-use existing job templates with Nomad Pack.",
+					"url": "waypoint/tutorials/nomad-pack"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "HashiCorp Tools Integrations",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Integrate Consul",
+					"body": "Learn to secure jobs and add Consul health checking, service discovery, and service mesh capabilities.",
+					"url": "nomad/tutorials/integrate-consul"
+				},
+				{
+					"heading": "Integrate Vault",
+					"body": "Configure the Nomad secrets engine in Vault and use Vault to obtain secrets for workloads.",
+					"url": "nomad/tutorials/integrate-vault"
+				},
+				{
+					"heading": "Integrate Waypoint",
+					"body": "Use Waypoint to build, deploy, and release your applications to Nomad.",
+					"url": "waypoint/tutorials/get-started-nomad"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Nomad in Production",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Nomad Enterprise",
+					"body": "Learn about Nomad Enterprise features and how to use them at scale.",
+					"url": "nomad/tutorials/enterprise"
+				},
+				{
+					"heading": "Secure Nomad with Access Control",
+					"body": "Learn to configure a Nomad cluster for ACLs, author your first policy, and grant a token based on it.",
+					"url": "nomad/tutorials/access-control"
+				},
+				{
+					"heading": "Enable Transport Encryption for Nomad",
+					"body": "Encrypt Nomad's intercluster traffic—UDP gossip and TCP API/RPC traffic.",
+					"url": "waypoint/tutorials/transport-security"
+				},
+				{
+					"heading": "Job Resiliency",
+					"body": "Learn to keep jobs running in the event of the unexpected with local retries and node rescheduling.",
+					"url": "nomad/tutorials/job-failure-handling"
+				},
+				{
+					"heading": "Governance and Policy",
+					"body": "Operate Nomad securely in a multi-team environment with resource quotas and Sentinel integration.",
+					"url": "nomad/tutorials/governance-and-policy"
+				},
+				{
+					"heading": "Advanced Application Scheduling",
+					"body": "Learn to express placement preferences for job allocations using affinities and preemption.",
+					"url": "waypoint/tutorials/advanced-scheduling"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Cluster Management",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Operating Nomad Clusters",
+					"body": "Learn the features operators will need to build and maintain Nomad clusters.",
+					"url": "nomad/tutorials/manage-clusters"
+				},
+				{
+					"heading": "Upgrade a Cluster",
+					"body": "Nomad is designed to be flexible and resilient when upgrading from one Nomad version to the next.",
+					"url": "nomad/upgrade"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Plugins and Tools",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Task Drivers",
+					"body": "Task drivers are used by Nomad clients to execute a task and provide resource isolation. Extending task drivers allows Nomad the flexibility to support a broad set of workloads.",
+					"url": "nomad/plugins/drivers"
+				},
+				{
+					"heading": "External Tools",
+					"body": "External tools provide additional capabilities and use cases to Nomad and can sometimes be deployed as a Nomad job in your cluster.",
+					"url": "nomad/tools"
 				}
 			]
 		}
