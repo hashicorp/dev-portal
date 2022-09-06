@@ -13,7 +13,6 @@ import {
 	generateStaticPaths,
 	generateStaticProps,
 } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
-import DevDotOptIn from 'components/_proxied-dot-io/common/dev-dot-opt-in'
 
 //  Configure the docs path and remote plugin docs loading
 
@@ -37,7 +36,7 @@ function DocsView(props: InferGetStaticPropsType<typeof getStaticProps>) {
 			staticProps={props}
 			showVersionSelect={false}
 			algoliaConfig={productData.algoliaConfig}
-			optInBanner={<DevDotOptIn cutoverDate={productData.devDotCutoverDate} />}
+			devDotCutoverDate={productData.devDotCutoverDate}
 		/>
 	)
 }

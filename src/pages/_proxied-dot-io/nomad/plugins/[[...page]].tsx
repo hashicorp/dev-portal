@@ -6,7 +6,6 @@ import productData from 'data/nomad.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
-import DevDotOptIn from 'components/_proxied-dot-io/common/dev-dot-opt-in'
 
 const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'plugins'
@@ -25,7 +24,7 @@ function DocsView(props) {
 			additionalComponents={additionalComponents}
 			showVersionSelect={false}
 			algoliaConfig={productData.algoliaConfig}
-			optInBanner={<DevDotOptIn cutoverDate={productData.devDotCutoverDate} />}
+			devDotCutoverDate={productData.devDotCutoverDate}
 		/>
 	)
 }

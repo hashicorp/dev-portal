@@ -7,7 +7,6 @@ import PluginBadge from 'components/_proxied-dot-io/packer/plugin-badge'
 // Imports below are used in getStatic functions only
 import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
-import DevDotOptIn from 'components/_proxied-dot-io/common/dev-dot-opt-in'
 
 const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'plugins'
@@ -29,7 +28,7 @@ function DocsView(props) {
 			additionalComponents={additionalComponents}
 			showVersionSelect={false}
 			algoliaConfig={productData.algoliaConfig}
-			optInBanner={<DevDotOptIn cutoverDate={productData.devDotCutoverDate} />}
+			devDotCutoverDate={productData.devDotCutoverDate}
 		/>
 	)
 }

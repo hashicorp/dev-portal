@@ -27,8 +27,6 @@ function DocsView(props) {
 			showVersionSelect={enableVersionedDocs}
 			algoliaConfig={productData.algoliaConfig}
 			showEditPage={false}
-			// eslint-disable-next-line react/jsx-no-undef
-			optInBanner={<DevDotOptIn cutoverDate={productData.devDotCutoverDate} />}
 		/>
 	)
 }
