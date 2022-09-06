@@ -1,26 +1,26 @@
 import {
-	TutorialProgressLabel,
+	TutorialProgressStatus,
 	TutorialProgressPercent,
 } from 'lib/learn-client/types'
-import { progressPercentToLabel, progressLabelToPercent } from '../formatting'
+import { progressPercentToStatus, progressStatusToPercent } from '../formatting'
 
 describe('formatting', () => {
 	it('converts from API percent to Dev Dot named progress state', () => {
 		const expectedResults: Record<
 			TutorialProgressPercent,
-			TutorialProgressLabel
+			TutorialProgressStatus
 		> = {
-			'0': TutorialProgressLabel.visited,
-			'25': TutorialProgressLabel.in_progress,
-			'50': TutorialProgressLabel.in_progress,
-			'75': TutorialProgressLabel.in_progress,
-			'90': TutorialProgressLabel.in_progress,
-			'100': TutorialProgressLabel.complete,
+			'0': TutorialProgressStatus.visited,
+			'25': TutorialProgressStatus.in_progress,
+			'50': TutorialProgressStatus.in_progress,
+			'75': TutorialProgressStatus.in_progress,
+			'90': TutorialProgressStatus.in_progress,
+			'100': TutorialProgressStatus.complete,
 		}
 		Object.entries(expectedResults).forEach(
-			(entry: [TutorialProgressPercent, TutorialProgressLabel]) => {
+			(entry: [TutorialProgressPercent, TutorialProgressStatus]) => {
 				const [apiPercentValue, expectedState] = entry
-				const progressState = progressPercentToLabel(apiPercentValue)
+				const progressState = progressPercentToStatus(apiPercentValue)
 				expect(progressState).toBe(expectedState)
 			}
 		)
@@ -28,7 +28,7 @@ describe('formatting', () => {
 
 	it('converts from Dev Dot name progress state to API percent', () => {
 		const expectedResults: Record<
-			TutorialProgressLabel,
+			TutorialProgressStatus,
 			TutorialProgressPercent
 		> = {
 			visited: TutorialProgressPercent.Zero,
@@ -36,9 +36,9 @@ describe('formatting', () => {
 			complete: TutorialProgressPercent.OneHundred,
 		}
 		Object.entries(expectedResults).forEach(
-			(entry: [TutorialProgressLabel, TutorialProgressPercent]) => {
+			(entry: [TutorialProgressStatus, TutorialProgressPercent]) => {
 				const [progressLabel, expectedPercent] = entry
-				const progressPercent = progressLabelToPercent(progressLabel)
+				const progressPercent = progressStatusToPercent(progressLabel)
 				expect(progressPercent).toBe(expectedPercent)
 			}
 		)

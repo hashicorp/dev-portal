@@ -14,7 +14,7 @@
 	],
 	"sidecarMarketingCard": {
 		"title": "About Vagrant",
-		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+		"subtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",
 		"featuredDocsLinks": [
 			{
 				"href": "/vagrant/docs/installation",
