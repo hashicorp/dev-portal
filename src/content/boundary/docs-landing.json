@@ -35,7 +35,7 @@
 				{
 					"description": "Boundary's permissions model is a composable, RBAC, allow-only model that attempts to marry flexibility with usability.",
 					"title": "Permissions",
-					"url": "/boundary/docs/concepts/security/permissionsv"
+					"url": "/boundary/docs/concepts/security/permissions"
 				},
 				{
 					"description": "Boundary secures data at rest.",
