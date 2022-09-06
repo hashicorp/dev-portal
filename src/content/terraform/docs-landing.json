@@ -6,7 +6,7 @@
 			"title": "Introduction to Terraform",
 			"cards": [
 				{
-					"description": "Terraform creates and manages resources on cloud platforms and other services through their application programming interfaces (APIs).",
+					"description": "How Terraform solves infrastructure challenges.",
 					"title": "What is Terraform?",
 					"url": "/terraform/intro"
 				},
