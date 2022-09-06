@@ -19,10 +19,3 @@
 	*/
 	color: var(--token-color-palette-blue-200);
 }
-
-.iconVisited {
-	composes: progressIcon;
-
-	/** TODO: this is just a dev component, should remove */
-	color: magenta;
-}
