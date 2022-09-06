@@ -7,10 +7,11 @@ import makeProgressToast from './make-progress-toast'
 /**
  * Given a tutorialId, collectionId, and count of tutorials in the collection,
  *
- * Show progress toast when the specified tutorial shifts from some other
- * status to "complete". This toast will give information related to
- * collection progress, which is why we need the count of tutorials
- * in the collection.
+ * Show progress toast when the specified tutorial changes progress,
+ * from some non-"complete" status to "complete".
+ *
+ * This toast will give information related to collection progress,
+ * which is why we need the array of tutorial IDs in the collection.
  */
 export function useProgressToast({
 	tutorialId,
@@ -21,12 +22,17 @@ export function useProgressToast({
 	collectionId: Collection['id']
 	collectionTutorialIds: Tutorial['id'][]
 }): void {
-	// Keep track of current status, so when know when it hits "complete"
+	/**
+	 * Keep track of current progress, so when know when it hits "complete".
+	 */
 	const { tutorialProgressStatus } = useTutorialProgress({
 		tutorialId,
 		collectionId,
 	})
-	// Keep track of previous status so we can compare
+
+	/**
+	 * Keep track of previous progress status, so we can detect change.
+	 */
 	const prevStatus = usePrevious(tutorialProgressStatus)
 
 	/**
@@ -40,6 +46,14 @@ export function useProgressToast({
 	 */
 	useEffect(() => {
 		/**
+		 * We need to compare to previous status to know if the change merits toast.
+		 * If we don't have prevStatus, we can't be certain about change.
+		 */
+		if (!prevStatus) {
+			return
+		}
+
+		/**
 		 * We need collectionProgress to accurately display toast.
 		 * If there's no collectionProgress, there's no toast worth showing.
 		 */
@@ -48,52 +62,41 @@ export function useProgressToast({
 		}
 
 		/**
-		 * We need to compare to previous status to know if the change merits toast.
+		 * If status has shifted to "complete", we'll show some toast.
 		 */
-		if (!prevStatus) {
+		const isTimeForToast =
+			prevStatus !== 'complete' && tutorialProgressStatus === 'complete'
+		if (!isTimeForToast) {
 			return
 		}
 
 		/**
-		 * If status has shifted to "complete", we'll show some toast
+		 * Even if the collection progress query isn't up to date yet, we know from
+		 * `tutorialProgressStatus` that this tutorial is definitely complete.
+		 * So we filter it out regardless of its completion status.
 		 */
-		const isTimeForToast =
-			prevStatus !== 'complete' && tutorialProgressStatus === 'complete'
-
-		const incompleteTutorials = collectionTutorialIds.filter((id) => {
-			const isComplete = collectionProgress
-				.filter((r) => r.complete_percent == '100')
-				.map((r) => r.tutorial_id)
-				.includes(id)
-			return !isComplete
-		})
-
-		const otherIncompleteTutorials = incompleteTutorials.filter((id) => {
+		const otherTutorialsInCollection = collectionTutorialIds.filter((id) => {
 			return id !== tutorialId
 		})
-		const remainingTutorialsCount = otherIncompleteTutorials.length
 
-		console.log(
-			`progToast:\n${JSON.stringify(
-				{
-					isTimeForToast,
-					prevStatus,
-					tutorialProgressStatus,
-					remainingTutorialsCount,
-				},
-				null,
-				2
-			)}`
-		)
+		/**
+		 * Using the collection progress records, we filter and count
+		 * the remaining non-"complete" tutorials in this collection
+		 */
+		const completedTutorialIds = collectionProgress
+			.filter((r) => r.complete_percent == '100')
+			.map((r) => r.tutorial_id)
+		const remainingTutorialsCount = otherTutorialsInCollection.filter((id) => {
+			const isComplete = completedTutorialIds.includes(id)
+			return !isComplete
+		}).length
 
 		/**
 		 * If there are 0 remaining tutorials to complete in this collection,
 		 * we'll show a toast with congrats on completing the collection.
 		 * Otherwise, we'll show a toast with the remaining tutorials count.
 		 */
-		if (isTimeForToast) {
-			makeProgressToast(remainingTutorialsCount)
-		}
+		makeProgressToast(remainingTutorialsCount)
 	}, [
 		collectionProgress,
 		prevStatus,
