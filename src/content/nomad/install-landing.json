@@ -1,8 +1,31 @@
 {
-	"featuredTutorialsSlugs": [],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "Introduction to Nomad",
+			"fullPath": "/nomad/intro"
+		},
+		{
+			"title": "Nomad Vocabulary",
+			"fullPath": "/nomad/tutorials/get-started/get-started-vocab"
+		}
+	],
+	"featuredTutorialsSlugs": [
+		"nomad/get-started-install",
+		"nomad/cluster-setup-aws",
+		"nomad/jobs-configuring",
+		"nomad/job-spec-java-linux",
+		"nomad/task-dependencies-interjob",
+		"nomad/stateful-workloads-host-volumes"
+	],
 	"sidecarMarketingCard": {
 		"title": "About Nomad",
-		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+		"subtitle": "Orchestrate, deploy, and manage containers, binaries, and batch jobs in the cloud or on-prem.",
 		"featuredDocsLinks": [
 			{
 				"href": "/nomad/docs/install",
@@ -15,14 +38,6 @@
 			{
 				"href": "/nomad/docs/integrations",
 				"text": "Integrations"
-			},
-			{
-				"href": "/nomad/docs/nomad-vs-kubernetes/alternative",
-				"text": "An alternative to Kubernetes"
-			},
-			{
-				"href": "/nomad/docs/nomad-vs-kubernetes/supplement",
-				"text": "Supplement to Kubernetes"
 			}
 		]
 	}

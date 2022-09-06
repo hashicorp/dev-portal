@@ -4,17 +4,17 @@ import { ApiCollectionTutorialProgress } from 'lib/learn-client/api/api-types'
 import {
 	getTutorialProgress,
 	GetTutorialProgressResult,
-	progressPercentToLabel,
+	progressPercentToStatus,
 } from 'lib/learn-client/api/progress'
 import {
 	TutorialIdCollectionId,
-	TutorialProgressLabel,
+	TutorialProgressStatus,
 } from 'lib/learn-client/types'
 import { TUTORIAL_PROGRESS_QUERY_ID } from './'
 
 interface UseTutorialProgressResult
-	extends Omit<UseQueryResult<TutorialProgressLabel>, 'data'> {
-	tutorialProgressLabel: UseQueryResult<TutorialProgressLabel>['data']
+	extends Omit<UseQueryResult<TutorialProgressStatus>, 'data'> {
+	tutorialProgressStatus: UseQueryResult<TutorialProgressStatus>['data']
 }
 
 /**
@@ -30,10 +30,10 @@ const useTutorialProgress = ({
 	const accessToken = session?.accessToken
 
 	// Fetch a progress records by `tutorialId`, then filter by `collectionId`
-	const { data: tutorialProgressLabel, ...restQueryResult } = useQuery<
+	const { data: tutorialProgressStatus, ...restQueryResult } = useQuery<
 		GetTutorialProgressResult,
 		unknown,
-		TutorialProgressLabel
+		TutorialProgressStatus
 	>(
 		[TUTORIAL_PROGRESS_QUERY_ID, tutorialId, collectionId],
 		() => getTutorialProgress({ accessToken, tutorialId, collectionId }),
@@ -50,13 +50,13 @@ const useTutorialProgress = ({
 				if (data == null) {
 					return null
 				}
-				return progressPercentToLabel(data.complete_percent)
+				return progressPercentToStatus(data.complete_percent)
 			},
 		}
 	)
 
 	return {
-		tutorialProgressLabel,
+		tutorialProgressStatus,
 		...restQueryResult,
 	}
 }
