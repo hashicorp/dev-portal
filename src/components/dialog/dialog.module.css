@@ -1,6 +1,7 @@
 .animatedDialogOverlay {
 	background: var(--token-color-border-strong);
 	z-index: 100;
+	overflow: hidden;
 }
 
 .contentWrapper {
