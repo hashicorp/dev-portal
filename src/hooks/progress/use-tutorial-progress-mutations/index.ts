@@ -5,7 +5,7 @@ import {
 	createTutorialProgress as createTutorialProgressApi,
 	updateTutorialProgress as updateTutorialProgressApi,
 } from 'lib/learn-client/api/progress'
-import { progressPercentToLabel } from 'lib/learn-client/api/progress/formatting'
+import { progressPercentToStatus } from 'lib/learn-client/api/progress/formatting'
 import {
 	TutorialProgressMutationVariables,
 	TutorialProgressMutationArgs,
