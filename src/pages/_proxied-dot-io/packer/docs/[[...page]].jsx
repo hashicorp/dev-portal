@@ -26,7 +26,6 @@ function DocsView(props) {
 			additionalComponents={additionalComponents}
 			showVersionSelect={enableVersionedDocs}
 			algoliaConfig={productData.algoliaConfig}
-			// eslint-disable-next-line react/jsx-no-undef
 			devDotCutoverDate={productData.devDotCutoverDate}
 		/>
 	)
