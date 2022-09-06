@@ -54,12 +54,12 @@
 				{
 					"heading": "Parameterized Jobs",
 					"body": "Nomad parameterized jobs enable dynamic runtime behaviors from a single job specification.",
-					"url": "nomad/tutorials/job-spec-parameterized"
+					"url": "nomad/tutorials/job-specifications/job-spec-parameterized"
 				},
 				{
 					"heading": "Nomad Pack",
 					"body": "Create and re-use existing job templates with Nomad Pack.",
-					"url": "waypoint/tutorials/nomad-pack"
+					"url": "nomad/tutorials/nomad-pack"
 				}
 			]
 		},
@@ -111,7 +111,7 @@
 				{
 					"heading": "Enable Transport Encryption for Nomad",
 					"body": "Encrypt Nomad's intercluster traffic—UDP gossip and TCP API/RPC traffic.",
-					"url": "waypoint/tutorials/transport-security"
+					"url": "nomad/tutorials/transport-security"
 				},
 				{
 					"heading": "Job Resiliency",
@@ -126,7 +126,7 @@
 				{
 					"heading": "Advanced Application Scheduling",
 					"body": "Learn to express placement preferences for job allocations using affinities and preemption.",
-					"url": "waypoint/tutorials/advanced-scheduling"
+					"url": "nomad/tutorials/advanced-scheduling"
 				}
 			]
 		},
@@ -147,7 +147,7 @@
 				{
 					"heading": "Upgrade a Cluster",
 					"body": "Nomad is designed to be flexible and resilient when upgrading from one Nomad version to the next.",
-					"url": "nomad/upgrade"
+					"url": "nomad/docs/upgrade"
 				}
 			]
 		},
