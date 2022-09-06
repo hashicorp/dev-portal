@@ -11,7 +11,7 @@
 					"url": "/terraform/intro"
 				},
 				{
-					"description": "Learn about popular Terraform use cases and related documentation you can use to create Terraform configurations and workflows.",
+					"description": "Popular use cases and related documentation you can use to create Terraform configurations and workflows.",
 					"title": "Use Cases",
 					"url": "/terraform/intro/use-cases"
 				},
