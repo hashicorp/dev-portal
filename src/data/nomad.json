@@ -81,8 +81,8 @@
 			"shortName": "Documentation"
 		},
 		{
-			"iconName": "docs",
-			"name": "Intro",
+			"iconName": "entry-point",
+			"name": "Introduction",
 			"path": "intro"
 		},
 		{
