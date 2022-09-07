@@ -13,9 +13,48 @@
 }
 
 .header {
+	align-items: center;
 	border-bottom: 1px solid var(--token-color-border-primary);
+	display: flex;
 	flex-grow: 0;
 	flex-shrink: 0;
+	gap: 8px;
+	padding: 16px;
+}
+
+.icon {
+	display: flex;
+	flex-shrink: 0;
+}
+
+.input {
+	appearance: none;
+	background-color: transparent;
+	border-radius: 5px;
+	border: none;
+	color: var(--token-color-foreground-faint);
+	font-family: var(--token-typography-body-300-font-family);
+	font-size: var(--token-typography-body-300-font-size);
+	font-weight: var(--token-typography-font-weight-medium);
+	line-height: var(--token-typography-body-300-line-height);
+	padding-left: 2px;
+	padding-right: 2px;
+	width: 100%;
+
+	&::placeholder {
+		color: var(--token-color-foreground-disabled);
+		font-family: var(--token-typography-body-300-font-family);
+		font-size: var(--token-typography-body-300-font-size);
+		font-weight: var(--token-typography-font-weight-medium);
+		line-height: var(--token-typography-body-300-line-height);
+	}
+}
+
+.badges {
+	align-items: center;
+	display: flex;
+	flex-shrink: 0;
+	gap: 4px;
 }
 
 .body {

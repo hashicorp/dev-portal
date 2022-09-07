@@ -1,13 +1,24 @@
-import { ReactNode } from 'react'
+import { ReactElement, ReactNode } from 'react'
 
-type SupportedCommand = 'search' | 'settings'
+enum SupportedCommand {
+	search = 'search',
+	settings = 'settings',
+}
+
+interface Command {
+	name: SupportedCommand
+	icon: ReactElement
+	inputProps: {
+		placeholder: string
+	}
+}
 
 interface CommandBarProviderProps {
 	children: ReactNode
 }
 
 interface CommandBarContextState {
-	currentCommand: SupportedCommand
+	currentCommand: Command
 	isOpen: boolean
 }
 
@@ -17,8 +28,9 @@ interface CommandBarContextValue extends CommandBarContextState {
 }
 
 export type {
+	Command,
 	CommandBarContextState,
 	CommandBarContextValue,
 	CommandBarProviderProps,
-	SupportedCommand,
 }
+export { SupportedCommand }
