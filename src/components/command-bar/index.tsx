@@ -62,6 +62,5 @@ const useCommandBar = () => {
 	return context
 }
 
-export * from './components'
-export type { CommandBarProviderProps }
-export { CommandBarProvider, useCommandBar }
+export type { CommandBarState }
+export { CommandBarActivator, CommandBarProvider, useCommandBar }
