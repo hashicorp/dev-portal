@@ -9,7 +9,7 @@ import useCurrentPath from 'hooks/use-current-path'
 import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import { ProductOption } from 'lib/learn-client/types'
+import { ProductOption, TutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
@@ -50,6 +50,7 @@ import {
 	getNextPrevious,
 } from './components'
 import s from './tutorial-view.module.css'
+import { useProgressToast } from './utils/use-progress-toast'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -199,6 +200,17 @@ function TutorialView({
 	const progressRefs = useTutorialProgressRefs({
 		tutorialId: id,
 		collectionId: collectionCtx.current.id,
+	})
+
+	/**
+	 * Display toast when progress changes to complete.
+	 */
+	useProgressToast({
+		tutorialId: id,
+		collectionId: collectionCtx.current.id,
+		collectionTutorialIds: collectionCtx.current.tutorials.map(
+			(t: TutorialLite) => t.id
+		),
 	})
 
 	return (
