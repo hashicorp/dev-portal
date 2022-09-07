@@ -22,11 +22,11 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "Blog",
-		"url": "https://www.hashicorp.com/blog/consul-1-13-introduces-cluster-peering",
-		"text": "Consul 1.13 Introduces Cluster Peering and more",
+		"tag": "Survey",
+		"url": "https://github.com/hashicorp/consul-k8s/issues/1485",
+		"text": "Open call for Consul K8s research study participants - 30 minute session",
 		"linkText": "Read more",
-		"expirationDate": ""
+		"expirationDate": "2022-09-18T23:00:00-07:00"
 	},
 	"version": "1.11.3",
 	"subnavItems": [],
