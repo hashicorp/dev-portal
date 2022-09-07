@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Dialog from 'components/dialog'
 import {
 	CommandBarDialogBodyProps,
@@ -22,20 +21,11 @@ const CommandBarDialogFooter = ({ children }: CommandBarDialogFooterProps) => {
 
 const CommandBarDialog = ({
 	children,
-	initialIsOpen = false,
+	isOpen = false,
 	onDismiss = () => null,
 }: CommandBarDialogProps) => {
-	const [isOpen, setIsOpen] = useState<boolean>(initialIsOpen)
-
 	return (
-		<Dialog
-			contentClassName={s.content}
-			isOpen={isOpen}
-			onDismiss={() => {
-				onDismiss()
-				setIsOpen(false)
-			}}
-		>
+		<Dialog contentClassName={s.content} isOpen={isOpen} onDismiss={onDismiss}>
 			<div className={s.contentInner}>{children}</div>
 		</Dialog>
 	)

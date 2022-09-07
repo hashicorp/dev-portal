@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 interface CommandBarDialogProps {
 	children: ReactNode[]
-	initialIsOpen?: boolean
+	isOpen?: boolean
 	onDismiss?: () => void
 }
 
