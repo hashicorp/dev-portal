@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react'
+import { ReactNode } from 'react'
 
 interface CommandBarProviderProps {
 	children: ReactNode
@@ -6,7 +6,7 @@ interface CommandBarProviderProps {
 
 interface CommandBarState {
 	isOpen: boolean
-	setIsOpen: Dispatch<SetStateAction<boolean>>
+	toggleIsOpen: () => void
 }
 
 export type { CommandBarState, CommandBarProviderProps }

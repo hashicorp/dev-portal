@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useState,
+} from 'react'
 import {
 	CommandBarActivator,
 	CommandBarDialog,
@@ -23,7 +29,16 @@ const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 const CommandBarContext = createContext<CommandBarState>(undefined)
 
 const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
-	const [isOpen, setIsOpen] = useState<boolean>(false)
+	const [state, setState] = useState({
+		isOpen: false,
+	})
+
+	const toggleIsOpen = useCallback(() => {
+		setState((prevState) => {
+			const prevIsOpen = prevState.isOpen
+			return { ...prevState, isOpen: !prevIsOpen }
+		})
+	}, [])
 
 	/**
 	 * Sets up the cmd/ctrl + k keydown listener.
@@ -36,7 +51,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			const { ctrlKey, metaKey, key } = e
 			if (key === 'k' && (ctrlKey || metaKey)) {
-				setIsOpen((prevIsOpen: boolean) => !prevIsOpen)
+				toggleIsOpen()
 			}
 		}
 
@@ -48,9 +63,9 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	}, [])
 
 	return (
-		<CommandBarContext.Provider value={{ isOpen, setIsOpen }}>
+		<CommandBarContext.Provider value={{ ...state, toggleIsOpen }}>
 			{children}
-			<CommandBarDialog isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
+			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
 				<CommandBarDialogHeader>header</CommandBarDialogHeader>
 				<CommandBarDialogBody>body</CommandBarDialogBody>
 				<CommandBarDialogFooter>footer</CommandBarDialogFooter>
