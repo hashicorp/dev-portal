@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
 import Badge from 'components/badge'
-import { useCommandBar } from 'components/command-bar'
+import { useCommandBar, SupportedCommand } from 'components/command-bar'
 import Dialog from 'components/dialog'
 import {
 	CommandBarDialogBodyProps,
@@ -10,7 +10,6 @@ import {
 	CommandBarDialogProps,
 } from './types'
 import s from './command-bar-dialog.module.css'
-import { SupportedCommand } from 'components/command-bar/types'
 
 const CommandBarDialogHeader = ({ className }: CommandBarDialogHeaderProps) => {
 	const { currentCommand } = useCommandBar()

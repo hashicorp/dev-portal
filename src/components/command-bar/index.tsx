@@ -112,4 +112,9 @@ const useCommandBar = (): CommandBarContextValue => {
 	return context
 }
 
-export { CommandBarActivator, CommandBarProvider, useCommandBar }
+export {
+	CommandBarActivator,
+	CommandBarProvider,
+	SupportedCommand,
+	useCommandBar,
+}
