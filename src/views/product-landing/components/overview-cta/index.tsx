@@ -18,7 +18,7 @@ function OverviewCta({
 	if (cta && fullWidthBody) {
 		developmentToast({
 			color: ToastColor.critical,
-			title: 'Error in GetStartedCard',
+			title: 'Error in OverviewCta',
 			description:
 				'Both `cta` and `fullWidthBody` were passed to OverviewCta. Only provide one.',
 		})
