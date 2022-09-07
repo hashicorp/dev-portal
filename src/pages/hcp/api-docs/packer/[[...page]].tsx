@@ -122,16 +122,7 @@ export async function getStaticProps({ params }) {
 			levelButtonProps: {
 				levelUpButtonText: `${productData.name} Home`,
 			},
-			menuItems: [
-				{
-					title: 'Overview',
-					fullPath: '/hcp/api-docs/',
-				},
-				{
-					divider: true,
-				},
-				...apiSidebarMenuItems,
-			],
+			menuItems: [...apiSidebarMenuItems],
 		},
 	]
 
