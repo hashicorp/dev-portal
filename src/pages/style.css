@@ -10,6 +10,9 @@
 @import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/elevation.css';
 @import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/typography.css';
 
+@import '~@reach/dialog/styles.css';
+
+
 /* Sizing styles, used in DevDot */
 @import 'styles/sizing.css';
 
