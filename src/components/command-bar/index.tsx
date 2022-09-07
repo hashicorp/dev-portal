@@ -20,7 +20,6 @@ import {
 	CommandBarProviderProps,
 	SupportedCommand,
 } from './types'
-import s from './command-bar.module.css'
 
 const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
@@ -95,7 +94,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		<CommandBarContext.Provider value={contextValue}>
 			{children}
 			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
-				<CommandBarDialogHeader className={s.header} />
+				<CommandBarDialogHeader />
 				<CommandBarDialogBody />
 				<CommandBarDialogFooter>footer</CommandBarDialogFooter>
 			</CommandBarDialog>

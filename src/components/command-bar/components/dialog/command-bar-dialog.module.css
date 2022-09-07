@@ -13,9 +13,13 @@
 }
 
 .header {
+	align-items: center;
 	border-bottom: 1px solid var(--token-color-border-primary);
+	display: flex;
 	flex-grow: 0;
 	flex-shrink: 0;
+	gap: 8px;
+	padding: 16px;
 }
 
 .icon {

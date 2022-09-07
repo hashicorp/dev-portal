@@ -1,21 +1,15 @@
-import classNames from 'classnames'
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
 import Badge from 'components/badge'
 import { useCommandBar, SupportedCommand } from 'components/command-bar'
 import Dialog from 'components/dialog'
-import {
-	CommandBarDialogBodyProps,
-	CommandBarDialogFooterProps,
-	CommandBarDialogHeaderProps,
-	CommandBarDialogProps,
-} from './types'
+import { CommandBarDialogFooterProps, CommandBarDialogProps } from './types'
 import s from './command-bar-dialog.module.css'
 
-const CommandBarDialogHeader = ({ className }: CommandBarDialogHeaderProps) => {
+const CommandBarDialogHeader = () => {
 	const { currentCommand } = useCommandBar()
 
 	return (
-		<div className={classNames(s.header, className)}>
+		<div className={s.header}>
 			<div className={s.icon}>{currentCommand.icon}</div>
 			<input
 				className={s.input}
@@ -41,11 +35,11 @@ const CommandBarDialogHeader = ({ className }: CommandBarDialogHeaderProps) => {
 	)
 }
 
-const CommandBarDialogBody = ({ className }: CommandBarDialogBodyProps) => {
+const CommandBarDialogBody = () => {
 	const { currentCommand, setCurrentCommand } = useCommandBar()
 
 	return (
-		<div className={classNames(s.body, className)}>
+		<div className={s.body}>
 			<button
 				onClick={() =>
 					setCurrentCommand(
@@ -81,12 +75,7 @@ const CommandBarDialog = ({
 	)
 }
 
-export type {
-	CommandBarDialogBodyProps,
-	CommandBarDialogFooterProps,
-	CommandBarDialogHeaderProps,
-	CommandBarDialogProps,
-}
+export type { CommandBarDialogFooterProps, CommandBarDialogProps }
 export {
 	CommandBarDialog,
 	CommandBarDialogHeader,
