@@ -23,7 +23,7 @@ function HomePage() {
 					links={[
 						{
 							text: 'Try HCP Packer',
-							url: 'https://portal.cloud.hashicorp.com/sign-up?utm_source=hcp_packer_landing&utm_content=hero',
+							url: 'https://portal.cloud.hashicorp.com/sign-up',
 						},
 						{
 							text: 'Download',

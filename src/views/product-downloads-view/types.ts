@@ -1,9 +1,14 @@
 import { ReactElement } from 'react'
-import { ReleasesAPIResponse, GeneratedProps } from 'lib/fetch-release-data'
-import { VersionContextSwitcherProps } from 'components/version-context-switcher'
-import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
+import {
+	ReleasesAPIResponse,
+	GeneratedProps,
+	ReleaseVersion,
+} from 'lib/fetch-release-data'
+import { CollectionCardPropsWithId } from 'components/collection-card'
 import { MenuItem } from 'components/sidebar'
+import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 import { TutorialCardPropsWithId } from 'components/tutorial-card'
+import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 
 /**
  * Raw page content, as structured in .json files
@@ -26,31 +31,38 @@ export interface PackageManager {
 
 export interface RawProductDownloadsViewContent {
 	doesNotHavePackageManagers?: boolean
-	featuredTutorialsSlugs: string[]
+	featuredCollectionsSlugs?: string[]
+	featuredTutorialsSlugs?: string[]
 	packageManagerOverrides?: PackageManager[]
 	sidebarMenuItems?: MenuItem[]
 	sidecarMarketingCard: SidecarMarketingCardProps
 }
 
-export type FeaturedLearnCard = TutorialCardPropsWithId
+export type FeaturedCollectionCard = CollectionCardPropsWithId
+
+export type FeaturedTutorialCard = TutorialCardPropsWithId
 
 export interface ProductDownloadsViewProps {
+	isEnterpriseMode: boolean
 	latestVersion: string
 	merchandisingSlot?: ReactElement
 	pageContent: {
 		doesNotHavePackageManagers?: boolean
-		featuredLearnCards?: FeaturedLearnCard[]
+		featuredCollectionCards?: FeaturedCollectionCard[]
+		featuredTutorialCards?: FeaturedTutorialCard[]
 		packageManagerOverrides?: PackageManager[]
 		sidecarMarketingCard: SidecarMarketingCardProps
 		sidebarMenuItems?: MenuItem[]
 	}
 	releases: ReleasesAPIResponse
+	sortedAndFilteredVersions: ReleaseVersion[]
 }
 
 /**
  * Type for inner content component, with version switcher options
  */
 export interface ProductDownloadsViewContentProps {
+	isEnterpriseMode: ProductDownloadsViewProps['isEnterpriseMode']
 	merchandisingSlot?: ProductDownloadsViewProps['merchandisingSlot']
 	pageContent: ProductDownloadsViewProps['pageContent']
 	releases: ProductDownloadsViewProps['releases']

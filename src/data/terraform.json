@@ -163,5 +163,9 @@
 			"visuallyHideSidebarTitle": true,
 			"addOverviewItem": false
 		}
-	]
+	],
+	"devDotCutoverMessage": {
+		"showCutoverDate": false,
+		"cutoverDate": "Oct 20, 2022"
+	}
 }
