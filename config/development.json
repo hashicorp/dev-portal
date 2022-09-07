@@ -11,6 +11,6 @@
 	},
 	"flags": {
 		"enable_auth": true,
-		"enable_global_search": false
+		"enable_global_search": true
 	}
 }
