@@ -7,13 +7,13 @@ const CommandBarActivator = ({
 	leadingIcon,
 	visualLabel,
 }: CommandBarActivatorProps) => {
-	const { setIsOpen } = useCommandBar()
+	const { toggleIsOpen } = useCommandBar()
 
 	return (
 		<button
 			aria-label={visualLabel}
 			className={s.root}
-			onClick={() => setIsOpen(true)}
+			onClick={() => toggleIsOpen()}
 		>
 			{leadingIcon ? (
 				<span className={s.leadingIcon}>{leadingIcon}</span>
