@@ -32,3 +32,23 @@
 	margin: 0;
 	margin-top: 16px;
 }
+
+.fixedColumnsMode {
+	grid-template-columns: 1fr;
+
+	&.columns2 {
+		@media (--dev-dot-tablet-up) {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	&.columns3 {
+		@media (--dev-dot-tablet-up) {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		@media (--dev-dot-desktop) {
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+	}
+}

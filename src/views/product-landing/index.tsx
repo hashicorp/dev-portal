@@ -48,6 +48,7 @@ function ProductLandingView({
 					body={get_started.body}
 					ctas={get_started.ctas}
 					iconCardLinks={get_started.iconCardLinks}
+					fixedColumns={get_started.fixedColumns}
 				/>
 			</div>
 			<ProductLandingBlocks blocks={blocks} />

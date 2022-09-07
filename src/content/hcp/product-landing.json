@@ -33,7 +33,8 @@
 				"text": "HCP Boundary",
 				"url": "/hcp/docs/boundary"
 			}
-		]
+		],
+		"fixedColumns": 2
 	},
 	"blocks": [
 		{

@@ -160,6 +160,7 @@ const ProductLandingGetStartedSchema = Joi.alternatives().try(
 	Joi.object({
 		heading: Joi.string().required(),
 		body: Joi.string().required(),
+		fixedColumns: Joi.number(),
 		ctas: Joi.array()
 			.items(
 				Joi.object({
@@ -182,6 +183,7 @@ const ProductLandingGetStartedSchema = Joi.alternatives().try(
 				})
 			)
 			.required(),
+		fixedColumns: Joi.number(),
 	})
 )
 
