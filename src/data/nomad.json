@@ -100,5 +100,9 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	]
+	],
+	"devDotCutoverMessage": {
+		"showCutoverDate": false,
+		"cutoverDate": "Oct 13, 2022"
+	}
 }
