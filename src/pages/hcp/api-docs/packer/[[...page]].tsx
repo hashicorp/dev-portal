@@ -105,7 +105,7 @@ export async function getStaticProps({ params }) {
 			// Path differs on dev-dot, so all nodes with `path` must be adjusted
 			return {
 				...menuItem,
-				fullPath: `/hcp/api-docs/${menuItem.path}`,
+				fullPath: `/hcp/api-docs/packer/${menuItem.path}`,
 			}
 		} else {
 			return menuItem
