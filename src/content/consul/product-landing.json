@@ -1,65 +1,67 @@
 {
 	"hero": {
-		"heading": "Consul Placeholder Duplicate Of Vault Content",
+		"heading": "Secure Communication with Identity-based Networking",
 		"image": "https://place-hold.it/600x320"
 	},
 	"overview": {
 		"heading": "What is Consul?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+		"body": "Consul uses service identities and traditional networking practices to help organizations securely connect applications running in any environment.",
 		"cta": {
 			"text": "Learn more about Consul features",
-			"url": "/vault/docs/what-is-vault"
+			"url": "/consul/docs/intro"
 		},
 		"image": "https://place-hold.it/680x250"
 	},
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "Use Consul to securely store, access, and manage secrets and other sensitive data.",
+		"body": "Learn how to run service discovery and a service mesh with Consul.",
 		"ctas": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
+				"text": "Consul with Kubernetes",
+				"url": "/consul/tutorials/gs-consul-service-mesh/get-started"
 			},
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"text": "Consul with VMs",
+				"url": "/consul/tutorials/getting-started/get-started"
+			},
+			{
+				"text": "HCP Consul Quick Start",
+				"url": "/consul/tutorials/cloud-get-started/get-started"
 			}
 		]
 	},
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Use Cases",
+			"heading": "Featured Collections",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": [
+				"consul/service-mesh-security",
+				"consul/service-mesh-observability",
+				"consul/service-mesh-traffic-management"
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Featured Tutorials",
 			"level": 2,
 			"size": 400
 		},
 		{
 			"type": "tutorial_cards",
-			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
-		},
-		{
-			"type": "linked_cards",
-			"cards": [
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.consul.io"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.consul.io"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.consul.io"
-				}
+			"tutorialSlugs": [
+				"consul/kubernetes-api-gateway",
+				"consul/consul-terraform-sync-intro",
+				"consul/serverless-consul-with-lambda"
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Case Studies",
+			"heading": "Pillars of Service Networking",
 			"level": 2,
 			"size": 400
 		},
@@ -67,18 +69,23 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+					"heading": "Discover Services",
+					"body": "Create a central registry that tracks services, updates, and health statuses in real time.",
+					"url": "vault/transform"
+				},
+				{
+					"heading": "Secure Networking",
+					"body": "Ensure all service to service communication is authenticated, authorized, and encrypted.",
 					"url": "https://www.consul.io"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+					"heading": "Automate Networking",
+					"body": "Reduce the operator burden by automating key networking tasks.",
 					"url": "https://www.consul.io"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
+					"heading": "Access Services",
+					"body": "Control access to services at the point of entry and centralize traffic management.",
 					"url": "https://www.consul.io"
 				}
 			]
