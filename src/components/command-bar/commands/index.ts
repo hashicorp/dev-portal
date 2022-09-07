@@ -2,7 +2,7 @@ import { Command, SupportedCommand } from '../types'
 import searchCommand from './search'
 import settingsCommand from './settings'
 
-const commands: Record<keyof typeof SupportedCommand, Command> = {
+const commands: Record<SupportedCommand, Command> = {
 	search: searchCommand,
 	settings: settingsCommand,
 }

@@ -44,8 +44,8 @@ const CommandBarDialogBody = () => {
 				onClick={() =>
 					setCurrentCommand(
 						currentCommand.name === SupportedCommand.search
-							? SupportedCommand.search
-							: SupportedCommand.settings
+							? SupportedCommand.settings
+							: SupportedCommand.search
 					)
 				}
 			>

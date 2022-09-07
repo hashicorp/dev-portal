@@ -1,8 +1,8 @@
 import { ReactElement, ReactNode } from 'react'
 
 enum SupportedCommand {
-	search,
-	settings,
+	search = 'search',
+	settings = 'settings',
 }
 
 interface Command {

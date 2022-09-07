@@ -28,14 +28,6 @@ const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	isOpen: false,
 }
 
-/**
- * @TODO items that will be easier to implement when there is a text input
- * rendered in the header:
- *
- * - Render CommandBarDialog contents based on `currentCommand`
- *
- */
-
 const CommandBarContext = createContext<CommandBarContextValue>(undefined)
 
 const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
@@ -54,12 +46,15 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	/**
 	 * Set up `setCurrentCommand` callback.
 	 */
-	const setCurrentCommand = useCallback((commandName: SupportedCommand) => {
-		setState((prevState: CommandBarContextState) => ({
-			...prevState,
-			currentCommand: commands[commandName],
-		}))
-	}, [])
+	const setCurrentCommand = useCallback(
+		(commandName: keyof typeof SupportedCommand) => {
+			setState((prevState: CommandBarContextState) => ({
+				...prevState,
+				currentCommand: commands[commandName],
+			}))
+		},
+		[]
+	)
 
 	/**
 	 * Set up the cmd/ctrl + k keydown listener.
@@ -86,7 +81,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	/**
 	 * Memoize the Context value
 	 */
-	const contextValue = useMemo(() => {
+	const contextValue = useMemo<CommandBarContextValue>(() => {
 		return { ...state, setCurrentCommand, toggleIsOpen }
 	}, [setCurrentCommand, state, toggleIsOpen])
 
