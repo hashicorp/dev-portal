@@ -3,16 +3,12 @@ import { TagProps } from './types'
 import s from './tag.module.css'
 
 const Tag = ({ text, onRemove, buttonAriaLabel }: TagProps) => {
-	const buttonAriaProps = {
-		...(buttonAriaLabel ? { 'aria-label': buttonAriaLabel } : {}),
-	}
-
 	return (
 		<span className={s.root}>
 			<button
 				className={s.removeButton}
 				onClick={onRemove}
-				{...buttonAriaProps}
+				aria-label={buttonAriaLabel ?? `Dismiss ${text}`}
 			>
 				<IconX16 className={s.removeIcon} />
 			</button>
