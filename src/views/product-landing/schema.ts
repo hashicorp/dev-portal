@@ -144,16 +144,24 @@ const ProductLandingHeroSchema = Joi.object({
 	image: Joi.string().required(),
 }).required()
 
-const ProductLandingOverviewSchema = Joi.object({
-	heading: Joi.string().required(),
-	body: Joi.string().required(),
-	fullWidthBody: Joi.string(),
-	cta: Joi.object({
-		text: Joi.string().required(),
-		url: Joi.string().required(),
+const ProductLandingOverviewSchema = Joi.alternatives().try(
+	Joi.object({
+		heading: Joi.string().required(),
+		body: Joi.string().required(),
+		fullWidthBody: Joi.string(),
+		cta: Joi.object({
+			text: Joi.string().required(),
+			url: Joi.string().required(),
+		}),
+		image: Joi.string().required(),
 	}),
-	image: Joi.string().required(),
-}).required()
+	Joi.object({
+		heading: Joi.string().required(),
+		body: Joi.string().required(),
+		fullWidthBody: Joi.string(),
+		image: Joi.string().required(),
+	})
+)
 
 // Require either `ctas` or `iconCardLinks`
 const ProductLandingGetStartedSchema = Joi.alternatives().try(

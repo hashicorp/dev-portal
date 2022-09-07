@@ -2,6 +2,7 @@ import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import StandaloneLink from 'components/standalone-link'
+import { developmentToast, ToastColor } from 'components/toast'
 
 import { OverviewCtaProps } from './types'
 import s from './overview-cta.module.css'
@@ -14,6 +15,14 @@ function OverviewCta({
 	cta,
 	image,
 }: OverviewCtaProps) {
+	if (cta && fullWidthBody) {
+		developmentToast({
+			color: ToastColor.critical,
+			title: 'Error in GetStartedCard',
+			description:
+				'Both `cta` and `fullWidthBody` were passed to OverviewCta. Only provide one.',
+		})
+	}
 	return (
 		<div className={s.root}>
 			<div className={s.textPart}>
