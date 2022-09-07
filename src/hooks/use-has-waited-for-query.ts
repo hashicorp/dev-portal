@@ -15,19 +15,22 @@ export function useHasWaitedForQuery(queryKey: QueryKey): boolean {
 	 * The our batch query state from the queryClient
 	 */
 	const queryClient = useQueryClient()
-	const queryStatue = queryClient.getQueryState(queryKey, {
+	const queryStatus = queryClient.getQueryState(queryKey, {
 		exact: false,
 	})
+
 	/**
 	 * We've made an attempt if:
-	 * - some matching query exists (queryStatue is NOT undefined)
+	 * - some matching query exists (queryStatus is NOT undefined)
 	 * - that matching query has updated or failed at least once
 	 */
-	let hasTargetQueryAttempt = false
-	const hasBatchQuery = typeof queryStatue !== 'undefined'
+	let hasTargetQueryAttempt: boolean
+	const hasBatchQuery = typeof queryStatus !== 'undefined'
 	if (hasBatchQuery) {
-		const { dataUpdateCount, fetchFailureCount } = queryStatue
+		const { dataUpdateCount, fetchFailureCount } = queryStatus
 		hasTargetQueryAttempt = dataUpdateCount > 0 || fetchFailureCount > 0
+	} else {
+		hasTargetQueryAttempt = true
 	}
 	return hasTargetQueryAttempt
 }

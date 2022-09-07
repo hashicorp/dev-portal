@@ -34,8 +34,8 @@ const useTutorialProgress = ({
 	 */
 	const { session } = useAuthentication()
 	const accessToken = session?.accessToken
-	const hasBatchQueryAttempt = useHasWaitedForQuery([PROGRESS_BATCH_QUERY_ID])
-	const enabled = !!accessToken && hasBatchQueryAttempt
+	const hasWaitedForBatchQuery = useHasWaitedForQuery([PROGRESS_BATCH_QUERY_ID])
+	const enabled = !!accessToken && hasWaitedForBatchQuery
 
 	/**
 	 * Fetch the progress record, if any, for the specified tutorialId

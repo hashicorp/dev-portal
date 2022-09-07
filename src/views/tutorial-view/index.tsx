@@ -214,8 +214,7 @@ function TutorialView({
 				collectionId,
 			}
 		}),
-		// TODO: start passing both tutorials and collections
-		// collections: [collectionId],
+		collections: [collectionId],
 	})
 
 	/**
