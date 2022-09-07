@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useState,
+} from 'react'
 import { IconCode24 } from '@hashicorp/flight-icons/svg-react/code-24'
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
 import Badge from 'components/badge'
@@ -9,28 +15,56 @@ import {
 	CommandBarDialogBody,
 	CommandBarDialogFooter,
 } from './components'
-import { CommandBarProviderProps, CommandBarState } from './types'
+import {
+	CommandBarContextState,
+	CommandBarContextValue,
+	CommandBarProviderProps,
+	SupportedCommand,
+} from './types'
 import s from './command-bar.module.css'
 
 const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
+
+const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
+	currentCommand: 'search',
+	isOpen: false,
+}
 
 /**
  * @TODO items that will be easier to implement when there is a text input
  * rendered in the header:
  *
- * - Add `currentCommand` to state
  * - Render CommandBarDialog contents based on `currentCommand`
- * - Expose a `setCurrentCommand` function in `CommandBarState`
  *
  */
 
-const CommandBarContext = createContext<CommandBarState>(undefined)
+const CommandBarContext = createContext<CommandBarContextValue>(undefined)
 
 const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
-	const [isOpen, setIsOpen] = useState<boolean>(false)
+	const [state, setState] = useState(DEFAULT_CONTEXT_STATE)
 
 	/**
-	 * Sets up the cmd/ctrl + k keydown listener.
+	 * Set up `toggleIsOpen` callback.
+	 */
+	const toggleIsOpen = useCallback(() => {
+		setState((prevState: CommandBarContextState) => {
+			const prevIsOpen = prevState.isOpen
+			return { ...prevState, isOpen: !prevIsOpen }
+		})
+	}, [])
+
+	/**
+	 * Set up `setCurrentCommand` callback.
+	 */
+	const setCurrentCommand = useCallback((command: SupportedCommand) => {
+		setState((prevState: CommandBarContextState) => ({
+			...prevState,
+			currentCommand: command,
+		}))
+	}, [])
+
+	/**
+	 * Set up the cmd/ctrl + k keydown listener.
 	 */
 	useEffect(() => {
 		if (!GLOBAL_SEARCH_ENABLED) {
@@ -40,7 +74,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			const { ctrlKey, metaKey, key } = e
 			if (key === 'k' && (ctrlKey || metaKey)) {
-				setIsOpen((prevIsOpen: boolean) => !prevIsOpen)
+				toggleIsOpen()
 			}
 		}
 
@@ -49,12 +83,14 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown)
 		}
-	}, [])
+	}, [toggleIsOpen])
 
 	return (
-		<CommandBarContext.Provider value={{ isOpen, setIsOpen }}>
+		<CommandBarContext.Provider
+			value={{ ...state, setCurrentCommand, toggleIsOpen }}
+		>
 			{children}
-			<CommandBarDialog isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
+			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
 				<CommandBarDialogHeader className={s.header}>
 					<IconCode24 className={s.icon} />
 					<input className={s.input} placeholder="Search..." />
@@ -82,7 +118,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	)
 }
 
-const useCommandBar = () => {
+const useCommandBar = (): CommandBarContextValue => {
 	const context = useContext(CommandBarContext)
 	if (context === undefined) {
 		throw new Error('useCommandBar must be used within a CommandBarProvider')
@@ -91,5 +127,4 @@ const useCommandBar = () => {
 	return context
 }
 
-export type { CommandBarState }
 export { CommandBarActivator, CommandBarProvider, useCommandBar }
