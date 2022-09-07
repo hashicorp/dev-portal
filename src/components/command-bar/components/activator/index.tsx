@@ -1,4 +1,5 @@
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
+import { getIsUserAgentMacOs } from 'lib/get-is-user-agent-mac-os'
 import Badge from 'components/badge'
 import { useCommandBar } from 'components/command-bar'
 import Text from 'components/text'
@@ -10,6 +11,7 @@ const CommandBarActivator = ({
 	visualLabel,
 }: CommandBarActivatorProps) => {
 	const { setIsOpen } = useCommandBar()
+	const isMacOs = getIsUserAgentMacOs()
 
 	return (
 		<button
@@ -27,10 +29,11 @@ const CommandBarActivator = ({
 			</span>
 			<span className={s.right}>
 				<Badge
-					ariaLabel="Command key"
+					ariaLabel={isMacOs ? 'Command key' : 'Control key'}
 					color="neutral-dark-mode"
-					icon={<IconCommand16 />}
+					icon={isMacOs ? <IconCommand16 /> : null}
 					size="small"
+					text={isMacOs ? null : 'Ctrl'}
 				/>
 				<Badge
 					ariaLabel="K key"
