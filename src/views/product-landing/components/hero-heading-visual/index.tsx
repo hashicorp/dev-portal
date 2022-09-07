@@ -12,7 +12,7 @@ function HeroHeadingVisual({
 		stop: `var(--token-color-palette-neutral-50)`,
 	}
 	const gradient =
-		productSlug !== 'hcp'
+		productSlug && productSlug !== 'hcp'
 			? {
 					start: `var(--token-color-${productSlug}-gradient-faint-start)`,
 					stop: `var(--token-color-${productSlug}-gradient-faint-stop)`,
