@@ -1,4 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { IconCode24 } from '@hashicorp/flight-icons/svg-react/code-24'
+import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
+import Badge from 'components/badge'
 import {
 	CommandBarActivator,
 	CommandBarDialog,
@@ -7,6 +10,7 @@ import {
 	CommandBarDialogFooter,
 } from './components'
 import { CommandBarProviderProps, CommandBarState } from './types'
+import s from './command-bar.module.css'
 
 const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
@@ -51,7 +55,26 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		<CommandBarContext.Provider value={{ isOpen, setIsOpen }}>
 			{children}
 			<CommandBarDialog isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
-				<CommandBarDialogHeader>header</CommandBarDialogHeader>
+				<CommandBarDialogHeader className={s.header}>
+					<IconCode24 className={s.icon} />
+					<input className={s.input} placeholder="Search..." />
+					<div className={s.badges}>
+						<Badge
+							ariaLabel="Command key"
+							color="neutral"
+							icon={<IconCommand16 />}
+							size="small"
+							type="outlined"
+						/>
+						<Badge
+							ariaLabel="K key"
+							color="neutral"
+							size="small"
+							text="K"
+							type="outlined"
+						/>
+					</div>
+				</CommandBarDialogHeader>
 				<CommandBarDialogBody>body</CommandBarDialogBody>
 				<CommandBarDialogFooter>footer</CommandBarDialogFooter>
 			</CommandBarDialog>
