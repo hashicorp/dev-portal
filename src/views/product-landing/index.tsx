@@ -36,6 +36,7 @@ function ProductLandingView({
 					heading={overview.heading}
 					headingSlug={overview.headingSlug}
 					body={overview.body}
+					fullWidthBody={overview.fullWidthBody}
 					cta={overview.cta}
 					image={overview.image}
 				/>

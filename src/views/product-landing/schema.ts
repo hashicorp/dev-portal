@@ -147,6 +147,7 @@ const ProductLandingHeroSchema = Joi.object({
 const ProductLandingOverviewSchema = Joi.object({
 	heading: Joi.string().required(),
 	body: Joi.string().required(),
+	fullWidthBody: Joi.string(),
 	cta: Joi.object({
 		text: Joi.string().required(),
 		url: Joi.string().required(),

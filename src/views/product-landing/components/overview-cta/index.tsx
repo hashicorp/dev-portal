@@ -2,6 +2,7 @@ import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import StandaloneLink from 'components/standalone-link'
+
 import { OverviewCtaProps } from './types'
 import s from './overview-cta.module.css'
 
@@ -9,6 +10,7 @@ function OverviewCta({
 	heading,
 	headingSlug,
 	body,
+	fullWidthBody,
 	cta,
 	image,
 }: OverviewCtaProps) {
@@ -39,6 +41,7 @@ function OverviewCta({
 			<div className={s.imagePart}>
 				<img src={image} alt="" />
 			</div>
+			{fullWidthBody ? <p className={s.body}>{fullWidthBody}</p> : null}
 		</div>
 	)
 }
