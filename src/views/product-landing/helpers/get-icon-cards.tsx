@@ -16,12 +16,13 @@ export function getIconCards(productSlug: ProductSlug) {
 			url: `/${productSlug}/tutorials`,
 		},
 	]
-	productSlug !== 'hcp' &&
+	if (productSlug !== 'hcp') {
 		iconCards.push({
 			icon: <IconDownload16 />,
 			text: 'Install',
 			url: `/${productSlug}/downloads`,
 		})
+	}
 
 	return iconCards
 }
