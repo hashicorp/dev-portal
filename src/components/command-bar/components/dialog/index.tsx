@@ -1,3 +1,7 @@
+import classNames from 'classnames'
+import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
+import Badge from 'components/badge'
+import { useCommandBar } from 'components/command-bar'
 import Dialog from 'components/dialog'
 import {
 	CommandBarDialogBodyProps,
@@ -6,17 +10,60 @@ import {
 	CommandBarDialogProps,
 } from './types'
 import s from './command-bar-dialog.module.css'
-import classNames from 'classnames'
+import { SupportedCommand } from 'components/command-bar/types'
 
-const CommandBarDialogHeader = ({
-	children,
-	className,
-}: CommandBarDialogHeaderProps) => {
-	return <div className={classNames(s.header, className)}>{children}</div>
+const CommandBarDialogHeader = ({ className }: CommandBarDialogHeaderProps) => {
+	const { currentCommand } = useCommandBar()
+
+	return (
+		<div className={classNames(s.header, className)}>
+			<div className={s.icon}>{currentCommand.icon}</div>
+			<input
+				className={s.input}
+				placeholder={currentCommand.inputProps.placeholder}
+			/>
+			<div className={s.badges}>
+				<Badge
+					ariaLabel="Command key"
+					color="neutral"
+					icon={<IconCommand16 />}
+					size="small"
+					type="outlined"
+				/>
+				<Badge
+					ariaLabel="K key"
+					color="neutral"
+					size="small"
+					text="K"
+					type="outlined"
+				/>
+			</div>
+		</div>
+	)
 }
 
-const CommandBarDialogBody = ({ children }: CommandBarDialogBodyProps) => {
-	return <div className={s.body}>{children}</div>
+const CommandBarDialogBody = ({ className }: CommandBarDialogBodyProps) => {
+	const { currentCommand, setCurrentCommand } = useCommandBar()
+
+	return (
+		<div className={classNames(s.body, className)}>
+			<button
+				onClick={() =>
+					setCurrentCommand(
+						currentCommand.name === SupportedCommand.search
+							? SupportedCommand.search
+							: SupportedCommand.settings
+					)
+				}
+			>
+				Use{' '}
+				{currentCommand.name === SupportedCommand.search
+					? 'settings'
+					: 'search'}{' '}
+				command
+			</button>
+		</div>
+	)
 }
 
 const CommandBarDialogFooter = ({ children }: CommandBarDialogFooterProps) => {

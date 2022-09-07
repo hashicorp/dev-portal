@@ -3,11 +3,10 @@ import {
 	useCallback,
 	useContext,
 	useEffect,
+	useMemo,
 	useState,
 } from 'react'
-import { IconCode24 } from '@hashicorp/flight-icons/svg-react/code-24'
-import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
-import Badge from 'components/badge'
+import commands from './commands'
 import {
 	CommandBarActivator,
 	CommandBarDialog,
@@ -26,7 +25,7 @@ import s from './command-bar.module.css'
 const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
 const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
-	currentCommand: 'search',
+	currentCommand: commands.search,
 	isOpen: false,
 }
 
@@ -56,10 +55,10 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	/**
 	 * Set up `setCurrentCommand` callback.
 	 */
-	const setCurrentCommand = useCallback((command: SupportedCommand) => {
+	const setCurrentCommand = useCallback((commandName: SupportedCommand) => {
 		setState((prevState: CommandBarContextState) => ({
 			...prevState,
-			currentCommand: command,
+			currentCommand: commands[commandName],
 		}))
 	}, [])
 
@@ -85,33 +84,19 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		}
 	}, [toggleIsOpen])
 
+	/**
+	 * Memoize the Context value
+	 */
+	const contextValue = useMemo(() => {
+		return { ...state, setCurrentCommand, toggleIsOpen }
+	}, [setCurrentCommand, state, toggleIsOpen])
+
 	return (
-		<CommandBarContext.Provider
-			value={{ ...state, setCurrentCommand, toggleIsOpen }}
-		>
+		<CommandBarContext.Provider value={contextValue}>
 			{children}
 			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
-				<CommandBarDialogHeader className={s.header}>
-					<IconCode24 className={s.icon} />
-					<input className={s.input} placeholder="Search..." />
-					<div className={s.badges}>
-						<Badge
-							ariaLabel="Command key"
-							color="neutral"
-							icon={<IconCommand16 />}
-							size="small"
-							type="outlined"
-						/>
-						<Badge
-							ariaLabel="K key"
-							color="neutral"
-							size="small"
-							text="K"
-							type="outlined"
-						/>
-					</div>
-				</CommandBarDialogHeader>
-				<CommandBarDialogBody>body</CommandBarDialogBody>
+				<CommandBarDialogHeader className={s.header} />
+				<CommandBarDialogBody />
 				<CommandBarDialogFooter>footer</CommandBarDialogFooter>
 			</CommandBarDialog>
 		</CommandBarContext.Provider>
