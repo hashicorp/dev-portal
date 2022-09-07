@@ -10,6 +10,7 @@
 		"max_static_paths": 0
 	},
 	"flags": {
-		"enable_auth": true
+		"enable_auth": true,
+		"enable_global_search": true
 	}
 }
