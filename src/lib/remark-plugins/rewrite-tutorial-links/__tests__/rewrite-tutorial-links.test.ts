@@ -84,6 +84,8 @@ const TEST_MD_LINKS = {
 		'[boundary link with vault in tutorial title](/tutorials/boundary/vault-cred-brokering-quickstart)',
 	wafTutorialLink:
 		'[waf link](/tutorials/well-architected-framework/cloud-operating-model)',
+	onboardingCollectionLink:
+		'[onboarding link](/collections/onboarding/hcp-vault-week-1)',
 }
 
 /**
@@ -356,7 +358,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		)
 		const finalPath = 'https://learn.hashicorp.com' + basePath
 
-		expect(String(contents)).toMatch(finalPath)
+		expect(isolatePathFromMarkdown(String(contents))).toBe(finalPath)
 	})
 
 	test('Waf link should be rewritten properly', async () => {
@@ -365,8 +367,17 @@ describe('rewriteTutorialLinks remark plugin', () => {
 			.process(TEST_MD_LINKS.wafTutorialLink)
 		const newPath = isolatePathFromMarkdown(String(contents))
 
-		expect(newPath).toMatch(
+		expect(newPath).toBe(
 			'/well-architected-framework/com/cloud-operating-model'
 		)
+	})
+
+	test('Onboarding link should be rewritten properly', async () => {
+		const contents = await remark()
+			.use(rewriteTutorialLinksPlugin)
+			.process(TEST_MD_LINKS.onboardingCollectionLink)
+		const newPath = isolatePathFromMarkdown(String(contents))
+
+		expect(newPath).toBe('/onboarding/hcp-vault-week-1')
 	})
 })

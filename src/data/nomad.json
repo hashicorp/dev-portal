@@ -81,8 +81,8 @@
 			"shortName": "Documentation"
 		},
 		{
-			"iconName": "docs",
-			"name": "Intro",
+			"iconName": "entry-point",
+			"name": "Introduction",
 			"path": "intro"
 		},
 		{
@@ -100,5 +100,9 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	]
+	],
+	"devDotCutoverMessage": {
+		"showCutoverDate": false,
+		"cutoverDate": "Oct 13, 2022"
+	}
 }

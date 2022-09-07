@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import '@reach/dialog/styles.css'
 import {
@@ -20,10 +21,11 @@ const overlayVariants = {
 
 export default function Dialog({
 	children,
+	contentClassName,
 	isOpen,
-	onDismiss,
 	label,
 	variant = 'modal',
+	onDismiss,
 }: DialogProps) {
 	const shouldReduceMotion = useReducedMotion()
 
@@ -47,10 +49,10 @@ export default function Dialog({
 				>
 					<div
 						key="contentWrapper"
-						className={classNames(s.contentWrapper, s[variant])}
+						className={classNames(s.contentWrapper, s[variant], )}
 					>
 						<DialogContent
-							className={classNames(s.content, s[variant])}
+							className={classNames(s.content, s[variant], contentClassName)}
 							aria-label={label}
 						>
 							{children}
