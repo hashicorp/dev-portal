@@ -11,6 +11,6 @@ export interface ProductLandingViewProps {
 		overview: OverviewCtaProps
 		get_started: GetStartedCardProps
 		blocks: ProductLandingBlock[]
-		overviewText?: string
+		overviewParagraph?: string
 	}
 }

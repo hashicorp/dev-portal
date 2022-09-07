@@ -14,15 +14,15 @@ function ProductLandingView({
 	content,
 	product,
 }: ProductLandingViewProps): ReactElement {
-	const { hero, overview, overviewText, get_started, blocks } = content
+	const { hero, overview, overviewParagraph, get_started, blocks } = content
 	const iconCards = getIconCards(product.slug)
 
-	if (overview.cta && overviewText) {
+	if (overview.cta && overviewParagraph) {
 		developmentToast({
 			color: ToastColor.critical,
 			title: 'Error in ProductLandingView',
 			description:
-				'Both overview `cta` and `overviewText` were passed to ProductLandingView. Only provide one.',
+				'Both overview `cta` and `overviewParagraph` were passed to ProductLandingView. Only provide one.',
 		})
 	}
 
@@ -48,7 +48,9 @@ function ProductLandingView({
 					cta={overview.cta}
 					image={overview.image}
 				/>
-				{overviewText ? <p className={s.overviewText}>{overviewText}</p> : null}
+				{overviewParagraph ? (
+					<p className={s.overviewParagraph}>{overviewParagraph}</p>
+				) : null}
 			</div>
 			<div className={s.getStartedMargin}>
 				<GetStartedCard

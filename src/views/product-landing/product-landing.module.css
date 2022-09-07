@@ -14,7 +14,7 @@
 	margin: 48px 0;
 }
 
-.overviewText {
+.overviewParagraph {
 	composes: hds-typography-body-300 from global;
 	color: var(--token-color-foreground-primary);
 	margin: 16px 0 0 0;

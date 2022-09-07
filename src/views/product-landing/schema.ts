@@ -128,7 +128,7 @@ export interface ProductLandingContent {
 		}
 		image: string
 	}
-	overviewText?: string
+	overviewParagraph?: string
 	get_started: {
 		heading: string
 		body: string
@@ -190,7 +190,7 @@ const ProductLandingGetStartedSchema = Joi.alternatives().try(
 export const ProductLandingContentSchema = Joi.object({
 	hero: ProductLandingHeroSchema,
 	overview: ProductLandingOverviewSchema,
-	overviewText: Joi.string(),
+	overviewParagraph: Joi.string(),
 	get_started: ProductLandingGetStartedSchema,
 	blocks: Joi.array().items(ProductLandingContentBlockSchema),
 })
