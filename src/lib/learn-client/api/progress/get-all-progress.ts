@@ -31,6 +31,17 @@ const getAllProgress = async ({
 	tutorialIds,
 	collectionIds,
 }: GetAllProgressOptions): Promise<GetAllProgressResult> => {
+	/**
+	 * TODO: figure out why this happens sometimes!
+	 * Maybe related to "queryClient.invalidate"? That's my best guess so far.
+	 */
+	const doesNotHaveAccessToken = typeof accessToken == 'undefined'
+	if (doesNotHaveAccessToken) {
+		console.log(
+			"getAllProgress: for some reason we're making a request even though we don't have an accessToken."
+		)
+	}
+
 	// Add query params to the URL, if applicable
 	let url = PROGRESS_API_ROUTE
 	const qs = queryString.stringify(
