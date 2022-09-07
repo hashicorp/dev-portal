@@ -49,7 +49,7 @@ export function useProgressToast({
 		 * We need to compare to previous status to know if the change merits toast.
 		 * If we don't have prevStatus, we can't be certain about change.
 		 */
-		if (!prevStatus) {
+		if (typeof prevStatus == 'undefined') {
 			return
 		}
 
