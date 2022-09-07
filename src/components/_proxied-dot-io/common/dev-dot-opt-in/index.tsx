@@ -1,9 +1,8 @@
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { IconAlertCircle16 } from '@hashicorp/flight-icons/svg-react/alert-circle-16'
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import ButtonLink from 'components/button-link'
-import StandaloneLink from 'components/standalone-link'
+import Text from 'components/text'
 import useProductMeta from '@hashicorp/platform-product-meta'
 import { ProductSlug } from 'types/products'
 import { isContentDeployPreview } from 'lib/env-checks'
@@ -65,17 +64,17 @@ export default function DevDotOptIn({
 					<IconAlertCircle16 />
 				</div>
 				<div className={s.contentContainer}>
-					<p className={s.title}>
+					<Text className={s.title} size={200} weight="semibold">
 						HashiCorp Developer, a unified practitioner experience is launching
 						soon!
-					</p>
-					<p className={s.description}>
+					</Text>
+					<Text className={s.description} size={200}>
 						{`${name} Docs content is being improved and migrated into our new developer experience.${
 							cutoverDate && showCutoverDate
 								? ` The migration will take place on ${cutoverDate}`
 								: ''
 						}`}
-					</p>
+					</Text>
 					<div className={s.actions}>
 						<ButtonLink
 							text="Migrate Now"
@@ -84,14 +83,15 @@ export default function DevDotOptIn({
 							color="secondary"
 							size="small"
 						/>
-						<StandaloneLink
+						{/* commented out until blog post is published */}
+						{/* <StandaloneLink
 							icon={<IconArrowRight16 />}
 							iconPosition="trailing"
 							text="Learn More"
 							href=""
 							color="secondary"
 							size="small"
-						/>
+						/> */}
 					</div>
 				</div>
 			</div>
