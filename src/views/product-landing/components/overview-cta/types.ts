@@ -7,5 +7,4 @@ export interface OverviewCtaProps {
 		text: string
 		url: string
 	}
-	fullWidthBody?: string
 }

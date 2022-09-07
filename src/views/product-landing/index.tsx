@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import GetStartedCard from 'components/get-started-card'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
+import { developmentToast, ToastColor } from 'components/toast'
 import { ProductLandingViewProps } from './types'
 import { getIconCards } from './helpers'
 import HeroHeadingVisual from './components/hero-heading-visual'
@@ -13,9 +14,17 @@ function ProductLandingView({
 	content,
 	product,
 }: ProductLandingViewProps): ReactElement {
-	const { hero, overview, get_started, blocks } = content
-
+	const { hero, overview, overviewText, get_started, blocks } = content
 	const iconCards = getIconCards(product.slug)
+
+	if (overview.cta && overviewText) {
+		developmentToast({
+			color: ToastColor.critical,
+			title: 'Error in ProductLandingView',
+			description:
+				'Both overview `cta` and `overviewText` were passed to ProductLandingView. Only provide one.',
+		})
+	}
 
 	return (
 		<>
@@ -36,10 +45,10 @@ function ProductLandingView({
 					heading={overview.heading}
 					headingSlug={overview.headingSlug}
 					body={overview.body}
-					fullWidthBody={overview.fullWidthBody}
 					cta={overview.cta}
 					image={overview.image}
 				/>
+				{overviewText ? <p className={s.overviewText}>{overviewText}</p> : null}
 			</div>
 			<div className={s.getStartedMargin}>
 				<GetStartedCard
