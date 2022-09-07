@@ -266,7 +266,7 @@ const DownloadsSection = ({
 				<div className={s.cardHeader}>
 					<div className={s.versionSwitcherWrapper}>
 						<VersionContextSwitcher
-							onChange={(e) => setCurrentVersion(e.target.value)}
+							onChange={(selected: string) => setCurrentVersion(selected)}
 							options={versionSwitcherOptions}
 						/>
 					</div>

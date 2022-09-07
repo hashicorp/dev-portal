@@ -20,6 +20,10 @@
 	/* Flex-grow to fill space when in separate row */
 	flex-grow: 1;
 	width: max-content;
+
+	@media (max-width: 402px) {
+		width: 100%;
+	}
 }
 
 .operatingSystemTitle {
