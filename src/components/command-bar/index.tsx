@@ -3,8 +3,10 @@ import {
 	useCallback,
 	useContext,
 	useEffect,
+	useMemo,
 	useState,
 } from 'react'
+import commands from './commands'
 import {
 	CommandBarActivator,
 	CommandBarDialog,
@@ -22,17 +24,9 @@ import {
 const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
 const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
-	currentCommand: 'search',
+	currentCommand: commands.search,
 	isOpen: false,
 }
-
-/**
- * @TODO items that will be easier to implement when there is a text input
- * rendered in the header:
- *
- * - Render CommandBarDialog contents based on `currentCommand`
- *
- */
 
 const CommandBarContext = createContext<CommandBarContextValue>(undefined)
 
@@ -52,12 +46,15 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	/**
 	 * Set up `setCurrentCommand` callback.
 	 */
-	const setCurrentCommand = useCallback((command: SupportedCommand) => {
-		setState((prevState: CommandBarContextState) => ({
-			...prevState,
-			currentCommand: command,
-		}))
-	}, [])
+	const setCurrentCommand = useCallback(
+		(commandName: keyof typeof SupportedCommand) => {
+			setState((prevState: CommandBarContextState) => ({
+				...prevState,
+				currentCommand: commands[commandName],
+			}))
+		},
+		[]
+	)
 
 	/**
 	 * Set up the cmd/ctrl + k keydown listener.
@@ -81,28 +78,19 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		}
 	}, [toggleIsOpen])
 
+	/**
+	 * Memoize the Context value
+	 */
+	const contextValue = useMemo<CommandBarContextValue>(() => {
+		return { ...state, setCurrentCommand, toggleIsOpen }
+	}, [setCurrentCommand, state, toggleIsOpen])
+
 	return (
-		<CommandBarContext.Provider
-			value={{ ...state, setCurrentCommand, toggleIsOpen }}
-		>
+		<CommandBarContext.Provider value={contextValue}>
 			{children}
 			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
-				<CommandBarDialogHeader>
-					Current command: {state.currentCommand}
-				</CommandBarDialogHeader>
-				<CommandBarDialogBody>
-					{/* TODO This button is only here for testing `setCurrentCommand` */}
-					<button
-						onClick={() =>
-							setCurrentCommand(
-								state.currentCommand === 'search' ? 'settings' : 'search'
-							)
-						}
-					>
-						Use {state.currentCommand === 'search' ? 'settings' : 'search'}{' '}
-						command
-					</button>
-				</CommandBarDialogBody>
+				<CommandBarDialogHeader />
+				<CommandBarDialogBody />
 				<CommandBarDialogFooter>footer</CommandBarDialogFooter>
 			</CommandBarDialog>
 		</CommandBarContext.Provider>
@@ -118,4 +106,9 @@ const useCommandBar = (): CommandBarContextValue => {
 	return context
 }
 
-export { CommandBarActivator, CommandBarProvider, useCommandBar }
+export {
+	CommandBarActivator,
+	CommandBarProvider,
+	SupportedCommand,
+	useCommandBar,
+}
