@@ -6,9 +6,13 @@ import {
 	CommandBarDialogProps,
 } from './types'
 import s from './command-bar-dialog.module.css'
+import classNames from 'classnames'
 
-const CommandBarDialogHeader = ({ children }: CommandBarDialogHeaderProps) => {
-	return <div className={s.header}>{children}</div>
+const CommandBarDialogHeader = ({
+	children,
+	className,
+}: CommandBarDialogHeaderProps) => {
+	return <div className={classNames(s.header, className)}>{children}</div>
 }
 
 const CommandBarDialogBody = ({ children }: CommandBarDialogBodyProps) => {

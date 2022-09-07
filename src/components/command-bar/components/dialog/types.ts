@@ -8,6 +8,7 @@ interface CommandBarDialogProps {
 
 interface CommandBarDialogHeaderProps {
 	children: ReactNode
+	className?: string
 }
 
 interface CommandBarDialogBodyProps {
