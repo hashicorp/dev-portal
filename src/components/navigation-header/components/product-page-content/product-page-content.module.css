@@ -23,7 +23,7 @@
 	composes: g-focus-ring-from-box-shadow-dark from global;
 	border-radius: 5px;
 
-	@media (--dev-dot-desktop) {
+	@media (--dev-dot-hide-mobile-menu) {
 		margin-left: 12px;
 	}
 }
