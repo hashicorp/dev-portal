@@ -150,7 +150,7 @@ const ProductLandingOverviewSchema = Joi.object({
 	cta: Joi.object({
 		text: Joi.string().required(),
 		url: Joi.string().required(),
-	}).required(),
+	}),
 	image: Joi.string().required(),
 }).required()
 
