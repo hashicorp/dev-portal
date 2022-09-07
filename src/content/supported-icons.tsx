@@ -6,6 +6,7 @@ import { IconDatabase16 } from '@hashicorp/flight-icons/svg-react/database-16'
 import { IconDockerColor16 } from '@hashicorp/flight-icons/svg-react/docker-color-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
+import { IconEntryPoint16 } from '@hashicorp/flight-icons/svg-react/entry-point-16'
 import { IconEnterprise16 } from '@hashicorp/flight-icons/svg-react/enterprise-16'
 import { IconFileSource16 } from '@hashicorp/flight-icons/svg-react/file-source-16'
 import { IconGcpColor16 } from '@hashicorp/flight-icons/svg-react/gcp-color-16'
@@ -33,6 +34,7 @@ export const SUPPORTED_ICONS = {
 	'docker-color': <IconDockerColor16 />,
 	docs: <IconDocs16 />,
 	download: <IconDownload16 />,
+	'entry-point': <IconEntryPoint16 />,
 	enterprise: <IconEnterprise16 />,
 	'file-source': <IconFileSource16 />,
 	'gcp-color': <IconGcpColor16 />,

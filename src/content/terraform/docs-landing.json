@@ -1,110 +1,82 @@
 {
-	"pageSubtitle": "Terraform is like Vault, but different. Vault is an identity-based secret and encryption management system. This documentation covers the main concepts of Vault, what problems it can solve, and contains a quick start for using Vault.",
+	"pageSubtitle": "Terraform is an infrastructure as code tool that lets you build, change, and version infrastructure safely and efficiently. This includes both low-level components like compute instances, storage, and networking, as well as high-level components like DNS entries and SaaS features.",
 	"marketingContentBlocks": [
 		{
-			"type": "paragraph",
-			"text": "Terraform is an infrastructure as code (IaC) tool that allows you to build, change, and version infrastructure safely and efficiently. This includes both low-level components like compute instances, storage, and networking, as well as high-level components like DNS entries and SaaS features."
-		},
-		{
-			"type": "paragraph",
-			"text": "Learn how Terraform [solves infrastructure challenges](/terraform/intro) and how it [compares to other tools and services](/terraform/intro/vs)."
-		},
-		{
-			"type": "section-heading",
-			"title": "Use Cases"
-		},
-		{
 			"type": "card-grid",
-			"title": "Secrets Management",
-			"description": "Centrally store, access, and deploy secrets across applications, systems, and infrastructure.",
+			"title": "Introduction",
 			"cards": [
 				{
-					"description": "A generic Key-Value store used to store arbitrary secrets within the configured physical storage for Vault.",
-					"title": "KV Secrets Engine",
-					"url": "/vault/docs/secrets/kv"
+					"description": "How Terraform solves infrastructure challenges.",
+					"title": "What is Terraform?",
+					"url": "/terraform/intro"
 				},
 				{
-					"description": "Generate database credentials dynamically based on configured roles.",
-					"title": "Database Credentials",
-					"url": "/vault/docs/secrets/databases"
+					"description": "Popular use cases and related documentation you can use to create Terraform configurations and workflows.",
+					"title": "Use Cases",
+					"url": "/terraform/intro/use-cases"
 				},
 				{
-					"description": "Deploy Vault into Kubernetes using the official HashiCorp Vault Helm chart.",
-					"title": "Kubernetes Secrets",
-					"url": "/vault/docs/platform/k8s"
+					"description": "Learn how Terraform compares to other tools and services.",
+					"title": "Terraform vs. Alternatives",
+					"url": "/terraform/intro/vs"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Encryption Services",
-			"description": "Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.",
+			"title": "Manage Infrastructure",
 			"cards": [
 				{
-					"description": "Apply cryptographic functions on data in-transit. Sign and verify data, generate hashes and HMACs of data, and act as a source of random bytes.",
-					"title": "Transit Secrets Engine",
-					"url": "/vault/docs/secrets/transit"
+					"description": "Describe infrastructure on various providers with Terraform's configuration language.",
+					"title": "Configuration Language",
+					"url": "/terraform/language"
 				},
 				{
-					"description": "Handle secure data transformation and tokenization against a provided input value using NIST vetted cryptographic standards and other transformations such as masking.",
-					"title": "Transform Secrets Engine",
-					"url": "/vault/docs/secrets/transform"
+					"description": "Use the Terraform CLI to manage configuration, plugins, infrastructure, and state.",
+					"title": "Transform CLI",
+					"url": "/terraform/cli"
 				},
 				{
-					"description": "Exchange a sensitive value for an unrelated value called a token. The original sensitive value cannot be recovered from a token alone but is irreversible.",
-					"title": "Tokenization",
-					"url": "/vault/docs/secrets/transform/tokenization"
+					"description": "Use CDK for Terraform to write and deploy Terraform configurations in your preferred programming language.",
+					"title": "CDK for Terraform",
+					"url": "/terraform/cdktf"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Key Management",
-			"description": "Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.",
+			"title": "Collaborate",
 			"cards": [
 				{
-					"description": "Act as a key management interoperability protocol server provider and handle the lifecycle of its KMIP managed objects.",
-					"title": "KMIP Secrets Engine",
-					"url": "/vault/docs/secrets/kmip"
+					"description": "Terraform Cloud helps teams use Terraform together, with version control, state sharing, governance, and more.",
+					"title": "Terraform Cloud",
+					"url": "/terraform/cloud-docs"
 				},
 				{
-					"description": "A consistent workflow for distribution and lifecycle management of cryptographic keys in key management service (KMS) providers.",
-					"title": "Key Management Secrets Engine",
-					"url": "/vault/docs/secrets/key-management"
-				},
-				{
-					"description": "Generate dynamic X.509 certificates without going through the manual process of generating a private key and CSR or submitting to a CA.",
-					"title": "PKI",
-					"url": "/vault/docs/secrets/pki"
+					"description": "Terraform Enterprise is a self-hosted instance of Terraform Cloud, which is ideal for organizations that have strict security and compliance requirements.",
+					"title": "Terraform Enterprise",
+					"url": "/terraform/enterprise"
 				}
 			]
 		},
 		{
-			"type": "section-heading",
-			"title": "Developers"
-		},
-		{
-			"type": "icon-card-grid",
+			"type": "card-grid",
+			"title": "Develop and Share",
 			"cards": [
 				{
-					"iconName": "terminal",
-					"text": "Developer Quick Start",
-					"url": "/vault/docs/get-started/developer-qs"
+					"description": "Create a provider to allow Terraform to interact with a service.",
+					"title": "Plugin Development",
+					"url": "/terraform/plugin"
 				},
 				{
-					"iconName": "guide",
-					"text": "Client Libraries",
-					"url": "/vault/api-docs/libraries"
+					"description": "Create reusable configurations with modules.",
+					"title": "Modules",
+					"url": "/terraform/language/modules/develop"
 				},
 				{
-					"iconName": "connection",
-					"text": "Sample Integrations",
-					"url": "https://github.com/hashicorp/hello-vault-go"
-				},
-				{
-					"iconName": "terminal",
-					"text": "Code Samples",
-					"url": "https://github.com/hashicorp/vault-examples"
+					"description": "Publish a provider or module to the Terraform Registry to make it publicly available.",
+					"title": "Registry Publishing",
+					"url": "/terraform/registry"
 				}
 			]
 		}

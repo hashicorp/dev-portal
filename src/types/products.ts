@@ -160,6 +160,10 @@ interface ProductData extends Product {
 	 * the matching rootDocsPath.
 	 */
 	docsNavItems?: (DocsNavItem | string)[]
+	devDotCutoverMessage?: {
+		cutoverDate: string
+		showCutoverDate: boolean
+	}
 }
 
 interface ProductWithCurrentRootDocsPath extends ProductData {
