@@ -138,6 +138,10 @@ export async function getOnboardingTutorialProps(
 						},
 						showFilterInput: false,
 						menuItems: tutorialNavLevelMenuItems,
+						backToLinkProps: {
+							text: `${currentCollection.name}`,
+							href: `/${currentCollection.slug}`,
+						},
 					},
 				],
 			},
