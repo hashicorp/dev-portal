@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "The fastest way to get up and running with HashiCorp tools",
-		"image": "https://place-hold.it/600x320"
+		"image": "/img/hcp/landing-hero-graphic-hcp.png"
 	},
 	"overview": {
 		"heading": "What is HCP?",
