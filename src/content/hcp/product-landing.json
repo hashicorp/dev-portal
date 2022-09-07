@@ -17,22 +17,22 @@
 			{
 				"icon": "vault-color",
 				"text": "HCP Vault",
-				"url": "/hcp/docs/vault"
+				"url": "/vault/tutorials/cloud"
 			},
 			{
 				"icon": "consul-color",
 				"text": "HCP Consul",
-				"url": "/hcp/docs/consul"
+				"url": "/consul/tutorials/cloud-get-started"
 			},
 			{
 				"icon": "packer-color",
 				"text": "HCP Packer",
-				"url": "/hcp/docs/packer"
+				"url": "/packer/tutorials/hcp-get-started"
 			},
 			{
 				"icon": "boundary-color",
 				"text": "HCP Boundary",
-				"url": "/hcp/docs/boundary"
+				"url": "/boundary/tutorials/hcp-getting-started"
 			}
 		],
 		"fixedColumns": 2
