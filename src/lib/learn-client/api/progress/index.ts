@@ -20,15 +20,18 @@ import { progressStatusToPercent, progressPercentToStatus } from './formatting'
  * Used in get-all-progress.
  */
 export const PROGRESS_API_ROUTE = '/progress'
+import { getAllProgress, GetAllProgressResult } from './get-all-progress'
 
 export type {
 	CreateTutorialProgressOptions,
+	GetAllProgressResult,
 	GetTutorialProgressResult,
 	UpdateTutorialProgressOptions,
 }
 
 export {
 	createTutorialProgress,
+	getAllProgress,
 	getTutorialProgress,
 	progressStatusToPercent,
 	progressPercentToStatus,
