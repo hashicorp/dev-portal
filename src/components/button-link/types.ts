@@ -1,4 +1,5 @@
 import { ButtonProps } from 'components/button'
+type AnchorElementProps = JSX.IntrinsicElements['a']
 
 /**
  * The inherited props from Button.
@@ -20,6 +21,7 @@ type PickedButtonProps = Pick<
 interface ButtonLinkProps extends PickedButtonProps {
 	href: string
 	openInNewTab?: boolean
+	onClick?: AnchorElementProps['onClick']
 }
 
 export type { ButtonLinkProps }

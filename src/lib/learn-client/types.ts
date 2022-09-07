@@ -79,7 +79,7 @@ export type CollectionLite = Pick<
 >
 
 export interface Collection {
-	id?: uuid // uuid
+	id: uuid // uuid
 	slug: slug
 	name: string
 	shortName: string
