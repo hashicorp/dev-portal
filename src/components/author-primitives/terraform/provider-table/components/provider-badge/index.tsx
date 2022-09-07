@@ -1,14 +1,8 @@
 import React from 'react'
-import Badge, { BadgeTheme } from '../../shared/badge'
+import Badge, { BadgeTheme } from 'components/author-primitives/shared/badge'
 import svgRibbonIcon from './ribbon-icon.svg?include'
-import svgCheckIcon from './check-icon.svg?include'
 
-type PluginLabelType =
-	| 'official'
-	| 'community'
-	| 'hcp_packer_ready'
-	| 'verified'
-	| 'archived'
+type ProviderLabelType = 'official' | 'community' | 'partner' | 'archived'
 
 const badgeTypes = {
 	official: {
@@ -21,14 +15,9 @@ const badgeTypes = {
 		theme: 'gray',
 		iconSvg: false,
 	},
-	hcp_packer_ready: {
-		label: 'HCP Packer Ready',
-		theme: 'blue',
-		iconSvg: svgCheckIcon,
-	},
-	verified: {
-		label: 'Verified',
-		theme: 'purple',
+	partner: {
+		label: 'Partner',
+		theme: 'light-blue',
 		iconSvg: svgRibbonIcon,
 	},
 	archived: {
@@ -38,9 +27,13 @@ const badgeTypes = {
 	},
 }
 
-function PluginBadge({ type }: { type: PluginLabelType }): React.ReactElement {
+function ProviderBadge({
+	type,
+}: {
+	type: ProviderLabelType
+}): React.ReactElement {
 	const { label, theme, iconSvg } = badgeTypes[type]
 	return <Badge label={label} theme={theme as BadgeTheme} iconSvg={iconSvg} />
 }
 
-export default PluginBadge
+export default ProviderBadge
