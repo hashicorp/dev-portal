@@ -4,6 +4,5 @@ export interface DialogProps {
 	isOpen: boolean
 	label?: string
 	onDismiss(): void
-	children: React.ReactNode
 	variant?: 'modal' | 'bottom'
 }
