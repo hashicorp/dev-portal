@@ -11,6 +11,13 @@ import s from './dialog.module.css'
 
 const AnimatedDialogOverlay = slimMotion(DialogOverlay)
 
+const overlayVariants = {
+	hidden: { opacity: 0 },
+	show: {
+		opacity: 1,
+	},
+}
+
 export default function Dialog({
 	children,
 	isOpen,
@@ -20,40 +27,27 @@ export default function Dialog({
 }: DialogProps) {
 	const shouldReduceMotion = useReducedMotion()
 
-	const overlayMotionProps =
-		variant === 'bottom'
-			? {}
-			: {
-					animate: { opacity: 1 },
-					exit: { opacity: 0 },
-					initial: { opacity: 0 },
-					transition: { duration: shouldReduceMotion ? 0 : 0.3 },
-			  }
-
-	const contentWrapperMotionProps =
-		variant === 'bottom'
-			? {
-					animate: { translateY: '1%' },
-					exit: { translateY: '100%' },
-					initial: { translateY: '100%' },
-					transition: { duration: shouldReduceMotion ? 0 : 0.3 },
-			  }
-			: {}
+	const overlayMotionProps = {
+		variants: overlayVariants,
+		animate: 'show',
+		initial: 'hidden',
+		exit: 'hidden',
+		transition: { duration: shouldReduceMotion ? 0 : 0.3 },
+	}
 
 	return (
 		<AnimatePresence>
 			{isOpen && (
-				<DialogOverlay
+				<AnimatedDialogOverlay
 					key="overlay"
 					className={classNames(s.animatedDialogOverlay, s[variant])}
 					isOpen={isOpen}
 					onDismiss={onDismiss}
 					{...overlayMotionProps}
 				>
-					<slimMotion.div
+					<div
 						key="contentWrapper"
 						className={classNames(s.contentWrapper, s[variant])}
-						{...contentWrapperMotionProps}
 					>
 						<DialogContent
 							className={classNames(s.content, s[variant])}
@@ -61,8 +55,8 @@ export default function Dialog({
 						>
 							{children}
 						</DialogContent>
-					</slimMotion.div>
-				</DialogOverlay>
+					</div>
+				</AnimatedDialogOverlay>
 			)}
 		</AnimatePresence>
 	)
