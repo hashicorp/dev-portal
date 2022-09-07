@@ -33,11 +33,12 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 			label: 'Tutorials',
 			url: `/${currentProduct.slug}/tutorials`,
 		},
-		{
+	]
+	currentProduct.slug !== 'hcp' &&
+		items.push({
 			label: 'Install',
 			url: `/${currentProduct.slug}/downloads`,
-		},
-	]
+		})
 	/**
 	 * For Terraform, add a "Registry" item
 	 */

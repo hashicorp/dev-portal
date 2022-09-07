@@ -31,11 +31,12 @@ export const generateProductLandingSidebarMenuItems = (
 			title: 'Tutorials',
 			fullPath: `/${product.slug}/tutorials`,
 		},
-		{
+	]
+	product.slug !== 'hcp' &&
+		menuItems.push({
 			title: 'Install',
 			fullPath: `/${product.slug}/downloads`,
-		},
-	]
+		})
 
 	return menuItems
 }
