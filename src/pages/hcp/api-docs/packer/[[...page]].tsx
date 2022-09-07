@@ -1,16 +1,13 @@
 import type { InferGetStaticPropsType } from 'next'
-
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { OpenApiPageContents } from 'components/open-api-page'
 /* Used server-side only */
 import { cachedGetProductData } from 'lib/get-product-data'
-import { isDeployPreview } from 'lib/env-checks'
 import fetchGithubFile from 'lib/fetch-github-file'
 import {
 	getPathsFromSchema,
 	getPropsForPage,
 	processSchemaString,
-	processSchemaFile,
 } from 'components/open-api-page/server'
 import {
 	generateProductLandingSidebarNavData,
@@ -26,10 +23,6 @@ const targetFile = {
 	path: 'specs/cloud-packer-service/stable/2021-04-30/hcp.swagger.json',
 }
 
-// The path to read from when running local preview in the context of the cloud.hashicorp.com repository
-// - This is unused as cloud.hashicorp.com does not use the dev-portal website shell yet
-const targetLocalFile = '../TODO'
-
 type ApiDocsPageProps = InferGetStaticPropsType<typeof getStaticProps>
 const ApiDocsPage: PageWithLayout<ApiDocsPageProps> = ({ apiPageProps }) => {
 	return (
@@ -42,16 +35,10 @@ const ApiDocsPage: PageWithLayout<ApiDocsPageProps> = ({ apiPageProps }) => {
 }
 
 export async function getStaticPaths() {
-	let schema
-	let paths
-	if (isDeployPreview(productSlug)) {
-		schema = await processSchemaFile(targetLocalFile)
-	} else if (isDeployPreview()) {
-		paths = []
-	} else {
-		const swaggerFile = await fetchGithubFile(targetFile)
-		schema = await processSchemaString(swaggerFile)
-	}
+	let paths = []
+
+	const swaggerFile = await fetchGithubFile(targetFile)
+	const schema = await processSchemaString(swaggerFile)
 
 	if (schema) {
 		paths = getPathsFromSchema(schema)
@@ -61,15 +48,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-	let schema
-	if (isDeployPreview(productSlug)) {
-		// we wont realistically reach this branch,
-		// but it's here to mirror /src/pages/boundary/api-docs/[[...page]].tsx
-		schema = await processSchemaFile(targetLocalFile)
-	} else {
-		const swaggerFile = await fetchGithubFile(targetFile)
-		schema = await processSchemaString(swaggerFile)
-	}
+	const swaggerFile = await fetchGithubFile(targetFile)
+	const schema = await processSchemaString(swaggerFile)
 
 	// API page data
 	const apiPageProps = getPropsForPage(schema, params)
