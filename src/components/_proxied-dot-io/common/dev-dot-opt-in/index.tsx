@@ -70,7 +70,7 @@ export default function DevDotOptIn({
 						soon!
 					</p>
 					<p className={s.description}>
-						{`${name} Docs content is being improved and migrated into our new developer experience.${
+						{`${name} documentation content is being improved and migrated into our new developer experience.${
 							cutoverDate && showCutoverDate
 								? ` The migration will take place on ${cutoverDate}`
 								: ''
