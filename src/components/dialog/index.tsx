@@ -20,6 +20,16 @@ export default function Dialog({
 }: DialogProps) {
 	const shouldReduceMotion = useReducedMotion()
 
+	const overlayMotionProps =
+		variant === 'bottom'
+			? {}
+			: {
+					animate: { opacity: 1 },
+					exit: { opacity: 0 },
+					initial: { opacity: 0 },
+					transition: { duration: shouldReduceMotion ? 0 : 0.3 },
+			  }
+
 	const contentWrapperMotionProps =
 		variant === 'bottom'
 			? {
@@ -33,16 +43,15 @@ export default function Dialog({
 	return (
 		<AnimatePresence>
 			{isOpen && (
-				<AnimatedDialogOverlay
-					animate={{ opacity: 1 }}
+				<DialogOverlay
+					key="overlay"
 					className={classNames(s.animatedDialogOverlay, s[variant])}
-					exit={{ opacity: variant === 'bottom' ? 1 : 0 }}
-					initial={{ opacity: variant === 'bottom' ? 1 : 0 }}
 					isOpen={isOpen}
 					onDismiss={onDismiss}
-					transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+					{...overlayMotionProps}
 				>
 					<slimMotion.div
+						key="contentWrapper"
 						className={classNames(s.contentWrapper, s[variant])}
 						{...contentWrapperMotionProps}
 					>
@@ -53,7 +62,7 @@ export default function Dialog({
 							{children}
 						</DialogContent>
 					</slimMotion.div>
-				</AnimatedDialogOverlay>
+				</DialogOverlay>
 			)}
 		</AnimatePresence>
 	)
