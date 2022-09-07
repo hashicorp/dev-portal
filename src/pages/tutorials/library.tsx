@@ -16,6 +16,7 @@ import {
 import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
+import Sidebar from 'components/sidebar'
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const searchClient = algoliasearch(appId, 'bf27a047ba263cba01ee9b4081965a1a')
@@ -26,7 +27,11 @@ interface TutorialsLibraryPageProps {
 
 function TutorialLibrarySidebar() {
 	return (
-		<>
+		<Sidebar
+			showFilterInput={false}
+			title="Tutorial Library Menu"
+			visuallyHideTitle
+		>
 			<div className="g-hide-with-mobile-menu">
 				<ConnectedTutorialLibraryFilters />
 			</div>
@@ -42,7 +47,7 @@ function TutorialLibrarySidebar() {
 					)}
 				</SidebarNavList>
 			</div>
-		</>
+		</Sidebar>
 	)
 }
 
