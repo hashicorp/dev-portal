@@ -1,12 +1,12 @@
 import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { sortAlphabetically } from 'lib/sort-alphabetically'
-import hcpContent from 'content/hcp/tutorial-landing.json'
+import hcpContent from 'content/hcp/tutorials-sidebar.json'
 import { getCollectionSlug } from './get-slug'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 
 interface SidebarCategory {
 	name: string
-	items: { name: string; collectionSlug: string }[]
+	items: { name: string; collectionSlug: string; isBeta?: boolean }[]
 }
 
 export function buildCategorizedHcpSidebar(
@@ -36,10 +36,20 @@ export function buildCategorizedHcpSidebar(
 			title: category.name,
 			items: category.items.map((item) => {
 				const href = getCollectionSlug(item.collectionSlug)
+
+				const badge = item.isBeta
+					? {
+							text: 'BETA',
+							type: 'outlined',
+							color: 'neutral',
+					  }
+					: null
+				console.log({ badge })
 				return {
 					text: item.name,
 					href,
-					isActive: false,
+					badge,
+					isActive: false, // these will never be active in the hcp context, they exist under other products
 				}
 			}),
 		})
