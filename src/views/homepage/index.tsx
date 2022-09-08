@@ -1,8 +1,9 @@
 // Third-party imports
-import { ReactElement } from 'react'
+import { ReactElement, useMemo } from 'react'
 
 // Global imports
 import { productSlugs } from 'lib/products'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
 
@@ -19,8 +20,6 @@ import {
 } from './components/merchandising-slots/slots'
 import s from './homepage.module.css'
 
-const productNavSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
-
 const HomePageContent = ({
 	hero,
 	merchandising,
@@ -28,6 +27,17 @@ const HomePageContent = ({
 	preFooter,
 	navNotice,
 }: HomePageContentProps) => {
+	const products = useMemo(
+		() =>
+			productSlugs
+				.filter((slug) => slug !== 'sentinel')
+				.map((slug) => ({
+					slug,
+					isBeta: getIsBetaProduct(slug),
+				})),
+		[]
+	)
+
 	return (
 		<div className={s.homepageContent}>
 			<HeroWithVideo
@@ -37,7 +47,7 @@ const HomePageContent = ({
 				videoUrl="https://hashicorp.wistia.com/medias/031h9iogzx"
 				videoImageUrl="https://embed-ssl.wistia.com/deliveries/b65febe71ccfb5ded8d3958b1cf1ec61.jpg?image_crop_resized=960x540"
 			/>
-			<ProductNav notice={navNotice} products={productNavSlugs} />
+			<ProductNav notice={navNotice} products={products} />
 			<MerchandisingSlots>
 				<VaultSlot
 					url={merchandising.vault.url}

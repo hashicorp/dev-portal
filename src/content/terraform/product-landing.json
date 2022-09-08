@@ -10,19 +10,41 @@
 			"text": "Learn more about Terraform features",
 			"url": "/vault/docs/what-is-vault"
 		},
-		"image": "https://place-hold.it/680x250"
+		"image": "https://www.datocms-assets.com/2885/1662053785-dev-dot-product-landing-what-is-terraform-diagram.png"
 	},
 	"get_started": {
 		"heading": "Getting Started",
 		"body": "Use Terraform to securely store, access, and manage secrets and other sensitive data.",
-		"ctas": [
+		"iconCardLinks": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
+				"icon": "aws-color",
+				"text": "Amazon Web Services",
+				"url": "/terraform/tutorials/aws-get-started"
 			},
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"icon": "microsoft-color",
+				"text": "Azure",
+				"url": "/terraform/tutorials/azure-get-started"
+			},
+			{
+				"icon": "terraform-color",
+				"text": "Terraform Cloud",
+				"url": "/terraform/tutorials/cloud-get-started"
+			},
+			{
+				"icon": "gcp-color",
+				"text": "Google Cloud Platform",
+				"url": "/terraform/tutorials/gcp-get-started"
+			},
+			{
+				"icon": "oracle-color",
+				"text": "Oracle Cloud",
+				"url": "/terraform/tutorials/oci-get-started"
+			},
+			{
+				"icon": "docker-color",
+				"text": "Docker",
+				"url": "/terraform/tutorials/docker-get-started"
 			}
 		]
 	},

@@ -122,12 +122,13 @@ export interface ProductLandingContent {
 	overview: {
 		heading: string
 		body: string
-		cta: {
+		cta?: {
 			text: string
 			url: string
 		}
 		image: string
 	}
+	overviewParagraph?: string
 	get_started: {
 		heading: string
 		body: string
@@ -139,23 +140,27 @@ export interface ProductLandingContent {
 	blocks: ProductLandingContentBlock[]
 }
 
-export const ProductLandingContentSchema = Joi.object({
-	hero: Joi.object({
-		heading: Joi.string().required(),
-		image: Joi.string().required(),
-	}).required(),
-	overview: Joi.object({
+const ProductLandingHeroSchema = Joi.object({
+	heading: Joi.string().required(),
+	image: Joi.string().required(),
+}).required()
+
+const ProductLandingOverviewSchema = Joi.object({
+	heading: Joi.string().required(),
+	body: Joi.string().required(),
+	cta: Joi.object({
+		text: Joi.string().required(),
+		url: Joi.string().required(),
+	}),
+	image: Joi.string().required(),
+})
+
+// Require either `ctas` or `iconCardLinks`
+const ProductLandingGetStartedSchema = Joi.alternatives().try(
+	Joi.object({
 		heading: Joi.string().required(),
 		body: Joi.string().required(),
-		cta: Joi.object({
-			text: Joi.string().required(),
-			url: Joi.string().required(),
-		}).required(),
-		image: Joi.string().required(),
-	}).required(),
-	get_started: Joi.object({
-		heading: Joi.string().required(),
-		body: Joi.string().required(),
+		fixedColumns: Joi.number(),
 		ctas: Joi.array()
 			.items(
 				Joi.object({
@@ -165,6 +170,27 @@ export const ProductLandingContentSchema = Joi.object({
 			)
 			.required()
 			.min(1),
-	}).required(),
+	}),
+	Joi.object({
+		heading: Joi.string().required(),
+		body: Joi.string().required(),
+		iconCardLinks: Joi.array()
+			.items(
+				Joi.object({
+					icon: Joi.string().required(),
+					text: Joi.string().required(),
+					url: Joi.string().required(),
+				})
+			)
+			.required(),
+		fixedColumns: Joi.number(),
+	})
+)
+
+export const ProductLandingContentSchema = Joi.object({
+	hero: ProductLandingHeroSchema,
+	overview: ProductLandingOverviewSchema,
+	overviewParagraph: Joi.string(),
+	get_started: ProductLandingGetStartedSchema,
 	blocks: Joi.array().items(ProductLandingContentBlockSchema),
 })

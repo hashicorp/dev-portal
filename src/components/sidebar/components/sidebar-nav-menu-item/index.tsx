@@ -22,6 +22,7 @@ import Text from 'components/text'
 import {
 	RightIconsContainerProps,
 	SidebarNavLinkItemProps,
+	SidebarNavMenuButtonProps,
 	SidebarNavMenuItemBadgeProps,
 	SidebarNavMenuItemProps,
 	SupportedIconName,
@@ -82,6 +83,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	const isExternal = isAbsoluteUrl(href)
 	const hasBadge = !!(item as $TSFixMe).badge
 
+	// Determine the leading icon to use, if any
 	let leadingIcon
 	if (item.leadingIconName) {
 		const icon = SUPPORTED_LEADING_ICONS[item.leadingIconName] || (
@@ -89,6 +91,9 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		)
 		leadingIcon = <div className={s.leadingIcon}>{icon}</div>
 	}
+
+	// Determine the trailing icon to use, if any
+	const trailingIcon = isExternal ? <IconExternalLink16 /> : item.trailingIcon
 
 	// Conditionally determining props for the <a>
 	const ariaCurrent = !isExternal && item.isActive ? 'page' : undefined
@@ -115,7 +120,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 						<SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
 					) : undefined
 				}
-				icon={isExternal ? <IconExternalLink16 /> : undefined}
+				icon={trailingIcon}
 			/>
 		</>
 	)
@@ -148,6 +153,26 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 			</a>
 		)
 	}
+}
+
+/**
+ * Handles rendering a button and icon for the sidebar.
+ * Currently used for a 'sign out' action on the profile page
+ */
+export function SidebarNavMenuButton({ item }: SidebarNavMenuButtonProps) {
+	return (
+		<button className={s.sidebarNavMenuItem} onClick={item.onClick}>
+			<Text
+				size={200}
+				weight="regular"
+				asElement="span"
+				className={s.navMenuItemLabel}
+			>
+				{item.title}
+			</Text>
+			<RightIconsContainer icon={item.icon} />
+		</button>
+	)
 }
 
 /**

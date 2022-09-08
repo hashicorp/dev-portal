@@ -10,21 +10,24 @@
 			"text": "Learn more about Consul features",
 			"url": "/consul/docs/intro"
 		},
-		"image": "https://place-hold.it/680x250"
+		"image": "https://www.datocms-assets.com/2885/1662053770-dev-dot-product-landing-what-is-consul-diagram.png"
 	},
 	"get_started": {
 		"heading": "Getting Started",
 		"body": "Learn how to run service discovery and a service mesh with Consul.",
-		"ctas": [
+		"iconCardLinks": [
 			{
+				"icon": "kubernetes-color",
 				"text": "Consul with Kubernetes",
 				"url": "/consul/tutorials/gs-consul-service-mesh/get-started"
 			},
 			{
-				"text": "Consul with VMs",
+				"icon": "server",
+				"text": "Consul with Virtual Machines",
 				"url": "/consul/tutorials/getting-started/get-started"
 			},
 			{
+				"icon": "hcp",
 				"text": "HCP Consul Quick Start",
 				"url": "/consul/tutorials/cloud-get-started/get-started"
 			}

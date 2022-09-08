@@ -1,106 +1,98 @@
 .sidebarNavMenuItem {
-  composes: g-focus-ring-from-box-shadow from global;
-  align-items: center;
-  background-color: white;
-  border-radius: 5px;
-  border: none;
-  color: var(--token-color-foreground-faint);
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2px;
-  padding: 8px;
-  position: relative;
-  text-align: left;
-  width: 100%;
-  z-index: 0;
+	composes: g-focus-ring-from-box-shadow from global;
+	align-items: center;
+	background-color: white;
+	border-radius: 5px;
+	border: none;
+	color: var(--token-color-foreground-faint);
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 2px;
+	padding: 8px;
+	position: relative;
+	text-align: left;
+	width: 100%;
+	z-index: 0;
 
-  &:focus,
-  &:hover,
-  &[aria-current='page'],
-  &[aria-expanded='true'] {
-    color: var(--token-color-foreground-strong);
-  }
+	&:focus,
+	&:hover,
+	&[aria-current='page'],
+	&[aria-expanded='true'] {
+		color: var(--token-color-foreground-strong);
+	}
 
-  /* AKA active */
-  &[aria-current='page'] {
-    background-color: var(--token-color-palette-neutral-200);
-  }
+	/* AKA active */
+	&[aria-current='page'] {
+		background-color: var(--token-color-palette-neutral-200);
+	}
 
-  /* AKA open */
-  &[aria-expanded='true'] {
-    margin-bottom: 0;
+	/* AKA open */
+	&[aria-expanded='true'] {
+		margin-bottom: 0;
 
-    & svg {
-      transform: rotate(90deg);
-    }
-  }
+		& svg {
+			transform: rotate(90deg);
+		}
+	}
 
-  /* AKA active and open */
-  &[aria-expanded='true'],
-  &[aria-current='page'] {
-    & .navMenuItemLabel {
-      font-weight: var(--token-typography-font-weight-medium);
-    }
-  }
+	&:focus {
+		z-index: 1;
+	}
 
-  &:focus {
-    z-index: 1;
-  }
-
-  /*
+	/*
   Hover styles take precedence over focus & active styles, so hover styles
   should be defined after them.
   */
-  &:hover {
-    background-color: var(--token-color-palette-neutral-100);
-  }
+	&:hover {
+		background-color: var(--token-color-palette-neutral-100);
+	}
 
-  /*
+	/*
   Override mktg-global-styles default <code /> monospace font, per design specs
   https://github.com/hashicorp/mktg-global-styles/blob/5fbaecb1a6032e68713d1660937ab35de90eae65/global.css#L43
   */
-  & code {
-    font-family: var(--font-body);
-  }
+	& code {
+		font-family: var(--font-body);
+	}
 }
 
 .sidebarNavMenuItem[aria-disabled='true'] {
-  /* Overwrite hover state styles on the text */
-  &:hover {
-    background-color: transparent;
-    cursor: not-allowed;
+	/* Overwrite hover state styles on the text */
+	&:hover {
+		background-color: transparent;
+		cursor: not-allowed;
 
-    & .navMenuItemLabel {
-      color: var(--token-color-foreground-disabled);
-      text-decoration: none;
-    }
-  }
+		& .navMenuItemLabel {
+			color: var(--token-color-foreground-disabled);
+			text-decoration: none;
+		}
+	}
 
-  /* Make sure everything has the disabled color */
-  & * {
-    color: var(--token-color-foreground-disabled);
-    fill: var(--token-color-foreground-disabled);
-  }
+	/* Make sure everything has the disabled color */
+	& * {
+		color: var(--token-color-foreground-disabled);
+		fill: var(--token-color-foreground-disabled);
+	}
 }
 
 .navMenuItemLabel {
-  margin-right: 8px;
-  width: 100%;
+	margin-right: 8px;
+	width: 100%;
 }
 
 .leadingIcon {
-  display: flex;
-  margin-right: 8px;
+	display: flex;
+	margin-right: 8px;
 }
 
 .rightIconsContainer {
-  align-items: center;
-  display: flex;
-  flex-shrink: 0; /* to prevent wrapping */
-  gap: 8px;
+	align-items: center;
+	display: flex;
+	flex-shrink: 0; /* to prevent wrapping */
+	gap: 8px;
 
-  /* prevent the immediate children from shrinking */
-  & > * {
-    flex-shrink: 0;
-  }
+	/* prevent the immediate children from shrinking */
+	& > * {
+		flex-shrink: 0;
+	}
 }

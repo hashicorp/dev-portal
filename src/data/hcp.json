@@ -15,22 +15,8 @@
 			"productSlugForLoader": "cloud.hashicorp.com"
 		}
 	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/hcp" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/hcp"
-			}
-		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"label": "General Documentation",
-				"icon": "docs",
-				"pathSuffix": "docs"
-			}
-		]
+	"devDotCutoverMessage": {
+		"showCutoverDate": false,
+		"cutoverDate": "Oct 18, 2022"
 	}
 }

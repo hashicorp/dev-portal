@@ -4,11 +4,12 @@ import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
+import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import { ProductOption } from 'lib/learn-client/types'
+import { ProductOption, TutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
@@ -49,6 +50,7 @@ import {
 	getNextPrevious,
 } from './components'
 import s from './tutorial-view.module.css'
+import { useProgressToast } from './utils/use-progress-toast'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -117,6 +119,7 @@ function TutorialView({
 
 	// variables
 	const {
+		id,
 		name,
 		slug,
 		content,
@@ -180,12 +183,35 @@ function TutorialView({
 			children: (
 				<TutorialViewSidebarContent
 					items={collectionCtx.current.tutorials.map((t) =>
-						formatTutorialToMenuItem(t, collectionCtx.current.slug, currentPath)
+						formatTutorialToMenuItem(t, collectionCtx.current, currentPath)
 					)}
 				/>
 			),
 		},
 	]
+
+	/**
+	 * Keep track of progress for authenticated users
+	 *
+	 * Note that we attach data-ref-id to avoid some
+	 * client-side-navigation-related progress tracking quirks.
+	 */
+	const progressRefsId = `${id}_${collectionCtx.current.id}`
+	const progressRefs = useTutorialProgressRefs({
+		tutorialId: id,
+		collectionId: collectionCtx.current.id,
+	})
+
+	/**
+	 * Display toast when progress changes to complete.
+	 */
+	useProgressToast({
+		tutorialId: id,
+		collectionId: collectionCtx.current.id,
+		collectionTutorialIds: collectionCtx.current.tutorials.map(
+			(t: TutorialLite) => t.id
+		),
+	})
 
 	return (
 		<>
@@ -226,7 +252,9 @@ function TutorialView({
 								isInteractive,
 								hasVideo,
 							}}
+							tutorialId={id}
 						/>
+						<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
 						{hasVideo && video.id && !video.videoInline && (
 							<VideoEmbed
 								url={getVideoUrl({
@@ -240,6 +268,7 @@ function TutorialView({
 								<MDXRemote {...content} components={MDX_COMPONENTS} />
 							</DevDotContent>
 						</TabProvider>
+						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
 						<NextPrevious {...nextPreviousData} />
 						<FeaturedInCollections
 							className={s.featuredInCollections}
@@ -251,6 +280,8 @@ function TutorialView({
 		</>
 	)
 }
+
+TutorialView.contentType = 'tutorials'
 
 export type {
 	TutorialViewProps,

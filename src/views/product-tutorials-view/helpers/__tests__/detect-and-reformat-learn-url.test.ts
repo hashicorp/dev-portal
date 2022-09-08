@@ -14,6 +14,18 @@ const MOCK_TUTORIALS_MAP = {
 		'/vault/tutorials/getting-started/getting-started-install',
 }
 
+/**
+ * As we onboard more products into internal beta, we lose the ability
+ * to test "beta" functionality using real config. So, we mock
+ * get-is-beta-product in order to provide a consistent testing config.
+ */
+jest.mock('../../../../lib/get-is-beta-product', () => (productSlug) => {
+	// TODO: remove 'cloud' here, also need to account for 'hcp' URLs
+	// Task: https://app.asana.com/0/0/1202779234480934/f
+	const nonBetaProductsForTesting = ['boundary', 'packer', 'vagrant', 'cloud']
+	return nonBetaProductsForTesting.indexOf(productSlug) === -1
+})
+
 describe('detectAndReformatLearnUrl', () => {
 	beforeEach(async () => {
 		// the api base url defaults to localhost when no VERCEL_URL is provided

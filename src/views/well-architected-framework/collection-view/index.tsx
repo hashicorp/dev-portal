@@ -6,6 +6,7 @@ import { SidebarProps } from 'components/sidebar'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import CollectionMeta from 'views/collection-view/components/collection-meta'
 import CollectionTutorialList from 'views/collection-view/components/collection-tutorial-list'
+import OptInOut from 'components/opt-in-out'
 import { WellArchitectedFrameworkCollectionViewProps } from '../types'
 import { generateWafCollectionSidebar } from '../utils/generate-collection-sidebar'
 
@@ -31,6 +32,7 @@ export default function WellArchitectedFrameworkCollectionView({
 					sidebarSections
 				),
 			]}
+			optInOutSlot={<OptInOut platform="learn" />}
 		>
 			<CollectionMeta
 				heading={{ text: name, id }}
@@ -54,3 +56,5 @@ export default function WellArchitectedFrameworkCollectionView({
 		</SidebarSidecarLayout>
 	)
 }
+
+WellArchitectedFrameworkCollectionView.contentType = 'tutorials'
