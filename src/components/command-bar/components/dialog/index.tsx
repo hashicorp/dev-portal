@@ -1,22 +1,35 @@
+import { useState } from 'react'
 import { IconArrowDown16 } from '@hashicorp/flight-icons/svg-react/arrow-down-16'
 import { IconArrowUp16 } from '@hashicorp/flight-icons/svg-react/arrow-up-16'
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import Badge from 'components/badge'
-import { useCommandBar, SupportedCommand } from 'components/command-bar'
+import { useCommandBar, CommandBarTag } from 'components/command-bar'
 import Dialog from 'components/dialog'
 import { FORM_URL } from 'components/navigation-header/components/give-feedback-button'
 import StandaloneLink from 'components/standalone-link'
+import Tag from 'components/tag'
 import Text from 'components/text'
 import { CommandBarDialogFooterProps, CommandBarDialogProps } from './types'
 import s from './command-bar-dialog.module.css'
 
 const CommandBarDialogHeader = () => {
-	const { currentCommand } = useCommandBar()
+	const { currentCommand, currentTags, removeTag } = useCommandBar()
 
 	return (
 		<div className={s.header}>
 			<div className={s.icon}>{currentCommand.icon}</div>
+			{currentTags.length > 0 ? (
+				<div className={s.headerTags}>
+					{currentTags.map((tag: CommandBarTag) => (
+						<Tag
+							key={tag.id}
+							text={tag.text}
+							onRemove={() => removeTag(tag.id)}
+						/>
+					))}
+				</div>
+			) : null}
 			<input
 				className={s.input}
 				placeholder={currentCommand.inputProps.placeholder}
@@ -42,24 +55,19 @@ const CommandBarDialogHeader = () => {
 }
 
 const CommandBarDialogBody = () => {
-	const { currentCommand, setCurrentCommand } = useCommandBar()
+	const { addTag, currentTags } = useCommandBar()
+	const [inputValue, setInputValue] = useState('')
 
 	return (
 		<div className={s.body}>
+			<label>Tag text:</label>
+			<input onChange={(e) => setInputValue(e.target.value)} />
 			<button
-				onClick={() =>
-					setCurrentCommand(
-						currentCommand.name === SupportedCommand.search
-							? SupportedCommand.settings
-							: SupportedCommand.search
-					)
-				}
+				onClick={() => {
+					addTag({ id: currentTags.length.toString(), text: inputValue })
+				}}
 			>
-				Use{' '}
-				{currentCommand.name === SupportedCommand.search
-					? 'settings'
-					: 'search'}{' '}
-				command
+				add tag
 			</button>
 		</div>
 	)

@@ -18,6 +18,7 @@ import {
 	CommandBarContextState,
 	CommandBarContextValue,
 	CommandBarProviderProps,
+	CommandBarTag,
 	SupportedCommand,
 } from './types'
 
@@ -25,6 +26,7 @@ const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
 const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	currentCommand: commands.search,
+	currentTags: [],
 	isOpen: false,
 }
 
@@ -57,6 +59,35 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	)
 
 	/**
+	 * Set up `addTag` callback.
+	 */
+	const addTag = useCallback((tag: CommandBarTag) => {
+		setState((prevState: CommandBarContextState) => {
+			const prevTags = prevState.currentTags
+			return { ...prevState, currentTags: [...prevTags, tag] }
+		})
+	}, [])
+
+	/**
+	 * Set up `removeTag` callback.
+	 */
+	const removeTag = useCallback((tagId: CommandBarTag['id']) => {
+		setState((prevState: CommandBarContextState) => {
+			const prevTags = prevState.currentTags
+			if (prevTags.length === 0) {
+				return prevState
+			} else {
+				return {
+					...prevState,
+					currentTags: prevTags.filter(
+						(tag: CommandBarTag) => tag.id !== tagId
+					),
+				}
+			}
+		})
+	}, [])
+
+	/**
 	 * Set up the cmd/ctrl + k keydown listener.
 	 */
 	useEffect(() => {
@@ -82,8 +113,8 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	 * Memoize the Context value
 	 */
 	const contextValue = useMemo<CommandBarContextValue>(() => {
-		return { ...state, setCurrentCommand, toggleIsOpen }
-	}, [setCurrentCommand, state, toggleIsOpen])
+		return { ...state, addTag, removeTag, setCurrentCommand, toggleIsOpen }
+	}, [addTag, removeTag, setCurrentCommand, state, toggleIsOpen])
 
 	return (
 		<CommandBarContext.Provider value={contextValue}>
@@ -106,6 +137,7 @@ const useCommandBar = (): CommandBarContextValue => {
 	return context
 }
 
+export type { CommandBarTag }
 export {
 	CommandBarActivator,
 	CommandBarProvider,
