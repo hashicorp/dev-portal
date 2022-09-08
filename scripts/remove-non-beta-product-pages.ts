@@ -36,7 +36,8 @@ async function main() {
 			dir.name !== 'api' &&
 			dir.name !== 'swingset' &&
 			dir.name !== '[productSlug]' &&
-			dir.name !== 'well-architected-framework'
+			dir.name !== 'well-architected-framework' &&
+			dir.name !== 'onboarding'
 		) {
 			console.log(`🧹 removing pages at /${dir.name}`)
 			if (!process.env.DRY_RUN) {
