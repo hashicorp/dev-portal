@@ -40,7 +40,9 @@ function useCollectionProgress({
 	// Fetch progress records by `collectionId`
 	const { data, ...restQueryResult } = useQuery<QueryDataType>(
 		[COLLECTION_PROGRESS_SINGLE_QUERY_ID, collectionId],
-		() => getProgress({ accessToken, collectionIds: [collectionId] }),
+		useCallback(() => {
+			return getProgress({ accessToken, collectionIds: [collectionId] })
+		}, [accessToken, collectionId]),
 		{ enabled }
 	)
 
