@@ -9,12 +9,27 @@ interface SidebarCategory {
 	items: { name: string; collectionSlug: string; isBeta?: boolean }[]
 }
 
+/**
+ * The HCP tutorials landing and collection
+ * sidebar is unique from other product sidebars.
+ * The `genericHcpCollections` represent the actual
+ * collections under 'cloud' in the filesystem. However,
+ * there are additional cloud related collections for each
+ * HCP product that we link to, but these live under their
+ * specific product directory (e.g. vault/get-started-hcp )
+ *
+ * The additional sidebar categories to link to these product
+ * collections are managed in a static JSON file in the content dir.
+ *
+ * This is considered an interim implementation for the GA launch.
+ * Ideally, we could adjust the content structure so this sidebar
+ * is generated based on the filesystem, like the other products.
+ */
+
 export function buildCategorizedHcpSidebar(
 	allCollections: ApiCollection[],
 	currentSlug?: string
 ): CollectionCategorySidebarSection[] {
-	// take all collections, make those generic in the first list
-	// take the rest of the categories and build the item based on that
 	const genericHcpCollections = [
 		{
 			title: 'HashiCorp Cloud Platform',
