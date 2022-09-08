@@ -44,6 +44,9 @@ const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 				[TUTORIAL_PROGRESS_QUERY_ID, tutorialId, collectionId],
 				data
 			)
+
+			// Invalidate related collection progress
+			queryClient.invalidateQueries(['collectionProgress', collectionId])
 		}
 	}
 
