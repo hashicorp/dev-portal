@@ -1,15 +1,25 @@
 .heroMargin {
-  margin-bottom: 32px;
+	margin-bottom: 32px;
 }
 
 .iconCardsMargin {
-  margin: 32px 0;
+	margin: 32px 0;
 }
 
 .overviewCtaMargin {
-  margin: 56px 0;
+	margin: 56px 0;
 }
 
 .getStartedMargin {
-  margin: 48px 0;
+	margin: 48px 0;
+}
+
+.overviewParagraph {
+	composes: hds-typography-body-300 from global;
+	color: var(--token-color-foreground-primary);
+	margin: 16px 0 0 0;
+
+	@media (--dev-dot-desktop-up) {
+		margin: 8px 0 0 0;
+	}
 }

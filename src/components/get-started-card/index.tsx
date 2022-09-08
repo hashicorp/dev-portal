@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { SUPPORTED_ICONS } from 'content/supported-icons'
 import ButtonLink from 'components/button-link'
@@ -14,9 +15,18 @@ function GetStartedCard({
 	body,
 	ctas,
 	iconCardLinks,
+	fixedColumns,
 }: GetStartedCardProps) {
 	const hasCtas = ctas !== undefined && ctas !== null
 	const hasIconCardLinks = iconCardLinks !== undefined && iconCardLinks !== null
+	/**
+	 * For fixed columns mode, where layout is driven by
+	 * media queries and explicit column counts.
+	 */
+	const fixedModeClasses = classNames(
+		s.fixedColumnsMode,
+		s[`columns${fixedColumns}`]
+	)
 	if (hasCtas && hasIconCardLinks) {
 		developmentToast({
 			color: ToastColor.critical,
@@ -33,7 +43,7 @@ function GetStartedCard({
 			</h2>
 			<p className={s.body}>{body}</p>
 			{ctas && ctas.length ? (
-				<div className={s.ctas}>
+				<div className={classNames(s.ctas, fixedColumns && fixedModeClasses)}>
 					{ctas.map((cta, idx) => {
 						if (idx == 0) {
 							// eslint-disable-next-line react/no-array-index-key
@@ -54,7 +64,12 @@ function GetStartedCard({
 				</div>
 			) : null}
 			{iconCardLinks && iconCardLinks.length ? (
-				<ul className={s.iconCardLinks}>
+				<ul
+					className={classNames(
+						s.iconCardLinks,
+						fixedColumns && fixedModeClasses
+					)}
+				>
 					{iconCardLinks.map(({ icon, text, url }) => {
 						return (
 							<li key={url}>
