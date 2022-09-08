@@ -1,6 +1,8 @@
 import type { InferGetStaticPropsType } from 'next'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { OpenApiPageContents } from 'components/open-api-page'
+import DevDotContent from 'components/dev-dot-content'
+import CodeBlock from '@hashicorp/react-code-block'
 /* Used server-side only */
 import { cachedGetProductData } from 'lib/get-product-data'
 import fetchGithubFile from 'lib/fetch-github-file'
@@ -29,7 +31,33 @@ const ApiDocsPage: PageWithLayout<ApiDocsPageProps> = ({ apiPageProps }) => {
 		<OpenApiPageContents
 			info={apiPageProps.info}
 			operationCategory={apiPageProps.operationCategory}
-			renderOperationIntro={null}
+			// Truncate operation paths,
+			// as they are otherwise very difficult to read
+			massageOperationPathFn={(path) =>
+				path.replace(
+					'/packer/2021-04-30/organizations/{location.organization_id}/projects/{location.project_id}',
+					''
+				)
+			}
+			// Add an introductory warning text to each operation
+			// to make a note that the paths have been truncated
+			renderOperationIntro={function PathAside({ data }) {
+				return (
+					<>
+						<DevDotContent>
+							<div className="alert alert-info">
+								<strong>Note:</strong> Operation paths have been truncated for
+								clarity. The full path to this operation is:
+							</div>
+						</DevDotContent>
+						<CodeBlock
+							code={data.__path}
+							theme="dark"
+							options={{ showClipboard: true }}
+						/>
+					</>
+				)
+			}}
 		/>
 	)
 }
