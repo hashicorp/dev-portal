@@ -108,7 +108,7 @@
 			"name": "Configuration Language",
 			"path": "language",
 			"visuallyHideSidebarTitle": true,
-			"addOverviewItem": false,
+			"addOverviewItem": false
 		},
 		{
 			"iconName": "plug",
