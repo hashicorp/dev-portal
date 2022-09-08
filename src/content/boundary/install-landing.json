@@ -1,24 +1,43 @@
 {
-	"featuredTutorialsSlugs": [],
+	"featuredTutorialsSlugs": [
+		"boundary/oidc-auth",
+		"boundary/vault-cred-brokering-quickstart",
+		"boundary/hcp-manage-workers",
+		"boundary/hcp-ssh-cred-injection",
+		"boundary/oidc-idp-groups",
+		"boundary/prometheus-metrics"
+	],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "What is Bounary?",
+			"fullPath": "/boundary/docs/what-is-boundary"
+		},
+		{
+			"title": "Quick Start",
+			"fullPath": "/boundary/docs/getting-started/deploy-and-login"
+		}
+	],
 	"sidecarMarketingCard": {
 		"title": "About Boundary",
-		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+		"subtitle": "Boundary is an intelligent proxy that creates granular, identity-based access controls for dynamic infrastructure.",
 		"featuredDocsLinks": [
 			{
-				"href": "boundary/docs/getting-started",
-				"text": "Getting Started"
+				"href": "/boundary/docs/what-is-boundary",
+				"text": "What is Boundary?"
 			},
 			{
-				"href": "/boundary/docs/concepts",
-				"text": "Concepts"
+				"href": "/boundary/docs/use-cases",
+				"text": "Use Cases"
 			},
 			{
-				"href": "/boundary/docs/configuration",
-				"text": "Configuration"
-			},
-			{
-				"href": "/boundary/docs/common-workflows",
-				"text": "Common Workflows"
+				"href": "/boundary/docs/concepts/domain-model",
+				"text": "Domain Model"
 			}
 		]
 	}

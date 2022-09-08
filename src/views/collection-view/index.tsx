@@ -76,4 +76,6 @@ function CollectionView({
 	)
 }
 
+CollectionView.contentType = 'tutorials'
+
 export default CollectionView

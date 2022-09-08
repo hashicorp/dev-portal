@@ -18,9 +18,7 @@ const CommandBarActivator = ({
 			onClick={() => toggleIsOpen()}
 		>
 			<span className={s.left}>
-				{leadingIcon ? (
-					<span className={s.leadingIcon}>{leadingIcon}</span>
-				) : null}
+				<span className={s.leadingIcon}>{leadingIcon}</span>
 				<Text asElement="span" className={s.text} size={200} weight="regular">
 					{visualLabel}
 				</Text>
