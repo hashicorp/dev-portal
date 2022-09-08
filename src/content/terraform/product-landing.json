@@ -51,21 +51,6 @@
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Popular Use Cases",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": [
-				"terraform/multicloud-kubernetes",
-				"terraform/preview-environments-vercel",
-				"terraform/cdktf-assets-stacks-lambda",
-				"packer/golden-image-with-hcp-packer"
-			]
-		},
-		{
-			"type": "heading",
 			"heading": "Featured Documentation",
 			"level": 2,
 			"size": 400
@@ -88,6 +73,34 @@
 					"body": "Collaborate with your team to provision infrastructure.",
 					"url": "/terraform/cloud-docs"
 				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Popular Use Cases",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"terraform/multicloud-kubernetes",
+				"terraform/preview-environments-vercel",
+				"terraform/cdktf-assets-stacks-lambda",
+				"packer/golden-image-with-hcp-packer"
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Prepare for Certification",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": [
+				"terraform/certification",
+				"terraform/certification-associate-tutorials"
 			]
 		}
 	]
