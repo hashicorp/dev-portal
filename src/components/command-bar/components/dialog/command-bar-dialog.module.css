@@ -27,6 +27,12 @@
 	flex-shrink: 0;
 }
 
+.headerTags {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
 .input {
 	appearance: none;
 	background-color: transparent;
