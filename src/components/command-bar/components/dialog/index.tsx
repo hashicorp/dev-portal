@@ -1,6 +1,7 @@
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
+import { useCurrentContentType } from 'contexts'
 import Badge from 'components/badge'
-import { useCommandBar, SupportedCommand } from 'components/command-bar'
+import { useCommandBar } from 'components/command-bar'
 import Dialog from 'components/dialog'
 import { CommandBarDialogFooterProps, CommandBarDialogProps } from './types'
 import s from './command-bar-dialog.module.css'
@@ -36,25 +37,11 @@ const CommandBarDialogHeader = () => {
 }
 
 const CommandBarDialogBody = () => {
-	const { currentCommand, setCurrentCommand } = useCommandBar()
+	const currentContentType = useCurrentContentType()
 
 	return (
 		<div className={s.body}>
-			<button
-				onClick={() =>
-					setCurrentCommand(
-						currentCommand.name === SupportedCommand.search
-							? SupportedCommand.settings
-							: SupportedCommand.search
-					)
-				}
-			>
-				Use{' '}
-				{currentCommand.name === SupportedCommand.search
-					? 'settings'
-					: 'search'}{' '}
-				command
-			</button>
+			<div>Current content type: {currentContentType}</div>
 		</div>
 	)
 }
