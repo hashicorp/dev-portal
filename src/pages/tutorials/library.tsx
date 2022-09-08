@@ -26,6 +26,7 @@ interface TutorialsLibraryPageProps {
 
 function TutorialLibrarySidebar() {
 	return (
+		// TODO: we should consider using Sidebar here to make the markup consistent across pages. We aren't for now due to duplicate "Resources" headings and Tutorial Library being a semi-special case.
 		<>
 			<div className="g-hide-with-mobile-menu">
 				<ConnectedTutorialLibraryFilters />
