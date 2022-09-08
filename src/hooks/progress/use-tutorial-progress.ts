@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import useAuthentication from 'hooks/use-authentication'
 import { ApiCollectionTutorialProgress } from 'lib/learn-client/api/api-types'
@@ -47,7 +48,10 @@ const useTutorialProgress = ({
 		TutorialProgressStatus
 	>(
 		[TUTORIAL_PROGRESS_SINGLE_QUERY_ID, tutorialId, collectionId],
-		() => getTutorialProgress({ accessToken, tutorialId, collectionId }),
+		useCallback(
+			() => getTutorialProgress({ accessToken, tutorialId, collectionId }),
+			[accessToken, tutorialId, collectionId]
+		),
 		{
 			enabled,
 			select: (data: ApiCollectionTutorialProgress) => {

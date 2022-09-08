@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import useAuthentication from 'hooks/use-authentication'
 import { getProgress, GetProgressResult } from 'lib/learn-client/api/progress'
@@ -7,7 +8,6 @@ import {
 	COLLECTION_PROGRESS_SINGLE_QUERY_ID,
 } from './'
 import { useHasWaitedForQuery } from 'hooks/use-has-waited-for-query'
-import { useCallback } from 'react'
 
 type QueryDataType = GetProgressResult
 
@@ -40,9 +40,10 @@ function useCollectionProgress({
 	// Fetch progress records by `collectionId`
 	const { data, ...restQueryResult } = useQuery<QueryDataType>(
 		[COLLECTION_PROGRESS_SINGLE_QUERY_ID, collectionId],
-		useCallback(() => {
-			return getProgress({ accessToken, collectionIds: [collectionId] })
-		}, [accessToken, collectionId]),
+		useCallback(
+			() => getProgress({ accessToken, collectionIds: [collectionId] }),
+			[accessToken, collectionId]
+		),
 		{ enabled }
 	)
 
