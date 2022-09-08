@@ -18,8 +18,10 @@ import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analyti
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 
 // Global imports
+import type { CustomAppProps, CustomAppContext } from 'types/_app'
 import {
 	AllProductDataProvider,
+	CurrentContentTypeProvider,
 	CurrentProductProvider,
 	DeviceSizeProvider,
 } from 'contexts'
@@ -32,8 +34,6 @@ import EmptyLayout from 'layouts/empty'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
-
-import type { CustomAppProps, CustomAppContext } from 'types/_app'
 
 // Local imports
 import './style.css'
@@ -83,6 +83,7 @@ export default function App({
 	)
 
 	const Layout = Component.layout ?? EmptyLayout
+	const currentContentType = Component.contentType ?? 'global'
 	const currentProduct = pageProps.product || null
 
 	/**
@@ -100,34 +101,38 @@ export default function App({
 	return (
 		<QueryClientProvider client={queryClient}>
 			<SSRProvider>
-				<ErrorBoundary FallbackComponent={DevDotClient}>
-					<SessionProvider session={session}>
-						<DeviceSizeProvider>
-							<AllProductDataProvider>
-								<CurrentProductProvider currentProduct={currentProduct}>
-									<CodeTabsProvider>
-										<HeadMetadata {...pageProps.metadata} host={host} />
-										<LazyMotion
-											features={() =>
-												import('lib/framer-motion-features').then(
-													(mod) => mod.default
-												)
-											}
-											strict={process.env.NODE_ENV === 'development'}
-										>
-											<Layout {...allLayoutProps} data={allLayoutProps}>
-												<Component {...pageProps} />
-											</Layout>
-											<Toaster />
-											{showProductSwitcher ? <PreviewProductSwitcher /> : null}
-											<ReactQueryDevtools />
-										</LazyMotion>
-									</CodeTabsProvider>
-								</CurrentProductProvider>
-							</AllProductDataProvider>
-						</DeviceSizeProvider>
-					</SessionProvider>
-				</ErrorBoundary>
+				<CurrentContentTypeProvider currentContentType={currentContentType}>
+					<ErrorBoundary FallbackComponent={DevDotClient}>
+						<SessionProvider session={session}>
+							<DeviceSizeProvider>
+								<AllProductDataProvider>
+									<CurrentProductProvider currentProduct={currentProduct}>
+										<CodeTabsProvider>
+											<HeadMetadata {...pageProps.metadata} host={host} />
+											<LazyMotion
+												features={() =>
+													import('lib/framer-motion-features').then(
+														(mod) => mod.default
+													)
+												}
+												strict={process.env.NODE_ENV === 'development'}
+											>
+												<Layout {...allLayoutProps} data={allLayoutProps}>
+													<Component {...pageProps} />
+												</Layout>
+												<Toaster />
+												{showProductSwitcher ? (
+													<PreviewProductSwitcher />
+												) : null}
+												<ReactQueryDevtools />
+											</LazyMotion>
+										</CodeTabsProvider>
+									</CurrentProductProvider>
+								</AllProductDataProvider>
+							</DeviceSizeProvider>
+						</SessionProvider>
+					</ErrorBoundary>
+				</CurrentContentTypeProvider>
 			</SSRProvider>
 		</QueryClientProvider>
 	)
