@@ -18,6 +18,12 @@
 	padding-right: 12px;
 	padding-top: 8px;
 	min-width: 220px;
+
+	@media (--dev-dot-mobile) {
+		min-width: unset;
+		padding: 10px;
+		width: fit-content;
+	}
 }
 
 .left {
@@ -30,10 +36,18 @@
 .leadingIcon {
 	color: var(--token-color-palette-neutral-400);
 	display: flex;
+
+	@media (--dev-dot-mobile) {
+		color: var(--token-color-palette-neutral-200);
+	}
 }
 
 .text {
 	color: var(--token-color-foreground-high-contrast);
+
+	@media (--dev-dot-mobile) {
+		display: none;
+	}
 }
 
 .right {
@@ -41,4 +55,8 @@
 	display: flex;
 	flex-shrink: 0;
 	gap: 4px;
+
+	@media (--dev-dot-mobile) {
+		display: none;
+	}
 }
