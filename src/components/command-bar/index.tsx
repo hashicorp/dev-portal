@@ -7,13 +7,7 @@ import {
 	useState,
 } from 'react'
 import commands from './commands'
-import {
-	CommandBarActivator,
-	CommandBarDialog,
-	CommandBarDialogHeader,
-	CommandBarDialogBody,
-	CommandBarDialogFooter,
-} from './components'
+import { CommandBarActivator, CommandBarDialog } from './components'
 import {
 	CommandBarContextState,
 	CommandBarContextValue,
@@ -119,11 +113,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	return (
 		<CommandBarContext.Provider value={contextValue}>
 			{children}
-			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
-				<CommandBarDialogHeader />
-				<CommandBarDialogBody />
-				<CommandBarDialogFooter />
-			</CommandBarDialog>
+			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen} />
 		</CommandBarContext.Provider>
 	)
 }
