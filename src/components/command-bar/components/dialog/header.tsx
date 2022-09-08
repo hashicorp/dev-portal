@@ -1,11 +1,25 @@
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
 import Badge from 'components/badge'
-import { useCommandBar, CommandBarTag } from 'components/command-bar'
+import {
+	useCommandBar,
+	CommandBarTag,
+	SupportedCommand,
+} from 'components/command-bar'
 import Tag from 'components/tag'
+import { useCurrentProduct } from 'contexts'
+import { useEffect } from 'react'
 import s from './command-bar-dialog.module.css'
 
 const CommandBarDialogHeader = () => {
-	const { currentCommand, currentTags, removeTag } = useCommandBar()
+	const currentProduct = useCurrentProduct()
+	const { addTag, currentCommand, currentTags, removeTag } = useCommandBar()
+
+	// TODO: abstract an `onInitialRender` for each command? :thinking:
+	useEffect(() => {
+		if (currentProduct && currentCommand.name === SupportedCommand.search) {
+			addTag({ id: currentProduct.slug, text: currentProduct.name })
+		}
+	}, [addTag, currentCommand, currentProduct])
 
 	return (
 		<div className={s.header}>
