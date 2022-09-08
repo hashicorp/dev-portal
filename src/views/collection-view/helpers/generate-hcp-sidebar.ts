@@ -1,6 +1,4 @@
-import { MenuItem } from 'components/sidebar'
-import { EnrichedNavItem } from 'components/sidebar/types'
-import { Collection as ApiCollection, Collection } from 'lib/learn-client/types'
+import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { sortAlphabetically } from 'lib/sort-alphabetically'
 import hcpContent from 'content/hcp/tutorial-landing.json'
 import { getCollectionSlug } from './get-slug'
