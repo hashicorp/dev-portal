@@ -34,7 +34,6 @@ const queryHook: UseSearchBoxProps['queryHook'] = (query, search) => {
  */
 export default function TutorialLibraryView() {
 	const { query: searchQuery, refine } = useSearchBox({ queryHook })
-
 	const [query, setQuery] = useState<string>(searchQuery)
 	const [showMobileFilters, setShowMobileFilters] = useState(false)
 	const filtersState = useFiltersState()
