@@ -51,15 +51,13 @@ export function buildCategorizedHcpSidebar(
 			title: category.name,
 			items: category.items.map((item) => {
 				const href = getCollectionSlug(item.collectionSlug)
-
 				const badge = item.isBeta
 					? {
 							text: 'BETA',
 							type: 'outlined',
 							color: 'neutral',
 					  }
-					: null
-				console.log({ badge })
+					: undefined
 				return {
 					text: item.name,
 					href,
