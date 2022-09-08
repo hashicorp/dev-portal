@@ -44,7 +44,7 @@ interface TutorialViewProps {
 	layoutProps: TutorialSidebarSidecarProps
 	product: Omit<LearnProductData, 'slug'> & {
 		slug: LearnClientProduct['slug'] | 'hcp'
-	}
+	} // @TODO clean up the hcp / learn product slug types https://app.asana.com/0/1202097197789424/1202946807363608
 	tutorial: TutorialData
 }
 
