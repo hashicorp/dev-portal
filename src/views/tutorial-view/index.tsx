@@ -286,6 +286,8 @@ function TutorialView({
 	)
 }
 
+TutorialView.contentType = 'tutorials'
+
 export type {
 	TutorialViewProps,
 	TutorialData,
