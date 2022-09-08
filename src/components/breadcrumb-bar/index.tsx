@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Script from 'next/script'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Text from 'components/text'
 import s from './breadcrumb-bar.module.css'
@@ -34,13 +35,28 @@ function BreadcrumbBar({
 		})
 	// Now that we're sure all links are relative,
 	// we can render the breadcrumb links
+
+	const structuredData = [
+		{
+			'@context': 'https://schema.org',
+			'@type': 'BreadcrumbList',
+			itemListElement: links.map((link, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				name: link.title,
+				item: link.url
+					? `https://developer.hashicorp.com${link.url}`
+					: undefined,
+			})),
+		},
+	]
+	const stringifiedStructuredData = JSON.stringify(structuredData)
 	return (
 		<nav aria-label="Breadcrumb" className={s.root}>
-			<ol
-				className={s.listRoot}
-				itemScope
-				itemType="http://schema.org/BreadcrumbList"
-			>
+			<Script type="application/ld+json" id={stringifiedStructuredData}>
+				{stringifiedStructuredData}
+			</Script>
+			<ol className={s.listRoot}>
 				{links.map(({ title, url, isCurrentPage }, i) => {
 					return (
 						<Breadcrumb
@@ -48,7 +64,6 @@ function BreadcrumbBar({
 							title={title}
 							url={url}
 							isCurrentPage={isCurrentPage}
-							position={`${i + 1}`}
 						/>
 					)
 				})}
@@ -61,37 +76,23 @@ export interface BreadCrumbProps {
 	title: string
 	url: string
 	isCurrentPage: boolean
-	position: string
 }
 export const Breadcrumb: React.ComponentType<BreadCrumbProps> = ({
 	title,
 	url,
 	isCurrentPage,
-	position,
 }) => {
 	const cleanTitle = title.replace(/<[^>]+>/g, '')
 	const Elem = url ? InternalLink : 'span'
 	return (
-		<Text
-			asElement="li"
-			className={s.listItem}
-			size={100}
-			weight="medium"
-			itemProp="itemListElement"
-			itemScope
-			itemType="http://schema.org/ListItem"
-		>
+		<Text asElement="li" className={s.listItem} size={100} weight="medium">
 			<Elem
 				className={s.breadcrumbText}
 				href={url}
 				aria-current={isCurrentPage ? 'page' : undefined}
-				itemScope
-				itemType="http://schema.org/Thing"
-				itemProp="item"
 			>
 				<span itemProp="name">{cleanTitle}</span>
 			</Elem>
-			<meta itemProp="position" content={position} />
 		</Text>
 	)
 }
