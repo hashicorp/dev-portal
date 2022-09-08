@@ -147,6 +147,9 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	collections.forEach((collection: ClientCollection) => {
 		// assuming slug structure of :product/:filename
 		const [collectionProductSlug, filename] = collection.slug.split('/')
+
+		const productSlug =
+			collectionProductSlug === 'cloud' ? 'hcp' : collectionProductSlug
 		/**
 		 * Only build collections where the `productSlug` is a valid beta product.
 		 * As well, for all non-HCP products, only build collections where
@@ -159,8 +162,7 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
 		const isBetaProduct =
-			isProductSlug(collectionProductSlug) &&
-			getIsBetaProduct(collectionProductSlug)
+			isProductSlug(productSlug) && getIsBetaProduct(productSlug)
 		const isCloud = collectionProductSlug == 'cloud'
 		const themeMatches = collectionProductSlug === collection.theme
 		const shouldBuildCollectionPath = isBetaProduct && (isCloud || themeMatches)
@@ -168,7 +170,7 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		if (shouldBuildCollectionPath) {
 			paths.push({
 				params: {
-					productSlug: collectionProductSlug,
+					productSlug: productSlug,
 					collectionSlug: filename,
 				},
 			})
