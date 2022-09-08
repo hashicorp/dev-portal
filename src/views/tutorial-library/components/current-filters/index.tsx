@@ -1,7 +1,7 @@
 import { useCurrentRefinements } from 'react-instantsearch-hooks-web'
-import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 
 import Text from 'components/text'
+import Tag from 'components/tag'
 import { productSlugsToNames } from 'lib/products'
 import currentFiltersStyle from './current-filters.module.css'
 import { EDITIONS, RESOURCES } from '../../constants'
@@ -62,13 +62,12 @@ export function CurrentFilters() {
 
 							return (
 								<li key={labelText}>
-									<button
-										onClick={() => item.refine(refinement)}
-										className={currentFiltersStyle.filterButton}
-										aria-label={`Remove filter ${labelText}`}
-									>
-										{labelText} <IconX16 />
-									</button>
+									{/* TODO: test with voice control, validate that it fulfills Success Criterion 2.5.3 Label in Name */}
+									<Tag
+										removeButtonAriaLabel={`Remove filter ${labelText}`}
+										onRemove={() => item.refine(refinement)}
+										text={labelText}
+									/>
 								</li>
 							)
 						})
