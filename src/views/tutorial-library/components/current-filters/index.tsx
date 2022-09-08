@@ -74,7 +74,7 @@ export function CurrentFilters() {
 						})
 					})}
 			</ul>
-			<ClearFilters />
+			<ClearFilters className="g-hide-with-mobile-menu" />
 		</div>
 	)
 }

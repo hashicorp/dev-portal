@@ -1,15 +1,14 @@
 import { RadioField } from 'components/form/field-controls'
-import { useInstantSearch, useMenu } from 'react-instantsearch-hooks-web'
 import { EDITIONS } from '../../constants'
 import { FilterSection } from '../filter-section'
 
-export function EditionFilter() {
-	const { refine } = useMenu({ attribute: 'edition' })
+export interface EditionFilterProps {
+	refine: (value: string | null) => void
+	selectedEdition: string
+}
 
-	const { indexUiState } = useInstantSearch()
-	const selectedAddition = indexUiState?.menu?.edition
-
-	const isAnyEditionSelected = selectedAddition !== undefined
+export function EditionFilter({ refine, selectedEdition }: EditionFilterProps) {
+	const isAnyEditionSelected = selectedEdition !== undefined
 
 	return (
 		<FilterSection heading="Edition">
@@ -25,7 +24,7 @@ export function EditionFilter() {
 				/>
 			</li>
 			{EDITIONS.map(({ value, label }) => {
-				const isEditionSelected = value === selectedAddition
+				const isEditionSelected = value === selectedEdition
 
 				const inputId = `filter-${value}`
 
