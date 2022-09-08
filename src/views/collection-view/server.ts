@@ -17,16 +17,16 @@ import {
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
+import { isProductSlug } from 'lib/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
-
 import {
 	CollectionCategorySidebarSection,
 	formatSidebarCategorySections,
+	buildCategorizedHcpSidebar,
 } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
-import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
-import { isProductSlug } from 'lib/products'
 
 export interface CollectionPageProps {
 	collection: ClientCollection
@@ -55,29 +55,24 @@ const moizeOpts: Options = {
 const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
 export async function getCollectionViewSidebarSections(
-	productSlug: LearnProductSlug | 'hcp',
-	collection: ClientCollection
+	productSlug: LearnProductSlug,
+	collectionSlug: string
 ) {
-	let filteredCollections
+	const allProductCollections = await cachedGetAllCollections({
+		product: { slug: productSlug as ProductOption, sidebarSort: true },
+	})
+	const filteredCollections = filterCollections(
+		allProductCollections,
+		productSlug as ProductOption
+	)
+	return formatSidebarCategorySections(filteredCollections, collectionSlug)
+}
 
-	/**
-	 * Get a filtered set of collections for the current product.
-	 * Note that `hcp` is a "product" in Dev Dot but not in Learn,
-	 * so we do some branching.
-	 */
-	if (productSlug == 'hcp') {
-		filteredCollections = await getCollectionsBySection('cloud')
-	} else {
-		const allProductCollections = await cachedGetAllCollections({
-			product: { slug: productSlug as ProductOption, sidebarSort: true },
-		})
-		filteredCollections = filterCollections(
-			allProductCollections,
-			productSlug as ProductOption
-		)
-	}
-
-	return formatSidebarCategorySections(filteredCollections, collection.slug)
+export async function getHCPCollectionViewSidebarSections(
+	collectionSlug?: string
+) {
+	const allCollections = await getCollectionsBySection('cloud')
+	return buildCategorizedHcpSidebar(allCollections, collectionSlug)
 }
 
 /**
@@ -104,6 +99,17 @@ export async function getCollectionPageProps(
 		return null
 	}
 
+	let sidebarSections
+
+	if (product.slug === 'hcp') {
+		sidebarSections = await getHCPCollectionViewSidebarSections(collection.slug)
+	} else {
+		sidebarSections = await getCollectionViewSidebarSections(
+			product.slug,
+			collection.slug
+		)
+	}
+
 	const layoutProps = {
 		breadcrumbLinks: getTutorialsBreadcrumb({
 			product: { name: product.name, filename: product.slug },
@@ -112,10 +118,7 @@ export async function getCollectionPageProps(
 				filename: splitProductFromFilename(collection.slug),
 			},
 		}),
-		sidebarSections: await getCollectionViewSidebarSections(
-			product.slug,
-			collection
-		),
+		sidebarSections,
 	}
 
 	return {

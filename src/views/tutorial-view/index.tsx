@@ -81,7 +81,7 @@ const LayoutContentWrapper = ({
 			 */
 			getCollectionViewSidebarSections(
 				product.slug,
-				collectionCtx.current
+				collectionCtx.current.slug
 			).then((result: CollectionCategorySidebarSection[]) => {
 				hasLoadedData.current = true
 				setCollectionViewSidebarSections(result)

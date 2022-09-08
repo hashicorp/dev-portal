@@ -1,0 +1,30 @@
+{
+	"sidebarCategories": [
+		{
+			"name": "HCP Vault",
+			"items": [{ "name": "Quickstart", "collectionSlug": "vault/cloud" }]
+		},
+		{
+			"name": "HCP Consul",
+
+			"items": [
+				{ "name": "Quickstart", "collectionSlug": "consul/cloud-get-started" }
+			]
+		},
+		{
+			"name": "HCP Boundary",
+			"items": [
+				{
+					"name": "Quickstart",
+					"collectionSlug": "boundary/hcp-getting-started"
+				}
+			]
+		},
+		{
+			"name": "HCP Packer",
+			"items": [
+				{ "name": "Quickstart", "collectionSlug": "packer/hcp-get-started" }
+			]
+		}
+	]
+}
