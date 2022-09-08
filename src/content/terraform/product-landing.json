@@ -5,7 +5,7 @@
 	},
 	"overview": {
 		"heading": "What is Terraform?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+		"body": "Terraform is an infrastructure as code tool that lets you build, change, and version infrastructure safely and efficiently. This includes low-level components like compute instances, storage, and networking; and high-level components like DNS entries and SaaS features.",
 		"cta": {
 			"text": "Learn more about Terraform features",
 			"url": "/vault/docs/what-is-vault"
