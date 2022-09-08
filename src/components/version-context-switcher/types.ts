@@ -19,7 +19,7 @@ export interface VersionContextSwitcherProps {
 	 * It is invoked after the component has run its internal code for handling
 	 * changes to the switcher.
 	 */
-	onChange?: (x: string) => void
+	onChange?: (version: string) => void
 
 	/**
 	 * An array of the options to render in the switcher.
