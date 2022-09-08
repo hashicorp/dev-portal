@@ -1,9 +1,6 @@
 import { useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query'
 import useAuthentication from 'hooks/use-authentication'
-import {
-	getAllProgress,
-	GetAllProgressResult,
-} from 'lib/learn-client/api/progress'
+import { getProgress, GetProgressResult } from 'lib/learn-client/api/progress'
 import { Collection, Tutorial } from 'lib/learn-client/types'
 import {
 	COLLECTION_PROGRESS_SINGLE_QUERY_ID,
@@ -11,7 +8,7 @@ import {
 	PROGRESS_BATCH_QUERY_ID,
 } from '../'
 
-type QueryDataType = GetAllProgressResult
+type QueryDataType = GetProgressResult
 
 interface UseProgressBatchQueryOptions {
 	tutorials?: {
@@ -114,7 +111,7 @@ function useProgressBatchQuery({
 	 */
 	const { data, ...restQueryResult } = useQuery<QueryDataType>(
 		[PROGRESS_BATCH_QUERY_ID, { tutorialIds }],
-		() => getAllProgress({ accessToken, tutorialIds, collectionIds }),
+		() => getProgress({ accessToken, tutorialIds, collectionIds }),
 		{ enabled: !!accessToken, onSuccess }
 	)
 

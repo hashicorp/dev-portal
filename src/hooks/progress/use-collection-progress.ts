@@ -1,17 +1,15 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import useAuthentication from 'hooks/use-authentication'
-import {
-	getAllProgress,
-	GetAllProgressResult,
-} from 'lib/learn-client/api/progress'
+import { getProgress, GetProgressResult } from 'lib/learn-client/api/progress'
 import { Collection } from 'lib/learn-client/types'
 import {
 	PROGRESS_BATCH_QUERY_ID,
 	COLLECTION_PROGRESS_SINGLE_QUERY_ID,
 } from './'
 import { useHasWaitedForQuery } from 'hooks/use-has-waited-for-query'
+import { useCallback } from 'react'
 
-type QueryDataType = GetAllProgressResult
+type QueryDataType = GetProgressResult
 
 interface UseCollectionProgressOptions {
 	collectionId: Collection['id']
@@ -42,7 +40,7 @@ function useCollectionProgress({
 	// Fetch progress records by `collectionId`
 	const { data, ...restQueryResult } = useQuery<QueryDataType>(
 		[COLLECTION_PROGRESS_SINGLE_QUERY_ID, collectionId],
-		() => getAllProgress({ accessToken, collectionIds: [collectionId] }),
+		() => getProgress({ accessToken, collectionIds: [collectionId] }),
 		{ enabled }
 	)
 

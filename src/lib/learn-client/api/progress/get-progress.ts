@@ -5,16 +5,16 @@ import { SessionData } from 'types/auth'
 import { PROGRESS_API_ROUTE } from '.'
 import { ApiCollectionTutorialProgress } from '../api-types'
 
-interface GetAllProgressOptions {
+interface GetProgressOptions {
 	accessToken: SessionData['accessToken']
 	tutorialIds?: Tutorial['id'][]
 	collectionIds?: Collection['id'][]
 }
 
-type GetAllProgressResult = ApiCollectionTutorialProgress[]
+type GetProgressResult = ApiCollectionTutorialProgress[]
 
 /**
- * Fetches all tutorial progress records for the current user.
+ * Fetches tutorial progress records for the current user.
  * If successful, returns an array of progress objects.
  * Otherwise throws an error.
  *
@@ -26,22 +26,11 @@ type GetAllProgressResult = ApiCollectionTutorialProgress[]
  *
  * https://digital-api-specs.vercel.app/learn#tag/Progress/paths/~1progress/get
  */
-const getAllProgress = async ({
+const getProgress = async ({
 	accessToken,
 	tutorialIds,
 	collectionIds,
-}: GetAllProgressOptions): Promise<GetAllProgressResult> => {
-	/**
-	 * TODO: figure out why this happens sometimes!
-	 * Maybe related to "queryClient.invalidate"? That's my best guess so far.
-	 */
-	const doesNotHaveAccessToken = typeof accessToken == 'undefined'
-	if (doesNotHaveAccessToken) {
-		console.log(
-			"getAllProgress: for some reason we're making a request even though we don't have an accessToken."
-		)
-	}
-
+}: GetProgressOptions): Promise<GetProgressResult> => {
 	// Add query params to the URL, if applicable
 	let url = PROGRESS_API_ROUTE
 	const qs = queryString.stringify(
@@ -66,5 +55,5 @@ const getAllProgress = async ({
 	throw error
 }
 
-export type { GetAllProgressOptions, GetAllProgressResult }
-export { getAllProgress }
+export type { GetProgressOptions, GetProgressResult }
+export { getProgress }
