@@ -148,6 +148,7 @@ export async function getStaticProps({ params }) {
 	}
 }
 
+ApiDocsView.contentType = 'docs'
 ApiDocsView.layout = SidebarSidecarLayout
 
 export default ApiDocsView
