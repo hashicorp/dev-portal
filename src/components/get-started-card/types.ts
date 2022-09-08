@@ -14,4 +14,5 @@ export interface GetStartedCardProps {
 		text: IconCardLinkProps['text']
 		url: IconCardLinkProps['url']
 	}[]
+	fixedColumns?: 2 | 3
 }
