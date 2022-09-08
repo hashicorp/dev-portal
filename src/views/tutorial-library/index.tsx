@@ -31,7 +31,7 @@ const queryHook: UseSearchBoxProps['queryHook'] = (query, search) => {
  *
  * @TODO pagination
  */
-export default function TutorialLibraryView() {
+export default function TutorialLibraryView({ defaultTutorials }) {
 	const { query: searchQuery, refine } = useSearchBox({ queryHook })
 	const [query, setQuery] = useState<string>(searchQuery)
 	const [showMobileFilters, setShowMobileFilters] = useState(false)
@@ -65,7 +65,7 @@ export default function TutorialLibraryView() {
 				</Dialog>
 			</div>
 			<CurrentFilters />
-			<TutorialLibraryResults />
+			<TutorialLibraryResults defaultTutorials={defaultTutorials} />
 		</div>
 	)
 }
