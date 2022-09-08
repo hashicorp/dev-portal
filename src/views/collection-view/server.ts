@@ -55,24 +55,36 @@ const moizeOpts: Options = {
 const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
 export async function getCollectionViewSidebarSections(
-	productSlug: LearnProductSlug,
+	productSlug: LearnProductSlug | 'hcp',
 	collection: ClientCollection
 ) {
-	const allProductCollections = await cachedGetAllCollections({
-		product: { slug: productSlug as ProductOption, sidebarSort: true },
-	})
-	const filteredCollections = filterCollections(
-		allProductCollections,
-		productSlug as ProductOption
-	)
-	return formatSidebarCategorySections(filteredCollections, collection.slug)
-}
+	let sidebarSections
 
-export async function getHCPCollectionViewSidebarSections(
-	collectionSlug?: string
-) {
-	const allCollections = await getCollectionsBySection('cloud')
-	return buildCategorizedHcpSidebar(allCollections, collectionSlug)
+	/**
+	 * Note that `hcp` is a "product" in Dev Dot but not in Learn,
+	 * so we do some branching.
+	 */
+	if (productSlug == 'hcp') {
+		const allHcpCollections = await getCollectionsBySection('cloud')
+		sidebarSections = buildCategorizedHcpSidebar(
+			allHcpCollections,
+			collection.slug
+		)
+	} else {
+		const allProductCollections = await cachedGetAllCollections({
+			product: { slug: productSlug as ProductOption, sidebarSort: true },
+		})
+		const filteredCollections = filterCollections(
+			allProductCollections,
+			productSlug as ProductOption
+		)
+
+		sidebarSections = formatSidebarCategorySections(
+			filteredCollections,
+			collection.slug
+		)
+	}
+	return sidebarSections
 }
 
 /**
@@ -99,16 +111,10 @@ export async function getCollectionPageProps(
 		return null
 	}
 
-	let sidebarSections
-
-	if (product.slug === 'hcp') {
-		sidebarSections = await getHCPCollectionViewSidebarSections(collection.slug)
-	} else {
-		sidebarSections = await getCollectionViewSidebarSections(
-			product.slug,
-			collection
-		)
-	}
+	const sidebarSections = await getCollectionViewSidebarSections(
+		product.slug,
+		collection
+	)
 
 	const layoutProps = {
 		breadcrumbLinks: getTutorialsBreadcrumb({

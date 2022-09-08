@@ -26,10 +26,7 @@ import {
 	getCurrentCollectionTutorial,
 } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
-import {
-	getCollectionViewSidebarSections,
-	getHCPCollectionViewSidebarSections,
-} from 'views/collection-view/server'
+import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
 import { isProductSlug } from 'lib/products'
 
@@ -87,21 +84,11 @@ export async function getTutorialPageProps(
 	 * viewed. In this view, that means: on mobile, after opening the Sidebar, and
 	 * after clicking the level-up button at the top of the Sidebar.
 	 */
-	let sidebarSections
-	/**
-	 * HCP collection sidebar is treated differently since it doesn't
-	 * use the same 'product' sidebar categories or fetch method to the API
-	 */
-	if (product.slug === 'hcp') {
-		sidebarSections = await getHCPCollectionViewSidebarSections(
-			collection.data.slug
-		)
-	} else {
-		sidebarSections = await getCollectionViewSidebarSections(
-			product.slug,
-			collection.data
-		)
-	}
+	const sidebarSections = await getCollectionViewSidebarSections(
+		product.slug,
+		collection.data
+	)
+
 	const layoutProps = {
 		headings,
 		breadcrumbLinks: getTutorialsBreadcrumb({

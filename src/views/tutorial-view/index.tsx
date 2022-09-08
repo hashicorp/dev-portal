@@ -20,10 +20,7 @@ import {
 	getCollectionSlug,
 	getTutorialSlug,
 } from 'views/collection-view/helpers'
-import {
-	getCollectionViewSidebarSections,
-	getHCPCollectionViewSidebarSections,
-} from 'views/collection-view/server'
+import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import OptInOut from 'components/opt-in-out'
 import DevDotContent from 'components/dev-dot-content'
 import {
@@ -71,8 +68,9 @@ import { LearnProductSlug } from 'types/products'
  */
 const LayoutContentWrapper = ({
 	children,
+	collectionCtx,
+	product,
 	setCollectionViewSidebarSections,
-	getSidebarSections,
 }: LayoutContentWrapperProps) => {
 	const { mobileMenuIsOpen } = useMobileMenu()
 	const hasLoadedData = useRef(false)
@@ -86,14 +84,20 @@ const LayoutContentWrapper = ({
 			 * TODO: What should we do if this errors?
 			 * https://app.asana.com/0/1202097197789424/1202599138117878/f
 			 */
-			getSidebarSections().then(
-				(result: CollectionCategorySidebarSection[]) => {
-					hasLoadedData.current = true
-					setCollectionViewSidebarSections(result)
-				}
-			)
+			getCollectionViewSidebarSections(
+				product.slug,
+				collectionCtx.current
+			).then((result: CollectionCategorySidebarSection[]) => {
+				hasLoadedData.current = true
+				setCollectionViewSidebarSections(result)
+			})
 		}
-	}, [mobileMenuIsOpen, setCollectionViewSidebarSections])
+	}, [
+		collectionCtx,
+		mobileMenuIsOpen,
+		product,
+		setCollectionViewSidebarSections,
+	])
 
 	/**
 	 * Wrapping in a fragment to prevent a "return type 'ReactNode' is not a valid
@@ -146,22 +150,8 @@ function TutorialView({
 			getCollectionSlug,
 		},
 	})
-	let getCollectionSidebarSections
-	let learnProductSlug
 
-	if (product.slug === 'hcp') {
-		learnProductSlug = 'cloud'
-		getCollectionSidebarSections = getHCPCollectionViewSidebarSections(
-			collectionCtx.current.slug
-		)
-	} else {
-		learnProductSlug == product.slug
-		getCollectionSidebarSections = () =>
-			getCollectionViewSidebarSections(
-				product.slug as LearnProductSlug,
-				collectionCtx.current
-			)
-	}
+	const learnProductSlug = product.slug === 'hcp' ? 'cloud' : product.slug
 	const canonicalCollectionSlug = getCanonicalCollectionSlug(
 		tutorial,
 		learnProductSlug as ProductOption | SectionOption
@@ -256,8 +246,9 @@ function TutorialView({
 					headings={layoutProps.headings}
 				>
 					<LayoutContentWrapper
+						collectionCtx={collectionCtx}
+						product={product}
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
-						getSidebarSections={getCollectionSidebarSections}
 					>
 						<TutorialMeta
 							heading={{ slug: layoutProps.headings[0].slug, text: name }}

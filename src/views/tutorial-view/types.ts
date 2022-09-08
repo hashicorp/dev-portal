@@ -50,10 +50,11 @@ interface TutorialViewProps {
 
 interface LayoutContentWrapperProps {
 	children: ReactNode
+	collectionCtx: TutorialData['collectionCtx']
+	product: TutorialViewProps['product']
 	setCollectionViewSidebarSections: Dispatch<
 		SetStateAction<CollectionCategorySidebarSection[]>
 	>
-	getSidebarSections(): Promise<CollectionCategorySidebarSection[]>
 }
 
 export type {
