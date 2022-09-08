@@ -1,18 +1,62 @@
+import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
+import Badge from 'components/badge'
+import { useCommandBar, SupportedCommand } from 'components/command-bar'
 import Dialog from 'components/dialog'
-import {
-	CommandBarDialogBodyProps,
-	CommandBarDialogFooterProps,
-	CommandBarDialogHeaderProps,
-	CommandBarDialogProps,
-} from './types'
+import { CommandBarDialogFooterProps, CommandBarDialogProps } from './types'
 import s from './command-bar-dialog.module.css'
 
-const CommandBarDialogHeader = ({ children }: CommandBarDialogHeaderProps) => {
-	return <div className={s.header}>{children}</div>
+const CommandBarDialogHeader = () => {
+	const { currentCommand } = useCommandBar()
+
+	return (
+		<div className={s.header}>
+			<div className={s.icon}>{currentCommand.icon}</div>
+			<input
+				className={s.input}
+				placeholder={currentCommand.inputProps.placeholder}
+			/>
+			<div className={s.badges}>
+				<Badge
+					ariaLabel="Command key"
+					color="neutral"
+					icon={<IconCommand16 />}
+					size="small"
+					type="outlined"
+				/>
+				<Badge
+					ariaLabel="K key"
+					color="neutral"
+					size="small"
+					text="K"
+					type="outlined"
+				/>
+			</div>
+		</div>
+	)
 }
 
-const CommandBarDialogBody = ({ children }: CommandBarDialogBodyProps) => {
-	return <div className={s.body}>{children}</div>
+const CommandBarDialogBody = () => {
+	const { currentCommand, setCurrentCommand } = useCommandBar()
+
+	return (
+		<div className={s.body}>
+			<button
+				onClick={() =>
+					setCurrentCommand(
+						currentCommand.name === SupportedCommand.search
+							? SupportedCommand.settings
+							: SupportedCommand.search
+					)
+				}
+			>
+				Use{' '}
+				{currentCommand.name === SupportedCommand.search
+					? 'settings'
+					: 'search'}{' '}
+				command
+			</button>
+		</div>
+	)
 }
 
 const CommandBarDialogFooter = ({ children }: CommandBarDialogFooterProps) => {
@@ -31,12 +75,7 @@ const CommandBarDialog = ({
 	)
 }
 
-export type {
-	CommandBarDialogBodyProps,
-	CommandBarDialogFooterProps,
-	CommandBarDialogHeaderProps,
-	CommandBarDialogProps,
-}
+export type { CommandBarDialogFooterProps, CommandBarDialogProps }
 export {
 	CommandBarDialog,
 	CommandBarDialogHeader,
