@@ -47,7 +47,14 @@ const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 				data
 			)
 
-			// Invalidate related collection progress
+			/**
+			 * Invalidate related collection progress
+			 *
+			 * 📌 FUTURE TODO: perhaps ideally any POST, PUT, or even DELETE
+			 * would return collection progress data as well as the mutated
+			 * tutorial progress data? This way, rather than invalidating the
+			 * collection query here, we could set it directly.
+			 */
 			queryClient.invalidateQueries([
 				COLLECTION_PROGRESS_SINGLE_QUERY_ID,
 				collectionId,
