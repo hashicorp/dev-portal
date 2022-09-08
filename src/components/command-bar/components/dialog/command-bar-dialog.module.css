@@ -70,7 +70,34 @@
 }
 
 .footer {
-	border-top: 1px solid var(--token-color-border-primary);
+	align-items: center;
+	background-color: var(--token-color-surface-faint);
+	box-shadow: var(--token-surface-base-box-shadow);
+	display: flex;
 	flex-grow: 0;
 	flex-shrink: 0;
+	gap: 16px;
+	justify-content: space-between;
+	min-height: 52px;
+	padding: 16px;
+
+	@media (--dev-dot-mobile) {
+		justify-content: flex-end;
+	}
+}
+
+.footerLeft {
+	align-items: center;
+	display: flex;
+	flex-shrink: 0;
+	gap: 8px;
+
+	@media (--dev-dot-mobile) {
+		display: none;
+	}
+}
+
+.footerLeftArrowKeys {
+	display: flex;
+	gap: 4px;
 }

@@ -122,7 +122,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
 				<CommandBarDialogHeader />
 				<CommandBarDialogBody />
-				<CommandBarDialogFooter>footer</CommandBarDialogFooter>
+				<CommandBarDialogFooter />
 			</CommandBarDialog>
 		</CommandBarContext.Provider>
 	)
