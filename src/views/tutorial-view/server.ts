@@ -99,7 +99,7 @@ export async function getTutorialPageProps(
 	} else {
 		sidebarSections = await getCollectionViewSidebarSections(
 			product.slug,
-			collection.data.slug
+			collection.data
 		)
 	}
 	const layoutProps = {

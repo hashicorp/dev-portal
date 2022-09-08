@@ -56,7 +56,7 @@ const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
 
 export async function getCollectionViewSidebarSections(
 	productSlug: LearnProductSlug,
-	collectionSlug: string
+	collection: ClientCollection
 ) {
 	const allProductCollections = await cachedGetAllCollections({
 		product: { slug: productSlug as ProductOption, sidebarSort: true },
@@ -65,7 +65,7 @@ export async function getCollectionViewSidebarSections(
 		allProductCollections,
 		productSlug as ProductOption
 	)
-	return formatSidebarCategorySections(filteredCollections, collectionSlug)
+	return formatSidebarCategorySections(filteredCollections, collection.slug)
 }
 
 export async function getHCPCollectionViewSidebarSections(
@@ -106,7 +106,7 @@ export async function getCollectionPageProps(
 	} else {
 		sidebarSections = await getCollectionViewSidebarSections(
 			product.slug,
-			collection.slug
+			collection
 		)
 	}
 
