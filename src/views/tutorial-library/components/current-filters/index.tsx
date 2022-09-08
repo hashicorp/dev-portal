@@ -62,6 +62,7 @@ export function CurrentFilters() {
 
 							return (
 								<li key={labelText}>
+									{/* TODO: test with voice control, validate that it fulfills Success Criterion 2.5.3 Label in Name */}
 									<Tag
 										removeButtonAriaLabel={`Remove filter ${labelText}`}
 										onRemove={() => item.refine(refinement)}
