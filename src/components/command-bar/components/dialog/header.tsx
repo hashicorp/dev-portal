@@ -7,9 +7,6 @@ import s from './command-bar-dialog.module.css'
 const CommandBarDialogHeader = () => {
 	const { currentCommand, currentTags, removeTag } = useCommandBar()
 
-	const { useOnInitialLoad = () => null } = currentCommand
-	useOnInitialLoad()
-
 	return (
 		<div className={s.header}>
 			<div className={s.icon}>{currentCommand.icon}</div>
