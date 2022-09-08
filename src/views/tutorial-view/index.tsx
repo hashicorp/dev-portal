@@ -19,7 +19,6 @@ import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
 	getTutorialSlug,
-	HcpCollectionCategorySidebarSection,
 } from 'views/collection-view/helpers'
 import {
 	getCollectionViewSidebarSections,
@@ -117,9 +116,7 @@ function TutorialView({
 	useOptInAnalyticsTracking('learn')
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
-		useState<
-			CollectionCategorySidebarSection[] | HcpCollectionCategorySidebarSection[]
-		>(null)
+		useState<CollectionCategorySidebarSection[]>(null)
 
 	// variables
 	const {
@@ -149,7 +146,22 @@ function TutorialView({
 			getCollectionSlug,
 		},
 	})
-	const learnProductSlug = product.slug === 'hcp' ? 'cloud' : product.slug
+	let getCollectionSidebarSections
+	let learnProductSlug
+
+	if (product.slug === 'hcp') {
+		learnProductSlug = 'cloud'
+		getCollectionSidebarSections = getHCPCollectionViewSidebarSections(
+			collectionCtx.current.slug
+		)
+	} else {
+		learnProductSlug == product.slug
+		getCollectionSidebarSections = () =>
+			getCollectionViewSidebarSections(
+				product.slug as LearnProductSlug,
+				collectionCtx.current
+			)
+	}
 	const canonicalCollectionSlug = getCanonicalCollectionSlug(
 		tutorial,
 		learnProductSlug as ProductOption | SectionOption
@@ -245,18 +257,7 @@ function TutorialView({
 				>
 					<LayoutContentWrapper
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
-						getSidebarSections={
-							product.slug === 'hcp'
-								? () =>
-										getHCPCollectionViewSidebarSections(
-											collectionCtx.current.slug
-										)
-								: () =>
-										getCollectionViewSidebarSections(
-											product.slug as LearnProductSlug,
-											collectionCtx.current
-										)
-						}
+						getSidebarSections={getCollectionSidebarSections}
 					>
 						<TutorialMeta
 							heading={{ slug: layoutProps.headings[0].slug, text: name }}

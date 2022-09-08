@@ -2,22 +2,17 @@ import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { sortAlphabetically } from 'lib/sort-alphabetically'
 import hcpContent from 'content/hcp/tutorial-landing.json'
 import { getCollectionSlug } from './get-slug'
-import { CollectionCategorySidebarSection } from './format-sidebar-sections'
+import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 
 interface SidebarCategory {
 	name: string
 	items: { name: string; collectionSlug: string }[]
 }
 
-export interface HcpCollectionCategorySidebarSection
-	extends Pick<CollectionCategorySidebarSection, 'items'> {
-	title?: string
-}
-
 export function buildCategorizedHcpSidebar(
 	allCollections: ApiCollection[],
 	currentSlug?: string
-): HcpCollectionCategorySidebarSection[] {
+): CollectionCategorySidebarSection[] {
 	// take all collections, make those generic in the first list
 	// take the rest of the categories and build the item based on that
 	const genericHcpCollections = [

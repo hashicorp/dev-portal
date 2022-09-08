@@ -8,10 +8,7 @@ import {
 	TutorialFullCollectionCtx as ClientTutorial,
 } from 'lib/learn-client/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import {
-	CollectionCategorySidebarSection,
-	HcpCollectionCategorySidebarSection,
-} from 'views/collection-view/helpers'
+import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 
 type TutorialSidebarSidecarProps = Required<
@@ -56,9 +53,7 @@ interface LayoutContentWrapperProps {
 	setCollectionViewSidebarSections: Dispatch<
 		SetStateAction<CollectionCategorySidebarSection[]>
 	>
-	getSidebarSections(): Promise<
-		CollectionCategorySidebarSection[] | HcpCollectionCategorySidebarSection[]
-	>
+	getSidebarSections(): Promise<CollectionCategorySidebarSection[]>
 }
 
 export type {
