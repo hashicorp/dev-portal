@@ -63,7 +63,7 @@ export function CurrentFilters() {
 							return (
 								<li key={labelText}>
 									<Tag
-										buttonAriaLabel={`Remove filter ${labelText}`}
+										removeButtonAriaLabel={`Remove filter ${labelText}`}
 										onRemove={() => item.refine(refinement)}
 										text={labelText}
 									/>

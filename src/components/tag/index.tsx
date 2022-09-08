@@ -2,13 +2,13 @@ import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { TagProps } from './types'
 import s from './tag.module.css'
 
-const Tag = ({ text, onRemove, buttonAriaLabel }: TagProps) => {
+const Tag = ({ text, onRemove, removeButtonAriaLabel }: TagProps) => {
 	return (
 		<span className={s.root}>
 			<button
 				className={s.removeButton}
 				onClick={onRemove}
-				aria-label={buttonAriaLabel ?? `Dismiss ${text}`}
+				aria-label={removeButtonAriaLabel ?? `Dismiss ${text}`}
 			>
 				<IconX16 className={s.removeIcon} />
 			</button>
