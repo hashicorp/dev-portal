@@ -26,7 +26,6 @@ describe('remove-non-beta-product-pages', () => {
 		🧹 removing pages at /docs
 		🧹 removing pages at /hcp
 		🧹 removing pages at /nomad
-		🧹 removing pages at /onboarding
 		🧹 removing pages at /packer
 		🧹 removing pages at /profile
 		🧹 removing pages at /sentinel

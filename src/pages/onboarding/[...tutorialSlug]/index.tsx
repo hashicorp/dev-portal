@@ -8,11 +8,12 @@ import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import onboardingData from 'data/onboarding.json'
 import { getOnboardingTutorialProps } from 'views/onboarding/tutorial-view/server'
 import OnboardingTutorialView from 'views/onboarding/tutorial-view'
+import { OnboardingTutorialViewProps } from 'views/onboarding/types'
 
 export async function getStaticProps({
 	params,
 }: GetStaticPropsContext<{ tutorialSlug: [string, string] }>): Promise<
-	{ props: any } | { notFound: boolean }
+	{ props: OnboardingTutorialViewProps } | { notFound: boolean }
 > {
 	const props = await getOnboardingTutorialProps(params.tutorialSlug)
 

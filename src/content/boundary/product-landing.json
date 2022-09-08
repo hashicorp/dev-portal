@@ -5,82 +5,76 @@
 	},
 	"overview": {
 		"heading": "What is Boundary?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+		"body": "Securely access any system from anywhere based on user identity.",
 		"cta": {
 			"text": "Learn more about Boundary features",
-			"url": "/vault/docs/what-is-vault"
+			"url": "/boundary/docs/what-is-boundary"
 		},
 		"image": "https://www.datocms-assets.com/2885/1662053765-dev-dot-product-landing-what-is-boundary-diagram.png"
 	},
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "Use Boundary to securely store, access, and manage secrets and other sensitive data.",
-		"ctas": [
+		"body": "Quick start with a new identity-based access management tool.",
+		"iconCardLinks": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
+				"icon": "hcp",
+				"text": "HCP Boundary Quick Start",
+				"url": "/boundary/tutorials/hcp-getting-started"
 			},
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"icon": "hcp",
+				"text": "Boundary OSS Quick Start",
+				"url": "/boundary/tutorials/oss-getting-started"
 			}
 		]
 	},
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Use Cases",
+			"heading": "How Boundary Works",
 			"level": 2,
 			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
 		},
 		{
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.boundaryproject.io"
+					"heading": "Identity-based Access",
+					"body": "Enable privileged sessions for users and applications based on user identity and role.",
+					"url": "/boundary/tutorials/oss-access-management/oidc-auth"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.boundaryproject.io"
+					"heading": "Service Discovery",
+					"body": "Service discovery focuses on automating the process of onboarding new or changed infrastructure resources to Boundary as hosts.",
+					"url": "/boundary/docs/concepts/service-discovery"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.boundaryproject.io"
+					"heading": "Infrastructure as Code with Terraform",
+					"body": "Define policies and manage Boundary with Terraform provider that supports the full breadth of Boundary configurations.",
+					"url": "https://registry.terraform.io/providers/hashicorp/boundary"
+				},
+				{
+					"heading": "Session Visibility and Audit Logs",
+					"body": "Visibility into session metrics, events, logs, and traces with the ability to export data to business intelligence and event monitoring tools",
+					"url": "/boundary/tutorials/oss-configuration/event-logging"
 				}
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Case Studies",
+			"heading": "Popular Tutorials",
 			"level": 2,
 			"size": 400
 		},
 		{
-			"type": "linked_cards",
-			"cards": [
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.boundaryproject.io"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.boundaryproject.io"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.boundaryproject.io"
-				}
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"boundary/oidc-auth",
+				"boundary/vault-cred-brokering-quickstart",
+				"boundary/hcp-manage-workers",
+				"boundary/hcp-ssh-cred-injection",
+				"boundary/oss-manage-targets",
+				"boundary/oidc-idp-groups"
 			]
 		}
 	]

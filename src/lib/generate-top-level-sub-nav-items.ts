@@ -44,7 +44,7 @@ export const generateTopLevelSubNavItems = () => {
 		{ heading: 'Products' },
 		...betaProductItems,
 		{ divider: true },
-		{ heading: 'Coming Soon' },
+		...(futureProductItems.length ? [{ heading: 'Coming Soon' }] : []),
 		...futureProductItems,
 	]
 }
