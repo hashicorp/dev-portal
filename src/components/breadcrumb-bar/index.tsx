@@ -36,30 +36,63 @@ function BreadcrumbBar({
 	// we can render the breadcrumb links
 	return (
 		<nav aria-label="Breadcrumb" className={s.root}>
-			<ol className={s.listRoot}>
-				{links.map(({ title, url, isCurrentPage }) => {
-					const cleanTitle = title.replace(/<[^>]+>/g, '')
-					const Elem = url ? InternalLink : 'span'
+			<ol
+				className={s.listRoot}
+				itemScope
+				itemType="http://schema.org/BreadcrumbList"
+			>
+				{links.map(({ title, url, isCurrentPage }, i) => {
 					return (
-						<Text
-							asElement="li"
-							className={s.listItem}
-							key={`${cleanTitle}_${url}`}
-							size={100}
-							weight="medium"
-						>
-							<Elem
-								className={s.breadcrumbText}
-								href={url}
-								aria-current={isCurrentPage ? 'page' : undefined}
-							>
-								{cleanTitle}
-							</Elem>
-						</Text>
+						<Breadcrumb
+							key={`${title}_${url}`}
+							title={title}
+							url={url}
+							isCurrentPage={isCurrentPage}
+							position={`${i + 1}`}
+						/>
 					)
 				})}
 			</ol>
 		</nav>
+	)
+}
+
+export interface BreadCrumbProps {
+	title: string
+	url: string
+	isCurrentPage: boolean
+	position: string
+}
+export const Breadcrumb: React.ComponentType<BreadCrumbProps> = ({
+	title,
+	url,
+	isCurrentPage,
+	position,
+}) => {
+	const cleanTitle = title.replace(/<[^>]+>/g, '')
+	const Elem = url ? InternalLink : 'span'
+	return (
+		<Text
+			asElement="li"
+			className={s.listItem}
+			size={100}
+			weight="medium"
+			itemProp="itemListElement"
+			itemScope
+			itemType="http://schema.org/ListItem"
+		>
+			<Elem
+				className={s.breadcrumbText}
+				href={url}
+				aria-current={isCurrentPage ? 'page' : undefined}
+				itemScope
+				itemType="http://schema.org/Thing"
+				itemProp="item"
+			>
+				<span itemProp="name">{cleanTitle}</span>
+			</Elem>
+			<meta itemProp="position" content={position} />
+		</Text>
 	)
 }
 
