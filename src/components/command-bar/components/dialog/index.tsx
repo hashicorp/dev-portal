@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import { IconArrowDown16 } from '@hashicorp/flight-icons/svg-react/arrow-down-16'
 import { IconArrowUp16 } from '@hashicorp/flight-icons/svg-react/arrow-up-16'
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { useCurrentContentType } from 'contexts'
 import Badge from 'components/badge'
 import { useCommandBar, CommandBarTag } from 'components/command-bar'
 import Dialog from 'components/dialog'
@@ -55,20 +55,11 @@ const CommandBarDialogHeader = () => {
 }
 
 const CommandBarDialogBody = () => {
-	const { addTag, currentTags } = useCommandBar()
-	const [inputValue, setInputValue] = useState('')
+	const currentContentType = useCurrentContentType()
 
 	return (
 		<div className={s.body}>
-			<label>Tag text:</label>
-			<input onChange={(e) => setInputValue(e.target.value)} />
-			<button
-				onClick={() => {
-					addTag({ id: currentTags.length.toString(), text: inputValue })
-				}}
-			>
-				add tag
-			</button>
+			<div>Current content type: {currentContentType}</div>
 		</div>
 	)
 }
