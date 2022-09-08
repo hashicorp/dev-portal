@@ -88,7 +88,6 @@ export async function getTutorialPageProps(
 		product.slug,
 		collection.data
 	)
-
 	const layoutProps = {
 		headings,
 		breadcrumbLinks: getTutorialsBreadcrumb({

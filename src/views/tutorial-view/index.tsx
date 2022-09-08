@@ -55,7 +55,6 @@ import {
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
-import { LearnProductSlug } from 'types/products'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -151,10 +150,9 @@ function TutorialView({
 		},
 	})
 
-	const learnProductSlug = product.slug === 'hcp' ? 'cloud' : product.slug
 	const canonicalCollectionSlug = getCanonicalCollectionSlug(
 		tutorial,
-		learnProductSlug as ProductOption | SectionOption
+		product.slug
 	)
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
 	const redirectPath = getLearnRedirectPath(

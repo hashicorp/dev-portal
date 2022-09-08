@@ -207,7 +207,6 @@ export enum ProductOption {
 export enum SectionOption {
 	'well-architected-framework' = 'well-architected-framework',
 	'onboarding' = 'onboarding',
-	'cloud' = 'cloud',
 }
 
 export enum EditionOption {

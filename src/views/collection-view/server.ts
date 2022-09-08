@@ -176,7 +176,7 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		if (shouldBuildCollectionPath) {
 			paths.push({
 				params: {
-					productSlug: productSlug,
+					productSlug,
 					collectionSlug: filename,
 				},
 			})
