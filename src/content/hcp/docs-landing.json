@@ -4,22 +4,22 @@
 		{
 			"iconName": "vault-color",
 			"name": "HCP Vault",
-			"path": "/docs/vault"
+			"path": "docs/vault"
 		},
 		{
 			"iconName": "consul-color",
 			"name": "HCP Consul",
-			"path": "/docs/consul"
+			"path": "docs/consul"
 		},
 		{
 			"iconName": "packer-color",
 			"name": "HCP Packer",
-			"path": "/docs/packer"
+			"path": "docs/packer"
 		},
 		{
 			"iconName": "boundary-color",
 			"name": "HCP Boundary",
-			"path": "/docs/boundary"
+			"path": "docs/boundary"
 		}
 	],
 	"marketingContentBlocks": [
