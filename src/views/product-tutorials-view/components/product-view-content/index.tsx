@@ -59,7 +59,7 @@ function ProductViewContent({
 								key={idx}
 								heading={block.heading}
 								subheading={block.subheading}
-								// product={block.product}
+								product={block.product}
 								cta={block.cta}
 							/>
 						)
