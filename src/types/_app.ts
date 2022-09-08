@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import type { AppProps, AppContext } from 'next/app'
 import { CurrentContentType } from 'contexts'
 
-type CustomAppComponent<
+type CustomPageComponent<
 	PageProps = Record<string, unknown>,
 	InitialProps = PageProps
 > = NextPage<PageProps, InitialProps> & {
@@ -12,7 +12,7 @@ type CustomAppComponent<
 }
 
 type ContextWithLayout = {
-	Component: CustomAppComponent
+	Component: CustomPageComponent
 }
 
 type AppContextNoComponent = Omit<AppContext, 'Component'>
@@ -29,4 +29,4 @@ type CustomAppContext<T = Record<string, unknown>> = AppContextNoComponent &
  */
 type CustomAppProps = AppProps & ContextWithLayout
 
-export type { CustomAppComponent, CustomAppContext, CustomAppProps }
+export type { CustomPageComponent, CustomAppContext, CustomAppProps }

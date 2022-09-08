@@ -1,5 +1,5 @@
 import { InferGetStaticPropsType } from 'next'
-import { CustomAppComponent } from 'types/_app'
+import { CustomPageComponent } from 'types/_app'
 /* Used server-side only */
 import { cachedGetProductData } from 'lib/get-product-data'
 import { isDeployPreview } from 'lib/env-checks'
@@ -28,7 +28,7 @@ const targetFile = {
 const targetLocalFile = '../../internal/gen/controller.swagger.json'
 
 type ApiDocsViewProps = InferGetStaticPropsType<typeof getStaticProps>
-const ApiDocsView: CustomAppComponent<ApiDocsViewProps> = ({
+const ApiDocsView: CustomPageComponent<ApiDocsViewProps> = ({
 	apiPageProps,
 }: ApiDocsViewProps) => {
 	return (
