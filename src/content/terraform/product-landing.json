@@ -75,18 +75,18 @@
 			"cards": [
 				{
 					"heading": "Configuration Language",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.terraform.io"
+					"body": "Describe infrastructure in Terraform configuration language.",
+					"url": "/terraform/language"
 				},
 				{
 					"heading": "Terraform CLI",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.terraform.io"
+					"body": "Learn Terraform's CLI-based workflows.",
+					"url": "/terraform/cli"
 				},
 				{
 					"heading": "Terraform Cloud",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.terraform.io"
+					"body": "Collaborate with your team to provision infrastructure.",
+					"url": "/terraform/cloud-docs"
 				}
 			]
 		}
