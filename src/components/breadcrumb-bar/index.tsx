@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Script from 'next/script'
+import Head from 'next/head'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Text from 'components/text'
 import s from './breadcrumb-bar.module.css'
@@ -53,9 +53,12 @@ function BreadcrumbBar({
 	const stringifiedStructuredData = JSON.stringify(structuredData)
 	return (
 		<nav aria-label="Breadcrumb" className={s.root}>
-			<Script type="application/ld+json" id={stringifiedStructuredData}>
-				{stringifiedStructuredData}
-			</Script>
+			<Head>
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: stringifiedStructuredData }}
+				/>
+			</Head>
 			<ol className={s.listRoot}>
 				{links.map(({ title, url, isCurrentPage }, i) => {
 					return (
