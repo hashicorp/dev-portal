@@ -5,7 +5,7 @@ import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-l
 import ButtonLink from 'components/button-link'
 import s from './give-feedback-button.module.css'
 
-const FORM_URL = 'https://forms.gle/fnHLuNahLEhjuKvE6'
+export const FORM_URL = 'https://forms.gle/fnHLuNahLEhjuKvE6'
 const LINK_TEXT = 'Give beta feedback'
 const LINK_ARIA_LABEL = 'Give beta feedback (opens in new tab)'
 
