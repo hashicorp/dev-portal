@@ -12,6 +12,7 @@
 		"prettier:check": "prettier --check .",
 		"prettier:write": "prettier --write .",
 		"postbuild": "hc-tools ./scripts/capture-build-metrics.ts dev-portal && next-sitemap",
+		"sitemap": "next-sitemap",
 		"start:boundary": "cross-env DEV_IO=boundary npm run start",
 		"start:consul": "cross-env DEV_IO=consul npm run start",
 		"start:local-preview": "./scripts/content-repo-preview/start.sh",
