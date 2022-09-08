@@ -1,38 +1,52 @@
-.container {
-  composes: g-type-body-small from global;
-  display: flex;
-  align-items: center;
-  margin-bottom: 24px;
+.root {
+	composes: g-type-body-small from global;
+	display: flex;
+	align-items: center;
+	margin-bottom: 24px;
+}
+
+.alertContainer {
+	background-color: var(--token-color-surface-highlight);
+	border: 1px solid var(--token-color-border-highlight);
+	border-radius: 6px;
+	display: flex;
+	gap: 12px;
+	padding: 16px;
+	width: 100%;
 }
 
 .icon {
-  color: #911ced;
-  margin-right: 8px;
-  align-self: baseline;
-  margin-top: 6px;
-  min-width: 16px;
+	color: var(--token-color-foreground-highlight-on-surface);
+	flex-shrink: 0;
+	display: flex;
 
-  @media (--medium-up) {
-    align-self: unset;
-    margin-top: 0;
-  }
+	& svg {
+		display: block;
+	}
 }
 
-.alert {
-  margin: 0 !important;
+.contentContainer {
+	flex-grow: 1;
 }
 
-.optInLink {
-  composes: g-type-body-small from global;
-  color: var(--token-color-palette-blue-200);
-  text-decoration: underline;
-  border: unset;
-  background: unset;
-  margin: 0 0 0 4px;
-  padding: 0;
+.actions {
+	padding-top: 16px;
+	display: flex;
+	gap: 8px;
+}
 
-  &:hover,
-  &:focus {
-    cursor: pointer;
-  }
+.title {
+	color: var(--token-color-foreground-highlight-on-surface);
+
+	/* !important is necessary here to stop leaks from enclosing
+     @hashicorp/react-content component styles */
+	margin: 0 !important;
+}
+
+.description {
+	color: var(--token-color-foreground-primary);
+
+	/* !important is necessary here to stop leaks from enclosing
+     @hashicorp/react-content component styles */
+	margin: 4px 0 0 !important;
 }
