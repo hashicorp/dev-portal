@@ -9,6 +9,7 @@ import {
 import commands from './commands'
 import { CommandBarActivator, CommandBarDialog } from './components'
 import {
+	CommandBarCommand,
 	CommandBarContextState,
 	CommandBarContextValue,
 	CommandBarProviderProps,
@@ -127,7 +128,7 @@ const useCommandBar = (): CommandBarContextValue => {
 	return context
 }
 
-export type { CommandBarTag }
+export type { CommandBarCommand, CommandBarTag }
 export {
 	CommandBarActivator,
 	CommandBarProvider,

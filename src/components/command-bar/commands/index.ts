@@ -1,8 +1,8 @@
-import { Command, SupportedCommand } from '../types'
+import { CommandBarCommand, SupportedCommand } from 'components/command-bar'
 import searchCommand from './search'
 import settingsCommand from './settings'
 
-const commands: Record<SupportedCommand, Command> = {
+const commands: Record<SupportedCommand, CommandBarCommand> = {
 	search: searchCommand,
 	settings: settingsCommand,
 }
