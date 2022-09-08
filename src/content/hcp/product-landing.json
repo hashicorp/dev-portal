@@ -1,30 +1,41 @@
 {
 	"hero": {
-		"heading": "HCP Placeholder Duplicate Of Vault Content",
-		"image": "https://place-hold.it/600x320"
+		"heading": "The fastest way to get up and running with HashiCorp tools",
+		"image": "/img/hcp/hcp-landing-hero-graphic-2x.png"
 	},
 	"overview": {
 		"heading": "What is HCP?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
-		"cta": {
-			"text": "Learn more about HCP features",
-			"url": "/vault/docs/what-is-vault"
-		},
+		"body": "HashiCorp Cloud Platform (HCP) is a fully-managed platform offering HashiCorp products-as-a-service. HCP removes the management overhead associated with deploying and maintaining HashiCorp products so that you can focus on reaping the products' benefits.",
+
 		"image": "https://www.datocms-assets.com/2885/1662053773-dev-dot-product-landing-what-is-hcp-diagram.png"
 	},
+	"overviewParagraph": "HCP enables you to easily launch and operate Consul, Vault, and other HashiCorp services on a HashiCorp Virtual Networks (HVN). An HVN connects to resources on your cloud infrastructure. Shared platform functionality, such as log in, access control, and billing provide centralized account and organization management. You can manage HCP assets from the web portal interface or using the Terraform provider.",
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "Use HCP to securely store, access, and manage secrets and other sensitive data.",
-		"ctas": [
+		"body": "Complete the following tutorials for step-by-step guidance on getting started:",
+		"iconCardLinks": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
+				"icon": "vault-color",
+				"text": "HCP Vault",
+				"url": "/vault/tutorials/cloud"
 			},
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"icon": "consul-color",
+				"text": "HCP Consul",
+				"url": "/consul/tutorials/cloud-get-started"
+			},
+			{
+				"icon": "packer-color",
+				"text": "HCP Packer",
+				"url": "/packer/tutorials/hcp-get-started"
+			},
+			{
+				"icon": "boundary-color",
+				"text": "HCP Boundary",
+				"url": "/boundary/tutorials/hcp-getting-started"
 			}
-		]
+		],
+		"fixedColumns": 2
 	},
 	"blocks": [
 		{

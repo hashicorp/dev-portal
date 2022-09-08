@@ -13,16 +13,24 @@ interface Command {
 	}
 }
 
+type CommandBarTag = {
+	id: string
+	text: string
+}
+
 interface CommandBarProviderProps {
 	children: ReactNode
 }
 
 interface CommandBarContextState {
 	currentCommand: Command
+	currentTags: CommandBarTag[]
 	isOpen: boolean
 }
 
 interface CommandBarContextValue extends CommandBarContextState {
+	addTag: (tag: CommandBarTag) => void
+	removeTag: (tagId: CommandBarTag['id']) => void
 	setCurrentCommand: (command: SupportedCommand) => void
 	toggleIsOpen: () => void
 }
@@ -32,5 +40,6 @@ export type {
 	CommandBarContextState,
 	CommandBarContextValue,
 	CommandBarProviderProps,
+	CommandBarTag,
 }
 export { SupportedCommand }

@@ -1,11 +1,13 @@
 // Third-party imports
 import Link from 'next/link'
+import classNames from 'classnames'
 
 // HashiCorp Imports
 import InlineSvg from '@hashicorp/react-inline-svg'
 import BoundaryLogo from '@hashicorp/mktg-logos/product/boundary/primary-padding/colorwhite.svg?include'
 import ConsulLogo from '@hashicorp/mktg-logos/product/consul/primary-padding/colorwhite.svg?include'
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
+import HCPLogo from '@hashicorp/mktg-logos/product/hcp/no-logomark/white.svg?include'
 import NomadLogo from '@hashicorp/mktg-logos/product/nomad/primary-padding/colorwhite.svg?include'
 import PackerLogo from '@hashicorp/mktg-logos/product/packer/primary-padding/colorwhite.svg?include'
 import TerraformLogo from '@hashicorp/mktg-logos/product/terraform/primary-padding/colorwhite.svg?include'
@@ -39,7 +41,7 @@ import { getNavItems } from './utils/get-nav-items'
  * as we do not yet have a confirmed design treatment.
  */
 const PRODUCT_SLUGS_TO_LOGOS: Record<
-	Exclude<ProductSlug, 'sentinel' | 'hcp'>,
+	Exclude<ProductSlug, 'sentinel'>,
 	string
 > = {
 	boundary: BoundaryLogo,
@@ -50,6 +52,7 @@ const PRODUCT_SLUGS_TO_LOGOS: Record<
 	vagrant: VagrantLogo,
 	vault: VaultLogo,
 	waypoint: WaypointLogo,
+	hcp: HCPLogo,
 }
 
 const ProductPageHeaderContent = () => {
@@ -135,7 +138,10 @@ const ProductPageHeaderContent = () => {
 						className={s.productLogoLink}
 					>
 						<InlineSvg
-							className={sharedNavStyles.productLogo}
+							className={classNames(
+								sharedNavStyles.productLogo,
+								currentProduct.slug === 'hcp' && s.hcpLogo
+							)}
 							src={productLogo}
 						/>
 					</a>
