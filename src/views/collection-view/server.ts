@@ -111,11 +111,6 @@ export async function getCollectionPageProps(
 		return null
 	}
 
-	const sidebarSections = await getCollectionViewSidebarSections(
-		product.slug,
-		collection
-	)
-
 	const layoutProps = {
 		breadcrumbLinks: getTutorialsBreadcrumb({
 			product: { name: product.name, filename: product.slug },
@@ -124,7 +119,10 @@ export async function getCollectionPageProps(
 				filename: splitProductFromFilename(collection.slug),
 			},
 		}),
-		sidebarSections,
+		sidebarSections: await getCollectionViewSidebarSections(
+			product.slug,
+			collection
+		),
 	}
 
 	return {
