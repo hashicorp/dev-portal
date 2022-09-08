@@ -59,7 +59,6 @@ const CommandBarDialogBody = () => {
 			<button
 				onClick={() => {
 					addTag({ id: currentTags.length.toString(), text: inputValue })
-					setInputValue('')
 				}}
 			>
 				add tag
