@@ -9,14 +9,22 @@ import useCurrentPath from 'hooks/use-current-path'
 import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import { ProductOption, TutorialLite } from 'lib/learn-client/types'
+import {
+	ProductOption,
+	SectionOption,
+	TutorialLite,
+} from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
 	getTutorialSlug,
+	HcpCollectionCategorySidebarSection,
 } from 'views/collection-view/helpers'
-import { getCollectionViewSidebarSections } from 'views/collection-view/server'
+import {
+	getCollectionViewSidebarSections,
+	getHCPCollectionViewSidebarSections,
+} from 'views/collection-view/server'
 import OptInOut from 'components/opt-in-out'
 import DevDotContent from 'components/dev-dot-content'
 import {
@@ -51,6 +59,7 @@ import {
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
+import { LearnProductSlug } from 'types/products'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -63,9 +72,8 @@ import { useProgressToast } from './utils/use-progress-toast'
  */
 const LayoutContentWrapper = ({
 	children,
-	collectionCtx,
-	product,
 	setCollectionViewSidebarSections,
+	getSidebarSections,
 }: LayoutContentWrapperProps) => {
 	const { mobileMenuIsOpen } = useMobileMenu()
 	const hasLoadedData = useRef(false)
@@ -79,20 +87,14 @@ const LayoutContentWrapper = ({
 			 * TODO: What should we do if this errors?
 			 * https://app.asana.com/0/1202097197789424/1202599138117878/f
 			 */
-			getCollectionViewSidebarSections(
-				product.slug,
-				collectionCtx.current
-			).then((result: CollectionCategorySidebarSection[]) => {
-				hasLoadedData.current = true
-				setCollectionViewSidebarSections(result)
-			})
+			getSidebarSections().then(
+				(result: CollectionCategorySidebarSection[]) => {
+					hasLoadedData.current = true
+					setCollectionViewSidebarSections(result)
+				}
+			)
 		}
-	}, [
-		collectionCtx,
-		mobileMenuIsOpen,
-		product,
-		setCollectionViewSidebarSections,
-	])
+	}, [mobileMenuIsOpen, setCollectionViewSidebarSections])
 
 	/**
 	 * Wrapping in a fragment to prevent a "return type 'ReactNode' is not a valid
@@ -115,7 +117,9 @@ function TutorialView({
 	useOptInAnalyticsTracking('learn')
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
-		useState<CollectionCategorySidebarSection[]>(null)
+		useState<
+			CollectionCategorySidebarSection[] | HcpCollectionCategorySidebarSection[]
+		>(null)
 
 	// variables
 	const {
@@ -145,9 +149,10 @@ function TutorialView({
 			getCollectionSlug,
 		},
 	})
+	const learnProductSlug = product.slug === 'hcp' ? 'cloud' : product.slug
 	const canonicalCollectionSlug = getCanonicalCollectionSlug(
 		tutorial,
-		product.slug
+		learnProductSlug as ProductOption | SectionOption
 	)
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
 	const redirectPath = getLearnRedirectPath(
@@ -239,9 +244,19 @@ function TutorialView({
 					headings={layoutProps.headings}
 				>
 					<LayoutContentWrapper
-						collectionCtx={collectionCtx}
-						product={product}
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
+						getSidebarSections={
+							product.slug === 'hcp'
+								? () =>
+										getHCPCollectionViewSidebarSections(
+											collectionCtx.current.slug
+										)
+								: () =>
+										getCollectionViewSidebarSections(
+											product.slug as LearnProductSlug,
+											collectionCtx.current
+										)
+						}
 					>
 						<TutorialMeta
 							heading={{ slug: layoutProps.headings[0].slug, text: name }}

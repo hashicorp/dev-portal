@@ -4,10 +4,14 @@ import { LearnProductData } from 'types/products'
 import {
 	Collection as ClientCollection,
 	CollectionLite as ClientCollectionLite,
+	Product as LearnClientProduct,
 	TutorialFullCollectionCtx as ClientTutorial,
 } from 'lib/learn-client/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
+import {
+	CollectionCategorySidebarSection,
+	HcpCollectionCategorySidebarSection,
+} from 'views/collection-view/helpers'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 
 type TutorialSidebarSidecarProps = Required<
@@ -41,16 +45,19 @@ interface TutorialData
 }
 interface TutorialViewProps {
 	layoutProps: TutorialSidebarSidecarProps
-	product: LearnProductData
+	product: Omit<LearnProductData, 'slug'> & {
+		slug: LearnClientProduct['slug'] | 'hcp'
+	}
 	tutorial: TutorialData
 }
 
 interface LayoutContentWrapperProps {
 	children: ReactNode
-	collectionCtx: TutorialData['collectionCtx']
-	product: TutorialViewProps['product']
 	setCollectionViewSidebarSections: Dispatch<
 		SetStateAction<CollectionCategorySidebarSection[]>
+	>
+	getSidebarSections(): Promise<
+		CollectionCategorySidebarSection[] | HcpCollectionCategorySidebarSection[]
 	>
 }
 

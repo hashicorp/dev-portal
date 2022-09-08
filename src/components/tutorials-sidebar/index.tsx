@@ -1,6 +1,9 @@
 import { Fragment } from 'react'
 
-import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
+import {
+	CollectionCategorySidebarSection,
+	HcpCollectionCategorySidebarSection,
+} from 'views/collection-view/helpers'
 import {
 	SidebarHorizontalRule,
 	SidebarSectionHeading,
@@ -43,7 +46,9 @@ function TutorialsSidebar({
 function CollectionViewSidebarContent({
 	sections,
 }: {
-	sections: CollectionCategorySidebarSection[]
+	sections:
+		| CollectionCategorySidebarSection[]
+		| HcpCollectionCategorySidebarSection[]
 }) {
 	return (
 		<>

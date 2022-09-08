@@ -9,7 +9,7 @@ interface SidebarCategory {
 	items: { name: string; collectionSlug: string }[]
 }
 
-interface HcpCollectionCategorySidebarSection
+export interface HcpCollectionCategorySidebarSection
 	extends Pick<CollectionCategorySidebarSection, 'items'> {
 	title?: string
 }
