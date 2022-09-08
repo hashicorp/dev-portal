@@ -56,3 +56,5 @@ export default function WellArchitectedFrameworkCollectionView({
 		</SidebarSidecarLayout>
 	)
 }
+
+WellArchitectedFrameworkCollectionView.contentType = 'tutorials'
