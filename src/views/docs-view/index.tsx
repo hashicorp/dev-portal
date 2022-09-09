@@ -76,7 +76,7 @@ const DocsView = ({
 	mdxSource,
 	lazy,
 	hideSearch = false,
-	versions,
+	layoutProps: { versions } = {},
 }: DocsViewProps) => {
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
