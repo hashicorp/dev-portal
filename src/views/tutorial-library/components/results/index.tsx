@@ -28,11 +28,16 @@ export function TutorialLibraryResults({
 
 	if (!results?.__isArtificial && hits.length === 0) {
 		return (
-			<EmptyState
-				heading="No results"
-				subheading="Try adjusting your selected filters or using different keywords"
-				callToAction={<ClearFilters color="secondary" />}
-			/>
+			<>
+				<span aria-live="polite" className="g-screen-reader-only">
+					Search returned no results.
+				</span>
+				<EmptyState
+					heading="No results"
+					subheading="Try adjusting your selected filters or using different keywords"
+					callToAction={<ClearFilters color="secondary" />}
+				/>
+			</>
 		)
 	}
 
