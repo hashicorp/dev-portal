@@ -7,6 +7,7 @@ import s from './hero.module.css'
 const ProductRootDocsPathLandingHero = ({
 	pageHeading,
 	pageSubtitle,
+	iconCardGridItems,
 }: ProductRootDocsPathLandingHeroProps) => {
 	const currentProduct = useCurrentProduct()
 
@@ -15,7 +16,9 @@ const ProductRootDocsPathLandingHero = ({
 			<LandingHero pageHeading={pageHeading} pageSubtitle={pageSubtitle} />
 			{currentProduct.slug !== 'terraform' ? (
 				<div className={s.iconCardGridLink}>
-					<ProductRootDocsPathLandingIconCardLinkGrid />
+					<ProductRootDocsPathLandingIconCardLinkGrid
+						iconCardGridItems={iconCardGridItems}
+					/>
 				</div>
 			) : null}
 		</header>
