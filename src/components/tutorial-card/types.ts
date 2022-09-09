@@ -45,4 +45,9 @@ export interface TutorialCardPropsWithId extends TutorialCardProps {
 	 * The tutorial's unique identifier
 	 */
 	id: string
+	/**
+	 * The collection context's unique identifier.
+	 * This is required for collection-context-specific progress display.
+	 */
+	collectionId: string
 }
