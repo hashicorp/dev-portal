@@ -91,7 +91,11 @@ const DocsView = ({
 		<>
 			{shouldRenderSearch ? <ProductDocsSearch /> : null}
 			<DevDotContent className={versions ? s.contentWithVersions : null}>
-				{versions ? <DocsVersionSwitcher options={versions} /> : null}
+				{versions ? (
+					<div className={s.versionSwitcherWrapper}>
+						<DocsVersionSwitcher options={versions} />
+					</div>
+				) : null}
 				<NoIndexTagIfVersioned />
 				<TabProvider>
 					<MDXRemote

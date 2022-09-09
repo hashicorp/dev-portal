@@ -56,46 +56,44 @@ const DocsVersionSwitcher = ({
 		currentRootDocsPath.shortName || currentRootDocsPath.name
 	const ariaLabel = `Choose a ${currentProduct.name} ${currentRootDocsPathName} version. Currently viewing ${selectedOption.label}.`
 	return (
-		<div className={s.root}>
-			<DropdownDisclosure
-				aria-label={ariaLabel}
-				className={s.dropdownList}
-				text={selectedOption.label}
-				color="secondary"
-				listPosition="right"
-			>
-				<DropdownDisclosureLabelItem>
-					{currentProduct.name}
-				</DropdownDisclosureLabelItem>
-				{options
-					// Hide currently selected version from dropdown list
-					.filter(
-						(option: VersionSelectItem) =>
-							option.version !== selectedOption.version
+		<DropdownDisclosure
+			aria-label={ariaLabel}
+			className={s.dropdownList}
+			text={selectedOption.label}
+			color="secondary"
+			listPosition="right"
+		>
+			<DropdownDisclosureLabelItem>
+				{currentProduct.name}
+			</DropdownDisclosureLabelItem>
+			{options
+				// Hide currently selected version from dropdown list
+				.filter(
+					(option: VersionSelectItem) =>
+						option.version !== selectedOption.version
+				)
+				.map((option: VersionSelectItem) => {
+					let href: string
+					if (option.isLatest) {
+						href = removeVersionFromPath(currentPath)
+					} else {
+						href = getTargetPath({
+							basePath: `${currentProduct.slug}/${currentRootDocsPath.path}`,
+							asPath: currentPath,
+							version: option.version,
+						})
+					}
+					return (
+						<DropdownDisclosureLinkItem
+							aria-label={`${currentProduct.name} ${option.label}`}
+							key={option.version}
+							href={href}
+						>
+							{option.label}
+						</DropdownDisclosureLinkItem>
 					)
-					.map((option: VersionSelectItem) => {
-						let href: string
-						if (option.isLatest) {
-							href = removeVersionFromPath(currentPath)
-						} else {
-							href = getTargetPath({
-								basePath: `${currentProduct.slug}/${currentRootDocsPath.path}`,
-								asPath: currentPath,
-								version: option.version,
-							})
-						}
-						return (
-							<DropdownDisclosureLinkItem
-								aria-label={`${currentProduct.name} ${option.label}`}
-								key={option.version}
-								href={href}
-							>
-								{option.label}
-							</DropdownDisclosureLinkItem>
-						)
-					})}
-			</DropdownDisclosure>
-		</div>
+				})}
+		</DropdownDisclosure>
 	)
 }
 

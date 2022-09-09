@@ -1,28 +1,10 @@
-.root {
-	width: 100%;
-
-	@media (--medium-up) {
-		width: auto;
-		position: absolute;
-		right: 0;
-		top: 0;
-	}
-}
-
 .dropdownList {
-	width: 100%;
-
-	& > button {
+	@media (--small) {
 		width: 100%;
-		justify-content: space-between;
-	}
-
-	@media (--medium-up) {
-		width: fit-content;
 
 		& > button {
-			width: fit-content;
-			justify-content: center;
+			width: 100%;
+			justify-content: space-between;
 		}
 	}
 
