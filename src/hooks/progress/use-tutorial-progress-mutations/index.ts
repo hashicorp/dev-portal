@@ -5,14 +5,16 @@ import {
 	createTutorialProgress as createTutorialProgressApi,
 	updateTutorialProgress as updateTutorialProgressApi,
 } from 'lib/learn-client/api/progress'
-import { progressPercentToStatus } from 'lib/learn-client/api/progress/formatting'
 import {
 	TutorialProgressMutationVariables,
 	TutorialProgressMutationArgs,
 	UseTutorialProgressMutationsResult,
 } from './types'
 import { ApiCollectionTutorialProgress } from 'lib/learn-client/api/api-types'
-import { TUTORIAL_PROGRESS_QUERY_ID } from '..'
+import {
+	TUTORIAL_PROGRESS_SINGLE_QUERY_ID,
+	COLLECTION_PROGRESS_SINGLE_QUERY_ID,
+} from '..'
 
 /**
  * Mutate tutorial progress.
@@ -31,22 +33,32 @@ const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 
 	/**
 	 * When a mutation is successful, we set the associated query data.
-	 * TODO: once there are other queries, we'll likely want to invalidate those.
+	 * We also invalidate queries that might involve related data.
 	 */
 	const makeOnMutationSuccess = () => {
 		return (
 			data: ApiCollectionTutorialProgress,
 			mutationVariables: TutorialProgressMutationVariables
 		) => {
-			// Destructure the variables we need to update related queries
+			// Destructure the variables we need to update tutorial query data
 			const { tutorialId, collectionId } = mutationVariables
 			queryClient.setQueryData(
-				[TUTORIAL_PROGRESS_QUERY_ID, tutorialId, collectionId],
+				[TUTORIAL_PROGRESS_SINGLE_QUERY_ID, tutorialId, collectionId],
 				data
 			)
 
-			// Invalidate related collection progress
-			queryClient.invalidateQueries(['collectionProgress', collectionId])
+			/**
+			 * Invalidate related collection progress
+			 *
+			 * 📌 FUTURE TODO: perhaps ideally any POST, PUT, or even DELETE
+			 * would return collection progress data as well as the mutated
+			 * tutorial progress data? This way, rather than invalidating the
+			 * collection query here, we could set it directly.
+			 */
+			queryClient.invalidateQueries([
+				COLLECTION_PROGRESS_SINGLE_QUERY_ID,
+				collectionId,
+			])
 		}
 	}
 

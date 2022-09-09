@@ -1,0 +1,58 @@
+.listItem {
+	border-radius: 5px;
+	background-color: transparent;
+	width: 100%;
+}
+
+.icon {
+	display: flex;
+}
+
+.textWrapper {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.titleAndBadgeWrapper {
+	align-items: center;
+	display: flex;
+	gap: 8px;
+	max-width: 100%;
+}
+
+.title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.description {
+	margin-top: 2px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.linkOrButton {
+	align-items: center;
+	background-color: transparent;
+	border-radius: 5px;
+	border: none;
+	box-shadow: none;
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	gap: 8px;
+	padding: 8px;
+	width: 100%;
+
+	/* TODO aria-selected is not set yet, but will be for keyboard navigation */
+	&[aria-selected='true'],
+	&:hover {
+		background-color: var(--token-color-surface-strong);
+		box-shadow: var(--token-surface-base-box-shadow);
+		color: var(--token-color-foreground-strong);
+		cursor: pointer;
+		outline: transparent;
+	}
+}
