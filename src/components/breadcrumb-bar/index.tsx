@@ -1,4 +1,5 @@
 import React from 'react'
+import Head from 'next/head'
 import Link from 'next/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Text from 'components/text'
@@ -34,8 +35,31 @@ function BreadcrumbBar({
 		})
 	// Now that we're sure all links are relative,
 	// we can render the breadcrumb links
+
+	const structuredData = [
+		{
+			'@context': 'https://schema.org',
+			'@type': 'BreadcrumbList',
+			itemListElement: links.map((link, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				name: link.title,
+				item: link.url
+					? `https://developer.hashicorp.com${link.url}`
+					: undefined,
+			})),
+		},
+	]
+	const stringifiedStructuredData = JSON.stringify(structuredData)
+
 	return (
 		<nav aria-label="Breadcrumb" className={s.root}>
+			<Head>
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: stringifiedStructuredData }}
+				/>
+			</Head>
 			<ol className={s.listRoot}>
 				{links.map(({ title, url, isCurrentPage }) => {
 					const cleanTitle = title.replace(/<[^>]+>/g, '')
