@@ -145,6 +145,7 @@ function TutorialView({
 			getCollectionSlug,
 		},
 	})
+
 	const canonicalCollectionSlug = getCanonicalCollectionSlug(
 		tutorial,
 		product.slug
