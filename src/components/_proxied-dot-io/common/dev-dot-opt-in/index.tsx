@@ -65,11 +65,10 @@ export default function DevDotOptIn({
 				</div>
 				<div className={s.contentContainer}>
 					<Text className={s.title} size={200} weight="semibold">
-						HashiCorp Developer, a unified practitioner experience is launching
-						soon!
+						A new platform for documentation and tutorials is launching soon.
 					</Text>
 					<Text className={s.description} size={200}>
-						{`${name} documentation content is being improved and migrated into our new developer experience.${
+						{`We are migrating ${name} documentation into HashiCorp Developer, our new developer experience.${
 							cutoverDate && showCutoverDate
 								? ` The migration will take place on ${cutoverDate}`
 								: ''
@@ -77,7 +76,7 @@ export default function DevDotOptIn({
 					</Text>
 					<div className={s.actions}>
 						<ButtonLink
-							text="Migrate Now"
+							text="Join Now"
 							href={getDevDotLink(slug, asPath)}
 							onClick={handleOptIn}
 							color="secondary"
