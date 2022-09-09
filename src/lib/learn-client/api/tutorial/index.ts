@@ -40,6 +40,17 @@ export async function getTutorial(
 
 // getTutorials
 export async function getTutorials(
+	idsOrSlugs: identifier[]
+): Promise<Omit<Tutorial, 'content'>[]>
+export async function getTutorials(
+	idsOrSlugs: identifier[],
+	withContent: false
+): Promise<Omit<Tutorial, 'content'>[]>
+export async function getTutorials(
+	idsOrSlugs: identifier[],
+	withContent: true
+): Promise<Tutorial[]>
+export async function getTutorials(
 	idsOrSlugs: identifier[],
 	withContent?: boolean
 ): Promise<Tutorial[] | Omit<Tutorial, 'content'>[]> {
