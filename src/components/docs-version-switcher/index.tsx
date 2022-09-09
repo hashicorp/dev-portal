@@ -89,14 +89,17 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
 					<NavigationDisclosureList className={s.optionList}>
 						{options.map((option: DocsVersionSwitcherOption) => {
 							let href: string
+							let rel: 'nofollow' | undefined
 							if (option.isLatest) {
 								href = removeVersionFromPath(currentPath)
+								rel = undefined
 							} else {
 								href = getTargetPath({
 									basePath: `${currentProduct.slug}/${currentRootDocsPath.path}`,
 									asPath: currentPath,
 									version: option.version,
 								})
+								rel = 'nofollow'
 							}
 
 							return (
@@ -108,6 +111,7 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
 										className={s.optionLink}
 										href={href}
 										isActive={currentPath === href}
+										rel={rel}
 									>
 										{option.label}
 									</NavigationDisclosureLink>

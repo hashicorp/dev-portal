@@ -15,6 +15,7 @@ const NavigationDisclosureLink = ({
 	className,
 	href,
 	isActive,
+	rel,
 }: NavigationDisclosureLinkProps) => {
 	let ariaCurrent: JSX.IntrinsicElements['a']['aria-current']
 	if (isActive) {
@@ -23,7 +24,11 @@ const NavigationDisclosureLink = ({
 
 	return (
 		<Link href={href}>
-			<a aria-current={ariaCurrent} className={classNames(s.root, className)}>
+			<a
+				aria-current={ariaCurrent}
+				className={classNames(s.root, className)}
+				rel={rel}
+			>
 				{children}
 			</a>
 		</Link>

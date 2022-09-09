@@ -21,6 +21,12 @@ interface NavigationDisclosureLinkProps {
 	 * Whether or `href` is the current page or a subpage of the browser URL.
 	 */
 	isActive: boolean
+
+	/**
+	 * Optional [rel](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel) attribute
+	 * to be passed to the internal anchor element.
+	 */
+	rel?: NativeAProps['rel']
 }
 
 export type { NavigationDisclosureLinkProps }
