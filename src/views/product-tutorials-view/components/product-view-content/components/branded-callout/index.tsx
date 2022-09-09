@@ -10,6 +10,7 @@ import s from './branded-callout.module.css'
 import patternBoundary from './img/boundary.png'
 import patternConsul from './img/consul.png'
 import patternNomad from './img/nomad.png'
+import patternGeneric from './img/generic.png'
 import patternPacker from './img/packer.png'
 import patternTerraform from './img/terraform.png'
 import patternVagrant from './img/vagrant.png'
@@ -33,16 +34,19 @@ function BrandedCallout({
 	cta,
 	product,
 }: BrandedCalloutProps) {
+	const gradientDefault = {
+		'--gradient-start': `var(--token-color-palette-neutral-100)`,
+		'--gradient-stop': `var(--token-color-palette-neutral-50)`,
+	}
+	// when no product is passed, fall back to generic (hcp) default
+	const gradient = product
+		? {
+				'--gradient-start': `var(--token-color-${product}-gradient-faint-start)`,
+				'--gradient-stop': `var(--token-color-${product}-gradient-faint-stop)`,
+		  }
+		: gradientDefault
 	return (
-		<div
-			className={s.root}
-			style={
-				{
-					'--gradient-start': `var(--token-color-${product}-gradient-faint-start)`,
-					'--gradient-stop': `var(--token-color-${product}-gradient-faint-stop)`,
-				} as CSSProperties
-			}
-		>
+		<div className={s.root} style={gradient as CSSProperties}>
 			<div className={s.textContainer}>
 				<h2 className={s.heading}>{heading}</h2>
 				{subheading ? <p className={s.subheading}>{subheading}</p> : null}
@@ -58,7 +62,7 @@ function BrandedCallout({
 			</div>
 			<div className={s.productPattern}>
 				<Image
-					src={PATTERN_IMG_MAP[product]}
+					src={PATTERN_IMG_MAP[product] || patternGeneric}
 					/** Note: pattern image is purely decorative */
 					alt=""
 					layout="fill"
