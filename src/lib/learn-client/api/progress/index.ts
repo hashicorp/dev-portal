@@ -14,7 +14,7 @@ import {
 	UpdateTutorialProgressOptions,
 } from './update-tutorial-progress'
 // Formatting
-import { progressStatusToPercent, progressPercentToStatus } from './formatting'
+export * from './formatting'
 
 /**
  * Used in get-all-progress.
@@ -33,7 +33,5 @@ export {
 	createTutorialProgress,
 	getProgress,
 	getTutorialProgress,
-	progressStatusToPercent,
-	progressPercentToStatus,
 	updateTutorialProgress,
 }

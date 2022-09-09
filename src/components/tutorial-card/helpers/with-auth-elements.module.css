@@ -1,0 +1,13 @@
+.progressIconAndLabel {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.progressIcon {
+	color: red;
+}
+
+.progressLabel {
+	color: magenta;
+}
