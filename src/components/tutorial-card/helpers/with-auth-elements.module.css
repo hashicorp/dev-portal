@@ -4,10 +4,8 @@
 	gap: 6px;
 }
 
-.progressIcon {
-	color: red;
-}
-
 .progressLabel {
-	color: magenta;
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-faint);
 }

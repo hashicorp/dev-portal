@@ -9,6 +9,7 @@ import {
 	progressStatusToLabel,
 	progressStatusToAriaLabel,
 } from 'lib/learn-client/api/progress'
+import TutorialProgressIcon from 'components/tutorial-progress-icon'
 
 /**
  * Displays a TutorialCard, which shows additional user-data-specific elements
@@ -49,7 +50,10 @@ export function TutorialCardWithAuthElements(props: TutorialCardPropsWithId) {
 					<span>
 						{shouldRenderProgress ? (
 							<span className={s.progressIconAndLabel}>
-								<span className={s.progressIcon}>ICON</span>
+								<TutorialProgressIcon
+									status={tutorialProgressStatus}
+									size={14}
+								/>
 								<span className={s.progressLabel}>
 									{progressStatusToLabel(tutorialProgressStatus)}
 								</span>
