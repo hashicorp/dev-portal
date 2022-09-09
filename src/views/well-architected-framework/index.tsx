@@ -40,3 +40,5 @@ export default function WellArchitectedFrameworkLandingView(
 		</SidebarSidecarLayout>
 	)
 }
+
+WellArchitectedFrameworkLandingView.contentType = 'tutorials'

@@ -7,14 +7,9 @@ import {
 	useState,
 } from 'react'
 import commands from './commands'
+import { CommandBarActivator, CommandBarDialog } from './components'
 import {
-	CommandBarActivator,
-	CommandBarDialog,
-	CommandBarDialogHeader,
-	CommandBarDialogBody,
-	CommandBarDialogFooter,
-} from './components'
-import {
+	CommandBarCommand,
 	CommandBarContextState,
 	CommandBarContextValue,
 	CommandBarProviderProps,
@@ -59,12 +54,23 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	)
 
 	/**
-	 * Set up `addTag` callback.
+	 * Set up `addTag` callback. Automatically handles checking for duplicates.
 	 */
-	const addTag = useCallback((tag: CommandBarTag) => {
+	const addTag = useCallback((newTag: CommandBarTag) => {
 		setState((prevState: CommandBarContextState) => {
 			const prevTags = prevState.currentTags
-			return { ...prevState, currentTags: [...prevTags, tag] }
+
+			// Check if the tag is already present
+			const tagExists =
+				prevTags.find((tag: CommandBarTag) => tag.id === newTag.id) !==
+				undefined
+
+			// Only add the new tag if it doesn't exist
+			if (tagExists) {
+				return prevState
+			} else {
+				return { ...prevState, currentTags: [...prevTags, newTag] }
+			}
 		})
 	}, [])
 
@@ -119,11 +125,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	return (
 		<CommandBarContext.Provider value={contextValue}>
 			{children}
-			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
-				<CommandBarDialogHeader />
-				<CommandBarDialogBody />
-				<CommandBarDialogFooter />
-			</CommandBarDialog>
+			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen} />
 		</CommandBarContext.Provider>
 	)
 }
@@ -137,7 +139,7 @@ const useCommandBar = (): CommandBarContextValue => {
 	return context
 }
 
-export type { CommandBarTag }
+export type { CommandBarCommand, CommandBarTag }
 export {
 	CommandBarActivator,
 	CommandBarProvider,
