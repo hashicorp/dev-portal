@@ -9,8 +9,8 @@ const useFullURL = (base: string = 'https://developer.hashicorp.com') => {
 const SelfReferentialCanonicalTag = () => {
 	const canonicalURL = useFullURL()
 	return (
-		<Head key={canonicalURL}>
-			<link rel="canonical" href={canonicalURL} />
+		<Head>
+			<link rel="canonical" href={canonicalURL} key="canonical" />
 		</Head>
 	)
 }
