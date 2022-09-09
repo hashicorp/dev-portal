@@ -1,5 +1,5 @@
 .docsVersionSwitcher {
-	@media (--small) {
+	@media (--dev-dot-mobile) {
 		width: 100%;
 
 		& button {
@@ -19,7 +19,7 @@
 
 	& ul {
 		max-height: 234px;
-		overflow: scroll;
+		overflow: auto;
 
 		& li:first-child span {
 			display: -webkit-box;

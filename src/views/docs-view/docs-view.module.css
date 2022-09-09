@@ -8,7 +8,7 @@
 	& .versionSwitcherWrapper {
 		width: 100%;
 
-		@media (--medium-up) {
+		@media (--dev-dot-tablet-up) {
 			width: auto;
 			position: absolute;
 			right: 0;
