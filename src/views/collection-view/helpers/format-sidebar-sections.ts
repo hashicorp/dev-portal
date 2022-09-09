@@ -6,7 +6,7 @@ import { ListItemProps } from 'components/tutorials-sidebar/types'
 import { getCollectionSlug } from './get-slug'
 
 export interface CollectionCategorySidebarSection {
-	title?: CollectionCategoryOption
+	title?: string
 	items: ListItemProps[]
 }
 
