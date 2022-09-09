@@ -36,11 +36,37 @@ interface CommandBarContextValue extends CommandBarContextState {
 	toggleIsOpen: () => void
 }
 
+interface ToggleIsOpenAction {
+	type: 'TOGGLE_IS_OPEN'
+}
+
+interface SetCurrentCommandAction {
+	type: 'SET_CURRENT_COMMAND'
+	value: keyof typeof SupportedCommand
+}
+
+interface AddTagAction {
+	type: 'ADD_TAG'
+	value: CommandBarTag
+}
+
+interface RemoveTagAction {
+	type: 'REMOVE_TAG'
+	value: CommandBarTag['id']
+}
+
+type CommandBarReducerAction =
+	| ToggleIsOpenAction
+	| SetCurrentCommandAction
+	| AddTagAction
+	| RemoveTagAction
+
 export type {
 	CommandBarCommand,
 	CommandBarContextState,
 	CommandBarContextValue,
 	CommandBarProviderProps,
+	CommandBarReducerAction,
 	CommandBarTag,
 }
 export { SupportedCommand }

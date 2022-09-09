@@ -4,7 +4,7 @@ import {
 	useContext,
 	useEffect,
 	useMemo,
-	useState,
+	useReducer,
 } from 'react'
 import commands from './commands'
 import { CommandBarActivator, CommandBarDialog } from './components'
@@ -13,6 +13,7 @@ import {
 	CommandBarContextState,
 	CommandBarContextValue,
 	CommandBarProviderProps,
+	CommandBarReducerAction,
 	CommandBarTag,
 	SupportedCommand,
 } from './types'
@@ -25,19 +26,58 @@ const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	isOpen: false,
 }
 
+const commandBarReducer = (
+	state: CommandBarContextState,
+	action: CommandBarReducerAction
+) => {
+	switch (action.type) {
+		case 'TOGGLE_IS_OPEN': {
+			const previousIsOpen = state.isOpen
+			return { ...state, isOpen: !previousIsOpen }
+		}
+		case 'SET_CURRENT_COMMAND': {
+			return { ...state, currentCommand: commands[action.value] }
+		}
+		case 'ADD_TAG': {
+			const newTag = action.value
+			const previousCurrentTags = state.currentTags
+
+			// Check if the tag is already present
+			const tagExists =
+				previousCurrentTags.find(
+					(tag: CommandBarTag) => tag.id === newTag.id
+				) !== undefined
+
+			// Only add the new tag if it doesn't exist
+			if (tagExists) {
+				return state
+			} else {
+				return { ...state, currentTags: [...previousCurrentTags, newTag] }
+			}
+		}
+		case 'REMOVE_TAG': {
+			const tagId = action.value
+			const previousCurrentTags = state.currentTags
+			return {
+				...state,
+				currentTags: previousCurrentTags.filter(
+					(tag: CommandBarTag) => tag.id !== tagId
+				),
+			}
+		}
+	}
+}
+
 const CommandBarContext = createContext<CommandBarContextValue>(undefined)
 
 const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
-	const [state, setState] = useState(DEFAULT_CONTEXT_STATE)
+	const [state, dispatch] = useReducer(commandBarReducer, DEFAULT_CONTEXT_STATE)
 
 	/**
 	 * Set up `toggleIsOpen` callback.
 	 */
 	const toggleIsOpen = useCallback(() => {
-		setState((prevState: CommandBarContextState) => {
-			const prevIsOpen = prevState.isOpen
-			return { ...prevState, isOpen: !prevIsOpen }
-		})
+		dispatch({ type: 'TOGGLE_IS_OPEN' })
 	}, [])
 
 	/**
@@ -45,10 +85,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	 */
 	const setCurrentCommand = useCallback(
 		(commandName: keyof typeof SupportedCommand) => {
-			setState((prevState: CommandBarContextState) => ({
-				...prevState,
-				currentCommand: commands[commandName],
-			}))
+			dispatch({ type: 'SET_CURRENT_COMMAND', value: commandName })
 		},
 		[]
 	)
@@ -57,40 +94,14 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	 * Set up `addTag` callback. Automatically handles checking for duplicates.
 	 */
 	const addTag = useCallback((newTag: CommandBarTag) => {
-		setState((prevState: CommandBarContextState) => {
-			const prevTags = prevState.currentTags
-
-			// Check if the tag is already present
-			const tagExists =
-				prevTags.find((tag: CommandBarTag) => tag.id === newTag.id) !==
-				undefined
-
-			// Only add the new tag if it doesn't exist
-			if (tagExists) {
-				return prevState
-			} else {
-				return { ...prevState, currentTags: [...prevTags, newTag] }
-			}
-		})
+		dispatch({ type: 'ADD_TAG', value: newTag })
 	}, [])
 
 	/**
 	 * Set up `removeTag` callback.
 	 */
 	const removeTag = useCallback((tagId: CommandBarTag['id']) => {
-		setState((prevState: CommandBarContextState) => {
-			const prevTags = prevState.currentTags
-			if (prevTags.length === 0) {
-				return prevState
-			} else {
-				return {
-					...prevState,
-					currentTags: prevTags.filter(
-						(tag: CommandBarTag) => tag.id !== tagId
-					),
-				}
-			}
-		})
+		dispatch({ type: 'REMOVE_TAG', value: tagId })
 	}, [])
 
 	/**
