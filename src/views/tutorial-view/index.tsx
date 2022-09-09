@@ -146,6 +146,7 @@ function TutorialView({
 			getCollectionSlug,
 		},
 	})
+
 	const canonicalCollectionSlug = getCanonicalCollectionSlug(
 		tutorial,
 		product.slug
@@ -305,6 +306,8 @@ function TutorialView({
 		</>
 	)
 }
+
+TutorialView.contentType = 'tutorials'
 
 export type {
 	TutorialViewProps,

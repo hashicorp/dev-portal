@@ -1,50 +1,50 @@
 .root {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 48px;
-  justify-content: space-between;
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 48px;
+	justify-content: space-between;
 }
 
 .textPart {
-  flex: 1 1 0;
-  min-width: min(100%, 300px);
+	flex: 1 1 0;
+	min-width: min(100%, 300px);
 
-  @media (--dev-dot-tablet-up) {
-    max-width: 400px;
-  }
+	@media (--dev-dot-tablet-up) {
+		max-width: 400px;
+	}
 }
 
 .imagePart {
-  align-items: center;
-  display: flex;
-  flex: 1 1 0;
-  justify-content: center;
-  max-width: 560px;
-  min-width: min(100%, 240px);
+	align-items: center;
+	display: flex;
+	flex: 1 1 0;
+	justify-content: center;
+	max-width: 560px;
+	min-width: min(100%, 240px);
 
-  & img {
-    display: block;
-    height: auto;
-    max-height: 200px;
-    max-width: 100%;
-    width: auto;
-  }
+	& img {
+		display: block;
+		height: auto;
+		max-height: 200px;
+		max-width: 100%;
+		width: auto;
+	}
 }
 
 .heading {
-  composes: g-offset-scroll-margin-top from global;
-  composes: hds-typography-display-300 from global;
-  color: var(--token-color-foreground-strong);
-  font-weight: var(--token-typography-font-weight-bold);
+	composes: g-offset-scroll-margin-top from global;
+	composes: hds-typography-display-300 from global;
+	color: var(--token-color-foreground-strong);
+	font-weight: var(--token-typography-font-weight-bold);
 }
 
 .body {
-  composes: hds-typography-body-300 from global;
-  color: var(--token-color-foreground-primary);
-  margin: 4px 0 0 0;
+	composes: hds-typography-body-300 from global;
+	color: var(--token-color-foreground-primary);
+	margin: 4px 0 0 0;
 }
 
 .cta {
-  margin-top: 16px;
+	margin-top: 16px;
 }
