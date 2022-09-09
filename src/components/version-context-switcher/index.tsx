@@ -1,9 +1,7 @@
-import { ReactElement, useState } from 'react'
+import { ChangeEventHandler, ReactElement, useState } from 'react'
+import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { useCurrentProduct } from 'contexts'
-import DropdownDisclosure, {
-	DropdownDisclosureButtonItem,
-	DropdownDisclosureLabelItem,
-} from 'components/dropdown-disclosure'
+import ProductIcon from 'components/product-icon'
 import { ContextSwitcherOption, VersionContextSwitcherProps } from './types'
 import s from './version-context-switcher.module.css'
 
@@ -22,49 +20,60 @@ const VersionContextSwitcher = ({
 	options,
 }: VersionContextSwitcherProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
-	const [selectedVersion, setSelectedVersion] = useState<ContextSwitcherOption>(
-		initialValue || options[0]
-	)
+	const [selectedVersion, setSelectedVersion] = useState<
+		ContextSwitcherOption['value']
+	>(initialValue || options[0].value)
 
 	/**
 	 * Handle change event for switcher, invoking the `onChange` function last if
 	 * it has been passed in the `onChange` prop.
 	 */
-	const handleChange = (selected: ContextSwitcherOption) => {
-		setSelectedVersion(selected)
+	const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
+		setSelectedVersion(e.target.value)
 
 		if (onChange) {
-			onChange(selected.value)
+			onChange(e)
 		}
 	}
 
+	/**
+	 * TODO: hopefully this is temporary. Because Sentinel does not have a
+	 * `ProductIcon` and the component intentionally returns `null` for if the
+	 * value for the `product` prop is `'sentinel'`, opting to pass a different
+	 * value for Sentinel here rather than affect all current references to
+	 * ProductIcon.
+	 *  - `ProductSwitcher` is one example that would be imacted by adding a
+	 *    ProductIcon for Sentinel. We currently do not want to render an icon
+	 *    for Sentinel in `ProductSwitcher`.
+	 */
+	const productIconSlug =
+		currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
 	return (
-		<DropdownDisclosure
-			aria-label="Choose a different version to install"
-			className={s.dropdownList}
-			text={selectedVersion.label}
-			color="secondary"
-			listPosition="right"
-		>
-			<DropdownDisclosureLabelItem>
-				{currentProduct.name}
-			</DropdownDisclosureLabelItem>
-			{options
-				// Hide currently selected version from dropdown list
-				.filter(
-					(option: ContextSwitcherOption) =>
-						option.value !== selectedVersion.value
-				)
-				.map((option: ContextSwitcherOption) => (
-					<DropdownDisclosureButtonItem
+		<div className={s.root}>
+			<span className={s.productIcon}>
+				<ProductIcon productSlug={productIconSlug} />
+			</span>
+			<select
+				aria-label="Choose a different version to install"
+				className={s.select}
+				onChange={handleChange}
+				value={selectedVersion}
+			>
+				{options.map((option) => (
+					<option
 						aria-label={`${currentProduct.name} ${option.label}`}
+						className={s.option}
 						key={option.value}
-						onClick={() => handleChange(option)}
+						value={option.value}
 					>
 						{option.label}
-					</DropdownDisclosureButtonItem>
+					</option>
 				))}
-		</DropdownDisclosure>
+			</select>
+			<span className={s.trailingIcon}>
+				<IconCaret16 />
+			</span>
+		</div>
 	)
 }
 

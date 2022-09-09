@@ -1,10 +1,19 @@
-.dropdownList {
+.docsVersionSwitcher {
 	@media (--small) {
 		width: 100%;
 
-		& > button {
+		& button {
 			width: 100%;
 			justify-content: space-between;
+		}
+
+		& > div {
+			width: 100%;
+		}
+
+		& ul {
+			width: 100%;
+			max-width: 100%;
 		}
 	}
 

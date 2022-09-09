@@ -58,7 +58,7 @@ const DocsVersionSwitcher = ({
 	return (
 		<DropdownDisclosure
 			aria-label={ariaLabel}
-			className={s.dropdownList}
+			className={s.docsVersionSwitcher}
 			text={selectedOption.label}
 			color="secondary"
 			listPosition="right"
