@@ -22,7 +22,7 @@ const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
 const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	currentCommand: commands.search,
-	currentSearchQuery: '',
+	currentInputValue: '',
 	currentTags: [],
 	isOpen: false,
 }
@@ -62,8 +62,8 @@ const commandBarReducer = (
 		case 'SET_CURRENT_COMMAND': {
 			return { ...state, currentCommand: commands[action.value] }
 		}
-		case 'SET_CURRENT_SEARCH_QUERY': {
-			return { ...state, currentSearchQuery: action.value }
+		case 'SET_CURRENT_INPUT_VALUE': {
+			return { ...state, currentInputValue: action.value }
 		}
 		case 'TOGGLE_IS_OPEN': {
 			const previousIsOpen = state.isOpen
@@ -100,8 +100,8 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		dispatch({ type: 'REMOVE_TAG', value: tagId })
 	}, [])
 
-	const setCurrentSearchQuery = useCallback((searchQuery: string) => {
-		dispatch({ type: 'SET_CURRENT_SEARCH_QUERY', value: searchQuery })
+	const setCurrentInputValue = useCallback((newValue: string) => {
+		dispatch({ type: 'SET_CURRENT_INPUT_VALUE', value: newValue })
 	}, [])
 
 	/**
@@ -135,14 +135,14 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 			addTag,
 			removeTag,
 			setCurrentCommand,
-			setCurrentSearchQuery,
+			setCurrentInputValue,
 			toggleIsOpen,
 		}
 	}, [
 		addTag,
 		removeTag,
 		setCurrentCommand,
-		setCurrentSearchQuery,
+		setCurrentInputValue,
 		state,
 		toggleIsOpen,
 	])

@@ -8,10 +8,10 @@ import s from './command-bar-dialog.module.css'
 const CommandBarDialogHeader = () => {
 	const {
 		currentCommand,
-		currentSearchQuery,
+		currentInputValue,
 		currentTags,
 		removeTag,
-		setCurrentSearchQuery,
+		setCurrentInputValue,
 	} = useCommandBar()
 
 	return (
@@ -31,10 +31,10 @@ const CommandBarDialogHeader = () => {
 			<input
 				className={s.input}
 				onChange={(e: ChangeEvent<HTMLInputElement>) =>
-					setCurrentSearchQuery(e.target.value)
+					setCurrentInputValue(e.target.value)
 				}
 				placeholder={currentCommand.inputProps.placeholder}
-				value={currentSearchQuery}
+				value={currentInputValue}
 			/>
 			<div className={s.badges}>
 				<Badge

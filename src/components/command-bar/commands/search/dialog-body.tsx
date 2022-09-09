@@ -12,7 +12,7 @@ import {
 import ProductIcon from 'components/product-icon'
 
 const SearchCommandBarDialogBody = () => {
-	const { addTag, removeTag, currentSearchQuery } = useCommandBar()
+	const { addTag, removeTag, currentInputValue } = useCommandBar()
 	const currentProduct = useCurrentProduct()
 
 	/**
@@ -49,7 +49,7 @@ const SearchCommandBarDialogBody = () => {
 
 	return (
 		<>
-			<p>Current search query: {currentSearchQuery}</p>
+			<p>Current search query: {currentInputValue}</p>
 			<br />
 			<CommandBarList label="Search Results">
 				<CommandBarLinkListItem
