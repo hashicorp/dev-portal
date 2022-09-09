@@ -68,194 +68,189 @@ const generateBasicSuggestedPages = (productSlug: ProductSlug) => {
 }
 
 /**
- * @TODO potential optimization: just generate this list for a single product at
- * a time, and cache the result in React Query forever (the list won't change
- * while a user is actively using the site).
+ * These are pages listed after the main pages for a product, and just before a
+ * link to the Ttorials Library.
  */
-const generateSuggestedPages = (): Record<string, SuggestedPage[]> => {
-	return {
-		boundary: [
-			...generateBasicSuggestedPages('boundary'),
-			{
-				icon: <IconDocs16 />,
-				text: 'HCP Boundary',
-				url: '/hcp/docs/boundary',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Connect to Your First Target',
-				url: '/boundary/docs/getting-started/connect-to-target',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Concepts',
-				url: '/boundary/docs/concepts',
-			},
-			generateTutorialLibrarySuggestedPage('boundary'),
-		],
-		consul: [
-			...generateBasicSuggestedPages('consul'),
-			{
-				icon: <IconDocs16 />,
-				text: 'HCP Consul',
-				url: '/hcp/docs/consul',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'API',
-				url: '/consul/docs/api-docs',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Commands (CLI)',
-				url: '/consul/docs/commands',
-			},
-			generateTutorialLibrarySuggestedPage('consul'),
-		],
-		hcp: [
-			...generateBasicSuggestedPages('hcp'),
-			{
-				icon: <IconDocs16 />,
-				text: 'HCP Vault',
-				url: '/hcp/docs/vault',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'What is HCP?',
-				url: '/hcp/docs/hcp',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'HCP Packer',
-				url: '/hcp/docs/packer',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'HCP Consul',
-				url: '/hcp/docs/consul',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'HCP Boundary',
-				url: '/hcp/docs/boundary',
-			},
-			generateTutorialLibrarySuggestedPage('hcp'),
-		],
-		global: DEFAULT_SUGGESTED_PAGES,
-		nomad: [
-			...generateBasicSuggestedPages('nomad'),
-			{
-				icon: <IconDocs16 />,
-				text: 'API',
-				url: '/nomad/api-docs',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Tools',
-				url: '/nomad/tools',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Plugins',
-				url: '/nomad/plugins',
-			},
-			generateTutorialLibrarySuggestedPage('nomad'),
-		],
-		packer: [
-			...generateBasicSuggestedPages('packer'),
-			{
-				icon: <IconDocs16 />,
-				text: 'HCP Packer',
-				url: '/hcp/docs/packer',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'AMI Builder (EBS backed)',
-				url: '/packer/plugins/builders/amazon/ebs',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Plugins',
-				url: '/packer/plugins',
-			},
-			generateTutorialLibrarySuggestedPage('packer'),
-		],
-		terraform: [
-			...generateBasicSuggestedPages('terraform'),
-			{
-				icon: <IconDocs16 />,
-				text: 'Terraform Cloud',
-				url: '/terraform/cloud-docs',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Configuration Language',
-				url: '/terraform/language',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'CDK for Terraform',
-				url: '/terraform/cdktf',
-			},
-			generateTutorialLibrarySuggestedPage('terraform'),
-		],
-		vagrant: [
-			...generateBasicSuggestedPages('vagrant'),
-			{
-				icon: <IconDocs16 />,
-				text: 'Vagrant Cloud',
-				url: '/vagrant/vagrant-cloud',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Commands (CLI)',
-				url: '/vagrant/docs/cli',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Boxes',
-				url: '/vagrant/docs/boxes',
-			},
-			generateTutorialLibrarySuggestedPage('vagrant'),
-		],
-		vault: [
-			...generateBasicSuggestedPages('vault'),
-			{
-				icon: <IconDocs16 />,
-				text: 'HCP Boundary',
-				url: '/hcp/docs/boundary',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Connect to Your First Target',
-				url: '/boundary/docs/getting-started/connect-to-target',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Concepts',
-				url: '/boundary/docs/concepts',
-			},
-			generateTutorialLibrarySuggestedPage('vault'),
-		],
-		waypoint: [
-			...generateBasicSuggestedPages('waypoint'),
-			{
-				icon: <IconDocs16 />,
-				text: 'Getting Started with Waypoint',
-				url: '/waypoint/',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Waypoint URL Service',
-				url: '/waypoint/docs/url',
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Kubernetes (plugins/kubernetes)',
-				url: '/waypoint/plugins/kubernetes',
-			},
-			generateTutorialLibrarySuggestedPage('waypoint'),
-		],
+const EXTRA_PAGES: Record<Exclude<ProductSlug, 'sentinel'>, SuggestedPage[]> = {
+	boundary: [
+		{
+			icon: <IconDocs16 />,
+			text: 'HCP Boundary',
+			url: '/hcp/docs/boundary',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Connect to Your First Target',
+			url: '/boundary/docs/getting-started/connect-to-target',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Concepts',
+			url: '/boundary/docs/concepts',
+		},
+	],
+	consul: [
+		{
+			icon: <IconDocs16 />,
+			text: 'HCP Consul',
+			url: '/hcp/docs/consul',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'API',
+			url: '/consul/docs/api-docs',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Commands (CLI)',
+			url: '/consul/docs/commands',
+		},
+	],
+	hcp: [
+		{
+			icon: <IconDocs16 />,
+			text: 'HCP Vault',
+			url: '/hcp/docs/vault',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'What is HCP?',
+			url: '/hcp/docs/hcp',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'HCP Packer',
+			url: '/hcp/docs/packer',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'HCP Consul',
+			url: '/hcp/docs/consul',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'HCP Boundary',
+			url: '/hcp/docs/boundary',
+		},
+	],
+	nomad: [
+		{
+			icon: <IconDocs16 />,
+			text: 'API',
+			url: '/nomad/api-docs',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Tools',
+			url: '/nomad/tools',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Plugins',
+			url: '/nomad/plugins',
+		},
+	],
+	packer: [
+		{
+			icon: <IconDocs16 />,
+			text: 'HCP Packer',
+			url: '/hcp/docs/packer',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'AMI Builder (EBS backed)',
+			url: '/packer/plugins/builders/amazon/ebs',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Plugins',
+			url: '/packer/plugins',
+		},
+	],
+	terraform: [
+		{
+			icon: <IconDocs16 />,
+			text: 'Terraform Cloud',
+			url: '/terraform/cloud-docs',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Configuration Language',
+			url: '/terraform/language',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'CDK for Terraform',
+			url: '/terraform/cdktf',
+		},
+	],
+	vagrant: [
+		{
+			icon: <IconDocs16 />,
+			text: 'Vagrant Cloud',
+			url: '/vagrant/vagrant-cloud',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Commands (CLI)',
+			url: '/vagrant/docs/cli',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Boxes',
+			url: '/vagrant/docs/boxes',
+		},
+	],
+	vault: [
+		{
+			icon: <IconDocs16 />,
+			text: 'HCP Boundary',
+			url: '/hcp/docs/boundary',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Connect to Your First Target',
+			url: '/boundary/docs/getting-started/connect-to-target',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Concepts',
+			url: '/boundary/docs/concepts',
+		},
+	],
+	waypoint: [
+		{
+			icon: <IconDocs16 />,
+			text: 'Getting Started with Waypoint',
+			url: '/waypoint/',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Waypoint URL Service',
+			url: '/waypoint/docs/url',
+		},
+		{
+			icon: <IconDocs16 />,
+			text: 'Kubernetes (plugins/kubernetes)',
+			url: '/waypoint/plugins/kubernetes',
+		},
+	],
+}
+
+/**
+ * @TODO potential optimization: cache the result in React Query forever (since
+ * the list won't change while a user is actively using the site).
+ */
+const generateSuggestedPages = (productSlug?: ProductSlug): SuggestedPage[] => {
+	const extraPages = productSlug && EXTRA_PAGES[productSlug]
+	if (extraPages) {
+		return [
+			...generateBasicSuggestedPages(productSlug),
+			...extraPages,
+			generateTutorialLibrarySuggestedPage(productSlug),
+		]
+	} else {
+		return DEFAULT_SUGGESTED_PAGES
 	}
 }
 
