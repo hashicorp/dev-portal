@@ -15,9 +15,7 @@ import s from './docs-version-switcher.module.css'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
-const DocsVersionSwitcher = ({
-	options,
-}: DocsVersionSwitcherProps): ReactElement => {
+const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
 	const currentProduct = useCurrentProduct() as ProductWithCurrentRootDocsPath
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 

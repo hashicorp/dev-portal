@@ -5,11 +5,11 @@ import DocsViewLayout from 'layouts/docs-view-layout'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import TabProvider from 'components/tabs/provider'
 import DevDotContent from 'components/dev-dot-content'
+import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import ProductDocsSearch from './components/product-docs-search'
 import s from './docs-view.module.css'
-import DocsVersionSwitcher from 'components/docs-version-switcher'
 
 /**
  * Layouts
