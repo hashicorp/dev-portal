@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Terraform Placeholder Duplicate Of Vault Content",
-		"image": "https://place-hold.it/600x320"
+		"image": "https://www.datocms-assets.com/2885/1662749094-terraform-landing-background.png"
 	},
 	"overview": {
 		"heading": "What is Terraform?",
@@ -10,7 +10,7 @@
 			"text": "Learn more about Terraform features",
 			"url": "/vault/docs/what-is-vault"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662053785-dev-dot-product-landing-what-is-terraform-diagram.png"
+		"image": "https://www.datocms-assets.com/2885/1662746959-terraform-dev-dot-visual.png"
 	},
 	"get_started": {
 		"heading": "Getting Started",
