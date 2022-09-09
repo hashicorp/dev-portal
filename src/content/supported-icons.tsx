@@ -24,12 +24,18 @@ import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal
 import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
 import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
 import { IconVmware16 } from '@hashicorp/flight-icons/svg-react/vmware-16'
+import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
+import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
+import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
+import { IconPackerColor16 } from '@hashicorp/flight-icons/svg-react/packer-color-16'
 
 export const SUPPORTED_ICONS = {
 	api: <IconApi16 />,
 	'aws-color': <IconAwsColor16 />,
+	'boundary-color': <IconBoundaryColor16 />,
 	cloud: <IconCloud16 />,
 	connection: <IconConnection16 />,
+	'consul-color': <IconConsulColor16 />,
 	database: <IconDatabase16 />,
 	'docker-color': <IconDockerColor16 />,
 	docs: <IconDocs16 />,
@@ -44,6 +50,7 @@ export const SUPPORTED_ICONS = {
 	'kubernetes-color': <IconKubernetesColor16 />,
 	'microsoft-color': <IconMicrosoftColor16 />,
 	'oracle-color': <IconOracleColor16 />,
+	'packer-color': <IconPackerColor16 />,
 	plug: <IconPlug16 />,
 	'plus-circle': <IconPlusCircle16 />,
 	provider: <IconProvider16 />,
@@ -52,4 +59,5 @@ export const SUPPORTED_ICONS = {
 	'terraform-color': <IconTerraformColor16 />,
 	tools: <IconTools16 />,
 	vmware: <IconVmware16 />,
+	'vault-color': <IconVaultColor16 />,
 }

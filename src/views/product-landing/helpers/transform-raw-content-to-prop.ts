@@ -10,7 +10,13 @@ import { ProductLandingViewProps } from '../types'
 import { ProductLandingBlock } from '../components/product-landing-blocks/types'
 
 export async function transformRawContentToProp(
-	{ hero, overview, get_started, blocks }: ProductLandingContent,
+	{
+		hero,
+		overview,
+		overviewParagraph,
+		get_started,
+		blocks,
+	}: ProductLandingContent,
 	product: ProductData
 ): Promise<ProductLandingViewProps['content']> {
 	/**
@@ -76,6 +82,7 @@ export async function transformRawContentToProp(
 	return {
 		hero: heroProps,
 		overview: overviewCtaProps,
+		overviewParagraph,
 		get_started: getStartedProps,
 		blocks: transformedBlocks,
 	}

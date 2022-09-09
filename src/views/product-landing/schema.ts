@@ -122,12 +122,13 @@ export interface ProductLandingContent {
 	overview: {
 		heading: string
 		body: string
-		cta: {
+		cta?: {
 			text: string
 			url: string
 		}
 		image: string
 	}
+	overviewParagraph?: string
 	get_started: {
 		heading: string
 		body: string
@@ -150,15 +151,16 @@ const ProductLandingOverviewSchema = Joi.object({
 	cta: Joi.object({
 		text: Joi.string().required(),
 		url: Joi.string().required(),
-	}).required(),
+	}),
 	image: Joi.string().required(),
-}).required()
+})
 
 // Require either `ctas` or `iconCardLinks`
 const ProductLandingGetStartedSchema = Joi.alternatives().try(
 	Joi.object({
 		heading: Joi.string().required(),
 		body: Joi.string().required(),
+		fixedColumns: Joi.number(),
 		ctas: Joi.array()
 			.items(
 				Joi.object({
@@ -181,12 +183,14 @@ const ProductLandingGetStartedSchema = Joi.alternatives().try(
 				})
 			)
 			.required(),
+		fixedColumns: Joi.number(),
 	})
 )
 
 export const ProductLandingContentSchema = Joi.object({
 	hero: ProductLandingHeroSchema,
 	overview: ProductLandingOverviewSchema,
+	overviewParagraph: Joi.string(),
 	get_started: ProductLandingGetStartedSchema,
 	blocks: Joi.array().items(ProductLandingContentBlockSchema),
 })

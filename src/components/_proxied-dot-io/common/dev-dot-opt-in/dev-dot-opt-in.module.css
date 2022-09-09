@@ -19,6 +19,7 @@
 	color: var(--token-color-foreground-highlight-on-surface);
 	flex-shrink: 0;
 	display: flex;
+	padding-top: 2px;
 
 	& svg {
 		display: block;
