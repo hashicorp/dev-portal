@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { ProductWithCurrentRootDocsPath } from 'types/products'
 import { getTargetPath } from 'lib/get-target-path'
 import { getVersionFromPath } from 'lib/get-version-from-path'
@@ -9,7 +9,6 @@ import DropdownDisclosure, {
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
-import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { DocsVersionSwitcherOption, DocsVersionSwitcherProps } from './types'
 import s from './docs-version-switcher.module.css'
 
@@ -95,5 +94,5 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
 	)
 }
 
-export type { VersionSelectItem, DocsVersionSwitcherProps }
+export type { DocsVersionSwitcherProps }
 export default DocsVersionSwitcher
