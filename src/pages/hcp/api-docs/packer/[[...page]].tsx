@@ -125,7 +125,7 @@ export async function getStaticProps({ params }) {
 		generateTopLevelSidebarNavData(productData.name),
 		generateProductLandingSidebarNavData(productData),
 		{
-			backToLinkProps: { text: 'HashiCorp Cloud Platform Home', href: '/hcp/' },
+			backToLinkProps: { text: 'HashiCorp Cloud Platform Home', href: '/hcp' },
 			title: 'API',
 			levelButtonProps: {
 				levelUpButtonText: `${productData.name} Home`,
