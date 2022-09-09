@@ -14,7 +14,7 @@
 	},
 	"get_started": {
 		"heading": "Get Started",
-		"body": "Follow a code-complete, hands on tutorial to learn the Terraform basics with your favorite infrastructure provider.",
+		"body": "Follow a code-complete, hands-on tutorial to learn the Terraform basics with your favorite infrastructure provider.",
 		"iconCardLinks": [
 			{
 				"icon": "aws-color",
