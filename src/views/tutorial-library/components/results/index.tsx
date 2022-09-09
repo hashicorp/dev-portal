@@ -56,8 +56,19 @@ export function TutorialLibraryResults({
 		))
 	}
 
+	const resultsLowerBound = results.hitsPerPage * results.page + 1
+	const resultsUpperBound = Math.min(
+		results.hitsPerPage * (results.page + 1),
+		results.nbHits
+	)
+
 	return (
 		<>
+			<span aria-live="polite" className="g-screen-reader-only">
+				{hasFiltersApplied
+					? `Search returned ${results.nbHits} results. Displaying ${resultsLowerBound} through ${resultsUpperBound}.`
+					: 'Apply filters to search.'}
+			</span>
 			<CardsGridList fixedColumns={3}>{itemsToRender}</CardsGridList>
 			{hasFiltersApplied && <Pagination />}
 		</>
