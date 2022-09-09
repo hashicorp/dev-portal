@@ -94,7 +94,6 @@ export async function getStaticProps({ params }) {
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
 		{ title: 'HashiCorp Cloud Platform', url: `/hcp` },
-		{ title: 'API', url: `/hcp/api-docs` },
 	]
 
 	// Breadcrumbs - Render conditional category
