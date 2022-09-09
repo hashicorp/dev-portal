@@ -5,12 +5,18 @@ enum SupportedCommand {
 	settings = 'settings',
 }
 
-interface Command {
+interface CommandBarCommand {
 	name: SupportedCommand
 	icon: ReactElement
 	inputProps: {
 		placeholder: string
 	}
+	DialogBody?: () => ReactElement
+}
+
+type CommandBarTag = {
+	id: string
+	text: string
 }
 
 interface CommandBarProviderProps {
@@ -18,19 +24,23 @@ interface CommandBarProviderProps {
 }
 
 interface CommandBarContextState {
-	currentCommand: Command
+	currentCommand: CommandBarCommand
+	currentTags: CommandBarTag[]
 	isOpen: boolean
 }
 
 interface CommandBarContextValue extends CommandBarContextState {
+	addTag: (tag: CommandBarTag) => void
+	removeTag: (tagId: CommandBarTag['id']) => void
 	setCurrentCommand: (command: SupportedCommand) => void
 	toggleIsOpen: () => void
 }
 
 export type {
-	Command,
+	CommandBarCommand,
 	CommandBarContextState,
 	CommandBarContextValue,
 	CommandBarProviderProps,
+	CommandBarTag,
 }
 export { SupportedCommand }
