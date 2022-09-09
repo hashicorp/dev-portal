@@ -1,22 +1,14 @@
 import { useCallback, useMemo } from 'react'
 import { useCurrentProduct } from 'contexts'
-import { useCommandBar } from 'components/command-bar'
+import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import { generateSuggestedPages } from './helpers/generate-suggested-pages'
-import SuggestedPages from './suggested-pages'
+import SuggestedPages, { SuggestedPage } from './suggested-pages'
+import { ProductSlug } from 'types/products'
 
 const SearchCommandBarDialogBody = () => {
 	const { addTag, currentTags, removeTag } = useCommandBar()
 	const currentProduct = useCurrentProduct()
-
-	/**
-	 * Generate a CommandBarTag object if there is a `currentProduct`.
-	 */
-	const currentProductTag = useMemo(() => {
-		if (currentProduct) {
-			return { id: currentProduct.slug, text: currentProduct.name }
-		}
-	}, [currentProduct])
 
 	/**
 	 * Generate suggested pages, memoized.
@@ -24,32 +16,30 @@ const SearchCommandBarDialogBody = () => {
 	 * NOTE: Can probably still be optimized by doing this in Command Bar, but
 	 * waiting to abstract that far for now.
 	 */
-	const suggestedPages = useMemo(() => {
-		const hasTagForCurrentProduct =
-			currentProduct &&
-			currentTags.find((tag) => tag.id === currentProduct.slug)
-		return generateSuggestedPages(
-			hasTagForCurrentProduct ? currentProduct.slug : undefined
-		)
+	const suggestedPages = useMemo<SuggestedPage[]>(() => {
+		const currentProductTag = currentProduct
+			? currentTags.find((tag: CommandBarTag) => tag.id === currentProduct.slug)
+			: undefined
+		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProduct, currentTags])
 
 	/**
 	 * Create callback for setting up this command's state.
 	 */
 	const setUpCommandState = useCallback(() => {
-		if (currentProductTag) {
-			addTag(currentProductTag)
+		if (currentProduct) {
+			addTag({ id: currentProduct.slug, text: currentProduct.name })
 		}
-	}, [addTag, currentProductTag])
+	}, [addTag, currentProduct])
 
 	/**
 	 * Create callback for cleaning up this command's state.
 	 */
 	const cleanUpCommandState = useCallback(() => {
-		if (currentProductTag) {
-			removeTag(currentProductTag.id)
+		if (currentProduct) {
+			removeTag(currentProduct.slug)
 		}
-	}, [currentProductTag, removeTag])
+	}, [currentProduct, removeTag])
 
 	/**
 	 * Leveraging the set up + clean up hook exposed by CommandBarDialog.
