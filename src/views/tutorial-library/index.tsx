@@ -14,6 +14,7 @@ import Button from 'components/button'
 import { ClearFilters } from './components/clear-filters'
 import { useFiltersState } from './components/filters/use-filters-state'
 import { TutorialLibraryViewProps } from './types'
+import { useScrollToTopOnResultsChange } from './utils/scroll'
 
 let timerId = undefined
 /**
@@ -39,6 +40,8 @@ export default function TutorialLibraryView({
 	const [query, setQuery] = useState<string>(searchQuery)
 	const [showMobileFilters, setShowMobileFilters] = useState(false)
 	const filtersState = useFiltersState()
+
+	useScrollToTopOnResultsChange()
 
 	return (
 		<div>
