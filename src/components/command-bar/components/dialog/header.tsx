@@ -2,10 +2,17 @@ import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
 import Badge from 'components/badge'
 import { useCommandBar, CommandBarTag } from 'components/command-bar'
 import Tag from 'components/tag'
+import { ChangeEvent } from 'react'
 import s from './command-bar-dialog.module.css'
 
 const CommandBarDialogHeader = () => {
-	const { currentCommand, currentTags, removeTag } = useCommandBar()
+	const {
+		currentCommand,
+		currentSearchQuery,
+		currentTags,
+		removeTag,
+		setCurrentSearchQuery,
+	} = useCommandBar()
 
 	return (
 		<div className={s.header}>
@@ -23,7 +30,11 @@ const CommandBarDialogHeader = () => {
 			) : null}
 			<input
 				className={s.input}
+				onChange={(e: ChangeEvent<HTMLInputElement>) =>
+					setCurrentSearchQuery(e.target.value)
+				}
 				placeholder={currentCommand.inputProps.placeholder}
+				value={currentSearchQuery}
 			/>
 			<div className={s.badges}>
 				<Badge
