@@ -38,7 +38,13 @@ export async function getTutorial(
 	throw error
 }
 
-// getTutorials
+/**
+ * Fetches tutorials based on provided identifiers. The following function overloads ensure the return type is accurate based on how the
+ * `withContent` argument is passed in.
+ *
+ * @param idsOrSlugs - the tutorial identifiers used to fetch
+ * @param withContent - determines whether or not content is included in the returned tutorial records
+ */
 export async function getTutorials(
 	idsOrSlugs: identifier[]
 ): Promise<Omit<Tutorial, 'content'>[]>
