@@ -1,6 +1,6 @@
 import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
 import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
-import { IconHashicorpColor16 } from '@hashicorp/flight-icons/svg-react/hashicorp-color-16'
+import { IconHcp16 } from '@hashicorp/flight-icons/svg-react/hcp-16'
 import { IconNomadColor16 } from '@hashicorp/flight-icons/svg-react/nomad-color-16'
 import { IconPackerColor16 } from '@hashicorp/flight-icons/svg-react/packer-color-16'
 import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
@@ -12,7 +12,7 @@ import { ProductIconProps } from './types'
 const productSlugsToIcons = {
 	boundary: IconBoundaryColor16,
 	consul: IconConsulColor16,
-	hcp: IconHashicorpColor16,
+	hcp: IconHcp16,
 	nomad: IconNomadColor16,
 	packer: IconPackerColor16,
 	sentinel: null,
