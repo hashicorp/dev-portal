@@ -1,5 +1,5 @@
 import Dialog from 'components/dialog'
-import { CommandBarDialogFooterProps, CommandBarDialogProps } from './types'
+import { CommandBarDialogProps } from './types'
 import CommandBarDialogHeader from './header'
 import CommandBarDialogFooter from './footer'
 import CommandBarDialogBody from './body'
@@ -20,5 +20,5 @@ const CommandBarDialog = ({
 	)
 }
 
-export type { CommandBarDialogFooterProps, CommandBarDialogProps }
+export type { CommandBarDialogProps }
 export { CommandBarDialog }
