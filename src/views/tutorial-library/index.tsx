@@ -13,6 +13,7 @@ import { TutorialLibraryFilters } from './components/filters'
 import Button from 'components/button'
 import { ClearFilters } from './components/clear-filters'
 import { useFiltersState } from './components/filters/use-filters-state'
+import { TutorialLibraryViewProps } from './types'
 import { useScrollToTopOnResultsChange } from './utils/scroll'
 
 let timerId = undefined
@@ -32,7 +33,9 @@ const queryHook: UseSearchBoxProps['queryHook'] = (query, search) => {
  *
  * @TODO pagination
  */
-export default function TutorialLibraryView() {
+export default function TutorialLibraryView({
+	defaultTutorials,
+}: TutorialLibraryViewProps) {
 	const { query: searchQuery, refine } = useSearchBox({ queryHook })
 	const [query, setQuery] = useState<string>(searchQuery)
 	const [showMobileFilters, setShowMobileFilters] = useState(false)
@@ -68,7 +71,7 @@ export default function TutorialLibraryView() {
 				</Dialog>
 			</div>
 			<CurrentFilters />
-			<TutorialLibraryResults />
+			<TutorialLibraryResults defaultTutorials={defaultTutorials} />
 		</div>
 	)
 }

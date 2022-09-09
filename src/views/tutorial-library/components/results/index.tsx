@@ -6,13 +6,25 @@ import { getTutorialCardPropsFromHit } from '../../utils/get-tutorial-card-props
 import EmptyState from 'components/empty-state'
 import { ClearFilters } from '../clear-filters'
 import { Pagination } from '../pagination'
+import { searchStateToRouteState } from 'views/tutorial-library/utils/router-state'
+import { Tutorial } from 'lib/learn-client/types'
+import { formatTutorialCard } from 'components/tutorial-card/helpers'
+
+interface TutorialLibraryResultsProps {
+	defaultTutorials: Omit<Tutorial, 'content'>[]
+}
 
 /**
  * Renders tutorial search results as a card grid
  */
-export function TutorialLibraryResults() {
-	const { results } = useInstantSearch()
+export function TutorialLibraryResults({
+	defaultTutorials,
+}: TutorialLibraryResultsProps) {
+	const { results, uiState } = useInstantSearch()
 	const { hits } = useHits()
+
+	const hasFiltersApplied =
+		Object.keys(searchStateToRouteState(uiState)).length > 0
 
 	if (!results?.__isArtificial && hits.length === 0) {
 		return (
@@ -24,17 +36,30 @@ export function TutorialLibraryResults() {
 		)
 	}
 
+	let itemsToRender = null
+	if (hasFiltersApplied) {
+		itemsToRender = hits.map((hit) => (
+			<TutorialCardWithBookmark
+				key={hit.objectID}
+				{...getTutorialCardPropsFromHit(hit)}
+			/>
+		))
+	} else {
+		itemsToRender = defaultTutorials.map((tutorial) => (
+			<TutorialCardWithBookmark
+				key={tutorial.id}
+				{...formatTutorialCard({
+					...tutorial,
+					defaultContext: tutorial.collectionCtx.default,
+				})}
+			/>
+		))
+	}
+
 	return (
 		<>
-			<CardsGridList fixedColumns={3}>
-				{hits.map((hit) => (
-					<TutorialCardWithBookmark
-						key={hit.objectID}
-						{...getTutorialCardPropsFromHit(hit)}
-					/>
-				))}
-			</CardsGridList>
-			<Pagination />
+			<CardsGridList fixedColumns={3}>{itemsToRender}</CardsGridList>
+			{hasFiltersApplied && <Pagination />}
 		</>
 	)
 }

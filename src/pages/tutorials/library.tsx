@@ -16,12 +16,28 @@ import {
 import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
+import { getTutorials } from 'lib/learn-client/api/tutorial'
+import { Tutorial } from 'lib/learn-client/types'
+import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+
+const DEFAULT_SLUGS = [
+	'terraform/infrastructure-as-code',
+	'vault/getting-started-intro',
+	'consul/get-started',
+	'nomad/get-started-install',
+	'vagrant/getting-started-index',
+	'packer/get-started-install-cli',
+	'boundary/getting-started-intro',
+	'waypoint/get-started-intro',
+	'cloud/terraform-hcp-provider-vault',
+]
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const searchClient = algoliasearch(appId, 'bf27a047ba263cba01ee9b4081965a1a')
 
 interface TutorialsLibraryPageProps {
 	layoutProps: Omit<SidebarSidecarLayoutProps, 'sidecarSlot' | 'headings'>
+	defaultTutorials: Omit<Tutorial, 'content'>[]
 }
 
 function TutorialLibrarySidebar() {
@@ -49,6 +65,7 @@ function TutorialLibrarySidebar() {
 
 export default function TutorialsLibraryPage({
 	layoutProps,
+	defaultTutorials,
 }: TutorialsLibraryPageProps) {
 	const router = useRouter()
 
@@ -70,15 +87,16 @@ export default function TutorialsLibraryPage({
 				AlternateSidebar={TutorialLibrarySidebar}
 				sidecarSlot={null}
 			>
-				<TutorialsLibraryView />
+				<TutorialsLibraryView defaultTutorials={defaultTutorials} />
 			</SidebarSidecarLayout>
 		</InstantSearch>
 	)
 }
 
-export function getStaticProps() {
+export async function getStaticProps() {
 	return {
-		props: {
+		props: stripUndefinedProperties({
+			defaultTutorials: await getTutorials(DEFAULT_SLUGS),
 			layoutProps: {
 				sidebarNavDataLevels: [],
 				breadcrumbLinks: [
@@ -90,6 +108,6 @@ export function getStaticProps() {
 					},
 				],
 			},
-		},
+		}),
 	}
 }
