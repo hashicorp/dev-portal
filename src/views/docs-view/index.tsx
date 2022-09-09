@@ -9,6 +9,7 @@ import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import ProductDocsSearch from './components/product-docs-search'
 import s from './docs-view.module.css'
+import DocsVersionSwitcher from 'components/docs-version-switcher'
 
 /**
  * Layouts
@@ -75,6 +76,7 @@ const DocsView = ({
 	mdxSource,
 	lazy,
 	hideSearch = false,
+	versions,
 }: DocsViewProps) => {
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
@@ -88,7 +90,8 @@ const DocsView = ({
 	return (
 		<>
 			{shouldRenderSearch ? <ProductDocsSearch /> : null}
-			<DevDotContent>
+			<DevDotContent className={versions ? s.contentWithVersions : null}>
+				{versions ? <DocsVersionSwitcher options={versions} /> : null}
 				<NoIndexTagIfVersioned />
 				<TabProvider>
 					<MDXRemote

@@ -15,6 +15,7 @@ const ProductRootDocsPathLanding = ({
 	pageContent,
 	pageHeading,
 	product,
+	...rest
 }: ProductRootDocsPathLandingProps) => {
 	const { pageSubtitle, marketingContentBlocks } = pageContent
 	const showProductDocsSearch = __config.flags.enable_product_docs_search
