@@ -11,7 +11,7 @@ interface CommandBarCommand {
 	inputProps: {
 		placeholder: string
 	}
-	useOnInitialLoad?: () => void
+	DialogBody?: () => ReactElement
 }
 
 type CommandBarTag = {
