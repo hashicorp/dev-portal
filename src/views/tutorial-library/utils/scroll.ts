@@ -19,8 +19,8 @@ export const useScrollToTopOnResultsChange = () => {
 
 	useEffect(() => {
 		if (
-			results.__isArtificial ||
-			results.nbHits === 0 ||
+			results?.__isArtificial ||
+			results?.nbHits === 0 ||
 			shouldScroll.current
 		) {
 			return
