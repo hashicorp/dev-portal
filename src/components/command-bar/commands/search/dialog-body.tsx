@@ -1,14 +1,9 @@
 import { useCallback, useMemo } from 'react'
-import { IconSearch24 } from '@hashicorp/flight-icons/svg-react/search-24'
 import { useCurrentProduct } from 'contexts'
-import {
-	CommandBarCommand,
-	SupportedCommand,
-} from 'components/command-bar/types'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import { useCommandBar } from 'components/command-bar'
 
-const DialogBody = () => {
+const SearchCommandBarDialogBody = () => {
 	const { addTag, removeTag } = useCommandBar()
 	const currentProduct = useCurrentProduct()
 
@@ -47,13 +42,4 @@ const DialogBody = () => {
 	return <h1>Search Command Stuff</h1>
 }
 
-const searchCommand: CommandBarCommand = {
-	name: SupportedCommand.search,
-	icon: <IconSearch24 />,
-	inputProps: {
-		placeholder: 'Search...',
-	},
-	DialogBody,
-}
-
-export default searchCommand
+export default SearchCommandBarDialogBody
