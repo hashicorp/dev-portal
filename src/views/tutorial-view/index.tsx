@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
+import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
 import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
@@ -192,26 +193,50 @@ function TutorialView({
 	]
 
 	/**
-	 * Keep track of progress for authenticated users
+	 * Set up variables for the tutorialId and collectionId, we use these below.
+	 * TODO: maybe this isn't necessary, I found it helpful for clarity.
+	 */
+	const tutorialId = id
+	const collectionId = collectionCtx.current.id
+	const collectionTutorialIds = collectionCtx.current.tutorials.map(
+		(t: TutorialLite) => t.id
+	)
+
+	/**
+	 * Prime `tutorial` and `collection` progress queries with a batch query.
 	 *
-	 * Note that we attach data-ref-id to avoid some
+	 * This should ideally include all `tutorial` and `collection` entries
+	 * we expect to render on the page, so that we only make one progress request.
+	 */
+	useProgressBatchQuery({
+		tutorials: collectionTutorialIds.map((tid) => {
+			return {
+				tutorialId: tid,
+				collectionId,
+			}
+		}),
+		collections: [collectionId],
+	})
+
+	/**
+	 * Keep track of progress for authenticated users, using span elements.
+	 *
+	 * Note that we attach `progressRefsId` as `data-ref-id` to avoid some
 	 * client-side-navigation-related progress tracking quirks.
 	 */
 	const progressRefsId = `${id}_${collectionCtx.current.id}`
 	const progressRefs = useTutorialProgressRefs({
-		tutorialId: id,
-		collectionId: collectionCtx.current.id,
+		tutorialId,
+		collectionId,
 	})
 
 	/**
 	 * Display toast when progress changes to complete.
 	 */
 	useProgressToast({
-		tutorialId: id,
-		collectionId: collectionCtx.current.id,
-		collectionTutorialIds: collectionCtx.current.tutorials.map(
-			(t: TutorialLite) => t.id
-		),
+		tutorialId,
+		collectionId,
+		collectionTutorialIds,
 	})
 
 	return (
