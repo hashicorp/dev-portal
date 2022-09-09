@@ -60,7 +60,7 @@ but is necessary for us to implement the current designs for the
 */
 .color-neutral-dark {
 	--icon-color: var(--token-color-foreground-high-contrast);
-	--border-color: var(--token-color-foreground-strong);
+	--border-color: var(--token-color-border-strong);
 	--background: linear-gradient(
 		315deg,
 		var(--token-color-palette-neutral-700) 0%,
