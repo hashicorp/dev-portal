@@ -11,7 +11,7 @@ import { Tutorial } from 'lib/learn-client/types'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 
 interface TutorialLibraryResultsProps {
-	defaultTutorials: Tutorial[]
+	defaultTutorials: Omit<Tutorial, 'content'>[]
 }
 
 /**

@@ -37,7 +37,7 @@ const searchClient = algoliasearch(appId, 'bf27a047ba263cba01ee9b4081965a1a')
 
 interface TutorialsLibraryPageProps {
 	layoutProps: Omit<SidebarSidecarLayoutProps, 'sidecarSlot' | 'headings'>
-	defaultTutorials: Tutorial[]
+	defaultTutorials: Omit<Tutorial, 'content'>[]
 }
 
 function TutorialLibrarySidebar() {
@@ -96,7 +96,7 @@ export default function TutorialsLibraryPage({
 export async function getStaticProps() {
 	return {
 		props: stripUndefinedProperties({
-			defaultTutorials: await getTutorials(DEFAULT_SLUGS, true),
+			defaultTutorials: await getTutorials(DEFAULT_SLUGS),
 			layoutProps: {
 				sidebarNavDataLevels: [],
 				breadcrumbLinks: [
