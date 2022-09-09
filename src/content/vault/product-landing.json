@@ -29,16 +29,6 @@
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Featured Tutorials",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
-		},
-		{
-			"type": "heading",
 			"heading": "Use Cases",
 			"level": 2,
 			"size": 400
@@ -50,6 +40,16 @@
 				"vault/db-credentials",
 				"vault/adp"
 			]
+		},
+		{
+			"type": "heading",
+			"heading": "Get Certified",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": ["vault/associate-cert", "vault/ops-pro-cert"]
 		},
 		{
 			"type": "heading",
