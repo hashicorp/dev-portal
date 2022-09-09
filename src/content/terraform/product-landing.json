@@ -1,20 +1,20 @@
 {
 	"hero": {
-		"heading": "Terraform Placeholder Duplicate Of Vault Content",
+		"heading": "Automate Infrastructure on Any Cloud",
 		"image": "https://www.datocms-assets.com/2885/1662749094-terraform-landing-background.png"
 	},
 	"overview": {
 		"heading": "What is Terraform?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+		"body": "Terraform is an infrastructure as code tool that lets you build, change, and version infrastructure safely and efficiently. This includes low-level components like compute instances, storage, and networking; and high-level components like DNS entries and SaaS features.",
 		"cta": {
-			"text": "Learn more about Terraform features",
-			"url": "/vault/docs/what-is-vault"
+			"text": "Learn more",
+			"url": "/terraform/intro"
 		},
 		"image": "https://www.datocms-assets.com/2885/1662746959-terraform-dev-dot-visual.png"
 	},
 	"get_started": {
-		"heading": "Getting Started",
-		"body": "Use Terraform to securely store, access, and manage secrets and other sensitive data.",
+		"heading": "Get Started",
+		"body": "Follow a code-complete, hands-on tutorial to learn the Terraform basics with your favorite infrastructure provider.",
 		"iconCardLinks": [
 			{
 				"icon": "aws-color",
@@ -51,58 +51,56 @@
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Use Cases",
+			"heading": "Featured Documentation",
 			"level": 2,
 			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
 		},
 		{
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.terraform.io"
+					"heading": "Configuration Language",
+					"body": "Describe infrastructure in Terraform configuration language.",
+					"url": "/terraform/language"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.terraform.io"
+					"heading": "Terraform CLI",
+					"body": "Learn Terraform's CLI-based workflows.",
+					"url": "/terraform/cli"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.terraform.io"
+					"heading": "Terraform Cloud",
+					"body": "Collaborate with your team to provision infrastructure.",
+					"url": "/terraform/cloud-docs"
 				}
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Case Studies",
+			"heading": "Popular Use Cases",
 			"level": 2,
 			"size": 400
 		},
 		{
-			"type": "linked_cards",
-			"cards": [
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.terraform.io"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.terraform.io"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.terraform.io"
-				}
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"terraform/multicloud-kubernetes",
+				"terraform/preview-environments-vercel",
+				"terraform/cdktf-assets-stacks-lambda",
+				"packer/golden-image-with-hcp-packer"
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Get Certified",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": [
+				"terraform/certification",
+				"terraform/certification-associate-tutorials"
 			]
 		}
 	]
