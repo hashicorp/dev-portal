@@ -53,7 +53,7 @@ export function buildCategorizedHcpSidebar(
 				const href = getCollectionSlug(item.collectionSlug)
 				const badge = item.isBeta
 					? {
-							text: 'BETA',
+							text: 'Beta',
 							type: 'outlined',
 							color: 'neutral',
 					  }
