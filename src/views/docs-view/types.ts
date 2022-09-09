@@ -28,9 +28,7 @@ export interface DocsViewProps {
 	 * the `enable_product_docs_search` feature flag is enabled.
 	 */
 	hideSearch?: boolean
-	layoutProps?: {
-		versions?: VersionSelectItem[]
-	}
+	versions?: VersionSelectItem[]
 }
 
 export type ProductsToPrimitivesMap = Record<
