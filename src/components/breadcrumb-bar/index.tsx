@@ -1,6 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
+import Link from 'next/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Text from 'components/text'
 import s from './breadcrumb-bar.module.css'
@@ -51,6 +51,7 @@ function BreadcrumbBar({
 		},
 	]
 	const stringifiedStructuredData = JSON.stringify(structuredData)
+
 	return (
 		<nav aria-label="Breadcrumb" className={s.root}>
 			<Head>
@@ -60,43 +61,29 @@ function BreadcrumbBar({
 				/>
 			</Head>
 			<ol className={s.listRoot}>
-				{links.map(({ title, url, isCurrentPage }, i) => {
+				{links.map(({ title, url, isCurrentPage }) => {
+					const cleanTitle = title.replace(/<[^>]+>/g, '')
+					const Elem = url ? InternalLink : 'span'
 					return (
-						<Breadcrumb
-							key={`${title}_${url}`}
-							title={title}
-							url={url}
-							isCurrentPage={isCurrentPage}
-						/>
+						<Text
+							asElement="li"
+							className={s.listItem}
+							key={`${cleanTitle}_${url}`}
+							size={100}
+							weight="medium"
+						>
+							<Elem
+								className={s.breadcrumbText}
+								href={url}
+								aria-current={isCurrentPage ? 'page' : undefined}
+							>
+								{cleanTitle}
+							</Elem>
+						</Text>
 					)
 				})}
 			</ol>
 		</nav>
-	)
-}
-
-export interface BreadCrumbProps {
-	title: string
-	url: string
-	isCurrentPage: boolean
-}
-export const Breadcrumb: React.ComponentType<BreadCrumbProps> = ({
-	title,
-	url,
-	isCurrentPage,
-}) => {
-	const cleanTitle = title.replace(/<[^>]+>/g, '')
-	const Elem = url ? InternalLink : 'span'
-	return (
-		<Text asElement="li" className={s.listItem} size={100} weight="medium">
-			<Elem
-				className={s.breadcrumbText}
-				href={url}
-				aria-current={isCurrentPage ? 'page' : undefined}
-			>
-				<span itemProp="name">{cleanTitle}</span>
-			</Elem>
-		</Text>
 	)
 }
 
