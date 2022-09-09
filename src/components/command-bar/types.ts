@@ -25,6 +25,7 @@ interface CommandBarProviderProps {
 
 interface CommandBarContextState {
 	currentCommand: CommandBarCommand
+	currentSearchQuery: string
 	currentTags: CommandBarTag[]
 	isOpen: boolean
 }
@@ -33,16 +34,8 @@ interface CommandBarContextValue extends CommandBarContextState {
 	addTag: (tag: CommandBarTag) => void
 	removeTag: (tagId: CommandBarTag['id']) => void
 	setCurrentCommand: (command: SupportedCommand) => void
+	setCurrentSearchQuery: (searchQuery: string) => void
 	toggleIsOpen: () => void
-}
-
-interface ToggleIsOpenAction {
-	type: 'TOGGLE_IS_OPEN'
-}
-
-interface SetCurrentCommandAction {
-	type: 'SET_CURRENT_COMMAND'
-	value: keyof typeof SupportedCommand
 }
 
 interface AddTagAction {
@@ -55,11 +48,26 @@ interface RemoveTagAction {
 	value: CommandBarTag['id']
 }
 
+interface SetCurrentCommandAction {
+	type: 'SET_CURRENT_COMMAND'
+	value: keyof typeof SupportedCommand
+}
+
+interface SetSearchQueryAction {
+	type: 'SET_CURRENT_SEARCH_QUERY'
+	value: string
+}
+
+interface ToggleIsOpenAction {
+	type: 'TOGGLE_IS_OPEN'
+}
+
 type CommandBarReducerAction =
-	| ToggleIsOpenAction
-	| SetCurrentCommandAction
 	| AddTagAction
 	| RemoveTagAction
+	| SetCurrentCommandAction
+	| SetSearchQueryAction
+	| ToggleIsOpenAction
 
 export type {
 	CommandBarCommand,

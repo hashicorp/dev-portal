@@ -22,6 +22,7 @@ const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
 const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	currentCommand: commands.search,
+	currentSearchQuery: '',
 	currentTags: [],
 	isOpen: false,
 }
@@ -29,15 +30,8 @@ const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 const commandBarReducer = (
 	state: CommandBarContextState,
 	action: CommandBarReducerAction
-) => {
+): CommandBarContextState => {
 	switch (action.type) {
-		case 'TOGGLE_IS_OPEN': {
-			const previousIsOpen = state.isOpen
-			return { ...state, isOpen: !previousIsOpen }
-		}
-		case 'SET_CURRENT_COMMAND': {
-			return { ...state, currentCommand: commands[action.value] }
-		}
 		case 'ADD_TAG': {
 			const newTag = action.value
 			const previousCurrentTags = state.currentTags
@@ -65,6 +59,16 @@ const commandBarReducer = (
 				),
 			}
 		}
+		case 'SET_CURRENT_COMMAND': {
+			return { ...state, currentCommand: commands[action.value] }
+		}
+		case 'SET_CURRENT_SEARCH_QUERY': {
+			return { ...state, currentSearchQuery: action.value }
+		}
+		case 'TOGGLE_IS_OPEN': {
+			const previousIsOpen = state.isOpen
+			return { ...state, isOpen: !previousIsOpen }
+		}
 	}
 }
 
@@ -74,15 +78,13 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	const [state, dispatch] = useReducer(commandBarReducer, DEFAULT_CONTEXT_STATE)
 
 	/**
-	 * Set up `toggleIsOpen` callback.
+	 * Set up the callbacks for modifying state
 	 */
+
 	const toggleIsOpen = useCallback(() => {
 		dispatch({ type: 'TOGGLE_IS_OPEN' })
 	}, [])
 
-	/**
-	 * Set up `setCurrentCommand` callback.
-	 */
 	const setCurrentCommand = useCallback(
 		(commandName: keyof typeof SupportedCommand) => {
 			dispatch({ type: 'SET_CURRENT_COMMAND', value: commandName })
@@ -90,18 +92,16 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		[]
 	)
 
-	/**
-	 * Set up `addTag` callback. Automatically handles checking for duplicates.
-	 */
 	const addTag = useCallback((newTag: CommandBarTag) => {
 		dispatch({ type: 'ADD_TAG', value: newTag })
 	}, [])
 
-	/**
-	 * Set up `removeTag` callback.
-	 */
 	const removeTag = useCallback((tagId: CommandBarTag['id']) => {
 		dispatch({ type: 'REMOVE_TAG', value: tagId })
+	}, [])
+
+	const setCurrentSearchQuery = useCallback((searchQuery: string) => {
+		dispatch({ type: 'SET_CURRENT_SEARCH_QUERY', value: searchQuery })
 	}, [])
 
 	/**
@@ -130,8 +130,22 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	 * Memoize the Context value
 	 */
 	const contextValue = useMemo<CommandBarContextValue>(() => {
-		return { ...state, addTag, removeTag, setCurrentCommand, toggleIsOpen }
-	}, [addTag, removeTag, setCurrentCommand, state, toggleIsOpen])
+		return {
+			...state,
+			addTag,
+			removeTag,
+			setCurrentCommand,
+			setCurrentSearchQuery,
+			toggleIsOpen,
+		}
+	}, [
+		addTag,
+		removeTag,
+		setCurrentCommand,
+		setCurrentSearchQuery,
+		state,
+		toggleIsOpen,
+	])
 
 	return (
 		<CommandBarContext.Provider value={contextValue}>
