@@ -16,7 +16,7 @@ import {
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 
-import type { PageWithLayout } from 'types/layouts'
+import { CustomPageComponent } from 'types/_app'
 
 const productSlug = 'hcp'
 const targetFile = {
@@ -26,7 +26,9 @@ const targetFile = {
 }
 
 type ApiDocsPageProps = InferGetStaticPropsType<typeof getStaticProps>
-const ApiDocsPage: PageWithLayout<ApiDocsPageProps> = ({ apiPageProps }) => {
+const ApiDocsPage: CustomPageComponent<ApiDocsPageProps> = ({
+	apiPageProps,
+}) => {
 	return (
 		<OpenApiPageContents
 			info={apiPageProps.info}
