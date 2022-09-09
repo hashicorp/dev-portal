@@ -95,7 +95,6 @@ const SidebarSidecarLayoutContent = ({
 					<MobileAuthenticationControls />
 					<SidebarContent />
 				</div>
-				{/* {versions ? <DocsVersionSwitcher options={versions} /> : null} */}
 			</MobileMenuContainer>
 			<div className={s.contentWrapper}>
 				{currentlyViewedVersion && (
