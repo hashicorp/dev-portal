@@ -212,7 +212,12 @@ export function getStaticGenerationFunctions<
 						.then((res) => res.json())
 						.then((res) => res.result.sha)
 
-					const cacheKey = [latestSha, ...pathParts]
+					const cacheKey = [
+						latestSha,
+						productSlugForLoader,
+						basePath,
+						...pathParts,
+					]
 
 					const cachedResult = await cache.get(cacheKey)
 
