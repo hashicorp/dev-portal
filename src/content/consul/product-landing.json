@@ -1,11 +1,11 @@
 {
 	"hero": {
 		"heading": "Secure Communication with Identity-based Networking",
-		"image": "https://place-hold.it/600x320"
+		"image": "https://www.datocms-assets.com/2885/1662767788-dev-dot-consul-landing-hero-2x.png"
 	},
 	"overview": {
 		"heading": "What is Consul?",
-		"body": "Consul uses service identities and traditional networking practices to help organizations securely connect applications running in any environment.",
+		"body": "Consul is a service networking solution that enables teams to manage secure network connectivity between services and across on-prem and multi-cloud environments and runtimes. Consul offers service discovery, configuration, and traffic management functionality. You can use these features individually, or together as a complete service mesh solution.",
 		"cta": {
 			"text": "Learn more about Consul features",
 			"url": "/consul/docs/intro"
@@ -13,7 +13,7 @@
 		"image": "https://www.datocms-assets.com/2885/1662053770-dev-dot-product-landing-what-is-consul-diagram.png"
 	},
 	"get_started": {
-		"heading": "Getting Started",
+		"heading": "Get Started",
 		"body": "Learn how to run service discovery and a service mesh with Consul.",
 		"iconCardLinks": [
 			{
@@ -22,7 +22,7 @@
 				"url": "/consul/tutorials/gs-consul-service-mesh/get-started"
 			},
 			{
-				"icon": "server",
+				"icon": "server-24",
 				"text": "Consul with Virtual Machines",
 				"url": "/consul/tutorials/getting-started/get-started"
 			},
@@ -36,7 +36,33 @@
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Featured Collections",
+			"heading": "Featured Documentation",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Service Mesh",
+					"body": "Consul Service Mesh provides service-to-service connection authorization and encryption using mTLS.",
+					"url": "/consul/docs/connect"
+				},
+				{
+					"heading": "Kubernetes",
+					"body": "Deploy Consul to Kubernetes using the Helm chart, sync services between Consul and Kubernetes, and more.",
+					"url": "/consul/docs/k8s"
+				},
+				{
+					"heading": "HCP Consul",
+					"body": "Deploy a managed HCP Consul cluster to quickly get started with Consul's full capabilities.",
+					"url": "/hcp/docs/consul"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Popular Use Cases",
 			"level": 2,
 			"size": 400
 		},
@@ -44,15 +70,8 @@
 			"type": "collection_cards",
 			"collectionSlugs": [
 				"consul/service-mesh-security",
-				"consul/service-mesh-observability",
 				"consul/service-mesh-traffic-management"
 			]
-		},
-		{
-			"type": "heading",
-			"heading": "Featured Tutorials",
-			"level": 2,
-			"size": 400
 		},
 		{
 			"type": "tutorial_cards",
@@ -64,33 +83,15 @@
 		},
 		{
 			"type": "heading",
-			"heading": "Pillars of Service Networking",
+			"heading": "Get Certified",
 			"level": 2,
 			"size": 400
 		},
 		{
-			"type": "linked_cards",
-			"cards": [
-				{
-					"heading": "Discover Services",
-					"body": "Create a central registry that tracks services, updates, and health statuses in real time.",
-					"url": "vault/transform"
-				},
-				{
-					"heading": "Secure Networking",
-					"body": "Ensure all service to service communication is authenticated, authorized, and encrypted.",
-					"url": "https://www.consul.io"
-				},
-				{
-					"heading": "Automate Networking",
-					"body": "Reduce the operator burden by automating key networking tasks.",
-					"url": "https://www.consul.io"
-				},
-				{
-					"heading": "Access Services",
-					"body": "Control access to services at the point of entry and centralize traffic management.",
-					"url": "https://www.consul.io"
-				}
+			"type": "collection_cards",
+			"collectionSlugs": [
+				"consul/certification",
+				"consul/certification-associate-tutorials"
 			]
 		}
 	]
