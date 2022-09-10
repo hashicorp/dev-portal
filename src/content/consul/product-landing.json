@@ -1,11 +1,11 @@
 {
 	"hero": {
-		"heading": "Secure Communication with Identity-based Networking",
+		"heading": "Automate Service Networking Across Clouds",
 		"image": "https://www.datocms-assets.com/2885/1662767788-dev-dot-consul-landing-hero-2x.png"
 	},
 	"overview": {
 		"heading": "What is Consul?",
-		"body": "Consul is a service networking solution that enables teams to manage secure network connectivity between services and across on-prem and multi-cloud environments and runtimes. Consul offers service discovery, configuration, and traffic management functionality. You can use these features individually, or together as a complete service mesh solution.",
+		"body": "Consul is a service networking solution that enables teams to manage secure network connectivity between services and across multi-cloud environments and runtimes. Consul offers service discovery, identity-based authorization, L7 traffic management, and service-to-service encryption.",
 		"cta": {
 			"text": "Learn more about Consul features",
 			"url": "/consul/docs/intro"
