@@ -29,6 +29,7 @@ import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
+import { BuildCache } from 'lib/build-cache'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -202,7 +203,30 @@ export function getStaticGenerationFunctions<
 			 */
 			let loadStaticPropsResult
 			try {
-				loadStaticPropsResult = await loader.loadStaticProps(ctx)
+				if (process.env.CI) {
+					// if we're running in CI, attempt to read from the cache, using the latest sha as the key
+					const cache = BuildCache('docs-mdx-cache')
+					const latestSha = await fetch(
+						`https://content.hashicorp.com/api/content/${productSlugForLoader}/version-metadata/latest`
+					)
+						.then((res) => res.json())
+						.then((res) => res.result.sha)
+
+					const cacheKey = [latestSha, ...pathParts]
+
+					const cachedResult = await cache.get(cacheKey)
+
+					if (cachedResult) {
+						console.log(`[build-cache] cache hit: ${cacheKey.join('/')}`)
+						loadStaticPropsResult = cachedResult
+					} else {
+						loadStaticPropsResult = await loader.loadStaticProps(ctx)
+						console.log(`[build-cache] cache miss: ${cacheKey.join('/')}`)
+						await cache.set(cacheKey, loadStaticPropsResult)
+					}
+				} else {
+					loadStaticPropsResult = await loader.loadStaticProps(ctx)
+				}
 			} catch (error) {
 				// Catch 404 errors, return a 404 status page
 				if (error.status === 404) {
