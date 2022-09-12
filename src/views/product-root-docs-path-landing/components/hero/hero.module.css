@@ -8,7 +8,7 @@
 
 	@media (--dev-dot-tablet-up) {
 		grid-template-columns: 1fr auto;
-		column-gap: 24px;
+		gap: 24px;
 
 		& .versionSwitcherWrapper {
 			order: 1;
