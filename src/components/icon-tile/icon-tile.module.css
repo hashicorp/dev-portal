@@ -1,56 +1,56 @@
 .root {
-  background: var(--background);
-  border-radius: 6px;
-  border: 1px solid var(--border-color);
-  color: var(--icon-color);
-  display: block;
-  height: var(--size);
+	background: var(--background);
+	border-radius: 6px;
+	border: 1px solid var(--border-color);
+	color: var(--icon-color);
+	display: block;
+	height: var(--size);
 
-  /* Adjust padding to account for border width */
-  padding: calc(var(--padding) - 1px);
-  width: var(--size);
+	/* Adjust padding to account for border width */
+	padding: calc(var(--padding) - 1px);
+	width: var(--size);
 
-  & svg {
-    display: block;
-    width: var(--icon-size);
-    height: var(--icon-size);
-  }
+	& svg {
+		display: block;
+		width: var(--icon-size);
+		height: var(--icon-size);
+	}
 }
 
 /**
  * Sizes
  */
 .size-small {
-  --size: 28px;
-  --padding: 6px;
-  --icon-size: 16px;
+	--size: 28px;
+	--padding: 6px;
+	--icon-size: 16px;
 }
 
 .size-medium {
-  --size: 40px;
-  --padding: 8px;
-  --icon-size: 24px;
+	--size: 40px;
+	--padding: 8px;
+	--icon-size: 24px;
 }
 
 .size-large {
-  --size: 48px;
-  --padding: 12px;
-  --icon-size: 24px;
+	--size: 48px;
+	--padding: 12px;
+	--icon-size: 24px;
 }
 
 .size-extra-large {
-  --size: 96px;
-  --padding: 16px;
-  --icon-size: 64px;
+	--size: 96px;
+	--padding: 16px;
+	--icon-size: 64px;
 }
 
 /**
  * Colors
  */
 .color-neutral {
-  --icon-color: var(--token-color-foreground-faint);
-  --border-color: var(--token-color-border-primary);
-  --background: var(--token-color-surface-faint);
+	--icon-color: var(--token-color-foreground-faint);
+	--border-color: var(--token-color-border-primary);
+	--background: var(--token-color-surface-faint);
 }
 
 /*
@@ -59,87 +59,91 @@ but is necessary for us to implement the current designs for the
 /sentinel and /hcp product landing pages.
 */
 .color-neutral-dark {
-  --icon-color: var(--token-color-foreground-high-contrast);
-  --border-color: var(--token-color-foreground-strong);
-  --background: var(--token-color-foreground-primary);
+	--icon-color: var(--token-color-foreground-high-contrast);
+	--border-color: var(--token-color-border-strong);
+	--background: linear-gradient(
+		315deg,
+		var(--token-color-palette-neutral-700) 0%,
+		var(--token-color-palette-neutral-600) 100%
+	);
 }
 
 .color-boundary {
-  --icon-color: var(--token-color-boundary-foreground);
-  --border-color: var(--token-color-boundary-border);
-  --background: linear-gradient(
-    315deg,
-    var(--token-color-boundary-gradient-faint-stop) 0%,
-    var(--token-color-boundary-gradient-faint-start) 100%
-  );
+	--icon-color: var(--token-color-boundary-foreground);
+	--border-color: var(--token-color-boundary-border);
+	--background: linear-gradient(
+		315deg,
+		var(--token-color-boundary-gradient-faint-stop) 0%,
+		var(--token-color-boundary-gradient-faint-start) 100%
+	);
 }
 
 .color-consul {
-  --icon-color: var(--token-color-consul-foreground);
-  --border-color: var(--token-color-consul-border);
-  --background: linear-gradient(
-    315deg,
-    var(--token-color-consul-gradient-faint-stop) 0%,
-    var(--token-color-consul-gradient-faint-start) 100%
-  );
+	--icon-color: var(--token-color-consul-foreground);
+	--border-color: var(--token-color-consul-border);
+	--background: linear-gradient(
+		315deg,
+		var(--token-color-consul-gradient-faint-stop) 0%,
+		var(--token-color-consul-gradient-faint-start) 100%
+	);
 }
 
 .color-nomad {
-  --icon-color: var(--token-color-nomad-foreground);
-  --border-color: var(--token-color-nomad-border);
-  --background: linear-gradient(
-    315deg,
-    var(--token-color-nomad-gradient-faint-stop) 0%,
-    var(--token-color-nomad-gradient-faint-start) 100%
-  );
+	--icon-color: var(--token-color-nomad-foreground);
+	--border-color: var(--token-color-nomad-border);
+	--background: linear-gradient(
+		315deg,
+		var(--token-color-nomad-gradient-faint-stop) 0%,
+		var(--token-color-nomad-gradient-faint-start) 100%
+	);
 }
 
 .color-packer {
-  --icon-color: var(--token-color-packer-foreground);
-  --border-color: var(--token-color-packer-border);
-  --background: linear-gradient(
-    315deg,
-    var(--token-color-packer-gradient-faint-stop) 0%,
-    var(--token-color-packer-gradient-faint-start) 100%
-  );
+	--icon-color: var(--token-color-packer-foreground);
+	--border-color: var(--token-color-packer-border);
+	--background: linear-gradient(
+		315deg,
+		var(--token-color-packer-gradient-faint-stop) 0%,
+		var(--token-color-packer-gradient-faint-start) 100%
+	);
 }
 
 .color-terraform {
-  --icon-color: var(--token-color-terraform-foreground);
-  --border-color: var(--token-color-terraform-border);
-  --background: linear-gradient(
-    315deg,
-    var(--token-color-terraform-gradient-faint-stop) 0%,
-    var(--token-color-terraform-gradient-faint-start) 100%
-  );
+	--icon-color: var(--token-color-terraform-foreground);
+	--border-color: var(--token-color-terraform-border);
+	--background: linear-gradient(
+		315deg,
+		var(--token-color-terraform-gradient-faint-stop) 0%,
+		var(--token-color-terraform-gradient-faint-start) 100%
+	);
 }
 
 .color-vagrant {
-  --icon-color: var(--token-color-vagrant-foreground);
-  --border-color: var(--token-color-vagrant-border);
-  --background: linear-gradient(
-    315deg,
-    var(--token-color-vagrant-gradient-faint-stop) 0%,
-    var(--token-color-vagrant-gradient-faint-start) 100%
-  );
+	--icon-color: var(--token-color-vagrant-foreground);
+	--border-color: var(--token-color-vagrant-border);
+	--background: linear-gradient(
+		315deg,
+		var(--token-color-vagrant-gradient-faint-stop) 0%,
+		var(--token-color-vagrant-gradient-faint-start) 100%
+	);
 }
 
 .color-vault {
-  --icon-color: var(--token-color-vault-foreground);
-  --border-color: var(--token-color-vault-border);
-  --background: linear-gradient(
-    315deg,
-    var(--token-color-vault-gradient-faint-stop) 0%,
-    var(--token-color-vault-gradient-faint-start) 100%
-  );
+	--icon-color: var(--token-color-vault-foreground);
+	--border-color: var(--token-color-vault-border);
+	--background: linear-gradient(
+		315deg,
+		var(--token-color-vault-gradient-faint-stop) 0%,
+		var(--token-color-vault-gradient-faint-start) 100%
+	);
 }
 
 .color-waypoint {
-  --icon-color: var(--token-color-waypoint-foreground);
-  --border-color: var(--token-color-waypoint-border);
-  --background: linear-gradient(
-    315deg,
-    var(--token-color-waypoint-gradient-faint-stop) 0%,
-    var(--token-color-waypoint-gradient-faint-start) 100%
-  );
+	--icon-color: var(--token-color-waypoint-foreground);
+	--border-color: var(--token-color-waypoint-border);
+	--background: linear-gradient(
+		315deg,
+		var(--token-color-waypoint-gradient-faint-stop) 0%,
+		var(--token-color-waypoint-gradient-faint-start) 100%
+	);
 }
