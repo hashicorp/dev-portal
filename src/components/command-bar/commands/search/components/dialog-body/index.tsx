@@ -14,14 +14,11 @@ import SuggestedPages, { SuggestedPage } from '../../suggested-pages'
 import s from './dialog-body.module.css'
 import Text from 'components/text'
 import { getCurrentProductTag } from '../../helpers/get-current-product-tag'
+import NoResultsMessage from '../no-results-message'
 
 const DEFAULT_SEARCH_RESULTS = {
 	docs: [],
 	tutorials: [],
-}
-
-const NoResultsMessage = () => {
-	return <p className={s.noResultsMessage}>No results match your search.</p>
 }
 
 const DocumentationTabContents = ({ searchResults, suggestedPages }) => {
