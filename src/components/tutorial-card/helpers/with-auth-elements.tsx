@@ -1,15 +1,14 @@
 import { AUTH_ENABLED } from 'hooks/use-authentication'
 import { useTutorialProgress } from 'hooks/progress'
-import { TutorialCardBookmarkButton } from 'components/bookmark-button'
-import TutorialCard, { TutorialCardPropsWithId } from '..'
-import s from './with-auth-elements.module.css'
-import { TutorialProgressStatus } from 'lib/learn-client/types'
 import {
 	progressStatusToPercent,
-	progressStatusToLabel,
 	progressStatusToAriaLabel,
 } from 'lib/learn-client/api/progress'
-import TutorialProgressIcon from 'components/tutorial-progress-icon'
+import { TutorialProgressStatus } from 'lib/learn-client/types'
+import { TutorialCardBookmarkButton } from 'components/bookmark-button'
+import TutorialCard, { TutorialCardPropsWithId } from '..'
+import ProgressIconAndLabel from '../components/progress-icon-and-label'
+import { getSpeakableDuration } from './build-aria-label'
 
 /**
  * Displays a TutorialCard, which shows additional user-data-specific elements
@@ -43,25 +42,16 @@ export function TutorialCardWithAuthElements(props: TutorialCardPropsWithId) {
 			eyebrowSlotAriaLabel={
 				shouldRenderProgress
 					? progressStatusToAriaLabel(tutorialProgressStatus)
-					: undefined
+					: getSpeakableDuration(props.duration)
 			}
 			eyebrowSlot={
 				<>
-					<span>
-						{shouldRenderProgress ? (
-							<span className={s.progressIconAndLabel}>
-								<TutorialProgressIcon
-									status={tutorialProgressStatus}
-									size={14}
-								/>
-								<span className={s.progressLabel}>
-									{progressStatusToLabel(tutorialProgressStatus)}
-								</span>
-							</span>
-						) : (
-							<span>{props.duration}</span>
-						)}
-					</span>
+					{/** Progress is only queried if auth is enabled */}
+					{shouldRenderProgress ? (
+						<ProgressIconAndLabel status={tutorialProgressStatus} />
+					) : (
+						<span>{props.duration}</span>
+					)}
 					{/** Hide from prod until auth is enabled */}
 					{AUTH_ENABLED ? (
 						<TutorialCardBookmarkButton
