@@ -5,7 +5,6 @@ import DocsViewLayout from 'layouts/docs-view-layout'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import TabProvider from 'components/tabs/provider'
 import DevDotContent from 'components/dev-dot-content'
-import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import ProductDocsSearch from './components/product-docs-search'
@@ -81,7 +80,10 @@ const DocsView = ({
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
 	const additionalComponents = productsToPrimitives[currentProduct.slug] || {}
-	const components = defaultMdxComponents({ additionalComponents })
+	const components = defaultMdxComponents({
+		additionalComponents,
+		productVersions: versions,
+	})
 	const shouldRenderSearch =
 		!hideSearch && __config.flags.enable_product_docs_search
 
@@ -90,12 +92,7 @@ const DocsView = ({
 	return (
 		<>
 			{shouldRenderSearch ? <ProductDocsSearch /> : null}
-			<DevDotContent className={versions ? s.contentWithVersions : null}>
-				{versions ? (
-					<div className={s.versionSwitcherWrapper}>
-						<DocsVersionSwitcher options={versions} />
-					</div>
-				) : null}
+			<DevDotContent>
 				<NoIndexTagIfVersioned />
 				<TabProvider>
 					<MDXRemote

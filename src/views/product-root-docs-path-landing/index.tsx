@@ -31,7 +31,7 @@ const ProductRootDocsPathLanding = ({
 	}
 
 	return (
-		<div className={s.root}>
+		<>
 			{showProductDocsSearch && <ProductDocsSearch />}
 			<ProductRootDocsPathLandingHero
 				pageHeading={pageHeading}
@@ -42,7 +42,7 @@ const ProductRootDocsPathLanding = ({
 				blocks={marketingContentBlocks}
 			/>
 			{mdxSlot}
-		</div>
+		</>
 	)
 }
 

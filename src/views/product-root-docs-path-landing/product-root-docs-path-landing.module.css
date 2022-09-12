@@ -43,18 +43,3 @@
 		margin-top: 0;
 	}
 }
-
-.root {
-	position: relative;
-}
-
-.versionSwitcherWrapper {
-	width: 100%;
-
-	@media (--dev-dot-tablet-up) {
-		width: auto;
-		position: absolute;
-		right: 0;
-		top: 0;
-	}
-}

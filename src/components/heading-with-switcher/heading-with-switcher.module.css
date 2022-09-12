@@ -1,8 +1,4 @@
-.iconCardGridLink {
-	margin-top: 32px;
-}
-
-.heroWithVersionSwitcher {
+.root {
 	display: grid;
 	gap: 16px;
 
@@ -14,4 +10,10 @@
 			order: 1;
 		}
 	}
+}
+
+.heading {
+	composes: g-offset-scroll-margin-top from global;
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 12px;
 }

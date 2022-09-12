@@ -1,22 +1,3 @@
 .mdxContent {
 	margin-top: 48px;
 }
-
-.contentWithVersions {
-	position: relative;
-
-	& .versionSwitcherWrapper {
-		width: 100%;
-
-		@media (--dev-dot-tablet-up) {
-			width: auto;
-			position: absolute;
-			right: 0;
-			top: 0;
-		}
-	}
-
-	& .mdxContent {
-		margin-top: 16px;
-	}
-}
