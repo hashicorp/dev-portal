@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "The fastest way to get up and running with HashiCorp tools",
-		"image": "/img/hcp/hcp-landing-hero-graphic-2x.png"
+		"image": "https://www.datocms-assets.com/2885/1662767810-dev-dot-hcp-landing-hero-2x.png"
 	},
 	"overview": {
 		"heading": "What is HCP?",

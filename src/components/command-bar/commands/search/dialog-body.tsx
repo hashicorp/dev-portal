@@ -1,13 +1,13 @@
 import { useCallback, useMemo } from 'react'
+import { ProductSlug } from 'types/products'
 import { useCurrentProduct } from 'contexts'
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import { generateSuggestedPages } from './helpers/generate-suggested-pages'
 import SuggestedPages, { SuggestedPage } from './suggested-pages'
-import { ProductSlug } from 'types/products'
 
 const SearchCommandBarDialogBody = () => {
-	const { addTag, currentTags, removeTag } = useCommandBar()
+	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
 	const currentProduct = useCurrentProduct()
 
 	/**
@@ -46,11 +46,15 @@ const SearchCommandBarDialogBody = () => {
 	 */
 	useSetUpAndCleanUpCommandState(setUpCommandState, cleanUpCommandState)
 
-	/**
-	 * @TODO only render `SuggestedPages` if the search query is empty. Need to
-	 * hook up the command bar input into state first.
-	 */
-	return <SuggestedPages pages={suggestedPages} />
+	return (
+		<>
+			{currentInputValue ? (
+				<p>Current search query: {currentInputValue}</p>
+			) : (
+				<SuggestedPages pages={suggestedPages} />
+			)}
+		</>
+	)
 }
 
 export default SearchCommandBarDialogBody
