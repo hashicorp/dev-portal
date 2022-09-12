@@ -1,52 +1,18 @@
 import { useCallback, useMemo, useState } from 'react'
-import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { ProductSlug } from 'types/products'
 import { useCurrentContentType, useCurrentProduct } from 'contexts'
-import Card from 'components/card'
 import { useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
-import StandaloneLink from 'components/standalone-link'
 import Tabs, { Tab } from 'components/tabs'
 import { generateSuggestedPages } from '../../helpers/generate-suggested-pages'
 import SuggestedPages, { SuggestedPage } from '../../suggested-pages'
-import s from './dialog-body.module.css'
-import Text from 'components/text'
 import { getCurrentProductTag } from '../../helpers/get-current-product-tag'
-import NoResultsMessage from '../no-results-message'
 import DocumentationTabContents from '../documentation-tab-contents'
+import TutorialsTabContents from '../tutorials-tab-contents'
 
 const DEFAULT_SEARCH_RESULTS = {
 	docs: [],
 	tutorials: [],
-}
-
-const TutorialsTabContents = ({ searchResults, tutorialLibraryCta }) => {
-	return searchResults.length === 0 ? (
-		<>
-			<NoResultsMessage />
-			<Card className={s.tutorialLibraryCta} elevation="base">
-				<IconGuide16 className={s.tutorialLibraryCtaIcon} />
-				<Text
-					asElement="span"
-					className={s.tutorialLibraryCtaText}
-					size={200}
-					weight="medium"
-				>
-					{tutorialLibraryCta.text}
-				</Text>
-				<StandaloneLink
-					href={tutorialLibraryCta.href}
-					icon={<IconArrowRight16 />}
-					iconPosition="trailing"
-					size="small"
-					text="Explore"
-				/>
-			</Card>
-		</>
-	) : (
-		<p>TODO show tutorials results</p>
-	)
 }
 
 const SearchCommandBarDialogBody = () => {

@@ -1,5 +1,6 @@
 /* TODO what will this look like on mobile? */
-.tutorialLibraryCta {
+
+.cta {
 	align-items: center;
 	background-color: var(--token-color-surface-highlight);
 	box-shadow: 0 0 0 1px var(--token-color-border-highlight);
@@ -7,12 +8,12 @@
 	gap: 12px;
 }
 
-.tutorialLibraryCtaIcon {
+.ctaIcon {
 	color: var(--token-color-foreground-highlight-on-surface);
 	display: flex;
 }
 
-.tutorialLibraryCtaText {
+.ctaText {
 	color: var(--token-color-foreground-highlight-on-surface);
 	flex-grow: 1;
 }
