@@ -59,6 +59,12 @@ function CollectionView({
 			sidecarSlot={null}
 		>
 			<CollectionMeta
+				/**
+				 * TODO: clean up props here, with addition of progress,
+				 * seems like it might make sense to pass collection={collection},
+				 * that's duplicative tho, need to clean up.
+				 */
+				collection={collection}
 				// Note: id is passed here because it is required by <Heading />,
 				// it's not used for #anchor linking since there is no sidecar.
 				heading={{ text: name, id: collection.id }}

@@ -44,6 +44,7 @@ export default function OnboardingCollectionView({
 				]}
 			>
 				<CollectionMeta
+					collection={collection}
 					heading={{ text: name, id }}
 					description={description}
 					cta={{ href: startTutorialSlug }}

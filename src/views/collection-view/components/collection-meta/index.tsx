@@ -6,9 +6,12 @@ import Heading from 'components/heading'
 import IconTile from 'components/icon-tile'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
+import { Collection } from 'lib/learn-client/types'
 import s from './collection-meta.module.css'
+import CollectionMetaProgress from '../collection-meta-progress'
 
 interface CollectionMetaProps {
+	collection: Collection
 	heading: {
 		text: string
 		id: string
@@ -25,6 +28,7 @@ export default function CollectionMeta({
 	description,
 	cta,
 	numTutorials,
+	collection,
 }: CollectionMetaProps) {
 	const ctaText = `${numTutorials} ${
 		numTutorials > 1 ? `tutorials` : `tutorial`
@@ -58,6 +62,7 @@ export default function CollectionMeta({
 					your progress.
 				</Text>
 			) : null}
+			<CollectionMetaProgress collection={collection} />
 			<div className={s.cta}>
 				<ButtonLink
 					aria-label="Start first tutorial"

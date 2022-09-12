@@ -35,6 +35,7 @@ export default function WellArchitectedFrameworkCollectionView({
 			optInOutSlot={<OptInOut platform="learn" />}
 		>
 			<CollectionMeta
+				collection={collection}
 				heading={{ text: name, id }}
 				description={description}
 				cta={{ href: startTutorialSlug }}
