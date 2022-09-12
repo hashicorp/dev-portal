@@ -9,7 +9,6 @@ import CardsGridList, {
 } from 'components/cards-grid-list'
 import Heading from 'components/heading'
 import CollectionCard from 'components/collection-card'
-import { TutorialCardPropsWithId } from 'components/tutorial-card'
 
 interface FeaturedTutorialsSectionProps {
 	cards: FeaturedTutorialCard[] | FeaturedCollectionCard[]
