@@ -1,5 +1,9 @@
 .mdxContent {
 	margin-top: 48px;
+
+	& h1:first-child {
+		margin-right: 25%;
+	}
 }
 
 .contentWithVersions {
@@ -21,12 +25,6 @@
 	& .mdxContent {
 		@media (--dev-dot-mobile) {
 			margin-top: 0;
-		}
-
-		@media (--dev-dot-tablet-up) {
-			& h1:first-child {
-				margin-right: 25%;
-			}
 		}
 	}
 }
