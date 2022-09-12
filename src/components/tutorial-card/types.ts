@@ -57,9 +57,17 @@ export interface TutorialCardPropsWithId extends TutorialCardProps {
 	 * The tutorial's unique identifier
 	 */
 	id: string
+
 	/**
 	 * The collection context's unique identifier.
 	 * This is required for collection-context-specific progress display.
 	 */
 	collectionId: string
+
+	/**
+	 * In some cases, such as on the profile view,
+	 * we want the bookmark button to render a confirmation dialog
+	 * before removing a bookmark.
+	 */
+	renderBookmarkConfirmationDialog?: boolean
 }

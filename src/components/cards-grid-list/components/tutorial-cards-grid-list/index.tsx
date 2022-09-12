@@ -13,7 +13,14 @@ interface TutorialCardsGridListProps extends CardsGridListProps {
  * Handles rendering a grid of Tutorial cards, and pre-fetching the
  * `isBookmarked` state for each card.
  */
-const TutorialCardsGridList = ({ tutorials, ...restProps }) => {
+const TutorialCardsGridList = ({
+	tutorials,
+	renderBookmarkConfirmationDialog,
+	...restProps
+}: {
+	tutorials: TutorialCardPropsWithId[]
+	renderBookmarkConfirmationDialog?: TutorialCardPropsWithId['renderBookmarkConfirmationDialog']
+} & Omit<CardsGridListProps, 'children'>) => {
 	/**
 	 * Collect the `tutorialIds` and React elements to render in separate arrays
 	 * at the same time (to save on iterating over the same data twice).
@@ -24,7 +31,10 @@ const TutorialCardsGridList = ({ tutorials, ...restProps }) => {
 		tutorialIds.push(tutorial.id)
 		cardsGridListItems.push(
 			<li key={tutorial.id}>
-				<TutorialCardWithAuthElements {...tutorial} />
+				<TutorialCardWithAuthElements
+					{...tutorial}
+					renderBookmarkConfirmationDialog={renderBookmarkConfirmationDialog}
+				/>
 			</li>
 		)
 	})
