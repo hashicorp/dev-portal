@@ -34,6 +34,13 @@
 	white-space: nowrap;
 }
 
+/* NOTE: this is for highlighting some text in search results from algolia */
+.title em,
+.description em {
+	color: var(--token-color-foreground-action);
+	font-style: normal;
+}
+
 .linkOrButton {
 	align-items: center;
 	background-color: transparent;
