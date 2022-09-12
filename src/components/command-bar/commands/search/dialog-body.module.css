@@ -1,0 +1,31 @@
+.noResultsMessage {
+	margin: 0;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 16px;
+	margin-bottom: 16px;
+}
+
+.noDocsResultsDivider {
+	margin-bottom: 16px;
+	margin-top: 16px;
+}
+
+/* TODO what will this look like on mobile? */
+.tutorialLibraryCta {
+	align-items: center;
+	background-color: var(--token-color-surface-highlight);
+	box-shadow: 0 0 0 1px var(--token-color-border-highlight);
+	display: flex;
+	gap: 12px;
+}
+
+.tutorialLibraryCtaIcon {
+	color: var(--token-color-foreground-highlight-on-surface);
+	display: flex;
+}
+
+.tutorialLibraryCtaText {
+	color: var(--token-color-foreground-highlight-on-surface);
+	flex-grow: 1;
+}
