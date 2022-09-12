@@ -1,3 +1,21 @@
+.root {
+	position: relative;
+}
+
 .iconCardGridLink {
 	margin-top: 32px;
+}
+
+.heroWithVersionSwitcher {
+	display: grid;
+	gap: 16px;
+
+	@media (--dev-dot-tablet-up) {
+		grid-template-columns: 1fr auto;
+		column-gap: 24px;
+
+		& .versionSwitcherWrapper {
+			order: 1;
+		}
+	}
 }

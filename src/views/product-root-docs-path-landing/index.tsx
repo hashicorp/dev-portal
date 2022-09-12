@@ -15,12 +15,12 @@ const ProductRootDocsPathLanding = ({
 	pageContent,
 	pageHeading,
 	product,
+	versions,
 }: ProductRootDocsPathLandingProps) => {
 	const { pageSubtitle, marketingContentBlocks } = pageContent
 	const showProductDocsSearch = __config.flags.enable_product_docs_search
 
 	let mdxSlot: ReactElement
-
 	if (mdxSource) {
 		const classes = classNames(s[`${product.slug}MDXWrapper`], s.mdxSlotWrapper)
 		mdxSlot = (
@@ -31,17 +31,18 @@ const ProductRootDocsPathLanding = ({
 	}
 
 	return (
-		<>
+		<div className={s.root}>
 			{showProductDocsSearch && <ProductDocsSearch />}
 			<ProductRootDocsPathLandingHero
 				pageHeading={pageHeading}
 				pageSubtitle={pageSubtitle}
+				versions={versions}
 			/>
 			<ProductRootDocsPathLandingMarketingContent
 				blocks={marketingContentBlocks}
 			/>
 			{mdxSlot}
-		</>
+		</div>
 	)
 }
 
