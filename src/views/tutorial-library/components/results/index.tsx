@@ -28,11 +28,16 @@ export function TutorialLibraryResults({
 
 	if (!results?.__isArtificial && hits.length === 0) {
 		return (
-			<EmptyState
-				heading="No results"
-				subheading="Try adjusting your selected filters or using different keywords"
-				callToAction={<ClearFilters color="secondary" />}
-			/>
+			<>
+				<span aria-live="polite" className="g-screen-reader-only">
+					Search returned no results.
+				</span>
+				<EmptyState
+					heading="No results"
+					subheading="Try adjusting your selected filters or using different keywords"
+					callToAction={<ClearFilters color="secondary" />}
+				/>
+			</>
 		)
 	}
 
@@ -56,8 +61,19 @@ export function TutorialLibraryResults({
 		))
 	}
 
+	const resultsLowerBound = results.hitsPerPage * results.page + 1
+	const resultsUpperBound = Math.min(
+		results.hitsPerPage * (results.page + 1),
+		results.nbHits
+	)
+
 	return (
 		<>
+			<span aria-live="polite" className="g-screen-reader-only">
+				{hasFiltersApplied
+					? `Search returned ${results.nbHits} results. Displaying ${resultsLowerBound} through ${resultsUpperBound}.`
+					: 'Apply filters to search.'}
+			</span>
 			<CardsGridList fixedColumns={3}>{itemsToRender}</CardsGridList>
 			{hasFiltersApplied && <Pagination />}
 		</>
