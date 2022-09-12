@@ -14,13 +14,17 @@ import { TutorialData } from '..'
  */
 export function getCanonicalCollectionSlug(
 	tutorial: TutorialData,
-	currentProductSlug: ProductOption | SectionOption
+	currentProductSlug: ProductOption | SectionOption | 'hcp'
 ): string {
+	const normalizedCurrentProductSlug =
+		currentProductSlug === 'hcp' ? 'cloud' : currentProductSlug
 	// check if default has a beta product
 	const defaultCollectionProduct = tutorial.collectionCtx.default.slug.split(
 		'/'
-	)[0] as ProductOption | SectionOption
-	const defaultIsInBeta = getIsBetaProduct(defaultCollectionProduct)
+	)[0] as ProductOption | SectionOption | 'cloud'
+	const betaProductToCheck =
+		defaultCollectionProduct === 'cloud' ? 'hcp' : defaultCollectionProduct
+	const defaultIsInBeta = getIsBetaProduct(betaProductToCheck)
 
 	if (defaultIsInBeta) {
 		return tutorial.collectionCtx.default.slug
@@ -29,7 +33,7 @@ export function getCanonicalCollectionSlug(
 		const firstInBetaFeaturedCollection =
 			tutorial.collectionCtx.featuredIn?.find(
 				(collection: CollectionCardPropsWithId) => {
-					return collection.dbSlug.startsWith(currentProductSlug)
+					return collection.dbSlug.startsWith(normalizedCurrentProductSlug)
 				}
 			)
 

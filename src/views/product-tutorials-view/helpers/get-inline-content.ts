@@ -16,10 +16,7 @@ export interface InlineCollections {
 export async function getInlineTutorials(
 	tutorialSlugs: string[]
 ): Promise<InlineTutorials> {
-	const tutorials = (await getTutorials(
-		tutorialSlugs,
-		false
-	)) as ClientTutorial[]
+	const tutorials = await getTutorials(tutorialSlugs, false)
 
 	const formattedTutorials = tutorials.reduce((acc, tutorial) => {
 		return Object.assign(acc, {
