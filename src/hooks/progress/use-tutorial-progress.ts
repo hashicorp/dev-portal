@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import useAuthentication from 'hooks/use-authentication'
 import { ApiCollectionTutorialProgress } from 'lib/learn-client/api/api-types'
@@ -10,7 +11,8 @@ import {
 	TutorialIdCollectionId,
 	TutorialProgressStatus,
 } from 'lib/learn-client/types'
-import { TUTORIAL_PROGRESS_QUERY_ID } from './'
+import { PROGRESS_BATCH_QUERY_ID, TUTORIAL_PROGRESS_SINGLE_QUERY_ID } from './'
+import { useHasWaitedForQuery } from 'hooks/use-has-waited-for-query'
 
 interface UseTutorialProgressResult
 	extends Omit<UseQueryResult<TutorialProgressStatus>, 'data'> {
@@ -25,20 +27,33 @@ const useTutorialProgress = ({
 	tutorialId,
 	collectionId,
 }: TutorialIdCollectionId): UseTutorialProgressResult => {
-	// Get the current user's access token
+	/**
+	 * Get the current user's access token, and the batch query status.
+	 * We enable the query only if:
+	 * - an accessToken is present
+	 * - a batch query, if one exists, has been attempted
+	 */
 	const { session } = useAuthentication()
 	const accessToken = session?.accessToken
+	const hasWaitedForBatchQuery = useHasWaitedForQuery([PROGRESS_BATCH_QUERY_ID])
+	const enabled = !!accessToken && hasWaitedForBatchQuery
 
-	// Fetch a progress records by `tutorialId`, then filter by `collectionId`
+	/**
+	 * Fetch the progress record, if any, for the specified tutorialId
+	 * in the specific collectionId context.
+	 */
 	const { data: tutorialProgressStatus, ...restQueryResult } = useQuery<
 		GetTutorialProgressResult,
 		unknown,
 		TutorialProgressStatus
 	>(
-		[TUTORIAL_PROGRESS_QUERY_ID, tutorialId, collectionId],
-		() => getTutorialProgress({ accessToken, tutorialId, collectionId }),
+		[TUTORIAL_PROGRESS_SINGLE_QUERY_ID, tutorialId, collectionId],
+		useCallback(
+			() => getTutorialProgress({ accessToken, tutorialId, collectionId }),
+			[accessToken, tutorialId, collectionId]
+		),
 		{
-			enabled: !!accessToken,
+			enabled,
 			select: (data: ApiCollectionTutorialProgress) => {
 				/**
 				 * Data may be null, if a progress record does not exist

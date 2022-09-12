@@ -36,6 +36,7 @@ const ProductRootDocsPathLanding = ({
 			<ProductRootDocsPathLandingHero
 				pageHeading={pageHeading}
 				pageSubtitle={pageSubtitle}
+				iconCardGridItems={pageContent.iconCardGridItems}
 			/>
 			<ProductRootDocsPathLandingMarketingContent
 				blocks={marketingContentBlocks}

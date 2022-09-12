@@ -1,9 +1,9 @@
 import { IconSettings24 } from '@hashicorp/flight-icons/svg-react/settings-24'
-import { CommandBarCommand, SupportedCommand } from '../types'
-
-const DialogBody = () => {
-	return <h1>Sutff for Settings command</h1>
-}
+import {
+	CommandBarCommand,
+	SupportedCommand,
+} from 'components/command-bar/types'
+import SettingsCommandBarDialogBody from './dialog-body'
 
 const settingsCommand: CommandBarCommand = {
 	name: SupportedCommand.settings,
@@ -11,7 +11,7 @@ const settingsCommand: CommandBarCommand = {
 	inputProps: {
 		placeholder: 'Settings...',
 	},
-	DialogBody,
+	DialogBody: SettingsCommandBarDialogBody,
 }
 
 export default settingsCommand

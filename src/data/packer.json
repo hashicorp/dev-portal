@@ -9,13 +9,14 @@
 		"includedDomains": "packer.io www.packer.io",
 		"segmentWriteKey": "AjXdfmTTk1I9q9dfyePuDFHBrz1tCO3l"
 	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
 		"title": "Packer by HashiCorp",
 		"description": "Packer is a free and open source tool for creating golden images for multiple platforms from a single source configuration.",
-		"image": "https://www.packer.io/packer/img/og-image.png",
+		"image": "https://www.packer.io/packer-public/img/og-image.png",
 		"icon": [
 			{
-				"href": "/packer/favicon.ico"
+				"href": "/packer-public/_favicon.ico"
 			}
 		]
 	},
