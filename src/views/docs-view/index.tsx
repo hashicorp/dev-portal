@@ -81,7 +81,9 @@ const DocsView = ({
 	const additionalComponents = productsToPrimitives[currentProduct.slug] || {}
 	const components = defaultMdxComponents({ additionalComponents })
 	const shouldRenderSearch =
-		!hideSearch && __config.flags.enable_product_docs_search
+		!__config.flags.enable_global_search &&
+		!hideSearch &&
+		__config.flags.enable_product_docs_search
 
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 

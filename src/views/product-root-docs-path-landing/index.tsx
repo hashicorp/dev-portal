@@ -17,7 +17,9 @@ const ProductRootDocsPathLanding = ({
 	product,
 }: ProductRootDocsPathLandingProps) => {
 	const { pageSubtitle, marketingContentBlocks } = pageContent
-	const showProductDocsSearch = __config.flags.enable_product_docs_search
+	const showProductDocsSearch =
+		!__config.flags.enable_global_search &&
+		__config.flags.enable_product_docs_search
 
 	let mdxSlot: ReactElement
 
