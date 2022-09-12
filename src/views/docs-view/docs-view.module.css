@@ -1,7 +1,7 @@
 .mdxContent {
 	margin-top: 48px;
 
-	@media (--dev-dot-mobile) {
+	@media (--dev-dot-tablet-up) {
 		& h1:first-child {
 			margin-right: 25%;
 		}
