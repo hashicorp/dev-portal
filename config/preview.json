@@ -1,7 +1,7 @@
 {
 	"extends": "base",
 	"io_sites": {
-		"max_static_paths": 10
+		"max_static_paths": 1
 	},
 	"flags": {
 		"enable_auth": true,
