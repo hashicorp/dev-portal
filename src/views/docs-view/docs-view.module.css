@@ -24,7 +24,7 @@
 		}
 
 		@media (--dev-dot-tablet-up) {
-			& > :first-child {
+			& h1:first-child {
 				margin-right: 25%;
 			}
 		}

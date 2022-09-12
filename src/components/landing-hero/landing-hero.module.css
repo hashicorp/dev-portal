@@ -7,9 +7,9 @@
 		align-items: flex-start;
 	}
 
-	/* @media (--dev-dot-tablet-up) {
-    margin-right: 25%;
-  } */
+	@media (--dev-dot-tablet-up) {
+		margin-right: 25%;
+	}
 }
 
 .icon {
