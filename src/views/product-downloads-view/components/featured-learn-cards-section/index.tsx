@@ -38,9 +38,7 @@ const FeaturedLearnCardsSection = ({
 					: 'Featured Collections'}
 			</Heading>
 			{cardType === 'tutorial' ? (
-				<TutorialCardsGridList
-					tutorials={cards as unknown as $TSFixMe as TutorialCardPropsWithId[]}
-				/>
+				<TutorialCardsGridList tutorials={cards} />
 			) : (
 				<CardsGridList>
 					{(cards as FeaturedCollectionCard[]).map(

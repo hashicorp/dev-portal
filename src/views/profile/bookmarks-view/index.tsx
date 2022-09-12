@@ -89,7 +89,6 @@ const ProfileBookmarksViewContent = () => {
 						</DropdownDisclosure>
 					</span>
 					<TutorialCardsGridList
-						renderBookmarkConfirmationDialog={true}
 						fixedColumns={2}
 						tutorials={bookmarks
 							.sort(sortBy.sort)
@@ -97,7 +96,11 @@ const ProfileBookmarksViewContent = () => {
 								const tutorialData = formatTutorialData(bookmark.tutorial)
 								const defaultContext = tutorialData.collectionCtx.default
 								const tutorialLiteCompat = { ...tutorialData, defaultContext }
-								return formatTutorialCard(tutorialLiteCompat)
+								const tutorialCardProps = formatTutorialCard(tutorialLiteCompat)
+								return {
+									...tutorialCardProps,
+									renderBookmarkConfirmationDialog: true,
+								}
 							})}
 					/>
 				</>
