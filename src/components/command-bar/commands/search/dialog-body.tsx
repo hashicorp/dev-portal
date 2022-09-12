@@ -2,16 +2,17 @@ import { useCallback, useMemo } from 'react'
 import algoliasearch from 'algoliasearch'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { ProductSlug } from 'types/products'
+import { productSlugs, productSlugsToNames } from 'lib/products'
 import { useCurrentProduct } from 'contexts'
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
-import { generateSuggestedPages } from './helpers/generate-suggested-pages'
-import SuggestedPages, { SuggestedPage } from './suggested-pages'
-import { productSlugs, productSlugsToNames } from 'lib/products'
 import {
 	CommandBarLinkListItem,
 	CommandBarList,
 } from 'components/command-bar/components'
+import Tabs, { Tab } from 'components/tabs'
+import { generateSuggestedPages } from './helpers/generate-suggested-pages'
+import SuggestedPages, { SuggestedPage } from './suggested-pages'
 
 // TODO(brkalow): We might consider lazy-loading the search client & the insights library
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
@@ -69,14 +70,18 @@ const SearchCommandBarDialogBody = () => {
 		}
 
 		return searchClient
-			.multipleQueries(
-				productSlugs
+			.multipleQueries([
+				...productSlugs
 					.filter((slug) => slug !== 'sentinel')
 					.map((slug) => ({
 						indexName: `product_${slug.toUpperCase()}`,
 						query: currentInputValue,
-					}))
-			)
+					})),
+				{
+					indexName: 'prod_LEARN',
+					query: currentInputValue,
+				},
+			])
 			.then(({ results }) => {
 				let tutorialsResults = []
 				let docsResults = []
@@ -114,26 +119,81 @@ const SearchCommandBarDialogBody = () => {
 
 	return (
 		<>
-			{searchResults && searchResults.docs.length > 0 ? (
-				<CommandBarList label="Search results">
-					{searchResults.docs.map((hit) => {
-						const { objectID, _highlightResult, product } = hit
-						const { page_title, description } = _highlightResult
-						const resultUrl = `/${product}/${objectID}`
-						const productName =
-							product === 'hcp' ? 'HCP' : productSlugsToNames[product]
+			{currentInputValue ? (
+				<Tabs>
+					<Tab heading="Documentation">
+						{searchResults && searchResults.docs.length > 0 ? (
+							<>
+								<div
+									id="documentation-search-results-label"
+									className="g-screen-reader-only"
+								>
+									Documentation search results
+								</div>
+								<CommandBarList ariaLabelledBy="documentation-search-results-label">
+									{searchResults.docs.map((hit) => {
+										const { objectID, _highlightResult, product } = hit
+										const { page_title, description } = _highlightResult
+										const resultUrl = `/${product}/${objectID}`
+										const productName =
+											product === 'hcp' ? 'HCP' : productSlugsToNames[product]
 
-						return (
-							<CommandBarLinkListItem
-								key={objectID}
-								title={page_title?.value}
-								description={description?.value}
-								url={resultUrl}
-								badges={[productName]}
-							/>
-						)
-					})}
-				</CommandBarList>
+										return (
+											<CommandBarLinkListItem
+												key={objectID}
+												title={page_title?.value}
+												description={description?.value}
+												url={resultUrl}
+												badges={[productName]}
+											/>
+										)
+									})}
+								</CommandBarList>
+							</>
+						) : (
+							'No docs results'
+						)}
+					</Tab>
+					<Tab heading="Tutorials">
+						{searchResults && searchResults.tutorials.length > 0 ? (
+							<>
+								<div
+									id="tutorials-search-results-label"
+									className="g-screen-reader-only"
+								>
+									Tutorials search results
+								</div>
+								<CommandBarList ariaLabelledBy="tabs-search-results-label">
+									{searchResults.tutorials.map((hit) => {
+										const { _highlightResult, id, products } = hit
+										const { name, description } = _highlightResult
+										const badges = products?.map(
+											(productSlug) => productSlugsToNames[productSlug]
+										)
+										const [productSlug, collectionSlug] =
+											hit.defaultContext.slug.split('/')
+										const [, tutorialSlug] = hit.slug.split('/')
+										const resultUrl = `/${
+											productSlug === 'cloud' ? 'hcp' : productSlug
+										}/tutorials/${collectionSlug}/${tutorialSlug}`
+
+										return (
+											<CommandBarLinkListItem
+												key={id}
+												title={name?.value}
+												description={description?.value}
+												url={resultUrl}
+												badges={badges}
+											/>
+										)
+									})}
+								</CommandBarList>
+							</>
+						) : (
+							'No tutorials results'
+						)}
+					</Tab>
+				</Tabs>
 			) : (
 				<SuggestedPages pages={suggestedPages} />
 			)}
