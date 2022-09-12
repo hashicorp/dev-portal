@@ -22,20 +22,12 @@ import {
 } from 'components/dev-dot-content/mdx-components'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
-import HeadingWithSwitcher from 'components/heading-with-switcher'
-import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 
 // This function returns a simple object containing the default components
 // The `additionalComponents` param is purely for convenience.
 // It is intended for use with `next-mdx-remote`.
-export default function defaultMdxComponents({
-	additionalComponents = {},
-	productVersions,
-}) {
-	return Object.assign(
-		_defaultComponents(productVersions),
-		additionalComponents
-	)
+export default function defaultMdxComponents({ additionalComponents = {} }) {
+	return Object.assign(_defaultComponents(), additionalComponents)
 }
 
 /**
@@ -54,26 +46,12 @@ function makeImageElement({ noBorder }: { noBorder: ImageProps['noBorder'] }) {
 	)
 }
 
-function makeTitleElement({
-	productVersions,
-}: {
-	productVersions?: VersionSelectItem[]
-}) {
-	// eslint-disable-next-line react/display-name
-	return productVersions
-		? ({ ...rest }) => (
-				<HeadingWithSwitcher versions={productVersions} {...rest} />
-		  )
-		: MdxH1
-}
-
 // Purely for sharing between the two functions. Once `createMdxProvider` is
 // deprecated, this can be moved inline.
-function _defaultComponents(productVersions: VersionSelectItem[] | undefined) {
+function _defaultComponents() {
 	const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
 		theme: 'dark',
 	})
-
 	return {
 		Tabs: MdxTabs,
 		Tab: MdxTab,
@@ -88,7 +66,7 @@ function _defaultComponents(productVersions: VersionSelectItem[] | undefined) {
 		ul: MdxUnorderedList,
 		li: MdxListItem,
 		img: makeImageElement({ noBorder: true }),
-		h1: makeTitleElement({ productVersions }),
+		h1: MdxH1,
 		h2: MdxH2,
 		h3: MdxH3,
 		h4: MdxH4,

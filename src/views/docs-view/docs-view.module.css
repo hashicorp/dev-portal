@@ -1,3 +1,32 @@
 .mdxContent {
 	margin-top: 48px;
 }
+
+.contentWithVersions {
+	position: relative;
+
+	& .versionSwitcherWrapper {
+		width: 100%;
+		margin-bottom: 16px;
+
+		@media (--dev-dot-tablet-up) {
+			margin-bottom: 0;
+			width: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+	}
+
+	& .mdxContent {
+		@media (--dev-dot-mobile) {
+			margin-top: 0;
+		}
+
+		@media (--dev-dot-tablet-up) {
+			& > :first-child {
+				margin-right: 25%;
+			}
+		}
+	}
+}
