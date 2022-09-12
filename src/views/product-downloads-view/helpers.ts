@@ -155,7 +155,7 @@ export const getPageSubtitle = ({
 	version,
 	isLatestVersion,
 }: {
-	productName: ProductData['name']
+	productName: string
 	version: string
 	isLatestVersion: boolean
 }): string => {

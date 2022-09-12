@@ -9,20 +9,24 @@ import s from './page-header.module.css'
 
 interface PageHeaderProps {
 	isEnterpriseMode: boolean
+	productName?: string
 }
 
 const PageHeader = ({
 	isEnterpriseMode = false,
+	productName,
 }: PageHeaderProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	const { currentVersion, isLatestVersion } = useCurrentVersion()
+
 	const pageTitle = isEnterpriseMode
 		? `${currentProduct.name} Enterprise Installation`
-		: `Install ${currentProduct.name}`
+		: `Install ${productName || currentProduct.name}`
+
 	const pageSubtitle = isEnterpriseMode
 		? ''
 		: getPageSubtitle({
-				productName: currentProduct.name,
+				productName: productName || currentProduct.name,
 				version: currentVersion,
 				isLatestVersion,
 		  })
