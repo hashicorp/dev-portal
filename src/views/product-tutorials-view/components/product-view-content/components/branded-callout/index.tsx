@@ -47,7 +47,9 @@ function BrandedCallout({
 		: gradientDefault
 
 	const isExternal =
-		cta.url.startsWith('http') && !cta.url.startsWith(location.origin)
+		typeof location !== 'undefined' &&
+		cta.url.startsWith('http') &&
+		!cta.url.startsWith(location.origin)
 
 	return (
 		<div className={s.root} style={gradient as CSSProperties}>
