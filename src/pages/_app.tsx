@@ -71,7 +71,7 @@ export default function App({
 
 	useEffect(() => {
 		if (isReady && pathname !== '/') {
-			makeWelcomeToast()
+			// makeWelcomeToast()
 		}
 	}, [isReady, pathname])
 
