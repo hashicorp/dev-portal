@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import DocsView from 'views/docs-view'
 import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
+import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { ProductRootDocsPathLandingProps } from './types'
 import {
 	ProductRootDocsPathLandingHero,
@@ -31,18 +32,27 @@ const ProductRootDocsPathLanding = ({
 	}
 
 	return (
-		<>
+		<div className={s.root}>
 			{showProductDocsSearch && <ProductDocsSearch />}
+			{versions ? (
+				<div
+					className={classNames(
+						s.versionSwitcherWrapper,
+						showProductDocsSearch && s.hasSearch
+					)}
+				>
+					<DocsVersionSwitcher options={versions} />
+				</div>
+			) : null}
 			<ProductRootDocsPathLandingHero
 				pageHeading={pageHeading}
 				pageSubtitle={pageSubtitle}
-				versions={versions}
 			/>
 			<ProductRootDocsPathLandingMarketingContent
 				blocks={marketingContentBlocks}
 			/>
 			{mdxSlot}
-		</>
+		</div>
 	)
 }
 
