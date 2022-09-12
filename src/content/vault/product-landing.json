@@ -29,31 +29,31 @@
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Featured Tutorials",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
-		},
-		{
-			"type": "heading",
-			"heading": "Featured Collections",
+			"heading": "Use Cases",
 			"level": 2,
 			"size": 400
 		},
 		{
 			"type": "collection_cards",
 			"collectionSlugs": [
-				"vault/getting-started",
-				"vault/getting-started-ui",
-				"vault/encryption-as-a-service"
+				"vault/secrets-management",
+				"vault/db-credentials",
+				"vault/adp"
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Popular Features",
+			"heading": "Get Certified",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": ["vault/associate-cert", "vault/ops-pro-cert"]
+		},
+		{
+			"type": "heading",
+			"heading": "Popular Vault Features",
 			"level": 2,
 			"size": 400
 		},
@@ -61,9 +61,9 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Vault Secrets Engine",
-					"body": "Secrets engines are pluggable components which store, generate, or encrypt sensitive data.",
-					"url": "/vault/docs/secrets"
+					"heading": "Key/Value Secrets Engine",
+					"body": "Key-value store used to persist arbitrary secrets within the configured physical storage for Vault.",
+					"url": "/vault/docs/secrets/kv"
 				},
 				{
 					"heading": "Database Secrets Engine",
