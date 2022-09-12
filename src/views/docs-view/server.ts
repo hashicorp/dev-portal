@@ -31,6 +31,8 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import { BuildCache } from 'lib/build-cache'
 
+const latestShaBySlug = new Map()
+
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
  * Return the ref to use for remote content when the product is marked "beta".
@@ -203,14 +205,20 @@ export function getStaticGenerationFunctions<
 			 */
 			let loadStaticPropsResult
 			try {
-				if (process.env.CI) {
+				if (process.env.CI && !isDeployPreview(productSlugForLoader)) {
 					// if we're running in CI, attempt to read from the cache, using the latest sha as the key
 					const cache = BuildCache('docs-mdx-cache')
-					const latestSha = await fetch(
-						`https://content.hashicorp.com/api/content/${productSlugForLoader}/version-metadata/latest`
-					)
-						.then((res) => res.json())
-						.then((res) => res.result.sha)
+
+					let latestSha = latestShaBySlug.get(productSlugForLoader)
+					if (!latestSha) {
+						latestSha = await fetch(
+							`https://content.hashicorp.com/api/content/${productSlugForLoader}/version-metadata/latest`
+						)
+							.then((res) => res.json())
+							.then((res) => res.result.sha)
+
+						latestShaBySlug.set(productSlugForLoader, latestSha)
+					}
 
 					const cacheKey = [
 						latestSha,
