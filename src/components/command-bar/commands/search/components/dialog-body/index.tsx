@@ -9,11 +9,11 @@ import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import { CommandBarDivider } from 'components/command-bar/components'
 import StandaloneLink from 'components/standalone-link'
 import Tabs, { Tab } from 'components/tabs'
-import { generateSuggestedPages } from './helpers/generate-suggested-pages'
-import SuggestedPages, { SuggestedPage } from './suggested-pages'
+import { generateSuggestedPages } from '../../helpers/generate-suggested-pages'
+import SuggestedPages, { SuggestedPage } from '../../suggested-pages'
 import s from './dialog-body.module.css'
 import Text from 'components/text'
-import { getCurrentProductTag } from './helpers/get-current-product-tag'
+import { getCurrentProductTag } from '../../helpers/get-current-product-tag'
 
 const DEFAULT_SEARCH_RESULTS = {
 	docs: [],
