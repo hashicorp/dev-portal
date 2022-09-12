@@ -45,6 +45,10 @@ function BrandedCallout({
 				'--gradient-stop': `var(--token-color-${product}-gradient-faint-stop)`,
 		  }
 		: gradientDefault
+
+	const isExternal =
+		cta.url.startsWith('http') && !cta.url.startsWith(location.origin)
+
 	return (
 		<div className={s.root} style={gradient as CSSProperties}>
 			<div className={s.textContainer}>
@@ -57,6 +61,7 @@ function BrandedCallout({
 						icon={<IconArrowRight16 />}
 						iconPosition="trailing"
 						color="secondary"
+						openInNewTab={isExternal}
 					/>
 				</p>
 			</div>
