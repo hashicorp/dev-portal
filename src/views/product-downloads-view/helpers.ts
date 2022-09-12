@@ -364,10 +364,12 @@ export const generateFeaturedTutorialsCards = async (
 		/**
 		 * We have full `Tutorial` data, but we need `TutorialLite` specifically,
 		 * with a `defaultContext` property, to satisfy `formatTutorialCard`.
-		 * (We could potentially change `TutorialLite` to maintain the
+		 *
+		 * Note: We could potentially change `TutorialLite` to maintain the
 		 * `collectionCtx` property from `Tutorial`? This would remove the
-		 * need to adapt data in this way, which we do in several places
-		 * for `formatTutorialCard`.)
+		 * need to adapt data in this way, which we do in a few places
+		 * for `formatTutorialCard`. Asana task:
+		 * https://app.asana.com/0/1202097197789424/1202964504180140/f
 		 */
 		const defaultContext = tutorialData.collectionCtx.default
 		const tutorialLiteCompat = { ...tutorialData, defaultContext }
