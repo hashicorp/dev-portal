@@ -95,10 +95,10 @@ const generateGetStaticProps = (
 				title: 'Install',
 			},
 			pageContent: {
-				installName: options.installName,
 				doesNotHavePackageManagers,
 				featuredCollectionCards,
 				featuredTutorialCards,
+				installName: options.installName,
 				packageManagerOverrides,
 				sidebarMenuItems,
 				sidecarMarketingCard,
