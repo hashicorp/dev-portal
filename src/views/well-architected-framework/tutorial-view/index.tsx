@@ -50,7 +50,7 @@ export default function WellArchitectedFrameworkTutorialView({
 	return (
 		<>
 			<HashiHead>
-				<link rel="canonical" href={canonicalUrl.toString()} />
+				<link rel="canonical" href={canonicalUrl.toString()} key="canonical" />
 			</HashiHead>
 			<InteractiveLabWrapper
 				key={slug}
