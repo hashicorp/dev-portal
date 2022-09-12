@@ -6,7 +6,6 @@ import { useCurrentContentType, useCurrentProduct } from 'contexts'
 import Card from 'components/card'
 import { useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
-import { CommandBarDivider } from 'components/command-bar/components'
 import StandaloneLink from 'components/standalone-link'
 import Tabs, { Tab } from 'components/tabs'
 import { generateSuggestedPages } from '../../helpers/generate-suggested-pages'
@@ -15,22 +14,11 @@ import s from './dialog-body.module.css'
 import Text from 'components/text'
 import { getCurrentProductTag } from '../../helpers/get-current-product-tag'
 import NoResultsMessage from '../no-results-message'
+import DocumentationTabContents from '../documentation-tab-contents'
 
 const DEFAULT_SEARCH_RESULTS = {
 	docs: [],
 	tutorials: [],
-}
-
-const DocumentationTabContents = ({ searchResults, suggestedPages }) => {
-	return searchResults.length === 0 ? (
-		<>
-			<NoResultsMessage />
-			<CommandBarDivider className={s.noDocsResultsDivider} />
-			<SuggestedPages pages={suggestedPages} />
-		</>
-	) : (
-		<p>TODO show docs results</p>
-	)
 }
 
 const TutorialsTabContents = ({ searchResults, tutorialLibraryCta }) => {
