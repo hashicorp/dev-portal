@@ -242,7 +242,7 @@ function TutorialView({
 	return (
 		<>
 			<Head>
-				<link rel="canonical" href={canonicalUrl.toString()} />
+				<link rel="canonical" href={canonicalUrl.toString()} key="canonical" />
 			</Head>
 			<InteractiveLabWrapper
 				key={slug}
