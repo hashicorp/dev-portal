@@ -50,6 +50,7 @@ const ACCEPTED_DOCS_PATHNAMES = [
 	'language',
 	'plugin',
 	'registry',
+	'guides',
 ]
 const learnProductOptions = Object.keys(ProductOption).join('|')
 const learnSectionOptions = Object.keys(SectionOption).join('|')
