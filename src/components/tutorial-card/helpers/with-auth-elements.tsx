@@ -31,7 +31,10 @@ export function TutorialCardWithAuthElements(props: TutorialCardPropsWithId) {
 	 * We only show progress for at a minimum state of `in_progress`.
 	 */
 	const isProgressLoaded = typeof tutorialProgressStatus !== 'undefined'
-  const meetsProgressThreshold = [TutorialProgressStatus.in_progress, TutorialProgressStatus.complete].includes(tutorialProgressStatus)
+	const meetsProgressThreshold = [
+		TutorialProgressStatus.in_progress,
+		TutorialProgressStatus.complete,
+	].includes(tutorialProgressStatus)
 	const shouldRenderProgress = isProgressLoaded && meetsProgressThreshold
 
 	return (
