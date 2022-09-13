@@ -46,7 +46,7 @@
 			"type": "inbound"
 		},
 		{
-			"text": "Plugins",
+			"text": "External Plugins",
 			"url": "/plugins",
 			"type": "inbound"
 		},
