@@ -29,7 +29,11 @@ import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
-import { BuildCache } from 'lib/build-cache'
+import {
+	AsyncBuildCache,
+	BuildCache,
+	CachedRemoteContentLoader,
+} from 'lib/build-cache'
 
 const latestShaBySlug = new Map()
 
@@ -138,17 +142,24 @@ export function getStaticGenerationFunctions<
 	const getLoader = (
 		extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
 	) => {
+		const options = {
+			...loaderOptions,
+			...extraOptions,
+		}
+
 		if (isDeployPreview(productSlugForLoader)) {
 			return getDeployPreviewLoader({
 				basePath,
 				currentRootDocsPath,
-				loaderOptions: {
-					...loaderOptions,
-					...extraOptions,
-				},
+				loaderOptions: options,
 			})
 		} else {
-			return new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
+			if (process.env.CI) {
+				// if we're running in CI, used a RemoteContentLoader with a local cache
+				return new CachedRemoteContentLoader(options)
+			}
+
+			return new RemoteContentLoader(options)
 		}
 	}
 
@@ -205,41 +216,7 @@ export function getStaticGenerationFunctions<
 			 */
 			let loadStaticPropsResult
 			try {
-				if (process.env.CI && !isDeployPreview(productSlugForLoader)) {
-					// if we're running in CI, attempt to read from the cache, using the latest sha as the key
-					const cache = BuildCache('docs-mdx-cache')
-
-					let latestSha = latestShaBySlug.get(productSlugForLoader)
-					if (!latestSha) {
-						latestSha = await fetch(
-							`https://content.hashicorp.com/api/content/${productSlugForLoader}/version-metadata/latest`
-						)
-							.then((res) => res.json())
-							.then((res) => res.result.sha)
-
-						latestShaBySlug.set(productSlugForLoader, latestSha)
-					}
-
-					const cacheKey = [
-						latestSha,
-						productSlugForLoader,
-						basePath,
-						...pathParts,
-					]
-
-					const cachedResult = await cache.get(cacheKey)
-
-					if (cachedResult) {
-						console.log(`[build-cache] cache hit: ${cacheKey.join('/')}`)
-						loadStaticPropsResult = cachedResult
-					} else {
-						loadStaticPropsResult = await loader.loadStaticProps(ctx)
-						console.log(`[build-cache] cache miss: ${cacheKey.join('/')}`)
-						await cache.set(cacheKey, loadStaticPropsResult)
-					}
-				} else {
-					loadStaticPropsResult = await loader.loadStaticProps(ctx)
-				}
+				loadStaticPropsResult = await loader.loadStaticProps(ctx)
 			} catch (error) {
 				// Catch 404 errors, return a 404 status page
 				if (error.status === 404) {
