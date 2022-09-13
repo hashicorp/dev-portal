@@ -117,7 +117,10 @@ const ProductDownloadsViewContent = ({
 			) : null}
 			<PageHeader
 				isEnterpriseMode={isEnterpriseMode}
-				productName={installName}
+				product={{
+					name: installName || currentProduct.name,
+					slug: currentProduct.slug,
+				}}
 			/>
 			<DownloadsSection
 				isEnterpriseMode={isEnterpriseMode}

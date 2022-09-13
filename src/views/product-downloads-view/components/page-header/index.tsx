@@ -1,32 +1,31 @@
 import { ReactElement } from 'react'
-import { useCurrentProduct } from 'contexts'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
 import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import { getPageSubtitle } from 'views/product-downloads-view/helpers'
 import s from './page-header.module.css'
+import { ProductSlug } from 'types/products'
 
 interface PageHeaderProps {
 	isEnterpriseMode: boolean
-	productName?: string
+	product: { name: string; slug: string }
 }
 
 const PageHeader = ({
 	isEnterpriseMode = false,
-	productName,
+	product,
 }: PageHeaderProps): ReactElement => {
-	const currentProduct = useCurrentProduct()
 	const { currentVersion, isLatestVersion } = useCurrentVersion()
 
 	const pageTitle = isEnterpriseMode
-		? `${currentProduct.name} Enterprise Installation`
-		: `Install ${productName || currentProduct.name}`
+		? `${product.name} Enterprise Installation`
+		: `Install ${product.name}`
 
 	const pageSubtitle = isEnterpriseMode
 		? ''
 		: getPageSubtitle({
-				productName: productName || currentProduct.name,
+				productName: product.name,
 				version: currentVersion,
 				isLatestVersion,
 		  })
@@ -36,7 +35,9 @@ const PageHeader = ({
 			<IconTileLogo
 				className={s.iconTileLogo}
 				productSlug={
-					currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug
+					product.slug === 'sentinel'
+						? 'hcp'
+						: (product.slug as Exclude<ProductSlug, 'sentinel'>)
 				}
 			/>
 			<div>
@@ -44,7 +45,7 @@ const PageHeader = ({
 					className={s.pageHeaderTitle}
 					level={1}
 					size={500}
-					id={`install-${currentProduct.slug}`}
+					id={`install-${product.slug}`}
 					weight="bold"
 				>
 					{pageTitle}
