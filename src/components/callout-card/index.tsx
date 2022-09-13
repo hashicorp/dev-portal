@@ -7,7 +7,7 @@ import { developmentToast, ToastColor } from 'components/toast'
 import IconCardLink from 'components/icon-card-link'
 import StandaloneLink from 'components/standalone-link'
 import { CalloutCardProps } from './types'
-import s from './get-started-card.module.css'
+import s from './callout-card.module.css'
 
 function CalloutCard({
 	heading,
