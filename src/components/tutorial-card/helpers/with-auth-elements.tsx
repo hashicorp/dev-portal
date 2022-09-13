@@ -6,7 +6,6 @@ import {
 } from 'lib/learn-client/api/progress'
 import { TutorialProgressStatus } from 'lib/learn-client/types'
 import { TutorialCardBookmarkButton } from 'components/bookmark-button'
-import { BookmarkButtonWithRemoveDialog } from 'views/profile/bookmarks-view/components/bookmark-button-with-remove-dialog'
 import TutorialCard, { TutorialCardPropsWithId } from '..'
 import ProgressIconAndLabel from '../components/progress-icon-and-label'
 import { getSpeakableDuration } from './build-aria-label'
@@ -15,14 +14,12 @@ import { getSpeakableDuration } from './build-aria-label'
  * Displays a TutorialCard, which shows additional user-data-specific elements
  * for authenticated users.
  */
-export function TutorialCardWithAuthElements(props: TutorialCardPropsWithId) {
-	const {
-		id: tutorialId,
-		collectionId,
-		renderBookmarkConfirmationDialog,
-		...rest
-	} = props
-
+export function TutorialCardWithAuthElements({
+	id: tutorialId,
+	collectionId,
+	BookmarkButtonComponent = TutorialCardBookmarkButton,
+	...restProps
+}: TutorialCardPropsWithId) {
 	/**
 	 * Get tutorial progress. Will be undefined if not authenticated.
 	 * Note as well that useTutorialProgress depends on AUTH_ENABLED.
@@ -43,21 +40,13 @@ export function TutorialCardWithAuthElements(props: TutorialCardPropsWithId) {
 	].includes(tutorialProgressStatus)
 	const shouldRenderProgress = isProgressLoaded && meetsProgressThreshold
 
-	/**
-	 * In certain contexts, we want the bookmark button to render
-	 * with a confirmation dialog box.
-	 */
-	const BookmarkButton = renderBookmarkConfirmationDialog
-		? BookmarkButtonWithRemoveDialog
-		: TutorialCardBookmarkButton
-
 	return (
 		<TutorialCard
-			{...rest}
+			{...restProps}
 			eyebrowSlotAriaLabel={
 				shouldRenderProgress
 					? progressStatusToAriaLabel(tutorialProgressStatus)
-					: getSpeakableDuration(props.duration)
+					: getSpeakableDuration(restProps.duration)
 			}
 			eyebrowSlot={
 				<>
@@ -65,12 +54,12 @@ export function TutorialCardWithAuthElements(props: TutorialCardPropsWithId) {
 					{shouldRenderProgress ? (
 						<ProgressIconAndLabel status={tutorialProgressStatus} />
 					) : (
-						<span>{props.duration}</span>
+						<span>{restProps.duration}</span>
 					)}
 					{/** Hide from prod until auth is enabled */}
 					{AUTH_ENABLED ? (
-						<BookmarkButton
-							tutorial={{ id: tutorialId, name: props.heading }}
+						<BookmarkButtonComponent
+							tutorial={{ id: tutorialId, name: restProps.heading }}
 						/>
 					) : null}
 				</>

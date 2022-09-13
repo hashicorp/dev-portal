@@ -1,5 +1,5 @@
-import { ReactNode } from 'react'
-import { ProductOption } from 'lib/learn-client/types'
+import { ReactElement, ReactNode } from 'react'
+import { Tutorial, ProductOption } from 'lib/learn-client/types'
 
 export interface TutorialCardProps {
 	/**
@@ -65,9 +65,16 @@ export interface TutorialCardPropsWithId extends TutorialCardProps {
 	collectionId: string
 
 	/**
-	 * In some cases, such as on the profile view,
-	 * we want the bookmark button to render a confirmation dialog
-	 * before removing a bookmark.
+	 * In most cases, we want to render a basic bookmark button.
+	 * In some cases, we want to render a special bookmark button, such as on
+	 * the profile view, where we want a bookmark removal confirmation dialog.
+	 * We allow the consumer to pass a custom bookmark button component to
+	 * achieve this flexibility. We default to our basic bookmark button
+	 * if BookmarkButtonComponent is not provided.
 	 */
-	renderBookmarkConfirmationDialog?: boolean
+	BookmarkButtonComponent?: ({
+		tutorial,
+	}: {
+		tutorial: Pick<Tutorial, 'id' | 'name'>
+	}) => ReactElement
 }
