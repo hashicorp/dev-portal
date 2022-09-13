@@ -28,6 +28,9 @@ export function BuildCache(storeName) {
 	}
 }
 
+/**
+ * react-query-like BuildCache wrapper which accepts a keyFn and queryFn and handles cache interaction
+ */
 export function AsyncBuildCache({ storeName, keyFn, queryFn }) {
 	const cache = BuildCache(storeName)
 
@@ -53,6 +56,9 @@ export function AsyncBuildCache({ storeName, keyFn, queryFn }) {
 	}
 }
 
+/**
+ * Wrapper around RemoteContentLoader which uses a local cache layer to cache the output of loadStaticProps. Intended for use in a Vercel CI environment.
+ */
 export class CachedRemoteContentLoader implements RemoteContentLoader {
 	static latestShaBySlug = new Map()
 
