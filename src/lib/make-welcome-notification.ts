@@ -3,7 +3,7 @@ import { toast, ToastColor } from 'components/toast'
 
 const WELCOME_DATE_COOKIE = 'dev-dot-welcome'
 const DISMISS_COOKIE = 'dev-dot-dismiss-welcome'
-const SESSION_ITEM = 'in-welcome-toast-session'
+const SESSION_ITEM = 'in-dev-dot-welcome-session'
 
 const getCurrentMinutes = () => Date.now() / 60000
 
