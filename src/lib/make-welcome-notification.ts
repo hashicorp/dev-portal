@@ -31,6 +31,7 @@ export function makeWelcomeToast() {
 	// and if the initial cookie expired (max 3 months)
 	if (initializationCookie && !welcomeCookie) {
 		permanentlyDismiss()
+		return
 	}
 
 	// If no cookie has been set, set cookie that expires after 3 months
