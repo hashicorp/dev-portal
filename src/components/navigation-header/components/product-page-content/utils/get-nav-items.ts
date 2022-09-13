@@ -47,7 +47,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		items.push({
 			label: 'Registry',
 			url: 'https://registry.terraform.io/',
-			openInNewTab: true,
+			isExternal: true,
 		})
 	}
 	/**
