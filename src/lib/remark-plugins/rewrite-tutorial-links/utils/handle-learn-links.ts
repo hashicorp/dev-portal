@@ -49,8 +49,9 @@ export function handleTutorialLink(
 	 *     the given `tutorialMap`.
 	 */
 	let path = ''
-	const collectionSlug = searchParams.get('in')
-	if (collectionSlug) {
+	const collectionSlugParam = searchParams.get('in')
+	if (collectionSlugParam) {
+		const collectionSlug = collectionSlugParam.split('/')[1]
 		path = `/${product}/tutorials/${collectionSlug}/${filename}`
 	} else {
 		const tutorialSlug = [product, filename].join('/')
