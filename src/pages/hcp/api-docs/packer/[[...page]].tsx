@@ -68,7 +68,7 @@ const ApiDocsPage: CustomPageComponent<ApiDocsPageProps> = ({
 export async function getStaticPaths() {
 	let paths = []
 
-	if (isDeployPreview(productSlug)) {
+	if (!isDeployPreview() || isDeployPreview(productSlug)) {
 		const swaggerFile = await fetchGithubFile(targetFile)
 		const schema = await processSchemaString(swaggerFile)
 
