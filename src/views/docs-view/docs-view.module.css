@@ -1,3 +1,8 @@
 .mdxContent {
 	margin-top: 48px;
+
+	/* prevent overflow of youtube iframe's on small viewports */
+	& iframe {
+		max-inline-size: 100%;
+	}
 }
