@@ -30,16 +30,13 @@ export function handleTutorialLink(
 	 * Use the URL API to get each piece of the given `nodePath` that we need to
 	 * examine.
 	 */
-	const { hash, searchParams, pathname } = new URL(
-		nodePath,
-		__config.dev_dot.canonical_base_url
-	)
+	const url = new URL(nodePath, __config.dev_dot.canonical_base_url)
 
 	/**
 	 * Get the product slug and the tutorial's filename from the `pathname` piece
 	 * of the given `nodePath`.
 	 */
-	const [, , product, filename] = pathname.split('/') as SplitLearnPath
+	const [, , product, filename] = url.pathname.split('/') as SplitLearnPath
 
 	/**
 	 * Construct the new URL's path.
@@ -49,7 +46,7 @@ export function handleTutorialLink(
 	 *     the given `tutorialMap`.
 	 */
 	let path = ''
-	const collectionSlugParam = searchParams.get('in')
+	const collectionSlugParam = url.searchParams.get('in')
 	if (collectionSlugParam) {
 		const collectionSlug = collectionSlugParam.split('/')[1]
 		path = `/${product}/tutorials/${collectionSlug}/${filename}`
@@ -59,37 +56,18 @@ export function handleTutorialLink(
 	}
 
 	/**
-	 * Construct the full string of query parameters, ignoring the `in` param that
-	 * is not needed on this platform.
-	 *
-	 * NOTE: searchParams.toString() is not used for this because it outputs
-	 * encoded characters (such as the `/` character).
+	 * Remove the `in` parameter from the give `nodePath`, since it's not needed
+	 * on this platform.
 	 */
-	let queryString = ''
-	searchParams.forEach((value: string, key: string) => {
-		// Ignore `in` param, we don't need it
-		if (key === 'in') {
-			return
-		}
-
-		// Determine the prefix needed for the current param
-		const isFirstParam = queryString.length === 0
-		if (isFirstParam) {
-			queryString += '?'
-		} else {
-			queryString += '&'
-		}
-
-		// Append the param's key and value
-		queryString += `${key}=${value}`
-	})
+	url.searchParams.delete('in')
 
 	/**
 	 * Return the fully constructed URL.
 	 *
-	 * NOTE: `hash` already includes the `#` character.
+	 * NOTE: `search` already includes the `?` character, and  `hash` already
+	 * includes the `#` character.
 	 */
-	return `${path}${queryString}${hash}`
+	return `${path}${url.search}${url.hash}`
 }
 
 /**
