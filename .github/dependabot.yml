@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    allow:
+      # Allow updates for HashiCorp packages
+      - dependency-name: '@hashicorp/*'
+    reviewers:
+      - 'hashicorp/web-platform'

@@ -1,15 +1,18 @@
 import getDocsBreadcrumbs, {
 	getPathBreadcrumbs,
 } from '../utils/get-docs-breadcrumbs'
+import waypointData from 'data/waypoint.json'
+import terraformData from 'data/terraform.json'
 import waypointNavData from '../__fixtures__/waypoint-nav-data.json'
+import terraformPluginSDKv2NavData from '../__fixtures__/terraform-plugin-sdkv2-nav-data.json'
+import { ProductData } from 'types/products'
 
 describe('getDocsBreadcrumbs', () => {
 	it('prepends docs breadcrumbs for a basic example', () => {
 		const args = {
 			basePath: 'docs',
 			baseName: 'Docs',
-			productPath: 'waypoint',
-			productName: 'Waypoint',
+			product: waypointData as ProductData,
 			pathParts: ['getting-started'],
 			navData: waypointNavData,
 		}
@@ -30,6 +33,41 @@ describe('getDocsBreadcrumbs', () => {
 			{
 				title: 'Getting Started',
 				url: '/waypoint/docs/getting-started',
+				isCurrentPage: true,
+			},
+		]
+		expect(getDocsBreadcrumbs(args)).toEqual(expected)
+	})
+
+	it('prepends docs breadcrumbs for a nested rootDocsPath', () => {
+		const args = {
+			basePath: 'plugin/sdkv2',
+			baseName: 'SDKv2',
+			product: terraformData as ProductData,
+			pathParts: ['debugging'],
+			navData: terraformPluginSDKv2NavData,
+		}
+		const expected = [
+			{
+				title: 'Developer',
+				url: '/',
+			},
+			{
+				title: 'Terraform',
+				url: '/terraform',
+			},
+			{
+				title: 'Plugin Development',
+				url: '/terraform/plugin',
+			},
+			{
+				title: 'SDKv2',
+				url: '/terraform/plugin/sdkv2',
+				isCurrentPage: false,
+			},
+			{
+				title: 'Debugging Providers',
+				url: '/terraform/plugin/sdkv2/debugging',
 				isCurrentPage: true,
 			},
 		]

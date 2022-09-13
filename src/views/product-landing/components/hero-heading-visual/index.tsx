@@ -7,13 +7,25 @@ function HeroHeadingVisual({
 	image,
 	productSlug,
 }: HeroHeadingVisualProps) {
+	const gradientDefault = {
+		start: `var(--token-color-palette-neutral-100)`,
+		stop: `var(--token-color-palette-neutral-50)`,
+	}
+	const gradient =
+		productSlug && productSlug !== 'hcp'
+			? {
+					start: `var(--token-color-${productSlug}-gradient-faint-start)`,
+					stop: `var(--token-color-${productSlug}-gradient-faint-stop)`,
+			  }
+			: gradientDefault
+
 	return (
 		<div
 			className={s.root}
 			style={
 				{
-					'--gradient-start': `var(--token-color-${productSlug}-gradient-faint-start)`,
-					'--gradient-stop': `var(--token-color-${productSlug}-gradient-faint-stop)`,
+					'--gradient-start': gradient.start,
+					'--gradient-stop': gradient.stop,
 				} as CSSProperties
 			}
 		>

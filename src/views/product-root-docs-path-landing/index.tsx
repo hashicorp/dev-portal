@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
+import DocsViewLayout from 'layouts/docs-view-layout'
 import DocsView from 'views/docs-view'
 import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
 import { ProductRootDocsPathLandingProps } from './types'
@@ -8,7 +9,6 @@ import {
 	ProductRootDocsPathLandingMarketingContent,
 } from './components'
 import s from './product-root-docs-path-landing.module.css'
-import DocsViewLayout from 'layouts/docs-view-layout'
 
 const ProductRootDocsPathLanding = ({
 	mdxSource,
@@ -17,7 +17,9 @@ const ProductRootDocsPathLanding = ({
 	product,
 }: ProductRootDocsPathLandingProps) => {
 	const { pageSubtitle, marketingContentBlocks } = pageContent
-	const showProductDocsSearch = __config.flags.enable_product_docs_search
+	const showProductDocsSearch =
+		!__config.flags.enable_global_search &&
+		__config.flags.enable_product_docs_search
 
 	let mdxSlot: ReactElement
 
@@ -36,6 +38,7 @@ const ProductRootDocsPathLanding = ({
 			<ProductRootDocsPathLandingHero
 				pageHeading={pageHeading}
 				pageSubtitle={pageSubtitle}
+				iconCardGridItems={pageContent.iconCardGridItems}
 			/>
 			<ProductRootDocsPathLandingMarketingContent
 				blocks={marketingContentBlocks}
@@ -45,6 +48,8 @@ const ProductRootDocsPathLanding = ({
 	)
 }
 
+ProductRootDocsPathLanding.contentType = 'docs'
 ProductRootDocsPathLanding.layout = DocsViewLayout
+
 export type { ProductRootDocsPathLandingProps }
 export default ProductRootDocsPathLanding

@@ -1,6 +1,7 @@
 import { GetStaticPropsContext } from 'next'
 import { LearnProductData, LearnProductSlug, ProductSlug } from 'types/products'
 import {
+	getCloudTutorialsViewProps,
 	getProductTutorialsViewProps,
 	ProductTutorialsViewProps,
 } from 'views/product-tutorials-view/server'
@@ -13,21 +14,9 @@ import { cachedGetProductData } from 'lib/get-product-data'
  * i.e. /vault/tutorials
  */
 function generateProductTutorialHomePaths() {
-	const paths = []
-
-	/**
-	 * @TODO ignoring `hcp` product slug for now until we know whether or not
-	 * we're using "hcp" or "cloud".
-	 * https://app.asana.com/0/1202097197789424/1202618936981037/f
-	 */
-	__config.dev_dot.beta_product_slugs.forEach((productSlug: ProductSlug) => {
-		if (productSlug !== 'hcp') {
-			paths.push({
-				params: { productSlug },
-			})
-		}
-	})
-
+	const paths = __config.dev_dot.beta_product_slugs.map(
+		(productSlug: ProductSlug) => ({ params: { productSlug } })
+	)
 	return paths
 }
 
@@ -37,9 +26,15 @@ export async function getStaticProps({
 	props: ProductTutorialsViewProps
 }> {
 	const productData = cachedGetProductData(params.productSlug)
-	const props = await getProductTutorialsViewProps(
-		productData as LearnProductData
-	)
+
+	/**
+	 * Note: `hcp` is a "product" in Dev Dot but not in Learn,
+	 * so we have to treat it slightly differently.
+	 */
+	const props =
+		productData.slug == 'hcp'
+			? await getCloudTutorialsViewProps()
+			: await getProductTutorialsViewProps(productData as LearnProductData)
 
 	return props
 }

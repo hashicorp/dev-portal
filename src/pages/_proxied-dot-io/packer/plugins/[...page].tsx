@@ -36,6 +36,7 @@ function DocsView(props: InferGetStaticPropsType<typeof getStaticProps>) {
 			staticProps={props}
 			showVersionSelect={false}
 			algoliaConfig={productData.algoliaConfig}
+			devDotCutoverMessage={productData.devDotCutoverMessage}
 		/>
 	)
 }
@@ -65,6 +66,9 @@ export async function getStaticProps({ params }) {
 		product,
 		remotePluginsFile,
 	})
+	if (!props) {
+		return { notFound: true }
+	}
 	return { props, revalidate: __config.io_sites.revalidate }
 }
 

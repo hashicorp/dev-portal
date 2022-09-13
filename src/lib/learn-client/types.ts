@@ -1,3 +1,5 @@
+import { ApiCollection, ApiTutorial } from './api/api-types'
+
 /**
  * These types reflect data shapes returned from client methods
  */
@@ -8,8 +10,13 @@ export type uuid = string
 export type slug = string
 export type identifier = uuid | slug
 
+export interface TutorialIdCollectionId {
+	tutorialId: ApiTutorial['id']
+	collectionId: ApiCollection['id']
+}
+
 export interface Tutorial {
-	id?: identifier // uuid
+	id?: ApiTutorial['id'] // uuid
 	slug: identifier
 	name: string
 	description: string
@@ -72,7 +79,7 @@ export type CollectionLite = Pick<
 >
 
 export interface Collection {
-	id?: uuid // uuid
+	id: uuid // uuid
 	slug: slug
 	name: string
 	shortName: string
@@ -197,6 +204,11 @@ export enum ProductOption {
 	waypoint = 'waypoint',
 }
 
+export enum SectionOption {
+	'well-architected-framework' = 'well-architected-framework',
+	'onboarding' = 'onboarding',
+}
+
 export enum EditionOption {
 	openSource = 'open_source',
 	enterprise = 'enterprise',
@@ -254,6 +266,21 @@ export enum CompanyLogoOption {
 	aws = 'aws',
 }
 
+export enum TutorialProgressStatus {
+	visited = 'visited',
+	in_progress = 'in_progress',
+	complete = 'complete',
+}
+
+export enum TutorialProgressPercent {
+	Zero = '0',
+	TwentyFive = '25',
+	Fifty = '50',
+	SeventyFive = '75',
+	Ninety = '90',
+	OneHundred = '100',
+}
+
 /**
  * TYPE GUARDS ---------------------------------
  */
@@ -278,8 +305,14 @@ function isThemeOption(string: string): string is ThemeOption {
 	return Object.values(ThemeOption).includes(string as ThemeOption)
 }
 /**
+ * Type guard to determine if a string is a SectionOption
+ */
+export function isSectionOption(string: string): string is SectionOption {
+	return Object.values(SectionOption).includes(string as SectionOption)
+}
+/**
  * Type guard to determine if a string is a ProductOption
  */
-function isProductOption(string: string): string is ProductOption {
+export function isProductOption(string: string): string is ProductOption {
 	return Object.values(ProductOption).includes(string as ProductOption)
 }

@@ -50,11 +50,15 @@ const renderItem = (
 	return <li key={index}>{content}</li>
 }
 
-const MobileUserDisclosure = ({ items, user }: MobileUserDisclosureProps) => {
+const MobileUserDisclosure = ({
+	items,
+	user,
+	initialOpen,
+}: MobileUserDisclosureProps) => {
 	const { icon, description } = getUserMeta(user)
 
 	return (
-		<Disclosure containerClassName={s.root}>
+		<Disclosure containerClassName={s.root} initialOpen={initialOpen}>
 			<DisclosureActivator className={s.activator}>
 				<span className={s.iconAndTextWrapper}>
 					<span className={s.icon}>{icon}</span>

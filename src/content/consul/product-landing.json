@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Consul Placeholder Duplicate Of Vault Content",
-		"image": "https://place-hold.it/600x320"
+		"image": "https://www.datocms-assets.com/2885/1662767788-dev-dot-consul-landing-hero-2x.png"
 	},
 	"overview": {
 		"heading": "What is Consul?",
@@ -10,19 +10,26 @@
 			"text": "Learn more about Consul features",
 			"url": "/vault/docs/what-is-vault"
 		},
-		"image": "https://place-hold.it/680x250"
+		"image": "https://www.datocms-assets.com/2885/1662053770-dev-dot-product-landing-what-is-consul-diagram.png"
 	},
 	"get_started": {
 		"heading": "Getting Started",
 		"body": "Use Consul to securely store, access, and manage secrets and other sensitive data.",
-		"ctas": [
+		"iconCardLinks": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
+				"icon": "hcp",
+				"text": "HCP",
+				"url": "/consul/tutorials/cloud-get-started"
 			},
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"icon": "kubernetes-color",
+				"text": "Kubernetes",
+				"url": "/consul/tutorials/gs-consul-service-mesh"
+			},
+			{
+				"icon": "vmware",
+				"text": "VM",
+				"url": "/consul/tutorials/getting-started"
 			}
 		]
 	},

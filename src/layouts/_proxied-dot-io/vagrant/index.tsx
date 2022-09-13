@@ -7,6 +7,7 @@ import useProductMeta, { Products } from '@hashicorp/platform-product-meta'
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
+import { ProductMetaProvider } from '@hashicorp/platform-product-meta'
 // product-specific layout elements
 import Footer from 'components/_proxied-dot-io/vagrant/footer'
 import ProductSubnav from 'components/_proxied-dot-io/vagrant/subnav'
@@ -40,20 +41,23 @@ function VagrantIoLayout({
 				image={productData.metadata.image}
 				icon={productData.metadata.icon}
 			/>
-
-			<Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
-				{productData.alertBannerActive && (
-					<AlertBanner
-						{...productData.alertBanner}
-						product={productData.slug as Products}
-						hideOnMobile
-					/>
-				)}
-				<HashiStackMenu onPanelChange={() => null} />
-				<ProductSubnav />
-				<div className={themeClass}>{children}</div>
-			</Min100Layout>
-			<ConsentManager />
+			<ProductMetaProvider product={productData.slug as Products}>
+				<Min100Layout
+					footer={<Footer openConsentManager={openConsentManager} />}
+				>
+					{productData.alertBannerActive && (
+						<AlertBanner
+							{...productData.alertBanner}
+							product={productData.slug as Products}
+							hideOnMobile
+						/>
+					)}
+					<HashiStackMenu onPanelChange={() => null} />
+					<ProductSubnav />
+					<div className={themeClass}>{children}</div>
+				</Min100Layout>
+				<ConsentManager />
+			</ProductMetaProvider>
 		</>
 	)
 }

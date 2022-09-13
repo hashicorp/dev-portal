@@ -5,6 +5,11 @@ import { GetStaticPropsContext } from 'next'
 import { ProductSlug, RootDocsPath } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
+import {
+	GETTING_STARTED_CARD_HEADING,
+	GETTING_STARTED_CARD_HEADING_SLUG,
+} from './components/marketing-content'
+import { prepareMarketingBlocks } from './utils/prepare-marketing-blocks'
 
 /**
  * @TODO add TS to function signature & document function purpose
@@ -47,6 +52,14 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 				thisHeadingObject = {
 					level: cardGridHeadingLevel,
 					title: block.title,
+					id: headingSlug,
+					slug: headingSlug,
+				}
+			} else if (block.type === 'getting-started-card') {
+				const headingSlug = GETTING_STARTED_CARD_HEADING_SLUG
+				thisHeadingObject = {
+					level: 2,
+					title: GETTING_STARTED_CARD_HEADING,
 					id: headingSlug,
 					slug: headingSlug,
 				}
@@ -133,6 +146,13 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 			pageTitle: `${product.name} ${baseName}`,
 		})
 
+	/**
+	 * Prepare marketing content blocks for client use
+	 */
+	const preparedMarketingBlocks = await prepareMarketingBlocks(
+		marketingContentBlocksWithHeadingLevels
+	)
+
 	// TODO clean this up so it's easier to understand
 	return {
 		...generatedProps,
@@ -146,7 +166,7 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 			},
 			pageContent: {
 				...pageContent,
-				marketingContentBlocks: marketingContentBlocksWithHeadingLevels,
+				marketingContentBlocks: preparedMarketingBlocks,
 			},
 			pageHeading: sidecarHeadings[0],
 			product: {

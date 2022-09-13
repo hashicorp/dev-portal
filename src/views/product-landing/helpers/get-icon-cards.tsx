@@ -4,7 +4,7 @@ import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 import { ProductSlug } from 'types/products'
 
 export function getIconCards(productSlug: ProductSlug) {
-	return [
+	const iconCards = [
 		{
 			icon: <IconDocs16 />,
 			text: 'Documentation',
@@ -15,10 +15,14 @@ export function getIconCards(productSlug: ProductSlug) {
 			text: 'Tutorials',
 			url: `/${productSlug}/tutorials`,
 		},
-		{
+	]
+	if (productSlug !== 'hcp') {
+		iconCards.push({
 			icon: <IconDownload16 />,
 			text: 'Install',
 			url: `/${productSlug}/downloads`,
-		},
-	]
+		})
+	}
+
+	return iconCards
 }
