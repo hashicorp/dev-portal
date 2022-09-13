@@ -17,6 +17,7 @@ import {
 } from 'components/sidebar/helpers'
 
 import { CustomPageComponent } from 'types/_app'
+import { isDeployPreview } from 'lib/env-checks'
 
 const productSlug = 'hcp'
 const targetFile = {
@@ -67,11 +68,13 @@ const ApiDocsPage: CustomPageComponent<ApiDocsPageProps> = ({
 export async function getStaticPaths() {
 	let paths = []
 
-	const swaggerFile = await fetchGithubFile(targetFile)
-	const schema = await processSchemaString(swaggerFile)
+	if (!isDeployPreview() || isDeployPreview(productSlug)) {
+		const swaggerFile = await fetchGithubFile(targetFile)
+		const schema = await processSchemaString(swaggerFile)
 
-	if (schema) {
-		paths = getPathsFromSchema(schema)
+		if (schema) {
+			paths = getPathsFromSchema(schema)
+		}
 	}
 
 	return { paths, fallback: false }
