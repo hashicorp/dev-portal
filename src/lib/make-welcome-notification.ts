@@ -16,7 +16,7 @@ export function makeWelcomeToast() {
 	const dismissWelcomeCookie = Cookies.get(DISMISS_COOKIE)
 	const inSession = sessionStorage.getItem(SESSION_ITEM)
 
-	// Do not show toast if it has been dismissed or if in same session as most recent displayed
+	// Don't show toast if it has been dismissed or session is still active
 	if (dismissWelcomeCookie || inSession) {
 		return
 	}
