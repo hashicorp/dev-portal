@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import DocsView from 'views/docs-view'
 import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
+import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { ProductRootDocsPathLandingProps } from './types'
 import {
 	ProductRootDocsPathLandingHero,
@@ -15,6 +16,7 @@ const ProductRootDocsPathLanding = ({
 	pageContent,
 	pageHeading,
 	product,
+	versions,
 }: ProductRootDocsPathLandingProps) => {
 	const { pageSubtitle, marketingContentBlocks } = pageContent
 	const showProductDocsSearch =
@@ -22,7 +24,6 @@ const ProductRootDocsPathLanding = ({
 		__config.flags.enable_product_docs_search
 
 	let mdxSlot: ReactElement
-
 	if (mdxSource) {
 		const classes = classNames(s[`${product.slug}MDXWrapper`], s.mdxSlotWrapper)
 		mdxSlot = (
@@ -33,8 +34,18 @@ const ProductRootDocsPathLanding = ({
 	}
 
 	return (
-		<>
+		<div className={s.root}>
 			{showProductDocsSearch && <ProductDocsSearch />}
+			{versions ? (
+				<div
+					className={classNames(
+						s.versionSwitcherWrapper,
+						showProductDocsSearch && s.hasSearch
+					)}
+				>
+					<DocsVersionSwitcher options={versions} />
+				</div>
+			) : null}
 			<ProductRootDocsPathLandingHero
 				pageHeading={pageHeading}
 				pageSubtitle={pageSubtitle}
@@ -44,7 +55,7 @@ const ProductRootDocsPathLanding = ({
 				blocks={marketingContentBlocks}
 			/>
 			{mdxSlot}
-		</>
+		</div>
 	)
 }
 

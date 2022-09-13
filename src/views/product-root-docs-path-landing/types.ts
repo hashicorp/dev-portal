@@ -1,3 +1,4 @@
+import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData, RootDocsPath } from 'types/products'
 
@@ -24,6 +25,7 @@ interface ProductRootDocsPathLandingProps {
 		title: string
 	}
 	product: ProductData
+	versions?: VersionSelectItem[]
 }
 
 export type {

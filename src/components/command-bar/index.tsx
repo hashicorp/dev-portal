@@ -67,7 +67,13 @@ const commandBarReducer = (
 		}
 		case 'TOGGLE_IS_OPEN': {
 			const previousIsOpen = state.isOpen
-			return { ...state, isOpen: !previousIsOpen }
+			if (previousIsOpen) {
+				// Reset state if we're closing the dialog
+				return DEFAULT_CONTEXT_STATE
+			} else {
+				// Just update `isOpen` if we're opening the dialog
+				return { ...state, isOpen: true }
+			}
 		}
 	}
 }

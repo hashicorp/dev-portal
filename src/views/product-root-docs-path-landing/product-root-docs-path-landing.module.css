@@ -1,5 +1,5 @@
 .mdxSlotWrapper {
-  margin-top: 48px;
+	margin-top: 48px;
 }
 
 /*
@@ -27,19 +27,40 @@
 */
 
 .waypointMDXWrapper {
-  /* Remove the h1 coming from MDX */
-  & h1:first-of-type {
-    display: none;
-    visibility: hidden;
+	/* Remove the h1 coming from MDX */
+	& h1:first-of-type {
+		display: none;
+		visibility: hidden;
 
-    /* Remove first element after the h1, which duplicates the description */
-    & + * {
-      display: none;
-      visibility: hidden;
-    }
-  }
+		/* Remove first element after the h1, which duplicates the description */
+		& + * {
+			display: none;
+			visibility: hidden;
+		}
+	}
 
-  & h2:first-of-type {
-    margin-top: 0;
-  }
+	& h2:first-of-type {
+		margin-top: 0;
+	}
+}
+
+.root {
+	position: relative;
+
+	& .versionSwitcherWrapper {
+		width: 100%;
+		margin-bottom: 16px;
+
+		@media (--dev-dot-tablet-up) {
+			margin-bottom: 0;
+			width: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+
+			&.hasSearch {
+				top: 70px;
+			}
+		}
+	}
 }

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { ProductSlug } from 'types/products'
 
 export interface DocsViewProps {
@@ -27,6 +28,7 @@ export interface DocsViewProps {
 	 * the `enable_product_docs_search` feature flag is enabled.
 	 */
 	hideSearch?: boolean
+	versions?: VersionSelectItem[]
 }
 
 export type ProductsToPrimitivesMap = Record<

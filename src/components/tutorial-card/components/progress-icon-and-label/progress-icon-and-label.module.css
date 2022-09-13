@@ -1,0 +1,11 @@
+.progressIconAndLabel {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.progressLabel {
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-faint);
+}
