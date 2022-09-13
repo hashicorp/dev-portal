@@ -9,12 +9,12 @@ export interface PrimaryNavLinkProps {
 	navItem: {
 		label: string
 		url: string
-		isExternal?: boolean
+		openInNewTab?: boolean
 	}
 }
 
 const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
-	const { label, url, isExternal } = navItem
+	const { label, url, openInNewTab } = navItem
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const isCurrentPage = url === currentPath || url === `${currentPath}/`
 
@@ -24,7 +24,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 				aria-current={isCurrentPage ? 'page' : undefined}
 				aria-label={ariaLabel}
 				className={s.root}
-				target={isExternal ? '_blank' : undefined}
+				target={openInNewTab ? '_blank' : undefined}
 			>
 				<Text
 					asElement="span"
@@ -34,7 +34,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 				>
 					{label}
 				</Text>
-				{isExternal ? <IconExternalLink16 /> : null}
+				{openInNewTab ? <IconExternalLink16 /> : null}
 			</a>
 		</Link>
 	)
