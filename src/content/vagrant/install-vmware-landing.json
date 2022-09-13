@@ -4,7 +4,7 @@
 		"vagrant/getting-started-boxes",
 		"vagrant/getting-started-networking"
 	],
-	"packageManagerOverrides": [],
+	"doesNotHavePackageManagers": true,
 	"sidecarMarketingCard": {
 		"title": "About Vagrant",
 		"subtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",
