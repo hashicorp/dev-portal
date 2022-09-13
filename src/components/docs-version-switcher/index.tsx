@@ -82,11 +82,7 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
 							})
 						}
 						return (
-							<DropdownDisclosureLinkItem
-								aria-label={`${currentProduct.name} ${option.label}`}
-								key={option.version}
-								href={href}
-							>
+							<DropdownDisclosureLinkItem key={option.version} href={href}>
 								{option.label}
 							</DropdownDisclosureLinkItem>
 						)
