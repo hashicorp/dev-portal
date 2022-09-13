@@ -3,7 +3,7 @@ import { toast, ToastColor } from 'components/toast'
 
 const WELCOME_COOKIE = 'dev-dot-welcome'
 const DISMISS_COOKIE = 'dev-dot-dismiss-welcome'
-const SESSION_ITEM = 'welcome-session'
+const SESSION_ITEM = 'in-welcome-session'
 
 export function makeWelcomeToast() {
 	const dismissWelcomeCookie = Cookies.get(DISMISS_COOKIE)
@@ -25,7 +25,7 @@ export function makeWelcomeToast() {
 		Cookies.set(WELCOME_COOKIE, Date.now())
 	}
 
-	sessionStorage.setItem(SESSION_ITEM, 'in-session')
+	sessionStorage.setItem(SESSION_ITEM, 'yes')
 
 	toast({
 		color: ToastColor.highlight,
