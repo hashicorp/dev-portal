@@ -16,7 +16,7 @@ export function makeWelcomeToast() {
 
 	const welcomeCookie = Cookies.get(WELCOME_COOKIE)
 
-	// If welcome toast was first shown 3 months ago (in milliseconds), don't show again
+	// If welcome toast was first shown 3 months ago (in milliseconds), dismiss & don't show again
 	if (welcomeCookie && Date.now() - welcomeCookie >= 7889400000) {
 		Cookies.set(DISMISS_COOKIE, true)
 		return

@@ -1,6 +1,7 @@
 // Third-party imports
 import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LazyMotion } from 'framer-motion'
@@ -38,7 +39,6 @@ import { Toaster } from 'components/toast'
 
 // Local imports
 import './style.css'
-import { useRouter } from 'next/router'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -69,6 +69,7 @@ export default function App({
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
 	useEffect(() => {
+		// Don't show toast on homepage
 		if (isReady && pathname !== '/') {
 			makeWelcomeToast()
 		}
