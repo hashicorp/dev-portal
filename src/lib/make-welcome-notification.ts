@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 import { toast, ToastColor } from 'components/toast'
 
-const WELCOME_COOKIE = 'dev-dot-welcome'
+const WELCOME_DATE_COOKIE = 'dev-dot-welcome'
 const DISMISS_COOKIE = 'dev-dot-dismiss-welcome'
 const SESSION_ITEM = 'in-welcome-toast-session'
 
@@ -11,14 +11,13 @@ export function makeWelcomeToast() {
 	const dismissWelcomeCookie = Cookies.get(DISMISS_COOKIE)
 	const inSession = sessionStorage.getItem(SESSION_ITEM)
 
-	// Do not show toast if it has been dismissed or if in same session as most recent display
+	// Do not show toast if it has been dismissed or if in same session as most recent displayed
 	if (dismissWelcomeCookie || inSession) {
 		return
 	}
 
-	const welcomeCookie = Cookies.get(WELCOME_COOKIE)
+	const welcomeCookie = Cookies.get(WELCOME_DATE_COOKIE)
 
-	console.log(getCurrentMinutes() - welcomeCookie)
 	// If toast was first shown 3 months ago (in minutes), dismiss & don't show again
 	if (welcomeCookie && getCurrentMinutes() - welcomeCookie >= 131400) {
 		Cookies.set(DISMISS_COOKIE, true)
@@ -27,11 +26,11 @@ export function makeWelcomeToast() {
 
 	// If no cookie has been set, set cookie as current DateTime in minutes
 	if (!welcomeCookie) {
-		Cookies.set(WELCOME_COOKIE, getCurrentMinutes())
+		Cookies.set(WELCOME_DATE_COOKIE, getCurrentMinutes())
 	}
 
 	// Set session item to detect whether or not to display
-	// We don't need a condition here since we will return if there is already a session item defined (line 12)
+	// We don't need a condition here since we will have returned if session item is defined (line 15)
 	sessionStorage.setItem(SESSION_ITEM, 'yes')
 
 	toast({
@@ -40,6 +39,9 @@ export function makeWelcomeToast() {
 		description:
 			'Your destination for documentation and tutorials. Click the X to permanently dismiss these notifications.',
 		autoDismiss: 15000,
-		onDismissCallback: () => Cookies.set(DISMISS_COOKIE, true),
+		onDismissCallback: () => {
+			Cookies.set(DISMISS_COOKIE, true)
+			Cookies.remove(WELCOME_DATE_COOKIE)
+		},
 	})
 }
