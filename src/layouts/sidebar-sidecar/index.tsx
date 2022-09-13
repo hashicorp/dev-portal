@@ -13,7 +13,6 @@ import { useMobileMenu } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
-import DocsVersionSwitcher from 'components/docs-version-switcher'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import InlineLink from 'components/inline-link'
 import MobileMenuContainer, {
@@ -95,7 +94,6 @@ const SidebarSidecarLayoutContent = ({
 					<MobileAuthenticationControls />
 					<SidebarContent />
 				</div>
-				{versions ? <DocsVersionSwitcher options={versions} /> : null}
 			</MobileMenuContainer>
 			<div className={s.contentWrapper}>
 				{currentlyViewedVersion && (

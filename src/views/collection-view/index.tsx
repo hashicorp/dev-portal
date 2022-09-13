@@ -69,7 +69,7 @@ function CollectionView({
 			<CollectionTutorialList
 				isOrdered={ordered}
 				tutorials={tutorials.map((t: ClientTutorialLite) =>
-					formatTutorialCard(t, slug)
+					formatTutorialCard(t, collection)
 				)}
 			/>
 		</SidebarSidecarLayout>

@@ -7,6 +7,7 @@ import {
 	SidebarNavMenuItem,
 } from 'components/sidebar/components'
 import Sidebar from 'components/sidebar'
+import TutorialProgressIcon from 'components/tutorial-progress-icon'
 import { useTutorialProgress } from 'hooks/progress'
 import {
 	ListItemProps,
@@ -15,7 +16,6 @@ import {
 	TutorialListItemProps,
 	TutorialSidebarProps,
 } from './types'
-import TutorialProgressIcon from './tutorial-progress-icon'
 import s from './tutorials-sidebar.module.css'
 
 function TutorialsSidebar({
