@@ -61,7 +61,26 @@ function DownloadsPage({ product, releases, latestVersion }) {
 	)
 }
 
-export const getStaticProps = () => generateStaticProps('vagrant')
+export const getStaticProps = async () => {
+	const result = await generateStaticProps('vagrant')
+
+	if (result?.props?.releases?.versions) {
+		result.props.releases.versions = Object.fromEntries(
+			Object.entries(result.props.releases.versions).map(([key, version]) => {
+				version.builds = version.builds.filter((build) => {
+					if (build.os === 'linux' && !build.filename.endsWith('.zip')) {
+						return false
+					}
+					return true
+				})
+
+				return [key, version]
+			})
+		)
+	}
+
+	return result
+}
 
 DownloadsPage.layout = VagrantIoLayout
 export default DownloadsPage
