@@ -9,7 +9,7 @@ import { ProductSlug } from 'types/products'
 
 interface PageHeaderProps {
 	isEnterpriseMode: boolean
-	product: { name: string; slug: string }
+	product: { name: string; slug: ProductSlug }
 }
 
 const PageHeader = ({
@@ -30,16 +30,13 @@ const PageHeader = ({
 				isLatestVersion,
 		  })
 
+	const productSlug = (
+		product.slug === 'sentinel' ? 'hcp' : product.slug
+	) as Exclude<ProductSlug, 'sentinel'>
+
 	return (
 		<div className={s.root}>
-			<IconTileLogo
-				className={s.iconTileLogo}
-				productSlug={
-					product.slug === 'sentinel'
-						? 'hcp'
-						: (product.slug as Exclude<ProductSlug, 'sentinel'>)
-				}
-			/>
+			<IconTileLogo className={s.iconTileLogo} productSlug={productSlug} />
 			<div>
 				<Heading
 					className={s.pageHeaderTitle}
