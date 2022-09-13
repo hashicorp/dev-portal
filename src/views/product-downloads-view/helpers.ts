@@ -12,6 +12,7 @@ import { formatCollectionCard } from 'components/collection-card/helpers'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
+import { CollectionLite } from 'lib/learn-client/types'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
@@ -359,13 +360,41 @@ export const generateFeaturedTutorialsCards = async (
 		const { productSlug, collectionSlug, tutorialSlug } =
 			splitTutorialSlug(slug)
 		const tutorialData = inlineTutorials[`${productSlug}/${tutorialSlug}`]
+
+		/**
+		 * We have full `Tutorial` data, but we need `TutorialLite` specifically,
+		 * with a `defaultContext` property, to satisfy `formatTutorialCard`.
+		 *
+		 * Note: We could potentially change `TutorialLite` to maintain the
+		 * `collectionCtx` property from `Tutorial`? This would remove the
+		 * need to adapt data in this way, which we do in a few places
+		 * for `formatTutorialCard`. Asana task:
+		 * https://app.asana.com/0/1202097197789424/1202964504180140/f
+		 */
 		const defaultContext = tutorialData.collectionCtx.default
 		const tutorialLiteCompat = { ...tutorialData, defaultContext }
 
-		const formattedTutorialCard = formatTutorialCard(tutorialLiteCompat)
-		if (collectionSlug) {
-			formattedTutorialCard.url = `/${productSlug}/tutorials/${collectionSlug}/${tutorialSlug}`
+		/**
+		 * We have a collection context to use other than the default.
+		 */
+		let collectionContext = tutorialData.collectionCtx.default
+		if (tutorialData.collectionCtx.default.slug != collectionSlug) {
+			/**
+			 * Note: if this ends up null, we'll end up falling back to
+			 * `tutorialData.collectionCtx.default` in `formatTutorialCard`.
+			 */
+			collectionContext = tutorialData.collectionCtx.featuredIn?.find(
+				(ctx: CollectionLite) => ctx.slug == collectionSlug
+			)
 		}
+
+		/**
+		 * Format for TutorialCard, using the specified collection context.
+		 */
+		const formattedTutorialCard = formatTutorialCard(
+			tutorialLiteCompat,
+			collectionContext
+		)
 
 		return {
 			type: 'tutorial',
