@@ -14,9 +14,12 @@ import { getSpeakableDuration } from './build-aria-label'
  * Displays a TutorialCard, which shows additional user-data-specific elements
  * for authenticated users.
  */
-export function TutorialCardWithAuthElements(props: TutorialCardPropsWithId) {
-	const { id: tutorialId, collectionId, ...rest } = props
-
+export function TutorialCardWithAuthElements({
+	id: tutorialId,
+	collectionId,
+	BookmarkButtonComponent = TutorialCardBookmarkButton,
+	...restProps
+}: TutorialCardPropsWithId) {
 	/**
 	 * Get tutorial progress. Will be undefined if not authenticated.
 	 * Note as well that useTutorialProgress depends on AUTH_ENABLED.
@@ -39,11 +42,11 @@ export function TutorialCardWithAuthElements(props: TutorialCardPropsWithId) {
 
 	return (
 		<TutorialCard
-			{...rest}
+			{...restProps}
 			eyebrowSlotAriaLabel={
 				shouldRenderProgress
 					? progressStatusToAriaLabel(tutorialProgressStatus)
-					: getSpeakableDuration(props.duration)
+					: getSpeakableDuration(restProps.duration)
 			}
 			eyebrowSlot={
 				<>
@@ -51,12 +54,12 @@ export function TutorialCardWithAuthElements(props: TutorialCardPropsWithId) {
 					{shouldRenderProgress ? (
 						<ProgressIconAndLabel status={tutorialProgressStatus} />
 					) : (
-						<span>{props.duration}</span>
+						<span>{restProps.duration}</span>
 					)}
 					{/** Hide from prod until auth is enabled */}
 					{AUTH_ENABLED ? (
-						<TutorialCardBookmarkButton
-							tutorial={{ id: tutorialId, name: props.heading }}
+						<BookmarkButtonComponent
+							tutorial={{ id: tutorialId, name: restProps.heading }}
 						/>
 					) : null}
 				</>

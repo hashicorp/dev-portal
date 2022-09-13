@@ -44,8 +44,14 @@
 	}
 }
 
-.root {
+.docsLandingWithVersions {
 	position: relative;
+
+	@media (--dev-dot-tablet-up) {
+		& :global(.landing-hero) {
+			margin-right: 25%;
+		}
+	}
 
 	& .versionSwitcherWrapper {
 		width: 100%;
