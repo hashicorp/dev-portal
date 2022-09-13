@@ -6,7 +6,11 @@ import {
 	CardBadges,
 	CardBadgeOption,
 } from 'components/tutorial-collection-cards'
-import { buildAriaLabel, TutorialCardWithBookmark } from './helpers'
+import {
+	buildAriaLabel,
+	getSpeakableDuration,
+	TutorialCardWithAuthElements,
+} from './helpers'
 import { TutorialCardProps, TutorialCardPropsWithId } from './types'
 import s from './tutorial-card.module.css'
 
@@ -22,6 +26,7 @@ function TutorialCard({
 	hasVideo,
 	hasInteractiveLab,
 	eyebrowSlot,
+	eyebrowSlotAriaLabel = getSpeakableDuration(duration),
 }: TutorialCardProps) {
 	/**
 	 * Build the array of badges to show at the bottom of the card.
@@ -41,6 +46,7 @@ function TutorialCard({
 		productsUsed,
 		hasVideo,
 		hasInteractiveLab,
+		eyebrowSlotAriaLabel,
 	})
 
 	return (
@@ -54,5 +60,5 @@ function TutorialCard({
 }
 
 export type { TutorialCardProps, TutorialCardPropsWithId }
-export { TutorialCardWithBookmark }
+export { TutorialCardWithAuthElements }
 export default TutorialCard
