@@ -18,6 +18,36 @@ import Joi from 'joi'
  */
 
 /**
+ * Callout
+ */
+
+interface CalloutContentBlock extends CalloutCardProps {
+	type: 'callout'
+}
+
+const CalloutContentBlockSchema = Joi.object({
+	type: Joi.string().required().valid('callout'),
+	heading: Joi.string().required(),
+	body: Joi.string().required(),
+	iconCardLinks: Joi.array().items(
+		Joi.object({
+			icon: Joi.string().required(),
+			text: Joi.string().required(),
+			url: Joi.string().required(),
+		})
+	),
+	ctas: Joi.array()
+		.items(
+			Joi.object({
+				text: Joi.string().required(),
+				url: Joi.string().required(),
+			})
+		)
+		.min(1),
+	fixedColumns: Joi.number(),
+})
+
+/**
  * Heading
  */
 interface HeadingContentBlock {
@@ -162,10 +192,6 @@ const ProductLandingGetStartedSchema = Joi.alternatives().try(
 	})
 )
 
-interface CalloutContentBlock extends CalloutCardProps {
-	type: 'callout'
-}
-
 /**
  * Roll up of all block types
  */
@@ -181,27 +207,7 @@ const ProductLandingContentBlockSchema = Joi.object({
 		.valid('heading', 'tutorial_cards', 'linked_cards'),
 })
 	.when(Joi.object({ type: 'callout' }).unknown(), {
-		then: Joi.object({
-			type: Joi.string().required().valid('callout'),
-			heading: Joi.string().required(),
-			body: Joi.string().required(),
-			iconCardLinks: Joi.array().items(
-				Joi.object({
-					icon: Joi.string().required(),
-					text: Joi.string().required(),
-					url: Joi.string().required(),
-				})
-			),
-			ctas: Joi.array()
-				.items(
-					Joi.object({
-						text: Joi.string().required(),
-						url: Joi.string().required(),
-					})
-				)
-				.min(1),
-			fixedColumns: Joi.number(),
-		}),
+		then: CalloutContentBlockSchema,
 	})
 	.when(Joi.object({ type: 'heading' }).unknown(), {
 		then: HeadingContentBlockSchema,

@@ -17,7 +17,7 @@ function ProductLandingBlocks({ blocks }: ProductLandingBlocksProps) {
 				switch (type) {
 					case 'callout':
 						return (
-							<div key={idx} className={s.cardsMargin}>
+							<div key={idx} className={s.calloutCardMargin}>
 								<CalloutCard
 									heading={block.heading}
 									headingSlug={block.headingSlug}
