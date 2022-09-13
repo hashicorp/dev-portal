@@ -37,7 +37,7 @@ export function makeWelcomeToast() {
 	// Set cookie that shows initialization of notification
 	if (!welcomeCookie && !initializationCookie) {
 		Cookies.set(INITIALIZATION_COOKIE, true, {
-			expires: 180,
+			expires: 365,
 		})
 		Cookies.set(WELCOME_COOKIE, true, {
 			expires: 90,
