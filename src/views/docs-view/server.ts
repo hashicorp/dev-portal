@@ -336,9 +336,6 @@ export function getStaticGenerationFunctions<
 			const isPackerPlugins =
 				product.slug == 'packer' && currentRootDocsPath.path == 'plugins'
 
-			if (!isPackerPlugins && hasMeaningfulVersions) {
-				layoutProps.versions = versions
-			}
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.
 			 * Currently, HCP and Sentinel docs are stored in private repositories.
@@ -370,7 +367,7 @@ export function getStaticGenerationFunctions<
 					// needed for DocsVersionSwitcher
 					currentRootDocsPath: currentRootDocsPath || null,
 				},
-				versions,
+				versions: !isPackerPlugins && hasMeaningfulVersions ? versions : null,
 			}
 
 			return {

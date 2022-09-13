@@ -107,11 +107,12 @@ const DropdownDisclosureLinkItem = ({
 	children,
 	href,
 	icon,
+	rel,
 }: DropdownDisclosureLinkItemProps) => {
 	return (
 		<DropdownDisclosureListItem>
 			<Link href={href}>
-				<a className={s.link}>
+				<a className={s.link} rel={rel}>
 					{icon}
 					<Text asElement="span" size={200} weight="medium">
 						{children}
