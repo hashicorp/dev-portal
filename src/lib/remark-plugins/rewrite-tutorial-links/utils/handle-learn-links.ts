@@ -64,7 +64,8 @@ export function handleTutorialLink(
 	/**
 	 * Return the fully constructed URL.
 	 *
-	 * NOTE: `hash` already includes the `#` character.
+	 * NOTE: `search` already includes the `?` character, and  `hash` already
+	 * includes the `#` character.
 	 */
 	return `${path}${url.search}${url.hash}`
 }
