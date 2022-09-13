@@ -72,17 +72,24 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
 					)
 					.map((option: VersionSelectItem) => {
 						let href: string
+						let rel: string
 						if (option.isLatest) {
 							href = removeVersionFromPath(currentPath)
+							rel = undefined
 						} else {
 							href = getTargetPath({
 								basePath: `${currentProduct.slug}/${currentRootDocsPath.path}`,
 								asPath: currentPath,
 								version: option.version,
 							})
+							rel = 'nofollow'
 						}
 						return (
-							<DropdownDisclosureLinkItem key={option.version} href={href}>
+							<DropdownDisclosureLinkItem
+								key={option.version}
+								href={href}
+								rel={rel}
+							>
 								{option.label}
 							</DropdownDisclosureLinkItem>
 						)
