@@ -53,6 +53,7 @@ const ProductDownloadsViewContent = ({
 		packageManagerOverrides,
 		sidecarMarketingCard,
 		sidebarMenuItems,
+		installName,
 	} = pageContent
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
@@ -114,7 +115,13 @@ const ProductDownloadsViewContent = ({
 					<meta name="robots" key="robots" content="noindex, nofollow" />
 				</HashiHead>
 			) : null}
-			<PageHeader isEnterpriseMode={isEnterpriseMode} />
+			<PageHeader
+				isEnterpriseMode={isEnterpriseMode}
+				product={{
+					name: installName || currentProduct.name,
+					slug: currentProduct.slug,
+				}}
+			/>
 			<DownloadsSection
 				isEnterpriseMode={isEnterpriseMode}
 				packageManagers={packageManagers}
