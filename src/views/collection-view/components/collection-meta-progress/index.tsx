@@ -31,6 +31,10 @@ function CollectionMetaProgress({ collection }: { collection: Collection }) {
 	const isProgressStarted = completedTutorialCount > 0
 	const isCompleted = completedTutorialCount == tutorials.length
 	const isInProgress = isProgressStarted && !isCompleted
+
+	/**
+	 * TODO: split out helper to getCtaTutorialLink
+	 */
 	const firstIncompleteTutorial = tutorials.find((tutorial: TutorialLite) => {
 		const matchedProgress = progressData.find(
 			(record: ApiCollectionTutorialProgress) =>
@@ -78,6 +82,7 @@ function CollectionMetaProgress({ collection }: { collection: Collection }) {
 				/>
 				<div className={s.statusSection}>
 					{isCompleted ? (
+						// TODO: split this out as a separate component within this file
 						<div className={s.completeIconAndLabel}>
 							<IconCheckCircleFill16 className={s.completeIcon} />
 							<div className={s.statusLabel}>Complete</div>
@@ -86,6 +91,7 @@ function CollectionMetaProgress({ collection }: { collection: Collection }) {
 						<div className={s.countIconAndLabel}>
 							<IconCollections16 className={s.countIcon} />
 							<div className={s.statusLabel}>
+								{/* Maybe assign to const? Could also split this out as component */}
 								{isProgressStarted
 									? `${completedTutorialCount}/${tutorialCount}`
 									: `${tutorialCount} tutorial${tutorialCount == 1 ? '' : 's'}`}
