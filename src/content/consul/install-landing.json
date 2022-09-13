@@ -1,16 +1,62 @@
 {
-	"featuredTutorialsSlugs": [],
+	"featuredLearnContent": [
+		{
+			"collectionSlug": "consul/cloud-get-started"
+		},
+		{
+			"collectionSlug": "consul/gs-consul-service-mesh"
+		},
+		{
+			"collectionSlug": "consul/getting-started"
+		},
+		{
+			"tutorialSlug": "consul/kubernetes-api-gateway"
+		},
+		{
+			"tutorialSlug": "consul/consul-terraform-sync-intro"
+		},
+		{
+			"tutorialSlug": "consul/serverless-consul-with-lambda"
+		}
+	],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Get Started"
+		},
+		{
+			"title": "What is Consul?",
+			"fullPath": "/consul/docs/intro"
+		},
+		{
+			"title": "Consul with Kubernetes",
+			"fullPath": "/consul/tutorials/gs-consul-service-mesh/get-started"
+		},
+		{
+			"title": "Consul with Virtual Machines",
+			"fullPath": "/consul/tutorials/getting-started/get-started"
+		},
+		{
+			"title": "HCP Consul",
+			"fullPath": "/consul/tutorials/cloud-get-started/get-started"
+		},
+		{
+			"divider": true
+		},
+		{
+			"title": "Install Consul K8s CLI",
+			"fullPath": "/consul/docs/k8s/installation/install-cli"
+		}
+	],
 	"sidecarMarketingCard": {
 		"title": "About Consul",
-		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+		"subtitle": "Consul offers a fully-featured service mesh solution that solves the networking and security challenges of operating microservices in multi-cloud and hybrid-cloud environment.",
 		"featuredDocsLinks": [
 			{
 				"href": "/consul/docs/intro",
-				"text": "Introduction"
-			},
-			{
-				"href": "/consul/docs/install",
-				"text": "Install"
+				"text": "What is Consul?"
 			},
 			{
 				"href": "/consul/api-docs",

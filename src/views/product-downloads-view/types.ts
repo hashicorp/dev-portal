@@ -53,6 +53,7 @@ export interface ProductDownloadsViewProps {
 		packageManagerOverrides?: PackageManager[]
 		sidecarMarketingCard: SidecarMarketingCardProps
 		sidebarMenuItems?: MenuItem[]
+		installName?: string
 	}
 	releases: ReleasesAPIResponse
 	sortedAndFilteredVersions: ReleaseVersion[]

@@ -19,6 +19,7 @@ import { IconOracleColor16 } from '@hashicorp/flight-icons/svg-react/oracle-colo
 import { IconPlug16 } from '@hashicorp/flight-icons/svg-react/plug-16'
 import { IconPlusCircle16 } from '@hashicorp/flight-icons/svg-react/plus-circle-16'
 import { IconProvider16 } from '@hashicorp/flight-icons/svg-react/provider-16'
+import { IconServer16 } from '@hashicorp/flight-icons/svg-react/server-16'
 import { IconTerminal16 } from '@hashicorp/flight-icons/svg-react/terminal-16'
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
 import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
@@ -54,6 +55,7 @@ export const SUPPORTED_ICONS = {
 	plug: <IconPlug16 />,
 	'plus-circle': <IconPlusCircle16 />,
 	provider: <IconProvider16 />,
+	server: <IconServer16 />,
 	'terminal-screen': <IconTerminalScreen16 />,
 	terminal: <IconTerminal16 />,
 	'terraform-color': <IconTerraformColor16 />,
