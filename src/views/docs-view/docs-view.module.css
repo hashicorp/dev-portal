@@ -24,7 +24,8 @@
 		}
 	}
 
-	/* Add margin to all docs headings when versions are defined. Some use <LandingHero /> component in place of the standard */
+	/* Add margin to all possible docs headings when versions are defined.
+  This eliminates possible overlap between heading and version switcher dropdown */
 	@media (--dev-dot-tablet-up) {
 		& h1:first-child,
 		& :global(.landing-hero) {
