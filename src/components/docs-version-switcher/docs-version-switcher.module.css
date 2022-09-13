@@ -1,5 +1,6 @@
 .docsVersionSwitcher {
 	@media (--dev-dot-mobile) {
+		/* Make trigger button and dropdown list full width on mobile */
 		width: 100%;
 
 		& button {

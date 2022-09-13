@@ -24,6 +24,7 @@
 		}
 	}
 
+	/* Add margin to all docs headings when versions are defined. Some use <LandingHero /> component in place of the standard */
 	@media (--dev-dot-tablet-up) {
 		& h1:first-child,
 		& :global(.landing-hero) {
