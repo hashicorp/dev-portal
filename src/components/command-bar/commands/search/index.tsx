@@ -3,7 +3,7 @@ import {
 	CommandBarCommand,
 	SupportedCommand,
 } from 'components/command-bar/types'
-import SearchCommandBarDialogBody from './dialog-body'
+import SearchCommandBarDialogBody from './components/dialog-body'
 
 const searchCommand: CommandBarCommand = {
 	name: SupportedCommand.search,
