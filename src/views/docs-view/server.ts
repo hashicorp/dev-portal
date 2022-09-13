@@ -60,6 +60,7 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 		'terraform-plugin-sdk',
 		'terraform-plugin-framework',
 		'terraform-docs-agents',
+		'cloud.hashicorp.com',
 	].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }

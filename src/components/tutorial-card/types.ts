@@ -37,7 +37,19 @@ export interface TutorialCardProps {
 	 */
 	productsUsed: ProductOption[]
 
+	/**
+	 * Render elements in the area of the card above the heading.
+	 * If omitted, will default to `duration`.
+	 */
 	eyebrowSlot?: ReactNode
+
+	/**
+	 * Optionally add to the the default aria-label for the card.
+	 * This is intended for cases where `eyebrowSlot` contains information
+	 * that should be added to the `aria-label`.
+	 * If omitted, will default to a speakable version of `duration`.
+	 */
+	eyebrowSlotAriaLabel?: string
 }
 
 export interface TutorialCardPropsWithId extends TutorialCardProps {
@@ -45,4 +57,9 @@ export interface TutorialCardPropsWithId extends TutorialCardProps {
 	 * The tutorial's unique identifier
 	 */
 	id: string
+	/**
+	 * The collection context's unique identifier.
+	 * This is required for collection-context-specific progress display.
+	 */
+	collectionId: string
 }
