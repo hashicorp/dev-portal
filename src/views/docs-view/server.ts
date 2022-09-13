@@ -149,7 +149,7 @@ export function getStaticGenerationFunctions<
 			})
 		} else {
 			if (process.env.CI) {
-				// if we're running in CI, used a RemoteContentLoader with a local cache
+				// if we're running in CI, use a RemoteContentLoader with a local cache
 				return new CachedRemoteContentLoader(options)
 			}
 
