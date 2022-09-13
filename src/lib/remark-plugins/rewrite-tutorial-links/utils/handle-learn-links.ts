@@ -26,40 +26,70 @@ export function handleTutorialLink(
 	nodePath: string,
 	tutorialMap: { [key: string]: string }
 ) {
-	const hasQueryParam = nodePath.includes('?')
-	const hasAnchorLink = nodePath.includes('#')
-	let queryParam
+	/**
+	 * Use the URL API to get each piece of the given `nodePath` that we need to
+	 * examine.
+	 */
+	const { hash, searchParams, pathname } = new URL(
+		nodePath,
+		__config.dev_dot.canonical_base_url
+	)
 
-	if (hasQueryParam) {
-		const [tutorialSlug, collectionSlug] = nodePath.split('?')
-		nodePath = tutorialSlug
-		queryParam = collectionSlug
+	/**
+	 * Get the product slug and the tutorial's filename from the `pathname` piece
+	 * of the given `nodePath`.
+	 */
+	const [, , product, filename] = pathname.split('/') as SplitLearnPath
+
+	/**
+	 * Construct the new URL's path.
+	 *   - If a collection slug is provided via the `in` query string parameter,
+	 * 	   then we build the path ourselves.
+	 *   - Otherwise, we use the path that references the default collection from
+	 *     the given `tutorialMap`.
+	 */
+	let path = ''
+	const collectionSlugParam = searchParams.get('in')
+	if (collectionSlugParam) {
+		const collectionSlug = collectionSlugParam.split('/')[1]
+		path = `/${product}/tutorials/${collectionSlug}/${filename}`
+	} else {
+		const tutorialSlug = [product, filename].join('/')
+		path = tutorialMap[tutorialSlug]
 	}
 
-	const [, , product, filename] = nodePath.split('/') as SplitLearnPath
-
-	const tutorialSlug = [product, filename].join('/')
-	let finalSlug = tutorialMap[tutorialSlug]
-
-	// if there is a query param, the collection name is in provided
-	// so we don't use the tutorial map
-	if (hasQueryParam) {
-		// isolate the collection name from the query
-		const [, collectionSlug] = queryParam.split('/')
-		finalSlug = `/${product}/tutorials/${collectionSlug}/${filename}`
-
-		// sometimes query params also have an anchor
-		if (hasAnchorLink) {
-			const [slug, anchor] = collectionSlug.split('#')
-			const base = `/${product}/tutorials/${slug}/${filename}`
-			finalSlug = [base, anchor].join('#')
+	/**
+	 * Construct the full string of query parameters, ignoring the `in` param that
+	 * is not needed on this platform.
+	 *
+	 * NOTE: searchParams.toString() is not used for this because it outputs
+	 * encoded characters (such as the `/` character).
+	 */
+	let queryString = ''
+	searchParams.forEach((value: string, key: string) => {
+		// Ignore `in` param, we don't need it
+		if (key === 'in') {
+			return
 		}
-	} else if (hasAnchorLink) {
-		const [isolatedSlug, anchor] = tutorialSlug.split('#')
-		finalSlug = [tutorialMap[isolatedSlug], anchor].join('#')
-	}
 
-	return finalSlug
+		// Determine the prefix needed for the current param
+		const isFirstParam = queryString.length === 0
+		if (isFirstParam) {
+			queryString += '?'
+		} else {
+			queryString += '&'
+		}
+
+		// Append the param's key and value
+		queryString += `${key}=${value}`
+	})
+
+	/**
+	 * Return the fully constructed URL.
+	 *
+	 * NOTE: `hash` already includes the `#` character.
+	 */
+	return `${path}${queryString}${hash}`
 }
 
 /**
