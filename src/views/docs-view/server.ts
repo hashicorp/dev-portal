@@ -29,13 +29,7 @@ import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
-import {
-	AsyncBuildCache,
-	BuildCache,
-	CachedRemoteContentLoader,
-} from 'lib/build-cache'
-
-const latestShaBySlug = new Map()
+import { CachedRemoteContentLoader } from 'lib/cached-remote-content-loader'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
