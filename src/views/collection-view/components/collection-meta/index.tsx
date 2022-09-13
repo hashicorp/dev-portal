@@ -62,17 +62,8 @@ export default function CollectionMeta({
 					your progress.
 				</Text>
 			) : null}
-			<CollectionMetaProgress collection={collection} />
 			<div className={s.cta}>
-				<ButtonLink
-					aria-label="Start first tutorial"
-					href={cta.href}
-					text="Start"
-				/>
-				<span className={s.ctaText}>
-					<IconCollections16 className={s.ctaIcon} />
-					<Text size={100}>{ctaText}</Text>
-				</span>
+				<CollectionMetaProgress collection={collection} />
 			</div>
 		</>
 	)
