@@ -19,8 +19,8 @@
 			"fullPath": "/terraform/intro"
 		},
 		{
-			"href": "/terraform/tutorials#get-started",
-			"text": "Terraform Tutorials"
+			"title": "Terraform Tutorials",
+			"href": "/terraform/tutorials#get-started"
 		},
 		{
 			"title": "Terraform Cloud Tutorials",
