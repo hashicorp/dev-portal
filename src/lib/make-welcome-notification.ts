@@ -9,6 +9,7 @@ export function makeWelcomeToast() {
 	const dismissWelcomeCookie = Cookies.get(DISMISS_COOKIE)
 	const inSession = sessionStorage.getItem(SESSION_ITEM)
 
+	// Do not show toast if it has been dismissed or if in same session as most recent displayed
 	if (dismissWelcomeCookie || inSession) {
 		return
 	}
@@ -21,10 +22,13 @@ export function makeWelcomeToast() {
 		return
 	}
 
+	// If no cookie has been set, set cookie as current date
 	if (!welcomeCookie) {
 		Cookies.set(WELCOME_COOKIE, Date.now())
 	}
 
+	// Set session item to detect whether or not to display
+	// We don't need a condition here since we will return if there is already a session item in place (line 12)
 	sessionStorage.setItem(SESSION_ITEM, 'yes')
 
 	toast({

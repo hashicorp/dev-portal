@@ -57,7 +57,6 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 
 initializeUTMParamsCapture()
 addCloudLinkHandler()
-// makeWelcomeToast()
 
 export default function App({
 	Component,
