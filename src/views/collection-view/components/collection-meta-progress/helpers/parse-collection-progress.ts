@@ -3,36 +3,23 @@ import { ApiCollectionTutorialProgress } from 'lib/learn-client/api/api-types'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 
 /**
- * Given an array of progress records,
- * Return the count of records that are completed.
- */
-function countCompletedRecords(
-	progressData: ApiCollectionTutorialProgress[]
-): number {
-	return progressData.filter((record: ApiCollectionTutorialProgress) => {
-		return record.complete_percent == '100'
-	}).length
-}
-
-/**
  * Given progress data for a particular collection,
  * and a count of all tutorials in that collection,
  * Return booleans representing collection progress state.
- *
- * TODO: handle case where incoming collection slug
- * does not match the collection slug in progress data.
- * (I think this might happen on client-side navigation, possibly?)
  */
 function parseCollectionProgress(
 	progressData: ApiCollectionTutorialProgress[],
 	tutorials: TutorialLite[],
-	collectionSlug: Collection['slug']
+	collection: Pick<Collection, 'id' | 'slug'>
 ) {
 	/**
 	 * The basics
 	 */
 	const tutorialCount = tutorials.length
-	const completedTutorialCount = countCompletedRecords(progressData || [])
+	const completedTutorialCount = countCompletedRecords(
+		progressData || [],
+		collection.id
+	)
 	const isCompleted = completedTutorialCount == tutorialCount
 	const isInProgress = completedTutorialCount > 0 && !isCompleted
 	/**
@@ -41,7 +28,7 @@ function parseCollectionProgress(
 	const tutorialCta = getNextTutorialCta({
 		progressData,
 		tutorials,
-		collectionSlug,
+		collectionSlug: collection.slug,
 		isCompleted,
 		isInProgress,
 	})
@@ -67,6 +54,21 @@ function parseCollectionProgress(
 		tutorialCount,
 		tutorialCta,
 	}
+}
+
+/**
+ * Given an array of progress records, and a collection.id,
+ * Return the count of records that are completed in that collection.
+ */
+function countCompletedRecords(
+	progressData: ApiCollectionTutorialProgress[],
+	collectionId: Collection['id']
+): number {
+	return progressData.filter((record: ApiCollectionTutorialProgress) => {
+		return (
+			record.collection_id == collectionId && record.complete_percent == '100'
+		)
+	}).length
 }
 
 /**
