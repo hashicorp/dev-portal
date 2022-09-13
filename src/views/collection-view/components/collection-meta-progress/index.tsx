@@ -55,7 +55,7 @@ function CollectionMetaProgress({ collection }: { collection: Collection }) {
 
 	return (
 		<>
-			<pre className={s.dev}>
+			{/* <pre className={s.dev}>
 				<code>
 					{JSON.stringify(
 						{
@@ -69,7 +69,7 @@ function CollectionMetaProgress({ collection }: { collection: Collection }) {
 						2
 					)}
 				</code>
-			</pre>
+			</pre> */}
 			<div className={s.root}>
 				<ButtonLink
 					aria-label={ctaTutorialLink.ariaLabel}
