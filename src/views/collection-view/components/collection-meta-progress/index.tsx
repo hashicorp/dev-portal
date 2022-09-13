@@ -1,10 +1,10 @@
+import { useMemo } from 'react'
 import ButtonLink from 'components/button-link'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import { IconCheckCircleFill16 } from '@hashicorp/flight-icons/svg-react/check-circle-fill-16'
 import { useCollectionProgress } from 'hooks/progress'
-import { Collection, TutorialLite } from 'lib/learn-client/types'
-import { ApiCollectionTutorialProgress } from 'lib/learn-client/api/api-types'
-import { getTutorialSlug } from 'views/collection-view/helpers'
+import { Collection } from 'lib/learn-client/types'
+import { parseCollectionProgress } from './helpers'
 import ProgressBar from 'components/progress-bar'
 import s from './collection-meta-progress.module.css'
 
@@ -15,47 +15,23 @@ function CollectionMetaProgress({ collection }: { collection: Collection }) {
 	 * Get collection progress, which affects the
 	 * CTA bar we display for the collection.
 	 */
-	const { data: rawProgressData } = useCollectionProgress({ collectionId })
-	const progressData = rawProgressData || []
+	const { data: progressData } = useCollectionProgress({ collectionId })
 
 	/**
-	 * TODO: maybe the below should be in a `select` function
-	 * passed to useCollectionProgress.
+	 * Parse the progress-related information we need from the progress records,
+	 * current collection slug, and list of tutorials in this collection.
 	 */
-	const tutorialCount = tutorials.length
-	const completedTutorialCount = progressData.filter(
-		(record: ApiCollectionTutorialProgress) => {
-			return record.complete_percent == '100'
-		}
-	).length
-	const isProgressStarted = completedTutorialCount > 0
-	const isCompleted = completedTutorialCount == tutorials.length
-	const isInProgress = isProgressStarted && !isCompleted
-
-	/**
-	 * TODO: split out helper to getCtaTutorialLink
-	 */
-	const firstIncompleteTutorial = tutorials.find((tutorial: TutorialLite) => {
-		const matchedProgress = progressData.find(
-			(record: ApiCollectionTutorialProgress) =>
-				record.tutorial_id == tutorial.id
-		)
-		const isIncomplete =
-			!matchedProgress || matchedProgress.complete_percent !== '100'
-		return isIncomplete
-	})
-	const ctaTutorial = firstIncompleteTutorial || tutorials[0]
-	const ctaTutorialLink = {
-		href: getTutorialSlug(ctaTutorial.slug, collectionSlug),
-		text: isCompleted ? 'Review' : isProgressStarted ? 'Continue' : 'Start',
-		ariaLabel: `${
-			isCompleted
-				? 'Review'
-				: isProgressStarted
-				? 'Continue with'
-				: 'Start with'
-		} ${ctaTutorial.name}`,
-	}
+	const {
+		completedTutorialCount,
+		isCompleted,
+		isInProgress,
+		statusLabel,
+		tutorialCount,
+		tutorialCta,
+	} = useMemo(
+		() => parseCollectionProgress(progressData, tutorials, collectionSlug),
+		[progressData, tutorials, collectionSlug]
+	)
 
 	return (
 		<>
@@ -67,7 +43,7 @@ function CollectionMetaProgress({ collection }: { collection: Collection }) {
 							isCompleted,
 							tutorialCount,
 							completedTutorialCount,
-							ctaTutorialLink,
+							tutorialCta,
 						},
 						null,
 						2
@@ -76,26 +52,22 @@ function CollectionMetaProgress({ collection }: { collection: Collection }) {
 			</pre> */}
 			<div className={s.root}>
 				<ButtonLink
-					aria-label={ctaTutorialLink.ariaLabel}
-					href={ctaTutorialLink.href}
-					text={ctaTutorialLink.text}
+					aria-label={tutorialCta.ariaLabel}
+					href={tutorialCta.href}
+					text={tutorialCta.text}
 				/>
 				<div className={s.statusSection}>
 					{isCompleted ? (
 						// TODO: split this out as a separate component within this file
 						<div className={s.completeIconAndLabel}>
 							<IconCheckCircleFill16 className={s.completeIcon} />
-							<div className={s.statusLabel}>Complete</div>
+							<div className={s.statusLabel}>{statusLabel}</div>
 						</div>
 					) : (
+						// TODO: split this out as a separate component within this file
 						<div className={s.countIconAndLabel}>
 							<IconCollections16 className={s.countIcon} />
-							<div className={s.statusLabel}>
-								{/* Maybe assign to const? Could also split this out as component */}
-								{isProgressStarted
-									? `${completedTutorialCount}/${tutorialCount}`
-									: `${tutorialCount} tutorial${tutorialCount == 1 ? '' : 's'}`}
-							</div>
+							<div className={s.statusLabel}>{statusLabel}</div>
 						</div>
 					)}
 					{isInProgress ? (
