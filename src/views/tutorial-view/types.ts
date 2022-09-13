@@ -4,6 +4,7 @@ import { LearnProductData } from 'types/products'
 import {
 	Collection as ClientCollection,
 	CollectionLite as ClientCollectionLite,
+	Product as LearnClientProduct,
 	TutorialFullCollectionCtx as ClientTutorial,
 } from 'lib/learn-client/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
@@ -41,7 +42,9 @@ interface TutorialData
 }
 interface TutorialViewProps {
 	layoutProps: TutorialSidebarSidecarProps
-	product: LearnProductData
+	product: Omit<LearnProductData, 'slug'> & {
+		slug: LearnClientProduct['slug'] | 'hcp'
+	} // @TODO clean up the hcp / learn product slug types https://app.asana.com/0/1202097197789424/1202946807363608
 	tutorial: TutorialData
 }
 

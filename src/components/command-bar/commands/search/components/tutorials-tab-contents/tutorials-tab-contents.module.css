@@ -1,0 +1,19 @@
+/* TODO what will this look like on mobile? */
+
+.cta {
+	align-items: center;
+	background-color: var(--token-color-surface-highlight);
+	box-shadow: 0 0 0 1px var(--token-color-border-highlight);
+	display: flex;
+	gap: 12px;
+}
+
+.ctaIcon {
+	color: var(--token-color-foreground-highlight-on-surface);
+	display: flex;
+}
+
+.ctaText {
+	color: var(--token-color-foreground-highlight-on-surface);
+	flex-grow: 1;
+}

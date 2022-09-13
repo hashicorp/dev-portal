@@ -4,20 +4,16 @@ import {
 	useContext,
 	useEffect,
 	useMemo,
-	useState,
+	useReducer,
 } from 'react'
 import commands from './commands'
+import { CommandBarActivator, CommandBarDialog } from './components'
 import {
-	CommandBarActivator,
-	CommandBarDialog,
-	CommandBarDialogHeader,
-	CommandBarDialogBody,
-	CommandBarDialogFooter,
-} from './components'
-import {
+	CommandBarCommand,
 	CommandBarContextState,
 	CommandBarContextValue,
 	CommandBarProviderProps,
+	CommandBarReducerAction,
 	CommandBarTag,
 	SupportedCommand,
 } from './types'
@@ -26,65 +22,92 @@ const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
 const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	currentCommand: commands.search,
+	currentInputValue: '',
 	currentTags: [],
 	isOpen: false,
+}
+
+const commandBarReducer = (
+	state: CommandBarContextState,
+	action: CommandBarReducerAction
+): CommandBarContextState => {
+	switch (action.type) {
+		case 'ADD_TAG': {
+			const newTag = action.value
+			const previousCurrentTags = state.currentTags
+
+			// Check if the tag is already present
+			const tagExists =
+				previousCurrentTags.find(
+					(tag: CommandBarTag) => tag.id === newTag.id
+				) !== undefined
+
+			// Only add the new tag if it doesn't exist
+			if (tagExists) {
+				return state
+			} else {
+				return { ...state, currentTags: [...previousCurrentTags, newTag] }
+			}
+		}
+		case 'REMOVE_TAG': {
+			const tagId = action.value
+			const previousCurrentTags = state.currentTags
+			return {
+				...state,
+				currentTags: previousCurrentTags.filter(
+					(tag: CommandBarTag) => tag.id !== tagId
+				),
+			}
+		}
+		case 'SET_CURRENT_COMMAND': {
+			return { ...state, currentCommand: commands[action.value] }
+		}
+		case 'SET_CURRENT_INPUT_VALUE': {
+			return { ...state, currentInputValue: action.value }
+		}
+		case 'TOGGLE_IS_OPEN': {
+			const previousIsOpen = state.isOpen
+			if (previousIsOpen) {
+				// Reset state if we're closing the dialog
+				return DEFAULT_CONTEXT_STATE
+			} else {
+				// Just update `isOpen` if we're opening the dialog
+				return { ...state, isOpen: true }
+			}
+		}
+	}
 }
 
 const CommandBarContext = createContext<CommandBarContextValue>(undefined)
 
 const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
-	const [state, setState] = useState(DEFAULT_CONTEXT_STATE)
+	const [state, dispatch] = useReducer(commandBarReducer, DEFAULT_CONTEXT_STATE)
 
 	/**
-	 * Set up `toggleIsOpen` callback.
+	 * Set up the callbacks for modifying state
 	 */
+
 	const toggleIsOpen = useCallback(() => {
-		setState((prevState: CommandBarContextState) => {
-			const prevIsOpen = prevState.isOpen
-			return { ...prevState, isOpen: !prevIsOpen }
-		})
+		dispatch({ type: 'TOGGLE_IS_OPEN' })
 	}, [])
 
-	/**
-	 * Set up `setCurrentCommand` callback.
-	 */
 	const setCurrentCommand = useCallback(
 		(commandName: keyof typeof SupportedCommand) => {
-			setState((prevState: CommandBarContextState) => ({
-				...prevState,
-				currentCommand: commands[commandName],
-			}))
+			dispatch({ type: 'SET_CURRENT_COMMAND', value: commandName })
 		},
 		[]
 	)
 
-	/**
-	 * Set up `addTag` callback.
-	 */
-	const addTag = useCallback((tag: CommandBarTag) => {
-		setState((prevState: CommandBarContextState) => {
-			const prevTags = prevState.currentTags
-			return { ...prevState, currentTags: [...prevTags, tag] }
-		})
+	const addTag = useCallback((newTag: CommandBarTag) => {
+		dispatch({ type: 'ADD_TAG', value: newTag })
 	}, [])
 
-	/**
-	 * Set up `removeTag` callback.
-	 */
 	const removeTag = useCallback((tagId: CommandBarTag['id']) => {
-		setState((prevState: CommandBarContextState) => {
-			const prevTags = prevState.currentTags
-			if (prevTags.length === 0) {
-				return prevState
-			} else {
-				return {
-					...prevState,
-					currentTags: prevTags.filter(
-						(tag: CommandBarTag) => tag.id !== tagId
-					),
-				}
-			}
-		})
+		dispatch({ type: 'REMOVE_TAG', value: tagId })
+	}, [])
+
+	const setCurrentInputValue = useCallback((newValue: string) => {
+		dispatch({ type: 'SET_CURRENT_INPUT_VALUE', value: newValue })
 	}, [])
 
 	/**
@@ -113,17 +136,27 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	 * Memoize the Context value
 	 */
 	const contextValue = useMemo<CommandBarContextValue>(() => {
-		return { ...state, addTag, removeTag, setCurrentCommand, toggleIsOpen }
-	}, [addTag, removeTag, setCurrentCommand, state, toggleIsOpen])
+		return {
+			...state,
+			addTag,
+			removeTag,
+			setCurrentCommand,
+			setCurrentInputValue,
+			toggleIsOpen,
+		}
+	}, [
+		addTag,
+		removeTag,
+		setCurrentCommand,
+		setCurrentInputValue,
+		state,
+		toggleIsOpen,
+	])
 
 	return (
 		<CommandBarContext.Provider value={contextValue}>
 			{children}
-			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
-				<CommandBarDialogHeader />
-				<CommandBarDialogBody />
-				<CommandBarDialogFooter />
-			</CommandBarDialog>
+			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen} />
 		</CommandBarContext.Provider>
 	)
 }
@@ -137,7 +170,7 @@ const useCommandBar = (): CommandBarContextValue => {
 	return context
 }
 
-export type { CommandBarTag }
+export type { CommandBarCommand, CommandBarTag }
 export {
 	CommandBarActivator,
 	CommandBarProvider,

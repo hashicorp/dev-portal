@@ -12,9 +12,7 @@ import { ProductOption, ThemeOption } from './types'
 
 const BrandedCalloutBlockSchema = Joi.object({
 	type: Joi.string().required().valid('BrandedCallout'),
-	product: Joi.string()
-		.valid(...Object.values(ProductOption))
-		.required(),
+	product: Joi.string().valid(...Object.values(ProductOption)),
 	heading: Joi.string().required(),
 	subheading: Joi.string(),
 	cta: Joi.object({

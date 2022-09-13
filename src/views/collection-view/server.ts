@@ -17,16 +17,16 @@ import {
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
+import { isProductSlug } from 'lib/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
-
 import {
 	CollectionCategorySidebarSection,
 	formatSidebarCategorySections,
+	buildCategorizedHcpSidebar,
 } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
-import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
-import { isProductSlug } from 'lib/products'
 
 export interface CollectionPageProps {
 	collection: ClientCollection
@@ -58,26 +58,33 @@ export async function getCollectionViewSidebarSections(
 	productSlug: LearnProductSlug | 'hcp',
 	collection: ClientCollection
 ) {
-	let filteredCollections
+	let sidebarSections
 
 	/**
-	 * Get a filtered set of collections for the current product.
 	 * Note that `hcp` is a "product" in Dev Dot but not in Learn,
 	 * so we do some branching.
 	 */
 	if (productSlug == 'hcp') {
-		filteredCollections = await getCollectionsBySection('cloud')
+		const allHcpCollections = await getCollectionsBySection('cloud')
+		sidebarSections = buildCategorizedHcpSidebar(
+			allHcpCollections,
+			collection.slug
+		)
 	} else {
 		const allProductCollections = await cachedGetAllCollections({
 			product: { slug: productSlug as ProductOption, sidebarSort: true },
 		})
-		filteredCollections = filterCollections(
+		const filteredCollections = filterCollections(
 			allProductCollections,
 			productSlug as ProductOption
 		)
-	}
 
-	return formatSidebarCategorySections(filteredCollections, collection.slug)
+		sidebarSections = formatSidebarCategorySections(
+			filteredCollections,
+			collection.slug
+		)
+	}
+	return sidebarSections
 }
 
 /**
@@ -144,6 +151,9 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 	collections.forEach((collection: ClientCollection) => {
 		// assuming slug structure of :product/:filename
 		const [collectionProductSlug, filename] = collection.slug.split('/')
+
+		const productSlug =
+			collectionProductSlug === 'cloud' ? 'hcp' : collectionProductSlug
 		/**
 		 * Only build collections where the `productSlug` is a valid beta product.
 		 * As well, for all non-HCP products, only build collections where
@@ -156,8 +166,7 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
 		const isBetaProduct =
-			isProductSlug(collectionProductSlug) &&
-			getIsBetaProduct(collectionProductSlug)
+			isProductSlug(productSlug) && getIsBetaProduct(productSlug)
 		const isCloud = collectionProductSlug == 'cloud'
 		const themeMatches = collectionProductSlug === collection.theme
 		const shouldBuildCollectionPath = isBetaProduct && (isCloud || themeMatches)
@@ -165,7 +174,7 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		if (shouldBuildCollectionPath) {
 			paths.push({
 				params: {
-					productSlug: collectionProductSlug,
+					productSlug,
 					collectionSlug: filename,
 				},
 			})
