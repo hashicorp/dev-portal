@@ -7,7 +7,7 @@ import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { useCurrentProduct } from 'contexts'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
-import GetStartedCard from 'components/get-started-card'
+import CalloutCard from 'components/callout-card'
 import Heading, { HeadingProps } from 'components/heading'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import Text from 'components/text'
@@ -175,7 +175,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 
 				if (block.type === 'getting-started-card') {
 					return (
-						<GetStartedCard
+						<CalloutCard
 							heading={GETTING_STARTED_CARD_HEADING}
 							headingSlug={GETTING_STARTED_CARD_HEADING_SLUG}
 							body={block.description}
