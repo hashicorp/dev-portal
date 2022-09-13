@@ -7,6 +7,11 @@ const SESSION_ITEM = 'in-welcome-toast-session'
 
 const getCurrentMinutes = () => Date.now() / 60000
 
+function permanentlyDismiss() {
+	Cookies.set(DISMISS_COOKIE, true)
+	Cookies.remove(WELCOME_DATE_COOKIE)
+}
+
 export function makeWelcomeToast() {
 	const dismissWelcomeCookie = Cookies.get(DISMISS_COOKIE)
 	const inSession = sessionStorage.getItem(SESSION_ITEM)
@@ -20,7 +25,7 @@ export function makeWelcomeToast() {
 
 	// If toast was first shown 3 months ago (in minutes), dismiss & don't show again
 	if (welcomeCookie && getCurrentMinutes() - welcomeCookie >= 131400) {
-		Cookies.set(DISMISS_COOKIE, true)
+		permanentlyDismiss()
 		return
 	}
 
@@ -39,9 +44,6 @@ export function makeWelcomeToast() {
 		description:
 			'Your destination for documentation and tutorials. Click the X to permanently dismiss these notifications.',
 		autoDismiss: 15000,
-		onDismissCallback: () => {
-			Cookies.set(DISMISS_COOKIE, true)
-			Cookies.remove(WELCOME_DATE_COOKIE)
-		},
+		onDismissCallback: permanentlyDismiss,
 	})
 }
