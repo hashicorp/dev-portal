@@ -22,7 +22,7 @@
 				"url": "/consul/tutorials/gs-consul-service-mesh/get-started"
 			},
 			{
-				"icon": "server-24",
+				"icon": "server",
 				"text": "Consul with Virtual Machines",
 				"url": "/consul/tutorials/getting-started/get-started"
 			},
