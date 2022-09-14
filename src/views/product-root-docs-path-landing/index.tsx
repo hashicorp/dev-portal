@@ -34,7 +34,7 @@ const ProductRootDocsPathLanding = ({
 	}
 
 	return (
-		<div className={s.root}>
+		<div className={versions ? s.docsLandingWithVersions : null}>
 			{showProductDocsSearch && <ProductDocsSearch />}
 			{versions ? (
 				<div

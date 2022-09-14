@@ -1,22 +1,24 @@
 .root {
-  /* Composition */
-  composes: g-focus-ring-from-box-shadow-dark from global;
+	/* Composition */
+	composes: g-focus-ring-from-box-shadow-dark from global;
 
-  /* CSS properties */
-  border-radius: 5px;
-  color: var(--token-color-palette-neutral-400);
-  display: block;
-  padding-bottom: 8px;
-  padding-left: var(--header-dropdown-menu-padding-left-right);
-  padding-right: var(--header-dropdown-menu-padding-left-right);
-  padding-top: 8px;
+	/* CSS properties */
+	align-items: center;
+	gap: 6px;
+	border-radius: 5px;
+	color: var(--token-color-palette-neutral-400);
+	display: flex;
+	padding-bottom: 8px;
+	padding-left: var(--header-dropdown-menu-padding-left-right);
+	padding-right: var(--header-dropdown-menu-padding-left-right);
+	padding-top: 8px;
 
-  &:hover {
-    color: var(--token-color-surface-primary);
-    cursor: pointer;
-  }
+	&:hover {
+		color: var(--token-color-surface-primary);
+		cursor: pointer;
+	}
 }
 
 .linkText {
-  display: block;
+	display: block;
 }
