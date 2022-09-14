@@ -13,16 +13,23 @@
 		"image": "https://www.datocms-assets.com/2885/1662053782-dev-dot-product-landing-what-is-packer-diagram.png"
 	},
 	"get_started": {
-		"heading": "Getting Started",
-		"body": "Use Packer to securely store, access, and manage secrets and other sensitive data.",
-		"ctas": [
+		"heading": "Get Started",
+		"body": "Follow a code-complete, hands-on tutorial to learn the Packer basics.",
+		"iconCardLinks": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
+				"icon": "aws-color",
+				"text": "Amazon Web Services",
+				"url": "/packer/tutorials/aws-get-started"
 			},
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"icon": "docker-color",
+				"text": "Docker",
+				"url": "/packer/tutorials/docker-get-started"
+			},
+			{
+				"icon": "packer-color",
+				"text": "HCP Packer",
+				"url": "/packer/tutorials/hcp-get-started"
 			}
 		]
 	},
