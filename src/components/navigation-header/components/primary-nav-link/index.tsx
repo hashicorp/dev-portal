@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import useCurrentPath from 'hooks/use-current-path'
 import Text from 'components/text'
 import s from './primary-nav-link.module.css'
@@ -33,6 +34,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 				>
 					{label}
 				</Text>
+				{openInNewTab ? <IconExternalLink16 /> : null}
 			</a>
 		</Link>
 	)
