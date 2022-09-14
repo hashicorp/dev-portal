@@ -20,7 +20,7 @@ function CollectionView({
 	product,
 }: CollectionPageProps): React.ReactElement {
 	useOptInAnalyticsTracking('learn')
-	const { name, slug, description, tutorials, ordered } = collection
+	const { name, description, tutorials, ordered } = collection
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
