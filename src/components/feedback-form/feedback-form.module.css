@@ -84,3 +84,17 @@
 		font-weight: var(--token-typography-font-weight-medium);
 	}
 }
+
+.finished {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	composes: hds-typography-body-200 from global;
+	font-weight: var(--token-typography-font-weight-semibold);
+	padding: 16px;
+	color: var(--token-color-foreground-success-on-surface);
+	background-color: var(--token-color-surface-success);
+	border: 1px solid var(--token-color-border-success);
+	border-radius: 6px;
+}
