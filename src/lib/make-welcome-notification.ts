@@ -6,7 +6,7 @@ const INITIALIZATION_COOKIE = 'dev-dot-welcome-notification-initialized'
 const DISMISS_COOKIE = 'dev-dot-dismiss-welcome'
 const SESSION_COOKIE = 'dev-dot-welcome-session'
 const TOAST_EXPIRATION = 90
-const AUTO_DISMISS = 15000
+const AUTO_DISMISS = 15000 // 15 seconds
 const MAX_DATE = new Date('11/1/2023')
 
 function permanentlyDismiss() {
