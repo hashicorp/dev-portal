@@ -3,7 +3,7 @@ import ButtonLink from 'components/button-link'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import { IconCheckCircleFill16 } from '@hashicorp/flight-icons/svg-react/check-circle-fill-16'
 import { useCollectionProgress } from 'hooks/progress'
-import { Collection } from 'lib/learn-client/types'
+import { Collection as ClientCollection } from 'lib/learn-client/types'
 import { parseCollectionProgress } from './helpers'
 import ProgressBar from 'components/progress-bar'
 import s from './collection-meta-progress.module.css'
@@ -21,7 +21,11 @@ import s from './collection-meta-progress.module.css'
  * When authenticated and all tutorials in the collection are "complete",
  * we show a "Review" CTA which links to the first tutorial in the collection.
  */
-function CollectionMetaProgress({ collection }: { collection: Collection }) {
+function CollectionMetaProgress({
+	collection,
+}: {
+	collection: ClientCollection
+}) {
 	const { id, slug, tutorials } = collection
 
 	/**
