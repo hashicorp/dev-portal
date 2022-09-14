@@ -1,7 +1,7 @@
 import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { IconCardLinkProps } from 'components/icon-card-link'
 
-export interface GetStartedCardProps {
+export interface CalloutCardProps {
 	heading: string
 	headingSlug: string
 	body: string
