@@ -25,9 +25,14 @@ import rehypePrism from '@mapbox/rehype-prism'
 // which we need to shim cause of how we're fetching remote content here
 import shimRemoteIncludes from 'lib/shim-remote-includes'
 
-async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
+async function generateStaticPaths({
+	navDataFile,
+	remotePluginsFile,
+	mainBranch = 'main',
+}) {
 	const navData = await resolveNavDataWithRemotePlugins(navDataFile, {
 		remotePluginsFile,
+		mainBranch,
 	})
 	const paths = getPathsFromNavData(navData)
 	return paths
@@ -61,6 +66,7 @@ async function generateStaticProps({
 	const navData = await resolveNavDataWithRemotePlugins(navDataFile, {
 		remotePluginsFile,
 		currentPath,
+		mainBranch,
 	})
 	// Attempt to match a navNode for this path.
 	// Note that we may not be able to find a match, in which case we 404.
