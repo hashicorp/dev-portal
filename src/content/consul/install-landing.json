@@ -1,23 +1,13 @@
 {
-	"featuredLearnContent": [
-		{
-			"collectionSlug": "consul/cloud-get-started"
-		},
-		{
-			"collectionSlug": "consul/gs-consul-service-mesh"
-		},
-		{
-			"collectionSlug": "consul/getting-started"
-		},
-		{
-			"tutorialSlug": "consul/kubernetes-api-gateway"
-		},
-		{
-			"tutorialSlug": "consul/consul-terraform-sync-intro"
-		},
-		{
-			"tutorialSlug": "consul/serverless-consul-with-lambda"
-		}
+	"featuredCollectionsSlugs": [
+		"consul/cloud-get-started",
+		"consul/gs-consul-service-mesh",
+		"consul/getting-started"
+	],
+	"featuredTutorialsSlugs": [
+		"consul/kubernetes-api-gateway",
+		"consul/consul-terraform-sync-intro",
+		"consul/serverless-consul-with-lambda"
 	],
 	"sidebarMenuItems": [
 		{

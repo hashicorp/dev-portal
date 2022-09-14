@@ -6,17 +6,17 @@ import Card from 'components/card'
 import { developmentToast, ToastColor } from 'components/toast'
 import IconCardLink from 'components/icon-card-link'
 import StandaloneLink from 'components/standalone-link'
-import { GetStartedCardProps } from './types'
-import s from './get-started-card.module.css'
+import { CalloutCardProps } from './types'
+import s from './callout-card.module.css'
 
-function GetStartedCard({
+function CalloutCard({
 	heading,
 	headingSlug,
 	body,
 	ctas,
 	iconCardLinks,
 	fixedColumns,
-}: GetStartedCardProps) {
+}: CalloutCardProps) {
 	const hasCtas = ctas !== undefined && ctas !== null
 	const hasIconCardLinks = iconCardLinks !== undefined && iconCardLinks !== null
 	/**
@@ -30,9 +30,9 @@ function GetStartedCard({
 	if (hasCtas && hasIconCardLinks) {
 		developmentToast({
 			color: ToastColor.critical,
-			title: 'Error in GetStartedCard',
+			title: 'Error in CalloutCard',
 			description:
-				'Both `ctas` and `iconCardLinks` were passed to GetStartedCard. Only provide one.',
+				'Both `ctas` and `iconCardLinks` were passed to CalloutCard. Only provide one.',
 		})
 	}
 
@@ -87,5 +87,5 @@ function GetStartedCard({
 	)
 }
 
-export { GetStartedCard }
-export default GetStartedCard
+export { CalloutCard }
+export default CalloutCard
