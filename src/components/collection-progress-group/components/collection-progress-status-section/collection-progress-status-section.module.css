@@ -16,7 +16,6 @@ Used for all progress states
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-medium from global;
 	color: var(--token-color-foreground-primary);
-	flex-shrink: 0;
 }
 
 /*
