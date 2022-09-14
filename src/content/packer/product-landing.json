@@ -74,6 +74,32 @@
 				"packer/run-tasks-data-source-image-validation",
 				"packer/run-tasks-resource-image-validation"
 			]
+		},
+		{
+			"type": "heading",
+			"heading": "Join the Community",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Forum",
+					"body": "Get answers from engineers and the Packer community.",
+					"url": "https://discuss.hashicorp.com/c/packer"
+				},
+				{
+					"heading": "User Group",
+					"body": "Find a local HashiCorp User Group (HUG).",
+					"url": "https://www.meetup.com/pro/hugs/"
+				},
+				{
+					"heading": "Office Hour",
+					"body": "Join a virtual office hour.",
+					"url": "https://www.hashicorp.com/community/office-hours"
+				}
+			]
 		}
 	]
 }
