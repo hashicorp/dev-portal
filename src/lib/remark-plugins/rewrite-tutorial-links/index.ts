@@ -129,33 +129,22 @@ export function rewriteTutorialsLink(
 		}
 
 		if (isBetaProduct || isValidSection) {
+			// General variables
 			const urlObject = new URL(url, 'https://learn.hashicorp.com/')
 			const { origin, pathname } = urlObject
 			const urlWithoutOrigin = urlObject.toString().replace(origin, '')
-
-			const collectionPathRegex = new RegExp('^/collections')
-			const isCollectionPath = collectionPathRegex.test(pathname)
-			if (isCollectionPath) {
-				newUrl = handleCollectionLink(urlWithoutOrigin)
-			}
-
-			const tutorialPathRegex = new RegExp('^/tutorials')
-			const isTutorialPath = tutorialPathRegex.test(pathname)
-			if (isTutorialPath) {
-				newUrl = handleTutorialLink(urlWithoutOrigin, tutorialMap)
-			}
-
-			const productHubPathRegex = new RegExp(`^/${product}/?$`)
-			const isProductHubPath = productHubPathRegex.test(pathname)
-			if (isProductHubPath) {
-				newUrl = `/${product}/tutorials`
-			}
-
 			const productIOHostName = productSlugsToHostNames[product]
+
+			// Regexes for each path type
+			const collectionPathRegex = new RegExp('^/collections')
+			const tutorialPathRegex = new RegExp('^/tutorials')
+			const productHubPathRegex = new RegExp(`^/${product}/?$`)
+
+			// Derived path type booleans
+			const isCollectionPath = collectionPathRegex.test(pathname)
+			const isTutorialPath = tutorialPathRegex.test(pathname)
+			const isProductHubPath = productHubPathRegex.test(pathname)
 			const isDocsPath = origin.includes(productIOHostName)
-			if (isDocsPath) {
-				newUrl = handleDocsLink(urlWithoutOrigin, product as ProductSlug)
-			}
 
 			/**
 			 * Check if multiple conditions above were true. Only one should be true
@@ -169,6 +158,19 @@ export function rewriteTutorialsLink(
 			})
 			if (isUrlAmbiguous) {
 				throw new Error(`[rewriteTutorialsLink] found an ambiguous url: ${url}`)
+			}
+
+			/**
+			 * If the path type is not ambiguous, handle the path by type.
+			 */
+			if (isCollectionPath) {
+				newUrl = handleCollectionLink(urlWithoutOrigin)
+			} else if (isTutorialPath) {
+				newUrl = handleTutorialLink(urlWithoutOrigin, tutorialMap)
+			} else if (isProductHubPath) {
+				newUrl = `/${product}/tutorials`
+			} else if (isDocsPath) {
+				newUrl = handleDocsLink(urlWithoutOrigin, product as ProductSlug)
 			}
 
 			/**
