@@ -126,7 +126,6 @@ export function rewriteTutorialsLink(
 		if (!isBetaProduct && !isExternalLearnLink && !isAnchorLink) {
 			// If its an internal link, rewrite to an external learn link
 			newUrl = new URL(url, 'https://learn.hashicorp.com/').toString()
-			console.log(url, '\n', newUrl, '\n')
 		}
 
 		if (isBetaProduct || isValidSection) {
@@ -172,18 +171,21 @@ export function rewriteTutorialsLink(
 				throw new Error(`[rewriteTutorialsLink] found an ambiguous url: ${url}`)
 			}
 
+			/**
+			 * If the link wasn't found in the map, default to original link. Could be
+			 * a typo, it's up to the author to correct -- this feedback should help.
+			 */
 			if (!newUrl) {
-				// If the link wasn't found in the map, default to original link
-				// Could be a typo, its up to the author to correct -- this feedback should help
 				throw new Error(
 					`[MDX TUTORIAL]: internal link could not be rewritten: ${url} \nPlease check all Learn links in that tutorial to ensure they are correct.`
 				)
 			}
 		}
 	} catch (e) {
-		console.error(e) // we don't want an incorrect link to break the build
+		// we don't want an incorrect link to break the build
+		console.error(e)
 	}
 
-	// Return the modified URL
-	return newUrl
+	// Return the modified URL, or default to the original one
+	return newUrl || url
 }
