@@ -72,7 +72,7 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
-				"cloud/vault-audit-log-datadog",
+				"cloud/vault-oidc-okta",
 				"boundary/hcp-manage-scopes",
 				"packer/golden-image-with-hcp-packer",
 				"consul/kubernetes-api-gateway"
