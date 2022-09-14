@@ -147,7 +147,7 @@ function getNextTutorialCta({
 			text: 'Start',
 			ariaLabel: `Start with ${name}. ${tutorialCount} tutorial${
 				tutorialCount == 1 ? '' : 's'
-			} in this collection`,
+			} in this collection.`,
 		}
 	}
 }
