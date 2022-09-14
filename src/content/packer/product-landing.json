@@ -5,7 +5,7 @@
 	},
 	"overview": {
 		"heading": "What is Packer?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+		"body": "Packer is an open source tool that lets you create identical machine images for multiple platforms from a single source template. Packer can create golden images to use in image pipelines.",
 		"cta": {
 			"text": "Learn more about Packer features",
 			"url": "/vault/docs/what-is-vault"
