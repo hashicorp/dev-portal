@@ -52,9 +52,8 @@ export function makeWelcomeToast() {
 
 	toast({
 		color: ToastColor.highlight,
-		title: `Welcome to our new developer experience!`,
-		description:
-			'Your destination for documentation and tutorials. Click the X to permanently dismiss these notifications.',
+		title: `Welcome to HashiCorp Developer!`,
+		description: 'Your destination for documentation and tutorials.',
 		autoDismiss: 15000,
 		onDismissCallback: permanentlyDismiss,
 	})
