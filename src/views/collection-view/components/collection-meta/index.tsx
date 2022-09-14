@@ -1,14 +1,12 @@
-import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import useAuthentication from 'hooks/use-authentication'
-import ButtonLink from 'components/button-link'
 import Heading from 'components/heading'
 import IconTile from 'components/icon-tile'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import { Collection } from 'lib/learn-client/types'
-import s from './collection-meta.module.css'
 import CollectionMetaProgress from '../collection-meta-progress'
+import s from './collection-meta.module.css'
 
 interface CollectionMetaProps {
 	collection: Collection

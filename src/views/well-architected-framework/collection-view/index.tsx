@@ -17,9 +17,6 @@ export default function WellArchitectedFrameworkCollectionView({
 }: WellArchitectedFrameworkCollectionViewProps) {
 	const { name, id, description, tutorials, ordered, slug } = collection
 	const { sidebarSections, breadcrumbLinks } = layoutProps
-	const startTutorialSlug = `/${slug}/${splitProductFromFilename(
-		tutorials[0].slug
-	)}`
 
 	return (
 		<SidebarSidecarLayout

@@ -15,9 +15,6 @@ export default function OnboardingCollectionView({
 	metadata,
 }: OnboardingCollectionViewProps) {
 	const { name, id, description, tutorials, ordered, slug } = collection
-	const startTutorialSlug = `/${slug}/${splitProductFromFilename(
-		tutorials[0].slug
-	)}`
 
 	return (
 		<>
