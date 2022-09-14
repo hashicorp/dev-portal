@@ -2,21 +2,27 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+
+	&.choice {
+		gap: 20px;
+	}
+
+	&.text {
+		gap: 12px;
+	}
 }
 
 .buttonWrapper {
 	display: flex;
 	gap: 16px;
-	margin-top: 20px;
 
 	@media (--dev-dot-tablet-up) {
 		margin-top: 0;
-		margin-left: 20px;
 	}
 }
 
 .submitButton {
-	margin-top: 16px;
+	margin-top: 4px;
 }
 
 .textAreaContainer {
@@ -24,7 +30,6 @@
 	display: block;
 	resize: none;
 	height: 100px;
-	margin-top: 12px;
 	position: relative;
 }
 
@@ -51,7 +56,8 @@
 .labelWrapper {
 	display: flex;
 	gap: 8px;
-	align-items: center;
+
+	/* align-items: center; */
 }
 
 .labelIcon {
@@ -63,11 +69,18 @@
 	justify-content: center;
 	width: 28px;
 	height: 28px;
+	min-width: 28px;
+	min-height: 28px;
 }
 
 .label {
 	composes: hds-typography-body-300 from global;
 	color: var(--token-color-foreground-strong);
+	min-height: 100%;
+
+	& span {
+		vertical-align: middle;
+	}
 
 	& strong {
 		font-weight: var(--token-typography-font-weight-medium);

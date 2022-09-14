@@ -6,6 +6,7 @@ import React, {
 	useRef,
 	MouseEvent,
 } from 'react'
+import classNames from 'classnames'
 import shortid from 'shortid'
 import { IconCheckCircle24 } from '@hashicorp/flight-icons/svg-react/check-circle-24'
 import Button from 'components/button'
@@ -112,13 +113,15 @@ const Question: React.FC<FeedbackQuestion> = (props: FeedbackQuestion) => {
 	}
 
 	return (
-		<div className={s.question}>
+		<div className={classNames(s.question, s[type])}>
 			<label htmlFor={id} className={s.labelWrapper}>
 				{labelIcon && <div className={s.labelIcon}>{labelIcon}</div>}
-				<span className={s.label}>
-					<strong>{label}</strong>
-					{labelSecondary ? ` ${labelSecondary}` : ''}
-				</span>
+				<div className={s.label}>
+					<span>
+						<strong>{label}</strong>
+						{labelSecondary ? ` ${labelSecondary}` : ''}
+					</span>
+				</div>
 			</label>
 			{inputs}
 		</div>
@@ -205,10 +208,10 @@ export default function FeedbackForm({
 							<Question key={question.id} {...question} />
 					  ))
 					: null}
-				{status === FeedbackFormStatus.finished ? (
-					<Finished text={finishedText} />
-				) : null}
 			</form>
+			{status === FeedbackFormStatus.finished ? (
+				<Finished text={finishedText} />
+			) : null}
 		</FeedbackFormContext.Provider>
 	)
 }
