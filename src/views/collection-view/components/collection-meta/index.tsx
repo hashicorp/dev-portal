@@ -17,23 +17,13 @@ interface CollectionMetaProps {
 		id: string
 	}
 	description: string
-	numTutorials: number
-	cta: {
-		href: string
-	}
 }
 
 export default function CollectionMeta({
 	heading,
 	description,
-	cta,
-	numTutorials,
 	collection,
 }: CollectionMetaProps) {
-	const ctaText = `${numTutorials} ${
-		numTutorials > 1 ? `tutorials` : `tutorial`
-	}`
-
 	/**
 	 * We only need to show the Create Account CTA if auth is enabled and there is
 	 * not already a user authenticated.

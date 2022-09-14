@@ -38,8 +38,6 @@ export default function WellArchitectedFrameworkCollectionView({
 				collection={collection}
 				heading={{ text: name, id }}
 				description={description}
-				cta={{ href: startTutorialSlug }}
-				numTutorials={tutorials.length}
 			/>
 			<CollectionTutorialList
 				isOrdered={ordered}
