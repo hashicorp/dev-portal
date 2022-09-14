@@ -7,9 +7,8 @@ import React, {
 	MouseEvent,
 } from 'react'
 import shortid from 'shortid'
-import Button from 'components/button'
 import { IconCheckCircle24 } from '@hashicorp/flight-icons/svg-react/check-circle-24'
-
+import Button from 'components/button'
 import {
 	type FeedbackFormContext as FeedbackFormContextType,
 	type FeedbackQuestion,
