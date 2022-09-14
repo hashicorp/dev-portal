@@ -21,12 +21,19 @@ function parseCollectionProgress(
 	 * The basics
 	 */
 	const tutorialCount = tutorials.length
-	const completedTutorialCount = countCompletedRecords(
+	const inProgressTutorialCount = countProgressedRecords(
 		progressData || [],
-		collection.id
+		collection.id,
+		TutorialProgressStatus.in_progress
+	)
+	const completedTutorialCount = countProgressedRecords(
+		progressData || [],
+		collection.id,
+		TutorialProgressStatus.complete
 	)
 	const isCompleted = completedTutorialCount == tutorialCount
-	const isInProgress = completedTutorialCount > 0 && !isCompleted
+	const isInProgress =
+		inProgressTutorialCount > 0 || (completedTutorialCount > 0 && !isCompleted)
 	/**
 	 * Tutorial CTA
 	 */
@@ -67,13 +74,15 @@ function parseCollectionProgress(
  * Given an array of progress records, and a collection.id,
  * Return the count of records that are completed in that collection.
  */
-function countCompletedRecords(
+function countProgressedRecords(
 	progressData: ApiCollectionTutorialProgress[],
-	collectionId: Collection['id']
+	collectionId: Collection['id'],
+	targetProgress: TutorialProgressStatus
 ): number {
 	return progressData.filter((record: ApiCollectionTutorialProgress) => {
 		return (
-			record.collection_id == collectionId && record.complete_percent == '100'
+			record.collection_id == collectionId &&
+			progressPercentToStatus(record.complete_percent) == targetProgress
 		)
 	}).length
 }
