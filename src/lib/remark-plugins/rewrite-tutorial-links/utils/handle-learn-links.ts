@@ -56,6 +56,14 @@ export function handleTutorialLink(
 	}
 
 	/**
+	 * If the path could not be determined, then the `tutorialSlug` was not found
+	 * in the `tutorialMap`.
+	 */
+	if (!path) {
+		return
+	}
+
+	/**
 	 * Remove the `in` parameter from the give `nodePath`, since it's not needed
 	 * on this platform.
 	 */
