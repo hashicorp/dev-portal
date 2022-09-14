@@ -31,6 +31,8 @@ function parseCollectionProgress(
 		collectionSlug: collection.slug,
 		isCompleted,
 		isInProgress,
+		completedTutorialCount,
+		tutorialCount,
 	})
 	/**
 	 * Status label
@@ -87,12 +89,16 @@ function getNextTutorialCta({
 	isCompleted,
 	isInProgress,
 	collectionSlug,
+	completedTutorialCount,
+	tutorialCount,
 }: {
 	progressData: ApiCollectionTutorialProgress[]
 	tutorials: TutorialLite[]
 	isCompleted: boolean
 	isInProgress: boolean
 	collectionSlug: Collection['slug']
+	completedTutorialCount: number
+	tutorialCount: number
 }) {
 	/**
 	 * If we're not authenticated or have no progress,
@@ -125,19 +131,23 @@ function getNextTutorialCta({
 		return {
 			href,
 			text: 'Review',
-			ariaLabel: `Review ${name}`,
+			ariaLabel: `Review ${name}. All tutorials completed.`,
 		}
 	} else if (isInProgress) {
 		return {
 			href,
 			text: 'Continue',
-			ariaLabel: `Continue with ${name}`,
+			ariaLabel: `Continue with ${name}. ${completedTutorialCount} out of ${tutorialCount} tutorial${
+				tutorialCount == 1 ? '' : 's'
+			} completed.`,
 		}
 	} else {
 		return {
 			href,
 			text: 'Start',
-			ariaLabel: `Start with ${name}`,
+			ariaLabel: `Start with ${name}. ${tutorialCount} tutorial${
+				tutorialCount == 1 ? '' : 's'
+			} in this collection`,
 		}
 	}
 }
