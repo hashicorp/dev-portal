@@ -37,7 +37,6 @@ const Question: React.FC<FeedbackQuestion> = ({
 	label,
 	labelSecondary,
 	labelIcon,
-	optional,
 	...rest
 }: FeedbackQuestion) => {
 	const [inputValue, setInputValue] = useState('')
@@ -78,12 +77,16 @@ const Question: React.FC<FeedbackQuestion> = ({
 		}
 		case 'text': {
 			const isButtonDisabled =
-				!optional && (inputValue === '' || feedbackContext.isTransitioning)
+				!('optional' in rest) &&
+				(inputValue === '' || feedbackContext.isTransitioning)
 
 			inputs = (
 				<>
 					<div
-						className={classNames(s.textAreaContainer, optional && s.optional)}
+						className={classNames(
+							s.textAreaContainer,
+							'optional' in rest && s.optional
+						)}
 					>
 						<textarea
 							id={id}
@@ -117,7 +120,7 @@ const Question: React.FC<FeedbackQuestion> = ({
 				{labelIcon && <div className={s.labelIcon}>{labelIcon}</div>}
 				<span className={s.label}>
 					<strong>{label}</strong>
-					{` ${labelSecondary}` || ''}
+					{labelSecondary ? ` ${labelSecondary}` : ''}
 				</span>
 			</label>
 			{inputs}

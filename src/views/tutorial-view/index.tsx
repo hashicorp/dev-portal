@@ -32,7 +32,6 @@ import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
-import FeedbackForm from 'components/feedback-form'
 
 // Local imports
 import {
@@ -50,11 +49,10 @@ import {
 	FeaturedInCollections,
 	NextPrevious,
 	getNextPrevious,
+	FeedbackPanel,
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
-
-import { feedbackQuestions } from './feedback-questions'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -298,7 +296,7 @@ function TutorialView({
 							</DevDotContent>
 						</TabProvider>
 						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
-						<FeedbackForm {...feedbackQuestions} />
+						<FeedbackPanel />
 						<NextPrevious {...nextPreviousData} />
 						<FeaturedInCollections
 							className={s.featuredInCollections}

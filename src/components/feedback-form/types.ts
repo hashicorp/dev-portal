@@ -5,7 +5,6 @@ interface FeedbackQuestionBase {
 	labelIcon?: JSX.IntrinsicElements['svg']
 	label: string
 	labelSecondary?: string
-	optional?: boolean
 }
 
 interface FeedbackQuestionChoice extends FeedbackQuestionBase {
@@ -23,6 +22,7 @@ interface FeedbackQuestionText extends FeedbackQuestionBase {
 	icon?: ReactNode
 	buttonText: string
 	nextQuestion?: string
+	optional?: boolean
 }
 
 export type FeedbackQuestion = FeedbackQuestionText | FeedbackQuestionChoice

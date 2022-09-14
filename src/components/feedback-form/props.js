@@ -1,4 +1,4 @@
-module.exports = {
+const baseProps = {
 	questions: {
 		type: 'array',
 		description: 'The list of questions which are displayed to the user.',
@@ -39,40 +39,60 @@ module.exports = {
 						description:
 							'If type `text`, the text displayed on the submit button.',
 					},
-					followupMessage: {
-						type: 'React.Element',
-						description:
-							'An optional message which is displayed above the question input.',
-					},
-					answers: {
-						type: 'array',
-						description:
-							'Required if type is `choice`. Renders a button for each option.',
-						properties: [
-							{
-								type: 'object',
-								properties: {
-									value: { type: 'string' },
-									display: { type: 'string' },
-									nextQuestion: {
-										type: 'string',
-										description:
-											'The `id` of the next question to render. If none, the form will transition to finished.',
-									},
-								},
-							},
-						],
-					},
 				},
 			},
 		],
 	},
-	finished: {
-		type: 'React.element',
-		description: 'Renders after all questions have been answered',
+	thankYouText: {
+		type: 'String',
+		description: 'Text rendered in thank you message when form is submitted',
 	},
 	onQuestionSubmit: {
 		type: 'function',
 		description: 'Called each time a question is submitted',
 	},
 }
+
+const choiceQuestionProps = {
+	answers: {
+		type: 'array',
+		description:
+			'Required if type is `choice`. Renders a button for each option.',
+		properties: [
+			{
+				type: 'object',
+				properties: {
+					value: { type: 'string' },
+					display: { type: 'string' },
+					nextQuestion: {
+						type: 'string',
+						description:
+							'The `id` of the next question to render. If none, the form will transition to finished.',
+					},
+					icon: {
+						type: 'React.Element',
+					},
+				},
+			},
+		],
+	},
+}
+
+const textQuestionProps = {
+	value: { type: 'string' },
+	display: { type: 'string' },
+	nextQuestion: {
+		type: 'string',
+		description:
+			'The `id` of the next question to render. If none, the form will transition to finished.',
+	},
+	icon: {
+		type: 'React.Element',
+	},
+	optional: {
+		type: 'boolean',
+		description: 'If true, response is not required to move on to next step',
+	},
+}
+
+module.exports = { baseProps, choiceQuestionProps, textQuestionProps }

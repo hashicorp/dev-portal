@@ -2,78 +2,126 @@
 componentName: 'FeedbackForm'
 ---
 
+The FeedbackForm component is used at the end of tutorials to collect user feedback.
+
 <LiveComponent>
-{`<FeedbackForm
-  questions={[
-    {
-      id: 'helpful',
-      type: 'choice',
-      text: 'Was this tutorial helpful?',
-      answers: [
-        {
-          value: 'yes',
-          display: 'Yes',
-          nextQuestion: 'reasonForVisit',
-        },
-        {
-          value: 'no',
-          display: 'No',
-          nextQuestion: 'suggestedImprovements',
-        },
-      ],
-    },
-    {
-      id: 'reasonForVisit',
-      type: 'text',
-      text: (
-        <>
-          <strong>Why did you visit this tutorial?</strong> (optional)
-        </>
-      ),
-      buttonText: 'Complete Feedback',
-    },
-    {
-      id: 'suggestedImprovements',
-      type: 'text',
-      text: (
-        <>
-          <strong>How could this tutorial be more helpful?</strong> (optional)
-        </>
-      ),
-      buttonText: 'Complete Feedback',
-      followupMessage: (
-        <>
-          <strong>We're sorry to hear that.</strong> Your feedback will help us
-          improve.
-        </>
-      ),
-    },
-  ]}
-  finished={
-    <>
-      <div className="g-callout alert alert-success">
-        <strong>Thank You! </strong>
-        Your feedback will help us improve our websites.
-      </div>
-      <div>
-        Are you interested in providing ongoing feedback to HashiCorp?{' '}
-        <a
-          data-heap-track="learn-feedback-form-research-group"
-          href="https://hashicorp.sjc1.qualtrics.com/jfe/form/SV_9mXDsXs20OS2sCx"
-          rel="noreferrer"
-          target="_blank"
-        >
-          Join our User Research Group
-        </a>
-      </div>
-    </>
+{`			<FeedbackForm
+				questions={[
+					{
+						id: 'helpful',
+						type: 'choice',
+						label: 'Was this tutorial helpful?',
+						answers: [
+							{
+								icon: (
+									<svg
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											fillRule="evenodd"
+											clipRule="evenodd"
+											d="M5.69722 1.13674L3.77744 5.45626V10.875H9.38294C9.66098 10.875 9.89732 10.6718 9.93906 10.3969L10.6849 5.48536C10.7366 5.14496 10.4731 4.83841 10.1288 4.83841H7.30335C6.78559 4.83841 6.36585 4.41868 6.36585 3.90091V1.93154C6.36585 1.53312 6.07696 1.20217 5.69722 1.13674ZM2.65244 10.875V5.89939H1.6875C1.37684 5.89939 1.125 6.15123 1.125 6.46189V10.3125C1.125 10.6232 1.37684 10.875 1.6875 10.875H2.65244ZM2.84938 4.77439L4.73253 0.537302C4.87775 0.210568 5.20176 0 5.55931 0C6.62607 0 7.49085 0.864779 7.49085 1.93154V3.71341H10.1288C11.1617 3.71341 11.9522 4.63305 11.7971 5.65426L11.0513 10.5658C10.9261 11.3905 10.2171 12 9.38294 12H1.6875C0.755521 12 0 11.2445 0 10.3125V6.46189C0 5.52991 0.755519 4.77439 1.6875 4.77439H2.84938Z"
+											fill="#3B3D45"
+										/>
+									</svg>
+								),
+								value: 'yes',
+								display: 'Yes',
+								nextQuestion: 'reasonForVisit',
+							},
+							{
+								icon: (
+									<svg
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											fillRule="evenodd"
+											clipRule="evenodd"
+											d="M6.30275 10.8633L8.22253 6.54374V1.125H2.61704C2.33899 1.125 2.10266 1.32815 2.06091 1.60305L1.31508 6.51464C1.26339 6.85504 1.5269 7.16159 1.8712 7.16159H4.69662C5.21439 7.16159 5.63412 7.58132 5.63412 8.09908V10.0685C5.63412 10.4669 5.92301 10.7978 6.30275 10.8633ZM9.34753 1.125V6.10061H10.3125C10.6231 6.10061 10.875 5.84877 10.875 5.53811V1.6875C10.875 1.37684 10.6231 1.125 10.3125 1.125H9.34753ZM9.15059 7.22561L7.26744 11.4627C7.12222 11.7894 6.79821 12 6.44066 12C5.3739 12 4.50912 11.1352 4.50912 10.0685V8.28658H1.8712C0.838289 8.28658 0.0477568 7.36695 0.202829 6.34574L0.948663 1.43415C1.07389 0.609462 1.78289 0 2.61704 0H10.3125C11.2445 0 12 0.755519 12 1.6875V5.53811C12 6.47009 11.2445 7.22561 10.3125 7.22561H9.15059Z"
+											fill="#3B3D45"
+										/>
+									</svg>
+								),
+								value: 'no',
+								display: 'No',
+								nextQuestion: 'suggestedImprovements',
+							},
+						],
+					},
+					{
+						id: 'reasonForVisit',
+						type: 'text',
+						labelIcon: (
+							<svg
+								width="12"
+								height="12"
+								viewBox="0 0 12 12"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									fillRule="evenodd"
+									clipRule="evenodd"
+									d="M5.69722 1.13674L3.77744 5.45626V10.875H9.38294C9.66098 10.875 9.89732 10.6718 9.93906 10.3969L10.6849 5.48536C10.7366 5.14496 10.4731 4.83841 10.1288 4.83841H7.30335C6.78559 4.83841 6.36585 4.41868 6.36585 3.90091V1.93154C6.36585 1.53312 6.07696 1.20217 5.69722 1.13674ZM2.65244 10.875V5.89939H1.6875C1.37684 5.89939 1.125 6.15123 1.125 6.46189V10.3125C1.125 10.6232 1.37684 10.875 1.6875 10.875H2.65244ZM2.84938 4.77439L4.73253 0.537302C4.87775 0.210568 5.20176 0 5.55931 0C6.62607 0 7.49085 0.864779 7.49085 1.93154V3.71341H10.1288C11.1617 3.71341 11.9522 4.63305 11.7971 5.65426L11.0513 10.5658C10.9261 11.3905 10.2171 12 9.38294 12H1.6875C0.755521 12 0 11.2445 0 10.3125V6.46189C0 5.52991 0.755519 4.77439 1.6875 4.77439H2.84938Z"
+									fill="#656A76"
+								/>
+							</svg>
+						),
+						label: 'Why did you visit this tutorial?',
+						optional: true,
+						buttonText: 'Submit answer',
+					},
+					{
+						id: 'suggestedImprovements',
+						type: 'text',
+						labelIcon: (
+							<svg
+								width="12"
+								height="12"
+								viewBox="0 0 12 12"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									fillRule="evenodd"
+									clipRule="evenodd"
+									d="M6.30275 10.8633L8.22253 6.54374V1.125H2.61704C2.33899 1.125 2.10266 1.32815 2.06091 1.60305L1.31508 6.51464C1.26339 6.85504 1.5269 7.16159 1.8712 7.16159H4.69662C5.21439 7.16159 5.63412 7.58132 5.63412 8.09908V10.0685C5.63412 10.4669 5.92301 10.7978 6.30275 10.8633ZM9.34753 1.125V6.10061H10.3125C10.6231 6.10061 10.875 5.84877 10.875 5.53811V1.6875C10.875 1.37684 10.6231 1.125 10.3125 1.125H9.34753ZM9.15059 7.22561L7.26744 11.4627C7.12222 11.7894 6.79821 12 6.44066 12C5.3739 12 4.50912 11.1352 4.50912 10.0685V8.28658H1.8712C0.838289 8.28658 0.0477568 7.36695 0.202829 6.34574L0.948663 1.43415C1.07389 0.609462 1.78289 0 2.61704 0H10.3125C11.2445 0 12 0.755519 12 1.6875V5.53811C12 6.47009 11.2445 7.22561 10.3125 7.22561H9.15059Z"
+									fill="#656A76"
+								/>
+							</svg>
+						),
+						label: 'We want to hear from you.',
+						labelSecondary: 'How could this tutorial be more helpful?',
+						buttonText: 'Submit answer',
+					},
+				]}
+				thankYouText="Thank you! Your feedback will help us improve our websites."
+				onQuestionSubmit={() =>
+					new Promise((resolve) => setTimeout(resolve, 1000))
+				}
+			/>
+    `
   }
-  onQuestionSubmit={() => new Promise((resolve) => setTimeout(resolve, 1000))}
-/>`}
 </LiveComponent>
 
 <UsageDetails packageJson={packageJson} />
 
-### Props
+### Base Props
 
-<PropsTable props={componentProps} />
+<PropsTable props={componentProps.baseProps} />
+
+#### Additional Props for Choice question
+
+<PropsTable props={componentProps.choiceQuestionProps} />
+
+#### Additional Props for Text question
+
+<PropsTable props={componentProps.textQuestionProps} />
