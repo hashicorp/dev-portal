@@ -98,7 +98,9 @@ export function FeedbackPanel() {
 			<FeedbackForm
 				questions={questions}
 				onQuestionSubmit={recordFeedback}
-				finishedText="Thank you! Your feedback will help us improve our websites."
+				finishedText={
+					<>Thank you! Your feedback will help us improve our websites.</>
+				}
 			/>
 		</div>
 	)

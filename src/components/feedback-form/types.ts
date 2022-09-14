@@ -48,7 +48,7 @@ export interface FeedbackFormProps {
 	/**
 	 * Text to display when form is submitted
 	 */
-	finishedText: string
+	finishedText: ReactNode
 }
 
 export type FeedbackFormContext =

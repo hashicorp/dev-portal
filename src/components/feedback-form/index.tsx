@@ -126,10 +126,14 @@ const Question: React.FC<FeedbackQuestion> = (props: FeedbackQuestion) => {
 	)
 }
 
-const Finished: React.FC<{ text: string }> = ({ text }: { text: string }) => (
+const Finished: React.FC<{ text: FeedbackFormProps['finishedText'] }> = ({
+	text,
+}: {
+	text: FeedbackFormProps['finishedText']
+}) => (
 	<div className={s.finished}>
 		<IconCheckCircle24 color="var(--token-color-foreground-success-on-surface)" />
-		<span>{text}</span>
+		{text}
 	</div>
 )
 

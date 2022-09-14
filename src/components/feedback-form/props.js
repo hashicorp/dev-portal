@@ -44,7 +44,7 @@ const baseProps = {
 		],
 	},
 	finishedText: {
-		type: 'String',
+		type: 'React.Element',
 		description: 'Text rendered in thank you message when form is submitted',
 	},
 	onQuestionSubmit: {
