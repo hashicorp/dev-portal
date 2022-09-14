@@ -1,4 +1,9 @@
-import { CommandBarDivider } from 'components/command-bar/components'
+import { productSlugsToNames } from 'lib/products'
+import {
+	CommandBarDivider,
+	CommandBarLinkListItem,
+	CommandBarList,
+} from 'components/command-bar/components'
 import SuggestedPages from '../../suggested-pages'
 import NoResultsMessage from '../no-results-message'
 import { DocumentationTabContentsProps } from './types'
@@ -15,7 +20,33 @@ const DocumentationTabContents = ({
 			<SuggestedPages pages={suggestedPages} />
 		</>
 	) : (
-		<p>TODO show docs results</p>
+		<>
+			<div
+				id="documentation-search-results-label"
+				className="g-screen-reader-only"
+			>
+				Documentation search results
+			</div>
+			<CommandBarList ariaLabelledBy="documentation-search-results-label">
+				{searchResults.map((hit) => {
+					const { objectID, _highlightResult, product } = hit
+					const { page_title, description } = _highlightResult
+					const resultUrl = `/${product}/${objectID}`
+					const productName =
+						product === 'hcp' ? 'HCP' : productSlugsToNames[product]
+
+					return (
+						<CommandBarLinkListItem
+							key={objectID}
+							title={page_title?.value}
+							description={description?.value}
+							url={resultUrl}
+							badges={[productName]}
+						/>
+					)
+				})}
+			</CommandBarList>
+		</>
 	)
 }
 

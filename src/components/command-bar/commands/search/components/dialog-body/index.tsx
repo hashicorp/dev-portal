@@ -1,5 +1,8 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
+import algoliasearch from 'algoliasearch'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { ProductSlug } from 'types/products'
+import { productSlugs } from 'lib/products'
 import { useCurrentContentType, useCurrentProduct } from 'contexts'
 import { useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
@@ -10,22 +13,20 @@ import { getCurrentProductTag } from '../../helpers/get-current-product-tag'
 import DocumentationTabContents from '../documentation-tab-contents'
 import TutorialsTabContents from '../tutorials-tab-contents'
 
-const DEFAULT_SEARCH_RESULTS = {
-	docs: [],
-	tutorials: [],
-}
+// TODO(brkalow): We might consider lazy-loading the search client & the insights library
+const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
+const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
+const searchClient = algoliasearch(appId, apiKey)
 
 const SearchCommandBarDialogBody = () => {
 	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
 	const currentProduct = useCurrentProduct()
 	const contentType = useCurrentContentType()
 
-	// TODO `setSearchResults` will be used soon
-	const [searchResults, setSearchResults] = useState(DEFAULT_SEARCH_RESULTS)
-
 	/**
 	 * Get the CommandBarTag object for the current product if it's present.
 	 */
+
 	const currentProductTag = useMemo(
 		() =>
 			getCurrentProductTag({
@@ -68,6 +69,64 @@ const SearchCommandBarDialogBody = () => {
 	 */
 	useSetUpAndCleanUpCommandState(setUpCommandState, cleanUpCommandState)
 
+	/**
+	 * Using React Query helps us cache results by query key so we don't have to
+	 * worry about handling different query requests coming back in a different
+	 * order than we invoked them.
+	 */
+	useQuery(['search', currentInputValue], () => {
+		if (!currentInputValue) {
+			return { docs: [], tutorials: [] }
+		}
+
+		return searchClient
+			.multipleQueries([
+				...productSlugs
+					.filter((slug) => slug !== 'sentinel')
+					.map((slug) => ({
+						indexName: `product_${slug.toUpperCase()}`,
+						query: currentInputValue,
+					})),
+				{
+					indexName: 'prod_LEARN',
+					query: currentInputValue,
+				},
+			])
+			.then(({ results }) => {
+				let tutorialsResults = []
+				let docsResults = []
+
+				results.forEach(({ hits, index }) => {
+					if (hits.length <= 0) {
+						return
+					}
+
+					if (index === 'prod_LEARN') {
+						tutorialsResults = tutorialsResults.concat(hits)
+					} else {
+						// Have to set `product` for some products, like`hcp`. Otherwise it's `undefined`.
+						const productSlug = index.slice('product_'.length).toLowerCase()
+						docsResults = docsResults.concat(
+							hits.map((hit) => ({
+								...hit,
+								product: productSlug,
+							}))
+						)
+					}
+				})
+
+				return { docs: docsResults, tutorials: tutorialsResults }
+			})
+	})
+
+	/**
+	 * Getting the query data by the query key to avoid rendering the data from
+	 * the last-resolved query request.
+	 */
+	const queryClient = useQueryClient()
+	const searchResults: { docs: $TSFixMe[]; tutorials: $TSFixMe[] } =
+		queryClient.getQueryData(['search', currentInputValue])
+
 	return (
 		<>
 			{currentInputValue ? (
@@ -77,13 +136,13 @@ const SearchCommandBarDialogBody = () => {
 				>
 					<Tab heading="Documentation">
 						<DocumentationTabContents
-							searchResults={searchResults.docs}
+							searchResults={searchResults ? searchResults.docs : []}
 							suggestedPages={suggestedPages}
 						/>
 					</Tab>
 					<Tab heading="Tutorials">
 						<TutorialsTabContents
-							searchResults={searchResults.tutorials}
+							searchResults={searchResults ? searchResults.tutorials : []}
 							tutorialLibraryCta={{
 								href: currentProductTag
 									? `/tutorials/library?product=${currentProductTag.id}`
