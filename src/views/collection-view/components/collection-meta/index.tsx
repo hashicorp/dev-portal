@@ -5,7 +5,7 @@ import IconTile from 'components/icon-tile'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import { Collection } from 'lib/learn-client/types'
-import CollectionProgressGroup from '../../../../components/collection-progress-group'
+import CollectionProgressGroup from 'components/collection-progress-group'
 import s from './collection-meta.module.css'
 
 interface CollectionMetaProps {
