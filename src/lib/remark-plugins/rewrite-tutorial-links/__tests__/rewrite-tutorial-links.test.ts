@@ -336,7 +336,6 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
 			.process(TEST_MD_LINKS.betaProductDocsLinkNonDoc)
-		console.log(String(contents))
 		expect(String(contents)).toMatch(TEST_MD_LINKS.betaProductDocsLinkNonDoc)
 	})
 
