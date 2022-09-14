@@ -9,6 +9,8 @@ import detectAndReformatLearnUrl from '../detect-and-reformat-learn-url'
  * [key: database tutorial slug]: value — dev dot absolute path
  */
 const MOCK_TUTORIALS_MAP = {
+	'consul/gossip-encryption-secure':
+		'/consul/tutorials/gossip-encryption-secure',
 	'waypoint/aws-ecs': '/waypoint/tutorials/deploy-aws/aws-ecs',
 	'vault/getting-started-install':
 		'/vault/tutorials/getting-started/getting-started-install',
