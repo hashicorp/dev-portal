@@ -1,31 +1,15 @@
 import { useMemo } from 'react'
 import ButtonLink from 'components/button-link'
 import { useCollectionProgress } from 'hooks/progress'
-import { Collection as ClientCollection } from 'lib/learn-client/types'
-import {
-	CollectionProgressStatusSection,
-	parseCollectionProgress,
-} from 'components/collection-progress-group'
-import s from './collection-meta-progress.module.css'
+import { Collection } from 'lib/learn-client/types'
+import { parseCollectionProgress } from './helpers'
+import CollectionProgressStatusSection from './components/collection-progress-status-section'
+import s from './collection-progress-group.module.css'
 
 /**
  * Displays collection progress status and CTA.
- *
- * Without authentication,
- * we show a "Start" CTA which links to the first tutorial in the collection.
- *
- * When authenticated and one or more tutorials in the collection is "complete",
- * we show a "Continue" CTA which links to the next not-"complete" tutorial,
- * as well as a progress bar based on the count of tutorials done.
- *
- * When authenticated and all tutorials in the collection are "complete",
- * we show a "Review" CTA which links to the first tutorial in the collection.
  */
-function CollectionMetaProgress({
-	collection,
-}: {
-	collection: ClientCollection
-}) {
+function CollectionProgressGroup({ collection }: { collection: Collection }) {
 	const { id, slug, tutorials } = collection
 
 	/**
@@ -60,4 +44,11 @@ function CollectionMetaProgress({
 	)
 }
 
-export default CollectionMetaProgress
+/**
+ * Note: ButtonLink is exported here so that Swingset can work.
+ * We can use peerComponents for Swingset, but this doesn't make
+ * the component available in LiveComponent, which is a spot where
+ * we want it.
+ */
+export { parseCollectionProgress, CollectionProgressStatusSection, ButtonLink }
+export default CollectionProgressGroup
