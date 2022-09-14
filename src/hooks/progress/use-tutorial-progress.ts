@@ -14,9 +14,11 @@ import {
 import { PROGRESS_BATCH_QUERY_ID, TUTORIAL_PROGRESS_SINGLE_QUERY_ID } from './'
 import { useHasWaitedForQuery } from 'hooks/use-has-waited-for-query'
 
+type QueryResult = TutorialProgressStatus | null
+
 interface UseTutorialProgressResult
-	extends Omit<UseQueryResult<TutorialProgressStatus>, 'data'> {
-	tutorialProgressStatus: UseQueryResult<TutorialProgressStatus>['data']
+	extends Omit<UseQueryResult<QueryResult>, 'data'> {
+	tutorialProgressStatus: UseQueryResult<QueryResult>['data']
 }
 
 /**
@@ -45,7 +47,7 @@ const useTutorialProgress = ({
 	const { data: tutorialProgressStatus, ...restQueryResult } = useQuery<
 		GetTutorialProgressResult,
 		unknown,
-		TutorialProgressStatus
+		QueryResult
 	>(
 		[TUTORIAL_PROGRESS_SINGLE_QUERY_ID, tutorialId, collectionId],
 		useCallback(

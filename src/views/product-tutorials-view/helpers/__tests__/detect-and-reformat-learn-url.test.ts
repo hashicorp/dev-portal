@@ -141,6 +141,24 @@ describe('detectAndReformatLearnUrl', () => {
 				expected: '/vault/tutorials/getting-started-ui/getting-started-install',
 			},
 			{
+				input:
+					'/tutorials/vault/getting-started-install?in=vault/getting-started-ui&utm_source=docs',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install?utm_source=docs',
+			},
+			{
+				input:
+					'/tutorials/vault/getting-started-install?utm_source=docs&in=vault/getting-started-ui',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install?utm_source=docs',
+			},
+			{
+				input:
+					'/tutorials/vault/getting-started-install?in=vault/getting-started-ui#test-anchor-hash',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install#test-anchor-hash',
+			},
+			{
 				input: '/tutorials/waypoint/aws-ecs?in=waypoint/deploy-aws',
 				expected: '/waypoint/tutorials/deploy-aws/aws-ecs',
 			},

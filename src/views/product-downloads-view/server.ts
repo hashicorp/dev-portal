@@ -17,6 +17,9 @@ import {
 
 interface GenerateStaticPropsOptions {
 	isEnterpriseMode?: boolean
+	releaseSlug?: string
+	jsonFilePath?: string
+	installName?: string
 }
 
 const generateGetStaticProps = (
@@ -37,7 +40,7 @@ const generateGetStaticProps = (
 		 */
 		const jsonFilePath = path.join(
 			process.cwd(),
-			`src/content/${product.slug}/install-landing.json`
+			options.jsonFilePath || `src/content/${product.slug}/install-landing.json`
 		)
 		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
 			fs.readFileSync(jsonFilePath, 'utf8')
@@ -55,7 +58,7 @@ const generateGetStaticProps = (
 		 * Fetch the release data static props
 		 */
 		const { props: releaseProps, revalidate } =
-			await generateReleaseStaticProps(product)
+			await generateReleaseStaticProps(options.releaseSlug || product)
 		const { releases, latestVersion } = releaseProps
 		const sortedAndFilteredVersions = sortAndFilterReleaseVersions({
 			releaseVersions: releases.versions,
@@ -95,6 +98,7 @@ const generateGetStaticProps = (
 				doesNotHavePackageManagers,
 				featuredCollectionCards,
 				featuredTutorialCards,
+				installName: options.installName,
 				packageManagerOverrides,
 				sidebarMenuItems,
 				sidecarMarketingCard,

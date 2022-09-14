@@ -26,40 +26,48 @@ export function handleTutorialLink(
 	nodePath: string,
 	tutorialMap: { [key: string]: string }
 ) {
-	const hasQueryParam = nodePath.includes('?')
-	const hasAnchorLink = nodePath.includes('#')
-	let queryParam
+	/**
+	 * Use the URL API to get each piece of the given `nodePath` that we need to
+	 * examine.
+	 */
+	const url = new URL(nodePath, __config.dev_dot.canonical_base_url)
 
-	if (hasQueryParam) {
-		const [tutorialSlug, collectionSlug] = nodePath.split('?')
-		nodePath = tutorialSlug
-		queryParam = collectionSlug
+	/**
+	 * Get the product slug and the tutorial's filename from the `pathname` piece
+	 * of the given `nodePath`.
+	 */
+	const [, , product, filename] = url.pathname.split('/') as SplitLearnPath
+
+	/**
+	 * Construct the new URL's path.
+	 *   - If a collection slug is provided via the `in` query string parameter,
+	 * 	   then we build the path ourselves.
+	 *   - Otherwise, we use the path that references the default collection from
+	 *     the given `tutorialMap`.
+	 */
+	let path = ''
+	const collectionSlugParam = url.searchParams.get('in')
+	if (collectionSlugParam) {
+		const collectionSlug = collectionSlugParam.split('/')[1]
+		path = `/${product}/tutorials/${collectionSlug}/${filename}`
+	} else {
+		const tutorialSlug = [product, filename].join('/')
+		path = tutorialMap[tutorialSlug]
 	}
 
-	const [, , product, filename] = nodePath.split('/') as SplitLearnPath
+	/**
+	 * Remove the `in` parameter from the give `nodePath`, since it's not needed
+	 * on this platform.
+	 */
+	url.searchParams.delete('in')
 
-	const tutorialSlug = [product, filename].join('/')
-	let finalSlug = tutorialMap[tutorialSlug]
-
-	// if there is a query param, the collection name is in provided
-	// so we don't use the tutorial map
-	if (hasQueryParam) {
-		// isolate the collection name from the query
-		const [, collectionSlug] = queryParam.split('/')
-		finalSlug = `/${product}/tutorials/${collectionSlug}/${filename}`
-
-		// sometimes query params also have an anchor
-		if (hasAnchorLink) {
-			const [slug, anchor] = collectionSlug.split('#')
-			const base = `/${product}/tutorials/${slug}/${filename}`
-			finalSlug = [base, anchor].join('#')
-		}
-	} else if (hasAnchorLink) {
-		const [isolatedSlug, anchor] = tutorialSlug.split('#')
-		finalSlug = [tutorialMap[isolatedSlug], anchor].join('#')
-	}
-
-	return finalSlug
+	/**
+	 * Return the fully constructed URL.
+	 *
+	 * NOTE: `search` already includes the `?` character, and  `hash` already
+	 * includes the `#` character.
+	 */
+	return `${path}${url.search}${url.hash}`
 }
 
 /**
