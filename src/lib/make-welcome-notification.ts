@@ -5,11 +5,14 @@ const WELCOME_COOKIE = 'dev-dot-first-welcome-notification'
 const INITIALIZATION_COOKIE = 'dev-dot-welcome-notification-initialized'
 const DISMISS_COOKIE = 'dev-dot-dismiss-welcome'
 const SESSION_COOKIE = 'dev-dot-welcome-session'
+const TOAST_EXPIRATION = 90
+const AUTO_DISMISS = 15000
+const MAX_DATE = new Date('11/1/2023')
 
 function permanentlyDismiss() {
 	// Set dismiss cookie that expires after a year assuming we won't need these notifications in a year after GA
 	Cookies.set(DISMISS_COOKIE, true, {
-		expires: 365,
+		expires: MAX_DATE,
 	})
 	Cookies.remove(INITIALIZATION_COOKIE)
 	Cookies.remove(WELCOME_COOKIE)
@@ -31,7 +34,8 @@ export function makeWelcomeToast() {
 	// Permanently remove the notification after 3 months by checking if:
 	// 1. the notification has ever been viewed and
 	// 2. the welcome cookie expired
-	if (toastInitialized && !welcomeToastCookie) {
+	// 3. the current date is later than the max date we want to display the notifications
+	if ((toastInitialized && !welcomeToastCookie) || new Date() > MAX_DATE) {
 		permanentlyDismiss()
 		return
 	}
@@ -40,10 +44,10 @@ export function makeWelcomeToast() {
 	// Also set cookie that shows initialization of notification
 	if (!welcomeToastCookie && !toastInitialized) {
 		Cookies.set(INITIALIZATION_COOKIE, true, {
-			expires: 365,
+			expires: MAX_DATE,
 		})
 		Cookies.set(WELCOME_COOKIE, true, {
-			expires: 90,
+			expires: TOAST_EXPIRATION,
 		})
 	}
 
@@ -55,7 +59,7 @@ export function makeWelcomeToast() {
 		color: ToastColor.highlight,
 		title: `Welcome to HashiCorp Developer!`,
 		description: 'Your destination for documentation and tutorials.',
-		autoDismiss: 15000,
+		autoDismiss: AUTO_DISMISS,
 		onDismissCallback: permanentlyDismiss,
 	})
 }
