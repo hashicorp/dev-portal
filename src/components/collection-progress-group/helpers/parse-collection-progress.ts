@@ -32,8 +32,7 @@ function parseCollectionProgress(
 		TutorialProgressStatus.complete
 	)
 	const isCompleted = completedTutorialCount == tutorialCount
-	const isInProgress =
-		inProgressTutorialCount > 0 || (completedTutorialCount > 0 && !isCompleted)
+	const isInProgress = inProgressTutorialCount > 0 || completedTutorialCount > 0
 	/**
 	 * Tutorial CTA
 	 */

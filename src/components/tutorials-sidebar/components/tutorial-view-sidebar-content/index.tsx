@@ -63,7 +63,7 @@ function CollectionProgress({ collection }: { collection: Collection }) {
 	 * Parse the progress-related information we need from the progress records,
 	 * current collection slug, and list of tutorials in this collection.
 	 */
-	const { completedTutorialCount, tutorialCount } = useMemo(
+	const { completedTutorialCount, tutorialCount, isInProgress } = useMemo(
 		() => parseCollectionProgress(progressData, tutorials, { id, slug }),
 		[progressData, tutorials, id, slug]
 	)
@@ -73,6 +73,7 @@ function CollectionProgress({ collection }: { collection: Collection }) {
 			<CollectionProgressStatusSection
 				completedTutorialCount={completedTutorialCount}
 				tutorialCount={tutorialCount}
+				isInProgress={isInProgress}
 			/>
 		</div>
 	)
