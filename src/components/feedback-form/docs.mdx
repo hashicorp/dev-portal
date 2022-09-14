@@ -1,0 +1,79 @@
+---
+componentName: 'FeedbackForm'
+---
+
+<LiveComponent>
+{`<FeedbackForm
+  questions={[
+    {
+      id: 'helpful',
+      type: 'choice',
+      text: 'Was this tutorial helpful?',
+      answers: [
+        {
+          value: 'yes',
+          display: 'Yes',
+          nextQuestion: 'reasonForVisit',
+        },
+        {
+          value: 'no',
+          display: 'No',
+          nextQuestion: 'suggestedImprovements',
+        },
+      ],
+    },
+    {
+      id: 'reasonForVisit',
+      type: 'text',
+      text: (
+        <>
+          <strong>Why did you visit this tutorial?</strong> (optional)
+        </>
+      ),
+      buttonText: 'Complete Feedback',
+    },
+    {
+      id: 'suggestedImprovements',
+      type: 'text',
+      text: (
+        <>
+          <strong>How could this tutorial be more helpful?</strong> (optional)
+        </>
+      ),
+      buttonText: 'Complete Feedback',
+      followupMessage: (
+        <>
+          <strong>We're sorry to hear that.</strong> Your feedback will help us
+          improve.
+        </>
+      ),
+    },
+  ]}
+  finished={
+    <>
+      <div className="g-callout alert alert-success">
+        <strong>Thank You! </strong>
+        Your feedback will help us improve our websites.
+      </div>
+      <div>
+        Are you interested in providing ongoing feedback to HashiCorp?{' '}
+        <a
+          data-heap-track="learn-feedback-form-research-group"
+          href="https://hashicorp.sjc1.qualtrics.com/jfe/form/SV_9mXDsXs20OS2sCx"
+          rel="noreferrer"
+          target="_blank"
+        >
+          Join our User Research Group
+        </a>
+      </div>
+    </>
+  }
+  onQuestionSubmit={() => new Promise((resolve) => setTimeout(resolve, 1000))}
+/>`}
+</LiveComponent>
+
+<UsageDetails packageJson={packageJson} />
+
+### Props
+
+<PropsTable props={componentProps} />

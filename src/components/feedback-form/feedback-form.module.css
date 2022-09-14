@@ -1,0 +1,86 @@
+.question {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 48px;
+	align-items: center;
+}
+
+.buttonWrapper {
+	display: flex;
+	gap: 16px;
+	margin-top: 20px;
+
+	@media (--dev-dot-tablet-up) {
+		margin-top: 0;
+		margin-left: 20px;
+	}
+}
+
+.submitButton {
+	margin-top: 16px;
+}
+
+.textAreaContainer {
+	composes: hds-typography-body-100 from global;
+	width: 100%;
+	display: block;
+	resize: none;
+	height: 100px;
+	font-family: var(--font-body);
+	font-weight: var(--font-weight-reg);
+	color: var(--token-color-foreground-faint);
+	margin-top: 12px;
+	position: relative;
+
+	&.optional {
+		&::after {
+			position: absolute;
+			top: 12px;
+			right: 12px;
+			content: '(optional)';
+			color: var(--token-color-foreground-faint);
+		}
+	}
+}
+
+.textArea {
+	composes: hds-typography-body-100 from global;
+	width: 100%;
+	resize: none;
+	height: 100px;
+	padding: 12px;
+	border: 1px solid var(--token-color-border-primary);
+	box-shadow: var(--token-surface-base-box-shadow);
+	border-radius: 6px;
+}
+
+.followUp {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.labelWrapper {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.labelIcon {
+	border: 1px solid var(--token-color-border-primary);
+	box-shadow: var(--token-elevation-low-box-shadow);
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+}
+
+.label {
+	composes: hds-typography-body-300 from global;
+	color: var(--token-color-foreground-strong);
+
+	& strong {
+		font-weight: var(--token-typography-font-weight-medium);
+	}
+}
