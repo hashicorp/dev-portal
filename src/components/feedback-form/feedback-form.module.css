@@ -20,30 +20,25 @@
 }
 
 .textAreaContainer {
-	composes: hds-typography-body-100 from global;
 	width: 100%;
 	display: block;
 	resize: none;
 	height: 100px;
-	font-family: var(--font-body);
-	font-weight: var(--font-weight-reg);
-	color: var(--token-color-foreground-faint);
 	margin-top: 12px;
 	position: relative;
+}
 
-	&.optional {
-		&::after {
-			position: absolute;
-			top: 12px;
-			right: 12px;
-			content: '(optional)';
-			color: var(--token-color-foreground-faint);
-		}
-	}
+.optionalText {
+	composes: hds-typography-body-100 from global;
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	color: var(--token-color-foreground-faint);
 }
 
 .textArea {
-	composes: hds-typography-body-100 from global;
+	color: var(--token-color-foreground-faint);
+	composes: hds-typography-body-200 from global;
 	width: 100%;
 	resize: none;
 	height: 100px;

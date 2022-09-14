@@ -8,17 +8,16 @@ import React, {
 } from 'react'
 import shortid from 'shortid'
 import Button from 'components/button'
+import { IconCheckCircle24 } from '@hashicorp/flight-icons/svg-react/check-circle-24'
 
 import {
-	FeedbackFormContext as FeedbackFormContextType,
-	FeedbackQuestion,
-	FeedbackFormProps,
+	type FeedbackFormContext as FeedbackFormContextType,
+	type FeedbackQuestion,
+	type FeedbackFormProps,
 	FeedbackFormStatus,
 } from './types'
 
 import s from './feedback-form.module.css'
-import { IconCheckCircle24 } from '@hashicorp/flight-icons/svg-react/check-circle-24'
-import classNames from 'classnames'
 
 /**
  * Largely copied from: https://github.com/hashicorp/react-components/tree/main/packages/feedback-form
@@ -31,14 +30,8 @@ const wait = (delay: number) =>
 
 const FeedbackFormContext = createContext<FeedbackFormContextType>({})
 
-const Question: React.FC<FeedbackQuestion> = ({
-	id,
-	type,
-	label,
-	labelSecondary,
-	labelIcon,
-	...rest
-}: FeedbackQuestion) => {
+const Question: React.FC<FeedbackQuestion> = (props: FeedbackQuestion) => {
+	const { id, type, label, labelSecondary, labelIcon } = props
 	const [inputValue, setInputValue] = useState('')
 	const feedbackContext = useContext(FeedbackFormContext)
 
@@ -50,44 +43,38 @@ const Question: React.FC<FeedbackQuestion> = ({
 
 	switch (type) {
 		case 'choice': {
-			if ('answers' in rest) {
-				inputs = (
-					<div className={s.buttonWrapper}>
-						{rest.answers.map((answer) => (
-							<Button
-								type={answer.nextQuestion ? 'button' : 'submit'}
-								disabled={feedbackContext.isTransitioning}
-								aria-label={answer.display}
-								key={answer.display}
-								text={answer.display}
-								size="small"
-								color="secondary"
-								onClick={(e: MouseEvent<HTMLElement>) =>
-									feedbackContext.submitQuestion(e, { id, ...answer })
-								}
-								icon={answer.icon}
-								data-heap-track={`feedback-form-button-${id}-${answer.value}`}
-							/>
-						))}
-					</div>
-				)
-			}
+			const { answers } = props
+			inputs = (
+				<div className={s.buttonWrapper}>
+					{answers.map((answer) => (
+						<Button
+							type={answer.nextQuestion ? 'button' : 'submit'}
+							disabled={feedbackContext.isTransitioning}
+							aria-label={answer.display}
+							key={answer.display}
+							text={answer.display}
+							size="small"
+							color="secondary"
+							onClick={(e: MouseEvent<HTMLElement>) =>
+								feedbackContext.submitQuestion(e, { id, ...answer })
+							}
+							icon={answer.icon}
+							data-heap-track={`feedback-form-button-${id}-${answer.value}`}
+						/>
+					))}
+				</div>
+			)
 
 			break
 		}
 		case 'text': {
+			const { optional, buttonText, nextQuestion } = props
 			const isButtonDisabled =
-				!('optional' in rest) &&
-				(inputValue === '' || feedbackContext.isTransitioning)
+				!optional && (inputValue === '' || feedbackContext.isTransitioning)
 
 			inputs = (
 				<>
-					<div
-						className={classNames(
-							s.textAreaContainer,
-							'optional' in rest && s.optional
-						)}
-					>
+					<div className={s.textAreaContainer}>
 						<textarea
 							id={id}
 							value={inputValue}
@@ -95,13 +82,13 @@ const Question: React.FC<FeedbackQuestion> = ({
 							className={s.textArea}
 							placeholder="Your feedback..."
 						/>
+						{optional && <span className={s.optionalText}>(optional)</span>}
 					</div>
 					<Button
 						className={s.submitButton}
-						type={'nextQuestion' in rest ? 'button' : 'submit'}
-						aria-label={'buttonText' in rest ? rest.buttonText : null}
-						text={'buttonText' in rest ? rest.buttonText : null}
-						size="small"
+						type={nextQuestion ? 'button' : 'submit'}
+						aria-label={buttonText}
+						text={buttonText}
 						disabled={isButtonDisabled}
 						onClick={(e: MouseEvent<HTMLElement>) =>
 							feedbackContext.submitQuestion(e, { id, value: inputValue })

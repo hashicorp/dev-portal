@@ -2,6 +2,7 @@ import { IconThumbsDown16 } from '@hashicorp/flight-icons/svg-react/thumbs-down-
 import { IconThumbsUp16 } from '@hashicorp/flight-icons/svg-react/thumbs-up-16'
 import type { FeedbackFormProps } from 'components/feedback-form/types'
 import FeedbackForm from 'components/feedback-form'
+import s from './feedback-panel.module.css'
 
 /**
  * Largely copied from: https://github.com/hashicorp/learn/blob/master/components/feedback-panel/index.jsx
@@ -19,6 +20,9 @@ async function recordFeedback(responses, sessionId) {
 		sessionId,
 		timestamp: new Date(),
 	}
+
+	console.log({ path: document.location.pathname, body: JSON.stringify(body) })
+	return
 
 	try {
 		const payload = {
@@ -90,7 +94,7 @@ const questions: FeedbackFormProps['questions'] = [
 
 export function FeedbackPanel() {
 	return (
-		<div className="g-content g-type-long-body">
+		<div className={s.root}>
 			<FeedbackForm
 				questions={questions}
 				onQuestionSubmit={recordFeedback}
