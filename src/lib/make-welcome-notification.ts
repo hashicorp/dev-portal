@@ -28,8 +28,9 @@ export function makeWelcomeToast() {
 	const welcomeToastCookie = Cookies.get(WELCOME_COOKIE)
 	const toastInitialized = Cookies.get(INITIALIZATION_COOKIE)
 
-	// Permanently remove the notification after 3 months by checking if notification has ever been viewed
-	// and if the initial cookie expired
+	// Permanently remove the notification after 3 months by checking if:
+	// 1. the notification has ever been viewed and
+	// 2. the welcome cookie expired
 	if (toastInitialized && !welcomeToastCookie) {
 		permanentlyDismiss()
 		return
