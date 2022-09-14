@@ -61,6 +61,8 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 		'terraform-plugin-framework',
 		'terraform-docs-agents',
 		'cloud.hashicorp.com',
+		'vagrant',
+		'packer',
 	].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }
