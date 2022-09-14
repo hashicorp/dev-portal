@@ -1,5 +1,5 @@
 {
-	"featuredLearnContent": [
+	"featuredCollectionsSlugs": [
 		{
 			"collectionSlug": "consul/cloud-get-started"
 		},
@@ -8,7 +8,9 @@
 		},
 		{
 			"collectionSlug": "consul/getting-started"
-		},
+		}
+	],
+	"featuredTutorialsSlugs": [
 		{
 			"tutorialSlug": "consul/kubernetes-api-gateway"
 		},
