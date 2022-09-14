@@ -9,6 +9,8 @@ TODO: implement a more accessible horizontal overflow solution as KB-only users 
 	--border: rgba(101, 106, 118, 0.2);
 	--radius: 6px;
 
+	overflow-x: auto;
+
 	& table {
 		border-spacing: 0;
 		max-width: 100%;
