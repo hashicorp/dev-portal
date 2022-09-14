@@ -8,6 +8,19 @@ import { parseCollectionProgress } from './helpers'
 import ProgressBar from 'components/progress-bar'
 import s from './collection-meta-progress.module.css'
 
+/**
+ * Displays collection progress status and CTA.
+ *
+ * Without authentication,
+ * we show a "Start" CTA which links to the first tutorial in the collection.
+ *
+ * When authenticated and one or more tutorials in the collection is "complete",
+ * we show a "Continue" CTA which links to the next not-"complete" tutorial,
+ * as well as a progress bar based on the count of tutorials done.
+ *
+ * When authenticated and all tutorials in the collection are "complete",
+ * we show a "Review" CTA which links to the first tutorial in the collection.
+ */
 function CollectionMetaProgress({ collection }: { collection: Collection }) {
 	const { id, slug, tutorials } = collection
 
