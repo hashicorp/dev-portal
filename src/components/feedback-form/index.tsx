@@ -78,7 +78,7 @@ const Question: React.FC<FeedbackQuestion> = ({
 		}
 		case 'text': {
 			const isButtonDisabled =
-				inputValue === '' || feedbackContext.isTransitioning
+				!optional && (inputValue === '' || feedbackContext.isTransitioning)
 
 			inputs = (
 				<>
@@ -116,7 +116,8 @@ const Question: React.FC<FeedbackQuestion> = ({
 			<label htmlFor={id} className={s.labelWrapper}>
 				{labelIcon && <div className={s.labelIcon}>{labelIcon}</div>}
 				<span className={s.label}>
-					<strong>{label}</strong>&nbsp;{labelSecondary || ''}
+					<strong>{label}</strong>
+					{` ${labelSecondary}` || ''}
 				</span>
 			</label>
 			{inputs}

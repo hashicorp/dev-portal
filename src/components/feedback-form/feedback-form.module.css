@@ -97,4 +97,5 @@
 	background-color: var(--token-color-surface-success);
 	border: 1px solid var(--token-color-border-success);
 	border-radius: 6px;
+	margin-top: 36px;
 }
