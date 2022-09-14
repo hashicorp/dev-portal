@@ -1,0 +1,45 @@
+.hero {
+	background-image: linear-gradient(180deg, #f1f2f3 0%, #fff 35%);
+}
+
+.container {
+	--padding-x: 80px;
+
+	padding-top: var(--padding-x);
+	padding-bottom: var(--padding-x);
+	position: relative;
+	composes: g-grid-container from global;
+	max-width: 1600px;
+}
+
+.pattern {
+	position: absolute;
+	inset: 0;
+	display: none;
+
+	@media (--medium-up) {
+		display: block;
+	}
+}
+
+.content {
+	position: relative;
+	max-width: 800px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.heading {
+	margin: 0;
+	composes: g-type-display-1 from global;
+}
+
+.description {
+	margin: 24px 0 40px;
+	composes: g-type-body-large from global;
+	color: var(--wpl-neutral-400);
+}
+
+.button {
+	margin-bottom: 32px;
+}

@@ -122,6 +122,7 @@
 		"@hashicorp/react-search": "^6.4.0",
 		"@hashicorp/react-section-header": "^5.0.4",
 		"@hashicorp/react-sentinel-embedded": "^1.0.4",
+		"@hashicorp/react-standalone-link": "^0.1.1-canary-20220914152111",
 		"@hashicorp/react-subnav": "9.3.3",
 		"@hashicorp/react-tabs": "^7.1.2",
 		"@hashicorp/react-text-input": "^5.0.2",
