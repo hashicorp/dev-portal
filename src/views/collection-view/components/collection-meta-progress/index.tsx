@@ -42,17 +42,9 @@ function CollectionMetaProgress({ collection }: { collection: Collection }) {
 			/>
 			<div className={s.statusSection}>
 				{isCompleted ? (
-					// TODO: split this out as a separate component within this file
-					<div className={s.completeIconAndLabel}>
-						<IconCheckCircleFill16 className={s.completeIcon} />
-						<div className={s.statusLabel}>{statusLabel}</div>
-					</div>
+					<CompleteIconAndLabel statusLabel={statusLabel} />
 				) : (
-					// TODO: split this out as a separate component within this file
-					<div className={s.countIconAndLabel}>
-						<IconCollections16 className={s.countIcon} />
-						<div className={s.statusLabel}>{statusLabel}</div>
-					</div>
+					<CountIconAndLabel statusLabel={statusLabel} />
 				)}
 				{isInProgress ? (
 					<ProgressBar
@@ -60,6 +52,32 @@ function CollectionMetaProgress({ collection }: { collection: Collection }) {
 					/>
 				) : null}
 			</div>
+		</div>
+	)
+}
+
+/**
+ * Displays a green check icon, and a "complete" label.
+ * Label text is set through `statusLabel`.
+ */
+function CompleteIconAndLabel({ statusLabel }: { statusLabel: string }) {
+	return (
+		<div className={s.completeIconAndLabel}>
+			<IconCheckCircleFill16 className={s.completeIcon} />
+			<div className={s.statusLabel}>{statusLabel}</div>
+		</div>
+	)
+}
+
+/**
+ * Displays a "collection" icon, and "X/Y tutorials" label.
+ * Label text is set through `statusLabel`.
+ */
+function CountIconAndLabel({ statusLabel }: { statusLabel: string }) {
+	return (
+		<div className={s.countIconAndLabel}>
+			<IconCollections16 className={s.countIcon} />
+			<div className={s.statusLabel}>{statusLabel}</div>
 		</div>
 	)
 }
