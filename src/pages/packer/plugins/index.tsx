@@ -4,6 +4,7 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import { isDeployPreview } from 'lib/env-checks'
+import { getPackerRepoRefForPlugins } from 'lib/get-packer-repo-ref-for-plugins'
 
 /**
  * Path relative to the `website` directory of the Packer GitHub repo.
@@ -14,6 +15,7 @@ import { isDeployPreview } from 'lib/env-checks'
  * preview is actively supported).
  */
 const remotePluginsFile = 'data/plugins-manifest.json'
+const mainBranch = getPackerRepoRefForPlugins()
 
 /**
  * Since this /plugins landing page does use content from our API,
@@ -46,7 +48,8 @@ async function getStaticProps(ctx) {
 			rawNavData = await appendRemotePluginsNavData(
 				remotePluginsFile,
 				partialNavData,
-				''
+				'',
+				mainBranch
 			)
 		}
 
