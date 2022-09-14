@@ -1,5 +1,5 @@
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import { MenuItem } from 'components/sidebar'
+import type { MenuItem } from 'components/sidebar'
 import { getParentRootDocsPath } from 'lib/docs/get-parent-root-docs-path'
 import { ProductData } from 'types/products'
 import { BreadcrumbLink } from '..'
