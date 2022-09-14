@@ -43,7 +43,7 @@ const baseProps = {
 			},
 		],
 	},
-	thankYouText: {
+	finishedText: {
 		type: 'String',
 		description: 'Text rendered in thank you message when form is submitted',
 	},

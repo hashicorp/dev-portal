@@ -14,6 +14,8 @@ import {
 	type FeedbackFormContext as FeedbackFormContextType,
 	type FeedbackQuestion,
 	type FeedbackFormProps,
+	type FeedbackQuestionChoiceAnswer,
+	type FeedbackResponse,
 	FeedbackFormStatus,
 } from './types'
 
@@ -46,22 +48,30 @@ const Question: React.FC<FeedbackQuestion> = (props: FeedbackQuestion) => {
 			const { answers } = props
 			inputs = (
 				<div className={s.buttonWrapper}>
-					{answers.map((answer) => (
-						<Button
-							type={answer.nextQuestion ? 'button' : 'submit'}
-							disabled={feedbackContext.isTransitioning}
-							aria-label={answer.display}
-							key={answer.display}
-							text={answer.display}
-							size="small"
-							color="secondary"
-							onClick={(e: MouseEvent<HTMLElement>) =>
-								feedbackContext.submitQuestion(e, { id, ...answer })
-							}
-							icon={answer.icon}
-							data-heap-track={`feedback-form-button-${id}-${answer.value}`}
-						/>
-					))}
+					{answers.map(
+						({
+							icon,
+							display,
+							value,
+							nextQuestion,
+						}: FeedbackQuestionChoiceAnswer) => (
+							<Button
+								type={nextQuestion ? 'button' : 'submit'}
+								data-testid={nextQuestion ? null : 'submit-button'}
+								disabled={feedbackContext.isTransitioning}
+								aria-label={display}
+								key={display}
+								text={display}
+								size="small"
+								color="secondary"
+								onClick={(e: MouseEvent<HTMLElement>) =>
+									feedbackContext.submitQuestion(e, { id, value, nextQuestion })
+								}
+								icon={icon}
+								data-heap-track={`feedback-form-button-${id}-${value}`}
+							/>
+						)
+					)}
 				</div>
 			)
 
@@ -87,6 +97,7 @@ const Question: React.FC<FeedbackQuestion> = (props: FeedbackQuestion) => {
 					<Button
 						className={s.submitButton}
 						type={nextQuestion ? 'button' : 'submit'}
+						data-testid={nextQuestion ? null : 'submit-button'}
 						aria-label={buttonText}
 						text={buttonText}
 						disabled={isButtonDisabled}
@@ -124,7 +135,7 @@ const Finished: React.FC<{ text: string }> = ({ text }: { text: string }) => (
 
 export default function FeedbackForm({
 	questions,
-	thankYouText,
+	finishedText,
 	onQuestionSubmit = () => void 0,
 }: FeedbackFormProps): React.ReactElement {
 	const [status, setStatus] = useState<FeedbackFormStatus>(
@@ -151,7 +162,10 @@ export default function FeedbackForm({
 		() => ({
 			isTransitioning,
 			activeQuestion,
-			submitQuestion(e, answer) {
+			submitQuestion(
+				e: MouseEvent<HTMLElement>,
+				answer: FeedbackResponse & { nextQuestion?: string }
+			) {
 				e.preventDefault()
 
 				const newResponses = [
@@ -184,12 +198,12 @@ export default function FeedbackForm({
 		<FeedbackFormContext.Provider value={contextValue}>
 			<form id="feedback-panel">
 				{status === FeedbackFormStatus.inProgress
-					? questions.map((question) => (
+					? questions.map((question: FeedbackQuestion) => (
 							<Question key={question.id} {...question} />
 					  ))
 					: null}
 				{status === FeedbackFormStatus.finished ? (
-					<Finished text={thankYouText} />
+					<Finished text={finishedText} />
 				) : null}
 			</form>
 		</FeedbackFormContext.Provider>

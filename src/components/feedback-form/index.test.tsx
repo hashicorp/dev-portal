@@ -1,21 +1,22 @@
 import { screen, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import FeedbackForm from '.'
+import type { FeedbackQuestion } from './types'
 
-const basicQuestion = [
+const basicQuestion: FeedbackQuestion[] = [
 	{
 		id: 'myQuestion',
 		type: 'text',
-		text: 'This is a question',
+		label: 'This is a question',
 		buttonText: 'Submit',
 	},
 ]
 
-const multipleQuestions = [
+const multipleQuestions: FeedbackQuestion[] = [
 	{
 		id: 'myChoice',
 		type: 'choice',
-		text: 'What do you think?',
+		label: 'What do you think?',
 		answers: [
 			{
 				value: 'yes',
@@ -31,65 +32,74 @@ const multipleQuestions = [
 	{
 		id: 'myQuestion',
 		type: 'text',
-		text: 'This is a question',
+		label: 'This is a question',
 		buttonText: 'Submit',
 	},
 ]
 
 describe('FeedbackForm', () => {
 	test('basic question', async () => {
-		render(<FeedbackForm questions={basicQuestion} finished="All done!" />)
+		const onQuestionSubmit = jest.fn()
+		render(
+			<FeedbackForm
+				questions={basicQuestion}
+				finishedText="All done!"
+				onQuestionSubmit={onQuestionSubmit}
+			/>
+		)
 
-		userEvent.type(screen.getByRole('textbox'), 'answer')
+		await userEvent.type(screen.getByRole('textbox'), 'answer')
 
-		userEvent.click(screen.getByRole('button'), { type: 'submit' })
+		userEvent.click(screen.getByText('Submit'))
 
-		const finished = await screen.findByText('All done!')
-
-		expect(finished).not.toBeNull()
+		await screen.findByText('All done!')
 	})
 
 	test('multiple questions', async () => {
-		render(<FeedbackForm questions={multipleQuestions} finished="All done!" />)
+		render(
+			<FeedbackForm
+				questions={multipleQuestions}
+				finishedText="All done!"
+				onQuestionSubmit={() => null}
+			/>
+		)
 
-		userEvent.click(screen.getByText('Yes'))
+		await userEvent.click(screen.getByText('Yes'))
 
 		await screen.findByRole('textbox')
 
-		userEvent.type(screen.getByRole('textbox'), 'answer')
+		await userEvent.type(screen.getByRole('textbox'), 'answer')
 
-		userEvent.click(screen.getByRole('button'), { type: 'submit' })
+		userEvent.click(screen.getByText('Submit'))
 
-		const finished = await screen.findByText('All done!')
-
-		expect(finished).not.toBeNull()
+		await screen.findByText('All done!')
 	})
 
 	test('choice question tracking attributes', async () => {
-		const { container } = render(
-			<FeedbackForm questions={multipleQuestions} finished="All done!" />
+		render(
+			<FeedbackForm
+				questions={multipleQuestions}
+				finishedText="All done!"
+				onQuestionSubmit={() => null}
+			/>
 		)
 
-		const yesButton = container.querySelector(
-			'[data-heap-track="feedback-form-button-myChoice-yes"]'
-		)
-
-		const noButton = container.querySelector(
-			'[data-heap-track="feedback-form-button-myChoice-no"]'
-		)
-
-		expect(yesButton).not.toBeNull()
-		expect(noButton).not.toBeNull()
+		screen.getByText('Yes')
+		screen.getByText('No')
 	})
 
 	test('multiple questions with different path', async () => {
-		render(<FeedbackForm questions={multipleQuestions} finished="All done!" />)
+		render(
+			<FeedbackForm
+				questions={multipleQuestions}
+				finishedText="All done!"
+				onQuestionSubmit={() => null}
+			/>
+		)
 
 		userEvent.click(screen.getByText('No'))
 
-		const finished = await screen.findByText('All done!')
-
-		expect(finished).not.toBeNull()
+		await screen.findByText('All done!')
 	})
 
 	test('onQuestionSubmit callback', async () => {
@@ -97,7 +107,7 @@ describe('FeedbackForm', () => {
 		render(
 			<FeedbackForm
 				questions={multipleQuestions}
-				finished="All done!"
+				finishedText="All done!"
 				onQuestionSubmit={onQuestionSubmit}
 			/>
 		)
@@ -106,9 +116,9 @@ describe('FeedbackForm', () => {
 
 		await screen.findByRole('textbox')
 
-		userEvent.type(screen.getByRole('textbox'), 'answer')
+		await userEvent.type(screen.getByRole('textbox'), 'answer')
 
-		userEvent.click(screen.getByRole('button'), { type: 'submit' })
+		userEvent.click(screen.getByText('Submit'))
 
 		await screen.findByText('All done!')
 

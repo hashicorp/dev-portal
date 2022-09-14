@@ -7,14 +7,16 @@ interface FeedbackQuestionBase {
 	labelSecondary?: string
 }
 
+export interface FeedbackQuestionChoiceAnswer {
+	icon?: JSX.IntrinsicElements['svg']
+	display: string
+	value: string
+	nextQuestion?: string
+}
+
 interface FeedbackQuestionChoice extends FeedbackQuestionBase {
 	type: 'choice'
-	answers: {
-		icon: JSX.IntrinsicElements['svg']
-		display: string
-		value: string
-		nextQuestion?: string
-	}[]
+	answers: FeedbackQuestionChoiceAnswer[]
 }
 
 interface FeedbackQuestionText extends FeedbackQuestionBase {
@@ -46,7 +48,7 @@ export interface FeedbackFormProps {
 	/**
 	 * Text to display when form is submitted
 	 */
-	thankYouText: string
+	finishedText: string
 }
 
 export type FeedbackFormContext =
