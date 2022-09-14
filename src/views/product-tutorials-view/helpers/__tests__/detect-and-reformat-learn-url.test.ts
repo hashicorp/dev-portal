@@ -166,6 +166,12 @@ describe('detectAndReformatLearnUrl', () => {
 				input: '/tutorials/waypoint/aws-ecs',
 				expected: '/waypoint/tutorials/deploy-aws/aws-ecs',
 			},
+			{
+				input:
+					'/tutorials/consul/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
+				expected:
+					'/consul/tutorials/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
+			},
 		]
 		for (let n = 0; n < tutorialUrls.length; n++) {
 			const { input, expected } = tutorialUrls[n]
