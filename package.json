@@ -105,7 +105,7 @@
 		"@hashicorp/react-command-line-terminal": "^2.0.4",
 		"@hashicorp/react-consent-manager": "^8.0.1",
 		"@hashicorp/react-docs-page": "^17.7.0",
-		"@hashicorp/react-docs-sidenav": "8.4.1",
+		"@hashicorp/react-docs-sidenav": "^9.0.2",
 		"@hashicorp/react-enterprise-alert": "^6.0.1",
 		"@hashicorp/react-error-view": "^0.0.3",
 		"@hashicorp/react-featured-slider": "^5.0.1",
