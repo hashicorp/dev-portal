@@ -1,6 +1,11 @@
-import { Collection, TutorialLite } from 'lib/learn-client/types'
+import {
+	Collection,
+	TutorialLite,
+	TutorialProgressStatus,
+} from 'lib/learn-client/types'
 import { ApiCollectionTutorialProgress } from 'lib/learn-client/api/api-types'
 import { getTutorialSlug } from 'views/collection-view/helpers'
+import { progressPercentToStatus } from 'lib/learn-client/api/progress'
 
 /**
  * Given progress data for a particular collection,
@@ -111,16 +116,18 @@ function getNextTutorialCta({
 	if (isCompleted || !progressData) {
 		targetTutorial = tutorials[0]
 	} else {
-		const firstIncompleteTutorial = tutorials.find((tutorial: TutorialLite) => {
+		const firstInProgressTutorial = tutorials.find((tutorial: TutorialLite) => {
 			const matchedProgress = progressData.find(
 				(record: ApiCollectionTutorialProgress) =>
 					record.tutorial_id == tutorial.id
 			)
-			const isIncomplete =
-				!matchedProgress || matchedProgress.complete_percent !== '100'
-			return isIncomplete
+			const isInProgress =
+				matchedProgress &&
+				progressPercentToStatus(matchedProgress.complete_percent) ==
+					TutorialProgressStatus.in_progress
+			return isInProgress
 		})
-		targetTutorial = firstIncompleteTutorial
+		targetTutorial = firstInProgressTutorial || tutorials[0]
 	}
 	/**
 	 * Construct a CTA link from the target tutorial
