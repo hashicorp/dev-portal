@@ -161,6 +161,7 @@ export function rewriteTutorialsLink(
 			}
 
 			/**
+<<<<<<< HEAD
 			 * If the path type is not ambiguous, handle the path by type.
 			 */
 			if (isCollectionPath) {
@@ -174,6 +175,8 @@ export function rewriteTutorialsLink(
 			}
 
 			/**
+=======
+>>>>>>> 5dec01a8 (Fixing default return value of rewriteTutorialsLink)
 			 * If the link wasn't found in the map, default to original link. Could be
 			 * a typo, it's up to the author to correct -- this feedback should help.
 			 */
