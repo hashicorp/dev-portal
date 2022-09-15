@@ -7,11 +7,38 @@ import { getCollectionSlug } from 'views/collection-view/helpers'
 import { SplitLearnPath } from '../types'
 
 const handleCollectionLink = (urlObject: URL) => {
+	/**
+	 * Separate the different parts of the URL so they are analyzed in silos.
+	 */
 	const { pathname, search, hash } = urlObject
-	const pathParts = pathname.split('/')
-	const [, , product, filename] = pathParts as SplitLearnPath
+
+	/**
+	 * Validate the `pathname` of the given `urlObject`, and parse out the
+	 * `product` and `filename` if the given `nodePath` is valid.
+	 */
+	const pathnameParts = pathname.split('/')
+	const [emptyString, collectionsPath, product, filename] =
+		pathnameParts as SplitLearnPath
+	if (
+		pathnameParts.length !== 4 ||
+		emptyString !== '' ||
+		collectionsPath !== 'collections' ||
+		(product as unknown) === '' ||
+		filename === ''
+	) {
+		throw new Error(
+			`handleCollectionLink received a URL with an invalid 'pathname': ${pathname}`
+		)
+	}
+
+	/**
+	 * Get the collection slug for the parsed `product` and `filename`.
+	 */
 	const collectionSlug = getCollectionSlug(`${product}/${filename}`)
 
+	/**
+	 * Piece the URL parts together.
+	 */
 	return `${collectionSlug}${search}${hash}`
 }
 
