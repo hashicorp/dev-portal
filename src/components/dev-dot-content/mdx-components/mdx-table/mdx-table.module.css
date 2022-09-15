@@ -3,72 +3,61 @@ We are using a wrapper here to enable horizontal scrolling while still retaining
 
 TODO: implement a more accessible horizontal overflow solution as KB-only users aren't able to focus and scroll these elements
 */
+
 .tableWrapper {
-  margin-bottom: 20px;
-  max-width: 100%;
-  overflow-x: auto;
-  width: 100%;
+	--bg: var(--token-color-palette-neutral-50);
+	--border: var(--token-color-palette-alpha-200);
+	--radius: 6px;
 
-  & table {
-    background-color: transparent;
-    border-collapse: collapse;
-    border: 1px solid #ddd;
-    border-right: 0;
-    border-spacing: 0;
-    max-width: 100%;
-    width: 100%;
+	overflow-x: auto;
 
-    & th {
-      text-align: left;
-    }
+	& table {
+		border-spacing: 0;
+		width: 100%;
 
-    & td,
-    & th {
-      border-right: 1px solid #ddd;
-      padding: 0;
-    }
+		& thead {
+			& th {
+				padding: 8px 12px;
+				background: var(--bg);
+				border-bottom: 1px solid var(--border);
+				border-top: 1px solid var(--border);
+				border-right: 1px solid var(--border);
 
-    & > tbody > tr:nth-of-type(odd) {
-      background-color: #f9f9f9;
-    }
+				&:first-child {
+					border-top-left-radius: var(--radius);
+					border-left: 1px solid var(--border);
+				}
 
-    & > thead > tr > th,
-    & > tbody > tr > th,
-    & > tfoot > tr > th,
-    & > thead > tr > td,
-    & > tbody > tr > td,
-    & > tfoot > tr > td {
-      padding: 8px;
-      line-height: 1.42857143;
-      vertical-align: top;
-      border-top: 1px solid #ddd;
-    }
+				&:last-child {
+					border-top-right-radius: var(--radius);
+				}
+			}
+		}
+		& tbody {
+			& tr {
+				& td {
+					padding: 8px 12px;
+					border-bottom: 1px solid var(--border);
+					border-right: 1px solid var(--border);
 
-    & > thead > tr > th {
-      vertical-align: bottom;
-      border-bottom: 1px solid #ddd;
-    }
+					&:first-child {
+						border-left: 1px solid var(--border);
+					}
+				}
 
-    & > caption + thead > tr:first-child > th,
-    & > colgroup + thead > tr:first-child > th,
-    & > thead:first-child > tr:first-child > th,
-    & > caption + thead > tr:first-child > td,
-    & > colgroup + thead > tr:first-child > td,
-    & > thead:first-child > tr:first-child > td {
-      border-top: 0;
-      border-right: 1px solid #ddd;
-    }
+				&:nth-child(even) {
+					background: var(--bg);
+				}
 
-    & > tbody + tbody {
-      border-top: 1px solid #ddd;
-    }
-
-    & table {
-      background-color: #fff;
-    }
-
-    & tr.warning td {
-      background: #fcf8e3;
-    }
-  }
+				&:last-child {
+					& td:first-child {
+						border-bottom-left-radius: var(--radius);
+					}
+					& td:last-child {
+						border-bottom-right-radius: var(--radius);
+					}
+				}
+			}
+		}
+	}
 }
