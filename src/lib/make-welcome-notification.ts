@@ -2,7 +2,6 @@ import Cookies from 'js-cookie'
 import { toast, ToastColor } from 'components/toast'
 
 const WELCOME_COOKIE = 'dev-dot-first-welcome-notification'
-
 const DISMISS_COOKIE = 'dev-dot-dismiss-welcome'
 const SESSION_COOKIE = 'dev-dot-welcome-session'
 const AUTO_DISMISS = 15000 // 15 seconds
