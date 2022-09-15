@@ -10,6 +10,8 @@ import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import ProductDocsSearch from './components/product-docs-search'
 import s from './docs-view.module.css'
+import MdxCallout from 'components/dev-dot-content/mdx-components/mdx-callout'
+import { ProductOption } from 'lib/learn-client/types'
 
 /**
  * Layouts
@@ -99,6 +101,7 @@ const DocsView = ({
 					</div>
 				) : null}
 				<NoIndexTagIfVersioned />
+				<MdxCallout solutionGroup="security" product={ProductOption.vault} />
 				<TabProvider>
 					<MDXRemote
 						compiledSource={compiledSource}
