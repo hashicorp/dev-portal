@@ -26,10 +26,20 @@ export function handleTutorialLink(
 	const url = new URL(nodePath, __config.dev_dot.canonical_base_url)
 
 	/**
-	 * Get the product slug and the tutorial's filename from the `pathname` piece
-	 * of the given `nodePath`.
+	 * Validate the given `nodePath` (via `url.pathname`), and parse out the
+	 * `product` and `filename` if the given `nodePath` is valid.
 	 */
-	const [, , product, filename] = url.pathname.split('/') as SplitLearnPath
+	const pathnameParts = url.pathname.split('/') as SplitLearnPath
+	const [emptyString, tutorialsPath, product, filename] = pathnameParts
+	if (
+		pathnameParts.length !== 4 ||
+		emptyString !== '' ||
+		tutorialsPath !== 'tutorials' ||
+		(product as unknown) === '' ||
+		filename === ''
+	) {
+		throw new Error('')
+	}
 
 	/**
 	 * Construct the new URL's path.
