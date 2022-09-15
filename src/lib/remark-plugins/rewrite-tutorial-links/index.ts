@@ -170,7 +170,7 @@ export function rewriteTutorialsLink(
 			} else if (isProductHubPath) {
 				newUrl = `/${product}/tutorials`
 			} else if (isDocsPath) {
-				newUrl = handleDocsLink(urlWithoutOrigin, product as ProductSlug)
+				newUrl = handleDocsLink(urlObject, product as ProductSlug)
 			}
 
 			/**

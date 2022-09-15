@@ -8,23 +8,26 @@ import { ProductSlug } from 'types/products'
  *
  * It accept a nodePath, which should be the url pathname only (e.g. just /docs, not vaultproject.io/docs)
  *
- * /docs ---> /waypoint/docs/...
- * /api --> vault/api-docs
- * /docs/some-doc.html --> /waypoint/docs/some-doc
- * /api/index.html --> waypoint/api
+ * /docs								-->	/waypoint/docs
+ * /api									--> /vault/api-docs
+ * /docs/some-doc.html	--> /waypoint/docs/some-doc
+ * /api/index.html			--> /waypoint/api-docs
  */
 
-export function handleDocsLink(nodePath: string, product: ProductSlug) {
-	let finalPath = path
-		.join(`/${product}`, nodePath)
-		.replace(/(\/index)?.html/, '')
-	const isApiDocsPath = finalPath.includes('/api/')
+export function handleDocsLink(urlObject: URL, product: ProductSlug) {
+	const { pathname } = urlObject
+	const pathnameParts = pathname.split('/')
+	const [, basePath, ...restParts] = pathnameParts
 
-	console.log(isApiDocsPath, finalPath)
-
-	if (isApiDocsPath) {
-		finalPath = finalPath.replace('/api/', '/api-docs/')
+	const numRestParts = restParts.length
+	if (numRestParts > 0) {
+		const lastPart = restParts[numRestParts - 1]
+		restParts[numRestParts - 1] = lastPart
+			.replace('index.html', '')
+			.replace('.html', '')
 	}
 
-	return finalPath
+	const finalBasePath = basePath === 'api' ? 'api-docs' : basePath
+	const joinedParts = path.join(product, finalBasePath, ...restParts)
+	return `/${joinedParts}`
 }
