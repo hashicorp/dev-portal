@@ -61,16 +61,27 @@
 }
 
 .labelIcon {
+	--size: 28px;
+
 	border: 1px solid var(--token-color-border-primary);
 	box-shadow: var(--token-elevation-low-box-shadow);
 	border-radius: 5px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 28px;
-	height: 28px;
-	min-width: 28px;
-	min-height: 28px;
+	width: var(--size);
+	height: var(--size);
+	min-width: var(--size);
+	min-height: var(--size);
+
+	@media (--dev-dot-mobile) {
+		--size: 40px;
+
+		& svg {
+			height: 24px;
+			width: 24px;
+		}
+	}
 }
 
 .label {
