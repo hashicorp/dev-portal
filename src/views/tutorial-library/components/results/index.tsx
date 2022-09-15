@@ -1,7 +1,7 @@
 import { useHits, useInstantSearch } from 'react-instantsearch-hooks-web'
 
 import CardsGridList from 'components/cards-grid-list'
-import { TutorialCardWithBookmark } from 'components/tutorial-card'
+import { TutorialCardWithAuthElements } from 'components/tutorial-card'
 import { getTutorialCardPropsFromHit } from '../../utils/get-tutorial-card-props-from-hit'
 import EmptyState from 'components/empty-state'
 import { ClearFilters } from '../clear-filters'
@@ -44,14 +44,14 @@ export function TutorialLibraryResults({
 	let itemsToRender = null
 	if (hasFiltersApplied) {
 		itemsToRender = hits.map((hit) => (
-			<TutorialCardWithBookmark
+			<TutorialCardWithAuthElements
 				key={hit.objectID}
 				{...getTutorialCardPropsFromHit(hit)}
 			/>
 		))
 	} else {
 		itemsToRender = defaultTutorials.map((tutorial) => (
-			<TutorialCardWithBookmark
+			<TutorialCardWithAuthElements
 				key={tutorial.id}
 				{...formatTutorialCard({
 					...tutorial,
