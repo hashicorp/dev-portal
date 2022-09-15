@@ -15,7 +15,7 @@ import { ProductSlug } from 'types/products'
  */
 
 export function handleDocsLink(urlObject: URL, product: ProductSlug) {
-	const { pathname } = urlObject
+	const { pathname, search, hash } = urlObject
 	const pathnameParts = pathname.split('/')
 	const [, basePath, ...restParts] = pathnameParts
 
@@ -29,5 +29,5 @@ export function handleDocsLink(urlObject: URL, product: ProductSlug) {
 
 	const finalBasePath = basePath === 'api' ? 'api-docs' : basePath
 	const joinedParts = path.join(product, finalBasePath, ...restParts)
-	return `/${joinedParts}`
+	return `/${joinedParts}${search}${hash}`
 }
