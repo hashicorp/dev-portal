@@ -38,7 +38,9 @@ export function handleTutorialLink(
 		(product as unknown) === '' ||
 		filename === ''
 	) {
-		throw new Error('')
+		throw new Error(
+			`handleTutorialLink received a URL with an invalid 'pathname': ${url.pathname}`
+		)
 	}
 
 	/**
