@@ -5,21 +5,28 @@ const MOCK_TUTORIAL_MAP = {
 	'product/tutorial': '/product/tutorials/collection/tutorial',
 }
 
+const testEachCase = (cases: string[][]) => {
+	test.each(cases)(
+		'handleTutorialLink(%p) returns %p',
+		(input: string, expectedOutput: string) => {
+			expect(handleTutorialLink(input, MOCK_TUTORIAL_MAP)).toBe(expectedOutput)
+		}
+	)
+}
+
 describe('handleTutorialLink', () => {
 	describe('when neither `search` nor `hash` are present', () => {
-		test.each([
+		testEachCase([
 			[
 				`/tutorials/${TEST_TUTORIAL_SLUG}`,
 				`${MOCK_TUTORIAL_MAP[TEST_TUTORIAL_SLUG]}`,
 			],
 			['/tutorials/product/does-not-exist', undefined],
-		])('handleTutorialLink(%p) returns %p', (input, expectedOutput) => {
-			expect(handleTutorialLink(input, MOCK_TUTORIAL_MAP)).toBe(expectedOutput)
-		})
+		])
 	})
 
 	describe('when `search` is present, and `hash` is NOT present', () => {
-		test.each([
+		testEachCase([
 			[
 				'/tutorials/productA/tutorial?in=productB/collection',
 				'/productA/tutorials/collection/tutorial',
@@ -59,25 +66,21 @@ describe('handleTutorialLink', () => {
 			// 	'/tutorials/onboarding/tutorial?paramA=valueA&in=productB/collection&paramB=valueB',
 			// 	'/onboarding/collection/tutorial?paramA=valueA&paramB=valueB',
 			// ],
-		])('handleTutorialLink(%p) returns %p', (input, expectedOutput) => {
-			expect(handleTutorialLink(input, {})).toBe(expectedOutput)
-		})
+		])
 	})
 
 	describe('when `search` is NOT present, and `hash` is present', () => {
-		test.each([
+		testEachCase([
 			[
 				`/tutorials/${TEST_TUTORIAL_SLUG}#test-hash`,
 				`${MOCK_TUTORIAL_MAP[TEST_TUTORIAL_SLUG]}#test-hash`,
 			],
 			['/tutorials/product/does-not-exist#test-hash', undefined],
-		])('handleTutorialLink(%p) returns %p', (input, expectedOutput) => {
-			expect(handleTutorialLink(input, MOCK_TUTORIAL_MAP)).toBe(expectedOutput)
-		})
+		])
 	})
 
 	describe('when both `search` and `hash` are present', () => {
-		test.each([
+		testEachCase([
 			[
 				'/tutorials/productA/tutorial?in=productB/collection#test-hash',
 				'/productA/tutorials/collection/tutorial#test-hash',
@@ -90,8 +93,6 @@ describe('handleTutorialLink', () => {
 				'/tutorials/productA/tutorial?paramA=valueA&in=productB/collection&paramB=valueB#test-hash',
 				'/productA/tutorials/collection/tutorial?paramA=valueA&paramB=valueB#test-hash',
 			],
-		])('handleTutorialLink(%p) returns %p', (input, expectedOutput) => {
-			expect(handleTutorialLink(input, {})).toBe(expectedOutput)
-		})
+		])
 	})
 })
