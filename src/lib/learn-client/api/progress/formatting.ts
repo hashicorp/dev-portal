@@ -38,3 +38,41 @@ export function progressStatusToPercent(
 		return TutorialProgressPercent.Zero
 	}
 }
+
+/**
+ * Map TutorialProgressStatus to text for display use.
+ */
+const progressLabels: Record<TutorialProgressStatus, string> = {
+	visited: 'Visited',
+	in_progress: 'In progress',
+	complete: 'Complete',
+}
+
+/**
+ * Given a TutorialProgressStatus,
+ * Returns text representing the status suitable for display.
+ */
+export function progressStatusToLabel(
+	progressState: TutorialProgressStatus
+): string {
+	return progressLabels[progressState]
+}
+
+/**
+ * Map TutorialProgressStatus to text for screen reader use.
+ */
+const progressAriaLabels: Record<TutorialProgressStatus, string> = {
+	visited: 'Tutorial is visited.',
+	in_progress: 'Tutorial is in progress.',
+	complete: 'Tutorial is complete.',
+}
+
+/**
+ * Given a TutorialProgressStatus,
+ * Returns text representing the status suitable for screen reader use.
+ */
+export function progressStatusToAriaLabel(
+	progressState: TutorialProgressStatus
+): string {
+	return progressAriaLabels[progressState]
+}

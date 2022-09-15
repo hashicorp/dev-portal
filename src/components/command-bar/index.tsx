@@ -1,32 +1,117 @@
-import { createContext, useContext, useEffect, useState } from 'react'
 import {
-	CommandBarActivator,
-	CommandBarDialog,
-	CommandBarDialogHeader,
-	CommandBarDialogBody,
-	CommandBarDialogFooter,
-} from './components'
-import { CommandBarProviderProps, CommandBarState } from './types'
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useReducer,
+} from 'react'
+import commands from './commands'
+import { CommandBarActivator, CommandBarDialog } from './components'
+import {
+	CommandBarCommand,
+	CommandBarContextState,
+	CommandBarContextValue,
+	CommandBarProviderProps,
+	CommandBarReducerAction,
+	CommandBarTag,
+	SupportedCommand,
+} from './types'
 
 const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
-/**
- * @TODO items that will be easier to implement when there is a text input
- * rendered in the header:
- *
- * - Add `currentCommand` to state
- * - Render CommandBarDialog contents based on `currentCommand`
- * - Expose a `setCurrentCommand` function in `CommandBarState`
- *
- */
+const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
+	currentCommand: commands.search,
+	currentInputValue: '',
+	currentTags: [],
+	isOpen: false,
+}
 
-const CommandBarContext = createContext<CommandBarState>(undefined)
+const commandBarReducer = (
+	state: CommandBarContextState,
+	action: CommandBarReducerAction
+): CommandBarContextState => {
+	switch (action.type) {
+		case 'ADD_TAG': {
+			const newTag = action.value
+			const previousCurrentTags = state.currentTags
+
+			// Check if the tag is already present
+			const tagExists =
+				previousCurrentTags.find(
+					(tag: CommandBarTag) => tag.id === newTag.id
+				) !== undefined
+
+			// Only add the new tag if it doesn't exist
+			if (tagExists) {
+				return state
+			} else {
+				return { ...state, currentTags: [...previousCurrentTags, newTag] }
+			}
+		}
+		case 'REMOVE_TAG': {
+			const tagId = action.value
+			const previousCurrentTags = state.currentTags
+			return {
+				...state,
+				currentTags: previousCurrentTags.filter(
+					(tag: CommandBarTag) => tag.id !== tagId
+				),
+			}
+		}
+		case 'SET_CURRENT_COMMAND': {
+			return { ...state, currentCommand: commands[action.value] }
+		}
+		case 'SET_CURRENT_INPUT_VALUE': {
+			return { ...state, currentInputValue: action.value }
+		}
+		case 'TOGGLE_IS_OPEN': {
+			const previousIsOpen = state.isOpen
+			if (previousIsOpen) {
+				// Reset state if we're closing the dialog
+				return DEFAULT_CONTEXT_STATE
+			} else {
+				// Just update `isOpen` if we're opening the dialog
+				return { ...state, isOpen: true }
+			}
+		}
+	}
+}
+
+const CommandBarContext = createContext<CommandBarContextValue>(undefined)
 
 const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
-	const [isOpen, setIsOpen] = useState<boolean>(false)
+	const [state, dispatch] = useReducer(commandBarReducer, DEFAULT_CONTEXT_STATE)
 
 	/**
-	 * Sets up the cmd/ctrl + k keydown listener.
+	 * Set up the callbacks for modifying state
+	 */
+
+	const toggleIsOpen = useCallback(() => {
+		dispatch({ type: 'TOGGLE_IS_OPEN' })
+	}, [])
+
+	const setCurrentCommand = useCallback(
+		(commandName: keyof typeof SupportedCommand) => {
+			dispatch({ type: 'SET_CURRENT_COMMAND', value: commandName })
+		},
+		[]
+	)
+
+	const addTag = useCallback((newTag: CommandBarTag) => {
+		dispatch({ type: 'ADD_TAG', value: newTag })
+	}, [])
+
+	const removeTag = useCallback((tagId: CommandBarTag['id']) => {
+		dispatch({ type: 'REMOVE_TAG', value: tagId })
+	}, [])
+
+	const setCurrentInputValue = useCallback((newValue: string) => {
+		dispatch({ type: 'SET_CURRENT_INPUT_VALUE', value: newValue })
+	}, [])
+
+	/**
+	 * Set up the cmd/ctrl + k keydown listener.
 	 */
 	useEffect(() => {
 		if (!GLOBAL_SEARCH_ENABLED) {
@@ -36,7 +121,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			const { ctrlKey, metaKey, key } = e
 			if (key === 'k' && (ctrlKey || metaKey)) {
-				setIsOpen((prevIsOpen: boolean) => !prevIsOpen)
+				toggleIsOpen()
 			}
 		}
 
@@ -45,21 +130,38 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown)
 		}
-	}, [])
+	}, [toggleIsOpen])
+
+	/**
+	 * Memoize the Context value
+	 */
+	const contextValue = useMemo<CommandBarContextValue>(() => {
+		return {
+			...state,
+			addTag,
+			removeTag,
+			setCurrentCommand,
+			setCurrentInputValue,
+			toggleIsOpen,
+		}
+	}, [
+		addTag,
+		removeTag,
+		setCurrentCommand,
+		setCurrentInputValue,
+		state,
+		toggleIsOpen,
+	])
 
 	return (
-		<CommandBarContext.Provider value={{ isOpen, setIsOpen }}>
+		<CommandBarContext.Provider value={contextValue}>
 			{children}
-			<CommandBarDialog isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
-				<CommandBarDialogHeader>header</CommandBarDialogHeader>
-				<CommandBarDialogBody>body</CommandBarDialogBody>
-				<CommandBarDialogFooter>footer</CommandBarDialogFooter>
-			</CommandBarDialog>
+			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen} />
 		</CommandBarContext.Provider>
 	)
 }
 
-const useCommandBar = () => {
+const useCommandBar = (): CommandBarContextValue => {
 	const context = useContext(CommandBarContext)
 	if (context === undefined) {
 		throw new Error('useCommandBar must be used within a CommandBarProvider')
@@ -68,5 +170,10 @@ const useCommandBar = () => {
 	return context
 }
 
-export type { CommandBarState }
-export { CommandBarActivator, CommandBarProvider, useCommandBar }
+export type { CommandBarCommand, CommandBarTag }
+export {
+	CommandBarActivator,
+	CommandBarProvider,
+	SupportedCommand,
+	useCommandBar,
+}

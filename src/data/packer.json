@@ -9,13 +9,14 @@
 		"includedDomains": "packer.io www.packer.io",
 		"segmentWriteKey": "AjXdfmTTk1I9q9dfyePuDFHBrz1tCO3l"
 	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
 		"title": "Packer by HashiCorp",
 		"description": "Packer is a free and open source tool for creating golden images for multiple platforms from a single source configuration.",
-		"image": "https://www.packer.io/packer/img/og-image.png",
+		"image": "https://www.packer.io/packer-public/img/og-image.png",
 		"icon": [
 			{
-				"href": "/packer/favicon.ico"
+				"href": "/packer-public/_favicon.ico"
 			}
 		]
 	},
@@ -28,34 +29,7 @@
 		"expirationDate": ""
 	},
 	"version": "1.7.10",
-	"subnavItems": [
-		{
-			"text": "Overview",
-			"url": "/",
-			"type": "inbound"
-		},
-		{
-			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/packer",
-			"type": "outbound"
-		},
-		{
-			"text": "Docs",
-			"url": "/docs",
-			"type": "inbound"
-		},
-		{
-			"text": "Plugins",
-			"url": "/plugins",
-			"type": "inbound"
-		},
-		{
-			"text": "Community",
-			"url": "/community",
-			"type": "inbound"
-		}
-	],
-	"basePaths": ["docs", "guides", "intro", "plugins"],
+	"basePaths": ["docs", "guides", "intro", "plugins", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -79,7 +53,7 @@
 		{
 			"iconName": "docs",
 			"mainBranch": "master",
-			"name": "Plugins",
+			"name": "External Plugins",
 			"path": "plugins"
 		}
 	],

@@ -50,8 +50,6 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 	const hasDevPortalBranch = [
 		'vault',
 		'waypoint',
-		'boundary',
-		'consul',
 		'nomad',
 		'terraform-docs-common',
 		'ptfe-releases',
@@ -60,6 +58,7 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 		'terraform-plugin-sdk',
 		'terraform-plugin-framework',
 		'terraform-docs-agents',
+		'cloud.hashicorp.com',
 	].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }
@@ -335,9 +334,6 @@ export function getStaticGenerationFunctions<
 			const isPackerPlugins =
 				product.slug == 'packer' && currentRootDocsPath.path == 'plugins'
 
-			if (!isPackerPlugins && hasMeaningfulVersions) {
-				layoutProps.versions = versions
-			}
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.
 			 * Currently, HCP and Sentinel docs are stored in private repositories.
@@ -369,7 +365,7 @@ export function getStaticGenerationFunctions<
 					// needed for DocsVersionSwitcher
 					currentRootDocsPath: currentRootDocsPath || null,
 				},
-				versions,
+				versions: !isPackerPlugins && hasMeaningfulVersions ? versions : null,
 			}
 
 			return {
