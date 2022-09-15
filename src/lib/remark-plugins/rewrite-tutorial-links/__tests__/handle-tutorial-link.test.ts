@@ -16,6 +16,22 @@ const testEachCase = (cases: string[][]) => {
 }
 
 describe('handleTutorialLink', () => {
+	describe('when the input is invalid', () => {
+		test.each([
+			'',
+			'/',
+			'invalid-input',
+			'still/invalid',
+			'also/invalid/',
+			'/super/invalid',
+			'another/invalid/input',
+			'/almost/valid/input',
+			'/one/more/invalid/input',
+		])('handleTutorialLink(%p) throws an error', (input) => {
+			expect(() => handleTutorialLink(input, {})).toThrow()
+		})
+	})
+
 	describe('when neither `search` nor `hash` are present', () => {
 		testEachCase([
 			[
