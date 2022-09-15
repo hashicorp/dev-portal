@@ -5,62 +5,61 @@
    stopgap. */
 
 .root {
-  position: relative;
-  margin-bottom: 32px;
+	position: relative;
 }
 
 .listRoot {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .listItem {
-  /**
+	/**
    * Note: display: flex is needed here to allow max-width to work 
    * on .breadCrumbText, which would otherwise be inline, while
    * keeping the ::after element for slash dividers working as well.
    */
-  display: flex;
-  padding-top: 4px;
-  padding-bottom: 4px;
+	display: flex;
+	padding-top: 4px;
+	padding-bottom: 4px;
 
-  &:not(:last-child)::after {
-    color: var(--token-color-palette-neutral-400);
-    content: '/';
-    padding: 0 8px;
-  }
+	&:not(:last-child)::after {
+		color: var(--token-color-palette-neutral-400);
+		content: '/';
+		padding: 0 8px;
+	}
 }
 
 .breadcrumbText {
-  composes: g-focus-ring-from-box-shadow from global;
-  border-radius: 5px;
-  color: var(--token-color-foreground-faint);
-  max-width: 16em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 5px;
+	color: var(--token-color-foreground-faint);
+	max-width: 16em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 
-  &[href] {
-    &:hover {
-      text-decoration: underline;
-    }
+	&[href] {
+		&:hover {
+			text-decoration: underline;
+		}
 
-    &:active {
-      color: var(--token-color-foreground-primary);
-      text-decoration: underline;
-    }
+		&:active {
+			color: var(--token-color-foreground-primary);
+			text-decoration: underline;
+		}
 
-    &:focus-visible {
-      text-decoration: none;
-      margin: -5px;
-      padding: 5px;
-    }
+		&:focus-visible {
+			text-decoration: none;
+			margin: -5px;
+			padding: 5px;
+		}
 
-    &[aria-current='page'] {
-      color: var(--token-color-foreground-strong);
-    }
-  }
+		&[aria-current='page'] {
+			color: var(--token-color-foreground-strong);
+		}
+	}
 }
