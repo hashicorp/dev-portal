@@ -15,7 +15,8 @@ import { getLatestVagrantVmwareVersion } from './get-latest-vagrant-vmware-versi
  */
 export function getRootDocsPathGenerationFunctions(
 	productSlug: ProductSlug,
-	targetRootDocsPath: string
+	targetRootDocsPath: string,
+	hideVersions?: boolean
 ): {
 	getStaticPaths: GetStaticPaths
 	getStaticProps: GetStaticProps
@@ -37,6 +38,7 @@ export function getRootDocsPathGenerationFunctions(
 			rootDocsPath
 		),
 		getScope: generateGetScope(productData, rootDocsPath),
+		hideVersions,
 	}
 	return {
 		getStaticPaths: async (context) => {

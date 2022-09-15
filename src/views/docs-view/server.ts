@@ -90,6 +90,7 @@ export function getStaticGenerationFunctions<
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	navDataPrefix,
+	hideVersions,
 }: {
 	product: ProductData
 	basePath: string
@@ -100,6 +101,7 @@ export function getStaticGenerationFunctions<
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
 	navDataPrefix?: string
+	hideVersions?: boolean
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -334,9 +336,9 @@ export function getStaticGenerationFunctions<
 			 */
 			const nonVersionedSectionsProducts = ['packer', 'nomad']
 			const nonVersionedSections = ['plugins', 'tools']
-			const hideVersions =
-				nonVersionedSectionsProducts.includes(product.slug) &&
-				nonVersionedSections.includes(currentRootDocsPath.path)
+			// const hideVersions =
+			// 	nonVersionedSectionsProducts.includes(product.slug) &&
+			// 	nonVersionedSections.includes(currentRootDocsPath.path)
 
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.

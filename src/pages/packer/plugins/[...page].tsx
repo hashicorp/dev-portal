@@ -167,6 +167,7 @@ export async function getStaticProps({ params, ...ctx }) {
 			},
 			mdxSource: props.mdxSource,
 			product: productData,
+			hideVersions: true,
 		},
 		revalidate: __config.dev_dot.revalidate,
 	}

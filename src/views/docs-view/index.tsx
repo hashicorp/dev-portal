@@ -77,6 +77,7 @@ const DocsView = ({
 	lazy,
 	hideSearch = false,
 	versions,
+	hideVersions,
 }: DocsViewProps) => {
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
@@ -93,7 +94,7 @@ const DocsView = ({
 		<>
 			{shouldRenderSearch ? <ProductDocsSearch /> : null}
 			<DevDotContent className={versions ? s.contentWithVersions : null}>
-				{versions ? (
+				{versions && !hideVersions ? (
 					<div className={s.versionSwitcherWrapper}>
 						<DocsVersionSwitcher options={versions} />
 					</div>

@@ -29,6 +29,11 @@ export interface DocsViewProps {
 	 */
 	hideSearch?: boolean
 	versions?: VersionSelectItem[]
+
+	/**
+	 * Set to true if we want to hide the version selector even if versions are defined
+	 */
+	hideVersions?: boolean
 }
 
 export type ProductsToPrimitivesMap = Record<
