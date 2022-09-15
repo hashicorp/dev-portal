@@ -52,7 +52,8 @@
 			"iconName": "docs",
 			"name": "General Documentation",
 			"path": "docs",
-			"shortName": "Documentation"
+			"shortName": "Documentation",
+			"addOverviewItem": false
 		},
 		{
 			"iconName": "entry-point",
