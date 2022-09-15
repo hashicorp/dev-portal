@@ -21,9 +21,9 @@ const hasWelcomeToast = () => Cookies.get(WELCOME_COOKIE)
 
 export function makeWelcomeToast() {
 	// Don't show toast if it has been dismissed or session is still active
-	const dismissWelcomeToast = Cookies.get(DISMISS_COOKIE)
+	const hasDismissedWelcomeToast = Cookies.get(DISMISS_COOKIE)
 	const inSession = Cookies.get(SESSION_COOKIE)
-	if (dismissWelcomeToast || inSession) {
+	if (hasDismissedWelcomeToast || inSession) {
 		return
 	}
 
