@@ -17,12 +17,9 @@ function permanentlyDismiss() {
 	Cookies.remove(SESSION_COOKIE)
 }
 
-export function makeWelcomeToast() {
-	// Return if current date is later than the max date
-	if (new Date() > MAX_DATE) {
-		return
-	}
+const hasWelcomeToast = () => Cookies.get(WELCOME_COOKIE)
 
+export function makeWelcomeToast() {
 	// Don't show toast if it has been dismissed or session is still active
 	const dismissWelcomeToast = Cookies.get(DISMISS_COOKIE)
 	const inSession = Cookies.get(SESSION_COOKIE)
@@ -31,8 +28,7 @@ export function makeWelcomeToast() {
 	}
 
 	// If no cookies have been set, set cookie that expires after 3 months from GA
-	const welcomeToastCookie = Cookies.get(WELCOME_COOKIE)
-	if (!welcomeToastCookie) {
+	if (!hasWelcomeToast()) {
 		Cookies.set(WELCOME_COOKIE, true, {
 			expires: MAX_DATE,
 		})
@@ -42,11 +38,15 @@ export function makeWelcomeToast() {
 	// We don't need a condition here since we will have already returned if session is active
 	Cookies.set(SESSION_COOKIE, true)
 
-	toast({
-		color: ToastColor.highlight,
-		title: `Welcome to HashiCorp Developer!`,
-		description: 'Your destination for documentation and tutorials.',
-		autoDismiss: AUTO_DISMISS,
-		onDismissCallback: permanentlyDismiss,
-	})
+	// If welcome toast cookie has not expired and all other checks have passed, render toast
+	if (hasWelcomeToast()) {
+		toast({
+			color: ToastColor.highlight,
+			title: `Welcome to HashiCorp Developer!`,
+			description: 'Your destination for documentation and tutorials.',
+			autoDismiss: AUTO_DISMISS,
+			onDismissCallback: permanentlyDismiss,
+			dismissOnRouteChange: false,
+		})
+	}
 }
