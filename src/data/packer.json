@@ -29,7 +29,7 @@
 		"expirationDate": ""
 	},
 	"version": "1.7.10",
-	"basePaths": ["docs", "guides", "intro", "plugins"],
+	"basePaths": ["docs", "guides", "intro", "plugins", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
