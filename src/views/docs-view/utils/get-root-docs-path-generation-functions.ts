@@ -1,5 +1,4 @@
 import { getStaticGenerationFunctions } from 'views/docs-view/server'
-import { DocsViewPropOptions } from 'views/docs-view/types'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { removeIndexPath } from 'lib/remove-index-path'
 // types
@@ -9,6 +8,10 @@ import { Pluggable } from 'unified'
 // product-specific
 import remarkSentinel from 'lib/remark-sentinel'
 import { getLatestVagrantVmwareVersion } from './get-latest-vagrant-vmware-version'
+
+export interface DocsViewPropOptions {
+	hideVersionSelector?: boolean
+}
 
 /**
  * Generates static functions for use in a

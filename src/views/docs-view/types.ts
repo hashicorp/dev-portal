@@ -3,10 +3,6 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { ProductSlug } from 'types/products'
 
-export interface DocsViewPropOptions {
-	hideVersionSelector?: boolean
-}
-
 export interface DocsViewProps {
 	/**
 	 * Frontmatter parsed from the MDX document
@@ -33,10 +29,6 @@ export interface DocsViewProps {
 	 */
 	hideSearch?: boolean
 	versions?: VersionSelectItem[]
-	/**
-	 *  Options set by individual page that can edit the page props
-	 */
-	options?: DocsViewPropOptions
 }
 
 export type ProductsToPrimitivesMap = Record<
