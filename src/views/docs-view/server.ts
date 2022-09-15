@@ -90,7 +90,6 @@ export function getStaticGenerationFunctions<
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	navDataPrefix,
-	hideVersions,
 }: {
 	product: ProductData
 	basePath: string
@@ -101,7 +100,6 @@ export function getStaticGenerationFunctions<
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
 	navDataPrefix?: string
-	hideVersions?: boolean
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -334,16 +332,17 @@ export function getStaticGenerationFunctions<
 			 * For the certain sections of certain products (/plugins, /tools), we want to hide the version selector,
 			 * even though we do have meaningful versions available
 			 */
-
-			// const hideVersionsProductSections: { [p: ProductSlug]: string[] } = {
-			// 	packer: ['plugins'],
-			// 	nomad: ['plugins', 'tools'],
-			// }
-			// const hideVersions =
-			// 	hideVersionsProductSections[product.slug] &&
-			// 	hideVersionsProductSections[product.slug].includes(
-			// 		currentRootDocsPath.path
-			// 	)
+			const hideVersionsProductSections: {
+				[key in ProductSlug]?: string[] | null
+			} = {
+				packer: ['plugins'],
+				nomad: ['plugins', 'tools'],
+			}
+			const hideVersions =
+				hideVersionsProductSections[product.slug] &&
+				hideVersionsProductSections[product.slug].includes(
+					currentRootDocsPath.path
+				)
 
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.

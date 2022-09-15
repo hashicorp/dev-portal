@@ -56,8 +56,6 @@ async function getStaticProps(ctx) {
 
 		// Replace our original navData with our prepared navData
 		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems = navData
-
-		staticProps.props.hideVersions = true
 	}
 
 	/**
