@@ -9,7 +9,7 @@ import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remot
 import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports
-import { ProductData, RootDocsPath } from 'types/products'
+import { ProductData, ProductSlug, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { isDeployPreview } from 'lib/env-checks'
@@ -334,11 +334,16 @@ export function getStaticGenerationFunctions<
 			 * For the certain sections of certain products (/plugins, /tools), we want to hide the version selector,
 			 * even though we do have meaningful versions available
 			 */
-			const nonVersionedSectionsProducts = ['packer', 'nomad']
-			const nonVersionedSections = ['plugins', 'tools']
+
+			// const hideVersionsProductSections: { [p: ProductSlug]: string[] } = {
+			// 	packer: ['plugins'],
+			// 	nomad: ['plugins', 'tools'],
+			// }
 			// const hideVersions =
-			// 	nonVersionedSectionsProducts.includes(product.slug) &&
-			// 	nonVersionedSections.includes(currentRootDocsPath.path)
+			// 	hideVersionsProductSections[product.slug] &&
+			// 	hideVersionsProductSections[product.slug].includes(
+			// 		currentRootDocsPath.path
+			// 	)
 
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.
