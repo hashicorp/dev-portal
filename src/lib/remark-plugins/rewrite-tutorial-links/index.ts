@@ -82,6 +82,21 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
 	node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP)
 }
 
+const getIsUrlAmbiguous = ({
+	isCollectionPath,
+	isDocsPath,
+	isProductHubPath,
+	isTutorialPath,
+}: Record<string, boolean>) => {
+	const truthyConditions = [
+		isCollectionPath,
+		isDocsPath,
+		isProductHubPath,
+		isTutorialPath,
+	].filter((condition: boolean) => condition)
+	return truthyConditions.length > 1
+}
+
 export function rewriteTutorialsLink(
 	url: string,
 	tutorialMap: Record<string, string>
@@ -114,45 +129,65 @@ export function rewriteTutorialsLink(
 		}
 
 		if (isBetaProduct || isValidSection) {
-			let nodePath = url // the path to be formatted - assumes to be absolute as current Learn impl does
-			const isCollectionPath = nodePath.includes('collections')
-			const isTutorialPath = nodePath.includes('tutorials')
-			const learnProductHub = new RegExp(`/${product}$`)
-			const isProductHubPath = learnProductHub.test(nodePath)
-			const isDocsPath = nodePath.includes(productSlugsToHostNames[product])
+			// General variables
+			const urlObject = new URL(url, 'https://learn.hashicorp.com/')
+			const { origin, pathname } = urlObject
+			const urlWithoutOrigin = urlObject.toString().replace(origin, '')
+			const productIOHostName = productSlugsToHostNames[product]
 
-			// if its an external link, isolate the pathname
-			if (isExternalLearnLink || isDocsPath) {
-				const fullUrl = new URL(nodePath)
-				// removing the origin from the href instead of only using
-				// 'pathname' so that anchor links are included
-				nodePath = fullUrl.href.replace(fullUrl.origin, '')
+			// Regexes for each path type
+			const collectionPathRegex = new RegExp('^/collections')
+			const tutorialPathRegex = new RegExp('^/tutorials')
+			const productHubPathRegex = new RegExp(`^/${product}/?$`)
+
+			// Derived path type booleans
+			const isCollectionPath = collectionPathRegex.test(pathname)
+			const isTutorialPath = tutorialPathRegex.test(pathname)
+			const isProductHubPath = productHubPathRegex.test(pathname)
+			const isDocsPath = origin.includes(productIOHostName)
+
+			/**
+			 * Check if multiple conditions above were true. Only one should be true
+			 * at a time.
+			 */
+			const isUrlAmbiguous = getIsUrlAmbiguous({
+				isCollectionPath,
+				isTutorialPath,
+				isProductHubPath,
+				isDocsPath,
+			})
+			if (isUrlAmbiguous) {
+				throw new Error(`[rewriteTutorialsLink] found an ambiguous url: ${url}`)
 			}
 
-			// handle rewriting collection and tutorial dev portal paths
-			if (isDocsPath) {
-				newUrl = handleDocsLink(nodePath, product as ProductSlug)
-			} else if (isCollectionPath) {
-				newUrl = handleCollectionLink(nodePath)
+			/**
+			 * If the path type is not ambiguous, handle the path by type.
+			 */
+			if (isCollectionPath) {
+				newUrl = handleCollectionLink(urlWithoutOrigin)
 			} else if (isTutorialPath) {
-				newUrl = handleTutorialLink(nodePath, tutorialMap)
+				newUrl = handleTutorialLink(urlWithoutOrigin, tutorialMap)
 			} else if (isProductHubPath) {
-				newUrl = `${nodePath}/tutorials`
+				newUrl = `/${product}/tutorials`
+			} else if (isDocsPath) {
+				newUrl = handleDocsLink(urlWithoutOrigin, product as ProductSlug)
 			}
 
+			/**
+			 * If the link wasn't found in the map, default to original link. Could be
+			 * a typo, it's up to the author to correct -- this feedback should help.
+			 */
 			if (!newUrl) {
-				// If the link wasn't found in the map, default to original link
-				// Could be a typo, its up to the author to correct -- this feedback should help
-				newUrl = nodePath
 				throw new Error(
-					`[MDX TUTORIAL]: internal link could not be rewritten: ${nodePath} \nPlease check all Learn links in that tutorial to ensure they are correct.`
+					`[MDX TUTORIAL]: internal link could not be rewritten: ${url} \nPlease check all Learn links in that tutorial to ensure they are correct.`
 				)
 			}
 		}
 	} catch (e) {
-		console.error(e) // we don't want an incorrect link to break the build
+		// we don't want an incorrect link to break the build
+		console.error(e)
 	}
 
-	// Return the modified URL
-	return newUrl
+	// Return the modified URL, or default to the original one
+	return newUrl || url
 }

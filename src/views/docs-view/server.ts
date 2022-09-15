@@ -51,7 +51,6 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 		'vault',
 		'waypoint',
 		'boundary',
-		'consul',
 		'nomad',
 		'terraform-docs-common',
 		'ptfe-releases',
