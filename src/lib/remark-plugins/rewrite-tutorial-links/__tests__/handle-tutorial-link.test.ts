@@ -27,7 +27,7 @@ describe('handleTutorialLink', () => {
 			'another/invalid/input',
 			'/almost/valid/input',
 			'/one/more/invalid/input',
-		])('handleTutorialLink(%p) throws an error', (input) => {
+		])('handleTutorialLink(%p) throws an error', (input: string) => {
 			expect(() => handleTutorialLink(input, {})).toThrow()
 		})
 	})
