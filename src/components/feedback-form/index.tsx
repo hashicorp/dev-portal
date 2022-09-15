@@ -62,7 +62,6 @@ const Question: React.FC<FeedbackQuestion> = (props: FeedbackQuestion) => {
 								aria-label={display}
 								key={display}
 								text={display}
-								size="small"
 								color="secondary"
 								onClick={(e: MouseEvent<HTMLElement>) =>
 									feedbackContext.submitQuestion(e, { id, value, nextQuestion })
