@@ -1,4 +1,5 @@
 import { getStaticGenerationFunctions } from 'views/docs-view/server'
+import { DocsViewPropOptions } from 'views/docs-view/types'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { removeIndexPath } from 'lib/remove-index-path'
 // types
@@ -15,7 +16,8 @@ import { getLatestVagrantVmwareVersion } from './get-latest-vagrant-vmware-versi
  */
 export function getRootDocsPathGenerationFunctions(
 	productSlug: ProductSlug,
-	targetRootDocsPath: string
+	targetRootDocsPath: string,
+	options?: DocsViewPropOptions
 ): {
 	getStaticPaths: GetStaticPaths
 	getStaticProps: GetStaticProps
@@ -37,6 +39,7 @@ export function getRootDocsPathGenerationFunctions(
 			rootDocsPath
 		),
 		getScope: generateGetScope(productData, rootDocsPath),
+		options,
 	}
 	return {
 		getStaticPaths: async (context) => {

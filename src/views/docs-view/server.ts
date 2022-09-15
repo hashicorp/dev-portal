@@ -9,7 +9,7 @@ import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remot
 import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports
-import { ProductData, ProductSlug, RootDocsPath } from 'types/products'
+import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { isDeployPreview } from 'lib/env-checks'
@@ -29,6 +29,7 @@ import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
+import { DocsViewPropOptions } from './types'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -90,6 +91,7 @@ export function getStaticGenerationFunctions<
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	navDataPrefix,
+	options = {},
 }: {
 	product: ProductData
 	basePath: string
@@ -100,6 +102,7 @@ export function getStaticGenerationFunctions<
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
 	navDataPrefix?: string
+	options?: DocsViewPropOptions
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -328,21 +331,6 @@ export function getStaticGenerationFunctions<
 			const hasMeaningfulVersions =
 				versions.length > 0 &&
 				(versions.length > 1 || versions[0].version !== 'v0.0.x')
-			/**
-			 * For the certain product sections, we want to hide the version selector,
-			 * even though we do have meaningful versions available
-			 */
-			const hideVersionsProductSections: {
-				[key in ProductSlug]?: string[] | null
-			} = {
-				packer: ['plugins'],
-				nomad: ['plugins', 'tools'],
-			}
-			const hideVersions =
-				hideVersionsProductSections[product.slug] &&
-				hideVersionsProductSections[product.slug].includes(
-					currentRootDocsPath.path
-				)
 
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.
@@ -357,6 +345,8 @@ export function getStaticGenerationFunctions<
 			if (isPublicContentRepo) {
 				layoutProps.githubFileUrl = githubFileUrl
 			}
+
+			const { hideVersionSelector } = options
 
 			const finalProps = {
 				layoutProps,
@@ -375,7 +365,8 @@ export function getStaticGenerationFunctions<
 					// needed for DocsVersionSwitcher
 					currentRootDocsPath: currentRootDocsPath || null,
 				},
-				versions: !hideVersions && hasMeaningfulVersions ? versions : null,
+				versions:
+					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
 			}
 
 			return {
