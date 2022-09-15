@@ -329,7 +329,7 @@ export function getStaticGenerationFunctions<
 				versions.length > 0 &&
 				(versions.length > 1 || versions[0].version !== 'v0.0.x')
 			/**
-			 * For the certain sections of certain products (/plugins, /tools), we want to hide the version selector,
+			 * For the certain product sections, we want to hide the version selector,
 			 * even though we do have meaningful versions available
 			 */
 			const hideVersionsProductSections: {
