@@ -44,6 +44,7 @@ export default function WellArchitectedFrameworkCollectionView({
 				isOrdered={ordered}
 				tutorials={tutorials.map((t: ClientTutorialLite) => ({
 					id: t.id,
+					collectionId: id,
 					description: t.description,
 					duration: getReadableTime(t.readTime),
 					hasInteractiveLab: Boolean(t.handsOnLab),

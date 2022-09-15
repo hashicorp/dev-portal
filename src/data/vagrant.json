@@ -55,12 +55,12 @@
 			"shortName": "Documentation"
 		},
 		{
-			"iconName": "docs",
+			"iconName": "entry-point",
 			"name": "Intro",
 			"path": "intro"
 		},
 		{
-			"iconName": "docs",
+			"iconName": "cloud",
 			"name": "Vagrant Cloud",
 			"path": "vagrant-cloud"
 		}
