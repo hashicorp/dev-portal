@@ -9,13 +9,18 @@ import { Pluggable } from 'unified'
 import remarkSentinel from 'lib/remark-sentinel'
 import { getLatestVagrantVmwareVersion } from './get-latest-vagrant-vmware-version'
 
+export interface DocsViewPropOptions {
+	hideVersionSelector?: boolean
+}
+
 /**
  * Generates static functions for use in a
  * `pages/<productSlug>/<rootDocsPath>/[...page].tsx` DocsView page file.
  */
 export function getRootDocsPathGenerationFunctions(
 	productSlug: ProductSlug,
-	targetRootDocsPath: string
+	targetRootDocsPath: string,
+	options?: DocsViewPropOptions
 ): {
 	getStaticPaths: GetStaticPaths
 	getStaticProps: GetStaticProps
@@ -37,6 +42,7 @@ export function getRootDocsPathGenerationFunctions(
 			rootDocsPath
 		),
 		getScope: generateGetScope(productData, rootDocsPath),
+		options,
 	}
 	return {
 		getStaticPaths: async (context) => {
