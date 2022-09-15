@@ -3,6 +3,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	column-gap: 48px;
+	row-gap: 24px;
 	justify-content: space-between;
 }
 

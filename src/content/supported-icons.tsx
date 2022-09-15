@@ -1,5 +1,6 @@
 import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
 import { IconAwsColor16 } from '@hashicorp/flight-icons/svg-react/aws-color-16'
+import { IconCode16 } from '@hashicorp/flight-icons/svg-react/code-16'
 import { IconCloud16 } from '@hashicorp/flight-icons/svg-react/cloud-16'
 import { IconConnection16 } from '@hashicorp/flight-icons/svg-react/connection-16'
 import { IconDatabase16 } from '@hashicorp/flight-icons/svg-react/database-16'
@@ -11,11 +12,13 @@ import { IconEnterprise16 } from '@hashicorp/flight-icons/svg-react/enterprise-1
 import { IconFileSource16 } from '@hashicorp/flight-icons/svg-react/file-source-16'
 import { IconGcpColor16 } from '@hashicorp/flight-icons/svg-react/gcp-color-16'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
+import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 import { IconHcp16 } from '@hashicorp/flight-icons/svg-react/hcp-16'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconKubernetesColor16 } from '@hashicorp/flight-icons/svg-react/kubernetes-color-16'
 import { IconMicrosoftColor16 } from '@hashicorp/flight-icons/svg-react/microsoft-color-16'
 import { IconOracleColor16 } from '@hashicorp/flight-icons/svg-react/oracle-color-16'
+import { IconOrg16 } from '@hashicorp/flight-icons/svg-react/org-16'
 import { IconPlug16 } from '@hashicorp/flight-icons/svg-react/plug-16'
 import { IconPlusCircle16 } from '@hashicorp/flight-icons/svg-react/plus-circle-16'
 import { IconProvider16 } from '@hashicorp/flight-icons/svg-react/provider-16'
@@ -26,6 +29,7 @@ import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terrafor
 import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
 import { IconVmware16 } from '@hashicorp/flight-icons/svg-react/vmware-16'
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
+import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
 import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
 import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
 import { IconPackerColor16 } from '@hashicorp/flight-icons/svg-react/packer-color-16'
@@ -35,6 +39,7 @@ export const SUPPORTED_ICONS = {
 	'aws-color': <IconAwsColor16 />,
 	'boundary-color': <IconBoundaryColor16 />,
 	cloud: <IconCloud16 />,
+	code: <IconCode16 />,
 	connection: <IconConnection16 />,
 	'consul-color': <IconConsulColor16 />,
 	database: <IconDatabase16 />,
@@ -46,11 +51,13 @@ export const SUPPORTED_ICONS = {
 	'file-source': <IconFileSource16 />,
 	'gcp-color': <IconGcpColor16 />,
 	guide: <IconGuide16 />,
+	handshake: <IconHandshake16 />,
 	hcp: <IconHcp16 />,
 	home: <IconHome16 />,
 	'kubernetes-color': <IconKubernetesColor16 />,
 	'microsoft-color': <IconMicrosoftColor16 />,
 	'oracle-color': <IconOracleColor16 />,
+	org: <IconOrg16 />,
 	'packer-color': <IconPackerColor16 />,
 	plug: <IconPlug16 />,
 	'plus-circle': <IconPlusCircle16 />,
@@ -62,4 +69,5 @@ export const SUPPORTED_ICONS = {
 	tools: <IconTools16 />,
 	vmware: <IconVmware16 />,
 	'vault-color': <IconVaultColor16 />,
+	wrench: <IconWrench16 />,
 }
