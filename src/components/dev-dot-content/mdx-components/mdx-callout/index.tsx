@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
@@ -44,13 +45,18 @@ MdxCalloutProps) {
 					To reference non-cloud documentation go to the {product} docs page.
 					{/* {subHeading} */}
 				</Text>
-				<StandaloneLink
+				<div className={s.ctaWrapper}>
+					<span className={s.ctaText}>{`Go to ${product}`}</span>
+					<IconArrowRight16 color="var(--white)" />
+				</div>
+				{/* <StandaloneLink
 					text={`Go to ${product}`}
 					href={`/${product}/docs`}
-					icon={<IconArrowRight16 />}
+					icon={<IconArrowRight16 color="var(--white)" />}
 					iconPosition="trailing"
-					color="secondary"
-				/>
+					textClassName={s.cta}
+					className={s.ctaWrapper}
+				/> */}
 			</div>
 			<div className={s.solutionPattern}>
 				<Image
@@ -62,6 +68,10 @@ MdxCalloutProps) {
 					objectPosition="center"
 				/>
 			</div>
+			<Link href={`/${product}/docs`}>
+				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
+				<a className={s.link} aria-label={`Go to ${product}`} />
+			</Link>
 		</div>
 	)
 }

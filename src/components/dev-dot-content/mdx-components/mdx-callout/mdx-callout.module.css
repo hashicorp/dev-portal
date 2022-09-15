@@ -3,12 +3,45 @@
 	background: var(--black);
 	color: var(--white);
 	border-radius: 5px;
-	padding: 16px 0 16px 22px;
+	display: flex;
+	position: relative;
+	overflow: hidden;
+	box-shadow: var(--token-elevation-mid-box-shadow);
+	cursor: pointer;
 
-	/* &::hover */
+	&:hover {
+		box-shadow: var(--token-elevation-high-box-shadow);
+
+		& .ctaWrapper svg {
+			transform: translateX(4px);
+		}
+	}
+
+	& .textContainer {
+		padding: 16px 22px;
+	}
 
 	& .subHeading {
 		margin: 6px 0 16px;
+	}
+}
+
+/* copy of standalone link styles */
+.ctaWrapper {
+	composes: g-focus-ring-from-box-shadow from global;
+	align-items: center;
+	display: flex;
+	gap: 6px;
+
+	& .ctaText {
+		font-size: var(--token-typography-body-200-font-size);
+		font-weight: var(--token-typography-font-weight-medium);
+		line-height: 1rem;
+		color: var(--white);
+	}
+
+	& svg {
+		transition: 0.2s ease-in;
 	}
 }
 
@@ -23,10 +56,16 @@
 
 	@media (--dev-dot-tablet-up) {
 		display: block;
-		flex-grow: 0;
-		flex-shrink: 0;
-		margin: 0 0 0 auto;
-		position: relative;
-		width: 138px;
+		position: absolute;
+		right: -76px;
+		bottom: 0;
+		width: 330px;
+		min-height: 100%;
 	}
+}
+
+.link {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
 }
