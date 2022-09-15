@@ -1,6 +1,7 @@
 import React from 'react'
 import Badge, { BadgeTheme } from 'components/author-primitives/shared/badge'
 import svgRibbonIcon from './ribbon-icon.svg?include'
+import svgPartnerIcon from './partner-icon.svg?include'
 
 type ProviderLabelType = 'official' | 'community' | 'partner' | 'archived'
 
@@ -18,7 +19,7 @@ const badgeTypes = {
 	partner: {
 		label: 'Partner',
 		theme: 'light-blue',
-		iconSvg: svgRibbonIcon,
+		iconSvg: svgPartnerIcon,
 	},
 	archived: {
 		label: 'Archived',
