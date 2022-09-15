@@ -16,11 +16,35 @@ const testEachCase = (cases: [string, ProductSlug, string][]) => {
 }
 
 describe('handleDocsLink', () => {
-	testEachCase([
-		['/docs', 'waypoint', '/waypoint/docs'],
-		['/api', 'vault', '/vault/api-docs'],
-		['/docs/some/path', 'waypoint', '/waypoint/docs/some/path'],
-		['/docs/some-doc.html', 'waypoint', '/waypoint/docs/some-doc'],
-		['/api/index.html', 'waypoint', '/waypoint/api-docs'],
-	])
+	describe('when the base path is not "api"', () => {
+		testEachCase([
+			['/docs', 'waypoint', '/waypoint/docs'],
+			['/docs/some/path', 'waypoint', '/waypoint/docs/some/path'],
+		])
+	})
+
+	describe('when the base path is "api"', () => {
+		testEachCase([
+			['/api', 'waypoint', '/waypoint/api-docs'],
+			['/api/some/path', 'waypoint', '/waypoint/api-docs/some/path'],
+		])
+	})
+
+	describe('when the page is "index.html"', () => {
+		testEachCase([
+			['/docs/index.html', 'waypoint', '/waypoint/docs'],
+			['/docs/some/path/index.html', 'waypoint', '/waypoint/docs/some/path'],
+			['/api/index.html', 'waypoint', '/waypoint/api-docs'],
+			['/api/some/path/index.html', 'waypoint', '/waypoint/api-docs/some/path'],
+		])
+	})
+
+	describe('when the page ends with ".html"', () => {
+		testEachCase([
+			['/docs/page.html', 'waypoint', '/waypoint/docs/page'],
+			['/docs/some/path.html', 'waypoint', '/waypoint/docs/some/path'],
+			['/api/page.html', 'waypoint', '/waypoint/api-docs/page'],
+			['/api/some/path.html', 'waypoint', '/waypoint/api-docs/some/path'],
+		])
+	})
 })
