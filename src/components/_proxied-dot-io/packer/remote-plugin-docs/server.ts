@@ -146,9 +146,14 @@ async function generateStaticProps({
 	const content = await mdxContentHook(rawContent)
 
 	// Render MDX source, with options
+	const headings = [] // populated by anchorLinks plugin below
 	const mdxOptions: { remarkPlugins: Pluggable[]; rehypePlugins: Pluggable[] } =
 		{
-			remarkPlugins: [typography, anchorLinks, paragraphCustomAlerts],
+			remarkPlugins: [
+				typography,
+				[anchorLinks, { headings }],
+				paragraphCustomAlerts,
+			],
 			rehypePlugins: [
 				[rehypePrism, { ignoreMissing: true }],
 				rehypeSurfaceCodeNewlines,
@@ -163,6 +168,7 @@ async function generateStaticProps({
 		githubFileUrl,
 		navData,
 		navNode,
+		headings,
 		versions: [],
 	}
 }

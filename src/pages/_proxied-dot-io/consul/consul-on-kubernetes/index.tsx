@@ -34,7 +34,7 @@ function ConsulOnKubernetesPage() {
 				ctas={[
 					{
 						text: 'Try HCP Consul',
-						url: 'https://portal.cloud.hashicorp.com/?utm_source=docs&utm_content=consul_on_kubernetes_landing',
+						url: 'https://portal.cloud.hashicorp.com/',
 					},
 					{
 						text: 'Install Consul on Kubernetes',

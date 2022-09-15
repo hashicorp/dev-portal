@@ -32,12 +32,12 @@
 			}
 		]
 	},
-	"alertBannerActive": false,
+	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "June 21-22",
-		"url": "https://hashiconf.com/europe?utm_source=Banner",
-		"text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
-		"linkText": "Join Now",
+		"tag": "Just announced",
+		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "HashiConf Global full schedule: keynotes, sessions, labs & more.",
+		"linkText": "Register Now",
 		"expirationDate": ""
 	},
 	"version": "0.18.6",
@@ -68,15 +68,5 @@
 			"name": "Intro",
 			"path": "intro"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/sentinel/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/sentinel/intro/getting-started"
-			}
-		]
-	},
-	"navigationHeaderItems": {}
+	]
 }

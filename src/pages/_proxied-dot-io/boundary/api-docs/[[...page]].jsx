@@ -12,6 +12,7 @@ import {
 	processSchemaString,
 	processSchemaFile,
 } from '@hashicorp/react-open-api-page/process-schema'
+import DevDotOptIn from 'components/_proxied-dot-io/common/dev-dot-opt-in'
 
 const targetFile = {
 	owner: 'hashicorp',
@@ -31,6 +32,9 @@ function OpenApiDocsPage(props) {
 			productName={productData.name}
 			productSlug={productData.slug}
 			baseRoute={pathFromRoot}
+			optInBannerSlot={
+				<DevDotOptIn cutoverDate={productData.devDotCutoverDate} />
+			}
 		/>
 	)
 }

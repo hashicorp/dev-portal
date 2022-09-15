@@ -10,6 +10,7 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
+import { CommandBarProvider } from 'components/command-bar'
 import Footer from 'components/footer'
 import MobileMenuContainer, {
 	MobileAuthenticationControls,
@@ -67,7 +68,7 @@ const BaseNewLayout = ({
 		router.route === '/' || router.route === '/_error'
 
 	return (
-		<>
+		<CommandBarProvider>
 			<CoreDevDotLayout>
 				<div className={s.root} data-layout="base-new">
 					<div className={s.header}>
@@ -87,7 +88,7 @@ const BaseNewLayout = ({
 				</div>
 			</CoreDevDotLayout>
 			<ConsentManager />
-		</>
+		</CommandBarProvider>
 	)
 }
 
