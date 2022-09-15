@@ -19,6 +19,22 @@ const testEachCase = (cases: string[][]) => {
 }
 
 describe('handleCollectionLink', () => {
+	describe('when the input is invalid', () => {
+		test.each([
+			'',
+			'/',
+			'invalid-input',
+			'still/invalid',
+			'also/invalid/',
+			'/super/invalid',
+			'another/invalid/input',
+			'/almost/valid/input',
+			'/one/more/invalid/input',
+		])('%p as `pathname` throws an error', (input: string) => {
+			expect(() => handleCollectionLink(getTestURLObject(input))).toThrow()
+		})
+	})
+
 	describe('when neither `search` nor `hash` are present', () => {
 		testEachCase([
 			[
