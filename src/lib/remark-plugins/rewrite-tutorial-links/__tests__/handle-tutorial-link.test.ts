@@ -39,33 +39,30 @@ describe('handleTutorialLink', () => {
 				'/tutorials/productA/tutorial?paramA=valueA&in=productB/collection&paramB=valueB',
 				'/productA/tutorials/collection/tutorial?paramA=valueA&paramB=valueB',
 			],
-			/**
-			 * @TODO implement handling for waf and onboarding
-			 */
-			// [
-			// 	'/tutorials/well-architected-framework/tutorial?in=productB/collection',
-			// 	'/well-architected-framework/collection/tutorial',
-			// ],
-			// [
-			// 	'/tutorials/well-architected-framework/tutorial?paramA=valueA&in=productB/collection',
-			// 	'/well-architected-framework/collection/tutorial?paramA=valueA',
-			// ],
-			// [
-			// 	'/tutorials/well-architected-framework/tutorial?paramA=valueA&in=productB/collection&paramB=valueB',
-			// 	'/well-architected-framework/collection/tutorial?paramA=valueA&paramB=valueB',
-			// ],
-			// [
-			// 	'/tutorials/onboarding/tutorial?in=productB/collection',
-			// 	'/onboarding/collection/tutorial',
-			// ],
-			// [
-			// 	'/tutorials/onboarding/tutorial?paramA=valueA&in=productB/collection',
-			// 	'/onboarding/collection/tutorial?paramA=valueA',
-			// ],
-			// [
-			// 	'/tutorials/onboarding/tutorial?paramA=valueA&in=productB/collection&paramB=valueB',
-			// 	'/onboarding/collection/tutorial?paramA=valueA&paramB=valueB',
-			// ],
+			[
+				'/tutorials/well-architected-framework/tutorial?in=productB/collection',
+				'/well-architected-framework/collection/tutorial',
+			],
+			[
+				'/tutorials/well-architected-framework/tutorial?paramA=valueA&in=productB/collection',
+				'/well-architected-framework/collection/tutorial?paramA=valueA',
+			],
+			[
+				'/tutorials/well-architected-framework/tutorial?paramA=valueA&in=productB/collection&paramB=valueB',
+				'/well-architected-framework/collection/tutorial?paramA=valueA&paramB=valueB',
+			],
+			[
+				'/tutorials/onboarding/tutorial?in=productB/collection',
+				'/onboarding/collection/tutorial',
+			],
+			[
+				'/tutorials/onboarding/tutorial?paramA=valueA&in=productB/collection',
+				'/onboarding/collection/tutorial?paramA=valueA',
+			],
+			[
+				'/tutorials/onboarding/tutorial?paramA=valueA&in=productB/collection&paramB=valueB',
+				'/onboarding/collection/tutorial?paramA=valueA&paramB=valueB',
+			],
 		])
 	})
 
