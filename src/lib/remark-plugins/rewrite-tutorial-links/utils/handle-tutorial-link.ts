@@ -12,6 +12,7 @@
  * /tutorials/${product}/{tutorial-name}#{anchor} --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
  */
 
+import { SectionOption } from 'lib/learn-client/types'
 import { SplitLearnPath } from '../types'
 
 export function handleTutorialLink(
@@ -41,7 +42,11 @@ export function handleTutorialLink(
 	const collectionSlugParam = url.searchParams.get('in')
 	if (collectionSlugParam) {
 		const collectionSlug = collectionSlugParam.split('/')[1]
-		path = `/${product}/tutorials/${collectionSlug}/${filename}`
+		if (SectionOption[product]) {
+			path = `/${product}/${collectionSlug}/${filename}`
+		} else {
+			path = `/${product}/tutorials/${collectionSlug}/${filename}`
+		}
 	} else {
 		const tutorialSlug = [product, filename].join('/')
 		path = tutorialMap[tutorialSlug]
