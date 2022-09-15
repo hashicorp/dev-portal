@@ -13,7 +13,7 @@ TODO: implement a more accessible horizontal overflow solution as KB-only users 
 
 	& table {
 		border-spacing: 0;
-		max-width: 100%;
+		width: 100%;
 
 		& thead {
 			& th {
