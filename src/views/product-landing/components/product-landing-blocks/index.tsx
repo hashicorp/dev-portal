@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key */
+import CalloutCard from 'components/callout-card'
 import { ProductLandingBlocksProps, ProductLandingBlock } from './types'
 import {
 	CollectionCards,
@@ -14,6 +15,18 @@ function ProductLandingBlocks({ blocks }: ProductLandingBlocksProps) {
 			{blocks.map((block: ProductLandingBlock, idx: number) => {
 				const { type } = block
 				switch (type) {
+					case 'callout':
+						return (
+							<div key={idx} className={s.calloutCardMargin}>
+								<CalloutCard
+									heading={block.heading}
+									headingSlug={block.headingSlug}
+									body={block.body}
+									ctas={block.ctas}
+									iconCardLinks={block.iconCardLinks}
+								/>
+							</div>
+						)
 					case 'heading':
 						return (
 							<div key={idx} className={s.headingMargin}>

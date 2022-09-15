@@ -7,6 +7,7 @@ import {
 	SidebarNavMenuItem,
 } from 'components/sidebar/components'
 import Sidebar from 'components/sidebar'
+import TutorialProgressIcon from 'components/tutorial-progress-icon'
 import { useTutorialProgress } from 'hooks/progress'
 import {
 	ListItemProps,
@@ -15,7 +16,6 @@ import {
 	TutorialListItemProps,
 	TutorialSidebarProps,
 } from './types'
-import TutorialProgressIcon from './tutorial-progress-icon'
 import s from './tutorials-sidebar.module.css'
 
 function TutorialsSidebar({
@@ -53,13 +53,14 @@ function CollectionViewSidebarContent({
 						<HorizontalRule />
 						{title ? <SectionTitle text={title} /> : null}
 						<SectionList>
-							{items.map(({ text, href, isActive }: ListItemProps) => {
+							{items.map(({ text, href, isActive, badge }: ListItemProps) => {
 								return (
 									<ListItem
 										key={`${text}${href}`}
 										text={text}
 										href={href}
 										isActive={isActive}
+										badge={badge}
 									/>
 								)
 							})}
@@ -127,8 +128,8 @@ function TutorialListItem({
 	)
 }
 
-function ListItem({ href, isActive, text }: ListItemProps) {
-	return <SidebarNavMenuItem item={{ isActive, title: text, href }} />
+function ListItem({ href, isActive, text, badge }: ListItemProps) {
+	return <SidebarNavMenuItem item={{ isActive, title: text, href, badge }} />
 }
 
 function SectionTitle({ text }: SectionTitleProps) {

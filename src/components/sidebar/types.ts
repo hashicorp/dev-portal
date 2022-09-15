@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode } from 'react'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 import { SidebarMobileControlsProps } from './components/sidebar-mobile-controls'
+import { SidebarNavMenuItemBadgeProps } from './components/sidebar-nav-menu-item/types'
 
 /**
  * Interfaces for each nav item in their raw form, before any enrichment or
@@ -127,6 +128,7 @@ interface MenuItem {
 	 * icon will be shown instead.
 	 */
 	trailingIcon?: ReactElement
+	badge?: SidebarNavMenuItemBadgeProps
 }
 
 interface SidebarBaseProps {

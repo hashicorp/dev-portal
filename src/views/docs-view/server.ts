@@ -29,6 +29,7 @@ import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
+import { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -50,8 +51,6 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 	const hasDevPortalBranch = [
 		'vault',
 		'waypoint',
-		'boundary',
-		'consul',
 		'nomad',
 		'terraform-docs-common',
 		'ptfe-releases',
@@ -60,6 +59,7 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 		'terraform-plugin-sdk',
 		'terraform-plugin-framework',
 		'terraform-docs-agents',
+		'cloud.hashicorp.com',
 	].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }
@@ -90,6 +90,7 @@ export function getStaticGenerationFunctions<
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	navDataPrefix,
+	options = {},
 }: {
 	product: ProductData
 	basePath: string
@@ -100,6 +101,7 @@ export function getStaticGenerationFunctions<
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
 	navDataPrefix?: string
+	options?: DocsViewPropOptions
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -328,16 +330,7 @@ export function getStaticGenerationFunctions<
 			const hasMeaningfulVersions =
 				versions.length > 0 &&
 				(versions.length > 1 || versions[0].version !== 'v0.0.x')
-			/**
-			 * For the /packer/plugins landing page, we want to hide the version selector,
-			 * even though we do have meaningful versions available
-			 */
-			const isPackerPlugins =
-				product.slug == 'packer' && currentRootDocsPath.path == 'plugins'
 
-			if (!isPackerPlugins && hasMeaningfulVersions) {
-				layoutProps.versions = versions
-			}
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.
 			 * Currently, HCP and Sentinel docs are stored in private repositories.
@@ -351,6 +344,8 @@ export function getStaticGenerationFunctions<
 			if (isPublicContentRepo) {
 				layoutProps.githubFileUrl = githubFileUrl
 			}
+
+			const { hideVersionSelector } = options
 
 			const finalProps = {
 				layoutProps,
@@ -369,7 +364,8 @@ export function getStaticGenerationFunctions<
 					// needed for DocsVersionSwitcher
 					currentRootDocsPath: currentRootDocsPath || null,
 				},
-				versions,
+				versions:
+					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
 			}
 
 			return {

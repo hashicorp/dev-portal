@@ -19,15 +19,16 @@
 		"plugin/log",
 		"plugin/mux",
 		"plugin/sdkv2",
-		"registry"
+		"registry",
+		"downloads"
 	],
 	"docsNavItems": [
 		"docs",
 		"language",
-		"cdktf",
 		"cli",
 		"cloud-docs",
 		"enterprise",
+		"cdktf",
 		{
 			"icon": "provider",
 			"label": "Provider Use",
@@ -36,14 +37,14 @@
 		"plugin",
 		"registry",
 		{
-			"icon": "plus-circle",
+			"icon": "handshake",
 			"label": "Integration Program",
 			"fullPath": "/terraform/docs/partnerships"
 		}
 	],
 	"rootDocsPaths": [
 		{
-			"iconName": "tools",
+			"iconName": "code",
 			"name": "CDK for Terraform",
 			"path": "cdktf",
 			"productSlugForLoader": "terraform-cdk",
@@ -82,7 +83,7 @@
 			"shortName": "Documentation"
 		},
 		{
-			"iconName": "enterprise",
+			"iconName": "org",
 			"name": "Terraform Enterprise",
 			"path": "enterprise",
 			"productSlugForLoader": "ptfe-releases",
@@ -108,11 +109,10 @@
 			"name": "Configuration Language",
 			"path": "language",
 			"visuallyHideSidebarTitle": true,
-			"addOverviewItem": false,
-			"description": "This a custom description of the Terraform Language page that is written in src/data/terraform.json. If this weren't here, we'd fall back to the frontmatter description."
+			"addOverviewItem": false
 		},
 		{
-			"iconName": "plug",
+			"iconName": "wrench",
 			"name": "Plugin Development",
 			"path": "plugin",
 			"productSlugForLoader": "terraform-docs-common",
@@ -156,7 +156,7 @@
 			"addOverviewItem": false
 		},
 		{
-			"iconName": "database",
+			"iconName": "plus-circle",
 			"name": "Registry Publishing",
 			"path": "registry",
 			"productSlugForLoader": "terraform-docs-common",

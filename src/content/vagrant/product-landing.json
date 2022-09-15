@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Development Environments Made Easy",
-		"image": "https://place-hold.it/600x320"
+		"image": "https://www.datocms-assets.com/2885/1662767777-dev-dot-vagrant-landing-hero-2x.png"
 	},
 	"overview": {
 		"heading": "What is Vagrant?",
@@ -23,6 +23,24 @@
 		]
 	},
 	"blocks": [
+		{
+			"type": "callout",
+			"heading": "Vagrant vs. Other Software",
+			"body": "Vagrant is not the only tool to manage virtual machines and development environments. ",
+			"iconCardLinks": [
+				{ "icon": "tools", "text": "CLI Tools", "url": "/todo" },
+				{
+					"icon": "docker-color",
+					"text": "Docker",
+					"url": "/terraform/tutorials/docker-get-started"
+				},
+				{
+					"icon": "terraform-color",
+					"text": "Terraform",
+					"url": "/terraform"
+				}
+			]
+		},
 		{
 			"type": "heading",
 			"heading": "Fundamentals",
@@ -161,6 +179,12 @@
 					"url": "/vault/tutorials/app-integration/eaas-spring-demo"
 				}
 			]
+		},
+		{
+			"type": "callout",
+			"heading": "Contributing to Vagrant During Hacktoberfest",
+			"body": "HashiCorp has some community guidelines to ensure our public forums are a safe space for everyone. When contributing to Vagrant, please respect the same guidelines. FPO Language for Contributions.",
+			"ctas": [{ "text": "Learn More", "url": "/todo" }]
 		}
 	]
 }

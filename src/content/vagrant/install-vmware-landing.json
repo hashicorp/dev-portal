@@ -1,0 +1,38 @@
+{
+	"featuredTutorialsSlugs": [
+		"vagrant/getting-started-index",
+		"vagrant/getting-started-boxes",
+		"vagrant/getting-started-networking"
+	],
+	"doesNotHavePackageManagers": true,
+	"sidecarMarketingCard": {
+		"title": "About Vagrant",
+		"subtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",
+		"featuredDocsLinks": [
+			{
+				"href": "/vagrant/docs/installation",
+				"text": "Install"
+			},
+			{
+				"href": "/vagrant/docs/cli",
+				"text": "Command-Line Interface"
+			},
+			{
+				"href": "/vagrant/docs/boxes",
+				"text": "Boxes"
+			},
+			{
+				"href": "/vagrant/docs/networking",
+				"text": "Networking"
+			},
+			{
+				"href": "/vagrant/docs/synced-folders",
+				"text": "Synced Folders"
+			},
+			{
+				"href": "/vagrant/docs/providers",
+				"text": "Providers"
+			}
+		]
+	}
+}
