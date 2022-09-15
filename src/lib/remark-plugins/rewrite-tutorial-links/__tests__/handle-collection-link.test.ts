@@ -33,7 +33,9 @@ describe('handleCollectionLink', () => {
 	test.each(testCases)(
 		'%p is rewritten to %p',
 		(testInput: string, expectedOutput: string) => {
-			expect(handleCollectionLink(testInput)).toEqual(expectedOutput)
+			expect(
+				handleCollectionLink(new URL(testInput, 'https://learn.hashicorp.com/'))
+			).toEqual(expectedOutput)
 		}
 	)
 })

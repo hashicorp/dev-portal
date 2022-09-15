@@ -164,7 +164,7 @@ export function rewriteTutorialsLink(
 			 * If the path type is not ambiguous, handle the path by type.
 			 */
 			if (isCollectionPath) {
-				newUrl = handleCollectionLink(urlWithoutOrigin)
+				newUrl = handleCollectionLink(urlObject)
 			} else if (isTutorialPath) {
 				newUrl = handleTutorialLink(urlWithoutOrigin, tutorialMap)
 			} else if (isProductHubPath) {
