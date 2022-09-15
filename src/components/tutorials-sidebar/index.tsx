@@ -7,10 +7,13 @@ import {
 	SidebarNavMenuItem,
 } from 'components/sidebar/components'
 import Sidebar from 'components/sidebar'
+import TutorialProgressIcon from 'components/tutorial-progress-icon'
+import { useTutorialProgress } from 'hooks/progress'
 import {
 	ListItemProps,
 	SectionListProps,
 	SectionTitleProps,
+	TutorialListItemProps,
 	TutorialSidebarProps,
 } from './types'
 import s from './tutorials-sidebar.module.css'
@@ -48,8 +51,20 @@ function CollectionViewSidebarContent({
 				return (
 					<Fragment key={title}>
 						<HorizontalRule />
-						<SectionTitle text={title} />
-						<SectionList items={items} />
+						{title ? <SectionTitle text={title} /> : null}
+						<SectionList>
+							{items.map(({ text, href, isActive, badge }: ListItemProps) => {
+								return (
+									<ListItem
+										key={`${text}${href}`}
+										text={text}
+										href={href}
+										isActive={isActive}
+										badge={badge}
+									/>
+								)
+							})}
+						</SectionList>
 					</Fragment>
 				)
 			})}
@@ -57,29 +72,64 @@ function CollectionViewSidebarContent({
 	)
 }
 
-function TutorialViewSidebarContent({ items }: SectionListProps) {
-	return <SectionList items={items} />
-}
-
-function SectionList({ items }: SectionListProps) {
+function TutorialViewSidebarContent({
+	items,
+}: {
+	items: TutorialListItemProps[]
+}) {
 	return (
-		<ul className={s.listRoot}>
-			{items.map(({ text, href, isActive }: ListItemProps) => {
-				return (
-					<ListItem
-						key={`${text}${href}`}
-						text={text}
-						href={href}
-						isActive={isActive}
-					/>
-				)
-			})}
-		</ul>
+		<SectionList>
+			{items.map(
+				({
+					text,
+					href,
+					isActive,
+					tutorialId,
+					collectionId,
+				}: TutorialListItemProps) => {
+					return (
+						<TutorialListItem
+							key={`${collectionId}${tutorialId}`}
+							text={text}
+							href={href}
+							isActive={isActive}
+							tutorialId={tutorialId}
+							collectionId={collectionId}
+						/>
+					)
+				}
+			)}
+		</SectionList>
 	)
 }
 
-function ListItem({ href, isActive, text }: ListItemProps) {
-	return <SidebarNavMenuItem item={{ isActive, title: text, href }} />
+function SectionList({ children }: SectionListProps) {
+	return <ul className={s.listRoot}>{children}</ul>
+}
+
+function TutorialListItem({
+	href,
+	isActive,
+	text,
+	tutorialId,
+	collectionId,
+}: TutorialListItemProps) {
+	/**
+	 * Query for progress, and display the appropriate status icon
+	 */
+	const { tutorialProgressStatus } = useTutorialProgress({
+		tutorialId,
+		collectionId,
+	})
+	const trailingIcon = <TutorialProgressIcon status={tutorialProgressStatus} />
+
+	return (
+		<SidebarNavMenuItem item={{ isActive, title: text, href, trailingIcon }} />
+	)
+}
+
+function ListItem({ href, isActive, text, badge }: ListItemProps) {
+	return <SidebarNavMenuItem item={{ isActive, title: text, href, badge }} />
 }
 
 function SectionTitle({ text }: SectionTitleProps) {

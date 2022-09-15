@@ -1,0 +1,50 @@
+{
+	"sidebarCategories": [
+		{
+			"name": "HCP Vault",
+			"items": [
+				{ "name": "Quickstart", "collectionSlug": "vault/cloud" },
+				{ "name": "Monitoring", "collectionSlug": "vault/cloud-monitoring" },
+				{ "name": "Operations", "collectionSlug": "vault/cloud-ops" }
+			]
+		},
+		{
+			"name": "HCP Consul",
+			"items": [
+				{ "name": "Quickstart", "collectionSlug": "consul/cloud-get-started" },
+				{
+					"name": "Production",
+					"collectionSlug": "consul/cloud-production"
+				},
+				{
+					"name": "Deploy Automation",
+					"collectionSlug": "consul/cloud-deploy-automation"
+				}
+			]
+		},
+
+		{
+			"name": "HCP Packer",
+			"items": [
+				{ "name": "Quickstart", "collectionSlug": "packer/hcp-get-started" },
+				{ "name": "Fundamentals", "collectionSlug": "packer/hcp" },
+				{ "name": "Use Cases", "collectionSlug": "packer/cloud-production" }
+			]
+		},
+		{
+			"name": "HCP Boundary",
+			"items": [
+				{
+					"name": "Quickstart",
+					"collectionSlug": "boundary/hcp-getting-started",
+					"isBeta": true
+				},
+				{
+					"name": "Administration",
+					"collectionSlug": "boundary/hcp-administration",
+					"isBeta": true
+				}
+			]
+		}
+	]
+}

@@ -1,6 +1,9 @@
 .root {
-  background-color: white;
-  border-radius: 6px;
-  padding: 16px;
-  width: 100%;
+	/* used by components like CardLink */
+	--card-border-radius: 6px;
+
+	background-color: white;
+	border-radius: var(--card-border-radius);
+	padding: 16px;
+	width: 100%;
 }

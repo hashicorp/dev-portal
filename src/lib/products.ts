@@ -19,6 +19,22 @@ const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
 }
 
 /**
+ * A map of product slugs to their "dot io" site hostname.
+ */
+const productSlugsToHostNames: { [slug in ProductSlug]: string } = {
+	boundary: 'boundaryproject.io',
+	consul: 'consul.io',
+	hcp: 'cloud.hashicorp.com',
+	nomad: 'nomadproject.io',
+	packer: 'packer.io',
+	sentinel: 'docs.hashicorp.com',
+	terraform: 'terraform.io',
+	vagrant: 'vagrantup.com',
+	vault: 'vaultproject.io',
+	waypoint: 'waypointproject.io',
+}
+
+/**
  * Type guard to determine if a string is a ProductSlug
  *
  * TODO: should we define ProductSlug as an enum,
@@ -41,4 +57,10 @@ const products: Product[] = productSlugs.map((slug: ProductSlug) => {
 	return { name, slug }
 })
 
-export { isProductSlug, products, productSlugs, productSlugsToNames }
+export {
+	isProductSlug,
+	products,
+	productSlugs,
+	productSlugsToHostNames,
+	productSlugsToNames,
+}

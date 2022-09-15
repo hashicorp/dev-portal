@@ -19,12 +19,12 @@
 			}
 		]
 	},
-	"alertBannerActive": false,
+	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "June 21-22",
-		"url": "https://hashiconf.com/europe?utm_source=Banner",
-		"text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
-		"linkText": "Join Now",
+		"tag": "Just announced",
+		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "HashiConf Global full schedule: keynotes, sessions, labs & more.",
+		"linkText": "Register Now",
 		"expirationDate": ""
 	},
 	"version": "2.2.19",
@@ -47,14 +47,26 @@
 		}
 	],
 	"basePaths": ["docs", "intro", "vagrant-cloud", "vmware"],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/vagrant/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/vagrant/docs/installation"
-			}
-		]
-	},
-	"navigationHeaderItems": {}
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "General Documentation",
+			"path": "docs",
+			"shortName": "Documentation"
+		},
+		{
+			"iconName": "entry-point",
+			"name": "Intro",
+			"path": "intro"
+		},
+		{
+			"iconName": "cloud",
+			"name": "Vagrant Cloud",
+			"path": "vagrant-cloud"
+		}
+	],
+	"devDotCutoverMessage": {
+		"showCutoverDate": false,
+		"cutoverDate": "Oct 18, 2022"
+	}
 }

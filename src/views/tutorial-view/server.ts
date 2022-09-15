@@ -1,5 +1,9 @@
 import moize, { Options } from 'moize'
-import { LearnProductData, LearnProductSlug } from 'types/products'
+import {
+	LearnProductData,
+	LearnProductName,
+	LearnProductSlug,
+} from 'types/products'
 
 import {
 	getAllCollections,
@@ -23,6 +27,8 @@ import {
 } from './utils/get-collection-context'
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
+import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
+import { isProductSlug } from 'lib/products'
 
 export interface TutorialPageProps {
 	tutorial: TutorialData
@@ -40,11 +46,16 @@ export interface TutorialPageProps {
  * which is needed for other areas of the app to function.
  */
 export async function getTutorialPageProps(
-	product: LearnProductData,
+	product: {
+		name: LearnProductName
+		slug: LearnProductSlug | 'hcp'
+	},
 	slug: [string, string]
 ): Promise<{ props: TutorialPageProps } | null> {
+	// product.slug may be "hcp", needs to be "cloud" for Learn API use
+	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
-		product.slug as ProductOption,
+		learnProductSlug as ProductOption,
 		slug
 	)
 
@@ -74,7 +85,7 @@ export async function getTutorialPageProps(
 	 * after clicking the level-up button at the top of the Sidebar.
 	 */
 	const sidebarSections = await getCollectionViewSidebarSections(
-		product,
+		product.slug,
 		collection.data
 	)
 	const layoutProps = {
@@ -166,9 +177,12 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const shouldBuildTutorialPath =
-			getIsBetaProduct(productSlugFromCollection as LearnProductSlug) &&
-			productSlugFromCollection === collection.theme
+		const isBetaProduct =
+			isProductSlug(productSlugFromCollection) &&
+			getIsBetaProduct(productSlugFromCollection)
+		const isCloud = productSlugFromCollection == 'cloud'
+		const themeMatches = productSlugFromCollection === collection.theme
+		const shouldBuildTutorialPath = isBetaProduct && (isCloud || themeMatches)
 
 		if (shouldBuildTutorialPath) {
 			// go through the tutorials within the collection, create a path for each

@@ -1,6 +1,7 @@
-import { ReactNode } from 'react'
+import { ReactElement, ReactNode } from 'react'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 import { SidebarMobileControlsProps } from './components/sidebar-mobile-controls'
+import { SidebarNavMenuItemBadgeProps } from './components/sidebar-nav-menu-item/types'
 
 /**
  * Interfaces for each nav item in their raw form, before any enrichment or
@@ -118,8 +119,16 @@ interface MenuItem {
 	path?: string
 	routes?: MenuItem[]
 	title?: string
-	/* Temporary solution to allow rendering of unlinked headings, as in designs */
 	heading?: string
+	isOpen?: boolean
+	/**
+	 * Optional icon to display at right of the menu item.
+	 * Note that if this menu item is an external link,
+	 * the `trailingIcon` will be ignored and an external link
+	 * icon will be shown instead.
+	 */
+	trailingIcon?: ReactElement
+	badge?: SidebarNavMenuItemBadgeProps
 }
 
 interface SidebarBaseProps {

@@ -51,7 +51,7 @@ function VaultDocsLandingPage({
 			baseRoute={basePath}
 			versions={versions}
 			algoliaConfig={productData.algoliaConfig}
-			optInBanner={<DevDotOptIn />}
+			optInBanner={<DevDotOptIn {...productData.devDotCutoverMessage} />}
 		>
 			<ProductDocsLanding content={PAGE_CONTENT} />
 		</DocsPageInner>

@@ -1,11 +1,13 @@
 // Third-party imports
 import Link from 'next/link'
+import classNames from 'classnames'
 
 // HashiCorp Imports
 import InlineSvg from '@hashicorp/react-inline-svg'
 import BoundaryLogo from '@hashicorp/mktg-logos/product/boundary/primary-padding/colorwhite.svg?include'
 import ConsulLogo from '@hashicorp/mktg-logos/product/consul/primary-padding/colorwhite.svg?include'
 import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
+import HCPLogo from '@hashicorp/mktg-logos/product/hcp/no-logomark/white.svg?include'
 import NomadLogo from '@hashicorp/mktg-logos/product/nomad/primary-padding/colorwhite.svg?include'
 import PackerLogo from '@hashicorp/mktg-logos/product/packer/primary-padding/colorwhite.svg?include'
 import TerraformLogo from '@hashicorp/mktg-logos/product/terraform/primary-padding/colorwhite.svg?include'
@@ -14,11 +16,12 @@ import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/color
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 
 // Global imports
-import { ProductSlug } from 'types/products'
+import { DocsNavItem, ProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct, useIsBetaProduct } from 'contexts'
+import { NavigationHeaderItemGroup } from 'components/navigation-header/types'
 
 // Local imports
 import {
@@ -28,18 +31,7 @@ import {
 } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './product-page-content.module.css'
-
-/**
- * Defined the navigation items for all pages that live under `/{productSlug}`
- * routes. If this becomes authorable, it can be lifted into another area of the
- * codebase.
- */
-const PRODUCT_PAGE_NAV_ITEMS = [
-	{ label: 'Home', pathSuffix: '' },
-	{ label: 'Documentation', id: 'documentation', isSubmenu: true },
-	{ label: 'Tutorials', pathSuffix: 'tutorials' },
-	{ label: 'Install', pathSuffix: 'downloads' },
-]
+import { getNavItems } from './utils/get-nav-items'
 
 /**
  * A mapping of Product slugs to their imported SVG colorwhite logos. Used for
@@ -49,7 +41,7 @@ const PRODUCT_PAGE_NAV_ITEMS = [
  * as we do not yet have a confirmed design treatment.
  */
 const PRODUCT_SLUGS_TO_LOGOS: Record<
-	Exclude<ProductSlug, 'sentinel' | 'hcp'>,
+	Exclude<ProductSlug, 'sentinel'>,
 	string
 > = {
 	boundary: BoundaryLogo,
@@ -60,6 +52,7 @@ const PRODUCT_SLUGS_TO_LOGOS: Record<
 	vagrant: VagrantLogo,
 	vault: VaultLogo,
 	waypoint: WaypointLogo,
+	hcp: HCPLogo,
 }
 
 const ProductPageHeaderContent = () => {
@@ -111,16 +104,25 @@ const ProductPageHeaderContent = () => {
 			color: 'highlight' as const,
 		},
 	}
-	const allMainMenuItems = [
+
+	// Construct item groups for the dropdown, avoid adding empty groups
+	const allMainMenuItems: NavigationHeaderItemGroup[] = [
 		{ items: [homeMenuItem] },
-		{ items: betaProductItems, label: 'Products' },
-		{ items: comingSoonProductItems, label: 'Coming Soon' },
 	]
+	if (betaProductItems.length) {
+		allMainMenuItems.push({ label: 'Products', items: betaProductItems })
+	}
+	if (comingSoonProductItems.length) {
+		allMainMenuItems.push({
+			label: 'Coming Soon',
+			items: comingSoonProductItems,
+		})
+	}
 
 	return (
 		<div className={sharedNavStyles.leftSide}>
 			<div className={sharedNavStyles.contentBeforeNav}>
-				<div className="g-hide-on-mobile g-hide-on-tablet">
+				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 					<NavigationHeaderDropdownMenu
 						ariaLabel="Main menu"
 						buttonClassName={s.companyLogoMenuButton}
@@ -136,29 +138,31 @@ const ProductPageHeaderContent = () => {
 						className={s.productLogoLink}
 					>
 						<InlineSvg
-							className={sharedNavStyles.productLogo}
+							className={classNames(
+								sharedNavStyles.productLogo,
+								currentProduct.slug === 'hcp' && s.hcpLogo
+							)}
 							src={productLogo}
 						/>
 					</a>
 				</Link>
 			</div>
 			{isBetaProduct && (
-				<div className="g-hide-on-mobile g-hide-on-tablet">
+				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 					<nav className={sharedNavStyles.nav}>
 						<ul className={sharedNavStyles.navList}>
-							{PRODUCT_PAGE_NAV_ITEMS.map((navItem) => {
-								const { isSubmenu, label } = navItem
-								const ariaLabel = `${currentProduct.name} ${label}`
+							{getNavItems(currentProduct).map((navItem) => {
+								const ariaLabel = `${currentProduct.name} ${navItem.label}`
 
 								let ItemContent
-								if (isSubmenu) {
+								if (navItem.hasOwnProperty('items')) {
 									ItemContent = PrimaryNavSubmenu
 								} else {
 									ItemContent = PrimaryNavLink
 								}
 
 								return (
-									<li key={label}>
+									<li key={navItem.label}>
 										<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
 									</li>
 								)

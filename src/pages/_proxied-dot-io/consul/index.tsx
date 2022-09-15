@@ -36,7 +36,7 @@ function Homepage({ data }): React.ReactElement {
 		inPracticeCtaImage,
 		useCasesHeading,
 		useCasesDescription,
-		useCasesCards,
+		useCases,
 		tutorialsHeading,
 		tutorialCards,
 		caseStudiesHeading,
@@ -52,13 +52,12 @@ function Homepage({ data }): React.ReactElement {
 	} = data
 	const _introCallout = introCallout[0]
 	const _introVideo = introVideo[0]
-
 	return (
 		<>
 			<Head>{renderMetaTags(seo)}</Head>
 
 			<IoHomeHero
-				pattern="/consul/img/home-hero-pattern.svg"
+				pattern="/consul-public/img/home-hero-pattern.svg"
 				brand="consul"
 				heading={heroHeading}
 				description={heroDescription}
@@ -118,27 +117,28 @@ function Homepage({ data }): React.ReactElement {
 				}
 			/>
 
-			<section className={s.useCases}>
-				<div className={s.container}>
-					<IoCardContainer
-						heading={useCasesHeading}
-						description={useCasesDescription}
-						cardsPerRow={4}
-						cards={useCasesCards.map((card) => {
-							return {
-								eyebrow: card.eyebrow,
-								link: {
-									url: card.link,
-									type: 'inbound',
-								},
-								heading: card.heading,
-								description: card.description,
-								products: card.products,
-							}
-						})}
-					/>
-				</div>
-			</section>
+			{useCases.length > 0 ? (
+				<section className={s.useCases}>
+					<div className={s.container}>
+						<IoCardContainer
+							heading={useCasesHeading}
+							description={useCasesDescription}
+							cardsPerRow={4}
+							cards={useCases.map((usecase) => {
+								return {
+									link: {
+										url: `/use-cases/${usecase.slug}`,
+										type: 'inbound',
+									},
+									heading: usecase.shortHeading || usecase.heroHeading,
+									description:
+										usecase.shortDescription || usecase.heroDescription,
+								}
+							})}
+						/>
+					</div>
+				</section>
+			) : null}
 
 			<section className={s.tutorials}>
 				<div className={s.container}>
@@ -163,7 +163,7 @@ function Homepage({ data }): React.ReactElement {
 
 			<IoHomeInPractice
 				brand="consul"
-				pattern="/consul/img/practice-pattern.svg"
+				pattern="/consul-public/img/practice-pattern.svg"
 				heading={inPracticeHeading}
 				description={inPracticeDescription}
 				cards={inPracticeCards.map((card) => {

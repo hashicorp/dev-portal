@@ -2,6 +2,7 @@ import rivet from 'rivet-graphql'
 import boundary from 'data/boundary.json'
 import consul from 'data/consul.json'
 import nomad from 'data/nomad.json'
+import packer from 'data/packer.json'
 import sentinel from 'data/sentinel.json'
 import vagrant from 'data/vagrant.json'
 import vault from 'data/vault.json'
@@ -26,6 +27,7 @@ const productConfig = [
 	boundary,
 	consul,
 	nomad,
+	packer,
 	sentinel,
 	vagrant,
 	vault,

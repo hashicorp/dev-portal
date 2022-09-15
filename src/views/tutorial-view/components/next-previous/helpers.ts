@@ -3,22 +3,23 @@ import {
 	CollectionLite as ClientCollectionLite,
 	TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
-import {
-	getCollectionSlug,
-	getTutorialSlug,
-} from 'views/collection-view/helpers'
 import { NextPreviousProps } from '.'
 
 interface GetNextPreviousParams {
 	currentTutorialSlug: string
 	currentCollection: ClientCollection
 	nextCollectionInSidebar: ClientCollectionLite
+	formatting: {
+		getCollectionSlug(collectionSlug): string
+		getTutorialSlug(tutorialSlug: string, collectionSlug: string): string
+	}
 }
 
 export function getNextPrevious({
 	currentTutorialSlug,
 	currentCollection,
 	nextCollectionInSidebar,
+	formatting,
 }: GetNextPreviousParams): NextPreviousProps {
 	let previousTutorial
 	let nextTutorial
@@ -33,7 +34,7 @@ export function getNextPrevious({
 	if (!isFirstTutorial) {
 		const { slug, name } = currentCollection.tutorials[tutorialIndex - 1]
 		previousTutorial = {
-			path: getTutorialSlug(slug, currentCollection.slug),
+			path: formatting.getTutorialSlug(slug, currentCollection.slug),
 			name,
 		}
 	}
@@ -41,14 +42,14 @@ export function getNextPrevious({
 	if (!isLastTutorial) {
 		const { slug, name } = currentCollection.tutorials[tutorialIndex + 1]
 		nextTutorial = {
-			path: getTutorialSlug(slug, currentCollection.slug),
+			path: formatting.getTutorialSlug(slug, currentCollection.slug),
 			name,
 		}
 	}
 
 	if (nextCollectionInSidebar) {
 		nextCollection = {
-			path: getCollectionSlug(nextCollectionInSidebar.slug),
+			path: formatting.getCollectionSlug(nextCollectionInSidebar.slug),
 			name: nextCollectionInSidebar.shortName,
 		}
 	}
@@ -61,8 +62,17 @@ export function getNextPrevious({
 	 *
 	 * Since don't have an advanced search page for beta,
 	 * were linking folks back to the baseproduct tutorials page.
+	 *
 	 */
-	const finalLink = `/${currentCollection.theme}/tutorials`
+	let finalLink = `/${currentCollection.theme}/tutorials`
+	const currentCollectionSection = currentCollection.slug.split('/')[0]
+
+	if (currentCollectionSection === 'well-architected-framework') {
+		finalLink = '/well-architected-framework'
+	} else if (currentCollectionSection === 'onboarding') {
+		/** @TODO - remove this once the tutorial library is released */
+		finalLink = 'https://learn.hashicorp.com/search'
+	}
 
 	const tutorial = {
 		previous: previousTutorial,
@@ -72,7 +82,7 @@ export function getNextPrevious({
 
 	const collection = {
 		current: {
-			path: getCollectionSlug(currentCollection.slug),
+			path: formatting.getCollectionSlug(currentCollection.slug),
 			name: currentCollection.shortName,
 		},
 		next: nextCollection,
