@@ -97,7 +97,10 @@ function rewriteApiToApiDocs(inputUrl: string): string {
  * For example, Waypoint content contains links that start with "/docs",
  * but we need to be adjust these links to start with "/waypoint/docs".
  */
-function rewriteDocsUrl(inputUrl: string, currentProduct: ProductData): string {
+export function rewriteDocsUrl(
+	inputUrl: string,
+	currentProduct: ProductData
+): string {
 	// We only want to adjust internal URLs, so we return absolute URLs as-is
 	if (isAbsoluteUrl(inputUrl)) {
 		return inputUrl
