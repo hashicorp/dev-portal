@@ -11,6 +11,7 @@ import { getTutorialSlug } from 'views/collection-view/helpers'
 export function getTutorialCardPropsFromHit(hit): TutorialCardPropsWithId {
 	return {
 		id: hit.id,
+		collectionId: hit.defaultContext.id,
 		url: getTutorialSlug(hit.slug, hit.defaultContext.slug),
 		duration: getReadableTime(hit.readTime),
 		heading: hit.name,
