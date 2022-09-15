@@ -31,7 +31,7 @@ const queryHook: UseSearchBoxProps['queryHook'] = (query, search) => {
 
 /**
  *
- * @TODO pagination
+ * View for the tutorial library page. Assumes it is wrapped in an `InstantSearch` component, which provides the necessary search data
  */
 export default function TutorialLibraryView({
 	defaultTutorials,
