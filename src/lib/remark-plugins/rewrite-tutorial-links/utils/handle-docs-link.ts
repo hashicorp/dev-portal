@@ -20,6 +20,8 @@ export function handleDocsLink(nodePath: string, product: ProductSlug) {
 		.replace(/(\/index)?.html/, '')
 	const isApiDocsPath = finalPath.includes('/api/')
 
+	console.log(isApiDocsPath, finalPath)
+
 	if (isApiDocsPath) {
 		finalPath = finalPath.replace('/api/', '/api-docs/')
 	}
