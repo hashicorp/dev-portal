@@ -16,35 +16,122 @@ const testEachCase = (cases: [string, ProductSlug, string][]) => {
 }
 
 describe('handleDocsLink', () => {
-	describe('when the base path is not "api"', () => {
+	describe('when neither `search` nor `hash` are present', () => {
+		describe('when the base path is not "api"', () => {
+			testEachCase([
+				['/docs', 'waypoint', '/waypoint/docs'],
+				['/docs/some/path', 'waypoint', '/waypoint/docs/some/path'],
+			])
+		})
+
+		describe('when the base path is "api"', () => {
+			testEachCase([
+				['/api', 'waypoint', '/waypoint/api-docs'],
+				['/api/some/path', 'waypoint', '/waypoint/api-docs/some/path'],
+			])
+		})
+
+		describe('when the page is "index.html"', () => {
+			testEachCase([
+				['/docs/index.html', 'waypoint', '/waypoint/docs'],
+				['/docs/some/path/index.html', 'waypoint', '/waypoint/docs/some/path'],
+				['/api/index.html', 'waypoint', '/waypoint/api-docs'],
+				[
+					'/api/some/path/index.html',
+					'waypoint',
+					'/waypoint/api-docs/some/path',
+				],
+			])
+		})
+
+		describe('when the page ends with ".html"', () => {
+			testEachCase([
+				['/docs/page.html', 'waypoint', '/waypoint/docs/page'],
+				['/docs/some/path.html', 'waypoint', '/waypoint/docs/some/path'],
+				['/api/page.html', 'waypoint', '/waypoint/api-docs/page'],
+				['/api/some/path.html', 'waypoint', '/waypoint/api-docs/some/path'],
+			])
+		})
+	})
+
+	describe('when `search` is present, and `hash` is NOT present', () => {
 		testEachCase([
-			['/docs', 'waypoint', '/waypoint/docs'],
-			['/docs/some/path', 'waypoint', '/waypoint/docs/some/path'],
+			['/docs?paramA=valueA', 'waypoint', '/waypoint/docs?paramA=valueA'],
+			['/api?paramA=valueA', 'waypoint', '/waypoint/api-docs?paramA=valueA'],
+			[
+				'/docs/index.html?paramA=valueA',
+				'waypoint',
+				'/waypoint/docs?paramA=valueA',
+			],
+			[
+				'/api/index.html?paramA=valueA',
+				'waypoint',
+				'/waypoint/api-docs?paramA=valueA',
+			],
+			[
+				'/docs/page.html?paramA=valueA',
+				'waypoint',
+				'/waypoint/docs/page?paramA=valueA',
+			],
+			[
+				'/api/page.html?paramA=valueA',
+				'waypoint',
+				'/waypoint/api-docs/page?paramA=valueA',
+			],
 		])
 	})
 
-	describe('when the base path is "api"', () => {
+	describe('when `search` is NOT present, and `hash` is present', () => {
 		testEachCase([
-			['/api', 'waypoint', '/waypoint/api-docs'],
-			['/api/some/path', 'waypoint', '/waypoint/api-docs/some/path'],
+			['/docs#test-hash', 'waypoint', '/waypoint/docs#test-hash'],
+			['/api#test-hash', 'waypoint', '/waypoint/api-docs#test-hash'],
+			['/docs/index.html#test-hash', 'waypoint', '/waypoint/docs#test-hash'],
+			['/api/index.html#test-hash', 'waypoint', '/waypoint/api-docs#test-hash'],
+			[
+				'/docs/page.html#test-hash',
+				'waypoint',
+				'/waypoint/docs/page#test-hash',
+			],
+			[
+				'/api/page.html#test-hash',
+				'waypoint',
+				'/waypoint/api-docs/page#test-hash',
+			],
 		])
 	})
 
-	describe('when the page is "index.html"', () => {
+	describe('when both `search` and `hash` are present', () => {
 		testEachCase([
-			['/docs/index.html', 'waypoint', '/waypoint/docs'],
-			['/docs/some/path/index.html', 'waypoint', '/waypoint/docs/some/path'],
-			['/api/index.html', 'waypoint', '/waypoint/api-docs'],
-			['/api/some/path/index.html', 'waypoint', '/waypoint/api-docs/some/path'],
-		])
-	})
-
-	describe('when the page ends with ".html"', () => {
-		testEachCase([
-			['/docs/page.html', 'waypoint', '/waypoint/docs/page'],
-			['/docs/some/path.html', 'waypoint', '/waypoint/docs/some/path'],
-			['/api/page.html', 'waypoint', '/waypoint/api-docs/page'],
-			['/api/some/path.html', 'waypoint', '/waypoint/api-docs/some/path'],
+			[
+				'/docs?paramA=valueA#test-hash',
+				'waypoint',
+				'/waypoint/docs?paramA=valueA#test-hash',
+			],
+			[
+				'/api?paramA=valueA#test-hash',
+				'waypoint',
+				'/waypoint/api-docs?paramA=valueA#test-hash',
+			],
+			[
+				'/docs/index.html?paramA=valueA#test-hash',
+				'waypoint',
+				'/waypoint/docs?paramA=valueA#test-hash',
+			],
+			[
+				'/api/index.html?paramA=valueA#test-hash',
+				'waypoint',
+				'/waypoint/api-docs?paramA=valueA#test-hash',
+			],
+			[
+				'/docs/page.html?paramA=valueA#test-hash',
+				'waypoint',
+				'/waypoint/docs/page?paramA=valueA#test-hash',
+			],
+			[
+				'/api/page.html?paramA=valueA#test-hash',
+				'waypoint',
+				'/waypoint/api-docs/page?paramA=valueA#test-hash',
+			],
 		])
 	})
 })
