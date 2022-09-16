@@ -8,6 +8,15 @@ const config: Config.InitialOptions = {
 		'!**/*.d.ts',
 		'!**/node_modules/**',
 	],
+	// https://jestjs.io/docs/configuration#coveragethreshold-object
+	coverageThreshold: {
+		global: {
+			branches: 5,
+			functions: 5,
+			lines: 5,
+			statements: 5,
+		},
+	},
 	moduleDirectories: ['node_modules', 'src'],
 	moduleNameMapper: {
 		/* Handle CSS imports (with CSS modules)
@@ -39,4 +48,4 @@ const config: Config.InitialOptions = {
 	],
 }
 
-export default config
+module.exports = config
