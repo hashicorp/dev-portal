@@ -100,4 +100,16 @@ describe('getIsLearnLink', () => {
 			)
 		})
 	})
+
+	describe('links already in the DevDot format', () => {
+		testEachCase([
+			['/waypoint/tutorials', false],
+			['/waypoint/tutorials/collection-slug', false],
+			['/waypoint/tutorials/collection-slug/tutorial-slug', false],
+			['/well-architected-framework/collection-slug', false],
+			['/well-architected-framework/collection-slug/tutorial-slug', false],
+			['/onboarding/collection-slug', false],
+			['/onboarding/collection-slug/tutorial-slug', false],
+		])
+	})
 })
