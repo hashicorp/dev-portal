@@ -42,27 +42,27 @@
 }
 
 .textArea {
-	color: var(--token-color-foreground-faint);
+	composes: hds-surface-base from global;
 	composes: hds-typography-body-200 from global;
+	border: 1px solid var(--token-color-border-primary);
+	border-radius: 6px;
+	color: var(--token-color-foreground-faint);
 	width: 100%;
 	resize: none;
 	height: 100px;
 	padding: 12px;
-	border: 1px solid var(--token-color-border-primary);
-	box-shadow: var(--token-surface-base-box-shadow);
-	border-radius: 6px;
 }
 
 .labelWrapper {
 	display: flex;
 	gap: 8px;
-
-	/* align-items: center; */
+	align-items: center;
 }
 
 .labelIcon {
 	--size: 28px;
 
+	background: var(--token-color-surface-faint);
 	border: 1px solid var(--token-color-border-primary);
 	box-shadow: var(--token-elevation-low-box-shadow);
 	border-radius: 5px;
