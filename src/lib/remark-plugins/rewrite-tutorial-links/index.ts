@@ -25,6 +25,7 @@ import { ProductOption, SectionOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToHostNames } from 'lib/products'
 import {
+	getIsDocsLink,
 	getIsLearnLink,
 	getTutorialMap,
 	handleCollectionLink,
@@ -34,33 +35,8 @@ import {
 
 let TUTORIAL_MAP
 
-const ACCEPTED_DOCS_PATHNAMES = [
-	'docs',
-	'api',
-	'api-docs',
-	'commands',
-	'plugins',
-	'tools',
-	'vagrant-cloud',
-	'intro',
-	'cdktf',
-	'cli',
-	'cloud-docs',
-	'enterprise',
-	'internals',
-	'language',
-	'plugin',
-	'registry',
-]
-
 const learnProductOptions = Object.keys(ProductOption).join('|')
 const learnSectionOptions = Object.keys(SectionOption).join('|')
-
-const docsLink = new RegExp(
-	`(${Object.values(productSlugsToHostNames).join(
-		'|'
-	)})/(${ACCEPTED_DOCS_PATHNAMES.join('|')})`
-)
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
 	return async function transformer(tree) {
@@ -98,9 +74,10 @@ export function rewriteTutorialsLink(
 
 	try {
 		const isLearnLink = getIsLearnLink(url)
+		const isDocsLink = getIsDocsLink(url)
 
 		// return early if non tutorial or collection link
-		if (!isLearnLink && !docsLink.test(url)) {
+		if (!isLearnLink && !isDocsLink) {
 			return newUrl
 		}
 
