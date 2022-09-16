@@ -49,7 +49,9 @@ const getIsLearnLink = (link: string): boolean => {
 	 * for a product hub page.
 	 */
 	if (numPathnameParts === 1) {
-		return productAndSectionOptions.includes(basePath)
+		return (
+			basePath !== 'onboarding' && productAndSectionOptions.includes(basePath)
+		)
 	}
 
 	/**
