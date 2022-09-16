@@ -1,7 +1,6 @@
 // Third-party imports
 import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LazyMotion } from 'framer-motion'
@@ -31,7 +30,6 @@ import fetchLayoutProps, {
 } from 'lib/_proxied-dot-io/fetch-layout-props'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
-import { makeWelcomeToast } from 'lib/make-welcome-notification'
 import EmptyLayout from 'layouts/empty'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
@@ -64,16 +62,8 @@ export default function App({
 	layoutProps,
 	host,
 }: CustomAppProps & Awaited<ReturnType<typeof App['getInitialProps']>>) {
-	const { isReady, pathname } = useRouter()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
-
-	useEffect(() => {
-		// Don't show toast on homepage
-		if (isReady && pathname !== '/') {
-			makeWelcomeToast()
-		}
-	}, [isReady, pathname])
 
 	/**
 	 * Initalize QueryClient with `useState` to ensure that data is not shared
