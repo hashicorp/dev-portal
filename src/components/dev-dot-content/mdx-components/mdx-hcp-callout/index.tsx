@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
-import { MdxCalloutProps, SolutionOption } from './types'
-import s from './mdx-callout.module.css'
+import { HcpProductName } from 'types/products'
+import { MdxHcpCalloutProps, SolutionOption } from './types'
 import patternInfrastructure from './img/infrastructure.png'
 import patternNetworking from './img/networking.png'
 import patternSecurity from './img/security.png'
+import s from './mdx-callout.module.css'
 
 const PATTERN_IMG_MAP: Record<SolutionOption, string> = {
 	infrastructure: patternInfrastructure,
@@ -15,22 +15,27 @@ const PATTERN_IMG_MAP: Record<SolutionOption, string> = {
 	security: patternSecurity,
 }
 
-const solutionGroup = 'networking'
-const product = 'Vault'
-// export default function MdxCallout({
-// 	product,
-// 	solutionGroup,
-// }: // heading,
-// // subheading,
-// // cta
-// MdxCalloutProps) {
-export default function MdxCallout() {
+const SOLUTION_MAP: Record<SolutionOption, HcpProductName[]> = {
+	infrastructure: ['Packer'],
+	networking: ['Consul'],
+	security: ['Boundary', 'Vault'],
+}
+
+export default function MdxHcpCallout({
+	product = 'Vault',
+}: MdxHcpCalloutProps) {
+	const solution = Object.keys(SOLUTION_MAP).find((group: SolutionOption) =>
+		SOLUTION_MAP[group].includes(product)
+	)
+
+	console.log(solution)
+
 	return (
 		<div
 			className={s.root}
 			style={
 				{
-					'--gradient': `var(--wpl-gradient-${solutionGroup}-horizontal)`,
+					'--gradient': `var(--wpl-gradient-${solution}-horizontal)`,
 				} as React.CSSProperties
 			}
 		>
@@ -38,7 +43,6 @@ export default function MdxCallout() {
 				<Text asElement="p" weight="bold" color="var(--white)">
 					Looking for <span className={s.solutionGradient}>{product}</span>{' '}
 					documentation?
-					{/* {heading} */}
 				</Text>
 				<Text
 					asElement="p"
@@ -46,13 +50,10 @@ export default function MdxCallout() {
 					color="var(--white)"
 					className={s.subHeading}
 				>
-					To reference non-cloud documentation go to the {product} docs
-					page.dev0
-					{/* {subHeading} */}
+					To reference non-cloud documentation go to the {product} docs page.
 				</Text>
 				<div className={s.ctaWrapper}>
 					<span className={s.ctaText}>{`Go to ${product}`}</span>
-					{/* <span className={s.ctaText}>{cta.text}</span> */}
 					<IconArrowRight16 color="var(--white)" />
 				</div>
 				{/* <StandaloneLink
@@ -66,7 +67,7 @@ export default function MdxCallout() {
 			</div>
 			<div className={s.solutionPattern}>
 				<Image
-					src={PATTERN_IMG_MAP[solutionGroup]}
+					src={PATTERN_IMG_MAP[solution]}
 					/** Note: pattern image is purely decorative */
 					alt=""
 					layout="fill"
@@ -77,7 +78,6 @@ export default function MdxCallout() {
 			<Link href={`/${product}/docs`}>
 				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
 				<a className={s.link} aria-label={`Go to ${product}`} />
-				{/* <a className={s.link} aria-label={cta.url} /> */}
 			</Link>
 		</div>
 	)

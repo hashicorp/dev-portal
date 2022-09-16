@@ -26,7 +26,6 @@
 	}
 }
 
-/* copy of standalone link styles */
 .ctaWrapper {
 	composes: g-focus-ring-from-box-shadow from global;
 	align-items: center;
