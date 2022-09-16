@@ -10,7 +10,7 @@ import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import ProductDocsSearch from './components/product-docs-search'
 import s from './docs-view.module.css'
-import MdxCallout from 'components/dev-dot-content/mdx-components/mdx-callout'
+import MdxCallout from 'components/dev-dot-content/mdx-components/mdx-hcp-callout'
 import { ProductOption } from 'lib/learn-client/types'
 
 /**
@@ -60,10 +60,14 @@ const SentinelEmbedded = dynamic(
 	() => import('@hashicorp/react-sentinel-embedded')
 )
 
+const HcpCallout = dynamic(
+	() => import('components/dev-dot-content/mdx-components/mdx-hcp-callout')
+)
+
 const productsToPrimitives: ProductsToPrimitivesMap = {
 	boundary: null,
 	consul: { ConfigEntryReference },
-	hcp: null,
+	hcp: { HcpCallout },
 	nomad: { Placement },
 	packer: { Badge, BadgesHeader, Checklist, PluginBadge },
 	sentinel: { SentinelEmbedded },
@@ -101,7 +105,7 @@ const DocsView = ({
 					</div>
 				) : null}
 				<NoIndexTagIfVersioned />
-				<MdxCallout solutionGroup="security" product={ProductOption.vault} />
+				{/* <MdxCallout solutionGroup="security" product={ProductOption.vault} /> */}
 				<TabProvider>
 					<MDXRemote
 						compiledSource={compiledSource}

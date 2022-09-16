@@ -15,13 +15,16 @@ const PATTERN_IMG_MAP: Record<SolutionOption, string> = {
 	security: patternSecurity,
 }
 
-export default function MdxCallout({
-	product,
-	solutionGroup,
-}: // heading,
-// subheading,
-// cta
-MdxCalloutProps) {
+const solutionGroup = 'networking'
+const product = 'Vault'
+// export default function MdxCallout({
+// 	product,
+// 	solutionGroup,
+// }: // heading,
+// // subheading,
+// // cta
+// MdxCalloutProps) {
+export default function MdxCallout() {
 	return (
 		<div
 			className={s.root}
@@ -48,7 +51,7 @@ MdxCalloutProps) {
 					{/* {subHeading} */}
 				</Text>
 				<div className={s.ctaWrapper}>
-					{/* <span className={s.ctaText}>{`Go to ${product}`}</span> */}
+					<span className={s.ctaText}>{`Go to ${product}`}</span>
 					{/* <span className={s.ctaText}>{cta.text}</span> */}
 					<IconArrowRight16 color="var(--white)" />
 				</div>
