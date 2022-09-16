@@ -11,15 +11,17 @@ import s from './core-dev-dot-layout.module.css'
 
 const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	const router = useRouter()
-	const isSwingset = router.asPath.startsWith('/swingset')
-	const isToastPath = router.pathname !== '/' && !isSwingset
+	const { asPath, pathname, isReady } = router
+
+	const isSwingset = asPath.startsWith('/swingset')
+	const isToastPath = pathname !== '/' && !isSwingset
 
 	useEffect(() => {
 		// Don't show toast on homepage or swingset
-		if (router.isReady && isToastPath) {
+		if (isReady && isToastPath) {
 			makeWelcomeToast()
 		}
-	}, [router.isReady, isToastPath])
+	}, [isReady, isToastPath])
 
 	return (
 		<MobileMenuProvider>
