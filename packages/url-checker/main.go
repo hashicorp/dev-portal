@@ -65,40 +65,17 @@ func main() {
 	})
 
 	c.OnRequest(func(r *colly.Request) {
-		// fmt.Println("Visiting", r.URL)
+		// noop
 	})
 
 	c.OnResponse(func(r *colly.Response) {
-		// filename := fmt.Sprintf("%d.txt", r.StatusCode)
-
-		// f, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-		// if err != nil {
-		// 	log.Println(err)
-		// }
-		// defer f.Close()
-
 		line := fmt.Sprintf("[%d] Referrer: %s -> Result: %s\n", r.StatusCode, r.Request.Ctx.Get("Referrer"), r.Request.URL)
 		fmt.Print(line)
-
-		// if _, err := f.WriteString(line); err != nil {
-		// 	log.Println(err)
-		// }
 	})
 
 	c.OnError(func(r *colly.Response, cErr error) {
-		// filename := fmt.Sprintf("%d.txt", r.StatusCode)
-		// f, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-		// if err != nil {
-		// 	log.Println(err)
-		// }
-		// defer f.Close()
-
 		line := fmt.Sprintf("[%d] Referrer: %s -> Result: %s\n", r.StatusCode, r.Request.Ctx.Get("Referrer"), r.Request.URL)
 		fmt.Print(line)
-
-		// if _, err := f.WriteString(line); err != nil {
-		// 	log.Println(err)
-		// }
 	})
 
 	c.Visit(fmt.Sprintf("%s%s", SCHEME, DOMAIN))
