@@ -3,7 +3,8 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 
 const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
 	'nomad',
-	'tools'
+	'tools',
+	{ hideVersionSelector: true }
 )
 
 export { getStaticProps, getStaticPaths }
