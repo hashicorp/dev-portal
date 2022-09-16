@@ -39,7 +39,7 @@
 					"url": "/packer/docs/provisioners"
 				},
 				{
-					"description": "Data sources let Packer fetch information to use within the configuration, including external data.",
+					"description": "Data sources let Packer fetch information, including external data, to use within a template.",
 					"title": "Data Sources",
 					"url": "/packer/docs/datasources"
 				},
