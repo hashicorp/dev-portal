@@ -20,6 +20,7 @@ export default function MdxCallout({
 	solutionGroup,
 }: // heading,
 // subheading,
+// cta
 MdxCalloutProps) {
 	return (
 		<div
@@ -42,11 +43,13 @@ MdxCalloutProps) {
 					color="var(--white)"
 					className={s.subHeading}
 				>
-					To reference non-cloud documentation go to the {product} docs page.
+					To reference non-cloud documentation go to the {product} docs
+					page.dev0
 					{/* {subHeading} */}
 				</Text>
 				<div className={s.ctaWrapper}>
-					<span className={s.ctaText}>{`Go to ${product}`}</span>
+					{/* <span className={s.ctaText}>{`Go to ${product}`}</span> */}
+					{/* <span className={s.ctaText}>{cta.text}</span> */}
 					<IconArrowRight16 color="var(--white)" />
 				</div>
 				{/* <StandaloneLink
@@ -71,6 +74,7 @@ MdxCalloutProps) {
 			<Link href={`/${product}/docs`}>
 				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
 				<a className={s.link} aria-label={`Go to ${product}`} />
+				{/* <a className={s.link} aria-label={cta.url} /> */}
 			</Link>
 		</div>
 	)

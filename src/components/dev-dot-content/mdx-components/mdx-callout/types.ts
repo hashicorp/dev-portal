@@ -6,5 +6,9 @@ export interface MdxCalloutProps {
 	product: ProductOption
 	solutionGroup: SolutionOption
 	// heading: string
-	// subheading?: string
+	// subHeading?: string
+	// cta: {
+	// 	text: string
+	// 	url: string
+	// }
 }
