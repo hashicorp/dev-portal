@@ -17,7 +17,6 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	const isToastPath = pathname !== '/' && !isSwingset
 
 	useEffect(() => {
-		// Don't show toast on homepage or swingset
 		if (isReady && isToastPath) {
 			makeWelcomeToast()
 		}
