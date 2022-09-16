@@ -31,6 +31,7 @@ describe('getIsLearnLink', () => {
 
 	describe('product hubs', () => {
 		testEachCase([
+			['/onboarding', false],
 			['/boundary', true],
 			['/consul', true],
 			['/nomad', true],
@@ -40,7 +41,6 @@ describe('getIsLearnLink', () => {
 			['/vault', true],
 			['/waypoint', true],
 			['/well-architected-framework', true],
-			['/onboarding', true],
 			['/cloud', true],
 		])
 	})
@@ -68,7 +68,7 @@ describe('getIsLearnLink', () => {
 	})
 
 	describe('tutorials routes', () => {
-		testEachCase([
+		const testCases: [string, boolean][] = [
 			['/tutorials', false],
 			['/tutorials/not-a-learn-link', false],
 			['/tutorials/not-a/learn-link', false],
@@ -86,6 +86,18 @@ describe('getIsLearnLink', () => {
 			['/tutorials/well-architected-framework/tutorial-slug', true],
 			['/tutorials/onboarding/tutorial-slug', true],
 			['/tutorials/cloud/tutorial-slug', true],
-		])
+		]
+
+		describe('without the `in` query param', () => {
+			testEachCase(testCases)
+		})
+
+		describe('with the `in` query param', () => {
+			testEachCase(
+				testCases.map(([input, expectedOutput]: [string, boolean]) => {
+					return [`${input}?in=collection/slug`, expectedOutput]
+				})
+			)
+		})
 	})
 })
