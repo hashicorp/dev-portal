@@ -24,7 +24,7 @@
 			"description": "Use either built-in or external plugins to perform tasks during each build.",
 			"cards": [
 				{
-					"description": "Builders create and configure virtual machines and then transform those virtual machines into a machine image.",
+					"description": "Builders create and configure virtual machines and transform them into a machine image.",
 					"title": "Builders",
 					"url": "/packer/docs/builders"
 				},
