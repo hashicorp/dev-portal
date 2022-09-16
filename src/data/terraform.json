@@ -19,7 +19,8 @@
 		"plugin/log",
 		"plugin/mux",
 		"plugin/sdkv2",
-		"registry"
+		"registry",
+		"downloads"
 	],
 	"docsNavItems": [
 		"docs",

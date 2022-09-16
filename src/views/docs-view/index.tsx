@@ -25,7 +25,7 @@ const DefaultLayout = ({ children }) => (
 )
 
 // Author primitives
-const Badge = dynamic(() => import('components/author-primitives/packer/badge'))
+const Badge = dynamic(() => import('components/author-primitives/shared/badge'))
 const BadgesHeader = dynamic(
 	() => import('components/author-primitives/packer/badges-header')
 )

@@ -21,7 +21,9 @@ const remotePluginsFile = 'data/plugins-manifest.json'
  * with some modifications for the sidebar data.
  */
 const { getStaticProps: baseGetStaticProps } =
-	getRootDocsPathGenerationFunctions('packer', 'plugins')
+	getRootDocsPathGenerationFunctions('packer', 'plugins', {
+		hideVersionSelector: true,
+	})
 
 /**
  * We tack on some extra plugin data to the result of the base getStaticProps,

@@ -22,6 +22,7 @@ import {
 } from 'components/dev-dot-content/mdx-components'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
+import ImageConfig from 'components/image-config'
 
 // This function returns a simple object containing the default components
 // The `additionalComponents` param is purely for convenience.
@@ -53,6 +54,7 @@ function _defaultComponents() {
 		theme: 'dark',
 	})
 	return {
+		ImageConfig,
 		Tabs: MdxTabs,
 		Tab: MdxTab,
 		EnterpriseAlert,
