@@ -21,7 +21,7 @@
 		{
 			"type": "card-grid",
 			"title": "Use Plugins",
-			"description": "Use either built-in or external plugins to perform tasks during each build.",
+			"description": "Use built-in and external plugins to perform tasks during each build.",
 			"cards": [
 				{
 					"description": "Builders create and configure virtual machines and transform them into a machine image.",
