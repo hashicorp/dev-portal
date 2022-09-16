@@ -1,4 +1,4 @@
-import { ProductSlug, RootDocsPath } from 'types/products'
+import { ProductSlug } from 'types/products'
 import { productSlugsToHostNames } from 'lib/products'
 import { getIsDocsLink } from '../utils/get-is-docs-link'
 
@@ -16,33 +16,32 @@ describe('getIsDocsLink', () => {
 
 	Object.keys(productSlugsToHostNames).forEach((slug: ProductSlug) => {
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		const rootDocsPaths = require(`data/${slug}.json`).rootDocsPaths
+		const basePaths = require(`data/${slug}.json`).basePaths
 		const hostname = productSlugsToHostNames[slug]
+		const origin = `https://${hostname}`
 
 		generatedCases.push([hostname, false])
-		generatedCases.push([`https://${hostname}`, true])
-		generatedCases.push([`https://${hostname}/`, true])
+		generatedCases.push([origin, true])
+		generatedCases.push([`${origin}/`, true])
 		generatedCases.push([`https://www.${hostname}`, true])
 		generatedCases.push([`https://www.${hostname}/`, true])
-		generatedCases.push([
-			`https://${hostname}/downloads`,
-			slug === 'hcp' ? false : true,
-		])
-		generatedCases.push([
-			`https://${hostname}/downloads/enterprise`,
-			slug === 'hcp' ? false : true,
-		])
-		generatedCases.push([`https://${hostname}/not-a-docs-path`, false])
+		generatedCases.push([`${origin}/not-a-docs-path`, false])
 
-		rootDocsPaths.forEach(({ path }: RootDocsPath) => {
+		basePaths.forEach((path: string) => {
 			if (path === 'api-docs') {
-				generatedCases.push([`https://${hostname}/api`, true])
-				generatedCases.push([`https://${hostname}/api/some-path`, true])
-				generatedCases.push([`https://${hostname}/api-docs`, true])
-				generatedCases.push([`https://${hostname}/api-docs/some-path`, true])
+				generatedCases.push([`${origin}/api`, true])
+				generatedCases.push([`${origin}/api?param=value`, true])
+				generatedCases.push([`${origin}/api/some-path`, true])
+				generatedCases.push([`${origin}/api/some-path?param=value`, true])
+				generatedCases.push([`${origin}/api-docs`, true])
+				generatedCases.push([`${origin}/api-docs?param=value`, true])
+				generatedCases.push([`${origin}/api-docs/some-path`, true])
+				generatedCases.push([`${origin}/api-docs/some-path?param=value`, true])
 			} else {
-				generatedCases.push([`https://${hostname}/${path}`, true])
-				generatedCases.push([`https://${hostname}/${path}/some-path`, true])
+				generatedCases.push([`${origin}/${path}`, true])
+				generatedCases.push([`${origin}/${path}?param=value`, true])
+				generatedCases.push([`${origin}/${path}/some-path`, true])
+				generatedCases.push([`${origin}/${path}/some-path?param=value`, true])
 			}
 		})
 	})
@@ -55,6 +54,8 @@ describe('getIsDocsLink', () => {
 		['/', false],
 		['https://learn.hashicorp.com/docs', false],
 		['https://not-waypoint-site.io/docs', false],
+		['https://cloud.hashicorp.com/api', false],
+		['https://cloud.hashicorp.com/api-docs', false],
 		...generatedCases,
 	])
 })
