@@ -29,7 +29,7 @@
 					"url": "/packer/docs/builders"
 				},
 				{
-					"description": "Post-processors transform one artifact into another, like compressing files.",
+					"description": "Post-processors perform operations on built and provisioned artifacts.",
 					"title": "Post-Processors",
 					"url": "/packer/docs/post-processors"
 				},
