@@ -52,8 +52,7 @@ describe('getIsLearnLink', () => {
 			['/collections/not-a/learn-link', false],
 			['/collections/not/a/learn-link', false],
 			['/collections/not/a/learn/link', false],
-			['/collections/well-architected-framework/collection-slug', false],
-			['/collections/onboarding/collection-slug', false],
+			['/collections/hcp/collection-slug', false],
 			['/collections/boundary/collection-slug', true],
 			['/collections/consul/collection-slug', true],
 			['/collections/nomad/collection-slug', true],
@@ -62,6 +61,8 @@ describe('getIsLearnLink', () => {
 			['/collections/vagrant/collection-slug', true],
 			['/collections/vault/collection-slug', true],
 			['/collections/waypoint/collection-slug', true],
+			['/collections/well-architected-framework/collection-slug', true],
+			['/collections/onboarding/collection-slug', true],
 			['/collections/cloud/collection-slug', true],
 		])
 	})
@@ -73,8 +74,7 @@ describe('getIsLearnLink', () => {
 			['/tutorials/not-a/learn-link', false],
 			['/tutorials/not/a/learn-link', false],
 			['/tutorials/not/a/learn/link', false],
-			['/tutorials/well-architected-framework/tutorial-slug', false],
-			['/tutorials/onboarding/tutorial-slug', false],
+			['/tutorials/hcp/tutorial-slug', false],
 			['/tutorials/boundary/tutorial-slug', true],
 			['/tutorials/consul/tutorial-slug', true],
 			['/tutorials/nomad/tutorial-slug', true],
@@ -83,6 +83,8 @@ describe('getIsLearnLink', () => {
 			['/tutorials/vagrant/tutorial-slug', true],
 			['/tutorials/vault/tutorial-slug', true],
 			['/tutorials/waypoint/tutorial-slug', true],
+			['/tutorials/well-architected-framework/tutorial-slug', true],
+			['/tutorials/onboarding/tutorial-slug', true],
 			['/tutorials/cloud/tutorial-slug', true],
 		])
 	})
