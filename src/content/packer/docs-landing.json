@@ -7,7 +7,7 @@
 			"description": "Standardize and automate your workflow.",
 			"cards": [
 				{
-					"description": "Define the images you want Packer to build and the plugins Packer should use during the build process.",
+					"description": "Define the images Packer should build and the plugins it should use during the build process.",
 					"title": "Templates",
 					"url": "/packer/docs/templates"
 				},
