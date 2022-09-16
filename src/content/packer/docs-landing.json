@@ -21,15 +21,15 @@
 		{
 			"type": "card-grid",
 			"title": "Use Plugins",
-			"description": "Use either built-in or external plugins in your template to perform tasks during each build.",
+			"description": "Use either built-in or external plugins to perform tasks during each build.",
 			"cards": [
 				{
-					"description": "Builders create a virtual machine, set the virtual machine up for provisioning, and then transform that virtual machine into a machine image.",
+					"description": "Builders create and configure virtual machines and then transform those virtual machines into a machine image.",
 					"title": "Builders",
 					"url": "/packer/docs/builders"
 				},
 				{
-					"description": "Post-processors transform one artifact into another.",
+					"description": "Post-processors transform one artifact into another, like compressing files.",
 					"title": "Post-Processors",
 					"url": "/packer/docs/post-processors"
 				},
@@ -45,7 +45,7 @@
 				},
 				{
 					"description": "Add external plugins to your Packer template and install plugin binaries.",
-					"title": "Installing External Plugins",
+					"title": "Install External Plugins",
 					"url": "/packer/docs/plugins/install-plugins"
 				},
 				{
@@ -57,11 +57,11 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Manage Images and Develop Plugins",
-			"description": "Extend Packer functionality without modifying the core source code.",
+			"title": "Collaborate and Integrate",
+			"description": "Manage images for your organization and extend Packer functionality.",
 			"cards": [
 				{
-					"description": "Centrally track images and enforce up-to-date versions.",
+					"description": "Centrally track image metadata and enforce up-to-date image versions.",
 					"title": "HCP Packer",
 					"url": "https://cloud.hashicorp.com/docs/packer"
 				},
