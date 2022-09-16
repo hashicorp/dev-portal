@@ -24,27 +24,12 @@
 			"description": "Use built-in and external plugins to perform tasks during each build.",
 			"cards": [
 				{
-					"description": "Builders create and configure virtual machines and transform them into a machine image.",
-					"title": "Builders",
-					"url": "/packer/docs/builders"
+					"description": "Use builders, data sources, provisioners, and post-processors.",
+					"title": "Plugin Overview",
+					"url": "/packer/docs/plugins"
 				},
 				{
-					"description": "Post-processors perform operations on built and provisioned artifacts.",
-					"title": "Post-Processors",
-					"url": "/packer/docs/post-processors"
-				},
-				{
-					"description": "Provisioners use software to install and configure the machine image after booting.",
-					"title": "Provisioners",
-					"url": "/packer/docs/provisioners"
-				},
-				{
-					"description": "Data sources let Packer fetch information, including external data, to use within a template.",
-					"title": "Data Sources",
-					"url": "/packer/docs/datasources"
-				},
-				{
-					"description": "Add external plugins to your Packer template and install plugin binaries.",
+					"description": "Add external plugins to your template and install plugin binaries.",
 					"title": "Install External Plugins",
 					"url": "/packer/docs/plugins/install-plugins"
 				},
