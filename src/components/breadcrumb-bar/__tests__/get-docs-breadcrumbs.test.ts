@@ -6,6 +6,7 @@ import terraformData from 'data/terraform.json'
 import waypointNavData from '../__fixtures__/waypoint-nav-data.json'
 import terraformPluginSDKv2NavData from '../__fixtures__/terraform-plugin-sdkv2-nav-data.json'
 import { ProductData } from 'types/products'
+import { NavData } from '@hashicorp/react-docs-sidenav/types'
 
 describe('getDocsBreadcrumbs', () => {
 	it('prepends docs breadcrumbs for a basic example', () => {
@@ -14,7 +15,7 @@ describe('getDocsBreadcrumbs', () => {
 			baseName: 'Docs',
 			product: waypointData as ProductData,
 			pathParts: ['getting-started'],
-			navData: waypointNavData,
+			navData: waypointNavData as NavData,
 		}
 		const expected = [
 			{
@@ -80,7 +81,7 @@ describe('getPathBreadcrumbs', () => {
 		const args = {
 			basePath: 'docs',
 			pathParts: ['getting-started'],
-			navData: waypointNavData,
+			navData: waypointNavData as NavData,
 		}
 		const expected = [
 			{
@@ -96,7 +97,7 @@ describe('getPathBreadcrumbs', () => {
 		const args = {
 			basePath: 'docs',
 			pathParts: ['intro', 'vs'],
-			navData: waypointNavData,
+			navData: waypointNavData as NavData,
 		}
 		const expected = [
 			{
@@ -116,7 +117,7 @@ describe('getPathBreadcrumbs', () => {
 		const args = {
 			basePath: 'docs',
 			pathParts: ['kubernetes', 'install'],
-			navData: waypointNavData,
+			navData: waypointNavData as NavData,
 		}
 		const expected = [
 			{

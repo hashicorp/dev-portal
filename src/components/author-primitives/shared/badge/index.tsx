@@ -3,7 +3,13 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import classnames from 'classnames'
 import s from './style.module.css'
 
-type BadgeTheme = 'gray' | 'blue' | 'gold' | 'purple' | 'light-gray'
+type BadgeTheme =
+	| 'gray'
+	| 'blue'
+	| 'gold'
+	| 'purple'
+	| 'light-gray'
+	| 'light-blue'
 
 interface BadgeProps {
 	label: string
