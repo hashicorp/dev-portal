@@ -75,7 +75,7 @@ export default function MdxHcpCallout({
 					objectPosition="center"
 				/>
 			</div>
-			<Link href={`/${product}/docs`}>
+			<Link href={`/${product.toLowerCase()}/docs`}>
 				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
 				<a className={s.link} aria-label={`Go to ${product}`} />
 			</Link>

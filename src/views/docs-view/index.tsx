@@ -10,8 +10,6 @@ import { DocsViewProps, ProductsToPrimitivesMap } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import ProductDocsSearch from './components/product-docs-search'
 import s from './docs-view.module.css'
-import MdxCallout from 'components/dev-dot-content/mdx-components/mdx-hcp-callout'
-import { ProductOption } from 'lib/learn-client/types'
 
 /**
  * Layouts
