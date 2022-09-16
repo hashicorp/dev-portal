@@ -34,7 +34,7 @@
 					"url": "/packer/docs/post-processors"
 				},
 				{
-					"description": "Provisioners create a running machine and then transform that machine into an image.",
+					"description": "Provisioners use software to install and configure the machine image after booting.",
 					"title": "Provisioners",
 					"url": "/packer/docs/provisioners"
 				},
