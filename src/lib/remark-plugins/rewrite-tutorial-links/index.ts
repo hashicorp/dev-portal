@@ -25,10 +25,11 @@ import { ProductOption, SectionOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToHostNames } from 'lib/products'
 import {
+	getIsLearnLink,
 	getTutorialMap,
 	handleCollectionLink,
-	handleTutorialLink,
 	handleDocsLink,
+	handleTutorialLink,
 } from './utils'
 
 let TUTORIAL_MAP
@@ -51,18 +52,10 @@ const ACCEPTED_DOCS_PATHNAMES = [
 	'plugin',
 	'registry',
 ]
+
 const learnProductOptions = Object.keys(ProductOption).join('|')
 const learnSectionOptions = Object.keys(SectionOption).join('|')
-/**
- * Matches anything that
- * - contains learn.hashicorp.com
- * - collection & tutorial routes: /collections/waypoint/some-slug or /tutorials/terraform/another-slug
- * - product hub pages i.e. /boundary /waypoint
- * - section routes i.e. /well-architected-framework
- */
-const learnLink = new RegExp(
-	`(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud|${learnSectionOptions})/)|^/(${learnProductOptions}|cloud)$`
-)
+
 const docsLink = new RegExp(
 	`(${Object.values(productSlugsToHostNames).join(
 		'|'
@@ -104,8 +97,10 @@ export function rewriteTutorialsLink(
 	let newUrl = url
 
 	try {
+		const isLearnLink = getIsLearnLink(url)
+
 		// return early if non tutorial or collection link
-		if (!learnLink.test(url) && !docsLink.test(url)) {
+		if (!isLearnLink && !docsLink.test(url)) {
 			return newUrl
 		}
 
