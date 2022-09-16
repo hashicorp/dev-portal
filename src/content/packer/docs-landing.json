@@ -1,102 +1,59 @@
 {
-	"pageSubtitle": "Packer is like Vault, but different. Vault is an identity-based secret and encryption management system. This documentation covers the main concepts of Vault, what problems it can solve, and contains a quick start for using Vault.",
+	"pageSubtitle": "Packer lets you create identical machine images for multiple platforms from a single source configuration. A common use case is creating golden images for organizations to use in cloud infrastructure.",
 	"marketingContentBlocks": [
 		{
-			"type": "section-heading",
-			"title": "Use Cases"
-		},
-		{
 			"type": "card-grid",
-			"title": "Secrets Management",
-			"description": "Centrally store, access, and deploy secrets across applications, systems, and infrastructure.",
+			"title": "Build Images",
+			"description": "Standardize and automate your workflow.",
 			"cards": [
 				{
-					"description": "A generic Key-Value store used to store arbitrary secrets within the configured physical storage for Vault.",
-					"title": "KV Secrets Engine",
-					"url": "/vault/docs/secrets/kv"
+					"description": "Define the images Packer should build and the plugins it should use during the build process.",
+					"title": "Templates",
+					"url": "/packer/docs/templates"
 				},
 				{
-					"description": "Generate database credentials dynamically based on configured roles.",
-					"title": "Database Credentials",
-					"url": "/vault/docs/secrets/databases"
-				},
-				{
-					"description": "Deploy Vault into Kubernetes using the official HashiCorp Vault Helm chart.",
-					"title": "Kubernetes Secrets",
-					"url": "/vault/docs/platform/k8s"
+					"description": "Use the Packer CLI to build images, validate templates, and manage plugins.",
+					"title": "Packer CLI",
+					"url": "/packer/docs/commands"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Encryption Services",
-			"description": "Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.",
+			"title": "Use Plugins",
+			"description": "Use built-in and external plugins to perform tasks during each build.",
 			"cards": [
 				{
-					"description": "Apply cryptographic functions on data in-transit. Sign and verify data, generate hashes and HMACs of data, and act as a source of random bytes.",
-					"title": "Transit Secrets Engine",
-					"url": "/vault/docs/secrets/transit"
+					"description": "Use builders, data sources, provisioners, and post-processors.",
+					"title": "Plugin Overview",
+					"url": "/packer/docs/plugins"
 				},
 				{
-					"description": "Handle secure data transformation and tokenization against a provided input value using NIST vetted cryptographic standards and other transformations such as masking.",
-					"title": "Transform Secrets Engine",
-					"url": "/vault/docs/secrets/transform"
+					"description": "Add external plugins to your template and install plugin binaries.",
+					"title": "Install External Plugins",
+					"url": "/packer/docs/plugins/install-plugins"
 				},
 				{
-					"description": "Exchange a sensitive value for an unrelated value called a token. The original sensitive value cannot be recovered from a token alone but is irreversible.",
-					"title": "Tokenization",
-					"url": "/vault/docs/secrets/transform/tokenization"
+					"description": "Find documentation for available external plugins.",
+					"title": "External Plugins",
+					"url": "/packer/plugins"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Key Management",
-			"description": "Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.",
+			"title": "Collaborate and Integrate",
+			"description": "Manage images for your organization and extend Packer functionality.",
 			"cards": [
 				{
-					"description": "Act as a key management interoperability protocol server provider and handle the lifecycle of its KMIP managed objects.",
-					"title": "KMIP Secrets Engine",
-					"url": "/vault/docs/secrets/kmip"
+					"description": "Centrally track image metadata and enforce up-to-date image versions.",
+					"title": "HCP Packer",
+					"url": "https://cloud.hashicorp.com/docs/packer"
 				},
 				{
-					"description": "A consistent workflow for distribution and lifecycle management of cryptographic keys in key management service (KMS) providers.",
-					"title": "Key Management Secrets Engine",
-					"url": "/vault/docs/secrets/key-management"
-				},
-				{
-					"description": "Generate dynamic X.509 certificates without going through the manual process of generating a private key and CSR or submitting to a CA.",
-					"title": "PKI",
-					"url": "/vault/docs/secrets/pki"
-				}
-			]
-		},
-		{
-			"type": "section-heading",
-			"title": "Developers"
-		},
-		{
-			"type": "icon-card-grid",
-			"cards": [
-				{
-					"iconName": "terminal",
-					"text": "Developer Quick Start",
-					"url": "/vault/docs/get-started/developer-qs"
-				},
-				{
-					"iconName": "guide",
-					"text": "Client Libraries",
-					"url": "/vault/api-docs/libraries"
-				},
-				{
-					"iconName": "connection",
-					"text": "Sample Integrations",
-					"url": "https://github.com/hashicorp/hello-vault-go"
-				},
-				{
-					"iconName": "terminal",
-					"text": "Code Samples",
-					"url": "https://github.com/hashicorp/vault-examples"
+					"description": "Create custom builders, provisioners, post-processors, and data sources.",
+					"title": "Plugin Development",
+					"url": "/packer/docs/plugins/creation"
 				}
 			]
 		}
