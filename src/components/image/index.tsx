@@ -97,7 +97,7 @@ function Image({
 					title={title}
 					width={dimensions.width}
 					height={dimensions.height}
-					layout="raw"
+					layout="intrinsic"
 					style={style}
 				/>
 			) : (
