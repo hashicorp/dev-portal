@@ -68,9 +68,11 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	) {
 		const url = req.nextUrl.clone()
 		url.searchParams.delete('betaOptOut')
-		return NextResponse.redirect(url).cookies.delete(
-			`${product}-io-beta-opt-in`
-		)
+
+		const response = NextResponse.redirect(url)
+		response.cookies.delete(`${product}-io-beta-opt-in`)
+
+		return response
 	}
 
 	// Handle Opt-in cookies
