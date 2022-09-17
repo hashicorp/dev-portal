@@ -52,7 +52,7 @@ export default validateToken(
 				}
 
 				if (path) {
-					const pathToRevalidate = `${product}/${basePath}/${path}`
+					const pathToRevalidate = `/${product}/${basePath}/${path}`
 
 					console.log('[revalidate]', pathToRevalidate)
 					revalidatePromises.push(response.revalidate(pathToRevalidate))
