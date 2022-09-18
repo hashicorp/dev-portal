@@ -21,7 +21,6 @@ import { Link, Definition } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { ProductSlug } from 'types/products'
-import { ProductOption, SectionOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToHostNames } from 'lib/products'
 import {
@@ -34,9 +33,6 @@ import {
 } from './utils'
 
 let TUTORIAL_MAP
-
-const learnProductOptions = Object.keys(ProductOption).join('|')
-const learnSectionOptions = Object.keys(SectionOption).join('|')
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
 	return async function transformer(tree) {
@@ -51,19 +47,49 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
 	node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP)
 }
 
-const getIsUrlAmbiguous = ({
-	isCollectionPath,
-	isDocsPath,
-	isProductHubPath,
-	isTutorialPath,
-}: Record<string, boolean>) => {
-	const truthyConditions = [
-		isCollectionPath,
-		isDocsPath,
-		isProductHubPath,
-		isTutorialPath,
-	].filter((condition: boolean) => condition)
-	return truthyConditions.length > 1
+const handleLearnLink = (
+	urlObject: URL,
+	tutorialMap: Record<string, string>
+) => {
+	let newUrl
+
+	const { pathname } = urlObject
+	const pathnameParts = pathname.split('/')
+
+	let product
+	if (pathnameParts.length === 2) {
+		product = pathnameParts[1]
+	} else if (
+		pathnameParts[1] === 'tutorials' ||
+		pathnameParts[1] === 'collections'
+	) {
+		product = pathnameParts[2]
+	}
+
+	const isBetaProduct = getIsBetaProduct(product)
+	if (isBetaProduct) {
+		// Regexes for each path type
+		const collectionPathRegex = new RegExp('^/collections')
+		const tutorialPathRegex = new RegExp('^/tutorials')
+		const productHubPathRegex = new RegExp(`^/${product}/?$`)
+
+		// Derived path type booleans
+		const isCollectionPath = collectionPathRegex.test(pathname)
+		const isProductHubPath = productHubPathRegex.test(pathname)
+		const isTutorialPath = tutorialPathRegex.test(pathname)
+
+		if (isCollectionPath) {
+			newUrl = handleCollectionLink(urlObject)
+		} else if (isTutorialPath) {
+			newUrl = handleTutorialLink(urlObject, tutorialMap)
+		} else if (isProductHubPath) {
+			newUrl = `/${product}/tutorials`
+		}
+	} else {
+		newUrl = urlObject.toString()
+	}
+
+	return newUrl
 }
 
 export function rewriteTutorialsLink(
@@ -73,87 +99,34 @@ export function rewriteTutorialsLink(
 	let newUrl = url
 
 	try {
+		const urlObject = new URL(url, 'https://learn.hashicorp.com')
+
 		const isLearnLink = getIsLearnLink(url)
 		const isDocsLink = getIsDocsLink(url)
 
-		// return early if non tutorial or collection link
-		if (!isLearnLink && !isDocsLink) {
-			return newUrl
-		}
-
-		const match: RegExpMatchArray | null = url.match(
-			new RegExp(`${learnProductOptions}|cloud|${learnSectionOptions}`)
-		)
-		const product = match ? match[0] : null
-		const isExternalLearnLink = url.includes('learn.hashicorp.com')
-		const isBetaProduct = product
-			? getIsBetaProduct(product as ProductSlug)
-			: false
-		const isValidSection = Boolean(SectionOption[product])
-		// Anchor links for the current tutorial shouldn't be rewritten. i.e. #some-heading
-		const isAnchorLink = url.startsWith('#')
-
-		// if its not a beta product and also not an external link, rewrite
-		// external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/consul
-		if (!isBetaProduct && !isExternalLearnLink && !isAnchorLink) {
-			// If its an internal link, rewrite to an external learn link
-			newUrl = new URL(url, 'https://learn.hashicorp.com/').toString()
-		}
-
-		if (isBetaProduct || isValidSection) {
-			// General variables
-			const urlObject = new URL(url, 'https://learn.hashicorp.com/')
-			const { origin, pathname } = urlObject
-			const urlWithoutOrigin = urlObject.toString().replace(origin, '')
-			const productIOHostName = productSlugsToHostNames[product]
-
-			// Regexes for each path type
-			const collectionPathRegex = new RegExp('^/collections')
-			const tutorialPathRegex = new RegExp('^/tutorials')
-			const productHubPathRegex = new RegExp(`^/${product}/?$`)
-
-			// Derived path type booleans
-			const isCollectionPath = collectionPathRegex.test(pathname)
-			const isTutorialPath = tutorialPathRegex.test(pathname)
-			const isProductHubPath = productHubPathRegex.test(pathname)
-			const isDocsPath = origin.includes(productIOHostName)
-
-			/**
-			 * Check if multiple conditions above were true. Only one should be true
-			 * at a time.
-			 */
-			const isUrlAmbiguous = getIsUrlAmbiguous({
-				isCollectionPath,
-				isTutorialPath,
-				isProductHubPath,
-				isDocsPath,
-			})
-			if (isUrlAmbiguous) {
-				throw new Error(`[rewriteTutorialsLink] found an ambiguous url: ${url}`)
-			}
-
-			/**
-			 * If the path type is not ambiguous, handle the path by type.
-			 */
-			if (isCollectionPath) {
-				newUrl = handleCollectionLink(urlObject)
-			} else if (isTutorialPath) {
-				newUrl = handleTutorialLink(urlWithoutOrigin, tutorialMap)
-			} else if (isProductHubPath) {
-				newUrl = `/${product}/tutorials`
-			} else if (isDocsPath) {
+		if (isLearnLink) {
+			newUrl = handleLearnLink(urlObject, tutorialMap)
+		} else if (isDocsLink) {
+			const product = Object.keys(productSlugsToHostNames).find(
+				(productSlug: ProductSlug) => {
+					const productHostName = productSlugsToHostNames[productSlug]
+					return urlObject.hostname.includes(productHostName)
+				}
+			)
+			const isBetaProduct = product && getIsBetaProduct(product as ProductSlug)
+			if (isBetaProduct) {
 				newUrl = handleDocsLink(urlObject, product as ProductSlug)
 			}
+		}
 
-			/**
-			 * If the link wasn't found in the map, default to original link. Could be
-			 * a typo, it's up to the author to correct -- this feedback should help.
-			 */
-			if (!newUrl) {
-				throw new Error(
-					`[MDX TUTORIAL]: internal link could not be rewritten: ${url} \nPlease check all Learn links in that tutorial to ensure they are correct.`
-				)
-			}
+		/**
+		 * If the link wasn't found in the map, default to original link. Could be
+		 * a typo, it's up to the author to correct -- this feedback should help.
+		 */
+		if (!newUrl) {
+			throw new Error(
+				`[MDX TUTORIAL]: internal link could not be rewritten: ${url} \nPlease check all Learn links in that tutorial to ensure they are correct.`
+			)
 		}
 	} catch (e) {
 		// we don't want an incorrect link to break the build
