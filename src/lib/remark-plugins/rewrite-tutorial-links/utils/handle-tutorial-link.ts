@@ -16,20 +16,14 @@ import { SectionOption } from 'lib/learn-client/types'
 import { SplitLearnPath } from '../types'
 
 export function handleTutorialLink(
-	nodePath: string,
+	urlObject: URL,
 	tutorialMap: { [key: string]: string }
 ) {
-	/**
-	 * Use the URL API to get each piece of the given `nodePath` that we need to
-	 * examine.
-	 */
-	const url = new URL(nodePath, __config.dev_dot.canonical_base_url)
-
 	/**
 	 * Validate the given `nodePath` (via `url.pathname`), and parse out the
 	 * `product` and `filename` if the given `nodePath` is valid.
 	 */
-	const pathnameParts = url.pathname.split('/') as SplitLearnPath
+	const pathnameParts = urlObject.pathname.split('/') as SplitLearnPath
 	const [emptyString, tutorialsPath, product, filename] = pathnameParts
 	if (
 		pathnameParts.length !== 4 ||
@@ -39,7 +33,7 @@ export function handleTutorialLink(
 		filename === ''
 	) {
 		throw new Error(
-			`handleTutorialLink received a URL with an invalid 'pathname': ${url.pathname}`
+			`handleTutorialLink received a URL with an invalid 'pathname': ${urlObject.pathname}`
 		)
 	}
 
@@ -51,7 +45,7 @@ export function handleTutorialLink(
 	 *     the given `tutorialMap`.
 	 */
 	let path = ''
-	const collectionSlugParam = url.searchParams.get('in')
+	const collectionSlugParam = urlObject.searchParams.get('in')
 	if (collectionSlugParam) {
 		const collectionSlug = collectionSlugParam.split('/')[1]
 		if (SectionOption[product]) {
@@ -76,7 +70,7 @@ export function handleTutorialLink(
 	 * Remove the `in` parameter from the give `nodePath`, since it's not needed
 	 * on this platform.
 	 */
-	url.searchParams.delete('in')
+	urlObject.searchParams.delete('in')
 
 	/**
 	 * Return the fully constructed URL.
@@ -84,5 +78,5 @@ export function handleTutorialLink(
 	 * NOTE: `search` already includes the `?` character, and  `hash` already
 	 * includes the `#` character.
 	 */
-	return `${path}${url.search}${url.hash}`
+	return `${path}${urlObject.search}${urlObject.hash}`
 }

@@ -10,7 +10,12 @@ const testEachCase = (cases: string[][]) => {
 	test.each(cases)(
 		'handleTutorialLink(%p) returns %p',
 		(input: string, expectedOutput: string) => {
-			expect(handleTutorialLink(input, MOCK_TUTORIAL_MAP)).toBe(expectedOutput)
+			expect(
+				handleTutorialLink(
+					new URL(input, __config.dev_dot.canonical_base_url),
+					MOCK_TUTORIAL_MAP
+				)
+			).toBe(expectedOutput)
 		}
 	)
 }
@@ -28,7 +33,12 @@ describe('handleTutorialLink', () => {
 			'/almost/valid/input',
 			'/one/more/invalid/input',
 		])('handleTutorialLink(%p) throws an error', (input: string) => {
-			expect(() => handleTutorialLink(input, {})).toThrow()
+			expect(() =>
+				handleTutorialLink(
+					new URL(input, __config.dev_dot.canonical_base_url),
+					{}
+				)
+			).toThrow()
 		})
 	})
 
