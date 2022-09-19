@@ -26,7 +26,6 @@ describe('remove-non-beta-product-pages', () => {
 		🧹 removing pages at /packer
 		🧹 removing pages at /profile
 		🧹 removing pages at /sentinel
-		🧹 removing pages at /terraform
 		🧹 removing pages at /vagrant
 		"
 	`)

@@ -51,14 +51,6 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 	const hasDevPortalBranch = [
 		'vault',
 		'waypoint',
-		'nomad',
-		'terraform-docs-common',
-		'ptfe-releases',
-		'terraform-cdk',
-		'terraform',
-		'terraform-plugin-sdk',
-		'terraform-plugin-framework',
-		'terraform-docs-agents',
 		'cloud.hashicorp.com',
 	].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
@@ -345,7 +337,7 @@ export function getStaticGenerationFunctions<
 				layoutProps.githubFileUrl = githubFileUrl
 			}
 
-			const { hideVersionSelector } = options
+			const { hideVersionSelector, projectName } = options
 
 			const finalProps = {
 				layoutProps,
@@ -364,6 +356,7 @@ export function getStaticGenerationFunctions<
 					// needed for DocsVersionSwitcher
 					currentRootDocsPath: currentRootDocsPath || null,
 				},
+				projectName: projectName || null,
 				versions:
 					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
 			}
