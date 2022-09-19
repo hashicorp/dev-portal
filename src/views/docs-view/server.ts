@@ -51,13 +51,6 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 	const hasDevPortalBranch = [
 		'vault',
 		'waypoint',
-		'terraform-docs-common',
-		'ptfe-releases',
-		'terraform-cdk',
-		'terraform',
-		'terraform-plugin-sdk',
-		'terraform-plugin-framework',
-		'terraform-docs-agents',
 		'cloud.hashicorp.com',
 	].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
