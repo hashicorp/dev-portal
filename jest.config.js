@@ -10,6 +10,9 @@ const config = {
 		'!**/node_modules/**',
 	],
 	// https://jestjs.io/docs/configuration#coveragethreshold-object
+	// Note: There is a bug in jest-coverage-report-action that 
+	// causes this coverageThreshold to be ignored, and defaulting to 60.
+	// - https://github.com/ArtiomTr/jest-coverage-report-action/blob/main/src/stages/createReport.ts#L37
 	coverageThreshold: {
 		global: {
 			branches: 5,
