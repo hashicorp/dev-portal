@@ -24,7 +24,7 @@ import { ProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToHostNames } from 'lib/products'
 import {
-	getIsDocsLink,
+	getIsExternalDocsLink,
 	getIsLearnLink,
 	getTutorialMap,
 	handleDocsLink,
@@ -56,7 +56,7 @@ export function rewriteTutorialsLink(
 		const urlObject = new URL(url, 'https://learn.hashicorp.com')
 
 		const isLearnLink = getIsLearnLink(url)
-		const isDocsLink = getIsDocsLink(url)
+		const isDocsLink = getIsExternalDocsLink(url)
 
 		if (isLearnLink) {
 			newUrl = handleLearnLink(urlObject, tutorialMap)
