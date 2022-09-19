@@ -78,6 +78,33 @@ const Sidebar = ({
 		)
 	}
 
+	/**
+	 * TODO: before adding an overview item,
+	 * automatically detect whether it is needed.
+	 *
+	 * If the `children` prop is being used, then we skip
+	 * trying to figure out if a duplicate `overviewItemHref` item
+	 * is being rendered.
+	 * TODO: confirm the above makes sense based on use of `children`.
+	 *
+	 * Else, with `children` not being used, we'll use `menuItems`.
+	 * We can detect if an overview item already exists by
+	 * filtering out the top level items in `menuItems`, and seeing
+	 * if there are any items that match `overviewItemHref`.
+	 * If there is such a match, we won't add an "Overview" item,
+	 * since it would likely be duplicative.
+	 * If there is no such match, we'll add an "Overview" item with
+	 * the provided `overviewItemHref`.
+	 * TODO: implement the above.
+	 *
+	 * Notes:
+	 * The `children` prop is provided in the following scenarios:
+	 * - ...
+	 * TODO: list where `children` is used, tutorials I think?
+	 * The `menuItems` prop is provided in the following scenarios:
+	 * - ...
+	 * TODO: list where `menuItems` is used, mainly docs I think?
+	 */
 	let overviewItem
 	if (overviewItemHref && !filterValue) {
 		overviewItem = (
