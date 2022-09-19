@@ -103,7 +103,6 @@ const DocsView = ({
 					</div>
 				) : null}
 				<NoIndexTagIfVersioned />
-				{/* <MdxCallout solutionGroup="security" product={ProductOption.vault} /> */}
 				<TabProvider>
 					<MDXRemote
 						compiledSource={compiledSource}
