@@ -42,15 +42,19 @@
 }
 
 .textArea {
-	composes: hds-surface-base from global;
+	composes: hds-surface-inset from global;
 	composes: hds-typography-body-200 from global;
-	border: 1px solid var(--token-color-border-primary);
+	border: 1px solid var(--token-form-control-base-border-color-default);
 	border-radius: 6px;
 	color: var(--token-color-foreground-faint);
 	width: 100%;
 	resize: none;
 	height: 100px;
 	padding: 12px;
+
+	&:focus {
+		border: 1px solid var(--token-color-focus-action-interna);
+	}
 }
 
 .labelWrapper {

@@ -77,11 +77,12 @@ const questions: FeedbackFormProps['questions'] = [
 		labelIcon: <IconThumbsUp16 color="var(--token-color-foreground-faint)" />,
 		label: 'Why did you visit this tutorial?',
 		buttonText: 'Submit answer',
+		optional: true,
 	},
 	{
 		id: 'suggestedImprovements',
 		type: 'text',
-		labelIcon: <IconThumbsUp16 color="var(--token-color-foreground-faint)" />,
+		labelIcon: <IconThumbsDown16 color="var(--token-color-foreground-faint)" />,
 		label: 'We want to hear from you.',
 		labelSecondary: 'How could this tutorial be more helpful?',
 		buttonText: 'Submit answer',
@@ -104,3 +105,5 @@ export function FeedbackPanel() {
 }
 
 export default FeedbackPanel
+
+// add animations from 1st question to next
