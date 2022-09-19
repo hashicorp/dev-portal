@@ -7,6 +7,8 @@
 }
 
 .description {
+	composes: hds-typography-body-300 from global;
+	composes: hds-font-weight-regular from global;
 	margin-top: 8px;
 	color: var(--token-color-foreground-primary);
 }
