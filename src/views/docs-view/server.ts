@@ -298,7 +298,6 @@ export function getStaticGenerationFunctions<
 					item.path == 'index'
 				return isPathMatch
 			})
-			console.log({ navDataWithFullPaths, overviewItemMatch })
 			if (!overviewItemMatch) {
 				docsSidebarLevel.overviewItemHref = versionPathPart
 					? `/${product.slug}/${basePath}/${versionPathPart}`
