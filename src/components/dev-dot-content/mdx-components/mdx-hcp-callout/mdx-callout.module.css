@@ -7,13 +7,12 @@
 	position: relative;
 	overflow: hidden;
 	box-shadow: var(--token-elevation-mid-box-shadow);
-	cursor: pointer;
 	margin: 32px 0;
 
 	&:hover {
 		box-shadow: var(--token-elevation-high-box-shadow);
 
-		& .ctaWrapper svg {
+		& .ctaIcon {
 			transform: translateX(4px);
 		}
 	}
@@ -22,8 +21,16 @@
 		padding: 16px 22px;
 	}
 
+	& .heading {
+		/* !important is necessary here to stop leaks from enclosing
+     @hashicorp/react-content component styles */
+		margin: 0 !important;
+	}
+
 	& .subHeading {
-		margin: 6px 0 16px;
+		/* !important is necessary here to stop leaks from enclosing
+     @hashicorp/react-content component styles */
+		margin: 6px 0 16px !important;
 	}
 }
 
@@ -32,15 +39,9 @@
 	align-items: center;
 	display: flex;
 	gap: 6px;
+	color: var(--white) !important;
 
-	& .ctaText {
-		font-size: var(--token-typography-body-200-font-size);
-		font-weight: var(--token-typography-font-weight-medium);
-		line-height: 1rem;
-		color: var(--white);
-	}
-
-	& svg {
+	& .ctaIcon {
 		transition: 0.2s ease-in;
 	}
 }
@@ -62,10 +63,4 @@
 		width: 330px;
 		min-height: 100%;
 	}
-}
-
-.link {
-	position: absolute;
-	inset: 0;
-	opacity: 0;
 }

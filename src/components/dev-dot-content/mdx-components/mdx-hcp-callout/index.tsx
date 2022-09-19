@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import Text from 'components/text'
+import StandaloneLink from 'components/standalone-link'
 import { HcpProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import { MdxHcpCalloutProps, SolutionOption } from './types'
@@ -41,7 +41,12 @@ export default function MdxHcpCallout({
 			}
 		>
 			<div className={s.textContainer}>
-				<Text asElement="p" weight="bold" color="var(--white)">
+				<Text
+					asElement="p"
+					weight="bold"
+					color="var(--white)"
+					className={s.heading}
+				>
 					Looking for <span className={s.solutionGradient}>{productName}</span>{' '}
 					documentation?
 				</Text>
@@ -54,18 +59,13 @@ export default function MdxHcpCallout({
 					To reference non-cloud documentation go to the {productName} docs
 					page.
 				</Text>
-				<div className={s.ctaWrapper}>
-					<span className={s.ctaText}>{`Go to ${productName}`}</span>
-					<IconArrowRight16 color="var(--white)" />
-				</div>
-				{/* <StandaloneLink
-					text={`Go to ${product}`}
+				<StandaloneLink
+					text={`Go to ${productName}`}
 					href={`/${product}/docs`}
-					icon={<IconArrowRight16 color="var(--white)" />}
+					icon={<IconArrowRight16 color="var(--white)" className={s.ctaIcon} />}
 					iconPosition="trailing"
-					textClassName={s.cta}
 					className={s.ctaWrapper}
-				/> */}
+				/>
 			</div>
 			<div className={s.solutionPattern}>
 				<Image
@@ -77,10 +77,6 @@ export default function MdxHcpCallout({
 					objectPosition="center"
 				/>
 			</div>
-			<Link href={`/${product}/docs`}>
-				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-				<a className={s.link} aria-label={`Go to ${productName}`} />
-			</Link>
 		</div>
 	)
 }
