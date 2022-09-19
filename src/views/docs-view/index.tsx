@@ -29,7 +29,9 @@ const Badge = dynamic(() => import('components/author-primitives/shared/badge'))
 const BadgesHeader = dynamic(
 	() => import('components/author-primitives/packer/badges-header')
 )
-const Button = dynamic(() => import('@hashicorp/react-button'))
+const Button = dynamic(
+	() => import('components/author-primitives/shared/button')
+)
 const Checklist = dynamic(
 	() => import('components/author-primitives/packer/checklist')
 )

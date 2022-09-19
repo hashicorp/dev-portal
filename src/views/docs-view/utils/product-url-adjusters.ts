@@ -111,6 +111,14 @@ export function rewriteDocsUrl(
 		(basePath: string) => inputUrl.startsWith(`/${basePath}`)
 	)
 	if (isCurrentProductDocsUrl) {
+		// The vagrant vmware utility downloads page is a unique case, where we did
+		// adjust the url structure in the transition to devdot
+		if (
+			currentProduct.slug === 'vagrant' &&
+			inputUrl.startsWith('/vmware/downloads')
+		) {
+			return `/${currentProduct.slug}/downloads/vmware`
+		}
 		return `/${currentProduct.slug}${inputUrl}`
 	}
 
