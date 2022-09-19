@@ -22,6 +22,8 @@ describe('getIsExternalDocsLink', () => {
 
 		generatedCases.push([hostname, false])
 		generatedCases.push([origin, true])
+		generatedCases.push([`/${slug}`, false])
+		generatedCases.push([`/${slug}/docs`, false])
 		generatedCases.push([`${origin}/`, true])
 		generatedCases.push([`https://www.${hostname}`, true])
 		generatedCases.push([`https://www.${hostname}/`, true])
