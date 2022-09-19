@@ -21,9 +21,6 @@ async function recordFeedback(responses, sessionId) {
 		timestamp: new Date(),
 	}
 
-	console.log({ path: document.location.pathname, body: JSON.stringify(body) })
-	return
-
 	try {
 		const payload = {
 			...body,
@@ -79,7 +76,6 @@ const questions: FeedbackFormProps['questions'] = [
 		type: 'text',
 		labelIcon: <IconThumbsUp16 color="var(--token-color-foreground-faint)" />,
 		label: 'Why did you visit this tutorial?',
-		optional: true,
 		buttonText: 'Submit answer',
 	},
 	{
@@ -89,6 +85,7 @@ const questions: FeedbackFormProps['questions'] = [
 		label: 'We want to hear from you.',
 		labelSecondary: 'How could this tutorial be more helpful?',
 		buttonText: 'Submit answer',
+		optional: true,
 	},
 ]
 
