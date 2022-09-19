@@ -292,9 +292,13 @@ export function getStaticGenerationFunctions<
 			 */
 			const overviewItemMatch = navDataWithFullPaths.find((item: MenuItem) => {
 				const isPathMatch =
-					item.path == '' || item.path == '/' || item.path == '/index'
+					item.path == '' ||
+					item.path == '/' ||
+					item.path == '/index' ||
+					item.path == 'index'
 				return isPathMatch
 			})
+			console.log({ navDataWithFullPaths, overviewItemMatch })
 			if (!overviewItemMatch) {
 				docsSidebarLevel.overviewItemHref = versionPathPart
 					? `/${product.slug}/${basePath}/${versionPathPart}`
