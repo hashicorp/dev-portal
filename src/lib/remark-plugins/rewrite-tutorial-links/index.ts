@@ -20,9 +20,6 @@
 import { Link, Definition } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
-import { ProductSlug } from 'types/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
-import { productSlugsToHostNames } from 'lib/products'
 import {
 	getIsExternalDocsLink,
 	getIsLearnLink,
@@ -50,7 +47,7 @@ export function rewriteTutorialsLink(
 	url: string,
 	tutorialMap: Record<string, string>
 ): string {
-	let newUrl = url
+	let newUrl
 
 	try {
 		const urlObject = new URL(url, 'https://learn.hashicorp.com')
@@ -58,19 +55,25 @@ export function rewriteTutorialsLink(
 		const isLearnLink = getIsLearnLink(url)
 		const isDocsLink = getIsExternalDocsLink(url)
 
+		/**
+		 * Don't do anything if the link is ambiguous.
+		 */
+		if (
+			(isLearnLink === true && isDocsLink === true) ||
+			(isLearnLink === false && isDocsLink === false)
+		) {
+			throw new Error(
+				`[rewriteTutorialsLink] Found an ambiguous link: '${url}'`
+			)
+		}
+
+		/**
+		 * Handle the link based on the determined link type.
+		 */
 		if (isLearnLink) {
 			newUrl = handleLearnLink(urlObject, tutorialMap)
 		} else if (isDocsLink) {
-			const product = Object.keys(productSlugsToHostNames).find(
-				(productSlug: ProductSlug) => {
-					const productHostName = productSlugsToHostNames[productSlug]
-					return urlObject.hostname.includes(productHostName)
-				}
-			)
-			const isBetaProduct = product && getIsBetaProduct(product as ProductSlug)
-			if (isBetaProduct) {
-				newUrl = handleDocsLink(urlObject, product as ProductSlug)
-			}
+			newUrl = handleDocsLink(urlObject)
 		}
 
 		/**
