@@ -138,9 +138,11 @@ function prepareNavNodeForClient({
 		}
 	} else if (isNavLeaf(node)) {
 		// For nodes with paths, add fullPath to the node, and `id`
+		const pathWithIndexFix = node.path == 'index' ? '' : node.path
 		const preparedItem = {
 			...node,
-			fullPath: `/${basePaths.join('/')}/${node.path}`,
+			path: pathWithIndexFix,
+			fullPath: `/${basePaths.join('/')}/${pathWithIndexFix}`,
 			id,
 		}
 		return { preparedItem, traversedNodes: 1 }
