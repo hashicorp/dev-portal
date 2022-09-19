@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import Cookies from 'js-cookie'
@@ -6,8 +6,8 @@ import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import Button from 'components/button'
 import usePreloadNextDynamic from 'hooks/use-preload-next-dynamic'
 import { safeAnalyticsTrack, safeGetSegmentId } from 'lib/analytics'
-import { OptInOutProps, isOptInPlatformOption } from './types'
-import { PLATFORM_OPTIONS, postFormData, makeBetaWelcomeToast } from './helpers'
+import { OptInOutProps } from './types'
+import { PLATFORM_OPTIONS, postFormData } from './helpers'
 import OptOutForm from './components/opt-out-form'
 import { OptOutFormState } from './components/opt-out-form/types'
 
@@ -51,17 +51,6 @@ export default function OptInOut({ platform, redirectPath }: OptInOutProps) {
 		},
 		[platform, url, router.asPath]
 	)
-
-	/**
-	 * If there's an 'optInFrom' query parameter,
-	 * make some welcome toast
-	 */
-	const optInFrom = router.query?.optInFrom
-	useEffect(() => {
-		if (typeof optInFrom == 'string' && isOptInPlatformOption(optInFrom)) {
-			makeBetaWelcomeToast(optInFrom)
-		}
-	}, [optInFrom])
 
 	// Return early if not opted in
 	if (optedIn !== 'true') {

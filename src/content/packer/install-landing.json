@@ -1,20 +1,37 @@
 {
-	"featuredTutorialsSlugs": [],
+	"featuredCollectionsSlugs": [
+		"packer/aws-get-started",
+		"packer/docker-get-started",
+		"packer/hcp-get-started",
+		"packer/configuration-language"
+	],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "Packer Tutorials",
+			"href": "/packer/tutorials#get-started"
+		},
+		{
+			"title": "HCP Packer Tutorials",
+			"fullPath": "/packer/tutorials/hcp"
+		}
+	],
 	"sidecarMarketingCard": {
 		"title": "About Packer",
-		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+		"subtitle": "Packer lets you create identical machine images for multiple platforms from a single source configuration.",
 		"featuredDocsLinks": [
 			{
-				"href": "/packer/docs/install",
-				"text": "Install"
+				"href": "/packer/docs/cli",
+				"text": "Packer CLI"
 			},
 			{
-				"href": "/packer/docs/configure",
-				"text": "Configure"
-			},
-			{
-				"href": "/packer/docs/debugging",
-				"text": "Debug"
+				"href": "/packer/docs/templates",
+				"text": "Templates"
 			},
 			{
 				"href": "/packer/docs/plugins",

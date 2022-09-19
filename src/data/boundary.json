@@ -22,10 +22,10 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "NEW",
-		"url": "https://cloud.hashicorp.com/boundary",
-		"text": "Boundary on the HashiCorp Cloud Platform is now in public beta",
-		"linkText": "Learn more",
+		"tag": "Just announced",
+		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "HashiConf Global full schedule: keynotes, sessions, labs & more.",
+		"linkText": "Register Now",
 		"expirationDate": ""
 	},
 	"subnavItems": [
