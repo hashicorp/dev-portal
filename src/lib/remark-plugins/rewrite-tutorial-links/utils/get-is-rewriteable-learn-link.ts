@@ -11,7 +11,7 @@ const productAndSectionOptions = [
  * Determines whether or not the given `linkOrPath` is a rewriteable link under
  * the learn.hashicorp.com hostname.
  */
-const getIsExternalLearnLink = (link: string) => {
+const getIsRewriteableExternalLearnLink = (link: string) => {
 	try {
 		const urlObject = new URL(link)
 		const urlAsString = urlObject.toString()
@@ -36,7 +36,7 @@ const getIsExternalLearnLink = (link: string) => {
 		/**
 		 * Return whether or not the pathname fits the Learn format.
 		 */
-		return getIsLearnPath(link)
+		return getIsRewriteableLearnPath(link)
 	} catch (e) {
 		return false
 	}
@@ -46,7 +46,7 @@ const getIsExternalLearnLink = (link: string) => {
  * Determine whether the given `link` is a URL referencing Learn content in the
  * context of the Learn platform.
  */
-const getIsLearnPath = (link: string): boolean => {
+const getIsRewriteableLearnPath = (link: string): boolean => {
 	/**
 	 * If `path` is falsy, it's can't be a Learn link.
 	 */
@@ -102,8 +102,14 @@ const getIsLearnPath = (link: string): boolean => {
 /**
  * Determine whether the given `link` is a URL referencing Learn content.
  */
-const getIsLearnLink = (link: string) => {
-	return getIsExternalLearnLink(link) || getIsLearnPath(link)
+const getIsRewriteableLearnLink = (link: string) => {
+	return (
+		getIsRewriteableExternalLearnLink(link) || getIsRewriteableLearnPath(link)
+	)
 }
 
-export { getIsExternalLearnLink, getIsLearnLink, getIsLearnPath }
+export {
+	getIsRewriteableExternalLearnLink,
+	getIsRewriteableLearnLink,
+	getIsRewriteableLearnPath,
+}

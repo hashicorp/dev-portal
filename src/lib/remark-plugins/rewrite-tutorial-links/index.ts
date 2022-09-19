@@ -22,7 +22,7 @@ import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import {
 	getIsExternalDocsLink,
-	getIsLearnLink,
+	getIsRewriteableLearnLink,
 	getTutorialMap,
 	handleLearnLink,
 	rewriteExternalDocsLink,
@@ -52,7 +52,7 @@ export function rewriteTutorialsLink(
 	try {
 		const urlObject = new URL(url, 'https://learn.hashicorp.com')
 
-		const isLearnLink = getIsLearnLink(url)
+		const isLearnLink = getIsRewriteableLearnLink(url)
 		const isExternalDocsLink = getIsExternalDocsLink(url)
 
 		/**

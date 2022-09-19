@@ -1,15 +1,15 @@
-import { getIsLearnLink } from '../utils/get-is-learn-link'
+import { getIsRewriteableLearnLink } from '../utils/get-is-rewriteable-learn-link'
 
 const testEachCase = (testCases: [string, boolean][]) => {
 	test.each(testCases)(
-		'getIsLearnLink(%p) returns %p',
+		'getIsRewriteableLearnLink(%p) returns %p',
 		(input: string, expectedOutput: boolean) => {
-			expect(getIsLearnLink(input)).toBe(expectedOutput)
+			expect(getIsRewriteableLearnLink(input)).toBe(expectedOutput)
 		}
 	)
 }
 
-describe('getIsLearnLink', () => {
+describe('getIsRewriteableLearnLink', () => {
 	describe('basic inputs', () => {
 		testEachCase([
 			[undefined, false],

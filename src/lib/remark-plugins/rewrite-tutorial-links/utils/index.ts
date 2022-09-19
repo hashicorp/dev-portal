@@ -1,9 +1,9 @@
 export { getIsExternalDocsLink } from './get-is-external-docs-link'
 export {
-	getIsExternalLearnLink,
-	getIsLearnLink,
-	getIsLearnPath,
-} from './get-is-learn-link'
+	getIsRewriteableExternalLearnLink,
+	getIsRewriteableLearnLink,
+	getIsRewriteableLearnPath,
+} from './get-is-rewriteable-learn-link'
 export { getTutorialMap } from './get-tutorial-map'
 export { handleCollectionLink } from './handle-collection-link'
 export { handleLearnLink } from './handle-learn-link'
