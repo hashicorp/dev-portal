@@ -1,4 +1,4 @@
-import { handleDocsLink } from '../utils'
+import { rewriteExternalDocsLink } from '../utils'
 
 const getTestURLObject = (url: string) => {
 	return new URL(url, __config.dev_dot.canonical_base_url)
@@ -6,15 +6,15 @@ const getTestURLObject = (url: string) => {
 
 const testEachCase = (cases: [string, string][]) => {
 	test.each(cases)(
-		'handleDocsLink(%p, %p) returns %p',
+		'rewriteExternalDocsLink(%p, %p) returns %p',
 		(input: string, expectedOutput: string) => {
 			const testUrlObject = getTestURLObject(input)
-			expect(handleDocsLink(testUrlObject)).toBe(expectedOutput)
+			expect(rewriteExternalDocsLink(testUrlObject)).toBe(expectedOutput)
 		}
 	)
 }
 
-describe('handleDocsLink', () => {
+describe('rewriteExternalDocsLink', () => {
 	describe('when neither `search` nor `hash` are present', () => {
 		describe('when the base path is not "api"', () => {
 			testEachCase([

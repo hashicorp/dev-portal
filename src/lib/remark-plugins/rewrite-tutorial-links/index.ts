@@ -24,8 +24,8 @@ import {
 	getIsExternalDocsLink,
 	getIsLearnLink,
 	getTutorialMap,
-	handleDocsLink,
 	handleLearnLink,
+	rewriteExternalDocsLink,
 } from './utils'
 
 let TUTORIAL_MAP
@@ -53,14 +53,14 @@ export function rewriteTutorialsLink(
 		const urlObject = new URL(url, 'https://learn.hashicorp.com')
 
 		const isLearnLink = getIsLearnLink(url)
-		const isDocsLink = getIsExternalDocsLink(url)
+		const isExternalDocsLink = getIsExternalDocsLink(url)
 
 		/**
 		 * Don't do anything if the link is ambiguous.
 		 */
 		if (
-			(isLearnLink === true && isDocsLink === true) ||
-			(isLearnLink === false && isDocsLink === false)
+			(isLearnLink === true && isExternalDocsLink === true) ||
+			(isLearnLink === false && isExternalDocsLink === false)
 		) {
 			throw new Error(
 				`[rewriteTutorialsLink] Found an ambiguous link: '${url}'`
@@ -72,8 +72,8 @@ export function rewriteTutorialsLink(
 		 */
 		if (isLearnLink) {
 			newUrl = handleLearnLink(urlObject, tutorialMap)
-		} else if (isDocsLink) {
-			newUrl = handleDocsLink(urlObject)
+		} else if (isExternalDocsLink) {
+			newUrl = rewriteExternalDocsLink(urlObject)
 		}
 
 		/**

@@ -17,7 +17,7 @@ import { ProductSlug } from 'types/products'
  *   /docs/some-doc.html	--> /waypoint/docs/some-doc
  *   /api/index.html			--> /waypoint/api-docs
  */
-export function handleDocsLink(urlObject: URL) {
+export function rewriteExternalDocsLink(urlObject: URL) {
 	/**
 	 * Separate the different parts of the URL so they are analyzed in silos.
 	 */
