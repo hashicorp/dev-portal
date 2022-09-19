@@ -77,6 +77,7 @@ const DocsView = ({
 	lazy,
 	hideSearch = false,
 	versions,
+	projectName,
 }: DocsViewProps) => {
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
@@ -95,7 +96,7 @@ const DocsView = ({
 			<DevDotContent className={versions ? s.contentWithVersions : null}>
 				{versions ? (
 					<div className={s.versionSwitcherWrapper}>
-						<DocsVersionSwitcher options={versions} />
+						<DocsVersionSwitcher options={versions} projectName={projectName} />
 					</div>
 				) : null}
 				<NoIndexTagIfVersioned />
