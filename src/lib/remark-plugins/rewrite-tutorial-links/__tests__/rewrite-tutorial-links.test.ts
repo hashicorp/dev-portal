@@ -2,6 +2,16 @@ import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 
+/**
+ * As we onboard more products into internal beta, we lose the ability
+ * to test "beta" functionality using real config. So, we mock
+ * get-is-beta-product in order to provide a consistent testing config.
+ */
+jest.mock('../../../get-is-beta-product', () => (productSlug) => {
+	const nonBetaProductsForTesting = ['boundary', 'packer', 'vagrant']
+	return nonBetaProductsForTesting.indexOf(productSlug) === -1
+})
+
 // HELPERS ------------------------------------------------------
 
 const slug = '[a-z0-9]+(?:[-][a-z0-9]+)*' // matches lower case letters, numbers and hyphens
@@ -74,6 +84,8 @@ const TEST_MD_LINKS = {
 		'[boundary link with vault in tutorial title](/tutorials/boundary/vault-cred-brokering-quickstart)',
 	wafTutorialLink:
 		'[waf link](/tutorials/well-architected-framework/cloud-operating-model)',
+	onboardingCollectionLink:
+		'[onboarding link](/collections/onboarding/hcp-vault-week-1)',
 }
 
 /**
@@ -324,7 +336,6 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
 			.process(TEST_MD_LINKS.betaProductDocsLinkNonDoc)
-		console.log(String(contents))
 		expect(String(contents)).toMatch(TEST_MD_LINKS.betaProductDocsLinkNonDoc)
 	})
 
@@ -346,7 +357,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		)
 		const finalPath = 'https://learn.hashicorp.com' + basePath
 
-		expect(String(contents)).toMatch(finalPath)
+		expect(isolatePathFromMarkdown(String(contents))).toBe(finalPath)
 	})
 
 	test('Waf link should be rewritten properly', async () => {
@@ -355,8 +366,17 @@ describe('rewriteTutorialLinks remark plugin', () => {
 			.process(TEST_MD_LINKS.wafTutorialLink)
 		const newPath = isolatePathFromMarkdown(String(contents))
 
-		expect(newPath).toMatch(
+		expect(newPath).toBe(
 			'/well-architected-framework/com/cloud-operating-model'
 		)
+	})
+
+	test('Onboarding link should be rewritten properly', async () => {
+		const contents = await remark()
+			.use(rewriteTutorialLinksPlugin)
+			.process(TEST_MD_LINKS.onboardingCollectionLink)
+		const newPath = isolatePathFromMarkdown(String(contents))
+
+		expect(newPath).toBe('/onboarding/hcp-vault-week-1')
 	})
 })

@@ -101,7 +101,7 @@ describe('<Tabs />', () => {
 		})
 
 		describe('with interaction', () => {
-			test('mouse click changes the active tab', () => {
+			test('mouse click changes the active tab', async () => {
 				/**
 				 * Queries for the second tab button by text and asserts checks that it is
 				 * not already selected, which it should not be since the first tab is
@@ -112,7 +112,7 @@ describe('<Tabs />', () => {
 					selected: false,
 				})
 
-				userEvent.click(secondTabButton)
+				await userEvent.click(secondTabButton)
 
 				/**
 				 * Checks that the first tab panel is no longer active and visible in the
@@ -163,7 +163,7 @@ describe('<Tabs />', () => {
 					name: testData[0].heading,
 				})
 				firstTabButton.focus()
-				userEvent.tab()
+				await userEvent.tab()
 
 				await waitFor(() => {
 					const firstTabPanel = screen.queryByRole('tabpanel', {

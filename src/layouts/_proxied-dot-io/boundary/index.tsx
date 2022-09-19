@@ -2,7 +2,10 @@ import React from 'react'
 import HashiHead from '@hashicorp/react-head'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import Min100Layout from '@hashicorp/react-min-100-layout'
-import useProductMeta, { Products } from '@hashicorp/platform-product-meta'
+import useProductMeta, {
+	ProductMetaProvider,
+	Products,
+} from '@hashicorp/platform-product-meta'
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import localConsentManagerServices from 'lib/consent-manager-services/io-sites'
@@ -49,57 +52,59 @@ function BoundaryIoLayout({ children, data }: Props): React.ReactElement {
 			/>
 
 			<Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
-				{productData.alertBannerActive && (
-					<AlertBanner
-						{...productData.alertBanner}
-						product={productData.slug as Products}
-						hideOnMobile
+				<ProductMetaProvider product={productData.slug as Products}>
+					{productData.alertBannerActive && (
+						<AlertBanner
+							{...productData.alertBanner}
+							product={productData.slug as Products}
+							hideOnMobile
+						/>
+					)}
+					<ProductSubnav
+						menuItems={[
+							{
+								text: 'Overview',
+								url: '/',
+								type: 'inbound',
+							},
+							'divider',
+							useCaseNavItems.length > 0
+								? {
+										text: 'Use Cases',
+										submenu: useCaseNavItems
+											.map((item) => {
+												return {
+													text: item.text,
+													url: `/use-cases/${item.url}`,
+												}
+											})
+											.sort((a, b) => a.text.localeCompare(b.text)),
+								  }
+								: undefined,
+							{
+								text: 'Tutorials',
+								url: 'https://learn.hashicorp.com/boundary',
+								type: 'inbound',
+							},
+							{
+								text: 'Docs',
+								url: '/docs',
+								type: 'inbound',
+							},
+							{
+								text: 'API',
+								url: '/api-docs',
+								type: 'inbound',
+							},
+							{
+								text: 'Community',
+								url: '/community',
+								type: 'inbound',
+							},
+						].filter(Boolean)}
 					/>
-				)}
-				<ProductSubnav
-					menuItems={[
-						{
-							text: 'Overview',
-							url: '/',
-							type: 'inbound',
-						},
-						'divider',
-						useCaseNavItems.length > 0
-							? {
-									text: 'Use Cases',
-									submenu: useCaseNavItems
-										.map((item) => {
-											return {
-												text: item.text,
-												url: `/use-cases/${item.url}`,
-											}
-										})
-										.sort((a, b) => a.text.localeCompare(b.text)),
-							  }
-							: undefined,
-						{
-							text: 'Tutorials',
-							url: 'https://learn.hashicorp.com/boundary',
-							type: 'inbound',
-						},
-						{
-							text: 'Docs',
-							url: '/docs',
-							type: 'inbound',
-						},
-						{
-							text: 'API',
-							url: '/api-docs',
-							type: 'inbound',
-						},
-						{
-							text: 'Community',
-							url: '/community',
-							type: 'inbound',
-						},
-					].filter(Boolean)}
-				/>
-				<div className={themeClass}>{children}</div>
+					<div className={themeClass}>{children}</div>
+				</ProductMetaProvider>
 			</Min100Layout>
 			<ConsentManager />
 		</>

@@ -3,13 +3,10 @@ import Link from 'next/link'
 import Button from '@hashicorp/react-button'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from 'lib/fetch-release-data'
-import productData from 'data/vault'
 import s from './style.module.css'
 
 function DownloadsPage({ product, releases, latestVersion }) {
-	const changelogUrl = productData.changelogUrl.length
-		? productData.changelogUrl
-		: `https://github.com/hashicorp/vault/blob/v${productData.version}/CHANGELOG.md`
+	const changelogUrl = `https://github.com/hashicorp/vault/blob/main/CHANGELOG.md`
 
 	return (
 		<ProductDownloadsPage
@@ -76,7 +73,7 @@ function MerchandisingSlot() {
 				<Button
 					title="Sign up for HCP Vault"
 					linkType="inbound"
-					url="https://portal.cloud.hashicorp.com/sign-up?utm_source=vault_io&utm_content=download_cta"
+					url="https://portal.cloud.hashicorp.com/sign-up"
 					theme={{
 						variant: 'tertiary',
 						brand: 'vault',

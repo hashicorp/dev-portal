@@ -3,7 +3,6 @@ import Link from 'next/link'
 import classNames from 'classnames'
 import type { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
 import { IconHashicorpColor24 } from '@hashicorp/flight-icons/svg-react/hashicorp-color-24'
 import { IconTerraform24 } from '@hashicorp/flight-icons/svg-react/terraform-24'
@@ -75,13 +74,18 @@ const productIcons: {
 
 interface ProductNavProps {
 	notice?: string
-	products: Array<ProductSlug>
+	products: { slug: ProductSlug; isBeta: boolean }[]
 }
 
 export default function ProductNav({ notice, products }: ProductNavProps) {
+	// if at least one product is not in-beta, show the beta notice
+	// - This may need to be adjusted as Post-GA, products will be
+	//   promoted away from "beta", to "generally available", or something else.
+	const notAllInBeta = products.some(({ isBeta }) => !isBeta)
+
 	return (
 		<div className={s.productNav}>
-			{notice ? (
+			{notice && notAllInBeta ? (
 				<div className={s.notice}>
 					<Text size={200} className={s.noticeText}>
 						{notice}
@@ -90,12 +94,11 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
 			) : null}
 			<nav className={s.nav}>
 				<ul className={s.list}>
-					{products.map((product, index) => {
-						const isBetaProduct = getIsBetaProduct(product)
+					{products.map(({ slug, isBeta }, index) => {
 						const productName =
-							product === 'hcp' ? 'HCP' : productSlugsToNames[product]
+							slug === 'hcp' ? 'HCP' : productSlugsToNames[slug]
 						const productBorderColor =
-							product === 'hcp' ? 'var(--black)' : `var(--${product})`
+							slug === 'hcp' ? 'var(--black)' : `var(--${slug})`
 						const productClassName = classNames(s.product, {
 							[s.isFirstChild]: index == 0,
 							[s.isLastChild]: index == products.length - 1,
@@ -103,17 +106,17 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
 						return (
 							<li
 								className={s.listItem}
-								key={product}
+								key={slug}
 								style={
 									{
 										'--border-color': productBorderColor,
 									} as CSSProperties
 								}
 							>
-								{isBetaProduct ? (
-									<Link href={`/${product}/`}>
+								{isBeta ? (
+									<Link href={`/${slug}/`}>
 										<a className={productClassName}>
-											{productIcons[product].color}
+											{productIcons[slug].color}
 											<Text
 												weight="semibold"
 												size={200}
@@ -126,7 +129,7 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
 									</Link>
 								) : (
 									<span className={productClassName}>
-										{productIcons[product].neutral}
+										{productIcons[slug].neutral}
 										<Text
 											weight="semibold"
 											size={200}

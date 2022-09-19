@@ -1,15 +1,21 @@
+// Third-party imports
 import classNames from 'classnames'
+import slugify from 'slugify'
+
+// Global imports
+import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { useCurrentProduct } from 'contexts'
-import Heading, { HeadingProps } from 'components/heading'
-import Text from 'components/text'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
-import GetStartedCard from 'components/get-started-card'
+import CalloutCard from 'components/callout-card'
+import Heading, { HeadingProps } from 'components/heading'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
+import Text from 'components/text'
 import TruncateMaxLines from 'components/truncate-max-lines'
-import { SUPPORTED_ICONS } from '../supported-icons'
+
+// Local imports
 import s from './marketing-content.module.css'
-import slugify from 'slugify'
+import { ParagraphBlock } from '../paragraph-block'
 
 const GETTING_STARTED_CARD_HEADING = 'Getting Started'
 const GETTING_STARTED_CARD_HEADING_SLUG = slugify(GETTING_STARTED_CARD_HEADING)
@@ -132,6 +138,10 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 	return (
 		<div className={s.root}>
 			{blocks.map((block) => {
+				if (block.type === 'paragraph') {
+					return <ParagraphBlock {...block} />
+				}
+
 				if (block.type === 'section-heading') {
 					return (
 						<SectionHeading
@@ -165,7 +175,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 
 				if (block.type === 'getting-started-card') {
 					return (
-						<GetStartedCard
+						<CalloutCard
 							heading={GETTING_STARTED_CARD_HEADING}
 							headingSlug={GETTING_STARTED_CARD_HEADING_SLUG}
 							body={block.description}
