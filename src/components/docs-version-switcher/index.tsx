@@ -14,7 +14,10 @@ import s from './docs-version-switcher.module.css'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
-const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
+const DocsVersionSwitcher = ({
+	options,
+	projectName,
+}: DocsVersionSwitcherProps) => {
 	const currentProduct = useCurrentProduct() as ProductWithCurrentRootDocsPath
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 
@@ -51,7 +54,9 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
 	// Build the `ariaLabel` that is announced when the activator is focused
 	const currentRootDocsPathName =
 		currentRootDocsPath.shortName || currentRootDocsPath.name
-	const ariaLabel = `Choose a ${currentProduct.name} ${currentRootDocsPathName} version. Currently viewing ${selectedOption.label}.`
+	const nameForLabel =
+		projectName || `${currentProduct.name} ${currentRootDocsPathName}`
+	const ariaLabel = `Choose a ${nameForLabel} version. Currently viewing ${selectedOption.label}.`
 	return (
 		<nav>
 			<DropdownDisclosure
@@ -62,7 +67,7 @@ const DocsVersionSwitcher = ({ options }: DocsVersionSwitcherProps) => {
 				listPosition="right"
 			>
 				<DropdownDisclosureLabelItem>
-					{currentProduct.name}
+					{projectName ?? currentProduct.name}
 				</DropdownDisclosureLabelItem>
 				{options
 					// Hide currently selected version from dropdown list
