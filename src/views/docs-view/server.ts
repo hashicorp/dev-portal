@@ -337,7 +337,7 @@ export function getStaticGenerationFunctions<
 				layoutProps.githubFileUrl = githubFileUrl
 			}
 
-			const { hideVersionSelector } = options
+			const { hideVersionSelector, projectName } = options
 
 			const finalProps = {
 				layoutProps,
@@ -356,6 +356,7 @@ export function getStaticGenerationFunctions<
 					// needed for DocsVersionSwitcher
 					currentRootDocsPath: currentRootDocsPath || null,
 				},
+				projectName: projectName || null,
 				versions:
 					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
 			}
