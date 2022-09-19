@@ -22,9 +22,7 @@ const SOLUTION_MAP: Record<SolutionOption, HcpProductSlug[]> = {
 	security: ['boundary', 'vault'],
 }
 
-export default function MdxHcpCallout({
-	product = 'vault',
-}: MdxHcpCalloutProps) {
+export default function MdxHcpCallout({ product }: MdxHcpCalloutProps) {
 	const productName = productSlugsToNames[product]
 
 	const solution = Object.keys(SOLUTION_MAP).find((group: SolutionOption) =>
