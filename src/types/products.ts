@@ -45,6 +45,11 @@ type HcpProductName = Exclude<
 	| 'Waypoint'
 >
 
+type HcpProductSlug = Exclude<
+	ProductSlug,
+	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant' | 'waypoint'
+>
+
 /**
  * Learn does not support all of the products in `ProductSlug`, so this is the
  * interface almost the same as `ProductData`, just with a limited set of
@@ -187,6 +192,7 @@ export type {
 	LearnProductName,
 	LearnProductSlug,
 	HcpProductName,
+	HcpProductSlug,
 	Product,
 	ProductData,
 	ProductGroup,

@@ -2,7 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import Text from 'components/text'
-import { HcpProductName } from 'types/products'
+import { HcpProductSlug } from 'types/products'
+import { productSlugsToNames } from 'lib/products'
 import { MdxHcpCalloutProps, SolutionOption } from './types'
 import patternInfrastructure from './img/infrastructure.png'
 import patternNetworking from './img/networking.png'
@@ -15,20 +16,20 @@ const PATTERN_IMG_MAP: Record<SolutionOption, string> = {
 	security: patternSecurity,
 }
 
-const SOLUTION_MAP: Record<SolutionOption, HcpProductName[]> = {
-	infrastructure: ['Packer'],
-	networking: ['Consul'],
-	security: ['Boundary', 'Vault'],
+const SOLUTION_MAP: Record<SolutionOption, HcpProductSlug[]> = {
+	infrastructure: ['packer'],
+	networking: ['consul'],
+	security: ['boundary', 'vault'],
 }
 
 export default function MdxHcpCallout({
-	product = 'Vault',
+	product = 'vault',
 }: MdxHcpCalloutProps) {
+	const productName = productSlugsToNames[product]
+
 	const solution = Object.keys(SOLUTION_MAP).find((group: SolutionOption) =>
 		SOLUTION_MAP[group].includes(product)
 	)
-
-	console.log(solution)
 
 	return (
 		<div
@@ -41,7 +42,7 @@ export default function MdxHcpCallout({
 		>
 			<div className={s.textContainer}>
 				<Text asElement="p" weight="bold" color="var(--white)">
-					Looking for <span className={s.solutionGradient}>{product}</span>{' '}
+					Looking for <span className={s.solutionGradient}>{productName}</span>{' '}
 					documentation?
 				</Text>
 				<Text
@@ -50,10 +51,11 @@ export default function MdxHcpCallout({
 					color="var(--white)"
 					className={s.subHeading}
 				>
-					To reference non-cloud documentation go to the {product} docs page.
+					To reference non-cloud documentation go to the {productName} docs
+					page.
 				</Text>
 				<div className={s.ctaWrapper}>
-					<span className={s.ctaText}>{`Go to ${product}`}</span>
+					<span className={s.ctaText}>{`Go to ${productName}`}</span>
 					<IconArrowRight16 color="var(--white)" />
 				</div>
 				{/* <StandaloneLink
@@ -75,9 +77,9 @@ export default function MdxHcpCallout({
 					objectPosition="center"
 				/>
 			</div>
-			<Link href={`/${product.toLowerCase()}/docs`}>
+			<Link href={`/${product}/docs`}>
 				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-				<a className={s.link} aria-label={`Go to ${product}`} />
+				<a className={s.link} aria-label={`Go to ${productName}`} />
 			</Link>
 		</div>
 	)
