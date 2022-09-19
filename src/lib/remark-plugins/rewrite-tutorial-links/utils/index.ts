@@ -1,5 +1,9 @@
 export { getIsExternalDocsLink } from './get-is-external-docs-link'
-export { getIsLearnLink } from './get-is-learn-link'
+export {
+	getIsExternalLearnLink,
+	getIsLearnLink,
+	getIsLearnPath,
+} from './get-is-learn-link'
 export { getTutorialMap } from './get-tutorial-map'
 export { handleCollectionLink } from './handle-collection-link'
 export { handleLearnLink } from './handle-learn-link'

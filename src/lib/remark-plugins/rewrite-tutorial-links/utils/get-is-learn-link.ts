@@ -8,41 +8,63 @@ const productAndSectionOptions = [
 ]
 
 /**
- * Determine whether the given `link` is a URL referencing Learn content.
+ * Determines whether or not the given `linkOrPath` is a rewriteable link under
+ * the learn.hashicorp.com hostname.
  */
-const getIsLearnLink = (link: string): boolean => {
+const getIsExternalLearnLink = (link: string) => {
+	try {
+		const urlObject = new URL(link)
+		const urlAsString = urlObject.toString()
+		const { hostname } = urlObject
+
+		/**
+		 * If the `base` argument passed to the URL constructor wasn't taken, then
+		 * the link already has one and it is external to Learn.
+		 */
+		if (hostname !== learnHostname) {
+			return false
+		}
+
+		/**
+		 * Return true if the link is `https://learn.hashicorp.com` with or without
+		 * a trailing slash.
+		 */
+		if (link === urlAsString || `${link}/` === urlAsString) {
+			return true
+		}
+
+		/**
+		 * Return whether or not the pathname fits the Learn format.
+		 */
+		return getIsLearnPath(link)
+	} catch (e) {
+		return false
+	}
+}
+
+/**
+ * Determine whether the given `link` is a URL referencing Learn content in the
+ * context of the Learn platform.
+ */
+const getIsLearnPath = (link: string): boolean => {
 	/**
-	 * If `link` is falsy, it's can't be a Learn link.
+	 * If `path` is falsy, it's can't be a Learn link.
 	 */
 	if (!link) {
 		return false
 	}
 
 	/**
-	 * Construct a URL object to analyze the link parts.
+	 * Split the given `path` into its parts, and consider whether or not there is
+	 * a leading `/`.
 	 */
 	const urlObject = new URL(link, `https://${learnHostname}`)
-	const urlAsString = urlObject.toString()
-	const { hostname, pathname } = urlObject
-	const pathnameParts = pathname.split('/').slice(1)
+	const { pathname } = urlObject
+	const pathnameParts = pathname
+		.split('/')
+		.slice(pathname.startsWith('/') ? 1 : 0)
 	const numPathnameParts = pathnameParts.length
 	const [basePath, productOrSectionSlug] = pathnameParts
-
-	/**
-	 * If the `base` argument passed to the URL constructor wasn't taken, then the
-	 * link already has one and it is external to Learn.
-	 */
-	if (hostname !== learnHostname) {
-		return false
-	}
-
-	/**
-	 * Return true if the link is `https://learn.hashicorp.com` with or without a
-	 * trailing slash.
-	 */
-	if (link === urlAsString || `${link}/` === urlAsString) {
-		return true
-	}
 
 	/**
 	 * If there is only one part to the pathname, check if it is an allowed slug
@@ -77,4 +99,11 @@ const getIsLearnLink = (link: string): boolean => {
 	return productAndSectionOptions.includes(productOrSectionSlug)
 }
 
-export { getIsLearnLink }
+/**
+ * Determine whether the given `link` is a URL referencing Learn content.
+ */
+const getIsLearnLink = (link: string) => {
+	return getIsExternalLearnLink(link) || getIsLearnPath(link)
+}
+
+export { getIsExternalLearnLink, getIsLearnLink, getIsLearnPath }
