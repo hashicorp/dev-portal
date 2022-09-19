@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import Link from 'next/link'
 import OperationObject from './partials/operation-object'
 import HashiHead from '@hashicorp/react-head'
 import DocsSidenav from '@hashicorp/react-docs-sidenav'
@@ -65,7 +64,6 @@ function OpenApiPage({
 			/>
 			<DocsSidenav
 				product={productSlug}
-				Link={Link}
 				currentPath={currentPath}
 				baseRoute={baseRoute}
 				disableFilter={true}

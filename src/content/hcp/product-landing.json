@@ -40,58 +40,42 @@
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Use Cases",
+			"heading": "Featured Content",
 			"level": 2,
 			"size": 400
 		},
 		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
+			"type": "collection_cards",
+			"collectionSlugs": ["cloud/networking"]
 		},
 		{
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://cloud.hashicorp.com"
+					"heading": "Create and manage an AWS HVN",
+					"body": "Explore how to create and manage a HashiCorp Virtual Network (HVN) for AWS and connect it to your VPC.",
+					"url": "/hcp/docs/hcp/network/hvn-aws/hvn-aws"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://cloud.hashicorp.com"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://cloud.hashicorp.com"
+					"heading": "Create and manage an Azure HVN",
+					"body": "Explore how to create and manage a HashiCorp Virtual Network (HVN) for Azure and connect it to your VNet.",
+					"url": "/hcp/docs/hcp/network/hvn-azure/hvn-azure"
 				}
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Case Studies",
+			"heading": "Popular Use Cases",
 			"level": 2,
 			"size": 400
 		},
 		{
-			"type": "linked_cards",
-			"cards": [
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://cloud.hashicorp.com"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://cloud.hashicorp.com"
-				},
-				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://cloud.hashicorp.com"
-				}
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"cloud/vault-oidc-okta",
+				"boundary/hcp-manage-scopes",
+				"packer/golden-image-with-hcp-packer",
+				"consul/kubernetes-api-gateway"
 			]
 		}
 	]
