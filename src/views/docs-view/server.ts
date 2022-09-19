@@ -287,8 +287,8 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Check the top level of the navData for "overview" items,
 			 * which are expected to be present for consistency.
-			 * If we do no have an overview item match, then we automatically
-			 * add an overview item.
+			 * If we do no have an overview item match, then we'll
+			 * automatically add an overview item.
 			 */
 			const overviewItemMatch = navDataWithFullPaths.find((item: MenuItem) => {
 				const isPathMatch =
@@ -298,7 +298,14 @@ export function getStaticGenerationFunctions<
 					item.path == 'index'
 				return isPathMatch
 			})
-			if (!overviewItemMatch) {
+			/**
+			 * Exception: If the first navData node is a `heading`,
+			 * we'll avoid adding an overview item even if there's
+			 * no overview item match.
+			 */
+			const firstItemIsHeading =
+				typeof navDataWithFullPaths[0]?.heading == 'string'
+			if (!overviewItemMatch && !firstItemIsHeading) {
 				docsSidebarLevel.overviewItemHref = versionPathPart
 					? `/${product.slug}/${basePath}/${versionPathPart}`
 					: `/${product.slug}/${basePath}`
