@@ -1,3 +1,5 @@
+import getIsBetaProduct from 'lib/get-is-beta-product'
+import { productSlugsToHostNames } from 'lib/products'
 import path from 'path'
 import { ProductSlug } from 'types/products'
 
@@ -15,11 +17,29 @@ import { ProductSlug } from 'types/products'
  *   /docs/some-doc.html	--> /waypoint/docs/some-doc
  *   /api/index.html			--> /waypoint/api-docs
  */
-export function handleDocsLink(urlObject: URL, product: ProductSlug) {
+export function handleDocsLink(urlObject: URL) {
 	/**
 	 * Separate the different parts of the URL so they are analyzed in silos.
 	 */
-	const { pathname, search, hash } = urlObject
+	const { hostname, pathname, search, hash } = urlObject
+
+	/**
+	 * Parse the product slug from the given `urlObject`'s hostname.
+	 */
+	const productSlug = Object.keys(productSlugsToHostNames).find(
+		(productSlug: ProductSlug) => {
+			const productHostName = productSlugsToHostNames[productSlug]
+			return hostname.includes(productHostName)
+		}
+	) as ProductSlug
+
+	/**
+	 * Return early if the parsed `productSlug` is not a beta product.
+	 */
+	const isBetaProduct = productSlug && getIsBetaProduct(productSlug)
+	if (!isBetaProduct) {
+		return
+	}
 
 	/**
 	 * @TODO validate that the pathname parts are valid? (Is any input invalid?)
@@ -49,7 +69,7 @@ export function handleDocsLink(urlObject: URL, product: ProductSlug) {
 	 * Join all the path parts back together. Using `path` to prevent leading or
 	 * trailing `/` characters.
 	 */
-	const joinedParts = path.join(product, finalBasePath, ...restParts)
+	const joinedParts = path.join(productSlug, finalBasePath, ...restParts)
 
 	/**
 	 * Piece the URL parts together.
