@@ -32,8 +32,7 @@ function parseCollectionProgress(
 		TutorialProgressStatus.complete
 	)
 	const isCompleted = completedTutorialCount == tutorialCount
-	const isInProgress =
-		inProgressTutorialCount > 0 || (completedTutorialCount > 0 && !isCompleted)
+	const isInProgress = inProgressTutorialCount > 0 || completedTutorialCount > 0
 	/**
 	 * Tutorial CTA
 	 */
@@ -47,24 +46,12 @@ function parseCollectionProgress(
 		tutorialCount,
 	})
 	/**
-	 * Status label
-	 */
-	let statusLabel: string
-	if (isCompleted) {
-		statusLabel = 'Complete'
-	} else if (isInProgress) {
-		statusLabel = `${completedTutorialCount}/${tutorialCount}`
-	} else {
-		statusLabel = `${tutorialCount} tutorial${tutorialCount == 1 ? '' : 's'}`
-	}
-	/**
 	 * Return it all
 	 */
 	return {
 		completedTutorialCount,
 		isCompleted,
 		isInProgress,
-		statusLabel,
 		tutorialCount,
 		tutorialCta,
 	}
