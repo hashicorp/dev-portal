@@ -1,5 +1,5 @@
 import { ProductSlug } from 'types/products'
-import { handleCollectionLink } from '../utils'
+import { rewriteExternalCollectionLink } from '../utils'
 
 jest.mock('lib/get-is-beta-product', () => (productSlug: ProductSlug) => {
 	return ['vault', 'waypoint'].includes(productSlug)
@@ -11,14 +11,16 @@ const getTestURLObject = (url: string) => {
 
 const testEachCase = (cases: string[][]) => {
 	test.each(cases)(
-		'handleCollectionLink(%p) returns %p',
+		'rewriteExternalCollectionLink(%p) returns %p',
 		(input: string, expectedOutput: string) => {
-			expect(handleCollectionLink(getTestURLObject(input))).toBe(expectedOutput)
+			expect(rewriteExternalCollectionLink(getTestURLObject(input))).toBe(
+				expectedOutput
+			)
 		}
 	)
 }
 
-describe('handleCollectionLink', () => {
+describe('rewriteExternalCollectionLink', () => {
 	describe('when the input is invalid', () => {
 		test.each([
 			'',
@@ -31,7 +33,9 @@ describe('handleCollectionLink', () => {
 			'/almost/valid/input',
 			'/one/more/invalid/input',
 		])('%p as `pathname` throws an error', (input: string) => {
-			expect(() => handleCollectionLink(getTestURLObject(input))).toThrow()
+			expect(() =>
+				rewriteExternalCollectionLink(getTestURLObject(input))
+			).toThrow()
 		})
 	})
 

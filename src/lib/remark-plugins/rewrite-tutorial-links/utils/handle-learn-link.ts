@@ -1,5 +1,5 @@
 import getIsBetaProduct from 'lib/get-is-beta-product'
-import { handleCollectionLink, handleTutorialLink } from '.'
+import { rewriteExternalCollectionLink, handleTutorialLink } from '.'
 
 const handleLearnLink = (
 	urlObject: URL,
@@ -33,7 +33,7 @@ const handleLearnLink = (
 		const isTutorialPath = tutorialPathRegex.test(pathname)
 
 		if (isCollectionPath) {
-			newUrl = handleCollectionLink(urlObject)
+			newUrl = rewriteExternalCollectionLink(urlObject)
 		} else if (isTutorialPath) {
 			newUrl = handleTutorialLink(urlObject, tutorialMap)
 		} else if (isProductHubPath) {

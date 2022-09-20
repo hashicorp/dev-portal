@@ -6,7 +6,7 @@
 import { getCollectionSlug } from 'views/collection-view/helpers'
 import { SplitLearnPath } from '../types'
 
-const handleCollectionLink = (urlObject: URL) => {
+const rewriteExternalCollectionLink = (urlObject: URL) => {
 	/**
 	 * Separate the different parts of the URL so they are analyzed in silos.
 	 */
@@ -27,7 +27,7 @@ const handleCollectionLink = (urlObject: URL) => {
 		filename === ''
 	) {
 		throw new Error(
-			`handleCollectionLink received a URL with an invalid 'pathname': ${pathname}`
+			`rewriteExternalCollectionLink received a URL with an invalid 'pathname': ${pathname}`
 		)
 	}
 
@@ -42,4 +42,4 @@ const handleCollectionLink = (urlObject: URL) => {
 	return `${collectionSlug}${search}${hash}`
 }
 
-export { handleCollectionLink }
+export { rewriteExternalCollectionLink }
