@@ -1,5 +1,5 @@
 import { SectionOption } from 'lib/learn-client/types'
-import { handleTutorialLink } from '../utils'
+import { rewriteExternalTutorialLink } from '../utils'
 
 const TEST_TUTORIAL_SLUG = 'product/tutorial'
 const MOCK_TUTORIAL_MAP = {
@@ -8,10 +8,10 @@ const MOCK_TUTORIAL_MAP = {
 
 const testEachCase = (cases: string[][]) => {
 	test.each(cases)(
-		'handleTutorialLink(%p) returns %p',
+		'rewriteExternalTutorialLink(%p) returns %p',
 		(input: string, expectedOutput: string) => {
 			expect(
-				handleTutorialLink(
+				rewriteExternalTutorialLink(
 					new URL(input, __config.dev_dot.canonical_base_url),
 					MOCK_TUTORIAL_MAP
 				)
@@ -20,7 +20,7 @@ const testEachCase = (cases: string[][]) => {
 	)
 }
 
-describe('handleTutorialLink', () => {
+describe('rewriteExternalTutorialLink', () => {
 	describe('when the input is invalid', () => {
 		test.each([
 			'',
@@ -32,9 +32,9 @@ describe('handleTutorialLink', () => {
 			'another/invalid/input',
 			'/almost/valid/input',
 			'/one/more/invalid/input',
-		])('handleTutorialLink(%p) throws an error', (input: string) => {
+		])('rewriteExternalTutorialLink(%p) throws an error', (input: string) => {
 			expect(() =>
-				handleTutorialLink(
+				rewriteExternalTutorialLink(
 					new URL(input, __config.dev_dot.canonical_base_url),
 					{}
 				)

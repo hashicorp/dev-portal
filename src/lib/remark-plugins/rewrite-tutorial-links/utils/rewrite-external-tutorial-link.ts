@@ -15,7 +15,7 @@
 import { SectionOption } from 'lib/learn-client/types'
 import { SplitLearnPath } from '../types'
 
-export function handleTutorialLink(
+export function rewriteExternalTutorialLink(
 	urlObject: URL,
 	tutorialMap: { [key: string]: string }
 ) {
@@ -33,7 +33,7 @@ export function handleTutorialLink(
 		filename === ''
 	) {
 		throw new Error(
-			`handleTutorialLink received a URL with an invalid 'pathname': ${urlObject.pathname}`
+			`rewriteExternalTutorialLink received a URL with an invalid 'pathname': ${urlObject.pathname}`
 		)
 	}
 
