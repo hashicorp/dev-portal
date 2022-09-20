@@ -10,31 +10,46 @@ import patternNetworking from './img/networking.png'
 import patternSecurity from './img/security.png'
 import s from './mdx-callout.module.css'
 
-const PATTERN_IMG_MAP: Record<SolutionOption, string> = {
-	infrastructure: patternInfrastructure,
-	networking: patternNetworking,
-	security: patternSecurity,
-}
-
-const SOLUTION_MAP: Record<SolutionOption, HcpProductSlug[]> = {
+const SOLUTION_PRODUCTS_MAP: Record<SolutionOption, HcpProductSlug[]> = {
 	infrastructure: ['packer'],
 	networking: ['consul'],
 	security: ['boundary', 'vault'],
 }
 
+const SOLUTION_DETAILS: Record<
+	SolutionOption,
+	{
+		gradient: string
+		image: string
+	}
+> = {
+	infrastructure: {
+		gradient: '--wpl-gradient-infrastructure-horizontal',
+		image: patternInfrastructure,
+	},
+	networking: {
+		gradient: '--wpl-gradient-networking-horizontal',
+		image: patternNetworking,
+	},
+	security: {
+		gradient: '--wpl-gradient-security-horizontal',
+		image: patternSecurity,
+	},
+}
+
 export default function MdxHcpCallout({ product }: MdxHcpCalloutProps) {
 	const productName = productSlugsToNames[product]
-
-	const solution = Object.keys(SOLUTION_MAP).find((group: SolutionOption) =>
-		SOLUTION_MAP[group].includes(product)
+	const solution = Object.keys(SOLUTION_PRODUCTS_MAP).find(
+		(group: SolutionOption) => SOLUTION_PRODUCTS_MAP[group].includes(product)
 	)
+	const { gradient, image } = SOLUTION_DETAILS[solution]
 
 	return (
 		<div
 			className={s.root}
 			style={
 				{
-					'--gradient': `var(--wpl-gradient-${solution}-horizontal)`,
+					'--gradient': `var(${gradient})`,
 				} as React.CSSProperties
 			}
 		>
@@ -67,7 +82,7 @@ export default function MdxHcpCallout({ product }: MdxHcpCalloutProps) {
 			</div>
 			<div className={s.solutionPattern}>
 				<Image
-					src={PATTERN_IMG_MAP[solution]}
+					src={image}
 					/** Note: pattern image is purely decorative */
 					alt=""
 					layout="fill"
