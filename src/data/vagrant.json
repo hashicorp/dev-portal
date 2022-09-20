@@ -46,7 +46,7 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "intro", "vagrant-cloud", "vmware"],
+	"basePaths": ["docs", "intro", "vagrant-cloud", "vmware", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -57,7 +57,8 @@
 		{
 			"iconName": "entry-point",
 			"name": "Intro",
-			"path": "intro"
+			"path": "intro",
+			"addOverviewItem": false
 		},
 		{
 			"iconName": "cloud",

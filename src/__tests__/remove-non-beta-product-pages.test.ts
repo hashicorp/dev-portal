@@ -21,16 +21,12 @@ describe('remove-non-beta-product-pages', () => {
 		stdout = stdout.split('\n').slice(1).join('\n')
 
 		expect(stdout).toMatchInlineSnapshot(`
-		"🧹 removing pages at /boundary
-		🧹 removing pages at /consul
-		🧹 removing pages at /docs
+		"🧹 removing pages at /docs
 		🧹 removing pages at /hcp
 		🧹 removing pages at /packer
 		🧹 removing pages at /profile
 		🧹 removing pages at /sentinel
-		🧹 removing pages at /terraform
 		🧹 removing pages at /tutorials
-		🧹 removing pages at /vagrant
 		"
 	`)
 	})

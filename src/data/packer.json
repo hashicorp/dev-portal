@@ -29,7 +29,7 @@
 		"expirationDate": ""
 	},
 	"version": "1.7.10",
-	"basePaths": ["docs", "guides", "intro", "plugins"],
+	"basePaths": ["docs", "guides", "intro", "plugins", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -39,19 +39,19 @@
 			"shortName": "Documentation"
 		},
 		{
-			"iconName": "docs",
+			"iconName": "entry-point",
+			"mainBranch": "master",
+			"name": "Introduction",
+			"path": "intro"
+		},
+		{
+			"iconName": "guide",
 			"mainBranch": "master",
 			"name": "Guides",
 			"path": "guides"
 		},
 		{
-			"iconName": "docs",
-			"mainBranch": "master",
-			"name": "Intro",
-			"path": "intro"
-		},
-		{
-			"iconName": "docs",
+			"iconName": "plug",
 			"mainBranch": "master",
 			"name": "External Plugins",
 			"path": "plugins"

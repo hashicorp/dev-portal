@@ -17,8 +17,7 @@
 }
 
 .cta {
-	display: flex;
-	align-items: center;
+	width: 100%;
 	margin-top: 24px;
 	margin-bottom: 16px;
 
@@ -26,16 +25,4 @@
 		margin-top: 32px;
 		margin-bottom: 24px;
 	}
-}
-
-.ctaText {
-	color: var(--token-color-foreground-faint);
-	margin: 0 0 0 16px;
-	align-items: center;
-	justify-content: center;
-	display: flex;
-}
-
-.ctaIcon {
-	margin-right: 6px;
 }
