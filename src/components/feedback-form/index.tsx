@@ -88,6 +88,7 @@ const Question: React.FC<QuestionProps> = ({
 			const { optional, buttonText, nextQuestion } = question
 			const isButtonDisabled =
 				!optional && (inputValue === '' || feedbackContext.isTransitioning)
+			const inputHasEntry = inputValue.length
 
 			inputs = (
 				<>
@@ -98,11 +99,11 @@ const Question: React.FC<QuestionProps> = ({
 							onChange={(e) => setInputValue(e.currentTarget.value)}
 							className={classNames(
 								s.textArea,
-								inputValue.length ? s.visited : null
+								inputHasEntry ? s.visited : null
 							)}
 							placeholder="Your feedback..."
 						/>
-						{optional && !inputValue.length ? (
+						{optional && !inputHasEntry ? (
 							<span className={s.optionalText}>(optional)</span>
 						) : null}
 					</div>
