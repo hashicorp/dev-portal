@@ -12,6 +12,8 @@
  * /tutorials/${product}/{tutorial-name}#{anchor} --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
  */
 
+import { LearnProductSlug } from 'types/products'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import { SectionOption } from 'lib/learn-client/types'
 import { SplitLearnPath } from '../types'
 
@@ -38,6 +40,14 @@ export function rewriteExternalTutorialLink(
 	}
 
 	/**
+	 * Return nothing if the product slug is not a beta product nor a valid
+	 * SectionOption.
+	 */
+	if (!getIsBetaProduct(product) && !SectionOption[product]) {
+		return
+	}
+
+	/**
 	 * Construct the new URL's path.
 	 *   - If a collection slug is provided via the `in` query string parameter,
 	 * 	   then we build the path ourselves.
@@ -47,11 +57,11 @@ export function rewriteExternalTutorialLink(
 	let path = ''
 	const collectionSlugParam = urlObject.searchParams.get('in')
 	if (collectionSlugParam) {
-		const collectionSlug = collectionSlugParam.split('/')[1]
-		if (SectionOption[product]) {
-			path = `/${product}/${collectionSlug}/${filename}`
-		} else {
-			path = `/${product}/tutorials/${collectionSlug}/${filename}`
+		const [productSlug, collectionSlug] = collectionSlugParam.split('/')
+		if (SectionOption[productSlug]) {
+			path = `/${productSlug}/${collectionSlug}/${filename}`
+		} else if (getIsBetaProduct(productSlug as LearnProductSlug)) {
+			path = `/${productSlug}/tutorials/${collectionSlug}/${filename}`
 		}
 	} else {
 		const tutorialSlug = [product, filename].join('/')
