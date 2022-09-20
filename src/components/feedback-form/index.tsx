@@ -129,12 +129,10 @@ const Question: React.FC<QuestionProps> = ({
 		<div className={classNames(s.question, s[type], animate && s.animate)}>
 			<label htmlFor={id} className={s.labelWrapper}>
 				{labelIcon && <div className={s.labelIcon}>{labelIcon}</div>}
-				<div className={s.label}>
-					<span>
-						<strong>{label}</strong>
-						{labelSecondary ? ` ${labelSecondary}` : ''}
-					</span>
-				</div>
+				<span className={s.label}>
+					<strong>{label}</strong>
+					{labelSecondary ? ` ${labelSecondary}` : ''}
+				</span>
 			</label>
 			{inputs}
 		</div>

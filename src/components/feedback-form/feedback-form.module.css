@@ -1,5 +1,5 @@
 .animate {
-	animation: nextQuestion 0.4s;
+	animation: nextFrame 0.4s;
 	animation-fill-mode: both;
 	animation-timing-function: ease-in-out;
 }
@@ -120,15 +120,12 @@
 	min-height: 100%;
 	margin: 0;
 	padding: 0;
+	vertical-align: middle;
 
 	@media (--dev-dot-tablet-up) {
 		font-family: var(--token-typography-display-200-font-family);
 		font-size: var(--token-typography-display-200-font-size);
 		line-height: var(--token-typography-display-200-line-height);
-	}
-
-	& span {
-		vertical-align: middle;
 	}
 
 	& strong {
@@ -151,7 +148,7 @@
 	border-radius: 6px;
 }
 
-@keyframes nextQuestion {
+@keyframes nextFrame {
 	0% {
 		opacity: 0;
 		transform: translateY(50px);
