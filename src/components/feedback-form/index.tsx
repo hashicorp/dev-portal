@@ -96,7 +96,10 @@ const Question: React.FC<QuestionProps> = ({
 							id={id}
 							value={inputValue}
 							onChange={(e) => setInputValue(e.currentTarget.value)}
-							className={s.textArea}
+							className={classNames(
+								s.textArea,
+								inputValue.length ? s.visited : null
+							)}
 							placeholder="Your feedback..."
 						/>
 						{optional && !inputValue.length ? (
