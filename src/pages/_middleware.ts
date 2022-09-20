@@ -71,19 +71,24 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	}
 
 	// Handle Opt-in cookies
-	const optInPlatform = params.get('optInFrom') as OptInPlatformOption
-	const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
+	let optInPlatform = params.get('optInFrom') as OptInPlatformOption
 
 	// This handles a bug when we rolled out terraform to the beta where opt-out wasn't working, so users have no way to opt-out if they previously opted-in and attempted to opt-out before the bug was fixed.
 	let isFromTerraform = false
 	try {
 		const refererUrl = new URL(req.headers.get('referer'))
 		isFromTerraform = refererUrl.hostname.endsWith('terraform.io')
+
+		if (isFromTerraform) {
+			optInPlatform = 'terraform-io'
+		}
 	} catch {
 		// Unable to determine the referer, do nothing
 	}
 
-	if ((optInPlatform || isFromTerraform) && !hasOptedIn) {
+	const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
+
+	if (optInPlatform && !hasOptedIn) {
 		response.cookie(`${optInPlatform}-beta-opt-in`, 'true', {
 			// Next.js pre 12.2 assumes maxAge is in ms, not seconds
 			// TODO: update this when we upgrade to 12.2
