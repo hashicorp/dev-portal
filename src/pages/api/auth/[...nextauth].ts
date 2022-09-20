@@ -41,8 +41,9 @@ export default NextAuth({
 		async session({ session, token }) {
 			return {
 				...session,
-				user: { ...session.user, nickname: token.nickname },
+				accessToken: token.cloud_idp_access_token,
 				id: token.sub,
+				user: { ...session.user, nickname: token.nickname },
 			}
 		},
 	},

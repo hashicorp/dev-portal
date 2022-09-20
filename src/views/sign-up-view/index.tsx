@@ -9,7 +9,9 @@ import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
-import useAuthentication from 'hooks/use-authentication'
+import useAuthentication, {
+	DEFAULT_SIGN_IN_CALLBACK_URL,
+} from 'hooks/use-authentication'
 import BaseNewLayout from 'layouts/base-new'
 import ErrorView from 'views/error-view-switcher'
 import Button from 'components/button'
@@ -57,7 +59,7 @@ const SignUpView = () => {
 	 * Redirect to profile page if user is already authenticated
 	 */
 	if (isAuthenticated) {
-		router.replace('/profile')
+		router.replace(DEFAULT_SIGN_IN_CALLBACK_URL)
 		return null
 	}
 
@@ -119,7 +121,7 @@ const SignUpView = () => {
 						 * Replace with real graphic when it's available
 						 * ref: https://app.asana.com/0/1202097197789424/1202683836858983/f
 						 */
-						src={require('./img/temp-graphic.svg?include')}
+						src={require('./img/aside-graphic.svg?include')}
 					/>
 				</div>
 			</aside>

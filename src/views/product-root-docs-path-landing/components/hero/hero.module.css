@@ -1,29 +1,3 @@
-.root {
-	margin-bottom: 24px;
-	padding-bottom: 24px;
-}
-
-.iconAndTextWrapper {
-	align-items: flex-start;
-	display: flex;
-	gap: 16px;
-	margin-bottom: 32px;
-}
-
-.icon {
-	display: none;
-
-	@media (--dev-dot-tablet-up) {
-		display: block;
-	}
-}
-
-.pageTitle {
-	composes: g-offset-scroll-margin-top from global;
-	color: var(--token-color-foreground-strong);
-	margin-bottom: 8px;
-}
-
-.pageSubtitle {
-	color: var(--token-color-foreground-primary);
+.iconCardGridLink {
+	margin-top: 32px;
 }

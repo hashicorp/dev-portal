@@ -1,33 +1,30 @@
 import Link from 'next/link'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import useCurrentPath from 'hooks/use-current-path'
-import { useCurrentProduct } from 'contexts'
 import Text from 'components/text'
 import s from './primary-nav-link.module.css'
 
-interface PrimaryNavLinkProps {
+export interface PrimaryNavLinkProps {
 	ariaLabel: string
 	navItem: {
-		id?: string
-		isSubmenu?: boolean
 		label: string
-		pathSuffix?: string
+		url: string
+		openInNewTab?: boolean
 	}
 }
 
 const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
-	const { label, pathSuffix } = navItem
-	const currentProduct = useCurrentProduct()
+	const { label, url, openInNewTab } = navItem
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const linkHref = `/${currentProduct.slug}/${pathSuffix}`
-	const isCurrentPage =
-		linkHref === currentPath || linkHref === `${currentPath}/`
+	const isCurrentPage = url === currentPath || url === `${currentPath}/`
 
 	return (
-		<Link href={linkHref}>
+		<Link href={url}>
 			<a
 				aria-current={isCurrentPage ? 'page' : undefined}
 				aria-label={ariaLabel}
 				className={s.root}
+				target={openInNewTab ? '_blank' : undefined}
 			>
 				<Text
 					asElement="span"
@@ -37,6 +34,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 				>
 					{label}
 				</Text>
+				{openInNewTab ? <IconExternalLink16 /> : null}
 			</a>
 		</Link>
 	)

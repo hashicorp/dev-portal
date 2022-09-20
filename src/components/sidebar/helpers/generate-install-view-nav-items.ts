@@ -15,7 +15,8 @@ import { ProductData } from 'types/products'
  */
 export const generateInstallViewNavItems = (
 	product: ProductData,
-	menuItems?: MenuItem[]
+	menuItems?: MenuItem[],
+	isEnterpriseMode: boolean = false
 ) => {
 	const backToLinkProps = {
 		text: `${product.name} Home`,
@@ -27,7 +28,9 @@ export const generateInstallViewNavItems = (
 	}
 	const menuItemsWithFallback = menuItems || []
 	const showFilterInput = false
-	const title = 'Install'
+	const title = isEnterpriseMode
+		? `Install ${product.name} Enterprise`
+		: `Install ${product.name}`
 
 	return {
 		backToLinkProps,

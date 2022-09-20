@@ -9,10 +9,24 @@ import detectAndReformatLearnUrl from '../detect-and-reformat-learn-url'
  * [key: database tutorial slug]: value — dev dot absolute path
  */
 const MOCK_TUTORIALS_MAP = {
+	'consul/gossip-encryption-secure':
+		'/consul/tutorials/gossip-encryption-secure',
 	'waypoint/aws-ecs': '/waypoint/tutorials/deploy-aws/aws-ecs',
 	'vault/getting-started-install':
 		'/vault/tutorials/getting-started/getting-started-install',
 }
+
+/**
+ * As we onboard more products into internal beta, we lose the ability
+ * to test "beta" functionality using real config. So, we mock
+ * get-is-beta-product in order to provide a consistent testing config.
+ */
+jest.mock('../../../../lib/get-is-beta-product', () => (productSlug) => {
+	// TODO: remove 'cloud' here, also need to account for 'hcp' URLs
+	// Task: https://app.asana.com/0/0/1202779234480934/f
+	const nonBetaProductsForTesting = ['boundary', 'packer', 'vagrant', 'cloud']
+	return nonBetaProductsForTesting.indexOf(productSlug) === -1
+})
 
 describe('detectAndReformatLearnUrl', () => {
 	beforeEach(async () => {
@@ -129,12 +143,36 @@ describe('detectAndReformatLearnUrl', () => {
 				expected: '/vault/tutorials/getting-started-ui/getting-started-install',
 			},
 			{
+				input:
+					'/tutorials/vault/getting-started-install?in=vault/getting-started-ui&utm_source=docs',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install?utm_source=docs',
+			},
+			{
+				input:
+					'/tutorials/vault/getting-started-install?utm_source=docs&in=vault/getting-started-ui',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install?utm_source=docs',
+			},
+			{
+				input:
+					'/tutorials/vault/getting-started-install?in=vault/getting-started-ui#test-anchor-hash',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install#test-anchor-hash',
+			},
+			{
 				input: '/tutorials/waypoint/aws-ecs?in=waypoint/deploy-aws',
 				expected: '/waypoint/tutorials/deploy-aws/aws-ecs',
 			},
 			{
 				input: '/tutorials/waypoint/aws-ecs',
 				expected: '/waypoint/tutorials/deploy-aws/aws-ecs',
+			},
+			{
+				input:
+					'/tutorials/consul/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
+				expected:
+					'/consul/tutorials/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
 			},
 		]
 		for (let n = 0; n < tutorialUrls.length; n++) {

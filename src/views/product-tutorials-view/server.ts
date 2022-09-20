@@ -7,7 +7,10 @@ import {
 import { getProduct } from 'lib/learn-client/api/product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { sortAlphabetically } from 'lib/sort-alphabetically'
-import { formatSidebarCategorySections } from 'views/collection-view/helpers'
+import {
+	formatSidebarCategorySections,
+	buildCategorizedHcpSidebar,
+} from 'views/collection-view/helpers'
 import getProductPageContent from './helpers/get-product-page-content'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
@@ -58,7 +61,7 @@ export async function getCloudTutorialsViewProps() {
 	 * Build the sidebar
 	 */
 	const hcpCollections = await getCollectionsBySection('cloud')
-	const sidebarSections = formatSidebarCategorySections(hcpCollections)
+	const sidebarSections = buildCategorizedHcpSidebar(hcpCollections)
 
 	/**
 	 * Get the raw page data

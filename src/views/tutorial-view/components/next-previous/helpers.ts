@@ -62,8 +62,17 @@ export function getNextPrevious({
 	 *
 	 * Since don't have an advanced search page for beta,
 	 * were linking folks back to the baseproduct tutorials page.
+	 *
 	 */
-	const finalLink = `/${currentCollection.theme}/tutorials`
+	let finalLink = `/${currentCollection.theme}/tutorials`
+	const currentCollectionSection = currentCollection.slug.split('/')[0]
+
+	if (currentCollectionSection === 'well-architected-framework') {
+		finalLink = '/well-architected-framework'
+	} else if (currentCollectionSection === 'onboarding') {
+		/** @TODO - remove this once the tutorial library is released */
+		finalLink = 'https://learn.hashicorp.com/search'
+	}
 
 	const tutorial = {
 		previous: previousTutorial,

@@ -32,7 +32,7 @@ const getUserMenuItems = ({
 		{
 			icon: <IconBookmark16 />,
 			label: 'Bookmarks',
-			href: '/bookmarks',
+			href: '/profile/bookmarks',
 		},
 		{
 			icon: <IconExternalLink16 />,
