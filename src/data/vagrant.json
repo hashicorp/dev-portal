@@ -57,7 +57,8 @@
 		{
 			"iconName": "entry-point",
 			"name": "Intro",
-			"path": "intro"
+			"path": "intro",
+			"addOverviewItem": false
 		},
 		{
 			"iconName": "cloud",
