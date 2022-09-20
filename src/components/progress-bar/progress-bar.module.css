@@ -1,0 +1,22 @@
+.root {
+	--border-radius: 0;
+	--percent-done: 0%;
+
+	border-radius: var(--border-radius);
+	background: var(--token-color-palette-neutral-200);
+	display: block;
+	height: 4px;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+
+.indicator {
+	background: var(--token-color-palette-blue-200);
+	display: block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: var(--percent-done);
+}
