@@ -15,7 +15,11 @@
 	}
 
 	&.text {
-		--gap: 12px;
+		--gap: 24px;
+
+		@media (--dev-dot-tablet-up) {
+			--gap: 12px;
+		}
 	}
 }
 
@@ -64,14 +68,22 @@
 	padding: 12px;
 
 	&:focus {
-		border: 1px solid var(--token-color-focus-action-interna);
+		border: 1px solid var(--token-color-focus-action-internal);
+
+		& + .optionalText {
+			display: none;
+		}
 	}
 }
 
 .labelWrapper {
 	display: flex;
-	gap: 8px;
+	gap: 12px;
 	align-items: center;
+
+	@media (--dev-dot-tablet-up) {
+		gap: 8px;
+	}
 }
 
 .labelIcon {
@@ -100,9 +112,19 @@
 }
 
 .label {
-	composes: hds-typography-body-300 from global;
+	font-family: var(--token-typography-display-100-font-family);
+	font-size: var(--token-typography-display-100-font-size);
+	line-height: var(--token-typography-display-100-line-height);
 	color: var(--token-color-foreground-strong);
 	min-height: 100%;
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-up) {
+		font-family: var(--token-typography-display-200-font-family);
+		font-size: var(--token-typography-display-200-font-size);
+		line-height: var(--token-typography-display-200-line-height);
+	}
 
 	& span {
 		vertical-align: middle;

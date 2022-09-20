@@ -99,7 +99,9 @@ const Question: React.FC<QuestionProps> = ({
 							className={s.textArea}
 							placeholder="Your feedback..."
 						/>
-						{optional && <span className={s.optionalText}>(optional)</span>}
+						{optional && !inputValue.length ? (
+							<span className={s.optionalText}>(optional)</span>
+						) : null}
 					</div>
 					<Button
 						className={s.submitButton}

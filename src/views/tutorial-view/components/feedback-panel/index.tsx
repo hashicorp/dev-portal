@@ -56,15 +56,13 @@ const questions: FeedbackFormProps['questions'] = [
 		label: 'Was this tutorial helpful?',
 		answers: [
 			{
-				icon: <IconThumbsUp16 color="var(--token-color-foreground-primary)" />,
+				icon: <IconThumbsUp16 color="var(--token-color-foreground-faint)" />,
 				value: 'yes',
 				display: 'Yes',
 				nextQuestion: 'reasonForVisit',
 			},
 			{
-				icon: (
-					<IconThumbsDown16 color="var(--token-color-foreground-primary)" />
-				),
+				icon: <IconThumbsDown16 color="var(--token-color-foreground-faint)" />,
 				value: 'no',
 				display: 'No',
 				nextQuestion: 'suggestedImprovements',
@@ -75,8 +73,9 @@ const questions: FeedbackFormProps['questions'] = [
 		id: 'reasonForVisit',
 		type: 'text',
 		labelIcon: <IconThumbsUp16 color="var(--token-color-foreground-faint)" />,
-		label: 'Why did you visit this tutorial?',
-		buttonText: 'Submit answer',
+		label: 'We want to hear from you.',
+		labelSecondary: 'Why did you visit this tutorial?',
+		buttonText: 'Submit',
 		optional: true,
 	},
 	{
@@ -85,7 +84,7 @@ const questions: FeedbackFormProps['questions'] = [
 		labelIcon: <IconThumbsDown16 color="var(--token-color-foreground-faint)" />,
 		label: 'We want to hear from you.',
 		labelSecondary: 'How could this tutorial be more helpful?',
-		buttonText: 'Submit answer',
+		buttonText: 'Submit',
 		optional: true,
 	},
 ]
