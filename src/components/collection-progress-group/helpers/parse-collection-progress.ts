@@ -14,13 +14,12 @@ import { progressPercentToStatus } from 'lib/learn-client/api/progress'
  */
 function parseCollectionProgress(
 	progressData: ApiCollectionTutorialProgress[],
-	tutorials: TutorialLite[],
+	tutorialCount: number,
 	collection: Pick<Collection, 'id' | 'slug'>
 ) {
 	/**
 	 * The basics
 	 */
-	const tutorialCount = tutorials.length
 	const inProgressTutorialCount = countProgressedRecords(
 		progressData || [],
 		collection.id,
@@ -34,18 +33,6 @@ function parseCollectionProgress(
 	const isCompleted = completedTutorialCount == tutorialCount
 	const isInProgress = inProgressTutorialCount > 0 || completedTutorialCount > 0
 	/**
-	 * Tutorial CTA
-	 */
-	const tutorialCta = getNextTutorialCta({
-		progressData,
-		tutorials,
-		collectionSlug: collection.slug,
-		isCompleted,
-		isInProgress,
-		completedTutorialCount,
-		tutorialCount,
-	})
-	/**
 	 * Return it all
 	 */
 	return {
@@ -53,7 +40,6 @@ function parseCollectionProgress(
 		isCompleted,
 		isInProgress,
 		tutorialCount,
-		tutorialCta,
 	}
 }
 
@@ -155,4 +141,4 @@ function getNextTutorialCta({
 	}
 }
 
-export { parseCollectionProgress }
+export { getNextTutorialCta, parseCollectionProgress }
