@@ -113,7 +113,7 @@ async function findAndUpdate(
 	}
 }
 
-export default async (
+const submitFeedback = async (
 	req: NextApiRequest,
 	res: NextApiResponse
 ): Promise<void> => {
@@ -159,3 +159,5 @@ export default async (
 		})
 	}
 }
+
+export default submitFeedback
