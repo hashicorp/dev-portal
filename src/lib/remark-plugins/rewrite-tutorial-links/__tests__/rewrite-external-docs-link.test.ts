@@ -1,3 +1,6 @@
+import { ProductSlug } from 'types/products'
+import getIsBetaProduct from 'lib/get-is-beta-product'
+import { productSlugsToHostNames } from 'lib/products'
 import { rewriteExternalDocsLink } from '../utils'
 
 const getTestURLObject = (url: string) => {
@@ -6,7 +9,7 @@ const getTestURLObject = (url: string) => {
 
 const testEachCase = (cases: [string, string][]) => {
 	test.each(cases)(
-		'rewriteExternalDocsLink(%p, %p) returns %p',
+		'rewriteExternalDocsLink(%p) returns %p',
 		(input: string, expectedOutput: string) => {
 			const testUrlObject = getTestURLObject(input)
 			expect(rewriteExternalDocsLink(testUrlObject)).toBe(expectedOutput)
@@ -36,10 +39,30 @@ describe('rewriteExternalDocsLink', () => {
 		])
 	})
 
+	describe('docs site home pages are rewritten to product landing pages', () => {
+		testEachCase(
+			Object.keys(productSlugsToHostNames).map((productSlug: ProductSlug) => {
+				const hostname = `https://${productSlugsToHostNames[productSlug]}`
+				const productLandingPath = `/${productSlug}`
+
+				let expectedOutput
+				if (getIsBetaProduct(productSlug)) {
+					expectedOutput = productLandingPath
+				} else {
+					expectedOutput = undefined
+				}
+
+				return [hostname, expectedOutput]
+			})
+		)
+	})
+
 	describe('when neither `search` nor `hash` are present', () => {
 		describe('when the base path is not "api"', () => {
 			testEachCase([
+				['https://vaultproject.io/docs', '/vault/docs'],
 				['https://waypointproject.io/docs', '/waypoint/docs'],
+				['https://vaultproject.io/docs/some/path', '/vault/docs/some/path'],
 				[
 					'https://waypointproject.io/docs/some/path',
 					'/waypoint/docs/some/path',
@@ -49,11 +72,8 @@ describe('rewriteExternalDocsLink', () => {
 
 		describe('when the base path is "api"', () => {
 			testEachCase([
-				['https://waypointproject.io/api', '/waypoint/api-docs'],
-				[
-					'https://waypointproject.io/api/some/path',
-					'/waypoint/api-docs/some/path',
-				],
+				['https://vaultproject.io/api', '/vault/api-docs'],
+				['https://vaultproject.io/api/some/path', '/vault/api-docs/some/path'],
 			])
 		})
 
@@ -64,10 +84,10 @@ describe('rewriteExternalDocsLink', () => {
 					'https://waypointproject.io/docs/some/path/index.html',
 					'/waypoint/docs/some/path',
 				],
-				['https://waypointproject.io/api/index.html', '/waypoint/api-docs'],
+				['https://vaultproject.io/api/index.html', '/vault/api-docs'],
 				[
-					'https://waypointproject.io/api/some/path/index.html',
-					'/waypoint/api-docs/some/path',
+					'https://vaultproject.io/api/some/path/index.html',
+					'/vault/api-docs/some/path',
 				],
 			])
 		})
@@ -79,10 +99,10 @@ describe('rewriteExternalDocsLink', () => {
 					'https://waypointproject.io/docs/some/path.html',
 					'/waypoint/docs/some/path',
 				],
-				['https://waypointproject.io/api/page.html', '/waypoint/api-docs/page'],
+				['https://vaultproject.io/api/page.html', '/vault/api-docs/page'],
 				[
-					'https://waypointproject.io/api/some/path.html',
-					'/waypoint/api-docs/some/path',
+					'https://vaultproject.io/api/some/path.html',
+					'/vault/api-docs/some/path',
 				],
 			])
 		})
@@ -95,50 +115,47 @@ describe('rewriteExternalDocsLink', () => {
 				'/waypoint/docs?paramA=valueA',
 			],
 			[
-				'https://waypointproject.io/api?paramA=valueA',
-				'/waypoint/api-docs?paramA=valueA',
+				'https://vaultproject.io/api?paramA=valueA',
+				'/vault/api-docs?paramA=valueA',
 			],
 			[
 				'https://waypointproject.io/docs/index.html?paramA=valueA',
 				'/waypoint/docs?paramA=valueA',
 			],
 			[
-				'https://waypointproject.io/api/index.html?paramA=valueA',
-				'/waypoint/api-docs?paramA=valueA',
+				'https://vaultproject.io/api/index.html?paramA=valueA',
+				'/vault/api-docs?paramA=valueA',
 			],
 			[
 				'https://waypointproject.io/docs/page.html?paramA=valueA',
 				'/waypoint/docs/page?paramA=valueA',
 			],
 			[
-				'https://waypointproject.io/api/page.html?paramA=valueA',
-				'/waypoint/api-docs/page?paramA=valueA',
+				'https://vaultproject.io/api/page.html?paramA=valueA',
+				'/vault/api-docs/page?paramA=valueA',
 			],
 		])
 	})
 
 	describe('when `search` is NOT present, and `hash` is present', () => {
 		testEachCase([
-			['https://waypointproject.io/docs#test-hash', '/waypoint/docs#test-hash'],
+			['https://vaultproject.io/docs#test-hash', '/vault/docs#test-hash'],
+			['https://vaultproject.io/api#test-hash', '/vault/api-docs#test-hash'],
 			[
-				'https://waypointproject.io/api#test-hash',
-				'/waypoint/api-docs#test-hash',
+				'https://vaultproject.io/docs/index.html#test-hash',
+				'/vault/docs#test-hash',
 			],
 			[
-				'https://waypointproject.io/docs/index.html#test-hash',
-				'/waypoint/docs#test-hash',
+				'https://vaultproject.io/api/index.html#test-hash',
+				'/vault/api-docs#test-hash',
 			],
 			[
-				'https://waypointproject.io/api/index.html#test-hash',
-				'/waypoint/api-docs#test-hash',
+				'https://vaultproject.io/docs/page.html#test-hash',
+				'/vault/docs/page#test-hash',
 			],
 			[
-				'https://waypointproject.io/docs/page.html#test-hash',
-				'/waypoint/docs/page#test-hash',
-			],
-			[
-				'https://waypointproject.io/api/page.html#test-hash',
-				'/waypoint/api-docs/page#test-hash',
+				'https://vaultproject.io/api/page.html#test-hash',
+				'/vault/api-docs/page#test-hash',
 			],
 		])
 	})
@@ -146,28 +163,28 @@ describe('rewriteExternalDocsLink', () => {
 	describe('when both `search` and `hash` are present', () => {
 		testEachCase([
 			[
-				'https://waypointproject.io/docs?paramA=valueA#test-hash',
-				'/waypoint/docs?paramA=valueA#test-hash',
+				'https://vaultproject.io/docs?paramA=valueA#test-hash',
+				'/vault/docs?paramA=valueA#test-hash',
 			],
 			[
-				'https://waypointproject.io/api?paramA=valueA#test-hash',
-				'/waypoint/api-docs?paramA=valueA#test-hash',
+				'https://vaultproject.io/api?paramA=valueA#test-hash',
+				'/vault/api-docs?paramA=valueA#test-hash',
 			],
 			[
-				'https://waypointproject.io/docs/index.html?paramA=valueA#test-hash',
-				'/waypoint/docs?paramA=valueA#test-hash',
+				'https://vaultproject.io/docs/index.html?paramA=valueA#test-hash',
+				'/vault/docs?paramA=valueA#test-hash',
 			],
 			[
-				'https://waypointproject.io/api/index.html?paramA=valueA#test-hash',
-				'/waypoint/api-docs?paramA=valueA#test-hash',
+				'https://vaultproject.io/api/index.html?paramA=valueA#test-hash',
+				'/vault/api-docs?paramA=valueA#test-hash',
 			],
 			[
-				'https://waypointproject.io/docs/page.html?paramA=valueA#test-hash',
-				'/waypoint/docs/page?paramA=valueA#test-hash',
+				'https://vaultproject.io/docs/page.html?paramA=valueA#test-hash',
+				'/vault/docs/page?paramA=valueA#test-hash',
 			],
 			[
-				'https://waypointproject.io/api/page.html?paramA=valueA#test-hash',
-				'/waypoint/api-docs/page?paramA=valueA#test-hash',
+				'https://vaultproject.io/api/page.html?paramA=valueA#test-hash',
+				'/vault/api-docs/page?paramA=valueA#test-hash',
 			],
 		])
 	})
