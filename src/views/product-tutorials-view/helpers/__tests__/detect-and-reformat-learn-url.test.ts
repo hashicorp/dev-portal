@@ -9,6 +9,8 @@ import detectAndReformatLearnUrl from '../detect-and-reformat-learn-url'
  * [key: database tutorial slug]: value — dev dot absolute path
  */
 const MOCK_TUTORIALS_MAP = {
+	'consul/gossip-encryption-secure':
+		'/consul/tutorials/gossip-encryption-secure',
 	'waypoint/aws-ecs': '/waypoint/tutorials/deploy-aws/aws-ecs',
 	'vault/getting-started-install':
 		'/vault/tutorials/getting-started/getting-started-install',
@@ -141,12 +143,36 @@ describe('detectAndReformatLearnUrl', () => {
 				expected: '/vault/tutorials/getting-started-ui/getting-started-install',
 			},
 			{
+				input:
+					'/tutorials/vault/getting-started-install?in=vault/getting-started-ui&utm_source=docs',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install?utm_source=docs',
+			},
+			{
+				input:
+					'/tutorials/vault/getting-started-install?utm_source=docs&in=vault/getting-started-ui',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install?utm_source=docs',
+			},
+			{
+				input:
+					'/tutorials/vault/getting-started-install?in=vault/getting-started-ui#test-anchor-hash',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install#test-anchor-hash',
+			},
+			{
 				input: '/tutorials/waypoint/aws-ecs?in=waypoint/deploy-aws',
 				expected: '/waypoint/tutorials/deploy-aws/aws-ecs',
 			},
 			{
 				input: '/tutorials/waypoint/aws-ecs',
 				expected: '/waypoint/tutorials/deploy-aws/aws-ecs',
+			},
+			{
+				input:
+					'/tutorials/consul/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
+				expected:
+					'/consul/tutorials/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
 			},
 		]
 		for (let n = 0; n < tutorialUrls.length; n++) {

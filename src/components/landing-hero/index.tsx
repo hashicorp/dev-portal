@@ -12,7 +12,13 @@ const LandingHero = ({ pageHeading, pageSubtitle }: LandingHeroProps) => {
 	const hasSubtitle = !!pageSubtitle
 
 	return (
-		<div className={classNames(s.root, { [s.hasSubtitle]: hasSubtitle })}>
+		<div
+			className={classNames(
+				s.root,
+				{ [s.hasSubtitle]: hasSubtitle },
+				'landing-hero'
+			)}
+		>
 			<IconTileLogo
 				productSlug={
 					currentProduct.slug === 'sentinel' ? 'hcp' : currentProduct.slug

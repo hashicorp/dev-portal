@@ -161,6 +161,36 @@
 					"url": "/vault/tutorials/app-integration/eaas-spring-demo"
 				}
 			]
+		},
+		{
+			"type": "callout",
+			"heading": "Contributing to Vagrant",
+			"body": "HashiCorp has some community guidelines to ensure our public forums are a safe space for everyone. When contributing to Vagrant, please respect the same guidelines.",
+			"ctas": [
+				{ "text": "Learn More", "url": "/vagrant/intro/contributing-guide" }
+			]
+		},
+		{
+			"type": "callout",
+			"heading": "Vagrant vs. Other Software",
+			"body": "Vagrant is not the only tool to manage virtual machines and development environments. ",
+			"iconCardLinks": [
+				{
+					"icon": "tools",
+					"text": "CLI Tools",
+					"url": "/vagrant/intro/vs/cli-tools"
+				},
+				{
+					"icon": "docker-color",
+					"text": "Docker",
+					"url": "/vagrant/intro/vs/docker"
+				},
+				{
+					"icon": "terraform-color",
+					"text": "Terraform",
+					"url": "/vagrant/intro/vs/terraform"
+				}
+			]
 		}
 	]
 }
