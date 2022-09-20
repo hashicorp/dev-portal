@@ -9,7 +9,7 @@
 			"consul",
 			"nomad",
 			"terraform",
-      "vagrant",
+			"vagrant",
 			"vault",
 			"waypoint"
 		],
