@@ -24,7 +24,7 @@ import {
 	getIsRewriteableDocsLink,
 	getIsRewriteableLearnLink,
 	getTutorialMap,
-	handleLearnLink,
+	rewriteExternalLearnLink,
 	rewriteExternalDocsLink,
 } from './utils'
 
@@ -71,7 +71,7 @@ export function rewriteTutorialsLink(
 		 * Handle the link based on the determined link type.
 		 */
 		if (isLearnLink) {
-			newUrl = handleLearnLink(urlObject, tutorialMap)
+			newUrl = rewriteExternalLearnLink(urlObject, tutorialMap)
 		} else if (isRewriteableDocsLink) {
 			newUrl = rewriteExternalDocsLink(urlObject)
 		}

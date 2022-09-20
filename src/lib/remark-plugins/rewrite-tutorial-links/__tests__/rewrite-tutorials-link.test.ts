@@ -14,14 +14,15 @@ describe('rewriteTutorialsLink', () => {
 	jest.spyOn(utils, 'getIsRewriteableDocsLink').mockImplementation(jest.fn())
 	jest.spyOn(utils, 'getIsRewriteableLearnLink').mockImplementation(jest.fn())
 	jest.spyOn(utils, 'rewriteExternalDocsLink').mockImplementation(jest.fn())
-	jest.spyOn(utils, 'handleLearnLink').mockImplementation(jest.fn())
+	jest.spyOn(utils, 'rewriteExternalLearnLink').mockImplementation(jest.fn())
 
 	const mockConsoleError = console.error as jest.Mock
 	const mockGetIsRewriteableDocsLink =
 		utils.getIsRewriteableDocsLink as jest.Mock
 	const mockGetIsRewriteableLearnLink =
 		utils.getIsRewriteableLearnLink as jest.Mock
-	const mockHandleLearnLink = utils.handleLearnLink as jest.Mock
+	const mockRewriteExternalLearnLink =
+		utils.rewriteExternalLearnLink as jest.Mock
 	const mockRewriteExternalDocsLink = utils.rewriteExternalDocsLink as jest.Mock
 
 	afterEach(() => {
@@ -29,7 +30,7 @@ describe('rewriteTutorialsLink', () => {
 		mockGetIsRewriteableDocsLink.mockClear()
 		mockGetIsRewriteableLearnLink.mockClear()
 		mockRewriteExternalDocsLink.mockClear()
-		mockHandleLearnLink.mockClear()
+		mockRewriteExternalLearnLink.mockClear()
 	})
 
 	afterAll(() => {
@@ -45,21 +46,21 @@ describe('rewriteTutorialsLink', () => {
 		expect(mockGetIsRewriteableDocsLink).toHaveBeenCalledTimes(1)
 		expect(mockGetIsRewriteableLearnLink).toHaveBeenCalledTimes(1)
 		expect(mockRewriteExternalDocsLink).toHaveBeenCalledTimes(0)
-		expect(mockHandleLearnLink).toHaveBeenCalledTimes(0)
+		expect(mockRewriteExternalLearnLink).toHaveBeenCalledTimes(0)
 		expect(mockConsoleError).toHaveBeenCalledTimes(1)
 	})
 
 	test('when link is a learn link, not a docs link', () => {
 		mockGetIsRewriteableDocsLink.mockReturnValueOnce(false)
 		mockGetIsRewriteableLearnLink.mockReturnValueOnce(true)
-		mockHandleLearnLink.mockReturnValueOnce('mocked-return-value')
+		mockRewriteExternalLearnLink.mockReturnValueOnce('mocked-return-value')
 
 		expect(rewriteTutorialsLink('test-link', {})).toEqual('mocked-return-value')
 
 		expect(mockGetIsRewriteableDocsLink).toHaveBeenCalledTimes(1)
 		expect(mockGetIsRewriteableLearnLink).toHaveBeenCalledTimes(1)
 		expect(mockRewriteExternalDocsLink).toHaveBeenCalledTimes(0)
-		expect(mockHandleLearnLink).toHaveBeenCalledTimes(1)
+		expect(mockRewriteExternalLearnLink).toHaveBeenCalledTimes(1)
 		expect(mockConsoleError).toHaveBeenCalledTimes(0)
 	})
 
@@ -73,7 +74,7 @@ describe('rewriteTutorialsLink', () => {
 		expect(mockGetIsRewriteableDocsLink).toHaveBeenCalledTimes(1)
 		expect(mockGetIsRewriteableLearnLink).toHaveBeenCalledTimes(1)
 		expect(mockRewriteExternalDocsLink).toHaveBeenCalledTimes(1)
-		expect(mockHandleLearnLink).toHaveBeenCalledTimes(0)
+		expect(mockRewriteExternalLearnLink).toHaveBeenCalledTimes(0)
 		expect(mockConsoleError).toHaveBeenCalledTimes(0)
 	})
 
@@ -81,14 +82,14 @@ describe('rewriteTutorialsLink', () => {
 		mockGetIsRewriteableDocsLink.mockReturnValueOnce(true)
 		mockGetIsRewriteableLearnLink.mockReturnValueOnce(true)
 		mockRewriteExternalDocsLink.mockReturnValueOnce('mocked-docs-link')
-		mockHandleLearnLink.mockReturnValueOnce('mocked-learn-link')
+		mockRewriteExternalLearnLink.mockReturnValueOnce('mocked-learn-link')
 
 		expect(rewriteTutorialsLink('test-link', {})).toEqual('test-link')
 
 		expect(mockGetIsRewriteableDocsLink).toHaveBeenCalledTimes(1)
 		expect(mockGetIsRewriteableLearnLink).toHaveBeenCalledTimes(1)
 		expect(mockRewriteExternalDocsLink).toHaveBeenCalledTimes(0)
-		expect(mockHandleLearnLink).toHaveBeenCalledTimes(0)
+		expect(mockRewriteExternalLearnLink).toHaveBeenCalledTimes(0)
 		expect(mockConsoleError).toHaveBeenCalledTimes(1)
 	})
 })

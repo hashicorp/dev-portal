@@ -1,7 +1,7 @@
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { rewriteExternalCollectionLink, rewriteExternalTutorialLink } from '.'
 
-const handleLearnLink = (
+const rewriteExternalLearnLink = (
 	urlObject: URL,
 	tutorialMap: Record<string, string>
 ) => {
@@ -46,4 +46,4 @@ const handleLearnLink = (
 	return newUrl
 }
 
-export { handleLearnLink }
+export { rewriteExternalLearnLink }
