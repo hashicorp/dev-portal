@@ -25,7 +25,7 @@ import {
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { SidebarProps } from 'components/sidebar'
-import { EnrichedNavItem } from 'components/sidebar/types'
+import { EnrichedNavItem, MenuItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
@@ -276,8 +276,29 @@ export function getStaticGenerationFunctions<
 			if (currentRootDocsPath.visuallyHideSidebarTitle) {
 				docsSidebarLevel.visuallyHideTitle = true
 			}
-			// Add "Overview" item, unless explicitly disabled
-			if (currentRootDocsPath.addOverviewItem !== false) {
+
+			/**
+			 * Check the top level of the navData for "overview" items,
+			 * which are expected to be present for consistency.
+			 * If we do no have an overview item match, then we'll
+			 * automatically add an overview item.
+			 */
+			const overviewItemMatch = navDataWithFullPaths.find((item: MenuItem) => {
+				const isPathMatch =
+					item.path == '' ||
+					item.path == '/' ||
+					item.path == '/index' ||
+					item.path == 'index'
+				return isPathMatch
+			})
+			/**
+			 * Exception: If the first navData node is a `heading`,
+			 * we'll avoid adding an overview item even if there's
+			 * no overview item match.
+			 */
+			const firstItemIsHeading =
+				typeof navDataWithFullPaths[0]?.heading == 'string'
+			if (!overviewItemMatch && !firstItemIsHeading) {
 				docsSidebarLevel.overviewItemHref = versionPathPart
 					? `/${product.slug}/${basePath}/${versionPathPart}`
 					: `/${product.slug}/${basePath}`

@@ -137,10 +137,18 @@ function prepareNavNodeForClient({
 			traversedNodes: traversedNodes + 1,
 		}
 	} else if (isNavLeaf(node)) {
-		// For nodes with paths, add fullPath to the node, and `id`
+		/**
+		 * For nodes with paths, add fullPath to the node, and `id`
+		 * Note: pathWithIndexFix is a stopgap, `index` items should
+		 * really be fixed up in content. At some point in the future,
+		 * we could add a warning or error here, or resolve this
+		 * through content conformance efforts.
+		 */
+		const pathWithIndexFix = node.path == 'index' ? '' : node.path
 		const preparedItem = {
 			...node,
-			fullPath: `/${basePaths.join('/')}/${node.path}`,
+			path: pathWithIndexFix,
+			fullPath: `/${basePaths.join('/')}/${pathWithIndexFix}`,
 			id,
 		}
 		return { preparedItem, traversedNodes: 1 }

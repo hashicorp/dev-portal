@@ -94,13 +94,11 @@ describe('getNavItems', () => {
 					path: 'cdktf',
 					productSlugForLoader: 'terraform-cdk',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'terminal-screen',
 					name: 'Terraform CLI',
 					path: 'cli',
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'cloud',
@@ -108,7 +106,6 @@ describe('getNavItems', () => {
 					path: 'cloud-docs',
 					productSlugForLoader: 'terraform-docs-common',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'cloud',
@@ -117,7 +114,6 @@ describe('getNavItems', () => {
 					path: 'cloud-docs/agents',
 					productSlugForLoader: 'terraform-docs-agents',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'docs',
@@ -131,28 +127,24 @@ describe('getNavItems', () => {
 					path: 'enterprise',
 					productSlugForLoader: 'ptfe-releases',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'docs',
 					name: 'Internals',
 					path: 'internals',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'docs',
 					name: 'Intro',
 					path: 'intro',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'file-source',
 					name: 'Configuration Language',
 					path: 'language',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'plug',
@@ -160,7 +152,6 @@ describe('getNavItems', () => {
 					path: 'plugin',
 					productSlugForLoader: 'terraform-docs-common',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'plug',
@@ -169,7 +160,6 @@ describe('getNavItems', () => {
 					path: 'plugin/framework',
 					productSlugForLoader: 'terraform-plugin-framework',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'plug',
@@ -178,7 +168,6 @@ describe('getNavItems', () => {
 					path: 'plugin/log',
 					productSlugForLoader: 'terraform-plugin-log',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'plug',
@@ -187,7 +176,6 @@ describe('getNavItems', () => {
 					path: 'plugin/mux',
 					productSlugForLoader: 'terraform-plugin-mux',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'plug',
@@ -196,7 +184,6 @@ describe('getNavItems', () => {
 					productSlugForLoader: 'terraform-plugin-sdk',
 					navDataPrefix: 'plugin-sdk',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 				{
 					iconName: 'database',
@@ -204,7 +191,6 @@ describe('getNavItems', () => {
 					path: 'registry',
 					productSlugForLoader: 'terraform-docs-common',
 					visuallyHideSidebarTitle: true,
-					addOverviewItem: false,
 				},
 			],
 		} as ProductData
