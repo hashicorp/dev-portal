@@ -1,5 +1,6 @@
 import CollectionCard, {
 	CollectionCardPropsWithId,
+	CollectionCardWithAuthElements,
 } from 'components/collection-card'
 import { FeaturedInCollectionsProps } from './types'
 import s from './featured-in-collections.module.css'
@@ -20,11 +21,10 @@ export function FeaturedInCollections({
 			<h2 className={s.heading}>This tutorial also appears in:</h2>
 			<div className={s.cards}>
 				<CardsGridList fixedColumns={collections.length == 1 ? 2 : null}>
-					{collections.map((collection: CollectionCardPropsWithId) => {
-						const { id, ...cardProps } = collection
+					{collections.map((cardPropsWithId: CollectionCardPropsWithId) => {
 						return (
-							<li key={id} className={s.listItem}>
-								<CollectionCard {...cardProps} />
+							<li key={cardPropsWithId.id} className={s.listItem}>
+								<CollectionCardWithAuthElements {...cardPropsWithId} />
 							</li>
 						)
 					})}

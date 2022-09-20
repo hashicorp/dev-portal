@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react'
 import slugify from 'slugify'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import CollectionCard, {
+	CollectionCardWithAuthElements,
 	CollectionCardPropsWithId,
 } from 'components/collection-card'
 import Text from 'components/text'
@@ -71,7 +72,7 @@ export default function LearnSection({
 						const { id } = cardProps
 						return (
 							<li key={id} className={s.tutorialsListItem}>
-								<CollectionCard {...cardProps} />
+								<CollectionCardWithAuthElements {...cardProps} />
 							</li>
 						)
 					})}
