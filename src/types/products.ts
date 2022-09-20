@@ -117,13 +117,6 @@ interface RootDocsPath {
 	mainBranch?: string
 
 	/**
-	 * An optional property to hide the title of this rootDocsPath
-	 * in the sidebar. Used for Terraform routes where sidebar titles
-	 * are present in nav-data.json.
-	 */
-	visuallyHideSidebarTitle?: boolean
-
-	/**
 	 * An optional description for this category of documentation.
 	 * Shown as the subtitle of the docs landing hero element.
 	 * If omitted, falls back to the page's authored frontMatter.description,
