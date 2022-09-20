@@ -1,4 +1,4 @@
-export { getIsExternalDocsLink } from './get-is-external-docs-link'
+export { getIsRewriteableDocsLink } from './get-is-rewriteable-docs-link'
 export {
 	getIsRewriteableExternalLearnLink,
 	getIsRewriteableLearnLink,

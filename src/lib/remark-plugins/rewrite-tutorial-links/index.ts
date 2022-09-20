@@ -21,7 +21,7 @@ import { Link, Definition } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import {
-	getIsExternalDocsLink,
+	getIsRewriteableDocsLink,
 	getIsRewriteableLearnLink,
 	getTutorialMap,
 	handleLearnLink,
@@ -53,14 +53,14 @@ export function rewriteTutorialsLink(
 		const urlObject = new URL(url, 'https://learn.hashicorp.com')
 
 		const isLearnLink = getIsRewriteableLearnLink(url)
-		const isExternalDocsLink = getIsExternalDocsLink(url)
+		const isRewriteableDocsLink = getIsRewriteableDocsLink(url)
 
 		/**
 		 * Don't do anything if the link is ambiguous.
 		 */
 		if (
-			(isLearnLink === true && isExternalDocsLink === true) ||
-			(isLearnLink === false && isExternalDocsLink === false)
+			(isLearnLink === true && isRewriteableDocsLink === true) ||
+			(isLearnLink === false && isRewriteableDocsLink === false)
 		) {
 			throw new Error(
 				`[rewriteTutorialsLink] Found an ambiguous link: '${url}'`
@@ -72,7 +72,7 @@ export function rewriteTutorialsLink(
 		 */
 		if (isLearnLink) {
 			newUrl = handleLearnLink(urlObject, tutorialMap)
-		} else if (isExternalDocsLink) {
+		} else if (isRewriteableDocsLink) {
 			newUrl = rewriteExternalDocsLink(urlObject)
 		}
 

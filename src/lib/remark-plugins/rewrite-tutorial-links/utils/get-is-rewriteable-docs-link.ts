@@ -3,9 +3,10 @@ import { ProductData, ProductSlug } from 'types/products'
 
 /**
  * Determine whether the given `link` is a URL referencing product docs sites
- * that are external to the Learn and DevDot platform.
+ * that are external to the Learn and DevDot platform, and rewriteable to a page
+ * within DevDot.
  */
-const getIsExternalDocsLink = (link: string): boolean => {
+const getIsRewriteableDocsLink = (link: string): boolean => {
 	try {
 		const urlObject = new URL(link)
 		const { origin, pathname } = urlObject
@@ -68,4 +69,4 @@ const getIsExternalDocsLink = (link: string): boolean => {
 	}
 }
 
-export { getIsExternalDocsLink }
+export { getIsRewriteableDocsLink }

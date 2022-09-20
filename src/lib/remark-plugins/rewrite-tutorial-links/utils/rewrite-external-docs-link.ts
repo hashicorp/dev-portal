@@ -2,7 +2,7 @@ import path from 'path'
 import { ProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToHostNames } from 'lib/products'
-import { getIsExternalDocsLink } from './get-is-external-docs-link'
+import { getIsRewriteableDocsLink } from './get-is-rewriteable-docs-link'
 
 /**
  * Handles rewriting an external docs URL (from .io pages) to a DevDot internal
@@ -26,8 +26,8 @@ export function rewriteExternalDocsLink(urlObject: URL) {
 	/**
 	 * Return nothing if the link isn't an external docs link.
 	 */
-	const isExternalDocsLink = getIsExternalDocsLink(urlObject.toString())
-	if (!isExternalDocsLink) {
+	const isRewritableDocsLink = getIsRewriteableDocsLink(urlObject.toString())
+	if (!isRewritableDocsLink) {
 		return
 	}
 

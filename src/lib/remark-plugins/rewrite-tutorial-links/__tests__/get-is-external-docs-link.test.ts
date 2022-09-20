@@ -1,17 +1,17 @@
 import { ProductSlug } from 'types/products'
 import { productSlugsToHostNames } from 'lib/products'
-import { getIsExternalDocsLink } from '../utils'
+import { getIsRewriteableDocsLink } from '../utils'
 
 const testEachCase = (testCases: [string, boolean][]) => {
 	test.each(testCases)(
-		'getIsExternalDocsLink(%p) returns %p',
+		'getIsRewriteableDocsLink(%p) returns %p',
 		(input: string, expectedOutput: boolean) => {
-			expect(getIsExternalDocsLink(input)).toBe(expectedOutput)
+			expect(getIsRewriteableDocsLink(input)).toBe(expectedOutput)
 		}
 	)
 }
 
-describe('getIsExternalDocsLink', () => {
+describe('getIsRewriteableDocsLink', () => {
 	const generatedCases = []
 
 	Object.keys(productSlugsToHostNames).forEach((slug: ProductSlug) => {
