@@ -11,7 +11,7 @@ export function EditionFilter({ refine, selectedEdition }: EditionFilterProps) {
 	const isAnyEditionSelected = selectedEdition !== undefined
 
 	return (
-		<FilterSection heading="Edition">
+		<FilterSection label="Edition">
 			<li>
 				<RadioField
 					labelFontWeight="regular"

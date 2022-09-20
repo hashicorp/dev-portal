@@ -3,17 +3,28 @@
 	align-items: center;
 	gap: 8px;
 	margin-bottom: 20px;
+	min-height: 30px;
+
+	& .label {
+		flex-shrink: 0;
+	}
 
 	& ul {
 		list-style-type: none;
 		padding: 0;
 		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 14px 8px;
 
 		& li {
 			display: inline-block;
 
 			&:not(:last-of-type) {
-				margin-right: 12px;
+			}
+
+			&:last-of-type {
+				margin-left: -6px;
 			}
 		}
 	}

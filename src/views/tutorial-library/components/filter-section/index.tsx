@@ -4,15 +4,15 @@ import filterSectionStyle from './filter-section.module.css'
 
 export type FilterSectionProps = PropsWithChildren<{
 	/**
-	 * Heading to be rendered above the section
+	 * Label to be rendered above the section
 	 */
-	heading: string
+	label: string
 }>
 
-export function FilterSection({ heading, children }: FilterSectionProps) {
+export function FilterSection({ label, children }: FilterSectionProps) {
 	return (
 		<fieldset className={filterSectionStyle.root}>
-			<legend className={filterSectionStyle.heading}>{heading}</legend>
+			<legend className={filterSectionStyle.label}>{label}</legend>
 			<ul className={filterSectionStyle.filterList}>{children}</ul>
 		</fieldset>
 	)

@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { useSearchBox, UseSearchBoxProps } from 'react-instantsearch-hooks-web'
+import {
+	useConfigure,
+	useSearchBox,
+	UseSearchBoxProps,
+} from 'react-instantsearch-hooks-web'
 
 import FilterInput from 'components/filter-input'
 import Dialog from 'components/dialog'
@@ -15,6 +19,7 @@ import { ClearFiltersButton } from './components/clear-filters-button'
 import { useFiltersState } from './components/filters/use-filters-state'
 import { TutorialLibraryViewProps } from './types'
 import { useScrollToTopOnResultsChange } from './utils/scroll'
+import Heading from 'components/heading'
 
 let timerId = undefined
 /**
@@ -41,11 +46,16 @@ export default function TutorialLibraryView({
 	const [showMobileFilters, setShowMobileFilters] = useState(false)
 	const filtersState = useFiltersState()
 
+	// configure our search client with custom settings
+	useConfigure({ hitsPerPage: 24 })
+
 	useScrollToTopOnResultsChange()
 
 	return (
 		<div>
-			<h1>Tutorial Library</h1>
+			<Heading level={1} size={500} weight="bold" className={s.pageTitle}>
+				Tutorial Library
+			</Heading>
 			<div className={s.inputFilterSection}>
 				<FilterInput
 					className={s.input}
@@ -65,7 +75,7 @@ export default function TutorialLibraryView({
 				>
 					<div className={s.mobileFiltersControls}>
 						<Button text="Done" onClick={() => setShowMobileFilters(false)} />
-						<ClearFiltersButton />
+						<ClearFiltersButton disableWhenNoFilters />
 					</div>
 					<TutorialLibraryFilters {...filtersState} />
 				</Dialog>

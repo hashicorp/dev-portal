@@ -1,3 +1,7 @@
+.pageTitle {
+	margin-bottom: 24px;
+}
+
 .inputFilterSection {
 	display: flex;
 	flex-direction: row;

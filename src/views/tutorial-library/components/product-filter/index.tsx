@@ -18,7 +18,7 @@ export function ProductFilter({
 	selectedProducts,
 }: ProductFilterProps) {
 	return (
-		<FilterSection heading="Product">
+		<FilterSection label="Product">
 			{VALID_PRODUCT_SLUGS_FOR_FILTERING.map((slug) => {
 				const isProductSelected = selectedProducts.includes(slug)
 

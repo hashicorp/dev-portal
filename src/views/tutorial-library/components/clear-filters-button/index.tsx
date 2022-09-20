@@ -1,11 +1,14 @@
-import Button, { ButtonProps } from 'components/button'
 import { useClearRefinements } from 'react-instantsearch-hooks-web'
-
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
+import Button, { ButtonProps } from 'components/button'
 
 interface ClearFiltersButtonProps {
 	color?: ButtonProps['color']
 	className?: string
+	/**
+	 * Disables the button, instead of rendering null, when no filters are applied.
+	 */
+	disableWhenNoFilters?: boolean
 }
 
 /**
@@ -14,10 +17,11 @@ interface ClearFiltersButtonProps {
 export function ClearFiltersButton({
 	color = 'tertiary',
 	className,
+	disableWhenNoFilters = false,
 }: ClearFiltersButtonProps) {
 	const { refine, canRefine } = useClearRefinements()
 
-	if (!canRefine) {
+	if (!canRefine && !disableWhenNoFilters) {
 		return null
 	}
 
@@ -29,6 +33,7 @@ export function ClearFiltersButton({
 			color={color}
 			size="small"
 			onClick={() => refine()}
+			disabled={!canRefine}
 		/>
 	)
 }

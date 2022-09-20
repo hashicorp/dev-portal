@@ -76,7 +76,12 @@ export function CurrentFilters() {
 
 	return (
 		<div className={currentFiltersStyle.root}>
-			<Text asElement="span" size={200} weight="medium">
+			<Text
+				asElement="span"
+				size={200}
+				weight="medium"
+				className={currentFiltersStyle.label}
+			>
 				{hasAppliedFilters ? 'Your selected filters:' : 'No filters selected'}
 			</Text>
 			<ul>
@@ -91,8 +96,10 @@ export function CurrentFilters() {
 						)
 					})
 				})}
+				<li>
+					<ClearFiltersButton className="g-hide-with-mobile-menu" />
+				</li>
 			</ul>
-			<ClearFiltersButton className="g-hide-with-mobile-menu" />
 		</div>
 	)
 }

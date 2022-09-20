@@ -5,11 +5,11 @@
 	margin: 0;
 }
 
-.heading {
+.label {
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-semibold from global;
 	display: block;
-	margin-bottom: 12px;
+	margin-bottom: 8px;
 }
 
 .filterList {
@@ -23,7 +23,6 @@
 		vertical-align: middle;
 
 		& input {
-			margin-right: 6px;
 		}
 	}
 }

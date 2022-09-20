@@ -32,7 +32,7 @@ function ToggleRefinement({ refine, value, label }) {
 
 export function ResourcesFilter({ resources }: ResourcesFilterProps) {
 	return (
-		<FilterSection heading="Resources">
+		<FilterSection label="Resources">
 			{resources.map((attribute) => (
 				<li key={attribute.attribute}>
 					<ToggleRefinement {...attribute} />
