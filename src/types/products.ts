@@ -37,17 +37,12 @@ type LearnProductName = Exclude<
 
 type HcpProductName = Exclude<
 	ProductName,
-	| 'HashiCorp Cloud Platform'
-	| 'Nomad'
-	| 'Sentinel'
-	| 'Terraform'
-	| 'Vagrant'
-	| 'Waypoint'
+	'HashiCorp Cloud Platform' | 'Nomad' | 'Sentinel' | 'Terraform' | 'Vagrant'
 >
 
 type HcpProductSlug = Exclude<
 	ProductSlug,
-	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant' | 'waypoint'
+	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant'
 >
 
 /**

@@ -11,6 +11,7 @@ import patternSecurity from './img/security.png'
 import s from './mdx-callout.module.css'
 
 const SOLUTION_PRODUCTS_MAP: Record<SolutionOption, HcpProductSlug[]> = {
+	applications: ['waypoint'],
 	infrastructure: ['packer'],
 	networking: ['consul'],
 	security: ['boundary', 'vault'],
@@ -23,6 +24,11 @@ const SOLUTION_DETAILS: Record<
 		image: string
 	}
 > = {
+	applications: {
+		gradient: '--wpl-gradient-applications-horizontal',
+		// image: patternApplications,
+		image: patternInfrastructure,
+	},
 	infrastructure: {
 		gradient: '--wpl-gradient-infrastructure-horizontal',
 		image: patternInfrastructure,
