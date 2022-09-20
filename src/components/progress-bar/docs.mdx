@@ -1,0 +1,37 @@
+---
+componentName: 'ProgressBar'
+---
+
+The `ProgressBar` component displays a bar that fills to the percent provided through the `percentDone` prop.
+
+`ProgressBar` is always `4px` tall, and grows to fill the width of its parent container. It also accepts an optional `rounded` boolean prop, which defaults to `true`. If `rounded` is set to `false`, the ends of the progress bar will end in sharp corners.
+
+<LiveComponent>{`<ProgressBar percentDone={42} rounded={true} />`}</LiveComponent>
+
+## Examples
+
+### Various progress states
+
+`0%`
+
+<ProgressBar percentDone={0} />
+
+`42%`
+
+<ProgressBar percentDone={42} />
+
+`100%`
+
+<ProgressBar percentDone={42} />
+
+### Matching parent container width
+
+Parent container is `100px`
+
+<div style={{ width: '100px' }}>
+	<ProgressBar percentDone={42} />
+</div>
+
+### Without end rounding
+
+<ProgressBar percentDone={42} rounded={false} />

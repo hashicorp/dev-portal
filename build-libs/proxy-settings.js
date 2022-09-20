@@ -63,7 +63,7 @@ const proxySettings = {
 		host: proxyConfig.vagrant.host,
 		routesToProxy: [
 			...gatherRoutesToProxy('/_proxied-dot-io/vagrant'),
-			...buildAssetRoutesToProxy(proxyConfig.vagrant.assets, '/vagrant'),
+			...buildAssetRoutesToProxy(proxyConfig.vagrant.assets, '/vagrant-public'),
 			...getDevPortalRoutesToProxy('vagrant'),
 		],
 	},
