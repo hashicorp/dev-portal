@@ -72,6 +72,7 @@
 	}
 
 	&:focus {
+		box-shadow: var(--token-surface-inset-box-shadow);
 		border: 1px solid var(--token-color-focus-action-internal);
 
 		& + .optionalText {
