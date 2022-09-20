@@ -28,6 +28,14 @@ describe('rewriteExternalDocsLink', () => {
 		])
 	})
 
+	describe('when the `basePath` is not rewriteable for the determined product', () => {
+		testEachCase([
+			['https://www.vaultproject.io/use-cases', undefined],
+			['https://www.vaultproject.io/community', undefined],
+			['https://www.vaultproject.io/some-random-base-path', undefined],
+		])
+	})
+
 	describe('when neither `search` nor `hash` are present', () => {
 		describe('when the base path is not "api"', () => {
 			testEachCase([
