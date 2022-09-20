@@ -103,8 +103,8 @@ function PackerIoLayout({ children, data }: Props): React.ReactElement {
 							type: 'inbound',
 						},
 						{
-							text: 'API',
-							url: '/api-docs',
+							text: 'Plugins',
+							url: '/plugins',
 							type: 'inbound',
 						},
 						{

@@ -1,0 +1,53 @@
+.statusSection {
+	composes: hds-surface-base from global;
+	align-items: center;
+	align-self: stretch;
+	border-radius: 5px;
+	display: flex;
+	gap: 8px;
+	padding: 4px 12px;
+	width: 100%;
+}
+
+/*
+Used for all progress states
+*/
+.statusLabel {
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-primary);
+}
+
+/*
+Incomplete elements
+*/
+.countIconAndLabel {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	flex-shrink: 0;
+}
+
+.countIcon {
+	display: block;
+	color: var(--token-color-foreground-primary);
+	width: 14px;
+	height: 14px;
+}
+
+/*
+Complete elements
+*/
+.completeIconAndLabel {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-shrink: 0;
+}
+
+.completeIcon {
+	display: block;
+	color: var(--token-color-foreground-success);
+	width: 14px;
+	height: 14px;
+}

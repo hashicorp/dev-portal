@@ -22,11 +22,11 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "Survey",
-		"url": "https://github.com/hashicorp/consul-k8s/issues/1485",
-		"text": "Open call for Consul K8s research study participants - 30 minute session",
-		"linkText": "Read more",
-		"expirationDate": "2022-09-18T23:00:00-07:00"
+		"tag": "Just announced",
+		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "HashiConf Global full schedule: keynotes, sessions, labs & more.",
+		"linkText": "Register Now",
+		"expirationDate": ""
 	},
 	"version": "1.11.3",
 	"subnavItems": [],

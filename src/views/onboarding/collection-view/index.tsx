@@ -15,9 +15,6 @@ export default function OnboardingCollectionView({
 	metadata,
 }: OnboardingCollectionViewProps) {
 	const { name, id, description, tutorials, ordered, slug } = collection
-	const startTutorialSlug = `/${slug}/${splitProductFromFilename(
-		tutorials[0].slug
-	)}`
 
 	return (
 		<>
@@ -44,10 +41,9 @@ export default function OnboardingCollectionView({
 				]}
 			>
 				<CollectionMeta
+					collection={collection}
 					heading={{ text: name, id }}
 					description={description}
-					cta={{ href: startTutorialSlug }}
-					numTutorials={tutorials.length}
 				/>
 				<CollectionTutorialList
 					isOrdered={ordered}
