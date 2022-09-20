@@ -15,6 +15,19 @@ const testEachCase = (cases: [string, string][]) => {
 }
 
 describe('rewriteExternalDocsLink', () => {
+	describe('when the URL is not to an external docs site', () => {
+		testEachCase([
+			['/vault/api', undefined],
+			['/waypoint/docs', undefined],
+			['/vault/tutorials', undefined],
+			['/waypoint/tutorials', undefined],
+			['https://developer.hashicorp.com/vault/api', undefined],
+			['https://developer.hashicorp.com/waypoint/docs', undefined],
+			['https://learn.hashicorp.com/vault', undefined],
+			['https://learn.hashicorp.com/waypoint', undefined],
+		])
+	})
+
 	describe('when neither `search` nor `hash` are present', () => {
 		describe('when the base path is not "api"', () => {
 			testEachCase([
