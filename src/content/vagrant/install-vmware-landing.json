@@ -5,6 +5,25 @@
 		"vagrant/getting-started-networking"
 	],
 	"doesNotHavePackageManagers": true,
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Vagrant VMWare Utility"
+		},
+		{
+			"title": "Install Instructions",
+			"fullPath": "/vagrant/docs/providers/vmware/installation"
+		},
+		{
+			"divider": true
+		},
+		{
+			"title": "Community Resources",
+			"fullPath": "https://www.vagrantup.com/community"
+		}
+	],
 	"sidecarMarketingCard": {
 		"title": "About Vagrant",
 		"subtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",
