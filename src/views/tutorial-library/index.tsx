@@ -11,7 +11,7 @@ import { MobileFiltersButton } from './components/mobile-filters-button'
 import s from './tutorial-library.module.css'
 import { TutorialLibraryFilters } from './components/filters'
 import Button from 'components/button'
-import { ClearFilters } from './components/clear-filters'
+import { ClearFiltersButton } from './components/clear-filters-button'
 import { useFiltersState } from './components/filters/use-filters-state'
 import { TutorialLibraryViewProps } from './types'
 import { useScrollToTopOnResultsChange } from './utils/scroll'
@@ -65,7 +65,7 @@ export default function TutorialLibraryView({
 				>
 					<div className={s.mobileFiltersControls}>
 						<Button text="Done" onClick={() => setShowMobileFilters(false)} />
-						<ClearFilters />
+						<ClearFiltersButton />
 					</div>
 					<TutorialLibraryFilters {...filtersState} />
 				</Dialog>

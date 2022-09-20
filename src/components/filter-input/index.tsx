@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef } from 'react'
+import { ChangeEvent, ReactElement, useRef } from 'react'
 import classNames from 'classnames'
 import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
@@ -11,12 +11,12 @@ interface FilterInputProps {
 	className?: string
 }
 
-const FilterInput: React.FC<FilterInputProps> = ({
-	placeholder,
+const FilterInput = ({
+	placeholder = 'Filter',
 	value,
 	onChange,
 	className,
-}) => {
+}: FilterInputProps): ReactElement => {
 	const inputRef = useRef<HTMLInputElement>()
 	const showClearButton = value
 
@@ -36,7 +36,7 @@ const FilterInput: React.FC<FilterInputProps> = ({
 			<input
 				className={s.filterInput}
 				onChange={handleChange}
-				placeholder={placeholder ?? 'Filter'}
+				placeholder={placeholder}
 				ref={inputRef}
 				value={value}
 				autoComplete="off"

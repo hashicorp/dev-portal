@@ -40,10 +40,6 @@
 /* Print Styles */
 @import './print.css';
 
-:root {
-  --reach-dialog: 1;
-}
-
 /*
  * About this selector:
  * `.g-subnav ~ *` finds all elements after the navigation.

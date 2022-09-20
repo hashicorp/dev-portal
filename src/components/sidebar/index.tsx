@@ -5,6 +5,7 @@ import classNames from 'classnames'
 // Global imports
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
+import FilterInput from 'components/filter-input'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
 	SidebarHorizontalRule,
@@ -25,7 +26,6 @@ import SidebarNavList from './components/sidebar-nav-list'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
-import FilterInput from 'components/filter-input'
 
 const SIDEBAR_LABEL_ID = 'sidebar-label'
 

@@ -4,7 +4,7 @@ import CardsGridList from 'components/cards-grid-list'
 import { TutorialCardWithAuthElements } from 'components/tutorial-card'
 import { getTutorialCardPropsFromHit } from '../../utils/get-tutorial-card-props-from-hit'
 import EmptyState from 'components/empty-state'
-import { ClearFilters } from '../clear-filters'
+import { ClearFiltersButton } from '../clear-filters-button'
 import { Pagination } from '../pagination'
 import { searchStateToRouteState } from 'views/tutorial-library/utils/router-state'
 import { Tutorial } from 'lib/learn-client/types'
@@ -35,7 +35,7 @@ export function TutorialLibraryResults({
 				<EmptyState
 					heading="No results"
 					subheading="Try adjusting your selected filters or using different keywords"
-					callToAction={<ClearFilters color="secondary" />}
+					callToAction={<ClearFiltersButton color="secondary" />}
 				/>
 			</>
 		)

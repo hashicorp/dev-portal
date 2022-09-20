@@ -13,7 +13,6 @@ type InheritedInputProps = Pick<
 
 interface CheckboxControlProps extends InheritedInputProps {
 	id?: NativeInputProps['id']
-	onChange?: NativeInputProps['onChange']
 }
 
 export type { CheckboxControlProps }

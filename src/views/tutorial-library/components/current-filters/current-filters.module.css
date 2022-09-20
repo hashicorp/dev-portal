@@ -1,8 +1,8 @@
 .root {
 	display: flex;
 	align-items: center;
-	gap: 12px;
-	margin-bottom: 16px;
+	gap: 8px;
+	margin-bottom: 20px;
 
 	& ul {
 		list-style-type: none;

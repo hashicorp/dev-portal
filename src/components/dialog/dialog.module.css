@@ -18,12 +18,12 @@
 	width: 100vw;
 
 	@media (--dev-dot-tablet-up) {
-		padding-top: 10vh;
+		padding-top: 20vh;
 	}
 
 	&.bottom {
 		padding: 0;
-		padding-top: 10vh;
+		padding-top: 20vh;
 		width: 100%;
 		position: absolute;
 	}

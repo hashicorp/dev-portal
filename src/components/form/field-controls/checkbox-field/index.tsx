@@ -39,9 +39,7 @@ const CheckboxField = ({
 				checked={checked}
 				id={inputId}
 				name={name}
-				onChange={(event) => {
-					onChange(event)
-				}}
+				onChange={onChange}
 				onClick={onClick}
 			/>
 			<Label className={s.label} fontWeight={labelFontWeight} htmlFor={inputId}>
