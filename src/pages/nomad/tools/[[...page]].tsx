@@ -1,17 +1,11 @@
-import nomadData from 'data/nomad.json'
-import { ProductData } from 'types/products'
-import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import DocsView from 'views/docs-view'
+import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
 
-const basePath = 'tools'
-const baseName = 'Tools'
-const product = nomadData as ProductData
+const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
+	'nomad',
+	'tools',
+	{ hideVersionSelector: true }
+)
 
-const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions({
-	product,
-	basePath,
-	baseName,
-})
-
-export { getStaticPaths, getStaticProps }
+export { getStaticProps, getStaticPaths }
 export default DocsView

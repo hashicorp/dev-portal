@@ -1,3 +1,4 @@
+import { CalloutCardProps } from 'components/callout-card/types'
 import {
 	HeadingBlockProps,
 	TutorialCardsProps,
@@ -10,6 +11,7 @@ export type ProductLandingBlock =
 	| ({ type: 'collection_cards' } & CollectionCardsProps)
 	| ({ type: 'linked_cards' } & LinkedCardsProps)
 	| ({ type: 'heading' } & HeadingBlockProps)
+	| ({ type: 'callout' } & CalloutCardProps)
 
 export interface ProductLandingBlocksProps {
 	blocks: ProductLandingBlock[]

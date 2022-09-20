@@ -19,10 +19,13 @@
 		"max_static_paths": 10,
 		"revalidate": 360,
 		"beta_product_slugs": [
+			"boundary",
 			"consul",
 			"hcp",
 			"nomad",
+			"packer",
 			"terraform",
+			"vagrant",
 			"vault",
 			"waypoint"
 		],
@@ -40,6 +43,7 @@
 		"enable_auth": false,
 		"enable_datadog": true,
 		"enable_io_beta_cta": true,
-		"enable_product_docs_search": true
+		"enable_product_docs_search": true,
+		"enable_global_search": false
 	}
 }

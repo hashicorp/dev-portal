@@ -1,8 +1,6 @@
-import { LearnProductData, ProductSlug } from 'types/products'
+import { ProductOption, SectionOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { CollectionCardPropsWithId } from 'components/collection-card'
-
-import { splitProductFromFilename } from '.'
 import { TutorialData } from '..'
 
 /**
@@ -16,13 +14,17 @@ import { TutorialData } from '..'
  */
 export function getCanonicalCollectionSlug(
 	tutorial: TutorialData,
-	currentProductSlug: LearnProductData['slug']
+	currentProductSlug: ProductOption | SectionOption | 'hcp'
 ): string {
+	const normalizedCurrentProductSlug =
+		currentProductSlug === 'hcp' ? 'cloud' : currentProductSlug
 	// check if default has a beta product
-	const defaultCollectionProduct = splitProductFromFilename(
-		tutorial.collectionCtx.default.slug
-	) as ProductSlug
-	const defaultIsInBeta = getIsBetaProduct(defaultCollectionProduct)
+	const defaultCollectionProduct = tutorial.collectionCtx.default.slug.split(
+		'/'
+	)[0] as ProductOption | SectionOption | 'cloud'
+	const betaProductToCheck =
+		defaultCollectionProduct === 'cloud' ? 'hcp' : defaultCollectionProduct
+	const defaultIsInBeta = getIsBetaProduct(betaProductToCheck)
 
 	if (defaultIsInBeta) {
 		return tutorial.collectionCtx.default.slug
@@ -31,7 +33,7 @@ export function getCanonicalCollectionSlug(
 		const firstInBetaFeaturedCollection =
 			tutorial.collectionCtx.featuredIn?.find(
 				(collection: CollectionCardPropsWithId) => {
-					return collection.dbSlug.startsWith(currentProductSlug)
+					return collection.dbSlug.startsWith(normalizedCurrentProductSlug)
 				}
 			)
 

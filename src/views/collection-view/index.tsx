@@ -69,11 +69,13 @@ function CollectionView({
 			<CollectionTutorialList
 				isOrdered={ordered}
 				tutorials={tutorials.map((t: ClientTutorialLite) =>
-					formatTutorialCard(t, slug)
+					formatTutorialCard(t, collection)
 				)}
 			/>
 		</SidebarSidecarLayout>
 	)
 }
+
+CollectionView.contentType = 'tutorials'
 
 export default CollectionView

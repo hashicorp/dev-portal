@@ -38,6 +38,7 @@ export default function ImageConfig({
 					alt={alt}
 					title={title}
 					noMargin
+					noBorder={hideBorder}
 					width={width}
 					height={height}
 					inline={inline}

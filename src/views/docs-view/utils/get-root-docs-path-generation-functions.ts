@@ -1,8 +1,21 @@
 import { getStaticGenerationFunctions } from 'views/docs-view/server'
-import { ProductSlug } from 'types/products'
-import { GetStaticPaths, GetStaticProps } from 'next'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { removeIndexPath } from 'lib/remove-index-path'
+// types
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { ProductSlug, ProductData, RootDocsPath } from 'types/products'
+import { Pluggable } from 'unified'
+// product-specific
+import remarkSentinel from 'lib/remark-sentinel'
+import { getLatestVagrantVmwareVersion } from './get-latest-vagrant-vmware-version'
+
+export interface DocsViewPropOptions {
+	hideVersionSelector?: boolean
+	/**
+	 * A human-readable project name that is rendered in the version selector and version alert
+	 */
+	projectName?: string
+}
 
 /**
  * Generates static functions for use in a
@@ -10,7 +23,8 @@ import { removeIndexPath } from 'lib/remove-index-path'
  */
 export function getRootDocsPathGenerationFunctions(
 	productSlug: ProductSlug,
-	targetRootDocsPath: string
+	targetRootDocsPath: string,
+	options?: DocsViewPropOptions
 ): {
 	getStaticPaths: GetStaticPaths
 	getStaticProps: GetStaticProps
@@ -20,11 +34,19 @@ export function getRootDocsPathGenerationFunctions(
 		return rootDocsPath.path == targetRootDocsPath
 	})
 	const staticFunctionConfig = {
-		baseName: rootDocsPath.name,
+		baseName: rootDocsPath.shortName || rootDocsPath.name,
 		basePath: rootDocsPath.path,
 		navDataPrefix: rootDocsPath.navDataPrefix,
 		product: productData,
 		productSlugForLoader: rootDocsPath.productSlugForLoader,
+		basePathForLoader: rootDocsPath.basePathForLoader,
+		mainBranch: rootDocsPath.mainBranch,
+		additionalRemarkPlugins: getAdditionalRemarkPlugins(
+			productData,
+			rootDocsPath
+		),
+		getScope: generateGetScope(productData, rootDocsPath),
+		options,
 	}
 	return {
 		getStaticPaths: async (context) => {
@@ -50,5 +72,40 @@ export function getRootDocsPathGenerationFunctions(
 				getStaticGenerationFunctions(staticFunctionConfig)
 			return await getStaticProps(context)
 		},
+	}
+}
+
+/**
+ * Certain products, like Sentinel, require additional remark plugins.
+ */
+function getAdditionalRemarkPlugins(
+	productData: ProductData,
+	rootDocsPath: RootDocsPath
+): Pluggable[] {
+	if (productData.slug == 'sentinel' && rootDocsPath.path == 'docs') {
+		return [remarkSentinel]
+	} else {
+		return []
+	}
+}
+
+/**
+ * Certain products, like Vagrant, require specific MDX scope.
+ */
+type MdxScope = Record<string, unknown>
+
+/**
+ * Certain products, like Vagrant, require specific MDX scope.
+ */
+function generateGetScope(
+	productData: ProductData,
+	rootDocsPath: RootDocsPath
+): () => Promise<MdxScope> {
+	if (productData.slug == 'vagrant' && rootDocsPath.path == 'docs') {
+		return async () => ({
+			VMWARE_UTILITY_VERSION: await getLatestVagrantVmwareVersion(),
+		})
+	} else {
+		return undefined
 	}
 }

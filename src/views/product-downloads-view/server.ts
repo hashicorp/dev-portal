@@ -2,18 +2,32 @@ import fs from 'fs'
 import path from 'path'
 import { ProductData } from 'types/products'
 import { generateStaticProps as generateReleaseStaticProps } from 'lib/fetch-release-data'
-import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { formatCollectionCard } from 'components/collection-card/helpers'
-import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import {
-	FeaturedLearnContent,
 	ProductDownloadsViewStaticProps,
 	RawProductDownloadsViewContent,
-	FeaturedLearnCard,
+	FeaturedTutorialCard,
+	FeaturedCollectionCard,
 } from './types'
+import {
+	generateFeaturedCollectionsCards,
+	generateFeaturedTutorialsCards,
+	sortAndFilterReleaseVersions,
+} from './helpers'
 
-const generateGetStaticProps = (product: ProductData) => {
+interface GenerateStaticPropsOptions {
+	isEnterpriseMode?: boolean
+	releaseSlug?: string
+	jsonFilePath?: string
+	installName?: string
+}
+
+const generateGetStaticProps = (
+	product: ProductData,
+	options: GenerateStaticPropsOptions = {}
+) => {
+	const { isEnterpriseMode = false } = options
+
 	return async (): Promise<{
 		props: ProductDownloadsViewStaticProps
 		revalidate: number
@@ -26,66 +40,72 @@ const generateGetStaticProps = (product: ProductData) => {
 		 */
 		const jsonFilePath = path.join(
 			process.cwd(),
-			`src/content/${product.slug}/install-landing.json`
+			options.jsonFilePath || `src/content/${product.slug}/install-landing.json`
 		)
 		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
 			fs.readFileSync(jsonFilePath, 'utf8')
 		)
 		const {
 			doesNotHavePackageManagers,
-			featuredLearnContent,
+			featuredCollectionsSlugs,
+			featuredTutorialsSlugs,
 			packageManagerOverrides,
-			sidecarMarketingCard,
 			sidebarMenuItems,
+			sidecarMarketingCard,
 		} = CONTENT
 
 		/**
 		 * Fetch the release data static props
 		 */
 		const { props: releaseProps, revalidate } =
-			await generateReleaseStaticProps(product)
+			await generateReleaseStaticProps(options.releaseSlug || product)
 		const { releases, latestVersion } = releaseProps
+		const sortedAndFilteredVersions = sortAndFilterReleaseVersions({
+			releaseVersions: releases.versions,
+			isEnterpriseMode,
+		})
 
 		/**
-		 * Gather tutorials and collections based on slugs used
+		 * Transform featured collection entries into card data
 		 */
-		const inlineContent = await getInlineContentMaps(featuredLearnContent)
+		let featuredCollectionCards: FeaturedCollectionCard[]
+		if (featuredCollectionsSlugs && featuredCollectionsSlugs.length > 0) {
+			featuredCollectionCards = await generateFeaturedCollectionsCards(
+				featuredCollectionsSlugs
+			)
+		}
 
 		/**
-		 * Transform feature tutorial and collection entries into card data
+		 * Transform featured tutorial entries into card data
 		 */
-		const featuredLearnCards: FeaturedLearnCard[] = featuredLearnContent.map(
-			(entry: FeaturedLearnContent) => {
-				const { collectionSlug, tutorialSlug } = entry
-				if (typeof collectionSlug == 'string') {
-					const collectionData = inlineContent.inlineCollections[collectionSlug]
-					return { type: 'collection', ...formatCollectionCard(collectionData) }
-				} else if (typeof tutorialSlug == 'string') {
-					const tutorialData = inlineContent.inlineTutorials[tutorialSlug]
-					const defaultContext = tutorialData.collectionCtx.default
-					const tutorialLiteCompat = { ...tutorialData, defaultContext }
-					return { type: 'tutorial', ...formatTutorialCard(tutorialLiteCompat) }
-				}
-			}
-		)
+		let featuredTutorialCards: FeaturedTutorialCard[]
+		if (featuredTutorialsSlugs && featuredTutorialsSlugs.length > 0) {
+			featuredTutorialCards = await generateFeaturedTutorialsCards(
+				featuredTutorialsSlugs
+			)
+		}
 
 		/**
 		 * Combine release data and page content
 		 */
 		const props = stripUndefinedProperties({
+			isEnterpriseMode,
+			latestVersion: isEnterpriseMode ? `${latestVersion}+ent` : latestVersion,
 			metadata: {
 				title: 'Install',
 			},
-			releases,
-			product,
-			latestVersion,
 			pageContent: {
 				doesNotHavePackageManagers,
-				featuredLearnCards,
+				featuredCollectionCards,
+				featuredTutorialCards,
+				installName: options.installName,
 				packageManagerOverrides,
-				sidecarMarketingCard,
 				sidebarMenuItems,
+				sidecarMarketingCard,
 			},
+			product,
+			releases,
+			sortedAndFilteredVersions,
 		})
 
 		return {

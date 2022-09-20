@@ -6,7 +6,9 @@ import { SidebarProps } from 'components/sidebar'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import CollectionMeta from 'views/collection-view/components/collection-meta'
 import CollectionTutorialList from 'views/collection-view/components/collection-tutorial-list'
+import OptInOut from 'components/opt-in-out'
 import { WellArchitectedFrameworkCollectionViewProps } from '../types'
+import { generateWafCollectionSidebar } from '../utils/generate-collection-sidebar'
 
 export default function WellArchitectedFrameworkCollectionView({
 	collection,
@@ -25,17 +27,12 @@ export default function WellArchitectedFrameworkCollectionView({
 			breadcrumbLinks={breadcrumbLinks}
 			sidebarNavDataLevels={[
 				generateTopLevelSidebarNavData(metadata.wafName) as SidebarProps,
-				{
-					title: metadata.wafName,
-					levelButtonProps: {
-						levelUpButtonText: `Main Menu`,
-						levelDownButtonText: 'Previous',
-					},
-					overviewItemHref: `/${metadata.wafSlug}`,
-					menuItems: sidebarSections,
-					showFilterInput: false,
-				},
+				generateWafCollectionSidebar(
+					{ name: metadata.wafName, slug: metadata.wafSlug },
+					sidebarSections
+				),
 			]}
+			optInOutSlot={<OptInOut platform="learn" />}
 		>
 			<CollectionMeta
 				heading={{ text: name, id }}
@@ -47,6 +44,7 @@ export default function WellArchitectedFrameworkCollectionView({
 				isOrdered={ordered}
 				tutorials={tutorials.map((t: ClientTutorialLite) => ({
 					id: t.id,
+					collectionId: id,
 					description: t.description,
 					duration: getReadableTime(t.readTime),
 					hasInteractiveLab: Boolean(t.handsOnLab),
@@ -59,3 +57,5 @@ export default function WellArchitectedFrameworkCollectionView({
 		</SidebarSidecarLayout>
 	)
 }
+
+WellArchitectedFrameworkCollectionView.contentType = 'tutorials'

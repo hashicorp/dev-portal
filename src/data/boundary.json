@@ -9,22 +9,23 @@
 		"includedDomains": "boundaryproject.io www.boundaryproject.io",
 		"segmentWriteKey": "JkNZiSgwVRAAFrkqqdHLxf0xfcZuhYYc"
 	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
 		"title": "Boundary by HashiCorp",
 		"description": "Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.",
-		"image": "https://www.boundaryproject.io/boundary/img/og-image.png",
+		"image": "https://www.boundaryproject.io/boundary-public/img/og-image.png",
 		"icon": [
 			{
-				"href": "/boundary/_favicon.ico"
+				"href": "/boundary-public/_favicon.ico"
 			}
 		]
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "NEW",
-		"url": "https://cloud.hashicorp.com/boundary",
-		"text": "Boundary on the HashiCorp Cloud Platform is now in public beta",
-		"linkText": "Learn more",
+		"tag": "Just announced",
+		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "HashiConf Global full schedule: keynotes, sessions, labs & more.",
+		"linkText": "Register Now",
 		"expirationDate": ""
 	},
 	"subnavItems": [
@@ -55,18 +56,22 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "api-docs"],
-	"sidebar": {
-		"landingPageNavData": [
-			{
-				"title": "Introduction",
-				"fullPath": "/boundary/docs/what-is-boundary"
-			},
-			{
-				"title": "Getting Started",
-				"fullPath": "/boundary/docs/getting-started"
-			}
-		]
-	},
-	"navigationHeaderItems": {}
+	"basePaths": ["docs", "api-docs", "downloads"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "General Documentation",
+			"path": "docs",
+			"shortName": "Documentation"
+		},
+		{
+			"iconName": "api",
+			"name": "API",
+			"path": "api-docs"
+		}
+	],
+	"devDotCutoverMessage": {
+		"showCutoverDate": false,
+		"cutoverDate": "Oct 18, 2022"
+	}
 }

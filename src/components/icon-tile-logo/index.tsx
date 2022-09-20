@@ -16,7 +16,7 @@ function IconTileLogo({ productSlug, className }: IconTileLogoProps) {
 	return (
 		<IconTile
 			size="extra-large"
-			brandColor={productSlug == 'hcp' ? 'neutral' : productSlug}
+			brandColor={productSlug == 'hcp' ? 'neutral-dark' : productSlug}
 			className={className}
 		>
 			<ProductIcon productSlug={productSlug} />
