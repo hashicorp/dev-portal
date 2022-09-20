@@ -17,9 +17,6 @@ export default function WellArchitectedFrameworkCollectionView({
 }: WellArchitectedFrameworkCollectionViewProps) {
 	const { name, id, description, tutorials, ordered, slug } = collection
 	const { sidebarSections, breadcrumbLinks } = layoutProps
-	const startTutorialSlug = `/${slug}/${splitProductFromFilename(
-		tutorials[0].slug
-	)}`
 
 	return (
 		<SidebarSidecarLayout
@@ -35,10 +32,9 @@ export default function WellArchitectedFrameworkCollectionView({
 			optInOutSlot={<OptInOut platform="learn" />}
 		>
 			<CollectionMeta
+				collection={collection}
 				heading={{ text: name, id }}
 				description={description}
-				cta={{ href: startTutorialSlug }}
-				numTutorials={tutorials.length}
 			/>
 			<CollectionTutorialList
 				isOrdered={ordered}
