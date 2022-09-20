@@ -272,8 +272,14 @@ export function getStaticGenerationFunctions<
 				menuItems: navDataWithFullPaths as EnrichedNavItem[],
 				title: currentRootDocsPath.shortName || currentRootDocsPath.name,
 			}
-			// If the title is not hidden for this rootDocsPath, include it
-			if (currentRootDocsPath.visuallyHideSidebarTitle) {
+			/**
+			 * In some cases, the first nav item is a heading.
+			 * In these case, we'll visually hide the sidebar title,
+			 * since it will redundant right next to the authored title.
+			 */
+			const firstItemIsHeading =
+				typeof navDataWithFullPaths[0]?.heading == 'string'
+			if (firstItemIsHeading) {
 				docsSidebarLevel.visuallyHideTitle = true
 			}
 
@@ -296,8 +302,6 @@ export function getStaticGenerationFunctions<
 			 * we'll avoid adding an overview item even if there's
 			 * no overview item match.
 			 */
-			const firstItemIsHeading =
-				typeof navDataWithFullPaths[0]?.heading == 'string'
 			if (!overviewItemMatch && !firstItemIsHeading) {
 				docsSidebarLevel.overviewItemHref = versionPathPart
 					? `/${product.slug}/${basePath}/${versionPathPart}`

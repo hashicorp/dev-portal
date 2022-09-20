@@ -93,7 +93,6 @@ describe('getNavItems', () => {
 					name: 'CDK for Terraform',
 					path: 'cdktf',
 					productSlugForLoader: 'terraform-cdk',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'terminal-screen',
@@ -105,7 +104,6 @@ describe('getNavItems', () => {
 					name: 'Terraform Cloud',
 					path: 'cloud-docs',
 					productSlugForLoader: 'terraform-docs-common',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'cloud',
@@ -113,7 +111,6 @@ describe('getNavItems', () => {
 					navDataPrefix: 'cloud-docs-agents',
 					path: 'cloud-docs/agents',
 					productSlugForLoader: 'terraform-docs-agents',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'docs',
@@ -126,32 +123,27 @@ describe('getNavItems', () => {
 					name: 'Terraform Enterprise',
 					path: 'enterprise',
 					productSlugForLoader: 'ptfe-releases',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'docs',
 					name: 'Internals',
 					path: 'internals',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'docs',
 					name: 'Intro',
 					path: 'intro',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'file-source',
 					name: 'Configuration Language',
 					path: 'language',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'plug',
 					name: 'Plugin Development',
 					path: 'plugin',
 					productSlugForLoader: 'terraform-docs-common',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'plug',
@@ -159,7 +151,6 @@ describe('getNavItems', () => {
 					navDataPrefix: 'plugin-framework',
 					path: 'plugin/framework',
 					productSlugForLoader: 'terraform-plugin-framework',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'plug',
@@ -167,7 +158,6 @@ describe('getNavItems', () => {
 					navDataPrefix: 'plugin-log',
 					path: 'plugin/log',
 					productSlugForLoader: 'terraform-plugin-log',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'plug',
@@ -175,7 +165,6 @@ describe('getNavItems', () => {
 					navDataPrefix: 'plugin-mux',
 					path: 'plugin/mux',
 					productSlugForLoader: 'terraform-plugin-mux',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'plug',
@@ -183,14 +172,12 @@ describe('getNavItems', () => {
 					path: 'plugin/sdkv2',
 					productSlugForLoader: 'terraform-plugin-sdk',
 					navDataPrefix: 'plugin-sdk',
-					visuallyHideSidebarTitle: true,
 				},
 				{
 					iconName: 'database',
 					name: 'Registry Publishing',
 					path: 'registry',
 					productSlugForLoader: 'terraform-docs-common',
-					visuallyHideSidebarTitle: true,
 				},
 			],
 		} as ProductData

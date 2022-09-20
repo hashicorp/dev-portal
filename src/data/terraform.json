@@ -47,29 +47,25 @@
 			"iconName": "code",
 			"name": "CDK for Terraform",
 			"path": "cdktf",
-			"productSlugForLoader": "terraform-cdk",
-			"visuallyHideSidebarTitle": true
+			"productSlugForLoader": "terraform-cdk"
 		},
 		{
 			"iconName": "terminal-screen",
 			"name": "Terraform CLI",
-			"path": "cli",
-			"visuallyHideSidebarTitle": true
+			"path": "cli"
 		},
 		{
 			"iconName": "cloud",
 			"name": "Terraform Cloud",
 			"path": "cloud-docs",
-			"productSlugForLoader": "terraform-docs-common",
-			"visuallyHideSidebarTitle": true
+			"productSlugForLoader": "terraform-docs-common"
 		},
 		{
 			"iconName": "cloud",
 			"name": "Cloud Docs Agents",
 			"navDataPrefix": "cloud-docs-agents",
 			"path": "cloud-docs/agents",
-			"productSlugForLoader": "terraform-docs-agents",
-			"visuallyHideSidebarTitle": true
+			"productSlugForLoader": "terraform-docs-agents"
 		},
 		{
 			"iconName": "docs",
@@ -82,72 +78,62 @@
 			"iconName": "org",
 			"name": "Terraform Enterprise",
 			"path": "enterprise",
-			"productSlugForLoader": "ptfe-releases",
-			"visuallyHideSidebarTitle": true
+			"productSlugForLoader": "ptfe-releases"
 		},
 		{
 			"iconName": "docs",
 			"name": "Internals",
-			"path": "internals",
-			"visuallyHideSidebarTitle": true
+			"path": "internals"
 		},
 		{
 			"iconName": "docs",
 			"name": "Intro",
-			"path": "intro",
-			"visuallyHideSidebarTitle": true
+			"path": "intro"
 		},
 		{
 			"iconName": "file-source",
 			"name": "Configuration Language",
-			"path": "language",
-			"visuallyHideSidebarTitle": true
+			"path": "language"
 		},
 		{
 			"iconName": "wrench",
 			"name": "Plugin Development",
 			"path": "plugin",
-			"productSlugForLoader": "terraform-docs-common",
-			"visuallyHideSidebarTitle": true
+			"productSlugForLoader": "terraform-docs-common"
 		},
 		{
 			"iconName": "plug",
 			"name": "Framework",
 			"navDataPrefix": "plugin-framework",
 			"path": "plugin/framework",
-			"productSlugForLoader": "terraform-plugin-framework",
-			"visuallyHideSidebarTitle": true
+			"productSlugForLoader": "terraform-plugin-framework"
 		},
 		{
 			"iconName": "plug",
 			"name": "Logging",
 			"navDataPrefix": "plugin-log",
 			"path": "plugin/log",
-			"productSlugForLoader": "terraform-plugin-log",
-			"visuallyHideSidebarTitle": true
+			"productSlugForLoader": "terraform-plugin-log"
 		},
 		{
 			"iconName": "plug",
 			"name": "Combining and Translating",
 			"navDataPrefix": "plugin-mux",
 			"path": "plugin/mux",
-			"productSlugForLoader": "terraform-plugin-mux",
-			"visuallyHideSidebarTitle": true
+			"productSlugForLoader": "terraform-plugin-mux"
 		},
 		{
 			"iconName": "plug",
 			"name": "SDKv2",
 			"path": "plugin/sdkv2",
 			"productSlugForLoader": "terraform-plugin-sdk",
-			"navDataPrefix": "plugin-sdk",
-			"visuallyHideSidebarTitle": true
+			"navDataPrefix": "plugin-sdk"
 		},
 		{
 			"iconName": "plus-circle",
 			"name": "Registry Publishing",
 			"path": "registry",
-			"productSlugForLoader": "terraform-docs-common",
-			"visuallyHideSidebarTitle": true
+			"productSlugForLoader": "terraform-docs-common"
 		}
 	],
 	"devDotCutoverMessage": {
