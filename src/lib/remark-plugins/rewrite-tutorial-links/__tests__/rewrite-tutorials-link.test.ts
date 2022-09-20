@@ -47,7 +47,7 @@ describe('rewriteTutorialsLink', () => {
 		expect(mockGetIsRewriteableLearnLink).toHaveBeenCalledTimes(1)
 		expect(mockRewriteExternalDocsLink).toHaveBeenCalledTimes(0)
 		expect(mockRewriteExternalLearnLink).toHaveBeenCalledTimes(0)
-		expect(mockConsoleError).toHaveBeenCalledTimes(1)
+		expect(mockConsoleError).toHaveBeenCalledTimes(0)
 	})
 
 	test('when link is a learn link, not a docs link', () => {

@@ -52,25 +52,29 @@ export function rewriteTutorialsLink(
 	try {
 		const urlObject = new URL(url, 'https://learn.hashicorp.com')
 
-		const isLearnLink = getIsRewriteableLearnLink(url)
+		const isRewriteableLearnLink = getIsRewriteableLearnLink(url)
 		const isRewriteableDocsLink = getIsRewriteableDocsLink(url)
 
 		/**
 		 * Don't do anything if the link is ambiguous.
 		 */
-		if (
-			(isLearnLink === true && isRewriteableDocsLink === true) ||
-			(isLearnLink === false && isRewriteableDocsLink === false)
-		) {
+		if (isRewriteableLearnLink && isRewriteableDocsLink) {
 			throw new Error(
 				`[rewriteTutorialsLink] Found an ambiguous link: '${url}'`
 			)
 		}
 
 		/**
+		 * Return the url unmodified if it's not rewriteable.
+		 */
+		if (!isRewriteableLearnLink && !isRewriteableDocsLink) {
+			return url
+		}
+
+		/**
 		 * Handle the link based on the determined link type.
 		 */
-		if (isLearnLink) {
+		if (isRewriteableLearnLink) {
 			newUrl = rewriteExternalLearnLink(urlObject, tutorialMap)
 		} else if (isRewriteableDocsLink) {
 			newUrl = rewriteExternalDocsLink(urlObject)
