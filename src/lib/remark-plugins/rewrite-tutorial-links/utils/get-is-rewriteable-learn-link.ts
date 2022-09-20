@@ -14,8 +14,7 @@ const productAndSectionOptions = [
 const getIsRewriteableExternalLearnLink = (link: string) => {
 	try {
 		const urlObject = new URL(link)
-		const urlAsString = urlObject.toString()
-		const { hostname } = urlObject
+		const { hostname, pathname } = urlObject
 
 		/**
 		 * If the `base` argument passed to the URL constructor wasn't taken, then
@@ -26,11 +25,10 @@ const getIsRewriteableExternalLearnLink = (link: string) => {
 		}
 
 		/**
-		 * Return true if the link is `https://learn.hashicorp.com` with or without
-		 * a trailing slash.
+		 * Return false if the link is to the Learn home page.
 		 */
-		if (link === urlAsString || `${link}/` === urlAsString) {
-			return true
+		if (pathname === '/') {
+			return false
 		}
 
 		/**

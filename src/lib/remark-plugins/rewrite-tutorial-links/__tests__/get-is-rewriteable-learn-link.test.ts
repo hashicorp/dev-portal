@@ -17,6 +17,8 @@ describe('getIsRewriteableLearnLink', () => {
 			['', false],
 			['not-a-learn-link', false],
 			['/', false],
+			// TODO - rewrite to /tutorials/library soon?
+			['/search', false],
 			['/not-a-learn-link', false],
 			['/not-a/learn-link', false],
 			['/not/a/learn-link', false],
@@ -24,8 +26,10 @@ describe('getIsRewriteableLearnLink', () => {
 			['learn.hashicorp.com', false],
 			['learn.hashicorp.com/not-a-learn-link', false],
 			['https://waypointproject.io/', false],
-			['https://learn.hashicorp.com/', true],
-			['https://learn.hashicorp.com', true],
+			['https://learn.hashicorp.com/', false],
+			['https://learn.hashicorp.com', false],
+			// TODO - rewrite to /tutorials/library soon?
+			['https://learn.hashicorp.com/search', false],
 		])
 	})
 
