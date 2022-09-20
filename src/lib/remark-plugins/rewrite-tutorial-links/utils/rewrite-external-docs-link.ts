@@ -1,27 +1,42 @@
-import getIsBetaProduct from 'lib/get-is-beta-product'
-import { productSlugsToHostNames } from 'lib/products'
 import path from 'path'
 import { ProductSlug } from 'types/products'
+import getIsBetaProduct from 'lib/get-is-beta-product'
+import { productSlugsToHostNames } from 'lib/products'
+import { getIsExternalDocsLink } from './get-is-external-docs-link'
 
 /**
- * Handles rewriting the `pathname` for a given URL object, which is intended to
- * be a URL to docs content.
+ * Handles rewriting an external docs URL (from .io pages) to a DevDot internal
+ * path.
  *
  * Refer to this whimsical for full mapping:
  * https://whimsical.com/url-remaps-TqyEmfG6gYyiAZR1HWSWEL
  *
  * Examples:
  *
- *   /docs								-->	/waypoint/docs
- *   /api									--> /vault/api-docs
- *   /docs/some-doc.html	--> /waypoint/docs/some-doc
- *   /api/index.html			--> /waypoint/api-docs
+ *   https://vaultproject.io/												--> /vault
+ *   https://vaultproject.io/api										--> /vault/api-docs
+ *   https://vaultproject.io/api/index.html					--> /waypoint/api-docs
+ *   https://waypointproject.io/community						--> undefined
+ *   https://waypointproject.io/										-->	/waypoint
+ *   https://waypointproject.io/docs								-->	/waypoint/docs
+ *   https://waypointproject.io/docs/some-doc.html	--> /waypoint/docs/some-doc
+ *   https://waypointproject.io/community						--> undefined
  */
 export function rewriteExternalDocsLink(urlObject: URL) {
+	/**
+	 * Return nothing if the link isn't an external docs link.
+	 */
+	const isExternalDocsLink = getIsExternalDocsLink(urlObject.toString())
+	if (!isExternalDocsLink) {
+		return
+	}
+
 	/**
 	 * Separate the different parts of the URL so they are analyzed in silos.
 	 */
 	const { hostname, pathname, search, hash } = urlObject
+	const pathnameParts = pathname.split('/')
+	const [, basePath, ...restParts] = pathnameParts
 
 	/**
 	 * Parse the product slug from the given `urlObject`'s hostname.
@@ -34,18 +49,19 @@ export function rewriteExternalDocsLink(urlObject: URL) {
 	) as ProductSlug
 
 	/**
-	 * Return early if the parsed `productSlug` is not a beta product.
+	 * Return nothing the product is not a beta product.
 	 */
-	const isBetaProduct = productSlug && getIsBetaProduct(productSlug)
+	const isBetaProduct = getIsBetaProduct(productSlug)
 	if (!isBetaProduct) {
 		return
 	}
 
 	/**
-	 * @TODO validate that the pathname parts are valid? (Is any input invalid?)
+	 * If there is no `basePath`, then rewrite link to the product's landing page.
 	 */
-	const pathnameParts = pathname.split('/')
-	const [, basePath, ...restParts] = pathnameParts
+	if (basePath === '') {
+		return `/${productSlug}`
+	}
 
 	/**
 	 * Remove `index.html` or a trailing `.html` from the last part of the given
