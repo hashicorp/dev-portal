@@ -32,8 +32,16 @@ const wait = (delay: number) =>
 
 const FeedbackFormContext = createContext<FeedbackFormContextType>({})
 
-const Question: React.FC<FeedbackQuestion> = (props: FeedbackQuestion) => {
-	const { id, type, label, labelSecondary, labelIcon } = props
+interface QuestionProps {
+	question: FeedbackQuestion
+	animate?: boolean
+}
+
+const Question: React.FC<QuestionProps> = ({
+	question,
+	animate,
+}: QuestionProps) => {
+	const { id, type, label, labelSecondary, labelIcon } = question
 	const [inputValue, setInputValue] = useState('')
 	const feedbackContext = useContext(FeedbackFormContext)
 
@@ -45,7 +53,7 @@ const Question: React.FC<FeedbackQuestion> = (props: FeedbackQuestion) => {
 
 	switch (type) {
 		case 'choice': {
-			const { answers } = props
+			const { answers } = question
 			inputs = (
 				<div className={s.buttonWrapper}>
 					{answers.map(
@@ -77,7 +85,7 @@ const Question: React.FC<FeedbackQuestion> = (props: FeedbackQuestion) => {
 			break
 		}
 		case 'text': {
-			const { optional, buttonText, nextQuestion } = props
+			const { optional, buttonText, nextQuestion } = question
 			const isButtonDisabled =
 				!optional && (inputValue === '' || feedbackContext.isTransitioning)
 
@@ -112,7 +120,7 @@ const Question: React.FC<FeedbackQuestion> = (props: FeedbackQuestion) => {
 	}
 
 	return (
-		<div className={classNames(s.question, s[type])}>
+		<div className={classNames(s.question, s[type], animate && s.animate)}>
 			<label htmlFor={id} className={s.labelWrapper}>
 				{labelIcon && <div className={s.labelIcon}>{labelIcon}</div>}
 				<div className={s.label}>
@@ -203,8 +211,12 @@ export default function FeedbackForm({
 		<FeedbackFormContext.Provider value={contextValue}>
 			<form id="feedback-panel">
 				{status === FeedbackFormStatus.inProgress
-					? questions.map((question: FeedbackQuestion) => (
-							<Question key={question.id} {...question} />
+					? questions.map((question: FeedbackQuestion, idx) => (
+							<Question
+								key={question.id}
+								question={question}
+								animate={idx !== 0}
+							/>
 					  ))
 					: null}
 			</form>

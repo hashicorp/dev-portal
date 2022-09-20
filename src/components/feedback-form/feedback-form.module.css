@@ -1,14 +1,21 @@
+.animate {
+	animation: nextQuestion 0.4s;
+	animation-fill-mode: both;
+	animation-timing-function: ease-in-out;
+}
+
 .question {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+	gap: var(--gap);
 
 	&.choice {
-		gap: 20px;
+		--gap: 20px;
 	}
 
 	&.text {
-		gap: 12px;
+		--gap: 12px;
 	}
 }
 
@@ -23,6 +30,10 @@
 
 .submitButton {
 	margin-top: 4px;
+
+	&:not(:disabled) {
+		background-color: var(--token-color-focus-action-internal);
+	}
 }
 
 .textAreaContainer {
@@ -103,15 +114,28 @@
 }
 
 .finished {
+	composes: hds-typography-body-200 from global;
+	composes: animate;
 	width: 100%;
 	display: flex;
 	align-items: center;
 	gap: 12px;
-	composes: hds-typography-body-200 from global;
 	font-weight: var(--token-typography-font-weight-semibold);
 	padding: 16px;
 	color: var(--token-color-foreground-success-on-surface);
 	background-color: var(--token-color-surface-success);
 	border: 1px solid var(--token-color-border-success);
 	border-radius: 6px;
+}
+
+@keyframes nextQuestion {
+	0% {
+		opacity: 0;
+		transform: translateY(50px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
