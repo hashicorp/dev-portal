@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
+// import refreshAccessToken from 'lib/auth/refresh-token-set'
 
 export default NextAuth({
 	session: {
@@ -24,13 +25,12 @@ export default NextAuth({
 				token.exp = user.exp
 			}
 
-			if (Date.now() / 1000 < (token as { exp: number }).exp) {
+			if (Date.now() / 1000 < token.exp) {
 				return token
 			}
 
 			// TODO: validate that the refresh token flow works as implemented
 			// return refreshAccessToken(token)
-
 			return { ...token, error: 'RefreshTokenError' }
 		},
 		/**
