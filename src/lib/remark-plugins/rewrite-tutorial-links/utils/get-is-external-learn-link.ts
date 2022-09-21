@@ -14,20 +14,13 @@ const productAndSectionOptions = [
 const getIsExternalLearnLink = (link: string) => {
 	try {
 		const urlObject = new URL(link, `https://${learnHostname}`)
-		const { hostname, pathname } = urlObject
+		const { hostname } = urlObject
 
 		/**
 		 * If the `base` argument passed to the URL constructor wasn't taken, then
 		 * the link already has one and it is external to Learn.
 		 */
 		if (hostname !== learnHostname) {
-			return false
-		}
-
-		/**
-		 * Return false if the link is to the Learn home page.
-		 */
-		if (pathname === '/') {
 			return false
 		}
 
