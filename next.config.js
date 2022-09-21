@@ -25,6 +25,11 @@ const temporary_hideDocsPaths = {
 	],
 }
 
+// Set api key for Happy Kit feature flags
+const happyKitKey = process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
+	? process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
+	: 'flags_pub_development_343442393171755603'
+
 module.exports = withSwingset({
 	componentsRoot: 'src/components/**/*',
 	docsRoot: 'src/swingset-docs/*',
@@ -85,6 +90,7 @@ module.exports = withSwingset({
 			IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
 			// TODO: determine if DevDot needs this or not
 			SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
+			HAPPY_KIT_KEY: happyKitKey,
 		},
 		svgo: {
 			plugins: [
