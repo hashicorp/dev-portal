@@ -44,7 +44,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--homepage-grid-gap);
-  border-radius: 14px;
+  border-radius: 6px;
 
   @media (--dev-dot-tablet-up) {
     grid-template-columns: repeat(3, 1fr);
