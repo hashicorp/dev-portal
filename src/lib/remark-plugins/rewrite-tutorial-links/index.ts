@@ -76,11 +76,6 @@ export function rewriteTutorialsLink(
 		 */
 		if (isExternalLearnLink) {
 			newUrl = rewriteExternalLearnLink(urlObject, tutorialMap)
-
-			// Make sure the link returned is external
-			if (!newUrl) {
-				return urlObject.toString()
-			}
 		} else if (isRewriteableDocsLink) {
 			newUrl = rewriteExternalDocsLink(urlObject)
 		}
@@ -90,8 +85,9 @@ export function rewriteTutorialsLink(
 		 * a typo, it's up to the author to correct -- this feedback should help.
 		 */
 		if (!newUrl) {
+			newUrl = isExternalLearnLink ? urlObject.toString() : url
 			throw new Error(
-				`[MDX TUTORIAL]: internal link could not be rewritten: ${url} \nPlease check all Learn links in that tutorial to ensure they are correct.`
+				`[MDX rewriteTutorialsLink]: link could not be rewritten: ${url} \nIf the content at that link is MDX, please check all Learn and Docs .io links in the content to ensure they are correct.`
 			)
 		}
 	} catch (e) {
