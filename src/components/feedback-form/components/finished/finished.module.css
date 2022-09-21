@@ -1,6 +1,5 @@
 .finished {
 	composes: hds-typography-body-200 from global;
-	composes: animate;
 	width: 100%;
 	display: flex;
 	align-items: center;

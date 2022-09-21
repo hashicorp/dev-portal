@@ -125,7 +125,6 @@ const submitFeedback = async (
 
 	try {
 		const requestBody = await validateRequest(req)
-
 		const sheet = await setupDocument()
 		const { responses, sessionId, ...rest } = requestBody
 		const { browser, os, platform } = Bowser.parse(req.headers['user-agent'])
