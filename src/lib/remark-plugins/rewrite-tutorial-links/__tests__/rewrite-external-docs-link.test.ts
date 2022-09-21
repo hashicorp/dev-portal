@@ -94,6 +94,7 @@ describe('rewriteExternalDocsLink', () => {
 
 		describe('when the page ends with ".html"', () => {
 			testEachCase([
+				['https://www.terraform.io/downloads.html', '/terraform/downloads'],
 				['https://waypointproject.io/docs/page.html', '/waypoint/docs/page'],
 				[
 					'https://waypointproject.io/docs/some/path.html',

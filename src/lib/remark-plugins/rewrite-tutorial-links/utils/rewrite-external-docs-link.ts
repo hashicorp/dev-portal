@@ -79,7 +79,8 @@ export function rewriteExternalDocsLink(urlObject: URL) {
 	 * If the basePath (the first part of the given pathname) is `api`, then
 	 * replace it with `api-docs`.
 	 */
-	const finalBasePath = basePath === 'api' ? 'api-docs' : basePath
+	const finalBasePath =
+		basePath === 'api' ? 'api-docs' : basePath.replace('.html', '')
 
 	/**
 	 * Join all the path parts back together. Using `path` to prevent leading or
