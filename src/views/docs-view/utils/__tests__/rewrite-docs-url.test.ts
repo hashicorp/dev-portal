@@ -12,6 +12,13 @@ describe('rewriteDocsUrl', () => {
 				const expectedOutput =
 					productSlug === 'hcp' ? '/downloads' : `/${productSlug}/downloads`
 				expect(rewriteDocsUrl('/downloads', productData)).toBe(expectedOutput)
+
+				// special case for vagrant vmware utility downloads page
+				if (productSlug === 'vagrant') {
+					expect(rewriteDocsUrl('/vmware/downloads', productData)).toBe(
+						`/${productSlug}/downloads/vmware`
+					)
+				}
 			}
 		)
 	})
