@@ -25,3 +25,7 @@
 		}
 	}
 }
+
+.pageInformation {
+	color: var(--token-color-foreground-primary);
+}

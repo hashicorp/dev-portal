@@ -59,7 +59,12 @@ export function Pagination() {
 				)}
 			</li>
 			<li className="g-hide-on-desktop g-hide-on-tablet">
-				<Text size={200} weight="medium">
+				<Text
+					size={200}
+					weight="regular"
+					asElement="span"
+					className={paginationStyle.pageInformation}
+				>
 					Page {currentPage + 1} of {nbPages}
 				</Text>
 			</li>
