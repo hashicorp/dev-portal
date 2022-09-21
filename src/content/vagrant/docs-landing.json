@@ -91,7 +91,7 @@
 				{
 					"iconName": "api",
 					"text": "Vagrant Cloud API",
-					"url": "/vagrant/docs/vagrant-cloud/api"
+					"url": "/vagrant/vagrant-cloud/api"
 				},
 				{
 					"iconName": "plug",
