@@ -5,6 +5,10 @@
 	margin-bottom: 20px;
 	min-height: 30px;
 
+	@media (--dev-dot-mobile) {
+		flex-direction: column;
+	}
+
 	& .label {
 		flex-shrink: 0;
 		padding: 5px 0;
