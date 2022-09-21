@@ -1,4 +1,5 @@
 import getIsBetaProduct from 'lib/get-is-beta-product'
+import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import { rewriteExternalCollectionLink, rewriteExternalTutorialLink } from '.'
 
 const rewriteExternalLearnLink = (
@@ -12,12 +13,12 @@ const rewriteExternalLearnLink = (
 
 	let product
 	if (pathnameParts.length === 2) {
-		product = pathnameParts[1]
+		product = normalizeSlugForDevDot(pathnameParts[1])
 	} else if (
 		pathnameParts[1] === 'tutorials' ||
 		pathnameParts[1] === 'collections'
 	) {
-		product = pathnameParts[2]
+		product = normalizeSlugForDevDot(pathnameParts[2])
 	}
 
 	const isBetaProduct = getIsBetaProduct(product)
@@ -25,7 +26,7 @@ const rewriteExternalLearnLink = (
 		// Regexes for each path type
 		const collectionPathRegex = new RegExp('^/collections')
 		const tutorialPathRegex = new RegExp('^/tutorials')
-		const productHubPathRegex = new RegExp(`^/${product}/?$`)
+		const productHubPathRegex = new RegExp(`^/${product}|cloud/?$`)
 
 		// Derived path type booleans
 		const isCollectionPath = collectionPathRegex.test(pathname)

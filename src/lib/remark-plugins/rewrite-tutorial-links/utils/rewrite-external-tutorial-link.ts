@@ -15,6 +15,7 @@
 import { LearnProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { SectionOption } from 'lib/learn-client/types'
+import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import { SplitLearnPath } from '../types'
 
 export function rewriteExternalTutorialLink(
@@ -27,6 +28,7 @@ export function rewriteExternalTutorialLink(
 	 */
 	const pathnameParts = urlObject.pathname.split('/') as SplitLearnPath
 	const [emptyString, tutorialsPath, product, filename] = pathnameParts
+	const normalizedProductSlug = normalizeSlugForDevDot(product)
 	if (
 		pathnameParts.length !== 4 ||
 		emptyString !== '' ||
@@ -43,7 +45,7 @@ export function rewriteExternalTutorialLink(
 	 * Return nothing if the product slug is not a beta product nor a valid
 	 * SectionOption.
 	 */
-	if (!getIsBetaProduct(product) && !SectionOption[product]) {
+	if (!normalizedProductSlug && !getIsBetaProduct(normalizedProductSlug)) {
 		return
 	}
 
@@ -57,14 +59,15 @@ export function rewriteExternalTutorialLink(
 	let path = ''
 	const collectionSlugParam = urlObject.searchParams.get('in')
 	if (collectionSlugParam) {
-		const [productSlug, collectionSlug] = collectionSlugParam.split('/')
-		if (SectionOption[productSlug]) {
-			path = `/${productSlug}/${collectionSlug}/${filename}`
-		} else if (getIsBetaProduct(productSlug as LearnProductSlug)) {
-			path = `/${productSlug}/tutorials/${collectionSlug}/${filename}`
+		const [alternateSlug, collectionSlug] = collectionSlugParam.split('/')
+		const normalizedAlternateSlug = normalizeSlugForDevDot(alternateSlug)
+		if (SectionOption[normalizedAlternateSlug]) {
+			path = `/${normalizedAlternateSlug}/${collectionSlug}/${filename}`
+		} else if (getIsBetaProduct(normalizedAlternateSlug as LearnProductSlug)) {
+			path = `/${normalizedAlternateSlug}/tutorials/${collectionSlug}/${filename}`
 		}
 	} else {
-		const tutorialSlug = [product, filename].join('/')
+		const tutorialSlug = [normalizedProductSlug, filename].join('/')
 		path = tutorialMap[tutorialSlug]
 	}
 
