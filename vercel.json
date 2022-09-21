@@ -1,5 +1,10 @@
 {
 	"github": {
 		"silent": false
+	},
+	"functions": {
+		"src/pages/terraform/cdktf/**": {
+			"memory": 2048
+		}
 	}
 }
