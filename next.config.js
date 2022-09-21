@@ -112,7 +112,7 @@ module.exports = withSwingset({
 		},
 		experimental: {
 			images: {
-				layoutRaw: true,
+				allowFutureImage: true,
 			},
 		},
 	})
