@@ -57,6 +57,10 @@ describe('rewriteExternalTutorialLink', () => {
 				'/tutorials/cloud/amazon-peering-hcp',
 				'/hcp/tutorials/networking/amazon-peering-hcp',
 			],
+			[
+				'/tutorials/hcp/amazon-peering-hcp',
+				'/hcp/tutorials/networking/amazon-peering-hcp',
+			],
 		])
 	})
 
@@ -88,6 +92,10 @@ describe('rewriteExternalTutorialLink', () => {
 			],
 			[
 				'/tutorials/cloud/amazon-peering-hcp?in=cloud/consul-cloud&paramA=valueA',
+				'/hcp/tutorials/consul-cloud/amazon-peering-hcp?paramA=valueA',
+			],
+			[
+				'/tutorials/hcp/amazon-peering-hcp?in=cloud/consul-cloud&paramA=valueA',
 				'/hcp/tutorials/consul-cloud/amazon-peering-hcp?paramA=valueA',
 			],
 		])

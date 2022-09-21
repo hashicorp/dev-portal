@@ -59,6 +59,7 @@ describe('rewriteExternalCollectionLink', () => {
 				'/well-architected-framework/com',
 			],
 			['/collections/cloud/networking', '/hcp/tutorials/networking'],
+			['/collections/hcp/networking', '/hcp/tutorials/networking'],
 		])
 	})
 
@@ -86,6 +87,10 @@ describe('rewriteExternalCollectionLink', () => {
 			],
 			[
 				'/collections/cloud/networking?paramA=valueA',
+				'/hcp/tutorials/networking?paramA=valueA',
+			],
+			[
+				'/collections/hcp/networking?paramA=valueA',
 				'/hcp/tutorials/networking?paramA=valueA',
 			],
 		])
@@ -117,6 +122,10 @@ describe('rewriteExternalCollectionLink', () => {
 				'/collections/cloud/networking#test-hash',
 				'/hcp/tutorials/networking#test-hash',
 			],
+			[
+				'/collections/hcp/networking#test-hash',
+				'/hcp/tutorials/networking#test-hash',
+			],
 		])
 	})
 
@@ -144,6 +153,10 @@ describe('rewriteExternalCollectionLink', () => {
 			],
 			[
 				'/collections/cloud/networking?paramA=valueA#test-hash',
+				'/hcp/tutorials/networking?paramA=valueA#test-hash',
+			],
+			[
+				'/collections/hcp/networking?paramA=valueA#test-hash',
 				'/hcp/tutorials/networking?paramA=valueA#test-hash',
 			],
 		])

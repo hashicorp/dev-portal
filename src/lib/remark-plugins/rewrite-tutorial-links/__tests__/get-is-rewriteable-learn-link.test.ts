@@ -114,6 +114,8 @@ describe('getIsRewriteableLearnLink', () => {
 			['/well-architected-framework/collection-slug/tutorial-slug', false],
 			['/onboarding/collection-slug', false],
 			['/onboarding/collection-slug/tutorial-slug', false],
+			['/hcp/tutorials/collection-slug', false],
+			['/hcp/tutorials/collection-slug/tutorial-slug', false],
 		])
 	})
 })
