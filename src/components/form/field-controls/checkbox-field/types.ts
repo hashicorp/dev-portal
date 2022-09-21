@@ -4,12 +4,13 @@ import { CheckboxControlProps } from 'components/form/base-controls'
 
 type InheritedCheckboxControlProps = Pick<
 	CheckboxControlProps,
-	'checked' | 'name' | 'onChange' | 'onClick' | 'id'
+	'checked' | 'name' | 'onChange' | 'onClick'
 >
 
 interface CheckboxFieldProps extends InheritedCheckboxControlProps {
 	errors?: string[]
 	helperText?: string
+	id?: CheckboxControlProps['id']
 	label: ReactNode
 	labelFontWeight?: LabelProps['fontWeight']
 }
