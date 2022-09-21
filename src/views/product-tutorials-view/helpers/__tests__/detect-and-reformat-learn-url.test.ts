@@ -9,6 +9,8 @@ import detectAndReformatLearnUrl from '../detect-and-reformat-learn-url'
  * [key: database tutorial slug]: value — dev dot absolute path
  */
 const MOCK_TUTORIALS_MAP = {
+	'consul/gossip-encryption-secure':
+		'/consul/tutorials/gossip-encryption-secure',
 	'waypoint/aws-ecs': '/waypoint/tutorials/deploy-aws/aws-ecs',
 	'vault/getting-started-install':
 		'/vault/tutorials/getting-started/getting-started-install',
@@ -165,6 +167,12 @@ describe('detectAndReformatLearnUrl', () => {
 			{
 				input: '/tutorials/waypoint/aws-ecs',
 				expected: '/waypoint/tutorials/deploy-aws/aws-ecs',
+			},
+			{
+				input:
+					'/tutorials/consul/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
+				expected:
+					'/consul/tutorials/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
 			},
 		]
 		for (let n = 0; n < tutorialUrls.length; n++) {

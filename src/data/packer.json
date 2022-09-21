@@ -29,34 +29,7 @@
 		"expirationDate": ""
 	},
 	"version": "1.7.10",
-	"subnavItems": [
-		{
-			"text": "Overview",
-			"url": "/",
-			"type": "inbound"
-		},
-		{
-			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/packer",
-			"type": "outbound"
-		},
-		{
-			"text": "Docs",
-			"url": "/docs",
-			"type": "inbound"
-		},
-		{
-			"text": "Plugins",
-			"url": "/plugins",
-			"type": "inbound"
-		},
-		{
-			"text": "Community",
-			"url": "/community",
-			"type": "inbound"
-		}
-	],
-	"basePaths": ["docs", "guides", "intro", "plugins"],
+	"basePaths": ["docs", "guides", "intro", "plugins", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -66,21 +39,21 @@
 			"shortName": "Documentation"
 		},
 		{
-			"iconName": "docs",
+			"iconName": "entry-point",
+			"mainBranch": "master",
+			"name": "Introduction",
+			"path": "intro"
+		},
+		{
+			"iconName": "guide",
 			"mainBranch": "master",
 			"name": "Guides",
 			"path": "guides"
 		},
 		{
-			"iconName": "docs",
+			"iconName": "plug",
 			"mainBranch": "master",
-			"name": "Intro",
-			"path": "intro"
-		},
-		{
-			"iconName": "docs",
-			"mainBranch": "master",
-			"name": "Plugins",
+			"name": "External Plugins",
 			"path": "plugins"
 		}
 	],

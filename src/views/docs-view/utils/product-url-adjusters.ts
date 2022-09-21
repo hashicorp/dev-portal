@@ -97,7 +97,10 @@ function rewriteApiToApiDocs(inputUrl: string): string {
  * For example, Waypoint content contains links that start with "/docs",
  * but we need to be adjust these links to start with "/waypoint/docs".
  */
-function rewriteDocsUrl(inputUrl: string, currentProduct: ProductData): string {
+export function rewriteDocsUrl(
+	inputUrl: string,
+	currentProduct: ProductData
+): string {
 	// We only want to adjust internal URLs, so we return absolute URLs as-is
 	if (isAbsoluteUrl(inputUrl)) {
 		return inputUrl
@@ -108,6 +111,14 @@ function rewriteDocsUrl(inputUrl: string, currentProduct: ProductData): string {
 		(basePath: string) => inputUrl.startsWith(`/${basePath}`)
 	)
 	if (isCurrentProductDocsUrl) {
+		// The vagrant vmware utility downloads page is a unique case, where we did
+		// adjust the url structure in the transition to devdot
+		if (
+			currentProduct.slug === 'vagrant' &&
+			inputUrl.startsWith('/vmware/downloads')
+		) {
+			return `/${currentProduct.slug}/downloads/vmware`
+		}
 		return `/${currentProduct.slug}${inputUrl}`
 	}
 

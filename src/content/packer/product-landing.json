@@ -1,65 +1,83 @@
 {
 	"hero": {
-		"heading": "Packer Placeholder Duplicate Of Vault Content",
+		"heading": "Build Automated Machine Images",
 		"image": "https://www.datocms-assets.com/2885/1662767795-dev-dot-packer-landing-hero-2x.png"
 	},
 	"overview": {
 		"heading": "What is Packer?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+		"body": "Packer is an open source tool that lets you create identical machine images for multiple platforms from a single source template. Packer can create golden images to use in image pipelines.",
 		"cta": {
-			"text": "Learn more about Packer features",
-			"url": "/vault/docs/what-is-vault"
+			"text": "Learn more",
+			"url": "/packer/intro"
 		},
 		"image": "https://www.datocms-assets.com/2885/1662053782-dev-dot-product-landing-what-is-packer-diagram.png"
 	},
 	"get_started": {
-		"heading": "Getting Started",
-		"body": "Use Packer to securely store, access, and manage secrets and other sensitive data.",
-		"ctas": [
+		"heading": "Get Started",
+		"body": "Follow a code-complete, hands-on tutorial to learn the Packer basics.",
+		"iconCardLinks": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
+				"icon": "aws-color",
+				"text": "Amazon Web Services",
+				"url": "/packer/tutorials/aws-get-started"
 			},
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"icon": "docker-color",
+				"text": "Docker",
+				"url": "/packer/tutorials/docker-get-started"
+			},
+			{
+				"icon": "packer-color",
+				"text": "HCP Packer",
+				"url": "/packer/tutorials/hcp-get-started"
 			}
 		]
 	},
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Use Cases",
+			"heading": "Featured Documentation",
 			"level": 2,
 			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
 		},
 		{
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.packer.io"
+					"heading": "Templates",
+					"body": "Describe how Packer should build machine images.",
+					"url": "/packer/docs/templates"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.packer.io"
+					"heading": "Packer CLI",
+					"body": "Learn Packer's CLI-based workflows.",
+					"url": "/packer/docs/commands"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.packer.io"
+					"heading": "HCP Packer",
+					"body": "Manage machine images across your organization.",
+					"url": "/hcp/docs/packer"
 				}
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Case Studies",
+			"heading": "Popular Use Cases",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"packer/golden-image-with-hcp-packer",
+				"packer/hcp-schedule-image-iterations-revocation",
+				"packer/run-tasks-data-source-image-validation",
+				"packer/run-tasks-resource-image-validation"
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Join the Community",
 			"level": 2,
 			"size": 400
 		},
@@ -67,19 +85,19 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.packer.io"
+					"heading": "Forum",
+					"body": "Get answers from engineers and the Packer community.",
+					"url": "https://discuss.hashicorp.com/c/packer"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.packer.io"
+					"heading": "User Group",
+					"body": "Find a local HashiCorp User Group (HUG).",
+					"url": "https://www.meetup.com/pro/hugs/"
 				},
 				{
-					"heading": "Dolor sit amet",
-					"body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incident this text is written so that it's very very long but it should be truncated in the card to a max of three lines to match designs",
-					"url": "https://www.packer.io"
+					"heading": "Office Hours",
+					"body": "Ask experts questions live.",
+					"url": "https://www.hashicorp.com/community/office-hours"
 				}
 			]
 		}
