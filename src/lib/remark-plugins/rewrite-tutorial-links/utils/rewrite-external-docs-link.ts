@@ -44,7 +44,7 @@ export function rewriteExternalDocsLink(urlObject: URL) {
 	const productSlug = Object.keys(productSlugsToHostNames).find(
 		(productSlug: ProductSlug) => {
 			const productHostName = productSlugsToHostNames[productSlug]
-			return hostname.includes(productHostName)
+			return hostname.replace('www.', '') === productHostName
 		}
 	) as ProductSlug
 

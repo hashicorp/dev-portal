@@ -9,7 +9,7 @@ import { ProductData, ProductSlug } from 'types/products'
 const getIsRewriteableDocsLink = (link: string): boolean => {
 	try {
 		const urlObject = new URL(link)
-		const { origin, pathname } = urlObject
+		const { hostname, pathname } = urlObject
 		const basePath = pathname.split('/')[1]
 
 		/**
@@ -17,8 +17,8 @@ const getIsRewriteableDocsLink = (link: string): boolean => {
 		 */
 		const productSlug = Object.keys(productSlugsToHostNames).find(
 			(productSlug: ProductSlug) => {
-				const productHostname = productSlugsToHostNames[productSlug]
-				return origin.includes(productHostname)
+				const productHostName = productSlugsToHostNames[productSlug]
+				return hostname.replace('www.', '') === productHostName
 			}
 		)
 
