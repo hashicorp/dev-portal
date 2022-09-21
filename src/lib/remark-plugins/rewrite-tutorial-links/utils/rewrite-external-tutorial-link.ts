@@ -42,14 +42,6 @@ export function rewriteExternalTutorialLink(
 	}
 
 	/**
-	 * Return nothing if the product slug is not a beta product nor a valid
-	 * SectionOption.
-	 */
-	if (!normalizedProductSlug && !getIsBetaProduct(normalizedProductSlug)) {
-		return
-	}
-
-	/**
 	 * Construct the new URL's path.
 	 *   - If a collection slug is provided via the `in` query string parameter,
 	 * 	   then we build the path ourselves.
@@ -66,7 +58,10 @@ export function rewriteExternalTutorialLink(
 		} else if (getIsBetaProduct(normalizedAlternateSlug as LearnProductSlug)) {
 			path = `/${normalizedAlternateSlug}/tutorials/${collectionSlug}/${filename}`
 		}
-	} else {
+	} else if (
+		SectionOption[normalizedProductSlug] ||
+		getIsBetaProduct(normalizedProductSlug)
+	) {
 		const tutorialSlug = [normalizedProductSlug, filename].join('/')
 		path = tutorialMap[tutorialSlug]
 	}

@@ -14,7 +14,7 @@ const testEachCase = (cases: string[][]) => {
 		(input: string, expectedOutput: string) => {
 			expect(
 				rewriteExternalTutorialLink(
-					new URL(input, __config.dev_dot.canonical_base_url),
+					new URL(input, 'https://learn.hashicorp.com'),
 					MOCK_TUTORIAL_MAP
 				)
 			).toBe(expectedOutput)
@@ -49,7 +49,7 @@ describe('rewriteExternalTutorialLink', () => {
 			['/tutorials/vault/tutorial', `${MOCK_TUTORIAL_MAP['vault/tutorial']}`],
 			[
 				'/tutorials/onboarding/tutorial',
-				`${MOCK_TUTORIAL_MAP['onboarding/tutorial']}`,
+				MOCK_TUTORIAL_MAP['onboarding/tutorial'],
 			],
 			['/tutorials/not-a-beta-product/tutorial', undefined],
 			['/tutorials/vault/tutorial-does-not-exist', undefined],

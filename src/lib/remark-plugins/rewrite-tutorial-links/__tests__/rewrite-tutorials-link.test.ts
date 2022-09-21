@@ -12,7 +12,7 @@ jest.mock('lib/get-is-beta-product', () => (productSlug: ProductSlug) => {
 describe('rewriteTutorialsLink', () => {
 	jest.spyOn(console, 'error').mockImplementation(jest.fn())
 	jest.spyOn(utils, 'getIsRewriteableDocsLink').mockImplementation(jest.fn())
-	jest.spyOn(utils, 'getIsRewriteableLearnLink').mockImplementation(jest.fn())
+	jest.spyOn(utils, 'getIsExternalLearnLink').mockImplementation(jest.fn())
 	jest.spyOn(utils, 'rewriteExternalDocsLink').mockImplementation(jest.fn())
 	jest.spyOn(utils, 'rewriteExternalLearnLink').mockImplementation(jest.fn())
 
@@ -20,7 +20,7 @@ describe('rewriteTutorialsLink', () => {
 	const mockGetIsRewriteableDocsLink =
 		utils.getIsRewriteableDocsLink as jest.Mock
 	const mockGetIsRewriteableLearnLink =
-		utils.getIsRewriteableLearnLink as jest.Mock
+		utils.getIsExternalLearnLink as jest.Mock
 	const mockRewriteExternalLearnLink =
 		utils.rewriteExternalLearnLink as jest.Mock
 	const mockRewriteExternalDocsLink = utils.rewriteExternalDocsLink as jest.Mock

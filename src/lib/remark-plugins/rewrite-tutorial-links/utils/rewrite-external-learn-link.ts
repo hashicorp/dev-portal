@@ -1,6 +1,10 @@
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
-import { rewriteExternalCollectionLink, rewriteExternalTutorialLink } from '.'
+import {
+	getIsExternalLearnLink,
+	rewriteExternalCollectionLink,
+	rewriteExternalTutorialLink,
+} from '.'
 
 const rewriteExternalLearnLink = (
 	urlObject: URL,
@@ -8,12 +12,22 @@ const rewriteExternalLearnLink = (
 ) => {
 	let newUrl
 
-	const { pathname } = urlObject
+	/**
+	 * If it's not a Learn link, don't return anything.
+	 */
+	if (!getIsExternalLearnLink(urlObject.toString())) {
+		return
+	}
+
+	const { pathname, searchParams } = urlObject
 	const pathnameParts = pathname.split('/')
 
 	let product
 	if (pathnameParts.length === 2) {
 		product = normalizeSlugForDevDot(pathnameParts[1])
+	} else if (pathnameParts[1] === 'tutorials' && searchParams.has('in')) {
+		const [alternateSlug] = searchParams.get('in').split('/')
+		product = normalizeSlugForDevDot(alternateSlug)
 	} else if (
 		pathnameParts[1] === 'tutorials' ||
 		pathnameParts[1] === 'collections'
@@ -40,8 +54,6 @@ const rewriteExternalLearnLink = (
 		} else if (isProductHubPath) {
 			newUrl = `/${product}/tutorials`
 		}
-	} else {
-		newUrl = urlObject.toString()
 	}
 
 	return newUrl
