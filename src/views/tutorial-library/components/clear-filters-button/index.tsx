@@ -12,7 +12,7 @@ interface ClearFiltersButtonProps {
 }
 
 /**
- * Uses [userClearRefinements](https://www.algolia.com/doc/api-reference/widgets/clear-refinements/react-hooks/#hook) to handle wiping the filter state within Algolia.
+ * Uses [useClearRefinements](https://www.algolia.com/doc/api-reference/widgets/clear-refinements/react-hooks/#hook) to handle wiping the filter state within Algolia.
  */
 export function ClearFiltersButton({
 	color = 'tertiary',
