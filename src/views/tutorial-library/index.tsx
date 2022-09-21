@@ -19,7 +19,6 @@ import Button from 'components/button'
 import { ClearFiltersButton } from './components/clear-filters-button'
 import { useFiltersState } from './components/filters/use-filters-state'
 import { TutorialLibraryViewProps } from './types'
-import { useScrollToTopOnResultsChange } from './utils/scroll'
 import Heading from 'components/heading'
 
 let timerId = undefined
@@ -49,8 +48,6 @@ export default function TutorialLibraryView({
 
 	// configure our search client with custom settings
 	useConfigure({ hitsPerPage: 24 })
-
-	useScrollToTopOnResultsChange()
 
 	const handleDialogDismiss = () => setShowMobileFilters(false)
 
