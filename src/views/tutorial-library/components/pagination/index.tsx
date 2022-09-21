@@ -1,11 +1,12 @@
 import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { usePagination } from 'react-instantsearch-hooks-web'
 import ButtonLink from 'components/button-link'
 import Button from 'components/button'
-import { usePagination } from 'react-instantsearch-hooks-web'
+import { ButtonLinkProps } from 'components/button-link/types'
+import Text from 'components/text'
 
 import paginationStyle from './pagination.module.css'
-import { ButtonLinkProps } from 'components/button-link/types'
 
 /**
  * @TODO de-duplicate some of the link generation, especially on either side of the pages array
@@ -57,9 +58,14 @@ export function Pagination() {
 					/>
 				)}
 			</li>
+			<li className="g-hide-on-desktop g-hide-on-tablet">
+				<Text size={200} weight="medium">
+					Page {currentPage + 1} of {nbPages}
+				</Text>
+			</li>
 			{showRestFirstPage ? (
 				<>
-					<li>
+					<li className="g-hide-on-mobile">
 						<ButtonLink
 							aria-label={`Go to page 1`}
 							text={String(1)}
@@ -74,13 +80,13 @@ export function Pagination() {
 							}}
 						/>
 					</li>
-					<li>
+					<li className="g-hide-on-mobile">
 						<Button disabled size="small" text="..." />
 					</li>
 				</>
 			) : null}
 			{pages.map((page) => (
-				<li key={page}>
+				<li key={page} className="g-hide-on-mobile">
 					<ButtonLink
 						aria-label={`Go to page ${page + 1}`}
 						text={String(page + 1)}
@@ -98,10 +104,10 @@ export function Pagination() {
 			))}
 			{showRestLastPage ? (
 				<>
-					<li>
+					<li className="g-hide-on-mobile">
 						<Button disabled size="small" text="..." />
 					</li>
-					<li>
+					<li className="g-hide-on-mobile">
 						<ButtonLink
 							aria-label={`Go to page ${nbPages}`}
 							text={String(nbPages)}
