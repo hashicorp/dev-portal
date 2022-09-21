@@ -10,6 +10,7 @@
 			"nomad",
       "packer",
 			"terraform",
+			"vagrant",
 			"vault",
 			"waypoint"
 		],

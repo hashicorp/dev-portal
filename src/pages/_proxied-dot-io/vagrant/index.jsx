@@ -10,7 +10,10 @@ function HomePage({ latestVersion }) {
 		<div>
 			<section className={s.hero}>
 				<div className="g-grid-container">
-					<img src="/vagrant/img/logo-hashicorp.svg" alt="Vagrant Logo" />
+					<img
+						src="/vagrant-public/img/logo-hashicorp.svg"
+						alt="Vagrant Logo"
+					/>
 					<h1 className="g-type-display-3">
 						Development Environments Made Easy
 					</h1>
@@ -67,7 +70,7 @@ $ vagrant ssh
 						reverse={true}
 					>
 						<img
-							src="/vagrant/img/vagrant_parity.svg"
+							src="/vagrant-public/img/vagrant_parity.svg"
 							alt="Server Parity Diagram"
 						/>
 					</TextSplit>
@@ -86,7 +89,7 @@ $ vagrant ssh
 						{['apple', 'linux', 'windows'].map((platform) => (
 							<img
 								key={platform}
-								src={`/vagrant/img/systems/${platform}.svg`}
+								src={`/vagrant-public/img/systems/${platform}.svg`}
 								alt={`${platform} logo`}
 							/>
 						))}
@@ -106,7 +109,7 @@ $ vagrant ssh
 					</p>
 					<img
 						className={s.customerImg}
-						src="/vagrant/img/vagrant-trusted-by-logos.png"
+						src="/vagrant-public/img/vagrant-trusted-by-logos.png"
 						alt="Logos of Vagrant customers"
 					/>
 				</div>

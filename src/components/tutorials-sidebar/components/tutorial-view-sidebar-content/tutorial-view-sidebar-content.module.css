@@ -1,0 +1,5 @@
+.collectionProgressContainer {
+	display: flex;
+	min-height: 42px;
+	margin-bottom: 16px;
+}
