@@ -1,16 +1,24 @@
+// eslint-disable-next-line @next/next/no-server-import-in-page
 import { NextResponse } from 'next/server'
+// eslint-disable-next-line @next/next/no-server-import-in-page
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
+import { getEdgeFlags } from 'flags/edge'
 
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
 
 function determineProductSlug(req: NextRequest): string {
+	if (process.env.DEV_IO) {
+		return process.env.DEV_IO
+	}
+
 	// .io preview on dev portal
-	if (req.cookies.io_preview) {
-		return req.cookies.io_preview
+	const ioPreview = req.cookies.getWithOptions('io_preview')
+	if (ioPreview) {
+		return ioPreview.value
 	}
 
 	// .io production deploy
@@ -22,17 +30,27 @@ function determineProductSlug(req: NextRequest): string {
 	return '*'
 }
 
+function setHappyKitCookie(
+	cookie: Parameters<NextResponse['cookies']['set']>,
+	response: NextResponse
+): NextResponse {
+	response.cookies.set(...cookie)
+	return response
+}
+
 /**
  * Root-level middleware that will process all middleware-capable requests.
  * Currently used to support:
  * - Handling simple one-to-one redirects for .io routes
  * - Handling the opt in for cookie setting
  */
-export function middleware(req: NextRequest, ev: NextFetchEvent) {
+export async function middleware(req: NextRequest, ev: NextFetchEvent) {
+	let response: NextResponse
+	const edgeFlags = await getEdgeFlags({ request: req })
+	const { flags, cookie } = edgeFlags
+
 	// Handle redirects
 	const product = determineProductSlug(req)
-	// Sets a cookie named hc_geo on the response
-	const response = setGeoCookie(req)
 
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
@@ -67,7 +85,9 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	) {
 		const url = req.nextUrl.clone()
 		url.searchParams.delete('betaOptOut')
-		return NextResponse.redirect(url).clearCookie(`${product}-io-beta-opt-in`)
+		return NextResponse.redirect(url).cookies.delete(
+			`${product}-io-beta-opt-in`
+		)
 	}
 
 	// Handle Opt-in cookies
@@ -89,13 +109,19 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
 
 	if (optInPlatform && !hasOptedIn) {
-		response.cookie(`${optInPlatform}-beta-opt-in`, 'true', {
+		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {
 			// Next.js pre 12.2 assumes maxAge is in ms, not seconds
 			// TODO: update this when we upgrade to 12.2
 			maxAge: OPT_IN_MAX_AGE * 1000,
 		})
 	}
 
+	if (product === 'vault' && req.nextUrl.pathname === '/' && flags?.testFlag) {
+		const url = req.nextUrl.clone()
+		url.pathname = '/_proxied-dot-io/vault/home-test'
+		response = NextResponse.rewrite(url)
+	}
+
 	// Continue request processing
-	return response
+	return setHappyKitCookie(cookie.args, setGeoCookie(req, response))
 }
