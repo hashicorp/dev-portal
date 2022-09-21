@@ -51,7 +51,7 @@
 }
 
 .textArea {
-	border: none;
+	border: 1px solid var(--token-form-control-base-border-color-default);
 	box-shadow: var(--token-surface-base-box-shadow);
 	composes: hds-typography-body-200 from global;
 	border-radius: 6px;

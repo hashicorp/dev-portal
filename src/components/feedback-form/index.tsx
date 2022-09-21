@@ -1,10 +1,4 @@
-import React, {
-	createContext,
-	useMemo,
-	useState,
-	useRef,
-	MouseEvent,
-} from 'react'
+import { createContext, useMemo, useState, useRef, MouseEvent } from 'react'
 import shortid from 'shortid'
 import {
 	type FeedbackFormContext as FeedbackFormContextType,
