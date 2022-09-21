@@ -5,6 +5,7 @@ const TEST_TUTORIAL_SLUG = 'vault/tutorial'
 const MOCK_TUTORIAL_MAP = {
 	'vault/tutorial': '/vault/tutorials/collection/tutorial',
 	'onboarding/tutorial': '/onboarding/tutorials/collection/tutorial',
+	'hcp/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
 }
 
 const testEachCase = (cases: string[][]) => {
@@ -52,6 +53,10 @@ describe('rewriteExternalTutorialLink', () => {
 			],
 			['/tutorials/not-a-beta-product/tutorial', undefined],
 			['/tutorials/vault/tutorial-does-not-exist', undefined],
+			[
+				'/tutorials/cloud/amazon-peering-hcp',
+				'/hcp/tutorials/networking/amazon-peering-hcp',
+			],
 		])
 	})
 
@@ -80,6 +85,10 @@ describe('rewriteExternalTutorialLink', () => {
 			[
 				`/tutorials/${SectionOption.onboarding}/tutorial?paramA=valueA&in=vault/collection&paramB=valueB`,
 				`/vault/tutorials/collection/tutorial?paramA=valueA&paramB=valueB`,
+			],
+			[
+				'/tutorials/cloud/amazon-peering-hcp?in=cloud/consul-cloud&paramA=valueA',
+				'/hcp/tutorials/consul-cloud/amazon-peering-hcp?paramA=valueA',
 			],
 		])
 	})

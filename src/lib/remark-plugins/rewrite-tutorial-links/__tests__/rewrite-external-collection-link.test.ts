@@ -2,7 +2,7 @@ import { ProductSlug } from 'types/products'
 import { rewriteExternalCollectionLink } from '../utils'
 
 jest.mock('lib/get-is-beta-product', () => (productSlug: ProductSlug) => {
-	return ['vault', 'waypoint'].includes(productSlug)
+	return ['hcp', 'vault', 'waypoint'].includes(productSlug)
 })
 
 const getTestURLObject = (url: string) => {
@@ -58,6 +58,7 @@ describe('rewriteExternalCollectionLink', () => {
 				'/collections/well-architected-framework/com',
 				'/well-architected-framework/com',
 			],
+			['/collections/cloud/networking', '/hcp/tutorials/networking'],
 		])
 	})
 
@@ -82,6 +83,10 @@ describe('rewriteExternalCollectionLink', () => {
 			[
 				'/collections/well-architected-framework/com?paramA=valueA',
 				'/well-architected-framework/com?paramA=valueA',
+			],
+			[
+				'/collections/cloud/networking?paramA=valueA',
+				'/hcp/tutorials/networking?paramA=valueA',
 			],
 		])
 	})
@@ -108,6 +113,10 @@ describe('rewriteExternalCollectionLink', () => {
 				'/collections/well-architected-framework/com#test-hash',
 				'/well-architected-framework/com#test-hash',
 			],
+			[
+				'/collections/cloud/networking#test-hash',
+				'/hcp/tutorials/networking#test-hash',
+			],
 		])
 	})
 
@@ -132,6 +141,10 @@ describe('rewriteExternalCollectionLink', () => {
 			[
 				'/collections/well-architected-framework/com?paramA=valueA#test-hash',
 				'/well-architected-framework/com?paramA=valueA#test-hash',
+			],
+			[
+				'/collections/cloud/networking?paramA=valueA#test-hash',
+				'/hcp/tutorials/networking?paramA=valueA#test-hash',
 			],
 		])
 	})
