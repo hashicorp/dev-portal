@@ -5,6 +5,7 @@ import StandaloneLink from 'components/standalone-link'
 import { HcpProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import { MdxHcpCalloutProps, SolutionOption } from './types'
+import patternApplications from './img/applications.png'
 import patternInfrastructure from './img/infrastructure.png'
 import patternNetworking from './img/networking.png'
 import patternSecurity from './img/security.png'
@@ -26,8 +27,7 @@ const SOLUTION_DETAILS: Record<
 > = {
 	applications: {
 		gradient: '--wpl-gradient-applications-horizontal',
-		// image: patternApplications,
-		image: patternInfrastructure,
+		image: patternApplications,
 	},
 	infrastructure: {
 		gradient: '--wpl-gradient-infrastructure-horizontal',
