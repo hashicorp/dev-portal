@@ -21,11 +21,8 @@ const MOCK_TUTORIALS_MAP = {
  * to test "beta" functionality using real config. So, we mock
  * get-is-beta-product in order to provide a consistent testing config.
  */
-jest.mock('../../../../lib/get-is-beta-product', () => (productSlug) => {
-	// TODO: remove 'cloud' here, also need to account for 'hcp' URLs
-	// Task: https://app.asana.com/0/0/1202779234480934/f
-	const nonBetaProductsForTesting = ['boundary', 'packer', 'vagrant', 'cloud']
-	return nonBetaProductsForTesting.indexOf(productSlug) === -1
+jest.mock('lib/get-is-beta-product', () => (productSlug) => {
+	return ['consul', 'vault', 'waypoint'].includes(productSlug)
 })
 
 describe('detectAndReformatLearnUrl', () => {
@@ -37,12 +34,11 @@ describe('detectAndReformatLearnUrl', () => {
 			.reply(200, MOCK_TUTORIALS_MAP)
 	})
 
-	it('returns absolute URLs back unmodified', async () => {
+	it('returns non Learn or Docs URLs back unmodified', async () => {
 		const absoluteUrls: string[] = [
-			'https://learn.hashicorp.com/vault',
 			'https://www.hashicorp.com',
-			'https://www.waypointproject.io',
-			'https://www.waypointproject.io/docs',
+			'https://portal.cloud.hashicorp.com',
+			'https://developer.hashicorp.com/',
 		]
 		for (let n = 0; n < absoluteUrls.length; n++) {
 			const url = absoluteUrls[n]
