@@ -4,11 +4,13 @@ import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
+import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
+import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import { ProductOption } from 'lib/learn-client/types'
+import { ProductOption, TutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
@@ -49,6 +51,7 @@ import {
 	getNextPrevious,
 } from './components'
 import s from './tutorial-view.module.css'
+import { useProgressToast } from './utils/use-progress-toast'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -117,6 +120,7 @@ function TutorialView({
 
 	// variables
 	const {
+		id,
 		name,
 		slug,
 		content,
@@ -142,6 +146,7 @@ function TutorialView({
 			getCollectionSlug,
 		},
 	})
+
 	const canonicalCollectionSlug = getCanonicalCollectionSlug(
 		tutorial,
 		product.slug
@@ -179,18 +184,66 @@ function TutorialView({
 			visuallyHideTitle: true,
 			children: (
 				<TutorialViewSidebarContent
+					collection={collectionCtx.current}
 					items={collectionCtx.current.tutorials.map((t) =>
-						formatTutorialToMenuItem(t, collectionCtx.current.slug, currentPath)
+						formatTutorialToMenuItem(t, collectionCtx.current, currentPath)
 					)}
 				/>
 			),
 		},
 	]
 
+	/**
+	 * Set up variables for the tutorialId and collectionId, we use these below.
+	 * TODO: maybe this isn't necessary, I found it helpful for clarity.
+	 */
+	const tutorialId = id
+	const collectionId = collectionCtx.current.id
+	const collectionTutorialIds = collectionCtx.current.tutorials.map(
+		(t: TutorialLite) => t.id
+	)
+
+	/**
+	 * Prime `tutorial` and `collection` progress queries with a batch query.
+	 *
+	 * This should ideally include all `tutorial` and `collection` entries
+	 * we expect to render on the page, so that we only make one progress request.
+	 */
+	useProgressBatchQuery({
+		tutorials: collectionTutorialIds.map((tid) => {
+			return {
+				tutorialId: tid,
+				collectionId,
+			}
+		}),
+		collections: [collectionId],
+	})
+
+	/**
+	 * Keep track of progress for authenticated users, using span elements.
+	 *
+	 * Note that we attach `progressRefsId` as `data-ref-id` to avoid some
+	 * client-side-navigation-related progress tracking quirks.
+	 */
+	const progressRefsId = `${id}_${collectionCtx.current.id}`
+	const progressRefs = useTutorialProgressRefs({
+		tutorialId,
+		collectionId,
+	})
+
+	/**
+	 * Display toast when progress changes to complete.
+	 */
+	useProgressToast({
+		tutorialId,
+		collectionId,
+		collectionTutorialIds,
+	})
+
 	return (
 		<>
 			<Head>
-				<link rel="canonical" href={canonicalUrl.toString()} />
+				<link rel="canonical" href={canonicalUrl.toString()} key="canonical" />
 			</Head>
 			<InteractiveLabWrapper
 				key={slug}
@@ -226,7 +279,9 @@ function TutorialView({
 								isInteractive,
 								hasVideo,
 							}}
+							tutorialId={id}
 						/>
+						<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
 						{hasVideo && video.id && !video.videoInline && (
 							<VideoEmbed
 								url={getVideoUrl({
@@ -240,6 +295,7 @@ function TutorialView({
 								<MDXRemote {...content} components={MDX_COMPONENTS} />
 							</DevDotContent>
 						</TabProvider>
+						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
 						<NextPrevious {...nextPreviousData} />
 						<FeaturedInCollections
 							className={s.featuredInCollections}
@@ -251,6 +307,8 @@ function TutorialView({
 		</>
 	)
 }
+
+TutorialView.contentType = 'tutorials'
 
 export type {
 	TutorialViewProps,

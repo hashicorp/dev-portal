@@ -12,6 +12,7 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
 import getIsBetaProduct from 'lib/get-is-beta-product'
+import { isDeployPreview } from 'lib/env-checks'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
@@ -23,6 +24,12 @@ import {
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
+import { SidebarProps } from 'components/sidebar'
+import { EnrichedNavItem, MenuItem } from 'components/sidebar/types'
+import { getBackToLink } from './utils/get-back-to-link'
+import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
+import { getCustomLayout } from './utils/get-custom-layout'
+import { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -41,31 +48,12 @@ import { getProductUrlAdjuster } from './utils/product-url-adjusters'
  * "latestVersionRef" to the remote content loader config.
  */
 function getBetaLatestVersionRef(slug: string): string | undefined {
-	const hasDevPortalBranch = slug == 'vault' || slug == 'waypoint'
+	const hasDevPortalBranch = [
+		'vault',
+		'waypoint',
+		'cloud.hashicorp.com',
+	].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
-}
-
-/**
- * @TODO update the basePaths inside of `src/data/${productSLug}.json` files to
- * be arrays of objects that look like:
- *
- *   ```
- *   {
- *     path: string
- *     name: string
- *   }
- *   ```
- *
- * This will require a decent amount of refactoring code that uses
- * `ProductData['basePaths']`, so this is the temporary stopgap until we can do
- * the refactor. Or decide on another approach. :)
- */
-const BASE_PATHS_TO_NAMES = {
-	'api-docs': 'API Documentation',
-	commands: 'CLI',
-	docs: 'Documentation',
-	intro: 'Introduction',
-	plugins: 'Plugins',
 }
 
 /**
@@ -94,7 +82,7 @@ export function getStaticGenerationFunctions<
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	navDataPrefix,
-	showVersionSelect = true,
+	options = {},
 }: {
 	product: ProductData
 	basePath: string
@@ -105,7 +93,7 @@ export function getStaticGenerationFunctions<
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
 	navDataPrefix?: string
-	showVersionSelect?: boolean
+	options?: DocsViewPropOptions
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -140,11 +128,29 @@ export function getStaticGenerationFunctions<
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
 	const getLoader = (
 		extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
-	) => new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
+	) => {
+		if (isDeployPreview(productSlugForLoader)) {
+			return getDeployPreviewLoader({
+				basePath,
+				currentRootDocsPath,
+				loaderOptions: {
+					...loaderOptions,
+					...extraOptions,
+				},
+			})
+		} else {
+			return new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
+		}
+	}
 
 	return {
 		getStaticPaths: async () => {
-			const paths = await getLoader().loadStaticPaths()
+			let paths = await getLoader().loadStaticPaths()
+
+			if (isDeployPreview() && !isDeployPreview(productSlugForLoader)) {
+				// do not statically render any other products if we are in a deploy preview for another product
+				paths = []
+			}
 
 			return {
 				fallback: 'blocking',
@@ -162,11 +168,7 @@ export function getStaticGenerationFunctions<
 					 * Note on remark plugins for local vs remote loading:
 					 * includeMarkdown and paragraphCustomAlerts are already
 					 * expected to have been run for remote content.
-					 * However, we'll need to account for these plugins once
-					 * we enable local content preview for new dev-dot docs views.
 					 */
-					// includeMarkdown,
-					// paragraphCustomAlerts,
 					[anchorLinks, { headings }],
 					rewriteTutorialLinksPlugin,
 					/**
@@ -260,37 +262,68 @@ export function getStaticGenerationFunctions<
 			}
 
 			/**
-			 * Constructs the levels of nav data used in the `Sidebar` on all
-			 * `DocsView` pages.
+			 * Constructs the base sidebar level for `DocsView`.
+			 */
+			const docsSidebarLevel: SidebarProps = {
+				backToLinkProps: getBackToLink(currentRootDocsPath, product),
+				levelButtonProps: {
+					levelUpButtonText: `${product.name} Home`,
+				},
+				menuItems: navDataWithFullPaths as EnrichedNavItem[],
+				title: currentRootDocsPath.shortName || currentRootDocsPath.name,
+			}
+			/**
+			 * In some cases, the first nav item is a heading.
+			 * In these case, we'll visually hide the sidebar title,
+			 * since it will redundant right next to the authored title.
+			 */
+			const firstItemIsHeading =
+				typeof navDataWithFullPaths[0]?.heading == 'string'
+			if (firstItemIsHeading) {
+				docsSidebarLevel.visuallyHideTitle = true
+			}
+
+			/**
+			 * Check the top level of the navData for "overview" items,
+			 * which are expected to be present for consistency.
+			 * If we do no have an overview item match, then we'll
+			 * automatically add an overview item.
+			 */
+			const overviewItemMatch = navDataWithFullPaths.find((item: MenuItem) => {
+				const isPathMatch =
+					item.path == '' ||
+					item.path == '/' ||
+					item.path == '/index' ||
+					item.path == 'index'
+				return isPathMatch
+			})
+			/**
+			 * Exception: If the first navData node is a `heading`,
+			 * we'll avoid adding an overview item even if there's
+			 * no overview item match.
+			 */
+			if (!overviewItemMatch && !firstItemIsHeading) {
+				docsSidebarLevel.overviewItemHref = versionPathPart
+					? `/${product.slug}/${basePath}/${versionPathPart}`
+					: `/${product.slug}/${basePath}`
+			}
+
+			/**
+			 * Assembles all levels of sidebar nav data for `DocsView`.
 			 */
 			const sidebarNavDataLevels = [
 				generateTopLevelSidebarNavData(product.name),
 				generateProductLandingSidebarNavData(product),
-				{
-					backToLinkProps: {
-						text: `${product.name} Home`,
-						href: `/${product.slug}`,
-					},
-					levelButtonProps: {
-						levelUpButtonText: `${product.name} Home`,
-					},
-					menuItems: navDataWithFullPaths,
-					// TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
-					title: BASE_PATHS_TO_NAMES[basePath] || product.name,
-					overviewItemHref: versionPathPart
-						? `/${product.slug}/${basePath}/${versionPathPart}`
-						: `/${product.slug}/${basePath}`,
-				},
+				docsSidebarLevel,
 			]
 
 			const breadcrumbLinks = getDocsBreadcrumbs({
 				baseName,
-				basePath: basePath,
+				basePath,
 				indexOfVersionPathPart,
 				navData: navDataWithFullPaths,
 				pathParts,
-				productName: product.name,
-				productPath: product.slug,
+				product,
 				version: versionPathPart,
 			})
 
@@ -299,20 +332,48 @@ export function getStaticGenerationFunctions<
 			 */
 			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
 				breadcrumbLinks,
-				githubFileUrl,
 				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here
 				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
 			}
-			if (showVersionSelect) {
-				layoutProps.versions = versions
+
+			/**
+			 * Determine whether to show the version selector
+			 *
+			 * In most docs categories, we want to show the version selector if there
+			 * are multiple versions, or if the single version is not `v0.0.x`.
+			 * (We use `v0.0.x` as a placeholder version for un-versioned documentation)
+			 */
+			const hasMeaningfulVersions =
+				versions.length > 0 &&
+				(versions.length > 1 || versions[0].version !== 'v0.0.x')
+
+			/**
+			 * We want to show "Edit on GitHub" links for public content repos only.
+			 * Currently, HCP and Sentinel docs are stored in private repositories.
+			 *
+			 * Note: If we need more granularity here, we could change this to be
+			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
+			 */
+			const isHcp = product.slug == 'hcp'
+			const isSentinel = product.slug == 'sentinel'
+			const isPublicContentRepo = !isHcp && !isSentinel
+			if (isPublicContentRepo) {
+				layoutProps.githubFileUrl = githubFileUrl
 			}
+
+			const { hideVersionSelector, projectName } = options
 
 			const finalProps = {
 				layoutProps,
 				metadata: {
 					title: frontMatter.page_title ?? null,
 					description: frontMatter.description ?? null,
+					layout: getCustomLayout({
+						currentRootDocsPath,
+						frontMatter,
+						pathParts,
+					}),
 				},
 				mdxSource,
 				product: {
@@ -320,7 +381,9 @@ export function getStaticGenerationFunctions<
 					// needed for DocsVersionSwitcher
 					currentRootDocsPath: currentRootDocsPath || null,
 				},
-				versions,
+				projectName: projectName || null,
+				versions:
+					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
 			}
 
 			return {

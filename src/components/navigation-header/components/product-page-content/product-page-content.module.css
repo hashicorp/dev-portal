@@ -1,29 +1,33 @@
 .companyLogo {
-  display: flex;
+	display: flex;
 
-  & svg {
-    height: 32px;
-    width: 32px;
-  }
+	& svg {
+		height: 32px;
+		width: 32px;
+	}
 }
 
 .companyLogoMenuButton {
-  padding-bottom: 2px;
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 2px;
 }
 
 .companyLogoMenuButtonDropdown {
-  border-bottom-left-radius: 0;
-  left: calc(-1 * var(--header-padding-left-right));
+	border-bottom-left-radius: 0;
+	left: calc(-1 * var(--header-padding-left-right));
 }
 
 .productLogoLink {
-  composes: g-focus-ring-from-box-shadow-dark from global;
-  border-radius: 5px;
+	composes: g-focus-ring-from-box-shadow-dark from global;
+	border-radius: 5px;
 
-  @media (--dev-dot-desktop) {
-    margin-left: 12px;
-  }
+	@media (--dev-dot-hide-mobile-menu) {
+		margin-left: 12px;
+	}
+}
+
+.hcpLogo {
+	max-width: 218px;
 }

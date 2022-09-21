@@ -1,30 +1,26 @@
+import { MdxTable } from 'components/dev-dot-content/mdx-components'
+import ProviderBadge from './components/provider-badge'
 import s from './style.module.css'
 
 export default function ProviderTable() {
 	return (
-		<table className={s.providerTable}>
+		<MdxTable className={s.providerTable}>
+			<thead>
+				<tr>
+					<th align="left">Tier</th>
+					<th align="left">Description</th>
+					<th align="left">Namespace</th>
+				</tr>
+			</thead>
 			<tbody>
 				<tr>
 					<td>
-						<strong>Tier</strong>
+						<ProviderBadge type="official" />
 					</td>
 					<td>
-						<strong>Description</strong>
-					</td>
-					<td>
-						<strong>Namespace</strong>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<img src="/img/docs/official-tier.png" alt="" />
-					</td>
-					<td>
-						<i>
-							<span>
-								Official providers are owned and maintained by HashiCorp{' '}
-							</span>
-						</i>
+						<span>
+							Official providers are owned and maintained by HashiCorp{' '}
+						</span>
 					</td>
 					<td>
 						<code>
@@ -34,17 +30,14 @@ export default function ProviderTable() {
 				</tr>
 				<tr>
 					<td>
-						<img src="/img/docs/verified-tier.png" alt="" />
+						<ProviderBadge type="partner" />
 					</td>
 					<td>
-						<i>
-							<span>
-								Verified providers are owned and maintained by third-party
-								technology partners. Providers in this tier indicate HashiCorp
-								has verified the authenticity of the Provider&rsquo;s publisher,
-								and that the partner is a member of the{' '}
-							</span>
-						</i>
+						<span>
+							Partner providers are written, maintained, validated and published
+							by third-party companies against their own APIs. To earn a partner
+							provider badge the partner must participate in the{' '}
+						</span>
 						<a href="https://www.hashicorp.com/ecosystem/become-a-partner/">
 							<i>
 								<span>HashiCorp Technology Partner Program</span>
@@ -63,7 +56,7 @@ export default function ProviderTable() {
 				</tr>
 				<tr>
 					<td>
-						<img src="/img/docs/community-tier.png" alt="" />
+						<ProviderBadge type="community" />
 					</td>
 					<td>
 						Community providers are published to the Terraform Registry by
@@ -77,10 +70,10 @@ export default function ProviderTable() {
 				</tr>
 				<tr>
 					<td>
-						<img src="/img/docs/archived-tier.png" alt="" />
+						<ProviderBadge type="archived" />
 					</td>
 					<td>
-						Archived Providers are Official or Verified Providers that are no
+						Archived Providers are Official or Partner Providers that are no
 						longer maintained by HashiCorp or the community. This may occur if
 						an API is deprecated or interest was low.
 					</td>
@@ -89,6 +82,6 @@ export default function ProviderTable() {
 					</td>
 				</tr>
 			</tbody>
-		</table>
+		</MdxTable>
 	)
 }
