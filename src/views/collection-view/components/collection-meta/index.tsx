@@ -5,7 +5,7 @@ import IconTile from 'components/icon-tile'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import { Collection } from 'lib/learn-client/types'
-import CollectionMetaProgress from '../collection-meta-progress'
+import CollectionProgressGroup from 'components/collection-progress-group'
 import s from './collection-meta.module.css'
 
 interface CollectionMetaProps {
@@ -43,7 +43,12 @@ export default function CollectionMeta({
 			>
 				{heading.text}
 			</Heading>
-			<Text className={s.description}>{description}</Text>
+			<p
+				className={s.description}
+				dangerouslySetInnerHTML={{
+					__html: description,
+				}}
+			/>
 			{showCreateAccountCta ? (
 				<Text className={s.createAccountCta}>
 					<InlineLink href="/sign-up">Create an account</InlineLink> to track
@@ -51,7 +56,7 @@ export default function CollectionMeta({
 				</Text>
 			) : null}
 			<div className={s.cta}>
-				<CollectionMetaProgress collection={collection} />
+				<CollectionProgressGroup collection={collection} />
 			</div>
 		</>
 	)
