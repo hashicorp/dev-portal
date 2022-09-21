@@ -13,7 +13,7 @@ export function FilterSection({ label, children }: FilterSectionProps) {
 	return (
 		<fieldset className={filterSectionStyle.root}>
 			<legend className={filterSectionStyle.label}>{label}</legend>
-			<ul className={filterSectionStyle.filterList}>{children}</ul>
+			{children}
 		</fieldset>
 	)
 }

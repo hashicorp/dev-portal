@@ -27,25 +27,24 @@ export function ProductFilter({
 				const inputId = `filter-${slug}`
 
 				return (
-					<li key={slug}>
-						<CheckboxField
-							id={inputId}
-							checked={isProductSelected}
-							onChange={() => {
-								refine(slug)
-							}}
-							labelFontWeight="regular"
-							label={
-								<>
-									<ProductIcon
-										productSlug={slug as ProductSlug}
-										className={productFilterStyle.icon}
-									/>
-									{productName}
-								</>
-							}
-						/>
-					</li>
+					<CheckboxField
+						key={slug}
+						id={inputId}
+						checked={isProductSelected}
+						onChange={() => {
+							refine(slug)
+						}}
+						labelFontWeight="regular"
+						label={
+							<>
+								<ProductIcon
+									productSlug={slug as ProductSlug}
+									className={productFilterStyle.icon}
+								/>
+								{productName}
+							</>
+						}
+					/>
 				)
 			})}
 		</FilterSection>

@@ -12,34 +12,31 @@ export function EditionFilter({ refine, selectedEdition }: EditionFilterProps) {
 
 	return (
 		<FilterSection label="Edition">
-			<li>
-				<RadioField
-					labelFontWeight="regular"
-					label="All"
-					value="all"
-					name="edition"
-					id="all"
-					checked={!isAnyEditionSelected}
-					onChange={() => refine(null)}
-				/>
-			</li>
+			<RadioField
+				labelFontWeight="regular"
+				label="All"
+				value="all"
+				name="edition"
+				id="all"
+				checked={!isAnyEditionSelected}
+				onChange={() => refine(null)}
+			/>
 			{EDITIONS.map(({ value, label }) => {
 				const isEditionSelected = value === selectedEdition
 
 				const inputId = `filter-${value}`
 
 				return (
-					<li key={value}>
-						<RadioField
-							labelFontWeight="regular"
-							label={label}
-							value={value}
-							name="edition"
-							id={inputId}
-							checked={isEditionSelected}
-							onChange={() => refine(value)}
-						/>
-					</li>
+					<RadioField
+						key={value}
+						labelFontWeight="regular"
+						label={label}
+						value={value}
+						name="edition"
+						id={inputId}
+						checked={isEditionSelected}
+						onChange={() => refine(value)}
+					/>
 				)
 			})}
 		</FilterSection>

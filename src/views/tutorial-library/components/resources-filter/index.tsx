@@ -34,9 +34,7 @@ export function ResourcesFilter({ resources }: ResourcesFilterProps) {
 	return (
 		<FilterSection label="Resources">
 			{resources.map((attribute) => (
-				<li key={attribute.attribute}>
-					<ToggleRefinement {...attribute} />
-				</li>
+				<ToggleRefinement key={attribute.attribute} {...attribute} />
 			))}
 		</FilterSection>
 	)
