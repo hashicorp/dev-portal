@@ -28,7 +28,7 @@ async function recordFeedback(responses, sessionId) {
 		}
 
 		const apiRequest = async () => {
-			const res = await fetch('/api/feedback', {
+			const res = await fetch('/api/tutorial-feedback', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -104,5 +104,3 @@ export function FeedbackPanel() {
 }
 
 export default FeedbackPanel
-
-// add animations from 1st question to next

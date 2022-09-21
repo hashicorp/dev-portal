@@ -1,7 +1,18 @@
-.animate {
-	animation: nextFrame 0.4s;
-	animation-fill-mode: both;
-	animation-timing-function: ease-in-out;
+.buttonWrapper {
+	display: flex;
+	gap: 16px;
+
+	@media (--dev-dot-tablet-up) {
+		margin-top: 0;
+	}
+}
+
+.submitButton {
+	margin-top: 4px;
+
+	&:not(:disabled) {
+		background-color: var(--token-color-focus-action-internal);
+	}
 }
 
 .question {
@@ -20,23 +31,6 @@
 		@media (--dev-dot-tablet-up) {
 			--gap: 12px;
 		}
-	}
-}
-
-.buttonWrapper {
-	display: flex;
-	gap: 16px;
-
-	@media (--dev-dot-tablet-up) {
-		margin-top: 0;
-	}
-}
-
-.submitButton {
-	margin-top: 4px;
-
-	&:not(:disabled) {
-		background-color: var(--token-color-focus-action-internal);
 	}
 }
 
@@ -133,19 +127,10 @@
 	}
 }
 
-.finished {
-	composes: hds-typography-body-200 from global;
-	composes: animate;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	font-weight: var(--token-typography-font-weight-semibold);
-	padding: 16px;
-	color: var(--token-color-foreground-success-on-surface);
-	background-color: var(--token-color-surface-success);
-	border: 1px solid var(--token-color-border-success);
-	border-radius: 6px;
+.animate {
+	animation: nextFrame 0.4s;
+	animation-fill-mode: both;
+	animation-timing-function: ease-in-out;
 }
 
 @keyframes nextFrame {
