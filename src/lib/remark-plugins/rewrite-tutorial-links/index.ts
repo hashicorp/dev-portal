@@ -113,12 +113,19 @@ export function rewriteTutorialsLink(
 		const match: RegExpMatchArray | null = url.match(
 			new RegExp(`${learnProductOptions}|cloud|${learnSectionOptions}`)
 		)
-		const product = match ? match[0] : null
+		const originalProduct = match ? match[0] : null
 		const isExternalLearnLink = url.includes('learn.hashicorp.com')
-		const isBetaProduct = product
-			? getIsBetaProduct(product as ProductSlug)
+
+		// Account for cloud --> hcp map
+		let devDotProduct = originalProduct
+		if (originalProduct === 'cloud') {
+			devDotProduct = 'hcp'
+		}
+		const isBetaProduct = devDotProduct
+			? getIsBetaProduct(devDotProduct as ProductSlug)
 			: false
-		const isValidSection = Boolean(SectionOption[product])
+
+		const isValidSection = Boolean(SectionOption[devDotProduct])
 		// Anchor links for the current tutorial shouldn't be rewritten. i.e. #some-heading
 		const isAnchorLink = url.startsWith('#')
 
@@ -134,12 +141,12 @@ export function rewriteTutorialsLink(
 			const urlObject = new URL(url, 'https://learn.hashicorp.com/')
 			const { origin, pathname } = urlObject
 			const urlWithoutOrigin = urlObject.toString().replace(origin, '')
-			const productIOHostName = productSlugsToHostNames[product]
+			const productIOHostName = productSlugsToHostNames[devDotProduct]
 
 			// Regexes for each path type
 			const collectionPathRegex = new RegExp('^/collections')
 			const tutorialPathRegex = new RegExp('^/tutorials')
-			const productHubPathRegex = new RegExp(`^/${product}/?$`)
+			const productHubPathRegex = new RegExp(`^/${originalProduct}/?$`)
 
 			// Derived path type booleans
 			const isCollectionPath = collectionPathRegex.test(pathname)
@@ -169,9 +176,9 @@ export function rewriteTutorialsLink(
 			} else if (isTutorialPath) {
 				newUrl = handleTutorialLink(urlWithoutOrigin, tutorialMap)
 			} else if (isProductHubPath) {
-				newUrl = `/${product}/tutorials`
+				newUrl = `/${devDotProduct}/tutorials`
 			} else if (isDocsPath) {
-				newUrl = handleDocsLink(urlWithoutOrigin, product as ProductSlug)
+				newUrl = handleDocsLink(urlWithoutOrigin, devDotProduct as ProductSlug)
 			}
 
 			/**

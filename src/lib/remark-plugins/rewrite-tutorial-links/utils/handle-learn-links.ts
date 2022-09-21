@@ -1,4 +1,6 @@
+import getIsBetaProduct from 'lib/get-is-beta-product'
 import { ProductOption } from 'lib/learn-client/types'
+import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import { getCollectionSlug } from 'views/collection-view/helpers'
 
 /**
@@ -48,8 +50,15 @@ export function handleTutorialLink(
 	let path = ''
 	const collectionSlugParam = url.searchParams.get('in')
 	if (collectionSlugParam) {
-		const collectionSlug = collectionSlugParam.split('/')[1]
-		path = `/${product}/tutorials/${collectionSlug}/${filename}`
+		// the collection product should take priority if the `in` query is used
+		const [collectionProduct, collectionFilename] =
+			collectionSlugParam.split('/')
+		// handle the map from 'cloud' --> 'hcp'
+		const normalizedProductSlug = normalizeSlugForDevDot(collectionProduct)
+		// if the collection slug product is not yet in beta, return the external learn url
+		path = getIsBetaProduct(normalizedProductSlug)
+			? `/${normalizedProductSlug}/tutorials/${collectionFilename}/${filename}`
+			: new URL(nodePath, 'https://learn.hashicorp.com/').toString()
 	} else {
 		const tutorialSlug = [product, filename].join('/')
 		path = tutorialMap[tutorialSlug]

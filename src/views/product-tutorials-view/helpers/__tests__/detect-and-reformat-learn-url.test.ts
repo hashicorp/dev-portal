@@ -14,6 +14,7 @@ const MOCK_TUTORIALS_MAP = {
 	'waypoint/aws-ecs': '/waypoint/tutorials/deploy-aws/aws-ecs',
 	'vault/getting-started-install':
 		'/vault/tutorials/getting-started/getting-started-install',
+	'cloud/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
 }
 
 /**
@@ -22,9 +23,8 @@ const MOCK_TUTORIALS_MAP = {
  * get-is-beta-product in order to provide a consistent testing config.
  */
 jest.mock('../../../../lib/get-is-beta-product', () => (productSlug) => {
-	// TODO: remove 'cloud' here, also need to account for 'hcp' URLs
-	// Task: https://app.asana.com/0/0/1202779234480934/f
-	const nonBetaProductsForTesting = ['boundary', 'packer', 'vagrant', 'cloud']
+	const nonBetaProductsForTesting = ['boundary', 'packer', 'vagrant']
+
 	return nonBetaProductsForTesting.indexOf(productSlug) === -1
 })
 
@@ -85,7 +85,7 @@ describe('detectAndReformatLearnUrl', () => {
 			},
 			{
 				input: '/cloud',
-				expected: 'https://learn.hashicorp.com/cloud',
+				expected: '/hcp/tutorials',
 			},
 		]
 		for (let n = 0; n < hubPageUrls.length; n++) {
@@ -173,6 +173,23 @@ describe('detectAndReformatLearnUrl', () => {
 					'/tutorials/consul/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
 				expected:
 					'/consul/tutorials/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
+			},
+			{
+				input: '/tutorials/cloud/vault-ops?in=vault/cloud',
+				expected: '/vault/tutorials/cloud/vault-ops',
+			},
+			{
+				input: '/tutorials/cloud/amazon-peering-hcp',
+				expected: '/hcp/tutorials/networking/amazon-peering-hcp',
+			},
+			{
+				input: '/tutorials/vault/vault-ops?in=cloud/networking',
+				expected: '/hcp/tutorials/networking/vault-ops',
+			},
+			{
+				input: '/tutorials/vault/vault-ops?in=packer/networking',
+				expected:
+					'https://learn.hashicorp.com/tutorials/vault/vault-ops?in=packer/networking',
 			},
 		]
 		for (let n = 0; n < tutorialUrls.length; n++) {
