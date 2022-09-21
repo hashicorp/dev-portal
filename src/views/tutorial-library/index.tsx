@@ -4,6 +4,7 @@ import {
 	useSearchBox,
 	UseSearchBoxProps,
 } from 'react-instantsearch-hooks-web'
+import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 
 import FilterInput from 'components/filter-input'
 import Dialog from 'components/dialog'
@@ -51,6 +52,8 @@ export default function TutorialLibraryView({
 
 	useScrollToTopOnResultsChange()
 
+	const handleDialogDismiss = () => setShowMobileFilters(false)
+
 	return (
 		<div>
 			<Heading level={1} size={500} weight="bold" className={s.pageTitle}>
@@ -70,11 +73,19 @@ export default function TutorialLibraryView({
 				<Dialog
 					isOpen={showMobileFilters}
 					label="Tutorial filters"
-					onDismiss={() => setShowMobileFilters(false)}
+					onDismiss={handleDialogDismiss}
 					variant="bottom"
 				>
+					<button
+						className={s.exitIcon}
+						onClick={handleDialogDismiss}
+						aria-label="Cancel"
+						type="button"
+					>
+						<IconX16 />
+					</button>
 					<div className={s.mobileFiltersControls}>
-						<Button text="Done" onClick={() => setShowMobileFilters(false)} />
+						<Button text="Done" onClick={handleDialogDismiss} />
 						<ClearFiltersButton disableWhenNoFilters />
 					</div>
 					<TutorialLibraryFilters {...filtersState} />

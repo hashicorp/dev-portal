@@ -48,6 +48,8 @@
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 		box-shadow: none;
-		padding-bottom: 56px;
+
+		/* Ensures that content in the dialog is not hidden by the floating control bar on mobile browsers */
+		padding-bottom: 88px;
 	}
 }

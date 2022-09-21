@@ -19,8 +19,23 @@
 }
 
 .mobileFiltersControls {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+	margin-bottom: 16px;
+}
+
+.exitIcon {
+	color: var(--token-color-foreground-primary);
+	appearance: none;
+	background: unset;
+	border: unset;
+	padding: 0;
+	height: min-content;
+	display: block;
+	margin-left: auto;
+
+	&:hover {
+		cursor: pointer;
+	}
 }

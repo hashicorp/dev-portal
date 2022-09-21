@@ -18,10 +18,7 @@
 		gap: 14px 8px;
 
 		& li {
-			display: inline-block;
-
-			&:not(:last-of-type) {
-			}
+			display: flex;
 
 			&:last-of-type {
 				margin-left: -6px;
