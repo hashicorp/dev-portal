@@ -24,6 +24,7 @@ import { ProductSlug } from 'types/products'
 import { ProductOption, SectionOption } from 'lib/learn-client/types'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToHostNames } from 'lib/products'
+import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import {
 	getTutorialMap,
 	handleCollectionLink,
@@ -117,15 +118,12 @@ export function rewriteTutorialsLink(
 		const isExternalLearnLink = url.includes('learn.hashicorp.com')
 
 		// Account for cloud --> hcp map
-		let devDotProduct = originalProduct
-		if (originalProduct === 'cloud') {
-			devDotProduct = 'hcp'
-		}
+		const devDotProduct = normalizeSlugForDevDot(originalProduct)
 		const isBetaProduct = devDotProduct
 			? getIsBetaProduct(devDotProduct as ProductSlug)
 			: false
 
-		const isValidSection = Boolean(SectionOption[devDotProduct])
+		const isValidSection = Boolean(SectionOption[originalProduct])
 		// Anchor links for the current tutorial shouldn't be rewritten. i.e. #some-heading
 		const isAnchorLink = url.startsWith('#')
 
