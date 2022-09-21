@@ -51,8 +51,9 @@ export function rewriteExternalTutorialLink(
 	let path = ''
 	const collectionSlugParam = urlObject.searchParams.get('in')
 	if (collectionSlugParam) {
-		const [alternateSlug, collectionSlug] = collectionSlugParam.split('/')
-		const normalizedAlternateSlug = normalizeSlugForDevDot(alternateSlug)
+		const [alternateProductSlug, collectionSlug] =
+			collectionSlugParam.split('/')
+		const normalizedAlternateSlug = normalizeSlugForDevDot(alternateProductSlug)
 		if (SectionOption[normalizedAlternateSlug]) {
 			path = `/${normalizedAlternateSlug}/${collectionSlug}/${filename}`
 		} else if (getIsBetaProduct(normalizedAlternateSlug as LearnProductSlug)) {
