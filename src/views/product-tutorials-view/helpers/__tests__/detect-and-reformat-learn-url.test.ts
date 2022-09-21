@@ -34,6 +34,21 @@ describe('detectAndReformatLearnUrl', () => {
 			.reply(200, MOCK_TUTORIALS_MAP)
 	})
 
+	it('returns .io URLs with unsupported base paths unmodified', async () => {
+		const nonDocsIoUrls: string[] = [
+			'https://cloud.hashicorp.com/pricing',
+			'https://cloud.hashicorp.com/products/terraform',
+			'https://www.vagrantup.com/community',
+			'https://www.vaultproject.io/community',
+			'https://www.waypointproject.io/community',
+		]
+		for (let n = 0; n < nonDocsIoUrls.length; n++) {
+			const url = nonDocsIoUrls[n]
+			const result = await detectAndReformatLearnUrl(url)
+			expect(result).toBe(url)
+		}
+	})
+
 	it('returns non Learn or Docs URLs back unmodified', async () => {
 		const absoluteUrls: string[] = [
 			'https://www.hashicorp.com',
@@ -169,6 +184,25 @@ describe('detectAndReformatLearnUrl', () => {
 					'/tutorials/consul/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
 				expected:
 					'/consul/tutorials/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
+			},
+			{
+				input: '/tutorials/cloud/vault-ops?in=vault/cloud',
+				expected: '/vault/tutorials/cloud/vault-ops',
+			},
+			{
+				input: '/tutorials/cloud/amazon-peering-hcp',
+				expected:
+					'https://learn.hashicorp.com/tutorials/cloud/amazon-peering-hcp',
+			},
+			{
+				input: '/tutorials/vault/vault-ops?in=cloud/networking',
+				expected:
+					'https://learn.hashicorp.com/tutorials/vault/vault-ops?in=cloud/networking',
+			},
+			{
+				input: '/tutorials/vault/vault-ops?in=packer/networking',
+				expected:
+					'https://learn.hashicorp.com/tutorials/vault/vault-ops?in=packer/networking',
 			},
 		]
 		for (let n = 0; n < tutorialUrls.length; n++) {

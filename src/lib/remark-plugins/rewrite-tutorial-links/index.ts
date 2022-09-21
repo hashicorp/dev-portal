@@ -22,10 +22,10 @@ import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import {
 	getIsRewriteableDocsLink,
-	getIsRewriteableLearnLink,
 	getTutorialMap,
 	rewriteExternalLearnLink,
 	rewriteExternalDocsLink,
+	getIsExternalLearnLink,
 } from './utils'
 
 let TUTORIAL_MAP
@@ -52,13 +52,13 @@ export function rewriteTutorialsLink(
 	try {
 		const urlObject = new URL(url, 'https://learn.hashicorp.com')
 
-		const isRewriteableLearnLink = getIsRewriteableLearnLink(url)
+		const isExternalLearnLink = getIsExternalLearnLink(url)
 		const isRewriteableDocsLink = getIsRewriteableDocsLink(url)
 
 		/**
 		 * Don't do anything if the link is ambiguous.
 		 */
-		if (isRewriteableLearnLink && isRewriteableDocsLink) {
+		if (isExternalLearnLink && isRewriteableDocsLink) {
 			throw new Error(
 				`[rewriteTutorialsLink] Found an ambiguous link: '${url}'`
 			)
@@ -67,15 +67,20 @@ export function rewriteTutorialsLink(
 		/**
 		 * Return the url unmodified if it's not rewriteable.
 		 */
-		if (!isRewriteableLearnLink && !isRewriteableDocsLink) {
+		if (!isExternalLearnLink && !isRewriteableDocsLink) {
 			return url
 		}
 
 		/**
 		 * Handle the link based on the determined link type.
 		 */
-		if (isRewriteableLearnLink) {
+		if (isExternalLearnLink) {
 			newUrl = rewriteExternalLearnLink(urlObject, tutorialMap)
+
+			// Make sure the link returned is external
+			if (!newUrl) {
+				return urlObject.toString()
+			}
 		} else if (isRewriteableDocsLink) {
 			newUrl = rewriteExternalDocsLink(urlObject)
 		}
@@ -95,5 +100,5 @@ export function rewriteTutorialsLink(
 	}
 
 	// Return the modified URL, or default to the original one
-	return newUrl || url
+	return newUrl ?? url
 }
