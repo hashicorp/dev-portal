@@ -45,7 +45,7 @@ export function Pagination() {
 
 	return (
 		<ul className={paginationStyle.root}>
-			<li>
+			<li className={paginationStyle.previousButton}>
 				{isFirstPage ? (
 					<Button disabled {...previousButtonProps} />
 				) : (
@@ -124,7 +124,7 @@ export function Pagination() {
 					</li>
 				</>
 			) : null}
-			<li>
+			<li className={paginationStyle.nextButton}>
 				{isLastPage ? (
 					<Button disabled {...nextButtonProps} />
 				) : (
