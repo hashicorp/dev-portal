@@ -4,8 +4,10 @@ import { rewriteExternalTutorialLink } from '../utils'
 const TEST_TUTORIAL_SLUG = 'vault/tutorial'
 const MOCK_TUTORIAL_MAP = {
 	'vault/tutorial': '/vault/tutorials/collection/tutorial',
-	'onboarding/tutorial': '/onboarding/tutorials/collection/tutorial',
 	'hcp/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
+	'onboarding/tutorial': '/onboarding/collection/tutorial',
+	'well-architected-framework/tutorial':
+		'/well-architected-framework/collection/tutorial',
 }
 
 const testEachCase = (cases: string[][]) => {
@@ -51,6 +53,10 @@ describe('rewriteExternalTutorialLink', () => {
 				'/tutorials/onboarding/tutorial',
 				MOCK_TUTORIAL_MAP['onboarding/tutorial'],
 			],
+			[
+				'/tutorials/well-architected-framework/tutorial',
+				MOCK_TUTORIAL_MAP['well-architected-framework/tutorial'],
+			],
 			['/tutorials/not-a-beta-product/tutorial', undefined],
 			['/tutorials/vault/tutorial-does-not-exist', undefined],
 			[
@@ -79,16 +85,16 @@ describe('rewriteExternalTutorialLink', () => {
 				'/vault/tutorials/collection/tutorial?paramA=valueA&paramB=valueB',
 			],
 			[
-				`/tutorials/${SectionOption.onboarding}/tutorial?in=vault/collection`,
-				`/vault/tutorials/collection/tutorial`,
+				`/tutorials/vault/tutorial?in=${SectionOption.onboarding}/collection`,
+				`/${SectionOption.onboarding}/collection/tutorial`,
 			],
 			[
-				`/tutorials/${SectionOption.onboarding}/tutorial?paramA=valueA&in=vault/collection`,
-				`/vault/tutorials/collection/tutorial?paramA=valueA`,
+				`/tutorials/vault/tutorial?paramA=valueA&in=${SectionOption.onboarding}/collection`,
+				`/${SectionOption.onboarding}/collection/tutorial?paramA=valueA`,
 			],
 			[
-				`/tutorials/${SectionOption.onboarding}/tutorial?paramA=valueA&in=vault/collection&paramB=valueB`,
-				`/vault/tutorials/collection/tutorial?paramA=valueA&paramB=valueB`,
+				`/tutorials/vault/tutorial?paramA=valueA&in=${SectionOption.onboarding}/collection&paramB=valueB`,
+				`/${SectionOption.onboarding}/collection/tutorial?paramA=valueA&paramB=valueB`,
 			],
 			[
 				'/tutorials/cloud/amazon-peering-hcp?in=cloud/consul-cloud&paramA=valueA',
