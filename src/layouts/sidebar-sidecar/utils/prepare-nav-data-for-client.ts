@@ -73,7 +73,7 @@ async function prepareNavDataForClient({
 }): Promise<{ preparedItems: MenuItem[]; traversedNodes: number }> {
 	const preparedNodes = []
 
-	TUTORIAL_MAP = TUTORIAL_MAP ?? await getTutorialMap()
+	TUTORIAL_MAP = TUTORIAL_MAP ?? (await getTutorialMap())
 
 	let count = 0
 	for (let i = 0; i < nodes.length; i++) {
@@ -194,17 +194,24 @@ async function prepareNavNodeForClient({
 			const preparedItem = { ...node, id }
 
 			/**
-			 * Rewrite external Learn and Docs links if needed.
+			 * Rewrite external Learn and Docs links if needed. Default to the
+			 * original `href`.
+			 *
 			 * 	- learn.hashicorp.com
 			 * 	- vaultproject.io
 			 * 	- waypointproject.io
 			 */
 			try {
+				let newHref
 				const urlObject = new URL(node.href)
 				if (getIsExternalLearnLink(node.href)) {
-					preparedItem.href = rewriteExternalLearnLink(urlObject, TUTORIAL_MAP)
+					newHref = rewriteExternalLearnLink(urlObject, TUTORIAL_MAP)
 				} else if (getIsRewriteableDocsLink(node.href)) {
-					preparedItem.href = rewriteExternalDocsLink(urlObject)
+					newHref = rewriteExternalDocsLink(urlObject)
+				}
+
+				if (newHref) {
+					preparedItem.href = newHref
 				}
 			} catch (error) {
 				console.error(
