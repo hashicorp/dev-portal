@@ -133,6 +133,18 @@ Mobile & tablet visibility helpers, specific to dev-dot.
 	}
 }
 
+@media (--dev-dot-show-mobile-menu) {
+	.g-hide-with-mobile-menu {
+		display: none !important;
+	}
+}
+
+@media (--dev-dot-hide-mobile-menu) {
+	.g-show-with-mobile-menu {
+		display: none !important;
+	}
+}
+
 /*
 ***
 * Screen reader only global helper
