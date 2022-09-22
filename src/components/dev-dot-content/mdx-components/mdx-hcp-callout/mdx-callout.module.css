@@ -22,15 +22,11 @@
 	}
 
 	& .heading {
-		/* !important is necessary here to stop leaks from enclosing
-     @hashicorp/react-content component styles */
-		margin: 0 !important;
+		margin: 0;
 	}
 
 	& .subHeading {
-		/* !important is necessary here to stop leaks from enclosing
-     @hashicorp/react-content component styles */
-		margin: 6px 0 16px !important;
+		margin: 6px 0 16px;
 	}
 }
 
@@ -48,7 +44,7 @@
 
 .solutionGradient {
 	background: var(--gradient);
-	-webkit-background-clip: text;
+	background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
 
