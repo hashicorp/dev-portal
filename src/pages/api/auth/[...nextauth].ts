@@ -52,6 +52,7 @@ export default NextAuth({
 					token.access_token = access_token
 					token.refresh_token = refresh_token
 				} catch (err) {
+					console.error('failed to refresh token set', err)
 					return { ...token, error: AuthErrors.RefreshAccessTokenError }
 				}
 			} else {
