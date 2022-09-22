@@ -4,7 +4,7 @@ import { rewriteExternalTutorialLink } from '../utils'
 const TEST_TUTORIAL_SLUG = 'vault/tutorial'
 const MOCK_TUTORIAL_MAP = {
 	'vault/tutorial': '/vault/tutorials/collection/tutorial',
-	'hcp/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
+	'cloud/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
 	'onboarding/tutorial': '/onboarding/collection/tutorial',
 	'well-architected-framework/tutorial':
 		'/well-architected-framework/collection/tutorial',
