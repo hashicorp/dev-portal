@@ -33,19 +33,19 @@
 					"url": "/hcp/docs/hcp"
 				},
 				{
-					"title": "App Lifecycle",
-					"description": "HashiCorp Cloud Platform has an opinionated view on the minimum application lifecycle: build, deploy, and release.",
-					"url": "/hcp/docs"
+					"title": "Supported AWS Environments",
+					"description": "Regions in which HCP is accessible.",
+					"url": "/hcp/docs/hcp/supported-env/aws"
 				},
 				{
-					"title": "Projects",
-					"description": "A project contains one or more applications and each one in a project represents a single deployable object.",
-					"url": "/hcp/docs"
+					"title": "Supported Azure Environments",
+					"description": "Regions in which HCP is accessible.",
+					"url": "/hcp/docs/hcp/supported-env/azure"
 				},
 				{
-					"title": "waypoint.hcl",
-					"description": "The waypoint.hcl file configures each HashiCorp Cloud Platform project and defines how HashiCorp Cloud Platform builds, deploys, and releases it.",
-					"url": "/hcp/docs"
+					"title": "Administration",
+					"description": "How to set up organizations, users, service principals, and MFA.",
+					"url": "/hcp/docs/hcp/admin/orgs"
 				}
 			]
 		}
