@@ -1,5 +1,5 @@
 import CardsGridList from 'components/cards-grid-list'
-import CollectionCard, {
+import {
 	CollectionCardPropsWithId,
 	CollectionCardWithAuthElements,
 } from 'components/collection-card'

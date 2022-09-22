@@ -1,11 +1,25 @@
-import { ReactNode } from 'react'
+import { ReactElement } from 'react'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import { IconCheckCircleFill16 } from '@hashicorp/flight-icons/svg-react/check-circle-fill-16'
 import ProgressBar from 'components/progress-bar'
+import { CollectionProgressStatusSectionProps } from './types'
 import s from './collection-progress-status-section.module.css'
 
 /**
  * Renders collection progress status, in a nice little box.
+ */
+function CollectionProgressStatusSection(
+	props: CollectionProgressStatusSectionProps
+) {
+	return (
+		<div className={s.statusSectionWithBorder}>
+			<CollectionProgressStatusElements {...props} />
+		</div>
+	)
+}
+
+/**
+ * Renders the elements within the collection progress status section.
  *
  * Without authentication,
  * we show a "Start" CTA which links to the first tutorial in the collection.
@@ -17,21 +31,11 @@ import s from './collection-progress-status-section.module.css'
  * When authenticated and all tutorials in the collection are "complete",
  * we show a "Review" CTA which links to the first tutorial in the collection.
  */
-function CollectionProgressStatusSection({
+function CollectionProgressStatusElements({
 	completedTutorialCount,
 	tutorialCount,
 	isInProgress,
-}: {
-	completedTutorialCount: number
-	tutorialCount: number
-	/**
-	 * Optionally specify that the progress bar should be shown,
-	 * even in cases where there are zero completed tutorials.
-	 * Note that if all tutorials are completed, the progress
-	 * bar will not be shown even if isInProgress is set to true.
-	 */
-	isInProgress?: boolean
-}) {
+}: CollectionProgressStatusSectionProps) {
 	/**
 	 * Completion status
 	 */
@@ -53,35 +57,29 @@ function CollectionProgressStatusSection({
 		statusLabel = `${tutorialCount} tutorial${tutorialCount == 1 ? '' : 's'}`
 	}
 
+	/**
+	 * Status elements
+	 */
+	let statusElements: ReactElement
 	if (isCompleted) {
-		return (
-			<StatusSection>
-				<CompleteIconAndLabel statusLabel={statusLabel} />
-			</StatusSection>
-		)
+		statusElements = <CompleteIconAndLabel statusLabel={statusLabel} />
 	} else if (hasProgress) {
-		return (
-			<StatusSection>
+		statusElements = (
+			<>
 				<CountIconAndLabel statusLabel={statusLabel} />
 				<ProgressBar
 					percentDone={(completedTutorialCount / tutorialCount) * 100}
 				/>
-			</StatusSection>
+			</>
 		)
 	} else {
-		return (
-			<StatusSection>
-				<CountIconAndLabel statusLabel={statusLabel} />
-			</StatusSection>
-		)
+		statusElements = <CountIconAndLabel statusLabel={statusLabel} />
 	}
-}
 
-/**
- * Renders an box in which status information can be placed.
- */
-function StatusSection({ children }: { children: ReactNode }) {
-	return <div className={s.statusSection}>{children}</div>
+	/**
+	 * Render, wrapped in a flex container
+	 */
+	return <div className={s.statusSectionElements}>{statusElements}</div>
 }
 
 /**
@@ -110,4 +108,5 @@ function CountIconAndLabel({ statusLabel }: { statusLabel: string }) {
 	)
 }
 
+export { CollectionProgressStatusElements, CollectionProgressStatusSection }
 export default CollectionProgressStatusSection

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useCollectionProgress } from 'hooks/progress'
 import {
-	CollectionProgressStatusSection,
+	CollectionProgressStatusElements,
 	parseCollectionProgress,
 } from 'components/collection-progress-group'
 import CollectionCard, {
@@ -40,7 +40,7 @@ function CollectionCardWithAuthElements({
 			{...{ url, logo, tutorialCount, heading, description, productsUsed }}
 			eyebrowSlot={
 				<div className={s.collectionProgressContainer}>
-					<CollectionProgressStatusSection
+					<CollectionProgressStatusElements
 						completedTutorialCount={completedTutorialCount}
 						tutorialCount={tutorialCount}
 						isInProgress={isInProgress}
