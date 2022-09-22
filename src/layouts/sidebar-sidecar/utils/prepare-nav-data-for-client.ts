@@ -78,13 +78,13 @@ async function prepareNavDataForClient({
 	let count = 0
 	for (let i = 0; i < nodes.length; i++) {
 		const node = nodes[i]
-		const result = prepareNavNodeForClient({
+		const result = await prepareNavNodeForClient({
 			basePaths,
 			node,
 			nodeIndex: startingIndex + count,
 		})
 		if (result) {
-			const { preparedItem, traversedNodes } = await result
+			const { preparedItem, traversedNodes } = result
 			preparedNodes.push(preparedItem)
 			count += traversedNodes
 		}
