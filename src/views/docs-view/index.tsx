@@ -60,14 +60,14 @@ const SentinelEmbedded = dynamic(
 	() => import('@hashicorp/react-sentinel-embedded')
 )
 
-const HcpCallout = dynamic(
+const MdxHcpCallout = dynamic(
 	() => import('components/dev-dot-content/mdx-components/mdx-hcp-callout')
 )
 
 const productsToPrimitives: ProductsToPrimitivesMap = {
 	boundary: null,
 	consul: { ConfigEntryReference },
-	hcp: { HcpCallout },
+	hcp: { MdxHcpCallout },
 	nomad: { Placement },
 	packer: { Badge, BadgesHeader, Checklist, PluginBadge },
 	sentinel: { SentinelEmbedded },

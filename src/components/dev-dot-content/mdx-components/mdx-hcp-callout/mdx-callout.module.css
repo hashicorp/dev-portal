@@ -13,7 +13,7 @@
 		box-shadow: var(--token-elevation-high-box-shadow);
 
 		& .ctaIcon {
-			transform: translateX(4px);
+			transform: translateX(2px);
 		}
 	}
 
