@@ -6,13 +6,11 @@ import {
 	GoogleSpreadsheetWorksheet,
 } from 'google-spreadsheet'
 import Bowser from 'bowser'
-import Bugsnag from '@bugsnag/js'
 
 const FEEDBACK_SHEET_ID = process.env.TUTORIAL_FEEDBACK_SHEET_ID
 const FEEDBACK_SERVICE_EMAIL = process.env.FEEDBACK_SERVICE_EMAIL
 const FEEDBACK_PRIVATE_KEY = process.env.FEEDBACK_PRIVATE_KEY
 const HASHI_ENV = process.env.HASHI_ENV
-const BUGSNAG_API_KEY = process.env.BUGSNAG_SERVER_KEY
 
 interface SurveyResponse {
 	id: string
@@ -117,12 +115,6 @@ const submitFeedback = async (
 	req: NextApiRequest,
 	res: NextApiResponse
 ): Promise<void> => {
-	Bugsnag.start({
-		apiKey: BUGSNAG_API_KEY,
-		enabledReleaseStages: ['production'],
-		releaseStage: HASHI_ENV,
-	})
-
 	try {
 		const requestBody = await validateRequest(req)
 		const sheet = await setupDocument()
@@ -152,7 +144,6 @@ const submitFeedback = async (
 	} catch (error) {
 		console.error('unhandled error')
 		console.error(error)
-		Bugsnag.notify(error)
 		res.status(error.status || 500).json({
 			body: { error: 'An unhandled error occurred.' },
 		})
