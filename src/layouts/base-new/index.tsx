@@ -65,7 +65,7 @@ const BaseNewLayout = ({
 	 * SidebarSidecarLayout, which handles the mobile menu for those routes.
 	 */
 	const shouldShowMobileMenu =
-		router.route === '/' || router.route === '/_error'
+		__config.dev_dot.non_product_mobile_menu_routes.includes(router.route)
 
 	return (
 		<CommandBarProvider>

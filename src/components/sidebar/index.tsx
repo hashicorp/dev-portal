@@ -5,6 +5,7 @@ import classNames from 'classnames'
 // Global imports
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
+import FilterInput from 'components/filter-input'
 import { useSidebarNavData } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 import {
 	SidebarHorizontalRule,
@@ -23,7 +24,6 @@ import {
 } from './helpers'
 import SidebarNavList from './components/sidebar-nav-list'
 import SidebarBackToLink from './components/sidebar-back-to-link'
-import SidebarFilterInput from './components/sidebar-filter-input'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
 
@@ -73,7 +73,11 @@ const Sidebar = ({
 					[s['filterInputWrapper--mobile']]: shouldRenderMobileControls,
 				})}
 			>
-				<SidebarFilterInput value={filterValue} onChange={setFilterValue} />
+				<FilterInput
+					value={filterValue}
+					onChange={setFilterValue}
+					placeholder="Filter sidebar"
+				/>
 			</div>
 		)
 	}
