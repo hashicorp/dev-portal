@@ -7,6 +7,7 @@
 		"beta_product_slugs": [
 			"boundary",
 			"consul",
+      "hcp",
 			"nomad",
       "packer",
 			"terraform",
