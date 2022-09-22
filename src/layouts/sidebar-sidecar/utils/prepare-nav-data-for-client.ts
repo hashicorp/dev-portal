@@ -73,7 +73,7 @@ async function prepareNavDataForClient({
 }): Promise<{ preparedItems: MenuItem[]; traversedNodes: number }> {
 	const preparedNodes = []
 
-	TUTORIAL_MAP = await getTutorialMap()
+	TUTORIAL_MAP = TUTORIAL_MAP ?? await getTutorialMap()
 
 	let count = 0
 	for (let i = 0; i < nodes.length; i++) {
