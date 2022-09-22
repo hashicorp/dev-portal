@@ -96,6 +96,9 @@ export default function TutorialsLibraryPage({
 export async function getStaticProps() {
 	return {
 		props: stripUndefinedProperties({
+			metadata: {
+				title: 'Tutorial Library',
+			},
 			defaultTutorials: await getTutorials(DEFAULT_SLUGS),
 			layoutProps: {
 				sidebarNavDataLevels: [],
