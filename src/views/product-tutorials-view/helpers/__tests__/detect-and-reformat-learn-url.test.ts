@@ -21,11 +21,8 @@ const MOCK_TUTORIALS_MAP = {
  * to test "beta" functionality using real config. So, we mock
  * get-is-beta-product in order to provide a consistent testing config.
  */
-jest.mock('../../../../lib/get-is-beta-product', () => (productSlug) => {
-	// TODO: remove 'cloud' here, also need to account for 'hcp' URLs
-	// Task: https://app.asana.com/0/0/1202779234480934/f
-	const nonBetaProductsForTesting = ['boundary', 'packer', 'vagrant', 'cloud']
-	return nonBetaProductsForTesting.indexOf(productSlug) === -1
+jest.mock('lib/get-is-beta-product', () => (productSlug) => {
+	return ['consul', 'vault', 'waypoint'].includes(productSlug)
 })
 
 describe('detectAndReformatLearnUrl', () => {
@@ -37,12 +34,26 @@ describe('detectAndReformatLearnUrl', () => {
 			.reply(200, MOCK_TUTORIALS_MAP)
 	})
 
-	it('returns absolute URLs back unmodified', async () => {
+	it('returns .io URLs with unsupported base paths unmodified', async () => {
+		const nonDocsIoUrls: string[] = [
+			'https://cloud.hashicorp.com/pricing',
+			'https://cloud.hashicorp.com/products/terraform',
+			'https://www.vagrantup.com/community',
+			'https://www.vaultproject.io/community',
+			'https://www.waypointproject.io/community',
+		]
+		for (let n = 0; n < nonDocsIoUrls.length; n++) {
+			const url = nonDocsIoUrls[n]
+			const result = await detectAndReformatLearnUrl(url)
+			expect(result).toBe(url)
+		}
+	})
+
+	it('returns non Learn or Docs URLs back unmodified', async () => {
 		const absoluteUrls: string[] = [
-			'https://learn.hashicorp.com/vault',
 			'https://www.hashicorp.com',
-			'https://www.waypointproject.io',
-			'https://www.waypointproject.io/docs',
+			'https://portal.cloud.hashicorp.com',
+			'https://developer.hashicorp.com/',
 		]
 		for (let n = 0; n < absoluteUrls.length; n++) {
 			const url = absoluteUrls[n]
@@ -173,6 +184,25 @@ describe('detectAndReformatLearnUrl', () => {
 					'/tutorials/consul/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
 				expected:
 					'/consul/tutorials/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
+			},
+			{
+				input: '/tutorials/cloud/vault-ops?in=vault/cloud',
+				expected: '/vault/tutorials/cloud/vault-ops',
+			},
+			{
+				input: '/tutorials/cloud/amazon-peering-hcp',
+				expected:
+					'https://learn.hashicorp.com/tutorials/cloud/amazon-peering-hcp',
+			},
+			{
+				input: '/tutorials/vault/vault-ops?in=cloud/networking',
+				expected:
+					'https://learn.hashicorp.com/tutorials/vault/vault-ops?in=cloud/networking',
+			},
+			{
+				input: '/tutorials/vault/vault-ops?in=packer/networking',
+				expected:
+					'https://learn.hashicorp.com/tutorials/vault/vault-ops?in=packer/networking',
 			},
 		]
 		for (let n = 0; n < tutorialUrls.length; n++) {

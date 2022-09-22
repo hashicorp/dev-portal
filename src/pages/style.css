@@ -54,16 +54,16 @@
  * See: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-top
  */
 .g-subnav ~ * :target {
-  scroll-margin-top: calc(64px + 0.5em);
+	scroll-margin-top: calc(64px + 0.5em);
 }
 
 /* Custom web font, deprecated */
 @font-face {
-  font-family: 'klavika-web';
-  src: url('/fonts/klavika/medium.woff2') format('woff2'),
-    url('/fonts/klavika/medium.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
+	font-family: 'klavika-web';
+	src: url('/fonts/klavika/medium.woff2') format('woff2'),
+		url('/fonts/klavika/medium.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
 }
 
 /* VAULT */
@@ -75,62 +75,62 @@
  * ref: https://app.asana.com/0/1100423001970639/1200768863236365/f
  */
 .g-section-block section {
-  padding-top: 96px;
-  padding-bottom: 96px;
+	padding-top: 96px;
+	padding-bottom: 96px;
 
-  & > .g-section-header + *,
-  & > .g-grid-container > .g-section-header + * {
-    margin-top: 72px;
-  }
+	& > .g-section-header + *,
+	& > .g-grid-container > .g-section-header + * {
+		margin-top: 72px;
+	}
 
-  &:not(.no-section-spacing) > * + *,
-  &:not(.g-featured-slider-section) > .g-grid-container > * + * {
-    margin-top: 96px;
-  }
+	&:not(.no-section-spacing) > * + *,
+	&:not(.g-featured-slider-section) > .g-grid-container > * + * {
+		margin-top: 96px;
+	}
 }
 
 .g-section-block .button-container {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  -webkit-box-pack: center;
-  justify-content: center;
-  margin: auto -8px -16px;
+	display: -webkit-box;
+	display: flex;
+	flex-wrap: wrap;
+	-webkit-box-pack: center;
+	justify-content: center;
+	margin: auto -8px -16px;
 }
 
 .g-section-block section > * + .button-container,
 .g-section-block section > .g-grid-container > * + .button-container {
-  margin-top: 40px;
+	margin-top: 40px;
 }
 
 .g-section-block .button-container > * {
-  margin: auto 8px 16px;
+	margin: auto 8px 16px;
 }
 
 .g-section-block.theme-black-background-white-text {
-  background: var(--gray-1);
-  color: white;
+	background: var(--gray-1);
+	color: white;
 }
 
 /*
 Mobile & tablet visibility helpers, specific to dev-dot.
 */
 @media (--dev-dot-mobile) {
-  .g-hide-on-mobile {
-    display: none !important;
-  }
+	.g-hide-on-mobile {
+		display: none !important;
+	}
 }
 
 @media (--dev-dot-tablet) {
-  .g-hide-on-tablet {
-    display: none !important;
-  }
+	.g-hide-on-tablet {
+		display: none !important;
+	}
 }
 
 @media (--dev-dot-desktop) {
-  .g-hide-on-desktop {
-    display: none !important;
-  }
+	.g-hide-on-desktop {
+		display: none !important;
+	}
 }
 
 /*
@@ -144,13 +144,13 @@ Mobile & tablet visibility helpers, specific to dev-dot.
 ***
 */
 .g-screen-reader-only:not(:focus):not(:active) {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
 }
 
 /*
@@ -160,14 +160,14 @@ do extra math to account for padding, which this helper now does with padding
 and negative margin.
 */
 .g-focus-ring-from-box-shadow {
-  &:focus {
-    outline: transparent;
-  }
+	&:focus {
+		outline: transparent;
+	}
 
-  &:focus-visible {
-    box-shadow: var(--token-focus-ring-action-box-shadow);
-    outline: transparent;
-  }
+	&:focus-visible {
+		box-shadow: var(--token-focus-ring-action-box-shadow);
+		outline: transparent;
+	}
 }
 
 /*
@@ -177,40 +177,40 @@ and negative margin.
 ***
 */
 .g-focus-ring-from-box-shadow-dark {
-  &:focus {
-    outline: transparent;
-  }
+	&:focus {
+		outline: transparent;
+	}
 
-  &:focus-visible {
-    box-shadow: var(--custom-token-focus-ring-action-box-shadow-dark);
-    outline: transparent;
-  }
+	&:focus-visible {
+		box-shadow: var(--custom-token-focus-ring-action-box-shadow-dark);
+		outline: transparent;
+	}
 }
 
 .g-focus-border-and-box-shadow-light {
-  &:focus,
-  &:focus-visible {
-    outline: transparent;
-  }
+	&:focus,
+	&:focus-visible {
+		outline: transparent;
+	}
 
-  &:focus-visible {
-    border: 1px solid var(--token-color-palette-blue-200);
-    box-shadow: 0 0 0 3px var(--token-color-focus-action-external);
-    outline: transparent;
-  }
+	&:focus-visible {
+		border: 1px solid var(--token-color-palette-blue-200);
+		box-shadow: 0 0 0 3px var(--token-color-focus-action-external);
+		outline: transparent;
+	}
 }
 
 .g-focus-border-and-box-shadow-dark {
-  &:focus,
-  &:focus-visible {
-    outline: transparent;
-  }
+	&:focus,
+	&:focus-visible {
+		outline: transparent;
+	}
 
-  &:focus-visible {
-    border: 1px solid #107dff;
-    box-shadow: 0 0 0 3px #5fbcff;
-    outline: transparent;
-  }
+	&:focus-visible {
+		border: 1px solid #107dff;
+		box-shadow: 0 0 0 3px #5fbcff;
+		outline: transparent;
+	}
 }
 
 /*
@@ -223,15 +223,17 @@ and negative margin.
 * "Reconcile" task: https://app.asana.com/0/1201987349274776/1202052090505082/f
 ***
 */
+:root {
+	--permalink-scroll-offset: 24px;
+	--total-scroll-offset: calc(
+		var(--navigation-header-height) + var(--permalink-scroll-offset)
+	);
+}
+
 .g-offset-scroll-margin-top {
-  --permalink-scroll-offset: 24px;
-  --total-offset: calc(
-    var(--sticky-bars-height) + var(--permalink-scroll-offset)
-  );
+	scroll-margin-top: var(--total-scroll-offset);
 
-  scroll-margin-top: var(--total-offset);
-
-  /*
+	/*
   Docs and Learn jump link headings have an anchor child with an `id`,
   rather than an `id` on the element itself. These are added by our
   anchor-links remark plugin.
@@ -240,7 +242,7 @@ and negative margin.
   to avoid adding these extra elements:
   https://app.asana.com/0/1202097197789424/1201532549545236/f
   */
-  & a:global(.__target-h) {
-    scroll-margin-top: var(--total-offset);
-  }
+	& a:global(.__target-h) {
+		scroll-margin-top: var(--total-scroll-offset);
+	}
 }
