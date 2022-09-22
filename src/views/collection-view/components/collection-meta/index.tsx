@@ -43,7 +43,12 @@ export default function CollectionMeta({
 			>
 				{heading.text}
 			</Heading>
-			<Text className={s.description}>{description}</Text>
+			<p
+				className={s.description}
+				dangerouslySetInnerHTML={{
+					__html: description,
+				}}
+			/>
 			{showCreateAccountCta ? (
 				<Text className={s.createAccountCta}>
 					<InlineLink href="/sign-up">Create an account</InlineLink> to track

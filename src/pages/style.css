@@ -235,13 +235,15 @@ and negative margin.
 * "Reconcile" task: https://app.asana.com/0/1201987349274776/1202052090505082/f
 ***
 */
-.g-offset-scroll-margin-top {
+:root {
 	--permalink-scroll-offset: 24px;
-	--total-offset: calc(
-		var(--sticky-bars-height) + var(--permalink-scroll-offset)
+	--total-scroll-offset: calc(
+		var(--navigation-header-height) + var(--permalink-scroll-offset)
 	);
+}
 
-	scroll-margin-top: var(--total-offset);
+.g-offset-scroll-margin-top {
+	scroll-margin-top: var(--total-scroll-offset);
 
 	/*
   Docs and Learn jump link headings have an anchor child with an `id`,
@@ -253,6 +255,6 @@ and negative margin.
   https://app.asana.com/0/1202097197789424/1201532549545236/f
   */
 	& a:global(.__target-h) {
-		scroll-margin-top: var(--total-offset);
+		scroll-margin-top: var(--total-scroll-offset);
 	}
 }
