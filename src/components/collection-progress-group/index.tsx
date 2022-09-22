@@ -3,10 +3,7 @@ import ButtonLink from 'components/button-link'
 import { useCollectionProgress } from 'hooks/progress'
 import { Collection } from 'lib/learn-client/types'
 import { getNextTutorialCta, parseCollectionProgress } from './helpers'
-import {
-	CollectionProgressStatusElements,
-	CollectionProgressStatusSection,
-} from './components'
+import { CollectionProgressStatusSection } from './components'
 import s from './collection-progress-group.module.css'
 
 /**
@@ -79,10 +76,5 @@ function CollectionProgressGroup({ collection }: { collection: Collection }) {
  * the component available in LiveComponent, which is a spot where
  * we want it.
  */
-export {
-	parseCollectionProgress,
-	CollectionProgressStatusElements,
-	CollectionProgressStatusSection,
-	ButtonLink,
-}
+export { parseCollectionProgress, CollectionProgressStatusSection, ButtonLink }
 export default CollectionProgressGroup
