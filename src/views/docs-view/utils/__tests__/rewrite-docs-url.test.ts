@@ -34,6 +34,7 @@ describe('rewriteDocsUrl', () => {
 				expected: 'https://cloud.hashicorp.com/products/vault',
 			},
 			{ input: '/consul/docs/some-path', expected: '/consul/docs/some-path' }, // base case, it shouldn't get rewritten
+			{ input: '#some-anchor-link', expected: '#some-anchor-link' }, // anchor links shouldn't get rewritten
 		]
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
 		const hcpProductData = require(`data/hcp.json`)
