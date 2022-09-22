@@ -132,7 +132,7 @@
 				{
 					"heading": "Triggers",
 					"body": "Execute commands on your system before or after Vagrant operations.",
-					"url": "/vagrant/triggers"
+					"url": "/vagrant/docs/triggers"
 				},
 				{
 					"heading": "Vagrant Share",

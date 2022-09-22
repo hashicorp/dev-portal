@@ -1,5 +1,6 @@
 {
 	"pageSubtitle": "Packer lets you create identical machine images for multiple platforms from a single source configuration. A common use case is creating golden images for organizations to use in cloud infrastructure.",
+	"iconCardGridItems": [],
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
