@@ -11,15 +11,9 @@ import { AuthenticatedViewProps } from './types'
  * authenticated.
  */
 const AuthenticatedView = ({ children }: AuthenticatedViewProps) => {
-	const { isAuthenticated, isAuthEnabled, session, signOut } =
-		useAuthentication({
-			isRequired: true,
-		})
-
-	if (session?.error === AuthErrors.RefreshAccessTokenError) {
-		signOut()
-		return null
-	}
+	const { isAuthenticated, isAuthEnabled } = useAuthentication({
+		isRequired: true,
+	})
 
 	// Show the 404 error view if auth is not enabled
 	if (!isAuthEnabled) {
