@@ -63,12 +63,6 @@ function countProgressedRecords(
 /**
  * Given progress and tutorial data for particular collection,
  * Return a CTA object that links to the "next tutorial" in the collection.
- *
- * For in-progress collections, the "next tutorial" is the first tutorial
- * in the collection that does not have "complete" as its progress status.
- *
- * For completed collections, and for all unauthenticated cases,
- * the "next tutorial" is the first tutorial in the collection.
  */
 function getNextTutorialCta({
 	progressData,
@@ -87,30 +81,11 @@ function getNextTutorialCta({
 	completedTutorialCount: number
 	tutorialCount: number
 }) {
-	/**
-	 * If we're not authenticated or have no progress,
-	 * we'll use the first tutorial.
-	 *
-	 * If we do have progress data, we return the first incomplete tutorial,
-	 * or if all tutorials are complete, then the first tutorial.
-	 */
-	let targetTutorial
-	if (isCompleted || !progressData) {
-		targetTutorial = tutorials[0]
-	} else {
-		const firstInProgressTutorial = tutorials.find((tutorial: TutorialLite) => {
-			const matchedProgress = progressData.find(
-				(record: ApiCollectionTutorialProgress) =>
-					record.tutorial_id == tutorial.id
-			)
-			const isInProgress =
-				matchedProgress &&
-				progressPercentToStatus(matchedProgress.complete_percent) ==
-					TutorialProgressStatus.in_progress
-			return isInProgress
-		})
-		targetTutorial = firstInProgressTutorial || tutorials[0]
-	}
+	const targetTutorial = getNextTutorial({
+		isCompleted,
+		progressData,
+		tutorials,
+	})
 	/**
 	 * Construct a CTA link from the target tutorial
 	 */
@@ -139,6 +114,51 @@ function getNextTutorialCta({
 			} in this collection.`,
 		}
 	}
+}
+
+/**
+ * Determine the "next tutorial" in a collection.
+ *
+ * For in-progress collections, the "next tutorial" is the first tutorial
+ * in the collection that does not have "complete" as its progress status.
+ *
+ * For completed collections, and for all unauthenticated cases,
+ * the "next tutorial" is the first tutorial in the collection.
+ */
+function getNextTutorial({
+	isCompleted,
+	progressData,
+	tutorials,
+}: {
+	isCompleted: boolean
+	progressData: ApiCollectionTutorialProgress[]
+	tutorials: TutorialLite[]
+}) {
+	/**
+	 * If we're not authenticated or have no progress,
+	 * we'll use the first tutorial.
+	 *
+	 * If we do have progress data, we return the first incomplete tutorial,
+	 * or if all tutorials are complete, then the first tutorial.
+	 */
+	let targetTutorial
+	if (isCompleted || !progressData) {
+		targetTutorial = tutorials[0]
+	} else {
+		const firstInProgressTutorial = tutorials.find((tutorial: TutorialLite) => {
+			const matchedProgress = progressData.find(
+				(record: ApiCollectionTutorialProgress) =>
+					record.tutorial_id == tutorial.id
+			)
+			const isInProgress =
+				matchedProgress &&
+				progressPercentToStatus(matchedProgress.complete_percent) ==
+					TutorialProgressStatus.in_progress
+			return isInProgress
+		})
+		targetTutorial = firstInProgressTutorial || tutorials[0]
+	}
+	return targetTutorial
 }
 
 export { getNextTutorialCta, parseCollectionProgress }
