@@ -35,8 +35,9 @@
 }
 
 /* NOTE: this is for highlighting some text in search results from algolia */
-.title em,
-.description em {
+.title mark,
+.description mark {
+	background-color: transparent;
 	color: var(--token-color-foreground-action);
 	font-style: normal;
 }

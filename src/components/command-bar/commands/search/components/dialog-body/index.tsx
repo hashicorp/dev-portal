@@ -1,8 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import algoliasearch from 'algoliasearch'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { ProductSlug } from 'types/products'
-import { productSlugs } from 'lib/products'
+import { productSlugs, productSlugsToNames } from 'lib/products'
 import { useCurrentContentType, useCurrentProduct } from 'contexts'
 import { useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
@@ -10,18 +9,126 @@ import Tabs, { Tab } from 'components/tabs'
 import { generateSuggestedPages } from '../../helpers/generate-suggested-pages'
 import SuggestedPages, { SuggestedPage } from '../../suggested-pages'
 import { getCurrentProductTag } from '../../helpers/get-current-product-tag'
-import DocumentationTabContents from '../documentation-tab-contents'
-import TutorialsTabContents from '../tutorials-tab-contents'
+
+import {
+	Configure,
+	Index,
+	InstantSearch,
+	useHits,
+} from 'react-instantsearch-hooks-web'
+import {
+	CommandBarLinkListItem,
+	CommandBarList,
+} from 'components/command-bar/components'
 
 // TODO(brkalow): We might consider lazy-loading the search client & the insights library
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
 const searchClient = algoliasearch(appId, apiKey)
 
-const SearchCommandBarDialogBody = () => {
-	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
+const DocumentationHit = ({ hit, index }) => {
+	const {
+		objectID,
+		_highlightResult,
+		product = index.slice('product_'.length).toLowerCase(),
+	} = hit
+	const { page_title, description } = _highlightResult
+	const resultUrl = `/${product}/${objectID}`
+	const productName = product === 'hcp' ? 'HCP' : productSlugsToNames[product]
+
+	return (
+		<CommandBarLinkListItem
+			key={objectID}
+			title={page_title?.value}
+			description={description?.value}
+			url={resultUrl}
+			badges={[productName]}
+		/>
+	)
+}
+
+const TutorialHit = ({ hit }) => {
+	const { _highlightResult, id, products } = hit
+	const { name, description } = _highlightResult
+	const badges = products?.map(
+		(productSlug) => productSlugsToNames[productSlug]
+	)
+	const [productSlug, collectionSlug] = hit.defaultContext.slug.split('/')
+	const [, tutorialSlug] = hit.slug.split('/')
+	const resultUrl = `/${
+		productSlug === 'cloud' ? 'hcp' : productSlug
+	}/tutorials/${collectionSlug}/${tutorialSlug}`
+
+	return (
+		<CommandBarLinkListItem
+			key={id}
+			title={name?.value}
+			description={description?.value}
+			url={resultUrl}
+			badges={badges}
+		/>
+	)
+}
+
+const CustomHits = ({ type }) => {
+	const {
+		hits,
+		results: { index },
+	} = useHits()
+
+	if (hits && hits.length <= 0) {
+		return null
+	}
+
+	const labelElementId = `${type}-search-results-label`
+	return (
+		<>
+			<div id={labelElementId} className="g-screen-reader-only">
+				{type} search results
+			</div>
+			<CommandBarList ariaLabelledBy={labelElementId}>
+				{hits.map((hit) => {
+					if (type === 'documentation') {
+						return (
+							<DocumentationHit key={hit.objectID} hit={hit} index={index} />
+						)
+					}
+
+					if (type === 'tutorials') {
+						return <TutorialHit key={hit.objectID} hit={hit} />
+					}
+				})}
+			</CommandBarList>
+		</>
+	)
+}
+
+const DocumentationTabContents = () => {
+	return (
+		<>
+			{productSlugs
+				.filter((slug) => slug !== 'sentinel')
+				.map((slug) => (
+					<Index key={slug} indexName={`product_${slug.toUpperCase()}`}>
+						<CustomHits type="documentation" />
+					</Index>
+				))}
+		</>
+	)
+}
+
+const TutorialsTabContents = () => {
+	return (
+		<Index indexName="prod_LEARN">
+			<CustomHits type="tutorials" />
+		</Index>
+	)
+}
+
+const SearchCommandBarDialogBodyContent = () => {
 	const currentProduct = useCurrentProduct()
 	const contentType = useCurrentContentType()
+	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
 
 	/**
 	 * Get the CommandBarTag object for the current product if it's present.
@@ -69,64 +176,6 @@ const SearchCommandBarDialogBody = () => {
 	 */
 	useSetUpAndCleanUpCommandState(setUpCommandState, cleanUpCommandState)
 
-	/**
-	 * Using React Query helps us cache results by query key so we don't have to
-	 * worry about handling different query requests coming back in a different
-	 * order than we invoked them.
-	 */
-	useQuery(['search', currentInputValue], () => {
-		if (!currentInputValue) {
-			return { docs: [], tutorials: [] }
-		}
-
-		return searchClient
-			.multipleQueries([
-				...productSlugs
-					.filter((slug) => slug !== 'sentinel')
-					.map((slug) => ({
-						indexName: `product_${slug.toUpperCase()}`,
-						query: currentInputValue,
-					})),
-				{
-					indexName: 'prod_LEARN',
-					query: currentInputValue,
-				},
-			])
-			.then(({ results }) => {
-				let tutorialsResults = []
-				let docsResults = []
-
-				results.forEach(({ hits, index }) => {
-					if (hits.length <= 0) {
-						return
-					}
-
-					if (index === 'prod_LEARN') {
-						tutorialsResults = tutorialsResults.concat(hits)
-					} else {
-						// Have to set `product` for some products, like`hcp`. Otherwise it's `undefined`.
-						const productSlug = index.slice('product_'.length).toLowerCase()
-						docsResults = docsResults.concat(
-							hits.map((hit) => ({
-								...hit,
-								product: productSlug,
-							}))
-						)
-					}
-				})
-
-				return { docs: docsResults, tutorials: tutorialsResults }
-			})
-	})
-
-	/**
-	 * Getting the query data by the query key to avoid rendering the data from
-	 * the last-resolved query request.
-	 */
-	const queryClient = useQueryClient()
-	const searchResults: { docs: $TSFixMe[]; tutorials: $TSFixMe[] } =
-		queryClient.getQueryData(['search', currentInputValue])
-
 	return (
 		<>
 			{currentInputValue ? (
@@ -135,29 +184,27 @@ const SearchCommandBarDialogBody = () => {
 					initialActiveIndex={contentType === 'tutorials' ? 1 : 0}
 				>
 					<Tab heading="Documentation">
-						<DocumentationTabContents
-							searchResults={searchResults ? searchResults.docs : []}
-							suggestedPages={suggestedPages}
-						/>
+						<DocumentationTabContents />
 					</Tab>
 					<Tab heading="Tutorials">
-						<TutorialsTabContents
-							searchResults={searchResults ? searchResults.tutorials : []}
-							tutorialLibraryCta={{
-								href: currentProductTag
-									? `/tutorials/library?product=${currentProductTag.id}`
-									: '/tutorials/library',
-								text: currentProductTag
-									? `See all ${currentProductTag.text} tutorials in the Tutorial Library`
-									: 'See all tutorials in the Tutorial Library',
-							}}
-						/>
+						<TutorialsTabContents />
 					</Tab>
 				</Tabs>
 			) : (
 				<SuggestedPages pages={suggestedPages} />
 			)}
 		</>
+	)
+}
+
+const SearchCommandBarDialogBody = () => {
+	const { currentInputValue } = useCommandBar()
+
+	return (
+		<InstantSearch indexName="prod_LEARN" searchClient={searchClient}>
+			<Configure query={currentInputValue} />
+			<SearchCommandBarDialogBodyContent />
+		</InstantSearch>
 	)
 }
 
