@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import '@reach/dialog/styles.css'
 import {
@@ -6,35 +5,53 @@ import {
 	m as slimMotion,
 	useReducedMotion,
 } from 'framer-motion'
+import classNames from 'classnames'
 import { DialogProps } from './types'
 import s from './dialog.module.css'
 
 const AnimatedDialogOverlay = slimMotion(DialogOverlay)
+
+const overlayVariants = {
+	hidden: { opacity: 0 },
+	show: {
+		opacity: 1,
+	},
+}
 
 export default function Dialog({
 	children,
 	contentClassName,
 	isOpen,
 	label,
+	variant = 'modal',
 	onDismiss,
 }: DialogProps) {
 	const shouldReduceMotion = useReducedMotion()
+
+	const overlayMotionProps = {
+		variants: overlayVariants,
+		animate: 'show',
+		initial: 'hidden',
+		exit: 'hidden',
+		transition: { duration: shouldReduceMotion ? 0 : 0.3 },
+	}
 
 	return (
 		<AnimatePresence>
 			{isOpen && (
 				<AnimatedDialogOverlay
-					animate={{ opacity: 1 }}
-					className={s.animatedDialogOverlay}
-					exit={{ opacity: 0 }}
-					initial={{ opacity: 0 }}
+					key="overlay"
+					className={classNames(s.animatedDialogOverlay, s[variant])}
 					isOpen={isOpen}
 					onDismiss={onDismiss}
-					transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
+					{...overlayMotionProps}
 				>
-					<div className={s.contentWrapper}>
+					<div
+						key="contentWrapper"
+						className={classNames(s.contentWrapper, s[variant])}
+					>
 						<DialogContent
-							className={classNames(s.content, contentClassName)}
+							className={classNames(s.content, s[variant], contentClassName)}
 							aria-label={label}
 						>
 							{children}
