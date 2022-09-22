@@ -1,4 +1,5 @@
 import getIsBetaProduct from 'lib/get-is-beta-product'
+import { isSectionOption } from 'lib/learn-client/types'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import {
 	getIsExternalLearnLink,
@@ -36,7 +37,7 @@ const rewriteExternalLearnLink = (
 	}
 
 	const isBetaProduct = getIsBetaProduct(product)
-	if (isBetaProduct) {
+	if (isSectionOption(product) || isBetaProduct) {
 		// Regexes for each path type
 		const collectionPathRegex = new RegExp('^/collections')
 		const tutorialPathRegex = new RegExp('^/tutorials')

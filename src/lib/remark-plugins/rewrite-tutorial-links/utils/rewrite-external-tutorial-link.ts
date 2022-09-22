@@ -15,7 +15,10 @@
 import { LearnProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { SectionOption } from 'lib/learn-client/types'
-import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
+import {
+	normalizeSlugForDevDot,
+	normalizeSlugForTutorials,
+} from 'lib/tutorials/normalize-product-like-slug'
 import { SplitLearnPath } from '../types'
 
 export function rewriteExternalTutorialLink(
@@ -63,7 +66,11 @@ export function rewriteExternalTutorialLink(
 		SectionOption[normalizedProductSlug] ||
 		getIsBetaProduct(normalizedProductSlug)
 	) {
-		const tutorialSlug = [normalizedProductSlug, filename].join('/')
+		// example: the map has keys with `cloud` instead of `hcp`
+		const tutorialSlug = [
+			normalizeSlugForTutorials(normalizedProductSlug),
+			filename,
+		].join('/')
 		path = tutorialMap[tutorialSlug]
 	}
 

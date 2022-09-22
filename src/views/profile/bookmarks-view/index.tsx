@@ -11,8 +11,10 @@ import Heading from 'components/heading'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 } from 'components/dropdown-disclosure'
+import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
+import ButtonLink from 'components/button-link'
+import EmptyState from 'components/empty-state'
 import { BookmarkButtonWithRemoveDialog } from './components/bookmark-button-with-remove-dialog'
-import BookmarksEmptyState from './components/empty-state'
 import { ProfileBookmarksSidebar } from './components/sidebar'
 import { SortData } from './helpers/card-sort-data'
 import s from './bookmarks-view.module.css'
@@ -106,7 +108,14 @@ const ProfileBookmarksViewContent = () => {
 					/>
 				</>
 			) : (
-				<BookmarksEmptyState />
+				<EmptyState
+					icon={<IconBookmarkAdd16 />}
+					heading="You have no saved bookmarks."
+					subheading="You can select the bookmark icon on any tutorial card to save it for future reference."
+					callToAction={
+						<ButtonLink href="/tutorials/library" text="Tutorial library" />
+					}
+				/>
 			)}
 		</div>
 	)
