@@ -9,6 +9,15 @@ import CollectionCard, {
 } from 'components/collection-card'
 import s from './with-auth-elements.module.css'
 
+/**
+ * Displays a collection card, with progress elements where possible.
+ *
+ * Works without authentication enabled, displaying a tutorial count
+ * similar to the tutorial count displayed on plain collection cards.
+ *
+ * With authentication enabled, for authenticated users with progress,
+ * we display a progress bar or "complete" at the top of the card.
+ */
 function CollectionCardWithAuthElements({
 	id,
 	dbSlug,
