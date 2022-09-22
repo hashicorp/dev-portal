@@ -98,6 +98,7 @@ export async function getStaticProps() {
 		props: stripUndefinedProperties({
 			metadata: {
 				title: 'Tutorial Library',
+				description: 'Explore our tutorials to automate your workflows.',
 			},
 			defaultTutorials: await getTutorials(DEFAULT_SLUGS),
 			layoutProps: {
