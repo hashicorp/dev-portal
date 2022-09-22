@@ -111,7 +111,7 @@ export function rewriteDocsUrl(
 	const isCurrentProductDocsUrl = currentProduct.basePaths.some(
 		(basePath: string) => inputUrl.startsWith(`/${basePath}`)
 	)
-	const isProductPath = new RegExp(`^/(${productSlugs.join('|')})/`)
+	const isProductPath = new RegExp(`^/(${productSlugs.join('|')})`)
 
 	if (isCurrentProductDocsUrl) {
 		// The vagrant vmware utility downloads page is a unique case, where we did
