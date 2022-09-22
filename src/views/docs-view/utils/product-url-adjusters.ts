@@ -124,9 +124,9 @@ export function rewriteDocsUrl(
 		}
 		return `/${currentProduct.slug}${inputUrl}`
 	} else if (!isProductPath.test(inputUrl)) {
-		// if the path doesnt already start with a product slug, i.e. /consul/tutorials
-		// we assume it is an internal .io link for this product context
-		// that is not a docs link, and should link to the external .io site
+		// if the path doesnt already start with a product slug i.e. /consul/tutorials
+		// and its not an absolute url we assume it is an internal .io link
+		// for this product context that is not a docs link, and should link to the external .io site
 		// For example, the vault use case pages, the hcp pricing page, etc.
 		const url = new URL(
 			inputUrl,
