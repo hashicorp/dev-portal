@@ -1,4 +1,8 @@
 import { ButtonProps } from 'components/button'
+
+/**
+ * All props the native <a> HTML element accepts
+ */
 type AnchorElementProps = JSX.IntrinsicElements['a']
 
 /**
