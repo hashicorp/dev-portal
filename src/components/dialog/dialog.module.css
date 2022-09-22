@@ -1,6 +1,12 @@
 .animatedDialogOverlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	background: var(--token-color-border-strong);
 	z-index: 100;
+	overflow: hidden;
 }
 
 .contentWrapper {
@@ -12,11 +18,21 @@
 	width: 100vw;
 
 	@media (--dev-dot-tablet-up) {
-		padding-top: 10vh;
+		padding-top: 20vh;
+	}
+
+	&.bottom {
+		padding: 0;
+		padding-top: 20vh;
+		width: 100%;
+		position: absolute;
 	}
 }
 
 .content {
+	/** dev dot styles are currently scoped to the layout, but dialogs render in a portal so we aren't inheriting the correct body font */
+	--font-body: var(--token-typography-font-stack-text);
+
 	border-radius: 6px;
 	box-shadow: var(--token-surface-overlay-box-shadow);
 	margin: 0;
@@ -24,4 +40,16 @@
 	min-width: 300px;
 	padding: 24px;
 	width: 100%;
+
+	&.bottom {
+		height: 100%;
+		overflow-y: scroll;
+		max-width: none;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		box-shadow: none;
+
+		/* Ensures that content in the dialog is not hidden by the floating control bar on mobile browsers */
+		padding-bottom: 88px;
+	}
 }

@@ -1,0 +1,35 @@
+.root {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 20px;
+	min-height: 30px;
+
+	@media (--dev-dot-mobile) {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	& .label {
+		flex-shrink: 0;
+		padding: 5px 0;
+		align-self: flex-start;
+	}
+
+	& ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 14px 8px;
+
+		& li {
+			display: flex;
+
+			&:last-of-type {
+				margin-left: -6px;
+			}
+		}
+	}
+}

@@ -20,55 +20,15 @@
 import { Link, Definition } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
-import { ProductSlug } from 'types/products'
-import { ProductOption, SectionOption } from 'lib/learn-client/types'
-import getIsBetaProduct from 'lib/get-is-beta-product'
-import { productSlugsToHostNames } from 'lib/products'
 import {
+	getIsRewriteableDocsLink,
 	getTutorialMap,
-	handleCollectionLink,
-	handleTutorialLink,
-	handleDocsLink,
+	rewriteExternalLearnLink,
+	rewriteExternalDocsLink,
+	getIsExternalLearnLink,
 } from './utils'
 
 let TUTORIAL_MAP
-
-const ACCEPTED_DOCS_PATHNAMES = [
-	'docs',
-	'api',
-	'api-docs',
-	'commands',
-	'plugins',
-	'tools',
-	'vagrant-cloud',
-	'intro',
-	'cdktf',
-	'cli',
-	'cloud-docs',
-	'enterprise',
-	'internals',
-	'language',
-	'plugin',
-	'registry',
-	'guides',
-]
-const learnProductOptions = Object.keys(ProductOption).join('|')
-const learnSectionOptions = Object.keys(SectionOption).join('|')
-/**
- * Matches anything that
- * - contains learn.hashicorp.com
- * - collection & tutorial routes: /collections/waypoint/some-slug or /tutorials/terraform/another-slug
- * - product hub pages i.e. /boundary /waypoint
- * - section routes i.e. /well-architected-framework
- */
-const learnLink = new RegExp(
-	`(learn.hashicorp.com)|(/(collections|tutorials)/(${learnProductOptions}|cloud|${learnSectionOptions})/)|^/(${learnProductOptions}|cloud)$`
-)
-const docsLink = new RegExp(
-	`(${Object.values(productSlugsToHostNames).join(
-		'|'
-	)})/(${ACCEPTED_DOCS_PATHNAMES.join('|')})`
-)
 
 export const rewriteTutorialLinksPlugin: Plugin = () => {
 	return async function transformer(tree) {
@@ -83,106 +43,52 @@ function handleRewriteTutorialsLink(node: Link | Definition) {
 	node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP)
 }
 
-const getIsUrlAmbiguous = ({
-	isCollectionPath,
-	isDocsPath,
-	isProductHubPath,
-	isTutorialPath,
-}: Record<string, boolean>) => {
-	const truthyConditions = [
-		isCollectionPath,
-		isDocsPath,
-		isProductHubPath,
-		isTutorialPath,
-	].filter((condition: boolean) => condition)
-	return truthyConditions.length > 1
-}
-
 export function rewriteTutorialsLink(
 	url: string,
 	tutorialMap: Record<string, string>
 ): string {
-	let newUrl = url
+	let newUrl
 
 	try {
-		// return early if non tutorial or collection link
-		if (!learnLink.test(url) && !docsLink.test(url)) {
-			return newUrl
+		const urlObject = new URL(url, 'https://learn.hashicorp.com')
+
+		const isExternalLearnLink = getIsExternalLearnLink(url)
+		const isRewriteableDocsLink = getIsRewriteableDocsLink(url)
+
+		/**
+		 * Don't do anything if the link is ambiguous.
+		 */
+		if (isExternalLearnLink && isRewriteableDocsLink) {
+			throw new Error(
+				`[rewriteTutorialsLink] Found an ambiguous link: '${url}'`
+			)
 		}
 
-		const match: RegExpMatchArray | null = url.match(
-			new RegExp(`${learnProductOptions}|cloud|${learnSectionOptions}`)
-		)
-		const product = match ? match[0] : null
-		const isExternalLearnLink = url.includes('learn.hashicorp.com')
-		const isBetaProduct = product
-			? getIsBetaProduct(product as ProductSlug)
-			: false
-		const isValidSection = Boolean(SectionOption[product])
-		// Anchor links for the current tutorial shouldn't be rewritten. i.e. #some-heading
-		const isAnchorLink = url.startsWith('#')
-
-		// if its not a beta product and also not an external link, rewrite
-		// external non-beta product links don't need to be rewritten. i.e. learn.hashicorp.com/consul
-		if (!isBetaProduct && !isExternalLearnLink && !isAnchorLink) {
-			// If its an internal link, rewrite to an external learn link
-			newUrl = new URL(url, 'https://learn.hashicorp.com/').toString()
+		/**
+		 * Return the url unmodified if it's not rewriteable.
+		 */
+		if (!isExternalLearnLink && !isRewriteableDocsLink) {
+			return url
 		}
 
-		if (isBetaProduct || isValidSection) {
-			// General variables
-			const urlObject = new URL(url, 'https://learn.hashicorp.com/')
-			const { origin, pathname } = urlObject
-			const urlWithoutOrigin = urlObject.toString().replace(origin, '')
-			const productIOHostName = productSlugsToHostNames[product]
+		/**
+		 * Handle the link based on the determined link type.
+		 */
+		if (isExternalLearnLink) {
+			newUrl = rewriteExternalLearnLink(urlObject, tutorialMap)
+		} else if (isRewriteableDocsLink) {
+			newUrl = rewriteExternalDocsLink(urlObject)
+		}
 
-			// Regexes for each path type
-			const collectionPathRegex = new RegExp('^/collections')
-			const tutorialPathRegex = new RegExp('^/tutorials')
-			const productHubPathRegex = new RegExp(`^/${product}/?$`)
-
-			// Derived path type booleans
-			const isCollectionPath = collectionPathRegex.test(pathname)
-			const isTutorialPath = tutorialPathRegex.test(pathname)
-			const isProductHubPath = productHubPathRegex.test(pathname)
-			const isDocsPath = origin.includes(productIOHostName)
-
-			/**
-			 * Check if multiple conditions above were true. Only one should be true
-			 * at a time.
-			 */
-			const isUrlAmbiguous = getIsUrlAmbiguous({
-				isCollectionPath,
-				isTutorialPath,
-				isProductHubPath,
-				isDocsPath,
-			})
-			if (isUrlAmbiguous) {
-				throw new Error(`[rewriteTutorialsLink] found an ambiguous url: ${url}`)
-			}
-
-			/**
-			 * If the path type is not ambiguous, handle the path by type.
-			 */
-			if (isCollectionPath) {
-				newUrl = handleCollectionLink(urlWithoutOrigin)
-			} else if (isTutorialPath) {
-				newUrl = handleTutorialLink(urlWithoutOrigin, tutorialMap)
-			} else if (isProductHubPath) {
-				newUrl = `/${product}/tutorials`
-			} else if (isDocsPath) {
-				newUrl = handleDocsLink(urlWithoutOrigin, product as ProductSlug)
-			}
-
-			/**
-			 * If the link wasn't found in the map, default to original link. Could be
-			 * a typo, it's up to the author to correct -- this feedback should help.
-			 */
-			if (!newUrl) {
-				throw new Error(
-					`[MDX TUTORIAL]: internal link could not be rewritten: ${url} \nPlease check all Learn links in that tutorial to ensure they are correct.`
-				)
-			}
+		/**
+		 * If the link wasn't found in the map, default to original link. Could be
+		 * a typo, it's up to the author to correct -- this feedback should help.
+		 */
+		if (!newUrl) {
+			newUrl = isExternalLearnLink ? urlObject.toString() : url
+			throw new Error(
+				`[MDX rewriteTutorialsLink]: link could not be rewritten: ${url} \nIf the content at that link is MDX, please check all Learn and Docs .io links in the content to ensure they are correct.`
+			)
 		}
 	} catch (e) {
 		// we don't want an incorrect link to break the build
@@ -190,5 +96,5 @@ export function rewriteTutorialsLink(
 	}
 
 	// Return the modified URL, or default to the original one
-	return newUrl || url
+	return newUrl ?? url
 }

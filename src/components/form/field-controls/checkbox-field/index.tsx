@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useId } from '@react-aria/utils'
 import { Errors, HelperText, Label } from 'components/form/components'
 import { CheckboxControl } from 'components/form/base-controls'
@@ -13,11 +12,10 @@ const CheckboxField = ({
 	label,
 	labelFontWeight,
 	name,
-	onChange = () => null, // Default value makes this easier to invoke w/o extra logic
-	onClick,
+	onClick = () => void 0,
+	onChange = () => void 0,
 }: CheckboxFieldProps) => {
 	const inputId = useId(id)
-	const [isChecked, setIsChecked] = useState<boolean>(checked)
 
 	let helperTextElement, helperTextElementId
 	if (helperText) {
@@ -38,13 +36,10 @@ const CheckboxField = ({
 		<div className={s.root}>
 			<CheckboxControl
 				aria-describedby={helperTextElementId}
-				checked={isChecked}
+				checked={checked}
 				id={inputId}
 				name={name}
-				onChange={(e) => {
-					setIsChecked((previousIsChecked: boolean) => !previousIsChecked)
-					onChange(e)
-				}}
+				onChange={onChange}
 				onClick={onClick}
 			/>
 			<Label className={s.label} fontWeight={labelFontWeight} htmlFor={inputId}>
