@@ -1,4 +1,4 @@
-import CollectionCard, {
+import {
 	CollectionCardPropsWithId,
 	CollectionCardWithAuthElements,
 } from 'components/collection-card'
@@ -6,8 +6,10 @@ import { FeaturedInCollectionsProps } from './types'
 import s from './featured-in-collections.module.css'
 import CardsGridList from 'components/cards-grid-list'
 
-// This should render the eventual `CollectionCard` component (doesn't exist yet)
-// which will be used on many other views
+/**
+ * For tutorials that appear in multiple collections,
+ * renders collection cards to link to those collections.
+ */
 export function FeaturedInCollections({
 	className,
 	collections,
