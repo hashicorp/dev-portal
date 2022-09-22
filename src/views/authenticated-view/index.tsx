@@ -32,11 +32,6 @@ const AuthenticatedView = ({ children }: AuthenticatedViewProps) => {
 	}
 
 	return <>{children}</>
-		<div>
-			<h1>test</h1>
-			{children}
-		</div>
-	)
 }
 
 export default AuthenticatedView
