@@ -30,5 +30,3 @@ jobs:
           CLOUD_IDP_DEPLOY_PREVIEW_PRIVATE_KEY: ${{ secrets.CLOUD_IDP_DEPLOY_PREVIEW_PRIVATE_KEY }}
           PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
           FLOW_IDP_DEPLOYMENT_READY_URL: ${{ secrets.FLOW_IDP_DEPLOYMENT_READY_URL }}
-# TODO implement rest of workflow
-# https://app.asana.com/0/1202097197789424/1202939992537983/f
