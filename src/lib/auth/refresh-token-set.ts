@@ -1,13 +1,4 @@
-// The response shape from
-// POST {IDENTITY_PROVIDER}/oauth2/token
-interface TokenSet {
-	access_token: string
-	refresh_token: string
-	scope: string
-	expires_in: number
-	id_token: string
-	token_type: 'bearer'
-}
+import type { TokenSet } from 'types/auth'
 
 /**
  * Takes a refresh token, and returns a refreshed tokenSet.

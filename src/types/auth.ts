@@ -29,3 +29,13 @@ export { ValidAuthProviderId }
 export enum AuthErrors {
 	RefreshAccessTokenError = 'RefreshAccessTokenError',
 }
+
+/** The response shape from `POST {IDENTITY_PROVIDER}/oauth2/token` */
+export interface TokenSet {
+	access_token: string
+	refresh_token: string
+	scope: string
+	expires_in: number
+	id_token: string
+	token_type: 'bearer'
+}
