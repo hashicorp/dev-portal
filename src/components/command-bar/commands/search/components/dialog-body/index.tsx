@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import algoliasearch from 'algoliasearch'
 import { ProductSlug } from 'types/products'
-import { productSlugs, productSlugsToNames } from 'lib/products'
+import { productSlugsToNames } from 'lib/products'
 import { useCurrentContentType, useCurrentProduct } from 'contexts'
 import { useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
@@ -26,12 +26,8 @@ const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
 const searchClient = algoliasearch(appId, apiKey)
 
-const DocumentationHit = ({ hit, index }) => {
-	const {
-		objectID,
-		_highlightResult,
-		product = index.slice('product_'.length).toLowerCase(),
-	} = hit
+const DocumentationHit = ({ hit }) => {
+	const { objectID, _highlightResult, product } = hit
 	const { page_title, description } = _highlightResult
 	const resultUrl = `/${product}/${objectID}`
 	const productName = product === 'hcp' ? 'HCP' : productSlugsToNames[product]
@@ -42,7 +38,7 @@ const DocumentationHit = ({ hit, index }) => {
 			title={page_title?.value}
 			description={description?.value}
 			url={resultUrl}
-			badges={[productName]}
+			badges={productName ? [productName] : undefined}
 		/>
 	)
 }
@@ -71,10 +67,7 @@ const TutorialHit = ({ hit }) => {
 }
 
 const CustomHits = ({ type }) => {
-	const {
-		hits,
-		results: { index },
-	} = useHits()
+	const { hits } = useHits()
 
 	if (hits && hits.length <= 0) {
 		return null
@@ -89,9 +82,7 @@ const CustomHits = ({ type }) => {
 			<CommandBarList ariaLabelledBy={labelElementId}>
 				{hits.map((hit) => {
 					if (type === 'documentation') {
-						return (
-							<DocumentationHit key={hit.objectID} hit={hit} index={index} />
-						)
+						return <DocumentationHit key={hit.objectID} hit={hit} />
 					}
 
 					if (type === 'tutorials') {
@@ -105,15 +96,9 @@ const CustomHits = ({ type }) => {
 
 const DocumentationTabContents = () => {
 	return (
-		<>
-			{productSlugs
-				.filter((slug) => slug !== 'sentinel')
-				.map((slug) => (
-					<Index key={slug} indexName={`product_${slug.toUpperCase()}`}>
-						<CustomHits type="documentation" />
-					</Index>
-				))}
-		</>
+		<Index indexName="product_DEVDOT">
+			<CustomHits type="documentation" />
+		</Index>
 	)
 }
 
@@ -125,23 +110,9 @@ const TutorialsTabContents = () => {
 	)
 }
 
-const SearchCommandBarDialogBodyContent = () => {
-	const currentProduct = useCurrentProduct()
+const SearchCommandBarDialogBodyContent = ({ currentProductTag }) => {
+	const { currentInputValue } = useCommandBar()
 	const contentType = useCurrentContentType()
-	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
-
-	/**
-	 * Get the CommandBarTag object for the current product if it's present.
-	 */
-
-	const currentProductTag = useMemo(
-		() =>
-			getCurrentProductTag({
-				currentProduct,
-				currentTags,
-			}),
-		[currentProduct, currentTags]
-	)
 
 	/**
 	 * Generate suggested pages, memoized.
@@ -152,6 +123,31 @@ const SearchCommandBarDialogBodyContent = () => {
 	const suggestedPages = useMemo<SuggestedPage[]>(() => {
 		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProductTag])
+
+	return (
+		<>
+			{currentInputValue ? (
+				<Tabs
+					showAnchorLine={false}
+					initialActiveIndex={contentType === 'tutorials' ? 1 : 0}
+				>
+					<Tab heading="Documentation">
+						<DocumentationTabContents />
+					</Tab>
+					<Tab heading="Tutorials">
+						<TutorialsTabContents />
+					</Tab>
+				</Tabs>
+			) : (
+				<SuggestedPages pages={suggestedPages} />
+			)}
+		</>
+	)
+}
+
+const SearchCommandBarDialogBody = () => {
+	const currentProduct = useCurrentProduct()
+	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
 
 	/**
 	 * Create callback for setting up this command's state.
@@ -176,34 +172,30 @@ const SearchCommandBarDialogBodyContent = () => {
 	 */
 	useSetUpAndCleanUpCommandState(setUpCommandState, cleanUpCommandState)
 
-	return (
-		<>
-			{currentInputValue ? (
-				<Tabs
-					showAnchorLine={false}
-					initialActiveIndex={contentType === 'tutorials' ? 1 : 0}
-				>
-					<Tab heading="Documentation">
-						<DocumentationTabContents />
-					</Tab>
-					<Tab heading="Tutorials">
-						<TutorialsTabContents />
-					</Tab>
-				</Tabs>
-			) : (
-				<SuggestedPages pages={suggestedPages} />
-			)}
-		</>
-	)
-}
+	/**
+	 * Get the CommandBarTag object for the current product if it's present.
+	 */
 
-const SearchCommandBarDialogBody = () => {
-	const { currentInputValue } = useCommandBar()
+	const currentProductTag = useMemo(
+		() =>
+			getCurrentProductTag({
+				currentProduct,
+				currentTags,
+			}),
+		[currentProduct, currentTags]
+	)
 
 	return (
 		<InstantSearch indexName="prod_LEARN" searchClient={searchClient}>
-			<Configure query={currentInputValue} />
-			<SearchCommandBarDialogBodyContent />
+			<Configure
+				query={currentInputValue}
+				filters={
+					currentProductTag ? `product:${currentProductTag.id}` : undefined
+				}
+			/>
+			<SearchCommandBarDialogBodyContent
+				currentProductTag={currentProductTag}
+			/>
 		</InstantSearch>
 	)
 }
