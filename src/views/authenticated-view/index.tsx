@@ -31,7 +31,7 @@ const AuthenticatedView = ({ children }: AuthenticatedViewProps) => {
 		return null
 	}
 
-	return (
+	return <>{children}</>
 		<div>
 			<h1>test</h1>
 			{children}
