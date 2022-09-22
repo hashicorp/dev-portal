@@ -184,6 +184,7 @@ function TutorialView({
 			visuallyHideTitle: true,
 			children: (
 				<TutorialViewSidebarContent
+					collection={collectionCtx.current}
 					items={collectionCtx.current.tutorials.map((t) =>
 						formatTutorialToMenuItem(t, collectionCtx.current, currentPath)
 					)}

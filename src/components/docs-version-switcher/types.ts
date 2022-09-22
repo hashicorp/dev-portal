@@ -4,6 +4,7 @@ type DocsVersionSwitcherOption = VersionSelectItem
 
 interface DocsVersionSwitcherProps {
 	options?: DocsVersionSwitcherOption[]
+	projectName?: string
 }
 
 export type { DocsVersionSwitcherOption, DocsVersionSwitcherProps }

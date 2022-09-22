@@ -21,15 +21,16 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+import { CachedRemoteContentLoader } from 'lib/cached-remote-content-loader'
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { SidebarProps } from 'components/sidebar'
-import { EnrichedNavItem } from 'components/sidebar/types'
+import { EnrichedNavItem, MenuItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
-import { CachedRemoteContentLoader } from 'lib/cached-remote-content-loader'
+import { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -51,16 +52,7 @@ function getBetaLatestVersionRef(slug: string): string | undefined {
 	const hasDevPortalBranch = [
 		'vault',
 		'waypoint',
-		'boundary',
-		'consul',
-		'nomad',
-		'terraform-docs-common',
-		'ptfe-releases',
-		'terraform-cdk',
-		'terraform',
-		'terraform-plugin-sdk',
-		'terraform-plugin-framework',
-		'terraform-docs-agents',
+		'cloud.hashicorp.com',
 	].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }
@@ -91,6 +83,7 @@ export function getStaticGenerationFunctions<
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	navDataPrefix,
+	options = {},
 }: {
 	product: ProductData
 	basePath: string
@@ -101,6 +94,7 @@ export function getStaticGenerationFunctions<
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
 	navDataPrefix?: string
+	options?: DocsViewPropOptions
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
 	 * Beta products, defined in our config files, will source content from a
@@ -286,12 +280,37 @@ export function getStaticGenerationFunctions<
 				menuItems: navDataWithFullPaths as EnrichedNavItem[],
 				title: currentRootDocsPath.shortName || currentRootDocsPath.name,
 			}
-			// If the title is not hidden for this rootDocsPath, include it
-			if (currentRootDocsPath.visuallyHideSidebarTitle) {
+			/**
+			 * In some cases, the first nav item is a heading.
+			 * In these case, we'll visually hide the sidebar title,
+			 * since it will redundant right next to the authored title.
+			 */
+			const firstItemIsHeading =
+				typeof navDataWithFullPaths[0]?.heading == 'string'
+			if (firstItemIsHeading) {
 				docsSidebarLevel.visuallyHideTitle = true
 			}
-			// Add "Overview" item, unless explicitly disabled
-			if (currentRootDocsPath.addOverviewItem !== false) {
+
+			/**
+			 * Check the top level of the navData for "overview" items,
+			 * which are expected to be present for consistency.
+			 * If we do no have an overview item match, then we'll
+			 * automatically add an overview item.
+			 */
+			const overviewItemMatch = navDataWithFullPaths.find((item: MenuItem) => {
+				const isPathMatch =
+					item.path == '' ||
+					item.path == '/' ||
+					item.path == '/index' ||
+					item.path == 'index'
+				return isPathMatch
+			})
+			/**
+			 * Exception: If the first navData node is a `heading`,
+			 * we'll avoid adding an overview item even if there's
+			 * no overview item match.
+			 */
+			if (!overviewItemMatch && !firstItemIsHeading) {
 				docsSidebarLevel.overviewItemHref = versionPathPart
 					? `/${product.slug}/${basePath}/${versionPathPart}`
 					: `/${product.slug}/${basePath}`
@@ -336,16 +355,7 @@ export function getStaticGenerationFunctions<
 			const hasMeaningfulVersions =
 				versions.length > 0 &&
 				(versions.length > 1 || versions[0].version !== 'v0.0.x')
-			/**
-			 * For the /packer/plugins landing page, we want to hide the version selector,
-			 * even though we do have meaningful versions available
-			 */
-			const isPackerPlugins =
-				product.slug == 'packer' && currentRootDocsPath.path == 'plugins'
 
-			if (!isPackerPlugins && hasMeaningfulVersions) {
-				layoutProps.versions = versions
-			}
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.
 			 * Currently, HCP and Sentinel docs are stored in private repositories.
@@ -359,6 +369,8 @@ export function getStaticGenerationFunctions<
 			if (isPublicContentRepo) {
 				layoutProps.githubFileUrl = githubFileUrl
 			}
+
+			const { hideVersionSelector, projectName } = options
 
 			const finalProps = {
 				layoutProps,
@@ -377,7 +389,9 @@ export function getStaticGenerationFunctions<
 					// needed for DocsVersionSwitcher
 					currentRootDocsPath: currentRootDocsPath || null,
 				},
-				versions,
+				projectName: projectName || null,
+				versions:
+					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
 			}
 
 			return {

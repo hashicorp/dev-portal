@@ -44,7 +44,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--homepage-grid-gap);
-  border-radius: 14px;
+  border-radius: 6px;
 
   @media (--dev-dot-tablet-up) {
     grid-template-columns: repeat(3, 1fr);
@@ -69,7 +69,7 @@
   place-items: center;
   padding-top: 24px;
   padding-bottom: 24px;
-  border-radius: 14px;
+  border-radius: 6px;
   background-color: var(--token-color-surface-primary);
   color: var(--token-color-foreground-disabled);
   box-shadow: var(--token-surface-base-box-shadow);
@@ -82,14 +82,14 @@
 
     &.isFirstChild,
     &.isFirstChild::after {
-      border-top-left-radius: 14px;
-      border-bottom-left-radius: 14px;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
     }
 
     &.isLastChild,
     &.isLastChild::after {
-      border-top-right-radius: 14px;
-      border-bottom-right-radius: 14px;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
     }
   }
 
@@ -105,11 +105,11 @@
       transition: all 0.1s;
 
       &.isFirstChild {
-        border-bottom-left-radius: 14px;
+        border-bottom-left-radius: 6px;
       }
 
       &.isLastChild {
-        border-bottom-right-radius: 14px;
+        border-bottom-right-radius: 6px;
       }
     }
 

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import GetStartedCard from 'components/get-started-card'
+import CalloutCard from 'components/callout-card'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import { developmentToast, ToastColor } from 'components/toast'
 import { ProductLandingViewProps } from './types'
@@ -53,7 +53,7 @@ function ProductLandingView({
 				) : null}
 			</div>
 			<div className={s.getStartedMargin}>
-				<GetStartedCard
+				<CalloutCard
 					heading={get_started.heading}
 					headingSlug={get_started.headingSlug}
 					body={get_started.body}

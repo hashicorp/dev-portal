@@ -15,12 +15,12 @@
 			"heading": "Getting Started"
 		},
 		{
-			"title": "What is Bounary?",
+			"title": "What is Boundary?",
 			"fullPath": "/boundary/docs/what-is-boundary"
 		},
 		{
 			"title": "Quick Start",
-			"fullPath": "/boundary/docs/getting-started/deploy-and-login"
+			"fullPath": "/boundary/docs/getting-started"
 		}
 	],
 	"sidecarMarketingCard": {
@@ -38,6 +38,10 @@
 			{
 				"href": "/boundary/docs/concepts/domain-model",
 				"text": "Domain Model"
+			},
+			{
+				"href": "/boundary/docs/api-clients",
+				"text": "Clients"
 			}
 		]
 	}

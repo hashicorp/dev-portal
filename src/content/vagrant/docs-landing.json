@@ -1,4 +1,21 @@
 {
+	"iconCardGridItems": [
+		{
+			"iconName": "terminal",
+			"name": "CLI",
+			"path": "docs/cli"
+		},
+		{
+			"iconName": "docs",
+			"name": "Vagrantfile",
+			"path": "docs/vagrantfile"
+		},
+		{
+			"iconName": "cloud",
+			"name": "Vagrant Cloud",
+			"path": "vagrant-cloud"
+		}
+	],
 	"pageSubtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",
 	"marketingContentBlocks": [
 		{
@@ -74,7 +91,7 @@
 				{
 					"iconName": "api",
 					"text": "Vagrant Cloud API",
-					"url": "/vagrant/docs/vagrant-cloud/api"
+					"url": "/vagrant/vagrant-cloud/api"
 				},
 				{
 					"iconName": "plug",
