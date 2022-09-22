@@ -1,9 +1,6 @@
 import useAuthentication from 'hooks/use-authentication'
-import { AuthErrors } from 'types/auth'
-// import { signOut } from 'next-auth/react'
 import ErrorView from 'views/error-view-switcher'
 import { AuthenticatedViewProps } from './types'
-// import { signIn, SignInOptions } from 'next-auth/react'
 
 /**
  * A view that handles gating content behind authentication. Also handles

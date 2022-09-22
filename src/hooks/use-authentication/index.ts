@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import {
 	AuthErrors,
@@ -7,7 +8,6 @@ import {
 } from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { signInWrapper, signOutWrapper, signUp } from './helpers'
-import { useEffect } from 'react'
 
 export const AUTH_ENABLED = __config.flags.enable_auth
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
