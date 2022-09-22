@@ -11,6 +11,10 @@ import { getLatestVagrantVmwareVersion } from './get-latest-vagrant-vmware-versi
 
 export interface DocsViewPropOptions {
 	hideVersionSelector?: boolean
+	/**
+	 * A human-readable project name that is rendered in the version selector and version alert
+	 */
+	projectName?: string
 }
 
 /**

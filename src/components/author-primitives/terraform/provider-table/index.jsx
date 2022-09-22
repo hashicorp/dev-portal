@@ -5,18 +5,14 @@ import s from './style.module.css'
 export default function ProviderTable() {
 	return (
 		<MdxTable className={s.providerTable}>
-			<tbody>
+			<thead>
 				<tr>
-					<td>
-						<strong>Tier</strong>
-					</td>
-					<td>
-						<strong>Description</strong>
-					</td>
-					<td>
-						<strong>Namespace</strong>
-					</td>
+					<th align="left">Tier</th>
+					<th align="left">Description</th>
+					<th align="left">Namespace</th>
 				</tr>
+			</thead>
+			<tbody>
 				<tr>
 					<td>
 						<ProviderBadge type="official" />

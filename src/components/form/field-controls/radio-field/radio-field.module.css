@@ -6,6 +6,7 @@
 	grid-template-columns: auto 1fr;
 	grid-template-rows: auto auto auto;
 	justify-items: start;
+	align-items: center;
 }
 
 .label {

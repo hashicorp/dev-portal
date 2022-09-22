@@ -22,12 +22,8 @@ describe('remove-non-beta-product-pages', () => {
 
 		expect(stdout).toMatchInlineSnapshot(`
 		"🧹 removing pages at /docs
-		🧹 removing pages at /hcp
-		🧹 removing pages at /packer
 		🧹 removing pages at /profile
 		🧹 removing pages at /sentinel
-		🧹 removing pages at /terraform
-		🧹 removing pages at /vagrant
 		"
 	`)
 	})
