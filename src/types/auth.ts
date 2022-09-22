@@ -6,6 +6,7 @@ import { Session } from 'next-auth'
 type SessionData = Omit<Session, 'user'> & {
 	accessToken?: string
 	id?: string
+	error?: string
 }
 
 /**
@@ -24,3 +25,7 @@ enum ValidAuthProviderId {
 
 export type { SessionData, UserData }
 export { ValidAuthProviderId }
+
+export enum AuthErrors {
+	RefreshAccessTokenError = 'RefreshAccessTokenError',
+}
