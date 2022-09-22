@@ -6,7 +6,7 @@ import { Session } from 'next-auth'
 type SessionData = Omit<Session, 'user'> & {
 	accessToken?: string
 	id?: string
-	error?: string
+	error?: AuthErrors
 }
 
 /**
