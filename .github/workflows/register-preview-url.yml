@@ -26,7 +26,7 @@ jobs:
       - name: Add Preview URL to CloudIDP
         run: npx hc-tools ./scripts/add-preview-url-to-cloud-idp.ts
         env:
-          CLOUD_IDP_DEPLOY_PREVIEW_PRIVATE_KEY: ${{ secrets.CLOUD_IDP_DEPLOY_PREVIEW_PRIVATE_KEY }}
+          CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY: ${{ secrets.CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY }}
           PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
           FLOW_IDP_DEPLOYMENT_READY_URL: ${{ secrets.FLOW_IDP_DEPLOYMENT_READY_URL }}
           VERCEL_API_TOKEN: ${{ secrets.VERCEL_API_TOKEN }}
