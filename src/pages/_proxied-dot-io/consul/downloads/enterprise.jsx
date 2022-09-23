@@ -24,6 +24,18 @@ function DownloadsPage({ product, releases, latestVersion }) {
 			product={product}
 			releases={releases}
 			latestVersion={latestVersion}
+			packageManagerOverrides={[
+				{
+					label: 'Homebrew',
+					commands: [`brew install hashicorp/tap/consul-enterprise`],
+					os: 'darwin',
+				},
+				{
+					label: 'Homebrew',
+					commands: [`brew install hashicorp/tap/consul-enterprise`],
+					os: 'linux',
+				},
+			]}
 		/>
 	)
 }
