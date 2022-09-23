@@ -97,9 +97,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 	if (optInPlatform && !hasOptedIn) {
 		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {
-			// Next.js pre 12.2 assumes maxAge is in ms, not seconds
-			// TODO: update this when we upgrade to 12.2
-			maxAge: OPT_IN_MAX_AGE * 1000,
+			maxAge: OPT_IN_MAX_AGE,
 		})
 	}
 
