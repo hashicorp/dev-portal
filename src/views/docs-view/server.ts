@@ -48,11 +48,7 @@ import { DocsViewPropOptions } from './utils/get-root-docs-path-generation-funct
  * "latestVersionRef" to the remote content loader config.
  */
 function getBetaLatestVersionRef(slug: string): string | undefined {
-	const hasDevPortalBranch = [
-		'vault',
-		'waypoint',
-		'cloud.hashicorp.com',
-	].includes(slug)
+	const hasDevPortalBranch = ['cloud.hashicorp.com'].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }
 
