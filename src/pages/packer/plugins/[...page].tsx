@@ -102,7 +102,7 @@ export async function getStaticProps({ params, ...ctx }) {
 			},
 			menuItems: navData,
 			title: baseName,
-			overviewItemHref: `/${productData.slug}/${basePath}`,
+			visuallyHideTitle: true,
 		},
 	]
 
