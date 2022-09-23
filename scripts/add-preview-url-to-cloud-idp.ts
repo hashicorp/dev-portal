@@ -7,8 +7,11 @@ const vercelTeamId = process.env.VERCEL_TEAM_ID
 
 /** A helper to fetch Vercel Deployment Aliases from Vercel Deploy Preview URLs */
 async function fetchDeploymentAlias(previewUrl: string): Promise<string[]> {
-	const previewHostname = previewUrl.replace(/^https:\/\//i, '')
-	const url = new URL(previewHostname, 'https://api.vercel.com/v13/deployments')
+	const previewHostname = new URL(previewUrl).hostname
+	const url = new URL(
+		`v13/deployments/${previewHostname}`,
+		'https://api.vercel.com'
+	)
 
 	url.searchParams.set('teamId', vercelTeamId)
 	url.searchParams.set('withAutomaticAliases', '1')
