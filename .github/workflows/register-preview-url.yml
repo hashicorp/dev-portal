@@ -11,12 +11,23 @@ jobs:
       - name: summary
         run: |
           echo "# Summary" >> $GITHUB_STEP_SUMMARY
-          echo "Event Name: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
           echo "Deployed to: ${{ github.event.deployment_status.environment }}" >> $GITHUB_STEP_SUMMARY
           echo "Deployed State: ${{ github.event.deployment_status.state }}" >> $GITHUB_STEP_SUMMARY
-          echo "environment_url: ${{ github.event.deployment_status.environment_url }}" >> $GITHUB_STEP_SUMMARY
-          echo "log_url: ${{ github.event.deployment_status.log_url }}" >> $GITHUB_STEP_SUMMARY
           echo "target_url: ${{ github.event.deployment_status.target_url }}" >> $GITHUB_STEP_SUMMARY
 
-# TODO implement rest of workflow
-# https://app.asana.com/0/1202097197789424/1202939992537983/f
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install npm@8
+        run: npm install --global npm@8
+      - name: Install dependencies
+        run: npm ci
+      - name: Add Preview URL to CloudIDP
+        run: npx hc-tools ./scripts/add-preview-url-to-cloud-idp.ts
+        env:
+          CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY: ${{ secrets.CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY }}
+          PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
+          FLOW_IDP_DEPLOYMENT_READY_URL: ${{ secrets.FLOW_IDP_DEPLOYMENT_READY_URL }}
+          VERCEL_API_TOKEN: ${{ secrets.VERCEL_API_TOKEN }}
+          VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
