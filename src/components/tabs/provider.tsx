@@ -14,7 +14,12 @@ type TabContextValue = {
 }
 
 export function useTabGroups(): TabContextValue {
-	return useContext(TabContext)
+	const context = useContext(TabContext)
+	if (context === undefined) {
+		throw new Error('useTabGroups must be used within a TabProvider')
+	}
+
+	return context
 }
 
 const TabContext = createContext(undefined)
