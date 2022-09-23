@@ -9,6 +9,11 @@ import { cachedGetProductData } from 'lib/get-product-data'
  */
 export default validateToken(
 	async function handler(request: NextApiRequest, response: NextApiResponse) {
+		if (request.method !== 'POST') {
+			response.status(StatusCodes.NOT_FOUND)
+			return
+		}
+
 		console.log(request.body)
 		const { product } = request.body
 
