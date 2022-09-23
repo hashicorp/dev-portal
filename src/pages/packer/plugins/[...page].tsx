@@ -81,7 +81,7 @@ export async function getStaticProps({ params, ...ctx }) {
 	/**
 	 * Prepare nav data for client, eg adding `fullPath`
 	 */
-	const { preparedItems: navData } = prepareNavDataForClient({
+	const { preparedItems: navData } = await prepareNavDataForClient({
 		basePaths: [productData.slug, basePath],
 		nodes: props.navData,
 	})
@@ -102,7 +102,7 @@ export async function getStaticProps({ params, ...ctx }) {
 			},
 			menuItems: navData,
 			title: baseName,
-			overviewItemHref: `/${productData.slug}/${basePath}`,
+			visuallyHideTitle: true,
 		},
 	]
 

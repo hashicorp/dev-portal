@@ -234,10 +234,11 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Add fullPaths and auto-generated ids to navData
 			 */
-			const { preparedItems: navDataWithFullPaths } = prepareNavDataForClient({
-				basePaths: [product.slug, basePath],
-				nodes: navData,
-			})
+			const { preparedItems: navDataWithFullPaths } =
+				await prepareNavDataForClient({
+					basePaths: [product.slug, basePath],
+					nodes: navData,
+				})
 
 			/**
 			 * Figure out of a specific docs version is being viewed
