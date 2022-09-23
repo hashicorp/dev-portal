@@ -4,6 +4,7 @@ import redirects from 'data/_redirects.generated.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
+import { deleteCookie } from 'lib/middleware-delete-cookie'
 
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
 
@@ -70,7 +71,8 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		url.searchParams.delete('betaOptOut')
 
 		const response = NextResponse.redirect(url)
-		response.cookies.delete(`${product}-io-beta-opt-in`)
+
+		deleteCookie(req, response, `${product}-io-beta-opt-in`)
 
 		return response
 	}
