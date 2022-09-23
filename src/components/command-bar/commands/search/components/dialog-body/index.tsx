@@ -46,10 +46,14 @@ const SearchCommandBarDialogBodyContent = ({
 					initialActiveIndex={contentType === 'tutorials' ? 1 : 0}
 				>
 					<Tab heading="Documentation">
-						<DocumentationTabContents suggestedPages={suggestedPages} />
+						<DocumentationTabContents
+							currentProductTag={currentProductTag}
+							suggestedPages={suggestedPages}
+						/>
 					</Tab>
 					<Tab heading="Tutorials">
 						<TutorialsTabContents
+							currentProductTag={currentProductTag}
 							tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
 						/>
 					</Tab>
@@ -102,12 +106,7 @@ const SearchCommandBarDialogBody = () => {
 
 	return (
 		<InstantSearch indexName="prod_LEARN" searchClient={searchClient}>
-			<Configure
-				query={currentInputValue}
-				filters={
-					currentProductTag ? `product:${currentProductTag.id}` : undefined
-				}
-			/>
+			<Configure query={currentInputValue} />
 			<SearchCommandBarDialogBodyContent
 				currentProductTag={currentProductTag}
 			/>

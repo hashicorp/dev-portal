@@ -1,4 +1,7 @@
+import { CommandBarTag } from 'components/command-bar/types'
+
 interface TutorialsTabContentsProps {
+	currentProductTag?: CommandBarTag
 	tutorialLibraryCta: {
 		href: string
 		text: string

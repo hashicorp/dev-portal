@@ -1,6 +1,8 @@
+import { CommandBarTag } from 'components/command-bar/types'
 import { SuggestedPagesProps } from '../suggested-pages/types'
 
 interface DocumentationTabContentsProps {
+	currentProductTag?: CommandBarTag
 	suggestedPages: SuggestedPagesProps['pages']
 }
 
