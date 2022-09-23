@@ -29,7 +29,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
 					label: 'Homebrew',
 					commands: [
 						`brew tap hashicorp/tap`,
-						`brew install hashicorp/tap/consul-enterprise`
+						`brew install hashicorp/tap/${product}-enterprise`
 					],
 					os: 'darwin',
 				},
@@ -37,7 +37,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
 					label: 'Homebrew',
 					commands: [
 						`brew tap hashicorp/tap`,
-						`brew install hashicorp/tap/consul-enterprise`
+						`brew install hashicorp/tap/${product}-enterprise`
 					],
 					os: 'linux',
 				},
