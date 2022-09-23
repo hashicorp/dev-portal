@@ -1,5 +1,5 @@
 import { CSSProperties, ReactElement } from 'react'
-import NextImage from 'next/image'
+import NextImage from 'next/future/image'
 import { ImageProps } from './types'
 import classNames from 'classnames'
 import s from './image.module.css'
@@ -97,7 +97,6 @@ function Image({
 					title={title}
 					width={dimensions.width}
 					height={dimensions.height}
-					layout="raw"
 					style={style}
 				/>
 			) : (
