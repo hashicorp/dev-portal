@@ -88,6 +88,14 @@ export function generateEnterprisePackageManagers(
 
 	return [
 		{
+            label: 'Homebrew',
+            commands: [
+                `brew tap hashicorp/tap`,
+                `brew install hashicorp/tap/${productSlug}-enterprise`,
+            ],
+            os: 'darwin',
+        },
+		{
 			label: 'Ubuntu/Debian',
 			commands: [
 				`wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg`,
@@ -123,6 +131,14 @@ export function generateEnterprisePackageManagers(
 			],
 			os: 'linux',
 		},
+		{
+            label: 'Homebrew',
+            commands: [
+                `brew tap hashicorp/tap`,
+                `brew install hashicorp/tap/${productSlug}-enterprise`,
+            ],
+            os: 'linux',
+        },
 	]
 }
 
