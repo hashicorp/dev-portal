@@ -51,7 +51,7 @@ async function getStaticProps(ctx) {
 		}
 
 		// Prepare nav data for client (such as adding `fullPath`)
-		const { preparedItems: navData } = prepareNavDataForClient({
+		const { preparedItems: navData } = await prepareNavDataForClient({
 			basePaths: ['packer', 'plugins'],
 			nodes: rawNavData,
 		})
