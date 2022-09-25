@@ -4,6 +4,7 @@ import { useCurrentProduct } from 'contexts'
 import ProductIcon from 'components/product-icon'
 import { ContextSwitcherOption, VersionContextSwitcherProps } from './types'
 import s from './version-context-switcher.module.css'
+import { version } from 'os'
 
 /**
  * To be used as control that changes the content of a page or as form control.
@@ -14,15 +15,31 @@ import s from './version-context-switcher.module.css'
  * built yet for the sake of time and because the component is also a WIP on the
  * design systems side.
  */
+
 const VersionContextSwitcher = ({
 	initialValue,
 	onChange,
 	options,
 }: VersionContextSwitcherProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
+	// Set `latestVersion` initially to the first item in the sorted array.
+	let latestVersion = options[0].value
+	// Update `latestVersion` to the latest version of the product
+	// that has been released if it can be determined.
+	// This is needed because not all products have `latest` listed
+	// as the first item in the sorted array.
+	// E.g. `vault-enterprise` lists `+ent.hsm.fips1402` variants first.
+	for (let i = 0; i < options.length; i++) {
+		const versionLabel = options[i].label
+		const versionValue = options[i].value
+		if (versionLabel.includes('(latest)')) {
+			latestVersion = versionValue
+		}
+	}
+
 	const [selectedVersion, setSelectedVersion] = useState<
 		ContextSwitcherOption['value']
-	>(initialValue || options[0].value)
+	>(initialValue || latestVersion)
 
 	/**
 	 * Handle change event for switcher, invoking the `onChange` function last if
