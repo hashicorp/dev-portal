@@ -4,7 +4,6 @@ import { useCurrentProduct } from 'contexts'
 import ProductIcon from 'components/product-icon'
 import { ContextSwitcherOption, VersionContextSwitcherProps } from './types'
 import s from './version-context-switcher.module.css'
-import { version } from 'os'
 
 /**
  * To be used as control that changes the content of a page or as form control.
