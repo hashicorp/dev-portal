@@ -1,3 +1,4 @@
+import { Hit } from '@algolia/client-search'
 import { CommandBarTag } from 'components/command-bar/types'
 import { SuggestedPagesProps } from '../suggested-pages/types'
 
@@ -6,16 +7,10 @@ interface DocumentationTabContentsProps {
 	suggestedPages: SuggestedPagesProps['pages']
 }
 
-interface DocumentationHitObject extends Record<string, unknown> {
-	objectID: string
-	_highlightResult: {
-		page_title: {
-			value: string
-		}
-		description: {
-			value: string
-		}
-	}
+type DocumentationHitObject = Hit<{
+	page_title: string
+	description: string
+}> & {
 	product: string
 }
 

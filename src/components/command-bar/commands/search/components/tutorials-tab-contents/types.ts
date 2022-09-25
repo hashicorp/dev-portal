@@ -1,3 +1,4 @@
+import { Hit } from '@algolia/client-search'
 import { CommandBarTag } from 'components/command-bar/types'
 
 interface TutorialsTabContentsProps {
@@ -8,15 +9,10 @@ interface TutorialsTabContentsProps {
 	}
 }
 
-interface TutorialHitObject extends Record<string, unknown> {
-	_highlightResult: {
-		description: {
-			value: string
-		}
-		name: {
-			value: string
-		}
-	}
+type TutorialHitObject = Hit<{
+	description: string
+	name: string
+}> & {
 	defaultContext: {
 		slug: string
 	}
