@@ -1,10 +1,9 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import classNames from 'classnames'
-import { Tab, TabButtonControls, TabDropdownControls } from './components'
-import { useHasOverflow, useTabItems } from './hooks'
 import { TabItem, TabsProps } from './types'
+import { useHasOverflow, useSyncedTabGroups, useTabItems } from './hooks'
+import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
-import { useTabGroups } from './provider'
 import s from './tabs.module.css'
 
 const Tabs = ({
@@ -48,29 +47,15 @@ const Tabs = ({
 	const tabItems = useTabItems({ children, activeTabIndex, initialActiveIndex })
 
 	/**
-	 * Handle syncing `activeTabIndex` and `activeTabGroup`.
+	 * Handle syncing active tab index and active tab group.
 	 *
 	 * Note: only works where tabs have groups, eg <Tab group="some-string" />.
 	 */
-	const { activeTabGroup, setActiveTabGroup } = useTabGroups()
-	useEffect(() => {
-		// If there is no active tab group, don't do anything
-		if (!activeTabGroup) {
-			return
-		}
-
-		// Check if the current tab is part of the active group
-		const currentTabItem = tabItems[activeTabIndex]
-		if (currentTabItem.group !== activeTabGroup) {
-			// Look for a tab that matches the active group
-			tabItems.find((tabItem, index) => {
-				// Update the active index if a tab that matches the group was found
-				if (tabItem.group === activeTabGroup) {
-					setActiveTabIndex(index)
-				}
-			})
-		}
-	}, [activeTabGroup, activeTabIndex, tabItems])
+	const setSyncedActiveTabIndex = useSyncedTabGroups({
+		activeTabIndex,
+		setActiveTabIndex,
+		tabItems,
+	})
 
 	/**
 	 * If there's overflow, show a dropdown. Otherwise show typical tabs.
@@ -95,11 +80,7 @@ const Tabs = ({
 						ariaLabelledBy={ariaLabelledBy}
 						tabItems={tabItems}
 						activeTabIndex={activeTabIndex}
-						setActiveTabIndex={(newIndex) => {
-							const tabItem = tabItems[newIndex]
-							setActiveTabGroup(tabItem.group)
-							setActiveTabIndex(newIndex)
-						}}
+						setActiveTabIndex={setSyncedActiveTabIndex}
 						isNested={allowNestedStyles && isNested}
 					/>
 				</div>
