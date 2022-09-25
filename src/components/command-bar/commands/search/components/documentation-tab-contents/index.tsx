@@ -15,7 +15,7 @@ const DocumentationTabContents = ({
 	}
 
 	return (
-		<Index indexName="product_DEVDOT">
+		<Index indexName={__config.dev_dot.algolia.docsIndexName}>
 			<Configure filters={filters} />
 			<CustomHitsContainer
 				noResultsSlot={

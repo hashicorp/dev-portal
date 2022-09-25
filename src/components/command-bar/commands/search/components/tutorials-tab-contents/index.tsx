@@ -23,7 +23,7 @@ const TutorialsTabContents = ({
 	}
 
 	return (
-		<Index indexName="prod_LEARN">
+		<Index indexName={__config.dev_dot.algolia.tutorialsIndexName}>
 			<Configure filters={filters} />
 			<CustomHitsContainer
 				type="tutorials"
