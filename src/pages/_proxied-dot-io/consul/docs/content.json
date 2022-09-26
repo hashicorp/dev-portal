@@ -7,11 +7,11 @@
 		"links": [
 			{
 				"title": "HashiCorp Cloud Platform (HCP)",
-				"url": "https://learn.hashicorp.com/collections/consul/cloud-get-started"
+				"url": "https://learn.hashicorp.com/collections/consul/get-started-hcp"
 			},
 			{
 				"title": "Kubernetes",
-				"url": "https://learn.hashicorp.com/collections/consul/gs-consul-service-mesh"
+				"url": "https://learn.hashicorp.com/collections/consul/get-started-kubernetes"
 			},
 			{
 				"title": "VM",
