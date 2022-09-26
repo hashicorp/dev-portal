@@ -32,15 +32,6 @@ query homepageQuery {
 			heading
 			description
 		}
-		introFeatures {
-			heading
-			description
-			link
-			image {
-				url
-				alt
-			}
-		}
 		introVideo {
 			youtubeId
 			heading
