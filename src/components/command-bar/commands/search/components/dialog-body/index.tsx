@@ -105,7 +105,10 @@ const SearchCommandBarDialogBody = () => {
 	)
 
 	return (
-		<InstantSearch indexName="prod_LEARN" searchClient={searchClient}>
+		<InstantSearch
+			indexName={__config.dev_dot.algolia.tutorialsIndexName}
+			searchClient={searchClient}
+		>
 			<Configure query={currentInputValue} />
 			<SearchCommandBarDialogBodyContent
 				currentProductTag={currentProductTag}
