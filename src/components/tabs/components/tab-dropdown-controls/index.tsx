@@ -9,12 +9,12 @@ import s from './tab-dropdown-controls.module.css'
  * https://app.asana.com/0/1202097197789424/1202133172981709/f
  */
 function TabDropdownControls({
+	activeTabIndex,
 	ariaLabel = 'Select a tab panel',
 	ariaLabelledBy,
 	isNested,
-	activeTabIndex,
-	tabItems,
 	setActiveTabIndex,
+	tabItems,
 }: TabControlsProps) {
 	const currentTabItem = tabItems[activeTabIndex]
 	const hasIcon = !!currentTabItem.icon
