@@ -155,8 +155,8 @@ function validateTabChildren(
 	 * each of which represent a valid tab item to render
 	 */
 	const tabItems = childrenArray.map((childTab: ReactElement) => {
-		const { heading, children, group } = childTab.props
-		return { label: heading, content: children, group }
+		const { children, group, heading, icon } = childTab.props
+		return { content: children, group, icon, label: heading }
 	})
 
 	/**

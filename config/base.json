@@ -8,6 +8,10 @@
 			"title": "HashiCorp Developer",
 			"description": "Explore {product} product documentation, tutorials, and examples."
 		},
+		"algolia": {
+			"docsIndexName": "product_DEVDOT",
+			"tutorialsIndexName": "prod_LEARN"
+		},
 		"analytics": {
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
 		},

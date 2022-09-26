@@ -29,7 +29,7 @@ import { EnrichedNavItem, MenuItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
-import { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
+import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
