@@ -67,7 +67,7 @@ export default function MdxHcpCallout({ product }: MdxHcpCalloutProps) {
 					className={s.heading}
 				>
 					Looking for <span className={s.solutionGradient}>{productName}</span>{' '}
-					documentation?
+					fundamentals?
 				</Text>
 				<Text
 					asElement="p"
@@ -75,8 +75,8 @@ export default function MdxHcpCallout({ product }: MdxHcpCalloutProps) {
 					color="var(--white)"
 					className={s.subHeading}
 				>
-					To reference non-cloud documentation go to the {productName} docs
-					page.
+					To read core {productName} documentation and tutorials, including
+					local open source docs
 				</Text>
 				<StandaloneLink
 					text={`Go to ${productName}`}
