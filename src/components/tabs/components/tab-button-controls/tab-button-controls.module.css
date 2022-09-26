@@ -28,16 +28,13 @@ the correct elements, roles, states, and properties are being set in the markup.
 Styles for each tab button.
 */
 .tabButton[role='tab'] {
-	align-items: center;
 	background-color: white;
 	border-radius: 5px;
 	border: 1px solid transparent;
 	color: var(--token-color-foreground-faint);
 	cursor: pointer;
-	display: flex;
 	flex-shrink: 0; /* Ensure items will trigger overflow */
 	font-weight: var(--token-typography-font-weight-medium);
-	gap: 6px;
 	padding: 7px 11px;
 
 	&[aria-selected='true'] {
@@ -117,6 +114,8 @@ Styles for each tab button.
 
 .label {
 	composes: hds-typography-body-200 from global;
-	display: block;
+	align-items: center;
+	display: flex;
+	gap: 6px;
 	position: relative;
 }

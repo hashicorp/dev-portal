@@ -98,8 +98,10 @@ function TabButtonControls({
 						tabIndex={isActive ? 0 : -1}
 						type="button"
 					>
-						{icon}
-						<span className={s.label}>{label}</span>
+						<span className={s.label}>
+							{icon}
+							{label}
+						</span>
 					</button>
 				)
 			})}
