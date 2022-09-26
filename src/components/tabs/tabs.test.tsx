@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
+import TabProvider from './provider'
 import Tabs, { Tab } from '.'
 
 describe('<Tabs />', () => {
@@ -15,14 +16,16 @@ describe('<Tabs />', () => {
 
 		beforeEach(() => {
 			const results = render(
-				<Tabs>
-					{testData.map(({ heading, content }, index) => (
-						// eslint-disable-next-line react/no-array-index-key
-						<Tab heading={heading} key={index}>
-							{content}
-						</Tab>
-					))}
-				</Tabs>
+				<TabProvider>
+					<Tabs>
+						{testData.map(({ heading, content }, index) => (
+							// eslint-disable-next-line react/no-array-index-key
+							<Tab heading={heading} key={index}>
+								{content}
+							</Tab>
+						))}
+					</Tabs>
+				</TabProvider>
 			)
 			container = results.container
 		})
@@ -256,14 +259,16 @@ describe('<Tabs />', () => {
 	test('the `initialActiveIndex` correctly activates a tab index on inital render', () => {
 		const testInitialActiveIndex = 1
 		render(
-			<Tabs initialActiveIndex={testInitialActiveIndex}>
-				{testData.map(({ heading, content }, index) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<Tab heading={heading} key={index}>
-						{content}
-					</Tab>
-				))}
-			</Tabs>
+			<TabProvider>
+				<Tabs initialActiveIndex={testInitialActiveIndex}>
+					{testData.map(({ heading, content }, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<Tab heading={heading} key={index}>
+							{content}
+						</Tab>
+					))}
+				</Tabs>
+			</TabProvider>
 		)
 
 		expect(
@@ -283,14 +288,16 @@ describe('<Tabs />', () => {
 	test('the `ariaLabel` prop correctly gives the component an accessible label', () => {
 		const testAriaLabel = 'A set of tabs'
 		render(
-			<Tabs ariaLabel={testAriaLabel}>
-				{testData.map(({ heading, content }, index) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<Tab heading={heading} key={index}>
-						{content}
-					</Tab>
-				))}
-			</Tabs>
+			<TabProvider>
+				<Tabs ariaLabel={testAriaLabel}>
+					{testData.map(({ heading, content }, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<Tab heading={heading} key={index}>
+							{content}
+						</Tab>
+					))}
+				</Tabs>
+			</TabProvider>
 		)
 
 		const rootContainer = screen.queryByLabelText(testAriaLabel)
@@ -302,7 +309,7 @@ describe('<Tabs />', () => {
 		const testAriaLabelledById = 'a-special-tabs-label'
 		const testAriaLabelledByText = 'A set of tabs'
 		render(
-			<>
+			<TabProvider>
 				<p id={testAriaLabelledById}>{testAriaLabelledByText}</p>
 				<Tabs ariaLabelledBy={testAriaLabelledById}>
 					{testData.map(({ heading, content }, index) => (
@@ -312,7 +319,7 @@ describe('<Tabs />', () => {
 						</Tab>
 					))}
 				</Tabs>
-			</>
+			</TabProvider>
 		)
 
 		const rootContainer = screen.queryByLabelText(testAriaLabelledByText)
@@ -322,14 +329,16 @@ describe('<Tabs />', () => {
 
 	test('the `showAnchorLine` test adds an extra classname to role="tablist"', () => {
 		render(
-			<Tabs>
-				{testData.map(({ heading, content }, index) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<Tab heading={heading} key={index}>
-						{content}
-					</Tab>
-				))}
-			</Tabs>
+			<TabProvider>
+				<Tabs>
+					{testData.map(({ heading, content }, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<Tab heading={heading} key={index}>
+							{content}
+						</Tab>
+					))}
+				</Tabs>
+			</TabProvider>
 		)
 
 		const targetElement = screen.queryByRole('tablist').parentElement
