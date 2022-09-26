@@ -7,6 +7,7 @@ import {
 	TutorialHit,
 	TutorialHitObject,
 } from '../'
+import s from './custom-hits-container.module.css'
 
 const CustomHitsContainer = ({
 	noResultsSlot,
@@ -24,21 +25,25 @@ const CustomHitsContainer = ({
 			<div id={labelElementId} className="g-screen-reader-only">
 				{type} search results
 			</div>
-			<CommandBarList ariaLabelledBy={labelElementId}>
-				{hits.map((hit: DocumentationHitObject | TutorialHitObject) => {
-					let hitObject
+			<div className={s.comandBarListWrapper}>
+				<CommandBarList ariaLabelledBy={labelElementId}>
+					{hits.map((hit: DocumentationHitObject | TutorialHitObject) => {
+						let hitObject
 
-					if (type === 'documentation') {
-						hitObject = hit as DocumentationHitObject
-						return <DocumentationHit key={hitObject.objectID} hit={hitObject} />
-					}
+						if (type === 'documentation') {
+							hitObject = hit as DocumentationHitObject
+							return (
+								<DocumentationHit key={hitObject.objectID} hit={hitObject} />
+							)
+						}
 
-					if (type === 'tutorials') {
-						hitObject = hit as TutorialHitObject
-						return <TutorialHit key={hitObject.objectID} hit={hitObject} />
-					}
-				})}
-			</CommandBarList>
+						if (type === 'tutorials') {
+							hitObject = hit as TutorialHitObject
+							return <TutorialHit key={hitObject.objectID} hit={hitObject} />
+						}
+					})}
+				</CommandBarList>
+			</div>
 		</>
 	)
 }
