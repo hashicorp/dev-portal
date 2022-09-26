@@ -4,4 +4,5 @@ export interface DialogProps {
 	isOpen: boolean
 	label?: string
 	onDismiss(): void
+	variant?: 'modal' | 'bottom'
 }
