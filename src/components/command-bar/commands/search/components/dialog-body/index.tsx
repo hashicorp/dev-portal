@@ -1,6 +1,8 @@
 import { useCallback, useMemo } from 'react'
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
+import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
+import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { ProductSlug } from 'types/products'
 import { useCurrentContentType, useCurrentProduct } from 'contexts'
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
@@ -17,6 +19,7 @@ import {
 	DocumentationTabContents,
 	TutorialsTabContents,
 } from '../'
+import s from './search-command-bar-dialog-body.module.css'
 
 // TODO(brkalow): We might consider lazy-loading the search client & the insights library
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
@@ -38,30 +41,31 @@ const SearchCommandBarDialogBodyContent = ({
 		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProductTag])
 
-	return (
-		<>
-			{currentInputValue ? (
-				<Tabs
-					showAnchorLine={false}
-					initialActiveIndex={contentType === 'tutorials' ? 1 : 0}
-				>
-					<Tab heading="Documentation">
-						<DocumentationTabContents
-							currentProductTag={currentProductTag}
-							suggestedPages={suggestedPages}
-						/>
-					</Tab>
-					<Tab heading="Tutorials">
-						<TutorialsTabContents
-							currentProductTag={currentProductTag}
-							tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
-						/>
-					</Tab>
-				</Tabs>
-			) : (
-				<SuggestedPages pages={suggestedPages} />
-			)}
-		</>
+	return currentInputValue ? (
+		<div className={s.tabsWrapper}>
+			<Tabs
+				showAnchorLine={false}
+				initialActiveIndex={contentType === 'tutorials' ? 1 : 0}
+				variant="compact"
+			>
+				<Tab heading="Documentation" icon={<IconDocs16 />}>
+					<DocumentationTabContents
+						currentProductTag={currentProductTag}
+						suggestedPages={suggestedPages}
+					/>
+				</Tab>
+				<Tab heading="Tutorials" icon={<IconLearn16 />}>
+					<TutorialsTabContents
+						currentProductTag={currentProductTag}
+						tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
+					/>
+				</Tab>
+			</Tabs>
+		</div>
+	) : (
+		<div className={s.suggestedPagesWrapper}>
+			<SuggestedPages pages={suggestedPages} />
+		</div>
 	)
 }
 
