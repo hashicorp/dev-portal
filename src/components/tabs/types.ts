@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { TabProps } from './components/tab'
 
 /**
  * TODO: We more than likely want to require an accessible label on Tabs in the
@@ -25,11 +26,6 @@ export interface TabsProps {
 	 * At least two `Tab` components, one for each button and panel to render
 	 */
 	children: ReactNode
-
-	/**
-	 * An optional icon to render before the text of a Tab.
-	 */
-	icon?: JSX.IntrinsicElements['svg']
 
 	/**
 	 * The index of the tab to show as active on initial render
@@ -77,7 +73,7 @@ export interface TabsProps {
 export interface RawTabItem {
 	content: ReactNode
 	group?: string
-	icon?: TabsProps['icon']
+	icon?: TabProps['icon']
 	label: string
 }
 
