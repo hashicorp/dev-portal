@@ -23,6 +23,22 @@ the correct elements, roles, states, and properties are being set in the markup.
 			border-bottom: none;
 		}
 	}
+
+	&.variant--compact {
+		border: none;
+		padding: 0;
+		position: relative;
+
+		&::after {
+			border-bottom: 1px solid var(--token-color-border-primary);
+			bottom: 0;
+			content: '';
+			height: 1px;
+			left: 0;
+			position: absolute;
+			right: 0;
+		}
+	}
 }
 
 /* While hasOverflow is being checked, temporarily hide the controls */

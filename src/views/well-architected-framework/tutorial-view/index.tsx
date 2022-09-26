@@ -2,7 +2,6 @@ import HashiHead from '@hashicorp/react-head'
 import { Fragment } from 'react'
 import { MDXRemote } from 'next-mdx-remote'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import getVideoUrl from 'views/tutorial-view/utils/get-video-url'
@@ -81,11 +80,9 @@ export default function WellArchitectedFrameworkTutorialView({
 							})}
 						/>
 					)}
-					<TabProvider>
-						<DevDotContent>
-							<MDXRemote {...content} components={MDX_COMPONENTS} />
-						</DevDotContent>
-					</TabProvider>
+					<DevDotContent>
+						<MDXRemote {...content} components={MDX_COMPONENTS} />
+					</DevDotContent>
 					<NextPrevious {...nextPreviousData} />
 					<FeaturedInCollections
 						className={s.featuredInCollections}
