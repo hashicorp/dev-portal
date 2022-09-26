@@ -69,8 +69,6 @@ const DocumentationHit = ({ hit }: DocumentationHitProps) => {
 	const productName = product === 'hcp' ? 'HCP' : productSlugsToNames[product]
 	const url = generateDocumentationHitUrl(hit)
 
-	console.log({ url })
-
 	return (
 		<CommandBarLinkListItem
 			title={page_title?.value}
