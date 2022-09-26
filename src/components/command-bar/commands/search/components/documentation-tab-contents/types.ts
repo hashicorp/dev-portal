@@ -10,6 +10,7 @@ interface DocumentationTabContentsProps {
 type DocumentationHitObject = Hit<{
 	page_title: string
 	description: string
+	headings?: string[]
 }> & {
 	product: string
 }
