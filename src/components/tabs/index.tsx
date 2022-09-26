@@ -1,18 +1,19 @@
-import { ReactElement, useRef, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import classNames from 'classnames'
-import { Tab, TabButtonControls, TabDropdownControls } from './components'
-import { useHasOverflow, useTabItems, useSyncedTabGroups } from './hooks'
 import { TabItem, TabsProps } from './types'
+import { useHasOverflow, useSyncedTabGroups, useTabItems } from './hooks'
+import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
 import s from './tabs.module.css'
 
 const Tabs = ({
+	allowNestedStyles = false,
 	ariaLabel,
 	ariaLabelledBy,
 	children,
 	initialActiveIndex = 0,
 	showAnchorLine = true,
-	allowNestedStyles = false,
+	variant = 'normal',
 }: TabsProps): ReactElement => {
 	/**
 	 * TODO: this is a temporary measure until we are able to start requiring
@@ -47,8 +48,7 @@ const Tabs = ({
 	const tabItems = useTabItems({ children, activeTabIndex, initialActiveIndex })
 
 	/**
-	 * useSyncedTabGroups hooks into TabProvider,
-	 * and keeps activeTabIndex & activeTabGroup in sync.
+	 * Handle syncing active tab index and active tab group.
 	 *
 	 * Note: only works where tabs have groups, eg <Tab group="some-string" />.
 	 */
@@ -70,19 +70,20 @@ const Tabs = ({
 		<TabNestingProvider>
 			<div ref={overflowTargetRef}>
 				<div
-					className={classNames(s.tabControls, {
+					className={classNames(s.tabControls, s[`variant--${variant}`], {
 						[s.isCheckingOverflow]: hasOverflow === null,
 						[s.showAnchorLine]: showAnchorLine,
 						[s.allowNestedStyles]: allowNestedStyles,
 					})}
 				>
 					<TabControls
+						activeTabIndex={activeTabIndex}
 						ariaLabel={ariaLabel}
 						ariaLabelledBy={ariaLabelledBy}
-						tabItems={tabItems}
-						activeTabIndex={activeTabIndex}
-						setActiveTabIndex={setSyncedActiveTabIndex}
 						isNested={allowNestedStyles && isNested}
+						setActiveTabIndex={setSyncedActiveTabIndex}
+						tabItems={tabItems}
+						variant={variant}
 					/>
 				</div>
 				{tabItems.map((tabItem: TabItem) => {

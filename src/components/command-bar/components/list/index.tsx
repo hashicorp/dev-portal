@@ -3,9 +3,27 @@ import Text from 'components/text'
 import { CommandBarListProps } from './types'
 import s from './command-bar-list.module.css'
 
-const CommandBarList = ({ children, label }: CommandBarListProps) => {
+const CommandBarList = ({
+	ariaLabelledBy,
+	children,
+	label,
+}: CommandBarListProps) => {
 	const componentId = useId()
 	const labelId = `${componentId}-label`
+
+	const hasAccessibleLabel = !!ariaLabelledBy || !!label
+	if (!hasAccessibleLabel) {
+		throw new Error(
+			'CommandBarList requires one of: `ariaLabelledBy` or `label`.'
+		)
+	}
+
+	const hasTooManyLabels = !!ariaLabelledBy && !!label
+	if (hasTooManyLabels) {
+		throw new Error(
+			'CommandBarList was given both `ariaLabelledBy and `label`. Only provide one.'
+		)
+	}
 
 	return (
 		<div className={s.root}>

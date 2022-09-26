@@ -1,5 +1,5 @@
 {
-	"pageSubtitle": "Learn and develop your knowledge of HashiCorp Cloud Platform with these tutorials and code resources.",
+	"pageSubtitle": "Learn and develop your knowledge of HashiCorp Cloud Platform with these reference docs.",
 	"iconCardGridItems": [
 		{
 			"iconName": "vault-color",
@@ -28,87 +28,24 @@
 			"title": "Fundamentals",
 			"cards": [
 				{
-					"title": "Quick Start",
-					"description": "It only takes a few minutes to get started with HashiCorp Cloud Platform on your local development environment.",
-					"url": "/hcp/docs"
+					"title": "What is HCP?",
+					"description": "How the control plane, data plane, and services work on HCP.",
+					"url": "/hcp/docs/hcp"
 				},
 				{
-					"title": "App Lifecycle",
-					"description": "HashiCorp Cloud Platform has an opinionated view on the minimum application lifecycle: build, deploy, and release.",
-					"url": "/hcp/docs"
+					"title": "Supported AWS Environments",
+					"description": "Regions in which HCP is accessible.",
+					"url": "/hcp/docs/hcp/supported-env/aws"
 				},
 				{
-					"title": "Projects",
-					"description": "A project contains one or more applications and each one in a project represents a single deployable object.",
-					"url": "/hcp/docs"
+					"title": "Supported Azure Environments",
+					"description": "Regions in which HCP is accessible.",
+					"url": "/hcp/docs/hcp/supported-env/azure"
 				},
 				{
-					"title": "waypoint.hcl",
-					"description": "The waypoint.hcl file configures each HashiCorp Cloud Platform project and defines how HashiCorp Cloud Platform builds, deploys, and releases it.",
-					"url": "/hcp/docs"
-				}
-			]
-		},
-		{
-			"type": "card-grid",
-			"title": "Application Configuration",
-			"cards": [
-				{
-					"title": "Overview",
-					"description": "HashiCorp Cloud Platform can configure your application by setting environment variables and writing files.",
-					"url": "/hcp/docs"
-				},
-				{
-					"title": "Dynamic Values",
-					"description": "HashiCorp Cloud Platform can sync app config values with external systems like Kubernetes ConfigMaps, HashiCorp Vault, and more.",
-					"url": "/hcp/docs"
-				},
-				{
-					"title": "Files",
-					"description": "HashiCorp Cloud Platform can write configs to files for apps that expect configurations at a certain path or in a certain format.",
-					"url": "/hcp/docs"
-				}
-			]
-		},
-		{
-			"type": "card-grid",
-			"title": "Debugging",
-			"cards": [
-				{
-					"title": "Tips and Troubleshooting",
-					"description": "Common tips and troubleshooting methods.",
-					"url": "/hcp/docs"
-				},
-				{
-					"title": "Logs",
-					"description": "HashiCorp Cloud Platform app logs are aggregated and available to view via the CLI and UI.",
-					"url": "/hcp/docs"
-				},
-				{
-					"title": "Exec",
-					"description": "HashiCorp Cloud Platform enables you to execute commands in the context of a deployed application.",
-					"url": "/hcp/docs"
-				}
-			]
-		},
-		{
-			"type": "card-grid",
-			"title": "Highlighted Features",
-			"cards": [
-				{
-					"title": "HashiCorp Cloud Platform URL Service",
-					"description": "The HashiCorp Cloud Platform URL service is a free, public service hosted by HashiCorp to view your deployed app.",
-					"url": "/hcp/docs"
-				},
-				{
-					"title": "HashiCorp Cloud Platform Runners",
-					"description": "HashiCorp Cloud Platform has three types of runners to execute every operation: CLI, remote, and on-demand.",
-					"url": "/hcp/docs"
-				},
-				{
-					"title": "HashiCorp Cloud Platform Triggers",
-					"description": "Trigger URLs are pre-configured HashiCorp Cloud Platform lifecycle operations for execution inside CI environments.",
-					"url": "/hcp/docs"
+					"title": "Administration",
+					"description": "How to set up organizations, users, service principals, and MFA.",
+					"url": "/hcp/docs/hcp/admin/orgs"
 				}
 			]
 		}

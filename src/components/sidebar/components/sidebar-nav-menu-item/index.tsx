@@ -247,9 +247,10 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 			</button>
 			{isOpen && (
 				<ul id={listId} onKeyDown={handleKeyDown}>
-					{item.routes.map((route: MenuItem) => (
-						<SidebarNavMenuItem key={route.id} item={route} />
-					))}
+					{item.routes.map((route: MenuItem, i) => {
+						const key = `${route.id || route.fullPath || route.title}-${i}`
+						return <SidebarNavMenuItem key={key} item={route} />
+					})}
 				</ul>
 			)}
 		</>

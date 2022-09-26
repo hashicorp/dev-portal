@@ -1,9 +1,28 @@
+import { Hit } from '@algolia/client-search'
+import { CommandBarTag } from 'components/command-bar/types'
+
 interface TutorialsTabContentsProps {
-	searchResults: $TSFixMe[]
+	currentProductTag?: CommandBarTag
 	tutorialLibraryCta: {
 		href: string
 		text: string
 	}
 }
 
-export type { TutorialsTabContentsProps }
+type TutorialHitObject = Hit<{
+	description: string
+	name: string
+}> & {
+	defaultContext: {
+		slug: string
+	}
+	id: string
+	products: string[]
+	slug: string
+}
+
+interface TutorialHitProps {
+	hit: TutorialHitObject
+}
+
+export type { TutorialHitObject, TutorialHitProps, TutorialsTabContentsProps }

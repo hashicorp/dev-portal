@@ -1,5 +1,11 @@
+import { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
-import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
+import {
+	AuthErrors,
+	SessionData,
+	UserData,
+	ValidAuthProviderId,
+} from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { signInWrapper, signOutWrapper, signUp } from './helpers'
 
@@ -25,6 +31,13 @@ const useAuthentication = (
 		required: AUTH_ENABLED && isRequired,
 		onUnauthenticated,
 	})
+
+	// Logout user if token refresh fails
+	useEffect(() => {
+		if (data?.error === AuthErrors.RefreshAccessTokenError) {
+			signOutWrapper()
+		}
+	}, [data?.error])
 
 	// Deriving booleans about auth state
 	const isAuthEnabled = AUTH_ENABLED
