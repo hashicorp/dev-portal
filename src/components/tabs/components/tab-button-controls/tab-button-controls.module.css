@@ -4,67 +4,70 @@ the correct elements, roles, states, and properties are being set in the markup.
 */
 
 .tabList[role='tablist'] {
-  position: relative;
-  align-items: center;
-  display: flex;
-  gap: 2px;
+	position: relative;
+	align-items: center;
+	display: flex;
+	gap: 2px;
 
-  /* In nested tabs, include an underline-ish style under tab buttons.
+	/* In nested tabs, include an underline-ish style under tab buttons.
      Note that ::after seems needed here to position the border below
      the button elements. Using bottom-border would not create overlap. */
-  &.isNested::after {
-    background: var(--token-color-border-primary);
-    bottom: 0;
-    content: '';
-    height: 1px;
-    left: 0;
-    position: absolute;
-    right: 0;
-    z-index: -1;
-  }
+	&.isNested::after {
+		background: var(--token-color-border-primary);
+		bottom: 0;
+		content: '';
+		height: 1px;
+		left: 0;
+		position: absolute;
+		right: 0;
+		z-index: -1;
+	}
 }
 
 /*
 Styles for each tab button.
 */
 .tabButton[role='tab'] {
-  background-color: white;
-  border-radius: 5px;
-  border: 1px solid transparent;
-  color: var(--token-color-foreground-faint);
-  cursor: pointer;
-  flex-shrink: 0; /* Ensure items will trigger overflow */
-  font-weight: var(--token-typography-font-weight-medium);
-  padding: 7px 11px;
+	align-items: center;
+	background-color: white;
+	border-radius: 5px;
+	border: 1px solid transparent;
+	color: var(--token-color-foreground-faint);
+	cursor: pointer;
+	display: flex;
+	flex-shrink: 0; /* Ensure items will trigger overflow */
+	font-weight: var(--token-typography-font-weight-medium);
+	gap: 6px;
+	padding: 7px 11px;
 
-  &[aria-selected='true'] {
-    color: var(--token-color-foreground-action);
-    background-color: var(--token-color-surface-action);
-    border-color: var(--token-color-foreground-action);
-  }
+	&[aria-selected='true'] {
+		color: var(--token-color-foreground-action);
+		background-color: var(--token-color-surface-action);
+		border-color: var(--token-color-foreground-action);
+	}
 
-  &:focus-visible {
-    z-index: 1;
-  }
+	&:focus-visible {
+		z-index: 1;
+	}
 
-  &:hover {
-    color: var(--token-color-foreground-action);
-    border-color: var(--token-color-foreground-action);
-  }
+	&:hover {
+		color: var(--token-color-foreground-action);
+		border-color: var(--token-color-foreground-action);
+	}
 
-  /* In nested tabs, use a thick bottom border, visible when active */
-  &.isNested {
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid transparent;
-    padding: 8px 12px 6px 12px;
+	/* In nested tabs, use a thick bottom border, visible when active */
+	&.isNested {
+		background-color: transparent;
+		border: none;
+		border-bottom: 2px solid transparent;
+		padding: 8px 12px 6px 12px;
 
-    &[aria-selected='true'] {
-      border-bottom-color: var(--token-color-foreground-action);
-    }
+		&[aria-selected='true'] {
+			border-bottom-color: var(--token-color-foreground-action);
+		}
 
-    &:not(:focus-visible) {
-      border-radius: 0;
-    }
-  }
+		&:not(:focus-visible) {
+			border-radius: 0;
+		}
+	}
 }
