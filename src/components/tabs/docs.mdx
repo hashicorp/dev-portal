@@ -2,6 +2,7 @@
 componentName: Tabs
 peerComponents:
   - InlineLink
+  - SwingsetTestIcon
 ---
 
 ## Tabs Props
@@ -39,18 +40,28 @@ peerComponents:
 
 ## Examples
 
-### With `variant="compact"`
+### With `icon`s for each `Tab`
 
 <LiveComponent>{`
-<Tabs ariaLabel="Definitions of Common Operating Systems" variant="compact">
-  <Tab heading="Windows">
-    <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows">Read more on Wikipedia</InlineLink>.</p>
+<Tabs>
+  <Tab heading="Documentation" icon={<SwingsetTestIcon name="docs" />}>
+    <p>Documentation tab content</p>
   </Tab>
-  <Tab heading="Mac OS">
-    <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems">Read more on Wikipedia</InlineLink>.</p>
+  <Tab heading="Tutorials" icon={<SwingsetTestIcon name="learn" />}>
+    <p>Tutorials tab content</p>
   </Tab>
-  <Tab heading="Linux">
-    <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux">Read more on Wikipedia</InlineLink>.</p>
+</Tabs>
+`}</LiveComponent>
+
+### With `variant="compact"` and `icon`s for each `Tab`
+
+<LiveComponent>{`
+<Tabs variant="compact">
+  <Tab heading="Documentation" icon={<SwingsetTestIcon name="docs" />}>
+    <p>Documentation tab content</p>
+  </Tab>
+  <Tab heading="Tutorials" icon={<SwingsetTestIcon name="learn" />}>
+    <p>Tutorials tab content</p>
   </Tab>
 </Tabs>
 `}</LiveComponent>
