@@ -1,4 +1,4 @@
-import { ReactElement, useRef, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import classNames from 'classnames'
 import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import { useHasOverflow, useTabItems, useSyncedTabGroups } from './hooks'
