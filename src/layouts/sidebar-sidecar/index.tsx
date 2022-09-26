@@ -28,6 +28,7 @@ import {
 	useSidebarNavData,
 } from './contexts/sidebar-nav-data'
 import s from './sidebar-sidecar-layout.module.css'
+import { ScrollProgressBar } from './components/scroll-progress-bar'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
 	const navDataLevels = props.sidebarNavDataLevels
@@ -87,59 +88,62 @@ const SidebarSidecarLayoutContent = ({
 	}
 
 	return (
-		<div className={s.root}>
-			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
-				<div className={s.sidebarContentWrapper}>
-					<MobileAuthenticationControls />
-					{sidebarContent}
-				</div>
-			</MobileMenuContainer>
-			<div className={s.contentWrapper}>
-				{currentlyViewedVersion && (
-					<PageAlert
-						className={s.versionAlert}
-						description={
-							<>
-								You are viewing documentation for version{' '}
-								{currentlyViewedVersion}.{' '}
-								<InlineLink
-									className={s.versionAlertLink}
-									href={removeVersionFromPath(currentPath)}
-									textSize={200}
-									textWeight="medium"
-								>
-									View latest version
-								</InlineLink>
-								.
-							</>
-						}
-						icon={<IconInfo16 />}
-						type="highlight"
-					/>
-				)}
-				<div className={s.mainAreaWrapper}>
-					<main id="main" className={s.main}>
-						<span className={s.breadcrumbOptOutGroup}>
-							{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-							<span className={s.optInOutSlot}>
-								{optInOutSlot && optInOutSlot}
+		<>
+			<div className={s.root}>
+				<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
+					<div className={s.sidebarContentWrapper}>
+						<MobileAuthenticationControls />
+						{sidebarContent}
+					</div>
+				</MobileMenuContainer>
+				<div className={s.contentWrapper}>
+					{currentlyViewedVersion && (
+						<PageAlert
+							className={s.versionAlert}
+							description={
+								<>
+									You are viewing documentation for version{' '}
+									{currentlyViewedVersion}.{' '}
+									<InlineLink
+										className={s.versionAlertLink}
+										href={removeVersionFromPath(currentPath)}
+										textSize={200}
+										textWeight="medium"
+									>
+										View latest version
+									</InlineLink>
+									.
+								</>
+							}
+							icon={<IconInfo16 />}
+							type="highlight"
+						/>
+					)}
+					<div className={s.mainAreaWrapper}>
+						<main id="main" className={s.main}>
+							<span className={s.breadcrumbOptOutGroup}>
+								{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+								<span className={s.optInOutSlot}>
+									{optInOutSlot && optInOutSlot}
+								</span>
 							</span>
-						</span>
-						{children}
-						{githubFileUrl && (
-							<EditOnGithubLink
-								className={s.editOnGithubLink}
-								url={githubFileUrl}
-								label="Edit this page on GitHub"
-							/>
-						)}
-					</main>
-					<div className={s.sidecarWrapper}>
-						<SidecarContent />
+							{children}
+							{githubFileUrl && (
+								<EditOnGithubLink
+									className={s.editOnGithubLink}
+									url={githubFileUrl}
+									label="Edit this page on GitHub"
+								/>
+							)}
+						</main>
+						<div className={s.sidecarWrapper}>
+							<SidecarContent />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			<ScrollProgressBar />
+		</>
 	)
 }
 
