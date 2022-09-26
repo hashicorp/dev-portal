@@ -3,7 +3,6 @@ import { IconLink16 } from '@hashicorp/flight-icons/svg-react/link-16'
 import s from './mdx-heading-permalink.module.css'
 
 export default function MdxHeadingPermalink(props) {
-	console.log(classNames(s.root, props.className))
 	const { className, ...rest } = props
 
 	return (
