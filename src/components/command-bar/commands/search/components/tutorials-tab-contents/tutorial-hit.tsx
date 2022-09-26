@@ -17,7 +17,6 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 
 	return (
 		<CommandBarLinkListItem
-			key={id}
 			title={name?.value}
 			description={description?.value}
 			url={resultUrl}

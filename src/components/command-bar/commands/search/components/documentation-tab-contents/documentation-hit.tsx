@@ -9,7 +9,6 @@ const DocumentationHit = ({ hit }: DocumentationHitProps) => {
 
 	return (
 		<CommandBarLinkListItem
-			key={objectID}
 			title={page_title?.value}
 			description={description?.value}
 			url={`/${objectID}`}
