@@ -9,7 +9,6 @@
 
 		"image": "https://www.datocms-assets.com/2885/1662053773-dev-dot-product-landing-what-is-hcp-diagram.png"
 	},
-	"overviewParagraph": "HCP enables you to easily launch and operate Consul, Vault, and other HashiCorp services on a HashiCorp Virtual Networks (HVN). An HVN connects to resources on your cloud infrastructure. Shared platform functionality, such as log in, access control, and billing provide centralized account and organization management. You can manage HCP assets from the web portal interface or using the Terraform provider.",
 	"get_started": {
 		"heading": "Getting Started",
 		"body": "Complete the following tutorials for step-by-step guidance on getting started:",
