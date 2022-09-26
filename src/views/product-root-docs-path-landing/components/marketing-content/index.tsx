@@ -137,9 +137,10 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 
 	return (
 		<div className={s.root}>
-			{blocks.map((block) => {
+			{blocks.map((block, i) => {
+				const key = `${block.headingId}-${i}`
 				if (block.type === 'paragraph') {
-					return <ParagraphBlock {...block} />
+					return <ParagraphBlock {...block} key={key} />
 				}
 
 				if (block.type === 'section-heading') {
@@ -148,6 +149,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 							id={block.headingId}
 							level={block.headingLevel}
 							text={block.title}
+							key={key}
 						/>
 					)
 				}
@@ -157,6 +159,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 						<IconCardGrid
 							cards={block.cards}
 							productSlug={currentProduct.slug}
+							key={key}
 						/>
 					)
 				}
@@ -169,6 +172,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 							headingLevel={block.headingLevel}
 							headingId={block.headingId}
 							title={block.title}
+							key={key}
 						/>
 					)
 				}
@@ -180,6 +184,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 							headingSlug={GETTING_STARTED_CARD_HEADING_SLUG}
 							body={block.description}
 							ctas={[block.callToAction]}
+							key={key}
 						/>
 					)
 				}
