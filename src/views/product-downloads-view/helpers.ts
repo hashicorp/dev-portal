@@ -88,13 +88,13 @@ export function generateEnterprisePackageManagers(
 
 	return [
 		{
-            label: 'Homebrew',
-            commands: [
-                `brew tap hashicorp/tap`,
-                `brew install hashicorp/tap/${productSlug}-enterprise`,
-            ],
-            os: 'darwin',
-        },
+			label: 'Homebrew',
+			commands: [
+				`brew tap hashicorp/tap`,
+				`brew install hashicorp/tap/${productSlug}-enterprise`,
+			],
+			os: 'darwin',
+		},
 		{
 			label: 'Ubuntu/Debian',
 			commands: [
@@ -132,13 +132,13 @@ export function generateEnterprisePackageManagers(
 			os: 'linux',
 		},
 		{
-            label: 'Homebrew',
-            commands: [
-                `brew tap hashicorp/tap`,
-                `brew install hashicorp/tap/${productSlug}-enterprise`,
-            ],
-            os: 'linux',
-        },
+			label: 'Homebrew',
+			commands: [
+				`brew tap hashicorp/tap`,
+				`brew install hashicorp/tap/${productSlug}-enterprise`,
+			],
+			os: 'linux',
+		},
 	]
 }
 
