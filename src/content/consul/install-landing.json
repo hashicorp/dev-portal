@@ -1,7 +1,7 @@
 {
 	"featuredCollectionsSlugs": [
-		"consul/cloud-get-started",
-		"consul/gs-consul-service-mesh",
+		"consul/get-started-hcp",
+		"consul/get-started-kubernetes",
 		"consul/getting-started"
 	],
 	"featuredTutorialsSlugs": [
@@ -22,7 +22,7 @@
 		},
 		{
 			"title": "Consul with Kubernetes",
-			"fullPath": "/consul/tutorials/gs-consul-service-mesh/get-started"
+			"fullPath": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
 		},
 		{
 			"title": "Consul with Virtual Machines",

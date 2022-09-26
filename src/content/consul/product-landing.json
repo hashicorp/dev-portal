@@ -19,7 +19,7 @@
 			{
 				"icon": "kubernetes-color",
 				"text": "Consul with Kubernetes",
-				"url": "/consul/tutorials/gs-consul-service-mesh/get-started"
+				"url": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
 			},
 			{
 				"icon": "server",
