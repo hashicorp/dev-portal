@@ -2,6 +2,7 @@
 componentName: Tabs
 peerComponents:
   - InlineLink
+  - SwingsetTestIcon
 ---
 
 ## Tabs Props
@@ -38,6 +39,19 @@ peerComponents:
 `}</LiveComponent>
 
 ## Examples
+
+### With `icon`s for each `Tab`
+
+<LiveComponent>{`
+<Tabs>
+  <Tab heading="Documentation" icon={<SwingsetTestIcon name="docs" />}>
+    <p>Documentation tab content</p>
+  </Tab>
+  <Tab heading="Tutorials" icon={<SwingsetTestIcon name="learn" />}>
+    <p>Tutorials tab content</p>
+  </Tab>
+</Tabs>
+`}</LiveComponent>
 
 ### With `ariaLabel` set for a non-visible label (test using a screen reader)
 
