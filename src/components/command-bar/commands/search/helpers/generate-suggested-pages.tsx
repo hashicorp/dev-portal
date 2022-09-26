@@ -5,7 +5,7 @@ import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import ProductIcon from 'components/product-icon'
-import { SuggestedPage } from '../suggested-pages'
+import { SuggestedPage } from '../components'
 
 const generateTutorialLibrarySuggestedPage = (productSlug?: ProductSlug) => {
 	// TODO abstract this, or leverage abstraction from tutorial library feature

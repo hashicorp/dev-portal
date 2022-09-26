@@ -1,49 +1,73 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
+import algoliasearch from 'algoliasearch'
+import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
 import { ProductSlug } from 'types/products'
 import { useCurrentContentType, useCurrentProduct } from 'contexts'
-import { useCommandBar } from 'components/command-bar'
+import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import Tabs, { Tab } from 'components/tabs'
-import { generateSuggestedPages } from '../../helpers/generate-suggested-pages'
-import SuggestedPages, { SuggestedPage } from '../../suggested-pages'
-import { getCurrentProductTag } from '../../helpers/get-current-product-tag'
-import DocumentationTabContents from '../documentation-tab-contents'
-import TutorialsTabContents from '../tutorials-tab-contents'
+import {
+	generateSuggestedPages,
+	generateTutorialLibraryCta,
+	getCurrentProductTag,
+} from '../../helpers'
+import {
+	SuggestedPage,
+	SuggestedPages,
+	DocumentationTabContents,
+	TutorialsTabContents,
+} from '../'
 
-const DEFAULT_SEARCH_RESULTS = {
-	docs: [],
-	tutorials: [],
-}
+// TODO(brkalow): We might consider lazy-loading the search client & the insights library
+const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
+const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
+const searchClient = algoliasearch(appId, apiKey)
 
-const SearchCommandBarDialogBody = () => {
-	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
-	const currentProduct = useCurrentProduct()
+const SearchCommandBarDialogBodyContent = ({
+	currentProductTag,
+}: {
+	currentProductTag: CommandBarTag
+}) => {
+	const { currentInputValue } = useCommandBar()
 	const contentType = useCurrentContentType()
-
-	// TODO `setSearchResults` will be used soon
-	const [searchResults, setSearchResults] = useState(DEFAULT_SEARCH_RESULTS)
-
-	/**
-	 * Get the CommandBarTag object for the current product if it's present.
-	 */
-	const currentProductTag = useMemo(
-		() =>
-			getCurrentProductTag({
-				currentProduct,
-				currentTags,
-			}),
-		[currentProduct, currentTags]
-	)
 
 	/**
 	 * Generate suggested pages, memoized.
-	 *
-	 * NOTE: Can probably still be optimized by doing this in Command Bar, but
-	 * waiting to abstract that far for now.
 	 */
 	const suggestedPages = useMemo<SuggestedPage[]>(() => {
 		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProductTag])
+
+	return (
+		<>
+			{currentInputValue ? (
+				<Tabs
+					showAnchorLine={false}
+					initialActiveIndex={contentType === 'tutorials' ? 1 : 0}
+				>
+					<Tab heading="Documentation">
+						<DocumentationTabContents
+							currentProductTag={currentProductTag}
+							suggestedPages={suggestedPages}
+						/>
+					</Tab>
+					<Tab heading="Tutorials">
+						<TutorialsTabContents
+							currentProductTag={currentProductTag}
+							tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
+						/>
+					</Tab>
+				</Tabs>
+			) : (
+				<SuggestedPages pages={suggestedPages} />
+			)}
+		</>
+	)
+}
+
+const SearchCommandBarDialogBody = () => {
+	const currentProduct = useCurrentProduct()
+	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
 
 	/**
 	 * Create callback for setting up this command's state.
@@ -68,37 +92,28 @@ const SearchCommandBarDialogBody = () => {
 	 */
 	useSetUpAndCleanUpCommandState(setUpCommandState, cleanUpCommandState)
 
+	/**
+	 * Get the CommandBarTag object for the current product if it's present.
+	 */
+	const currentProductTag = useMemo(
+		() =>
+			getCurrentProductTag({
+				currentProduct,
+				currentTags,
+			}),
+		[currentProduct, currentTags]
+	)
+
 	return (
-		<>
-			{currentInputValue ? (
-				<Tabs
-					showAnchorLine={false}
-					initialActiveIndex={contentType === 'tutorials' ? 1 : 0}
-				>
-					<Tab heading="Documentation">
-						<DocumentationTabContents
-							searchResults={searchResults.docs}
-							suggestedPages={suggestedPages}
-						/>
-					</Tab>
-					<Tab heading="Tutorials">
-						<TutorialsTabContents
-							searchResults={searchResults.tutorials}
-							tutorialLibraryCta={{
-								href: currentProductTag
-									? `/tutorials/library?product=${currentProductTag.id}`
-									: '/tutorials/library',
-								text: currentProductTag
-									? `See all ${currentProductTag.text} tutorials in the Tutorial Library`
-									: 'See all tutorials in the Tutorial Library',
-							}}
-						/>
-					</Tab>
-				</Tabs>
-			) : (
-				<SuggestedPages pages={suggestedPages} />
-			)}
-		</>
+		<InstantSearch
+			indexName={__config.dev_dot.algolia.tutorialsIndexName}
+			searchClient={searchClient}
+		>
+			<Configure query={currentInputValue} />
+			<SearchCommandBarDialogBodyContent
+				currentProductTag={currentProductTag}
+			/>
+		</InstantSearch>
 	)
 }
 
