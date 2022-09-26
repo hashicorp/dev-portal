@@ -53,6 +53,19 @@ peerComponents:
 </Tabs>
 `}</LiveComponent>
 
+### With `variant="compact"` and `icon`s for each `Tab`
+
+<LiveComponent>{`
+<Tabs variant="compact">
+  <Tab heading="Documentation" icon={<SwingsetTestIcon name="docs" />}>
+    <p>Documentation tab content</p>
+  </Tab>
+  <Tab heading="Tutorials" icon={<SwingsetTestIcon name="learn" />}>
+    <p>Tutorials tab content</p>
+  </Tab>
+</Tabs>
+`}</LiveComponent>
+
 ### With `ariaLabel` set for a non-visible label (test using a screen reader)
 
 <LiveComponent>{`
