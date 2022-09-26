@@ -1,8 +1,8 @@
-import { ReactElement, useRef, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import classNames from 'classnames'
-import { Tab, TabButtonControls, TabDropdownControls } from './components'
-import { useHasOverflow, useTabItems, useSyncedTabGroups } from './hooks'
 import { TabItem, TabsProps } from './types'
+import { useHasOverflow, useSyncedTabGroups, useTabItems } from './hooks'
+import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
 import s from './tabs.module.css'
 
@@ -47,8 +47,7 @@ const Tabs = ({
 	const tabItems = useTabItems({ children, activeTabIndex, initialActiveIndex })
 
 	/**
-	 * useSyncedTabGroups hooks into TabProvider,
-	 * and keeps activeTabIndex & activeTabGroup in sync.
+	 * Handle syncing active tab index and active tab group.
 	 *
 	 * Note: only works where tabs have groups, eg <Tab group="some-string" />.
 	 */

@@ -1,9 +1,14 @@
 import NextAuth from 'next-auth'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
+import refreshTokenSet from 'lib/auth/refresh-token-set'
+import isJwtExpired from 'lib/auth/is-jwt-expired'
+import { AuthErrors } from 'types/auth'
+
+const isDev = process.env.NODE_ENV === 'development'
 
 export default NextAuth({
 	session: {
-		maxAge: __config.dev_dot.auth.session_max_age,
+		maxAge: 2592000, // 30 days
 	},
 	providers: [CloudIdpProvider],
 	callbacks: {
@@ -12,26 +17,54 @@ export default NextAuth({
 		 *
 		 * ref: https://next-auth.js.org/configuration/callbacks#jwt-callback
 		 */
-		async jwt({ token, user, account, profile }) {
-			if (user && account) {
-				token['https://auth.hashicorp.com/auth0/connection/id'] =
-					user['https://auth.hashicorp.com/auth0/connection/id']
+		async jwt({ token, account, profile }) {
+			const isInitial = !!account && !!profile
+			isDev &&
+				console.log('jwt callback (%s)', isInitial ? 'initial' : 'subsequent')
 
-				token.cloud_idp_access_token = account.access_token
+			// initial call during sign in
+			if (isInitial) {
+				// persist access_token and refresh_token on the session token
+				token.access_token = account.access_token
+				token.refresh_token = account.refresh_token
+
+				// Picture is passed to session.user.image
 				token.picture = profile.picture as string
 				token.nickname = profile.nickname
 
-				token.exp = user.exp
-			}
-
-			if (Date.now() / 1000 < (token as { exp: number }).exp) {
 				return token
 			}
 
-			// TODO: validate that the refresh token flow works as implemented
-			// return refreshAccessToken(token)
+			// subsequent calls when session is accessed
+			const [isAccessTokenExpired, secondsUntilExpiry] = isJwtExpired(
+				token.access_token as string
+			)
 
-			return { ...token, error: 'RefreshTokenError' }
+			if (isAccessTokenExpired) {
+				// Refresh token set w/ refreshToken
+				try {
+					isDev && console.log('access token has expired; refreshing...')
+					const { access_token, refresh_token } = await refreshTokenSet(
+						token.refresh_token as string
+					)
+					isDev && console.log('successfully refreshed token set')
+
+					token.access_token = access_token
+					token.refresh_token = refresh_token
+				} catch (err) {
+					console.error('failed to refresh token set', err)
+					return { ...token, error: AuthErrors.RefreshAccessTokenError }
+				}
+			} else {
+				// Noop; log time until expiry
+				isDev &&
+					console.log(
+						'access token still valid for %d seconds',
+						secondsUntilExpiry
+					)
+			}
+
+			return token
 		},
 		/**
 		 * The session callback is called whenever a session is checked. By default, only a subset of the token is returned for increased security.
@@ -41,9 +74,10 @@ export default NextAuth({
 		async session({ session, token }) {
 			return {
 				...session,
-				accessToken: token.cloud_idp_access_token,
+				accessToken: token.access_token,
 				id: token.sub,
 				user: { ...session.user, nickname: token.nickname },
+				error: token.error,
 			}
 		},
 	},

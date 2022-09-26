@@ -9,7 +9,12 @@ import { productSlugsToHostNames } from 'lib/products'
  * Return RedirectData for use with opt-in-out redirection work.
  */
 function getDotIoRedirectData(productSlug: ProductSlug): RedirectData {
-	const domain = `https://www.${productSlugsToHostNames[productSlug]}`
+	let domain = `https://www.${productSlugsToHostNames[productSlug]}`
+
+	// We don't alias www for cloud.hashicorp.com
+	if (productSlug === 'hcp') {
+		domain = `https://${productSlugsToHostNames[productSlug]}`
+	}
 	return {
 		base_url: domain,
 		getRedirectPath: generateGetIoRedirectPath(domain),

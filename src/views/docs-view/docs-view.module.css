@@ -36,5 +36,10 @@
 		& :global(.landing-hero) {
 			margin-right: 25%;
 		}
+
+		/* Add more space in between the first section after title and the version selector  */
+		& h1:first-child {
+			margin-bottom: 16px;
+		}
 	}
 }
