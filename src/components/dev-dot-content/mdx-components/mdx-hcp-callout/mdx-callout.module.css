@@ -1,0 +1,62 @@
+.root {
+	width: 100%;
+	background: var(--black);
+	color: var(--white);
+	border-radius: 5px;
+	display: flex;
+	position: relative;
+	overflow: hidden;
+	box-shadow: var(--token-elevation-mid-box-shadow);
+	margin: 32px 0;
+
+	&:hover {
+		box-shadow: var(--token-elevation-high-box-shadow);
+
+		& .ctaIcon {
+			transform: translateX(2px);
+		}
+	}
+
+	& .textContainer {
+		padding: 16px 22px;
+	}
+
+	& .heading {
+		margin: 0;
+	}
+
+	& .subHeading {
+		margin: 6px 0 16px;
+	}
+}
+
+.ctaWrapper {
+	composes: g-focus-ring-from-box-shadow from global;
+	align-items: center;
+	display: flex;
+	gap: 6px;
+	color: var(--white) !important;
+
+	& .ctaIcon {
+		transition: 0.2s ease-in;
+	}
+}
+
+.solutionGradient {
+	background: var(--gradient);
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.solutionPattern {
+	display: none;
+
+	@media (--dev-dot-tablet-up) {
+		display: block;
+		position: absolute;
+		right: -76px;
+		bottom: 0;
+		width: 330px;
+		min-height: 100%;
+	}
+}
