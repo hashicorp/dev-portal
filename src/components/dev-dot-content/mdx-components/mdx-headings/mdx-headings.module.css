@@ -1,6 +1,5 @@
 .heading {
 	composes: g-offset-scroll-margin-top from global;
-	cursor: pointer;
 
 	/*
   Special spacing rule for subsequent list elements.

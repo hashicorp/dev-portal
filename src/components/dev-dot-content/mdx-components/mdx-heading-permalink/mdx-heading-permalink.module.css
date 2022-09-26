@@ -1,4 +1,5 @@
 .root {
+	composes: g-focus-ring-from-box-shadow from global;
 	display: inline-block;
 	opacity: 0;
 	transition: opacity 0.2s ease;
