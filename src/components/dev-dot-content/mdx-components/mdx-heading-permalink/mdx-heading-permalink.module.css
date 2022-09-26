@@ -1,0 +1,25 @@
+.root {
+	display: inline-block;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	order: 1;
+	position: relative;
+	left: -34px;
+	margin-right: -26px;
+	border-radius: 5px;
+	padding: 5px;
+
+	& .icon {
+		height: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&:hover,
+	&:focus {
+		background: var(--token-color-palette-neutral-200);
+		opacity: 1;
+		transition: opacity 0.2s ease;
+	}
+}

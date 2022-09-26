@@ -1,5 +1,7 @@
+import { Children } from 'react'
 import classNames from 'classnames'
 import Heading, { HeadingProps } from 'components/heading'
+import MdxHeadingPermalink from '../mdx-heading-permalink'
 import s from './mdx-headings.module.css'
 
 /**
@@ -48,14 +50,24 @@ export function makeMdxHeadingElement(level: HeadingProps['level']) {
 	const { size, weight } = HEADING_LEVELS_TO_PROPS[level]
 
 	return function MdxHeading(props) {
+		const { children, ...rest } = props
 		return (
 			<Heading
-				{...props}
+				{...rest}
 				level={level}
 				className={fixedClassName}
 				size={size}
 				weight={weight}
-			/>
+			>
+				{/* Temporary permalink render until we update our remark plugin */}
+				{Children.map(children, (child) =>
+					child?.props?.className === '__permalink-h' ? (
+						<MdxHeadingPermalink {...child.props} />
+					) : (
+						child
+					)
+				)}
+			</Heading>
 		)
 	}
 }
