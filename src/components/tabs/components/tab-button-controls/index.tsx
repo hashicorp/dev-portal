@@ -6,12 +6,13 @@ import newIndexFromKeypress from '../../helpers/new-index-from-keypress'
 import s from './tab-button-controls.module.css'
 
 function TabButtonControls({
-	isNested,
-	tabItems,
 	activeTabIndex,
-	setActiveTabIndex,
 	ariaLabel,
 	ariaLabelledBy,
+	isNested,
+	setActiveTabIndex,
+	tabItems,
+	variant = 'normal',
 }: TabControlsProps) {
 	// After keydown events, we want to focus the active "tab" button element.
 	const wasKeypress = useRef<boolean>(false)
@@ -77,9 +78,11 @@ function TabButtonControls({
 					<button
 						className={classNames(
 							s.tabButton,
-							{ [s.isNested]: isNested },
-							'g-focus-ring-from-box-shadow',
-							'hds-typography-body-200'
+							{
+								[s.isNested]: isNested,
+								'g-focus-ring-from-box-shadow': variant === 'normal',
+							},
+							s[`variant--${variant}`]
 						)}
 						aria-controls={panelId}
 						aria-selected={isActive}
@@ -95,8 +98,10 @@ function TabButtonControls({
 						tabIndex={isActive ? 0 : -1}
 						type="button"
 					>
-						{icon}
-						{label}
+						<span className={s.label}>
+							{icon}
+							{label}
+						</span>
 					</button>
 				)
 			})}

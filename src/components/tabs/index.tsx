@@ -7,12 +7,13 @@ import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
 import s from './tabs.module.css'
 
 const Tabs = ({
+	allowNestedStyles = false,
 	ariaLabel,
 	ariaLabelledBy,
 	children,
 	initialActiveIndex = 0,
 	showAnchorLine = true,
-	allowNestedStyles = false,
+	variant = 'normal',
 }: TabsProps): ReactElement => {
 	/**
 	 * TODO: this is a temporary measure until we are able to start requiring
@@ -69,19 +70,20 @@ const Tabs = ({
 		<TabNestingProvider>
 			<div ref={overflowTargetRef}>
 				<div
-					className={classNames(s.tabControls, {
+					className={classNames(s.tabControls, s[`variant--${variant}`], {
 						[s.isCheckingOverflow]: hasOverflow === null,
 						[s.showAnchorLine]: showAnchorLine,
 						[s.allowNestedStyles]: allowNestedStyles,
 					})}
 				>
 					<TabControls
+						activeTabIndex={activeTabIndex}
 						ariaLabel={ariaLabel}
 						ariaLabelledBy={ariaLabelledBy}
-						tabItems={tabItems}
-						activeTabIndex={activeTabIndex}
-						setActiveTabIndex={setSyncedActiveTabIndex}
 						isNested={allowNestedStyles && isNested}
+						setActiveTabIndex={setSyncedActiveTabIndex}
+						tabItems={tabItems}
+						variant={variant}
 					/>
 				</div>
 				{tabItems.map((tabItem: TabItem) => {
