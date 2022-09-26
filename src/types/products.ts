@@ -35,6 +35,16 @@ type LearnProductName = Exclude<
 	'HashiCorp Cloud Platform' | 'Sentinel'
 >
 
+type HcpProductName = Exclude<
+	ProductName,
+	'HashiCorp Cloud Platform' | 'Nomad' | 'Sentinel' | 'Terraform' | 'Vagrant'
+>
+
+type HcpProductSlug = Exclude<
+	ProductSlug,
+	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant'
+>
+
 /**
  * Learn does not support all of the products in `ProductSlug`, so this is the
  * interface almost the same as `ProductData`, just with a limited set of
@@ -117,22 +127,6 @@ interface RootDocsPath {
 	mainBranch?: string
 
 	/**
-	 * An optional property to hide the title of this rootDocsPath
-	 * in the sidebar. Used for Terraform routes where sidebar titles
-	 * are present in nav-data.json.
-	 */
-	visuallyHideSidebarTitle?: boolean
-
-	/**
-	 * An optional property to add an "overview" item to the sidebar.
-	 * By default, an overview item will be added. This property must be
-	 * explicitly set to `false` to prevent an overview item from being added.
-	 * The `href` for this item will lead to the root docs path,
-	 * and will dynamically account for version context.
-	 */
-	addOverviewItem?: boolean
-
-	/**
 	 * An optional description for this category of documentation.
 	 * Shown as the subtitle of the docs landing hero element.
 	 * If omitted, falls back to the page's authored frontMatter.description,
@@ -176,6 +170,8 @@ export type {
 	LearnProductData,
 	LearnProductName,
 	LearnProductSlug,
+	HcpProductName,
+	HcpProductSlug,
 	Product,
 	ProductData,
 	ProductGroup,

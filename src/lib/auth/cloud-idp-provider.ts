@@ -10,7 +10,7 @@ const CloudIdpProvider: Provider = {
 	type: 'oauth',
 	wellKnown:
 		__config.dev_dot.auth.idp_url + '/.well-known/openid-configuration',
-	authorization: { params: { scope: 'openid' } },
+	authorization: { params: { scope: 'openid offline_access' } },
 	idToken: true,
 	checks: ['pkce', 'state'],
 	clientId: process.env.AUTH_CLIENT_ID,

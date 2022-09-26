@@ -53,69 +53,73 @@ function PackerIoLayout({ children, data }: Props): React.ReactElement {
 				icon={productData.metadata.icon}
 			/>
 
-			<Min100Layout footer={<Footer openConsentManager={openConsentManager} />}>
-				{productData.alertBannerActive && (
-					<AlertBanner
-						{...productData.alertBanner}
-						product={productData.slug as Products}
-						hideOnMobile
+			<ProductMetaProvider product={productData.slug as Products}>
+				<Min100Layout
+					footer={<Footer openConsentManager={openConsentManager} />}
+				>
+					{productData.alertBannerActive && (
+						<AlertBanner
+							{...productData.alertBanner}
+							product={productData.slug as Products}
+							hideOnMobile
+						/>
+					)}
+					<ProductSubnav
+						menuItems={[
+							{
+								text: 'Overview',
+								url: '/',
+								type: 'inbound',
+							},
+							'divider',
+							packerNav.useCases.length > 0
+								? {
+										text: 'Use Cases',
+										submenu: [
+											...packerNav.useCases.map((item) => {
+												return {
+													text: item.text,
+													url: `/use-cases/${item.url}`,
+												}
+											}),
+										].sort((a, b) => a.text.localeCompare(b.text)),
+								  }
+								: undefined,
+							{
+								text: 'Tutorials',
+								url: 'https://learn.hashicorp.com/packer',
+								type: 'inbound',
+							},
+							{
+								text: 'Intro',
+								url: '/intro',
+								type: 'inbound',
+							},
+							{
+								text: 'Docs',
+								url: '/docs',
+								type: 'inbound',
+							},
+							{
+								text: 'Guides',
+								url: '/guides',
+								type: 'inbound',
+							},
+							{
+								text: 'Plugins',
+								url: '/plugins',
+								type: 'inbound',
+							},
+							{
+								text: 'Community',
+								url: '/community',
+								type: 'inbound',
+							},
+						]}
 					/>
-				)}
-				<ProductSubnav
-					menuItems={[
-						{
-							text: 'Overview',
-							url: '/',
-							type: 'inbound',
-						},
-						'divider',
-						packerNav.useCases.length > 0
-							? {
-									text: 'Use Cases',
-									submenu: [
-										...packerNav.useCases.map((item) => {
-											return {
-												text: item.text,
-												url: `/use-cases/${item.url}`,
-											}
-										}),
-									].sort((a, b) => a.text.localeCompare(b.text)),
-							  }
-							: undefined,
-						{
-							text: 'Tutorials',
-							url: 'https://learn.hashicorp.com/packer',
-							type: 'inbound',
-						},
-						{
-							text: 'Intro',
-							url: '/intro',
-							type: 'inbound',
-						},
-						{
-							text: 'Docs',
-							url: '/docs',
-							type: 'inbound',
-						},
-						{
-							text: 'Guides',
-							url: '/guides',
-							type: 'inbound',
-						},
-						{
-							text: 'API',
-							url: '/api-docs',
-							type: 'inbound',
-						},
-						{
-							text: 'Community',
-							url: '/community',
-							type: 'inbound',
-						},
-					]}
-				/>
-				<div className={themeClass}>{children}</div>
-			</Min100Layout>
+					<div className={themeClass}>{children}</div>
+				</Min100Layout>
+			</ProductMetaProvider>
 			<ConsentManager />
 		</>
 	)

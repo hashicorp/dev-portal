@@ -65,12 +65,11 @@ const CheckboxGroup = ({
 			{legendElement}
 			{helperTextElement}
 			<div className={s[`options--${layout}`]}>
-				{options.map((option: CheckboxGroupOption, index: number) => {
+				{options.map((option: CheckboxGroupOption) => {
 					return (
 						<CheckboxField
 							helperText={isVerticalLayout ? option.helperText : undefined}
-							// eslint-disable-next-line react/no-array-index-key
-							key={index}
+							key={option.label}
 							label={option.label}
 							labelFontWeight={hasLegend ? 'regular' : 'semibold'}
 							name={name}

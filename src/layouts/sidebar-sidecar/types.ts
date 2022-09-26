@@ -32,7 +32,7 @@ type PropsForSidecar =
 	  }
 	| {
 			headings?: never
-			sidecarSlot: ReactElement
+			sidecarSlot: ReactElement | null
 	  }
 
 /**

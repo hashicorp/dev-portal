@@ -1,0 +1,75 @@
+---
+componentName: 'CollectionProgressGroup'
+---
+
+The `CollectionProgressGroup` component queries, parses, and displays collection progress information.
+
+It renders a `ButtonLink` to the "next tutorial" in the collection, as well as a `CollcetionProgressStatusSection`. The `CollectionProgressStatusSection` presents queried and parsed data. It can be used separately from `CollectionProgressGroup`.
+
+The examples below use `ButtonLink` and `CollectionProgressStatusSection`, which are the presentational components of `CollectionProgressGroup`.
+
+<LiveComponent>{`
+<div style={{ display: 'flex', gap: '16px' }}>
+  <ButtonLink
+    aria-label='Continue with some tutorial name.'
+    href='/some/tutorial'
+    text='Continue'
+  />
+  <CollectionProgressStatusSection
+    completedTutorialCount={4}
+    tutorialCount={12}
+  />
+</div>
+`}</LiveComponent>
+
+## Examples
+
+### CollectionProgressStatusSection
+
+<!-- Note: using LiveComponent here, as I couldn't get these examples
+to display otherwise -->
+
+`Starting`
+
+<LiveComponent>{`
+<div style={{ display: 'flex', minHeight: '42px' }}>
+  <CollectionProgressStatusSection
+    completedTutorialCount={0}
+    tutorialCount={12}
+  />
+</div>
+`}</LiveComponent>
+
+`In Progress`
+
+<LiveComponent>{`
+<div style={{ display: 'flex', minHeight: '42px' }}>
+  <CollectionProgressStatusSection
+    completedTutorialCount={4}
+    tutorialCount={12}
+  />
+</div>
+`}</LiveComponent>
+
+`In Progress` with zero completed tutorials
+
+<LiveComponent>{`
+<div style={{ display: 'flex', minHeight: '42px' }}>
+  <CollectionProgressStatusSection
+    completedTutorialCount={0}
+    tutorialCount={12}
+		isInProgress={true}
+  />
+</div>
+`}</LiveComponent>
+
+`Complete`
+
+<LiveComponent>{`
+<div style={{ display: 'flex', minHeight: '42px' }}>
+  <CollectionProgressStatusSection
+    completedTutorialCount={12}
+    tutorialCount={12}
+  />
+</div>
+`}</LiveComponent>

@@ -28,7 +28,6 @@ import TutorialsSidebar, {
 	CollectionViewSidebarContent,
 	TutorialViewSidebarContent,
 } from 'components/tutorials-sidebar'
-import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
@@ -184,6 +183,7 @@ function TutorialView({
 			visuallyHideTitle: true,
 			children: (
 				<TutorialViewSidebarContent
+					collection={collectionCtx.current}
 					items={collectionCtx.current.tutorials.map((t) =>
 						formatTutorialToMenuItem(t, collectionCtx.current, currentPath)
 					)}
@@ -289,11 +289,9 @@ function TutorialView({
 								})}
 							/>
 						)}
-						<TabProvider>
-							<DevDotContent>
-								<MDXRemote {...content} components={MDX_COMPONENTS} />
-							</DevDotContent>
-						</TabProvider>
+						<DevDotContent>
+							<MDXRemote {...content} components={MDX_COMPONENTS} />
+						</DevDotContent>
 						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
 						<NextPrevious {...nextPreviousData} />
 						<FeaturedInCollections

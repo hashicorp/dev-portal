@@ -8,8 +8,7 @@ import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-
  * get-is-beta-product in order to provide a consistent testing config.
  */
 jest.mock('../../../get-is-beta-product', () => (productSlug) => {
-	const nonBetaProductsForTesting = ['boundary', 'packer', 'vagrant']
-	return nonBetaProductsForTesting.indexOf(productSlug) === -1
+	return ['hcp', 'vault', 'waypoint'].includes(productSlug)
 })
 
 // HELPERS ------------------------------------------------------
@@ -103,6 +102,7 @@ const MOCK_TUTORIALS_MAP = {
 	'waypoint/get-started': '/waypoint/tutorials/get-started-docker/get-started',
 	'well-architected-framework/cloud-operating-model':
 		'/well-architected-framework/com/cloud-operating-model',
+	'cloud/get-started-vault': '/vault/tutorials/cloud/get-started-vault',
 }
 
 // TESTS -----------------------------------------------------------------

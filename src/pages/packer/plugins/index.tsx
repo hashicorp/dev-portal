@@ -21,7 +21,9 @@ const remotePluginsFile = 'data/plugins-manifest.json'
  * with some modifications for the sidebar data.
  */
 const { getStaticProps: baseGetStaticProps } =
-	getRootDocsPathGenerationFunctions('packer', 'plugins')
+	getRootDocsPathGenerationFunctions('packer', 'plugins', {
+		hideVersionSelector: true,
+	})
 
 /**
  * We tack on some extra plugin data to the result of the base getStaticProps,
@@ -49,7 +51,7 @@ async function getStaticProps(ctx) {
 		}
 
 		// Prepare nav data for client (such as adding `fullPath`)
-		const { preparedItems: navData } = prepareNavDataForClient({
+		const { preparedItems: navData } = await prepareNavDataForClient({
 			basePaths: ['packer', 'plugins'],
 			nodes: rawNavData,
 		})
