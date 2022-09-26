@@ -138,7 +138,8 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 	return (
 		<div className={s.root}>
 			{blocks.map((block, i) => {
-				const key = `${block.headingId}-${i}`
+				const key = i
+
 				if (block.type === 'paragraph') {
 					return <ParagraphBlock {...block} key={key} />
 				}
