@@ -46,6 +46,12 @@ export interface TabsProps {
 	 * Whether or not a full-width border should be shown below the tab buttons
 	 */
 	showAnchorLine?: boolean
+
+	/**
+	 * Optional prop for customizing the overall style of the tabs. Defaults to
+	 * "normal".
+	 */
+	variant?: 'normal' | 'compact'
 }
 
 // interface BaseProps {
@@ -93,17 +99,20 @@ export interface TabItem extends RawTabItemWithIds {
 	isActive: boolean
 }
 
+type InheritedTabsProps = Pick<
+	TabsProps,
+	'ariaLabel' | 'ariaLabelledBy' | 'variant'
+>
+
 /**
  * TabControlsProps is used for both TabButtonControls & TabDropdownControls.
  * Those components are meant to be interchangeable, so they share
  * the same interface.
  */
-export interface TabControlsProps {
+export interface TabControlsProps extends InheritedTabsProps {
 	tabItems: TabItem[]
 	activeTabIndex: number
 	setActiveTabIndex: (newActiveIndex: number) => void
-	ariaLabel?: TabsProps['ariaLabel']
-	ariaLabelledBy?: TabsProps['ariaLabelledBy']
 
 	/**
 	 * If true, nested tab styling will be applied to the component.

@@ -28,16 +28,13 @@ the correct elements, roles, states, and properties are being set in the markup.
 Styles for each tab button.
 */
 .tabButton[role='tab'] {
-	align-items: center;
 	background-color: white;
 	border-radius: 5px;
 	border: 1px solid transparent;
 	color: var(--token-color-foreground-faint);
 	cursor: pointer;
-	display: flex;
 	flex-shrink: 0; /* Ensure items will trigger overflow */
 	font-weight: var(--token-typography-font-weight-medium);
-	gap: 6px;
 	padding: 7px 11px;
 
 	&[aria-selected='true'] {
@@ -70,4 +67,55 @@ Styles for each tab button.
 			border-radius: 0;
 		}
 	}
+
+	&.variant--compact {
+		background-color: transparent;
+		border: none;
+		padding-bottom: 6px;
+		padding-left: 12px;
+		padding-right: 12px;
+		padding-top: 8px;
+		position: relative;
+
+		&[aria-selected='true'] {
+			&::after {
+				background-color: var(--token-color-palette-blue-200);
+				border-radius: 3px;
+				bottom: -1px;
+				content: '';
+				height: 3px;
+				left: 0;
+				position: absolute;
+				right: 0;
+				z-index: 1;
+			}
+		}
+
+		&:focus {
+			outline: transparent;
+		}
+
+		&:focus-visible {
+			outline: transparent;
+
+			& .label::before {
+				border-radius: 5px;
+				bottom: -1px;
+				box-shadow: var(--token-focus-ring-action-box-shadow);
+				content: '';
+				left: -5px;
+				position: absolute;
+				right: -5px;
+				top: -1px;
+			}
+		}
+	}
+}
+
+.label {
+	composes: hds-typography-body-200 from global;
+	align-items: center;
+	display: flex;
+	gap: 6px;
+	position: relative;
 }
