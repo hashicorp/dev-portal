@@ -45,9 +45,13 @@ const CommandBarListItemContent = ({
 			{hasIcon ? <span className={s.icon}>{icon}</span> : null}
 			<div className={s.textWrapper}>
 				<div className={s.titleAndBadgeWrapper}>
-					<Text asElement="span" className={s.title} size={200} weight="medium">
-						{title}
-					</Text>
+					<Text
+						dangerouslySetInnerHTML={{ __html: title }}
+						asElement="span"
+						className={s.title}
+						size={200}
+						weight="medium"
+					/>
 					{hasBadges
 						? badges.map((badgeText: BadgeProps['text'], index: number) => (
 								<Badge
@@ -63,13 +67,12 @@ const CommandBarListItemContent = ({
 				</div>
 				{hasDescription ? (
 					<Text
+						dangerouslySetInnerHTML={{ __html: description }}
 						asElement="span"
 						className={s.description}
 						size={100}
 						weight="regular"
-					>
-						{description}
-					</Text>
+					/>
 				) : null}
 			</div>
 		</>
