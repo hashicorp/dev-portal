@@ -5,7 +5,7 @@ type Handler = Parameters<NextRouter['events']['on']>[1]
 
 interface UseOnRouteChangeStartOptions {
 	handler: Handler
-	shouldListen: boolean
+	shouldListen?: boolean
 }
 
 /**
