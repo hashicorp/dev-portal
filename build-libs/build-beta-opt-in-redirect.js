@@ -50,10 +50,10 @@ function buildBetaProductOptInRedirect() {
 						key: `${product}-io-beta-opt-in`,
 						value: 'true',
 					},
-					{
-						type: 'host',
-						value: proxySettings[product].host,
-					},
+					// {
+					// 	type: 'host',
+					// 	value: proxySettings[product].host,
+					// },
 				],
 			}
 		})
