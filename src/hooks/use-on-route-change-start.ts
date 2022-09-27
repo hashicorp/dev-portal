@@ -32,4 +32,4 @@ const useOnRouteChangeStart = ({
 }
 
 export type { UseOnRouteChangeStartOptions }
-export { useOnRouteChangeStart }
+export default useOnRouteChangeStart
