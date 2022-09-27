@@ -1,13 +1,5 @@
 // Third-party imports
-import {
-	Fragment,
-	KeyboardEvent,
-	ReactElement,
-	useEffect,
-	useRef,
-	useState,
-} from 'react'
-import { useRouter } from 'next/router'
+import { Fragment, KeyboardEvent, ReactElement, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
@@ -21,6 +13,7 @@ import { ProductSlug } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import Badge from 'components/badge'
 import ProductIcon from 'components/product-icon'
@@ -49,7 +42,6 @@ const NavigationHeaderDropdownMenu = ({
 	label,
 	leadingIcon,
 }: NavigationHeaderDropdownMenuProps) => {
-	const router = useRouter()
 	const uniqueId = useId()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const menuRef = useRef<HTMLDivElement>()
@@ -73,23 +65,10 @@ const NavigationHeaderDropdownMenu = ({
 	}
 
 	// if the disclosure is open, handle closing it on `routeChangeStart`
-	useEffect(() => {
-		if (!isOpen) {
-			return
-		}
-
-		const handleRouteChangeStart = () => {
-			setIsOpen(false)
-		}
-
-		router.events.on('routeChangeStart', handleRouteChangeStart)
-
-		return () => {
-			router.events.off('routeChangeStart', handleRouteChangeStart)
-		}
-		// Only need to base this on `isOpen`
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isOpen])
+	useOnRouteChangeStart({
+		handler: () => setIsOpen(false),
+		shouldListen: isOpen,
+	})
 
 	// Check for an accesible label if there is a leading icon
 	const accessibleLabel = ariaLabel || label
