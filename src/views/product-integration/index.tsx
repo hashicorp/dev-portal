@@ -1,18 +1,27 @@
-import s from './style.module.css'
-import BaseLayout from 'layouts/base-new'
-import BreadcrumbBar from 'components/breadcrumb-bar'
 import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
-import TierBadge from '../product-integrations-landing/components/tier-badge'
-import ReactMarkdown from 'react-markdown'
+import BreadcrumbBar from 'components/breadcrumb-bar'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 } from 'components/dropdown-disclosure'
+import BaseLayout from 'layouts/base-new'
+import { Integration, Release } from 'lib/integrations-api-client'
+import ReactMarkdown from 'react-markdown'
+import { ProductData } from 'types/products'
+import TierBadge from '../product-integrations-landing/components/tier-badge'
+import s from './style.module.css'
+
+interface ViewProps {
+	integration: Integration
+	product: ProductData
+	latestRelease: Release
+}
 
 export default function ProductIntegrationLanding({
 	integration,
 	product,
 	latestRelease,
-}) {
+}: ViewProps) {
+	const otherVersions = integration.versions.sort().reverse().slice(1)
 	return (
 		<BaseLayout showFooterTopBorder>
 			<div className={s.integrationPage}>
@@ -53,17 +62,16 @@ export default function ProductIntegrationLanding({
 											color="secondary"
 											text={`Version ${latestRelease.version}`}
 										>
-											{integration.versions
-												.reverse()
-												.slice(1)
-												.map((version) => (
+											{otherVersions.map((version: string) => {
+												return (
 													<DropdownDisclosureButtonItem
 														key={version}
 														onClick={() => console.log(`Clicked ${version}`)}
 													>
 														Version {version}
 													</DropdownDisclosureButtonItem>
-												))}
+												)
+											})}
 										</DropdownDisclosure>
 									) : (
 										<span className={s.version}>v{latestRelease.version}</span>
