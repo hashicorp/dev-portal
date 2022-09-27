@@ -51,7 +51,7 @@ function useSyncedTabGroups({
 	const setSyncedActiveTabIndex = useCallback(
 		(newIndex: number) => {
 			const tabItem = tabItems[newIndex]
-			tabContext.setActiveTabGroup(tabItem.group)
+			tabContext?.setActiveTabGroup(tabItem.group)
 			setActiveTabIndex(newIndex)
 		},
 		[setActiveTabIndex, tabContext, tabItems]

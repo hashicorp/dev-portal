@@ -82,6 +82,7 @@
 		"typescript": "^4.5.5"
 	},
 	"dependencies": {
+		"@actions/core": "^1.9.1",
 		"@algolia/autocomplete-core": "^1.6.2",
 		"@algolia/autocomplete-plugin-algolia-insights": "^1.6.2",
 		"@algolia/autocomplete-preset-algolia": "^1.6.2",
@@ -178,7 +179,7 @@
 		"react-dom": "^18.2.0",
 		"react-error-boundary": "^3.1.4",
 		"react-hot-toast": "^2.2.0",
-		"react-instantsearch-hooks-web": "^6.31.1",
+		"react-instantsearch-hooks-web": "^6.33.0",
 		"react-intersection-observer": "^8.33.1",
 		"react-player": "^2.9.0",
 		"rivet-graphql": "^0.3.1",
