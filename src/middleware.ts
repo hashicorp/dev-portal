@@ -1,12 +1,11 @@
-// eslint-disable-next-line @next/next/no-server-import-in-page
 import { NextResponse } from 'next/server'
-// eslint-disable-next-line @next/next/no-server-import-in-page
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 import { getEdgeFlags } from 'flags/edge'
+import { deleteCookie } from 'lib/middleware-delete-cookie'
 
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
 
@@ -16,9 +15,9 @@ function determineProductSlug(req: NextRequest): string {
 	}
 
 	// .io preview on dev portal
-	const ioPreview = req.cookies.getWithOptions('io_preview')
-	if (ioPreview) {
-		return ioPreview.value
+	const ioPreviewCookie = req.cookies.get('io_preview')
+	if (ioPreviewCookie) {
+		return ioPreviewCookie
 	}
 
 	// .io production deploy
@@ -35,6 +34,20 @@ function setHappyKitCookie(
 	response: NextResponse
 ): NextResponse {
 	response.cookies.set(...cookie)
+	return response
+}
+
+function setBetaOptInCookie(
+	optInPlatform: OptInPlatformOption | null,
+	hasOptedIn: boolean,
+	response: NextResponse
+): NextResponse {
+	if (optInPlatform && !hasOptedIn) {
+		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {
+			maxAge: OPT_IN_MAX_AGE,
+		})
+	}
+
 	return response
 }
 
@@ -85,9 +98,12 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	) {
 		const url = req.nextUrl.clone()
 		url.searchParams.delete('betaOptOut')
-		return NextResponse.redirect(url).cookies.delete(
-			`${product}-io-beta-opt-in`
-		)
+
+		const response = NextResponse.redirect(url)
+
+		deleteCookie(req, response, `${product}-io-beta-opt-in`)
+
+		return response
 	}
 
 	// Handle Opt-in cookies
@@ -108,14 +124,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 	const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
 
-	if (optInPlatform && !hasOptedIn) {
-		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {
-			// Next.js pre 12.2 assumes maxAge is in ms, not seconds
-			// TODO: update this when we upgrade to 12.2
-			maxAge: OPT_IN_MAX_AGE * 1000,
-		})
-	}
-
 	if (product === 'vault' && req.nextUrl.pathname === '/' && flags?.testFlag) {
 		const url = req.nextUrl.clone()
 		url.pathname = '/_proxied-dot-io/vault/home-test'
@@ -123,5 +131,9 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	}
 
 	// Continue request processing
-	return setHappyKitCookie(cookie.args, setGeoCookie(req, response))
+	return setBetaOptInCookie(
+		optInPlatform,
+		hasOptedIn,
+		setHappyKitCookie(cookie.args, setGeoCookie(req, response))
+	)
 }
