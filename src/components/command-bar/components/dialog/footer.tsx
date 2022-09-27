@@ -14,7 +14,7 @@ const CommandBarDialogFooter = () => {
 			<div className={s.footerLeft}>
 				<Badge color="neutral" text="Tab" type="outlined" size="small" />
 				<Text asElement="span" size={100} weight="regular">
-					or
+					and
 				</Text>
 				<div className={s.footerLeftArrowKeys}>
 					<Badge
