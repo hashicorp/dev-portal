@@ -6,7 +6,7 @@ import {
 	useMemo,
 	useReducer,
 } from 'react'
-import { useOnRouteChangeStart } from 'hooks/use-on-route-change-start'
+import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import commands from './commands'
 import { CommandBarActivator, CommandBarDialog } from './components'
 import {
