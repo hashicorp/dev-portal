@@ -29,7 +29,7 @@ import { EnrichedNavItem, MenuItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
-import { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
+import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -48,11 +48,7 @@ import { DocsViewPropOptions } from './utils/get-root-docs-path-generation-funct
  * "latestVersionRef" to the remote content loader config.
  */
 function getBetaLatestVersionRef(slug: string): string | undefined {
-	const hasDevPortalBranch = [
-		'vault',
-		'waypoint',
-		'cloud.hashicorp.com',
-	].includes(slug)
+	const hasDevPortalBranch = ['cloud.hashicorp.com'].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }
 
@@ -238,10 +234,11 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Add fullPaths and auto-generated ids to navData
 			 */
-			const { preparedItems: navDataWithFullPaths } = prepareNavDataForClient({
-				basePaths: [product.slug, basePath],
-				nodes: navData,
-			})
+			const { preparedItems: navDataWithFullPaths } =
+				await prepareNavDataForClient({
+					basePaths: [product.slug, basePath],
+					nodes: navData,
+				})
 
 			/**
 			 * Figure out of a specific docs version is being viewed
