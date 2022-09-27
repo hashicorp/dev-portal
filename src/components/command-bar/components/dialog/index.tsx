@@ -10,7 +10,12 @@ const CommandBarDialog = ({
 	onDismiss = () => null,
 }: CommandBarDialogProps) => {
 	return (
-		<Dialog contentClassName={s.content} isOpen={isOpen} onDismiss={onDismiss}>
+		<Dialog
+			contentClassName={s.content}
+			contentWrapperClassName={s.contentWrapper}
+			isOpen={isOpen}
+			onDismiss={onDismiss}
+		>
 			<div className={s.contentInner}>
 				<CommandBarDialogHeader />
 				<CommandBarDialogBody />

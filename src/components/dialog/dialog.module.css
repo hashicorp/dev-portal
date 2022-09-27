@@ -12,14 +12,13 @@
 .contentWrapper {
 	align-items: flex-start;
 	display: flex;
+	height: 100vh;
 	justify-content: center;
+	padding: 24px;
 	width: 100vw;
-	height: 100%;
-	padding-top: 25%;
 
 	@media (--dev-dot-tablet-up) {
-		padding: 20vh 24px 24px;
-		height: 100vh;
+		padding-top: 20vh;
 	}
 
 	&.bottom {
@@ -27,6 +26,10 @@
 		padding-top: 20vh;
 		width: 100%;
 		position: absolute;
+
+		& .bottom {
+			padding-bottom: 0;
+		}
 	}
 }
 
@@ -34,19 +37,13 @@
 	/** dev dot styles are currently scoped to the layout, but dialogs render in a portal so we aren't inheriting the correct body font */
 	--font-body: var(--token-typography-font-stack-text);
 
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
+	border-radius: 6px;
 	box-shadow: var(--token-surface-overlay-box-shadow);
 	margin: 0;
 	max-width: 600px;
 	min-width: 300px;
 	padding: 24px;
 	width: 100%;
-
-	@media (--dev-dot-tablet-up) {
-		border-bottom-left-radius: 6px;
-		border-bottom-right-radius: 6px;
-	}
 
 	&.bottom {
 		height: 100%;
@@ -57,8 +54,6 @@
 		box-shadow: none;
 
 		/* Ensures that content in the dialog is not hidden by the floating control bar on mobile browsers */
-		@media (--dev-dot-tablet-up) {
-			padding-bottom: 88px;
-		}
+		padding-bottom: 88px;
 	}
 }
