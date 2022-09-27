@@ -54,8 +54,13 @@
 	padding: 8px;
 	width: 100%;
 
+	&:focus,
+	&:focus-within {
+		outline: transparent;
+	}
+
 	/* TODO aria-selected is not set yet, but will be for keyboard navigation */
-	&[aria-selected='true'],
+	&:focus-within,
 	&:hover {
 		background-color: var(--token-color-surface-strong);
 		box-shadow: var(--token-surface-base-box-shadow);
