@@ -6,12 +6,10 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/:path',
 				destination: '/',
-				permanent: true,
 			},
 			{
 				source: '/has-cookie/:path',
 				destination: '/cookie',
-				permanent: true,
 				has: [
 					{
 						type: 'cookie',
@@ -22,7 +20,6 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/has-cookie',
 				destination: '/cookie',
-				permanent: true,
 				has: [
 					{
 						type: 'cookie',
@@ -33,12 +30,10 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/path',
 				destination: '',
-				permanent: true,
 			},
 			{
 				source: '/has-host',
 				destination: '/host',
-				permanent: true,
 				has: [
 					{
 						type: 'host',
@@ -51,12 +46,10 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/path',
 				destination: '',
-				permanent: true,
 			},
 			{
 				source: '/has-host',
 				destination: '/host',
-				permanent: true,
 				has: [
 					{
 						type: 'host',
@@ -69,13 +62,10 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/:path',
 				destination: '/',
-				permanent: true,
 			},
 			{
 				source: '/has-cookie/:path',
 				destination: '/cookie',
-				permanent: true,
-
 				has: [
 					{
 						type: 'cookie',
@@ -86,8 +76,6 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/has-cookie',
 				destination: '/cookie',
-				permanent: true,
-
 				has: [
 					{
 						type: 'cookie',

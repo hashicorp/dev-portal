@@ -4,15 +4,13 @@ import redirects from 'data/_redirects.generated.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
-import { deleteCookie } from 'lib/middleware-delete-cookie'
 
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
 
 function determineProductSlug(req: NextRequest): string {
 	// .io preview on dev portal
-	const ioPreviewCookie = req.cookies.get('io_preview')
-	if (ioPreviewCookie) {
-		return ioPreviewCookie
+	if (req.cookies.io_preview) {
+		return req.cookies.io_preview
 	}
 
 	// .io production deploy
@@ -69,12 +67,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	) {
 		const url = req.nextUrl.clone()
 		url.searchParams.delete('betaOptOut')
-
-		const response = NextResponse.redirect(url)
-
-		deleteCookie(req, response, `${product}-io-beta-opt-in`)
-
-		return response
+		return NextResponse.redirect(url).clearCookie(`${product}-io-beta-opt-in`)
 	}
 
 	// Handle Opt-in cookies
@@ -96,8 +89,10 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
 
 	if (optInPlatform && !hasOptedIn) {
-		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {
-			maxAge: OPT_IN_MAX_AGE,
+		response.cookie(`${optInPlatform}-beta-opt-in`, 'true', {
+			// Next.js pre 12.2 assumes maxAge is in ms, not seconds
+			// TODO: update this when we upgrade to 12.2
+			maxAge: OPT_IN_MAX_AGE * 1000,
 		})
 	}
 
