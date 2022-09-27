@@ -27,30 +27,21 @@ const TutorialsTabContents = ({
 			<Configure filters={filters} />
 			<CustomHitsContainer
 				type="tutorials"
-				noResultsSlot={
-					<>
-						<NoResultsMessage />
-						<Card className={s.cta} elevation="base">
-							<IconGuide16 className={s.ctaIcon} />
-							<Text
-								asElement="span"
-								className={s.ctaText}
-								size={200}
-								weight="medium"
-							>
-								{tutorialLibraryCta.text}
-							</Text>
-							<StandaloneLink
-								href={tutorialLibraryCta.href}
-								icon={<IconArrowRight16 />}
-								iconPosition="trailing"
-								size="small"
-								text="Explore"
-							/>
-						</Card>
-					</>
-				}
+				noResultsSlot={<NoResultsMessage />}
 			/>
+			<Card className={s.cta} elevation="base">
+				<IconGuide16 className={s.ctaIcon} />
+				<Text asElement="span" className={s.ctaText} size={200} weight="medium">
+					{tutorialLibraryCta.text}
+				</Text>
+				<StandaloneLink
+					href={tutorialLibraryCta.href}
+					icon={<IconArrowRight16 />}
+					iconPosition="trailing"
+					size="small"
+					text="Explore"
+				/>
+			</Card>
 		</Index>
 	)
 }
