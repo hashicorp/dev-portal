@@ -1,11 +1,16 @@
-import s from './style.module.css'
-import React, { useState } from 'react'
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
 import { IconCheckCircle16 } from '@hashicorp/flight-icons/svg-react/check-circle-16'
 import Button from '@hashicorp/react-button'
+import { Integration, Tier } from 'lib/integrations-api-client'
+import React, { useState } from 'react'
 import SearchableIntegrationsList from '../searchable-integrations-list'
+import s from './style.module.css'
 
-export default function FacetedIntegrationList({ integrations }) {
+interface Props {
+	integrations: Integration[]
+}
+
+export default function FacetedIntegrationList({ integrations }: Props) {
 	// Tier Values
 	const [officialChecked, setOfficialChecked] = useState(false)
 	const [verifiedChecked, setVerifiedChecked] = useState(false)
@@ -13,16 +18,18 @@ export default function FacetedIntegrationList({ integrations }) {
 
 	// Filter out integrations that don't have releases yet
 	let filteredIntegrations = integrations
-	filteredIntegrations = filteredIntegrations.filter((integration) => {
-		return integration.versions && integration.versions.length > 0
-	})
+	filteredIntegrations = filteredIntegrations.filter(
+		(integration: Integration) => {
+			return integration.versions && integration.versions.length > 0
+		}
+	)
 
 	// Figure out the list of tiers we want to display as filters
 	// based off of the integrations list that we are passed. If there
 	// are no community integrations passed, we simply won't display
 	// that checkbox.
 	const tierOptions = Array.from(
-		new Set(filteredIntegrations.map((i) => i.tier))
+		new Set(filteredIntegrations.map((i: Integration) => i.tier))
 	)
 
 	// Calculate the number of integrations that match each tier
@@ -38,7 +45,9 @@ export default function FacetedIntegrationList({ integrations }) {
 
 	// Pull out the list of all of the components used by our integrations
 	// and sort them alphabetically so they are deterministically ordered.
-	const allComponents = filteredIntegrations.map((i) => i.components)
+	const allComponents = filteredIntegrations.map(
+		(i: Integration) => i.components
+	)
 	// eslint-disable-next-line prefer-spread
 	const mergedComponents = [].concat.apply([], allComponents)
 
@@ -108,7 +117,7 @@ export default function FacetedIntegrationList({ integrations }) {
 		<div className={s.facetedIntegrationList}>
 			<div className={s.facetsSidebar}>
 				<h5 className={s.facetCategoryTitle}>Tier</h5>
-				{tierOptions.includes('official') && (
+				{tierOptions.includes(Tier.OFFICIAL) && (
 					<FacetCheckbox
 						label="Official"
 						icon={<IconAward16 className={s.awardIcon} />}
@@ -117,7 +126,7 @@ export default function FacetedIntegrationList({ integrations }) {
 						onChange={(e) => setOfficialChecked(!officialChecked)}
 					/>
 				)}
-				{tierOptions.includes('verified') && (
+				{tierOptions.includes(Tier.VERIFIED) && (
 					<FacetCheckbox
 						label="Verified"
 						icon={<IconCheckCircle16 className={s.checkIcon} />}
@@ -126,7 +135,7 @@ export default function FacetedIntegrationList({ integrations }) {
 						onChange={(e) => setVerifiedChecked(!verifiedChecked)}
 					/>
 				)}
-				{tierOptions.includes('community') && (
+				{tierOptions.includes(Tier.COMMUNITY) && (
 					<FacetCheckbox
 						label="Community"
 						matching={matchingCommunity}

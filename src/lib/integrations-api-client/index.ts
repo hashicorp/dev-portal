@@ -1,61 +1,84 @@
-function getFetch() {
-	// Note: purposely doing a conditional require here so that
-	// `@vercel/fetch` is not included in the client bundle
-	if (typeof window === 'undefined') {
-		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		const createFetch = require('@vercel/fetch')
-		return createFetch()
-	}
-	return window.fetch
+import { ApiResponse, Method, request } from './standard-client'
+import { ProductSlug } from 'types/products'
+
+export interface Organization {
+	id: string
+	slug: string
 }
 
-const fetch = getFetch()
-
-export function fetchProductIntegrations(product: string) {
-	return fetch(
-		`${process.env.NEXT_PUBLIC_INTEGRATIONS_API_BASE_URL}/products/${product}/integrations`,
-		{
-			method: 'GET',
-			mode: 'cors',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		}
-	)
-		.then((res) => res.json())
-		.then((res) => res.result)
+export enum Tier {
+	OFFICIAL = 'official',
+	VERIFIED = 'verified',
+	COMMUNITY = 'community',
 }
 
-export function fetchIntegration(product: string, slug: string) {
-	return fetch(
-		`${process.env.NEXT_PUBLIC_INTEGRATIONS_API_BASE_URL}/products/${product}/integrations/${slug}`,
-		{
-			method: 'GET',
-			mode: 'cors',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		}
-	)
-		.then((res) => res.json())
-		.then((res) => res.result)
+export interface Component {
+	id: string
+	slug: string
+	name: string
+	plural_name: string
 }
 
-export function fetchIntegrationRelease(
-	product: string,
-	slug: string,
+export interface Product {
+	id: string
+	slug: string
+	name: string
+}
+
+export interface Integration {
+	id: string
+	slug: string
+	tier: Tier
+	product: Product
+	name?: string
+	versions?: string[]
+	components?: Component[]
+	repo_url: string
+	subdirectory?: string
+	organization?: Organization
+}
+
+export interface Release {
+	id: string
+	integration_id: string
 	version: string
-) {
-	return fetch(
-		`${process.env.NEXT_PUBLIC_INTEGRATIONS_API_BASE_URL}/products/${product}/integrations/${slug}/releases/${version}`,
+	readme: string
+}
+
+export async function fetchProductIntegrations(
+	product: ProductSlug,
+	limit?: number,
+	after?: string
+): Promise<ApiResponse<Integration[]>> {
+	return request<Integration[]>(
+		Method.GET,
+		`/products/${product}/integrations`,
 		{
-			method: 'GET',
-			mode: 'cors',
-			headers: {
-				'Content-Type': 'application/json',
+			query: {
+				limit: limit,
+				after: after,
 			},
 		}
 	)
-		.then((res) => res.json())
-		.then((res) => res.result)
+}
+
+export async function fetchIntegration(
+	product: ProductSlug,
+	identifier: string
+): Promise<ApiResponse<Integration>> {
+	return request<Integration>(
+		Method.GET,
+		`/products/${product}/integrations/${identifier}`
+	)
+}
+
+export async function fetchIntegrationRelease(
+	product: ProductSlug,
+	identifier: string,
+	version: string
+): Promise<ApiResponse<Release>> {
+	return request<Release>(
+		Method.GET,
+		`/products/${product}/integrations/${identifier}/releases/${version}`
+	)
 }

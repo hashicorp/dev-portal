@@ -2,8 +2,18 @@ import s from './style.module.css'
 import BaseLayout from 'layouts/base-new'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import FacetedIntegrationList from './components/faceted-integrations-list'
+import { Integration } from 'lib/integrations-api-client'
+import { ProductData } from 'types/products'
 
-export default function ProductIntegrationsLanding({ product, integrations }) {
+interface ViewProps {
+	product: ProductData
+	integrations: Array<Integration>
+}
+
+export default function ProductIntegrationsLanding({
+	product,
+	integrations,
+}: ViewProps) {
 	return (
 		<BaseLayout showFooterTopBorder>
 			<div className={s.integrationsLandingPage}>
