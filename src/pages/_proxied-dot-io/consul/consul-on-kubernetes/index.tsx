@@ -261,7 +261,7 @@ function ConsulOnKubernetesPage() {
 								heading: 'Get started on Kubernetes',
 								description:
 									'Setup Consul service mesh to get experience deploying service sidecar proxies and securing service with mTLS.',
-								url: 'https://learn.hashicorp.com/tutorials/consul/service-mesh-deploy?in=consul/gs-consul-service-mesh',
+								url: 'https://learn.hashicorp.com/tutorials/consul/kubernetes-gs-deploy?in=consul/get-started-kubernetes',
 							},
 							{
 								eyebrow: '22 min',
