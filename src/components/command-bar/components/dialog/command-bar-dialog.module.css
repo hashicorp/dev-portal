@@ -25,6 +25,10 @@
 .icon {
 	display: flex;
 	flex-shrink: 0;
+
+	& svg {
+		color: var(--token-color-foreground-primary);
+	}
 }
 
 .headerTags {
