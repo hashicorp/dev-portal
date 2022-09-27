@@ -1,6 +1,10 @@
 .root {
+	position: sticky;
+	bottom: 0;
 	width: 100%;
-	border: 2px solid magenta;
+	border: 10px solid magenta;
 	background: rgba(255, 0, 0, 0.3);
+	min-height: 40px;
 	margin: 0;
+	white-space: pre-wrap;
 }

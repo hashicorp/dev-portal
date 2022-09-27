@@ -4,7 +4,10 @@ function ScrollProgressBar() {
 	return (
 		<>
 			<pre className={s.root}>
-				<code>TODO: Scroll progress</code>
+				<code>
+					TODO: Implement scroll progress functionality
+					TODO:&nbsp;polish&nbsp;styles
+				</code>
 			</pre>
 		</>
 	)
