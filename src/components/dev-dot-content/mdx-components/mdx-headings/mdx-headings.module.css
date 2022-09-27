@@ -31,7 +31,9 @@
 	&:hover {
 		& :global(.__permalink-h) {
 			opacity: 1;
-			transition: opacity 0.2s ease;
+			@media (prefers-reduced-motion: no-preference) {
+				transition: opacity 0.2s ease;
+			}
 		}
 	}
 }
