@@ -21,18 +21,19 @@ const VersionContextSwitcher = ({
 	options,
 }: VersionContextSwitcherProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
-	// Set `latestVersion` initially to the first item in the sorted array.
 	let latestVersion = options[0].value
-	// Update `latestVersion` to the latest version of the product
-	// that has been released if it can be determined.
-	// This is needed because not all products have `latest` listed
-	// as the first item in the sorted array.
-	// E.g. `vault-enterprise` lists `+ent.hsm.fips1402` variants first.
+	/** Update `latestVersion` to the latest version of the product
+	 * that has been released if it can be determined. This is needed
+	 * because not all products have `latest` listed as the first item
+	 * in the sorted array. E.g. `vault-enterprise` lists `+ent.hsm.fips1402`
+	 * variants first.
+	 */
 	for (let i = 0; i < options.length; i++) {
 		const versionLabel = options[i].label
 		const versionValue = options[i].value
-		if (versionLabel.includes('(latest)')) {
+		if (versionLabel.indexOf('(latest)') >= 0) {
 			latestVersion = versionValue
+			break
 		}
 	}
 

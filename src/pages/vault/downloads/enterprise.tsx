@@ -4,7 +4,7 @@ import ProductDownloadsView from 'views/product-downloads-view'
 import { generateGetStaticProps } from 'views/product-downloads-view/server'
 
 const getStaticProps = generateGetStaticProps(vaultData as ProductData, {
-    isEnterpriseMode: true,
+	isEnterpriseMode: true,
 })
 
 export { getStaticProps }
