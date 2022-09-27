@@ -1,6 +1,17 @@
 import { render } from '@testing-library/react'
 import AccordionDisclosure from '.'
 
+jest.mock('next/router', () => ({
+	useRouter() {
+		return {
+			events: {
+				on: jest.fn(),
+				off: jest.fn(),
+			},
+		}
+	},
+}))
+
 describe('AccordionDisclosure', () => {
 	it('renders without errors', () => {
 		const { getByRole, queryByText } = render(
