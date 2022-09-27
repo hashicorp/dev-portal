@@ -1,7 +1,6 @@
 import { ReactElement, useMemo } from 'react'
 import classNames from 'classnames'
 import { useDeviceSize } from 'contexts'
-import getTruncatedTitle from './utils/get-truncated-title'
 import { TableOfContentsHeading, TableOfContentsProps } from './types'
 import { useActiveSection } from './use-active-section'
 import s from './table-of-contents.module.css'
@@ -49,8 +48,7 @@ const TableOfContentsListItem = ({ isActive, slug, title }): ReactElement => {
 	})
 	const generatedTitle = useMemo(() => {
 		const withoutBackticks = title.replace(/`/g, '')
-		const truncatedWithoutBackticks = getTruncatedTitle(withoutBackticks)
-		return truncatedWithoutBackticks
+		return withoutBackticks
 	}, [title])
 
 	return (
