@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import type { NextRequest, NextResponse } from 'next/server'
 
 /**
  * Copied from https://github.com/vercel/next.js/issues/40146#issuecomment-1236392823

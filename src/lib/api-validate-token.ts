@@ -1,4 +1,8 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next/types'
+import type {
+	NextApiHandler,
+	NextApiRequest,
+	NextApiResponse,
+} from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 
 const __DEV__ = process.env.NODE_ENV === 'development'
