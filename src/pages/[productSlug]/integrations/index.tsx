@@ -10,17 +10,14 @@ import { ApiResponse } from 'lib/integrations-api-client/standard-client'
 // The products that we are enabling for this Integrations POC
 export const enabledProducts: Array<ProductSlug> = ['packer', 'waypoint']
 
-export async function getStaticPaths() {
-	const paths = enabledProducts.map((productSlug: ProductSlug) => ({
-		params: { productSlug },
-	}))
-	return {
-		paths,
-		fallback: false,
+export async function getServerSideProps({ params }) {
+	// 404 if we're not on an enabled page
+	if (!enabledProducts.includes(params.productSlug)) {
+		return {
+			notFound: true,
+		}
 	}
-}
 
-export async function getStaticProps({ params }) {
 	const integrationResult: ApiResponse<Integration[]> =
 		await fetchProductIntegrations(params.productSlug)
 	return {
