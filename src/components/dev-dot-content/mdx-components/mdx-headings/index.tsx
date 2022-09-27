@@ -59,7 +59,7 @@ export function makeMdxHeadingElement(level: HeadingProps['level']) {
 				size={size}
 				weight={weight}
 			>
-				{/* Temporary permalink render until we update our remark plugin */}
+				{/* This is a temporary solution to render an updated permalink element while our remark plugin continues to inject the current one. The full implementation will eventually live in this component, but it will require a larger update to the anchorLinks remark plugin.  We detect the injected permalink by the `__permalink-h` class which the remark plugin applies to the element. */}
 				{Children.map(children, (child) =>
 					child?.props?.className === '__permalink-h' ? (
 						<MdxHeadingPermalink {...child.props} />
