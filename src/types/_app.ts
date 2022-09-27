@@ -27,6 +27,6 @@ type CustomAppContext<T = Record<string, unknown>> = AppContextNoComponent &
 /**
  * This is our custom type for our Next.js `App` component
  */
-type CustomAppProps = AppProps<$TSFixMe> & ContextWithLayout
+type CustomAppProps = AppProps & ContextWithLayout
 
 export type { CustomPageComponent, CustomAppContext, CustomAppProps }
