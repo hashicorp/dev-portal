@@ -1,5 +1,6 @@
 import { IconArrowDown16 } from '@hashicorp/flight-icons/svg-react/arrow-down-16'
 import { IconArrowUp16 } from '@hashicorp/flight-icons/svg-react/arrow-up-16'
+import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import Badge from 'components/badge'
 import Text from 'components/text'
@@ -34,6 +35,13 @@ const CommandBarDialogFooter = () => {
 				<Text asElement="span" size={100} weight="regular">
 					to navigate,
 				</Text>
+				<Badge
+					ariaLabel="Enter key"
+					color="neutral"
+					icon={<IconCornerDownLeft16 />}
+					type="outlined"
+					size="small"
+				/>
 				<Text asElement="span" size={100} weight="regular">
 					to select,
 				</Text>
