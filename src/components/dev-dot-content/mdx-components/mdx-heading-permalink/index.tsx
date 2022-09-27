@@ -10,7 +10,7 @@ export default function MdxHeadingPermalink(props) {
 		const href = e.target.closest('a').href
 		navigator.clipboard.writeText(href).then(
 			() => {
-				console.log(`Successfully copied  ${href} to clipboard`)
+				console.log(`Successfully copied ${href} to clipboard`)
 			},
 			() => {
 				console.error(`Error copying ${href} to clipboard`)
