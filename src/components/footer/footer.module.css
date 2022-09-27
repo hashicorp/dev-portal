@@ -10,7 +10,7 @@
 	position: relative;
 
 	/* TODO: remove the below, temporary for making sure layout isn't brittle  */
-	min-height: 100vh;
+	min-height: 80vh;
 }
 
 .logo {

@@ -9,10 +9,7 @@ function ScrollProgressBar() {
 	return (
 		<div className={s.root}>
 			<pre className={s.devPre}>
-				<code>
-					{scrollPercent.toFixed(2)}% scrolled. TODO: Implement scroll progress
-					functionality TODO:&nbsp;polish&nbsp;styles
-				</code>
+				<code>{scrollPercent.toFixed(2)}% scrolled.</code>
 			</pre>
 			<ProgressBar percentDone={scrollPercent} rounded={false} />
 		</div>
