@@ -1,14 +1,17 @@
 .root {
 	composes: g-focus-ring-from-box-shadow from global;
-	display: inline-block;
 	opacity: 0;
-	transition: opacity 0.2s ease;
+	display: inline-block;
 	order: 1;
 	position: relative;
 	left: -22px;
 	margin-right: -20px;
 	border-radius: 5px;
 	padding: 2px;
+
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity 0.2s ease;
+	}
 
 	@media (--dev-dot-sidecar-up) {
 		left: -34px;
@@ -28,6 +31,5 @@
 	&:focus {
 		background: var(--token-color-palette-neutral-200);
 		opacity: 1;
-		transition: opacity 0.2s ease;
 	}
 }
