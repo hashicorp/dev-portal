@@ -34,6 +34,10 @@
 }
 
 .input {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
 	appearance: none;
 	background-color: transparent;
 	border-radius: 5px;
