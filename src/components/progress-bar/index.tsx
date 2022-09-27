@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react'
+import clamp from 'lib/clamp'
 import s from './progress-bar.module.css'
 
 /**
@@ -23,7 +24,7 @@ function ProgressBar({
 			style={
 				{
 					'--border-radius': rounded ? '2px' : '0px',
-					'--percent-done': `${percentDone}%`,
+					'--percent-done': `${clamp(percentDone, 0, 100)}%`,
 				} as CSSProperties
 			}
 		>
