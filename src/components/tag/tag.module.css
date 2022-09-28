@@ -4,6 +4,7 @@
 	border: 1px solid var(--token-color-border-strong);
 	display: flex;
 	width: fit-content;
+	min-height: 1.5rem;
 }
 
 .removeButton {
@@ -11,12 +12,16 @@
 	composes: g-focus-ring-from-box-shadow from global;
 
 	/* properties */
+	align-self: stretch;
 	background-color: transparent;
 	border-radius: inherit;
 	border-bottom-right-radius: 0;
 	border-top-right-radius: 0;
 	border: none;
-	padding: 6px 2px 6px 8px;
+	padding-bottom: 0;
+	padding-left: 8px;
+	padding-right: 2px;
+	padding-top: 0;
 	width: fit-content;
 
 	&:hover {
@@ -48,7 +53,9 @@
 	display: block;
 	font-family: var(--token-typography-body-100-font-family);
 	font-size: var(--token-typography-body-100-font-size);
-	line-height: 1rem;
-	padding: 3px 8px 5px 6px;
+	line-height: calc(1.5rem - 1px);
+	padding-bottom: 1px;
+	padding-left: 6px;
+	padding-right: 8px;
 	white-space: nowrap;
 }
