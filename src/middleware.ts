@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
-import optInRedirects from '.generated/opt-in-redirects'
+// import optInRedirects from '.generated/opt-in-redirects'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
@@ -78,23 +78,23 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		return response
 	}
 
-	const hasProductOptInCookie =
-		product !== '*' && Boolean(req.cookies.get(`${product}-io-beta-opt-in`))
+	// const hasProductOptInCookie =
+	// 	product !== '*' && Boolean(req.cookies.get(`${product}-io-beta-opt-in`))
 
-	if (hasProductOptInCookie) {
-		const url = req.nextUrl.clone()
+	// if (hasProductOptInCookie) {
+	// 	const url = req.nextUrl.clone()
 
-		if (optInRedirects[product]?.test(url.pathname)) {
-			console.log('[opt-in]', 'matched', url.pathname)
-			const redirectUrl = new URL(__config.dev_dot.canonical_base_url)
-			redirectUrl.pathname = `${product}${url.pathname}`
-			redirectUrl.search = url.search
+	// 	if (optInRedirects[product]?.test(url.pathname)) {
+	// 		console.log('[opt-in]', 'matched', url.pathname)
+	// 		const redirectUrl = new URL(__config.dev_dot.canonical_base_url)
+	// 		redirectUrl.pathname = `${product}${url.pathname}`
+	// 		redirectUrl.search = url.search
 
-			const response = NextResponse.redirect(redirectUrl)
+	// 		const response = NextResponse.redirect(redirectUrl)
 
-			return response
-		}
-	}
+	// 		return response
+	// 	}
+	// }
 
 	// Handle Opt-in cookies
 	let optInPlatform = params.get('optInFrom') as OptInPlatformOption
