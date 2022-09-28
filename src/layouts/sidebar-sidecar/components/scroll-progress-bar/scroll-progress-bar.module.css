@@ -2,12 +2,4 @@
 	position: sticky;
 	bottom: 0;
 	width: 100%;
-	background: var(--token-color-palette-neutral-200);
-}
-
-.progress {
-	background: var(--token-color-palette-blue-200);
-	height: 4px;
-	width: 100%;
-	transform-origin: left;
 }
