@@ -7,6 +7,7 @@ import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 // Global imports
 import { getVersionFromPath } from 'lib/get-version-from-path'
 import { removeVersionFromPath } from 'lib/remove-version-from-path'
+import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import useCurrentPath from 'hooks/use-current-path'
 import useScroll from 'hooks/use-scroll'
@@ -64,9 +65,14 @@ const SidebarSidecarLayoutContent = ({
 	const sidebarIsVisible = !isMobileMenuRendered || mobileMenuIsOpen
 	const contentRef = useRef(null)
 
+	const stickyNavHeaderHeight = getFullNavHeaderHeight()
 	const { scrollYProgress } = useScroll({
 		target: contentRef,
-		offset: ["-68px start", "end end"]
+		/**
+		 * Note: sticky elements are not registered during scroll, so we need
+		 * to account for the stick nav height with an offset to ensure accuracy.
+		 */
+		offset: [`${stickyNavHeaderHeight * -1}px start`, `end end`],
 	})
 
 	// Handles closing the sidebar if focus moves outside of it and it is open.
