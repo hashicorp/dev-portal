@@ -1,12 +1,16 @@
-.statusSection {
-	composes: hds-surface-base from global;
+.statusSectionElements {
 	align-items: center;
 	align-self: stretch;
 	border-radius: 5px;
 	display: flex;
 	gap: 8px;
-	padding: 4px 12px;
 	width: 100%;
+}
+
+.statusSectionWithBorder {
+	composes: hds-surface-base from global;
+	composes: statusSectionElements;
+	padding: 4px 12px;
 }
 
 /*
