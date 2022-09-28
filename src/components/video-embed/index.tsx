@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Preview from 'react-player/lazy/Preview'
 import ReactPlayer from 'react-player/lazy'
 import classNames from 'classnames'
 import { VideoEmbedProps, VideoEmbedInnerProps } from './types'
@@ -34,6 +33,8 @@ function VideoEmbedPlaceholder({ imageUrl }) {
 	}
 	const styles = {
 		preview: {
+			position: 'absolute' as const,
+			top: '0',
 			width: '100%',
 			height: '100%',
 			backgroundImage: `url(${imageUrl})`,

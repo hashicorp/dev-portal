@@ -2,8 +2,8 @@ import { useMemo } from 'react'
 import ButtonLink from 'components/button-link'
 import { useCollectionProgress } from 'hooks/progress'
 import { Collection } from 'lib/learn-client/types'
-import { parseCollectionProgress } from './helpers'
-import CollectionProgressStatusSection from './components/collection-progress-status-section'
+import { getNextTutorialCta, parseCollectionProgress } from './helpers'
+import { CollectionProgressStatusSection } from './components'
 import s from './collection-progress-group.module.css'
 
 /**
@@ -22,11 +22,37 @@ function CollectionProgressGroup({ collection }: { collection: Collection }) {
 	 * Parse the progress-related information we need from the progress records,
 	 * current collection slug, and list of tutorials in this collection.
 	 */
-	const { completedTutorialCount, isInProgress, tutorialCount, tutorialCta } =
+	const { completedTutorialCount, isCompleted, isInProgress, tutorialCount } =
 		useMemo(
-			() => parseCollectionProgress(progressData, tutorials, { id, slug }),
+			() =>
+				parseCollectionProgress(progressData, tutorials.length, { id, slug }),
 			[progressData, tutorials, id, slug]
 		)
+	/**
+	 * Parse the CTA we want to show for the "next" tutorial in the collection.
+	 * This "next" tutorial varies based on the progress state
+	 */
+	const tutorialCta = useMemo(
+		() =>
+			getNextTutorialCta({
+				progressData,
+				tutorials,
+				isCompleted,
+				isInProgress,
+				completedTutorialCount,
+				tutorialCount,
+				collectionSlug: slug,
+			}),
+		[
+			completedTutorialCount,
+			isCompleted,
+			isInProgress,
+			progressData,
+			slug,
+			tutorialCount,
+			tutorials,
+		]
+	)
 
 	return (
 		<div className={s.root}>

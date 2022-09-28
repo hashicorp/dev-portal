@@ -6,6 +6,6 @@ export type SolutionOption =
 	| 'networking'
 	| 'security'
 
-export interface MdxHcpCalloutProps {
+export interface HCPCalloutProps {
 	product: HcpProductSlug
 }
