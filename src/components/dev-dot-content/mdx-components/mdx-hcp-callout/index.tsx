@@ -75,7 +75,7 @@ export default function HCPCallout({ product }: HCPCalloutProps) {
 					color="var(--white)"
 					className={s.subHeading}
 				>
-					Read Core {productName} documentation and tutorials, including
+					Read core {productName} documentation and tutorials, including
 					self-hosted open source docs
 				</Text>
 				<StandaloneLink
