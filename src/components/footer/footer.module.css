@@ -8,9 +8,6 @@
 	justify-content: space-between;
 	padding: 32px 0;
 	position: relative;
-
-	/* TODO: remove the below, temporary for making sure layout isn't brittle  */
-	min-height: 80vh;
 }
 
 .logo {
