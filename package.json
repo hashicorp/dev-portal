@@ -7,7 +7,7 @@
 		"build": "next build",
 		"lint": "next-hashicorp lint",
 		"lint:stylelint": "npx stylelint '**/*.css'",
-		"prebuild": "hc-tools ./scripts/remove-non-beta-product-pages.ts",
+		"prebuild": "hc-tools ./scripts/remove-non-beta-product-pages.ts && hc-tools ./scripts/generate-opt-in-redirects.ts",
 		"prepare": "simple-git-hooks",
 		"prettier:check": "prettier --check .",
 		"prettier:write": "prettier --write .",
