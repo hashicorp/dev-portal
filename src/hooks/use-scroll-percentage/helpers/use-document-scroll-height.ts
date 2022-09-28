@@ -54,7 +54,6 @@ export function useDocumentScrollHeight(
 		 * https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
 		 */
 		function requestDocumentHeightUpdate() {
-			console.log('document scroll height update...')
 			if (!requestId) {
 				requestId = requestAnimationFrame(updateDocumentScrollHeight)
 			}

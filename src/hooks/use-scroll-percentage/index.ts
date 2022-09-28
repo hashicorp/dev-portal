@@ -7,18 +7,14 @@ import {
 	useDocumentScrollHeight,
 } from './helpers'
 
-const SIGNIFICANT_DIGITS = 2
-const CUSTOM_EVENT_NAME = 'use-scroll-percentage_initial-update'
-
-/**
- * Scroll percentage will be `undefined` on initial load,
- * before we've been able to calculate anything,
- * and will remain `undefined` if we're not in the browser.
- */
-type ScrollPercentage = number | undefined
+const DECIMAL_PRECISION = 2
+const CUSTOM_INITIAL_EVENT_NAME = 'use-scroll-percentage_initial-update'
 
 /**
  * Track the percentage of scrolled distance on the page.
+ *
+ * Note: the return value will be `undefined` before the first calculation
+ * of scroll percentage.
  *
  * Note: this hook accepts an option `mutationTargetSelector` string.
  * If this option is used, and yields a valid element, we attach a mutation
@@ -31,11 +27,13 @@ type ScrollPercentage = number | undefined
  * frequently change height from interactions such as changing tabbed content.
  * For that view, we pass `main` as the `mutationTargetSelector`.
  */
-export default function useScrollPercentage(mutationTargetSelector: string): {
-	percentageScrolled: ScrollPercentage
-	windowHeight: number
-	documentScrollHeight: number
-} {
+export default function useScrollPercentage({
+	mutationTargetSelector,
+	excludeViewportHeight,
+}: {
+	mutationTargetSelector?: string
+	excludeViewportHeight?: boolean
+} = {}): number | undefined {
 	/**
 	 * We use separate effects to monitor document scroll height & window size.
 	 * We expect these separate effect to run relatively infrequently:
@@ -46,19 +44,18 @@ export default function useScrollPercentage(mutationTargetSelector: string): {
 	const { height: windowHeight } = useWindowSize()
 	const documentScrollHeight = useDocumentScrollHeight(mutationTargetSelector)
 
-	const [percentageScrolled, setPercentageScrolled] =
-		useState<ScrollPercentage>()
+	const [percentageScrolled, setPercentageScrolled] = useState<number>()
 
 	useEffect(() => {
+		/**
+		 * No point in trying to run this effect in SSR.
+		 */
 		if (!isBrowser()) {
 			return
 		}
 
-		console.log('Running useScrollPercentage effect...')
-
 		function setupScrollPercentageTracking() {
 			function scrollEventHandler() {
-				console.log('Called scroll event handler...')
 				window.requestAnimationFrame(() => {
 					/**
 					 * Note: we calculate this in requestAnimationFrame as reading the
@@ -69,8 +66,12 @@ export default function useScrollPercentage(mutationTargetSelector: string): {
 					 * dealing with not-really-worth-comparing floating point numbers.
 					 */
 					const updatedPercentScrolled = round(
-						getPercentageScrolled(documentScrollHeight, windowHeight),
-						SIGNIFICANT_DIGITS
+						getPercentageScrolled(
+							documentScrollHeight,
+							windowHeight,
+							excludeViewportHeight
+						),
+						DECIMAL_PRECISION
 					)
 
 					setPercentageScrolled(updatedPercentScrolled)
@@ -78,39 +79,31 @@ export default function useScrollPercentage(mutationTargetSelector: string): {
 			}
 
 			window.addEventListener('scroll', scrollEventHandler, { passive: true })
-			window.addEventListener(CUSTOM_EVENT_NAME, scrollEventHandler)
+			window.addEventListener(CUSTOM_INITIAL_EVENT_NAME, scrollEventHandler)
 			return () => {
 				window.removeEventListener('scroll', scrollEventHandler)
-				window.removeEventListener(CUSTOM_EVENT_NAME, scrollEventHandler)
+				window.removeEventListener(
+					CUSTOM_INITIAL_EVENT_NAME,
+					scrollEventHandler
+				)
 			}
 		}
 
 		const cleanup = setupScrollPercentageTracking()
 
 		/**
-		 * TODO: was not seeing scroll percent update on initial render,
-		 * seemed to have to make some scroll movement for the initial update.
+		 * We want an initial update even before scroll movement,
+		 * particularly when `excludeViewportHeight` is `false`,
+		 * as otherwise we'll see a big jump when the first `scroll`
+		 * event is fired.
 		 *
-		 * We want an initial update even before scroll movement, I think?
-		 * (I think it makes sense to match the scroll heuristic we use
-		 * for scroll-progress analytics...)
-		 *
-		 * The below kinda works... but does the custom event name make sense?
-		 * Firing a "scroll" event seems a little wrong, it's not a
-		 * real scroll event, and could cause unexpected behaviour elsewhere
-		 * in the app.
-		 *
-		 * TODO: might be able to remove this, with new documentScrollHeight
-		 * & windowHeight changes.
+		 * We listen for and dispatch a custom event to ensure we get an initial
+		 * update, even before any `scroll` events are fired by scroll movement.
 		 */
-		window.dispatchEvent(new Event(CUSTOM_EVENT_NAME))
+		window.dispatchEvent(new Event(CUSTOM_INITIAL_EVENT_NAME))
 
 		return cleanup
-	}, [documentScrollHeight, windowHeight])
+	}, [documentScrollHeight, windowHeight, excludeViewportHeight])
 
-	return {
-		percentageScrolled,
-		windowHeight,
-		documentScrollHeight,
-	}
+	return percentageScrolled
 }
