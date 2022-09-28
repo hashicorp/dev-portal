@@ -1,5 +1,7 @@
 .heading {
 	composes: g-offset-scroll-margin-top from global;
+	cursor: pointer;
+	display: flex;
 
 	/*
   Special spacing rule for subsequent list elements.
@@ -29,6 +31,8 @@
 	}
 
 	&:hover {
+		text-decoration: underline;
+
 		& :global(.__permalink-h) {
 			opacity: 1;
 			@media (prefers-reduced-motion: no-preference) {

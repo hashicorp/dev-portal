@@ -1,23 +1,16 @@
 .root {
 	composes: g-focus-ring-from-box-shadow from global;
 	opacity: 0;
+	border: none;
+	background: none;
 	display: inline-block;
-	order: 1;
+	right: 0;
 	position: relative;
-	left: -22px;
-	margin-right: -20px;
-	border-radius: 5px;
-	padding: 2px;
+	border-radius: 6px;
+	padding: 5px;
 
 	@media (prefers-reduced-motion: no-preference) {
 		transition: opacity 0.2s ease;
-	}
-
-	@media (--dev-dot-sidecar-up) {
-		left: -34px;
-		margin-right: -26px;
-		padding: 5px;
-		top: auto;
 	}
 
 	& .icon {
@@ -29,7 +22,12 @@
 
 	&:hover,
 	&:focus {
-		background: var(--token-color-palette-neutral-200);
 		opacity: 1;
+		box-shadow: var(--token-surface-mid-box-shadow);
+
+		& svg,
+		& path {
+			fill: var(--token-color-foreground-action);
+		}
 	}
 }
