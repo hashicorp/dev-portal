@@ -21,7 +21,7 @@ function determineProductSlug(req: NextRequest): string {
 	}
 
 	// dev portal / deploy preview and local preview of io sites
-	return '*'
+	return 'waypoint'
 }
 
 /**
@@ -77,6 +77,23 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		return response
 	}
 
+	const hasProductOptInCookie =
+		product !== '*' && Boolean(req.cookies.get(`${product}-io-beta-opt-in`))
+
+	if (hasProductOptInCookie) {
+		const url = req.nextUrl.clone()
+
+		if (url.pathname.startsWith('/docs')) {
+			const redirectUrl = new URL(__config.dev_dot.canonical_base_url)
+			redirectUrl.pathname = `${product}${url.pathname}`
+			redirectUrl.search = url.search
+
+			const response = NextResponse.redirect(redirectUrl)
+
+			return response
+		}
+	}
+
 	// Handle Opt-in cookies
 	let optInPlatform = params.get('optInFrom') as OptInPlatformOption
 
@@ -93,7 +110,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		// Unable to determine the referer, do nothing
 	}
 
-	const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
+	const hasOptedIn = Boolean(req.cookies.get(`${optInPlatform}-beta-opt-in`))
 
 	if (optInPlatform && !hasOptedIn) {
 		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {

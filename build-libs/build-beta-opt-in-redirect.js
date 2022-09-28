@@ -48,7 +48,7 @@ function buildBetaProductOptInRedirect() {
 					{
 						type: 'cookie',
 						key: `${product}-io-beta-opt-in`,
-						value: 'true',
+						value: 'trueeeeeeee',
 					},
 					{
 						type: 'host',
