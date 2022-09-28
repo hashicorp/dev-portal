@@ -15,7 +15,6 @@ const CommandBarDialog = ({
 	return (
 		<Dialog
 			contentClassName={s.content}
-			// contentWrapperClassName={s.contentWrapper}
 			isOpen={isOpen}
 			onDismiss={onDismiss}
 			variant={width <= 728 ? 'bottom' : null}

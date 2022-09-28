@@ -20,7 +20,6 @@ const overlayVariants = {
 
 export default function Dialog({
 	children,
-	contentWrapperClassName,
 	contentClassName,
 	isOpen,
 	label,
@@ -49,11 +48,7 @@ export default function Dialog({
 				>
 					<div
 						key="contentWrapper"
-						className={classNames(
-							s.contentWrapper,
-							s[variant],
-							contentWrapperClassName
-						)}
+						className={classNames(s.contentWrapper, s[variant])}
 					>
 						<DialogContent
 							className={classNames(s.content, s[variant], contentClassName)}

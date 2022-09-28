@@ -10,15 +10,6 @@
 	}
 }
 
-.contentWrapper {
-	@media (--dev-dot-mobile) {
-		padding: 0;
-		padding-top: 20vh;
-		width: 100%;
-		position: absolute;
-	}
-}
-
 .contentInner {
 	display: flex;
 	flex-direction: column;
