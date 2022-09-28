@@ -31,9 +31,6 @@ interface Row {
 	browser: string
 	os: string
 	platform: string
-	helpful?: string
-	reasonForVist?: string
-	suggestedImprovements?: string
 }
 
 interface StatusError extends Error {
