@@ -29,6 +29,10 @@
 .icon {
 	display: flex;
 	flex-shrink: 0;
+
+	& svg {
+		color: var(--token-color-foreground-primary);
+	}
 }
 
 .headerTags {
@@ -38,6 +42,10 @@
 }
 
 .input {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
 	appearance: none;
 	background-color: transparent;
 	border-radius: 5px;

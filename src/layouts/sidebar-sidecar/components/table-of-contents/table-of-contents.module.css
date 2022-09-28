@@ -44,7 +44,10 @@
   margin-left: auto;
   margin-right: 0;
   padding: 0 10px;
-  width: fit-content;
+  max-width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   &:focus,
   &:hover {

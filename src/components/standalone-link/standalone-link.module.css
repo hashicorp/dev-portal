@@ -1,47 +1,48 @@
 .root {
-  composes: g-focus-ring-from-box-shadow from global;
-  align-items: center;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  text-decoration: none;
-  width: fit-content;
+	composes: g-focus-ring-from-box-shadow from global;
+	align-items: center;
+	border-radius: 5px;
+	cursor: pointer;
+	display: flex;
+	font-family: var(--token-typography-font-stack-text);
+	text-decoration: none;
+	width: fit-content;
 
-  &:active {
-    text-decoration: underline;
-  }
+	&:active {
+		text-decoration: underline;
+	}
 
-  &:hover {
-    text-decoration: underline;
-  }
+	&:hover {
+		text-decoration: underline;
+	}
 
-  /*
+	/*
   Not styling ::before with position: absolute and -5px positions because that
   does not work on links that span more than one line.
   */
-  &:focus-visible {
-    text-decoration: none;
-    margin: -5px;
-    padding: 5px;
-  }
+	&:focus-visible {
+		text-decoration: none;
+		margin: -5px;
+		padding: 5px;
+	}
 
-  & svg {
-    flex-shrink: 0;
+	& svg {
+		flex-shrink: 0;
 
-    &:first-child {
-      margin-right: 6px;
-    }
+		&:first-child {
+			margin-right: 6px;
+		}
 
-    &:last-child {
-      margin-left: 6px;
-    }
-  }
+		&:last-child {
+			margin-left: 6px;
+		}
+	}
 }
 
 .text {
-  font-size: var(--font-size);
-  font-weight: var(--token-typography-font-weight-medium);
-  line-height: var(--line-height);
+	font-size: var(--font-size);
+	font-weight: var(--token-typography-font-weight-medium);
+	line-height: var(--line-height);
 }
 
 /*
@@ -51,23 +52,23 @@
 */
 
 .color-primary {
-  color: var(--token-color-foreground-action);
+	color: var(--token-color-foreground-action);
 
-  &:active {
-    color: var(--token-color-foreground-action-active);
-  }
+	&:active {
+		color: var(--token-color-foreground-action-active);
+	}
 
-  &:hover {
-    color: var(--token-color-foreground-action-hover);
-  }
+	&:hover {
+		color: var(--token-color-foreground-action-hover);
+	}
 }
 
 .color-secondary {
-  color: var(--token-color-foreground-strong);
+	color: var(--token-color-foreground-strong);
 
-  &:active {
-    color: var(--token-color-foreground-primary);
-  }
+	&:active {
+		color: var(--token-color-foreground-primary);
+	}
 }
 
 /*
@@ -77,16 +78,16 @@
 */
 
 .small {
-  --font-size: var(--token-typography-body-100-font-size);
-  --line-height: 1rem;
+	--font-size: var(--token-typography-body-100-font-size);
+	--line-height: 1rem;
 }
 
 .medium {
-  --font-size: var(--token-typography-body-200-font-size);
-  --line-height: 1rem;
+	--font-size: var(--token-typography-body-200-font-size);
+	--line-height: 1rem;
 }
 
 .large {
-  --font-size: var(--token-typography-body-300-font-size);
-  --line-height: 1.5rem;
+	--font-size: var(--token-typography-body-300-font-size);
+	--line-height: 1.5rem;
 }
