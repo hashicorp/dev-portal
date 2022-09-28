@@ -1,12 +1,15 @@
-import CollectionCard, {
+import {
 	CollectionCardPropsWithId,
+	CollectionCardWithAuthElements,
 } from 'components/collection-card'
 import { FeaturedInCollectionsProps } from './types'
 import s from './featured-in-collections.module.css'
 import CardsGridList from 'components/cards-grid-list'
 
-// This should render the eventual `CollectionCard` component (doesn't exist yet)
-// which will be used on many other views
+/**
+ * For tutorials that appear in multiple collections,
+ * renders collection cards to link to those collections.
+ */
 export function FeaturedInCollections({
 	className,
 	collections,
@@ -20,11 +23,10 @@ export function FeaturedInCollections({
 			<h2 className={s.heading}>This tutorial also appears in:</h2>
 			<div className={s.cards}>
 				<CardsGridList fixedColumns={collections.length == 1 ? 2 : null}>
-					{collections.map((collection: CollectionCardPropsWithId) => {
-						const { id, ...cardProps } = collection
+					{collections.map((cardPropsWithId: CollectionCardPropsWithId) => {
 						return (
-							<li key={id} className={s.listItem}>
-								<CollectionCard {...cardProps} />
+							<li key={cardPropsWithId.id} className={s.listItem}>
+								<CollectionCardWithAuthElements {...cardPropsWithId} />
 							</li>
 						)
 					})}
