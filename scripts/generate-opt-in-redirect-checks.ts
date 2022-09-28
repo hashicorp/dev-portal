@@ -29,9 +29,8 @@ export default async function main() {
 		recursive: true,
 	})
 
+	console.log(`📝 Writing generated opt-in redirect checks to ${filePath}`)
 	fs.writeFileSync(filePath, result.join('\n') + '\n', { encoding: 'utf-8' })
-
-	console.log(result.join('\n'))
 }
 
 main()

@@ -104,5 +104,6 @@ module.exports = withSwingset({
 			dangerouslyAllowSVG: true,
 			contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 		},
+		largePageDataBytes: 512 * 1000, // 512KB
 	})
 )
