@@ -1,5 +1,6 @@
 .root {
 	composes: g-focus-ring-from-box-shadow from global;
+	opacity: 0;
 	border-radius: 6px;
 	padding: 5px;
 	height: fit-content;
