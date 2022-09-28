@@ -1,10 +1,10 @@
 import Dialog from 'components/dialog'
+import useWindowSize from 'hooks/use-window-size'
 import { CommandBarDialogProps } from './types'
 import CommandBarDialogHeader from './header'
 import CommandBarDialogFooter from './footer'
 import CommandBarDialogBody from './body'
 import s from './command-bar-dialog.module.css'
-import useWindowSize from 'hooks/use-window-size'
 
 const CommandBarDialog = ({
 	isOpen = false,
