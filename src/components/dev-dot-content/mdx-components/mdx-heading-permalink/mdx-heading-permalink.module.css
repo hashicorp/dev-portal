@@ -1,12 +1,10 @@
 .root {
 	composes: g-focus-ring-from-box-shadow from global;
-	opacity: 0;
 	border-radius: 6px;
 	padding: 5px;
 	height: fit-content;
 	float: right;
 	margin-left: 8px;
-	margin-top: 3px;
 
 	@media (prefers-reduced-motion: no-preference) {
 		transition: opacity 0.2s ease;
@@ -28,4 +26,8 @@
 	&:focus {
 		background: var(--token-color-surface-faint);
 	}
+}
+
+.h2 {
+	margin-top: 5px;
 }

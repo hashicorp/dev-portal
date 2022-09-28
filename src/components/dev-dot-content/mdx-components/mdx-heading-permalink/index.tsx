@@ -3,10 +3,10 @@ import { IconLink16 } from '@hashicorp/flight-icons/svg-react/link-16'
 import s from './mdx-heading-permalink.module.css'
 
 export default function MdxHeadingPermalink(props) {
-	const { className, ...rest } = props
+	const { className, level, ...rest } = props
 
 	return (
-		<a className={classNames(s.root, className)} {...rest}>
+		<a className={classNames(s.root, className, s[`h${level}`])} {...rest}>
 			<div className={s.icon}>
 				<IconLink16 color="var(--token-color-foreground-action)" />
 			</div>
