@@ -1,6 +1,6 @@
 import { RefObject, useState } from 'react'
 import { AxisScrollInfo, scroll, ScrollOptions } from '@motionone/dom'
-import { useIsomorphicLayoutEffect } from 'hooks/use-isomorphic-layout-effect'
+import useSafeLayoutEffect from './use-safe-layout-effect'
 
 interface UseScrollOptions extends Omit<ScrollOptions, 'container' | 'target'> {
 	container?: RefObject<HTMLElement>
@@ -32,7 +32,7 @@ export default function useScroll({
 		scrollYProgress: 0,
 	})
 
-	useIsomorphicLayoutEffect(() => {
+	useSafeLayoutEffect(() => {
 		return scroll(
 			({ x, y }: { x: AxisScrollInfo; y: AxisScrollInfo }) => {
 				setScrollValues({
