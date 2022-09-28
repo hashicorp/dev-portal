@@ -12,12 +12,15 @@
 	composes: g-focus-ring-from-box-shadow from global;
 
 	/* properties */
+	align-items: center;
 	align-self: stretch;
 	background-color: transparent;
 	border-radius: inherit;
 	border-bottom-right-radius: 0;
 	border-top-right-radius: 0;
 	border: none;
+	display: flex;
+	line-height: 1.5rem;
 	padding-bottom: 0;
 	padding-left: 8px;
 	padding-right: 2px;
@@ -53,8 +56,7 @@
 	display: block;
 	font-family: var(--token-typography-body-100-font-family);
 	font-size: var(--token-typography-body-100-font-size);
-	line-height: calc(1.5rem - 1px);
-	padding-bottom: 1px;
+	line-height: 1.5rem;
 	padding-left: 6px;
 	padding-right: 8px;
 	white-space: nowrap;
