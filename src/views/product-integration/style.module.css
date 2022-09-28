@@ -98,3 +98,7 @@
 		line-height: var(--token-typography-body-100-line-height);
 	}
 }
+
+.breadcrumbWrapper {
+	margin-bottom: 32px;
+}
