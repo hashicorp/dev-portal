@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
@@ -20,6 +20,7 @@ import {
 	TutorialsTabContents,
 } from '../'
 import s from './search-command-bar-dialog-body.module.css'
+import { CommandBarDivider } from 'components/command-bar/components'
 
 // TODO(brkalow): We might consider lazy-loading the search client & the insights library
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
@@ -33,6 +34,7 @@ const SearchCommandBarDialogBodyContent = ({
 }) => {
 	const { currentInputValue } = useCommandBar()
 	const contentType = useCurrentContentType()
+	const ref = useRef<HTMLDivElement>()
 
 	/**
 	 * Generate suggested pages, memoized.
@@ -42,8 +44,138 @@ const SearchCommandBarDialogBodyContent = ({
 	}, [currentProductTag])
 
 	return currentInputValue ? (
-		<div className={s.tabsWrapper}>
-			<Tabs
+		<div
+			className={s.tabsWrapper}
+			style={{ paddingBottom: 0, display: 'flex', flexDirection: 'column' }}
+		>
+			<div
+				style={{
+					display: 'flex',
+					alignItems: 'center',
+					borderBottom: '1px solid var(--token-color-border-primary)',
+					marginRight: 30,
+				}}
+			>
+				<button
+					className="hds-typography-body-200"
+					style={{
+						alignItems: 'center',
+						backgroundColor: 'transparent',
+						display: 'flex',
+						gap: 6,
+						color: 'var(--token-color-foreground-action)',
+						border: 'none',
+						fontWeight: 'var(--token-typography-font-weight-medium)',
+						padding: '8px 12px 6px',
+						position: 'relative',
+						cursor: 'pointer',
+					}}
+					onClick={(e) => {
+						const heading = ref?.current?.querySelector(
+							'#documentation-results'
+						)
+						ref.current.scrollTo(
+							0,
+							heading.getBoundingClientRect().top -
+								(e.target as HTMLButtonElement).getBoundingClientRect().bottom -
+								12
+						)
+					}}
+				>
+					<IconDocs16 />
+					<span>Documentation</span>
+					<span
+						style={{
+							backgroundColor: 'var(--token-color-palette-blue-200)',
+							borderRadius: '3px',
+							bottom: '-1px',
+							content: '',
+							height: '3px',
+							left: 0,
+							position: 'absolute',
+							right: 0,
+							zIndex: 1,
+							cursor: 'pointer',
+						}}
+					/>
+				</button>
+				<button
+					className="hds-typography-body-200"
+					style={{
+						alignItems: 'center',
+						backgroundColor: 'transparent',
+						display: 'flex',
+						gap: 6,
+						color: 'var(--token-color-foreground-faint)',
+						border: 'none',
+						fontWeight: 'var(--token-typography-font-weight-medium)',
+						padding: '8px 12px 6px',
+						position: 'relative',
+						cursor: 'pointer',
+					}}
+					onClick={(e) => {
+						const heading = ref?.current?.querySelector('#tutorial-results')
+						ref.current.scrollTo(
+							0,
+							heading.getBoundingClientRect().top -
+								(e.target as HTMLButtonElement).getBoundingClientRect().bottom -
+								24
+						)
+					}}
+				>
+					<IconLearn16 />
+					<span>Tutorials</span>
+				</button>
+			</div>
+			<div
+				ref={ref}
+				style={{
+					overflowY: 'auto',
+					paddingRight: 16,
+					paddingLeft: 2,
+					paddingBottom: 24,
+				}}
+			>
+				<h2
+					id="documentation-results"
+					className="hds-typography-body-100"
+					style={{
+						margin: 0,
+						color: 'var(--token-color-foreground-primary)',
+						marginTop: 8,
+						paddingLeft: '8px',
+						paddingRight: '8px',
+						fontWeight: 600,
+						cursor: 'pointer',
+					}}
+				>
+					Documentation results
+				</h2>
+				<DocumentationTabContents
+					currentProductTag={currentProductTag}
+					suggestedPages={suggestedPages}
+				/>
+				<CommandBarDivider />
+				<h2
+					id="tutorial-results"
+					className="hds-typography-body-100"
+					style={{
+						margin: 0,
+						color: 'var(--token-color-foreground-primary)',
+						marginTop: 8,
+						paddingLeft: '8px',
+						paddingRight: '8px',
+						fontWeight: 600,
+					}}
+				>
+					Tutorial results
+				</h2>
+				<TutorialsTabContents
+					currentProductTag={currentProductTag}
+					tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
+				/>
+			</div>
+			{/* <Tabs
 				showAnchorLine={false}
 				initialActiveIndex={contentType === 'tutorials' ? 1 : 0}
 				variant="compact"
@@ -60,7 +192,7 @@ const SearchCommandBarDialogBodyContent = ({
 						tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
 					/>
 				</Tab>
-			</Tabs>
+			</Tabs> */}
 		</div>
 	) : (
 		<div className={s.suggestedPagesWrapper}>
