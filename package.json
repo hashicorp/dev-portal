@@ -64,6 +64,7 @@
 		"@types/node": "^17.0.12",
 		"@types/react": "^17.0.38",
 		"@types/semver": "^7.3.9",
+		"@types/shortid": "^0.0.29",
 		"axe-core": "^4.4.1",
 		"babel-jest": "^27.4.6",
 		"cross-env": "^7.0.3",
