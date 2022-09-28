@@ -1,15 +1,16 @@
 {
 	"extends": "base",
 	"io_sites": {
-		"max_static_paths": 9999
+		"max_static_paths": 0
 	},
 	"dev_dot": {
+		"max_static_paths": 0,
 		"beta_product_slugs": [
 			"boundary",
 			"consul",
-      "hcp",
+			"hcp",
 			"nomad",
-      "packer",
+			"packer",
 			"terraform",
 			"vagrant",
 			"vault",
@@ -23,6 +24,9 @@
 		"auth": {
 			"idp_url": "https://auth.idp.hashicorp.com"
 		}
+	},
+	"learn": {
+		"max_static_paths": 0
 	},
 	"flags": {
 		"enable_product_docs_search": true
