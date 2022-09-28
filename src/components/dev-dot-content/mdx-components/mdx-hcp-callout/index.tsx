@@ -76,7 +76,7 @@ export default function HCPCallout({ product }: HCPCalloutProps) {
 					className={s.subHeading}
 				>
 					Read core {productName} documentation and tutorials, including
-					self-hosted open source docs
+					self-hosted open source docs.
 				</Text>
 				<StandaloneLink
 					text={`Go to ${productName}`}
