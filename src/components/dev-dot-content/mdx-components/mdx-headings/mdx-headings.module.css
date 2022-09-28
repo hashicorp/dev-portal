@@ -1,8 +1,7 @@
 .heading {
 	composes: g-offset-scroll-margin-top from global;
 	cursor: pointer;
-	display: flex;
-	align-items: center;
+	width: fit-content;
 
 	/*
   Special spacing rule for subsequent list elements.
