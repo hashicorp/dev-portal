@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
-import optInRedirects from '.generated/opt-in-redirects'
+import optInRedirectChecks from '.generated/opt-in-redirect-checks'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
@@ -87,7 +87,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	if (hasProductOptInCookie) {
 		const url = req.nextUrl.clone()
 
-		if (optInRedirects[product]?.test(url.pathname)) {
+		if (optInRedirectChecks[product]?.test(url.pathname)) {
 			const redirectUrl = new URL(__config.dev_dot.canonical_base_url)
 			redirectUrl.pathname = `${product}${url.pathname}`
 			redirectUrl.search = url.search

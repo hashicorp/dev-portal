@@ -45,4 +45,4 @@ type ValueOf<T> = T[keyof T]
 /**
  * Generated files
  */
-declare module '.generated/opt-in-redirects'
+declare module '.generated/opt-in-redirect-checks'
