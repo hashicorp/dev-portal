@@ -19,6 +19,10 @@
 
 	& .textContainer {
 		padding: 16px 22px;
+
+		@media (--dev-dot-tablet-up) {
+			margin-right: 25%;
+		}
 	}
 
 	& .heading {
