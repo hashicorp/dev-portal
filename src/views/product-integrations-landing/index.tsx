@@ -20,25 +20,27 @@ export default function ProductIntegrationsLanding({
 				<div className={s.sidebar}></div>
 				<div className={s.mainArea}>
 					<div className={s.contentWrapper}>
-						<BreadcrumbBar
-							links={[
-								{
-									title: 'Developer',
-									url: '/',
-									isCurrentPage: false,
-								},
-								{
-									title: product.name,
-									url: `/${product.slug}`,
-									isCurrentPage: false,
-								},
-								{
-									title: 'Integrations',
-									url: `/${product.slug}/integrations`,
-									isCurrentPage: true,
-								},
-							]}
-						/>
+						<div className={s.breadcrumbWrapper}>
+							<BreadcrumbBar
+								links={[
+									{
+										title: 'Developer',
+										url: '/',
+										isCurrentPage: false,
+									},
+									{
+										title: product.name,
+										url: `/${product.slug}`,
+										isCurrentPage: false,
+									},
+									{
+										title: 'Integrations',
+										url: `/${product.slug}/integrations`,
+										isCurrentPage: true,
+									},
+								]}
+							/>
+						</div>
 						<FacetedIntegrationList integrations={integrations} />
 					</div>
 				</div>

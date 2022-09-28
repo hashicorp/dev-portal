@@ -28,30 +28,32 @@ export default function ProductIntegrationLanding({
 				<div className={s.sidebar}></div>
 				<div className={s.mainArea}>
 					<div className={s.contentWrapper}>
-						<BreadcrumbBar
-							links={[
-								{
-									title: 'Developer',
-									url: '/',
-									isCurrentPage: false,
-								},
-								{
-									title: product.name,
-									url: `/${product.slug}`,
-									isCurrentPage: false,
-								},
-								{
-									title: 'Integrations',
-									url: `/${product.slug}/integrations`,
-									isCurrentPage: false,
-								},
-								{
-									title: integration.name,
-									url: `/${product.slug}/integrations/${integration.slug}`,
-									isCurrentPage: true,
-								},
-							]}
-						/>
+						<div className={s.breadcrumbWrapper}>
+							<BreadcrumbBar
+								links={[
+									{
+										title: 'Developer',
+										url: '/',
+										isCurrentPage: false,
+									},
+									{
+										title: product.name,
+										url: `/${product.slug}`,
+										isCurrentPage: false,
+									},
+									{
+										title: 'Integrations',
+										url: `/${product.slug}/integrations`,
+										isCurrentPage: false,
+									},
+									{
+										title: integration.name,
+										url: `/${product.slug}/integrations/${integration.slug}`,
+										isCurrentPage: true,
+									},
+								]}
+							/>
+						</div>
 						<div className={s.content}>
 							<div className={s.topLine}>
 								<div className={s.headingWrapper}>
