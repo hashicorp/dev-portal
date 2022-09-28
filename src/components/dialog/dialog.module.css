@@ -26,10 +26,6 @@
 		padding-top: 20vh;
 		width: 100%;
 		position: absolute;
-
-		& .bottom {
-			padding-bottom: 0;
-		}
 	}
 }
 
