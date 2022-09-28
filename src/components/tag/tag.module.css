@@ -56,7 +56,8 @@
 	display: block;
 	font-family: var(--token-typography-body-100-font-family);
 	font-size: var(--token-typography-body-100-font-size);
-	line-height: 1.5rem;
+	line-height: calc(1.5rem - 1px);
+	padding-bottom: 1px;
 	padding-left: 6px;
 	padding-right: 8px;
 	white-space: nowrap;
