@@ -2,6 +2,7 @@
 	composes: g-offset-scroll-margin-top from global;
 	cursor: pointer;
 	display: flex;
+	align-items: center;
 
 	/*
   Special spacing rule for subsequent list elements.
@@ -31,10 +32,9 @@
 	}
 
 	&:hover {
-		text-decoration: underline;
-
 		& :global(.__permalink-h) {
 			opacity: 1;
+
 			@media (prefers-reduced-motion: no-preference) {
 				transition: opacity 0.2s ease;
 			}
@@ -45,6 +45,7 @@
 .h1 {
 	color: var(--token-color-foreground-strong);
 	margin-bottom: 12px;
+	cursor: auto;
 }
 
 .h2 {

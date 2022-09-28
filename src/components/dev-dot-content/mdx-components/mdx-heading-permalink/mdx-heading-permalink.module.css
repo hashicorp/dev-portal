@@ -1,13 +1,11 @@
 .root {
 	composes: g-focus-ring-from-box-shadow from global;
 	opacity: 0;
-	border: none;
-	background: none;
-	display: inline-block;
-	right: 0;
-	position: relative;
 	border-radius: 6px;
 	padding: 5px;
+	height: fit-content;
+	order: 1;
+	margin-left: 8px;
 
 	@media (prefers-reduced-motion: no-preference) {
 		transition: opacity 0.2s ease;
@@ -24,10 +22,9 @@
 	&:focus {
 		opacity: 1;
 		box-shadow: var(--token-surface-mid-box-shadow);
+	}
 
-		& svg,
-		& path {
-			fill: var(--token-color-foreground-action);
-		}
+	&:focus {
+		background: var(--token-color-surface-faint);
 	}
 }
