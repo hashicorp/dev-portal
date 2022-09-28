@@ -6,6 +6,7 @@ import Text from 'components/text'
 import { FORM_URL } from 'components/navigation-header/components/give-feedback-button'
 import StandaloneLink from 'components/standalone-link'
 import s from './command-bar-dialog.module.css'
+import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 
 const CommandBarDialogFooter = () => {
 	return (
@@ -34,6 +35,13 @@ const CommandBarDialogFooter = () => {
 				<Text asElement="span" size={100} weight="regular">
 					to navigate,
 				</Text>
+				<Badge
+					ariaLabel="Enter key"
+					color="neutral"
+					icon={<IconCornerDownLeft16 />}
+					type="outlined"
+					size="small"
+				/>
 				<Text asElement="span" size={100} weight="regular">
 					to select,
 				</Text>

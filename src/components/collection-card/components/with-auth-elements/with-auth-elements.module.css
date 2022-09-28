@@ -1,0 +1,9 @@
+.collectionProgressContainer {
+	width: 100%;
+}
+
+.completeIcons {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
