@@ -139,10 +139,10 @@ const submitFeedback = async (
 
 		res.status(204).end()
 	} catch (error) {
-		console.error('unhandled error')
+		console.error('Unexpected error')
 		console.error(error)
 		res.status(error.status || 500).json({
-			body: { error: 'An unhandled error occurred.' },
+			body: { error: 'An unexpected error occurred.' },
 		})
 	}
 }
