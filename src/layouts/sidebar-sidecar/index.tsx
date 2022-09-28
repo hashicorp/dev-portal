@@ -51,6 +51,7 @@ const SidebarSidecarLayoutContent = ({
 	sidecarSlot,
 	sidebarNavDataLevels,
 	versions,
+	showScrollProgress,
 }: SidebarSidecarLayoutProps) => {
 	const { isMobileMenuRendered, mobileMenuIsOpen, setMobileMenuIsOpen } =
 		useMobileMenu()
@@ -139,7 +140,7 @@ const SidebarSidecarLayoutContent = ({
 						<SidecarContent />
 					</div>
 				</div>
-				<ScrollProgressBar />
+				{showScrollProgress ? <ScrollProgressBar /> : null}
 			</div>
 		</div>
 	)
