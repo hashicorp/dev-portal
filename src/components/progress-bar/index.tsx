@@ -18,13 +18,15 @@ function ProgressBar({
 	percentDone: number
 	rounded?: boolean
 }) {
+	const portionDone = clamp(percentDone, 0, 100) / 100
+
 	return (
 		<span
 			className={s.root}
 			style={
 				{
 					'--border-radius': rounded ? '2px' : '0px',
-					'--percent-done': `${clamp(percentDone, 0, 100)}%`,
+					'--portion-done': portionDone,
 				} as CSSProperties
 			}
 		>
