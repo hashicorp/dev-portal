@@ -80,7 +80,7 @@ const TEST_MD_LINKS = {
 	betaProductDocsLinkUseCases:
 		'[link to vault use cases](https://www.vaultproject.io/use-cases)',
 	nonBetaProductLinkWithBetaProductInTitle:
-		'[boundary link with vault in tutorial title](/tutorials/boundary/vault-cred-brokering-quickstart)',
+		'[boundary link with vault in tutorial title](/tutorials/boundary/oss-vault-cred-brokering-quickstart)',
 	wafTutorialLink:
 		'[waf link](/tutorials/well-architected-framework/cloud-operating-model)',
 	onboardingCollectionLink:
