@@ -66,6 +66,7 @@ const SidebarSidecarLayoutContent = ({
 
 	const { scrollYProgress } = useScroll({
 		target: contentRef,
+		offset: ["-68px start", "end end"]
 	})
 
 	// Handles closing the sidebar if focus moves outside of it and it is open.
