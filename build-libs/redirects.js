@@ -10,7 +10,6 @@ const {
 } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
 const { isContentDeployPreview } = require('../src/lib/env-checks')
-const buildBetaProductOptInRedirects = require('./build-beta-opt-in-redirect')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
@@ -339,7 +338,6 @@ async function redirectsConfig() {
 	const dotIoRedirects = await buildDotIoRedirects()
 	const devPortalRedirects = await buildDevPortalRedirects()
 	const { simpleRedirects, globRedirects } = splitRedirectsByType([
-		...buildBetaProductOptInRedirects(),
 		...dotIoRedirects,
 		...devPortalRedirects,
 	])

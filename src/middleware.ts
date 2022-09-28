@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
+import optInRedirects from '.generated/opt-in-redirects'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
@@ -77,6 +78,26 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		return response
 	}
 
+	/**
+	 * Handle opt-in redirects if the cookie is present and we're serving a specific product site
+	 */
+	const hasProductOptInCookie =
+		product !== '*' && Boolean(req.cookies.get(`${product}-io-beta-opt-in`))
+
+	if (hasProductOptInCookie) {
+		const url = req.nextUrl.clone()
+
+		if (optInRedirects[product]?.test(url.pathname)) {
+			const redirectUrl = new URL(__config.dev_dot.canonical_base_url)
+			redirectUrl.pathname = `${product}${url.pathname}`
+			redirectUrl.search = url.search
+
+			const response = NextResponse.redirect(redirectUrl)
+
+			return response
+		}
+	}
+
 	// Handle Opt-in cookies
 	let optInPlatform = params.get('optInFrom') as OptInPlatformOption
 
@@ -93,7 +114,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		// Unable to determine the referer, do nothing
 	}
 
-	const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
+	const hasOptedIn = Boolean(req.cookies.get(`${optInPlatform}-beta-opt-in`))
 
 	if (optInPlatform && !hasOptedIn) {
 		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {
