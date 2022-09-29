@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
@@ -8,6 +8,7 @@ import { useCurrentContentType, useCurrentProduct } from 'contexts'
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import Tabs, { Tab } from 'components/tabs'
+import useRecentSearches from '../../hooks/use-recent-searches'
 import {
 	generateSuggestedPages,
 	generateTutorialLibraryCta,
@@ -18,6 +19,7 @@ import {
 	SuggestedPages,
 	DocumentationTabContents,
 	TutorialsTabContents,
+	RecentSearches,
 } from '../'
 import s from './search-command-bar-dialog-body.module.css'
 
@@ -28,8 +30,10 @@ const searchClient = algoliasearch(appId, apiKey)
 
 const SearchCommandBarDialogBodyContent = ({
 	currentProductTag,
+	recentSearches,
 }: {
 	currentProductTag: CommandBarTag
+	recentSearches: string[]
 }) => {
 	const { currentInputValue } = useCommandBar()
 	const contentType = useCurrentContentType()
@@ -64,6 +68,7 @@ const SearchCommandBarDialogBodyContent = ({
 		</div>
 	) : (
 		<div className={s.suggestedPagesWrapper}>
+			<RecentSearches recentSearches={recentSearches} />
 			<SuggestedPages pages={suggestedPages} />
 		</div>
 	)
@@ -72,6 +77,26 @@ const SearchCommandBarDialogBodyContent = ({
 const SearchCommandBarDialogBody = () => {
 	const currentProduct = useCurrentProduct()
 	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
+	const [searchQuery, setSearchQuery] = useState(undefined)
+	const { recentSearches, addRecentSearch } = useRecentSearches()
+
+	/**
+	 * Delay sending off search queries while the user is typing.
+	 */
+	useEffect(() => {
+		const typingDebounce = setTimeout(() => {
+			setSearchQuery(currentInputValue)
+		}, 300)
+
+		return () => clearTimeout(typingDebounce)
+	}, [currentInputValue])
+
+	/**
+	 * Add a new recent search when `searchQuery` updates.
+	 */
+	useEffect(() => {
+		addRecentSearch(searchQuery)
+	}, [addRecentSearch, searchQuery])
 
 	/**
 	 * Create callback for setting up this command's state.
@@ -113,9 +138,10 @@ const SearchCommandBarDialogBody = () => {
 			indexName={__config.dev_dot.algolia.tutorialsIndexName}
 			searchClient={searchClient}
 		>
-			<Configure query={currentInputValue} />
+			<Configure query={searchQuery} />
 			<SearchCommandBarDialogBodyContent
 				currentProductTag={currentProductTag}
+				recentSearches={recentSearches}
 			/>
 		</InstantSearch>
 	)
