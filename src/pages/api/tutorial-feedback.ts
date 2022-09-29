@@ -20,14 +20,14 @@ interface SurveyResponse {
 interface RequestBody {
 	sessionId: string
 	page: string
-	timestamp: Date
+	timestamp: string
 	responses: SurveyResponse[]
 }
 
 interface Row {
 	sessionId: string
 	page: string
-	timestamp: Date
+	timestamp: string
 	browser: string
 	os: string
 	platform: string
@@ -66,7 +66,7 @@ async function validateRequest({
 	const requiredKeys = ['sessionId', 'page', 'responses', 'timestamp']
 	const missing = []
 
-	requiredKeys.forEach((key) => {
+	requiredKeys.forEach((key: string) => {
 		if (!body[key]) {
 			missing.push(key)
 		}
@@ -90,7 +90,7 @@ async function findAndUpdate(
 	const { sessionId } = newRow
 	const rows = await sheet.getRows()
 	let existingRowIndex = null
-	rows.some((row, index) => {
+	rows.some((row: GoogleSpreadsheetRow, index: number) => {
 		if (row.sessionId === sessionId) {
 			existingRowIndex = index
 			return true
@@ -118,7 +118,7 @@ const submitFeedback = async (
 		const { responses, sessionId, ...rest } = requestBody
 		const { browser, os, platform } = Bowser.parse(req.headers['user-agent'])
 
-		const newRow = {
+		const newRow: Row = {
 			sessionId,
 			...responses,
 			...rest,
@@ -130,11 +130,18 @@ const submitFeedback = async (
 		const updatedRow = await findAndUpdate(sheet, newRow)
 
 		if (updatedRow) {
-			await updatedRow.save()
+			// await updatedRow.save()
 		} else {
-			//  eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			await sheet.addRow(newRow)
+			console.log({ newRow })
+			return
+			// sessionId: '-rff2nRAv',
+			// helpful: 'yes',
+			// timestamp: '2022-09-29T16:50:08.409Z',
+			// page: '/waypoint/tutorials/get-started-docker/get-started-intro',
+			// browser: 'Chrome 105.0.0.0',
+			// os: 'macOS 10.15.7',
+			// platform: 'desktop'
+			await sheet.addRow({ ...newRow })
 		}
 
 		res.status(204).end()
