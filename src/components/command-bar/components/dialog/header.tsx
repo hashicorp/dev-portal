@@ -55,7 +55,7 @@ const CommandBarDialogHeader = () => {
 							className={s.clearButton}
 							onClick={() => {
 								setCurrentInputValue('')
-								// TODO re-focus input
+								inputRef.current.focus()
 							}}
 						>
 							<IconX24 />
