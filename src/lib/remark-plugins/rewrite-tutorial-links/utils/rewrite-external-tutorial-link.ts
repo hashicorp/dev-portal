@@ -12,8 +12,7 @@
  * /tutorials/${product}/{tutorial-name}#{anchor} --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
  */
 
-import { LearnProductSlug } from 'types/products'
-import { SectionOption } from 'lib/learn-client/types'
+import { SectionOption, ProductOption } from 'lib/learn-client/types'
 import {
 	normalizeSlugForDevDot,
 	normalizeSlugForTutorials,
@@ -61,7 +60,7 @@ export function rewriteExternalTutorialLink(
 		} else {
 			path = `/${normalizedAlternateSlug}/tutorials/${collectionSlug}/${filename}`
 		}
-	} else if (SectionOption[normalizedProductSlug]) {
+	} else {
 		// example: the map has keys with `cloud` instead of `hcp`
 		const tutorialSlug = [
 			normalizeSlugForTutorials(normalizedProductSlug),
