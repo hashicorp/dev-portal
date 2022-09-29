@@ -190,7 +190,7 @@ function getNextTutorial({
 			progressData,
 			(progress) =>
 				!progress ||
-				progressPercentToStatus(progress.complete_percent) <
+				progressPercentToStatus(progress.complete_percent) ==
 					TutorialProgressStatus.visited
 		)
 		if (firstIncompleteTutorial) {
