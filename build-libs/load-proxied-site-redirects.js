@@ -44,6 +44,10 @@ module.exports = async function loadProxiedSiteRedirects() {
 	return redirects
 }
 
+/**
+ * This is a helper util to add cookie & host matching conditions
+ * @see https://nextjs.org/docs/api-reference/next.config.js/redirects#header-cookie-and-query-matching
+ */
 function addHostConditionToProxiedSiteRedirect(domain, redirect) {
 	const hasCondition = isPreview()
 		? [
