@@ -6,12 +6,13 @@ import Text from 'components/text'
 import { FORM_URL } from 'components/navigation-header/components/give-feedback-button'
 import StandaloneLink from 'components/standalone-link'
 import s from './command-bar-dialog.module.css'
+import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 
 const CommandBarDialogFooter = () => {
 	return (
 		<div className={s.footer}>
 			<div className={s.footerLeft}>
-				<Badge color="neutral" text="Tab" type="outlined" size="small" />
+				<Badge color="neutral" text="Tab" type="filled" size="small" />
 				<Text asElement="span" size={100} weight="regular">
 					or
 				</Text>
@@ -20,24 +21,31 @@ const CommandBarDialogFooter = () => {
 						ariaLabel="Up arrow key"
 						color="neutral"
 						icon={<IconArrowUp16 />}
-						type="outlined"
+						type="filled"
 						size="small"
 					/>
 					<Badge
 						ariaLabel="Down arrow key"
 						color="neutral"
 						icon={<IconArrowDown16 />}
-						type="outlined"
+						type="filled"
 						size="small"
 					/>
 				</div>
 				<Text asElement="span" size={100} weight="regular">
 					to navigate,
 				</Text>
+				<Badge
+					ariaLabel="Enter key"
+					color="neutral"
+					icon={<IconCornerDownLeft16 />}
+					type="filled"
+					size="small"
+				/>
 				<Text asElement="span" size={100} weight="regular">
 					to select,
 				</Text>
-				<Badge color="neutral" text="Esc" type="outlined" size="small" />
+				<Badge color="neutral" text="Esc" type="filled" size="small" />
 				<Text asElement="span" size={100} weight="regular">
 					to exit
 				</Text>
