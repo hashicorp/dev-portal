@@ -6,6 +6,7 @@ import {
 	CardBody,
 	CardBadges,
 } from 'components/tutorial-collection-cards'
+import CollectionCardWithAuthElements from './components/with-auth-elements'
 import {
 	CollectionCardProps,
 	CollectionCardPropsWithId,
@@ -24,6 +25,7 @@ function CollectionCard({
 	heading,
 	description,
 	productsUsed,
+	eyebrowSlot,
 }: CollectionCardProps) {
 	const hasLogo = Boolean(logo)
 	const eyebrowText = `${tutorialCount} tutorial${
@@ -32,8 +34,12 @@ function CollectionCard({
 	return (
 		<CardLink ariaLabel={heading} href={url} className={s.root}>
 			<CardEyebrow>
-				<IconCollections16 />
-				<span>{eyebrowText}</span>
+				{eyebrowSlot || (
+					<>
+						<IconCollections16 />
+						<span>{eyebrowText}</span>
+					</>
+				)}
 			</CardEyebrow>
 			{hasLogo && (
 				<span className={s.logoContainer}>
@@ -47,6 +53,6 @@ function CollectionCard({
 	)
 }
 
-export { CompanyLogoOption }
+export { CompanyLogoOption, CollectionCardWithAuthElements }
 export type { CollectionCardProps, CollectionCardPropsWithId }
 export default CollectionCard

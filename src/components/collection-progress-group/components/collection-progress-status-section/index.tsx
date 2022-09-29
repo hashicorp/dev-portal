@@ -1,7 +1,8 @@
-import { ReactNode } from 'react'
+import { ReactElement, ReactNode } from 'react'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import { IconCheckCircleFill16 } from '@hashicorp/flight-icons/svg-react/check-circle-fill-16'
 import ProgressBar from 'components/progress-bar'
+import { CollectionProgressStatusSectionProps } from './types'
 import s from './collection-progress-status-section.module.css'
 
 /**
@@ -21,17 +22,7 @@ function CollectionProgressStatusSection({
 	completedTutorialCount,
 	tutorialCount,
 	isInProgress,
-}: {
-	completedTutorialCount: number
-	tutorialCount: number
-	/**
-	 * Optionally specify that the progress bar should be shown,
-	 * even in cases where there are zero completed tutorials.
-	 * Note that if all tutorials are completed, the progress
-	 * bar will not be shown even if isInProgress is set to true.
-	 */
-	isInProgress?: boolean
-}) {
+}: CollectionProgressStatusSectionProps) {
 	/**
 	 * Completion status
 	 */
@@ -44,6 +35,51 @@ function CollectionProgressStatusSection({
 	/**
 	 * Status label
 	 */
+	const statusLabel = getStatusLabel({
+		completedTutorialCount,
+		tutorialCount,
+		isInProgress,
+		isCompleted,
+	})
+
+	/**
+	 * Status elements
+	 */
+	let statusElements: ReactElement
+	if (isCompleted) {
+		statusElements = <CompleteIconAndLabel statusLabel={statusLabel} />
+	} else if (hasProgress) {
+		statusElements = (
+			<>
+				<CountIconAndLabel statusLabel={statusLabel} />
+				<ProgressBar
+					percentDone={(completedTutorialCount / tutorialCount) * 100}
+				/>
+			</>
+		)
+	} else {
+		statusElements = <CountIconAndLabel statusLabel={statusLabel} />
+	}
+
+	/**
+	 * Render, with a border and padding.
+	 */
+	return (
+		<div className={s.statusSectionWithBorder}>
+			<StatusSectionElements>{statusElements}</StatusSectionElements>
+		</div>
+	)
+}
+
+/**
+ * Get an appropriate status label for the current collection progress
+ */
+function getStatusLabel({
+	completedTutorialCount,
+	tutorialCount,
+	isInProgress,
+	isCompleted,
+}: CollectionProgressStatusSectionProps & { isCompleted: boolean }) {
 	let statusLabel: string
 	if (isCompleted) {
 		statusLabel = 'Complete'
@@ -52,36 +88,15 @@ function CollectionProgressStatusSection({
 	} else {
 		statusLabel = `${tutorialCount} tutorial${tutorialCount == 1 ? '' : 's'}`
 	}
-
-	if (isCompleted) {
-		return (
-			<StatusSection>
-				<CompleteIconAndLabel statusLabel={statusLabel} />
-			</StatusSection>
-		)
-	} else if (hasProgress) {
-		return (
-			<StatusSection>
-				<CountIconAndLabel statusLabel={statusLabel} />
-				<ProgressBar
-					percentDone={(completedTutorialCount / tutorialCount) * 100}
-				/>
-			</StatusSection>
-		)
-	} else {
-		return (
-			<StatusSection>
-				<CountIconAndLabel statusLabel={statusLabel} />
-			</StatusSection>
-		)
-	}
+	return statusLabel
 }
 
 /**
- * Renders an box in which status information can be placed.
+ * Renders CollectionProgress elements, wrapped in a flex container.
+ * This positions elements consistently, but does not product padding or border.
  */
-function StatusSection({ children }: { children: ReactNode }) {
-	return <div className={s.statusSection}>{children}</div>
+function StatusSectionElements({ children }: { children: ReactNode }) {
+	return <div className={s.statusSectionElements}>{children} </div>
 }
 
 /**
@@ -91,10 +106,17 @@ function StatusSection({ children }: { children: ReactNode }) {
 function CompleteIconAndLabel({ statusLabel }: { statusLabel: string }) {
 	return (
 		<div className={s.completeIconAndLabel}>
-			<IconCheckCircleFill16 className={s.completeIcon} />
+			<CompleteIcon />
 			<div className={s.statusLabel}>{statusLabel}</div>
 		</div>
 	)
+}
+
+/**
+ * Displays a circle check icon, styled for composition in CollectionProgress
+ */
+function CompleteIcon() {
+	return <IconCheckCircleFill16 className={s.completeIcon} />
 }
 
 /**
@@ -104,10 +126,25 @@ function CompleteIconAndLabel({ statusLabel }: { statusLabel: string }) {
 function CountIconAndLabel({ statusLabel }: { statusLabel: string }) {
 	return (
 		<div className={s.countIconAndLabel}>
-			<IconCollections16 className={s.countIcon} />
+			<CountIcon />
 			<div className={s.statusLabel}>{statusLabel}</div>
 		</div>
 	)
 }
 
+/**
+ * Displays a collections icon, styled for composition in CollectionProgress
+ */
+function CountIcon() {
+	return <IconCollections16 className={s.countIcon} />
+}
+
+export {
+	CollectionProgressStatusSection,
+	CountIconAndLabel,
+	CountIcon,
+	CompleteIconAndLabel,
+	getStatusLabel,
+	StatusSectionElements,
+}
 export default CollectionProgressStatusSection

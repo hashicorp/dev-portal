@@ -1,5 +1,6 @@
 import * as crypto from 'crypto'
 import createFetch from '@vercel/fetch'
+import * as core from '@actions/core'
 const fetch = createFetch()
 
 const vercelApiToken = process.env.VERCEL_API_TOKEN
@@ -50,7 +51,29 @@ async function sendToCloudIDP(deploymentUrl: string) {
 		body: payload,
 		headers: headers,
 	})
-	console.log(response.status, response.statusText)
+
+	// log response as text
+	try {
+		const text = await response.text()
+		console.log(response.status, response.statusText, text)
+	} catch (err) {
+		// ignore this error
+	}
+
+	if (response.status >= 200 && response.status < 300) {
+		// 2xx — Success
+		core.notice(`Successfully registered: ${deploymentUrl}`)
+	} else if (response.status >= 300 && response.status < 400) {
+		// 3xx — Noop; We should never be here
+	} else if (response.status >= 400 && response.status < 500) {
+		// 4xx — Fail
+		core.error(`Failed to register: ${deploymentUrl}. Received a 4xx response.`)
+	} else if (response.status >= 500) {
+		// 5xx — Noop; We likely see this if we've already registered a URL
+		core.warning(
+			`Failed to register: ${deploymentUrl}. Received a 5xx response.`
+		)
+	}
 }
 
 async function main() {
