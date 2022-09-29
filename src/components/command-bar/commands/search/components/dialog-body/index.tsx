@@ -14,6 +14,7 @@ import {
 	CommandBarList,
 } from 'components/command-bar/components'
 import Tabs, { Tab } from 'components/tabs'
+import useRecentSearches from '../../hooks/use-recent-searches'
 import {
 	generateSuggestedPages,
 	generateTutorialLibraryCta,
@@ -34,8 +35,10 @@ const searchClient = algoliasearch(appId, apiKey)
 
 const SearchCommandBarDialogBodyContent = ({
 	currentProductTag,
+	recentSearches,
 }: {
 	currentProductTag: CommandBarTag
+	recentSearches: string[]
 }) => {
 	const { currentInputValue } = useCommandBar()
 	const contentType = useCurrentContentType()
@@ -46,33 +49,6 @@ const SearchCommandBarDialogBodyContent = ({
 	const suggestedPages = useMemo<SuggestedPage[]>(() => {
 		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProductTag])
-
-	let recentSearches
-	if (typeof window !== 'undefined') {
-		const storageValue = JSON.parse(
-			window.localStorage.getItem('RECENT_SEARCHES')
-		) as string[]
-
-		if (storageValue.length > 0) {
-			recentSearches = (
-				<>
-					<CommandBarList label="Recent Searches">
-						{storageValue.reverse().map((recent) => {
-							return (
-								<CommandBarButtonListItem
-									key={recent}
-									icon={<IconHistory16 />}
-									onClick={() => console.log('clicked', recent)}
-									title={recent}
-								/>
-							)
-						})}
-					</CommandBarList>
-					<CommandBarDivider />
-				</>
-			)
-		}
-	}
 
 	return currentInputValue ? (
 		<div className={s.tabsWrapper}>
@@ -97,7 +73,23 @@ const SearchCommandBarDialogBodyContent = ({
 		</div>
 	) : (
 		<div className={s.suggestedPagesWrapper}>
-			{recentSearches}
+			{recentSearches?.length > 0 ? (
+				<>
+					<CommandBarList label="Recent Searches">
+						{recentSearches.map((recentSearch: string) => {
+							return (
+								<CommandBarButtonListItem
+									key={recentSearch}
+									icon={<IconHistory16 />}
+									onClick={() => console.log('clicked', recentSearch)}
+									title={recentSearch}
+								/>
+							)
+						})}
+					</CommandBarList>
+					<CommandBarDivider />
+				</>
+			) : null}
 			<SuggestedPages pages={suggestedPages} />
 		</div>
 	)
@@ -107,6 +99,7 @@ const SearchCommandBarDialogBody = () => {
 	const currentProduct = useCurrentProduct()
 	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
 	const [searchQuery, setSearchQuery] = useState(undefined)
+	const { recentSearches, addRecentSearch } = useRecentSearches()
 
 	/**
 	 * Delay sending off search queries while the user is typing.
@@ -120,36 +113,11 @@ const SearchCommandBarDialogBody = () => {
 	}, [currentInputValue])
 
 	/**
-	 * Handle updating local storage when the `searchQuery` updates.
+	 * Add a new recent search when `searchQuery` updates.
 	 */
 	useEffect(() => {
-		if (typeof window === 'undefined' || !searchQuery) {
-			return
-		}
-
-		const localStorage = window.localStorage
-		const rawValue = localStorage.getItem('RECENT_SEARCHES')
-		const recentSearches = rawValue ? JSON.parse(rawValue) : []
-
-		if (!recentSearches || recentSearches.length === 0) {
-			localStorage.setItem('RECENT_SEARCHES', JSON.stringify([searchQuery]))
-			return
-		}
-
-		const indexOfQuery = recentSearches.indexOf(searchQuery)
-		if (indexOfQuery >= 0) {
-			recentSearches.splice(indexOfQuery, 1)
-		}
-
-		recentSearches.push(searchQuery)
-
-		let newValue = recentSearches
-		if (recentSearches.length > 3) {
-			newValue = recentSearches.slice(-3)
-		}
-
-		localStorage.setItem('RECENT_SEARCHES', JSON.stringify(newValue))
-	}, [searchQuery])
+		addRecentSearch(searchQuery)
+	}, [addRecentSearch, searchQuery])
 
 	/**
 	 * Create callback for setting up this command's state.
@@ -194,6 +162,7 @@ const SearchCommandBarDialogBody = () => {
 			<Configure query={searchQuery} />
 			<SearchCommandBarDialogBodyContent
 				currentProductTag={currentProductTag}
+				recentSearches={recentSearches}
 			/>
 		</InstantSearch>
 	)
