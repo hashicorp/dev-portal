@@ -6,13 +6,12 @@ import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import ProductIcon from 'components/product-icon'
 import { SuggestedPage } from '../components'
+import { generateTutorialLibraryCta } from './generate-tutorial-library-cta'
 
 const generateTutorialLibrarySuggestedPage = (productSlug?: ProductSlug) => {
-	// TODO abstract this, or leverage abstraction from tutorial library feature
-	let url = '/tutorials/library'
-	if (productSlug) {
-		url += `?product=${productSlug}`
-	}
+	const { href: url } = generateTutorialLibraryCta(
+		productSlug ? { id: productSlug, text: '' } : null
+	)
 
 	return {
 		icon: <IconGuide16 />,

@@ -14,6 +14,7 @@
 
 .header {
 	align-items: center;
+	background-color: var(--token-color-surface-primary);
 	border-bottom: 1px solid var(--token-color-border-primary);
 	display: flex;
 	flex-grow: 0;
@@ -25,6 +26,10 @@
 .icon {
 	display: flex;
 	flex-shrink: 0;
+
+	& svg {
+		color: var(--token-color-foreground-primary);
+	}
 }
 
 .headerTags {
@@ -34,11 +39,15 @@
 }
 
 .input {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
 	appearance: none;
 	background-color: transparent;
 	border-radius: 5px;
 	border: none;
-	color: var(--token-color-foreground-faint);
+	color: var(--token-color-foreground-strong);
 	font-family: var(--token-typography-body-300-font-family);
 	font-size: var(--token-typography-body-300-font-size);
 	font-weight: var(--token-typography-font-weight-medium);
@@ -48,7 +57,7 @@
 	width: 100%;
 
 	&::placeholder {
-		color: var(--token-color-foreground-disabled);
+		color: var(--token-color-foreground-faint);
 		font-family: var(--token-typography-body-300-font-family);
 		font-size: var(--token-typography-body-300-font-size);
 		font-weight: var(--token-typography-font-weight-medium);
@@ -64,6 +73,7 @@
 }
 
 .body {
+	background-color: var(--token-color-surface-primary);
 	flex-grow: 1;
 	flex-shrink: 1;
 	overflow-y: auto;
@@ -71,7 +81,7 @@
 
 .footer {
 	align-items: center;
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--token-color-surface-primary);
 	box-shadow: var(--token-surface-base-box-shadow);
 	display: flex;
 	flex-grow: 0;

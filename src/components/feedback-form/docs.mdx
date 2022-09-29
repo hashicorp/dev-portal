@@ -1,0 +1,67 @@
+---
+componentName: 'FeedbackForm'
+---
+
+The FeedbackForm component is used at the end of tutorials to collect user feedback.
+
+<LiveComponent>
+{`			<FeedbackForm
+				questions={[
+					{
+						id: 'helpful',
+						type: 'choice',
+						label: 'Was this tutorial helpful?',
+						answers: [
+							{
+								icon: <SwingsetTestIcon name="thumbs-up" />,
+								value: 'yes',
+								display: 'Yes',
+								nextQuestion: 'reasonForVisit',
+							},
+							{
+                icon: <SwingsetTestIcon name="thumbs-down" />,
+								value: 'no',
+								display: 'No',
+								nextQuestion: 'suggestedImprovements',
+							},
+						],
+					},
+					{
+						id: 'reasonForVisit',
+						type: 'text',
+						labelIcon: <SwingsetTestIcon name="thumbs-up" />,
+						label: 'Why did you visit this tutorial?',
+						optional: true,
+						buttonText: 'Submit',
+					},
+					{
+						id: 'suggestedImprovements',
+						type: 'text',
+						labelIcon: <SwingsetTestIcon name="thumbs-down" />,
+						label: 'We want to hear from you.',
+						labelSecondary: 'How could this tutorial be more helpful?',
+						buttonText: 'Submit',
+					},
+				]}
+				finishedText="Thank you! Your feedback will help us improve our websites."
+				onQuestionSubmit={() =>
+					new Promise((resolve) => setTimeout(resolve, 1000))
+				}
+			/>
+    `
+  }
+</LiveComponent>
+
+<UsageDetails packageJson={packageJson} />
+
+### Base Props
+
+<PropsTable props={componentProps.baseProps} />
+
+#### Additional Props for Choice question
+
+<PropsTable props={componentProps.choiceQuestionProps} />
+
+#### Additional Props for Text question
+
+<PropsTable props={componentProps.textQuestionProps} />
