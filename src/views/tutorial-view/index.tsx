@@ -48,6 +48,7 @@ import {
 	FeaturedInCollections,
 	NextPrevious,
 	getNextPrevious,
+	FeedbackPanel,
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
@@ -294,6 +295,7 @@ function TutorialView({
 							<MDXRemote {...content} components={MDX_COMPONENTS} />
 						</DevDotContent>
 						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
+						<FeedbackPanel />
 						<NextPrevious {...nextPreviousData} />
 						<FeaturedInCollections
 							className={s.featuredInCollections}

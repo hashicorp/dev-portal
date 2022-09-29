@@ -1,4 +1,5 @@
 import Dialog from 'components/dialog'
+import useWindowSize from 'hooks/use-window-size'
 import { CommandBarDialogProps } from './types'
 import CommandBarDialogHeader from './header'
 import CommandBarDialogFooter from './footer'
@@ -9,8 +10,15 @@ const CommandBarDialog = ({
 	isOpen = false,
 	onDismiss = () => null,
 }: CommandBarDialogProps) => {
+	const { width } = useWindowSize()
+
 	return (
-		<Dialog contentClassName={s.content} isOpen={isOpen} onDismiss={onDismiss}>
+		<Dialog
+			contentClassName={s.content}
+			isOpen={isOpen}
+			onDismiss={onDismiss}
+			variant={width <= 728 ? 'bottom' : null}
+		>
 			<div className={s.contentInner}>
 				<CommandBarDialogHeader />
 				<CommandBarDialogBody />
