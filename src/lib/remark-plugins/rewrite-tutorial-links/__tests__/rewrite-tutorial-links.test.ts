@@ -1,6 +1,7 @@
 import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
+import { productSlugs } from 'lib/products'
 
 /**
  * As we onboard more products into internal beta, we lose the ability
@@ -14,7 +15,7 @@ jest.mock('../../../get-is-beta-product', () => (productSlug) => {
 // HELPERS ------------------------------------------------------
 
 const slug = '[a-z0-9]+(?:[-][a-z0-9]+)*' // matches lower case letters, numbers and hyphens
-const betaProductSlugs = __config.dev_dot.beta_product_slugs.join('|')
+const betaProductSlugs = productSlugs.join('|')
 const devDotTutorialsPath = new RegExp(
 	`^/(${betaProductSlugs})/tutorials/${slug}(/${slug})?$` // Matches /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
 )

@@ -1,4 +1,3 @@
-import { useIsBetaProduct } from 'contexts/all-product-data'
 import { useCurrentProduct } from 'contexts/current-product'
 import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
@@ -12,11 +11,8 @@ import OptInOut from 'components/opt-in-out'
  */
 const DocsViewLayout = (props: SidebarSidecarLayoutProps) => {
 	const currentProduct = useCurrentProduct()
-	const isBetaProduct = useIsBetaProduct(currentProduct.slug)
 
-	const optInOutSlot = isBetaProduct ? (
-		<OptInOut platform={`${currentProduct.slug}-io`} />
-	) : null
+	const optInOutSlot = <OptInOut platform={`${currentProduct.slug}-io`} />
 
 	return <SidebarSidecarLayout {...props} optInOutSlot={optInOutSlot} />
 }

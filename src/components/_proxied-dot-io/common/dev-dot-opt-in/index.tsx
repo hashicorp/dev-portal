@@ -4,9 +4,7 @@ import { IconAlertCircle16 } from '@hashicorp/flight-icons/svg-react/alert-circl
 import ButtonLink from 'components/button-link'
 import Text from 'components/text'
 import useProductMeta from '@hashicorp/platform-product-meta'
-import { ProductSlug } from 'types/products'
 import { isContentDeployPreview } from 'lib/env-checks'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import s from './dev-dot-opt-in.module.css'
 
 const DAYS_UNTIL_EXPIRE = 180
@@ -41,9 +39,7 @@ export default function DevDotOptIn({
 
 	// Based on our config values, decide whether or not we should render the CTA
 	const shouldRenderOptInCTA =
-		!isContentDeployPreview(slug) &&
-		getIsBetaProduct(slug as ProductSlug) &&
-		__config.flags.enable_io_beta_cta
+		!isContentDeployPreview(slug) && __config.flags.enable_io_beta_cta
 
 	// Return `null` if the CTA should not be rendered
 	if (!shouldRenderOptInCTA) {

@@ -17,7 +17,6 @@ import {
 	TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
 import { TutorialSidebarSidecarProps, TutorialData } from '.'
@@ -177,12 +176,9 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const isBetaProduct =
-			isProductSlug(productSlugFromCollection) &&
-			getIsBetaProduct(productSlugFromCollection)
 		const isCloud = productSlugFromCollection == 'cloud'
 		const themeMatches = productSlugFromCollection === collection.theme
-		const shouldBuildTutorialPath = isBetaProduct && (isCloud || themeMatches)
+		const shouldBuildTutorialPath = isCloud || themeMatches
 
 		if (shouldBuildTutorialPath) {
 			// go through the tutorials within the collection, create a path for each

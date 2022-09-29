@@ -3,7 +3,6 @@ import { ReactElement, useMemo } from 'react'
 
 // Global imports
 import { productSlugs } from 'lib/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
 
@@ -33,7 +32,6 @@ const HomePageContent = ({
 				.filter((slug) => slug !== 'sentinel')
 				.map((slug) => ({
 					slug,
-					isBeta: getIsBetaProduct(slug),
 				})),
 		[]
 	)
