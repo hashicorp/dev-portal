@@ -3,6 +3,7 @@ import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
 import OptInOut from 'components/opt-in-out'
+import getIsBetaProduct from 'lib/get-is-beta-product'
 
 /**
  * Lightweight wrapper around SidebarSidecarLayout which passes along some docs specific props.
@@ -11,9 +12,11 @@ import OptInOut from 'components/opt-in-out'
  */
 const DocsViewLayout = (props: SidebarSidecarLayoutProps) => {
 	const currentProduct = useCurrentProduct()
+	const isBetaProduct = getIsBetaProduct(currentProduct.slug)
 
-	const optInOutSlot = <OptInOut platform={`${currentProduct.slug}-io`} />
-
+	const optInOutSlot = isBetaProduct ? (
+		<OptInOut platform={`${currentProduct.slug}-io`} />
+	) : null
 	return <SidebarSidecarLayout {...props} optInOutSlot={optInOutSlot} />
 }
 
