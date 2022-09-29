@@ -49,10 +49,7 @@
 		border-bottom-right-radius: 0;
 		box-shadow: none;
 
-		/* Commenting below so that default dialog styles are used until we decide on a solution */
-
 		/* Ensures that content in the dialog is not hidden by the floating control bar on mobile browsers */
-
-		/* padding-bottom: 88px; */
+		padding-bottom: env(safe-area-inset-bottom);
 	}
 }
