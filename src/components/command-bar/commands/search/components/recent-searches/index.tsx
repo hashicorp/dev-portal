@@ -1,4 +1,5 @@
 import { IconHistory16 } from '@hashicorp/flight-icons/svg-react/history-16'
+import { useCommandBar } from 'components/command-bar'
 import {
 	CommandBarButtonListItem,
 	CommandBarDivider,
@@ -7,6 +8,8 @@ import {
 import { RecentSearch, RecentSearchesProps } from './types'
 
 const RecentSearches = ({ recentSearches }: RecentSearchesProps) => {
+	const { inputRef, setCurrentInputValue } = useCommandBar()
+
 	if (!recentSearches || recentSearches.length === 0) {
 		return null
 	}
@@ -19,7 +22,10 @@ const RecentSearches = ({ recentSearches }: RecentSearchesProps) => {
 						<CommandBarButtonListItem
 							key={recentSearch}
 							icon={<IconHistory16 />}
-							onClick={() => console.log('clicked', recentSearch)}
+							onClick={() => {
+								setCurrentInputValue(recentSearch)
+								inputRef.current.focus()
+							}}
 							title={recentSearch}
 						/>
 					)
