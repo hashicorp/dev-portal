@@ -1,0 +1,43 @@
+.root {
+	composes: g-focus-ring-from-box-shadow from global;
+	opacity: 0;
+	border-radius: 6px;
+	padding: 4px;
+	height: fit-content;
+	float: right;
+	margin-left: 8px;
+
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity 0.2s ease;
+	}
+
+	& svg {
+		color: var(--token-color-foreground-action);
+	}
+
+	&:hover {
+		opacity: 1;
+		box-shadow: var(--token-surface-mid-box-shadow);
+
+		& svg {
+			color: var(--token-color-foreground-action-hover);
+		}
+	}
+
+	&:focus {
+		opacity: 1;
+		background: var(--token-color-surface-faint);
+
+		& svg {
+			color: var(--token-color-foreground-action-active);
+		}
+	}
+}
+
+.icon {
+	display: flex;
+}
+
+.h2 {
+	margin-top: 5px;
+}
