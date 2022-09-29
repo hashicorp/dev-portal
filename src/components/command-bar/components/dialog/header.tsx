@@ -13,6 +13,7 @@ const CommandBarDialogHeader = () => {
 		currentCommand,
 		currentInputValue,
 		currentTags,
+		inputRef,
 		removeTag,
 		setCurrentInputValue,
 	} = commandBarState
@@ -43,6 +44,7 @@ const CommandBarDialogHeader = () => {
 					setCurrentInputValue(e.target.value)
 				}
 				placeholder={inputPlaceholder}
+				ref={inputRef}
 				value={currentInputValue}
 			/>
 			<div className={s.badges}>
