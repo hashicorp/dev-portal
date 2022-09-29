@@ -156,7 +156,7 @@ function getNextTutorial({
 	isCompleted: boolean
 	progressData: ApiCollectionTutorialProgress[]
 	tutorials: TutorialLite[]
-}) {
+}): TutorialLite {
 	if (isCompleted || !progressData) {
 		/**
 		 * If we're not authenticated or have no progress,
@@ -204,4 +204,4 @@ function getNextTutorial({
 	}
 }
 
-export { getNextTutorialCta, parseCollectionProgress }
+export { getNextTutorial, getNextTutorialCta, parseCollectionProgress }
