@@ -47,7 +47,7 @@
 	background-color: transparent;
 	border-radius: 5px;
 	border: none;
-	color: var(--token-color-foreground-faint);
+	color: var(--token-color-foreground-strong);
 	font-family: var(--token-typography-body-300-font-family);
 	font-size: var(--token-typography-body-300-font-size);
 	font-weight: var(--token-typography-font-weight-medium);
@@ -57,7 +57,7 @@
 	width: 100%;
 
 	&::placeholder {
-		color: var(--token-color-foreground-disabled);
+		color: var(--token-color-foreground-faint);
 		font-family: var(--token-typography-body-300-font-family);
 		font-size: var(--token-typography-body-300-font-size);
 		font-weight: var(--token-typography-font-weight-medium);

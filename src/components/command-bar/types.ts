@@ -1,4 +1,5 @@
 import { MutableRefObject, ReactElement, ReactNode } from 'react'
+import { ProductData } from 'types/products'
 
 enum SupportedCommand {
 	search = 'search',
@@ -9,7 +10,13 @@ interface CommandBarCommand {
 	name: SupportedCommand
 	icon: ReactElement
 	inputProps: {
-		placeholder: string
+		placeholder: ({
+			commandBarState,
+			currentProduct,
+		}: {
+			commandBarState: CommandBarContextState
+			currentProduct: ProductData
+		}) => string
 	}
 	DialogBody?: () => ReactElement
 }

@@ -1,11 +1,14 @@
+import { ChangeEvent } from 'react'
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
+import { useCurrentProduct } from 'contexts'
 import Badge from 'components/badge'
 import { useCommandBar, CommandBarTag } from 'components/command-bar'
 import Tag from 'components/tag'
-import { ChangeEvent } from 'react'
 import s from './command-bar-dialog.module.css'
 
 const CommandBarDialogHeader = () => {
+	const currentProduct = useCurrentProduct()
+	const commandBarState = useCommandBar()
 	const {
 		currentCommand,
 		currentInputValue,
@@ -13,7 +16,12 @@ const CommandBarDialogHeader = () => {
 		inputRef,
 		removeTag,
 		setCurrentInputValue,
-	} = useCommandBar()
+	} = commandBarState
+
+	const inputPlaceholder = currentCommand.inputProps.placeholder({
+		commandBarState,
+		currentProduct,
+	})
 
 	return (
 		<div className={s.header}>
@@ -30,11 +38,12 @@ const CommandBarDialogHeader = () => {
 				</div>
 			) : null}
 			<input
+				aria-label={inputPlaceholder}
 				className={s.input}
 				onChange={(e: ChangeEvent<HTMLInputElement>) =>
 					setCurrentInputValue(e.target.value)
 				}
-				placeholder={currentCommand.inputProps.placeholder}
+				placeholder={inputPlaceholder}
 				ref={inputRef}
 				value={currentInputValue}
 			/>
