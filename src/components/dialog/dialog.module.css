@@ -25,7 +25,8 @@
 		padding: 0;
 		padding-top: 20vh;
 		width: 100%;
-		position: absolute;
+		position: fixed;
+		bottom: 0;
 	}
 }
 
