@@ -11,6 +11,7 @@ const {
 const fetchGithubFile = require('./fetch-github-file')
 const { isContentDeployPreview } = require('../src/lib/env-checks')
 const buildBetaProductOptInRedirects = require('./build-beta-opt-in-redirect')
+const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
@@ -338,8 +339,11 @@ function groupSimpleRedirects(redirects) {
 async function redirectsConfig() {
 	const dotIoRedirects = await buildDotIoRedirects()
 	const devPortalRedirects = await buildDevPortalRedirects()
+	const proxiedSiteRedirects = await loadProxiedSiteRedirects()
+
 	const { simpleRedirects, globRedirects } = splitRedirectsByType([
 		...buildBetaProductOptInRedirects(),
+		...proxiedSiteRedirects,
 		...dotIoRedirects,
 		...devPortalRedirects,
 	])
