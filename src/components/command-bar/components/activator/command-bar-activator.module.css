@@ -60,3 +60,7 @@
 		display: none;
 	}
 }
+
+.keyBadge {
+	background-color: var(--token-color-foreground-primary);
+}
