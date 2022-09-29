@@ -44,3 +44,9 @@
 .filterInputWrapper--mobile {
 	margin-top: 12px;
 }
+
+.divider {
+	@media (--dev-dot-show-mobile-menu) {
+		display: none;
+	}
+}
