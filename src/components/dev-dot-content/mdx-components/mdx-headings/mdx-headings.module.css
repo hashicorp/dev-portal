@@ -1,6 +1,5 @@
 .heading {
 	composes: g-offset-scroll-margin-top from global;
-	cursor: pointer;
 	width: fit-content;
 
 	/*
@@ -44,7 +43,6 @@
 .h1 {
 	color: var(--token-color-foreground-strong);
 	margin-bottom: 12px;
-	cursor: auto;
 }
 
 .h2 {
