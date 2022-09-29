@@ -81,8 +81,6 @@ async function validateRequest({
 		throw error
 	}
 
-	console.log({ body })
-
 	return body
 }
 
@@ -122,7 +120,6 @@ const submitFeedback = async (
 		const { helpful, ...otherResponses } = responses
 		const { browser, os, platform } = Bowser.parse(req.headers['user-agent'])
 
-		console.log({ requestBody })
 		const newRow: Row = {
 			sessionId,
 			helpful,
@@ -143,11 +140,8 @@ const submitFeedback = async (
 
 		res.status(204).end()
 	} catch (error) {
-		console.error('Unexpected error')
+		console.error('Error occurred.')
 		console.error(error)
-		res.status(error.status || 500).json({
-			body: { error: 'An unexpected error occurred.' },
-		})
 	}
 }
 
