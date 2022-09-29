@@ -158,7 +158,7 @@ const submitFeedback = async (
 			if (status === 400) {
 				res.status(status).json({
 					body: {
-						error: status === 400 ? 'Invalid grant: account not found' : '',
+						error: 'Invalid grant: account not found',
 					},
 				})
 			}
