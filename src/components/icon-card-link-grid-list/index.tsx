@@ -5,9 +5,10 @@ import { IconCardLinkGridListProps, IconCard } from './types'
 function IconCardLinkGridList({
 	cards,
 	productSlug,
+	gridGap,
 }: IconCardLinkGridListProps) {
 	return (
-		<CardsGridList>
+		<CardsGridList gridGap={gridGap}>
 			{cards.map((iconCard: IconCard, key: number) => {
 				return (
 					// eslint-disable-next-line react/no-array-index-key
