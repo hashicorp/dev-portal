@@ -27,6 +27,10 @@
 	white-space: nowrap;
 }
 
+.productBadge {
+	background-color: var(--token-color-surface-primary);
+}
+
 .description {
 	margin-top: 2px;
 	overflow: hidden;

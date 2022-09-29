@@ -58,6 +58,7 @@ const CommandBarListItemContent = ({
 									// eslint-disable-next-line react/no-array-index-key
 									key={index}
 									color="neutral"
+									className={s.productBadge}
 									size="small"
 									text={badgeText}
 									type="outlined"
