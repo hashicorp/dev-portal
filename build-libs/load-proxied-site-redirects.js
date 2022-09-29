@@ -16,6 +16,14 @@ module.exports = async function loadProxiedSiteRedirects() {
 	let redirects = []
 
 	for (const redirectFile of redirectFiles) {
+		// Don't apply the test redirect in production, it's an unnecessary definition and only used for testing in lower environments.
+		if (
+			process.env.HASHI_ENV === 'production' &&
+			redirectFile === 'www.test-domain.io.redirects.js'
+		) {
+			continue
+		}
+
 		const domain = redirectFile.replace('.redirects.js', '')
 
 		console.log(`[redirects] loading redirects for ${domain}`)
