@@ -7,9 +7,7 @@ export default function MdxHeadingPermalink(props) {
 
 	return (
 		<a className={classNames(s.root, className, s[`h${level}`])} {...rest}>
-			<div className={s.icon}>
-				<IconLink16 color="var(--token-color-foreground-action)" />
-			</div>
+			<IconLink16 className={s.icon} />
 		</a>
 	)
 }

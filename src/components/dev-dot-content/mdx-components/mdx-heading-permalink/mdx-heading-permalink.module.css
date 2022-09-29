@@ -11,19 +11,16 @@
 		transition: opacity 0.2s ease;
 	}
 
-	& .icon {
-		height: 16px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	& svg {
+		color: var(--token-color-foreground-action);
 	}
 
 	&:hover {
 		opacity: 1;
 		box-shadow: var(--token-surface-mid-box-shadow);
 
-		& svg * {
-			fill: var(--token-color-foreground-action-hover);
+		& svg {
+			color: var(--token-color-foreground-action-hover);
 		}
 	}
 
@@ -31,10 +28,14 @@
 		opacity: 1;
 		background: var(--token-color-surface-faint);
 
-		& svg * {
-			fill: var(--token-color-foreground-action-active);
+		& svg {
+			color: var(--token-color-foreground-action-active);
 		}
 	}
+}
+
+.icon {
+	display: flex;
 }
 
 .h2 {
