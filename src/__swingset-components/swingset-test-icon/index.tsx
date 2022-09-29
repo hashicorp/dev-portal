@@ -29,6 +29,10 @@ import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
 import { IconPlus24 } from '@hashicorp/flight-icons/svg-react/plus-24'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import { IconSignOut24 } from '@hashicorp/flight-icons/svg-react/sign-out-24'
+import { IconThumbsUp16 } from '@hashicorp/flight-icons/svg-react/thumbs-up-16'
+import { IconThumbsUp24 } from '@hashicorp/flight-icons/svg-react/thumbs-up-24'
+import { IconThumbsDown16 } from '@hashicorp/flight-icons/svg-react/thumbs-down-16'
+import { IconThumbsDown24 } from '@hashicorp/flight-icons/svg-react/thumbs-down-24'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
@@ -97,10 +101,18 @@ const ICON_MAP = {
 		16: <IconPlus16 />,
 		24: <IconPlus24 />,
 	},
+	'thumbs-up': {
+		16: <IconThumbsUp16 />,
+		24: <IconThumbsUp24 />,
+	},
+	'thumbs-down': {
+		16: <IconThumbsDown16 />,
+		24: <IconThumbsDown24 />,
+	},
 }
 
 interface SwingsetTestIconProps {
-	name: 'arrow-right' | 'github' | 'plus'
+	name: 'arrow-right' | 'github' | 'plus' | 'thumbs-up' | 'thumbs-down'
 	size: 16 | 24
 }
 
