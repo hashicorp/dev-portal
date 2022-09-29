@@ -25,7 +25,7 @@ const DocumentationHit = ({ hit }: DocumentationHitProps) => {
 	const { page_title, description } = _highlightResult
 
 	/**
-	 * If the `_highlightResult` has neither a name or description, there is
+	 * If the `_highlightResult` has neither a page_title or description, there is
 	 * nothing to render for the result.
 	 */
 	if (!page_title && !description) {
