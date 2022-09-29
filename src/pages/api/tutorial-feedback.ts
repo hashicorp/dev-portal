@@ -143,32 +143,18 @@ const submitFeedback = async (
 	} catch (error) {
 		console.error('Error occurred.')
 
-		if (error.response?.status) {
-			const { status } = error.response
+		let errorMessage = 'An unexpected error occurred.'
 
-			if (status === 404) {
-				res.status(status).json({
-					body: {
-						error: 'Requested entity was not found.',
-					},
-				})
-			}
+		if (error.response?.status === 404) {
+			errorMessage = 'Requested entity was not found.'
+		}
 
-			if (status === 400) {
-				res.status(status).json({
-					body: {
-						error: 'Invalid grant: account not found',
-					},
-				})
-			}
-
-			res.status(500).json({
-				body: { error: 'An unexpected error occurred.' },
-			})
+		if (error.response?.status === 400) {
+			errorMessage = 'Invalid grant: account not found'
 		}
 
 		res.status(500).json({
-			body: { error: 'An unexpected error occurred.' },
+			body: { error: errorMessage },
 		})
 	}
 }
