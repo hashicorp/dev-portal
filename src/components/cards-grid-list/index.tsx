@@ -1,4 +1,4 @@
-import React, { Children, CSSProperties } from 'react'
+import { Children, CSSProperties } from 'react'
 import classNames from 'classnames'
 import { CardsGridListProps } from './types'
 import { TutorialCardsGridList, TutorialCardsGridListProps } from './components'
