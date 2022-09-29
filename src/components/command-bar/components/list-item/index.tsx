@@ -88,7 +88,7 @@ const CommandBarButtonListItem = ({
 }: CommandBarButtonListItemProps) => {
 	return (
 		<CommandBarListItem>
-			<button className={s.linkOrButton} onClick={onClick} tabIndex={-1}>
+			<button className={s.linkOrButton} onClick={onClick}>
 				<CommandBarListItemContent
 					badges={badges}
 					description={description}
@@ -115,7 +115,7 @@ const CommandBarLinkListItem = ({
 	return (
 		<CommandBarListItem>
 			<Link href={url}>
-				<a className={s.linkOrButton} tabIndex={-1}>
+				<a className={s.linkOrButton}>
 					<CommandBarListItemContent
 						badges={badges}
 						description={description}
