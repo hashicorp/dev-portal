@@ -40,14 +40,14 @@ function addHostConditionToProxiedSiteRedirect(domain, redirect) {
 	const hasCondition = isPreview()
 		? [
 				{
-					type: 'host',
+					type: 'cookie',
+					key: 'hc_dd_proxied_site',
 					value: domain,
 				},
 		  ]
 		: [
 				{
-					type: 'cookie',
-					key: 'hc_dd_proxied_site',
+					type: 'host',
 					value: domain,
 				},
 		  ]
