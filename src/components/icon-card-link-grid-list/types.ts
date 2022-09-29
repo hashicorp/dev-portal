@@ -7,8 +7,8 @@ export type IconCard = Pick<
 	'icon' | 'productSlug' | 'text' | 'url'
 >
 
-export interface IconCardLinkGridListProps {
+export interface IconCardLinkGridListProps
+	extends Pick<CardsGridListProps, 'gridGap' | 'fixedColumns'> {
 	cards: IconCard[]
 	productSlug?: ProductSlug
-	gridGap?: CardsGridListProps['gridGap']
 }

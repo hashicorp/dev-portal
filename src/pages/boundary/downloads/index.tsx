@@ -5,6 +5,9 @@ import boundaryData from 'data/boundary.json'
 // Components
 import Heading from 'components/heading'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
+import { IconAppleColor16 } from '@hashicorp/flight-icons/svg-react/apple-color-16'
+import { IconMicrosoftColor16 } from '@hashicorp/flight-icons/svg-react/microsoft-color-16'
+import { IconLinuxColor16 } from 'views/product-downloads-view/boundary/components'
 // Utils
 import { generateStaticProps as generateReleaseStaticProps } from 'lib/fetch-release-data'
 // View
@@ -43,9 +46,9 @@ interface DesktopClientProps extends Record<string, $TSFixMe> {
  * TODO: move osIconDict to separate file
  */
 const osIconDict: Record<OperatingSystem, ReactElement> = {
-	darwin: <IconDownload16 />, // TODO: replace with macOS icon
-	linux: <IconDownload16 />, // TODO: replace with linux icon
-	windows: <IconDownload16 />, // TODO: replace with windows icon
+	darwin: <IconAppleColor16 />,
+	linux: <IconLinuxColor16 />,
+	windows: <IconMicrosoftColor16 />,
 	/**
 	 * Note: remaining OS use generic download icon, for now,
 	 * as they're not displayed in any current context,
@@ -97,17 +100,18 @@ function BoundaryDownloadsDesktopClientCallout({
 					{`Desktop Client v${latestVersion}`}
 				</Heading>
 				<IconCardLinkGridList
+					fixedColumns={3}
+					gridGap="16px"
 					cards={builds.map(({ os, url, filename, arch }: ReleaseBuild) => {
 						const icon = osIconDict[os] || <IconDownload16 />
 						const text = `.${getFileExtension(filename)} (${humanArch(arch)})`
 						return { icon, url, text }
 					})}
-					gridGap="16px"
 				/>
 			</Card>
-			<pre className={s.devPre}>
+			{/* <pre className={s.devPre}>
 				<code>{JSON.stringify({ desktopClientProps }, null, 2)}</code>
-			</pre>
+			</pre> */}
 		</>
 	)
 }
