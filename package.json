@@ -51,7 +51,7 @@
 		"@hashicorp/platform-configs": "^0.1.0",
 		"@hashicorp/platform-nextjs-plugin": "^3.1.0",
 		"@hashicorp/platform-postcss-config": "^0.1.0",
-		"@hashicorp/platform-tools": "^0.5.0",
+		"@hashicorp/platform-tools": "^0.6.0",
 		"@hashicorp/platform-types": "^0.3.0",
 		"@playwright/test": "^1.20.0",
 		"@testing-library/jest-dom": "^5.16.5",
