@@ -4,8 +4,3 @@
 	color: var(--token-color-foreground-strong);
 	margin-bottom: 16px;
 }
-
-.devPre {
-	border: 1px solid magenta;
-	white-space: pre-wrap;
-}

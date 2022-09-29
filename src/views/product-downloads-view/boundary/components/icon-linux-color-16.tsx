@@ -1,3 +1,8 @@
+/**
+ * Note: this should be replaced with an HDS component, once available.
+ * To check availability, search for "linux" at:
+ * https://flight-hashicorp.vercel.app/
+ */
 export function IconLinuxColor16() {
 	return (
 		<svg
