@@ -1,6 +1,4 @@
 .heading {
-	composes: hds-typography-display-300 from global;
-	composes: hds-font-weight-bold from global;
 	color: var(--token-color-foreground-strong);
 	margin-bottom: 16px;
 }

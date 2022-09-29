@@ -23,13 +23,7 @@ function DesktopClientCallout({
 
 	return (
 		<Card elevation="low">
-			<Heading
-				className={s.heading}
-				id="featured-tutorials"
-				level={2}
-				size={300}
-				weight="bold"
-			>
+			<Heading className={s.heading} level={2} size={200} weight="semibold">
 				{`Desktop Client v${latestVersion}`}
 			</Heading>
 			<IconCardLinkGridList
