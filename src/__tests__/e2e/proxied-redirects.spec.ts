@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 
+// see redirect fixture at proxied-redirects/www.test-domain.io.redirects.js
 test('should respect redirects specified for proxied domains', async ({
 	page,
 	context,
@@ -13,7 +14,6 @@ test('should respect redirects specified for proxied domains', async ({
 		},
 	])
 
-	// see redirect fixture at proxied-redirects/www.test-domain.io.redirects.js
 	await page.goto('/source')
 	const { pathname } = new URL(page.url())
 	expect(pathname).toBe('/')
