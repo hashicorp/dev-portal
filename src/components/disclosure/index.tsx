@@ -1,20 +1,13 @@
 // Third-party imports
-import {
-	createContext,
-	useCallback,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from 'react'
-import { useRouter } from 'next/router'
+import { createContext, useCallback, useContext, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { useId } from '@react-aria/utils'
 
 // Global imports
-import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnClickOutside from 'hooks/use-on-click-outside'
+import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 
 // Local imports
 import { DisclosureContextState, DisclosureProps } from './types'
@@ -74,7 +67,6 @@ const Disclosure = ({
 	validateDisclosureChildren(children)
 
 	// continue rendering the component if `children` are valid
-	const router = useRouter()
 	const disclosureRef = useRef<HTMLDivElement>()
 	const [isOpen, setIsOpen] = useState<boolean>(initialOpen)
 	const uniqueId = `disclosure-${useId()}`
@@ -114,23 +106,7 @@ const Disclosure = ({
 	}, [closeDisclosure, contentContainerId])
 
 	// if the disclosure is open, handle closing it on `routeChangeStart`
-	useEffect(() => {
-		if (!isOpen) {
-			return
-		}
-
-		const handleRouteChangeStart = () => {
-			closeDisclosure()
-		}
-
-		router.events.on('routeChangeStart', handleRouteChangeStart)
-
-		return () => {
-			router.events.off('routeChangeStart', handleRouteChangeStart)
-		}
-		// Only need to base this on `isOpen`
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isOpen])
+	useOnRouteChangeStart({ handler: closeDisclosure, shouldListen: isOpen })
 
 	// if enabled, close the disclosure on click outside
 	useOnClickOutside(

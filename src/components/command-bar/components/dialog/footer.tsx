@@ -7,6 +7,7 @@ import Text from 'components/text'
 import { FORM_URL } from 'components/navigation-header/components/give-feedback-button'
 import StandaloneLink from 'components/standalone-link'
 import s from './command-bar-dialog.module.css'
+import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 
 const CommandBarDialogFooter = () => {
 	return (
