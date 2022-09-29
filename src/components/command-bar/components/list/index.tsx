@@ -27,13 +27,7 @@ const CommandBarList = ({
 
 	return (
 		<div className={s.root}>
-			<Text
-				asElement="p"
-				className={s.label}
-				id={labelId}
-				size={100}
-				weight="semibold"
-			>
+			<Text asElement="p" className={s.label} size={100} weight="semibold">
 				{label}
 			</Text>
 			<ul aria-labelledby={labelId} className={s.list}>
