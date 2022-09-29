@@ -18,13 +18,13 @@
 		justify-content: center;
 	}
 
-	&:hover,
-	&:focus {
+	&:hover {
 		opacity: 1;
 		box-shadow: var(--token-surface-mid-box-shadow);
 	}
 
 	&:focus {
+		opacity: 1;
 		background: var(--token-color-surface-faint);
 	}
 }
