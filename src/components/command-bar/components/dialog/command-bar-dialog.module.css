@@ -97,6 +97,10 @@
 	padding: 4px;
 	border-radius: 5px;
 
+	& svg {
+		color: var(--token-color-foreground-primary);
+	}
+
 	&:hover {
 		cursor: pointer;
 	}
