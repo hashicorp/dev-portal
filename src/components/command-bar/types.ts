@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react'
+import { MutableRefObject, ReactElement, ReactNode } from 'react'
 
 enum SupportedCommand {
 	search = 'search',
@@ -27,6 +27,7 @@ interface CommandBarContextState {
 	currentCommand: CommandBarCommand
 	currentInputValue: string
 	currentTags: CommandBarTag[]
+	inputRef: MutableRefObject<HTMLInputElement>
 	isOpen: boolean
 }
 
