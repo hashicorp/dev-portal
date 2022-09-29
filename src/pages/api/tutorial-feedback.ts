@@ -7,7 +7,8 @@ import {
 } from 'google-spreadsheet'
 import Bowser from 'bowser'
 
-const FEEDBACK_SHEET_ID = process.env.TUTORIAL_FEEDBACK_SHEET_ID
+// const FEEDBACK_SHEET_ID = process.env.TUTORIAL_FEEDBACK_SHEET_ID
+const FEEDBACK_SHEET_ID = '273y81274u'
 const FEEDBACK_SERVICE_EMAIL = process.env.FEEDBACK_SERVICE_EMAIL
 const FEEDBACK_PRIVATE_KEY = process.env.FEEDBACK_PRIVATE_KEY
 const HASHI_ENV = process.env.HASHI_ENV
@@ -140,8 +141,36 @@ const submitFeedback = async (
 
 		res.status(204).end()
 	} catch (error) {
+		console.log({ error: error.response.data })
 		console.error('Error occurred.')
-		console.error(error)
+
+		if (error.response?.status) {
+			const { status } = error.response
+
+			if (status === 404) {
+				res.status(status).json({
+					body: {
+						error: 'Requested entity was not found.',
+					},
+				})
+			}
+
+			if (status === 400) {
+				res.status(status).json({
+					body: {
+						error: status === 400 ? 'Invalid grant: account not found' : '',
+					},
+				})
+			}
+
+			res.status(500).json({
+				body: { error: 'An unexpected error occurred.' },
+			})
+		}
+
+		res.status(500).json({
+			body: { error: 'An unexpected error occurred.' },
+		})
 	}
 }
 
