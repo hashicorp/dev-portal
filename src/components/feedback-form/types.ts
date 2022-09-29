@@ -65,4 +65,5 @@ export type FeedbackFormContext =
 export enum FeedbackFormStatus {
 	inProgress,
 	finished,
+	error,
 }

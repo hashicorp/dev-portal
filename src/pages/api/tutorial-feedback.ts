@@ -141,7 +141,6 @@ const submitFeedback = async (
 
 		res.status(204).end()
 	} catch (error) {
-		console.log({ error: error.response.data })
 		console.error('Error occurred.')
 
 		if (error.response?.status) {
