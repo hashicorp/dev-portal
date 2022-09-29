@@ -13,18 +13,19 @@ const FEEDBACK_PRIVATE_KEY = process.env.FEEDBACK_PRIVATE_KEY
 const HASHI_ENV = process.env.HASHI_ENV
 
 interface SurveyResponse {
-	id: string
-	value: string
+	helpful: string
+	reasonForVisit?: string
+	suggestedImprovements?: string
 }
 
 interface RequestBody {
 	sessionId: string
 	page: string
 	timestamp: string
-	responses: SurveyResponse[]
+	responses: SurveyResponse
 }
 
-interface Row {
+interface Row extends SurveyResponse {
 	sessionId: string
 	page: string
 	timestamp: string
@@ -99,7 +100,7 @@ async function findAndUpdate(
 
 	if (existingRowIndex) {
 		//  we have to assign individual properties this way bc the column properties are getter/setters
-		Object.keys(newRow).forEach((key) => {
+		Object.keys(newRow).forEach((key: string) => {
 			rows[existingRowIndex][key] = newRow[key]
 		})
 		return rows[existingRowIndex]
@@ -116,11 +117,14 @@ const submitFeedback = async (
 		const requestBody = await validateRequest(req)
 		const sheet = await setupDocument()
 		const { responses, sessionId, ...rest } = requestBody
+		const { helpful, ...otherResponses } = responses
 		const { browser, os, platform } = Bowser.parse(req.headers['user-agent'])
 
+		console.log({ requestBody })
 		const newRow: Row = {
 			sessionId,
-			...responses,
+			helpful,
+			...otherResponses,
 			...rest,
 			browser: `${browser.name} ${browser.version}`,
 			os: `${os.name} ${os.version}`,
@@ -130,17 +134,8 @@ const submitFeedback = async (
 		const updatedRow = await findAndUpdate(sheet, newRow)
 
 		if (updatedRow) {
-			// await updatedRow.save()
+			await updatedRow.save()
 		} else {
-			console.log({ newRow })
-			return
-			// sessionId: '-rff2nRAv',
-			// helpful: 'yes',
-			// timestamp: '2022-09-29T16:50:08.409Z',
-			// page: '/waypoint/tutorials/get-started-docker/get-started-intro',
-			// browser: 'Chrome 105.0.0.0',
-			// os: 'macOS 10.15.7',
-			// platform: 'desktop'
 			await sheet.addRow({ ...newRow })
 		}
 
