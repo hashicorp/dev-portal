@@ -3,10 +3,3 @@
 	bottom: 0;
 	width: 100%;
 }
-
-.devPre {
-	margin: 0;
-	border: 10px solid magenta;
-	background: rgba(255, 0, 0, 0.3);
-	white-space: pre-wrap;
-}
