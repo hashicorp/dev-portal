@@ -5,6 +5,7 @@ import {
 	useEffect,
 	useMemo,
 	useReducer,
+	useRef,
 } from 'react'
 import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import commands from './commands'
@@ -25,6 +26,7 @@ const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	currentCommand: commands.search,
 	currentInputValue: '',
 	currentTags: [],
+	inputRef: null,
 	isOpen: false,
 }
 
@@ -82,7 +84,11 @@ const commandBarReducer = (
 const CommandBarContext = createContext<CommandBarContextValue>(undefined)
 
 const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
-	const [state, dispatch] = useReducer(commandBarReducer, DEFAULT_CONTEXT_STATE)
+	const inputRef = useRef<HTMLInputElement>()
+	const [state, dispatch] = useReducer(commandBarReducer, {
+		...DEFAULT_CONTEXT_STATE,
+		inputRef,
+	})
 
 	/**
 	 * Set up the callbacks for modifying state
