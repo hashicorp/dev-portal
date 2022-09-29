@@ -23,6 +23,22 @@ const DocumentationHit = ({ hit }: DocumentationHitProps) => {
 	}
 
 	const { page_title, description } = _highlightResult
+
+	/**
+	 * If the `_highlightResult` has neither a name or description, there is
+	 * nothing to render for the result.
+	 */
+	if (!page_title && !description) {
+		if (IS_DEV) {
+			console.warn(
+				'[DocumentationHit] Found a `hit` with no `page_title` or `description` in `_highlightResult`:\n',
+				JSON.stringify(hit, null, 2)
+			)
+		}
+
+		return null
+	}
+
 	const productName = product === 'hcp' ? 'HCP' : productSlugsToNames[product]
 
 	return (

@@ -24,6 +24,22 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 	}
 
 	const { name, description } = _highlightResult
+
+	/**
+	 * If the `_highlightResult` has neither a name or description, there is
+	 * nothing to render for the result.
+	 */
+	if (!name && !description) {
+		if (IS_DEV) {
+			console.warn(
+				'[TutorialHit] Found a `hit` with no `name` or `description` in `_highlightResult`:\n',
+				JSON.stringify(hit, null, 2)
+			)
+		}
+
+		return null
+	}
+
 	const badges = products?.map(
 		(productSlug: ProductSlug) => productSlugsToNames[productSlug]
 	)
