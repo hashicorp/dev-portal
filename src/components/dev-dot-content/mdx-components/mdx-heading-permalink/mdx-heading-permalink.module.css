@@ -21,11 +21,19 @@
 	&:hover {
 		opacity: 1;
 		box-shadow: var(--token-surface-mid-box-shadow);
+
+		& svg * {
+			fill: var(--token-color-foreground-action-hover);
+		}
 	}
 
 	&:focus {
 		opacity: 1;
 		background: var(--token-color-surface-faint);
+
+		& svg * {
+			fill: var(--token-color-foreground-action-active);
+		}
 	}
 }
 
