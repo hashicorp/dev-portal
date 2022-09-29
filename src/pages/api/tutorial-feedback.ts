@@ -18,17 +18,17 @@ interface SurveyResponse {
 	suggestedImprovements?: string
 }
 
-interface RequestBody {
+interface UserRequest {
 	sessionId: string
 	page: string
 	timestamp: string
+}
+
+interface RequestBody extends UserRequest {
 	responses: SurveyResponse
 }
 
-interface Row extends SurveyResponse {
-	sessionId: string
-	page: string
-	timestamp: string
+interface Row extends SurveyResponse, UserRequest {
 	browser: string
 	os: string
 	platform: string
@@ -80,6 +80,8 @@ async function validateRequest({
 		error.status = 400
 		throw error
 	}
+
+	console.log({ body })
 
 	return body
 }
