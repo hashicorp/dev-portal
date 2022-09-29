@@ -1,4 +1,5 @@
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
+import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 import Badge from 'components/badge'
 import { useCommandBar, CommandBarTag } from 'components/command-bar'
 import Tag from 'components/tag'
@@ -28,14 +29,29 @@ const CommandBarDialogHeader = () => {
 					))}
 				</div>
 			) : null}
-			<input
-				className={s.input}
-				onChange={(e: ChangeEvent<HTMLInputElement>) =>
-					setCurrentInputValue(e.target.value)
-				}
-				placeholder={currentCommand.inputProps.placeholder}
-				value={currentInputValue}
-			/>
+			<div className={s.inputWrapper}>
+				<input
+					className={s.input}
+					onChange={(e: ChangeEvent<HTMLInputElement>) =>
+						setCurrentInputValue(e.target.value)
+					}
+					placeholder={currentCommand.inputProps.placeholder}
+					value={currentInputValue}
+				/>
+				{currentInputValue ? (
+					<div className={s.clearButtonWrapper}>
+						<button
+							className={s.clearButton}
+							onClick={() => {
+								setCurrentInputValue('')
+								// TODO re-focus input
+							}}
+						>
+							<IconX24 />
+						</button>
+					</div>
+				) : null}
+			</div>
 			<div className={s.badges}>
 				<Badge
 					ariaLabel="Command key"
