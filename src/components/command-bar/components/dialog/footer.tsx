@@ -12,7 +12,7 @@ const CommandBarDialogFooter = () => {
 	return (
 		<div className={s.footer}>
 			<div className={s.footerLeft}>
-				<Badge color="neutral" text="Tab" type="outlined" size="small" />
+				<Badge color="neutral" text="Tab" type="filled" size="small" />
 				<Text asElement="span" size={100} weight="regular">
 					or
 				</Text>
@@ -21,14 +21,14 @@ const CommandBarDialogFooter = () => {
 						ariaLabel="Up arrow key"
 						color="neutral"
 						icon={<IconArrowUp16 />}
-						type="outlined"
+						type="filled"
 						size="small"
 					/>
 					<Badge
 						ariaLabel="Down arrow key"
 						color="neutral"
 						icon={<IconArrowDown16 />}
-						type="outlined"
+						type="filled"
 						size="small"
 					/>
 				</div>
@@ -39,13 +39,13 @@ const CommandBarDialogFooter = () => {
 					ariaLabel="Enter key"
 					color="neutral"
 					icon={<IconCornerDownLeft16 />}
-					type="outlined"
+					type="filled"
 					size="small"
 				/>
 				<Text asElement="span" size={100} weight="regular">
 					to select,
 				</Text>
-				<Badge color="neutral" text="Esc" type="outlined" size="small" />
+				<Badge color="neutral" text="Esc" type="filled" size="small" />
 				<Text asElement="span" size={100} weight="regular">
 					to exit
 				</Text>
