@@ -164,7 +164,7 @@ const ProductDownloadsView = ({
 
 	return (
 		<CurrentVersionProvider
-			initialValue={versionSwitcherOptions[0].value}
+			initialValue={latestVersion}
 			latestVersion={latestVersion}
 		>
 			<ProductDownloadsViewContent

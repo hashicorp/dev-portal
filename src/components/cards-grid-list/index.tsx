@@ -1,4 +1,4 @@
-import { Children } from 'react'
+import { Children, CSSProperties } from 'react'
 import classNames from 'classnames'
 import { CardsGridListProps } from './types'
 import { TutorialCardsGridList, TutorialCardsGridListProps } from './components'
@@ -31,6 +31,7 @@ function CardsGridList({
 	children,
 	isOrdered = false,
 	fixedColumns,
+	gridGap = '24px',
 }: CardsGridListProps) {
 	const ListRoot = isOrdered ? 'ol' : 'ul'
 
@@ -57,6 +58,11 @@ function CardsGridList({
 				s.listRoot,
 				fixedColumns ? fixedModeClasses : minWidthClasses
 			)}
+			style={
+				{
+					'--grid-gap': gridGap,
+				} as CSSProperties
+			}
 		>
 			{children}
 		</ListRoot>

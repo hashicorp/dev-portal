@@ -1,28 +1,30 @@
 .listRoot {
-  display: grid;
-  gap: 24px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	display: grid;
+
+	/* Note: --grip-gap set in JS */
+	gap: var(--grid-gap);
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .minWidthMode {
-  --min-card-width: 270px;
+	--min-card-width: 270px;
 
-  /**
+	/**
   * Details on use of grid-template-columns:
   *
   * Automatically uses more columns, as long as columns are >= min-card-width.
   * Note: minimum size may be < min-card-width, if 100% < min-card-width.
   * So even when the container is small, cards will never overflow.
   */
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%, var(--min-card-width)), 1fr)
-  );
+	grid-template-columns: repeat(
+		auto-fit,
+		minmax(min(100%, var(--min-card-width)), 1fr)
+	);
 
-  @media (--dev-dot-tablet-up) {
-    /**
+	@media (--dev-dot-tablet-up) {
+		/**
      * TLDR; allows two columns in our content area, but not three.
      *
      * On larger viewports, where our content area reaches up to 780px width,
@@ -39,33 +41,33 @@
      * more complex CSS, but seems to provide a better guarantee that our
      * layout will not break, even in unexpected scenarios.
      */
-    --min-card-width: 300px;
-  }
+		--min-card-width: 300px;
+	}
 
-  &.allowThreeColumns {
-    @media (--dev-dot-tablet-up) {
-      /* Allows three columns in our content area. */
-      --min-card-width: 244px;
-    }
-  }
+	&.allowThreeColumns {
+		@media (--dev-dot-tablet-up) {
+			/* Allows three columns in our content area. */
+			--min-card-width: 244px;
+		}
+	}
 }
 
 .fixedColumnsMode {
-  grid-template-columns: 1fr;
+	grid-template-columns: 1fr;
 
-  &.columns2 {
-    @media (--dev-dot-tablet-up) {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
+	&.columns2 {
+		@media (--dev-dot-tablet-up) {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
 
-  &.columns3 {
-    @media (--dev-dot-tablet-up) {
-      grid-template-columns: 1fr 1fr;
-    }
+	&.columns3 {
+		@media (--dev-dot-tablet-up) {
+			grid-template-columns: 1fr 1fr;
+		}
 
-    @media (--dev-dot-desktop) {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-  }
+		@media (--dev-dot-desktop) {
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+	}
 }

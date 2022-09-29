@@ -4,11 +4,11 @@ import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
 import { HcpProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
-import { MdxHcpCalloutProps, SolutionOption } from './types'
-import patternApplications from './img/applications.png'
-import patternInfrastructure from './img/infrastructure.png'
-import patternNetworking from './img/networking.png'
-import patternSecurity from './img/security.png'
+import { HCPCalloutProps, SolutionOption } from './types'
+import patternApplications from './img/applications.svg'
+import patternInfrastructure from './img/infrastructure.svg'
+import patternNetworking from './img/networking.svg'
+import patternSecurity from './img/security.svg'
 import s from './mdx-callout.module.css'
 
 const SOLUTION_PRODUCTS_MAP: Record<SolutionOption, HcpProductSlug[]> = {
@@ -43,7 +43,7 @@ const SOLUTION_DETAILS: Record<
 	},
 }
 
-export default function MdxHcpCallout({ product }: MdxHcpCalloutProps) {
+export default function HCPCallout({ product }: HCPCalloutProps) {
 	const productName = productSlugsToNames[product]
 	const solution = Object.keys(SOLUTION_PRODUCTS_MAP).find(
 		(group: SolutionOption) => SOLUTION_PRODUCTS_MAP[group].includes(product)
@@ -75,8 +75,8 @@ export default function MdxHcpCallout({ product }: MdxHcpCalloutProps) {
 					color="var(--white)"
 					className={s.subHeading}
 				>
-					To read core {productName} documentation and tutorials, including
-					local open source docs
+					Read core {productName} documentation and tutorials, including
+					self-hosted open source docs.
 				</Text>
 				<StandaloneLink
 					text={`Go to ${productName}`}
