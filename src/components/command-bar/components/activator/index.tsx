@@ -26,12 +26,14 @@ const CommandBarActivator = ({
 			<span className={s.right}>
 				<Badge
 					ariaLabel="Command key"
+					className={s.keyBadge}
 					color="neutral-dark-mode"
 					icon={<IconCommand16 />}
 					size="small"
 				/>
 				<Badge
 					ariaLabel="K key"
+					className={s.keyBadge}
 					color="neutral-dark-mode"
 					size="small"
 					text="K"
