@@ -103,7 +103,10 @@ const SearchCommandBarDialogBody = () => {
 	 */
 	const setUpCommandState = useCallback(() => {
 		if (currentProduct) {
-			addTag({ id: currentProduct.slug, text: currentProduct.name })
+			addTag({
+				id: currentProduct.slug,
+				text: currentProduct.slug === 'hcp' ? 'HCP' : currentProduct.name,
+			})
 		}
 	}, [addTag, currentProduct])
 
