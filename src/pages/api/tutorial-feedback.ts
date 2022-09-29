@@ -7,8 +7,7 @@ import {
 } from 'google-spreadsheet'
 import Bowser from 'bowser'
 
-// const FEEDBACK_SHEET_ID = process.env.TUTORIAL_FEEDBACK_SHEET_ID
-const FEEDBACK_SHEET_ID = '273y81274u'
+const FEEDBACK_SHEET_ID = process.env.TUTORIAL_FEEDBACK_SHEET_ID
 const FEEDBACK_SERVICE_EMAIL = process.env.FEEDBACK_SERVICE_EMAIL
 const FEEDBACK_PRIVATE_KEY = process.env.FEEDBACK_PRIVATE_KEY
 const HASHI_ENV = process.env.HASHI_ENV
