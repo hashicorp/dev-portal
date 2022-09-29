@@ -2,17 +2,11 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconHistory16 } from '@hashicorp/flight-icons/svg-react/history-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { ProductSlug } from 'types/products'
 import { useCurrentContentType, useCurrentProduct } from 'contexts'
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
-import {
-	CommandBarButtonListItem,
-	CommandBarDivider,
-	CommandBarList,
-} from 'components/command-bar/components'
 import Tabs, { Tab } from 'components/tabs'
 import useRecentSearches from '../../hooks/use-recent-searches'
 import {
@@ -25,6 +19,7 @@ import {
 	SuggestedPages,
 	DocumentationTabContents,
 	TutorialsTabContents,
+	RecentSearches,
 } from '../'
 import s from './search-command-bar-dialog-body.module.css'
 
@@ -73,23 +68,7 @@ const SearchCommandBarDialogBodyContent = ({
 		</div>
 	) : (
 		<div className={s.suggestedPagesWrapper}>
-			{recentSearches?.length > 0 ? (
-				<>
-					<CommandBarList label="Recent Searches">
-						{recentSearches.map((recentSearch: string) => {
-							return (
-								<CommandBarButtonListItem
-									key={recentSearch}
-									icon={<IconHistory16 />}
-									onClick={() => console.log('clicked', recentSearch)}
-									title={recentSearch}
-								/>
-							)
-						})}
-					</CommandBarList>
-					<CommandBarDivider />
-				</>
-			) : null}
+			<RecentSearches recentSearches={recentSearches} />
 			<SuggestedPages pages={suggestedPages} />
 		</div>
 	)
