@@ -124,7 +124,7 @@ const Sidebar = ({
 				<SidebarSkipToMainContent />
 				{overviewItem}
 				{sidebarContent}
-				<SidebarHorizontalRule className={s.divider} />
+				<SidebarHorizontalRule />
 				<SidebarNavList>
 					{generateResourcesNavItems(currentProduct?.slug).map(
 						(item, index) => (
