@@ -12,7 +12,7 @@ import getIsBetaProduct from 'lib/get-is-beta-product'
  */
 const DocsViewLayout = (props: SidebarSidecarLayoutProps) => {
 	const currentProduct = useCurrentProduct()
-  // Products will be removed from the beta array as we shift them to GA, which will hide the opt out button
+	// Products will be removed from the beta array as we shift them to GA, which will hide the opt out button
 	const isBetaProduct = getIsBetaProduct(currentProduct.slug)
 
 	const optInOutSlot = isBetaProduct ? (
