@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
 import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
+import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 import { useCurrentProduct } from 'contexts'
 import Badge from 'components/badge'
 import { useCommandBar, CommandBarTag } from 'components/command-bar'
@@ -37,16 +38,31 @@ const CommandBarDialogHeader = () => {
 					))}
 				</div>
 			) : null}
-			<input
-				aria-label={inputPlaceholder}
-				className={s.input}
-				onChange={(e: ChangeEvent<HTMLInputElement>) =>
-					setCurrentInputValue(e.target.value)
-				}
-				placeholder={inputPlaceholder}
-				ref={inputRef}
-				value={currentInputValue}
-			/>
+			<div className={s.inputWrapper}>
+				<input
+					aria-label={inputPlaceholder}
+					className={s.input}
+					onChange={(e: ChangeEvent<HTMLInputElement>) =>
+						setCurrentInputValue(e.target.value)
+					}
+					placeholder={inputPlaceholder}
+					ref={inputRef}
+					value={currentInputValue}
+				/>
+				{currentInputValue ? (
+					<div className={s.clearButtonWrapper}>
+						<button
+							className={s.clearButton}
+							onClick={() => {
+								setCurrentInputValue('')
+								inputRef.current.focus()
+							}}
+						>
+							<IconX24 />
+						</button>
+					</div>
+				) : null}
+			</div>
 			<div className={s.badges}>
 				<Badge
 					ariaLabel="Command key"
