@@ -9,7 +9,7 @@ const CommandBarList = ({
 	label,
 }: CommandBarListProps) => {
 	const componentId = useId()
-	const labelId = `${componentId}-label`
+	const labelId = ariaLabelledBy ?? `${componentId}-label`
 
 	const hasAccessibleLabel = !!ariaLabelledBy || !!label
 	if (!hasAccessibleLabel) {
@@ -27,9 +27,17 @@ const CommandBarList = ({
 
 	return (
 		<div className={s.root}>
-			<Text asElement="p" className={s.label} size={100} weight="semibold">
-				{label}
-			</Text>
+			{label ? (
+				<Text
+					asElement="p"
+					className={s.label}
+					id={labelId}
+					size={100}
+					weight="semibold"
+				>
+					{label}
+				</Text>
+			) : null}
 			<ul aria-labelledby={labelId} className={s.list}>
 				{children}
 			</ul>

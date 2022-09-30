@@ -1,68 +1,68 @@
 .tableOfContentsLabel {
-  color: var(--token-color-palette-neutral-600);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  margin-bottom: 16px;
-  margin-top: 0;
-  text-align: right;
+	color: var(--token-color-palette-neutral-600);
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	margin-bottom: 16px;
+	margin-top: 0;
+	text-align: right;
 }
 
 .tableOfContentsList {
-  border-right: 1px solid #c2c5cb;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+	border-right: 1px solid #c2c5cb;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .tableOfContentsListItem {
-  color: var(--token-color-palette-neutral-500);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  position: relative;
-  text-align: right;
+	color: var(--token-color-palette-neutral-500);
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 20px;
+	position: relative;
+	text-align: right;
 
-  &:not(:last-child) {
-    margin-bottom: 12px;
-  }
+	&:not(:last-child) {
+		margin-bottom: 12px;
+	}
 }
 
 .activeTableOfContentsListItem {
-  & a {
-    color: var(--token-color-palette-neutral-700);
-    font-weight: 500;
-  }
+	& a {
+		color: var(--token-color-palette-neutral-700);
+		font-weight: 500;
+	}
 }
 
 .tableOfContentsListItemAnchor {
-  composes: g-focus-border-and-box-shadow-light from global;
-  border-radius: 5px;
-  border: 1px solid transparent;
-  color: inherit;
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
-  padding: 0 10px;
-  max-width: 100%;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+	composes: g-focus-border-and-box-shadow-light from global;
+	border-radius: 5px;
+	border: 1px solid transparent;
+	color: inherit;
+	display: block;
+	margin-left: auto;
+	margin-right: 0;
+	padding: 0 10px;
+	max-width: 100%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 
-  &:focus,
-  &:hover {
-    color: var(--token-color-palette-neutral-700);
-  }
+	&:focus,
+	&:hover {
+		color: var(--token-color-palette-neutral-700);
+	}
 }
 
 .activeIndicator {
-  background-color: var(--token-color-palette-neutral-700);
-  border-bottom-left-radius: 1px;
-  border-top-left-radius: 1px;
-  display: block;
-  height: 100%;
-  position: absolute;
-  right: -1px;
-  top: 0;
-  width: 2px;
+	background-color: var(--token-color-palette-neutral-700);
+	border-bottom-left-radius: 1px;
+	border-top-left-radius: 1px;
+	display: block;
+	height: 100%;
+	position: absolute;
+	right: -1px;
+	top: 0;
+	width: 2px;
 }
