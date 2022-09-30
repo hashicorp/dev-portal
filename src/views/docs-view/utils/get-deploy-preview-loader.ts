@@ -11,12 +11,6 @@ import {
 import { RootDocsPath } from 'types/products'
 
 /**
- * most of our product repositories store docs content at "content",
- * but there are some that use "docs".
- */
-const DEFAULT_CONTENT_DIR = 'content'
-
-/**
  * Returns an instance of a FileSystemLoader for use in content repositories to read docs content from the
  * file system
  */
@@ -31,9 +25,10 @@ export function getDeployPreviewLoader({
 }) {
 	// options needed to read content from the file system when running in preview mode
 
-	const localContentDir = `../${
-		currentRootDocsPath.contentDir || DEFAULT_CONTENT_DIR
-	}/${basePath}`
+	const localContentDir = process.env.LOCAL_CONTENT_DIR
+		? `${process.env.LOCAL_CONTENT_DIR}/${basePath}`
+		: `../content/${basePath}`
+
 	const navDataFile = `../data/${
 		currentRootDocsPath.navDataPrefix ?? currentRootDocsPath.path
 	}-nav-data.json`
@@ -54,12 +49,9 @@ export function getDeployPreviewLoader({
 			includeMarkdown,
 			{
 				resolveMdx: true,
-				resolveFrom: path.join(
-					process.cwd(),
-					'..',
-					currentRootDocsPath.contentDir || DEFAULT_CONTENT_DIR,
-					'partials'
-				),
+				resolveFrom: process.env.LOCAL_CONTENT_DIR
+					? path.join(process.cwd(), process.env.LOCAL_CONTENT_DIR, 'partials')
+					: path.join(process.cwd(), '..', 'content', 'partials'),
 			},
 		],
 		paragraphCustomAlerts,
