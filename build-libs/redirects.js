@@ -60,8 +60,11 @@ function addHostCondition(redirects, productSlug) {
 			return redirect
 		}
 
-		// If the productSlug is NOT a beta product, it is GA, so handle the redirect appropriately
-		if (!config['dev_dot.beta_product_slugs'].includes(productSlug)) {
+		// If the productSlug is NOT a beta product, it is GA, so handle the redirect appropriately (exclude sentinel)
+		if (
+			!config['dev_dot.beta_product_slugs'].includes(productSlug) &&
+			productSlug !== 'sentinel'
+		) {
 			// The redirect should always apply in lower environments
 			if (process.env.HASHI_ENV !== 'production') {
 				return redirect
