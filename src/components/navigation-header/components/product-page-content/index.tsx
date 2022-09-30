@@ -16,7 +16,7 @@ import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/color
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 
 // Global imports
-import { ProductSlug } from 'types/products'
+import { DocsNavItem, ProductSlug } from 'types/products'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'
@@ -32,7 +32,6 @@ import {
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './product-page-content.module.css'
 import { getNavItems } from './utils/get-nav-items'
-import type { NavItem } from './utils/types'
 
 /**
  * A mapping of Product slugs to their imported SVG colorwhite logos. Used for
@@ -152,32 +151,22 @@ const ProductPageHeaderContent = () => {
 				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 					<nav className={sharedNavStyles.nav}>
 						<ul className={sharedNavStyles.navList}>
-							{getNavItems(currentProduct).map(
-								(navItem: NavItem): JSX.Element => {
-									const ariaLabel = `${currentProduct.name} ${navItem.label}`
+							{getNavItems(currentProduct).map((navItem) => {
+								const ariaLabel = `${currentProduct.name} ${navItem.label}`
 
-									let ItemContent
-									if ('items' in navItem) {
-										if (navItem.items.length > 1) {
-											ItemContent = PrimaryNavSubmenu
-										} else {
-											navItem = {
-												label: navItem.label,
-												url: navItem.items[0].path,
-											}
-											ItemContent = PrimaryNavLink
-										}
-									} else {
-										ItemContent = PrimaryNavLink
-									}
-
-									return (
-										<li key={navItem.label}>
-											<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
-										</li>
-									)
+								let ItemContent
+								if (navItem.hasOwnProperty('items')) {
+									ItemContent = PrimaryNavSubmenu
+								} else {
+									ItemContent = PrimaryNavLink
 								}
-							)}
+
+								return (
+									<li key={navItem.label}>
+										<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
+									</li>
+								)
+							})}
 						</ul>
 					</nav>
 				</div>
