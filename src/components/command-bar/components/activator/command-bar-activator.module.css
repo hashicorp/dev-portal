@@ -64,3 +64,12 @@
 .keyBadge {
 	background-color: var(--token-color-foreground-primary);
 }
+
+.commandKeyBadgeIcon {
+	display: flex;
+
+	& svg {
+		height: 10px;
+		width: 40px;
+	}
+}
