@@ -14,6 +14,7 @@ const CommandBarDialog = ({
 
 	return (
 		<Dialog
+			label="Command Bar"
 			contentClassName={s.content}
 			isOpen={isOpen}
 			onDismiss={onDismiss}
