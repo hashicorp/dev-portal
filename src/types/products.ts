@@ -121,6 +121,14 @@ interface RootDocsPath {
 	navDataPrefix?: string
 
 	/**
+	 * Most products store content in the "content" folder, but some
+	 * use "docs".
+	 *
+	 * This should be configurable via src/data/terraform.json.rootDocsPaths[].contentDir
+	 */
+	contentDir?: string
+
+	/**
 	 * An optional property to specify which branch our
 	 * content API should pull from. Defaults to `main`.
 	 */
