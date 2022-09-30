@@ -5,11 +5,16 @@ const withSwingset = require('swingset')
 const { redirectsConfig } = require('./build-libs/redirects')
 const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
+const { loadHashiConfigForEnvironment } = require('./config')
+
+const config = loadHashiConfigForEnvironment()
 
 // temporary: set all paths as noindex, until we're serving from this project
 // Update the excluded domains to ensure we are indexing content as the io sites get migrated
 const temporary_hideDocsPaths = {
-	source: '/:path*',
+	source: `/(${[...config['dev_dot.beta_product_slugs'], 'sentinel'].join(
+		'|'
+	)})/:path*`,
 	headers: [
 		{
 			key: 'X-Robots-Tag',
@@ -19,8 +24,7 @@ const temporary_hideDocsPaths = {
 	has: [
 		{
 			type: 'host',
-			value:
-				'(^(?!.*(boundaryproject|consul|nomadproject|packer|vagrantup|vaultproject|waypointproject|docs\\.hashicorp)).*$)',
+			value: 'developer.hashicorp.com',
 		},
 	],
 }
