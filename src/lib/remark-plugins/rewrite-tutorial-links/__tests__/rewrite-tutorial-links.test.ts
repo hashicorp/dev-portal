@@ -7,7 +7,7 @@ import { productSlugs } from 'lib/products'
 
 const slug = '[a-z0-9]+(?:[-][a-z0-9]+)*' // matches lower case letters, numbers and hyphens
 const devDotTutorialsPath = new RegExp(
-	`^/(${productSlugs.join('|')})/tutorials/${slug}(/${slug})?$` // Matches /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
+	`^/(${productSlugs.join('|')})/tutorials/${slug}(/${slug})?$` // Matches /{product}/tutorials/collection-slug/optional-tutorial-slug
 )
 const devDotDocsPath = new RegExp(
 	`^/(${productSlugs.join('|')})/(docs|plugins|api-docs|commands)/?.*`
