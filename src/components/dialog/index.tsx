@@ -20,6 +20,7 @@ const overlayVariants = {
 }
 
 export default function Dialog({
+	ariaDescribedBy,
 	children,
 	contentClassName,
 	isOpen,
@@ -54,6 +55,7 @@ export default function Dialog({
 						className={classNames(s.contentWrapper, s[variant])}
 					>
 						<DialogContent
+							aria-describedby={ariaDescribedBy}
 							aria-label={label}
 							className={classNames(s.content, s[variant], contentClassName)}
 							ref={dialogRef}

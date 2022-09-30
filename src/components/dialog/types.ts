@@ -1,4 +1,5 @@
 export interface DialogProps {
+	ariaDescribedBy?: string
 	children: React.ReactNode
 	contentClassName?: string
 	isOpen: boolean
