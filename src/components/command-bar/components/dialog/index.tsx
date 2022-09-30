@@ -11,9 +11,11 @@ const CommandBarDialog = ({
 	onDismiss = () => null,
 }: CommandBarDialogProps) => {
 	const { width } = useWindowSize()
+	const instructionsElementId = 'footer-keyboard-instructions'
 
 	return (
 		<Dialog
+			ariaDescribedBy={instructionsElementId}
 			label="Command Bar"
 			contentClassName={s.content}
 			isOpen={isOpen}
@@ -23,7 +25,7 @@ const CommandBarDialog = ({
 			<div className={s.contentInner}>
 				<CommandBarDialogHeader />
 				<CommandBarDialogBody />
-				<CommandBarDialogFooter />
+				<CommandBarDialogFooter instructionsElementId={instructionsElementId} />
 			</div>
 		</Dialog>
 	)
