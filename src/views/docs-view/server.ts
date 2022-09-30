@@ -47,7 +47,7 @@ import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-
  * will no longer be necessary, and we will no longer pass the
  * "latestVersionRef" to the remote content loader config.
  */
-export function getBetaLatestVersionRef(slug: string): string | undefined {
+function getBetaLatestVersionRef(slug: string): string | undefined {
 	const hasDevPortalBranch = ['cloud.hashicorp.com'].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }

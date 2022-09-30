@@ -4,7 +4,6 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import { isDeployPreview } from 'lib/env-checks'
-import { getPackerRepoRefForPlugins } from 'lib/get-packer-repo-ref-for-plugins'
 
 /**
  * Path relative to the `website` directory of the Packer GitHub repo.
@@ -15,12 +14,16 @@ import { getPackerRepoRefForPlugins } from 'lib/get-packer-repo-ref-for-plugins'
  * preview is actively supported).
  */
 const remotePluginsFile = 'data/plugins-manifest.json'
-const mainBranch = getPackerRepoRefForPlugins()
+const contentBranch = 'stable-website'
 
 /**
  * Since this /plugins landing page does use content from our API,
  * we can use the same getStaticProps function as all other Dev Dot docs routes,
  * with some modifications for the sidebar data.
+ *
+ * Note: this means we end up sourcing the .mdx for this page from
+ * the latest content according to our content API. This is not
+ * guaranteed to match the `contentBranch` we use for remote plugins data.
  */
 const { getStaticProps: baseGetStaticProps } =
 	getRootDocsPathGenerationFunctions('packer', 'plugins', {
@@ -49,7 +52,7 @@ async function getStaticProps(ctx) {
 				remotePluginsFile,
 				partialNavData,
 				'',
-				mainBranch
+				contentBranch
 			)
 		}
 
