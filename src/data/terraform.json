@@ -47,35 +47,30 @@
 			"iconName": "code",
 			"name": "CDK for Terraform",
 			"path": "cdktf",
-			"contentDir": "docs",
 			"productSlugForLoader": "terraform-cdk"
 		},
 		{
 			"iconName": "terminal-screen",
 			"name": "Terraform CLI",
-			"path": "cli",
-			"contentDir": "docs"
+			"path": "cli"
 		},
 		{
 			"iconName": "cloud",
 			"name": "Terraform Cloud",
 			"path": "cloud-docs",
-			"contentDir": "docs",
 			"productSlugForLoader": "terraform-docs-common"
 		},
 		{
 			"iconName": "cloud",
 			"name": "Cloud Docs Agents",
-			"path": "cloud-docs/agents",
 			"navDataPrefix": "cloud-docs-agents",
-			"contentDir": "docs",
+			"path": "cloud-docs/agents",
 			"productSlugForLoader": "terraform-docs-agents"
 		},
 		{
 			"iconName": "docs",
 			"name": "General Documentation",
 			"path": "docs",
-			"contentDir": "docs",
 			"productSlugForLoader": "terraform-docs-common",
 			"shortName": "Documentation"
 		},
@@ -83,32 +78,27 @@
 			"iconName": "org",
 			"name": "Terraform Enterprise",
 			"path": "enterprise",
-			"contentDir": "docs",
 			"productSlugForLoader": "ptfe-releases"
 		},
 		{
 			"iconName": "docs",
 			"name": "Internals",
-			"path": "internals",
-			"contentDir": "docs"
+			"path": "internals"
 		},
 		{
 			"iconName": "docs",
 			"name": "Intro",
-			"path": "intro",
-			"contentDir": "docs"
+			"path": "intro"
 		},
 		{
 			"iconName": "file-source",
 			"name": "Configuration Language",
-			"path": "language",
-			"contentDir": "docs"
+			"path": "language"
 		},
 		{
 			"iconName": "wrench",
 			"name": "Plugin Development",
 			"path": "plugin",
-			"contentDir": "docs",
 			"productSlugForLoader": "terraform-docs-common"
 		},
 		{
@@ -116,7 +106,6 @@
 			"name": "Framework",
 			"navDataPrefix": "plugin-framework",
 			"path": "plugin/framework",
-			"contentDir": "docs",
 			"productSlugForLoader": "terraform-plugin-framework"
 		},
 		{
@@ -124,7 +113,6 @@
 			"name": "Logging",
 			"navDataPrefix": "plugin-log",
 			"path": "plugin/log",
-			"contentDir": "docs",
 			"productSlugForLoader": "terraform-plugin-log"
 		},
 		{
@@ -132,14 +120,12 @@
 			"name": "Combining and Translating",
 			"navDataPrefix": "plugin-mux",
 			"path": "plugin/mux",
-			"contentDir": "docs",
 			"productSlugForLoader": "terraform-plugin-mux"
 		},
 		{
 			"iconName": "plug",
 			"name": "SDKv2",
 			"path": "plugin/sdkv2",
-			"contentDir": "docs",
 			"productSlugForLoader": "terraform-plugin-sdk",
 			"navDataPrefix": "plugin-sdk"
 		},
@@ -147,7 +133,6 @@
 			"iconName": "plus-circle",
 			"name": "Registry Publishing",
 			"path": "registry",
-			"contentDir": "docs",
 			"productSlugForLoader": "terraform-docs-common"
 		}
 	],
