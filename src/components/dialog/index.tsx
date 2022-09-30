@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import '@reach/dialog/styles.css'
 import {
@@ -28,7 +27,6 @@ export default function Dialog({
 	onDismiss,
 	variant = 'modal',
 }: DialogProps) {
-	const dialogRef = useRef()
 	const shouldReduceMotion = useReducedMotion()
 
 	const overlayMotionProps = {
@@ -47,7 +45,6 @@ export default function Dialog({
 					className={classNames(s.animatedDialogOverlay, s[variant])}
 					isOpen={isOpen}
 					onDismiss={onDismiss}
-					initialFocusRef={dialogRef}
 					{...overlayMotionProps}
 				>
 					<div
@@ -58,7 +55,6 @@ export default function Dialog({
 							aria-describedby={ariaDescribedBy}
 							aria-label={label}
 							className={classNames(s.content, s[variant], contentClassName)}
-							ref={dialogRef}
 						>
 							{children}
 						</DialogContent>
