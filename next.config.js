@@ -9,8 +9,11 @@ const { loadHashiConfigForEnvironment } = require('./config')
 
 const config = loadHashiConfigForEnvironment()
 
-// temporary: set all paths as noindex, until we're serving from this project
-// Update the excluded domains to ensure we are indexing content as the io sites get migrated
+/**
+ * Temporary. Adds a `noindex` directive to all pages for products that are still in beta, and sentinel.
+ *
+ * e.g. If terraform and consul are the only products in the beta array, only developer.hashicorp.com/(consul|terraform)/* will get noindex
+ */
 const temporary_hideDocsPaths = {
 	source: `/(${[...config['dev_dot.beta_product_slugs'], 'sentinel'].join(
 		'|'
