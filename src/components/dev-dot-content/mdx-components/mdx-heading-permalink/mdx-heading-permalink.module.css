@@ -11,7 +11,7 @@
 		transition: opacity 0.2s ease;
 	}
 
-	& svg {
+	& .icon {
 		color: var(--token-color-foreground-action);
 	}
 
@@ -19,7 +19,7 @@
 		opacity: 1;
 		box-shadow: var(--token-surface-mid-box-shadow);
 
-		& svg {
+		& .icon {
 			color: var(--token-color-foreground-action-hover);
 		}
 	}
@@ -28,7 +28,7 @@
 		opacity: 1;
 		background: var(--token-color-surface-faint);
 
-		& svg {
+		& .icon {
 			color: var(--token-color-foreground-action-active);
 		}
 	}
