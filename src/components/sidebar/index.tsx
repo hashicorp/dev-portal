@@ -113,15 +113,6 @@ const Sidebar = ({
 		)
 	}
 
-	console.log({
-		generateResourcesNavItems: generateResourcesNavItems(
-			currentProduct?.slug
-		).map((item, index) => (
-			// eslint-disable-next-line react/no-array-index-key
-			<SidebarNavMenuItem item={item} key={index} />
-		)),
-	})
-
 	return (
 		<div className={s.sidebar}>
 			{backToElement}
