@@ -31,7 +31,6 @@
 .activeTableOfContentsListItem {
 	& a {
 		color: var(--token-color-palette-neutral-700);
-		font-weight: 500;
 	}
 }
 
