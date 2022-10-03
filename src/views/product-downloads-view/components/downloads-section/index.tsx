@@ -31,6 +31,7 @@ import {
 	groupPackageManagersByOS,
 } from './helpers'
 import s from './downloads-section.module.css'
+import { PackageManager } from 'views/product-downloads-view/types'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
 	className: s.subHeading,
@@ -39,7 +40,13 @@ const SHARED_HEADING_LEVEL_3_PROPS = {
 	weight: 'semibold' as HeadingProps['weight'],
 }
 
-const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
+const PackageManagerSection = ({
+	packageManagers,
+	prettyOSName,
+}: {
+	packageManagers: PackageManager[]
+	prettyOSName: string
+}) => {
 	const hasOnePackageManager = packageManagers?.length === 1
 	const hasManyPackageManagers = packageManagers?.length > 1
 	const hasPackageManagers = hasOnePackageManager || hasManyPackageManagers
@@ -58,19 +65,19 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
 			</Heading>
 			{hasOnePackageManager && (
 				<CodeBlock
-					code={generateCodePropFromCommands(packageManagers[0].commands)}
+					code={packageManagers[0].installCodeHtml}
 					language="shell-session"
 					options={{ showClipboard: true }}
 				/>
 			)}
 			{hasManyPackageManagers && (
 				<CodeTabs tabs={packageManagers.map(({ label }) => label)}>
-					{packageManagers.map(({ label, commands }) => {
+					{packageManagers.map(({ label, installCodeHtml }) => {
 						return (
 							<CodeBlock
 								key={label}
 								className={s.codeTabsCodeBlock}
-								code={generateCodePropFromCommands(commands)}
+								code={installCodeHtml}
 								language="shell-session"
 								options={{ showClipboard: true }}
 							/>

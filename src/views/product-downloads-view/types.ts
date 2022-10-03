@@ -27,6 +27,7 @@ export interface PackageManager {
 	label: string
 	commands: string[]
 	os: string
+	installCodeHtml?: string
 }
 
 export interface RawProductDownloadsViewContent {

@@ -90,13 +90,10 @@ const generateGetStaticProps = (
 
 		/**
 		 * Build package manager data
-		 *
-		 * TODO: build highlighted HTML strings of `commands`,
-		 * for use in code blocks.
 		 */
 		const packageManagers = doesNotHavePackageManagers
 			? []
-			: generatePackageManagers({
+			: await generatePackageManagers({
 					defaultPackageManagers: isEnterpriseMode
 						? generateEnterprisePackageManagers(product)
 						: generateDefaultPackageManagers(product),
