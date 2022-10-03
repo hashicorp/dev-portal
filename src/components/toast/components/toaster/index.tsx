@@ -15,6 +15,7 @@ export default function Toaster() {
 			gutter={16}
 			containerStyle={{
 				inset: 24,
+				zIndex: 99,
 			}}
 			toastOptions={{
 				style: {
