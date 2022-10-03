@@ -49,6 +49,6 @@
 		"enable_datadog": true,
 		"enable_io_beta_cta": true,
 		"enable_product_docs_search": true,
-		"enable_global_search": false
+		"enable_global_search": true
 	}
 }
