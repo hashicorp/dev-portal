@@ -1,0 +1,19 @@
+name: Test Coverage PR Comment
+
+on:
+  pull_request:
+    branches-ignore:
+      - 'dependabot/**'
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'Comment about Jest test coverage on changed files'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.html_url }}
+        run: |
+          npm run test:withCoverageSinceMain | tee jestCoverageSinceMain.txt
+          gh pr comment $PR --body-file ./jestCoverageSinceMain.txt
