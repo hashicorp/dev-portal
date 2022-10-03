@@ -8,7 +8,11 @@ import ProductIntegrationsLanding from 'views/product-integrations-landing'
 import { ApiResponse } from 'lib/integrations-api-client/standard-client'
 
 // The products that we are enabling for this Integrations POC
-export const enabledProducts: Array<ProductSlug> = ['packer', 'waypoint']
+export const enabledProducts: Array<ProductSlug> = [
+	'packer',
+	'waypoint',
+	'vault',
+]
 
 export async function getServerSideProps({ params }) {
 	// 404 if we're not on an enabled page
