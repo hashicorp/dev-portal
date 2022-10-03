@@ -2,8 +2,12 @@ name: Test Coverage PR Comment
 
 on:
   pull_request:
-    branches-ignore:
-      - 'dependabot/**'
+    branches:
+      - '!dependabot/**'
+  push:
+    branches:
+      - main
+      - '!dependabot/**'
 
 jobs:
   comment:
