@@ -47,16 +47,15 @@ export interface ProductDownloadsViewProps {
 	latestVersion: string
 	merchandisingSlot?: ReactElement
 	pageContent: {
-		doesNotHavePackageManagers?: boolean
 		featuredCollectionCards?: FeaturedCollectionCard[]
 		featuredTutorialCards?: FeaturedTutorialCard[]
-		packageManagerOverrides?: PackageManager[]
 		sidecarMarketingCard: SidecarMarketingCardProps
 		sidebarMenuItems?: MenuItem[]
 		installName?: string
 	}
 	releases: ReleasesAPIResponse
 	sortedAndFilteredVersions: ReleaseVersion[]
+	packageManagers: PackageManager[]
 }
 
 /**
@@ -67,6 +66,7 @@ export interface ProductDownloadsViewContentProps {
 	merchandisingSlot?: ProductDownloadsViewProps['merchandisingSlot']
 	pageContent: ProductDownloadsViewProps['pageContent']
 	releases: ProductDownloadsViewProps['releases']
+	packageManagers: ProductDownloadsViewProps['packageManagers']
 	versionSwitcherOptions: VersionContextSwitcherProps['options']
 }
 
