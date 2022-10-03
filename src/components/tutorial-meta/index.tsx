@@ -74,10 +74,12 @@ export default function TutorialMeta({
 					</span>
 				) : null}
 				{showCreateAccountCta ? (
-					<Text className={s.createAccountCta}>
+					<Text className={s.createAccountCta} size={200}>
 						Reference this often?{' '}
-						<InlineLink href="/sign-up">Create an account</InlineLink> to
-						bookmark tutorials.
+						<InlineLink href="/sign-up" textSize={200}>
+							Create an account
+						</InlineLink>{' '}
+						to bookmark tutorials.
 					</Text>
 				) : null}
 			</div>
