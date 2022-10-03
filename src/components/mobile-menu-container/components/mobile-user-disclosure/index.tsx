@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { IconChevronDown24 } from '@hashicorp/flight-icons/svg-react/chevron-down-24'
 import { getUserMeta } from 'lib/auth/user'
+import isAbsoluteUrl from 'lib/is-absolute-url'
 import Disclosure, {
 	DisclosureActivator,
 	DisclosureContent,
@@ -20,6 +21,9 @@ const renderItem = (
 	if (!href && !onClick) {
 		return null
 	}
+	const isExternal = isAbsoluteUrl(href)
+	const rel = isExternal ? 'noreferrer noopener' : undefined
+	const target = isExternal ? '_blank' : undefined
 
 	const labelElement = (
 		<Text asElement="span" size={200} weight="medium">
@@ -31,7 +35,7 @@ const renderItem = (
 	if (href) {
 		content = (
 			<Link href={href}>
-				<a className={s.link}>
+				<a className={s.link} rel={rel} target={target}>
 					{icon}
 					{labelElement}
 				</a>
