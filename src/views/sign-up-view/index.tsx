@@ -94,11 +94,12 @@ const SignUpView = () => {
 					<Button
 						icon={<IconUserPlus16 />}
 						iconPosition="trailing"
+						size="medium"
 						text={SIGN_UP_BUTTON_TEXT}
 						onClick={() => signUp()}
 					/>
 					<div className={s.signInContainer}>
-						<Text className={s.signInText} size={200} weight="regular">
+						<Text size={200} weight="regular">
 							{SIGN_IN_HINT_TEXT}
 						</Text>
 						<Button
@@ -106,7 +107,7 @@ const SignUpView = () => {
 							icon={<IconArrowRight16 />}
 							iconPosition="trailing"
 							onClick={() => signIn()}
-							size="large"
+							size="medium"
 							text={SIGN_IN_BUTTON_TEXT}
 						/>
 					</div>
