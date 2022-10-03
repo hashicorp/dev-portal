@@ -1,25 +1,16 @@
 import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
-
-/**
- * As we onboard more products into internal beta, we lose the ability
- * to test "beta" functionality using real config. So, we mock
- * get-is-beta-product in order to provide a consistent testing config.
- */
-jest.mock('../../../get-is-beta-product', () => (productSlug) => {
-	return ['hcp', 'vault', 'waypoint'].includes(productSlug)
-})
+import { productSlugs } from 'lib/products'
 
 // HELPERS ------------------------------------------------------
 
 const slug = '[a-z0-9]+(?:[-][a-z0-9]+)*' // matches lower case letters, numbers and hyphens
-const betaProductSlugs = __config.dev_dot.beta_product_slugs.join('|')
 const devDotTutorialsPath = new RegExp(
-	`^/(${betaProductSlugs})/tutorials/${slug}(/${slug})?$` // Matches /{beta-product}/tutorials/collection-slug/optional-tutorial-slug
+	`^/(${productSlugs.join('|')})/tutorials/${slug}(/${slug})?$` // Matches /{product}/tutorials/collection-slug/optional-tutorial-slug
 )
 const devDotDocsPath = new RegExp(
-	`^/(${betaProductSlugs})/(docs|plugins|api-docs|commands)/?.*`
+	`^/(${productSlugs.join('|')})/(docs|plugins|api-docs|commands)/?.*`
 )
 
 function isolatePathFromMarkdown(mdLink: string): string {
@@ -34,53 +25,42 @@ const TEST_MD_LINKS = {
 	nonLearnLink:
 		'[link to external docs](https://docs.microsoft.com/en-us/azure)',
 	plainAnchor: '[plain anchor link to current tutorial](#some-heading)',
-	nonBetaProductExternalUrl:
-		'[link to external learn path](https://learn.hashicorp.com/tutorials/packer/kubernetes)',
-	nonBetaProductTutorial:
-		'[link to non-beta product tutorial](/tutorials/packer/kubernetes)',
-	betaProductTutorial:
-		'[link to beta product tutorial](/tutorials/waypoint/get-started-ui)',
-	betaProductCollection:
-		'[link to beta product collection](/collections/vault/getting-started)',
-	betaProductExternalCollection:
-		'[link to beta product external collection](https://learn.hashicorp.com/collections/vault/getting-started)',
-	betaProductTutorialAnchorLink:
-		'[link to beta product tutorial with anchor](/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
+	productTutorial:
+		'[link to product tutorial](/tutorials/waypoint/get-started-ui)',
+	productCollection:
+		'[link to product collection](/collections/vault/getting-started)',
+	productExternalCollection:
+		'[link to product external collection](https://learn.hashicorp.com/collections/vault/getting-started)',
+	productTutorialAnchorLink:
+		'[link to product tutorial with anchor](/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
 	externalAnchorLink:
 		'[external learn link with anchor](https://learn.hashicorp.com/tutorials/vault/consul-deploy#create-a-hashicorp-virtual-network)',
-	betaProductTutorialQueryParam:
-		'[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-kubernetes)',
-	betaProductTutorialQueryParamWithAnchor:
-		'[link to beta product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-nomad#install-the-waypoint-server)',
-	betaProductDefintionLink: '[1]: /tutorials/waypoint/get-started-ui',
-	betaProductHubLink: '[link to product hub page](/vault)',
-	betaProductHubExternalLink:
+	productTutorialQueryParam:
+		'[link to product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-kubernetes)',
+	productTutorialQueryParamWithAnchor:
+		'[link to product tutorial with query param](/tutorials/waypoint/get-started?in=waypoint/get-started-nomad#install-the-waypoint-server)',
+	productDefintionLink: '[1]: /tutorials/waypoint/get-started-ui',
+	productHubLink: '[link to product hub page](/vault)',
+	productHubExternalLink:
 		'[External link to product hub page](https://learn.hashicorp.com/vault)',
-	nonBetaProductHubLink: '[non beta product hub link](/vagrant)',
-	nonBetaProductHubExternalLink:
-		'[non beta product hub link](https://learn.hashicorp.com/vagrant)',
 	errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
 	searchPage: '[link to search page on Learn](/search)',
-	betaProductPluginsLink:
+	productPluginsLink:
 		'[link to waypoint docs](https://www.waypointproject.io/plugins/aws-ecs)',
-	betaProductDocsLink:
+	productDocsLink:
 		'[link to waypoint docs](https://www.vaultproject.io/docs/secrets/databases/mssql)',
-	betaProductDocsApiLink:
+	productDocsApiLink:
 		'[link to vault api docs](https://www.vaultproject.io/api/auth/approle)',
-	betaProductDocsApiLinkWithHtml:
+	productDocsApiLinkWithHtml:
 		'[link to vault api docs](https://www.vaultproject.io/api/index.html)',
-	betaProductDocsAnchorLink:
+	productDocsAnchorLink:
 		'[link to vault api docs](https://www.vaultproject.io/api/auth/something#generate-new-secret-id)',
-	betaProductDocsLinkAnchorWithHtml:
+	productDocsLinkAnchorWithHtml:
 		'[link to vault api docs](https://www.vaultproject.io/api/index.html#some-anchor)',
-	nonBetaProductDocsLink:
-		'[non beta product docs link](https://www.vagrantup.com/docs/installation/backwards-compatibility)',
-	betaProductDocsLinkNonDoc:
+	productDocsLinkNonDoc:
 		'[link to vault trial](https://www.vaultproject.io/trial)',
-	betaProductDocsLinkUseCases:
+	productDocsLinkUseCases:
 		'[link to vault use cases](https://www.vaultproject.io/use-cases)',
-	nonBetaProductLinkWithBetaProductInTitle:
-		'[boundary link with vault in tutorial title](/tutorials/boundary/oss-vault-cred-brokering-quickstart)',
 	wafTutorialLink:
 		'[waf link](/tutorials/well-architected-framework/cloud-operating-model)',
 	onboardingCollectionLink:
@@ -137,11 +117,10 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		expect(path.startsWith('#')).toBe(true)
 	})
 
-	test('Beta product tutorial links are rewritten to dev portal paths', async () => {
-		// load beta product config
+	test('Product tutorial links are rewritten to dev portal paths', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductTutorial)
+			.process(TEST_MD_LINKS.productTutorial)
 
 		const result = String(contents)
 		const path = isolatePathFromMarkdown(result)
@@ -149,38 +128,20 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		expect(path).toMatch(devDotTutorialsPath)
 	})
 
-	test('Non-beta product tutorial links are made external', async () => {
+	test('Product collection links are rewritten to dev portal paths', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.nonBetaProductTutorial)
-
-		const result = String(contents)
-		expect(result.includes('https://learn.hashicorp.com/')).toBeTruthy()
-	})
-
-	test("Non-beta product tutorial full URLs aren't rewritten", async () => {
-		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.nonBetaProductExternalUrl)
-
-		const result = String(contents)
-		expect(result).toMatch(TEST_MD_LINKS.nonBetaProductExternalUrl)
-	})
-
-	test('Beta product collection links are rewritten to dev portal paths', async () => {
-		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductCollection)
+			.process(TEST_MD_LINKS.productCollection)
 
 		const result = String(contents)
 		const path = isolatePathFromMarkdown(result)
 		expect(path).toMatch(devDotTutorialsPath)
 	})
 
-	test('Beta product external collection links are rewritten to relative dev portal paths', async () => {
+	test('Product external collection links are rewritten to relative dev portal paths', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductExternalCollection)
+			.process(TEST_MD_LINKS.productExternalCollection)
 
 		const result = String(contents)
 		const path = isolatePathFromMarkdown(result)
@@ -190,7 +151,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 	test('Anchor links are rewritten properly', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductTutorialAnchorLink)
+			.process(TEST_MD_LINKS.productTutorialAnchorLink)
 
 		const externalLinkContents = await remark()
 			.use(rewriteTutorialLinksPlugin)
@@ -202,7 +163,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		)
 
 		const anchorLinkPath = new RegExp(
-			`^/(${betaProductSlugs})/tutorials/${slug}(/${slug})#`
+			`^/(${productSlugs.join('|')})/tutorials/${slug}(/${slug})#`
 		)
 
 		expect(path).toMatch(anchorLinkPath)
@@ -212,7 +173,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 	test('Query params are rewritten properly', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductTutorialQueryParam)
+			.process(TEST_MD_LINKS.productTutorialQueryParam)
 
 		const queryParamCollectionSlug = /get-started-kubernetes/
 
@@ -222,7 +183,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 	test('Query params with an anchor link are rewritten properly', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductTutorialQueryParamWithAnchor)
+			.process(TEST_MD_LINKS.productTutorialQueryParamWithAnchor)
 
 		const queryParamSlugWithAnchor = new RegExp(`get-started-nomad/${slug}#`)
 
@@ -240,7 +201,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 	test('Definition link is rewritten', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductDefintionLink)
+			.process(TEST_MD_LINKS.productDefintionLink)
 
 		const path = String(contents).split(':')[1].trim()
 		expect(path).toMatch(devDotTutorialsPath)
@@ -254,14 +215,14 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		expect(String(contents)).toMatch(/(learn.hashicorp.com)?\/search/)
 	})
 
-	test('Beta-product hub pages should be rewritten to dev portal', async () => {
+	test('Product hub pages should be rewritten to dev portal', async () => {
 		const interalLinkContents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductHubLink)
+			.process(TEST_MD_LINKS.productHubLink)
 		const internalPath = isolatePathFromMarkdown(String(interalLinkContents))
 		const externalLinkContents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductHubExternalLink)
+			.process(TEST_MD_LINKS.productHubExternalLink)
 		const externalPath = isolatePathFromMarkdown(String(externalLinkContents))
 		const productHub = /^\/vault\/tutorials$/
 
@@ -269,13 +230,13 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		expect(externalPath).toMatch(productHub)
 	})
 
-	test('Beta-product docs links are rewritten to dev portal', async () => {
+	test('Product docs links are rewritten to dev portal', async () => {
 		const docsLinkContents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductDocsLink)
+			.process(TEST_MD_LINKS.productDocsLink)
 		const pluginLinkContents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductPluginsLink)
+			.process(TEST_MD_LINKS.productPluginsLink)
 
 		const pluginLinkPath = isolatePathFromMarkdown(String(pluginLinkContents))
 		const docsLinkPath = isolatePathFromMarkdown(String(docsLinkContents))
@@ -284,19 +245,19 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		expect(docsLinkPath).toMatch(devDotDocsPath)
 	})
 
-	test('Beta-product api links are rewritten to api-docs', async () => {
+	test('Product api links are rewritten to api-docs', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductDocsApiLink)
+			.process(TEST_MD_LINKS.productDocsApiLink)
 
 		const path = isolatePathFromMarkdown(String(contents))
 		expect(path).toMatch(devDotDocsPath)
 	})
 
-	test('Beta product docs link .html reference should be removed', async () => {
+	test('Product docs link .html reference should be removed', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductDocsApiLinkWithHtml)
+			.process(TEST_MD_LINKS.productDocsApiLinkWithHtml)
 
 		const path = isolatePathFromMarkdown(String(contents))
 
@@ -304,14 +265,14 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		expect(path).toMatch(/(?!(.*\.html))\/vault\/api/)
 	})
 
-	test('Beta-product docs link with anchor are rewritten properly', async () => {
+	test('Product docs link with anchor are rewritten properly', async () => {
 		const basicAnchorContents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductDocsAnchorLink)
+			.process(TEST_MD_LINKS.productDocsAnchorLink)
 
 		const anchorWithHtmlContents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductDocsLinkAnchorWithHtml)
+			.process(TEST_MD_LINKS.productDocsLinkAnchorWithHtml)
 
 		const basicAnchorPath = isolatePathFromMarkdown(String(basicAnchorContents))
 		const anchorWithHtmlPath = isolatePathFromMarkdown(
@@ -324,40 +285,19 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		expect(anchorWithHtmlPath).toMatch(anchorLinkPath)
 	})
 
-	test('Non-beta product docs links are not rewritten', async () => {
+	test('Product /trial path is not rewritten', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.nonBetaProductDocsLink)
-
-		expect(String(contents)).toMatch(TEST_MD_LINKS.nonBetaProductDocsLink)
+			.process(TEST_MD_LINKS.productDocsLinkNonDoc)
+		expect(String(contents)).toMatch(TEST_MD_LINKS.productDocsLinkNonDoc)
 	})
 
-	test('Beta product /trial path is not rewritten', async () => {
+	test('Product usecase path is not rewritten', async () => {
 		const contents = await remark()
 			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductDocsLinkNonDoc)
-		expect(String(contents)).toMatch(TEST_MD_LINKS.betaProductDocsLinkNonDoc)
-	})
+			.process(TEST_MD_LINKS.productDocsLinkUseCases)
 
-	test('Beta product usecase path is not rewritten', async () => {
-		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.betaProductDocsLinkUseCases)
-
-		expect(String(contents)).toMatch(TEST_MD_LINKS.betaProductDocsLinkUseCases)
-	})
-
-	test('Beta product should only be determined by product dir, not tutorial name', async () => {
-		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
-			.process(TEST_MD_LINKS.nonBetaProductLinkWithBetaProductInTitle)
-
-		const basePath = isolatePathFromMarkdown(
-			TEST_MD_LINKS.nonBetaProductLinkWithBetaProductInTitle
-		)
-		const finalPath = 'https://learn.hashicorp.com' + basePath
-
-		expect(isolatePathFromMarkdown(String(contents))).toBe(finalPath)
+		expect(String(contents)).toMatch(TEST_MD_LINKS.productDocsLinkUseCases)
 	})
 
 	test('Waf link should be rewritten properly', async () => {

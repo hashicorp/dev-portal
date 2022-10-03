@@ -3,4 +3,8 @@ interface CommandBarDialogProps {
 	onDismiss?: () => void
 }
 
-export type { CommandBarDialogProps }
+interface CommandBarDialogFooterProps {
+	instructionsElementId: string
+}
+
+export type { CommandBarDialogFooterProps, CommandBarDialogProps }
