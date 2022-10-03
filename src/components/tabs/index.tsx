@@ -92,18 +92,13 @@ const Tabs = ({
 						<div
 							aria-hidden={!isActive}
 							aria-labelledby={tabId}
-							className={classNames(
-								s.tabPanel,
-								'g-focus-ring-from-box-shadow',
-								{
-									[s.isNested]: isNested,
-									[s.allowNestedStyles]: allowNestedStyles,
-								}
-							)}
+							className={classNames(s.tabPanel, {
+								[s.isNested]: isNested,
+								[s.allowNestedStyles]: allowNestedStyles,
+							})}
 							id={panelId}
 							key={panelId}
 							role="tabpanel"
-							tabIndex={0}
 						>
 							{content}
 						</div>

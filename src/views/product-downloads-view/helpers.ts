@@ -88,6 +88,14 @@ export function generateEnterprisePackageManagers(
 
 	return [
 		{
+			label: 'Homebrew',
+			commands: [
+				`brew tap hashicorp/tap`,
+				`brew install hashicorp/tap/${productSlug}-enterprise`,
+			],
+			os: 'darwin',
+		},
+		{
 			label: 'Ubuntu/Debian',
 			commands: [
 				`wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg`,
@@ -120,6 +128,14 @@ export function generateEnterprisePackageManagers(
 				`sudo yum install -y yum-utils`,
 				`sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo`,
 				`sudo yum -y install ${productSlug}-enterprise`,
+			],
+			os: 'linux',
+		},
+		{
+			label: 'Homebrew',
+			commands: [
+				`brew tap hashicorp/tap`,
+				`brew install hashicorp/tap/${productSlug}-enterprise`,
 			],
 			os: 'linux',
 		},

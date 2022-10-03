@@ -23,7 +23,7 @@
 
 .mobileAuthenticationControls {
 	/* composition */
-	composes: g-hide-on-desktop from global;
+	composes: g-show-with-mobile-menu from global;
 
 	/* properties */
 	align-items: center;
