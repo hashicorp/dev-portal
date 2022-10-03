@@ -19,12 +19,13 @@ const overlayVariants = {
 }
 
 export default function Dialog({
+	ariaDescribedBy,
 	children,
 	contentClassName,
 	isOpen,
 	label,
-	variant = 'modal',
 	onDismiss,
+	variant = 'modal',
 }: DialogProps) {
 	const shouldReduceMotion = useReducedMotion()
 
@@ -51,8 +52,9 @@ export default function Dialog({
 						className={classNames(s.contentWrapper, s[variant])}
 					>
 						<DialogContent
-							className={classNames(s.content, s[variant], contentClassName)}
+							aria-describedby={ariaDescribedBy}
 							aria-label={label}
+							className={classNames(s.content, s[variant], contentClassName)}
 						>
 							{children}
 						</DialogContent>

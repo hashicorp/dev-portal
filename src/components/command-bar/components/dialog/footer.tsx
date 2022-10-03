@@ -4,13 +4,22 @@ import Badge from 'components/badge'
 import Text from 'components/text'
 import { FORM_URL } from 'components/navigation-header/components/give-feedback-button'
 import StandaloneLink from 'components/standalone-link'
+import { CommandBarDialogFooterProps } from './types'
 import s from './command-bar-dialog.module.css'
 
-const CommandBarDialogFooter = () => {
+const CommandBarDialogFooter = ({
+	instructionsElementId,
+}: CommandBarDialogFooterProps) => {
 	return (
 		<div className={s.footer}>
-			<div className={s.footerLeft}>
-				<Badge color="neutral" text="Tab" type="filled" size="small" />
+			<div className={s.footerLeft} id={instructionsElementId}>
+				<Badge
+					ariaLabel="Tab key"
+					color="neutral"
+					size="small"
+					text="Tab"
+					type="filled"
+				/>
 				<Text asElement="span" size={100} weight="regular">
 					to navigate,
 				</Text>
@@ -18,13 +27,19 @@ const CommandBarDialogFooter = () => {
 					ariaLabel="Enter key"
 					color="neutral"
 					icon={<IconCornerDownLeft16 />}
-					type="filled"
 					size="small"
+					type="filled"
 				/>
 				<Text asElement="span" size={100} weight="regular">
 					to select,
 				</Text>
-				<Badge color="neutral" text="Esc" type="filled" size="small" />
+				<Badge
+					ariaLabel="Escape key"
+					color="neutral"
+					size="small"
+					text="Esc"
+					type="filled"
+				/>
 				<Text asElement="span" size={100} weight="regular">
 					to exit
 				</Text>
@@ -35,9 +50,9 @@ const CommandBarDialogFooter = () => {
 					href={FORM_URL}
 					icon={<IconExternalLink16 />}
 					iconPosition="trailing"
+					openInNewTab
 					size="small"
 					text="Give Feedback"
-					openInNewTab
 				/>
 			</div>
 		</div>
