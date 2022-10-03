@@ -14,7 +14,7 @@ export function checkDocsNavHasItems(
 	currentProduct: Pick<ProductData, 'rootDocsPaths' | 'docsNavItems'>
 ): boolean {
 	const { docsNavItems, rootDocsPaths } = currentProduct
-	return !(!docsNavItems && rootDocsPaths.length === 1)
+	return Boolean(docsNavItems) && rootDocsPaths.length > 1
 }
 
 /**
