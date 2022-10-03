@@ -11,7 +11,6 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 // Global imports
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { isDeployPreview } from 'lib/env-checks'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
@@ -92,12 +91,6 @@ export function getStaticGenerationFunctions<
 	options?: DocsViewPropOptions
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
-	 * Beta products, defined in our config files, will source content from a
-	 * long-lived branch named 'dev-portal'
-	 */
-	const isBetaProduct = getIsBetaProduct(product.slug)
-
-	/**
 	 * Get the current `rootDocsPaths` object.
 	 *
 	 * @TODO - set `baseName` using `rootDocsPath`
@@ -116,9 +109,7 @@ export function getStaticGenerationFunctions<
 		 * "content_preview_branch", so even for products marked "beta",
 		 * "latestVersionRef" may end up being undefined.
 		 */
-		latestVersionRef: isBetaProduct
-			? getBetaLatestVersionRef(productSlugForLoader)
-			: undefined,
+		latestVersionRef: getBetaLatestVersionRef(productSlugForLoader),
 	}
 
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings

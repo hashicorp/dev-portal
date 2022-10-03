@@ -6,6 +6,7 @@ import DropdownDisclosure, {
 	DropdownDisclosureSeparatorItem,
 } from 'components/dropdown-disclosure'
 import { getUserMeta } from 'lib/auth/user'
+import isAbsoluteUrl from 'lib/is-absolute-url'
 import {
 	UserDropdownDisclosureItem,
 	UserDropdownDisclosureProps,
@@ -22,8 +23,17 @@ const renderItem = ({
 	onClick,
 }: UserDropdownDisclosureItem) => {
 	if (href) {
+		const isExternal = isAbsoluteUrl(href)
+		const rel = isExternal ? 'noreferrer noopener' : undefined
+		const target = isExternal ? '_blank' : undefined
+
 		return (
-			<DropdownDisclosureLinkItem href={href} icon={icon}>
+			<DropdownDisclosureLinkItem
+				href={href}
+				icon={icon}
+				rel={rel}
+				target={target}
+			>
 				{label}
 			</DropdownDisclosureLinkItem>
 		)
