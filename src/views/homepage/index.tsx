@@ -20,6 +20,16 @@ import {
 } from './components/merchandising-slots/slots'
 import s from './homepage.module.css'
 
+// new
+const VIDEO_URL = 'https://hashicorp.wistia.com/medias/2gzt6iv3na'
+const VIDEO_THUMBNAIL_URL =
+	'https://embed-ssl.wistia.com/deliveries/0c7130d1ae57acad646e48afc4eaf13e207b73f1.jpg?image_crop_resized=960x560'
+
+// old
+// const VIDEO_URL = 'https://hashicorp.wistia.com/medias/031h9iogzx'
+// const VIDEO_THUMBNAIL_URL =
+// 'https://embed-ssl.wistia.com/deliveries/b65febe71ccfb5ded8d3958b1cf1ec61.jpg?image_crop_resized=960x540'
+
 const HomePageContent = ({
 	hero,
 	merchandising,
@@ -44,8 +54,8 @@ const HomePageContent = ({
 				badgeText={hero.badgeText}
 				heading={hero.heading}
 				description={<Text>{hero.description}</Text>}
-				videoUrl="https://hashicorp.wistia.com/medias/031h9iogzx"
-				videoImageUrl="https://embed-ssl.wistia.com/deliveries/b65febe71ccfb5ded8d3958b1cf1ec61.jpg?image_crop_resized=960x540"
+				videoUrl={VIDEO_URL}
+				videoImageUrl={VIDEO_THUMBNAIL_URL}
 			/>
 			<ProductNav notice={navNotice} products={products} />
 			<MerchandisingSlots>
