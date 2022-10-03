@@ -5,7 +5,6 @@ import {
 } from 'next'
 import { LearnProductData, LearnProductSlug } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import TutorialView from 'views/tutorial-view'
 import {
 	TutorialPageProps,
@@ -34,10 +33,6 @@ async function getStaticProps({
 	GetStaticPropsResult<TutorialPageProps>
 > {
 	const { productSlug, tutorialSlug } = params
-
-	if (!getIsBetaProduct(productSlug)) {
-		return { notFound: true }
-	}
 
 	const productData = cachedGetProductData(productSlug) as LearnProductData
 	const props = await getTutorialPageProps(productData, tutorialSlug)

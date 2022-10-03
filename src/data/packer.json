@@ -34,25 +34,21 @@
 		{
 			"iconName": "docs",
 			"name": "General Documentation",
-			"mainBranch": "master",
 			"path": "docs",
 			"shortName": "Documentation"
 		},
 		{
 			"iconName": "entry-point",
-			"mainBranch": "master",
 			"name": "Introduction",
 			"path": "intro"
 		},
 		{
 			"iconName": "guide",
-			"mainBranch": "master",
 			"name": "Guides",
 			"path": "guides"
 		},
 		{
 			"iconName": "plug",
-			"mainBranch": "master",
 			"name": "External Plugins",
 			"path": "plugins"
 		}

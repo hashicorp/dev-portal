@@ -6,6 +6,7 @@ import { Collection, ProductOption, TutorialLite } from 'lib/learn-client/types'
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import config from '../config/base.json'
+import { productSlugs } from 'lib/products'
 
 interface StaticPathsResponse {
 	meta: {
@@ -22,7 +23,6 @@ interface StaticPathsResponse {
 }
 
 const DEV_PORTAL_URL = config.dev_dot.canonical_base_url
-const BETA_PRODUCTS = config.dev_dot.beta_product_slugs
 
 const fetch = createFetch()
 
@@ -107,7 +107,7 @@ async function getTutorialUrlsToCache(
 
 		const tutorialUrls = (
 			await Promise.all(
-				BETA_PRODUCTS.map((product: ProductOption) =>
+				productSlugs.map((product: ProductOption) =>
 					getTutorialUrlsToCache(product)
 				)
 			)
