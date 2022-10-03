@@ -76,7 +76,7 @@ async function getUrlsToCache(product: string): Promise<string[]> {
 async function getTutorialUrlsToCache(product: ProductSlug): Promise<string[]> {
 	let allProductCollections
 
-	if (product === ProductOption['hcp']) {
+	if (product === 'hcp') {
 		allProductCollections = await getCollectionsBySection('cloud')
 	} else {
 		const collections = await getAllCollections({
