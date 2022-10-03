@@ -9,9 +9,7 @@ import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
-import useAuthentication, {
-	DEFAULT_SIGN_IN_CALLBACK_URL,
-} from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 import BaseNewLayout from 'layouts/base-new'
 import ErrorView from 'views/error-view-switcher'
 import Button from 'components/button'
@@ -56,10 +54,10 @@ const SignUpView = () => {
 	}
 
 	/**
-	 * Redirect to profile page if user is already authenticated
+	 * Redirect to app home page if user is already authenticated
 	 */
 	if (isAuthenticated) {
-		router.replace(DEFAULT_SIGN_IN_CALLBACK_URL)
+		router.replace('/')
 		return null
 	}
 
@@ -94,11 +92,12 @@ const SignUpView = () => {
 					<Button
 						icon={<IconUserPlus16 />}
 						iconPosition="trailing"
+						size="medium"
 						text={SIGN_UP_BUTTON_TEXT}
 						onClick={() => signUp()}
 					/>
 					<div className={s.signInContainer}>
-						<Text className={s.signInText} size={200} weight="regular">
+						<Text size={200} weight="regular">
 							{SIGN_IN_HINT_TEXT}
 						</Text>
 						<Button
@@ -106,7 +105,7 @@ const SignUpView = () => {
 							icon={<IconArrowRight16 />}
 							iconPosition="trailing"
 							onClick={() => signIn()}
-							size="large"
+							size="medium"
 							text={SIGN_IN_BUTTON_TEXT}
 						/>
 					</div>
