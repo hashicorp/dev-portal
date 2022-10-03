@@ -10,7 +10,7 @@ import {
  * to determine whether or not to show dropdown in nav
  */
 
-export function checkDocsNavHasItems(
+export function getDocsNavHasItems(
 	currentProduct: Pick<ProductData, 'rootDocsPaths' | 'docsNavItems'>
 ): boolean {
 	const { docsNavItems, rootDocsPaths } = currentProduct

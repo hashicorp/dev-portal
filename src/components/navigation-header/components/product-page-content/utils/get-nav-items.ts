@@ -1,6 +1,6 @@
 import { NavigationHeaderIcon } from 'components/navigation-header/types'
 import {
-	checkDocsNavHasItems,
+	getDocsNavHasItems,
 	getDocsNavItems,
 } from 'lib/docs/get-docs-nav-items'
 import { NavItem } from './types'
@@ -22,24 +22,27 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 * Check if docs contains more than one item and
 	 * To determine whether to render dropdown or link in nav
 	 */
-
-	const docsNavHasItems = checkDocsNavHasItems(currentProduct)
-	const docsNavObj:
+	let docsNavObj:
 		| Pick<PrimaryNavSubmenuProps['navItem'], 'iconColorTheme' | 'items'>
-		| Pick<PrimaryNavLinkProps['navItem'], 'url'> = docsNavHasItems
-		? {
-				iconColorTheme: currentProduct.slug,
-				items: getDocsNavItems(currentProduct).map((navItem) => {
-					return {
-						icon: navItem.icon as NavigationHeaderIcon,
-						label: navItem.label,
-						path: navItem.fullPath,
-					}
-				}),
-		  }
-		: {
-				url: `/${currentProduct.slug}/docs`,
-		  }
+		| Pick<PrimaryNavLinkProps['navItem'], 'url'>
+	const docsNavHasItems = getDocsNavHasItems(currentProduct)
+
+	if (docsNavHasItems) {
+		docsNavObj = {
+			iconColorTheme: currentProduct.slug,
+			items: getDocsNavItems(currentProduct).map((navItem) => {
+				return {
+					icon: navItem.icon as NavigationHeaderIcon,
+					label: navItem.label,
+					path: navItem.fullPath,
+				}
+			}),
+		}
+	} else {
+		docsNavObj = {
+			url: `/${currentProduct.slug}/docs`,
+		}
+	}
 
 	/**
 	 * Define a common set of base nav items
