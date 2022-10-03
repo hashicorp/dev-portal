@@ -1,6 +1,6 @@
-import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
 import Badge from 'components/badge'
 import { useCommandBar } from 'components/command-bar'
+import { CmdCtrlIcon } from 'components/command-bar/components'
 import Text from 'components/text'
 import { CommandBarActivatorProps } from './types'
 import s from './command-bar-activator.module.css'
@@ -25,10 +25,10 @@ const CommandBarActivator = ({
 			</span>
 			<span className={s.right}>
 				<Badge
-					ariaLabel="Command key"
+					ariaLabel="Command or control key"
 					className={s.keyBadge}
 					color="neutral-dark-mode"
-					icon={<IconCommand16 />}
+					icon={<CmdCtrlIcon />}
 					size="small"
 				/>
 				<Badge
