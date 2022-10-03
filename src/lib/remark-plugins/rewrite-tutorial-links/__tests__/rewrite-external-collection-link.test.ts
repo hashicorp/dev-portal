@@ -1,10 +1,6 @@
 import { ProductSlug } from 'types/products'
 import { rewriteExternalCollectionLink } from '../utils'
 
-jest.mock('lib/get-is-beta-product', () => (productSlug: ProductSlug) => {
-	return ['hcp', 'vault', 'waypoint'].includes(productSlug)
-})
-
 const getTestURLObject = (url: string) => {
 	return new URL(url, 'https://learn.hashicorp.com/')
 }
@@ -48,7 +44,7 @@ describe('rewriteExternalCollectionLink', () => {
 			['/collections/waypoint/deploy-aws', '/waypoint/tutorials/deploy-aws'],
 			[
 				'/collections/consul/cloud-get-started',
-				'https://learn.hashicorp.com/collections/consul/cloud-get-started',
+				'/consul/tutorials/cloud-get-started',
 			],
 			[
 				'/collections/onboarding/hcp-vault-week-1',
@@ -75,7 +71,7 @@ describe('rewriteExternalCollectionLink', () => {
 			],
 			[
 				'/collections/consul/cloud-get-started?paramA=valueA',
-				'https://learn.hashicorp.com/collections/consul/cloud-get-started?paramA=valueA',
+				'/consul/tutorials/cloud-get-started?paramA=valueA',
 			],
 			[
 				'/collections/onboarding/hcp-vault-week-1?paramA=valueA',
@@ -108,7 +104,7 @@ describe('rewriteExternalCollectionLink', () => {
 			],
 			[
 				'/collections/consul/cloud-get-started#test-hash',
-				'https://learn.hashicorp.com/collections/consul/cloud-get-started#test-hash',
+				'/consul/tutorials/cloud-get-started#test-hash',
 			],
 			[
 				'/collections/onboarding/hcp-vault-week-1#test-hash',
@@ -141,7 +137,7 @@ describe('rewriteExternalCollectionLink', () => {
 			],
 			[
 				'/collections/consul/cloud-get-started?paramA=valueA#test-hash',
-				'https://learn.hashicorp.com/collections/consul/cloud-get-started?paramA=valueA#test-hash',
+				'/consul/tutorials/cloud-get-started?paramA=valueA#test-hash',
 			],
 			[
 				'/collections/onboarding/hcp-vault-week-1?paramA=valueA#test-hash',

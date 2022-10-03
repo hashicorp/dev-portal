@@ -43,7 +43,6 @@ import {
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import getVideoUrl from './utils/get-video-url'
-import { getCanonicalCollectionSlug } from './utils/get-canonical-collection-slug'
 import {
 	FeaturedInCollections,
 	NextPrevious,
@@ -147,10 +146,7 @@ function TutorialView({
 		},
 	})
 
-	const canonicalCollectionSlug = getCanonicalCollectionSlug(
-		tutorial,
-		product.slug
-	)
+	const canonicalCollectionSlug = tutorial.collectionCtx.default.slug
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
 	const redirectPath = getLearnRedirectPath(
 		currentPath,
@@ -259,6 +255,7 @@ function TutorialView({
 					 * deferring for a follow-up PR since this is functional for the time being.
 					 */
 					sidebarNavDataLevels={sidebarNavDataLevels as any}
+					showScrollProgress={true}
 					AlternateSidebar={TutorialsSidebar}
 					optInOutSlot={
 						<OptInOut platform="learn" redirectPath={redirectPath} />

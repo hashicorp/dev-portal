@@ -1,0 +1,4 @@
+.heading {
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 16px;
+}
