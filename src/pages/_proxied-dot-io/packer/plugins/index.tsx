@@ -18,6 +18,7 @@ const additionalComponents = { PluginBadge }
 
 // path relative to the `website` directory of the Packer GitHub repo
 const remotePluginsFile = 'data/plugins-manifest.json'
+const mainBranch = 'stable-website'
 
 function DocsView(props) {
 	return (
@@ -41,6 +42,7 @@ const { getStaticProps: baseGetStaticProps } = getStaticGenerationFunctions(
 				fallback: 'blocking',
 				revalidate: 360, // 1 hour
 				product: productData.slug,
+				mainBranch,
 		  }
 		: {
 				strategy: 'fs',
@@ -57,7 +59,8 @@ async function getStaticProps(ctx) {
 		const navData = await appendRemotePluginsNavData(
 			remotePluginsFile,
 			staticProps.props.navData,
-			''
+			'',
+			mainBranch
 		)
 		staticProps.props.navData = navData
 	}

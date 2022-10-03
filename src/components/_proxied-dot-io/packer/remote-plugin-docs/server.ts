@@ -25,9 +25,14 @@ import rehypePrism from '@mapbox/rehype-prism'
 // which we need to shim cause of how we're fetching remote content here
 import shimRemoteIncludes from 'lib/shim-remote-includes'
 
-async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
+async function generateStaticPaths({
+	navDataFile,
+	remotePluginsFile,
+	mainBranch = 'main',
+}) {
 	const navData = await resolveNavDataWithRemotePlugins(navDataFile, {
 		remotePluginsFile,
+		mainBranch,
 	})
 	const paths = getPathsFromNavData(navData)
 	return paths
@@ -41,6 +46,7 @@ async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
 async function generateStaticProps({
 	localContentDir,
 	mainBranch = 'main',
+	editBranch = mainBranch,
 	navDataFile,
 	params,
 	product,
@@ -48,6 +54,7 @@ async function generateStaticProps({
 }: {
 	localContentDir: string
 	mainBranch?: string
+	editBranch?: string
 	navDataFile: string
 	params: { page?: string[] }
 	product: { name: string; slug: string }
@@ -61,6 +68,7 @@ async function generateStaticProps({
 	const navData = await resolveNavDataWithRemotePlugins(navDataFile, {
 		remotePluginsFile,
 		currentPath,
+		mainBranch,
 	})
 	// Attempt to match a navNode for this path.
 	// Note that we may not be able to find a match, in which case we 404.
@@ -82,10 +90,17 @@ async function generateStaticProps({
 		: fs.readFileSync(path.join(process.cwd(), filePath), 'utf8')
 	// Construct the githubFileUrl, used for "Edit this page" link
 	// Note: we expect remote files, such as those used to render plugin docs,
-	// to have a sourceUrl defined, that points to the file we built from
+	// to have a sourceUrl defined, that points to the file we built from.
+	/**
+	 * Updated note: now that we have all external plugins on a separate route,
+	 * as well as a separate `index.tsx` page file for the only non-remote
+	 * MDX file (the /plugins landing page), the second part of this conditional
+	 * is not expected to be relevant. The `editBranch` logic has been added
+	 * for completeness, it may not actually see real use.
+	 */
 	const githubFileUrl = remoteFile
 		? remoteFile.sourceUrl
-		: `https://github.com/hashicorp/${product.slug}/blob/${mainBranch}/website/${filePath}`
+		: `https://github.com/hashicorp/${product.slug}/blob/${editBranch}/website/${filePath}`
 	// If this is a plugin, and if
 	// the version has been specified as "latest",
 	// determine the tag this corresponds to, so that
@@ -128,7 +143,11 @@ async function generateStaticProps({
 			mdxContent = badgesHeaderMdx + '\n\n' + mdxContent
 		}
 
-		mdxContent = await shimRemoteIncludes(mdxContent, 'packer')
+		mdxContent = await shimRemoteIncludes(
+			mdxContent,
+			'packer',
+			`refs/heads/${mainBranch}`
+		)
 
 		return mdxContent
 	}
