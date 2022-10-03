@@ -94,7 +94,6 @@ describe('<Tabs />', () => {
 					if (index === 0) {
 						expect(tabPanel).toBeInTheDocument()
 						expect(tabPanel).toHaveAccessibleName()
-						expect(tabPanel.getAttribute('tabindex')).toBe('0')
 						expect(tabPanel.textContent).toBe(content)
 					} else {
 						expect(tabPanel).not.toBeInTheDocument()
@@ -153,27 +152,6 @@ describe('<Tabs />', () => {
 						name: testData[0].heading,
 					})
 					expect(firstTabPanel).toBeInTheDocument()
-				})
-			})
-
-			/**
-			 * NOTE: `fireEvent.key(document.activeElement, { key: 'Tab' })` after
-			 * focusing the first tab button does not actually change focus from the
-			 * button the tab panel. `userEvent.tab()` does!
-			 */
-			test('Tab key on tab button `onKeyDown` moves focus to the tab panel', async () => {
-				const firstTabButton = screen.queryByRole('tab', {
-					name: testData[0].heading,
-				})
-				firstTabButton.focus()
-				await userEvent.tab()
-
-				await waitFor(() => {
-					const firstTabPanel = screen.queryByRole('tabpanel', {
-						name: testData[0].heading,
-					})
-
-					expect(firstTabPanel).toHaveFocus()
 				})
 			})
 

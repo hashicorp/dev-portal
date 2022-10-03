@@ -58,13 +58,23 @@
 	padding: 8px;
 	width: 100%;
 
-	/* TODO aria-selected is not set yet, but will be for keyboard navigation */
-	&[aria-selected='true'],
+	&:focus,
+	&:focus-visible {
+		outline: transparent;
+	}
+
+	&:focus-visible,
 	&:hover {
 		background-color: var(--token-color-surface-strong);
-		box-shadow: var(--token-surface-base-box-shadow);
 		color: var(--token-color-foreground-strong);
 		cursor: pointer;
-		outline: transparent;
+	}
+
+	&:hover {
+		box-shadow: var(--token-surface-base-box-shadow);
+	}
+
+	&:focus-visible {
+		box-shadow: var(--token-focus-ring-action-box-shadow);
 	}
 }

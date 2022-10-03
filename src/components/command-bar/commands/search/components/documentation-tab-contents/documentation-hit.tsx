@@ -4,8 +4,15 @@ import { DocumentationHitObject, DocumentationHitProps } from './types'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
+/**
+ * @TODO - does not yet handle linking to specific headings.
+ */
+const generateDocumentationHitUrl = (hit: DocumentationHitObject) => {
+	return `/${hit.objectID.replace(/\/index$/, '')}`
+}
+
 const DocumentationHit = ({ hit }: DocumentationHitProps) => {
-	const { objectID, _highlightResult, product } = hit
+	const { _highlightResult, product } = hit
 
 	/**
 	 * If no _highlightResult, the hit is likely invalid and links to a page that
@@ -40,12 +47,13 @@ const DocumentationHit = ({ hit }: DocumentationHitProps) => {
 	}
 
 	const productName = product === 'hcp' ? 'HCP' : productSlugsToNames[product]
+	const url = generateDocumentationHitUrl(hit)
 
 	return (
 		<CommandBarLinkListItem
 			title={page_title?.value}
 			description={description?.value}
-			url={`/${objectID}`}
+			url={url}
 			badges={productName ? [productName] : undefined}
 		/>
 	)
