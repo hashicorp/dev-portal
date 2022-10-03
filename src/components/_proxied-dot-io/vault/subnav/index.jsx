@@ -12,7 +12,7 @@ export default function ProductSubnav({ menuItems }) {
 			className={classNames('g-product-subnav', s.subnav)}
 			hideGithubStars={true}
 			titleLink={{
-				text: 'HashiCorp Vault',
+				text: 'vault',
 				url: '/',
 			}}
 			ctaLinks={[
