@@ -54,10 +54,10 @@ const SignUpView = () => {
 	}
 
 	/**
-	 * Redirect to profile page if user is already authenticated
+	 * Redirect to app home page if user is already authenticated
 	 */
 	if (isAuthenticated) {
-		router.replace('/profile/bookmarks')
+		router.replace('/')
 		return null
 	}
 
