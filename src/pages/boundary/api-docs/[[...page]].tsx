@@ -22,7 +22,7 @@ const targetFile = {
 	owner: 'hashicorp',
 	repo: 'boundary',
 	path: 'internal/gen/controller.swagger.json',
-	ref: 'stable-website',
+	ref: 'main',
 }
 // The path to read from when running local preview in the context of the boundary repository
 const targetLocalFile = '../../internal/gen/controller.swagger.json'
