@@ -1,6 +1,6 @@
-import InlineSvg from '@hashicorp/react-inline-svg'
 import Badge from 'components/badge'
 import { useCommandBar } from 'components/command-bar'
+import { CmdCtrlIcon } from 'components/command-bar/components'
 import Text from 'components/text'
 import { CommandBarActivatorProps } from './types'
 import s from './command-bar-activator.module.css'
@@ -28,12 +28,7 @@ const CommandBarActivator = ({
 					ariaLabel="Command or control key"
 					className={s.keyBadge}
 					color="neutral-dark-mode"
-					icon={
-						<InlineSvg
-							className={s.commandKeyBadgeIcon}
-							src={require('./cmd-ctrl.svg?include')}
-						/>
-					}
+					icon={<CmdCtrlIcon />}
 					size="small"
 				/>
 				<Badge
