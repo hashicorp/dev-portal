@@ -24,7 +24,7 @@
 	}
 
 	@media (--dev-dot-desktop) {
-		width: 45vw;
+		width: 50vw;
 	}
 }
 
@@ -82,7 +82,7 @@
 
 	@media (--dev-dot-desktop) {
 		height: 100vh;
-		width: 55vw;
+		width: 50vw;
 	}
 }
 
