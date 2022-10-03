@@ -13,6 +13,8 @@ const { isContentDeployPreview } = require('../src/lib/env-checks')
 const buildBetaProductOptInRedirects = require('./build-beta-opt-in-redirect')
 const { loadHashiConfigForEnvironment } = require('../config')
 
+require('isomorphic-unfetch')
+
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
 const config = loadHashiConfigForEnvironment()
@@ -51,9 +53,10 @@ const devPortalToDotIoRedirects = isPreview()
  *
  * @param {Redirect[]} redirects
  * @param {string} productSlug
+ * @param {string[]} betaSlugs
  * @returns {Redirect[]}
  */
-function addHostCondition(redirects, productSlug) {
+function addHostCondition(redirects, productSlug, betaSlugs) {
 	const host = proxySettings[productSlug].host
 	return redirects.map((redirect) => {
 		if (productSlug == PROXIED_PRODUCT) {
@@ -61,10 +64,7 @@ function addHostCondition(redirects, productSlug) {
 		}
 
 		// If the productSlug is NOT a beta product, it is GA, so handle the redirect appropriately (exclude sentinel)
-		if (
-			!config['dev_dot.beta_product_slugs'].includes(productSlug) &&
-			productSlug !== 'sentinel'
-		) {
+		if (!betaSlugs.includes(productSlug) && productSlug !== 'sentinel') {
 			// The redirect should always apply in lower environments
 			if (process.env.HASHI_ENV !== 'production') {
 				return redirect
@@ -109,10 +109,27 @@ function addHostCondition(redirects, productSlug) {
 }
 
 /**
+ * Fetch the latest ref from the content API to ensure the redirects are accurate.
+ *
+ * @TODO save the redirects to the content database and expose them directly via the API
+ */
+async function getLatestContentRefForProduct(product) {
+	const contentUrl = new URL('https://content.hashicorp.com')
+	contentUrl.pathname = `/api/content/${product}/version-metadata/latest`
+	const latestRef = await fetch(contentUrl.toString())
+		.then((resp) => resp.json())
+		.then((json) => json.result.ref)
+
+	return latestRef
+}
+
+/**
  * Fetches a redirects file for a given product from the given ref and evaluates the contents
  * as JS.
  */
 async function getRedirectsForProduct(product, ref = 'stable-website') {
+	const latestRef = await getLatestContentRefForProduct(product)
+
 	const rawRedirects = isContentDeployPreview(product)
 		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
 		: isDeployPreview()
@@ -121,11 +138,15 @@ async function getRedirectsForProduct(product, ref = 'stable-website') {
 				owner: 'hashicorp',
 				repo: product,
 				path: 'website/redirects.js',
-				ref,
+				ref: latestRef ?? ref,
 		  })
 	const parsedRedirects = eval(rawRedirects) ?? []
 
-	return addHostCondition(parsedRedirects, product)
+	return addHostCondition(
+		parsedRedirects,
+		product,
+		config['dev_dot.beta_product_slugs']
+	)
 }
 
 async function buildProductRedirects() {
@@ -163,7 +184,11 @@ async function buildProductRedirects() {
 		...(await getRedirectsForProduct('vagrant')),
 		...(await getRedirectsForProduct('packer')),
 		...(await getRedirectsForProduct('consul')),
-		...addHostCondition(sentinelIoRedirects, 'sentinel'),
+		...addHostCondition(
+			sentinelIoRedirects,
+			'sentinel',
+			config['dev_dot.beta_product_slugs']
+		),
 	]
 }
 
@@ -291,4 +316,9 @@ async function redirectsConfig() {
 	}
 }
 
-module.exports = { redirectsConfig, splitRedirectsByType, groupSimpleRedirects }
+module.exports = {
+	redirectsConfig,
+	splitRedirectsByType,
+	groupSimpleRedirects,
+	addHostCondition,
+}
