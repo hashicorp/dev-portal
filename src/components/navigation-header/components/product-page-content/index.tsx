@@ -17,10 +17,9 @@ import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding
 
 // Global imports
 import { DocsNavItem, ProductSlug } from 'types/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'
-import { useCurrentProduct, useIsBetaProduct } from 'contexts'
+import { useCurrentProduct } from 'contexts'
 import { NavigationHeaderItemGroup } from 'components/navigation-header/types'
 
 // Local imports
@@ -58,7 +57,6 @@ const PRODUCT_SLUGS_TO_LOGOS: Record<
 const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const isBetaProduct = useIsBetaProduct(currentProduct.slug)
 	const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
 	const isProductHomePage = currentPath === `/${currentProduct.slug}`
 	const companyLogo = (
@@ -66,8 +64,7 @@ const ProductPageHeaderContent = () => {
 	)
 
 	// Build menu items
-	const betaProductItems = []
-	const comingSoonProductItems = []
+	const productItems = []
 	Object.keys(productSlugsToNames).forEach((productSlug: ProductSlug) => {
 		// Exclude Sentinel for now
 		if (productSlug === 'sentinel') {
@@ -80,19 +77,11 @@ const ProductPageHeaderContent = () => {
 		const path = `/${productSlug}`
 
 		// Push the menu item to the correct array
-		if (getIsBetaProduct(productSlug)) {
-			betaProductItems.push({
-				icon,
-				label,
-				path,
-			})
-		} else {
-			comingSoonProductItems.push({
-				ariaLabel: `Coming soon: ${label}`,
-				icon,
-				label,
-			})
-		}
+		productItems.push({
+			icon,
+			label,
+			path,
+		})
 	})
 	const homeMenuItem = {
 		// TODO as string was not accepted
@@ -109,14 +98,8 @@ const ProductPageHeaderContent = () => {
 	const allMainMenuItems: NavigationHeaderItemGroup[] = [
 		{ items: [homeMenuItem] },
 	]
-	if (betaProductItems.length) {
-		allMainMenuItems.push({ label: 'Products', items: betaProductItems })
-	}
-	if (comingSoonProductItems.length) {
-		allMainMenuItems.push({
-			label: 'Coming Soon',
-			items: comingSoonProductItems,
-		})
+	if (productItems.length) {
+		allMainMenuItems.push({ label: 'Products', items: productItems })
 	}
 
 	return (
@@ -147,30 +130,28 @@ const ProductPageHeaderContent = () => {
 					</a>
 				</Link>
 			</div>
-			{isBetaProduct && (
-				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
-					<nav className={sharedNavStyles.nav}>
-						<ul className={sharedNavStyles.navList}>
-							{getNavItems(currentProduct).map((navItem) => {
-								const ariaLabel = `${currentProduct.name} ${navItem.label}`
+			<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
+				<nav className={sharedNavStyles.nav}>
+					<ul className={sharedNavStyles.navList}>
+						{getNavItems(currentProduct).map((navItem) => {
+							const ariaLabel = `${currentProduct.name} ${navItem.label}`
 
-								let ItemContent
-								if (navItem.hasOwnProperty('items')) {
-									ItemContent = PrimaryNavSubmenu
-								} else {
-									ItemContent = PrimaryNavLink
-								}
+							let ItemContent
+							if (navItem.hasOwnProperty('items')) {
+								ItemContent = PrimaryNavSubmenu
+							} else {
+								ItemContent = PrimaryNavLink
+							}
 
-								return (
-									<li key={navItem.label}>
-										<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
-									</li>
-								)
-							})}
-						</ul>
-					</nav>
-				</div>
-			)}
+							return (
+								<li key={navItem.label}>
+									<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
+								</li>
+							)
+						})}
+					</ul>
+				</nav>
+			</div>
 		</div>
 	)
 }
