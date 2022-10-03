@@ -9,9 +9,7 @@ import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
-import useAuthentication, {
-	DEFAULT_SIGN_IN_CALLBACK_URL,
-} from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 import BaseNewLayout from 'layouts/base-new'
 import ErrorView from 'views/error-view-switcher'
 import Button from 'components/button'
@@ -59,7 +57,7 @@ const SignUpView = () => {
 	 * Redirect to profile page if user is already authenticated
 	 */
 	if (isAuthenticated) {
-		router.replace(DEFAULT_SIGN_IN_CALLBACK_URL)
+		router.replace('/profile/bookmarks')
 		return null
 	}
 
