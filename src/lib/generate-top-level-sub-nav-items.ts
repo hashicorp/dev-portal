@@ -32,6 +32,5 @@ export const generateTopLevelSubNavItems = () => {
 		{ divider: true },
 		{ heading: 'Products' },
 		...productItems,
-		{ divider: true },
 	]
 }
