@@ -144,12 +144,8 @@ const submitFeedback = async (
 
 		let errorMessage = 'An unexpected error occurred.'
 
-		if (error.response?.status === 404) {
-			errorMessage = 'Requested entity was not found.'
-		}
-
-		if (error.response?.status === 400) {
-			errorMessage = 'Invalid grant: account not found.'
+		if (error.response?.status === 404 || error.response?.status === 400) {
+			errorMessage = `An error occurred: ${error.message}`
 		}
 
 		res.status(error.response?.status || 500).json({
