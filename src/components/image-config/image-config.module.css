@@ -12,5 +12,6 @@
 	margin-top: 16px;
 
 	/* Image component defaults to `justify-content: center, so captions should be centered */
-	text-align: var(--justify, center);
+	display: flex;
+	justify-content: var(--justify, center);
 }
