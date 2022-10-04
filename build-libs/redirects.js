@@ -11,8 +11,13 @@ const {
 const fetchGithubFile = require('./fetch-github-file')
 const { isContentDeployPreview } = require('../src/lib/env-checks')
 const buildBetaProductOptInRedirects = require('./build-beta-opt-in-redirect')
+const { loadHashiConfigForEnvironment } = require('../config')
+
+require('isomorphic-unfetch')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
+
+const config = loadHashiConfigForEnvironment()
 
 const PROXIED_PRODUCT = getProxiedProductSlug()
 
@@ -48,14 +53,35 @@ const devPortalToDotIoRedirects = isPreview()
  *
  * @param {Redirect[]} redirects
  * @param {string} productSlug
+ * @param {string[]} betaSlugs
  * @returns {Redirect[]}
  */
-function addHostCondition(redirects, productSlug) {
+function addHostCondition(redirects, productSlug, betaSlugs) {
 	const host = proxySettings[productSlug].host
 	return redirects.map((redirect) => {
 		if (productSlug == PROXIED_PRODUCT) {
 			return redirect
 		}
+
+		// If the productSlug is NOT a beta product, it is GA, so handle the redirect appropriately (exclude sentinel)
+		if (!betaSlugs.includes(productSlug) && productSlug !== 'sentinel') {
+			// The redirect should always apply in lower environments
+			if (process.env.HASHI_ENV !== 'production') {
+				return redirect
+			}
+
+			// for production, only apply the redirect for the developer domain
+			return {
+				...redirect,
+				has: [
+					{
+						type: 'host',
+						value: 'developer.hashicorp.com',
+					},
+				],
+			}
+		}
+
 		// To enable previewing of .io sites, we accept an io_preview cookie which must have a value matching a product slug
 		if (isPreview()) {
 			return {
@@ -69,6 +95,7 @@ function addHostCondition(redirects, productSlug) {
 				],
 			}
 		}
+
 		return {
 			...redirect,
 			has: [
@@ -81,59 +108,52 @@ function addHostCondition(redirects, productSlug) {
 	})
 }
 
-async function buildDotIoRedirects() {
+/**
+ * Fetch the latest ref from the content API to ensure the redirects are accurate.
+ *
+ * @TODO save the redirects to the content database and expose them directly via the API
+ */
+async function getLatestContentRefForProduct(product) {
+	const contentUrl = new URL('https://content.hashicorp.com')
+	contentUrl.pathname = `/api/content/${product}/version-metadata/latest`
+	const latestRef = await fetch(contentUrl.toString())
+		.then((resp) => resp.json())
+		.then((json) => json.result.ref)
+
+	return latestRef
+}
+
+/**
+ * Fetches a redirects file for a given product from the given ref and evaluates the contents
+ * as JS.
+ */
+async function getRedirectsForProduct(product, ref = 'stable-website') {
+	const latestRef = await getLatestContentRefForProduct(product)
+
+	const rawRedirects = isContentDeployPreview(product)
+		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
+		: isDeployPreview()
+		? '[]'
+		: await fetchGithubFile({
+				owner: 'hashicorp',
+				repo: product,
+				path: 'website/redirects.js',
+				ref: latestRef ?? ref,
+		  })
+	const parsedRedirects = eval(rawRedirects) ?? []
+
+	return addHostCondition(
+		parsedRedirects,
+		product,
+		config['dev_dot.beta_product_slugs']
+	)
+}
+
+async function buildProductRedirects() {
 	// Fetch author-oriented redirects from product repos,
 	// and merge those with dev-oriented redirects from
 	// within this repository
 
-	// ... for Boundary
-	const rawBoundaryRedirects = isContentDeployPreview('boundary')
-		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
-		: isDeployPreview()
-		? '[]'
-		: await fetchGithubFile({
-				owner: 'hashicorp',
-				repo: 'boundary',
-				path: 'website/redirects.js',
-				ref: 'stable-website',
-		  })
-	const boundaryAuthorRedirects = eval(rawBoundaryRedirects)
-	// TODO: split non-author redirects into dev-portal,
-	// TODO: rather than leaving all redirects in the Boundary repo
-	// TODO: intent is to do this after all products have been migrated
-	const boundaryIoRedirects = [...boundaryAuthorRedirects]
-	// ... for Nomad
-	const rawNomadRedirects = isContentDeployPreview('nomad')
-		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
-		: isDeployPreview()
-		? '[]'
-		: await fetchGithubFile({
-				owner: 'hashicorp',
-				repo: 'nomad',
-				path: 'website/redirects.js',
-				ref: 'stable-website',
-		  })
-	const nomadAuthorRedirects = eval(rawNomadRedirects)
-	// TODO: split non-author redirects into dev-portal,
-	// TODO: rather than leaving all redirects in the nomad repo
-	// TODO: intent is to do this after all products have been migrated
-	const nomadIoRedirects = [...nomadAuthorRedirects]
-	// ... for Waypoint
-	const rawWaypointRedirects = isContentDeployPreview('waypoint')
-		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
-		: isDeployPreview()
-		? '[]'
-		: await fetchGithubFile({
-				owner: 'hashicorp',
-				repo: 'waypoint',
-				path: 'website/redirects.js',
-				ref: 'stable-website',
-		  })
-	const waypointAuthorRedirects = eval(rawWaypointRedirects)
-	// TODO: split non-author redirects into dev-portal,
-	// TODO: rather than leaving all redirects in the Waypoint repo
-	// TODO: intent is to do this after all products have been migrated
-	const waypointIoRedirects = [...waypointAuthorRedirects]
 	/**
 	 * TODO
 	 * Figure out solution to load Sentinel redirects from the Sentinel repo:
@@ -155,85 +175,31 @@ async function buildDotIoRedirects() {
 		{ source: '/:path*.html', destination: '/:path*', permanent: true },
 	]
 
-	const rawVaultRedirects = isContentDeployPreview('vault')
-		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
-		: isDeployPreview()
-		? '[]'
-		: await fetchGithubFile({
-				owner: 'hashicorp',
-				repo: 'vault',
-				path: 'website/redirects.js',
-				ref: 'stable-website',
-		  })
-	const vaultAuthorRedirects = eval(rawVaultRedirects)
-	// TODO: split non-author redirects into dev-portal,
-	// TODO: rather than leaving all redirects in the Waypoint repo
-	// TODO: intent is to do this after all products have been migrated
-	const vaultIoRedirects = [...vaultAuthorRedirects]
+	const productRedirects = (
+		await Promise.all([
+			getRedirectsForProduct('boundary'),
+			getRedirectsForProduct('nomad'),
+			getRedirectsForProduct('vault'),
+			getRedirectsForProduct('waypoint'),
+			getRedirectsForProduct('vagrant'),
+			getRedirectsForProduct('packer'),
+			getRedirectsForProduct('consul'),
+		])
+	).flat()
 
-	const rawVagrantRedirects = isContentDeployPreview('vagrant')
-		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
-		: isDeployPreview()
-		? '[]'
-		: await fetchGithubFile({
-				owner: 'hashicorp',
-				repo: 'vagrant',
-				path: 'website/redirects.js',
-				ref: 'stable-website',
-		  })
-	const vagrantAuthorRedirects = eval(rawVagrantRedirects)
-	// TODO: split non-author redirects into dev-portal,
-	// TODO: rather than leaving all redirects in the Vagrant repo
-	// TODO: intent is to do this after all products have been migrated
-	const vagrantIoRedirects = [...vagrantAuthorRedirects]
-
-	const rawPackerRedirects = isContentDeployPreview('packer')
-		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
-		: isDeployPreview()
-		? '[]'
-		: await fetchGithubFile({
-				owner: 'hashicorp',
-				repo: 'packer',
-				path: 'website/redirects.js',
-				ref: 'stable-website',
-		  })
-	const packerAuthorRedirects = eval(rawPackerRedirects)
-	// TODO: split non-author redirects into dev-portal,
-	// TODO: rather than leaving all redirects in the Packer repo
-	// TODO: intent is to do this after all products have been migrated
-	const packerIoRedirects = [...packerAuthorRedirects]
-
-	const rawConsulRedirects = isContentDeployPreview('consul')
-		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
-		: isDeployPreview()
-		? '[]'
-		: await fetchGithubFile({
-				owner: 'hashicorp',
-				repo: 'consul',
-				path: 'website/redirects.js',
-				ref: 'stable-website',
-		  })
-	const consulAuthorRedirects = eval(rawConsulRedirects)
-	// TODO: split non-author redirects into dev-portal,
-	// TODO: rather than leaving all redirects in the Packer repo
-	// TODO: intent is to do this after all products have been migrated
-	const consulIoRedirects = [...consulAuthorRedirects]
-	// TODO ... consolidate redirects for other products
 	return [
 		...devPortalToDotIoRedirects,
-		...addHostCondition(boundaryIoRedirects, 'boundary'),
-		...addHostCondition(nomadIoRedirects, 'nomad'),
-		...addHostCondition(sentinelIoRedirects, 'sentinel'),
-		...addHostCondition(vaultIoRedirects, 'vault'),
-		...addHostCondition(waypointIoRedirects, 'waypoint'),
-		...addHostCondition(vagrantIoRedirects, 'vagrant'),
-		...addHostCondition(packerIoRedirects, 'packer'),
-		...addHostCondition(consulIoRedirects, 'consul'),
+		...productRedirects,
+		...addHostCondition(
+			sentinelIoRedirects,
+			'sentinel',
+			config['dev_dot.beta_product_slugs']
+		),
 	]
 }
 
 /**
- *
+ * @TODO these redirects will eventually be defined in /proxied-redirects/
  * @returns {Promise<Redirect[]>}
  */
 async function buildDevPortalRedirects() {
@@ -336,11 +302,11 @@ function groupSimpleRedirects(redirects) {
 }
 
 async function redirectsConfig() {
-	const dotIoRedirects = await buildDotIoRedirects()
+	const productRedirects = await buildProductRedirects()
 	const devPortalRedirects = await buildDevPortalRedirects()
 	const { simpleRedirects, globRedirects } = splitRedirectsByType([
 		...buildBetaProductOptInRedirects(),
-		...dotIoRedirects,
+		...productRedirects,
 		...devPortalRedirects,
 	])
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
@@ -356,4 +322,9 @@ async function redirectsConfig() {
 	}
 }
 
-module.exports = { redirectsConfig, splitRedirectsByType, groupSimpleRedirects }
+module.exports = {
+	redirectsConfig,
+	splitRedirectsByType,
+	groupSimpleRedirects,
+	addHostCondition,
+}

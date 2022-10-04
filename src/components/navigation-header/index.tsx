@@ -114,14 +114,13 @@ const NavigationHeader = () => {
 		<header className={s.root}>
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
+				<GiveFeedbackButton className="g-hide-with-mobile-menu" />
 				{GLOBAL_SEARCH_ENABLED ? (
 					<CommandBarActivator
 						leadingIcon={<IconSearch16 />}
 						visualLabel="Search"
 					/>
-				) : (
-					<GiveFeedbackButton />
-				)}
+				) : null}
 				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>
