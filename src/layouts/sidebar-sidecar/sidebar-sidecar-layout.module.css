@@ -100,6 +100,7 @@ for further details.
 .mainAreaWrapper {
 	display: flex;
 	justify-content: center;
+	min-height: calc(100vh - var(--navigation-header-height));
 	padding-left: var(--main-area-padding-left);
 	padding-right: var(--main-area-padding-right);
 	padding-top: var(--main-area-padding-top);

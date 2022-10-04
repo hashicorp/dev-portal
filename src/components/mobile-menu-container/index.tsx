@@ -14,6 +14,7 @@ import { useMobileMenu } from 'contexts'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import ButtonLink from 'components/button-link'
+import { GiveFeedbackButton } from 'components/navigation-header/components'
 
 // Local imports
 import { MobileMenuContainerProps } from './types'
@@ -78,7 +79,15 @@ const MobileAuthenticationControls = () => {
 		)
 	}
 
-	return <div className={s.mobileAuthenticationControls}>{content}</div>
+	return (
+		<div className="g-show-with-mobile-menu">
+			<GiveFeedbackButton
+				allowIconOnly={false}
+				className={s.giveFeedbackButton}
+			/>
+			<div className={s.mobileAuthenticationControls}>{content}</div>
+		</div>
+	)
 }
 
 // eslint-disable-next-line react/display-name

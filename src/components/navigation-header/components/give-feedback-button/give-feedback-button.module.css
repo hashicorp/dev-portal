@@ -5,19 +5,19 @@ size is not available on initial server-side render,
 which results in a flash of incorrect layout.
 */
 .iconButtonContainer {
-  display: block;
+	display: block;
 
-  @media (--dev-dot-tablet-up) {
-    display: none;
-  }
+	@media only screen and (min-width: 1401px) {
+		display: none;
+	}
 }
 
 .textButtonContainer {
-  display: none;
+	display: none;
 
-  @media (--dev-dot-tablet-up) {
-    display: block;
-  }
+	@media only screen and (min-width: 1401px) {
+		display: block;
+	}
 }
 
 /* 
@@ -29,60 +29,60 @@ which results in a flash of incorrect layout.
 * Aim here is to match design spec for now, and later consolidate with HDS.
 */
 .iconButton {
-  /* variables */
-  --border-width: 1px;
-  --padding-top-bottom: calc(6px - var(--border-width));
-  --padding-left-right: calc(6px - var(--border-width));
-  --line-height: 1rem;
+	/* variables */
+	--border-width: 1px;
+	--padding-top-bottom: calc(6px - var(--border-width));
+	--padding-left-right: calc(6px - var(--border-width));
+	--line-height: 1rem;
 
-  /* composition */
-  composes: hds-font-weight-medium from global;
+	/* composition */
+	composes: hds-font-weight-medium from global;
 
-  /* attributes */
-  align-items: center;
-  border-radius: 5px;
-  border-style: solid;
-  border-width: var(--border-width);
-  display: flex;
-  font-size: var(--font-size);
-  gap: 6px;
-  isolation: isolate;
-  justify-content: center;
-  line-height: var(--line-height);
-  margin: 0;
-  padding: var(--padding-top-bottom) var(--padding-left-right);
-  position: relative;
-  text-decoration: underline;
+	/* attributes */
+	align-items: center;
+	border-radius: 5px;
+	border-style: solid;
+	border-width: var(--border-width);
+	display: flex;
+	font-size: var(--font-size);
+	gap: 6px;
+	isolation: isolate;
+	justify-content: center;
+	line-height: var(--line-height);
+	margin: 0;
+	padding: var(--padding-top-bottom) var(--padding-left-right);
+	position: relative;
+	text-decoration: underline;
 
-  &::before {
-    border-radius: 8px;
-    border: 3px solid transparent;
-    bottom: -4px;
-    box-sizing: border-box;
-    content: '';
-    left: -4px;
-    position: absolute;
-    right: -4px;
-    top: -4px;
-    z-index: -1;
-  }
+	&::before {
+		border-radius: 8px;
+		border: 3px solid transparent;
+		bottom: -4px;
+		box-sizing: border-box;
+		content: '';
+		left: -4px;
+		position: absolute;
+		right: -4px;
+		top: -4px;
+		z-index: -1;
+	}
 
-  &:focus,
-  &:focus-visible {
-    outline: transparent;
-  }
+	&:focus,
+	&:focus-visible {
+		outline: transparent;
+	}
 
-  &:not(:disabled) {
-    cursor: pointer;
-  }
+	&:not(:disabled) {
+		cursor: pointer;
+	}
 
-  &:disabled {
-    background-color: var(--token-color-surface-faint);
-    border-color: var(--token-color-border-primary);
-    box-shadow: none;
-    color: var(--token-color-foreground-disabled);
-    cursor: not-allowed;
-  }
+	&:disabled {
+		background-color: var(--token-color-surface-faint);
+		border-color: var(--token-color-border-primary);
+		box-shadow: none;
+		color: var(--token-color-foreground-disabled);
+		cursor: not-allowed;
+	}
 }
 
 /*
@@ -91,37 +91,37 @@ which results in a flash of incorrect layout.
 ***
 */
 .primary {
-  background-color: var(--token-color-palette-blue-200);
-  border-color: var(--token-color-palette-blue-300);
-  color: var(--token-color-foreground-high-contrast);
-  box-shadow: var(--token-elevation-low-box-shadow);
+	background-color: var(--token-color-palette-blue-200);
+	border-color: var(--token-color-palette-blue-300);
+	color: var(--token-color-foreground-high-contrast);
+	box-shadow: var(--token-elevation-low-box-shadow);
 
-  &:hover:not(:disabled) {
-    background-color: var(--token-color-palette-blue-300);
-    border-color: var(--token-color-palette-blue-400);
-    color: var(--token-color-foreground-high-contrast);
-  }
+	&:hover:not(:disabled) {
+		background-color: var(--token-color-palette-blue-300);
+		border-color: var(--token-color-palette-blue-400);
+		color: var(--token-color-foreground-high-contrast);
+	}
 
-  &:active:not(:disabled) {
-    background-color: var(--token-color-palette-blue-400);
-    border-color: var(--token-color-palette-blue-400);
-    box-shadow: none;
-    color: var(--token-color-foreground-high-contrast);
-  }
+	&:active:not(:disabled) {
+		background-color: var(--token-color-palette-blue-400);
+		border-color: var(--token-color-palette-blue-400);
+		box-shadow: none;
+		color: var(--token-color-foreground-high-contrast);
+	}
 
-  &:focus-visible {
-    background-color: var(--token-color-palette-blue-200);
-    border-color: var(--token-color-focus-action-internal);
-    color: var(--token-color-foreground-high-contrast);
-    box-shadow: none;
+	&:focus-visible {
+		background-color: var(--token-color-palette-blue-200);
+		border-color: var(--token-color-focus-action-internal);
+		color: var(--token-color-foreground-high-contrast);
+		box-shadow: none;
 
-    &::before {
-      border-radius: 10px;
-      border-color: var(--token-color-focus-action-external);
-      bottom: -6px;
-      left: -6px;
-      right: -6px;
-      top: -6px;
-    }
-  }
+		&::before {
+			border-radius: 10px;
+			border-color: var(--token-color-focus-action-external);
+			bottom: -6px;
+			left: -6px;
+			right: -6px;
+			top: -6px;
+		}
+	}
 }
