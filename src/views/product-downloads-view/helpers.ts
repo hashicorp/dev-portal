@@ -177,7 +177,6 @@ export const generatePackageManagers = async ({
 			const { commands } = packageManager
 			const rawSnippet = commands.map((cmd: string) => `$ ${cmd}`).join('\n')
 			const installCodeHtml = await highlightString(rawSnippet, 'shell-session')
-			// const DEV_HTML = `<span class="token shell-symbol important" style="user-select: none;">$ </span>brew tap hashicorp/tap\n<span class="token shell-symbol important" style="user-select: none;">$ </span>brew install hashicorp/tap/terraform`
 			return { ...packageManager, installCodeHtml }
 		})
 	)
