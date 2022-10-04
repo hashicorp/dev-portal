@@ -14,6 +14,7 @@ import { VersionContextSwitcherProps } from 'components/version-context-switcher
 import { PackageManager, SortedReleases } from './types'
 import { CollectionLite } from 'lib/learn-client/types'
 import highlightString from '@hashicorp/platform-code-highlighting/highlight-string'
+import { generateCodeSnippetFromCommands } from './components/downloads-section/helpers'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
@@ -175,8 +176,10 @@ export const generatePackageManagers = async ({
 	const packageManagersWithInstallCode = await Promise.all(
 		packageManagers.map(async (packageManager) => {
 			const { commands } = packageManager
-			const rawSnippet = commands.map((cmd: string) => `$ ${cmd}`).join('\n')
-			const installCodeHtml = await highlightString(rawSnippet, 'shell-session')
+			const installCodeHtml = await highlightString(
+				generateCodeSnippetFromCommands(commands),
+				'shell-session'
+			)
 			return { ...packageManager, installCodeHtml }
 		})
 	)
