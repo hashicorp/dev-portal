@@ -1,9 +1,16 @@
 .figure {
-  margin: 24px 0;
+	/* If we want to make image/caption alignment configurable, we can lift this 
+	up into a controlled value. */
+	--justify: center;
+
+	margin: 24px 0;
 }
 
 .caption {
-  composes: hds-typography-body-200 from global;
-  color: var(--token-color-foreground-primary);
-  margin-top: 16px;
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-primary);
+	margin-top: 16px;
+
+	/* Image component defaults to `justify-content: center, so captions should be centered */
+	text-align: var(--justify, center);
 }
