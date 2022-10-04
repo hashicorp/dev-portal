@@ -80,13 +80,13 @@ const MobileAuthenticationControls = () => {
 	}
 
 	return (
-		<>
+		<div className="g-show-with-mobile-menu">
 			<GiveFeedbackButton
 				allowIconOnly={false}
 				className={s.giveFeedbackButton}
 			/>
 			<div className={s.mobileAuthenticationControls}>{content}</div>
-		</>
+		</div>
 	)
 }
 
