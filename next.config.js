@@ -114,9 +114,7 @@ module.exports = withSwingset({
 			contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 		},
 		experimental: {
-			images: {
-				layoutRaw: true,
-			},
+			largePageDataBytes: 512 * 1000, // 512KB
 		},
 	})
 )
