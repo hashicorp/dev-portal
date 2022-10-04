@@ -114,7 +114,7 @@ const NavigationHeader = () => {
 		<header className={s.root}>
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
-				<GiveFeedbackButton />
+				<GiveFeedbackButton className="g-hide-on-mobile" />
 				{GLOBAL_SEARCH_ENABLED ? (
 					<CommandBarActivator
 						leadingIcon={<IconSearch16 />}
