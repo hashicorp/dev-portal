@@ -15,6 +15,8 @@ export default function Toaster() {
 			gutter={16}
 			containerStyle={{
 				inset: 24,
+				// z-index is one less than the reach dialog overlay's
+				zIndex: 99,
 			}}
 			toastOptions={{
 				style: {

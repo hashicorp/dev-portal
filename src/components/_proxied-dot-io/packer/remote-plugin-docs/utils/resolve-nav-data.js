@@ -11,11 +11,12 @@ import { isContentDeployPreview } from 'lib/env-checks'
  * @param {string} navDataFile path to the nav-data.json file, relative to the `website` directory of the Packer GitHub repo. Example: "data/docs-nav-data.json".
  * @param {object} options optional configuration object
  * @param {string} options.remotePluginsFile path to a remote-plugins.json file, relative to the website directory of the Packer repo. Example: "data/docs-remote-plugins.json".
+ * @param {string} options.mainBranch the main branch of the `hashicorp/packer` repo. This will be the default branch from which remote plugins and nav data will be fetched. Note that we will first see if Packer has a `getBetaLatestVersionRef` assigned (such as `dev-portal`) if so, that ref will be used instead.
  * @param {string} [options.currentPath] the path of the page that's invoking this function
  * @returns {Promise<array>} the resolved navData. This includes NavBranch nodes pulled from remote plugin repositories, as well as filePath properties on all local NavLeaf nodes, and remoteFile properties on all NavLeafRemote nodes.
  */
 async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {
-	const { remotePluginsFile, currentPath } = options
+	const { remotePluginsFile, currentPath, mainBranch } = options
 
 	let navDataContent
 	if (isContentDeployPreview('packer')) {
@@ -28,7 +29,7 @@ async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {
 			owner: 'hashicorp',
 			repo: 'packer',
 			path: path.join('website', navDataFile),
-			ref: 'stable-website',
+			ref: mainBranch,
 		})
 	}
 
@@ -43,7 +44,8 @@ async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {
 export async function appendRemotePluginsNavData(
 	remotePluginsFile,
 	navData,
-	currentPath
+	currentPath,
+	mainBranch = 'main'
 ) {
 	// Read in and parse the plugin configuration JSON
 	let remotePluginsContent
@@ -57,7 +59,7 @@ export async function appendRemotePluginsNavData(
 			owner: 'hashicorp',
 			repo: 'packer',
 			path: path.join('website', remotePluginsFile),
-			ref: 'stable-website',
+			ref: mainBranch,
 		})
 	}
 

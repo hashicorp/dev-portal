@@ -259,4 +259,35 @@ describe('getNavItems', () => {
 		]
 	`)
 	})
+
+	it('for HCP, returns documentation nav link without dropdown', () => {
+		const testHCPData = {
+			slug: 'hcp',
+			rootDocsPaths: [
+				{
+					iconName: 'docs',
+					name: 'General Documentation',
+					path: 'docs',
+					shortName: 'Documentation',
+					productSlugForLoader: 'cloud.hashicorp.com',
+				},
+			],
+		} as ProductData
+		expect(getNavItems(testHCPData)).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "label": "Home",
+          "url": "/hcp",
+        },
+        Object {
+          "label": "Documentation",
+          "url": "/hcp/docs",
+        },
+        Object {
+          "label": "Tutorials",
+          "url": "/hcp/tutorials",
+        },
+      ]
+    `)
+	})
 })
