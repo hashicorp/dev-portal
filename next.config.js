@@ -10,6 +10,8 @@ const { loadHashiConfigForEnvironment } = require('./config')
 const config = loadHashiConfigForEnvironment()
 
 /**
+ * @type {import('next/dist/lib/load-custom-routes').Header}
+ *
  * Temporary. Adds a `noindex` directive to all pages for products that are still in beta, and sentinel.
  *
  * e.g. If terraform and consul are the only products in the beta array, only developer.hashicorp.com/(consul|terraform)/* will get noindex
