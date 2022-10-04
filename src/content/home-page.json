@@ -9,7 +9,7 @@
 		"vault": {
 			"cardTitle": "Vault",
 			"url": "/vault/tutorials/cloud/vault-introduction",
-			"description": "Access Vault’s secrets management and encryption capabilities instantly using the HCP portal",
+			"description": "Access Vault’s secrets management and encryption capabilities instantly using the HCP portal.",
 			"ctaText": "Learn more"
 		},
 		"hcp": {
