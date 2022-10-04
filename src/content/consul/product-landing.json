@@ -29,7 +29,7 @@
 			{
 				"icon": "hcp",
 				"text": "HCP Consul Quick Start",
-				"url": "/consul/tutorials/cloud-get-started/get-started"
+				"url": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
 			}
 		]
 	},
