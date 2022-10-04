@@ -85,7 +85,7 @@ export default function FeedbackForm({
 		<FeedbackFormContext.Provider value={contextValue}>
 			<form id="feedback-panel">
 				{status === FeedbackFormStatus.inProgress
-					? questions.map((question: FeedbackQuestion, idx) => (
+					? questions.map((question: FeedbackQuestion, idx: number) => (
 							<Question
 								key={question.id}
 								question={question}

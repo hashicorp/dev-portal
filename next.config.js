@@ -5,11 +5,21 @@ const withSwingset = require('swingset')
 const { redirectsConfig } = require('./build-libs/redirects')
 const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
+const { loadHashiConfigForEnvironment } = require('./config')
 
-// temporary: set all paths as noindex, until we're serving from this project
-// Update the excluded domains to ensure we are indexing content as the io sites get migrated
+const config = loadHashiConfigForEnvironment()
+
+/**
+ * @type {import('next/dist/lib/load-custom-routes').Header}
+ *
+ * Temporary. Adds a `noindex` directive to all pages for products that are still in beta, and sentinel.
+ *
+ * e.g. If terraform and consul are the only products in the beta array, only developer.hashicorp.com/(consul|terraform)/* will get noindex
+ */
 const temporary_hideDocsPaths = {
-	source: '/:path*',
+	source: `/(${[...config['dev_dot.beta_product_slugs'], 'sentinel'].join(
+		'|'
+	)})/:path*`,
 	headers: [
 		{
 			key: 'X-Robots-Tag',
@@ -19,8 +29,7 @@ const temporary_hideDocsPaths = {
 	has: [
 		{
 			type: 'host',
-			value:
-				'(^(?!.*(boundaryproject|consul|nomadproject|packer|vagrantup|vaultproject|waypointproject|docs\\.hashicorp)).*$)',
+			value: 'developer.hashicorp.com',
 		},
 	],
 }

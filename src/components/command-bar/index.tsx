@@ -128,6 +128,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			const { ctrlKey, metaKey, key } = e
 			if (key === 'k' && (ctrlKey || metaKey)) {
+				e.preventDefault()
 				toggleIsOpen()
 			}
 		}

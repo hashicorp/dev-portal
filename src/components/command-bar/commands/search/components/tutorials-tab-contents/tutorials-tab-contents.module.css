@@ -1,14 +1,18 @@
-/* TODO what will this look like on mobile? */
-
 .cta {
 	align-items: center;
 	background-color: var(--token-color-surface-highlight);
 	box-shadow: 0 0 0 1px var(--token-color-border-highlight);
 	display: flex;
 	gap: 12px;
+
+	@media (--dev-dot-mobile) {
+		align-items: flex-start;
+		flex-direction: column;
+	}
 }
 
 .ctaIcon {
+	composes: g-hide-on-mobile from global;
 	color: var(--token-color-foreground-highlight-on-surface);
 	display: flex;
 }
