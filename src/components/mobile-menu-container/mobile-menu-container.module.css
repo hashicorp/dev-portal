@@ -21,11 +21,11 @@
 	z-index: 2;
 }
 
-.mobileAuthenticationControls {
-	/* composition */
-	composes: g-show-with-mobile-menu from global;
+.giveFeedbackButton {
+	margin-bottom: 24px;
+}
 
-	/* properties */
+.mobileAuthenticationControls {
 	align-items: center;
 	display: flex;
 	gap: 24px;
