@@ -14,9 +14,9 @@ import {
 	generateFeaturedTutorialsCards,
 	generateDefaultPackageManagers,
 	generateEnterprisePackageManagers,
-	generatePackageManagers,
 	sortAndFilterReleaseVersions,
 } from './helpers'
+import { generatePackageManagers } from './server-helpers'
 
 interface GenerateStaticPropsOptions {
 	isEnterpriseMode?: boolean
