@@ -20,7 +20,6 @@ import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 // Global imports
 import type { CustomAppProps, CustomAppContext } from 'types/_app'
 import {
-	AllProductDataProvider,
 	CurrentContentTypeProvider,
 	CurrentProductProvider,
 	DeviceSizeProvider,
@@ -105,30 +104,26 @@ export default function App({
 					<ErrorBoundary FallbackComponent={DevDotClient}>
 						<SessionProvider session={session}>
 							<DeviceSizeProvider>
-								<AllProductDataProvider>
-									<CurrentProductProvider currentProduct={currentProduct}>
-										<CodeTabsProvider>
-											<HeadMetadata {...pageProps.metadata} host={host} />
-											<LazyMotion
-												features={() =>
-													import('lib/framer-motion-features').then(
-														(mod) => mod.default
-													)
-												}
-												strict={process.env.NODE_ENV === 'development'}
-											>
-												<Layout {...allLayoutProps} data={allLayoutProps}>
-													<Component {...pageProps} />
-												</Layout>
-												<Toaster />
-												{showProductSwitcher ? (
-													<PreviewProductSwitcher />
-												) : null}
-												<ReactQueryDevtools />
-											</LazyMotion>
-										</CodeTabsProvider>
-									</CurrentProductProvider>
-								</AllProductDataProvider>
+								<CurrentProductProvider currentProduct={currentProduct}>
+									<CodeTabsProvider>
+										<HeadMetadata {...pageProps.metadata} host={host} />
+										<LazyMotion
+											features={() =>
+												import('lib/framer-motion-features').then(
+													(mod) => mod.default
+												)
+											}
+											strict={process.env.NODE_ENV === 'development'}
+										>
+											<Layout {...allLayoutProps} data={allLayoutProps}>
+												<Component {...pageProps} />
+											</Layout>
+											<Toaster />
+											{showProductSwitcher ? <PreviewProductSwitcher /> : null}
+											<ReactQueryDevtools />
+										</LazyMotion>
+									</CodeTabsProvider>
+								</CurrentProductProvider>
 							</DeviceSizeProvider>
 						</SessionProvider>
 					</ErrorBoundary>

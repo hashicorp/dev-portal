@@ -61,10 +61,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	 * If we're serving a beta product's io site and the betaOptOut query param exists,
 	 * clear it and redirect back to the current URL without the betaOptOut query param
 	 */
-	if (
-		__config.dev_dot.beta_product_slugs.includes(product) &&
-		params.get('betaOptOut') === 'true'
-	) {
+	if (params.get('betaOptOut') === 'true') {
 		const url = req.nextUrl.clone()
 		url.searchParams.delete('betaOptOut')
 		return NextResponse.redirect(url).clearCookie(`${product}-io-beta-opt-in`)
