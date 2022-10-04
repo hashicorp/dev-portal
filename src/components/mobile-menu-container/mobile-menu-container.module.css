@@ -21,6 +21,10 @@
 	z-index: 2;
 }
 
+.giveFeedbackButton {
+	margin-bottom: 24px;
+}
+
 .mobileAuthenticationControls {
 	/* composition */
 	composes: g-show-with-mobile-menu from global;
