@@ -21,6 +21,7 @@
 	justify-content: space-between;
 	padding: 16px;
 	outline: transparent;
+	width: 100%;
 
 	/* aka disclosure is open */
 	&[aria-expanded='true'] {
@@ -68,7 +69,27 @@
 }
 
 .content {
-	padding-bottom: 16px;
+	padding-bottom: 4px;
+	padding-top: 10px;
+	position: relative;
+	width: unset;
+
+	&::before {
+		border-top: 1px solid var(--token-color-border-primary);
+		content: '';
+		left: 6px;
+		position: absolute;
+		right: 6px;
+		top: 0;
+	}
+}
+
+.label {
+	color: var(--token-color-foreground-strong);
+	display: block;
+	margin-bottom: 4px;
+	padding-left: 16px;
+	padding-right: 16px;
 }
 
 .list {

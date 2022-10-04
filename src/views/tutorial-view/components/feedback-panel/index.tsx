@@ -1,21 +1,34 @@
 import { IconThumbsDown16 } from '@hashicorp/flight-icons/svg-react/thumbs-down-16'
 import { IconThumbsUp16 } from '@hashicorp/flight-icons/svg-react/thumbs-up-16'
-import type { FeedbackFormProps } from 'components/feedback-form/types'
+import type {
+	FeedbackFormProps,
+	FeedbackResponse,
+} from 'components/feedback-form/types'
 import FeedbackForm from 'components/feedback-form'
 import s from './feedback-panel.module.css'
+
+interface SurveyResponse {
+	helpful: string
+	reasonForVisit?: string
+	suggestedImprovements?: string
+}
 
 /**
  * Largely copied from: https://github.com/hashicorp/learn/blob/master/components/feedback-panel/index.jsx
  */
 
-async function recordFeedback(responses, sessionId) {
+async function recordFeedback(
+	responses: FeedbackResponse[],
+	sessionId: string
+) {
 	const body = {
 		responses: responses.reduce(
-			(obj, { id, value }) =>
-				Object.assign(obj, {
+			(obj: SurveyResponse, { id, value }: { id: string; value: string }) => {
+				return Object.assign(obj, {
 					[id]: value,
-				}),
-			{}
+				})
+			},
+			{} as SurveyResponse
 		),
 		sessionId,
 		timestamp: new Date(),
@@ -28,19 +41,13 @@ async function recordFeedback(responses, sessionId) {
 		}
 
 		const apiRequest = async () => {
-			const res = await fetch('/api/tutorial-feedback', {
+			await fetch('/api/tutorial-feedback', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(payload),
 			})
-
-			if (res.status === 204) {
-				console.log('done')
-			} else {
-				console.warn('unexpected result from feedback api')
-			}
 		}
 
 		await apiRequest()

@@ -1,6 +1,5 @@
 import path from 'path'
 import fs from 'fs'
-import { loadHashiConfigForEnvironment } from '../config'
 
 /**
  * In order to optimize builds, we're selectively not rendering pages for products which are
@@ -16,9 +15,6 @@ async function main() {
 		return
 	}
 
-	const config = loadHashiConfigForEnvironment()
-	const betaProducts = config['dev_dot.beta_product_slugs']
-
 	const pagesDir = path.join(process.cwd(), 'src', 'pages')
 
 	const rootPagesDirs = (
@@ -26,20 +22,11 @@ async function main() {
 	).filter((ent) => ent.isDirectory())
 
 	/**
-	 * Remove page files which are not for the beta products specified in our config
+	 * Remove page files which are not active
 	 * Ensure we retain _proxied-dot-io as it serves our production .io sites
 	 */
 	for (const dir of rootPagesDirs) {
-		if (
-			!betaProducts.includes(dir.name) &&
-			dir.name !== '_proxied-dot-io' &&
-			dir.name !== 'api' &&
-			dir.name !== 'swingset' &&
-			dir.name !== '[productSlug]' &&
-			dir.name !== 'well-architected-framework' &&
-			dir.name !== 'onboarding' &&
-			dir.name !== 'tutorials'
-		) {
+		if (dir.name === 'sentinel') {
 			console.log(`🧹 removing pages at /${dir.name}`)
 			if (!process.env.DRY_RUN) {
 				await fs.promises.rm(path.join(pagesDir, dir.name), {

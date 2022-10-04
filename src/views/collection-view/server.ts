@@ -15,7 +15,6 @@ import {
 	getCollectionsBySection,
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
 import { isProductSlug } from 'lib/products'
@@ -165,11 +164,9 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
-		const isBetaProduct =
-			isProductSlug(productSlug) && getIsBetaProduct(productSlug)
 		const isCloud = collectionProductSlug == 'cloud'
 		const themeMatches = collectionProductSlug === collection.theme
-		const shouldBuildCollectionPath = isBetaProduct && (isCloud || themeMatches)
+		const shouldBuildCollectionPath = isCloud || themeMatches
 
 		if (shouldBuildCollectionPath) {
 			paths.push({

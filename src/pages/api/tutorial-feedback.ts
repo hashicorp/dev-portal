@@ -13,21 +13,22 @@ const FEEDBACK_PRIVATE_KEY = process.env.FEEDBACK_PRIVATE_KEY
 const HASHI_ENV = process.env.HASHI_ENV
 
 interface SurveyResponse {
-	id: string
-	value: string
+	helpful: string
+	reasonForVisit?: string
+	suggestedImprovements?: string
 }
 
-interface RequestBody {
+interface UserRequest {
 	sessionId: string
 	page: string
-	timestamp: Date
-	responses: SurveyResponse[]
+	timestamp: string
 }
 
-interface Row {
-	sessionId: string
-	page: string
-	timestamp: Date
+interface RequestBody extends UserRequest {
+	responses: SurveyResponse
+}
+
+interface Row extends SurveyResponse, UserRequest {
 	browser: string
 	os: string
 	platform: string
@@ -66,7 +67,7 @@ async function validateRequest({
 	const requiredKeys = ['sessionId', 'page', 'responses', 'timestamp']
 	const missing = []
 
-	requiredKeys.forEach((key) => {
+	requiredKeys.forEach((key: string) => {
 		if (!body[key]) {
 			missing.push(key)
 		}
@@ -90,7 +91,7 @@ async function findAndUpdate(
 	const { sessionId } = newRow
 	const rows = await sheet.getRows()
 	let existingRowIndex = null
-	rows.some((row, index) => {
+	rows.some((row: GoogleSpreadsheetRow, index: number) => {
 		if (row.sessionId === sessionId) {
 			existingRowIndex = index
 			return true
@@ -99,7 +100,7 @@ async function findAndUpdate(
 
 	if (existingRowIndex) {
 		//  we have to assign individual properties this way bc the column properties are getter/setters
-		Object.keys(newRow).forEach((key) => {
+		Object.keys(newRow).forEach((key: string) => {
 			rows[existingRowIndex][key] = newRow[key]
 		})
 		return rows[existingRowIndex]
@@ -116,11 +117,13 @@ const submitFeedback = async (
 		const requestBody = await validateRequest(req)
 		const sheet = await setupDocument()
 		const { responses, sessionId, ...rest } = requestBody
+		const { helpful, ...otherResponses } = responses
 		const { browser, os, platform } = Bowser.parse(req.headers['user-agent'])
 
-		const newRow = {
+		const newRow: Row = {
 			sessionId,
-			...responses,
+			helpful,
+			...otherResponses,
 			...rest,
 			browser: `${browser.name} ${browser.version}`,
 			os: `${os.name} ${os.version}`,
@@ -132,17 +135,21 @@ const submitFeedback = async (
 		if (updatedRow) {
 			await updatedRow.save()
 		} else {
-			//  eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			await sheet.addRow(newRow)
+			await sheet.addRow({ ...newRow })
 		}
 
 		res.status(204).end()
 	} catch (error) {
-		console.error('Unexpected error')
-		console.error(error)
-		res.status(error.status || 500).json({
-			body: { error: 'An unexpected error occurred.' },
+		console.error('Error occurred.')
+
+		let errorMessage = 'An unexpected error occurred.'
+
+		if (error.response?.status === 404 || error.response?.status === 400) {
+			errorMessage = `An error occurred: ${error.message}`
+		}
+
+		res.status(error.response?.status || 500).json({
+			body: { error: errorMessage },
 		})
 	}
 }

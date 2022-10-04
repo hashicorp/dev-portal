@@ -107,6 +107,10 @@
 }
 
 .badges {
+	/* composition */
+	composes: g-hide-on-mobile from global;
+
+	/* properties */
 	align-items: center;
 	display: flex;
 	flex-shrink: 0;
