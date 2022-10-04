@@ -114,14 +114,13 @@ const NavigationHeader = () => {
 		<header className={s.root}>
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
+				<GiveFeedbackButton />
 				{GLOBAL_SEARCH_ENABLED ? (
 					<CommandBarActivator
 						leadingIcon={<IconSearch16 />}
 						visualLabel="Search"
 					/>
-				) : (
-					<GiveFeedbackButton />
-				)}
+				) : null}
 				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>
