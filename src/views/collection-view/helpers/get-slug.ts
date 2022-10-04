@@ -1,4 +1,3 @@
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 
@@ -44,13 +43,6 @@ export function getCollectionSlug(collectionDbSlug: string): string {
 
 	// rawProductSlug may be "cloud", needs to be "hcp" for Dev Dot purposes
 	const productSlug = normalizeSlugForDevDot(rawProductSlug)
-	const isBetaProduct = getIsBetaProduct(productSlug)
 
-	// if not a 'sanctioned product', link externally to Learn
-	// interim solution for BETA where not all products are onboarded
-	if (isBetaProduct) {
-		return `/${productSlug}/tutorials/${collectionFilename}`
-	} else {
-		return `https://learn.hashicorp.com/collections/${collectionDbSlug}`
-	}
+	return `/${productSlug}/tutorials/${collectionFilename}`
 }

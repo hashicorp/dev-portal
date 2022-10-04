@@ -11,7 +11,6 @@ import { signInWrapper, signOutWrapper, signUp } from './helpers'
 
 export const AUTH_ENABLED = __config.flags.enable_auth
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
-export const DEFAULT_SIGN_IN_CALLBACK_URL = '/profile/bookmarks'
 
 /**
  * Hook for consuming user, session, and authentication state. Sources all data

@@ -18,7 +18,9 @@ const generatePlaceholder = (options: Options) => {
 	})
 
 	if (currentProductTag) {
-		placeholderText = `Search ${currentProduct.name}`
+		placeholderText = `Search ${
+			currentProduct.slug === 'hcp' ? 'HCP' : currentProduct.name
+		}`
 	} else {
 		placeholderText = 'Search all products'
 	}

@@ -59,14 +59,14 @@ const MobileUserDisclosure = ({
 	user,
 	initialOpen,
 }: MobileUserDisclosureProps) => {
-	const { icon, description } = getUserMeta(user)
+	const { icon, label, description } = getUserMeta(user)
 
 	return (
 		<Disclosure containerClassName={s.root} initialOpen={initialOpen}>
 			<DisclosureActivator className={s.activator}>
 				<span className={s.iconAndTextWrapper}>
 					<span className={s.icon}>{icon}</span>
-					<Text asElement="span" className={s.text} size={200} weight="regular">
+					<Text asElement="span" className={s.text} size={300} weight="medium">
 						{description}
 					</Text>
 				</span>
@@ -75,6 +75,9 @@ const MobileUserDisclosure = ({
 				</span>
 			</DisclosureActivator>
 			<DisclosureContent className={s.content}>
+				<Text asElement="span" className={s.label} size={100} weight="semibold">
+					{label}
+				</Text>
 				<ul className={s.list}>{items.map(renderItem)}</ul>
 			</DisclosureContent>
 		</Disclosure>
