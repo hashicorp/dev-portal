@@ -11,7 +11,7 @@ const LINK_ARIA_LABEL = 'Give beta feedback (opens in new tab)'
 
 function GiveFeedbackButton(): ReactElement {
 	return (
-		<>
+		<div className="g-hide-on-mobile">
 			<span className={s.iconButtonContainer}>
 				<a
 					href={FORM_URL}
@@ -38,7 +38,7 @@ function GiveFeedbackButton(): ReactElement {
 					text={LINK_TEXT}
 				/>
 			</span>
-		</>
+		</div>
 	)
 }
 
