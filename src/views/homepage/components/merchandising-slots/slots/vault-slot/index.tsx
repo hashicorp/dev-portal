@@ -1,24 +1,18 @@
-import Image from 'next/image'
-import logo from '@hashicorp/mktg-logos/product/vault/primary/color.svg'
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import CardLink from 'components/card-link'
-import Text from 'components/text'
+import { LogoCtaSlot } from '../logo-cta-slot'
+import logo from '@hashicorp/mktg-logos/product/vault/primary/color.svg?include'
 import { VaultSlotProps } from './types'
 import s from './vault-slot.module.css'
 
 function VaultSlot({ url, cardTitle, description, ctaText }: VaultSlotProps) {
 	return (
-		<CardLink ariaLabel={cardTitle} href={url} className={s.root}>
-			<div className={s.logo}>
-				<Image src={logo} width={118} height={50} alt="" />
-			</div>
-			<Text className={s.description} weight="bold">
-				{description}
-			</Text>
-			<p className={s.cta}>
-				{ctaText} <IconArrowRight16 />
-			</p>
-		</CardLink>
+		<LogoCtaSlot
+			url={url}
+			cardTitle={cardTitle}
+			description={description}
+			ctaText={ctaText}
+			logoSrc={logo}
+			backgroundSlot={<span className={s.vaultBackground} />}
+		/>
 	)
 }
 
