@@ -1,4 +1,18 @@
-import { splitRedirectsByType, groupSimpleRedirects } from '../redirects'
+import {
+	splitRedirectsByType,
+	groupSimpleRedirects,
+	addHostCondition,
+} from '../redirects'
+
+function withHashiEnv(value, fn) {
+	const originalValue = process.env.HASHI_ENV
+
+	process.env.HASHI_ENV = value
+
+	fn()
+
+	process.env.HASHI_ENV = originalValue
+}
 
 describe('splitRedirectsByType', () => {
 	test('splits simple and glob redirects', () => {
@@ -6,10 +20,12 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/:path',
 				destination: '/',
+				permanent: true,
 			},
 			{
 				source: '/has-cookie/:path',
 				destination: '/cookie',
+				permanent: true,
 				has: [
 					{
 						type: 'cookie',
@@ -20,6 +36,7 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/has-cookie',
 				destination: '/cookie',
+				permanent: true,
 				has: [
 					{
 						type: 'cookie',
@@ -30,10 +47,12 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/path',
 				destination: '',
+				permanent: true,
 			},
 			{
 				source: '/has-host',
 				destination: '/host',
+				permanent: true,
 				has: [
 					{
 						type: 'host',
@@ -46,10 +65,12 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/path',
 				destination: '',
+				permanent: true,
 			},
 			{
 				source: '/has-host',
 				destination: '/host',
+				permanent: true,
 				has: [
 					{
 						type: 'host',
@@ -62,10 +83,13 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/:path',
 				destination: '/',
+				permanent: true,
 			},
 			{
 				source: '/has-cookie/:path',
 				destination: '/cookie',
+				permanent: true,
+
 				has: [
 					{
 						type: 'cookie',
@@ -76,6 +100,8 @@ describe('splitRedirectsByType', () => {
 			{
 				source: '/has-cookie',
 				destination: '/cookie',
+				permanent: true,
+
 				has: [
 					{
 						type: 'cookie',
@@ -177,6 +203,96 @@ describe('groupSimpleRedirects', () => {
 				},
 			},
 		})
+	})
+})
+
+describe('addHostCondition', () => {
+	test('adds developer host condition for GA products in production', () => {
+		const redirect = {
+			source: '/vault/docs/foo',
+			destination: '/vault/docs/bar',
+			permanent: true,
+		}
+
+		let result
+
+		withHashiEnv('production', () => {
+			result = addHostCondition([redirect], 'vault', ['waypoint', 'consul'])
+		})
+
+		expect(result).toMatchInlineSnapshot(`
+		Array [
+		  Object {
+		    "destination": "/vault/docs/bar",
+		    "has": Array [
+		      Object {
+		        "type": "host",
+		        "value": "developer.hashicorp.com",
+		      },
+		    ],
+		    "permanent": true,
+		    "source": "/vault/docs/foo",
+		  },
+		]
+	`)
+	})
+
+	test('does not add developer host condition for GA products in non-production', () => {
+		const redirect = {
+			source: '/vault/docs/foo',
+			destination: '/vault/docs/bar',
+			permanent: true,
+		}
+
+		let result
+
+		withHashiEnv('preview', () => {
+			result = addHostCondition([redirect], 'vault', ['waypoint', 'consul'])
+		})
+
+		expect(result).toMatchInlineSnapshot(`
+		Array [
+		  Object {
+		    "destination": "/vault/docs/bar",
+		    "permanent": true,
+		    "source": "/vault/docs/foo",
+		  },
+		]
+	`)
+	})
+
+	test('adds io host condition for non-GA products in production', () => {
+		const redirect = {
+			source: '/vault/docs/foo',
+			destination: '/vault/docs/bar',
+			permanent: true,
+		}
+
+		let result
+
+		withHashiEnv('production', () => {
+			result = addHostCondition([redirect], 'vault', [
+				'waypoint',
+				'consul',
+				'vault',
+			])
+		})
+
+		expect(result).toMatchInlineSnapshot(`
+		Array [
+		  Object {
+		    "destination": "/vault/docs/bar",
+		    "has": Array [
+		      Object {
+		        "type": "host",
+		        "value": "(www\\\\.vaultproject\\\\.io|test-vt\\\\.hashi-mktg\\\\.com)",
+		      },
+		    ],
+		    "permanent": true,
+		    "source": "/vault/docs/foo",
+		  },
+		]
+	`)
 	})
 })
 
