@@ -41,3 +41,8 @@ interface Window {
  * ref: https://stackoverflow.com/a/49286056
  */
 type ValueOf<T> = T[keyof T]
+
+/**
+ * Generated files
+ */
+declare module '.generated/opt-in-redirect-checks'
