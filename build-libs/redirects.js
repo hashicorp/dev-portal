@@ -175,15 +175,21 @@ async function buildProductRedirects() {
 		{ source: '/:path*.html', destination: '/:path*', permanent: true },
 	]
 
+	const productRedirects = (
+		await Promise.all([
+			getRedirectsForProduct('boundary'),
+			getRedirectsForProduct('nomad'),
+			getRedirectsForProduct('vault'),
+			getRedirectsForProduct('waypoint'),
+			getRedirectsForProduct('vagrant'),
+			getRedirectsForProduct('packer'),
+			getRedirectsForProduct('consul'),
+		])
+	).flat()
+
 	return [
 		...devPortalToDotIoRedirects,
-		...(await getRedirectsForProduct('boundary')),
-		...(await getRedirectsForProduct('nomad')),
-		...(await getRedirectsForProduct('vault')),
-		...(await getRedirectsForProduct('waypoint')),
-		...(await getRedirectsForProduct('vagrant')),
-		...(await getRedirectsForProduct('packer')),
-		...(await getRedirectsForProduct('consul')),
+		...productRedirects,
 		...addHostCondition(
 			sentinelIoRedirects,
 			'sentinel',
