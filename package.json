@@ -23,7 +23,7 @@
 		"start:vault": "cross-env DEV_IO=vault npm run start",
 		"start:waypoint": "cross-env DEV_IO=waypoint npm run start",
 		"start:with-axe": "AXE_ENABLED=true npm start",
-		"start": "next",
+		"start": "hc-tools ./scripts/generate-opt-in-redirect-checks.ts && next",
 		"serve": "next build && next start",
 		"test:e2e": "playwright test",
 		"test:watch": "jest --watch",
