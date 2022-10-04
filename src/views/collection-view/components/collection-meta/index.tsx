@@ -50,9 +50,11 @@ export default function CollectionMeta({
 				}}
 			/>
 			{showCreateAccountCta ? (
-				<Text className={s.createAccountCta}>
-					<InlineLink href="/sign-up">Create an account</InlineLink> to track
-					your progress.
+				<Text className={s.createAccountCta} size={200}>
+					<InlineLink href="/sign-up" textSize={200}>
+						Create an account
+					</InlineLink>{' '}
+					to track your progress.
 				</Text>
 			) : null}
 			<div className={s.cta}>

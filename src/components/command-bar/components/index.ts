@@ -1,4 +1,5 @@
 export * from './activator'
+export * from './cmd-ctrl-icon'
 export * from './dialog'
 export * from './divider'
 export * from './list'
