@@ -3,10 +3,14 @@ import createFetch from '@vercel/fetch'
 import pMap from 'p-map'
 import proxyConfig from '../build-libs/proxy-config'
 import { Collection, ProductOption, TutorialLite } from 'lib/learn-client/types'
-import { getAllCollections } from 'lib/learn-client/api/collection'
+import {
+	getAllCollections,
+	getCollectionsBySection,
+} from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import config from '../config/base.json'
 import { productSlugs } from 'lib/products'
+import { ProductSlug } from 'types/products'
 
 interface StaticPathsResponse {
 	meta: {
@@ -69,18 +73,21 @@ async function getUrlsToCache(product: string): Promise<string[]> {
 }
 
 // Fetch all tutorial paths per beta product
-async function getTutorialUrlsToCache(
-	product: ProductOption
-): Promise<string[]> {
-	const allProductCollections = await getAllCollections({
-		product: { slug: product },
-	})
+async function getTutorialUrlsToCache(product: ProductSlug): Promise<string[]> {
+	let allProductCollections
 
-	const filteredCollections = allProductCollections.filter(
-		(c) => c.theme === product
-	)
+	if (product === 'hcp') {
+		allProductCollections = await getCollectionsBySection('cloud')
+	} else {
+		const collections = await getAllCollections({
+			product: { slug: product as ProductOption },
+		})
+
+		allProductCollections = collections.filter((c) => c.theme === product)
+	}
+
 	// go through all collections, get the collection slug
-	const paths = filteredCollections.flatMap((collection: Collection) => {
+	const paths = allProductCollections.flatMap((collection: Collection) => {
 		const collectionSlug = splitProductFromFilename(collection.slug)
 		// go through the tutorials within this collection, create a path for each
 		return collection.tutorials.map((tutorial: TutorialLite) => {
@@ -107,7 +114,7 @@ async function getTutorialUrlsToCache(
 
 		const tutorialUrls = (
 			await Promise.all(
-				productSlugs.map((product: ProductOption) =>
+				productSlugs.map((product: ProductSlug) =>
 					getTutorialUrlsToCache(product)
 				)
 			)
