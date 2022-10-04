@@ -25,11 +25,7 @@ import VersionContextSwitcher from 'components/version-context-switcher'
 
 // Local imports
 import { DownloadsSectionProps } from './types'
-import {
-	generateCodePropFromCommands,
-	groupDownloadsByOS,
-	groupPackageManagersByOS,
-} from './helpers'
+import { groupDownloadsByOS, groupPackageManagersByOS } from './helpers'
 import s from './downloads-section.module.css'
 import { PackageManager } from 'views/product-downloads-view/types'
 

@@ -6,12 +6,6 @@ import {
 } from 'views/product-downloads-view/types'
 import { sortPlatforms } from 'views/product-downloads-view/helpers'
 
-export const generateCodePropFromCommands = (
-	commands: PackageManager['commands']
-): string => {
-	return commands.map((command: string) => `$ ${command}`).join('\n')
-}
-
 export const groupDownloadsByOS = (
 	selectedRelease: ReleaseVersion
 ): SortedReleases => {
