@@ -28,7 +28,8 @@ export async function getStaticProps(ctx) {
 	})
 	const withRemoteIncludes = await shimRemoteIncludes(
 		mdxFileString,
-		productData.slug
+		productData.slug,
+		'refs/heads/stable-website'
 	)
 	return await markdownPageStaticPropsFromString(withRemoteIncludes)()
 }

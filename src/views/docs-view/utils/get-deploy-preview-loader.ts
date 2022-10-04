@@ -9,6 +9,7 @@ import {
 	paragraphCustomAlerts,
 } from '@hashicorp/remark-plugins'
 import { RootDocsPath } from 'types/products'
+import { remarkRewriteAssets } from 'lib/remark-plugins/remark-rewrite-assets'
 
 /**
  * Returns an instance of a FileSystemLoader for use in content repositories to read docs content from the
@@ -66,9 +67,38 @@ export function getDeployPreviewLoader({
 					? loaderOptions.remarkPlugins(params)
 					: loaderOptions.remarkPlugins
 
+			// Custom handling for TF projects whose images reside in `website/img`
+			// rather than `website/public` (Next.js serves static assets from `public`)
+			const remarkTerraformPlugins = []
+			if (currentRootDocsPath.productSlugForLoader?.includes('terraform')) {
+				remarkTerraformPlugins.push(
+					remarkRewriteAssets({
+						product: currentRootDocsPath.productSlugForLoader,
+						version: process.env.CURRENT_GIT_BRANCH,
+						getAssetPathParts: (nodeUrl) => {
+							// special case for CDKTF's relative paths ('./image.png')
+							if (
+								currentRootDocsPath.productSlugForLoader === 'terraform-cdk'
+							) {
+								return Array.isArray(params.page)
+									? [
+											'website/docs/cdktf',
+											...params.page,
+											nodeUrl.startsWith('.') ? `.${nodeUrl}` : `../${nodeUrl}`,
+									  ]
+									: ['website/docs/cdktf', nodeUrl]
+							}
+							// all other TF subprojects
+							return ['website', nodeUrl]
+						},
+					})
+				)
+			}
+
 			return [
 				...remarkPluginsFromExtraOptions,
 				...remarkPluginsForFileSystemContent,
+				...remarkTerraformPlugins,
 			]
 		},
 	})

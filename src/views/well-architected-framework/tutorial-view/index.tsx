@@ -10,8 +10,6 @@ import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 import { FeaturedInCollections } from 'views/tutorial-view/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { NextPrevious } from 'views/tutorial-view/components'
-import { getCanonicalCollectionSlug } from 'views/tutorial-view/utils/get-canonical-collection-slug'
-import { SectionOption } from 'lib/learn-client/types'
 import { generateCanonicalUrl } from 'views/tutorial-view/utils'
 import OptInOut from 'components/opt-in-out'
 import s from 'views/tutorial-view/tutorial-view.module.css'
@@ -40,10 +38,7 @@ export default function WellArchitectedFrameworkTutorialView({
 		(c) => c.id !== collectionCtx.current.id
 	)
 	const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
-	const canonicalCollectionSlug = getCanonicalCollectionSlug(
-		tutorial,
-		SectionOption['well-architected-framework']
-	)
+	const canonicalCollectionSlug = tutorial.collectionCtx.default.slug
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
 
 	return (
