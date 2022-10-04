@@ -4,7 +4,7 @@ import { validateToken } from 'lib/api-validate-token'
 import { cachedGetProductData } from 'lib/get-product-data'
 
 /**
- * Accepts a POST request with a product slug, triggers revalidation for all of a product's paths
+ * Accepts a POST request with a product slug, triggers revalidation for all of a product's docs paths
  * specified in its latest nav data.
  */
 async function handler(request: NextApiRequest, response: NextApiResponse) {
