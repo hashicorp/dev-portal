@@ -1,11 +1,11 @@
 .root {
 	composes: g-focus-ring-from-box-shadow from global;
-	opacity: 0;
 	border-radius: 6px;
-	padding: 4px;
-	height: fit-content;
+	display: flex;
 	float: right;
 	margin-left: 8px;
+	opacity: 0;
+	padding: 4px;
 
 	@media (prefers-reduced-motion: no-preference) {
 		transition: opacity 0.2s ease;
