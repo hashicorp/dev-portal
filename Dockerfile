@@ -1,17 +1,17 @@
-FROM docker.mirror.hashicorp.services/node:14.17.0-alpine AS deps
+FROM docker.mirror.hashicorp.services/node:16-alpine AS deps
 
 RUN apk add --update --no-cache \
-    autoconf \
-    automake \
-    bash \
-    git \
-    g++ \
-    libtool \
-    libc6-compat \
-    libjpeg-turbo-dev \
-    libpng-dev \
-    make \
-    nasm
+	autoconf \
+	automake \
+	bash \
+	git \
+	g++ \
+	libtool \
+	libc6-compat \
+	libjpeg-turbo-dev \
+	libpng-dev \
+	make \
+	nasm
 
 WORKDIR /app
 COPY package.json package-lock.json ./
