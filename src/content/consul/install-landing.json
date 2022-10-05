@@ -2,7 +2,7 @@
 	"featuredCollectionsSlugs": [
 		"consul/get-started-hcp",
 		"consul/get-started-kubernetes",
-		"consul/getting-started"
+		"consul/get-started-vms"
 	],
 	"featuredTutorialsSlugs": [
 		"consul/kubernetes-api-gateway",

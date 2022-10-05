@@ -10,7 +10,6 @@ const {
 } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
 const { isContentDeployPreview } = require('../src/lib/env-checks')
-const buildBetaProductOptInRedirects = require('./build-beta-opt-in-redirect')
 const { loadHashiConfigForEnvironment } = require('../config')
 
 require('isomorphic-unfetch')
@@ -305,7 +304,6 @@ async function redirectsConfig() {
 	const productRedirects = await buildProductRedirects()
 	const devPortalRedirects = await buildDevPortalRedirects()
 	const { simpleRedirects, globRedirects } = splitRedirectsByType([
-		...buildBetaProductOptInRedirects(),
 		...productRedirects,
 		...devPortalRedirects,
 	])

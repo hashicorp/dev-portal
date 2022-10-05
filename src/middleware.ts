@@ -1,16 +1,19 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
+import optInRedirectChecks from '.generated/opt-in-redirect-checks'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
+import { deleteCookie } from 'lib/middleware-delete-cookie'
 
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
 
 function determineProductSlug(req: NextRequest): string {
 	// .io preview on dev portal
-	if (req.cookies.io_preview) {
-		return req.cookies.io_preview
+	const ioPreviewCookie = req.cookies.get('io_preview')
+	if (ioPreviewCookie) {
+		return ioPreviewCookie
 	}
 
 	// .io production deploy
@@ -64,7 +67,32 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	if (params.get('betaOptOut') === 'true') {
 		const url = req.nextUrl.clone()
 		url.searchParams.delete('betaOptOut')
-		return NextResponse.redirect(url).clearCookie(`${product}-io-beta-opt-in`)
+
+		const response = NextResponse.redirect(url)
+
+		deleteCookie(req, response, `${product}-io-beta-opt-in`)
+
+		return response
+	}
+
+	/**
+	 * Handle opt-in redirects if the cookie is present and we're serving a specific product site
+	 */
+	const hasProductOptInCookie =
+		product !== '*' && Boolean(req.cookies.get(`${product}-io-beta-opt-in`))
+
+	if (hasProductOptInCookie) {
+		const url = req.nextUrl.clone()
+
+		if (optInRedirectChecks[product]?.test(url.pathname)) {
+			const redirectUrl = new URL(__config.dev_dot.canonical_base_url)
+			redirectUrl.pathname = `${product}${url.pathname}`
+			redirectUrl.search = url.search
+
+			const response = NextResponse.redirect(redirectUrl)
+
+			return response
+		}
 	}
 
 	// Handle Opt-in cookies
@@ -83,13 +111,11 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		// Unable to determine the referer, do nothing
 	}
 
-	const hasOptedIn = Boolean(req.cookies[`${optInPlatform}-beta-opt-in`])
+	const hasOptedIn = Boolean(req.cookies.get(`${optInPlatform}-beta-opt-in`))
 
 	if (optInPlatform && !hasOptedIn) {
-		response.cookie(`${optInPlatform}-beta-opt-in`, 'true', {
-			// Next.js pre 12.2 assumes maxAge is in ms, not seconds
-			// TODO: update this when we upgrade to 12.2
-			maxAge: OPT_IN_MAX_AGE * 1000,
+		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {
+			maxAge: OPT_IN_MAX_AGE,
 		})
 	}
 
