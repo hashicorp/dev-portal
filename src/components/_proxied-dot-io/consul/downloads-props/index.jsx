@@ -8,7 +8,7 @@ export default function DownloadsProps(preMerchandisingSlot) {
 		getStartedLinks: [
 			{
 				label: 'CLI Quickstart',
-				href: 'https://learn.hashicorp.com/collections/consul/getting-started',
+				href: 'https://learn.hashicorp.com/collections/consul/get-started-vms',
 			},
 			{
 				label: 'HCP Consul',

@@ -12,8 +12,11 @@ import {
 import {
 	generateFeaturedCollectionsCards,
 	generateFeaturedTutorialsCards,
+	generateDefaultPackageManagers,
+	generateEnterprisePackageManagers,
 	sortAndFilterReleaseVersions,
 } from './helpers'
+import { generatePackageManagers } from './server-helpers'
 
 interface GenerateStaticPropsOptions {
 	isEnterpriseMode?: boolean
@@ -86,6 +89,18 @@ const generateGetStaticProps = (
 		}
 
 		/**
+		 * Build package manager data
+		 */
+		const packageManagers = doesNotHavePackageManagers
+			? []
+			: await generatePackageManagers({
+					defaultPackageManagers: isEnterpriseMode
+						? generateEnterprisePackageManagers(product)
+						: generateDefaultPackageManagers(product),
+					packageManagerOverrides: packageManagerOverrides,
+			  })
+
+		/**
 		 * Combine release data and page content
 		 */
 		const props = stripUndefinedProperties({
@@ -95,17 +110,16 @@ const generateGetStaticProps = (
 				title: 'Install',
 			},
 			pageContent: {
-				doesNotHavePackageManagers,
 				featuredCollectionCards,
 				featuredTutorialCards,
 				installName: options.installName,
-				packageManagerOverrides,
 				sidebarMenuItems,
 				sidecarMarketingCard,
 			},
 			product,
 			releases,
 			sortedAndFilteredVersions,
+			packageManagers,
 		})
 
 		return {
