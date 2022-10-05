@@ -43,28 +43,7 @@ const CardLink = ({
 				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
 				<a aria-label={ariaLabel} className={s.anchor} target={target} />
 			</Link>
-			{children ? (
-				children
-			) : (
-				<div className={s.contentWrapper}>
-					<div>
-						{eyebrow ? <div className={s.eyebrow}>{eyebrow}</div> : null}
-						<div className={s.titleAndDescriptionWrapper}>
-							{title && !logo ? <div className={s.title}>{title}</div> : null}
-							{logo ? <div className={s.logo}>{logo}</div> : null}
-							<div className={s.description}>
-								<TruncateMaxLines
-									lineHeight="var(--token-typography-body-100-line-height)"
-									maxLines={3}
-								>
-									{description}
-								</TruncateMaxLines>
-							</div>
-						</div>
-					</div>
-					{footer ? <div className={s.footer}>{footer}</div> : null}
-				</div>
-			)}
+			{children}
 		</Card>
 	)
 }
