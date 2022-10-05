@@ -9,7 +9,7 @@ import {
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import config from '../config/base.json'
-import { productSlugs } from 'lib/products'
+import { activeProductSlugs } from 'lib/products'
 import { ProductSlug } from 'types/products'
 
 interface StaticPathsResponse {
@@ -78,7 +78,7 @@ async function getUrlsToCache(product: string): Promise<string[]> {
 async function warmDeveloperDocsCache() {
 	const url = new URL('/api/revalidate', DEV_PORTAL_URL)
 
-	for (const productSlug of productSlugs) {
+	for (const productSlug of activeProductSlugs) {
 		const body = JSON.stringify({ product: productSlug })
 
 		try {
@@ -146,7 +146,7 @@ async function getTutorialUrlsToCache(product: ProductSlug): Promise<string[]> {
 
 		const tutorialUrls = (
 			await Promise.all(
-				productSlugs.map((product: ProductSlug) =>
+				activeProductSlugs.map((product: ProductSlug) =>
 					getTutorialUrlsToCache(product)
 				)
 			)
@@ -171,7 +171,7 @@ async function getTutorialUrlsToCache(product: ProductSlug): Promise<string[]> {
 			{ concurrency: 16, stopOnError: false }
 		)
 
-		console.log('Triggering revalidate for documentation pages.')
+		console.log('Triggering revalidate for documentation pages')
 		await warmDeveloperDocsCache()
 
 		process.exit()
