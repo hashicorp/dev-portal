@@ -104,27 +104,13 @@ const CardGrid = ({ cards, description, title, headingId, headingLevel }) => {
 			<CardsGridList>
 				{cards.map(({ description, title, url }) => (
 					<li key={url}>
-						<CardLink ariaLabel={title} className={s.cardGridCard} href={url}>
-							<Text
-								className={s.cardGridCardTitle}
-								size={200}
-								weight="semibold"
-							>
-								{title}
-							</Text>
-							<Text
-								className={s.cardGridCardDescription}
-								size={100}
-								weight="regular"
-							>
-								<TruncateMaxLines
-									maxLines={3}
-									lineHeight="var(--token-typography-body-100-line-height)"
-								>
-									{description}
-								</TruncateMaxLines>
-							</Text>
-						</CardLink>
+						<CardLink
+							ariaLabel={title}
+							className={s.cardGridCard}
+							href={url}
+							title={title}
+							description={description}
+						/>
 					</li>
 				))}
 			</CardsGridList>
