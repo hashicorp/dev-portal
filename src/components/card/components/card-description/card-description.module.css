@@ -1,0 +1,9 @@
+.root {
+	/* composition */
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-regular from global;
+
+	/* properties */
+	color: var(--token-color-foreground-faint);
+	margin-top: 4px;
+}
