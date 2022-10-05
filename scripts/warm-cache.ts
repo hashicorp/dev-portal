@@ -28,7 +28,8 @@ interface StaticPathsResponse {
 
 const DEV_PORTAL_URL = config.dev_dot.canonical_base_url
 
-const fetch = createFetch()
+// the socket timeout here matches Vercel's serverless function execution timeout (900s) as defined here: https://vercel.com/docs/concepts/limits/overview#general-limits
+const fetch = createFetch(null, { timeout: 900 * 1000 })
 
 /**
  * Returns a string representing a date that's `daysAgo` in the past, truncated
@@ -98,8 +99,12 @@ async function warmDeveloperDocsCache() {
 			console.log(
 				`successfully warmed the cache for ${productSlug}'s docs routes (${elapsedTime}ms)`
 			)
-		} catch {
-			console.log('failed to trigger revalidate for product:', productSlug)
+		} catch (error) {
+			console.log(
+				'failed to trigger revalidate for product:',
+				productSlug,
+				error
+			)
 		}
 	}
 }
