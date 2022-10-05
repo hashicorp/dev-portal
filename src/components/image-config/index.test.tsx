@@ -41,6 +41,17 @@ describe('basic functionality', () => {
 	})
 })
 
+describe('unsupported', () => {
+	it('should not render a figure or caption for inline images', () => {
+		const { queryByRole } = render(
+			<ImageConfig caption="Hello world" inline>
+				{testImage}
+			</ImageConfig>
+		)
+		expect(queryByRole('figure')).not.toBeInTheDocument()
+	})
+})
+
 describe('errors', () => {
 	//  silence console.error, otherwise the test will fail
 	const mockConsoleError = jest.spyOn(console, 'error')

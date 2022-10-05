@@ -28,7 +28,16 @@ export default function ImageConfig({
 		)
 	}
 
-	if (caption) {
+	if (!!caption && !!inline && process.env.NODE_ENV !== 'production') {
+		console.warn(
+			'Warning: ImageConfig component received both `caption` and `inline` props.' +
+				' ' +
+				'Captions will not be rendered for inline images'
+		)
+	}
+
+	// Note: caption is not permitted on inline images
+	if (caption && !inline) {
 		// If a caption has been provided, then render an image with a caption.
 		// Note that we ignore the hideBorder prop in this case.
 		return (
