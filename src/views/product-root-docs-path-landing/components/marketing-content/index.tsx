@@ -5,13 +5,13 @@ import slugify from 'slugify'
 // Global imports
 import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { useCurrentProduct } from 'contexts'
+import CalloutCard from 'components/callout-card'
+import { CardDescription, CardTitle } from 'components/card/components'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
-import CalloutCard from 'components/callout-card'
 import Heading, { HeadingProps } from 'components/heading'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import Text from 'components/text'
-import TruncateMaxLines from 'components/truncate-max-lines'
 
 // Local imports
 import s from './marketing-content.module.css'
@@ -104,13 +104,10 @@ const CardGrid = ({ cards, description, title, headingId, headingLevel }) => {
 			<CardsGridList>
 				{cards.map(({ description, title, url }) => (
 					<li key={url}>
-						<CardLink
-							ariaLabel={title}
-							className={s.cardGridCard}
-							href={url}
-							title={title}
-							description={description}
-						/>
+						<CardLink ariaLabel={title} className={s.cardGridCard} href={url}>
+							<CardTitle text={title} />
+							<CardDescription text={description} />
+						</CardLink>
 					</li>
 				))}
 			</CardsGridList>
