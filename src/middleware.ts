@@ -81,7 +81,10 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const hasProductOptInCookie =
 		product !== '*' && Boolean(req.cookies.get(`${product}-io-beta-opt-in`))
 
-	if (hasProductOptInCookie) {
+	const isBetaProduct =
+		product !== '*' && __config.dev_dot.beta_product_slugs.includes(product)
+
+	if (hasProductOptInCookie || !isBetaProduct) {
 		const url = req.nextUrl.clone()
 
 		if (optInRedirectChecks[product]?.test(url.pathname)) {
