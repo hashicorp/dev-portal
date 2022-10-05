@@ -9,11 +9,14 @@
 		"vault": {
 			"cardTitle": "Vault",
 			"url": "/vault/tutorials/cloud/vault-introduction",
-			"description": "Access Vault’s secrets management and encryption capabilities instantly using the HCP portal",
+			"description": "Access Vault’s secrets management and encryption capabilities instantly using the HCP portal.",
 			"ctaText": "Learn more"
 		},
-		"hashiconfGlobal": {
-			"description": "Two days of inspirational speakers, community connection, and a front-row seat to future of cloud."
+		"hcp": {
+			"cardTitle": "HashiCorp Cloud Platform",
+			"url": "https://portal.cloud.hashicorp.com/sign-up",
+			"description": "The fastest way to get up and running with HashiCorp tools.",
+			"ctaText": "Try cloud for free"
 		}
 	},
 	"learnSection": {

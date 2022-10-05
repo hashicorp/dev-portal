@@ -26,24 +26,35 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	const productData = cachedGetProductData(product)
 
 	const navDataPrefixes = productData.rootDocsPaths.map(
-		({ navDataPrefix, path }) => {
-			return { navDataPrefix, path }
+		({ navDataPrefix, path, productSlugForLoader }) => {
+			return { navDataPrefix, path, productSlugForLoader }
 		}
 	)
 
 	// fetch the latest nav data, which will be used to construct paths to revalidate
-	const navDataFiles = await Promise.all(
-		navDataPrefixes.map(async ({ navDataPrefix, path }) => {
-			const prefix = navDataPrefix ?? path
+	const navDataFiles = (
+		await Promise.all(
+			navDataPrefixes.map(
+				async ({ navDataPrefix, path, productSlugForLoader = product }) => {
+					const prefix = navDataPrefix ?? path
 
-			const response = await fetch(
-				`https://content.hashicorp.com/api/content/${product}/nav-data/latest/${prefix}`
+					const response = await fetch(
+						`https://content.hashicorp.com/api/content/${productSlugForLoader}/nav-data/latest/${prefix}`
+					)
+					const { result } = await response.json()
+
+					if (!result.navData) {
+						console.log(
+							`[revalidate] failed to find nav data for path: ${path}. It is possible that this path does not have nav data, this is likely safe to ignore.`
+						)
+						return false
+					}
+
+					return [path, result.navData]
+				}
 			)
-			const { result } = await response.json()
-
-			return [path, result.navData]
-		})
-	)
+		)
+	).filter(Boolean) as any[]
 
 	const revalidatePromises = []
 
