@@ -9,6 +9,7 @@ TODO: implement a more accessible horizontal overflow solution as KB-only users 
 	--border: var(--token-color-palette-alpha-200);
 	--radius: 6px;
 
+	margin: 24px 0;
 	overflow-x: auto;
 
 	& table {
