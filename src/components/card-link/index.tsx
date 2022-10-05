@@ -54,8 +54,8 @@ const CardLink = ({
 							{logo ? <div className={s.logo}>{logo}</div> : null}
 							<div className={s.description}>
 								<TruncateMaxLines
-									maxLines={3}
 									lineHeight="var(--token-typography-body-100-line-height)"
+									maxLines={3}
 								>
 									{description}
 								</TruncateMaxLines>
