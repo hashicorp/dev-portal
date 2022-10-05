@@ -1,55 +1,19 @@
-.root {
-  --padding: 32px;
-  --min-height: 200px;
-  --background-right-offset: -120px;
+.vaultBackground {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: -1;
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: var(--padding);
-  min-height: var(--min-height);
-  border-radius: 6px;
-  color: var(--black);
-  background: url('/img/homepage/vault-slot-accent.svg') right
-      var(--background-right-offset) bottom -50px,
-    linear-gradient(140.72deg, #fffbdc 30.64%, #fffeea 104.14%);
-  background-repeat: no-repeat;
+	--background-right-offset: -120px;
 
-  @media (--dev-dot-tablet-up) {
-    --padding: 48px;
-    --min-height: 450px;
-    --background-right-offset: -60px;
-  }
-}
+	background: url('/img/homepage/vault-slot-accent.svg') right
+			var(--background-right-offset) bottom -50px,
+		linear-gradient(140.72deg, #fffbdc 30.64%, #fffeea 104.14%);
+	background-repeat: no-repeat;
 
-.logo {
-  display: block;
-
-  /* Removes top/bottom padding from logo */
-  margin-top: -8px;
-  margin-bottom: -8px;
-}
-
-.description {
-  max-width: 390px;
-  margin-top: 12px;
-  margin-bottom: 64px;
-  font-size: 24px;
-}
-
-.cta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: auto;
-  margin-bottom: 0;
-  font-weight: var(--token-typography-font-weight-medium);
-
-  & svg {
-    transition: transform 0.2s;
-
-    @nest .root:hover & {
-      transform: translate(2px);
-    }
-  }
+	@media (--dev-dot-tablet-up) {
+		--background-right-offset: -60px;
+	}
 }

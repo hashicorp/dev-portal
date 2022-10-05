@@ -13,10 +13,7 @@ import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
 import { HeroWithVideo } from './components/hero'
-import {
-	HashiConfGlobalSlot,
-	VaultSlot,
-} from './components/merchandising-slots/slots'
+import { HcpSlot, VaultSlot } from './components/merchandising-slots/slots'
 import s from './homepage.module.css'
 
 const VIDEO_URL = 'https://hashicorp.wistia.com/medias/m17a0rrzj1'
@@ -57,8 +54,11 @@ const HomePageContent = ({
 					description={merchandising.vault.description}
 					ctaText={merchandising.vault.ctaText}
 				/>
-				<HashiConfGlobalSlot
-					description={merchandising.hashiconfGlobal.description}
+				<HcpSlot
+					url={merchandising.hcp.url}
+					cardTitle={merchandising.hcp.cardTitle}
+					description={merchandising.hcp.description}
+					ctaText={merchandising.hcp.ctaText}
 				/>
 			</MerchandisingSlots>
 			<LearnSection
