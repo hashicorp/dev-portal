@@ -41,7 +41,7 @@
 				{
 					"heading": "Identity-based Access",
 					"body": "Enable privileged sessions for users and applications based on user identity and role.",
-					"url": "/boundary/tutorials/oss-access-management/oidc-auth"
+					"url": "/boundary/tutorials/access-management/oidc-auth"
 				},
 				{
 					"heading": "Service Discovery",
