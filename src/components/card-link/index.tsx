@@ -31,9 +31,6 @@ const CardLink = ({
 		})
 	}
 
-	// TODO fix tab order. Link should come before anything focusable in children.
-	// ref: https://app.asana.com/0/1202097197789424/1202822098515463/f
-
 	return (
 		<Card className={classes}>
 			{/**
@@ -43,9 +40,8 @@ const CardLink = ({
 			 * https://adrianroselli.com/2020/02/block-links-cards-clickable-regions-etc.html
 			 */}
 			<Link href={href}>
-				<a aria-label={ariaLabel} className={s.anchor} target={target}>
-					<span className="g-screen-reader-only">{title}</span>
-				</a>
+				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
+				<a aria-label={ariaLabel} className={s.anchor} target={target} />
 			</Link>
 			{children ? (
 				children
@@ -54,11 +50,7 @@ const CardLink = ({
 					<div>
 						{eyebrow ? <div className={s.eyebrow}>{eyebrow}</div> : null}
 						<div className={s.titleAndDescriptionWrapper}>
-							{title && !logo ? (
-								<div aria-hidden className={s.title}>
-									{title}
-								</div>
-							) : null}
+							{title && !logo ? <div className={s.title}>{title}</div> : null}
 							{logo ? <div className={s.logo}>{logo}</div> : null}
 							<div className={s.description}>
 								<TruncateMaxLines
