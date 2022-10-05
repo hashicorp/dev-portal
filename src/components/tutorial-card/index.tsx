@@ -50,12 +50,19 @@ function TutorialCard({
 	})
 
 	return (
-		<CardLink href={url} className={s.root} ariaLabel={ariaLabel}>
-			<CardEyebrow className={s.eyebrow}>{eyebrowSlot || duration}</CardEyebrow>
-			<CardHeading level={3} text={heading} />
-			<CardBody text={description} />
-			<CardBadges badges={badges} />
-		</CardLink>
+		<CardLink
+			ariaLabel={ariaLabel}
+			className={s.root}
+			description={description}
+			eyebrow={
+				<CardEyebrow className={s.eyebrow}>
+					{eyebrowSlot || duration}
+				</CardEyebrow>
+			}
+			href={url}
+			title={heading}
+			footer={<CardBadges badges={badges} />}
+		/>
 	)
 }
 
