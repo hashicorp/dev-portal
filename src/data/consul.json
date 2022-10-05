@@ -22,10 +22,10 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "Just announced",
-		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
-		"text": "HashiConf Global full schedule: keynotes, sessions, labs & more.",
-		"linkText": "Register Now",
+		"tag": "Announcements",
+		"url": "https://www.hashicorp.com/blog/consul-1-14-beta-announcing-simplified-service-mesh-deployments",
+		"text": "Consul 1.14 beta, AWS Lambda support, new HCP Consul global visibility controls & more",
+		"linkText": "Read more",
 		"expirationDate": ""
 	},
 	"version": "1.11.3",
