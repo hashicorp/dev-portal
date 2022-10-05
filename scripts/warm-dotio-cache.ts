@@ -72,6 +72,38 @@ async function getUrlsToCache(product: string): Promise<string[]> {
 	})
 }
 
+/**
+ * Uses the /api/revalidate endpoint to statically generate all docs pages for each product
+ */
+async function warmDeveloperDocsCache() {
+	const url = new URL('/api/revalidate', DEV_PORTAL_URL)
+
+	for (const productSlug of productSlugs) {
+		const body = JSON.stringify({ product: productSlug })
+
+		try {
+			console.log(`triggering revalidate for ${productSlug}...`)
+			const startTime = Date.now()
+
+			await fetch(url.toString(), {
+				method: 'POST',
+				body,
+				headers: {
+					'content-type': 'application/json',
+					authorization: `Bearer ${process.env.REVALIDATE_TOKEN}`,
+				},
+			})
+
+			const elapsedTime = Date.now() - startTime
+			console.log(
+				`successfully warmed the cache for ${productSlug}'s docs routes (${elapsedTime}ms)`
+			)
+		} catch {
+			console.log('failed to trigger revalidate for product:', productSlug)
+		}
+	}
+}
+
 // Fetch all tutorial paths per beta product
 async function getTutorialUrlsToCache(product: ProductSlug): Promise<string[]> {
 	let allProductCollections
@@ -138,6 +170,10 @@ async function getTutorialUrlsToCache(product: ProductSlug): Promise<string[]> {
 			},
 			{ concurrency: 16, stopOnError: false }
 		)
+
+		console.log('Triggering revalidate for documentation pages.')
+		await warmDeveloperDocsCache()
+
 		process.exit()
 	} catch (err) {
 		console.error(err)
