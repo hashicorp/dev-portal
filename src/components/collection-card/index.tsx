@@ -34,11 +34,7 @@ function CollectionCard({
 		tutorialCount !== 1 ? 's' : ''
 	}`
 	return (
-		<CardLink
-			ariaLabel={heading}
-			href={url}
-			logo={hasLogo ? <CompanyLogo name={logo} /> : undefined}
-		>
+		<CardLink ariaLabel={heading} href={url}>
 			<div className={s.root}>
 				<div>
 					<CardEyebrow>

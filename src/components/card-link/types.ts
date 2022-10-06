@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import { CardProps } from 'components/card/types'
 
 type NativeAnchorProps = JSX.IntrinsicElements['a']
@@ -14,7 +13,7 @@ export interface CardLinkProps {
 	 * The content to render within the `CardLink` body. Passed to the inner
 	 * `Card` component.
 	 */
-	children?: CardProps['children']
+	children: CardProps['children']
 
 	/**
 	 * A string of one or more classnames passed to the inner `Card` component.
@@ -30,13 +29,4 @@ export interface CardLinkProps {
 	 * Whether or not the given link should open in a new tab.
 	 */
 	openInNewTab?: boolean
-
-	/**
-	 * @TODO document
-	 */
-	title?: string
-	description?: string
-	eyebrow?: ReactNode
-	footer?: ReactNode
-	logo?: ReactNode
 }

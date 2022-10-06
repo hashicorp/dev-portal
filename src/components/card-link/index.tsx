@@ -3,7 +3,6 @@ import Link from 'next/link'
 import classNames from 'classnames'
 import Card from 'components/card'
 import { developmentToast, ToastColor } from 'components/toast'
-import TruncateMaxLines from 'components/truncate-max-lines'
 import { CardLinkProps } from './types'
 import s from './card-link.module.css'
 
@@ -11,13 +10,8 @@ const CardLink = ({
 	ariaLabel,
 	children,
 	className,
-	description,
-	eyebrow,
-	footer,
 	href,
-	logo,
 	openInNewTab,
-	title,
 }: CardLinkProps): ReactElement => {
 	const classes = classNames(s.root, className)
 	const target = openInNewTab ? '_blank' : undefined
