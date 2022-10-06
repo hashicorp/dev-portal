@@ -80,7 +80,8 @@ for further details.
 	width: 100%;
 
 	@media (--dev-dot-hide-mobile-menu) {
-		max-width: calc(100vw - var(--dev-dot-sidebar-width));
+		/* 100vw - 100% is the scrollbar width */
+		max-width: calc(100vw - (100vw - 100%) - var(--dev-dot-sidebar-width));
 	}
 }
 
