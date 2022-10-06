@@ -187,7 +187,7 @@ async function buildProductRedirects() {
 	).flat()
 
 	return [
-		...devPortalToDotIoRedirects,
+		// ...devPortalToDotIoRedirects,
 		...productRedirects,
 		...addHostCondition(
 			sentinelIoRedirects,
