@@ -5,4 +5,8 @@ interface CardEyebrowProps {
 	className?: string
 }
 
-export type { CardEyebrowProps }
+interface CardEyebrowTextProps {
+	children: string
+}
+
+export type { CardEyebrowProps, CardEyebrowTextProps }
