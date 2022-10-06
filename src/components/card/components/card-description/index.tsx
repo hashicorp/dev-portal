@@ -7,6 +7,7 @@ const CardDescription = ({ className, text }: CardDescriptionProps) => {
 	return (
 		<div className={classNames(s.root, className)}>
 			<TruncateMaxLines
+				className={s.text}
 				lineHeight="var(--token-typography-body-100-line-height)"
 				maxLines={3}
 			>
