@@ -5,6 +5,7 @@ import optInRedirectChecks from '.generated/opt-in-redirect-checks'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
+import { getEdgeFlags } from 'flags/edge'
 import { deleteCookie } from 'lib/middleware-delete-cookie'
 
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
@@ -27,19 +28,29 @@ function determineProductSlug(req: NextRequest): string {
 	return '*'
 }
 
+function setHappyKitCookie(
+	cookie: Parameters<NextResponse['cookies']['set']>,
+	response: NextResponse
+): NextResponse {
+	response.cookies.set(...cookie)
+	return response
+}
+
 /**
  * Root-level middleware that will process all middleware-capable requests.
  * Currently used to support:
  * - Handling simple one-to-one redirects for .io routes
  * - Handling the opt in for cookie setting
  */
-export function middleware(req: NextRequest, ev: NextFetchEvent) {
+export async function middleware(req: NextRequest, ev: NextFetchEvent) {
+	let response: NextResponse
+	const edgeFlags = await getEdgeFlags({ request: req })
+	const { flags, cookie } = edgeFlags
 	const label = `[middleware] ${req.nextUrl.pathname}`
 	console.time(label)
+
 	// Handle redirects
 	const product = determineProductSlug(req)
-	// Sets a cookie named hc_geo on the response
-	const response = setGeoCookie(req)
 
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
@@ -140,8 +151,27 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	}
 
 	console.timeEnd(label)
+
+	if (product === 'vault' && req.nextUrl.pathname === '/' && flags?.testFlag) {
+		const url = req.nextUrl.clone()
+		url.pathname = '/_proxied-dot-io/vault/without-cta-links'
+		response = NextResponse.rewrite(url)
+	}
+
+	if (product === 'packer' && req.nextUrl.pathname === '/' && flags?.testFlag) {
+		const url = req.nextUrl.clone()
+		url.pathname = '/_proxied-dot-io/packer/without-cta-links'
+		response = NextResponse.rewrite(url)
+	}
+
+	if (product === 'consul' && req.nextUrl.pathname === '/' && flags?.testFlag) {
+		const url = req.nextUrl.clone()
+		url.pathname = '/_proxied-dot-io/consul/without-cta-links'
+		response = NextResponse.rewrite(url)
+	}
+
 	// Continue request processing
-	return response
+	return setHappyKitCookie(cookie.args, setGeoCookie(req, response))
 }
 
 export const config = {
