@@ -1,11 +1,13 @@
 .progressIcon {
-	&.status_in_progress {
+	--color: magenta;
+
+	/* &.status_in_progress {
 		--color: var(--token-color-palette-blue-200);
 	}
 
 	&.status_complete {
 		--color: var(--token-color-palette-green-200);
-	}
+	} */
 
 	&.size_12 {
 		--size: 12px;
