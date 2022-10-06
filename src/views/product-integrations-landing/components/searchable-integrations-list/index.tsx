@@ -15,7 +15,7 @@ export default function SearchableIntegrationsList({
 			integration.description
 				.toLowerCase()
 				.includes(searchQuery.toLowerCase()) ||
-			integration.organization.name
+			integration.organization.slug
 				.toLowerCase()
 				.includes(searchQuery.toLowerCase())
 		)
