@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Head from 'next/head'
 import { proxiedRivetClient } from 'lib/cms'
+import { abTestTrack } from 'lib/ab-test-track'
 import homepageQuery from './home/query.graphql'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import { renderMetaTags } from '@hashicorp/react-head'
@@ -18,7 +19,6 @@ export default function Homepage({ data }): React.ReactElement {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCtas,
 		heroCards,
 		introHeading,
 		introDescription,
@@ -46,6 +46,14 @@ export default function Homepage({ data }): React.ReactElement {
 		preFooterCtas,
 	} = data
 	const _introVideo = introVideo[0]
+
+	React.useEffect(() => {
+		abTestTrack({
+			type: 'Served',
+			test_name: 'CRO Vault CTA links 2022-10',
+			variant: 'true',
+		})
+	}, [])
 
 	return (
 		<>
