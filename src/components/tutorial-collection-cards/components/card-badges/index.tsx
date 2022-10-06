@@ -61,7 +61,6 @@ function CardBadges({ badges }: CardBadgesProps) {
 							<Badge
 								ariaLabel={CARD_BADGE_LABEL_MAP[badge]}
 								icon={CARD_BADGE_ICON_MAP[badge]}
-								className={s.badge}
 								size="small"
 							/>
 						</Tooltip>

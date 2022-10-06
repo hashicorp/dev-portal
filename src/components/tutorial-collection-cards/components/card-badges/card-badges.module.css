@@ -9,4 +9,5 @@
 
 .listItem {
 	line-height: normal;
+	z-index: 1;
 }
