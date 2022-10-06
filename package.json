@@ -87,6 +87,7 @@
 		"@algolia/autocomplete-core": "^1.6.2",
 		"@algolia/autocomplete-plugin-algolia-insights": "^1.6.2",
 		"@algolia/autocomplete-preset-algolia": "^1.6.2",
+		"@happykit/flags": "^3.0.0",
 		"@hashicorp/design-system-tokens": "^1.0.0",
 		"@hashicorp/flight-icons": "^2.6.0",
 		"@hashicorp/localstorage-polyfill": "^1.0.14",
