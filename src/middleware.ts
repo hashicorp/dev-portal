@@ -84,7 +84,13 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const isBetaProduct =
 		product !== '*' && __config.dev_dot.beta_product_slugs.includes(product)
 
-	if (hasProductOptInCookie || !isBetaProduct) {
+	/**
+	 * If the product is not a beta product, treat it as GA and apply the redirect without the cookie condition, in production only.
+	 */
+	const shouldApplyGARedirect =
+		!isBetaProduct && process.env.HASHI_ENV === 'production'
+
+	if (hasProductOptInCookie || shouldApplyGARedirect) {
 		const url = req.nextUrl.clone()
 
 		if (optInRedirectChecks[product]?.test(url.pathname)) {
