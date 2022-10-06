@@ -2,6 +2,7 @@ import CardLink from 'components/card-link'
 import {
 	CardDescription,
 	CardEyebrow,
+	CardEyebrowText,
 	CardFooter,
 	CardTitle,
 } from 'components/card/components'
@@ -57,7 +58,7 @@ function TutorialCard({
 			<div className={s.root}>
 				<div>
 					<CardEyebrow className={s.eyebrow}>
-						{eyebrowSlot || duration}
+						{eyebrowSlot || <CardEyebrowText>{duration}</CardEyebrowText>}
 					</CardEyebrow>
 					<CardTitle text={heading} />
 					<CardDescription text={description} />

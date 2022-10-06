@@ -2,6 +2,7 @@ import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections
 import {
 	CardDescription,
 	CardEyebrow,
+	CardEyebrowText,
 	CardFooter,
 	CardLogo,
 	CardTitle,
@@ -41,7 +42,7 @@ function CollectionCard({
 						{eyebrowSlot || (
 							<>
 								<IconCollections16 />
-								<span>{eyebrowText}</span>
+								<CardEyebrowText>{eyebrowText}</CardEyebrowText>
 							</>
 						)}
 					</CardEyebrow>
