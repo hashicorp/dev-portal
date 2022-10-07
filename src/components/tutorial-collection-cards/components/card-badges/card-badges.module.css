@@ -1,14 +1,13 @@
 .root {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  list-style: none;
-  margin: auto 0 0;
-  padding: 16px 0 0 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
-.badge {
-  & svg {
-    width: 12px;
-  }
+.listItem {
+	line-height: normal;
+	z-index: 1;
 }
