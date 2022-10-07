@@ -48,6 +48,7 @@ function CurrentFilterItem({ refinement, refine }: CurrentFilterItemProps) {
 	 */
 	if (!labelText) {
 		if (IS_DEV) {
+			// TODO - render something users can see?
 			console.error(
 				'[CurrentFilterItem] Found an unsupported refinement:',
 				JSON.stringify(refinement)
