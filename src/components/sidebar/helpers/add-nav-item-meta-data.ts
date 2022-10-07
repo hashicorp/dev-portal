@@ -14,7 +14,7 @@ interface AddNavItemMetaDataResult {
 
 /**
  * Returns an object for rendering a Badge in a sidebar item if a <sup> tag is
- * founnd in its title.
+ * found in its title.
  */
 const getBadgeFromTitle = (title: string) => {
 	let badge = null
