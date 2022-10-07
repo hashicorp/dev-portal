@@ -81,7 +81,16 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const hasProductOptInCookie =
 		product !== '*' && Boolean(req.cookies.get(`${product}-io-beta-opt-in`))
 
-	if (hasProductOptInCookie) {
+	const isBetaProduct =
+		product !== '*' && __config.dev_dot.beta_product_slugs.includes(product)
+
+	/**
+	 * If the product is not a beta product, treat it as GA and apply the redirect without the cookie condition, in production only.
+	 */
+	const shouldApplyGARedirect =
+		!isBetaProduct && process.env.HASHI_ENV === 'production'
+
+	if (hasProductOptInCookie || shouldApplyGARedirect) {
 		const url = req.nextUrl.clone()
 
 		if (optInRedirectChecks[product]?.test(url.pathname)) {
@@ -89,7 +98,10 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 			redirectUrl.pathname = `${product}${url.pathname}`
 			redirectUrl.search = url.search
 
-			const response = NextResponse.redirect(redirectUrl)
+			// The GA redirects should be permanent, so we explicitly set a 308 status if this is the case
+			const redirectStatus = shouldApplyGARedirect ? 308 : 307
+
+			const response = NextResponse.redirect(redirectUrl, redirectStatus)
 
 			return response
 		}
