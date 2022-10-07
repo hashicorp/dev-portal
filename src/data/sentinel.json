@@ -32,7 +32,7 @@
 			}
 		]
 	},
-	"alertBannerActive": true,
+	"alertBannerActive": false,
 	"alertBanner": {
 		"tag": "October 5-6",
 		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",

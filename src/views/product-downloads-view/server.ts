@@ -41,13 +41,19 @@ const generateGetStaticProps = (
 		 * Note: could consider other content sources. For now, JSON.
 		 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
 		 */
-		const jsonFilePath = path.join(
+		let jsonFilePath = path.join(
 			process.cwd(),
-			options.jsonFilePath || `src/content/${product.slug}/install-landing.json`
+			`src/content/${product.slug}/install-landing.json`
 		)
+
+		if (options.jsonFilePath) {
+			jsonFilePath = path.join(process.cwd(), options.jsonFilePath)
+		}
+
 		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
 			fs.readFileSync(jsonFilePath, 'utf8')
 		)
+
 		const {
 			doesNotHavePackageManagers,
 			featuredCollectionsSlugs,

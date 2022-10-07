@@ -68,13 +68,14 @@ const Tabs = ({
 
 	return (
 		<TabNestingProvider>
-			<div ref={overflowTargetRef}>
+			<div>
 				<div
 					className={classNames(s.tabControls, s[`variant--${variant}`], {
 						[s.isCheckingOverflow]: hasOverflow === null,
 						[s.showAnchorLine]: showAnchorLine,
 						[s.allowNestedStyles]: allowNestedStyles,
 					})}
+					ref={overflowTargetRef}
 				>
 					<TabControls
 						activeTabIndex={activeTabIndex}

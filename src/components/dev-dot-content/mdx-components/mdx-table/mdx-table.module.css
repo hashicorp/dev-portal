@@ -40,6 +40,7 @@ TODO: implement a more accessible horizontal overflow solution as KB-only users 
 					padding: 8px 12px;
 					border-bottom: 1px solid var(--border);
 					border-right: 1px solid var(--border);
+					vertical-align: top;
 
 					&:first-child {
 						border-left: 1px solid var(--border);
