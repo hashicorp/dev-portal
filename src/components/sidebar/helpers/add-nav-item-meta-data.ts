@@ -15,6 +15,18 @@ interface AddNavItemMetaDataResult {
 /**
  * Returns an object for rendering a Badge in a sidebar item if a <sup> tag is
  * found in its title.
+ *
+ * Examples:
+ *
+ * getBadgeFromTitle("Audit Log Streaming <sup>BETA</sup>") returns:
+ *   {
+ *     text: "BETA",
+ *     color: "neutral",
+ *     type: "outlined",
+ *   }
+ *
+ * getBadgeFromTitle("Audit Log Streaming") returns:
+ *   null
  */
 const getBadgeFromTitle = (title: string) => {
 	let badge = null
@@ -62,6 +74,9 @@ export const addNavItemMetaData = (
 			/**
 			 * If a `badge` object can be determined from a `title` with `<sup>`,
 			 * create the `badge` object and remove the `<sup>` tags from the title.
+			 *
+			 * This should be in place until all nav data content (including past
+			 * versions) no longer contains `<sup>` tags in `title`s.
 			 */
 			if (item.hasOwnProperty('title')) {
 				const itemWithTitle = item as
