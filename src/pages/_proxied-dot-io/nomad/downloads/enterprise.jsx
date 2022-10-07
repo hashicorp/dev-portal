@@ -53,6 +53,24 @@ function DownloadsPage({ product, releases, latestVersion }) {
 					</em>
 				</p>
 			}
+			packageManagerOverrides={[
+				{
+					label: 'Homebrew',
+					commands: [
+						`brew tap hashicorp/tap`,
+						`brew install hashicorp/tap/${product}-enterprise`,
+					],
+					os: 'darwin',
+				},
+				{
+					label: 'Homebrew',
+					commands: [
+						`brew tap hashicorp/tap`,
+						`brew install hashicorp/tap/${product}-enterprise`,
+					],
+					os: 'linux',
+				},
+			]}
 		/>
 	)
 }

@@ -23,6 +23,7 @@
 	border: unset;
 	padding: 0;
 	height: min-content;
+	display: flex;
 
 	&:hover {
 		cursor: pointer;

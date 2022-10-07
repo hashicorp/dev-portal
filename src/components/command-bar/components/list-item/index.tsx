@@ -45,15 +45,20 @@ const CommandBarListItemContent = ({
 			{hasIcon ? <span className={s.icon}>{icon}</span> : null}
 			<div className={s.textWrapper}>
 				<div className={s.titleAndBadgeWrapper}>
-					<Text asElement="span" className={s.title} size={200} weight="medium">
-						{title}
-					</Text>
+					<Text
+						dangerouslySetInnerHTML={{ __html: title }}
+						asElement="span"
+						className={s.title}
+						size={200}
+						weight="medium"
+					/>
 					{hasBadges
 						? badges.map((badgeText: BadgeProps['text'], index: number) => (
 								<Badge
 									// eslint-disable-next-line react/no-array-index-key
 									key={index}
 									color="neutral"
+									className={s.productBadge}
 									size="small"
 									text={badgeText}
 									type="outlined"
@@ -63,13 +68,12 @@ const CommandBarListItemContent = ({
 				</div>
 				{hasDescription ? (
 					<Text
+						dangerouslySetInnerHTML={{ __html: description }}
 						asElement="span"
 						className={s.description}
 						size={100}
 						weight="regular"
-					>
-						{description}
-					</Text>
+					/>
 				) : null}
 			</div>
 		</>
@@ -85,7 +89,7 @@ const CommandBarButtonListItem = ({
 }: CommandBarButtonListItemProps) => {
 	return (
 		<CommandBarListItem>
-			<button className={s.linkOrButton} onClick={onClick} tabIndex={-1}>
+			<button className={s.linkOrButton} onClick={onClick}>
 				<CommandBarListItemContent
 					badges={badges}
 					description={description}
@@ -112,7 +116,7 @@ const CommandBarLinkListItem = ({
 	return (
 		<CommandBarListItem>
 			<Link href={url}>
-				<a className={s.linkOrButton} tabIndex={-1}>
+				<a className={s.linkOrButton}>
 					<CommandBarListItemContent
 						badges={badges}
 						description={description}

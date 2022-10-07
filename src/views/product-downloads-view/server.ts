@@ -12,8 +12,11 @@ import {
 import {
 	generateFeaturedCollectionsCards,
 	generateFeaturedTutorialsCards,
+	generateDefaultPackageManagers,
+	generateEnterprisePackageManagers,
 	sortAndFilterReleaseVersions,
 } from './helpers'
+import { generatePackageManagers } from './server-helpers'
 
 interface GenerateStaticPropsOptions {
 	isEnterpriseMode?: boolean
@@ -38,13 +41,19 @@ const generateGetStaticProps = (
 		 * Note: could consider other content sources. For now, JSON.
 		 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
 		 */
-		const jsonFilePath = path.join(
+		let jsonFilePath = path.join(
 			process.cwd(),
-			options.jsonFilePath || `src/content/${product.slug}/install-landing.json`
+			`src/content/${product.slug}/install-landing.json`
 		)
+
+		if (options.jsonFilePath) {
+			jsonFilePath = path.join(process.cwd(), options.jsonFilePath)
+		}
+
 		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
 			fs.readFileSync(jsonFilePath, 'utf8')
 		)
+
 		const {
 			doesNotHavePackageManagers,
 			featuredCollectionsSlugs,
@@ -86,6 +95,18 @@ const generateGetStaticProps = (
 		}
 
 		/**
+		 * Build package manager data
+		 */
+		const packageManagers = doesNotHavePackageManagers
+			? []
+			: await generatePackageManagers({
+					defaultPackageManagers: isEnterpriseMode
+						? generateEnterprisePackageManagers(product)
+						: generateDefaultPackageManagers(product),
+					packageManagerOverrides: packageManagerOverrides,
+			  })
+
+		/**
 		 * Combine release data and page content
 		 */
 		const props = stripUndefinedProperties({
@@ -95,17 +116,16 @@ const generateGetStaticProps = (
 				title: 'Install',
 			},
 			pageContent: {
-				doesNotHavePackageManagers,
 				featuredCollectionCards,
 				featuredTutorialCards,
 				installName: options.installName,
-				packageManagerOverrides,
 				sidebarMenuItems,
 				sidecarMarketingCard,
 			},
 			product,
 			releases,
 			sortedAndFilteredVersions,
+			packageManagers,
 		})
 
 		return {

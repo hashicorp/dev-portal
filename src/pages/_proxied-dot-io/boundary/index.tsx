@@ -22,6 +22,8 @@ export default function Homepage({ data }): React.ReactElement {
 		heroCards,
 		introHeading,
 		introDescription,
+		introOfferingsImage,
+		introOfferings,
 		introFeatures,
 		introVideo,
 		inPracticeHeading,
@@ -69,7 +71,15 @@ export default function Homepage({ data }): React.ReactElement {
 				brand="boundary"
 				heading={introHeading}
 				description={introDescription}
-				features={introFeatures}
+				offerings={{
+					image: {
+						src: introOfferingsImage.url,
+						width: introOfferingsImage.width,
+						height: introOfferingsImage.height,
+						alt: introOfferingsImage.alt,
+					},
+					list: introOfferings,
+				}}
 				video={{
 					youtubeId: _introVideo?.youtubeId,
 					thumbnail: _introVideo?.thumbnail?.url,

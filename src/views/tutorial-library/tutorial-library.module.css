@@ -1,0 +1,41 @@
+.pageTitle {
+	margin-bottom: 24px;
+}
+
+.inputFilterSection {
+	display: flex;
+	flex-direction: row;
+	gap: 16px;
+	margin-bottom: 16px;
+
+	& .input {
+		flex-grow: 1;
+		margin-bottom: 0;
+	}
+
+	@media (--dev-dot-tablet-down) {
+		flex-direction: column;
+	}
+}
+
+.mobileFiltersControls {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+	margin-bottom: 16px;
+}
+
+.exitIcon {
+	color: var(--token-color-foreground-primary);
+	appearance: none;
+	background: unset;
+	border: unset;
+	padding: 0;
+	height: min-content;
+	display: block;
+	margin-left: auto;
+
+	&:hover {
+		cursor: pointer;
+	}
+}

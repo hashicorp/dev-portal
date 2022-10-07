@@ -1,11 +1,9 @@
 import { AUTH_ENABLED } from 'hooks/use-authentication'
 import { useTutorialProgress } from 'hooks/progress'
-import {
-	progressStatusToPercent,
-	progressStatusToAriaLabel,
-} from 'lib/learn-client/api/progress'
+import { progressStatusToAriaLabel } from 'lib/learn-client/api/progress'
 import { TutorialProgressStatus } from 'lib/learn-client/types'
 import { TutorialCardBookmarkButton } from 'components/bookmark-button'
+import { CardEyebrowText } from 'components/card/components'
 import TutorialCard, { TutorialCardPropsWithId } from '..'
 import ProgressIconAndLabel from '../components/progress-icon-and-label'
 import { getSpeakableDuration } from './build-aria-label'
@@ -54,7 +52,7 @@ export function TutorialCardWithAuthElements({
 					{shouldRenderProgress ? (
 						<ProgressIconAndLabel status={tutorialProgressStatus} />
 					) : (
-						<span>{restProps.duration}</span>
+						<CardEyebrowText>{restProps.duration}</CardEyebrowText>
 					)}
 					{/** Hide from prod until auth is enabled */}
 					{AUTH_ENABLED ? (

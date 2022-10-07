@@ -28,7 +28,13 @@ export interface DocsViewProps {
 	 * the `enable_product_docs_search` feature flag is enabled.
 	 */
 	hideSearch?: boolean
+
 	versions?: VersionSelectItem[]
+
+	/**
+	 * An optional, human-readable name to be rendered where the section is referenced as a versioned project
+	 */
+	projectName?: string
 }
 
 export type ProductsToPrimitivesMap = Record<
