@@ -1,4 +1,4 @@
-name: Cache .io & tutorial paths
+name: Warm Developer Cache
 on: [deployment_status]
 
 jobs:
@@ -15,5 +15,5 @@ jobs:
         run: npm install --global npm@8
       - name: Install dependencies
         run: npm ci
-      - name: Cache .io sites and tutorial paths
-        run: npx hc-tools ./scripts/warm-dotio-cache.ts
+      - name: Cache .io sites, docs paths, and tutorial paths
+        run: npx hc-tools ./scripts/warm-cache.ts
