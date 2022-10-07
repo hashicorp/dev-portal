@@ -132,16 +132,27 @@ export function getStaticGenerationFunctions<
 
 	return {
 		getStaticPaths: async () => {
-			let paths = await getLoader().loadStaticPaths()
+			// let paths = await getLoader().loadStaticPaths()
 
 			if (isDeployPreview() && !isDeployPreview(productSlugForLoader)) {
 				// do not statically render any other products if we are in a deploy preview for another product
-				paths = []
+				return {
+					fallback: 'blocking',
+					paths: [],
+				}
 			}
+
+			const limit = __config.dev_dot.max_static_paths ?? 0
+			const pathPrefix = `/${product.slug}/${basePath}`
+
+			const { result } = await fetch(
+				`https://content.hashicorp.com/api/static_paths?product=developer&param=page&limit=${limit}&path_prefix=${pathPrefix}`
+			).then((res) => res.json())
 
 			return {
 				fallback: 'blocking',
-				paths: paths.slice(0, __config.dev_dot.max_static_paths ?? 0),
+				// paths: paths.slice(0, __config.dev_dot.max_static_paths ?? 0),
+				paths: result?.paths ?? [],
 			}
 		},
 		getStaticProps: async (ctx) => {
