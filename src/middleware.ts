@@ -44,8 +44,6 @@ function setHappyKitCookie(
  */
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	let response: NextResponse
-	const edgeFlags = await getEdgeFlags({ request: req })
-	const { flags, cookie } = edgeFlags
 	const label = `[middleware] ${req.nextUrl.pathname}`
 	console.time(label)
 
@@ -152,26 +150,45 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 	console.timeEnd(label)
 
-	if (product === 'vault' && req.nextUrl.pathname === '/' && flags?.testFlag) {
-		const url = req.nextUrl.clone()
-		url.pathname = '/_proxied-dot-io/vault/without-cta-links'
-		response = NextResponse.rewrite(url)
-	}
+	if (
+		['vault', 'packer', 'consul'].includes(product) &&
+		['/'].includes(req.nextUrl.pathname)
+	) {
+		const edgeFlags = await getEdgeFlags({ request: req })
+		const { flags, cookie } = edgeFlags
+		if (
+			product === 'vault' &&
+			req.nextUrl.pathname === '/' &&
+			flags?.testFlag
+		) {
+			const url = req.nextUrl.clone()
+			url.pathname = '/_proxied-dot-io/vault/without-cta-links'
+			response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+		}
 
-	if (product === 'packer' && req.nextUrl.pathname === '/' && flags?.testFlag) {
-		const url = req.nextUrl.clone()
-		url.pathname = '/_proxied-dot-io/packer/without-cta-links'
-		response = NextResponse.rewrite(url)
-	}
+		if (
+			product === 'packer' &&
+			req.nextUrl.pathname === '/' &&
+			flags?.testFlag
+		) {
+			const url = req.nextUrl.clone()
+			url.pathname = '/_proxied-dot-io/packer/without-cta-links'
+			response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+		}
 
-	if (product === 'consul' && req.nextUrl.pathname === '/' && flags?.testFlag) {
-		const url = req.nextUrl.clone()
-		url.pathname = '/_proxied-dot-io/consul/without-cta-links'
-		response = NextResponse.rewrite(url)
+		if (
+			product === 'consul' &&
+			req.nextUrl.pathname === '/' &&
+			flags?.testFlag
+		) {
+			const url = req.nextUrl.clone()
+			url.pathname = '/_proxied-dot-io/consul/without-cta-links'
+			response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+		}
 	}
 
 	// Continue request processing
-	return setHappyKitCookie(cookie.args, setGeoCookie(req, response))
+	return setGeoCookie(req, response)
 }
 
 export const config = {
