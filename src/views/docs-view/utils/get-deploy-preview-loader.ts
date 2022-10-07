@@ -72,7 +72,7 @@ export function getDeployPreviewLoader({
 			// - images reside in `website/img` rather than `website/public` (Next.js serves static assets from `public`)
 			// - TFE/C content exclusion markdown comments are used
 			const remarkTerraformPlugins = []
-			if (currentRootDocsPath.productSlugForLoader?.match(/(^terraform-)/i)) {
+			if (currentRootDocsPath.productSlugForLoader?.match(/^terraform/i)) {
 				remarkTerraformPlugins.push(
 					remarkRewriteAssets({
 						product: currentRootDocsPath.productSlugForLoader,
