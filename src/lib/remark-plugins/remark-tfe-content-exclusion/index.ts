@@ -32,7 +32,6 @@ export const remarkTfeContentExclusion: unified.Pluggable<
 > = (params) => {
 	const { version } = params
 	return function visitor(root: Parent) {
-		console.log(root)
 		let begin: string | null = null
 		let end: string | null = null
 		const BEGIN_REGEX = /\s+begin:\s+/i
