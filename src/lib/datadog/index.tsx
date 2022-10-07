@@ -29,7 +29,7 @@ const datadogScriptBody = `(function(h,o,u,n,d) {
      ${COMMIT_SHA ? `version: '${COMMIT_SHA}',` : ''}
      sampleRate: 100,
      premiumSampleRate: 0,
-		 sessionReplaySampleRate: 0,
+     sessionReplaySampleRate: 0,
      trackInteractions: true,
      defaultPrivacyLevel: 'mask-user-input'
    })
