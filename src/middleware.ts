@@ -150,6 +150,9 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 	console.timeEnd(label)
 
+	/**
+	 * We are running A/B tests on a subset of routes, so we are limiting the call to resolve flags from HappyKit to only those routes. This limits the impact of any additional latency to the routes which need the data.
+	 */
 	if (
 		['vault', 'packer', 'consul'].includes(product) &&
 		['/'].includes(req.nextUrl.pathname)
