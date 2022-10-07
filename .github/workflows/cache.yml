@@ -17,3 +17,5 @@ jobs:
         run: npm ci
       - name: Cache .io sites, docs paths, and tutorial paths
         run: npx hc-tools ./scripts/warm-cache.ts
+        env:
+          REVALIDATE_TOKEN: ${{ secrets.REVALIDATE_TOKEN }}

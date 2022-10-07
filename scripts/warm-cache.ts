@@ -157,27 +157,34 @@ async function getTutorialUrlsToCache(product: ProductSlug): Promise<string[]> {
 			)
 		).flat(1)
 
+		console.log('Triggering revalidate for documentation pages')
+		const developerDocsCachePromise = warmDeveloperDocsCache()
+
 		const urls = [...docsUrls, ...tutorialUrls]
 		console.log(`number of urls to cache: ${urls.length}`)
-		await pMap(
-			urls,
-			async (url) => {
-				const res = await fetch(url)
-				// If a popular page is returning a 404, that's _probably_ okay, so it
-				// doesn't warrant a failing CI run, but it does warrant being logged.
-				if (res.status === 404) {
-					console.log(`unexpected 404 for ${url}`)
-				} else if (res.status !== 200) {
-					throw new Error(`unexpected ${res.status} for ${url}`)
-				} else {
-					console.log(`cached ${url}`)
-				}
-			},
-			{ concurrency: 16, stopOnError: false }
-		)
 
-		console.log('Triggering revalidate for documentation pages')
-		await warmDeveloperDocsCache()
+		try {
+			await pMap(
+				urls,
+				async (url) => {
+					const res = await fetch(url)
+					// If a popular page is returning a 404, that's _probably_ okay, so it
+					// doesn't warrant a failing CI run, but it does warrant being logged.
+					if (res.status === 404) {
+						console.log(`unexpected 404 for ${url}`)
+					} else if (res.status !== 200) {
+						throw new Error(`unexpected ${res.status} for ${url}`)
+					} else {
+						console.log(`cached ${url}`)
+					}
+				},
+				{ concurrency: 16, stopOnError: false }
+			)
+		} catch (err) {
+			console.error('Error warming specific URLs:', err)
+		}
+
+		await developerDocsCachePromise
 
 		process.exit()
 	} catch (err) {
