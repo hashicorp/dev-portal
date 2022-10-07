@@ -21,8 +21,8 @@ Here is some content that should only ever be displayed for TFC
 		})
 
 		const { container, getByText } = render(<MDXRemote {...mdxSource} />)
-		expect(getByText('BEGIN: TFC:only')).toBeInTheDocument()
-		expect(getByText('END:   TFC:only')).toBeInTheDocument()
+		expect(getByText(/BEGIN:\s+TFC:only/i)).toBeInTheDocument()
+		expect(getByText(/END:\s+TFC:only/i)).toBeInTheDocument()
 
 		expect(container).toMatchInlineSnapshot(`
 		<div>
