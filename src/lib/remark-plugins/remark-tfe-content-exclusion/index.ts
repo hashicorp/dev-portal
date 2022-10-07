@@ -17,7 +17,11 @@ export interface TfeContentExclusionOptions {
 	version: string
 }
 /**
- * A remark plugin to enable
+ * A unified plugin to enable previewing of TFE content exclusion.
+ * Given content-exclusion markdown comments, this validates that
+ * they exist in BEGIN/END pairs, and injects DOM elements around
+ * content that may be hidden.
+ *
  * @usage
  * ```typescript
  * remarkPlugins: (params, version) => [
