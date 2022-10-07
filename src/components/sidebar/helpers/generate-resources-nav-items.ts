@@ -50,6 +50,36 @@ const generateAdditionalResources = (productSlug?: ProductSlug) => {
 }
 
 /**
+ * Given a product slug,
+ * Return a link to the Tutorials Library with filters applied
+ * that correspond to that product.
+ */
+function getTutorialLibraryUrl(productSlug?: ProductSlug) {
+	const baseUrl = '/tutorials/library'
+	if (!productSlug) {
+		return baseUrl
+	}
+	const products = [
+		'boundary',
+		'consul',
+		'nomad',
+		'packer',
+		'terraform',
+		'vagrant',
+		'vault',
+		'waypoint',
+	]
+	const editions = ['hcp']
+	if (products.includes(productSlug)) {
+		return `${baseUrl}/?product=${productSlug}`
+	} else if (editions.includes(productSlug)) {
+		return `${baseUrl}/?edition=${productSlug}`
+	} else {
+		return baseUrl
+	}
+}
+
+/**
  * Generates the sidebar nav items for the Resources section of the sidebar.
  * Optionally accepts a Product slug for customization of links.
  */
@@ -58,6 +88,10 @@ const generateResourcesNavItems = (productSlug?: ProductSlug) => {
 
 	return [
 		{ heading: 'Resources' },
+		{
+			title: 'Tutorial Library',
+			href: getTutorialLibraryUrl(productSlug),
+		},
 		{
 			title: 'Community Forum',
 			href: productSlug
