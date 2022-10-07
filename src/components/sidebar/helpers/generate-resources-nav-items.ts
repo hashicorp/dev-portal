@@ -1,4 +1,9 @@
 import { ProductSlug } from 'types/products'
+import {
+	EDITIONS,
+	VALID_EDITION_SLUGS_FOR_FILTERING,
+	VALID_PRODUCT_SLUGS_FOR_FILTERING,
+} from 'views/tutorial-library/constants'
 
 const DEFAULT_COMMUNITY_FORUM_LINK = 'https://discuss.hashicorp.com/'
 const DEFAULT_GITHUB_LINK = 'https://github.com/hashicorp'
@@ -59,20 +64,9 @@ function getTutorialLibraryUrl(productSlug?: ProductSlug) {
 	if (!productSlug) {
 		return baseUrl
 	}
-	const products = [
-		'boundary',
-		'consul',
-		'nomad',
-		'packer',
-		'terraform',
-		'vagrant',
-		'vault',
-		'waypoint',
-	]
-	const editions = ['hcp']
-	if (products.includes(productSlug)) {
+	if (VALID_PRODUCT_SLUGS_FOR_FILTERING.includes(productSlug)) {
 		return `${baseUrl}/?product=${productSlug}`
-	} else if (editions.includes(productSlug)) {
+	} else if (VALID_EDITION_SLUGS_FOR_FILTERING.includes(productSlug)) {
 		return `${baseUrl}/?edition=${productSlug}`
 	} else {
 		return baseUrl
