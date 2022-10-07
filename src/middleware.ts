@@ -98,7 +98,10 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 			redirectUrl.pathname = `${product}${url.pathname}`
 			redirectUrl.search = url.search
 
-			const response = NextResponse.redirect(redirectUrl)
+			// The GA redirects should be permanent, so we explicitly set a 308 status if this is the case
+			const redirectStatus = shouldApplyGARedirect ? 308 : 307
+
+			const response = NextResponse.redirect(redirectUrl, redirectStatus)
 
 			return response
 		}
