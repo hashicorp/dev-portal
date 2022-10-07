@@ -28,11 +28,11 @@ const datadogScriptBody = `(function(h,o,u,n,d) {
      env: '${ENV}', 
      ${COMMIT_SHA ? `version: '${COMMIT_SHA}',` : ''}
      sampleRate: 100,
-     premiumSampleRate: 100,
+     premiumSampleRate: 0,
+     sessionReplaySampleRate: 0,
      trackInteractions: true,
      defaultPrivacyLevel: 'mask-user-input'
    })
-   DD_RUM.startSessionReplayRecording()
  })`
 
 function DatadogHeadTag() {

@@ -1,11 +1,14 @@
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
-import CardLink from 'components/card-link'
 import {
+	CardDescription,
 	CardEyebrow,
-	CardHeading,
-	CardBody,
-	CardBadges,
-} from 'components/tutorial-collection-cards'
+	CardEyebrowText,
+	CardFooter,
+	CardLogo,
+	CardTitle,
+} from 'components/card/components'
+import CardLink from 'components/card-link'
+import { CardBadges } from 'components/tutorial-collection-cards'
 import CollectionCardWithAuthElements from './components/with-auth-elements'
 import {
 	CollectionCardProps,
@@ -32,23 +35,30 @@ function CollectionCard({
 		tutorialCount !== 1 ? 's' : ''
 	}`
 	return (
-		<CardLink ariaLabel={heading} href={url} className={s.root}>
-			<CardEyebrow>
-				{eyebrowSlot || (
-					<>
-						<IconCollections16 />
-						<span>{eyebrowText}</span>
-					</>
-				)}
-			</CardEyebrow>
-			{hasLogo && (
-				<span className={s.logoContainer}>
-					<CompanyLogo name={logo} />
-				</span>
-			)}
-			<CardHeading level={3} text={heading} screenReaderOnly={hasLogo} />
-			<CardBody text={description} />
-			<CardBadges badges={productsUsed} />
+		<CardLink ariaLabel={heading} href={url}>
+			<div className={s.root}>
+				<div>
+					<CardEyebrow>
+						{eyebrowSlot || (
+							<>
+								<IconCollections16 />
+								<CardEyebrowText>{eyebrowText}</CardEyebrowText>
+							</>
+						)}
+					</CardEyebrow>
+					{hasLogo ? (
+						<CardLogo>
+							<CompanyLogo name={logo} />
+						</CardLogo>
+					) : (
+						<CardTitle text={heading} />
+					)}
+					<CardDescription text={description} />
+				</div>
+				<CardFooter>
+					<CardBadges badges={productsUsed} />
+				</CardFooter>
+			</div>
 		</CardLink>
 	)
 }
