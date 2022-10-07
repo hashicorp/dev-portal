@@ -43,4 +43,17 @@ describe('rewriteDocsUrl', () => {
 			expect(rewriteDocsUrl(item.input, hcpProductData)).toBe(item.expected)
 		})
 	})
+
+	describe('does not rewrite folder-relative URLs', () => {
+		const testData = [
+			{ input: './docker', expected: './docker' },
+			{ input: './lambda', expected: './lambda' },
+		]
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		const hcpProductData = require(`data/hcp.json`)
+
+		test.each(testData)('Testing subpath', (item) => {
+			expect(rewriteDocsUrl(item.input, hcpProductData)).toBe(item.expected)
+		})
+	})
 })
