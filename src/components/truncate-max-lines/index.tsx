@@ -1,14 +1,16 @@
-import s from './truncate-max-lines.module.css'
+import classNames from 'classnames'
 import { TruncateMaxLinesProps } from './types'
+import s from './truncate-max-lines.module.css'
 
 function TruncateMaxLines({
 	children,
-	maxLines,
+	className,
 	lineHeight,
+	maxLines,
 }: TruncateMaxLinesProps) {
 	return (
 		<span
-			className={s.root}
+			className={classNames(s.root, className)}
 			style={
 				{
 					'--max-lines': maxLines,

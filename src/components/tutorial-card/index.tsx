@@ -1,8 +1,12 @@
 import CardLink from 'components/card-link'
 import {
+	CardDescription,
 	CardEyebrow,
-	CardHeading,
-	CardBody,
+	CardEyebrowText,
+	CardFooter,
+	CardTitle,
+} from 'components/card/components'
+import {
 	CardBadges,
 	CardBadgeOption,
 } from 'components/tutorial-collection-cards'
@@ -50,11 +54,19 @@ function TutorialCard({
 	})
 
 	return (
-		<CardLink href={url} className={s.root} ariaLabel={ariaLabel}>
-			<CardEyebrow className={s.eyebrow}>{eyebrowSlot || duration}</CardEyebrow>
-			<CardHeading level={3} text={heading} />
-			<CardBody text={description} />
-			<CardBadges badges={badges} />
+		<CardLink ariaLabel={ariaLabel} href={url}>
+			<div className={s.root}>
+				<div>
+					<CardEyebrow className={s.eyebrow}>
+						{eyebrowSlot || <CardEyebrowText>{duration}</CardEyebrowText>}
+					</CardEyebrow>
+					<CardTitle text={heading} />
+					<CardDescription text={description} />
+				</div>
+				<CardFooter>
+					<CardBadges badges={badges} />
+				</CardFooter>
+			</div>
 		</CardLink>
 	)
 }
