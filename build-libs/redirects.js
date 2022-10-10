@@ -10,6 +10,7 @@ const {
 } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
 const { isContentDeployPreview } = require('../src/lib/env-checks')
+const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 const { loadHashiConfigForEnvironment } = require('../config')
 
 require('isomorphic-unfetch')
@@ -303,7 +304,10 @@ function groupSimpleRedirects(redirects) {
 async function redirectsConfig() {
 	const productRedirects = await buildProductRedirects()
 	const devPortalRedirects = await buildDevPortalRedirects()
+	const proxiedSiteRedirects = await loadProxiedSiteRedirects()
+
 	const { simpleRedirects, globRedirects } = splitRedirectsByType([
+		...proxiedSiteRedirects,
 		...productRedirects,
 		...devPortalRedirects,
 	])

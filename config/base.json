@@ -30,8 +30,7 @@
 			"packer",
 			"terraform",
 			"vagrant",
-			"vault",
-			"waypoint"
+			"vault"
 		],
 		"non_product_mobile_menu_routes": ["/", "/_error"],
 		"datadog_config": {
