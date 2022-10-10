@@ -7,13 +7,12 @@
 		"beta_product_slugs": [
 			"boundary",
 			"consul",
-      "hcp",
+			"hcp",
 			"nomad",
-      "packer",
+			"packer",
 			"terraform",
 			"vagrant",
-			"vault",
-			"waypoint"
+			"vault"
 		],
 		"datadog_config": {
 			"applicationId": "4486817b-44b8-4e6c-b6a4-cef83e48cf46",
