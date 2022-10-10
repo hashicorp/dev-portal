@@ -17,10 +17,13 @@ interface CurrentFilterItemProps {
 	refine: (refinement: Refinement) => void
 }
 
+const IS_DEV = process.env.NODE_ENV !== 'production'
+
 function CurrentFilterItem({ refinement, refine }: CurrentFilterItemProps) {
 	const { label, type, attribute } = refinement
 
-	let labelText = label
+	let labelText
+
 	// This is a "Resource" filter
 	if (type === 'disjunctive') {
 		const resource = RESOURCES.find(
@@ -31,11 +34,27 @@ function CurrentFilterItem({ refinement, refine }: CurrentFilterItemProps) {
 
 	if (attribute === 'edition') {
 		const edition = EDITIONS.find((edition) => edition.value === label)
-		labelText = edition.label
+		labelText = edition?.label
 	}
 
 	if (attribute === 'products') {
 		labelText = productSlugsToNames[label]
+	}
+
+	/**
+	 * We don't want to add a Tag for a filter we couldn't find a valid label for.
+	 *
+	 * Example: `edition=nope` is not a valid filter we support.
+	 */
+	if (!labelText) {
+		if (IS_DEV) {
+			// TODO - render something users can see?
+			console.error(
+				'[CurrentFilterItem] Found an unsupported refinement:',
+				JSON.stringify(refinement)
+			)
+		}
+		return null
 	}
 
 	return (
