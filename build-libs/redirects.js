@@ -22,7 +22,7 @@ const config = loadHashiConfigForEnvironment()
 const PROXIED_PRODUCT = getProxiedProductSlug()
 
 // copied from src/constants/hostname-map.ts so it's usable at build-time in the next config
-export const HOSTNAME_MAP = {
+const HOSTNAME_MAP = {
 	'www.boundaryproject.io': 'boundary',
 	'test-bd.hashi-mktg.com': 'boundary',
 
