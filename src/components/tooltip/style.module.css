@@ -6,17 +6,17 @@ as .arrowContainer is rendered into a Portal.
 */
 
 .theme-light {
-  --background: var(--token-color-surface-primary);
-  --foreground: var(--token-color-foreground-strong);
+	--background: var(--token-color-surface-primary);
+	--foreground: var(--token-color-foreground-strong);
 }
 
 .theme-dark {
-  --background: var(--token-color-foreground-strong);
-  --foreground: var(--token-color-surface-primary);
+	--background: var(--token-color-foreground-strong);
+	--foreground: var(--token-color-surface-primary);
 }
 
 .arrowContainer {
-  /**
+	/**
    * Note: --top, --left, --offset, & --size are set in JS,
    * to allow for dynamic, collision-free positioning.
    *
@@ -32,21 +32,21 @@ as .arrowContainer is rendered into a Portal.
    *   clip inset at the top, to ensure we don't clip off the top corner
    *   of the .arrow element, which protrudes a bit.
    */
-  clip-path: inset(-2px 0 50% 0);
-  height: var(--size);
-  left: var(--left);
-  position: absolute;
-  transform: translateY(-48%); /* not 50% avoids off-by-a-bit rounding issues */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: var(--top);
-  width: var(--size);
-  z-index: 2;
+	clip-path: inset(-2px 0 50% 0);
+	height: var(--size);
+	left: var(--left);
+	position: absolute;
+	transform: translateY(-48%); /* not 50% avoids off-by-a-bit rounding issues */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: var(--top);
+	width: var(--size);
+	z-index: 2;
 }
 
 .arrow {
-  /**
+	/**
    * We want to set the width of this .arrow relative to the parent width,
    * such that when .arrow is rotated 45˚, its diagonal will fully
    * span the parent container's width.
@@ -68,26 +68,27 @@ as .arrowContainer is rendered into a Portal.
    * a = sqrt(5000)
    * a ~= 70.71
    */
-  --square-size: 70.71%;
+	--square-size: 70.71%;
 
-  background: var(--background);
-  border-top-left-radius: 2px;
-  width: var(--square-size);
-  height: var(--square-size);
-  transform: rotate(45deg);
-  box-shadow: var(--token-surface-higher-box-shadow);
+	background: var(--background);
+	border-top-left-radius: 2px;
+	width: var(--square-size);
+	height: var(--square-size);
+	transform: rotate(45deg);
+	box-shadow: var(--token-surface-higher-box-shadow);
 }
 
 .tooltip {
-  background: var(--background);
-  border-radius: 5px;
-  box-shadow: var(--token-surface-higher-box-shadow);
-  color: var(--foreground);
-  composes: hds-typography-body-200 from global;
-  font-size: 0.875rem;
-  max-width: min(75vw, 20em);
-  padding: 8px 12px;
-  pointer-events: none;
-  position: absolute;
-  z-index: 1;
+	background: var(--background);
+	border-radius: 5px;
+	box-shadow: var(--token-surface-higher-box-shadow);
+	color: var(--foreground);
+	font-family: var(--token-typography-body-200-font-family);
+	font-size: var(--token-typography-body-200-font-size);
+	line-height: var(--token-typography-body-200-line-height);
+	max-width: min(75vw, 20em);
+	padding: 8px 12px;
+	pointer-events: none;
+	position: absolute;
+	z-index: 1;
 }

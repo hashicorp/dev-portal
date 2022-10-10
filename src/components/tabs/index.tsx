@@ -68,13 +68,14 @@ const Tabs = ({
 
 	return (
 		<TabNestingProvider>
-			<div ref={overflowTargetRef}>
+			<div>
 				<div
 					className={classNames(s.tabControls, s[`variant--${variant}`], {
 						[s.isCheckingOverflow]: hasOverflow === null,
 						[s.showAnchorLine]: showAnchorLine,
 						[s.allowNestedStyles]: allowNestedStyles,
 					})}
+					ref={overflowTargetRef}
 				>
 					<TabControls
 						activeTabIndex={activeTabIndex}
@@ -92,18 +93,13 @@ const Tabs = ({
 						<div
 							aria-hidden={!isActive}
 							aria-labelledby={tabId}
-							className={classNames(
-								s.tabPanel,
-								'g-focus-ring-from-box-shadow',
-								{
-									[s.isNested]: isNested,
-									[s.allowNestedStyles]: allowNestedStyles,
-								}
-							)}
+							className={classNames(s.tabPanel, {
+								[s.isNested]: isNested,
+								[s.allowNestedStyles]: allowNestedStyles,
+							})}
 							id={panelId}
 							key={panelId}
 							role="tabpanel"
-							tabIndex={0}
 						>
 							{content}
 						</div>

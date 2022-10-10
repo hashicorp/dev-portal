@@ -10,3 +10,4 @@ src/data/_rewrites.generated.json
 test-results/
 playwright-report/
 tsconfig.tsbuildinfo
+src/.generated/

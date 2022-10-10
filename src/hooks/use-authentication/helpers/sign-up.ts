@@ -1,6 +1,6 @@
 import { signIn, SignInOptions } from 'next-auth/react'
 import { ValidAuthProviderId } from 'types/auth'
-import { DEFAULT_PROVIDER_ID, DEFAULT_SIGN_IN_CALLBACK_URL } from '../'
+import { DEFAULT_PROVIDER_ID } from '../'
 
 interface SignUpAuthParams extends Record<string, string> {
 	screen_hint?: string
@@ -14,14 +14,9 @@ const signUp = (
 	options: SignInOptions = {},
 	authParams: SignUpAuthParams = {}
 ) => {
-	const { callbackUrl = DEFAULT_SIGN_IN_CALLBACK_URL, ...restOptions } = options
 	const { screen_hint = 'signup', ...restParams } = authParams
 
-	return signIn(
-		provider,
-		{ callbackUrl, ...restOptions },
-		{ screen_hint, ...restParams }
-	)
+	return signIn(provider, options, { screen_hint, ...restParams })
 }
 
 export { signUp }

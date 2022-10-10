@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode } from 'react'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import { IconCheckCircleFill16 } from '@hashicorp/flight-icons/svg-react/check-circle-fill-16'
+import { CardEyebrowText } from 'components/card/components'
 import ProgressBar from 'components/progress-bar'
 import { CollectionProgressStatusSectionProps } from './types'
 import s from './collection-progress-status-section.module.css'
@@ -107,7 +108,7 @@ function CompleteIconAndLabel({ statusLabel }: { statusLabel: string }) {
 	return (
 		<div className={s.completeIconAndLabel}>
 			<CompleteIcon />
-			<div className={s.statusLabel}>{statusLabel}</div>
+			<CardEyebrowText>{statusLabel}</CardEyebrowText>
 		</div>
 	)
 }
@@ -127,7 +128,7 @@ function CountIconAndLabel({ statusLabel }: { statusLabel: string }) {
 	return (
 		<div className={s.countIconAndLabel}>
 			<CountIcon />
-			<div className={s.statusLabel}>{statusLabel}</div>
+			<CardEyebrowText>{statusLabel}</CardEyebrowText>
 		</div>
 	)
 }

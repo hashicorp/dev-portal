@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
+import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
@@ -64,7 +65,12 @@ const AuthenticationControls = () => {
 	if (showUnauthenticatedUI) {
 		content = (
 			<>
-				<Button onClick={() => signIn()} text="Sign In" />
+				<Button
+					icon={<IconSignIn16 />}
+					iconPosition="trailing"
+					onClick={() => signIn()}
+					text="Sign In"
+				/>
 				<StandaloneLink
 					className={s.signUpLink}
 					textClassName={s.signUpLinkText}
@@ -108,14 +114,13 @@ const NavigationHeader = () => {
 		<header className={s.root}>
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
+				<GiveFeedbackButton className="g-hide-with-mobile-menu" />
 				{GLOBAL_SEARCH_ENABLED ? (
 					<CommandBarActivator
 						leadingIcon={<IconSearch16 />}
 						visualLabel="Search"
 					/>
-				) : (
-					<GiveFeedbackButton />
-				)}
+				) : null}
 				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>

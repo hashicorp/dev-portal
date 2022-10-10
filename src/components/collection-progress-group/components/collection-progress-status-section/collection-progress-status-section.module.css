@@ -14,15 +14,6 @@
 }
 
 /*
-Used for all progress states
-*/
-.statusLabel {
-	composes: hds-typography-body-100 from global;
-	composes: hds-font-weight-medium from global;
-	color: var(--token-color-foreground-primary);
-}
-
-/*
 Incomplete elements
 */
 .countIconAndLabel {
@@ -34,7 +25,7 @@ Incomplete elements
 
 .countIcon {
 	display: block;
-	color: var(--token-color-foreground-primary);
+	color: var(--token-color-foreground-faint);
 	width: 14px;
 	height: 14px;
 }

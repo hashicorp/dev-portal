@@ -2,7 +2,7 @@
 	"featuredCollectionsSlugs": [
 		"consul/get-started-hcp",
 		"consul/get-started-kubernetes",
-		"consul/getting-started"
+		"consul/get-started-vms"
 	],
 	"featuredTutorialsSlugs": [
 		"consul/kubernetes-api-gateway",
@@ -30,7 +30,7 @@
 		},
 		{
 			"title": "HCP Consul",
-			"fullPath": "/consul/tutorials/cloud-get-started/get-started"
+			"fullPath": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
 		},
 		{
 			"divider": true
