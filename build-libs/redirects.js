@@ -307,7 +307,7 @@ async function redirectsConfig() {
 	const proxiedSiteRedirects = await loadProxiedSiteRedirects()
 
 	const { simpleRedirects, globRedirects } = splitRedirectsByType([
-    ...proxiedSiteRedirects,
+		...proxiedSiteRedirects,
 		...productRedirects,
 		...devPortalRedirects,
 	])
