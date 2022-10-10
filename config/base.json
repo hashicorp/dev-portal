@@ -44,7 +44,7 @@
 		"max_static_paths": 10
 	},
 	"flags": {
-		"enable_auth": false,
+		"enable_auth": true,
 		"enable_datadog": true,
 		"enable_io_beta_cta": true,
 		"enable_product_docs_search": true,
