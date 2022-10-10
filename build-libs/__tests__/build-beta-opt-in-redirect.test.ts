@@ -100,22 +100,6 @@ describe('buildBetaOptInRedirect', () => {
 		    "permanent": false,
 		    "source": "/:base(docs|api-docs|intro|tutorials|downloads|downloads)/:path*",
 		  },
-		  Object {
-		    "destination": "https://developer.hashicorp.com/waypoint/:base/:path*",
-		    "has": Array [
-		      Object {
-		        "key": "waypoint-io-beta-opt-in",
-		        "type": "cookie",
-		        "value": "true",
-		      },
-		      Object {
-		        "type": "host",
-		        "value": "(www\\\\.waypointproject\\\\.io|test-wp\\\\.hashi-mktg\\\\.com)",
-		      },
-		    ],
-		    "permanent": false,
-		    "source": "/:base(commands|docs|plugins|tutorials|downloads)/:path*",
-		  },
 		]
 	`)
 	})
