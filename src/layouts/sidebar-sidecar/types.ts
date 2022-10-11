@@ -17,6 +17,7 @@ interface BaseProps {
 	AlternateSidebar?: (props: any) => ReactElement
 	optInOutSlot?: ReactElement
 	versions?: VersionSelectItem[]
+	showScrollProgress?: boolean
 }
 
 /**
@@ -32,7 +33,7 @@ type PropsForSidecar =
 	  }
 	| {
 			headings?: never
-			sidecarSlot: ReactElement
+			sidecarSlot: ReactElement | null
 	  }
 
 /**

@@ -2,29 +2,11 @@ import { ReactElement } from 'react'
 
 export interface BadgeProps {
 	/**
-	 * The value of the `id` of the element that describes the badge. The
-	 * describing element does not have to be visible. If there are multiple
-	 * labeling elements, this can be be a comma-separated list of `id`s.
-	 *
-	 * See: https://www.w3.org/TR/wai-aria-1.2/#aria-describedby
-	 */
-	ariaDescribedBy?: string
-
-	/**
-	 * A non-visual label accessible and descriptive label for the badge.
+	 * A non-visual and descriptive accessible label for the badge.
 	 *
 	 * See: https://www.w3.org/TR/wai-aria-1.2/#aria-label
 	 */
 	ariaLabel?: string
-
-	/**
-	 * The value of the `id` of the element that labels the badge. The labeling
-	 * element does not have to be visible. If there are multiple labeling
-	 * elements, this can be be a comma-separated list of `id`s.
-	 *
-	 * See: https://www.w3.org/TR/wai-aria-1.2/#aria-labelledby
-	 */
-	ariaLabelledBy?: string
 
 	/**
 	 * A string of one or more classnames. Is appended to list of classnames

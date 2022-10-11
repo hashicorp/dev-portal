@@ -14,11 +14,16 @@ import { isDeployPreview } from 'lib/env-checks'
  * preview is actively supported).
  */
 const remotePluginsFile = 'data/plugins-manifest.json'
+const contentBranch = 'stable-website'
 
 /**
  * Since this /plugins landing page does use content from our API,
  * we can use the same getStaticProps function as all other Dev Dot docs routes,
  * with some modifications for the sidebar data.
+ *
+ * Note: this means we end up sourcing the .mdx for this page from
+ * the latest content according to our content API. This is not
+ * guaranteed to match the `contentBranch` we use for remote plugins data.
  */
 const { getStaticProps: baseGetStaticProps } =
 	getRootDocsPathGenerationFunctions('packer', 'plugins', {
@@ -46,12 +51,13 @@ async function getStaticProps(ctx) {
 			rawNavData = await appendRemotePluginsNavData(
 				remotePluginsFile,
 				partialNavData,
-				''
+				'',
+				contentBranch
 			)
 		}
 
 		// Prepare nav data for client (such as adding `fullPath`)
-		const { preparedItems: navData } = prepareNavDataForClient({
+		const { preparedItems: navData } = await prepareNavDataForClient({
 			basePaths: ['packer', 'plugins'],
 			nodes: rawNavData,
 		})

@@ -11,7 +11,6 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 // Global imports
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { isDeployPreview } from 'lib/env-checks'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
@@ -30,7 +29,7 @@ import { EnrichedNavItem, MenuItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
-import { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
+import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -49,11 +48,7 @@ import { DocsViewPropOptions } from './utils/get-root-docs-path-generation-funct
  * "latestVersionRef" to the remote content loader config.
  */
 function getBetaLatestVersionRef(slug: string): string | undefined {
-	const hasDevPortalBranch = [
-		'vault',
-		'waypoint',
-		'cloud.hashicorp.com',
-	].includes(slug)
+	const hasDevPortalBranch = ['cloud.hashicorp.com'].includes(slug)
 	return hasDevPortalBranch ? 'dev-portal' : undefined
 }
 
@@ -97,12 +92,6 @@ export function getStaticGenerationFunctions<
 	options?: DocsViewPropOptions
 }): ReturnType<typeof _getStaticGenerationFunctions> {
 	/**
-	 * Beta products, defined in our config files, will source content from a
-	 * long-lived branch named 'dev-portal'
-	 */
-	const isBetaProduct = getIsBetaProduct(product.slug)
-
-	/**
 	 * Get the current `rootDocsPaths` object.
 	 *
 	 * @TODO - set `baseName` using `rootDocsPath`
@@ -121,9 +110,7 @@ export function getStaticGenerationFunctions<
 		 * "content_preview_branch", so even for products marked "beta",
 		 * "latestVersionRef" may end up being undefined.
 		 */
-		latestVersionRef: isBetaProduct
-			? getBetaLatestVersionRef(productSlugForLoader)
-			: undefined,
+		latestVersionRef: getBetaLatestVersionRef(productSlugForLoader),
 	}
 
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
@@ -246,10 +233,11 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Add fullPaths and auto-generated ids to navData
 			 */
-			const { preparedItems: navDataWithFullPaths } = prepareNavDataForClient({
-				basePaths: [product.slug, basePath],
-				nodes: navData,
-			})
+			const { preparedItems: navDataWithFullPaths } =
+				await prepareNavDataForClient({
+					basePaths: [product.slug, basePath],
+					nodes: navData,
+				})
 
 			/**
 			 * Figure out of a specific docs version is being viewed

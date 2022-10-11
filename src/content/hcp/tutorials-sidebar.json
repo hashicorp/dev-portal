@@ -11,7 +11,7 @@
 		{
 			"name": "HCP Consul",
 			"items": [
-				{ "name": "Quickstart", "collectionSlug": "consul/cloud-get-started" },
+				{ "name": "Quickstart", "collectionSlug": "consul/get-started-hcp" },
 				{
 					"name": "Production",
 					"collectionSlug": "consul/cloud-production"
@@ -42,6 +42,16 @@
 				{
 					"name": "Administration",
 					"collectionSlug": "boundary/hcp-administration",
+					"isBeta": true
+				}
+			]
+		},
+		{
+			"name": "HCP Waypoint",
+			"items": [
+				{
+					"name": "Runners",
+					"collectionSlug": "waypoint/runners",
 					"isBeta": true
 				}
 			]

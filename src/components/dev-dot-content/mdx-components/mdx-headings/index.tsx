@@ -1,5 +1,7 @@
+import { Children } from 'react'
 import classNames from 'classnames'
 import Heading, { HeadingProps } from 'components/heading'
+import MdxHeadingPermalink from '../mdx-heading-permalink'
 import s from './mdx-headings.module.css'
 
 /**
@@ -48,14 +50,24 @@ export function makeMdxHeadingElement(level: HeadingProps['level']) {
 	const { size, weight } = HEADING_LEVELS_TO_PROPS[level]
 
 	return function MdxHeading(props) {
+		const { children, ...rest } = props
 		return (
 			<Heading
-				{...props}
+				{...rest}
 				level={level}
 				className={fixedClassName}
 				size={size}
 				weight={weight}
-			/>
+			>
+				{/* This is a temporary solution to render an updated permalink element while our remark plugin continues to inject the current one. The full implementation will eventually live in this component, but it will require a larger update to the anchorLinks remark plugin.  We detect the injected permalink by the `__permalink-h` class which the remark plugin applies to the element. */}
+				{Children.map(children, (child) =>
+					child?.props?.className === '__permalink-h' && level !== 1 ? (
+						<MdxHeadingPermalink {...child.props} level={level} />
+					) : (
+						child
+					)
+				)}
+			</Heading>
 		)
 	}
 }

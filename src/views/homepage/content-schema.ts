@@ -33,8 +33,11 @@ interface MerchandisingContent {
 		description: string
 		ctaText: string
 	}
-	hashiconfGlobal: {
+	hcp: {
+		cardTitle: string
+		url: string
 		description: string
+		ctaText: string
 	}
 }
 const merchandisingSchema = Joi.object({
@@ -44,9 +47,12 @@ const merchandisingSchema = Joi.object({
 		description: Joi.string().required(),
 		ctaText: Joi.string().required(),
 	}).required(),
-	hashiconfGlobal: Joi.object({
+	hcp: Joi.object({
+		cardTitle: Joi.string().required(),
+		url: Joi.string().required(),
 		description: Joi.string().required(),
-	}),
+		ctaText: Joi.string().required(),
+	}).required(),
 })
 
 /**

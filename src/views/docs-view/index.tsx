@@ -3,7 +3,6 @@ import { MDXRemote } from 'next-mdx-remote'
 import { useCurrentProduct } from 'contexts'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
-import TabProvider from 'components/tabs/provider'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { DocsViewProps, ProductsToPrimitivesMap } from './types'
@@ -60,10 +59,14 @@ const SentinelEmbedded = dynamic(
 	() => import('@hashicorp/react-sentinel-embedded')
 )
 
+const HCPCallout = dynamic(
+	() => import('components/dev-dot-content/mdx-components/mdx-hcp-callout')
+)
+
 const productsToPrimitives: ProductsToPrimitivesMap = {
 	boundary: null,
 	consul: { ConfigEntryReference },
-	hcp: null,
+	hcp: { HCPCallout },
 	nomad: { Placement },
 	packer: { Badge, BadgesHeader, Checklist, PluginBadge },
 	sentinel: { SentinelEmbedded },
@@ -102,17 +105,15 @@ const DocsView = ({
 					</div>
 				) : null}
 				<NoIndexTagIfVersioned />
-				<TabProvider>
-					<MDXRemote
-						compiledSource={compiledSource}
-						components={{
-							...components,
-							wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
-						}}
-						lazy={lazy}
-						scope={scope}
-					/>
-				</TabProvider>
+				<MDXRemote
+					compiledSource={compiledSource}
+					components={{
+						...components,
+						wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
+					}}
+					lazy={lazy}
+					scope={scope}
+				/>
 			</DevDotContent>
 		</>
 	)

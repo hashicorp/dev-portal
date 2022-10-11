@@ -1,4 +1,5 @@
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import { productSlugs, productSlugsToHostNames } from 'lib/products'
 import { ProductData } from 'types/products'
 
 /**
@@ -101,8 +102,12 @@ export function rewriteDocsUrl(
 	inputUrl: string,
 	currentProduct: ProductData
 ): string {
-	// We only want to adjust internal URLs, so we return absolute URLs as-is
-	if (isAbsoluteUrl(inputUrl)) {
+	// We only want to adjust internal URLs, so we return absolute URLs, or anchor links, as-is
+	if (
+		isAbsoluteUrl(inputUrl) ||
+		inputUrl.startsWith('#') ||
+		inputUrl.startsWith('.')
+	) {
 		return inputUrl
 	}
 
@@ -110,6 +115,8 @@ export function rewriteDocsUrl(
 	const isCurrentProductDocsUrl = currentProduct.basePaths.some(
 		(basePath: string) => inputUrl.startsWith(`/${basePath}`)
 	)
+	const isProductPath = new RegExp(`^/(${productSlugs.join('|')})`)
+
 	if (isCurrentProductDocsUrl) {
 		// The vagrant vmware utility downloads page is a unique case, where we did
 		// adjust the url structure in the transition to devdot
@@ -120,6 +127,16 @@ export function rewriteDocsUrl(
 			return `/${currentProduct.slug}/downloads/vmware`
 		}
 		return `/${currentProduct.slug}${inputUrl}`
+	} else if (!isProductPath.test(inputUrl)) {
+		// if the path doesnt already start with a product slug i.e. /consul/tutorials
+		// and its not an absolute url we assume it is an internal .io link
+		// for this product context that is not a docs link, and should link to the external .io site
+		// For example, the vault use case pages, the hcp pricing page, etc.
+		const url = new URL(
+			inputUrl,
+			`https://${productSlugsToHostNames[currentProduct.slug]}`
+		)
+		return url.toString()
 	}
 
 	// If we didn't match the currentProduct's basePath, return the original URL.

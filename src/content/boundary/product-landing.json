@@ -41,7 +41,7 @@
 				{
 					"heading": "Identity-based Access",
 					"body": "Enable privileged sessions for users and applications based on user identity and role.",
-					"url": "/boundary/tutorials/oss-access-management/oidc-auth"
+					"url": "/boundary/tutorials/access-management/oidc-auth"
 				},
 				{
 					"heading": "Service Discovery",
@@ -70,7 +70,7 @@
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"boundary/oidc-auth",
-				"boundary/vault-cred-brokering-quickstart",
+				"boundary/oss-vault-cred-brokering-quickstart",
 				"boundary/hcp-manage-workers",
 				"boundary/hcp-ssh-cred-injection",
 				"boundary/oss-manage-targets",

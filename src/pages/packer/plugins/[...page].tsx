@@ -25,6 +25,8 @@ const baseName = 'Plugins'
  */
 const remotePluginsFile = 'data/plugins-manifest.json'
 const navDataFile = `data/${basePath}-nav-data.json`
+const contentBranch = 'stable-website'
+const editBranch = 'main'
 
 export async function getStaticPaths() {
 	let paths = []
@@ -34,6 +36,7 @@ export async function getStaticPaths() {
 		paths = await generateStaticPaths({
 			navDataFile,
 			remotePluginsFile,
+			mainBranch: contentBranch,
 		})
 		paths = paths
 			// remove index-ish pages from static paths
@@ -62,7 +65,8 @@ export async function getStaticProps({ params, ...ctx }) {
 	 */
 	const props = await generateStaticProps({
 		localContentDir: `../content/${basePath}`,
-		mainBranch: 'master',
+		mainBranch: contentBranch,
+		editBranch,
 		navDataFile,
 		params,
 		product: { name: productData.name, slug: productData.slug },
@@ -81,7 +85,7 @@ export async function getStaticProps({ params, ...ctx }) {
 	/**
 	 * Prepare nav data for client, eg adding `fullPath`
 	 */
-	const { preparedItems: navData } = prepareNavDataForClient({
+	const { preparedItems: navData } = await prepareNavDataForClient({
 		basePaths: [productData.slug, basePath],
 		nodes: props.navData,
 	})
@@ -102,7 +106,7 @@ export async function getStaticProps({ params, ...ctx }) {
 			},
 			menuItems: navData,
 			title: baseName,
-			overviewItemHref: `/${productData.slug}/${basePath}`,
+			visuallyHideTitle: true,
 		},
 	]
 
