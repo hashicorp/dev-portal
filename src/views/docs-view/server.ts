@@ -156,9 +156,10 @@ export function getStaticGenerationFunctions<
 				// the params order is guaranteed to be consistent here as it represents a destructured path, so we can join and safely do an equality check
 				const joinedParams = params?.join?.('/')
 
-				return pathsFromNavData.some(({ params: navDataParams }) => {
-					navDataParams?.join?.('/') === joinedParams
-				})
+				return pathsFromNavData.some(
+					({ params: navDataParams }) =>
+						navDataParams?.join?.('/') === joinedParams
+				)
 			})
 
 			return {
