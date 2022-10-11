@@ -4,7 +4,7 @@
 	width: 100%;
 	background: var(--token-color-palette-neutral-200);
 	opacity: 1;
-	transition: opacity 0.2s;
+	transition: opacity 0.4s;
 
 	&.isComplete {
 		opacity: 0;
