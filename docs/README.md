@@ -219,3 +219,23 @@ import { isDeployPreview } from 'lib/env-checks'
 isDeployPreview() // in any source repository?
 isDeployPreview('vault') // in vault's source repository?
 ```
+
+## Proxied Redirects
+
+The Next.js application deployed from this repository serves multiple domains. To enable defining redirects specifically for these domains, we automatically load redirects from the `./proxied-redirects` folder. Each file in this folder must have its name in the format `{domain}.redirects.js`, where `{domain}` is the domain that the redirects are applied to.
+
+The redirects file should be in the CommonJS JavaScript module format. The export from the file should be [Next.js redirect definitions](https://nextjs.org/docs/api-reference/next.config.js/redirects). Example:
+
+```js
+// www.waypointproject.io.redirects.js
+
+module.exports = [
+	{
+		source: '/home',
+		destination: '/',
+		permanent: true,
+	},
+]
+```
+
+The above redirect definition would be applied when the host matches `www.waypointproject.io`. The redirects can also be validated in lower environments by specifying the same host in the `hc_dd_proxied_site` cookie.

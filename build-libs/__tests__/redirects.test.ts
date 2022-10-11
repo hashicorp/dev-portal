@@ -160,6 +160,17 @@ describe('groupSimpleRedirects', () => {
 					},
 				],
 			},
+			{
+				source: '/another-source',
+				destination: '/another-destination',
+				permanent: true,
+				has: [
+					{
+						type: 'host',
+						value: 'www.waypointproject.io',
+					},
+				],
+			},
 		])
 
 		expect(groupedSimpleRedirects).toStrictEqual({
@@ -178,6 +189,12 @@ describe('groupSimpleRedirects', () => {
 					destination: '/destination',
 					permanent: false,
 				},
+				'/another-source': {
+					destination: '/another-destination',
+					permanent: true,
+				},
+			},
+			waypoint: {
 				'/another-source': {
 					destination: '/another-destination',
 					permanent: true,

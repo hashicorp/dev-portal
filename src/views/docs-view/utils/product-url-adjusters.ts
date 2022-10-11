@@ -103,7 +103,11 @@ export function rewriteDocsUrl(
 	currentProduct: ProductData
 ): string {
 	// We only want to adjust internal URLs, so we return absolute URLs, or anchor links, as-is
-	if (isAbsoluteUrl(inputUrl) || inputUrl.startsWith('#')) {
+	if (
+		isAbsoluteUrl(inputUrl) ||
+		inputUrl.startsWith('#') ||
+		inputUrl.startsWith('.')
+	) {
 		return inputUrl
 	}
 

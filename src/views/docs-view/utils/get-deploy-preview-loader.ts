@@ -10,6 +10,7 @@ import {
 } from '@hashicorp/remark-plugins'
 import { RootDocsPath } from 'types/products'
 import { remarkRewriteAssets } from 'lib/remark-plugins/remark-rewrite-assets'
+import { remarkTfeContentExclusion } from 'lib/remark-plugins/remark-tfe-content-exclusion'
 
 /**
  * Returns an instance of a FileSystemLoader for use in content repositories to read docs content from the
@@ -61,16 +62,17 @@ export function getDeployPreviewLoader({
 	return new FileSystemLoader({
 		...loaderOptions,
 		...fsOptions,
-		remarkPlugins(params) {
+		remarkPlugins(params, version) {
 			const remarkPluginsFromExtraOptions =
 				typeof loaderOptions.remarkPlugins === 'function'
 					? loaderOptions.remarkPlugins(params)
 					: loaderOptions.remarkPlugins
 
-			// Custom handling for TF projects whose images reside in `website/img`
-			// rather than `website/public` (Next.js serves static assets from `public`)
+			// We have some custom handling for TF projects who have a few project-level variances
+			// - images reside in `website/img` rather than `website/public` (Next.js serves static assets from `public`)
+			// - TFE/C content exclusion markdown comments are used
 			const remarkTerraformPlugins = []
-			if (currentRootDocsPath.productSlugForLoader?.includes('terraform')) {
+			if (currentRootDocsPath.productSlugForLoader?.match(/^terraform/i)) {
 				remarkTerraformPlugins.push(
 					remarkRewriteAssets({
 						product: currentRootDocsPath.productSlugForLoader,
@@ -94,11 +96,18 @@ export function getDeployPreviewLoader({
 					})
 				)
 			}
+			if (
+				currentRootDocsPath.productSlugForLoader?.match(
+					/(terraform-docs-common|ptfe-releases)/i
+				)
+			) {
+				remarkTerraformPlugins.push([remarkTfeContentExclusion, { version }])
+			}
 
 			return [
+				...remarkTerraformPlugins,
 				...remarkPluginsFromExtraOptions,
 				...remarkPluginsForFileSystemContent,
-				...remarkTerraformPlugins,
 			]
 		},
 	})

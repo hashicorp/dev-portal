@@ -45,6 +45,16 @@
 					"isBeta": true
 				}
 			]
+		},
+		{
+			"name": "HCP Waypoint",
+			"items": [
+				{
+					"name": "Runners",
+					"collectionSlug": "waypoint/runners",
+					"isBeta": true
+				}
+			]
 		}
 	]
 }
