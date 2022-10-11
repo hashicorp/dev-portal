@@ -154,11 +154,11 @@ export function getStaticGenerationFunctions<
 			// cross-check paths from analytics against those from nav data to ensure we aren't returning invalid paths
 			const paths = pathsFromAnalytics.filter(({ params }) => {
 				// the params order is guaranteed to be consistent here as it represents a destructured path, so we can join and safely do an equality check
-				const joinedParams = params?.join?.('/')
+				const joinedParams = params?.page?.join?.('/')
 
 				return pathsFromNavData.some(
 					({ params: navDataParams }) =>
-						navDataParams?.join?.('/') === joinedParams
+						navDataParams?.page?.join?.('/') === joinedParams
 				)
 			})
 
