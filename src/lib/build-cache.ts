@@ -23,14 +23,20 @@ function VercelRemoteCacheStore<CacheItem>({
 				.update(JSON.stringify(key))
 				.digest('hex')
 
-			const exists = await remote.exists(hash).send()
+			// const exists = await remote.exists(hash).send()
 
-			if (!exists) {
+			// if (!exists) {
+			// 	return null
+			// }
+
+			try {
+				const value = String(await remote.get(hash).buffer())
+				return deserialize(value)
+			} catch (err) {
+				console.log('remote.get error', err)
+				// TODO: handle the error
 				return null
 			}
-
-			const value = String(await remote.get(hash).buffer())
-			return deserialize(value)
 		},
 		async set(key, value: CacheItem, duration?: number): Promise<void> {
 			const hash = hashKey(key)
@@ -90,8 +96,8 @@ export function AsyncBuildCache<QueryResult>({
 
 	return {
 		async get(...args) {
-			let start = Date.now()
 			const key = await keyFn(...args)
+			let start = Date.now()
 			let result = await cache.get(key)
 			let duration = Date.now() - start
 
