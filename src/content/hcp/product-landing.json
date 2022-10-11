@@ -21,7 +21,7 @@
 			{
 				"icon": "consul-color",
 				"text": "HCP Consul",
-				"url": "/consul/tutorials/cloud-get-started"
+				"url": "/consul/tutorials/get-started-hcp"
 			},
 			{
 				"icon": "packer-color",

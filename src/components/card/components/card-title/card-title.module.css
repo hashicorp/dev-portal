@@ -5,4 +5,5 @@
 
 	/* properties */
 	color: var(--token-color-foreground-strong);
+	display: block;
 }
