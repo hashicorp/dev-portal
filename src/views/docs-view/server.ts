@@ -132,7 +132,7 @@ export function getStaticGenerationFunctions<
 
 	return {
 		getStaticPaths: async () => {
-			// let paths = await getLoader().loadStaticPaths()
+			const pathsFromNavData = await getLoader().loadStaticPaths()
 
 			if (isDeployPreview() && !isDeployPreview(productSlugForLoader)) {
 				// do not statically render any other products if we are in a deploy preview for another product
@@ -149,10 +149,22 @@ export function getStaticGenerationFunctions<
 				`https://content.hashicorp.com/api/static_paths?product=developer&param=page&limit=${limit}&path_prefix=${pathPrefix}`
 			).then((res) => res.json())
 
+			const pathsFromAnalytics = result?.paths ?? []
+
+			// cross-check paths from analytics against those from nav data to ensure we aren't returning invalid paths
+			const paths = pathsFromAnalytics.filter(({ params }) => {
+				// the params order is guaranteed to be consistent here as it represents a destructured path, so we can join and safely do an equality check
+				const joinedParams = params.join('/')
+
+				return pathsFromNavData.some(({ params: navDataParams }) => {
+					navDataParams.join('/') === joinedParams
+				})
+			})
+
 			return {
 				fallback: 'blocking',
 				// paths: paths.slice(0, __config.dev_dot.max_static_paths ?? 0),
-				paths: result?.paths ?? [],
+				paths,
 			}
 		},
 		getStaticProps: async (ctx) => {
