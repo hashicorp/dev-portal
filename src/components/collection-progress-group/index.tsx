@@ -64,7 +64,6 @@ function CollectionProgressGroup({ collection }: { collection: Collection }) {
 			<CollectionProgressStatusSection
 				completedTutorialCount={completedTutorialCount}
 				tutorialCount={tutorialCount}
-				isInProgress={isInProgress}
 			/>
 		</div>
 	)
