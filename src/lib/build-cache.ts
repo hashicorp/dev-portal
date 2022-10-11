@@ -1,5 +1,46 @@
 import { FileStore, stableHash } from 'metro-cache'
+import { createClient } from '@vercel/remote'
 import path from 'path'
+import crypto from 'crypto'
+
+const remote = createClient(process.env.VERCEL_TOKEN, {
+	teamId: process.env.VERCEL_TEAM_ID,
+	product: 'hashicorp-content-compiler',
+})
+
+function hashKey(key) {
+	return crypto.createHash('md5').update(JSON.stringify(key)).digest('hex')
+}
+
+function VercelRemoteCacheStore<CacheItem>({
+	serialize = JSON.stringify,
+	deserialize = JSON.parse,
+} = {}) {
+	return {
+		async get(key): Promise<CacheItem | null> {
+			const hash = crypto
+				.createHash('md5')
+				.update(JSON.stringify(key))
+				.digest('hex')
+
+			const exists = await remote.exists(hash).send()
+
+			if (!exists) {
+				return null
+			}
+
+			const value = String(await remote.get(hash).buffer())
+			return deserialize(value)
+		},
+		async set(key, value: CacheItem, duration?: number): Promise<void> {
+			const hash = hashKey(key)
+			const serializedValue = serialize(value)
+
+			// @ts-expect-error -- the types are wrong
+			return remote.put(hash, { duration }).buffer(Buffer.from(serializedValue))
+		},
+	}
+}
 
 type AsyncBuildCacheOptions<QueryResult> = {
 	storeName: string
@@ -32,7 +73,7 @@ export function BuildCache<CacheItem>(storeName: string) {
 		 */
 		async set(key, value: CacheItem): Promise<void> {
 			const hash = Buffer.from(stableHash(key))
-			return store.set(hash, value)
+			return store.set(hash, Buffer.from(JSON.stringify(value)))
 		},
 	}
 }
@@ -45,22 +86,30 @@ export function AsyncBuildCache<QueryResult>({
 	keyFn,
 	queryFn,
 }: AsyncBuildCacheOptions<QueryResult>): AsyncBuildCacheResult<QueryResult> {
-	const cache = BuildCache<QueryResult>(storeName)
+	const cache = VercelRemoteCacheStore<QueryResult>()
 
 	return {
 		async get(...args) {
+			let start = Date.now()
 			const key = await keyFn(...args)
 			let result = await cache.get(key)
+			let duration = Date.now() - start
 
 			if (result) {
-				console.log(`[build-cache:${storeName}] cache hit for ${key}`)
+				console.log(
+					`[build-cache:${storeName}] cache hit for ${key} (${duration}ms)`
+				)
 
 				return result
 			}
 
-			console.log(`[build-cache:${storeName}] cache miss for ${key}`)
-
+			start = Date.now()
 			result = await queryFn()
+			duration = Date.now() - start
+
+			console.log(
+				`[build-cache:${storeName}] cache miss for ${key} (${duration}ms)`
+			)
 
 			await cache.set(key, result)
 
