@@ -12,7 +12,7 @@
 }
 
 .progress {
-	background: var(--token-color-palette-blue-200);
+	background: var(--token-color-foreground-action);
 	height: 4px;
 	width: 100%;
 	transform-origin: left;
