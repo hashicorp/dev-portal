@@ -21,22 +21,6 @@ describe('buildBetaOptInRedirect', () => {
 		    "source": "/:base(docs|api-docs|downloads)/:path*",
 		  },
 		  Object {
-		    "destination": "https://developer.hashicorp.com/consul/:base/:path*",
-		    "has": Array [
-		      Object {
-		        "key": "consul-io-beta-opt-in",
-		        "type": "cookie",
-		        "value": "true",
-		      },
-		      Object {
-		        "type": "host",
-		        "value": "(www\\\\.consul\\\\.io|test-cs\\\\.hashi-mktg\\\\.com)",
-		      },
-		    ],
-		    "permanent": false,
-		    "source": "/:base(docs|api-docs|commands|downloads)/:path*",
-		  },
-		  Object {
 		    "destination": "https://developer.hashicorp.com/nomad/:base/:path*",
 		    "has": Array [
 		      Object {
