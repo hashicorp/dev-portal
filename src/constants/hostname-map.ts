@@ -23,3 +23,14 @@ export const HOSTNAME_MAP = {
 	'www.waypointproject.io': 'waypoint',
 	'test-wp.hashi-mktg.com': 'waypoint',
 }
+
+export const SLUG_TO_HOSTNAME_MAP = {
+	boundary: 'www.boundaryproject.io',
+	consul: 'www.consul.io',
+	nomad: 'wwww.nomadproject.io',
+	packer: 'www.packer.io',
+	sentinel: 'docs.hashicorp.com',
+	vagrant: 'www.vagrantup.com',
+	vault: 'www.vaultproject.io',
+	waypoint: 'www.waypointproject.io',
+}
