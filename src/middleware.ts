@@ -124,32 +124,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		}
 	}
 
-	// Handle Opt-in cookies
-	let optInPlatform = params.get('optInFrom') as OptInPlatformOption
-
-	// This handles a bug when we rolled out terraform to the beta where opt-out wasn't working, so users have no way to opt-out if they previously opted-in and attempted to opt-out before the bug was fixed.
-	let isFromTerraform = false
-	try {
-		const refererUrl = new URL(req.headers.get('referer'))
-		isFromTerraform = refererUrl.hostname.endsWith('terraform.io')
-
-		if (isFromTerraform) {
-			optInPlatform = 'terraform-io'
-		}
-	} catch {
-		// Unable to determine the referer, do nothing
-	}
-
-	const hasOptedIn = Boolean(req.cookies.get(`${optInPlatform}-beta-opt-in`))
-
-	if (optInPlatform && !hasOptedIn) {
-		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {
-			maxAge: OPT_IN_MAX_AGE,
-		})
-	}
-
-	console.timeEnd(label)
-
 	/**
 	 * We are running A/B tests on a subset of routes, so we are limiting the call to resolve flags from HappyKit to only those routes. This limits the impact of any additional latency to the routes which need the data.
 	 */
@@ -192,6 +166,30 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		} catch {
 			// Fallback to default URLs
 		}
+	}
+
+	// Handle Opt-in cookies
+	let optInPlatform = params.get('optInFrom') as OptInPlatformOption
+
+	// This handles a bug when we rolled out terraform to the beta where opt-out wasn't working, so users have no way to opt-out if they previously opted-in and attempted to opt-out before the bug was fixed.
+	let isFromTerraform = false
+	try {
+		const refererUrl = new URL(req.headers.get('referer'))
+		isFromTerraform = refererUrl.hostname.endsWith('terraform.io')
+
+		if (isFromTerraform) {
+			optInPlatform = 'terraform-io'
+		}
+	} catch {
+		// Unable to determine the referer, do nothing
+	}
+
+	const hasOptedIn = Boolean(req.cookies.get(`${optInPlatform}-beta-opt-in`))
+
+	if (optInPlatform && !hasOptedIn) {
+		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {
+			maxAge: OPT_IN_MAX_AGE,
+		})
 	}
 
 	// Continue request processing
