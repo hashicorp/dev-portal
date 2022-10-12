@@ -43,9 +43,10 @@ function setHappyKitCookie(
  * - Handling the opt in for cookie setting
  */
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
-	let response: NextResponse
 	const label = `[middleware] ${req.nextUrl.pathname}`
 	console.time(label)
+
+	let response: NextResponse
 
 	// Handle redirects
 	const product = determineProductSlug(req)
@@ -192,6 +193,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		})
 	}
 
+	console.timeEnd(label)
 	// Continue request processing
 	return setGeoCookie(req, response)
 }
