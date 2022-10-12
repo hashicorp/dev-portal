@@ -6,6 +6,7 @@ import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 // product data, needed to render top navigation
 import { productConfig } from 'lib/cms'
 import { isProductSlug } from 'lib/products'
+import { HOSTNAME_MAP } from 'constants/hostname-map'
 
 // resolve a default export
 function resolve(obj) {
@@ -69,9 +70,11 @@ export async function getServerSideProps(ctx) {
 	// Determine which layout to use, may be dev-portal's base layout,
 	// or may be a proxied product layout, depending on the URL host
 	const urlObj = new URL(req.url, `http://${req.headers.host}`)
-	// In preview environments, we can force the app into a certain .io mode with the io_preview cookie
+	// In preview environments, we can force the app into a certain .io mode with the hc_dd_proxied_site cookie
 	const ioPreviewProduct =
-		process.env.HASHI_ENV === 'preview' ? req.cookies['io_preview'] : null
+		process.env.HASHI_ENV === 'preview'
+			? HOSTNAME_MAP[req.cookies['hc_dd_proxied_site']]
+			: null
 
 	const proxiedProductSlug =
 		ioPreviewProduct ?? getProxiedProductSlug(urlObj.hostname)

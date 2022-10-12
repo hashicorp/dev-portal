@@ -11,9 +11,11 @@ const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
 
 function determineProductSlug(req: NextRequest): string {
 	// .io preview on dev portal
-	const ioPreviewCookie = req.cookies.get('io_preview')
-	if (ioPreviewCookie) {
-		return ioPreviewCookie
+	const proxiedSiteCookie = req.cookies.get('hc_dd_proxied_site')
+	const proxiedProduct = HOSTNAME_MAP[proxiedSiteCookie]
+
+	if (proxiedProduct) {
+		return proxiedProduct
 	}
 
 	// .io production deploy
