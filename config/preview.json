@@ -4,7 +4,7 @@
 		"max_static_paths": 10
 	},
 	"dev_dot": {
-		"max_static_paths": 50
+		"max_static_paths": 10
 	},
 	"flags": {
 		"enable_auth": true,

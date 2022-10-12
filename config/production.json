@@ -4,6 +4,7 @@
 		"max_static_paths": 9999
 	},
 	"dev_dot": {
+		"max_static_paths": 50,
 		"beta_product_slugs": [
 			"boundary",
 			"hcp",

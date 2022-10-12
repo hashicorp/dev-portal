@@ -29,6 +29,7 @@ import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
+import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -142,29 +143,14 @@ export function getStaticGenerationFunctions<
 				}
 			}
 
-			const limit = __config.dev_dot.max_static_paths ?? 0
-			const pathPrefix = `/${product.slug}/${basePath}`
-
-			const { result } = await fetch(
-				`https://content.hashicorp.com/api/static_paths?product=developer&param=page&limit=${limit}&path_prefix=${pathPrefix}`
-			).then((res) => res.json())
-
-			const pathsFromAnalytics = result?.paths ?? []
-
-			// cross-check paths from analytics against those from nav data to ensure we aren't returning invalid paths
-			const paths = pathsFromAnalytics.filter(({ params }) => {
-				// the params order is guaranteed to be consistent here as it represents a destructured path, so we can join and safely do an equality check
-				const joinedParams = params?.page?.join?.('/')
-
-				return pathsFromNavData.some(
-					({ params: navDataParams }) =>
-						navDataParams?.page?.join?.('/') === joinedParams
-				)
+			const paths = await getStaticPathsFromAnalytics({
+				limit: __config.dev_dot.max_static_paths ?? 0,
+				pathPrefix: `/${product.slug}/${basePath}`,
+				validPaths: pathsFromNavData,
 			})
 
 			return {
 				fallback: 'blocking',
-				// paths: paths.slice(0, __config.dev_dot.max_static_paths ?? 0),
 				paths,
 			}
 		},
