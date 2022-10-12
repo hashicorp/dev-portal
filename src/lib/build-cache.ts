@@ -3,7 +3,7 @@ import { createClient } from '@vercel/remote'
 import path from 'path'
 import crypto from 'crypto'
 
-const remote = createClient(process.env.VERCEL_TOKEN, {
+const remote = createClient(process.env.VERCEL_ARTIFACTS_TOKEN, {
 	teamId: process.env.VERCEL_TEAM_ID,
 	product: 'hashicorp-content-compiler',
 })
@@ -117,7 +117,9 @@ export function AsyncBuildCache<QueryResult>({
 				`[build-cache:${storeName}] cache miss for ${key} (${duration}ms)`
 			)
 
-			await cache.set(key, result)
+			cache.set(key, result, duration).catch((error) => {
+				console.error(error)
+			})
 
 			return result
 		},
