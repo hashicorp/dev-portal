@@ -1,6 +1,7 @@
 // Third-party imports
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
+import { SessionProvider } from 'next-auth/react'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
@@ -68,27 +69,29 @@ const BaseNewLayout = ({
 		__config.dev_dot.non_product_mobile_menu_routes.includes(router.route)
 
 	return (
-		<CommandBarProvider>
-			<CoreDevDotLayout>
-				<div className={s.root} data-layout="base-new">
-					<div className={s.header}>
-						<NavigationHeader />
+		<SessionProvider>
+			<CommandBarProvider>
+				<CoreDevDotLayout>
+					<div className={s.root} data-layout="base-new">
+						<div className={s.header}>
+							<NavigationHeader />
+						</div>
+						<div className={s.contentArea}>
+							{shouldShowMobileMenu ? <NonProductPageMobileMenu /> : null}
+							{children}
+						</div>
+						<div
+							className={classNames(s.footer, {
+								[s.showFooterTopBorder]: showFooterTopBorder,
+							})}
+						>
+							<Footer openConsentManager={openConsentManager} />
+						</div>
 					</div>
-					<div className={s.contentArea}>
-						{shouldShowMobileMenu ? <NonProductPageMobileMenu /> : null}
-						{children}
-					</div>
-					<div
-						className={classNames(s.footer, {
-							[s.showFooterTopBorder]: showFooterTopBorder,
-						})}
-					>
-						<Footer openConsentManager={openConsentManager} />
-					</div>
-				</div>
-			</CoreDevDotLayout>
-			<ConsentManager />
-		</CommandBarProvider>
+				</CoreDevDotLayout>
+				<ConsentManager />
+			</CommandBarProvider>
+		</SessionProvider>
 	)
 }
 
