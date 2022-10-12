@@ -8,8 +8,8 @@ test('should rewrite known dev-portal routes - different product', async ({
 }) => {
 	await context.addCookies([
 		{
-			name: 'io_preview',
-			value: 'waypoint',
+			name: 'hc_dd_proxied_site',
+			value: 'www.waypointproject.io',
 			url: baseURL,
 		},
 	])
@@ -27,8 +27,8 @@ test('should rewrite known dev-portal routes - same product', async ({
 }) => {
 	await context.addCookies([
 		{
-			name: 'io_preview',
-			value: 'waypoint',
+			name: 'hc_dd_proxied_site',
+			value: 'www.waypointproject.io',
 			url: baseURL,
 		},
 	])
