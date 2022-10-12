@@ -34,6 +34,8 @@ function determineProductSlug(req: NextRequest): string {
  * - Handling the opt in for cookie setting
  */
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
+	const label = `[middleware] ${req.nextUrl.pathname}`
+	console.time(label)
 	// Handle redirects
 	const product = determineProductSlug(req)
 	// Sets a cookie named hc_geo on the response
@@ -50,6 +52,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 			)
 		}
 		if (destination.startsWith('http')) {
+			console.timeEnd(label)
 			return NextResponse.redirect(destination, permanent ? 308 : 307)
 		}
 
@@ -57,6 +60,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		// request URL to adjust the pathname in an absolute URL
 		const url = req.nextUrl.clone()
 		url.pathname = destination
+		console.timeEnd(label)
 		return NextResponse.redirect(url, permanent ? 308 : 307)
 	}
 
@@ -74,6 +78,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 		deleteCookie(req, response, `${product}-io-beta-opt-in`)
 
+		console.timeEnd(label)
 		return response
 	}
 
@@ -105,6 +110,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 			const response = NextResponse.redirect(redirectUrl, redirectStatus)
 
+			console.timeEnd(label)
 			return response
 		}
 	}
@@ -133,6 +139,22 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		})
 	}
 
+	console.timeEnd(label)
 	// Continue request processing
 	return response
+}
+
+export const config = {
+	matcher: [
+		/*
+		 * Match all request paths except for the ones starting with:
+		 * - api (API routes)
+		 * - static (static files)
+		 * - _next/static (Next.js static files)
+		 * - img (image assets)
+		 * - favicon.ico (favicon file)
+		 * - icon (hashicorp logo)
+		 */
+		'/((?!api|static|_next\\/static|img|favicon.ico|icon).*)',
+	],
 }
