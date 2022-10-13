@@ -151,10 +151,11 @@ export const config = {
 		 * - /api/ (API routes)
 		 * - static (static files)
 		 * - _next/static (Next.js static files)
+		 * - _next/image (Next.js optimized images)
 		 * - img (image assets)
 		 * - favicon.ico (favicon file)
 		 * - icon (hashicorp logo)
 		 */
-		'/((?!api\\/|static|_next\\/static|img|favicon.ico|icon).*)',
+		'/((?!api\\/|static|_next\\/static|_next\\/image|img|favicon.ico|icon).*)',
 	],
 }
