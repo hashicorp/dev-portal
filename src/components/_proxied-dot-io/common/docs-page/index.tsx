@@ -9,17 +9,27 @@ const ioComponents = {
 	),
 }
 
+interface ProxiedDocsPageProps extends DocsPageProps {
+	devDotCutoverMessage?: {
+		cutoverDate: string
+		showCutoverDate: boolean
+	}
+}
+
 /**
  * A shared wrapper around react-docs-page to inject common authoring components for our .io docs pages.
  */
 export default function DocsPage({
 	additionalComponents,
+	devDotCutoverMessage,
 	...props
-}: DocsPageProps) {
+}: ProxiedDocsPageProps) {
 	return (
 		<ReactDocsPage
 			additionalComponents={{ ...ioComponents, ...additionalComponents }}
-			optInBanner={<DevDotOptIn />}
+			optInBanner={
+				<DevDotOptIn {...(devDotCutoverMessage ? devDotCutoverMessage : {})} />
+			}
 			{...props}
 		/>
 	)

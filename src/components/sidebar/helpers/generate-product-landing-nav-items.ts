@@ -17,25 +17,35 @@ const IS_DEV = process.env.NODE_ENV !== 'production'
 export const generateProductLandingSidebarMenuItems = (
 	product: ProductData
 ) => {
-	const documentationSubmenu = {
+	const routes = getDocsNavItems(product).map(({ label, fullPath }) => ({
+		title: label,
+		fullPath,
+	}))
+	const defaultDocsMenuItem = {
 		title: 'Documentation',
-		isOpen: true,
-		routes: getDocsNavItems(product).map(({ label, fullPath }) => ({
-			title: label,
-			fullPath,
-		})),
+		fullPath: `/${product.slug}/docs`,
 	}
+	const documentationSubmenu =
+		routes.length > 1
+			? {
+					title: 'Documentation',
+					isOpen: true,
+					routes,
+			  }
+			: defaultDocsMenuItem
 	const menuItems = [
 		documentationSubmenu,
 		{
 			title: 'Tutorials',
 			fullPath: `/${product.slug}/tutorials`,
 		},
-		{
+	]
+	if (product.slug !== 'hcp') {
+		menuItems.push({
 			title: 'Install',
 			fullPath: `/${product.slug}/downloads`,
-		},
-	]
+		})
+	}
 
 	return menuItems
 }

@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
+import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
+import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
@@ -11,6 +13,7 @@ import { getUserMenuItems } from 'lib/auth/user'
 import useAuthentication from 'hooks/use-authentication'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
 import Button from 'components/button'
+import { CommandBarActivator } from 'components/command-bar'
 import StandaloneLink from 'components/standalone-link'
 import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
 
@@ -22,6 +25,8 @@ import {
 	ProductPageHeaderContent,
 } from './components'
 import s from './navigation-header.module.css'
+
+const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
 /**
  * The header content displayed to the far right of the window. This content is
@@ -60,7 +65,12 @@ const AuthenticationControls = () => {
 	if (showUnauthenticatedUI) {
 		content = (
 			<>
-				<Button onClick={() => signIn()} text="Sign In" />
+				<Button
+					icon={<IconSignIn16 />}
+					iconPosition="trailing"
+					onClick={() => signIn()}
+					text="Sign In"
+				/>
 				<StandaloneLink
 					className={s.signUpLink}
 					textClassName={s.signUpLinkText}
@@ -104,7 +114,13 @@ const NavigationHeader = () => {
 		<header className={s.root}>
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
-				<GiveFeedbackButton />
+				<GiveFeedbackButton className="g-hide-with-mobile-menu" />
+				{GLOBAL_SEARCH_ENABLED ? (
+					<CommandBarActivator
+						leadingIcon={<IconSearch16 />}
+						visualLabel="Search"
+					/>
+				) : null}
 				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>

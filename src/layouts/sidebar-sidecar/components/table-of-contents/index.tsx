@@ -1,7 +1,6 @@
 import { ReactElement, useMemo } from 'react'
 import classNames from 'classnames'
 import { useDeviceSize } from 'contexts'
-import getTruncatedTitle from './utils/get-truncated-title'
 import { TableOfContentsHeading, TableOfContentsProps } from './types'
 import { useActiveSection } from './use-active-section'
 import s from './table-of-contents.module.css'
@@ -10,8 +9,8 @@ const TABLE_OF_CONTENTS_LABEL_ID = 'table-of-contents-label'
 
 const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
 	const { isDesktop } = useDeviceSize()
-	const hasOneHeading = headings.length === 1
-	const enableActiveSection = hasOneHeading ? false : isDesktop
+	const hasOneOrLessHeadings = headings.length <= 1
+	const enableActiveSection = hasOneOrLessHeadings ? false : isDesktop
 
 	/**
 	 * @TODO (2022-5-17) update the second argument to useActiveSection. Sidecar
@@ -20,7 +19,7 @@ const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
 	const activeSection = useActiveSection(headings, enableActiveSection)
 
 	// Don't render if only one item
-	if (hasOneHeading) {
+	if (hasOneOrLessHeadings) {
 		return null
 	}
 
@@ -49,8 +48,7 @@ const TableOfContentsListItem = ({ isActive, slug, title }): ReactElement => {
 	})
 	const generatedTitle = useMemo(() => {
 		const withoutBackticks = title.replace(/`/g, '')
-		const truncatedWithoutBackticks = getTruncatedTitle(withoutBackticks)
-		return truncatedWithoutBackticks
+		return withoutBackticks
 	}, [title])
 
 	return (

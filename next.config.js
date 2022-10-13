@@ -5,11 +5,26 @@ const withSwingset = require('swingset')
 const { redirectsConfig } = require('./build-libs/redirects')
 const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
+const { loadHashiConfigForEnvironment } = require('./config')
 
-// temporary: set all paths as noindex, until we're serving from this project
-// Update the excluded domains to ensure we are indexing content as the io sites get migrated
+// Set api key for Happy Kit feature flags
+const happyKitKey = process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
+	? process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
+	: 'flags_pub_development_343442393171755603'
+
+const config = loadHashiConfigForEnvironment()
+
+/**
+ * @type {import('next/dist/lib/load-custom-routes').Header}
+ *
+ * Temporary. Adds a `noindex` directive to all pages for products that are still in beta, and sentinel.
+ *
+ * e.g. If terraform and consul are the only products in the beta array, only developer.hashicorp.com/(consul|terraform)/* will get noindex
+ */
 const temporary_hideDocsPaths = {
-	source: '/:path*',
+	source: `/(${[...config['dev_dot.beta_product_slugs'], 'sentinel'].join(
+		'|'
+	)})/:path*`,
 	headers: [
 		{
 			key: 'X-Robots-Tag',
@@ -19,8 +34,7 @@ const temporary_hideDocsPaths = {
 	has: [
 		{
 			type: 'host',
-			value:
-				'(^(?!.*(boundaryproject|consul|nomadproject|packer|vagrantup|vaultproject|waypointproject|docs\\.hashicorp)).*$)',
+			value: 'developer.hashicorp.com',
 		},
 	],
 }
@@ -83,8 +97,10 @@ module.exports = withSwingset({
 			ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
 			HASHI_ENV: process.env.HASHI_ENV || 'development',
 			IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
+			MKTG_CONTENT_API: process.env.MKTG_CONTENT_API,
 			// TODO: determine if DevDot needs this or not
 			SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
+			HAPPY_KIT_KEY: happyKitKey,
 		},
 		svgo: {
 			plugins: [
@@ -105,9 +121,7 @@ module.exports = withSwingset({
 			contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 		},
 		experimental: {
-			images: {
-				layoutRaw: true,
-			},
+			largePageDataBytes: 512 * 1000, // 512KB
 		},
 	})
 )

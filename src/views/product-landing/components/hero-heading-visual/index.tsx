@@ -11,12 +11,13 @@ function HeroHeadingVisual({
 		start: `var(--token-color-palette-neutral-100)`,
 		stop: `var(--token-color-palette-neutral-50)`,
 	}
-	const gradient = productSlug
-		? {
-				start: `var(--token-color-${productSlug}-gradient-faint-start)`,
-				stop: `var(--token-color-${productSlug}-gradient-faint-stop)`,
-		  }
-		: gradientDefault
+	const gradient =
+		productSlug && productSlug !== 'hcp'
+			? {
+					start: `var(--token-color-${productSlug}-gradient-faint-start)`,
+					stop: `var(--token-color-${productSlug}-gradient-faint-stop)`,
+			  }
+			: gradientDefault
 
 	return (
 		<div

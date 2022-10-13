@@ -14,23 +14,24 @@ import {
 	UpdateTutorialProgressOptions,
 } from './update-tutorial-progress'
 // Formatting
-import { progressLabelToPercent, progressPercentToLabel } from './formatting'
+export * from './formatting'
 
 /**
  * Used in get-all-progress.
  */
 export const PROGRESS_API_ROUTE = '/progress'
+import { getProgress, GetProgressResult } from './get-progress'
 
 export type {
 	CreateTutorialProgressOptions,
+	GetProgressResult,
 	GetTutorialProgressResult,
 	UpdateTutorialProgressOptions,
 }
 
 export {
 	createTutorialProgress,
+	getProgress,
 	getTutorialProgress,
-	progressLabelToPercent,
-	progressPercentToLabel,
 	updateTutorialProgress,
 }

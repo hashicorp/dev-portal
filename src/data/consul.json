@@ -22,15 +22,15 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "Blog",
-		"url": "https://www.hashicorp.com/blog/consul-1-13-introduces-cluster-peering",
-		"text": "Consul 1.13 Introduces Cluster Peering and more",
+		"tag": "Announcements",
+		"url": "https://www.hashicorp.com/blog/consul-1-14-beta-announcing-simplified-service-mesh-deployments",
+		"text": "Consul 1.14 beta, AWS Lambda support, new HCP Consul global visibility controls & more",
 		"linkText": "Read more",
 		"expirationDate": ""
 	},
 	"version": "1.11.3",
 	"subnavItems": [],
-	"basePaths": ["docs", "api-docs", "commands"],
+	"basePaths": ["docs", "api-docs", "commands", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -48,5 +48,9 @@
 			"name": "CLI",
 			"path": "commands"
 		}
-	]
+	],
+	"devDotCutoverMessage": {
+		"showCutoverDate": false,
+		"cutoverDate": "Oct 13, 2022"
+	}
 }

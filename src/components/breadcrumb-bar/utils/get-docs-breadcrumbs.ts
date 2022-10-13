@@ -1,5 +1,5 @@
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import { NavData } from '@hashicorp/react-docs-sidenav'
+import type { MenuItem } from 'components/sidebar'
 import { getParentRootDocsPath } from 'lib/docs/get-parent-root-docs-path'
 import { ProductData } from 'types/products'
 import { BreadcrumbLink } from '..'
@@ -17,8 +17,7 @@ interface GetPathBreadcrumbsOpts {
 	/**
 	 * An array of nav nodes, as defined by our sidenav component.
 	 */
-
-	navData: NavData
+	navData: MenuItem[]
 
 	/**
 	 * An array of parameters representing the path from the basePath to the

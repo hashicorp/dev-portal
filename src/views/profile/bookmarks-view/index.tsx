@@ -1,16 +1,21 @@
 import { useState } from 'react'
 import { useAllBookmarks } from 'hooks/bookmarks'
+import { ApiBookmark } from 'lib/learn-client/api/api-types'
+import { formatTutorialData } from 'lib/learn-client/api/tutorial/formatting'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import AuthenticatedView from 'views/authenticated-view'
-import CardsGridList from 'components/cards-grid-list'
+import { TutorialCardsGridList } from 'components/cards-grid-list'
+import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import Text from 'components/text'
 import Heading from 'components/heading'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 } from 'components/dropdown-disclosure'
-import BookmarksEmptyState from './components/empty-state'
+import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
+import ButtonLink from 'components/button-link'
+import EmptyState from 'components/empty-state'
+import { BookmarkButtonWithRemoveDialog } from './components/bookmark-button-with-remove-dialog'
 import { ProfileBookmarksSidebar } from './components/sidebar'
-import renderBookmarkCard from './helpers/render-bookmark-cards'
 import { SortData } from './helpers/card-sort-data'
 import s from './bookmarks-view.module.css'
 
@@ -86,12 +91,36 @@ const ProfileBookmarksViewContent = () => {
 							</DropdownDisclosureButtonItem>
 						</DropdownDisclosure>
 					</span>
-					<CardsGridList fixedColumns={2}>
-						{bookmarks.sort(sortBy.sort).map(renderBookmarkCard)}
-					</CardsGridList>
+					<TutorialCardsGridList
+						fixedColumns={2}
+						tutorials={bookmarks
+							.sort(sortBy.sort)
+							.map((bookmark: ApiBookmark) => {
+								const tutorialData = formatTutorialData(bookmark.tutorial)
+								const defaultContext = tutorialData.collectionCtx.default
+								const tutorialLiteCompat = { ...tutorialData, defaultContext }
+								const tutorialCardProps = formatTutorialCard(tutorialLiteCompat)
+								return {
+									...tutorialCardProps,
+									BookmarkButtonComponent: BookmarkButtonWithRemoveDialog,
+								}
+							})}
+					/>
 				</>
 			) : (
-				<BookmarksEmptyState />
+				<EmptyState
+					icon={<IconBookmarkAdd16 />}
+					heading="You have no saved bookmarks."
+					subheading="You can select the bookmark icon on any tutorial card to save it for future reference."
+					callToAction={
+						<ButtonLink
+							href="/tutorials/library"
+							text="Tutorial library"
+							color="secondary"
+							size="small"
+						/>
+					}
+				/>
 			)}
 		</div>
 	)

@@ -19,9 +19,6 @@ import {
 	ProductDownloadsViewProps,
 } from './types'
 import {
-	generateDefaultPackageManagers,
-	generateEnterprisePackageManagers,
-	generatePackageManagers,
 	initializeBreadcrumbLinks,
 	initializeVersionSwitcherOptions,
 } from './helpers'
@@ -45,14 +42,14 @@ const ProductDownloadsViewContent = ({
 	pageContent,
 	releases,
 	versionSwitcherOptions,
+	packageManagers,
 }: ProductDownloadsViewContentProps) => {
 	const {
-		doesNotHavePackageManagers,
 		featuredCollectionCards,
 		featuredTutorialCards,
-		packageManagerOverrides,
 		sidecarMarketingCard,
 		sidebarMenuItems,
+		installName,
 	} = pageContent
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
@@ -74,23 +71,6 @@ const ProductDownloadsViewContent = ({
 			isEnterpriseMode
 		),
 	]
-	const packageManagers = useMemo(() => {
-		if (doesNotHavePackageManagers) {
-			return []
-		}
-
-		return generatePackageManagers({
-			defaultPackageManagers: isEnterpriseMode
-				? generateEnterprisePackageManagers(currentProduct)
-				: generateDefaultPackageManagers(currentProduct),
-			packageManagerOverrides: packageManagerOverrides,
-		})
-	}, [
-		currentProduct,
-		doesNotHavePackageManagers,
-		isEnterpriseMode,
-		packageManagerOverrides,
-	])
 
 	return (
 		<SidebarSidecarLayout
@@ -114,7 +94,13 @@ const ProductDownloadsViewContent = ({
 					<meta name="robots" key="robots" content="noindex, nofollow" />
 				</HashiHead>
 			) : null}
-			<PageHeader isEnterpriseMode={isEnterpriseMode} />
+			<PageHeader
+				isEnterpriseMode={isEnterpriseMode}
+				product={{
+					name: installName || currentProduct.name,
+					slug: currentProduct.slug,
+				}}
+			/>
 			<DownloadsSection
 				isEnterpriseMode={isEnterpriseMode}
 				packageManagers={packageManagers}
@@ -145,6 +131,7 @@ const ProductDownloadsView = ({
 	pageContent,
 	releases,
 	sortedAndFilteredVersions,
+	packageManagers,
 }: ProductDownloadsViewProps): ReactElement => {
 	const versionSwitcherOptions = useMemo(
 		() =>
@@ -157,7 +144,7 @@ const ProductDownloadsView = ({
 
 	return (
 		<CurrentVersionProvider
-			initialValue={versionSwitcherOptions[0].value}
+			initialValue={latestVersion}
 			latestVersion={latestVersion}
 		>
 			<ProductDownloadsViewContent
@@ -166,6 +153,7 @@ const ProductDownloadsView = ({
 				pageContent={pageContent}
 				releases={releases}
 				versionSwitcherOptions={versionSwitcherOptions}
+				packageManagers={packageManagers}
 			/>
 		</CurrentVersionProvider>
 	)

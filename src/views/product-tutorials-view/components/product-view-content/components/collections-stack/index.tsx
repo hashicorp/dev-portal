@@ -1,6 +1,7 @@
 import CardsGridList from 'components/cards-grid-list'
 import CollectionCard, {
 	CollectionCardPropsWithId,
+	CollectionCardWithAuthElements,
 } from 'components/collection-card'
 import { formatCollectionCard } from 'components/collection-card/helpers'
 import { FeaturedStack } from '../featured-stack'
@@ -31,10 +32,9 @@ function CollectionsStack({
 		>
 			<CardsGridList>
 				{collectionCards.map((cardPropsWithId: CollectionCardPropsWithId) => {
-					const { id, ...cardProps } = cardPropsWithId
 					return (
-						<li key={id}>
-							<CollectionCard {...cardProps} />
+						<li key={cardPropsWithId.id}>
+							<CollectionCardWithAuthElements {...cardPropsWithId} />
 						</li>
 					)
 				})}

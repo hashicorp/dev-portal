@@ -12,11 +12,17 @@ import {
 import {
 	generateFeaturedCollectionsCards,
 	generateFeaturedTutorialsCards,
+	generateDefaultPackageManagers,
+	generateEnterprisePackageManagers,
 	sortAndFilterReleaseVersions,
 } from './helpers'
+import { generatePackageManagers } from './server-helpers'
 
 interface GenerateStaticPropsOptions {
 	isEnterpriseMode?: boolean
+	releaseSlug?: string
+	jsonFilePath?: string
+	installName?: string
 }
 
 const generateGetStaticProps = (
@@ -35,13 +41,19 @@ const generateGetStaticProps = (
 		 * Note: could consider other content sources. For now, JSON.
 		 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
 		 */
-		const jsonFilePath = path.join(
+		let jsonFilePath = path.join(
 			process.cwd(),
 			`src/content/${product.slug}/install-landing.json`
 		)
+
+		if (options.jsonFilePath) {
+			jsonFilePath = path.join(process.cwd(), options.jsonFilePath)
+		}
+
 		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
 			fs.readFileSync(jsonFilePath, 'utf8')
 		)
+
 		const {
 			doesNotHavePackageManagers,
 			featuredCollectionsSlugs,
@@ -55,7 +67,7 @@ const generateGetStaticProps = (
 		 * Fetch the release data static props
 		 */
 		const { props: releaseProps, revalidate } =
-			await generateReleaseStaticProps(product)
+			await generateReleaseStaticProps(options.releaseSlug || product)
 		const { releases, latestVersion } = releaseProps
 		const sortedAndFilteredVersions = sortAndFilterReleaseVersions({
 			releaseVersions: releases.versions,
@@ -83,6 +95,18 @@ const generateGetStaticProps = (
 		}
 
 		/**
+		 * Build package manager data
+		 */
+		const packageManagers = doesNotHavePackageManagers
+			? []
+			: await generatePackageManagers({
+					defaultPackageManagers: isEnterpriseMode
+						? generateEnterprisePackageManagers(product)
+						: generateDefaultPackageManagers(product),
+					packageManagerOverrides: packageManagerOverrides,
+			  })
+
+		/**
 		 * Combine release data and page content
 		 */
 		const props = stripUndefinedProperties({
@@ -92,16 +116,16 @@ const generateGetStaticProps = (
 				title: 'Install',
 			},
 			pageContent: {
-				doesNotHavePackageManagers,
 				featuredCollectionCards,
 				featuredTutorialCards,
-				packageManagerOverrides,
+				installName: options.installName,
 				sidebarMenuItems,
 				sidecarMarketingCard,
 			},
 			product,
 			releases,
 			sortedAndFilteredVersions,
+			packageManagers,
 		})
 
 		return {
