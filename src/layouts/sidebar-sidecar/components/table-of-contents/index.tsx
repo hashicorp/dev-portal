@@ -67,7 +67,7 @@ function TableOfContentsListItem({
 			<a
 				className={s.tableOfContentsListItemAnchor}
 				href={`#${slug}`}
-				data-heap-track={`toc-list-item-slug-${slug} toc-list-item-index-${index}`}
+				data-heap-track={`toc-list-item-index-${index}`}
 			>
 				{generatedTitle}
 			</a>
