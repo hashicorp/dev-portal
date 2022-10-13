@@ -12,7 +12,7 @@ const CardLink = ({
 	className,
 	href,
 	openInNewTab,
-	dataHeapTrack,
+	'data-heap-track': dataHeapTrack,
 }: CardLinkProps): ReactElement => {
 	const classes = classNames(s.root, className)
 	const target = openInNewTab ? '_blank' : undefined

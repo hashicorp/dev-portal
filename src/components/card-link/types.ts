@@ -33,5 +33,5 @@ export interface CardLinkProps {
 	/**
 	 * An optional data-heap-track string to place on the `<a />` element.
 	 */
-	dataHeapTrack?: string
+	'data-heap-track'?: string
 }
