@@ -138,7 +138,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			if (
 				product === 'vault' &&
 				req.nextUrl.pathname === '/' &&
-				flags?.testFlag
+				flags?.ioHomeHeroCtas
 			) {
 				const url = req.nextUrl.clone()
 				url.pathname = '/_proxied-dot-io/vault/without-cta-links'
@@ -148,7 +148,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			if (
 				product === 'packer' &&
 				req.nextUrl.pathname === '/' &&
-				flags?.testFlag
+				flags?.ioHomeHeroCtas
 			) {
 				const url = req.nextUrl.clone()
 				url.pathname = '/_proxied-dot-io/packer/without-cta-links'
@@ -158,7 +158,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			if (
 				product === 'consul' &&
 				req.nextUrl.pathname === '/' &&
-				flags?.testFlag
+				flags?.ioHomeHeroCtas
 			) {
 				const url = req.nextUrl.clone()
 				url.pathname = '/_proxied-dot-io/consul/without-cta-links'
