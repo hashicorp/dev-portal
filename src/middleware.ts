@@ -150,11 +150,11 @@ export const config = {
 		 * Match all request paths except for the ones starting with:
 		 * - /api/ (API routes)
 		 * - static (static files)
-		 * - _next/static (Next.js static files)
+		 * - _next/ (Next.js files: this is expected to be 'static|image|data')
 		 * - img (image assets)
 		 * - favicon.ico (favicon file)
 		 * - icon (hashicorp logo)
 		 */
-		'/((?!api\\/|static|_next\\/static|img|favicon.ico|icon).*)',
+		'/((?!api\\/|static|_next\\/|img|favicon.ico|icon).*)',
 	],
 }
