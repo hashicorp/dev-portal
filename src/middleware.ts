@@ -157,6 +157,6 @@ export const config = {
 		 * - favicon.ico (favicon file)
 		 * - icon (hashicorp logo)
 		 */
-		'/((?!api\\/|static|_next\\/(static|data|image)|img|favicon.ico|icon).*)',
+		'/((?!api\\/|static|_next\\/|img|favicon.ico|icon).*)',
 	],
 }
