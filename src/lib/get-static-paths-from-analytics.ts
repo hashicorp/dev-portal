@@ -28,6 +28,11 @@ interface GetStaticPathsFromAnalyticsOptions<Params = BaseParams> {
 	validPaths?: StaticPaths<Params>
 }
 
+/**
+ * Uses our static_paths endpoint to collect the most popular paths for a given subpath. If `validPaths` are provided, the result from
+ * the analytics data will be cross-checked against it. This ensure that no invalid paths from our analytics data might be included, be it
+ * non-existent pages or pages for another dynamic route.
+ */
 export async function getStaticPathsFromAnalytics<Params = BaseParams>({
 	param = 'page',
 	limit,
