@@ -7,6 +7,7 @@ export type RouteChangeStartHandler = (url: string) => void
 type CurrentProduct = ProductData | undefined
 
 const CurrentProductContext = createContext<CurrentProduct>(undefined)
+CurrentProductContext.displayName = 'CurrentProductContext'
 
 interface CurrentProductProviderProps {
 	children: ReactNode
