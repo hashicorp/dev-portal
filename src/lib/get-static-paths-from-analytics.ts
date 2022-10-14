@@ -1,6 +1,12 @@
-type StaticPaths = { params: { [param: string]: string[] } }[]
+interface BaseParams {
+	[param: string]: string[]
+}
 
-interface GetStaticPathsFromAnalyticsOptions {
+type StaticPaths<Params = BaseParams> = {
+	params: Params
+}[]
+
+interface GetStaticPathsFromAnalyticsOptions<Params = BaseParams> {
 	/**
 	 * The path parameter used for your dynamic route. For example, if your page file is called [[...page]], this should be `page`. (defaults to: `page`)
 	 */
@@ -19,15 +25,15 @@ interface GetStaticPathsFromAnalyticsOptions {
 	/**
 	 * An array of valid static paths to cross-check against. This is used to ensure that all paths returned from analytics data are valid
 	 */
-	validPaths?: StaticPaths
+	validPaths?: StaticPaths<Params>
 }
 
-export async function getStaticPathsFromAnalytics({
+export async function getStaticPathsFromAnalytics<Params = BaseParams>({
 	param = 'page',
 	limit,
 	pathPrefix,
 	validPaths = [],
-}: GetStaticPathsFromAnalyticsOptions): Promise<StaticPaths> {
+}: GetStaticPathsFromAnalyticsOptions<Params>): Promise<StaticPaths<Params>> {
 	const endpoint = new URL(
 		`/api/static_paths?product=developer&param=${param}&limit=${limit}&path_prefix=${pathPrefix}`,
 		process.env.MKTG_CONTENT_API
@@ -35,7 +41,7 @@ export async function getStaticPathsFromAnalytics({
 
 	const { result } = await fetch(endpoint.toString()).then((res) => res.json())
 
-	const pathsFromAnalytics: StaticPaths = result?.paths ?? []
+	const pathsFromAnalytics: StaticPaths<Params> = result?.paths ?? []
 
 	if (validPaths) {
 		// cross-check paths from analytics against those from nav data to ensure we aren't returning invalid paths

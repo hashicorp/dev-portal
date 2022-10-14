@@ -24,7 +24,9 @@ async function getStaticPaths(): Promise<
 		await Promise.all(
 			activeProductSlugs.map(async (productSlug) => {
 				// fetch paths from analytics for each product
-				const analyticsPaths = await getStaticPathsFromAnalytics({
+				const analyticsPaths = await getStaticPathsFromAnalytics<
+					TutorialPagePaths['params']
+				>({
 					param: 'tutorialSlug',
 					limit: __config.learn.max_static_paths ?? 0,
 					pathPrefix: `/${productSlug}/tutorials`,
@@ -33,7 +35,6 @@ async function getStaticPaths(): Promise<
 
 				// add the productSlug param to the resulting params object
 				return analyticsPaths.map((result) => {
-					// @ts-expect-error - this is okay
 					result.params.productSlug = productSlug
 
 					return result
@@ -43,7 +44,6 @@ async function getStaticPaths(): Promise<
 	).flat()
 
 	return {
-		// @ts-expect-error - TODO need to refine the types here
 		paths,
 		fallback: 'blocking',
 	}
