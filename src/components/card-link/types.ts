@@ -29,4 +29,9 @@ export interface CardLinkProps {
 	 * Whether or not the given link should open in a new tab.
 	 */
 	openInNewTab?: boolean
+
+	/**
+	 * An optional data-heap-track string to place on the `<a />` element.
+	 */
+	'data-heap-track'?: string
 }
