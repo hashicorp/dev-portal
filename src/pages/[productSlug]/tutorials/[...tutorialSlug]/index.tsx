@@ -20,28 +20,35 @@ async function getStaticPaths(): Promise<
 > {
 	const validPaths = await getTutorialPagePaths()
 
-	const paths = (
-		await Promise.all(
-			activeProductSlugs.map(async (productSlug) => {
-				// fetch paths from analytics for each product
-				const analyticsPaths = await getStaticPathsFromAnalytics<
-					TutorialPagePaths['params']
-				>({
-					param: 'tutorialSlug',
-					limit: __config.learn.max_static_paths ?? 0,
-					pathPrefix: `/${productSlug}/tutorials`,
-					validPaths,
-				})
+	let paths = []
 
-				// add the productSlug param to the resulting params object
-				return analyticsPaths.map((result) => {
-					result.params.productSlug = productSlug
+	try {
+		paths = (
+			await Promise.all(
+				activeProductSlugs.map(async (productSlug) => {
+					// fetch paths from analytics for each product
+					const analyticsPaths = await getStaticPathsFromAnalytics<
+						TutorialPagePaths['params']
+					>({
+						param: 'tutorialSlug',
+						limit: __config.learn.max_static_paths ?? 0,
+						pathPrefix: `/${productSlug}/tutorials`,
+						validPaths,
+					})
 
-					return result
+					// add the productSlug param to the resulting params object
+					return analyticsPaths.map((result) => {
+						result.params.productSlug = productSlug
+
+						return result
+					})
 				})
-			})
-		)
-	).flat()
+			)
+		).flat()
+	} catch {
+		// In the case of an error, fallback to using the base list of generated paths to ensure we do _some_ form of static generation
+		paths = validPaths.slice(0, __config.learn.max_static_paths ?? 0)
+	}
 
 	return {
 		paths,
