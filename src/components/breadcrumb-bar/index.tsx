@@ -76,6 +76,7 @@ function BreadcrumbBar({
 								className={s.breadcrumbText}
 								href={url}
 								aria-current={isCurrentPage ? 'page' : undefined}
+								data-heap-track="breadcrumb-bar-item"
 							>
 								{cleanTitle}
 							</Elem>
