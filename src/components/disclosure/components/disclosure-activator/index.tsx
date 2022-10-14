@@ -34,6 +34,7 @@ const DisclosureActivator = forwardRef(
 				className={classNames(disclosureStyles.activator, className)}
 				onClick={toggleDisclosure}
 				ref={ref}
+				data-heap-track="disclosure-activator"
 			>
 				{children}
 			</button>
