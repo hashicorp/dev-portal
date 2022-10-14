@@ -38,6 +38,7 @@ const StandaloneLink = ({
 				onClick={onClick}
 				rel={rel}
 				target={target}
+				data-heap-track="standalone-link"
 			>
 				{iconPosition === 'leading' && icon}
 				<span className={classNames(s.text, textClassName)}>{text}</span>

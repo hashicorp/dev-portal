@@ -57,6 +57,7 @@ const ButtonLink = ({
 				rel={openInNewTab ? 'noreferrer noopener' : undefined}
 				target={openInNewTab ? '_blank' : '_self'}
 				onClick={onClick}
+				data-heap-track="button-link"
 			>
 				{hasLeadingIcon && icon}
 				{hasText ? text : null}
