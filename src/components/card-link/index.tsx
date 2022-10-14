@@ -40,7 +40,7 @@ const CardLink = ({
 					aria-label={ariaLabel}
 					className={s.anchor}
 					target={target}
-					data-heap-track={dataHeapTrack}
+					data-heap-track={`card-link ${dataHeapTrack}`}
 				/>
 			</Link>
 			{children}
