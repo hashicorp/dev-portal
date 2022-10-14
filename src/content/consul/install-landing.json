@@ -30,7 +30,7 @@
 		},
 		{
 			"title": "HCP Consul",
-			"fullPath": "/consul/tutorials/cloud-get-started/get-started"
+			"fullPath": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
 		},
 		{
 			"divider": true

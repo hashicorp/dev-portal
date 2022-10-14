@@ -10,6 +10,7 @@ const {
 } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
 const { isContentDeployPreview } = require('../src/lib/env-checks')
+const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 const { loadHashiConfigForEnvironment } = require('../config')
 
 require('isomorphic-unfetch')
@@ -19,6 +20,33 @@ require('isomorphic-unfetch')
 const config = loadHashiConfigForEnvironment()
 
 const PROXIED_PRODUCT = getProxiedProductSlug()
+
+// copied from src/constants/hostname-map.ts so it's usable at build-time in the next config
+const HOSTNAME_MAP = {
+	'www.boundaryproject.io': 'boundary',
+	'test-bd.hashi-mktg.com': 'boundary',
+
+	'www.consul.io': 'consul',
+	'test-cs.hashi-mktg.com': 'consul',
+
+	'www.nomadproject.io': 'nomad',
+	'test-nm.hashi-mktg.com': 'nomad',
+
+	'www.packer.io': 'packer',
+	'test-pk.hashi-mktg.com': 'packer',
+
+	'docs.hashicorp.com': 'sentinel',
+	'test-st.hashi-mktg.com': 'sentinel',
+
+	'www.vagrantup.com': 'vagrant',
+	'test-vg.hashi-mktg.com': 'vagrant',
+
+	'www.vaultproject.io': 'vault',
+	'test-vt.hashi-mktg.com': 'vault',
+
+	'www.waypointproject.io': 'waypoint',
+	'test-wp.hashi-mktg.com': 'waypoint',
+}
 
 // Redirect all proxied product pages
 // to the appropriate product domain
@@ -81,15 +109,15 @@ function addHostCondition(redirects, productSlug, betaSlugs) {
 			}
 		}
 
-		// To enable previewing of .io sites, we accept an io_preview cookie which must have a value matching a product slug
+		// To enable previewing of .io sites, we accept an hc_dd_proxied_site cookie which must have a value matching a product slug
 		if (isPreview()) {
 			return {
 				...redirect,
 				has: [
 					{
 						type: 'cookie',
-						key: 'io_preview',
-						value: productSlug,
+						key: 'hc_dd_proxied_site',
+						value: host,
 					},
 				],
 			}
@@ -260,10 +288,16 @@ function groupSimpleRedirects(redirects) {
 	const groupedRedirects = {}
 	redirects.forEach((redirect) => {
 		if (redirect.has && redirect.has.length > 0) {
-			const product =
-				redirect.has[0].type === 'host'
-					? hostMatching[redirect.has[0].value]
-					: redirect.has[0].value
+			let product
+			if (redirect.has[0].type === 'host') {
+				const hasHostValue = redirect.has[0].value
+
+				// this handles the scenario where redirects are built through our proxy config and have the host value matching what is defined in build-libs/proxy-config.js
+				product = hostMatching[hasHostValue] ?? HOSTNAME_MAP[hasHostValue]
+			} else {
+				// this handles the `hc_dd_proxied_site` cookie
+				product = HOSTNAME_MAP[redirect.has[0].value]
+			}
 
 			if (product) {
 				if (product in groupedRedirects) {
@@ -303,7 +337,10 @@ function groupSimpleRedirects(redirects) {
 async function redirectsConfig() {
 	const productRedirects = await buildProductRedirects()
 	const devPortalRedirects = await buildDevPortalRedirects()
+	const proxiedSiteRedirects = await loadProxiedSiteRedirects()
+
 	const { simpleRedirects, globRedirects } = splitRedirectsByType([
+		...proxiedSiteRedirects,
 		...productRedirects,
 		...devPortalRedirects,
 	])

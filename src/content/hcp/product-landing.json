@@ -21,7 +21,7 @@
 			{
 				"icon": "consul-color",
 				"text": "HCP Consul",
-				"url": "/consul/tutorials/cloud-get-started"
+				"url": "/consul/tutorials/get-started-hcp"
 			},
 			{
 				"icon": "packer-color",
@@ -32,6 +32,11 @@
 				"icon": "boundary-color",
 				"text": "HCP Boundary",
 				"url": "/boundary/tutorials/hcp-getting-started"
+			},
+			{
+				"icon": "waypoint-color",
+				"text": "HCP Waypoint",
+				"url": "/waypoint/tutorials/runners/hcp-runners-on-your-infra"
 			}
 		],
 		"fixedColumns": 2

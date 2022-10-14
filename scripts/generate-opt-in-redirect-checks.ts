@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { cachedGetProductData } from 'lib/get-product-data'
-import { productSlugs } from 'lib/products'
+import { activeProductSlugs } from 'lib/products'
 
 const filePath = path.join(
 	process.cwd(),
@@ -13,7 +13,7 @@ const filePath = path.join(
 export default async function main() {
 	const result = ['export default {']
 
-	productSlugs.forEach((productSlug) => {
+	activeProductSlugs.forEach((productSlug) => {
 		if (productSlug === 'hcp' || productSlug === 'terraform') {
 			return false
 		}
