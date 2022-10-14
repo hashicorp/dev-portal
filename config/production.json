@@ -6,7 +6,6 @@
 	"dev_dot": {
 		"beta_product_slugs": [
 			"boundary",
-			"consul",
 			"hcp",
 			"nomad",
 			"packer",

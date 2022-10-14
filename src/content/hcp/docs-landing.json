@@ -20,6 +20,11 @@
 			"iconName": "boundary-color",
 			"name": "HCP Boundary",
 			"path": "docs/boundary"
+		},
+		{
+			"iconName": "waypoint-color",
+			"name": "HCP Waypoint",
+			"path": "docs/waypoint"
 		}
 	],
 	"marketingContentBlocks": [

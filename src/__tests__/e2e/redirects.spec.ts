@@ -1,16 +1,16 @@
 import { test, expect } from '@playwright/test'
 
 // This test is primarily to ensure that the dev server is running in a mode
-// that supports the io_preview cookie.
-test('should render based on io_preview cookie', async ({
+// that supports the hc_dd_proxied_site cookie.
+test('should render based on hc_dd_proxied_site cookie', async ({
 	page,
 	context,
 	baseURL,
 }) => {
 	await context.addCookies([
 		{
-			name: 'io_preview',
-			value: 'consul',
+			name: 'hc_dd_proxied_site',
+			value: 'www.consul.io',
 			url: baseURL,
 		},
 	])
@@ -21,8 +21,8 @@ test('should render based on io_preview cookie', async ({
 test('should use middleware redirects', async ({ page, context, baseURL }) => {
 	await context.addCookies([
 		{
-			name: 'io_preview',
-			value: 'consul',
+			name: 'hc_dd_proxied_site',
+			value: 'www.consul.io',
 			url: baseURL,
 		},
 	])
@@ -34,8 +34,8 @@ test('should use middleware redirects', async ({ page, context, baseURL }) => {
 test('should use glob-based redirects', async ({ page, context, baseURL }) => {
 	await context.addCookies([
 		{
-			name: 'io_preview',
-			value: 'consul',
+			name: 'hc_dd_proxied_site',
+			value: 'www.consul.io',
 			url: baseURL,
 		},
 	])

@@ -11,9 +11,11 @@ const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
 
 function determineProductSlug(req: NextRequest): string {
 	// .io preview on dev portal
-	const ioPreviewCookie = req.cookies.get('io_preview')
-	if (ioPreviewCookie) {
-		return ioPreviewCookie
+	const proxiedSiteCookie = req.cookies.get('hc_dd_proxied_site')
+	const proxiedProduct = HOSTNAME_MAP[proxiedSiteCookie]
+
+	if (proxiedProduct) {
+		return proxiedProduct
 	}
 
 	// .io production deploy
@@ -32,6 +34,8 @@ function determineProductSlug(req: NextRequest): string {
  * - Handling the opt in for cookie setting
  */
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
+	const label = `[middleware] ${req.nextUrl.pathname}`
+	console.time(label)
 	// Handle redirects
 	const product = determineProductSlug(req)
 	// Sets a cookie named hc_geo on the response
@@ -48,6 +52,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 			)
 		}
 		if (destination.startsWith('http')) {
+			console.timeEnd(label)
 			return NextResponse.redirect(destination, permanent ? 308 : 307)
 		}
 
@@ -55,6 +60,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		// request URL to adjust the pathname in an absolute URL
 		const url = req.nextUrl.clone()
 		url.pathname = destination
+		console.timeEnd(label)
 		return NextResponse.redirect(url, permanent ? 308 : 307)
 	}
 
@@ -72,6 +78,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 		deleteCookie(req, response, `${product}-io-beta-opt-in`)
 
+		console.timeEnd(label)
 		return response
 	}
 
@@ -103,6 +110,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 			const response = NextResponse.redirect(redirectUrl, redirectStatus)
 
+			console.timeEnd(label)
 			return response
 		}
 	}
@@ -131,6 +139,22 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		})
 	}
 
+	console.timeEnd(label)
 	// Continue request processing
 	return response
+}
+
+export const config = {
+	matcher: [
+		/*
+		 * Match all request paths except for the ones starting with:
+		 * - /api/ (API routes)
+		 * - static (static files)
+		 * - _next/ (Next.js files: this is expected to be 'static|image|data')
+		 * - img (image assets)
+		 * - favicon.ico (favicon file)
+		 * - icon (hashicorp logo)
+		 */
+		'/((?!api\\/|static|_next\\/|img|favicon.ico|icon).*)',
+	],
 }
