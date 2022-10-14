@@ -37,7 +37,7 @@ export async function getStaticPathsFromAnalytics<Params = BaseParams>({
 	param = 'page',
 	limit,
 	pathPrefix,
-	validPaths = [],
+	validPaths,
 }: GetStaticPathsFromAnalyticsOptions<Params>): Promise<StaticPaths<Params>> {
 	const endpoint = new URL(
 		`/api/static_paths?product=developer&param=${param}&limit=${limit}&path_prefix=${pathPrefix}`,
