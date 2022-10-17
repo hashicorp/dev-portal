@@ -67,7 +67,7 @@ test('product landing page should render the metadata', async ({
 
 	expect(
 		await page.locator('head link[rel="canonical"]').getAttribute('href')
-	).toContain(`${__config.dev_dot.canonical_base_url}/waypoint`)
+	).toStrictEqual(`${__config.dev_dot.canonical_base_url}/waypoint`)
 })
 
 test('install page should render the expected metadata', async ({
