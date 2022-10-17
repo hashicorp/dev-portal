@@ -19,6 +19,7 @@ function BreadcrumbBar({
 }: {
 	links: BreadcrumbLink[]
 }): React.ReactElement {
+	console.log('links', links)
 	// For now, we want to strictly require that all
 	// breadcrumb link URLs, if present, are relative rather
 	// than absolute links
