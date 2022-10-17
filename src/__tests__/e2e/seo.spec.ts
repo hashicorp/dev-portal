@@ -60,6 +60,9 @@ test('product landing page should render the metadata', async ({
 			.getAttribute('content')
 	).toContain('/og-image/waypoint.jpg')
 
+	// canonical
+	await page.goto('/waypoint?random=query')
+
 	expect(await page.locator('head link[rel="canonical"]').count()).toEqual(1)
 
 	expect(
