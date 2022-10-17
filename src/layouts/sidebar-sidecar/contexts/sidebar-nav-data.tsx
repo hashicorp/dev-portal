@@ -22,6 +22,7 @@ interface State {
 }
 
 const SidebarNavDataContext = createContext<State | undefined>(undefined)
+SidebarNavDataContext.displayName = 'SidebarNavDataContext'
 
 interface SidebarNavDataProviderProps {
 	children: ReactNode
