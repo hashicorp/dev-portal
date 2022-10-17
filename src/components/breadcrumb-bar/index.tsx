@@ -36,18 +36,21 @@ function BreadcrumbBar({
 	// Now that we're sure all links are relative,
 	// we can render the breadcrumb links
 
+	// For google/SEO we'll omit any structured data items
+	// without a URL.
 	const structuredData = [
 		{
 			'@context': 'https://schema.org',
 			'@type': 'BreadcrumbList',
-			itemListElement: links.map((link, index) => ({
-				'@type': 'ListItem',
-				position: index + 1,
-				name: link.title,
-				item: link.url
-					? `https://developer.hashicorp.com${link.url}`
-					: undefined,
-			})),
+			itemListElement: links
+				// remove items without a url
+				.filter((e) => !!e.url)
+				.map((link, index) => ({
+					'@type': 'ListItem',
+					position: index + 1,
+					name: link.title,
+					item: `https://developer.hashicorp.com${link.url}`,
+				})),
 		},
 	]
 	const stringifiedStructuredData = JSON.stringify(structuredData)
