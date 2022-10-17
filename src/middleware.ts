@@ -185,6 +185,10 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		// Unable to determine the referer, do nothing
 	}
 
+	if (!response) {
+		response = NextResponse.next()
+	}
+
 	const hasOptedIn = Boolean(req.cookies.get(`${optInPlatform}-beta-opt-in`))
 
 	if (optInPlatform && !hasOptedIn) {
