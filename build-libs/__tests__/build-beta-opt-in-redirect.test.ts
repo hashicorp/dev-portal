@@ -52,22 +52,6 @@ describe('buildBetaOptInRedirect', () => {
 		    "permanent": false,
 		    "source": "/:base(docs|intro|vagrant-cloud|vmware|downloads)/:path*",
 		  },
-		  Object {
-		    "destination": "https://developer.hashicorp.com/vault/:base/:path*",
-		    "has": Array [
-		      Object {
-		        "key": "vault-io-beta-opt-in",
-		        "type": "cookie",
-		        "value": "true",
-		      },
-		      Object {
-		        "type": "host",
-		        "value": "(www\\\\.vaultproject\\\\.io|test-vt\\\\.hashi-mktg\\\\.com)",
-		      },
-		    ],
-		    "permanent": false,
-		    "source": "/:base(docs|api-docs|intro|tutorials|downloads|downloads)/:path*",
-		  },
 		]
 	`)
 	})
