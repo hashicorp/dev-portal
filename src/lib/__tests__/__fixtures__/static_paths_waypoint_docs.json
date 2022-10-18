@@ -1,0 +1,17 @@
+{
+	"meta": { "status_code": 200, "status_text": "OK" },
+	"result": {
+		"paths": [
+			{ "params": { "page": [] } },
+			{ "params": { "page": ["getting-started"] } },
+			{ "params": { "page": ["intro"] } },
+			{ "params": { "page": ["runner"] } },
+			{ "params": { "page": ["url"] } },
+			{ "params": { "page": ["plugins"] } },
+			{ "params": { "page": ["lifecycle", "build"] } },
+			{ "params": { "page": ["waypoint-hcl"] } },
+			{ "params": { "page": ["automating-execution", "github-actions"] } },
+			{ "params": { "page": ["lifecycle", "deploy"] } }
+		]
+	}
+}
