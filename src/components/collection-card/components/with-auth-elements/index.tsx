@@ -1,5 +1,4 @@
 import { useMemo, ReactElement } from 'react'
-import useAuthentication from 'hooks/use-authentication'
 import { useCollectionProgress } from 'hooks/progress'
 import { parseCollectionProgress } from 'components/collection-progress-group'
 import ProgressBar from 'components/progress-bar'
@@ -45,7 +44,7 @@ function CollectionCardWithAuthElements({
 	 * Parse the progress-related information we need from the progress records,
 	 * current collection slug, and list of tutorials in this collection.
 	 */
-	const { completedTutorialCount } = useMemo(
+	const { completedTutorialCount, isInProgress } = useMemo(
 		() => parseCollectionProgress(progressData, tutorialCount, { id, slug }),
 		[progressData, tutorialCount, id, slug]
 	)
@@ -57,6 +56,7 @@ function CollectionCardWithAuthElements({
 				<CollectionCardStatusElements
 					completedTutorialCount={completedTutorialCount}
 					tutorialCount={tutorialCount}
+					isInProgress={isInProgress}
 				/>
 			}
 		/>
@@ -82,12 +82,12 @@ function CollectionCardWithAuthElements({
 function CollectionCardStatusElements({
 	completedTutorialCount,
 	tutorialCount,
+	isInProgress,
 }: {
 	completedTutorialCount: number
 	tutorialCount: number
+	isInProgress: boolean
 }) {
-	const { isAuthenticated } = useAuthentication()
-
 	/**
 	 * Completion status
 	 */
@@ -99,8 +99,8 @@ function CollectionCardStatusElements({
 	const statusLabel = getStatusLabel({
 		completedTutorialCount,
 		tutorialCount,
+		isInProgress,
 		isCompleted,
-		isAuthenticated,
 	})
 
 	/**
@@ -116,7 +116,7 @@ function CollectionCardStatusElements({
 				<CompleteIconAndLabel statusLabel="&nbsp;" />
 			</div>
 		)
-	} else if (isAuthenticated) {
+	} else if (isInProgress) {
 		statusElements = (
 			<>
 				<CountIconAndLabel statusLabel={statusLabel} />

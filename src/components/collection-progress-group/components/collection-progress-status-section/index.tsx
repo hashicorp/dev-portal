@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react'
+import classNames from 'classnames'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import { IconCheckCircleFill16 } from '@hashicorp/flight-icons/svg-react/check-circle-fill-16'
 import { CardEyebrowText } from 'components/card/components'
@@ -6,7 +7,6 @@ import ProgressBar from 'components/progress-bar'
 import useAuthentication from 'hooks/use-authentication'
 import { CollectionProgressStatusSectionProps } from './types'
 import s from './collection-progress-status-section.module.css'
-import classNames from 'classnames'
 
 /**
  * Renders collection progress status, in a nice little box.
@@ -24,12 +24,18 @@ import classNames from 'classnames'
 function CollectionProgressStatusSection({
 	completedTutorialCount,
 	tutorialCount,
+	isInProgress,
 }: CollectionProgressStatusSectionProps) {
 	const { isAuthenticated } = useAuthentication()
+
 	/**
 	 * Completion status
 	 */
 	const isCompleted = completedTutorialCount == tutorialCount
+	const hasProgress =
+		typeof isInProgress == 'undefined'
+			? completedTutorialCount > 0
+			: isInProgress
 
 	/**
 	 * Status label
@@ -37,7 +43,7 @@ function CollectionProgressStatusSection({
 	const statusLabel = getStatusLabel({
 		completedTutorialCount,
 		tutorialCount,
-		isAuthenticated,
+		isInProgress,
 		isCompleted,
 	})
 
@@ -47,7 +53,7 @@ function CollectionProgressStatusSection({
 	let statusElements: ReactElement
 	if (isCompleted) {
 		statusElements = <CompleteIconAndLabel statusLabel={statusLabel} />
-	} else if (isAuthenticated) {
+	} else if (hasProgress) {
 		statusElements = (
 			<>
 				<CountIconAndLabel statusLabel={statusLabel} />
@@ -80,18 +86,13 @@ function CollectionProgressStatusSection({
 function getStatusLabel({
 	completedTutorialCount,
 	tutorialCount,
+	isInProgress,
 	isCompleted,
-	isAuthenticated,
-}: {
-	isCompleted: boolean
-	completedTutorialCount: number
-	tutorialCount: number
-	isAuthenticated: boolean
-}) {
+}: CollectionProgressStatusSectionProps & { isCompleted: boolean }) {
 	let statusLabel: string
 	if (isCompleted) {
 		statusLabel = 'Complete'
-	} else if (isAuthenticated) {
+	} else if (isInProgress) {
 		statusLabel = `${completedTutorialCount}/${tutorialCount}`
 	} else {
 		statusLabel = `${tutorialCount} tutorial${tutorialCount == 1 ? '' : 's'}`
