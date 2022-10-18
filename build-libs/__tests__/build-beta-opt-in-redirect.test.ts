@@ -21,22 +21,6 @@ describe('buildBetaOptInRedirect', () => {
 		    "source": "/:base(docs|api-docs|downloads)/:path*",
 		  },
 		  Object {
-		    "destination": "https://developer.hashicorp.com/nomad/:base/:path*",
-		    "has": Array [
-		      Object {
-		        "key": "nomad-io-beta-opt-in",
-		        "type": "cookie",
-		        "value": "true",
-		      },
-		      Object {
-		        "type": "host",
-		        "value": "(www\\\\.nomadproject\\\\.io|test-nm\\\\.hashi-mktg\\\\.com)",
-		      },
-		    ],
-		    "permanent": false,
-		    "source": "/:base(docs|api-docs|plugins|tools|intro|downloads)/:path*",
-		  },
-		  Object {
 		    "destination": "https://developer.hashicorp.com/packer/:base/:path*",
 		    "has": Array [
 		      Object {
