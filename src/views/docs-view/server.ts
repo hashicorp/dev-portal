@@ -29,6 +29,7 @@ import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
+import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 
 /**
  * Given a productSlugForLoader (which generally corresponds to a repo name),
@@ -132,16 +133,25 @@ export function getStaticGenerationFunctions<
 
 	return {
 		getStaticPaths: async () => {
-			let paths = await getLoader().loadStaticPaths()
+			const pathsFromNavData = await getLoader().loadStaticPaths()
 
 			if (isDeployPreview() && !isDeployPreview(productSlugForLoader)) {
 				// do not statically render any other products if we are in a deploy preview for another product
-				paths = []
+				return {
+					fallback: 'blocking',
+					paths: [],
+				}
 			}
+
+			const paths = await getStaticPathsFromAnalytics({
+				limit: __config.dev_dot.max_static_paths ?? 0,
+				pathPrefix: `/${product.slug}/${basePath}`,
+				validPaths: pathsFromNavData,
+			})
 
 			return {
 				fallback: 'blocking',
-				paths: paths.slice(0, __config.dev_dot.max_static_paths ?? 0),
+				paths,
 			}
 		},
 		getStaticProps: async (ctx) => {
