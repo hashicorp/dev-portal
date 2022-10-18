@@ -25,7 +25,6 @@
 		"beta_product_slugs": [
 			"boundary",
 			"hcp",
-			"nomad",
 			"packer",
 			"terraform",
 			"vagrant",
