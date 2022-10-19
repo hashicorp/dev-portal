@@ -9,7 +9,6 @@ const {
 	isDeployPreview,
 } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
-const { isContentDeployPreview } = require('../src/lib/env-checks')
 const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 const { loadHashiConfigForEnvironment } = require('../config')
 
@@ -157,7 +156,7 @@ async function getLatestContentRefForProduct(product) {
 async function getRedirectsForProduct(product, ref = 'stable-website') {
 	const latestRef = await getLatestContentRefForProduct(product)
 
-	const rawRedirects = isContentDeployPreview(product)
+	const rawRedirects = isDeployPreview(product)
 		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
 		: isDeployPreview()
 		? '[]'
