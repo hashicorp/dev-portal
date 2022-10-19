@@ -22,7 +22,7 @@
 		"canonical_base_url": "https://developer.hashicorp.com",
 		"max_static_paths": 10,
 		"revalidate": 360,
-		"beta_product_slugs": ["boundary", "hcp", "packer", "terraform", "vagrant"],
+		"beta_product_slugs": ["hcp", "packer", "terraform", "vagrant"],
 		"non_product_mobile_menu_routes": ["/", "/_error"],
 		"datadog_config": {
 			"scriptUrl": "https://www.datadoghq-browser-agent.com/datadog-rum-v4.js",
