@@ -155,7 +155,7 @@ async function getLatestContentRefForProduct(product) {
  */
 async function getRedirectsForProduct(
 	product,
-	{ ref = 'stable-website', redirectsPath = 'website/redirects.js' }
+	{ ref = 'stable-website', redirectsPath = 'website/redirects.js' } = {}
 ) {
 	let latestRef = ref
 	try {
