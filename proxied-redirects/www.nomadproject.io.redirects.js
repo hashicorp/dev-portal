@@ -1288,6 +1288,22 @@ module.exports = [
 		destination: '/tools/autoscaling/:splat*',
 		permanent: true,
 	},
+	// Rename and re-arrange Autoscaling Internals section
+	{
+		source: '/tools/autoscaling/internals/:path*',
+		destination: '/tools/autoscaling/concepts/:path*',
+		permanent: true,
+	},
+	{
+		source: '/tools/autoscaling/concepts/checks',
+		destination: '/tools/autoscaling/concepts/policy-eval/checks',
+		permanent: true,
+	},
+	{
+		source: '/tools/autoscaling/concepts/node-selector-strategy',
+		destination: '/tools/autoscaling/concepts/policy-eval/node-selector-strategy',
+		permanent: true,
+	},
 	// Extracted content into `/plugins` & `/tools`;
 	// - Redirect individual pages so we don't conflict with
 	//   "built-in plugins" pages
