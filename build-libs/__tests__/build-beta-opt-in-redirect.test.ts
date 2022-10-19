@@ -5,22 +5,6 @@ describe('buildBetaOptInRedirect', () => {
 		expect(buildBetaProductOptInRedirect()).toMatchInlineSnapshot(`
 		Array [
 		  Object {
-		    "destination": "https://developer.hashicorp.com/boundary/:base/:path*",
-		    "has": Array [
-		      Object {
-		        "key": "boundary-io-beta-opt-in",
-		        "type": "cookie",
-		        "value": "true",
-		      },
-		      Object {
-		        "type": "host",
-		        "value": "(www\\\\.boundaryproject\\\\.io|test-bd\\\\.hashi-mktg\\\\.com)",
-		      },
-		    ],
-		    "permanent": false,
-		    "source": "/:base(docs|api-docs|downloads)/:path*",
-		  },
-		  Object {
 		    "destination": "https://developer.hashicorp.com/packer/:base/:path*",
 		    "has": Array [
 		      Object {
