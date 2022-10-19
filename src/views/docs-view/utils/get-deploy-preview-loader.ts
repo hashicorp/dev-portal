@@ -40,8 +40,6 @@ export function getDeployPreviewLoader({
 		navDataFile,
 	}
 
-	console.log('[Deploy Preview Loader]\n', process.cwd(), basePath, fsOptions)
-
 	/**
 	 * These plugins are run during our content ETL process for remote content, but we need to run
 	 * them when loading content directly from the filesystem.
