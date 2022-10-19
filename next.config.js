@@ -97,6 +97,7 @@ module.exports = withSwingset({
 			ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
 			HASHI_ENV: process.env.HASHI_ENV || 'development',
 			IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
+			MKTG_CONTENT_API: process.env.MKTG_CONTENT_API,
 			// TODO: determine if DevDot needs this or not
 			SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
 			HAPPY_KIT_KEY: happyKitKey,
