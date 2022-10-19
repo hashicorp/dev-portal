@@ -9,6 +9,7 @@ import onboardingData from 'data/onboarding.json'
 import { getOnboardingTutorialProps } from 'views/onboarding/tutorial-view/server'
 import OnboardingTutorialView from 'views/onboarding/tutorial-view'
 import { OnboardingTutorialViewProps } from 'views/onboarding/types'
+import { isDeployPreview } from 'lib/env-checks'
 
 export async function getStaticProps({
 	params,
@@ -25,6 +26,14 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
+	// For deploy previews in content repositories, we do not want to statically generate any tutorials paths as realistically only docs pages will be previewed
+	if (isDeployPreview()) {
+		return {
+			paths: [],
+			fallback: false,
+		}
+	}
+
 	const allCollections = await getCollectionsBySection(onboardingData.slug)
 	const paths = []
 	allCollections.forEach((c: ApiCollection) => {
