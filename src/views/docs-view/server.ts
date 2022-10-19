@@ -143,6 +143,15 @@ export function getStaticGenerationFunctions<
 				}
 			}
 
+			// Render all paths for deploy previews in source repositories
+			if (isDeployPreview(productSlugForLoader)) {
+				return {
+					fallback: 'blocking',
+					paths: pathsFromNavData,
+				}
+			}
+
+			// Otherwise, rely on analytics data to prune the paths
 			const paths = await getStaticPathsFromAnalytics({
 				limit: __config.dev_dot.max_static_paths ?? 0,
 				pathPrefix: `/${product.slug}/${basePath}`,
