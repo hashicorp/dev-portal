@@ -5,8 +5,11 @@
 	},
 	"overview": {
 		"heading": "What is HCP?",
-		"body": "HashiCorp Cloud Platform (HCP) is a fully-managed platform offering HashiCorp products-as-a-service. HCP removes the management overhead associated with deploying and maintaining HashiCorp products so that you can focus on reaping the products' benefits.",
-
+		"body": "HashiCorp Cloud Platform (HCP) is a fully-managed platform offering HashiCorp products-as-a-service. HCP removes the management overhead associated with deploying and maintaining HashiCorp products so that your teams can focus on developing and deploying applications.",
+		"cta": {
+			"text": "What is HCP?",
+			"url": "/hcp/docs/hcp"
+		},
 		"image": "https://www.datocms-assets.com/2885/1662053773-dev-dot-product-landing-what-is-hcp-diagram.png"
 	},
 	"get_started": {
