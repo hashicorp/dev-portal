@@ -1,3 +1,5 @@
+import { canTrackAnalytics } from 'lib/analytics'
+
 export const abTestTrack = ({
 	type,
 	test_name,
@@ -7,11 +9,10 @@ export const abTestTrack = ({
 	test_name: string
 	variant: string
 }) => {
-	if (typeof window === 'undefined') {
-		return
+	if (canTrackAnalytics()) {
+		window.analytics.track(`AB Test ${type}`, {
+			test_name,
+			variant,
+		})
 	}
-	window.analytics.track(`AB Test ${type}`, {
-		test_name,
-		variant,
-	})
 }
