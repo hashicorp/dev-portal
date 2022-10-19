@@ -19,7 +19,6 @@ export default function PackerHomepage({ data }): React.ReactElement {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCtas,
 		heroCards,
 		introHeading,
 		introDescription,
@@ -52,7 +51,7 @@ export default function PackerHomepage({ data }): React.ReactElement {
 		abTestTrack({
 			type: 'Served',
 			test_name: 'CRO home hero CTA links 2022-10',
-			variant: 'false',
+			variant: 'true',
 		})
 	}, [])
 
@@ -65,7 +64,7 @@ export default function PackerHomepage({ data }): React.ReactElement {
 				brand="packer"
 				heading={heroHeading}
 				description={heroDescription}
-				ctas={heroCtas}
+				ctas={[]}
 				cards={heroCards.map((card) => {
 					return {
 						...card,

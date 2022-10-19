@@ -1,9 +1,10 @@
+import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import * as React from 'react'
+import Head from 'next/head'
 import { proxiedRivetClient } from 'lib/cms'
 import { abTestTrack } from 'lib/ab-test-track'
-import Head from 'next/head'
+import homepageQuery from './home/query.graphql'
 import { renderMetaTags } from '@hashicorp/react-head'
-import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
 import IoHomeHero from 'components/_proxied-dot-io/common/io-home-hero'
 import IoHomeIntro from 'components/_proxied-dot-io/common/io-home-intro'
 import IoHomeInPractice from 'components/_proxied-dot-io/common/io-home-in-practice'
@@ -11,15 +12,13 @@ import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container
 import IoHomeCaseStudies from 'components/_proxied-dot-io/common/io-home-case-studies'
 import IoHomeCallToAction from 'components/_proxied-dot-io/common/io-home-call-to-action'
 import IoHomePreFooter from 'components/_proxied-dot-io/common/io-home-pre-footer'
-import homepageQuery from './query.graphql'
-import s from './style.module.css'
+import s from './home/style.module.css'
 
-export default function PackerHomepage({ data }): React.ReactElement {
+function Homepage({ data }): React.ReactElement {
 	const {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCtas,
 		heroCards,
 		introHeading,
 		introDescription,
@@ -31,9 +30,15 @@ export default function PackerHomepage({ data }): React.ReactElement {
 		inPracticeHeading,
 		inPracticeDescription,
 		inPracticeCards,
+		inPracticeCtaHeading,
+		inPracticeCtaDescription,
+		inPracticeCtaLink,
+		inPracticeCtaImage,
 		useCasesHeading,
 		useCasesDescription,
 		useCases,
+		tutorialsHeading,
+		tutorialCards,
 		caseStudiesHeading,
 		caseStudiesDescription,
 		caseStudiesFeatured,
@@ -52,7 +57,7 @@ export default function PackerHomepage({ data }): React.ReactElement {
 		abTestTrack({
 			type: 'Served',
 			test_name: 'CRO home hero CTA links 2022-10',
-			variant: 'false',
+			variant: 'true',
 		})
 	}, [])
 
@@ -61,11 +66,11 @@ export default function PackerHomepage({ data }): React.ReactElement {
 			<Head>{renderMetaTags(seo)}</Head>
 
 			<IoHomeHero
-				pattern={require('/public/packer-public/img/home-hero-pattern.svg')}
-				brand="packer"
+				pattern="/consul-public/img/home-hero-pattern.svg"
+				brand="consul"
 				heading={heroHeading}
 				description={heroDescription}
-				ctas={heroCtas}
+				ctas={[]}
 				cards={heroCards.map((card) => {
 					return {
 						...card,
@@ -75,7 +80,7 @@ export default function PackerHomepage({ data }): React.ReactElement {
 			/>
 
 			<IoHomeIntro
-				brand="packer"
+				brand="consul"
 				heading={introHeading}
 				description={introDescription}
 				offerings={{
@@ -134,8 +139,9 @@ export default function PackerHomepage({ data }): React.ReactElement {
 										url: `/use-cases/${usecase.slug}`,
 										type: 'inbound',
 									},
-									heading: usecase.heroHeading,
-									description: usecase.heroDescription,
+									heading: usecase.shortHeading || usecase.heroHeading,
+									description:
+										usecase.shortDescription || usecase.heroDescription,
 								}
 							})}
 						/>
@@ -143,9 +149,30 @@ export default function PackerHomepage({ data }): React.ReactElement {
 				</section>
 			) : null}
 
+			<section className={s.tutorials}>
+				<div className={s.container}>
+					<IoCardContainer
+						heading={tutorialsHeading}
+						cardsPerRow={3}
+						cards={tutorialCards.map((card) => {
+							return {
+								eyebrow: card.eyebrow,
+								link: {
+									url: card.link,
+									type: 'inbound',
+								},
+								heading: card.heading,
+								description: card.description,
+								products: card.products,
+							}
+						})}
+					/>
+				</div>
+			</section>
+
 			<IoHomeInPractice
-				brand="packer"
-				pattern={require('/public/packer-public/img/practice-pattern.svg')}
+				brand="consul"
+				pattern="/consul-public/img/practice-pattern.svg"
 				heading={inPracticeHeading}
 				description={inPracticeDescription}
 				cards={inPracticeCards.map((card) => {
@@ -160,6 +187,12 @@ export default function PackerHomepage({ data }): React.ReactElement {
 						products: card.products,
 					}
 				})}
+				cta={{
+					heading: inPracticeCtaHeading,
+					description: inPracticeCtaDescription,
+					link: inPracticeCtaLink,
+					image: inPracticeCtaImage,
+				}}
 			/>
 
 			<IoHomeCaseStudies
@@ -170,14 +203,14 @@ export default function PackerHomepage({ data }): React.ReactElement {
 			/>
 
 			<IoHomeCallToAction
-				brand="packer"
+				brand="consul"
 				heading={callToActionHeading}
 				content={callToActionDescription}
 				links={callToActionCtas}
 			/>
 
 			<IoHomePreFooter
-				brand="packer"
+				brand="consul"
 				heading={preFooterHeading}
 				description={preFooterDescription}
 				ctas={preFooterCtas}
@@ -185,21 +218,18 @@ export default function PackerHomepage({ data }): React.ReactElement {
 		</>
 	)
 }
-PackerHomepage.layout = PackerIoLayout
 
 export async function getStaticProps() {
-	const query = proxiedRivetClient('packer')
-	const { packerHomepage } = await query({
+	const query = proxiedRivetClient('consul')
+	const { consulHomepage } = await query({
 		query: homepageQuery,
 	})
 
 	return {
-		props: {
-			data: packerHomepage,
-		},
-		revalidate:
-			process.env.HASHI_ENV === 'production'
-				? process.env.GLOBAL_REVALIDATE
-				: 10,
+		props: { data: consulHomepage },
+		revalidate: __config.io_sites.revalidate,
 	}
 }
+
+Homepage.layout = ConsulIoLayout
+export default Homepage
