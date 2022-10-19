@@ -32,27 +32,6 @@ import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 
 /**
- * Given a productSlugForLoader (which generally corresponds to a repo name),
- * Return the ref to use for remote content when the product is marked "beta".
- *
- * Note: for products where we intend to use the latest ref according
- * to the marketing content API, we return undefined.
- *
- * TODO: this is not intended as a permanent solution.
- * At present, it seems likely we'll transition away from using "dev-portal"
- * branches, and instead focus on backwards-compatible content changes
- * until each product is generally available on developer.hashicorp.com.
- *
- * Once we've moved away from "dev-portal" branches, this function
- * will no longer be necessary, and we will no longer pass the
- * "latestVersionRef" to the remote content loader config.
- */
-function getBetaLatestVersionRef(slug: string): string | undefined {
-	const hasDevPortalBranch = ['cloud.hashicorp.com'].includes(slug)
-	return hasDevPortalBranch ? 'dev-portal' : undefined
-}
-
-/**
  * Returns static generation functions which can be exported from a page to fetch docs data
  *
  * Example usage:
@@ -105,12 +84,6 @@ export function getStaticGenerationFunctions<
 		basePath: basePathForLoader,
 		enabledVersionedDocs: true,
 		navDataPrefix,
-		/**
-		 * Note: not all products in "beta" are expected to have a specific
-		 * "content_preview_branch", so even for products marked "beta",
-		 * "latestVersionRef" may end up being undefined.
-		 */
-		latestVersionRef: getBetaLatestVersionRef(productSlugForLoader),
 	}
 
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
