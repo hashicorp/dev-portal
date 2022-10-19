@@ -135,34 +135,35 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		try {
 			const edgeFlags = await getEdgeFlags({ request: req })
 			const { flags, cookie } = edgeFlags
-			if (
-				product === 'vault' &&
-				req.nextUrl.pathname === '/' &&
-				flags?.ioHomeHeroCtas
-			) {
-				const url = req.nextUrl.clone()
-				url.pathname = '/_proxied-dot-io/vault/without-cta-links'
-				response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+
+			if (product === 'vault' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroCtas) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/vault/without-cta-links'
+					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie.args, NextResponse.next())
+				}
 			}
 
-			if (
-				product === 'packer' &&
-				req.nextUrl.pathname === '/' &&
-				flags?.ioHomeHeroCtas
-			) {
-				const url = req.nextUrl.clone()
-				url.pathname = '/_proxied-dot-io/packer/without-cta-links'
-				response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+			if (product === 'packer' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroCtas) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/packer/without-cta-links'
+					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie.args, NextResponse.next())
+				}
 			}
 
-			if (
-				product === 'consul' &&
-				req.nextUrl.pathname === '/' &&
-				flags?.ioHomeHeroCtas
-			) {
-				const url = req.nextUrl.clone()
-				url.pathname = '/_proxied-dot-io/consul/without-cta-links'
-				response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+			if (product === 'consul' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroCtas) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/consul/without-cta-links'
+					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie.args, NextResponse.next())
+				}
 			}
 		} catch {
 			// Fallback to default URLs
