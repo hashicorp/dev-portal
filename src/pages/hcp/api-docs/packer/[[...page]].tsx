@@ -22,8 +22,8 @@ import { isDeployPreview } from 'lib/env-checks'
 const productSlug = 'hcp'
 const targetFile = {
 	owner: 'hashicorp',
-	repo: 'cloud-api',
-	path: 'specs/cloud-packer-service/stable/2021-04-30/hcp.swagger.json',
+	repo: 'hcp-specs-internal',
+	path: 'specs/cloud-packer-service/preview/2021-04-30/hcp.swagger.json',
 }
 
 type ApiDocsPageProps = InferGetStaticPropsType<typeof getStaticProps>
