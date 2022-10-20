@@ -103,7 +103,7 @@
 		"@hashicorp/platform-product-meta": "^0.1.1",
 		"@hashicorp/react-alert-banner": "^7.0.1",
 		"@hashicorp/react-button": "^6.2.1",
-		"@hashicorp/react-call-to-action": "^4.1.1",
+		"@hashicorp/react-call-to-action": "^5.0.0",
 		"@hashicorp/react-checkbox-input": "^5.0.2",
 		"@hashicorp/react-code-block": "^6.2.1",
 		"@hashicorp/react-command-line-terminal": "^2.0.4",
