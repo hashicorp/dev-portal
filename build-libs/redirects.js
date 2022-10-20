@@ -83,7 +83,7 @@ const devPortalToDotIoRedirects = isPreview()
  * @returns {Redirect[]}
  */
 function addHostCondition(redirects, productSlug, betaSlugs) {
-	const host = proxySettings[productSlug].host
+	const host = proxySettings[productSlug]?.host
 	return redirects.map((redirect) => {
 		if (productSlug == PROXIED_PRODUCT) {
 			return redirect
