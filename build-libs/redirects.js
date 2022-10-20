@@ -190,6 +190,9 @@ async function buildProductRedirects() {
 	// Fetch author-oriented redirects from product repos,
 	// and merge those with dev-oriented redirects from
 	// within this repository
+	if (process.env.SKIP_BUILD_PRODUCT_REDIRECTS) {
+		return []
+	}
 
 	/**
 	 * TODO
