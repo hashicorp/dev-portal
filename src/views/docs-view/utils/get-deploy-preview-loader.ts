@@ -102,6 +102,7 @@ export function getDeployPreviewLoader({
 				remarkTerraformPlugins.push([remarkTfeContentExclusion, { version }])
 			}
 
+			// The order here is intentional. remarkPluginsForFileSystemContent ensures that partials are resolved and the content is close to its final structure before we do things like apply link rewrites
 			return [
 				...remarkTerraformPlugins,
 				...remarkPluginsForFileSystemContent,
