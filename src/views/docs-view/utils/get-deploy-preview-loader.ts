@@ -104,8 +104,8 @@ export function getDeployPreviewLoader({
 
 			return [
 				...remarkTerraformPlugins,
-				...remarkPluginsFromExtraOptions,
 				...remarkPluginsForFileSystemContent,
+				...remarkPluginsFromExtraOptions,
 			]
 		},
 	})
