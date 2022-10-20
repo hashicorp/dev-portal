@@ -13,7 +13,7 @@ import ProductSubnav from 'components/_proxied-dot-io/vagrant/subnav'
 import productData from 'data/vagrant.json'
 import query from './query.graphql'
 
-type UseCase = { url: string; text: string }
+type UseCase = { slug: string; text: string }
 
 interface Props {
 	children: React.ReactChildren
@@ -75,7 +75,7 @@ function VagrantIoLayout({ children, data }: Props): React.ReactElement {
 											...vagrantNav.useCases.map((item: UseCase) => {
 												return {
 													text: item.text,
-													url: `/use-cases/${item.url}`,
+													url: `/use-cases/${item.slug}`,
 												}
 											}),
 										],
