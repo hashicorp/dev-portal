@@ -26,7 +26,7 @@
 		"subtitle": "Packer lets you create identical machine images for multiple platforms from a single source configuration.",
 		"featuredDocsLinks": [
 			{
-				"href": "/packer/docs/cli",
+				"href": "/packer/docs/commands",
 				"text": "Packer CLI"
 			},
 			{
