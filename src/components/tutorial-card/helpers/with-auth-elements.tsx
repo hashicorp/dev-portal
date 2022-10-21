@@ -1,4 +1,3 @@
-import { AUTH_ENABLED } from 'hooks/use-authentication'
 import { useTutorialProgress } from 'hooks/progress'
 import { progressStatusToAriaLabel } from 'lib/learn-client/api/progress'
 import { TutorialProgressStatus } from 'lib/learn-client/types'
@@ -7,6 +6,7 @@ import { CardEyebrowText } from 'components/card/components'
 import TutorialCard, { TutorialCardPropsWithId } from '..'
 import ProgressIconAndLabel from '../components/progress-icon-and-label'
 import { getSpeakableDuration } from './build-aria-label'
+import { useFlags } from 'flags/client'
 
 /**
  * Displays a TutorialCard, which shows additional user-data-specific elements
@@ -18,6 +18,7 @@ export function TutorialCardWithAuthElements({
 	BookmarkButtonComponent = TutorialCardBookmarkButton,
 	...restProps
 }: TutorialCardPropsWithId) {
+	const { flags } = useFlags()
 	/**
 	 * Get tutorial progress. Will be undefined if not authenticated.
 	 * Note as well that useTutorialProgress depends on AUTH_ENABLED.
@@ -55,7 +56,7 @@ export function TutorialCardWithAuthElements({
 						<CardEyebrowText>{restProps.duration}</CardEyebrowText>
 					)}
 					{/** Hide from prod until auth is enabled */}
-					{AUTH_ENABLED ? (
+					{flags?.enableAuth ? (
 						<BookmarkButtonComponent
 							tutorial={{ id: tutorialId, name: restProps.heading }}
 						/>

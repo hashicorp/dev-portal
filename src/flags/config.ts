@@ -10,5 +10,6 @@ export const config: Configuration<AppFlags> = {
 	defaultFlags: {
 		testFlag: false,
 		ioHomeHeroCtas: false,
+		auth: false,
 	},
 }
