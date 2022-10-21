@@ -20,22 +20,6 @@ describe('buildBetaOptInRedirect', () => {
 		    "permanent": false,
 		    "source": "/:base(docs|guides|intro|plugins|downloads)/:path*",
 		  },
-		  Object {
-		    "destination": "https://developer.hashicorp.com/vagrant/:base/:path*",
-		    "has": Array [
-		      Object {
-		        "key": "vagrant-io-beta-opt-in",
-		        "type": "cookie",
-		        "value": "true",
-		      },
-		      Object {
-		        "type": "host",
-		        "value": "(www\\\\.vagrantup\\\\.com|test-vg\\\\.hashi-mktg\\\\.com)",
-		      },
-		    ],
-		    "permanent": false,
-		    "source": "/:base(docs|intro|vagrant-cloud|vmware|downloads)/:path*",
-		  },
 		]
 	`)
 	})
