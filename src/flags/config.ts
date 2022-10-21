@@ -1,7 +1,10 @@
 import type { Configuration } from '@happykit/flags/config'
 
 // You can replace this with your exact flag types
-export type AppFlags = { [key: string]: boolean | number | string | null }
+export type AppFlags = {
+	[key: string]: boolean | number | string | null
+	enableAuth: boolean
+}
 
 export const config: Configuration<AppFlags> = {
 	envKey: process.env.HAPPY_KIT_KEY!,

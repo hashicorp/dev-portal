@@ -40,7 +40,7 @@ const useAuthentication = (
 	}, [data?.error])
 
 	// Deriving booleans about auth state
-	const isAuthEnabled = flags?.enableAuth as boolean
+	const isAuthEnabled = flags?.enableAuth
 	const isLoading = status === 'loading'
 	const isAuthenticated = status === 'authenticated'
 	const showAuthenticatedUI = isAuthenticated
