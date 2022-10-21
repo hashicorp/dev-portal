@@ -14,6 +14,8 @@ function getRemoteClient() {
 		teamId: process.env.VERCEL_TEAM_ID,
 		product: 'hashicorp-content-compiler',
 	})
+
+	return remoteClient
 }
 
 function verboseLog(...rest) {
@@ -27,6 +29,7 @@ function hashKey(key) {
 }
 
 function VercelRemoteCacheStore<CacheItem>({
+	name = '',
 	serialize = JSON.stringify,
 	deserialize = JSON.parse,
 } = {}) {
@@ -44,8 +47,17 @@ function VercelRemoteCacheStore<CacheItem>({
 			// }
 
 			try {
+				let start = Date.now()
 				const value = String(await remote.get(hash).buffer())
-				return deserialize(value)
+				let duration = Date.now() - start
+				console.log(`[remote-cache] fetch duration: ${duration}ms`)
+
+				start = Date.now()
+				const result = deserialize(value)
+				duration = Date.now() - start
+				console.log(`[remote-cache] deserialize duration: ${duration}ms`)
+
+				return result
 			} catch (err) {
 				// TODO: handle the error
 				return null
@@ -74,9 +86,9 @@ type AsyncBuildCacheResult<QueryResult> = {
 /**
  * Primitive to create a build-time cache, with items stored in `node_modules/.cache`.
  */
-export function BuildCache<CacheItem>(storeName: string) {
+export function BuildCache<CacheItem>({ name }: { name: string }) {
 	const store = new FileStore({
-		root: path.join(process.cwd(), 'node_modules', '.cache', storeName),
+		root: path.join(process.cwd(), 'node_modules', '.cache', name),
 	})
 
 	return {
@@ -105,7 +117,7 @@ export function AsyncBuildCache<QueryResult>({
 	keyFn,
 	queryFn,
 }: AsyncBuildCacheOptions<QueryResult>): AsyncBuildCacheResult<QueryResult> {
-	const cache = BuildCache<QueryResult>(storeName)
+	const cache = BuildCache<QueryResult>({ name: storeName })
 
 	return {
 		async get(...args) {
