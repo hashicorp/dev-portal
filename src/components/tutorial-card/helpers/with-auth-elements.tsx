@@ -1,4 +1,5 @@
 import { useTutorialProgress } from 'hooks/progress'
+import { useFlags } from 'flags/client'
 import { progressStatusToAriaLabel } from 'lib/learn-client/api/progress'
 import { TutorialProgressStatus } from 'lib/learn-client/types'
 import { TutorialCardBookmarkButton } from 'components/bookmark-button'
@@ -6,7 +7,6 @@ import { CardEyebrowText } from 'components/card/components'
 import TutorialCard, { TutorialCardPropsWithId } from '..'
 import ProgressIconAndLabel from '../components/progress-icon-and-label'
 import { getSpeakableDuration } from './build-aria-label'
-import { useFlags } from 'flags/client'
 
 /**
  * Displays a TutorialCard, which shows additional user-data-specific elements

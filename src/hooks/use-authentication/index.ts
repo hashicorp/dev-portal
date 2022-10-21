@@ -6,9 +6,9 @@ import {
 	UserData,
 	ValidAuthProviderId,
 } from 'types/auth'
+import { useFlags } from 'flags/client'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { signInWrapper, signOutWrapper, signUp } from './helpers'
-import { useFlags } from 'flags/client'
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
