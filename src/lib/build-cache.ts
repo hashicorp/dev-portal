@@ -92,7 +92,7 @@ export function BuildCache<CacheItem>(storeName: string) {
 		 */
 		async set(key, value: CacheItem, _duration?: number): Promise<void> {
 			const hash = Buffer.from(stableHash(key))
-			return store.set(hash, Buffer.from(JSON.stringify(value)))
+			return store.set(hash, value)
 		},
 	}
 }
