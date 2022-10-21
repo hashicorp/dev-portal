@@ -18,10 +18,7 @@ function VercelRemoteCacheStore<CacheItem>({
 } = {}) {
 	return {
 		async get(key): Promise<CacheItem | null> {
-			const hash = crypto
-				.createHash('md5')
-				.update(JSON.stringify(key))
-				.digest('hex')
+			const hash = hashKey(key)
 
 			// const exists = await remote.exists(hash).send()
 
