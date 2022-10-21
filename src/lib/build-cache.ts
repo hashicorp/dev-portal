@@ -90,7 +90,7 @@ export function BuildCache<CacheItem>(storeName: string) {
 		/**
 		 * Store an item in the cache
 		 */
-		async set(key, value: CacheItem): Promise<void> {
+		async set(key, value: CacheItem, _duration?: number): Promise<void> {
 			const hash = Buffer.from(stableHash(key))
 			return store.set(hash, Buffer.from(JSON.stringify(value)))
 		},
@@ -105,7 +105,7 @@ export function AsyncBuildCache<QueryResult>({
 	keyFn,
 	queryFn,
 }: AsyncBuildCacheOptions<QueryResult>): AsyncBuildCacheResult<QueryResult> {
-	const cache = VercelRemoteCacheStore<QueryResult>()
+	const cache = BuildCache<QueryResult>(storeName)
 
 	return {
 		async get(...args) {
