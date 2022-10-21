@@ -1,12 +1,26 @@
 import { FileStore, stableHash } from 'metro-cache'
 import { createClient } from '@vercel/remote'
+import type { RemoteClient } from '@vercel/remote'
 import path from 'path'
 import crypto from 'crypto'
 
-const remote = createClient(process.env.VERCEL_ARTIFACTS_TOKEN, {
-	teamId: process.env.VERCEL_TEAM_ID,
-	product: 'hashicorp-content-compiler',
-})
+let remoteClient: RemoteClient
+function getRemoteClient() {
+	if (remoteClient) {
+		return remoteClient
+	}
+
+	remoteClient = createClient(process.env.VERCEL_ARTIFACTS_TOKEN, {
+		teamId: process.env.VERCEL_TEAM_ID,
+		product: 'hashicorp-content-compiler',
+	})
+}
+
+function verboseLog(...rest) {
+	if (process.env.VERBOSE_CACHE_LOGS) {
+		console.log(...rest)
+	}
+}
 
 function hashKey(key) {
 	return crypto.createHash('md5').update(JSON.stringify(key)).digest('hex')
@@ -16,10 +30,13 @@ function VercelRemoteCacheStore<CacheItem>({
 	serialize = JSON.stringify,
 	deserialize = JSON.parse,
 } = {}) {
+	const remote = getRemoteClient()
+
 	return {
 		async get(key): Promise<CacheItem | null> {
 			const hash = hashKey(key)
 
+			// TODO: we aren't using the exists check to avoid a round-trip to Vercel's API. Need to validate that there isn't some other downside to forgoing the exists check and instead catching the error.
 			// const exists = await remote.exists(hash).send()
 
 			// if (!exists) {
@@ -30,7 +47,6 @@ function VercelRemoteCacheStore<CacheItem>({
 				const value = String(await remote.get(hash).buffer())
 				return deserialize(value)
 			} catch (err) {
-				console.log('remote.get error', err)
 				// TODO: handle the error
 				return null
 			}
@@ -99,7 +115,7 @@ export function AsyncBuildCache<QueryResult>({
 			let duration = Date.now() - start
 
 			if (result) {
-				console.log(
+				verboseLog(
 					`[build-cache:${storeName}] cache hit for ${key} (${duration}ms)`
 				)
 
@@ -110,7 +126,7 @@ export function AsyncBuildCache<QueryResult>({
 			result = await queryFn()
 			duration = Date.now() - start
 
-			console.log(
+			verboseLog(
 				`[build-cache:${storeName}] cache miss for ${key} (${duration}ms)`
 			)
 

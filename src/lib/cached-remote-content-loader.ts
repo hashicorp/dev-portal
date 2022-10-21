@@ -2,7 +2,7 @@ import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remot
 import { AsyncBuildCache } from './build-cache'
 
 /**
- * Wrapper around RemoteContentLoader which uses a local cache layer to cache the output of loadStaticProps. Intended for use in a Vercel CI environment.
+ * Wrapper around RemoteContentLoader which uses a cache layer to cache the output of loadStaticProps. Intended for use in a Vercel CI environment.
  */
 export class CachedRemoteContentLoader implements RemoteContentLoader {
 	static latestShaBySlug = new Map()
