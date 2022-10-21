@@ -9,7 +9,6 @@ const {
 	isDeployPreview,
 } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
-const { isContentDeployPreview } = require('../src/lib/env-checks')
 const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 const { loadHashiConfigForEnvironment } = require('../config')
 
@@ -109,15 +108,15 @@ function addHostCondition(redirects, productSlug, betaSlugs) {
 			}
 		}
 
-		// To enable previewing of .io sites, we accept an io_preview cookie which must have a value matching a product slug
+		// To enable previewing of .io sites, we accept an hc_dd_proxied_site cookie which must have a value matching a product slug
 		if (isPreview()) {
 			return {
 				...redirect,
 				has: [
 					{
 						type: 'cookie',
-						key: 'io_preview',
-						value: productSlug,
+						key: 'hc_dd_proxied_site',
+						value: host,
 					},
 				],
 			}
@@ -157,7 +156,7 @@ async function getLatestContentRefForProduct(product) {
 async function getRedirectsForProduct(product, ref = 'stable-website') {
 	const latestRef = await getLatestContentRefForProduct(product)
 
-	const rawRedirects = isContentDeployPreview(product)
+	const rawRedirects = isDeployPreview(product)
 		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
 		: isDeployPreview()
 		? '[]'
@@ -295,8 +294,8 @@ function groupSimpleRedirects(redirects) {
 				// this handles the scenario where redirects are built through our proxy config and have the host value matching what is defined in build-libs/proxy-config.js
 				product = hostMatching[hasHostValue] ?? HOSTNAME_MAP[hasHostValue]
 			} else {
-				// this handles the `io_preview` cookie has condition
-				product = redirect.has[0].value
+				// this handles the `hc_dd_proxied_site` cookie
+				product = HOSTNAME_MAP[redirect.has[0].value]
 			}
 
 			if (product) {

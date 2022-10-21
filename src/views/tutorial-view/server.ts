@@ -138,7 +138,8 @@ export async function getTutorialPageProps(
 
 export interface TutorialPagePaths {
 	params: {
-		tutorialSlug: [string, string]
+		productSlug: string
+		tutorialSlug: string[]
 	}
 }
 

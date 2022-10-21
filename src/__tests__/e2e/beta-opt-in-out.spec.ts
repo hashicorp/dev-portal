@@ -24,8 +24,8 @@ test('should opt-out based on betaOptOut query parameter', async ({
 }) => {
 	await context.addCookies([
 		{
-			name: 'io_preview',
-			value: 'waypoint',
+			name: 'hc_dd_proxied_site',
+			value: 'www.waypointproject.io',
 			url: baseURL,
 		},
 	])

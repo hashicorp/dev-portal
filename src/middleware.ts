@@ -5,15 +5,18 @@ import optInRedirectChecks from '.generated/opt-in-redirect-checks'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
+import { getEdgeFlags } from 'flags/edge'
 import { deleteCookie } from 'lib/middleware-delete-cookie'
 
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
 
 function determineProductSlug(req: NextRequest): string {
 	// .io preview on dev portal
-	const ioPreviewCookie = req.cookies.get('io_preview')
-	if (ioPreviewCookie) {
-		return ioPreviewCookie
+	const proxiedSiteCookie = req.cookies.get('hc_dd_proxied_site')
+	const proxiedProduct = HOSTNAME_MAP[proxiedSiteCookie]
+
+	if (proxiedProduct) {
+		return proxiedProduct
 	}
 
 	// .io production deploy
@@ -25,17 +28,28 @@ function determineProductSlug(req: NextRequest): string {
 	return '*'
 }
 
+function setHappyKitCookie(
+	cookie: Parameters<NextResponse['cookies']['set']>,
+	response: NextResponse
+): NextResponse {
+	response.cookies.set(...cookie)
+	return response
+}
+
 /**
  * Root-level middleware that will process all middleware-capable requests.
  * Currently used to support:
  * - Handling simple one-to-one redirects for .io routes
  * - Handling the opt in for cookie setting
  */
-export function middleware(req: NextRequest, ev: NextFetchEvent) {
+export async function middleware(req: NextRequest, ev: NextFetchEvent) {
+	const label = `[middleware] ${req.nextUrl.pathname}`
+	console.time(label)
+
+	let response: NextResponse
+
 	// Handle redirects
 	const product = determineProductSlug(req)
-	// Sets a cookie named hc_geo on the response
-	const response = setGeoCookie(req)
 
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
@@ -48,6 +62,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 			)
 		}
 		if (destination.startsWith('http')) {
+			console.timeEnd(label)
 			return NextResponse.redirect(destination, permanent ? 308 : 307)
 		}
 
@@ -55,6 +70,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		// request URL to adjust the pathname in an absolute URL
 		const url = req.nextUrl.clone()
 		url.pathname = destination
+		console.timeEnd(label)
 		return NextResponse.redirect(url, permanent ? 308 : 307)
 	}
 
@@ -72,6 +88,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 		deleteCookie(req, response, `${product}-io-beta-opt-in`)
 
+		console.timeEnd(label)
 		return response
 	}
 
@@ -103,7 +120,53 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 			const response = NextResponse.redirect(redirectUrl, redirectStatus)
 
+			console.timeEnd(label)
 			return response
+		}
+	}
+
+	/**
+	 * We are running A/B tests on a subset of routes, so we are limiting the call to resolve flags from HappyKit to only those routes. This limits the impact of any additional latency to the routes which need the data.
+	 */
+	if (
+		['vault', 'packer', 'consul'].includes(product) &&
+		['/'].includes(req.nextUrl.pathname)
+	) {
+		try {
+			const edgeFlags = await getEdgeFlags({ request: req })
+			const { flags, cookie } = edgeFlags
+
+			if (product === 'vault' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroCtas) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/vault/without-cta-links'
+					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie.args, NextResponse.next())
+				}
+			}
+
+			if (product === 'packer' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroCtas) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/packer/without-cta-links'
+					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie.args, NextResponse.next())
+				}
+			}
+
+			if (product === 'consul' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroCtas) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/consul/without-cta-links'
+					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie.args, NextResponse.next())
+				}
+			}
+		} catch {
+			// Fallback to default URLs
 		}
 	}
 
@@ -123,6 +186,10 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		// Unable to determine the referer, do nothing
 	}
 
+	if (!response) {
+		response = NextResponse.next()
+	}
+
 	const hasOptedIn = Boolean(req.cookies.get(`${optInPlatform}-beta-opt-in`))
 
 	if (optInPlatform && !hasOptedIn) {
@@ -131,6 +198,22 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		})
 	}
 
+	console.timeEnd(label)
 	// Continue request processing
-	return response
+	return setGeoCookie(req, response)
+}
+
+export const config = {
+	matcher: [
+		/*
+		 * Match all request paths except for the ones starting with:
+		 * - /api/ (API routes)
+		 * - static (static files)
+		 * - _next/ (Next.js files: this is expected to be 'static|image|data')
+		 * - img (image assets)
+		 * - favicon.ico (favicon file)
+		 * - icon (hashicorp logo)
+		 */
+		'/((?!api\\/|static|_next\\/|img|favicon.ico|icon).*)',
+	],
 }

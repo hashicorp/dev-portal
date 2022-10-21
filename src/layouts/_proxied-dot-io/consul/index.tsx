@@ -81,17 +81,17 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 							},
 							{
 								text: 'Docs',
-								url: '/docs',
+								url: 'https://developer.hashicorp.com/consul/docs',
 								type: 'inbound',
 							},
 							{
 								text: 'API',
-								url: '/api-docs',
+								url: 'https://developer.hashicorp.com/consul/api-docs',
 								type: 'inbound',
 							},
 							{
 								text: 'CLI',
-								url: '/commands',
+								url: 'https://developer.hashicorp.com/consul/commands',
 								type: 'inbound,',
 							},
 							{

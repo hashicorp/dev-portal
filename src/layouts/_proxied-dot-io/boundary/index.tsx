@@ -88,12 +88,12 @@ function BoundaryIoLayout({ children, data }: Props): React.ReactElement {
 							},
 							{
 								text: 'Docs',
-								url: '/docs',
+								url: 'https://developer.hashicorp.com/boundary/docs',
 								type: 'inbound',
 							},
 							{
 								text: 'API',
-								url: '/api-docs',
+								url: 'https://developer.hashicorp.com/boundary/api-docs',
 								type: 'inbound',
 							},
 							{
