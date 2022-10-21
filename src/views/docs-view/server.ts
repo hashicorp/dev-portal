@@ -152,6 +152,7 @@ export function getStaticGenerationFunctions<
 			const loader = getLoader({
 				mainBranch,
 				remarkPlugins: [
+					...additionalRemarkPlugins,
 					/**
 					 * Note on remark plugins for local vs remote loading:
 					 * includeMarkdown and paragraphCustomAlerts are already
@@ -168,7 +169,6 @@ export function getStaticGenerationFunctions<
 						remarkPluginAdjustLinkUrls,
 						{ urlAdjustFn: getProductUrlAdjuster(product) },
 					],
-					...additionalRemarkPlugins,
 				],
 				rehypePlugins: [
 					[rehypePrism, { ignoreMissing: true }],
