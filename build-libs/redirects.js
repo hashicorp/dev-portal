@@ -83,7 +83,7 @@ const devPortalToDotIoRedirects = isPreview()
  * @returns {Redirect[]}
  */
 function addHostCondition(redirects, productSlug, betaSlugs) {
-	const host = proxySettings[productSlug].host
+	const host = proxySettings[productSlug]?.host
 	return redirects.map((redirect) => {
 		if (productSlug == PROXIED_PRODUCT) {
 			return redirect
@@ -153,8 +153,19 @@ async function getLatestContentRefForProduct(product) {
  * Fetches a redirects file for a given product from the given ref and evaluates the contents
  * as JS.
  */
-async function getRedirectsForProduct(product, ref = 'stable-website') {
-	const latestRef = await getLatestContentRefForProduct(product)
+async function getRedirectsForProduct(
+	product,
+	{ ref = 'stable-website', redirectsPath = 'website/redirects.js' } = {}
+) {
+	let latestRef = ref
+	try {
+		latestRef = await getLatestContentRefForProduct(product)
+	} catch (error) {
+		// do nothing
+		console.warn('[redirects] failed to fetch latestRef for:', product, error)
+	}
+
+	let repo = product
 
 	const rawRedirects = isDeployPreview(product)
 		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
@@ -162,8 +173,8 @@ async function getRedirectsForProduct(product, ref = 'stable-website') {
 		? '[]'
 		: await fetchGithubFile({
 				owner: 'hashicorp',
-				repo: product,
-				path: 'website/redirects.js',
+				repo,
+				path: redirectsPath,
 				ref: latestRef ?? ref,
 		  })
 	const parsedRedirects = eval(rawRedirects) ?? []
@@ -179,6 +190,9 @@ async function buildProductRedirects() {
 	// Fetch author-oriented redirects from product repos,
 	// and merge those with dev-oriented redirects from
 	// within this repository
+	if (process.env.SKIP_BUILD_PRODUCT_REDIRECTS) {
+		return []
+	}
 
 	/**
 	 * TODO
@@ -210,6 +224,14 @@ async function buildProductRedirects() {
 			getRedirectsForProduct('vagrant'),
 			getRedirectsForProduct('packer'),
 			getRedirectsForProduct('consul'),
+			getRedirectsForProduct('terraform-website', {
+				ref: 'master',
+				redirectsPath: '/redirects.js',
+			}),
+			getRedirectsForProduct('cloud.hashicorp.com', {
+				ref: 'main',
+				redirectsPath: '/redirects.js',
+			}),
 		])
 	).flat()
 
