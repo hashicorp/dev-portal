@@ -39,6 +39,28 @@ const temporary_hideDocsPaths = {
 	],
 }
 
+/**
+ * @type {import('next/dist/lib/load-custom-routes').Header}
+ *
+ * Adds a `noindex` directive to all pages on `tip.waypointproject.io`.
+ * We don't want content on that domain to be indexed.
+ */
+const hideWaypointTipContent = {
+	source: '/:path*',
+	headers: [
+		{
+			key: 'X-Robots-Tag',
+			value: 'noindex,nofollow',
+		},
+	],
+	has: [
+		{
+			type: 'host',
+			value: 'tip.waypointproject.io',
+		},
+	],
+}
+
 module.exports = withSwingset({
 	componentsRoot: 'src/components/**/*',
 	docsRoot: 'src/swingset-docs/*',
@@ -64,7 +86,7 @@ module.exports = withSwingset({
 			return config
 		},
 		async headers() {
-			return [temporary_hideDocsPaths]
+			return [temporary_hideDocsPaths, hideWaypointTipContent]
 		},
 		async redirects() {
 			const { simpleRedirects, globRedirects } = await redirectsConfig()
