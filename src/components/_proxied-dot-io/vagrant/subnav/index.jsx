@@ -19,7 +19,10 @@ export default function VagrantSubnav() {
 			}}
 			ctaLinks={[
 				{ text: 'GitHub', url: 'https://www.github.com/hashicorp/vagrant' },
-				{ text: 'Download', url: '/downloads' },
+				{
+					text: 'Download',
+					url: 'https://developer.hashicorp.com/vagrant/downloads',
+				},
 			]}
 			currentPath={router.pathname}
 			menuItemsAlign="right"
