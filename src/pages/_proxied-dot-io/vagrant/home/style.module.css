@@ -13,3 +13,18 @@
 		margin: 120px auto;
 	}
 }
+
+/*
+ * Temporary solution until all products move over to use
+ * the NextSteps WPL component.
+ */
+
+.nextSteps {
+	--margin-top: -60px;
+
+	margin-top: var(--margin-top);
+
+	@media (--medium-up) {
+		--margi-top: -120px;
+	}
+}

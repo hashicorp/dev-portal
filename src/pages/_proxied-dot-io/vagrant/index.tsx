@@ -2,16 +2,16 @@ import * as React from 'react'
 import { proxiedRivetClient } from 'lib/cms'
 import Head from 'next/head'
 import { renderMetaTags } from '@hashicorp/react-head'
+import NextSteps from '@hashicorp/react-next-steps'
+import VagrantIoLayout from 'layouts/_proxied-dot-io/vagrant'
 import IoHomeHero from 'components/_proxied-dot-io/common/io-home-hero'
 import IoHomeIntro from 'components/_proxied-dot-io/common/io-home-intro'
 import IoHomeInPractice from 'components/_proxied-dot-io/common/io-home-in-practice'
 import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container'
 import IoHomeCaseStudies from 'components/_proxied-dot-io/common/io-home-case-studies'
 import IoHomeCallToAction from 'components/_proxied-dot-io/common/io-home-call-to-action'
-import IoHomePreFooter from 'components/_proxied-dot-io/common/io-home-pre-footer'
 import homepageQuery from './home/query.graphql'
 import s from './home/style.module.css'
-import VagrantIoLayout from 'layouts/_proxied-dot-io/vagrant'
 
 export default function Homepage({ data }): React.ReactElement {
 	const {
@@ -176,12 +176,23 @@ export default function Homepage({ data }): React.ReactElement {
 				links={callToActionCtas}
 			/>
 
-			<IoHomePreFooter
-				brand="vagrant"
-				heading={preFooterHeading}
-				description={preFooterDescription}
-				ctas={preFooterCtas}
-			/>
+			<div className={s.nextSteps}>
+				<NextSteps
+					theme="vagrant"
+					heading={preFooterHeading}
+					description={preFooterDescription}
+					steps={preFooterCtas.map(({ heading, description, cta, link }) => {
+						return {
+							heading,
+							description,
+							cta: {
+								title: cta,
+								url: link,
+							},
+						}
+					})}
+				/>
+			</div>
 		</>
 	)
 }
