@@ -28,7 +28,7 @@ const temporary_hideDocsPaths = {
 	headers: [
 		{
 			key: 'X-Robots-Tag',
-			value: 'noindex,nofollow',
+			value: 'noindex',
 		},
 	],
 	has: [
@@ -50,7 +50,7 @@ const hideWaypointTipContent = {
 	headers: [
 		{
 			key: 'X-Robots-Tag',
-			value: 'noindex',
+			value: 'noindex,nofollow',
 		},
 	],
 	has: [
