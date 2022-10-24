@@ -92,17 +92,17 @@ function PackerIoLayout({ children, data }: Props): React.ReactElement {
 							},
 							{
 								text: 'Docs',
-								url: '/docs',
+								url: 'https://developer.hashicorp.com/packer/docs',
 								type: 'inbound',
 							},
 							{
 								text: 'Guides',
-								url: '/guides',
+								url: 'https://developer.hashicorp.com/packer/guides',
 								type: 'inbound',
 							},
 							{
 								text: 'Plugins',
-								url: '/plugins',
+								url: 'https://developer.hashicorp.com/packer/plugins',
 								type: 'inbound',
 							},
 							{
