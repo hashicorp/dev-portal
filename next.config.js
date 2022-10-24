@@ -28,7 +28,7 @@ const temporary_hideDocsPaths = {
 	headers: [
 		{
 			key: 'X-Robots-Tag',
-			value: 'noindex',
+			value: 'noindex,nofollow',
 		},
 	],
 	has: [
