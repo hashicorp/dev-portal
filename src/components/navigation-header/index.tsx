@@ -21,11 +21,7 @@ import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
 
 // Local imports
 import { NavigationHeaderItem } from './types'
-import {
-	GiveFeedbackButton,
-	HomePageHeaderContent,
-	ProductPageHeaderContent,
-} from './components'
+import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
 import s from './navigation-header.module.css'
 
 const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
@@ -129,7 +125,6 @@ const NavigationHeader = () => {
 		<header className={s.root}>
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
-				<GiveFeedbackButton className="g-hide-with-mobile-menu" />
 				{GLOBAL_SEARCH_ENABLED ? (
 					<CommandBarActivator
 						leadingIcon={<IconSearch16 />}

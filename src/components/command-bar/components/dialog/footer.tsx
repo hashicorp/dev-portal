@@ -2,10 +2,14 @@ import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-d
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import Badge from 'components/badge'
 import Text from 'components/text'
-import { FORM_URL } from 'components/navigation-header/components/give-feedback-button'
 import StandaloneLink from 'components/standalone-link'
 import { CommandBarDialogFooterProps } from './types'
 import s from './command-bar-dialog.module.css'
+
+// This was used for the beta feedback form
+// @TODO this may need to be updated if we transition to a new form
+// https://app.asana.com/0/1202801212949828/1203209807734290/f
+export const FORM_URL = 'https://forms.gle/fnHLuNahLEhjuKvE6'
 
 const CommandBarDialogFooter = ({
 	instructionsElementId,
