@@ -5,8 +5,8 @@ import ButtonLink from 'components/button-link'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import s from './give-feedback-button.module.css'
 
-const LINK_TEXT = 'Give beta feedback'
-const LINK_ARIA_LABEL = 'Give beta feedback (opens in new tab)'
+const LINK_TEXT = 'Give feedback'
+const LINK_ARIA_LABEL = 'Give feedback (opens in new tab)'
 
 function GiveFeedbackButton({
 	allowIconOnly = true,
