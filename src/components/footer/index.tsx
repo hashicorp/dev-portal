@@ -100,7 +100,7 @@ function Footer({
 								{textElement}
 								{item.openInNewTab ? (
 									<span className="g-screen-reader-only">
-										(opens in new window)
+										(opens in new tab)
 									</span>
 								) : null}
 							</a>
