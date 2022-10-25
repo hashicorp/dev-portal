@@ -13,12 +13,10 @@ import Joi from 'joi'
  * Hero
  */
 interface HeroContent {
-	badgeText?: string
 	heading: string
 	description: string
 }
 const heroSchema = Joi.object({
-	badgeText: Joi.string(),
 	heading: Joi.string().required(),
 	description: Joi.string().required(),
 })

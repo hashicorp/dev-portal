@@ -2,9 +2,9 @@ import classNames from 'classnames'
 import Image from 'next/image'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import ButtonLink from 'components/button-link'
+import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import s from './give-feedback-button.module.css'
 
-export const FORM_URL = 'https://forms.gle/fnHLuNahLEhjuKvE6'
 const LINK_TEXT = 'Give feedback'
 const LINK_ARIA_LABEL = 'Give feedback (opens in new tab)'
 
@@ -20,7 +20,7 @@ function GiveFeedbackButton({
 			{allowIconOnly ? (
 				<span className={s.iconButtonContainer}>
 					<a
-						href={FORM_URL}
+						href={FEEDBACK_FORM_URL}
 						aria-label={LINK_ARIA_LABEL}
 						className={classNames(s.iconButton, s.primary)}
 						target="_blank"
@@ -37,7 +37,7 @@ function GiveFeedbackButton({
 			) : null}
 			<span className={allowIconOnly ? s.textButtonContainer : undefined}>
 				<ButtonLink
-					href={FORM_URL}
+					href={FEEDBACK_FORM_URL}
 					icon={<IconExternalLink16 />}
 					iconPosition="trailing"
 					openInNewTab
