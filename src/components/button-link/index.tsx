@@ -61,9 +61,6 @@ const ButtonLink = ({
 				{hasLeadingIcon && icon}
 				{hasText ? text : null}
 				{hasTrailingIcon && icon}
-				{openInNewTab ? (
-					<span className="g-screen-reader-only">(opens in new tab)</span>
-				) : null}
 			</a>
 		</Link>
 	)

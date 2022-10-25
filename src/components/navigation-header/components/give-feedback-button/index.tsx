@@ -37,6 +37,7 @@ function GiveFeedbackButton({
 			) : null}
 			<span className={allowIconOnly ? s.textButtonContainer : undefined}>
 				<ButtonLink
+					aria-label={LINK_ARIA_LABEL}
 					href={FEEDBACK_FORM_URL}
 					icon={<IconExternalLink16 />}
 					iconPosition="trailing"

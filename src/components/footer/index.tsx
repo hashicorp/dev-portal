@@ -98,11 +98,6 @@ function Footer({
 								rel={item.openInNewTab ? 'noreferrer' : undefined}
 							>
 								{textElement}
-								{item.openInNewTab ? (
-									<span className="g-screen-reader-only">
-										(opens in new tab)
-									</span>
-								) : null}
 							</a>
 						)
 					} else if (item.type === 'consent-manager') {
