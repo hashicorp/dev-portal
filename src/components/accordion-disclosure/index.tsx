@@ -32,7 +32,10 @@ const AccordionDisclosure = ({
 				containerClassName={generateContainerClassName}
 				initialOpen={initialOpen}
 			>
-				<DisclosureActivator className={s.button}>
+				<DisclosureActivator
+					className={s.button}
+					data-heap-track="accordion-disclosure-activator"
+				>
 					<span className={s.labelContainer}>
 						<Text asElement="span" className={s.title} weight="semibold">
 							{title}
