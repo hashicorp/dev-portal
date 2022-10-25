@@ -5,6 +5,7 @@ import optInRedirectChecks from '.generated/opt-in-redirect-checks'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
+import { getEdgeFlags } from 'flags/edge'
 import { deleteCookie } from 'lib/middleware-delete-cookie'
 
 const OPT_IN_MAX_AGE = 60 * 60 * 24 * 180 // 180 days
@@ -27,19 +28,28 @@ function determineProductSlug(req: NextRequest): string {
 	return '*'
 }
 
+function setHappyKitCookie(
+	cookie: Parameters<NextResponse['cookies']['set']>,
+	response: NextResponse
+): NextResponse {
+	response.cookies.set(...cookie)
+	return response
+}
+
 /**
  * Root-level middleware that will process all middleware-capable requests.
  * Currently used to support:
  * - Handling simple one-to-one redirects for .io routes
  * - Handling the opt in for cookie setting
  */
-export function middleware(req: NextRequest, ev: NextFetchEvent) {
+export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const label = `[middleware] ${req.nextUrl.pathname}`
 	console.time(label)
+
+	let response: NextResponse
+
 	// Handle redirects
 	const product = determineProductSlug(req)
-	// Sets a cookie named hc_geo on the response
-	const response = setGeoCookie(req)
 
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(`[DEBUG_REDIRECTS] determined product to be: ${product}`)
@@ -115,6 +125,51 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		}
 	}
 
+	/**
+	 * We are running A/B tests on a subset of routes, so we are limiting the call to resolve flags from HappyKit to only those routes. This limits the impact of any additional latency to the routes which need the data.
+	 */
+	if (
+		['vault', 'packer', 'consul'].includes(product) &&
+		['/'].includes(req.nextUrl.pathname)
+	) {
+		try {
+			const edgeFlags = await getEdgeFlags({ request: req })
+			const { flags, cookie } = edgeFlags
+
+			if (product === 'vault' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroCtas) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/vault/without-cta-links'
+					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie.args, NextResponse.next())
+				}
+			}
+
+			if (product === 'packer' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroCtas) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/packer/without-cta-links'
+					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie.args, NextResponse.next())
+				}
+			}
+
+			if (product === 'consul' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroCtas) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/consul/without-cta-links'
+					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie.args, NextResponse.next())
+				}
+			}
+		} catch {
+			// Fallback to default URLs
+		}
+	}
+
 	// Handle Opt-in cookies
 	let optInPlatform = params.get('optInFrom') as OptInPlatformOption
 
@@ -131,6 +186,10 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 		// Unable to determine the referer, do nothing
 	}
 
+	if (!response) {
+		response = NextResponse.next()
+	}
+
 	const hasOptedIn = Boolean(req.cookies.get(`${optInPlatform}-beta-opt-in`))
 
 	if (optInPlatform && !hasOptedIn) {
@@ -141,7 +200,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 	console.timeEnd(label)
 	// Continue request processing
-	return response
+	return setGeoCookie(req, response)
 }
 
 export const config = {

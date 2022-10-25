@@ -3,6 +3,7 @@ import { createContext, ReactNode, useContext } from 'react'
 type CurrentContentType = 'global' | 'docs' | 'tutorials'
 
 const CurrentContentTypeContext = createContext<CurrentContentType>(undefined)
+CurrentContentTypeContext.displayName = 'CurrentContentTypeContext'
 
 interface CurrentContentTypeProviderProps {
 	children: ReactNode

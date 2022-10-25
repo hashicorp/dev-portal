@@ -4,9 +4,19 @@ import { useCurrentProduct } from 'contexts'
 import getDeployedUrl from 'lib/get-deployed-url'
 import { HeadMetadataProps } from './types'
 
+/**
+ * Returns the fully qualified developer URL for the current page, minus the query string
+ *
+ * TODO: If we want to support specific query params in the canonical, consider adding an allow list here and instead filtering the search params based on that
+ */
 const useFullUrl = (base: string = __config.dev_dot.canonical_base_url) => {
 	const { asPath } = useRouter()
-	return new URL(asPath, base).toString()
+	const url = new URL(asPath, base)
+
+	// remove any query params from the URL to ensure they don't end up in the canonical
+	url.search = ''
+
+	return url.toString()
 }
 
 /**

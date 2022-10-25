@@ -1,10 +1,36 @@
 .progressIcon {
+	/* Icon color for in progress state */
 	&.status_in_progress {
-		--color: var(--token-color-palette-blue-200);
+		--color: var(--token-color-foreground-action);
+
+		@nest :global(a):hover & {
+			--color: var(--token-color-foreground-action-hover);
+		}
+
+		&.isActive {
+			--color: var(--token-color-foreground-action-active);
+		}
+
+		@nest :global(a):focus & {
+			--color: var(--token-color-foreground-action-hover);
+		}
 	}
 
+	/* Icon color for in complete state */
 	&.status_complete {
 		--color: var(--token-color-palette-green-200);
+
+		@nest :global(a):hover & {
+			--color: var(--token-color-palette-green-300);
+		}
+
+		&.isActive {
+			--color: var(--token-color-palette-green-400);
+		}
+
+		@nest :global(a):focus & {
+			--color: var(--token-color-palette-green-300);
+		}
 	}
 
 	&.size_12 {

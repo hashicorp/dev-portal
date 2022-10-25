@@ -32,12 +32,12 @@
 	"subnavItems": [
 		{
 			"text": "Intro",
-			"url": "/intro",
+			"url": "https://developer.hashicorp.com/vagrant/intro",
 			"type": "inbound"
 		},
 		{
 			"text": "Docs",
-			"url": "/docs",
+			"url": "https://developer.hashicorp.com/vagrant/docs",
 			"type": "inbound"
 		},
 		{
