@@ -94,9 +94,8 @@ function Footer({
 								className={s.linkAction}
 								href={item.href}
 								aria-label={item.ariaLabel}
-								{...(item.external
-									? { target: '_blank', rel: 'noreferrer' }
-									: {})}
+								target={item.external ? '_blank' : undefined}
+								rel={item.external ? 'noreferrer' : undefined}
 							>
 								{textElement}
 							</a>
