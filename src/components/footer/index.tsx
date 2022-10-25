@@ -3,14 +3,14 @@ import classNames from 'classnames'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
 import Text from 'components/text'
-import { FORM_URL } from 'components/navigation-header/components/give-feedback-button'
+import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import { FooterItem, FooterProps } from './types'
 import s from './footer.module.css'
 
 const FOOTER_ITEMS: FooterItem[] = [
 	{
 		type: 'link',
-		href: FORM_URL,
+		href: FEEDBACK_FORM_URL,
 		text: 'Give Feedback',
 		openInNewTab: true,
 	},
