@@ -38,11 +38,6 @@
 			"shortName": "Documentation"
 		},
 		{
-			"iconName": "entry-point",
-			"name": "Introduction",
-			"path": "intro"
-		},
-		{
 			"iconName": "guide",
 			"name": "Guides",
 			"path": "guides"

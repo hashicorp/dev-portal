@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react'
 
 export const AccordionDisclosureContext = createContext<boolean>(false)
+AccordionDisclosureContext.displayName = 'AccordionDisclosureContext'
 
 /**
  * should return `true` if being called by a consumer that

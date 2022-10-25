@@ -29,27 +29,7 @@ import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
-
-/**
- * Given a productSlugForLoader (which generally corresponds to a repo name),
- * Return the ref to use for remote content when the product is marked "beta".
- *
- * Note: for products where we intend to use the latest ref according
- * to the marketing content API, we return undefined.
- *
- * TODO: this is not intended as a permanent solution.
- * At present, it seems likely we'll transition away from using "dev-portal"
- * branches, and instead focus on backwards-compatible content changes
- * until each product is generally available on developer.hashicorp.com.
- *
- * Once we've moved away from "dev-portal" branches, this function
- * will no longer be necessary, and we will no longer pass the
- * "latestVersionRef" to the remote content loader config.
- */
-function getBetaLatestVersionRef(slug: string): string | undefined {
-	const hasDevPortalBranch = ['cloud.hashicorp.com'].includes(slug)
-	return hasDevPortalBranch ? 'dev-portal' : undefined
-}
+import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -104,12 +84,6 @@ export function getStaticGenerationFunctions<
 		basePath: basePathForLoader,
 		enabledVersionedDocs: true,
 		navDataPrefix,
-		/**
-		 * Note: not all products in "beta" are expected to have a specific
-		 * "content_preview_branch", so even for products marked "beta",
-		 * "latestVersionRef" may end up being undefined.
-		 */
-		latestVersionRef: getBetaLatestVersionRef(productSlugForLoader),
 	}
 
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
@@ -132,16 +106,43 @@ export function getStaticGenerationFunctions<
 
 	return {
 		getStaticPaths: async () => {
-			let paths = await getLoader().loadStaticPaths()
+			const pathsFromNavData = await getLoader().loadStaticPaths()
 
 			if (isDeployPreview() && !isDeployPreview(productSlugForLoader)) {
 				// do not statically render any other products if we are in a deploy preview for another product
-				paths = []
+				return {
+					fallback: 'blocking',
+					paths: [],
+				}
 			}
+
+			// Render all paths for deploy previews in source repositories
+			if (isDeployPreview(productSlugForLoader)) {
+				return {
+					fallback: 'blocking',
+					paths: pathsFromNavData,
+				}
+			}
+
+			if (productSlugForLoader === 'terraform-cdk') {
+				// terraform-cdk has some exceptionally large pages that cannot be ISR'd due to lambda response size limits. As a result, we force the SSG of these pages.
+				// TODO: remove this block when we come up with an alternative workaround to CDKTF's large pages
+				return {
+					paths: pathsFromNavData,
+					fallback: 'blocking',
+				}
+			}
+
+			// Otherwise, rely on analytics data to prune the paths
+			const paths = await getStaticPathsFromAnalytics({
+				limit: __config.dev_dot.max_static_paths ?? 0,
+				pathPrefix: `/${product.slug}/${basePath}`,
+				validPaths: pathsFromNavData,
+			})
 
 			return {
 				fallback: 'blocking',
-				paths: paths.slice(0, __config.dev_dot.max_static_paths ?? 0),
+				paths,
 			}
 		},
 		getStaticProps: async (ctx) => {
@@ -151,6 +152,7 @@ export function getStaticGenerationFunctions<
 			const loader = getLoader({
 				mainBranch,
 				remarkPlugins: [
+					...additionalRemarkPlugins,
 					/**
 					 * Note on remark plugins for local vs remote loading:
 					 * includeMarkdown and paragraphCustomAlerts are already
@@ -167,7 +169,6 @@ export function getStaticGenerationFunctions<
 						remarkPluginAdjustLinkUrls,
 						{ urlAdjustFn: getProductUrlAdjuster(product) },
 					],
-					...additionalRemarkPlugins,
 				],
 				rehypePlugins: [
 					[rehypePrism, { ignoreMissing: true }],

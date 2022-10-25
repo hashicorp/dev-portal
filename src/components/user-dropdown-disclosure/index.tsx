@@ -16,12 +16,10 @@ import {
  * Handles rendering either a link item or a button item based on whether the
  * `href` or `onClick` property is given.
  */
-const renderItem = ({
-	href,
-	icon,
-	label,
-	onClick,
-}: UserDropdownDisclosureItem) => {
+const renderItem = (
+	{ href, icon, label, onClick }: UserDropdownDisclosureItem,
+	itemIndex: number
+) => {
 	if (href) {
 		const isExternal = isAbsoluteUrl(href)
 		const rel = isExternal ? 'noreferrer noopener' : undefined
@@ -29,6 +27,7 @@ const renderItem = ({
 
 		return (
 			<DropdownDisclosureLinkItem
+				key={itemIndex}
 				href={href}
 				icon={icon}
 				rel={rel}
@@ -41,7 +40,11 @@ const renderItem = ({
 
 	if (onClick) {
 		return (
-			<DropdownDisclosureButtonItem icon={icon} onClick={onClick}>
+			<DropdownDisclosureButtonItem
+				key={itemIndex}
+				icon={icon}
+				onClick={onClick}
+			>
 				{label}
 			</DropdownDisclosureButtonItem>
 		)

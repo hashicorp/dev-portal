@@ -18,6 +18,7 @@ export function useTabGroups(): TabContextValue {
 }
 
 const TabContext = createContext(undefined)
+TabContext.displayName = 'TabContext'
 
 export default function TabProvider({ children }: { children: ReactNode }) {
 	const [activeTabGroup, setActiveTabGroup] = useState<string>()
