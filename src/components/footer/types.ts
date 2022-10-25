@@ -11,7 +11,6 @@ export interface FooterProps {
 interface FooterLinkItem {
 	text: string
 	href: string
-	ariaLabel?: string
 	openInNewTab?: boolean
 }
 
