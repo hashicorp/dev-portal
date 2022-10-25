@@ -13,7 +13,7 @@ const FOOTER_ITEMS: FooterItem[] = [
 		href: FORM_URL,
 		text: 'Give Feedback',
 		ariaLabel: 'Give beta feedback (opens in new tab)',
-		external: true,
+		openInNewTab: true,
 	},
 	{
 		type: 'link',
@@ -96,8 +96,8 @@ function Footer({
 								className={s.linkAction}
 								href={item.href}
 								aria-label={item.ariaLabel}
-								target={item.external ? '_blank' : undefined}
-								rel={item.external ? 'noreferrer' : undefined}
+								target={item.openInNewTab ? '_blank' : undefined}
+								rel={item.openInNewTab ? 'noreferrer' : undefined}
 							>
 								{textElement}
 							</a>

@@ -12,7 +12,7 @@ interface FooterLinkItem {
 	text: string
 	href: string
 	ariaLabel?: string
-	external?: boolean
+	openInNewTab?: boolean
 }
 
 /**
