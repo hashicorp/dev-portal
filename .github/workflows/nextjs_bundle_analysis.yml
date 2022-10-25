@@ -42,6 +42,8 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
       - name: Build next.js app
+        env:
+          SKIP_BUILD_PRODUCT_REDIRECTS: 1
         # change this if your site requires a custom build command
         run: npm run build:webpack-only
 

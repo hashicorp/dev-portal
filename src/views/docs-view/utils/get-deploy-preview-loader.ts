@@ -40,8 +40,6 @@ export function getDeployPreviewLoader({
 		navDataFile,
 	}
 
-	console.log('[Deploy Preview Loader]\n', process.cwd(), basePath, fsOptions)
-
 	/**
 	 * These plugins are run during our content ETL process for remote content, but we need to run
 	 * them when loading content directly from the filesystem.
@@ -104,10 +102,11 @@ export function getDeployPreviewLoader({
 				remarkTerraformPlugins.push([remarkTfeContentExclusion, { version }])
 			}
 
+			// The order here is intentional. remarkPluginsForFileSystemContent ensures that partials are resolved and the content is close to its final structure before we do things like apply link rewrites
 			return [
 				...remarkTerraformPlugins,
-				...remarkPluginsFromExtraOptions,
 				...remarkPluginsForFileSystemContent,
+				...remarkPluginsFromExtraOptions,
 			]
 		},
 	})

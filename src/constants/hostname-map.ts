@@ -27,7 +27,7 @@ export const HOSTNAME_MAP = {
 export const SLUG_TO_HOSTNAME_MAP = {
 	boundary: 'www.boundaryproject.io',
 	consul: 'www.consul.io',
-	nomad: 'wwww.nomadproject.io',
+	nomad: 'www.nomadproject.io',
 	packer: 'www.packer.io',
 	sentinel: 'docs.hashicorp.com',
 	vagrant: 'www.vagrantup.com',

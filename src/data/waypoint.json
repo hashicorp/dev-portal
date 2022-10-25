@@ -40,17 +40,17 @@
 		},
 		{
 			"text": "Docs",
-			"url": "/docs",
+			"url": "https://developer.hashicorp.com/waypoint/docs",
 			"type": "inbound"
 		},
 		{
 			"text": "CLI",
-			"url": "/commands",
+			"url": "https://developer.hashicorp.com/waypoint/commands",
 			"type": "inbound"
 		},
 		{
 			"text": "Plugins",
-			"url": "/plugins",
+			"url": "https://developer.hashicorp.com/waypoint/plugins",
 			"type": "inbound"
 		},
 		{

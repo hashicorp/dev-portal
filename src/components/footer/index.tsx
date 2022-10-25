@@ -3,10 +3,17 @@ import classNames from 'classnames'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
 import Text from 'components/text'
+import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import { FooterItem, FooterProps } from './types'
 import s from './footer.module.css'
 
 const FOOTER_ITEMS: FooterItem[] = [
+	{
+		type: 'link',
+		href: FEEDBACK_FORM_URL,
+		text: 'Give Feedback',
+		openInNewTab: true,
+	},
 	{
 		type: 'link',
 		href: 'https://status.hashicorp.com',
@@ -82,7 +89,14 @@ function Footer({
 					let innerElement: ReactElement
 					if (item.type === 'link') {
 						innerElement = (
-							<a className={s.linkAction} href={item.href}>
+							// Note: we do follow this rule, eslint just doesn't recognize it
+							// eslint-disable-next-line react/jsx-no-target-blank
+							<a
+								className={s.linkAction}
+								href={item.href}
+								target={item.openInNewTab ? '_blank' : undefined}
+								rel={item.openInNewTab ? 'noreferrer' : undefined}
+							>
 								{textElement}
 							</a>
 						)
