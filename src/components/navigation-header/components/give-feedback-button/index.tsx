@@ -6,6 +6,7 @@ import s from './give-feedback-button.module.css'
 
 export const FORM_URL = 'https://forms.gle/fnHLuNahLEhjuKvE6'
 const LINK_TEXT = 'Give feedback'
+const LINK_ARIA_LABEL = 'Give feedback (opens in new tab)'
 
 function GiveFeedbackButton({
 	allowIconOnly = true,
@@ -20,7 +21,7 @@ function GiveFeedbackButton({
 				<span className={s.iconButtonContainer}>
 					<a
 						href={FORM_URL}
-						aria-label={LINK_TEXT}
+						aria-label={LINK_ARIA_LABEL}
 						className={classNames(s.iconButton, s.primary)}
 						target="_blank"
 						rel="noreferrer"
