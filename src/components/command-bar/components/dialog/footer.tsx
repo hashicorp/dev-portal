@@ -3,13 +3,9 @@ import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-l
 import Badge from 'components/badge'
 import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
+import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import { CommandBarDialogFooterProps } from './types'
 import s from './command-bar-dialog.module.css'
-
-// This was used for the beta feedback form
-// @TODO this may need to be updated if we transition to a new form
-// https://app.asana.com/0/1202801212949828/1203209807734290/f
-export const FORM_URL = 'https://forms.gle/fnHLuNahLEhjuKvE6'
 
 const CommandBarDialogFooter = ({
 	instructionsElementId,
@@ -51,7 +47,7 @@ const CommandBarDialogFooter = ({
 			<div>
 				<StandaloneLink
 					color="secondary"
-					href={FORM_URL}
+					href={FEEDBACK_FORM_URL}
 					icon={<IconExternalLink16 />}
 					iconPosition="trailing"
 					openInNewTab
