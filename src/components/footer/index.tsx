@@ -90,6 +90,8 @@ function Footer({
 					let innerElement: ReactElement
 					if (item.type === 'link') {
 						innerElement = (
+							// Note: we do follow this rule, eslint just doesn't recognize it
+							// eslint-disable-next-line react/jsx-no-target-blank
 							<a
 								className={s.linkAction}
 								href={item.href}
