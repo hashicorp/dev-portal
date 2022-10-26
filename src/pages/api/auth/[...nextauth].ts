@@ -1,14 +1,33 @@
+import createFetch from '@vercel/fetch'
 import NextAuth from 'next-auth'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 import refreshTokenSet from 'lib/auth/refresh-token-set'
 import isJwtExpired from 'lib/auth/is-jwt-expired'
 import { AuthErrors } from 'types/auth'
 
+const fetch = createFetch()
+
 const isDev = process.env.NODE_ENV === 'development'
 
 export default NextAuth({
 	session: {
 		maxAge: 2592000, // 30 days
+	},
+	// https://next-auth.js.org/configuration/options#events
+	events: {
+		/**
+		 * NOTE: NextAuth log out of auth providers, so we have to handle doing that
+		 * ourselves in this signOut event.
+		 * https://github.com/nextauthjs/next-auth/discussions/3938
+		 *
+		 * cloud-idp and Ory Hydra docs:
+		 * https://hashicorp.atlassian.net/wiki/spaces/CLOUD/pages/2321449597/cloud-idp+and+Ory+Hydra
+		 */
+		async signOut({ token }) {
+			await fetch(
+				`${__config.dev_dot.auth.idp_url}/oauth2/sessions/logout?id_token_hint=${token.id_token}`
+			)
+		},
 	},
 	providers: [CloudIdpProvider],
 	callbacks: {
@@ -24,9 +43,11 @@ export default NextAuth({
 
 			// initial call during sign in
 			if (isInitial) {
-				// persist access_token and refresh_token on the session token
+				// persist access_token, refresh_token, and id_token on the session token
+				// id_token is needed for the signOut event above
 				token.access_token = account.access_token
 				token.refresh_token = account.refresh_token
+				token.id_token = account.id_token
 
 				// Picture is passed to session.user.image
 				token.picture = profile.picture as string
