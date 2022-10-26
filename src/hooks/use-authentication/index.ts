@@ -88,7 +88,7 @@ const useAuthentication = (
 		const segmentUserId = safeGetSegmentId()
 		if (segmentUserId !== session.accessToken) {
 			// 	analytics?.accessToken(
-			// 		session.id,
+			// 		session.accessToken,
 			// 		{
 			// 			email: user.email,
 			// 			leadSource: 'DevPortal Sign Up',
