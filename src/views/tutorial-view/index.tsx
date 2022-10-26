@@ -18,7 +18,6 @@ import {
 	getTutorialSlug,
 } from 'views/collection-view/helpers'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
-import OptInOut from 'components/opt-in-out'
 import DevDotContent from 'components/dev-dot-content'
 import {
 	generateProductLandingSidebarNavData,
@@ -257,9 +256,6 @@ function TutorialView({
 					sidebarNavDataLevels={sidebarNavDataLevels as any}
 					showScrollProgress={true}
 					AlternateSidebar={TutorialsSidebar}
-					optInOutSlot={
-						<OptInOut platform="learn" redirectPath={redirectPath} />
-					}
 					headings={layoutProps.headings}
 				>
 					<LayoutContentWrapper
