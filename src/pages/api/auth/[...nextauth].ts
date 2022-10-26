@@ -21,9 +21,16 @@ export default NextAuth({
 		 * https://github.com/nextauthjs/next-auth/discussions/3938
 		 */
 		async signOut({ token }) {
-			await fetch(
-				`${__config.dev_dot.auth.idp_url}/oauth2/sessions/logout?id_token_hint=${token.id_token}`
-			)
+			try {
+				await fetch(
+					`${__config.dev_dot.auth.idp_url}/oauth2/sessions/logout?id_token_hint=${token.id_token}`
+				)
+			} catch (e) {
+				console.error(
+					'[NextAuth] There was an error in the `signOut` event:',
+					e
+				)
+			}
 		},
 	},
 	providers: [CloudIdpProvider],
