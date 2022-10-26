@@ -70,7 +70,7 @@ const safeAnalyticsTrack = (
 	}
 }
 
-export function safeGetSegmentId(): string | null {
+export function safeGetSegmentAnonymousId(): string | null {
 	if (
 		typeof window !== undefined &&
 		window.analytics &&
@@ -78,6 +78,19 @@ export function safeGetSegmentId(): string | null {
 		typeof window.analytics.user === 'function'
 	) {
 		return window.analytics.user().anonymousId()
+	} else {
+		return null
+	}
+}
+
+export function safeGetSegmentId(): string | null {
+	if (
+		typeof window !== undefined &&
+		window.analytics &&
+		window.analytics.user &&
+		typeof window.analytics.user === 'function'
+	) {
+		return window.analytics.user().id()
 	} else {
 		return null
 	}

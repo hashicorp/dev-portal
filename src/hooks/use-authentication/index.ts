@@ -11,6 +11,7 @@ import {
 } from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
+import { safeGetSegmentId } from 'lib/analytics'
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
@@ -83,6 +84,25 @@ const useAuthentication = (
 		session = { ...data }
 		user = data.user
 		delete session.user
+
+		const segmentUserId = safeGetSegmentId()
+		if (segmentUserId !== session.id) {
+			// 	analytics?.identify(
+			// 		session.id,
+			// 		{
+			// 			email: user.email,
+			// 			leadSource: 'DevPortal Sign Up',
+			// 			devPortalSignUp: true,
+			// 		},
+			// 		{
+			// 			// This limits PII flow to only Marketo as per Security and data engineering
+			// 			integrations: {
+			// 				All: false,
+			// 				'Marketo V2': true,
+			// 			},
+			// 		}
+			// 	)
+		}
 	}
 
 	// Return everything packaged up in an object
