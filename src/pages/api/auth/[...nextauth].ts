@@ -16,7 +16,7 @@ export default NextAuth({
 	// https://next-auth.js.org/configuration/options#events
 	events: {
 		/**
-		 * NOTE: NextAuth log out of auth providers, so we have to handle doing that
+		 * NOTE: NextAuth does not log out of auth providers, so we have to handle doing that
 		 * ourselves in this signOut event.
 		 * https://github.com/nextauthjs/next-auth/discussions/3938
 		 *
