@@ -130,7 +130,7 @@
 		"@hashicorp/react-search": "^6.4.0",
 		"@hashicorp/react-section-header": "^5.0.4",
 		"@hashicorp/react-sentinel-embedded": "^1.0.4",
-		"@hashicorp/react-subnav": "^9.5.1-canary-20221006175401",
+		"@hashicorp/react-subnav": "^9.4.0",
 		"@hashicorp/react-tabs": "^7.1.2",
 		"@hashicorp/react-text-split-with-image": "^4.3.1",
 		"@hashicorp/react-text-split-with-logo-grid": "^5.1.6",
