@@ -19,9 +19,6 @@ export default NextAuth({
 		 * NOTE: NextAuth does not log out of auth providers, so we have to handle doing that
 		 * ourselves in this signOut event.
 		 * https://github.com/nextauthjs/next-auth/discussions/3938
-		 *
-		 * cloud-idp and Ory Hydra docs:
-		 * https://hashicorp.atlassian.net/wiki/spaces/CLOUD/pages/2321449597/cloud-idp+and+Ory+Hydra
 		 */
 		async signOut({ token }) {
 			await fetch(
