@@ -86,22 +86,22 @@ const useAuthentication = (
 		delete session.user
 
 		const segmentUserId = safeGetSegmentId()
-		if (segmentUserId !== session.accessToken) {
-			// 	analytics?.accessToken(
-			// 		session.accessToken,
-			// 		{
-			// 			email: user.email,
-			// 			leadSource: 'DevPortal Sign Up',
-			// 			devPortalSignUp: true,
-			// 		},
-			// 		{
-			// 			// This limits PII flow to only Marketo as per Security and data engineering
-			// 			integrations: {
-			// 				All: false,
-			// 				'Marketo V2': true,
-			// 			},
-			// 		}
-			// 	)
+		if (segmentUserId !== session.id) {
+			analytics?.identify(
+				session.id,
+				{
+					email: user.email,
+					leadSource: 'DevPortal Sign Up',
+					devPortalSignUp: true,
+				},
+				{
+					// This limits PII flow to only Marketo as per Security and data engineering
+					integrations: {
+						All: false,
+						'Marketo V2': true,
+					},
+				}
+			)
 		}
 	}
 
