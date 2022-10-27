@@ -22,9 +22,11 @@ export default NextAuth({
 		 */
 		async signOut({ token }) {
 			try {
-				await fetch(
-					`${__config.dev_dot.auth.idp_url}/oauth2/sessions/logout?id_token_hint=${token.id_token}`
-				)
+				const wellKnownConfiguration = await (
+					await fetch(CloudIdpProvider.wellKnown)
+				).json()
+				const endSessionEndpoint = wellKnownConfiguration.end_session_endpoint
+				await fetch(`${endSessionEndpoint}?id_token_hint=${token.id_token}`)
 			} catch (e) {
 				console.error(
 					'[NextAuth] There was an error in the `signOut` event:',
