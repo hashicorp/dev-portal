@@ -154,6 +154,7 @@ async function getLatestContentRefForProduct(product) {
  * as JS.
  */
 async function getRedirectsForProduct(
+	/** @type {string} The product slug. Corresponds to a repository name. */
 	product,
 	{ ref = 'stable-website', redirectsPath = 'website/redirects.js' } = {}
 ) {
@@ -178,6 +179,17 @@ async function getRedirectsForProduct(
 				ref: latestRef ?? ref,
 		  })
 	const parsedRedirects = eval(rawRedirects) ?? []
+
+	/**
+	 * @TODO
+	 * Each of the parsedRedirects should be prefixed with `/{productSlug}`,
+	 * as we're applying these redirects to `developer.hashicorp.com`.
+	 * We filter out & ignore any redirects not prefixed with the `product` slug.
+	 *
+	 * We also print out a warning, although note that this may not be visible
+	 * to authors, unless they view logs for the preview build they're working on.
+	 */
+	// TODO filter parsedRedirects, keep those that startWith(`/${product}`)
 
 	return addHostCondition(
 		parsedRedirects,
