@@ -1,5 +1,6 @@
 import createFetch from '@vercel/fetch'
 import NextAuth from 'next-auth'
+import { URL } from 'url'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 import refreshTokenSet from 'lib/auth/refresh-token-set'
 import isJwtExpired from 'lib/auth/is-jwt-expired'
@@ -26,7 +27,11 @@ export default NextAuth({
 					await fetch(CloudIdpProvider.wellKnown)
 				).json()
 				const endSessionEndpoint = wellKnownConfiguration.end_session_endpoint
-				await fetch(`${endSessionEndpoint}?id_token_hint=${token.id_token}`)
+
+				const endSessionUrl = new URL(endSessionEndpoint)
+				endSessionUrl.searchParams.set('id_token_hint', token.id_token)
+
+				await fetch(endSessionUrl.toString())
 			} catch (e) {
 				console.error(
 					'[NextAuth] There was an error in the `signOut` event:',
