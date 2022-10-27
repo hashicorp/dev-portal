@@ -1,10 +1,10 @@
 import createFetch from '@vercel/fetch'
 import NextAuth from 'next-auth'
 import { URL } from 'url'
+import { AuthErrors, TokenSet } from 'types/auth'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 import refreshTokenSet from 'lib/auth/refresh-token-set'
 import isJwtExpired from 'lib/auth/is-jwt-expired'
-import { AuthErrors } from 'types/auth'
 
 const fetch = createFetch()
 
@@ -23,14 +23,20 @@ export default NextAuth({
 		 */
 		async signOut({ token }) {
 			try {
+				// Fetch the wellknown configuration
 				const wellKnownConfiguration = await (
 					await fetch(CloudIdpProvider.wellKnown)
 				).json()
+
+				// Pull the end_session_endpoint value
 				const endSessionEndpoint = wellKnownConfiguration.end_session_endpoint
 
+				// Construct the full URL to end the session
 				const endSessionUrl = new URL(endSessionEndpoint)
-				endSessionUrl.searchParams.set('id_token_hint', token.id_token)
+				const idToken = (token as TokenSet).id_token
+				endSessionUrl.searchParams.set('id_token_hint', idToken)
 
+				// Fetch to hit the end session endpoint
 				await fetch(endSessionUrl.toString())
 			} catch (e) {
 				console.error(
