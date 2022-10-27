@@ -86,7 +86,7 @@ const useAuthentication = (
 		delete session.user
 
 		const segmentUserId = safeGetSegmentId()
-		if (segmentUserId !== session.id) {
+		if (segmentUserId && segmentUserId !== session.id) {
 			analytics?.identify(
 				session.id,
 				{
