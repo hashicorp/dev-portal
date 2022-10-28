@@ -1,6 +1,6 @@
 /**
  * Fixes up Packer plugin links that use a redirected format
- * in the "old" URL format, before plugins were moved to `/plugin`.
+ * in the "old" URL format, before plugins were moved to `/plugins`.
  *
  * Note: previously, on packer.io, we used redirects to make this correction.
  * See `proxied-redirects/www.packer.io.redirects.js` at the root of this
