@@ -30,6 +30,7 @@ import rehypePrism from '@mapbox/rehype-prism'
 // which we need to shim cause of how we're fetching remote content here
 import shimRemoteIncludes from 'lib/shim-remote-includes'
 import { fixupPackerPluginUrls } from './fixup-plugin-urls'
+import { fixupRedirectedPackerPlugins } from './fixup-redirected-plugin-urls'
 
 async function generateStaticPaths({
 	navDataFile,
@@ -195,8 +196,9 @@ async function generateStaticProps({
 					remarkPluginAdjustLinkUrls,
 					{
 						urlAdjustFn: (url) => {
-							const fixedPluginUrl = fixupPackerPluginUrls(url)
-							return dotIoToDevDotUrlAdjuster(fixedPluginUrl)
+							const withSpecificFixes = fixupRedirectedPackerPlugins(url)
+							const withAllFixes = fixupPackerPluginUrls(withSpecificFixes)
+							return dotIoToDevDotUrlAdjuster(withAllFixes)
 						},
 					},
 				],
