@@ -19,7 +19,7 @@ import { Image, Definition } from 'mdast'
 // otherwise we use the content api for previews / prod
 const ASSET_API_ENDPOINT =
 	process.env.ASSET_API_ENDPOINT ||
-	'https://mktg-content-api-hashicorp.vercel.app/api/assets'
+  `${process.env.MKTG_CONTENT_API}/api/assets`
 
 export const rewriteStaticAssetsPlugin: Plugin = () => {
 	return function transformer(tree) {
