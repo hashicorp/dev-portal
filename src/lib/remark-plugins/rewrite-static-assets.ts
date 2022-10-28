@@ -15,7 +15,9 @@ import { Plugin } from 'unified'
 import { Node } from 'unist'
 import { Image, Definition } from 'mdast'
 
-const ASSET_API_ENDPOINT = `${process.env.MKTG_CONTENT_API}/api/assets`
+const ASSET_API_ENDPOINT =
+	process.env.ASSET_API_ENDPOINT ||
+	'https://mktg-content-api-hashicorp.vercel.app/api/assets'
 
 export const rewriteStaticAssetsPlugin: Plugin = () => {
 	return function transformer(tree) {
@@ -49,6 +51,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 			 * to git and can be served via the GH CDN.
 			 * */
 			if (isVercelBuild) {
+				console.log('vercel build!!!', process.env.VERCEL_ENV)
 				const params = newUrl.searchParams
 
 				// for /tutorials previews, we pass the branchname as an env via gh workflow
@@ -62,6 +65,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				params.set('version', branchName)
 				params.set('asset', assetPath)
 			} else {
+				console.log('nevermind')
 				//  Otherwise, pass the unchanged path to a custom asset server for local dev
 				newUrl.pathname = path.join(newUrl.pathname, node.url)
 			}
