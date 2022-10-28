@@ -18,9 +18,8 @@
  *
  * Note: previously, on packer.io, we used redirects to make this correction.
  * See `proxied-redirects/www.packer.io.redirects.js` at the root of this
- * repository for those redirects.
- * @TODO we may be able to remove those redirects? As they don't seem to apply
- * now that packer.io docs & plugins are served from developer.hashicorp.com?
+ * repository for those redirects. These redirects still apply to packer.io,
+ * but do not work for developer.hashicorp.com.
  */
 export function fixupPackerPluginUrls(url: string): string {
 	// We want to match /docs/:type/:pluginSlug URLs.
