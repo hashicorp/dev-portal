@@ -29,8 +29,28 @@ export function fixupRedirectedPackerPlugins(url: string): string {
  */
 const PACKER_PLUGIN_REDIRECTS: { find: RegExp; replace: string }[] = [
 	{
-		find: /^\/docs\/post-processors\/amazon-(.*)/,
-		replace: '/docs/post-processors/amazon/-$1',
+		find: /^\/docs\/builders\/amazon-(.*)/,
+		replace: '/docs/builders/amazon/$1',
+	},
+	{
+		find: /^\/docs\/builders\/azure-(.*)/,
+		replace: '/docs/builders/azure/$1',
+	},
+	{
+		find: /^\/docs\/builders\/hyperv-(.*)/,
+		replace: '/docs/builders/hyperv/$1',
+	},
+	{
+		find: /^\/docs\/builders\/oracle-(.*)/,
+		replace: '/docs/builders/oracle/$1',
+	},
+	{
+		find: /^\/docs\/builders\/osc-(.*)/,
+		replace: '/docs/builders/outscale/$1',
+	},
+	{
+		find: /^\/docs\/builders\/parallels-(.*)/,
+		replace: '/docs/builders/parallels/$1',
 	},
 	{
 		find: /^\/docs\/builders\/virtualbox-(.*)/,
@@ -49,58 +69,3 @@ const PACKER_PLUGIN_REDIRECTS: { find: RegExp; replace: string }[] = [
 		replace: '/docs/post-processors/docker/docker-$1',
 	},
 ]
-
-/*
-
-{
-		source: '/docs/builders/amazon-:path',
-		destination: '/docs/builders/amazon/:path*',
-		permanent: true,
-	},
-	{
-		source: '/docs/builders/azure-:path',
-		destination: '/docs/builders/azure/:path*',
-		permanent: true,
-	},
-	{
-		source: '/docs/builders/hyperv-:path',
-		destination: '/docs/builders/hyperv/:path*',
-		permanent: true,
-	},
-	{
-		source: '/docs/builders/oracle-:path',
-		destination: '/docs/builders/oracle/:path*',
-		permanent: true,
-	},
-	{
-		source: '/docs/builders/osc-:path',
-		destination: '/docs/builders/outscale/:path*',
-		permanent: true,
-	},
-	{
-		source: '/docs/builders/parallels-:path',
-		destination: '/docs/builders/parallels/:path*',
-		permanent: true,
-	},
-	{
-		source: '/docs/builders/virtualbox-:path',
-		destination: '/docs/builders/virtualbox/:path*',
-		permanent: true,
-	},
-	{
-		source: '/docs/builders/vmware-:path',
-		destination: '/docs/builders/vmware/:path*',
-		permanent: true,
-	},
-	{
-		source: '/docs/builders/vsphere-:path',
-		destination: '/docs/builders/vmware/vsphere-:path*',
-		permanent: true,
-	},
-	{
-		source: '/docs/post-processors/docker-:path',
-		destination: '/docs/post-processors/docker/docker-:path*',
-		permanent: true,
-	},
-	
-	*/
