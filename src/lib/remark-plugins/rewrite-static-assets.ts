@@ -64,7 +64,6 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				params.set('version', branchName)
 				params.set('asset', assetPath)
 			} else {
-				console.log('nevermind')
 				//  Otherwise, pass the unchanged path to a custom asset server for local dev
 				newUrl.pathname = path.join(newUrl.pathname, node.url)
 			}
