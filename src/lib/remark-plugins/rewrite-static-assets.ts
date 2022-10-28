@@ -18,8 +18,7 @@ import { Image, Definition } from 'mdast'
 // This env is set for local docker previews by a custom asset server,
 // otherwise we use the content api for previews / prod
 const ASSET_API_ENDPOINT =
-	process.env.ASSET_API_ENDPOINT ||
-  `${process.env.MKTG_CONTENT_API}/api/assets`
+	process.env.ASSET_API_ENDPOINT || `${process.env.MKTG_CONTENT_API}/api/assets`
 
 export const rewriteStaticAssetsPlugin: Plugin = () => {
 	return function transformer(tree) {
