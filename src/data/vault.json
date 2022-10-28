@@ -39,7 +39,7 @@
 			}
 		]
 	},
-	"alertBannerActive": false,
+	"alertBannerActive": true,
 	"alertBanner": {
 		"tag": "November 2 | 9AM PDT",
 		"url": "https://www.hashicorp.com/events/webinars/vault-1-12-overview",
