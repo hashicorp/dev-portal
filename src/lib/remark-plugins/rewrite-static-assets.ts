@@ -14,6 +14,7 @@ import { is } from 'unist-util-is'
 import { Plugin } from 'unified'
 import { Node } from 'unist'
 import { Image, Definition } from 'mdast'
+
 // This env is set for local docker previews by a custom asset server, 
 // otherwise we use the content api for previews / prod
 const ASSET_API_ENDPOINT =
