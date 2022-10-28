@@ -51,7 +51,6 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 			 * to git and can be served via the GH CDN.
 			 * */
 			if (isVercelBuild) {
-				console.log('vercel build!!!', process.env.VERCEL_ENV)
 				const params = newUrl.searchParams
 
 				// for /tutorials previews, we pass the branchname as an env via gh workflow
