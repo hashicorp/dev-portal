@@ -1,3 +1,8 @@
+type FindReplace = {
+	find: RegExp
+	replace: string
+}
+
 /**
  * Fixes up Packer plugin links that use a redirected format
  * in the "old" URL format, before plugins were moved to `/plugins`.
@@ -9,10 +14,11 @@
  */
 export function fixupRedirectedPackerPlugins(url: string): string {
 	// Run through find-and-replaces that represent former redirects
-	const matchedFindReplace = PACKER_PLUGIN_REDIRECTS.find(({ find }) => {
-		console.log({ url, find })
-		return find.test(url)
-	})
+	const matchedFindReplace = PACKER_PLUGIN_REDIRECTS.find(
+		({ find }: FindReplace) => {
+			return find.test(url)
+		}
+	)
 	// If there is a matched find and replace, run it
 	if (matchedFindReplace) {
 		const { find, replace } = matchedFindReplace
@@ -27,7 +33,7 @@ export function fixupRedirectedPackerPlugins(url: string): string {
  * A snapshot of the plugin redirects from when Packer plugins
  * were served from the "old" URLS, nested under `/docs`.
  */
-const PACKER_PLUGIN_REDIRECTS: { find: RegExp; replace: string }[] = [
+const PACKER_PLUGIN_REDIRECTS: FindReplace[] = [
 	{
 		find: /^\/docs\/builders\/amazon-(.*)/,
 		replace: '/docs/builders/amazon/$1',
