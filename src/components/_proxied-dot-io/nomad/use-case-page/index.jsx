@@ -11,7 +11,7 @@ export default function UseCaseLayout({ title, description, children }) {
 				links={[
 					{
 						text: 'Explore HashiCorp Learn',
-						url: 'https://learn.hashicorp.com/nomad',
+						url: 'https://developer.hashicorp.com/nomad/tutorials',
 						type: 'outbound',
 					},
 					{
@@ -35,7 +35,7 @@ export default function UseCaseLayout({ title, description, children }) {
 					{
 						text: 'Explore HashiCorp Learn',
 						type: 'outbound',
-						url: 'https://learn.hashicorp.com/nomad',
+						url: 'https://developer.hashicorp.com/nomad/tutorials',
 					},
 					{
 						text: 'Explore Documentation',

@@ -8,27 +8,27 @@ export default function DownloadsProps(preMerchandisingSlot) {
 		getStartedLinks: [
 			{
 				label: 'CLI Quickstart',
-				href: 'https://learn.hashicorp.com/collections/consul/get-started-vms',
+				href: 'https://developer.hashicorp.com/consul/tutorials/get-started-vms',
 			},
 			{
 				label: 'HCP Consul',
-				href: 'https://learn.hashicorp.com/collections/consul/get-started-hcp',
+				href: 'https://developer.hashicorp.com/consul/tutorials/get-started-hcp',
 			},
 			{
 				label: 'HCS on Azure',
-				href: 'https://learn.hashicorp.com/collections/consul/hcs-azure',
+				href: 'https://developer.hashicorp.com/consul/tutorials/hcs-azure',
 			},
 			{
 				label: 'Kubernetes Quickstart',
-				href: 'https://learn.hashicorp.com/collections/consul/get-started-kubernetes',
+				href: 'https://developer.hashicorp.com/consul/tutorials/get-started-kubernetes',
 			},
 			{
 				label: 'View all Consul tutorials',
-				href: 'https://learn.hashicorp.com/consul',
+				href: 'https://developer.hashicorp.com/consul/tutorials',
 			},
 		],
 		tutorialLink: {
-			href: 'https://learn.hashicorp.com/consul',
+			href: 'https://developer.hashicorp.com/consul/tutorials',
 			label: 'View Tutorials at HashiCorp Learn',
 		},
 		logo: (
