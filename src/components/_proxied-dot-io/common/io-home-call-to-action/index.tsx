@@ -21,7 +21,7 @@ export default function IoHomeCallToAction({
 	return (
 		<div className={s.callToAction}>
 			<ReactCallToAction
-				variant="compact"
+				variant="compactGrid"
 				heading={heading}
 				content={content}
 				product={brand}
