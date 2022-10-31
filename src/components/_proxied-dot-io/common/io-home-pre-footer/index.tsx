@@ -3,7 +3,7 @@ import type { NextStepsProps } from '@hashicorp/react-next-steps/types'
 import { Products } from '@hashicorp/platform-product-meta'
 import s from './style.module.css'
 
-type CTA = {
+interface CTA {
 	heading: string
 	description: string
 	cta: string
@@ -23,9 +23,8 @@ export default function IoHomePreFooter({
 	description,
 	ctas,
 }: IoHomePreFooterProps) {
-	console.log(ctas)
 	return (
-		<div className={s.nextSteps}>
+		<div className={s.ioHomePreFooter}>
 			<NextSteps
 				theme={brand}
 				heading={heading}

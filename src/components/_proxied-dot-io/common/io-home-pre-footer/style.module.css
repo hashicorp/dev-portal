@@ -1,9 +1,4 @@
-/*
- * Temporary solution until all products move over to use
- * the NextSteps WPL component.
- */
-
-.nextSteps {
+.ioHomePreFooter {
 	--margin-top: -60px;
 
 	margin-top: var(--margin-top);
