@@ -10,7 +10,7 @@ export default function UseCaseLayout({ title, description, children }) {
 				content={description}
 				links={[
 					{
-						text: 'Explore HashiCorp Learn',
+						text: 'Explore Tutorials',
 						url: 'https://developer.hashicorp.com/nomad/tutorials',
 						type: 'outbound',
 					},
