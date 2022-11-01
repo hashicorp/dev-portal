@@ -178,21 +178,26 @@ async function getRedirectsForProduct(
 				path: redirectsPath,
 				ref: latestRef ?? ref,
 		  })
+
+	/** @type {Redirect[]} */
 	const parsedRedirects = eval(rawRedirects) ?? []
 
 	/**
-	 * @TODO
 	 * Each of the parsedRedirects should be prefixed with `/{productSlug}`,
 	 * as we're applying these redirects to `developer.hashicorp.com`.
+	 *
 	 * We filter out & ignore any redirects not prefixed with the `product` slug.
 	 *
-	 * We also print out a warning, although note that this may not be visible
+	 * We also print out a warning. Note that this warning may not be visible
 	 * to authors, unless they view logs for the preview build they're working on.
 	 */
-	// TODO filter parsedRedirects, keep those that startWith(`/${product}`)
+	const validRedirects = parsedRedirects.filter((entry) => {
+		// Keep redirects that are prefixed with the product slug.
+		return entry.source.startsWith(`/${product}`)
+	})
 
 	return addHostCondition(
-		parsedRedirects,
+		validRedirects,
 		product,
 		config['dev_dot.beta_product_slugs']
 	)
