@@ -38,7 +38,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
 			}
 			tutorialLink={{
 				href: 'https://developer.hashicorp.com/nomad/tutorials',
-				label: 'View Tutorials at HashiCorp Learn',
+				label: 'View Tutorials',
 			}}
 			merchandisingSlot={
 				<p className={s.legalNotice}>
