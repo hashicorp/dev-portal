@@ -168,16 +168,33 @@ async function getRedirectsForProduct(
 
 	let repo = product
 
-	const rawRedirects = isDeployPreview(product)
-		? fs.readFileSync(path.join(process.cwd(), '../redirects.js'), 'utf-8')
-		: isDeployPreview()
-		? '[]'
-		: await fetchGithubFile({
-				owner: 'hashicorp',
-				repo,
-				path: redirectsPath,
-				ref: latestRef ?? ref,
-		  })
+	/** @type {string} A raw redirects file string to evaluate */
+	let rawRedirects
+
+	/**
+	 * Load the raw redirects
+	 */
+	if (isDeployPreview(product)) {
+		// For deploy previews of this product, load redirects locally,
+		// as authors may be modifying redirects as part of their work.
+		rawRedirects = fs.readFileSync(
+			path.join(process.cwd(), '../redirects.js'),
+			'utf-8'
+		)
+	} else if (isDeployPreview()) {
+		// For deploy previews in "other products", return an empty array,
+		// since we'll be removing the content for this product anyways.
+		rawRedirects = '[]'
+	} else {
+		// Otherwise, such as for production deploys,
+		// load redirects from the product repository.
+		rawRedirects = await fetchGithubFile({
+			owner: 'hashicorp',
+			repo,
+			path: redirectsPath,
+			ref: latestRef ?? ref,
+		})
+	}
 
 	/** @type {Redirect[]} */
 	const parsedRedirects = eval(rawRedirects) ?? []
