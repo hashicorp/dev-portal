@@ -72,7 +72,6 @@ const PackageManagerSection = ({
 						return (
 							<CodeBlock
 								key={label}
-								className={s.codeTabsCodeBlock}
 								code={installCodeHtml}
 								language="shell-session"
 								options={{ showClipboard: true }}

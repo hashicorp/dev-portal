@@ -21,11 +21,7 @@ import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
 
 // Local imports
 import { NavigationHeaderItem } from './types'
-import {
-	GiveFeedbackButton,
-	HomePageHeaderContent,
-	ProductPageHeaderContent,
-} from './components'
+import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
 import s from './navigation-header.module.css'
 
 const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
@@ -57,8 +53,7 @@ const MobileMenuButton = () => {
  */
 const AuthenticationControls = () => {
 	const { asPath } = useRouter()
-	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
-		useAuthentication()
+	const { showAuthenticatedUI, signIn, signOut, user } = useAuthentication()
 
 	/**
 	 * Upon signin
@@ -72,12 +67,27 @@ const AuthenticationControls = () => {
 		})
 	}
 
-	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
-		return null
-	}
+	/**
+	 * @TODO implement loading skeleton
+	 * https://app.asana.com/0/1202097197789424/1202791375540720/f
+	 *
+	 * The `showUnauthenticatedUI` boolean is not used here because we want to
+	 * show the sign in/up elements by default until loading skeletons are
+	 * implemented. Most of our users do not have Learn accounts, so our goal is
+	 * to remove the flash for the majority of a users as a temporary effort.
+	 */
 
 	let content
-	if (showUnauthenticatedUI) {
+	if (showAuthenticatedUI) {
+		content = (
+			<UserDropdownDisclosure
+				className={s.userDropdownDisclosure}
+				listPosition="right"
+				items={getUserMenuItems({ signOut })}
+				user={user}
+			/>
+		)
+	} else {
 		content = (
 			<>
 				<Button
@@ -95,15 +105,6 @@ const AuthenticationControls = () => {
 					text="Sign Up"
 				/>
 			</>
-		)
-	} else if (showAuthenticatedUI) {
-		content = (
-			<UserDropdownDisclosure
-				className={s.userDropdownDisclosure}
-				listPosition="right"
-				items={getUserMenuItems({ signOut })}
-				user={user}
-			/>
 		)
 	}
 
@@ -129,7 +130,6 @@ const NavigationHeader = () => {
 		<header className={s.root}>
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
-				<GiveFeedbackButton className="g-hide-with-mobile-menu" />
 				{GLOBAL_SEARCH_ENABLED ? (
 					<CommandBarActivator
 						leadingIcon={<IconSearch16 />}
