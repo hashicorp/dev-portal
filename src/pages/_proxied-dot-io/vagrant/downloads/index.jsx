@@ -38,7 +38,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
 			}
 			tutorialLink={{
 				href: 'https://developer.hashicorp.com/vagrant/tutorials',
-				label: 'View Tutorials at HashiCorp Learn',
+				label: 'View Tutorials',
 			}}
 			merchandisingSlot={
 				<Link href="/vmware/downloads">
