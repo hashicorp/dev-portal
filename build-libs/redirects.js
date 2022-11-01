@@ -208,10 +208,29 @@ async function getRedirectsForProduct(
 	 * We also print out a warning. Note that this warning may not be visible
 	 * to authors, unless they view logs for the preview build they're working on.
 	 */
+
+	/** @type {Redirect[]} */
+	const invalidRedirects = []
 	const validRedirects = parsedRedirects.filter((entry) => {
-		// Keep redirects that are prefixed with the product slug.
-		return entry.source.startsWith(`/${product}`)
+		// Redirects must be prefixed with the product slug.
+		const isPrefixed = entry.source.startsWith(`/${product}`)
+		// Keep track of non-prefixed redirects, we want to warn about these
+		if (!isPrefixed) {
+			invalidRedirects.push(entry)
+		}
+		return isPrefixed
 	})
+
+	/**
+	 * Log a warning for any invalid authored redirects
+	 */
+	if (invalidRedirects.length > 0) {
+		let message = `Found invalid redirects. Invalid redirects are ignored.`
+		message += ` Please ensure all redirects start with "/${product}".`
+		message += ` The following redirects must be updated to start with "/${product}":`
+		message += `\n${JSON.stringify(invalidRedirects, null, 2)}`
+		console.log(message)
+	}
 
 	return addHostCondition(
 		validRedirects,
