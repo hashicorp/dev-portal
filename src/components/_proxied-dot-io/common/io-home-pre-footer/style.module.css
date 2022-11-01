@@ -1,9 +1,0 @@
-.ioHomePreFooter {
-	--margin-top: -60px;
-
-	margin-top: var(--margin-top);
-
-	@media (--medium-up) {
-		--margin-top: -120px;
-	}
-}
