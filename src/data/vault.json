@@ -76,7 +76,7 @@
 		"divider",
 		{
 			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/vault"
+			"url": "https://developer.hashicorp.com/vault/tutorials"
 		},
 		{
 			"text": "Docs",

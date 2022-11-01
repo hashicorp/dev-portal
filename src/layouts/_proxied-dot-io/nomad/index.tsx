@@ -82,7 +82,7 @@ function NomadIoLayout({ children, data }: Props): React.ReactElement {
 							'divider',
 							{
 								text: 'Tutorials',
-								url: 'https://learn.hashicorp.com/nomad',
+								url: 'https://developer.hashicorp.com/nomad/tutorials',
 								type: 'outbound',
 							},
 							{
