@@ -11,7 +11,9 @@ export default function Footer({ openConsentManager }) {
 					<Link href="/api">
 						<a>API</a>
 					</Link>
-					<a href="https://developer.hashicorp.com/vault/tutorials">Tutorials</a>
+					<a href="https://developer.hashicorp.com/vault/tutorials">
+						Tutorials
+					</a>
 					<Link href="/community">
 						<a>Community</a>
 					</Link>
