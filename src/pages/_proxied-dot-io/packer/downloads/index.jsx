@@ -13,7 +13,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
 			getStartedLinks={[
 				{
 					label: 'View all Packer tutorials',
-					href: 'https://learn.hashicorp.com/packer',
+					href: 'https://developer.hashicorp.com/packer/tutorials',
 				},
 			]}
 			logo={
@@ -24,7 +24,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
 				/>
 			}
 			tutorialLink={{
-				href: 'https://learn.hashicorp.com/packer',
+				href: 'https://developer.hashicorp.com/packer/tutorials',
 				label: 'View Tutorials at HashiCorp Learn',
 			}}
 		/>
