@@ -42,7 +42,7 @@ function WaypointDownloadsPage({
 	)
 	const tutorialLink = {
 		href: 'https://developer.hashicorp.com/waypoint/tutorials',
-		label: 'View Tutorials at HashiCorp Learn',
+		label: 'View Tutorials',
 	}
 
 	return (
