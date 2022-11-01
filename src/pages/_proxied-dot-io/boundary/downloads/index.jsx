@@ -34,7 +34,7 @@ function DownloadsPage({ binaryReleases, desktopReleases }) {
 			}
 			product="boundary"
 			tutorialLink={{
-				label: 'View Tutorial on HashiCorp Learn',
+				label: 'View Tutorials',
 				href: 'https://developer.hashicorp.com/boundary/tutorials/oss-getting-started/oss-getting-started-install',
 			}}
 			merchandisingSlot={
