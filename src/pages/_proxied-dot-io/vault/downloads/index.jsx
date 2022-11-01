@@ -42,7 +42,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
 			}
 			tutorialLink={{
 				href: 'https://developer.hashicorp.com/vault/tutorials',
-				label: 'View Tutorials at HashiCorp Learn',
+				label: 'View Tutorials',
 			}}
 			merchandisingSlot={
 				<>
