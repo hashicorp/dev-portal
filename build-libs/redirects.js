@@ -328,11 +328,12 @@ function splitRedirectsByType(redirects) {
  * @returns {Redirect[]}
  */
 function filterInvalidRedirects(redirects, productSlug) {
+	/** @type {Redirect[]} */
+	const invalidRedirects = []
+
 	/**
 	 * Filter out any redirects not prefixed with the `product` slug.
 	 */
-	/** @type {Redirect[]} */
-	const invalidRedirects = []
 	const validRedirects = redirects.filter((entry) => {
 		// Redirects must be prefixed with the product slug.
 		const isPrefixed = entry.source.startsWith(`/${productSlug}`)
