@@ -38,7 +38,10 @@ const HomePageHeaderContent = () => {
 		<div className={sharedNavStyles.leftSide}>
 			<div className={sharedNavStyles.contentBeforeNav}>
 				<Link href="/">
-					<a aria-label="HashiCorp Developer Home">
+					<a
+						aria-label="HashiCorp Developer Home"
+						data-heap-track="navigation-header-home-logo-link"
+					>
 						<InlineSvg
 							className={s.siteLogo}
 							src={require('../../img/logo-white.svg?include')}
