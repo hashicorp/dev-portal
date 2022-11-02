@@ -199,38 +199,8 @@ async function getRedirectsForProduct(
 	/** @type {Redirect[]} */
 	const parsedRedirects = eval(rawRedirects) ?? []
 
-	/**
-	 * Each of the parsedRedirects should be prefixed with `/{productSlug}`,
-	 * as we're applying these redirects to `developer.hashicorp.com`.
-	 *
-	 * We filter out & ignore any redirects not prefixed with the `product` slug.
-	 *
-	 * We also print out a warning. Note that this warning may not be visible
-	 * to authors, unless they view logs for the preview build they're working on.
-	 */
-
-	/** @type {Redirect[]} */
-	const invalidRedirects = []
-	const validRedirects = parsedRedirects.filter((entry) => {
-		// Redirects must be prefixed with the product slug.
-		const isPrefixed = entry.source.startsWith(`/${product}`)
-		// Keep track of non-prefixed redirects, we want to warn about these
-		if (!isPrefixed) {
-			invalidRedirects.push(entry)
-		}
-		return isPrefixed
-	})
-
-	/**
-	 * Log a warning for any invalid authored redirects
-	 */
-	if (invalidRedirects.length > 0) {
-		let message = `Found invalid redirects. Invalid redirects are ignored.`
-		message += ` Please ensure all redirects start with "/${product}".`
-		message += ` The following redirects must be updated to start with "/${product}":`
-		message += `\n${JSON.stringify(invalidRedirects, null, 2)}`
-		console.log(message)
-	}
+	// Filter invalid redirects, such as those without a `/{productSlug}` prefix.
+	const validRedirects = filterInvalidRedirects(parsedRedirects, product)
 
 	return addHostCondition(
 		validRedirects,
@@ -341,6 +311,54 @@ function splitRedirectsByType(redirects) {
 	})
 
 	return { simpleRedirects, globRedirects }
+}
+
+/**
+ * Filters out invalid redirects authored in product repositories.
+ *
+ * In order to be valid, a redirect must:
+ * - Have a `source` prefixed with the product slug, like `/{productSlug}/...`,
+ *   as we're applying these redirects to `developer.hashicorp.com`.
+ * - (perhaps other criteria to be determined later).
+ *
+ * Invalid redirects will be filtered out and ignored.
+ *
+ * @param {Redirect[]} redirects
+ * @param {string} productSlug
+ * @returns {Redirect[]}
+ */
+function filterInvalidRedirects(redirects, productSlug) {
+	/**
+	 * Filter out any redirects not prefixed with the `product` slug.
+	 */
+	/** @type {Redirect[]} */
+	const invalidRedirects = []
+	const validRedirects = redirects.filter((entry) => {
+		// Redirects must be prefixed with the product slug.
+		const isPrefixed = entry.source.startsWith(`/${productSlug}`)
+		// Keep track of non-prefixed redirects, we want to warn about these
+		if (!isPrefixed) {
+			invalidRedirects.push(entry)
+		}
+		return isPrefixed
+	})
+
+	/**
+	 * Log a warning for any invalid authored redirects.
+	 *
+	 * Note: this warning will be output during the preview build process,
+	 * in Vercel's logs, so may not be immediately visible to authors.
+	 */
+	if (invalidRedirects.length > 0) {
+		let message = `Found invalid redirects. Invalid redirects are ignored.`
+		message += ` Please ensure all redirects start with "/${productSlug}".`
+		message += ` The following redirects must be updated to start with "/${productSlug}":`
+		message += `\n${JSON.stringify(invalidRedirects, null, 2)}`
+		console.log(message)
+	}
+
+	// Return the filtered, valid redirects
+	return validRedirects
 }
 
 /**
