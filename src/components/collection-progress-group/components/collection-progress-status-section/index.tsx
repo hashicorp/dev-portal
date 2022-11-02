@@ -1,8 +1,10 @@
 import { ReactElement, ReactNode } from 'react'
+import classNames from 'classnames'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
 import { IconCheckCircleFill16 } from '@hashicorp/flight-icons/svg-react/check-circle-fill-16'
 import { CardEyebrowText } from 'components/card/components'
 import ProgressBar from 'components/progress-bar'
+import useAuthentication from 'hooks/use-authentication'
 import { CollectionProgressStatusSectionProps } from './types'
 import s from './collection-progress-status-section.module.css'
 
@@ -24,6 +26,8 @@ function CollectionProgressStatusSection({
 	tutorialCount,
 	isInProgress,
 }: CollectionProgressStatusSectionProps) {
+	const { isAuthenticated } = useAuthentication()
+
 	/**
 	 * Completion status
 	 */
@@ -66,7 +70,11 @@ function CollectionProgressStatusSection({
 	 * Render, with a border and padding.
 	 */
 	return (
-		<div className={s.statusSectionWithBorder}>
+		<div
+			className={classNames(s.statusSectionWithBorder, {
+				[s.isAuthenticated]: isAuthenticated,
+			})}
+		>
 			<StatusSectionElements>{statusElements}</StatusSectionElements>
 		</div>
 	)

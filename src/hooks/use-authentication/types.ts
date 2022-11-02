@@ -17,7 +17,6 @@ interface UseAuthenticationOptions {
 }
 
 interface UseAuthenticationResult {
-	isAuthEnabled: boolean
 	isAuthenticated: boolean
 	isLoading: boolean
 	session: SessionData

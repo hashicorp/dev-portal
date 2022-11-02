@@ -11,7 +11,6 @@ import { FeaturedInCollections } from 'views/tutorial-view/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { NextPrevious } from 'views/tutorial-view/components'
 import { generateCanonicalUrl } from 'views/tutorial-view/utils'
-import OptInOut from 'components/opt-in-out'
 import s from 'views/tutorial-view/tutorial-view.module.css'
 import { WafTutorialViewProps } from '../types'
 
@@ -54,7 +53,6 @@ export default function WellArchitectedFrameworkTutorialView({
 					headings={layoutProps.headings}
 					breadcrumbLinks={layoutProps.breadcrumbLinks}
 					sidebarNavDataLevels={layoutProps.navLevels}
-					optInOutSlot={<OptInOut platform="learn" />}
 				>
 					<TutorialMeta
 						heading={{ slug: slug, text: name }}

@@ -18,19 +18,19 @@ function WaypointDownloadsPage({
 	const getStartedLinks = [
 		{
 			label: 'Deploy to Docker',
-			href: 'https://learn.hashicorp.com/collections/waypoint/get-started-docker',
+			href: 'https://developer.hashicorp.com/waypoint/tutorials/get-started-docker',
 		},
 		{
 			label: 'Deploy to Kubernetes',
-			href: 'https://learn.hashicorp.com/collections/waypoint/get-started-kubernetes',
+			href: 'https://developer.hashicorp.com/waypoint/tutorials/get-started-kubernetes',
 		},
 		{
 			label: 'Deploy to AWS',
-			href: 'https://learn.hashicorp.com/collections/waypoint/deploy-aws',
+			href: 'https://developer.hashicorp.com/waypoint/tutorials/deploy-aws',
 		},
 		{
 			label: 'View all Waypoint tutorials',
-			href: 'https://learn.hashicorp.com/waypoint',
+			href: 'https://developer.hashicorp.com/waypoint/tutorials',
 		},
 	]
 	const logo = ( // eslint-disable-next-line @next/next/no-img-element
@@ -41,8 +41,8 @@ function WaypointDownloadsPage({
 		/>
 	)
 	const tutorialLink = {
-		href: 'https://learn.hashicorp.com/waypoint',
-		label: 'View Tutorials at HashiCorp Learn',
+		href: 'https://developer.hashicorp.com/waypoint/tutorials',
+		label: 'View Tutorials',
 	}
 
 	return (

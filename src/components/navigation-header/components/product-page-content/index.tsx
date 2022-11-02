@@ -88,10 +88,6 @@ const ProductPageHeaderContent = () => {
 		icon: 'home' as $TSFixMe,
 		label: 'HashiCorp Developer',
 		path: '/',
-		badge: {
-			text: 'Beta',
-			color: 'highlight' as const,
-		},
 	}
 
 	// Construct item groups for the dropdown, avoid adding empty groups
