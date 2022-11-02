@@ -10,8 +10,8 @@ export default function UseCaseLayout({ title, description, children }) {
 				content={description}
 				links={[
 					{
-						text: 'Explore HashiCorp Learn',
-						url: 'https://learn.hashicorp.com/nomad',
+						text: 'Explore Tutorials',
+						url: 'https://developer.hashicorp.com/nomad/tutorials',
 						type: 'outbound',
 					},
 					{
@@ -33,9 +33,9 @@ export default function UseCaseLayout({ title, description, children }) {
 				product="nomad"
 				links={[
 					{
-						text: 'Explore HashiCorp Learn',
+						text: 'Explore Tutorials',
 						type: 'outbound',
-						url: 'https://learn.hashicorp.com/nomad',
+						url: 'https://developer.hashicorp.com/nomad/tutorials',
 					},
 					{
 						text: 'Explore Documentation',
