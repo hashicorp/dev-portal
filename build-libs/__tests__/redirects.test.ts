@@ -357,6 +357,34 @@ describe('filterInvalidRedirects', () => {
 		// Restore console.warn for further tests
 		consoleWarnMock.mockRestore()
 	})
+
+	it('does not filter out /terraform redirects for "terraform-website"', () => {
+		// Input, also the expected output
+		const redirects = [
+			{
+				source: '/terraform/docs/foo',
+				destination: '/terraform/docs/bar',
+				permanent: true,
+			},
+		]
+		// Assert expectations
+		const result = filterInvalidRedirects(redirects, 'terraform-website')
+		expect(result).toStrictEqual(redirects)
+	})
+
+	it('does not filter out /hcp redirects for "cloud.hashicorp.com"', () => {
+		// Input, also the expected output
+		const redirects = [
+			{
+				source: '/hcp/docs/foo',
+				destination: '/hcp/docs/bar',
+				permanent: true,
+			},
+		]
+		// Assert expectations
+		const result = filterInvalidRedirects(redirects, 'cloud.hashicorp.com')
+		expect(result).toStrictEqual(redirects)
+	})
 })
 
 export {}

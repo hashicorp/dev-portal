@@ -324,10 +324,19 @@ function splitRedirectsByType(redirects) {
  * Invalid redirects will be filtered out and ignored.
  *
  * @param {Redirect[]} redirects
- * @param {string} productSlug
+ * @param {string} repoSlug
  * @returns {Redirect[]}
  */
-function filterInvalidRedirects(redirects, productSlug) {
+function filterInvalidRedirects(redirects, repoSlug) {
+	/**
+	 * Normalize the repoSlug into a productSlug.
+	 */
+	const productSlugsByRepo = {
+		'terraform-website': 'terraform',
+		'cloud.hashicorp.com': 'hcp',
+	}
+	const productSlug = productSlugsByRepo[repoSlug] ?? repoSlug
+
 	/** @type {Redirect[]} */
 	const invalidRedirects = []
 
