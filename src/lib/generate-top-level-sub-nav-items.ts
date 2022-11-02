@@ -27,7 +27,6 @@ export const generateTopLevelSubNavItems = () => {
 			leadingIconName: 'home',
 			title: 'HashiCorp Developer',
 			href: '/',
-			badge: { color: 'highlight', text: 'Beta' },
 		},
 		{ divider: true },
 		{ heading: 'Products' },

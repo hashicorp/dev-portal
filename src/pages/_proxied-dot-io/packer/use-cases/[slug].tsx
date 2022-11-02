@@ -141,7 +141,7 @@ export default function UseCasePage({ data }) {
 					cta={{
 						url: tutorialsLink
 							? tutorialsLink
-							: 'https://learn.hashicorp.com/packer',
+							: 'https://developer.hashicorp.com/packer/tutorials',
 						text: 'Explore all',
 					}}
 					cardsPerRow={3}

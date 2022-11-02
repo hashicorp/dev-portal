@@ -10,8 +10,6 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
 import useAuthentication from 'hooks/use-authentication'
-import BaseNewLayout from 'layouts/base-new'
-import ErrorView from 'views/error-view-switcher'
 import Button from 'components/button'
 import Heading from 'components/heading'
 import Text from 'components/text'
@@ -32,25 +30,13 @@ const SIGN_IN_BUTTON_TEXT = 'Sign In'
 
 const SignUpView = () => {
 	const router = useRouter()
-	const { isAuthEnabled, isAuthenticated, isLoading, signIn, signUp } =
-		useAuthentication()
+	const { isAuthenticated, isLoading, signIn, signUp } = useAuthentication()
 
 	/**
 	 * @TODO determine loading state UI
 	 */
 	if (isLoading) {
 		return null
-	}
-
-	/**
-	 * Show 404 error if auth is not enabled
-	 */
-	if (!isAuthEnabled) {
-		return (
-			<BaseNewLayout>
-				<ErrorView statusCode={404} isProxiedDotIo={false} />
-			</BaseNewLayout>
-		)
 	}
 
 	/**

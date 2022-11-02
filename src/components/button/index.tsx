@@ -14,6 +14,7 @@ const Button = forwardRef(
 			'aria-labelledby': ariaLabelledBy,
 			className,
 			color = 'primary',
+			'data-heap-track': dataHeapTrack,
 			disabled,
 			form,
 			icon,
@@ -70,6 +71,7 @@ const Button = forwardRef(
 				aria-label={ariaLabel}
 				aria-labelledby={ariaLabelledBy}
 				className={classes}
+				data-heap-track={dataHeapTrack}
 				disabled={disabled}
 				form={form}
 				id={id}

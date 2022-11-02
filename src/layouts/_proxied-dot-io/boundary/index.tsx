@@ -83,17 +83,17 @@ function BoundaryIoLayout({ children, data }: Props): React.ReactElement {
 								: undefined,
 							{
 								text: 'Tutorials',
-								url: 'https://learn.hashicorp.com/boundary',
+								url: 'https://developer.hashicorp.com/boundary/tutorials',
 								type: 'inbound',
 							},
 							{
 								text: 'Docs',
-								url: '/docs',
+								url: 'https://developer.hashicorp.com/boundary/docs',
 								type: 'inbound',
 							},
 							{
 								text: 'API',
-								url: '/api-docs',
+								url: 'https://developer.hashicorp.com/boundary/api-docs',
 								type: 'inbound',
 							},
 							{

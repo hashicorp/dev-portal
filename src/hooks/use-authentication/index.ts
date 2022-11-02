@@ -9,7 +9,6 @@ import {
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { signInWrapper, signOutWrapper, signUp } from './helpers'
 
-export const AUTH_ENABLED = __config.flags.enable_auth
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
 /**
@@ -27,7 +26,7 @@ const useAuthentication = (
 
 	// Pull data and status from next-auth's hook, and pass options
 	const { data, status } = useSession({
-		required: AUTH_ENABLED && isRequired,
+		required: isRequired,
 		onUnauthenticated,
 	})
 
@@ -39,11 +38,10 @@ const useAuthentication = (
 	}, [data?.error])
 
 	// Deriving booleans about auth state
-	const isAuthEnabled = AUTH_ENABLED
 	const isLoading = status === 'loading'
 	const isAuthenticated = status === 'authenticated'
 	const showAuthenticatedUI = isAuthenticated
-	const showUnauthenticatedUI = isAuthEnabled && !isLoading && !isAuthenticated
+	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 
 	// Separating user and session data
 	let session: SessionData, user: UserData
@@ -55,7 +53,6 @@ const useAuthentication = (
 
 	// Return everything packaged up in an object
 	return {
-		isAuthEnabled,
 		isAuthenticated,
 		isLoading,
 		session,
