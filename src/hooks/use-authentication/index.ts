@@ -51,7 +51,6 @@ const useAuthentication = (
 	// enable tracking. Should only be ran if not already set & loaded.
 	useEffect(() => {
 		if (isAuthenticated && !preferencesLoaded) {
-			console.log('saveAndLoadAnalytics')
 			saveAndLoadAnalytics({ loadAll: true })
 		}
 	}, [isAuthenticated, preferencesLoaded])
