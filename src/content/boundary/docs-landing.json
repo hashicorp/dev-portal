@@ -1,5 +1,5 @@
 {
-	"pageSubtitle": "Boundary is designed to grant access to critical systems using the principle of least privilege, solving challenges organizations encounter when users need to securely access applications and machines. This documentation provides the main concep of Boundary and its architecture.",
+	"pageSubtitle": "Boundary is designed to grant access to critical systems using the principle of least privilege, solving challenges organizations encounter when users need to securely access applications and machines. This documentation covers the main concepts of Boundary and its architecture.",
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",

@@ -141,7 +141,7 @@ export default function UseCasePage({ data }) {
 					cta={{
 						url: tutorialsLink
 							? tutorialsLink
-							: 'https://learn.hashicorp.com/boundary',
+							: 'https://developer.hashicorp.com/boundary/tutorials',
 						text: 'Explore all',
 					}}
 					cardsPerRow={3}

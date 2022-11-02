@@ -25,7 +25,7 @@ export default function ProductSubnav() {
 				},
 				{
 					text: 'Download',
-					url: '/downloads',
+					url: 'https://developer.hashicorp.com/waypoint/downloads',
 				},
 			]}
 			hideGithubStars={true}

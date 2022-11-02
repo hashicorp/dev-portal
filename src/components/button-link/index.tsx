@@ -12,6 +12,7 @@ import s from './button-link.module.css'
  **/
 const ButtonLink = ({
 	'aria-label': ariaLabel,
+	'data-heap-track': dataHeapTrack,
 	color = 'primary',
 	href,
 	icon,
@@ -57,6 +58,7 @@ const ButtonLink = ({
 				rel={openInNewTab ? 'noreferrer noopener' : undefined}
 				target={openInNewTab ? '_blank' : '_self'}
 				onClick={onClick}
+				data-heap-track={dataHeapTrack}
 			>
 				{hasLeadingIcon && icon}
 				{hasText ? text : null}

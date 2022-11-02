@@ -21,10 +21,6 @@
 	z-index: 2;
 }
 
-.giveFeedbackButton {
-	margin-bottom: 24px;
-}
-
 .mobileAuthenticationControls {
 	align-items: center;
 	display: flex;

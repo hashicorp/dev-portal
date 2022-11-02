@@ -1,6 +1,5 @@
 {
 	"hero": {
-		"badgeText": "Beta",
 		"heading": "HashiCorp Developer",
 		"description": "Learn at your own pace in one place with reference docs, step by step tutorials, videos, and real hands-on lab workstations to automate your infrastructure, networking, and security workflows."
 	},

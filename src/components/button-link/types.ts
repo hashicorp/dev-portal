@@ -26,6 +26,7 @@ interface ButtonLinkProps extends PickedButtonProps {
 	href: string
 	openInNewTab?: boolean
 	onClick?: AnchorElementProps['onClick']
+	'data-heap-track'?: string
 }
 
 export type { ButtonLinkProps }

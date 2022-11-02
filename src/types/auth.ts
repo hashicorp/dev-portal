@@ -1,4 +1,5 @@
 import { Session } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 
 /**
  * Object representing an authentication session.
@@ -31,7 +32,7 @@ export enum AuthErrors {
 }
 
 /** The response shape from `POST {IDENTITY_PROVIDER}/oauth2/token` */
-export interface TokenSet {
+export interface TokenSet extends JWT {
 	access_token: string
 	refresh_token: string
 	scope: string
