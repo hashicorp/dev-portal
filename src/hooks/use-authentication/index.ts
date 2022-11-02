@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
-import { loadPreferences } from '@hashicorp/react-consent-manager/util/cookies'
+import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
 import {
 	AuthErrors,
 	SessionData,
@@ -44,15 +44,17 @@ const useAuthentication = (
 	const isAuthenticated = status === 'authenticated'
 	const showAuthenticatedUI = isAuthenticated
 	const showUnauthenticatedUI = !isLoading && !isAuthenticated
+	const preferencesLoaded = preferencesSavedAndLoaded()
 
 	// We accept consent manager on the user's behalf. As per Legal & Compliance,
 	// signing-in means a user is accepting our privacy policy and so we can
 	// enable tracking. Should only be ran if not already set & loaded.
 	useEffect(() => {
-		if (isAuthenticated && !loadPreferences()) {
+		if (isAuthenticated && !preferencesLoaded) {
+			console.log('saveAndLoadAnalytics')
 			saveAndLoadAnalytics({ loadAll: true })
 		}
-	}, [isAuthenticated])
+	}, [isAuthenticated, preferencesLoaded])
 
 	// Separating user and session data
 	let session: SessionData, user: UserData
