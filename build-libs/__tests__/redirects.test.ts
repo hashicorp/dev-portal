@@ -316,13 +316,8 @@ describe('addHostCondition', () => {
 
 describe('filterInvalidRedirects', () => {
 	it('filters out redirects that are not prefixed with the product slug', () => {
-		//  Spy on console.warn for this test, we expect a log
-		jest.spyOn(console, 'warn')
-		// Set up a mock for console.warn, to suppress output
-		const mockableConsoleWarn = global.console.warn as jest.MockedFunction<
-			typeof global.console.warn
-		>
-		mockableConsoleWarn.mockImplementation()
+		//  Spy on and suppress console.warn for this test, we expect a warning
+		const consoleWarnMock = jest.spyOn(console, 'warn').mockImplementation()
 		// Input
 		const redirects = [
 			{
@@ -360,7 +355,7 @@ describe('filterInvalidRedirects', () => {
 		// Expect console.warn to have been called
 		expect(console.warn).toHaveBeenCalledTimes(1)
 		// Restore console.warn for further tests
-		mockableConsoleWarn.mockRestore()
+		consoleWarnMock.mockRestore()
 	})
 })
 
