@@ -354,7 +354,7 @@ function filterInvalidRedirects(redirects, productSlug) {
 		message += ` Please ensure all redirects start with "/${productSlug}".`
 		message += ` The following redirects must be updated to start with "/${productSlug}":`
 		message += `\n${JSON.stringify(invalidRedirects, null, 2)}`
-		console.log(message)
+		console.warn(message)
 	}
 
 	// Return the filtered, valid redirects
@@ -454,4 +454,5 @@ module.exports = {
 	splitRedirectsByType,
 	groupSimpleRedirects,
 	addHostCondition,
+	filterInvalidRedirects,
 }
