@@ -31,7 +31,6 @@ function OpenApiDocsPage(props) {
 			productName={productData.name}
 			productSlug={productData.slug}
 			baseRoute={pathFromRoot}
-			
 		/>
 	)
 }
