@@ -21,6 +21,8 @@ const config: Config.InitialOptions = {
     https://jestjs.io/docs/webpack#handling-static-assets */
 		'^.+\\.(jpg|jpeg|png|gif|webp|svg)$':
 			'<rootDir>/.test/__mocks__/fileMock.js',
+		/* Mock graphql queries & fragments */
+		'\\.graphql$': '<rootDir>/.test/__mocks__/graphql-fragment-mock.js',
 	},
 	testPathIgnorePatterns: [
 		'<rootDir>/node_modules/',
