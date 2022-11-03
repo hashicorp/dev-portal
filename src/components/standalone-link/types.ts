@@ -23,6 +23,11 @@ export interface StandaloneLinkProps {
 	color?: 'primary' | 'secondary'
 
 	/**
+	 * A data-heap-track string to add to the <a /> element.
+	 */
+	'data-heap-track'?: string
+
+	/**
 	 * Same as the <a> element's download prop. Passed directly to the internal
 	 * link element.
 	 *
