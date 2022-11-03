@@ -1,6 +1,3 @@
 {
-	"eslint.codeActionsOnSave.rules": ["curly"],
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
-	}
+	"eslint.codeActionsOnSave.rules": ["curly"]
 }
