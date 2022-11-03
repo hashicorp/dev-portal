@@ -7,7 +7,6 @@ import { MDXRemote } from 'next-mdx-remote'
 import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
 import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
-import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import { ProductOption, TutorialLite } from 'lib/learn-client/types'
@@ -110,7 +109,6 @@ function TutorialView({
 	tutorial,
 }: TutorialViewProps): React.ReactElement {
 	// hooks
-	useOptInAnalyticsTracking('learn')
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
