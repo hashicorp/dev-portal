@@ -93,9 +93,7 @@ export default NextAuth({
 					console.error('failed to refresh token set', err)
 					return {
 						...token,
-						// NOTE: temporary prefix of [next-auth] for existing log monitor
-						// TODO: abstract logging so everything is grouped
-						error: `[next-auth] ${AuthErrors.RefreshAccessTokenError}`,
+						error: AuthErrors.RefreshAccessTokenError,
 					}
 				}
 			} else {
