@@ -39,6 +39,9 @@ const config: Config.InitialOptions = {
 		/* Use babel-jest to transpile tests with the next/babel preset
     https://jestjs.io/docs/configuration#transform-objectstring-pathtotransformer--pathtotransformer-object */
 		'^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+		// Load .svg imports as raw strings.
+		// Our mapping above means this only targets .svg?include imports.
+		'\\.svg$': 'jest-raw-loader',
 	},
 	transformIgnorePatterns: [
 		'/node_modules/(?!(@hashicorp/|unist-))',
