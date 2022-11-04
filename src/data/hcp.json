@@ -9,9 +9,8 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
+			"name": "Documentation",
 			"path": "docs",
-			"shortName": "Documentation",
 			"productSlugForLoader": "cloud.hashicorp.com"
 		}
 	],

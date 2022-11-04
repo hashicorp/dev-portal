@@ -58,9 +58,8 @@
 		{
 			"basePathForLoader": "sentinel",
 			"iconName": "docs",
-			"name": "General Documentation",
-			"path": "docs",
-			"shortName": "Documentation"
+			"name": "Docs",
+			"path": "docs"
 		},
 		{
 			"basePathForLoader": "sentinel/intro",

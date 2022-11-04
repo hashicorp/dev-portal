@@ -44,15 +44,30 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		}
 	}
 
+	let docsNavItems: NavItem[]
+	if (currentProduct.slug === 'terraform') {
+		docsNavItems = [
+			{
+				label: 'Documentation',
+				...docsNavObj,
+			},
+		]
+	} else {
+		docsNavItems = getDocsNavItems(currentProduct).map((navItem) => {
+			return {
+				// icon: navItem.icon as NavigationHeaderIcon,
+				label: navItem.label,
+				url: navItem.fullPath,
+			}
+		})
+	}
+
 	/**
 	 * Define a common set of base nav items
 	 */
 	const items: NavItem[] = [
 		{ label: 'Home', url: `/${currentProduct.slug}` },
-		{
-			label: 'Documentation',
-			...docsNavObj,
-		},
+		...docsNavItems,
 		{
 			label: 'Tutorials',
 			url: `/${currentProduct.slug}/tutorials`,

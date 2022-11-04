@@ -69,10 +69,9 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
+			"name": "About the Docs",
 			"path": "docs",
-			"productSlugForLoader": "terraform-docs-common",
-			"shortName": "Documentation"
+			"productSlugForLoader": "terraform-docs-common"
 		},
 		{
 			"iconName": "org",
