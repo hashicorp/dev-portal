@@ -25,6 +25,7 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 				aria-label={ariaLabel}
 				className={s.root}
 				target={openInNewTab ? '_blank' : undefined}
+				data-heap-track="navigation-header-primary-nav-link"
 			>
 				<Text
 					asElement="span"

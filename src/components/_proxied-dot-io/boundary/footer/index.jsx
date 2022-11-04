@@ -8,7 +8,9 @@ export default function Footer({ openConsentManager }) {
 					<Link href="/docs">
 						<a>Docs</a>
 					</Link>
-					<a href="https://learn.hashicorp.com/boundary">Learn</a>
+					<a href="https://developer.hashicorp.com/boundary/tutorials">
+						Tutorials
+					</a>
 					<a href="https://hashicorp.com/privacy">Privacy</a>
 					<Link href="/security">
 						<a>Security</a>
