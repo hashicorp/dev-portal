@@ -21,25 +21,28 @@ export const generateProductLandingSidebarMenuItems = (
 		title: label,
 		fullPath,
 	}))
-	const defaultDocsMenuItem = {
-		title: 'Documentation',
-		fullPath: `/${product.slug}/docs`,
+
+	let docsItems
+	if (product.slug === 'terraform') {
+		docsItems = [
+			{
+				title: 'Documentation',
+				isOpen: true,
+				routes,
+			},
+		]
+	} else {
+		docsItems = routes
 	}
-	const documentationSubmenu =
-		routes.length > 1
-			? {
-					title: 'Documentation',
-					isOpen: true,
-					routes,
-			  }
-			: defaultDocsMenuItem
+
 	const menuItems = [
-		documentationSubmenu,
+		...docsItems,
 		{
 			title: 'Tutorials',
 			fullPath: `/${product.slug}/tutorials`,
 		},
 	]
+
 	if (product.slug !== 'hcp') {
 		menuItems.push({
 			title: 'Install',
