@@ -30,10 +30,19 @@ const useAuthentication = (
 		onUnauthenticated,
 	})
 
-	// Logout user if token refresh fails
+	/**
+	 * Force sign in to hopefully resolve the error. The error is automatically
+	 * cleared in the process of initiating the login flow via `signIn`.
+	 *
+	 * Because `signOutWrapper` has to be invoked to fully log out of the
+	 * provider, users _should_ be re-signed in by this action without having to
+	 * use the Cloud IDP sign in screen.
+	 *
+	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
+	 */
 	useEffect(() => {
 		if (data?.error === AuthErrors.RefreshAccessTokenError) {
-			signOutWrapper()
+			signInWrapper()
 		}
 	}, [data?.error])
 
