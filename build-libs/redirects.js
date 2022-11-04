@@ -441,10 +441,27 @@ async function redirectsConfig() {
 	const devPortalRedirects = await buildDevPortalRedirects()
 	const proxiedSiteRedirects = await loadProxiedSiteRedirects()
 
+	/**
+	 * Temporary redirect to avoid the root dev.hashicorp.com redirecting
+	 * to https://developer.hashicorp.com/index.html. This is apparently
+	 * related to Cloudflare, and we can probably find a better fix for this
+	 * long term by handling `dev.hashicorp.com` redirection in Vercel,
+	 * rather than hc-centralized-dns.
+	 * Asana task:
+	 * https://app.asana.com/0/1202097197789424/1203287706706436/f
+	 */
+	/** @type {Redirect} */
+	const devShorthandRedirect = {
+		source: `/index.html`,
+		destination: `/`,
+		permanent: true,
+	}
+
 	const { simpleRedirects, globRedirects } = splitRedirectsByType([
 		...proxiedSiteRedirects,
 		...productRedirects,
 		...devPortalRedirects,
+		devShorthandRedirect,
 	])
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
 	if (process.env.DEBUG_REDIRECTS) {
