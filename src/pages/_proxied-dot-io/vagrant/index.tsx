@@ -10,6 +10,7 @@ import IoHomeInPractice from 'components/_proxied-dot-io/common/io-home-in-pract
 import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container'
 import IoHomeCaseStudies from 'components/_proxied-dot-io/common/io-home-case-studies'
 import IoHomeCallToAction from 'components/_proxied-dot-io/common/io-home-call-to-action'
+import IoHomePreFooter from 'components/_proxied-dot-io/common/io-home-pre-footer'
 import homepageQuery from './home/query.graphql'
 import s from './home/style.module.css'
 
@@ -176,23 +177,12 @@ export default function Homepage({ data }): React.ReactElement {
 				links={callToActionCtas}
 			/>
 
-			<div className={s.nextSteps}>
-				<NextSteps
-					theme="vagrant"
-					heading={preFooterHeading}
-					description={preFooterDescription}
-					steps={preFooterCtas.map(({ heading, description, cta, link }) => {
-						return {
-							heading,
-							description,
-							cta: {
-								title: cta,
-								url: link,
-							},
-						}
-					})}
-				/>
-			</div>
+			<IoHomePreFooter
+				brand="vagrant"
+				heading={preFooterHeading}
+				description={preFooterDescription}
+				ctas={preFooterCtas}
+			/>
 		</>
 	)
 }
