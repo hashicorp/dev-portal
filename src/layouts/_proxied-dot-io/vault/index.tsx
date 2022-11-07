@@ -70,7 +70,10 @@ function VaultIoLayout({ children, data }: Props): React.ReactElement {
 								url: 'https://www.hashicorp.com/products/vault/enterprise',
 							},
 							'divider',
-							{ text: 'Tutorials', url: 'https://learn.hashicorp.com/vault' },
+							{
+								text: 'Tutorials',
+								url: 'https://developer.hashicorp.com/vault/tutorials',
+							},
 							{
 								text: 'Docs',
 								url: 'https://developer.hashicorp.com/vault/docs',
