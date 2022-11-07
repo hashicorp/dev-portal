@@ -1,0 +1,8 @@
+query navQuery {
+	vagrantNav {
+		useCases {
+			text: heroHeading
+			slug
+		}
+	}
+}
