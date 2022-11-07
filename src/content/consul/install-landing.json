@@ -26,7 +26,7 @@
 		},
 		{
 			"title": "Consul with Virtual Machines",
-			"fullPath": "/consul/tutorials/getting-started/get-started"
+			"fullPath": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
 		},
 		{
 			"title": "HCP Consul",

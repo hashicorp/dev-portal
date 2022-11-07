@@ -135,6 +135,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 					className={className}
 					rel={rel}
 					target={target}
+					data-heap-track="sidebar-nav-link-item"
 				>
 					{anchorContent}
 				</a>
@@ -228,6 +229,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 				id={buttonId}
 				onClick={() => setIsOpen((prevState: boolean) => !prevState)}
 				ref={buttonRef}
+				data-heap-track="sidebar-nav-submenu-button"
 			>
 				<Text
 					asElement="span"

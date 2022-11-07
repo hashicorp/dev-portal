@@ -88,10 +88,6 @@ const ProductPageHeaderContent = () => {
 		icon: 'home' as $TSFixMe,
 		label: 'HashiCorp Developer',
 		path: '/',
-		badge: {
-			text: 'Beta',
-			color: 'highlight' as const,
-		},
 	}
 
 	// Construct item groups for the dropdown, avoid adding empty groups
@@ -119,6 +115,7 @@ const ProductPageHeaderContent = () => {
 						aria-current={isProductHomePage ? 'page' : undefined}
 						aria-label={`${currentProduct.name} home`}
 						className={s.productLogoLink}
+						data-heap-track="navigation-header-product-logo-link"
 					>
 						<InlineSvg
 							className={classNames(

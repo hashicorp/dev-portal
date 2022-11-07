@@ -37,6 +37,7 @@ function TabDropdownControls({
 				})}
 				onChange={(e) => setActiveTabIndex(parseInt(e.target.value))}
 				value={activeTabIndex}
+				data-heap-track="tab-dropdown-control-select"
 			>
 				{tabItems.map((item: TabItem, index: number) => {
 					const { label, tabId } = item
@@ -47,6 +48,7 @@ function TabDropdownControls({
 							id={tabId}
 							value={index}
 							aria-label={label}
+							data-heap-track="tab-dropdown-control-option"
 						>
 							{label}
 						</option>
