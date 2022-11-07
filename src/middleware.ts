@@ -3,7 +3,6 @@ import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
 import optInRedirectChecks from '.generated/opt-in-redirect-checks'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
-import { OptInPlatformOption } from 'components/opt-in-out/types'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 import { getEdgeFlags } from 'flags/edge'
 import { deleteCookie } from 'lib/middleware-delete-cookie'
@@ -170,35 +169,12 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		}
 	}
 
-	// Handle Opt-in cookies
-	let optInPlatform = params.get('optInFrom') as OptInPlatformOption
-
-	// This handles a bug when we rolled out terraform to the beta where opt-out wasn't working, so users have no way to opt-out if they previously opted-in and attempted to opt-out before the bug was fixed.
-	let isFromTerraform = false
-	try {
-		const refererUrl = new URL(req.headers.get('referer'))
-		isFromTerraform = refererUrl.hostname.endsWith('terraform.io')
-
-		if (isFromTerraform) {
-			optInPlatform = 'terraform-io'
-		}
-	} catch {
-		// Unable to determine the referer, do nothing
-	}
-
 	if (!response) {
 		response = NextResponse.next()
 	}
 
-	const hasOptedIn = Boolean(req.cookies.get(`${optInPlatform}-beta-opt-in`))
-
-	if (optInPlatform && !hasOptedIn) {
-		response.cookies.set(`${optInPlatform}-beta-opt-in`, 'true', {
-			maxAge: OPT_IN_MAX_AGE,
-		})
-	}
-
 	console.timeEnd(label)
+
 	// Continue request processing
 	return setGeoCookie(req, response)
 }

@@ -115,10 +115,6 @@ for further details.
 	margin-bottom: 32px;
 }
 
-.optInOutSlot {
-	flex-shrink: 0;
-}
-
 .sidecarWrapper {
 	display: none;
 
