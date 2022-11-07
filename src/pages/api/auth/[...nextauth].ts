@@ -91,7 +91,10 @@ export default NextAuth({
 					token.refresh_token = refresh_token
 				} catch (err) {
 					console.error('failed to refresh token set', err)
-					return { ...token, error: AuthErrors.RefreshAccessTokenError }
+					return {
+						...token,
+						error: AuthErrors.RefreshAccessTokenError,
+					}
 				}
 			} else {
 				// Noop; log time until expiry
