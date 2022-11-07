@@ -20,18 +20,12 @@ interface HeroWithActionsProps extends HeroProps {
 }
 
 function HeroWithActions({
-	badgeText,
 	heading,
 	description,
 	actions,
 }: HeroWithActionsProps) {
 	return (
-		<Hero
-			className={s.withActions}
-			badgeText={badgeText}
-			heading={heading}
-			description={description}
-		>
+		<Hero className={s.withActions} heading={heading} description={description}>
 			<ul className={s.actions}>
 				{actions.map((action, index) => {
 					const slug = slugify(action.heading)

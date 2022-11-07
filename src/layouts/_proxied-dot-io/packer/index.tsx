@@ -87,27 +87,22 @@ function PackerIoLayout({ children, data }: Props): React.ReactElement {
 								: undefined,
 							{
 								text: 'Tutorials',
-								url: 'https://learn.hashicorp.com/packer',
-								type: 'inbound',
-							},
-							{
-								text: 'Intro',
-								url: '/intro',
+								url: 'https://developer.hashicorp.com/packer/tutorials',
 								type: 'inbound',
 							},
 							{
 								text: 'Docs',
-								url: '/docs',
+								url: 'https://developer.hashicorp.com/packer/docs',
 								type: 'inbound',
 							},
 							{
 								text: 'Guides',
-								url: '/guides',
+								url: 'https://developer.hashicorp.com/packer/guides',
 								type: 'inbound',
 							},
 							{
 								text: 'Plugins',
-								url: '/plugins',
+								url: 'https://developer.hashicorp.com/packer/plugins',
 								type: 'inbound',
 							},
 							{

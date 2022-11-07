@@ -1,5 +1,11 @@
 import { makeHeadingSlugScope } from '../'
 
+jest.mock('flags/client', () => ({
+	flags: {
+		enableAuth: false,
+	},
+}))
+
 describe('makeHeadingSlugScope', () => {
 	test('returns already-unique headings unmodified', () => {
 		const makeHeadingSlug = makeHeadingSlugScope()

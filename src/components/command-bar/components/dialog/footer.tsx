@@ -2,8 +2,8 @@ import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-d
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import Badge from 'components/badge'
 import Text from 'components/text'
-import { FORM_URL } from 'components/navigation-header/components/give-feedback-button'
 import StandaloneLink from 'components/standalone-link'
+import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import { CommandBarDialogFooterProps } from './types'
 import s from './command-bar-dialog.module.css'
 
@@ -47,7 +47,7 @@ const CommandBarDialogFooter = ({
 			<div>
 				<StandaloneLink
 					color="secondary"
-					href={FORM_URL}
+					href={FEEDBACK_FORM_URL}
 					icon={<IconExternalLink16 />}
 					iconPosition="trailing"
 					openInNewTab
