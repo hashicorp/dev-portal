@@ -141,7 +141,7 @@ export default function UseCasePage({ data }) {
 					cta={{
 						url: tutorialsLink
 							? tutorialsLink
-							: 'https://learn.hashicorp.com/nomad',
+							: 'https://developer.hashicorp.com/nomad/tutorials',
 						text: 'Explore all',
 					}}
 					cardsPerRow={3}

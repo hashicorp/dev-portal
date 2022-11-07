@@ -1,14 +1,50 @@
+import createFetch from '@vercel/fetch'
 import NextAuth from 'next-auth'
+import { URL } from 'url'
+import { AuthErrors, TokenSet } from 'types/auth'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 import refreshTokenSet from 'lib/auth/refresh-token-set'
 import isJwtExpired from 'lib/auth/is-jwt-expired'
-import { AuthErrors } from 'types/auth'
+
+const fetch = createFetch()
 
 const isDev = process.env.NODE_ENV === 'development'
 
 export default NextAuth({
 	session: {
 		maxAge: 2592000, // 30 days
+	},
+	// https://next-auth.js.org/configuration/options#events
+	events: {
+		/**
+		 * NOTE: NextAuth does not log out of auth providers, so we have to handle doing that
+		 * ourselves in this signOut event.
+		 * https://github.com/nextauthjs/next-auth/discussions/3938
+		 */
+		async signOut({ token }) {
+			try {
+				// Fetch the wellknown configuration
+				const wellKnownConfiguration = await (
+					await fetch(CloudIdpProvider.wellKnown)
+				).json()
+
+				// Pull the end_session_endpoint value
+				const endSessionEndpoint = wellKnownConfiguration.end_session_endpoint
+
+				// Construct the full URL to end the session
+				const endSessionUrl = new URL(endSessionEndpoint)
+				const idToken = (token as TokenSet).id_token
+				endSessionUrl.searchParams.set('id_token_hint', idToken)
+
+				// Fetch to hit the end session endpoint
+				await fetch(endSessionUrl.toString())
+			} catch (e) {
+				console.error(
+					'[NextAuth] There was an error in the `signOut` event:',
+					e
+				)
+			}
+		},
 	},
 	providers: [CloudIdpProvider],
 	callbacks: {
@@ -24,9 +60,11 @@ export default NextAuth({
 
 			// initial call during sign in
 			if (isInitial) {
-				// persist access_token and refresh_token on the session token
+				// persist access_token, refresh_token, and id_token on the session token
+				// id_token is needed for the signOut event above
 				token.access_token = account.access_token
 				token.refresh_token = account.refresh_token
+				token.id_token = account.id_token
 
 				// Picture is passed to session.user.image
 				token.picture = profile.picture as string
@@ -52,8 +90,14 @@ export default NextAuth({
 					token.access_token = access_token
 					token.refresh_token = refresh_token
 				} catch (err) {
-					console.error('failed to refresh token set', err)
-					return { ...token, error: AuthErrors.RefreshAccessTokenError }
+					console.error(
+						`${AuthErrors.RefreshAccessTokenError}: failed to refresh token set`,
+						err
+					)
+					return {
+						...token,
+						error: AuthErrors.RefreshAccessTokenError,
+					}
 				}
 			} else {
 				// Noop; log time until expiry

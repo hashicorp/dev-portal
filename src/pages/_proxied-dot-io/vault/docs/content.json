@@ -11,7 +11,7 @@
 		"links": [
 			{
 				"title": "CLI Quick Start",
-				"url": "https://learn.hashicorp.com/collections/vault/getting-started"
+				"url": "https://developer.hashicorp.com/vault/tutorials/getting-started"
 			},
 			{
 				"title": "Developer Quick Start",
@@ -34,7 +34,7 @@
 				},
 				{
 					"title": "Kubernetes Secrets",
-					"url": "https://learn.hashicorp.com/collections/vault/kubernetes"
+					"url": "https://developer.hashicorp.com/vault/tutorials/kubernetes"
 				}
 			]
 		},

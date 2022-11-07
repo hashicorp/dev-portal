@@ -17,7 +17,7 @@ const FOOTER_ITEMS: FooterItem[] = [
 	{
 		type: 'link',
 		href: 'https://status.hashicorp.com',
-		text: 'System status',
+		text: 'System Status',
 	},
 	{
 		type: 'consent-manager',
@@ -26,7 +26,7 @@ const FOOTER_ITEMS: FooterItem[] = [
 	{
 		type: 'link',
 		href: 'https://www.hashicorp.com/terms-of-service',
-		text: 'Terms of use',
+		text: 'Terms of Use',
 	},
 	{
 		type: 'link',

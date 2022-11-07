@@ -24,11 +24,24 @@ export default function DocsPage({
 	devDotCutoverMessage,
 	...props
 }: ProxiedDocsPageProps) {
+	/**
+	 * Sentinel does not have a Developer page right now, so it cannot be opted-in
+	 * to and we shouldn't show this alert.
+	 */
+	let showOptInBanner = true
+	if ((props?.product?.slug as string) === 'sentinel') {
+		showOptInBanner = false
+	}
+
 	return (
 		<ReactDocsPage
 			additionalComponents={{ ...ioComponents, ...additionalComponents }}
 			optInBanner={
-				<DevDotOptIn {...(devDotCutoverMessage ? devDotCutoverMessage : {})} />
+				showOptInBanner ? (
+					<DevDotOptIn
+						{...(devDotCutoverMessage ? devDotCutoverMessage : {})}
+					/>
+				) : undefined
 			}
 			{...props}
 		/>
