@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
@@ -9,7 +10,7 @@ import {
 	ValidAuthProviderId,
 } from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
-import { signInWrapper, signOutWrapper, signUp } from './helpers'
+import { makeSignIn, makeSignOut, signUp } from './helpers'
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
@@ -22,9 +23,21 @@ export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 const useAuthentication = (
 	options: UseAuthenticationOptions = {}
 ): UseAuthenticationResult => {
+	// Get router path for `signIn` and `signOut` `callbackUrl`s
+	const router = useRouter()
+
+	// Set up memoized `signIn` and `signOut` callbacks
+	const signIn = useMemo(
+		() => makeSignIn({ routerPath: router.asPath }),
+		[router.asPath]
+	)
+	const signOut = useMemo(
+		() => makeSignOut({ routerPath: router.asPath }),
+		[router.asPath]
+	)
+
 	// Get option properties from `options` parameter
-	const { isRequired = false, onUnauthenticated = () => signInWrapper() } =
-		options
+	const { isRequired = false, onUnauthenticated = () => signIn() } = options
 
 	// Pull data and status from next-auth's hook, and pass options
 	const { data, status } = useSession({
@@ -36,17 +49,17 @@ const useAuthentication = (
 	 * Force sign in to hopefully resolve the error. The error is automatically
 	 * cleared in the process of initiating the login flow via `signIn`.
 	 *
-	 * Because `signOutWrapper` has to be invoked to fully log out of the
-	 * provider, users _should_ be re-signed in by this action without having to
-	 * use the Cloud IDP sign in screen.
+	 * Because `signOut` has to be invoked to fully log out of the provider, users
+	 * _should_ be re-signed in by this action without having to use the Cloud IDP
+	 * sign in screen.
 	 *
 	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
 	 */
 	useEffect(() => {
 		if (data?.error === AuthErrors.RefreshAccessTokenError) {
-			signInWrapper()
+			signIn()
 		}
-	}, [data?.error])
+	}, [data?.error, signIn])
 
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
@@ -79,8 +92,8 @@ const useAuthentication = (
 		session,
 		showAuthenticatedUI,
 		showUnauthenticatedUI,
-		signIn: signInWrapper,
-		signOut: signOutWrapper,
+		signIn,
+		signOut,
 		signUp,
 		status,
 		user,

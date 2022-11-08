@@ -1,8 +1,5 @@
 import { useCallback, useState } from 'react'
-import { useRouter } from 'next/router'
-import useAuthentication, {
-	DEFAULT_PROVIDER_ID,
-} from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 import { useBookmarkMutations, useIsBookmarked } from 'hooks/bookmarks'
 import Dialog from 'components/dialog'
 import { BookmarkButtonProps, ConnectedBookmarkComponentProps } from '../types'
@@ -23,7 +20,6 @@ export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 	return function ConnectedBookmarkComponent({
 		tutorial,
 	}: ConnectedBookmarkComponentProps) {
-		const { asPath } = useRouter()
 		const { isAuthenticated, signIn } = useAuthentication()
 		const { isBookmarked } = useIsBookmarked({ tutorialId: tutorial.id })
 		const { addBookmark, removeBookmark } = useBookmarkMutations()
@@ -68,7 +64,7 @@ export function Connected(BookmarkComponent: React.FC<BookmarkButtonProps>) {
 				>
 					<BookmarkSignInPrompt
 						onDismiss={closeDialog}
-						signIn={() => signIn(DEFAULT_PROVIDER_ID, { callbackUrl: asPath })}
+						signIn={() => signIn()}
 					/>
 				</Dialog>
 			</>
