@@ -10,9 +10,7 @@ import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
 // Global imports
 import { getUserMenuItems } from 'lib/auth/user'
-import useAuthentication, {
-	DEFAULT_PROVIDER_ID,
-} from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
 import Button from 'components/button'
 import { CommandBarActivator } from 'components/command-bar'
@@ -52,20 +50,7 @@ const MobileMenuButton = () => {
  * the elements with CSS on tablet and smaller viewports.
  */
 const AuthenticationControls = () => {
-	const { asPath } = useRouter()
 	const { showAuthenticatedUI, signIn, signOut, user } = useAuthentication()
-
-	/**
-	 * Upon signin
-	 * - if on the homepage, redirect to `/profile/bookmarks`
-	 * - else rely on default behavior & redirect back to the current page
-	 */
-	const handleSignIn = () => {
-		const isHomePage = asPath === '/'
-		signIn(DEFAULT_PROVIDER_ID, {
-			callbackUrl: isHomePage ? '/profile/bookmarks' : asPath,
-		})
-	}
 
 	/**
 	 * @TODO implement loading skeleton
@@ -93,7 +78,7 @@ const AuthenticationControls = () => {
 				<Button
 					icon={<IconSignIn16 />}
 					iconPosition="trailing"
-					onClick={handleSignIn}
+					onClick={() => signIn()}
 					text="Sign In"
 				/>
 				<StandaloneLink
