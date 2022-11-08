@@ -1,5 +1,5 @@
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
-import { IconCheckCircle16 } from '@hashicorp/flight-icons/svg-react/check-circle-16'
+import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 import Button from '@hashicorp/react-button'
 import { Integration, Tier } from 'lib/integrations-api-client'
 import React, { useState } from 'react'
@@ -13,7 +13,7 @@ interface Props {
 export default function FacetedIntegrationList({ integrations }: Props) {
 	// Tier Values
 	const [officialChecked, setOfficialChecked] = useState(false)
-	const [verifiedChecked, setVerifiedChecked] = useState(false)
+	const [partnerChecked, setPartnerChecked] = useState(false)
 	const [communityChecked, setCommunityChecked] = useState(false)
 
 	// Filter out integrations that don't have releases yet
@@ -34,13 +34,13 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 
 	// Calculate the number of integrations that match each tier
 	const matchingOfficial = filteredIntegrations.filter(
-		(i) => i.tier === 'official'
+		(i) => i.tier === Tier.OFFICIAL
 	).length
 	const matchingVerified = filteredIntegrations.filter(
-		(i) => i.tier === 'verified'
+		(i) => i.tier === Tier.VERIFIED || i.tier === Tier.PARTNER
 	).length
 	const matchingCommunity = filteredIntegrations.filter(
-		(i) => i.tier === 'community'
+		(i) => i.tier === Tier.COMMUNITY
 	).length
 
 	// Pull out the list of all of the components used by our integrations
@@ -78,20 +78,24 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 	// Now filter our integrations if facets are selected
 	const atLeastOneFacetSelected =
 		officialChecked ||
-		verifiedChecked ||
+		partnerChecked ||
 		communityChecked ||
 		componentCheckedArray.includes(true)
 	if (atLeastOneFacetSelected) {
 		filteredIntegrations = filteredIntegrations.filter((integration) => {
 			// Default tierMatch to true if nothing is checked, false otherwise
-			let tierMatch = !officialChecked && !verifiedChecked && !communityChecked
-			if (officialChecked && integration.tier === 'official') {
+			let tierMatch = !officialChecked && !partnerChecked && !communityChecked
+			if (officialChecked && integration.tier === Tier.OFFICIAL) {
 				tierMatch = true
 			}
-			if (verifiedChecked && integration.tier === 'verified') {
+			if (
+				partnerChecked &&
+				(integration.tier === Tier.VERIFIED ||
+					integration.tier === Tier.PARTNER)
+			) {
 				tierMatch = true
 			}
-			if (communityChecked && integration.tier === 'community') {
+			if (communityChecked && integration.tier === Tier.COMMUNITY) {
 				tierMatch = true
 			}
 
@@ -126,13 +130,14 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 						onChange={(e) => setOfficialChecked(!officialChecked)}
 					/>
 				)}
-				{tierOptions.includes(Tier.VERIFIED) && (
+				{(tierOptions.includes(Tier.VERIFIED) ||
+					tierOptions.includes(Tier.PARTNER)) && (
 					<FacetCheckbox
-						label="Verified"
-						icon={<IconCheckCircle16 className={s.checkIcon} />}
+						label="Partner"
+						icon={<IconHandshake16 className={s.checkIcon} />}
 						matching={matchingVerified}
-						isChecked={verifiedChecked}
-						onChange={(e) => setVerifiedChecked(!verifiedChecked)}
+						isChecked={partnerChecked}
+						onChange={(e) => setPartnerChecked(!partnerChecked)}
 					/>
 				)}
 				{tierOptions.includes(Tier.COMMUNITY) && (
@@ -170,7 +175,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 						size="small"
 						onClick={(e) => {
 							setOfficialChecked(false)
-							setVerifiedChecked(false)
+							setPartnerChecked(false)
 							setCommunityChecked(false)
 							setComponentCheckedArray(
 								componentCheckedArray.map((v, i) => {
