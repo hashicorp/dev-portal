@@ -37,7 +37,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 		(i) => i.tier === Tier.OFFICIAL
 	).length
 	const matchingVerified = filteredIntegrations.filter(
-		(i) => i.tier === Tier.VERIFIED || i.tier === Tier.PARTNER
+		(i) => i.tier === Tier.PARTNER
 	).length
 	const matchingCommunity = filteredIntegrations.filter(
 		(i) => i.tier === Tier.COMMUNITY
@@ -88,11 +88,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 			if (officialChecked && integration.tier === Tier.OFFICIAL) {
 				tierMatch = true
 			}
-			if (
-				partnerChecked &&
-				(integration.tier === Tier.VERIFIED ||
-					integration.tier === Tier.PARTNER)
-			) {
+			if (partnerChecked && integration.tier === Tier.PARTNER) {
 				tierMatch = true
 			}
 			if (communityChecked && integration.tier === Tier.COMMUNITY) {
@@ -130,8 +126,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 						onChange={(e) => setOfficialChecked(!officialChecked)}
 					/>
 				)}
-				{(tierOptions.includes(Tier.VERIFIED) ||
-					tierOptions.includes(Tier.PARTNER)) && (
+				{tierOptions.includes(Tier.PARTNER) && (
 					<FacetCheckbox
 						label="Partner"
 						icon={<IconHandshake16 className={s.checkIcon} />}
