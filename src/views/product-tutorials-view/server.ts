@@ -79,7 +79,7 @@ export async function getCloudTutorialsViewProps() {
 	const { pageData, headings } = await processPageData(rawPageData)
 
 	return {
-		props: stripUndefinedProperties({
+		props: stripUndefinedProperties<$TSFixMe>({
 			metadata: {
 				title: 'Tutorials',
 			},
@@ -164,7 +164,7 @@ export async function getProductTutorialsViewProps(
 	 */
 	const { description, docsUrl, id, name, slug } = product
 	return {
-		props: stripUndefinedProperties({
+		props: stripUndefinedProperties<$TSFixMe>({
 			metadata: {
 				title: 'Tutorials',
 			},

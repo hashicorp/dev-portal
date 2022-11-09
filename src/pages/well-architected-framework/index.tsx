@@ -33,7 +33,7 @@ export async function getStaticProps(): Promise<{
 	]
 
 	return {
-		props: stripUndefinedProperties({
+		props: stripUndefinedProperties<$TSFixMe>({
 			metadata: {
 				title: wafData.name,
 				name: wafData.name,

@@ -125,7 +125,7 @@ export async function getCollectionPageProps(
 	}
 
 	return {
-		props: stripUndefinedProperties({
+		props: stripUndefinedProperties<$TSFixMe>({
 			metadata: {
 				title: collection.shortName,
 				description: collection.description,
