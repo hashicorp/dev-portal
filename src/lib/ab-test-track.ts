@@ -1,4 +1,4 @@
-import { canTrackAnalytics } from 'lib/analytics'
+import { track } from '@hashicorp/platform-analytics'
 
 export const abTestTrack = ({
 	type,
@@ -9,10 +9,8 @@ export const abTestTrack = ({
 	test_name: string
 	variant: string
 }) => {
-	if (canTrackAnalytics()) {
-		window.analytics.track(`AB Test ${type}`, {
-			test_name,
-			variant,
-		})
-	}
+	track(`AB Test ${type}`, {
+		test_name,
+		variant,
+	})
 }

@@ -12,6 +12,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import {
 	initializeUTMParamsCapture,
 	addCloudLinkHandler,
+	track,
 } from '@hashicorp/platform-analytics'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
@@ -54,7 +55,7 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 
 initializeUTMParamsCapture()
 addCloudLinkHandler((destinationUrl: string) => {
-	window.analytics.track('Outbound link', {
+	track('Outbound link', {
 		destination_url: destinationUrl,
 	})
 })
