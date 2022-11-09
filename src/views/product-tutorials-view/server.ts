@@ -89,27 +89,30 @@ export async function getCloudTutorialsViewProps() {
 		sitemapCollections = hcpCollections.map(formatSitemapCollection)
 	}
 
-	return {
-		props: stripUndefinedProperties<$TSFixMe>({
-			metadata: {
-				title: 'Tutorials',
-			},
-			data: {
-				pageData,
-				inlineCollections,
-				inlineTutorials,
-				sitemapCollections,
-			},
-			layoutProps: {
-				headings,
-				breadcrumbLinks: getTutorialsBreadcrumb({
-					product: { name: productData.name, filename: productData.slug },
-				}),
-				sidebarSections,
-			},
-			product: productData,
-		}),
-	}
+	const props = stripUndefinedProperties<$TSFixMe>({
+		metadata: {
+			title: 'Tutorials',
+		},
+		data: {
+			pageData,
+			inlineCollections,
+			inlineTutorials,
+			sitemapCollections,
+		},
+		layoutProps: {
+			headings,
+			breadcrumbLinks: getTutorialsBreadcrumb({
+				product: { name: productData.name, filename: productData.slug },
+			}),
+			sidebarSections,
+		},
+		product: productData,
+	})
+
+	const staticPropsKb = getBinarySize(JSON.stringify(props)) / 1000
+	console.log({ staticPropsKb })
+
+	return { props }
 }
 
 /**
@@ -179,26 +182,34 @@ export async function getProductTutorialsViewProps(
 	 * here.
 	 */
 	const { description, docsUrl, id, name, slug } = product
-	return {
-		props: stripUndefinedProperties<$TSFixMe>({
-			metadata: {
-				title: 'Tutorials',
-			},
-			data: {
-				pageData,
-				sitemapCollections,
-				inlineCollections,
-				inlineTutorials,
-			},
-			layoutProps,
-			product: {
-				...productData,
-				description,
-				docsUrl,
-				id,
-				name,
-				slug,
-			},
-		}),
-	}
+
+	const props = stripUndefinedProperties<$TSFixMe>({
+		metadata: {
+			title: 'Tutorials',
+		},
+		data: {
+			pageData,
+			sitemapCollections,
+			inlineCollections,
+			inlineTutorials,
+		},
+		layoutProps,
+		product: {
+			...productData,
+			description,
+			docsUrl,
+			id,
+			name,
+			slug,
+		},
+	})
+
+	const staticPropsKb = getBinarySize(JSON.stringify(props)) / 1000
+	console.log({ staticPropsKb })
+
+	return { props }
+}
+
+function getBinarySize(string: string) {
+	return Buffer.byteLength(string, 'utf8')
 }
