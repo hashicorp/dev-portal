@@ -63,7 +63,7 @@ describe('getNavItems', () => {
 		  Object {
 		    "label": "Try Cloud",
 		    "openInNewTab": true,
-		    "url": "https://portal.cloud.hashicorp.com/sign-up?product_intent=waypoint",
+		    "url": "https://portal.cloud.hashicorp.com/sign-up",
 		  },
 		]
 	`)
@@ -300,7 +300,7 @@ describe('getNavItems', () => {
 		        Object {
 		          "label": "Try Cloud",
 		          "openInNewTab": true,
-		          "url": "https://portal.cloud.hashicorp.com/sign-up?product_intent=hcp",
+		          "url": "https://portal.cloud.hashicorp.com/sign-up",
 		        },
 		      ]
 	    `)

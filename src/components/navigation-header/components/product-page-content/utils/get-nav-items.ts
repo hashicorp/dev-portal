@@ -95,7 +95,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 			url:
 				currentProduct.slug === 'terraform'
 					? 'https://app.terraform.io/public/signup/account'
-					: `https://portal.cloud.hashicorp.com/sign-up?product_intent=${currentProduct.slug}`,
+					: 'https://portal.cloud.hashicorp.com/sign-up',
 			openInNewTab: true,
 		})
 	}
