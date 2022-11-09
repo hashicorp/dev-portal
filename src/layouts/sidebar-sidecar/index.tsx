@@ -33,6 +33,7 @@ import {
 } from './contexts/sidebar-nav-data'
 import { ScrollProgressBar } from './components/scroll-progress-bar'
 import s from './sidebar-sidecar-layout.module.css'
+import { filterTableOfContentsHeadings } from './utils/filter-table-of-contents-headings'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
 	const navDataLevels = props.sidebarNavDataLevels
@@ -95,43 +96,9 @@ const SidebarSidecarLayoutContent = ({
 			return sidecarSlot
 		}
 
-		/**
-		 * Filter headings
-		 */
-		const filteredHeadings = headings.filter(
-			(heading: TableOfContentsHeading) => {
-				const { level, tabbedSectionDepth } = heading
-				/**
-				 * Only include <h2> in the table of contents.
-				 *
-				 * Note that <h1> are also included, this is as a stopgap
-				 * while we implement content conformance that ensures there is
-				 * exactly one <h1> per page (which we would likely not include here).
-				 */
-				if (level > 2) {
-					return false
-				}
-				/**
-				 * Only include headings that are *outside* of <Tabs />.
-				 *
-				 * In other words, the `tabbedSectionDepth` must be 0 for a heading
-				 * to be included in the table of contents.
-				 */
-				if (
-					typeof tabbedSectionDepth === 'number' &&
-					tabbedSectionDepth !== 0
-				) {
-					return false
-				}
-				/**
-				 * Return true for headings that have not been filtered out
-				 * by previous criteria.
-				 */
-				return true
-			}
+		return (
+			<TableOfContents headings={filterTableOfContentsHeadings(headings)} />
 		)
-
-		return <TableOfContents headings={filteredHeadings} />
 	}
 
 	return (
