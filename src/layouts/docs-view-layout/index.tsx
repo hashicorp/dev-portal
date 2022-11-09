@@ -3,9 +3,8 @@ import SidebarSidecarLayout, {
 } from 'layouts/sidebar-sidecar'
 
 /**
- * Lightweight wrapper around SidebarSidecarLayout which passes along some docs specific props.
- *
- * Currently, this determines whether or not to render the beta opt-out button.
+ * Lightweight wrapper around SidebarSidecarLayout which passes along some docs
+ * specific props.
  */
 const DocsViewLayout = (props: SidebarSidecarLayoutProps) => {
 	return <SidebarSidecarLayout {...props} />

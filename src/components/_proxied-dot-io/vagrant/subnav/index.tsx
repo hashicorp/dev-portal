@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import Subnav from '@hashicorp/react-subnav'
-import productData from 'data/vagrant'
 import { useRouter } from 'next/router'
+import s from './style.module.css'
 
-export default function VagrantSubnav() {
+export default function VagrantSubnav({ menuItems }) {
 	const router = useRouter()
-	const [, setCurrentPath] = useState()
+	const [, setCurrentPath] = useState('')
 
 	useEffect(() => {
 		setCurrentPath(router.asPath)
@@ -13,8 +13,9 @@ export default function VagrantSubnav() {
 
 	return (
 		<Subnav
+			className={s.subnav}
 			titleLink={{
-				text: 'vagrant',
+				text: 'HashiCorp Vagrant',
 				url: '/',
 			}}
 			ctaLinks={[
@@ -26,7 +27,7 @@ export default function VagrantSubnav() {
 			]}
 			currentPath={router.pathname}
 			menuItemsAlign="right"
-			menuItems={productData.subnavItems}
+			menuItems={menuItems}
 			constrainWidth
 			matchOnBasePath
 		/>
