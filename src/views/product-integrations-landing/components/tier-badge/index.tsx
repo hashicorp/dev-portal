@@ -19,12 +19,12 @@ export default function TierBadge({ tier, productSlug, size }) {
 			})}
 			style={styles}
 		>
-			{tier === Tier.COMMUNITY && (
+			{tier === Tier.OFFICIAL && (
 				<>
 					<IconAward16 /> Official
 				</>
 			)}
-			{(tier === Tier.VERIFIED || tier === Tier.PARTNER) && (
+			{tier === Tier.PARTNER && (
 				<>
 					<IconHandshake16 /> Partner
 				</>

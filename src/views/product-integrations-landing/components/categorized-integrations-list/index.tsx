@@ -4,9 +4,7 @@ import s from './style.module.css'
 
 export default function CategorizedIntegrationsList({ integrations }) {
 	const official = integrations.filter((i) => i.tier === Tier.OFFICIAL)
-	const partner = integrations.filter(
-		(i) => i.tier === Tier.PARTNER || i.tier === Tier.VERIFIED
-	)
+	const partner = integrations.filter((i) => i.tier === Tier.PARTNER)
 	const community = integrations.filter((i) => i.tier === Tier.COMMUNITY)
 
 	return (
