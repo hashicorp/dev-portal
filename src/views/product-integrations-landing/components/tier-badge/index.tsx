@@ -1,7 +1,8 @@
 import s from './style.module.css'
 import classNames from 'classnames'
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
-import { IconCheckCircle16 } from '@hashicorp/flight-icons/svg-react/check-circle-16'
+import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
+import { Tier } from 'lib/integrations-api-client'
 
 interface TierBadgeStyles extends React.CSSProperties {
 	'--badge-color': string
@@ -18,17 +19,17 @@ export default function TierBadge({ tier, productSlug, size }) {
 			})}
 			style={styles}
 		>
-			{tier === 'official' && (
+			{tier === Tier.COMMUNITY && (
 				<>
 					<IconAward16 /> Official
 				</>
 			)}
-			{tier === 'verified' && (
+			{(tier === Tier.VERIFIED || tier === Tier.PARTNER) && (
 				<>
-					<IconCheckCircle16 /> Verified
+					<IconHandshake16 /> Partner
 				</>
 			)}
-			{tier === 'community' && <>Community</>}
+			{tier === Tier.COMMUNITY && <>Community</>}
 		</span>
 	)
 }
