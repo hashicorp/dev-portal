@@ -1,10 +1,13 @@
+import { Tier } from 'lib/integrations-api-client'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
 
 export default function CategorizedIntegrationsList({ integrations }) {
-	const official = integrations.filter((i) => i.tier === 'official')
-	const verified = integrations.filter((i) => i.tier === 'verified')
-	const community = integrations.filter((i) => i.tier === 'community')
+	const official = integrations.filter((i) => i.tier === Tier.OFFICIAL)
+	const partner = integrations.filter(
+		(i) => i.tier === Tier.PARTNER || i.tier === Tier.VERIFIED
+	)
+	const community = integrations.filter((i) => i.tier === Tier.COMMUNITY)
 
 	return (
 		<div className={s.categorizedIntegrationList}>
@@ -12,8 +15,8 @@ export default function CategorizedIntegrationsList({ integrations }) {
 				<IntegrationCategory category="Official" integrations={official} />
 			)}
 
-			{verified.length > 0 && (
-				<IntegrationCategory category="Verified" integrations={verified} />
+			{partner.length > 0 && (
+				<IntegrationCategory category="Partner" integrations={partner} />
 			)}
 
 			{community.length > 0 && (
