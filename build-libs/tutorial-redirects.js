@@ -1,16 +1,16 @@
 async function getTutorialRedirects() {
 	const url = new URL(
 		'/pages/redirects',
-		process.env.NEXT_PUBLIC_LEARN_API_BASE_URL
+		'http://127.0.0.1:5000'
+		//	process.env.NEXT_PUBLIC_LEARN_API_BASE_URL
 	)
 	const res = await fetch(url, {
 		method: 'GET',
 	})
 
 	if (res.ok) {
-		const redirects = await res.json()
-		console.log(redirects.result)
-		return JSON.parse(redirects.result.page_data.redirectsData)
+		const res = await res.json()
+		return JSON.parse(res.result.page_data?.redirects)
 	}
 
 	if (res.status === 404) {
