@@ -22,7 +22,10 @@ import { filterCollections } from './helpers'
 import processPageData from './helpers/process-page-data'
 import { buildLayoutHeadings } from './helpers/heading-helpers'
 import { ProductViewBlock } from './components/product-view-content'
-import { ProductTutorialsSitemapProps } from './components/sitemap/types'
+import {
+	ProductTutorialsSitemapProps,
+	SitemapCollection,
+} from './components/sitemap/types'
 import { formatSitemapCollection } from './components/sitemap/helpers'
 import { ThemeOption } from 'lib/learn-client/types'
 import { cachedGetProductData } from 'lib/get-product-data'
@@ -44,7 +47,7 @@ export interface ProductPageData {
 		blocks: ProductViewBlock[]
 		showProductSitemap?: boolean
 	}
-	allCollections: ProductTutorialsSitemapProps['collections']
+	sitemapCollections: ProductTutorialsSitemapProps['collections']
 	inlineCollections: InlineCollections
 	inlineTutorials: InlineTutorials
 }
@@ -78,6 +81,14 @@ export async function getCloudTutorialsViewProps() {
 	 */
 	const { pageData, headings } = await processPageData(rawPageData)
 
+	/**
+	 * Build sitemap collections, if we're using them.
+	 */
+	let sitemapCollections: SitemapCollection[]
+	if (pageData.showProductSitemap) {
+		sitemapCollections = hcpCollections.map(formatSitemapCollection)
+	}
+
 	return {
 		props: stripUndefinedProperties<$TSFixMe>({
 			metadata: {
@@ -87,7 +98,7 @@ export async function getCloudTutorialsViewProps() {
 				pageData,
 				inlineCollections,
 				inlineTutorials,
-				allCollections: hcpCollections,
+				sitemapCollections,
 			},
 			layoutProps: {
 				headings,
@@ -149,10 +160,15 @@ export async function getProductTutorialsViewProps(
 		sidebarSections: formatSidebarCategorySections(filteredCollections),
 	}
 
-	const sitemapCollections: ProductTutorialsSitemapProps['collections'] =
-		filteredCollections
+	/**
+	 * Build sitemap collections, if we're using them.
+	 */
+	let sitemapCollections: SitemapCollection[]
+	if (pageData.showProductSitemap) {
+		sitemapCollections = filteredCollections
 			.sort(sortAlphabetically('name'))
 			.map(formatSitemapCollection)
+	}
 
 	/**
 	 * Destructuring the Learn data for now so it can be treated as the source of
@@ -170,7 +186,7 @@ export async function getProductTutorialsViewProps(
 			},
 			data: {
 				pageData,
-				allCollections: sitemapCollections,
+				sitemapCollections,
 				inlineCollections,
 				inlineTutorials,
 			},

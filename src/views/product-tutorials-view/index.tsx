@@ -18,7 +18,8 @@ function ProductTutorialsView({
 	layoutProps,
 	product,
 }: ProductTutorialsViewProps): React.ReactElement {
-	const { inlineCollections, inlineTutorials, pageData, allCollections } = data
+	const { inlineCollections, inlineTutorials, pageData, sitemapCollections } =
+		data
 	const { showProductSitemap, blocks } = pageData
 
 	const sidebarNavDataLevels = [
@@ -79,7 +80,7 @@ function ProductTutorialsView({
 			{showProductSitemap ? (
 				<div className={s.sitemap}>
 					<ProductTutorialsSitemap
-						collections={allCollections}
+						collections={sitemapCollections}
 						product={product.slug}
 					/>
 				</div>
