@@ -8,7 +8,9 @@ export interface Organization {
 
 export enum Tier {
 	OFFICIAL = 'official',
+	/** @deprecated - use {@link Tier.PARTNER} instead */
 	VERIFIED = 'verified',
+	PARTNER = 'partner',
 	COMMUNITY = 'community',
 }
 
