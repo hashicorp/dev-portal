@@ -13,7 +13,9 @@ import useCurrentPath from 'hooks/use-current-path'
 import { useScroll } from 'framer-motion'
 import { useMobileMenu } from 'contexts'
 import BaseLayout from 'layouts/base-new'
-import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
+import TableOfContents, {
+	TableOfContentsHeading,
+} from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import InlineLink from 'components/inline-link'
@@ -93,11 +95,43 @@ const SidebarSidecarLayoutContent = ({
 			return sidecarSlot
 		}
 
-		return (
-			<TableOfContents
-				headings={headings.filter((heading) => heading.level <= 2)}
-			/>
+		/**
+		 * Filter headings
+		 */
+		const filteredHeadings = headings.filter(
+			(heading: TableOfContentsHeading) => {
+				const { level, tabbedSectionDepth } = heading
+				/**
+				 * Only include <h2> in the table of contents.
+				 *
+				 * Note that <h1> are also included, this is as a stopgap
+				 * while we implement content conformance that ensures there is
+				 * exactly one <h1> per page (which we would likely not include here).
+				 */
+				if (level > 2) {
+					return false
+				}
+				/**
+				 * Only include headings that are *outside* of <Tabs />.
+				 *
+				 * In other words, the `tabbedSectionDepth` must be 0 for a heading
+				 * to be included in the table of contents.
+				 */
+				if (
+					typeof tabbedSectionDepth === 'number' &&
+					tabbedSectionDepth !== 0
+				) {
+					return false
+				}
+				/**
+				 * Return true for headings that have not been filtered out
+				 * by previous criteria.
+				 */
+				return true
+			}
 		)
+
+		return <TableOfContents headings={filteredHeadings} />
 	}
 
 	return (
