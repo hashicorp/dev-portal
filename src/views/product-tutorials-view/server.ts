@@ -1,4 +1,4 @@
-import { LearnProductData } from 'types/products'
+import { LearnProductData, LearnProductName } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import {
 	getAllCollections,
@@ -64,10 +64,7 @@ export async function getCloudTutorialsViewProps() {
 	 * Return static props
 	 */
 	return {
-		props: stripUndefinedProperties<$TSFixMe>({
-			metadata: {
-				title: 'Tutorials',
-			},
+		props: stripUndefinedProperties({
 			data: {
 				pageData,
 				sitemapCollections,
@@ -79,7 +76,10 @@ export async function getCloudTutorialsViewProps() {
 				}),
 				sidebarSections,
 			},
-			product: productData,
+			// Note: should likely remove type casting here,
+			// it's currently needed because "hcp" is not a valid LearnProductName.
+			// Kind of a $TSFixMe.
+			product: productData as LearnProductData,
 		}),
 	}
 }
@@ -150,10 +150,7 @@ export async function getProductTutorialsViewProps(
 	 * Return static props
 	 */
 	return {
-		props: stripUndefinedProperties<$TSFixMe>({
-			metadata: {
-				title: 'Tutorials',
-			},
+		props: stripUndefinedProperties({
 			data: {
 				pageData,
 				sitemapCollections,
@@ -164,13 +161,9 @@ export async function getProductTutorialsViewProps(
 				description,
 				docsUrl,
 				id,
-				name,
+				name: name as LearnProductName,
 				slug,
 			},
 		}),
 	}
-}
-
-function getBinarySize(string: string) {
-	return Buffer.byteLength(string, 'utf8')
 }
