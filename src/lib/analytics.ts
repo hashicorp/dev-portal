@@ -76,8 +76,8 @@ const safeAnalyticsTrack = (
 export const canAnalyzeUser = (): boolean => {
 	return (
 		typeof window !== undefined &&
-		window.analytics &&
-		window.analytics.user &&
+		!!window.analytics &&
+		!!window.analytics.user &&
 		typeof window.analytics.user === 'function'
 	)
 }
