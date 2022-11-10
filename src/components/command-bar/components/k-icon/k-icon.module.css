@@ -2,6 +2,9 @@
 	display: flex;
 
 	& svg {
+		height: 10px;
+		width: 7px;
+
 		& path {
 			fill: currentColor;
 		}
