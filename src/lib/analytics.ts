@@ -70,13 +70,20 @@ const safeAnalyticsTrack = (
 	}
 }
 
-export function safeGetSegmentAnonymousId(): string | null {
-	if (
+/**
+ * Determines whether or not `window.analytics.user` can be invoked.
+ */
+export const canAnalyzeUser = (): boolean => {
+	return (
 		typeof window !== undefined &&
 		window.analytics &&
 		window.analytics.user &&
 		typeof window.analytics.user === 'function'
-	) {
+	)
+}
+
+export function safeGetSegmentAnonymousId(): string | null {
+	if (canAnalyzeUser()) {
 		return window.analytics.user().anonymousId()
 	} else {
 		return null
@@ -84,12 +91,7 @@ export function safeGetSegmentAnonymousId(): string | null {
 }
 
 export function safeGetSegmentId(): string | null {
-	if (
-		typeof window !== undefined &&
-		window.analytics &&
-		window.analytics.user &&
-		typeof window.analytics.user === 'function'
-	) {
+	if (canAnalyzeUser()) {
 		return window.analytics.user().id()
 	} else {
 		return null

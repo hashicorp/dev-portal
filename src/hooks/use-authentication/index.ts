@@ -11,7 +11,7 @@ import {
 } from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
-import { safeGetSegmentAnonymousId, safeGetSegmentId } from 'lib/analytics'
+import { canAnalyzeUser, safeGetSegmentId } from 'lib/analytics'
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
@@ -85,12 +85,9 @@ const useAuthentication = (
 		user = data.user
 		delete session.user
 
-		const anonSegmentUserId = safeGetSegmentAnonymousId()
 		const segmentUserId = safeGetSegmentId()
 
-		// check if anonymousId exists. userId will be null until set in identify.
-		if (anonSegmentUserId && segmentUserId !== session.id) {
-			console.log('identify')
+		if (canAnalyzeUser() && segmentUserId !== session.id) {
 			analytics?.identify(
 				session.id,
 				{
