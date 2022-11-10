@@ -15,28 +15,16 @@ interface FeaturedStackBlock extends Omit<FeaturedStackProps, 'children'> {
 	blocks: CardListBlock[]
 }
 
-interface BrandedCalloutBlock extends BrandedCalloutProps {
-	type: 'BrandedCallout'
-}
-
 interface CardListBlock extends LogoCardListProps {
 	type: 'CardList'
 }
 
-interface TutorialsStackBlock extends TutorialsStackProps {
-	type: 'TutorialsStack'
-}
-
-interface CollectionsStackBlock extends CollectionsStackProps {
-	type: 'CollectionsStack'
-}
-
 export type ProductViewBlock =
 	| FeaturedStackBlock
-	| BrandedCalloutBlock
 	| CardListBlock
-	| TutorialsStackBlock
-	| CollectionsStackBlock
+	| ({ type: 'BrandedCallout' } & BrandedCalloutProps)
+	| ({ type: 'TutorialsStack' } & TutorialsStackProps)
+	| ({ type: 'CollectionsStack' } & CollectionsStackProps)
 
 export interface ProductViewContentProps {
 	blocks: ProductViewBlock[]
