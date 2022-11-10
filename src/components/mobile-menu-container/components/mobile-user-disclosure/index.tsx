@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { IconChevronDown24 } from '@hashicorp/flight-icons/svg-react/chevron-down-24'
 import { getUserMeta } from 'lib/auth/user'
 import isAbsoluteUrl from 'lib/is-absolute-url'
@@ -6,6 +5,7 @@ import Disclosure, {
 	DisclosureActivator,
 	DisclosureContent,
 } from 'components/disclosure'
+import Link from 'components/link'
 import Text from 'components/text'
 import { UserDropdownDisclosureItem } from 'components/user-dropdown-disclosure'
 import { MobileUserDisclosureProps } from './types'
@@ -34,11 +34,9 @@ const renderItem = (
 	let content
 	if (href) {
 		content = (
-			<Link href={href}>
-				<a className={s.link} rel={rel} target={target}>
-					{icon}
-					{labelElement}
-				</a>
+			<Link href={href} className={s.link} rel={rel} target={target}>
+				{icon}
+				{labelElement}
 			</Link>
 		)
 	} else if (onClick) {
