@@ -11,24 +11,15 @@ import {
 	formatSidebarCategorySections,
 	buildCategorizedHcpSidebar,
 } from 'views/collection-view/helpers'
-import getProductPageContent from './helpers/get-product-page-content'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
-import {
-	InlineCollections,
-	InlineTutorials,
-} from './helpers/get-inline-content'
 import { filterCollections } from './helpers'
-import processPageData from './helpers/process-page-data'
-import { buildLayoutHeadings } from './helpers/heading-helpers'
-import { ProductViewBlock } from './components/product-view-content'
-import {
-	ProductTutorialsSitemapProps,
-	SitemapCollection,
-} from './components/sitemap/types'
+import { SitemapCollection } from './components/sitemap/types'
 import { formatSitemapCollection } from './components/sitemap/helpers'
 import { ThemeOption } from 'lib/learn-client/types'
 import { cachedGetProductData } from 'lib/get-product-data'
+import getProcessedPageData from './helpers/page-data'
+import { ProductPageData } from './helpers/page-data/types'
 
 export interface ProductTutorialsViewProps {
 	data: ProductPageData
@@ -42,16 +33,6 @@ interface ProductTutorialsLayout {
 	sidebarSections: CollectionCategorySidebarSection[]
 }
 
-export interface ProductPageData {
-	pageData: {
-		blocks: ProductViewBlock[]
-		showProductSitemap?: boolean
-	}
-	sitemapCollections: ProductTutorialsSitemapProps['collections']
-	inlineCollections: InlineCollections
-	inlineTutorials: InlineTutorials
-}
-
 /**
  * Note: this is a stub to get the /hcp/tutorials rendering.
  * TODO: figure out what to do with the /hcp/tutorials view (design dependent).
@@ -61,25 +42,15 @@ export async function getCloudTutorialsViewProps() {
 	const productData = cachedGetProductData('hcp')
 
 	/**
+	 * Fetch and process the authored page content
+	 */
+	const { pageData, headings } = await getProcessedPageData(ThemeOption.cloud)
+
+	/**
 	 * Build the sidebar
 	 */
 	const hcpCollections = await getCollectionsBySection('cloud')
 	const sidebarSections = buildCategorizedHcpSidebar(hcpCollections)
-
-	/**
-	 * Get the raw page data
-	 */
-	const {
-		pageData: rawPageData,
-		inlineCollections,
-		inlineTutorials,
-	} = await getProductPageContent(ThemeOption.cloud)
-
-	/**
-	 * Process page data, reformatting as needed.
-	 * Includes parsing headings, for use with the page's sidecar
-	 */
-	const { pageData, headings } = await processPageData(rawPageData)
 
 	/**
 	 * Build sitemap collections, if we're using them.
@@ -89,14 +60,15 @@ export async function getCloudTutorialsViewProps() {
 		sitemapCollections = hcpCollections.map(formatSitemapCollection)
 	}
 
+	/**
+	 * Return static props
+	 */
 	const props = stripUndefinedProperties<$TSFixMe>({
 		metadata: {
 			title: 'Tutorials',
 		},
 		data: {
 			pageData,
-			inlineCollections,
-			inlineTutorials,
 			sitemapCollections,
 		},
 		layoutProps: {
@@ -127,14 +99,12 @@ export async function getProductTutorialsViewProps(
 	productData: LearnProductData
 ): Promise<{ props: ProductTutorialsViewProps }> {
 	const productSlug = productData.slug
+
 	/**
-	 * Get the raw page data
+	 * Fetch and process the authored page content
 	 */
-	const {
-		pageData: rawPageData,
-		inlineCollections,
-		inlineTutorials,
-	} = await getProductPageContent(productSlug)
+	const { pageData, headings } = await getProcessedPageData(productSlug)
+
 	/**
 	 * Get the product data, and all collections,
 	 * both of which are needed for layoutProps
@@ -147,16 +117,12 @@ export async function getProductTutorialsViewProps(
 		allProductCollections,
 		productSlug
 	)
-	/**
-	 * Process page data, reformatting as needed.
-	 * Includes parsing headings, for use with the page's sidecar
-	 */
-	const { pageData } = await processPageData(rawPageData)
+
 	/**
 	 * Build & return layout props to pass to SidebarSidecarLayout
 	 */
 	const layoutProps: ProductTutorialsLayout = {
-		headings: buildLayoutHeadings(pageData),
+		headings,
 		breadcrumbLinks: getTutorialsBreadcrumb({
 			product: { name: product.name, filename: product.slug },
 		}),
@@ -190,8 +156,6 @@ export async function getProductTutorialsViewProps(
 		data: {
 			pageData,
 			sitemapCollections,
-			inlineCollections,
-			inlineTutorials,
 		},
 		layoutProps,
 		product: {

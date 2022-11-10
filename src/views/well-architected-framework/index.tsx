@@ -30,11 +30,7 @@ export default function WellArchitectedFrameworkLandingView(
 			<div className={s.overview}>
 				<OverviewCta {...overview} headingSlug={slugify(overview.heading)} />
 			</div>
-			<ProductViewContent
-				blocks={blocks}
-				inlineCollections={data.inlineCollections}
-				inlineTutorials={data.inlineTutorials}
-			/>
+			<ProductViewContent blocks={blocks} />
 		</SidebarSidecarLayout>
 	)
 }

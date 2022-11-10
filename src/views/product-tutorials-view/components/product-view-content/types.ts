@@ -1,13 +1,9 @@
 import {
-	InlineCollections,
-	InlineTutorials,
-} from 'views/product-tutorials-view/helpers/get-inline-content'
-import {
 	BrandedCalloutProps,
-	LogoCardListItem,
 	FeaturedStackProps,
 	CollectionsStackProps,
 	TutorialsStackProps,
+	LogoCardListProps,
 } from './components'
 
 interface FeaturedStackBlock extends Omit<FeaturedStackProps, 'children'> {
@@ -23,32 +19,16 @@ interface BrandedCalloutBlock extends BrandedCalloutProps {
 	type: 'BrandedCallout'
 }
 
-interface LogoCardBlock extends Pick<LogoCardListItem, 'logo'> {
-	type: 'LogoCard'
-	/** A single collection identifier string, which will be filled in
-	 * using fetched inlineCollections data */
-	collectionSlug: string
-}
-
-type CardListBlock = {
+interface CardListBlock extends LogoCardListProps {
 	type: 'CardList'
-	items: LogoCardBlock[]
 }
 
-interface TutorialsStackBlock
-	extends Omit<TutorialsStackProps, 'featuredTutorials'> {
+interface TutorialsStackBlock extends TutorialsStackProps {
 	type: 'TutorialsStack'
-	/** Tutorial identifier strings, which will be filled in
-	 * using fetched inlineCollections data */
-	tutorialSlugs: string[]
 }
 
-interface CollectionsStackBlock
-	extends Omit<CollectionsStackProps, 'featuredCollections'> {
+interface CollectionsStackBlock extends CollectionsStackProps {
 	type: 'CollectionsStack'
-	/** Collection identifier strings, which will be filled in
-	 * using fetched inlineCollections data */
-	collectionSlugs: string[]
 }
 
 export type ProductViewBlock =
@@ -60,6 +40,4 @@ export type ProductViewBlock =
 
 export interface ProductViewContentProps {
 	blocks: ProductViewBlock[]
-	inlineCollections: InlineCollections
-	inlineTutorials: InlineTutorials
 }
