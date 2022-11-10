@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import Badge, { BadgeProps } from 'components/badge'
+import Link from 'components/link'
 import Text from 'components/text'
 import { developmentToast, ToastColor } from 'components/toast'
 import {
@@ -115,15 +115,13 @@ const CommandBarLinkListItem = ({
 }: CommandBarLinkListItemProps) => {
 	return (
 		<CommandBarListItem>
-			<Link href={url}>
-				<a className={s.linkOrButton}>
-					<CommandBarListItemContent
-						badges={badges}
-						description={description}
-						icon={icon}
-						title={title}
-					/>
-				</a>
+			<Link className={s.linkOrButton} href={url}>
+				<CommandBarListItemContent
+					badges={badges}
+					description={description}
+					icon={icon}
+					title={title}
+				/>
 			</Link>
 		</CommandBarListItem>
 	)
