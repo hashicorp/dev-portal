@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import Link from 'next/link'
+import Link from 'components/link'
 import { NavigationDisclosureLinkProps } from './types'
 import s from './navigation-disclosure-link.module.css'
 
@@ -22,10 +22,12 @@ const NavigationDisclosureLink = ({
 	}
 
 	return (
-		<Link href={href}>
-			<a aria-current={ariaCurrent} className={classNames(s.root, className)}>
-				{children}
-			</a>
+		<Link
+			aria-current={ariaCurrent}
+			className={classNames(s.root, className)}
+			href={href}
+		>
+			{children}
 		</Link>
 	)
 }
