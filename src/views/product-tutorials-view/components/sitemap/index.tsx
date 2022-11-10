@@ -10,7 +10,7 @@ import { getSitemapHeading } from 'views/product-tutorials-view/helpers/heading-
 import {
 	ProductTutorialsSitemapProps,
 	SitemapCollection,
-	SitemapTutorial,
+	SitemapItem,
 } from './types'
 import s from './sitemap.module.css'
 
@@ -54,7 +54,7 @@ export function ProductTutorialsSitemap({
 								[s.hasMultipleItems]: collection.tutorials.length > 1,
 							})}
 						>
-							{collection.tutorials.map((t: SitemapTutorial) => (
+							{collection.tutorials.map((t: SitemapItem) => (
 								<li key={t.id} className={s.tutorialListItem}>
 									<Link
 										className={s.tutorialLink}

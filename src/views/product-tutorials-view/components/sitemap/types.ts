@@ -5,15 +5,12 @@ export interface ProductTutorialsSitemapProps {
 	product: ProductOption
 }
 
-export interface SitemapTutorial {
+export interface SitemapItem {
 	id: string
 	slug: string
 	name: string
 }
 
-export interface SitemapCollection {
-	id: string
-	slug: string
-	name: string
-	tutorials: SitemapTutorial[]
+export interface SitemapCollection extends SitemapItem {
+	tutorials: SitemapItem[]
 }
