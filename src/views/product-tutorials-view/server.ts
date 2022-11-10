@@ -63,28 +63,25 @@ export async function getCloudTutorialsViewProps() {
 	/**
 	 * Return static props
 	 */
-	const props = stripUndefinedProperties<$TSFixMe>({
-		metadata: {
-			title: 'Tutorials',
-		},
-		data: {
-			pageData,
-			sitemapCollections,
-		},
-		layoutProps: {
-			headings,
-			breadcrumbLinks: getTutorialsBreadcrumb({
-				product: { name: productData.name, filename: productData.slug },
-			}),
-			sidebarSections,
-		},
-		product: productData,
-	})
-
-	const staticPropsKb = getBinarySize(JSON.stringify(props)) / 1000
-	console.log({ staticPropsKb })
-
-	return { props }
+	return {
+		props: stripUndefinedProperties<$TSFixMe>({
+			metadata: {
+				title: 'Tutorials',
+			},
+			data: {
+				pageData,
+				sitemapCollections,
+			},
+			layoutProps: {
+				headings,
+				breadcrumbLinks: getTutorialsBreadcrumb({
+					product: { name: productData.name, filename: productData.slug },
+				}),
+				sidebarSections,
+			},
+			product: productData,
+		}),
+	}
 }
 
 /**
@@ -149,29 +146,29 @@ export async function getProductTutorialsViewProps(
 	 */
 	const { description, docsUrl, id, name, slug } = product
 
-	const props = stripUndefinedProperties<$TSFixMe>({
-		metadata: {
-			title: 'Tutorials',
-		},
-		data: {
-			pageData,
-			sitemapCollections,
-		},
-		layoutProps,
-		product: {
-			...productData,
-			description,
-			docsUrl,
-			id,
-			name,
-			slug,
-		},
-	})
-
-	const staticPropsKb = getBinarySize(JSON.stringify(props)) / 1000
-	console.log({ staticPropsKb })
-
-	return { props }
+	/**
+	 * Return static props
+	 */
+	return {
+		props: stripUndefinedProperties<$TSFixMe>({
+			metadata: {
+				title: 'Tutorials',
+			},
+			data: {
+				pageData,
+				sitemapCollections,
+			},
+			layoutProps,
+			product: {
+				...productData,
+				description,
+				docsUrl,
+				id,
+				name,
+				slug,
+			},
+		}),
+	}
 }
 
 function getBinarySize(string: string) {

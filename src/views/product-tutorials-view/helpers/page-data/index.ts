@@ -2,6 +2,9 @@ import { PageSlugOption } from 'lib/learn-client/api/page'
 import getProductPageContent from './get-product-page-content'
 import { processPageData } from './process-page-data'
 
+/**
+ * Fetch and process page data for a Tutorial product landing page.
+ */
 async function getProcessedPageData(
 	pageSlug: PageSlugOption,
 	options?: { showOverviewHeading?: boolean }
