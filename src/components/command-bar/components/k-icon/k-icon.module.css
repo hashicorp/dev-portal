@@ -1,0 +1,9 @@
+.root {
+	display: flex;
+
+	& svg {
+		& path {
+			fill: currentColor;
+		}
+	}
+}
