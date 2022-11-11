@@ -64,7 +64,7 @@ const ConsulDownloadsMerchandisingSlot = () => {
 			</Heading>
 			<CardLink
 				ariaLabel="Download Consul tools"
-				href="/consul/docs/download-tools"
+				href="/consul/docs/integrate/download-tools"
 			>
 				<Text
 					asElement="p"
