@@ -4,6 +4,25 @@ componentName: 'UserDropdownDisclosure'
 
 ## Examples
 
+### When no `user` is given (unauthenticated state)
+
+If no `user` prop is given, then a default icon is rendered (`IconUser24`) and only the passed in `items` are rendered in the dropdown portion of the component.
+
+<UserDropdownDisclosure
+	items={[
+		{
+			icon: <SwingsetTestIcon name="sign-in" />,
+			label: 'Sign in',
+			onClick: () => window.alert('Clicked "Sign in" option'),
+		},
+		{
+			icon: <SwingsetTestIcon name="sign-out" />,
+			label: 'Sign out',
+			onClick: () => window.alert('Clicked "Sign out" option'),
+		},
+	]}
+/>
+
 ### User with an `image` referencing "github" in the text
 
 The label and description of the dropdown list are determined by the `image` property on the given `user` object. When the `image` property contains the text `"github"`:
@@ -70,7 +89,7 @@ The label and description of the dropdown list are determined by the `image` pro
 
 ### User with no `image`
 
-When no `image` is specified for a user, the `16px` `user` Flight Icon is rendered as the default icon.
+When no `image` is specified for a user, the `24px` `user` Flight Icon is rendered as the default icon.
 
 <UserDropdownDisclosure
 	user={{
