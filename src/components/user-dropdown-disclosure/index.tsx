@@ -1,4 +1,4 @@
-import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
+import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import { getUserMeta } from 'lib/auth/user'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import DropdownDisclosure, {
@@ -71,7 +71,7 @@ const UserDropdownDisclosure = ({
 		<DropdownDisclosure
 			aria-label="User menu"
 			className={className}
-			icon={user ? userMeta.icon : <IconUser16 />}
+			icon={user ? userMeta.icon : <IconUser24 />}
 			listPosition={listPosition}
 		>
 			{user ? (
