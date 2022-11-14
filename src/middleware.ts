@@ -38,6 +38,8 @@ function setHappyKitCookie(
  * - Handling simple one-to-one redirects for .io routes
  */
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
+	const { geo } = req
+
 	const label = `[middleware] ${req.nextUrl.pathname}`
 	console.time(label)
 
@@ -94,6 +96,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	 * We are running A/B tests on a subset of routes, so we are limiting the call to resolve flags from HappyKit to only those routes. This limits the impact of any additional latency to the routes which need the data.
 	 */
 	if (
+		geo?.country === 'US' &&
 		['vault', 'packer', 'consul'].includes(product) &&
 		['/'].includes(req.nextUrl.pathname)
 	) {
