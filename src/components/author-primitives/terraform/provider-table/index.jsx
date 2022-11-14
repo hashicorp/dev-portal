@@ -1,4 +1,4 @@
-import { MdxTable } from 'components/dev-dot-content/mdx-components'
+import { MdxTable } from 'components/mdx-components'
 import ProviderBadge from './components/provider-badge'
 import s from './style.module.css'
 

@@ -7,7 +7,7 @@ import getBodyParamProps from './get-body-param-props'
 import classNames from 'classnames'
 import s from './style.module.css'
 import { OperationObjectType } from '../../types'
-import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
+import { MdxInlineCode } from 'components/mdx-components'
 import Card from 'components/card'
 
 function Parameters({ title, params }) {

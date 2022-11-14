@@ -19,7 +19,7 @@ import {
 	MdxP,
 	MdxInlineCode,
 	MdxBlockquote,
-} from 'components/dev-dot-content/mdx-components'
+} from 'components/mdx-components'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
 import ImageConfig from 'components/image-config'
@@ -54,28 +54,28 @@ function _defaultComponents() {
 		theme: 'dark',
 	})
 	return {
-		ImageConfig,
-		Tabs: MdxTabs,
-		Tab: MdxTab,
-		EnterpriseAlert,
-		CodeBlockConfig,
-		CodeTabs,
-		pre,
-		inlineCode: MdxInlineCode,
 		a: MdxA,
 		blockquote: MdxBlockquote,
-		ol: MdxOrderedList,
-		ul: MdxUnorderedList,
-		li: MdxListItem,
-		img: makeImageElement({ noBorder: true }),
+		CodeBlockConfig,
+		CodeTabs,
+		EnterpriseAlert,
 		h1: MdxH1,
 		h2: MdxH2,
 		h3: MdxH3,
 		h4: MdxH4,
 		h5: MdxH5,
 		h6: MdxH6,
+		ImageConfig,
+		img: makeImageElement({ noBorder: true }),
+		inlineCode: MdxInlineCode,
+		li: MdxListItem,
+		ol: MdxOrderedList,
 		p: MdxP,
+		pre,
+		Tab: MdxTab,
 		table: MdxTable,
+		Tabs: MdxTabs,
+		ul: MdxUnorderedList,
 	}
 }
 

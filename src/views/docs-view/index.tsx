@@ -60,7 +60,7 @@ const SentinelEmbedded = dynamic(
 )
 
 const HCPCallout = dynamic(
-	() => import('components/dev-dot-content/mdx-components/mdx-hcp-callout')
+	() => import('components/mdx-components/mdx-hcp-callout')
 )
 
 const productsToPrimitives: ProductsToPrimitivesMap = {

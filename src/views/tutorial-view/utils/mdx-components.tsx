@@ -23,7 +23,7 @@ import {
 	MdxP,
 	MdxInlineCode,
 	MdxBlockquote,
-} from 'components/dev-dot-content/mdx-components'
+} from 'components/mdx-components'
 import VideoEmbed from 'components/video-embed'
 
 const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
@@ -42,30 +42,30 @@ const AccordionWrapper = ({ children, collapse, heading }) => {
 
 //  these components are automatically imported into scope within MDX content
 const MDX_COMPONENTS = {
+	a: MdxA,
 	Accordion: AccordionWrapper,
-	Tabs: MdxTabs,
-	Tab: MdxTab,
-	pre,
-	inlineCode: MdxInlineCode,
+	blockquote: MdxBlockquote,
 	CodeBlockConfig,
 	CodeTabs,
-	ImageConfig,
-	InteractiveLabCallout,
-	img: Image,
-	VideoEmbed,
-	ol: MdxOrderedList,
-	ul: MdxUnorderedList,
-	li: MdxListItem,
-	a: MdxA,
 	h1: MdxH1,
 	h2: MdxH2,
 	h3: MdxH3,
 	h4: MdxH4,
 	h5: MdxH5,
 	h6: MdxH6,
+	ImageConfig,
+	img: Image,
+	inlineCode: MdxInlineCode,
+	InteractiveLabCallout,
+	li: MdxListItem,
+	ol: MdxOrderedList,
 	p: MdxP,
+	pre,
+	Tab: MdxTab,
 	table: MdxTable,
-	blockquote: MdxBlockquote,
+	Tabs: MdxTabs,
+	ul: MdxUnorderedList,
+	VideoEmbed,
 }
 
 export default MDX_COMPONENTS

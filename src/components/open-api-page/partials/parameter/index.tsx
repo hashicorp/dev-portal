@@ -1,5 +1,5 @@
 import s from './style.module.css'
-import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
+import { MdxInlineCode } from 'components/mdx-components'
 import AccordionDisclosure from 'components/accordion-disclosure'
 import Badge from 'components/badge'
 
