@@ -18,6 +18,7 @@ import {
 } from 'views/collection-view/helpers'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import DevDotContent from 'components/dev-dot-content'
+import MDX_COMPONENTS from 'components/mdx-components'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -37,7 +38,6 @@ import {
 	TutorialSidebarSidecarProps,
 	TutorialViewProps,
 } from './types'
-import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import getVideoUrl from './utils/get-video-url'
 import {
