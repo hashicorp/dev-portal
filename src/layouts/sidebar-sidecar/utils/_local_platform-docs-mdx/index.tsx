@@ -1,4 +1,5 @@
 import MDX_COMPONENTS from 'components/mdx-components'
+import { makeImageElement } from 'components/mdx-components/mdx-image'
 
 // This function returns a simple object containing the default components
 // The `additionalComponents` param is purely for convenience.
@@ -10,5 +11,5 @@ export default function defaultMdxComponents({ additionalComponents = {} }) {
 // Purely for sharing between the two functions. Once `createMdxProvider` is
 // deprecated, this can be moved inline.
 function _defaultComponents() {
-	return MDX_COMPONENTS
+	return { ...MDX_COMPONENTS, img: makeImageElement({ noBorder: true }) }
 }

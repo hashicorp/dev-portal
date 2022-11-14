@@ -12,7 +12,7 @@ import { MdxAccordion } from './mdx-accordion'
 import { MdxBlockquote } from './mdx-blockquote'
 import { MdxEnterpriseAlert } from './mdx-enterprise-alert'
 import { MdxH1, MdxH2, MdxH3, MdxH4, MdxH5, MdxH6 } from './mdx-headings'
-import { MdxImage } from './mdx-image'
+import { makeImageElement } from './mdx-image'
 import { MdxInlineCode } from './mdx-inline-code'
 import { MdxListItem, MdxOrderedList, MdxUnorderedList } from './mdx-lists'
 import { MdxP } from './mdx-p'
@@ -37,7 +37,7 @@ const MDX_COMPONENTS = {
 	h5: MdxH5,
 	h6: MdxH6,
 	ImageConfig,
-	img: MdxImage,
+	img: makeImageElement({ noBorder: false }),
 	inlineCode: MdxInlineCode,
 	InteractiveLabCallout,
 	li: MdxListItem,
@@ -62,7 +62,6 @@ export {
 	MdxH4,
 	MdxH5,
 	MdxH6,
-	MdxImage,
 	MdxInlineCode,
 	MdxListItem,
 	MdxOrderedList,
