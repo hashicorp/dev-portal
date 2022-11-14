@@ -106,4 +106,5 @@ function Image({
 	)
 }
 
+export type { ImageProps }
 export default Image

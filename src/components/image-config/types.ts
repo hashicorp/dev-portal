@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { ImageProps } from 'components/image/types'
+import { ImageProps } from 'components/image'
 
 export interface ImageConfigProps {
 	/**
