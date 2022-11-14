@@ -14,4 +14,3 @@ function MdxListItem({ children }: { children: ReactNode }) {
 }
 
 export { MdxListItem, MdxOrderedList, MdxUnorderedList }
-export default MdxListItem
