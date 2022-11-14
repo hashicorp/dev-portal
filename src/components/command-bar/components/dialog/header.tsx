@@ -3,7 +3,7 @@ import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 import { useCurrentProduct } from 'contexts'
 import Badge from 'components/badge'
 import { useCommandBar, CommandBarTag } from 'components/command-bar'
-import { CmdCtrlIcon } from 'components/command-bar/components'
+import { CmdCtrlIcon, KIcon } from 'components/command-bar/components'
 import Tag from 'components/tag'
 import s from './command-bar-dialog.module.css'
 
@@ -74,8 +74,8 @@ const CommandBarDialogHeader = () => {
 				<Badge
 					ariaLabel="K key"
 					color="neutral"
+					icon={<KIcon />}
 					size="small"
-					text="K"
 					type="outlined"
 				/>
 			</div>
