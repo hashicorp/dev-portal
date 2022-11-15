@@ -49,5 +49,5 @@ export function searchStateToRouteState(
 		isInteractive: state?.toggle?.isInteractive,
 	}
 
-	return stripUndefinedProperties(result)
+	return stripUndefinedProperties<$TSFixMe>(result)
 }
