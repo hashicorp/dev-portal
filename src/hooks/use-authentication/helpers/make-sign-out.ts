@@ -19,6 +19,7 @@ const makeSignOut = ({ routerPath }: MakeSignOutOptions) => {
 			callbackUrl = routerPath === '/profile/bookmarks' ? '/' : routerPath,
 			redirect = true,
 		} = options
+		console.log({ callbackUrl }, { routerPath })
 		return signOut({ callbackUrl, redirect })
 	}
 }

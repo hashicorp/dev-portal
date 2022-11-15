@@ -1,11 +1,6 @@
-import { NextRouter } from 'next/router'
 import { signIn, SignInOptions as _SignInOptions } from 'next-auth/react'
 import { ValidAuthProviderId } from 'types/auth'
 import { DEFAULT_PROVIDER_ID } from '..'
-
-interface MakeSignInOptions {
-	routerPath: NextRouter['asPath']
-}
 
 type SignInOptions = Pick<_SignInOptions, 'callbackUrl' | 'redirect'>
 
@@ -15,14 +10,14 @@ type SignInOptions = Pick<_SignInOptions, 'callbackUrl' | 'redirect'>
  *
  * https://next-auth.js.org/getting-started/client#signin
  */
-const makeSignIn = ({ routerPath }: MakeSignInOptions) => {
+const makeSignIn = () => {
 	return (
 		provider: ValidAuthProviderId = DEFAULT_PROVIDER_ID,
 		options: SignInOptions = {}
 	) => {
-		const { callbackUrl = routerPath, redirect = true } = options
+		const { redirect = true } = options
 
-		return signIn(provider, { callbackUrl, redirect })
+		return signIn(provider, { redirect })
 	}
 }
 
