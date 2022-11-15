@@ -31,6 +31,7 @@ import {
 } from './contexts/sidebar-nav-data'
 import { ScrollProgressBar } from './components/scroll-progress-bar'
 import s from './sidebar-sidecar-layout.module.css'
+import { filterTableOfContentsHeadings } from './utils/filter-table-of-contents-headings'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
 	const navDataLevels = props.sidebarNavDataLevels
@@ -94,9 +95,7 @@ const SidebarSidecarLayoutContent = ({
 		}
 
 		return (
-			<TableOfContents
-				headings={headings.filter((heading) => heading.level <= 2)}
-			/>
+			<TableOfContents headings={filterTableOfContentsHeadings(headings)} />
 		)
 	}
 
