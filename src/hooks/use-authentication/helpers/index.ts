@@ -1,5 +1,5 @@
-import { signInWrapper } from './sign-in-wrapper'
-import { signOutWrapper } from './sign-out-wrapper'
+import { makeSignIn } from './make-sign-in'
+import { makeSignOut } from './make-sign-out'
 import { signUp } from './sign-up'
 
-export { signInWrapper, signOutWrapper, signUp }
+export { makeSignIn, makeSignOut, signUp }

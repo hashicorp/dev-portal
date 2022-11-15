@@ -36,7 +36,6 @@ function DocsView(props: InferGetStaticPropsType<typeof getStaticProps>) {
 			staticProps={props}
 			showVersionSelect={false}
 			algoliaConfig={productData.algoliaConfig}
-			devDotCutoverMessage={productData.devDotCutoverMessage}
 		/>
 	)
 }

@@ -102,7 +102,10 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
 								}
 							>
 								<Link href={`/${slug}/`}>
-									<a className={productClassName}>
+									<a
+										className={productClassName}
+										data-heap-track="homepage-product-nav-link"
+									>
 										{productIcons[slug].color}
 										<Text
 											weight="semibold"

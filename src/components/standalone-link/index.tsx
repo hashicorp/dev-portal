@@ -8,6 +8,7 @@ const StandaloneLink = ({
 	ariaLabel,
 	className,
 	color = 'primary',
+	'data-heap-track': dataHeapTrack,
 	download,
 	href,
 	icon,
@@ -38,6 +39,7 @@ const StandaloneLink = ({
 				onClick={onClick}
 				rel={rel}
 				target={target}
+				data-heap-track={`standalone-link ${dataHeapTrack ?? ''}`}
 			>
 				{iconPosition === 'leading' && icon}
 				<span className={classNames(s.text, textClassName)}>{text}</span>

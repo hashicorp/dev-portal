@@ -25,7 +25,7 @@ export function routerStateToSearchState(
 						? routeState.hasVideo === 'true'
 						: undefined,
 				isInteractive:
-					typeof routeState.hasInteractive !== 'undefined'
+					typeof routeState.isInteractive !== 'undefined'
 						? routeState.isInteractive === 'true'
 						: undefined,
 			},
@@ -49,5 +49,5 @@ export function searchStateToRouteState(
 		isInteractive: state?.toggle?.isInteractive,
 	}
 
-	return stripUndefinedProperties(result)
+	return stripUndefinedProperties<$TSFixMe>(result)
 }

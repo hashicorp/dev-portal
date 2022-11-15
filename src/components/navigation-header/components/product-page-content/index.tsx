@@ -115,6 +115,7 @@ const ProductPageHeaderContent = () => {
 						aria-current={isProductHomePage ? 'page' : undefined}
 						aria-label={`${currentProduct.name} home`}
 						className={s.productLogoLink}
+						data-heap-track="navigation-header-product-logo-link"
 					>
 						<InlineSvg
 							className={classNames(

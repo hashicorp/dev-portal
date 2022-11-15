@@ -117,7 +117,7 @@ export async function getTutorialPageProps(
 	}
 
 	return {
-		props: stripUndefinedProperties({
+		props: stripUndefinedProperties<$TSFixMe>({
 			metadata: {
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
