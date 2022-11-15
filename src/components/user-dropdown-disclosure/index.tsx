@@ -1,3 +1,6 @@
+import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
+import { getUserMeta } from 'lib/auth/user'
+import isAbsoluteUrl from 'lib/is-absolute-url'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
@@ -5,8 +8,6 @@ import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 	DropdownDisclosureSeparatorItem,
 } from 'components/dropdown-disclosure'
-import { getUserMeta } from 'lib/auth/user'
-import isAbsoluteUrl from 'lib/is-absolute-url'
 import {
 	UserDropdownDisclosureItem,
 	UserDropdownDisclosureProps,
@@ -53,7 +54,7 @@ const renderItem = (
 
 /**
  * A DropdownDisclosure intended to be used as a menu with actions/links for
- * authenticated users.
+ * both authenticated and unauthenticated users.
  */
 const UserDropdownDisclosure = ({
 	className,
@@ -61,20 +62,29 @@ const UserDropdownDisclosure = ({
 	listPosition,
 	user,
 }: UserDropdownDisclosureProps) => {
-	const { icon, label, description } = getUserMeta(user)
+	let userMeta
+	if (user) {
+		userMeta = getUserMeta(user)
+	}
 
 	return (
 		<DropdownDisclosure
 			aria-label="User menu"
 			className={className}
-			icon={icon}
+			icon={user ? userMeta.icon : <IconUser24 />}
 			listPosition={listPosition}
 		>
-			<DropdownDisclosureLabelItem>{label}</DropdownDisclosureLabelItem>
-			<DropdownDisclosureDescriptionItem>
-				{description}
-			</DropdownDisclosureDescriptionItem>
-			<DropdownDisclosureSeparatorItem />
+			{user ? (
+				<>
+					<DropdownDisclosureLabelItem>
+						{userMeta.label}
+					</DropdownDisclosureLabelItem>
+					<DropdownDisclosureDescriptionItem>
+						{userMeta.description}
+					</DropdownDisclosureDescriptionItem>
+					<DropdownDisclosureSeparatorItem />
+				</>
+			) : null}
 			{items.map(renderItem)}
 		</DropdownDisclosure>
 	)

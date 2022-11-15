@@ -3,6 +3,10 @@ import * as learnApi from 'lib/learn-client'
 import { createBookmark } from '../create-bookmark'
 import { BOOKMARK_API_ROUTE } from '..'
 
+jest.mock('lib/learn-client', () => ({
+	post: jest.fn(),
+}))
+
 const mockBookmark: ApiBookmark = {
 	created_at: null,
 	id: 'test-bookmark-1',
@@ -13,8 +17,6 @@ const mockBookmark: ApiBookmark = {
 }
 
 describe('createBookmark', () => {
-	jest.spyOn(learnApi, 'post')
-
 	const mockedPost = learnApi.post as jest.Mock
 	const testAccessToken = 'test-token'
 	const testTutorialId = mockBookmark.tutorial_id
