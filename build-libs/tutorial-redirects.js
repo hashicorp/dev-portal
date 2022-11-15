@@ -1,8 +1,7 @@
 async function getTutorialRedirects() {
 	const url = new URL(
 		'/pages/redirects',
-		'http://127.0.0.1:5000'
-		//	process.env.NEXT_PUBLIC_LEARN_API_BASE_URL
+		process.env.NEXT_PUBLIC_LEARN_API_BASE_URL
 	)
 	const res = await fetch(url, {
 		method: 'GET',
