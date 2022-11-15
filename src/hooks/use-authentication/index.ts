@@ -25,6 +25,7 @@ const useAuthentication = (
 ): UseAuthenticationResult => {
 	// Get router path for `signIn` and `signOut` `callbackUrl`s
 	const router = useRouter()
+	console.log({ router })
 
 	// Set up memoized `signIn` and `signOut` callbacks
 	const signIn = useMemo(() => makeSignIn(), [])
@@ -54,6 +55,7 @@ const useAuthentication = (
 	 */
 	useEffect(() => {
 		if (data?.error === AuthErrors.RefreshAccessTokenError) {
+			console.error('Token refresh error, signing out user')
 			signOut()
 		}
 	}, [data?.error, signOut])
