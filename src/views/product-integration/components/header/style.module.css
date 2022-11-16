@@ -1,0 +1,36 @@
+.header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+
+	& .left {
+		display: flex;
+		flex-direction: column;
+
+		& .nameTier {
+			display: flex;
+			align-items: center;
+			& > h1 {
+				margin: 0;
+			}
+			& .tierBadge {
+				margin-left: 20px;
+			}
+		}
+
+		& .author {
+			color: var(--token-color-foreground-faint);
+			font-weight: var(--token-typography-font-weight-medium);
+			font-family: var(--token-typography-body-100-font-family);
+			font-size: 22px;
+			line-height: var(--token-typography-body-100-line-height);
+			margin: 0;
+		}
+	}
+
+	& .right {
+		& .versionDropdown {
+			margin-top: 6px;
+		}
+	}
+}

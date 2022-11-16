@@ -34,6 +34,7 @@ export interface Integration {
 	product: Product
 	name?: string
 	versions?: string[]
+	description?: string
 	components?: Component[]
 	repo_url: string
 	subdirectory?: string

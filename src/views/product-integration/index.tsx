@@ -1,13 +1,10 @@
-import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
 import BreadcrumbBar from 'components/breadcrumb-bar'
-import DropdownDisclosure, {
-	DropdownDisclosureButtonItem,
-} from 'components/dropdown-disclosure'
+import Tabs, { Tab } from 'components/tabs'
 import BaseLayout from 'layouts/base-new'
 import { Integration, Release } from 'lib/integrations-api-client'
 import ReactMarkdown from 'react-markdown'
 import { ProductData } from 'types/products'
-import TierBadge from '../product-integrations-landing/components/tier-badge'
+import Header from './components/header'
 import s from './style.module.css'
 
 interface ViewProps {
@@ -21,7 +18,6 @@ export default function ProductIntegrationLanding({
 	product,
 	latestRelease,
 }: ViewProps) {
-	const otherVersions = integration.versions.sort().reverse().slice(1)
 	return (
 		<BaseLayout showFooterTopBorder>
 			<div className={s.integrationPage}>
@@ -55,46 +51,63 @@ export default function ProductIntegrationLanding({
 							/>
 						</div>
 						<div className={s.content}>
-							<div className={s.topLine}>
-								<div className={s.headingWrapper}>
-									<h1>{integration.name}</h1>
-									{integration.versions.length > 1 ? (
-										<DropdownDisclosure
-											className={s.versionDropdown}
-											color="secondary"
-											text={`Version ${latestRelease.version}`}
-										>
-											{otherVersions.map((version: string) => {
-												return (
-													<DropdownDisclosureButtonItem
-														key={version}
-														onClick={() => console.log(`Clicked ${version}`)}
-													>
-														Version {version}
-													</DropdownDisclosureButtonItem>
-												)
-											})}
-										</DropdownDisclosure>
-									) : (
-										<span className={s.version}>v{latestRelease.version}</span>
-									)}
-									<TierBadge
-										tier={integration.tier}
-										productSlug={integration.product.slug}
-										size="large"
-									/>
-								</div>
-								<a
-									className={s.viewInGithub}
-									href={integration.repo_url}
-									target="_blank"
-									rel="noreferrer"
-								>
-									<IconGithub16 /> View in GitHub
-								</a>
-							</div>
-							<span className={s.org}>@{integration.organization.slug}</span>
-							<ReactMarkdown>{latestRelease.readme}</ReactMarkdown>
+							<Header
+								className={s.header}
+								name={integration.name}
+								tier={integration.tier}
+								author={integration.organization.slug}
+								versions={integration.versions}
+								description={integration.description}
+							/>
+
+							<Tabs allowNestedStyles>
+								<Tab heading="README">
+									<ReactMarkdown>{latestRelease.readme}</ReactMarkdown>
+								</Tab>
+								<Tab heading="Documentation">
+									<p>Documentation Tree goes here</p>
+								</Tab>
+
+								<Tab heading="Builder">
+									<h3>docker (builder)</h3>
+									<p>Build a Docker image from a Dockerfile.</p>
+									<p>
+										If a Docker server is available (either locally or via
+										environment variables such as DOCKER_HOST), then docker
+										build will be used to build an image from a Dockerfile.
+									</p>
+									<p>
+										Dockerless Builds Many hosted environments, such as
+										Kubernetes clusters, don&apos;t provide access to a Docker
+										server. In these cases, it is desirable to perform what is
+										called a dockerless build: building a Docker image without
+										access to a Docker daemon. Waypoint supports dockerless
+										builds. Waypoint performs Dockerless builds by leveraging
+										Kaniko within on-demand launched runners. This should work
+										in all supported Waypoint installation environments by
+										default and you should not have to specify any additional
+										configuration.
+									</p>
+
+									<Tabs allowNestedStyles>
+										<Tab heading="Parameters">
+											<p>wow</p>
+										</Tab>
+										<Tab heading="Outputs">
+											<p>wow</p>
+										</Tab>
+									</Tabs>
+								</Tab>
+								<Tab heading="Registry">
+									<p>TODO</p>
+								</Tab>
+								<Tab heading="Platform">
+									<p>TODO</p>
+								</Tab>
+								<Tab heading="Task">
+									<p>TODO</p>
+								</Tab>
+							</Tabs>
 						</div>
 					</div>
 				</div>
