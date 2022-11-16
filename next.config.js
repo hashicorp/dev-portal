@@ -96,7 +96,7 @@ module.exports = withSwingset({
 				JSON.stringify(simpleRedirects, null, 2),
 				'utf-8'
 			)
-			return [...globRedirects]
+			return globRedirects
 		},
 		async rewrites() {
 			const rewrites = await rewritesConfig()
