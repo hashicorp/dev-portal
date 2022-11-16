@@ -447,6 +447,7 @@ async function redirectsConfig() {
 		...proxiedSiteRedirects,
 		...productRedirects,
 		...devPortalRedirects,
+		...tutorialRedirects,
 	])
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
 	if (process.env.DEBUG_REDIRECTS) {
@@ -458,7 +459,6 @@ async function redirectsConfig() {
 	return {
 		simpleRedirects: groupedSimpleRedirects,
 		globRedirects,
-		tutorialRedirects,
 	}
 }
 

@@ -89,15 +89,14 @@ module.exports = withSwingset({
 			return [temporary_hideDocsPaths, hideWaypointTipContent]
 		},
 		async redirects() {
-			const { simpleRedirects, globRedirects, tutorialRedirects } =
-				await redirectsConfig()
+			const { simpleRedirects, globRedirects } = await redirectsConfig()
 
 			await fs.promises.writeFile(
 				path.join('src', 'data', '_redirects.generated.json'),
 				JSON.stringify(simpleRedirects, null, 2),
 				'utf-8'
 			)
-			return [...globRedirects, ...tutorialRedirects]
+			return [...globRedirects]
 		},
 		async rewrites() {
 			const rewrites = await rewritesConfig()
