@@ -22,6 +22,10 @@ export default NextAuth({
 		 * https://github.com/nextauthjs/next-auth/discussions/3938
 		 */
 		async signOut({ token }) {
+			if (isDev) {
+				console.log('Inside of NextAuth.events.signOut')
+			}
+
 			try {
 				// Fetch the wellknown configuration
 				const wellKnownConfiguration = await (
