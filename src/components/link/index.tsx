@@ -1,6 +1,7 @@
 import NextLink from 'next/link'
 import { useId } from '@react-aria/utils'
 import { LinkProps } from './types'
+import { developmentToast, ToastColor } from 'components/toast'
 
 const ARIA_DESCRIBED_BY_PREFIX = 'opens-in-new-tab-label'
 
@@ -28,11 +29,14 @@ const Link = ({
 	/**
 	 * Generate the `target` prop.
 	 */
-	let target: LinkProps['target']
-	if (restProps.target) {
-		target = restProps.target
-	} else if (opensInNewTab) {
-		target = '_blank'
+	const target = opensInNewTab ? '_blank' : restProps.target
+	if (opensInNewTab && !!restProps.target) {
+		developmentToast({
+			color: ToastColor.critical,
+			title: 'Error in src/components/Link',
+			description:
+				'Both `opensInNewTab` and `target` were passed. Only pass one or the other.',
+		})
 	}
 
 	/**
