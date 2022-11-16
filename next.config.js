@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const withSwingset = require('swingset')
-const { getTutorialRedirects } = require('./build-libs/tutorial-redirects')
 const { redirectsConfig } = require('./build-libs/redirects')
 const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
@@ -90,8 +89,8 @@ module.exports = withSwingset({
 			return [temporary_hideDocsPaths, hideWaypointTipContent]
 		},
 		async redirects() {
-			const { simpleRedirects, globRedirects } = await redirectsConfig()
-			const tutorialRedirects = await getTutorialRedirects()
+			const { simpleRedirects, globRedirects, tutorialRedirects } =
+				await redirectsConfig()
 
 			await fs.promises.writeFile(
 				path.join('src', 'data', '_redirects.generated.json'),

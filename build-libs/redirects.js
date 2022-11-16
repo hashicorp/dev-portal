@@ -11,6 +11,7 @@ const {
 const fetchGithubFile = require('./fetch-github-file')
 const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 const { loadHashiConfigForEnvironment } = require('../config')
+const { getTutorialRedirects } = require('./tutorial-redirects')
 
 require('isomorphic-unfetch')
 
@@ -440,6 +441,7 @@ async function redirectsConfig() {
 	const productRedirects = await buildProductRedirects()
 	const devPortalRedirects = await buildDevPortalRedirects()
 	const proxiedSiteRedirects = await loadProxiedSiteRedirects()
+	const tutorialRedirects = await getTutorialRedirects()
 
 	const { simpleRedirects, globRedirects } = splitRedirectsByType([
 		...proxiedSiteRedirects,
@@ -456,6 +458,7 @@ async function redirectsConfig() {
 	return {
 		simpleRedirects: groupedSimpleRedirects,
 		globRedirects,
+		tutorialRedirects,
 	}
 }
 
