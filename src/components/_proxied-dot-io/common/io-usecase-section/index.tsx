@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Products } from '@hashicorp/platform-product-meta'
 import classNames from 'classnames'
-import Image from 'next/image'
+import type { ImageProps } from 'next/legacy/image'
+import Image from 'next/legacy/image'
 import Button from '@hashicorp/react-button'
 import s from './style.module.css'
 
@@ -11,12 +12,7 @@ interface IoUsecaseSectionProps {
 	eyebrow: string
 	heading: string
 	description: string
-	media?: {
-		src: string
-		width: string
-		height: string
-		alt: string
-	}
+	media?: Pick<ImageProps, 'src' | 'width' | 'height' | 'alt'>
 	cta?: {
 		text: string
 		link: string

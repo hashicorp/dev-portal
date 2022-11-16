@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import classNames from 'classnames'
 import type { Products } from '@hashicorp/platform-product-meta'
 import useProductMeta from '@hashicorp/platform-product-meta'

@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import StandaloneLink from 'components/standalone-link'
 import { BrandedCalloutProps } from './types'
 import { ProductOption } from 'lib/learn-client/types'

@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import ButtonLink from 'components/button-link'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'

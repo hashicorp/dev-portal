@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import CardLink from 'components/card-link'
 import Text from 'components/text'
 import { HashiConfGlobalSlotProps } from './types'

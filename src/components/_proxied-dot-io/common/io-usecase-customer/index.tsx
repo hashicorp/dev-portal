@@ -1,21 +1,14 @@
 import * as React from 'react'
-import Image from 'next/image'
+import type { ImageProps } from 'next/legacy/image'
+import Image from 'next/legacy/image'
 import Button from '@hashicorp/react-button'
 import s from './style.module.css'
 
+type SelectImageProps = Pick<ImageProps, 'src' | 'width' | 'height' | 'alt'>
+
 interface IoUsecaseCustomerProps {
-	media: {
-		src: string
-		width: string
-		height: string
-		alt: string
-	}
-	logo: {
-		src: string
-		width: string
-		height: string
-		alt: string
-	}
+	media: SelectImageProps
+	logo: SelectImageProps
 	heading: string
 	description: string
 	stats?: Array<{

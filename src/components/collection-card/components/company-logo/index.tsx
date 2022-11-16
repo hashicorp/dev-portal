@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import classNames from 'classnames'
 import { CompanyLogoOption, CompanyLogoProps } from './types'
 import s from './company-logo.module.css'
