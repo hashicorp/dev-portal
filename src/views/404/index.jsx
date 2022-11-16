@@ -13,9 +13,7 @@ export default function NotFound() {
 				for.
 			</p>
 			<p>
-				<Link href="/">
-					<a>Back to Home</a>
-				</Link>
+				<Link href="/">Back to Home</Link>
 			</p>
 		</div>
 	)

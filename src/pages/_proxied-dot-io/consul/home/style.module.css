@@ -1,5 +1,5 @@
 .container {
-  composes: g-grid-container from global;
+	composes: g-grid-container from global;
 }
 
 /*
@@ -7,11 +7,11 @@
  */
 
 .useCases {
-  margin-bottom: 64px;
+	margin-bottom: 64px;
 
-  @media (--medium-up) {
-    margin-bottom: 128px;
-  }
+	@media (--medium-up) {
+		margin-bottom: 128px;
+	}
 }
 
 /*
@@ -19,9 +19,9 @@
  */
 
 .tutorials {
-  margin-bottom: 64px;
+	margin-bottom: 64px;
 
-  @media (--medium-up) {
-    margin-bottom: 128px;
-  }
+	@media (--medium-up) {
+		margin-bottom: 128px;
+	}
 }

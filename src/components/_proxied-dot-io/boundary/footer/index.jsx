@@ -5,16 +5,12 @@ export default function Footer({ openConsentManager }) {
 		<footer className="g-footer">
 			<div className="g-grid-container">
 				<div className="left">
-					<Link href="/docs">
-						<a>Docs</a>
-					</Link>
+					<Link href="/docs">Docs</Link>
 					<a href="https://developer.hashicorp.com/boundary/tutorials">
 						Tutorials
 					</a>
 					<a href="https://hashicorp.com/privacy">Privacy</a>
-					<Link href="/security">
-						<a>Security</a>
-					</Link>
+					<Link href="/security">Security</Link>
 					<a href="/files/press-kit.zip">Press Kit</a>
 					<a onClick={openConsentManager}>Consent Manager</a>
 				</div>

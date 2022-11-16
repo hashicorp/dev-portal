@@ -55,8 +55,8 @@ function IoHomeFeatureWrap({ href, children }) {
 	}
 
 	return (
-		<Link href={href}>
-			<a className={s.feature}>{children}</a>
+		<Link href={href} className={s.feature}>
+			{children}
 		</Link>
 	)
 }

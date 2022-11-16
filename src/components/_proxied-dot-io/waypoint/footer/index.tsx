@@ -23,11 +23,7 @@ interface FooterProps {
 function FooterLink({ text, url }) {
 	const isInternalLink = url && (url.startsWith('/') || url.startsWith('#'))
 	if (isInternalLink) {
-		return (
-			<Link href={url}>
-				<a>{text}</a>
-			</Link>
-		)
+		return <Link href={url}>{text}</Link>
 	}
 
 	return <a href={url}>{text}</a>
@@ -104,8 +100,11 @@ export default function Footer({
 							<button onClick={openConsentManager}>Consent Manager</button>
 							{waypointServiceOK && (
 								<div className={s.status}>
-									<Link href="https://status.hashicorp.com">
-										<a className={s.normal}>All systems normal</a>
+									<Link
+										href="https://status.hashicorp.com"
+										className={s.normal}
+									>
+										All systems normal
 									</Link>
 								</div>
 							)}

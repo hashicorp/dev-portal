@@ -34,14 +34,14 @@ const CardLink = ({
 			 *
 			 * https://adrianroselli.com/2020/02/block-links-cards-clickable-regions-etc.html
 			 */}
-			<Link href={href}>
+			<Link
+				href={href}
+				aria-label={ariaLabel}
+				className={s.anchor}
+				target={target}
+				data-heap-track={`card-link ${dataHeapTrack ?? ''}`}
+			>
 				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-				<a
-					aria-label={ariaLabel}
-					className={s.anchor}
-					target={target}
-					data-heap-track={`card-link ${dataHeapTrack ?? ''}`}
-				/>
 			</Link>
 			{children}
 		</Card>

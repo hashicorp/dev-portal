@@ -20,10 +20,8 @@ const InlineLink = ({
 	)
 
 	return (
-		<Link href={href}>
-			<a {...rest} className={classes}>
-				{children}
-			</a>
+		<Link href={href} {...rest} className={classes}>
+			{children}
 		</Link>
 	)
 }

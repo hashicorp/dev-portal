@@ -31,8 +31,8 @@ const SidecarMarketingCard = ({
 						size={200}
 						weight="regular"
 					>
-						<Link href={href}>
-							<a className={s.featuredDocsLink}>{text}</a>
+						<Link href={href} className={s.featuredDocsLink}>
+							{text}
 						</Link>
 					</Text>
 				))}

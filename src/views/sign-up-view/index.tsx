@@ -51,13 +51,11 @@ const SignUpView = () => {
 		<div className={s.root}>
 			<main className={s.main}>
 				<div>
-					<Link href="/">
-						<a aria-label="HashiCorp Developer">
-							<InlineSvg
-								className={s.logo}
-								src={require('./img/logo-black.svg?include')}
-							/>
-						</a>
+					<Link href="/" aria-label="HashiCorp Developer">
+						<InlineSvg
+							className={s.logo}
+							src={require('./img/logo-black.svg?include')}
+						/>
 					</Link>
 					<Heading className={s.heading} level={1} size={500} weight="bold">
 						{TITLE}

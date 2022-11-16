@@ -128,17 +128,16 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	if (href) {
 		// link is not "disabled"
 		return (
-			<Link href={href}>
-				<a
-					aria-current={ariaCurrent}
-					aria-label={ariaLabel}
-					className={className}
-					rel={rel}
-					target={target}
-					data-heap-track="sidebar-nav-link-item"
-				>
-					{anchorContent}
-				</a>
+			<Link
+				href={href}
+				aria-current={ariaCurrent}
+				aria-label={ariaLabel}
+				className={className}
+				rel={rel}
+				target={target}
+				data-heap-track="sidebar-nav-link-item"
+			>
+				{anchorContent}
 			</Link>
 		)
 	} else {

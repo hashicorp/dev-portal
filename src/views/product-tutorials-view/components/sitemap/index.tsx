@@ -38,15 +38,16 @@ export function ProductTutorialsSitemap({
 				{collections.map((collection: ClientCollection) => (
 					<li key={collection.id} className={s.collectionListItem}>
 						<div className={s.collectionLinkSizer}>
-							<Link href={getCollectionSlug(collection.slug)}>
-								<a className={s.collectionLink}>
-									<span className={s.collectionLinkIcon}>
-										<IconTile size="small" brandColor={product}>
-											<IconCollections24 />
-										</IconTile>
-									</span>
-									<span>{collection.name}</span>
-								</a>
+							<Link
+								href={getCollectionSlug(collection.slug)}
+								className={s.collectionLink}
+							>
+								<span className={s.collectionLinkIcon}>
+									<IconTile size="small" brandColor={product}>
+										<IconCollections24 />
+									</IconTile>
+								</span>
+								<span>{collection.name}</span>
 							</Link>
 						</div>
 						<ul
@@ -56,8 +57,11 @@ export function ProductTutorialsSitemap({
 						>
 							{collection.tutorials.map((t: ClientTutorialLite) => (
 								<li key={t.id} className={s.tutorialListItem}>
-									<Link href={getTutorialSlug(t.slug, collection.slug)}>
-										<a className={s.tutorialLink}>{t.name}</a>
+									<Link
+										href={getTutorialSlug(t.slug, collection.slug)}
+										className={s.tutorialLink}
+									>
+										{t.name}
 									</Link>
 								</li>
 							))}

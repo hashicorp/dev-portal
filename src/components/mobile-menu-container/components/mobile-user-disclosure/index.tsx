@@ -34,11 +34,9 @@ const renderItem = (
 	let content
 	if (href) {
 		content = (
-			<Link href={href}>
-				<a className={s.link} rel={rel} target={target}>
-					{icon}
-					{labelElement}
-				</a>
+			<Link href={href} className={s.link} rel={rel} target={target}>
+				{icon}
+				{labelElement}
 			</Link>
 		)
 	} else if (onClick) {

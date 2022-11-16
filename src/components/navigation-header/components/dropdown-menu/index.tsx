@@ -271,18 +271,15 @@ const NavigationHeaderDropdownMenu = ({
 											return (
 												<li className={s.itemContainer} key={itemId}>
 													{linkHref ? (
-														<Link href={linkHref}>
-															<a
-																aria-current={
-																	isCurrentPage ? 'page' : undefined
-																}
-																aria-label={item.ariaLabel}
-																className={s.itemLink}
-																onKeyDown={handleKeyDown}
-																data-heap-track="navigation-header-dropdown-menu-link"
-															>
-																{anchorContent}
-															</a>
+														<Link
+															href={linkHref}
+															aria-current={isCurrentPage ? 'page' : undefined}
+															aria-label={item.ariaLabel}
+															className={s.itemLink}
+															onKeyDown={handleKeyDown}
+															data-heap-track="navigation-header-dropdown-menu-link"
+														>
+															{anchorContent}
 														</Link>
 													) : (
 														<a

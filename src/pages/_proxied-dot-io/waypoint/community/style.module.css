@@ -1,9 +1,9 @@
 .communityPage {
-  composes: g-grid-container from global;
-  margin-top: 72px;
-  margin-bottom: 72px;
+	composes: g-grid-container from global;
+	margin-top: 72px;
+	margin-bottom: 72px;
 }
 
 .sectionHeaderWrapper {
-  margin-bottom: 100px;
+	margin-bottom: 100px;
 }

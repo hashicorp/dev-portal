@@ -7,11 +7,11 @@
  * width or height consistency.
  */
 .root {
-  align-items: center;
-  display: flex;
-  position: relative;
-  width: 100%;
-  height: 100%;
+	align-items: center;
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 /**
@@ -27,36 +27,36 @@
  * a 20px tall AWS logo.
  */
 .inner {
-  position: relative;
-  display: block;
-  height: 100%;
-  width: 100%;
+	position: relative;
+	display: block;
+	height: 100%;
+	width: 100%;
 
-  &.logo-docker {
-    height: 90%;
-  }
+	&.logo-docker {
+		height: 90%;
+	}
 
-  &.logo-github {
-    height: 65%;
-  }
+	&.logo-github {
+		height: 65%;
+	}
 
-  &.logo-microsoft-azure {
-    height: 90%;
-  }
+	&.logo-microsoft-azure {
+		height: 90%;
+	}
 
-  &.logo-oci {
-    height: 50%;
-  }
+	&.logo-oci {
+		height: 50%;
+	}
 
-  &.logo-google-cloud {
-    height: 80%;
-  }
+	&.logo-google-cloud {
+		height: 80%;
+	}
 
-  &.logo-terraform-cloud {
-    height: 100%;
-  }
+	&.logo-terraform-cloud {
+		height: 100%;
+	}
 
-  &.logo-aws {
-    height: 90%;
-  }
+	&.logo-aws {
+		height: 90%;
+	}
 }

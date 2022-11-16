@@ -43,7 +43,16 @@ const ButtonLink = ({
 	}
 
 	return (
-		<Link href={href}>
+		// eslint-disable-next-line react/jsx-no-target-blank -- per the logic, target="_blank" always comes with rel="noreferrer"
+		<Link
+			href={href}
+			aria-label={ariaLabel}
+			className={classNames(s.root, s[size], s[color], className)}
+			rel={openInNewTab ? 'noreferrer noopener' : undefined}
+			target={openInNewTab ? '_blank' : '_self'}
+			onClick={onClick}
+			data-heap-track={`button-link ${dataHeapTrack ?? ''}`}
+		>
 			{/**
 			 * copied from components/standalone-link
 			 * NOTE: this markup is valid. It's OK to have an `onClick` when there is
@@ -52,18 +61,10 @@ const ButtonLink = ({
 			 * rather than the `<a>`.
 			 */}
 			{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-			<a
-				aria-label={ariaLabel}
-				className={classNames(s.root, s[size], s[color], className)}
-				rel={openInNewTab ? 'noreferrer noopener' : undefined}
-				target={openInNewTab ? '_blank' : '_self'}
-				onClick={onClick}
-				data-heap-track={`button-link ${dataHeapTrack ?? ''}`}
-			>
-				{hasLeadingIcon && icon}
-				{hasText ? text : null}
-				{hasTrailingIcon && icon}
-			</a>
+
+			{hasLeadingIcon && icon}
+			{hasText ? text : null}
+			{hasTrailingIcon && icon}
 		</Link>
 	)
 }

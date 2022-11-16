@@ -43,11 +43,10 @@ export default function HitWrapper<THit extends Hit<unknown>>({
 	const linkProps = getHitLinkProps(hit)
 
 	return (
-		<Link {...linkProps}>
+		<Link {...linkProps} onClick={onHitClick} className={className}>
 			{/* eslint-disable-next-line jsx-a11y/anchor-is-valid -- Link above passes an href */}
-			<a onClick={onHitClick} className={className}>
-				{children}
-			</a>
+
+			{children}
 		</Link>
 	)
 }

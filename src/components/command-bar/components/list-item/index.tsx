@@ -115,15 +115,13 @@ const CommandBarLinkListItem = ({
 }: CommandBarLinkListItemProps) => {
 	return (
 		<CommandBarListItem>
-			<Link href={url}>
-				<a className={s.linkOrButton}>
-					<CommandBarListItemContent
-						badges={badges}
-						description={description}
-						icon={icon}
-						title={title}
-					/>
-				</a>
+			<Link href={url} className={s.linkOrButton}>
+				<CommandBarListItemContent
+					badges={badges}
+					description={description}
+					icon={icon}
+					title={title}
+				/>
 			</Link>
 		</CommandBarListItem>
 	)

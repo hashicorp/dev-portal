@@ -24,7 +24,16 @@ const StandaloneLink = ({
 	const target = openInNewTab ? '_blank' : '_self'
 
 	return (
-		<Link href={href}>
+		<Link
+			href={href}
+			aria-label={ariaLabel}
+			className={classes}
+			download={download}
+			onClick={onClick}
+			rel={rel}
+			target={target}
+			data-heap-track={`standalone-link ${dataHeapTrack ?? ''}`}
+		>
 			{/**
 			 * NOTE: this markup is valid. It's OK to have an `onClick` when there is
 			 * also an `href` present. The `jsx-a11y/anchor-is-valid` rule is not
@@ -32,19 +41,10 @@ const StandaloneLink = ({
 			 * rather than the `<a>`.
 			 */}
 			{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-			<a
-				aria-label={ariaLabel}
-				className={classes}
-				download={download}
-				onClick={onClick}
-				rel={rel}
-				target={target}
-				data-heap-track={`standalone-link ${dataHeapTrack ?? ''}`}
-			>
-				{iconPosition === 'leading' && icon}
-				<span className={classNames(s.text, textClassName)}>{text}</span>
-				{iconPosition === 'trailing' && icon}
-			</a>
+
+			{iconPosition === 'leading' && icon}
+			<span className={classNames(s.text, textClassName)}>{text}</span>
+			{iconPosition === 'trailing' && icon}
 		</Link>
 	)
 }

@@ -101,21 +101,20 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
 									} as CSSProperties
 								}
 							>
-								<Link href={`/${slug}/`}>
-									<a
-										className={productClassName}
-										data-heap-track="homepage-product-nav-link"
+								<Link
+									href={`/${slug}/`}
+									className={productClassName}
+									data-heap-track="homepage-product-nav-link"
+								>
+									{productIcons[slug].color}
+									<Text
+										weight="semibold"
+										size={200}
+										className={s.productName}
+										asElement="span"
 									>
-										{productIcons[slug].color}
-										<Text
-											weight="semibold"
-											size={200}
-											className={s.productName}
-											asElement="span"
-										>
-											{productName}
-										</Text>
-									</a>
+										{productName}
+									</Text>
 								</Link>
 							</li>
 						)

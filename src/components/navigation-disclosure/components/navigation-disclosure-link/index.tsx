@@ -22,10 +22,12 @@ const NavigationDisclosureLink = ({
 	}
 
 	return (
-		<Link href={href}>
-			<a aria-current={ariaCurrent} className={classNames(s.root, className)}>
-				{children}
-			</a>
+		<Link
+			href={href}
+			aria-current={ariaCurrent}
+			className={classNames(s.root, className)}
+		>
+			{children}
 		</Link>
 	)
 }

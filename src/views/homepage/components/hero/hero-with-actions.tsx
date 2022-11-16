@@ -46,8 +46,8 @@ function HeroWithActions({
 									<Text className={s.actionDescription} size={200}>
 										{action.description}
 									</Text>
-									<Link href={action.link}>
-										<a className={s.actionLink}>{action.linkText}</a>
+									<Link href={action.link} className={s.actionLink}>
+										{action.linkText}
 									</Link>
 								</div>
 							</article>

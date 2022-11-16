@@ -1,23 +1,23 @@
 .root {
-  align-items: center;
-  display: flex;
-  margin-bottom: 48px;
+	align-items: center;
+	display: flex;
+	margin-bottom: 48px;
 }
 
 .iconTileLogo {
-  display: none;
+	display: none;
 
-  @media (--dev-dot-tablet-up) {
-    display: block;
-    margin-right: 16px;
-  }
+	@media (--dev-dot-tablet-up) {
+		display: block;
+		margin-right: 16px;
+	}
 }
 
 .pageHeaderTitle {
-  color: var(--token-color-foreground-strong);
-  margin-bottom: 12px;
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 12px;
 }
 
 .pageHeaderSubtitle {
-  color: var(--token-color-foreground-primary);
+	color: var(--token-color-foreground-primary);
 }

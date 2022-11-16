@@ -110,21 +110,20 @@ const ProductPageHeaderContent = () => {
 						leadingIcon={companyLogo}
 					/>
 				</div>
-				<Link href={`/${currentProduct.slug}`}>
-					<a
-						aria-current={isProductHomePage ? 'page' : undefined}
-						aria-label={`${currentProduct.name} home`}
-						className={s.productLogoLink}
-						data-heap-track="navigation-header-product-logo-link"
-					>
-						<InlineSvg
-							className={classNames(
-								sharedNavStyles.productLogo,
-								currentProduct.slug === 'hcp' && s.hcpLogo
-							)}
-							src={productLogo}
-						/>
-					</a>
+				<Link
+					href={`/${currentProduct.slug}`}
+					aria-current={isProductHomePage ? 'page' : undefined}
+					aria-label={`${currentProduct.name} home`}
+					className={s.productLogoLink}
+					data-heap-track="navigation-header-product-logo-link"
+				>
+					<InlineSvg
+						className={classNames(
+							sharedNavStyles.productLogo,
+							currentProduct.slug === 'hcp' && s.hcpLogo
+						)}
+						src={productLogo}
+					/>
 				</Link>
 			</div>
 			<div className={sharedNavStyles.leftSideDesktopOnlyContent}>

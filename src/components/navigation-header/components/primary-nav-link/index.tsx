@@ -19,24 +19,19 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 	const isCurrentPage = url === currentPath || url === `${currentPath}/`
 
 	return (
-		<Link href={url}>
-			<a
-				aria-current={isCurrentPage ? 'page' : undefined}
-				aria-label={ariaLabel}
-				className={s.root}
-				target={openInNewTab ? '_blank' : undefined}
-				data-heap-track="navigation-header-primary-nav-link"
-			>
-				<Text
-					asElement="span"
-					className={s.linkText}
-					size={200}
-					weight="medium"
-				>
-					{label}
-				</Text>
-				{openInNewTab ? <IconExternalLink16 /> : null}
-			</a>
+		<Link
+			href={url}
+			aria-current={isCurrentPage ? 'page' : undefined}
+			aria-label={ariaLabel}
+			className={s.root}
+			target={openInNewTab ? '_blank' : undefined}
+			data-heap-track="navigation-header-primary-nav-link"
+			rel="noreferrer"
+		>
+			<Text asElement="span" className={s.linkText} size={200} weight="medium">
+				{label}
+			</Text>
+			{openInNewTab ? <IconExternalLink16 /> : null}
 		</Link>
 	)
 }

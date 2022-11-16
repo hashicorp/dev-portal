@@ -1,10 +1,10 @@
 .typicalWrapper::after {
-  content: '|';
-  animation: blink 1s infinite step-start;
+	content: '|';
+	animation: blink 1s infinite step-start;
 }
 
 @keyframes blink {
-  50% {
-    opacity: 0;
-  }
+	50% {
+		opacity: 0;
+	}
 }
