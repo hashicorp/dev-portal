@@ -8,8 +8,8 @@ async function getTutorialRedirects() {
 	})
 
 	if (res.ok) {
-		const res = await res.json()
-		return JSON.parse(res.result.page_data?.redirects)
+		const data = await res.json()
+		return JSON.parse(data.result.page_data?.redirects)
 	}
 
 	if (res.status === 404) {
