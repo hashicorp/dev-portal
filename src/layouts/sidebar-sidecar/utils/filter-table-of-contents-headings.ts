@@ -7,6 +7,12 @@ import { TableOfContentsHeading } from '../components/table-of-contents'
  * 	- Headings <h3> through <h6> are filtered out.
  * - Retain headings that are not nested in <Tabs />
  * 	- Headings with `tabbedSectionDepth !== 0` are filtered out.
+ *
+ * Note that to filter based on `tabbedSectionDepth`, we rely on functionality
+ * in our `anchor-links` `remark-plugin` to add that property. For details, see
+ * the `tabbedSectionDepth` logic here:
+ * https://github.com/hashicorp/remark-plugins/blob/0f2d21516ab3c7120a24456838d83390e3ab179d/plugins/anchor-links/index.js#L29
+ *
  */
 export function filterTableOfContentsHeadings(
 	headings: TableOfContentsHeading[]
