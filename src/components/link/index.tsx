@@ -28,6 +28,12 @@ const Link = ({
 
 	/**
 	 * Generate the `target` prop.
+	 *
+	 * @NOTE The `opensInNewTab` prop takes precedence over the `target` prop.
+	 * This is because the `opensInNewTab` prop renders a screen-reader-only label
+	 * when `true`. If both `opensInNewTab` and `target` were passed, and `target`
+	 * did not have the value of `"_blank"`, then the screen-reader-only label
+	 * would not be accurate.
 	 */
 	const target = opensInNewTab ? '_blank' : restProps.target
 	if (opensInNewTab && !!restProps.target) {
