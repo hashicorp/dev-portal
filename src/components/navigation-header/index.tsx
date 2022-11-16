@@ -3,8 +3,8 @@ import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
-import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
+import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
 import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
@@ -12,9 +12,7 @@ import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 import { getUserMenuItems } from 'lib/auth/user'
 import useAuthentication from 'hooks/use-authentication'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
-import Button from 'components/button'
 import { CommandBarActivator } from 'components/command-bar'
-import StandaloneLink from 'components/standalone-link'
 import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
 
 // Local imports
@@ -50,50 +48,33 @@ const MobileMenuButton = () => {
  * the elements with CSS on tablet and smaller viewports.
  */
 const AuthenticationControls = () => {
-	const { showAuthenticatedUI, signIn, signOut, user } = useAuthentication()
+	const { signIn, signOut, user } = useAuthentication()
 
-	/**
-	 * @TODO implement loading skeleton
-	 * https://app.asana.com/0/1202097197789424/1202791375540720/f
-	 *
-	 * The `showUnauthenticatedUI` boolean is not used here because we want to
-	 * show the sign in/up elements by default until loading skeletons are
-	 * implemented. Most of our users do not have Learn accounts, so our goal is
-	 * to remove the flash for the majority of a users as a temporary effort.
-	 */
-
-	let content
-	if (showAuthenticatedUI) {
-		content = (
+	return (
+		<div className={s.authenticationControls}>
 			<UserDropdownDisclosure
 				className={s.userDropdownDisclosure}
 				listPosition="right"
-				items={getUserMenuItems({ signOut })}
+				items={
+					user
+						? getUserMenuItems({ signOut })
+						: [
+								{
+									icon: <IconSignIn16 />,
+									label: 'Sign in',
+									onClick: () => signIn(),
+								},
+								{
+									href: '/sign-up',
+									icon: <IconUserPlus16 />,
+									label: 'Sign up',
+								},
+						  ]
+				}
 				user={user}
 			/>
-		)
-	} else {
-		content = (
-			<>
-				<Button
-					icon={<IconSignIn16 />}
-					iconPosition="trailing"
-					onClick={() => signIn()}
-					text="Sign In"
-				/>
-				<StandaloneLink
-					className={s.signUpLink}
-					textClassName={s.signUpLinkText}
-					href="/sign-up"
-					icon={<IconUserPlus16 />}
-					iconPosition="trailing"
-					text="Sign Up"
-				/>
-			</>
-		)
-	}
-
-	return <div className={s.authenticationControls}>{content}</div>
+		</div>
+	)
 }
 
 /**

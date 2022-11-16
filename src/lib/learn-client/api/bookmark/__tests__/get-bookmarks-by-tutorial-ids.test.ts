@@ -3,6 +3,10 @@ import * as learnApi from 'lib/learn-client'
 import { getBookmarksByTutorialIds } from '../get-bookmarks-by-tutorial-ids'
 import { BOOKMARK_API_ROUTE } from '..'
 
+jest.mock('lib/learn-client', () => ({
+	get: jest.fn(),
+}))
+
 const mockBookmarks: ApiBookmark[] = [
 	{
 		created_at: null,

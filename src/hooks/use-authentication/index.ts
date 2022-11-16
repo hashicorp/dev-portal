@@ -57,9 +57,9 @@ const useAuthentication = (
 	 */
 	useEffect(() => {
 		if (data?.error === AuthErrors.RefreshAccessTokenError) {
-			signIn()
+			signOut()
 		}
-	}, [data?.error, signIn])
+	}, [data?.error, signOut])
 
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
