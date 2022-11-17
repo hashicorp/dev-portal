@@ -23,7 +23,6 @@ const renderItem = (
 	}
 	const isExternal = isAbsoluteUrl(href)
 	const rel = isExternal ? 'noreferrer noopener' : undefined
-	const target = isExternal ? '_blank' : undefined
 
 	const labelElement = (
 		<Text asElement="span" size={200} weight="medium">
@@ -34,7 +33,7 @@ const renderItem = (
 	let content
 	if (href) {
 		content = (
-			<Link href={href} className={s.link} rel={rel} target={target}>
+			<Link href={href} className={s.link} opensInNewTab={isExternal} rel={rel}>
 				{icon}
 				{labelElement}
 			</Link>
