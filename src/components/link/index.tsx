@@ -16,13 +16,7 @@ const ARIA_DESCRIBED_BY_PREFIX = 'opens-in-new-tab-label'
  *
  * https://www.w3.org/WAI/WCAG21/Techniques/general/G201
  */
-const Link = ({
-	children,
-	href,
-	nextLinkProps,
-	opensInNewTab,
-	...restProps
-}: LinkProps) => {
+const Link = ({ children, href, opensInNewTab, ...restProps }: LinkProps) => {
 	validateProps({ opensInNewTab, target: restProps.target })
 
 	const uniqueId = useId()
@@ -48,7 +42,7 @@ const Link = ({
 
 	return (
 		<>
-			<NextLink href={href} {...nextLinkProps}>
+			<NextLink href={href}>
 				<a {...restProps} aria-describedby={ariaDescribedBy} target={target}>
 					{children}
 				</a>
