@@ -23,8 +23,6 @@ function NewsletterSignupForm({
 	appearance = 'light',
 	marketoFormData,
 }: NewsletterSignupFormProps) {
-	// TODO: how do we pass leadsource back to Marketo?
-	// leadSource: querystring.source === 'linkedin' ? 'LinkedIn Paid' : 'Website',
 	const [submissionStatus, setSubmissionStatus] = useState(null)
 
 	const onSubmitSuccess = () => {
