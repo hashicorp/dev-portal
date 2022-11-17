@@ -1,4 +1,5 @@
 import s from './style.module.css'
+import classNames from 'classnames'
 
 export interface Variable {
 	key: string
@@ -6,6 +7,7 @@ export interface Variable {
 	description?: string
 	required?: boolean // Default False
 	variables?: Array<Variable> // User doesn't need
+	highlight?: boolean // Default false
 }
 
 export interface VariableGroup {
@@ -29,7 +31,12 @@ export function VariableGroupList({
 		<ul className={s.variableGroupList}>
 			{vars.map((variable: Variable) => {
 				return (
-					<li key={variable.key}>
+					<li
+						key={variable.key}
+						className={classNames({
+							[s.highlight]: variable.highlight,
+						})}
+					>
 						<code className={s.key}>
 							<strong>{variable.key}</strong>
 						</code>
