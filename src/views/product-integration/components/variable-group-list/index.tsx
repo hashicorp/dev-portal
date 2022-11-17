@@ -27,6 +27,7 @@ export function VariableGroupList({
 	const vars: Array<Variable> = unflatten
 		? unflattenVariables(variables)
 		: variables
+
 	return (
 		<ul className={s.variableGroupList}>
 			{vars.map((variable: Variable) => {
@@ -64,12 +65,21 @@ function unflattenVariables(variables: Array<Variable>): Array<Variable> {
 	// Pull all of the root nodes out
 	const rootNodes: Array<Variable> = []
 
-	let depth = 0
-	let wasPush = true
-	while (wasPush) {
+	console.log(variables)
+
+	let maxDepth = 0
+	variables
+		.map((v: Variable) => v.key)
+		.forEach((key: string) => {
+			const keyDepth = key.split('.').length
+			if (keyDepth > maxDepth) {
+				maxDepth = keyDepth
+				console.log(key)
+			}
+		})
+
+	for (let depth = 1; depth - 1 < maxDepth; depth++) {
 		// Fill out the Variables with 0 depth moving out
-		depth = depth + 1
-		wasPush = false
 		for (let i = 0; i < variables.length; i++) {
 			const cVar = variables[i]
 			const segments = cVar.key.split('.')
@@ -78,7 +88,6 @@ function unflattenVariables(variables: Array<Variable>): Array<Variable> {
 				// If it's a root node, push straight to the rootNodes
 				if (segments.length == 1) {
 					rootNodes.push(Object.assign({}, cVar))
-					wasPush = true
 				} else {
 					// Figure out what variable has it
 					let pointer: Variable
@@ -87,19 +96,26 @@ function unflattenVariables(variables: Array<Variable>): Array<Variable> {
 						if (j == 0) {
 							pointer = rootNodes.find((e: Variable) => e.key === segment)
 						} else {
+							const oldPointer = pointer
 							pointer = pointer.variables.find((e: Variable) =>
 								e.key.endsWith(`.${segment}`)
 							)
+							// A nested variable was defined without specifying the parent
+							// we need to create the parent object for appropriate nesting
+							if (!pointer) {
+								pointer = {
+									type: 'object',
+									key: segments.slice(0, j + 1).join('.'),
+									variables: [],
+								}
+								oldPointer.variables.push(pointer)
+							}
 						}
 					}
-
-					// TODO; at this point we need to check if a pointer hasn't been made,
-					// we need to stub in an object for it.
 					if (!pointer.variables) {
 						pointer.variables = []
 					}
 					pointer.variables.push(Object.assign({}, cVar))
-					wasPush = true
 				}
 			}
 		}

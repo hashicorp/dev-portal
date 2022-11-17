@@ -1,7 +1,7 @@
 import Tabs, { Tab } from 'components/tabs'
 import { Component } from 'lib/integrations-api-client'
 import SearchableVariableGroupList from '../searchable-variable-group-list'
-import { Variable, VariableGroupList } from '../variable-group-list'
+import { Variable } from '../variable-group-list'
 import s from './style.module.css'
 
 interface ComponentTabContentProps {
@@ -31,13 +31,13 @@ export default function ComponentTabContent({
 				<Tab heading="Parameters">
 					<SearchableVariableGroupList
 						groupName="Parameters"
-						variables={VARS_FIXTURE}
+						variables={PARAMS_FIXTURE}
 					/>
 				</Tab>
 				<Tab heading="Outputs">
 					<SearchableVariableGroupList
 						groupName="Outputs"
-						variables={VARS_FIXTURE}
+						variables={OUTPUTS_FIXTURE}
 					/>
 				</Tab>
 			</Tabs>
@@ -45,7 +45,26 @@ export default function ComponentTabContent({
 	)
 }
 
-export const VARS_FIXTURE: Array<Variable> = [
+const OUTPUTS_FIXTURE: Array<Variable> = [
+	{
+		key: 'architecture',
+		type: 'string',
+	},
+	{
+		key: 'image',
+		type: 'string',
+	},
+	{
+		key: 'location',
+		type: 'docker.isImage_Location',
+	},
+	{
+		key: 'tag',
+		type: 'string',
+	},
+]
+
+const PARAMS_FIXTURE: Array<Variable> = [
 	{
 		key: 'auth',
 		type: 'object',
@@ -84,7 +103,7 @@ export const VARS_FIXTURE: Array<Variable> = [
 		type: 'map of string to string',
 		description: `Build args to pass to docker for the build step.
 
-		A map of key/value pairs passed as build-args to docker for the build step.`,
+A map of key/value pairs passed as build-args to docker for the build step.`,
 	},
 	{
 		key: 'buildkit',
