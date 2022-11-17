@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
+import Link, { LinkProps } from 'components/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
-import Link from 'components/link'
 import Text from 'components/text'
 import s from './breadcrumb-bar.module.css'
 
@@ -66,11 +66,7 @@ function BreadcrumbBar({
 			<ol className={s.listRoot}>
 				{links.map(({ title, url, isCurrentPage }) => {
 					const cleanTitle = title.replace(/<[^>]+>/g, '')
-					const sharedProps = {
-						className: s.breadcrumbText,
-						'data-heap-track': 'breadcrumb-bar-item',
-						children: cleanTitle,
-					}
+					const Elem = url ? InternalLink : 'span'
 					return (
 						<Text
 							asElement="li"
@@ -79,15 +75,14 @@ function BreadcrumbBar({
 							size={100}
 							weight="medium"
 						>
-							{url ? (
-								<InternalLink
-									{...sharedProps}
-									aria-current={isCurrentPage ? 'page' : undefined}
-									href={url}
-								/>
-							) : (
-								<span {...sharedProps} />
-							)}
+							<Elem
+								className={s.breadcrumbText}
+								href={url}
+								aria-current={isCurrentPage ? 'page' : undefined}
+								data-heap-track="breadcrumb-bar-item"
+							>
+								{cleanTitle}
+							</Elem>
 						</Text>
 					)
 				})}
@@ -96,7 +91,7 @@ function BreadcrumbBar({
 	)
 }
 
-function InternalLink(props) {
+function InternalLink(props: LinkProps) {
 	return <Link {...props} />
 }
 
