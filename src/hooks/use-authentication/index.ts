@@ -67,6 +67,8 @@ const useAuthentication = (
 	const showAuthenticatedUI = isAuthenticated
 	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 	const preferencesLoaded = preferencesSavedAndLoaded()
+	console.log({ isAuthenticated, preferencesLoaded })
+	// console.log({ preferencesLoaded })
 
 	// We accept consent manager on the user's behalf. As per Legal & Compliance,
 	// signing-in means a user is accepting our privacy policy and so we can
