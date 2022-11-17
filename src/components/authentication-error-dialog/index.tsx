@@ -21,13 +21,16 @@ const AuthenticationErrorDialog = () => {
 	const isRefreshAccessTokenError = error === AuthErrors.RefreshAccessTokenError
 	const label = 'Are you still there?'
 
-	useEffect(() => {
-		if (isRefreshAccessTokenError) {
-			safeAnalyticsTrack('AuthenticationErrorDialog rendered', {
-				error,
-			})
-		}
-	}, [error, isRefreshAccessTokenError])
+	/**
+	 * @TODO uncomment when the events have been architected
+	 */
+	// useEffect(() => {
+	// 	if (isRefreshAccessTokenError) {
+	// 		safeAnalyticsTrack('AuthenticationErrorDialog rendered', {
+	// 			error,
+	// 		})
+	// 	}
+	// }, [error, isRefreshAccessTokenError])
 
 	/**
 	 * Set up callback for when the dialog is dismissed. Tracks an analytics event
@@ -41,13 +44,16 @@ const AuthenticationErrorDialog = () => {
 	const handleDismiss = useCallback(
 		// TODO: this can be a click or keydown event
 		(dismissEvent: $TSFixMe) => {
-			const methodOfDismissal = guessMethodOfDismissal({
-				dismissEvent,
-				closeButtonRef,
-			})
-			safeAnalyticsTrack('AuthenticationErrorDialog dismissed', {
-				methodOfDismissal,
-			})
+			/**
+			 * @TODO uncomment when the events have been architected
+			 */
+			// const methodOfDismissal = guessMethodOfDismissal({
+			// 	dismissEvent,
+			// 	closeButtonRef,
+			// })
+			// safeAnalyticsTrack('AuthenticationErrorDialog dismissed', {
+			// 	methodOfDismissal,
+			// })
 			signOut()
 		},
 		[signOut]
@@ -58,9 +64,12 @@ const AuthenticationErrorDialog = () => {
 	 * event and starts the sign in UI flow.
 	 */
 	const handleButtonClick = useCallback(() => {
-		safeAnalyticsTrack('Click', {
-			category: 'AuthenticationErrorDialog sign in',
-		})
+		/**
+		 * @TODO uncomment when the events have been architected
+		 */
+		// safeAnalyticsTrack('Click', {
+		// 	category: 'AuthenticationErrorDialog sign in',
+		// })
 		signIn()
 	}, [signIn])
 
