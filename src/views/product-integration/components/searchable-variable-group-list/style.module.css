@@ -24,3 +24,12 @@
 		padding-left: calc(16px * 2 + 20px);
 	}
 }
+
+.results {
+	color: var(--gray-3);
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: 600;
+	margin-top: 8px;
+	margin-bottom: 24px;
+}
