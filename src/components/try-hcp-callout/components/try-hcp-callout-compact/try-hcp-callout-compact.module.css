@@ -1,0 +1,27 @@
+.root {
+	--padding: 21px;
+
+	background: none;
+	display: flex;
+	flex-direction: column;
+	isolation: isolate;
+	overflow: hidden;
+	padding: var(--padding);
+}
+
+.backgroundBase {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: -1;
+}
+
+.background {
+	composes: backgroundBase;
+	background-image: url('./img/try-hcp-callout-compact-background.svg');
+	background-size: auto;
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
