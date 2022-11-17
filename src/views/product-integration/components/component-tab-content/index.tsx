@@ -1,5 +1,6 @@
 import Tabs, { Tab } from 'components/tabs'
 import { Component } from 'lib/integrations-api-client'
+import SearchableVariableGroupList from '../searchable-variable-group-list'
 import { Variable, VariableGroupList } from '../variable-group-list'
 import s from './style.module.css'
 
@@ -28,10 +29,16 @@ export default function ComponentTabContent({
 			</p>
 			<Tabs allowNestedStyles>
 				<Tab heading="Parameters">
-					<VariableGroupList variables={VARS_FIXTURE} />
+					<SearchableVariableGroupList
+						groupName="Parameters"
+						variables={VARS_FIXTURE}
+					/>
 				</Tab>
 				<Tab heading="Outputs">
-					<VariableGroupList variables={VARS_FIXTURE} />
+					<SearchableVariableGroupList
+						groupName="Outputs"
+						variables={VARS_FIXTURE}
+					/>
 				</Tab>
 			</Tabs>
 		</div>
