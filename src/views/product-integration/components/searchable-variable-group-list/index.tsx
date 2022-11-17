@@ -14,9 +14,11 @@ export default function SearchableVariableGroupList({
 }: SearchableVariableGroupListProps) {
 	const [searchQuery, setSearchQuery] = useState('')
 	let filteredVariables: Array<Variable> = []
+	let numMatches: number
 
 	if (searchQuery.length < 2) {
 		filteredVariables = variables
+		numMatches = filteredVariables.length
 	} else {
 		// Filter all the variables that have been directly matched via the Search Query
 		const directMatches = variables.filter((variable: Variable) => {
@@ -25,6 +27,7 @@ export default function SearchableVariableGroupList({
 				variable.description?.toLowerCase().includes(searchQuery.toLowerCase())
 			)
 		})
+		numMatches = directMatches.length
 
 		// Determine all of the variables that need to be included in the results
 		// This includes all of the ones matched above, but also their parents
@@ -69,6 +72,9 @@ export default function SearchableVariableGroupList({
 				searchQuery={searchQuery}
 				onChange={(e) => setSearchQuery(e.target.value)}
 			/>
+			<p className={s.results}>
+				{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
+			</p>
 			<VariableGroupList variables={filteredVariables} />
 		</div>
 	)
