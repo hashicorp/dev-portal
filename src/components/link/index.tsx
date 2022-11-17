@@ -11,7 +11,7 @@ const ARIA_DESCRIBED_BY_PREFIX = 'opens-in-new-tab-label'
  *
  * When `opensInNewTab` is passed, a `<span>` with the `g-screen-reader-only`
  * class is rendered with "(opens in new tab)" as its inner text. This approach
- * is inspired by WCAG 2.1 Ttechnique G201: Giving users advanced warning when
+ * is inspired by WCAG 2.1 Technique G201: Giving users advanced warning when
  * opening a new window.
  *
  * https://www.w3.org/WAI/WCAG21/Techniques/general/G201
