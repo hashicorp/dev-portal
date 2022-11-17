@@ -12,7 +12,7 @@ interface StandaloneLinkContentsProps {
  * designed for use in CardLink.
  *
  * Note that the hover effect is dependent being nested within
- * an HTML anchor element.
+ * an element with a `class` attribute that contains the string `"card-link"`.
  */
 export function StandaloneLinkContents({
 	text,
