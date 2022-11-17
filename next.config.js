@@ -145,6 +145,7 @@ module.exports = withSwingset({
 		},
 		experimental: {
 			largePageDataBytes: 512 * 1000, // 512KB
+			transpilePackages: [],
 		},
 	})
 )

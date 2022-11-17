@@ -1,5 +1,7 @@
 /// <reference types="@hashicorp/platform-types" />
 
+declare module '@hashicorp/platform-configs/jest/config.js'
+
 declare module 'swingset/page' {
 	const createPage: (opts: $TSFixMe) => $TSFixMe
 
