@@ -123,6 +123,7 @@
 		"@hashicorp/react-inline-svg": "^6.0.3",
 		"@hashicorp/react-learn-callout": "^2.0.1",
 		"@hashicorp/react-markdown-page": "^1.5.0",
+		"@hashicorp/react-marketo-form": "^0.4.0",
 		"@hashicorp/react-min-100-layout": "^2.0.1",
 		"@hashicorp/react-next-steps": "^0.4.0",
 		"@hashicorp/react-open-api-page": "^2.1.0",

@@ -6,6 +6,7 @@ import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary/colorwhite.sv
 import InlineSvg from '@hashicorp/react-inline-svg'
 
 import NewsletterSignupForm from 'components/_proxied-dot-io/sentinel/NewsletterSignupForm'
+import { marketoFormData } from 'components/_proxied-dot-io/sentinel/NewsletterSignupForm/marketoFormData'
 import IconFacebook from './social/icon-facebook'
 import IconGithub from './social/icon-github'
 import IconLinkedIn from './social/icon-linkedin'
@@ -29,6 +30,7 @@ function Footer({ openConsentManager, showSignupForm }) {
 						<NewsletterSignupForm
 							theme={{ background: 'dark' }}
 							placement="footer"
+							marketoFormData={marketoFormData}
 						/>
 					</div>
 				)}
