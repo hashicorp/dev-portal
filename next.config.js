@@ -145,7 +145,18 @@ module.exports = withSwingset({
 		},
 		experimental: {
 			largePageDataBytes: 512 * 1000, // 512KB
-			transpilePackages: [],
+			transpilePackages: [
+				'@hashicorp/flight-icons',
+				/**
+				 * TODO: once Sentinel has been migrated into the dev-portal repository,
+				 * we should consider localizing the sentinel-embedded component. Should
+				 * first confirm with Cam Stitt that this component is not being used
+				 * elsewhere.
+				 */
+				'@hashicorp/sentinel-embedded',
+				'swingset',
+				'unist-util-visit',
+			],
 		},
 	})
 )
