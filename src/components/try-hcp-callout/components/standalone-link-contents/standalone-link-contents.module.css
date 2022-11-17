@@ -12,7 +12,7 @@
 		flex-shrink: 0;
 		transition: transform 0.2s;
 
-		@nest :global(a):hover & {
+		@nest :global([class*='card-link']):hover & {
 			transform: translate(2px);
 		}
 	}
