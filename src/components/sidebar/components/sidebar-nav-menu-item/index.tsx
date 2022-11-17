@@ -102,7 +102,6 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		: undefined
 	const className = s.sidebarNavMenuItem
 	const rel = isExternal ? 'noreferrer noopener' : undefined
-	const target = isExternal ? '_blank' : undefined
 
 	const anchorContent = (
 		<>
@@ -134,8 +133,8 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 				className={className}
 				data-heap-track="sidebar-nav-link-item"
 				href={href}
+				opensInNewTab={isExternal}
 				rel={rel}
-				target={target}
 			>
 				{anchorContent}
 			</Link>
