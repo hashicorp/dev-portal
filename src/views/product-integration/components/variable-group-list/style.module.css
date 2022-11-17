@@ -1,0 +1,39 @@
+.variableGroupList {
+	list-style: none;
+	padding-left: 0;
+
+	& > li {
+		/* used by components like CardLink */
+		background-color: white;
+		border-radius: 6px;
+		padding: 16px;
+		width: 100%;
+		box-shadow: var(--token-surface-base-box-shadow);
+
+		&:not(:last-of-type) {
+			margin-bottom: 12px;
+		}
+
+		& .type {
+			background: var(--token-color-waypoint-surface);
+			margin-left: 8px;
+			border-radius: 10px;
+			padding: 4px 8px;
+			font-size: 15px;
+		}
+
+		& .description {
+			margin-top: 6px;
+		}
+
+		& .required {
+			font-size: 14px;
+			color: var(--token-color-foreground-faint);
+			margin-bottom: 0;
+		}
+
+		& > .variableGroupList {
+			margin-top: 18px;
+		}
+	}
+}
