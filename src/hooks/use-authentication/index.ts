@@ -3,12 +3,7 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
-import {
-	AuthErrors,
-	SessionData,
-	UserData,
-	ValidAuthProviderId,
-} from 'types/auth'
+import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 
@@ -45,28 +40,14 @@ const useAuthentication = (
 		onUnauthenticated,
 	})
 
-	/**
-	 * Force sign in to hopefully resolve the error. The error is automatically
-	 * cleared in the process of initiating the login flow via `signIn`.
-	 *
-	 * Because `signOut` has to be invoked to fully log out of the provider, users
-	 * _should_ be re-signed in by this action without having to use the Cloud IDP
-	 * sign in screen.
-	 *
-	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
-	 */
-	useEffect(() => {
-		if (data?.error === AuthErrors.RefreshAccessTokenError) {
-			signOut()
-		}
-	}, [data?.error, signOut])
-
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
 	const isAuthenticated = status === 'authenticated'
 	const showAuthenticatedUI = isAuthenticated
 	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 	const preferencesLoaded = preferencesSavedAndLoaded()
+	const error = data?.error
+	const hasError = !!error
 
 	// We accept consent manager on the user's behalf. As per Legal & Compliance,
 	// signing-in means a user is accepting our privacy policy and so we can
@@ -87,6 +68,8 @@ const useAuthentication = (
 
 	// Return everything packaged up in an object
 	return {
+		error,
+		hasError,
 		isAuthenticated,
 		isLoading,
 		session,
