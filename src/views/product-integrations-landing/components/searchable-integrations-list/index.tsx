@@ -27,7 +27,10 @@ export default function SearchableIntegrationsList({
 				searchQuery={searchQuery}
 				onChange={(e) => setSearchQuery(e.target.value)}
 			/>
-			<p className={s.results}>{filteredIntegrations.length} Results</p>
+			<p className={s.results}>
+				{filteredIntegrations.length}{' '}
+				{filteredIntegrations.length === 1 ? 'Result' : 'Results'}
+			</p>
 			<CategorizedIntegrationsList integrations={filteredIntegrations} />
 		</div>
 	)
