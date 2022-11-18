@@ -23,7 +23,7 @@ export function TryHcpCalloutCompact({
 			<div className={s.background} />
 			<ProductIconHeading productSlug={productSlug} headingText={heading} />
 			<Description description={description} />
-			<StandaloneLinkContents text={ctaText} />
+			<StandaloneLinkContents text={ctaText} size="small" />
 		</CardLink>
 	)
 }
