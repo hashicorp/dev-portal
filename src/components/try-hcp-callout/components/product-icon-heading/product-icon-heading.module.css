@@ -1,0 +1,27 @@
+/* For HCP, we display the full logo, no text. */
+.rootHcpLogo {
+	& svg {
+		display: block;
+		height: 28px;
+		width: auto;
+	}
+}
+
+/* For all other products, we style an icon and text. */
+.rootIconText {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.icon {
+	width: 24px;
+	height: 24px;
+}
+
+.heading {
+	composes: hds-typography-display-300 from global;
+	color: var(--token-color-foreground-strong);
+	display: block;
+	font-weight: var(--token-typography-font-weight-bold);
+}
