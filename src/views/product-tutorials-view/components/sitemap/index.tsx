@@ -1,17 +1,18 @@
 import classNames from 'classnames'
+import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import {
 	getCollectionSlug,
 	getTutorialSlug,
 } from 'views/collection-view/helpers'
+import { getSitemapHeading } from 'views/product-tutorials-view/helpers/heading-helpers'
 import Heading from 'components/heading'
 import IconTile from 'components/icon-tile'
-import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
-import { getSitemapHeading } from 'views/product-tutorials-view/helpers/heading-helpers'
 import {
 	ProductTutorialsSitemapProps,
 	SitemapCollection,
 	SitemapItem,
 } from './types'
+import Link from 'components/link'
 import s from './sitemap.module.css'
 
 export function ProductTutorialsSitemap({
