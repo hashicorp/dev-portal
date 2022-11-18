@@ -21,10 +21,14 @@ export function ProductIconHeading({
 }: ProductIconHeadingProps) {
 	if (productSlug === 'hcp') {
 		return (
-			<div className={s.rootHcpLogo}>
-				<InlineSvg src={hcpLogo} />
-				<span className="g-screen-reader-only">{headingText}</span>
-			</div>
+			<>
+				<span id="auto-generated-id" className="g-screen-reader-only">
+					{headingText}
+				</span>
+				<div aria-labelledby="auto-generated-id" role="presentation">
+					<InlineSvg aria-hidden className={s.rootHcpLogo} src={hcpLogo} />
+				</div>
+			</>
 		)
 	} else {
 		return (
