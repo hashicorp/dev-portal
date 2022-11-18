@@ -20,7 +20,7 @@
 .background {
 	composes: backgroundBase;
 	background-image: url('./img/try-hcp-callout-background.svg');
-	background-size: cover;
+	background-size: auto;
 	background-repeat: no-repeat;
 	background-position: left bottom;
 }
@@ -33,7 +33,7 @@
 
 /* Handles horizontal sizing of the image area */
 .imageContainer {
-	--image-top-offset: -14px;
+	--image-top-offset: -26px;
 	--image-width: 340px;
 	--image-height: 220px;
 
@@ -42,6 +42,7 @@
 	@media (--dev-dot-tablet-up) {
 		display: flex;
 		flex-direction: column;
+		flex-shrink: 0;
 		margin-left: auto;
 		max-width: var(--image-width);
 		position: relative;
