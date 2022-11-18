@@ -5,7 +5,7 @@ import {
 	getInlineTutorials,
 	InlineCollections,
 	InlineTutorials,
-} from './get-inline-content'
+} from '../get-inline-content'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { ProductPage as ClientProductPage } from 'lib/learn-client/types'
 

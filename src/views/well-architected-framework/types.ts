@@ -6,10 +6,6 @@ import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { HeroHeadingVisualProps } from 'views/product-landing/components/hero-heading-visual/types'
 import { OverviewCtaProps } from 'views/product-landing/components/overview-cta/types'
 import { ProductViewBlock } from 'views/product-tutorials-view/components/product-view-content'
-import {
-	InlineCollections,
-	InlineTutorials,
-} from 'views/product-tutorials-view/helpers/get-inline-content'
 import { TutorialData } from 'views/tutorial-view'
 
 export interface WellArchitectedFrameworkLandingProps {
@@ -20,12 +16,12 @@ export interface WellArchitectedFrameworkLandingProps {
 	}
 	data: {
 		pageData: {
-			hero: HeroHeadingVisualProps
-			overview: OverviewCtaProps
 			blocks: ProductViewBlock[]
 		}
-		inlineCollections: InlineCollections
-		inlineTutorials: InlineTutorials
+		wafContent: {
+			hero: HeroHeadingVisualProps
+			overview: OverviewCtaProps
+		}
 	}
 	layoutProps: {
 		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']

@@ -13,7 +13,8 @@ export default function WellArchitectedFrameworkLandingView(
 	props: WellArchitectedFrameworkLandingProps
 ) {
 	const { data, layoutProps, metadata } = props
-	const { hero, overview, blocks } = data.pageData
+	const { blocks } = data.pageData
+	const { hero, overview } = data.wafContent
 
 	return (
 		<SidebarSidecarLayout
@@ -28,13 +29,12 @@ export default function WellArchitectedFrameworkLandingView(
 				<HeroHeadingVisual {...hero} />
 			</div>
 			<div className={s.overview}>
-				<OverviewCta {...overview} headingSlug={slugify(overview.heading)} />
+				<OverviewCta
+					{...overview}
+					headingSlug={slugify(overview.heading, { lower: true })}
+				/>
 			</div>
-			<ProductViewContent
-				blocks={blocks}
-				inlineCollections={data.inlineCollections}
-				inlineTutorials={data.inlineTutorials}
-			/>
+			<ProductViewContent blocks={blocks} />
 		</SidebarSidecarLayout>
 	)
 }
