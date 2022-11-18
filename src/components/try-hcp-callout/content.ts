@@ -32,7 +32,7 @@ export const tryHcpCalloutContent: Record<
 	consul: {
 		heading: 'HCP Consul',
 		description: 'Discover and securely connect your applications',
-		ctaText: 'Try HCP for free',
+		ctaText: 'Try HCP Consul',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
 	packer: {
@@ -44,13 +44,13 @@ export const tryHcpCalloutContent: Record<
 	vault: {
 		heading: 'HCP Vault',
 		description: 'Secure your applications and protect sensitive data',
-		ctaText: 'Try HCP Vault for free',
+		ctaText: 'Try HCP Vault',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
 	waypoint: {
 		heading: 'HCP Waypoint',
 		description: 'Simplify your application deployments across platforms',
-		ctaText: 'Try HCP Waypoint for free',
+		ctaText: 'Try HCP Waypoint',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
 	hcp: {
