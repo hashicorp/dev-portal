@@ -1,18 +1,22 @@
 .root {
 	--padding: 21px;
+	--border-radius: 5px;
 
 	background: none;
+	border-radius: var(--border-radius);
 	display: flex;
 	flex-direction: column;
 	isolation: isolate;
-	overflow: hidden;
 	padding: var(--padding);
 }
 
 .backgroundBase {
+	/* Shared border-radius from Card hides overflow, but shows focus styles */
+	border-radius: var(--border-radius);
 	position: absolute;
 	bottom: 0;
 	left: 0;
+	overflow: hidden;
 	right: 0;
 	top: 0;
 	z-index: -1;
