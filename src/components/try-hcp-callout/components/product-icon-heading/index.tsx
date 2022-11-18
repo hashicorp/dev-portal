@@ -39,7 +39,10 @@ export function ProductIconHeading({
 	} else {
 		return (
 			<div className={s.rootIconText}>
-				<ProductIcon productSlug={productSlug} className={s.icon} />
+				<ProductIcon
+					productSlug={productSlug}
+					className={classNames(s.icon, s[size])}
+				/>
 				<span className={classNames(s.heading, s[size])}>{headingText}</span>
 			</div>
 		)

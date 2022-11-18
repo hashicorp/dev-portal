@@ -15,8 +15,16 @@
 }
 
 .icon {
-	width: 24px;
-	height: 24px;
+	width: var(--size);
+	height: var(--size);
+
+	&.small {
+		--size: 20px;
+	}
+
+	&.medium {
+		--size: 24px;
+	}
 }
 
 .heading {
