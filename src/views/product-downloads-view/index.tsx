@@ -30,6 +30,7 @@ import {
 	PageHeader,
 	SidecarMarketingCard,
 } from './components'
+import s from './product-downloads-view.module.css'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -83,7 +84,12 @@ const ProductDownloadsViewContent = ({
 			 */
 			sidebarNavDataLevels={sidebarNavDataLevels as any}
 			breadcrumbLinks={breadcrumbLinks}
-			sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
+			sidecarSlot={
+				<>
+					<SidecarMarketingCard {...sidecarMarketingCard} />
+					<div className={s.sidecarTryHcpCallout}>...sup!</div>
+				</>
+			}
 		>
 			{/**
 			 * Legal has requested that we make the enterprise downloads page public
