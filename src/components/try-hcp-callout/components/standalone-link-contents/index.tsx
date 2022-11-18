@@ -3,6 +3,7 @@ import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-
 import s from './standalone-link-contents.module.css'
 
 interface StandaloneLinkContentsProps {
+	className?: string
 	text: string
 	size?: 'small' | 'medium'
 }
@@ -15,11 +16,12 @@ interface StandaloneLinkContentsProps {
  * an element with a `class` attribute that contains the string `"card-link"`.
  */
 export function StandaloneLinkContents({
+	className,
 	text,
 	size = 'medium',
 }: StandaloneLinkContentsProps) {
 	return (
-		<span className={classNames(s.root, s[size])}>
+		<span className={classNames(s.root, s[size], className)}>
 			{text} <IconArrowRight16 />
 		</span>
 	)

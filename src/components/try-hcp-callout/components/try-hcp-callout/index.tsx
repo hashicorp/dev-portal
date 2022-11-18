@@ -26,7 +26,7 @@ export function TryHcpCallout({
 			<div className={s.textContainer}>
 				<ProductIconHeading productSlug={productSlug} headingText={heading} />
 				<Description description={description} />
-				<StandaloneLinkContents text={ctaText} />
+				<StandaloneLinkContents className={s.standaloneLink} text={ctaText} />
 			</div>
 			<div className={s.imageContainer}>
 				<div className={s.imageWrapper}>
