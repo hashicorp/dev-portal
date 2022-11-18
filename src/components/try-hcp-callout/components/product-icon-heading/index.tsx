@@ -1,4 +1,5 @@
 import InlineSvg from '@hashicorp/react-inline-svg'
+import { useId } from '@react-aria/utils'
 import hcpLogo from '!!raw-loader!@hashicorp/mktg-logos/product/hcp/primary/black.svg'
 import ProductIcon from 'components/product-icon'
 import { ProductSlug } from 'types/products'
@@ -19,13 +20,15 @@ export function ProductIconHeading({
 	productSlug,
 	headingText,
 }: ProductIconHeadingProps) {
+	const uniqueId = useId()
+
 	if (productSlug === 'hcp') {
 		return (
 			<>
-				<span id="auto-generated-id" className="g-screen-reader-only">
+				<span id={uniqueId} className="g-screen-reader-only">
 					{headingText}
 				</span>
-				<div aria-labelledby="auto-generated-id" role="presentation">
+				<div aria-labelledby={uniqueId} role="presentation">
 					<InlineSvg aria-hidden className={s.rootHcpLogo} src={hcpLogo} />
 				</div>
 			</>
