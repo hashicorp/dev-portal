@@ -1,15 +1,15 @@
-import { TryHcpCallout } from '..'
+import { TryHcpCalloutCompact } from '..'
 import { ProductSlugWithContent } from '../../types'
 import { tryHcpCalloutContent } from '../../content'
 
 /**
- * A wrapper around TryHcpCallout.
+ * A wrapper around TryHcpCalloutCompact.
  *
  * Handles content for a set of supported `productSlug` value, which allows
  * this component to provide a single-prop `productSlug` props API.
  * Intended for use in author-able contexts.
  */
-export function TryHcpCalloutPrebuilt({
+export function TryHcpCalloutCompactPrebuilt({
 	productSlug,
 }: {
 	productSlug: ProductSlugWithContent
@@ -17,7 +17,7 @@ export function TryHcpCalloutPrebuilt({
 	const { ctaText, ctaUrl, description, heading } =
 		tryHcpCalloutContent[productSlug]
 	return (
-		<TryHcpCallout
+		<TryHcpCalloutCompact
 			ctaText={ctaText}
 			ctaUrl={ctaUrl}
 			description={description}

@@ -1,10 +1,17 @@
 import { TryHcpCalloutProps } from 'components/try-hcp-callout/types'
-import { ProductSlugWithContent } from '../../types'
+import { ProductSlugWithContent } from './types'
 
 type HcpCalloutContent = Pick<
 	TryHcpCalloutProps,
 	'heading' | 'description' | 'ctaText' | 'ctaUrl'
 >
+
+/**
+ * Type guard to determine if a string is a ProductSlugWithContent
+ */
+export function hasHcpCalloutContent(s: string): s is ProductSlugWithContent {
+	return tryHcpCalloutContent[s] !== undefined
+}
 
 export const tryHcpCalloutContent: Record<
 	ProductSlugWithContent,
