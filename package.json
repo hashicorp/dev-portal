@@ -20,7 +20,7 @@
 		"start:packer": "cross-env DEV_IO=packer npm run start",
 		"start:sentinel": "cross-env DEV_IO=sentinel npm run start",
 		"start:vagrant": "cross-env DEV_IO=vagrant npm run start",
-		"start:vault": "cross-env DEV_IO=vaulfe npm run start",
+		"start:vault": "cross-env DEV_IO=vault npm run start",
 		"start:waypoint": "cross-env DEV_IO=waypoint npm run start",
 		"start:with-axe": "AXE_ENABLED=true npm start",
 		"start": "hc-tools ./scripts/generate-opt-in-redirect-checks.ts && next",
