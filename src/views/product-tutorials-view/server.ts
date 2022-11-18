@@ -22,6 +22,9 @@ import getProcessedPageData from './helpers/page-data'
 import { ProductPageData } from './helpers/page-data/types'
 
 export interface ProductTutorialsViewProps {
+	metadata: {
+		title: string
+	}
 	data: ProductPageData
 	layoutProps: ProductTutorialsLayout
 	product: LearnProductData
@@ -38,7 +41,9 @@ interface ProductTutorialsLayout {
  * TODO: figure out what to do with the /hcp/tutorials view (design dependent).
  * Taking this temporary approach for now while awaiting final designs.
  */
-export async function getCloudTutorialsViewProps() {
+export async function getCloudTutorialsViewProps(): Promise<{
+	props: ProductTutorialsViewProps
+}> {
 	const productData = cachedGetProductData('hcp')
 
 	/**
@@ -65,6 +70,9 @@ export async function getCloudTutorialsViewProps() {
 	 */
 	return {
 		props: stripUndefinedProperties({
+			metadata: {
+				title: 'Tutorials',
+			},
 			data: {
 				pageData,
 				sitemapCollections,
@@ -151,6 +159,9 @@ export async function getProductTutorialsViewProps(
 	 */
 	return {
 		props: stripUndefinedProperties({
+			metadata: {
+				title: 'Tutorials',
+			},
 			data: {
 				pageData,
 				sitemapCollections,
