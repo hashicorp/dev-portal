@@ -32,11 +32,11 @@
 .small {
 	composes: hds-typography-body-100 from global;
 
-	--line-height: 1rem;
+	--line-height: 1.231;
 }
 
 .medium {
 	composes: hds-typography-body-200 from global;
 
-	--line-height: 1rem;
+	--line-height: 1.143;
 }
