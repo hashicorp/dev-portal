@@ -10,7 +10,7 @@ export type ProductSlugWithContent = Exclude<
 >
 
 export interface TryHcpCalloutProps {
-	productSlug: Exclude<ProductSlug, 'nomad' | 'sentinel' | 'vagrant'>
+	productSlug: ProductSlugWithContent
 	heading: string
 	description: string
 	ctaText: string
