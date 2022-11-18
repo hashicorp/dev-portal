@@ -1,5 +1,4 @@
 // Third-party imports
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // HashiCorp imports
@@ -12,6 +11,7 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import Heading from 'components/heading'
+import Link from 'components/link'
 import Text from 'components/text'
 
 // Local imports
@@ -51,7 +51,7 @@ const SignUpView = () => {
 		<div className={s.root}>
 			<main className={s.main}>
 				<div>
-					<Link href="/" aria-label="HashiCorp Developer">
+					<Link aria-label="HashiCorp Developer" href="/">
 						<InlineSvg
 							className={s.logo}
 							src={require('./img/logo-black.svg?include')}

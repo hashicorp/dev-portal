@@ -1,17 +1,17 @@
-import Link from 'next/link'
 import classNames from 'classnames'
-import {
-	getCollectionSlug,
-	getTutorialSlug,
-} from 'views/collection-view/helpers'
+import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import {
 	Collection as ClientCollection,
 	TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
+import {
+	getCollectionSlug,
+	getTutorialSlug,
+} from 'views/collection-view/helpers'
+import { getSitemapHeading } from 'views/product-tutorials-view/helpers/heading-helpers'
 import Heading from 'components/heading'
 import IconTile from 'components/icon-tile'
-import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
-import { getSitemapHeading } from 'views/product-tutorials-view/helpers/heading-helpers'
+import Link from 'components/link'
 import { ProductTutorialsSitemapProps } from './types'
 import s from './sitemap.module.css'
 
@@ -39,8 +39,8 @@ export function ProductTutorialsSitemap({
 					<li key={collection.id} className={s.collectionListItem}>
 						<div className={s.collectionLinkSizer}>
 							<Link
-								href={getCollectionSlug(collection.slug)}
 								className={s.collectionLink}
+								href={getCollectionSlug(collection.slug)}
 							>
 								<span className={s.collectionLinkIcon}>
 									<IconTile size="small" brandColor={product}>
@@ -58,8 +58,8 @@ export function ProductTutorialsSitemap({
 							{collection.tutorials.map((t: ClientTutorialLite) => (
 								<li key={t.id} className={s.tutorialListItem}>
 									<Link
-										href={getTutorialSlug(t.slug, collection.slug)}
 										className={s.tutorialLink}
+										href={getTutorialSlug(t.slug, collection.slug)}
 									>
 										{t.name}
 									</Link>

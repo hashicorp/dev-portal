@@ -1,5 +1,4 @@
 // Third-party imports
-import Link from 'next/link'
 import classNames from 'classnames'
 
 // HashiCorp Imports
@@ -16,10 +15,11 @@ import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/color
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 
 // Global imports
-import { DocsNavItem, ProductSlug } from 'types/products'
+import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
+import Link from 'components/link'
 import { NavigationHeaderItemGroup } from 'components/navigation-header/types'
 
 // Local imports
@@ -111,11 +111,11 @@ const ProductPageHeaderContent = () => {
 					/>
 				</div>
 				<Link
-					href={`/${currentProduct.slug}`}
 					aria-current={isProductHomePage ? 'page' : undefined}
 					aria-label={`${currentProduct.name} home`}
 					className={s.productLogoLink}
 					data-heap-track="navigation-header-product-logo-link"
+					href={`/${currentProduct.slug}`}
 				>
 					<InlineSvg
 						className={classNames(

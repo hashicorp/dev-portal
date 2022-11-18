@@ -1,6 +1,5 @@
 // Third-party imports
 import { Fragment, KeyboardEvent, ReactElement, useRef, useState } from 'react'
-import Link from 'next/link'
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
 
@@ -16,6 +15,7 @@ import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import Badge from 'components/badge'
+import Link from 'components/link'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import {
@@ -272,12 +272,12 @@ const NavigationHeaderDropdownMenu = ({
 												<li className={s.itemContainer} key={itemId}>
 													{linkHref ? (
 														<Link
-															href={linkHref}
 															aria-current={isCurrentPage ? 'page' : undefined}
 															aria-label={item.ariaLabel}
 															className={s.itemLink}
-															onKeyDown={handleKeyDown}
 															data-heap-track="navigation-header-dropdown-menu-link"
+															href={linkHref}
+															onKeyDown={handleKeyDown}
 														>
 															{anchorContent}
 														</Link>

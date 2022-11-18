@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
+import Link from 'components/link'
 import { NavigationHeaderDropdownMenu } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './home-page-content.module.css'

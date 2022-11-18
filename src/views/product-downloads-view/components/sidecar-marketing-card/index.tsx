@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
-import Link from 'next/link'
 import slugify from 'slugify'
 import Card from 'components/card'
+import Link from 'components/link'
 import Text from 'components/text'
 import { SidecarMarketingCardProps } from './types'
 import s from './sidecar-marketing-card.module.css'
@@ -31,7 +31,7 @@ const SidecarMarketingCard = ({
 						size={200}
 						weight="regular"
 					>
-						<Link href={href} className={s.featuredDocsLink}>
+						<Link className={s.featuredDocsLink} href={href}>
 							{text}
 						</Link>
 					</Text>

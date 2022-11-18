@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import useCurrentPath from 'hooks/use-current-path'
+import Link from 'components/link'
 import Text from 'components/text'
 import s from './primary-nav-link.module.css'
 
@@ -20,13 +20,12 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 
 	return (
 		<Link
-			href={url}
 			aria-current={isCurrentPage ? 'page' : undefined}
 			aria-label={ariaLabel}
 			className={s.root}
-			target={openInNewTab ? '_blank' : undefined}
 			data-heap-track="navigation-header-primary-nav-link"
-			rel="noreferrer"
+			href={url}
+			opensInNewTab={openInNewTab}
 		>
 			<Text asElement="span" className={s.linkText} size={200} weight="medium">
 				{label}

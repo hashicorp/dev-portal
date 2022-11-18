@@ -1,9 +1,9 @@
-import type { HeroProps } from './types'
 import classNames from 'classnames'
 import slugify from 'slugify'
-import Link from 'next/link'
 import Heading from 'components/heading'
+import Link from 'components/link'
 import Text from 'components/text'
+import type { HeroProps } from './types'
 import Hero from './hero'
 import s from './hero.module.css'
 
@@ -46,7 +46,7 @@ function HeroWithActions({
 									<Text className={s.actionDescription} size={200}>
 										{action.description}
 									</Text>
-									<Link href={action.link} className={s.actionLink}>
+									<Link className={s.actionLink} href={action.link}>
 										{action.linkText}
 									</Link>
 								</div>

@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import classNames from 'classnames'
+import Link from 'components/link'
 import { ButtonLinkProps } from './types'
 import s from './button-link.module.css'
 
@@ -43,25 +43,15 @@ const ButtonLink = ({
 	}
 
 	return (
-		// eslint-disable-next-line react/jsx-no-target-blank -- per the logic, target="_blank" always comes with rel="noreferrer"
 		<Link
-			href={href}
 			aria-label={ariaLabel}
 			className={classNames(s.root, s[size], s[color], className)}
-			rel={openInNewTab ? 'noreferrer noopener' : undefined}
-			target={openInNewTab ? '_blank' : '_self'}
-			onClick={onClick}
 			data-heap-track={`button-link ${dataHeapTrack ?? ''}`}
+			href={href}
+			onClick={onClick}
+			opensInNewTab={openInNewTab}
+			rel={openInNewTab ? 'noreferrer noopener' : undefined}
 		>
-			{/**
-			 * copied from components/standalone-link
-			 * NOTE: this markup is valid. It's OK to have an `onClick` when there is
-			 * also an `href` present. The `jsx-a11y/anchor-is-valid` rule is not
-			 * seeing this though since the `href` attribute is being set on `Link`
-			 * rather than the `<a>`.
-			 */}
-			{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-
 			{hasLeadingIcon && icon}
 			{hasText ? text : null}
 			{hasTrailingIcon && icon}
