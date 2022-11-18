@@ -104,6 +104,7 @@
 		"@hashicorp/platform-markdown-utils": "^0.2.2",
 		"@hashicorp/platform-packer-plugins": "^0.3.0",
 		"@hashicorp/platform-product-meta": "^0.1.1",
+		"@hashicorp/platform-util": "^0.2.0",
 		"@hashicorp/react-alert-banner": "^7.0.1",
 		"@hashicorp/react-button": "^6.2.1",
 		"@hashicorp/react-call-to-action": "^5.1.0",
