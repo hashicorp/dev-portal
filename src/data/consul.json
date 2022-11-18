@@ -24,7 +24,7 @@
 	"alertBanner": {
 		"tag": "Announcements",
 		"url": "https://www.hashicorp.com/blog/consul-1-14-ga-announcing-simplified-service-mesh-deployments",
-		"text": "Consul 1.14 GA: Simplified Consul deployment with Consul dataplane, cluster peering GA & more",
+		"text": "Consul 1.14 GA: Simplified service mesh deployment with Consul dataplane, cluster peering GA & more",
 		"linkText": "Read more",
 		"expirationDate": ""
 	},
