@@ -31,6 +31,8 @@ import {
 	SidecarMarketingCard,
 } from './components'
 import s from './product-downloads-view.module.css'
+import { TryHcpCalloutCompactPrebuilt } from 'components/try-hcp-callout'
+import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -87,7 +89,11 @@ const ProductDownloadsViewContent = ({
 			sidecarSlot={
 				<>
 					<SidecarMarketingCard {...sidecarMarketingCard} />
-					<div className={s.sidecarTryHcpCallout}>...sup!</div>
+					{hasHcpCalloutContent(currentProduct.slug) ? (
+						<div className={s.sidecarTryHcpCallout}>
+							<TryHcpCalloutCompactPrebuilt productSlug={currentProduct.slug} />
+						</div>
+					) : null}
 				</>
 			}
 		>
