@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { useId } from '@react-aria/utils'
 import hcpLogo from '!!raw-loader!@hashicorp/mktg-logos/product/hcp/primary/black.svg'
@@ -8,6 +9,7 @@ import s from './product-icon-heading.module.css'
 export interface ProductIconHeadingProps {
 	productSlug: Exclude<ProductSlug, 'sentinel'>
 	headingText: string
+	size?: 'small' | 'medium'
 }
 
 /**
@@ -19,6 +21,7 @@ export interface ProductIconHeadingProps {
 export function ProductIconHeading({
 	productSlug,
 	headingText,
+	size = 'medium',
 }: ProductIconHeadingProps) {
 	const uniqueId = useId()
 
@@ -37,7 +40,7 @@ export function ProductIconHeading({
 		return (
 			<div className={s.rootIconText}>
 				<ProductIcon productSlug={productSlug} className={s.icon} />
-				<span className={s.heading}>{headingText}</span>
+				<span className={classNames(s.heading, s[size])}>{headingText}</span>
 			</div>
 		)
 	}

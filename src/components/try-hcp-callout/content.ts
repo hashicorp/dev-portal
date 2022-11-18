@@ -20,7 +20,7 @@ export const tryHcpCalloutContent: Record<
 	terraform: {
 		heading: 'Terraform Cloud',
 		description: 'Automate your infrastructure provisioning at any scale',
-		ctaText: 'Try Terraform Cloud for free',
+		ctaText: 'Try Terraform Cloud',
 		ctaUrl: 'https://app.terraform.io/public/signup/account',
 	},
 	boundary: {

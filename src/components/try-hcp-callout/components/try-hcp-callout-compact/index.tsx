@@ -21,7 +21,11 @@ export function TryHcpCalloutCompact({
 	return (
 		<CardLink className={s.root} ariaLabel={ctaText} href={ctaUrl}>
 			<div className={s.background} />
-			<ProductIconHeading productSlug={productSlug} headingText={heading} />
+			<ProductIconHeading
+				productSlug={productSlug}
+				headingText={heading}
+				size="small"
+			/>
 			<Description description={description} />
 			<StandaloneLinkContents text={ctaText} size="small" />
 		</CardLink>
