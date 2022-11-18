@@ -1,11 +1,11 @@
 import classNames from 'classnames'
-import Link from 'next/link'
+import Link from 'components/link'
 import { NavigationDisclosureLinkProps } from './types'
 import s from './navigation-disclosure-link.module.css'
 
 /**
  * Component for rendering the `<a>` elements within a
- * `NavigationDisclosureListItem`. Uses `next/link` and handles setting
+ * `NavigationDisclosureListItem`. Uses `components/link` and handles setting
  * `aria-current` based on the required `isActive` prop.
  *
  * @see https://developer.hashi-mktg.com/swingset/components/navigationdisclosure
@@ -22,10 +22,12 @@ const NavigationDisclosureLink = ({
 	}
 
 	return (
-		<Link href={href}>
-			<a aria-current={ariaCurrent} className={classNames(s.root, className)}>
-				{children}
-			</a>
+		<Link
+			aria-current={ariaCurrent}
+			className={classNames(s.root, className)}
+			href={href}
+		>
+			{children}
 		</Link>
 	)
 }

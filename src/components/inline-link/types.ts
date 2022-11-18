@@ -1,19 +1,17 @@
-import { LinkProps } from 'next/link'
+import { LinkProps } from 'components/link'
 import { TextProps } from 'components/text'
-
-type NativeAnchorProps = JSX.IntrinsicElements['a']
 
 export interface InlineLinkProps {
 	/**
 	 * The content to render within the `<a>` element.
 	 */
-	children: NativeAnchorProps['children']
+	children: LinkProps['children']
 
 	/**
 	 * A string of one or more class names. Applied last to the rendered `<a>`
 	 * element.
 	 */
-	className?: NativeAnchorProps['className']
+	className?: LinkProps['className']
 
 	/**
 	 * The destination of the link.

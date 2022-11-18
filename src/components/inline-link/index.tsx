@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
-import Link from 'next/link'
 import classNames from 'classnames'
+import Link from 'components/link'
 import { InlineLinkProps } from './types'
 import s from './inline-link.module.css'
 
@@ -20,10 +20,8 @@ const InlineLink = ({
 	)
 
 	return (
-		<Link href={href}>
-			<a {...rest} className={classes}>
-				{children}
-			</a>
+		<Link {...rest} className={classes} href={href}>
+			{children}
 		</Link>
 	)
 }
