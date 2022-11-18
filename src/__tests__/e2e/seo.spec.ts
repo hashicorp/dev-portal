@@ -7,9 +7,7 @@ test('should render the proper page title and description', async ({
 	baseURL,
 }) => {
 	await page.goto('/')
-	await expect(page.locator('head title')).toContainText(
-		__config.dev_dot.meta.title
-	)
+	expect(page).toHaveTitle(__config.dev_dot.meta.title)
 
 	expect(
 		await page.locator('head meta[name="description"]').getAttribute('content')
@@ -38,9 +36,7 @@ test('product landing page should render the metadata', async ({
 	baseURL,
 }) => {
 	await page.goto('/waypoint')
-	await expect(page.locator('head title')).toContainText(
-		`Waypoint | ${__config.dev_dot.meta.title}`
-	)
+	await expect(page).toHaveTitle(`Waypoint | ${__config.dev_dot.meta.title}`)
 	expect(
 		await page.locator('head meta[name="description"]').getAttribute('content')
 	).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
@@ -76,7 +72,7 @@ test('install page should render the expected metadata', async ({
 	baseURL,
 }) => {
 	await page.goto('/waypoint/downloads')
-	await expect(page.locator('head title')).toContainText(
+	await expect(page).toHaveTitle(
 		`Install | Waypoint | ${__config.dev_dot.meta.title}`
 	)
 })
@@ -87,7 +83,7 @@ test('tutorials page should render the expected metadata', async ({
 	baseURL,
 }) => {
 	await page.goto('/waypoint/tutorials')
-	await expect(page.locator('head title')).toContainText(
+	await expect(page).toHaveTitle(
 		`Tutorials | Waypoint | ${__config.dev_dot.meta.title}`
 	)
 })
