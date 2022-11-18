@@ -14,9 +14,7 @@ test('should rewrite known dev-portal routes - different product', async ({
 		},
 	])
 	const response = await page.goto('/vault')
-	await expect(page.locator('head title')).toContainText(
-		'Waypoint by HashiCorp'
-	)
+	await expect(page).toHaveTitle('Waypoint by HashiCorp')
 	expect(response.status()).toEqual(404)
 })
 
@@ -33,8 +31,6 @@ test('should rewrite known dev-portal routes - same product', async ({
 		},
 	])
 	const response = await page.goto('/waypoint/docs')
-	await expect(page.locator('head title')).toContainText(
-		'Waypoint by HashiCorp'
-	)
+	await expect(page).toHaveTitle('Waypoint by HashiCorp')
 	expect(response.status()).toEqual(404)
 })

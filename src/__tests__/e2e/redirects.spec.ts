@@ -15,7 +15,7 @@ test('should render based on hc_dd_proxied_site cookie', async ({
 		},
 	])
 	await page.goto('/')
-	await expect(page.locator('head title')).toContainText('Consul by HashiCorp')
+	await expect(page).toHaveTitle('Consul by HashiCorp')
 })
 
 test('should use middleware redirects', async ({ page, context, baseURL }) => {
