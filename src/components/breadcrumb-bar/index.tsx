@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
+import Link, { LinkProps } from 'components/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Text from 'components/text'
 import s from './breadcrumb-bar.module.css'
@@ -91,12 +91,8 @@ function BreadcrumbBar({
 	)
 }
 
-function InternalLink({ href, children, ...rest }) {
-	return (
-		<Link href={href}>
-			<a {...rest}>{children}</a>
-		</Link>
-	)
+function InternalLink(props: LinkProps) {
+	return <Link {...props} />
 }
 
 export type { BreadcrumbLink }
