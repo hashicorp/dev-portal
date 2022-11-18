@@ -38,4 +38,12 @@ This composition includes logo and text elements only. Intended for use in width
 
 This component wraps `<TryHcpCallout />`. It handles content for a set of supported `productSlug` value, which allows this component to provide a single-prop `productSlug` props API. Intended for use in authorable contexts.
 
-<LiveComponent>{`<TryHcpCalloutPrebuilt productSlug="terraform"/>`}</LiveComponent>
+<LiveComponent>{`<>
+  <TryHcpCalloutPrebuilt productSlug="boundary"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="consul"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="hcp"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="packer"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="terraform"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="vault"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="waypoint"/>
+</>`}</LiveComponent>
