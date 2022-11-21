@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import { useAuthenticationToken } from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 import { getBookmark } from 'lib/learn-client/api/bookmark'
 import { Tutorial } from 'lib/learn-client/types'
 
@@ -21,14 +21,14 @@ const useIsBookmarked = ({
 	tutorialId,
 }: UseIsBookmarkedOptions): UseIsBookmarkedResult => {
 	// Get the current user's access token
-	const accessToken = useAuthenticationToken()
+	const { isAuthenticated, token: accessToken } = useAuthentication()
 
 	// Fetch a single bookmark by tutorial id
 	const { data: isBookmarked, ...restQueryResult } = useQuery<QueryDataType>(
 		['isBookmarked', tutorialId],
 		() =>
 			getBookmark({ accessToken, tutorialId }).then((bookmark) => !!bookmark),
-		{ enabled: !!accessToken }
+		{ enabled: isAuthenticated && !!accessToken }
 	)
 
 	return {

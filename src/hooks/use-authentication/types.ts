@@ -29,6 +29,7 @@ interface UseAuthenticationResult {
 	signOut: (options?: SignOutParams) => ReturnType<typeof signOut>
 	signUp: typeof signUp
 	user: null | UserData
+	token: SessionData['accessToken']
 }
 
 export type { UseAuthenticationOptions, UseAuthenticationResult }

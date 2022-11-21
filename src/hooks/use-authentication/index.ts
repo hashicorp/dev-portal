@@ -3,12 +3,7 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
-import {
-	AuthErrors,
-	SessionData,
-	UserData,
-	ValidAuthProviderId,
-} from 'types/auth'
+import { AuthErrors, SessionData, ValidAuthProviderId } from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 
@@ -31,30 +26,6 @@ function useAuthMethods() {
 	return { signIn, signOut }
 }
 
-export function useAuthenticationToken() {
-	const [token, setToken] = useState(null)
-
-	const { data, status } = useSession()
-
-	useEffect(() => {
-		if (status !== 'authenticated') {
-			return
-		}
-
-		const sessionToken = data?.accessToken
-		// if the token isn't set but exists in sesion or the token is
-		// set but doesn't match what is in the session, set the token
-		if (
-			(!token && sessionToken) ||
-			(token && sessionToken && token !== sessionToken)
-		) {
-			setToken(token)
-		}
-	}, [data, token, status])
-
-	return token
-}
-
 /**
  * Hook for consuming user, session, and authentication state. Sources all data
  * from next-auth/react's `useSession` hook.
@@ -66,10 +37,14 @@ const useAuthentication = (
 ): UseAuthenticationResult => {
 	const { signIn, signOut } = useAuthMethods()
 
+	// Get option properties from `options` parameter
+	// `onUnauthenticated function only calls when `isRequired` is true
+	const { isRequired = false, onUnauthenticated = () => signIn() } = options
+
 	// Pull data and status from next-auth's hook, and pass options
 	const { data, status } = useSession({
-		required: options.isRequired,
-		onUnauthenticated: options.onUnauthenticated,
+		required: isRequired,
+		onUnauthenticated: onUnauthenticated,
 	})
 	const [isAuthenticated, setIsAuthenticated] = useState(false)
 
@@ -118,6 +93,7 @@ const useAuthentication = (
 		signIn,
 		signOut,
 		signUp,
+		token: (data?.accessToken as SessionData['accessToken']) ?? null,
 		user: data?.user ?? null,
 	}
 }

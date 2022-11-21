@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query'
-import { useAuthenticationToken } from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 import { getProgress, GetProgressResult } from 'lib/learn-client/api/progress'
 import { Collection, Tutorial } from 'lib/learn-client/types'
 import {
@@ -59,7 +59,7 @@ function useProgressBatchQuery({
 	const queryClient = useQueryClient()
 
 	// Get the current user's access token
-	const accessToken = useAuthenticationToken()
+	const { isAuthenticated, token: accessToken } = useAuthentication()
 
 	/**
 	 * After a successful query, prime the requested
@@ -111,7 +111,7 @@ function useProgressBatchQuery({
 	const { data, ...restQueryResult } = useQuery<QueryDataType>(
 		[PROGRESS_BATCH_QUERY_ID, { tutorialIds }],
 		() => getProgress({ accessToken, tutorialIds, collectionIds }),
-		{ enabled: !!accessToken, onSuccess }
+		{ enabled: isAuthenticated && !!accessToken, onSuccess }
 	)
 
 	/**

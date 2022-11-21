@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useAuthenticationToken } from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 import {
 	createTutorialProgress as createTutorialProgressApi,
 	updateTutorialProgress as updateTutorialProgressApi,
@@ -28,7 +28,7 @@ import {
  */
 const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 	const queryClient = useQueryClient()
-	const accessToken = useAuthenticationToken()
+	const { token: accessToken } = useAuthentication()
 
 	/**
 	 * When a mutation is successful, we set the associated query data.

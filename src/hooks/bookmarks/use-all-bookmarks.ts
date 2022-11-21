@@ -3,7 +3,7 @@ import {
 	getAllBookmarks,
 	GetAllBookmarksResult,
 } from 'lib/learn-client/api/bookmark'
-import { useAuthenticationToken } from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 
 type QueryDataType = GetAllBookmarksResult
 
@@ -26,7 +26,7 @@ const useAllBookmarks = ({
 	const queryClient = useQueryClient()
 
 	// Get the current user's access token
-	const accessToken = useAuthenticationToken()
+	const { isAuthenticated, token: accessToken } = useAuthentication()
 
 	// Set up the `onSuccess` callback
 	const onSuccess = (data: QueryDataType) => {
@@ -41,7 +41,7 @@ const useAllBookmarks = ({
 		['bookmarks'],
 		() => getAllBookmarks({ accessToken }),
 		{
-			enabled: enabled && !!accessToken,
+			enabled: enabled && isAuthenticated && !!accessToken,
 			onSuccess,
 		}
 	)

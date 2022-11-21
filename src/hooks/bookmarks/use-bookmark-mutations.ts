@@ -7,7 +7,7 @@ import {
 import { developmentToast, ToastColor } from 'components/toast'
 import { Tutorial } from 'lib/learn-client/types'
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
-import { useAuthenticationToken } from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 import {
 	createBookmark,
 	CreateBookmarkOptions,
@@ -58,7 +58,7 @@ interface UseBookmarkMutationsResult {
  */
 const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 	const queryClient = useQueryClient()
-	const accessToken = useAuthenticationToken()
+	const { token: accessToken } = useAuthentication()
 
 	/**
 	 * Set up `onSuccess` callback for the create/delete mutations.
