@@ -89,7 +89,7 @@ const BaseNewLayout = ({
 				</div>
 			</CoreDevDotLayout>
 			<ConsentManager />
-			{/* <AuthenticationErrorDialog /> */}
+			<AuthenticationErrorDialog />
 		</CommandBarProvider>
 	)
 }
