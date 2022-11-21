@@ -29,7 +29,6 @@ interface UseAuthenticationResult {
 	) => ReturnType<typeof signIn>
 	signOut: (options?: SignOutParams) => ReturnType<typeof signOut>
 	signUp: typeof signUp
-	status: Session['status']
 	user: null | UserData
 }
 

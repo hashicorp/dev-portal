@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
@@ -45,11 +45,21 @@ const useAuthentication = (
 		onUnauthenticated,
 	})
 
+	const [isAuthenticated, setIsAuthenticated] = useState(
+		status === 'authenticated'
+	)
+
+	// retain authenticated state based on status
+	useEffect(() => {
+		if (!isAuthenticated && status === 'authenticated') {
+			setIsAuthenticated(true)
+		} else if (isAuthenticated && status === 'unauthenticated') {
+			setIsAuthenticated(false)
+		}
+	}, [status, isAuthenticated])
+
 	/**
-	 * Force sign out to hopefully resolve the error. The user is signed out
-	 * to prevent unwanted looping of requesting an expired token or if for
-	 * whatever reason, idp is not accepting our refresh requests.
-	 *
+	 * If the token exchange has an error, Force sign out to hopefully resolve
 	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
 	 */
 	useEffect(() => {
@@ -57,13 +67,13 @@ const useAuthentication = (
 			data?.error === AuthErrors.RefreshAccessTokenExpiredError ||
 			data?.error === AuthErrors.RefreshAccessTokenInvalidGrantError
 		) {
+			setIsAuthenticated(false)
 			signOut()
 		}
 	}, [data?.error, signOut])
 
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
-	const isAuthenticated = status === 'authenticated'
 	const preferencesLoaded = preferencesSavedAndLoaded()
 	const error = data?.error
 
@@ -93,7 +103,6 @@ const useAuthentication = (
 		signIn,
 		signOut,
 		signUp,
-		status,
 		user,
 	}
 }
