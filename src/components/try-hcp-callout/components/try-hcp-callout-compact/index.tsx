@@ -4,7 +4,7 @@ import {
 	Description,
 	StandaloneLinkContents,
 } from 'components/try-hcp-callout/components'
-import { TryHcpCalloutProps } from 'components/try-hcp-callout/types'
+import { TryHcpCalloutCompactProps } from 'components/try-hcp-callout/types'
 import s from './try-hcp-callout-compact.module.css'
 
 /**
@@ -17,7 +17,7 @@ export function TryHcpCalloutCompact({
 	description,
 	ctaText,
 	ctaUrl,
-}: TryHcpCalloutProps) {
+}: TryHcpCalloutCompactProps) {
 	return (
 		<CardLink className={s.root} ariaLabel={ctaText} href={ctaUrl}>
 			<div className={s.background} />

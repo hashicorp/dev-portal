@@ -1,14 +1,4 @@
-/* For HCP, we display the full logo, no text. */
-.rootHcpLogo {
-	& svg {
-		display: block;
-		height: 28px;
-		width: auto;
-	}
-}
-
-/* For all other products, we style an icon and text. */
-.rootIconText {
+.root {
 	display: flex;
 	gap: 8px;
 	align-items: center;

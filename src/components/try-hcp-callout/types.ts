@@ -16,3 +16,11 @@ export interface TryHcpCalloutProps {
 	ctaText: string
 	ctaUrl: string
 }
+
+export interface TryHcpCalloutCompactProps {
+	productSlug: Exclude<ProductSlugWithContent, 'hcp'>
+	heading: string
+	description: string
+	ctaText: string
+	ctaUrl: string
+}

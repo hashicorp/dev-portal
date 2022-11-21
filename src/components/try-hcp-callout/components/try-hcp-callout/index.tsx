@@ -6,6 +6,7 @@ import {
 	StandaloneLinkContents,
 } from 'components/try-hcp-callout/components'
 import { TryHcpCalloutProps } from 'components/try-hcp-callout/types'
+import { HcpLogoHeading } from '../hcp-logo-heading'
 import s from './try-hcp-callout.module.css'
 
 /**
@@ -24,8 +25,11 @@ export function TryHcpCallout({
 		<CardLink className={s.root} ariaLabel={ctaText} href={ctaUrl}>
 			<div className={s.background} />
 			<div className={s.textContainer}>
-				<ProductIconHeading productSlug={productSlug} headingText={heading} />
-				<Description description={description} />
+				{productSlug === 'hcp' ? (
+					<HcpLogoHeading headingText={heading} />
+				) : (
+					<ProductIconHeading productSlug={productSlug} headingText={heading} />
+				)}
 				<StandaloneLinkContents text={ctaText} />
 			</div>
 			<div className={s.imageContainer}>

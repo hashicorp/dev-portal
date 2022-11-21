@@ -9,7 +9,7 @@ import { MenuItem } from 'components/sidebar'
 import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 import { TutorialCardPropsWithId } from 'components/tutorial-card'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
-import { TryHcpCalloutProps } from 'components/try-hcp-callout/types'
+import { TryHcpCalloutCompactProps } from 'components/try-hcp-callout/types'
 
 /**
  * Raw page content, as structured in .json files
@@ -38,7 +38,7 @@ export interface RawProductDownloadsViewContent {
 	packageManagerOverrides?: PackageManager[]
 	sidebarMenuItems?: MenuItem[]
 	sidecarMarketingCard: SidecarMarketingCardProps
-	sidecarHcpCallout?: Omit<TryHcpCalloutProps, 'productSlug'>
+	sidecarHcpCallout?: Omit<TryHcpCalloutCompactProps, 'productSlug'>
 }
 
 export type FeaturedCollectionCard = CollectionCardPropsWithId
@@ -53,7 +53,7 @@ export interface ProductDownloadsViewProps {
 		featuredCollectionCards?: FeaturedCollectionCard[]
 		featuredTutorialCards?: FeaturedTutorialCard[]
 		sidecarMarketingCard: SidecarMarketingCardProps
-		sidecarHcpCallout?: TryHcpCalloutProps
+		sidecarHcpCallout?: TryHcpCalloutCompactProps
 		sidebarMenuItems?: MenuItem[]
 		installName?: string
 	}
