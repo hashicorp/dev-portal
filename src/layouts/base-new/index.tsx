@@ -10,7 +10,7 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
-import AuthenticationErrorDialog from 'components/authentication-error-dialog'
+// import AuthenticationErrorDialog from 'components/authentication-error-dialog'
 import { CommandBarProvider } from 'components/command-bar'
 import Footer from 'components/footer'
 import MobileMenuContainer, {
@@ -89,7 +89,7 @@ const BaseNewLayout = ({
 				</div>
 			</CoreDevDotLayout>
 			<ConsentManager />
-			<AuthenticationErrorDialog />
+			{/* <AuthenticationErrorDialog /> */}
 		</CommandBarProvider>
 	)
 }

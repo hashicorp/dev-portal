@@ -3,7 +3,12 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
-import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
+import {
+	AuthErrors,
+	SessionData,
+	UserData,
+	ValidAuthProviderId,
+} from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 
@@ -39,6 +44,18 @@ const useAuthentication = (
 		required: isRequired,
 		onUnauthenticated,
 	})
+
+	/**
+	 * Force sign in to hopefully resolve the error. The user is signed out
+	 * to prevent unwanted looping of requesting an expired or invalid token.
+	 *
+	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
+	 */
+	useEffect(() => {
+		if (data?.error === AuthErrors.RefreshAccessTokenError) {
+			signOut()
+		}
+	}, [data?.error, signOut])
 
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
