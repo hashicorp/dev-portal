@@ -64,8 +64,6 @@ const useAuthentication = (
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
 	const isAuthenticated = status === 'authenticated'
-	const showAuthenticatedUI = isAuthenticated
-	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 	const preferencesLoaded = preferencesSavedAndLoaded()
 	const error = data?.error
 
@@ -92,8 +90,6 @@ const useAuthentication = (
 		isAuthenticated,
 		isLoading,
 		session,
-		showAuthenticatedUI,
-		showUnauthenticatedUI,
 		signIn,
 		signOut,
 		signUp,
