@@ -7,6 +7,7 @@ import HashiHead from '@hashicorp/react-head'
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { TryHcpCalloutCompact } from 'components/try-hcp-callout'
 import {
 	generateInstallViewNavItems,
 	generateProductLandingSidebarNavData,
@@ -31,8 +32,6 @@ import {
 	SidecarMarketingCard,
 } from './components'
 import s from './product-downloads-view.module.css'
-import { TryHcpCalloutCompactPrebuilt } from 'components/try-hcp-callout'
-import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -51,6 +50,7 @@ const ProductDownloadsViewContent = ({
 		featuredCollectionCards,
 		featuredTutorialCards,
 		sidecarMarketingCard,
+		sidecarHcpCallout,
 		sidebarMenuItems,
 		installName,
 	} = pageContent
@@ -89,9 +89,15 @@ const ProductDownloadsViewContent = ({
 			sidecarSlot={
 				<>
 					<SidecarMarketingCard {...sidecarMarketingCard} />
-					{hasHcpCalloutContent(currentProduct.slug) ? (
+					{sidecarHcpCallout ? (
 						<div className={s.sidecarTryHcpCallout}>
-							<TryHcpCalloutCompactPrebuilt productSlug={currentProduct.slug} />
+							<TryHcpCalloutCompact
+								productSlug={sidecarHcpCallout.productSlug}
+								heading={sidecarHcpCallout.heading}
+								description={sidecarHcpCallout.description}
+								ctaText={sidecarHcpCallout.ctaText}
+								ctaUrl={sidecarHcpCallout.ctaUrl}
+							/>
 						</div>
 					) : null}
 				</>
