@@ -7,7 +7,7 @@ import HashiHead from '@hashicorp/react-head'
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-// import { TryHcpCalloutCompact } from 'components/try-hcp-callout'
+import { TryHcpCalloutCompact } from 'components/try-hcp-callout/components/try-hcp-callout-compact'
 import {
 	generateInstallViewNavItems,
 	generateProductLandingSidebarNavData,
@@ -89,7 +89,7 @@ const ProductDownloadsViewContent = ({
 			sidecarSlot={
 				<>
 					<SidecarMarketingCard {...sidecarMarketingCard} />
-					{/* {sidecarHcpCallout ? (
+					{sidecarHcpCallout ? (
 						<div className={s.sidecarTryHcpCallout}>
 							<TryHcpCalloutCompact
 								productSlug={sidecarHcpCallout.productSlug}
@@ -99,7 +99,7 @@ const ProductDownloadsViewContent = ({
 								ctaUrl={sidecarHcpCallout.ctaUrl}
 							/>
 						</div>
-					) : null} */}
+					) : null}
 				</>
 			}
 		>
