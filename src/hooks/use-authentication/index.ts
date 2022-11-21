@@ -47,16 +47,12 @@ const useAuthentication = (
 
 	/**
 	 * Force sign out to hopefully resolve the error. The user is signed out
-	 * to prevent unwanted looping of requesting an expired token or if for
-	 * whatever reason, idp is not accepting our refresh requests.
+	 * to prevent unwanted looping of requesting an expired refresh token
 	 *
 	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
 	 */
 	useEffect(() => {
-		if (
-			data?.error === AuthErrors.RefreshAccessTokenExpiredError ||
-			data?.error === AuthErrors.RefreshAccessTokenInvalidGrantError
-		) {
+		if (data?.error === AuthErrors.RefreshAccessTokenExpiredError) {
 			signOut()
 		}
 	}, [data?.error, signOut])
