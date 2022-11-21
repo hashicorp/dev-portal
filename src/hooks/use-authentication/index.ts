@@ -14,10 +14,7 @@ function useAuthMethods() {
 	const router = useRouter()
 
 	// Set up memoized `signIn` and `signOut` callbacks
-	const signIn = useMemo(
-		() => makeSignIn({ routerPath: router.asPath }),
-		[router.asPath]
-	)
+	const signIn = useMemo(() => makeSignIn(), [])
 	const signOut = useMemo(
 		() => makeSignOut({ routerPath: router.asPath }),
 		[router.asPath]
