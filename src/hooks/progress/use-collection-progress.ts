@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import useAuthentication from 'hooks/use-authentication'
+import { useAuthenticationToken } from 'hooks/use-authentication'
 import { getProgress, GetProgressResult } from 'lib/learn-client/api/progress'
 import { Collection } from 'lib/learn-client/types'
 import {
@@ -32,8 +32,7 @@ function useCollectionProgress({
 	 * - an accessToken is present
 	 * - a batch query, if one exists, has been attempted
 	 */
-	const { session } = useAuthentication()
-	const accessToken = session?.accessToken
+	const accessToken = useAuthenticationToken()
 	const hasWaitedForBatchQuery = useHasWaitedForQuery([PROGRESS_BATCH_QUERY_ID])
 	const enabled = !!accessToken && hasWaitedForBatchQuery
 

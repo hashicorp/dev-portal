@@ -22,7 +22,6 @@ interface UseAuthenticationResult {
 	error: undefined | Session['error']
 	isAuthenticated: boolean
 	isLoading: boolean
-	session: SessionData
 	signIn: (
 		provider?: ValidAuthProviderId,
 		options?: SignInOptions

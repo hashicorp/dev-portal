@@ -14,15 +14,7 @@ import { makeSignIn, makeSignOut, signUp } from './helpers'
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
-/**
- * Hook for consuming user, session, and authentication state. Sources all data
- * from next-auth/react's `useSession` hook.
- *
- * https://next-auth.js.org/getting-started/client#usesession
- */
-const useAuthentication = (
-	options: UseAuthenticationOptions = {}
-): UseAuthenticationResult => {
+function useAuthMethods() {
 	// Get router path for `signIn` and `signOut` `callbackUrl`s
 	const router = useRouter()
 
@@ -36,18 +28,50 @@ const useAuthentication = (
 		[router.asPath]
 	)
 
-	// Get option properties from `options` parameter
-	const { isRequired = false, onUnauthenticated = () => signIn() } = options
+	return { signIn, signOut }
+}
+
+export function useAuthenticationToken() {
+	const [token, setToken] = useState(null)
+
+	const { data, status } = useSession()
+
+	useEffect(() => {
+		if (status !== 'authenticated') {
+			return
+		}
+
+		const sessionToken = data?.accessToken
+		// if the token isn't set but exists in sesion or the token is
+		// set but doesn't match what is in the session, set the token
+		if (
+			(!token && sessionToken) ||
+			(token && sessionToken && token !== sessionToken)
+		) {
+			setToken(token)
+		}
+	}, [data, token, status])
+
+	return token
+}
+
+/**
+ * Hook for consuming user, session, and authentication state. Sources all data
+ * from next-auth/react's `useSession` hook.
+ *
+ * https://next-auth.js.org/getting-started/client#usesession
+ */
+const useAuthentication = (
+	options: UseAuthenticationOptions = {}
+): UseAuthenticationResult => {
+	const { signIn, signOut } = useAuthMethods()
 
 	// Pull data and status from next-auth's hook, and pass options
 	const { data, status } = useSession({
-		required: isRequired,
-		onUnauthenticated,
+		required: options.isRequired,
+		onUnauthenticated: options.onUnauthenticated,
 	})
-
-	const [isAuthenticated, setIsAuthenticated] = useState(
-		status === 'authenticated'
-	)
+	const [isAuthenticated, setIsAuthenticated] = useState(false)
 
 	// retain authenticated state based on status
 	useEffect(() => {
@@ -86,24 +110,15 @@ const useAuthentication = (
 		}
 	}, [isAuthenticated, preferencesLoaded])
 
-	// Separating user and session data
-	let session: SessionData, user: UserData
-	if (isAuthenticated) {
-		session = { ...data }
-		user = data.user
-		delete session.user
-	}
-
 	// Return everything packaged up in an object
 	return {
 		error,
 		isAuthenticated,
 		isLoading,
-		session,
 		signIn,
 		signOut,
 		signUp,
-		user,
+		user: data?.user ?? null,
 	}
 }
 

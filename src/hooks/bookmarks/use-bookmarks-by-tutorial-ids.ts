@@ -4,7 +4,7 @@ import {
 	getBookmarksByTutorialIds,
 	GetBookmarksByTutorialIdsResult,
 } from 'lib/learn-client/api/bookmark'
-import useAuthentication from 'hooks/use-authentication'
+import { useAuthenticationToken } from 'hooks/use-authentication'
 
 type QueryDataType = GetBookmarksByTutorialIdsResult
 
@@ -30,8 +30,7 @@ const useBookmarksByTutorialIds = ({
 	const queryClient = useQueryClient()
 
 	// Get the current user's access token
-	const { session } = useAuthentication()
-	const accessToken = session?.accessToken
+	const accessToken = useAuthenticationToken()
 
 	// Set up the `onSuccess` callback
 	const onSuccess = (data: QueryDataType) => {
