@@ -7,7 +7,7 @@ import HashiHead from '@hashicorp/react-head'
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { TryHcpCalloutCompact } from 'components/try-hcp-callout'
+import { TryHcpCalloutCompact } from 'components/try-hcp-callout/components/try-hcp-callout-compact'
 import {
 	generateInstallViewNavItems,
 	generateProductLandingSidebarNavData,
