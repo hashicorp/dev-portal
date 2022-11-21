@@ -20,7 +20,6 @@ interface UseAuthenticationOptions {
 interface UseAuthenticationResult {
 	// https://github.com/nextauthjs/next-auth/blob/next-auth@v4.10.3/packages/next-auth/src/core/types.ts#L422-L440
 	error: undefined | Session['error']
-	hasError: boolean
 	isAuthenticated: boolean
 	isLoading: boolean
 	session: SessionData

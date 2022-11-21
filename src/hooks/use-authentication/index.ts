@@ -46,13 +46,17 @@ const useAuthentication = (
 	})
 
 	/**
-	 * Force sign in to hopefully resolve the error. The user is signed out
-	 * to prevent unwanted looping of requesting an expired or invalid token.
+	 * Force sign out to hopefully resolve the error. The user is signed out
+	 * to prevent unwanted looping of requesting an expired token or if for
+	 * whatever reason, idp is not accepting our refresh requests.
 	 *
 	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
 	 */
 	useEffect(() => {
-		if (data?.error === AuthErrors.RefreshAccessTokenError) {
+		if (
+			data?.error === AuthErrors.RefreshAccessTokenExpiredError ||
+			data?.error === AuthErrors.RefreshAccessTokenInvalidGrantError
+		) {
 			signOut()
 		}
 	}, [data?.error, signOut])
@@ -64,7 +68,6 @@ const useAuthentication = (
 	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 	const preferencesLoaded = preferencesSavedAndLoaded()
 	const error = data?.error
-	const hasError = !!error
 
 	// We accept consent manager on the user's behalf. As per Legal & Compliance,
 	// signing-in means a user is accepting our privacy policy and so we can
@@ -86,7 +89,6 @@ const useAuthentication = (
 	// Return everything packaged up in an object
 	return {
 		error,
-		hasError,
 		isAuthenticated,
 		isLoading,
 		session,
