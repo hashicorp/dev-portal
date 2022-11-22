@@ -33,15 +33,14 @@ const useAuthentication = (
 	options: UseAuthenticationOptions = {}
 ): UseAuthenticationResult => {
 	const { signIn, signOut } = useAuthMethods()
-
 	// Get option properties from `options` parameter
-	// `onUnauthenticated function only calls when `isRequired` is true
+	// `onUnauthenticated` function only calls when `isRequired` is true
 	const { isRequired = false, onUnauthenticated = () => signIn() } = options
 
 	// Pull data and status from next-auth's hook, and pass options
 	const { data, status } = useSession({
 		required: isRequired,
-		onUnauthenticated: onUnauthenticated,
+		onUnauthenticated,
 	})
 	const [isAuthenticated, setIsAuthenticated] = useState(false)
 
@@ -51,6 +50,8 @@ const useAuthentication = (
 			setIsAuthenticated(true)
 		} else if (isAuthenticated && status === 'unauthenticated') {
 			setIsAuthenticated(false)
+		} else if (status !== 'authenticated') {
+			setIsAuthenticated(false)
 		}
 	}, [status, isAuthenticated])
 
@@ -59,11 +60,14 @@ const useAuthentication = (
 	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
 	 */
 	useEffect(() => {
+		// set the state to unauthenticated if we have a refresh token error
 		if (
-			data?.error === AuthErrors.RefreshAccessTokenExpiredError ||
-			data?.error === AuthErrors.RefreshAccessTokenInvalidGrantError
+			data?.error === AuthErrors.RefreshAccessTokenError ||
+			data?.error === AuthErrors.RefreshAccessTokenExpiredError
 		) {
 			setIsAuthenticated(false)
+		}
+		if (data?.error === AuthErrors.RefreshAccessTokenExpiredError) {
 			signOut()
 		}
 	}, [data?.error, signOut])
@@ -71,7 +75,6 @@ const useAuthentication = (
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
 	const preferencesLoaded = preferencesSavedAndLoaded()
-	const error = data?.error
 
 	// We accept consent manager on the user's behalf. As per Legal & Compliance,
 	// signing-in means a user is accepting our privacy policy and so we can
@@ -84,13 +87,13 @@ const useAuthentication = (
 
 	// Return everything packaged up in an object
 	return {
-		error,
+		error: data?.error,
 		isAuthenticated,
 		isLoading,
 		signIn,
 		signOut,
 		signUp,
-		token: (data?.accessToken as SessionData['accessToken']) ?? null,
+		accessToken: data?.accessToken as SessionData['accessToken'],
 		user: data?.user ?? null,
 	}
 }

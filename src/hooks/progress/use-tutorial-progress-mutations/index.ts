@@ -28,7 +28,7 @@ import {
  */
 const useTutorialProgressMutations = (): UseTutorialProgressMutationsResult => {
 	const queryClient = useQueryClient()
-	const { token: accessToken } = useAuthentication()
+	const { accessToken } = useAuthentication()
 
 	/**
 	 * When a mutation is successful, we set the associated query data.

@@ -21,7 +21,7 @@ const useIsBookmarked = ({
 	tutorialId,
 }: UseIsBookmarkedOptions): UseIsBookmarkedResult => {
 	// Get the current user's access token
-	const { isAuthenticated, token: accessToken } = useAuthentication()
+	const { isAuthenticated, accessToken } = useAuthentication()
 
 	// Fetch a single bookmark by tutorial id
 	const { data: isBookmarked, ...restQueryResult } = useQuery<QueryDataType>(

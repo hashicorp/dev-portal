@@ -59,7 +59,7 @@ function useProgressBatchQuery({
 	const queryClient = useQueryClient()
 
 	// Get the current user's access token
-	const { isAuthenticated, token: accessToken } = useAuthentication()
+	const { isAuthenticated, accessToken } = useAuthentication()
 
 	/**
 	 * After a successful query, prime the requested

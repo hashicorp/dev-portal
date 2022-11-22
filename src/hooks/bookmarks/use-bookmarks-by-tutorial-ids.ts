@@ -30,7 +30,7 @@ const useBookmarksByTutorialIds = ({
 	const queryClient = useQueryClient()
 
 	// Get the current user's access token
-	const { isAuthenticated, token: accessToken } = useAuthentication()
+	const { isAuthenticated, accessToken } = useAuthentication()
 
 	// Set up the `onSuccess` callback
 	const onSuccess = (data: QueryDataType) => {

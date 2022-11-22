@@ -58,7 +58,7 @@ interface UseBookmarkMutationsResult {
  */
 const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 	const queryClient = useQueryClient()
-	const { token: accessToken } = useAuthentication()
+	const { accessToken } = useAuthentication()
 
 	/**
 	 * Set up `onSuccess` callback for the create/delete mutations.

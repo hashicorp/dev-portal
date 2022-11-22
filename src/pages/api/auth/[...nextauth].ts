@@ -96,9 +96,7 @@ export default NextAuth({
 				} catch (err) {
 					let errorType = AuthErrors.RefreshAccessTokenError
 
-					if (err.error === 'invalid_grant') {
-						errorType = AuthErrors.RefreshAccessTokenInvalidGrantError
-					} else if (err.error === 'inactive_token') {
+					if (err.error === 'inactive_token') {
 						errorType = AuthErrors.RefreshAccessTokenExpiredError
 					}
 
