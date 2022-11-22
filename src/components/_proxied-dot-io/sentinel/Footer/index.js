@@ -5,7 +5,6 @@ import NomadLogo from '@hashicorp/mktg-logos/product/nomad/primary/colorwhite.sv
 import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary/colorwhite.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
 
-import NewsletterSignupForm from 'components/_proxied-dot-io/sentinel/NewsletterSignupForm'
 import IconFacebook from './social/icon-facebook'
 import IconGithub from './social/icon-github'
 import IconLinkedIn from './social/icon-linkedin'
@@ -17,21 +16,10 @@ import IconYouTube from './social/icon-youtube'
  * Localized from hashicorp.com 04.06.21
  */
 
-function Footer({ openConsentManager, showSignupForm }) {
+function Footer({ openConsentManager }) {
 	return (
 		<footer className="g-footer_sentinel">
 			<div className="g-grid-container">
-				{showSignupForm && (
-					<div
-						className="newsletter-section"
-						data-testid="newsletterSignupForm"
-					>
-						<NewsletterSignupForm
-							theme={{ background: 'dark' }}
-							placement="footer"
-						/>
-					</div>
-				)}
 				<div className="social-section">
 					<InlineSvg className="hc-logo" src={HashicorpLogoSvg} />
 					<ul>
@@ -425,10 +413,6 @@ function Footer({ openConsentManager, showSignupForm }) {
 			</div>
 		</footer>
 	)
-}
-
-Footer.defaultProps = {
-	showSignupForm: true,
 }
 
 export default Footer
