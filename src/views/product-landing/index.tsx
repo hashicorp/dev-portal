@@ -10,7 +10,7 @@ import OverviewCta from './components/overview-cta'
 import ProductLandingBlocks from './components/product-landing-blocks'
 import s from './product-landing.module.css'
 import { TryHcpCalloutPrebuilt } from 'components/try-hcp-callout'
-import { hasHcpCalloutContent } from 'components/try-hcp-callout/components/try-hcp-callout-prebuilt/content'
+import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
 
 function ProductLandingView({
 	content,
