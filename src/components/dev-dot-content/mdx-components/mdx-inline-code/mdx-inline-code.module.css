@@ -1,8 +1,23 @@
+/* Note: https://github.com/hashicorp/design-system-tokens has been marked
+as archived, so we don't have the code-200 tokens or helper class. 
+Defining them inline here while we figure out what to do. */
+.hds-typography-code-200 {
+	--token-typography-code-200-font-family: var(
+		--token-typography-code-100-font-family
+	);
+	--token-typography-code-200-font-size: 0.875rem;
+	--token-typography-code-200-line-height: 1.125;
+
+	font-family: var(--token-typography-code-200-font-family);
+	font-size: var(--token-typography-code-200-font-size);
+	line-height: var(--token-typography-code-200-line-height);
+}
+
 .inlineCode {
-	composes: hds-typography-code-200 from global;
+	composes: hds-typography-code-200;
 	background-color: var(--token-color-palette-neutral-50);
 	border-radius: 5px;
 	border: 1px solid rgba(101, 106, 118, 0.2);
 	line-height: 1;
-	padding: 2px 4px;
+	padding: 2px 4px 3px 4px;
 }
