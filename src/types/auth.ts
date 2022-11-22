@@ -31,8 +31,7 @@ export enum AuthErrors {
 	// NOTE: temporary prefix of [next-auth] for existing log monitor
 	// TODO: abstract logging so everything is grouped
 	RefreshAccessTokenError = '[next-auth] RefreshAccessTokenError',
-	RefreshAccessTokenInvalidGrantError = '[next-auth] RefreshAccessTokenError: invalid_grant',
-	RefreshAccessTokenExpiredError = '[next-auth] RefreshAccessTokenError: inactive_token',
+	RefreshAccessTokenExpiredError = '[next-auth] RefreshAccessTokenError: token_inactive',
 }
 
 /** The response shape from `POST {IDENTITY_PROVIDER}/oauth2/token` */

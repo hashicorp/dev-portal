@@ -96,7 +96,7 @@ export default NextAuth({
 				} catch (err) {
 					let errorType = AuthErrors.RefreshAccessTokenError
 
-					if (err.error === 'inactive_token') {
+					if (err.error === 'token_inactive') {
 						errorType = AuthErrors.RefreshAccessTokenExpiredError
 					}
 
