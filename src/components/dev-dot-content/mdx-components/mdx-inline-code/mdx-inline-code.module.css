@@ -1,9 +1,8 @@
 .inlineCode {
+	composes: hds-typography-code-200 from global;
 	background-color: var(--token-color-palette-neutral-50);
 	border-radius: 5px;
 	border: 1px solid rgba(101, 106, 118, 0.2);
-	font-size: 0.8125rem;
-	font-weight: 400;
-	line-height: 16px;
+	line-height: 1;
 	padding: 2px 4px;
 }
