@@ -44,5 +44,11 @@
 				"text": "Clients"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "HCP Boundary",
+		"description": "Securely connect to clouds and remote hosts",
+		"ctaText": "Try HCP Boundary",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }
