@@ -7,6 +7,7 @@ import HashiHead from '@hashicorp/react-head'
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { TryHcpCalloutCompact } from 'components/try-hcp-callout/components/try-hcp-callout-compact'
 import {
 	generateInstallViewNavItems,
 	generateProductLandingSidebarNavData,
@@ -30,6 +31,7 @@ import {
 	PageHeader,
 	SidecarMarketingCard,
 } from './components'
+import s from './product-downloads-view.module.css'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -48,6 +50,7 @@ const ProductDownloadsViewContent = ({
 		featuredCollectionCards,
 		featuredTutorialCards,
 		sidecarMarketingCard,
+		sidecarHcpCallout,
 		sidebarMenuItems,
 		installName,
 	} = pageContent
@@ -83,7 +86,22 @@ const ProductDownloadsViewContent = ({
 			 */
 			sidebarNavDataLevels={sidebarNavDataLevels as any}
 			breadcrumbLinks={breadcrumbLinks}
-			sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
+			sidecarSlot={
+				<>
+					<SidecarMarketingCard {...sidecarMarketingCard} />
+					{sidecarHcpCallout ? (
+						<div className={s.sidecarTryHcpCallout}>
+							<TryHcpCalloutCompact
+								productSlug={sidecarHcpCallout.productSlug}
+								heading={sidecarHcpCallout.heading}
+								description={sidecarHcpCallout.description}
+								ctaText={sidecarHcpCallout.ctaText}
+								ctaUrl={sidecarHcpCallout.ctaUrl}
+							/>
+						</div>
+					) : null}
+				</>
+			}
 		>
 			{/**
 			 * Legal has requested that we make the enterprise downloads page public

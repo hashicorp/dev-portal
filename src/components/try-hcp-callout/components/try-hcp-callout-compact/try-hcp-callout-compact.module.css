@@ -24,7 +24,7 @@
 
 .background {
 	composes: backgroundBase;
-	background-image: url('./img/try-hcp-callout-compact-background.svg');
+	background-image: url('./img/try-hcp-callout-compact-background.svg?url');
 	background-size: auto;
 	background-repeat: no-repeat;
 	background-position: left bottom;

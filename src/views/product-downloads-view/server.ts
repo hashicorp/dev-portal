@@ -17,6 +17,7 @@ import {
 	sortAndFilterReleaseVersions,
 } from './helpers'
 import { generatePackageManagers } from './server-helpers'
+import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
 
 interface GenerateStaticPropsOptions {
 	isEnterpriseMode?: boolean
@@ -61,6 +62,7 @@ const generateGetStaticProps = (
 			packageManagerOverrides,
 			sidebarMenuItems,
 			sidecarMarketingCard,
+			sidecarHcpCallout: rawSidecarHcpCallout,
 		} = CONTENT
 
 		/**
@@ -107,6 +109,23 @@ const generateGetStaticProps = (
 			  })
 
 		/**
+		 * Build the sidecar HCP callout card
+		 */
+		let sidecarHcpCallout
+		const isHcpProduct = hasHcpCalloutContent(product.slug)
+		const hasContent = typeof rawSidecarHcpCallout !== 'undefined'
+		if (hasContent && isHcpProduct) {
+			sidecarHcpCallout = {
+				...rawSidecarHcpCallout,
+				productSlug: product.slug,
+			}
+		} else if (hasContent) {
+			console.warn(
+				`In "product-downloads-view", for product slug "${product.slug}", "sidecarHcpCallout" content was provided, but the Try HCP callout component cannot be rendered as "${product.slug}" is not recognized as a product with an HCP offering. Please ensure "sidecarHcpCallout" content only exists for products with HCP offerings, or report this as a bug.`
+			)
+		}
+
+		/**
 		 * Combine release data and page content
 		 */
 		const props = stripUndefinedProperties({
@@ -121,6 +140,7 @@ const generateGetStaticProps = (
 				installName: options.installName,
 				sidebarMenuItems,
 				sidecarMarketingCard,
+				sidecarHcpCallout,
 			},
 			product,
 			releases,
