@@ -94,13 +94,16 @@ export default NextAuth({
 					token.access_token = access_token
 					token.refresh_token = refresh_token
 				} catch (err) {
-					console.error(
-						`${AuthErrors.RefreshAccessTokenError}: failed to refresh token set`,
-						err
-					)
+					let errorType = AuthErrors.RefreshAccessTokenError
+
+					if (err.error === 'token_inactive') {
+						errorType = AuthErrors.RefreshAccessTokenExpiredError
+					}
+
+					console.error(`${errorType}: failed to refresh token set`, err)
 					return {
 						...token,
-						error: AuthErrors.RefreshAccessTokenError,
+						error: errorType,
 					}
 				}
 			} else {
