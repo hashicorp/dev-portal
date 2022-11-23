@@ -16,7 +16,7 @@
 		},
 		{
 			"title": "What is Boundary?",
-			"fullPath": "/boundary/docs/what-is-boundary"
+			"fullPath": "/boundary/docs/overview/what-is-boundary"
 		},
 		{
 			"title": "Quick Start",
@@ -28,11 +28,11 @@
 		"subtitle": "Boundary is an intelligent proxy that creates granular, identity-based access controls for dynamic infrastructure.",
 		"featuredDocsLinks": [
 			{
-				"href": "/boundary/docs/what-is-boundary",
+				"href": "/boundary/docs/overview/what-is-boundary",
 				"text": "What is Boundary?"
 			},
 			{
-				"href": "/boundary/docs/use-cases",
+				"href": "/boundary/docs/overview/use-cases",
 				"text": "Use Cases"
 			},
 			{
