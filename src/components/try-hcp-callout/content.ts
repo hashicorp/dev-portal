@@ -32,7 +32,7 @@ export const tryHcpCalloutContent: Record<
 	consul: {
 		heading: 'HCP Consul',
 		description: 'Discover and securely connect your applications',
-		ctaText: 'Try HCP Consul',
+		ctaText: 'Try HCP Consul for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
 	packer: {
