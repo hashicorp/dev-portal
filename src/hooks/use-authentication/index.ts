@@ -1,15 +1,10 @@
 import { useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
+import { Session as NextAuthSession } from 'next-auth'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
-import {
-	AuthErrors,
-	SessionData,
-	SessionStatus,
-	UserData,
-	ValidAuthProviderId,
-} from 'types/auth'
+import { AuthErrors, ValidAuthProviderId } from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 
@@ -44,7 +39,7 @@ const useAuthentication = (
 	const { data, status } = useSession({
 		required: isRequired,
 		onUnauthenticated,
-	}) as { data: SessionData; status: SessionStatus }
+	})
 
 	/**
 	 * Force sign out to hopefully resolve the error. The user is signed out
@@ -76,7 +71,7 @@ const useAuthentication = (
 	}, [isAuthenticated, preferencesLoaded])
 
 	// Separating user and session data
-	let session: SessionData, user: UserData
+	let session: NextAuthSession, user: NextAuthSession['user']
 	if (isAuthenticated) {
 		session = { ...data }
 		user = data.user

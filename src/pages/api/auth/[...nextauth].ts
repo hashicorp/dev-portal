@@ -137,7 +137,7 @@ export default NextAuth({
 		}: {
 			token: JWT
 			session: NextAuthSession
-		}): Promise<SessionData> {
+		}): Promise<NextAuthSession> {
 			return {
 				...session,
 				accessToken: token.access_token as TokenSet['access_token'],
