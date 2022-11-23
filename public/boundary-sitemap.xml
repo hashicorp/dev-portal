@@ -91,7 +91,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://developer.hashicorp.com/boundary/docs/what-is-boundary</loc>
+    <loc>https://developer.hashicorp.com/boundary/docs/overview/what-is-boundary</loc>
     <lastmod>2022-10-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -283,7 +283,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://developer.hashicorp.com/boundary/docs/use-cases</loc>
+    <loc>https://developer.hashicorp.com/boundary/docs/overview/use-cases</loc>
     <lastmod>2022-10-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
