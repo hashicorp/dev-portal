@@ -1,11 +1,4 @@
-import { Profile as NextAuthProfile } from 'next-auth'
-
 export type SessionStatus = 'authenticated' | 'unauthenticated' | 'loading'
-
-export interface Profile extends NextAuthProfile {
-	picture: string
-	nickname: string
-}
 
 /**
  * Enumeration of supported auth provider IDs.

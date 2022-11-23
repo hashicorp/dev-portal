@@ -1,3 +1,4 @@
+import { Profile } from 'next-auth'
 import { Provider } from 'next-auth/providers'
 import { ValidAuthProviderId } from 'types/auth'
 
@@ -16,7 +17,7 @@ type CloudIdpProviderConfig = Provider & {
 		name: string
 		token_endpoint_auth_method: string
 	}
-	profile(profile: $TSFixMe): $TSFixMe
+	profile(profile: Profile): Profile
 }
 
 /**
@@ -37,7 +38,7 @@ const CloudIdpProvider: CloudIdpProviderConfig = {
 		name: 'HashiCorp Developer',
 		token_endpoint_auth_method: 'client_secret_post',
 	},
-	profile(profile: $TSFixMe) {
+	profile(profile: Profile) {
 		return { id: profile.sub, ...profile }
 	},
 }

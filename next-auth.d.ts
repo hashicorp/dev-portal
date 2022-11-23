@@ -1,6 +1,11 @@
 import { DefaultSession } from 'next-auth'
 import { AuthErrors } from 'types/auth'
 
+/**
+ * Below are augmented interfaces on top of the default
+ * next-auth interfaces https://next-auth.js.org/getting-started/typescript#main-module
+ */
+
 declare module 'next-auth' {
 	/**
 	 * Object representing an authentication session.
@@ -19,6 +24,12 @@ declare module 'next-auth' {
 			/** The user's nickname. */
 			nickname?: string | null
 		} & DefaultSession['user']
+	}
+
+	/** The OAuth profile returned from your provider */
+	interface Profile {
+		picture: string
+		nickname: string
 	}
 }
 
