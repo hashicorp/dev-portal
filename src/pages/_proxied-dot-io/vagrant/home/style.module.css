@@ -1,91 +1,30 @@
-.block {
-  padding: 100px 0;
-
-  /** DEBT: remove when text split body copy color is updated */
-  & :global(.g-type-body) {
-    color: var(--gray-2);
-  }
+.container {
+	composes: g-grid-container from global;
 }
 
-.hero {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 150px 0;
+/*
+ * Use cases
+ */
 
-  & img {
-    max-width: 445px;
-  }
+.useCases {
+	margin: 60px auto;
 
-  & .buttons > * {
-    margin-right: 15px;
-    margin-top: 25px;
-
-    & > *:last-child {
-      margin-right: 0;
-    }
-
-    @media (max-width: 500px) {
-      width: 100%;
-      margin-top: 20px;
-    }
-  }
+	@media (--medium-up) {
+		margin: 120px auto;
+	}
 }
 
-.unifiedWorkflow {
-  composes: block;
-}
+/*
+ * Temporary solution until all products move over to use
+ * the NextSteps WPL component.
+ */
 
-/* enforce consistency section */
+.nextSteps {
+	--margin-top: -60px;
 
-.enforceConsistency {
-  composes: block;
+	margin-top: var(--margin-top);
 
-  & img {
-    max-width: 70%;
-  }
-}
-
-/* cross-platform section */
-
-.crossPlatform {
-  composes: block;
-
-  & img {
-    max-width: 130px;
-    min-width: 20px;
-    height: auto;
-    fill: black;
-    padding: 0 20px;
-  }
-}
-
-/* trusted at scale section */
-
-.trustedAtScale {
-  composes: block;
-  background: var(--vagrant-secondary);
-
-  & .customerImg {
-    max-width: 80%;
-    margin: 50px auto 0 auto;
-    display: block;
-
-    @media (max-width: 800px) {
-      max-width: 100%;
-    }
-  }
-}
-
-.tag {
-  composes: g-type-label from global;
-  display: inline-block;
-  background: black;
-  color: white;
-  padding: 6px 8px;
-}
-
-.h2 {
-  composes: g-type-display-2 from global;
-  margin: 20px 0 10px 0;
+	@media (--medium-up) {
+		--margi-top: -120px;
+	}
 }

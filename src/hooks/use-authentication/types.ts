@@ -1,6 +1,7 @@
 import { Session } from 'next-auth'
-import { SessionData, UserData } from 'types/auth'
-import { signInWrapper, signOutWrapper, signUp } from './helpers'
+import { signIn, SignInOptions, signOut, SignOutParams } from 'next-auth/react'
+import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
+import { signUp } from './helpers'
 
 interface UseAuthenticationOptions {
 	/**
@@ -11,20 +12,24 @@ interface UseAuthenticationOptions {
 
 	/**
 	 * Optional callback function. Invoked by next-auth when `isRequired` is true.
-	 * By default, we invoke `signInWrapper` with no parameters.
+	 * By default, we invoke our custom `signIn` callback with no parameters.
 	 */
 	onUnauthenticated?: () => void
 }
 
 interface UseAuthenticationResult {
-	isAuthEnabled: boolean
+	// https://github.com/nextauthjs/next-auth/blob/next-auth@v4.10.3/packages/next-auth/src/core/types.ts#L422-L440
+	error: undefined | Session['error']
 	isAuthenticated: boolean
 	isLoading: boolean
 	session: SessionData
 	showAuthenticatedUI: boolean
 	showUnauthenticatedUI: boolean
-	signIn: typeof signInWrapper
-	signOut: typeof signOutWrapper
+	signIn: (
+		provider?: ValidAuthProviderId,
+		options?: SignInOptions
+	) => ReturnType<typeof signIn>
+	signOut: (options?: SignOutParams) => ReturnType<typeof signOut>
 	signUp: typeof signUp
 	status: Session['status']
 	user: null | UserData

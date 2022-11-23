@@ -3,29 +3,21 @@ import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
-import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
+import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
 import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
 // Global imports
 import { getUserMenuItems } from 'lib/auth/user'
-import useAuthentication, {
-	DEFAULT_PROVIDER_ID,
-} from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
-import Button from 'components/button'
 import { CommandBarActivator } from 'components/command-bar'
-import StandaloneLink from 'components/standalone-link'
 import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
 
 // Local imports
 import { NavigationHeaderItem } from './types'
-import {
-	GiveFeedbackButton,
-	HomePageHeaderContent,
-	ProductPageHeaderContent,
-} from './components'
+import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
 import s from './navigation-header.module.css'
 
 const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
@@ -56,58 +48,33 @@ const MobileMenuButton = () => {
  * the elements with CSS on tablet and smaller viewports.
  */
 const AuthenticationControls = () => {
-	const { asPath } = useRouter()
-	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
-		useAuthentication()
+	const { signIn, signOut, user } = useAuthentication()
 
-	/**
-	 * Upon signin
-	 * - if on the homepage, redirect to `/profile/bookmarks`
-	 * - else rely on default behavior & redirect back to the current page
-	 */
-	const handleSignIn = () => {
-		const isHomePage = asPath === '/'
-		signIn(DEFAULT_PROVIDER_ID, {
-			callbackUrl: isHomePage ? '/profile/bookmarks' : asPath,
-		})
-	}
-
-	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
-		return null
-	}
-
-	let content
-	if (showUnauthenticatedUI) {
-		content = (
-			<>
-				<Button
-					icon={<IconSignIn16 />}
-					iconPosition="trailing"
-					onClick={handleSignIn}
-					text="Sign In"
-				/>
-				<StandaloneLink
-					className={s.signUpLink}
-					textClassName={s.signUpLinkText}
-					href="/sign-up"
-					icon={<IconUserPlus16 />}
-					iconPosition="trailing"
-					text="Sign Up"
-				/>
-			</>
-		)
-	} else if (showAuthenticatedUI) {
-		content = (
+	return (
+		<div className={s.authenticationControls}>
 			<UserDropdownDisclosure
 				className={s.userDropdownDisclosure}
 				listPosition="right"
-				items={getUserMenuItems({ signOut })}
+				items={
+					user
+						? getUserMenuItems({ signOut })
+						: [
+								{
+									icon: <IconSignIn16 />,
+									label: 'Sign in',
+									onClick: () => signIn(),
+								},
+								{
+									href: '/sign-up',
+									icon: <IconUserPlus16 />,
+									label: 'Sign up',
+								},
+						  ]
+				}
 				user={user}
 			/>
-		)
-	}
-
-	return <div className={s.authenticationControls}>{content}</div>
+		</div>
+	)
 }
 
 /**
@@ -129,7 +96,6 @@ const NavigationHeader = () => {
 		<header className={s.root}>
 			<LeftSideHeaderContent />
 			<div className={s.rightSide}>
-				<GiveFeedbackButton className="g-hide-with-mobile-menu" />
 				{GLOBAL_SEARCH_ENABLED ? (
 					<CommandBarActivator
 						leadingIcon={<IconSearch16 />}

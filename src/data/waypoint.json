@@ -35,7 +35,7 @@
 		},
 		{
 			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/waypoint",
+			"url": "https://developer.hashicorp.com/waypoint/tutorials",
 			"type": "inbound"
 		},
 		{
@@ -78,9 +78,5 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 5, 2022"
-	}
+	]
 }

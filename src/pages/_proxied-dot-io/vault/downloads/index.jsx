@@ -18,19 +18,19 @@ function DownloadsPage({ product, releases, latestVersion }) {
 			getStartedLinks={[
 				{
 					label: 'Getting Started with the CLI',
-					href: 'http://learn.hashicorp.com/collections/vault/getting-started',
+					href: 'https://developer.hashicorp.com/vault/tutorials/getting-started',
 				},
 				{
 					label: 'Getting Started with Vault UI',
-					href: 'http://learn.hashicorp.com/collections/vault/getting-started-ui',
+					href: 'https://developer.hashicorp.com/vault/tutorials/getting-started-ui',
 				},
 				{
 					label: 'Vault on HCP',
-					href: 'http://learn.hashicorp.com/collections/vault/getting-started-ui',
+					href: 'https://developer.hashicorp.com/vault/tutorials/cloud',
 				},
 				{
 					label: 'View all Vault tutorials',
-					href: 'https://learn.hashicorp.com/vault',
+					href: 'https://developer.hashicorp.com/vault/tutorials',
 				},
 			]}
 			logo={
@@ -41,8 +41,8 @@ function DownloadsPage({ product, releases, latestVersion }) {
 				/>
 			}
 			tutorialLink={{
-				href: 'https://learn.hashicorp.com/vault',
-				label: 'View Tutorials at HashiCorp Learn',
+				href: 'https://developer.hashicorp.com/vault/tutorials',
+				label: 'View Tutorials',
 			}}
 			merchandisingSlot={
 				<>

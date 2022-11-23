@@ -43,7 +43,7 @@
 		"divider",
 		{
 			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/nomad",
+			"url": "https://developer.hashicorp.com/nomad/tutorials",
 			"type": "outbound"
 		},
 		{
@@ -100,9 +100,5 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 13, 2022"
-	}
+	]
 }

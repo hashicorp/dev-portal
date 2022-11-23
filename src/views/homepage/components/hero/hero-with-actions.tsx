@@ -1,9 +1,9 @@
-import type { HeroProps } from './types'
 import classNames from 'classnames'
 import slugify from 'slugify'
-import Link from 'next/link'
 import Heading from 'components/heading'
+import Link from 'components/link'
 import Text from 'components/text'
+import type { HeroProps } from './types'
 import Hero from './hero'
 import s from './hero.module.css'
 
@@ -20,18 +20,12 @@ interface HeroWithActionsProps extends HeroProps {
 }
 
 function HeroWithActions({
-	badgeText,
 	heading,
 	description,
 	actions,
 }: HeroWithActionsProps) {
 	return (
-		<Hero
-			className={s.withActions}
-			badgeText={badgeText}
-			heading={heading}
-			description={description}
-		>
+		<Hero className={s.withActions} heading={heading} description={description}>
 			<ul className={s.actions}>
 				{actions.map((action, index) => {
 					const slug = slugify(action.heading)
@@ -52,8 +46,8 @@ function HeroWithActions({
 									<Text className={s.actionDescription} size={200}>
 										{action.description}
 									</Text>
-									<Link href={action.link}>
-										<a className={s.actionLink}>{action.linkText}</a>
+									<Link className={s.actionLink} href={action.link}>
+										{action.linkText}
 									</Link>
 								</div>
 							</article>

@@ -1,0 +1,49 @@
+---
+componentName: 'TryHcpCallout'
+---
+
+The `<TryHcpCallout />` components render HCP themed callout cards. There are multiple different components to meet various use cases, each composed of similar pieces.
+
+## Components
+
+### `<TryHcpCallout />`
+
+This composition includes a mock UI visual on large viewports. Intended for use in main content areas, such as on product landing pages.
+
+<LiveComponent>{`
+<TryHcpCallout
+  productSlug="terraform"
+	heading="Terraform Cloud"
+	description="Automate infrastructure provisioning at any scale for free."
+	ctaText="Try Cloud for free"
+	ctaUrl="https://app.terraform.io/public/signup/account"
+/>
+`}</LiveComponent>
+
+### `<TryHcpCalloutCompact />`
+
+This composition includes logo and text elements only. Intended for use in width-constrained areas, such as the sidecar area of our sidebar-sidecar layout.
+
+<LiveComponent>{`
+<TryHcpCalloutCompact
+  productSlug="terraform"
+	heading="Terraform Cloud"
+	description="Automate infrastructure provisioning at any scale for free."
+	ctaText="Try Cloud for free"
+	ctaUrl="https://app.terraform.io/public/signup/account"
+/>
+`}</LiveComponent>
+
+### `<TryHcpCalloutPrebuilt />`
+
+This component wraps `<TryHcpCallout />`. It handles content for a set of supported `productSlug` value, which allows this component to provide a single-prop `productSlug` props API. Intended for use in authorable contexts.
+
+<LiveComponent>{`<>
+  <TryHcpCalloutPrebuilt productSlug="boundary"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="consul"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="hcp"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="packer"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="terraform"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="vault"/><br/>
+  <TryHcpCalloutPrebuilt productSlug="waypoint"/>
+</>`}</LiveComponent>

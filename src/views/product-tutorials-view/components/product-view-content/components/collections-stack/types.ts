@@ -1,7 +1,5 @@
-import {
-	ProductOption,
-	Collection as ClientCollection,
-} from 'lib/learn-client/types'
+import { CollectionCardPropsWithId } from 'components/collection-card'
+import { ProductOption } from 'lib/learn-client/types'
 
 export interface CollectionsStackProps {
 	/** Heading to show above the collection cards. */
@@ -15,5 +13,5 @@ export interface CollectionsStackProps {
 	subheading?: string
 	/** A product slug, used for theming */
 	product: ProductOption
-	featuredCollections?: ClientCollection[]
+	collectionCards?: CollectionCardPropsWithId[]
 }

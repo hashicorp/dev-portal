@@ -14,15 +14,15 @@ function DownloadsPage({ binaryReleases, desktopReleases }) {
 			getStartedLinks={[
 				{
 					label: 'Install Boundary',
-					href: 'https://learn.hashicorp.com/tutorials/boundary/getting-started-install',
+					href: 'https://developer.hashicorp.com/boundary/tutorials/oss-getting-started/oss-getting-started-install',
 				},
 				{
 					label: 'Introduction to Boundary',
-					href: 'https://learn.hashicorp.com/tutorials/boundary/getting-started-intro',
+					href: 'https://developer.hashicorp.com/boundary/tutorials/oss-getting-started/oss-getting-started-intro',
 				},
 				{
 					label: 'Start a Development Environment',
-					href: 'https://learn.hashicorp.com/tutorials/boundary/getting-started-dev',
+					href: 'https://developer.hashicorp.com/boundary/tutorials/oss-getting-started/oss-getting-started-dev',
 				},
 			]}
 			logo={
@@ -34,8 +34,8 @@ function DownloadsPage({ binaryReleases, desktopReleases }) {
 			}
 			product="boundary"
 			tutorialLink={{
-				label: 'View Tutorial on HashiCorp Learn',
-				href: 'https://learn.hashicorp.com/tutorials/boundary/getting-started-install',
+				label: 'View Tutorials',
+				href: 'https://developer.hashicorp.com/boundary/tutorials/oss-getting-started/oss-getting-started-install',
 			}}
 			merchandisingSlot={
 				<MerchDesktopClient

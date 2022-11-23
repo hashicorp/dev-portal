@@ -9,19 +9,13 @@ interface HeroWithVideoProps extends HeroProps {
 }
 
 function HeroWithVideo({
-	badgeText,
 	heading,
 	description,
 	videoImageUrl,
 	videoUrl,
 }: HeroWithVideoProps) {
 	return (
-		<Hero
-			className={s.withVideo}
-			badgeText={badgeText}
-			heading={heading}
-			description={description}
-		>
+		<Hero className={s.withVideo} heading={heading} description={description}>
 			<VideoEmbed
 				className={s.videoEmbed}
 				light={videoImageUrl ?? true}

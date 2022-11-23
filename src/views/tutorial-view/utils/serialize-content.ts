@@ -8,7 +8,6 @@ import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
 import { rewriteStaticAssetsPlugin } from 'lib/remark-plugins/rewrite-static-assets'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { splitProductFromFilename } from '.'
-import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 
 export async function serializeContent(tutorial: ClientTutorial): Promise<{
 	content: MDXRemoteSerializeResult
@@ -38,7 +37,6 @@ export async function serializeContent(tutorial: ClientTutorial): Promise<{
 				[anchorLinks, { headings }],
 				paragraphCustomAlerts,
 				rewriteStaticAssetsPlugin,
-				rewriteTutorialLinksPlugin,
 			],
 			rehypePlugins: [
 				[rehypePrism, { ignoreMissing: true }],

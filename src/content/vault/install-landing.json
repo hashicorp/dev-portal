@@ -40,5 +40,11 @@
 				"text": "Developer Quick Start"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "HCP Vault",
+		"description": "Secure your applications and protect sensitive data",
+		"ctaText": "Try HCP Vault",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

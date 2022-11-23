@@ -90,7 +90,7 @@ export async function getWafTutorialViewProps(
 	}
 
 	return {
-		props: stripUndefinedProperties({
+		props: stripUndefinedProperties<$TSFixMe>({
 			tutorial: {
 				...fullTutorialData,
 				content: serializedContent,

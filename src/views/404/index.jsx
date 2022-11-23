@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { useErrorPageAnalytics } from '@hashicorp/platform-analytics'
+import Link from 'components/link'
 import s from './404.module.css'
 
 export default function NotFound() {
@@ -13,9 +13,7 @@ export default function NotFound() {
 				for.
 			</p>
 			<p>
-				<Link href="/">
-					<a>Back to Home</a>
-				</Link>
+				<Link href="/">Back to Home</Link>
 			</p>
 		</div>
 	)

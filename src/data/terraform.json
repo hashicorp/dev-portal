@@ -135,9 +135,5 @@
 			"path": "registry",
 			"productSlugForLoader": "terraform-docs-common"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 20, 2022"
-	}
+	]
 }
