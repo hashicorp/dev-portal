@@ -57,7 +57,6 @@ const useAuthentication = (
 	const isLoading = status === 'loading'
 	const isAuthenticated = status === 'authenticated'
 	const preferencesLoaded = preferencesSavedAndLoaded()
-	const error = data?.error
 
 	// We accept consent manager on the user's behalf. As per Legal & Compliance,
 	// signing-in means a user is accepting our privacy policy and so we can
@@ -78,14 +77,12 @@ const useAuthentication = (
 
 	// Return everything packaged up in an object
 	return {
-		error,
 		isAuthenticated,
 		isLoading,
 		session,
 		signIn,
 		signOut,
 		signUp,
-		status,
 		user,
 	}
 }

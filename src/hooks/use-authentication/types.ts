@@ -19,18 +19,15 @@ interface UseAuthenticationOptions {
 }
 
 interface UseAuthenticationResult {
-	// https://github.com/nextauthjs/next-auth/blob/next-auth@v4.10.3/packages/next-auth/src/core/types.ts#L422-L440
-	error: Session['error']
 	isAuthenticated: boolean
 	isLoading: boolean
-	session: Session
+	session?: Omit<Session, 'user'>
 	signIn: (
 		provider?: ValidAuthProviderId,
 		options?: SignInOptions
 	) => ReturnType<typeof signIn>
 	signOut: (options?: SignOutParams) => ReturnType<typeof signOut>
 	signUp: typeof signUp
-	status: SessionStatus
 	user: null | Session['user']
 }
 
