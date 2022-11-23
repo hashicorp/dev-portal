@@ -4,12 +4,12 @@ import {
 	Tutorial,
 	TutorialProgressPercent,
 } from 'lib/learn-client/types'
-import { SessionData } from 'types/auth'
+import { Session } from 'next-auth'
 import { ApiCollectionTutorialProgress } from '../api-types'
 import { getTutorialProgressRoute } from './util'
 
 interface CreateTutorialProgressOptions {
-	accessToken: SessionData['accessToken']
+	accessToken: Session['accessToken']
 	tutorialId: Tutorial['id']
 	collectionId: Collection['id']
 	completePercent: TutorialProgressPercent

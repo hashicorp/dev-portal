@@ -1,11 +1,11 @@
 import { get, toError } from 'lib/learn-client'
 import { Collection, Tutorial } from 'lib/learn-client/types'
-import { SessionData } from 'types/auth'
+import { Session } from 'next-auth'
 import { ApiCollectionTutorialProgress } from '../api-types'
 import { getTutorialProgressRoute } from './util'
 
 interface GetTutorialProgressOptions {
-	accessToken: SessionData['accessToken']
+	accessToken: Session['accessToken']
 	tutorialId: Tutorial['id']
 	collectionId: Collection['id']
 }

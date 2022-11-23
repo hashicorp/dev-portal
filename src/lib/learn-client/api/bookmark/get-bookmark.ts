@@ -1,11 +1,11 @@
 import { get, toError } from 'lib/learn-client'
 import { Tutorial } from 'lib/learn-client/types'
-import { SessionData } from 'types/auth'
+import { Session } from 'next-auth'
 import { BOOKMARK_API_ROUTE } from '.'
 import { ApiBookmark } from '../api-types'
 
 interface GetBookmarkOptions {
-	accessToken: SessionData['accessToken']
+	accessToken: Session['accessToken']
 	tutorialId: Tutorial['id']
 }
 

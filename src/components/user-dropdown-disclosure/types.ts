@@ -1,4 +1,4 @@
-import { UserData } from 'types/auth'
+import { Session } from 'next-auth'
 import {
 	DropdownDisclosureButtonItemProps,
 	DropdownDisclosureLinkItemProps,
@@ -23,7 +23,7 @@ interface UserDropdownDisclosureProps {
 	className?: DropdownDisclosureProps['className']
 	items: UserDropdownDisclosureItem[]
 	listPosition?: DropdownDisclosureProps['listPosition']
-	user: UserData
+	user: Session['user']
 }
 
 export type { UserDropdownDisclosureItem, UserDropdownDisclosureProps }

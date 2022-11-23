@@ -1,6 +1,6 @@
 import { signIn, SignInOptions, signOut, SignOutParams } from 'next-auth/react'
 import { Session } from 'next-auth'
-import { SessionStatus, UserData, ValidAuthProviderId } from 'types/auth'
+import { SessionStatus, ValidAuthProviderId } from 'types/auth'
 
 import { signUp } from './helpers'
 
@@ -33,7 +33,7 @@ interface UseAuthenticationResult {
 	signOut: (options?: SignOutParams) => ReturnType<typeof signOut>
 	signUp: typeof signUp
 	status: SessionStatus
-	user: null | UserData
+	user: null | Session['user']
 }
 
 export type { UseAuthenticationOptions, UseAuthenticationResult, SessionStatus }

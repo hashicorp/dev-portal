@@ -1,8 +1,8 @@
 import createFetch from '@vercel/fetch'
-import NextAuth, { Account, Session as NextAuthSession } from 'next-auth'
+import NextAuth, { Account, Session } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import { URL } from 'url'
-import { AuthErrors, TokenSet, Profile, SessionData } from 'types/auth'
+import { AuthErrors, TokenSet, Profile } from 'types/auth'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 import refreshTokenSet from 'lib/auth/refresh-token-set'
 import isJwtExpired from 'lib/auth/is-jwt-expired'
@@ -136,8 +136,8 @@ export default NextAuth({
 			token,
 		}: {
 			token: JWT
-			session: NextAuthSession
-		}): Promise<NextAuthSession> {
+			session: Session
+		}): Promise<Session> {
 			return {
 				...session,
 				accessToken: token.access_token as TokenSet['access_token'],

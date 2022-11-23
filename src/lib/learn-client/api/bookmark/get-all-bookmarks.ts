@@ -1,10 +1,10 @@
 import { get, toError } from 'lib/learn-client'
-import { SessionData } from 'types/auth'
+import { Session } from 'next-auth'
 import { BOOKMARK_API_ROUTE } from '.'
 import { ApiBookmark } from '../api-types'
 
 interface GetAllBookmarksOptions {
-	accessToken: SessionData['accessToken']
+	accessToken: Session['accessToken']
 }
 
 type GetAllBookmarksResult = ApiBookmark[]
