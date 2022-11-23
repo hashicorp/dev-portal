@@ -5,6 +5,7 @@ import { Session } from 'next-auth'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
 import { AuthErrors, SessionStatus, ValidAuthProviderId } from 'types/auth'
+import { useSession as _useSession } from 'lib/auth/use-seession'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 
@@ -40,6 +41,8 @@ const useAuthentication = (
 		required: isRequired,
 		onUnauthenticated,
 	}) as { data: Session; status: SessionStatus }
+	const testSession = _useSession()
+	console.log({ testSession })
 
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
