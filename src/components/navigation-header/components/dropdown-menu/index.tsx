@@ -1,6 +1,5 @@
 // Third-party imports
 import { Fragment, KeyboardEvent, ReactElement, useRef, useState } from 'react'
-import Link from 'next/link'
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
 
@@ -16,6 +15,7 @@ import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import Badge from 'components/badge'
+import Link from 'components/link'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import {
@@ -189,6 +189,7 @@ const NavigationHeaderDropdownMenu = ({
 					onKeyDown={handleKeyDown}
 					onMouseEnter={handleMouseEnter}
 					ref={activatorButtonRef}
+					data-heap-track="navigation-header-dropdown-menu-activator"
 				>
 					<ActivatorButtonContent />
 					<IconChevronDown16 className={s.activatorTrailingIcon} />
@@ -270,17 +271,15 @@ const NavigationHeaderDropdownMenu = ({
 											return (
 												<li className={s.itemContainer} key={itemId}>
 													{linkHref ? (
-														<Link href={linkHref}>
-															<a
-																aria-current={
-																	isCurrentPage ? 'page' : undefined
-																}
-																aria-label={item.ariaLabel}
-																className={s.itemLink}
-																onKeyDown={handleKeyDown}
-															>
-																{anchorContent}
-															</a>
+														<Link
+															aria-current={isCurrentPage ? 'page' : undefined}
+															aria-label={item.ariaLabel}
+															className={s.itemLink}
+															data-heap-track="navigation-header-dropdown-menu-link"
+															href={linkHref}
+															onKeyDown={handleKeyDown}
+														>
+															{anchorContent}
 														</Link>
 													) : (
 														<a

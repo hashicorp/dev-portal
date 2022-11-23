@@ -53,7 +53,11 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 }
 
 initializeUTMParamsCapture()
-addCloudLinkHandler()
+addCloudLinkHandler((destinationUrl: string) => {
+	window.analytics.track('Outbound link', {
+		destination_url: destinationUrl,
+	})
+})
 
 export default function App({
 	Component,
@@ -149,6 +153,8 @@ App.getInitialProps = async ({
 		proxiedProduct = 'boundary'
 	} else if (ctx.pathname.includes('_proxied-dot-io/packer')) {
 		proxiedProduct = 'packer'
+	} else if (ctx.pathname.includes('_proxied-dot-io/vagrant')) {
+		proxiedProduct = 'vagrant'
 	}
 	const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
 

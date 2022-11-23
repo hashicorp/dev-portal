@@ -26,6 +26,7 @@ import s from './disclosure.module.css'
  * not intended for use outside of this file.
  */
 const DisclosureContext = createContext<DisclosureContextState>(undefined)
+DisclosureContext.displayName = 'DisclosureContext'
 
 /**
  * A hook for exposing a `Disclosure`s state. Intended for use within the

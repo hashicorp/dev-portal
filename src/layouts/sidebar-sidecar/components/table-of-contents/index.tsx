@@ -29,12 +29,13 @@ const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
 				On this page
 			</p>
 			<ol className={s.tableOfContentsList}>
-				{headings.map((heading) => (
+				{headings.map((heading, index) => (
 					<TableOfContentsListItem
 						isActive={heading.slug === activeSection}
 						key={heading.slug}
 						slug={heading.slug}
 						title={heading.title}
+						index={index}
 					/>
 				))}
 			</ol>
@@ -42,7 +43,17 @@ const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
 	)
 }
 
-const TableOfContentsListItem = ({ isActive, slug, title }): ReactElement => {
+function TableOfContentsListItem({
+	isActive,
+	slug,
+	title,
+	index,
+}: {
+	isActive: boolean
+	slug: string
+	title: string
+	index: number
+}): ReactElement {
 	const className = classNames(s.tableOfContentsListItem, {
 		[s.activeTableOfContentsListItem]: isActive,
 	})
@@ -53,7 +64,11 @@ const TableOfContentsListItem = ({ isActive, slug, title }): ReactElement => {
 
 	return (
 		<li className={className} key={slug}>
-			<a className={s.tableOfContentsListItemAnchor} href={`#${slug}`}>
+			<a
+				className={s.tableOfContentsListItemAnchor}
+				href={`#${slug}`}
+				data-heap-track={`toc-list-item-index-${index}`}
+			>
 				{generatedTitle}
 			</a>
 			{isActive && <span aria-hidden className={s.activeIndicator} />}

@@ -29,6 +29,7 @@ interface MobileMenuProviderProps {
 const MobileMenuContext = createContext<MobileMenuContextState | undefined>(
 	undefined
 )
+MobileMenuContext.displayName = 'MobileMenuContext'
 
 /**
  * Provider for managing open/closed state of the mobile menu.

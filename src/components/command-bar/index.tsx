@@ -82,6 +82,7 @@ const commandBarReducer = (
 }
 
 const CommandBarContext = createContext<CommandBarContextValue>(undefined)
+CommandBarContext.displayName = 'CommandBarContext'
 
 const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	const inputRef = useRef<HTMLInputElement>()

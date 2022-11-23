@@ -117,7 +117,7 @@ export async function getTutorialPageProps(
 	}
 
 	return {
-		props: stripUndefinedProperties({
+		props: stripUndefinedProperties<$TSFixMe>({
 			metadata: {
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
@@ -138,7 +138,8 @@ export async function getTutorialPageProps(
 
 export interface TutorialPagePaths {
 	params: {
-		tutorialSlug: [string, string]
+		productSlug: string
+		tutorialSlug: string[]
 	}
 }
 

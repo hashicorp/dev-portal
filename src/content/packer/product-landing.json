@@ -8,7 +8,7 @@
 		"body": "Packer is an open source tool that lets you create identical machine images for multiple platforms from a single source template. Packer can create golden images to use in image pipelines.",
 		"cta": {
 			"text": "Learn more",
-			"url": "/packer/intro"
+			"url": "/packer/docs/intro"
 		},
 		"image": "https://www.datocms-assets.com/2885/1662053782-dev-dot-product-landing-what-is-packer-diagram.png"
 	},

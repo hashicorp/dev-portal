@@ -27,6 +27,7 @@ function DirectionalLinkBox({
 			className={classNames(s.linkbox, s[`direction-${direction}`])}
 			href={href}
 			ariaLabel={ariaLabel}
+			data-heap-track={`directional-link-box-${direction}`}
 		>
 			<Icon className={classNames(s.icon, s[`direction-${direction}`])} />
 			<Text className={s.text} asElement="span" size={200} weight="medium">

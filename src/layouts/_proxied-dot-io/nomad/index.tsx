@@ -82,27 +82,27 @@ function NomadIoLayout({ children, data }: Props): React.ReactElement {
 							'divider',
 							{
 								text: 'Tutorials',
-								url: 'https://learn.hashicorp.com/nomad',
+								url: 'https://developer.hashicorp.com/nomad/tutorials',
 								type: 'outbound',
 							},
 							{
 								text: 'Docs',
-								url: '/docs',
+								url: 'https://developer.hashicorp.com/nomad/docs',
 								type: 'inbound',
 							},
 							{
 								text: 'API',
-								url: '/api-docs',
+								url: 'https://developer.hashicorp.com/nomad/api-docs',
 								type: 'inbound',
 							},
 							{
 								text: 'Plugins',
-								url: '/plugins',
+								url: 'https://developer.hashicorp.com/nomad/plugins',
 								type: 'inbound',
 							},
 							{
 								text: 'Tools',
-								url: '/tools',
+								url: 'https://developer.hashicorp.com/nomad/tools',
 								type: 'inbound',
 							},
 							{

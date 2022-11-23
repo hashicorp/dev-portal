@@ -20,7 +20,11 @@ export default function NomadSubnav({ menuItems }) {
 			}}
 			ctaLinks={[
 				{ text: 'GitHub', url: 'https://www.github.com/hashicorp/nomad' },
-				{ text: 'Download', url: '/downloads', theme: { brand: 'nomad' } },
+				{
+					text: 'Download',
+					url: 'https://developer.hashicorp.com/nomad/downloads',
+					theme: { brand: 'nomad' },
+				},
 			]}
 			currentPath={currentPath}
 			menuItemsAlign="right"

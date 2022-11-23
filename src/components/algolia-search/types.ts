@@ -10,7 +10,7 @@ export type AlgoliaSearchPops<THit extends Hit<unknown>> = Partial<
 	ResultComponent: React.ComponentType<{ hit: THit }>
 
 	/**
-	 * Function to derive an object to be passed to next/link as props
+	 * Function to derive an object to be passed to components/link as props
 	 */
 	getHitLinkProps: (THit) => { href: { pathname: string; href?: string } }
 

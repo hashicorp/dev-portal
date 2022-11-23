@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
+import Link, { LinkProps } from 'components/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Text from 'components/text'
 import s from './breadcrumb-bar.module.css'
@@ -36,18 +36,21 @@ function BreadcrumbBar({
 	// Now that we're sure all links are relative,
 	// we can render the breadcrumb links
 
+	// For google/SEO we'll omit any structured data items
+	// without a URL.
 	const structuredData = [
 		{
 			'@context': 'https://schema.org',
 			'@type': 'BreadcrumbList',
-			itemListElement: links.map((link, index) => ({
-				'@type': 'ListItem',
-				position: index + 1,
-				name: link.title,
-				item: link.url
-					? `https://developer.hashicorp.com${link.url}`
-					: undefined,
-			})),
+			itemListElement: links
+				// remove items without a url
+				.filter((e) => !!e.url)
+				.map((link, index) => ({
+					'@type': 'ListItem',
+					position: index + 1,
+					name: link.title,
+					item: `https://developer.hashicorp.com${link.url}`,
+				})),
 		},
 	]
 	const stringifiedStructuredData = JSON.stringify(structuredData)
@@ -76,6 +79,7 @@ function BreadcrumbBar({
 								className={s.breadcrumbText}
 								href={url}
 								aria-current={isCurrentPage ? 'page' : undefined}
+								data-heap-track="breadcrumb-bar-item"
 							>
 								{cleanTitle}
 							</Elem>
@@ -87,12 +91,8 @@ function BreadcrumbBar({
 	)
 }
 
-function InternalLink({ href, children, ...rest }) {
-	return (
-		<Link href={href}>
-			<a {...rest}>{children}</a>
-		</Link>
-	)
+function InternalLink(props: LinkProps) {
+	return <Link {...props} />
 }
 
 export type { BreadcrumbLink }

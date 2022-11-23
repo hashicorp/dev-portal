@@ -40,7 +40,6 @@ const HomePageContent = ({
 	return (
 		<div className={s.homepageContent}>
 			<HeroWithVideo
-				badgeText={hero.badgeText}
 				heading={hero.heading}
 				description={<Text>{hero.description}</Text>}
 				videoUrl={VIDEO_URL}

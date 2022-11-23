@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import classNames from 'classnames'
+import Link from 'components/link'
 import { ButtonLinkProps } from './types'
 import s from './button-link.module.css'
 
@@ -12,6 +12,7 @@ import s from './button-link.module.css'
  **/
 const ButtonLink = ({
 	'aria-label': ariaLabel,
+	'data-heap-track': dataHeapTrack,
 	color = 'primary',
 	href,
 	icon,
@@ -42,26 +43,18 @@ const ButtonLink = ({
 	}
 
 	return (
-		<Link href={href}>
-			{/**
-			 * copied from components/standalone-link
-			 * NOTE: this markup is valid. It's OK to have an `onClick` when there is
-			 * also an `href` present. The `jsx-a11y/anchor-is-valid` rule is not
-			 * seeing this though since the `href` attribute is being set on `Link`
-			 * rather than the `<a>`.
-			 */}
-			{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-			<a
-				aria-label={ariaLabel}
-				className={classNames(s.root, s[size], s[color], className)}
-				rel={openInNewTab ? 'noreferrer noopener' : undefined}
-				target={openInNewTab ? '_blank' : '_self'}
-				onClick={onClick}
-			>
-				{hasLeadingIcon && icon}
-				{hasText ? text : null}
-				{hasTrailingIcon && icon}
-			</a>
+		<Link
+			aria-label={ariaLabel}
+			className={classNames(s.root, s[size], s[color], className)}
+			data-heap-track={`button-link ${dataHeapTrack ?? ''}`}
+			href={href}
+			onClick={onClick}
+			opensInNewTab={openInNewTab}
+			rel={openInNewTab ? 'noreferrer noopener' : undefined}
+		>
+			{hasLeadingIcon && icon}
+			{hasText ? text : null}
+			{hasTrailingIcon && icon}
 		</Link>
 	)
 }

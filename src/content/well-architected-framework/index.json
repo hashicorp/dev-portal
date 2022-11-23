@@ -4,7 +4,8 @@
 			"name": "Framework Pillars",
 			"collections": [
 				"well-architected-framework/operational-excellence",
-				"well-architected-framework/reliability"
+				"well-architected-framework/reliability",
+				"well-architected-framework/security"
 			]
 		},
 		{

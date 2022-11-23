@@ -1,4 +1,5 @@
 import { Session } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 
 /**
  * Object representing an authentication session.
@@ -27,11 +28,14 @@ export type { SessionData, UserData }
 export { ValidAuthProviderId }
 
 export enum AuthErrors {
-	RefreshAccessTokenError = 'RefreshAccessTokenError',
+	// NOTE: temporary prefix of [next-auth] for existing log monitor
+	// TODO: abstract logging so everything is grouped
+	RefreshAccessTokenError = '[next-auth] RefreshAccessTokenError',
+	RefreshAccessTokenExpiredError = '[next-auth] RefreshAccessTokenError: token_inactive',
 }
 
 /** The response shape from `POST {IDENTITY_PROVIDER}/oauth2/token` */
-export interface TokenSet {
+export interface TokenSet extends JWT {
 	access_token: string
 	refresh_token: string
 	scope: string

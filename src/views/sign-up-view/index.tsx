@@ -1,5 +1,4 @@
 // Third-party imports
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // HashiCorp imports
@@ -10,10 +9,9 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
 import useAuthentication from 'hooks/use-authentication'
-import BaseNewLayout from 'layouts/base-new'
-import ErrorView from 'views/error-view-switcher'
 import Button from 'components/button'
 import Heading from 'components/heading'
+import Link from 'components/link'
 import Text from 'components/text'
 
 // Local imports
@@ -32,25 +30,13 @@ const SIGN_IN_BUTTON_TEXT = 'Sign In'
 
 const SignUpView = () => {
 	const router = useRouter()
-	const { isAuthEnabled, isAuthenticated, isLoading, signIn, signUp } =
-		useAuthentication()
+	const { isAuthenticated, isLoading, signIn, signUp } = useAuthentication()
 
 	/**
 	 * @TODO determine loading state UI
 	 */
 	if (isLoading) {
 		return null
-	}
-
-	/**
-	 * Show 404 error if auth is not enabled
-	 */
-	if (!isAuthEnabled) {
-		return (
-			<BaseNewLayout>
-				<ErrorView statusCode={404} isProxiedDotIo={false} />
-			</BaseNewLayout>
-		)
 	}
 
 	/**
@@ -65,13 +51,11 @@ const SignUpView = () => {
 		<div className={s.root}>
 			<main className={s.main}>
 				<div>
-					<Link href="/">
-						<a aria-label="HashiCorp Developer">
-							<InlineSvg
-								className={s.logo}
-								src={require('./img/logo-black.svg?include')}
-							/>
-						</a>
+					<Link aria-label="HashiCorp Developer" href="/">
+						<InlineSvg
+							className={s.logo}
+							src={require('./img/logo-black.svg?include')}
+						/>
 					</Link>
 					<Heading className={s.heading} level={1} size={500} weight="bold">
 						{TITLE}

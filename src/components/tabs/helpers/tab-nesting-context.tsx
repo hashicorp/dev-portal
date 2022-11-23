@@ -7,6 +7,7 @@ export function useIsNested(): NestedTabContextValue {
 }
 
 const NestedTabContext = createContext<NestedTabContextValue>(false)
+NestedTabContext.displayName = 'NestedTabContext'
 
 /**
  * This provider allows <Tabs /> to be aware of nesting. Specifically,

@@ -10,6 +10,12 @@ const filePath = path.join(
 	'opt-in-redirect-checks.js'
 )
 
+/**
+ * This generates {@link [../src/.generated/opt-in-redirect-checks.js](../src/.generated/opt-in-redirect-checks.js)}
+ * which is .gitignore'd, so it may not appear in grep results.
+ *
+ * This will contain a dictionary of `{[productslug]: RegExp}`
+ */
 export default async function main() {
 	const result = ['export default {']
 
@@ -20,7 +26,7 @@ export default async function main() {
 
 		const { basePaths } = cachedGetProductData(productSlug)
 
-		result.push(`\t'${productSlug}': /^\\/${basePaths.join('|')}\\/?/,`)
+		result.push(`\t${productSlug}: /^\\/(${basePaths.join('|')})\\/?/,`)
 	})
 
 	result.push(`}`)
@@ -30,7 +36,12 @@ export default async function main() {
 	})
 
 	console.log(`📝 Writing generated opt-in redirect checks to ${filePath}`)
-	fs.writeFileSync(filePath, result.join('\n') + '\n', { encoding: 'utf-8' })
+	const fileContent = result.join('\n') + '\n'
+	if (process.env.DEBUG_REDIRECTS) {
+		console.log('[DEBUG_REDIRECTS]', fileContent)
+	}
+
+	fs.writeFileSync(filePath, fileContent, { encoding: 'utf-8' })
 }
 
 main()

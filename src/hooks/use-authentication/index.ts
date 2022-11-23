@@ -1,5 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
+import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
+import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
 import {
 	AuthErrors,
 	SessionData,
@@ -7,9 +10,8 @@ import {
 	ValidAuthProviderId,
 } from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
-import { signInWrapper, signOutWrapper, signUp } from './helpers'
+import { makeSignIn, makeSignOut, signUp } from './helpers'
 
-export const AUTH_ENABLED = __config.flags.enable_auth
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
 /**
@@ -21,29 +23,59 @@ export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 const useAuthentication = (
 	options: UseAuthenticationOptions = {}
 ): UseAuthenticationResult => {
+	// Get router path for `signIn` and `signOut` `callbackUrl`s
+	const router = useRouter()
+
+	// Set up memoized `signIn` and `signOut` callbacks
+	const signIn = useMemo(
+		() => makeSignIn({ routerPath: router.asPath }),
+		[router.asPath]
+	)
+	const signOut = useMemo(
+		() => makeSignOut({ routerPath: router.asPath }),
+		[router.asPath]
+	)
+
 	// Get option properties from `options` parameter
-	const { isRequired = false, onUnauthenticated = () => signInWrapper() } =
-		options
+	const { isRequired = false, onUnauthenticated = () => signIn() } = options
 
 	// Pull data and status from next-auth's hook, and pass options
 	const { data, status } = useSession({
-		required: AUTH_ENABLED && isRequired,
+		required: isRequired,
 		onUnauthenticated,
 	})
 
-	// Logout user if token refresh fails
+	/**
+	 * Force sign out to hopefully resolve the error. The user is signed out
+	 * to prevent unwanted looping of requesting an expired refresh token
+	 *
+	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
+	 */
 	useEffect(() => {
-		if (data?.error === AuthErrors.RefreshAccessTokenError) {
-			signOutWrapper()
+		if (
+			data?.error === AuthErrors.RefreshAccessTokenExpiredError ||
+			data?.error === AuthErrors.RefreshAccessTokenError
+		) {
+			signOut()
 		}
-	}, [data?.error])
+	}, [data?.error, signOut])
 
 	// Deriving booleans about auth state
-	const isAuthEnabled = AUTH_ENABLED
 	const isLoading = status === 'loading'
 	const isAuthenticated = status === 'authenticated'
 	const showAuthenticatedUI = isAuthenticated
-	const showUnauthenticatedUI = isAuthEnabled && !isLoading && !isAuthenticated
+	const showUnauthenticatedUI = !isLoading && !isAuthenticated
+	const preferencesLoaded = preferencesSavedAndLoaded()
+	const error = data?.error
+
+	// We accept consent manager on the user's behalf. As per Legal & Compliance,
+	// signing-in means a user is accepting our privacy policy and so we can
+	// enable tracking. Should only be ran if not already set & loaded.
+	useEffect(() => {
+		if (isAuthenticated && !preferencesLoaded) {
+			saveAndLoadAnalytics({ loadAll: true })
+		}
+	}, [isAuthenticated, preferencesLoaded])
 
 	// Separating user and session data
 	let session: SessionData, user: UserData
@@ -55,14 +87,14 @@ const useAuthentication = (
 
 	// Return everything packaged up in an object
 	return {
-		isAuthEnabled,
+		error,
 		isAuthenticated,
 		isLoading,
 		session,
 		showAuthenticatedUI,
 		showUnauthenticatedUI,
-		signIn: signInWrapper,
-		signOut: signOutWrapper,
+		signIn,
+		signOut,
 		signUp,
 		status,
 		user,

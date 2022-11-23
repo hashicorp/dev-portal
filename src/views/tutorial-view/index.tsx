@@ -7,7 +7,6 @@ import { MDXRemote } from 'next-mdx-remote'
 import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
 import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
-import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import { ProductOption, TutorialLite } from 'lib/learn-client/types'
@@ -18,7 +17,6 @@ import {
 	getTutorialSlug,
 } from 'views/collection-view/helpers'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
-import OptInOut from 'components/opt-in-out'
 import DevDotContent from 'components/dev-dot-content'
 import {
 	generateProductLandingSidebarNavData,
@@ -30,7 +28,6 @@ import TutorialsSidebar, {
 } from 'components/tutorials-sidebar'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
-import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
 
 // Local imports
 import {
@@ -112,7 +109,6 @@ function TutorialView({
 	tutorial,
 }: TutorialViewProps): React.ReactElement {
 	// hooks
-	useOptInAnalyticsTracking('learn')
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
@@ -148,10 +144,6 @@ function TutorialView({
 
 	const canonicalCollectionSlug = tutorial.collectionCtx.default.slug
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
-	const redirectPath = getLearnRedirectPath(
-		currentPath,
-		slug.split('/')[0] as ProductOption
-	)
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
@@ -240,6 +232,10 @@ function TutorialView({
 		<>
 			<Head>
 				<link rel="canonical" href={canonicalUrl.toString()} key="canonical" />
+				{/** Don't index non canonical tutorials */}
+				{canonicalUrl.pathname !== currentPath ? (
+					<meta name="robots" content="noindex, nofollow" />
+				) : null}
 			</Head>
 			<InteractiveLabWrapper
 				key={slug}
@@ -257,9 +253,6 @@ function TutorialView({
 					sidebarNavDataLevels={sidebarNavDataLevels as any}
 					showScrollProgress={true}
 					AlternateSidebar={TutorialsSidebar}
-					optInOutSlot={
-						<OptInOut platform="learn" redirectPath={redirectPath} />
-					}
 					headings={layoutProps.headings}
 				>
 					<LayoutContentWrapper

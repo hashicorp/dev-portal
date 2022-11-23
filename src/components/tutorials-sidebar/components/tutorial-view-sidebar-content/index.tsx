@@ -97,7 +97,9 @@ function TutorialListItem({
 		tutorialId,
 		collectionId,
 	})
-	const trailingIcon = <TutorialProgressIcon status={tutorialProgressStatus} />
+	const trailingIcon = (
+		<TutorialProgressIcon status={tutorialProgressStatus} isActive={isActive} />
+	)
 
 	return (
 		<SidebarNavMenuItem item={{ isActive, title: text, href, trailingIcon }} />

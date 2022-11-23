@@ -8,8 +8,15 @@ export interface FooterProps {
 /**
  * NOTE: a FooterItem with type = 'link' should include an `href` property.
  */
-export interface FooterItem {
-	href?: string
+interface FooterLinkItem {
 	text: string
-	type: 'link' | 'consent-manager'
+	href: string
+	openInNewTab?: boolean
 }
+
+/**
+ * Footer items can either be links, or a consent-manager activator button.
+ */
+export type FooterItem =
+	| ({ type: 'link' } & FooterLinkItem)
+	| ({ type: 'consent-manager' } & { text: string })

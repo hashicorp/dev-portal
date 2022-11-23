@@ -26,7 +26,7 @@
 		},
 		{
 			"title": "Consul with Virtual Machines",
-			"fullPath": "/consul/tutorials/getting-started/get-started"
+			"fullPath": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
 		},
 		{
 			"title": "HCP Consul",
@@ -57,5 +57,11 @@
 				"text": "Commands (CLI)"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "HCP Consul",
+		"description": "Discover and securely connect your applications",
+		"ctaText": "Try HCP Consul",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

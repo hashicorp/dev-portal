@@ -7,14 +7,17 @@ import s from './tutorial-progress-icon.module.css'
 function TutorialProgressIcon({
 	status,
 	size = 12,
+	isActive,
 }: {
 	status: TutorialProgressStatus
 	size?: 12 | 14
+	isActive?: boolean
 }) {
 	const className = classNames(
 		s.progressIcon,
 		s[`size_${size}`],
-		s[`status_${status}`]
+		s[`status_${status}`],
+		{ [s.isActive]: isActive }
 	)
 	if (status == 'complete') {
 		return <IconCheckCircle16 className={className} />

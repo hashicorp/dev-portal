@@ -1,3 +1,6 @@
+import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
+import { getUserMeta } from 'lib/auth/user'
+import isAbsoluteUrl from 'lib/is-absolute-url'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
@@ -5,8 +8,6 @@ import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 	DropdownDisclosureSeparatorItem,
 } from 'components/dropdown-disclosure'
-import { getUserMeta } from 'lib/auth/user'
-import isAbsoluteUrl from 'lib/is-absolute-url'
 import {
 	UserDropdownDisclosureItem,
 	UserDropdownDisclosureProps,
@@ -16,12 +17,10 @@ import {
  * Handles rendering either a link item or a button item based on whether the
  * `href` or `onClick` property is given.
  */
-const renderItem = ({
-	href,
-	icon,
-	label,
-	onClick,
-}: UserDropdownDisclosureItem) => {
+const renderItem = (
+	{ href, icon, label, onClick }: UserDropdownDisclosureItem,
+	itemIndex: number
+) => {
 	if (href) {
 		const isExternal = isAbsoluteUrl(href)
 		const rel = isExternal ? 'noreferrer noopener' : undefined
@@ -29,6 +28,7 @@ const renderItem = ({
 
 		return (
 			<DropdownDisclosureLinkItem
+				key={itemIndex}
 				href={href}
 				icon={icon}
 				rel={rel}
@@ -41,7 +41,11 @@ const renderItem = ({
 
 	if (onClick) {
 		return (
-			<DropdownDisclosureButtonItem icon={icon} onClick={onClick}>
+			<DropdownDisclosureButtonItem
+				key={itemIndex}
+				icon={icon}
+				onClick={onClick}
+			>
 				{label}
 			</DropdownDisclosureButtonItem>
 		)
@@ -50,7 +54,7 @@ const renderItem = ({
 
 /**
  * A DropdownDisclosure intended to be used as a menu with actions/links for
- * authenticated users.
+ * both authenticated and unauthenticated users.
  */
 const UserDropdownDisclosure = ({
 	className,
@@ -58,20 +62,29 @@ const UserDropdownDisclosure = ({
 	listPosition,
 	user,
 }: UserDropdownDisclosureProps) => {
-	const { icon, label, description } = getUserMeta(user)
+	let userMeta
+	if (user) {
+		userMeta = getUserMeta(user)
+	}
 
 	return (
 		<DropdownDisclosure
 			aria-label="User menu"
 			className={className}
-			icon={icon}
+			icon={user ? userMeta.icon : <IconUser24 />}
 			listPosition={listPosition}
 		>
-			<DropdownDisclosureLabelItem>{label}</DropdownDisclosureLabelItem>
-			<DropdownDisclosureDescriptionItem>
-				{description}
-			</DropdownDisclosureDescriptionItem>
-			<DropdownDisclosureSeparatorItem />
+			{user ? (
+				<>
+					<DropdownDisclosureLabelItem>
+						{userMeta.label}
+					</DropdownDisclosureLabelItem>
+					<DropdownDisclosureDescriptionItem>
+						{userMeta.description}
+					</DropdownDisclosureDescriptionItem>
+					<DropdownDisclosureSeparatorItem />
+				</>
+			) : null}
 			{items.map(renderItem)}
 		</DropdownDisclosure>
 	)

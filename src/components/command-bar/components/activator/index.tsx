@@ -1,6 +1,6 @@
 import Badge from 'components/badge'
 import { useCommandBar } from 'components/command-bar'
-import { CmdCtrlIcon } from 'components/command-bar/components'
+import { CmdCtrlIcon, KIcon } from 'components/command-bar/components'
 import Text from 'components/text'
 import { CommandBarActivatorProps } from './types'
 import s from './command-bar-activator.module.css'
@@ -35,8 +35,8 @@ const CommandBarActivator = ({
 					ariaLabel="K key"
 					className={s.keyBadge}
 					color="neutral-dark-mode"
+					icon={<KIcon />}
 					size="small"
-					text="K"
 				/>
 			</span>
 		</button>

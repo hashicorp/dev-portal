@@ -14,19 +14,19 @@ function DownloadsPage({ product, releases, latestVersion }) {
 			getStartedLinks={[
 				{
 					label: 'Quick Start',
-					href: 'https://learn.hashicorp.com/tutorials/vagrant/getting-started-index',
+					href: 'https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-index',
 				},
 				{
 					label: 'Install and Specify a Box',
-					href: 'https://learn.hashicorp.com/tutorials/vagrant/getting-started-boxes',
+					href: 'https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-boxes',
 				},
 				{
 					label: 'Configure the Network',
-					href: 'https://learn.hashicorp.com/tutorials/vagrant/getting-started-networking',
+					href: 'https://developer.hashicorp.com/vagrant/tutorials/networking-provisioning-operations/getting-started-networking',
 				},
 				{
 					label: 'View all Vagrant tutorials',
-					href: 'https://learn.hashicorp.com/vagrant',
+					href: 'https://developer.hashicorp.com/vagrant/tutorials',
 				},
 			]}
 			logo={
@@ -37,8 +37,8 @@ function DownloadsPage({ product, releases, latestVersion }) {
 				/>
 			}
 			tutorialLink={{
-				href: 'https://learn.hashicorp.com/vagrant',
-				label: 'View Tutorials at HashiCorp Learn',
+				href: 'https://developer.hashicorp.com/vagrant/tutorials',
+				label: 'View Tutorials',
 			}}
 			merchandisingSlot={
 				<Link href="/vmware/downloads">

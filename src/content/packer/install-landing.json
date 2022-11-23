@@ -26,7 +26,7 @@
 		"subtitle": "Packer lets you create identical machine images for multiple platforms from a single source configuration.",
 		"featuredDocsLinks": [
 			{
-				"href": "/packer/docs/cli",
+				"href": "/packer/docs/commands",
 				"text": "Packer CLI"
 			},
 			{
@@ -38,5 +38,11 @@
 				"text": "Plugins"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "HCP Packer",
+		"description": "Automate build management across your cloud providers",
+		"ctaText": "Try HCP Packer",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

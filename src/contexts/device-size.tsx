@@ -11,6 +11,7 @@ interface DeviceSize {
 }
 
 const DeviceSizeContext = createContext<DeviceSize>(undefined)
+DeviceSizeContext.displayName = 'DeviceSizeContext'
 
 const DeviceSizeProvider: React.FC = ({ children }) => {
 	let mobileWidth: number

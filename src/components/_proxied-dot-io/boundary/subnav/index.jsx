@@ -25,7 +25,7 @@ export default function BoundarySubnav({ menuItems }) {
 				},
 				{
 					text: 'Download',
-					url: '/downloads',
+					url: 'https://developer.hashicorp.com/boundary/downloads',
 				},
 				{
 					text: 'Try HCP Boundary',

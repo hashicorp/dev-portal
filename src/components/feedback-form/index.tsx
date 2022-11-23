@@ -19,6 +19,7 @@ const wait = (delay: number) =>
 	new Promise((resolve) => setTimeout(resolve, delay))
 
 export const FeedbackFormContext = createContext<FeedbackFormContextType>({})
+FeedbackFormContext.displayName = 'FeedbackFormContext'
 
 export default function FeedbackForm({
 	questions,

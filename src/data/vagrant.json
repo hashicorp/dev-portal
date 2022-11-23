@@ -9,13 +9,14 @@
 		"includedDomains": "vagrantup.com www.vagrantup.com",
 		"segmentWriteKey": "qW11yxgipKMsKFKQUCpTVgQUYftYsJj0"
 	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
 		"title": "Vagrant by HashiCorp",
 		"description": "Vagrant enables users to create and configure lightweight, reproducible, and portable development environments.",
 		"image": "https://www.vagrantup.com/vagrant/img/og-image.png",
 		"icon": [
 			{
-				"href": "/vagrant/favicon.ico"
+				"href": "/vagrant-public/favicon.ico"
 			}
 		]
 	},
@@ -32,12 +33,12 @@
 	"subnavItems": [
 		{
 			"text": "Intro",
-			"url": "/intro",
+			"url": "https://developer.hashicorp.com/vagrant/intro",
 			"type": "inbound"
 		},
 		{
 			"text": "Docs",
-			"url": "/docs",
+			"url": "https://developer.hashicorp.com/vagrant/docs",
 			"type": "inbound"
 		},
 		{
@@ -65,9 +66,5 @@
 			"name": "Vagrant Cloud",
 			"path": "vagrant-cloud"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 18, 2022"
-	}
+	]
 }
