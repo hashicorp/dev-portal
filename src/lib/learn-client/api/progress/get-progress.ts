@@ -1,12 +1,12 @@
+import { Session } from 'next-auth'
 import queryString from 'query-string'
 import { get, toError } from 'lib/learn-client'
 import { Tutorial, Collection } from 'lib/learn-client/types'
-import { SessionData } from 'types/auth'
 import { PROGRESS_API_ROUTE } from '.'
 import { ApiCollectionTutorialProgress } from '../api-types'
 
 interface GetProgressOptions {
-	accessToken: SessionData['accessToken']
+	accessToken: Session['accessToken']
 	tutorialIds?: Tutorial['id'][]
 	collectionIds?: Collection['id'][]
 }
