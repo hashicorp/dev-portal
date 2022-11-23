@@ -43,18 +43,10 @@ const useAuthentication = (
 
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
-	const [isAuthenticated, setIsAuthenticated] = useState(
-		status === 'authenticated'
-	)
+	const isAuthenticated =
+		status === 'authenticated' &&
+		data?.error !== AuthErrors.RefreshAccessTokenError // if we are in an errored state, treat as unauthenticated
 	const preferencesLoaded = preferencesSavedAndLoaded()
-
-	useEffect(() => {
-		if (!isAuthenticated && status === 'authenticated') {
-			setIsAuthenticated(true)
-		} else if (isAuthenticated && status !== 'authenticated') {
-			setIsAuthenticated(false)
-		}
-	}, [isAuthenticated, status])
 
 	/**
 	 * Force sign out to hopefully resolve the error. The user is signed out
@@ -63,12 +55,7 @@ const useAuthentication = (
 	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
 	 */
 	useEffect(() => {
-		if (
-			data?.error === AuthErrors.RefreshAccessTokenExpiredError ||
-			data?.error === AuthErrors.RefreshAccessTokenError
-		) {
-			// ensure data calls don't continue using the access token if expire
-			setIsAuthenticated(false)
+		if (data?.error === AuthErrors.RefreshAccessTokenError) {
 			signOut()
 		}
 	}, [data?.error, signOut])
