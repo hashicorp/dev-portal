@@ -52,7 +52,10 @@ const useAuthentication = (
 	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
 	 */
 	useEffect(() => {
-		if (data?.error === AuthErrors.RefreshAccessTokenExpiredError) {
+		if (
+			data?.error === AuthErrors.RefreshAccessTokenExpiredError ||
+			data?.error === AuthErrors.RefreshAccessTokenError
+		) {
 			signOut()
 		}
 	}, [data?.error, signOut])
