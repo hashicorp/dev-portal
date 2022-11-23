@@ -1,6 +1,11 @@
-import { Session } from 'next-auth'
 import { signIn, SignInOptions, signOut, SignOutParams } from 'next-auth/react'
-import { SessionData, UserData, ValidAuthProviderId } from 'types/auth'
+import {
+	SessionData,
+	SessionStatus,
+	UserData,
+	ValidAuthProviderId,
+} from 'types/auth'
+
 import { signUp } from './helpers'
 
 interface UseAuthenticationOptions {
@@ -19,7 +24,7 @@ interface UseAuthenticationOptions {
 
 interface UseAuthenticationResult {
 	// https://github.com/nextauthjs/next-auth/blob/next-auth@v4.10.3/packages/next-auth/src/core/types.ts#L422-L440
-	error: undefined | Session['error']
+	error: SessionData['error']
 	isAuthenticated: boolean
 	isLoading: boolean
 	session: SessionData
@@ -31,8 +36,8 @@ interface UseAuthenticationResult {
 	) => ReturnType<typeof signIn>
 	signOut: (options?: SignOutParams) => ReturnType<typeof signOut>
 	signUp: typeof signUp
-	status: Session['status']
+	status: SessionStatus
 	user: null | UserData
 }
 
-export type { UseAuthenticationOptions, UseAuthenticationResult }
+export type { UseAuthenticationOptions, UseAuthenticationResult, SessionStatus }

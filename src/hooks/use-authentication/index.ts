@@ -6,6 +6,7 @@ import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util
 import {
 	AuthErrors,
 	SessionData,
+	SessionStatus,
 	UserData,
 	ValidAuthProviderId,
 } from 'types/auth'
@@ -43,7 +44,7 @@ const useAuthentication = (
 	const { data, status } = useSession({
 		required: isRequired,
 		onUnauthenticated,
-	})
+	}) as { data: SessionData; status: SessionStatus }
 
 	/**
 	 * Force sign out to hopefully resolve the error. The user is signed out

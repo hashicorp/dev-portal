@@ -1,7 +1,8 @@
 import createFetch from '@vercel/fetch'
-import NextAuth from 'next-auth'
+import NextAuth, { Account, Session as NextAuthSession } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import { URL } from 'url'
-import { AuthErrors, TokenSet } from 'types/auth'
+import { AuthErrors, TokenSet, Profile, SessionData } from 'types/auth'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 import refreshTokenSet from 'lib/auth/refresh-token-set'
 import isJwtExpired from 'lib/auth/is-jwt-expired'
@@ -21,7 +22,7 @@ export default NextAuth({
 		 * ourselves in this signOut event.
 		 * https://github.com/nextauthjs/next-auth/discussions/3938
 		 */
-		async signOut({ token }) {
+		async signOut({ token }: { token: JWT }) {
 			if (isDev) {
 				console.log('Inside of NextAuth.events.signOut')
 			}
@@ -57,7 +58,15 @@ export default NextAuth({
 		 *
 		 * ref: https://next-auth.js.org/configuration/callbacks#jwt-callback
 		 */
-		async jwt({ token, account, profile }) {
+		async jwt({
+			token,
+			account,
+			profile,
+		}: {
+			token: JWT
+			account?: Account
+			profile?: Profile
+		}) {
 			const isInitial = !!account && !!profile
 			isDev &&
 				console.log('jwt callback (%s)', isInitial ? 'initial' : 'subsequent')
@@ -122,13 +131,19 @@ export default NextAuth({
 		 *
 		 * ref: https://next-auth.js.org/configuration/callbacks#session-callback
 		 */
-		async session({ session, token }) {
+		async session({
+			session,
+			token,
+		}: {
+			token: JWT
+			session: NextAuthSession
+		}): Promise<SessionData> {
 			return {
 				...session,
-				accessToken: token.access_token,
-				id: token.sub,
-				user: { ...session.user, nickname: token.nickname },
-				error: token.error,
+				accessToken: token.access_token as TokenSet['access_token'],
+				id: token.sub as TokenSet['sub'],
+				user: { ...session.user, nickname: token.nickname as string },
+				error: token.error as AuthErrors,
 			}
 		},
 	},
