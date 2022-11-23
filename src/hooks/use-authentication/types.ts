@@ -24,8 +24,6 @@ interface UseAuthenticationResult {
 	isAuthenticated: boolean
 	isLoading: boolean
 	session: Session
-	showAuthenticatedUI: boolean
-	showUnauthenticatedUI: boolean
 	signIn: (
 		provider?: ValidAuthProviderId,
 		options?: SignInOptions
