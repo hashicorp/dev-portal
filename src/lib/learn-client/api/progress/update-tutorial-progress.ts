@@ -1,15 +1,15 @@
+import { Session } from 'next-auth'
 import { put, toError } from 'lib/learn-client'
 import {
 	Collection,
 	Tutorial,
 	TutorialProgressPercent,
 } from 'lib/learn-client/types'
-import { SessionData } from 'types/auth'
 import { ApiCollectionTutorialProgress } from '../api-types'
 import { getTutorialProgressRoute } from './util'
 
 interface UpdateTutorialProgressOptions {
-	accessToken: SessionData['accessToken']
+	accessToken: Session['accessToken']
 	tutorialId: Tutorial['id']
 	collectionId: Collection['id']
 	completePercent: TutorialProgressPercent
