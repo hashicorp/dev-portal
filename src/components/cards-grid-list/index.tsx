@@ -64,7 +64,15 @@ function CardsGridList({
 				} as CSSProperties
 			}
 		>
-			{children}
+			{Children.toArray(children).map((child, idx) => {
+				/**
+				 * Children are expected to be stable for this component.
+				 * We could explore accepting an `cards` prop, with required `id`,
+				 * rather than a `children` prop.
+				 */
+				// eslint-disable-next-line react/no-array-index-key
+				return <li key={idx}>{child}</li>
+			})}
 		</ListRoot>
 	)
 }

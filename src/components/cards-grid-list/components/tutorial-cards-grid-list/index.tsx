@@ -22,11 +22,7 @@ const TutorialCardsGridList = ({ tutorials, ...restProps }) => {
 	const cardsGridListItems = []
 	tutorials.forEach((tutorial: TutorialCardPropsWithId) => {
 		tutorialIds.push(tutorial.id)
-		cardsGridListItems.push(
-			<li key={tutorial.id}>
-				<TutorialCardWithAuthElements {...tutorial} />
-			</li>
-		)
+		cardsGridListItems.push(<TutorialCardWithAuthElements {...tutorial} />)
 	})
 
 	/**
