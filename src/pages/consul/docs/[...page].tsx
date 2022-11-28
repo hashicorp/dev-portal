@@ -6,13 +6,13 @@ const { getStaticPaths: _getStaticPaths, getStaticProps: _getStaticProps } =
 	getRootDocsPathGenerationFunctions('consul', 'docs')
 
 const getStaticPaths = (ctx) => {
-	return withTiming(`[consul/docs/[...page]]::getStaticPaths`, () =>
+	return withTiming(`[consul/docs/[...page]::getStaticPaths]`, () =>
 		_getStaticPaths(ctx)
 	)
 }
 const getStaticProps = (ctx) => {
 	return withTiming(
-		`[consul/docs/[...page]]::getStaticProps (${ctx.params.page})`,
+		`[consul/docs/[...page]::getStaticProps] (${ctx.params.page})`,
 		() => _getStaticProps(ctx)
 	)
 }
