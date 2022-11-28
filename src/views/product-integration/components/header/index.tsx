@@ -3,7 +3,6 @@ import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 } from 'components/dropdown-disclosure'
 import { Tier } from 'lib/integrations-api-client'
-import semverSort from 'semver-sort'
 import TierBadge from 'views/product-integrations-landing/components/tier-badge'
 import s from './style.module.css'
 
@@ -24,10 +23,10 @@ export default function Header({
 	versions,
 	description,
 }: HeaderProps) {
-	// TODO: Also want to filter out prereleases & 0.0.0 from this list
-	const sortedVersions = semverSort.desc(versions)
-	const latestVersion: string = sortedVersions[0]
-	const otherVersions: Array<string> = sortedVersions.slice(1)
+	// note - the backend will not return pre-releases,
+	// and will sort by semver DESC.
+	const latestVersion: string = versions[0]
+	const otherVersions: Array<string> = versions.slice(1)
 	return (
 		<div className={classNames(s.header, className)}>
 			<div className={s.left}>
