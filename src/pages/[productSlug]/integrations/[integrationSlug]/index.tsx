@@ -3,9 +3,10 @@ import {
 	fetchIntegration,
 	fetchIntegrationRelease,
 } from 'lib/integrations-api-client'
+import { withTiming } from 'lib/with-timing'
 import ProductIntegration from 'views/product-integration'
 
-export async function getServerSideProps({ params }) {
+const _getServerSideProps = async ({ params }) => {
 	const integrationResponse = await fetchIntegration(
 		params.productSlug,
 		params.integrationSlug
@@ -22,9 +23,7 @@ export async function getServerSideProps({ params }) {
 	const latestReleaseResponse = await fetchIntegrationRelease(
 		params.productSlug,
 		params.integrationSlug,
-		integrationResponse.result.versions[
-			integrationResponse.result.versions.length - 1
-		]
+		integrationResponse.result.releases[0]?.version
 	)
 	return {
 		props: {
@@ -37,4 +36,8 @@ export async function getServerSideProps({ params }) {
 	}
 }
 
+const label = '[productSlug]/integrations/[integrationSlug]'
+export const getServerSideProps = async (ctx) => {
+	return withTiming(label, () => _getServerSideProps(ctx))
+}
 export default ProductIntegration
