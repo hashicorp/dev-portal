@@ -9,6 +9,8 @@ import HeroHeadingVisual from './components/hero-heading-visual'
 import OverviewCta from './components/overview-cta'
 import ProductLandingBlocks from './components/product-landing-blocks'
 import s from './product-landing.module.css'
+import { TryHcpCalloutPrebuilt } from 'components/try-hcp-callout'
+import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
 
 function ProductLandingView({
 	content,
@@ -62,6 +64,11 @@ function ProductLandingView({
 					fixedColumns={get_started.fixedColumns}
 				/>
 			</div>
+			{hasHcpCalloutContent(product.slug) ? (
+				<div className={s.tryHcpCalloutMargin}>
+					<TryHcpCalloutPrebuilt productSlug={product.slug} />
+				</div>
+			) : null}
 			<ProductLandingBlocks blocks={blocks} />
 		</>
 	)
