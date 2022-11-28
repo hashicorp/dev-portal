@@ -30,6 +30,7 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
+import { withTiming } from 'lib/with-timing'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -184,7 +185,10 @@ export function getStaticGenerationFunctions<
 			 */
 			let loadStaticPropsResult
 			try {
-				loadStaticPropsResult = await loader.loadStaticProps(ctx)
+				loadStaticPropsResult = await withTiming(
+					'[docs-view/server::loadStaticProps]',
+					() => loader.loadStaticProps(ctx)
+				)
 			} catch (error) {
 				// Catch 404 errors, return a 404 status page
 				if (error.status === 404) {
@@ -226,11 +230,14 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Add fullPaths and auto-generated ids to navData
 			 */
-			const { preparedItems: navDataWithFullPaths } =
-				await prepareNavDataForClient({
-					basePaths: [product.slug, basePath],
-					nodes: navData,
-				})
+			const { preparedItems: navDataWithFullPaths } = await withTiming(
+				'[docs-view/server::prepareNavDataForClient]',
+				() =>
+					prepareNavDataForClient({
+						basePaths: [product.slug, basePath],
+						nodes: navData,
+					})
+			)
 
 			/**
 			 * Figure out of a specific docs version is being viewed
