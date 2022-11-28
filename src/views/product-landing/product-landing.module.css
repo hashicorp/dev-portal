@@ -11,7 +11,11 @@
 }
 
 .getStartedMargin {
-	margin: 48px 0;
+	margin: 48px 0 32px 0;
+}
+
+.tryHcpCalloutMargin {
+	margin: 32px 0 48px 0;
 }
 
 .overviewParagraph {
