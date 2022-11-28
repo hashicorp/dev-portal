@@ -20,12 +20,12 @@
 	],
 	"landingPage": {
 		"hero": {
-			"heading": "Well Architected Framework",
+			"heading": "Well-Architected Framework",
 			"image": "/img/well-architected-framework/landing-hero-graphic.png"
 		},
 		"overview": {
-			"heading": "What is Well Architected Framework?",
-			"body": "HashiCorp's well architected framework provides best practice guidance for organizations. Use it to optimize your production HashiCorp deployments while also meeting your specific architectural needs. The well architected framework starts with the cloud operating model and moves toward cloud migration enablement.",
+			"heading": "What is Well-Architected Framework?",
+			"body": "HashiCorp's well-architected framework provides best practice guidance for organizations. Use it to optimize your production HashiCorp deployments while also meeting your specific architectural needs. The well-architected framework starts with the cloud operating model and moves toward cloud migration enablement.",
 			"image": "https://www.datocms-assets.com/2885/1661989746-dev-dot-product-landing-what-is-waf-diagram.svg"
 		}
 	}
