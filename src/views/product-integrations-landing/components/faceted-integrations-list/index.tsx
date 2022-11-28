@@ -1,7 +1,12 @@
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
 import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 import Button from '@hashicorp/react-button'
-import { Integration, Tier } from 'lib/integrations-api-client'
+import {
+	Integration,
+	IntegrationReleaseComponent,
+	Release,
+	Tier,
+} from 'lib/integrations-api-client'
 import React, { useState } from 'react'
 import SearchableIntegrationsList from '../searchable-integrations-list'
 import s from './style.module.css'
@@ -20,7 +25,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 	let filteredIntegrations = integrations
 	filteredIntegrations = filteredIntegrations.filter(
 		(integration: Integration) => {
-			return integration.versions && integration.versions.length > 0
+			return integration.releases.length > 0
 		}
 	)
 
@@ -45,11 +50,12 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 
 	// Pull out the list of all of the components used by our integrations
 	// and sort them alphabetically so they are deterministically ordered.
-	const allComponents = filteredIntegrations.map(
-		(i: Integration) => i.components
-	)
-	// eslint-disable-next-line prefer-spread
-	const mergedComponents = [].concat.apply([], allComponents)
+	const allComponents = filteredIntegrations // --> map each integration...
+		.map((i: Integration) => i.releases[0]) // --> to its latest release...
+		.flatMap((ir: Release) => ir.components) // --> flatten out all release_components, and map each...
+		.map((irc: IntegrationReleaseComponent) => irc.component) // --> to its component
+
+	const mergedComponents = [].concat(allComponents)
 
 	const componentIDs = mergedComponents.map((c) => c.id)
 	const dedupedComponents = mergedComponents.filter(
@@ -71,7 +77,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 
 	// We have to manage our component checked state in a singular
 	// state object as there are an unknown number of components.
-	const [componentCheckedArray, setComponentCheckedArray] = useState(
+	const [componentCheckedArray, setComponentCheckedArray] = useState<boolean[]>(
 		new Array(sortedComponents.length).fill(false)
 	)
 
@@ -102,9 +108,14 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 				if (checked) {
 					const checkedComponent = sortedComponents[index]
 					// Check each integration component
-					for (const component of integration.components) {
-						if (component.slug === checkedComponent.slug) {
-							componentMatch = true
+					const latestRelease = integration.releases[0]
+					if (latestRelease) {
+						for (const component of latestRelease.components.map(
+							(e) => e.component
+						)) {
+							if (component.slug === checkedComponent.slug) {
+								componentMatch = true
+							}
 						}
 					}
 				}
