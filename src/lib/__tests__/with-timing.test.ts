@@ -11,7 +11,7 @@ describe('withTiming', () => {
 		timeSpy = jest.spyOn(console, 'time')
 		timeEndSpy = jest.spyOn(console, 'timeEnd')
 
-		process.env = { ...env } // Make a copy
+		process.env = { ...env }
 	})
 
 	afterEach(() => {
