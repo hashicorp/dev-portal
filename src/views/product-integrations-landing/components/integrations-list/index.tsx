@@ -7,6 +7,12 @@ export default function IntegrationsList({ integrations }) {
 	return (
 		<CardsGridList>
 			{integrations.map((integration) => {
+				const url = integration.external_only
+					? integration.external_url.replace(
+							/^https:\/\/developer.hashicorp.com/,
+							''
+					  )
+					: `/${integration.product.slug}/integrations/${integration.slug}`
 				return (
 					<IntegrationCard
 						key={integration.id}
@@ -16,7 +22,7 @@ export default function IntegrationsList({ integrations }) {
 						organization={integration.organization.slug}
 						productSlug={integration.product.slug}
 						tier={integration.tier}
-						integrationSlug={integration.slug}
+						url={url}
 					/>
 				)
 			})}
@@ -30,15 +36,11 @@ function IntegrationCard({
 	description,
 	organization,
 	tier,
-	integrationSlug,
 	productSlug,
+	url,
 }) {
 	return (
-		<CardLink
-			ariaLabel="TODO"
-			className={s.integrationCard}
-			href={`/${productSlug}/integrations/${integrationSlug}`}
-		>
+		<CardLink ariaLabel="TODO" className={s.integrationCard} href={url}>
 			<div className={s.header}>
 				<div className={s.headingWrapper}>
 					<h3 className={s.heading}>{title}</h3>
