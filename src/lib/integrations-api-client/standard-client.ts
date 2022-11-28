@@ -1,3 +1,5 @@
+import { withTiming } from 'lib/with-timing'
+
 function getFetch() {
 	// Note: purposely doing a conditional require here so that
 	// `@vercel/fetch` is not included in the client bundle
@@ -47,11 +49,16 @@ export async function request<ResponseObject>(
 		})
 		requestURL.search = new URLSearchParams(opts.query).toString()
 	}
-	return await fetch(requestURL.toString(), {
-		method: method,
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: opts?.body ? JSON.stringify(opts.body) : undefined,
-	}).then((res) => res.json())
+	const label = `[integrations-api] ${method.toUpperCase()} ${requestURL.toString()}`
+	return await withTiming(label, () =>
+		fetch(requestURL.toString(), {
+			method: method,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: opts?.body ? JSON.stringify(opts.body) : undefined,
+		}).then((res) => {
+			return res.json()
+		})
+	)
 }
