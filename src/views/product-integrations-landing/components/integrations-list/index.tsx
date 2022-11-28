@@ -12,9 +12,7 @@ export default function IntegrationsList({ integrations }) {
 						key={integration.id}
 						title={integration.name}
 						description={integration.description}
-						latestVersion={
-							integration.versions[integration.versions.length - 1]
-						}
+						latestVersion={integration.releases[0]?.version}
 						organization={integration.organization.slug}
 						productSlug={integration.product.slug}
 						tier={integration.tier}

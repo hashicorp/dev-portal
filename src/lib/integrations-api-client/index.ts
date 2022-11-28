@@ -19,6 +19,7 @@ export interface Component {
 	slug: string
 	name: string
 	plural_name: string
+	product_id: string
 }
 
 export interface Product {
@@ -33,12 +34,22 @@ export interface Integration {
 	tier: Tier
 	product: Product
 	name?: string
-	versions?: string[]
+	releases: Release[]
+	flags: $TSFixMe[]
 	description?: string
-	components?: Component[]
 	repo_url: string
 	subdirectory?: string
 	organization?: Organization
+}
+
+export interface IntegrationReleaseComponent {
+	id: string
+	component_id: string
+	integration_release_id: string
+	readme: string | null
+	created_at: string
+	updated_at: string
+	component: Component
 }
 
 export interface Release {
@@ -46,6 +57,7 @@ export interface Release {
 	integration_id: string
 	version: string
 	readme: string
+	components?: IntegrationReleaseComponent[]
 }
 
 export async function fetchProductIntegrations(
