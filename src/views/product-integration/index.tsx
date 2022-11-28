@@ -1,7 +1,7 @@
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import Tabs, { Tab } from 'components/tabs'
 import BaseLayout from 'layouts/base-new'
-import { Component, Integration, Release } from 'lib/integrations-api-client'
+import { Integration, Release } from 'lib/integrations-api-client'
 import ReactMarkdown from 'react-markdown'
 import { ProductData } from 'types/products'
 import ComponentTabContent from './components/component-tab-content'
@@ -57,7 +57,7 @@ export default function ProductIntegrationLanding({
 								name={integration.name}
 								tier={integration.tier}
 								author={integration.organization.slug}
-								versions={integration.versions}
+								versions={integration.releases.map((r) => r.version)}
 								description={integration.description}
 							/>
 
@@ -68,7 +68,8 @@ export default function ProductIntegrationLanding({
 								<Tab heading="Documentation">
 									<p>TODO: A Tree of documentation would go here</p>
 								</Tab>
-								{integration.components.map((component: Component) => {
+								{latestRelease.components.map((irc) => {
+									const component = irc.component
 									return (
 										<Tab key="foo" heading={component.name}>
 											<ComponentTabContent component={component} />
