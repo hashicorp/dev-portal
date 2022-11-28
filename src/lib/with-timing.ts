@@ -3,7 +3,7 @@
  */
 export async function withTiming<T>(
 	label: string,
-	fn: () => Promise<T>
+	fn: () => Promise<T> | T
 ): Promise<T> {
 	if (process.env.HC_DEBUG_TIMINGS === '1') {
 		console.group(label)
