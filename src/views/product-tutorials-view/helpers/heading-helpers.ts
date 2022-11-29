@@ -1,7 +1,7 @@
 import slugify from 'slugify'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
-import { ProductPageBlock as LearnClientProductPageBlock } from 'lib/learn-client/types'
 import { ProductViewBlock } from '../components/product-view-content'
+import { LearnClientProductPageBlockEnriched } from './page-data/enrich-learn-data'
 
 /**
  * Given pageData for product view,
@@ -11,12 +11,14 @@ import { ProductViewBlock } from '../components/product-view-content'
  * TableOfContentsHeading objects, each representing
  * a section that will be rendered on the page.
  */
-function buildLayoutHeadings(pageData: {
-	blocks: ProductViewBlock[]
-	showProductSitemap?: boolean
+function buildLayoutHeadings(
+	pageData: {
+		blocks: ProductViewBlock[]
+		showProductSitemap?: boolean
+	},
 	showOverviewHeading?: boolean
-}): TableOfContentsHeading[] {
-	const { blocks, showProductSitemap, showOverviewHeading } = pageData
+): TableOfContentsHeading[] {
+	const { blocks, showProductSitemap } = pageData
 
 	/**
 	 * Build an <h1> overview heading
@@ -70,8 +72,8 @@ function isIntendedForTableOfContents<
  * Check if a block can be added to the table of contents
  */
 function isReadyForTableOfContents<
-	T extends { type: string; headingSlug?: unknown }
->(block: T): block is T & { headingSlug: string } {
+	T extends { type: string; heading?: unknown; headingSlug?: unknown }
+>(block: T): block is T & { heading: string; headingSlug: string } {
 	return (
 		isIntendedForTableOfContents(block) && typeof block.headingSlug == 'string'
 	)
@@ -98,16 +100,11 @@ function getSitemapHeading(): TableOfContentsHeading {
 /**
  * Adds "headingSlug" properties to all blocks with defined "heading"
  */
-function addHeadingSlugsToBlocks(rawPageData: {
-	blocks: LearnClientProductPageBlock[]
-	showProductSitemap?: boolean
-}): {
-	blocks: ProductViewBlock[]
-	showProductSitemap?: boolean
-} {
-	const { blocks } = rawPageData
+function addHeadingSlugsToBlocks(
+	blocks: LearnClientProductPageBlockEnriched[]
+): ProductViewBlock[] {
 	const blocksWithHeadings = blocks.map(
-		(block: LearnClientProductPageBlock) => {
+		(block: LearnClientProductPageBlockEnriched) => {
 			if (!isIntendedForTableOfContents(block)) {
 				return block
 			}
@@ -116,7 +113,7 @@ function addHeadingSlugsToBlocks(rawPageData: {
 		}
 	)
 	// Return the page data with these new blocks
-	return { ...rawPageData, blocks: blocksWithHeadings }
+	return blocksWithHeadings
 }
 
 export {

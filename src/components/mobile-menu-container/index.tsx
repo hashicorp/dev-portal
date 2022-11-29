@@ -40,10 +40,11 @@ const MOBILE_MENU_MOTION = {
  */
 const MobileAuthenticationControls = () => {
 	const { asPath } = useRouter()
-	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
+	const { isAuthenticated, isLoading, signIn, signOut, user } =
 		useAuthentication()
+	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 
-	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
+	if (!isAuthenticated && !showUnauthenticatedUI) {
 		return null
 	}
 
@@ -68,7 +69,7 @@ const MobileAuthenticationControls = () => {
 				/>
 			</>
 		)
-	} else if (showAuthenticatedUI) {
+	} else if (isAuthenticated) {
 		content = (
 			<MobileUserDisclosure
 				items={getUserMenuItems({ signOut })}
