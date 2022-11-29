@@ -46,12 +46,7 @@ function MdxA({ children, className, href, ...restProps }) {
 	const hrefWithFallback = href || '#'
 
 	return (
-		<InlineLink
-			{...restProps}
-			className={className}
-			href={hrefWithFallback}
-			textWeight="medium"
-		>
+		<InlineLink {...restProps} className={className} href={hrefWithFallback}>
 			{children}
 		</InlineLink>
 	)
