@@ -171,7 +171,7 @@
 		"klaw-sync": "^6.0.0",
 		"mdast": "^3.0.0",
 		"moize": "^6.1.0",
-		"next": "13.0.2",
+		"next": "^13.0.5",
 		"next-auth": "^4.17.0",
 		"next-mdx-remote": "^3.0.8",
 		"next-sitemap": "^3.1.21",
