@@ -3,17 +3,22 @@
  */
 export async function withTiming<T>(
 	label: string,
-	fn: () => Promise<T> | T
+	fn: () => Promise<T> | T,
+	group: boolean = true
 ): Promise<T> {
 	if (process.env.HC_DEBUG_TIMINGS === '1') {
-		console.group(label)
+		if (group) {
+			console.group(label)
+		}
 		console.time(label)
 
 		let result: T
 		try {
 			result = await fn()
 		} finally {
-			console.groupEnd()
+			if (group) {
+				console.groupEnd()
+			}
 			console.timeEnd(label)
 		}
 		return result

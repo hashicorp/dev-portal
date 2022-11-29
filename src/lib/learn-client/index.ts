@@ -15,8 +15,10 @@ function getFetch() {
 const fetch = (...params) => {
 	const url = params[0]
 	const method = params[1]?.method || 'GET'
-	return withTiming(`[lib/learn-client] (${method} ${url})`, () =>
-		getFetch()(...params)
+	return withTiming(
+		`[lib/learn-client] (${method} ${url})`,
+		() => getFetch()(...params),
+		false
 	)
 }
 
