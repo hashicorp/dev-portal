@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { Session } from 'next-auth'
@@ -37,12 +37,11 @@ const useAuthentication = (
 	const { isRequired = false, onUnauthenticated = () => signIn() } = options
 
 	// Pull data and status from next-auth's hook, and pass options
-	const { data, status } = useSession({
-		required: isRequired,
-		onUnauthenticated,
-	}) as { data: Session; status: SessionStatus }
-	const testSession = _useSession()
-	console.log({ testSession })
+	// const { data, status } = useSession({
+	// 	required: isRequired,
+	// 	onUnauthenticated,
+	// }) as { data: Session; status: SessionStatus }
+	const { data, status } = _useSession()
 
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
