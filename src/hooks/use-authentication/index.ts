@@ -88,22 +88,11 @@ const useAuthentication = (
 		const segmentUserId = safeGetSegmentId()
 
 		if (canAnalyzeUser() && segmentUserId !== session.id) {
-			analytics?.identify(
-				session.id,
-				{
-					email: user.email,
-					name: user.name,
-					devPortalSignUp: true,
-					createdAt: Date.now().toString(),
-				},
-				{
-					// This limits PII flow to only Marketo as per Security and data engineering
-					integrations: {
-						All: false,
-						'Marketo V2': true,
-					},
-				}
-			)
+			analytics?.identify(session.id, {
+				email: user.email,
+				name: user.name,
+				devPortalSignUp: true,
+			})
 		}
 	}
 
