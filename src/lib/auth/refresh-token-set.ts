@@ -1,4 +1,4 @@
-import type { TokenSet } from 'types/auth'
+import { JWT } from 'next-auth/jwt'
 
 /**
  * Takes a refresh token, and returns a refreshed tokenSet.
@@ -7,7 +7,7 @@ import type { TokenSet } from 'types/auth'
  */
 export default async function refreshTokenSet(
 	refreshToken: string
-): Promise<TokenSet> {
+): Promise<JWT> {
 	try {
 		const url = new URL('/oauth2/token', __config.dev_dot.auth.idp_url)
 		const response = await fetch(url.toString(), {
@@ -19,11 +19,11 @@ export default async function refreshTokenSet(
 				client_id: process.env.AUTH_CLIENT_ID,
 				client_secret: process.env.AUTH_CLIENT_SECRET,
 				grant_type: 'refresh_token',
-				refresh_token: refreshToken as string,
+				refresh_token: refreshToken,
 			}),
 		})
 
-		const refreshedTokenset: TokenSet = await response.json()
+		const refreshedTokenset = await response.json()
 
 		if (!response.ok) {
 			throw refreshedTokenset

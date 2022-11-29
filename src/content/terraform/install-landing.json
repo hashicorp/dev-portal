@@ -52,5 +52,11 @@
 				"text": "Provider Use"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "Terraform Cloud",
+		"description": "Automate your infrastructure provisioning at any scale",
+		"ctaText": "Try Terraform Cloud",
+		"ctaUrl": "https://app.terraform.io/public/signup/account"
 	}
 }

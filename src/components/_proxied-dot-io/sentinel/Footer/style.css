@@ -25,29 +25,6 @@
 		}
 	}
 
-	& .newsletter-section {
-		max-width: 553px;
-		padding: 48px 0;
-
-		@media (min-width: 768px) {
-			padding: 56px 0;
-		}
-
-		@media (min-width: 992px) {
-			padding: 64px 0;
-		}
-
-		& form.success {
-			& .row-2 {
-				display: none;
-			}
-
-			& .success-content {
-				justify-content: flex-start;
-			}
-		}
-	}
-
 	& .social-section {
 		align-items: center;
 		justify-content: space-between;

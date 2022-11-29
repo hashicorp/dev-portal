@@ -1,17 +1,17 @@
+import { Session } from 'next-auth'
 import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
-import { UserData } from 'types/auth'
 import useAuthentication from 'hooks/use-authentication'
 import { UserDropdownDisclosureProps } from 'components/user-dropdown-disclosure'
 
-const getIcon = (user: UserData) => {
+const getIcon = (user: Session['user']) => {
 	// eslint-disable-next-line @next/next/no-img-element
 	return user.image ? <img alt="" src={user.image} /> : <IconUser24 />
 }
 
-const getIsSignedInWithGitHub = (user: UserData) => {
+const getIsSignedInWithGitHub = (user: Session['user']) => {
 	return user.image?.includes('github')
 }
 
@@ -19,7 +19,10 @@ const getLabel = (isSignedInWithGitHub: boolean) => {
 	return `Signed in with ${isSignedInWithGitHub ? 'GitHub' : 'Email'}`
 }
 
-const getDescription = (user: UserData, isSignedInWithGitHub: boolean) => {
+const getDescription = (
+	user: Session['user'],
+	isSignedInWithGitHub: boolean
+) => {
 	return isSignedInWithGitHub ? user.nickname : user.email
 }
 
@@ -47,7 +50,7 @@ const getUserMenuItems = ({
 	]
 }
 
-const getUserMeta = (user: UserData) => {
+const getUserMeta = (user: Session['user']) => {
 	const icon = getIcon(user)
 	const isSignedInWithGitHub = getIsSignedInWithGitHub(user)
 	const label = getLabel(isSignedInWithGitHub)

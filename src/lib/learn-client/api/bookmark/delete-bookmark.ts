@@ -1,10 +1,10 @@
+import { Session } from 'next-auth'
 import { Tutorial } from 'lib/learn-client/types'
 import { destroy, toError } from 'lib/learn-client'
 import { BOOKMARK_API_ROUTE } from '.'
-import { SessionData } from 'types/auth'
 
 interface DeleteBookmarkOptions {
-	accessToken: SessionData['accessToken']
+	accessToken: Session['accessToken']
 	tutorialId: Tutorial['id']
 }
 
