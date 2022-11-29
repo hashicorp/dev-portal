@@ -17,8 +17,9 @@ import s from './authentication-error-dialog.module.css'
  */
 const AuthenticationErrorDialog = () => {
 	const closeButtonRef = useRef<HTMLButtonElement>()
-	const { error, signIn, signOut } = useAuthentication()
-	const isRefreshAccessTokenError = error === AuthErrors.RefreshAccessTokenError
+	const { session, signIn, signOut } = useAuthentication()
+	const isRefreshAccessTokenError =
+		session?.error === AuthErrors.RefreshAccessTokenError
 	const label = 'Are you still there?'
 
 	/**

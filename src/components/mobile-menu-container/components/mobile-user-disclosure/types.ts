@@ -1,9 +1,9 @@
-import { UserData } from 'types/auth'
+import { Session } from 'next-auth'
 import { UserDropdownDisclosureItem } from 'components/user-dropdown-disclosure'
 
 interface MobileUserDisclosureProps {
 	items: UserDropdownDisclosureItem[]
-	user: UserData
+	user: Session['user']
 	initialOpen?: boolean
 }
 
