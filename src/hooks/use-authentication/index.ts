@@ -1,10 +1,9 @@
 import { useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
 import { Session } from 'next-auth'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
-import { AuthErrors, SessionStatus, ValidAuthProviderId } from 'types/auth'
+import { AuthErrors, ValidAuthProviderId } from 'types/auth'
 import { useSession as _useSession } from 'lib/auth/use-session'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
@@ -56,11 +55,11 @@ const useAuthentication = (
 	 *
 	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
 	 */
-	useEffect(() => {
-		if (data?.error === AuthErrors.RefreshAccessTokenError) {
-			signOut()
-		}
-	}, [data?.error, signOut])
+	// useEffect(() => {
+	// 	if (data?.error === AuthErrors.RefreshAccessTokenError) {
+	// 		signOut()
+	// 	}
+	// }, [data?.error, signOut])
 
 	// We accept consent manager on the user's behalf. As per Legal & Compliance,
 	// signing-in means a user is accepting our privacy policy and so we can

@@ -4,29 +4,39 @@ import { SessionStatus } from 'types/auth'
 
 export async function fetchSession() {
 	const res = await fetch('/api/auth/session')
+	console.log('FETCHING SESSION')
 	if (res.ok) {
 		const session = await res.json()
+		console.log({ session })
+		if (session?.error) {
+			console.error(session.error)
+			throw new Error(session.error)
+		}
+
 		if (Object.keys(session).length) {
 			return session
 		}
 		return null
 	} else {
-		// throw error
-		return res
+		throw new Error('[use-session] Unable to fetch session data')
 	}
 }
 
-//redirectTo = '/api/auth/signin?error=SessionExpired',
-
 // TODO support the 'required' on unauthentcaited thing
-// TODO error handling
+// TODO better error handling - repro error
 
-function getStatus(status: UseQueryResult<Session>['status']): SessionStatus {
+function getStatus(
+	data: null | Session,
+	status: UseQueryResult<Session>['status']
+): SessionStatus {
 	switch (status) {
 		case 'loading':
 			return 'loading'
 		case 'success':
-			return 'authenticated'
+			if (data?.accessToken && !data?.error) {
+				return 'authenticated'
+			}
+			break
 		case 'error':
 			return 'unauthenticated'
 		default:
@@ -38,46 +48,7 @@ export function useSession(): {
 	data: UseQueryResult<Session>['data']
 	status: 'unauthenticated' | 'authenticated' | 'loading'
 } {
-	const query = useQuery<Session>(['session'], fetchSession)
-	console.log(query, query.status, 'in QUERY!!!!!!!')
+	const query = useQuery<Session>(['session'], fetchSession, { retry: false })
 
-	return { data: query.data, status: getStatus(query.status) }
+	return { data: query.data, status: getStatus(query.data, query.status) }
 }
-
-// export function useSession<R extends boolean>(options?: UseSessionOptions<R>) {
-// 	if (!SessionContext) {
-// 		throw new Error('React Context is unavailable in Server Components')
-// 	}
-
-// 	// @ts-expect-error Satisfy TS if branch on line below
-// 	const value: SessionContextValue<R> = React.useContext(SessionContext)
-// 	if (!value && process.env.NODE_ENV !== 'production') {
-// 		throw new Error(
-// 			'[next-auth]: `useSession` must be wrapped in a <SessionProvider />'
-// 		)
-// 	}
-
-// 	const { required, onUnauthenticated } = options ?? {}
-
-// 	const requiredAndNotLoading = required && value.status === 'unauthenticated'
-
-// 	React.useEffect(() => {
-// 		if (requiredAndNotLoading) {
-// 			const url = `/api/auth/signin?${new URLSearchParams({
-// 				error: 'SessionRequired',
-// 				callbackUrl: window.location.href,
-// 			})}`
-// 			if (onUnauthenticated) {
-// 				onUnauthenticated()
-// 			} else {
-// 				window.location.href = url
-// 			}
-// 		}
-// 	}, [requiredAndNotLoading, onUnauthenticated])
-
-// 	if (requiredAndNotLoading) {
-// 		return { data: value.data, status: 'loading' } as const
-// 	}
-
-// 	return value
-// }
