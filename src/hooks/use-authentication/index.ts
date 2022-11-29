@@ -5,7 +5,7 @@ import { Session } from 'next-auth'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
 import { AuthErrors, SessionStatus, ValidAuthProviderId } from 'types/auth'
-import { useSession as _useSession } from 'lib/auth/use-seession'
+import { useSession as _useSession } from 'lib/auth/use-session'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 
