@@ -108,7 +108,7 @@
 		"@hashicorp/react-alert-banner": "^7.0.1",
 		"@hashicorp/react-button": "^6.2.1",
 		"@hashicorp/react-call-to-action": "^5.1.0",
-		"@hashicorp/react-code-block": "^6.2.1",
+		"@hashicorp/react-code-block": "^6.2.2",
 		"@hashicorp/react-command-line-terminal": "^2.0.4",
 		"@hashicorp/react-consent-manager": "^8.2.1",
 		"@hashicorp/react-docs-page": "^17.7.0",
