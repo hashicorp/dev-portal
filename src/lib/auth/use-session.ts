@@ -22,7 +22,7 @@ export async function fetchSession() {
 	}
 }
 
-// TODO support the 'required' on unauthentcaited thing
+// TODO support the 'required' on unauthenticated thing
 // TODO better error handling - repro error
 
 function getStatus(
@@ -33,7 +33,8 @@ function getStatus(
 		case 'loading':
 			return 'loading'
 		case 'success':
-			if (data?.accessToken && !data?.error) {
+			// maybe handle this elsewhere...or decide how to calculate this
+			if (data?.accessToken) {
 				return 'authenticated'
 			}
 			break
