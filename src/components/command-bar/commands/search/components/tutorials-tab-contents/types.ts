@@ -1,6 +1,10 @@
 import { Hit } from '@algolia/client-search'
 import { CommandBarTag } from 'components/command-bar/types'
-import { ProductOption, TutorialLite } from 'lib/learn-client/types'
+import {
+	CollectionLevelOption,
+	ProductOption,
+	TutorialLite,
+} from 'lib/learn-client/types'
 
 interface TutorialsTabContentsProps {
 	currentProductTag?: CommandBarTag
@@ -13,7 +17,7 @@ interface TutorialsTabContentsProps {
 type TutorialHitObject = Hit<{
 	description: string
 	page_title: string
-	name: string
+	name: string // TODO: remove this once page_title is fully seeded
 	headings: string[]
 }> &
 	Pick<
@@ -29,6 +33,7 @@ type TutorialHitObject = Hit<{
 		hasVideo: boolean
 		isInteractive: boolean
 		products: ProductOption[]
+		level: CollectionLevelOption
 	}
 
 interface TutorialHitProps {
