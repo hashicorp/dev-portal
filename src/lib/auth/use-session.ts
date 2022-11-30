@@ -46,6 +46,7 @@ function getStatus(
 	}
 }
 
+// TODO - sign out should clear the session
 export function useSession({
 	required = false,
 	onUnauthenticated = null,
@@ -59,7 +60,6 @@ export function useSession({
 			data: QuerySession,
 			error: UseQueryResult<QuerySession>['error']
 		) => {
-			console.log('SETTLED', data)
 			const shouldPromptSignIn = required && !error && !data?.accessToken
 			if (shouldPromptSignIn) {
 				const url = `/api/auth/signin?${new URLSearchParams({
