@@ -1,0 +1,47 @@
+fragment imageFields on FileField {
+	url
+	alt
+	format
+}
+
+fragment pageHeadTagsFields on Tag {
+	attributes
+	content
+	tag
+}
+
+query ProductCertificationPageQuery {
+	allProductCertificationPages {
+		title
+		slug
+		heroHeading
+		heroIntro(markdown: true)
+		signupFormHeading
+		signupFormIntro(markdown: true)
+		learnUrl
+		registerUrl
+		heading
+		overview(markdown: true)
+		badge {
+			...imageFields
+		}
+		content {
+			__typename
+			... on MajorHeadlineSectionRecord {
+				headline
+				id
+				slug
+			}
+			... on TextSectionRecord {
+				content(markdown: true)
+				id
+			}
+		}
+		product {
+			product
+		}
+		_seoMetaTags {
+			...pageHeadTagsFields
+		}
+	}
+}
