@@ -11,11 +11,11 @@ const CardLink = ({
 	children,
 	className,
 	href,
-	openInNewTab,
+	opensInNewTab,
 	'data-heap-track': dataHeapTrack,
 }: CardLinkProps): ReactElement => {
 	const classes = classNames(s.root, className)
-	const target = openInNewTab ? '_blank' : undefined
+	const target = opensInNewTab ? '_blank' : undefined
 
 	if (!ariaLabel) {
 		developmentToast({
