@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { Session } from 'next-auth'
 import { SessionStatus } from 'types/auth'
+import { UseAuthenticationOptions } from 'hooks/use-authentication/types'
 
-export async function fetchSession() {
+type QuerySession = Session | null
+
+async function fetchSession(): Promise<QuerySession> {
 	const res = await fetch('/api/auth/session')
 	console.log('FETCHING SESSION')
 	if (res.ok) {
@@ -23,12 +25,9 @@ export async function fetchSession() {
 	}
 }
 
-// TODO support the 'required' on unauthenticated thing
-// TODO better error handling - repro error
-
 function getStatus(
-	data: null | Session,
-	status: UseQueryResult<Session>['status']
+	data: QuerySession,
+	status: UseQueryResult<QuerySession>['status']
 ): SessionStatus {
 	switch (status) {
 		case 'loading':
@@ -47,35 +46,34 @@ function getStatus(
 	}
 }
 
-export function useSession(): {
-	data: UseQueryResult<Session>['data']
+export function useSession({
+	required = false,
+	onUnauthenticated = null,
+}: UseAuthenticationOptions): {
+	data: UseQueryResult<QuerySession>['data']
 	status: 'unauthenticated' | 'authenticated' | 'loading'
 } {
-	const query = useQuery<Session>(['session'], fetchSession, {
+	const query = useQuery<QuerySession>(['session'], fetchSession, {
 		retry: false,
+		onSettled: (
+			data: QuerySession,
+			error: UseQueryResult<QuerySession>['error']
+		) => {
+			console.log('SETTLED', data)
+			const shouldPromptSignIn = required && !error && !data?.accessToken
+			if (shouldPromptSignIn) {
+				const url = `/api/auth/signin?${new URLSearchParams({
+					error: 'SessionRequired',
+					callbackUrl: window.location.href,
+				})}`
+				if (onUnauthenticated) {
+					onUnauthenticated()
+				} else {
+					window.location.href = url
+				}
+			}
+		},
 	})
 
 	return { data: query.data, status: getStatus(query.data, query.status) }
-}
-
-export function useRequiredAuthentication({
-	onUnauthenticated,
-}: {
-	onUnauthenticated?: () => void
-}) {
-	const { status } = useSession()
-
-	useEffect(() => {
-		if (status === 'unauthenticated') {
-			const url = `/api/auth/signin?${new URLSearchParams({
-				error: 'SessionRequired',
-				callbackUrl: window.location.href,
-			})}`
-			if (onUnauthenticated) {
-				onUnauthenticated()
-			} else {
-				window.location.href = url
-			}
-		}
-	}, [status, onUnauthenticated])
 }

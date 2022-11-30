@@ -1,5 +1,4 @@
 import useAuthentication from 'hooks/use-authentication'
-import { useRequiredAuthentication } from 'lib/auth/use-session'
 import { AuthenticatedViewProps } from './types'
 
 /**
@@ -8,8 +7,7 @@ import { AuthenticatedViewProps } from './types'
  * authenticated.
  */
 const AuthenticatedView = ({ children }: AuthenticatedViewProps) => {
-	const { isAuthenticated, signIn } = useAuthentication()
-	useRequiredAuthentication({ onUnauthenticated: signIn })
+	const { isAuthenticated } = useAuthentication({ required: true })
 
 	// TODO - add a loading indicator
 	if (!isAuthenticated) {

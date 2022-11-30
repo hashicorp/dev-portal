@@ -5,7 +5,7 @@ import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
 import { AuthErrors, ValidAuthProviderId } from 'types/auth'
 import { useSession } from 'lib/auth/use-session'
-import { UseAuthenticationResult } from './types'
+import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
@@ -16,7 +16,9 @@ export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
  *
  * https://next-auth.js.org/getting-started/client#usesession
  */
-const useAuthentication = (): UseAuthenticationResult => {
+const useAuthentication = (
+	options: UseAuthenticationOptions = {}
+): UseAuthenticationResult => {
 	// Get router path for `signIn` and `signOut` `callbackUrl`s
 	const router = useRouter()
 
@@ -30,7 +32,9 @@ const useAuthentication = (): UseAuthenticationResult => {
 		[router.asPath]
 	)
 
-	const { data, status } = useSession()
+	const { required = false, onUnauthenticated = signIn } = options
+
+	const { data, status } = useSession({ required, onUnauthenticated })
 
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'

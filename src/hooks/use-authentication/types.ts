@@ -4,6 +4,11 @@ import { SessionStatus, ValidAuthProviderId } from 'types/auth'
 
 import { signUp } from './helpers'
 
+interface UseAuthenticationOptions {
+	required?: boolean
+	onUnauthenticated?: () => void
+}
+
 interface UseAuthenticationResult {
 	isAuthenticated: boolean
 	isLoading: boolean
@@ -17,4 +22,4 @@ interface UseAuthenticationResult {
 	user: null | Session['user']
 }
 
-export type { UseAuthenticationResult, SessionStatus }
+export type { UseAuthenticationOptions, UseAuthenticationResult, SessionStatus }
