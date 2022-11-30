@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { Session } from 'next-auth'
 import { SessionStatus } from 'types/auth'
@@ -36,8 +37,9 @@ function getStatus(
 			// maybe handle this elsewhere...or decide how to calculate this
 			if (data?.accessToken) {
 				return 'authenticated'
+			} else {
+				return 'unauthenticated'
 			}
-			break
 		case 'error':
 			return 'unauthenticated'
 		default:
@@ -49,7 +51,31 @@ export function useSession(): {
 	data: UseQueryResult<Session>['data']
 	status: 'unauthenticated' | 'authenticated' | 'loading'
 } {
-	const query = useQuery<Session>(['session'], fetchSession, { retry: false })
+	const query = useQuery<Session>(['session'], fetchSession, {
+		retry: false,
+	})
 
 	return { data: query.data, status: getStatus(query.data, query.status) }
+}
+
+export function useRequiredAuthentication({
+	onUnauthenticated,
+}: {
+	onUnauthenticated?: () => void
+}) {
+	const { status } = useSession()
+
+	useEffect(() => {
+		if (status === 'unauthenticated') {
+			const url = `/api/auth/signin?${new URLSearchParams({
+				error: 'SessionRequired',
+				callbackUrl: window.location.href,
+			})}`
+			if (onUnauthenticated) {
+				onUnauthenticated()
+			} else {
+				window.location.href = url
+			}
+		}
+	}, [status, onUnauthenticated])
 }
