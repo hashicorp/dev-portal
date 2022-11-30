@@ -66,8 +66,10 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 				return
 			}
 
-			if (path) {
+			if (typeof path !== 'undefined') {
 				const pathToRevalidate = `/${product}/${basePath}/${path}`
+					// remove any trailing slash
+					.replace(/\/$/, '')
 
 				console.log('[revalidate]', pathToRevalidate)
 				revalidatePromises.push(response.revalidate(pathToRevalidate))
