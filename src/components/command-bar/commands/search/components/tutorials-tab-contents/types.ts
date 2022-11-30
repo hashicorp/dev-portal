@@ -1,7 +1,6 @@
 import { Hit } from '@algolia/client-search'
 import { CommandBarTag } from 'components/command-bar/types'
-import { TutorialLite } from 'lib/learn-client/types'
-import { LearnProductSlug } from 'types/products'
+import { ProductOption, TutorialLite } from 'lib/learn-client/types'
 
 interface TutorialsTabContentsProps {
 	currentProductTag?: CommandBarTag
@@ -29,7 +28,7 @@ type TutorialHitObject = Hit<{
 	> & {
 		hasVideo: boolean
 		isInteractive: boolean
-		products: LearnProductSlug[]
+		products: ProductOption[]
 	}
 
 interface TutorialHitProps {
