@@ -37,10 +37,12 @@ const productConfig = [
 	return a
 }, {} as { [key in ProductSlug]: ProductData })
 
-function rivetClient(config: {
-	url?: string
-	headers?: Record<string, unknown>
-}) {
+function rivetClient(
+	config: {
+		url?: string
+		headers?: Record<string, unknown>
+	} = { headers: {} }
+) {
 	const clientConfig = {
 		...globalConfig,
 		headers: {
@@ -69,7 +71,7 @@ function proxiedRivetClient(productSlug: ProductSlug) {
 }
 
 export default instance
-export { productConfig, client, proxiedRivetClient }
+export { productConfig, client, proxiedRivetClient, rivetClient }
 
 /**
  *

@@ -1,0 +1,38 @@
+fragment pageHeadTagsFields on Tag {
+	attributes
+	content
+	tag
+}
+
+query {
+	certificationPage {
+		title
+		intro(markdown: true)
+		signupFormHeading
+		signupFormIntro(markdown: true)
+		content {
+			__typename
+			... on MajorHeadlineSectionRecord {
+				headline
+				id
+				slug
+			}
+			... on TextSectionRecord {
+				content(markdown: true)
+				id
+			}
+		}
+
+		_seoMetaTags {
+			...pageHeadTagsFields
+		}
+	}
+	allProductCertificationPages {
+		slug
+		title
+		heroHeading
+		product {
+			product
+		}
+	}
+}
