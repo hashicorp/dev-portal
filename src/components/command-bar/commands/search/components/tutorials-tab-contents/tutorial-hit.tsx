@@ -1,6 +1,6 @@
 import { productSlugsToNames } from 'lib/products'
 import { CommandBarLinkListItem } from 'components/command-bar/components'
-import { ProductSlug } from 'types/products'
+import { LearnProductSlug } from 'types/products'
 import { TutorialHitObject, TutorialHitProps } from './types'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
@@ -41,7 +41,7 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 	}
 
 	const badges = products?.map(
-		(productSlug: ProductSlug) => productSlugsToNames[productSlug]
+		(productSlug: LearnProductSlug) => productSlugsToNames[productSlug]
 	)
 	const [productSlug, collectionSlug] = defaultContext.slug.split('/')
 	const [, tutorialSlug] = slug.split('/')
