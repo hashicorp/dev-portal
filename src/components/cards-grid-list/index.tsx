@@ -64,7 +64,9 @@ function CardsGridList({
 				} as CSSProperties
 			}
 		>
-			{children}
+			{Children.map(children, (child) => {
+				return <li>{child}</li>
+			})}
 		</ListRoot>
 	)
 }
