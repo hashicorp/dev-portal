@@ -7,6 +7,7 @@ import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util
 import { AuthErrors, SessionStatus, ValidAuthProviderId } from 'types/auth'
 import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
+import { canAnalyzeUser, safeGetSegmentId } from 'lib/analytics'
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
@@ -75,6 +76,15 @@ const useAuthentication = (
 		session = { ...data }
 		user = data.user
 		delete session.user
+
+		const segmentUserId = safeGetSegmentId()
+
+		if (canAnalyzeUser() && segmentUserId !== session.id) {
+			analytics?.identify(session.id, {
+				email: user.email,
+				devPortalSignUp: true,
+			})
+		}
 	}
 
 	// Return everything packaged up in an object

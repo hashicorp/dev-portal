@@ -14,8 +14,9 @@ import {
 	getTutorialPageProps,
 } from 'views/tutorial-view/server'
 import { activeProductSlugs } from 'lib/products'
+import { withTiming } from 'lib/with-timing'
 
-async function getStaticPaths(): Promise<
+async function _getStaticPaths(): Promise<
 	GetStaticPathsResult<TutorialPagePaths['params']>
 > {
 	const validPaths = await getTutorialPagePaths()
@@ -60,7 +61,7 @@ type TutorialPageStaticPropsCtx = GetStaticPropsContext<{
 	tutorialSlug: [string, string]
 }>
 
-async function getStaticProps({
+async function _getStaticProps({
 	params,
 }: TutorialPageStaticPropsCtx): Promise<
 	GetStaticPropsResult<TutorialPageProps>
@@ -75,6 +76,16 @@ async function getStaticProps({
 	}
 	return props
 }
+const getStaticProps = (ctx) =>
+	withTiming(
+		'[[productSlug]/tutorials/[...tutorialSlug]::getStaticProps]',
+		() => _getStaticProps(ctx)
+	)
+const getStaticPaths = () =>
+	withTiming(
+		'[[productSlug]/tutorials/[...tutorialSlug]::getStaticPaths]',
+		() => _getStaticPaths()
+	)
 
 export { getStaticPaths, getStaticProps }
 export default TutorialView

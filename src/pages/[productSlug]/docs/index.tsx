@@ -1,6 +1,7 @@
 import { ProductSlug } from 'types/products'
-import { getStaticProps } from 'views/product-root-docs-path-landing/server'
+import { getStaticProps as _getStaticProps } from 'views/product-root-docs-path-landing/server'
 import ProductRootDocsPathLanding from 'views/product-root-docs-path-landing'
+import { withTiming } from 'lib/with-timing'
 import { activeProductSlugs } from 'lib/products'
 
 /**
@@ -15,6 +16,13 @@ const getStaticPaths = async () => {
 		paths,
 		fallback: false,
 	}
+}
+
+const getStaticProps = (ctx) => {
+	return withTiming(
+		`[[productSlug]/docs/index::getStaticProps] (${ctx.params.productSlug})`,
+		() => _getStaticProps(ctx)
+	)
 }
 
 export { getStaticPaths, getStaticProps }

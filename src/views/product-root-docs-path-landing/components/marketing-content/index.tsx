@@ -103,12 +103,15 @@ const CardGrid = ({ cards, description, title, headingId, headingLevel }) => {
 			)}
 			<CardsGridList>
 				{cards.map(({ description, title, url }) => (
-					<li key={url}>
-						<CardLink ariaLabel={title} className={s.cardGridCard} href={url}>
-							<CardTitle text={title} />
-							<CardDescription text={description} />
-						</CardLink>
-					</li>
+					<CardLink
+						key={url}
+						ariaLabel={title}
+						className={s.cardGridCard}
+						href={url}
+					>
+						<CardTitle text={title} />
+						<CardDescription text={description} />
+					</CardLink>
 				))}
 			</CardsGridList>
 		</div>

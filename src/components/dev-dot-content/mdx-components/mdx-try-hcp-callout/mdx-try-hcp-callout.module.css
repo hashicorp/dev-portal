@@ -1,0 +1,7 @@
+.spacing {
+	margin: 24px 0;
+
+	@media (--dev-dot-tablet-up) {
+		margin: 32px 0;
+	}
+}

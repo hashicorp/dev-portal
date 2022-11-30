@@ -43,9 +43,10 @@ const FeaturedLearnCardsSection = ({
 					{(cards as FeaturedCollectionCard[]).map(
 						(collectionCardProps: FeaturedCollectionCard) => {
 							return (
-								<li key={collectionCardProps.id}>
-									<CollectionCardWithAuthElements {...collectionCardProps} />
-								</li>
+								<CollectionCardWithAuthElements
+									key={collectionCardProps.id}
+									{...collectionCardProps}
+								/>
 							)
 						}
 					)}
