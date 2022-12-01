@@ -1,28 +1,28 @@
 .container {
-  --padding-inline: 24px;
-  --max-content-width: 534px;
+	--padding-inline: 24px;
+	--max-content-width: 534px;
 
-  display: flex;
-  flex-direction: column;
-  margin: 64px auto;
-  max-width: calc(var(--max-content-width) + var(--padding-inline) * 2);
-  padding-inline: var(--padding-inline);
-  text-align: center;
-  width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin: 64px auto;
+	max-width: calc(var(--max-content-width) + var(--padding-inline) * 2);
+	padding-inline: var(--padding-inline);
+	text-align: center;
+	width: 100%;
 
-  @media (--dev-dot-desktop) {
-    --max-content-width: 920px;
-  }
+	@media (--dev-dot-desktop) {
+		--max-content-width: 920px;
+	}
 }
 
 .heading {
-  composes: hds-typography-display-500 from global;
-  font-weight: var(--token-typography-font-weight-bold);
-  color: var(--token-color-foreground-strong);
+	composes: hds-typography-display-500 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
 }
 
 .paragraph {
-  composes: hds-typography-body-300 from global;
-  color: var(--token-color-foreground-primary);
-  margin-top: 12px;
+	composes: hds-typography-body-300 from global;
+	color: var(--token-color-foreground-primary);
+	margin-top: 12px;
 }

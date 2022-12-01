@@ -41,9 +41,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
 				label: 'View Tutorials',
 			}}
 			merchandisingSlot={
-				<Link href="/vmware/downloads">
-					<a>&raquo; Download VMware Utility</a>
-				</Link>
+				<Link href="/vmware/downloads">&raquo; Download VMware Utility</Link>
 			}
 			packageManagerOverrides={[
 				{

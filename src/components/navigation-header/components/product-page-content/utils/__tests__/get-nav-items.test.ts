@@ -62,7 +62,7 @@ describe('getNavItems', () => {
 		  },
 		  Object {
 		    "label": "Try Cloud",
-		    "openInNewTab": true,
+		    "opensInNewTab": true,
 		    "url": "https://portal.cloud.hashicorp.com/sign-up",
 		  },
 		]
@@ -258,12 +258,12 @@ describe('getNavItems', () => {
 		  },
 		  Object {
 		    "label": "Registry",
-		    "openInNewTab": true,
+		    "opensInNewTab": true,
 		    "url": "https://registry.terraform.io/",
 		  },
 		  Object {
 		    "label": "Try Cloud",
-		    "openInNewTab": true,
+		    "opensInNewTab": true,
 		    "url": "https://app.terraform.io/public/signup/account",
 		  },
 		]
@@ -299,7 +299,7 @@ describe('getNavItems', () => {
 		        },
 		        Object {
 		          "label": "Try Cloud",
-		          "openInNewTab": true,
+		          "opensInNewTab": true,
 		          "url": "https://portal.cloud.hashicorp.com/sign-up",
 		        },
 		      ]

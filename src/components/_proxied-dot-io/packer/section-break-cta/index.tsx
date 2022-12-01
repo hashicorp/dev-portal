@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Button from '@hashicorp/react-button'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import s from './style.module.css'

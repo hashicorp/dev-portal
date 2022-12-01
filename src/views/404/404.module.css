@@ -1,4 +1,4 @@
 .root {
-  composes: g-grid-container from global;
-  padding-bottom: 8rem;
+	composes: g-grid-container from global;
+	padding-bottom: 8rem;
 }
