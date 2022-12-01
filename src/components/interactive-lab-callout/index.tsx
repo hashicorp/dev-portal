@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Button from 'components/button'
 import Card from 'components/card'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'

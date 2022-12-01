@@ -42,10 +42,13 @@ const Link = ({ children, href, opensInNewTab, ...restProps }: LinkProps) => {
 
 	return (
 		<>
-			<NextLink href={href}>
-				<a {...restProps} aria-describedby={ariaDescribedBy} target={target}>
-					{children}
-				</a>
+			<NextLink
+				href={href}
+				{...restProps}
+				aria-describedby={ariaDescribedBy}
+				target={target}
+			>
+				{children}
 			</NextLink>
 			{shouldRenderScreenReaderOnlyMessage ? (
 				<span className="g-screen-reader-only" id={opensInNewTabLabelId}>

@@ -1,9 +1,9 @@
 .heading {
-  composes: hds-typography-display-200 from global;
-  font-weight: var(--token-typography-font-weight-semibold);
-  color: var(--token-color-foreground-strong);
+	composes: hds-typography-display-200 from global;
+	font-weight: var(--token-typography-font-weight-semibold);
+	color: var(--token-color-foreground-strong);
 }
 
 .cards {
-  margin-top: 16px;
+	margin-top: 16px;
 }
