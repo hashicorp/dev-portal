@@ -1,3 +1,5 @@
+import '@reach/dialog/styles.css'
+
 import { FC } from 'react'
 import type { NextPage } from 'next'
 import type { AppProps, AppContext } from 'next/app'

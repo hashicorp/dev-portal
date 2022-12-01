@@ -2,8 +2,13 @@
 	"extends": "@hashicorp/platform-configs/tsconfig/next.json",
 	"compilerOptions": {
 		"baseUrl": "src",
-		"strict": false
+		"strict": false,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
 	"exclude": ["node_modules", "scripts/migrate-io/templates"]
 }
