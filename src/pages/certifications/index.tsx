@@ -1,4 +1,4 @@
-import { CertificationsLandingView } from 'views/certifications/landing'
+import CertificationsLandingView from 'views/certifications/landing'
 import { getStaticProps } from 'views/certifications/landing/server'
 
 export { getStaticProps }
