@@ -1,7 +1,10 @@
 import BaseNewLayout from 'layouts/base-new'
 import { CertificationLandingProps } from './types'
-import { CertificationsNav } from '../components'
-import { CertificationsContentArea } from '../components/certifications-content-area'
+import {
+	CertificationsContentArea,
+	CertificationsHero,
+	CertificationsNav,
+} from '../components'
 
 function CertificationsLandingView({
 	navProps,
@@ -9,9 +12,13 @@ function CertificationsLandingView({
 }: CertificationLandingProps) {
 	return (
 		<>
+			<CertificationsNav {...navProps} />
 			<CertificationsContentArea>
-				<h1>Certifications</h1>
-				<CertificationsNav {...navProps} />
+				<CertificationsHero
+					heading="Certifications headline"
+					description="As a Cloud Engineer specializing in DevOps, IT, Security, or Development, you can use the HashiCorp certification program to earn formal, industry accepted credentials that validate your technical knowledge. Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. Upon passing the exam, you can easily communicate your proficiency and employers can quickly verify your results.
+"
+				/>
 				<h2>{`[stub]`} Page Content</h2>
 				<pre
 					className="hds-typography-code-100"

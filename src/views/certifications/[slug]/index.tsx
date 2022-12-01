@@ -1,14 +1,20 @@
 import BaseNewLayout from 'layouts/base-new'
-import { CertificationsNav } from '../components'
-import { CertificationsContentArea } from '../components/certifications-content-area'
+import {
+	CertificationsContentArea,
+	CertificationsNav,
+	CertificationsHero,
+} from '../components'
 import { CertificationPageProps } from './types'
 
 function CertificationPage({ navProps, pageContent }: CertificationPageProps) {
 	return (
 		<>
+			<CertificationsNav {...navProps} />
 			<CertificationsContentArea>
-				<h1>{pageContent.title}</h1>
-				<CertificationsNav {...navProps} />
+				<CertificationsHero
+					heading={pageContent.title}
+					description={pageContent.heroIntro}
+				/>
 				<h2>{`[stub]`} Page Content</h2>
 				<pre
 					className="hds-typography-code-100"
