@@ -304,8 +304,14 @@ function splitRedirectsByType(redirects) {
 			) ||
 			(redirect.has && redirect.has.some((has) => has.type !== 'host'))
 		) {
+			if (redirect.source === '/nomad/tools/autoscaling/concepts/checks') {
+				console.log('glob', redirect)
+			}
 			globRedirects.push(redirect)
 		} else {
+			if (redirect.source === '/nomad/tools/autoscaling/concepts/checks') {
+				console.log('simple', redirect)
+			}
 			simpleRedirects.push(redirect)
 		}
 	})
@@ -389,8 +395,8 @@ function groupSimpleRedirects(redirects) {
 	/** @type {Record<string, Record<string, { destination: string, permanent?: boolean }>>} */
 	const groupedRedirects = {}
 	redirects.forEach((redirect) => {
+		let product
 		if (redirect.has && redirect.has.length > 0) {
-			let product
 			if (redirect.has[0].type === 'host') {
 				const hasHostValue = redirect.has[0].value
 
@@ -400,20 +406,20 @@ function groupSimpleRedirects(redirects) {
 				// this handles the `hc_dd_proxied_site` cookie
 				product = HOSTNAME_MAP[redirect.has[0].value]
 			}
+		}
 
-			if (product) {
-				if (product in groupedRedirects) {
-					groupedRedirects[product][redirect.source] = {
+		if (product) {
+			if (product in groupedRedirects) {
+				groupedRedirects[product][redirect.source] = {
+					destination: redirect.destination,
+					permanent: redirect.permanent,
+				}
+			} else {
+				groupedRedirects[product] = {
+					[redirect.source]: {
 						destination: redirect.destination,
 						permanent: redirect.permanent,
-					}
-				} else {
-					groupedRedirects[product] = {
-						[redirect.source]: {
-							destination: redirect.destination,
-							permanent: redirect.permanent,
-						},
-					}
+					},
 				}
 			}
 		} else {
