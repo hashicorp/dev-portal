@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { Session } from 'next-auth'
@@ -42,6 +42,13 @@ const useAuthentication = (
 		onUnauthenticated,
 	}) as { data: Session; status: SessionStatus }
 
+	// Deriving booleans about auth state
+	const isLoading = status === 'loading'
+	const isAuthenticated =
+		status === 'authenticated' &&
+		data?.error !== AuthErrors.RefreshAccessTokenError // if we are in an errored state, treat as unauthenticated
+	const preferencesLoaded = preferencesSavedAndLoaded()
+
 	/**
 	 * Force sign out to hopefully resolve the error. The user is signed out
 	 * to prevent unwanted looping of requesting an expired refresh token
@@ -49,18 +56,10 @@ const useAuthentication = (
 	 * https://next-auth.js.org/tutorials/refresh-token-rotation#client-side
 	 */
 	useEffect(() => {
-		if (
-			data?.error === AuthErrors.RefreshAccessTokenExpiredError ||
-			data?.error === AuthErrors.RefreshAccessTokenError
-		) {
+		if (data?.error === AuthErrors.RefreshAccessTokenError) {
 			signOut()
 		}
 	}, [data?.error, signOut])
-
-	// Deriving booleans about auth state
-	const isLoading = status === 'loading'
-	const isAuthenticated = status === 'authenticated'
-	const preferencesLoaded = preferencesSavedAndLoaded()
 
 	// We accept consent manager on the user's behalf. As per Legal & Compliance,
 	// signing-in means a user is accepting our privacy policy and so we can
